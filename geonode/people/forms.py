@@ -23,10 +23,11 @@ import taggit
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
-from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext_lazy as _
 
 from geonode.base.enumerations import COUNTRIES
 from geonode.base.enumerations import PROFESSIONAL_ROLES
+from geonode.base.enumerations import USE_ANALYSIS
 from geonode.base.models import ContactRole
 
 from allauth.account.forms import SignupForm
@@ -119,10 +120,11 @@ class ProfileForm(forms.ModelForm):
         )
 
 class CustomUserCreationForm2(SignupForm):
+
     def __init__(self, *args, **kwargs):
         super(CustomUserCreationForm2, self).__init__(*args, **kwargs)
 
-    first_name = forms.CharField(label="Primer Nombre",
+    first_name = forms.CharField(label=_("FirstName"),
                                widget=forms.TextInput(
                                    attrs={'placeholder':
                                           _('Firstname')}))
@@ -134,20 +136,43 @@ class CustomUserCreationForm2(SignupForm):
 
     professional_role = forms.ChoiceField(label=_("ProfessionalRole"), choices=PROFESSIONAL_ROLES)
 
+    other_role = forms.CharField(label=_("Other Role"),
+                               widget=forms.TextInput(
+                                   attrs={'placeholder':
+                                          _('Other Role')}))
     
+    use_analysis = forms.ChoiceField(label=_("Use Analysis"), choices=USE_ANALYSIS)
+
     organization = forms.CharField(label=_("Organization"),
                                widget=forms.TextInput(
                                    attrs={'placeholder':
-                                          _('Organization')}))
+                                          _('Organization')}))            
     
     country = forms.ChoiceField(label=_('Country'), choices=COUNTRIES)
 
-    city = forms.CharField(label=_("city"),
+    city = forms.CharField(label=_("City"),
                                widget=forms.TextInput(
                                    attrs={'placeholder':_('City'),
                                    'autocomplete':'off'}))
 
     agree_conditions = forms.BooleanField(label=_('AgreeConditions'))
+
+    field_order = [
+        "email",
+        "email2",  # ignored when not present
+        "username",    
+        "first_name",
+        "last_name",
+        "organization",
+        "professional_role",
+        "other_role",
+        "use_analysis",
+        "country",
+        "city",
+        "password1",
+        "password2",  # ignored when not present
+        "agree_conditions",
+    ]
 
     # city = forms.ChoiceField(label=_('City'), choices=CITIES)
     

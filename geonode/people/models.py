@@ -37,6 +37,7 @@ from taggit.managers import TaggableManager
 
 from geonode.base.enumerations import COUNTRIES
 from geonode.base.enumerations import PROFESSIONAL_ROLES
+from geonode.base.enumerations import USE_ANALYSIS
 from geonode.groups.models import GroupProfile
 
 from allauth.account.signals import user_signed_up
@@ -130,11 +131,7 @@ class Profile(AbstractUser):
         default="",
         choices=TIMEZONES,
         blank=True,
-    )
-    agree_conditions = models.BooleanField(
-        _('Agree Conditions'),
-        default=False,
-    )
+    )    
     professional_role = models.CharField(
         _('ProfessionalRole'),
         choices=PROFESSIONAL_ROLES,
@@ -142,6 +139,23 @@ class Profile(AbstractUser):
         blank=True,
         null=True,
         help_text=_('Professional or Academic user role'))
+    other_role = models.CharField(
+        _('OtherRole'),        
+        max_length=50,
+        blank=True,
+        null=True,
+        help_text=_('Other Role'))
+    use_analysis = models.CharField(
+        _('UseAnalysis'),
+        choices=USE_ANALYSIS,
+        max_length=8,
+        blank=True,
+        null=True,
+        help_text=_('Use Analysis'))
+    agree_conditions = models.BooleanField(
+        _('Agree Conditions'),
+        default=False,
+    )
 
     def __init__(self, *args, **kwargs):
         super(Profile, self).__init__(*args, **kwargs)

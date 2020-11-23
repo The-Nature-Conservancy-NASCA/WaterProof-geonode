@@ -168,10 +168,12 @@ class LocalAccountAdapter(DefaultAccountAdapter, BaseInvitationsAdapter):
         email = data.get("email")
         username = data.get("username")
         professional_role = data.get("professional_role")
+        other_role = data.get("other_role")
         organization = data.get("organization")
         country = data.get("country")
         city = data.get("city")
         agree_conditions = data.get('agree_conditions')
+        use_analysis = data.get('use_analysis')
         user_email(user, email)
         user_username(user, username)
         if first_name:
@@ -180,14 +182,18 @@ class LocalAccountAdapter(DefaultAccountAdapter, BaseInvitationsAdapter):
             user_field(user, "last_name", last_name)
         if professional_role:
             user_field(user, "professional_role", professional_role)
+        if other_role:
+            user_field(user, "other_role", other_role)
         if organization:
             user_field(user, "organization", organization)
+        if use_analysis:
+            user_field(user, "use_analysis", use_analysis)
         if country:
             user_field(user, "country", country)
         if city:
             user_field(user, "city", city)
         if agree_conditions:
-            user_field(user, "agree_conditions", agree_conditions)        
+            setattr(user, "agree_conditions", agree_conditions)            
         if "password1" in data:
             user.set_password(data["password1"])
         else:
