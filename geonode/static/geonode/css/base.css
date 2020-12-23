@@ -8543,3 +8543,273 @@ form-inline {
  font-weight: lighter;
  font-size: x-large;
 }
+
+.com { color: #93a1a1; }
+.lit { color: #195f91; }
+.pun, .opn, .clo { color: #93a1a1; }
+.fun { color: #dc322f; }
+.str, .atv { color: #D14; }
+.kwd, .prettyprint .tag { color: #1e347b; }
+.typ, .atn, .dec, .var { color: teal; }
+.pln { color: #48484c; }
+
+.prettyprint {
+  padding: 8px;
+  background-color: #f7f7f9;
+  border: 1px solid #e1e1e8;
+}
+.prettyprint.linenums {
+  -webkit-box-shadow: inset 40px 0 0 #fbfbfc, inset 41px 0 0 #ececf0;
+     -moz-box-shadow: inset 40px 0 0 #fbfbfc, inset 41px 0 0 #ececf0;
+          box-shadow: inset 40px 0 0 #fbfbfc, inset 41px 0 0 #ececf0;
+}
+
+/* Specify class=linenums on a pre to get line numbering */
+ol.linenums {
+  margin: 0 0 0 33px; /* IE indents via margin-left */
+}
+ol.linenums li {
+  padding-left: 12px;
+  color: #bebec5;
+  line-height: 20px;
+  text-shadow: 0 1px 0 #fff;
+}
+
+.testor{
+position:fixed;
+top:50px;
+}
+.principal-menu{
+        background-image: url(/static/geonode/img/02-mapa2.png); 
+        background-size: auto 100%;
+        
+        background-position: center center;
+    }
+
+    .principal_img{
+        margin-top: 50px;
+    }
+
+    .center-img {
+        max-width: 100%;
+        height: auto;
+        max-height: 462px;
+    }
+
+    .center-img-movil{
+        max-width: 50%;
+        height: auto;
+        max-height: 200px;
+
+    }
+
+    .img1{
+        position: absolute;
+        max-width: 135px;
+        left: 137px;
+        top: 18px;
+    }
+
+    .img2{
+        position: absolute;
+        max-width: 135px;
+        left: 75px;
+        top: 169px;
+    }
+
+    .img3{
+        position: absolute;
+        max-width: 135px;
+        left: 136px;
+        top: 320px;
+    }
+
+    .img4{
+        position: absolute;
+        max-width: 135px;
+        right: 175px;
+        top: 22px;
+    }
+
+    .img5{
+        position: absolute;
+        max-width: 135px;
+        right: 112px;
+        top: 176px;
+    }
+
+    .img6{
+        position: absolute;
+        max-width: 135px;
+        right: 175px;
+        top: 331px;
+    }
+
+    .ani_headShake:hover{
+        animation: headShake;
+        animation-duration: 2s;
+        display: inline-block;
+        cursor: pointer;
+    }
+
+    .ani_flip:hover{
+        animation: swing;
+        animation-duration: 1s;
+        display: inline-block;
+        cursor: pointer;
+    }
+
+    .ico1-text{
+        position: absolute;
+        max-width: 170px;
+        left: -15px;
+        top: 46px;
+    }
+
+    .ico2-text{
+        position: absolute;
+        max-width: 177px;
+        left: -84px;
+        top: 191px;
+    }
+
+    .ico3-text{
+        position: absolute;
+        max-width: 121px;
+        left: 38px;
+        top: 341px;
+    }
+
+    .ico4-text{
+        position: absolute;
+        max-width: 230px;
+        right: -78px;
+        top: 53px;
+    }
+
+    .ico5-text{
+        position: absolute;
+        max-width: 205px;
+        right: -118px;
+        top: 198px;
+    }
+
+    .ico6-text{
+        position: absolute;
+        max-width: 255px;
+        right: -96px;
+        top: 355px;
+    }
+.img-card-news {
+        object-fit: cover;
+        width: 35vw;
+        height: 300px;
+}
+    
+.owl-nav>button {
+    outline: none;
+    margin: 5px 5px;
+}
+
+.owl-nav>button>img:hover {
+    -webkit-filter: drop-shadow(5px 5px 5px #222);
+    filter: drop-shadow(5px 5px 5px #222);
+}
+.carrouselcolor {
+  background-color: #F7F7F7;
+    background-size: auto 100%;
+}
+.newstitle{
+	color: #0A8B8E;
+	font-weight: lighter;
+	font-size: large;
+}
+
+.circle {
+  width: 35px;
+  height: 35px;
+  background: gray;
+  border-radius: 50%;
+  margin: auto;
+}
+
+.nav-pills > li.active > .circle{
+  background-color: #2c689c;
+}
+
+.nav-pills > li.active > .slant-line{
+  border-color: #2c689c;
+}
+
+.nav-pills > li.active > .slant-line-half-right{
+  border-color: #2c689c;
+}
+
+.nav-pills > li.active > .slant-line-half-left{
+  border-color: #2c689c;
+}
+
+.navbar .nav-pills > li {
+  float: right;
+  display: inline-block;
+  width: auto;
+  float: none;
+  text-align: center;
+  direction: rtl;
+  width:20%;
+  font-size:11px;
+}
+
+.slant-line {
+  width: 115%;
+  margin: auto;
+  margin-top: -7%;
+  margin-bottom: 1%;
+  border-color: gray;
+}
+
+.slant-line-half-right{
+  position: absolute;
+  width: 50%;
+  margin: auto;
+  margin-top: -7%;
+  margin-bottom: 1%;
+  border-color: gray;
+}
+
+.slant-line-half-left{
+  position: absolute;
+  width: 50%;
+  margin: auto;
+  margin-top: -7%;
+  margin-bottom: 1%;
+  border-color: gray;
+  left: -6px;
+}
+
+#map { 
+  height: 380px; 
+  cursor: pointer;
+}
+
+.inputCoords{
+  position: absolute;
+  z-index: 9999;
+  right: 1px;
+}
+
+.leaflet-control-coordinates {
+	background: white;
+	border-radius: 4px;
+	box-shadow: 0 1px 5px rgba(0, 0, 0, 0.65);
+	cursor: pointer;
+	padding: 2px 5px;
+}
+
+.leaflet-control-coordinates.hidden {
+	display: none;
+}
+
+.leaflet-control-coordinates-lng {
+	padding-left: 5px;
+}

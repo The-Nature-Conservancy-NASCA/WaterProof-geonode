@@ -85,6 +85,7 @@ class EntryMixin(object):
                     'entry': entry,
                     'rated_entries': self.request.session.get(
                         'rated_entries', False),
+                    'request' : self.request
                 },
             )
         self.feedback = Feedback()
@@ -230,7 +231,7 @@ class EntryCreateView(AccessMixin, CreateView):
 
     def get_form_kwargs(self):
         kwargs = super(EntryCreateView, self).get_form_kwargs()
-        if self.request.user.is_authenticated():
+        if self.request.user.is_authenticated:
             kwargs.update({
                 'owner': self.request.user,
             })

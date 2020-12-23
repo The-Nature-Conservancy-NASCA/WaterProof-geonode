@@ -118,6 +118,22 @@ class ProfileForm(forms.ModelForm):
             'is_active',
             'date_joined'
         )
+    
+    field_order = [
+        "email",
+        "username",    
+        "first_name",
+        "last_name",
+        "organization",
+        "professional_role",
+        "other_role",
+        "use_analysis",
+        'other_analysis',
+        "country",
+        "city",
+        "password",
+        "agree_conditions",
+    ]
 
 class CustomUserCreationForm2(SignupForm):
 
@@ -143,6 +159,11 @@ class CustomUserCreationForm2(SignupForm):
     
     use_analysis = forms.ChoiceField(label=_("Use Analysis"), choices=USE_ANALYSIS)
 
+    other_analysis = forms.CharField(label=_("Other Analysis"),
+                               widget=forms.TextInput(
+                                   attrs={'placeholder':
+                                          _('Other Analysis')}))
+
     organization = forms.CharField(label=_("Organization"),
                                widget=forms.TextInput(
                                    attrs={'placeholder':
@@ -167,6 +188,7 @@ class CustomUserCreationForm2(SignupForm):
         "professional_role",
         "other_role",
         "use_analysis",
+        "other_analysis",
         "country",
         "city",
         "password1",

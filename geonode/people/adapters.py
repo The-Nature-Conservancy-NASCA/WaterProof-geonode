@@ -75,15 +75,10 @@ def update_profile(sociallogin):
             "area",
             "city",
             "country",
-            "delivery",
-            "fax",
             "first_name",
             "last_name",
-            "organization",
-            "position",
-            "profile",
-            "voice",
-            "zipcode"
+            "organization",            
+            "profile",            
         )
         for field in profile_fields:
             try:
@@ -139,7 +134,7 @@ class LocalAccountAdapter(DefaultAccountAdapter, BaseInvitationsAdapter):
         user = context.get("inviter") if context.get("inviter") else context.get("user")
         full_name = " ".join((user.first_name, user.last_name)) if user.first_name or user.last_name else None
         user_groups = GroupProfile.objects.filter(
-            slug__in=user.groupmember_set.filter().values_list("group__slug", flat=True))
+            slug__in=user.groupmember_set.all().values_list("group__slug", flat=True))
         enhanced_context = context.copy()
         enhanced_context.update({
             "username": user.username,
@@ -174,6 +169,7 @@ class LocalAccountAdapter(DefaultAccountAdapter, BaseInvitationsAdapter):
         city = data.get("city")
         agree_conditions = data.get('agree_conditions')
         use_analysis = data.get('use_analysis')
+        other_analysis = data.get("other_analysis")
         user_email(user, email)
         user_username(user, username)
         if first_name:
@@ -188,6 +184,8 @@ class LocalAccountAdapter(DefaultAccountAdapter, BaseInvitationsAdapter):
             user_field(user, "organization", organization)
         if use_analysis:
             user_field(user, "use_analysis", use_analysis)
+        if other_analysis:
+            user_field(user, "other_analysis", other_analysis)
         if country:
             user_field(user, "country", country)
         if city:
