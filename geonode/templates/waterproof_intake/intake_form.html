@@ -1,450 +1,515 @@
-{% extends "base.html" %} 
-{% load i18n %} 
-{% load bootstrap_tags %} 
+{% extends "base.html" %}
+{% load i18n %}
+{% load static from staticfiles %}
+{% load bootstrap_tags %}
 {% block extra_head %}
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+<link href="https://unpkg.com/smartwizard@5/dist/css/smart_wizard_all.min.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
     integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
-    crossorigin=""/>
-    <link rel="stylesheet" href="http://xguaita.github.io/Leaflet.MapCenterCoord/dist/L.Control.MapCenterCoord.min.css" />
-{% endblock %}
-{% block body_outer %}
-    <h1>Create Water Intake</h1>
-    <div id="rootwizard">
-        <div class="navbar">
-          <div class="navbar-inner">
-            <div class="container">
-              <ul>
-                <li>
-                    <a href="#tab1" data-toggle="tab">Define</a>
-                    <div class="circle"></div>
-                    <hr class="slant-line">
-                </li>
-                <li>
-                    <a href="#tab2" data-toggle="tab">Configure Parameters</a>
-                    <div class="circle"></div>
-                    <hr class="slant-line">
-                </li>
-                <li>
-                    <a href="#tab3" data-toggle="tab">Demand</a>
-                    <div class="circle"></div>
-                    <hr class="slant-line">
-                </li>
-                <li>
-                    <a href="#tab4" data-toggle="tab">Sub-area</a>
-                    <div class="circle"></div>
-                    <hr class="slant-line">
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <div id="bar" class="progress">
-          <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>
-        </div>
-        <div class="tab-content">
-          <div class="tab-pane" id="tab1">
-            <form  id="form" method="POST" action="">
-                {% csrf_token %}
-                <div id="water_intake">
-                
-                    {{ form|as_bootstrap }}      
-                
-                </div>
-                
-                <button type="submit" id="submit" class="btn btn-primary">Submit</button>
-            </form>
-            
-          </div>
-          <div class="tab-pane" id="tab2">
-            <div id="page">
-              <div id="header">
-                <div id="headerimg" style="overflow:hidden;">
-                  <h1 id="title">Draw</h1>
-                </div>
-              </div>
-              <div id="mainActions"
-                style="width:100%;padding-top:8px;padding-left:24px;padding-bottom:8px;">
-              </div>
-              <div id="selectActions" style="width:100%;padding-left:54px;padding-bottom:4px;">
-              </div>
-              <table border="0" width="730px">
-                <tr>
-                  <td id="toolbar" style="width:16px;padding-left:20px;" valign="top">
-                    <!-- Toolbar Here -->				
-                  </td>
-                  <td valign="top" style="border-width:1px;border-style:solid;border-color:black;">
-                    <div id="graph" tabindex="-1" style="position:relative;height:480px;width:684px;overflow:hidden;cursor:default;">
-                      <!-- Graph Here -->
-                      <center id="splash" style="padding-top:230px;">
-                        <img src="{{ STATIC_URL }}geonode/js/mxgraph/examples/images/loading.gif">
-                      </center>
-                    </div>
-                    <textarea id="xml" style="height:480px;width:684px;display:none;border-style:none;"></textarea>
-                  </td>
-                </tr>
-              </table>
-              <span style="float:right;padding-right:36px;">
-                <input id="source" type="checkbox"/>Source
-              </span>
-              <div id="zoomActions" style="width:100%;padding-left:54px;padding-top:4px;">
-              </div>
-              <div id="footer">
-                <p id="status" style="display:none;">
-                  <!-- Status Here -->Loading...
-                </p>
-                <br/>
-              </div>
-            </div>
-          </div>
-          <div class="tab-pane" id="tab3">
-              3
-          </div>
-          <div class="tab-pane" id="tab4">
-              4
-          </div>             
-          <ul class="pager wizard">
-            <li class="previous first" style="display:none;"><a href="#">First</a></li>
-            <li class="previous"><a href="#">Previous</a></li>
-            <li class="next last" style="display:none;"><a href="#">Last</a></li>
-            <li class="next"><a href="#">Next</a></li>
-          </ul>
-        </div>
-    </div>
-    <div id="map">
-        <div id="inputCoords" class="inputCoords">
-            <input id="lat" type="text">
-            <input id="lon" type="text">
-            <button type="button" id="btnCoords" class="btn btn-primary">>></button>
-        </div>
-    </div>
-
-        
-{% endblock %}
-
-{% block extra_script %}
-  <script src="https://vinceg.github.io/twitter-bootstrap-wizard/jquery.bootstrap.wizard.js"></script>
-  <script src="https://vinceg.github.io/twitter-bootstrap-wizard/prettify.js"></script>
-  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
-   integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
-   crossorigin=""></script>
-  <script src="https://www.zimmi.cz/Leaflet-Coordinates-Control/Control.Coordinates.js"></script>
-  <script src="http://xguaita.github.io/Leaflet.MapCenterCoord/dist/L.Control.MapCenterCoord.min.js"></script>
-  
-  <script type="text/javascript">
-
-    var mxBasePath = '{{ STATIC_URL }}geonode/js/mxgraph/src';	                         
-    var mxImageBasePath = '{{ STATIC_URL }}geonode/js/mxgraph/examples/images';		
-		var urlParams = (function(url){
-			var result = new Object();
-			var params = window.location.search.slice(1).split('&');
-			
-			for (var i = 0; i < params.length; i++){
-				idx = params[i].indexOf('=');				
-				if (idx > 0){
-					result[params[i].substring(0, idx)] = params[i].substring(idx + 1);
-				}
-			}
-			
-			return result;
-		})(window.location.href);
-		
-    var mxLanguage = urlParams['lang']; 
-    
-    $(document).ready(function () {
-        
-        var map = L.map('map').setView([4, -74],5);
-        var osm = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
-        });
-        map.addLayer(osm);
-
-        var c = new L.Control.Coordinates();
-        L.control.mapCenterCoord().addTo(map);
-		c.addTo(map);
-
-		function onMapClick(e) {
-			c.setCoordinates(e);
-		}
-
-		map.on('click', onMapClick);
-
-    createEditor('{{ STATIC_URL }}geonode/js/mxgraph/examples/editors/config/diagrameditor.xml');
-
-    });
-
-    // Program starts here. The document.onLoad executes the
-    // createEditor function with a given configuration.
-    // In the config file, the mxEditor.onInit method is
-    // overridden to invoke this global function as the
-    // last step in the editor constructor.
-    function onInit(editor){
-      // Enables rotation handle
-      mxVertexHandler.prototype.rotationEnabled = true;
-
-      // Enables guides
-      mxGraphHandler.prototype.guidesEnabled = true;
-      
-        // Alt disables guides
-        mxGuide.prototype.isEnabledForEvent = function(evt)
-        {
-          return !mxEvent.isAltDown(evt);
-        };
-      
-      // Enables snapping waypoints to terminals
-      mxEdgeHandler.prototype.snapToTerminals = true;
-      
-      // Defines an icon for creating new connections in the connection handler.
-      // This will automatically disable the highlighting of the source vertex.
-      mxConnectionHandler.prototype.connectImage = new mxImage('{{ STATIC_URL }}geonode/js/mxgraph/examples/images/connector.gif', 16, 16);
-      
-      // Enables connections in the graph and disables
-      // reset of zoom and translate on root change
-      // (ie. switch between XML and graphical mode).
-      editor.graph.setConnectable(true);
-
-      // Clones the source if new connection has no target
-      editor.graph.connectionHandler.setCreateTarget(true);
-
-      // Updates the title if the root changes
-      var title = document.getElementById('title');
-      
-      if (title != null)
-      {
-        var f = function(sender)
-        {
-          title.innerHTML = sender.getTitle();
-        };
-        
-        editor.addListener(mxEvent.ROOT, f);
-        f(editor);
-      }
-      
-        // Changes the zoom on mouseWheel events
-        mxEvent.addMouseWheelListener(function (evt, up)
-        {
-          if (!mxEvent.isConsumed(evt))
-          {
-            if (up)
-          {
-              editor.execute('zoomIn');
-          }
-          else
-          {
-            editor.execute('zoomOut');
-          }
-          
-          mxEvent.consume(evt);
-          }
-        });
-
-      // Defines a new action to switch between
-      // XML and graphical display
-      var textNode = document.getElementById('xml');
-      var graphNode = editor.graph.container;
-      var sourceInput = document.getElementById('source');
-      sourceInput.checked = false;
-
-      var funct = function(editor)
-      {
-        if (sourceInput.checked)
-        {
-          graphNode.style.display = 'none';
-          textNode.style.display = 'inline';
-          
-          var enc = new mxCodec();
-          var node = enc.encode(editor.graph.getModel());
-          
-          textNode.value = mxUtils.getPrettyXml(node);
-          textNode.originalValue = textNode.value;
-          textNode.focus();
+    crossorigin="" />
+<link rel="stylesheet" href="http://xguaita.github.io/Leaflet.MapCenterCoord/dist/L.Control.MapCenterCoord.min.css" />
+<link rel="stylesheet" href="{{ STATIC_URL }}geonode/css/leaflet/Control.Coordinates.css" %}" />
+<link rel="stylesheet" href="{{ STATIC_URL }}geonode/css/leaflet/Control.Loader.css" %}" />
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script>
+    MathJax = {
+        loader: {
+            load: ['input/asciimath']
+        },
+        asciimath: {
+            delimiters: [
+                ["'math'", "'math'"]
+            ]
         }
-        else
-        {
-          graphNode.style.display = '';
-          
-          if (textNode.value != textNode.originalValue)
-          {
-            var doc = mxUtils.parseXml(textNode.value);
-            var dec = new mxCodec(doc);
-            dec.decode(doc.documentElement, editor.graph.getModel());
-          }
-
-          textNode.originalValue = null;
-          
-          // Makes sure nothing is selected in IE
-          if (mxClient.IS_IE)
-          {
-            mxUtils.clearSelection();
-          }
-
-          textNode.style.display = 'none';
-
-          // Moves the focus back to the graph
-          editor.graph.container.focus();
-        }
-      };
-      
-      editor.addAction('switchView', funct);
-      
-      // Defines a new action to switch between
-      // XML and graphical display
-      mxEvent.addListener(sourceInput, 'click', function()
-      {
-        editor.execute('switchView');
-      });
-
-      // Create select actions in page
-      var node = document.getElementById('mainActions');
-      var buttons = ['group', 'ungroup', 'cut', 'copy', 'paste', 'delete', 'undo', 'redo', 'print', 'show'];
-      
-      // Only adds image and SVG export if backend is available
-      // NOTE: The old image export in mxEditor is not used, the urlImage is used for the new export.
-      if (editor.urlImage != null)
-      {
-        // Client-side code for image export
-        var exportImage = function(editor)
-        {
-          var graph = editor.graph;
-          var scale = graph.view.scale;
-          var bounds = graph.getGraphBounds();
-          
-              // New image export
-          var xmlDoc = mxUtils.createXmlDocument();
-          var root = xmlDoc.createElement('output');
-          xmlDoc.appendChild(root);
-          
-            // Renders graph. Offset will be multiplied with state's scale when painting state.
-          var xmlCanvas = new mxXmlCanvas2D(root);
-          xmlCanvas.translate(Math.floor(1 / scale - bounds.x), Math.floor(1 / scale - bounds.y));
-          xmlCanvas.scale(scale);
-          
-          var imgExport = new mxImageExport();
-            imgExport.drawState(graph.getView().getState(graph.model.root), xmlCanvas);
-            
-          // Puts request data together
-          var w = Math.ceil(bounds.width * scale + 2);
-          var h = Math.ceil(bounds.height * scale + 2);
-          var xml = mxUtils.getXml(root);
-          
-          // Requests image if request is valid
-          if (w > 0 && h > 0)
-          {
-            var name = 'export.png';
-            var format = 'png';
-            var bg = '&bg=#FFFFFF';
-            
-            new mxXmlRequest(editor.urlImage, 'filename=' + name + '&format=' + format +
-                  bg + '&w=' + w + '&h=' + h + '&xml=' + encodeURIComponent(xml)).
-                  simulate(document, '_blank');
-          }
-        };
-        
-        editor.addAction('exportImage', exportImage);
-        
-        // Client-side code for SVG export
-        var exportSvg = function(editor)
-        {
-          var graph = editor.graph;
-          var scale = graph.view.scale;
-          var bounds = graph.getGraphBounds();
-
-            // Prepares SVG document that holds the output
-            var svgDoc = mxUtils.createXmlDocument();
-            var root = (svgDoc.createElementNS != null) ?
-              svgDoc.createElementNS(mxConstants.NS_SVG, 'svg') : svgDoc.createElement('svg');
-            
-          if (root.style != null)
-          {
-            root.style.backgroundColor = '#FFFFFF';
-          }
-          else
-          {
-            root.setAttribute('style', 'background-color:#FFFFFF');
-          }
-            
-            if (svgDoc.createElementNS == null)
-            {
-              root.setAttribute('xmlns', mxConstants.NS_SVG);
-            }
-            
-            root.setAttribute('width', Math.ceil(bounds.width * scale + 2) + 'px');
-            root.setAttribute('height', Math.ceil(bounds.height * scale + 2) + 'px');
-            root.setAttribute('xmlns:xlink', mxConstants.NS_XLINK);
-            root.setAttribute('version', '1.1');
-            
-            // Adds group for anti-aliasing via transform
-            var group = (svgDoc.createElementNS != null) ?
-                svgDoc.createElementNS(mxConstants.NS_SVG, 'g') : svgDoc.createElement('g');
-          group.setAttribute('transform', 'translate(0.5,0.5)');
-          root.appendChild(group);
-            svgDoc.appendChild(root);
-
-            // Renders graph. Offset will be multiplied with state's scale when painting state.
-            var svgCanvas = new mxSvgCanvas2D(group);
-            svgCanvas.translate(Math.floor(1 / scale - bounds.x), Math.floor(1 / scale - bounds.y));
-            svgCanvas.scale(scale);
-            
-            var imgExport = new mxImageExport();
-            imgExport.drawState(graph.getView().getState(graph.model.root), svgCanvas);
-
-          var name = 'export.svg';
-            var xml = encodeURIComponent(mxUtils.getXml(root));
-          
-          new mxXmlRequest(editor.urlEcho, 'filename=' + name + '&format=svg' + '&xml=' + xml).simulate(document, "_blank");
-        };
-        
-        editor.addAction('exportSvg', exportSvg);
-        
-        buttons.push('exportImage');
-        buttons.push('exportSvg');
-      };
-      
-      for (var i = 0; i < buttons.length; i++)
-      {
-        var button = document.createElement('button');
-        mxUtils.write(button, mxResources.get(buttons[i]));
-      
-        var factory = function(name)
-        {
-          return function()
-          {
-            editor.execute(name);
-          };
-        };
-      
-        mxEvent.addListener(button, 'click', factory(buttons[i]));
-        node.appendChild(button);
-      }
-
-      // Create select actions in page
-      var node = document.getElementById('selectActions');
-      mxUtils.write(node, 'Select: ');
-      mxUtils.linkAction(node, 'All', editor, 'selectAll');
-      mxUtils.write(node, ', ');
-      mxUtils.linkAction(node, 'None', editor, 'selectNone');
-      mxUtils.write(node, ', ');
-      mxUtils.linkAction(node, 'Vertices', editor, 'selectVertices');
-      mxUtils.write(node, ', ');
-      mxUtils.linkAction(node, 'Edges', editor, 'selectEdges');
-
-      // Create select actions in page
-      var node = document.getElementById('zoomActions');
-      mxUtils.write(node, 'Zoom: ');
-      mxUtils.linkAction(node, 'In', editor, 'zoomIn');
-      mxUtils.write(node, ', ');
-      mxUtils.linkAction(node, 'Out', editor, 'zoomOut');
-      mxUtils.write(node, ', ');
-      mxUtils.linkAction(node, 'Actual', editor, 'actualSize');
-      mxUtils.write(node, ', ');
-      mxUtils.linkAction(node, 'Fit', editor, 'fit');
+    };
+</script>
+<style>
+    #mainActions>button {
+        display: inline-block;
+        padding: 6px 12px;
+        margin-bottom: 0;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 1.42857143;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: middle;
+        -ms-touch-action: manipulation;
+        touch-action: manipulation;
+        cursor: pointer;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        background-image: none;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        color: #fff;
+        background-color: #337ab7;
+        border-color: #2e6da4;
+        margin-right: 4px;
     }
 
-    window.onbeforeunload = function() { return mxResources.get('changesLost'); };
+    .vertical-align {
+        display: flex;
+        align-items: center;
+    }
 
-  </script>  
-  <script src="{{ STATIC_URL }}geonode/js/mxgraph/mxClient.js"></script>
-  <script src="{{ STATIC_URL }}geonode/js/mxgraph/examples/editors/js/app.js"></script>
+    .text-danger-wp {
+        color: rgb(255, 0, 0) !important;
+    }
+
+    .table>tbody>tr>td {
+        vertical-align: middle;
+    }
+
+    [title^='Empty'] {
+        display: none;
+    }
+
+    .table>tbody>tr>td {
+        vertical-align: middle;
+    }
+
+    .table>tbody>tr>th {
+        vertical-align: middle;
+    }
+
+
+    .modal {
+        text-align: center;
+    }
+
+    @media screen and (min-width: 768px) {
+        .modal:before {
+            display: inline-block;
+            vertical-align: middle;
+            content: " ";
+            height: 100%;
+        }
+    }
+
+    .modal-dialog {
+        display: inline-block;
+        text-align: left;
+        vertical-align: middle;
+    }
+
+    .mxToolbarMode:hover{
+        border: 5px solid #d0d0d0;
+        border-radius: 50%;
+    }
+</style>
 {% endblock %}
+{% block body_outer %}
+<!--header-->
+<div class="page-header">
+    <h1>Create Water Intake</h1>
+</div>
+<!--Begin Form-->
+<form id="form" method="POST" action="">
+    {% csrf_token %}
+    <!--Start smartwizard-->
+    <div id="smartwizard">
+    <!--panel of navigation-->
+    <ul class="nav">
+        <li>
+            <a class="nav-link" href="#step-1">
+                Define
+            </a>
+        </li>
+        <li>
+            <a class="nav-link" href="#step-2">
+                Configure Parameters
+            </a>
+        </li>
+        <li>
+            <a class="nav-link" href="#step-3">
+                Water Extraction
+            </a>
+        </li>
+        <li>
+            <a class="nav-link" href="#step-4">
+                External
+            </a>
+        </li>
+        <li>
+            <a class="nav-link" href="#step-5">
+                Sub-area
+            </a>
+        </li>
+    </ul>
+    <!--Steps-->
+    <div class="tab-content" id="autoAdjustHeightF">
+        <!--Step 1-->
+        <div id="step-1" class="tab-pane" role="tabpanel">
+
+            <!--Input Name -->
+            <div id="water_intake">
+                <div id="div_id_name" class="form-group  ">
+                    <label for="id_name" class="control-label required-field ">
+                        Nombre
+                    </label>
+                    <div class="">
+                        <input type="text" name="name" maxlength="100" class=" form-control" id="id_name">
+                    </div>
+                </div>
+            </div>
+            <!--Input Desc -->
+            <div id="div_id_description" class="form-group  ">
+                <label for="id_description" class="control-label required-field ">
+                    Descripción
+                </label>
+                <div class="">
+                    <input type="text" name="description" maxlength="1024" class=" form-control" id="id_description">
+                </div>
+            </div>
+            <!--Input Source Name -->
+            <div id="id_water_source_name" class="form-group  ">
+                <label for="id_description" class="control-label required-field ">
+                    Nombre de la fuente
+                </label>
+                <div class="">
+                    <input type="text" name="water_source_name" maxlength="100" id="id_water_source_name" class=" form-control">
+                </div>
+            </div>
+            <!--Select City
+            <div id="div_id_city" class="form-group  ">
+                <label for="id_description" class="control-label required-field ">
+                    Ciudad
+                </label>
+                <div class="">{{form.city}}</div>
+            </div>-->
+
+            <!-- Map -->
+            <div id="map">
+                <div id="analysisOptions">
+                    <button type="button" id="validateBtn">Validate</button>
+                </div>
+            </div>
+        </div>
+        <!--Step 2-->
+        <div id="step-2" class="tab-pane" role="tabpanel">
+            <!--Toolbar mxgraph-->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-info">
+                        <div class="panel-body text-center" id="toolbar"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <!--Graph-->
+                <div class="col-md-8">
+                    <div class="panel panel-info">
+                        <div class="panel-body" id="graph" tabindex="-1" style="height:700px;width:100%;overflow:hidden;cursor:default; outline:none;"></div>
+                        <span style="float:right;padding-right:36px;">
+                            <input id="getdata" type="checkbox" />Source
+                        </span>
+                        <textarea id="xml" style="height:480px;width:684px;display:none;border-style:none;"></textarea>
+                    </div>
+                </div>
+                <!--Panel Information Right-->
+                <div class="col-md-4">
+                    <div class="panel panel-info">
+                        <div class="panel-body">
+                            <!--Figure Name-->
+                            <div class="alert alert-info" role="alert">
+                                <h1 class="text-center" id="titleDiagram"></h1>
+                            </div>
+                            <!--ID Item-->
+                            <div class="form-group">
+                                <label>ID:</label>
+                                <input type="number" id="idDiagram" min="" max="" class="form-control" disabled>
+                            </div>
+                            <!--Water transport-->
+                            <div class="form-group">
+                                <label>% transported water:</label>
+                                <input type="number" id="aguaDiagram" min="" max="" class="form-control">
+                            </div>
+                            <!--Sediments-->
+                            <div class="form-group">
+                                <label>% Sediments retained:</label>
+                                <input type="number" id="sedimentosDiagram" min="" max="" class="form-control">
+                            </div>
+                            <!--Nitrogen-->
+                            <div class="form-group">
+                                <label>% Nitrogen retained:</label>
+                                <input type="number" id="nitrogenoDiagram" class="form-control">
+                            </div>
+                            <!--Phosphorus-->
+                            <div class="form-group">
+                                <label>% Phosphorus retained:</label>
+                                <input type="number" id="fosforoDiagram" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-primary btn-block" id="saveGraph">Validate Graph</button>
+                </div>
+                <div class="col-md-12">
+                    <h3 class="text-primary">Cost Function</h3>
+                    <div class="panel panel-danger">
+                        <div class="panel-body">
+                            <div id="funcostgenerate"></div>
+                        </div>
+                    </div>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" id="ModalAddCostBtn">Add Cost</button>
+                </div>
+            </div>
+        </div>
+        <!--Step 3-->
+        <div id="step-3" class="tab-pane" role="tabpanel">
+            <!--Header-->
+            <div class="page-header">
+                <h3>Water Extraction</h3>
+                <p>Please enter the annual water extraction (l/s) associated with the Extraction Connection element x defined in the Water Intake system diagram</p>
+            </div>
+            <!--navigation-->
+            <ul class="nav nav-tabs">
+                <li data-toggle="tab" data-target="#automatic" class="active"><a href="#">Interpolation Wizard</a>
+                </li>
+                <li data-toggle="tab" data-target="#manual"><a href="#">Manual Edit</a></li>
+            </ul>
+            <!--contents tabs manual and automatic-->
+            <div class="tab-content">
+                <!--tab automatic-->
+                <div class="tab-pane fade in active" id="automatic">
+                    <br>
+                    <div class="form-group">
+                        <div class="row">
+                            <!--Data analysis Insert-->
+                            <div class="col-md-7">
+                                <h5 class="text-primary">Data Analysis</h5>
+                                <p>Please selected the method you wish to use to fill in the table associated with annual water extraction from the source.</p>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label>Interpolation Method <span class="text-danger-wp">(*)</span>
+                                            </label>
+                                            <select class="form-control" id="typeProcessInterpolation">
+                                                <option value="1">Linear interpolation</option>
+                                                <option value="2">Potential interpolation</option>
+                                                <option Value="3">Exponential interpolation</option>
+                                                <option Value="4">Logistics interpolation</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label>Number of years for time series <span
+                                                    class="text-danger-wp">(*)</span> </label>
+                                            <input type="text" class="form-control" id="numberYearsInterpolationValue">
+                                        </div>
+                                    </div>
+                                </div>
+                                <h5 class="text-primary">Extraction</h5>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label>Initial year<span class="text-danger-wp">(*)</span> </label>
+                                            <input type="text" class="form-control" id="initialDataExtractionInterpolationValue">
+                                        </div>
+                                        <div class="col-md-6" id="finalColumnExtraction">
+                                            <label>Final year<span class="text-danger-wp">(*)</span> </label>
+                                            <input type="text" class="form-control" id="finalDataExtractionInterpolationValue">
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="button" class="btn btn-primary" id="intakeWECB">Generate</button>
+                            </div>
+                            <!--Data analysis Results-->
+                            <div class="col-md-5">
+                                <h5 class="text-primary">Results</h5>
+                                <div style="max-height: 400px; overflow-y: auto;">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center" scope="col">#</th>
+                                                <th class="text-center" scope="col">Extraction Value</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="intakeECTAG">
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--tab manual-->
+                <div class="tab-pane fade" id="manual">
+                    <br>
+                    <div class="form-group">
+                        <div class="row">
+                            <!--Input number of years-->
+                            <div class="col-md-6">
+                                <h5 class="text-primary">Number of years for time series</h5>
+                                <p>You can edit the table manually by activating this option.</p>
+                                <div class="form-group">
+                                    <label>Number of years <span class="text-danger-wp">(*)</span> </label>
+                                    <input type="text" class="form-control" id="intakeNIYMI">
+                                </div>
+                                <button type="button" class="btn btn-primary" id="intakeNIBYMI">Generate</button>
+                            </div>
+                            <!--Results-->
+                            <div class="col-md-6">
+                                <h5 class="text-primary">Results</h5>
+                                <div class="panel panel-primary">
+                                    <div class="panel-body">
+                                        <div class="form-horizontal" id="intakeWEMI"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Step 4-->
+        <div id="step-4" class="tab-pane" role="tabpanel">
+            <!--Header-->
+            <div class="page-header">
+                <h3>External Inputs</h3>
+                <p>You define 2 external inputs. For Each of these external inputs you have to define Annual Water Volume (m3), Annual Sediment Load (Ton), Annual Nitrogen Load(kg), Annual Phosphorus Load (kg).
+                </p>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <h4 class="text-primary">Asignation</h4>
+                    <div class="form-group">
+                        <label>Type element for asignation</label>
+                        <select class="form-control" id="externalSelect"></select>
+                    </div>
+                    <div id="IntakeTDLE"></div>
+                </div>
+            </div>
+        </div>
+        <!--Step 5-->
+        <div id="step-5" class="tab-pane" role="tabpanel">
+            <div class="row">
+                <!--Map-->
+                <div class="col-md-8">
+                    <div class="panel panel-danger">
+                        <div id="mapid" style="width: 100%; height: 400px;"></div>
+                    </div>
+                </div>
+                <!--Panel Information Right-->
+                <div class="col-md-4">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="alert alert-info" role="alert">
+                                <h1 class="text-center">Tools</h1>
+                            </div>
+                            <div class="form-group">
+                                <label>Load intake delimited area<span class="text-danger-wp"></span></label>
+                                <input id="intakeArea" type="file">
+                            </div>
+                            <div class="form-group">
+                                <button type="button" class="btn btn-primary" id="btnDelimitArea"> Delimit
+                                    subarea</button>
+                            </div>
+                            <div class="form-group">
+                                <button type="button" class="btn btn-primary" id="btnValidateArea"> Validate
+                                    area</button>
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" id="submit" class="btn btn-primary" value="Submit"></input>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    <!--Inputs hidden for save data-->
+    <input type="hidden" id="xmlGraph" name="xmlGraph">
+    <input type="hidden" id="graphElements" name="graphElements">
+    <input type="hidden" id="isFile" name="isFile">
+    <input type="hidden" id="typeDelimit" name="typeDelimit">
+    <input type="hidden" id="waterExtraction" name="waterExtraction" value="">
+    <input type="hidden" id="areaGeometry" name="areaGeometry" value="">
+</form>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add Cost</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+
+                        <div class="panel-group" id="VarCostListGroup">
+
+                        </div>
 
 
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Cost function name</label>
+                            <textarea rows="4" class="form-control"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Cost function description</label>
+                            <textarea rows="4" class="form-control"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <h5 class="text-primary">Math expression</h5>
+                        <textarea class="form-control" id="inputMathAscii"></textarea>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <h5 class="text-primary">Rendering</h5>
+                        <div id="RenderingMathAscii">
 
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-danger" id="saveAndValideCost">Valide and add cost</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endblock %}
+
+    {% block extra_script %}
+    <script src="https://unpkg.com/smartwizard@5/dist/js/jquery.smartWizard.min.js" type="text/javascript"></script>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+        integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+        crossorigin=""></script>
+    <script src="{{ STATIC_URL }}geonode/js/leaflet/Leaflet.Editable.js"></script>
+    <script src="{{ STATIC_URL }}geonode/js/leaflet/coordinates/Control.Coordinates.js"></script>
+    <script src="{{ STATIC_URL }}geonode/js/leaflet/coordinates/util/NumberFormatter.js"></script>
+    <script src="{{ STATIC_URL }}geonode/js/leaflet/Control.Loader.js"></script>
+    <script src="{{ STATIC_URL }}geonode/js/waterproof/waterIntake.js"></script>
+    <script src="http://xguaita.github.io/Leaflet.MapCenterCoord/dist/L.Control.MapCenterCoord.min.js"></script>
+    <!--ZIP reader library-->
+    <script src="{{ STATIC_URL }}geonode/js/jszip/jszip.min.js"></script>
+    <!--Shapefile reader library -->
+    <script src="{{ STATIC_URL }}geonode/js/shp/shp.min.js"></script>
+    <script type="text/javascript">
+        var mxBasePath = '{{ STATIC_URL }}geonode/js/mxgraph/src';
+        var mxImageBasePath = '{{ STATIC_URL }}geonode/js/mxgraph/examples/images';
+        var editorUrl = '{{ STATIC_URL }}geonode/js/mxgraph/examples/editors/config/diagrameditor.xml';
+        var serverApi = '{{serverApi}}';
+    </script>
+    <script src="{{ STATIC_URL }}waterproof_intake/js/intake_create.js"></script>
+    <script src="{{ STATIC_URL }}waterproof_intake/js/graph.js"></script>
+    <script src="{{ STATIC_URL }}waterproof_intake/js/graphValidations.js"></script>
+    <script script src="{{ STATIC_URL }}geonode/js/mxgraph/mxClient.js"></script>
+    <script src="{{ STATIC_URL }}geonode/js/mxgraph/examples/editors/js/app.js"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min.js"
+    integrity="sha512-dTu0vJs5ndrd3kPwnYixvOCsvef5SGYW/zSSK4bcjRBcZHzqThq7pt7PmCv55yb8iBvni0TSeIDV8RYKjZL36A=="
+    crossorigin="anonymous"></script>-->
+    {% endblock %}

@@ -221,6 +221,12 @@ _DEFAULT_LANGUAGES = """(
     ('ko', '한국어'),
 )"""
 
+_DEFAULT_LANGUAGES = """(
+    ('en', 'English'),
+    ('es', 'Español'),    
+)"""
+
+
 LANGUAGES = ast.literal_eval(os.getenv('LANGUAGES', _DEFAULT_LANGUAGES))
 
 EXTRA_LANG_INFO = {
@@ -531,6 +537,12 @@ INSTALLED_APPS = (
     
     # FAQ
     'ckeditor',
+
+    # Documentation
+    'django_extensions',
+
+    # translation flags
+    'django_translation_flags',
     
 )
 
@@ -1222,6 +1234,12 @@ LICENSES = {
     'ENABLED': True,
     'DETAIL': 'above',
     'METADATA': 'verbose',
+}
+
+# graph models
+GRAPH_MODELS = {
+  'all_applications': True,
+  'group_models': True,
 }
 
 SRID = {
@@ -2090,6 +2108,8 @@ MONITORING_DATA_TTL = timedelta(days=int(os.getenv("MONITORING_DATA_TTL", 365)))
 # use with caution - for dev purpose only
 MONITORING_DISABLE_CSRF = ast.literal_eval(os.environ.get('MONITORING_DISABLE_CSRF', 'False'))
 
+os.environ["PATH"] += os.pathsep + r'C:\Graphviz\bin'
+
 if MONITORING_ENABLED:
     if 'geonode.monitoring' not in INSTALLED_APPS:
         INSTALLED_APPS += ('geonode.monitoring',)
@@ -2137,3 +2157,9 @@ FREQUENTLY_ALLOW_ANONYMOUS = True
 STUDY_CASES_ALLOW_ANONYMOUS = True
 
 WATERPROOF_NBS_CA_ALLOW_ANONYMOUS = True
+
+WATERPROOF_API_SERVER = "http://ec2-3-17-67-220.us-east-2.compute.amazonaws.com:9000/"
+
+#WATERPROOF_API_METHODS = {
+#
+#}
