@@ -108,7 +108,7 @@ if not SITEURL.endswith('/'):
 #      )
 # )
 
-#DATABASE_URL = 'postgresql://geonode:geonode_data@dev.skaphe.com:5432/geonode'
+DATABASE_URL = 'postgresql://geonode:geonode@ec2-3-17-67-220.us-east-2.compute.amazonaws.com:5432/geonode'
 
 if DATABASE_URL.startswith("spatialite"):
     try:
@@ -150,7 +150,7 @@ DATABASES = {
 if os.getenv('DEFAULT_BACKEND_DATASTORE'):
     GEODATABASE_URL = os.getenv('GEODATABASE_URL',
                                 'postgis://\
-geonode:geonode_data@dev.skaphe.com:5432/geonode')
+    geonode:geonode@ec2-3-17-67-220.us-east-2.compute.amazonaws.com:5432/geonode')
     DATABASES[os.getenv('DEFAULT_BACKEND_DATASTORE')] = dj_database_url.parse(
         GEODATABASE_URL, conn_max_age=GEONODE_DB_CONN_MAX_AGE
     )
@@ -1235,13 +1235,10 @@ try:
     ALLOWED_HOSTS = ast.literal_eval(os.getenv('ALLOWED_HOSTS'))
 except ValueError:
     # fallback to regular list of values separated with misc chars
-    ALLOWED_HOSTS = [HOSTNAME, 'localhost', 'django', 'geonode', 'apps.skaphe.com', 'apps.skaphe.com:8000'] if os.getenv('ALLOWED_HOSTS') is None \
-        else re.split(r' *[,|:|;] *', os.getenv('ALLOWED_HOSTS'))
+    ALLOWED_HOSTS = ['127.0.0.1','localhost','ec2-3-17-67-220.us-east-2.compute.amazonaws.com','190.146.133.76']
 
-<<<<<<< HEAD
-ALLOWED_HOSTS = ['127.0.0.1','localhost','ec2-3-17-67-220.us-east-2.compute.amazonaws.com','190.146.133.76']
-=======
->>>>>>> origin/WFAppCMS
+
+
 # AUTH_IP_WHITELIST property limits access to users/groups REST endpoints
 # to only whitelisted IP addresses.
 #
