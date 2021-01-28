@@ -522,7 +522,7 @@ function onInit(editor) {
                             'source': node.getAttribute('source'),
                             'target': node.getAttribute('target'),
                             'resultdb': JSON.stringify(value[3]),
-                            'funcost': value[5],
+                            'funcost': JSON.stringify(value[5]),
                             'name': JSON.stringify(value[4]),
                             'varcost': JSON.stringify(value[1])
                         });
