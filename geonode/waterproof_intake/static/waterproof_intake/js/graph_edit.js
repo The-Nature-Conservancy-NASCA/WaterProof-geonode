@@ -22,8 +22,7 @@ var bandera = true;
 // overridden to invoke this global function as the
 // last step in the editor constructor.
 function onInit(editor) {
-    console.log('holis')
-        // Enables rotation handle
+    // Enables rotation handle
     mxVertexHandler.prototype.rotationEnabled = false;
 
     // Enables guides
@@ -125,6 +124,26 @@ function onInit(editor) {
         f(editor);
     }
 
+    //Validate connections between elements
+    editor.graph.getEdgeValidationError = function(edge, source, target) {
+        if (source != null && target != null &&
+            this.model.getValue(source) != null &&
+            this.model.getValue(target) != null) {
+            //water intake 
+            if (source.style != 'rio' && target.style == 'bocatoma') return 'The water intake element can only receive connection from the river element';
+            //floating intake
+            if (source.style != 'rio' && source.style != 'reservorioagua' && source.style != 'embalse' && target.style == 'bocatomaflotante')
+                return 'The floating intake element can only receive connection from the river, reservoir and water reservoir';
+            //side intake
+            if (source.style != 'rio' && source.style != 'reservorioagua' && source.style != 'embalse' && target.style == 'bocatomalateral')
+                return 'The side intake element can only receive connection from the river, reservoir and water reservoir';
+            //connection with itself
+            if (source.style == target.style) return 'No element could connect to itself';
+        }
+        // "Supercall"
+        return mxGraph.prototype.getEdgeValidationError.apply(this, arguments);
+    }
+
     // Defines a new action to switch between
     // XML and graphical display
     var textNode = document.getElementById('xml');
@@ -134,8 +153,6 @@ function onInit(editor) {
     xmlDoc = mxUtils.parseXml(xmlGraph)
     var dec = new mxCodec(xmlDoc);
     dec.decode(xmlDoc.documentElement, editor.graph.getModel());
-    console.log(xmlDoc);
-    console.log(xmlGraph)
 
 
     // River not have a entrance connection
@@ -337,6 +354,8 @@ function onInit(editor) {
             }
         });
 
+        validateGraphIntake();
+
         //load data when add an object in a diagram
         editor.graph.addListener(mxEvent.ADD_CELLS, function(sender, evt) {
 
@@ -416,7 +435,7 @@ function onInit(editor) {
                             'id': node.id,
                             'source': node.getAttribute('source'),
                             'target': node.getAttribute('target'),
-                            'resultdb': value[3],
+                            'resultdb': JSON.stringify(value[3]),
                             'funcost': JSON.stringify(value[5]),
                             'name': JSON.stringify(value[4]),
                             'varcost': JSON.stringify(value[1])
