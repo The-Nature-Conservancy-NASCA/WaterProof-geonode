@@ -6,8 +6,9 @@ Views for the ``Waterproof intake`` application.
 import logging
 
 from django.conf import settings
+from django.urls import reverse
 from django.contrib import messages
-from django.http import HttpResponse, Http404
+from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.translation import ugettext as _
 from .models import ValuesTime, City, ProcessEfficiencies, Intake, DemandParameters, WaterExtraction, ElementSystem, ValuesTime, CostFunctionsProcess, Polygon, Basins, ElementConnections, userCostFunctions
@@ -250,10 +251,10 @@ def create(request):
                     target=targetElement
                 )
             messages.success(request, ("Water Intake created."))
-            return render(request, 'waterproof_intake/intake_list.html')
+            return HttpResponseRedirect(reverse('list-intake'))
         else:
             messages.error(request, ("Water Intake not created."))
-            return render(request, 'waterproof_intake/intake_form.html', context={"form": form, "serverApi": settings.WATERPROOF_API_SERVER})
+            return HttpResponseRedirect(request, 'waterproof_intake/intake_list.html')
     else:
         form = forms.IntakeForm()
     return render(request, 'waterproof_intake/intake_form.html', context={"form": form, "serverApi": settings.WATERPROOF_API_SERVER})
@@ -448,7 +449,7 @@ def editIntake(request, idx):
                     'xmlId': element.graphId,
                     'waterExtraction': extractionElements
                 }
-                #external['waterExtraction'] = extractionElements
+                # external['waterExtraction'] = extractionElements
                 extInputs.append(external)
             intakeExtInputs = json.dumps(extInputs)
             city = City.objects.all()
@@ -687,7 +688,7 @@ def editIntake(request, idx):
                     target=targetElement
                 )
             messages.success(request, ("Water Intake edited."))
-            return render(request, 'waterproof_intake/intake_list.html')
+            return HttpResponseRedirect(reverse('list-intake'))
 
 
 def viewIntake(request, idx):
@@ -715,7 +716,7 @@ def viewIntake(request, idx):
                 'xmlId': element.graphId,
                 'waterExtraction': extractionElements
             }
-            #external['waterExtraction'] = extractionElements
+            # external['waterExtraction'] = extractionElements
             extInputs.append(external)
         intakeExtInputs = json.dumps(extInputs)
         city = City.objects.all()
@@ -760,7 +761,7 @@ def cloneIntake(request, idx):
                     'xmlId': element.graphId,
                     'waterExtraction': extractionElements
                 }
-                #external['waterExtraction'] = extractionElements
+                # external['waterExtraction'] = extractionElements
                 extInputs.append(external)
             intakeExtInputs = json.dumps(extInputs)
             city = City.objects.all()

@@ -336,7 +336,7 @@ $(document).ready(function () {
     }
 
     $('#smartwizard').smartWizard({
-        selected: 2,
+        selected: 0,
         theme: 'dots',
         enableURLhash: false,
         autoAdjustHeight: true,
