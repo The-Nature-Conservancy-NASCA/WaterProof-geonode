@@ -2197,7 +2197,6 @@ GEOIP_PATH = os.getenv('GEOIP_PATH', os.path.join(PROJECT_ROOT, 'GeoIPCities.dat
 SEARCH_RESOURCES_EXTENDED = strtobool(os.getenv('SEARCH_RESOURCES_EXTENDED', 'True'))
 # -- END Settings for MONITORING plugin
 
-<<<<<<< HEAD
 FREQUENTLY_READY_FOR_V1 = True
 FREQUENTLY_ALLOW_ANONYMOUS = True
 
@@ -2223,6 +2222,4 @@ WAGTAIL_SITE_NAME = 'Waterproof CMS'
 # WATERPROOF_API_METHODS = {
 #
 # }
-=======
 CATALOG_METADATA_TEMPLATE = os.getenv("CATALOG_METADATA_TEMPLATE", "catalogue/full_metadata.xml")
->>>>>>> master-github
