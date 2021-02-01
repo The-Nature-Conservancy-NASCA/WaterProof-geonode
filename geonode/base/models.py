@@ -1116,8 +1116,14 @@ class ResourceBase(PolymorphicModel, PermissionLevelMixin, ItemBase):
             if bbox.srid != 4326:
                 bbox = bbox.transform(4326, clone=True)
             return str(bbox)
-        bbox = BBOXHelper.from_xy([-180, 180, -90, 90])
-        return [bbox.xmin, bbox.xmax, bbox.ymin, bbox.ymax, "EPSG:4326"]
+        else:
+            bbox = BBOXHelper.from_xy([-180, 180, -90, 90])
+            return bbox_to_wkt(
+                bbox.xmin,
+                bbox.xmax,
+                bbox.ymin,
+                bbox.ymax,
+                srid='EPSG:4326')
 
     @property
     def license_light(self):
@@ -1217,7 +1223,7 @@ class ResourceBase(PolymorphicModel, PermissionLevelMixin, ItemBase):
         try:
             keywords_qs = self.get_real_instance().keywords.all()
             if keywords_qs:
-                return ','.join([kw.name for kw in keywords_qs])
+                return ','.join(kw.name for kw in keywords_qs)
             else:
                 return ''
         except Exception:
@@ -1523,24 +1529,29 @@ class ResourceBase(PolymorphicModel, PermissionLevelMixin, ItemBase):
                 'Error when generating the thumbnail for resource %s. (%s)' %
                 (self.id, str(e)))
             logger.warn('Check permissions for file %s.' % upload_path)
-            Link.objects.filter(resource=self, name='Thumbnail').delete()
-            _thumbnail_url = staticfiles.static(settings.MISSING_THUMBNAIL)
-            obj, created = Link.objects.get_or_create(
-                resource=self,
-                name='Thumbnail',
-                defaults=dict(
-                    url=_thumbnail_url,
-                    extension='png',
-                    mime='image/png',
-                    link_type='image',
+            try:
+                Link.objects.filter(resource=self, name='Thumbnail').delete()
+                _thumbnail_url = staticfiles.static(settings.MISSING_THUMBNAIL)
+                obj, created = Link.objects.get_or_create(
+                    resource=self,
+                    name='Thumbnail',
+                    defaults=dict(
+                        url=_thumbnail_url,
+                        extension='png',
+                        mime='image/png',
+                        link_type='image',
+                    )
                 )
-            )
-            self.thumbnail_url = _thumbnail_url
-            obj.url = _thumbnail_url
-            obj.save()
-            ResourceBase.objects.filter(id=self.id).update(
-                thumbnail_url=_thumbnail_url
-            )
+                self.thumbnail_url = _thumbnail_url
+                obj.url = _thumbnail_url
+                obj.save()
+                ResourceBase.objects.filter(id=self.id).update(
+                    thumbnail_url=_thumbnail_url
+                )
+            except Exception as e:
+                logger.debug(
+                    'Error when generating the thumbnail for resource %s. (%s)' %
+                    (self.id, str(e)))
 
     def set_missing_info(self):
         """Set default permissions and point of contacts.
@@ -1577,12 +1588,10 @@ class ResourceBase(PolymorphicModel, PermissionLevelMixin, ItemBase):
                 self.metadata_author = user
 
     def maintenance_frequency_title(self):
-        return [v for i, v in enumerate(
-            UPDATE_FREQUENCIES) if v[0] == self.maintenance_frequency][0][1].title()
+        return [v for v in UPDATE_FREQUENCIES if v[0] == self.maintenance_frequency][0][1].title()
 
     def language_title(self):
-        return [v for i, v in enumerate(
-            ALL_LANGUAGES) if v[0] == self.language][0][1].title()
+        return [v for v in ALL_LANGUAGES if v[0] == self.language][0][1].title()
 
     def _set_poc(self, poc):
         # reset any poc assignation to this resource

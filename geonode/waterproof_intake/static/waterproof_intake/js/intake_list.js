@@ -4,7 +4,11 @@
  * @version 1.0
  */
 $(function() {
-    var table = $('#example').DataTable();
+    var table = $('#example').DataTable(
+        {
+            'dom': 'lrtip'
+        }
+    );
     var countryDropdown = $('#countryNBS');
     var currencyDropdown = $('#currencyCost');
     var transitionsDropdown = $('#riosTransition');
@@ -60,28 +64,82 @@ $(function() {
     /** 
      * Initialize map 
      */
-    API_URL = '/proxy/?url=https://photon.komoot.de/api/?';
+    
     TILELAYER = 'http://{s}.tile.osm.org/{z}/{x}/{y}.png';
-    CENTER = [-74.4879, 4.582];
+    IMAGE_LYR_URL = "https://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryTopo/MapServer/tile/{z}/{y}/{x}";
+    HYDRO_LYR_URL = "https://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/Esri_Hydro_Reference_Overlay/MapServer/tile/{z}/{y}/{x}";
+    CENTER = [4.582, -74.4879];
     MAXZOOM = 11;
 
     initMap = function() {
 
-        map = L.map('mapidcuenca', { scrollWheelZoom: false, zoomControl: false, photonControl: true, photonControlOptions: { resultsHandler: showSearchPoints, placeholder: 'Search City...', position: 'topleft', url: API_URL } });
-        map.setView([4, -72], 5);
+        //drawPolygons();        
+
+
+        map = L.map('mapidcuenca', { 
+            scrollWheelZoom: false, 
+            zoomControl: false, 
+            photonControl: true, 
+            photonControlOptions: { 
+                resultsHandler: showSearchPoints, 
+                selectedResultHandler : selectedResultHandler,
+                placeholder: 'Search City...', 
+                position: 'topleft', 
+                url: SEARCH_CITY_API_URL 
+            } 
+        });
+        let initialCoords = CENTER;
+        // find in localStorage if cityCoords exist
+        var cityCoords = localStorage.getItem('cityCoords');
+        if (cityCoords == undefined){
+            cityCoords = initialCoords;
+            table.search('').draw();
+        }else{
+            initialCoords = JSON.parse(cityCoords);
+            table.search(localStorage.getItem('city').substr(0, 5)).draw();
+            try{
+                $("#countryLabel").html(localStorage.getItem('country'));
+                $("#cityLabel").html(localStorage.getItem('city'));
+                $("#regionLabel").html(localStorage.getItem('region'));
+                $("#currencyLabel").html(localStorage.getItem('currency'));
+                $("#listIntakes").show();
+            }catch(e){
+
+            }
+
+        }
+        waterproof["cityCoords"] = cityCoords;
+
+        map.setView(initialCoords, 5);
 
         searchPoints.addTo(map);
 
         var tilelayer = L.tileLayer(TILELAYER, { maxZoom: MAXZOOM, attribution: 'Data \u00a9 <a href="http://www.openstreetmap.org/copyright"> OpenStreetMap Contributors </a> Tiles \u00a9 Komoot' }).addTo(map);
-        var zoomControl = new L.Control.Zoom({ position: 'topright' }).addTo(map);
+        var images = L.tileLayer(IMAGE_LYR_URL);
+        
+        
+        var hydroLyr = L.tileLayer(HYDRO_LYR_URL);
 
-        var c = new L.Control.Coordinates();
-        L.control.mapCenterCoord().addTo(map);
-        c.addTo(map);
+        var baseLayers = {
+            OpenStreetMap: tilelayer,
+            Images: images,
+            /* Grayscale: gray,   */          
+        };
+
+        var overlays = {
+            "Hydro (esri)": hydroLyr,
+        };
+
+
+        var zoomControl = new L.Control.Zoom({ position: 'topright' }).addTo(map);
+        L.control.layers(baseLayers,overlays,{position: 'topleft'}).addTo(map);
+
+        //var c = new L.Control.Coordinates();        
+        //c.addTo(map);
 
 
         function onMapClick(e) {
-            c.setCoordinates(e);
+            // c.setCoordinates(e);
         }
         map.on('click', onMapClick);
     }
@@ -93,14 +151,55 @@ $(function() {
     });
 
     function showSearchPoints(geojson) {
+        console.log(localStorage.getItem('city'))
+        //searchPoints.writeLayers('Bogotá');
         searchPoints.clearLayers();
         let geojsonFilter = geojson.features.filter(feature => feature.properties.type == "city");
         searchPoints.addData(geojsonFilter);
+        //let cityName = null
+        /*if (cityCoords == undefined){
+             cityName = geojsonFilter[0].properties.name;
+        }else{
+            cityName = localStorage.getItem('city')
+        }*/
         let cityName = geojsonFilter[0].properties.name;
         console.log(geojsonFilter[0].properties.name)
-        table.search(cityName.substr(0, 2)).draw();
+        //table.search(localStorage.getItem('city').substr(0, 2)).draw();
+        table.search(cityName.substr(0, 5)).draw();
+        drawPolygons();        
+    }
 
-        drawPolygons();
+    function selectedResultHandler(feat){
+
+        waterproof["cityCoords"] = [feat.geometry.coordinates[1], feat.geometry.coordinates[0]];
+        localStorage.setItem('cityCoords', JSON.stringify(waterproof["cityCoords"]));
+
+
+        searchPoints.eachLayer(function(layer){
+            if (layer.feature.properties.osm_id != feat.properties.osm_id){
+                layer.remove();
+            }
+        });
+        let country = feat.properties.country;
+        let cityName = feat.properties.name;
+        let countryCode = feat.properties.countrycode.toLowerCase();
+
+        $("#countryLabel").html(country);
+        $("#cityLabel").html(cityName);
+        localStorage.setItem('city', cityName);
+
+        let urlAPI = '{{ SEARCH_COUNTRY_API_URL }}' + countryCode;
+
+        $.get(urlAPI, function(data){
+            //console.log(data);
+            $("#regionLabel").html(data.region);
+            $("#currencyLabel").html(data.currencies[0].name + " - " + data.currencies[0].symbol);
+            $("#listIntakes").show();
+            
+            localStorage.setItem('country', country);
+            localStorage.setItem('region', data.region);
+            localStorage.setItem('currency', data.currencies[0].name + " - " + data.currencies[0].symbol);
+        });
     }
 
     udpateCreateUrl = function(countryId) {
@@ -367,7 +466,7 @@ $(function() {
     //draw polygons
     drawPolygons = function(){
         // TODO: Next line only for test purpose
-        intakePolygons = polygons;
+        //intakePolygons = polygons;
         
         lyrsPolygons.forEach(lyr => map.removeLayer(lyr));
         lyrsPolygons = [];
@@ -379,6 +478,13 @@ $(function() {
             }
             lyrsPolygons.push(omnivore.wkt.parse(poly).addTo(map));
         });
+    }
+
+    menu = function(){
+        $('.topnav a').click(function(){
+            $('#sideNavigation').style.width = "250px";
+            $("#main").style.marginLeft = "250px";
+          });
     }
 
 });

@@ -271,9 +271,7 @@ class DocumentUploadView(CreateView):
 
         if bbox:
             bbox = BBOXHelper.from_xy(bbox)
-            Document.objects.filter(id=self.object.pk).update(
-                bbox_polygon=bbox.as_polygon()
-            )
+            self.object.bbox_polygon = bbox.as_polygon()
 
         if getattr(settings, 'SLACK_ENABLED', False):
             try:
@@ -305,7 +303,7 @@ class DocumentUploadView(CreateView):
         else:
             return HttpResponseRedirect(
                 reverse(
-                    'document_metadata',
+                    'document_detail',
                     args=(
                         self.object.id,
                     )))
@@ -331,7 +329,7 @@ class DocumentUpdateView(UpdateView):
         register_event(self.request, EventType.EVENT_CHANGE, self.object)
         return HttpResponseRedirect(
             reverse(
-                'document_metadata',
+                'document_detail',
                 args=(
                     self.object.id,
                 )))

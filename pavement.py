@@ -27,6 +27,7 @@ import subprocess
 import signal
 import sys
 import time
+import logging
 
 from urllib.parse import urlparse
 from urllib.request import urlopen, Request
@@ -90,23 +91,26 @@ with open("dev_config.yml", 'r') as f:
     dev_config = yaml.load(f, Loader=yaml.Loader)
 
 
+logger = logging.getLogger(__name__)
+
+
 def grab(src, dest, name):
     src, dest, name = map(str, (src, dest, name))
-    print(f" src, dest, name --> {src} {dest} {name}")
+    logger.info(f" src, dest, name --> {src} {dest} {name}")
 
     if not os.path.exists(dest):
-        print("Downloading {}".format(name))
+        logger.info("Downloading {}".format(name))
     elif not zipfile.is_zipfile(dest):
-        print("Downloading {} (corrupt file)".format(name))
+        logger.info("Downloading {} (corrupt file)".format(name))
     else:
         return
 
     if src.startswith("file://"):
         src2 = src.replace("file://", '')
         if not os.path.exists(src2):
-            print("Source location ({}) does not exist".format(src2))
+            logger.info("Source location ({}) does not exist".format(src2))
         else:
-            print("Copying local file from {}".format(src2))
+            logger.info("Copying local file from {}".format(src2))
             shutil.copyfile(src2, dest)
     else:
         # urlretrieve(str(src), str(dest))
@@ -114,7 +118,7 @@ def grab(src, dest, name):
         r = requests.get(src, stream=True, timeout=10, verify=False)
         # Total size in bytes.
         total_size = int(r.headers.get('content-length', 0))
-        print("Requesting {}".format(src))
+        logger.info("Requesting {}".format(src))
         block_size = 1024
         wrote = 0
         with open("output.bin", 'wb') as f:
@@ -125,9 +129,10 @@ def grab(src, dest, name):
                     unit_scale=False):
                 wrote += len(data)
                 f.write(data)
-        print(" total_size [{}] / wrote [{}] ".format(total_size, wrote))
+        logger.info(" total_size [{}] / wrote [{}] ".format(total_size, wrote))
         if total_size != 0 and wrote != total_size:
-            print("ERROR, something went wrong")
+            logger.error("ERROR, something went wrong. Data could not be written. Expected to write " + wrote +
+                         " but wrote " + total_size + " instead")
         else:
             shutil.move("output.bin", dest)
         try:
@@ -180,7 +185,7 @@ def setup_geoserver(options):
             if not webapp_dir:
                 webapp_dir.makedirs()
 
-            print("extracting geoserver")
+            logger.info("extracting geoserver")
             z = zipfile.ZipFile(geoserver_bin, "r")
             z.extractall(webapp_dir)
         _install_data_dir()
@@ -358,19 +363,19 @@ def win_install_deps(options):
     failed = False
     for package, url in win_packages.items():
         tempfile = download_dir / os.path.basename(url)
-        print("Installing file ... " + tempfile)
+        logger.info("Installing file ... " + tempfile)
         grab_winfiles(url, tempfile, package)
         try:
             easy_install.main([tempfile])
         except Exception as e:
             failed = True
-            print("install failed with error: ", e)
+            logger.error("install failed with error: ", e)
         os.remove(tempfile)
     if failed and sys.maxsize > 2**32:
-        print("64bit architecture is not currently supported")
-        print("try finding the 64 binaries for py2exe, and pyproj")
+        logger.error("64bit architecture is not currently supported")
+        logger.error("try finding the 64 binaries for py2exe, and pyproj")
     elif failed:
-        print("install failed for py2exe, and/or pyproj")
+        logger.error("install failed for py2exe, and/or pyproj")
     else:
         print("Windows dependencies now complete.  Run pip install -e geonode --use-mirrors")
 
@@ -384,7 +389,7 @@ def upgradedb(options):
     Add 'fake' data migrations for existing tables from legacy GeoNode versions
     """
     version = options.get('version')
-    if version in ['1.1', '1.2']:
+    if version in {'1.1', '1.2'}:
         sh("python -W ignore manage.py migrate maps 0001 --fake")
         sh("python -W ignore manage.py migrate avatar 0001 --fake")
     elif version is None:
@@ -515,7 +520,8 @@ def stop_django(options):
     """
     Stop the GeoNode Django application
     """
-    kill('python', 'celery')
+    if ASYNC_SIGNALS:
+        kill('python', 'celery')
     kill('python', 'runserver')
     kill('python', 'runmessaging')
 
@@ -611,19 +617,20 @@ def start_django(options):
     foreground = '' if options.get('foreground', False) else '&'
     sh('%s python -W ignore manage.py runserver %s %s' % (settings, bind, foreground))
 
-    if 'django_celery_beat' not in INSTALLED_APPS:
-        sh("{} celery -A geonode.celery_app:app worker -B -E --statedb=worker.state -s celerybeat-schedule --loglevel=INFO --concurrency=10 -n worker1@%h {}".format(  # noqa
-            settings,
-            foreground
-        ))
-    else:
-        sh("{} celery -A geonode.celery_app:app worker -l DEBUG {} {}".format(
-            settings,
-            "-s django_celery_beat.schedulers:DatabaseScheduler",
-            foreground
-        ))
-
     if ASYNC_SIGNALS:
+        if 'django_celery_beat' not in INSTALLED_APPS:
+            sh("{} celery -A geonode.celery_app:app worker --without-gossip --without-mingle -Ofair -B -E \
+    --statedb=worker.state -s celerybeat-schedule --loglevel=DEBUG \
+    --concurrency=10 -n worker1@%h -f celery.log {}".format(  # noqa
+                settings,
+                foreground
+            ))
+        else:
+            sh("{} celery -A geonode.celery_app:app worker -l DEBUG {} {}".format(
+                settings,
+                "-s django_celery_beat.schedulers:DatabaseScheduler",
+                foreground
+            ))
         sh('%s python -W ignore manage.py runmessaging %s' % (settings, foreground))
 
     # wait for Django to start
@@ -667,10 +674,10 @@ def start_geoserver(options):
     url = GEOSERVER_BASE_URL
 
     if urlparse(GEOSERVER_BASE_URL).hostname != 'localhost':
-        print("Warning: OGC_SERVER['default']['LOCATION'] hostname is not equal to 'localhost'")
+        logger.warning("Warning: OGC_SERVER['default']['LOCATION'] hostname is not equal to 'localhost'")
 
     if not GEOSERVER_BASE_URL.endswith('/'):
-        print("Error: OGC_SERVER['default']['LOCATION'] does not end with a '/'")
+        logger.error("Error: OGC_SERVER['default']['LOCATION'] does not end with a '/'")
         sys.exit(1)
 
     download_dir = path('downloaded').abspath()
@@ -733,18 +740,18 @@ def start_geoserver(options):
             try:
                 sh(('%(javapath)s -version') % locals())
             except Exception:
-                print("Java was not found in your path.  Trying some other options: ")
+                logger.warning("Java was not found in your path.  Trying some other options: ")
                 javapath_opt = None
                 if os.environ.get('JAVA_HOME', None):
-                    print("Using the JAVA_HOME environment variable")
+                    logger.info("Using the JAVA_HOME environment variable")
                     javapath_opt = os.path.join(os.path.abspath(
                         os.environ['JAVA_HOME']), "bin", "java.exe")
                 elif options.get('java_path'):
                     javapath_opt = options.get('java_path')
                 else:
-                    print("Paver cannot find java in the Windows Environment. "
-                          "Please provide the --java_path flag with your full path to "
-                          "java.exe e.g. --java_path=C:/path/to/java/bin/java.exe")
+                    logger.critical("Paver cannot find java in the Windows Environment. "
+                                    "Please provide the --java_path flag with your full path to "
+                                    "java.exe e.g. --java_path=C:/path/to/java/bin/java.exe")
                     sys.exit(1)
                 # if there are spaces
                 javapath = 'START /B "" "' + javapath_opt + '"'
@@ -840,17 +847,14 @@ def test_bdd(options):
     local = str2bool(options.get('local', 'false'))
     if local:
         call_task('reset_hard')
-    else:
-        call_task('reset')
+
     call_task('setup')
     call_task('sync')
-    sh('sleep 30')
-    info("GeoNode is now available, running the bdd tests now.")
-
-    sh('py.test')
-
     if local:
-        call_task('reset_hard')
+        sh('sleep 30')
+
+    info("GeoNode is now available, running the bdd tests now.")
+    sh('py.test')
 
 
 @task
@@ -872,10 +876,10 @@ def test_integration(options):
     prefix = options.get('prefix')
     local = str2bool(options.get('local', 'false'))
     _backend = os.environ.get('BACKEND', OGC_SERVER['default']['BACKEND'])
-    if local and _backend == 'geonode.geoserver' or 'geonode.qgis_server' not in INSTALLED_APPS:
+    if local and (_backend == 'geonode.geoserver' or 'geonode.qgis_server' not in INSTALLED_APPS):
         call_task('stop_geoserver')
         _reset()
-    else:
+    elif _backend == 'geonode.qgis_server':
         call_task('stop_qgis_server')
         _reset()
 
@@ -885,10 +889,11 @@ def test_integration(options):
     try:
         call_task('setup', options={'settings': settings, 'force_exec': True})
 
+        if not settings:
+            settings = 'geonode.local_settings' if _backend == 'geonode.qgis_server' else 'geonode.settings'
+            settings = 'REUSE_DB=1 DJANGO_SETTINGS_MODULE=%s' % settings
+
         if name and name in ('geonode.tests.csw', 'geonode.tests.integration', 'geonode.geoserver.tests.integration'):
-            if not settings:
-                settings = 'geonode.local_settings' if _backend == 'geonode.qgis_server' else 'geonode.settings'
-                settings = 'REUSE_DB=1 DJANGO_SETTINGS_MODULE=%s' % settings
             call_task('sync', options={'settings': settings})
             if local:
                 if _backend == 'geonode.geoserver':
@@ -897,27 +902,30 @@ def test_integration(options):
             if integration_server_tests:
                 call_task('setup_data', options={'settings': settings})
         elif _backend == 'geonode.geoserver' and 'geonode.geoserver' in INSTALLED_APPS:
-            sh("cp geonode/upload/tests/test_settings.py geonode/")
-            settings = 'geonode.test_settings'
-            sh("DJANGO_SETTINGS_MODULE={} python -W ignore manage.py "
-               "makemigrations --noinput".format(settings))
-            sh("DJANGO_SETTINGS_MODULE={} python -W ignore manage.py "
-               "migrate --noinput".format(settings))
-            sh("DJANGO_SETTINGS_MODULE={} python -W ignore manage.py "
-               "loaddata sample_admin.json".format(settings))
-            sh("DJANGO_SETTINGS_MODULE={} python -W ignore manage.py "
-               "loaddata geonode/base/fixtures/default_oauth_apps.json".format(settings))
-            sh("DJANGO_SETTINGS_MODULE={} python -W ignore manage.py "
-               "loaddata geonode/base/fixtures/initial_data.json".format(settings))
-            call_task('start_geoserver')
-            bind = options.get('bind', '0.0.0.0:8000')
-            foreground = '' if options.get('foreground', False) else '&'
-            sh('DJANGO_SETTINGS_MODULE=%s python -W ignore manage.py runmessaging %s' %
-               (settings, foreground))
-            sh('DJANGO_SETTINGS_MODULE=%s python -W ignore manage.py runserver %s %s' %
-               (settings, bind, foreground))
-            sh('sleep 30')
-            settings = 'REUSE_DB=1 DJANGO_SETTINGS_MODULE=%s' % settings
+            if local:
+                sh("cp geonode/upload/tests/test_settings.py geonode/")
+                settings = 'geonode.test_settings'
+                sh("DJANGO_SETTINGS_MODULE={} python -W ignore manage.py "
+                   "makemigrations --noinput".format(settings))
+                sh("DJANGO_SETTINGS_MODULE={} python -W ignore manage.py "
+                   "migrate --noinput".format(settings))
+                sh("DJANGO_SETTINGS_MODULE={} python -W ignore manage.py "
+                   "loaddata sample_admin.json".format(settings))
+                sh("DJANGO_SETTINGS_MODULE={} python -W ignore manage.py "
+                   "loaddata geonode/base/fixtures/default_oauth_apps.json".format(settings))
+                sh("DJANGO_SETTINGS_MODULE={} python -W ignore manage.py "
+                   "loaddata geonode/base/fixtures/initial_data.json".format(settings))
+                call_task('start_geoserver')
+                bind = options.get('bind', '0.0.0.0:8000')
+                foreground = '' if options.get('foreground', False) else '&'
+                sh('DJANGO_SETTINGS_MODULE=%s python -W ignore manage.py runmessaging %s' %
+                (settings, foreground))
+                sh('DJANGO_SETTINGS_MODULE=%s python -W ignore manage.py runserver %s %s' %
+                (settings, bind, foreground))
+                sh('sleep 30')
+                settings = 'REUSE_DB=1 DJANGO_SETTINGS_MODULE=%s' % settings
+            else:
+                call_task('sync', options={'settings': settings})
 
         live_server_option = ''
         info("Running the tests now...")
@@ -933,8 +941,9 @@ def test_integration(options):
     else:
         success = True
     finally:
-        stop(options)
-        _reset()
+        if local:
+            stop(options)
+            _reset()
 
     if not success:
         sys.exit(1)
@@ -962,18 +971,18 @@ def run_tests(options):
     if not integration_tests and not integration_csw_tests and not integration_bdd_tests:
         call_task('test', options={'prefix': prefix})
     elif integration_tests:
-        if integration_server_tests:
-            call_task('test_integration', options={'prefix': prefix, 'name': 'geonode.geoserver.tests.integration'})
-        elif integration_upload_tests:
-            call_task('test_integration', options={'prefix': prefix, 'name': 'geonode.upload.tests.integration'})
+        if integration_upload_tests:
+            call_task('test_integration', options={'prefix': prefix, 'name': 'geonode.upload.tests.integration', 'local': local})
         elif integration_monitoring_tests:
-            call_task('test_integration', options={'prefix': prefix, 'name': 'geonode.monitoring.tests.integration'})
+            call_task('test_integration', options={'prefix': prefix, 'name': 'geonode.monitoring.tests.integration', 'local': local})
         elif integration_csw_tests:
             call_task('test_integration', options={'prefix': prefix, 'name': 'geonode.tests.csw', 'local': local})
         elif integration_bdd_tests:
             call_task('test_bdd', options={'local': local})
+        elif integration_server_tests:
+            call_task('test_integration', options={'prefix': prefix, 'name': 'geonode.geoserver.tests.integration', 'local': local})
         else:
-            call_task('test_integration', options={'prefix': prefix, 'name': 'geonode.tests.integration'})
+            call_task('test_integration', options={'prefix': prefix, 'name': 'geonode.tests.integration', 'local': local})
     sh('flake8 geonode')
 
 
@@ -1020,7 +1029,7 @@ def setup_data(options):
 
     data_dir = gisdata.GOOD_DATA
 
-    if ctype in ['vector', 'raster', 'time']:
+    if ctype in {'vector', 'raster', 'time'}:
         data_dir = os.path.join(gisdata.GOOD_DATA, ctype)
 
     settings = options.get('settings', '')
@@ -1078,7 +1087,7 @@ def deb(options):
         deb_changelog = path('debian') / 'changelog'
         for idx, line in enumerate(fileinput.input([deb_changelog], inplace=True)):
             if idx == 0:
-                print("geonode ({}) {}; urgency=high".format(simple_version, distribution), end='')
+                logger.info("geonode ({}) {}; urgency=high".format(simple_version, distribution), end='')
             else:
                 print(line.replace("urgency=medium", "urgency=high"), end='')
 
