@@ -196,6 +196,6 @@ def resource_urls(request):
         GEOSERVER_WMS = settings.GEOSERVER_WMS,
         HYDRO_NETWORK_LYR = settings.HYDRO_NETWORK_LYR,
 
+        CATALOG_METADATA_TEMPLATE=getattr(settings, "CATALOG_METADATA_TEMPLATE", "catalogue/full_metadata.xml")
     )
-
     return defaults
