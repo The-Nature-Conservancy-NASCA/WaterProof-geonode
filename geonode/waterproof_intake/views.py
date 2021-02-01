@@ -942,6 +942,7 @@ def cloneIntake(request, idx):
                                 elementC['xmlId'] = element_system.graphId
                                 elementsCreated.append(elementC)
                             external_info = json.loads(element['externaldata'])
+                            print(external_info)
                             elementCreated = ElementSystem.objects.get(id=element_system.pk)
                             for external in external_info:
                                 external_input = ValuesTime.objects.create(
