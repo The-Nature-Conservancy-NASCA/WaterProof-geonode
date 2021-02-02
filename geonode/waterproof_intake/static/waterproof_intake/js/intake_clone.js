@@ -299,6 +299,13 @@ $(document).ready(function() {
 
     $('#step2NextBtn').click(function() {
         if (!bandera) {
+            $('#smartwizard').smartWizard("stepState", [3], "hide");
+            for (const item of graphData) {
+                if (item.external != null && item.external != 'false') {
+
+                    $('#smartwizard').smartWizard("stepState", [3], "show");
+                }
+            }
             $('#smartwizard').smartWizard("next");
         } else {
             Swal.fire({
@@ -559,7 +566,7 @@ $(document).ready(function() {
     observer2.observe(menu1Tab, { attributes: true });
 
 });
-window.onbeforeunload = function() { return mxResources.get('changesLost'); };
+// window.onbeforeunload = function() { return mxResources.get('changesLost'); };
 
 /*Set values for interpolation
 parameters*/

@@ -261,7 +261,7 @@ $(document).ready(function() {
         }
         $(`#table_${$('#externalSelect').val()}`).css('display', 'block');
     });
-    
+
 
     // Automatic height on clic next btn wizard
     $('#smartwizard').smartWizard("next").click(function() {
@@ -332,14 +332,14 @@ $(document).ready(function() {
         $('#ExternalNumbersInputs').html(numberExternal)
     }
 
-    $('#smartwizard').smartWizard("next").click(function () {
+    $('#smartwizard').smartWizard("next").click(function() {
         $('#autoAdjustHeightF').css("height", "auto");
         map.invalidateSize();
     });
 
 
     $('#smartwizard').smartWizard({
-        selected: 0,
+        selected: 1,
         theme: 'dots',
         enableURLhash: false,
         autoAdjustHeight: true,
@@ -402,6 +402,13 @@ $(document).ready(function() {
 
     $('#step2NextBtn').click(function() {
         if (!bandera) {
+            $('#smartwizard').smartWizard("stepState", [3], "hide");
+            for (const item of graphData) {
+                if (item.external != null && item.external != 'false') {
+
+                    $('#smartwizard').smartWizard("stepState", [3], "show");
+                }
+            }
             $('#smartwizard').smartWizard("next");
         } else {
             Swal.fire({
@@ -556,7 +563,7 @@ $(document).ready(function() {
 });
 
 
-window.onbeforeunload = function() { return mxResources.get('changesLost'); };
+//window.onbeforeunload = function() { return mxResources.get('changesLost'); };
 
 
 /**
