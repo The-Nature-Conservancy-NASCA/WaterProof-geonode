@@ -90,7 +90,7 @@ SECRET_KEY = os.getenv('SECRET_KEY', _DEFAULT_SECRET_KEY)
 SITE_HOST_SCHEMA = os.getenv('SITE_HOST_SCHEMA', 'http')
 SITE_HOST_NAME = os.getenv('SITE_HOST_NAME', 'apps.skaphe.com')
 SITE_HOST_PORT = os.getenv('SITE_HOST_PORT', 8000)
-SITE_HOST_API = os.getenv('SITE_HOST_API', 'http://localhost:8000/')
+SITE_HOST_API = os.getenv('SITE_HOST_API', 'http://apps.skaphe.com:8000/')
 _default_siteurl = "%s://%s:%s/" % (SITE_HOST_SCHEMA,
                                     SITE_HOST_NAME,
                                     SITE_HOST_PORT) if SITE_HOST_PORT else "%s://%s/" % (SITE_HOST_SCHEMA, SITE_HOST_NAME)
@@ -111,7 +111,7 @@ DATABASE_URL = os.getenv(
       )
  )
 
-#DATABASE_URL='postgresql://geonode:{&Uid&QXZ&6f;|F@dev.skaphe.com:5432/geonode'
+DATABASE_URL='postgresql://geonode:{&Uid&QXZ&6f;|F@dev.skaphe.com:5432/geonode'
 #DATABASE_URL='postgresql://geonode:geonode@localhost:5432/geonode'
 
 if DATABASE_URL.startswith("spatialite"):
@@ -331,8 +331,8 @@ STATICFILES_DIRS = os.getenv('STATICFILES_DIRS', _DEFAULT_STATICFILES_DIRS)
 # List of finder classes that know how to find static files in
 # various locations.
 STATICFILES_FINDERS = (
-    'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'django.contrib.staticfiles.finders.FileSystemFinder',
     # 'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
@@ -1941,6 +1941,7 @@ PINAX_NOTIFICATIONS_LOCK_WAIT_TIMEOUT = os.environ.get('NOTIFICATIONS_LOCK_WAIT_
 # pinax.notifications
 # or notification
 NOTIFICATIONS_MODULE = 'pinax.notifications'
+ADMINS_ONLY_NOTICE_TYPES = ast.literal_eval(os.getenv('ADMINS_ONLY_NOTICE_TYPES', "['monitoring_alert',]"))
 
 # set to true to have multiple recipients in /message/create/
 USER_MESSAGES_ALLOW_MULTIPLE_RECIPIENTS = ast.literal_eval(
@@ -2106,10 +2107,15 @@ SOCIALACCOUNT_PROFILE_EXTRACTORS = {
 INVITATIONS_ADAPTER = ACCOUNT_ADAPTER
 
 # Choose thumbnail generator -- this is the default generator
-THUMBNAIL_GENERATOR = "geonode.layers.utils.create_gs_thumbnail_geonode"
-#THUMBNAIL_GENERATOR_DEFAULT_BG = r"http://a.tile.openstreetmap.org/{z}/{x}/{y}.png"
-THUMBNAIL_GENERATOR_DEFAULT_BG = r"https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png"
-THUMBNAIL_GENERATOR_DEFAULT_SIZE = {'width': 240, 'height': 200}
+THUMBNAIL_GENERATOR = os.environ.get(
+    'THUMBNAIL_GENERATOR', 'geonode.layers.utils.create_gs_thumbnail_geonode')
+THUMBNAIL_GENERATOR_DEFAULT_BG = os.environ.get(
+    'THUMBNAIL_GENERATOR_DEFAULT_BG',
+    'https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png')
+THUMBNAIL_GENERATOR_DEFAULT_SIZE = {
+    'width': int(os.environ.get('THUMBNAIL_GENERATOR_DEFAULT_SIZE_WIDTH', 240)),
+    'height': int(os.environ.get('THUMBNAIL_GENERATOR_DEFAULT_SIZE_HEIGHT', 200))
+}
 
 # define the urls after the settings are overridden
 if USE_GEOSERVER:
@@ -2216,3 +2222,4 @@ WAGTAIL_SITE_NAME = 'Waterproof CMS'
 # WATERPROOF_API_METHODS = {
 #
 # }
+CATALOG_METADATA_TEMPLATE = os.getenv("CATALOG_METADATA_TEMPLATE", "catalogue/full_metadata.xml")
