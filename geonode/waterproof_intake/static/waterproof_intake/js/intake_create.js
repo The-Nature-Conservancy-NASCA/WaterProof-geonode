@@ -596,6 +596,9 @@ function delimitIntakeArea() {
         coordinates.push(geom[0]);
         copyCoordinates.push(coordinates);
     })
+    if (editablepolygon) {
+        mapDelimit.removeLayer(editablepolygon);
+    }
     editablepolygon = L.polygon(copyCoordinates, { color: 'red' });
     editablepolygon.addTo(mapDelimit)
     editablepolygon.enableEdit();
@@ -680,15 +683,7 @@ function changeFileEvent() {
                         validGeojson = validateGeoJson(geojson);
                         if (validGeojson) {
                             delimitationFileType = delimitationFileEnum.GEOJSON;
-                            let polygonStyle = {
-                                fillColor: "red",
-                                color: "#333333",
-                                weight: 0.2,
-                                fillOpacity: 0.3
-                            };
-                            editablepolygon = L.geoJSON(geojson, { style: polygonStyle })
-                            editablepolygon.addTo(mapDelimit);
-                            mapDelimit.fitBounds(editablepolygon.getBounds())
+                            addEditablePolygonMap();
                         } else {
                             $('#intakeArea').val('');
                             return;
@@ -720,15 +715,7 @@ function changeFileEvent() {
                                 shp(contents).then(function (shpToGeojson) {
                                     geojson = shpToGeojson;
                                     delimitationFileType = delimitationFileEnum.SHP;
-                                    let polygonStyle = {
-                                        fillColor: "#337ab7",
-                                        color: "#333333",
-                                        weight: 0.2,
-                                        fillOpacity: 0.3
-                                    };
-                                    editablepolygon = L.geoJSON(geojson, { style: polygonStyle })
-                                    editablepolygon.addTo(mapDelimit);
-                                    mapDelimit.fitBounds(editablepolygon.getBounds())
+                                    addEditablePolygonMap();
                                 });
                             } else {
                                 $('#intakeArea').val('');
@@ -761,4 +748,18 @@ function changeFileEvent() {
             $('#intakeArea').val('');
         }
     });
+}
+function addEditablePolygonMap() {
+    let polygonStyle = {
+        fillColor: "red",
+        color: "#333333",
+        weight: 0.2,
+        fillOpacity: 0.3
+    };
+    if (editablepolygon) {
+        mapDelimit.removeLayer(editablepolygon);
+    }
+    editablepolygon = L.geoJSON(geojson, { style: polygonStyle })
+    editablepolygon.addTo(mapDelimit);
+    mapDelimit.fitBounds(editablepolygon.getBounds());
 }
