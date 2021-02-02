@@ -286,7 +286,7 @@ $(document).ready(function() {
             $('#intakeWEMI').append(`
             <tr>
                 <th class="text-center" scope="row">${index + 1}</th>
-                <td class="text-center"><input name="manualInputData" yearValue="${index+1}" type="text" class="form-control"></td>
+                <td class="text-center"><input name="manualInputData" yearValue="${index + 1}" type="text" class="form-control"></td>
               </tr>
             `);
         }
