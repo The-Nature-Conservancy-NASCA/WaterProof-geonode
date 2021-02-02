@@ -87,12 +87,20 @@ def create(request):
             else:
                 delimitation_type = 'SBN'
 
+            if (interpolation['typeInterpolation'] == 'MANUAL'):
+                print("IS MANUAL")
+                isManual = True
+                interpolation['initialValue'] = 0
+                interpolation['finalValue'] = 0
+            else:
+                isManual = False
+
             demand_parameters = DemandParameters.objects.create(
                 interpolation_type=interpolation['typeInterpolation'],
                 initial_extraction=interpolation['initialValue'],
                 ending_extraction=interpolation['finalValue'],
                 years_number=interpolation['yearCount'],
-                is_manual=True,
+                is_manual=isManual,
             )
 
             for extraction in interpolation['yearValues']:
@@ -534,6 +542,14 @@ def editIntake(request, idx):
                 existingPolygon.basin = basin
                 existingPolygon.intake = existingIntake
                 existingPolygon.save()
+                print(interpolation)
+                if (interpolation['typeInterpolation'] == 'MANUAL'):
+                    print("IS MANUAL")
+                    isManual = True
+                    interpolation['initialValue'] = 0
+                    interpolation['finalValue'] = 0
+                else:
+                    isManual = False
                 demandParameter = DemandParameters.objects.get(id=existingIntake.demand_parameters.pk)
                 demandParameter.interpolation_type = interpolation['typeInterpolation']
                 demandParameter.initial_extraction = interpolation['initialValue']
@@ -942,6 +958,7 @@ def cloneIntake(request, idx):
                                 elementC['xmlId'] = element_system.graphId
                                 elementsCreated.append(elementC)
                             external_info = json.loads(element['externaldata'])
+                            print(external_info)
                             elementCreated = ElementSystem.objects.get(id=element_system.pk)
                             for external in external_info:
                                 external_input = ValuesTime.objects.create(

@@ -465,7 +465,7 @@ $(document).ready(function() {
     observer2.observe(menu1Tab, { attributes: true });
 
 });
-window.onbeforeunload = function() { return mxResources.get('changesLost'); };
+//window.onbeforeunload = function() { return mxResources.get('changesLost'); };
 
 /*Set values for interpolation
 parameters*/

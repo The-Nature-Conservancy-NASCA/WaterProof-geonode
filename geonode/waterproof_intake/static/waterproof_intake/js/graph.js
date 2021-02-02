@@ -388,6 +388,8 @@ function onInit(editor) {
         editor.graph.addListener(mxEvent.ADD_CELLS, function(sender, evt) {
             var selectedCell = evt.getProperty("cells");
             var idvar = selectedCell[0].id;
+
+            bandera = true;
             try {
                 if (selectedCell != undefined) {
                     var varcost = [];
