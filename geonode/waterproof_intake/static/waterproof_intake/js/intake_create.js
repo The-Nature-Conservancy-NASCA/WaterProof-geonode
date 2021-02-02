@@ -405,7 +405,6 @@ $(document).ready(function() {
             $('#smartwizard').smartWizard("stepState", [3], "hide");
             for (const item of graphData) {
                 if (item.external != null && item.external != 'false') {
-
                     $('#smartwizard').smartWizard("stepState", [3], "show");
                 }
             }

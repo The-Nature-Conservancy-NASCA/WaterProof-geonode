@@ -361,6 +361,7 @@ function onInit(editor) {
 
             var selectedCell = evt.getProperty("cells");
             var idvar = selectedCell[0].id;
+            bandera = true;
             if (selectedCell != undefined) {
                 var varcost = [];
                 varcost.push(

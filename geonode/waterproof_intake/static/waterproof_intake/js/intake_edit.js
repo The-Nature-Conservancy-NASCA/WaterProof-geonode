@@ -32,6 +32,7 @@ var xmlGraph;
 var waterExtractionData = {};
 var waterExtractionValue;
 var lyrsPolygons = [];
+var saveDataStep4 = false;
 const delimitationFileEnum = {
     GEOJSON: 'geojson',
     SHP: 'shapefile'
@@ -157,11 +158,11 @@ $(document).ready(function() {
                 rows = "";
                 for (let index = 0; index <= numYear; index++) {
                     rows += (`<tr>
-                                <th class="text-center" scope="col" name="year_${graphData[p].id}" year_value="${index + 1}">${index + 1}</th>
-                                <td class="text-center" scope="col"><input type="text" class="form-control" name="waterVolume_${index + 1}_${graphData[p].id}"></td>
-                                <td class="text-center" scope="col"><input type="text" class="form-control" name="sediment_${index + 1}_${graphData[p].id}"></td>
-                                <td class="text-center" scope="col"><input type="text" class="form-control" name="nitrogen_${index + 1}_${graphData[p].id}" ></td>
-                                <td class="text-center" scope="col"><input type="text" class="form-control" name="phosphorus_${index + 1}_${graphData[p].id}"></td>
+                                <th class="text-center" scope="col" name="year_${graphData[p].id}" year_value="${index+1}">${index+1}</th>
+                                <td class="text-center" scope="col"><input type="text" class="form-control" name="waterVolume_${index+1}_${graphData[p].id}"></td>
+                                <td class="text-center" scope="col"><input type="text" class="form-control" name="sediment_${index+1}_${graphData[p].id}"></td>
+                                <td class="text-center" scope="col"><input type="text" class="form-control" name="nitrogen_${index+1}_${graphData[p].id}" ></td>
+                                <td class="text-center" scope="col"><input type="text" class="form-control" name="phosphorus_${index+1}_${graphData[p].id}"></td>
                           </tr>`);
                 }
                 $('#IntakeTDLE').append(`
@@ -184,24 +185,41 @@ $(document).ready(function() {
 
 
     }
+
     $('#saveExternalData').click(function() {
         for (let id = 0; id < graphData.length; id++) {
-            if (graphData[id].external) {
-                graphData[id].externaldata = [];
-                $(`th[name=year_${graphData[id].id}]`).each(function() {
-                    graphData[id].externaldata.push({
-                        "year": $(this).attr('year_value'),
-                        "water": $(`input[name="waterVolume_${$(this).attr('year_value')}_${graphData[id].id}"]`).val(),
-                        "sediment": $(`input[name="sediment_${$(this).attr('year_value')}_${graphData[id].id}"]`).val(),
-                        "nitrogen": $(`input[name="nitrogen_${$(this).attr('year_value')}_${graphData[id].id}"]`).val(),
-                        "phosphorus": $(`input[name="phosphorus_${$(this).attr('year_value')}_${graphData[id].id}"]`).val()
-                    })
-                });
-                graphData[id].externaldata = JSON.stringify(graphData[id].externaldata);
+            if (graphData[id].external === 'true') {
+                var array = [];
+                for (let index = 0; index < intakeExternalInputs[0].waterExtraction.length; index++) {
+                    $(`th[name=year_${intakeExternalInputs[0].waterExtraction[index].year}]`).each(function() {
+                        let watersita = $(`input[name="waterVolume_${intakeExternalInputs[0].waterExtraction[index].year}_${graphData[id].id}"]`).val();
+                        let sedimentsito = $(`input[name="sediment_${intakeExternalInputs[0].waterExtraction[index].year}_${graphData[id].id}"]`).val();
+                        let nitrogenito = $(`input[name="nitrogen_${intakeExternalInputs[0].waterExtraction[index].year}_${graphData[id].id}"]`).val();
+                        let phospharusito = $(`input[name="phosphorus_${intakeExternalInputs[0].waterExtraction[index].year}_${graphData[id].id}"]`).val();
+                        if (watersita != '' || sedimentsito != '' || nitrogenito != '' || phospharusito != '') {
+                            array.push({
+                                "year": $(this).attr('year_value'),
+                                "water": watersita,
+                                "sediment": sedimentsito,
+                                "nitrogen": nitrogenito,
+                                "phosphorus": phospharusito
+                            });
+
+                        } else {
+                            Swal.fire({
+                                icon: 'warning',
+                                title: `Field empty`,
+                                text: `Please full every fields`
+                            });
+                            return;
+                        }
+
+                    });
+                    graphData[id].externaldata = JSON.stringify(array);
+                }
             }
         }
-
-
+        saveDataStep4 = true;
         $('#graphElements').val(JSON.stringify(graphData));
     });
 
@@ -237,7 +255,7 @@ $(document).ready(function() {
         map.invalidateSize();
     });
     $('#smartwizard').smartWizard({
-        selected: 0,
+        selected: 2,
         theme: 'dots',
         enableURLhash: false,
         autoAdjustHeight: true,
@@ -362,10 +380,10 @@ $(document).ready(function() {
             for (let index = 0; index < extractionData.waterExtraction.length; index++) {
                 rows += (`<tr>
                         <th class="text-center" scope="col" name="year_${extractionData.waterExtraction[index].year}" year_value="${index + 1}">${index + 1}</th>
-                        <td class="text-center" scope="col"><input type="text" value="${extractionData.waterExtraction[index].waterVol}" class="form-control" name="waterVolume__${extractionData.xmlId}"></td>
-                        <td class="text-center" scope="col"><input type="text" value="${extractionData.waterExtraction[index].sediment}" class="form-control" name="sediment__${extractionData.xmlId}"></td>
-                        <td class="text-center" scope="col"><input type="text" value="${extractionData.waterExtraction[index].nitrogen}" class="form-control" name="nitrogen__${extractionData.xmlId}" ></td>
-                        <td class="text-center" scope="col"><input type="text" value="${extractionData.waterExtraction[index].phosphorus}" class="form-control" name="phosphorus__${extractionData.xmlId}"></td>
+                        <td class="text-center" scope="col"><input type="text" value="${extractionData.waterExtraction[index].waterVol}" class="form-control" name="waterVolume_${index + 1}_${extractionData.xmlId}"></td>
+                        <td class="text-center" scope="col"><input type="text" value="${extractionData.waterExtraction[index].sediment}" class="form-control" name="sediment_${index + 1}_${extractionData.xmlId}"></td>
+                        <td class="text-center" scope="col"><input type="text" value="${extractionData.waterExtraction[index].nitrogen}" class="form-control" name="nitrogen_${index + 1}_${extractionData.xmlId}" ></td>
+                        <td class="text-center" scope="col"><input type="text" value="${extractionData.waterExtraction[index].phosphorus}" class="form-control" name="phosphorus_${index + 1}_${extractionData.xmlId}"></td>
                   </tr>`);
 
             }
@@ -392,6 +410,15 @@ $(document).ready(function() {
     });
 
     $('#step4NextBtn').click(function() {
+        console.log(saveDataStep4)
+        if (saveDataStep4 === false) {
+            for (let id = 0; id < graphData.length; id++) {
+                if (graphData[id].external === 'true') {
+                    graphData[id].externaldata = JSON.stringify(intakeExternalInputs[0].waterExtraction);
+                }
+            }
+        }
+        $('#graphElements').val(JSON.stringify(graphData));
         $('#smartwizard').smartWizard("next");
     });
 
