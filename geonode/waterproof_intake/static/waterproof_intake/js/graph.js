@@ -444,12 +444,15 @@ function onInit(editor) {
         });
 
         function validateGraphIntake() {
+
             graphData = [];
             connection = [];
             var enc = new mxCodec();
             var node = enc.encode(editor.graph.getModel());
             var textxml = mxUtils.getPrettyXml(node);
             bandera = validations(node, editor.graph.getModel());
+            clearDataHtml();
+
             if (!bandera) {
                 $('#hideCostFuntion').show();
                 node.querySelectorAll('Symbol').forEach(function(node) {
