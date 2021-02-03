@@ -269,26 +269,7 @@ $(document).ready(function() {
         $('#autoAdjustHeightF').css("height", "auto");
         map.invalidateSize();
     });
-    $('#smartwizard').smartWizard({
-        selected: 0,
-        theme: 'dots',
-        enableURLhash: false,
-        autoAdjustHeight: true,
-        transition: {
-            animation: 'slide-horizontal', // Effect on navigation, none/fade/slide-horizontal/slide-vertical/slide-swing
-        },
-        toolbarSettings: {
-            toolbarPosition: 'bottom', // both bottom
-            toolbarButtonPosition: 'center', // both bottom
-        },
-        keyboardSettings: {
-            keyNavigation: false
-        },
-        toolbarSettings: {
-            showNextButton: false,
-            showPreviousButton: false,
-        }
-    });
+
     $('#smartwizard').smartWizard({
         selected: 0,
         theme: 'dots',
