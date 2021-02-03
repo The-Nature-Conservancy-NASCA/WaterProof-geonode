@@ -234,7 +234,7 @@ msgstr ""
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_detail_list.html:136
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_edit.html:142
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_form.html:131
-msgid "LAND COVER CHANGE DEFENITION"
+msgid "LAND COVER CHANGE DEFINITION"
 msgstr ""
 
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_clone.html:168
