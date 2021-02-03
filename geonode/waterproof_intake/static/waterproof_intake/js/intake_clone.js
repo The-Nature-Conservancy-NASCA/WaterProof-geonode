@@ -295,11 +295,7 @@ $(document).ready(function() {
         enableURLhash: false,
         autoAdjustHeight: true,
         transition: {
-            animation: 'slide-horizontal', // Effect on navigation, none/fade/slide-horizontal/slide-vertical/slide-swing
-        },
-        toolbarSettings: {
-            toolbarPosition: 'bottom', // both bottom
-            toolbarButtonPosition: 'center', // both bottom
+            animation: 'fade', // Effect on navigation, none/fade/slide-horizontal/slide-vertical/slide-swing
         },
         keyboardSettings: {
             keyNavigation: false
@@ -307,6 +303,13 @@ $(document).ready(function() {
         toolbarSettings: {
             showNextButton: false,
             showPreviousButton: false,
+        },
+        anchorSettings: {
+            emoveDoneStepOnNavigateBack: false,
+            markAllPreviousStepsAsDone: false,
+            anchorClickable: false,
+            enableAllAnchors: false,
+            markDoneStep: false,
         }
     });
     $("#smartwizard").on("showStep", function(e, anchorObject, stepIndex, stepDirection) {

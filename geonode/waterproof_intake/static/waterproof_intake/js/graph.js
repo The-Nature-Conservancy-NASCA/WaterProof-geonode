@@ -15,7 +15,7 @@ var graphData = [];
 var connection = [];
 var funcostdb = [];
 var bandera = true;
-
+var banderaValideGraph = 1;
 // Program starts here. The document.onLoad executes the
 // createEditor function with a given configuration.
 // In the config file, the mxEditor.onInit method is
