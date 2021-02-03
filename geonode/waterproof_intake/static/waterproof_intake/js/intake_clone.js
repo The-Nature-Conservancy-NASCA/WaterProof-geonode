@@ -204,7 +204,7 @@ $(document).ready(function() {
                         if (watersita != '' || sedimentsito != '' || nitrogenito != '' || phospharusito != '') {
                             array.push({
                                 "year": $(this).attr('year_value'),
-                                "water": watersita,
+                                "waterVol": watersita,
                                 "sediment": sedimentsito,
                                 "nitrogen": nitrogenito,
                                 "phosphorus": phospharusito
@@ -264,7 +264,6 @@ $(document).ready(function() {
             `);
         }
     });
-
     $('#smartwizard').smartWizard("next").click(function() {
         $('#autoAdjustHeightF').css("height", "auto");
         map.invalidateSize();
@@ -346,6 +345,7 @@ $(document).ready(function() {
                     $('#smartwizard').smartWizard("stepState", [3], "show");
                 }
             }
+            clearDataHtml();
             $('#smartwizard').smartWizard("next");
 
         } else {
@@ -363,10 +363,16 @@ $(document).ready(function() {
     });
 
     $('#step3NextBtn').click(function() {
-        var tempNum = 0;
-        for (let index = 0; index < graphData.length; index++) {
-            if (graphData[index].external == "true") {
-                tempNum += 1;
+        $('#IntakeTDLE table').remove();
+        $('#externalSelect option').remove();
+        $('#externalSelect').append(`<option value="null" selected>Choose here</option>`);
+        if ($('#intakeECTAG')[0].childNodes.length > 1) {
+            $('#smartwizard').smartWizard("next");
+            var tempNum = 0;
+            for (let index = 0; index < graphData.length; index++) {
+                if (graphData[index].external == "true") {
+                    tempNum += 1;
+                }
             }
         }
         if (tempNum == intakeExternalInputs.length) {
