@@ -965,7 +965,7 @@ def cloneIntake(request, idx):
                             for external in external_info:
                                 external_input = ValuesTime.objects.create(
                                     year=external['year'],
-                                    water_volume=external['water'],
+                                    water_volume=external['waterVol'],
                                     sediment=external['sediment'],
                                     nitrogen=external['nitrogen'],
                                     phosphorus=external['phosphorus'],

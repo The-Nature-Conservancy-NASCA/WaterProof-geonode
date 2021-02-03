@@ -32,6 +32,7 @@ var xmlGraph;
 var waterExtractionData = {};
 var waterExtractionValue;
 var lyrsPolygons = [];
+var saveDataStep4 = false;
 const delimitationFileEnum = {
     GEOJSON: 'geojson',
     SHP: 'shapefile'
@@ -44,7 +45,8 @@ const interpolationType = {
     LINEAR: 'LINEAR',
     POTENTIAL: 'POTENTIAL',
     EXPONENTIAL: 'EXPONENTIAL',
-    LOGISTICS: 'LOGISTICS'
+    LOGISTICS: 'LOGISTICS',
+    MANUAL: 'MANUAL'
 }
 
 var mapLoader;
@@ -264,11 +266,11 @@ $(document).ready(function() {
             `);
         }
     });
+
     $('#smartwizard').smartWizard("next").click(function() {
         $('#autoAdjustHeightF').css("height", "auto");
         map.invalidateSize();
     });
-
     $('#smartwizard').smartWizard({
         selected: 0,
         theme: 'dots',
@@ -292,6 +294,7 @@ $(document).ready(function() {
             markDoneStep: false,
         }
     });
+
     $("#smartwizard").on("showStep", function(e, anchorObject, stepIndex, stepDirection) {
         if (stepIndex == 4) {
             if (catchmentPoly) {
@@ -363,16 +366,10 @@ $(document).ready(function() {
     });
 
     $('#step3NextBtn').click(function() {
-        $('#IntakeTDLE table').remove();
-        $('#externalSelect option').remove();
-        $('#externalSelect').append(`<option value="null" selected>Choose here</option>`);
-        if ($('#intakeECTAG')[0].childNodes.length > 1) {
-            $('#smartwizard').smartWizard("next");
-            var tempNum = 0;
-            for (let index = 0; index < graphData.length; index++) {
-                if (graphData[index].external == "true") {
-                    tempNum += 1;
-                }
+        var tempNum = 0;
+        for (let index = 0; index < graphData.length; index++) {
+            if (graphData[index].external == "true") {
+                tempNum += 1;
             }
         }
         if (tempNum == intakeExternalInputs.length) {
@@ -433,7 +430,6 @@ $(document).ready(function() {
     });
 
     function loadExternalInput() {
-
         for (const extractionData of intakeExternalInputs) {
             $('#externalSelect').append(`
                 <option value="${extractionData.xmlId}">${extractionData.xmlId} - External Input</option>
@@ -442,10 +438,10 @@ $(document).ready(function() {
             for (let index = 0; index < extractionData.waterExtraction.length; index++) {
                 rows += (`<tr>
                         <th class="text-center" scope="col" name="year_${extractionData.waterExtraction[index].year}" year_value="${index + 1}">${index + 1}</th>
-                        <td class="text-center" scope="col"><input type="text" value="${extractionData.waterExtraction[index].waterVol}" class="form-control" name="waterVolume__${extractionData.xmlId}"></td>
-                        <td class="text-center" scope="col"><input type="text" value="${extractionData.waterExtraction[index].sediment}" class="form-control" name="sediment__${extractionData.xmlId}"></td>
-                        <td class="text-center" scope="col"><input type="text" value="${extractionData.waterExtraction[index].nitrogen}" class="form-control" name="nitrogen__${extractionData.xmlId}" ></td>
-                        <td class="text-center" scope="col"><input type="text" value="${extractionData.waterExtraction[index].phosphorus}" class="form-control" name="phosphorus__${extractionData.xmlId}"></td>
+                        <td class="text-center" scope="col"><input type="text" value="${extractionData.waterExtraction[index].waterVol}" class="form-control" name="waterVolume_${index + 1}_${extractionData.xmlId}"></td>
+                        <td class="text-center" scope="col"><input type="text" value="${extractionData.waterExtraction[index].sediment}" class="form-control" name="sediment_${index + 1}_${extractionData.xmlId}"></td>
+                        <td class="text-center" scope="col"><input type="text" value="${extractionData.waterExtraction[index].nitrogen}" class="form-control" name="nitrogen_${index + 1}_${extractionData.xmlId}" ></td>
+                        <td class="text-center" scope="col"><input type="text" value="${extractionData.waterExtraction[index].phosphorus}" class="form-control" name="phosphorus_${index + 1}_${extractionData.xmlId}"></td>
                   </tr>`);
 
             }
@@ -472,6 +468,14 @@ $(document).ready(function() {
     });
 
     $('#step4NextBtn').click(function() {
+        if (saveDataStep4 === false) {
+            for (let id = 0; id < graphData.length; id++) {
+                if (graphData[id].external === 'true') {
+                    graphData[id].externaldata = JSON.stringify(intakeExternalInputs[0].waterExtraction);
+                }
+            }
+        }
+        $('#graphElements').val(JSON.stringify(graphData));
         $('#smartwizard').smartWizard("next");
     });
 
@@ -500,7 +504,7 @@ $(document).ready(function() {
                     $('#intakeECTAG').empty();
                     $('#IntakeTDLE').empty();
                     $('#externalSelect').empty();
-                    waterExtractionData = [];
+                    waterExtractionData = {};
                     $('#waterExtraction').val(JSON.stringify(waterExtractionData));
                     $('#initialDataExtractionInterpolationValue').val('');
                     $('#finalDataExtractionInterpolationValue').val('');
@@ -646,7 +650,7 @@ $(document).ready(function() {
     observer2.observe(menu1Tab, { attributes: true });
 
 });
-window.onbeforeunload = function() { return mxResources.get('changesLost'); };
+// window.onbeforeunload = function () { return mxResources.get('changesLost'); };
 
 /*Set values for interpolation
 parameters*/
@@ -866,27 +870,6 @@ function changeFileEvent() {
             $('#intakeArea').val('');
         }
     });
-}
-/** 
- * Get if file has a valid shape or GeoJSON extension 
- * @param {StriFileng} file   zip or GeoJSON file
- *
- * @return {Object} extension Object contain extension and is valid
- */
-function validExtension(file) {
-    var fileExtension = {};
-    if (file.name.lastIndexOf(".") > 0) {
-        var extension = file.name.substring(file.name.lastIndexOf(".") + 1, file.name.length);
-        fileExtension.extension = extension;
-    }
-    if (file.type == 'application/x-zip-compressed' || file.type == 'application/zip') {
-        fileExtension.valid = true;
-    } else if (file.type == 'application/geo+json') {
-        fileExtension.valid = true;
-    } else {
-        fileExtension.valid = false;
-    }
-    return fileExtension;
 }
 
 function addEditablePolygonMap() {
