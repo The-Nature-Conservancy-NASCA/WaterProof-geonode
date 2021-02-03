@@ -372,6 +372,10 @@ function onInit(editor) {
         //var latexSpan = document.getElementById('latex');
         var mathField = MQ.MathField(mathFieldSpan, {
             spaceBehavesLikeTab: true,
+            autoCommands: 'pi theta sqrt sum mod',
+            autoOperatorNames: 'sin cos tan',
+            restrictMismatchedBrackets: true,
+            supSubsRequireOperand: true,
             handlers: {
                 edit: function() {
                     mathField.focus();
@@ -515,10 +519,6 @@ function onInit(editor) {
             }
             $('#CalculatorModal').modal('hide');
             validateGraphIntake();
-        });
-
-        $('button[name=mathKeyBoard]').each(function() {
-            MQ.StaticMath(this);
         });
 
         //Edit funcion cost 
