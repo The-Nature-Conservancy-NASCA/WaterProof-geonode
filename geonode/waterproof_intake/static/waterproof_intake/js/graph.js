@@ -450,6 +450,7 @@ function onInit(editor) {
             var node = enc.encode(editor.graph.getModel());
             var textxml = mxUtils.getPrettyXml(node);
             bandera = validations(node, editor.graph.getModel());
+            clearDataHtml();
             if (!bandera) {
                 $('#hideCostFuntion').show();
                 node.querySelectorAll('Symbol').forEach(function(node) {
