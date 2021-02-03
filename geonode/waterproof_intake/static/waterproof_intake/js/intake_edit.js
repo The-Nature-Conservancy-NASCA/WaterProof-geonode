@@ -52,7 +52,9 @@ const interpolationType = {
 var mapLoader;
 $(document).ready(function() {
 
+    var banderaInpolation = 0;
     $("#intakeWECB").click(function() {
+        banderaInpolation += 1
         $('#intakeECTAG tr').remove();
         $('#IntakeTDLE table').remove();
         $('#externalSelect option').remove();
@@ -368,12 +370,17 @@ $(document).ready(function() {
             }
         }
         if (tempNum == intakeExternalInputs.length) {
-            $('#IntakeTDLE table').remove();
-            $('#IntakeTDLE').empty();
-            $('#externalSelect option').remove();
-            $('#externalSelect').empty();
-            $('#externalSelect').append(`<option value="null" selected>Choose here</option>`);
-            loadExternalInput();
+            if (banderaInpolation != 1) {
+                $("#intakeWECB").click();
+            } else {
+                $('#IntakeTDLE table').remove();
+                $('#IntakeTDLE').empty();
+                $('#externalSelect option').remove();
+                $('#externalSelect').empty();
+                $('#externalSelect').append(`<option value="null" selected>Choose here</option>`);
+                loadExternalInput();
+            }
+
         }
 
         if ($('#intakeECTAG')[0].childNodes.length > 1 || $('#intakeWEMI')[0].childNodes.length > 1) {

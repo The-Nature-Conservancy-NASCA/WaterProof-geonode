@@ -50,10 +50,15 @@ const interpolationType = {
 var mapLoader;
 $(document).ready(function() {
 
+    var banderaInpolation = 0;
     $("#intakeWECB").click(function() {
+        banderaInpolation += 1
         $('#intakeECTAG tr').remove();
         $('#IntakeTDLE table').remove();
         $('#externalSelect option').remove();
+        $('#intakeECTAG').empty();
+        $('#IntakeTDLE').empty();
+        $('#externalSelect').empty();
         $('#autoAdjustHeightF').css("height", "auto");
         typeProcessInterpolation = Number($("#typeProcessInterpolation").val());
         numberYearsInterpolationValue = Number($("#numberYearsInterpolationValue").val());
@@ -145,6 +150,7 @@ $(document).ready(function() {
 
     });
     setInterpolationParams();
+    loadExternalInput();
 
     function externalInput(numYear) {
         var rows = "";
@@ -157,11 +163,11 @@ $(document).ready(function() {
                 rows = "";
                 for (let index = 0; index <= numYear; index++) {
                     rows += (`<tr>
-                                <th class="text-center" scope="col" name="year_${graphData[p].id}" year_value="${index + 1}">${index + 1}</th>
-                                <td class="text-center" scope="col"><input type="text" class="form-control" name="waterVolume_${index + 1}_${graphData[p].id}"></td>
-                                <td class="text-center" scope="col"><input type="text" class="form-control" name="sediment_${index + 1}_${graphData[p].id}"></td>
-                                <td class="text-center" scope="col"><input type="text" class="form-control" name="nitrogen_${index + 1}_${graphData[p].id}" ></td>
-                                <td class="text-center" scope="col"><input type="text" class="form-control" name="phosphorus_${index + 1}_${graphData[p].id}"></td>
+                                <th class="text-center" scope="col" name="year_${graphData[p].id}" year_value="${index+1}">${index+1}</th>
+                                <td class="text-center" scope="col"><input type="text" class="form-control" name="waterVolume_${index+1}_${graphData[p].id}"></td>
+                                <td class="text-center" scope="col"><input type="text" class="form-control" name="sediment_${index+1}_${graphData[p].id}"></td>
+                                <td class="text-center" scope="col"><input type="text" class="form-control" name="nitrogen_${index+1}_${graphData[p].id}" ></td>
+                                <td class="text-center" scope="col"><input type="text" class="form-control" name="phosphorus_${index+1}_${graphData[p].id}"></td>
                           </tr>`);
                 }
                 $('#IntakeTDLE').append(`
@@ -184,24 +190,41 @@ $(document).ready(function() {
 
 
     }
+
     $('#saveExternalData').click(function() {
         for (let id = 0; id < graphData.length; id++) {
-            if (graphData[id].external) {
-                graphData[id].externaldata = [];
-                $(`th[name=year_${graphData[id].id}]`).each(function() {
-                    graphData[id].externaldata.push({
-                        "year": $(this).attr('year_value'),
-                        "water": $(`input[name="waterVolume_${$(this).attr('year_value')}_${graphData[id].id}"]`).val(),
-                        "sediment": $(`input[name="sediment_${$(this).attr('year_value')}_${graphData[id].id}"]`).val(),
-                        "nitrogen": $(`input[name="nitrogen_${$(this).attr('year_value')}_${graphData[id].id}"]`).val(),
-                        "phosphorus": $(`input[name="phosphorus_${$(this).attr('year_value')}_${graphData[id].id}"]`).val()
-                    })
-                });
-                graphData[id].externaldata = JSON.stringify(graphData[id].externaldata);
+            if (graphData[id].external === 'true') {
+                var array = [];
+                for (let index = 0; index < intakeExternalInputs[0].waterExtraction.length; index++) {
+                    $(`th[name=year_${intakeExternalInputs[0].waterExtraction[index].year}]`).each(function() {
+                        let watersita = $(`input[name="waterVolume_${intakeExternalInputs[0].waterExtraction[index].year}_${graphData[id].id}"]`).val();
+                        let sedimentsito = $(`input[name="sediment_${intakeExternalInputs[0].waterExtraction[index].year}_${graphData[id].id}"]`).val();
+                        let nitrogenito = $(`input[name="nitrogen_${intakeExternalInputs[0].waterExtraction[index].year}_${graphData[id].id}"]`).val();
+                        let phospharusito = $(`input[name="phosphorus_${intakeExternalInputs[0].waterExtraction[index].year}_${graphData[id].id}"]`).val();
+                        if (watersita != '' || sedimentsito != '' || nitrogenito != '' || phospharusito != '') {
+                            array.push({
+                                "year": $(this).attr('year_value'),
+                                "water": watersita,
+                                "sediment": sedimentsito,
+                                "nitrogen": nitrogenito,
+                                "phosphorus": phospharusito
+                            });
+
+                        } else {
+                            Swal.fire({
+                                icon: 'warning',
+                                title: `Field empty`,
+                                text: `Please full every fields`
+                            });
+                            return;
+                        }
+
+                    });
+                    graphData[id].externaldata = JSON.stringify(array);
+                }
             }
         }
-
-
+        saveDataStep4 = true;
         $('#graphElements').val(JSON.stringify(graphData));
     });
 
@@ -220,16 +243,25 @@ $(document).ready(function() {
         map.invalidateSize();
     });
 
+    // Generate Input Manual Interpolation
     $('#intakeNIBYMI').click(function() {
-        $('#intakeWEMI div').remove();
+        $('#intakeWEMI tr').remove();
+        $('#intakeWEMI').empty();
         intakeNIYMI = Number($("#intakeNIYMI").val());
+        waterExtractionData.typeInterpolation = interpolationType.MANUAL;
+        waterExtractionData.yearCount = intakeNIYMI;
+        $('#IntakeTDLE table').remove();
+        $('#IntakeTDLE').empty();
+        $('#externalSelect option').remove();
+        $('#externalSelect').empty();
+        externalInput(intakeNIYMI - 1);
         for (let index = 0; index < intakeNIYMI; index++) {
-            $('#intakeWEMI').append(`<div class="form-group">
-                <label class="col-sm-1 control-label">${index + 1}</label>
-                <div class="col-sm-11">
-                    <input type="text" class="form-control">
-                </div>
-            </div>`);
+            $('#intakeWEMI').append(`
+            <tr>
+                <th class="text-center" scope="row">${index + 1}</th>
+                <td class="text-center"><input name="manualInputData" yearValue="${index + 1}" type="text" class="form-control"></td>
+              </tr>
+            `);
         }
     });
     $('#smartwizard').smartWizard("next").click(function() {
@@ -302,12 +334,16 @@ $(document).ready(function() {
             $('#smartwizard').smartWizard("stepState", [3], "hide");
             for (const item of graphData) {
                 if (item.external != null && item.external != 'false') {
-
+                    $('#IntakeTDLE table').remove();
+                    $('#externalSelect option').remove();
+                    $('#IntakeTDLE').empty();
+                    $('#externalSelect').empty();
                     $('#smartwizard').smartWizard("stepState", [3], "show");
                 }
             }
             clearDataHtml();
             $('#smartwizard').smartWizard("next");
+
         } else {
             Swal.fire({
                 icon: 'warning',
@@ -334,13 +370,53 @@ $(document).ready(function() {
                     tempNum += 1;
                 }
             }
-            if (tempNum == intakeExternalInputs.length) {
-                loadExternalInput();
+        }
+        if (tempNum == intakeExternalInputs.length) {
+            if (banderaInpolation != 1) {
+                $("#intakeWECB").click();
             } else {
                 $('#IntakeTDLE table').remove();
                 $('#IntakeTDLE').empty();
                 $('#externalSelect option').remove();
                 $('#externalSelect').empty();
+                $('#externalSelect').append(`<option value="null" selected>Choose here</option>`);
+                loadExternalInput();
+            }
+
+        }
+
+        if ($('#intakeECTAG')[0].childNodes.length > 1 || $('#intakeWEMI')[0].childNodes.length > 1) {
+            if (waterExtractionData.typeInterpolation == interpolationType.MANUAL) {
+                waterExtractionValue = [];
+                $(`input[name=manualInputData]`).each(function() {
+                    if ($(this).val() == '' || $('#intakeNIYMI').val() == '') {
+                        Swal.fire({
+                            icon: 'warning',
+                            title: `Data analisys empty`,
+                            text: `Please Generate Data anlisys`
+                        });
+                        return;
+                    } else {
+                        var yearData = {};
+                        yearData.year = Number($(this).attr('yearValue'));
+                        yearData.value = $(this).val();
+                        waterExtractionValue.push(yearData);
+                    }
+                });
+                waterExtractionData.yearValues = waterExtractionValue;
+                $('#waterExtraction').val(JSON.stringify(waterExtractionData));
+                if (waterExtractionData.yearCount == waterExtractionData.yearValues.length) {
+                    $('#smartwizard').smartWizard("next");
+                } else {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: `Data analisys empty`,
+                        text: `Please Generate Data anlisys`
+                    });
+                    return;
+                }
+            } else {
+                $('#smartwizard').smartWizard("next");
             }
         } else {
             Swal.fire({
@@ -350,7 +426,6 @@ $(document).ready(function() {
             });
             return;
         }
-
     });
 
     function loadExternalInput() {
