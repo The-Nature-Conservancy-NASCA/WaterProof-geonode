@@ -336,11 +336,17 @@ $(document).ready(function() {
             $('#smartwizard').smartWizard("stepState", [3], "hide");
             for (const item of graphData) {
                 if (item.external != null && item.external != 'false') {
-
+                    $('#intakeECTAG tr').remove();
+                    $('#IntakeTDLE table').remove();
+                    $('#externalSelect option').remove();
+                    $('#intakeECTAG').empty();
+                    $('#IntakeTDLE').empty();
+                    $('#externalSelect').empty();
                     $('#smartwizard').smartWizard("stepState", [3], "show");
                 }
             }
             $('#smartwizard').smartWizard("next");
+
         } else {
             Swal.fire({
                 icon: 'warning',
@@ -453,7 +459,6 @@ $(document).ready(function() {
     });
 
     $('#step4NextBtn').click(function() {
-        console.log(saveDataStep4)
         if (saveDataStep4 === false) {
             for (let id = 0; id < graphData.length; id++) {
                 if (graphData[id].external === 'true') {
@@ -791,15 +796,7 @@ function changeFileEvent() {
                         validGeojson = validateGeoJson(geojson);
                         if (validGeojson) {
                             delimitationFileType = delimitationFileEnum.GEOJSON;
-                            let polygonStyle = {
-                                fillColor: "red",
-                                color: "#333333",
-                                weight: 0.2,
-                                fillOpacity: 0.3
-                            };
-                            editablepolygon = L.geoJSON(geojson, { style: polygonStyle })
-                            editablepolygon.addTo(mapDelimit);
-                            mapDelimit.fitBounds(editablepolygon.getBounds())
+                            addEditablePolygonMap();
                         } else {
                             $('#intakeArea').val('');
                             return;
@@ -831,15 +828,7 @@ function changeFileEvent() {
                                 shp(contents).then(function(shpToGeojson) {
                                     geojson = shpToGeojson;
                                     delimitationFileType = delimitationFileEnum.SHP;
-                                    let polygonStyle = {
-                                        fillColor: "#337ab7",
-                                        color: "#333333",
-                                        weight: 0.2,
-                                        fillOpacity: 0.3
-                                    };
-                                    editablepolygon = L.geoJSON(geojson, { style: polygonStyle })
-                                    editablepolygon.addTo(mapDelimit);
-                                    mapDelimit.fitBounds(editablepolygon.getBounds())
+                                    addEditablePolygonMap();
                                 });
                             } else {
                                 $('#intakeArea').val('');
@@ -873,20 +862,17 @@ function changeFileEvent() {
         }
     });
 }
-
-//draw polygons
-drawPolygons = function() {
-    // TODO: Next line only for test purpose
-    //intakePolygons = polygons;
-
-    lyrsPolygons.forEach(lyr => map.removeLayer(lyr));
-
-
-    intakePolygons.forEach(feature => {
-        let poly = feature.polygon;
-        if (poly.indexOf("SRID") >= 0) {
-            poly = poly.split(";")[1];
-        }
-        lyrsPolygons.push(omnivore.wkt.parse(poly).addTo(map));
-    });
+function addEditablePolygonMap() {
+    let polygonStyle = {
+        fillColor: "red",
+        color: "#333333",
+        weight: 0.2,
+        fillOpacity: 0.3
+    };
+    if (editablepolygon) {
+        mapDelimit.removeLayer(editablepolygon);
+    }
+    editablepolygon = L.geoJSON(geojson, { style: polygonStyle })
+    editablepolygon.addTo(mapDelimit);
+    mapDelimit.fitBounds(editablepolygon.getBounds());
 }
