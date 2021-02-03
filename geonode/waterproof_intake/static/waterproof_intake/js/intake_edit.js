@@ -56,6 +56,9 @@ $(document).ready(function() {
         $('#intakeECTAG tr').remove();
         $('#IntakeTDLE table').remove();
         $('#externalSelect option').remove();
+        $('#intakeECTAG').empty();
+        $('#IntakeTDLE').empty();
+        $('#externalSelect').empty();
         $('#autoAdjustHeightF').css("height", "auto");
         typeProcessInterpolation = Number($("#typeProcessInterpolation").val());
         numberYearsInterpolationValue = Number($("#numberYearsInterpolationValue").val());
@@ -147,6 +150,7 @@ $(document).ready(function() {
 
     });
     setInterpolationParams();
+    loadExternalInput();
 
     function externalInput(numYear) {
         var rows = "";
@@ -260,6 +264,7 @@ $(document).ready(function() {
             `);
         }
     });
+
     $('#smartwizard').smartWizard("next").click(function() {
         $('#autoAdjustHeightF').css("height", "auto");
         map.invalidateSize();
@@ -284,6 +289,7 @@ $(document).ready(function() {
             showPreviousButton: false,
         }
     });
+
     $("#smartwizard").on("showStep", function(e, anchorObject, stepIndex, stepDirection) {
         if (stepIndex == 4) {
             if (catchmentPoly) {
@@ -330,10 +336,8 @@ $(document).ready(function() {
             $('#smartwizard').smartWizard("stepState", [3], "hide");
             for (const item of graphData) {
                 if (item.external != null && item.external != 'false') {
-                    $('#intakeECTAG tr').remove();
                     $('#IntakeTDLE table').remove();
                     $('#externalSelect option').remove();
-                    $('#intakeECTAG').empty();
                     $('#IntakeTDLE').empty();
                     $('#externalSelect').empty();
                     $('#smartwizard').smartWizard("stepState", [3], "show");
@@ -356,24 +360,53 @@ $(document).ready(function() {
     });
 
     $('#step3NextBtn').click(function() {
-        $('#IntakeTDLE table').remove();
-        $('#externalSelect option').remove();
-        $('#externalSelect').append(`<option value="null" selected>Choose here</option>`);
-        if ($('#intakeECTAG')[0].childNodes.length > 1 || $('#intakeWEMI')[0].childNodes.length > 1) {
-            $('#smartwizard').smartWizard("next");
-            var tempNum = 0;
-            for (let index = 0; index < graphData.length; index++) {
-                if (graphData[index].external == "true") {
-                    tempNum += 1;
-                }
+        var tempNum = 0;
+        for (let index = 0; index < graphData.length; index++) {
+            if (graphData[index].external == "true") {
+                tempNum += 1;
             }
-            if (tempNum == intakeExternalInputs.length) {
-                loadExternalInput();
+        }
+        if (tempNum == intakeExternalInputs.length) {
+            $('#IntakeTDLE table').remove();
+            $('#IntakeTDLE').empty();
+            $('#externalSelect option').remove();
+            $('#externalSelect').empty();
+            $('#externalSelect').append(`<option value="null" selected>Choose here</option>`);
+            loadExternalInput();
+        }
+
+        if ($('#intakeECTAG')[0].childNodes.length > 1 || $('#intakeWEMI')[0].childNodes.length > 1) {
+            if (waterExtractionData.typeInterpolation == interpolationType.MANUAL) {
+                waterExtractionValue = [];
+                $(`input[name=manualInputData]`).each(function() {
+                    if ($(this).val() == '' || $('#intakeNIYMI').val() == '') {
+                        Swal.fire({
+                            icon: 'warning',
+                            title: `Data analisys empty`,
+                            text: `Please Generate Data anlisys`
+                        });
+                        return;
+                    } else {
+                        var yearData = {};
+                        yearData.year = Number($(this).attr('yearValue'));
+                        yearData.value = $(this).val();
+                        waterExtractionValue.push(yearData);
+                    }
+                });
+                waterExtractionData.yearValues = waterExtractionValue;
+                $('#waterExtraction').val(JSON.stringify(waterExtractionData));
+                if (waterExtractionData.yearCount == waterExtractionData.yearValues.length) {
+                    $('#smartwizard').smartWizard("next");
+                } else {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: `Data analisys empty`,
+                        text: `Please Generate Data anlisys`
+                    });
+                    return;
+                }
             } else {
-                $('#IntakeTDLE table').remove();
-                $('#IntakeTDLE').empty();
-                $('#externalSelect option').remove();
-                $('#externalSelect').empty();
+                $('#smartwizard').smartWizard("next");
             }
         } else {
             Swal.fire({
@@ -383,11 +416,9 @@ $(document).ready(function() {
             });
             return;
         }
-
     });
 
     function loadExternalInput() {
-
         for (const extractionData of intakeExternalInputs) {
             $('#externalSelect').append(`
                 <option value="${extractionData.xmlId}">${extractionData.xmlId} - External Input</option>
@@ -829,6 +860,7 @@ function changeFileEvent() {
         }
     });
 }
+
 function addEditablePolygonMap() {
     let polygonStyle = {
         fillColor: "red",

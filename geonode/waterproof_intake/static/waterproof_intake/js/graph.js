@@ -444,6 +444,7 @@ function onInit(editor) {
         });
 
         function validateGraphIntake() {
+
             graphData = [];
             connection = [];
             var enc = new mxCodec();
@@ -461,7 +462,7 @@ function onInit(editor) {
                         'varcost': node.getAttribute('varcost'),
                         'funcost': node.getAttribute('funcost'),
                         'external': node.getAttribute('externalData'),
-                        'externaldata': []
+                        'externaldata': '[]'
                     })
                 });
 
