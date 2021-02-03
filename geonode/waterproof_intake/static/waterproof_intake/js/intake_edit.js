@@ -270,7 +270,7 @@ $(document).ready(function() {
         map.invalidateSize();
     });
     $('#smartwizard').smartWizard({
-        selected: 3,
+        selected: 1,
         theme: 'dots',
         enableURLhash: false,
         autoAdjustHeight: true,
@@ -336,10 +336,8 @@ $(document).ready(function() {
             $('#smartwizard').smartWizard("stepState", [3], "hide");
             for (const item of graphData) {
                 if (item.external != null && item.external != 'false') {
-                    $('#intakeECTAG tr').remove();
                     $('#IntakeTDLE table').remove();
                     $('#externalSelect option').remove();
-                    $('#intakeECTAG').empty();
                     $('#IntakeTDLE').empty();
                     $('#externalSelect').empty();
                     $('#smartwizard').smartWizard("stepState", [3], "show");
@@ -862,6 +860,7 @@ function changeFileEvent() {
         }
     });
 }
+
 function addEditablePolygonMap() {
     let polygonStyle = {
         fillColor: "red",
