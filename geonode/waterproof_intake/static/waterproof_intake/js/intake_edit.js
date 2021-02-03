@@ -270,7 +270,7 @@ $(document).ready(function() {
         map.invalidateSize();
     });
     $('#smartwizard').smartWizard({
-        selected: 1,
+        selected: 0,
         theme: 'dots',
         enableURLhash: false,
         autoAdjustHeight: true,
