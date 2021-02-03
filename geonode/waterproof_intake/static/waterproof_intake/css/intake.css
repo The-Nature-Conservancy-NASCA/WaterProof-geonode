@@ -114,36 +114,3 @@
 .text-intake {
     color: #3B819B;
 }
-
-.math-span .mq-root-block {
-    padding-top: 10px;
-    padding-bottom: 10px;
-}
-
-.mathTable {
-    margin-bottom: 0;
-}
-
-#math-field {
-    margin-top: 8px;
-}
-
-#mathBasic_tab>.btn-group {
-    margin-top: 8px;
-}
-
-#mathAdvanced_tab>.btn-group {
-    margin-top: 8px;
-}
-
-#mathTrigonometry_tab>.btn-group {
-    margin-top: 8px;
-}
-
-#mathLogical_tab>.btn-group {
-    margin-top: 8px;
-}
-
-.math-btn {
-    padding: 0px;
-}
