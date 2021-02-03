@@ -348,6 +348,7 @@ $(document).ready(function() {
                     $('#smartwizard').smartWizard("stepState", [3], "show");
                 }
             }
+            clearDataHtml();
             $('#smartwizard').smartWizard("next");
 
         } else {
