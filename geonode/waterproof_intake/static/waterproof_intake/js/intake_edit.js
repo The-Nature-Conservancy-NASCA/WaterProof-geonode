@@ -52,15 +52,10 @@ const interpolationType = {
 var mapLoader;
 $(document).ready(function() {
 
-    var banderaInpolation = 0;
     $("#intakeWECB").click(function() {
-        banderaInpolation += 1
         $('#intakeECTAG tr').remove();
         $('#IntakeTDLE table').remove();
         $('#externalSelect option').remove();
-        $('#intakeECTAG').empty();
-        $('#IntakeTDLE').empty();
-        $('#externalSelect').empty();
         $('#autoAdjustHeightF').css("height", "auto");
         typeProcessInterpolation = Number($("#typeProcessInterpolation").val());
         numberYearsInterpolationValue = Number($("#numberYearsInterpolationValue").val());
@@ -152,7 +147,6 @@ $(document).ready(function() {
 
     });
     setInterpolationParams();
-    loadExternalInput();
 
     function externalInput(numYear) {
         var rows = "";
@@ -266,7 +260,6 @@ $(document).ready(function() {
             `);
         }
     });
-
     $('#smartwizard').smartWizard("next").click(function() {
         $('#autoAdjustHeightF').css("height", "auto");
         map.invalidateSize();
@@ -277,7 +270,11 @@ $(document).ready(function() {
         enableURLhash: false,
         autoAdjustHeight: true,
         transition: {
-            animation: 'fade', // Effect on navigation, none/fade/slide-horizontal/slide-vertical/slide-swing
+            animation: 'slide-horizontal', // Effect on navigation, none/fade/slide-horizontal/slide-vertical/slide-swing
+        },
+        toolbarSettings: {
+            toolbarPosition: 'bottom', // both bottom
+            toolbarButtonPosition: 'center', // both bottom
         },
         keyboardSettings: {
             keyNavigation: false
@@ -285,16 +282,8 @@ $(document).ready(function() {
         toolbarSettings: {
             showNextButton: false,
             showPreviousButton: false,
-        },
-        anchorSettings: {
-            emoveDoneStepOnNavigateBack: false,
-            markAllPreviousStepsAsDone: false,
-            anchorClickable: false,
-            enableAllAnchors: false,
-            markDoneStep: false,
         }
     });
-
     $("#smartwizard").on("showStep", function(e, anchorObject, stepIndex, stepDirection) {
         if (stepIndex == 4) {
             if (catchmentPoly) {
@@ -341,16 +330,11 @@ $(document).ready(function() {
             $('#smartwizard').smartWizard("stepState", [3], "hide");
             for (const item of graphData) {
                 if (item.external != null && item.external != 'false') {
-                    $('#IntakeTDLE table').remove();
-                    $('#externalSelect option').remove();
-                    $('#IntakeTDLE').empty();
-                    $('#externalSelect').empty();
+
                     $('#smartwizard').smartWizard("stepState", [3], "show");
                 }
             }
-            clearDataHtml();
             $('#smartwizard').smartWizard("next");
-
         } else {
             Swal.fire({
                 icon: 'warning',
@@ -366,58 +350,24 @@ $(document).ready(function() {
     });
 
     $('#step3NextBtn').click(function() {
-        var tempNum = 0;
-        for (let index = 0; index < graphData.length; index++) {
-            if (graphData[index].external == "true") {
-                tempNum += 1;
+        $('#IntakeTDLE table').remove();
+        $('#externalSelect option').remove();
+        $('#externalSelect').append(`<option value="null" selected>Choose here</option>`);
+        if ($('#intakeECTAG')[0].childNodes.length > 1 || $('#intakeWEMI')[0].childNodes.length > 1) {
+            $('#smartwizard').smartWizard("next");
+            var tempNum = 0;
+            for (let index = 0; index < graphData.length; index++) {
+                if (graphData[index].external == "true") {
+                    tempNum += 1;
+                }
             }
-        }
-        if (tempNum == intakeExternalInputs.length) {
-            if (banderaInpolation != 1) {
-                $("#intakeWECB").click();
+            if (tempNum == intakeExternalInputs.length) {
+                loadExternalInput();
             } else {
                 $('#IntakeTDLE table').remove();
                 $('#IntakeTDLE').empty();
                 $('#externalSelect option').remove();
                 $('#externalSelect').empty();
-                $('#externalSelect').append(`<option value="null" selected>Choose here</option>`);
-                loadExternalInput();
-            }
-
-        }
-
-        if ($('#intakeECTAG')[0].childNodes.length > 1 || $('#intakeWEMI')[0].childNodes.length > 1) {
-            if (waterExtractionData.typeInterpolation == interpolationType.MANUAL) {
-                waterExtractionValue = [];
-                $(`input[name=manualInputData]`).each(function() {
-                    if ($(this).val() == '' || $('#intakeNIYMI').val() == '') {
-                        Swal.fire({
-                            icon: 'warning',
-                            title: `Data analisys empty`,
-                            text: `Please Generate Data anlisys`
-                        });
-                        return;
-                    } else {
-                        var yearData = {};
-                        yearData.year = Number($(this).attr('yearValue'));
-                        yearData.value = $(this).val();
-                        waterExtractionValue.push(yearData);
-                    }
-                });
-                waterExtractionData.yearValues = waterExtractionValue;
-                $('#waterExtraction').val(JSON.stringify(waterExtractionData));
-                if (waterExtractionData.yearCount == waterExtractionData.yearValues.length) {
-                    $('#smartwizard').smartWizard("next");
-                } else {
-                    Swal.fire({
-                        icon: 'warning',
-                        title: `Data analisys empty`,
-                        text: `Please Generate Data anlisys`
-                    });
-                    return;
-                }
-            } else {
-                $('#smartwizard').smartWizard("next");
             }
         } else {
             Swal.fire({
@@ -427,9 +377,11 @@ $(document).ready(function() {
             });
             return;
         }
+
     });
 
     function loadExternalInput() {
+
         for (const extractionData of intakeExternalInputs) {
             $('#externalSelect').append(`
                 <option value="${extractionData.xmlId}">${extractionData.xmlId} - External Input</option>
@@ -468,6 +420,7 @@ $(document).ready(function() {
     });
 
     $('#step4NextBtn').click(function() {
+        console.log(saveDataStep4)
         if (saveDataStep4 === false) {
             for (let id = 0; id < graphData.length; id++) {
                 if (graphData[id].external === 'true') {
@@ -805,7 +758,15 @@ function changeFileEvent() {
                         validGeojson = validateGeoJson(geojson);
                         if (validGeojson) {
                             delimitationFileType = delimitationFileEnum.GEOJSON;
-                            addEditablePolygonMap();
+                            let polygonStyle = {
+                                fillColor: "red",
+                                color: "#333333",
+                                weight: 0.2,
+                                fillOpacity: 0.3
+                            };
+                            editablepolygon = L.geoJSON(geojson, { style: polygonStyle })
+                            editablepolygon.addTo(mapDelimit);
+                            mapDelimit.fitBounds(editablepolygon.getBounds())
                         } else {
                             $('#intakeArea').val('');
                             return;
@@ -837,7 +798,15 @@ function changeFileEvent() {
                                 shp(contents).then(function(shpToGeojson) {
                                     geojson = shpToGeojson;
                                     delimitationFileType = delimitationFileEnum.SHP;
-                                    addEditablePolygonMap();
+                                    let polygonStyle = {
+                                        fillColor: "#337ab7",
+                                        color: "#333333",
+                                        weight: 0.2,
+                                        fillOpacity: 0.3
+                                    };
+                                    editablepolygon = L.geoJSON(geojson, { style: polygonStyle })
+                                    editablepolygon.addTo(mapDelimit);
+                                    mapDelimit.fitBounds(editablepolygon.getBounds())
                                 });
                             } else {
                                 $('#intakeArea').val('');
@@ -872,17 +841,19 @@ function changeFileEvent() {
     });
 }
 
-function addEditablePolygonMap() {
-    let polygonStyle = {
-        fillColor: "red",
-        color: "#333333",
-        weight: 0.2,
-        fillOpacity: 0.3
-    };
-    if (editablepolygon) {
-        mapDelimit.removeLayer(editablepolygon);
-    }
-    editablepolygon = L.geoJSON(geojson, { style: polygonStyle })
-    editablepolygon.addTo(mapDelimit);
-    mapDelimit.fitBounds(editablepolygon.getBounds());
+//draw polygons
+drawPolygons = function() {
+    // TODO: Next line only for test purpose
+    //intakePolygons = polygons;
+
+    lyrsPolygons.forEach(lyr => map.removeLayer(lyr));
+
+
+    intakePolygons.forEach(feature => {
+        let poly = feature.polygon;
+        if (poly.indexOf("SRID") >= 0) {
+            poly = poly.split(";")[1];
+        }
+        lyrsPolygons.push(omnivore.wkt.parse(poly).addTo(map));
+    });
 }
