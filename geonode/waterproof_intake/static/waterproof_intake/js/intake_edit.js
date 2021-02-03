@@ -206,7 +206,7 @@ $(document).ready(function() {
                         if (watersita != '' || sedimentsito != '' || nitrogenito != '' || phospharusito != '') {
                             array.push({
                                 "year": $(this).attr('year_value'),
-                                "water": watersita,
+                                "waterVol": watersita,
                                 "sediment": sedimentsito,
                                 "nitrogen": nitrogenito,
                                 "phosphorus": phospharusito
