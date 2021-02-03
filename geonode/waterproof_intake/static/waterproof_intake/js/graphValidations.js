@@ -357,14 +357,17 @@ function mensajeAlert(fin) {
 }
 
 function validations(validate, editor) {
+
     if (validationsCsinfraExternal(validate) == true || validationsNodeAlone(editor) == true) {
         return true
     } else {
-        Swal.fire({
-            icon: 'success',
-            title: `Graph validated`,
-        });
-        return false;
+        if (banderaValideGraph != 0) {
+            Swal.fire({
+                icon: 'success',
+                title: `Graph validated`,
+            });
+            return false;
+        }
     }
 }
 
