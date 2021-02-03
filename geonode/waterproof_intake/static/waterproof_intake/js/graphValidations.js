@@ -247,7 +247,7 @@ function validationTransportedWater(editor, cell) {
             //validates which connector y connected with a image
             if (node.getAttribute('source') == cell.source.id) {
                 let celda = JSON.parse(node.getAttribute('value'));
-                let dbfields = JSON.parse(celda.resultdb);
+                let dbfields = celda.resultdb;
                 connectors.push({
                     'id': node.id,
                     'source': node.getAttribute('source'),
@@ -357,7 +357,15 @@ function mensajeAlert(fin) {
 }
 
 function validations(validate, editor) {
-    return (validationsCsinfraExternal(validate) == true || validationsNodeAlone(editor) == true) ? true : false;
+    if (validationsCsinfraExternal(validate) == true || validationsNodeAlone(editor) == true) {
+        return true
+    } else {
+        Swal.fire({
+            icon: 'success',
+            title: `Graph validated`,
+        });
+        return false;
+    }
 }
 
 

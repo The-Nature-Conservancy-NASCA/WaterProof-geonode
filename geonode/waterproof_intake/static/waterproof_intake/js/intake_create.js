@@ -218,7 +218,7 @@ $(document).ready(function() {
         }
     });
 
-    // Sabe External Input Data
+    // Save External Input Data
     $('#saveExternalData').click(function() {
         for (let id = 0; id < graphData.length; id++) {
             if (graphData[id].external) {
@@ -339,7 +339,7 @@ $(document).ready(function() {
 
 
     $('#smartwizard').smartWizard({
-        selected: 1,
+        selected: 0,
         theme: 'dots',
         enableURLhash: false,
         autoAdjustHeight: true,

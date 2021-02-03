@@ -356,7 +356,10 @@ function onInit(editor) {
 
         validateGraphIntake();
 
-        //load data when add an object in a diagram
+        editor.graph.addListener(mxEvent.CELLS_REMOVED, (sender, evt) => {
+                bandera = true;
+            })
+            //load data when add an object in a diagram
         editor.graph.addListener(mxEvent.ADD_CELLS, function(sender, evt) {
 
             var selectedCell = evt.getProperty("cells");
@@ -594,26 +597,23 @@ function onInit(editor) {
         $('#sedimentosDiagram').keyup(function() {
             if (typeof(selectedCell.value) == "string" && selectedCell.value.length > 0) {
                 var obj = JSON.parse(selectedCell.value);
-                let dbfields = JSON.parse(obj.resultdb);
+                let dbfields = obj.resultdb;
                 dbfields[0].fields.predefined_sediment_perc = $('#sedimentosDiagram').val();
-                values = JSON.stringify(dbfields);
-                obj.resultdb = values;
+                obj.resultdb = dbfields;
                 selectedCell.setValue(JSON.stringify(obj));
             } else {
                 resultdb[0].fields.predefined_sediment_perc = $('#sedimentosDiagram').val();
                 selectedCell.setAttribute('resultdb', JSON.stringify(resultdb));
             }
-
         });
 
         //Add value entered in nitrogen in the field resultdb
         $('#nitrogenoDiagram').keyup(function() {
             if (typeof(selectedCell.value) == "string" && selectedCell.value.length > 0) {
                 var obj = JSON.parse(selectedCell.value);
-                let dbfields = JSON.parse(obj.resultdb);
+                let dbfields = obj.resultdb;
                 dbfields[0].fields.predefined_nitrogen_perc = $('#nitrogenoDiagram').val();
-                values = JSON.stringify(dbfields);
-                obj.resultdb = values;
+                obj.resultdb = dbfields;
                 selectedCell.setValue(JSON.stringify(obj));
             } else {
                 resultdb[0].fields.predefined_nitrogen_perc = $('#nitrogenoDiagram').val();
@@ -625,10 +625,9 @@ function onInit(editor) {
         $('#fosforoDiagram').keyup(function() {
             if (typeof(selectedCell.value) == "string" && selectedCell.value.length > 0) {
                 var obj = JSON.parse(selectedCell.value);
-                let dbfields = JSON.parse(obj.resultdb);
+                let dbfields = obj.resultdb;
                 dbfields[0].fields.predefined_phosphorus_perc = $('#fosforoDiagram').val();
-                values = JSON.stringify(dbfields);
-                obj.resultdb = values;
+                obj.resultdb = dbfields;
                 selectedCell.setValue(JSON.stringify(obj));
             } else {
                 resultdb[0].fields.predefined_phosphorus_perc = $('#fosforoDiagram').val();
@@ -640,10 +639,10 @@ function onInit(editor) {
         $('#aguaDiagram').keyup(function() {
             if (typeof(selectedCell.value) == "string" && selectedCell.value.length > 0) {
                 var obj = JSON.parse(selectedCell.value);
-                let dbfields = JSON.parse(obj.resultdb);
+                let dbfields = obj.resultdb;
                 dbfields[0].fields.predefined_transp_water_perc = $('#aguaDiagram').val();
-                values = JSON.stringify(dbfields);
-                obj.resultdb = values;
+                obj.resultdb = dbfields;
+
                 selectedCell.setValue(JSON.stringify(obj));
             } else {
                 resultdb[0].fields.predefined_transp_water_perc = $('#aguaDiagram').val();

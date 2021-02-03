@@ -330,11 +330,17 @@ $(document).ready(function() {
             $('#smartwizard').smartWizard("stepState", [3], "hide");
             for (const item of graphData) {
                 if (item.external != null && item.external != 'false') {
-
+                    $('#intakeECTAG tr').remove();
+                    $('#IntakeTDLE table').remove();
+                    $('#externalSelect option').remove();
+                    $('#intakeECTAG').empty();
+                    $('#IntakeTDLE').empty();
+                    $('#externalSelect').empty();
                     $('#smartwizard').smartWizard("stepState", [3], "show");
                 }
             }
             $('#smartwizard').smartWizard("next");
+
         } else {
             Swal.fire({
                 icon: 'warning',
@@ -420,7 +426,6 @@ $(document).ready(function() {
     });
 
     $('#step4NextBtn').click(function() {
-        console.log(saveDataStep4)
         if (saveDataStep4 === false) {
             for (let id = 0; id < graphData.length; id++) {
                 if (graphData[id].external === 'true') {
