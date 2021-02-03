@@ -657,9 +657,11 @@ def editIntake(request, idx):
                             external_info = json.loads(element['externaldata'])
                             elementCreated = ElementSystem.objects.get(id=element_system.pk)
                             for external in external_info:
+                                print("External data info::::")
+                                print(external)
                                 external_input = ValuesTime.objects.create(
                                     year=external['year'],
-                                    water_volume=external['water'],
+                                    water_volume=external['waterVol'],
                                     sediment=external['sediment'],
                                     nitrogen=external['nitrogen'],
                                     phosphorus=external['phosphorus'],
@@ -963,7 +965,7 @@ def cloneIntake(request, idx):
                             for external in external_info:
                                 external_input = ValuesTime.objects.create(
                                     year=external['year'],
-                                    water_volume=external['water'],
+                                    water_volume=external['waterVol'],
                                     sediment=external['sediment'],
                                     nitrogen=external['nitrogen'],
                                     phosphorus=external['phosphorus'],
