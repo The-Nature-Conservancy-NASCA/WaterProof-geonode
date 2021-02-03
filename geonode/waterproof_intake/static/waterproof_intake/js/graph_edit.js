@@ -15,6 +15,7 @@ var graphData = [];
 var connection = [];
 var funcostdb = [];
 var bandera = true;
+var banderaValideGraph = 0;
 
 // Program starts here. The document.onLoad executes the
 // createEditor function with a given configuration.
@@ -354,6 +355,7 @@ function onInit(editor) {
             }
         });
 
+
         validateGraphIntake();
 
         editor.graph.addListener(mxEvent.CELLS_REMOVED, (sender, evt) => {
@@ -407,6 +409,7 @@ function onInit(editor) {
 
         //Button for valide graph
         $('#saveGraph').click(function() {
+            banderaValideGraph += 1;
             validateGraphIntake();
         });
 
