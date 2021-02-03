@@ -755,6 +755,7 @@ function changeFileEvent() {
         }
     });
 }
+
 function addEditablePolygonMap() {
     let polygonStyle = {
         fillColor: "red",
