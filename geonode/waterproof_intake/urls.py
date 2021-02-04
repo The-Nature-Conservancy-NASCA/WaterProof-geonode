@@ -2,8 +2,15 @@
 from django.conf.urls import url, include
 from django.urls import path
 from . import views
+from django.views.i18n import JavaScriptCatalog
+
+js_info_dict = {
+    'domain': 'djangojs',
+    'packages': 'geonode.waterproof_intake'
+}
 
 urlpatterns = [
+    url(r'^jsi18n/$', JavaScriptCatalog.as_view(), js_info_dict, name='javascript-intake'),
     # Create Water Intake
     path('create/', views.create, name='create'),
     # Default view, list all views
