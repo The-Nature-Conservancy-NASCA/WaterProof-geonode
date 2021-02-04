@@ -556,6 +556,7 @@
     {% endblock %}
 
     {% block extra_script %}
+    <script type="text/javascript" src="{% url 'javascript-intake' %}"></script>
     <script src="{{ STATIC_URL }}waterproof_intake/js/jquery.smartWizard.min.js" type="text/javascript"></script>
     <script src="{{ STATIC_URL }}waterproof_intake/js/leaflet.js"></script>
     <script src="{{ STATIC_URL }}geonode/js/leaflet/Leaflet.Editable.js"></script>
