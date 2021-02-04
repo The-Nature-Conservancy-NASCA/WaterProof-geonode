@@ -597,7 +597,7 @@ function onInit(editor) {
         });
 
         //Add value entered in sediments in the field resultdb
-        $('#sedimentosDiagram').keyup(function() {
+        $('#sedimentosDiagram').change(function() {
             if (typeof(selectedCell.value) == "string" && selectedCell.value.length > 0) {
                 var obj = JSON.parse(selectedCell.value);
                 let dbfields = obj.resultdb;
@@ -611,7 +611,7 @@ function onInit(editor) {
         });
 
         //Add value entered in nitrogen in the field resultdb
-        $('#nitrogenoDiagram').keyup(function() {
+        $('#nitrogenoDiagram').change(function() {
             if (typeof(selectedCell.value) == "string" && selectedCell.value.length > 0) {
                 var obj = JSON.parse(selectedCell.value);
                 let dbfields = obj.resultdb;
@@ -625,7 +625,7 @@ function onInit(editor) {
         });
 
         //Add value entered in phosphorus in the field resultdb
-        $('#fosforoDiagram').keyup(function() {
+        $('#fosforoDiagram').change(function() {
             if (typeof(selectedCell.value) == "string" && selectedCell.value.length > 0) {
                 var obj = JSON.parse(selectedCell.value);
                 let dbfields = obj.resultdb;
@@ -639,7 +639,7 @@ function onInit(editor) {
         });
 
         //Add value entered in aguaDiagram in the field resultdb
-        $('#aguaDiagram').keyup(function() {
+        $('#aguaDiagram').change(function() {
             if (typeof(selectedCell.value) == "string" && selectedCell.value.length > 0) {
                 var obj = JSON.parse(selectedCell.value);
                 let dbfields = obj.resultdb;
