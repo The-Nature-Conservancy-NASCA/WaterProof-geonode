@@ -205,7 +205,7 @@ function onInit(editor) {
     // Target needs exactly one incoming connection from Source
     editor.graph.multiplicities.push(new mxMultiplicity(
         true, 'Symbol', 'name', 'CSINFRA', 0, 0, ['Symbol'],
-        `From element CSINFRA can't connect to other element`,
+        "From element CSINFRA can't connect to other element",
         'Target Must Connect From Source'));
 
     var getdata = document.getElementById('getdata');
