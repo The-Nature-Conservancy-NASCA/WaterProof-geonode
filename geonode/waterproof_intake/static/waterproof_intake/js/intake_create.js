@@ -218,7 +218,7 @@ $(document).ready(function() {
         }
     });
 
-    // Sabe External Input Data
+    // Save External Input Data
     $('#saveExternalData').click(function() {
         for (let id = 0; id < graphData.length; id++) {
             if (graphData[id].external) {
@@ -261,7 +261,7 @@ $(document).ready(function() {
         }
         $(`#table_${$('#externalSelect').val()}`).css('display', 'block');
     });
-    
+
 
     // Automatic height on clic next btn wizard
     $('#smartwizard').smartWizard("next").click(function() {
@@ -286,7 +286,7 @@ $(document).ready(function() {
             $('#intakeWEMI').append(`
             <tr>
                 <th class="text-center" scope="row">${index + 1}</th>
-                <td class="text-center"><input name="manualInputData" yearValue="${index+1}" type="text" class="form-control"></td>
+                <td class="text-center"><input name="manualInputData" yearValue="${index + 1}" type="text" class="form-control"></td>
               </tr>
             `);
         }
@@ -332,7 +332,7 @@ $(document).ready(function() {
         $('#ExternalNumbersInputs').html(numberExternal)
     }
 
-    $('#smartwizard').smartWizard("next").click(function () {
+    $('#smartwizard').smartWizard("next").click(function() {
         $('#autoAdjustHeightF').css("height", "auto");
         map.invalidateSize();
     });
@@ -346,16 +346,19 @@ $(document).ready(function() {
         transition: {
             animation: 'fade', // Effect on navigation, none/fade/slide-horizontal/slide-vertical/slide-swing
         },
-        toolbarSettings: {
-            toolbarPosition: 'bottom', // both bottom
-            toolbarButtonPosition: 'center', // both bottom
-        },
         keyboardSettings: {
             keyNavigation: false
         },
         toolbarSettings: {
             showNextButton: false,
             showPreviousButton: false,
+        },
+        anchorSettings: {
+            emoveDoneStepOnNavigateBack: false,
+            markAllPreviousStepsAsDone: false,
+            anchorClickable: false,
+            enableAllAnchors: false,
+            markDoneStep: false,
         }
     });
 
@@ -402,6 +405,13 @@ $(document).ready(function() {
 
     $('#step2NextBtn').click(function() {
         if (!bandera) {
+            $('#smartwizard').smartWizard("stepState", [3], "hide");
+            for (const item of graphData) {
+                if (item.external != null && item.external != 'false') {
+                    $('#smartwizard').smartWizard("stepState", [3], "show");
+                }
+            }
+            clearDataHtml();
             $('#smartwizard').smartWizard("next");
         } else {
             Swal.fire({
@@ -556,7 +566,7 @@ $(document).ready(function() {
 });
 
 
-window.onbeforeunload = function() { return mxResources.get('changesLost'); };
+//window.onbeforeunload = function() { return mxResources.get('changesLost'); };
 
 
 /**
@@ -596,6 +606,9 @@ function delimitIntakeArea() {
         coordinates.push(geom[0]);
         copyCoordinates.push(coordinates);
     })
+    if (editablepolygon) {
+        mapDelimit.removeLayer(editablepolygon);
+    }
     editablepolygon = L.polygon(copyCoordinates, { color: 'red' });
     editablepolygon.addTo(mapDelimit)
     editablepolygon.enableEdit();
@@ -680,15 +693,7 @@ function changeFileEvent() {
                         validGeojson = validateGeoJson(geojson);
                         if (validGeojson) {
                             delimitationFileType = delimitationFileEnum.GEOJSON;
-                            let polygonStyle = {
-                                fillColor: "red",
-                                color: "#333333",
-                                weight: 0.2,
-                                fillOpacity: 0.3
-                            };
-                            editablepolygon = L.geoJSON(geojson, { style: polygonStyle })
-                            editablepolygon.addTo(mapDelimit);
-                            mapDelimit.fitBounds(editablepolygon.getBounds())
+                            addEditablePolygonMap();
                         } else {
                             $('#intakeArea').val('');
                             return;
@@ -720,15 +725,7 @@ function changeFileEvent() {
                                 shp(contents).then(function(shpToGeojson) {
                                     geojson = shpToGeojson;
                                     delimitationFileType = delimitationFileEnum.SHP;
-                                    let polygonStyle = {
-                                        fillColor: "#337ab7",
-                                        color: "#333333",
-                                        weight: 0.2,
-                                        fillOpacity: 0.3
-                                    };
-                                    editablepolygon = L.geoJSON(geojson, { style: polygonStyle })
-                                    editablepolygon.addTo(mapDelimit);
-                                    mapDelimit.fitBounds(editablepolygon.getBounds())
+                                    addEditablePolygonMap();
                                 });
                             } else {
                                 $('#intakeArea').val('');
@@ -761,4 +758,19 @@ function changeFileEvent() {
             $('#intakeArea').val('');
         }
     });
+}
+
+function addEditablePolygonMap() {
+    let polygonStyle = {
+        fillColor: "red",
+        color: "#333333",
+        weight: 0.2,
+        fillOpacity: 0.3
+    };
+    if (editablepolygon) {
+        mapDelimit.removeLayer(editablepolygon);
+    }
+    editablepolygon = L.geoJSON(geojson, { style: polygonStyle })
+    editablepolygon.addTo(mapDelimit);
+    mapDelimit.fitBounds(editablepolygon.getBounds());
 }

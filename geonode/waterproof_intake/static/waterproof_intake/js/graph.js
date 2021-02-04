@@ -15,7 +15,7 @@ var graphData = [];
 var connection = [];
 var funcostdb = [];
 var bandera = true;
-
+var banderaValideGraph = 1;
 // Program starts here. The document.onLoad executes the
 // createEditor function with a given configuration.
 // In the config file, the mxEditor.onInit method is
@@ -372,6 +372,10 @@ function onInit(editor) {
         //var latexSpan = document.getElementById('latex');
         var mathField = MQ.MathField(mathFieldSpan, {
             spaceBehavesLikeTab: true,
+            autoCommands: 'pi theta sqrt sum mod',
+            autoOperatorNames: 'sin cos tan',
+            restrictMismatchedBrackets: true,
+            supSubsRequireOperand: true,
             handlers: {
                 edit: function() {
                     mathField.focus();
@@ -388,6 +392,8 @@ function onInit(editor) {
         editor.graph.addListener(mxEvent.ADD_CELLS, function(sender, evt) {
             var selectedCell = evt.getProperty("cells");
             var idvar = selectedCell[0].id;
+
+            bandera = true;
             try {
                 if (selectedCell != undefined) {
                     var varcost = [];
@@ -438,12 +444,14 @@ function onInit(editor) {
         });
 
         function validateGraphIntake() {
+
             graphData = [];
             connection = [];
             var enc = new mxCodec();
             var node = enc.encode(editor.graph.getModel());
             var textxml = mxUtils.getPrettyXml(node);
             bandera = validations(node, editor.graph.getModel());
+            clearDataHtml();
             if (!bandera) {
                 $('#hideCostFuntion').show();
                 node.querySelectorAll('Symbol').forEach(function(node) {
@@ -454,7 +462,7 @@ function onInit(editor) {
                         'varcost': node.getAttribute('varcost'),
                         'funcost': node.getAttribute('funcost'),
                         'external': node.getAttribute('externalData'),
-                        'externaldata': []
+                        'externaldata': '[]'
                     })
                 });
 
@@ -513,10 +521,6 @@ function onInit(editor) {
             }
             $('#CalculatorModal').modal('hide');
             validateGraphIntake();
-        });
-
-        $('button[name=mathKeyBoard]').each(function() {
-            MQ.StaticMath(this);
         });
 
         //Edit funcion cost 
@@ -627,13 +631,12 @@ function onInit(editor) {
         });
 
         //Add value entered in sediments in the field resultdb
-        $('#sedimentosDiagram').change(function() {
+        $('#sedimentosDiagram').keyup(function() {
             if (typeof(selectedCell.value) == "string" && selectedCell.value.length > 0) {
                 var obj = JSON.parse(selectedCell.value);
-                let dbfields = JSON.parse(obj.resultdb);
+                let dbfields = obj.resultdb;
                 dbfields[0].fields.predefined_sediment_perc = $('#sedimentosDiagram').val();
-                values = JSON.stringify(dbfields);
-                obj.resultdb = values;
+                obj.resultdb = dbfields;
                 selectedCell.setValue(JSON.stringify(obj));
             } else {
                 resultdb[0].fields.predefined_sediment_perc = $('#sedimentosDiagram').val();
@@ -642,13 +645,12 @@ function onInit(editor) {
         });
 
         //Add value entered in nitrogen in the field resultdb
-        $('#nitrogenoDiagram').change(function() {
+        $('#nitrogenoDiagram').keyup(function() {
             if (typeof(selectedCell.value) == "string" && selectedCell.value.length > 0) {
                 var obj = JSON.parse(selectedCell.value);
-                let dbfields = JSON.parse(obj.resultdb);
+                let dbfields = obj.resultdb;
                 dbfields[0].fields.predefined_nitrogen_perc = $('#nitrogenoDiagram').val();
-                values = JSON.stringify(dbfields);
-                obj.resultdb = values;
+                obj.resultdb = dbfields;
                 selectedCell.setValue(JSON.stringify(obj));
             } else {
                 resultdb[0].fields.predefined_nitrogen_perc = $('#nitrogenoDiagram').val();
@@ -657,13 +659,12 @@ function onInit(editor) {
         });
 
         //Add value entered in phosphorus in the field resultdb
-        $('#fosforoDiagram').change(function() {
+        $('#fosforoDiagram').keyup(function() {
             if (typeof(selectedCell.value) == "string" && selectedCell.value.length > 0) {
                 var obj = JSON.parse(selectedCell.value);
-                let dbfields = JSON.parse(obj.resultdb);
+                let dbfields = obj.resultdb;
                 dbfields[0].fields.predefined_phosphorus_perc = $('#fosforoDiagram').val();
-                values = JSON.stringify(dbfields);
-                obj.resultdb = values;
+                obj.resultdb = dbfields;
                 selectedCell.setValue(JSON.stringify(obj));
             } else {
                 resultdb[0].fields.predefined_phosphorus_perc = $('#fosforoDiagram').val();
@@ -672,13 +673,13 @@ function onInit(editor) {
         });
 
         //Add value entered in aguaDiagram in the field resultdb
-        $('#aguaDiagram').change(function() {
+        $('#aguaDiagram').keyup(function() {
             if (typeof(selectedCell.value) == "string" && selectedCell.value.length > 0) {
                 var obj = JSON.parse(selectedCell.value);
-                let dbfields = JSON.parse(obj.resultdb);
+                let dbfields = obj.resultdb;
                 dbfields[0].fields.predefined_transp_water_perc = $('#aguaDiagram').val();
-                values = JSON.stringify(dbfields);
-                obj.resultdb = values;
+                obj.resultdb = dbfields;
+
                 selectedCell.setValue(JSON.stringify(obj));
             } else {
                 resultdb[0].fields.predefined_transp_water_perc = $('#aguaDiagram').val();
