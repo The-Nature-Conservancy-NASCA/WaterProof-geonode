@@ -85,7 +85,7 @@ $(function() {
                 selectedResultHandler : selectedResultHandler,
                 placeholder: 'Search City...', 
                 position: 'topleft', 
-                url: SEARCH_CITY_API_URL 
+                url: SEARCH_CITY_API_URL
             } 
         });
         let initialCoords = CENTER;
@@ -97,6 +97,8 @@ $(function() {
         }else{
             initialCoords = JSON.parse(cityCoords);
             table.search(localStorage.getItem('city').substr(0, 5)).draw();
+            //drawPolygons();        
+
             try{
                 $("#countryLabel").html(localStorage.getItem('country'));
                 $("#cityLabel").html(localStorage.getItem('city'));
