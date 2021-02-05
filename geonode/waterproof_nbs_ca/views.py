@@ -149,7 +149,7 @@ def listNbs(request):
                         'currency': currency
                     }
                 )
-        
+
             if (request.user.professional_role == 'ANALYS'):
                 nbs = WaterproofNbsCa.objects.all()
                 userCountry = Countries.objects.get(code=request.user.country)
@@ -165,7 +165,7 @@ def listNbs(request):
                         'currency': currency
                     }
                 )
-        
+
             if (request.user.professional_role == 'COPART'):
                 nbs = WaterproofNbsCa.objects.all()
                 userCountry = Countries.objects.get(code=request.user.country)
@@ -181,7 +181,7 @@ def listNbs(request):
                         'currency': currency
                     }
                 )
-        
+
             if (request.user.professional_role == 'ACDMC'):
                 nbs = WaterproofNbsCa.objects.all()
                 userCountry = Countries.objects.get(code=request.user.country)
@@ -197,7 +197,7 @@ def listNbs(request):
                         'currency': currency
                     }
                 )
-        
+
             if (request.user.professional_role == 'SCADM'):
                 nbs = WaterproofNbsCa.objects.all()
                 userCountry = Countries.objects.get(code=request.user.country)
@@ -213,7 +213,7 @@ def listNbs(request):
                         'currency': currency
                     }
                 )
-        
+
             if (request.user.professional_role == 'MCOMC'):
                 nbs = WaterproofNbsCa.objects.all()
                 userCountry = Countries.objects.get(code=request.user.country)
@@ -229,7 +229,7 @@ def listNbs(request):
                         'currency': currency
                     }
                 )
-        
+
             if (request.user.professional_role == 'CITIZN'):
                 nbs = WaterproofNbsCa.objects.all()
                 userCountry = Countries.objects.get(code=request.user.country)
@@ -245,7 +245,7 @@ def listNbs(request):
                         'currency': currency
                     }
                 )
-        
+
             if (request.user.professional_role == 'REPECS'):
                 nbs = WaterproofNbsCa.objects.all()
                 userCountry = Countries.objects.get(code=request.user.country)
@@ -261,7 +261,7 @@ def listNbs(request):
                         'currency': currency
                     }
                 )
-        
+
             if (request.user.professional_role == 'OTHER'):
                 nbs = WaterproofNbsCa.objects.all()
                 userCountry = Countries.objects.get(code=request.user.country)
@@ -526,13 +526,25 @@ def viewNbs(request, idx):
 def deleteNbs(request, idx):
     if request.method == "POST":
         nbs = WaterproofNbsCa.objects.get(id=idx)
-        # delete object
-        nbs.delete()
-        # after deleting redirect to
-        # home page
-        return render(request, 'waterproof_nbs_ca/waterproofnbsca_list.html')
-    else:
-        return render(request, 'waterproof_nbs_ca/waterproofnbsca_confirm_delete.html', {"idx": idx})
+        if not nbs:
+            print("Not found")
+            context = {
+                'status': '400', 'reason': 'NBS not found'
+            }
+            response = HttpResponse(json.dumps(context), content_type='application/json')
+            response.status_code = 400
+            return response
+        else:
+            # delete object
+            nbs.delete()
+            # after deleting redirect to
+            # home page
+            context = {
+                'status': '200', 'reason': 'sucess'
+            }
+            response = HttpResponse(json.dumps(context), content_type='application/json')
+            response.status_code = 200
+            return response
 
 
 def loadCurrency(request):

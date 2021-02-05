@@ -178,26 +178,72 @@
                     </div>
                 </div>
             </div>
-            <!--Step 3-->
-            <div id="step-3" class="tab-pane" role="tabpanel">
-                <!--Header-->
-                <div class="page-header">
-                    <h3>Water Extraction</h3>
-                </div>
+           <!--Step 3-->
+           <div id="step-3" class="tab-pane" role="tabpanel">
+            <!--Header-->
+            <div class="page-header">
+                <h3>{% trans "Water extraction"%}</h3>
+                <p>{% trans "Please enter the annual water extraction" %} </p>
+            </div>
+            <!--navigation-->
+            <ul class="nav nav-tabs" id="minitabsInportalion">
+                <li class="active"><a data-toggle="tab" href="#automatic" id="btnAutomaticTab">{% trans "Interpolation wizard" %}</a></li>
+                <li><a data-toggle="tab" href="#manual" id="btnManualTab" >{% trans "Manual edit" %}</a></li>
+            </ul>
+            <!--contents tabs manual and automatic-->
+            <div class="tab-content">
                 <!--tab automatic-->
                 <div class="tab-pane fade in active" id="automatic">
                     <br>
                     <div class="form-group">
                         <div class="row">
+                            <!--Data analysis Insert-->
+                            <div class="col-md-8">
+                                <h5 class="text-primary">{% trans "Data analysis" %}</h5>
+                                <p>{% trans "Please select the method you wish to use" %} </p>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label>{% trans "Interpolation method " %} <span class="text-danger-wp">(*)</span>
+                                        </label>
+                                            <select class="form-control" id="typeProcessInterpolation">
+                                            <option value="1">{% trans "Linear interpolation" %}</option>
+                                            <option value="2">{% trans "Potential interpolation" %}</option>
+                                            <option Value="3">{% trans "Exponential interpolation" %}</option>
+                                            <option Value="4">{% trans "Logistics interpolation" %}</option>
+                                        </select>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label>{% trans "Number of years for time series" %} <span
+                                                class="text-danger-wp">(*)</span> </label>
+                                            <input type="text" class="form-control" id="numberYearsInterpolationValue" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h5 class="text-primary">{% trans "Extraction" %}</h5>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label>{% trans "Initial year" %}<span class="text-danger-wp">(*)</span> </label>
+                                            <input type="text" class="form-control" id="initialDataExtractionInterpolationValue" disabled>
+                                        </div>
+                                        <div class="col-md-6" id="finalColumnExtraction">
+                                            <label>{% trans "Final year" %}<span class="text-danger-wp">(*)</span> </label>
+                                            <input type="text" class="form-control" id="finalDataExtractionInterpolationValue" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button type="button" class="btn btn-primary" id="intakeWECB">{% trans "Generate" %}</button>
+                            </div>
                             <!--Data analysis Results-->
-                            <div class="col-md-5">
-                                <h5 class="text-primary">Results</h5>
+                            <div class="col-md-4">
+                                <h5 class="text-primary">{% trans "Results" %}</h5>
                                 <div style="max-height: 400px; overflow-y: auto;">
                                     <table class="table">
                                         <thead>
                                             <tr>
-                                                <th class="text-center" scope="col">Year</th>
-                                                <th class="text-center" scope="col">Extraction Value</th>
+                                                <th class="text-center" scope="col">{% trans "Year" %}</th>
+                                                <th class="text-center" scope="col">{% trans "Extraction Value (l/s)" %}</th>
                                             </tr>
                                         </thead>
                                         <tbody id="intakeECTAG">
@@ -207,22 +253,63 @@
                             </div>
                         </div>
                     </div>
-                </div>    
-            </div>
-            <!--Step 4-->
-            <div id="step-4" class="tab-pane" role="tabpanel">
-                <!--Header-->
-                <div class="page-header">
-                    <h3>External Inputs</h3>
                 </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <select class="form-control" id="externalSelect"></select>
+                <!--tab manual-->
+                <div class="tab-pane fade" id="manual">
+                    <br>
+                    <div class="form-group">
+                        <div class="row">
+                            <!--Input number of years-->
+                            <div class="col-md-6">
+                                <h5 class="text-primary">{% trans "Number of years for time series" %}</h5>
+                                <p>{% trans "You can edit the table manually" %}</p>
+                                <div class="form-group">
+                                    <label>{% trans "Number of years" %} <span class="text-danger-wp">(*)</span> </label>
+                                    <input type="text" class="form-control" id="intakeNIYMI" disabled>
+                                </div>
+                            </div>
+                            <!--Results-->
+                            <div class="col-md-6">
+                                <h5 class="text-primary">{% trans "Results" %}</h5>
+                                <div style="max-height: 400px; overflow-y: auto;">
+                                    <table class="table" >
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center" scope="col">{% trans "Year" %}</th>
+                                                <th class="text-center" scope="col">{% trans "Extraction Value (l/s)" %}</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="intakeWEMI">
+                                        </tbody>
+                                    </table>
+                                </div> 
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <br>
+        </div>
+        <!--Step 4-->
+        <div id="step-4" class="tab-pane" role="tabpanel">
+            <!--Header-->
+            <div class="page-header">
+                <h3>{% trans "External inputs" %}</h3>
+                <p> <span id="ExternalNumbersInputs"></span> {% trans "External inputs to define" %}
+                </p>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <h4 class="text-primary">{% trans "Asignation" %}</h4>
+                    <div class="form-group">
+                        <label>{% trans "Type element for asignation" %}</label>
+                        <select class="form-control" id="externalSelect"></select>
+                    </div>
+                    <div id="IntakeTDLE"></div>
+                </div>
+            </div>
+            <br>
+        </div>
             <!--Step 5-->
             <div id="step-5" class="tab-pane" role="tabpanel">
                 <div class="row">
