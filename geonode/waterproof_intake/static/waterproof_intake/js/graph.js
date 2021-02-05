@@ -443,6 +443,7 @@ function onInit(editor) {
             validateGraphIntake();
         });
 
+
         function validateGraphIntake() {
 
             graphData = [];
@@ -504,6 +505,11 @@ function onInit(editor) {
 
 
         }
+
+        $('#step4NextBtn').click(function() {
+            saveExternalData();
+            $('#smartwizard').smartWizard("next");
+        });
 
         //Set var into calculator
         $(document).on('click', '.list-group-item', function() {
@@ -688,7 +694,56 @@ function onInit(editor) {
             validationTransportedWater(editor, selectedCell);
         });
 
+        // Save External Input Data
+        function saveExternalData() {
+            for (let id = 0; id < graphData.length; id++) {
+                if (graphData[id].external) {
+                    graphData[id].externaldata = [];
+                    $(`th[name=year_${graphData[id].id}]`).each(function() {
+                        let watersita = $(`input[name="waterVolume_${$(this).attr('year_value')}_${graphData[id].id}"]`).val();
+                        let sedimentsito = $(`input[name="sediment_${$(this).attr('year_value')}_${graphData[id].id}"]`).val();
+                        let nitrogenito = $(`input[name="nitrogen_${$(this).attr('year_value')}_${graphData[id].id}"]`).val();
+                        let phospharusito = $(`input[name="phosphorus_${$(this).attr('year_value')}_${graphData[id].id}"]`).val();
+                        if (watersita != '' || sedimentsito != '' || nitrogenito != '' || phospharusito != '') {
+                            graphData[id].externaldata.push({
+                                "year": $(this).attr('year_value'),
+                                "water": watersita,
+                                "sediment": sedimentsito,
+                                "nitrogen": nitrogenito,
+                                "phosphorus": phospharusito
+                            });
 
+                        } else {
+                            Swal.fire({
+                                icon: 'warning',
+                                title: gettext('Field empty'),
+                                text: gettext('Please fill every fields')
+                            });
+                            return;
+                        }
+                    });
+                    var enc = new mxCodec();
+                    var node = enc.encode(editor.graph.getModel());
+                    node.querySelectorAll('Symbol').forEach((params) => {
+                        if (params.getAttribute('externalData') === 'true') {
+                            if (params.id === graphData[id].id) {
+                                params.setAttribute('external', JSON.stringify(graphData[id].externaldata))
+                                textxml = mxUtils.getPrettyXml(node);
+                                xmlDoc = mxUtils.parseXml(textxml)
+                                var dec = new mxCodec(xmlDoc);
+                                dec.decode(xmlDoc.documentElement, editor.graph.getModel());
+                                textxml = mxUtils.getPrettyXml(node);
+                            }
+                        }
+                    });
+
+                    graphData[id].externaldata = JSON.stringify(graphData[id].externaldata);
+                }
+
+            }
+            $('#xmlGraph').val(textxml);
+            $('#graphElements').val(JSON.stringify(graphData));
+        }
 
         jQuery.fn.ForceNumericOnly = function() {
             return this.each(function() {
@@ -714,6 +769,7 @@ function onInit(editor) {
             mathField.cmd(value);
             mathField.focus();
         }
+
 
     });
 

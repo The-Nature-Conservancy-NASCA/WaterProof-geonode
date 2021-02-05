@@ -55,8 +55,52 @@ $(function() {
                 })
             }
         });
+        $('.btn-danger').click(function (evt) {
+            Swal.fire({
+                title: gettext('Delete intake'),
+                text: gettext("Are you sure?") + gettext("You won't be able to revert this!"),
+                icon: 'warning',
+                showCancelButton: false,
+                showDenyButton: true,
+                confirmButtonColor: '#d33',
+                denyButtonColor: '#3085d6',
+                confirmButtonText: gettext('Yes, delete it!'),
+                denyButtonText: gettext('Cancel')
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    intakeId = evt.currentTarget.getAttribute('data-id')
+                    /** 
+                    * Get filtered activities by transition id 
+                    * @param {String} url   activities URL 
+                    * @param {Object} data  transition id  
+                    *
+                    * @return {String} activities in HTML option format
+                    */
+                    $.ajax({
+                        url: '/intake/delete/' + intakeId,
+                        type: 'POST',
+                        success: function (result) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: gettext('Great!'),
+                                text: gettext('The intake has been deleted')
+                            })
+                            setTimeout(function () { location.href = "/intake/"; }, 1000);
+                        },
+                        error: function (error) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: gettext('Error!'),
+                                text: gettext('The intake has not been deleted, try again!')
+                            })
+                        }
+                    });
+                } else if (result.isDenied) {
+                    return;
+                }
+            })
+        });
         fillTransitionsDropdown(transitionsDropdown);
-
         changeCountryEvent(countryDropdown, currencyDropdown);
         changeFileEvent();
         initMap();
