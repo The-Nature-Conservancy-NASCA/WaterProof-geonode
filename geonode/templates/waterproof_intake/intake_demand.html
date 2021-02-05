@@ -69,7 +69,11 @@
                 <div class="page-header">
                     <h3>Define Water Intake</h3>
                 </div>
-                <!--Input Name -->
+                <!--Input Name -->  
+                {{demand.interpolation_type}}                        
+                {% for year in yeardDemand %}
+                    {{year.year}}
+                {% endfor %}
                 <div id="water_intake">
                     <div id="div_id_name" class="form-group  ">
                         <label for="id_name" class="control-label required-field ">
