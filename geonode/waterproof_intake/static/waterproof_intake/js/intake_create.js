@@ -440,8 +440,6 @@ $(document).ready(function() {
         $('#smartwizard').smartWizard("prev");
     });
 
-
-
     $('#step5PrevBtn').click(function() {
         $('#smartwizard').smartWizard("prev");
     });
