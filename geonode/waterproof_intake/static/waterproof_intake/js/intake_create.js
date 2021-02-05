@@ -3,7 +3,7 @@
  * validations & interactions
  * @version 1.0
  */
-var urlParams = (function (url) {
+var urlParams = (function(url) {
     var result = new Object();
     var params = window.location.search.slice(1).split('&');
     for (var i = 0; i < params.length; i++) {
@@ -43,10 +43,10 @@ const interpolationType = {
 }
 
 var mapLoader;
-$(document).ready(function () {
+$(document).ready(function() {
 
     // Interpolation with Wizard
-    $("#intakeWECB").click(function () {
+    $("#intakeWECB").click(function() {
         if ($("#numberYearsInterpolationValue").val() == '' || $("#initialDataExtractionInterpolationValue").val() == '' || $("#finalDataExtractionInterpolationValue").val() == '') {
             Swal.fire({
                 icon: 'warning',
@@ -152,7 +152,7 @@ $(document).ready(function () {
     });
 
     // Change Option Manual Tab
-    $('#btnManualTab').click(function () {
+    $('#btnManualTab').click(function() {
         if ($('#initialDataExtractionInterpolationValue').val() != '' || $('#finalDataExtractionInterpolationValue').val() != '' || $('#numberYearsInterpolationValue').val() != '') {
             Swal.fire({
                 title: gettext('Are you sure?'),
@@ -185,7 +185,7 @@ $(document).ready(function () {
     });
 
     // Change Option Automatic with Wizard Tab
-    $('#btnAutomaticTab').click(function () {
+    $('#btnAutomaticTab').click(function() {
         if ($('#intakeNIYMI').val() != '') {
             Swal.fire({
                 title: gettext('Are you sure?'),
@@ -215,42 +215,8 @@ $(document).ready(function () {
         }
     });
 
-    // Save External Input Data
-    $('#saveExternalData').click(function () {
-        for (let id = 0; id < graphData.length; id++) {
-            if (graphData[id].external) {
-                graphData[id].externaldata = [];
-                $(`th[name=year_${graphData[id].id}]`).each(function () {
-                    let watersita = $(`input[name="waterVolume_${$(this).attr('year_value')}_${graphData[id].id}"]`).val();
-                    let sedimentsito = $(`input[name="sediment_${$(this).attr('year_value')}_${graphData[id].id}"]`).val();
-                    let nitrogenito = $(`input[name="nitrogen_${$(this).attr('year_value')}_${graphData[id].id}"]`).val();
-                    let phospharusito = $(`input[name="phosphorus_${$(this).attr('year_value')}_${graphData[id].id}"]`).val();
-                    if (watersita != '' || sedimentsito != '' || nitrogenito != '' || phospharusito != '') {
-                        graphData[id].externaldata.push({
-                            "year": $(this).attr('year_value'),
-                            "water": watersita,
-                            "sediment": sedimentsito,
-                            "nitrogen": nitrogenito,
-                            "phosphorus": phospharusito
-                        });
-                    } else {
-                        Swal.fire({
-                            icon: 'warning',
-                            title: gettext('Field empty'),
-                            text: gettext('Please fill every fields')
-                        });
-                        return;
-                    }
-                });
-                graphData[id].externaldata = JSON.stringify(graphData[id].externaldata);
-            }
-        }
-
-        $('#graphElements').val(JSON.stringify(graphData));
-    });
-
     // Change Table external input
-    $('#externalSelect').change(function () {
+    $('#externalSelect').change(function() {
         for (let t = 0; t < graphData.length; t++) {
             if (graphData[t].external == 'true') {
                 $(`#table_${graphData[t].id}`).css('display', 'none');
@@ -261,14 +227,14 @@ $(document).ready(function () {
 
 
     // Automatic height on clic next btn wizard
-    $('#smartwizard').smartWizard("next").click(function () {
+    $('#smartwizard').smartWizard("next").click(function() {
         $('#autoAdjustHeightF').css("height", "auto");
         mapDelimit.invalidateSize();
         map.invalidateSize();
     });
 
     // Generate Input Manual Interpolation
-    $('#intakeNIBYMI').click(function () {
+    $('#intakeNIBYMI').click(function() {
         $('#intakeWEMI tr').remove();
         $('#intakeWEMI').empty();
         intakeNIYMI = Number($("#intakeNIYMI").val());
@@ -329,7 +295,7 @@ $(document).ready(function () {
         $('#ExternalNumbersInputs').html(numberExternal)
     }
 
-    $('#smartwizard').smartWizard("next").click(function () {
+    $('#smartwizard').smartWizard("next").click(function() {
         $('#autoAdjustHeightF').css("height", "auto");
         map.invalidateSize();
     });
@@ -359,7 +325,7 @@ $(document).ready(function () {
         }
     });
 
-    $("#smartwizard").on("showStep", function (e, anchorObject, stepIndex, stepDirection) {
+    $("#smartwizard").on("showStep", function(e, anchorObject, stepIndex, stepDirection) {
         if (stepIndex == 4) {
             if (catchmentPoly) {
                 mapDelimit.invalidateSize();
@@ -383,7 +349,7 @@ $(document).ready(function () {
 
     //Validated of steps
 
-    $('#step1NextBtn').click(function () {
+    $('#step1NextBtn').click(function() {
         if ($('#id_name').val() != '' && $('#id_description').val() != '' && $('#id_water_source_name').val() != '' && catchmentPoly != undefined) {
             $('#smartwizard').smartWizard("next");
         } else {
@@ -396,11 +362,11 @@ $(document).ready(function () {
         }
     });
 
-    $('#step2PrevBtn').click(function () {
+    $('#step2PrevBtn').click(function() {
         $('#smartwizard').smartWizard("prev");
     });
 
-    $('#step2NextBtn').click(function () {
+    $('#step2NextBtn').click(function() {
         if (!bandera) {
             $('#smartwizard').smartWizard("stepState", [3], "hide");
             for (const item of graphData) {
@@ -420,15 +386,15 @@ $(document).ready(function () {
         }
     });
 
-    $('#step3PrevBtn').click(function () {
+    $('#step3PrevBtn').click(function() {
         $('#smartwizard').smartWizard("prev");
     });
 
-    $('#step3NextBtn').click(function () {
+    $('#step3NextBtn').click(function() {
         if ($('#intakeECTAG')[0].childNodes.length > 1 || $('#intakeWEMI')[0].childNodes.length > 1) {
             if (waterExtractionData.typeInterpolation == interpolationType.MANUAL) {
                 waterExtractionValue = [];
-                $(`input[name=manualInputData]`).each(function () {
+                $(`input[name=manualInputData]`).each(function() {
                     if ($(this).val() == '' || $('#intakeNIYMI').val() == '') {
                         Swal.fire({
                             icon: 'warning',
@@ -470,15 +436,13 @@ $(document).ready(function () {
 
     });
 
-    $('#step4PrevBtn').click(function () {
+    $('#step4PrevBtn').click(function() {
         $('#smartwizard').smartWizard("prev");
     });
 
-    $('#step4NextBtn').click(function () {
-        $('#smartwizard').smartWizard("next");
-    });
 
-    $('#step5PrevBtn').click(function () {
+
+    $('#step5PrevBtn').click(function() {
         $('#smartwizard').smartWizard("prev");
     });
 
@@ -553,7 +517,7 @@ $(document).ready(function () {
     createEditor(editorUrl);
 
     var menu1Tab = document.getElementById('mapid');
-    var observer2 = new MutationObserver(function () {
+    var observer2 = new MutationObserver(function() {
         if (menu1Tab.style.display != 'none') {
             mapDelimit.invalidateSize();
         }
@@ -597,7 +561,7 @@ function delimitIntakeArea() {
     var polygonKeys = Object.keys(catchmentPoly._layers);
     var keyNamePolygon = polygonKeys[0];
     var geometryCoordinates = catchmentPoly._layers[keyNamePolygon].feature.geometry.coordinates[0];
-    geometryCoordinates.forEach(function (geom) {
+    geometryCoordinates.forEach(function(geom) {
         var coordinates = [];
         coordinates.push(geom[1]);
         coordinates.push(geom[0]);
@@ -632,7 +596,7 @@ function validateIntakeArea() {
             'isFile': JSON.stringify(isFile),
             'typeDelimit': delimitationFileType
         },
-        success: function (result) {
+        success: function(result) {
             if (!result.validPolygon) {
                 Swal.fire({
                     icon: 'error',
@@ -641,11 +605,11 @@ function validateIntakeArea() {
                 })
             } else if (!result.polygonContains) {
                 Swal.fire({
-                    icon: 'error',
-                    title: gettext('Geometry error'),
-                    text: gettext('The polygon geometries must be inside basin geometry'),
-                })
-                // Correct geometry
+                        icon: 'error',
+                        title: gettext('Geometry error'),
+                        text: gettext('The polygon geometries must be inside basin geometry'),
+                    })
+                    // Correct geometry
             } else {
                 Swal.fire(
                     gettext('Great!'),
@@ -662,7 +626,7 @@ function validateIntakeArea() {
                 $('#typeDelimit').val(JSON.stringify(delimitationFileType));
             }
         },
-        error: function (error) {
+        error: function(error) {
             console.log(error);
         }
     });
@@ -673,7 +637,7 @@ function validateIntakeArea() {
  * @param {HTML} dropdown Dropdown selected element
  Si */
 function changeFileEvent() {
-    $('#intakeArea').change(function (evt) {
+    $('#intakeArea').change(function(evt) {
         var file = evt.currentTarget.files[0];
         var extension = validExtension(file);
         // Validate file's extension
@@ -683,7 +647,7 @@ function changeFileEvent() {
             // Validate file's extension
             if (extension.extension == 'geojson') { //GeoJSON
                 var readerGeoJson = new FileReader();
-                readerGeoJson.onload = function (evt) {
+                readerGeoJson.onload = function(evt) {
                     var contents = evt.target.result;
                     try {
                         geojson = JSON.parse(contents);
@@ -699,27 +663,27 @@ function changeFileEvent() {
                         Swal.fire({
                             icon: 'error',
                             title: gettext('GeoJSON file error'),
-                            text:  gettext('Character errors in GeoJSON file'),
+                            text: gettext('Character errors in GeoJSON file'),
                         })
                         $('#intakeArea').val('');
                         return;
                     };
                 };
 
-                readerGeoJson.onerror = function () {
+                readerGeoJson.onerror = function() {
                     console.log(readerGeoJson.error);
                 };
                 readerGeoJson.readAsText(file);
             } else { //Zip
                 var reader = new FileReader();
-                reader.onload = function (evt) {
+                reader.onload = function(evt) {
                     var contents = evt.target.result;
-                    JSZip.loadAsync(file).then(function (zip) {
+                    JSZip.loadAsync(file).then(function(zip) {
                         shapeValidation = validateShapeFile(zip);
-                        shapeValidation.then(function (resultFile) {
+                        shapeValidation.then(function(resultFile) {
                             //is valid shapefile
                             if (resultFile.valid) {
-                                shp(contents).then(function (shpToGeojson) {
+                                shp(contents).then(function(shpToGeojson) {
                                     geojson = shpToGeojson;
                                     delimitationFileType = delimitationFileEnum.SHP;
                                     addEditablePolygonMap();
@@ -730,7 +694,7 @@ function changeFileEvent() {
                             }
                         });
                         //loadShapefile(geojson, file.name);
-                    }).catch(function (e) {
+                    }).catch(function(e) {
                         Swal.fire({
                             icon: 'error',
                             title: gettext('Shapefile error'),
@@ -740,7 +704,7 @@ function changeFileEvent() {
                         $('#intakeArea').val('');
                     });
                 };
-                reader.onerror = function (event) {
+                reader.onerror = function(event) {
                     console.error("File could not be read! Code " + event.target.error.code);
                     //alert("El archivo no pudo ser cargado: " + event.target.error.code);
                 };
