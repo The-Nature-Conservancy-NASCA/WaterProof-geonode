@@ -19,6 +19,8 @@ urlpatterns = [
     path('edit/<int:idx>', views.editIntake, name='edit-intake'),
     # View intake detail
     path('view/<int:idx>', views.viewIntake, name='view-intake'),
+    # View intake demand
+    path('viewDemand/<int:idx>', views.viewIntakeDemand, name='viewDemand-intake'),
     # Clone Water Intake
     path('clone/<int:idx>', views.cloneIntake, name='clone-intake'),
     # Clone Water Intake
