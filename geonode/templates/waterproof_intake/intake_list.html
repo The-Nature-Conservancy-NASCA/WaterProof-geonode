@@ -37,8 +37,8 @@
 </div>
 <div class="page-header">
    
-    <h1>{% trans "Búsqueda de Captaciones" %}</h1>
-    <h7>{% trans "Ingrese el nombre de la ciudad de su interés en el espacio 'Search City' del mapa y, seleccione la opción que corresponda en la lista" %}</h7>
+    <h1>{% trans "List Intakes" %}</h1>
+    <h7>{% trans "Enter the name of the city of your interest in the 'Search city' space on the map and select the corresponding option from the list" %}</h7>
     <br>
     <br>
     <a href="create/" id="createUrl">{% trans "Create new Water Intake" %}</a>
@@ -107,7 +107,12 @@
                 var intakeObject={};
                 intakeObject.id='{{intake.id}}'
                 intakeObject.polygon='{{intake.polygon_set.first.geom}}';
+                intakeObject.city = '{{intake.city.name}}';
                 intakePolygons.push(intakeObject);
+                /*var intake = {};
+                intake.id = '{{intake.id}}';
+                intake.city = '{{intake.city.name}}';*/
+
             </script>
             {% endfor %}
         </tbody>
@@ -120,6 +125,7 @@
     var userCountryId='{{userCountry.id}}';
     var userCountryCode='{{userCountry.code}}';
     var userCountryName='{{userCountry.name}}';
+    var intakeList='{{intakeList}}';
 </script>
 <script src="{{ STATIC_URL }}geonode/js/datatables/jquery.dataTables.min.js"></script>
 <script src="{{ STATIC_URL }}geonode/js/datatables/dataTables.bootstrap.min.js"></script>
