@@ -537,13 +537,13 @@ function onInit(editor) {
         //Delete funcion cost 
         $(document).on('click', 'a[name=glyphicon-trash]', function() {
             Swal.fire({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
+                title: gettext('Are you sure?'),
+                text: gettext("You won't be able to revert this!"),
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#d33',
                 cancelButtonColor: '#3085d6',
-                confirmButtonText: 'Yes, delete it!'
+                confirmButtonText: gettext('Yes, delete it!')
             }).then((result) => {
                 if (result.isConfirmed) {
                     var id = $(this).attr('idvalue');
@@ -571,8 +571,8 @@ function onInit(editor) {
                     }
 
                     Swal.fire(
-                        'Deleted!',
-                        'Your funcion has been deleted.',
+                        gettext('Deleted!'),
+                        gettext('Your funcion has been deleted'),
                         'success'
                     )
                 }
