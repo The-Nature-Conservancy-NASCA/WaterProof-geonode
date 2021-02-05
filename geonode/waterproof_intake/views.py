@@ -752,6 +752,25 @@ def viewIntake(request, idx):
         )
 
 
+def viewIntakeDemand(request, idx):
+    if request.method == 'GET':
+        filterIntake = Intake.objects.get(id=idx)
+        filterExternal = ElementSystem.objects.filter(intake=filterIntake.pk, is_external=True)
+        intakeDemand=DemandParameters.objects.get(id=filterIntake.demand_parameters.pk) 
+        yearsDemand=WaterExtraction.objects.filter(demand=filterIntake.demand_parameters.pk)
+        for year in yearsDemand:
+            print(year.value)
+
+        return render(
+            request, 'waterproof_intake/intake_demand.html',
+            {
+                'intake': filterIntake,
+                'demand': intakeDemand,
+                'yeardDemand': yearsDemand
+            }
+        )
+
+
 def cloneIntake(request, idx):
     if not request.user.is_authenticated:
         return render(request, 'waterproof_intake/intake_login_error.html')
@@ -965,7 +984,7 @@ def cloneIntake(request, idx):
                             for external in external_info:
                                 external_input = ValuesTime.objects.create(
                                     year=external['year'],
-                                    water_volume=external['water'],
+                                    water_volume=external['waterVol'],
                                     sediment=external['sediment'],
                                     nitrogen=external['nitrogen'],
                                     phosphorus=external['phosphorus'],

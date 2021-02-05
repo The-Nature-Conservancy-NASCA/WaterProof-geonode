@@ -205,7 +205,7 @@ function onInit(editor) {
     // Target needs exactly one incoming connection from Source
     editor.graph.multiplicities.push(new mxMultiplicity(
         true, 'Symbol', 'name', 'CSINFRA', 0, 0, ['Symbol'],
-        `From element CSINFRA can't connect to other element`,
+        "From element CSINFRA can't connect to other element",
         'Target Must Connect From Source'));
 
     var getdata = document.getElementById('getdata');
@@ -537,13 +537,13 @@ function onInit(editor) {
         //Delete funcion cost 
         $(document).on('click', 'a[name=glyphicon-trash]', function() {
             Swal.fire({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
+                title: gettext('Are you sure?'),
+                text: gettext("You won't be able to revert this!"),
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#d33',
                 cancelButtonColor: '#3085d6',
-                confirmButtonText: 'Yes, delete it!'
+                confirmButtonText: gettext('Yes, delete it!')
             }).then((result) => {
                 if (result.isConfirmed) {
                     var id = $(this).attr('idvalue');
@@ -571,8 +571,8 @@ function onInit(editor) {
                     }
 
                     Swal.fire(
-                        'Deleted!',
-                        'Your funcion has been deleted.',
+                        gettext('Deleted!'),
+                        gettext('Your funcion has been deleted'),
                         'success'
                     )
                 }
@@ -631,7 +631,7 @@ function onInit(editor) {
         });
 
         //Add value entered in sediments in the field resultdb
-        $('#sedimentosDiagram').keyup(function() {
+        $('#sedimentosDiagram').change(function() {
             if (typeof(selectedCell.value) == "string" && selectedCell.value.length > 0) {
                 var obj = JSON.parse(selectedCell.value);
                 let dbfields = obj.resultdb;
@@ -645,7 +645,7 @@ function onInit(editor) {
         });
 
         //Add value entered in nitrogen in the field resultdb
-        $('#nitrogenoDiagram').keyup(function() {
+        $('#nitrogenoDiagram').change(function() {
             if (typeof(selectedCell.value) == "string" && selectedCell.value.length > 0) {
                 var obj = JSON.parse(selectedCell.value);
                 let dbfields = obj.resultdb;
@@ -659,7 +659,7 @@ function onInit(editor) {
         });
 
         //Add value entered in phosphorus in the field resultdb
-        $('#fosforoDiagram').keyup(function() {
+        $('#fosforoDiagram').change(function() {
             if (typeof(selectedCell.value) == "string" && selectedCell.value.length > 0) {
                 var obj = JSON.parse(selectedCell.value);
                 let dbfields = obj.resultdb;
@@ -673,7 +673,7 @@ function onInit(editor) {
         });
 
         //Add value entered in aguaDiagram in the field resultdb
-        $('#aguaDiagram').keyup(function() {
+        $('#aguaDiagram').change(function() {
             if (typeof(selectedCell.value) == "string" && selectedCell.value.length > 0) {
                 var obj = JSON.parse(selectedCell.value);
                 let dbfields = obj.resultdb;

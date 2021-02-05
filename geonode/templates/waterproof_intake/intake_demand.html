@@ -27,7 +27,7 @@
 {% block body_outer %}
 <!--header-->
 <div class="page-header">
-    <h1>View Water Intake</h1>
+    <h1>Demand Water Intake</h1>
 </div>
 <!--Begin Form-->
 <form id="form" method="POST" action="">
@@ -36,16 +36,6 @@
     <div id="smartwizard">
         <!--panel of navigation-->
         <ul class="nav">
-            <li>
-                <a class="nav-link" href="#step-1">
-                    Define
-                </a>
-            </li>
-            <li>
-                <a class="nav-link" href="#step-2">
-                    Configure Parameters
-                </a>
-            </li>
             <li>
                 <a class="nav-link" href="#step-3">
                     Water Extraction
@@ -56,129 +46,11 @@
                     External
                 </a>
             </li>
-            <li>
-                <a class="nav-link" href="#step-5">
-                    Sub-area
-                </a>
-            </li>
         </ul>
         <!--Steps-->
         <div class="tab-content" id="autoAdjustHeightF">
-            <!--Step 1-->
-            <div id="step-1" class="tab-pane" role="tabpanel">
-                <div class="page-header">
-                    <h3>Define Water Intake</h3>
-                </div>
-                <!--Input Name -->
-                <div id="water_intake">
-                    <div id="div_id_name" class="form-group  ">
-                        <label for="id_name" class="control-label required-field ">
-                            Nombre
-                        </label>
-                        <div class="">
-                            <input type="text" name="name" maxlength="100" class=" form-control" id="id_name"
-                                value="{{intake.name}}" disabled>
-                        </div>
-                    </div>
-                </div>
-                <!--Input Desc -->
-                <div id="div_id_description" class="form-group  ">
-                    <label for="id_description" class="control-label required-field ">
-                        Descripción
-                    </label>
-                    <div class="">
-                        <input type="text" name="description" maxlength="1024" class=" form-control" id="id_description"
-                            value="{{intake.description}}" disabled>
-                    </div>
-                </div>
-                <!--Input Source Name -->
-                <div id="id_water_source_name" class="form-group  ">
-                    <label for="id_description" class="control-label required-field ">
-                        Nombre de la fuente
-                    </label>
-                    <div class="">
-                        <input type="text" name="water_source_name" maxlength="100" id="id_water_source_name"
-                            class=" form-control" value="{{intake.water_source_name}}" disabled>
-                    </div>
-                </div>
-                <!-- Map -->
-                <div id="map">
-                </div>
-            </div>
-            <!--Step 2-->
-            <div id="step-2" class="tab-pane" role="tabpanel">
-                <div class="page-header">
-                    <h3>Configure Parameters</h3>
-                </div>
-                <!--Toolbar mxgraph-->
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="panel panel-info" style="display: none;">
-                            <div class="panel-body text-center" id="toolbar" disabled></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <!--Graph-->
-                    <div class="col-md-8">
-                        <textarea id="xml" style="height:600px;width:100%;display:none;border-style:none;"></textarea>
-                        <div class="panel panel-info">
-                            <div class="panel-body" id="graph" tabindex="-1"
-                                style="height:700px;width:100%;overflow:hidden;cursor:default; outline:none;"></div>
-                        </div>
-                    </div>
-                    <!--Panel Information Right-->
-                    <div class="col-md-4">
-                        <div class="panel panel-info">
-                            <div class="panel-body">
-                                <!--Figure Name-->
-                                <div class="alert alert-info" role="alert">
-                                    <h1 class="text-center" id="titleDiagram"></h1>
-                                </div>
-                                <!--ID Item-->
-                                <div class="form-group">
-                                    <label>ID:</label>
-                                    <input type="number" id="idDiagram" min="" max="" class="form-control" disabled>
-                                </div>
-                                <!--Water transport-->
-                                <div class="form-group">
-                                    <label>% transported water:</label>
-                                    <input type="number" id="aguaDiagram" min="" max="" class="form-control"
-                                        oninput="validateinput(this)" disabled>
-                                </div>
-                                <!--Sediments-->
-                                <div class="form-group">
-                                    <label>% Sediments retained:</label>
-                                    <input type="number" id="sedimentosDiagram" min="" max="" class="form-control"
-                                        oninput="validateinput(this)" disabled>
-                                </div>
-                                <!--Nitrogen-->
-                                <div class="form-group">
-                                    <label>% Nitrogen retained:</label>
-                                    <input type="number" id="nitrogenoDiagram" class="form-control"
-                                        oninput="validateinput(this)" disabled>
-                                </div>
-                                <!--Phosphorus-->
-                                <div class="form-group">
-                                    <label>% Phosphorus retained:</label>
-                                    <input type="number" id="fosforoDiagram" class="form-control"
-                                        oninput="validateinput(this)" disabled>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                        <h3>Cost functions <small id="titleCostFunSmall"></small>
-                        </h3>
-                        <div class="panel panel-info">
-                            <div class="panel-body">
-                                <div id="funcostgenerate"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-           <!--Step 3-->
+            
+             <!--Step 3-->
            <div id="step-3" class="tab-pane" role="tabpanel">
             <!--Header-->
             <div class="page-header">
@@ -233,7 +105,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <button type="button" class="btn btn-primary" id="intakeWECB">{% trans "Generate" %}</button>
+                              
                             </div>
                             <!--Data analysis Results-->
                             <div class="col-md-4">
@@ -310,35 +182,7 @@
             </div>
             <br>
         </div>
-            <!--Step 5-->
-            <div id="step-5" class="tab-pane" role="tabpanel">
-                <div class="row">
-                    <!--Map-->
-                    <div class="col-md-8">
-                        <div class="panel panel-danger">
-                            <div id="mapid" style="width: 100%; height: 400px;"></div>
-                        </div>
-                    </div>
-                    <!--Panel Information Right-->
-                    <div class="col-md-4">
-                        <div class="panel panel-default">
-                            <div class="panel-body">
-                                <div class="alert alert-info" role="alert">
-                                    <h1 class="text-center">Tools</h1>
-                                </div>
-                                <div class="form-group">
-                                    <button type="button" class="btn btn-primary" id="btnDelimitArea" disabled> Delimit
-                                    subarea</button>
-                                </div>
-                                <div class="form-group">
-                                    <button type="button" class="btn btn-primary" id="btnValidateArea" disabled> Validate
-                                    area</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            
         </div>
         </div>
 

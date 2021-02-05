@@ -73,9 +73,6 @@ $(function() {
 
     initMap = function() {
 
-        //drawPolygons();        
-
-
         map = L.map('mapidcuenca', { 
             scrollWheelZoom: false, 
             zoomControl: false, 
@@ -85,18 +82,24 @@ $(function() {
                 selectedResultHandler : selectedResultHandler,
                 placeholder: 'Search City...', 
                 position: 'topleft', 
-                url: SEARCH_CITY_API_URL 
+                url: SEARCH_CITY_API_URL
             } 
         });
         let initialCoords = CENTER;
         // find in localStorage if cityCoords exist
         var cityCoords = localStorage.getItem('cityCoords');
+        var city = localStorage.getItem('city');
+        var initialZoom = 5;
+            var cityNameMap = localStorage.getItem('city').substr(0, 5);
+     
         if (cityCoords == undefined){
+            table.search(cityNameMap).draw();
             cityCoords = initialCoords;
-            table.search('').draw();
         }else{
             initialCoords = JSON.parse(cityCoords);
-            table.search(localStorage.getItem('city').substr(0, 5)).draw();
+            drawPolygons(city);        
+            table.search(cityNameMap).draw();
+            initialZoom = 9;
             try{
                 $("#countryLabel").html(localStorage.getItem('country'));
                 $("#cityLabel").html(localStorage.getItem('city'));
@@ -110,7 +113,7 @@ $(function() {
         }
         waterproof["cityCoords"] = cityCoords;
 
-        map.setView(initialCoords, 5);
+        map.setView(initialCoords, initialZoom);
 
         searchPoints.addTo(map);
 
@@ -153,7 +156,9 @@ $(function() {
     function showSearchPoints(geojson) {
         console.log(localStorage.getItem('city'))
         //searchPoints.writeLayers('Bogotá');
+        //console.log(intake.substr(0, 5));
         searchPoints.clearLayers();
+
         let geojsonFilter = geojson.features.filter(feature => feature.properties.type == "city");
         searchPoints.addData(geojsonFilter);
         //let cityName = null
@@ -163,10 +168,9 @@ $(function() {
             cityName = localStorage.getItem('city')
         }*/
         let cityName = geojsonFilter[0].properties.name;
-        console.log(geojsonFilter[0].properties.name)
         //table.search(localStorage.getItem('city').substr(0, 2)).draw();
+        drawPolygons(cityName);
         table.search(cityName.substr(0, 5)).draw();
-        drawPolygons();        
     }
 
     function selectedResultHandler(feat){
@@ -187,6 +191,9 @@ $(function() {
         $("#countryLabel").html(country);
         $("#cityLabel").html(cityName);
         localStorage.setItem('city', cityName);
+
+        drawPolygons(cityName);
+        table.search(cityName.substr(0, 5)).draw();
 
         let urlAPI = '{{ SEARCH_COUNTRY_API_URL }}' + countryCode;
 
@@ -460,24 +467,40 @@ $(function() {
     loadFile = function(file, name) {
         console.log('Start loading file function!');
     };
-    // Init 
-    initialize();
 
     //draw polygons
-    drawPolygons = function(){
+    drawPolygons = function(citySearch){
         // TODO: Next line only for test purpose
         //intakePolygons = polygons;
-        
+        console.log(citySearch);
+
         lyrsPolygons.forEach(lyr => map.removeLayer(lyr));
         lyrsPolygons = [];
-
-        intakePolygons.forEach(feature =>{
-            let poly = feature.polygon;
-            if (poly.indexOf("SRID") >= 0){
-                poly = poly.split(";")[1];
+        
+        console.log(intakePolygons);
+        var bounds;
+        
+        intakePolygons.forEach((feature) =>{
+            if(citySearch.substr(0, 5)==feature.city.substr(0, 5)){
+                console.log(feature)
+                let poly = feature.polygon;
+                if (poly.indexOf("SRID") >= 0){
+                    poly = poly.split(";")[1];
+                }
+                var lyrPoly = omnivore.wkt.parse(poly).addTo(map);
+                lyrsPolygons.push(lyrPoly);
+                if (bounds == undefined){
+                    bounds = lyrPoly.getBounds();
+                }else{
+                    bounds = bounds.extend(lyrPoly.getBounds());
+                }
             }
-            lyrsPolygons.push(omnivore.wkt.parse(poly).addTo(map));
+            
         });
+        if(bounds != undefined){
+            map.fitBounds(bounds);
+        }
+
     }
 
     menu = function(){
@@ -487,4 +510,8 @@ $(function() {
           });
     }
 
+    // Init 
+    initialize();
+
 });
+

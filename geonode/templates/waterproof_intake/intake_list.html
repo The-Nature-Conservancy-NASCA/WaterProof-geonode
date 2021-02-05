@@ -31,14 +31,14 @@
         <p><b>{% trans "Currency" %}:</b><span id="currencyLabel"></span></p>
     </div>
     <div class="col-md-8">
-        <div id="mapidcuenca" style="width: 700px; height: 500px;"></div>
+        <div id="mapidcuenca" style="width: 700px; height: 400px;"></div>
 
     </div>
 </div>
 <div class="page-header">
    
-    <h1>{% trans "Búsqueda de Captaciones" %}</h1>
-    <h7>{% trans "Ingrese el nombre de la ciudad de su interés en el espacio 'Search City' del mapa y, seleccione la opción que corresponda en la lista" %}</h7>
+    <h1>{% trans "List Intakes" %}</h1>
+    <h7>{% trans "Enter the name of the city of your interest in the 'Search city' space on the map and select the corresponding option from the list" %}</h7>
     <br>
     <br>
     <a href="create/" id="createUrl">{% trans "Create new Water Intake" %}</a>
@@ -52,7 +52,7 @@
                 <th scope="col" class="small text-center vat">{% trans "User" %}</th>
                 <th scope="col" class="small text-center vat">{% trans "Creation Date" %}</th>
                 <th scope="col" class="small text-center vat">{% trans "Water source name" %}</th>
-                <th scope="col" class="small text-center vat" style="display: none;">{% trans "City" %}</th>
+                <th scope="col" class="small text-center vat" >{% trans "City" %}</th>
                 <th scope="col" class="small text-center vat" style="display: none;">{% trans "Region" %}</th>
                 <th scope="col" class="small text-center vat">{% trans "Demand" %}</th>
                 <th scope="col" class="small text-center vat">{% trans "Options" %}</th>
@@ -67,7 +67,7 @@
                 <!--td>{{intake.max_benefit_req_time}}</td-->
                 <td class="small text-center vat">{{intake.creation_date | date:"d-m-Y"}}</td>
                 <td class="small text-center vat">{{intake.water_source_name}}</td>
-                <td class="small text-center vat" style="display: none;">{{intake.city.name}}</td>
+                <td class="small text-center vat">{{intake.city.name}}</td>
                 <td class="small text-center vat" style="display: none;">{{intake.area}}</td>
                 <!--td>{{intake.total_profits_intake_consec_time}}</td-->
                 <!--td class="small text-center vat">{{intake.creation_date}}</td>
@@ -77,7 +77,7 @@
                 <!--td>{{intake.rios_transformations.description}}</td-->
                 <td>
                     <div class="btn-group btn-group-table" role="group">
-                        <a class="btn btn-primary" href="/waterproof_nbs_ca/view/{{intake.pk}}"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
+                        <a class="btn btn-primary" href="/intake/viewDemand/{{intake.pk}}"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
                      </div> 
                 </td>  
                 <td>
@@ -107,7 +107,12 @@
                 var intakeObject={};
                 intakeObject.id='{{intake.id}}'
                 intakeObject.polygon='{{intake.polygon_set.first.geom}}';
+                intakeObject.city = '{{intake.city.name}}';
                 intakePolygons.push(intakeObject);
+                /*var intake = {};
+                intake.id = '{{intake.id}}';
+                intake.city = '{{intake.city.name}}';*/
+
             </script>
             {% endfor %}
         </tbody>
@@ -120,6 +125,7 @@
     var userCountryId='{{userCountry.id}}';
     var userCountryCode='{{userCountry.code}}';
     var userCountryName='{{userCountry.name}}';
+    var intakeList='{{intakeList}}';
 </script>
 <script src="{{ STATIC_URL }}geonode/js/datatables/jquery.dataTables.min.js"></script>
 <script src="{{ STATIC_URL }}geonode/js/datatables/dataTables.bootstrap.min.js"></script>
@@ -158,9 +164,6 @@
             layer.bindPopup(feature.properties.name);
         }
     });
-
-
-   
     
   </script>  
 {% endblock %}
