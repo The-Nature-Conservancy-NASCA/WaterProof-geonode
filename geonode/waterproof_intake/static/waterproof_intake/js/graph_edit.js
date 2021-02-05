@@ -700,7 +700,7 @@ function onInit(editor) {
                         if (watersita != '' || sedimentsito != '' || nitrogenito != '' || phospharusito != '') {
                             graphData[id].externaldata.push({
                                 "year": $(this).attr('year_value'),
-                                "water": watersita,
+                                "waterVol": watersita,
                                 "sediment": sedimentsito,
                                 "nitrogen": nitrogenito,
                                 "phosphorus": phospharusito
