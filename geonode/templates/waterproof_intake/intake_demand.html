@@ -37,16 +37,6 @@
         <!--panel of navigation-->
         <ul class="nav">
             <li>
-                <a class="nav-link" href="#step-1">
-                    Define
-                </a>
-            </li>
-            <li>
-                <a class="nav-link" href="#step-2">
-                    Configure Parameters
-                </a>
-            </li>
-            <li>
                 <a class="nav-link" href="#step-3">
                     Water Extraction
                 </a>
@@ -56,152 +46,76 @@
                     External
                 </a>
             </li>
-            <li>
-                <a class="nav-link" href="#step-5">
-                    Sub-area
-                </a>
-            </li>
         </ul>
         <!--Steps-->
         <div class="tab-content" id="autoAdjustHeightF">
-            <!--Step 1-->
-            <div id="step-1" class="tab-pane" role="tabpanel">
-                <div class="page-header">
-                    <h3>Define Water Intake</h3>
-                </div>
-                <!--Input Name -->  
-                {{demand.interpolation_type}}                        
-                {% for year in yeardDemand %}
-                    {{year.year}}
-                {% endfor %}
-                <div id="water_intake">
-                    <div id="div_id_name" class="form-group  ">
-                        <label for="id_name" class="control-label required-field ">
-                            Nombre
-                        </label>
-                        <div class="">
-                            <input type="text" name="name" maxlength="100" class=" form-control" id="id_name"
-                                value="{{intake.name}}" disabled>
-                        </div>
-                    </div>
-                </div>
-                <!--Input Desc -->
-                <div id="div_id_description" class="form-group  ">
-                    <label for="id_description" class="control-label required-field ">
-                        Descripción
-                    </label>
-                    <div class="">
-                        <input type="text" name="description" maxlength="1024" class=" form-control" id="id_description"
-                            value="{{intake.description}}" disabled>
-                    </div>
-                </div>
-                <!--Input Source Name -->
-                <div id="id_water_source_name" class="form-group  ">
-                    <label for="id_description" class="control-label required-field ">
-                        Nombre de la fuente
-                    </label>
-                    <div class="">
-                        <input type="text" name="water_source_name" maxlength="100" id="id_water_source_name"
-                            class=" form-control" value="{{intake.water_source_name}}" disabled>
-                    </div>
-                </div>
-                <!-- Map -->
-                <div id="map">
-                </div>
+            
+             <!--Step 3-->
+           <div id="step-3" class="tab-pane" role="tabpanel">
+            <!--Header-->
+            <div class="page-header">
+                <h3>{% trans "Water extraction"%}</h3>
+                <p>{% trans "Please enter the annual water extraction" %} </p>
             </div>
-            <!--Step 2-->
-            <div id="step-2" class="tab-pane" role="tabpanel">
-                <div class="page-header">
-                    <h3>Configure Parameters</h3>
-                </div>
-                <!--Toolbar mxgraph-->
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="panel panel-info" style="display: none;">
-                            <div class="panel-body text-center" id="toolbar" disabled></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <!--Graph-->
-                    <div class="col-md-8">
-                        <textarea id="xml" style="height:600px;width:100%;display:none;border-style:none;"></textarea>
-                        <div class="panel panel-info">
-                            <div class="panel-body" id="graph" tabindex="-1"
-                                style="height:700px;width:100%;overflow:hidden;cursor:default; outline:none;"></div>
-                        </div>
-                    </div>
-                    <!--Panel Information Right-->
-                    <div class="col-md-4">
-                        <div class="panel panel-info">
-                            <div class="panel-body">
-                                <!--Figure Name-->
-                                <div class="alert alert-info" role="alert">
-                                    <h1 class="text-center" id="titleDiagram"></h1>
-                                </div>
-                                <!--ID Item-->
-                                <div class="form-group">
-                                    <label>ID:</label>
-                                    <input type="number" id="idDiagram" min="" max="" class="form-control" disabled>
-                                </div>
-                                <!--Water transport-->
-                                <div class="form-group">
-                                    <label>% transported water:</label>
-                                    <input type="number" id="aguaDiagram" min="" max="" class="form-control"
-                                        oninput="validateinput(this)" disabled>
-                                </div>
-                                <!--Sediments-->
-                                <div class="form-group">
-                                    <label>% Sediments retained:</label>
-                                    <input type="number" id="sedimentosDiagram" min="" max="" class="form-control"
-                                        oninput="validateinput(this)" disabled>
-                                </div>
-                                <!--Nitrogen-->
-                                <div class="form-group">
-                                    <label>% Nitrogen retained:</label>
-                                    <input type="number" id="nitrogenoDiagram" class="form-control"
-                                        oninput="validateinput(this)" disabled>
-                                </div>
-                                <!--Phosphorus-->
-                                <div class="form-group">
-                                    <label>% Phosphorus retained:</label>
-                                    <input type="number" id="fosforoDiagram" class="form-control"
-                                        oninput="validateinput(this)" disabled>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                        <h3>Cost functions <small id="titleCostFunSmall"></small>
-                        </h3>
-                        <div class="panel panel-info">
-                            <div class="panel-body">
-                                <div id="funcostgenerate"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--Step 3-->
-            <div id="step-3" class="tab-pane" role="tabpanel">
-                <!--Header-->
-                <div class="page-header">
-                    <h3>Water Extraction</h3>
-                </div>
+            <!--navigation-->
+            <ul class="nav nav-tabs" id="minitabsInportalion">
+                <li class="active"><a data-toggle="tab" href="#automatic" id="btnAutomaticTab">{% trans "Interpolation wizard" %}</a></li>
+                <li><a data-toggle="tab" href="#manual" id="btnManualTab" >{% trans "Manual edit" %}</a></li>
+            </ul>
+            <!--contents tabs manual and automatic-->
+            <div class="tab-content">
                 <!--tab automatic-->
                 <div class="tab-pane fade in active" id="automatic">
                     <br>
                     <div class="form-group">
                         <div class="row">
+                            <!--Data analysis Insert-->
+                            <div class="col-md-8">
+                                <h5 class="text-primary">{% trans "Data analysis" %}</h5>
+                                <p>{% trans "Please select the method you wish to use" %} </p>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label>{% trans "Interpolation method " %} <span class="text-danger-wp">(*)</span>
+                                        </label>
+                                            <select class="form-control" id="typeProcessInterpolation">
+                                            <option value="1">{% trans "Linear interpolation" %}</option>
+                                            <option value="2">{% trans "Potential interpolation" %}</option>
+                                            <option Value="3">{% trans "Exponential interpolation" %}</option>
+                                            <option Value="4">{% trans "Logistics interpolation" %}</option>
+                                        </select>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label>{% trans "Number of years for time series" %} <span
+                                                class="text-danger-wp">(*)</span> </label>
+                                            <input type="text" class="form-control" id="numberYearsInterpolationValue" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h5 class="text-primary">{% trans "Extraction" %}</h5>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label>{% trans "Initial year" %}<span class="text-danger-wp">(*)</span> </label>
+                                            <input type="text" class="form-control" id="initialDataExtractionInterpolationValue" disabled>
+                                        </div>
+                                        <div class="col-md-6" id="finalColumnExtraction">
+                                            <label>{% trans "Final year" %}<span class="text-danger-wp">(*)</span> </label>
+                                            <input type="text" class="form-control" id="finalDataExtractionInterpolationValue" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+                              
+                            </div>
                             <!--Data analysis Results-->
-                            <div class="col-md-5">
-                                <h5 class="text-primary">Results</h5>
+                            <div class="col-md-4">
+                                <h5 class="text-primary">{% trans "Results" %}</h5>
                                 <div style="max-height: 400px; overflow-y: auto;">
                                     <table class="table">
                                         <thead>
                                             <tr>
-                                                <th class="text-center" scope="col">Year</th>
-                                                <th class="text-center" scope="col">Extraction Value</th>
+                                                <th class="text-center" scope="col">{% trans "Year" %}</th>
+                                                <th class="text-center" scope="col">{% trans "Extraction Value (l/s)" %}</th>
                                             </tr>
                                         </thead>
                                         <tbody id="intakeECTAG">
@@ -211,51 +125,64 @@
                             </div>
                         </div>
                     </div>
-                </div>    
-            </div>
-            <!--Step 4-->
-            <div id="step-4" class="tab-pane" role="tabpanel">
-                <!--Header-->
-                <div class="page-header">
-                    <h3>External Inputs</h3>
                 </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <select class="form-control" id="externalSelect"></select>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--Step 5-->
-            <div id="step-5" class="tab-pane" role="tabpanel">
-                <div class="row">
-                    <!--Map-->
-                    <div class="col-md-8">
-                        <div class="panel panel-danger">
-                            <div id="mapid" style="width: 100%; height: 400px;"></div>
-                        </div>
-                    </div>
-                    <!--Panel Information Right-->
-                    <div class="col-md-4">
-                        <div class="panel panel-default">
-                            <div class="panel-body">
-                                <div class="alert alert-info" role="alert">
-                                    <h1 class="text-center">Tools</h1>
-                                </div>
+                <!--tab manual-->
+                <div class="tab-pane fade" id="manual">
+                    <br>
+                    <div class="form-group">
+                        <div class="row">
+                            <!--Input number of years-->
+                            <div class="col-md-6">
+                                <h5 class="text-primary">{% trans "Number of years for time series" %}</h5>
+                                <p>{% trans "You can edit the table manually" %}</p>
                                 <div class="form-group">
-                                    <button type="button" class="btn btn-primary" id="btnDelimitArea" disabled> Delimit
-                                    subarea</button>
+                                    <label>{% trans "Number of years" %} <span class="text-danger-wp">(*)</span> </label>
+                                    <input type="text" class="form-control" id="intakeNIYMI" disabled>
                                 </div>
-                                <div class="form-group">
-                                    <button type="button" class="btn btn-primary" id="btnValidateArea" disabled> Validate
-                                    area</button>
-                                </div>
+                            </div>
+                            <!--Results-->
+                            <div class="col-md-6">
+                                <h5 class="text-primary">{% trans "Results" %}</h5>
+                                <div style="max-height: 400px; overflow-y: auto;">
+                                    <table class="table" >
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center" scope="col">{% trans "Year" %}</th>
+                                                <th class="text-center" scope="col">{% trans "Extraction Value (l/s)" %}</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="intakeWEMI">
+                                        </tbody>
+                                    </table>
+                                </div> 
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <br>
+        </div>
+        <!--Step 4-->
+        <div id="step-4" class="tab-pane" role="tabpanel">
+            <!--Header-->
+            <div class="page-header">
+                <h3>{% trans "External inputs" %}</h3>
+                <p> <span id="ExternalNumbersInputs"></span> {% trans "External inputs to define" %}
+                </p>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <h4 class="text-primary">{% trans "Asignation" %}</h4>
+                    <div class="form-group">
+                        <label>{% trans "Type element for asignation" %}</label>
+                        <select class="form-control" id="externalSelect"></select>
+                    </div>
+                    <div id="IntakeTDLE"></div>
+                </div>
+            </div>
+            <br>
+        </div>
+            
         </div>
         </div>
 
