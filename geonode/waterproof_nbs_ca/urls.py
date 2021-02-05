@@ -2,8 +2,13 @@
 from django.conf.urls import url, include
 from django.urls import path
 from . import views
-
+from django.views.i18n import JavaScriptCatalog
+js_info_dict = {
+    'domain': 'djangojs',
+    'packages': 'geonode.waterproof_nbs_ca'
+}
 urlpatterns = [
+    url(r'^jsi18n/$', JavaScriptCatalog.as_view(), js_info_dict, name='javascript-catalog-nbs'),
     # Create NBS
     path('create/<int:countryId>', views.createNbs, name='create-nbs'),
     # Default view, list all views
@@ -32,7 +37,7 @@ urlpatterns = [
     path('load-currency/', views.loadCurrency, name='load_currency'),
     # Load currency by country id
     path('load-currencyByCountry/', views.loadCurrencyByCountry, name='load_currencyByCountry'),
-     # Load region by country id
+    # Load region by country id
     path('load-regionByCountry/', views.loadRegionByCountry, name='load_regionByCountry'),
     # Load all currencies
     path('load-allCurrencies/', views.loadAllCurrencies, name='load_allCurrencies')
