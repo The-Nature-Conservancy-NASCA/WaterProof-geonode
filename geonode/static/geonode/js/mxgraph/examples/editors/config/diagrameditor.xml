@@ -54,7 +54,7 @@
 			</Symbol>
 		</add>
 		<add as="bocatomaflotante">
-			<Symbol name="Floating Intake" label="Floating Intake" externalData="false">
+			<Symbol name="Floating Intake" label="Floating Intake" externalData="false" >
 				<mxCell vertex="1" style="bocatomaflotante" dbreference="BOCATOMAFLOTANTE" funcionreference="BF">      
 					<mxGeometry as="geometry" width="60" height="92"/>
 				</mxCell>
@@ -82,7 +82,7 @@
 			</Symbol>
 		</add>
 		<add as="externalinput">
-			<Symbol name="External Input" label="External Input" externalData="true">
+			<Symbol name="External Input" label="External Input" externalData="true" external=''>
 				<mxCell vertex="1" style="externalinput" dbreference="ENTRADAEXTERNA" funcionreference="EX">      
 					<mxGeometry as="geometry" width="60" height="92"/>
 				</mxCell>

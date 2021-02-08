@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: GeoNode\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-02-04 13:31-0500\n"
-"PO-Revision-Date: 2020-11-28 19:00+0100\n"
+"PO-Revision-Date: 2021-02-05 19:13-0500\n"
 "Last-Translator: Julien Collaer <julien.collaer@opengeode.be>\n"
 "Language-Team: English (http://www.transifex.com/geonode/geonode/language/"
 "en/)\n"
@@ -29,11 +29,11 @@ msgstr ""
 #: geonode/waterproof_intake/template/intake_form.html:65
 #: geonode/waterproof_intake/template/intake_list.html:50
 msgid "Name"
-msgstr ""
+msgstr "Name"
 
 #: geonode/waterproof_intake/models.py:32
 msgid "Value"
-msgstr ""
+msgstr "Value"
 
 #: geonode/waterproof_intake/models.py:46
 #: geonode/waterproof_intake/models.py:386
@@ -45,124 +45,124 @@ msgstr ""
 #: geonode/waterproof_intake/models.py:522
 #: geonode/waterproof_intake/models.py:537
 msgid "Extraction value"
-msgstr ""
+msgstr "Extraction value"
 
 #: geonode/waterproof_intake/models.py:54
 #: geonode/waterproof_intake/models.py:129
 #: geonode/waterproof_intake/models.py:292
 msgid "Symbol"
-msgstr ""
+msgstr "Symbol"
 
 #: geonode/waterproof_intake/models.py:59
 #: geonode/waterproof_intake/models.py:134
 msgid "Categorys"
-msgstr ""
+msgstr "Categorys"
 
 #: geonode/waterproof_intake/models.py:65
 msgid "Energy"
-msgstr ""
+msgstr "Energy"
 
 #: geonode/waterproof_intake/models.py:71
 msgid "Labour"
-msgstr ""
+msgstr "Labour"
 
 #: geonode/waterproof_intake/models.py:77
 msgid "Materials equipment"
-msgstr ""
+msgstr "Materials equipment"
 
 #: geonode/waterproof_intake/models.py:82
 #: geonode/waterproof_intake/models.py:102
 msgid "Function"
-msgstr ""
+msgstr "Function"
 
 #: geonode/waterproof_intake/models.py:87
 msgid "Function name"
-msgstr ""
+msgstr "Function name"
 
 #: geonode/waterproof_intake/models.py:94
 msgid "Function description"
-msgstr ""
+msgstr "Function description"
 
 #: geonode/waterproof_intake/models.py:124
 msgid "Unitary process"
-msgstr ""
+msgstr "Unitary process"
 
 #: geonode/waterproof_intake/models.py:139
 #: geonode/waterproof_intake/models.py:380
 msgid "Normalized category"
-msgstr ""
+msgstr "Normalized category"
 
 #: geonode/waterproof_intake/models.py:144
 msgid "ID Wb"
-msgstr ""
+msgstr "ID Wb"
 
 #: geonode/waterproof_intake/models.py:149
 msgid "Minimal sediment"
-msgstr ""
+msgstr "Minimal sediment"
 
 #: geonode/waterproof_intake/models.py:155
 msgid "Predefined sediment"
-msgstr ""
+msgstr "Predefined sediment"
 
 #: geonode/waterproof_intake/models.py:160
 msgid "Maximal sediment"
-msgstr ""
+msgstr "Maximal sediment"
 
 #: geonode/waterproof_intake/models.py:165
 msgid "Minimal nitrogen"
-msgstr ""
+msgstr "Minimal nitrogen"
 
 #: geonode/waterproof_intake/models.py:171
 msgid "Predefined nitrogen"
-msgstr ""
+msgstr "Predefined nitrogen"
 
 #: geonode/waterproof_intake/models.py:176
 msgid "Maximal nitrogen"
-msgstr ""
+msgstr "Maximal nitrogen"
 
 #: geonode/waterproof_intake/models.py:181
 msgid "Minimal phosphorus"
-msgstr ""
+msgstr "Minimal phosphorus"
 
 #: geonode/waterproof_intake/models.py:187
 msgid "Predefined phosphorus"
-msgstr ""
+msgstr "Predefined phosphorus"
 
 #: geonode/waterproof_intake/models.py:192
 msgid "Maximal phosphorus"
-msgstr ""
+msgstr "Maximal phosphorus"
 
 #: geonode/waterproof_intake/models.py:197
 msgid "Minimal transported water"
-msgstr ""
+msgstr "Minimal transported water"
 
 #: geonode/waterproof_intake/models.py:203
 msgid "Predefined transported water"
-msgstr ""
+msgstr "Predefined transported water"
 
 #: geonode/waterproof_intake/models.py:208
 msgid "Maximal transported water"
-msgstr ""
+msgstr "Maximal transported water"
 
 #: geonode/waterproof_intake/models.py:216
 msgid "Interpolation type"
-msgstr ""
+msgstr "Interpolation type"
 
 #: geonode/waterproof_intake/models.py:222
 msgid "Initial extraction"
-msgstr ""
+msgstr "Initial extraction (l/s)"
 
 #: geonode/waterproof_intake/models.py:228
 msgid "Ending extraction"
-msgstr ""
+msgstr "Ending extraction (l/s)"
 
 #: geonode/waterproof_intake/models.py:232
 msgid "Years number"
-msgstr ""
+msgstr "Years number"
 
 #: geonode/waterproof_intake/models.py:235
 msgid "Manual"
-msgstr ""
+msgstr "Manual"
 
 #: geonode/waterproof_intake/models.py:254
 #: geonode/waterproof_intake/template/intake_clone.html:76
@@ -170,107 +170,107 @@ msgstr ""
 #: geonode/waterproof_intake/template/intake_form.html:75
 #: geonode/waterproof_intake/template/intake_list.html:51
 msgid "Description"
-msgstr ""
+msgstr "Description"
 
 #: geonode/waterproof_intake/models.py:259
 msgid "Source name"
-msgstr ""
+msgstr "Source name"
 
 #: geonode/waterproof_intake/models.py:267
 msgid "Graph"
-msgstr ""
+msgstr "Graph"
 
 #: geonode/waterproof_intake/models.py:287
 msgid "Continent"
-msgstr ""
+msgstr "Continent"
 
 #: geonode/waterproof_intake/models.py:297
 msgid "Code"
-msgstr ""
+msgstr "Code"
 
 #: geonode/waterproof_intake/models.py:302
 msgid "Label"
-msgstr ""
+msgstr "Label"
 
 #: geonode/waterproof_intake/models.py:309
 msgid "Xmin"
-msgstr ""
+msgstr "Xmin"
 
 #: geonode/waterproof_intake/models.py:316
 msgid "Xmax"
-msgstr ""
+msgstr "Xmax"
 
 #: geonode/waterproof_intake/models.py:323
 msgid "Ymin"
-msgstr ""
+msgstr "Ymin"
 
 #: geonode/waterproof_intake/models.py:330
 msgid "Ymax"
-msgstr ""
+msgstr "Ymax"
 
 #: geonode/waterproof_intake/models.py:340
 msgid "Area"
-msgstr ""
+msgstr "Area"
 
 #: geonode/waterproof_intake/models.py:346
 msgid "Geom intake"
-msgstr ""
+msgstr "Geom intake"
 
 #: geonode/waterproof_intake/models.py:350
 msgid "Geom point"
-msgstr ""
+msgstr "Geom point"
 
 #: geonode/waterproof_intake/models.py:357
 msgid "Delimitation type"
-msgstr ""
+msgstr "Delimitation type"
 
 #: geonode/waterproof_intake/models.py:407
 #: geonode/waterproof_intake/template/intake_clone.html:44
 #: geonode/waterproof_intake/template/intake_edit.html:44
 #: geonode/waterproof_intake/template/intake_form.html:44
 msgid "External"
-msgstr ""
+msgstr "External"
 
 #: geonode/waterproof_intake/models.py:415
 msgid "Awy"
-msgstr ""
+msgstr "Awy"
 
 #: geonode/waterproof_intake/models.py:422
 msgid "Qls"
-msgstr ""
+msgstr "Qls"
 
 #: geonode/waterproof_intake/models.py:429
 msgid "WsedTon"
-msgstr ""
+msgstr "WsedTon"
 
 #: geonode/waterproof_intake/models.py:436
 #: geonode/waterproof_intake/models.py:443
 msgid "WnKg"
-msgstr ""
+msgstr "WnKg"
 
 #: geonode/waterproof_intake/models.py:450
 msgid "CsedMgL"
-msgstr ""
+msgstr "CsedMgL"
 
 #: geonode/waterproof_intake/models.py:457
 msgid "Cn"
-msgstr ""
+msgstr "Cn"
 
 #: geonode/waterproof_intake/models.py:464
 msgid "CpMgl"
-msgstr ""
+msgstr "CpMgl"
 
 #: geonode/waterproof_intake/models.py:471
 msgid "WsedRetTon"
-msgstr ""
+msgstr "WsedRetTon"
 
 #: geonode/waterproof_intake/models.py:478
 msgid "WnRetKg"
-msgstr ""
+msgstr "WnRetKg"
 
 #: geonode/waterproof_intake/models.py:485
 msgid "WpRetTon"
-msgstr ""
+msgstr "WpRetTon"
 
 #: geonode/waterproof_intake/models.py:498
 #: geonode/waterproof_intake/models.py:531
@@ -281,23 +281,21 @@ msgstr ""
 #: geonode/waterproof_intake/template/intake_form.html:252
 #: geonode/waterproof_intake/template/intake_form.html:286
 msgid "Year"
-msgstr ""
+msgstr "Year"
 
 #: geonode/waterproof_intake/models.py:504
 msgid "Water_volume"
-msgstr ""
+msgstr "Water_volume"
 
 #: geonode/waterproof_intake/template/intake_clone.html:18
-#, fuzzy
-#| msgid "List Water Intake"
 msgid "Clone water intake"
-msgstr "List Water Intake"
+msgstr "Clone water intake"
 
 #: geonode/waterproof_intake/template/intake_clone.html:29
 #: geonode/waterproof_intake/template/intake_edit.html:29
 #: geonode/waterproof_intake/template/intake_form.html:29
 msgid "Define"
-msgstr ""
+msgstr "Define"
 
 #: geonode/waterproof_intake/template/intake_clone.html:34
 #: geonode/waterproof_intake/template/intake_clone.html:109
@@ -306,7 +304,7 @@ msgstr ""
 #: geonode/waterproof_intake/template/intake_form.html:34
 #: geonode/waterproof_intake/template/intake_form.html:106
 msgid "Configure parameters"
-msgstr ""
+msgstr "Configure parameters"
 
 #: geonode/waterproof_intake/template/intake_clone.html:39
 #: geonode/waterproof_intake/template/intake_clone.html:195
@@ -315,36 +313,32 @@ msgstr ""
 #: geonode/waterproof_intake/template/intake_form.html:39
 #: geonode/waterproof_intake/template/intake_form.html:192
 msgid "Water extraction"
-msgstr ""
+msgstr "Water extraction"
 
 #: geonode/waterproof_intake/template/intake_clone.html:49
 #: geonode/waterproof_intake/template/intake_edit.html:49
 #: geonode/waterproof_intake/template/intake_form.html:49
 msgid "Sub area"
-msgstr ""
+msgstr "Sub area"
 
 #: geonode/waterproof_intake/template/intake_clone.html:58
 #: geonode/waterproof_intake/template/intake_edit.html:58
 #: geonode/waterproof_intake/template/intake_form.html:58
-#, fuzzy
-#| msgid "List Water Intake"
 msgid "Define water intake"
-msgstr "List Water Intake"
+msgstr "Define water intake"
 
 #: geonode/waterproof_intake/template/intake_clone.html:59
 #: geonode/waterproof_intake/template/intake_edit.html:59
 #: geonode/waterproof_intake/template/intake_form.html:59
 msgid "Please complete the fields to define your Water Intake"
-msgstr ""
+msgstr "Please complete the fields to define your Water Intake"
 
 #: geonode/waterproof_intake/template/intake_clone.html:86
 #: geonode/waterproof_intake/template/intake_edit.html:86
 #: geonode/waterproof_intake/template/intake_form.html:84
 #: geonode/waterproof_intake/template/intake_list.html:54
-#, fuzzy
-#| msgid "List Water Intake"
 msgid "Water source name"
-msgstr "List Water Intake"
+msgstr "Water source name"
 
 #: geonode/waterproof_intake/template/intake_clone.html:102
 #: geonode/waterproof_intake/template/intake_clone.html:186
@@ -359,77 +353,77 @@ msgstr "List Water Intake"
 #: geonode/waterproof_intake/template/intake_form.html:303
 #: geonode/waterproof_intake/template/intake_form.html:330
 msgid "Next"
-msgstr ""
+msgstr "Next"
 
 #: geonode/waterproof_intake/template/intake_clone.html:110
 #: geonode/waterproof_intake/template/intake_edit.html:110
 #: geonode/waterproof_intake/template/intake_form.html:107
 msgid "Select the elements that make up your capture system"
-msgstr ""
+msgstr "Select the elements that make up your capture system"
 
 #: geonode/waterproof_intake/template/intake_clone.html:124
 #: geonode/waterproof_intake/template/intake_edit.html:124
 #: geonode/waterproof_intake/template/intake_form.html:122
 msgid "Source"
-msgstr ""
+msgstr "Source"
 
 #: geonode/waterproof_intake/template/intake_clone.html:136
 #: geonode/waterproof_intake/template/intake_edit.html:136
 #: geonode/waterproof_intake/template/intake_form.html:132
 msgid "How to use the graph"
-msgstr ""
+msgstr "How to use the graph?"
 
 #: geonode/waterproof_intake/template/intake_clone.html:147
 #: geonode/waterproof_intake/template/intake_edit.html:147
 #: geonode/waterproof_intake/template/intake_form.html:143
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #: geonode/waterproof_intake/template/intake_clone.html:152
 #: geonode/waterproof_intake/template/intake_edit.html:152
 #: geonode/waterproof_intake/template/intake_form.html:148
 #, python-format
 msgid "%% Transported water"
-msgstr ""
+msgstr "%% Transported water"
 
 #: geonode/waterproof_intake/template/intake_clone.html:157
 #: geonode/waterproof_intake/template/intake_edit.html:157
 #: geonode/waterproof_intake/template/intake_form.html:153
 #, python-format
 msgid "%% Sediments retained"
-msgstr ""
+msgstr "%% Sediments retained"
 
 #: geonode/waterproof_intake/template/intake_clone.html:162
 #: geonode/waterproof_intake/template/intake_edit.html:162
 #: geonode/waterproof_intake/template/intake_form.html:158
 #, python-format
 msgid "%% Nitrogen retained"
-msgstr ""
+msgstr "%% Nitrogen retained"
 
 #: geonode/waterproof_intake/template/intake_clone.html:167
 #: geonode/waterproof_intake/template/intake_edit.html:167
 #: geonode/waterproof_intake/template/intake_form.html:163
 #, python-format
 msgid "%% Phosphorus retained"
-msgstr ""
+msgstr "%% Phosphorus retained"
 
 #: geonode/waterproof_intake/template/intake_clone.html:170
 #: geonode/waterproof_intake/template/intake_edit.html:170
 #: geonode/waterproof_intake/template/intake_form.html:166
 msgid "Validate graph"
-msgstr ""
+msgstr "Validate graph"
 
 #: geonode/waterproof_intake/template/intake_clone.html:176
 #: geonode/waterproof_intake/template/intake_edit.html:176
 #: geonode/waterproof_intake/template/intake_form.html:174
 msgid "Cost functions "
-msgstr ""
+msgstr "Cost functions "
 
 #: geonode/waterproof_intake/template/intake_clone.html:177
 #: geonode/waterproof_intake/template/intake_edit.html:177
 #: geonode/waterproof_intake/template/intake_form.html:175
 msgid "Add Cost"
-msgstr ""
+msgstr "Add Cost"
 
 #: geonode/waterproof_intake/template/intake_clone.html:185
 #: geonode/waterproof_intake/template/intake_clone.html:305
@@ -444,67 +438,71 @@ msgstr ""
 #: geonode/waterproof_intake/template/intake_form.html:329
 #: geonode/waterproof_intake/template/intake_form.html:367
 msgid "Previous"
-msgstr ""
+msgstr "Previous"
 
 #: geonode/waterproof_intake/template/intake_clone.html:196
 #: geonode/waterproof_intake/template/intake_edit.html:196
 #: geonode/waterproof_intake/template/intake_form.html:193
 msgid "Please enter the annual water extraction"
 msgstr ""
+"Please enter the annual water extraction (l/s) associated with the "
+"Extraction Connection element x defined in the Water Intake system diagram"
 
 #: geonode/waterproof_intake/template/intake_clone.html:200
 #: geonode/waterproof_intake/template/intake_edit.html:200
 #: geonode/waterproof_intake/template/intake_form.html:197
 msgid "Interpolation wizard"
-msgstr ""
+msgstr "Interpolation wizard"
 
 #: geonode/waterproof_intake/template/intake_clone.html:201
 #: geonode/waterproof_intake/template/intake_edit.html:201
 #: geonode/waterproof_intake/template/intake_form.html:198
 msgid "Manual edit"
-msgstr ""
+msgstr "Manual edit"
 
 #: geonode/waterproof_intake/template/intake_clone.html:212
 #: geonode/waterproof_intake/template/intake_edit.html:212
 #: geonode/waterproof_intake/template/intake_form.html:209
 msgid "Data analysis"
-msgstr ""
+msgstr "Data analysis"
 
 #: geonode/waterproof_intake/template/intake_clone.html:213
 #: geonode/waterproof_intake/template/intake_edit.html:213
 #: geonode/waterproof_intake/template/intake_form.html:210
 msgid "Please select the method you wish to use"
 msgstr ""
+"Please select the method you wish to use to fill in the table associated "
+"with annual water extraction from the source"
 
 #: geonode/waterproof_intake/template/intake_clone.html:217
 #: geonode/waterproof_intake/template/intake_edit.html:217
 #: geonode/waterproof_intake/template/intake_form.html:214
 msgid "Interpolation method "
-msgstr ""
+msgstr "Interpolation method "
 
 #: geonode/waterproof_intake/template/intake_clone.html:220
 #: geonode/waterproof_intake/template/intake_edit.html:220
 #: geonode/waterproof_intake/template/intake_form.html:217
 msgid "Linear interpolation"
-msgstr ""
+msgstr "Linear interpolation"
 
 #: geonode/waterproof_intake/template/intake_clone.html:221
 #: geonode/waterproof_intake/template/intake_edit.html:221
 #: geonode/waterproof_intake/template/intake_form.html:218
 msgid "Potential interpolation"
-msgstr ""
+msgstr "Potential interpolation"
 
 #: geonode/waterproof_intake/template/intake_clone.html:222
 #: geonode/waterproof_intake/template/intake_edit.html:222
 #: geonode/waterproof_intake/template/intake_form.html:219
 msgid "Exponential interpolation"
-msgstr ""
+msgstr "Exponential interpolation"
 
 #: geonode/waterproof_intake/template/intake_clone.html:223
 #: geonode/waterproof_intake/template/intake_edit.html:223
 #: geonode/waterproof_intake/template/intake_form.html:220
 msgid "Logistics interpolation"
-msgstr ""
+msgstr "Logistics interpolation"
 
 #: geonode/waterproof_intake/template/intake_clone.html:227
 #: geonode/waterproof_intake/template/intake_clone.html:274
@@ -513,25 +511,25 @@ msgstr ""
 #: geonode/waterproof_intake/template/intake_form.html:224
 #: geonode/waterproof_intake/template/intake_form.html:271
 msgid "Number of years for time series"
-msgstr ""
+msgstr "Number of years for time series"
 
 #: geonode/waterproof_intake/template/intake_clone.html:233
 #: geonode/waterproof_intake/template/intake_edit.html:233
 #: geonode/waterproof_intake/template/intake_form.html:230
 msgid "Extraction"
-msgstr ""
+msgstr "Extraction"
 
 #: geonode/waterproof_intake/template/intake_clone.html:237
 #: geonode/waterproof_intake/template/intake_edit.html:237
 #: geonode/waterproof_intake/template/intake_form.html:234
 msgid "Initial year"
-msgstr ""
+msgstr "Initial year (l/s)"
 
 #: geonode/waterproof_intake/template/intake_clone.html:241
 #: geonode/waterproof_intake/template/intake_edit.html:241
 #: geonode/waterproof_intake/template/intake_form.html:238
 msgid "Final year"
-msgstr ""
+msgstr "Final year (l/s)"
 
 #: geonode/waterproof_intake/template/intake_clone.html:246
 #: geonode/waterproof_intake/template/intake_clone.html:280
@@ -540,7 +538,7 @@ msgstr ""
 #: geonode/waterproof_intake/template/intake_form.html:243
 #: geonode/waterproof_intake/template/intake_form.html:277
 msgid "Generate"
-msgstr ""
+msgstr "Generate"
 
 #: geonode/waterproof_intake/template/intake_clone.html:250
 #: geonode/waterproof_intake/template/intake_clone.html:284
@@ -549,7 +547,7 @@ msgstr ""
 #: geonode/waterproof_intake/template/intake_form.html:247
 #: geonode/waterproof_intake/template/intake_form.html:281
 msgid "Results"
-msgstr ""
+msgstr "Results"
 
 #: geonode/waterproof_intake/template/intake_clone.html:256
 #: geonode/waterproof_intake/template/intake_clone.html:290
@@ -558,161 +556,156 @@ msgstr ""
 #: geonode/waterproof_intake/template/intake_form.html:253
 #: geonode/waterproof_intake/template/intake_form.html:287
 msgid "Extraction Value (l/s)"
-msgstr ""
+msgstr "Extraction Value (l/s)"
 
 #: geonode/waterproof_intake/template/intake_clone.html:275
 #: geonode/waterproof_intake/template/intake_edit.html:275
 #: geonode/waterproof_intake/template/intake_form.html:272
 msgid "You can edit the table manually"
-msgstr ""
+msgstr "You can edit the table manually by activating this option."
 
 #: geonode/waterproof_intake/template/intake_clone.html:277
 #: geonode/waterproof_intake/template/intake_edit.html:277
 #: geonode/waterproof_intake/template/intake_form.html:274
 msgid "Number of years"
-msgstr ""
+msgstr "Number of years"
 
 #: geonode/waterproof_intake/template/intake_clone.html:314
 #: geonode/waterproof_intake/template/intake_edit.html:314
 #: geonode/waterproof_intake/template/intake_form.html:311
 msgid "External inputs"
-msgstr ""
+msgstr "External inputs"
 
 #: geonode/waterproof_intake/template/intake_clone.html:315
 #: geonode/waterproof_intake/template/intake_edit.html:315
 #: geonode/waterproof_intake/template/intake_form.html:312
 msgid "External inputs to define"
 msgstr ""
+"External inputs to define. For Each of these external inputs you have to "
+"define Annual Water Volume (m3), Annual Sediment Load (Ton), Annual Nitrogen "
+"Load(kg), Annual Phosphorus Load (kg)."
 
 #: geonode/waterproof_intake/template/intake_clone.html:320
 #: geonode/waterproof_intake/template/intake_edit.html:320
 #: geonode/waterproof_intake/template/intake_form.html:317
 msgid "Asignation"
-msgstr ""
+msgstr "Asignation"
 
 #: geonode/waterproof_intake/template/intake_clone.html:322
 #: geonode/waterproof_intake/template/intake_edit.html:322
 #: geonode/waterproof_intake/template/intake_form.html:319
 msgid "Type element for asignation"
-msgstr ""
+msgstr "Type element for asignation"
 
 #: geonode/waterproof_intake/template/intake_clone.html:326
 #: geonode/waterproof_intake/template/intake_edit.html:326
 #: geonode/waterproof_intake/template/intake_form.html:323
 msgid "Save data"
-msgstr ""
+msgstr "Save data"
 
 #: geonode/waterproof_intake/template/intake_clone.html:351
 #: geonode/waterproof_intake/template/intake_edit.html:351
 #: geonode/waterproof_intake/template/intake_form.html:348
 msgid "Intake area delimitation"
-msgstr ""
+msgstr "Intake area delimitation"
 
 #: geonode/waterproof_intake/template/intake_clone.html:354
 #: geonode/waterproof_intake/template/intake_edit.html:354
 #: geonode/waterproof_intake/template/intake_form.html:351
 msgid "Load file to delimit area"
-msgstr ""
+msgstr "Load file to delimit area"
 
 #: geonode/waterproof_intake/template/intake_clone.html:358
 #: geonode/waterproof_intake/template/intake_edit.html:358
 #: geonode/waterproof_intake/template/intake_form.html:355
 msgid "Manually area delimit"
-msgstr ""
+msgstr "Manually area delimit"
 
 #: geonode/waterproof_intake/template/intake_clone.html:361
 #: geonode/waterproof_intake/template/intake_edit.html:361
 #: geonode/waterproof_intake/template/intake_form.html:358
 msgid "Validate delimit area"
-msgstr ""
+msgstr "Validate delimit area"
 
 #: geonode/waterproof_intake/template/intake_clone.html:371
 #: geonode/waterproof_intake/template/intake_edit.html:371
 #: geonode/waterproof_intake/template/intake_form.html:368
 msgid "Submit"
-msgstr ""
+msgstr "Submit"
 
 #: geonode/waterproof_intake/template/intake_confirm_delete.html:1
 #: geonode/waterproof_intake/template/intake_confirm_delete.html:2
 #: geonode/waterproof_intake/template/intake_login_error.html:1
 #: geonode/waterproof_intake/template/intake_login_error.html:2
 msgid "Waterproof NBS CA"
-msgstr ""
+msgstr "Waterproof NBS CA"
 
 #: geonode/waterproof_intake/template/intake_confirm_delete.html:10
-#, fuzzy
-#| msgid "List Water Intake"
 msgid "Delete intake"
-msgstr "List Water Intake"
+msgstr "Delete intake"
 
 #: geonode/waterproof_intake/template/intake_edit.html:18
-#, fuzzy
-#| msgid "List Water Intake"
 msgid "Edit water intake"
-msgstr "List Water Intake"
+msgstr "Edit water intake"
 
 #: geonode/waterproof_intake/template/intake_form.html:18
-#, fuzzy
-#| msgid "List Water Intake"
 msgid "Create water intake"
-msgstr "List Water Intake"
+msgstr "Create water intake"
 
 #: geonode/waterproof_intake/template/intake_list.html:1
 #: geonode/waterproof_intake/template/intake_list.html:6
-#, fuzzy
-#| msgid "List Water Intake"
 msgid "Water Intakes"
-msgstr "List Water Intake"
+msgstr "Water Intakes"
 
 #: geonode/waterproof_intake/template/intake_list.html:29
 msgid "Selected City"
-msgstr ""
+msgstr "Selected City"
 
 #: geonode/waterproof_intake/template/intake_list.html:30
 #: geonode/waterproof_intake/template/intake_list.html:56
 msgid "Region"
-msgstr ""
+msgstr "Region"
 
 #: geonode/waterproof_intake/template/intake_list.html:31
 msgid "Currency"
-msgstr ""
+msgstr "Currency"
 
 #: geonode/waterproof_intake/template/intake_list.html:40
 msgid "Búsqueda de Captaciones"
-msgstr ""
+msgstr "Water intake search"
 
 #: geonode/waterproof_intake/template/intake_list.html:41
 msgid ""
 "Ingrese el nombre de la ciudad de su interés en el espacio 'Search City' del "
 "mapa y, seleccione la opción que corresponda en la lista"
 msgstr ""
+"Enter the name of the city of your interest in the 'Search city' space on "
+"the map and select the corresponding option from the list"
 
 #: geonode/waterproof_intake/template/intake_list.html:44
-#, fuzzy
-#| msgid "List Water Intake"
 msgid "Create new Water Intake"
-msgstr "List Water Intake"
+msgstr "Create new Water Intake"
 
 #: geonode/waterproof_intake/template/intake_list.html:52
 msgid "User"
-msgstr ""
+msgstr "User"
 
 #: geonode/waterproof_intake/template/intake_list.html:53
 msgid "Creation Date"
-msgstr ""
+msgstr "Creation Date"
 
 #: geonode/waterproof_intake/template/intake_list.html:55
 msgid "City"
-msgstr ""
+msgstr "City"
 
 #: geonode/waterproof_intake/template/intake_list.html:57
 msgid "Demand"
-msgstr ""
+msgstr "Demand"
 
 #: geonode/waterproof_intake/template/intake_list.html:58
 msgid "Options"
-msgstr ""
+msgstr "Options"
 
 #: geonode/waterproof_intake/template/intake_login_error.html:10
 msgid "Permission denied"
-msgstr ""
+msgstr "Permission denied"

@@ -52,6 +52,7 @@ const interpolationType = {
 var mapLoader;
 $(document).ready(function() {
 
+
     var banderaInpolation = 0;
     $("#intakeWECB").click(function() {
         banderaInpolation += 1
@@ -154,43 +155,44 @@ $(document).ready(function() {
     setInterpolationParams();
     loadExternalInput();
 
+    // Generate table external Input
     function externalInput(numYear) {
         var rows = "";
+        var numberExternal = 0;
         $('#externalSelect').append(`<option value="null" selected>Choose here</option>`);
         for (let p = 0; p < graphData.length; p++) {
             if (graphData[p].external == 'true') {
+                numberExternal += 1
                 $('#externalSelect').append(`
-                            <option value="${graphData[p].id}">${graphData[p].id} - External Input</option>
-                 `);
+                        <option value="${graphData[p].id}">${graphData[p].id} - External Input</option>
+                `);
                 rows = "";
                 for (let index = 0; index <= numYear; index++) {
                     rows += (`<tr>
-                                <th class="text-center" scope="col" name="year_${graphData[p].id}" year_value="${index+1}">${index+1}</th>
-                                <td class="text-center" scope="col"><input type="text" class="form-control" name="waterVolume_${index+1}_${graphData[p].id}"></td>
-                                <td class="text-center" scope="col"><input type="text" class="form-control" name="sediment_${index+1}_${graphData[p].id}"></td>
-                                <td class="text-center" scope="col"><input type="text" class="form-control" name="nitrogen_${index+1}_${graphData[p].id}" ></td>
-                                <td class="text-center" scope="col"><input type="text" class="form-control" name="phosphorus_${index+1}_${graphData[p].id}"></td>
-                          </tr>`);
+                            <th class="text-center" scope="col" name="year_${graphData[p].id}" year_value="${index + 1}">${index + 1}</th>
+                            <td class="text-center" scope="col"><input type="text" class="form-control" name="waterVolume_${index + 1}_${graphData[p].id}"></td>
+                            <td class="text-center" scope="col"><input type="text" class="form-control" name="sediment_${index + 1}_${graphData[p].id}"></td>
+                            <td class="text-center" scope="col"><input type="text" class="form-control" name="nitrogen_${index + 1}_${graphData[p].id}" ></td>
+                            <td class="text-center" scope="col"><input type="text" class="form-control" name="phosphorus_${index + 1}_${graphData[p].id}"></td>
+                        </tr>`);
                 }
                 $('#IntakeTDLE').append(`
-                        <table class="table" id="table_${graphData[p].id}" style="display: none">
-                            <thead>
-                                <tr>
-                                    <th class="text-center" scope="col">Year</th>
-                                    <th class="text-center" scope="col">Water Volume (m3)</th>
-                                    <th class="text-center" scope="col">Sediment (Ton)</th>
-                                    <th class="text-center" scope="col">Nitrogen (Kg)</th>
-                                    <th class="text-center" scope="col">Phosphorus (Kg)</th>
-                                </tr>
-                            </thead>
-                            <tbody>${rows}</tbody>
-                        </table>    
-                `);
+                    <table class="table" id="table_${graphData[p].id}" style="display: none">
+                        <thead>
+                            <tr>
+                                <th class="text-center" scope="col">Year</th>
+                                <th class="text-center" scope="col">Water Volume (m3)</th>
+                                <th class="text-center" scope="col">Sediment (Ton)</th>
+                                <th class="text-center" scope="col">Nitrogen (Kg)</th>
+                                <th class="text-center" scope="col">Phosphorus (Kg)</th>
+                            </tr>
+                        </thead>
+                        <tbody>${rows}</tbody>
+                    </table>    
+            `);
             }
-
         }
-
-
+        $('#ExternalNumbersInputs').html(numberExternal)
     }
 
     $('#saveExternalData').click(function() {
@@ -206,7 +208,7 @@ $(document).ready(function() {
                         if (watersita != '' || sedimentsito != '' || nitrogenito != '' || phospharusito != '') {
                             array.push({
                                 "year": $(this).attr('year_value'),
-                                "waterVol": watersita,
+                                "water": watersita,
                                 "sediment": sedimentsito,
                                 "nitrogen": nitrogenito,
                                 "phosphorus": phospharusito
@@ -271,7 +273,6 @@ $(document).ready(function() {
         $('#autoAdjustHeightF').css("height", "auto");
         map.invalidateSize();
     });
-
     $('#smartwizard').smartWizard({
         selected: 0,
         theme: 'dots',
@@ -295,6 +296,7 @@ $(document).ready(function() {
             markDoneStep: false,
         }
     });
+
     $("#smartwizard").on("showStep", function(e, anchorObject, stepIndex, stepDirection) {
         if (stepIndex == 4) {
             if (catchmentPoly) {

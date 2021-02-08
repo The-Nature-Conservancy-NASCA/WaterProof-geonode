@@ -752,6 +752,25 @@ def viewIntake(request, idx):
         )
 
 
+def viewIntakeDemand(request, idx):
+    if request.method == 'GET':
+        filterIntake = Intake.objects.get(id=idx)
+        filterExternal = ElementSystem.objects.filter(intake=filterIntake.pk, is_external=True)
+        intakeDemand = DemandParameters.objects.get(id=filterIntake.demand_parameters.pk)
+        yearsDemand = WaterExtraction.objects.filter(demand=filterIntake.demand_parameters.pk)
+        for year in yearsDemand:
+            print(year.value)
+
+        return render(
+            request, 'waterproof_intake/intake_demand.html',
+            {
+                'intake': filterIntake,
+                'demand': intakeDemand,
+                'yeardDemand': yearsDemand
+            }
+        )
+
+
 def cloneIntake(request, idx):
     if not request.user.is_authenticated:
         return render(request, 'waterproof_intake/intake_login_error.html')
@@ -1019,14 +1038,27 @@ def cloneIntake(request, idx):
 
 def deleteIntake(request, idx):
     if request.method == "POST":
+        print(idx)
         intake = Intake.objects.get(id=idx)
-        # delete object
-        intake.delete()
-        # after deleting redirect to
-        # home page
-        return render(request, 'waterproof_intake/intake_list.html')
-    else:
-        return render(request, 'waterproof_intake/intake_confirm_delete.html', {"idx": idx})
+        if not intake:
+            print("Not found")
+            context = {
+                'status': '400', 'reason': 'Intake not found'  
+            }
+            response = HttpResponse(json.dumps(context), content_type='application/json')
+            response.status_code = 400
+            return response
+        else:
+            # delete object
+            print(intake.delete())
+            # after deleting redirect to
+            # home page
+            context = {
+                'status': '200', 'reason': 'sucess'  
+            }
+            response = HttpResponse(json.dumps(context), content_type='application/json')
+            response.status_code = 200
+            return response
 
 
 """
