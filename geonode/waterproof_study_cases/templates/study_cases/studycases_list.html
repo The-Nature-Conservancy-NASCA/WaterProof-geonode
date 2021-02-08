@@ -3,9 +3,9 @@
 
 {% block title %}{% trans "Study Cases" %}{% endblock %}
 {% block main %}
-  <h1>{% trans "Study Cases" %}</h1>
-  <a href="{% url "study_cases_submit" %}">{% trans "Create new study case" %}</a>
-   
+<h1>{% trans "Study Cases" %}</h1>
+<a href="{% url "study_cases_submit" %}">{% trans "Create new study case" %}</a>
+
 {% endblock %}
 
 {% block body_outer %}
@@ -15,5 +15,5 @@
 {% endblock body_outer %}
 
 {% block extra_script %}
-  <script src="{% static study_cases/js/study_cases.js}"></script>
+<script src="{% static study_cases/js/study_cases.js}"></script>
 {% endblock %}
