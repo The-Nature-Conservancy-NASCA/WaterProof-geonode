@@ -96,8 +96,8 @@ function validateShapeFile(zip) {
                     else {
                         Swal.fire({
                             icon: 'error',
-                            title: 'Error en shapefile',
-                            text: 'El sistema de referencia de coordenadas es incorrecto, se espera EPSG 3857 o EPSG 4326',
+                            title: gettext('Error!'),
+                            text: gettext('The CRS is not correct!')
                         })
                         resolve(shapeFile);
                     }
@@ -114,8 +114,8 @@ function validateShapeFile(zip) {
                         else {
                             Swal.fire({
                                 icon: 'error',
-                                title: 'Error en shapefile',
-                                text: 'El sistema de referencia de coordenadas es incorrecto, se espera EPSG 3857 o EPSG 4326',
+                                title: gettext('Error!'),
+                                text: gettext('The CRS is not correct!')
                             })
                             resolve(shapeFile);
                         }
@@ -129,8 +129,8 @@ function validateShapeFile(zip) {
             if (!readShp) {
                 Swal.fire({
                     icon: 'error',
-                    title: 'Error en shapefile',
-                    text: 'Falta el archivo .shp requerido',
+                    title: gettext('Shapefile error'),
+                    text: gettext('Missing shp')
                 })
                 resolve(shapeFile);
 
@@ -139,8 +139,8 @@ function validateShapeFile(zip) {
             if (!readDbf) {
                 Swal.fire({
                     icon: 'error',
-                    title: 'Error en shapefile',
-                    text: 'Falta el archivo .dbf requerido',
+                    title: gettext('Shapefile error'),
+                    text: gettext('Missing dbf')
                 })
                 resolve(shapeFile);
             }
@@ -148,8 +148,8 @@ function validateShapeFile(zip) {
             if (!readShx) {
                 Swal.fire({
                     icon: 'error',
-                    title: 'Error en shapefile',
-                    text: 'Falta el archivo .shx requerido',
+                    title: gettext('Shapefile error'),
+                    text: gettext('Missing shx')
                 })
                 resolve(shapeFile);
             }
@@ -157,8 +157,8 @@ function validateShapeFile(zip) {
             if (!readPrj) {
                 Swal.fire({
                     icon: 'error',
-                    title: 'Error en shapefile',
-                    text: 'Falta el archivo .prj requerido',
+                    title: gettext('Shapefile error'),
+                    text: gettext('Missing prj')
                 })
                 resolve(shapeFile);
             }
@@ -224,23 +224,80 @@ function validateGeoJson(geojson) {
     else if (!validGeojson.typeGeom) {
         Swal.fire({
             icon: 'error',
-            title: 'Error en archivo GeoJSON',
-            text: 'El tipo de geometría debe ser polígono',
+            title: gettext('GeoJSON file error'),
+            text: gettext('Geometry must be polygon')
         })
     }
     else if (!validGeojson.struct) {
         Swal.fire({
             icon: 'error',
-            title: 'Error en archivo GeoJSON',
-            text: 'El archivo no posee la estructura estándar requerida para un GeoJSON',
+            title: gettext('GeoJSON file error'),
+            text: gettext('Bad geojson structure')
         })
     }
     else {
         Swal.fire({
             icon: 'error',
-            title: 'Error en archivo GeoJSON',
-            text: 'Las coordenadas no están dentro del rango del WSG84',
+            title: gettext('GeoJSON file error'),
+            text: gettext('Coordinates out of WSG84')
         })
     }
     return isValid;
+}
+/** 
+ * Validate dbf required attributes 
+ * action & activity_n shapefile
+ * @param {Object} geojson   GeoJSON object
+ *
+ * @return {Boolean} True|False is a valid dbf
+ */
+function validateDbfFields(geojson) {
+    const actionType = {
+        prevent: 'prevent',
+        prefer: 'prefer'
+    };
+    validDbf = {};
+    validDbf.action = false;
+    validDbf.activity = false;
+    if (geojson.features && geojson.features.length > 0) {
+        geojson.features.forEach(function (feature, index) {
+            if (feature.properties) {
+                if (feature.properties.action === actionType.prevent || feature.properties.action === actionType.prefer) {
+                    validDbf.action = true;
+                }
+                if (feature.properties.activity_n) {
+                    validDbf.activity = true;
+                }
+            }
+        });
+    }
+    else {
+        if (geojson.properties) {
+            if (geojson.properties.action === actionType.prevent || geojson.properties.action === actionType.prefer) {
+                validDbf.action = true;
+            }
+            if (geojson.properties.activity_n) {
+                validDbf.activity = true;
+            }
+        }
+    }
+    if (validDbf.action && validDbf.activity) {
+        return true;
+    }
+    else if (!validDbf.action) {
+        Swal.fire({
+            icon: 'error',
+            title: gettext('Shapefile error'),
+            text: gettext('Dbf action field missing')
+        })
+        return false;
+    }
+    else {
+        Swal.fire({
+            icon: 'error',
+            title: gettext('Shapefile error'),
+            text: gettext('Dbf activity field missing')
+        })
+        return false;
+    }
 }
