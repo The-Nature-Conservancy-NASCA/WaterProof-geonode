@@ -15,7 +15,7 @@ var graphData = [];
 var connection = [];
 var funcostdb = [];
 var bandera = true;
-
+var banderaValideGraph = 1;
 // Program starts here. The document.onLoad executes the
 // createEditor function with a given configuration.
 // In the config file, the mxEditor.onInit method is
@@ -205,7 +205,7 @@ function onInit(editor) {
     // Target needs exactly one incoming connection from Source
     editor.graph.multiplicities.push(new mxMultiplicity(
         true, 'Symbol', 'name', 'CSINFRA', 0, 0, ['Symbol'],
-        `From element CSINFRA can't connect to other element`,
+        "From element CSINFRA can't connect to other element",
         'Target Must Connect From Source'));
 
     var getdata = document.getElementById('getdata');
@@ -372,6 +372,10 @@ function onInit(editor) {
         //var latexSpan = document.getElementById('latex');
         var mathField = MQ.MathField(mathFieldSpan, {
             spaceBehavesLikeTab: true,
+            autoCommands: 'pi theta sqrt sum mod',
+            autoOperatorNames: 'sin cos tan',
+            restrictMismatchedBrackets: true,
+            supSubsRequireOperand: true,
             handlers: {
                 edit: function() {
                     mathField.focus();
@@ -388,6 +392,8 @@ function onInit(editor) {
         editor.graph.addListener(mxEvent.ADD_CELLS, function(sender, evt) {
             var selectedCell = evt.getProperty("cells");
             var idvar = selectedCell[0].id;
+
+            bandera = true;
             try {
                 if (selectedCell != undefined) {
                     var varcost = [];
@@ -437,13 +443,16 @@ function onInit(editor) {
             validateGraphIntake();
         });
 
+
         function validateGraphIntake() {
+
             graphData = [];
             connection = [];
             var enc = new mxCodec();
             var node = enc.encode(editor.graph.getModel());
             var textxml = mxUtils.getPrettyXml(node);
             bandera = validations(node, editor.graph.getModel());
+            clearDataHtml();
             if (!bandera) {
                 $('#hideCostFuntion').show();
                 node.querySelectorAll('Symbol').forEach(function(node) {
@@ -454,7 +463,7 @@ function onInit(editor) {
                         'varcost': node.getAttribute('varcost'),
                         'funcost': node.getAttribute('funcost'),
                         'external': node.getAttribute('externalData'),
-                        'externaldata': []
+                        'externaldata': '[]'
                     })
                 });
 
@@ -497,6 +506,11 @@ function onInit(editor) {
 
         }
 
+        $('#step4NextBtn').click(function() {
+            saveExternalData();
+            $('#smartwizard').smartWizard("next");
+        });
+
         //Set var into calculator
         $(document).on('click', '.list-group-item', function() {
             addInfo(`\\mathit{${$(this).attr('value')}}`);
@@ -515,10 +529,6 @@ function onInit(editor) {
             validateGraphIntake();
         });
 
-        $('button[name=mathKeyBoard]').each(function() {
-            MQ.StaticMath(this);
-        });
-
         //Edit funcion cost 
         $(document).on('click', 'a[name=glyphicon-edit]', function() {
             mathField.clearSelection();
@@ -533,13 +543,13 @@ function onInit(editor) {
         //Delete funcion cost 
         $(document).on('click', 'a[name=glyphicon-trash]', function() {
             Swal.fire({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
+                title: gettext('Are you sure?'),
+                text: gettext("You won't be able to revert this!"),
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#d33',
                 cancelButtonColor: '#3085d6',
-                confirmButtonText: 'Yes, delete it!'
+                confirmButtonText: gettext('Yes, delete it!')
             }).then((result) => {
                 if (result.isConfirmed) {
                     var id = $(this).attr('idvalue');
@@ -567,8 +577,8 @@ function onInit(editor) {
                     }
 
                     Swal.fire(
-                        'Deleted!',
-                        'Your funcion has been deleted.',
+                        gettext('Deleted!'),
+                        gettext('Your funcion has been deleted'),
                         'success'
                     )
                 }
@@ -630,10 +640,9 @@ function onInit(editor) {
         $('#sedimentosDiagram').change(function() {
             if (typeof(selectedCell.value) == "string" && selectedCell.value.length > 0) {
                 var obj = JSON.parse(selectedCell.value);
-                let dbfields = JSON.parse(obj.resultdb);
+                let dbfields = obj.resultdb;
                 dbfields[0].fields.predefined_sediment_perc = $('#sedimentosDiagram').val();
-                values = JSON.stringify(dbfields);
-                obj.resultdb = values;
+                obj.resultdb = dbfields;
                 selectedCell.setValue(JSON.stringify(obj));
             } else {
                 resultdb[0].fields.predefined_sediment_perc = $('#sedimentosDiagram').val();
@@ -645,10 +654,9 @@ function onInit(editor) {
         $('#nitrogenoDiagram').change(function() {
             if (typeof(selectedCell.value) == "string" && selectedCell.value.length > 0) {
                 var obj = JSON.parse(selectedCell.value);
-                let dbfields = JSON.parse(obj.resultdb);
+                let dbfields = obj.resultdb;
                 dbfields[0].fields.predefined_nitrogen_perc = $('#nitrogenoDiagram').val();
-                values = JSON.stringify(dbfields);
-                obj.resultdb = values;
+                obj.resultdb = dbfields;
                 selectedCell.setValue(JSON.stringify(obj));
             } else {
                 resultdb[0].fields.predefined_nitrogen_perc = $('#nitrogenoDiagram').val();
@@ -660,10 +668,9 @@ function onInit(editor) {
         $('#fosforoDiagram').change(function() {
             if (typeof(selectedCell.value) == "string" && selectedCell.value.length > 0) {
                 var obj = JSON.parse(selectedCell.value);
-                let dbfields = JSON.parse(obj.resultdb);
+                let dbfields = obj.resultdb;
                 dbfields[0].fields.predefined_phosphorus_perc = $('#fosforoDiagram').val();
-                values = JSON.stringify(dbfields);
-                obj.resultdb = values;
+                obj.resultdb = dbfields;
                 selectedCell.setValue(JSON.stringify(obj));
             } else {
                 resultdb[0].fields.predefined_phosphorus_perc = $('#fosforoDiagram').val();
@@ -675,10 +682,10 @@ function onInit(editor) {
         $('#aguaDiagram').change(function() {
             if (typeof(selectedCell.value) == "string" && selectedCell.value.length > 0) {
                 var obj = JSON.parse(selectedCell.value);
-                let dbfields = JSON.parse(obj.resultdb);
+                let dbfields = obj.resultdb;
                 dbfields[0].fields.predefined_transp_water_perc = $('#aguaDiagram').val();
-                values = JSON.stringify(dbfields);
-                obj.resultdb = values;
+                obj.resultdb = dbfields;
+
                 selectedCell.setValue(JSON.stringify(obj));
             } else {
                 resultdb[0].fields.predefined_transp_water_perc = $('#aguaDiagram').val();
@@ -687,7 +694,56 @@ function onInit(editor) {
             validationTransportedWater(editor, selectedCell);
         });
 
+        // Save External Input Data
+        function saveExternalData() {
+            for (let id = 0; id < graphData.length; id++) {
+                if (graphData[id].external) {
+                    graphData[id].externaldata = [];
+                    $(`th[name=year_${graphData[id].id}]`).each(function() {
+                        let watersita = $(`input[name="waterVolume_${$(this).attr('year_value')}_${graphData[id].id}"]`).val();
+                        let sedimentsito = $(`input[name="sediment_${$(this).attr('year_value')}_${graphData[id].id}"]`).val();
+                        let nitrogenito = $(`input[name="nitrogen_${$(this).attr('year_value')}_${graphData[id].id}"]`).val();
+                        let phospharusito = $(`input[name="phosphorus_${$(this).attr('year_value')}_${graphData[id].id}"]`).val();
+                        if (watersita != '' || sedimentsito != '' || nitrogenito != '' || phospharusito != '') {
+                            graphData[id].externaldata.push({
+                                "year": $(this).attr('year_value'),
+                                "water": watersita,
+                                "sediment": sedimentsito,
+                                "nitrogen": nitrogenito,
+                                "phosphorus": phospharusito
+                            });
 
+                        } else {
+                            Swal.fire({
+                                icon: 'warning',
+                                title: gettext('Field empty'),
+                                text: gettext('Please fill every fields')
+                            });
+                            return;
+                        }
+                    });
+                    var enc = new mxCodec();
+                    var node = enc.encode(editor.graph.getModel());
+                    node.querySelectorAll('Symbol').forEach((params) => {
+                        if (params.getAttribute('externalData') === 'true') {
+                            if (params.id === graphData[id].id) {
+                                params.setAttribute('external', JSON.stringify(graphData[id].externaldata))
+                                textxml = mxUtils.getPrettyXml(node);
+                                xmlDoc = mxUtils.parseXml(textxml)
+                                var dec = new mxCodec(xmlDoc);
+                                dec.decode(xmlDoc.documentElement, editor.graph.getModel());
+                                textxml = mxUtils.getPrettyXml(node);
+                            }
+                        }
+                    });
+
+                    graphData[id].externaldata = JSON.stringify(graphData[id].externaldata);
+                }
+
+            }
+            $('#xmlGraph').val(textxml);
+            $('#graphElements').val(JSON.stringify(graphData));
+        }
 
         jQuery.fn.ForceNumericOnly = function() {
             return this.each(function() {
@@ -713,6 +769,7 @@ function onInit(editor) {
             mathField.cmd(value);
             mathField.focus();
         }
+
 
     });
 

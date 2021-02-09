@@ -50,6 +50,51 @@ $(function () {
                 })
             }
         });
+        $('.btn-danger').click(function (evt) {
+            Swal.fire({
+                title: gettext('Delete NBS'),
+                text: gettext("Are you sure?") + gettext("You won't be able to revert this!"),
+                icon: 'warning',
+                showCancelButton: false,
+                showDenyButton: true,
+                confirmButtonColor: '#d33',
+                denyButtonColor: '#3085d6',
+                confirmButtonText: gettext('Yes, delete it!'),
+                denyButtonText: gettext('Cancel')
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    nbsId = evt.currentTarget.getAttribute('data-id')
+                    /** 
+                    * Get filtered activities by transition id 
+                    * @param {String} url   activities URL 
+                    * @param {Object} data  transition id  
+                    *
+                    * @return {String} activities in HTML option format
+                    */
+                    $.ajax({
+                        url: '/waterproof_nbs_ca/delete/' + nbsId,
+                        type: 'POST',
+                        success: function (result) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: gettext('Great!'),
+                                text: gettext('The NBS has been deleted')
+                            })
+                            setTimeout(function () { location.href = "/waterproof_nbs_ca/"; }, 1000);
+                        },
+                        error: function (error) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: gettext('Error!'),
+                                text: gettext('The NBS has not been deleted, try again!')
+                            })
+                        }
+                    });
+                } else if (result.isDenied) {
+                    return;
+                }
+            })
+        });
         fillTransitionsDropdown(transitionsDropdown);
         submitFormEvent();
         changeCountryEvent(countryDropdown, currencyDropdown);
@@ -203,14 +248,14 @@ $(function () {
 
         function updateDropdownCountry(feature) {
             let mapClick = true;
-           
+
             let layerClicked = feature.target;
             if (lastClickedLayer) {
                 lastClickedLayer.setStyle(defaultStyle);
             }
             layerClicked.setStyle(highlighPolygon);
             let countryCode = feature.sourceTarget.feature.id;
-            
+
             $.ajax({
                 url: '/waterproof_nbs_ca/load-countryByCode/',
                 data: {
@@ -241,7 +286,7 @@ $(function () {
                         },
                         success: function (result) {
                             result = JSON.parse(result);
-                            $('#currencyLabel').text('('+result[0].fields.code+') - '+result[0].fields.name);
+                            $('#currencyLabel').text('(' + result[0].fields.code + ') - ' + result[0].fields.name);
                         }
                     });
                 }
@@ -251,7 +296,7 @@ $(function () {
         //map.on('click', onMapClick);
     }
     udpateCreateUrl = function (countryId) {
-       $('#createUrl').attr('href','create/'+countryId)
+        $('#createUrl').attr('href', 'create/' + countryId)
     };
     /** 
     * Get the transformations selected
@@ -338,7 +383,7 @@ $(function () {
                 }
             }
         });
-    
+
     }
     /** 
      * Validate input file on change

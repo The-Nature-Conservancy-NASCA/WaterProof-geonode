@@ -50,8 +50,8 @@ $(document).ready(function() {
         if ($("#numberYearsInterpolationValue").val() == '' || $("#initialDataExtractionInterpolationValue").val() == '' || $("#finalDataExtractionInterpolationValue").val() == '') {
             Swal.fire({
                 icon: 'warning',
-                title: `Data analisys empty`,
-                text: `Please Generate Data anlisys`
+                title: gettext('Data analisys empty'),
+                text: gettext('Please Generate Data analisys')
             });
             return
         }
@@ -137,10 +137,7 @@ $(document).ready(function() {
                 yearData.year = index + 1;
                 yearData.value = ((finalDataExtractionInterpolationValue) / (1 + ((finalDataExtractionInterpolationValue / initialDataExtractionInterpolationValue) - 1) * Math.exp(-r * index))).toFixed(2);
                 waterExtractionValue.push(yearData);
-                $('#intakeECTAG').append(`<tr>
-                <th class="text-center" scope="row">${index}</th>
-                <td class="text-center"><input type="text" class="form-control" value="${((finalDataExtractionInterpolationValue) / (1 + ((finalDataExtractionInterpolationValue / initialDataExtractionInterpolationValue) - 1) * Math.exp(-r * index))).toFixed(2)}" disabled></td>
-              </tr>`);
+                $('#intakeECTAG').append('<tr><th class="text-center" scope="row">${index}</th><td class="text-center"><input type="text" class="form-control" value="${((finalDataExtractionInterpolationValue) / (1 + ((finalDataExtractionInterpolationValue / initialDataExtractionInterpolationValue) - 1) * Math.exp(-r * index))).toFixed(2)}" disabled></td></tr>');
             }
         }
 
@@ -158,15 +155,15 @@ $(document).ready(function() {
     $('#btnManualTab').click(function() {
         if ($('#initialDataExtractionInterpolationValue').val() != '' || $('#finalDataExtractionInterpolationValue').val() != '' || $('#numberYearsInterpolationValue').val() != '') {
             Swal.fire({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
+                title: gettext('Are you sure?'),
+                text: gettext("You won't be able to revert this!"),
                 icon: 'warning',
                 showCancelButton: false,
                 showDenyButton: true,
                 confirmButtonColor: '#d33',
                 denyButtonColor: '#3085d6',
-                confirmButtonText: 'Yes, change it!',
-                denyButtonText: 'Cancel'
+                confirmButtonText: gettext('Yes, change it!'),
+                denyButtonText: gettext('Cancel')
             }).then((result) => {
                 if (result.isConfirmed) {
                     $('#intakeECTAG tr').remove();
@@ -191,15 +188,15 @@ $(document).ready(function() {
     $('#btnAutomaticTab').click(function() {
         if ($('#intakeNIYMI').val() != '') {
             Swal.fire({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
+                title: gettext('Are you sure?'),
+                text: gettext("You won't be able to revert this!"),
                 icon: 'warning',
                 showCancelButton: false,
                 showDenyButton: true,
                 confirmButtonColor: '#d33',
                 denyButtonColor: '#3085d6',
-                confirmButtonText: 'Yes, change it!',
-                denyButtonText: 'Cancel'
+                confirmButtonText: gettext('Yes, change it!'),
+                denyButtonText: gettext('Cancel')
             }).then((result) => {
                 if (result.isConfirmed) {
                     $('#intakeWEMI tr').remove();
@@ -218,40 +215,6 @@ $(document).ready(function() {
         }
     });
 
-    // Sabe External Input Data
-    $('#saveExternalData').click(function() {
-        for (let id = 0; id < graphData.length; id++) {
-            if (graphData[id].external) {
-                graphData[id].externaldata = [];
-                $(`th[name=year_${graphData[id].id}]`).each(function() {
-                    let watersita = $(`input[name="waterVolume_${$(this).attr('year_value')}_${graphData[id].id}"]`).val();
-                    let sedimentsito = $(`input[name="sediment_${$(this).attr('year_value')}_${graphData[id].id}"]`).val();
-                    let nitrogenito = $(`input[name="nitrogen_${$(this).attr('year_value')}_${graphData[id].id}"]`).val();
-                    let phospharusito = $(`input[name="phosphorus_${$(this).attr('year_value')}_${graphData[id].id}"]`).val();
-                    if (watersita != '' || sedimentsito != '' || nitrogenito != '' || phospharusito != '') {
-                        graphData[id].externaldata.push({
-                            "year": $(this).attr('year_value'),
-                            "water": watersita,
-                            "sediment": sedimentsito,
-                            "nitrogen": nitrogenito,
-                            "phosphorus": phospharusito
-                        });
-                    } else {
-                        Swal.fire({
-                            icon: 'warning',
-                            title: `Field empty`,
-                            text: `Please full every fields`
-                        });
-                        return;
-                    }
-                });
-                graphData[id].externaldata = JSON.stringify(graphData[id].externaldata);
-            }
-        }
-
-        $('#graphElements').val(JSON.stringify(graphData));
-    });
-
     // Change Table external input
     $('#externalSelect').change(function() {
         for (let t = 0; t < graphData.length; t++) {
@@ -261,7 +224,7 @@ $(document).ready(function() {
         }
         $(`#table_${$('#externalSelect').val()}`).css('display', 'block');
     });
-    
+
 
     // Automatic height on clic next btn wizard
     $('#smartwizard').smartWizard("next").click(function() {
@@ -286,7 +249,7 @@ $(document).ready(function() {
             $('#intakeWEMI').append(`
             <tr>
                 <th class="text-center" scope="row">${index + 1}</th>
-                <td class="text-center"><input name="manualInputData" yearValue="${index+1}" type="text" class="form-control"></td>
+                <td class="text-center"><input name="manualInputData" yearValue="${index + 1}" type="text" class="form-control"></td>
               </tr>
             `);
         }
@@ -332,7 +295,7 @@ $(document).ready(function() {
         $('#ExternalNumbersInputs').html(numberExternal)
     }
 
-    $('#smartwizard').smartWizard("next").click(function () {
+    $('#smartwizard').smartWizard("next").click(function() {
         $('#autoAdjustHeightF').css("height", "auto");
         map.invalidateSize();
     });
@@ -346,16 +309,19 @@ $(document).ready(function() {
         transition: {
             animation: 'fade', // Effect on navigation, none/fade/slide-horizontal/slide-vertical/slide-swing
         },
-        toolbarSettings: {
-            toolbarPosition: 'bottom', // both bottom
-            toolbarButtonPosition: 'center', // both bottom
-        },
         keyboardSettings: {
             keyNavigation: false
         },
         toolbarSettings: {
             showNextButton: false,
             showPreviousButton: false,
+        },
+        anchorSettings: {
+            emoveDoneStepOnNavigateBack: false,
+            markAllPreviousStepsAsDone: false,
+            anchorClickable: false,
+            enableAllAnchors: false,
+            markDoneStep: false,
         }
     });
 
@@ -389,8 +355,8 @@ $(document).ready(function() {
         } else {
             Swal.fire({
                 icon: 'warning',
-                title: `Field empty`,
-                text: `Please full every fields`
+                title: gettext('Field empty'),
+                text: gettext('Please fill every fields')
             });
             return;
         }
@@ -402,12 +368,19 @@ $(document).ready(function() {
 
     $('#step2NextBtn').click(function() {
         if (!bandera) {
+            $('#smartwizard').smartWizard("stepState", [3], "hide");
+            for (const item of graphData) {
+                if (item.external != null && item.external != 'false') {
+                    $('#smartwizard').smartWizard("stepState", [3], "show");
+                }
+            }
+            clearDataHtml();
             $('#smartwizard').smartWizard("next");
         } else {
             Swal.fire({
                 icon: 'warning',
-                title: `Validate Graph`,
-                text: `Please Validate Graph`
+                title: gettext('Validate graph'),
+                text: gettext('Please validate graph')
             });
             return;
         }
@@ -425,8 +398,8 @@ $(document).ready(function() {
                     if ($(this).val() == '' || $('#intakeNIYMI').val() == '') {
                         Swal.fire({
                             icon: 'warning',
-                            title: `Data analisys empty`,
-                            text: `Please Generate Data anlisys`
+                            title: gettext('Data analisys empty'),
+                            text: gettext('Please Generate Data analisys')
                         });
                         return;
                     } else {
@@ -444,8 +417,8 @@ $(document).ready(function() {
                 } else {
                     Swal.fire({
                         icon: 'warning',
-                        title: `Data analisys empty`,
-                        text: `Please Generate Data anlisys`
+                        title: gettext('Data analisys empty'),
+                        text: gettext('Please Generate Data analisys')
                     });
                     return;
                 }
@@ -455,8 +428,8 @@ $(document).ready(function() {
         } else {
             Swal.fire({
                 icon: 'warning',
-                title: `Data analisys empty`,
-                text: `Please Generate Data anlisys`
+                title: gettext('Data analisys empty'),
+                text: gettext('Please Generate Data analisys')
             });
             return;
         }
@@ -465,10 +438,6 @@ $(document).ready(function() {
 
     $('#step4PrevBtn').click(function() {
         $('#smartwizard').smartWizard("prev");
-    });
-
-    $('#step4NextBtn').click(function() {
-        $('#smartwizard').smartWizard("next");
     });
 
     $('#step5PrevBtn').click(function() {
@@ -556,7 +525,7 @@ $(document).ready(function() {
 });
 
 
-window.onbeforeunload = function() { return mxResources.get('changesLost'); };
+//window.onbeforeunload = function() { return mxResources.get('changesLost'); };
 
 
 /**
@@ -564,14 +533,14 @@ window.onbeforeunload = function() { return mxResources.get('changesLost'); };
  */
 function prevalidateAdjustCoordinates() {
     Swal.fire({
-        title: 'Delimitar punto y cuenca',
-        text: "El sistema ajustará las coordenadas del punto a la captación más cercana, ¿Desea continuar?",
+        title: gettext('Basin point delimitation'),
+        text: gettext('The point coordinates will be ajusted'),
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Ajustar punto',
-        cancelButtonText: 'Cancelar',
+        confirmButtonText: gettext('Yes, ajust!'),
+        cancelButtonText: gettext('Cancel'),
     }).then((result) => {
         if (result.isConfirmed) {
             mapLoader = L.control.loader().addTo(map);
@@ -596,6 +565,9 @@ function delimitIntakeArea() {
         coordinates.push(geom[0]);
         copyCoordinates.push(coordinates);
     })
+    if (editablepolygon) {
+        mapDelimit.removeLayer(editablepolygon);
+    }
     editablepolygon = L.polygon(copyCoordinates, { color: 'red' });
     editablepolygon.addTo(mapDelimit)
     editablepolygon.enableEdit();
@@ -626,20 +598,20 @@ function validateIntakeArea() {
             if (!result.validPolygon) {
                 Swal.fire({
                     icon: 'error',
-                    title: 'Error de Geometría',
-                    text: 'El polígono editado no es válido, por favor intente de nuevo',
+                    title: gettext('Geometry error'),
+                    text: gettext('The edited polygon is not valid')
                 })
             } else if (!result.polygonContains) {
                 Swal.fire({
                         icon: 'error',
-                        title: 'El polígono debe estar dentro del área de la captación',
-                        text: 'El polígono editado no es válido, por favor intente de nuevo',
+                        title: gettext('Geometry error'),
+                        text: gettext('The polygon geometries must be inside basin geometry'),
                     })
                     // Correct geometry
             } else {
                 Swal.fire(
-                    'Excelente',
-                    'El polígono es válido y está dentro de la captación',
+                    gettext('Great!'),
+                    gettext("Is a valid polygon inside basin's geometries"),
                     'success'
                 );
                 // Set original intake area geom in hidden input for posterior reading
@@ -661,7 +633,7 @@ function validateIntakeArea() {
 /** 
  * Validate input file on change
  * @param {HTML} dropdown Dropdown selected element
- */
+ Si */
 function changeFileEvent() {
     $('#intakeArea').change(function(evt) {
         var file = evt.currentTarget.files[0];
@@ -680,15 +652,7 @@ function changeFileEvent() {
                         validGeojson = validateGeoJson(geojson);
                         if (validGeojson) {
                             delimitationFileType = delimitationFileEnum.GEOJSON;
-                            let polygonStyle = {
-                                fillColor: "red",
-                                color: "#333333",
-                                weight: 0.2,
-                                fillOpacity: 0.3
-                            };
-                            editablepolygon = L.geoJSON(geojson, { style: polygonStyle })
-                            editablepolygon.addTo(mapDelimit);
-                            mapDelimit.fitBounds(editablepolygon.getBounds())
+                            addEditablePolygonMap();
                         } else {
                             $('#intakeArea').val('');
                             return;
@@ -696,8 +660,8 @@ function changeFileEvent() {
                     } catch (e) {
                         Swal.fire({
                             icon: 'error',
-                            title: 'Error en archivo GeoJSON',
-                            text: 'El archivo tiene carácteres erróneos o puede estar corrupto por favor intente con otro',
+                            title: gettext('GeoJSON file error'),
+                            text: gettext('Character errors in GeoJSON file'),
                         })
                         $('#intakeArea').val('');
                         return;
@@ -720,15 +684,7 @@ function changeFileEvent() {
                                 shp(contents).then(function(shpToGeojson) {
                                     geojson = shpToGeojson;
                                     delimitationFileType = delimitationFileEnum.SHP;
-                                    let polygonStyle = {
-                                        fillColor: "#337ab7",
-                                        color: "#333333",
-                                        weight: 0.2,
-                                        fillOpacity: 0.3
-                                    };
-                                    editablepolygon = L.geoJSON(geojson, { style: polygonStyle })
-                                    editablepolygon.addTo(mapDelimit);
-                                    mapDelimit.fitBounds(editablepolygon.getBounds())
+                                    addEditablePolygonMap();
                                 });
                             } else {
                                 $('#intakeArea').val('');
@@ -739,8 +695,8 @@ function changeFileEvent() {
                     }).catch(function(e) {
                         Swal.fire({
                             icon: 'error',
-                            title: 'Error en shapefile',
-                            text: 'Ha ocurrido un error de lectura en el shapefile',
+                            title: gettext('Shapefile error'),
+                            text: gettext("There's been an error reading the shapefile"),
                         })
                         console.log("Ocurrió error convirtiendo el shapefile " + e);
                         $('#intakeArea').val('');
@@ -755,10 +711,25 @@ function changeFileEvent() {
         } else { //Invalid extension
             Swal.fire({
                 icon: 'error',
-                title: 'Error de extensión',
-                text: 'La extensión del archivo no está soportada, debe ser GeoJSON o un shapefile .zip',
+                title: gettext('Extension file error'),
+                text: gettext('Not supported file extension'),
             })
             $('#intakeArea').val('');
         }
     });
+}
+
+function addEditablePolygonMap() {
+    let polygonStyle = {
+        fillColor: "red",
+        color: "#333333",
+        weight: 0.2,
+        fillOpacity: 0.3
+    };
+    if (editablepolygon) {
+        mapDelimit.removeLayer(editablepolygon);
+    }
+    editablepolygon = L.geoJSON(geojson, { style: polygonStyle })
+    editablepolygon.addTo(mapDelimit);
+    mapDelimit.fitBounds(editablepolygon.getBounds());
 }
