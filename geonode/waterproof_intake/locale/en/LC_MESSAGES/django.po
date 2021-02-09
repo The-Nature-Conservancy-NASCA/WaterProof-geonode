@@ -709,3 +709,27 @@ msgstr "Options"
 #: geonode/waterproof_intake/template/intake_login_error.html:10
 msgid "Permission denied"
 msgstr "Permission denied"
+
+msgid "The CRS is not correct!"
+msgstr "The coordinate reference system is not correct!, expects EPSG 3857 or EPSG 4326"
+
+msgid "Missing shp"
+msgstr ".shp required file is missing"
+
+msgid "Missing dbf"
+msgstr ".dbf required file is missing"
+
+msgid "Missing shx"
+msgstr ".shx required file is missing"
+
+msgid "Missing prj"
+msgstr ".prj required file is missing"
+
+msgid "Geometry must be polygon"
+msgstr "The geometry must be polygon type"
+
+msgid "Bad geojson structure"
+msgstr "The GeoJSON does not have the required standard structure"
+
+msgid "Coordinates out of WSG84"
+msgstr "Coordinates out of WSG84 geographic expected range"
