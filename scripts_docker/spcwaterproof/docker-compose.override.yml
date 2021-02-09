@@ -1,0 +1,59 @@
+version: '3.4'
+
+
+# Common Django template for Geonode, Celery services below
+x-common-django:
+  &default-common-django
+  image: waterproof/spcwaterproof:django-3.2
+  environment:
+    - DEBUG=True
+  volumes:
+    - ../../:/spcwaterproof/
+    - ./_volume_static:/spcwaterproof-static/
+    - ./_volume_media:/spcwaterproof-media/
+
+services:
+  django:
+    << : *default-common-django
+    command: "uwsgi --chdir=/spcwaterproof --module=geonode.wsgi --socket=:8000 --http=127.0.0.1:8001 --processes=5 --py-autoreload=2"
+  celery:
+    << : *default-common-django
+    command: 'celery -A geonode.celery_app:app worker --without-gossip --without-mingle -Ofair -B -E --statedb=/spcwaterproof-static/worker.state -s /spcwaterproof-static/celerybeat-schedule --loglevel=ERROR --concurrency=10 -n worker1@%h'
+
+  nginx:
+    image: waterproof/spcwaterproof:nginx-3.2
+    volumes:
+      - ./_volume_static:/spcwaterproof-static/
+      - ./_volume_media:/spcwaterproof-media/
+      - ./_volume_certificates:/spcwaterproof-certificates/
+
+  geoserver:
+    image: waterproof/spcwaterproof:geoserver-3.2
+    volumes:
+      - ./_volume_geodatadir:/spcwaterproof-geodatadir/
+
+  letsencrypt:
+    image: waterproof/spcwaterproof:letsencrypt-3.2
+    volumes:
+      - ./_volume_certificates:/spcwaterproof-certificates/
+
+  pgdumper_nogeo:
+    image: waterproof/spcwaterproof:pgdumper-3.2
+    volumes:
+      - ./_volume_pgdumps:/spcwaterproof-pgdumps/
+
+  pgdumper_geo:
+    image: waterproof/spcwaterproof:pgdumper-3.2
+    volumes:
+      - ./_volume_pgdumps:/spcwaterproof-pgdumps/
+
+  rclone:
+    image: waterproof/spcwaterproof:rclone-3.2
+    volumes:
+      - ./_volume_pgdumps:/spcwaterproof-pgdumps/
+      - ./_volume_media:/spcwaterproof-media/
+      - ./_volume_geodatadir:/spcwaterproof-geodatadir/
+
+  postgres:
+    ports:
+      - "5432:5432"
