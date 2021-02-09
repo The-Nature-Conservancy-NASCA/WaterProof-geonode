@@ -25,7 +25,7 @@ http {
         listen              $HTTP_PORT;
         server_name         $HTTP_HOST 127.0.0.1 nginx;
 
-        include spcgeonode.conf;
+        include spcwaterproof.conf;
     }
 
     # Default server closes the connection (we can connect only using HTTP_HOST and HTTPS HOST)

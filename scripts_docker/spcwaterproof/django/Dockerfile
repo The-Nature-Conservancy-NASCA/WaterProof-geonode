@@ -43,11 +43,11 @@ RUN rm requirements.txt
 RUN pip install pygdal==$(gdal-config --version).*
 
 # Install geonode
-RUN mkdir /spcgeonode
-WORKDIR /spcgeonode/
-ADD . /spcgeonode/
+RUN mkdir /spcwaterproof
+WORKDIR /spcwaterproof/
+ADD . /spcwaterproof/
 RUN pip install -e . --upgrade
-RUN chmod +x scripts/spcgeonode/django/docker-entrypoint.sh
+RUN chmod +x scripts_docker/spcwaterproof/django/docker-entrypoint.sh
 
 # Export ports
 EXPOSE 8000
