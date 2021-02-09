@@ -141,10 +141,10 @@ def create(request):
                             graphId=element['id'],
                             name=element['name'],
                             normalized_category=parameter[0]['fields']['normalized_category'],
-                            transported_water=parameter[0]['fields']['maximal_transp_water_perc'],
-                            sediment=parameter[0]['fields']['maximal_sediment_perc'],
-                            nitrogen=parameter[0]['fields']['maximal_nitrogen_perc'],
-                            phosphorus=parameter[0]['fields']['maximal_phosphorus_perc'],
+                            transported_water=parameter[0]['fields']['predefined_transp_water_perc'],
+                            sediment=parameter[0]['fields']['predefined_sediment_perc'],
+                            nitrogen=parameter[0]['fields']['predefined_nitrogen_perc'],
+                            phosphorus=parameter[0]['fields']['predefined_phosphorus_perc'],
                             is_external=False,
                             intake=intakeCreated
                         )
@@ -171,10 +171,10 @@ def create(request):
                                 graphId=element['id'],
                                 name=element['name'],
                                 normalized_category=parameter[0]['fields']['normalized_category'],
-                                transported_water=parameter[0]['fields']['maximal_transp_water_perc'],
-                                sediment=parameter[0]['fields']['maximal_sediment_perc'],
-                                nitrogen=parameter[0]['fields']['maximal_nitrogen_perc'],
-                                phosphorus=parameter[0]['fields']['maximal_phosphorus_perc'],
+                                transported_water=parameter[0]['fields']['predefined_transp_water_perc'],
+                                sediment=parameter[0]['fields']['predefined_sediment_perc'],
+                                nitrogen=parameter[0]['fields']['predefined_nitrogen_perc'],
+                                phosphorus=parameter[0]['fields']['predefined_phosphorus_perc'],
                                 is_external=True,
                                 intake=intakeCreated
                             )
@@ -227,10 +227,10 @@ def create(request):
                             graphId=element['id'],
                             name=element['name'],
                             normalized_category=parameter[0]['fields']['normalized_category'],
-                            transported_water=parameter[0]['fields']['maximal_transp_water_perc'],
-                            sediment=parameter[0]['fields']['maximal_sediment_perc'],
-                            nitrogen=parameter[0]['fields']['maximal_nitrogen_perc'],
-                            phosphorus=parameter[0]['fields']['maximal_phosphorus_perc'],
+                            transported_water=parameter[0]['fields']['predefined_transp_water_perc'],
+                            sediment=parameter[0]['fields']['predefined_sediment_perc'],
+                            nitrogen=parameter[0]['fields']['predefined_nitrogen_perc'],
+                            phosphorus=parameter[0]['fields']['predefined_phosphorus_perc'],
                             is_external=False,
                             intake=intakeCreated
                         )
@@ -587,10 +587,10 @@ def editIntake(request, idx):
                                 graphId=element['id'],
                                 name=element['name'],
                                 normalized_category=parameter[0]['fields']['normalized_category'],
-                                transported_water=parameter[0]['fields']['maximal_transp_water_perc'],
-                                sediment=parameter[0]['fields']['maximal_sediment_perc'],
-                                nitrogen=parameter[0]['fields']['maximal_nitrogen_perc'],
-                                phosphorus=parameter[0]['fields']['maximal_phosphorus_perc'],
+                                transported_water=parameter[0]['fields']['predefined_transp_water_perc'],
+                                sediment=parameter[0]['fields']['predefined_sediment_perc'],
+                                nitrogen=parameter[0]['fields']['predefined_nitrogen_perc'],
+                                phosphorus=parameter[0]['fields']['predefined_phosphorus_perc'],
                                 is_external=False,
                                 intake=existingIntake
                             )
@@ -617,10 +617,10 @@ def editIntake(request, idx):
                                     graphId=element['id'],
                                     name=element['name'],
                                     normalized_category=parameter[0]['fields']['normalized_category'],
-                                    transported_water=parameter[0]['fields']['maximal_transp_water_perc'],
-                                    sediment=parameter[0]['fields']['maximal_sediment_perc'],
-                                    nitrogen=parameter[0]['fields']['maximal_nitrogen_perc'],
-                                    phosphorus=parameter[0]['fields']['maximal_phosphorus_perc'],
+                                    transported_water=parameter[0]['fields']['predefined_transp_water_perc'],
+                                    sediment=parameter[0]['fields']['predefined_sediment_perc'],
+                                    nitrogen=parameter[0]['fields']['predefined_nitrogen_perc'],
+                                    phosphorus=parameter[0]['fields']['predefined_phosphorus_perc'],
                                     is_external=True,
                                     intake=existingIntake
                                 )
@@ -675,10 +675,10 @@ def editIntake(request, idx):
                                 graphId=element['id'],
                                 name=element['name'],
                                 normalized_category=parameter[0]['fields']['normalized_category'],
-                                transported_water=parameter[0]['fields']['maximal_transp_water_perc'],
-                                sediment=parameter[0]['fields']['maximal_sediment_perc'],
-                                nitrogen=parameter[0]['fields']['maximal_nitrogen_perc'],
-                                phosphorus=parameter[0]['fields']['maximal_phosphorus_perc'],
+                                transported_water=parameter[0]['fields']['predefined_transp_water_perc'],
+                                sediment=parameter[0]['fields']['predefined_sediment_perc'],
+                                nitrogen=parameter[0]['fields']['predefined_nitrogen_perc'],
+                                phosphorus=parameter[0]['fields']['predefined_phosphorus_perc'],
                                 is_external=False,
                                 intake=existingIntake
                             )
@@ -911,10 +911,10 @@ def cloneIntake(request, idx):
                                 graphId=element['id'],
                                 name=element['name'],
                                 normalized_category=parameter[0]['fields']['normalized_category'],
-                                transported_water=parameter[0]['fields']['maximal_transp_water_perc'],
-                                sediment=parameter[0]['fields']['maximal_sediment_perc'],
-                                nitrogen=parameter[0]['fields']['maximal_nitrogen_perc'],
-                                phosphorus=parameter[0]['fields']['maximal_phosphorus_perc'],
+                                transported_water=parameter[0]['fields']['predefined_transp_water_perc'],
+                                sediment=parameter[0]['fields']['predefined_sediment_perc'],
+                                nitrogen=parameter[0]['fields']['predefined_nitrogen_perc'],
+                                phosphorus=parameter[0]['fields']['predefined_phosphorus_perc'],
                                 is_external=False,
                                 intake=intakeCreated
                             )
@@ -941,10 +941,10 @@ def cloneIntake(request, idx):
                                     graphId=element['id'],
                                     name=element['name'],
                                     normalized_category=parameter[0]['fields']['normalized_category'],
-                                    transported_water=parameter[0]['fields']['maximal_transp_water_perc'],
-                                    sediment=parameter[0]['fields']['maximal_sediment_perc'],
-                                    nitrogen=parameter[0]['fields']['maximal_nitrogen_perc'],
-                                    phosphorus=parameter[0]['fields']['maximal_phosphorus_perc'],
+                                    transported_water=parameter[0]['fields']['predefined_transp_water_perc'],
+                                    sediment=parameter[0]['fields']['predefined_sediment_perc'],
+                                    nitrogen=parameter[0]['fields']['predefined_nitrogen_perc'],
+                                    phosphorus=parameter[0]['fields']['predefined_phosphorus_perc'],
                                     is_external=True,
                                     intake=intakeCreated
                                 )
@@ -998,10 +998,10 @@ def cloneIntake(request, idx):
                                 graphId=element['id'],
                                 name=element['name'],
                                 normalized_category=parameter[0]['fields']['normalized_category'],
-                                transported_water=parameter[0]['fields']['maximal_transp_water_perc'],
-                                sediment=parameter[0]['fields']['maximal_sediment_perc'],
-                                nitrogen=parameter[0]['fields']['maximal_nitrogen_perc'],
-                                phosphorus=parameter[0]['fields']['maximal_phosphorus_perc'],
+                                transported_water=parameter[0]['fields']['predefined_transp_water_perc'],
+                                sediment=parameter[0]['fields']['predefined_sediment_perc'],
+                                nitrogen=parameter[0]['fields']['predefined_nitrogen_perc'],
+                                phosphorus=parameter[0]['fields']['predefined_phosphorus_perc'],
                                 is_external=False,
                                 intake=intakeCreated
                             )
@@ -1043,7 +1043,7 @@ def deleteIntake(request, idx):
         if not intake:
             print("Not found")
             context = {
-                'status': '400', 'reason': 'Intake not found'  
+                'status': '400', 'reason': 'Intake not found'
             }
             response = HttpResponse(json.dumps(context), content_type='application/json')
             response.status_code = 400
@@ -1054,7 +1054,7 @@ def deleteIntake(request, idx):
             # after deleting redirect to
             # home page
             context = {
-                'status': '200', 'reason': 'sucess'  
+                'status': '200', 'reason': 'sucess'
             }
             response = HttpResponse(json.dumps(context), content_type='application/json')
             response.status_code = 200
