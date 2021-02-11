@@ -5,10 +5,6 @@ const connectionsType = {
     CN: { name: 'Connection', id: 'CN', style: 'CONNECTION', funcionreference: 'CON' },
 }
 
-function customMenuForConnectors() {
-
-}
-
 // Function to create the entries in the popupmenu
 function createPopupMenu(graph, menu, cell, evt) {
     if (cell != null) {
@@ -207,7 +203,7 @@ function addData2HTML(resultdb, cell) {
 }
 
 function deleteWithValidations(editor) {
-    let msg = "Selected element is connected with Extraction connection element. Can't be deleted!";
+    let msg = gettext("Selected element is connected with Extraction connection element. Can't be deleted!");
     if (editor.graph.isEnabled()) {
         let cells = editor.graph.getSelectionCells();
         let cells2Remove = cells.filter(cell => (cell.style != "rio") || parseInt(cell.id) > 4);
@@ -230,7 +226,7 @@ function deleteWithValidations(editor) {
             }
 
         } else {
-            mxUtils.alert(`The River can't be Removed`);
+            mxUtils.alert(gettext(`The River can't be Removed`));
         }
     }
 }
@@ -269,11 +265,15 @@ function validationTransportedWater(editor, cell) {
                 let cells = JSON.parse(cellfilter.getAttribute('resultdb'));
                 //Validates sumatory of connectors it's less than %Transported water of the Symbol
                 if (total > cells[0].fields.predefined_transp_water_perc) {
+                    let texttitle = gettext("The sum of % of transported water from the Outgoing connectors of %s cannot be greater than %s %");
+                    let transtitle = interpolate(texttitle, [cellfilter.getAttribute('label'), cells[0].fields.predefined_transp_water_perc]);
+                    let texttext = gettext("The sum of % of water transported from the connectors is %s %");
+                    let transtext = interpolate(texttext, [total]);
                     $('#aguaDiagram').val('');
                     Swal.fire({
                         icon: 'warning',
-                        title: `La suma de % de agua transportada de los conectores Salientes de ${cellfilter.getAttribute('label')} no puede ser mayor a ${cells[0].fields.predefined_transp_water_perc}%`,
-                        text: `La suma de % de agua transportada de los conectores es ${total}%`
+                        title: transtitle,
+                        text: transtext
                     })
                 }
             }
@@ -286,22 +286,32 @@ $(document).on('click', '#helpgraph', function() {
 });
 
 var validateinput = function(e) {
+    let minRange = e.getAttribute('min');
+    let maxRange = e.getAttribute('max');
     var t = e.value;
     e.value = (t.indexOf(".") >= 0) ? (t.substr(0, t.indexOf(".")) + t.substr(t.indexOf("."), 3)) : t;
     if (parseFloat(e.value) < parseFloat(e.getAttribute('min'))) {
+        let texttitle = gettext("The value must be between %s and %s");
+        let transtitle = interpolate(texttitle, [minRange, maxRange]);
+        let text = gettext(`The minimun value is %s please use the arrows`)
+        let transtext = interpolate(text, [maxRange]);
         e.value = e.getAttribute('min');
         Swal.fire({
             icon: 'warning',
-            title: `The value must be between ${e.getAttribute('min')} and ${e.getAttribute('max')}`,
-            text: `The minimun value is ${e.getAttribute('min')} please use the arrows`
+            title: transtitle,
+            text: transtext
         });
     }
     if (parseFloat(e.value) > parseFloat(e.getAttribute('max'))) {
+        let texttitle = gettext("The value must be between %s and %s");
+        let transtitle = interpolate(texttitle, [minRange, maxRange]);
+        let text = gettext(`The maximum value is %s please use the arrows`)
+        let transtext = interpolate(text, [maxRange]);
         e.value = e.getAttribute('max');
         Swal.fire({
             icon: 'warning',
-            title: `The value must be between ${e.getAttribute('min')} and ${e.getAttribute('max')}`,
-            text: `The maximum value is ${e.getAttribute('max')} please use the arrows`
+            title: transtitle,
+            text: transtext
         });
     }
 }
@@ -316,11 +326,14 @@ function validationsCsinfraExternal(valida) {
     if (mxcell.includes("EXTRACTIONCONNECTION") == false) message.push('(Extraction Connection)');
     if (message[1] == undefined) message[1] = "";
     if (message[0] == undefined) return;
+
+    const texttitle = gettext("No exist %s %s in a diagram");
+    const transtext = interpolate(texttitle, [message[0], message[1]]);
     $('#hideCostFuntion').hide();
     Swal.fire({
         icon: 'warning',
-        title: `Missing elements`,
-        text: `No exist ${message[0]} ${message[1]} in a diagram`
+        title: gettext(`Missing elements`),
+        text: transtext
     });
     return true;
 }
@@ -349,10 +362,13 @@ function validationsNodeAlone(data) {
 }
 
 function mensajeAlert(fin) {
+
+    const texttitle = gettext("Element %s - %s is disconnect");
+    const transtext = interpolate(texttitle, [fin.id, fin.getAttribute('name')]);
     Swal.fire({
         icon: 'warning',
-        title: `Disconnected elements`,
-        text: `Element ${fin.id} - ${fin.getAttribute('name')} is disconnect`
+        title: gettext(`Disconnected elements`),
+        text: transtext
     })
 }
 
@@ -364,7 +380,7 @@ function validations(validate, editor) {
         if (banderaValideGraph != 0) {
             Swal.fire({
                 icon: 'success',
-                title: `Graph validated`,
+                title: gettext(`Graph validated`),
             });
             return false;
         }

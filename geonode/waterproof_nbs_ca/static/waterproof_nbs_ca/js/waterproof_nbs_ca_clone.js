@@ -244,6 +244,20 @@ $(function () {
                                 $('#restrictedArea').val('');
                                 return;
                             }
+                            else {
+                                let validDbf = validateDbfFields(geojson);
+                                if (validDbf) {
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: gettext('Great!'),
+                                        text: gettext('The GeoJSON is valid!'),
+                                    })
+                                }
+                                else {
+                                    $('#restrictedArea').val('');
+                                    return;
+                                }
+                            }
                         } catch (e) {
                             Swal.fire({
                                 icon: 'error',
@@ -271,7 +285,21 @@ $(function () {
                                     return;
                                 }
                                 else {
-
+                                    shp(contents).then(function (shpToGeojson) {
+                                        geojson = shpToGeojson;
+                                        let validDbf = validateDbfFields(geojson);
+                                        if (validDbf) {
+                                            Swal.fire({
+                                                icon: 'success',
+                                                title: gettext('Great!'),
+                                                text: gettext('The shapefile is valid!'),
+                                            })
+                                        }
+                                        else {
+                                            $('#restrictedArea').val('');
+                                            return;
+                                        }
+                                    });
                                 }
                             });
                             //loadShapefile(geojson, file.name);
@@ -300,9 +328,6 @@ $(function () {
                 $('#intakeArea').val('');
             }
         });
-    };
-    checkEmptyFile = function () {
-
     };
     /** 
    * Initialize map 

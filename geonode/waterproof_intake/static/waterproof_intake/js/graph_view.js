@@ -88,7 +88,7 @@ function onInit(editor) {
             var fontSize = style[mxConstants.STYLE_FONTSIZE] || mxConstants.DEFAULT_FONTSIZE;
         }
         if (label == undefined) {
-            label = "This connection doesn't have a defined type, \n please define a type";
+            label = gettext("This connection doesn't have a defined type, \n please define a type");
             if (typeof(cell.value) == "string" && cell.value.length > 0) {
                 try {
                     let obj = JSON.parse(cell.value);
@@ -132,15 +132,15 @@ function onInit(editor) {
             this.model.getValue(source) != null &&
             this.model.getValue(target) != null) {
             //water intake 
-            if (source.style != 'rio' && target.style == 'bocatoma') return 'The water intake element can only receive connection from the river element';
+            if (source.style != 'rio' && target.style == 'bocatoma') return gettext('The water intake element can only receive connection from the river element');
             //floating intake
             if (source.style != 'rio' && source.style != 'reservorioagua' && source.style != 'embalse' && target.style == 'bocatomaflotante')
-                return 'The floating intake element can only receive connection from the river, reservoir and water reservoir';
+                return gettext('The floating intake element can only receive connection from the river, reservoir and water reservoir');
             //side intake
             if (source.style != 'rio' && source.style != 'reservorioagua' && source.style != 'embalse' && target.style == 'bocatomalateral')
-                return 'The side intake element can only receive connection from the river, reservoir and water reservoir';
+                return gettext('The side intake element can only receive connection from the river, reservoir and water reservoir');
             //connection with itself
-            if (source.style == target.style) return 'No element could connect to itself';
+            if (source.style == target.style) return gettext('No element could connect to itself');
         }
         // "Supercall"
         return mxGraph.prototype.getEdgeValidationError.apply(this, arguments);
