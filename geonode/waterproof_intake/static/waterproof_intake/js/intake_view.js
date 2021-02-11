@@ -65,12 +65,11 @@ $(document).ready(function() {
         $('#intakeECTAG').empty();
         $('#IntakeTDLE').empty();
         $('#externalSelect').empty();
-
         $('#autoAdjustHeightF').css("height", "auto");
         typeProcessInterpolation = Number($("#typeProcessInterpolation").val());
         numberYearsInterpolationValue = Number($("#numberYearsInterpolationValue").val());
-        initialDataExtractionInterpolationValue = Number($("#initialDataExtractionInterpolationValue").val());
-        finalDataExtractionInterpolationValue = Number($("#finalDataExtractionInterpolationValue").val());
+        initialDataExtractionInterpolationValue = parseFloat($("#initialDataExtractionInterpolationValue").val());
+        finalDataExtractionInterpolationValue = parseFloat($("#finalDataExtractionInterpolationValue").val());
 
         // Linear interpolation
         if (typeProcessInterpolation == 1) {
@@ -157,6 +156,98 @@ $(document).ready(function() {
         $('#waterExtraction').val(JSON.stringify(waterExtractionData));
 
     });
+
+    function loadExternalInput() {
+
+        for (const extractionData of intakeExternalInputs) {
+            $('#externalSelect').append(`
+                <option value="${extractionData.xmlId}">${extractionData.xmlId} - External Input</option>
+            `);
+            rows = "";
+            for (let index = 0; index < extractionData.waterExtraction.length; index++) {
+                rows += (`<tr>
+                        <th class="text-center" scope="col" name="year_${extractionData.waterExtraction[index].year}" year_value="${index + 1}">${index + 1}</th>
+                        <td class="text-center" scope="col"><input type="text" value="${extractionData.waterExtraction[index].waterVol}" class="form-control" name="waterVolume_${index + 1}_${extractionData.xmlId}"></td>
+                        <td class="text-center" scope="col"><input type="text" value="${extractionData.waterExtraction[index].sediment}" class="form-control" name="sediment_${index + 1}_${extractionData.xmlId}"></td>
+                        <td class="text-center" scope="col"><input type="text" value="${extractionData.waterExtraction[index].nitrogen}" class="form-control" name="nitrogen_${index + 1}_${extractionData.xmlId}" ></td>
+                        <td class="text-center" scope="col"><input type="text" value="${extractionData.waterExtraction[index].phosphorus}" class="form-control" name="phosphorus_${index + 1}_${extractionData.xmlId}"></td>
+                  </tr>`);
+
+            }
+            $('#IntakeTDLE').append(`
+                  <table class="table" id="table_${extractionData.xmlId}" style="display: none;">
+                      <thead>
+                          <tr>
+                              <th class="text-center" scope="col">Year</th>
+                              <th class="text-center" scope="col">Water Volume (m3)</th>
+                              <th class="text-center" scope="col">Sediment (Ton)</th>
+                              <th class="text-center" scope="col">Nitrogen (Kg)</th>
+                              <th class="text-center" scope="col">Phosphorus (Kg)</th>
+                          </tr>
+                      </thead>
+                      <tbody>${rows}</tbody>
+                  </table>    
+          `);
+        }
+
+
+    }
+
+    function setInterpolationParams() {
+        switch (intakeInterpolationParams.type) {
+            // LINEAR INTERPOLATION
+            case interpolationType.LINEAR:
+                // Method interpolation select
+                interpMethodInput.val(1);
+                // Years number for time series
+                numYearsInput.val(intakeInterpolationParams.yearsNum);
+                // Initial extraction value
+                initialExtraction.val(intakeInterpolationParams.initialExtract);
+                // Final extraction value
+                finalExtraction.val(intakeInterpolationParams.endingExtract);
+                $("#intakeWECB").click();
+                break;
+                // POTENTIAL INTERPOLATION
+            case interpolationType.POTENTIAL:
+                interpMethodInput.val(2);
+                // Years number for time series
+                numYearsInput.val(intakeInterpolationParams.yearsNum);
+                // Initial extraction value
+                initialExtraction.val(intakeInterpolationParams.initialExtract);
+                // Final extraction value
+                finalExtraction.val(intakeInterpolationParams.endingExtract);
+                $("#intakeWECB").click();
+                break;
+                // EXPONENTIAL INTERPOLATION
+            case interpolationType.EXPONENTIAL:
+                interpMethodInput.val(3);
+                // Years number for time series
+                numYearsInput.val(intakeInterpolationParams.yearsNum);
+                // Initial extraction value
+                initialExtraction.val(intakeInterpolationParams.initialExtract);
+                // Final extraction value
+                finalExtraction.val(intakeInterpolationParams.endingExtract);
+                $("#intakeWECB").click();
+                break;
+    
+                // LOGISTICS INTERPLATION
+            case interpolationType.LOGISTICS:
+                interpMethodInput.val(4);
+                // Years number for time series
+                numYearsInput.val(intakeInterpolationParams.yearsNum);
+                // Initial extraction value
+                initialExtraction.val(intakeInterpolationParams.initialExtract);
+                // Final extraction value
+                finalExtraction.val(intakeInterpolationParams.endingExtract);
+                $("#intakeWECB").click();
+                break;
+        }
+    }
+
+    setInterpolationParams();
+    setTimeout(() => {
+        loadExternalInput();
+    }, 1000);
 
     // Change Option Manual Tab
     $('#btnManualTab').click(function() {
