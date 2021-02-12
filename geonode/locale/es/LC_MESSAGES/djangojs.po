@@ -26,7 +26,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GeoNode\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-09 16:14-0500\n"
+"POT-Creation-Date: 2021-02-11 16:19-0500\n"
 "PO-Revision-Date: 2020-05-19 18:03-0600\n"
 "Last-Translator: Julien Collaer <julien.collaer@opengeode.be>\n"
 "Language-Team: Spanish (http://www.transifex.com/geonode/geonode/language/"
@@ -490,14 +490,16 @@ msgstr ""
 #: geonode/static/geonode/js/waterproof/geomFile_validate.js:100
 #: geonode/static/geonode/js/waterproof/geomFile_validate.js:118
 msgid "The CRS is not correct!"
-msgstr "El sistema de referencia de coordenadas es incorrecto, se espera EPSG 3857 o EPSG 4326"
+msgstr ""
+"El sistema de referencia de coordenadas es incorrecto, se espera EPSG 3857 o "
+"EPSG 4326"
 
 #: geonode/static/geonode/js/waterproof/geomFile_validate.js:132
 #: geonode/static/geonode/js/waterproof/geomFile_validate.js:142
 #: geonode/static/geonode/js/waterproof/geomFile_validate.js:151
 #: geonode/static/geonode/js/waterproof/geomFile_validate.js:160
-#: geonode/static/geonode/js/waterproof/geomFile_validate.js:277
-#: geonode/static/geonode/js/waterproof/geomFile_validate.js:285
+#: geonode/static/geonode/js/waterproof/geomFile_validate.js:290
+#: geonode/static/geonode/js/waterproof/geomFile_validate.js:298
 #, fuzzy
 #| msgid "ESRI Shapefile"
 msgid "Shapefile error"
@@ -537,11 +539,11 @@ msgstr "El GeoJSON no posee la estructura estándar requerida"
 msgid "Coordinates out of WSG84"
 msgstr "Las coordenadas no están en el rango WSG84 de geográficas esperadas"
 
-#: geonode/static/geonode/js/waterproof/geomFile_validate.js:278
+#: geonode/static/geonode/js/waterproof/geomFile_validate.js:291
 msgid "Dbf action field missing"
 msgstr "El atributo 'action' requerido no se encuentra en el archivo .dbf"
 
-#: geonode/static/geonode/js/waterproof/geomFile_validate.js:286
+#: geonode/static/geonode/js/waterproof/geomFile_validate.js:299
 msgid "Dbf activity field missing"
 msgstr "El atributo 'actitivy_n' requerido no se encuentra en el archivo .dbf"
 

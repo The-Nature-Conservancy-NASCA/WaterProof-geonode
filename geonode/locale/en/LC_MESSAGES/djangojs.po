@@ -23,7 +23,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GeoNode\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-09 16:14-0500\n"
+"POT-Creation-Date: 2021-02-11 16:18-0500\n"
 "PO-Revision-Date: 2020-12-23 16:22+0100\n"
 "Last-Translator: Julien Collaer <julien.collaer@opengeode.be>\n"
 "Language-Team: English (http://www.transifex.com/geonode/geonode/language/"
@@ -568,14 +568,16 @@ msgstr ""
 #: geonode/static/geonode/js/waterproof/geomFile_validate.js:100
 #: geonode/static/geonode/js/waterproof/geomFile_validate.js:118
 msgid "The CRS is not correct!"
-msgstr "The coordinate reference system is not correct!, expects EPSG 3857 or EPSG 4326"
+msgstr ""
+"The coordinate reference system is not correct!, expects EPSG 3857 or EPSG "
+"4326"
 
 #: geonode/static/geonode/js/waterproof/geomFile_validate.js:132
 #: geonode/static/geonode/js/waterproof/geomFile_validate.js:142
 #: geonode/static/geonode/js/waterproof/geomFile_validate.js:151
 #: geonode/static/geonode/js/waterproof/geomFile_validate.js:160
-#: geonode/static/geonode/js/waterproof/geomFile_validate.js:277
-#: geonode/static/geonode/js/waterproof/geomFile_validate.js:285
+#: geonode/static/geonode/js/waterproof/geomFile_validate.js:290
+#: geonode/static/geonode/js/waterproof/geomFile_validate.js:298
 #, fuzzy
 #| msgid "ESRI Shapefile"
 msgid "Shapefile error"
@@ -615,11 +617,11 @@ msgstr "The GeoJSON does not have the required standard structure"
 msgid "Coordinates out of WSG84"
 msgstr "Coordinates out of WSG84 geographic expected range"
 
-#: geonode/static/geonode/js/waterproof/geomFile_validate.js:278
+#: geonode/static/geonode/js/waterproof/geomFile_validate.js:291
 msgid "Dbf action field missing"
 msgstr "The required field 'action' is missing in dbf file"
 
-#: geonode/static/geonode/js/waterproof/geomFile_validate.js:286
+#: geonode/static/geonode/js/waterproof/geomFile_validate.js:299
 msgid "Dbf activity field missing"
 msgstr "The required field 'activity_n' is missing in dbf file"
 

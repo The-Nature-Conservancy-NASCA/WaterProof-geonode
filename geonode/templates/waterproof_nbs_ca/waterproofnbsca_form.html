@@ -19,25 +19,25 @@
     <h1>{% trans "Create Nature based solution (NBS)" %}</h1>
 
 </div>
-<form data-toggle="validator" role="form" action="#">
+<form id="form" data-toggle="validator" role="form" action="">
     <h4 class="text-primary">{% trans "General Settings" %}</h4>
     <div class="form-group">
         <label>{% trans "Name" %} <span class="text-danger-wp">(*)</span> </label>
-        <input type="text" class="form-control" id="nameNBS" name="nameNBS" data-error="This field is required"
+        <input type="text" class="form-control" id="nameNBS" data-error='{% trans "Field is required" %}'
             placeholder="Enter title" required>
         <div class="help-block with-errors"></div>
     </div>
     <div class="form-group">
         <label>{% trans "Description" %} <span class="text-danger-wp">(*)</span> </label>
-        <textarea id="descNBS" class="form-control" placeholder="Enter description" data-error="This field is required"
-            rows="4" required></textarea>
+        <textarea id="descNBS" class="form-control" data-error='{% trans "Field is required" %}' rows="4"
+            required></textarea>
         <div class="help-block with-errors"></div>
     </div>
     <div class="form-group">
         <div class="row">
             <div class="col-md-6">
                 <label>{% trans "Country" %} <span class="text-danger-wp">(*)</span> </label>
-                <select id="countryNBS" class="form-control" data-error="This field is required" required>
+                <select id="countryNBS" class="form-control" data-error='{% trans "Field is required" %}' required>
                     {% for country in countries %}
                     {% if nbs.country.pk == country.pk %}
                     <option value="{{country.pk}}" selected data-value="{{country.code}}">{{country.name}}</option>
@@ -50,7 +50,7 @@
             </div>
             <div class="col-md-6">
                 <label>{% trans "Currency for definition of costs" %} <span class="text-danger-wp">(*)</span> </label>
-                <select id="currencyCost" class="form-control" data-error="This field is required" required>
+                <select id="currencyCost" class="form-control" data-error='{% trans "Field is required" %}' required>
                     {% for currency in currencies %}
                     {% if nbs.currency.pk == currency.pk%}
                     <option value="{{currency.pk}}" selected>({{currency.code}}) - {{currency.name}}</option>
@@ -67,15 +67,15 @@
         <div class="row">
             <div class="col-md-6">
                 <label>{% trans "Time required to generate maximun benefit (yr)" %} <span class="text-danger-wp">(*)</span> </label>
-                <input id="maxBenefitTime" type="text" class="form-control" data-error="This field is required"
-                    required>
+                <input id="maxBenefitTime"  onInput="return checkTime(event,value)"
+                type="text"  class="form-control" data-error='{% trans "Field is required" %}' required>
                 <div class="help-block with-errors"></div>
             </div>
             <div class="col-md-6">
                 <label>{% trans "Percentage of benefit associated with interventions at time t=0" %} <span
                         class="text-danger-wp">(*)</span> </label>
-                <input id="benefitTimePorc" type="text" class="form-control" data-error="This field is required"
-                    required>
+                <input id="benefitTimePorc" type="text"  onInput="return checkPercentage(event,value)" 
+                class="form-control" data-error='{% trans "Field is required" %}' required>
                 <div class="help-block with-errors"></div>
             </div>
         </div>
@@ -83,15 +83,9 @@
     <div class="form-group">
         <div class="row">
             <div class="col-md-6">
-                <label>{% trans "Consecution Time Total Benefits (to elimitate)" %} <span class="text-danger-wp">(*)</span> </label>
-                <input id="totalConsecTime" type="text" class="form-control" data-error="This field is required"
-                    required>
-                <div class="help-block with-errors"></div>
-            </div>
-            <div class="col-md-6">
                 <label>{% trans "Periodicity of maintenance (yr)" %} <span class="text-danger-wp">(*)</span> </label>
-                <input id="maintenancePeriod" type="text" class="form-control" data-error="This field is required"
-                    required>
+                <input id="maintenancePeriod"  onInput="return checkTime(event,value)"
+                type="text" class="form-control" data-error='{% trans "Field is required" %}' required>
                 <div class="help-block with-errors"></div>
             </div>
         </div>
@@ -101,19 +95,19 @@
         <div class="row">
             <div class="col-md-4">
                 <label>{% trans "Implementation cost (US$/ha)" %} <span class="text-danger-wp">(*)</span> </label>
-                <input id="implementCost" type="text" class="form-control" data-error="This field is required" required>
+                <input id="implementCost"  type="text" onInput="return checkDecimalFormat(event,value)" 
+                class="form-control" data-error='{% trans "Field is required" %}' required>
                 <div class="help-block with-errors"></div>
             </div>
             <div class="col-md-4">
                 <label>{% trans "Maintenace cost (US$/ha)" %} <span class="text-danger-wp">(*)</span> </label>
-                <input id="maintenanceCost" type="text" class="form-control" data-error="This field is required"
-                    required>
+                <input id="maintenanceCost"  type="text" onInput="return checkDecimalFormat(event,value)" 
+                class="form-control" data-error='{% trans "Field is required" %}' required>
                 <div class="help-block with-errors"></div>
             </div>
             <div class="col-md-4">
                 <label>{% trans "Oportunity cost (US$/ha)" %} <span class="text-danger-wp">(*)</span> </label>
-                <input id="oportunityCost" type="text" class="form-control" data-error="This field is required"
-                    required>
+                <input id="oportunityCost" type="text" onInput="return checkDecimalFormat(event,value)"  class="form-control" data-error='{% trans "Field is required" %}' required>
                 <div class="help-block with-errors"></div>
             </div>
         </div>
@@ -122,7 +116,7 @@
     <div class="form-group">
         <div class="row">
             <div class="col-md-12">
-                <select id="riosTransition" class="form-control" data-error="This field is required" required>
+                <select id="riosTransition" class="form-control" data-error='{% trans "Field is required" %}' required>
                 </select>
                 <div class="help-block with-errors"></div>
             </div>
@@ -138,8 +132,13 @@
                 <h5>{{ riosa.name }}</h5>
                 {% for riost in riosTransformation %} {% if riosa.pk == riost.activity_id %}
                 <div class="checkbox" style="margin-left: 50%;">
+                    {% if forloop.first %}
                     <label><input data-value="itemRT" name="{{riosa.name}}_{{itemRT}}" type="radio"
-                            id="itemRT{{riost.pk}}" value="{{ riost.pk }}"> {{riost.name}}</label>
+                            id="itemRT{{riost.pk}}" value="{{ riost.pk }}" checked> {{riost.name}}</label>
+                    {% else %}
+                    <label><input data-value="itemRT" name="{{riosa.name}}_{{itemRT}}" type="radio"
+                        id="itemRT{{riost.pk}}" value="{{ riost.pk }}" > {{riost.name}}</label>
+                    {% endif %}
                 </div>
 
                 {% endif %} {% endfor %} {% endif %} {% endfor %}
@@ -150,14 +149,14 @@
     <div class="form-group">
         <div class="row">
             <div class="col-md-4">
-                <label>{% trans "Restricted areas" %} <span class="text-danger-wp">(*)</span></label>
-                <input id="restrictedArea" type="file" data-error="This field is required" required>
+                <label>{% trans "Restricted areas" %} <span class="text-danger-wp"></span></label>
+                <input id="restrictedArea" type="file">
                 <div class="help-block with-errors"></div>
             </div>
         </div>
     </div>
     <br>
-    <button id="submit" type="button" class="btn btn-primary ">{% trans "Submit" %}</button>
+    <button id="submit" type="submit" class="btn btn-primary ">{% trans "Save" %}</button>
 
 </form>
 {% endblock %} {% block extra_script %}

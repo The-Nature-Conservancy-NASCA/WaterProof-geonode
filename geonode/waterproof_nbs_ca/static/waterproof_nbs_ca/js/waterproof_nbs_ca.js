@@ -61,74 +61,75 @@ $(function () {
     submitFormEvent = function () {
         console.log('submit event loaded');
         var formData = new FormData();
-        $('#submit').on('click', function () {
-            // NBS name
-            formData.append('nameNBS', $('#nameNBS').val());
-            // NBS description
-            formData.append('descNBS', $('#descNBS').val());
-            // NBS country
-            formData.append('countryNBS', $('#countryNBS').val());
-            // NBS currency cost
-            formData.append('currencyCost', $('#currencyCost').val());
-            // NBS Time required to generate maximun benefit (yr)
-            formData.append('maxBenefitTime', $('#maxBenefitTime').val());
-            // NBS Percentage of benefit associated with interventions at time t=0
-            formData.append('benefitTimePorc', $('#benefitTimePorc').val());
-            // NBS Consecution Time Total Benefits
-            formData.append('totalConsecTime', $('#totalConsecTime').val());
-            // NBS Maintenance Perodicity
-            formData.append('maintenancePeriod', $('#maintenancePeriod').val());
-            // NBS Unit Implementation Cost (US$/ha)
-            formData.append('implementCost', $('#implementCost').val());
-            // NBS Unit Maintenace Cost (US$/ha)
-            formData.append('maintenanceCost', $('#maintenanceCost').val());
-            // NBS Unit Oportunity Cost (US$/ha)
-            formData.append('oportunityCost', $('#oportunityCost').val());
-            // NBS RIOS Transformations selected
-            formData.append('riosTransformation', getTransformationsSelected());
-            // NBS Unit Oportunity Cost (US$/ha)
-            var file = $('#restrictedArea')[0].files[0];
-            // validate extension file
-            var extension = validExtension(file);
-            if (extension.extension == 'geojson') { //GeoJSON
-                // Restricted area extension file
-                formData.append('extension', 'geojson');
-                // NBS restricted area geographic file
-                formData.append('restrictedArea', $('#restrictedArea')[0].files[0]);
-                // Type action for view
-                formData.append('action', 'create-nbs');
-                // Required session token
+        $('#form').validator().on('submit', function (e) {
+            if (e.isDefaultPrevented()) {
+                // handle the invalid form...
+            } else {
+                e.preventDefault();
+                /// NBS name
+                formData.append('nameNBS', $('#nameNBS').val());
+                // NBS description
+                formData.append('descNBS', $('#descNBS').val());
+                // NBS country
+                formData.append('countryNBS', $('#countryNBS').val());
+                // NBS currency cost
+                formData.append('currencyCost', $('#currencyCost').val());
+                // NBS Time required to generate maximun benefit (yr)
+                formData.append('maxBenefitTime', $('#maxBenefitTime').val());
+                // NBS Percentage of benefit associated with interventions at time t=0
+                formData.append('benefitTimePorc', $('#benefitTimePorc').val());
+                // NBS Consecution Time Total Benefits
+                formData.append('totalConsecTime', $('#totalConsecTime').val());
+                // NBS Maintenance Perodicity
+                formData.append('maintenancePeriod', $('#maintenancePeriod').val());
+                // NBS Unit Implementation Cost (US$/ha)
+                formData.append('implementCost', $('#implementCost').val());
+                // NBS Unit Maintenace Cost (US$/ha)
+                formData.append('maintenanceCost', $('#maintenanceCost').val());
+                // NBS Unit Oportunity Cost (US$/ha)
+                formData.append('oportunityCost', $('#oportunityCost').val());
+                // NBS RIOS Transformations selected
+                formData.append('riosTransformation', getTransformationsSelected());
+                // NBS Unit Oportunity Cost (US$/ha)
+                var file = $('#restrictedArea')[0].files[0];
+                // validate extension file
                 formData.append('csrfmiddlewaretoken', token);
-                $.ajax({
-                    type: 'POST',
-                    url: '/waterproof_nbs_ca/create/' + countryId,
-                    data: formData,
-                    cache: false,
-                    processData: false,
-                    contentType: false,
-                    enctype: 'multipart/form-data',
-                    success: function () {
-                        Swal.fire(
-                            gettext('Great!'),
-                            gettext('The NBS has been saved'),
-                            'success'
-                        )
-                        setTimeout(function () { location.href = "/waterproof_nbs_ca/"; }, 1000);
-                    },
-                    error: function (xhr, errmsg, err) {
-                        console.log(xhr.status + ":" + xhr.responseText)
-                    }
-                });
-            } else { // ZIP
-                var reader = new FileReader();
-                reader.onload = function (evt) {
-                    var contents = evt.target.result;
-                    shp(contents).then(function (shpToGeojson) {
-                        var restrictedArea = JSON.stringify(shpToGeojson);
+                if (file === void (0)) {
+                    formData.append('action', 'create-nbs');
+                    $.ajax({
+                        type: 'POST',
+                        url: '/waterproof_nbs_ca/create/' + countryId,
+                        data: formData,
+                        cache: false,
+                        processData: false,
+                        contentType: false,
+                        enctype: 'multipart/form-data',
+                        success: function () {
+                            Swal.fire(
+                                gettext('Great!'),
+                                gettext('The NBS has been saved'),
+                                'success'
+                            )
+                            setTimeout(function () { location.href = "/waterproof_nbs_ca/"; }, 1000);
+                        },
+                        error: function (xhr, errmsg, err) {
+                            console.log(xhr.status + ":" + xhr.responseText);
+                            let response = JSON.parse(xhr.responseText);
+                            Swal.fire({
+                                icon: 'error',
+                                title: gettext('Nbs saving error'),
+                                text: response.message,
+                            })
+                        }
+                    });
+                }
+                else {
+                    var extension = validExtension(file);
+                    if (extension.extension == 'geojson') { //GeoJSON
                         // Restricted area extension file
-                        formData.append('extension', 'zip');
+                        formData.append('extension', 'geojson');
                         // NBS restricted area geographic file
-                        formData.append('restrictedArea', restrictedArea);
+                        formData.append('restrictedArea', $('#restrictedArea')[0].files[0]);
                         // Type action for view
                         formData.append('action', 'create-nbs');
                         // Required session token
@@ -150,18 +151,69 @@ $(function () {
                                 setTimeout(function () { location.href = "/waterproof_nbs_ca/"; }, 1000);
                             },
                             error: function (xhr, errmsg, err) {
-                                console.log(xhr.status + ":" + xhr.responseText)
+                                console.log(xhr.status + ":" + xhr.responseText);
+                                let response = JSON.parse(xhr.responseText);
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: gettext('Nbs saving error'),
+                                    text: response.message,
+                                })
                             }
                         });
-                    });
-                };
-                reader.onerror = function (event) {
-                    console.error("File could not be read! Code " + event.target.error.code);
-                    //alert("El archivo no pudo ser cargado: " + event.target.error.code);
-                };
-                reader.readAsArrayBuffer(file);
+                    } else { // ZIP
+                        var reader = new FileReader();
+                        reader.onload = function (evt) {
+                            var contents = evt.target.result;
+                            shp(contents).then(function (shpToGeojson) {
+                                var restrictedArea = JSON.stringify(shpToGeojson);
+                                // Restricted area extension file
+                                formData.append('extension', 'zip');
+                                // NBS restricted area geographic file
+                                formData.append('restrictedArea', restrictedArea);
+                                // Type action for view
+                                formData.append('action', 'create-nbs');
+                                // Required session token
+                                formData.append('csrfmiddlewaretoken', token);
+                                $.ajax({
+                                    type: 'POST',
+                                    url: '/waterproof_nbs_ca/create/' + countryId,
+                                    data: formData,
+                                    cache: false,
+                                    processData: false,
+                                    contentType: false,
+                                    enctype: 'multipart/form-data',
+                                    success: function () {
+                                        Swal.fire(
+                                            gettext('Great!'),
+                                            gettext('The NBS has been saved'),
+                                            'success'
+                                        )
+                                        setTimeout(function () { location.href = "/waterproof_nbs_ca/"; }, 1000);
+                                    },
+                                    error: function (xhr, errmsg, err) {
+                                        console.log(xhr.status + ":" + xhr.responseText);
+                                        let response = JSON.parse(xhr.responseText);
+                                        Swal.fire({
+                                            icon: 'error',
+                                            title: gettext('Nbs saving error'),
+                                            text: response.message,
+                                        })
+                                    }
+                                });
+                            });
+                        };
+                        reader.onerror = function (event) {
+                            console.error("File could not be read! Code " + event.target.error.code);
+                            //alert("El archivo no pudo ser cargado: " + event.target.error.code);
+                        };
+                        reader.readAsArrayBuffer(file);
+                    }
+                }
+
             }
-        });
+        })
+
+
     };
     /** 
     * Initialize map 
@@ -429,6 +481,119 @@ $(function () {
                 dropdown.val(1).change();
             }
         });
+    };
+    checkPercentage = function (event, value) {
+        commaNum = null;
+        let regexp = /^(?=.*[0-9])([0-9]{0,12}(?:,[0-9]{1,2})?)$/gm;
+        valid = regexp.test(value);
+        // Validate string
+        if (valid) {
+            let splitedValue = value.split(",");
+            let intNumber = parseInt(splitedValue[0]);
+            if (intNumber >= 0 && intNumber <= 100)
+                return true;
+            else
+                event.target.value = "100,00";
+        }
+        else {
+            //Remove extra decimals
+            value = value.replace(/^(\d+,?\d{0,2})\d*$/, "$1");
+            //Remove especial symbols included letters
+            value = value.replace(/[^0-9\,]/g, "");
+            if (value.match(/,/g) !== null) {
+                commaNum = (value.match(/,/g)).length;
+                if (commaNum == 1) {
+                    let result = value.substring(0, value.indexOf(","));
+                    if (result == "") {
+                        event.target.value = "";
+                        return false;
+                    }
+                }
+            }
+            if (commaNum !== null && commaNum > 1) {
+                // Remove comma at start or end
+                value = value.replace(/^,|,$/g, '');
+            }
+            event.target.value = value;
+            let splitedValue = value.split(",");
+            let intNumber = parseInt(splitedValue[0]);
+            if (intNumber >= 0 && intNumber <= 100)
+                return true;
+            else
+                event.target.value = "";
+        }
+    }
+    checkDecimalFormat = function (event, value) {
+        commaNum = null;
+        let regexp = /^(?=.*[1-9])([0-9]{0,12}(?:,[0-9]{1,2})?)$/gm;
+        valid = regexp.test(value);
+        // Validate string
+        if (valid) {
+            return true;
+        }
+        else {
+            //Remove extra decimals
+            value = value.replace(/^(\d+,?\d{0,2})\d*$/, "$1");
+            //Remove especial symbols included letters
+            value = value.replace(/[^0-9\,]/g, "");
+            if (value.match(/,/g) !== null) {
+                commaNum = (value.match(/,/g)).length;
+                if (commaNum == 1) {
+                    let result = value.substring(0, value.indexOf(","));
+                    if (result == "") {
+                        event.target.value = "";
+                        return false;
+                    }
+                }
+            }
+            if (commaNum !== null && commaNum > 1) {
+                // Remove comma at start or end
+                value = value.replace(/^,|,$/g, '');
+            }
+            event.target.value = value;
+        }
+    }
+
+    checkTime = function (event, value) {
+        commaNum = null;
+        let regexp = /^(?=.*[0-9])([0-9]{0,12}(?:,[0-9]{1,2})?)$/gm;
+        valid = regexp.test(value);
+        // Validate string
+        if (valid) {
+            let splitedValue = value.split(",");
+            let intNumber = parseInt(splitedValue[0]);
+            if (intNumber >= 0 && intNumber <= 200)
+                return true;
+            else
+                event.target.value = "200";
+        }
+        else {
+            //Remove extra decimals
+            value = value.replace(/^(\d+,?\d{0,2})\d*$/, "$1");
+            //Remove especial symbols included letters
+            value = value.replace(/[^0-9]/g, "");
+            if (value.match(/,/g) !== null) {
+                commaNum = (value.match(/,/g)).length;
+                if (commaNum == 1) {
+                    let result = value.substring(0, value.indexOf(","));
+                    if (result == "") {
+                        event.target.value = "";
+                        return false;
+                    }
+                }
+            }
+            if (commaNum !== null && commaNum > 1) {
+                // Remove comma at start or end
+                value = value.replace(/^,|,$/g, '');
+            }
+            event.target.value = value;
+            let splitedValue = value.split(",");
+            let intNumber = parseInt(splitedValue[0]);
+            if (intNumber >= 0 && intNumber <= 200)
+                return true;
+            else
+                event.target.value = "";
+        }
     };
 
     // Init 
