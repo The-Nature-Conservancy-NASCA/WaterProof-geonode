@@ -38,7 +38,6 @@ class WaterproofNbsCaForm(forms.ModelForm):
             'description',
             'max_benefit_req_time',
             'profit_pct_time_inter_assoc',
-            'total_profits_sbn_consec_time',
             'unit_oportunity_cost',
             'unit_implementation_cost',
             'unit_maintenance_cost',

@@ -41,7 +41,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GeoNode\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-03 17:08-0500\n"
+"POT-Creation-Date: 2021-02-11 20:03-0500\n"
 "PO-Revision-Date: 2021-01-22 20:19-0500\n"
 "Last-Translator: \n"
 "Language-Team: Spanish (http://www.transifex.com/geonode/geonode/language/"
@@ -53,13 +53,13 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 2.4.2\n"
 
-#: geonode/waterproof_nbs_ca/models.py:40
-#: geonode/waterproof_nbs_ca/models.py:55
-#: geonode/waterproof_nbs_ca/models.py:70
+#: geonode/waterproof_nbs_ca/models.py:58
+#: geonode/waterproof_nbs_ca/models.py:73
 #: geonode/waterproof_nbs_ca/models.py:88
-#: geonode/waterproof_nbs_ca/models.py:100
-#: geonode/waterproof_nbs_ca/models.py:122
-#: geonode/waterproof_nbs_ca/models.py:152
+#: geonode/waterproof_nbs_ca/models.py:106
+#: geonode/waterproof_nbs_ca/models.py:118
+#: geonode/waterproof_nbs_ca/models.py:140
+#: geonode/waterproof_nbs_ca/models.py:171
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_clone.html:27
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_detail_list.html:23
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_edit.html:27
@@ -68,10 +68,10 @@ msgstr ""
 msgid "Name"
 msgstr "Nombre"
 
-#: geonode/waterproof_nbs_ca/models.py:44
-#: geonode/waterproof_nbs_ca/models.py:59
-#: geonode/waterproof_nbs_ca/models.py:74
-#: geonode/waterproof_nbs_ca/models.py:157
+#: geonode/waterproof_nbs_ca/models.py:62
+#: geonode/waterproof_nbs_ca/models.py:77
+#: geonode/waterproof_nbs_ca/models.py:92
+#: geonode/waterproof_nbs_ca/models.py:176
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_clone.html:33
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_detail_list.html:28
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_edit.html:33
@@ -80,25 +80,25 @@ msgstr "Nombre"
 msgid "Description"
 msgstr "Descripción"
 
-#: geonode/waterproof_nbs_ca/models.py:78
+#: geonode/waterproof_nbs_ca/models.py:96
 msgid "Unique_id"
 msgstr "Unique_id"
 
-#: geonode/waterproof_nbs_ca/models.py:105
-#: geonode/waterproof_nbs_ca/models.py:127
+#: geonode/waterproof_nbs_ca/models.py:123
+#: geonode/waterproof_nbs_ca/models.py:145
 msgid "Code"
 msgstr "Código"
 
-#: geonode/waterproof_nbs_ca/models.py:110
-#: geonode/waterproof_nbs_ca/models.py:132
+#: geonode/waterproof_nbs_ca/models.py:128
+#: geonode/waterproof_nbs_ca/models.py:150
 msgid "Factor"
 msgstr "Factor"
 
-#: geonode/waterproof_nbs_ca/models.py:162
+#: geonode/waterproof_nbs_ca/models.py:181
 msgid "Time maximum benefit"
 msgstr "Tiempo requerido para obtener el máximo beneficio"
 
-#: geonode/waterproof_nbs_ca/models.py:167
+#: geonode/waterproof_nbs_ca/models.py:187
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_clone.html:77
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_detail_list.html:50
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_edit.html:77
@@ -106,23 +106,19 @@ msgstr "Tiempo requerido para obtener el máximo beneficio"
 msgid "Percentage of benefit associated with interventions at time t=0"
 msgstr "Porcentaje de beneficio asociado con intervenciones en el tiempo t=0"
 
-#: geonode/waterproof_nbs_ca/models.py:172
-msgid "Procurement time of total SBN benefits"
-msgstr "Tiempo de adquisición de los beneficios totales de SBN"
-
-#: geonode/waterproof_nbs_ca/models.py:178
+#: geonode/waterproof_nbs_ca/models.py:193
 msgid "Unit implementation costs (US $/ha)"
 msgstr "Costos de implementación (US $/ha)"
 
-#: geonode/waterproof_nbs_ca/models.py:184
+#: geonode/waterproof_nbs_ca/models.py:199
 msgid "Unit maintenance costs (US $/ha)"
 msgstr "Costos de mantenimiento (US $/ha)"
 
-#: geonode/waterproof_nbs_ca/models.py:189
+#: geonode/waterproof_nbs_ca/models.py:204
 msgid "Periodicity of maintenance (year)"
 msgstr "Periodicidad de mantenimiento (año)"
 
-#: geonode/waterproof_nbs_ca/models.py:195
+#: geonode/waterproof_nbs_ca/models.py:210
 msgid "Unit oportunity costs (US $/ha)"
 msgstr "Costos de oportunidad (US $/ha)"
 
@@ -339,6 +335,20 @@ msgstr "Moneda"
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_list.html:40
 msgid "Options"
 msgstr "Opciones"
+
+#: geonode/waterproof_nbs_ca/views.py:69 geonode/waterproof_nbs_ca/views.py:389
+#: geonode/waterproof_nbs_ca/views.py:527
+msgid "Duplicated nbs"
+msgstr ""
+
+#: geonode/waterproof_nbs_ca/views.py:131
+#: geonode/waterproof_nbs_ca/views.py:465
+#: geonode/waterproof_nbs_ca/views.py:600
+msgid "Field empty"
+msgstr ""
+
+#~ msgid "Procurement time of total SBN benefits"
+#~ msgstr "Tiempo de adquisición de los beneficios totales de SBN"
 
 #~ msgid "Water Intakes"
 #~ msgstr "Captaciones"
