@@ -25,7 +25,7 @@
     <h4 class="text-primary">{% trans "General Settings" %}</h4>
     <div class="form-group">
         <label>{% trans "Name" %} <span class="text-danger-wp">(*)</span> </label>
-        <input type="text" value="{{ nbs.name }}" class="form-control" id="nameNBS" name="nameNBS"
+        <input type="text" value='{{ nbs.name }}_{% trans "Cloned" %}' class="form-control" id="nameNBS" name="nameNBS"
             data-error="This field is required" placeholder="Enter title" required>
         <div class="help-block with-errors"></div>
     </div>
