@@ -683,11 +683,11 @@ function onInit(editor) {
         }
 
         $('#step4NextBtn').click(function() {
-            saveExternalData();
-            //$('#smartwizard').smartWizard("next");
+            var datop = false;
+            saveExternalData(datop);
         });
 
-        function saveExternalData() {
+        function saveExternalData(date) {
             for (let id = 0; id < graphData.length; id++) {
                 if (graphData[id].external == 'true') {
                     graphData[id].externaldata = [];
@@ -696,7 +696,15 @@ function onInit(editor) {
                         let sedimentsito = $(`input[name="sediment_${$(this).attr('year_value')}_${graphData[id].id}"]`).val();
                         let nitrogenito = $(`input[name="nitrogen_${$(this).attr('year_value')}_${graphData[id].id}"]`).val();
                         let phospharusito = $(`input[name="phosphorus_${$(this).attr('year_value')}_${graphData[id].id}"]`).val();
-                        if (watersita != '' || sedimentsito != '' || nitrogenito != '' || phospharusito != '') {
+                        if (watersita == '' || sedimentsito == '' || nitrogenito == '' || phospharusito == '') {
+                            date = true;
+                            Swal.fire({
+                                icon: 'warning',
+                                title: gettext('Field empty'),
+                                text: gettext('Please fill every fields')
+                            });
+                            return;
+                        } else {
                             graphData[id].externaldata.push({
                                 "year": $(this).attr('year_value'),
                                 "waterVol": watersita,
@@ -704,14 +712,6 @@ function onInit(editor) {
                                 "nitrogen": nitrogenito,
                                 "phosphorus": phospharusito
                             });
-
-                        } else {
-                            Swal.fire({
-                                icon: 'warning',
-                                title: gettext('Field empty'),
-                                text: gettext('Please fill every fields')
-                            });
-                            return;
                         }
                     });
                     var enc = new mxCodec();
@@ -728,18 +728,14 @@ function onInit(editor) {
                             }
                         }
                     });
-
                     graphData[id].externaldata = JSON.stringify(graphData[id].externaldata);
                 }
-
             }
             $('#xmlGraph').val(textxml);
             $('#graphElements').val(JSON.stringify(graphData));
-            $('#smartwizard').smartWizard("next");
+            if (!date) {
+                $('#smartwizard').smartWizard("next");
+            }
         }
-
-
-
     });
-
 }

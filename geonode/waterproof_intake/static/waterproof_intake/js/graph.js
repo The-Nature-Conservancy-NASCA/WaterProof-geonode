@@ -507,7 +507,8 @@ function onInit(editor) {
         }
 
         $('#step4NextBtn').click(function() {
-            saveExternalData();
+            var datop = false;
+            saveExternalData(datop);
         });
 
         //Set var into calculator
@@ -694,7 +695,7 @@ function onInit(editor) {
         });
 
         // Save External Input Data
-        function saveExternalData() {
+        function saveExternalData(date) {
             for (let id = 0; id < graphData.length; id++) {
                 if (graphData[id].external) {
                     graphData[id].externaldata = [];
@@ -703,22 +704,22 @@ function onInit(editor) {
                         let sedimentsito = $(`input[name="sediment_${$(this).attr('year_value')}_${graphData[id].id}"]`).val();
                         let nitrogenito = $(`input[name="nitrogen_${$(this).attr('year_value')}_${graphData[id].id}"]`).val();
                         let phospharusito = $(`input[name="phosphorus_${$(this).attr('year_value')}_${graphData[id].id}"]`).val();
-                        if (watersita != '' || sedimentsito != '' || nitrogenito != '' || phospharusito != '') {
-                            graphData[id].externaldata.push({
-                                "year": $(this).attr('year_value'),
-                                "water": watersita,
-                                "sediment": sedimentsito,
-                                "nitrogen": nitrogenito,
-                                "phosphorus": phospharusito
-                            });
-
-                        } else {
+                        if (watersita == '' || sedimentsito == '' || nitrogenito == '' || phospharusito == '') {
+                            date = true;
                             Swal.fire({
                                 icon: 'warning',
                                 title: gettext('Field empty'),
                                 text: gettext('Please fill every fields')
                             });
                             return;
+                        } else {
+                            graphData[id].externaldata.push({
+                                "year": $(this).attr('year_value'),
+                                "waterVol": watersita,
+                                "sediment": sedimentsito,
+                                "nitrogen": nitrogenito,
+                                "phosphorus": phospharusito
+                            });
                         }
                     });
                     var enc = new mxCodec();
@@ -742,7 +743,9 @@ function onInit(editor) {
             }
             $('#xmlGraph').val(textxml);
             $('#graphElements').val(JSON.stringify(graphData));
-            $('#smartwizard').smartWizard("next");
+            if (!date) {
+                $('#smartwizard').smartWizard("next");
+            }
         }
 
         jQuery.fn.ForceNumericOnly = function() {
