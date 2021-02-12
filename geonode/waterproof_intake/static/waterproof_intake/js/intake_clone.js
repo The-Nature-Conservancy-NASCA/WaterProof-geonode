@@ -438,6 +438,15 @@ $(document).ready(function() {
         $('#smartwizard').smartWizard("prev");
     });
 
+    $('#submit').click(function() {
+        Swal.fire({
+            icon: 'success',
+            text: gettext('The water intake is being saved'),
+            allowOutsideClick: false,
+            showConfirmButton: false
+        });
+    });
+
     // Change Option Manual Tab
     $('#btnManualTab').click(function() {
         if ($('#initialDataExtractionInterpolationValue').val() != '' || $('#finalDataExtractionInterpolationValue').val() != '' || $('#numberYearsInterpolationValue').val() != '') {

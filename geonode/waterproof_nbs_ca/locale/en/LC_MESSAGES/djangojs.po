@@ -23,7 +23,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GeoNode\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-09 16:14-0500\n"
+"POT-Creation-Date: 2021-02-11 16:18-0500\n"
 "PO-Revision-Date: 2020-11-28 19:14+0100\n"
 "Last-Translator: Julien Collaer <julien.collaer@opengeode.be>\n"
 "Language-Team: English (http://www.transifex.com/geonode/geonode/language/"
@@ -35,72 +35,90 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 2.4.2\n"
 
-#: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca.js:112
-#: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca.js:146
-#: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca.js:334
-#: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca.js:373
+#: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca.js:109
+#: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca.js:147
+#: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca.js:187
+#: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca.js:388
+#: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca.js:430
 #: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca_clone.js:138
 #: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca_clone.js:174
 #: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca_clone.js:210
-#: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca_edit.js:138
-#: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca_edit.js:174
-#: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca_edit.js:210
+#: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca_clone.js:252
+#: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca_clone.js:294
+#: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca_edit.js:142
+#: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca_edit.js:178
+#: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca_edit.js:220
+#: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca_edit.js:269
+#: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca_edit.js:311
 #: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca_list.js:80
 msgid "Great!"
 msgstr "Great!"
 
-#: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca.js:113
-#: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca.js:147
+#: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca.js:110
+#: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca.js:148
+#: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca.js:188
 #: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca_clone.js:139
 #: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca_clone.js:175
 #: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca_clone.js:211
-#: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca_edit.js:139
-#: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca_edit.js:175
-#: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca_edit.js:211
+#: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca_edit.js:143
+#: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca_edit.js:179
+#: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca_edit.js:221
 msgid "The NBS has been saved"
 msgstr "The NBS has been saved"
 
-#: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca.js:335
+#: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca.js:120
+#: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca.js:158
+#: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca.js:198
+#: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca_edit.js:189
+#: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca_edit.js:231
+msgid "Nbs saving error"
+msgstr ""
+
+#: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca.js:389
+#: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca_clone.js:253
+#: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca_edit.js:270
 msgid "The GeoJSON is valid!"
 msgstr ""
 
-#: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca.js:341
-#: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca_clone.js:250
-#: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca_edit.js:250
+#: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca.js:400
+#: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca_clone.js:264
+#: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca_edit.js:281
 msgid "GeoJSON file error"
 msgstr "GeoJSON file error"
 
-#: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca.js:342
-#: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca_clone.js:251
-#: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca_edit.js:251
+#: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca.js:401
+#: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca_clone.js:265
+#: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca_edit.js:282
 msgid "Character errors in GeoJSON file"
 msgstr "Character errors in GeoJSON file, or may be the file is corrupted!"
 
-#: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca.js:374
+#: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca.js:431
+#: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca_clone.js:295
+#: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca_edit.js:312
 msgid "The shapefile is valid!"
 msgstr ""
 
-#: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca.js:388
-#: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca_clone.js:281
-#: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca_edit.js:281
+#: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca.js:445
+#: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca_clone.js:309
+#: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca_edit.js:326
 msgid "Shapefile error"
 msgstr "Shapefile error"
 
-#: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca.js:389
-#: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca_clone.js:282
-#: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca_edit.js:282
+#: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca.js:446
+#: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca_clone.js:310
+#: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca_edit.js:327
 msgid "There's been an error reading the shapefile"
 msgstr "There's been an error reading the shapefile"
 
-#: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca.js:404
-#: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca_clone.js:297
-#: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca_edit.js:297
+#: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca.js:461
+#: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca_clone.js:325
+#: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca_edit.js:342
 msgid "Extension file error"
 msgstr "Extension file error"
 
-#: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca.js:405
-#: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca_clone.js:298
-#: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca_edit.js:298
+#: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca.js:462
+#: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca_clone.js:326
+#: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca_edit.js:343
 msgid "Not supported file extension"
 msgstr "Not supported file extension"
 
