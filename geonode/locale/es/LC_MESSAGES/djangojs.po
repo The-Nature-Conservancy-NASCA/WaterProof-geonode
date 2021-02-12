@@ -26,7 +26,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GeoNode\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-23 15:40+0000\n"
+"POT-Creation-Date: 2021-02-09 16:14-0500\n"
 "PO-Revision-Date: 2020-05-19 18:03-0600\n"
 "Last-Translator: Julien Collaer <julien.collaer@opengeode.be>\n"
 "Language-Team: Spanish (http://www.transifex.com/geonode/geonode/language/"
@@ -38,8 +38,12 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 2.3.1\n"
 
-#: geonode/monitoring/static/monitoring/bundle.js:170
+#: geonode/monitoring/static/monitoring/bundle.js:173
 msgid "STORE_UPDATED"
+msgstr ""
+
+#: geonode/static/geonode/js/shp/shp.min.js:11
+msgid "utf-8"
 msgstr ""
 
 #: geonode/static/geonode/js/upload/FileType.js:50
@@ -477,6 +481,69 @@ msgstr ""
 "opciones obligatorias han sido validadas.\n"
 "\n"
 "Por favor, comprobar si hay errores en el formulario!"
+
+#: geonode/static/geonode/js/waterproof/geomFile_validate.js:99
+#: geonode/static/geonode/js/waterproof/geomFile_validate.js:117
+msgid "Error!"
+msgstr ""
+
+#: geonode/static/geonode/js/waterproof/geomFile_validate.js:100
+#: geonode/static/geonode/js/waterproof/geomFile_validate.js:118
+msgid "The CRS is not correct!"
+msgstr "El sistema de referencia de coordenadas es incorrecto, se espera EPSG 3857 o EPSG 4326"
+
+#: geonode/static/geonode/js/waterproof/geomFile_validate.js:132
+#: geonode/static/geonode/js/waterproof/geomFile_validate.js:142
+#: geonode/static/geonode/js/waterproof/geomFile_validate.js:151
+#: geonode/static/geonode/js/waterproof/geomFile_validate.js:160
+#: geonode/static/geonode/js/waterproof/geomFile_validate.js:277
+#: geonode/static/geonode/js/waterproof/geomFile_validate.js:285
+#, fuzzy
+#| msgid "ESRI Shapefile"
+msgid "Shapefile error"
+msgstr "ESRI Shapefile"
+
+#: geonode/static/geonode/js/waterproof/geomFile_validate.js:133
+msgid "Missing shp"
+msgstr "El archivo .shp requerido no se encuentra"
+
+#: geonode/static/geonode/js/waterproof/geomFile_validate.js:143
+msgid "Missing dbf"
+msgstr "El archivo .dbf requerido no se encuentra"
+
+#: geonode/static/geonode/js/waterproof/geomFile_validate.js:152
+msgid "Missing shx"
+msgstr "El archivo .shx requerido no se encuentra"
+
+#: geonode/static/geonode/js/waterproof/geomFile_validate.js:161
+msgid "Missing prj"
+msgstr "El archivo .prj requerido no se encuentra"
+
+#: geonode/static/geonode/js/waterproof/geomFile_validate.js:227
+#: geonode/static/geonode/js/waterproof/geomFile_validate.js:234
+#: geonode/static/geonode/js/waterproof/geomFile_validate.js:241
+msgid "GeoJSON file error"
+msgstr "Error en archivo GeoJSON"
+
+#: geonode/static/geonode/js/waterproof/geomFile_validate.js:228
+msgid "Geometry must be polygon"
+msgstr "La geometría debe ser de tipo polígono"
+
+#: geonode/static/geonode/js/waterproof/geomFile_validate.js:235
+msgid "Bad geojson structure"
+msgstr "El GeoJSON no posee la estructura estándar requerida"
+
+#: geonode/static/geonode/js/waterproof/geomFile_validate.js:242
+msgid "Coordinates out of WSG84"
+msgstr "Las coordenadas no están en el rango WSG84 de geográficas esperadas"
+
+#: geonode/static/geonode/js/waterproof/geomFile_validate.js:278
+msgid "Dbf action field missing"
+msgstr "El atributo 'action' requerido no se encuentra en el archivo .dbf"
+
+#: geonode/static/geonode/js/waterproof/geomFile_validate.js:286
+msgid "Dbf activity field missing"
+msgstr "El atributo 'actitivy_n' requerido no se encuentra en el archivo .dbf"
 
 #, fuzzy
 #~| msgid "Now"

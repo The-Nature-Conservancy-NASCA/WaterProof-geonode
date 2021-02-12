@@ -75,7 +75,7 @@ textarea {
     position: absolute;
     border-color: #afafaf #ffffff #ffffff #ffffff;
     left: 0px;
-    top: 88px;
+    top: 54px;
 }
 .positon-arrow {
     top: 250px;
@@ -94,26 +94,26 @@ textarea {
     margin-top: -37.5px;
 }
 .position-arrow-two {
-	left: 170px;
+	left: 20px;
 }
 .position-arrow-two-one {
-	top: 110px;
-    left: 245px;
+	top: 156px;
+    left: 95px;
 }
 .line-right-one {
 	width: 15px;
-    height: 100px;
+    height: 65px;
     top: 0px;
     left: 7.5px;
     background-color: #afafaf;
     position: absolute;
 }
 .container-element-two {
-	left: 207px;
+	left: 57px;
 }
 .container-element-two-top {
-	top: 45px;
-	left: 210px;
+	top: 100px;
+	left: 60px;
 }
 .container-element-two-bottom {
     left: 210px;
@@ -121,45 +121,46 @@ textarea {
     height: 87px;
 }
 .position-arrow-three {
-	left: 320px;
+	left: 170px;
 }
 .container-element-three {
-	left: 357px;
+	left: 207px;
 }
 .position-arrow-four {
-	left: 470px;
+	left: 320px;
 }
 .container-element-four {
-	left: 507px;
+	left: 357px;
 }
 .position-arrow-five {
-	left: 620px;
+	left: 470px;
 }
 .container-element-five {
-	left: 657px;
+	left: 507px;
 }
 .position-arrow-six {
-	top: 210px;
 	left: 770px;
 }
 .container-element-six {
-	top: 210px;
 	left: 807px;
 }
 .position-arrow-six-left {
-	top: 290px;
-	left: 770px;
+	left: 620px;
 }
 .container-element-six-left {
-	top: 290px;
-	left: 807px;
+	left: 657px;
 }
 .position-arrow-seven {
-	left: 920px;
+    left: 920px;
+}
+.position-arrow-seven-one {
+    left: 1223px;
 }
 .container-element-seven {
-	left: 957px;
-    height: 87px;
+    left: 957px;
+}
+.container-element-seven-one {
+    left: 1111px;
 }
 .container-element-seven-top {
     left: 960px;
@@ -167,14 +168,20 @@ textarea {
     height: 87px;
 }
 .container-element-seven-bottom {
-	left: 960px;
-	top: 450px;
+	left: 1261px;
+	top: 420px;
 }
 .position-arrow-eight {
-	left: 1070px;
+    left: 1070px;
+}
+.position-arrow-eight-one {
+    left: 1373px;
 }
 .container-element-eight {
-	left: 1110px;
+    left: 1261px;
+}
+.container-element-eight-one {
+    left: 1411px;
 }
 .position-arrow-two-two {
 	left: 995px;
@@ -195,41 +202,53 @@ textarea {
     top: -10px;
 }
 .position-arrow-two-four {
-	top: 315px;
+    top: 315px;
     left: 545px;
+}
+.position-arrow-two-four-one {
+    top: 315px;
+    left: 398px;
 }
 .position-arrow-two-five {
 	top: 315px;
     left: 695px;
 }
 .position-arrow-two-six {
-	top: 355px;
+    top: 315px;
     left: 845px;
 }
+.position-arrow-two-six-one {
+    top: 315px;
+    left: 996px;
+}
+.position-arrow-two-six-two {
+    top: 315px;
+    left: 1150px;
+}
 .position-arrow-two-seven {
-	top: 453px;
-    left: 549px;
+	top: 425px;
+    left: 400px;
 }
 .line-right-seven {
-    width: 400px;
+    width: 848px;
     height: 15px;
     background-color: #afafaf;
     top: 7.5px;
     position: absolute;
 }
 .point-right-seven {
-	width: 0px;
+    width: 0px;
     height: 0px;
     border-style: solid;
     border-width: 15px;
     border-color: #ffffff #ffffff #ffffff #afafaf;
     position: absolute;
     top: 0px;
-    left: 387px;
+    left: 842px;
 }
 .line-right-four {
 	width: 15px;
-    height: 135px;
+    height: 100px;
     top: 0px;
     left: 7.5px;
     background-color: #afafaf;
@@ -243,22 +262,34 @@ textarea {
     position: absolute;
     border-color: #afafaf #ffffff #ffffff #ffffff;
     left: 0px;
-    top: 128px;
+    top: 99px;
 }
 .text-container {
-	position: absolute;
-    bottom: 0px;
-    font-size:11px;
+    position: absolute;
+    bottom: -21px;
+    font-size: 11px;
     width: 110px;
     text-align: center;
-    color: #ffffff;
+    color: #000000;
+    background: #ffffff;
+    height: 20px;
+}
+.text-container-one {
+    position: absolute;
+    bottom: -66px;
+    font-size: 11px;
+    width: 110px;
+    text-align: center;
+    color: #000000;
+    background: #ffffff;
+    height: 65px;
 }
 .img-color-container {
     width: 100px;
-    height: 50px;
+    height: 64px;
     background-color: #ffffff;
     margin: 5px;
-    background-size: auto 56px;
+    background-size: auto 65px;
     background-repeat: no-repeat;
     background-position: center;
     border-radius: 5px;
@@ -288,9 +319,15 @@ textarea {
     background-image: url(../img/tratamiento-azul.png);
 }
 .img-container-nine {
+    /*background-image: url(../img/filtracion-cinco-azul.png);*/
+}
+.img-container-nine-one {
     background-image: url(../img/filtracion-cinco-azul.png);
 }
 .img-container-ten {
+    /*background-image: url(../img/desinfeccion-azul.png);*/
+}
+.img-container-ten-one {
     background-image: url(../img/desinfeccion-azul.png);
 }
 .main-point {
@@ -370,4 +407,24 @@ textarea {
 }
 .main-tree-content {
     margin: 50px;
+}
+.opacity-graph {
+    background-color: #000000;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    opacity: 0.6;
+    border-radius: 5px;
+}
+.change-state {
+    width: 20px;
+    height: 20px;
+    background: #20b741;
+    top: -16px;
+    position: absolute;
+    border-radius: 50%;
+    left: -16px;
+    cursor: pointer;
 }

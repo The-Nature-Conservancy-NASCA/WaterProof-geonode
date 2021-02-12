@@ -135,8 +135,8 @@ $(function () {
                         enctype: 'multipart/form-data',
                         success: function () {
                             Swal.fire(
-                                'Excelente',
-                                'La SBN ha sido editada con éxito',
+                                gettext('Great!'),
+                                gettext('The NBS has been saved'),
                                 'success'
                             )
                             location.href = "/waterproof_nbs_ca/"
@@ -171,8 +171,8 @@ $(function () {
                                 enctype: 'multipart/form-data',
                                 success: function () {
                                     Swal.fire(
-                                        'Excelente',
-                                        'La SBN ha sido editada con éxito',
+                                        gettext('Great!'),
+                                        gettext('The NBS has been saved'),
                                         'success'
                                     )
                                     setTimeout(function () { location.href = "/waterproof_nbs_ca/"; }, 1000);
@@ -207,8 +207,8 @@ $(function () {
                     enctype: 'multipart/form-data',
                     success: function () {
                         Swal.fire(
-                            'Excelente',
-                            'La SBN ha sido editada con éxito',
+                            gettext('Great!'),
+                            gettext('The NBS has been saved'),
                             'success'
                         )
                         setTimeout(function () { location.href = "/waterproof_nbs_ca/"; }, 1000);
@@ -244,11 +244,25 @@ $(function () {
                                 $('#restrictedArea').val('');
                                 return;
                             }
+                            else {
+                                let validDbf = validateDbfFields(geojson);
+                                if (validDbf) {
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: gettext('Great!'),
+                                        text: gettext('The GeoJSON is valid!'),
+                                    })
+                                }
+                                else {
+                                    $('#restrictedArea').val('');
+                                    return;
+                                }
+                            }
                         } catch (e) {
                             Swal.fire({
                                 icon: 'error',
-                                title: 'Error en archivo GeoJSON',
-                                text: 'El archivo tiene carácteres erróneos o puede estar corrupto por favor intente con otro',
+                                title: gettext('GeoJSON file error'),
+                                text: gettext('Character errors in GeoJSON file'),
                             })
                             $('#restrictedArea').val('');
                             return;
@@ -271,15 +285,29 @@ $(function () {
                                     return;
                                 }
                                 else {
-
+                                    shp(contents).then(function (shpToGeojson) {
+                                        geojson = shpToGeojson;
+                                        let validDbf = validateDbfFields(geojson);
+                                        if (validDbf) {
+                                            Swal.fire({
+                                                icon: 'success',
+                                                title: gettext('Great!'),
+                                                text: gettext('The shapefile is valid!'),
+                                            })
+                                        }
+                                        else {
+                                            $('#restrictedArea').val('');
+                                            return;
+                                        }
+                                    });
                                 }
                             });
                             //loadShapefile(geojson, file.name);
                         }).catch(function (e) {
                             Swal.fire({
                                 icon: 'error',
-                                title: 'Error en shapefile',
-                                text: 'Ha ocurrido un error de lectura en el shapefile',
+                                title: gettext('Shapefile error'),
+                                text: gettext("There's been an error reading the shapefile"),
                             })
                             console.log("Ocurrió error convirtiendo el shapefile " + e);
                             $('#restrictedArea').val('');
@@ -294,8 +322,8 @@ $(function () {
             } else { //Invalid extension
                 Swal.fire({
                     icon: 'error',
-                    title: 'Error de extensión',
-                    text: 'La extensión del archivo no está soportada, debe ser GeoJSON o un shapefile .zip',
+                    title: gettext('Extension file error'),
+                    text: gettext('Not supported file extension'),
                 })
                 $('#intakeArea').val('');
             }
