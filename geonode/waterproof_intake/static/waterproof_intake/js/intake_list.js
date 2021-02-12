@@ -4,11 +4,9 @@
  * @version 1.0
  */
 $(function() {
-    var table = $('#example').DataTable(
-        {
-            'dom': 'lrtip'
-        }
-    );
+    var table = $('#example').DataTable({
+        'dom': 'lrtip'
+    });
     var countryDropdown = $('#countryNBS');
     var currencyDropdown = $('#currencyCost');
     var transitionsDropdown = $('#riosTransition');
@@ -55,7 +53,7 @@ $(function() {
                 })
             }
         });
-        $('.btn-danger').click(function (evt) {
+        $('.btn-danger').click(function(evt) {
             Swal.fire({
                 title: gettext('Delete intake'),
                 text: gettext("Are you sure?") + gettext("You won't be able to revert this!"),
@@ -69,25 +67,25 @@ $(function() {
             }).then((result) => {
                 if (result.isConfirmed) {
                     intakeId = evt.currentTarget.getAttribute('data-id')
-                    /** 
-                    * Get filtered activities by transition id 
-                    * @param {String} url   activities URL 
-                    * @param {Object} data  transition id  
-                    *
-                    * @return {String} activities in HTML option format
-                    */
+                        /** 
+                         * Get filtered activities by transition id 
+                         * @param {String} url   activities URL 
+                         * @param {Object} data  transition id  
+                         *
+                         * @return {String} activities in HTML option format
+                         */
                     $.ajax({
                         url: '/intake/delete/' + intakeId,
                         type: 'POST',
-                        success: function (result) {
+                        success: function(result) {
                             Swal.fire({
                                 icon: 'success',
                                 title: gettext('Great!'),
                                 text: gettext('The intake has been deleted')
                             })
-                            setTimeout(function () { location.href = "/intake/"; }, 1000);
+                            setTimeout(function() { location.href = "/intake/"; }, 1000);
                         },
-                        error: function (error) {
+                        error: function(error) {
                             Swal.fire({
                                 icon: 'error',
                                 title: gettext('Error!'),
@@ -100,15 +98,12 @@ $(function() {
                 }
             })
         });
-        fillTransitionsDropdown(transitionsDropdown);
-        changeCountryEvent(countryDropdown, currencyDropdown);
-        changeFileEvent();
         initMap();
     };
     /** 
      * Initialize map 
      */
-    
+
     TILELAYER = 'http://{s}.tile.osm.org/{z}/{x}/{y}.png';
     IMAGE_LYR_URL = "https://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryTopo/MapServer/tile/{z}/{y}/{x}";
     HYDRO_LYR_URL = "https://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/Esri_Hydro_Reference_Overlay/MapServer/tile/{z}/{y}/{x}";
@@ -117,40 +112,40 @@ $(function() {
 
     initMap = function() {
 
-        map = L.map('mapidcuenca', { 
-            scrollWheelZoom: false, 
-            zoomControl: false, 
-            photonControl: true, 
-            photonControlOptions: { 
-                resultsHandler: showSearchPoints, 
-                selectedResultHandler : selectedResultHandler,
-                placeholder: 'Search City...', 
-                position: 'topleft', 
+        map = L.map('mapidcuenca', {
+            scrollWheelZoom: false,
+            zoomControl: false,
+            photonControl: true,
+            photonControlOptions: {
+                resultsHandler: showSearchPoints,
+                selectedResultHandler: selectedResultHandler,
+                placeholder: 'Search City...',
+                position: 'topleft',
                 url: SEARCH_CITY_API_URL
-            } 
+            }
         });
         let initialCoords = CENTER;
         // find in localStorage if cityCoords exist
         var cityCoords = localStorage.getItem('cityCoords');
         var city = localStorage.getItem('city');
         var initialZoom = 5;
-            var cityNameMap = localStorage.getItem('city').substr(0, 5);
-     
-        if (cityCoords == undefined){
+        var cityNameMap = localStorage.getItem('city').substr(0, 5);
+
+        if (cityCoords == undefined) {
             table.search(cityNameMap).draw();
             cityCoords = initialCoords;
-        }else{
+        } else {
             initialCoords = JSON.parse(cityCoords);
-            drawPolygons(city);        
+            drawPolygons(city);
             table.search(cityNameMap).draw();
             initialZoom = 9;
-            try{
+            try {
                 $("#countryLabel").html(localStorage.getItem('country'));
                 $("#cityLabel").html(localStorage.getItem('city'));
                 $("#regionLabel").html(localStorage.getItem('region'));
                 $("#currencyLabel").html(localStorage.getItem('currency'));
                 $("#listIntakes").show();
-            }catch(e){
+            } catch (e) {
 
             }
 
@@ -163,14 +158,14 @@ $(function() {
 
         var tilelayer = L.tileLayer(TILELAYER, { maxZoom: MAXZOOM, attribution: 'Data \u00a9 <a href="http://www.openstreetmap.org/copyright"> OpenStreetMap Contributors </a> Tiles \u00a9 Komoot' }).addTo(map);
         var images = L.tileLayer(IMAGE_LYR_URL);
-        
-        
+
+
         var hydroLyr = L.tileLayer(HYDRO_LYR_URL);
 
         var baseLayers = {
             OpenStreetMap: tilelayer,
             Images: images,
-            /* Grayscale: gray,   */          
+            /* Grayscale: gray,   */
         };
 
         var overlays = {
@@ -179,7 +174,7 @@ $(function() {
 
 
         var zoomControl = new L.Control.Zoom({ position: 'topright' }).addTo(map);
-        L.control.layers(baseLayers,overlays,{position: 'topleft'}).addTo(map);
+        L.control.layers(baseLayers, overlays, { position: 'topleft' }).addTo(map);
 
         //var c = new L.Control.Coordinates();        
         //c.addTo(map);
@@ -199,8 +194,6 @@ $(function() {
 
     function showSearchPoints(geojson) {
         console.log(localStorage.getItem('city'))
-        //searchPoints.writeLayers('Bogotá');
-        //console.log(intake.substr(0, 5));
         searchPoints.clearLayers();
 
         let geojsonFilter = geojson.features.filter(feature => feature.properties.type == "city");
@@ -217,14 +210,14 @@ $(function() {
         table.search(cityName.substr(0, 5)).draw();
     }
 
-    function selectedResultHandler(feat){
+    function selectedResultHandler(feat) {
 
         waterproof["cityCoords"] = [feat.geometry.coordinates[1], feat.geometry.coordinates[0]];
         localStorage.setItem('cityCoords', JSON.stringify(waterproof["cityCoords"]));
 
 
-        searchPoints.eachLayer(function(layer){
-            if (layer.feature.properties.osm_id != feat.properties.osm_id){
+        searchPoints.eachLayer(function(layer) {
+            if (layer.feature.properties.osm_id != feat.properties.osm_id) {
                 layer.remove();
             }
         });
@@ -241,12 +234,12 @@ $(function() {
 
         let urlAPI = '{{ SEARCH_COUNTRY_API_URL }}' + countryCode;
 
-        $.get(urlAPI, function(data){
+        $.get(urlAPI, function(data) {
             //console.log(data);
             $("#regionLabel").html(data.region);
             $("#currencyLabel").html(data.currencies[0].name + " - " + data.currencies[0].symbol);
             $("#listIntakes").show();
-            
+
             localStorage.setItem('country', country);
             localStorage.setItem('region', data.region);
             localStorage.setItem('currency', data.currencies[0].name + " - " + data.currencies[0].symbol);
@@ -268,294 +261,42 @@ $(function() {
         });
         return transformations;
     };
-    /** 
-     * Change currency option based in country selected
-     * @param {HTML} countryDropdown    Country dropdown
-     * @param {HTML} currencyDropdown   Currency  dropdown
-     *
-     */
-    changeCountryEvent = function(countryDropdown, currencyDropdown) {
-        // Rios transitions dropdown listener
-        countryDropdown.click(function(event, params) {
-            // Get load activities from urls Django parameter
-            var country_id = $(this).val();
-            var countryName = $(this).find(':selected').text();
-            var countryCode = $(this).find(':selected').attr('data-value');
-            if (params) {
-                if (!params.mapClick) {
-                    updateCountryMap(countryCode);
-                }
-            } else {
-                updateCountryMap(countryCode);
-            }
-            /** 
-             * Get filtered activities by transition id 
-             * @param {String} url   activities URL 
-             * @param {Object} data  transition id  
-             *
-             * @return {String} activities in HTML option format
-             */
-            $.ajax({
-                url: '/waterproof_nbs_ca/load-currencyByCountry/',
-                data: {
-                    'country': country_id
-                },
-                success: function(result) {
-                    result = JSON.parse(result);
-                    currencyDropdown.val(result[0].pk);
-                    $('#currencyLabel').text('(' + result[0].fields.code + ') - ' + result[0].fields.name);
-                    $('#countryLabel').text(countryName);
-                    /** 
-                     * Get filtered activities by transition id 
-                     * @param {String} url   activities URL 
-                     * @param {Object} data  transition id  
-                     *
-                     * @return {String} activities in HTML option format
-                     */
-                    $.ajax({
-                        url: '/waterproof_nbs_ca/load-regionByCountry/',
-                        data: {
-                            'country': country_id
-                        },
-                        success: function(result) {
-                            result = JSON.parse(result);
-                            $('#regionLabel').text(result[0].fields.name);
-
-                        }
-                    });
-                }
-            });
-        });
-    };
-    updateCountryMap = function(countryCode) {
-            map.eachLayer(function(layer) {
-                if (layer.feature) {
-                    if (layer.feature.id == countryCode) {
-                        if (lastClickedLayer) {
-                            lastClickedLayer.setStyle(defaultStyle);
-                        }
-                        layer.setStyle(highlighPolygon);
-                        map.fitBounds(layer.getBounds());
-                        lastClickedLayer = layer;
-                    }
-                }
-            });
-
-        }
-        /** 
-         * Validate input file on change
-         * @param {HTML} dropdown Dropdown selected element
-         */
-    changeFileEvent = function() {
-        $('#restrictedArea').change(function(evt) {
-            var file = evt.currentTarget.files[0];
-            var extension = validExtension(file);
-            // Validate file's extension
-            if (extension.valid) { //Valid
-                console.log('Extension valid!');
-                // Validate file's extension
-                if (extension.extension == 'geojson') { //GeoJSON
-                    var readerGeoJson = new FileReader();
-                    readerGeoJson.onload = function(evt) {
-                        var contents = evt.target.result;
-                        geojson = JSON.parse(contents);
-                        loadFile(geojson, file.name);
-                    }
-                    readerGeoJson.readAsText(file);
-                } else { //Zip
-                    var reader = new FileReader();
-                    var filename, readShp = false,
-                        readDbf = false,
-                        readShx = false,
-                        readPrj = false,
-                        prj, coord = true;
-                    var prjName;
-                    reader.onload = function(evt) {
-                        var contents = evt.target.result;
-                        JSZip.loadAsync(file).then(function(zip) {
-                            zip.forEach(function(relativePath, zipEntry) {
-                                filename = zipEntry.name.toLocaleLowerCase();
-                                if (filename.indexOf(".shp") != -1) {
-                                    readShp = true;
-                                }
-                                if (filename.indexOf(".dbf") != -1) {
-                                    readDbf = true;
-                                }
-                                if (filename.indexOf(".shx") != -1) {
-                                    readShx = true;
-                                }
-                                if (filename.indexOf(".prj") != -1) {
-                                    readPrj = true;
-                                    prjName = zipEntry.name;
-                                }
-                            });
-                            // Valid shapefile with minimum files req
-                            if (readShp && readDbf && readPrj && readShx) {
-                                zip.file(prjName).async("string").then(function(data) {
-                                    prj = data;
-                                    // Validar sistema de referencia
-                                    if (prj.toLocaleLowerCase().indexOf("gcs_wgs_1984") == -1) {
-                                        Swal.fire({
-                                            icon: 'error',
-                                            title: 'Error en shapefile',
-                                            text: 'Sistema de proyección incorrecto',
-                                        })
-                                    }
-                                    // Shapefile válido
-                                    else {
-                                        shp(contents).then(function(shpToGeojson) {
-                                            geojson = shpToGeojson;
-                                            //loadShapefile(geojson, file.name);
-                                        }).catch(function(e) {
-                                            Swal.fire({
-                                                icon: 'error',
-                                                title: 'Error en shapefile',
-                                                text: 'Ha ocurrido un error de lectura en el shapefile',
-                                            })
-                                            console.log("Ocurrió error convirtiendo el shapefile " + e);
-                                        });
-                                    }
-                                });
-                            } else { // Missing req files
-                                // Miss .shp
-                                if (!readShp) {
-                                    Swal.fire({
-                                        icon: 'error',
-                                        title: 'Error en shapefile',
-                                        text: 'Falta el archivo .shp requerido',
-                                    })
-                                }
-                                // Miss .dbf
-                                if (!readDbf) {
-                                    Swal.fire({
-                                        icon: 'error',
-                                        title: 'Error en shapefile',
-                                        text: 'Falta el archivo .dbf requerido',
-                                    })
-                                }
-                                // Miss .shx
-                                if (!readShx) {
-                                    Swal.fire({
-                                        icon: 'error',
-                                        title: 'Error en shapefile',
-                                        text: 'Falta el archivo .shx requerido',
-                                    })
-                                }
-                                // Miss .prj
-                                if (!readPrj) {
-                                    Swal.fire({
-                                        icon: 'error',
-                                        title: 'Error en shapefile',
-                                        text: 'Falta el archivo .prj requerido',
-                                    })
-                                }
-                            }
-                        });
-                    };
-                    reader.onerror = function(event) {
-                        console.error("File could not be read! Code " + event.target.error.code);
-                        //alert("El archivo no pudo ser cargado: " + event.target.error.code);
-                    };
-                    reader.readAsArrayBuffer(file);
-                }
-            } else { //Invalid extension
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error de extensión',
-                    text: 'La extensión del archivo no está soportada, debe ser GeoJSON o un shapefile .zip',
-                })
-            }
-        });
-    };
-    checkEmptyFile = function() {
-
-    };
-    /** 
-     * Populate transitions options in dropdown 
-     * @param {HTML} dropdown Dropdown selected element
-     *
-     */
-    fillTransitionsDropdown = function(dropdown) {
-        $.ajax({
-            url: '/waterproof_nbs_ca/load-transitions',
-            success: function(result) {
-                result = JSON.parse(result);
-                $.each(result, function(index, transition) {
-                    dropdown.append($("<option />").val(transition.pk).text(transition.fields.name));
-                });
-                dropdown.val(1).change();
-            }
-        });
-    };
-    /** 
-     * Get if file has a valid shape or GeoJSON extension 
-     * @param {StriFileng} file   zip or GeoJSON file
-     *
-     * @return {Object} extension Object contain extension and is valid
-     */
-    validExtension = function(file) {
-        var fileExtension = {};
-        if (file.name.lastIndexOf(".") > 0) {
-            var extension = file.name.substring(file.name.lastIndexOf(".") + 1, file.name.length);
-            fileExtension.extension = extension;
-        }
-        if (file.type == 'application/x-zip-compressed' || file.type == 'application/zip') {
-            fileExtension.valid = true;
-        } else if (file.type == 'application/geo+json') {
-            fileExtension.valid = true;
-        } else {
-            fileExtension.valid = false;
-        }
-        return fileExtension;
-    };
-    loadFile = function(file, name) {
-        console.log('Start loading file function!');
-    };
 
     //draw polygons
-    drawPolygons = function(citySearch){
-        // TODO: Next line only for test purpose
-        //intakePolygons = polygons;
-        console.log(citySearch);
-
+    drawPolygons = function(citySearch) {
         lyrsPolygons.forEach(lyr => map.removeLayer(lyr));
         lyrsPolygons = [];
-        
-        console.log(intakePolygons);
         var bounds;
-        
-        intakePolygons.forEach((feature) =>{
-            if(citySearch.substr(0, 5)==feature.city.substr(0, 5)){
-                console.log(feature)
+        intakePolygons.forEach((feature) => {
+            if (citySearch.substr(0, 5) == feature.city.substr(0, 5)) {
                 let poly = feature.polygon;
-                if (poly.indexOf("SRID") >= 0){
+                if (poly.indexOf("SRID") >= 0) {
                     poly = poly.split(";")[1];
                 }
                 var lyrPoly = omnivore.wkt.parse(poly).addTo(map);
                 lyrsPolygons.push(lyrPoly);
-                if (bounds == undefined){
+                if (bounds == undefined) {
                     bounds = lyrPoly.getBounds();
-                }else{
+                } else {
                     bounds = bounds.extend(lyrPoly.getBounds());
                 }
             }
-            
+
         });
-        if(bounds != undefined){
+        if (bounds != undefined) {
             map.fitBounds(bounds);
         }
 
     }
 
-    menu = function(){
-        $('.topnav a').click(function(){
+    menu = function() {
+        $('.topnav a').click(function() {
             $('#sideNavigation').style.width = "250px";
             $("#main").style.marginLeft = "250px";
-          });
+        });
     }
 
     // Init 
     initialize();
 
 });
-

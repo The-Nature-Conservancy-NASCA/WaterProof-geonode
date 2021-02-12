@@ -33,8 +33,8 @@ class StudyCases(models.Model):
     :name: Study Case Name.
 
     """
-    dws_name = models.CharField(max_length=100, blank=True, null=True)
-    dws_description = models.CharField(max_length=500, blank=True, null=True)
+    dws_name = models.CharField(max_length=100, blank=False, null=False)
+    dws_description = models.CharField(max_length=500, blank=False, null=False)
     dws_analysis_period_value = models.IntegerField(blank=True, null=True)
     dws_type_money = models.CharField(max_length=10, blank=True, null=True)
     dws_benefit_function = models.CharField(max_length=100, blank=True, null=True)
@@ -42,7 +42,7 @@ class StudyCases(models.Model):
     dws_usr_create = models.IntegerField(blank=True, null=True)
     dws_create_date = models.DateTimeField(blank=True, null=True)
     dws_modif_date = models.DateTimeField(blank=True, null=True)
-    dws_rio_analysis_time = models.IntegerField()
+    dws_rio_analysis_time = models.IntegerField(blank=True, null=True)
     dws_time_implement_briefcase = models.IntegerField(blank=True, null=True)
     dws_climate_scenario_briefcase = models.CharField(max_length=100, blank=True, null=True)
     dws_annual_investment_scenario = models.DecimalField(max_digits=20, decimal_places=2, blank=True, null=True)
@@ -50,7 +50,7 @@ class StudyCases(models.Model):
     dws_climate_scenario_scenario = models.CharField(max_length=100, blank=True, null=True)
     region_id = models.IntegerField(blank=True, null=True)
     ciudad_id = models.IntegerField(blank=True, null=True)
-    dws_authorization_case = models.CharField(max_length=20)
+    dws_authorization_case = models.CharField(max_length=20, blank=True, null=True)
     dws_id_parent = models.IntegerField(blank=True, null=True)
     dws_benefit_carbon_market = models.BooleanField(blank=True, null=True)
 
