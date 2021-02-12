@@ -173,21 +173,21 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h3 class="modal-title text-center" id="HelpModalLabel">Help</h3>
+                <h3 class="modal-title text-center" id="HelpModalLabel">{% trans "Geom files help" %}</h3>
             </div>
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-12">
                         <ol>
-                            <li value="1">Por favor</li>
-                            <li>Ingrese un archivito valido</li>
-                            <li>Gracias</li>
+                            <li value="1">{% trans "Only zip and GeoJSON"%}</li>
+                            <li>{% trans "Only EPSG"%}</li>
+                            <li>{% trans "Max upload size" %}</li>
                         </ol>
                     </div>
                 </div>
                 <br>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{% trans "Close" %}</button>
                 </div>
             </div>
         </div>

@@ -363,105 +363,111 @@ $(function () {
     changeFileEvent = function () {
         $('#restrictedArea').change(function (evt) {
             var file = evt.currentTarget.files[0];
-            var extension = validExtension(file);
-            // Validate file's extension
-            if (extension.valid) { //Valid
-                console.log('Extension valid!');
-                isFile = true;
+            var size = validFileSize(file);
+            if (!size) {
+                return;//Invalid file size
+            }
+            else { //Valid size
+                var extension = validExtension(file);
                 // Validate file's extension
-                if (extension.extension == 'geojson') { //GeoJSON
-                    var readerGeoJson = new FileReader();
-                    readerGeoJson.onload = function (evt) {
-                        var contents = evt.target.result;
-                        try {
-                            geojson = JSON.parse(contents);
-                            validGeojson = validateGeoJson(geojson);
-                            if (!validGeojson) {
+                if (extension.valid) { //Valid
+                    console.log('Extension valid!');
+                    isFile = true;
+                    // Validate file's extension
+                    if (extension.extension == 'geojson') { //GeoJSON
+                        var readerGeoJson = new FileReader();
+                        readerGeoJson.onload = function (evt) {
+                            var contents = evt.target.result;
+                            try {
+                                geojson = JSON.parse(contents);
+                                validGeojson = validateGeoJson(geojson);
+                                if (!validGeojson) {
+                                    $('#restrictedArea').val('');
+                                    return;
+                                }
+                                else {
+                                    let validDbf = validateDbfFields(geojson);
+                                    if (validDbf) {
+                                        Swal.fire({
+                                            icon: 'success',
+                                            title: gettext('Great!'),
+                                            text: gettext('The GeoJSON is valid!'),
+                                        })
+                                    }
+                                    else {
+                                        $('#restrictedArea').val('');
+                                        return;
+                                    }
+                                }
+                            } catch (e) {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: gettext('GeoJSON file error'),
+                                    text: gettext('Character errors in GeoJSON file'),
+                                })
                                 $('#restrictedArea').val('');
                                 return;
-                            }
-                            else {
-                                let validDbf = validateDbfFields(geojson);
-                                if (validDbf) {
-                                    Swal.fire({
-                                        icon: 'success',
-                                        title: gettext('Great!'),
-                                        text: gettext('The GeoJSON is valid!'),
-                                    })
-                                }
-                                else {
-                                    $('#restrictedArea').val('');
-                                    return;
-                                }
-                            }
-                        } catch (e) {
-                            Swal.fire({
-                                icon: 'error',
-                                title: gettext('GeoJSON file error'),
-                                text: gettext('Character errors in GeoJSON file'),
-                            })
-                            $('#restrictedArea').val('');
-                            return;
+                            };
                         };
-                    };
-                    readerGeoJson.onerror = function () {
-                        console.log(readerGeoJson.error);
-                    };
-                    readerGeoJson.readAsText(file);
-                } else { //Zip
-                    var reader = new FileReader();
-                    reader.onload = function (evt) {
-                        var contents = evt.target.result;
-                        JSZip.loadAsync(file).then(function (zip) {
-                            shapeValidation = validateShapeFile(zip);
-                            shapeValidation.then(function (resultFile) {
-                                //is valid shapefile
-                                if (!resultFile.valid) {
-                                    $('#restrictedArea').val('');
-                                    return;
-                                }
-                                else {
-                                    shp(contents).then(function (shpToGeojson) {
-                                        geojson = shpToGeojson;
-                                        let validDbf = validateDbfFields(geojson);
-                                        if (validDbf) {
-                                            Swal.fire({
-                                                icon: 'success',
-                                                title: gettext('Great!'),
-                                                text: gettext('The shapefile is valid!'),
-                                            })
-                                        }
-                                        else {
-                                            $('#restrictedArea').val('');
-                                            return;
-                                        }
-                                    });
-                                }
+                        readerGeoJson.onerror = function () {
+                            console.log(readerGeoJson.error);
+                        };
+                        readerGeoJson.readAsText(file);
+                    } else { //Zip
+                        var reader = new FileReader();
+                        reader.onload = function (evt) {
+                            var contents = evt.target.result;
+                            JSZip.loadAsync(file).then(function (zip) {
+                                shapeValidation = validateShapeFile(zip);
+                                shapeValidation.then(function (resultFile) {
+                                    //is valid shapefile
+                                    if (!resultFile.valid) {
+                                        $('#restrictedArea').val('');
+                                        return;
+                                    }
+                                    else {
+                                        shp(contents).then(function (shpToGeojson) {
+                                            geojson = shpToGeojson;
+                                            let validDbf = validateDbfFields(geojson);
+                                            if (validDbf) {
+                                                Swal.fire({
+                                                    icon: 'success',
+                                                    title: gettext('Great!'),
+                                                    text: gettext('The shapefile is valid!'),
+                                                })
+                                            }
+                                            else {
+                                                $('#restrictedArea').val('');
+                                                return;
+                                            }
+                                        });
+                                    }
+                                });
+                                //loadShapefile(geojson, file.name);
+                            }).catch(function (e) {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: gettext('Shapefile error'),
+                                    text: gettext("There's been an error reading the shapefile"),
+                                })
+                                console.log("Ocurrió error convirtiendo el shapefile " + e);
+                                $('#restrictedArea').val('');
                             });
-                            //loadShapefile(geojson, file.name);
-                        }).catch(function (e) {
-                            Swal.fire({
-                                icon: 'error',
-                                title: gettext('Shapefile error'),
-                                text: gettext("There's been an error reading the shapefile"),
-                            })
-                            console.log("Ocurrió error convirtiendo el shapefile " + e);
-                            $('#restrictedArea').val('');
-                        });
-                    };
-                    reader.onerror = function (event) {
-                        console.error("File could not be read! Code " + event.target.error.code);
-                        //alert("El archivo no pudo ser cargado: " + event.target.error.code);
-                    };
-                    reader.readAsArrayBuffer(file);
+                        };
+                        reader.onerror = function (event) {
+                            console.error("File could not be read! Code " + event.target.error.code);
+                            //alert("El archivo no pudo ser cargado: " + event.target.error.code);
+                        };
+                        reader.readAsArrayBuffer(file);
+                    }
+                } else { //Invalid extension
+                    Swal.fire({
+                        icon: 'error',
+                        title: gettext('Extension file error'),
+                        text: gettext('Not supported file extension'),
+                    })
+                    $('#intakeArea').val('');
                 }
-            } else { //Invalid extension
-                Swal.fire({
-                    icon: 'error',
-                    title: gettext('Extension file error'),
-                    text: gettext('Not supported file extension'),
-                })
-                $('#intakeArea').val('');
             }
         });
     };
