@@ -244,7 +244,7 @@ $(document).ready(function() {
     });
 
     $('#smartwizard').smartWizard({
-        selected: 2,
+        selected: 0,
         theme: 'dots',
         enableURLhash: false,
         autoAdjustHeight: true,
@@ -313,10 +313,6 @@ $(document).ready(function() {
             $('#smartwizard').smartWizard("stepState", [3], "hide");
             for (const item of graphData) {
                 if (item.external != null && item.external != 'false') {
-                    $('#IntakeTDLE table').remove();
-                    $('#externalSelect option').remove();
-                    $('#IntakeTDLE').empty();
-                    $('#externalSelect').empty();
                     $('#smartwizard').smartWizard("stepState", [3], "show");
                 }
             }

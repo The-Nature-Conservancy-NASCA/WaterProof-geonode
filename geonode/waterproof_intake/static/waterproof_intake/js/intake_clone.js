@@ -14,6 +14,7 @@ var urlParams = (function(url) {
     }
     return result;
 })(window.location.href);
+var banderaExternal = 0;
 
 var mxLanguage = urlParams['lang'];
 var map;
@@ -55,7 +56,8 @@ $(document).ready(function() {
 
     var banderaInpolation = 0;
     $("#intakeWECB").click(function() {
-        banderaInpolation += 1
+        banderaInpolation += 1;
+        banderaExternal += 1;
         $('#intakeECTAG tr').remove();
         $('#IntakeTDLE table').remove();
         $('#externalSelect option').remove();
@@ -143,7 +145,10 @@ $(document).ready(function() {
               </tr>`);
             }
         }
-        externalInput(numberYearsInterpolationValue);
+
+        if (banderaExternal != 1) {
+            externalInput(numberYearsInterpolationValue);
+        }
         // Set object data for later persistence
         waterExtractionData.yearCount = numberYearsInterpolationValue;
         waterExtractionData.initialValue = initialDataExtractionInterpolationValue;
@@ -153,7 +158,9 @@ $(document).ready(function() {
 
     });
     setInterpolationParams();
-    loadExternalInput();
+    setTimeout(() => {
+        loadExternalInput();
+    }, 1000);
 
     // Generate table external Input
     function externalInput(numYear) {
@@ -164,73 +171,36 @@ $(document).ready(function() {
             if (graphData[p].external == 'true') {
                 numberExternal += 1
                 $('#externalSelect').append(`
-                        <option value="${graphData[p].id}">${graphData[p].id} - External Input</option>
-                `);
+                            <option value="${graphData[p].id}">${graphData[p].id} - External Input</option>
+                    `);
                 rows = "";
                 for (let index = 0; index <= numYear; index++) {
                     rows += (`<tr>
-                            <th class="text-center" scope="col" name="year_${graphData[p].id}" year_value="${index + 1}">${index + 1}</th>
-                            <td class="text-center" scope="col"><input type="text" class="form-control" name="waterVolume_${index + 1}_${graphData[p].id}"></td>
-                            <td class="text-center" scope="col"><input type="text" class="form-control" name="sediment_${index + 1}_${graphData[p].id}"></td>
-                            <td class="text-center" scope="col"><input type="text" class="form-control" name="nitrogen_${index + 1}_${graphData[p].id}" ></td>
-                            <td class="text-center" scope="col"><input type="text" class="form-control" name="phosphorus_${index + 1}_${graphData[p].id}"></td>
-                        </tr>`);
+                                <th class="text-center" scope="col" name="year_${graphData[p].id}" year_value="${index + 1}">${index + 1}</th>
+                                <td class="text-center" scope="col"><input type="text" class="form-control" name="waterVolume_${index + 1}_${graphData[p].id}"></td>
+                                <td class="text-center" scope="col"><input type="text" class="form-control" name="sediment_${index + 1}_${graphData[p].id}"></td>
+                                <td class="text-center" scope="col"><input type="text" class="form-control" name="nitrogen_${index + 1}_${graphData[p].id}" ></td>
+                                <td class="text-center" scope="col"><input type="text" class="form-control" name="phosphorus_${index + 1}_${graphData[p].id}"></td>
+                            </tr>`);
                 }
                 $('#IntakeTDLE').append(`
-                    <table class="table" id="table_${graphData[p].id}" style="display: none">
-                        <thead>
-                            <tr>
-                                <th class="text-center" scope="col">Year</th>
-                                <th class="text-center" scope="col">Water Volume (m3)</th>
-                                <th class="text-center" scope="col">Sediment (Ton)</th>
-                                <th class="text-center" scope="col">Nitrogen (Kg)</th>
-                                <th class="text-center" scope="col">Phosphorus (Kg)</th>
-                            </tr>
-                        </thead>
-                        <tbody>${rows}</tbody>
-                    </table>    
-            `);
+                        <table class="table" id="table_${graphData[p].id}" style="display: none">
+                            <thead>
+                                <tr>
+                                    <th class="text-center" scope="col">Year</th>
+                                    <th class="text-center" scope="col">Water Volume (m3)</th>
+                                    <th class="text-center" scope="col">Sediment (Ton)</th>
+                                    <th class="text-center" scope="col">Nitrogen (Kg)</th>
+                                    <th class="text-center" scope="col">Phosphorus (Kg)</th>
+                                </tr>
+                            </thead>
+                            <tbody>${rows}</tbody>
+                        </table>    
+                `);
             }
         }
         $('#ExternalNumbersInputs').html(numberExternal)
     }
-
-    $('#saveExternalData').click(function() {
-        for (let id = 0; id < graphData.length; id++) {
-            if (graphData[id].external === 'true') {
-                var array = [];
-                for (let index = 0; index < intakeExternalInputs[0].waterExtraction.length; index++) {
-                    $(`th[name=year_${intakeExternalInputs[0].waterExtraction[index].year}]`).each(function() {
-                        let watersita = $(`input[name="waterVolume_${intakeExternalInputs[0].waterExtraction[index].year}_${graphData[id].id}"]`).val();
-                        let sedimentsito = $(`input[name="sediment_${intakeExternalInputs[0].waterExtraction[index].year}_${graphData[id].id}"]`).val();
-                        let nitrogenito = $(`input[name="nitrogen_${intakeExternalInputs[0].waterExtraction[index].year}_${graphData[id].id}"]`).val();
-                        let phospharusito = $(`input[name="phosphorus_${intakeExternalInputs[0].waterExtraction[index].year}_${graphData[id].id}"]`).val();
-                        if (watersita != '' || sedimentsito != '' || nitrogenito != '' || phospharusito != '') {
-                            array.push({
-                                "year": $(this).attr('year_value'),
-                                "water": watersita,
-                                "sediment": sedimentsito,
-                                "nitrogen": nitrogenito,
-                                "phosphorus": phospharusito
-                            });
-
-                        } else {
-                            Swal.fire({
-                                icon: 'warning',
-                                title: gettext('Field empty'),
-                                text: gettext('Please fill every fields')
-                            });
-                            return;
-                        }
-
-                    });
-                    graphData[id].externaldata = JSON.stringify(array);
-                }
-            }
-        }
-        saveDataStep4 = true;
-        $('#graphElements').val(JSON.stringify(graphData));
-    });
 
     $('#externalSelect').change(function() {
         for (let t = 0; t < graphData.length; t++) {
@@ -240,6 +210,7 @@ $(document).ready(function() {
         }
         $(`#table_${$('#externalSelect').val()}`).css('display', 'block');
     });
+
 
     $('#smartwizard').smartWizard("next").click(function() {
         $('#autoAdjustHeightF').css("height", "auto");
@@ -343,10 +314,6 @@ $(document).ready(function() {
             $('#smartwizard').smartWizard("stepState", [3], "hide");
             for (const item of graphData) {
                 if (item.external != null && item.external != 'false') {
-                    $('#IntakeTDLE table').remove();
-                    $('#externalSelect option').remove();
-                    $('#IntakeTDLE').empty();
-                    $('#externalSelect').empty();
                     $('#smartwizard').smartWizard("stepState", [3], "show");
                 }
             }

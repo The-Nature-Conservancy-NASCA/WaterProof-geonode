@@ -508,7 +508,6 @@ function onInit(editor) {
 
         $('#step4NextBtn').click(function() {
             saveExternalData();
-            $('#smartwizard').smartWizard("next");
         });
 
         //Set var into calculator
@@ -743,6 +742,7 @@ function onInit(editor) {
             }
             $('#xmlGraph').val(textxml);
             $('#graphElements').val(JSON.stringify(graphData));
+            $('#smartwizard').smartWizard("next");
         }
 
         jQuery.fn.ForceNumericOnly = function() {
