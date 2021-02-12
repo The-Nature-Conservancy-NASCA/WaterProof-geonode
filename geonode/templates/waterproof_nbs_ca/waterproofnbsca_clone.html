@@ -1,4 +1,4 @@
-{% extends "base.html" %} {% load i18n %} {% load l10n %}{% load bootstrap_tags %} {% block body_outer %}
+{% extends "base.html" %} {% load i18n %} {% load l10n %}{% load bootstrap_tags %}{% load decimal_format %} {% block body_outer %}
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_nbs_ca/css/bootstrap-duallistbox.min.css">
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_nbs_ca/css/waterproof_nbs_ca.css">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
@@ -25,7 +25,7 @@
     <h4 class="text-primary">{% trans "General Settings" %}</h4>
     <div class="form-group">
         <label>{% trans "Name" %} <span class="text-danger-wp">(*)</span> </label>
-        <input type="text" value='{{ nbs.name }}_{% trans "Cloned" %}' class="form-control" id="nameNBS" name="nameNBS"
+        <input type="text" value="{{ nbs.name }}" class="form-control" id="nameNBS" name="nameNBS"
             data-error="This field is required" placeholder="Enter title" required>
         <div class="help-block with-errors"></div>
     </div>
@@ -76,7 +76,7 @@
             <div class="col-md-6">
                 <label>{% trans "Percentage of benefit associated with interventions at time t=0" %} <span
                         class="text-danger-wp">(*)</span> </label>
-                <input id="benefitTimePorc" type="text" value="{{nbs.profit_pct_time_inter_assoc|floatformat:"2" }}" onInput="return checkPercentage(event,value)" 
+                <input id="benefitTimePorc" type="text" value="{{nbs.profit_pct_time_inter_assoc|decimalFormat:2}}" onInput="return checkPercentage(event,value)" 
                 class="form-control" data-error='{% trans "Field is required" %}' required>
                 <div class="help-block with-errors"></div>
             </div>
@@ -97,19 +97,19 @@
         <div class="row">
             <div class="col-md-4">
                 <label>{% trans "Implementation cost (US$/ha)" %} <span class="text-danger-wp">(*)</span> </label>
-                <input id="implementCost" value="{{ nbs.unit_implementation_cost|floatformat:"2"}}" type="text" onInput="return checkDecimalFormat(event,value)" 
+                <input id="implementCost" value="{{ nbs.unit_implementation_cost|decimalFormat:2}}" type="text" onInput="return checkDecimalFormat(event,value)" 
                 class="form-control" data-error='{% trans "Field is required" %}' required>
                 <div class="help-block with-errors"></div>
             </div>
             <div class="col-md-4">
                 <label>{% trans "Maintenace cost (US$/ha)" %} <span class="text-danger-wp">(*)</span> </label>
-                <input id="maintenanceCost" value="{{ nbs.unit_maintenance_cost|floatformat:"2" }}" type="text" onInput="return checkDecimalFormat(event,value)" 
+                <input id="maintenanceCost" value="{{ nbs.unit_maintenance_cost| decimalFormat:2 }}" type="text" onInput="return checkDecimalFormat(event,value)" 
                 class="form-control" data-error='{% trans "Field is required" %}' required>
                 <div class="help-block with-errors"></div>
             </div>
             <div class="col-md-4">
                 <label>{% trans "Oportunity cost (US$/ha)" %} <span class="text-danger-wp">(*)</span> </label>
-                <input id="oportunityCost" value="{{ nbs.unit_oportunity_cost|floatformat:"2"}}" type="text" onInput="return checkDecimalFormat(event,value)"  class="form-control" data-error='{% trans "Field is required" %}' required>
+                <input id="oportunityCost" value="{{ nbs.unit_oportunity_cost|decimalFormat:2 }}" type="text" onInput="return checkDecimalFormat(event,value)"  class="form-control" data-error='{% trans "Field is required" %}' required>
                 <div class="help-block with-errors"></div>
             </div>
         </div>
