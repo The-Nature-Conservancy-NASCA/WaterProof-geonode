@@ -137,7 +137,7 @@ $(document).ready(function() {
                 yearData.year = index + 1;
                 yearData.value = ((finalDataExtractionInterpolationValue) / (1 + ((finalDataExtractionInterpolationValue / initialDataExtractionInterpolationValue) - 1) * Math.exp(-r * index))).toFixed(2);
                 waterExtractionValue.push(yearData);
-                $('#intakeECTAG').append('<tr><th class="text-center" scope="row">${index}</th><td class="text-center"><input type="text" class="form-control" value="${((finalDataExtractionInterpolationValue) / (1 + ((finalDataExtractionInterpolationValue / initialDataExtractionInterpolationValue) - 1) * Math.exp(-r * index))).toFixed(2)}" disabled></td></tr>');
+                $('#intakeECTAG').append(`<tr><th class="text-center" scope="row">${index}</th><td class="text-center"><input type="text" class="form-control" value="${((finalDataExtractionInterpolationValue) / (1 + ((finalDataExtractionInterpolationValue / initialDataExtractionInterpolationValue) - 1) * Math.exp(-r * index))).toFixed(2)}" disabled></td></tr>`);
             }
         }
 

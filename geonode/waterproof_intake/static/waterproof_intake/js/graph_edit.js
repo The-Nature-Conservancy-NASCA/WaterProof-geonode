@@ -684,15 +684,14 @@ function onInit(editor) {
 
         $('#step4NextBtn').click(function() {
             saveExternalData();
-            $('#smartwizard').smartWizard("next");
+            //$('#smartwizard').smartWizard("next");
         });
 
         function saveExternalData() {
             for (let id = 0; id < graphData.length; id++) {
-                if (graphData[id].external) {
+                if (graphData[id].external == 'true') {
                     graphData[id].externaldata = [];
                     $(`th[name=year_${graphData[id].id}]`).each(function() {
-                        console.log("entro")
                         let watersita = $(`input[name="waterVolume_${$(this).attr('year_value')}_${graphData[id].id}"]`).val();
                         let sedimentsito = $(`input[name="sediment_${$(this).attr('year_value')}_${graphData[id].id}"]`).val();
                         let nitrogenito = $(`input[name="nitrogen_${$(this).attr('year_value')}_${graphData[id].id}"]`).val();
@@ -736,6 +735,7 @@ function onInit(editor) {
             }
             $('#xmlGraph').val(textxml);
             $('#graphElements').val(JSON.stringify(graphData));
+            $('#smartwizard').smartWizard("next");
         }
 
 
