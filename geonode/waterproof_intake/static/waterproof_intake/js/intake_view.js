@@ -157,6 +157,45 @@ $(document).ready(function() {
 
     });
 
+    function externalInput(numYear) {
+        var rows = "";
+        var numberExternal = 0;
+        $('#externalSelect').append(`<option value="null" selected>Choose here</option>`);
+        for (let p = 0; p < graphData.length; p++) {
+            if (graphData[p].external == 'true') {
+                numberExternal += 1
+                $('#externalSelect').append(`
+                            <option value="${graphData[p].id}">${graphData[p].id} - External Input</option>
+                    `);
+                rows = "";
+                for (let index = 0; index <= numYear; index++) {
+                    rows += (`<tr>
+                                <th class="text-center" scope="col" name="year_${graphData[p].id}" year_value="${index + 1}">${index + 1}</th>
+                                <td class="text-center" scope="col"><input type="text" class="form-control" name="waterVolume_${index + 1}_${graphData[p].id}"></td>
+                                <td class="text-center" scope="col"><input type="text" class="form-control" name="sediment_${index + 1}_${graphData[p].id}"></td>
+                                <td class="text-center" scope="col"><input type="text" class="form-control" name="nitrogen_${index + 1}_${graphData[p].id}" ></td>
+                                <td class="text-center" scope="col"><input type="text" class="form-control" name="phosphorus_${index + 1}_${graphData[p].id}"></td>
+                            </tr>`);
+                }
+                $('#IntakeTDLE').append(`
+                        <table class="table" id="table_${graphData[p].id}" style="display: none">
+                            <thead>
+                                <tr>
+                                    <th class="text-center" scope="col">Year</th>
+                                    <th class="text-center" scope="col">Water Volume (m3)</th>
+                                    <th class="text-center" scope="col">Sediment (Ton)</th>
+                                    <th class="text-center" scope="col">Nitrogen (Kg)</th>
+                                    <th class="text-center" scope="col">Phosphorus (Kg)</th>
+                                </tr>
+                            </thead>
+                            <tbody>${rows}</tbody>
+                        </table>    
+                `);
+            }
+        }
+        $('#ExternalNumbersInputs').html(numberExternal)
+    }
+
     function loadExternalInput() {
 
         for (const extractionData of intakeExternalInputs) {
