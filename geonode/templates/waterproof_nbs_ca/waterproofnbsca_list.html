@@ -27,6 +27,7 @@
     <table id="example" class="table table-striped table-bordered table-condensed" style="width:100%">
         <thead>
             <tr class="info">
+                <th scope="col" class="small text-center vat">{% trans "Id" %}</th>
                 <th scope="col" class="small text-center vat">{% trans "Name" %}</th>
                 <th scope="col" class="small text-center vat">{% trans "Description" %}</th>
                 <th scope="col" class="small text-center vat">{% trans "User" %}</th>                
@@ -43,6 +44,7 @@
         <tbody>
             {% for sbn in nbs %}
             <tr>
+                <td class="small text-center vat">{{sbn.pk}}</td>
                 <td class="small text-center vat">{{sbn.name}}</td>
                 <td class="small text-center vat">{{sbn.description}}</td>
                 <td class="small text-center vat">{{sbn.added_by}}</td>                
