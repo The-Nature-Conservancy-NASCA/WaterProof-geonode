@@ -491,6 +491,15 @@ $(document).ready(function() {
         $('#smartwizard').smartWizard("prev");
     });
 
+    $('#submit').click(function() {
+        Swal.fire({
+            icon: 'success',
+            text: gettext('The water intake is being saved'),
+            allowOutsideClick: false,
+            showConfirmButton: false
+        });
+    });
+
     // Change Option Manual Tab
     $('#btnManualTab').click(function() {
         if ($('#initialDataExtractionInterpolationValue').val() != '' || $('#finalDataExtractionInterpolationValue').val() != '' || $('#numberYearsInterpolationValue').val() != '') {
@@ -764,10 +773,10 @@ function validateIntakeArea() {
                 })
             } else if (!result.polygonContains) {
                 Swal.fire({
-                    icon: 'error',
-                    title: gettext('Geometry error'),
-                    text: gettext('The polygon geometries must be inside basin geometry'),
-                })
+                        icon: 'error',
+                        title: gettext('Geometry error'),
+                        text: gettext('The polygon geometries must be inside basin geometry'),
+                    })
                     // Correct geometry
             } else {
                 Swal.fire(

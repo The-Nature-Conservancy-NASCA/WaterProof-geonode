@@ -444,8 +444,14 @@ $(document).ready(function() {
         $('#smartwizard').smartWizard("prev");
     });
 
-
-
+    $('#submit').click(function() {
+        Swal.fire({
+            icon: 'success',
+            text: gettext('The water intake is being saved'),
+            allowOutsideClick: false,
+            showConfirmButton: false
+        });
+    });
 
     let initialCoords = [4.5, -74.4];
     // find in localStorage if cityCoords exist
