@@ -2,8 +2,15 @@
 from django.conf.urls import url, include
 from django.urls import path
 from . import views
+from django.views.i18n import JavaScriptCatalog
+
+js_info_dict = {
+    'domain': 'djangojs',
+    'packages': 'geonode.waterproof_intake'
+}
 
 urlpatterns = [
+    url(r'^jsi18n/$', JavaScriptCatalog.as_view(), js_info_dict, name='javascript-catalog-intake'),
     # Create Water Intake
     path('create/', views.create, name='create'),
     # Default view, list all views
@@ -12,6 +19,8 @@ urlpatterns = [
     path('edit/<int:idx>', views.editIntake, name='edit-intake'),
     # View intake detail
     path('view/<int:idx>', views.viewIntake, name='view-intake'),
+    # View intake demand
+    path('viewDemand/<int:idx>', views.viewIntakeDemand, name='viewDemand-intake'),
     # Clone Water Intake
     path('clone/<int:idx>', views.cloneIntake, name='clone-intake'),
     # Clone Water Intake

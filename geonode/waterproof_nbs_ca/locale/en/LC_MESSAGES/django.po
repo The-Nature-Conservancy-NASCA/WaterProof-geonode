@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GeoNode\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-14 16:58-0500\n"
+"POT-Creation-Date: 2021-02-12 14:17-0500\n"
 "PO-Revision-Date: 2020-11-28 19:00+0100\n"
 "Last-Translator: Julien Collaer <julien.collaer@opengeode.be>\n"
 "Language-Team: English (http://www.transifex.com/geonode/geonode/language/"
@@ -18,65 +18,263 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 2.4.2\n"
 
-#: geonode/waterproof_nbs_ca/models.py:40
-#: geonode/waterproof_nbs_ca/models.py:55
-#: geonode/waterproof_nbs_ca/models.py:70
+#: geonode/waterproof_nbs_ca/models.py:58
+#: geonode/waterproof_nbs_ca/models.py:73
 #: geonode/waterproof_nbs_ca/models.py:88
-#: geonode/waterproof_nbs_ca/models.py:100
-#: geonode/waterproof_nbs_ca/models.py:122
-#: geonode/waterproof_nbs_ca/models.py:152
+#: geonode/waterproof_nbs_ca/models.py:106
+#: geonode/waterproof_nbs_ca/models.py:118
+#: geonode/waterproof_nbs_ca/models.py:140
+#: geonode/waterproof_nbs_ca/models.py:171
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_clone.html:27
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_detail_list.html:23
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_edit.html:27
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_form.html:25
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_list.html:30
 msgid "Name"
 msgstr ""
 
-#: geonode/waterproof_nbs_ca/models.py:44
-#: geonode/waterproof_nbs_ca/models.py:59
-#: geonode/waterproof_nbs_ca/models.py:74
-#: geonode/waterproof_nbs_ca/models.py:157
+#: geonode/waterproof_nbs_ca/models.py:62
+#: geonode/waterproof_nbs_ca/models.py:77
+#: geonode/waterproof_nbs_ca/models.py:92
+#: geonode/waterproof_nbs_ca/models.py:176
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_clone.html:33
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_detail_list.html:28
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_edit.html:33
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_form.html:31
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_list.html:31
 msgid "Description"
 msgstr ""
 
-#: geonode/waterproof_nbs_ca/models.py:78
+#: geonode/waterproof_nbs_ca/models.py:96
 msgid "Unique_id"
 msgstr ""
 
-#: geonode/waterproof_nbs_ca/models.py:105
-#: geonode/waterproof_nbs_ca/models.py:127
+#: geonode/waterproof_nbs_ca/models.py:123
+#: geonode/waterproof_nbs_ca/models.py:145
 msgid "Code"
 msgstr ""
 
-#: geonode/waterproof_nbs_ca/models.py:110
-#: geonode/waterproof_nbs_ca/models.py:132
+#: geonode/waterproof_nbs_ca/models.py:128
+#: geonode/waterproof_nbs_ca/models.py:150
 msgid "Factor"
 msgstr ""
 
-#: geonode/waterproof_nbs_ca/models.py:162
+#: geonode/waterproof_nbs_ca/models.py:181
 msgid "Time maximum benefit"
 msgstr ""
 
-#: geonode/waterproof_nbs_ca/models.py:167
+#: geonode/waterproof_nbs_ca/models.py:187
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_clone.html:77
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_detail_list.html:50
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_edit.html:77
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_form.html:75
 msgid "Percentage of benefit associated with interventions at time t=0"
 msgstr ""
 
-#: geonode/waterproof_nbs_ca/models.py:172
-msgid "Procurement time of total SBN benefits"
-msgstr ""
-
-#: geonode/waterproof_nbs_ca/models.py:178
+#: geonode/waterproof_nbs_ca/models.py:193
 msgid "Unit implementation costs (US $/ha)"
 msgstr ""
 
-#: geonode/waterproof_nbs_ca/models.py:184
+#: geonode/waterproof_nbs_ca/models.py:199
 msgid "Unit maintenance costs (US $/ha)"
 msgstr ""
 
-#: geonode/waterproof_nbs_ca/models.py:189
+#: geonode/waterproof_nbs_ca/models.py:204
 msgid "Periodicity of maintenance (year)"
 msgstr ""
 
-#: geonode/waterproof_nbs_ca/models.py:195
+#: geonode/waterproof_nbs_ca/models.py:210
 msgid "Unit oportunity costs (US $/ha)"
+msgstr ""
+
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_clone.html:13
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_detail_list.html:9
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_edit.html:13
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_form.html:10
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_list.html:13
+msgid "Region:"
+msgstr ""
+
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_clone.html:14
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_detail_list.html:10
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_edit.html:14
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_form.html:11
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_list.html:14
+msgid "Currency:"
+msgstr ""
+
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_clone.html:22
+msgid "Clone Nature based solution (NBS)"
+msgstr ""
+
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_clone.html:25
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_detail_list.html:21
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_edit.html:25
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_form.html:23
+msgid "General Settings"
+msgstr ""
+
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_clone.html:28
+msgid "Cloned"
+msgstr ""
+
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_clone.html:41
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_edit.html:41
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_form.html:39
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_list.html:33
+msgid "Country"
+msgstr ""
+
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_clone.html:54
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_detail_list.html:34
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_detail_list.html:72
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_edit.html:54
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_form.html:52
+msgid "Currency for definition of costs"
+msgstr ""
+
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_clone.html:71
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_detail_list.html:46
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_edit.html:71
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_form.html:69
+msgid "Time required to generate maximun benefit (yr)"
+msgstr "Time to reach NBS full benefits (yr)"
+
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_clone.html:73
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_clone.html:80
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_clone.html:90
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_clone.html:101
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_clone.html:107
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_clone.html:112
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_edit.html:73
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_edit.html:80
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_edit.html:90
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_edit.html:101
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_edit.html:107
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_edit.html:112
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_form.html:26
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_form.html:32
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_form.html:40
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_form.html:53
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_form.html:71
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_form.html:78
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_form.html:88
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_form.html:99
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_form.html:105
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_form.html:110
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_form.html:119
+msgid "Field is required"
+msgstr ""
+
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_clone.html:88
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_detail_list.html:63
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_edit.html:88
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_form.html:86
+msgid "Periodicity of maintenance (yr)"
+msgstr ""
+
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_clone.html:95
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_detail_list.html:68
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_edit.html:95
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_form.html:93
+msgid "Unit costs"
+msgstr ""
+
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_clone.html:99
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_detail_list.html:94
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_detail_list.html:115
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_edit.html:99
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_form.html:97
+msgid "Implementation cost (US$/ha)"
+msgstr ""
+
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_clone.html:105
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_detail_list.html:98
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_detail_list.html:119
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_edit.html:105
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_form.html:103
+msgid "Maintenace cost (US$/ha)"
+msgstr ""
+
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_clone.html:111
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_detail_list.html:102
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_detail_list.html:123
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_edit.html:111
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_form.html:109
+msgid "Oportunity cost (US$/ha)"
+msgstr ""
+
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_clone.html:117
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_edit.html:117
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_form.html:115
+msgid "RIOS Transition"
+msgstr ""
+
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_clone.html:135
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_detail_list.html:133
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_edit.html:135
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_form.html:125
+msgid "LAND USE"
+msgstr "LAND USE / LAND COVER WHERE THE ACTIVITY CAN BE IMPLEMENTED"
+
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_clone.html:135
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_detail_list.html:136
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_edit.html:135
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_form.html:125
+msgid "LAND COVER CHANGE DEFINITION"
+msgstr "LAND USE / LAND COVER TRANSFORMED"
+
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_clone.html:161
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_edit.html:161
+msgid "Load new restricted area"
+msgstr ""
+
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_clone.html:169
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_edit.html:169
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_form.html:153
+msgid "Restricted areas"
+msgstr ""
+
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_clone.html:171
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_edit.html:171
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_form.html:155
+msgid "Help"
+msgstr ""
+
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_clone.html:181
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_edit.html:181
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_form.html:164
+msgid "Save"
+msgstr ""
+
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_clone.html:191
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_edit.html:191
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_form.html:176
+msgid "Geom files help"
+msgstr "What geographic files can upload?"
+
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_clone.html:197
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_edit.html:197
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_form.html:182
+msgid "Only zip and GeoJSON"
+msgstr "Only .zip and .geojson are admited. The .zip must be a ESRI shapefile type"
+
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_clone.html:198
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_edit.html:198
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_form.html:183
+msgid "Only EPSG"
+msgstr "Only EPSG 3857 and EPSG 4326 are supported. For GeoJSON case, only EPSG 4326 is admited "
+
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_clone.html:199
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_edit.html:199
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_form.html:184
+msgid "Max upload size"
+msgstr "The maximum upload size is 10MB"
+
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_clone.html:205
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_edit.html:205
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_form.html:190
+msgid "Close"
 msgstr ""
 
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_confirm_delete.html:1
@@ -101,36 +299,79 @@ msgstr ""
 msgid "Detail sbn"
 msgstr ""
 
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_detail_list.html:58
+msgid "Consecution Time Total Benefits (to elimitate)"
+msgstr ""
+
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_detail_list.html:80
+msgid "Multiplying factor for overrall cost"
+msgstr ""
+
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_detail_list.html:90
+msgid "Reference cost"
+msgstr ""
+
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_detail_list.html:111
+msgid "Fact cost"
+msgstr ""
+
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_edit.html:22
+msgid "Edit Nature based solution (NBS)"
+msgstr ""
+
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_form.html:19
+msgid "Create Nature based solution (NBS)"
+msgstr ""
+
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_list.html:23
-msgid "List sbn"
+msgid "Nature based solutions list (NBS)"
 msgstr ""
 
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_list.html:24
-msgid "Create new SBN"
+msgid "Create a new NBS"
 msgstr ""
 
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_list.html:32
-msgid "Country"
+msgid "User"
 msgstr ""
 
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_list.html:34
+msgid "Percentaje of benefit"
+msgstr "Percentage of benefits"
+
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_list.html:35
 msgid "Implementation cost"
 msgstr ""
 
-#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_list.html:35
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_list.html:36
 msgid "Maintenance Cost"
 msgstr ""
 
-#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_list.html:36
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_list.html:37
 msgid "Periodicity of Maintenance"
 msgstr ""
 
-#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_list.html:37
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_list.html:38
 msgid "Oppotunity Cost"
 msgstr ""
 
-#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_list.html:38
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_list.html:39
+msgid "Currency"
+msgstr ""
+
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_list.html:40
 msgid "Options"
+msgstr ""
+
+#: geonode/waterproof_nbs_ca/views.py:69 geonode/waterproof_nbs_ca/views.py:389
+#: geonode/waterproof_nbs_ca/views.py:527
+msgid "Duplicated nbs"
+msgstr ""
+
+#: geonode/waterproof_nbs_ca/views.py:131
+#: geonode/waterproof_nbs_ca/views.py:465
+#: geonode/waterproof_nbs_ca/views.py:600
+msgid "Field empty"
 msgstr ""
 
 #, fuzzy

@@ -26,6 +26,24 @@ from django.db import models
 from django.contrib.gis.db import models
 from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
+from django.db.models import Manager
+from django.db.models.query import QuerySet
+
+
+class CaseInsensitiveQuerySet(QuerySet):
+    def _filter_or_exclude(self, mapper, *args, **kwargs):
+        # 'name' is a field in your Model whose lookups you want case-insensitive by default
+        if 'name' in kwargs:
+            kwargs['name__iexact'] = kwargs['name']
+            del kwargs['name']
+        return super(CaseInsensitiveQuerySet, self)._filter_or_exclude(mapper, *args, **kwargs)
+
+# custom manager that overrides the initial query set
+
+
+class WaterproofNbsCaManager(Manager):
+    def get_queryset(self):
+        return CaseInsensitiveQuerySet(self.model)
 
 
 class ActivityShapefile(models.Model):
@@ -149,6 +167,7 @@ class WaterproofNbsCa(models.Model):
 
     name = models.CharField(
         max_length=100,
+        unique=True,
         verbose_name=_('Name'),
     )
 
@@ -162,24 +181,20 @@ class WaterproofNbsCa(models.Model):
         verbose_name=_('Time maximum benefit'),
     )
 
-    profit_pct_time_inter_assoc = models.IntegerField(
-        default=0,
+    profit_pct_time_inter_assoc = models.DecimalField(
+        decimal_places=2,
+        max_digits=10,
         verbose_name=_('Percentage of benefit associated with interventions at time t=0'),
     )
 
-    total_profits_sbn_consec_time = models.IntegerField(
-        default=0,
-        verbose_name=_('Procurement time of total SBN benefits'),
-    )
-
     unit_implementation_cost = models.DecimalField(
-        decimal_places=4,
+        decimal_places=2,
         max_digits=14,
         verbose_name=_('Unit implementation costs (US $/ha)'),
     )
 
     unit_maintenance_cost = models.DecimalField(
-        decimal_places=4,
+        decimal_places=2,
         max_digits=14,
         verbose_name=_('Unit maintenance costs (US $/ha)'),
     )
@@ -190,7 +205,7 @@ class WaterproofNbsCa(models.Model):
     )
 
     unit_oportunity_cost = models.DecimalField(
-        decimal_places=4,
+        decimal_places=2,
         max_digits=14,
         verbose_name=_('Unit oportunity costs (US $/ha)'),
     )
@@ -201,6 +216,7 @@ class WaterproofNbsCa(models.Model):
 
     activity_shapefile = models.ForeignKey(
         ActivityShapefile,
+        null=True,
         on_delete=models.CASCADE
     )
 
@@ -210,6 +226,10 @@ class WaterproofNbsCa(models.Model):
         blank=True,
         on_delete=models.SET_NULL
     )
+    objects = WaterproofNbsCaManager()
+
+    def __str__(self):
+        return self.name
 
     class Meta:
         ordering = ['name', 'description']

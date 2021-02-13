@@ -3,7 +3,7 @@
  * validations & interactions
  * @version 1.0
  */
-var urlParams = (function (url) {
+var urlParams = (function(url) {
     var result = new Object();
     var params = window.location.search.slice(1).split('&');
     for (var i = 0; i < params.length; i++) {
@@ -14,6 +14,7 @@ var urlParams = (function (url) {
     }
     return result;
 })(window.location.href);
+var banderaExternal = 0;
 
 var mxLanguage = urlParams['lang'];
 var map;
@@ -32,6 +33,7 @@ var xmlGraph;
 var waterExtractionData = {};
 var waterExtractionValue;
 var lyrsPolygons = [];
+var saveDataStep4 = false;
 const delimitationFileEnum = {
     GEOJSON: 'geojson',
     SHP: 'shapefile'
@@ -44,16 +46,23 @@ const interpolationType = {
     LINEAR: 'LINEAR',
     POTENTIAL: 'POTENTIAL',
     EXPONENTIAL: 'EXPONENTIAL',
-    LOGISTICS: 'LOGISTICS'
+    LOGISTICS: 'LOGISTICS',
+    MANUAL: 'MANUAL'
 }
 
 var mapLoader;
-$(document).ready(function () {
+$(document).ready(function() {
 
-    $("#intakeWECB").click(function () {
+    var banderaInpolation = 0;
+    $("#intakeWECB").click(function() {
+        banderaInpolation += 1;
+        banderaExternal += 1;
         $('#intakeECTAG tr').remove();
         $('#IntakeTDLE table').remove();
         $('#externalSelect option').remove();
+        $('#intakeECTAG').empty();
+        $('#IntakeTDLE').empty();
+        $('#externalSelect').empty();
         $('#autoAdjustHeightF').css("height", "auto");
         typeProcessInterpolation = Number($("#typeProcessInterpolation").val());
         numberYearsInterpolationValue = Number($("#numberYearsInterpolationValue").val());
@@ -135,7 +144,10 @@ $(document).ready(function () {
               </tr>`);
             }
         }
-        externalInput(numberYearsInterpolationValue);
+
+        if (banderaExternal != 1) {
+            externalInput(numberYearsInterpolationValue);
+        }
         // Set object data for later persistence
         waterExtractionData.yearCount = numberYearsInterpolationValue;
         waterExtractionData.initialValue = initialDataExtractionInterpolationValue;
@@ -145,15 +157,21 @@ $(document).ready(function () {
 
     });
     setInterpolationParams();
+    setTimeout(() => {
+        loadExternalInput();
+    }, 1000);
 
+    // Generate table external Input
     function externalInput(numYear) {
         var rows = "";
+        var numberExternal = 0;
         $('#externalSelect').append(`<option value="null" selected>Choose here</option>`);
         for (let p = 0; p < graphData.length; p++) {
             if (graphData[p].external == 'true') {
+                numberExternal += 1
                 $('#externalSelect').append(`
                             <option value="${graphData[p].id}">${graphData[p].id} - External Input</option>
-                 `);
+                    `);
                 rows = "";
                 for (let index = 0; index <= numYear; index++) {
                     rows += (`<tr>
@@ -162,7 +180,7 @@ $(document).ready(function () {
                                 <td class="text-center" scope="col"><input type="text" class="form-control" name="sediment_${index + 1}_${graphData[p].id}"></td>
                                 <td class="text-center" scope="col"><input type="text" class="form-control" name="nitrogen_${index + 1}_${graphData[p].id}" ></td>
                                 <td class="text-center" scope="col"><input type="text" class="form-control" name="phosphorus_${index + 1}_${graphData[p].id}"></td>
-                          </tr>`);
+                            </tr>`);
                 }
                 $('#IntakeTDLE').append(`
                         <table class="table" id="table_${graphData[p].id}" style="display: none">
@@ -179,33 +197,11 @@ $(document).ready(function () {
                         </table>    
                 `);
             }
-
         }
-
-
+        $('#ExternalNumbersInputs').html(numberExternal)
     }
-    $('#saveExternalData').click(function () {
-        for (let id = 0; id < graphData.length; id++) {
-            if (graphData[id].external) {
-                graphData[id].externaldata = [];
-                $(`th[name=year_${graphData[id].id}]`).each(function () {
-                    graphData[id].externaldata.push({
-                        "year": $(this).attr('year_value'),
-                        "water": $(`input[name="waterVolume_${$(this).attr('year_value')}_${graphData[id].id}"]`).val(),
-                        "sediment": $(`input[name="sediment_${$(this).attr('year_value')}_${graphData[id].id}"]`).val(),
-                        "nitrogen": $(`input[name="nitrogen_${$(this).attr('year_value')}_${graphData[id].id}"]`).val(),
-                        "phosphorus": $(`input[name="phosphorus_${$(this).attr('year_value')}_${graphData[id].id}"]`).val()
-                    })
-                });
-                graphData[id].externaldata = JSON.stringify(graphData[id].externaldata);
-            }
-        }
 
-
-        $('#graphElements').val(JSON.stringify(graphData));
-    });
-
-    $('#externalSelect').change(function () {
+    $('#externalSelect').change(function() {
         for (let t = 0; t < graphData.length; t++) {
             if (graphData[t].external == 'true') {
                 $(`#table_${graphData[t].id}`).css('display', 'none');
@@ -214,39 +210,46 @@ $(document).ready(function () {
         $(`#table_${$('#externalSelect').val()}`).css('display', 'block');
     });
 
-    $('#smartwizard').smartWizard("next").click(function () {
+    $('#smartwizard').smartWizard("next").click(function() {
         $('#autoAdjustHeightF').css("height", "auto");
         mapDelimit.invalidateSize();
         map.invalidateSize();
     });
 
-    $('#intakeNIBYMI').click(function () {
-        $('#intakeWEMI div').remove();
+    // Generate Input Manual Interpolation
+    $('#intakeNIBYMI').click(function() {
+        $('#intakeWEMI tr').remove();
+        $('#intakeWEMI').empty();
         intakeNIYMI = Number($("#intakeNIYMI").val());
+        waterExtractionData.typeInterpolation = interpolationType.MANUAL;
+        waterExtractionData.yearCount = intakeNIYMI;
+        $('#IntakeTDLE table').remove();
+        $('#IntakeTDLE').empty();
+        $('#externalSelect option').remove();
+        $('#externalSelect').empty();
+        externalInput(intakeNIYMI - 1);
         for (let index = 0; index < intakeNIYMI; index++) {
-            $('#intakeWEMI').append(`<div class="form-group">
-                <label class="col-sm-1 control-label">${index + 1}</label>
-                <div class="col-sm-11">
-                    <input type="text" class="form-control">
-                </div>
-            </div>`);
+            $('#intakeWEMI').append(`
+            <tr>
+                <th class="text-center" scope="row">${index + 1}</th>
+                <td class="text-center"><input name="manualInputData" yearValue="${index + 1}" type="text" class="form-control"></td>
+              </tr>
+            `);
         }
     });
-    $('#smartwizard').smartWizard("next").click(function () {
+
+    $('#smartwizard').smartWizard("next").click(function() {
         $('#autoAdjustHeightF').css("height", "auto");
         map.invalidateSize();
     });
+
     $('#smartwizard').smartWizard({
         selected: 0,
         theme: 'dots',
         enableURLhash: false,
         autoAdjustHeight: true,
         transition: {
-            animation: 'slide-horizontal', // Effect on navigation, none/fade/slide-horizontal/slide-vertical/slide-swing
-        },
-        toolbarSettings: {
-            toolbarPosition: 'bottom', // both bottom
-            toolbarButtonPosition: 'center', // both bottom
+            animation: 'fade', // Effect on navigation, none/fade/slide-horizontal/slide-vertical/slide-swing
         },
         keyboardSettings: {
             keyNavigation: false
@@ -254,9 +257,17 @@ $(document).ready(function () {
         toolbarSettings: {
             showNextButton: false,
             showPreviousButton: false,
+        },
+        anchorSettings: {
+            emoveDoneStepOnNavigateBack: false,
+            markAllPreviousStepsAsDone: false,
+            anchorClickable: false,
+            enableAllAnchors: false,
+            markDoneStep: false,
         }
     });
-    $("#smartwizard").on("showStep", function (e, anchorObject, stepIndex, stepDirection) {
+
+    $("#smartwizard").on("showStep", function(e, anchorObject, stepIndex, stepDirection) {
         if (stepIndex == 4) {
             if (catchmentPoly) {
                 mapDelimit.invalidateSize();
@@ -280,131 +291,163 @@ $(document).ready(function () {
 
 
     //Validated of steps
-    $('#step1NextBtn').click(function () {
+    $('#step1NextBtn').click(function() {
         if ($('#id_name').val() != '' && $('#id_description').val() != '' && $('#id_water_source_name').val() != '' && catchmentPoly != undefined) {
             $('#smartwizard').smartWizard("next");
         } else {
             Swal.fire({
                 icon: 'warning',
-                title: `Field empty`,
-                text: `Please full every fields`
+                title: gettext('Field empty'),
+                text: gettext('Please fill every fields')
             });
             return;
         }
     });
 
-    $('#step2PrevBtn').click(function () {
+    $('#step2PrevBtn').click(function() {
         $('#smartwizard').smartWizard("prev");
     });
 
-    $('#step2NextBtn').click(function () {
+    $('#step2NextBtn').click(function() {
         if (!bandera) {
-            $('#smartwizard').smartWizard("next");
-        } else {
-            Swal.fire({
-                icon: 'warning',
-                title: `Validate Graph`,
-                text: `Please Validate Graph`
-            });
-            return;
-        }
-    });
-
-    $('#step3PrevBtn').click(function () {
-        $('#smartwizard').smartWizard("prev");
-    });
-
-    $('#step3NextBtn').click(function () {
-        $('#IntakeTDLE table').remove();
-        $('#externalSelect option').remove();
-        $('#externalSelect').append(`<option value="null" selected>Choose here</option>`);
-        if ($('#intakeECTAG')[0].childNodes.length > 1) {
-            $('#smartwizard').smartWizard("next");
-            var tempNum = 0;
-            for (let index = 0; index < graphData.length; index++) {
-                if (graphData[index].external == "true") {
-                    tempNum += 1;
+            $('#smartwizard').smartWizard("stepState", [3], "hide");
+            for (const item of graphData) {
+                if (item.external != null && item.external != 'false') {
+                    $('#smartwizard').smartWizard("stepState", [3], "show");
                 }
             }
-            if (tempNum == intakeExternalInputs.length) {
-                loadExternalInput();
+            clearDataHtml();
+            $('#smartwizard').smartWizard("next");
+
+        } else {
+            Swal.fire({
+                icon: 'warning',
+                title: gettext('Validate graph'),
+                text: gettext('Please validate graph')
+            });
+            return;
+        }
+    });
+
+
+
+    $('#step3PrevBtn').click(function() {
+        $('#smartwizard').smartWizard("prev");
+    });
+
+    $('#step3NextBtn').click(function() {
+        if ($('#intakeECTAG')[0].childNodes.length > 1 || $('#intakeWEMI')[0].childNodes.length > 1) {
+            if (waterExtractionData.typeInterpolation == interpolationType.MANUAL) {
+                waterExtractionValue = [];
+                $(`input[name=manualInputData]`).each(function() {
+                    if ($(this).val() == '' || $('#intakeNIYMI').val() == '') {
+                        Swal.fire({
+                            icon: 'warning',
+                            title: gettext('Data analisys empty'),
+                            text: gettext('Please Generate Data analisys')
+                        });
+                        return;
+                    } else {
+                        var yearData = {};
+                        yearData.year = Number($(this).attr('yearValue'));
+                        yearData.value = $(this).val();
+                        waterExtractionValue.push(yearData);
+                    }
+                });
+                waterExtractionData.yearValues = waterExtractionValue;
+                $('#waterExtraction').val(JSON.stringify(waterExtractionData));
+                if (waterExtractionData.yearCount == waterExtractionData.yearValues.length) {
+                    $('#smartwizard').smartWizard("next");
+                } else {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: `Data analisys empty`,
+                        text: `Please Generate Data anlisys`
+                    });
+                    return;
+                }
             } else {
-                $('#IntakeTDLE table').remove();
-                $('#IntakeTDLE').empty();
-                $('#externalSelect option').remove();
-                $('#externalSelect').empty();
+                $('#smartwizard').smartWizard("next");
             }
         } else {
             Swal.fire({
                 icon: 'warning',
-                title: `Data analisys empty`,
-                text: `Please Generate Data anlisys`
+                title: gettext('Data analisys empty'),
+                text: gettext('Please Generate Data analisys')
             });
             return;
         }
-
     });
 
     function loadExternalInput() {
+        $('#externalSelect').append(`<option value="null" selected>Choose here</option>`);
+        for (const extractionData of graphData) {
+            if (extractionData.external == 'true') {
+                extractionData.externaldata = JSON.parse(extractionData.externaldata);
+                $('#externalSelect').append(`
+                    <option value="${extractionData.id}">${extractionData.id} - External Input</option>
+                `);
 
-        for (const extractionData of intakeExternalInputs) {
-            $('#externalSelect').append(`
-                <option value="${extractionData.xmlId}">${extractionData.xmlId} - External Input</option>
-            `);
-            rows = "";
-            for (let index = 0; index < extractionData.waterExtraction.length; index++) {
-                rows += (`<tr>
-                        <th class="text-center" scope="col" name="year_${extractionData.waterExtraction[index].year}" year_value="${index + 1}">${index + 1}</th>
-                        <td class="text-center" scope="col"><input type="text" value="${extractionData.waterExtraction[index].waterVol}" class="form-control" name="waterVolume__${extractionData.xmlId}"></td>
-                        <td class="text-center" scope="col"><input type="text" value="${extractionData.waterExtraction[index].sediment}" class="form-control" name="sediment__${extractionData.xmlId}"></td>
-                        <td class="text-center" scope="col"><input type="text" value="${extractionData.waterExtraction[index].nitrogen}" class="form-control" name="nitrogen__${extractionData.xmlId}" ></td>
-                        <td class="text-center" scope="col"><input type="text" value="${extractionData.waterExtraction[index].phosphorus}" class="form-control" name="phosphorus__${extractionData.xmlId}"></td>
-                  </tr>`);
+                rows = "";
 
+                for (const iterator of extractionData.externaldata) {
+                    rows += (`<tr>
+                                <th class="text-center" scope="col" name="year_${extractionData.id}" year_value="${iterator.year}">${iterator.year}</th>
+                                <td class="text-center" scope="col"><input type="text" value="${iterator.waterVol}" class="form-control" name="waterVolume_${iterator.year}_${extractionData.id}"></td>
+                                <td class="text-center" scope="col"><input type="text" value="${iterator.sediment}" class="form-control" name="sediment_${iterator.year}_${extractionData.id}"></td>
+                                <td class="text-center" scope="col"><input type="text" value="${iterator.nitrogen}" class="form-control" name="nitrogen_${iterator.year}_${extractionData.id}" ></td>
+                                <td class="text-center" scope="col"><input type="text" value="${iterator.phosphorus}" class="form-control" name="phosphorus_${iterator.year}_${extractionData.id}"></td>
+                          </tr>`);
+                }
+
+                $('#IntakeTDLE').append(`
+                          <table class="table" id="table_${extractionData.id}" style="display: none;">
+                              <thead>
+                                  <tr>
+                                      <th class="text-center" scope="col">Year</th>
+                                      <th class="text-center" scope="col">Water Volume (m3)</th>
+                                      <th class="text-center" scope="col">Sediment (Ton)</th>
+                                      <th class="text-center" scope="col">Nitrogen (Kg)</th>
+                                      <th class="text-center" scope="col">Phosphorus (Kg)</th>
+                                  </tr>
+                              </thead>
+                              <tbody>${rows}</tbody>
+                          </table>    
+                  `);
             }
-            $('#IntakeTDLE').append(`
-                  <table class="table" id="table_${extractionData.xmlId}" style="display: none;">
-                      <thead>
-                          <tr>
-                              <th class="text-center" scope="col">Year</th>
-                              <th class="text-center" scope="col">Water Volume (m3)</th>
-                              <th class="text-center" scope="col">Sediment (Ton)</th>
-                              <th class="text-center" scope="col">Nitrogen (Kg)</th>
-                              <th class="text-center" scope="col">Phosphorus (Kg)</th>
-                          </tr>
-                      </thead>
-                      <tbody>${rows}</tbody>
-                  </table>    
-          `);
         }
-
     }
 
-    $('#step4PrevBtn').click(function () {
+    $('#step4PrevBtn').click(function() {
         $('#smartwizard').smartWizard("prev");
     });
 
-    $('#step4NextBtn').click(function () {
-        $('#smartwizard').smartWizard("next");
+    $('#step5PrevBtn').click(function() {
+        $('#smartwizard').smartWizard("prev");
     });
 
-    $('#step5PrevBtn').click(function () {
-        $('#smartwizard').smartWizard("prev");
+    $('#submit').click(function() {
+        Swal.fire({
+            icon: 'success',
+            text: gettext('The water intake is being saved'),
+            allowOutsideClick: false,
+            showConfirmButton: false
+        });
     });
 
     // Change Option Manual Tab
-    $('#btnManualTab').click(function () {
+    $('#btnManualTab').click(function() {
         if ($('#initialDataExtractionInterpolationValue').val() != '' || $('#finalDataExtractionInterpolationValue').val() != '' || $('#numberYearsInterpolationValue').val() != '') {
             Swal.fire({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
+                title: gettext('Are you sure?'),
+                text: gettext("You won't be able to revert this!"),
                 icon: 'warning',
                 showCancelButton: false,
                 showDenyButton: true,
                 confirmButtonColor: '#d33',
                 denyButtonColor: '#3085d6',
-                confirmButtonText: 'Yes, change it!',
-                denyButtonText: 'Cancel'
+                confirmButtonText: gettext('Yes, change it!'),
+                denyButtonText: gettext('Cancel')
             }).then((result) => {
                 if (result.isConfirmed) {
                     $('#intakeECTAG tr').remove();
@@ -426,18 +469,18 @@ $(document).ready(function () {
     });
 
     // Change Option Automatic with Wizard Tab
-    $('#btnAutomaticTab').click(function () {
+    $('#btnAutomaticTab').click(function() {
         if ($('#intakeNIYMI').val() != '') {
             Swal.fire({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
+                title: gettext('Are you sure?'),
+                text: gettext("You won't be able to revert this!"),
                 icon: 'warning',
                 showCancelButton: false,
                 showDenyButton: true,
                 confirmButtonColor: '#d33',
                 denyButtonColor: '#3085d6',
-                confirmButtonText: 'Yes, change it!',
-                denyButtonText: 'Cancel'
+                confirmButtonText: gettext('Yes, change it!'),
+                denyButtonText: gettext('Cancel')
             }).then((result) => {
                 if (result.isConfirmed) {
                     $('#intakeWEMI tr').remove();
@@ -492,7 +535,7 @@ $(document).ready(function () {
         let delimitLayerKeys = Object.keys(delimitLayerTransformed._layers);
         let keyNameDelimitPol = delimitLayerKeys[0];
         let delimitPolyCoord = delimitLayerTransformed._layers[keyNameDelimitPol].feature.geometry.coordinates[0];
-        delimitPolyCoord.forEach(function (geom) {
+        delimitPolyCoord.forEach(function(geom) {
             var coordinates = [];
             coordinates.push(geom[1]);
             coordinates.push(geom[0]);
@@ -523,16 +566,16 @@ $(document).ready(function () {
         $('#typeDelimit').val(JSON.stringify(delimitationFileType));
     });
 
-    $("#validateBtn").on("click", function () {
+    $("#validateBtn").on("click", function() {
         Swal.fire({
-            title: 'Delimitar punto y cuenca',
-            text: "El sistema ajustará las coordenadas del punto a la captación más cercana, ¿Desea continuar?",
+            title: gettext('Basin point delimitation'),
+            text: gettext('The point coordinates will be ajusted'),
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'Ajustar punto',
-            cancelButtonText: 'Cancelar',
+            confirmButtonText: gettext('Yes, ajust!'),
+            cancelButtonText: gettext('Cancel'),
         }).then((result) => {
             if (result.isConfirmed) {
                 mapLoader = L.control.loader().addTo(map);
@@ -551,7 +594,7 @@ $(document).ready(function () {
     createEditor(editorUrl);
 
     var menu1Tab = document.getElementById('mapid');
-    var observer2 = new MutationObserver(function () {
+    var observer2 = new MutationObserver(function() {
         if (menu1Tab.style.display != 'none') {
             mapDelimit.invalidateSize();
         }
@@ -559,7 +602,7 @@ $(document).ready(function () {
     observer2.observe(menu1Tab, { attributes: true });
 
 });
-window.onbeforeunload = function () { return mxResources.get('changesLost'); };
+// window.onbeforeunload = function () { return mxResources.get('changesLost'); };
 
 /*Set values for interpolation
 parameters*/
@@ -577,7 +620,7 @@ function setInterpolationParams() {
             finalExtraction.val(intakeInterpolationParams.endingExtract);
             $("#intakeWECB").click();
             break;
-        // POTENTIAL INTERPOLATION
+            // POTENTIAL INTERPOLATION
         case interpolationType.POTENTIAL:
             interpMethodInput.val(2);
             // Years number for time series
@@ -588,7 +631,7 @@ function setInterpolationParams() {
             finalExtraction.val(intakeInterpolationParams.endingExtract);
             $("#intakeWECB").click();
             break;
-        // EXPONENTIAL INTERPOLATION
+            // EXPONENTIAL INTERPOLATION
         case interpolationType.EXPONENTIAL:
             interpMethodInput.val(3);
             // Years number for time series
@@ -600,7 +643,7 @@ function setInterpolationParams() {
             $("#intakeWECB").click();
             break;
 
-        // LOGISTICS INTERPLATION
+            // LOGISTICS INTERPLATION
         case interpolationType.LOGISTICS:
             interpMethodInput.val(4);
             // Years number for time series
@@ -623,7 +666,7 @@ function delimitIntakeArea() {
     var polygonKeys = Object.keys(catchmentPoly._layers);
     var keyNamePolygon = polygonKeys[0];
     var geometryCoordinates = catchmentPoly._layers[keyNamePolygon].feature.geometry.coordinates[0];
-    geometryCoordinates.forEach(function (geom) {
+    geometryCoordinates.forEach(function(geom) {
         var coordinates = [];
         coordinates.push(geom[1]);
         coordinates.push(geom[0]);
@@ -656,24 +699,24 @@ function validateIntakeArea() {
             'isFile': JSON.stringify(isFile),
             'typeDelimit': delimitationFileType
         },
-        success: function (result) {
+        success: function(result) {
             if (!result.validPolygon) {
                 Swal.fire({
                     icon: 'error',
-                    title: 'Error de Geometría',
-                    text: 'El polígono editado no es válido, por favor intente de nuevo',
+                    title: gettext('Geometry error'),
+                    text: gettext('The edited polygon is not valid')
                 })
             } else if (!result.polygonContains) {
                 Swal.fire({
-                    icon: 'error',
-                    title: 'El polígono debe estar dentro del área de la captación',
-                    text: 'El polígono editado no es válido, por favor intente de nuevo',
-                })
-                // Correct geometry
+                        icon: 'error',
+                        title: gettext('Geometry error'),
+                        text: gettext('The polygon geometries must be inside basin geometry'),
+                    })
+                    // Correct geometry
             } else {
                 Swal.fire(
-                    'Excelente',
-                    'El polígono es válido y está dentro de la captación',
+                    gettext('Great!'),
+                    gettext("Is a valid polygon inside basin's geometries"),
                     'success'
                 );
                 // Set original intake area geom in hidden input for posterior reading
@@ -686,7 +729,7 @@ function validateIntakeArea() {
                 $('#typeDelimit').val(JSON.stringify(delimitationFileType));
             }
         },
-        error: function (error) {
+        error: function(error) {
             console.log(error);
         }
     });
@@ -697,7 +740,7 @@ function validateIntakeArea() {
  * @param {HTML} dropdown Dropdown selected element
  */
 function changeFileEvent() {
-    $('#intakeArea').change(function (evt) {
+    $('#intakeArea').change(function(evt) {
         var file = evt.currentTarget.files[0];
         var extension = validExtension(file);
         // Validate file's extension
@@ -707,123 +750,64 @@ function changeFileEvent() {
             // Validate file's extension
             if (extension.extension == 'geojson') { //GeoJSON
                 var readerGeoJson = new FileReader();
-                readerGeoJson.onload = function (evt) {
+                readerGeoJson.onload = function(evt) {
                     var contents = evt.target.result;
-                    geojson = JSON.parse(contents);
-                    delimitationFileType = delimitationFileEnum.GEOJSON;
-                    let polygonStyle = {
-                        fillColor: "red",
-                        color: "#333333",
-                        weight: 0.2,
-                        fillOpacity: 0.3
+                    try {
+                        geojson = JSON.parse(contents);
+                        validGeojson = validateGeoJson(geojson);
+                        if (validGeojson) {
+                            delimitationFileType = delimitationFileEnum.GEOJSON;
+                            addEditablePolygonMap();
+                        } else {
+                            $('#intakeArea').val('');
+                            return;
+                        }
+                    } catch (e) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: gettext('GeoJSON file error'),
+                            text: gettext('Character errors in GeoJSON file'),
+                        })
+                        $('#intakeArea').val('');
+                        return;
                     };
-                    editablepolygon = L.geoJSON(geojson, { style: polygonStyle })
-                    editablepolygon.addTo(mapDelimit);
-                    mapDelimit.fitBounds(editablepolygon.getBounds())
-                    //loadShapefile(geojson, file.name);
-                }
+                };
+
+                readerGeoJson.onerror = function() {
+                    console.log(readerGeoJson.error);
+                };
                 readerGeoJson.readAsText(file);
             } else { //Zip
                 var reader = new FileReader();
-                var filename, readShp = false,
-                    readDbf = false,
-                    readShx = false,
-                    readPrj = false,
-                    prj, coord = true;
-                var prjName;
-                reader.onload = function (evt) {
+                reader.onload = function(evt) {
                     var contents = evt.target.result;
-                    JSZip.loadAsync(file).then(function (zip) {
-                        zip.forEach(function (relativePath, zipEntry) {
-                            filename = zipEntry.name.toLocaleLowerCase();
-                            if (filename.indexOf(".shp") != -1) {
-                                readShp = true;
-                            }
-                            if (filename.indexOf(".dbf") != -1) {
-                                readDbf = true;
-                            }
-                            if (filename.indexOf(".shx") != -1) {
-                                readShx = true;
-                            }
-                            if (filename.indexOf(".prj") != -1) {
-                                readPrj = true;
-                                prjName = zipEntry.name;
+                    JSZip.loadAsync(file).then(function(zip) {
+                        shapeValidation = validateShapeFile(zip);
+                        shapeValidation.then(function(resultFile) {
+                            //is valid shapefile
+                            if (resultFile.valid) {
+                                shp(contents).then(function(shpToGeojson) {
+                                    geojson = shpToGeojson;
+                                    delimitationFileType = delimitationFileEnum.SHP;
+                                    addEditablePolygonMap();
+                                });
+                            } else {
+                                $('#intakeArea').val('');
+                                return;
                             }
                         });
-                        // Valid shapefile with minimum files req
-                        if (readShp && readDbf && readPrj && readShx) {
-                            zip.file(prjName).async("string").then(function (data) {
-                                prj = data;
-                                // Validar sistema de referencia
-                                if (!prj) {
-                                    Swal.fire({
-                                        icon: 'error',
-                                        title: 'Error en shapefile',
-                                        text: 'Sistema de proyección incorrecto',
-                                    })
-                                }
-                                // Shapefile válido
-                                else {
-                                    shp(contents).then(function (shpToGeojson) {
-                                        geojson = shpToGeojson;
-                                        delimitationFileType = delimitationFileEnum.SHP;
-                                        let polygonStyle = {
-                                            fillColor: "#337ab7",
-                                            color: "#333333",
-                                            weight: 0.2,
-                                            fillOpacity: 0.3
-                                        };
-                                        editablepolygon = L.geoJSON(geojson, { style: polygonStyle })
-                                        editablepolygon.addTo(mapDelimit);
-                                        mapDelimit.fitBounds(editablepolygon.getBounds())
-                                        //loadShapefile(geojson, file.name);
-                                    }).catch(function (e) {
-                                        Swal.fire({
-                                            icon: 'error',
-                                            title: 'Error en shapefile',
-                                            text: 'Ha ocurrido un error de lectura en el shapefile',
-                                        })
-                                        console.log("Ocurrió error convirtiendo el shapefile " + e);
-                                    });
-                                }
-                            });
-                        } else { // Missing req files
-                            // Miss .shp
-                            if (!readShp) {
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'Error en shapefile',
-                                    text: 'Falta el archivo .shp requerido',
-                                })
-                            }
-                            // Miss .dbf
-                            if (!readDbf) {
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'Error en shapefile',
-                                    text: 'Falta el archivo .dbf requerido',
-                                })
-                            }
-                            // Miss .shx
-                            if (!readShx) {
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'Error en shapefile',
-                                    text: 'Falta el archivo .shx requerido',
-                                })
-                            }
-                            // Miss .prj
-                            if (!readPrj) {
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'Error en shapefile',
-                                    text: 'Falta el archivo .prj requerido',
-                                })
-                            }
-                        }
+                        //loadShapefile(geojson, file.name);
+                    }).catch(function(e) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: gettext('Shapefile error'),
+                            text: gettext("There's been an error reading the shapefile"),
+                        })
+                        console.log("Ocurrió error convirtiendo el shapefile " + e);
+                        $('#intakeArea').val('');
                     });
                 };
-                reader.onerror = function (event) {
+                reader.onerror = function(event) {
                     console.error("File could not be read! Code " + event.target.error.code);
                     //alert("El archivo no pudo ser cargado: " + event.target.error.code);
                 };
@@ -832,47 +816,25 @@ function changeFileEvent() {
         } else { //Invalid extension
             Swal.fire({
                 icon: 'error',
-                title: 'Error de extensión',
-                text: 'La extensión del archivo no está soportada, debe ser GeoJSON o un shapefile .zip',
+                title: gettext('Extension file error'),
+                text: gettext('Not supported file extension'),
             })
+            $('#intakeArea').val('');
         }
     });
 }
-/** 
- * Get if file has a valid shape or GeoJSON extension 
- * @param {StriFileng} file   zip or GeoJSON file
- *
- * @return {Object} extension Object contain extension and is valid
- */
-function validExtension(file) {
-    var fileExtension = {};
-    if (file.name.lastIndexOf(".") > 0) {
-        var extension = file.name.substring(file.name.lastIndexOf(".") + 1, file.name.length);
-        fileExtension.extension = extension;
+
+function addEditablePolygonMap() {
+    let polygonStyle = {
+        fillColor: "red",
+        color: "#333333",
+        weight: 0.2,
+        fillOpacity: 0.3
+    };
+    if (editablepolygon) {
+        mapDelimit.removeLayer(editablepolygon);
     }
-    if (file.type == 'application/x-zip-compressed' || file.type == 'application/zip') {
-        fileExtension.valid = true;
-    } else if (file.type == 'application/geo+json') {
-        fileExtension.valid = true;
-    } else {
-        fileExtension.valid = false;
-    }
-    return fileExtension;
-}
-
-//draw polygons
-drawPolygons = function () {
-    // TODO: Next line only for test purpose
-    //intakePolygons = polygons;
-
-    lyrsPolygons.forEach(lyr => map.removeLayer(lyr));
-
-
-    intakePolygons.forEach(feature => {
-        let poly = feature.polygon;
-        if (poly.indexOf("SRID") >= 0) {
-            poly = poly.split(";")[1];
-        }
-        lyrsPolygons.push(omnivore.wkt.parse(poly).addTo(map));
-    });
+    editablepolygon = L.geoJSON(geojson, { style: polygonStyle })
+    editablepolygon.addTo(mapDelimit);
+    mapDelimit.fitBounds(editablepolygon.getBounds());
 }

@@ -87,12 +87,20 @@ def create(request):
             else:
                 delimitation_type = 'SBN'
 
+            if (interpolation['typeInterpolation'] == 'MANUAL'):
+                print("IS MANUAL")
+                isManual = True
+                interpolation['initialValue'] = 0
+                interpolation['finalValue'] = 0
+            else:
+                isManual = False
+
             demand_parameters = DemandParameters.objects.create(
                 interpolation_type=interpolation['typeInterpolation'],
                 initial_extraction=interpolation['initialValue'],
                 ending_extraction=interpolation['finalValue'],
                 years_number=interpolation['yearCount'],
-                is_manual=True,
+                is_manual=isManual,
             )
 
             for extraction in interpolation['yearValues']:
@@ -133,10 +141,10 @@ def create(request):
                             graphId=element['id'],
                             name=element['name'],
                             normalized_category=parameter[0]['fields']['normalized_category'],
-                            transported_water=parameter[0]['fields']['maximal_transp_water_perc'],
-                            sediment=parameter[0]['fields']['maximal_sediment_perc'],
-                            nitrogen=parameter[0]['fields']['maximal_nitrogen_perc'],
-                            phosphorus=parameter[0]['fields']['maximal_phosphorus_perc'],
+                            transported_water=parameter[0]['fields']['predefined_transp_water_perc'],
+                            sediment=parameter[0]['fields']['predefined_sediment_perc'],
+                            nitrogen=parameter[0]['fields']['predefined_nitrogen_perc'],
+                            phosphorus=parameter[0]['fields']['predefined_phosphorus_perc'],
                             is_external=False,
                             intake=intakeCreated
                         )
@@ -163,10 +171,10 @@ def create(request):
                                 graphId=element['id'],
                                 name=element['name'],
                                 normalized_category=parameter[0]['fields']['normalized_category'],
-                                transported_water=parameter[0]['fields']['maximal_transp_water_perc'],
-                                sediment=parameter[0]['fields']['maximal_sediment_perc'],
-                                nitrogen=parameter[0]['fields']['maximal_nitrogen_perc'],
-                                phosphorus=parameter[0]['fields']['maximal_phosphorus_perc'],
+                                transported_water=parameter[0]['fields']['predefined_transp_water_perc'],
+                                sediment=parameter[0]['fields']['predefined_sediment_perc'],
+                                nitrogen=parameter[0]['fields']['predefined_nitrogen_perc'],
+                                phosphorus=parameter[0]['fields']['predefined_phosphorus_perc'],
                                 is_external=True,
                                 intake=intakeCreated
                             )
@@ -205,7 +213,7 @@ def create(request):
                         for external in external_info:
                             external_input = ValuesTime.objects.create(
                                 year=external['year'],
-                                water_volume=external['water'],
+                                water_volume=external['waterVol'],
                                 sediment=external['sediment'],
                                 nitrogen=external['nitrogen'],
                                 phosphorus=external['phosphorus'],
@@ -219,10 +227,10 @@ def create(request):
                             graphId=element['id'],
                             name=element['name'],
                             normalized_category=parameter[0]['fields']['normalized_category'],
-                            transported_water=parameter[0]['fields']['maximal_transp_water_perc'],
-                            sediment=parameter[0]['fields']['maximal_sediment_perc'],
-                            nitrogen=parameter[0]['fields']['maximal_nitrogen_perc'],
-                            phosphorus=parameter[0]['fields']['maximal_phosphorus_perc'],
+                            transported_water=parameter[0]['fields']['predefined_transp_water_perc'],
+                            sediment=parameter[0]['fields']['predefined_sediment_perc'],
+                            nitrogen=parameter[0]['fields']['predefined_nitrogen_perc'],
+                            phosphorus=parameter[0]['fields']['predefined_phosphorus_perc'],
                             is_external=False,
                             intake=intakeCreated
                         )
@@ -534,6 +542,14 @@ def editIntake(request, idx):
                 existingPolygon.basin = basin
                 existingPolygon.intake = existingIntake
                 existingPolygon.save()
+                print(interpolation)
+                if (interpolation['typeInterpolation'] == 'MANUAL'):
+                    print("IS MANUAL")
+                    isManual = True
+                    interpolation['initialValue'] = 0
+                    interpolation['finalValue'] = 0
+                else:
+                    isManual = False
                 demandParameter = DemandParameters.objects.get(id=existingIntake.demand_parameters.pk)
                 demandParameter.interpolation_type = interpolation['typeInterpolation']
                 demandParameter.initial_extraction = interpolation['initialValue']
@@ -571,10 +587,10 @@ def editIntake(request, idx):
                                 graphId=element['id'],
                                 name=element['name'],
                                 normalized_category=parameter[0]['fields']['normalized_category'],
-                                transported_water=parameter[0]['fields']['maximal_transp_water_perc'],
-                                sediment=parameter[0]['fields']['maximal_sediment_perc'],
-                                nitrogen=parameter[0]['fields']['maximal_nitrogen_perc'],
-                                phosphorus=parameter[0]['fields']['maximal_phosphorus_perc'],
+                                transported_water=parameter[0]['fields']['predefined_transp_water_perc'],
+                                sediment=parameter[0]['fields']['predefined_sediment_perc'],
+                                nitrogen=parameter[0]['fields']['predefined_nitrogen_perc'],
+                                phosphorus=parameter[0]['fields']['predefined_phosphorus_perc'],
                                 is_external=False,
                                 intake=existingIntake
                             )
@@ -601,10 +617,10 @@ def editIntake(request, idx):
                                     graphId=element['id'],
                                     name=element['name'],
                                     normalized_category=parameter[0]['fields']['normalized_category'],
-                                    transported_water=parameter[0]['fields']['maximal_transp_water_perc'],
-                                    sediment=parameter[0]['fields']['maximal_sediment_perc'],
-                                    nitrogen=parameter[0]['fields']['maximal_nitrogen_perc'],
-                                    phosphorus=parameter[0]['fields']['maximal_phosphorus_perc'],
+                                    transported_water=parameter[0]['fields']['predefined_transp_water_perc'],
+                                    sediment=parameter[0]['fields']['predefined_sediment_perc'],
+                                    nitrogen=parameter[0]['fields']['predefined_nitrogen_perc'],
+                                    phosphorus=parameter[0]['fields']['predefined_phosphorus_perc'],
                                     is_external=True,
                                     intake=existingIntake
                                 )
@@ -641,9 +657,11 @@ def editIntake(request, idx):
                             external_info = json.loads(element['externaldata'])
                             elementCreated = ElementSystem.objects.get(id=element_system.pk)
                             for external in external_info:
+                                print("External data info::::")
+                                print(external)
                                 external_input = ValuesTime.objects.create(
                                     year=external['year'],
-                                    water_volume=external['water'],
+                                    water_volume=external['waterVol'],
                                     sediment=external['sediment'],
                                     nitrogen=external['nitrogen'],
                                     phosphorus=external['phosphorus'],
@@ -657,10 +675,10 @@ def editIntake(request, idx):
                                 graphId=element['id'],
                                 name=element['name'],
                                 normalized_category=parameter[0]['fields']['normalized_category'],
-                                transported_water=parameter[0]['fields']['maximal_transp_water_perc'],
-                                sediment=parameter[0]['fields']['maximal_sediment_perc'],
-                                nitrogen=parameter[0]['fields']['maximal_nitrogen_perc'],
-                                phosphorus=parameter[0]['fields']['maximal_phosphorus_perc'],
+                                transported_water=parameter[0]['fields']['predefined_transp_water_perc'],
+                                sediment=parameter[0]['fields']['predefined_sediment_perc'],
+                                nitrogen=parameter[0]['fields']['predefined_nitrogen_perc'],
+                                phosphorus=parameter[0]['fields']['predefined_phosphorus_perc'],
                                 is_external=False,
                                 intake=existingIntake
                             )
@@ -730,6 +748,25 @@ def viewIntake(request, idx):
                 'city': city,
                 'externalInputs': intakeExtInputs,
                 "serverApi": settings.WATERPROOF_API_SERVER
+            }
+        )
+
+
+def viewIntakeDemand(request, idx):
+    if request.method == 'GET':
+        filterIntake = Intake.objects.get(id=idx)
+        filterExternal = ElementSystem.objects.filter(intake=filterIntake.pk, is_external=True)
+        intakeDemand = DemandParameters.objects.get(id=filterIntake.demand_parameters.pk)
+        yearsDemand = WaterExtraction.objects.filter(demand=filterIntake.demand_parameters.pk)
+        for year in yearsDemand:
+            print(year.value)
+
+        return render(
+            request, 'waterproof_intake/intake_demand.html',
+            {
+                'intake': filterIntake,
+                'demand': intakeDemand,
+                'yeardDemand': yearsDemand
             }
         )
 
@@ -874,10 +911,10 @@ def cloneIntake(request, idx):
                                 graphId=element['id'],
                                 name=element['name'],
                                 normalized_category=parameter[0]['fields']['normalized_category'],
-                                transported_water=parameter[0]['fields']['maximal_transp_water_perc'],
-                                sediment=parameter[0]['fields']['maximal_sediment_perc'],
-                                nitrogen=parameter[0]['fields']['maximal_nitrogen_perc'],
-                                phosphorus=parameter[0]['fields']['maximal_phosphorus_perc'],
+                                transported_water=parameter[0]['fields']['predefined_transp_water_perc'],
+                                sediment=parameter[0]['fields']['predefined_sediment_perc'],
+                                nitrogen=parameter[0]['fields']['predefined_nitrogen_perc'],
+                                phosphorus=parameter[0]['fields']['predefined_phosphorus_perc'],
                                 is_external=False,
                                 intake=intakeCreated
                             )
@@ -904,10 +941,10 @@ def cloneIntake(request, idx):
                                     graphId=element['id'],
                                     name=element['name'],
                                     normalized_category=parameter[0]['fields']['normalized_category'],
-                                    transported_water=parameter[0]['fields']['maximal_transp_water_perc'],
-                                    sediment=parameter[0]['fields']['maximal_sediment_perc'],
-                                    nitrogen=parameter[0]['fields']['maximal_nitrogen_perc'],
-                                    phosphorus=parameter[0]['fields']['maximal_phosphorus_perc'],
+                                    transported_water=parameter[0]['fields']['predefined_transp_water_perc'],
+                                    sediment=parameter[0]['fields']['predefined_sediment_perc'],
+                                    nitrogen=parameter[0]['fields']['predefined_nitrogen_perc'],
+                                    phosphorus=parameter[0]['fields']['predefined_phosphorus_perc'],
                                     is_external=True,
                                     intake=intakeCreated
                                 )
@@ -942,11 +979,12 @@ def cloneIntake(request, idx):
                                 elementC['xmlId'] = element_system.graphId
                                 elementsCreated.append(elementC)
                             external_info = json.loads(element['externaldata'])
+                            print(external_info)
                             elementCreated = ElementSystem.objects.get(id=element_system.pk)
                             for external in external_info:
                                 external_input = ValuesTime.objects.create(
                                     year=external['year'],
-                                    water_volume=external['water'],
+                                    water_volume=external['waterVol'],
                                     sediment=external['sediment'],
                                     nitrogen=external['nitrogen'],
                                     phosphorus=external['phosphorus'],
@@ -960,10 +998,10 @@ def cloneIntake(request, idx):
                                 graphId=element['id'],
                                 name=element['name'],
                                 normalized_category=parameter[0]['fields']['normalized_category'],
-                                transported_water=parameter[0]['fields']['maximal_transp_water_perc'],
-                                sediment=parameter[0]['fields']['maximal_sediment_perc'],
-                                nitrogen=parameter[0]['fields']['maximal_nitrogen_perc'],
-                                phosphorus=parameter[0]['fields']['maximal_phosphorus_perc'],
+                                transported_water=parameter[0]['fields']['predefined_transp_water_perc'],
+                                sediment=parameter[0]['fields']['predefined_sediment_perc'],
+                                nitrogen=parameter[0]['fields']['predefined_nitrogen_perc'],
+                                phosphorus=parameter[0]['fields']['predefined_phosphorus_perc'],
                                 is_external=False,
                                 intake=intakeCreated
                             )
@@ -1000,14 +1038,27 @@ def cloneIntake(request, idx):
 
 def deleteIntake(request, idx):
     if request.method == "POST":
+        print(idx)
         intake = Intake.objects.get(id=idx)
-        # delete object
-        intake.delete()
-        # after deleting redirect to
-        # home page
-        return render(request, 'waterproof_intake/intake_list.html')
-    else:
-        return render(request, 'waterproof_intake/intake_confirm_delete.html', {"idx": idx})
+        if not intake:
+            print("Not found")
+            context = {
+                'status': '400', 'reason': 'Intake not found'
+            }
+            response = HttpResponse(json.dumps(context), content_type='application/json')
+            response.status_code = 400
+            return response
+        else:
+            # delete object
+            print(intake.delete())
+            # after deleting redirect to
+            # home page
+            context = {
+                'status': '200', 'reason': 'sucess'
+            }
+            response = HttpResponse(json.dumps(context), content_type='application/json')
+            response.status_code = 200
+            return response
 
 
 """
