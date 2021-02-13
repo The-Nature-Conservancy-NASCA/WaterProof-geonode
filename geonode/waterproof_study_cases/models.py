@@ -24,6 +24,7 @@ from django.conf import settings
 from django.db import models
 from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
+from geonode.waterproof_intake.models import Intake
 
 
 class StudyCases(models.Model):
@@ -48,13 +49,12 @@ class StudyCases(models.Model):
     dws_annual_investment_scenario = models.DecimalField(max_digits=20, decimal_places=2, blank=True, null=True)
     dws_time_implement_scenario = models.IntegerField(blank=True, null=True)
     dws_climate_scenario_scenario = models.CharField(max_length=100, blank=True, null=True)
-    region_id = models.IntegerField(blank=True, null=True)
-    ciudad_id = models.IntegerField(blank=True, null=True)
     dws_authorization_case = models.CharField(max_length=20, blank=True, null=True)
     dws_id_parent = models.IntegerField(blank=True, null=True)
     dws_benefit_carbon_market = models.BooleanField(blank=True, null=True)
+    dws_intakes = models.ManyToManyField(Intake)
 
-    class Meta:
-        managed = False
-        db_table = 'waterproof_study_cases'
- 
+
+class Meta:
+    managed = False
+    db_table = 'waterproof_study_cases'
