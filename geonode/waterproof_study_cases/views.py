@@ -9,14 +9,15 @@ from math import fsum
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.models import User
-from django.http import HttpResponse, Http404, HttpResponseRedirect
+from django.http import HttpResponse, Http404, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.template.response import TemplateResponse
+from rest_framework.decorators import api_view
 from django.urls import reverse
 from .models import StudyCases
 from . import forms
 from geonode.waterproof_nbs_ca.models import Countries, Region, Currency
-from geonode.waterproof_intake.models import City, Intake
+from geonode.waterproof_intake.models import City, Intake, ElementSystem
 from geonode.waterproof_treatment_plants.models import TreatmentPlants
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
@@ -105,3 +106,12 @@ def create(request):
                            'intakes': intakes
                            }
                   )
+        
+@api_view(['GET'])
+def getIntakeSCInfraList(request, id_intake):
+	if request.method == 'GET':
+		filterIntakeCSInfra = ElementSystem.objects.filter(intake_id=id_intake)
+		objects_list = []
+		for csInfra in filterIntakeCSInfra:
+			objects_list.append({"id":csInfra.id,"name":csInfra.name})
+		return JsonResponse(objects_list, safe=False)

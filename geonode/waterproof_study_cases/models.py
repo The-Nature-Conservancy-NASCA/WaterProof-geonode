@@ -54,7 +54,6 @@ class StudyCases(models.Model):
     dws_benefit_carbon_market = models.BooleanField(blank=True, null=True)
     dws_intakes = models.ManyToManyField(Intake)
 
-
 class Meta:
     managed = False
     db_table = 'waterproof_study_cases'
