@@ -139,6 +139,7 @@ def createNbs(request, countryId):
         else:  # GET METHOD
             nbs = WaterproofNbsCa.objects.all()
             country = Countries.objects.get(id=countryId)
+            usaCountry=Countries.objects.get(code='USA')
             region = Region.objects.get(id=country.region_id)
             currency = Currency.objects.get(id=country.id)
             countries = Countries.objects.all()
@@ -146,10 +147,16 @@ def createNbs(request, countryId):
             transitions = RiosTransition.objects.all()
             riosActivity = RiosActivity.objects.all()
             riosTransformation = RiosTransformation.objects.all()
+            if (request.user.professional_role == 'ADMIN'):
+                countryEnable='disabled'
+            else:
+                countryEnable=''
             return render(
                 request, 'waterproof_nbs_ca/waterproofnbsca_form.html',
                 {
                     'country': country,
+                    'usaCountry':usaCountry,
+                    'countryEnable': countryEnable,
                     'region': region,
                     'currency': currency,
                     'nbs': nbs,
@@ -332,6 +339,7 @@ def editNbs(request, idx):
         if request.method == 'GET':
             countries = Countries.objects.all()
             currencies = Currency.objects.all()
+            usaCountry=Countries.objects.get(code='USA')
             filterNbs = WaterproofNbsCa.objects.get(id=idx)
             country = Countries.objects.get(id=filterNbs.country_id)
             transitions = RiosTransition.objects.all()
@@ -478,6 +486,7 @@ def cloneNbs(request, idx):
         if request.method == 'GET':
             countries = Countries.objects.all()
             currencies = Currency.objects.all()
+            usaCountry=Countries.objects.get(code='USA')
             filterNbs = WaterproofNbsCa.objects.get(id=idx)
             country = Countries.objects.get(id=filterNbs.country_id)
             transitions = RiosTransition.objects.all()
@@ -485,12 +494,18 @@ def cloneNbs(request, idx):
             riosTransformation = RiosTransformation.objects.all()
             selectedTransformations = list(filterNbs.rios_transformations.all().values_list('id', flat=True))
             selectedTransition = filterNbs.rios_transformations.first().activity.transition
+            if (request.user.professional_role == 'ADMIN'):
+                countryEnable='disabled'
+            else:
+                countryEnable=''
             return render(
                 request, 'waterproof_nbs_ca/waterproofnbsca_clone.html',
                 {
                     'nbs': filterNbs,
                     'countries': countries,
                     'country': country,
+                    'usaCountry':usaCountry,
+                    'countryEnable': countryEnable,
                     'currencies': currencies,
                     'transitions': transitions,
                     'riosActivity': riosActivity,

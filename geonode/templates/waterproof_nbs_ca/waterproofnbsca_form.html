@@ -20,8 +20,11 @@
     </div>
 </div>
 <div class="page-header">
+    
     <h1>{% trans "Create Nature based solution (NBS)" %}</h1>
-
+    {% if user.professional_role == 'ADMIN' %}
+        <h3>{% trans "Global USA based" %}</h3>
+    {% endif %}
 </div>
 <form id="form" data-toggle="validator" role="form" action="">
     <h4 class="text-primary">{% trans "General Settings" %}</h4>
@@ -41,26 +44,18 @@
         <div class="row">
             <div class="col-md-6">
                 <label>{% trans "Country" %} <span class="text-danger-wp">(*)</span> </label>
-                <select id="countryNBS" class="form-control" data-error='{% trans "Field is required" %}' required>
+                <select id="countryNBS" class="form-control" {{countryEnable}} data-error='{% trans "Field is required" %}' required>
                     {% for country in countries %}
-                    {% if nbs.country.pk == country.pk %}
-                    <option value="{{country.pk}}" selected data-value="{{country.code}}">{{country.name}}</option>
-                    {% else %}
-                    <option value="{{country.pk}}" data-value="{{country.code}}">{{country.name}}</option>
-                    {% endif %}
+                        <option value="{{country.pk}}" data-value="{{country.code}}">{{country.name}}</option>
                     {% endfor %}
                 </select>
                 <div class="help-block with-errors"></div>
             </div>
             <div class="col-md-6">
                 <label>{% trans "Currency for definition of costs" %} <span class="text-danger-wp">(*)</span> </label>
-                <select id="currencyCost" class="form-control" data-error='{% trans "Field is required" %}' required>
+                <select id="currencyCost" class="form-control" {{countryEnable}} data-error='{% trans "Field is required" %}' required>
                     {% for currency in currencies %}
-                    {% if nbs.currency.pk == currency.pk%}
-                    <option value="{{currency.pk}}" selected>({{currency.code}}) - {{currency.name}}</option>
-                    {% else %}
-                    <option value="{{currency.pk}}">({{currency.code}}) - {{currency.name}}</option>
-                    {% endif %}
+                        <option value="{{currency.pk}}">({{currency.code}}) - {{currency.name}}</option>
                     {% endfor %}
                 </select>
                 <div class="help-block with-errors"></div>
@@ -98,19 +93,19 @@
     <div class="form-group">
         <div class="row">
             <div class="col-md-4">
-                <label>{% trans "Implementation cost (US$/ha)" %} <span class="text-danger-wp">(*)</span> </label>
+                <label id="implementCostLabel">{% trans "Implementation cost (US$/ha)" %} <span class="text-danger-wp">(*)</span> </label>
                 <input id="implementCost"  type="text" onInput="return checkDecimalFormat(event,value)" 
                 class="form-control" data-error='{% trans "Field is required" %}' required>
                 <div class="help-block with-errors"></div>
             </div>
             <div class="col-md-4">
-                <label>{% trans "Maintenace cost (US$/ha)" %} <span class="text-danger-wp">(*)</span> </label>
+                <label id="maintenanceCostLabel">{% trans "Maintenace cost (US$/ha)" %} <span class="text-danger-wp">(*)</span> </label>
                 <input id="maintenanceCost"  type="text" onInput="return checkDecimalFormat(event,value)" 
                 class="form-control" data-error='{% trans "Field is required" %}' required>
                 <div class="help-block with-errors"></div>
             </div>
             <div class="col-md-4">
-                <label>{% trans "Oportunity cost (US$/ha)" %} <span class="text-danger-wp">(*)</span> </label>
+                <label id="oportunityCostLabel">{% trans "Oportunity cost (US$/ha)" %} <span class="text-danger-wp">(*)</span> </label>
                 <input id="oportunityCost" type="text" onInput="return checkDecimalFormat(event,value)"  class="form-control" data-error='{% trans "Field is required" %}' required>
                 <div class="help-block with-errors"></div>
             </div>
@@ -154,7 +149,7 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="col-md-12">
-                    <label>{% trans "Restricted areas" %} <span class="text-danger-wp">(*)</span></label>
+                    <label>{% trans "Restricted areas" %} </label>
                     <button type="button" class="btn btn-link" data-toggle="modal" data-target="#HelpModal" id="HelpModalBtnModal" style="outline:none; text-decoration:none;">
                         <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> {% trans "Help" %}</button>
                     </button>
@@ -206,8 +201,18 @@
 <script>
     var token = '{{ csrf_token }}';
     var countriesLayerUrl = '{{ STATIC_URL }}waterproof_nbs_ca/data/countries.geojson';
-    var countryId = '{{country.id}}';
 </script>
+{% if user.professional_role == 'ADMIN' %}
+    <script>
+         var countryId = '{{usaCountry.id}}';
+         var disableMap=true;
+    </script>
+{% else %}
+    <script>
+        var disableMap=false;
+        var countryId = '{{country.id}}';
+    </script>
+{% endif %}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min.js"
     integrity="sha512-dTu0vJs5ndrd3kPwnYixvOCsvef5SGYW/zSSK4bcjRBcZHzqThq7pt7PmCv55yb8iBvni0TSeIDV8RYKjZL36A=="
     crossorigin="anonymous"></script>
