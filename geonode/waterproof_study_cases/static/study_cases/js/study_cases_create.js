@@ -52,6 +52,8 @@ $(document).ready(function() {
         value = $("#select_custom option:selected").val();
         $('#select_custom option:selected').remove();
         var name = "<td>" + text + "</td>";
+        var name_source = "<td>" + text + "</td>";
+        var action = "<td><a class='btn btn-danger'><span class='glyphicon glyphicon-trash' aria-hidden='true'></span></a></td>";
         check = " <td>";
         $.get("http://localhost:8000/study_cases/intakescinfralist/" + value, function(data) {
             $.each(data, function(index, value) {
@@ -60,7 +62,7 @@ $(document).ready(function() {
                     "<button type='button' class='btn btn-primary' id='add_wi'>Add new cost</button>"
             });
             check += "</td>";
-            var markup = "<tr>" + name + check + "</tr>";
+            var markup = "<tr>" + name + name_source + check + action + "</tr>";
             $("table tbody").append(markup);
             $('#autoAdjustHeightF').css("height", "auto");
         });
