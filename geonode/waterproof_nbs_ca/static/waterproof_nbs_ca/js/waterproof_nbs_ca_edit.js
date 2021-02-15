@@ -461,6 +461,16 @@ $(function () {
                     currencyDropdown.val(result[0].pk);
                     $('#currencyLabel').text('(' + result[0].fields.code + ') - ' + result[0].fields.name);
                     $('#countryLabel').text(countryName);
+                    let currencyCode = result[0].fields.code;
+                    let impCostText = gettext("Implementation cost (%s/ha) ");
+                    let impCostTrans = interpolate(impCostText, [currencyCode]);
+                    let maintCostText = gettext("Maintenace cost (%s/ha) ");
+                    let mainCostTrans = interpolate(maintCostText, [currencyCode]);
+                    let oportCostText = gettext("Oportunity cost (%s/ha) ");
+                    let oportCostTrans = interpolate(oportCostText, [currencyCode]);
+                    $('#implementCostLabel').text(impCostTrans).append('<span class="text-danger-wp">(*)</span>');
+                    $('#maintenanceCostLabel').text(mainCostTrans).append('<span class="text-danger-wp">(*)</span>');
+                    $('#oportunityCostLabel').text(oportCostTrans).append('<span class="text-danger-wp">(*)</span>');
                     /** 
                      * Get filtered activities by transition id 
                      * @param {String} url   activities URL 
