@@ -96,19 +96,19 @@
     <div class="form-group">
         <div class="row">
             <div class="col-md-4">
-                <label>{% trans "Implementation cost (US$/ha)" %} <span class="text-danger-wp">(*)</span> </label>
+                <label id="implementCostLabel">{% trans "Implementation cost (US$/ha)" %} <span class="text-danger-wp">(*)</span> </label>
                 <input id="implementCost" value="{{ nbs.unit_implementation_cost|decimalFormat:2}}" type="text" onInput="return checkDecimalFormat(event,value)" 
                 class="form-control" data-error='{% trans "Field is required" %}' required>
                 <div class="help-block with-errors"></div>
             </div>
             <div class="col-md-4">
-                <label>{% trans "Maintenace cost (US$/ha)" %} <span class="text-danger-wp">(*)</span> </label>
+                <label id="maintenanceCostLabel">{% trans "Maintenace cost (US$/ha)" %} <span class="text-danger-wp">(*)</span> </label>
                 <input id="maintenanceCost" value="{{ nbs.unit_maintenance_cost| decimalFormat:2 }}" type="text" onInput="return checkDecimalFormat(event,value)" 
                 class="form-control" data-error='{% trans "Field is required" %}' required>
                 <div class="help-block with-errors"></div>
             </div>
             <div class="col-md-4">
-                <label>{% trans "Oportunity cost (US$/ha)" %} <span class="text-danger-wp">(*)</span> </label>
+                <label id="oportunityCostLabel">{% trans "Oportunity cost (US$/ha)" %} <span class="text-danger-wp">(*)</span> </label>
                 <input id="oportunityCost" value="{{ nbs.unit_oportunity_cost|decimalFormat:2 }}" type="text" onInput="return checkDecimalFormat(event,value)"  class="form-control" data-error='{% trans "Field is required" %}' required>
                 <div class="help-block with-errors"></div>
             </div>
@@ -166,7 +166,7 @@
         <div class="row" style="display:none" id="areas">
             <div class="col-md-4">
                 <div class="col-md-12">
-                    <label>{% trans "Restricted areas" %} <span class="text-danger-wp">(*)</span></label>
+                    <label>{% trans "Restricted areas" %}</label>
                     <button type="button" class="btn btn-link" data-toggle="modal" data-target="#HelpModal" id="HelpModalBtnModal" style="outline:none; text-decoration:none;">
                         <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> {% trans "Help" %}</button>
                     </button>
