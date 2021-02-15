@@ -293,46 +293,28 @@
       <div id="navbar" class="navbar-collapse collapse">
         <ul class="nav navbar-nav toolbar">
           {% block tabs %}
-          <!--Home-->
-          <li>
-            <a href="{% url "home" %}">{% trans "Home" %}</a>
-          </li>
-          <!--About US-->
-          <li>
-            <a href="{% url "about" %}">{% trans "About us" %}</a>
-          </li>
-          <!--Models-->
-          <li>
-            <a href="{% url "models" %}">{% trans "Models" %}</a>
-          </li>
-          <!--Take Action-->
-          <li>
-            <a href="{% url "take-action" %}">{% trans "Take Action" %}</a>
-          </li>
-          {% if user.is_authenticated %}
+
           <li id="nav_layers">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{% trans "Data" %}<i class="fa fa-angle-down fa-lg"></i></a>
-            <ul class="dropdown-menu">
-              <li><a href="{% url "layer_browse" %}?limit={{ CLIENT_RESULTS_LIMIT }}">{% trans "Layers" %}</a></li>
-              <li><a href="{% url "document_browse" %}?limit={{ CLIENT_RESULTS_LIMIT }}">{% trans "Documents" %}</a></li>
-              <li><a href="{% url "services" %}?limit={{ CLIENT_RESULTS_LIMIT }}">{% trans "Remote Services" %}</a></li>
-              {% if user.is_authenticated and not READ_ONLY_MODE %}
-                  <li role="separator" class="divider"></li>
-                  <li><a href="{% url "layer_upload" %}">{% trans "Upload Layer" %}</a></li>
-                  {% if USE_GEOSERVER and CREATE_LAYER %}
-                      <li><a href="{% url "layer_create" %}">{% trans "Create Layer" %}</a></li>
-                  {% endif %}
-                  <li><a href="{% url "document_upload" %}">{% trans "Upload Document" %}</a></li>
-              {% endif %}
-              {% if user.is_superuser or user.is_staff %}
-                {%  if not READ_ONLY_MODE %}
-                  <li><a href="{% url "register_service" %}">{% trans "Add Remote Service" %}</a></li>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{% trans "Data" %}<i class="fa fa-angle-down fa-lg"></i></a>
+              <ul class="dropdown-menu">
+                <li><a href="{% url "layer_browse" %}?limit={{ CLIENT_RESULTS_LIMIT }}">{% trans "Layers" %}</a></li>
+                <li><a href="{% url "document_browse" %}?limit={{ CLIENT_RESULTS_LIMIT }}">{% trans "Documents" %}</a></li>
+                <li><a href="{% url "services" %}?limit={{ CLIENT_RESULTS_LIMIT }}">{% trans "Remote Services" %}</a></li>
+                {% if user.is_authenticated and not READ_ONLY_MODE %}
+                    <li role="separator" class="divider"></li>
+                    <li><a href="{% url "layer_upload" %}">{% trans "Upload Layer" %}</a></li>
+                    {% if USE_GEOSERVER and CREATE_LAYER %}
+                        <li><a href="{% url "layer_create" %}">{% trans "Create Layer" %}</a></li>
+                    {% endif %}
+                    <li><a href="{% url "document_upload" %}">{% trans "Upload Document" %}</a></li>
                 {% endif %}
-              {% endif %}
-            </ul>
-          </li>
-          {% endif %}
-          <!--
+                {% if user.is_superuser or user.is_staff %}
+                  {%  if not READ_ONLY_MODE %}
+                    <li><a href="{% url "register_service" %}">{% trans "Add Remote Service" %}</a></li>
+                  {% endif %}
+                {% endif %}
+              </ul>
+            </li>
           <li id="nav_maps">
               {% if user.is_authenticated %}
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{% trans "Maps" %}<i class="fa fa-angle-down fa-lg"></i></a>
@@ -346,8 +328,7 @@
                 <a href="{% url "maps_browse" %}?limit={{ CLIENT_RESULTS_LIMIT }}">{% trans "Maps" %}</a>
               {% endif %}
           </li>
-          -->
-          {% if GEONODE_APPS_ENABLE and GEONODE_APPS_NAV_MENU_ENABLE and user.is_authenticated %}
+          {% if GEONODE_APPS_ENABLE and GEONODE_APPS_NAV_MENU_ENABLE %}
           <li id="nav_maps">
             {% if user.is_authenticated %}
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{% blocktrans %}{{GEONODE_APPS_NAME}}{% endblocktrans %}<i class="fa fa-angle-down fa-lg"></i></a>
@@ -363,7 +344,6 @@
             {% endif %}
           </li>
           {% endif %}
-          <!--
           <li>
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{% trans "About" %}<i class="fa fa-angle-down fa-lg"></i></a>
               <ul class="dropdown-menu">
@@ -382,7 +362,7 @@
                   <li><a href="{% url "group_create" %}">{% trans "Create Group" %}</a></li>
                 {% endif %}
               </ul>
-          </li>-->
+          </li>
 
           {% block extra_tab %}
 
@@ -470,7 +450,7 @@
     </div>
   </nav>
 
-  <!--style>
+  <style>
     .side {
         height: 100%;
         background-image: url('/static/geonode/img/FONDO.jpg');
@@ -612,137 +592,93 @@
     }
 </style>
 
-<!--Lateral Menu>
+<!--Lateral Menu-->
 
 <nav id="sidebar-wrapper" class="side">
-  <div class="p-4 pt-5">
-      <ul class="sidebar-nav">
-        <li class="active">
-          <a href="#Data" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-              <img src="/static/geonode/img/01-flecha.png" class="flecha">{% trans "Data" %}</a>
-          <ul class="collapse list-unstyled" id="Data">
-            <li><a href="{% url "layer_browse" %}?limit={{ CLIENT_RESULTS_LIMIT }}">
-              <img src="/static/geonode/img/01-flecha.png" class="flecha">
-              {% trans "Layers" %}</a></li>
-            <li><a href="{% url "document_browse" %}?limit={{ CLIENT_RESULTS_LIMIT }}">
-              <img src="/static/geonode/img/01-flecha.png" class="flecha">
-              {% trans "Documents" %}</a></li>
-            <li><a href="{% url "services" %}?limit={{ CLIENT_RESULTS_LIMIT }}">
-              <img src="/static/geonode/img/01-flecha.png" class="flecha">
-              {% trans "Remote Services" %}</a></li>
-
-            {% if user.is_authenticated and not READ_ONLY_MODE %}
-              <li role="separator" class="divider"></li>
-              <li><a href="{% url "layer_upload" %}">
-              <img src="/static/geonode/img/01-flecha.png" class="flecha">
-              {% trans "Upload Layer" %}</a></li>
-              {% if USE_GEOSERVER and CREATE_LAYER %}
-                <li><a href="{% url "layer_create" %}">
+    <div class="p-4 pt-5">
+        <ul class="sidebar-nav">
+          <li class="active">
+            <a href="#SBN" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                <img src="/static/geonode/img/01-flecha.png" class="flecha">Soluciones basadas en la naturaleza</a>
+            <ul class="collapse list-unstyled" id="SBN">
+              <li><a href="{% url "list-nbs" %}?limit={{ CLIENT_RESULTS_LIMIT }}" class="dropdown-toggle">
+                  <img src="/static/geonode/img/01-flecha.png" class="flecha">
+                  Listar</a>                
+                </li>
+              {% if user.is_authenticated and not READ_ONLY_MODE %}
+              <li><a href="{% url "create" %}" class="dropdown-toggle">
                 <img src="/static/geonode/img/01-flecha.png" class="flecha">
-                {% trans "Create Layer" %}</a></li>
+                Crear</a>                
+              </li>
+              {% endif %}
+            </ul>
+        </li>
+        <li>
+          <a href="#Intake" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+              <img src="/static/geonode/img/01-flecha.png" class="flecha">Captaciones</a>
+              <ul class="collapse list-unstyled" id="Intake">
+              <li><a href="{% url "list-intake" %}?limit={{ CLIENT_RESULTS_LIMIT }}" class="dropdown-toggle">
+                      <img src="/static/geonode/img/01-flecha.png" class="flecha">
+                      Listar</a>                
+                    </li>
+                {% if user.is_authenticated and not READ_ONLY_MODE %}
+                  <li><a href="{% url "create" %}" class="dropdown-toggle">
+                    <img src="/static/geonode/img/01-flecha.png" class="flecha">
+                    Crear</a>                
+                  </li>
                 {% endif %}
-                <li><a href="{% url "document_upload" %}">
-                <img src="/static/geonode/img/01-flecha.png" class="flecha">
-                {% trans "Upload Document" %}</a></li>
-            {% endif %}
-            {% if user.is_superuser or user.is_staff %}
-            {%  if not READ_ONLY_MODE %}
-              <li><a href="{% url "register_service" %}">
-                <img src="/static/geonode/img/01-flecha.png" class="flecha">
-                {% trans "Add Remote Service" %}</a></li>
-            {% endif %}
-          {% endif %}
-          </ul>
-      </li>
-      <li>
-        {% if user.is_authenticated %}
-          <a href="#Maps" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-              <img src="/static/geonode/img/01-flecha.png" class="flecha">{% trans "Maps" %}
-          </a>
-          <ul class="collapse list-unstyled" id="Maps">
-            <li><a href="{% url "maps_browse" %}?limit={{ CLIENT_RESULTS_LIMIT }}">
-              <img src="/static/geonode/img/01-flecha.png" class="flecha">
-              {% trans "Explore Maps" %}</a></li>
-              {% if not READ_ONLY_MODE %}
-              <li> <a href="{% url "new_map" %}">
-              <img src="/static/geonode/img/01-flecha.png" class="flecha">
-              {% trans "Create Map" %}</a></li>
-            {% endif %}
-          </ul>
-          {% else %}
-            <a href="{% url "maps_browse" %}?limit={{ CLIENT_RESULTS_LIMIT }}">
-              <img src="/static/geonode/img/01-flecha.png" class="flecha">
-              {% trans "Maps" %}</a>
-          {% endif %}
-      </li>
-      {% if GEONODE_APPS_ENABLE and GEONODE_APPS_NAV_MENU_ENABLE %}
-      <li class="active">
-        {% if user.is_authenticated %}
-          <a href="#Apps" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-              <img src="/static/geonode/img/01-flecha.png" class="flecha">{% blocktrans %}{{GEONODE_APPS_NAME}}{% endblocktrans %}</a>
-          <ul class="collapse list-unstyled" id="Apps">
-            <li><a href="{% url "apps_browse" %}?limit={{ CLIENT_RESULTS_LIMIT }}">
-              <img src="/static/geonode/img/01-flecha.png" class="flecha">
-              {% trans "Explore" %} {% blocktrans %}{{GEONODE_APPS_NAME}}{% endblocktrans %}</a></li>
-            <li><a href="{% url "search_city" %}">
-              <img src="/static/geonode/img/01-flecha.png" class="flecha">
-              {% trans "Search City" %} </a></li>
-            <li><a href="{% url "list-nbs" %}?limit={{ CLIENT_RESULTS_LIMIT }}">
-              <img src="/static/geonode/img/01-flecha.png" class="flecha">
-              {% trans "List SBN" %} </a></li>
-            <li><a href="{% url "list-intake" %}?limit={{ CLIENT_RESULTS_LIMIT }}">
-              <img src="/static/geonode/img/01-flecha.png" class="flecha">
-              {% trans "List Intakes" %} </a></li>
-            <li><a href="{% url "treatment-plants-list" %}?limit={{ CLIENT_RESULTS_LIMIT }}">
-              <img src="/static/geonode/img/01-flecha.png" class="flecha">
-              {% trans "Treatment Plants List" %} </a></li>
-          </ul>
-          {% else %}
-          <a href="{% url "apps_browse" %}?limit={{ CLIENT_RESULTS_LIMIT }}">
-            <img src="/static/geonode/img/01-flecha.png" class="flecha">
-            {% blocktrans %}{{GEONODE_APPS_NAME}}{% endblocktrans %}</a>
-        {% endif %}
-      </li>
-      {% endif %}
-      <li>
-          <a href="#About" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-              <img src="/static/geonode/img/01-flecha.png" class="flecha">{% trans "About" %}</a>
-          <ul class="collapse list-unstyled" id="About">
-            <li><a href="{% url "profile_browse" %}">
-              <img src="/static/geonode/img/01-flecha.png" class="flecha">
-              {% trans "People" %}</a></li>
-            <li><a href="{% url "group_list" %}">
-              <img src="/static/geonode/img/01-flecha.png" class="flecha">
-              {% trans "Groups" %}</a></li>
-            <li><a href="{% url "group_category_list" %}">
-              <img src="/static/geonode/img/01-flecha.png" class="flecha">
-              {% trans "Group Categories" %}</a></li>
-            {% if perms.announcements.can_manage %}
-              <li><a href="{% url "announcements_list" %}">
-              <img src="/static/geonode/img/01-flecha.png" class="flecha">
-              {% trans "Announcements" %}</a></li>
-            {% endif %}
-            {% if user.is_authenticated and not READ_ONLY_MODE %}
-              <li role="separator" class="divider"></li>
-              <li><a href="{% url "geonode.invitations:geonode-send-invite" %}">
-              <img src="/static/geonode/img/01-flecha.png" class="flecha">
-              {% trans "Invite Users" %}</a></li>
-            {% endif %}
-            {% if user.is_superuser and not READ_ONLY_MODE %}
-              <li><a href="{% if SITEURL|default:""|slice:"-1:" == "/" %}{{SITEURL}}{% else %}{{SITEURL}}/{% endif %}admin/people/profile/add/">
-              <img src="/static/geonode/img/01-flecha.png" class="flecha">
-              {% trans "Add User" %}</a></li>
-              <li><a href="{% url "group_create" %}">
-              <img src="/static/geonode/img/01-flecha.png" class="flecha">
-              {% trans "Create Group" %}</a></li>
-            {% endif %}
-          </ul>
-      </li>
-      </ul>
-  </div>
-</nav>
-</div-->
 
+                </ul>
+        </li>
+        <li>
+          <a href="#TPlants" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+              <img src="/static/geonode/img/01-flecha.png" class="flecha">Plantas de tratamiento</a>
+              <ul class="collapse list-unstyled" id="TPlants">
+              <li><a href="{% url "treatment-plants-list" %}?limit={{ CLIENT_RESULTS_LIMIT }}" class="dropdown-toggle">
+                      <img src="/static/geonode/img/01-flecha.png" class="flecha">
+                      Listar</a>                
+                    </li>
+                {% if user.is_authenticated and not READ_ONLY_MODE %}                
+                  <li><a href="{% url "create" %}" class="dropdown-toggle">
+                    <img src="/static/geonode/img/01-flecha.png" class="flecha">
+                    Crear</a>                
+                  </li>
+                {% endif %}
+                
+                </ul>
+        </li>
+        <li>
+          <a href="#StudyCase" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+              <img src="/static/geonode/img/01-flecha.png" class="flecha">Casos de estudio</a>
+              <ul class="collapse list-unstyled" id="StudyCase">
+              <li><a href="{% url "study_cases_list" %}?limit={{ CLIENT_RESULTS_LIMIT }}" class="dropdown-toggle">
+                      <img src="/static/geonode/img/01-flecha.png" class="flecha">
+                      Listar</a>                
+                    </li>
+                {% if user.is_authenticated and not READ_ONLY_MODE %}                
+                  <li><a href="{% url "create" %}" class="dropdown-toggle">
+                    <img src="/static/geonode/img/01-flecha.png" class="flecha">
+                    Crear</a>                
+                  </li>
+                {% endif %}                
+                </ul>
+        </li>
+        {% if user.is_authenticated and not READ_ONLY_MODE %}
+        <li>
+          <a href="#Historic" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+              <img src="/static/geonode/img/01-flecha.png" class="flecha">Históricos</a>
+        </li>
+        {% endif %}
+        {% if user.is_authenticated and not READ_ONLY_MODE %}  
+        <li>
+          <a href="#Databases" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+              <img src="/static/geonode/img/01-flecha.png" class="flecha">Databases</a>
+        </li>
+        {% endif %}
+        
+        </ul>
+    </div>
+  </nav>
 
 
       {% endblock header %}

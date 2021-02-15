@@ -1,5 +1,10 @@
-{% extends "geonode_base.html" %} {% load i18n %} {% block title %}{% trans "Waterproof NBS CA" %}{% endblock %} {% block main %}
+{% extends "menu.html" %} {% load i18n %} {% block title %}{% trans "Waterproof NBS CA" %}{% endblock %} 
+{% block extra_head %}
+{% endblock %} 
+{% block main %}
 <h1>{% trans "Waterproof NBS CA" %}</h1>
+
+
 
 {% endblock %} {% block body_outer %}
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_nbs_ca/css/dataTables.bootstrap.min.css">

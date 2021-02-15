@@ -1,4 +1,4 @@
-{% extends "geonode_base.html" %} {% load i18n %} {% block title %}{% trans "Water Intakes" %}{% endblock %} {% load i18n %} {% load static from staticfiles %} {% load bootstrap_tags %}
+{% extends "menu.html" %} {% load i18n %} {% block title %}{% trans "Water Intakes" %}{% endblock %} {% load i18n %} {% load static from staticfiles %} {% load bootstrap_tags %}
 <h1>{% trans "Water Intakes" %}</h1>
 
 {% block extra_head %}
@@ -130,11 +130,11 @@
 <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
 <script src="{{ STATIC_URL }}geonode/js/leaflet/photon/leaflet.photon.js"></script>
 <script src="{{ STATIC_URL }}geonode/js/leaflet/Leaflet.Coordinates.js" %} "></script>
-<script src="{{ STATIC_URL }}geonode/js/leaflet/leaflet-omnivore.min.js "></script>
+<script src=" {{ STATIC_URL }}geonode/js/leaflet/leaflet-omnivore.min.js "></script>
 
-<script src="{{ STATIC_URL }}geonode/sample_data/intake_polygon.js "></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10 "></script>
-<script type="text/javascript ">
+<script src=" {{ STATIC_URL }}geonode/sample_data/intake_polygon.js "></script>
+<script src=" https://cdn.jsdelivr.net/npm/sweetalert2@10 "></script>
+<script type=" text/javascript ">
     API_URL = '/proxy/?url=https://photon.komoot.de/api/?';
     TILELAYER = 'http://{s}.tile.osm.org/{z}/{x}/{y}.png';
     CENTER = [-74.4879, 4.582];

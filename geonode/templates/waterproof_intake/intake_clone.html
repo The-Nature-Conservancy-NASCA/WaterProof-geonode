@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "menu.html" %} 
 {% load i18n %}
 {% load static from staticfiles %}
 {% load bootstrap_tags %}
@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="{{ STATIC_URL }}geonode/css/leaflet/Control.Loader.css"/>
 <link rel="stylesheet" href="{{ STATIC_URL }}waterproof_intake/mathquill/mathquill.css" />
 <link rel="stylesheet" href="{{ STATIC_URL }}waterproof_intake/css/intake.css" />
+
 {% endblock %}
 {% block body_outer %}
 <!--header-->
