@@ -1,0 +1,148 @@
+.side {
+    height: 100%;
+    background-image: url('/static/geonode/img/FONDO.jpg');
+}
+
+
+.flecha {
+    padding-left: 0.5rem;
+    height: 2rem;
+}
+
+#wrapper {
+    padding-left: 0;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+#wrapper.toggled {
+    padding-left: 28rem;
+}
+
+#sidebar-wrapper {
+    z-index: 1000;
+    position: fixed;
+    left: 30rem;
+    width: 0;
+    height: 100%;
+    margin-left: -30rem;
+    overflow-y: auto;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+    overflow-x: hidden;
+    top: 73px;
+}
+
+#wrapper.toggled #sidebar-wrapper {
+    width: 28rem;
+}
+
+#page-content-wrapper {
+    width: 100%;
+    position: absolute;
+    padding: 15px;
+}
+
+#wrapper.toggled #page-content-wrapper {
+    position: absolute;
+    margin-right: -750px;
+}
+
+/* Sidebar Styles */
+
+.sidebar-nav {
+    position: absolute;
+    top: 1.5rem;
+    width: 28rem;
+    margin: 0;
+    padding: 0 0.5rem 0 0;
+    list-style: none;
+}
+
+.sidebar-nav li {
+    padding-left: 0.5rem;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+}
+
+.list-unstyled li a {
+    background-color: rgba(52, 176, 204, 0.7) !important;
+}
+
+.sidebar-nav li a {
+    display: flex;
+    text-decoration: none;
+    color: #fff;
+    vertical-align: middle;
+    align-items: center;
+    background-color: rgba(58, 128, 154, 0.7);
+    font-size: 20px;
+    border-radius: 0.5rem;
+    height: 6rem;
+}
+
+.sidebar-nav li a:hover {
+    text-decoration: none;
+    color: #fff;
+    background: rgba(58, 128, 154, 0.7);
+}
+
+.sidebar-nav li a:active,
+.sidebar-nav li a:focus {
+    text-decoration: none;
+}
+
+.sidebar-nav>.sidebar-brand {
+    height: 65px;
+    font-size: 18px;
+    line-height: 60px;
+}
+
+.sidebar-nav>.sidebar-brand a {
+    color: #999999;
+}
+
+.sidebar-nav>.sidebar-brand a:hover {
+    color: #fff;
+    background: none;
+}
+
+.container {
+    padding-right: 15px !important;
+    padding-left: 30rem !important;
+    margin-right: 0 !important;
+    margin-left: 0 !important;
+    width: 1320px !important;
+  }
+
+@media(min-width:768px) {
+    #wrapper {
+        padding-left: 28rem;
+    }
+
+    #wrapper.toggled {
+        padding-left: 0;
+    }
+
+    #sidebar-wrapper {
+        width: 28rem;
+    }
+
+    #wrapper.toggled #sidebar-wrapper {
+        width: 0;
+    }
+
+    #page-content-wrapper {
+        padding: 20px;
+        position: relative;
+    }
+
+    #wrapper.toggled #page-content-wrapper {
+        position: relative;
+        margin-right: 0;
+    }
+}
