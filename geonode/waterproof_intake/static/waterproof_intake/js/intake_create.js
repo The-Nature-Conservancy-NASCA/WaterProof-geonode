@@ -137,7 +137,7 @@ $(document).ready(function() {
                 yearData.year = index + 1;
                 yearData.value = ((finalDataExtractionInterpolationValue) / (1 + ((finalDataExtractionInterpolationValue / initialDataExtractionInterpolationValue) - 1) * Math.exp(-r * index))).toFixed(2);
                 waterExtractionValue.push(yearData);
-                $('#intakeECTAG').append('<tr><th class="text-center" scope="row">${index}</th><td class="text-center"><input type="text" class="form-control" value="${((finalDataExtractionInterpolationValue) / (1 + ((finalDataExtractionInterpolationValue / initialDataExtractionInterpolationValue) - 1) * Math.exp(-r * index))).toFixed(2)}" disabled></td></tr>');
+                $('#intakeECTAG').append(`<tr><th class="text-center" scope="row">${index}</th><td class="text-center"><input type="text" class="form-control" value="${((finalDataExtractionInterpolationValue) / (1 + ((finalDataExtractionInterpolationValue / initialDataExtractionInterpolationValue) - 1) * Math.exp(-r * index))).toFixed(2)}" disabled></td></tr>`);
             }
         }
 
@@ -444,8 +444,14 @@ $(document).ready(function() {
         $('#smartwizard').smartWizard("prev");
     });
 
-
-
+    $('#submit').click(function() {
+        Swal.fire({
+            icon: 'success',
+            text: gettext('The water intake is being saved'),
+            allowOutsideClick: false,
+            showConfirmButton: false
+        });
+    });
 
     let initialCoords = [4.5, -74.4];
     // find in localStorage if cityCoords exist

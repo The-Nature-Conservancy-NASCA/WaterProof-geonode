@@ -1,25 +1,29 @@
 textarea {
     resize: vertical;
 }
+
 .title-city {
-	text-align: center;
+    text-align: center;
     font-weight: bold;
 }
+
 .center-button {
     width: 134px;
     left: 50%;
     margin-left: -67px;
 }
+
 .container-intake {
-	margin: 30px;
+    margin: 30px;
     border-width: 1px;
     border-style: solid;
     border-radius: 10px;
     padding: 30px;
     border-color: #cccccc;
 }
+
 .delete-intake {
-	color: red;
+    color: red;
     font-family: sans-serif;
     font-weight: bold;
     float: left;
@@ -27,11 +31,13 @@ textarea {
     margin-right: 30px;
     cursor: pointer;
 }
+
 .name-intake {
     padding: 5px;
 }
+
 .container-config {
-	margin: 30px;
+    margin: 30px;
     border-width: 1px;
     border-style: solid;
     border-radius: 10px;
@@ -41,15 +47,18 @@ textarea {
     overflow-x: scroll;
     overflow-y: hidden;
 }
+
 .div-scroll {
     height: 100%;
     width: 1300px;
 }
+
 .arrow-right {
-	position: relative;
+    position: relative;
     height: 30px;
     width: 35px;
 }
+
 .line-right {
     width: 20px;
     height: 15px;
@@ -57,8 +66,9 @@ textarea {
     top: 7.5px;
     position: absolute;
 }
+
 .point-right {
-	width: 0px;
+    width: 0px;
     height: 0px;
     border-style: solid;
     border-width: 15px;
@@ -67,8 +77,9 @@ textarea {
     top: 0px;
     left: 20px;
 }
+
 .point-right-one {
-	width: 0px;
+    width: 0px;
     height: 0px;
     border-style: solid;
     border-width: 15px;
@@ -77,12 +88,14 @@ textarea {
     left: 0px;
     top: 54px;
 }
+
 .positon-arrow {
     top: 250px;
     margin-top: -15px;
     left: 20px;
-	position: absolute;
+    position: absolute;
 }
+
 .container-element {
     background: #3bda3b;
     height: 75px;
@@ -93,104 +106,133 @@ textarea {
     top: 250px;
     margin-top: -37.5px;
 }
+
 .position-arrow-two {
-	left: 20px;
+    left: 20px;
 }
+
 .position-arrow-two-one {
-	top: 156px;
+    top: 156px;
     left: 95px;
 }
+
 .line-right-one {
-	width: 15px;
+    width: 15px;
     height: 65px;
     top: 0px;
     left: 7.5px;
     background-color: #afafaf;
     position: absolute;
 }
+
 .container-element-two {
-	left: 57px;
+    left: 57px;
 }
+
 .container-element-two-top {
-	top: 100px;
-	left: 60px;
+    top: 100px;
+    left: 60px;
 }
+
 .container-element-two-bottom {
     left: 210px;
     top: 440px;
     height: 87px;
 }
+
 .position-arrow-three {
-	left: 170px;
+    left: 170px;
 }
+
 .container-element-three {
-	left: 207px;
+    left: 207px;
 }
+
 .position-arrow-four {
-	left: 320px;
+    left: 320px;
 }
+
 .container-element-four {
-	left: 357px;
+    left: 357px;
 }
+
 .position-arrow-five {
-	left: 470px;
+    left: 470px;
 }
+
 .container-element-five {
-	left: 507px;
+    left: 507px;
 }
+
 .position-arrow-six {
-	left: 770px;
+    left: 770px;
 }
+
 .container-element-six {
-	left: 807px;
+    left: 807px;
 }
+
 .position-arrow-six-left {
-	left: 620px;
+    left: 620px;
 }
+
 .container-element-six-left {
-	left: 657px;
+    left: 657px;
 }
+
 .position-arrow-seven {
     left: 920px;
 }
+
 .position-arrow-seven-one {
     left: 1223px;
 }
+
 .container-element-seven {
     left: 957px;
 }
+
 .container-element-seven-one {
     left: 1111px;
 }
+
 .container-element-seven-top {
     left: 960px;
     top: 41px;
     height: 87px;
 }
+
 .container-element-seven-bottom {
-	left: 1261px;
-	top: 420px;
+    left: 1261px;
+    top: 420px;
 }
+
 .position-arrow-eight {
     left: 1070px;
 }
+
 .position-arrow-eight-one {
     left: 1373px;
 }
+
 .container-element-eight {
     left: 1261px;
 }
+
 .container-element-eight-one {
     left: 1411px;
 }
+
 .position-arrow-two-two {
-	left: 995px;
-	top: 110px;
+    left: 995px;
+    top: 110px;
 }
+
 .position-arrow-two-three {
-	top: 315px;
+    top: 315px;
     left: 245px;
 }
+
 .point-right-three {
     width: 0px;
     height: 0px;
@@ -201,34 +243,42 @@ textarea {
     left: 0px;
     top: -10px;
 }
+
 .position-arrow-two-four {
     top: 315px;
     left: 545px;
 }
+
 .position-arrow-two-four-one {
     top: 315px;
     left: 398px;
 }
+
 .position-arrow-two-five {
-	top: 315px;
+    top: 315px;
     left: 695px;
 }
+
 .position-arrow-two-six {
     top: 315px;
     left: 845px;
 }
+
 .position-arrow-two-six-one {
     top: 315px;
     left: 996px;
 }
+
 .position-arrow-two-six-two {
     top: 315px;
     left: 1150px;
 }
+
 .position-arrow-two-seven {
-	top: 425px;
+    top: 425px;
     left: 400px;
 }
+
 .line-right-seven {
     width: 848px;
     height: 15px;
@@ -236,6 +286,7 @@ textarea {
     top: 7.5px;
     position: absolute;
 }
+
 .point-right-seven {
     width: 0px;
     height: 0px;
@@ -246,16 +297,18 @@ textarea {
     top: 0px;
     left: 842px;
 }
+
 .line-right-four {
-	width: 15px;
+    width: 15px;
     height: 100px;
     top: 0px;
     left: 7.5px;
     background-color: #afafaf;
     position: absolute;
 }
+
 .point-right-four {
-	width: 0px;
+    width: 0px;
     height: 0px;
     border-style: solid;
     border-width: 15px;
@@ -264,6 +317,7 @@ textarea {
     left: 0px;
     top: 99px;
 }
+
 .text-container {
     position: absolute;
     bottom: -21px;
@@ -274,6 +328,7 @@ textarea {
     background: #ffffff;
     height: 20px;
 }
+
 .text-container-one {
     position: absolute;
     bottom: -66px;
@@ -284,6 +339,7 @@ textarea {
     background: #ffffff;
     height: 65px;
 }
+
 .img-color-container {
     width: 100px;
     height: 64px;
@@ -294,42 +350,55 @@ textarea {
     background-position: center;
     border-radius: 5px;
 }
+
 .img-container {
     background-image: url(../img/dosificacion-azul.png);
 }
+
 .img-container-two {
     background-image: url(../img/mezcla-rapida-azul.png);
 }
+
 .img-container-three {
     background-image: url(../img/mezcla-lenta-azul.png);
 }
+
 .img-container-four {
     background-image: url(../img/sedimentacion-azul.png);
 }
+
 .img-container-five {
     background-image: url(../img/fibracion-azul.png);
 }
+
 .img-container-six {
     background-image: url(../img/fibracion-tres-azul.png);
 }
+
 .img-container-seven {
     background-image: url(../img/fibracion-dos-azul.png);
 }
+
 .img-container-eight {
     background-image: url(../img/tratamiento-azul.png);
 }
+
 .img-container-nine {
     /*background-image: url(../img/filtracion-cinco-azul.png);*/
 }
+
 .img-container-nine-one {
     background-image: url(../img/filtracion-cinco-azul.png);
 }
+
 .img-container-ten {
     /*background-image: url(../img/desinfeccion-azul.png);*/
 }
+
 .img-container-ten-one {
     background-image: url(../img/desinfeccion-azul.png);
 }
+
 .main-point {
     width: 25px;
     height: 25px;
@@ -337,6 +406,7 @@ textarea {
     border-radius: 50%;
     float: left;
 }
+
 .text-point-main {
     height: 25px;
     margin-left: 50px;
@@ -345,15 +415,18 @@ textarea {
     color: #07248c;
     padding-top: 3px;
 }
+
 .margin-main {
     margin-left: 50px;
     margin-top: 20px;
 }
+
 .title-tree {
     width: 100%;
     height: 25px;
     margin: 5px;
 }
+
 .point-tree {
     height: 25px;
     width: 25px;
@@ -366,6 +439,7 @@ textarea {
     color: #07248c;
     float: left;
 }
+
 .text-tree {
     height: 25px;
     margin-left: 50px;
@@ -375,6 +449,7 @@ textarea {
     float: left;
     width: 300px;
 }
+
 .detail-tree {
     height: 25px;
     margin-left: 50px;
@@ -383,6 +458,7 @@ textarea {
     padding-top: 3px;
     float: left;
 }
+
 .point-check {
     height: 25px;
     width: 25px;
@@ -395,6 +471,7 @@ textarea {
     float: left;
     margin-left: 30px;
 }
+
 .text-chech {
     padding: 0px;
     margin-left: 50px;
@@ -405,9 +482,11 @@ textarea {
     border-color: #07248c;
     color: #07248c;
 }
+
 .main-tree-content {
     margin: 50px;
 }
+
 .opacity-graph {
     background-color: #000000;
     position: absolute;
@@ -418,6 +497,7 @@ textarea {
     opacity: 0.6;
     border-radius: 5px;
 }
+
 .change-state {
     width: 20px;
     height: 20px;
@@ -427,4 +507,13 @@ textarea {
     border-radius: 50%;
     left: -16px;
     cursor: pointer;
+}
+
+.truncate {
+    display: -webkit-box;
+    max-height: 5.3rem;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
