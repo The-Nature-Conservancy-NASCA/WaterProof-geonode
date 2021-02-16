@@ -60,10 +60,11 @@ $(document).ready(function() {
                 check += "<div class='custom-control custom-checkbox'>" +
                     "<input type='checkbox' class='custom-control-input'>  SCINFRA - " + value.name + "</div>" +
                     "<button type='button' class='btn btn-primary' id='add_wi'>Add new cost</button>"
+                check += "</td>";
+                var markup = "<tr>" + name + name_source + check + action + "</tr>";
+                $("table tbody").append(markup);
             });
-            check += "</td>";
-            var markup = "<tr>" + name + name_source + check + action + "</tr>";
-            $("table tbody").append(markup);
+
             $('#autoAdjustHeightF').css("height", "auto");
         });
 

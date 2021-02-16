@@ -97,21 +97,26 @@ def create(request):
             messages.success(request, ("Study case created."))
             return HttpResponseRedirect(reverse('study_cases_list'))
     else:
-        intakes = Intake.objects.all()
+        intakes_csinfra_list = []
+        filterIntakeCSInfra = ElementSystem.objects.all()
+        for csInfra in filterIntakeCSInfra:
+            intakes_csinfra_list.append({"id": csInfra.id, "name": csInfra.name})
         form = forms.StudyCasesForm()
         return render(request,
                   'waterproof_study_cases/studycases_form.html',
                   context={"form": form,
                            "serverApi": settings.WATERPROOF_API_SERVER,
-                           'intakes': intakes
+                           'intakes': intakes_csinfra_list
                            }
                   )
-        
+
+
 @api_view(['GET'])
 def getIntakeSCInfraList(request, id_intake):
 	if request.method == 'GET':
 		filterIntakeCSInfra = ElementSystem.objects.filter(intake_id=id_intake)
 		objects_list = []
 		for csInfra in filterIntakeCSInfra:
-			objects_list.append({"id":csInfra.id,"name":csInfra.name})
+			objects_list.append({"id": csInfra.id, "name": csInfra.name})
 		return JsonResponse(objects_list, safe=False)
+
