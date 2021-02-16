@@ -350,19 +350,20 @@
                                 <div class="alert alert-info" role="alert">
                                     <h1 class="text-center">{% trans "Intake area delimitation" %}</h1>
                                 </div>
-                                <div class="form-group">
-                                    <label>{% trans "Load file to delimit area" %}<span class="text-danger-wp"></span></label>
-                                    <input id="intakeArea" type="file">
-                                </div>
+                               
                                 <div class="form-group">
                                     <button type="button" class="btn btn-primary" id="btnDelimitArea"> {%trans "Manually area delimit" %}</button>
                                 </div>
                                 <div class="form-group">
                                     <button type="button" class="btn btn-primary" id="btnValidateArea"> {% trans "Validate delimit area" %}</button>
                                 </div>
-                                <button type="button" class="btn btn-link" data-toggle="modal" data-target="#HelpGeom" id="HelpGeomModal" style="outline:none; text-decoration:none;">
-                                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> {% trans "Help" %}</button>
-                                </button>
+                                <div class="form-group">
+                                    <label>{% trans "Load file to delimit area" %}<span class="text-danger-wp"></span></label><button type="button" class="btn btn-link" data-toggle="modal" data-target="#HelpGeom" id="HelpGeomModal" style="outline:none; text-decoration:none;">
+                                        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> {% trans "Help" %}</button>
+                                    </button>
+                                    <input id="intakeArea" type="file">
+                                </div>
+                                
                             </div>
                         </div>
                     </div>
