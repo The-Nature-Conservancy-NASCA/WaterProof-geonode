@@ -493,6 +493,7 @@ def cloneNbs(request, idx):
             countries = Countries.objects.all()
             currencies = Currency.objects.all()
             usaCountry = Countries.objects.get(code='USA')
+            userCountry = Countries.objects.get(code=request.user.country)
             filterNbs = WaterproofNbsCa.objects.get(id=idx)
             country = Countries.objects.get(id=filterNbs.country_id)
             transitions = RiosTransition.objects.all()
@@ -509,6 +510,7 @@ def cloneNbs(request, idx):
                 {
                     'nbs': filterNbs,
                     'countries': countries,
+                    'userCountry': userCountry,
                     'country': country,
                     'usaCountry': usaCountry,
                     'countryEnable': countryEnable,
