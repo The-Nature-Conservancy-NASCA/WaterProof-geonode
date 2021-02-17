@@ -2,6 +2,12 @@
  * @file Edit form validations
  * @version 1.0
  */
+var countryDropdown = $('#countryNBS');
+var currencyDropdown = $('#currencyCost');
+var transitionsDropdown = $('#riosTransition');
+var activitiesDropdown = $('#riosActivity');
+var transformDropdown = $('#riosTransformation');
+var loadAreaChecked = $('#loadArea');
 $(function () {
     var map;
     var highlighPolygon = {
@@ -23,12 +29,7 @@ $(function () {
         $('#example').DataTable();
         console.log('init event loaded');
         var dato;
-        var countryDropdown = $('#countryNBS');
-        var currencyDropdown = $('#currencyCost');
-        var transitionsDropdown = $('#riosTransition');
-        var activitiesDropdown = $('#riosActivity');
-        var transformDropdown = $('#riosTransformation');
-        var loadAreaChecked = $('#loadArea');
+
 
         // show/hide div with checkbuttons 
         $("#riosTransition").change(function () {
@@ -73,6 +74,7 @@ $(function () {
         changeTransitionEvent(transitionsDropdown, activitiesDropdown);
         // Change country dropdown event listener 
         changeCountryEvent(countryDropdown, currencyDropdown);
+        changeCurrencyEvent(currencyDropdown);
         submitFormEvent();
         changeFileEvent();
         initMap();
@@ -395,7 +397,9 @@ $(function () {
                 click: updateDropdownCountry
             });
         }
-
+        function updateCurrencyDropdown(evt) {
+            console.log("dropdown changed");
+        }
         function updateDropdownCountry(feature) {
             if (!disableMap) {
                 let mapClick = true;
@@ -464,6 +468,7 @@ $(function () {
                 success: function (result) {
                     result = JSON.parse(result);
                     currencyDropdown.val(result[0].pk);
+                    currencyDropdown.change();
                     $('#currencyLabel').text('(' + result[0].fields.code + ') - ' + result[0].fields.name);
                     $('#countryLabel').text(countryName);
                     let currencyCode = result[0].fields.code;
@@ -498,6 +503,36 @@ $(function () {
             });
         });
     };
+    changeCurrencyEvent = function (currencyDropdown) {
+        currencyDropdown.change(function (event) {
+            let currencyText = event.currentTarget.selectedOptions[0].text;
+            let currencyCountry = $(this).find(':selected').attr('data-country');
+            let currencySplitText = currencyText.split("-");
+            let currencyCode = currencySplitText[0].replace(/[{()}]/g, '').replace(" ", "");
+            $('#currencyLabel').text(currencyText);
+            let impCostText = gettext("Implementation cost (%s/ha) ");
+            let impCostTrans = interpolate(impCostText, [currencyCode]);
+            let maintCostText = gettext("Maintenace cost (%s/ha) ");
+            let mainCostTrans = interpolate(maintCostText, [currencyCode]);
+            let oportCostText = gettext("Oportunity cost (%s/ha) ");
+            let oportCostTrans = interpolate(oportCostText, [currencyCode]);
+            $('#implementCostLabel').text(impCostTrans).append('<span class="text-danger-wp">(*)</span>');
+            $('#maintenanceCostLabel').text(mainCostTrans).append('<span class="text-danger-wp">(*)</span>');
+            $('#oportunityCostLabel').text(oportCostTrans).append('<span class="text-danger-wp">(*)</span>');
+            if (globalBaseCost) {
+                if (currencyCountry == 'USA' && currencyCode == "USD") {
+                    $('#implementCost').val(factorImplemCost);
+                    $('#oportunityCost').val(factorOportCost);
+                    $('#maintenanceCost').val(factorMaintCost);
+                }
+                else {
+                    $('#implementCost').val(realImplemCost);
+                    $('#oportunityCost').val(realOportCost);
+                    $('#maintenanceCost').val(realMaintCost);
+                }
+            }
+        })
+    }
     updateCountryMap = function (countryCode) {
         map.eachLayer(function (layer) {
             if (layer.feature) {

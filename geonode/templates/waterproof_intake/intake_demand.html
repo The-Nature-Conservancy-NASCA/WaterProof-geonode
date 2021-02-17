@@ -50,8 +50,8 @@
         <!--Steps-->
         <div class="tab-content" id="autoAdjustHeightF">
             
-             <!--Step 3-->
-           <div id="step-3" class="tab-pane" role="tabpanel">
+            <!--Step 3-->
+            <div id="step-3" class="tab-pane" role="tabpanel">
             <!--Header-->
             <div class="page-header">
                 <h3>{% trans "Water extraction"%}</h3>
@@ -105,7 +105,7 @@
                                         </div>
                                     </div>
                                 </div>
-                              
+                                <button type="button" class="btn btn-primary" id="intakeWECB" style="display: none;">{% trans "Generate" %}</button>
                             </div>
                             <!--Data analysis Results-->
                             <div class="col-md-4">
@@ -139,6 +139,7 @@
                                     <label>{% trans "Number of years" %} <span class="text-danger-wp">(*)</span> </label>
                                     <input type="text" class="form-control" id="intakeNIYMI" disabled>
                                 </div>
+                                <button type="button" class="btn btn-primary" id="intakeNIBYMI" style="display: none;">{% trans "Generate" %}</button>
                             </div>
                             <!--Results-->
                             <div class="col-md-6">
@@ -160,7 +161,6 @@
                     </div>
                 </div>
             </div>
-            <br>
         </div>
         <!--Step 4-->
         <div id="step-4" class="tab-pane" role="tabpanel">
@@ -175,13 +175,11 @@
                     <h4 class="text-primary">{% trans "Asignation" %}</h4>
                     <div class="form-group">
                         <label>{% trans "Type element for asignation" %}</label>
-                        <select class="form-control" id="externalSelect"></select>
+                        <select class="form-control" id="externalSelect" disabled></select>
                     </div>
                     <div id="IntakeTDLE"></div>
                 </div>
             </div>
-            <br>
-        </div>
             
         </div>
         </div>
