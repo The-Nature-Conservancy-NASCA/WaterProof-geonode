@@ -83,8 +83,15 @@
     margin-top: 1rem;
 }
 
-.list-unstyled li a {
+.list-unstylede li a {
+    padding-left: 0;
+    list-style: none;
     background-color: rgba(52, 176, 204, 0.7) !important;
+}
+
+.list-unstylede{
+    padding-left: 15px;
+    list-style: none;
 }
 
 .sidebar-nav li a {
