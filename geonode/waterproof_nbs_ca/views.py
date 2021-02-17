@@ -139,7 +139,7 @@ def createNbs(request, countryId):
         else:  # GET METHOD
             nbs = WaterproofNbsCa.objects.all()
             country = Countries.objects.get(id=countryId)
-            usaCountry=Countries.objects.get(code='USA')
+            usaCountry = Countries.objects.get(code='USA')
             region = Region.objects.get(id=country.region_id)
             currency = Currency.objects.get(id=country.id)
             countries = Countries.objects.all()
@@ -148,14 +148,14 @@ def createNbs(request, countryId):
             riosActivity = RiosActivity.objects.all()
             riosTransformation = RiosTransformation.objects.all()
             if (request.user.professional_role == 'ADMIN'):
-                countryEnable='disabled'
+                countryEnable = 'disabled'
             else:
-                countryEnable=''
+                countryEnable = ''
             return render(
                 request, 'waterproof_nbs_ca/waterproofnbsca_form.html',
                 {
                     'country': country,
-                    'usaCountry':usaCountry,
+                    'usaCountry': usaCountry,
                     'countryEnable': countryEnable,
                     'region': region,
                     'currency': currency,
@@ -339,7 +339,7 @@ def editNbs(request, idx):
         if request.method == 'GET':
             countries = Countries.objects.all()
             currencies = Currency.objects.all()
-            usaCountry=Countries.objects.get(code='USA')
+            usaCountry = Countries.objects.get(code='USA')
             filterNbs = WaterproofNbsCa.objects.get(id=idx)
             country = Countries.objects.get(id=filterNbs.country_id)
             transitions = RiosTransition.objects.all()
@@ -350,12 +350,18 @@ def editNbs(request, idx):
                 selectedTransition = filterNbs.rios_transformations.first().activity.transition
             else:
                 selectedTransition = ''
+            if (request.user.professional_role == 'ADMIN'):
+                countryEnable = 'disabled'
+            else:
+                countryEnable = ''
             return render(
                 request, 'waterproof_nbs_ca/waterproofnbsca_edit.html',
                 {
                     'nbs': filterNbs,
                     'countries': countries,
                     'country': country,
+                    'usaCountry': usaCountry,
+                    'countryEnable': countryEnable,
                     'currencies': currencies,
                     'transitions': transitions,
                     'riosActivity': riosActivity,
@@ -486,7 +492,7 @@ def cloneNbs(request, idx):
         if request.method == 'GET':
             countries = Countries.objects.all()
             currencies = Currency.objects.all()
-            usaCountry=Countries.objects.get(code='USA')
+            usaCountry = Countries.objects.get(code='USA')
             filterNbs = WaterproofNbsCa.objects.get(id=idx)
             country = Countries.objects.get(id=filterNbs.country_id)
             transitions = RiosTransition.objects.all()
@@ -495,16 +501,16 @@ def cloneNbs(request, idx):
             selectedTransformations = list(filterNbs.rios_transformations.all().values_list('id', flat=True))
             selectedTransition = filterNbs.rios_transformations.first().activity.transition
             if (request.user.professional_role == 'ADMIN'):
-                countryEnable='disabled'
+                countryEnable = 'disabled'
             else:
-                countryEnable=''
+                countryEnable = ''
             return render(
                 request, 'waterproof_nbs_ca/waterproofnbsca_clone.html',
                 {
                     'nbs': filterNbs,
                     'countries': countries,
                     'country': country,
-                    'usaCountry':usaCountry,
+                    'usaCountry': usaCountry,
                     'countryEnable': countryEnable,
                     'currencies': currencies,
                     'transitions': transitions,
