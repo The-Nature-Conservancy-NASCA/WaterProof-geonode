@@ -1,9 +1,7 @@
-{% extends "base.html" %} {% load i18n %} {% load l10n %}{% load bootstrap_tags %}{% load decimal_format %} {% block body_outer %}
+{% extends "menu.html" %} {% load i18n %} {% load l10n %}{% load bootstrap_tags %} {% block extra_head %} {% endblock %} {% block body_outer %}
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_nbs_ca/css/bootstrap-duallistbox.min.css">
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_nbs_ca/css/waterproof_nbs_ca.css">
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
-    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
-    crossorigin="" />
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
 
@@ -28,14 +26,12 @@
     <h4 class="text-primary">{% trans "General Settings" %}</h4>
     <div class="form-group">
         <label>{% trans "Name" %} <span class="text-danger-wp">(*)</span> </label>
-        <input type="text" value='{{ nbs.name }}_{% trans "Cloned" %}' class="form-control" id="nameNBS" name="nameNBS"
-            data-error="This field is required" placeholder="Enter title" required>
+        <input type="text" value='{{ nbs.name }}_{% trans "Cloned" %}' class="form-control" id="nameNBS" name="nameNBS" data-error="This field is required" placeholder="Enter title" required>
         <div class="help-block with-errors"></div>
     </div>
     <div class="form-group">
         <label>{% trans "Description" %} <span class="text-danger-wp">(*)</span> </label>
-        <textarea id="descNBS" class="form-control" placeholder="Enter description" data-error="This field is required"
-            rows="4" required>{{ nbs.description }}</textarea>
+        <textarea id="descNBS" class="form-control" placeholder="Enter description" data-error="This field is required" rows="4" required>{{ nbs.description }}</textarea>
         <div class="help-block with-errors"></div>
     </div>
     <div class="form-group">
@@ -71,16 +67,15 @@
     <div class="form-group">
         <div class="row">
             <div class="col-md-6">
-                <label>{% trans "Time required to generate maximun benefit (yr)" %} <span class="text-danger-wp">(*)</span> </label>
-                <input id="maxBenefitTime" value="{{nbs.max_benefit_req_time}}" onInput="return checkTime(event,value)"
-                type="text"  class="form-control" data-error='{% trans "Field is required" %}' required>
+                <label>{% trans "Time required to generate maximun benefit (yr)" %} <span
+                        class="text-danger-wp">(*)</span> </label>
+                <input id="maxBenefitTime" value="{{nbs.max_benefit_req_time}}" onInput="return checkTime(event,value)" type="text" class="form-control" data-error='{% trans "Field is required" %}' required>
                 <div class="help-block with-errors"></div>
             </div>
             <div class="col-md-6">
                 <label>{% trans "Percentage of benefit associated with interventions at time t=0" %} <span
                         class="text-danger-wp">(*)</span> </label>
-                <input id="benefitTimePorc" type="text" value="{{nbs.profit_pct_time_inter_assoc|decimalFormat:2}}" onInput="return checkPercentage(event,value)" 
-                class="form-control" data-error='{% trans "Field is required" %}' required>
+                <input id="benefitTimePorc" type="text" value="{{nbs.profit_pct_time_inter_assoc|decimalFormat:2}}" onInput="return checkPercentage(event,value)" class="form-control" data-error='{% trans "Field is required" %}' required>
                 <div class="help-block with-errors"></div>
             </div>
         </div>
@@ -89,8 +84,7 @@
         <div class="row">
             <div class="col-md-6">
                 <label>{% trans "Periodicity of maintenance (yr)" %} <span class="text-danger-wp">(*)</span> </label>
-                <input id="maintenancePeriod" value="{{ nbs.periodicity_maitenance }}" onInput="return checkTime(event,value)"
-                type="text" class="form-control" data-error='{% trans "Field is required" %}' required>
+                <input id="maintenancePeriod" value="{{ nbs.periodicity_maitenance }}" onInput="return checkTime(event,value)" type="text" class="form-control" data-error='{% trans "Field is required" %}' required>
                 <div class="help-block with-errors"></div>
             </div>
         </div>
@@ -135,23 +129,21 @@
             </div>
         </div>
     </div>
-    <h4 class="text-primary">{% trans "LAND USE" %}<span style="margin-left: 40%;">{% trans "LAND COVER CHANGE DEFINITION" %}</span></h4>
+    <h4 class="text-primary">{% trans "LAND USE" %}<span style="margin-left: 40%;">{% trans "LAND COVER CHANGE
+            DEFINITION" %}</span></h4>
     <div class="form-group">
         <div class="row">
             {% for tran in transitions %}
-            <div class="col-md-12" id="selectlanduse{{tran.pk}}" name="selectlanduse" data-value="{{tran.pk}}"
-                style="display: none;">
+            <div class="col-md-12" id="selectlanduse{{tran.pk}}" name="selectlanduse" data-value="{{tran.pk}}" style="display: none;">
                 {% for riosa in riosActivity %} {% if tran.pk == riosa.transition_id %}
                 <h5>{{ riosa.name }}</h5>
                 {% for riost in riosTransformation %} {% if riosa.pk == riost.activity_id %}
                 <div class="checkbox" style="margin-left: 50%;">
                     {% if riost.pk in selectedTransf %}
-                            <label><input data-value="itemRT" name="{{riosa.name}}_{{itemRT}}" type="radio"
-                                id="itemRT{{riost.pk}}" value="{{ riost.pk }}" checked> {{riost.name}}</label>
-                            {% else %}
-                            <label><input data-value="itemRT" name="{{riosa.name}}_{{itemRT}}" type="radio"
-                                id="itemRT{{riost.pk}}" value="{{ riost.pk }}"> {{riost.name}}</label>
-                            {% endif %}
+                    <label><input data-value="itemRT" name="{{riosa.name}}_{{itemRT}}" type="radio"
+                            id="itemRT{{riost.pk}}" value="{{ riost.pk }}" checked> {{riost.name}}</label> {% else %}
+                    <label><input data-value="itemRT" name="{{riosa.name}}_{{itemRT}}" type="radio"
+                            id="itemRT{{riost.pk}}" value="{{ riost.pk }}"> {{riost.name}}</label> {% endif %}
                 </div>
 
                 {% endif %} {% endfor %} {% endif %} {% endfor %}
@@ -171,7 +163,8 @@
                 <div class="col-md-12">
                     <label>{% trans "Restricted areas" %}</label>
                     <button type="button" class="btn btn-link" data-toggle="modal" data-target="#HelpModal" id="HelpModalBtnModal" style="outline:none; text-decoration:none;">
-                        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> {% trans "Help" %}</button>
+                        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> {% trans "Help"
+                        %}</button>
                     </button>
                 </div>
                 <input id="restrictedArea" type="file">
@@ -216,9 +209,10 @@
     var countryNbs = '{{ sbn.country.pk }}';
     var currencyNbs = '{{ sbn.currency.pk }}';
     var countriesLayerUrl = '{{ STATIC_URL }}waterproof_nbs_ca/data/countries.geojson';
-    var userCountryId='{{userCountry.id}}';
-    var userCountryCode='{{userCountry.code}}';
-    var userCountryName='{{userCountry.name}}';
+    var userCountryId = '{{userCountry.id}}';
+    var userCountryCode = '{{userCountry.code}}';
+    var userCountryName = '{{userCountry.name}}';
+    var countryId = '{{country.id}}';
 </script>
 {% if user.professional_role == 'ADMIN' %}
     <script>
@@ -237,12 +231,8 @@
 <script src="{{ STATIC_URL }}geonode/js/jszip/jszip.min.js"></script>
 <!--Shapefile reader library -->
 <script src="{{ STATIC_URL }}geonode/js/shp/shp.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min.js"
-    integrity="sha512-dTu0vJs5ndrd3kPwnYixvOCsvef5SGYW/zSSK4bcjRBcZHzqThq7pt7PmCv55yb8iBvni0TSeIDV8RYKjZL36A=="
-    crossorigin="anonymous"></script>
-    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
-    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
-    crossorigin=""></script>
-    <script src="{{ STATIC_URL }}geonode/js/leaflet/leaflet.ajax.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min.js" integrity="sha512-dTu0vJs5ndrd3kPwnYixvOCsvef5SGYW/zSSK4bcjRBcZHzqThq7pt7PmCv55yb8iBvni0TSeIDV8RYKjZL36A==" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+<script src="{{ STATIC_URL }}geonode/js/leaflet/leaflet.ajax.min.js"></script>
 <script src="{{ STATIC_URL }}waterproof_nbs_ca/js/waterproof_nbs_ca_clone.js"></script>
 {% endblock %}
