@@ -54,9 +54,9 @@
                 <select id="currencyCost" {{countryEnable}} class="form-control" data-error="This field is required" required>
                     {% for currency in currencies %}
                     {% if nbs.currency.pk == currency.pk%}
-                    <option value="{{currency.pk}}" selected>({{currency.code}}) - {{currency.name}}</option>
+                    <option value="{{currency.pk}}" data-country="{{currency.country.code}}" selected>({{currency.code}}) - {{currency.name}}</option>
                     {% else %}
-                    <option value="{{currency.pk}}">({{currency.code}}) - {{currency.name}}</option>
+                    <option value="{{currency.pk}}" data-country="{{currency.country.code}}">({{currency.code}}) - {{currency.name}}</option>
                     {% endif %}
                     {% endfor %}
                 </select>
@@ -232,11 +232,22 @@
     var userCountryCode = '{{userCountry.code}}';
     var userCountryName = '{{userCountry.name}}';
     var countryId = '{{country.id}}';
+    var realImplemCost='{{nbs.unit_implementation_cost}}';
+    var realOportCost='{{nbs.unit_oportunity_cost}}';
+    var realMaintCost='{{nbs.unit_maintenance_cost}}';
+    var factorMaintCost='{{ nbs.unit_maintenance_cost|multiplyFactor:userCountry.factor|decimalFormat:2 }}';
+    var factorImplemCost='{{ nbs.unit_implementation_cost|multiplyFactor:userCountry.factor|decimalFormat:2}}';
+    var factorOportCost='{{ nbs.unit_oportunity_cost|multiplyFactor:userCountry.factor|decimalFormat:2 }}';
+    var globalBaseCost=false;
 </script>
 {% if user.professional_role == 'ADMIN' %}
     <script>
          var countryId = '{{usaCountry.id}}';
          var disableMap=true;
+    </script>
+{% elif user.professional_role == 'ANALYS' and nbs.added_by.professional_role == 'ADMIN' %}
+    <script>
+        var globalBaseCost=true;
     </script>
 {% else %}
     <script>
