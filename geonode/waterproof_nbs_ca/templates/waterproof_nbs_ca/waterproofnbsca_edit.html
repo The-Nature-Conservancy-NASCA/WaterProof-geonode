@@ -39,7 +39,7 @@
         <div class="row">
             <div class="col-md-6">
                 <label>{% trans "Country" %} <span class="text-danger-wp">(*)</span> </label>
-                <select id="countryNBS" class="form-control" data-error="This field is required" required>
+                <select id="countryNBS" {{countryEnable}} class="form-control" data-error="This field is required" required>
                     {% for country in countries %}
                     {% if nbs.country.pk == country.pk %}
                     <option value="{{country.pk}}" data-value="{{country.code}}" selected>{{country.name}}</option>
@@ -52,7 +52,7 @@
             </div>
             <div class="col-md-6">
                 <label>{% trans "Currency for definition of costs" %} <span class="text-danger-wp">(*)</span> </label>
-                <select id="currencyCost" class="form-control" data-error="This field is required" required>
+                <select id="currencyCost" {{countryEnable}} class="form-control" data-error="This field is required" required>
                     {% for currency in currencies %}
                     {% if nbs.currency.pk == currency.pk%}
                     <option value="{{currency.pk}}" selected>({{currency.code}}) - {{currency.name}}</option>
@@ -216,8 +216,18 @@
     var userCountryId = '{{userCountry.id}}';
     var userCountryCode = '{{userCountry.code}}';
     var userCountryName = '{{userCountry.name}}';
-    var countryId = '{{country.id}}';
 </script>
+{% if user.professional_role == 'ADMIN' %}
+    <script>
+         var countryId = '{{usaCountry.id}}';
+         var disableMap=true;
+    </script>
+{% else %}
+    <script>
+        var disableMap=false;
+        var countryId = '{{country.id}}';
+    </script>
+{% endif %}
 {% endblock body_outer %} {% block extra_script %}
 <script src="{{ STATIC_URL }}geonode/js/waterproof/geomFile_validate.js"></script>
 <!--ZIP reader library-->

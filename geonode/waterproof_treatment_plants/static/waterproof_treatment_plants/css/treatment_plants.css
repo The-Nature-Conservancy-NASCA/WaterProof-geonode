@@ -2,7 +2,7 @@ textarea {
     resize: vertical;
 }
 .title-city {
-	text-align: center;
+    text-align: center;
     font-weight: bold;
 }
 .center-button {
@@ -11,7 +11,7 @@ textarea {
     margin-left: -67px;
 }
 .container-intake {
-	margin: 30px;
+    margin: 30px;
     border-width: 1px;
     border-style: solid;
     border-radius: 10px;
@@ -19,7 +19,7 @@ textarea {
     border-color: #cccccc;
 }
 .delete-intake {
-	color: red;
+    color: red;
     font-family: sans-serif;
     font-weight: bold;
     float: left;
@@ -31,7 +31,7 @@ textarea {
     padding: 5px;
 }
 .container-config {
-	margin: 30px;
+    margin: 30px;
     border-width: 1px;
     border-style: solid;
     border-radius: 10px;
@@ -57,7 +57,7 @@ textarea {
     width: 1300px;
 }
 .arrow-right {
-	position: relative;
+    position: relative;
     height: 30px;
     width: 35px;
 }
@@ -69,7 +69,7 @@ textarea {
     position: absolute;
 }
 .point-right {
-	width: 0px;
+    width: 0px;
     height: 0px;
     border-style: solid;
     border-width: 15px;
@@ -79,7 +79,7 @@ textarea {
     left: 20px;
 }
 .point-right-one {
-	width: 0px;
+    width: 0px;
     height: 0px;
     border-style: solid;
     border-width: 15px;
@@ -92,7 +92,7 @@ textarea {
     top: 250px;
     margin-top: -15px;
     left: 20px;
-	position: absolute;
+    position: absolute;
 }
 .container-element {
     background: #c8e8f3;
@@ -105,14 +105,14 @@ textarea {
     margin-top: -37.5px;
 }
 .position-arrow-two {
-	left: 20px;
+    left: 20px;
 }
 .position-arrow-two-one {
-	top: 156px;
+    top: 156px;
     left: 95px;
 }
 .line-right-one {
-	width: 15px;
+    width: 15px;
     height: 65px;
     top: 0px;
     left: 7.5px;
@@ -120,11 +120,11 @@ textarea {
     position: absolute;
 }
 .container-element-two {
-	left: 57px;
+    left: 57px;
 }
 .container-element-two-top {
-	top: 100px;
-	left: 60px;
+    top: 100px;
+    left: 60px;
 }
 .container-element-two-bottom {
     left: 210px;
@@ -132,34 +132,34 @@ textarea {
     height: 87px;
 }
 .position-arrow-three {
-	left: 170px;
+    left: 170px;
 }
 .container-element-three {
-	left: 207px;
+    left: 207px;
 }
 .position-arrow-four {
-	left: 320px;
+    left: 320px;
 }
 .container-element-four {
-	left: 357px;
+    left: 357px;
 }
 .position-arrow-five {
-	left: 470px;
+    left: 470px;
 }
 .container-element-five {
-	left: 507px;
+    left: 507px;
 }
 .position-arrow-six {
-	left: 770px;
+    left: 770px;
 }
 .container-element-six {
-	left: 807px;
+    left: 807px;
 }
 .position-arrow-six-left {
-	left: 620px;
+    left: 620px;
 }
 .container-element-six-left {
-	left: 657px;
+    left: 657px;
 }
 .position-arrow-seven {
     left: 920px;
@@ -179,8 +179,8 @@ textarea {
     height: 87px;
 }
 .container-element-seven-bottom {
-	left: 1261px;
-	top: 420px;
+    left: 1261px;
+    top: 420px;
 }
 .position-arrow-eight {
     left: 1070px;
@@ -195,11 +195,11 @@ textarea {
     left: 1411px;
 }
 .position-arrow-two-two {
-	left: 995px;
-	top: 110px;
+    left: 995px;
+    top: 110px;
 }
 .position-arrow-two-three {
-	top: 315px;
+    top: 315px;
     left: 245px;
 }
 .point-right-three {
@@ -221,7 +221,7 @@ textarea {
     left: 398px;
 }
 .position-arrow-two-five {
-	top: 315px;
+    top: 315px;
     left: 695px;
 }
 .position-arrow-two-six {
@@ -237,7 +237,7 @@ textarea {
     left: 1150px;
 }
 .position-arrow-two-seven {
-	top: 425px;
+    top: 425px;
     left: 400px;
 }
 .line-right-seven {
@@ -258,7 +258,7 @@ textarea {
     left: 842px;
 }
 .line-right-four {
-	width: 15px;
+    width: 15px;
     height: 100px;
     top: 0px;
     left: 7.5px;
@@ -266,7 +266,7 @@ textarea {
     position: absolute;
 }
 .point-right-four {
-	width: 0px;
+    width: 0px;
     height: 0px;
     border-style: solid;
     border-width: 15px;
@@ -413,18 +413,19 @@ textarea {
     float: left;
 }
 .point-check {
-    height: 25px;
-    width: 25px;
+    height: 34px;
+    width: 34px;
     position: relative;
-    border-width: 2px;
-    border-color: #039edc;
+    border-width: 7px;
+    border-color: #1fa0a0;
     border-style: solid;
     padding-left: 6px;
     font-size: 15px;
     float: left;
-    margin-left: 30px;
+    margin-top: 3px;
     cursor: pointer;
     border-radius: 5px;
+    background-color: #ffffff;
 }
 .text-chech {
     padding: 0px;
@@ -492,13 +493,7 @@ textarea {
     font-size: 25px;
 }
 .equation {
-    color: #31708f;
-    background-color: #d9edf7;
-    border-color: #bce8f1;
-    padding: 20px;
-    border-radius: 10px;
-    margin: 30px;
-    margin-left: 105px;
+    font-size: 14px !important;
 }
 .container-graph {
     position: relative;
