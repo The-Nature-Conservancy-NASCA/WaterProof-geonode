@@ -1,6 +1,20 @@
+
+
+
+@media (min-width:120px) and (max-width:767){
+    .container {
+        padding-right: 15px !important;
+        padding-left: 30rem !important;
+        width: 735px !important;
+    }
+}
 .side {
     height: 100%;
     background-image: url('/static/geonode/img/FONDO.jpg');
+}
+#mapidcuenca{
+    width: 430px; 
+    height: 300px;
 }
 
 
@@ -111,15 +125,91 @@
     background: none;
 }
 
-.container {
-    padding-right: 15px !important;
-    padding-left: 30rem !important;
-    margin-right: 0 !important;
-    margin-left: 0 !important;
-    width: 1320px !important;
-  }
 
-@media(min-width:768px) {
+@media (min-width:1200px){
+
+    .container {
+        width: 1130px !important;
+        padding-right: 15px !important;
+        padding-left: 25rem !important;
+    }
+    #mapidcuenca{
+        width: 600px; 
+        height: 400px;
+    } 
+    #wrapper {
+        padding-left: 28rem;
+    }
+
+    #wrapper.toggled {
+        padding-left: 0;
+    }
+
+    #sidebar-wrapper {
+        width: 28rem;
+    }
+
+    #wrapper.toggled #sidebar-wrapper {
+        width: 0;
+    }
+
+    #page-content-wrapper {
+        padding: 20px;
+        position: relative;
+    }
+
+    #wrapper.toggled #page-content-wrapper {
+        position: relative;
+        margin-right: 0;
+    }
+}
+@media (min-width:993px) and (max-width:1200px){
+    .container {
+        width: 970px !important;
+        padding-right: 15px !important;
+        padding-left: 30rem !important;
+    }
+
+    #mapidcuenca{
+        width: 430px; 
+        height: 300px;
+    }
+    #wrapper {
+        padding-left: 28rem;
+    }
+
+    #wrapper.toggled {
+        padding-left: 0;
+    }
+
+    #sidebar-wrapper {
+        width: 28rem;
+    }
+
+    #wrapper.toggled #sidebar-wrapper {
+        width: 0;
+    }
+
+    #page-content-wrapper {
+        padding: 20px;
+        position: relative;
+    }
+
+    #wrapper.toggled #page-content-wrapper {
+        position: relative;
+        margin-right: 0;
+    }
+}
+@media (min-width:768px) and (max-width:992px){
+    .container {
+        padding-right: 15px !important;
+        padding-left: 30rem !important;
+        width: 755px !important;
+    }
+    #mapidcuenca{
+        width: 430px; 
+        height: 300px;
+    }
     #wrapper {
         padding-left: 28rem;
     }
