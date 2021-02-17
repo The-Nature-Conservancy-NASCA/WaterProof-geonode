@@ -51,15 +51,14 @@ $(document).ready(function() {
         text = $("#select_custom option:selected").text();
         value = $("#select_custom option:selected").val();
         $('#select_custom option:selected').remove();
-        var name = "<td>" + text + "</td>";
-        var name_source = "<td>" + text + "</td>";
         var action = "<td><a class='btn btn-danger'><span class='glyphicon glyphicon-trash' aria-hidden='true'></span></a></td>";
-        check = " <td>";
-        $.get("http://localhost:8000/study_cases/intakescinfralist/" + value, function(data) {
+        $.get("http://localhost:8000/study_cases/scinfra/" + value, function(data) {
             $.each(data, function(index, value) {
-                check += "<div class='custom-control custom-checkbox'>" +
-                    "<input type='checkbox' class='custom-control-input'>  SCINFRA - " + value.name + "</div>" +
-                    "<button type='button' class='btn btn-primary' id='add_wi'>Add new cost</button>"
+                var name = "<td>" + value.intake__name + "</td>";
+                var name_source = "<td>" + value.intake__water_source_name + "</td>";
+                check = " <td>";
+                check += "<div>" + value.name + " - " + value.graphId +
+                    "</div><button type='button' class='btn btn-primary' id='add_wi'>Add new cost</button>"
                 check += "</td>";
                 var markup = "<tr>" + name + name_source + check + action + "</tr>";
                 $("table tbody").append(markup);
@@ -73,9 +72,15 @@ $(document).ready(function() {
 
     $('#step1NextBtn').click(function() {
         if ($('#id_name').val() != '' && $('#id_description').val() != '' && $('table tr').length > 1) {
-            $('#smartwizard').smartWizard("next");
-            $('#autoAdjustHeightF').css("height", "auto");
-            $("#form").submit();
+            $.post("http://localhost:8000/study_cases/save/", {
+                name: $('#id_name').val(),
+                description: $('#id_description').val()
+            }, function(data) {
+                console.log(data)
+                $('#smartwizard').smartWizard("next");
+                $('#autoAdjustHeightF').css("height", "auto");
+            }, "json");
+
         } else {
             Swal.fire({
                 icon: 'warning',

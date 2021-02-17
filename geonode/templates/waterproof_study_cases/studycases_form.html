@@ -21,6 +21,9 @@
             <li>
                 <a class="nav-link" href="#step-1"> Define </a>
             </li>
+            <li>
+                <a class="nav-link" href="#step-2"> Carbon Market </a>
+            </li>
         </ul>
         <!--Steps-->
         <div class="tab-content" id="autoAdjustHeightF">
@@ -102,7 +105,7 @@
                                     <div class="col-md-9">
                                         <select class="form-control" id="select_custom">
                                             {% for intake in intakes %}
-                                            <option value="{{intake.id}}">{{intake.name}}</option>
+                                            <option value="{{intake.id}}">{{intake.intake__name}} - {{intake.name}} - {{intake.graphId}}</option>
                                             {% endfor %}
                                         </select>
                                     </div>
@@ -115,7 +118,7 @@
                                         <tr class="info">
                                             <th scope="col" class="small text-center vat">{% trans "name" %}</th>
                                             <th scope="col" class="small text-center vat">{% trans "Name of the water source" %}</th>
-                                            <th scope="col" class="small text-center vat">{% trans "infrastructure treatment plant" %}</th>
+                                            <th scope="col" class="small text-center vat">{% trans "Study cases infrastructure" %}</th>
                                             <th scope="col" class="small text-center vat">{% trans "Action" %}</th>
                                         </tr>
 

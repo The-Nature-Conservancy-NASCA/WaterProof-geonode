@@ -10,6 +10,7 @@ urlpatterns = [
     path('', views.listStudyCases, name='study-cases-list'),
     # Create Study Cases
     path('create/', views.create, name='create'),
-    path('intakescinfralist/<int:id_intake>/', views.getIntakeSCInfraList, name='intake-scinfra'),
+    path('scinfra/<int:id_scinfra>/', views.getSCInfra, name='intake-scinfra'),
+    path('save/', views.save, name='study_cases_save'),
     
 ]

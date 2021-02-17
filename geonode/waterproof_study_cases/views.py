@@ -13,6 +13,7 @@ from django.http import HttpResponse, Http404, HttpResponseRedirect, JsonRespons
 from django.shortcuts import render, redirect, get_object_or_404
 from django.template.response import TemplateResponse
 from rest_framework.decorators import api_view
+from rest_framework.parsers import JSONParser
 from django.urls import reverse
 from .models import StudyCases
 from . import forms
@@ -20,6 +21,7 @@ from geonode.waterproof_nbs_ca.models import Countries, Region, Currency
 from geonode.waterproof_intake.models import City, Intake, ElementSystem
 from geonode.waterproof_treatment_plants.models import TreatmentPlants
 from django.utils import timezone
+from django.forms.models import model_to_dict
 from django.utils.translation import ugettext_lazy as _
 from django.views.generic import CreateView, DetailView, ListView
 
@@ -86,7 +88,6 @@ def listStudyCases(request):
 
 
 def create(request):
-    logger.debug(request.method)
     # POST submit FORM
     if request.method == 'POST':
         form = forms.StudyCasesForm(request.POST)
@@ -97,26 +98,40 @@ def create(request):
             messages.success(request, ("Study case created."))
             return HttpResponseRedirect(reverse('study_cases_list'))
     else:
-        intakes_csinfra_list = []
-        filterIntakeCSInfra = ElementSystem.objects.all()
-        for csInfra in filterIntakeCSInfra:
-            intakes_csinfra_list.append({"id": csInfra.id, "name": csInfra.name})
+        filterIntakeCSInfra = ElementSystem.objects.filter(intake__city='1').values(
+            "id", "name", "intake__name", "intake__id", "graphId")
         form = forms.StudyCasesForm()
         return render(request,
-                  'waterproof_study_cases/studycases_form.html',
-                  context={"form": form,
-                           "serverApi": settings.WATERPROOF_API_SERVER,
-                           'intakes': intakes_csinfra_list
-                           }
-                  )
+                      'waterproof_study_cases/studycases_form.html',
+                      context={"form": form,
+                               "serverApi": settings.WATERPROOF_API_SERVER,
+                               'intakes': filterIntakeCSInfra
+                               }
+                      )
 
 
 @api_view(['GET'])
-def getIntakeSCInfraList(request, id_intake):
-	if request.method == 'GET':
-		filterIntakeCSInfra = ElementSystem.objects.filter(intake_id=id_intake)
-		objects_list = []
-		for csInfra in filterIntakeCSInfra:
-			objects_list.append({"id": csInfra.id, "name": csInfra.name})
-		return JsonResponse(objects_list, safe=False)
+def getSCInfra(request, id_scinfra):
+    if request.method == 'GET':
+        filterIntakeCSInfra = ElementSystem.objects.filter(id=id_scinfra).values(
+            "id", "name", "intake__name", "intake__id", "intake__water_source_name", "graphId")
+        data = list(filterIntakeCSInfra)
+        return JsonResponse(data, safe=False)
 
+
+@api_view(['POST'])
+def save(request):
+    if request.method == 'POST':
+        name = request.POST['name']
+        description = request.POST['description']
+        sc = StudyCases.objects.filter(dws_name=name)
+        if sc.exists():
+            logger.error("EXISTE")
+        else:
+            sc = StudyCases()
+            sc.dws_create_date = datetime.datetime.now()
+            sc.dws_name = name
+            sc.dws_description =description
+            sc.save()
+            logger.error("NUEVO")
+    return JsonResponse({'id_study_case': 1}, safe=False)
