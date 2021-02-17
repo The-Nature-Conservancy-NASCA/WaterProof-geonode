@@ -1,4 +1,4 @@
-{% extends "menu.html" %} {% load i18n %} {% load l10n %}{% load bootstrap_tags %} {% block extra_head %} {% endblock %} {% block body_outer %}
+{% extends "menu.html" %} {% load i18n %} {% load l10n %}{% load bootstrap_tags %} {% load decimal_format %}{% block extra_head %} {% endblock %} {% block body_outer %}
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_nbs_ca/css/bootstrap-duallistbox.min.css">
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_nbs_ca/css/waterproof_nbs_ca.css">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
@@ -126,8 +126,7 @@
             </div>
         </div>
     </div>
-    <h4 class="text-primary">{% trans "LAND USE" %}<span style="margin-left: 40%;">{% trans "LAND COVER CHANGE
-            DEFINITION" %}</span></h4>
+    <h4 class="text-primary">{% trans "LAND USE" %}<span style="margin-left: 40%;">{% trans "LAND COVER CHANGE DEFINITION" %}</span></h4>
     <div class="form-group">
         <div class="row">
             {% for tran in transitions %}

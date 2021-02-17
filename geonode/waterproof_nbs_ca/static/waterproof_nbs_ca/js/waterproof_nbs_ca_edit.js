@@ -73,6 +73,7 @@ $(function () {
         changeTransitionEvent(transitionsDropdown, activitiesDropdown);
         // Change country dropdown event listener 
         changeCountryEvent(countryDropdown, currencyDropdown);
+        changeCurrencyEvent(currencyDropdown);
         submitFormEvent();
         changeFileEvent();
         initMap();
@@ -497,6 +498,23 @@ $(function () {
                 }
             });
         });
+    };
+    changeCurrencyEvent = function (currencyDropdown) {
+        currencyDropdown.change(function (event) {
+            let currencyText = event.currentTarget.selectedOptions[0].text;
+            let currencySplitText = currencyText.split("-");
+            let currencyCode = currencySplitText[0].replace(/[{()}]/g, '').replace(" ", "");
+            $('#currencyLabel').text(currencyText);
+            let impCostText = gettext("Implementation cost (%s/ha) ");
+            let impCostTrans = interpolate(impCostText, [currencyCode]);
+            let maintCostText = gettext("Maintenace cost (%s/ha) ");
+            let mainCostTrans = interpolate(maintCostText, [currencyCode]);
+            let oportCostText = gettext("Oportunity cost (%s/ha) ");
+            let oportCostTrans = interpolate(oportCostText, [currencyCode]);
+            $('#implementCostLabel').text(impCostTrans).append('<span class="text-danger-wp">(*)</span>');
+            $('#maintenanceCostLabel').text(mainCostTrans).append('<span class="text-danger-wp">(*)</span>');
+            $('#oportunityCostLabel').text(oportCostTrans).append('<span class="text-danger-wp">(*)</span>');
+        })
     };
     updateCountryMap = function (countryCode) {
         map.eachLayer(function (layer) {
