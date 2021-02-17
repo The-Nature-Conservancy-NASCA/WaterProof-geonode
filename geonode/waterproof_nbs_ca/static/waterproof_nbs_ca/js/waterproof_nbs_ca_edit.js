@@ -397,17 +397,22 @@ $(function () {
         }
 
         function updateDropdownCountry(feature) {
-            let mapClick = true;
-            let layerClicked = feature.target;
-            if (lastClickedLayer) {
-                lastClickedLayer.setStyle(defaultStyle);
+            if (!disableMap) {
+                let mapClick = true;
+                let layerClicked = feature.target;
+                if (lastClickedLayer) {
+                    lastClickedLayer.setStyle(defaultStyle);
+                }
+
+                layerClicked.setStyle(highlighPolygon);
+                let countryCode = feature.sourceTarget.feature.id;
+                $('#countryNBS option[data-value=' + countryCode + ']').attr('selected', true).trigger('click', { mapClick });
+
+                lastClickedLayer = feature.target;
             }
-
-            layerClicked.setStyle(highlighPolygon);
-            let countryCode = feature.sourceTarget.feature.id;
-            $('#countryNBS option[data-value=' + countryCode + ']').attr('selected', true).trigger('click', { mapClick });
-
-            lastClickedLayer = feature.target;
+            else {
+                return;
+            }
         }
         //map.on('click', onMapClick);
     }

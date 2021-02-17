@@ -60,13 +60,13 @@
                     {% else %}
                         <td class="small text-center vat">{{sbn.unit_implementation_cost|decimalFormat:2}}</td>
                         <td class="small text-center vat">{{sbn.unit_maintenance_cost|decimalFormat:2}}</td>
-                        <td class="small text-center vat">{{sbn.unit_oportunity_cost|decimalFormat:2}}</td>-
+                        <td class="small text-center vat">{{sbn.unit_oportunity_cost|decimalFormat:2}}</td>
                     {% endif %}
                 <!-- The user is not analyst so, we show normal values -->
                 {% else %}
                     <td class="small text-center vat">{{sbn.unit_implementation_cost|decimalFormat:2}}</td>
                     <td class="small text-center vat">{{sbn.unit_maintenance_cost|decimalFormat:2}}</td>
-                    <td class="small text-center vat">{{sbn.unit_oportunity_cost|decimalFormat:2}}</td>-
+                    <td class="small text-center vat">{{sbn.unit_oportunity_cost|decimalFormat:2}}</td>
                 {% endif %}
                 <td class="small text-center vat">{{sbn.periodicity_maitenance}}</td>
                 <td class="small text-center vat">&nbsp</td>
