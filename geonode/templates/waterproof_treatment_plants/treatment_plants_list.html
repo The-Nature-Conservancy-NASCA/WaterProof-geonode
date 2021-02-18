@@ -1,4 +1,4 @@
-{% extends "geonode_base.html" %} {% load i18n %} {% block title %}{% trans "Water Treatment" %}{% endblock %} {% load i18n %} {% load staticfiles %} {% load bootstrap_tags %}
+{% extends "menu.html" %} {% load i18n %} {% block title %}{% trans "Water Treatment" %}{% endblock %} {% load i18n %} {% load staticfiles %} {% load bootstrap_tags %}
 <h1>{% trans "Water Treatment" %}</h1>
 
 {% block extra_head %}
@@ -6,6 +6,7 @@
 <link rel="stylesheet" href="{% static " geonode/css/leaflet/Control.Coordinates.css " %}" />
 <link rel="stylesheet" href="https://photon.komoot.io/static/leaflet.photon/leaflet.photon.css">
 </link>
+
 {% endblock %} {% block body_outer %}
 
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_nbs_ca/css/dataTables.bootstrap.min.css">
