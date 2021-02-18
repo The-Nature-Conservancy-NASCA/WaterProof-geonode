@@ -301,3 +301,22 @@ function validateDbfFields(geojson) {
         return false;
     }
 }
+/** 
+ * Validate max file upload
+ * @param {Object} file   file uploaded
+ *
+ * @return {Boolean} True|False is a valid size
+ */
+function validFileSize(file) {
+    let size =file.size / 1024 / 1024;
+    if (size > 0 && size <= 10) {
+        return true;
+    } else {
+        Swal.fire({
+            icon: 'error',
+            title: gettext('File size error'),
+            text: gettext('File exceed size')
+        })
+        return false;
+    }
+}

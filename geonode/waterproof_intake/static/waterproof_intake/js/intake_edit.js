@@ -26,6 +26,7 @@ var catchmentPoly;
 var catchmentPolyDelimit;
 var copyCoordinates = [];
 var editablepolygon;
+var validGeometry=true;
 var validPolygon;
 var isFile;
 var delimitationFileType;
@@ -313,10 +314,6 @@ $(document).ready(function() {
             $('#smartwizard').smartWizard("stepState", [3], "hide");
             for (const item of graphData) {
                 if (item.external != null && item.external != 'false') {
-                    $('#IntakeTDLE table').remove();
-                    $('#externalSelect option').remove();
-                    $('#IntakeTDLE').empty();
-                    $('#externalSelect').empty();
                     $('#smartwizard').smartWizard("stepState", [3], "show");
                 }
             }
@@ -340,26 +337,6 @@ $(document).ready(function() {
     });
 
     $('#step3NextBtn').click(function() {
-        var tempNum = 0;
-        for (let index = 0; index < graphData.length; index++) {
-            if (graphData[index].external == "true") {
-                tempNum += 1;
-            }
-        }
-        if (tempNum == intakeExternalInputs.length) {
-            if (banderaInpolation != 1) {
-                $("#intakeWECB").click();
-            } else {
-                $('#IntakeTDLE table').remove();
-                $('#IntakeTDLE').empty();
-                $('#externalSelect option').remove();
-                $('#externalSelect').empty();
-                $('#externalSelect').append(`<option value="null" selected>Choose here</option>`);
-                loadExternalInput();
-            }
-
-        }
-
         if ($('#intakeECTAG')[0].childNodes.length > 1 || $('#intakeWEMI')[0].childNodes.length > 1) {
             if (waterExtractionData.typeInterpolation == interpolationType.MANUAL) {
                 waterExtractionValue = [];
@@ -403,80 +380,43 @@ $(document).ready(function() {
         }
     });
 
-    // Generate table external Input
-    function externalInput(numYear) {
-        var rows = "";
-        var numberExternal = 0;
-        $('#externalSelect').append(`<option value="null" selected>Choose here</option>`);
-        for (let p = 0; p < graphData.length; p++) {
-            if (graphData[p].external == 'true') {
-                numberExternal += 1
-                $('#externalSelect').append(`
-                            <option value="${graphData[p].id}">${graphData[p].id} - External Input</option>
-                    `);
-                rows = "";
-                for (let index = 0; index <= numYear; index++) {
-                    rows += (`<tr>
-                                <th class="text-center" scope="col" name="year_${graphData[p].id}" year_value="${index + 1}">${index + 1}</th>
-                                <td class="text-center" scope="col"><input type="text" class="form-control" name="waterVolume_${index + 1}_${graphData[p].id}"></td>
-                                <td class="text-center" scope="col"><input type="text" class="form-control" name="sediment_${index + 1}_${graphData[p].id}"></td>
-                                <td class="text-center" scope="col"><input type="text" class="form-control" name="nitrogen_${index + 1}_${graphData[p].id}" ></td>
-                                <td class="text-center" scope="col"><input type="text" class="form-control" name="phosphorus_${index + 1}_${graphData[p].id}"></td>
-                            </tr>`);
-                }
-                $('#IntakeTDLE').append(`
-                        <table class="table" id="table_${graphData[p].id}" style="display: none">
-                            <thead>
-                                <tr>
-                                    <th class="text-center" scope="col">Year</th>
-                                    <th class="text-center" scope="col">Water Volume (m3)</th>
-                                    <th class="text-center" scope="col">Sediment (Ton)</th>
-                                    <th class="text-center" scope="col">Nitrogen (Kg)</th>
-                                    <th class="text-center" scope="col">Phosphorus (Kg)</th>
-                                </tr>
-                            </thead>
-                            <tbody>${rows}</tbody>
-                        </table>    
-                `);
-            }
-        }
-        $('#ExternalNumbersInputs').html(numberExternal)
-    }
-
     function loadExternalInput() {
+        $('#externalSelect').append(`<option value="null" selected>Choose here</option>`);
+        for (const extractionData of graphData) {
+            if (extractionData.external == 'true') {
+                extractionData.externaldata = JSON.parse(extractionData.externaldata);
+                $('#externalSelect').append(`
+                    <option value="${extractionData.id}">${extractionData.id} - External Input</option>
+                `);
 
-        for (const extractionData of intakeExternalInputs) {
-            $('#externalSelect').append(`
-                <option value="${extractionData.xmlId}">${extractionData.xmlId} - External Input</option>
-            `);
-            rows = "";
-            for (let index = 0; index < extractionData.waterExtraction.length; index++) {
-                rows += (`<tr>
-                        <th class="text-center" scope="col" name="year_${extractionData.waterExtraction[index].year}" year_value="${index + 1}">${index + 1}</th>
-                        <td class="text-center" scope="col"><input type="text" value="${extractionData.waterExtraction[index].waterVol}" class="form-control" name="waterVolume_${index + 1}_${extractionData.xmlId}"></td>
-                        <td class="text-center" scope="col"><input type="text" value="${extractionData.waterExtraction[index].sediment}" class="form-control" name="sediment_${index + 1}_${extractionData.xmlId}"></td>
-                        <td class="text-center" scope="col"><input type="text" value="${extractionData.waterExtraction[index].nitrogen}" class="form-control" name="nitrogen_${index + 1}_${extractionData.xmlId}" ></td>
-                        <td class="text-center" scope="col"><input type="text" value="${extractionData.waterExtraction[index].phosphorus}" class="form-control" name="phosphorus_${index + 1}_${extractionData.xmlId}"></td>
-                  </tr>`);
+                rows = "";
 
+                for (const iterator of extractionData.externaldata) {
+                    rows += (`<tr>
+                                <th class="text-center" scope="col" name="year_${extractionData.id}" year_value="${iterator.year}">${iterator.year}</th>
+                                <td class="text-center" scope="col"><input type="text" value="${iterator.waterVol}" class="form-control" name="waterVolume_${iterator.year}_${extractionData.id}"></td>
+                                <td class="text-center" scope="col"><input type="text" value="${iterator.sediment}" class="form-control" name="sediment_${iterator.year}_${extractionData.id}"></td>
+                                <td class="text-center" scope="col"><input type="text" value="${iterator.nitrogen}" class="form-control" name="nitrogen_${iterator.year}_${extractionData.id}" ></td>
+                                <td class="text-center" scope="col"><input type="text" value="${iterator.phosphorus}" class="form-control" name="phosphorus_${iterator.year}_${extractionData.id}"></td>
+                          </tr>`);
+                }
+
+                $('#IntakeTDLE').append(`
+                          <table class="table" id="table_${extractionData.id}" style="display: none;">
+                              <thead>
+                                  <tr>
+                                      <th class="text-center" scope="col">Year</th>
+                                      <th class="text-center" scope="col">Water Volume (m3)</th>
+                                      <th class="text-center" scope="col">Sediment (Ton)</th>
+                                      <th class="text-center" scope="col">Nitrogen (Kg)</th>
+                                      <th class="text-center" scope="col">Phosphorus (Kg)</th>
+                                  </tr>
+                              </thead>
+                              <tbody>${rows}</tbody>
+                          </table>    
+                  `);
             }
-            $('#IntakeTDLE').append(`
-                  <table class="table" id="table_${extractionData.xmlId}" style="display: none;">
-                      <thead>
-                          <tr>
-                              <th class="text-center" scope="col">Year</th>
-                              <th class="text-center" scope="col">Water Volume (m3)</th>
-                              <th class="text-center" scope="col">Sediment (Ton)</th>
-                              <th class="text-center" scope="col">Nitrogen (Kg)</th>
-                              <th class="text-center" scope="col">Phosphorus (Kg)</th>
-                          </tr>
-                      </thead>
-                      <tbody>${rows}</tbody>
-                  </table>    
-          `);
         }
-
-
     }
 
     $('#step4PrevBtn').click(function() {
@@ -485,6 +425,25 @@ $(document).ready(function() {
 
     $('#step5PrevBtn').click(function() {
         $('#smartwizard').smartWizard("prev");
+    });
+
+    $('#submit').click(function(event) {
+        if (!validGeometry) {
+            event.preventDefault();
+            Swal.fire({
+                icon: 'error',
+                title: gettext('Geometry error'),
+                text: gettext('You must validate the basin geometry')
+            })
+        }
+        else {
+            Swal.fire({
+                icon: 'success',
+                text: gettext('The water intake is being saved'),
+                allowOutsideClick: true,
+                showConfirmButton: false
+            });
+        }
     });
 
     // Change Option Manual Tab
@@ -713,6 +672,7 @@ function setInterpolationParams() {
  */
 function delimitIntakeArea() {
     isFile = false;
+    validGeometry=false;
     copyCoordinates = [];
     console.log('Delimiting');
     var polygonKeys = Object.keys(catchmentPoly._layers);
@@ -766,6 +726,7 @@ function validateIntakeArea() {
                     })
                     // Correct geometry
             } else {
+                validGeometry=true;
                 Swal.fire(
                     gettext('Great!'),
                     gettext("Is a valid polygon inside basin's geometries"),
