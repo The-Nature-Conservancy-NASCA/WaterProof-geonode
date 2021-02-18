@@ -335,32 +335,33 @@
             <div id="step-5" class="tab-pane" role="tabpanel">
                 <div class="row">
                     <!--Map-->
-                    <div class="col-md-8">
+                    <div class="col-md-7">
                         <div class="panel panel-danger">
                             <div id="mapid" style="width: 100%; height: 400px;"></div>
                         </div>
                     </div>
                     <!--Panel Information Right-->
-                    <div class="col-md-4">
+                    <div class="col-md-5">
                         <div class="panel panel-default">
                             <div class="panel-body">
                                 <div class="alert alert-info" role="alert">
                                     <h1 class="text-center">{% trans "Intake area delimitation" %}</h1>
                                 </div>
-                               
+                                <p>{% trans "You can change the area"%}</p>
+                                <p>{% trans "To  move area vertices" %}</p>
                                 <div class="form-group">
                                     <button type="button" class="btn btn-primary" id="btnDelimitArea"> {%trans "Manually area delimit" %}</button>
                                 </div>
+                                <p>{% trans "To load shapefile" %}</p>
+                                <div class="form-group">
+                                    <input id="intakeArea" type="file"> <button type="button" class="btn btn-link" data-toggle="modal" data-target="#HelpGeom" id="HelpGeomModal" style="outline:none; text-decoration:none;">
+                                        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> {% trans "Help" %}</button>
+                                    </button>
+                                </div>
+                                <p>{% trans "Once defined the area" %}</p>
                                 <div class="form-group">
                                     <button type="button" class="btn btn-primary" id="btnValidateArea"> {% trans "Validate delimit area" %}</button>
                                 </div>
-                                <div class="form-group">
-                                    <label>{% trans "Load file to delimit area" %}<span class="text-danger-wp"></span></label><button type="button" class="btn btn-link" data-toggle="modal" data-target="#HelpGeom" id="HelpGeomModal" style="outline:none; text-decoration:none;">
-                                        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> {% trans "Help" %}</button>
-                                    </button>
-                                    <input id="intakeArea" type="file">
-                                </div>
-                                
                             </div>
                         </div>
                     </div>
