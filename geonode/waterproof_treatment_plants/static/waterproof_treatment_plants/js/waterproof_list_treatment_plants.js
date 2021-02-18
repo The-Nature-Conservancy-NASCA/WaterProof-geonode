@@ -135,10 +135,6 @@ $(function () {
                 }
             });
 
-console.log(arrayFunction);
-
-saveForm = false;
-
             if(saveForm) {
                 var urlDetail = "../../treatment_plants/setHeaderPlant/";
                 $.ajax({
@@ -151,7 +147,8 @@ saveForm = false;
                             "plantName" : $('#idNamePlant').val(),
                             "plantDescription" : $('#idDescriptionPlant').val(),
                             "plantSuggest" : letterPlant,
-                            "element" : arrayPlant
+                            "element" : arrayPlant,
+                            "function" : arrayFunction
                         }
                     }),success: function(result) {
                         window.location.href ="../../treatment_plants/";
