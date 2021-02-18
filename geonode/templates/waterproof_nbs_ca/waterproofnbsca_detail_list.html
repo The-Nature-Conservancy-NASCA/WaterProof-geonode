@@ -48,7 +48,7 @@
     <div class="row">
         <div class="col-md-6">
             <label>{% trans "Time required to generate maximun benefit (yr)" %}</label>
-            <input value="{{sbn.total_profits_sbn_consec_time}}" type="text" disabled class="form-control" required>
+            <input value="{{sbn.max_benefit_req_time}}" type="text" disabled class="form-control" required>
         </div>
         <div class="col-md-6">
             <label>{% trans "Percentage of benefit associated with interventions at time t=0" %}</label>
@@ -58,11 +58,6 @@
 </div>
 <div class="form-group">
     <div class="row">
-        <div class="col-md-6">
-            <label>{% trans "Consecution Time Total Benefits (to elimitate)" %}
-              </label>
-            <input value="{{ sbn.total_profits_sbn_consec_time }}" disabled type="text" class="form-control" required>
-        </div>
         <div class="col-md-6">
             <label>{% trans "Periodicity of maintenance (yr)" %}</label>
             <input value="{{ sbn.periodicity_maitenance }}" disabled type="text" class="form-control" required>
