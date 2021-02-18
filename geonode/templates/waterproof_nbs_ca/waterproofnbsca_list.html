@@ -33,9 +33,9 @@
                 <th scope="col" class="small text-center vat">{% trans "User" %}</th>                
                 <th scope="col" class="small text-center vat">{% trans "Country" %}</th>
                 <th scope="col" class="small text-center vat">{% trans "Percentage of benefit associated with interventions at time t=0" %}</th>
-                <th scope="col" class="small text-center vat">{% trans "Implementation cost (US$/ha)" %}</th>
-                <th scope="col" class="small text-center vat">{% trans "Maintenace cost (US$/ha)" %}</th>
-                <th scope="col" class="small text-center vat">{% trans "Oportunity cost (US$/ha)" %}</th>
+                <th scope="col" class="small text-center vat">{% trans "Implementation cost (currency/ha)" %}</th>
+                <th scope="col" class="small text-center vat">{% trans "Maintenace cost (currency/ha)" %}</th>
+                <th scope="col" class="small text-center vat">{% trans "Oportunity cost (currency/ha)" %}</th>
                 <th scope="col" class="small text-center vat">{% trans "Periodicity of maintenance (yr)" %}</th>
                 <th scope="col" class="small text-center vat">{% trans "Currency" %}</th> 
                 <th scope="col" class="small text-center vat">{% trans "Options" %}</th>
@@ -60,13 +60,13 @@
                     {% else %}
                         <td class="small text-center vat">{{sbn.unit_implementation_cost|decimalFormat:2}}</td>
                         <td class="small text-center vat">{{sbn.unit_maintenance_cost|decimalFormat:2}}</td>
-                        <td class="small text-center vat">{{sbn.unit_oportunity_cost|decimalFormat:2}}</td>-
+                        <td class="small text-center vat">{{sbn.unit_oportunity_cost|decimalFormat:2}}</td>
                     {% endif %}
                 <!-- The user is not analyst so, we show normal values -->
                 {% else %}
                     <td class="small text-center vat">{{sbn.unit_implementation_cost|decimalFormat:2}}</td>
                     <td class="small text-center vat">{{sbn.unit_maintenance_cost|decimalFormat:2}}</td>
-                    <td class="small text-center vat">{{sbn.unit_oportunity_cost|decimalFormat:2}}</td>-
+                    <td class="small text-center vat">{{sbn.unit_oportunity_cost|decimalFormat:2}}</td>
                 {% endif %}
                 <td class="small text-center vat">{{sbn.periodicity_maitenance}}</td>
                 <td class="small text-center vat">&nbsp</td>
