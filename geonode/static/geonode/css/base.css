@@ -8488,6 +8488,14 @@ form-inline {
   background-repeat: no-repeat;
   background-size:cover;
 }
+.imgbackgroundSystemop{
+  background: url(/static/geonode/img/bgSystemOperating.png);
+  height: 600px;
+  min-height: 100%;
+  min-width: 100%;
+  background-repeat: no-repeat;
+  background-size:cover;
+}
 .backgroundcolorwiki{
   background-color: #0C89AAAD;
 }
