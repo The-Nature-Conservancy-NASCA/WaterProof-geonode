@@ -102,3 +102,13 @@ input:checked+.slider:before {
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+.tablacheck{
+    border: 1px black solid;
+    margin: 0 !important; 
+    height: 4.1rem !important; 
+    padding: 0.9rem !important;
+}
+.borde{
+    border: 1px black solid;
+}
