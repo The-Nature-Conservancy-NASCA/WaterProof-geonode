@@ -69,7 +69,7 @@
                     <td class="small text-center vat">{{sbn.unit_oportunity_cost|decimalFormat:2}}</td>
                 {% endif %}
                 <td class="small text-center vat">{{sbn.periodicity_maitenance}}</td>
-                <td class="small text-center vat">&nbsp</td>
+                <td class="small text-center vat">{{sbn.currency.code}}</td>
                 <td>
                     <div class="btn-group btn-group-table" role="group">
                         <a class="btn btn-primary" href="/waterproof_nbs_ca/view/{{sbn.pk}}"><span
