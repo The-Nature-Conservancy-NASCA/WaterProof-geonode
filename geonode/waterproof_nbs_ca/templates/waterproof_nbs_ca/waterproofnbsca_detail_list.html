@@ -1,5 +1,9 @@
-{% extends "geonode_base.html" %} {% load i18n %} {% block title %} {% trans "Waterproof Detail NBS CA" %} {% endblock %}
-<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_nbs_ca/css/waterproof_nbs_ca.css"> {% block body_outer %} {% for sbn in nbs %}
+{% extends "menu.html" %} {% load i18n %} {% load decimal_format %}{% load multiply_factor %}{% block title %} {% trans "Waterproof Detail NBS CA" %} {% endblock %}
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_nbs_ca/css/waterproof_nbs_ca.css"> 
+{% block extra_head %}
+
+{% endblock %}
+{% block body_outer %} {% for sbn in nbs %}
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
     integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
     crossorigin="" />
@@ -15,6 +19,7 @@
     </div>
 </div>
 <div class="page-header">
+    {{userCountry.name}}
     <h1>{% trans "Detail sbn" %}</h1>
 </div>
 
@@ -31,6 +36,14 @@
 <div class="form-group">
     <div class="row">
         <div class="col-md-6">
+            <label>{% trans "Country" %}</label>
+            <select class="form-control" disabled required>
+                  {% for country in countries %}
+                  <option value="{{country.pk}}" {% if country.pk == sbn.country.pk %} selected{% endif %}>{{ country.name}}</option>
+                  {%  endfor %}
+                </select>
+        </div>
+        <div class="col-md-6">
             <label>{% trans "Currency for definition of costs" %}</label>
             <select class="form-control" disabled required>
                   {% for cur in currencies %}
@@ -44,7 +57,7 @@
     <div class="row">
         <div class="col-md-6">
             <label>{% trans "Time required to generate maximun benefit (yr)" %}</label>
-            <input value="{{sbn.total_profits_sbn_consec_time}}" type="text" disabled class="form-control" required>
+            <input value="{{sbn.max_benefit_req_time}}" type="text" disabled class="form-control" required>
         </div>
         <div class="col-md-6">
             <label>{% trans "Percentage of benefit associated with interventions at time t=0" %}</label>
@@ -55,11 +68,6 @@
 <div class="form-group">
     <div class="row">
         <div class="col-md-6">
-            <label>{% trans "Consecution Time Total Benefits (to elimitate)" %}
-              </label>
-            <input value="{{ sbn.total_profits_sbn_consec_time }}" disabled type="text" class="form-control" required>
-        </div>
-        <div class="col-md-6">
             <label>{% trans "Periodicity of maintenance (yr)" %}</label>
             <input value="{{ sbn.periodicity_maitenance }}" disabled type="text" class="form-control" required>
         </div>
@@ -68,18 +76,22 @@
 <h4 class="text-primary">{% trans "Unit costs" %}</h4>
 <div class="form-group">
     <div class="row">
-        <div class="col-md-6">
-            <label>{% trans "Currency for definition of costs" %}</label>
-            <select id="currenciesComapreSelect" class="form-control" required>
-                {% for cur in currencies %}
-                <option value="{{cur.factor}}">{{ cur.country.name }}</option>
-                {%  endfor %}
-              </select>
-        </div>
-        <div class="col-md-6">
-            <label>{% trans "Multiplying factor for overrall cost" %}</label>
-            <input disabled id="multiplyCurrencies" type="text" class="form-control" required>
-        </div>
+        {% if user.professional_role != 'ADMIN' %}
+            {% if sbn.added_by.professional_role == 'ADMIN' %}
+                <div class="col-md-6">
+                    <label>{% trans "Country for definition of costs" %}</label>
+                    <select id="currenciesComapreSelect" class="form-control" required>
+                        {% for country in countries %}
+                        <option value="{{country.factor}}" {% if country.pk == userCountry.pk %} selected{% endif %}>{{ country.name}}</option>
+                        {%  endfor %}
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label>{% trans "Multiplying factor for overrall cost" %}</label>
+                    <input disabled id="multiplyCurrencies" type="text" value="{{userCountry.factor}}"class="form-control" required>
+                </div>
+            {% endif %}
+        {% endif %}
     </div>
 </div>
 <div class="form-group">
@@ -105,27 +117,31 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-6">
-            <div class="panel  panel-danger">
-                <div class="panel-heading">
-                    <h3 class="panel-title">{% trans "Fact cost" %}</h3>
+        {% if user.professional_role != 'ADMIN' %}
+            {% if sbn.added_by.professional_role == 'ADMIN' %}
+                <div class="col-md-6">
+                    <div class="panel  panel-danger">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">{% trans "Fact cost" %}</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <label>{% trans "Implementation cost (US$/ha)" %}</label>
+                                <input type="text"  value="{{sbn.unit_implementation_cost|multiplyFactor:userCountry.factor|decimalFormat:2}}" class="form-control" id="a_unit_implementation_cost" required disabled>
+                            </div>
+                            <div class="form-group">
+                                <label>{% trans "Maintenace cost (US$/ha)" %}</label>
+                                <input type="text" value="{{sbn.unit_maintenance_cost|multiplyFactor:userCountry.factor|decimalFormat:2}}" class="form-control" id="a_unit_maintenance_cost" required disabled>
+                            </div>
+                            <div class="form-group">
+                                <label>{% trans "Oportunity cost (US$/ha)" %}</label>
+                                <input id="a_unit_oportunity_cost" value="{{sbn.unit_oportunity_cost|multiplyFactor:userCountry.factor|decimalFormat:2}}" type="text" class="form-control" required disabled>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="panel-body">
-                    <div class="form-group">
-                        <label>{% trans "Implementation cost (US$/ha)" %}</label>
-                        <input type="text" class="form-control" id="a_unit_implementation_cost" required disabled>
-                    </div>
-                    <div class="form-group">
-                        <label>{% trans "Maintenace cost (US$/ha)" %}</label>
-                        <input type="text" class="form-control" id="a_unit_maintenance_cost" required disabled>
-                    </div>
-                    <div class="form-group">
-                        <label>{% trans "Oportunity cost (US$/ha)" %}</label>
-                        <input id="a_unit_oportunity_cost" type="text" class="form-control" required disabled>
-                    </div>
-                </div>
-            </div>
-        </div>
+            {% endif %}
+        {% endif %}
     </div>
 </div>
 <div class="row">
@@ -163,14 +179,23 @@
         $("#currenciesComapreSelect").change(function() {
             var optionSelected = $(this).find("option:selected");
             var ValueSelected = optionSelected.val();
+            $('#multiplyCurrencies').val(ValueSelected);
             ValueSelected = parseFloat(ValueSelected.replace(/,/g, '.'));
             var implementation = parseFloat($('#b_unit_implementation_cost').val().replace(/,/g, '.'));
             var maintenance = parseFloat($('#b_unit_maintenance_cost').val().replace(/,/g, '.'));
             var oportunity = parseFloat($('#b_unit_oportunity_cost').val().replace(/,/g, '.'));
-            $('#multiplyCurrencies').val(ValueSelected);
-            $('#a_unit_implementation_cost').val(implementation * ValueSelected);
-            $('#a_unit_maintenance_cost').val(maintenance * ValueSelected);
-            $('#a_unit_oportunity_cost').val(oportunity * ValueSelected);
+            implementCost=implementation * ValueSelected;
+            implementCost=implementCost.toString();
+            implementCost=implementCost.slice(0, (implementCost.indexOf("."))+3).replace(".",",");
+            maintenanceCost=maintenance * ValueSelected;
+            maintenanceCost=maintenanceCost.toString();
+            maintenanceCost=maintenanceCost.slice(0, (maintenanceCost.indexOf("."))+3).replace(".",",");
+            oportunityCost=oportunity * ValueSelected;
+            oportunityCost=oportunityCost.toString();
+            oportunityCost=oportunityCost.slice(0, (oportunityCost.indexOf("."))+3).replace(".",",");
+            $('#a_unit_implementation_cost').val(implementCost);
+            $('#a_unit_maintenance_cost').val(maintenanceCost);
+            $('#a_unit_oportunity_cost').val(oportunityCost);
         });
     });
 </script>
