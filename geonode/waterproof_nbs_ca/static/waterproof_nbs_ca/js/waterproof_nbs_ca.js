@@ -40,7 +40,7 @@ $(function () {
                 $('div[name=selectlanduse]').css({
                     "display": "none"
                 });
-                $('div[name=selectlanduse]').find('input[type=checkbox]:checked').each(function (idx, input) {
+                $('div[name=selectlanduse]').find('input[type=radio]:checked').each(function (idx, input) {
                     input.checked = false;
                 });
             });
@@ -48,6 +48,7 @@ $(function () {
                 $(`#selectlanduse${dato}`).css({
                     "display": "block"
                 })
+                
             }
         });
         fillTransitionsDropdown(transitionsDropdown);
