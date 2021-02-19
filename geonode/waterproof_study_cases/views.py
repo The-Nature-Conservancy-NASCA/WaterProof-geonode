@@ -98,7 +98,7 @@ def create(request):
             messages.success(request, ("Study case created."))
             return HttpResponseRedirect(reverse('study_cases_list'))
     else:
-        filterIntakeCSInfra = ElementSystem.objects.filter(intake__city='1').values(
+        filterIntakeCSInfra = ElementSystem.objects.filter(normalized_category='CSINFRA').values(
             "id", "name", "intake__name", "intake__id", "graphId")
         form = forms.StudyCasesForm()
         return render(request,
