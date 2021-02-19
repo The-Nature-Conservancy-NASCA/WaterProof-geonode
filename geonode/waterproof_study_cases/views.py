@@ -121,17 +121,19 @@ def getSCInfra(request, id_scinfra):
 
 @api_view(['POST'])
 def save(request):
-    if request.method == 'POST':
+    if request.method == 'POST':        
         name = request.POST['name']
         description = request.POST['description']
-        sc = StudyCases.objects.filter(dws_name=name)
-        if sc.exists():
-            logger.error("EXISTE")
-        else:
-            sc = StudyCases()
-            sc.dws_create_date = datetime.datetime.now()
-            sc.dws_name = name
-            sc.dws_description =description
-            sc.save()
-            logger.error("NUEVO")
+        sc = StudyCases()
+        sc.dws_create_date = datetime.datetime.now()
+        sc.dws_name = name
+        sc.dws_description =description
+        sc.save()
+        intakes = request.POST.getlist('intakes[]')
+        for intake in intakes:
+            logger.error(intake)
+            it = ElementSystem.objects.get(pk=intake)
+            sc.dws_intakes.add(it)
+       
+       
     return JsonResponse({'id_study_case': 1}, safe=False)

@@ -24,7 +24,7 @@ from django.conf import settings
 from django.db import models
 from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
-from geonode.waterproof_intake.models import Intake
+from geonode.waterproof_intake.models import ElementSystem
 
 
 class StudyCases(models.Model):
@@ -52,7 +52,7 @@ class StudyCases(models.Model):
     dws_authorization_case = models.CharField(max_length=20, blank=True, null=True)
     dws_id_parent = models.IntegerField(blank=True, null=True)
     dws_benefit_carbon_market = models.BooleanField(blank=True, null=True)
-    dws_intakes = models.ManyToManyField(Intake)
+    dws_intakes = models.ManyToManyField(ElementSystem)
 
 class Meta:
     managed = False
