@@ -633,7 +633,8 @@ def viewNbs(request, idx):
     filterNbs = WaterproofNbsCa.objects.filter(id=idx)
     nbs = WaterproofNbsCa.objects.get(id=idx)
     country = Countries.objects.get(id=nbs.country_id)
-    userCountry = Countries.objects.get(code=country.code)
+    countries = Countries.objects.all()
+    userCountry = Countries.objects.get(code=request.user.country)
     region = Region.objects.get(id=nbs.country.region_id)
     currency = Currency.objects.get(country_id=country.id)
     currencies = Currency.objects.all()
@@ -646,6 +647,7 @@ def viewNbs(request, idx):
                       'country': country,
                       'nbs': filterNbs,
                       'currency': currency,
+                      'countries': countries,
                       'currencies': currencies,
                       'riosTransition': riosTransition,
                       'transitions': transitions
