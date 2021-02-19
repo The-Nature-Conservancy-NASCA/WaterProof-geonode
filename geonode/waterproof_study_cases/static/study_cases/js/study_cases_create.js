@@ -28,6 +28,7 @@ var validPolygon;
 var isFile;
 var delimitationFileType;
 var xmlGraph;
+var id_study_case;
 var waterExtractionData = {};
 var waterExtractionValue;
 const delimitationFileEnum = {
@@ -77,14 +78,63 @@ $(document).ready(function() {
                 id = tr.id.replace('custom-', '')
                 intakes.push(id)
             });
-            console.log(intakes)
-
             $.post("../../study_cases/save/", {
                 name: $('#id_name').val(),
                 description: $('#id_description').val(),
                 intakes: intakes
             }, function(data) {
-                console.log(data)
+                id_study_case = data.id_study_case;
+                $('#smartwizard').smartWizard("next");
+                $('#autoAdjustHeightF').css("height", "auto");
+                $("#cm_form").hide();
+            }, "json");
+        } else {
+            Swal.fire({
+                icon: 'warning',
+                title: `Field empty`,
+                text: `Please full every fields`
+            });
+            return;
+        }
+    });
+
+    $("#cb_check").click(function() {
+
+        if ($(this).is(":checked")) // "this" refers to the element that fired the event
+        {
+            $("#cm_form").show();
+            $('#autoAdjustHeightF').css("height", "auto");
+        } else {
+            $("#cm_form").hide();
+            $('#autoAdjustHeightF').css("height", "auto");
+        }
+    })
+
+    $('#step2NextBtn').click(function() {
+        if ($("#cb_check").is(':checked')) {
+            console.log(id_study_case)
+            $.post("../../study_cases/save/", {
+                id_study_case: id_study_case,
+                carbon_market: $("#cb_check").is(':checked'),
+                carbon_market_value: $('#id_cm').val(),
+                carbon_market_currency: $("#cm_select option:selected").text()
+            }, function(data) {
+                $('#smartwizard').smartWizard("next");
+                $('#autoAdjustHeightF').css("height", "auto");
+            }, "json");
+        } else {
+            $('#smartwizard').smartWizard("next");
+            $('#autoAdjustHeightF').css("height", "auto");
+
+        }
+    });
+
+    $('#step3NextBtn').click(function() {
+        if (true) {
+            $.post("../../study_cases/save/", {
+                id: id_study_case,
+
+            }, function(data) {
                 $('#smartwizard').smartWizard("next");
                 $('#autoAdjustHeightF').css("height", "auto");
             }, "json");
@@ -97,6 +147,7 @@ $(document).ready(function() {
             return;
         }
     });
+
 
     $('#custom_table').on('click', 'a', function() {
         var row = $(this).closest("tr")

@@ -24,6 +24,9 @@
             <li>
                 <a class="nav-link" href="#step-2"> Carbon Market </a>
             </li>
+            <li>
+                <a class="nav-link" href="#step-3"> Portfolios</a>
+            </li>
         </ul>
         <!--Steps-->
         <div class="tab-content" id="autoAdjustHeightF">
@@ -139,10 +142,62 @@
             <!--Step 2-->
             <div id="step-2" class="tab-pane" role="tabpanel">
                 <div class="page-header">
-                    <h3>Configure Parameters</h3>
-                    <p>Select the elements that make up your capture system and click on the drawing area to add them.</p>
+                    <h3>Carbon Market Benefits</h3>
+                    <p></p>
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id='cb_check'>
+                        <label class="custom-control-label" for="cb_check">Carbon market</label>
+                    </div>
+                    <div class="row text-center" id="cm_form">
+                        <div class="col-md-5">
+                            <p>CO2 Eq for (Selected Country)</p>
+                        </div>
+                        <div class="col-md-1">
+                            <input type="text" name="dws_cm" maxlength="100" class="form-control" id="id_cm" value="27.93" />
+                        </div>
+                        <div class="col-md-3">
+                            <p>USD/TonCO2eq</p>
+                        </div>
+                        <div class="col-md-3">
+                            <select class="form-control" id="cm_select">
+                                <option value="1">USD</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
+                <div class="row text-center">
+                    <div class="col-md-12">
+                        <button type="button" class="btn btn-primary" id="step2NextBtn">Next</button>
+                    </div>
+                </div>
+            </div>
+            <!--Step 3-->
+            <div id="step-3" class="tab-pane" role="tabpanel">
+                <div class="page-header">
+                    <h3>Portfolios</h3>
+                    <p></p>
 
+                    <ul class="list-group list-group-flush">
+                        {% for portfolio in portfolios %}
+                        <li class="list-group-item">
+                            <!-- Default checked -->
+                            <div class="custom-control custom-checkbox" id="portfolio-" {{portfolio.id}}>
+                                {% if portfolio.default %}
+                                <input type="checkbox" class="custom-control-input" checked>
+                                {% else %}
+                                <input type="checkbox" class="custom-control-input">
+                                {% endif %}
+                                <label class="custom-control-label" for="check1">{{portfolio.name}}</label>
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="row text-center">
+                    <div class="col-md-12">
+                        <button type="button" class="btn btn-primary" id="step3NextBtn">Next</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

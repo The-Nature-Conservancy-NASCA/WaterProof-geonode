@@ -24,9 +24,27 @@ from django.conf import settings
 from django.db import models
 from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
-from geonode.waterproof_intake.models import ElementSystem
+from geonode.waterproof_intake.models import ElementSystem , Currency
 
 
+class Portfolio(models.Model):
+    name = models.CharField(
+        max_length=100,
+        verbose_name=_('Name'),
+    )
+
+    description = models.CharField(
+        max_length=500,
+        verbose_name=_('Description'),
+        null=True
+    )
+
+    default = models.BooleanField(
+        verbose_name=_('Default')
+    )
+
+    def __str__(self):
+        return "%s" % self.name
 class StudyCases(models.Model):
     """
     Model to gather answers in topic groups.
@@ -53,6 +71,9 @@ class StudyCases(models.Model):
     dws_id_parent = models.IntegerField(blank=True, null=True)
     dws_benefit_carbon_market = models.BooleanField(blank=True, null=True)
     dws_intakes = models.ManyToManyField(ElementSystem)
+    portfolios = models.ManyToManyField(Portfolio)
+    cm_currency = models.ForeignKey(Currency , on_delete=models.CASCADE, null=True)
+    cm_value = models.DecimalField(max_digits=20, decimal_places=2, blank=True, null=True)
 
 class Meta:
     managed = False
