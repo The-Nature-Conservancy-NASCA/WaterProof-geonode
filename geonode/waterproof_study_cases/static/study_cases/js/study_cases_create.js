@@ -112,7 +112,6 @@ $(document).ready(function() {
 
     $('#step2NextBtn').click(function() {
         if ($("#cb_check").is(':checked')) {
-            console.log(id_study_case)
             $.post("../../study_cases/save/", {
                 id_study_case: id_study_case,
                 carbon_market: $("#cb_check").is(':checked'),
@@ -130,10 +129,15 @@ $(document).ready(function() {
     });
 
     $('#step3NextBtn').click(function() {
-        if (true) {
+        portfolios = [];
+        $('#portfolios-ul input:checked').each(function() {
+            id = $(this).attr("id").replace('portfolio-', '')
+            portfolios.push(id)
+        })
+        if (portfolios.length > 0) {
             $.post("../../study_cases/save/", {
-                id: id_study_case,
-
+                id_study_case: id_study_case,
+                portfolios: portfolios
             }, function(data) {
                 $('#smartwizard').smartWizard("next");
                 $('#autoAdjustHeightF').css("height", "auto");
@@ -142,7 +146,7 @@ $(document).ready(function() {
             Swal.fire({
                 icon: 'warning',
                 title: `Field empty`,
-                text: `Please full every fields`
+                text: `Please check options`
             });
             return;
         }
@@ -163,7 +167,6 @@ $(document).ready(function() {
         });
         option = intake_name + " - " + csinfra_name
         id = row.attr("id").replace('custom-', '')
-        console.log(id)
         $("#select_custom").append(new Option(option, id));
         row.remove();
 
@@ -191,8 +194,7 @@ $(document).ready(function() {
             showPreviousButton: false,
         }
     });
-    hei = $('#autoAdjustHeightF');
-    console.log(hei)
+
     $('#autoAdjustHeightF').css("height", "auto");
 
 

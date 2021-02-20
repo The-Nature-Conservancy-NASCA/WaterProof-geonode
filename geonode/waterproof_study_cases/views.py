@@ -149,6 +149,13 @@ def save(request):
                 sc.cm_value = cm_value
                 sc.dws_benefit_carbon_market = True
                 sc.save()
-            
-            return JsonResponse({'id_study_case': 1}, safe=False)    
+                return JsonResponse({'id_study_case': 1}, safe=False)
+        elif(request.POST.getlist('portfolios[]')):
+            portfolios = request.POST.getlist('portfolios[]')
+            id_study_case = request.POST['id_study_case']
+            sc = StudyCases.objects.get(pk=id_study_case)
+            for portfolio in portfolios:
+                it = Portfolio.objects.get(pk=portfolio)
+                sc.portfolios.add(it)
+            return JsonResponse({'id_study_case': sc.id}, safe=False)
     

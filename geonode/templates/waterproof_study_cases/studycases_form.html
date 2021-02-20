@@ -177,15 +177,15 @@
                     <h3>Portfolios</h3>
                     <p></p>
 
-                    <ul class="list-group list-group-flush">
+                    <ul class="list-group list-group-flush" id="portfolios-ul">
                         {% for portfolio in portfolios %}
                         <li class="list-group-item">
                             <!-- Default checked -->
-                            <div class="custom-control custom-checkbox" id="portfolio-" {{portfolio.id}}>
+                            <div class="custom-control custom-checkbox">
                                 {% if portfolio.default %}
-                                <input type="checkbox" class="custom-control-input" checked>
+                                <input id='portfolio-{{portfolio.id}}' type="checkbox" class="custom-control-input" checked>
                                 {% else %}
-                                <input type="checkbox" class="custom-control-input">
+                                <input type="checkbox" class="custom-control-input" id="portfolio-{{portfolio.id}}">
                                 {% endif %}
                                 <label class="custom-control-label" for="check1">{{portfolio.name}}</label>
                             </div>
