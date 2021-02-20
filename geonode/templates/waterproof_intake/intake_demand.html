@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "menu.html" %}
 {% load i18n %}
 {% load static from staticfiles %}
 {% load bootstrap_tags %}
@@ -76,9 +76,9 @@
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <label>{% trans "Interpolation method " %} <span class="text-danger-wp">(*)</span>
+                                            <label >{% trans "Interpolation method " %} <span class="text-danger-wp" disabled>(*)</span>
                                         </label>
-                                            <select class="form-control" id="typeProcessInterpolation">
+                                            <select class="form-control" id="typeProcessInterpolation" disabled>
                                             <option value="1">{% trans "Linear interpolation" %}</option>
                                             <option value="2">{% trans "Potential interpolation" %}</option>
                                             <option Value="3">{% trans "Exponential interpolation" %}</option>
@@ -161,6 +161,13 @@
                     </div>
                 </div>
             </div>
+            <br>
+            <div class="row text-center">
+                <div class="col-md-12">
+                    <button type="button" class="btn btn-primary" id="step3NextBtn">{% trans "Next" %}</button>
+                    <a type="button" class="btn btn-primary" href="{% url "list-intake" %}?limit={{ CLIENT_RESULTS_LIMIT }}">{% trans "Exit" %}</a>
+                </div>
+            </div>
         </div>
         <!--Step 4-->
         <div id="step-4" class="tab-pane" role="tabpanel">
@@ -180,7 +187,12 @@
                     <div id="IntakeTDLE"></div>
                 </div>
             </div>
-            
+            <br>
+                <div class="row text-center">
+                    <div class="col-md-12">
+                        <a type="button" class="btn btn-primary" href="{% url "list-intake" %}?limit={{ CLIENT_RESULTS_LIMIT }}">{% trans "Exit" %}</a>
+                    </div>
+                </div>
         </div>
         </div>
 
