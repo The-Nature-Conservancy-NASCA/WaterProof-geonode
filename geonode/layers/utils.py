@@ -37,7 +37,6 @@ from urllib.parse import urlparse
 from osgeo import gdal, osr, ogr
 from zipfile import ZipFile, is_zipfile
 from random import choice
-from six import string_types, reraise as raise_
 
 # Django functionality
 from django.conf import settings
@@ -55,7 +54,7 @@ from django.utils.translation import ugettext as _
 from geonode.maps.models import Map
 from geonode.base.auth import get_or_create_token
 from geonode.base.bbox_utils import BBOXHelper
-from geonode import GeoNodeException, geoserver, qgis_server
+from geonode import GeoNodeException, geoserver
 from geonode.people.utils import get_valid_user
 from geonode.layers.models import UploadSession, LayerFile
 from geonode.base.thumb_utils import thumb_exists
@@ -98,8 +97,6 @@ if check_ogc_backend(geoserver.BACKEND_PACKAGE):
     # Use the http_client with one that knows the username
     # and password for GeoServer's management user.
     from geonode.geoserver.helpers import _prepare_thumbnail_body_from_opts
-elif check_ogc_backend(qgis_server.BACKEND_PACKAGE):
-    from geonode.qgis_server.helpers import ogc_server_settings
 
 logger = logging.getLogger('geonode.layers.utils')
 
@@ -240,32 +237,6 @@ def get_files(filename):
                'distinct by spelling and not just case.') % filename
         raise GeoNodeException(msg)
 
-    # Only for QGIS Server
-    if check_ogc_backend(qgis_server.BACKEND_PACKAGE):
-        matches = glob.glob(glob_name + ".[qQ][mM][lL]")
-        logger.debug('Checking QML file')
-        logger.debug('Number of matches QML file : %s' % len(matches))
-        logger.debug('glob name: %s' % glob_name)
-        if len(matches) == 1:
-            files['qml'] = matches[0]
-        elif len(matches) > 1:
-            msg = ('Multiple style files (qml) for %s exist; they need to be '
-                   'distinct by spelling and not just case.') % filename
-            raise GeoNodeException(msg)
-
-        # Provides json files for additional extra data
-        matches = glob.glob(glob_name + ".[jJ][sS][oO][nN]")
-        logger.debug('Checking JSON File')
-        logger.debug(
-            'Number of matches JSON file : %s' % len(matches))
-        logger.debug('glob name: %s' % glob)
-
-        if len(matches) == 1:
-            files['json'] = matches[0]
-        elif len(matches) > 1:
-            msg = ('Multiple json files (json) for %s exist; they need to be '
-                   'distinct by spelling and not just case.') % filename
-            raise GeoNodeException(msg)
     return files
 
 
@@ -325,7 +296,7 @@ def get_valid_layer_name(layer, overwrite):
     # The first thing we do is get the layer name string
     if isinstance(layer, Layer):
         layer_name = layer.name
-    elif isinstance(layer, string_types):
+    elif isinstance(layer, str):
         layer_name = str(layer)
     else:
         msg = ('You must pass either a filename or a GeoNode layer object')
@@ -929,8 +900,7 @@ def upload(incoming, user=None, overwrite=False,
                                '--ignore-errors was not set '
                                'and an error was found.')
                         print(msg, file=sys.stderr)
-                        msg = 'Failed to process %s' % filename
-                        raise_(Exception, e, sys.exc_info()[2])
+                        raise Exception from e
 
         msg = "[%s] Layer for '%s' (%d/%d)" % (status, filename, i + 1, number)
         info = {'file': filename, 'status': status}
@@ -1021,7 +991,7 @@ def create_thumbnail(instance, thumbnail_remote_url, thumbnail_create_url=None,
                             params = urlparse(thumbnail_create_url).query.split('&')
                             request_body = {key: value for (key, value) in
                                             [(lambda p: (p.split("=")[0], p.split("=")[1]))(p) for p in params]}
-                            if 'bbox' in request_body and isinstance(request_body['bbox'], string_types):
+                            if 'bbox' in request_body and isinstance(request_body['bbox'], str):
                                 request_body['bbox'] = [str(coord) for coord in request_body['bbox'].split(",")]
                             if 'crs' in request_body and 'srid' not in request_body:
                                 request_body['srid'] = request_body['crs']
@@ -1418,3 +1388,8 @@ def set_layers_permissions(permissions_name, resources_names=None,
                         if verbose:
                             logger.info("Permissions successfully updated!")
                             print("Permissions successfully updated!")
+
+
+def get_uuid_handler():
+    from django.utils.module_loading import import_string
+    return import_string(settings.LAYER_UUID_HANDLER)
