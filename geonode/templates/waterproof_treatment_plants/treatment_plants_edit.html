@@ -38,7 +38,7 @@
             <select  id="idIntakePlant" class="form-control" data-error="This field is required" required>
                 <option></option>
                 {% for intakePlants in intakeList %}
-                    <option value="{{intakePlants.id}}" namelist="{{intakePlants.name}}" intake="{{intakePlants.nameIntake}}" csinfra="{{intakePlants.csinfra}}" data-value="{{intakePlants.id}}">{{intakePlants.nameIntake}}</option>
+                    <option value="{{intakePlants.id}}" namelist="{{intakePlants.name}}"  graphIdlist="{{intakePlants.graphId}}" intake="{{intakePlants.nameIntake}}" csinfra="{{intakePlants.csinfra}}" data-value="{{intakePlants.id}}">{{intakePlants.nameIntake}}</option>
                 {% endfor %}
             </select>
             <br>
@@ -215,40 +215,6 @@
                 <div id="idBackgroundGraph" class="container-background"></div>    
             </div>
         </fieldset>
-    </div>
-    <div class="container-var" id="idContainerVar">
-        <div>
-            <div class="input-var">
-                <div class="form-group">
-                    <label>{% trans "% Transported Water" %}</label>
-                    <input class="form-control" id="idTransportedWater" value="100" readonly>
-                    <div class="help-block with-errors"></div>
-                </div>
-            </div>
-            <div class="input-var">
-                <div class="form-group">
-                    <label>{% trans "% Sediments Retained" %}</label>
-                    <input step="0.0001" type="number" class="form-control" onblur="changeRetained(this)" id="idSedimentsRetained" placeholder="Enter Ssediments retained" >
-                    <div class="help-block with-errors"></div>
-                </div>
-            </div>
-        </div>
-        <div>
-            <div class="input-var">
-                <div class="form-group">
-                    <label>{% trans "% Nitrogen Retained" %}</label>
-                    <input step="0.0001" type="number" class="form-control" onblur="changeRetained(this)" id="idNitrogenRetained" placeholder="Enter nitrogen retained">
-                    <div class="help-block with-errors"></div>
-                </div>
-            </div>
-            <div class="input-var">
-                <div class="form-group">
-                    <label>{% trans "% Phosphorus Retained" %}</label>
-                    <input step="0.0001" type="number" class="form-control" onblur="changeRetained(this)" id="idPhosphorusRetained" placeholder="Enter phosphorus retained">
-                    <div class="help-block with-errors"></div>
-                </div>
-            </div>
-        </div>
     </div>
     <div class="main-tree-content">
         <div>

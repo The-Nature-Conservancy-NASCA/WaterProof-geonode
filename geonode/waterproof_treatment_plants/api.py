@@ -109,12 +109,17 @@ def getInfoTree(request):
 				})
 			return JsonResponse(objects_list, safe=False)
 
-@api_view(['PUT'])
+@api_view(['PUT','DELETE'])
 def setHeaderPlant(request):
 	if request.method == 'PUT':
 		if request.user.is_authenticated:
 			con = psycopg2.connect(settings.DATABASE_URL)
 			cur = con.cursor()
+			cur.execute("DELETE FROM waterproof_treatment_plants_header WHERE plant_id = " + request.data.get('header').get('plantId'))
+			cur.execute("DELETE FROM waterproof_treatment_plants_csinfra WHERE csinfra_plant_id = " + request.data.get('header').get('plantId'))
+			cur.execute("DELETE FROM waterproof_treatment_plants_element WHERE element_plant_id = " + request.data.get('header').get('plantId'))
+			cur.execute("DELETE FROM waterproof_treatment_plants_function WHERE function_plant_id = " + request.data.get('header').get('plantId'))
+
 			queryStr = "INSERT INTO waterproof_treatment_plants_header(plant_name, plant_description, plant_suggest, plant_user, plant_date_create) VALUES (%s, %s, %s, %s, now()) RETURNING plant_id;";
 			cur.execute(queryStr, (request.data.get('header').get('plantName'),
 				request.data.get('header').get('plantDescription'),
@@ -122,12 +127,8 @@ def setHeaderPlant(request):
 				request.user.username))
 			plantId = cur.fetchone()[0]
 			for row in request.data.get('header').get('element'):
-				queryStrElement = "INSERT INTO waterproof_treatment_plants_element (element_normalize_category, element_transported_water, element_sediments_retained, element_nitrogen_retained, element_phosphorus_retained, element_planta_id, element_graph_id, element_on_off, element_q_l, element_awy, element_cn_mg_l, element_cp_mg_l, element_csed_mg_l, element_wn_kg, element_wn_rent_kg, element_wp_rent_ton, element_wsed_tom, element_wp_kg, element_user, element_date_create) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, now()) RETURNING element_id;";
+				queryStrElement = "INSERT INTO waterproof_treatment_plants_element (element_normalize_category, element_plant_id, element_graph_id, element_on_off, element_q_l, element_awy, element_cn_mg_l, element_cp_mg_l, element_csed_mg_l, element_wn_kg, element_wn_rent_kg, element_wp_rent_ton, element_wsed_tom, element_wp_kg, element_user, element_date_create) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, now()) RETURNING element_id;";
 				cur.execute(queryStrElement, (row.get('normalizeCategory'),
-					100,
-					row.get('sedimentsRetained'),
-					row.get('nitrogenRetained'),
-					row.get('phosphorusRetained'),
 					plantId, 
 					row.get('graphId'),
 					row.get('onOff'),
@@ -142,7 +143,110 @@ def setHeaderPlant(request):
 					0,
 					0,
 					request.user.username))
+
+			for row in request.data.get('header').get('function'):
+				queryStrFunction = "INSERT INTO waterproof_treatment_plants_function (function_plant_id, function_technology, function_name, function_value, function_currency, function_factor, function_id_sub_process, function_user, function_date_create, function_transported_water, function_sediments_retained, function_nitrogen_retained, function_phosphorus_retained) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, now(), %s, %s, %s, %s) RETURNING function_id;";
+				cur.execute(queryStrFunction, (plantId,
+					row.get('technology'),
+					row.get('nameFunction'),
+					row.get('functionValue'),
+					row.get('currency'),
+					row.get('factor'),
+					row.get('idSubprocess'),
+					request.user.username,
+					100,
+					row.get('sedimentsRetained'),
+					row.get('nitrogenRetained'),
+					row.get('phosphorusRetained')))
+
+			for row in request.data.get('header').get('csinfra'):
+				queryStrFunction = "INSERT INTO waterproof_treatment_plants_csinfra (csinfra_plant_id, csinfra_name, csinfra_graph_id, csinfra_code, csinfra_user, csinfra_date_create) VALUES (%s, %s, %s, %s, %s, now()) RETURNING csinfra_id;";
+				cur.execute(queryStrFunction, (plantId,
+					row.get('name'),
+					row.get('graphId'),
+					row.get('csinfra'),
+					request.user.username))
+
 			jsonObject = [{	'plant_id' : plantId}]
 			con.commit()
 			cur.close()
 			return JsonResponse(jsonObject, safe=False)
+	if request.method == 'DELETE':
+		if request.user.is_authenticated:
+			con = psycopg2.connect(settings.DATABASE_URL)
+			cur = con.cursor()
+			cur.execute("DELETE FROM waterproof_treatment_plants_header WHERE plant_id = " + request.data.get('plantId'))
+			cur.execute("DELETE FROM waterproof_treatment_plants_csinfra WHERE csinfra_plant_id = " + request.data.get('plantId'))
+			cur.execute("DELETE FROM waterproof_treatment_plants_element WHERE element_plant_id = " + request.data.get('plantId'))
+			cur.execute("DELETE FROM waterproof_treatment_plants_function WHERE function_plant_id = " + request.data.get('plantId'))
+
+			jsonObject = [{	'plant_id' : request.data.get('plantId')}]
+			con.commit()
+			cur.close()
+			return JsonResponse(jsonObject, safe=False)
+
+@api_view(['GET'])
+def getTreatmentPlant(request):
+	if request.method == 'GET':
+		con = psycopg2.connect(settings.DATABASE_URL)
+		cur = con.cursor()
+		cur.execute("SELECT plant_id, plant_name, plant_description, plant_suggest FROM waterproof_treatment_plants_header WHERE plant_id = '" + request.query_params.get('plantId') + "'")
+		rows = cur.fetchall()
+		objectPlant = []
+		for row in rows:
+			objectPlant.append({
+				"plant_id": row[0],
+				"plantName": row[1],
+				"plantDescription": row[2],
+				"plantSuggest": row[3]
+			})
+
+		cur.execute("SELECT csinfra_id, csinfra_name, csinfra_graph_id, csinfra_code FROM waterproof_treatment_plants_csinfra WHERE csinfra_plant_id = '" + request.query_params.get('plantId') + "'")
+		rows = cur.fetchall()
+		objectCsinfra = []
+		for row in rows:
+			objectCsinfra.append({
+				"csinfraId": row[0],
+				"csinfraName": row[1],
+				"csinfraGraphId": row[2],
+				"csinfraCode": row[3]
+			})
+
+		cur.execute("SELECT element_id, element_normalize_category, element_on_off, element_graph_id FROM waterproof_treatment_plants_element WHERE element_plant_id = '" + request.query_params.get('plantId') + "'")
+		rows = cur.fetchall()
+		objectElement = []
+		for row in rows:
+			objectElement.append({
+				"elementId": row[0],
+				"elementNormalizeCategory": row[1],
+				"elementOnOff": row[2],
+				"elementGraphId": row[3]
+			})
+
+		cur.execute("SELECT function_id, function_name, function_value, function_currency, function_factor, function_id_sub_process, function_sediments_retained, function_nitrogen_retained, function_phosphorus_retained, function_technology FROM waterproof_treatment_plants_function WHERE function_plant_id = '" + request.query_params.get('plantId') + "'")
+		rows = cur.fetchall()
+		objectFunction = []
+		for row in rows:
+			objectFunction.append({
+				"functionId": row[0],
+				"functionName": row[1],
+				"functionValue": row[2],
+				"functionCurrency": row[3],
+				"functionFactor": row[4],
+				"functionIdSubProcess": row[5],
+				"functionSedimentsRetained": row[6],
+				"functionNitrogenRetained": row[7],
+				"functionPhosphorusRetained": row[8],
+				"functionTechnology": row[9]
+			})
+
+		response = {
+			'plant' : objectPlant,
+			'csinfra' : objectCsinfra,
+			'element' : objectElement,
+			'function' : objectFunction
+		}
+
+		con.commit()
+		cur.close()
+		return JsonResponse(response, safe=False)

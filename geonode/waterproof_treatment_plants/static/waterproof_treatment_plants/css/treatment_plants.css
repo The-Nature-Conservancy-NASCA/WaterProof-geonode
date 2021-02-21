@@ -38,7 +38,7 @@ textarea {
     border-color: #cccccc;
     height: 500px;
     position: relative;
-    width: 1080px;
+    width: 900px;
     overflow-x: scroll;
     overflow-y: hidden;
 }
@@ -50,7 +50,7 @@ textarea {
     background-color: #000000;
     opacity: 0.5;
     margin-left: 30px;
-    width: 1080px;
+    width: 900px;
 }
 .div-scroll {
     height: 100%;
@@ -500,7 +500,6 @@ textarea {
 }
 .container-var {
     width: 100%;
-    display: none;
     height: 200px;
 }
 .input-var {
