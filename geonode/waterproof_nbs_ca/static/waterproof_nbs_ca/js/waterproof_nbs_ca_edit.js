@@ -40,7 +40,7 @@ $(function () {
                 });
                 var valueInput = input.getAttribute('data-value')
                 if (valueInput !== dato) {
-                    $(`#selectlanduse${valueInput}`).find('input[type=checkbox]:checked').each(function (idx, input) {
+                    $(`#selectlanduse${valueInput}`).find('input[type=radio]:checked').each(function (idx, input) {
                         input.checked = false;
                     });
                 }
@@ -51,7 +51,7 @@ $(function () {
                 })
             }
             else {
-                $('div[name=selectlanduse]').find('input[type=checkbox]:checked').each(function (idx, input) {
+                $('div[name=selectlanduse]').find('input[type=radio]:checked').each(function (idx, input) {
                     input.checked = false;
                 });
             }

@@ -121,26 +121,50 @@
             </div>
         </div>
     </div>
-    <h4 class="text-primary">{% trans "LAND USE" %}<span style="margin-left: 40%;">{% trans "LAND COVER CHANGE DEFINITION" %}</span></h4>
     <div class="form-group">
         <div class="row">
             {% for tran in transitions %}
             <div class="col-md-12" id="selectlanduse{{tran.pk}}" name="selectlanduse" data-value="{{tran.pk}}"
                 style="display: none;">
-                {% for riosa in riosActivity %} {% if tran.pk == riosa.transition_id %}
-                <h5>{{ riosa.name }}</h5>
-                {% for riost in riosTransformation %} {% if riosa.pk == riost.activity_id %}
-                <div class="checkbox" style="margin-left: 50%;">
-                    {% if forloop.first %}
-                    <label><input data-value="itemRT" name="{{riosa.name}}_{{itemRT}}" type="radio"
-                            id="itemRT{{riost.pk}}" value="{{ riost.pk }}" checked> {{riost.name}}</label>
-                    {% else %}
-                    <label><input data-value="itemRT" name="{{riosa.name}}_{{itemRT}}" type="radio"
-                        id="itemRT{{riost.pk}}" value="{{ riost.pk }}" > {{riost.name}}</label>
-                    {% endif %}
-                </div>
-
-                {% endif %} {% endfor %} {% endif %} {% endfor %}
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                <h4 class="text-primary">{% trans "LAND USE" %}</h4>
+                            </th>
+                            <th>
+                                <h4 class="text-primary">{% trans "LAND COVER CHANGE DEFINITION" %}</h4>
+                            </th>
+                        </tr>
+                        
+                    </thead>
+                    <tbody>
+                        {% for riosa in riosActivity %} 
+                            {% if tran.pk == riosa.transition_id %}
+                            <tr>
+                                <td style="vertical-align: inherit; width: 50%;">
+                                    <h5>{{ riosa.name }}</h5>
+                                </td>
+                                <td>
+                                {% for riost in riosTransformation %} 
+                                    {% if riosa.pk == riost.activity_id %}
+                                    <div class="checkbox">
+                                        {% if forloop.first %}
+                                        <label><input data-value="itemRT" name="{{riosa.name}}_{{itemRT}}" type="radio"
+                                                id="itemRT{{riost.pk}}" value="{{ riost.pk }}" checked> {{riost.name}}</label>
+                                        {% else %}
+                                        <label><input data-value="itemRT" name="{{riosa.name}}_{{itemRT}}" type="radio"
+                                            id="itemRT{{riost.pk}}" value="{{ riost.pk }}" > {{riost.name}}</label>
+                                        {% endif %}
+                                    </div>
+                                    {% endif %} 
+                                {% endfor %}
+                                </td>
+                            </tr>
+                            {% endif %}
+                        {% endfor %}
+                    </tbody>
+                </table>
             </div>
             {% endfor %}
         </div>
