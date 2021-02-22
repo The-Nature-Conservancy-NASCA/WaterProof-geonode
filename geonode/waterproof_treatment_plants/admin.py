@@ -1,8 +1,8 @@
 from django.contrib import admin
 
 
-from .models import TreatmentPlants
+from .models import Header
 from django.contrib import admin
 
-admin.site.register(TreatmentPlants)
+admin.site.register(Header)
 
