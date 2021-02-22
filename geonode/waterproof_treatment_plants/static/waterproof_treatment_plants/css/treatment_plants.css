@@ -339,7 +339,7 @@ textarea {
 }
 .img-container-nine {
     cursor: pointer;
-    /*background-image: url(../img/filtracion-cinco-azul.png);*/
+    background-image: url(../img/filtracion-nine.png);
 }
 .img-container-nine-one {
     cursor: pointer;
@@ -347,7 +347,7 @@ textarea {
 }
 .img-container-ten {
     cursor: pointer;
-    /*background-image: url(../img/desinfeccion-azul.png);*/
+    background-image: url(../img/ionico.png);
 }
 .img-container-ten-one {
     cursor: pointer;
@@ -506,4 +506,9 @@ textarea {
     width: 45%;
     float: left;
     margin: 10px;
+}
+.overflow-form {
+    overflow-y: hidden;
+    overflow-x: scroll;
+    width: 700px;
 }

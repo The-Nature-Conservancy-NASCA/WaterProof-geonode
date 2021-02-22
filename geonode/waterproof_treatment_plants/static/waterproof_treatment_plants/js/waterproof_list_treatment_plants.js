@@ -420,7 +420,7 @@ $(function () {
                     lastSubprocess = value.subprocessAddId;
                     $.each( data, function( keyTech, valueTech ) {
                         if(value.subprocessAddId === valueTech.subprocessAddId) {
-                            $('#subprocess' + value.idSubprocess).html($('#subprocess' + value.idSubprocess).html() + '<div class="title-tree"><div class="point-tree" onclick="viewBranch(\'technology' + valueTech.idSubprocess + '\', this)">-</div><div class="text-tree">' + valueTech.technology + '</div></div><div class="margin-main" id="technology' + valueTech.idSubprocess + '"></div>');
+                            $('#subprocess' + value.idSubprocess).html($('#subprocess' + value.idSubprocess).html() + '<div class="title-tree"><div class="point-tree" onclick="viewBranch(\'technology' + valueTech.idSubprocess + '\', this)">-</div><div class="text-tree">' + valueTech.technology + '</div></div><div class="margin-main overflow-form" id="technology' + valueTech.idSubprocess + '"></div>');
                             $.each( data, function( keyCostFunction, valueCostFunction ) {
                                 if(valueTech.technologyAddId === valueCostFunction.technologyAddId) {
                                     var loadHtml = true;
