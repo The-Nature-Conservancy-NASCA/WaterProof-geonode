@@ -27,6 +27,9 @@
             <li>
                 <a class="nav-link" href="#step-3"> Portfolios</a>
             </li>
+            <li>
+                <a class="nav-link" href="#step-4"> Modelling Parameters</a>
+            </li>
         </ul>
         <!--Steps-->
         <div class="tab-content" id="autoAdjustHeightF">
@@ -196,6 +199,53 @@
                 <div class="row text-center">
                     <div class="col-md-12">
                         <button type="button" class="btn btn-primary" id="step3NextBtn">Next</button>
+                    </div>
+                </div>
+            </div>
+            <!--Step 4-->
+            <div id="step-4" class="tab-pane" role="tabpanel">
+                <div class="page-header">
+                    <h3> {% trans "Biophysical tables" %}</h3>
+                    <p></p>
+
+                    <div class="page-header">
+                        <a href="" id="createUrl">{% trans "Advanced options" %}</a>
+                    </div>
+                    <div class="table-responsive">
+                        <table id="example" class="table table-striped table-bordered table-condensed" style="width:100%">
+                            <thead>
+                                <tr class="info">
+                                    <th scope="col" class="small text-center vat">{% trans "Description" %}</th>
+                                    <th scope="col" class="small text-center vat px-5">{% trans "lucode" %}</th>
+                                    <th scope="col" class="small text-center vat">{% trans "luc_veg" %}</th>
+                                    <th scope="col" class="small text-center vat">{% trans "root_depth" %}</th>
+                                    <th scope="col" class="small text-center vat">{% trans "Kc" %}</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for parameter in ModelParameters %}
+                                <tr>
+                                    <td class="small text-center vat">{{parameter.description}}</td>
+                                    <td class="small text-center vat">{{parameter.lucode}}</td>
+                                    <td>
+                                        <input type="checkbox" class="custom-control-input">
+                                    </td>
+                                    <td>
+                                        <input type="number" class="custom-control-input">
+                                    </td>
+                                    <td>
+                                        <input type="number" class="custom-control-input">
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row text-center">
+                    <div class="col-md-12">
+                        <button type="button" class="btn btn-primary" id="step4NextBtn">Next</button>
                     </div>
                 </div>
             </div>

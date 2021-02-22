@@ -62,7 +62,7 @@ $(document).ready(function() {
                 // "</div><button type='button' class='btn btn-primary' id='add_wi'>Add new cost</button>"
                 check += "</td>";
                 var markup = "<tr id='custom-" + value + "'>" + name + name_source + check + action + "</tr>";
-                $("table tbody").append(markup);
+                $("#custom_table").find('tbody').append(markup);
             });
 
             $('#autoAdjustHeightF').css("height", "auto");
@@ -74,7 +74,7 @@ $(document).ready(function() {
     $('#step1NextBtn').click(function() {
         if ($('#id_name').val() != '' && $('#id_description').val() != '' && $('table tr').length > 1) {
             intakes = [];
-            $('table > tbody  > tr').each(function(index, tr) {
+            $('.custom_table').find('tbody > tr').each(function(index, tr) {
                 id = tr.id.replace('custom-', '')
                 intakes.push(id)
             });

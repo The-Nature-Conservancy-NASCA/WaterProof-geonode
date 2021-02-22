@@ -28,7 +28,7 @@ from django.views.generic import CreateView, DetailView, ListView
 from django_libs.views_mixins import AccessMixin
 
 from .forms import StudyCasesForm
-from .models import StudyCases , Portfolio
+from .models import StudyCases , Portfolio, ModelParameter
 
 import datetime
 logger = logging.getLogger(__name__)
@@ -99,6 +99,7 @@ def create(request):
             return HttpResponseRedirect(reverse('study_cases_list'))
     else:
         portfolios = Portfolio.objects.all()
+        models = ModelParameter.objects.all()
         filterIntakeCSInfra = ElementSystem.objects.filter(normalized_category='CSINFRA').values(
             "id", "name", "intake__name", "intake__id", "graphId")
         form = forms.StudyCasesForm()
@@ -107,7 +108,8 @@ def create(request):
                       context={"form": form,
                                "serverApi": settings.WATERPROOF_API_SERVER,
                                'intakes': filterIntakeCSInfra,
-                               'portfolios': portfolios
+                               'portfolios': portfolios,
+                               'ModelParameters': models
                                }
                       )
 
@@ -133,8 +135,11 @@ def save(request):
             sc.dws_description =description
             sc.save()
             intakes = request.POST.getlist('intakes[]')
+            logger.error(intakes)
             for intake in intakes:
+                logger.error(intake)
                 it = ElementSystem.objects.get(pk=intake)
+                logger.error(it)
                 sc.dws_intakes.add(it)
             return JsonResponse({'id_study_case': sc.id}, safe=False)
         elif(request.POST.get('carbon_market')):

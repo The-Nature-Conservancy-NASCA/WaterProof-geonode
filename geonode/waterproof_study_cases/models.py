@@ -27,6 +27,31 @@ from django.utils.translation import ugettext_lazy as _
 from geonode.waterproof_intake.models import ElementSystem , Currency
 
 
+class ModelParameter(models.Model):
+   
+
+    description = models.CharField(
+        max_length=500,
+        verbose_name=_('Description')
+    )
+
+    lucode = models.IntegerField(verbose_name=_('Lucode'))
+    
+    lulc_veg = models.BooleanField(
+        verbose_name=_('LULC_veg'),
+        null=True
+    )
+    
+    root_depth = models.DecimalField(verbose_name=_('root_depth'),max_digits=20, decimal_places=2, blank=True, null=True)
+    
+    kc = models.DecimalField(verbose_name=_('Kc'),max_digits=20, decimal_places=2, blank=True, null=True)
+
+    def __str__(self):
+        return "%s" % self.description
+    
+
+  
+
 class Portfolio(models.Model):
     name = models.CharField(
         max_length=100,
@@ -45,6 +70,8 @@ class Portfolio(models.Model):
 
     def __str__(self):
         return "%s" % self.name
+        
+    
 class StudyCases(models.Model):
     """
     Model to gather answers in topic groups.
