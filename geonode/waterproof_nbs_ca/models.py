@@ -28,6 +28,7 @@ from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 from django.db.models import Manager
 from django.db.models.query import QuerySet
+from geonode.waterproof_parameters.models import Regions,Countries
 
 
 class CaseInsensitiveQuerySet(QuerySet):
@@ -83,6 +84,7 @@ class RiosActivity(models.Model):
 
 class RiosTransformation(models.Model):
     activity = models.ForeignKey(RiosActivity, on_delete=models.CASCADE)
+
     name = models.CharField(
         max_length=100,
         verbose_name=_('Name'),
@@ -100,60 +102,6 @@ class RiosTransformation(models.Model):
         return "%s" % self.name
 
 
-class Region(models.Model):
-    name = models.CharField(
-        max_length=100,
-        verbose_name=_('Name'),
-    )
-
-    def __str__(self):
-        return "%s" % self.name
-
-
-class Countries(models.Model):
-    region = models.ForeignKey(Region, on_delete=models.CASCADE)
-
-    name = models.CharField(
-        max_length=100,
-        verbose_name=_('Name'),
-    )
-
-    code = models.CharField(
-        max_length=5,
-        verbose_name=_('Code'),
-    )
-
-    factor = models.FloatField(
-        default=0,
-        verbose_name=_('Factor'),
-    )
-
-    def __str__(self):
-        return "%s" % self.name
-
-
-class Currency(models.Model):
-    country = models.ForeignKey(Countries, on_delete=models.CASCADE)
-
-    name = models.CharField(
-        max_length=100,
-        verbose_name=_('Name'),
-    )
-
-    code = models.CharField(
-        max_length=50,
-        verbose_name=_('Code'),
-    )
-
-    factor = models.CharField(
-        max_length=50,
-        verbose_name=_('Factor'),
-    )
-
-    def __str__(self):
-        return "(%s)" % self.code
-
-
 class WaterproofNbsCa(models.Model):
     """
     Model to Waterproof.
@@ -161,9 +109,9 @@ class WaterproofNbsCa(models.Model):
     :name: Waterproof Name.
 
     """
-    country = models.ForeignKey(Countries, on_delete=models.CASCADE)
+    country = models.ForeignKey(Countries, on_delete=models.CASCADE,related_name='countryField')
 
-    currency = models.ForeignKey(Currency, on_delete=models.CASCADE)
+    currency = models.ForeignKey(Countries, on_delete=models.CASCADE,related_name='currencyField')
 
     name = models.CharField(
         max_length=100,
