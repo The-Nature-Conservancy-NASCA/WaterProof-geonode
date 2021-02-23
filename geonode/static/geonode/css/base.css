@@ -8493,7 +8493,7 @@ form-inline {
   height: 600px;
   min-height: 100%;
   min-width: 100%;
-  background-repeat: no-repeat;
+  background-repeat: round;
   background-size:cover;
 }
 .backgroundcolorwiki{
