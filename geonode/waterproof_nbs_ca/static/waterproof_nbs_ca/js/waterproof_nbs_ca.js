@@ -317,16 +317,16 @@ $(function () {
              * @return {String} activities in HTML option format
              */
             $.ajax({
-                url: '/waterproof_nbs_ca/load-currencyByCountry/',
+                url: '/parameters/load-currencyByCountry/',
                 data: {
                     'country': country_id
                 },
                 success: function (result) {
                     result = JSON.parse(result);
                     currencyDropdown.val(result[0].pk);
-                    $('#currencyLabel').text('(' + result[0].fields.code + ') - ' + result[0].fields.name);
+                    $('#currencyLabel').text('(' + result[0].fields.currency + ') - ' + result[0].fields.name);
                     $('#countryLabel').text(countryName);
-                    let currencyCode = result[0].fields.code;
+                    let currencyCode = result[0].fields.currency;
                     let impCostText = gettext("Implementation cost (%s/ha) ");
                     let impCostTrans = interpolate(impCostText, [currencyCode]);
                     let maintCostText = gettext("Maintenace cost (%s/ha) ");
@@ -344,7 +344,7 @@ $(function () {
                      * @return {String} activities in HTML option format
                      */
                     $.ajax({
-                        url: '/waterproof_nbs_ca/load-regionByCountry/',
+                        url: '/parameters/load-regionByCountry/',
                         data: {
                             'country': country_id
                         },

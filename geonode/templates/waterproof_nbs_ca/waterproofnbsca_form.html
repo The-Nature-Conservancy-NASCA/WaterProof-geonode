@@ -46,7 +46,7 @@
                 <label>{% trans "Country" %} <span class="text-danger-wp">(*)</span> </label>
                 <select id="countryNBS" class="form-control" {{countryEnable}} data-error='{% trans "Field is required" %}' required>
                     {% for country in countries %}
-                        <option value="{{country.pk}}" data-value="{{country.code}}">{{country.name}}</option>
+                        <option value="{{country.pk}}" data-value="{{country.iso3}}">{{country.name}}</option>
                     {% endfor %}
                 </select>
                 <div class="help-block with-errors"></div>
@@ -55,7 +55,7 @@
                 <label>{% trans "Currency for definition of costs" %} <span class="text-danger-wp">(*)</span> </label>
                 <select id="currencyCost" class="form-control" {{countryEnable}} data-error='{% trans "Field is required" %}' required>
                     {% for currency in currencies %}
-                        <option value="{{currency.pk}}">({{currency.code}}) - {{currency.name}}</option>
+                        <option value="{{currency.pk}}">({{currency.currency}}) - {{currency.name}}</option>
                     {% endfor %}
                 </select>
                 <div class="help-block with-errors"></div>
