@@ -355,9 +355,9 @@
                 <ul class="dropdown-menu">
                     <li><a href="{% url "apps_browse" %}?limit={{ CLIENT_RESULTS_LIMIT }}">{% trans "Explore" %} {% blocktrans %}{{GEONODE_APPS_NAME}}{% endblocktrans %}</a></li>
                     <li><a href="{% url "search_city" %}">{% trans "Search City" %} </a></li>
-                    <li><a href="{% url "list-nbs" %}?limit={{ CLIENT_RESULTS_LIMIT }}">{% trans "List SBN" %} </a></li>
-                    <li><a href="{% url "list-intake" %}?limit={{ CLIENT_RESULTS_LIMIT }}">{% trans "List Intakes" %} </a></li>
-                    <li><a href="{% url "treatment-plants-list" %}?limit={{ CLIENT_RESULTS_LIMIT }}">{% trans "Treatment Plants List" %} </a></li>
+                    <li><a href="{% url "list-nbs" %}?limit={{ CLIENT_RESULTS_LIMIT }}">{% trans "SBN" %} </a></li>
+                    <li><a href="{% url "list-intake" %}?limit={{ CLIENT_RESULTS_LIMIT }}">{% trans "Intakes" %} </a></li>
+                    <li><a href="{% url "treatment-plants-list" %}?limit={{ CLIENT_RESULTS_LIMIT }}">{% trans "Treatment Plants" %} </a></li>
                   </ul>
               {% else %}
                 <a href="{% url "apps_browse" %}?limit={{ CLIENT_RESULTS_LIMIT }}">{% blocktrans %}{{GEONODE_APPS_NAME}}{% endblocktrans %}</a>
@@ -480,7 +480,7 @@
       <p>{% trans "Please use a <strong>modern browser</strong> like Mozilla Firefox, Google Chrome or Safari." %}</p>
     </div>
 
-  <div id="wrap">
+  <div id="wrap" style="position: relative;">
     {% block middle %}
       {% block sidenav %}
       <nav id="sidebar-wrapper" class="side">
@@ -488,32 +488,32 @@
             <ul class="sidebar-nav">
               <li class="active">
                 <a href="#SBN" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                    <img src="/static/geonode/img/01-flecha.png" class="flecha">Soluciones basadas en la naturaleza</a>
+                    <img src="/static/geonode/img/01-flecha.png" class="flecha"><h5> {% trans "Nature-based solutions" %} </h5></a>
                 <ul class="collapse list-unstylede" id="SBN">
                   <li><a href="{% url "list-nbs" %}?limit={{ CLIENT_RESULTS_LIMIT }}" class="dropdown-toggle">
                       <img src="/static/geonode/img/01-flecha.png" class="flecha">
-                      Listar</a>                
+                      <h6>{% trans "List" %}</h6></a>                
                     </li>
                   {% if user.is_authenticated and not READ_ONLY_MODE %}
                   <li><a href="{% url "create" %}" class="dropdown-toggle">
                     <img src="/static/geonode/img/01-flecha.png" class="flecha">
-                    Crear</a>                
+                    <h6>{% trans "Create" %}</h6></a>                
                   </li>
                   {% endif %}
                 </ul>
             </li>
             <li>
               <a href="#Intake" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                  <img src="/static/geonode/img/01-flecha.png" class="flecha">Captaciones</a>
+                  <img src="/static/geonode/img/01-flecha.png" class="flecha"><h5>{% trans "Intakes" %}</h5></a>
                   <ul class="collapse list-unstylede" id="Intake">
                   <li><a href="{% url "list-intake" %}?limit={{ CLIENT_RESULTS_LIMIT }}" class="dropdown-toggle">
                           <img src="/static/geonode/img/01-flecha.png" class="flecha">
-                          Listar</a>                
+                          <h6>{% trans "List" %}</h6></a>                
                         </li>
                     {% if user.is_authenticated and not READ_ONLY_MODE %}
                       <li><a href="{% url "create" %}" class="dropdown-toggle">
                         <img src="/static/geonode/img/01-flecha.png" class="flecha">
-                        Crear</a>                
+                        <h6>{% trans "Create" %}</h6></a>                
                       </li>
                     {% endif %}
     
@@ -521,16 +521,16 @@
             </li>
             <li>
               <a href="#TPlants" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                  <img src="/static/geonode/img/01-flecha.png" class="flecha">Plantas de tratamiento</a>
+                  <img src="/static/geonode/img/01-flecha.png" class="flecha"><h5>{% trans "Treatment plants" %}</h5></a>
                   <ul class="collapse list-unstylede" id="TPlants">
                   <li><a href="{% url "treatment-plants-list" %}?limit={{ CLIENT_RESULTS_LIMIT }}" class="dropdown-toggle">
                           <img src="/static/geonode/img/01-flecha.png" class="flecha">
-                          Listar</a>                
+                          <h6>{% trans "List" %}</h6></a>                
                         </li>
                     {% if user.is_authenticated and not READ_ONLY_MODE %}                
                       <li><a href="{% url "create" %}" class="dropdown-toggle">
                         <img src="/static/geonode/img/01-flecha.png" class="flecha">
-                        Crear</a>                
+                        <h6>{% trans "Create" %}</h6></a>                
                       </li>
                     {% endif %}
                     
@@ -538,16 +538,16 @@
             </li>
             <li>
               <a href="#StudyCase" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                  <img src="/static/geonode/img/01-flecha.png" class="flecha">Casos de estudio</a>
+                  <img src="/static/geonode/img/01-flecha.png" class="flecha"><h5>{% trans "Study cases" %}</h5></a>
                   <ul class="collapse list-unstylede" id="StudyCase">
                   <li><a href="{% url "study_cases_list" %}?limit={{ CLIENT_RESULTS_LIMIT }}" class="dropdown-toggle">
                           <img src="/static/geonode/img/01-flecha.png" class="flecha">
-                          Listar</a>                
+                          <h6>{% trans "List" %}</h6></a>                
                         </li>
                     {% if user.is_authenticated and not READ_ONLY_MODE %}                
                       <li><a href="{% url "create" %}" class="dropdown-toggle">
                         <img src="/static/geonode/img/01-flecha.png" class="flecha">
-                        Crear</a>                
+                        <h6>{% trans "Create" %}</h6></a>                
                       </li>
                     {% endif %}                
                     </ul>
@@ -555,13 +555,13 @@
             {% if user.is_authenticated and not READ_ONLY_MODE %}
             <li>
               <a href="#Historic" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                  <img src="/static/geonode/img/01-flecha.png" class="flecha">Históricos</a>
+                  <img src="/static/geonode/img/01-flecha.png" class="flecha"><h5>{% trans "Historical" %}</h5></a>
             </li>
             {% endif %}
             {% if user.is_authenticated and not READ_ONLY_MODE %}  
             <li>
               <a href="#Databases" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                  <img src="/static/geonode/img/01-flecha.png" class="flecha">Databases</a>
+                  <img src="/static/geonode/img/01-flecha.png" class="flecha"><h5>{% trans "Databases" %}</h5></a>
             </li>
             {% endif %}
             

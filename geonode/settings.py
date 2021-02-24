@@ -88,9 +88,9 @@ _DEFAULT_SECRET_KEY = 'myv-y4#7j-d*p-__@j#*3z@!y24fz8%^z2v6atuy4bo9vqr1_a'
 SECRET_KEY = os.getenv('SECRET_KEY', _DEFAULT_SECRET_KEY)
 
 SITE_HOST_SCHEMA = os.getenv('SITE_HOST_SCHEMA', 'http')
-SITE_HOST_NAME = os.getenv('SITE_HOST_NAME', 'localhost')
+SITE_HOST_NAME = os.getenv('SITE_HOST_NAME', 'apps.skaphe.com')
 SITE_HOST_PORT = os.getenv('SITE_HOST_PORT', 8000)
-SITE_HOST_API = os.getenv('SITE_HOST_API', 'localhost:8000/')
+SITE_HOST_API = os.getenv('SITE_HOST_API', 'http://localhost:8000/')
 _default_siteurl = "%s://%s:%s/" % (SITE_HOST_SCHEMA,
                                     SITE_HOST_NAME,
                                     SITE_HOST_PORT) if SITE_HOST_PORT else "%s://%s/" % (SITE_HOST_SCHEMA, SITE_HOST_NAME)
@@ -111,7 +111,7 @@ DATABASE_URL = os.getenv(
       )
  )
 
-#DATABASE_URL='postgresql://geonode:{&Uid&QXZ&6f;|F@dev.skaphe.com:5432/geonode'
+DATABASE_URL='postgresql://geonode:{&Uid&QXZ&6f;|F@dev.skaphe.com:5432/geonode'
 #DATABASE_URL='postgresql://geonode:geonode@localhost:5432/geonode'
 
 if DATABASE_URL.startswith("spatialite"):
@@ -134,10 +134,11 @@ GEONODE_DB_CONN_MAX_AGE = int(os.getenv('GEONODE_DB_CONN_MAX_AGE', 0))
 GEONODE_DB_CONN_TOUT = int(os.getenv('GEONODE_DB_CONN_TOUT', 5))
 
 _db_conf = dj_database_url.parse(
-    DATABASE_URL,    
+    DATABASE_URL,
+    'django.contrib.gis.db.backends.postgis',
     conn_max_age=GEONODE_DB_CONN_MAX_AGE)
 
-_db_conf['ENGINE'] = 'django.contrib.gis.db.backends.postgis'
+#_db_conf['ENGINE'] = 'django.contrib.gis.db.backends.postgis'
 if 'CONN_TOUT' in _db_conf:
     _db_conf['CONN_TOUT'] = GEONODE_DB_CONN_TOUT
 if 'postgresql' in DATABASE_URL or 'postgis' in DATABASE_URL:
@@ -154,7 +155,7 @@ DATABASES = {
 if os.getenv('DEFAULT_BACKEND_DATASTORE'):
     GEODATABASE_URL = os.getenv('GEODATABASE_URL',
                                 'postgis://\
-    geonode:geonode@localhost:5432/geonode')
+geonode:geonode_data@dev.skaphe.com:5432/geonode')
     DATABASES[os.getenv('DEFAULT_BACKEND_DATASTORE')] = dj_database_url.parse(
         GEODATABASE_URL, conn_max_age=GEONODE_DB_CONN_MAX_AGE
     )
@@ -455,6 +456,10 @@ GEONODE_INTERNAL_APPS = (
     'geonode.groups',
     'geonode.services',
 
+    # QGIS Server Apps
+    # Only enable this if using QGIS Server
+    # 'geonode.qgis_server',
+
     # GeoServer Apps
     # Geoserver needs to come last because
     # it's signals may rely on other apps' signals.
@@ -714,6 +719,8 @@ LOGGING = {
         "django": {
             "handlers": ["console"], "level": "ERROR", },
         "geonode": {
+            "handlers": ["console"], "level": "ERROR", },
+        "geonode.qgis_server": {
             "handlers": ["console"], "level": "ERROR", },
         "geoserver-restconfig.catalog": {
             "handlers": ["console"], "level": "ERROR", },
@@ -1036,8 +1043,8 @@ OGC_SERVER_DEFAULT_USER = os.getenv(
 )
 
 OGC_SERVER_DEFAULT_PASSWORD = os.getenv(
-    'GEOSERVER_ADMIN_PASSWORD', 'geoserver',
-#    'GEOSERVER_ADMIN_PASSWORD', '{&Uid&QXZ&6f;|F'
+#    'GEOSERVER_ADMIN_PASSWORD', 'geoserver',
+    'GEOSERVER_ADMIN_PASSWORD', '{&Uid&QXZ&6f;|F'
 )
 
 GEOFENCE_SECURITY_ENABLED = False if TEST and not INTEGRATION else ast.literal_eval(
@@ -1131,12 +1138,20 @@ CATALOGUE = {
         'ENGINE': 'geonode.catalogue.backends.pycsw_local',
         # pycsw in non-local mode
         # 'ENGINE': 'geonode.catalogue.backends.pycsw_http',
+        # GeoNetwork opensource
+        # 'ENGINE': 'geonode.catalogue.backends.geonetwork',
         # deegree and others
         # 'ENGINE': 'geonode.catalogue.backends.generic',
+
         # The FULLY QUALIFIED base url to the CSW instance for this GeoNode
         'URL': urljoin(SITEURL, '/catalogue/csw'),
         # 'URL': 'http://localhost:8080/geonetwork/srv/en/csw',
         # 'URL': 'http://localhost:8080/deegree-csw-demo-3.0.4/services',
+
+        # login credentials (for GeoNetwork)
+        # 'USER': 'admin',
+        # 'PASSWORD': 'admin',
+
         # 'ALTERNATES_ONLY': True,
     }
 }
@@ -1337,6 +1352,8 @@ DOWNLOAD_FORMATS_METADATA = [
 DOWNLOAD_FORMATS_VECTOR = [
     'JPEG', 'PDF', 'PNG', 'Zipped Shapefile', 'GML 2.0', 'GML 3.1.1', 'CSV',
     'Excel', 'GeoJSON', 'KML', 'View in Google Earth', 'Tiles',
+    'QGIS layer file (.qlr)',
+    'QGIS project file (.qgs)',
 ]
 DOWNLOAD_FORMATS_RASTER = [
     'JPEG',
@@ -1351,6 +1368,8 @@ DOWNLOAD_FORMATS_RASTER = [
     'Tiles',
     'GML',
     'GZIP',
+    'QGIS layer file (.qlr)',
+    'QGIS project file (.qgs)',
     'Zipped All Files'
 ]
 
@@ -2208,4 +2227,3 @@ WAGTAIL_SITE_NAME = 'Waterproof CMS'
 #
 # }
 CATALOG_METADATA_TEMPLATE = os.getenv("CATALOG_METADATA_TEMPLATE", "catalogue/full_metadata.xml")
-

@@ -195,7 +195,7 @@ $(document).ready(function() {
         }
         $('#ExternalNumbersInputs').html(numberExternal)
     }
-
+    
     function loadExternalInput() {
 
         for (const extractionData of intakeExternalInputs) {
@@ -228,6 +228,15 @@ $(document).ready(function() {
                   </table>    
           `);
         }
+
+        $('#step4PrevBtn').click(function() {
+            $('#smartwizard').smartWizard("prev");
+        });
+    
+        $('#step5PrevBtn').click(function() {
+            $('#smartwizard').smartWizard("prev");
+        });
+        
 
 
     }
@@ -288,36 +297,90 @@ $(document).ready(function() {
         loadExternalInput();
     }, 1000);
 
+    $('#step1NextBtn').click(function() {
+        $('#smartwizard').smartWizard("next");
+    });
+
+    $('#step2PrevBtn').click(function() {
+        $('#smartwizard').smartWizard("prev");
+    });
+
+    $('#step2NextBtn').click(function() {
+            $('#smartwizard').smartWizard("stepState", [3], "hide");
+            for (const item of graphData) {
+                if (item.external != null && item.external != 'false') {
+                    $('#smartwizard').smartWizard("stepState", [3], "show");
+                }
+            }
+            clearDataHtml();
+            $('#smartwizard').smartWizard("next");
+    });
+
+
+
+    $('#step3PrevBtn').click(function() {
+        $('#smartwizard').smartWizard("prev");
+    });
+
+    $('#step3NextBtn').click(function() {
+        if ($('#intakeECTAG')[0].childNodes.length > 1 || $('#intakeWEMI')[0].childNodes.length > 1) {
+            if (waterExtractionData.typeInterpolation == interpolationType.MANUAL) {
+                waterExtractionValue = [];
+                $(`input[name=manualInputData]`).each(function() {
+                    if ($(this).val() == '' || $('#intakeNIYMI').val() == '') {
+                        Swal.fire({
+                            icon: 'warning',
+                            title: gettext('Data analisys empty'),
+                            text: gettext('Please Generate Data analisys')
+                        });
+                        return;
+                    } else {
+                        var yearData = {};
+                        yearData.year = Number($(this).attr('yearValue'));
+                        yearData.value = $(this).val();
+                        waterExtractionValue.push(yearData);
+                    }
+                });
+                waterExtractionData.yearValues = waterExtractionValue;
+                $('#waterExtraction').val(JSON.stringify(waterExtractionData));
+                if (waterExtractionData.yearCount == waterExtractionData.yearValues.length) {
+                    $('#smartwizard').smartWizard("next");
+                } else {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: `Data analisys empty`,
+                        text: `Please Generate Data anlisys`
+                    });
+                    return;
+                }
+            } else {
+                $('#smartwizard').smartWizard("next");
+            }
+        } else {
+            Swal.fire({
+                icon: 'warning',
+                title: gettext('Data analisys empty'),
+                text: gettext('Please Generate Data analisys')
+            });
+            return;
+        }
+    });
+
     // Change Option Manual Tab
     $('#btnManualTab').click(function() {
         if ($('#initialDataExtractionInterpolationValue').val() != '' || $('#finalDataExtractionInterpolationValue').val() != '' || $('#numberYearsInterpolationValue').val() != '') {
-            Swal.fire({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
-                icon: 'warning',
-                showCancelButton: false,
-                showDenyButton: true,
-                confirmButtonColor: '#d33',
-                denyButtonColor: '#3085d6',
-                confirmButtonText: 'Yes, change it!',
-                denyButtonText: 'Cancel'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    $('#intakeECTAG tr').remove();
-                    $('#IntakeTDLE table').remove();
-                    $('#externalSelect option').remove();
-                    $('#intakeECTAG').empty();
-                    $('#IntakeTDLE').empty();
-                    $('#externalSelect').empty();
-                    waterExtractionData = [];
-                    $('#waterExtraction').val(JSON.stringify(waterExtractionData));
-                    $('#initialDataExtractionInterpolationValue').val('');
-                    $('#finalDataExtractionInterpolationValue').val('');
-                    $('#numberYearsInterpolationValue').val('');
-                } else if (result.isDenied) {
-                    $('[href="#automatic"]').tab('show');
-                }
-            })
+            {
+                    $('#intakeECTAG tr');
+                    $('#IntakeTDLE table');
+                    $('#externalSelect option');
+                    $('#intakeECTAG');
+                    $('#IntakeTDLE');
+                    $('#externalSelect');
+                    $('#waterExtraction');
+                    $('#initialDataExtractionInterpolationValue');
+                    $('#finalDataExtractionInterpolationValue');
+                    $('#numberYearsInterpolationValue');
+            }
         }
     });
 
@@ -412,8 +475,8 @@ $(document).ready(function() {
             animation: 'slide-horizontal', // Effect on navigation, none/fade/slide-horizontal/slide-vertical/slide-swing
         },
         toolbarSettings: {
-            toolbarPosition: 'bottom', // both bottom
-            toolbarButtonPosition: 'center', // both bottom
+            showNextButton: false,
+            showPreviousButton: false,
         },
         keyboardSettings: {
             keyNavigation: false

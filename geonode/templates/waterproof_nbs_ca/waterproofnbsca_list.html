@@ -1,4 +1,4 @@
-{% extends "geonode_base.html" %} {% load i18n %} {% block title %}{% trans "Waterproof NBS CA" %}{% load decimal_format %}{% load multiply_factor %}{% endblock %} {% block main %}
+{% extends "menu.html" %} {% load i18n %} {% block title %}{% trans "Waterproof NBS CA" %}{% load decimal_format %}{% load multiply_factor %}{% endblock %} {% block main %}
 <h1>{% trans "Waterproof NBS CA" %}</h1>
 
 
@@ -20,7 +20,7 @@
 </div>
 <div class="page-header">
 
-    <h1>{% trans "Nature based solutions list (NBS)" %}</h1>
+    <h1>{% trans "Nature based solutions (NBS)" %}</h1>
     <a href="create/" id="createUrl">{% trans "Create a new NBS" %}</a>
 </div>
 <div class="table-responsive">
@@ -69,7 +69,7 @@
                     <td class="small text-center vat">{{sbn.unit_oportunity_cost|decimalFormat:2}}</td>
                 {% endif %}
                 <td class="small text-center vat">{{sbn.periodicity_maitenance}}</td>
-                <td class="small text-center vat">&nbsp</td>
+                <td class="small text-center vat">{{sbn.currency.code}}</td>
                 <td>
                     <div class="btn-group btn-group-table" role="group">
                         <a class="btn btn-primary" href="/waterproof_nbs_ca/view/{{sbn.pk}}"><span

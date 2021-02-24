@@ -11,31 +11,22 @@
     crossorigin="" />
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_treatment_plants/css/treatment_plants.css" />
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-<div class="row">
-    <div class="col-md-4">
-        <p><div id="cityLabel" class="title-city">{{city}}</div></p>
-        <p><b>{% trans "Country" %} :</b> <span id="countryLabel">{{countryPlant}}</span> </p>
-        <p><b>{% trans "Region" %} :</b> <span id="regionLabel">{{region}}</span> </p>
-        <p><b>{% trans "Currency" %}:</b><span id="currencyLabel">{{currency}}</span></p>
-    </div>
-    <div class="col-md-8">
-        <div id="mapid" style="width: 700px; height: 200px;"></div>
-    </div>
-</div>
+
+
 <div class="page-header">
-    <h1>{% trans "Edit Treatment Plant(NBS)" %}</h1>
+    <h1>{% trans "Edit Treatment Plant" %}</h1>
+    <h1 class="title-city">{{country.nameCity}}</h1>
 </div>
 <form data-toggle="validator" role="form" action="#">
     <h4 class="text-primary">{% trans "General Settings" %}</h4>
     <div class="form-group">
         <label>{% trans "Name" %} <span class="text-danger-wp">(*)</span> </label>
-        <input type="text" class="form-control" id="nameNBS" name="nameNBS"
-            data-error="This field is required" placeholder="Enter title" required>
+        <input type="text" class="form-control" id="idNamePlant" data-error="This field is required" placeholder="Enter name" required>
         <div class="help-block with-errors"></div>
     </div>
     <div class="form-group">
         <label>{% trans "Description" %} <span class="text-danger-wp">(*)</span> </label>
-        <textarea id="descNBS" class="form-control" placeholder="Enter description" data-error="This field is required"
+        <textarea id="idDescriptionPlant" class="form-control" placeholder="Enter description" data-error="This field is required"
             rows="4" required></textarea>
         <div class="help-block with-errors"></div>
     </div>
@@ -43,14 +34,26 @@
     <div class="form-group">
         <fieldset>
         <legend><label>{% trans "Water Intake" %} <span class="text-danger-wp">(*)</span> </label></legend>
-            <label>{% trans "Select from the list water intakes that arrive at your treatment plant and click on the button 'Add wather intake'" %}</label>
-            <select  id="idIntakePlant"class="form-control" data-error="This field is required" required>
+            <label>{% trans "Select from the list wather intakes that arrive at your treatment plant and click on the button 'Add wather intake'" %}</label>
+            <select  id="idIntakePlant" class="form-control" data-error="This field is required" required>
                 <option></option>
                 {% for intakePlants in intakeList %}
-                    <option value="{{intakePlants.id}}" data-value="{{intakePlants.id}}">{{intakePlants.nameIntake}}</option>
+                    <option value="{{intakePlants.id}}" namelist="{{intakePlants.name}}"  graphIdlist="{{intakePlants.graphId}}" intake="{{intakePlants.nameIntake}}" csinfra="{{intakePlants.csinfra}}" data-value="{{intakePlants.id}}">{{intakePlants.nameIntake}}</option>
                 {% endfor %}
             </select>
-            <div class="container-intake" id="listSelectIntake"></div>
+            <br>
+            <table class="table table-striped table-bordered table-condensed" style="width:100%">
+                <thead>
+                    <tr class="info">
+                        <th scope="col" class="small text-center vat">{% trans "Nombre" %}</th>
+                        <th scope="col" class="small text-center vat">{% trans "Nombre de la fuente hídrica" %}</th>
+                        <th scope="col" class="small text-center vat">{% trans "Infraestructura de la planta de tratamiento" %}</th>
+                        <th scope="col" class="small text-center vat">{% trans "Options" %}</th>
+                    </tr>
+                </thead>
+                <tbody id="idTbodyIntake">
+                </tbody>
+            </table>
             <div class="help-block with-errors"></div>
             <button type="button" class="btn btn-primary" id="idSendIntake">{% trans "Add wather intake" %}</button>
         </fieldset>
@@ -60,321 +63,177 @@
         <fieldset>
             <legend><label>{% trans "Configuration" %} <span class="text-danger-wp">(*)</span> </label></legend>
             <label>{% trans "This is the plant configuration according tothe water quality of its water intakes. You can mark the elements of your treatment plant that correspond" %}</label>
-            <div class="container-config">
-                <div class="div-scroll">
-                    <div class="arrow-right positon-arrow position-arrow-two">
-                        <div class="line-right"></div>
-                        <div class="point-right"></div>
-                    </div>
-                    <div class="arrow-right positon-arrow position-arrow-two-one">
-                        <div class="line-right-one"></div>
-                        <div class="point-right-one"></div>
-                    </div>
-                    <div class="arrow-right positon-arrow position-arrow-two-four-one">
-                        <div class="line-right-four"></div>
-                        <div class="point-right-four"></div>
-                    </div>
-                    <div class="arrow-right positon-arrow position-arrow-two-four">
-                        <div class="line-right-four"></div>
-                        <div class="point-right-four"></div>
-                    </div>
-                    <div class="arrow-right positon-arrow position-arrow-two-five">
-                        <div class="line-right-four"></div>
-                        <div class="point-right-four"></div>
-                    </div>
-                    <div class="arrow-right positon-arrow position-arrow-two-six">
-                        <div class="line-right-four"></div>
-                        <div class="point-right-four"></div>
-                    </div>
-                    <div class="arrow-right positon-arrow position-arrow-two-six-one">
-                        <div class="line-right-four"></div>
-                        <div class="point-right-four"></div>
-                    </div>
-                    <div class="arrow-right positon-arrow position-arrow-two-six-two">
-                        <div class="line-right-four"></div>
-                        <div class="point-right-four"></div>
-                    </div>
-                    <div class="arrow-right positon-arrow position-arrow-two-seven">
-                        <div class="line-right-seven"></div>
-                        <div class="point-right-seven"></div>
-                    </div>
-                    <div class="arrow-right positon-arrow position-arrow-three">
-                        <div class="line-right"></div>
-                        <div class="point-right"></div>
-                    </div>
-                    <div class="arrow-right positon-arrow position-arrow-four">
-                        <div class="line-right"></div>
-                        <div class="point-right"></div>
-                    </div>
-                    <div class="arrow-right positon-arrow position-arrow-five">
-                        <div class="line-right"></div>
-                        <div class="point-right"></div>
-                    </div>
-                    <div class="arrow-right positon-arrow position-arrow-six">
-                        <div class="line-right"></div>
-                        <div class="point-right"></div>
-                    </div>
-                    <div class="arrow-right positon-arrow position-arrow-six-left">
-                        <div class="line-right"></div>
-                        <div class="point-right"></div>
-                    </div>
-                    <div class="arrow-right positon-arrow position-arrow-seven">
-                        <div class="line-right"></div>
-                        <div class="point-right"></div>
-                    </div>
-                    <div class="arrow-right positon-arrow position-arrow-eight">
-                        <div class="line-right"></div>
-                        <div class="point-right"></div>
-                    </div>
-                    <div class="arrow-right positon-arrow position-arrow-seven-one">
-                        <div class="line-right"></div>
-                        <div class="point-right"></div>
-                    </div>
-                    <div class="arrow-right positon-arrow position-arrow-eight-one">
-                        <div class="line-right"></div>
-                        <div class="point-right"></div>
-                    </div>
-                    <div class="container-element container-element-two">
-                        <div class="img-container-two img-color-container"></div>
-                        <div class="text-container">Mezcla rápida</div>
-                        <div class="change-state" id="id1" onclick="changeStatus(this)"></div>
-                        <div class="opacity-graph" name="disableElement" model="A,B,C,D,E" id="id11d"  idr="id1"></div>
-                    </div>
-                    <div class="container-element container-element-two-top">
-                        <div class="img-container img-color-container"></div>
-                        <div class="text-container">Dosificación</div>
-                        <div class="change-state" id="id2" onclick="changeStatus(this)"></div>
-                        <div class="opacity-graph" name="disableElement" model="A,B,C,D,E" id="id21d"  idr="id2"></div>
-                    </div>
-                    <div class="container-element container-element-three">
-                        <div class="img-container-three img-color-container"></div>
-                        <div class="text-container">Mezcla lenta</div>
-                        <div class="change-state" id="id3" onclick="changeStatus(this)"></div>
-                        <div class="opacity-graph" name="disableElement" model="A,B,C,D,E" id="id31d"  idr="id3"></div>
-                    </div>
-                    <div class="container-element container-element-four">
-                        <div class="img-container-four img-color-container"></div>
-                        <div class="text-container">Sedimentación</div>
-                        <div class="change-state" id="id4" onclick="changeStatus(this)"></div>
-                        <div class="opacity-graph" name="disableElement" model="A,B,C,D,E" id="id41d"  idr="id4"></div>
-                    </div>
-                    <div class="container-element container-element-five">
-                        <div class="img-container-five img-color-container"></div>
-                        <div class="text-container">Filtración</div>
-                        <div class="change-state" id="id5" onclick="changeStatus(this)"></div>
-                        <div class="opacity-graph" name="disableElement" model="A,B,C,D,E,F" id="id51d"  idr="id5"></div>
-                    </div>
-                    <div class="container-element container-element-six">
-                        <div class="img-container-six img-color-container"></div>
-                        <div class="change-state" id="id6" onclick="changeStatus(this)"></div>
-                        <div class="text-container-one">Filtración por membranas tamaño de particula retenida 0.01 μm</div>
-                        <div class="opacity-graph" name="disableElement" model="" id="id61d"  idr="id6"></div>
-                    </div>
-                    <div class="container-element container-element-six-left">
-                        <div class="img-container-seven img-color-container"></div>
-                        <div class="change-state" id="id7" onclick="changeStatus(this)"></div>
-                        <div class="text-container-one">Filtración por membranas tamaño de particula retenida 0.1 μm</div>
-                        <div class="opacity-graph" name="disableElement" model="A,B,E" id="id71d"  idr="id7"></div>
-                    </div>
-                    <div class="container-element container-element-seven">
-                        <div class="img-container-nine img-color-container"></div>
-                        <div class="change-state" id="id8" onclick="changeStatus(this)"></div>
-                        <div class="text-container-one">Filtración por membranas tamaño de particula retenida 0.001 μm</div>
-                        <div class="opacity-graph" name="disableElement" model="" id="id81d"  idr="id8"></div>
-                    </div>
-                    <div class="container-element container-element-seven-one">
-                        <div class="img-container-nine-one img-color-container"></div>
-                        <div class="change-state" id="id9" onclick="changeStatus(this)"></div>
-                        <div class="text-container-one">Filtración por membranas tamaño de particula retenida 0.0001 μm</div>
-                        <div class="opacity-graph" name="disableElement" model="A" id="id91d"  idr="id9"></div>
-                    </div>
-                    <div class="container-element container-element-seven-bottom">
-                        <div class="img-container-eight img-color-container"></div>
-                        <div class="text-container">Tratamiento de lodos</div>
-                        <div class="change-state" id="id10" onclick="changeStatus(this)"></div>
-                        <div class="opacity-graph" name="disableElement" model="A,B,C,D,E,F" id="id101d"  idr="id10"></div>
-                    </div>
-                    <div class="container-element container-element-eight">
-                        <div class="img-container-ten img-color-container"></div>
-                        <div class="text-container">Intercambio iónico</div>
-                        <div class="change-state" id="id11" onclick="changeStatus(this)"></div>
-                        <div class="opacity-graph" name="disableElement" model="B,C" id="id111d"  idr="id11"></div>
-                    </div>
-                    <div class="container-element container-element-eight-one">
-                        <div class="img-container-ten-one img-color-container"></div>
-                        <div class="text-container">Desinfección</div>
-                        <div class="change-state" id="id12" onclick="changeStatus(this)"></div>
-                        <div class="opacity-graph" name="disableElement" model="A,B,C,D,E,F,G" id="id121d"  idr="id12"></div>
+            <div class="container-graph">
+                <div class="container-config">
+                    <div class="div-scroll">
+                        <div class="arrow-right positon-arrow position-arrow-two">
+                            <div class="line-right"></div>
+                            <div class="point-right"></div>
+                        </div>
+                        <div class="arrow-right positon-arrow position-arrow-two-one">
+                            <div class="line-right-one"></div>
+                            <div class="point-right-one"></div>
+                        </div>
+                        <div class="arrow-right positon-arrow position-arrow-two-four-one">
+                            <div class="line-right-four"></div>
+                            <div class="point-right-four"></div>
+                        </div>
+                        <div class="arrow-right positon-arrow position-arrow-two-four">
+                            <div class="line-right-four"></div>
+                            <div class="point-right-four"></div>
+                        </div>
+                        <div class="arrow-right positon-arrow position-arrow-two-five">
+                            <div class="line-right-four"></div>
+                            <div class="point-right-four"></div>
+                        </div>
+                        <div class="arrow-right positon-arrow position-arrow-two-six">
+                            <div class="line-right-four"></div>
+                            <div class="point-right-four"></div>
+                        </div>
+                        <div class="arrow-right positon-arrow position-arrow-two-six-one">
+                            <div class="line-right-four"></div>
+                            <div class="point-right-four"></div>
+                        </div>
+                        <div class="arrow-right positon-arrow position-arrow-two-six-two">
+                            <div class="line-right-four"></div>
+                            <div class="point-right-four"></div>
+                        </div>
+                        <div class="arrow-right positon-arrow position-arrow-two-seven">
+                            <div class="line-right-seven"></div>
+                            <div class="point-right-seven"></div>
+                        </div>
+                        <div class="arrow-right positon-arrow position-arrow-three">
+                            <div class="line-right"></div>
+                            <div class="point-right"></div>
+                        </div>
+                        <div class="arrow-right positon-arrow position-arrow-four">
+                            <div class="line-right"></div>
+                            <div class="point-right"></div>
+                        </div>
+                        <div class="arrow-right positon-arrow position-arrow-five">
+                            <div class="line-right"></div>
+                            <div class="point-right"></div>
+                        </div>
+                        <div class="arrow-right positon-arrow position-arrow-six">
+                            <div class="line-right"></div>
+                            <div class="point-right"></div>
+                        </div>
+                        <div class="arrow-right positon-arrow position-arrow-six-left">
+                            <div class="line-right"></div>
+                            <div class="point-right"></div>
+                        </div>
+                        <div class="arrow-right positon-arrow position-arrow-seven">
+                            <div class="line-right"></div>
+                            <div class="point-right"></div>
+                        </div>
+                        <div class="arrow-right positon-arrow position-arrow-eight">
+                            <div class="line-right"></div>
+                            <div class="point-right"></div>
+                        </div>
+                        <div class="arrow-right positon-arrow position-arrow-seven-one">
+                            <div class="line-right"></div>
+                            <div class="point-right"></div>
+                        </div>
+                        <div class="arrow-right positon-arrow position-arrow-eight-one">
+                            <div class="line-right"></div>
+                            <div class="point-right"></div>
+                        </div>
+                        <div class="container-element container-element-two">
+                            <div class="img-container-two img-color-container" id="black1" graphId="2" nameElement="Mezcla rápida" plantElement="MEZCLARAPIDA" onclick="viewTree(this)"></div>
+                            <div class="text-container">Mezcla rápida</div>
+                            <div class="container-change-state" onclick="changeStatus(1)"><div class="change-state" id="id1"></div></div>
+                            <div class="opacity-graph" name="disableElement"  graphId="2" model="A,B,C,D,E" id="id11d"  idr="id1"></div>
+                        </div>
+                        <div class="container-element container-element-two-top">
+                            <div class="img-container img-color-container" id="black2" graphId="0" nameElement="Dosificación" plantElement="DOSIFICACION" onclick="viewTree(this)"></div>
+                            <div class="text-container">Dosificación</div>
+                            <div class="container-change-state" onclick="changeStatus(2)"><div class="change-state" id="id2"></div></div>
+                            <div class="opacity-graph" name="disableElement"  graphId="0" model="A,B,C,D,E" id="id21d"  idr="id2"></div>
+                        </div>
+                        <div class="container-element container-element-three">
+                            <div class="img-container-three img-color-container" id="black3" graphId="3" nameElement="Mezcla lenta" plantElement="MEZCLALENTA" onclick="viewTree(this)"></div>
+                            <div class="text-container">Mezcla lenta</div>
+                            <div class="container-change-state" onclick="changeStatus(3)"><div class="change-state" id="id3"></div></div>
+                            <div class="opacity-graph" name="disableElement"  graphId="3" model="A,B,C,D,E" id="id31d"  idr="id3"></div>
+                        </div>
+                        <div class="container-element container-element-four">
+                            <div class="img-container-four img-color-container" id="black4" graphId="4" nameElement="Sedimentación" plantElement="SEDIMENTACION" onclick="viewTree(this)"></div>
+                            <div class="text-container">Sedimentación</div>
+                            <div class="container-change-state" onclick="changeStatus(4)"><div class="change-state" id="id4"></div></div>
+                            <div class="opacity-graph" name="disableElement"  graphId="4" model="A,B,C,D,E" id="id41d"  idr="id4"></div>
+                        </div>
+                        <div class="container-element container-element-five">
+                            <div class="img-container-five img-color-container" id="black5" graphId="5" nameElement="Filtración" plantElement="FILTRACIONRAPIDACONLECHOMIXTO" onclick="viewTree(this)"></div>
+                            <div class="text-container">Filtración</div>
+                            <div class="container-change-state" onclick="changeStatus(5)"><div class="change-state" id="id5"></div></div>
+                            <div class="opacity-graph" name="disableElement"  graphId="5" model="A,B,C,D,E,F" id="id51d"  idr="id5"></div>
+                        </div>
+                        <div class="container-element container-element-six">
+                            <div class="img-container-six img-color-container" id="black6" graphId="7" nameElement="Filtración por membranas tamaño de particula retenida 0.01 μm" plantElement="FILTRACIONPORMEMBRANANIVEL2" onclick="viewTree(this)"></div>
+                            <div class="container-change-state" onclick="changeStatus(6)"><div class="change-state" id="id6"></div></div>
+                            <div class="text-container-one">Filtración por membranas tamaño de particula retenida 0.01 μm</div>
+                            <div class="opacity-graph" name="disableElement"  graphId="7" model="" id="id61d"  idr="id6"></div>
+                        </div>
+                        <div class="container-element container-element-six-left">
+                            <div class="img-container-seven img-color-container" id="black7" graphId="6" nameElement="Filtración por membranas tamaño de particula retenida 0.1 μm" plantElement="FILTRACIONPORMEMBRANANIVEL1" onclick="viewTree(this)"></div>
+                            <div class="container-change-state" onclick="changeStatus(7)"><div class="change-state" id="id7"></div></div>
+                            <div class="text-container-one">Filtración por membranas tamaño de particula retenida 0.1 μm</div>
+                            <div class="opacity-graph" name="disableElement"  graphId="6" model="A,B,E" id="id71d"  idr="id7"></div>
+                        </div>
+                        <div class="container-element container-element-seven">
+                            <div class="img-container-nine img-color-container" id="black8" graphId="8" nameElement="Filtración por membranas tamaño de particula retenida 0.001 μm" plantElement="FILTRACIONPORMEMBRANANIVEL3" onclick="viewTree(this)"></div>
+                            <div class="container-change-state" onclick="changeStatus(8)"><div class="change-state" id="id8"></div></div>
+                            <div class="text-container-one">Filtración por membranas tamaño de particula retenida 0.001 μm</div>
+                            <div class="opacity-graph" name="disableElement"  graphId="8" model="" id="id81d"  idr="id8"></div>
+                        </div>
+                        <div class="container-element container-element-seven-one">
+                            <div class="img-container-nine-one img-color-container" id="black9" graphId="9" nameElement="Filtración por membranas tamaño de particula retenida 0.0001 μm" plantElement="FILTRACIONPORMEMBRANANIVEL4" onclick="viewTree(this)"></div>
+                            <div class="container-change-state" onclick="changeStatus(9)"><div class="change-state" id="id9"></div></div>
+                            <div class="text-container-one">Filtración por membranas tamaño de particula retenida 0.0001 μm</div>
+                            <div class="opacity-graph" name="disableElement"  graphId="9" model="A" id="id91d"  idr="id9"></div>
+                        </div>
+                        <div class="container-element container-element-seven-bottom">
+                            <div class="img-container-eight img-color-container" id="black10" graphId="0" nameElement="Tratamiento de lodos" plantElement="TRATAMIENTODELODOS" onclick="viewTree(this)"></div>
+                            <div class="text-container">Tratamiento de lodos</div>
+                            <div class="container-change-state" onclick="changeStatus(10)"><div class="change-state" id="id10"></div></div>
+                            <div class="opacity-graph" name="disableElement"  graphId="0" model="A,B,C,D,E,F" id="id101d"  idr="id10"></div>
+                        </div>
+                        <div class="container-element container-element-eight">
+                            <div class="img-container-ten img-color-container" id="black11" graphId="10" nameElement="Intercambio iónico" plantElement="INTERCAMBIOIONICO" onclick="viewTree(this)"></div>
+                            <div class="text-container">Intercambio iónico</div>
+                            <div class="container-change-state" onclick="changeStatus(11)"><div class="change-state" id="id11"></div></div>
+                            <div class="opacity-graph" name="disableElement"  graphId="10" model="B,C" id="id111d"  idr="id11"></div>
+                        </div>
+                        <div class="container-element container-element-eight-one">
+                            <div class="img-container-ten-one img-color-container" id="black12" graphId="11" nameElement="Desinfección" plantElement="DESINFECCION" onclick="viewTree(this)"></div>
+                            <div class="text-container">Desinfección</div>
+                            <div class="container-change-state" onclick="changeStatus(12)"><div class="change-state" id="id12"></div></div>
+                            <div class="opacity-graph" name="disableElement"  graphId="11" model="A,B,C,D,E,F,G" id="id121d"  idr="id12"></div>
+                        </div>
                     </div>
                 </div>
+                <div id="idBackgroundGraph" class="container-background"></div>    
             </div>
         </fieldset>
     </div>
     <div class="main-tree-content">
         <div>
-            <div class="main-point" id="idViewTreeTreatmentPlant"></div>
-            <div class="text-point-main">Treatment Plant</div>
+            <div class="main-point" onclick="viewBranch('mainTree', this)">-</div>
+            <div class="text-point-main" id="branch1">Treatment Plant</div>
         </div>
-        <div class="margin-main" id="idTreatmentPlant">
-            <div class="title-tree">
-                <div class="point-tree">-</div>
-                <div class="text-tree">Dosificación Química</div>
-                <div class="detail-tree">% removal</div>
-            </div>
-            <div class="margin-main">
-                <div class="title-tree">
-                    <div class="point-tree">-</div>
-                    <div class="text-tree">Funciones de costo</div>
-                </div>
-                <div class="margin-main">
-                    <div class="title-tree">
-                        <div class="point-check"></div>
-                        <div class="text-tree">Sulfato de aluminio</div>
-                        <div><input class="text-chech" type="text" placeholder="Cost Function"></div>
-                    </div>
-                    <div class="title-tree">
-                        <div class="point-check"></div>
-                        <div class="text-tree">Cloruro Férrico</div>
-                        <div><input class="text-chech" type="text" placeholder="Cost Function"></div>
-                    </div>
-                    <div class="title-tree">
-                        <div class="point-check"></div>
-                        <div class="text-tree">Polímero</div>
-                        <div><input class="text-chech" type="text" placeholder="Cost Function"></div>
-                    </div>
-                    <div class="title-tree">
-                        <div class="point-check"></div>
-                        <div class="text-tree">------</div>
-                        <div><input class="text-chech" type="text" placeholder="Cost Function"></div>
-                    </div>
-                    <div class="title-tree">
-                        <div class="point-check">+</div>
-                        <div class="text-tree">Add new function cost</div>
-                    </div>
-                </div>
-            </div>
-            <div class="title-tree">
-                <div class="point-tree">-</div>
-                <div class="text-tree">Mezcla rápida</div>
-                <div class="detail-tree">% removal</div>
-            </div>
-            <div class="margin-main">
-                <div class="title-tree">
-                    <div class="point-tree">-</div>
-                    <div class="point-check"></div>
-                    <div class="text-tree">Mezclador mecánico (Agitadores)</div>
-                </div>
-                <div class="margin-main">
-                    <div class="title-tree">
-                        <div class="point-tree">-</div>
-                        <div class="text-tree">Funciones de costo</div>
-                    </div>
-                    <div class="margin-main">
-                        <div class="title-tree">
-                            <div class="point-check"></div>
-                            <div class="text-tree">Cost 1</div>
-                            <div><input class="text-chech" type="text" placeholder="Cost Function"></div>
-                        </div>
-                        <div class="title-tree">
-                            <div class="point-check"></div>
-                            <div class="text-tree">Cost 2</div>
-                            <div><input class="text-chech" type="text" placeholder="Cost Function"></div>
-                        </div>
-                        <div class="title-tree">
-                            <div class="point-check"></div>
-                            <div class="text-tree">------</div>
-                            <div><input class="text-chech" type="text" placeholder="Cost Function"></div>
-                        </div>
-                        <div class="title-tree">
-                            <div class="point-check">+</div>
-                            <div class="text-tree">Add new function cost</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="title-tree">
-                    <div class="point-tree">-</div>
-                    <div class="point-check"></div>
-                    <div class="text-tree">Mezclador hidráulico</div>
-                </div>
-                <div class="margin-main">
-                    <div class="title-tree">
-                        <div class="point-tree">-</div>
-                        <div class="text-tree">Funciones de costo</div>
-                    </div>
-                    <div class="margin-main">
-                        <div class="title-tree">
-                            <div class="point-check"></div>
-                            <div class="text-tree">Cost 1</div>
-                            <div><input class="text-chech" type="text" placeholder="Cost Function"></div>
-                        </div>
-                        <div class="title-tree">
-                            <div class="point-check"></div>
-                            <div class="text-tree">Cost 2</div>
-                            <div><input class="text-chech" type="text" placeholder="Cost Function"></div>
-                        </div>
-                        <div class="title-tree">
-                            <div class="point-check"></div>
-                            <div class="text-tree">------</div>
-                            <div><input class="text-chech" type="text" placeholder="Cost Function"></div>
-                        </div>
-                        <div class="title-tree">
-                            <div class="point-check">+</div>
-                            <div class="text-tree">Add new function cost</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="title-tree">
-                    <div class="point-tree">-</div>
-                    <div class="point-check"></div>
-                    <div class="text-tree">Alternativa 3 .....</div>
-                </div>
-                <div class="margin-main">
-                    <div class="title-tree">
-                        <div class="point-tree">-</div>
-                        <div class="text-tree">Funciones de costo</div>
-                    </div>
-                    <div class="margin-main">
-                        <div class="title-tree">
-                            <div class="point-check"></div>
-                            <div class="text-tree">Cost 1</div>
-                            <div><input class="text-chech" type="text" placeholder="Cost Function"></div>
-                        </div>
-                        <div class="title-tree">
-                            <div class="point-check"></div>
-                            <div class="text-tree">Cost 2</div>
-                            <div><input class="text-chech" type="text" placeholder="Cost Function"></div>
-                        </div>
-                        <div class="title-tree">
-                            <div class="point-check"></div>
-                            <div class="text-tree">------</div>
-                            <div><input class="text-chech" type="text" placeholder="Cost Function"></div>
-                        </div>
-                        <div class="title-tree">
-                            <div class="point-check">+</div>
-                            <div class="text-tree">Add new function cost</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="title-tree">
-                    <div class="point-check">+</div>
-                    <div class="text-tree">Add new sub-category</div>
-                </div>
-            </div>
-        </div>
+        <div class="margin-main" id="mainTree" style="visibility: hidden"></div>
     </div>
-
     <button type="button" id="submit" class="btn btn-primary ">{% trans "Submit" %}</button>
 </form>
 <script>
     var countriesLayerUrl = '{{ STATIC_URL }}waterproof_nbs_ca/data/countries.geojson';
-    var userCountryId='{{countryPlant.id}}';
-    var userCountryCode='{{countryPlant.code}}';
-    var userCountryName='{{countryPlant.name}}';
+    var userCountryId='{{country.id}}';
+    var userCountryCode='{{country.codeCountry}}';
+    var userCountryName='{{country.nameCountry}}';
 </script>
 {% endblock body_outer %} {% block extra_script %}
-<!--ZIP reader library-->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mathquill/0.10.1/mathquill.css" />
 <script src="{{ STATIC_URL }}geonode/js/jszip/jszip.min.js"></script>
-<!--Shapefile reader library -->
 <script src="{{ STATIC_URL }}geonode/js/shp/shp.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min.js"
     integrity="sha512-dTu0vJs5ndrd3kPwnYixvOCsvef5SGYW/zSSK4bcjRBcZHzqThq7pt7PmCv55yb8iBvni0TSeIDV8RYKjZL36A=="
@@ -385,4 +244,6 @@
 <script src="{{ STATIC_URL }}geonode/js/leaflet/leaflet.ajax.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js" type="text/javascript"></script>
 <script src="{{ STATIC_URL }}waterproof_treatment_plants/js/waterproof_list_treatment_plants.js"></script>
+<script src="https://unpkg.com/smartwizard@5/dist/js/jquery.smartWizard.min.js" type="text/javascript"></script>
+<script src="{{ STATIC_URL }}waterproof_intake/mathquill/mathquill.min.js"></script>
 {% endblock %}
