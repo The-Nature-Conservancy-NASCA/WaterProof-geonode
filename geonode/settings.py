@@ -88,9 +88,9 @@ _DEFAULT_SECRET_KEY = 'myv-y4#7j-d*p-__@j#*3z@!y24fz8%^z2v6atuy4bo9vqr1_a'
 SECRET_KEY = os.getenv('SECRET_KEY', _DEFAULT_SECRET_KEY)
 
 SITE_HOST_SCHEMA = os.getenv('SITE_HOST_SCHEMA', 'http')
-SITE_HOST_NAME = os.getenv('SITE_HOST_NAME', 'apps.skaphe.com')
+SITE_HOST_NAME = os.getenv('SITE_HOST_NAME', 'localhost')
 SITE_HOST_PORT = os.getenv('SITE_HOST_PORT', 8000)
-SITE_HOST_API = os.getenv('SITE_HOST_API', 'http://apps.skaphe.com:8000/')
+SITE_HOST_API = os.getenv('SITE_HOST_API', 'localhost:8000/')
 _default_siteurl = "%s://%s:%s/" % (SITE_HOST_SCHEMA,
                                     SITE_HOST_NAME,
                                     SITE_HOST_PORT) if SITE_HOST_PORT else "%s://%s/" % (SITE_HOST_SCHEMA, SITE_HOST_NAME)
@@ -134,11 +134,10 @@ GEONODE_DB_CONN_MAX_AGE = int(os.getenv('GEONODE_DB_CONN_MAX_AGE', 0))
 GEONODE_DB_CONN_TOUT = int(os.getenv('GEONODE_DB_CONN_TOUT', 5))
 
 _db_conf = dj_database_url.parse(
-    DATABASE_URL,
-    'django.contrib.gis.db.backends.postgis',
+    DATABASE_URL,    
     conn_max_age=GEONODE_DB_CONN_MAX_AGE)
 
-#_db_conf['ENGINE'] = 'django.contrib.gis.db.backends.postgis'
+_db_conf['ENGINE'] = 'django.contrib.gis.db.backends.postgis'
 if 'CONN_TOUT' in _db_conf:
     _db_conf['CONN_TOUT'] = GEONODE_DB_CONN_TOUT
 if 'postgresql' in DATABASE_URL or 'postgis' in DATABASE_URL:
@@ -155,7 +154,7 @@ DATABASES = {
 if os.getenv('DEFAULT_BACKEND_DATASTORE'):
     GEODATABASE_URL = os.getenv('GEODATABASE_URL',
                                 'postgis://\
-geonode:geonode_data@dev.skaphe.com:5432/geonode')
+    geonode:geonode@localhost:5432/geonode')
     DATABASES[os.getenv('DEFAULT_BACKEND_DATASTORE')] = dj_database_url.parse(
         GEODATABASE_URL, conn_max_age=GEONODE_DB_CONN_MAX_AGE
     )
