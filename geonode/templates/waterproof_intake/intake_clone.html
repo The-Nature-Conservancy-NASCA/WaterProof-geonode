@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "menu.html" %} 
 {% load i18n %}
 {% load static from staticfiles %}
 {% load bootstrap_tags %}
@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="{{ STATIC_URL }}geonode/css/leaflet/Control.Loader.css"/>
 <link rel="stylesheet" href="{{ STATIC_URL }}waterproof_intake/mathquill/mathquill.css" />
 <link rel="stylesheet" href="{{ STATIC_URL }}waterproof_intake/css/intake.css" />
+
 {% endblock %}
 {% block body_outer %}
 <!--header-->
@@ -338,25 +339,30 @@
             <div id="step-5" class="tab-pane" role="tabpanel">
                 <div class="row">
                     <!--Map-->
-                    <div class="col-md-8">
+                    <div class="col-md-7">
                         <div class="panel panel-danger">
                             <div id="mapid" style="width: 100%; height: 400px;"></div>
                         </div>
                     </div>
-                    <!--Panel Information Right-->
-                    <div class="col-md-4">
+                   <!--Panel Information Right-->
+                   <div class="col-md-5">
                         <div class="panel panel-default">
                             <div class="panel-body">
                                 <div class="alert alert-info" role="alert">
                                     <h1 class="text-center">{% trans "Intake area delimitation" %}</h1>
                                 </div>
-                                <div class="form-group">
-                                    <label>{% trans "Load file to delimit area" %}<span class="text-danger-wp"></span></label>
-                                    <input id="intakeArea" type="file">
-                                </div>
+                                <p>{% trans "You can change the area"%}</p>
+                                <p>{% trans "To  move area vertices" %}</p>
                                 <div class="form-group">
                                     <button type="button" class="btn btn-primary" id="btnDelimitArea"> {%trans "Manually area delimit" %}</button>
                                 </div>
+                                <p>{% trans "To load shapefile" %}</p>
+                                <div class="form-group">
+                                    <input id="intakeArea" type="file"> <button type="button" class="btn btn-link" data-toggle="modal" data-target="#HelpGeom" id="HelpGeomModal" style="outline:none; text-decoration:none;">
+                                        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> {% trans "Help" %}</button>
+                                    </button>
+                                </div>
+                                <p>{% trans "Once defined the area" %}</p>
                                 <div class="form-group">
                                     <button type="button" class="btn btn-primary" id="btnValidateArea"> {% trans "Validate delimit area" %}</button>
                                 </div>
@@ -476,7 +482,34 @@
         </div>
     </div>
 </div>
-
+<!--Modal Help Geom Files-->
+<div class="modal fade" id="HelpGeom" tabindex="-1" aria-labelledby="HelpGeomLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h3 class="modal-title text-center" id="HelpGeomLabel">{% trans "Geom files help" %}</h3>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <ol>
+                            <li value="1">{% trans "Only zip and GeoJSON"%}</li>
+                            <li>{% trans "Only EPSG"%}</li>
+                            <li>{% trans "Max upload size" %}</li>
+                        </ol>
+                    </div>
+                </div>
+                <br>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{% trans "Close" %}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <!--Modal Help-->
 <div class="modal fade" id="HelpModal" tabindex="-1" aria-labelledby="HelpModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">

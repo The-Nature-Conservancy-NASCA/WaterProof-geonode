@@ -26,6 +26,7 @@ var catchmentPoly;
 var catchmentPolyDelimit;
 var copyCoordinates = [];
 var editablepolygon;
+var validGeometry=true;
 var validPolygon;
 var isFile;
 var delimitationFileType;
@@ -426,13 +427,23 @@ $(document).ready(function() {
         $('#smartwizard').smartWizard("prev");
     });
 
-    $('#submit').click(function() {
-        Swal.fire({
-            icon: 'success',
-            text: gettext('The water intake is being saved'),
-            allowOutsideClick: false,
-            showConfirmButton: false
-        });
+    $('#submit').click(function(event) {
+        if (!validGeometry) {
+            event.preventDefault();
+            Swal.fire({
+                icon: 'error',
+                title: gettext('Geometry error'),
+                text: gettext('You must validate the basin geometry')
+            })
+        }
+        else {
+            Swal.fire({
+                icon: 'success',
+                text: gettext('The water intake is being saved'),
+                allowOutsideClick: true,
+                showConfirmButton: false
+            });
+        }
     });
 
     // Change Option Manual Tab
@@ -661,6 +672,7 @@ function setInterpolationParams() {
  */
 function delimitIntakeArea() {
     isFile = false;
+    validGeometry=false;
     copyCoordinates = [];
     console.log('Delimiting');
     var polygonKeys = Object.keys(catchmentPoly._layers);
@@ -714,6 +726,7 @@ function validateIntakeArea() {
                     })
                     // Correct geometry
             } else {
+                validGeometry=true;
                 Swal.fire(
                     gettext('Great!'),
                     gettext("Is a valid polygon inside basin's geometries"),

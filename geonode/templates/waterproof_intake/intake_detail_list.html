@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "menu.html" %}
 {% load i18n %}
 {% load static from staticfiles %}
 {% load bootstrap_tags %}
@@ -23,6 +23,7 @@
         }
     };
 </script>
+
 {% endblock %}
 {% block body_outer %}
 <!--header-->
@@ -104,6 +105,12 @@
                 <!-- Map -->
                 <div id="map">
                 </div>
+                <br>
+                <div class="row text-center">
+                    <div class="col-md-12">
+                        <button type="button" class="btn btn-primary" id="step1NextBtn">{% trans "Next" %}</button>
+                    </div>
+                </div>
             </div>
             <!--Step 2-->
             <div id="step-2" class="tab-pane" role="tabpanel">
@@ -176,6 +183,13 @@
                             </div>
                         </div>
                     </div>
+                    <br>
+                    <div class="row text-center">
+                        <div class="col-md-12">
+                            <button type="button" class="btn btn-primary" id="step2PrevBtn">{% trans "Previous" %}</button>
+                            <button type="button" class="btn btn-primary" id="step2NextBtn">{% trans "Next" %}</button>
+                        </div>
+                    </div>
                 </div>
             </div>
            <!--Step 3-->
@@ -206,7 +220,7 @@
                                         <div class="col-md-6">
                                             <label>{% trans "Interpolation method " %} <span class="text-danger-wp">(*)</span>
                                         </label>
-                                            <select class="form-control" id="typeProcessInterpolation">
+                                            <select class="form-control" id="typeProcessInterpolation" disabled>
                                             <option value="1">{% trans "Linear interpolation" %}</option>
                                             <option value="2">{% trans "Potential interpolation" %}</option>
                                             <option Value="3">{% trans "Exponential interpolation" %}</option>
@@ -220,6 +234,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                
                                 <h5 class="text-primary">{% trans "Extraction" %}</h5>
                                 <div class="form-group">
                                     <div class="row">
@@ -233,7 +248,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <button type="button" class="btn btn-primary" id="intakeWECB">{% trans "Generate" %}</button>
+                                <button type="button" class="btn btn-primary" id="intakeWECB" style="display: none;">{% trans "Generate" %}</button>
                             </div>
                             <!--Data analysis Results-->
                             <div class="col-md-4">
@@ -267,6 +282,7 @@
                                     <label>{% trans "Number of years" %} <span class="text-danger-wp">(*)</span> </label>
                                     <input type="text" class="form-control" id="intakeNIYMI" disabled>
                                 </div>
+                                <button type="button" class="btn btn-primary" id="intakeNIBYMI" style="display: none;">{% trans "Generate" %}</button>
                             </div>
                             <!--Results-->
                             <div class="col-md-6">
@@ -289,6 +305,12 @@
                 </div>
             </div>
             <br>
+            <div class="row text-center">
+                <div class="col-md-12">
+                    <button type="button" class="btn btn-primary" id="step3PrevBtn">{%trans "Previous" %}</button>
+                    <button type="button" class="btn btn-primary" id="step3NextBtn">{% trans "Next" %}</button>
+                </div>
+            </div>
         </div>
         <!--Step 4-->
         <div id="step-4" class="tab-pane" role="tabpanel">
@@ -305,10 +327,16 @@
                         <label>{% trans "Type element for asignation" %}</label>
                         <select class="form-control" id="externalSelect"></select>
                     </div>
-                    <div id="IntakeTDLE"></div>
+                    <div id="IntakeTDLE" disabled></div>
                 </div>
             </div>
             <br>
+                <div class="row text-center">
+                    <div class="col-md-12">
+                        <button type="button" class="btn btn-primary" id="step4PrevBtn">{% trans "Previous" %}</button>
+                        <button type="button" class="btn btn-primary" id="step4NextBtn">{% trans "Next" %}</button>
+                    </div>
+                </div>
         </div>
             <!--Step 5-->
             <div id="step-5" class="tab-pane" role="tabpanel">
@@ -324,7 +352,7 @@
                         <div class="panel panel-default">
                             <div class="panel-body">
                                 <div class="alert alert-info" role="alert">
-                                    <h1 class="text-center">Tools</h1>
+                                    <h1 class="text-center">{% trans "Intake area delimitation" %}</h1>
                                 </div>
                                 <div class="form-group">
                                     <button type="button" class="btn btn-primary" id="btnDelimitArea" disabled> Delimit
@@ -338,7 +366,15 @@
                         </div>
                     </div>
                 </div>
+                <br>
+                <div class="row text-center">
+                    <div class="col-md-12 form-group">
+                        <button type="button" class="btn btn-primary" id="step5PrevBtn">{% trans "Previous" %}</button>
+                        <a type="button" class="btn btn-primary" href="{% url "list-intake" %}?limit={{ CLIENT_RESULTS_LIMIT }}">{% trans "Exit" %}</a>
+                    </div>
+                </div>
             </div>
+            
         </div>
         </div>
 
