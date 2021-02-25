@@ -40,6 +40,7 @@ def create(request):
         form = forms.IntakeForm(request.POST)
         if form.is_valid():
             intake = form.save(commit=False)
+            intakeCity=request.POST.get('intakeCity')
             xmlGraph = request.POST.get('xmlGraph')
             # True | False
             isFile = request.POST.get('isFile')
@@ -110,7 +111,7 @@ def create(request):
                     demand=demand_parameters
                 )
             intake.xml_graph = xmlGraph
-            intake.city = Cities.objects.get(id=143873)
+            intake.city = Cities.objects.get(id=intakeCity)
             intake.demand_parameters = demand_parameters
             intake.creation_date = datetime.datetime.now()
             intake.updated_date = datetime.datetime.now()
@@ -477,6 +478,7 @@ def editIntake(request, idx):
             if form.is_valid():
                 intake = form.save(commit=False)
                 xmlGraph = request.POST.get('xmlGraph')
+                intakeCity=request.POST.get('intakeCity')
                 # True | False
                 isFile = request.POST.get('isFile')
                 # GeoJSON | SHP
@@ -530,7 +532,7 @@ def editIntake(request, idx):
                 existingIntake.water_source_name = intake.water_source_name
                 existingIntake.xml_graph = xmlGraph
                 existingIntake.added_by = request.user
-                existingIntake.city = Cities.objects.get(id=143873)
+                existingIntake.city = Cities.objects.get(id=intakeCity)
                 existingIntake.save()
                 existingPolygon = Polygon.objects.get(intake=existingIntake.pk)
                 existingPolygon.geom = delimitAreaGeom
@@ -816,6 +818,7 @@ def cloneIntake(request, idx):
             if form.is_valid():
                 intake = form.save(commit=False)
                 xmlGraph = request.POST.get('xmlGraph')
+                intakeCity=request.POST.get('intakeCity')
                 # True | False
                 isFile = request.POST.get('isFile')
                 # GeoJSON | SHP
@@ -877,7 +880,7 @@ def cloneIntake(request, idx):
                         demand=demand_parameters
                     )
                 intake.xml_graph = xmlGraph
-                intake.city = Cities.objects.get(id=1)
+                intake.city = Cities.objects.get(id=intakeCity)
                 intake.demand_parameters = demand_parameters
                 intake.creation_date = datetime.datetime.now()
                 intake.updated_date = datetime.datetime.now()
