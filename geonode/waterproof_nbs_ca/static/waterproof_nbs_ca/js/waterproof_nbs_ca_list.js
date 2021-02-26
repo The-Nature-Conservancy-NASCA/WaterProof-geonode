@@ -389,6 +389,11 @@ $(function () {
      * Validate input file on change
      * @param {HTML} dropdown Dropdown selected element
      */
+
+  
+
+
+
     changeFileEvent = function () {
         $('#restrictedArea').change(function (evt) {
             var file = evt.currentTarget.files[0];

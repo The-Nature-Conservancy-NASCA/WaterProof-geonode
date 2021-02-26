@@ -178,7 +178,16 @@
                         <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> {% trans "Help" %}</button>
                     </button>
                 </div>
-                <input id="restrictedArea" type="file">
+                <div class="input-group">
+                    <span class="input-group-btn">
+                      <span class="btn btn-default btn-file">
+                        {% trans "Select a file" %}
+                        <input id="restrictedArea" type="file">
+                    </span>
+                    </span>
+                </div>
+
+
                 <div class="help-block with-errors"></div>
             </div>
         </div>

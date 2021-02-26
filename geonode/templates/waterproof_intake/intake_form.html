@@ -354,7 +354,14 @@
                                 </div>
                                 <p>{% trans "To load shapefile" %}</p>
                                 <div class="form-group">
-                                    <input id="intakeArea" type="file"> <button type="button" class="btn btn-link" data-toggle="modal" data-target="#HelpGeom" id="HelpGeomModal" style="outline:none; text-decoration:none;">
+                                    <div class="input-group">
+                                        <span class="input-group-btn">
+                                          <span class="btn btn-default btn-file">
+                                            {% trans "Select a file" %}
+                                            <input id="intakeArea" type="file">
+                                        </span>
+                                        </span>
+                                    </div>
                                         <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> {% trans "Help" %}</button>
                                     </button>
                                 </div>
