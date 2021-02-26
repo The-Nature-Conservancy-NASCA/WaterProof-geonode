@@ -48,7 +48,12 @@
     <h7>{% trans "Enter the name of the city of your interest in the 'Search city' space on the map and select the corresponding option from the list" %}</h7>
     <br>
     <br>
+    {% if user.is_authenticated and not READ_ONLY_MODE %}
     <a href="create/" id="createUrl">{% trans "Create new Water Intake" %}</a>
+    {% else %}
+    <a id="createUrlDisabled">{% trans "Create new Water Intake" %}</a>
+    <h6>{% trans "You must be a registered user to create a new Intake*" %}</h6>
+    {% endif %}
 </div>
 <div class="table-responsive">
     <table id="example" class="table table-striped table-bordered table-condensed" style="width:100%">
