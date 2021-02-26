@@ -19,7 +19,6 @@ from .models import StudyCases
 from . import forms
 from geonode.waterproof_nbs_ca.models import Countries, Region, Currency
 from geonode.waterproof_intake.models import City, Intake, ElementSystem
-from geonode.waterproof_treatment_plants.models import TreatmentPlants
 from django.utils import timezone
 from django.forms.models import model_to_dict
 from django.utils.translation import ugettext_lazy as _

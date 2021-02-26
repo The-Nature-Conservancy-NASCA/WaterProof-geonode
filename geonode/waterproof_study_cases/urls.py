@@ -7,7 +7,7 @@ from . import views
 urlpatterns = [
 
     # Default view, list all views
-    path('', views.listStudyCases, name='study-cases-list'),
+    path('', views.listStudyCases, name='study_cases_list'),
     # Create Study Cases
     path('create/', views.create, name='create'),
     path('scinfra/<int:id_scinfra>/', views.getSCInfra, name='intake-scinfra'),
