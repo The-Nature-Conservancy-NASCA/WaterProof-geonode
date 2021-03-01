@@ -111,7 +111,7 @@ DATABASE_URL = os.getenv(
       )
  )
 
-DATABASE_URL='postgresql://geonode:{&Uid&QXZ&6f;|F@dev.skaphe.com:5432/geonode'
+#DATABASE_URL='postgresql://geonode:{&Uid&QXZ&6f;|F@dev.skaphe.com:5432/geonode'
 #DATABASE_URL='postgresql://geonode:geonode@localhost:5432/geonode'
 
 if DATABASE_URL.startswith("spatialite"):
@@ -1039,7 +1039,7 @@ GEOSERVER_WEB_UI_LOCATION = os.getenv(
 )
 
 OGC_SERVER_DEFAULT_USER = os.getenv(
-    'GEOSERVER_ADMIN_USER', 'admin'
+    'GEOSERVER_ADMIN_USER', 'edwin.piragautaskaphe.com'
 )
 
 OGC_SERVER_DEFAULT_PASSWORD = os.getenv(
