@@ -21,6 +21,7 @@
 import os
 from unittest.mock import patch
 from urllib.parse import urlparse
+from django.core.exceptions import ObjectDoesNotExist
 
 from guardian.shortcuts import assign_perm, get_perms
 from imagekit.cachefiles.backends import Simple
@@ -55,8 +56,7 @@ from geonode.base.middleware import ReadOnlyMiddleware, MaintenanceMiddleware
 from geonode.base.models import CuratedThumbnail
 from geonode.base.templatetags.base_tags import get_visibile_resources
 from geonode.base.templatetags.thesaurus import (
-    get_unique_thesaurus_set,
-    get_keyword_label,
+    get_name_translation, get_unique_thesaurus_set,
     get_thesaurus_title,
     get_thesaurus_date,
 )
@@ -884,9 +884,8 @@ class TestHtmlTagRemoval(SimpleTestCase):
 
     def test_complex_tags_in_attribute(self):
         tagged_value = """<p style="display:none;" id="test">This is not a templated text<p>
-        <div class="test_css">Something in container</div>"""
-        attribute_target_value = """This is not a templated text
-        Something in container"""
+        <div class="test_css">Something in &iacute;container</div> <p>&pound;682m</p>"""
+        attribute_target_value = """This is not a templated text         Something in ícontainer £682m"""
         r = ResourceBase()
         filtered_value = r._remove_html_tags(tagged_value)
         self.assertEqual(filtered_value, attribute_target_value)
@@ -894,24 +893,16 @@ class TestHtmlTagRemoval(SimpleTestCase):
 
 class TestTagThesaurus(TestCase):
     #  loading test thesausurs
-    @classmethod
-    def setUpTestData(cls):
-        from django.core import management
-        from os.path import dirname, abspath
-
-        management.call_command(
-            "load_thesaurus",
-            file=f"{dirname(dirname(abspath(__file__)))}/tests/data/thesaurus.rdf",
-            name="foo_name",
-            stdout="out",
-        )
+    fixtures = [
+        "test_thesaurus.json"
+    ]
 
     def setUp(self):
         self.sut = Thesaurus(
             identifier="foo_name",
-            title="Mocked Title",
+            title="GEMET - INSPIRE themes, version 1.0",
             date="2018-05-23T10:25:56",
-            description="Mocked Title",
+            description="GEMET - INSPIRE themes, version 1.0",
             slug="",
             about="http://inspire.ec.europa.eu/theme",
         )
@@ -921,11 +912,6 @@ class TestTagThesaurus(TestCase):
         tid = self.__get_last_thesaurus().id
         actual = get_unique_thesaurus_set(self.tkeywords)
         self.assertSetEqual({tid}, actual)
-
-    @patch.dict("os.environ", {"THESAURUS_DEFAULT_LANG": "en"})
-    def test_get_keyword_label(self):
-        actual = get_keyword_label(self.tkeywords[0])
-        self.assertEqual("Addresses", actual)
 
     def test_get_thesaurus_title(self):
         tid = self.__get_last_thesaurus().id
@@ -937,12 +923,35 @@ class TestTagThesaurus(TestCase):
         actual = get_thesaurus_date(tid)
         self.assertEqual(self.sut.date, actual)
 
+    def test_get_name_translation_raise_exception_if_identifier_does_not_exists(self):
+        with self.assertRaises(ObjectDoesNotExist):
+            get_name_translation('foo_indentifier')
+
+    @patch('geonode.base.templatetags.thesaurus.get_language')
+    def test_get_name_translation_return_thesauro_title_if_label_for_selected_language_does_not_exists(self, lang):
+        lang.return_value = 'ke'
+        actual = get_name_translation('inspire-theme')
+        expected = "GEMET - INSPIRE themes, version 1.0"
+        self.assertEqual(expected, actual)
+
+    @patch('geonode.base.templatetags.thesaurus.get_language')
+    def test_get_name_translation_return_label_title_if_label_for_selected_language_exists(self, lang):
+        lang.return_value = 'it'
+        actual = get_name_translation('inspire-theme')
+        expected = "Tema GEMET - INSPIRE, versione 1.0"
+        self.assertEqual(expected, actual)
+
     @staticmethod
     def __get_last_thesaurus():
         return Thesaurus.objects.all().order_by("-id")[0]
 
 
-class TestThesaurusAvailableForm(GeoNodeBaseTestSupport):
+@override_settings(THESAURUS_DEFAULT_LANG="en")
+class TestThesaurusAvailableForm(TestCase):
+    fixtures = [
+        "test_thesaurus.json"
+    ]
+
     def setUp(self):
         self.sut = ThesaurusAvailableForm
 
@@ -951,9 +960,9 @@ class TestThesaurusAvailableForm(GeoNodeBaseTestSupport):
         self.assertFalse(actual.is_valid())
 
     def test_form_is_invalid_if_fileds_send_unexpected_values(self):
-        actual = self.sut(data={"8": [1, 2], "6": 1234})
+        actual = self.sut(data={"1": [1, 2]})
         self.assertFalse(actual.is_valid())
 
     def test_form_is_valid_if_fileds_send_expected_values(self):
-        actual = self.sut(data={"8": [1, 2], "6": 36})
+        actual = self.sut(data={"1": 1})
         self.assertTrue(actual.is_valid())
