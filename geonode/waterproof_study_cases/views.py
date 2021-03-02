@@ -85,7 +85,6 @@ def listStudyCases(request):
                 }
             )
 
-
 def create(request):
     # POST submit FORM
     if request.method == 'POST':
@@ -112,54 +111,3 @@ def create(request):
                                }
                       )
 
-
-@api_view(['GET'])
-def getSCInfra(request, id_scinfra):
-    if request.method == 'GET':
-        filterIntakeCSInfra = ElementSystem.objects.filter(id=id_scinfra).values(
-            "id", "name", "intake__name", "intake__id", "intake__water_source_name", "graphId")
-        data = list(filterIntakeCSInfra)
-        return JsonResponse(data, safe=False)
-
-
-@api_view(['POST'])
-def save(request):
-    if request.method == 'POST':
-        if(request.POST.get('name')):     
-            name = request.POST['name']
-            description = request.POST['description']
-            sc = StudyCases()
-            sc.dws_create_date = datetime.datetime.now()
-            sc.dws_name = name
-            sc.dws_description =description
-            sc.save()
-            intakes = request.POST.getlist('intakes[]')
-            logger.error(intakes)
-            for intake in intakes:
-                logger.error(intake)
-                it = ElementSystem.objects.get(pk=intake)
-                logger.error(it)
-                sc.dws_intakes.add(it)
-            return JsonResponse({'id_study_case': sc.id}, safe=False)
-        elif(request.POST.get('carbon_market')):
-            cm = request.POST['carbon_market']
-            if(cm):
-                id_study_case = request.POST['id_study_case']
-                sc = StudyCases.objects.get(pk=id_study_case)
-                cm_value = request.POST['carbon_market_value']
-                cm_currency = request.POST['carbon_market_currency']
-                currency = Currency.objects.filter(code=cm_currency)[0]
-                sc.cm_currency = currency
-                sc.cm_value = cm_value
-                sc.dws_benefit_carbon_market = True
-                sc.save()
-                return JsonResponse({'id_study_case': 1}, safe=False)
-        elif(request.POST.getlist('portfolios[]')):
-            portfolios = request.POST.getlist('portfolios[]')
-            id_study_case = request.POST['id_study_case']
-            sc = StudyCases.objects.get(pk=id_study_case)
-            for portfolio in portfolios:
-                it = Portfolio.objects.get(pk=portfolio)
-                sc.portfolios.add(it)
-            return JsonResponse({'id_study_case': sc.id}, safe=False)
-    

@@ -152,6 +152,19 @@ $(document).ready(function() {
         }
     });
 
+    $('#step4NextBtn').click(function() {
+        $('#smartwizard').smartWizard("next");
+    });
+    $('#step5NextBtn').click(function() {
+        $('#smartwizard').smartWizard("next");
+    });
+    $('#step6NextBtn').click(function() {
+        $('#smartwizard').smartWizard("next");
+    });
+    $('#step7NextBtn').click(function() {
+
+    });
+
 
     $('#custom_table').on('click', 'a', function() {
         var row = $(this).closest("tr")
