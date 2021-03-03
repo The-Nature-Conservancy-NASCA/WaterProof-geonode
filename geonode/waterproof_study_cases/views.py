@@ -19,6 +19,7 @@ from .models import StudyCases
 from . import forms
 from geonode.waterproof_nbs_ca.models import Countries, Region, Currency
 from geonode.waterproof_intake.models import City, Intake, ElementSystem
+from geonode.waterproof_treatment_plants.models import Header
 from django.utils import timezone
 from django.forms.models import model_to_dict
 from django.utils.translation import ugettext_lazy as _
@@ -98,6 +99,7 @@ def create(request):
     else:
         portfolios = Portfolio.objects.all()
         models = ModelParameter.objects.all()
+        tratamentPlants = Header.objects.all()
         filterIntakeCSInfra = ElementSystem.objects.filter(normalized_category='CSINFRA').values(
             "id", "name", "intake__name", "intake__id", "graphId")
         form = forms.StudyCasesForm()
@@ -107,6 +109,7 @@ def create(request):
                                "serverApi": settings.WATERPROOF_API_SERVER,
                                'intakes': filterIntakeCSInfra,
                                'portfolios': portfolios,
+                               'tratamentPlants':tratamentPlants,
                                'ModelParameters': models
                                }
                       )

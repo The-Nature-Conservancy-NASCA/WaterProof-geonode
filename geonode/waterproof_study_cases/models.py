@@ -25,7 +25,7 @@ from django.db import models
 from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 from geonode.waterproof_intake.models import ElementSystem , Currency
-
+from geonode.waterproof_treatment_plants.models import Header
 
 class ModelParameter(models.Model):
    
@@ -99,6 +99,7 @@ class StudyCases(models.Model):
     dws_benefit_carbon_market = models.BooleanField(blank=True, null=True)
     dws_intakes = models.ManyToManyField(ElementSystem)
     portfolios = models.ManyToManyField(Portfolio)
+    ptap = models.ManyToManyField(Header)
     cm_currency = models.ForeignKey(Currency , on_delete=models.CASCADE, null=True)
     cm_value = models.DecimalField(max_digits=20, decimal_places=2, blank=True, null=True)
 

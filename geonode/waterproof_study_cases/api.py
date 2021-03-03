@@ -39,14 +39,16 @@ def save(request):
             sc.dws_create_date = datetime.datetime.now()
             sc.dws_name = name
             sc.dws_description =description
-            #sc.save()
+            sc.save()
             intakes = request.POST.getlist('intakes[]')
-            logger.error(intakes)
             for intake in intakes:
-                logger.error(intake)
                 it = ElementSystem.objects.get(pk=intake)
-                logger.error(it)
-                #sc.dws_intakes.add(it)
+                sc.dws_intakes.add(it)
+            ptaps = request.POST.getlist('ptaps[]')
+            logger.error(ptaps)
+            for ptap in ptaps:
+                pt = ElementSystem.objects.get(pk=ptap)
+                sc.dws_intakes.add(pt)
             return JsonResponse({'id_study_case': sc.id}, safe=False)
         elif(request.POST.get('carbon_market')):
             cm = request.POST['carbon_market']
@@ -59,14 +61,20 @@ def save(request):
                 sc.cm_currency = currency
                 sc.cm_value = cm_value
                 sc.dws_benefit_carbon_market = True
-                #sc.save()
-                return JsonResponse({'id_study_case': 1}, safe=False)
+                sc.save()
+                return JsonResponse({'id_study_case': sc.id}, safe=False)
         elif(request.POST.getlist('portfolios[]')):
             portfolios = request.POST.getlist('portfolios[]')
             id_study_case = request.POST['id_study_case']
-            #sc = StudyCases.objects.get(pk=id_study_case)
+            sc = StudyCases.objects.get(pk=id_study_case)
             for portfolio in portfolios:
                 it = Portfolio.objects.get(pk=portfolio)
-                #sc.portfolios.add(it)
-            return JsonResponse({'id_study_case': 1}, safe=False)
+                sc.portfolios.add(it)
+            return JsonResponse({'id_study_case': sc.id}, safe=False)
+        elif(request.POST.getlist('status')):
+            portfolios = request.POST.getlist('status')
+            id_study_case = request.POST['id_study_case']
+            sc = StudyCases.objects.get(pk=id_study_case)
+    
+            return JsonResponse({'id_study_case': sc.id}, safe=False)
     
