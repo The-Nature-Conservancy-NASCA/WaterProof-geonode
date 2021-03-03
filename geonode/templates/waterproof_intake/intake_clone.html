@@ -17,6 +17,7 @@
 <!--header-->
 <div class="page-header">
     <h1>{% trans "Clone water intake" %}</h1>
+    <h4 class="title-city">{% trans "Intake creation city" %} <span id="cityLabel">{{intake.city.name}}</span> </h4>
 </div>
 <!--Begin Form-->
 <form id="form" method="POST" action="">
@@ -374,13 +375,14 @@
                 <div class="row text-center">
                     <div class="col-md-12 form-group">
                         <button type="button" class="btn btn-primary" id="step5PrevBtn">{% trans "Previous" %}</button>
-                        <input type="submit" id="submit" class="btn btn-primary" value="{% trans 'Submit' %}"></input>
+                        <input type="submit" id="submit" class="btn btn-primary" value="{% trans 'Save' %}"></input>
                     </div>
                 </div>
             </div>
         </div>
 
         <!--Inputs hidden for save data-->
+        <input type="hidden" id="intakeCity" name="intakeCity" value="{{intake.city.pk}}">
         <input type="hidden" id="xmlGraph" name="xmlGraph" value="{{intake.xml_graph}}">
         <input type="hidden" id="graphConnections" name="graphConnections">
         <input type="hidden" id="isFile" name="isFile">

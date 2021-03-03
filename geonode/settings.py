@@ -111,7 +111,7 @@ DATABASE_URL = os.getenv(
       )
  )
 
-DATABASE_URL='postgresql://geonode:{&Uid&QXZ&6f;|F@dev.skaphe.com:5432/geonode'
+#DATABASE_URL='postgresql://geonode:{&Uid&QXZ&6f;|F@dev.skaphe.com:5432/geonode'
 #DATABASE_URL='postgresql://geonode:geonode@localhost:5432/geonode'
 
 if DATABASE_URL.startswith("spatialite"):
@@ -472,6 +472,7 @@ GEONODE_INTERNAL_APPS = (
     'geonode.waterproof_study_cases',
     'geonode.waterproof_nbs_ca',
     'geonode.waterproof_intake',
+    'geonode.waterproof_parameters',
     'geonode.waterproof_treatment_plants',
 )
 
