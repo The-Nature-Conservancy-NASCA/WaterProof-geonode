@@ -321,7 +321,10 @@ urlpatterns += [
 urlpatterns += [
     url(r'^treatment_plants/', include('geonode.waterproof_treatment_plants.urls'), name='waterproof_treatment_plants'),
 ]
-
+# waterproof_parameters
+urlpatterns += [
+    url(r'^parameters/', include('geonode.waterproof_parameters.urls'), name='waterproof_parameters'),
+]
 if settings.MONITORING_ENABLED:
     urlpatterns += [url(r'^monitoring/',
                         include(('geonode.monitoring.urls', 'geonode.monitoring'),

@@ -61,6 +61,11 @@
         height: 100%;
     }
 }
+.title-city {
+    position: absolute;
+    right: 26%;
+    top: 16%;
+}
 
 .modal-dialog {
     display: inline-block;
