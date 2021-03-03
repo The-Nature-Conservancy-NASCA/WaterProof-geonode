@@ -61,6 +61,11 @@
         height: 100%;
     }
 }
+.title-city {
+    position: absolute;
+    right: 26%;
+    top: 16%;
+}
 
 .modal-dialog {
     display: inline-block;
@@ -146,4 +151,18 @@
 
 .math-btn {
     padding: 0px;
+}
+
+.px-5 {
+    padding-left: 10rem !important;
+    padding-right: 10rem !important;
+}
+
+.truncate {
+    display: -webkit-box;
+    max-height: 4.3rem;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }

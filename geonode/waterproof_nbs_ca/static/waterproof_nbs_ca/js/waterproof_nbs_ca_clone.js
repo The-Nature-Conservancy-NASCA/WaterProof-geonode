@@ -2,6 +2,12 @@
  * @file Edit form validations
  * @version 1.0
  */
+var countryDropdown = $('#countryNBS');
+var currencyDropdown = $('#currencyCost');
+var transitionsDropdown = $('#riosTransition');
+var activitiesDropdown = $('#riosActivity');
+var transformDropdown = $('#riosTransformation');
+var loadAreaChecked = $('#loadArea');
 $(function () {
     var map;
     var highlighPolygon = {
@@ -23,12 +29,7 @@ $(function () {
         $('#example').DataTable();
         console.log('init event loaded');
         var dato;
-        var countryDropdown = $('#countryNBS');
-        var currencyDropdown = $('#currencyCost');
-        var transitionsDropdown = $('#riosTransition');
-        var activitiesDropdown = $('#riosActivity');
-        var transformDropdown = $('#riosTransformation');
-        var loadAreaChecked = $('#loadArea');
+
 
         // show/hide div with checkbuttons 
         $("#riosTransition").change(function () {
@@ -40,7 +41,7 @@ $(function () {
                 });
                 var valueInput = input.getAttribute('data-value')
                 if (valueInput !== dato) {
-                    $(`#selectlanduse${valueInput}`).find('input[type=checkbox]:checked').each(function (idx, input) {
+                    $(`#selectlanduse${valueInput}`).find('input[type=radio]:checked').each(function (idx, input) {
                         input.checked = false;
                     });
                 }
@@ -51,7 +52,7 @@ $(function () {
                 })
             }
             else {
-                $('div[name=selectlanduse]').find('input[type=checkbox]:checked').each(function (idx, input) {
+                $('div[name=selectlanduse]').find('input[type=radio]:checked').each(function (idx, input) {
                     input.checked = false;
                 });
             }
@@ -73,6 +74,7 @@ $(function () {
         changeTransitionEvent(transitionsDropdown, activitiesDropdown);
         // Change country dropdown event listener 
         changeCountryEvent(countryDropdown, currencyDropdown);
+        changeCurrencyEvent(currencyDropdown);
         submitFormEvent();
         changeFileEvent();
         initMap();
@@ -395,19 +397,26 @@ $(function () {
                 click: updateDropdownCountry
             });
         }
-
+        function updateCurrencyDropdown(evt) {
+            console.log("dropdown changed");
+        }
         function updateDropdownCountry(feature) {
-            let mapClick = true;
-            let layerClicked = feature.target;
-            if (lastClickedLayer) {
-                lastClickedLayer.setStyle(defaultStyle);
+            if (!disableMap) {
+                let mapClick = true;
+                let layerClicked = feature.target;
+                if (lastClickedLayer) {
+                    lastClickedLayer.setStyle(defaultStyle);
+                }
+
+                layerClicked.setStyle(highlighPolygon);
+                let countryCode = feature.sourceTarget.feature.id;
+                $('#countryNBS option[data-value=' + countryCode + ']').attr('selected', true).trigger('click', { mapClick });
+
+                lastClickedLayer = feature.target;
             }
-
-            layerClicked.setStyle(highlighPolygon);
-            let countryCode = feature.sourceTarget.feature.id;
-            $('#countryNBS option[data-value=' + countryCode + ']').attr('selected', true).trigger('click', { mapClick });
-
-            lastClickedLayer = feature.target;
+            else {
+                return;
+            }
         }
         //map.on('click', onMapClick);
     }
@@ -452,15 +461,26 @@ $(function () {
              * @return {String} activities in HTML option format
              */
             $.ajax({
-                url: '/waterproof_nbs_ca/load-currencyByCountry/',
+                url: '/parameters/load-currencyByCountry/',
                 data: {
                     'country': country_id
                 },
                 success: function (result) {
                     result = JSON.parse(result);
                     currencyDropdown.val(result[0].pk);
-                    $('#currencyLabel').text('(' + result[0].fields.code + ') - ' + result[0].fields.name);
+                    currencyDropdown.change();
+                    $('#currencyLabel').text('(' + result[0].fields.currency + ') - ' + result[0].fields.name);
                     $('#countryLabel').text(countryName);
+                    let currencyCode = result[0].fields.currency;
+                    let impCostText = gettext("Implementation cost (%s/ha) ");
+                    let impCostTrans = interpolate(impCostText, [currencyCode]);
+                    let maintCostText = gettext("Maintenace cost (%s/ha) ");
+                    let mainCostTrans = interpolate(maintCostText, [currencyCode]);
+                    let oportCostText = gettext("Oportunity cost (%s/ha) ");
+                    let oportCostTrans = interpolate(oportCostText, [currencyCode]);
+                    $('#implementCostLabel').text(impCostTrans).append('<span class="text-danger-wp">(*)</span>');
+                    $('#maintenanceCostLabel').text(mainCostTrans).append('<span class="text-danger-wp">(*)</span>');
+                    $('#oportunityCostLabel').text(oportCostTrans).append('<span class="text-danger-wp">(*)</span>');
                     /** 
                      * Get filtered activities by transition id 
                      * @param {String} url   activities URL 
@@ -469,7 +489,7 @@ $(function () {
                      * @return {String} activities in HTML option format
                      */
                     $.ajax({
-                        url: '/waterproof_nbs_ca/load-regionByCountry/',
+                        url: '/parameters/load-regionByCountry/',
                         data: {
                             'country': country_id
                         },
@@ -483,6 +503,36 @@ $(function () {
             });
         });
     };
+    changeCurrencyEvent = function (currencyDropdown) {
+        currencyDropdown.change(function (event) {
+            let currencyText = event.currentTarget.selectedOptions[0].text;
+            let currencyCountry = $(this).find(':selected').attr('data-country');
+            let currencySplitText = currencyText.split("-");
+            let currencyCode = currencySplitText[0].replace(/[{()}]/g, '').replace(" ", "");
+            $('#currencyLabel').text(currencyText);
+            let impCostText = gettext("Implementation cost (%s/ha) ");
+            let impCostTrans = interpolate(impCostText, [currencyCode]);
+            let maintCostText = gettext("Maintenace cost (%s/ha) ");
+            let mainCostTrans = interpolate(maintCostText, [currencyCode]);
+            let oportCostText = gettext("Oportunity cost (%s/ha) ");
+            let oportCostTrans = interpolate(oportCostText, [currencyCode]);
+            $('#implementCostLabel').text(impCostTrans).append('<span class="text-danger-wp">(*)</span>');
+            $('#maintenanceCostLabel').text(mainCostTrans).append('<span class="text-danger-wp">(*)</span>');
+            $('#oportunityCostLabel').text(oportCostTrans).append('<span class="text-danger-wp">(*)</span>');
+            if (globalBaseCost) {
+                if (currencyCountry == 'USA' && currencyCode == "USD") {
+                    $('#implementCost').val(factorImplemCost);
+                    $('#oportunityCost').val(factorOportCost);
+                    $('#maintenanceCost').val(factorMaintCost);
+                }
+                else {
+                    $('#implementCost').val(realImplemCost);
+                    $('#oportunityCost').val(realOportCost);
+                    $('#maintenanceCost').val(realMaintCost);
+                }
+            }
+        })
+    }
     updateCountryMap = function (countryCode) {
         map.eachLayer(function (layer) {
             if (layer.feature) {
@@ -541,7 +591,7 @@ $(function () {
      */
     fillCountryDropdown = function (dropdown) {
         $.ajax({
-            url: '/waterproof_nbs_ca/load-allCountries',
+            url: '/parameters/load-allCountries',
             success: function (result) {
                 result = JSON.parse(result);
                 $.each(result, function (index, country) {
@@ -558,7 +608,7 @@ $(function () {
      */
     fillCurrencyDropdown = function (dropdown) {
         $.ajax({
-            url: '/waterproof_nbs_ca/load-allCurrencies',
+            url: '/parameters/load-allCurrencies',
             success: function (result) {
                 result = JSON.parse(result);
                 $.each(result, function (index, currency) {

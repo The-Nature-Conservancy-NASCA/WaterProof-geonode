@@ -2,7 +2,7 @@ textarea {
     resize: vertical;
 }
 .title-city {
-	text-align: center;
+    text-align: center;
     font-weight: bold;
 }
 .center-button {
@@ -11,7 +11,7 @@ textarea {
     margin-left: -67px;
 }
 .container-intake {
-	margin: 30px;
+    margin: 30px;
     border-width: 1px;
     border-style: solid;
     border-radius: 10px;
@@ -19,7 +19,7 @@ textarea {
     border-color: #cccccc;
 }
 .delete-intake {
-	color: red;
+    color: red;
     font-family: sans-serif;
     font-weight: bold;
     float: left;
@@ -31,22 +31,33 @@ textarea {
     padding: 5px;
 }
 .container-config {
-	margin: 30px;
+    margin: 30px;
     border-width: 1px;
     border-style: solid;
     border-radius: 10px;
     border-color: #cccccc;
     height: 500px;
     position: relative;
+    width: 900px;
     overflow-x: scroll;
     overflow-y: hidden;
+}
+.container-background {
+    border-radius: 10px;
+    height: 500px;
+    position: absolute;
+    top: 0px;
+    background-color: #000000;
+    opacity: 0.5;
+    margin-left: 30px;
+    width: 900px;
 }
 .div-scroll {
     height: 100%;
     width: 1300px;
 }
 .arrow-right {
-	position: relative;
+    position: relative;
     height: 30px;
     width: 35px;
 }
@@ -58,7 +69,7 @@ textarea {
     position: absolute;
 }
 .point-right {
-	width: 0px;
+    width: 0px;
     height: 0px;
     border-style: solid;
     border-width: 15px;
@@ -68,7 +79,7 @@ textarea {
     left: 20px;
 }
 .point-right-one {
-	width: 0px;
+    width: 0px;
     height: 0px;
     border-style: solid;
     border-width: 15px;
@@ -81,10 +92,10 @@ textarea {
     top: 250px;
     margin-top: -15px;
     left: 20px;
-	position: absolute;
+    position: absolute;
 }
 .container-element {
-    background: #3bda3b;
+    background: #c8e8f3;
     height: 75px;
     width: 110px;
     border-radius: 5px;
@@ -94,14 +105,14 @@ textarea {
     margin-top: -37.5px;
 }
 .position-arrow-two {
-	left: 20px;
+    left: 20px;
 }
 .position-arrow-two-one {
-	top: 156px;
+    top: 156px;
     left: 95px;
 }
 .line-right-one {
-	width: 15px;
+    width: 15px;
     height: 65px;
     top: 0px;
     left: 7.5px;
@@ -109,11 +120,11 @@ textarea {
     position: absolute;
 }
 .container-element-two {
-	left: 57px;
+    left: 57px;
 }
 .container-element-two-top {
-	top: 100px;
-	left: 60px;
+    top: 100px;
+    left: 60px;
 }
 .container-element-two-bottom {
     left: 210px;
@@ -121,34 +132,34 @@ textarea {
     height: 87px;
 }
 .position-arrow-three {
-	left: 170px;
+    left: 170px;
 }
 .container-element-three {
-	left: 207px;
+    left: 207px;
 }
 .position-arrow-four {
-	left: 320px;
+    left: 320px;
 }
 .container-element-four {
-	left: 357px;
+    left: 357px;
 }
 .position-arrow-five {
-	left: 470px;
+    left: 470px;
 }
 .container-element-five {
-	left: 507px;
+    left: 507px;
 }
 .position-arrow-six {
-	left: 770px;
+    left: 770px;
 }
 .container-element-six {
-	left: 807px;
+    left: 807px;
 }
 .position-arrow-six-left {
-	left: 620px;
+    left: 620px;
 }
 .container-element-six-left {
-	left: 657px;
+    left: 657px;
 }
 .position-arrow-seven {
     left: 920px;
@@ -168,8 +179,8 @@ textarea {
     height: 87px;
 }
 .container-element-seven-bottom {
-	left: 1261px;
-	top: 420px;
+    left: 1261px;
+    top: 420px;
 }
 .position-arrow-eight {
     left: 1070px;
@@ -184,11 +195,11 @@ textarea {
     left: 1411px;
 }
 .position-arrow-two-two {
-	left: 995px;
-	top: 110px;
+    left: 995px;
+    top: 110px;
 }
 .position-arrow-two-three {
-	top: 315px;
+    top: 315px;
     left: 245px;
 }
 .point-right-three {
@@ -210,7 +221,7 @@ textarea {
     left: 398px;
 }
 .position-arrow-two-five {
-	top: 315px;
+    top: 315px;
     left: 695px;
 }
 .position-arrow-two-six {
@@ -226,7 +237,7 @@ textarea {
     left: 1150px;
 }
 .position-arrow-two-seven {
-	top: 425px;
+    top: 425px;
     left: 400px;
 }
 .line-right-seven {
@@ -247,7 +258,7 @@ textarea {
     left: 842px;
 }
 .line-right-four {
-	width: 15px;
+    width: 15px;
     height: 100px;
     top: 0px;
     left: 7.5px;
@@ -255,7 +266,7 @@ textarea {
     position: absolute;
 }
 .point-right-four {
-	width: 0px;
+    width: 0px;
     height: 0px;
     border-style: solid;
     border-width: 15px;
@@ -287,7 +298,7 @@ textarea {
 .img-color-container {
     width: 100px;
     height: 64px;
-    background-color: #ffffff;
+    background-color: #c8e8f3;
     margin: 5px;
     background-size: auto 65px;
     background-repeat: no-repeat;
@@ -295,54 +306,69 @@ textarea {
     border-radius: 5px;
 }
 .img-container {
+    cursor: pointer;
     background-image: url(../img/dosificacion-azul.png);
 }
 .img-container-two {
+    cursor: pointer;
     background-image: url(../img/mezcla-rapida-azul.png);
 }
 .img-container-three {
+    cursor: pointer;
     background-image: url(../img/mezcla-lenta-azul.png);
 }
 .img-container-four {
+    cursor: pointer;
     background-image: url(../img/sedimentacion-azul.png);
 }
 .img-container-five {
+    cursor: pointer;
     background-image: url(../img/fibracion-azul.png);
 }
 .img-container-six {
+    cursor: pointer;
     background-image: url(../img/fibracion-tres-azul.png);
 }
 .img-container-seven {
+    cursor: pointer;
     background-image: url(../img/fibracion-dos-azul.png);
 }
 .img-container-eight {
+    cursor: pointer;
     background-image: url(../img/tratamiento-azul.png);
 }
 .img-container-nine {
-    /*background-image: url(../img/filtracion-cinco-azul.png);*/
+    cursor: pointer;
+    background-image: url(../img/filtracion-nine.png);
 }
 .img-container-nine-one {
+    cursor: pointer;
     background-image: url(../img/filtracion-cinco-azul.png);
 }
 .img-container-ten {
-    /*background-image: url(../img/desinfeccion-azul.png);*/
+    cursor: pointer;
+    background-image: url(../img/ionico.png);
 }
 .img-container-ten-one {
+    cursor: pointer;
     background-image: url(../img/desinfeccion-azul.png);
 }
 .main-point {
     width: 25px;
     height: 25px;
-    background: #07248c;
+    background: #039edc;
     border-radius: 50%;
     float: left;
+    cursor: pointer;
+    padding-left: 7px;
+    padding-top: 1px;
+    color: #ffffff;
 }
 .text-point-main {
     height: 25px;
     margin-left: 50px;
     font-size: 16px;
     font-weight: bold;
-    color: #07248c;
     padding-top: 3px;
 }
 .margin-main {
@@ -354,23 +380,27 @@ textarea {
     height: 25px;
     margin: 5px;
 }
+.title-tree-form {
+    width: 100%;;
+    margin: 5px;
+}
 .point-tree {
     height: 25px;
     width: 25px;
     border-width: 2px;
-    border-color: #07248c;
+    border-color: #039edc;
     border-style: solid;
     border-radius: 50%;
     padding-left: 8px;
     font-size: 15px;
-    color: #07248c;
+    color: #039edc;
     float: left;
+    cursor: pointer;
 }
 .text-tree {
     height: 25px;
     margin-left: 50px;
     font-size: 16px;
-    color: #07248c;
     padding-top: 3px;
     float: left;
     width: 300px;
@@ -379,21 +409,23 @@ textarea {
     height: 25px;
     margin-left: 50px;
     font-size: 16px;
-    color: #07248c;
     padding-top: 3px;
     float: left;
 }
 .point-check {
-    height: 25px;
-    width: 25px;
-    border-width: 2px;
-    border-color: #07248c;
+    height: 34px;
+    width: 34px;
+    position: relative;
+    border-width: 7px;
+    border-color: #1fa0a0;
     border-style: solid;
     padding-left: 6px;
     font-size: 15px;
-    color: #07248c;
     float: left;
-    margin-left: 30px;
+    margin-top: 3px;
+    cursor: pointer;
+    border-radius: 5px;
+    background-color: #ffffff;
 }
 .text-chech {
     padding: 0px;
@@ -409,22 +441,74 @@ textarea {
     margin: 50px;
 }
 .opacity-graph {
-    background-color: #000000;
+    background-color: #777777;
     position: absolute;
     top: 0px;
     left: 0px;
     width: 100%;
     height: 100%;
-    opacity: 0.6;
+    opacity: 0.3;
     border-radius: 5px;
 }
-.change-state {
+.container-change-state {
+    border-style: solid;
+    border-width: 2px;
     width: 20px;
     height: 20px;
-    background: #20b741;
-    top: -16px;
+    top: -20px;
     position: absolute;
-    border-radius: 50%;
-    left: -16px;
+    left: -20px;
+    border-radius: 3px;
+    border-color: #039edc;
     cursor: pointer;
+}
+.change-state-tree {
+    width: 8px;
+    height: 17px;
+    top: 0px;
+    position: absolute;
+    transform: rotate(45deg);
+    border-width: 3px;
+    border-color: #ffffff;
+    border-bottom-style: solid;
+    border-right-style: solid;
+    left: 6px;
+}
+.change-state {
+    width: 6px;
+    height: 15px;
+    top: 0px;
+    position: absolute;
+    transform: rotate(45deg);
+    border-width: 3px;
+    border-color: #ffffff;
+    border-bottom-style: solid;
+    border-right-style: solid;
+    left: 5px;
+}
+.title-city {
+    position: absolute;
+    right: 150px;
+    top: 120px;
+    font-size: 25px;
+}
+.equation {
+    font-size: 14px !important;
+}
+.container-graph {
+    position: relative;
+}
+.container-var {
+    width: 100%;
+    height: 200px;
+}
+.input-var {
+    width: 45%;
+    float: left;
+    margin: 10px;
+}
+.overflow-form {
+    overflow-y: hidden;
+    overflow-x: scroll;
+    width: 700px;
 }

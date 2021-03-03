@@ -361,6 +361,35 @@ function validationsNodeAlone(data) {
     }
 }
 
+function validationInputTransportedWater(graphic){
+    let data2 = [];
+    data2 = Object.values(graphic.cells);
+    for (const it of data2) {
+        if (typeof(it.value) == "string") {
+            if (it.value === "") {
+                Swal.fire({
+                    icon: 'warning',
+                    title: gettext(`Exist a connector whitout defined type`)
+                })
+                return true;
+            } else {
+                const valiu = JSON.parse(it.value)
+                parseInt(valiu.resultdb[0].fields.predefined_transp_water_perc)
+                if (parseInt(valiu.resultdb[0].fields.predefined_transp_water_perc) < 0) {
+                    const texttitle = gettext("Element %s - %s has a % transported water invalid");
+                    const transtext = interpolate(texttitle, [it.id, valiu.resultdb[0].fields.categorys]);
+                    Swal.fire({
+                        icon: 'warning',
+                        title: gettext(`Percentage transported water invalid`),
+                        text: transtext
+                    })
+                    return true;
+                }
+            }
+        }
+    }
+}
+
 function mensajeAlert(fin) {
 
     const texttitle = gettext("Element %s - %s is disconnect");
@@ -374,7 +403,7 @@ function mensajeAlert(fin) {
 
 function validations(validate, editor) {
 
-    if (validationsCsinfraExternal(validate) == true || validationsNodeAlone(editor) == true) {
+    if (validationsCsinfraExternal(validate) == true || validationsNodeAlone(editor) == true || validationInputTransportedWater(editor)== true) {
         return true
     } else {
         if (banderaValideGraph != 0) {

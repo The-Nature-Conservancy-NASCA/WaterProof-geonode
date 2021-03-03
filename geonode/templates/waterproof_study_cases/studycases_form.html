@@ -1,4 +1,4 @@
-{% extends "base.html" %} {% load i18n %} {% load static from staticfiles %}
+{% extends "menu.html" %} {% load i18n %} {% load static from staticfiles %}
 {%load bootstrap_tags %} {% block extra_head %}
 <link href="https://unpkg.com/smartwizard@5/dist/css/smart_wizard_all.min.css" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
@@ -20,6 +20,15 @@
         <ul class="nav">
             <li>
                 <a class="nav-link" href="#step-1"> Define </a>
+            </li>
+            <li>
+                <a class="nav-link" href="#step-2"> Carbon Market </a>
+            </li>
+            <li>
+                <a class="nav-link" href="#step-3"> Portfolios</a>
+            </li>
+            <li>
+                <a class="nav-link" href="#step-4"> Modelling Parameters</a>
             </li>
         </ul>
         <!--Steps-->
@@ -98,10 +107,11 @@
                         <div class="panel" id="panel-custom">
                             <div class="col-md-12">
                                 <div class="row form-group">
+                                    <legend><label>{% trans "Water Intake" %} <span class="text-danger-wp">(*)</span> </label></legend>
                                     <div class="col-md-9">
                                         <select class="form-control" id="select_custom">
                                             {% for intake in intakes %}
-                                            <option value="{{intake.id}}">{{intake.name}}</option>
+                                            <option value="{{intake.id}}">{{intake.intake__name}} - {{intake.name}} - {{intake.graphId}}</option>
                                             {% endfor %}
                                         </select>
                                     </div>
@@ -112,8 +122,12 @@
                                 <table id="custom_table" class="table table-striped table-bordered table-condensed" style="width:100%">
                                     <thead>
                                         <tr class="info">
-                                            <th scope="col" class="small text-center vat">{% trans "Water Intakes" %}</th>
+                                            <th scope="col" class="small text-center vat">{% trans "name" %}</th>
+                                            <th scope="col" class="small text-center vat">{% trans "Name of the water source" %}</th>
+                                            <th scope="col" class="small text-center vat">{% trans "Study cases infrastructure" %}</th>
+                                            <th scope="col" class="small text-center vat">{% trans "Action" %}</th>
                                         </tr>
+
                                     </thead>
                                     <tbody>
                                     </tbody>
@@ -131,10 +145,109 @@
             <!--Step 2-->
             <div id="step-2" class="tab-pane" role="tabpanel">
                 <div class="page-header">
-                    <h3>Configure Parameters</h3>
-                    <p>Select the elements that make up your capture system and click on the drawing area to add them.</p>
+                    <h3>Carbon Market Benefits</h3>
+                    <p></p>
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id='cb_check'>
+                        <label class="custom-control-label" for="cb_check">Carbon market</label>
+                    </div>
+                    <div class="row text-center" id="cm_form">
+                        <div class="col-md-5">
+                            <p>CO2 Eq for (Selected Country)</p>
+                        </div>
+                        <div class="col-md-1">
+                            <input type="text" name="dws_cm" maxlength="100" class="form-control" id="id_cm" value="27.93" />
+                        </div>
+                        <div class="col-md-3">
+                            <p>USD/TonCO2eq</p>
+                        </div>
+                        <div class="col-md-3">
+                            <select class="form-control" id="cm_select">
+                                <option value="1">USD</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
+                <div class="row text-center">
+                    <div class="col-md-12">
+                        <button type="button" class="btn btn-primary" id="step2NextBtn">Next</button>
+                    </div>
+                </div>
+            </div>
+            <!--Step 3-->
+            <div id="step-3" class="tab-pane" role="tabpanel">
+                <div class="page-header">
+                    <h3>Portfolios</h3>
+                    <p></p>
 
+                    <ul class="list-group list-group-flush" id="portfolios-ul">
+                        {% for portfolio in portfolios %}
+                        <li class="list-group-item">
+                            <!-- Default checked -->
+                            <div class="custom-control custom-checkbox">
+                                {% if portfolio.default %}
+                                <input id='portfolio-{{portfolio.id}}' type="checkbox" class="custom-control-input" checked>
+                                {% else %}
+                                <input type="checkbox" class="custom-control-input" id="portfolio-{{portfolio.id}}">
+                                {% endif %}
+                                <label class="custom-control-label" for="check1">{{portfolio.name}}</label>
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="row text-center">
+                    <div class="col-md-12">
+                        <button type="button" class="btn btn-primary" id="step3NextBtn">Next</button>
+                    </div>
+                </div>
+            </div>
+            <!--Step 4-->
+            <div id="step-4" class="tab-pane" role="tabpanel">
+                <div class="page-header">
+                    <h3> {% trans "Biophysical tables" %}</h3>
+                    <p></p>
+
+                    <div class="page-header">
+                        <a href="" id="createUrl">{% trans "Advanced options" %}</a>
+                    </div>
+                    <div class="table-responsive">
+                        <table id="example" class="table table-striped table-bordered table-condensed" style="width:100%">
+                            <thead>
+                                <tr class="info">
+                                    <th scope="col" class="small text-center vat">{% trans "Description" %}</th>
+                                    <th scope="col" class="small text-center vat px-5">{% trans "lucode" %}</th>
+                                    <th scope="col" class="small text-center vat">{% trans "luc_veg" %}</th>
+                                    <th scope="col" class="small text-center vat">{% trans "root_depth" %}</th>
+                                    <th scope="col" class="small text-center vat">{% trans "Kc" %}</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for parameter in ModelParameters %}
+                                <tr>
+                                    <td class="small text-center vat">{{parameter.description}}</td>
+                                    <td class="small text-center vat">{{parameter.lucode}}</td>
+                                    <td>
+                                        <input type="checkbox" class="custom-control-input">
+                                    </td>
+                                    <td>
+                                        <input type="number" class="custom-control-input">
+                                    </td>
+                                    <td>
+                                        <input type="number" class="custom-control-input">
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row text-center">
+                    <div class="col-md-12">
+                        <button type="button" class="btn btn-primary" id="step4NextBtn">Next</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

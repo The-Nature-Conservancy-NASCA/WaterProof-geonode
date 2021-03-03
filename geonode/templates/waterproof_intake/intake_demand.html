@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "menu.html" %}
 {% load i18n %}
 {% load static from staticfiles %}
 {% load bootstrap_tags %}
@@ -28,6 +28,7 @@
 <!--header-->
 <div class="page-header">
     <h1>Demand Water Intake</h1>
+    <h4 class="title-city">{% trans "Intake creation city" %} <span id="cityLabel">{{intake.city.name}}</span> </h4>
 </div>
 <!--Begin Form-->
 <form id="form" method="POST" action="">
@@ -50,8 +51,8 @@
         <!--Steps-->
         <div class="tab-content" id="autoAdjustHeightF">
             
-             <!--Step 3-->
-           <div id="step-3" class="tab-pane" role="tabpanel">
+            <!--Step 3-->
+            <div id="step-3" class="tab-pane" role="tabpanel">
             <!--Header-->
             <div class="page-header">
                 <h3>{% trans "Water extraction"%}</h3>
@@ -76,9 +77,9 @@
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <label>{% trans "Interpolation method " %} <span class="text-danger-wp">(*)</span>
+                                            <label >{% trans "Interpolation method " %} <span class="text-danger-wp" disabled>(*)</span>
                                         </label>
-                                            <select class="form-control" id="typeProcessInterpolation">
+                                            <select class="form-control" id="typeProcessInterpolation" disabled>
                                             <option value="1">{% trans "Linear interpolation" %}</option>
                                             <option value="2">{% trans "Potential interpolation" %}</option>
                                             <option Value="3">{% trans "Exponential interpolation" %}</option>
@@ -105,7 +106,7 @@
                                         </div>
                                     </div>
                                 </div>
-                              
+                                <button type="button" class="btn btn-primary" id="intakeWECB" style="display: none;">{% trans "Generate" %}</button>
                             </div>
                             <!--Data analysis Results-->
                             <div class="col-md-4">
@@ -139,6 +140,7 @@
                                     <label>{% trans "Number of years" %} <span class="text-danger-wp">(*)</span> </label>
                                     <input type="text" class="form-control" id="intakeNIYMI" disabled>
                                 </div>
+                                <button type="button" class="btn btn-primary" id="intakeNIBYMI" style="display: none;">{% trans "Generate" %}</button>
                             </div>
                             <!--Results-->
                             <div class="col-md-6">
@@ -161,6 +163,12 @@
                 </div>
             </div>
             <br>
+            <div class="row text-center">
+                <div class="col-md-12">
+                    <button type="button" class="btn btn-primary" id="step3NextBtn">{% trans "Next" %}</button>
+                    <a type="button" class="btn btn-primary" href="{% url "list-intake" %}?limit={{ CLIENT_RESULTS_LIMIT }}">{% trans "Exit" %}</a>
+                </div>
+            </div>
         </div>
         <!--Step 4-->
         <div id="step-4" class="tab-pane" role="tabpanel">
@@ -175,14 +183,17 @@
                     <h4 class="text-primary">{% trans "Asignation" %}</h4>
                     <div class="form-group">
                         <label>{% trans "Type element for asignation" %}</label>
-                        <select class="form-control" id="externalSelect"></select>
+                        <select class="form-control" id="externalSelect" disabled></select>
                     </div>
                     <div id="IntakeTDLE"></div>
                 </div>
             </div>
             <br>
-        </div>
-            
+                <div class="row text-center">
+                    <div class="col-md-12">
+                        <a type="button" class="btn btn-primary" href="{% url "list-intake" %}?limit={{ CLIENT_RESULTS_LIMIT }}">{% trans "Exit" %}</a>
+                    </div>
+                </div>
         </div>
         </div>
 

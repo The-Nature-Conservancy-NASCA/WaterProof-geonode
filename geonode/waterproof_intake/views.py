@@ -11,8 +11,8 @@ from django.contrib import messages
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.translation import ugettext as _
-from .models import ValuesTime, City, ProcessEfficiencies, Intake, DemandParameters, WaterExtraction, ElementSystem, ValuesTime, CostFunctionsProcess, Polygon, Basins, ElementConnections, userCostFunctions
-from geonode.waterproof_nbs_ca.models import Countries, Region, Currency
+from .models import ValuesTime, ProcessEfficiencies, Intake, DemandParameters, WaterExtraction, ElementSystem, ValuesTime, CostFunctionsProcess, Polygon, Basins, ElementConnections, userCostFunctions
+from geonode.waterproof_parameters.models import Countries, Regions,Cities
 from django.contrib.gis.gdal import SpatialReference, CoordTransform
 from django.core import serializers
 from django.http import JsonResponse
@@ -40,6 +40,7 @@ def create(request):
         form = forms.IntakeForm(request.POST)
         if form.is_valid():
             intake = form.save(commit=False)
+            intakeCity=request.POST.get('intakeCity')
             xmlGraph = request.POST.get('xmlGraph')
             # True | False
             isFile = request.POST.get('isFile')
@@ -110,7 +111,7 @@ def create(request):
                     demand=demand_parameters
                 )
             intake.xml_graph = xmlGraph
-            intake.city = City.objects.get(id=1)
+            intake.city = Cities.objects.get(id=intakeCity)
             intake.demand_parameters = demand_parameters
             intake.creation_date = datetime.datetime.now()
             intake.updated_date = datetime.datetime.now()
@@ -272,10 +273,10 @@ def listIntake(request):
     if request.method == 'GET':
         if request.user.is_authenticated:
             if (request.user.professional_role == 'ADMIN'):
-                userCountry = Countries.objects.get(code=request.user.country)
-                region = Region.objects.get(id=userCountry.region_id)
+                userCountry = Countries.objects.get(iso3=request.user.country)
+                region = Regions.objects.get(id=userCountry.region_id)
                 intake = Intake.objects.all()
-                city = City.objects.all()
+                city = Cities.objects.all()
                 return render(
                     request,
                     'waterproof_intake/intake_list.html',
@@ -289,9 +290,9 @@ def listIntake(request):
 
             if (request.user.professional_role == 'ANALYS'):
                 intake = Intake.objects.all()
-                userCountry = Countries.objects.get(code=request.user.country)
-                region = Region.objects.get(id=userCountry.region_id)
-                city = City.objects.all()
+                userCountry = Countries.objects.get(iso3=request.user.country)
+                region = Regions.objects.get(id=userCountry.region_id)
+                city = Cities.objects.all()
                 return render(
                     request,
                     'waterproof_intake/intake_list.html',
@@ -305,9 +306,9 @@ def listIntake(request):
 
             if (request.user.professional_role == 'COPART'):
                 intake = Intake.objects.all()
-                userCountry = Countries.objects.get(code=request.user.country)
-                region = Region.objects.get(id=userCountry.region_id)
-                city = City.objects.all()
+                userCountry = Countries.objects.get(iso3=request.user.country)
+                region = Regions.objects.get(id=userCountry.region_id)
+                city = Cities.objects.all()
                 return render(
                     request,
                     'waterproof_intake/intake_list.html',
@@ -321,9 +322,9 @@ def listIntake(request):
 
             if (request.user.professional_role == 'ACDMC'):
                 intake = Intake.objects.all()
-                userCountry = Countries.objects.get(code=request.user.country)
-                region = Region.objects.get(id=userCountry.region_id)
-                city = City.objects.all()
+                userCountry = Countries.objects.get(iso3=request.user.country)
+                region = Regions.objects.get(id=userCountry.region_id)
+                city = Cities.objects.all()
                 return render(
                     request,
                     'waterproof_intake/intake_list.html',
@@ -337,9 +338,9 @@ def listIntake(request):
 
             if (request.user.professional_role == 'SCADM'):
                 intake = Intake.objects.all()
-                userCountry = Countries.objects.get(code=request.user.country)
-                region = Region.objects.get(id=userCountry.region_id)
-                city = City.objects.all()
+                userCountry = Countries.objects.get(iso3=request.user.country)
+                region = Regions.objects.get(id=userCountry.region_id)
+                city = Cities.objects.all()
                 return render(
                     request,
                     'waterproof_intake/intake_list.html',
@@ -353,9 +354,9 @@ def listIntake(request):
 
             if (request.user.professional_role == 'MCOMC'):
                 intake = Intake.objects.all()
-                userCountry = Countries.objects.get(code=request.user.country)
-                region = Region.objects.get(id=userCountry.region_id)
-                city = City.objects.all()
+                userCountry = Countries.objects.get(iso3=request.user.country)
+                region = Regions.objects.get(id=userCountry.region_id)
+                city = Cities.objects.all()
                 return render(
                     request,
                     'waterproof_intake/intake_list.html',
@@ -369,9 +370,9 @@ def listIntake(request):
 
             if (request.user.professional_role == 'CITIZN'):
                 intake = Intake.objects.all()
-                userCountry = Countries.objects.get(code=request.user.country)
-                region = Region.objects.get(id=userCountry.region_id)
-                city = City.objects.all()
+                userCountry = Countries.objects.get(iso3=request.user.country)
+                region = Regions.objects.get(id=userCountry.region_id)
+                city = Cities.objects.all()
                 return render(
                     request,
                     'waterproof_intake/intake_list.html',
@@ -385,9 +386,9 @@ def listIntake(request):
 
             if (request.user.professional_role == 'REPECS'):
                 intake = Intake.objects.all()
-                userCountry = Countries.objects.get(code=request.user.country)
-                region = Region.objects.get(id=userCountry.region_id)
-                city = City.objects.all()
+                userCountry = Countries.objects.get(iso3=request.user.country)
+                region = Regions.objects.get(id=userCountry.region_id)
+                city = Cities.objects.all()
                 return render(
                     request,
                     'waterproof_intake/intake_list.html',
@@ -401,9 +402,9 @@ def listIntake(request):
 
             if (request.user.professional_role == 'OTHER'):
                 intake = Intake.objects.all()
-                userCountry = Countries.objects.get(code=request.user.country)
-                region = Region.objects.get(id=userCountry.region_id)
-                city = City.objects.all()
+                userCountry = Countries.objects.get(iso3=request.user.country)
+                region = Regions.objects.get(id=userCountry.region_id)
+                city = Cities.objects.all()
                 return render(
                     request,
                     'waterproof_intake/intake_list.html',
@@ -416,9 +417,9 @@ def listIntake(request):
                 )
         else:
             intake = Intake.objects.all()
-            userCountry = Countries.objects.get(code='COL')
-            region = Region.objects.get(id=userCountry.region_id)
-            city = City.objects.all()
+            userCountry = Countries.objects.get(iso3='COL')
+            region = Regions.objects.get(id=userCountry.region_id)
+            city = Cities.objects.all()
             return render(
                 request,
                 'waterproof_intake/intake_list.html',
@@ -435,7 +436,6 @@ def editIntake(request, idx):
     else:
         if request.method == 'GET':
             countries = Countries.objects.all()
-            currencies = Currency.objects.all()
             filterIntake = Intake.objects.get(id=idx)
             filterExternal = ElementSystem.objects.filter(intake=filterIntake.pk, is_external=True)
             extInputs = []
@@ -460,7 +460,7 @@ def editIntake(request, idx):
                 # external['waterExtraction'] = extractionElements
                 extInputs.append(external)
             intakeExtInputs = json.dumps(extInputs)
-            city = City.objects.all()
+            city = Cities.objects.all()
             form = forms.IntakeForm()
             return render(
                 request, 'waterproof_intake/intake_edit.html',
@@ -478,6 +478,7 @@ def editIntake(request, idx):
             if form.is_valid():
                 intake = form.save(commit=False)
                 xmlGraph = request.POST.get('xmlGraph')
+                intakeCity=request.POST.get('intakeCity')
                 # True | False
                 isFile = request.POST.get('isFile')
                 # GeoJSON | SHP
@@ -531,7 +532,7 @@ def editIntake(request, idx):
                 existingIntake.water_source_name = intake.water_source_name
                 existingIntake.xml_graph = xmlGraph
                 existingIntake.added_by = request.user
-                existingIntake.city = City.objects.get(id=1)
+                existingIntake.city = Cities.objects.get(id=intakeCity)
                 existingIntake.save()
                 existingPolygon = Polygon.objects.get(intake=existingIntake.pk)
                 existingPolygon.geom = delimitAreaGeom
@@ -713,7 +714,6 @@ def editIntake(request, idx):
 def viewIntake(request, idx):
     if request.method == 'GET':
         countries = Countries.objects.all()
-        currencies = Currency.objects.all()
         filterIntake = Intake.objects.get(id=idx)
         filterExternal = ElementSystem.objects.filter(intake=filterIntake.pk, is_external=True)
         extInputs = []
@@ -738,7 +738,7 @@ def viewIntake(request, idx):
             # external['waterExtraction'] = extractionElements
             extInputs.append(external)
         intakeExtInputs = json.dumps(extInputs)
-        city = City.objects.all()
+        city = Cities.objects.all()
         form = forms.IntakeForm()
         return render(
             request, 'waterproof_intake/intake_detail_list.html',
@@ -777,7 +777,6 @@ def cloneIntake(request, idx):
     else:
         if request.method == 'GET':
             countries = Countries.objects.all()
-            currencies = Currency.objects.all()
             filterIntake = Intake.objects.get(id=idx)
             filterExternal = ElementSystem.objects.filter(intake=filterIntake.pk, is_external=True)
             extInputs = []
@@ -802,7 +801,7 @@ def cloneIntake(request, idx):
                 # external['waterExtraction'] = extractionElements
                 extInputs.append(external)
             intakeExtInputs = json.dumps(extInputs)
-            city = City.objects.all()
+            city = Cities.objects.all()
             form = forms.IntakeForm()
             return render(
                 request, 'waterproof_intake/intake_clone.html',
@@ -819,6 +818,7 @@ def cloneIntake(request, idx):
             if form.is_valid():
                 intake = form.save(commit=False)
                 xmlGraph = request.POST.get('xmlGraph')
+                intakeCity=request.POST.get('intakeCity')
                 # True | False
                 isFile = request.POST.get('isFile')
                 # GeoJSON | SHP
@@ -880,7 +880,7 @@ def cloneIntake(request, idx):
                         demand=demand_parameters
                     )
                 intake.xml_graph = xmlGraph
-                intake.city = City.objects.get(id=1)
+                intake.city = Cities.objects.get(id=intakeCity)
                 intake.demand_parameters = demand_parameters
                 intake.creation_date = datetime.datetime.now()
                 intake.updated_date = datetime.datetime.now()
