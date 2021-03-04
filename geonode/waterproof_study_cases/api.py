@@ -9,8 +9,8 @@ from rest_framework.parsers import JSONParser
 from django.urls import reverse
 from .models import StudyCases
 from . import forms
-from geonode.waterproof_nbs_ca.models import Countries, Region, Currency
-from geonode.waterproof_intake.models import City, Intake, ElementSystem
+from geonode.waterproof_parameters.models import Countries, Regions , Cities
+from geonode.waterproof_intake.models import  Intake, ElementSystem
 from .models import StudyCases , Portfolio, ModelParameter
 
 import requests

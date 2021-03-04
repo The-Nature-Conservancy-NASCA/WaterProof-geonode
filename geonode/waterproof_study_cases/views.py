@@ -17,16 +17,9 @@ from rest_framework.parsers import JSONParser
 from django.urls import reverse
 from .models import StudyCases
 from . import forms
-<<<<<<< HEAD
-from geonode.waterproof_nbs_ca.models import Countries, Region, Currency
-from geonode.waterproof_intake.models import City, Intake, ElementSystem
+from geonode.waterproof_parameters.models import Cities , Countries ,Regions
+from geonode.waterproof_intake.models import Intake, ElementSystem
 from geonode.waterproof_treatment_plants.models import Header
-=======
-from geonode.waterproof_parameters.models import Regions, Countries
-from geonode.waterproof_intake.models import Intake
-from geonode.waterproof_parameters.models import Cities
-#from geonode.waterproof_treatment_plants.models import TreatmentPlants
->>>>>>> WFAppCMS
 from django.utils import timezone
 from django.forms.models import model_to_dict
 from django.utils.translation import ugettext_lazy as _
@@ -45,9 +38,8 @@ def listStudyCases(request):
     if request.method == 'GET':
         if request.user.is_authenticated:
             if (request.user.professional_role == 'ADMIN'):
-                userCountry = Countries.objects.get(code=request.user.country)
+                userCountry = Countries.objects.get(iso3=request.user.country)
                 region = Regions.objects.get(id=userCountry.region_id)
-                currency = Currency.objects.get(id=userCountry.id)
                 studyCases = StudyCases.objects.all()
                 city = Cities.objects.get(id=1)
                 return render(
@@ -58,14 +50,12 @@ def listStudyCases(request):
                         'city': city,
                         'userCountry': userCountry,
                         'region': region,
-                        'currency': currency
                     }
                 )
 
             if (request.user.professional_role == 'ANALYS'):
                 studyCases = StudyCases.objects.all()
-                userCountry = Countries.objects.get(code=request.user.country)
-                currency = Currency.objects.get(id=userCountry.id)
+                userCountry = Countries.objects.get(iso3=request.user.country)
                 region = Regions.objects.get(id=userCountry.region_id)
                 city = Cities.objects.all()
                 return render(
@@ -76,12 +66,11 @@ def listStudyCases(request):
                         'city': city,
                         'userCountry': userCountry,
                         'region': region,
-                        'currency': currency
                     }
                 )
         else:
             studyCases = StudyCases.objects.all()
-            userCountry = Countries.objects.get(code='COL')
+            userCountry = Countries.objects.get(iso3='COL')
             region = Regions.objects.get(id=userCountry.region_id)
             city = Cities.objects.all()
             return render(
