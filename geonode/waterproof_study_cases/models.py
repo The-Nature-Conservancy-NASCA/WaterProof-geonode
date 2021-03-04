@@ -24,8 +24,14 @@ from django.conf import settings
 from django.db import models
 from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
+<<<<<<< HEAD
 from geonode.waterproof_intake.models import ElementSystem , Currency
 from geonode.waterproof_treatment_plants.models import Header
+=======
+from geonode.waterproof_intake.models import ElementSystem
+from geonode.waterproof_parameters.models import Countries
+
+>>>>>>> WFAppCMS
 
 class ModelParameter(models.Model):
    

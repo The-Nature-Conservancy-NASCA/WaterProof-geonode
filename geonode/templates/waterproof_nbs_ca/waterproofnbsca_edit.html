@@ -38,9 +38,9 @@
                 <select id="countryNBS" {{countryEnable}} class="form-control" data-error="This field is required" required>
                     {% for country in countries %}
                     {% if nbs.country.pk == country.pk %}
-                        <option value="{{country.pk}}" data-value="{{country.code}}" selected>{{country.name}}</option>
+                        <option value="{{country.pk}}" data-value="{{country.iso3}}" selected>{{country.name}}</option>
                     {% else %}
-                        <option value="{{country.pk}}" data-value="{{country.code}}">{{country.name}}</option>
+                        <option value="{{country.pk}}" data-value="{{country.iso3}}">{{country.name}}</option>
                     {% endif %}
                     {% endfor %}
                 </select>
@@ -51,9 +51,9 @@
                 <select id="currencyCost" {{countryEnable}} class="form-control" data-error="This field is required" required>
                     {% for currency in currencies %}
                     {% if nbs.currency.pk == currency.pk%}
-                    <option value="{{currency.pk}}" selected>({{currency.code}}) - {{currency.name}}</option>
+                    <option value="{{currency.pk}}" selected>({{currency.currency}})  - {{currency.name}}</option>
                     {% else %}
-                    <option value="{{currency.pk}}">({{currency.code}}) - {{currency.name}}</option>
+                    <option value="{{currency.pk}}">({{currency.currency}}) - {{currency.name}}</option>
                     {% endif %}
                     {% endfor %}
                 </select>

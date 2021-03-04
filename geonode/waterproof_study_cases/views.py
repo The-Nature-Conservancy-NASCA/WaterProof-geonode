@@ -9,7 +9,7 @@ from math import fsum
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.models import User
-from django.http import HttpResponse, Http404, HttpResponseRedirect, JsonResponse
+from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.template.response import TemplateResponse
 from rest_framework.decorators import api_view
@@ -17,9 +17,16 @@ from rest_framework.parsers import JSONParser
 from django.urls import reverse
 from .models import StudyCases
 from . import forms
+<<<<<<< HEAD
 from geonode.waterproof_nbs_ca.models import Countries, Region, Currency
 from geonode.waterproof_intake.models import City, Intake, ElementSystem
 from geonode.waterproof_treatment_plants.models import Header
+=======
+from geonode.waterproof_parameters.models import Regions, Countries
+from geonode.waterproof_intake.models import Intake
+from geonode.waterproof_parameters.models import Cities
+#from geonode.waterproof_treatment_plants.models import TreatmentPlants
+>>>>>>> WFAppCMS
 from django.utils import timezone
 from django.forms.models import model_to_dict
 from django.utils.translation import ugettext_lazy as _
@@ -39,10 +46,10 @@ def listStudyCases(request):
         if request.user.is_authenticated:
             if (request.user.professional_role == 'ADMIN'):
                 userCountry = Countries.objects.get(code=request.user.country)
-                region = Region.objects.get(id=userCountry.region_id)
+                region = Regions.objects.get(id=userCountry.region_id)
                 currency = Currency.objects.get(id=userCountry.id)
                 studyCases = StudyCases.objects.all()
-                city = City.objects.get(id=1)
+                city = Cities.objects.get(id=1)
                 return render(
                     request,
                     'waterproof_study_cases/studycases_list.html',
@@ -59,8 +66,8 @@ def listStudyCases(request):
                 studyCases = StudyCases.objects.all()
                 userCountry = Countries.objects.get(code=request.user.country)
                 currency = Currency.objects.get(id=userCountry.id)
-                region = Region.objects.get(id=userCountry.region_id)
-                city = City.objects.all()
+                region = Regions.objects.get(id=userCountry.region_id)
+                city = Cities.objects.all()
                 return render(
                     request,
                     'waterproof_study_cases/studycases_list.html',
@@ -75,8 +82,8 @@ def listStudyCases(request):
         else:
             studyCases = StudyCases.objects.all()
             userCountry = Countries.objects.get(code='COL')
-            region = Region.objects.get(id=userCountry.region_id)
-            city = City.objects.all()
+            region = Regions.objects.get(id=userCountry.region_id)
+            city = Cities.objects.all()
             return render(
                 request,
                 'waterproof_study_cases/studycases_list.html',
