@@ -9,7 +9,7 @@
 {% block body_outer %}
     <div class="page-header">
         <h2>{% trans "Sign up" %}
-            <button type="button" data-toggle="modal" data-target="#HelpModal" id="HelpModalBtnModal" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca;"></button> 
+         <button type="button" data-toggle="modal" data-target="#HelpModal" id="HelpModalBtnModal" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; padding: 0.001cm;"></button>
         </h2>
     </div>
     <div class="row">
@@ -80,7 +80,9 @@
                     {%  trans "Through your registration as a WaterProof user, you will be able to access a set of services to perform an indicative analysis, at the pre-feasibility level, of the ROI return on investment in the implementation of Nature-Based Solutions in accordance with the environmental situation of the supply basins of interest. Please enter your contact information, indicating your professional role and interest in the use of the analysis, define your login password and review the terms of conditions of the tool. At the end, click on the 'Register' button."  %}
                 </li>
                 <div>
-                <img style="margin: 10px auto 10px; display: block;" src="/static/geonode/img/signupHelp.png"></img>
+                    <div class="form-actions">
+                        <button style="margin: 10px auto 10px; display: block;" type="submit" class="btn btn-primary">{% trans "Sign up" %}</button>
+                    </div>
                 <br>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal" style="color: white; background-color: #6398C1;">Close</button>
