@@ -302,7 +302,7 @@ $(document).ready(function () {
         map.invalidateSize();
     });
     $('#smartwizard').smartWizard({
-        selected: 4,
+        selected: 1,
         theme: 'dots',
         enableURLhash: false,
         autoAdjustHeight: true,

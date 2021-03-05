@@ -7,6 +7,13 @@
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_nbs_ca/css/dataTables.bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_nbs_ca/css/waterproof_nbs_ca.css">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
+<div>
+    <h1>{% trans "Nature based solutions (NBS)" %}
+        <button type="button" data-toggle="modal" data-target="#HelpModal" id="HelpModalBtnModal" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca;"></button> 
+    </h1>
+    <h6>{% trans "From this section you can consult the nature-based solutions available in the system, understood as the actions that may be part of the portfolios offered by the system when it executes its analyzes. You can also create your own nature-based solutions by clicking on 'Create new SNB' " %}</h6>
+</div>
+
 <div class="row">
     <div class="col-md-4">
         <h4 class="text-center" id="countryLabel">{{country.name}}</h4>
@@ -20,7 +27,7 @@
 </div>
 <div class="page-header">
 
-    <h1>{% trans "Nature based solutions (NBS)" %}</h1>
+    
     {% if user.is_authenticated and not READ_ONLY_MODE %}
     <a href="create/" id="createUrl">{% trans "Create a new NBS" %}</a>
     {% else %}
@@ -101,6 +108,33 @@
         </tbody>
     </table>
 </div>
+    <!--Modal Help-->
+    <div class="modal fade" id="HelpModal" tabindex="-1" aria-labelledby="HelpModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h3 class="modal-title text-center" id="HelpModalLabel" style="color:#6398C1 ;">{%  trans "Nature-based solutions" %}</h3>
+                </div>
+                <div class="modal-body">
+                    <li>
+                        {%  trans "The system offers you a default list of Solutions based on Nature (NBS) by country, with standard information on their implementation and maintenance costs, known times about the time required to obtain benefits and the possible transformations that are possible through of its implementation."  %}
+                    </li>
+                    <li>
+                        {% trans "Use the icon" %} <img src="/static/geonode/img/see_more.png"/> {% trans "to see the information of the system NbSs." %}
+                    </li>
+                    <div>
+                    <img style="margin: 10px auto 10px; display: block;" src="/static/geonode/img/SBNTable.png"></img>
+                    <br>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="color: white; background-color: #6398C1;">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 {% block body %}{% endblock body %} {% block sidebar %}{% endblock sidebar %} {% endblock body_outer %} {% block extra_script %}
 <script>
