@@ -47,7 +47,6 @@
                 <th scope="col" class="small text-center vat px-5">{% trans "Description" %}</th>
                 <th scope="col" class="small text-center vat">{% trans "User" %}</th>
                 <th scope="col" class="small text-center vat">{% trans "Date" %}</th>
-                <th scope="col" class="small text-center vat" style="display: none;">{% trans "City" %}</th>
                 <th scope="col" class="small text-center vat">{% trans "Treatment plants" %}</th>
                 <th scope="col" class="small text-center vat">{% trans "Water intakes" %}</th>
                 <th scope="col" class="small text-center vat">{% trans "Cost customize" %}</th>
@@ -63,8 +62,10 @@
                 <td class="small text-center vat"></td>
                 <td class="small text-center vat">{{studyCases.dws_create_date | date:"d-m-Y"}}</td>
                 <td class="small text-center vat" style="display: none;"></td>
-                <td class="small text-center vat"></td>
-                <td class="small text-center vat">{% for intake in studyCases.dws_intakes.all %}
+                <td class="small text-center vat">{% for ptap in studyCases.ptaps.all %}
+                    - {{ptap.plant_name}} <br>
+                    {% endfor %}</td>
+                <td class="small text-center vat">{% for intake in studyCases.intakes.all %}
                     - {{intake.intake.name}} - SCINFRA - {{intake.graphId}} <br>
                     {% endfor %}</td>
                 <td class="small text-center vat"></td>

@@ -11,6 +11,7 @@ from .models import StudyCases
 from . import forms
 from geonode.waterproof_parameters.models import Countries, Regions , Cities
 from geonode.waterproof_intake.models import  Intake, ElementSystem
+from geonode.waterproof_treatment_plants.models import Header
 from .models import StudyCases , Portfolio, ModelParameter
 
 import requests
@@ -43,12 +44,11 @@ def save(request):
             intakes = request.POST.getlist('intakes[]')
             for intake in intakes:
                 it = ElementSystem.objects.get(pk=intake)
-                sc.dws_intakes.add(it)
+                sc.intakes.add(it)
             ptaps = request.POST.getlist('ptaps[]')
-            logger.error(ptaps)
             for ptap in ptaps:
-                pt = ElementSystem.objects.get(pk=ptap)
-                sc.dws_intakes.add(pt)
+                pt = Header.objects.get(pk=ptap)
+                sc.ptaps.add(pt)
             return JsonResponse({'id_study_case': sc.id}, safe=False)
         elif(request.POST.get('carbon_market')):
             cm = request.POST['carbon_market']
@@ -57,8 +57,6 @@ def save(request):
                 sc = StudyCases.objects.get(pk=id_study_case)
                 cm_value = request.POST['carbon_market_value']
                 cm_currency = request.POST['carbon_market_currency']
-                currency = Currency.objects.filter(code=cm_currency)[0]
-                sc.cm_currency = currency
                 sc.cm_value = cm_value
                 sc.dws_benefit_carbon_market = True
                 sc.save()

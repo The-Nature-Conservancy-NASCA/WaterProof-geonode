@@ -99,7 +99,7 @@ $(document).ready(function() {
             });
             ptaps = [];
             $('#ptap_table').find('tbody > tr').each(function(index, tr) {
-                id = tr.id.replace('custom-', '')
+                id = tr.id.replace('ptap-', '')
                 ptaps.push(id)
             });
             $.post("../../study_cases/save/", {
