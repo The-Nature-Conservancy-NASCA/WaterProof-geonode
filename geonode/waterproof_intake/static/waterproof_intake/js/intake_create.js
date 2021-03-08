@@ -45,7 +45,8 @@ const interpolationType = {
 
 var mapLoader;
 $(document).ready(function () {
-
+    setIntakeCity();
+    $('#cityLabel').text(localStorage.city);
     // Interpolation with Wizard
     $("#intakeWECB").click(function () {
         if ($("#numberYearsInterpolationValue").val() == '' || $("#initialDataExtractionInterpolationValue").val() == '' || $("#finalDataExtractionInterpolationValue").val() == '') {
@@ -563,7 +564,30 @@ function prevalidateAdjustCoordinates() {
         }
     })
 }
-
+function setIntakeCity() {
+    console.log(localStorage);
+    /** 
+     * Get a city by name
+     * @param {String} url   activities URL 
+     * @param {Object} data  lang,city parameters 
+     *
+     * @return {Object} City
+    */
+    $.ajax({
+        url: '/parameters/load-cityByName/',
+        data: {
+            'lang': lang,
+            'city': localStorage.city
+        },
+        success: function (result) {
+            let resultCity = JSON.parse(result);
+            $('#intakeCity').val(resultCity[0].pk)
+        },
+        error: function (error) {
+            console.log(error);
+        }
+    });
+}
 /** 
  * Delimit manually the intake polygon
  */

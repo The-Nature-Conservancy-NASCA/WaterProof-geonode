@@ -20,10 +20,34 @@ class Migration(migrations.Migration):
                 ('plant_suggest', models.CharField(max_length=1,verbose_name=_('Suggest Plant'))),
                 ('plant_user', models.CharField(max_length=100,verbose_name=_('User Plant'))),
                 ('plant_date_create', models.DateTimeField(auto_now=False,verbose_name=_('Date Create Plant'))),
-                ('plant_date_update', models.DateTimeField(auto_now=True,verbose_name=_('Date Update Plant')))
+                ('plant_date_update', models.DateTimeField(auto_now=True,verbose_name=_('Date Update Plant'))),
+                ('plant_city_id', models.IntegerField(verbose_name=_('Id City')))
             ],
             options={
                 'ordering': ['plant_id', 'plant_name'],
+            },
+        ),
+        migrations.CreateModel(
+            name='Function',
+            fields=[
+                ('function_id',models.IntegerField(auto_created=True, primary_key=True,verbose_name=_('Id Function'))),
+                ('function_name', models.CharField(max_length=100,verbose_name=_('Name Function'))),
+                ('function_value', models.CharField(max_length=300,verbose_name=_('Value Function'))),
+                ('function_currency', models.CharField(max_length=1,verbose_name=_('Currency Function'))),
+                ('function_factor', models.CharField(max_length=100,verbose_name=_('Factor'))),
+                ('function_id_sub_process', models.CharField(auto_now=False,verbose_name=_('Sub Process'))),
+                ('function_user', models.CharField(auto_now=True,verbose_name=_('User'))),
+                ('function_date_create', models.DateTimeField(auto_now=True,verbose_name=_('Date Create'))),
+                ('function_date_update', models.DateTimeField(auto_now=False, verbose_name=_('Date Update'))),
+                ('function_plant_id', models.IntegerField( verbose_name=_('Plant Id'))),
+                ('function_transported_water', models.CharField(max_length=100,verbose_name=_('Water'))),
+                ('function_sediments_retained', models.CharField(max_length=100,verbose_name=_('Sediments'))),
+                ('function_nitrogen_retained', models.CharField(max_length=100,verbose_name=_('Nitrogen'))),
+                ('function_phosphorus_retained', models.CharField(max_length=100,verbose_name=_('Phosphorus'))),
+                ('function_technology', models.CharField(max_length=100,verbose_name=_('Technology'))))
+            ],
+            options={
+                'ordering': ['function_id'],
             },
         ),
         migrations.CreateModel(
@@ -54,6 +78,20 @@ class Migration(migrations.Migration):
             ],
             options={
                 'ordering': ['element_id'],
+            },
+        ),
+        migrations.CreateModel(
+            name='Csinfra',
+            fields=[
+                ('csinfra_id', models.IntegerField(auto_created=True, primary_key=True,verbose_name=_('Id Csinfra'))),
+                ('csinfra_plant_id', models.IntegerField(verbose_name=_('Plant Id'))),
+                ('csinfra_user', models.CharField(max_length=100,verbose_name=_('User'))),
+                ('csinfra_date_create', models.CharField(max_length=100,verbose_name=_('Date Create'))),
+                ('csinfra_date_update', models.CharField(max_length=100,verbose_name=_('Date Update'))),
+                ('csinfra_elementsystem_id', models.CharField(max_length=100,verbose_name=_('Element System')))
+            ],
+            options={
+                'ordering': ['plant_id', 'plant_name'],
             },
         )
     ]

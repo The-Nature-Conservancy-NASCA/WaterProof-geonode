@@ -104,13 +104,6 @@ HOSTNAME = _surl.hostname
 if not SITEURL.endswith('/'):
     SITEURL = '{}/'.format(SITEURL)
 
-DATABASE_URL = os.getenv(
-      'DATABASE_URL',
-      'spatialite:///{path}'.format(
-          path=os.path.join(PROJECT_ROOT, 'development.db')
-      )
- )
-
 DATABASE_URL='postgresql://geonode:{&Uid&QXZ&6f;|F@dev.skaphe.com:5432/geonode'
 #DATABASE_URL='postgresql://geonode:geonode@localhost:5432/geonode'
 
@@ -472,6 +465,7 @@ GEONODE_INTERNAL_APPS = (
     'geonode.waterproof_study_cases',
     'geonode.waterproof_nbs_ca',
     'geonode.waterproof_intake',
+    'geonode.waterproof_parameters',
     'geonode.waterproof_treatment_plants',
 )
 
@@ -2209,6 +2203,8 @@ WATERPROOF_STUDY_CASES_ALLOW_ANONYMOUS = True
 WATERPROOF_NBS_CA_ALLOW_ANONYMOUS = True
 
 WATERPROOF_API_SERVER = "/proxy/?url=http://dev.skaphe.com:8000/"
+
+WATERPROOF_INVEST_API="http://dev.skaphe.com:8000/"
 
 SEARCH_CITY_API_URL = '/proxy/?url=https://photon.komoot.io/api/?'
 
