@@ -282,7 +282,11 @@ def create(request):
             return HttpResponseRedirect(request, 'waterproof_intake/intake_list.html')
     else:
         form = forms.IntakeForm()
-    return render(request, 'waterproof_intake/intake_form.html', context={"form": form, "serverApi": settings.WATERPROOF_API_SERVER})
+        currencies = Countries.objects.all()
+    return render(request, 'waterproof_intake/intake_form.html', context={
+        "form": form, "serverApi": settings.WATERPROOF_API_SERVER,
+        'currencies': currencies,
+        })
 
 
 def listIntake(request):

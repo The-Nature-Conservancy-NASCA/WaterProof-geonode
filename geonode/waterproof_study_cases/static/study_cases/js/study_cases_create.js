@@ -44,8 +44,16 @@ const interpolationType = {
 
 var mapLoader;
 $(document).ready(function() {
+    $('#autoAdjustHeightF').css("height", "auto");
     $('#custom').click(function() {
         $("#panel-custom").removeClass("panel-hide");
+        $("#panel-ptap").addClass("panel-hide");
+        $('#autoAdjustHeightF').css("height", "auto");
+    });
+    $('#ptap').click(function() {
+        $("#panel-ptap").removeClass("panel-hide");
+        $("#panel-custom").addClass("panel-hide");
+        $('#autoAdjustHeightF').css("height", "auto");
     });
 
     $('#add_wi').click(function() {
@@ -70,18 +78,35 @@ $(document).ready(function() {
 
     });
 
+    $('#add_ptap').click(function() {
+        text = $("#select_ptap option:selected").text();
+        value = $("#select_ptap option:selected").val();
+        $('#select_ptap option:selected').remove();
+        var action = "<td><a class='btn btn-danger'><span class='glyphicon glyphicon-trash' aria-hidden='true'></span></a></td>";
+        var name = "<td>" + text + "</td>";
+        var markup = "<tr id='ptap-" + value + "'>" + name + action + "</tr>";
+        $("#ptap_table").find('tbody').append(markup);
+        $('#autoAdjustHeightF').css("height", "auto");
+    });
+
 
     $('#step1NextBtn').click(function() {
         if ($('#id_name').val() != '' && $('#id_description').val() != '' && $('table tr').length > 1) {
             intakes = [];
-            $('.custom_table').find('tbody > tr').each(function(index, tr) {
+            $('#custom_table').find('tbody > tr').each(function(index, tr) {
                 id = tr.id.replace('custom-', '')
                 intakes.push(id)
+            });
+            ptaps = [];
+            $('#ptap_table').find('tbody > tr').each(function(index, tr) {
+                id = tr.id.replace('ptap-', '')
+                ptaps.push(id)
             });
             $.post("../../study_cases/save/", {
                 name: $('#id_name').val(),
                 description: $('#id_description').val(),
-                intakes: intakes
+                intakes: intakes,
+                ptaps: ptaps
             }, function(data) {
                 id_study_case = data.id_study_case;
                 $('#smartwizard').smartWizard("next");
@@ -152,6 +177,22 @@ $(document).ready(function() {
         }
     });
 
+    $('#step4NextBtn').click(function() {
+        $('#smartwizard').smartWizard("next");
+    });
+    $('#step5NextBtn').click(function() {
+        $('#smartwizard').smartWizard("next");
+    });
+    $('#step6NextBtn').click(function() {
+        $('#smartwizard').smartWizard("next");
+    });
+    $('#step7EndBtn').click(function() {
+        $("#form").submit();
+    });
+    $('#step7RunBtn').click(function() {
+
+    });
+
 
     $('#custom_table').on('click', 'a', function() {
         var row = $(this).closest("tr")
@@ -172,6 +213,127 @@ $(document).ready(function() {
 
     });
 
+    $('#ptap_table').on('click', 'a', function() {
+        var row = $(this).closest("tr")
+        var tds = row.find("td");
+        ptap_name = "";
+        $.each(tds, function(i) {
+            if (i == 0) {
+                ptap_name = $(this).text();
+            }
+
+        });
+        option = ptap_name
+        id = row.attr("id").replace('ptap-', '')
+        $("#select_ptap").append(new Option(option, id));
+        row.remove();
+
+    });
+
+    $("#director").keyup(function() {
+        calculate_Personnel();
+        calculate_Platform();
+    });
+
+    $("#evaluation").keyup(function() {
+        calculate_Personnel();
+        calculate_Platform();
+    });
+
+    $("#finance").keyup(function() {
+        calculate_Personnel();
+        calculate_Platform();
+    });
+
+    $("#implementation").keyup(function() {
+        calculate_Personnel();
+        calculate_Platform();
+    });
+
+    $("#office").keyup(function() {
+        calculate_Personnel();
+        calculate_Platform();
+    });
+    $("#travel").keyup(function() {
+        calculate_Personnel();
+        calculate_Platform();
+    });
+    $("#equipment").keyup(function() {
+        calculate_Personnel();
+        calculate_Platform();
+    });
+    $("#overhead").keyup(function() {
+        calculate_Personnel();
+        calculate_Platform();
+    });
+    $("#contracts").keyup(function() {
+        calculate_Personnel();
+        calculate_Platform();
+    });
+    $("#others").keyup(function() {
+        calculate_Personnel();
+        calculate_Platform();
+    });
+
+    function calculate_Personnel() {
+        var total = 0.0;
+        var total_personnel = $("#total_personnel");
+        var director = $("#director").val();
+        var evaluation = $("#evaluation").val();
+        var finance = $("#finance").val();
+        var implementation = $("#implementation").val();
+        if (director && !isNaN(director)) {
+            total += parseFloat(director)
+        }
+        if (evaluation && !isNaN(evaluation)) {
+            total += parseFloat(evaluation)
+        }
+        if (finance && !isNaN(finance)) {
+            total += parseFloat(finance)
+        }
+        if (implementation && !isNaN(implementation)) {
+            total += parseFloat(implementation)
+        }
+        total_personnel.val(total)
+    }
+
+    function calculate_Platform() {
+        var total = 0.0;
+        var total_plaform = $("#total_platform");
+        var personnel = $("#total_personnel").val();
+        var office = $("#office").val();
+        var travel = $("#travel").val();
+        var equipment = $("#equipment").val();
+        var overhead = $("#overhead").val();
+        var contracts = $("#contracts").val();
+        var others = $("#others").val();
+
+        if (personnel && !isNaN(personnel)) {
+            total += parseFloat(personnel)
+        }
+        if (director && !isNaN(director)) {
+            total += parseFloat(director)
+        }
+        if (office && !isNaN(office)) {
+            total += parseFloat(office)
+        }
+        if (travel && !isNaN(travel)) {
+            total += parseFloat(travel)
+        }
+        if (equipment && !isNaN(equipment)) {
+            total += parseFloat(equipment)
+        }
+        if (contracts && !isNaN(contracts)) {
+            total += parseFloat(contracts)
+        }
+        if (overhead && !isNaN(overhead)) {
+            total += parseFloat(overhead)
+        }
+        if (others && !isNaN(others)) {
+            total += parseFloat(others)
+        }
+        total_plaform.val(total)
+    }
 
 
     $('#smartwizard').smartWizard({

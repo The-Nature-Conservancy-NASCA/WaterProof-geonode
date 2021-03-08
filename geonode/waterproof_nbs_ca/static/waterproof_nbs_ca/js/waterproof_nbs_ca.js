@@ -60,6 +60,7 @@ $(function () {
 
 
     };
+    
     submitFormEvent = function () {
         console.log('submit event loaded');
         var formData = new FormData();
