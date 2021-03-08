@@ -17,10 +17,9 @@ from rest_framework.parsers import JSONParser
 from django.urls import reverse
 from .models import StudyCases
 from . import forms
-from geonode.waterproof_parameters.models import Regions, Countries
-from geonode.waterproof_intake.models import Intake
-from geonode.waterproof_parameters.models import Cities
-#from geonode.waterproof_treatment_plants.models import TreatmentPlants
+from geonode.waterproof_parameters.models import Cities , Countries ,Regions
+from geonode.waterproof_intake.models import Intake, ElementSystem
+from geonode.waterproof_treatment_plants.models import Header
 from django.utils import timezone
 from django.forms.models import model_to_dict
 from django.utils.translation import ugettext_lazy as _
@@ -39,9 +38,8 @@ def listStudyCases(request):
     if request.method == 'GET':
         if request.user.is_authenticated:
             if (request.user.professional_role == 'ADMIN'):
-                userCountry = Countries.objects.get(code=request.user.country)
+                userCountry = Countries.objects.get(iso3=request.user.country)
                 region = Regions.objects.get(id=userCountry.region_id)
-                currency = Currency.objects.get(id=userCountry.id)
                 studyCases = StudyCases.objects.all()
                 city = Cities.objects.get(id=1)
                 return render(
@@ -52,14 +50,12 @@ def listStudyCases(request):
                         'city': city,
                         'userCountry': userCountry,
                         'region': region,
-                        'currency': currency
                     }
                 )
 
             if (request.user.professional_role == 'ANALYS'):
                 studyCases = StudyCases.objects.all()
-                userCountry = Countries.objects.get(code=request.user.country)
-                currency = Currency.objects.get(id=userCountry.id)
+                userCountry = Countries.objects.get(iso3=request.user.country)
                 region = Regions.objects.get(id=userCountry.region_id)
                 city = Cities.objects.all()
                 return render(
@@ -70,12 +66,11 @@ def listStudyCases(request):
                         'city': city,
                         'userCountry': userCountry,
                         'region': region,
-                        'currency': currency
                     }
                 )
         else:
             studyCases = StudyCases.objects.all()
-            userCountry = Countries.objects.get(code='COL')
+            userCountry = Countries.objects.get(iso3='COL')
             region = Regions.objects.get(id=userCountry.region_id)
             city = Cities.objects.all()
             return render(
@@ -87,81 +82,25 @@ def listStudyCases(request):
                 }
             )
 
-
 def create(request):
     # POST submit FORM
     if request.method == 'POST':
-        form = forms.StudyCasesForm(request.POST)
-        if form.is_valid():
-            study_case = form.save(commit=False)
-            study_case.dws_create_date = datetime.datetime.now()
-            study_case.save()
-            messages.success(request, ("Study case created."))
-            return HttpResponseRedirect(reverse('study_cases_list'))
+        return HttpResponseRedirect(reverse('study_cases_list'))
     else:
         portfolios = Portfolio.objects.all()
         models = ModelParameter.objects.all()
-        filterIntakeCSInfra = ElementSystem.objects.filter(normalized_category='CSINFRA').values(
+        tratamentPlants = Header.objects.all()
+        intakes = ElementSystem.objects.filter(normalized_category='CSINFRA').values(
             "id", "name", "intake__name", "intake__id", "graphId")
         form = forms.StudyCasesForm()
         return render(request,
                       'waterproof_study_cases/studycases_form.html',
                       context={"form": form,
                                "serverApi": settings.WATERPROOF_API_SERVER,
-                               'intakes': filterIntakeCSInfra,
+                               'intakes': intakes,
                                'portfolios': portfolios,
+                               'tratamentPlants':tratamentPlants,
                                'ModelParameters': models
                                }
                       )
 
-
-@api_view(['GET'])
-def getSCInfra(request, id_scinfra):
-    if request.method == 'GET':
-        filterIntakeCSInfra = ElementSystem.objects.filter(id=id_scinfra).values(
-            "id", "name", "intake__name", "intake__id", "intake__water_source_name", "graphId")
-        data = list(filterIntakeCSInfra)
-        return JsonResponse(data, safe=False)
-
-
-@api_view(['POST'])
-def save(request):
-    if request.method == 'POST':
-        if(request.POST.get('name')):     
-            name = request.POST['name']
-            description = request.POST['description']
-            sc = StudyCases()
-            sc.dws_create_date = datetime.datetime.now()
-            sc.dws_name = name
-            sc.dws_description =description
-            sc.save()
-            intakes = request.POST.getlist('intakes[]')
-            logger.error(intakes)
-            for intake in intakes:
-                logger.error(intake)
-                it = ElementSystem.objects.get(pk=intake)
-                logger.error(it)
-                sc.dws_intakes.add(it)
-            return JsonResponse({'id_study_case': sc.id}, safe=False)
-        elif(request.POST.get('carbon_market')):
-            cm = request.POST['carbon_market']
-            if(cm):
-                id_study_case = request.POST['id_study_case']
-                sc = StudyCases.objects.get(pk=id_study_case)
-                cm_value = request.POST['carbon_market_value']
-                cm_currency = request.POST['carbon_market_currency']
-                currency = Currency.objects.filter(code=cm_currency)[0]
-                sc.cm_currency = currency
-                sc.cm_value = cm_value
-                sc.dws_benefit_carbon_market = True
-                sc.save()
-                return JsonResponse({'id_study_case': 1}, safe=False)
-        elif(request.POST.getlist('portfolios[]')):
-            portfolios = request.POST.getlist('portfolios[]')
-            id_study_case = request.POST['id_study_case']
-            sc = StudyCases.objects.get(pk=id_study_case)
-            for portfolio in portfolios:
-                it = Portfolio.objects.get(pk=portfolio)
-                sc.portfolios.add(it)
-            return JsonResponse({'id_study_case': sc.id}, safe=False)
-    
