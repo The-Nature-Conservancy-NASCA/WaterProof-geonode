@@ -14,8 +14,9 @@
 
 
 <div class="page-header">
-    <h1>{% trans "Edit Treatment Plant" %}</h1>
-    <h1 class="title-city">{{country.nameCity}}</h1>
+
+    <h1 id="titleFormTreatmentPlant"></h1>
+    <h1 class="title-city">{% trans "Treatment plant creation city: " %} <span id="nameCity"></span> </h1>
 </div>
 <form data-toggle="validator" role="form" action="#">
     <h4 class="text-primary">{% trans "General Settings" %}</h4>
@@ -37,9 +38,6 @@
             <label>{% trans "Select from the list wather intakes that arrive at your treatment plant and click on the button 'Add wather intake'" %}</label>
             <select  id="idIntakePlant" class="form-control" data-error="This field is required" required>
                 <option></option>
-                {% for intakePlants in intakeList %}
-                    <option value="{{intakePlants.id}}" namelist="{{intakePlants.name}}"  graphIdlist="{{intakePlants.graphId}}" intake="{{intakePlants.nameIntake}}" csinfra="{{intakePlants.csinfra}}" data-value="{{intakePlants.id}}">{{intakePlants.nameIntake}}</option>
-                {% endfor %}
             </select>
             <br>
             <table class="table table-striped table-bordered table-condensed" style="width:100%">
@@ -226,10 +224,10 @@
     <button type="button" id="submit" class="btn btn-primary ">{% trans "Submit" %}</button>
 </form>
 <script>
-    var countriesLayerUrl = '{{ STATIC_URL }}waterproof_nbs_ca/data/countries.geojson';
-    var userCountryId='{{country.id}}';
-    var userCountryCode='{{country.codeCountry}}';
-    var userCountryName='{{country.nameCountry}}';
+    var countriesLayerUrl = '{{ STATIC_URL }}waterproof_intake/data/countries.geojson';
+    var userCountryId = '{{userCountry.id}}';
+    var userCountryCode = '{{userCountry.code}}';
+    var userCountryName = '{{userCountry.name}}';
 </script>
 {% endblock body_outer %} {% block extra_script %}
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mathquill/0.10.1/mathquill.css" />

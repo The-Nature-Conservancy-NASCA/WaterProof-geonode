@@ -6,6 +6,11 @@
 <link rel="stylesheet" href="{% static " geonode/css/leaflet/Control.Coordinates.css " %}" />
 <link rel="stylesheet" href="https://photon.komoot.io/static/leaflet.photon/leaflet.photon.css">
 </link>
+<script>
+    var intakePolygons = [];
+    SEARCH_CITY_API_URL = '{{ SEARCH_CITY_API_URL }}';
+    SEARCH_COUNTRY_API_URL = '{{ SEARCH_COUNTRY_API_URL }}';
+</script>
 
 {% endblock %} {% block body_outer %}
 
@@ -13,20 +18,20 @@
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_treatment_plants/css/treatment_plants.css" />
 <div class="row">
     <div class="col-md-4">
-        <p><div id="cityLabel" class="title-city">{{country.nameCity}}</div></p>
-        <p><b>{% trans "Country" %} :</b> <span id="countryLabel">{{country.nameCountry}}</span> </p>
-        <p><b>{% trans "Region" %} :</b> <span id="regionLabel">{{country.nameRegion}}</span> </p>
-        <p><b>{% trans "Currency" %}:</b><span id="currencyLabel">{{country.nameCurrency}} {{country.code}}</span></p>
+        <h4 class="text-center" id="countryLabel">{{city.name}}</h4>
+        <p><b>{% trans "Selected City" %} :</b> <span id="cityLabel"></span> </p>
+        <p><b>{% trans "Region" %} :</b> <span id="regionLabel"></span> </p>
+        <p><b>{% trans "Currency" %}:</b><span id="currencyLabel"></span></p>        
     </div>
     <div class="col-md-8">
-        <div id="mapid" style="width: 700px; height: 200px;"></div>
+        <div id="mapid" style="position:relative; width:100%; height:350px;"></div>
     </div>
 </div>
 <div class="page-header">
     <h1>{% trans "Treatment Plants List" %}</h1>
     <br>
     <br>
-    <a href="create/" id="createUrl">{% trans "Create new Treatment Plants" %}</a>
+    <a id="createUrl">{% trans "Create new Treatment Plants" %}</a>
 </div>
 
 <div class="table-responsive">
@@ -35,8 +40,9 @@
             <tr class="info">
                 <th scope="col" class="small text-center vat">{% trans "Name" %}</th>
                 <th scope="col" class="small text-center vat">{% trans "Description" %}</th>
+                <th scope="col" class="small text-center vat">{% trans "City" %}</th>
                 <th scope="col" class="small text-center vat">{% trans "Catchment" %}</th>
-                <th scope="col" class="small text-center vat">{% trans "Options" %}</th>
+                <th scope="col" class="small text-center vat">{% trans "Water intakes" %}</th>
             </tr>
         </thead>
         <tbody>
@@ -44,7 +50,12 @@
             <tr>
                 <td class="small text-center vat">{{treatmentPlants.plantName}}</td>
                 <td class="small text-center vat">{{treatmentPlants.plantDescription}}</td>
-                <td class="small text-center vat">{{treatmentPlants.plantSuggest}}</td>
+                <td class="small text-center vat">{{treatmentPlants.standardNameSpanish}}</td>
+                <td class="small text-center vat">
+                    {% for intake in treatmentPlants.plantIntakeName %}
+                        {{intake}}<br>
+                    {% endfor %}
+                </td>
                 <td>
                     <div class="btn-group btn-group-table center-button" role="group">
                         <a class="btn btn-primary" onclick="viewInformationPlant('{{treatmentPlants.plantId}}')"><span
@@ -75,4 +86,29 @@
 <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
 <script src="{{ STATIC_URL }}geonode/js/leaflet/leaflet.ajax.min.js"></script>
 <script src="{{ STATIC_URL }}waterproof_treatment_plants/js/waterproof_list_treatment_plants.js"></script>
+<script src="{{ STATIC_URL }}geonode/js/leaflet/photon/leaflet.photon.js"></script>
+
+<script type=" text/javascript ">
+    API_URL = '/proxy/?url=https://photon.komoot.de/api/?';
+    TILELAYER = 'http://{s}.tile.osm.org/{z}/{x}/{y}.png';
+    CENTER = [-74.4879, 4.582];
+    MAXZOOM = 11;
+
+    let waterproof = {};
+
+    $(document).ready(function() {
+
+
+
+    });
+
+    var searchPoints = L.geoJson(null, {
+        onEachFeature: function(feature, layer) {
+            layer.bindPopup(feature.properties.name);
+        }
+    });
+
+</script>
+
+
 {% endblock %}
