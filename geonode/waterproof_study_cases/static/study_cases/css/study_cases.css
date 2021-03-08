@@ -118,3 +118,15 @@
 .panel-hide {
     display: none;
 }
+
+.float-right {
+    float: right;
+}
+
+.platform-label {
+    padding-left: 50px;
+}
+
+.personnel-label {
+    padding-left: 90px;
+}

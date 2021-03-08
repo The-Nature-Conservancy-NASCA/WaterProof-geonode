@@ -49,6 +49,21 @@
     vertical-align: middle;
 }
 
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 999px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    background: red;
+    cursor: inherit;
+    display: block;
+  }
+
 .modal {
     text-align: center;
 }
@@ -61,6 +76,7 @@
         height: 100%;
     }
 }
+
 .title-city {
     position: absolute;
     right: 26%;
@@ -71,6 +87,12 @@
     display: inline-block;
     text-align: left;
     vertical-align: middle;
+}
+
+.modal-xl {
+    min-width: 1140px;
+    margin: auto;
+    min-height: 800px;
 }
 
 .mxToolbarMode:hover {
