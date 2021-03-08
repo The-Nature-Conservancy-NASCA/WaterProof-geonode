@@ -35,8 +35,8 @@ class Migration(migrations.Migration):
                 ('function_value', models.CharField(max_length=300,verbose_name=_('Value Function'))),
                 ('function_currency', models.CharField(max_length=1,verbose_name=_('Currency Function'))),
                 ('function_factor', models.CharField(max_length=100,verbose_name=_('Factor'))),
-                ('function_id_sub_process', models.CharField(auto_now=False,verbose_name=_('Sub Process'))),
-                ('function_user', models.CharField(auto_now=True,verbose_name=_('User'))),
+                ('function_id_sub_process', models.CharField(max_length=100,verbose_name=_('Sub Process'))),
+                ('function_user', models.CharField(max_length=100,verbose_name=_('User'))),
                 ('function_date_create', models.DateTimeField(auto_now=True,verbose_name=_('Date Create'))),
                 ('function_date_update', models.DateTimeField(auto_now=False, verbose_name=_('Date Update'))),
                 ('function_plant_id', models.IntegerField( verbose_name=_('Plant Id'))),
@@ -44,7 +44,7 @@ class Migration(migrations.Migration):
                 ('function_sediments_retained', models.CharField(max_length=100,verbose_name=_('Sediments'))),
                 ('function_nitrogen_retained', models.CharField(max_length=100,verbose_name=_('Nitrogen'))),
                 ('function_phosphorus_retained', models.CharField(max_length=100,verbose_name=_('Phosphorus'))),
-                ('function_technology', models.CharField(max_length=100,verbose_name=_('Technology'))))
+                ('function_technology', models.CharField(max_length=100,verbose_name=_('Technology')))
             ],
             options={
                 'ordering': ['function_id'],
