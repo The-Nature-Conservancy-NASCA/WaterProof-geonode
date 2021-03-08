@@ -22,6 +22,7 @@ import simplejson as json
 from django.contrib.gis.geos import GEOSGeometry
 from django.contrib.gis.gdal import OGRGeometry
 import datetime
+import requests
 logger = logging.getLogger(__name__)
 
 """
@@ -259,6 +260,21 @@ def create(request):
                     source=sourceElement,
                     target=targetElement
                 )
+            argsInvest={
+                'type':'quality',
+                'id_usuario':1,
+                'basin': basin.pk,
+                'models': 'sdr',
+                'models':'awy',
+                'models':'ndr',
+                'models':'carbon',
+                'catchment': intakeCreated.pk,
+                }
+            argsWb={
+                'id_intake': intakeCreated.pk
+            }
+            execInvest(requests,argsInvest)
+            execWb(requests,argsWb)
             messages.success(request, ("Water Intake created."))
             return HttpResponseRedirect(reverse('list-intake'))
         else:
@@ -711,6 +727,21 @@ def editIntake(request, idx):
                     source=sourceElement,
                     target=targetElement
                 )
+            argsInvest={
+                'type':'quality',
+                'id_usuario':1,
+                'basin': basin.pk,
+                'models': 'sdr',
+                'models':'awy',
+                'models':'ndr',
+                'models':'carbon',
+                'catchment': existingIntake.pk,
+                }
+            argsWb={
+                'id_intake': existingIntake.pk
+            }
+            execInvest(requests,argsInvest)
+            execWb(requests,argsWb)
             messages.success(request, ("Water Intake edited."))
             return HttpResponseRedirect(reverse('list-intake'))
 
@@ -1033,6 +1064,21 @@ def cloneIntake(request, idx):
                         source=sourceElement,
                         target=targetElement
                     )
+                argsInvest={
+                    'type':'quality',
+                    'id_usuario':1,
+                    'basin': basin.pk,
+                    'models': 'sdr',
+                    'models':'awy',
+                    'models':'ndr',
+                    'models':'carbon',
+                    'catchment': intakeCreated.pk,
+                    }
+                argsWb={
+                    'id_intake': intakeCreated.pk
+                }
+                execInvest(requests,argsInvest)
+                execWb(requests,argsWb)
                 messages.success(request, ("Water Intake created."))
                 return HttpResponseRedirect(reverse('list-intake'))
             else:
@@ -1064,6 +1110,43 @@ def deleteIntake(request, idx):
             response.status_code = 200
             return response
 
+""""""""""""""""""""""
+Execute Invest API
+
+Attributes
+----------
+request
+args:   Object
+    type:       string
+    id_usuario: int
+    basin:      int
+    models:     string
+    catchment   int
+"""""""""""""""""""""
+def execInvest(request,args):
+    url = settings.WATERPROOF_INVEST_API+'execInvest'
+    r=request.get(url,params=args)
+    if r.status_code==200:
+        print(r.text)
+    else:
+        print(r.text)
+
+""""""""""""""""""""""
+Execute Water Balance API
+
+Attributes
+----------
+request
+catchment:  Int Intake id
+"""""""""""""""""""""
+def execWb(request,args):
+    print(args)
+    url=settings.WATERPROOF_INVEST_API+'wb'
+    r=request.get(url,params=args)
+    if r.status_code==200:
+        print(r.text)
+    else:
+        print(r.text)
 
 """
 Load process by category
