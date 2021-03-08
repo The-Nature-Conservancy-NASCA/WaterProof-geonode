@@ -85,25 +85,19 @@ def listStudyCases(request):
 def create(request):
     # POST submit FORM
     if request.method == 'POST':
-        form = forms.StudyCasesForm(request.POST)
-        if form.is_valid():
-            study_case = form.save(commit=False)
-            study_case.dws_create_date = datetime.datetime.now()
-            study_case.save()
-            messages.success(request, ("Study case created."))
-            return HttpResponseRedirect(reverse('study_cases_list'))
+        return HttpResponseRedirect(reverse('study_cases_list'))
     else:
         portfolios = Portfolio.objects.all()
         models = ModelParameter.objects.all()
         tratamentPlants = Header.objects.all()
-        filterIntakeCSInfra = ElementSystem.objects.filter(normalized_category='CSINFRA').values(
+        intakes = ElementSystem.objects.filter(normalized_category='CSINFRA').values(
             "id", "name", "intake__name", "intake__id", "graphId")
         form = forms.StudyCasesForm()
         return render(request,
                       'waterproof_study_cases/studycases_form.html',
                       context={"form": form,
                                "serverApi": settings.WATERPROOF_API_SERVER,
-                               'intakes': filterIntakeCSInfra,
+                               'intakes': intakes,
                                'portfolios': portfolios,
                                'tratamentPlants':tratamentPlants,
                                'ModelParameters': models

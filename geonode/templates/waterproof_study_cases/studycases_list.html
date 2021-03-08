@@ -57,10 +57,10 @@
         <tbody>
             {% for studyCases in casesList %}
             <tr>
-                <td class="small text-center vat">{{studyCases.dws_name}}</td>
-                <td class="small text-center vat">{{studyCases.dws_description}}</td>
+                <td class="small text-center vat">{{studyCases.name}}</td>
+                <td class="small text-center vat">{{studyCases.description}}</td>
                 <td class="small text-center vat"></td>
-                <td class="small text-center vat">{{studyCases.dws_create_date | date:"d-m-Y"}}</td>
+                <td class="small text-center vat">{{studyCases.create_date | date:"d-m-Y"}}</td>
                 <td class="small text-center vat" style="display: none;"></td>
                 <td class="small text-center vat">{% for ptap in studyCases.ptaps.all %}
                     - {{ptap.plant_name}} <br>

@@ -37,9 +37,9 @@ def save(request):
             name = request.POST['name']
             description = request.POST['description']
             sc = StudyCases()
-            sc.dws_create_date = datetime.datetime.now()
-            sc.dws_name = name
-            sc.dws_description =description
+            sc.create_date = datetime.datetime.now()
+            sc.name = name
+            sc.description =description
             sc.save()
             intakes = request.POST.getlist('intakes[]')
             for intake in intakes:
@@ -58,7 +58,7 @@ def save(request):
                 cm_value = request.POST['carbon_market_value']
                 cm_currency = request.POST['carbon_market_currency']
                 sc.cm_value = cm_value
-                sc.dws_benefit_carbon_market = True
+                sc.benefit_carbon_market = True
                 sc.save()
                 return JsonResponse({'id_study_case': sc.id}, safe=False)
         elif(request.POST.getlist('portfolios[]')):
