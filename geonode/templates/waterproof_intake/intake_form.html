@@ -132,7 +132,7 @@
                     <div class="col-md-4">
                         <div class="alert alert-info text-center" role="alert">
                             <button type="button" class="btn btn-link btn-block" data-toggle="modal" data-target="#HelpModal" id="HelpModalBtnModal" style="outline:none; text-decoration:none;">
-                                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> {% trans "How to use the graph" %}</button>
+                                <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span> {% trans "How to use the graph" %}</button>
                             </button>
                         </div>
                         <div class="panel panel-info">
@@ -356,7 +356,14 @@
                                 </div>
                                 <p>{% trans "To load shapefile" %}</p>
                                 <div class="form-group">
-                                    <input id="intakeArea" type="file"> <button type="button" class="btn btn-link" data-toggle="modal" data-target="#HelpGeom" id="HelpGeomModal" style="outline:none; text-decoration:none;">
+                                    <div class="input-group">
+                                        <span class="input-group-btn">
+                                          <span class="btn btn-default btn-file">
+                                            {% trans "Select a file" %}
+                                            <input id="intakeArea" type="file">
+                                        </span>
+                                        </span>
+                                    </div>
                                         <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> {% trans "Help" %}</button>
                                     </button>
                                 </div>
