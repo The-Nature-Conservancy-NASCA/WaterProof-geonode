@@ -128,10 +128,10 @@ function clearDataHtml() {
 function funcost(ecuation_db, ecuation_name, index, MQ) {
     $('#funcostgenerate').append(
         `<div class="alert alert-info" role="alert" idvalue="fun_${index}" style="margin-bottom: 12px">
-        <a name="glyphicon-trash" idvalue="${index}" class="alert-link close" style="opacity: 1"><span class="glyphicon glyphicon-trash text-danger" aria-hidden="true"></span></a>
-        <h4>${ecuation_name}</h4><a name="glyphicon-edit" idvalue="${index}" class="alert-link close" style="opacity: 1"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
-        <p name="render_ecuation" style="font-size: 1.8rem">${ ecuation_db }</p>
-    </div>
+            <a name="glyphicon-trash" idvalue="${index}" class="alert-link close" style="opacity: 1"><span class="glyphicon glyphicon-trash text-danger" aria-hidden="true"></span></a>
+            <h4>${ecuation_name}</h4><a name="glyphicon-edit" idvalue="${index}" class="alert-link close" style="opacity: 1"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
+            <p name="render_ecuation" style="font-size: 1.8rem; width:92%">${ ecuation_db }</p>
+        </div>
     `);
     $('p[name=render_ecuation]').each(function() {
         MQ.StaticMath(this);

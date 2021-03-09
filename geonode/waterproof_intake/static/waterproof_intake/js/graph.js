@@ -518,8 +518,12 @@ function onInit(editor) {
         });
 
         $("#currencyCost").on("change", function() {
-            SelectedCurrency = $('#currencyCost').val();
-            Number(SelectedCurrency);
+            $.ajax({
+                url: `/parameters/load-currency/?currency=${$('#currencyCost').val()}`,
+                success: function(result) {
+                    $('#global_multiplier_factorCalculator').val(JSON.parse(result)[0].fields.global_multiplier_factor);
+                }
+            });
         });
         //load data when add an object in a diagram
         editor.graph.addListener(mxEvent.ADD_CELLS, function(sender, evt) {
