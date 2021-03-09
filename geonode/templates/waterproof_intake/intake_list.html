@@ -30,6 +30,10 @@
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
     integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
     crossorigin="" />
+<div>
+    <h1>{% trans "Intakes" %}</h1>
+    <h7>{% trans "Enter the name of the city of your interest in the 'Search city' space on the map and select the corresponding option from the list" %}</h7>
+</div>
 <div class="row">
     <div class="col-md-4">
         <h4 class="text-center" id="countryLabel">{{city.name}}</h4>
@@ -44,11 +48,14 @@
 </div>
 <div class="page-header">
 
-    <h1>{% trans "Intakes" %}</h1>
-    <h7>{% trans "Enter the name of the city of your interest in the 'Search city' space on the map and select the corresponding option from the list" %}</h7>
     <br>
     <br>
-    <a href="create/" id="createUrl">{% trans "Create new Water Intake" %}</a>
+    {% if user.is_authenticated and not READ_ONLY_MODE %}
+    <a href="create/" id="createUrl" textColor="red" style="outline-color: dimgrey;">{% trans "Create new Water Intake" %}</a>
+    {% else %}
+    <a id="createUrlDisabled">{% trans "Create new Water Intake" %}</a>
+    <h6>{% trans "You must be a registered user to create a new Intake*" %}</h6>
+    {% endif %}
 </div>
 <div class="table-responsive">
     <table id="example" class="table table-striped table-bordered table-condensed" style="width:100%">

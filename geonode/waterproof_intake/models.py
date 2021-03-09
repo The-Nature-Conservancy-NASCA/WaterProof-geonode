@@ -4,20 +4,8 @@ from django.conf import settings
 from django.db import models
 from django.contrib.gis.db import models
 from django.utils.translation import ugettext_lazy as _
-from geonode.waterproof_nbs_ca.models import Countries
-from geonode.waterproof_nbs_ca.models import Currency
+from geonode.waterproof_parameters.models import Countries,Cities
 
-
-class City(models.Model):
-    country = models.ForeignKey(Countries, on_delete=models.CASCADE)
-
-    name = models.CharField(
-        max_length=100,
-        verbose_name=_('Name'),
-    )
-
-    def __str__(self):
-        return "%s" % self.name
 
 
 class UserCosts(models.Model):
@@ -259,7 +247,7 @@ class Intake(models.Model):
         verbose_name=_('Source name'),
     )
 
-    city = models.ForeignKey(City, on_delete=models.CASCADE)
+    city = models.ForeignKey(Cities, on_delete=models.CASCADE)
 
     demand_parameters = models.ForeignKey(DemandParameters, on_delete=models.CASCADE)
 

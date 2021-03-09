@@ -257,7 +257,7 @@ $(function () {
             let countryCode = feature.sourceTarget.feature.id;
 
             $.ajax({
-                url: '/waterproof_nbs_ca/load-countryByCode/',
+                url: '/parameters/load-countryByCode/',
                 data: {
                     'code': countryCode
                 },
@@ -269,7 +269,7 @@ $(function () {
                     udpateCreateUrl(countryId);
                     //
                     $.ajax({
-                        url: '/waterproof_nbs_ca/load-regionByCountry/',
+                        url: '/parameters/load-regionByCountry/',
                         data: {
                             'country': countryId
                         },
@@ -280,13 +280,13 @@ $(function () {
                         }
                     });
                     $.ajax({
-                        url: '/waterproof_nbs_ca/load-currencyByCountry/',
+                        url: '/parameters/load-currencyByCountry/',
                         data: {
                             'country': countryId
                         },
                         success: function (result) {
                             result = JSON.parse(result);
-                            $('#currencyLabel').text('(' + result[0].fields.code + ') - ' + result[0].fields.name);
+                            $('#currencyLabel').text('(' + result[0].fields.currency + ') - ' + result[0].fields.name);
                         }
                     });
                 }
@@ -339,14 +339,14 @@ $(function () {
              * @return {String} activities in HTML option format
              */
             $.ajax({
-                url: '/waterproof_nbs_ca/load-currencyByCountry/',
+                url: '/parameters/load-currencyByCountry/',
                 data: {
                     'country': country_id
                 },
                 success: function (result) {
                     result = JSON.parse(result);
                     currencyDropdown.val(result[0].pk);
-                    $('#currencyLabel').text('(' + result[0].fields.code + ') - ' + result[0].fields.name);
+                    $('#currencyLabel').text('(' + result[0].fields.currency + ') - ' + result[0].fields.name);
                     $('#countryLabel').text(countryName);
                     /** 
                      * Get filtered activities by transition id 
@@ -356,7 +356,7 @@ $(function () {
                      * @return {String} activities in HTML option format
                      */
                     $.ajax({
-                        url: '/waterproof_nbs_ca/load-regionByCountry/',
+                        url: '/parameters/load-regionByCountry/',
                         data: {
                             'country': country_id
                         },
@@ -389,6 +389,11 @@ $(function () {
      * Validate input file on change
      * @param {HTML} dropdown Dropdown selected element
      */
+
+  
+
+
+
     changeFileEvent = function () {
         $('#restrictedArea').change(function (evt) {
             var file = evt.currentTarget.files[0];

@@ -1,5 +1,5 @@
 /**
- * @file Create Intake wizard step
+ * @file Create Study Case wizard step
  * validations & interactions
  * @version 1.0
  */
@@ -28,6 +28,7 @@ var validPolygon;
 var isFile;
 var delimitationFileType;
 var xmlGraph;
+var id_study_case;
 var waterExtractionData = {};
 var waterExtractionValue;
 const delimitationFileEnum = {
@@ -43,22 +44,75 @@ const interpolationType = {
 
 var mapLoader;
 $(document).ready(function() {
+    $('#autoAdjustHeightF').css("height", "auto");
     $('#custom').click(function() {
         $("#panel-custom").removeClass("panel-hide");
+        $("#panel-ptap").addClass("panel-hide");
+        $('#autoAdjustHeightF').css("height", "auto");
+    });
+    $('#ptap').click(function() {
+        $("#panel-ptap").removeClass("panel-hide");
+        $("#panel-custom").addClass("panel-hide");
+        $('#autoAdjustHeightF').css("height", "auto");
     });
 
     $('#add_wi').click(function() {
-        selected = $("#select_custom option:selected").text();
+        text = $("#select_custom option:selected").text();
+        value = $("#select_custom option:selected").val();
         $('#select_custom option:selected').remove();
-        var markup = "<tr><td>" + selected + "</td></tr>";
-        $("table tbody").append(markup);
+        var action = "<td><a class='btn btn-danger'><span class='glyphicon glyphicon-trash' aria-hidden='true'></span></a></td>";
+        $.get("../../study_cases/scinfra/" + value, function(data) {
+            $.each(data, function(index, scinfra) {
+                var name = "<td>" + scinfra.intake__name + "</td>";
+                var name_source = "<td>" + scinfra.intake__water_source_name + "</td>";
+                check = " <td>";
+                check += "<div>" + scinfra.name + " - " + scinfra.graphId
+                // "</div><button type='button' class='btn btn-primary' id='add_wi'>Add new cost</button>"
+                check += "</td>";
+                var markup = "<tr id='custom-" + value + "'>" + name + name_source + check + action + "</tr>";
+                $("#custom_table").find('tbody').append(markup);
+            });
+
+            $('#autoAdjustHeightF').css("height", "auto");
+        });
+
+    });
+
+    $('#add_ptap').click(function() {
+        text = $("#select_ptap option:selected").text();
+        value = $("#select_ptap option:selected").val();
+        $('#select_ptap option:selected').remove();
+        var action = "<td><a class='btn btn-danger'><span class='glyphicon glyphicon-trash' aria-hidden='true'></span></a></td>";
+        var name = "<td>" + text + "</td>";
+        var markup = "<tr id='ptap-" + value + "'>" + name + action + "</tr>";
+        $("#ptap_table").find('tbody').append(markup);
+        $('#autoAdjustHeightF').css("height", "auto");
     });
 
 
     $('#step1NextBtn').click(function() {
         if ($('#id_name').val() != '' && $('#id_description').val() != '' && $('table tr').length > 1) {
-            $('#smartwizard').smartWizard("next");
-            $("#form").submit();
+            intakes = [];
+            $('#custom_table').find('tbody > tr').each(function(index, tr) {
+                id = tr.id.replace('custom-', '')
+                intakes.push(id)
+            });
+            ptaps = [];
+            $('#ptap_table').find('tbody > tr').each(function(index, tr) {
+                id = tr.id.replace('ptap-', '')
+                ptaps.push(id)
+            });
+            $.post("../../study_cases/save/", {
+                name: $('#id_name').val(),
+                description: $('#id_description').val(),
+                intakes: intakes,
+                ptaps: ptaps
+            }, function(data) {
+                id_study_case = data.id_study_case;
+                $('#smartwizard').smartWizard("next");
+                $('#autoAdjustHeightF').css("height", "auto");
+                $("#cm_form").hide();
+            }, "json");
         } else {
             Swal.fire({
                 icon: 'warning',
@@ -69,6 +123,217 @@ $(document).ready(function() {
         }
     });
 
+    $("#cb_check").click(function() {
+
+        if ($(this).is(":checked")) // "this" refers to the element that fired the event
+        {
+            $("#cm_form").show();
+            $('#autoAdjustHeightF').css("height", "auto");
+        } else {
+            $("#cm_form").hide();
+            $('#autoAdjustHeightF').css("height", "auto");
+        }
+    })
+
+    $('#step2NextBtn').click(function() {
+        if ($("#cb_check").is(':checked')) {
+            $.post("../../study_cases/save/", {
+                id_study_case: id_study_case,
+                carbon_market: $("#cb_check").is(':checked'),
+                carbon_market_value: $('#id_cm').val(),
+                carbon_market_currency: $("#cm_select option:selected").text()
+            }, function(data) {
+                $('#smartwizard').smartWizard("next");
+                $('#autoAdjustHeightF').css("height", "auto");
+            }, "json");
+        } else {
+            $('#smartwizard').smartWizard("next");
+            $('#autoAdjustHeightF').css("height", "auto");
+
+        }
+    });
+
+    $('#step3NextBtn').click(function() {
+        portfolios = [];
+        $('#portfolios-ul input:checked').each(function() {
+            id = $(this).attr("id").replace('portfolio-', '')
+            portfolios.push(id)
+        })
+        if (portfolios.length > 0) {
+            $.post("../../study_cases/save/", {
+                id_study_case: id_study_case,
+                portfolios: portfolios
+            }, function(data) {
+                $('#smartwizard').smartWizard("next");
+                $('#autoAdjustHeightF').css("height", "auto");
+            }, "json");
+        } else {
+            Swal.fire({
+                icon: 'warning',
+                title: `Field empty`,
+                text: `Please check options`
+            });
+            return;
+        }
+    });
+
+    $('#step4NextBtn').click(function() {
+        $('#smartwizard').smartWizard("next");
+    });
+    $('#step5NextBtn').click(function() {
+        $('#smartwizard').smartWizard("next");
+    });
+    $('#step6NextBtn').click(function() {
+        $('#smartwizard').smartWizard("next");
+    });
+    $('#step7EndBtn').click(function() {
+        $("#form").submit();
+    });
+    $('#step7RunBtn').click(function() {
+
+    });
+
+
+    $('#custom_table').on('click', 'a', function() {
+        var row = $(this).closest("tr")
+        var tds = row.find("td");
+        intake_name = "";
+        $.each(tds, function(i) {
+            if (i == 0) {
+                intake_name = $(this).text();
+            } else if (i == 2) {
+                csinfra_name = $(this).text();
+            }
+
+        });
+        option = intake_name + " - " + csinfra_name
+        id = row.attr("id").replace('custom-', '')
+        $("#select_custom").append(new Option(option, id));
+        row.remove();
+
+    });
+
+    $('#ptap_table').on('click', 'a', function() {
+        var row = $(this).closest("tr")
+        var tds = row.find("td");
+        ptap_name = "";
+        $.each(tds, function(i) {
+            if (i == 0) {
+                ptap_name = $(this).text();
+            }
+
+        });
+        option = ptap_name
+        id = row.attr("id").replace('ptap-', '')
+        $("#select_ptap").append(new Option(option, id));
+        row.remove();
+
+    });
+
+    $("#director").keyup(function() {
+        calculate_Personnel();
+        calculate_Platform();
+    });
+
+    $("#evaluation").keyup(function() {
+        calculate_Personnel();
+        calculate_Platform();
+    });
+
+    $("#finance").keyup(function() {
+        calculate_Personnel();
+        calculate_Platform();
+    });
+
+    $("#implementation").keyup(function() {
+        calculate_Personnel();
+        calculate_Platform();
+    });
+
+    $("#office").keyup(function() {
+        calculate_Personnel();
+        calculate_Platform();
+    });
+    $("#travel").keyup(function() {
+        calculate_Personnel();
+        calculate_Platform();
+    });
+    $("#equipment").keyup(function() {
+        calculate_Personnel();
+        calculate_Platform();
+    });
+    $("#overhead").keyup(function() {
+        calculate_Personnel();
+        calculate_Platform();
+    });
+    $("#contracts").keyup(function() {
+        calculate_Personnel();
+        calculate_Platform();
+    });
+    $("#others").keyup(function() {
+        calculate_Personnel();
+        calculate_Platform();
+    });
+
+    function calculate_Personnel() {
+        var total = 0.0;
+        var total_personnel = $("#total_personnel");
+        var director = $("#director").val();
+        var evaluation = $("#evaluation").val();
+        var finance = $("#finance").val();
+        var implementation = $("#implementation").val();
+        if (director && !isNaN(director)) {
+            total += parseFloat(director)
+        }
+        if (evaluation && !isNaN(evaluation)) {
+            total += parseFloat(evaluation)
+        }
+        if (finance && !isNaN(finance)) {
+            total += parseFloat(finance)
+        }
+        if (implementation && !isNaN(implementation)) {
+            total += parseFloat(implementation)
+        }
+        total_personnel.val(total)
+    }
+
+    function calculate_Platform() {
+        var total = 0.0;
+        var total_plaform = $("#total_platform");
+        var personnel = $("#total_personnel").val();
+        var office = $("#office").val();
+        var travel = $("#travel").val();
+        var equipment = $("#equipment").val();
+        var overhead = $("#overhead").val();
+        var contracts = $("#contracts").val();
+        var others = $("#others").val();
+
+        if (personnel && !isNaN(personnel)) {
+            total += parseFloat(personnel)
+        }
+        if (director && !isNaN(director)) {
+            total += parseFloat(director)
+        }
+        if (office && !isNaN(office)) {
+            total += parseFloat(office)
+        }
+        if (travel && !isNaN(travel)) {
+            total += parseFloat(travel)
+        }
+        if (equipment && !isNaN(equipment)) {
+            total += parseFloat(equipment)
+        }
+        if (contracts && !isNaN(contracts)) {
+            total += parseFloat(contracts)
+        }
+        if (overhead && !isNaN(overhead)) {
+            total += parseFloat(overhead)
+        }
+        if (others && !isNaN(others)) {
+            total += parseFloat(others)
+        }
+        total_plaform.val(total)
+    }
 
 
     $('#smartwizard').smartWizard({
@@ -91,6 +356,9 @@ $(document).ready(function() {
             showPreviousButton: false,
         }
     });
+
+    $('#autoAdjustHeightF').css("height", "auto");
+
 
     /*$("#smartwizard").on("showStep", function(e, anchorObject, stepIndex, stepDirection) {
         if (stepIndex == 3) {
@@ -117,255 +385,3 @@ $(document).ready(function() {
 window.onbeforeunload = function() {
     return mxResources.get('changesLost');
 };
-
-/** 
- * Delimit manually the intake polygon
- */
-function delimitIntakeArea() {
-    isFile = false;
-    var copyCoordinates = [];
-    console.log('Delimiting');
-    var polygonKeys = Object.keys(catchmentPoly._layers);
-    var keyNamePolygon = polygonKeys[0];
-    var geometryCoordinates = catchmentPoly._layers[keyNamePolygon].feature.geometry.coordinates[0];
-    geometryCoordinates.forEach(function(geom) {
-        var coordinates = [];
-        coordinates.push(geom[1]);
-        coordinates.push(geom[0]);
-        copyCoordinates.push(coordinates);
-    })
-    editablepolygon = L.polygon(copyCoordinates, {
-        color: 'red'
-    });
-    editablepolygon.addTo(mapDelimit)
-    editablepolygon.enableEdit();
-    editablepolygon.on('dblclick', L.DomEvent.stop).on('dblclick', editablepolygon.toggleEdit);
-}
-
-function validateIntakeArea() {
-    var editablePolygonJson = editablepolygon.toGeoJSON();
-    var intakePolygonJson = catchmentPoly.toGeoJSON();
-    var pointIntakeJson = snapMarker.toGeoJSON();
-    /** 
-     * Get filtered activities by transition id 
-     * @param {String} url   activities URL 
-     * @param {Object} data  transition id  
-     *
-     * @return {String} activities in HTML option format
-     */
-    $.ajax({
-        url: '/intake/validateGeometry/',
-        type: 'POST',
-        data: {
-            'editablePolygon': JSON.stringify(editablePolygonJson),
-            'intakePolygon': JSON.stringify(intakePolygonJson),
-            'isFile': JSON.stringify(isFile),
-            'typeDelimit': delimitationFileType
-        },
-        success: function(result) {
-            if (!result.validPolygon) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error de Geometría',
-                    text: 'El polígono editado no es válido, por favor intente de nuevo',
-                })
-            } else if (!result.polygonContains) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'El polígono debe estar dentro del área de la captación',
-                    text: 'El polígono editado no es válido, por favor intente de nuevo',
-                })
-                // Correct geometry
-            } else {
-                Swal.fire(
-                    'Excelente',
-                    'El polígono es válido y está dentro de la captación',
-                    'success'
-                );
-                // Set original intake area geom in hidden input for posterior reading
-                $('#intakeAreaPolygon').val(JSON.stringify(intakePolygonJson));
-                $('#basinId').val(basinId);
-                // Set delimited area geom in hidden input for posterior reading
-                $('#delimitArea').val(JSON.stringify(editablePolygonJson));
-                $('#pointIntake').val(JSON.stringify(pointIntakeJson));
-                $('#isFile').val(JSON.stringify(isFile));
-                $('#typeDelimit').val(JSON.stringify(delimitationFileType));
-            }
-        },
-        error: function(error) {
-            console.log(error);
-        }
-    });
-}
-
-/** 
- * Validate input file on change
- * @param {HTML} dropdown Dropdown selected element
- */
-function changeFileEvent() {
-    $('#intakeArea').change(function(evt) {
-        var file = evt.currentTarget.files[0];
-        var extension = validExtension(file);
-        // Validate file's extension
-        if (extension.valid) { //Valid
-            console.log('Extension valid!');
-            isFile = true;
-            // Validate file's extension
-            if (extension.extension == 'geojson') { //GeoJSON
-                var readerGeoJson = new FileReader();
-                readerGeoJson.onload = function(evt) {
-                    var contents = evt.target.result;
-                    geojson = JSON.parse(contents);
-                    delimitationFileType = delimitationFileEnum.GEOJSON;
-                    let polygonStyle = {
-                        fillColor: "red",
-                        color: "#333333",
-                        weight: 0.2,
-                        fillOpacity: 0.3
-                    };
-                    editablepolygon = L.geoJSON(geojson, {
-                        style: polygonStyle
-                    })
-                    editablepolygon.addTo(mapDelimit);
-                    mapDelimit.fitBounds(editablepolygon.getBounds())
-                    //loadShapefile(geojson, file.name);
-                }
-                readerGeoJson.readAsText(file);
-            } else { //Zip
-                var reader = new FileReader();
-                var filename, readShp = false,
-                    readDbf = false,
-                    readShx = false,
-                    readPrj = false,
-                    prj, coord = true;
-                var prjName;
-                reader.onload = function(evt) {
-                    var contents = evt.target.result;
-                    JSZip.loadAsync(file).then(function(zip) {
-                        zip.forEach(function(relativePath, zipEntry) {
-                            filename = zipEntry.name.toLocaleLowerCase();
-                            if (filename.indexOf(".shp") != -1) {
-                                readShp = true;
-                            }
-                            if (filename.indexOf(".dbf") != -1) {
-                                readDbf = true;
-                            }
-                            if (filename.indexOf(".shx") != -1) {
-                                readShx = true;
-                            }
-                            if (filename.indexOf(".prj") != -1) {
-                                readPrj = true;
-                                prjName = zipEntry.name;
-                            }
-                        });
-                        // Valid shapefile with minimum files req
-                        if (readShp && readDbf && readPrj && readShx) {
-                            zip.file(prjName).async("string").then(function(data) {
-                                prj = data;
-                                // Validar sistema de referencia
-                                if (!prj) {
-                                    Swal.fire({
-                                        icon: 'error',
-                                        title: 'Error en shapefile',
-                                        text: 'Sistema de proyección incorrecto',
-                                    })
-                                }
-                                // Shapefile válido
-                                else {
-                                    shp(contents).then(function(shpToGeojson) {
-                                        geojson = shpToGeojson;
-                                        delimitationFileType = delimitationFileEnum.SHP;
-                                        let polygonStyle = {
-                                            fillColor: "#337ab7",
-                                            color: "#333333",
-                                            weight: 0.2,
-                                            fillOpacity: 0.3
-                                        };
-                                        editablepolygon = L.geoJSON(geojson, {
-                                            style: polygonStyle
-                                        })
-                                        editablepolygon.addTo(mapDelimit);
-                                        mapDelimit.fitBounds(editablepolygon.getBounds())
-                                        //loadShapefile(geojson, file.name);
-                                    }).catch(function(e) {
-                                        Swal.fire({
-                                            icon: 'error',
-                                            title: 'Error en shapefile',
-                                            text: 'Ha ocurrido un error de lectura en el shapefile',
-                                        })
-                                        console.log("Ocurrió error convirtiendo el shapefile " + e);
-                                    });
-                                }
-                            });
-                        } else { // Missing req files
-                            // Miss .shp
-                            if (!readShp) {
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'Error en shapefile',
-                                    text: 'Falta el archivo .shp requerido',
-                                })
-                            }
-                            // Miss .dbf
-                            if (!readDbf) {
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'Error en shapefile',
-                                    text: 'Falta el archivo .dbf requerido',
-                                })
-                            }
-                            // Miss .shx
-                            if (!readShx) {
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'Error en shapefile',
-                                    text: 'Falta el archivo .shx requerido',
-                                })
-                            }
-                            // Miss .prj
-                            if (!readPrj) {
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'Error en shapefile',
-                                    text: 'Falta el archivo .prj requerido',
-                                })
-                            }
-                        }
-                    });
-                };
-                reader.onerror = function(event) {
-                    console.error("File could not be read! Code " + event.target.error.code);
-                    //alert("El archivo no pudo ser cargado: " + event.target.error.code);
-                };
-                reader.readAsArrayBuffer(file);
-            }
-        } else { //Invalid extension
-            Swal.fire({
-                icon: 'error',
-                title: 'Error de extensión',
-                text: 'La extensión del archivo no está soportada, debe ser GeoJSON o un shapefile .zip',
-            })
-        }
-    });
-}
-/** 
- * Get if file has a valid shape or GeoJSON extension 
- * @param {StriFileng} file   zip or GeoJSON file
- *
- * @return {Object} extension Object contain extension and is valid
- */
-function validExtension(file) {
-    var fileExtension = {};
-    if (file.name.lastIndexOf(".") > 0) {
-        var extension = file.name.substring(file.name.lastIndexOf(".") + 1, file.name.length);
-        fileExtension.extension = extension;
-    }
-    if (file.type == 'application/x-zip-compressed' || file.type == 'application/zip') {
-        fileExtension.valid = true;
-    } else if (file.type == 'application/geo+json') {
-        fileExtension.valid = true;
-    } else {
-        fileExtension.valid = false;
-    }
-    return fileExtension;
-}
