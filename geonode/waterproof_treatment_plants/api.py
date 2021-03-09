@@ -11,6 +11,18 @@ import json
 
 @api_view(['GET'])
 def getTreatmentPlantsList(request):
+	"""Returns the list of treatment plants
+
+	Find all the stored treatment plants that have
+	the minimum characteristics stored in all components
+
+	Parameters:
+	without parameters
+
+	Exceptions:
+	If it does not have data in the minimal relations of the model it does not deliver
+	information about the treatment plant
+	"""
 	if request.method == 'GET':
 		con = psycopg2.connect(settings.DATABASE_URL)
 		cur = con.cursor()
@@ -36,6 +48,17 @@ def getTreatmentPlantsList(request):
 
 @api_view(['GET'])
 def getIntakeList(request):
+	"""Returns the list of intakes available
+
+	Search the intakes table for intakes
+	available in the city that is defined
+
+	Parameters:
+	cityName - Name of the city to search
+
+	Exceptions:
+	if there are no intakes in that city, the empty set returns
+	"""
 	if request.method == 'GET':
 		con = psycopg2.connect(settings.DATABASE_URL)
 		cur = con.cursor()
@@ -54,6 +77,18 @@ def getIntakeList(request):
 
 @api_view(['POST'])
 def getTypePtap(request):
+	"""Returns the Ptap information
+
+	Call the available service to calculate the Ptap
+	from the information of the intake sectioned
+
+	Parameters:
+	data - array with the id of the selected intakes
+
+	Exceptions:
+	Those that are defined in the service that generates the calculation since that same
+	information is returned to the user without making any changes
+	"""
 	if request.method == 'POST':
 		if request.user.is_authenticated:
 			x = requests.post('http://dev.skaphe.com:8000/ptapSelection', json = request.data)
@@ -61,6 +96,16 @@ def getTypePtap(request):
 
 @api_view(['GET'])
 def getEnviroment(request):
+	"""Returns the environment variables
+
+	Returns the environment variables when they are not defined in the session
+
+	Parameters:
+	without parameters
+
+	Exceptions:
+	without exceptions
+	"""
 	if request.method == 'GET':
 		con = psycopg2.connect(settings.DATABASE_URL)
 		cur = con.cursor()
@@ -83,6 +128,17 @@ def getEnviroment(request):
 
 @api_view(['GET'])
 def getInfoTree(request):
+	"""Returns the tree information
+
+	Search the information stored in the system of functions and variables
+	of the tree for each of the elements
+
+	Parameters:
+	plantElement - name of the element in the plant
+
+	Exceptions:
+	always returns the basic information of each element
+	"""
 	if request.method == 'GET':
 		if request.user.is_authenticated:
 			con = psycopg2.connect(settings.DATABASE_URL)
@@ -121,14 +177,29 @@ def getInfoTree(request):
 
 @api_view(['PUT','DELETE'])
 def setHeaderPlant(request):
+	"""Create the treatment plant
+
+	Stores treatment plant information in the system
+	and of the entities attached to the treatment plant to guarantee
+	that the information is integrated only commits the transaction
+	at the end of saving in all entities
+
+	Parameters:
+	all the information of the treatment plant
+
+	Exceptions:
+	In case of generating an error in any of the entities attached to the plant
+	treatment plant or in the treatment plant, generates an html error and
+	rollback the transaction
+	"""
 	if request.method == 'PUT':
 		if request.user.is_authenticated:
 			con = psycopg2.connect(settings.DATABASE_URL)
 			cur = con.cursor()
-			cur.execute("DELETE FROM waterproof_treatment_plants_header WHERE plant_id = " + request.data.get('header').get('plantId'))
 			cur.execute("DELETE FROM waterproof_treatment_plants_csinfra WHERE csinfra_plant_id = " + request.data.get('header').get('plantId'))
 			cur.execute("DELETE FROM waterproof_treatment_plants_element WHERE element_plant_id = " + request.data.get('header').get('plantId'))
 			cur.execute("DELETE FROM waterproof_treatment_plants_function WHERE function_plant_id = " + request.data.get('header').get('plantId'))
+			cur.execute("DELETE FROM waterproof_treatment_plants_header WHERE plant_id = " + request.data.get('header').get('plantId'))
 
 			queryStr = "INSERT INTO waterproof_treatment_plants_header(plant_city_id, plant_name, plant_description, plant_suggest, plant_user, plant_date_create) VALUES (%s, %s, %s, %s, %s, now()) RETURNING plant_id;";
 			cur.execute(queryStr, (
@@ -157,8 +228,9 @@ def setHeaderPlant(request):
 					request.user.username))
 
 			for row in request.data.get('header').get('function'):
-				queryStrFunction = "INSERT INTO waterproof_treatment_plants_function (function_plant_id, function_technology, function_name, function_value, function_currency, function_factor, function_id_sub_process, function_user, function_date_create, function_transported_water, function_sediments_retained, function_nitrogen_retained, function_phosphorus_retained) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, now(), %s, %s, %s, %s) RETURNING function_id;";
+				queryStrFunction = "INSERT INTO waterproof_treatment_plants_function (function_plant_id, function_graph_id,function_technology, function_name, function_value, function_currency, function_factor, function_id_sub_process, function_user, function_date_create, function_transported_water, function_sediments_retained, function_nitrogen_retained, function_phosphorus_retained) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, now(), %s, %s, %s, %s) RETURNING function_id;";
 				cur.execute(queryStrFunction, (plantId,
+					row.get('graphid'),
 					row.get('technology'),
 					row.get('nameFunction'),
 					row.get('functionValue'),
@@ -185,10 +257,11 @@ def setHeaderPlant(request):
 		if request.user.is_authenticated:
 			con = psycopg2.connect(settings.DATABASE_URL)
 			cur = con.cursor()
-			cur.execute("DELETE FROM waterproof_treatment_plants_header WHERE plant_id = " + request.data.get('plantId'))
+			
 			cur.execute("DELETE FROM waterproof_treatment_plants_csinfra WHERE csinfra_plant_id = " + request.data.get('plantId'))
 			cur.execute("DELETE FROM waterproof_treatment_plants_element WHERE element_plant_id = " + request.data.get('plantId'))
 			cur.execute("DELETE FROM waterproof_treatment_plants_function WHERE function_plant_id = " + request.data.get('plantId'))
+			cur.execute("DELETE FROM waterproof_treatment_plants_header WHERE plant_id = " + request.data.get('plantId'))
 
 			jsonObject = [{	'plant_id' : request.data.get('plantId')}]
 			con.commit()
@@ -197,6 +270,18 @@ def setHeaderPlant(request):
 
 @api_view(['GET'])
 def getTreatmentPlant(request):
+	"""Consult the treatment plant
+
+	searches all the tables related to the plant and returns 
+	the information related to the treatment plant
+
+	Parameters:
+	plantId - Id of the treatment plant
+
+	Exceptions:
+	Only information from previously created treatment 
+	plants is returned
+	"""
 	if request.method == 'GET':
 		con = psycopg2.connect(settings.DATABASE_URL)
 		cur = con.cursor()

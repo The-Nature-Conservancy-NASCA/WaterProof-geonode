@@ -16,6 +16,7 @@ class Header(models.Model):
 class Function(models.Model):
     function_id = models.IntegerField(auto_created=True, primary_key=True,verbose_name=_('Id Function'))
     function_name = models.CharField(max_length=100,verbose_name=_('Name Function'))
+    function_graph_id = models.CharField(max_length=100,verbose_name=_('Graph Id Function'))
     function_value = models.CharField(max_length=300,verbose_name=_('Value Function'))
     function_currency = models.CharField(max_length=1,verbose_name=_('Currency Function'))
     function_factor = models.CharField(max_length=100,verbose_name=_('Factor'))

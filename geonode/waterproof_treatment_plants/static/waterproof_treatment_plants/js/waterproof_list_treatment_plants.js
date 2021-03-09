@@ -1,6 +1,6 @@
 /**
  * @file Create form validations
- * @author Luis Saltron
+ * @author Yeismer Espejo
  * @version 1.0
  */
 
@@ -20,7 +20,6 @@ $(function () {
     var lyrsPolygons = [];
     var onlyReadPlant = false;
     var loadInfoTree = false;
-    var lastGraphId = null;
     var arrayFunction = [];
     var arrayLoadingFunction = [];
     var highlighPolygon = {
@@ -94,6 +93,11 @@ $(function () {
             layer.bindPopup(feature.properties.name);
         }
     });
+    /**
+    * Initialize the methods from the context of treatment plants
+    * @param 
+    * @returns 
+    */
     initialize = function () {
         $('#submit').click(function (e) {
             var saveForm = true;
@@ -384,6 +388,11 @@ $(function () {
             });
         }
     };
+    /**
+    * Activates the elements of the treatment plant model
+    * @param {String} Letter of the Ptap type calculated with the selected intakes
+    * @returns 
+    */
     activePlantGraph = function(ptapType) {
         $("[name=disableElement]").each(function( index ) {
             if($("[name=disableElement]").get(index).getAttribute("model").indexOf(ptapType) < 0) {
@@ -402,12 +411,25 @@ $(function () {
                 var idr =  $("[name=disableElement]").get(index).getAttribute("idr");
                 $('#' + idr ).css("background-color", "#ffffff");
                 $('#' + idr ).css("border-color", "#039edc");
+
+                loadArrayTree($("[name=disableElement]").get(index).getAttribute("plantElement"), $("[name=disableElement]").get(index).getAttribute("nameElement"), $("[name=disableElement]").get(index).getAttribute("graphId"));
             }
         });
     };
+    /**
+    * Deletes the intakes selected for the calculation of the Ptap
+    * @param {String} object to delete for the sectioned intake
+    * @returns 
+    */
     deleteOption = function(e) {
         $("#child" + e).remove();
     };
+    /**
+    * Enable the formula tree after selecting the graph element
+    * @param {String} object of the tree that contains the formulas
+    * @param {String} icon to expand and collapse the tree branch
+    * @returns 
+    */
     viewBranch = function(e, object) {
         if (document.getElementById(e) !== null) {
             if (document.getElementById(e).style.display === "none") {
@@ -419,6 +441,11 @@ $(function () {
             }
         }
     };
+    /**
+    * Draw the polygons on the map when selecting the city 
+    * @param {String} city that is registered in the search space    
+    * @returns 
+    */
     drawPolygons = function(citySearch) {
         lyrsPolygons.forEach(lyr => map.removeLayer(lyr));
         lyrsPolygons = [];
@@ -444,6 +471,12 @@ $(function () {
         }
 
     };
+    /**
+    * Change the values of the formulas for each of the elements
+    * @param {String} id of the element to change state
+    * @param {String} value to limit the possible values that can be assigned to the formula    
+    * @returns 
+    */
     changeRetained =  function(i, validInput) {
         if(parseInt(validInput.value) < parseInt(validInput.getAttribute("min"))) {
             validInput.value = validInput.getAttribute("min");
@@ -478,20 +511,41 @@ $(function () {
             changeStatus(i);
         }, 500);
     };
+    /**
+    * Load the tree with the formulas when selecting an element
+    * @param {String} selected element
+    * @returns 
+    */
     viewTree = function(e) {
+        document.getElementById("mainTree").style.visibility = "hidden";
+        loadArrayTree(e.getAttribute("plantElement"), e.getAttribute("nameElement"), e.getAttribute("graphid"));
+        let MQ = window.MathQuill.getInterface(2);
+        setTimeout(function(){
+            document.querySelectorAll('.equation').forEach(container => {
+                MQ.StaticMath(container);
+            });
+            document.getElementById("mainTree").style.visibility = "visible";
+        }, 2000);
+    };
+    /**
+    * Load the tree variables
+    * @param {String} graph element
+    * @param {String} element name
+    * @param {String} element id
+    * @returns 
+    */
+    loadArrayTree = function(plantElement, nameElement, graphid) {
         var readOnlyTextTree = "";
         if(onlyReadPlant) {
             readOnlyTextTree = "readonly";
         }
-        document.getElementById("mainTree").style.visibility = "hidden";
-        lastGraphId = e.getAttribute("graphid");
-        var urlDetail = "../../treatment_plants/getInfoTree/?plantElement=" + e.getAttribute("plantElement");
+        var urlDetail = "../../treatment_plants/getInfoTree/?plantElement=" + plantElement;
         $.getJSON(urlDetail, function (data) {
             var lastSubprocess = "";
-            $('#mainTree').html('<div class="title-tree"><div class="point-tree" onclick="viewBranch(\'id' + e.getAttribute("plantElement") + '\', this)" >-</div><div class="text-tree">' + e.getAttribute("nameElement") +'</div><div class="detail-tree"></div></div><div class="margin-main" id="id' + e.getAttribute("plantElement") + '"></div>')
+            $('#mainTree').html('<div class="title-tree"><div class="point-tree" onclick="viewBranch(\'id' + plantElement + '\', this)" >-</div><div class="text-tree">' + nameElement +'</div><div class="detail-tree"></div></div><div class="margin-main" id="id' + plantElement + '"></div>')
             $.each( data, function( key, value ) {
                 if(value.subprocessAddId !== lastSubprocess) {
-                    $('#id' + e.getAttribute("plantElement")).html($('#id' + e.getAttribute("plantElement")).html() + '<div class="title-tree"><div class="point-tree" onclick="viewBranch(\'subprocess' + value.idSubprocess + '\', this)" >-</div><div class="text-tree">' + value.subprocess + '</div></div><div class="margin-main" id="subprocess' + value.idSubprocess + '"></div>');
+                    $('#id' + plantElement).html($('#id' + plantElement).html() + '<div class="title-tree"><div class="point-tree" onclick="viewBranch(\'subprocess' + value.idSubprocess + '\', this)" >-</div><div class="text-tree">' + value.subprocess + '</div></div><div class="margin-main" id="subprocess' + value.idSubprocess + '"></div>');
                     lastSubprocess = value.subprocessAddId;
                     $.each( data, function( keyTech, valueTech ) {
                         if(value.subprocessAddId === valueTech.subprocessAddId) {
@@ -532,12 +586,12 @@ $(function () {
                                                 loadHtml = true;
                                             }
                                             buttonsHtml = '<a class="btn btn-info""><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>';
-                                            activateHtml = '<div class="point-check" onclick="changeStatus(' + valueTech.idSubprocess + ')"><div name="listFunction" technology="' + valueTech.technology + '" idSubprocess="' + valueTech.idSubprocess + '" nameFunction="' + valueCostFunction.costFunction + '"  function="' + valueCostFunction.function + '" currency="' + valueCostFunction.currency + '" factor="' + valueCostFunction.factor + '" class="change-state-tree" id="id' + valueTech.idSubprocess + '"></div></div>';
+                                            activateHtml = '<div class="point-check" onclick="changeStatus(' + valueTech.idSubprocess + ')"><div name="listFunction" graphid="' + graphid + '" technology="' + valueTech.technology + '" idSubprocess="' + valueTech.idSubprocess + '" nameFunction="' + valueCostFunction.costFunction + '"  function="' + valueCostFunction.function + '" currency="' + valueCostFunction.currency + '" factor="' + valueCostFunction.factor + '" class="change-state-tree" id="id' + valueTech.idSubprocess + '"></div></div>';
                                         });                                                
                                     } else {
                                         loadHtml = true;
                                         buttonsHtml = '<a class="btn btn-info""><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>';
-                                        activateHtml = '<div class="point-check" onclick="changeStatus(' + valueTech.idSubprocess + ')"><div name="listFunction"  subProcessMaster="' + value.idSubprocess + '" technology="' + valueTech.technology + '" idSubprocess="' + valueTech.idSubprocess + '" nameFunction="' + valueCostFunction.costFunction + '"  function="' + valueCostFunction.function + '" currency="' + valueCostFunction.currency + '" factor="' + valueCostFunction.factor + '" class="change-state-tree" id="id' + valueTech.idSubprocess + '"></div></div>';
+                                        activateHtml = '<div class="point-check" onclick="changeStatus(' + valueTech.idSubprocess + ')"><div name="listFunction"  graphid="' + graphid + '" subProcessMaster="' + value.idSubprocess + '" technology="' + valueTech.technology + '" idSubprocess="' + valueTech.idSubprocess + '" nameFunction="' + valueCostFunction.costFunction + '"  function="' + valueCostFunction.function + '" currency="' + valueCostFunction.currency + '" factor="' + valueCostFunction.factor + '" class="change-state-tree" id="id' + valueTech.idSubprocess + '"></div></div>';
                                     }
 
                                     if(loadHtml) {
@@ -558,15 +612,12 @@ $(function () {
                 }
             });
         });
-
-        let MQ = window.MathQuill.getInterface(2);
-        setTimeout(function(){
-            document.querySelectorAll('.equation').forEach(container => {
-                MQ.StaticMath(container);
-            });
-            document.getElementById("mainTree").style.visibility = "visible";
-        }, 2000);
     };
+    /**
+    * Change the state of the element in the graph
+    * @param {String} element object
+    * @returns 
+    */
     changeStatus = function(i) {
         if(!onlyReadPlant) {
             var e = document.getElementById("id" + i);
@@ -618,6 +669,7 @@ $(function () {
 
                     if(addFunctionToArray) {
                         arrayFunction.push({
+                            graphid: $("[name=listFunction]").get(index).getAttribute("graphid"),
                             technology: $("[name=listFunction]").get(index).getAttribute("technology"),
                             nameFunction: $("[name=listFunction]").get(index).getAttribute("nameFunction"),
                             functionValue: $("[name=listFunction]").get(index).getAttribute("function"),
@@ -640,6 +692,11 @@ $(function () {
             });
         }
     };
+    /**
+    * Load the results of the city on the map 
+    * @param {String} map limit
+    * @returns 
+    */
     selectedResultHandler = function (feat) {
 
         waterproof["cityCoords"] = [feat.geometry.coordinates[1], feat.geometry.coordinates[0]];
@@ -674,8 +731,12 @@ $(function () {
             localStorage.setItem('currency', data.currencies[0].name + " - " + data.currencies[0].symbol);
         });
     }
+    /**
+    * Search the points of a city and load them in the polygon of the map
+    * @param {String} Object with the identity of the city    
+    * @returns 
+    */
     showSearchPoints = function(geojson) {
-        console.log(localStorage.getItem('city'))
         searchPoints.clearLayers();
         let geojsonFilter = geojson.features.filter(feature => feature.properties.type == "city");
         searchPoints.addData(geojsonFilter);
@@ -683,6 +744,11 @@ $(function () {
         drawPolygons(cityName);
         table.search(cityName.substr(0, 5)).draw();
     }
+    /**
+    * In-place loading of the map in the application
+    * @param 
+    * @returns 
+    */
     initMap = function () {
         if (typeof $('#mapid').css("width") !== "undefined") {
             map = L.map('mapid', {
@@ -699,7 +765,6 @@ $(function () {
             });
 
             let initialCoords = CENTER;
-            // find in localStorage if cityCoords exist
             var cityCoords = localStorage.getItem('cityCoords');
             var city = localStorage.getItem('city');
             var initialZoom = 5;
@@ -739,7 +804,6 @@ $(function () {
             var baseLayers = {
                 OpenStreetMap: tilelayer,
                 Images: images,
-                /* Grayscale: gray,   */
             };
 
             var overlays = {
@@ -750,12 +814,7 @@ $(function () {
             var zoomControl = new L.Control.Zoom({ position: 'topright' }).addTo(map);
             L.control.layers(baseLayers, overlays, { position: 'topleft' }).addTo(map);
 
-            //var c = new L.Control.Coordinates();        
-            //c.addTo(map);
-
-
             function onMapClick(e) {
-                // c.setCoordinates(e);
             }
             map.on('click', onMapClick);
         } else {
@@ -777,6 +836,11 @@ $(function () {
             });
         }
     };
+    /**
+    * Update the country layer in map
+    * @param {String} country code
+    * @returns 
+    */
     updateCountryMap = function (countryCode) {
         map.eachLayer(function (layer) {
             if (layer.feature) {
@@ -791,24 +855,41 @@ $(function () {
             }
         });
     };
-    sendOptionTable = function() {
-        alert(123);
-    };
+    /**
+    * Load the page to see a treatment plant
+    * @param {String} plant code    
+    * @returns 
+    */
     viewInformationPlant = function(plantId) {
         localStorage.loadInf = "true";
         localStorage.plantId = plantId;
         window.location.href ="../../treatment_plants/create/" + userCountryId;
     };
+    /**
+    * Load the page to update a treatment plant
+    * @param {String} plant code    
+    * @returns 
+    */
     updatePlant = function(plantId) {
         localStorage.updatePlant = "true";
         localStorage.plantId = plantId;
         window.location.href ="../../treatment_plants/create/" + userCountryId;
     };
+    /**
+    * Load the page to clone a treatment plant
+    * @param {String} plant code    
+    * @returns 
+    */
     clonePlant = function(plantId) {
         localStorage.clonePlant = "true";
         localStorage.plantId = plantId;
         window.location.href ="../../treatment_plants/create/" + userCountryId;
     };
+    /**
+    * Load the page to delete a treatment plant
+    * @param {String} plant code    
+    * @returns 
+    */
     deletePlant = function(plantId) {
         if (confirm("You want delete tratment plant")) {
             var urlDetail = "../../treatment_plants/setHeaderPlant/";
@@ -826,7 +907,7 @@ $(function () {
                     localStorage.plantId = null;
                     Swal.fire({
                         title: 'Error',
-                        text: "Problemas guardando la planta de tratamiento",
+                        text: "Problemas eliminando la planta de tratamiento, ya se debe estar usando en un caso de estudio",
                         icon: 'error',
                         confirmButtonColor: '#3085d6',
                         cancelButtonColor: '#d33',
