@@ -380,7 +380,7 @@ $(document).ready(function () {
                 }
             }
             clearDataHtml();
-            $('#smartwizard').smartWizard("next");
+            intakeStepTwo();
         } else {
             Swal.fire({
                 icon: 'warning',
@@ -617,6 +617,50 @@ function intakeStepOne() {
     formData.append('intakeCity', $('#intakeCity').val());
     // Intake area polygon
     formData.append('intakeAreaPolygon', $('#intakeAreaPolygon').val());
+    console.log(formData);
+    $.ajax({
+        type: 'POST',
+        url: '/intake/create/',
+        data: formData,
+        cache: false,
+        processData: false,
+        contentType: false,
+        enctype: 'multipart/form-data',
+        success: function (response) {
+            console.log(response);
+            $('#intakeId').val(response.intakeId);
+            $('#smartwizard').smartWizard("next");
+        },
+        error: function (xhr, errmsg, err) {
+            console.log(xhr.status + ":" + xhr.responseText);
+            let response = JSON.parse(xhr.responseText);
+            Swal.fire({
+                icon: 'error',
+                title: gettext('Nbs saving error'),
+                text: response.message,
+            })
+        }
+    });
+    return true;
+}
+/** 
+ * Intake step two creation
+ *
+ * @return {boolean} true if is saved
+ */
+function intakeStepTwo() {
+    console.log("Saving step two");
+    var formData = new FormData();
+    // Intake step
+    formData.append('step', '2');
+    // Intake id
+    formData.append('intakeId', $('#intakeId').val());
+    // Intake xml graph
+    formData.append('xmlGraph', $('#xmlGraph').val());
+    // Intake graph elements object
+    formData.append('graphElements', $('#graphElements').val());
+    // Intake graph connections object
+    formData.append('graphConnections', $('#graphConnections').val());
     console.log(formData);
     $.ajax({
         type: 'POST',
