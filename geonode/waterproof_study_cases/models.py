@@ -25,8 +25,8 @@ from django.db import models
 from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 from geonode.waterproof_intake.models import ElementSystem
-from geonode.waterproof_parameters.models import Countries
-
+from geonode.waterproof_parameters.models import Countries , Cities
+from geonode.waterproof_treatment_plants.models import Header
 
 class ModelParameter(models.Model):
    
@@ -80,27 +80,25 @@ class StudyCases(models.Model):
     :name: Study Case Name.
 
     """
-    dws_name = models.CharField(max_length=100, blank=False, null=False)
-    dws_description = models.CharField(max_length=500, blank=False, null=False)
-    dws_analysis_period_value = models.IntegerField(blank=True, null=True)
-    dws_type_money = models.CharField(max_length=10, blank=True, null=True)
-    dws_benefit_function = models.CharField(max_length=100, blank=True, null=True)
-    estado_id = models.IntegerField(blank=True, null=True)
-    dws_usr_create = models.IntegerField(blank=True, null=True)
-    dws_create_date = models.DateTimeField(blank=True, null=True)
-    dws_modif_date = models.DateTimeField(blank=True, null=True)
-    dws_rio_analysis_time = models.IntegerField(blank=True, null=True)
-    dws_time_implement_briefcase = models.IntegerField(blank=True, null=True)
-    dws_climate_scenario_briefcase = models.CharField(max_length=100, blank=True, null=True)
-    dws_annual_investment_scenario = models.DecimalField(max_digits=20, decimal_places=2, blank=True, null=True)
-    dws_time_implement_scenario = models.IntegerField(blank=True, null=True)
-    dws_climate_scenario_scenario = models.CharField(max_length=100, blank=True, null=True)
-    dws_authorization_case = models.CharField(max_length=20, blank=True, null=True)
-    dws_id_parent = models.IntegerField(blank=True, null=True)
-    dws_benefit_carbon_market = models.BooleanField(blank=True, null=True)
-    dws_intakes = models.ManyToManyField(ElementSystem)
+    name = models.CharField(max_length=100, blank=False, null=False)
+    description = models.CharField(max_length=500, blank=False, null=False)
+    analysis_period_value = models.IntegerField(blank=True, null=True)
+    analysis_currency = models.CharField(max_length=10, blank=True, null=True)
+    status = models.IntegerField(blank=True, null=True)
+    usr_create = models.IntegerField(blank=True, null=True)
+    create_date = models.DateTimeField(blank=True, null=True)
+    edit_date = models.DateTimeField(blank=True, null=True)
+    time_implement_portfolio = models.IntegerField(blank=True, null=True)
+    climate_scenario_portfolio = models.CharField(max_length=100, blank=True, null=True)
+    annual_investment_scenario = models.DecimalField(max_digits=20, decimal_places=2, blank=True, null=True)
+    time_implement_investment_scenario = models.IntegerField(blank=True, null=True)
+    climate_investment_scenario = models.CharField(max_length=100, blank=True, null=True)
+    benefit_carbon_market = models.BooleanField(blank=True, null=True)
+    rellocated_remainder = models.BooleanField(blank=True, null=True)
+    intakes = models.ManyToManyField(ElementSystem)
+    ptaps = models.ManyToManyField(Header)
     portfolios = models.ManyToManyField(Portfolio)
-    cm_currency = models.ForeignKey(Countries , on_delete=models.CASCADE, null=True)
+    cm_city = models.ForeignKey(Cities , on_delete=models.CASCADE, null=True)
     cm_value = models.DecimalField(max_digits=20, decimal_places=2, blank=True, null=True)
 
 class Meta:

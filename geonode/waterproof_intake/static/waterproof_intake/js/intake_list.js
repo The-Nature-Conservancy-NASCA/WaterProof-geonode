@@ -249,6 +249,10 @@ $(function() {
     udpateCreateUrl = function(countryId) {
         $('#createUrl').attr('href', 'create/' + countryId)
     };
+
+    $('createUrlDisabled').html('<a>{% trans "Debe ser un usuario registrado para realizar esta acción" %}</a>' ); 
+
+
     /** 
      * Get the transformations selected
      * @param {Array} transformations transformations selected
