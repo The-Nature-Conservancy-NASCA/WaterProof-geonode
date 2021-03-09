@@ -679,7 +679,7 @@ function intakeStepTwo() {
             let response = JSON.parse(xhr.responseText);
             Swal.fire({
                 icon: 'error',
-                title: gettext('Nbs saving error'),
+                title: gettext('Intake saving error'),
                 text: response.message,
             })
         }
