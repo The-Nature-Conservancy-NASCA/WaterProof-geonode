@@ -1,4 +1,4 @@
-"""URLs for the ``WaterProof NBS CA`` module."""
+"""URLs for the ``WaterProof Parameters`` module."""
 from django.conf.urls import url, include
 from django.urls import path
 from . import views

@@ -50,7 +50,6 @@ def loadCityByName(request):
         response.status_code = 400
         return response
 
-
 def loadCurrency(request):
     currency = request.GET.get('currency')
     currencies = Countries.objects.filter(id=currency)
@@ -89,21 +88,6 @@ def loadAllCountries(request):
     countries = Countries.objects.all()
     countries_serialized = serializers.serialize('json', countries)
     return JsonResponse(countries_serialized, safe=False)
-
-
-def loadActivityByTransition(request):
-    transition = request.GET.get('transition')
-    activities = RiosActivity.objects.filter(transition_id=transition)
-    activities_serialized = serializers.serialize('json', activities)
-    return JsonResponse(activities_serialized, safe=False)
-
-
-def loadTransformationbyActivity(request):
-    activity = request.GET.get('activity')
-    trasformations = RiosTransformation.objects.filter(activity_id=activity)
-    transformations_serialized = serializers.serialize('json', trasformations)
-    return JsonResponse(transformations_serialized, safe=False)
-
 
 def loadRegionByCountry(request):
     countryId = request.GET.get('country')
