@@ -386,6 +386,7 @@ def createStepTwo(request):
     graphElements = json.loads(graphElementsString)
     connectionsElements = json.loads(connectionsElementString)
     existingIntake.xml_graph = xmlGraph
+    existingIntake.save()
     actualElements = list(ElementSystem.objects.filter(
         intake=existingIntake.pk).values_list('id', flat=True))
     if (len(actualElements) > 0):
