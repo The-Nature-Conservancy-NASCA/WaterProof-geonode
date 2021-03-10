@@ -96,9 +96,45 @@ def createIntake(request):
                 response.status_code = 400
                 return response
         elif request.POST.get('step') == '4':
-            createStepOne()
+            stepCreation = createStepFour(request)
+            print(stepCreation)
+            if stepCreation['status'] == True:
+                context = {
+                    'status': '200',
+                    'intakeId': stepCreation['intakeId'],
+                    'message': 'Success'
+                }
+                response = HttpResponse(json.dumps(context), content_type='application/json')
+                response.status_code = 200
+                return response
+            else:
+                errorMessage = _('Error saving intake')
+                context = {
+                    'status': '400', 'message': str(errorMessage)
+                }
+                response = HttpResponse(json.dumps(context), content_type='application/json')
+                response.status_code = 400
+                return response
         elif request.POST.get('step') == '5':
-            createStepOne()
+            stepCreation = createStepFive(request)
+            print(stepCreation)
+            if stepCreation['status'] == True:
+                context = {
+                    'status': '200',
+                    'intakeId': stepCreation['intakeId'],
+                    'message': 'Success'
+                }
+                response = HttpResponse(json.dumps(context), content_type='application/json')
+                response.status_code = 200
+                return response
+            else:
+                errorMessage = _('Error saving intake')
+                context = {
+                    'status': '400', 'message': str(errorMessage)
+                }
+                response = HttpResponse(json.dumps(context), content_type='application/json')
+                response.status_code = 400
+                return response
         else:
             print("Error step doesn't exits")
 
@@ -636,6 +672,124 @@ def createStepThree(request):
                     demand=demand_parameters
                 )
             existingIntake.demand_parameters = demand_parameters
+            existingIntake.save()
+            response = {
+                'status': True,
+                'intakeId': existingIntake.pk
+            }
+            return response
+        except Exception as e:
+            print(e)
+            response = {
+                'status': False,
+                'message': e
+            }
+            return response
+
+
+"""
+Intake creation data
+Step four wizard
+
+Attributes
+----------
+
+request: Request
+"""
+
+
+def createStepFour(request):
+    if not request.user.is_authenticated:
+        return render(request, 'waterproof_nbs_ca/waterproofnbsca_login_error.html')
+    else:
+        try:
+            intakeId = request.POST.get('intakeId')
+            existingIntake = Intake.objects.get(id=intakeId)
+            graphElementsString = request.POST.get('graphElements')
+            graphElements = json.loads(graphElementsString)
+            for element in graphElements:
+                if ('external' in element):
+                    if (element['external'] == 'true'):
+                        external_info = json.loads(element['externaldata'])
+                        elementCreated = ElementSystem.objects.get(graphId=element['id'], intake=intakeId)
+                        for external in external_info:
+                            external_input = ValuesTime.objects.create(
+                                year=external['year'],
+                                water_volume=external['waterVol'],
+                                sediment=external['sediment'],
+                                nitrogen=external['nitrogen'],
+                                phosphorus=external['phosphorus'],
+                                element=elementCreated
+                            )
+            response = {
+                'status': True,
+                'intakeId': existingIntake.pk
+            }
+            return response
+        except Exception as e:
+            print(e)
+            response = {
+                'status': False,
+                'message': e
+            }
+            return response
+
+"""
+Intake creation data
+Step five wizard
+
+Attributes
+----------
+
+request: Request
+"""
+def createStepFive(request):
+    if not request.user.is_authenticated:
+        return render(request, 'waterproof_nbs_ca/waterproofnbsca_login_error.html')
+    else:
+        try:
+            intakeId = request.POST.get('intakeId')
+            existingIntake = Intake.objects.get(id=intakeId)
+            intakeAreaString = request.POST.get('intakeAreaPolygon')
+            delimitAreaString = request.POST.get('delimitArea')
+            # True | False
+            isFile = request.POST.get('isFile')
+            # GeoJSON | SHP
+            typeDelimitFile = request.POST.get('typeDelimit')
+            if (isFile == 'true'):
+                # Validate file's extension
+                if (typeDelimitFile == 'geojson'):
+                    delimitAreaJson = json.loads(delimitAreaString)
+                    print(delimitAreaJson)
+                    for feature in delimitAreaJson['features']:
+                        delimitAreaGeom = GEOSGeometry(str(feature['geometry']))
+                    print('Delimitation file: geojson')
+                # Shapefile
+                else:
+                    delimitAreaJson = json.loads(delimitAreaString)
+                    for feature in delimitAreaJson['features']:
+                        delimitAreaGeom = GEOSGeometry(str(feature['geometry']))
+                    print('Delimitation file: shp')
+            # Manually delimit
+            else:
+                delimitAreaJson = json.loads(delimitAreaString)
+                delimitAreaGeom = GEOSGeometry(str(delimitAreaJson['geometry']))
+            intakeGeomJson = json.loads(intakeAreaString)
+            # Get intake original area
+            for feature in intakeGeomJson['features']:
+                intakeGeom = GEOSGeometry(str(feature['geometry']))
+            if (intakeGeom.equals(delimitAreaGeom)):  # Delimit geom equal to intake geom
+                delimitation_type = 'CATCHMENT'
+            else:
+                delimitation_type = 'SBN'
+
+            existingPolygon = Polygon.objects.get(intake=existingIntake.pk)
+            existingPolygon.geom = delimitAreaGeom
+            existingPolygon. geomIntake = intakeAreaString
+            existingPolygon.delimitation_date = datetime.datetime.now()
+            existingPolygon.delimitation_type = delimitation_type
+            existingPolygon.save()
+            existingIntake.is_complete=True
             existingIntake.save()
             response = {
                 'status': True,

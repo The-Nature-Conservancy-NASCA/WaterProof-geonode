@@ -552,6 +552,8 @@ $(document).ready(function () {
                 coordinates.push(geom[0]);
                 copyCoordinates.push(coordinates);
             })
+            editablepolygon = L.polygon(copyCoordinates, { color: 'red' });
+            editablepolygon.addTo(mapDelimit);
             var editablePolygonJson = editablepolygon.toGeoJSON();
             editablepolygon = L.polygon(copyCoordinates, { color: 'red' });
             editablepolygon.addTo(mapDelimit);
