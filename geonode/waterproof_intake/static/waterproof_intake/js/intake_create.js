@@ -418,7 +418,7 @@ $(document).ready(function () {
                 waterExtractionData.yearValues = waterExtractionValue;
                 $('#waterExtraction').val(JSON.stringify(waterExtractionData));
                 if (waterExtractionData.yearCount == waterExtractionData.yearValues.length) {
-                    $('#smartwizard').smartWizard("next");
+                    intakeStepThree();
                 } else {
                     Swal.fire({
                         icon: 'warning',
@@ -428,7 +428,7 @@ $(document).ready(function () {
                     return;
                 }
             } else {
-                $('#smartwizard').smartWizard("next");
+                intakeStepThree();
             }
         } else {
             Swal.fire({
@@ -661,6 +661,45 @@ function intakeStepTwo() {
     formData.append('graphElements', $('#graphElements').val());
     // Intake graph connections object
     formData.append('graphConnections', $('#graphConnections').val());
+    console.log(formData);
+    $.ajax({
+        type: 'POST',
+        url: '/intake/create/',
+        data: formData,
+        cache: false,
+        processData: false,
+        contentType: false,
+        enctype: 'multipart/form-data',
+        success: function (response) {
+            console.log(response);
+            $('#smartwizard').smartWizard("next");
+        },
+        error: function (xhr, errmsg, err) {
+            console.log(xhr.status + ":" + xhr.responseText);
+            let response = JSON.parse(xhr.responseText);
+            Swal.fire({
+                icon: 'error',
+                title: gettext('Intake saving error'),
+                text: response.message,
+            })
+        }
+    });
+    return true;
+}
+/** 
+ * Intake step two creation
+ *
+ * @return {boolean} true if is saved
+ */
+function intakeStepThree() {
+    console.log("Saving step three");
+    var formData = new FormData();
+    // Intake step
+    formData.append('step', '3');
+    // Intake id
+    formData.append('intakeId', $('#intakeId').val());
+    // Intake xml graph
+    formData.append('waterExtraction', $('#waterExtraction').val());
     console.log(formData);
     $.ajax({
         type: 'POST',
