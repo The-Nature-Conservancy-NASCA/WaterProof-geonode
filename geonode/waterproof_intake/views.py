@@ -12,7 +12,7 @@ from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.translation import ugettext as _
 from .models import ValuesTime, ProcessEfficiencies, Intake, DemandParameters, WaterExtraction, ElementSystem, ValuesTime, CostFunctionsProcess, Polygon, Basins, ElementConnections, userCostFunctions
-from geonode.waterproof_parameters.models import Countries, Regions,Cities
+from geonode.waterproof_parameters.models import Countries, Regions, Cities
 from django.contrib.gis.gdal import SpatialReference, CoordTransform
 from django.core import serializers
 from django.http import JsonResponse
@@ -34,14 +34,115 @@ request: Request
 """
 
 
-def create(request):
+def createIntake(request):
     logger.debug(request.method)
     # POST submit FORM
     if request.method == 'POST':
+        if request.POST.get('step') == '1':
+            stepCreation = createStepOne(request)
+            if stepCreation['status'] == True:
+                context = {
+                    'status': '200',
+                    'intakeId': stepCreation['intakeId'],
+                    'message': 'Success'
+                }
+                response = HttpResponse(json.dumps(context), content_type='application/json')
+                response.status_code = 200
+                return response
+            else:
+                errorMessage = _('Error saving intake')
+                context = {
+                    'status': '400', 'message': str(errorMessage)
+                }
+                response = HttpResponse(json.dumps(context), content_type='application/json')
+                response.status_code = 400
+                return response
+        elif request.POST.get('step') == '2':
+            stepCreation = createStepTwo(request)
+            if stepCreation['status'] == True:
+                context = {
+                    'status': '200',
+                    'intakeId': stepCreation['intakeId'],
+                    'message': 'Success'
+                }
+                response = HttpResponse(json.dumps(context), content_type='application/json')
+                response.status_code = 200
+                return response
+            else:
+                errorMessage = _('Error saving intake')
+                context = {
+                    'status': '400', 'message': str(errorMessage)
+                }
+                response = HttpResponse(json.dumps(context), content_type='application/json')
+                response.status_code = 400
+                return response
+        elif request.POST.get('step') == '3':
+            stepCreation = createStepThree(request)
+            if stepCreation['status'] == True:
+                context = {
+                    'status': '200',
+                    'intakeId': stepCreation['intakeId'],
+                    'message': 'Success'
+                }
+                response = HttpResponse(json.dumps(context), content_type='application/json')
+                response.status_code = 200
+                return response
+            else:
+                errorMessage = _('Error saving intake')
+                context = {
+                    'status': '400', 'message': str(errorMessage)
+                }
+                response = HttpResponse(json.dumps(context), content_type='application/json')
+                response.status_code = 400
+                return response
+        elif request.POST.get('step') == '4':
+            stepCreation = createStepFour(request)
+            print(stepCreation)
+            if stepCreation['status'] == True:
+                context = {
+                    'status': '200',
+                    'intakeId': stepCreation['intakeId'],
+                    'message': 'Success'
+                }
+                response = HttpResponse(json.dumps(context), content_type='application/json')
+                response.status_code = 200
+                return response
+            else:
+                errorMessage = _('Error saving intake')
+                context = {
+                    'status': '400', 'message': str(errorMessage)
+                }
+                response = HttpResponse(json.dumps(context), content_type='application/json')
+                response.status_code = 400
+                return response
+        elif request.POST.get('step') == '5':
+            stepCreation = createStepFive(request)
+            print(stepCreation)
+            if stepCreation['status'] == True:
+                context = {
+                    'status': '200',
+                    'intakeId': stepCreation['intakeId'],
+                    'message': 'Success'
+                }
+                response = HttpResponse(json.dumps(context), content_type='application/json')
+                response.status_code = 200
+                return response
+            else:
+                errorMessage = _('Error saving intake')
+                context = {
+                    'status': '400', 'message': str(errorMessage)
+                }
+                response = HttpResponse(json.dumps(context), content_type='application/json')
+                response.status_code = 400
+                return response
+        else:
+            print("Error step doesn't exits")
+
         form = forms.IntakeForm(request.POST)
+        """
         if form.is_valid():
             intake = form.save(commit=False)
-            intakeCity=request.POST.get('intakeCity')
+            intakeCity = request.POST.get('intakeCity')
             xmlGraph = request.POST.get('xmlGraph')
             # True | False
             isFile = request.POST.get('isFile')
@@ -260,33 +361,448 @@ def create(request):
                     source=sourceElement,
                     target=targetElement
                 )
-            argsInvest={
-                'type':'quality',
-                'id_usuario':1,
+            argsInvest = {
+                'type': 'quality',
+                'id_usuario': 1,
                 'basin': basin.pk,
                 'models': 'sdr',
-                'models':'awy',
-                'models':'ndr',
-                'models':'carbon',
+                'models': 'awy',
+                'models': 'ndr',
+                'models': 'carbon',
                 'catchment': intakeCreated.pk,
-                }
-            argsWb={
+            }
+            argsWb = {
                 'id_intake': intakeCreated.pk
             }
-            execInvest(requests,argsInvest)
-            execWb(requests,argsWb)
+            execInvest(requests, argsInvest)
+            execWb(requests, argsWb)
             messages.success(request, ("Water Intake created."))
             return HttpResponseRedirect(reverse('list-intake'))
         else:
             messages.error(request, ("Water Intake not created."))
             return HttpResponseRedirect(request, 'waterproof_intake/intake_list.html')
+    """
     else:
         form = forms.IntakeForm()
         currencies = Countries.objects.all()
+
     return render(request, 'waterproof_intake/intake_form.html', context={
         "form": form, "serverApi": settings.WATERPROOF_API_SERVER,
         'currencies': currencies,
-        })
+    })
+
+
+"""
+Intake creation data
+Step one wizard
+
+Attributes
+----------
+request: Request
+"""
+
+
+def createStepOne(request):
+    if not request.user.is_authenticated:
+        return render(request, 'waterproof_nbs_ca/waterproofnbsca_login_error.html')
+    else:
+        basinId = request.POST.get('basinId')
+        print("basin id:"+basinId)
+        intakeName = request.POST.get('intakeName')
+        intakeDesc = request.POST.get('intakeDesc')
+        intakeWaterSource = request.POST.get('intakeWaterSource')
+        intakeCity = request.POST.get('intakeCity')
+        intakeAreaString = request.POST.get('intakeAreaPolygon')
+        pointIntakeString = request.POST.get('pointIntake')
+        try:
+            intake = Intake(
+                name=intakeName,
+                description=intakeDesc,
+                water_source_name=intakeWaterSource,
+                city=Cities.objects.get(id=intakeCity),
+                demand_parameters=None,
+                xml_graph=None,
+                creation_date=datetime.datetime.now(),
+                updated_date=datetime.datetime.now(),
+                is_complete=False,
+                added_by=request.user
+            )
+            intake.save()
+            intakePolygon = Polygon.objects.create(
+                area=0,
+                geom=None,
+                geomIntake=intakeAreaString,
+                geomPoint=pointIntakeString,
+                delimitation_date=None,
+                delimitation_type=None,
+                basin=Basins.objects.get(id=basinId),
+                intake=intake
+            )
+            response = {
+                'status': True,
+                'intakeId': intake.pk
+            }
+            return response
+        except Exception as e:
+            print(e)
+            response = {
+                'status': False,
+                'message': e
+            }
+            return response
+
+
+"""
+Intake creation data
+Step two wizard
+
+Attributes
+----------
+
+request: Request
+"""
+
+
+def createStepTwo(request):
+    if not request.user.is_authenticated:
+        return render(request, 'waterproof_nbs_ca/waterproofnbsca_login_error.html')
+    else:
+        try:
+            intakeId = request.POST.get('intakeId')
+            existingIntake = Intake.objects.get(id=intakeId)
+            xmlGraph = request.POST.get('xmlGraph')
+            graphElementsString = request.POST.get('graphElements')
+            connectionsElementString = request.POST.get('graphConnections')
+            graphElements = json.loads(graphElementsString)
+            connectionsElements = json.loads(connectionsElementString)
+            existingIntake.xml_graph = xmlGraph
+            existingIntake.save()
+            actualElements = list(ElementSystem.objects.filter(
+                intake=existingIntake.pk).values_list('id', flat=True))
+            if (len(actualElements) > 0):
+                for element in actualElements:
+                    el = ElementSystem.objects.get(id=element)
+                    existingValuesTime = list(ValuesTime.objects.filter(element=el.pk).values_list('id', flat=True))
+                    for value in existingValuesTime:
+                        val = ValuesTime.objects.get(id=value)
+                        val.delete()
+                    el.delete()
+            else:
+                elementsCreated = []
+                # Save all graph elements
+                for element in graphElements:
+                    if ('external' in element):
+                        # Regular element
+                        if (element['external'] == 'false'):
+                            parameter = json.loads(element['resultdb'])
+                            element_system = ElementSystem.objects.create(
+                                graphId=element['id'],
+                                name=element['name'],
+                                normalized_category=parameter[0]['fields']['normalized_category'],
+                                transported_water=parameter[0]['fields']['predefined_transp_water_perc'],
+                                sediment=parameter[0]['fields']['predefined_sediment_perc'],
+                                nitrogen=parameter[0]['fields']['predefined_nitrogen_perc'],
+                                phosphorus=parameter[0]['fields']['predefined_phosphorus_perc'],
+                                is_external=False,
+                                intake=existingIntake
+                            )
+                            elementC = {}
+                            elementC['pk'] = element_system.pk
+                            elementC['xmlId'] = element_system.graphId
+                            elementsCreated.append(elementC)
+
+                            if not (element['funcost'] == None):
+                                costFunction = json.loads(element['funcost'])
+                                if (len(costFunction) > 0):
+                                    for function in costFunction:
+                                        templateFunction = CostFunctionsProcess.objects.get(id=function['pk'])
+                                        userCostFunctions.objects.create(
+                                            function=function['fields']['function_value'],
+                                            template_function=templateFunction,
+                                            user=request.user
+                                        )
+                        # External element
+                        else:
+                            parameter = json.loads(element['resultdb'])
+                            if (len(parameter) > 0):
+                                element_system = ElementSystem.objects.create(
+                                    graphId=element['id'],
+                                    name=element['name'],
+                                    normalized_category=parameter[0]['fields']['normalized_category'],
+                                    transported_water=parameter[0]['fields']['predefined_transp_water_perc'],
+                                    sediment=parameter[0]['fields']['predefined_sediment_perc'],
+                                    nitrogen=parameter[0]['fields']['predefined_nitrogen_perc'],
+                                    phosphorus=parameter[0]['fields']['predefined_phosphorus_perc'],
+                                    is_external=True,
+                                    intake=existingIntake
+                                )
+                                elementC = {}
+                                elementC['pk'] = element_system.pk
+                                elementC['xmlId'] = element_system.graphId
+                                elementsCreated.append(elementC)
+
+                                if not (element['funcost'] == None):
+                                    costFunction = json.loads(element['funcost'])
+                                    if (len(costFunction) > 0):
+                                        for function in costFunction:
+                                            templateFunction = CostFunctionsProcess.objects.get(id=function['pk'])
+                                            userCostFunctions.objects.create(
+                                                function=function['fields']['function_value'],
+                                                template_function=templateFunction,
+                                                user=request.user
+                                            )
+                            else:
+                                element_system = ElementSystem.objects.create(
+                                    graphId=element['id'],
+                                    name=element['name'],
+                                    transported_water=0,
+                                    sediment=0,
+                                    nitrogen=0,
+                                    phosphorus=0,
+                                    is_external=True,
+                                    intake=existingIntake
+                                )
+                                elementC = {}
+                                elementC['pk'] = element_system.pk
+                                elementC['xmlId'] = element_system.graphId
+                                elementsCreated.append(elementC)
+                            external_info = json.loads(element['externaldata'])
+                            elementCreated = ElementSystem.objects.get(id=element_system.pk)
+                            for external in external_info:
+                                external_input = ValuesTime.objects.create(
+                                    year=external['year'],
+                                    water_volume=external['waterVol'],
+                                    sediment=external['sediment'],
+                                    nitrogen=external['nitrogen'],
+                                    phosphorus=external['phosphorus'],
+                                    element=elementCreated
+                                )
+                    # Connections
+                    else:
+                        parameter = json.loads(element['resultdb'])
+                        if (len(parameter) > 0):
+                            element_system = ElementSystem.objects.create(
+                                graphId=element['id'],
+                                name=element['name'],
+                                normalized_category=parameter[0]['fields']['normalized_category'],
+                                transported_water=parameter[0]['fields']['predefined_transp_water_perc'],
+                                sediment=parameter[0]['fields']['predefined_sediment_perc'],
+                                nitrogen=parameter[0]['fields']['predefined_nitrogen_perc'],
+                                phosphorus=parameter[0]['fields']['predefined_phosphorus_perc'],
+                                is_external=False,
+                                intake=existingIntake
+                            )
+                            elementC = {}
+                            elementC['pk'] = element_system.pk
+                            elementC['xmlId'] = element_system.graphId
+                            elementsCreated.append(elementC)
+                            if not (element['funcost'] == None):
+                                costFunction = json.loads(element['funcost'])
+                                if (len(costFunction) > 0):
+                                    for function in costFunction:
+                                        templateFunction = CostFunctionsProcess.objects.get(id=function['pk'])
+                                        userCostFunctions.objects.create(
+                                            function=function['fields']['function_value'],
+                                            template_function=templateFunction,
+                                            user=request.user
+                                        )
+                # Once all elements created, save the connections
+                for con in connectionsElements:
+                    source = next((item for item in elementsCreated if item["xmlId"] == con['source']), None)
+                    target = next((item for item in elementsCreated if item["xmlId"] == con['target']), None)
+                    sourceElement = ElementSystem.objects.get(id=source['pk'])
+                    targetElement = ElementSystem.objects.get(id=target['pk'])
+                    ElementConnections.objects.create(
+                        source=sourceElement,
+                        target=targetElement
+                    )
+            response = {
+                'status': True,
+                'intakeId': existingIntake.pk
+            }
+            return response
+        except Exception as e:
+            print(e)
+            response = {
+                'status': False,
+                'message': e
+            }
+            return response
+
+
+"""
+Intake creation data
+Step three wizard
+
+Attributes
+----------
+
+request: Request
+"""
+
+
+def createStepThree(request):
+    if not request.user.is_authenticated:
+        return render(request, 'waterproof_nbs_ca/waterproofnbsca_login_error.html')
+    else:
+        try:
+            intakeId = request.POST.get('intakeId')
+            existingIntake = Intake.objects.get(id=intakeId)
+            interpolationString = request.POST.get('waterExtraction')
+            interpolation = json.loads(interpolationString)
+            if (interpolation['typeInterpolation'] == 'MANUAL'):
+                print("IS MANUAL")
+                isManual = True
+                interpolation['initialValue'] = 0
+                interpolation['finalValue'] = 0
+            else:
+                isManual = False
+
+            demand_parameters = DemandParameters.objects.create(
+                interpolation_type=interpolation['typeInterpolation'],
+                initial_extraction=interpolation['initialValue'],
+                ending_extraction=interpolation['finalValue'],
+                years_number=interpolation['yearCount'],
+                is_manual=isManual,
+            )
+            for extraction in interpolation['yearValues']:
+                water_extraction = WaterExtraction.objects.create(
+                    year=extraction['year'],
+                    value=extraction['value'],
+                    demand=demand_parameters
+                )
+            existingIntake.demand_parameters = demand_parameters
+            existingIntake.save()
+            response = {
+                'status': True,
+                'intakeId': existingIntake.pk
+            }
+            return response
+        except Exception as e:
+            print(e)
+            response = {
+                'status': False,
+                'message': e
+            }
+            return response
+
+
+"""
+Intake creation data
+Step four wizard
+
+Attributes
+----------
+
+request: Request
+"""
+
+
+def createStepFour(request):
+    if not request.user.is_authenticated:
+        return render(request, 'waterproof_nbs_ca/waterproofnbsca_login_error.html')
+    else:
+        try:
+            intakeId = request.POST.get('intakeId')
+            existingIntake = Intake.objects.get(id=intakeId)
+            graphElementsString = request.POST.get('graphElements')
+            graphElements = json.loads(graphElementsString)
+            for element in graphElements:
+                if ('external' in element):
+                    if (element['external'] == 'true'):
+                        external_info = json.loads(element['externaldata'])
+                        elementCreated = ElementSystem.objects.get(graphId=element['id'], intake=intakeId)
+                        for external in external_info:
+                            external_input = ValuesTime.objects.create(
+                                year=external['year'],
+                                water_volume=external['waterVol'],
+                                sediment=external['sediment'],
+                                nitrogen=external['nitrogen'],
+                                phosphorus=external['phosphorus'],
+                                element=elementCreated
+                            )
+            response = {
+                'status': True,
+                'intakeId': existingIntake.pk
+            }
+            return response
+        except Exception as e:
+            print(e)
+            response = {
+                'status': False,
+                'message': e
+            }
+            return response
+
+"""
+Intake creation data
+Step five wizard
+
+Attributes
+----------
+
+request: Request
+"""
+def createStepFive(request):
+    if not request.user.is_authenticated:
+        return render(request, 'waterproof_nbs_ca/waterproofnbsca_login_error.html')
+    else:
+        try:
+            intakeId = request.POST.get('intakeId')
+            existingIntake = Intake.objects.get(id=intakeId)
+            intakeAreaString = request.POST.get('intakeAreaPolygon')
+            delimitAreaString = request.POST.get('delimitArea')
+            # True | False
+            isFile = request.POST.get('isFile')
+            # GeoJSON | SHP
+            typeDelimitFile = request.POST.get('typeDelimit')
+            if (isFile == 'true'):
+                # Validate file's extension
+                if (typeDelimitFile == 'geojson'):
+                    delimitAreaJson = json.loads(delimitAreaString)
+                    print(delimitAreaJson)
+                    for feature in delimitAreaJson['features']:
+                        delimitAreaGeom = GEOSGeometry(str(feature['geometry']))
+                    print('Delimitation file: geojson')
+                # Shapefile
+                else:
+                    delimitAreaJson = json.loads(delimitAreaString)
+                    for feature in delimitAreaJson['features']:
+                        delimitAreaGeom = GEOSGeometry(str(feature['geometry']))
+                    print('Delimitation file: shp')
+            # Manually delimit
+            else:
+                delimitAreaJson = json.loads(delimitAreaString)
+                delimitAreaGeom = GEOSGeometry(str(delimitAreaJson['geometry']))
+            intakeGeomJson = json.loads(intakeAreaString)
+            # Get intake original area
+            for feature in intakeGeomJson['features']:
+                intakeGeom = GEOSGeometry(str(feature['geometry']))
+            if (intakeGeom.equals(delimitAreaGeom)):  # Delimit geom equal to intake geom
+                delimitation_type = 'CATCHMENT'
+            else:
+                delimitation_type = 'SBN'
+
+            existingPolygon = Polygon.objects.get(intake=existingIntake.pk)
+            existingPolygon.geom = delimitAreaGeom
+            existingPolygon. geomIntake = intakeAreaString
+            existingPolygon.delimitation_date = datetime.datetime.now()
+            existingPolygon.delimitation_type = delimitation_type
+            existingPolygon.save()
+            existingIntake.is_complete=True
+            existingIntake.save()
+            response = {
+                'status': True,
+                'intakeId': existingIntake.pk
+            }
+            return response
+        except Exception as e:
+            print(e)
+            response = {
+                'status': False,
+                'message': e
+            }
+            return response
 
 
 def listIntake(request):
@@ -498,7 +1014,7 @@ def editIntake(request, idx):
             if form.is_valid():
                 intake = form.save(commit=False)
                 xmlGraph = request.POST.get('xmlGraph')
-                intakeCity=request.POST.get('intakeCity')
+                intakeCity = request.POST.get('intakeCity')
                 # True | False
                 isFile = request.POST.get('isFile')
                 # GeoJSON | SHP
@@ -727,21 +1243,21 @@ def editIntake(request, idx):
                     source=sourceElement,
                     target=targetElement
                 )
-            argsInvest={
-                'type':'quality',
-                'id_usuario':1,
+            argsInvest = {
+                'type': 'quality',
+                'id_usuario': 1,
                 'basin': basin.pk,
                 'models': 'sdr',
-                'models':'awy',
-                'models':'ndr',
-                'models':'carbon',
+                'models': 'awy',
+                'models': 'ndr',
+                'models': 'carbon',
                 'catchment': existingIntake.pk,
-                }
-            argsWb={
+            }
+            argsWb = {
                 'id_intake': existingIntake.pk
             }
-            execInvest(requests,argsInvest)
-            execWb(requests,argsWb)
+            execInvest(requests, argsInvest)
+            execWb(requests, argsWb)
             messages.success(request, ("Water Intake edited."))
             return HttpResponseRedirect(reverse('list-intake'))
 
@@ -853,7 +1369,7 @@ def cloneIntake(request, idx):
             if form.is_valid():
                 intake = form.save(commit=False)
                 xmlGraph = request.POST.get('xmlGraph')
-                intakeCity=request.POST.get('intakeCity')
+                intakeCity = request.POST.get('intakeCity')
                 # True | False
                 isFile = request.POST.get('isFile')
                 # GeoJSON | SHP
@@ -1064,21 +1580,21 @@ def cloneIntake(request, idx):
                         source=sourceElement,
                         target=targetElement
                     )
-                argsInvest={
-                    'type':'quality',
-                    'id_usuario':1,
+                argsInvest = {
+                    'type': 'quality',
+                    'id_usuario': 1,
                     'basin': basin.pk,
                     'models': 'sdr',
-                    'models':'awy',
-                    'models':'ndr',
-                    'models':'carbon',
+                    'models': 'awy',
+                    'models': 'ndr',
+                    'models': 'carbon',
                     'catchment': intakeCreated.pk,
-                    }
-                argsWb={
+                }
+                argsWb = {
                     'id_intake': intakeCreated.pk
                 }
-                execInvest(requests,argsInvest)
-                execWb(requests,argsWb)
+                execInvest(requests, argsInvest)
+                execWb(requests, argsWb)
                 messages.success(request, ("Water Intake created."))
                 return HttpResponseRedirect(reverse('list-intake'))
             else:
@@ -1110,6 +1626,7 @@ def deleteIntake(request, idx):
             response.status_code = 200
             return response
 
+
 """"""""""""""""""""""
 Execute Invest API
 
@@ -1123,13 +1640,16 @@ args:   Object
     models:     string
     catchment   int
 """""""""""""""""""""
-def execInvest(request,args):
+
+
+def execInvest(request, args):
     url = settings.WATERPROOF_INVEST_API+'execInvest'
-    r=request.get(url,params=args)
-    if r.status_code==200:
+    r = request.get(url, params=args)
+    if r.status_code == 200:
         print(r.text)
     else:
         print(r.text)
+
 
 """"""""""""""""""""""
 Execute Water Balance API
@@ -1139,14 +1659,17 @@ Attributes
 request
 catchment:  Int Intake id
 """""""""""""""""""""
-def execWb(request,args):
+
+
+def execWb(request, args):
     print(args)
-    url=settings.WATERPROOF_INVEST_API+'wb'
-    r=request.get(url,params=args)
-    if r.status_code==200:
+    url = settings.WATERPROOF_INVEST_API+'wb'
+    r = request.get(url, params=args)
+    if r.status_code == 200:
         print(r.text)
     else:
         print(r.text)
+
 
 """
 Load process by category

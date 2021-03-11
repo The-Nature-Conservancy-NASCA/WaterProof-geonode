@@ -150,10 +150,43 @@ function onInit(editor) {
     var textNode = document.getElementById('xml');
     var graphNode = editor.graph.container;
 
-    //esto va para edit :v
-    xmlDoc = mxUtils.parseXml(xmlGraph)
-    var dec = new mxCodec(xmlDoc);
-    dec.decode(xmlDoc.documentElement, editor.graph.getModel());
+    if (xmlGraph==='None') {
+        var parent = editor.graph.getDefaultParent();
+        let xmlDocument = mxUtils.createXmlDocument().createElement('Symbol');
+        //Create River at the beginning of the diagram
+        var river = editor.graph.insertVertex(parent, null, xmlDocument, 40, 30, 60, 92);
+        river.setAttribute('name', 'River');
+        river.setAttribute('label', 'River (2)');
+        river.setAttribute('externalData', 'false');
+        editor.graph.model.setStyle(river, 'rio');
+        var temp = [];
+        temp.push(
+            `Q${river.id}`,
+            `CSed${river.id}`,
+            `CN${river.id}`,
+            `CP${river.id}`,
+            `WSed${river.id}`,
+            `WN${river.id}`,
+            `WP${river.id}`,
+            `WSedRet${river.id}`,
+            `WNRet${river.id}`,
+            `WPRet${river.id}`
+        );
+
+        $.ajax({
+            url: `/intake/loadProcess/RIVER`,
+            success: function(result) {
+                river.setAttribute('varcost', JSON.stringify(temp));
+                river.setAttribute('resultdb', result);
+            }
+        });
+    } else {
+
+        //esto va para edit :v
+        xmlDoc = mxUtils.parseXml(xmlGraph)
+        var dec = new mxCodec(xmlDoc);
+        dec.decode(xmlDoc.documentElement, editor.graph.getModel());
+    }
 
 
     // River not have a entrance connection
