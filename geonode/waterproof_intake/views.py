@@ -406,50 +406,84 @@ def createStepOne(request):
     if not request.user.is_authenticated:
         return render(request, 'waterproof_nbs_ca/waterproofnbsca_login_error.html')
     else:
+        edit = request.POST.get('edit')
         basinId = request.POST.get('basinId')
-        print("basin id:"+basinId)
         intakeName = request.POST.get('intakeName')
         intakeDesc = request.POST.get('intakeDesc')
         intakeWaterSource = request.POST.get('intakeWaterSource')
         intakeCity = request.POST.get('intakeCity')
         intakeAreaString = request.POST.get('intakeAreaPolygon')
         pointIntakeString = request.POST.get('pointIntake')
-        try:
-            intake = Intake(
-                name=intakeName,
-                description=intakeDesc,
-                water_source_name=intakeWaterSource,
-                city=Cities.objects.get(id=intakeCity),
-                demand_parameters=None,
-                xml_graph=None,
-                creation_date=datetime.datetime.now(),
-                updated_date=datetime.datetime.now(),
-                is_complete=False,
-                added_by=request.user
-            )
-            intake.save()
-            intakePolygon = Polygon.objects.create(
-                area=0,
-                geom=None,
-                geomIntake=intakeAreaString,
-                geomPoint=pointIntakeString,
-                delimitation_date=None,
-                delimitation_type=None,
-                basin=Basins.objects.get(id=basinId),
-                intake=intake
-            )
-            response = {
-                'status': True,
-                'intakeId': intake.pk
-            }
-            return response
-        except Exception as e:
-            print(e)
-            response = {
-                'status': False,
-                'message': e
-            }
-            return response
+        print(edit)
+        if (edit == 'false'):
+            try:
+                intake = Intake(
+                    name=intakeName,
+                    description=intakeDesc,
+                    water_source_name=intakeWaterSource,
+                    city=Cities.objects.get(id=intakeCity),
+                    demand_parameters=None,
+                    xml_graph=None,
+                    creation_date=datetime.datetime.now(),
+                    updated_date=datetime.datetime.now(),
+                    is_complete=False,
+                    added_by=request.user
+                )
+                intake.save()
+                intakePolygon = Polygon.objects.create(
+                    area=0,
+                    geom=None,
+                    geomIntake=intakeAreaString,
+                    geomPoint=pointIntakeString,
+                    delimitation_date=None,
+                    delimitation_type=None,
+                    basin=Basins.objects.get(id=basinId),
+                    intake=intake
+                )
+                response = {
+                    'status': True,
+                    'intakeId': intake.pk
+                }
+                return response
+            except Exception as e:
+                print(e)
+                response = {
+                    'status': False,
+                    'message': e
+                }
+                return response
+        else:
+            try:
+                intakeId = request.POST.get('intakeId')
+                intakeName = request.POST.get('intakeName')
+                intakeDesc = request.POST.get('intakeDesc')
+                intakeWaterSource = request.POST.get('intakeWaterSource')
+                intakeCity = request.POST.get('intakeCity')
+                intakeAreaString = request.POST.get('intakeAreaPolygon')
+                pointIntakeString = request.POST.get('pointIntake')
+                existingIntake = Intake.objects.get(id=intakeId)
+                existingIntake.name = intakeName
+                existingIntake.description = intakeDesc
+                existingIntake.water_source_name = intakeWaterSource
+                existingIntake.city = Cities.objects.get(id=intakeCity)
+                existingIntake.updated_date = datetime.datetime.now()
+                existingIntake.save()
+                existingPolygon = Polygon.objects.get(intake=existingIntake.pk)
+                existingPolygon.geomIntake = intakeAreaString
+                existingPolygon.geomPoint = pointIntakeString
+                existingPolygon.save()
+                response = {
+                    'status': True,
+                    'intakeId': existingIntake.pk
+                }
+                return response
+            except Exception as e:
+                print(e)
+                response = {
+                    'status': False,
+                    'message': e
+                }
+                return response
 
 
 """
@@ -734,6 +768,7 @@ def createStepFour(request):
             }
             return response
 
+
 """
 Intake creation data
 Step five wizard
@@ -743,6 +778,8 @@ Attributes
 
 request: Request
 """
+
+
 def createStepFive(request):
     if not request.user.is_authenticated:
         return render(request, 'waterproof_nbs_ca/waterproofnbsca_login_error.html')
@@ -789,7 +826,7 @@ def createStepFive(request):
             existingPolygon.delimitation_date = datetime.datetime.now()
             existingPolygon.delimitation_type = delimitation_type
             existingPolygon.save()
-            existingIntake.is_complete=True
+            existingIntake.is_complete = True
             existingIntake.save()
             response = {
                 'status': True,

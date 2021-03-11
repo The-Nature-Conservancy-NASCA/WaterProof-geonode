@@ -294,7 +294,12 @@ $(document).ready(function () {
     //Validated of steps
     $('#step1NextBtn').click(function () {
         if ($('#id_name').val() != '' && $('#id_description').val() != '' && $('#id_water_source_name').val() != '' && catchmentPoly != undefined) {
-            $('#smartwizard').smartWizard("next");
+            var intakePolygonJson = catchmentPoly.toGeoJSON();
+            var pointIntakeJson = snapMarker.toGeoJSON();
+            $('#intakeAreaPolygon').val(JSON.stringify(intakePolygonJson));
+            $('#pointIntake').val(JSON.stringify(pointIntakeJson));
+            $('#basinId').val(basinId);
+            intakeStepOne();
         } else {
             Swal.fire({
                 icon: 'warning',
@@ -670,6 +675,60 @@ function setInterpolationParams() {
             $("#intakeWECB").click();
             break;
     }
+}
+/** 
+ * Intake step one creation
+ *
+ * @return {boolean} true if is saved
+ */
+function intakeStepOne() {
+    console.log("Saving step one");
+    var formData = new FormData();
+    // Intake step
+    formData.append('step', '1');
+    // Edit condition
+    formData.append('edit', true);
+    // Intake name
+    formData.append('intakeName', $('#intakeName').val());
+    // Intake id
+    formData.append('intakeId', $('#intakeId').val());
+    // Intake description
+    formData.append('intakeDesc', $('#intakeDesc').val());
+    // Intake water source name
+    formData.append('intakeWaterSource', $('#waterSource').val());
+    // Intake basin 
+    formData.append('basinId', $('#basinId').val());
+    // Intake point
+    formData.append('pointIntake', $('#pointIntake').val());
+    // Intake city
+    formData.append('intakeCity', $('#intakeCity').val());
+    // Intake area polygon
+    formData.append('intakeAreaPolygon', $('#intakeAreaPolygon').val());
+    console.log(formData);
+    $.ajax({
+        type: 'POST',
+        url: '/intake/create/',
+        data: formData,
+        cache: false,
+        processData: false,
+        contentType: false,
+        enctype: 'multipart/form-data',
+        success: function (response) {
+            console.log(response);
+            $('#intakeId').val(response.intakeId);
+            $('#smartwizard').smartWizard("next");
+        },
+        error: function (xhr, errmsg, err) {
+            console.log(xhr.status + ":" + xhr.responseText);
+            let response = JSON.parse(xhr.responseText);
+            Swal.fire({
+                icon: 'error',
+                title: gettext('Nbs saving error'),
+                text: response.message,
+            })
+        }
+    });
+    return true;
 }
 /** 
  * Delimit manually the intake polygon

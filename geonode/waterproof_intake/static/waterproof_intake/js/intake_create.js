@@ -598,6 +598,8 @@ function intakeStepOne() {
     var formData = new FormData();
     // Intake step
     formData.append('step', '1');
+    // Intake step
+    formData.append('edit', 'false');
     // Intake name
     formData.append('intakeName', $('#intakeName').val());
     // Intake description
