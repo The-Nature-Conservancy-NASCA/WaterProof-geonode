@@ -59,6 +59,7 @@ def createIntake(request):
                 return response
         elif request.POST.get('step') == '2':
             stepCreation = createStepTwo(request)
+            print(stepCreation)
             if stepCreation['status'] == True:
                 context = {
                     'status': '200',
@@ -513,6 +514,7 @@ def createStepTwo(request):
             existingIntake.save()
             actualElements = list(ElementSystem.objects.filter(
                 intake=existingIntake.pk).values_list('id', flat=True))
+            print(existingIntake.pk)
             if (len(actualElements) > 0):
                 for element in actualElements:
                     el = ElementSystem.objects.get(id=element)
@@ -521,11 +523,13 @@ def createStepTwo(request):
                         val = ValuesTime.objects.get(id=value)
                         val.delete()
                     el.delete()
-            else:
-                elementsCreated = []
-                # Save all graph elements
-                for element in graphElements:
-                    if ('external' in element):
+                
+           
+            elementsCreated = []
+            # Save all graph elements
+            for element in graphElements:
+                if ('external' in element):
+                    try:
                         # Regular element
                         if (element['external'] == 'false'):
                             parameter = json.loads(element['resultdb'])
@@ -555,9 +559,12 @@ def createStepTwo(request):
                                             template_function=templateFunction,
                                             user=request.user
                                         )
-                        # External element
-                        else:
-                            parameter = json.loads(element['resultdb'])
+                    except Exception as e:
+                        print(e) 
+                    # External element
+                    else:
+                        parameter = json.loads(element['resultdb'])
+                        try:
                             if (len(parameter) > 0):
                                 element_system = ElementSystem.objects.create(
                                     graphId=element['id'],
@@ -600,63 +607,54 @@ def createStepTwo(request):
                                 elementC['pk'] = element_system.pk
                                 elementC['xmlId'] = element_system.graphId
                                 elementsCreated.append(elementC)
-                            external_info = json.loads(element['externaldata'])
-                            elementCreated = ElementSystem.objects.get(id=element_system.pk)
-                            for external in external_info:
-                                external_input = ValuesTime.objects.create(
-                                    year=external['year'],
-                                    water_volume=external['waterVol'],
-                                    sediment=external['sediment'],
-                                    nitrogen=external['nitrogen'],
-                                    phosphorus=external['phosphorus'],
-                                    element=elementCreated
-                                )
+                            
+                        except Exception as e:
+                            print(e) 
                     # Connections
-                    else:
-                        parameter = json.loads(element['resultdb'])
-                        if (len(parameter) > 0):
-                            element_system = ElementSystem.objects.create(
-                                graphId=element['id'],
-                                name=element['name'],
-                                normalized_category=parameter[0]['fields']['normalized_category'],
-                                transported_water=parameter[0]['fields']['predefined_transp_water_perc'],
-                                sediment=parameter[0]['fields']['predefined_sediment_perc'],
-                                nitrogen=parameter[0]['fields']['predefined_nitrogen_perc'],
-                                phosphorus=parameter[0]['fields']['predefined_phosphorus_perc'],
-                                is_external=False,
-                                intake=existingIntake
-                            )
-                            elementC = {}
-                            elementC['pk'] = element_system.pk
-                            elementC['xmlId'] = element_system.graphId
-                            elementsCreated.append(elementC)
-                            if not (element['funcost'] == None):
-                                costFunction = json.loads(element['funcost'])
-                                if (len(costFunction) > 0):
-                                    for function in costFunction:
-                                        templateFunction = CostFunctionsProcess.objects.get(id=function['pk'])
-                                        userCostFunctions.objects.create(
-                                            function=function['fields']['function_value'],
-                                            template_function=templateFunction,
-                                            user=request.user
-                                        )
-                # Once all elements created, save the connections
-                for con in connectionsElements:
-                    source = next((item for item in elementsCreated if item["xmlId"] == con['source']), None)
-                    target = next((item for item in elementsCreated if item["xmlId"] == con['target']), None)
-                    sourceElement = ElementSystem.objects.get(id=source['pk'])
-                    targetElement = ElementSystem.objects.get(id=target['pk'])
-                    ElementConnections.objects.create(
-                        source=sourceElement,
-                        target=targetElement
-                    )
+                else:
+                    parameter = json.loads(element['resultdb'])
+                    if (len(parameter) > 0):
+                        element_system = ElementSystem.objects.create(
+                            graphId=element['id'],
+                            name=element['name'],
+                            normalized_category=parameter[0]['fields']['normalized_category'],
+                            transported_water=parameter[0]['fields']['predefined_transp_water_perc'],
+                            sediment=parameter[0]['fields']['predefined_sediment_perc'],
+                            nitrogen=parameter[0]['fields']['predefined_nitrogen_perc'],
+                            phosphorus=parameter[0]['fields']['predefined_phosphorus_perc'],
+                            is_external=False,
+                            intake=existingIntake
+                        )
+                        elementC = {}
+                        elementC['pk'] = element_system.pk
+                        elementC['xmlId'] = element_system.graphId
+                        elementsCreated.append(elementC)
+                        if not (element['funcost'] == None):
+                            costFunction = json.loads(element['funcost'])
+                            if (len(costFunction) > 0):
+                                for function in costFunction:
+                                    templateFunction = CostFunctionsProcess.objects.get(id=function['pk'])
+                                    userCostFunctions.objects.create(
+                                        function=function['fields']['function_value'],
+                                        template_function=templateFunction,
+                                        user=request.user
+                                    )
+            # Once all elements created, save the connections
+            for con in connectionsElements:
+                source = next((item for item in elementsCreated if item["xmlId"] == con['source']), None)
+                target = next((item for item in elementsCreated if item["xmlId"] == con['target']), None)
+                sourceElement = ElementSystem.objects.get(id=source['pk'])
+                targetElement = ElementSystem.objects.get(id=target['pk'])
+                ElementConnections.objects.create(
+                    source=sourceElement,
+                    target=targetElement
+                )
             response = {
                 'status': True,
                 'intakeId': existingIntake.pk
             }
             return response
         except Exception as e:
-            print(e)
             response = {
                 'status': False,
                 'message': e
