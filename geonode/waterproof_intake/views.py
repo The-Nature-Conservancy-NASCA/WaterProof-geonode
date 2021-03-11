@@ -523,8 +523,7 @@ def createStepTwo(request):
                         val = ValuesTime.objects.get(id=value)
                         val.delete()
                     el.delete()
-                
-           
+
             elementsCreated = []
             # Save all graph elements
             for element in graphElements:
@@ -560,7 +559,7 @@ def createStepTwo(request):
                                             user=request.user
                                         )
                     except Exception as e:
-                        print(e) 
+                        print(e)
                     # External element
                     else:
                         parameter = json.loads(element['resultdb'])
@@ -607,9 +606,9 @@ def createStepTwo(request):
                                 elementC['pk'] = element_system.pk
                                 elementC['xmlId'] = element_system.graphId
                                 elementsCreated.append(elementC)
-                            
+
                         except Exception as e:
-                            print(e) 
+                            print(e)
                     # Connections
                 else:
                     parameter = json.loads(element['resultdb'])
@@ -679,6 +678,7 @@ def createStepThree(request):
     else:
         try:
             intakeId = request.POST.get('intakeId')
+            edit = request.POST.get('edit')
             existingIntake = Intake.objects.get(id=intakeId)
             interpolationString = request.POST.get('waterExtraction')
             interpolation = json.loads(interpolationString)
@@ -689,27 +689,73 @@ def createStepThree(request):
                 interpolation['finalValue'] = 0
             else:
                 isManual = False
-
-            demand_parameters = DemandParameters.objects.create(
-                interpolation_type=interpolation['typeInterpolation'],
-                initial_extraction=interpolation['initialValue'],
-                ending_extraction=interpolation['finalValue'],
-                years_number=interpolation['yearCount'],
-                is_manual=isManual,
-            )
-            for extraction in interpolation['yearValues']:
-                water_extraction = WaterExtraction.objects.create(
-                    year=extraction['year'],
-                    value=extraction['value'],
-                    demand=demand_parameters
+            if (edit == 'false'):
+                demand_parameters = DemandParameters.objects.create(
+                    interpolation_type=interpolation['typeInterpolation'],
+                    initial_extraction=interpolation['initialValue'],
+                    ending_extraction=interpolation['finalValue'],
+                    years_number=interpolation['yearCount'],
+                    is_manual=isManual,
                 )
-            existingIntake.demand_parameters = demand_parameters
-            existingIntake.save()
-            response = {
-                'status': True,
-                'intakeId': existingIntake.pk
-            }
-            return response
+                for extraction in interpolation['yearValues']:
+                    water_extraction = WaterExtraction.objects.create(
+                        year=extraction['year'],
+                        value=extraction['value'],
+                        demand=demand_parameters
+                    )
+                existingIntake.demand_parameters = demand_parameters
+                existingIntake.save()
+                response = {
+                    'status': True,
+                    'intakeId': existingIntake.pk
+                }
+                return response
+            else:
+                print("Edit true")
+                if (existingIntake.demand_parameters != None):
+                    demandParameter = DemandParameters.objects.get(id=existingIntake.demand_parameters.pk)
+                    demandParameter.interpolation_type = interpolation['typeInterpolation']
+                    demandParameter.initial_extraction = interpolation['initialValue']
+                    demandParameter.ending_extraction = interpolation['finalValue']
+                    demandParameter.years_number = interpolation['yearCount']
+                    demandParameter.save()
+                    actualWaterExtraction = list(WaterExtraction.objects.filter(
+                        demand=demandParameter.pk).values_list('id', flat=True))
+                    for extraction in actualWaterExtraction:
+                        ext = WaterExtraction.objects.get(id=extraction)
+                        ext.delete()
+                    for extraction in interpolation['yearValues']:
+                        water_extraction = WaterExtraction.objects.create(
+                            year=extraction['year'],
+                            value=extraction['value'],
+                            demand=demandParameter
+                        )
+                    response = {
+                        'status': True,
+                        'intakeId': existingIntake.pk
+                    }
+                    return response
+                else:
+                    demand_parameters = DemandParameters.objects.create(
+                        interpolation_type=interpolation['typeInterpolation'],
+                        initial_extraction=interpolation['initialValue'],
+                        ending_extraction=interpolation['finalValue'],
+                        years_number=interpolation['yearCount'],
+                        is_manual=isManual,
+                    )
+                    for extraction in interpolation['yearValues']:
+                        water_extraction = WaterExtraction.objects.create(
+                            year=extraction['year'],
+                            value=extraction['value'],
+                            demand=demand_parameters
+                        )
+                    existingIntake.demand_parameters = demand_parameters
+                    existingIntake.save()
+                    response = {
+                        'status': True,
+                        'intakeId': existingIntake.pk
+                    }
+                    return response
         except Exception as e:
             print(e)
             response = {
