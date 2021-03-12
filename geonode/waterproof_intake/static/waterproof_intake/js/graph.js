@@ -366,6 +366,8 @@ function onInit(editor) {
     //use jquery
     $(document).ready(function() {
 
+
+
         var MQ = MathQuill.getInterface(2);
         var CostSelected = null;
         var mathFieldSpan = document.getElementById('math-field');
@@ -379,13 +381,9 @@ function onInit(editor) {
             handlers: {
                 edit: function() {
                     mathField.focus();
-                    //latexSpan.textContent = mathField.latex();
+
                 }
             }
-        });
-
-        $('button[name=mathKeyBoard]').each(function() {
-            MQ.StaticMath(this);
         });
 
         //logical input logical
@@ -401,20 +399,52 @@ function onInit(editor) {
             handlers: {
                 edit: function() {
                     mathFieldlog1.focus();
-                    //latexSpan.textContent = mathField.latex();
+
                 }
             }
         });
 
-        $('button[name=mathKeyBoard]').each(function() {
-            MQL1.StaticMath(this);
+        //logical input logical
+        var MQL2 = MathQuill.getInterface(2);
+        var CostSelected = null;
+        var mathFieldSpanLog2 = document.getElementById('math-fieldlogic2');
+        var mathFieldlog2 = MQL2.MathField(mathFieldSpanLog2, {
+            spaceBehavesLikeTab: true,
+            autoCommands: 'pi theta sqrt sum mod',
+            autoOperatorNames: 'sin cos tan',
+            restrictMismatchedBrackets: true,
+            supSubsRequireOperand: true,
+            handlers: {
+                edit: function() {
+                    mathFieldlog2.focus();
+
+                }
+            }
+        });
+
+        //logical input logical
+        var MQL3 = MathQuill.getInterface(2);
+        var CostSelected = null;
+        var mathFieldSpanLog3 = document.getElementById('math-fieldlogic3');
+        var mathFieldlog3 = MQL3.MathField(mathFieldSpanLog3, {
+            spaceBehavesLikeTab: true,
+            autoCommands: 'pi theta sqrt sum mod',
+            autoOperatorNames: 'sin cos tan',
+            restrictMismatchedBrackets: true,
+            supSubsRequireOperand: true,
+            handlers: {
+                edit: function() {
+                    mathFieldlog3.focus();
+
+                }
+            }
         });
 
         //logical input expresion
         var MQE1 = MathQuill.getInterface(2);
         var CostSelected = null;
         var mathFieldSpanE1 = document.getElementById('math-fieldex1');
-        //var latexSpan = document.getElementById('latex');
+
         var mathFieldE1 = MQE1.MathField(mathFieldSpanE1, {
             spaceBehavesLikeTab: true,
             autoCommands: 'pi theta sqrt sum mod',
@@ -424,15 +454,77 @@ function onInit(editor) {
             handlers: {
                 edit: function() {
                     mathFieldE1.focus();
-                    //latexSpan.textContent = mathField.latex();
                 }
             }
         });
 
-        $('button[name=mathKeyBoard]').each(function() {
-            MQE1.StaticMath(this);
+        //logical input expresion
+        var MQE2 = MathQuill.getInterface(2);
+        var CostSelected = null;
+        var mathFieldSpanE2 = document.getElementById('math-fieldex2');
+
+        var mathFieldE2 = MQE2.MathField(mathFieldSpanE2, {
+            spaceBehavesLikeTab: true,
+            autoCommands: 'pi theta sqrt sum mod',
+            autoOperatorNames: 'sin cos tan',
+            restrictMismatchedBrackets: true,
+            supSubsRequireOperand: true,
+            handlers: {
+                edit: function() {
+                    mathFieldE2.focus();
+                }
+            }
         });
 
+        //logical input expresion
+        var MQE3 = MathQuill.getInterface(2);
+        var CostSelected = null;
+        var mathFieldSpanE3 = document.getElementById('math-fieldex3');
+
+        var mathFieldE3 = MQE3.MathField(mathFieldSpanE3, {
+            spaceBehavesLikeTab: true,
+            autoCommands: 'pi theta sqrt sum mod',
+            autoOperatorNames: 'sin cos tan',
+            restrictMismatchedBrackets: true,
+            supSubsRequireOperand: true,
+            handlers: {
+                edit: function() {
+                    mathFieldE3.focus();
+                }
+            }
+        });
+
+        mathQuillSelected = 'mathField';
+
+        //KeyBoard calculator funcion cost
+        $('button[name=mathKeyBoard]').click(function() {
+            addInfo(mathQuillSelected, $(this).attr('value'));
+        });
+
+        $('button[name=mathKeyBoard]').each(function() {
+            MQ.StaticMath(this);
+        });
+
+        $('span[id^=math-fieldlogic').click(function() {
+            mathQuillSelected = $(this).attr('valinfo');
+        });
+
+        $('span[id^=math-fieldex').click(function() {
+            mathQuillSelected = $(this).attr('valinfo');
+        });
+
+        $('#math-field').click(function() {
+            mathQuillSelected = $(this).attr('valinfo');
+        });
+
+        $("#currencyCost").on("change", function() {
+            $.ajax({
+                url: `/parameters/load-currency/?currency=${$('#currencyCost').val()}`,
+                success: function(result) {
+                    $('#global_multiplier_factorCalculator').val(JSON.parse(result)[0].fields.global_multiplier_factor);
+                }
+            });
+        });
         //load data when add an object in a diagram
         editor.graph.addListener(mxEvent.ADD_CELLS, function(sender, evt) {
             var selectedCell = evt.getProperty("cells");
@@ -558,11 +650,16 @@ function onInit(editor) {
 
         //Set var into calculator
         $(document).on('click', '.list-group-item', function() {
-            addInfo(`\\mathit{${$(this).attr('value')}}`);
+            addInfo(mathQuillSelected, `\\mathit{${$(this).attr('value')}}`);
         });
 
 
         $('#saveAndValideCost').click(function() {
+            var temp = {
+                'global_multiplier_factorCalculator': $('#global_multiplier_factorCalculator').val(),
+                'currencyCost': $('#currencyCost').val()
+            }
+            $.extend(funcostdb[CostSelected].fields, temp);
             funcostdb[CostSelected].fields.function_value = mathField.latex();
             selectedCell.setAttribute('funcost', JSON.stringify(funcostdb));
             $('#funcostgenerate div').remove();
@@ -580,6 +677,11 @@ function onInit(editor) {
             $('#CalculatorModal').modal('show');
             CostSelected = $(this).attr('idvalue');
             setVarCost();
+            if (funcostdb[CostSelected].fields.global_multiplier_factorCalculator) {
+
+            } else {
+
+            }
             let value = funcostdb[CostSelected].fields.function_value;
             mathField.latex(value);
             mathField.focus();
@@ -676,10 +778,7 @@ function onInit(editor) {
             }
         });
 
-        //KeyBoard calculator funcion cost
-        $('button[name=mathKeyBoard]').click(function() {
-            addInfo($(this).attr('value'));
-        });
+
 
         //Add value entered in sediments in the field resultdb
         $('#sedimentosDiagram').change(function() {
@@ -813,9 +912,35 @@ function onInit(editor) {
         //Force only numbers into calculator funcion cost
         $("#math-field").ForceNumericOnly();
         //Append values and var into funcion cost
-        function addInfo(value) {
-            mathField.cmd(value);
-            mathField.focus();
+        function addInfo(type, value) {
+            if (type == 'mathField') {
+                mathField.cmd(value);
+                mathField.focus();
+            }
+            if (type == 'mathFieldlog1') {
+                mathFieldlog1.cmd(value);
+                mathFieldlog1.focus();
+            }
+            if (type == 'mathFieldlog2') {
+                mathFieldlog2.cmd(value);
+                mathFieldlog2.focus();
+            }
+            if (type == 'mathFieldlog3') {
+                mathFieldlog3.cmd(value);
+                mathFieldlog3.focus();
+            }
+            if (type == 'mathFieldE1') {
+                mathFieldE1.cmd(value);
+                mathFieldE1.focus();
+            }
+            if (type == 'mathFieldE2') {
+                mathFieldE2.cmd(value);
+                mathFieldE2.focus();
+            }
+            if (type == 'mathFieldE3') {
+                mathFieldE3.cmd(value);
+                mathFieldE3.focus();
+            }
         }
 
 
