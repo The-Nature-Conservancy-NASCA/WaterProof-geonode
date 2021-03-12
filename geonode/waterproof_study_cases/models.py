@@ -27,6 +27,7 @@ from django.utils.translation import ugettext_lazy as _
 from geonode.waterproof_intake.models import ElementSystem
 from geonode.waterproof_parameters.models import Countries , Cities
 from geonode.waterproof_treatment_plants.models import Header
+from geonode.waterproof_nbs_ca.models import WaterproofNbsCa
 
 class ModelParameter(models.Model):
    
@@ -85,7 +86,12 @@ class StudyCases(models.Model):
     analysis_period_value = models.IntegerField(blank=True, null=True)
     analysis_currency = models.CharField(max_length=10, blank=True, null=True)
     status = models.IntegerField(blank=True, null=True)
-    usr_create = models.IntegerField(blank=True, null=True)
+    added_by = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL
+    )
     create_date = models.DateTimeField(blank=True, null=True)
     edit_date = models.DateTimeField(blank=True, null=True)
     time_implement_portfolio = models.IntegerField(blank=True, null=True)
@@ -98,6 +104,7 @@ class StudyCases(models.Model):
     intakes = models.ManyToManyField(ElementSystem)
     ptaps = models.ManyToManyField(Header)
     portfolios = models.ManyToManyField(Portfolio)
+    nbs = models.ManyToManyField(WaterproofNbsCa)
     cm_city = models.ForeignKey(Cities , on_delete=models.CASCADE, null=True)
     cm_value = models.DecimalField(max_digits=20, decimal_places=2, blank=True, null=True)
 
