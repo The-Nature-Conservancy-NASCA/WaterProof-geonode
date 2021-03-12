@@ -906,20 +906,8 @@ def editIntake(request, idx):
                     "serverApi": settings.WATERPROOF_API_SERVER
                 }
             )
-        userCountry = Countries.objects.get(iso3=request.user.country)
-        region = Regions.objects.get(id=userCountry.region_id)
-        intake = Intake.objects.all()
-        city = Cities.objects.all()
-        return render(
-            request,
-            'waterproof_intake/intake_list.html',
-            {
-                'intakeList': intake,
-                'city': city,
-                'userCountry': userCountry,
-                'region': region
-            }
-        )
+        response = redirect('/intake')
+        return response
 
 
 def viewIntake(request, idx):
@@ -1108,20 +1096,8 @@ def cloneIntake(request, idx):
                     "serverApi": settings.WATERPROOF_API_SERVER
                 }
             )
-        userCountry = Countries.objects.get(iso3=request.user.country)
-        region = Regions.objects.get(id=userCountry.region_id)
-        intake = Intake.objects.all()
-        city = Cities.objects.all()
-        return render(
-            request,
-            'waterproof_intake/intake_list.html',
-            {
-                'intakeList': intake,
-                'city': city,
-                'userCountry': userCountry,
-                'region': region
-            }
-        )
+        response = redirect('/intake')
+        return response
 
 
 def deleteIntake(request, idx):
