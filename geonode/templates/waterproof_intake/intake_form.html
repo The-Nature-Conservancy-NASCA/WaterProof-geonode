@@ -648,17 +648,26 @@
                 </h3>
             </div>
             <div class="modal-body">
-                <nav>
-                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                        <button class="nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true" style="color: white; background-color: #6398C1;">{% trans "Element of the water intake system" %}
-                        </button>
-                        <button class="nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false" style="color: white; background-color: #6398C1;">{% trans "Connections" %} </button>
-                        <button class="nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false" style="color: white; background-color: #6398C1;">{% trans "Construction of the scheme"%}
-                        </button>
-                    </div>
-                </nav>
-                <div class="tab-content" id="nav-tabContent">
-                    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="overview-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">
+                            {% trans "Element of the water intake system" %}
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="how-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">
+                            {% trans "Connections" %}
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">
+                            {% trans "Construction of the scheme"%}
+                        </a>
+                    </li>
+                </ul>
+
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade active in" id="home" role="tabpanel" aria-labelledby="overview-tab">
                         <!--Table Element of the water intake system-->
                         <table>
                             <tr>
@@ -713,9 +722,8 @@
                             </tr>
 
                         </table>
-
                     </div>
-                    <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="how-tab">
                         <p>{% trans "Note that you must make the connections by clicking between the source element and the destination element. Right click to indicate the type of connection:" %}</p>
                         <!--Table Connections-->
                         <table style="padding-top: none;">
@@ -733,7 +741,7 @@
                             </tr>
                         </table>
                     </div>
-                    <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+                    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
                         <!--Table Construction of the scheme-->
                         <table>
                             <tr>
@@ -829,7 +837,7 @@
         </div>
     </div>
 </div>
-<!--Help Step3 external imputs-->
+<!--Help Step3 external inputs-->
 <div class="modal fade" id="HelpStep3-2" tabindex="-1" aria-labelledby="HelpModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -944,6 +952,7 @@
 <script src="{{ STATIC_URL }}geonode/js/mxgraph/examples/editors/js/app.js"></script>
 <script src="{{ STATIC_URL }}waterproof_intake/mathquill/mathquill.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min.js"
     integrity="sha512-dTu0vJs5ndrd3kPwnYixvOCsvef5SGYW/zSSK4bcjRBcZHzqThq7pt7PmCv55yb8iBvni0TSeIDV8RYKjZL36A=="
     crossorigin="anonymous"></script>-->
