@@ -159,9 +159,32 @@ $(document).ready(function () {
     });
     setInterpolationParams();
     setTimeout(() => {
+        loadExternalDataOnInit();
         loadExternalInput();
     }, 1000);
 
+    function loadExternalDataOnInit() {
+        for (let id = 0; id < graphData.length; id++) {
+            if (graphData[id].external == 'true') {
+                graphData[id].externaldata = [];
+                var filterExternal = intakeExternalInputs.filter(e => e.xmlId == parseInt(graphData[id].id));
+                if (filterExternal.length > 0) {
+                    console.log(filterExternal);
+                    filterExternal[0].waterExtraction.forEach(function (external) {
+                        graphData[id].externaldata.push({
+                            "year": external.year,
+                            "waterVol": external.waterVol,
+                            "sediment": external.sediment,
+                            "nitrogen": external.nitrogen,
+                            "phosphorus": external.phosphorus
+                        });
+                    });
+                }
+                graphData[id].externaldata = JSON.stringify(graphData[id].externaldata);
+            }
+        }
+        $('#graphElements').val(JSON.stringify(graphData));
+    }
     // Generate table external Input
     function externalInput(numYear) {
         var rows = "";
@@ -388,7 +411,7 @@ $(document).ready(function () {
     function loadExternalInput() {
         $('#externalSelect').append(`<option value="null" selected>Choose here</option>`);
         for (const extractionData of graphData) {
-            if (extractionData.external == 'true') {
+            if (extractionData.external == 'true' && extractionData.externaldata) {
                 extractionData.externaldata = JSON.parse(extractionData.externaldata);
                 $('#externalSelect').append(`
                     <option value="${extractionData.id}">${extractionData.id} - External Input</option>
@@ -622,6 +645,7 @@ $(document).ready(function () {
     observer2.observe(menu1Tab, { attributes: true });
 
 });
+
 // window.onbeforeunload = function () { return mxResources.get('changesLost'); };
 
 /*Set values for interpolation
@@ -738,7 +762,7 @@ function intakeStepOne() {
 function intakeStepTwo() {
     console.log("Saving step two");
     var formData = new FormData();
-    // Intake step
+    // Intake step  
     formData.append('step', '2');
     // Intake id
     formData.append('intakeId', $('#intakeId').val());
@@ -789,6 +813,47 @@ function intakeStepThree() {
     formData.append('intakeId', $('#intakeId').val());
     // Intake xml graph
     formData.append('waterExtraction', $('#waterExtraction').val());
+    console.log(formData);
+    $.ajax({
+        type: 'POST',
+        url: '/intake/create/',
+        data: formData,
+        cache: false,
+        processData: false,
+        contentType: false,
+        enctype: 'multipart/form-data',
+        success: function (response) {
+            console.log(response);
+            $('#smartwizard').smartWizard("next");
+        },
+        error: function (xhr, errmsg, err) {
+            console.log(xhr.status + ":" + xhr.responseText);
+            let response = JSON.parse(xhr.responseText);
+            Swal.fire({
+                icon: 'error',
+                title: gettext('Intake saving error'),
+                text: response.message,
+            })
+        }
+    });
+    return true;
+}
+/** 
+ * Intake step four creation
+ *
+ * @return {boolean} true if is saved
+ */
+function intakeStepFour() {
+    console.log("Saving step four");
+    var formData = new FormData();
+    // Intake step
+    formData.append('step', '4');
+    // Intake id
+    formData.append('intakeId', $('#intakeId').val());
+    // Intake edit
+    formData.append('edit', 'true');
+    // Intake xml graph
+    formData.append('graphElements', $('#graphElements').val());
     console.log(formData);
     $.ajax({
         type: 'POST',
