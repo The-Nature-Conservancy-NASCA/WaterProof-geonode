@@ -9,8 +9,8 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('waterproof_intake', '0001_initial'),
         ('waterproof_parameters', '0001_initial'),
+        ('waterproof_intake', '0001_initial'),
     ]
 
     operations = [

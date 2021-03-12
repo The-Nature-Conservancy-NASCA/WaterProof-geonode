@@ -12,7 +12,7 @@ from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.translation import ugettext as _
 from .models import ValuesTime, ProcessEfficiencies, Intake, DemandParameters, WaterExtraction, ElementSystem, ValuesTime, CostFunctionsProcess, Polygon, Basins, ElementConnections, userCostFunctions
-from geonode.waterproof_parameters.models import Countries, Regions,Cities
+from geonode.waterproof_parameters.models import Countries, Regions, Cities
 from django.contrib.gis.gdal import SpatialReference, CoordTransform
 from django.core import serializers
 from django.http import JsonResponse
@@ -22,6 +22,7 @@ import simplejson as json
 from django.contrib.gis.geos import GEOSGeometry
 from django.contrib.gis.gdal import OGRGeometry
 import datetime
+import requests
 logger = logging.getLogger(__name__)
 
 """
@@ -33,14 +34,46 @@ request: Request
 """
 
 
-def create(request):
+def createIntake(request):
     logger.debug(request.method)
     # POST submit FORM
     if request.method == 'POST':
+        if request.POST.get('step') == '1':
+            stepCreation = createStepOne(request)
+            print(stepCreation)
+            if stepCreation['status'] == True:
+                context = {
+                    'status': '200',
+                    'intakeId': stepCreation['intakeId'],
+                    'message': 'Success'
+                }
+                response = HttpResponse(json.dumps(context), content_type='application/json')
+                response.status_code = 200
+                return response
+            else:
+                errorMessage = _('Error saving intake')
+                context = {
+                    'status': '400', 'message': str(errorMessage)
+                }
+                response = HttpResponse(json.dumps(context), content_type='application/json')
+                response.status_code = 400
+                return response
+        elif request.POST.get('step') == '2':
+            createStepOne()
+        elif request.POST.get('step') == '3':
+            createStepOne()
+        elif request.POST.get('step') == '4':
+            createStepOne()
+        elif request.POST.get('step') == '5':
+            createStepOne()
+        else:
+            print("Error step doesn't exits")
+
         form = forms.IntakeForm(request.POST)
+        """
         if form.is_valid():
             intake = form.save(commit=False)
-            intakeCity=request.POST.get('intakeCity')
+            intakeCity = request.POST.get('intakeCity')
             xmlGraph = request.POST.get('xmlGraph')
             # True | False
             isFile = request.POST.get('isFile')
@@ -259,14 +292,83 @@ def create(request):
                     source=sourceElement,
                     target=targetElement
                 )
+            argsInvest = {
+                'type': 'quality',
+                'id_usuario': 1,
+                'basin': basin.pk,
+                'models': 'sdr',
+                'models': 'awy',
+                'models': 'ndr',
+                'models': 'carbon',
+                'catchment': intakeCreated.pk,
+            }
+            argsWb = {
+                'id_intake': intakeCreated.pk
+            }
+            execInvest(requests, argsInvest)
+            execWb(requests, argsWb)
             messages.success(request, ("Water Intake created."))
             return HttpResponseRedirect(reverse('list-intake'))
         else:
             messages.error(request, ("Water Intake not created."))
             return HttpResponseRedirect(request, 'waterproof_intake/intake_list.html')
+    """
     else:
         form = forms.IntakeForm()
-    return render(request, 'waterproof_intake/intake_form.html', context={"form": form, "serverApi": settings.WATERPROOF_API_SERVER})
+        currencies = Countries.objects.all()
+
+    return render(request, 'waterproof_intake/intake_form.html', context={
+        "form": form, "serverApi": settings.WATERPROOF_API_SERVER,
+        'currencies': currencies,
+    })
+
+
+def createStepOne(request):
+    print("Step One")
+    basinId = request.POST.get('basinId')
+    print("basin id:"+basinId)
+    intakeName = request.POST.get('intakeName')
+    intakeDesc = request.POST.get('intakeDesc')
+    intakeWaterSource = request.POST.get('intakeWaterSource')
+    intakeCity = request.POST.get('intakeCity')
+    intakeAreaString = request.POST.get('intakeAreaPolygon')
+    pointIntakeString = request.POST.get('pointIntake')
+    try:
+        intake = Intake(
+            name=intakeName,
+            description=intakeDesc,
+            water_source_name=intakeWaterSource,
+            city=Cities.objects.get(id=intakeCity),
+            demand_parameters=None,
+            xml_graph=None,
+            creation_date=datetime.datetime.now(),
+            updated_date=datetime.datetime.now(),
+            is_complete=False,
+            added_by=request.user
+        )
+        intake.save()
+        intakePolygon = Polygon.objects.create(
+            area=0,
+            geom=None,
+            geomIntake=intakeAreaString,
+            geomPoint=pointIntakeString,
+            delimitation_date=None,
+            delimitation_type=None,
+            basin=Basins.objects.get(id=basinId),
+            intake=intake
+        )
+        response = {
+            'status': True,
+            'intakeId': intake.pk
+        }
+        return response
+    except Exception as e:
+        print(e)
+        response = {
+            'status': True,
+            'mesasge': e
+        }
+        return response
 
 
 def listIntake(request):
@@ -478,7 +580,7 @@ def editIntake(request, idx):
             if form.is_valid():
                 intake = form.save(commit=False)
                 xmlGraph = request.POST.get('xmlGraph')
-                intakeCity=request.POST.get('intakeCity')
+                intakeCity = request.POST.get('intakeCity')
                 # True | False
                 isFile = request.POST.get('isFile')
                 # GeoJSON | SHP
@@ -707,6 +809,21 @@ def editIntake(request, idx):
                     source=sourceElement,
                     target=targetElement
                 )
+            argsInvest = {
+                'type': 'quality',
+                'id_usuario': 1,
+                'basin': basin.pk,
+                'models': 'sdr',
+                'models': 'awy',
+                'models': 'ndr',
+                'models': 'carbon',
+                'catchment': existingIntake.pk,
+            }
+            argsWb = {
+                'id_intake': existingIntake.pk
+            }
+            execInvest(requests, argsInvest)
+            execWb(requests, argsWb)
             messages.success(request, ("Water Intake edited."))
             return HttpResponseRedirect(reverse('list-intake'))
 
@@ -818,7 +935,7 @@ def cloneIntake(request, idx):
             if form.is_valid():
                 intake = form.save(commit=False)
                 xmlGraph = request.POST.get('xmlGraph')
-                intakeCity=request.POST.get('intakeCity')
+                intakeCity = request.POST.get('intakeCity')
                 # True | False
                 isFile = request.POST.get('isFile')
                 # GeoJSON | SHP
@@ -1029,6 +1146,21 @@ def cloneIntake(request, idx):
                         source=sourceElement,
                         target=targetElement
                     )
+                argsInvest = {
+                    'type': 'quality',
+                    'id_usuario': 1,
+                    'basin': basin.pk,
+                    'models': 'sdr',
+                    'models': 'awy',
+                    'models': 'ndr',
+                    'models': 'carbon',
+                    'catchment': intakeCreated.pk,
+                }
+                argsWb = {
+                    'id_intake': intakeCreated.pk
+                }
+                execInvest(requests, argsInvest)
+                execWb(requests, argsWb)
                 messages.success(request, ("Water Intake created."))
                 return HttpResponseRedirect(reverse('list-intake'))
             else:
@@ -1059,6 +1191,50 @@ def deleteIntake(request, idx):
             response = HttpResponse(json.dumps(context), content_type='application/json')
             response.status_code = 200
             return response
+
+
+""""""""""""""""""""""
+Execute Invest API
+
+Attributes
+----------
+request
+args:   Object
+    type:       string
+    id_usuario: int
+    basin:      int
+    models:     string
+    catchment   int
+"""""""""""""""""""""
+
+
+def execInvest(request, args):
+    url = settings.WATERPROOF_INVEST_API+'execInvest'
+    r = request.get(url, params=args)
+    if r.status_code == 200:
+        print(r.text)
+    else:
+        print(r.text)
+
+
+""""""""""""""""""""""
+Execute Water Balance API
+
+Attributes
+----------
+request
+catchment:  Int Intake id
+"""""""""""""""""""""
+
+
+def execWb(request, args):
+    print(args)
+    url = settings.WATERPROOF_INVEST_API+'wb'
+    r = request.get(url, params=args)
+    if r.status_code == 200:
+        print(r.text)
+    else:
+        print(r.text)
 
 
 """

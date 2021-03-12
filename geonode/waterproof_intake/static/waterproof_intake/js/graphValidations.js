@@ -130,7 +130,7 @@ function funcost(ecuation_db, ecuation_name, index, MQ) {
         `<div class="alert alert-info" role="alert" idvalue="fun_${index}" style="margin-bottom: 12px">
         <a name="glyphicon-trash" idvalue="${index}" class="alert-link close" style="opacity: 1"><span class="glyphicon glyphicon-trash text-danger" aria-hidden="true"></span></a>
         <h4>${ecuation_name}</h4><a name="glyphicon-edit" idvalue="${index}" class="alert-link close" style="opacity: 1"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
-        <p name="render_ecuation">${ ecuation_db }</p>
+        <p name="render_ecuation" style="font-size: 1.8rem">${ ecuation_db }</p>
     </div>
     `);
     $('p[name=render_ecuation]').each(function() {
@@ -361,7 +361,7 @@ function validationsNodeAlone(data) {
     }
 }
 
-function validationInputTransportedWater(graphic){
+function validationInputTransportedWater(graphic) {
     let data2 = [];
     data2 = Object.values(graphic.cells);
     for (const it of data2) {
@@ -403,7 +403,7 @@ function mensajeAlert(fin) {
 
 function validations(validate, editor) {
 
-    if (validationsCsinfraExternal(validate) == true || validationsNodeAlone(editor) == true || validationInputTransportedWater(editor)== true) {
+    if (validationsCsinfraExternal(validate) == true || validationsNodeAlone(editor) == true || validationInputTransportedWater(editor) == true) {
         return true
     } else {
         if (banderaValideGraph != 0) {
