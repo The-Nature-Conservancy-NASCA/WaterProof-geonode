@@ -465,12 +465,7 @@ $(document).ready(function () {
             })
         }
         else {
-            Swal.fire({
-                icon: 'success',
-                text: gettext('The water intake is being saved'),
-                allowOutsideClick: true,
-                showConfirmButton: false
-            });
+            intakeStepFive();
         }
     });
 
@@ -880,6 +875,58 @@ function intakeStepFour() {
     return true;
 }
 /** 
+ * Intake step five creation
+ *
+ * @return {boolean} true if is saved
+ */
+function intakeStepFive() {
+    console.log("Saving step five");
+    var formData = new FormData();
+    // Intake step
+    formData.append('step', '5');
+    // Intake id
+    formData.append('intakeId', $('#intakeId').val());
+    // Intake area polygon
+    formData.append('intakeAreaPolygon', $('#intakeAreaPolygon').val());
+    // Intake delimit area polygon
+    formData.append('delimitArea', $('#delimitArea').val());
+    // Intake type delimit
+    formData.append('typeDelimit', $('#typeDelimit').val());
+    // Intake is File?
+    formData.append('isFile', $('#isFile').val());
+    console.log(formData);
+    $.ajax({
+        type: 'POST',
+        url: '/intake/create/',
+        data: formData,
+        cache: false,
+        processData: false,
+        contentType: false,
+        enctype: 'multipart/form-data',
+        success: function (response) {
+            console.log(response);
+            Swal.fire({
+                icon: 'success',
+                text: gettext('The water intake is being saved'),
+                allowOutsideClick: true,
+                showConfirmButton: false
+            });
+            setTimeout(function () { location.href = "/intake/"; }, 1000);
+        },
+        error: function (xhr, errmsg, err) {
+            console.log(xhr.status + ":" + xhr.responseText);
+            let response = JSON.parse(xhr.responseText);
+            Swal.fire({
+                icon: 'error',
+                title: gettext('Intake saving error'),
+                text: response.message,
+            })
+            return false;
+        }
+    });
+
+}
+/** 
  * Delimit manually the intake polygon
  */
 function delimitIntakeArea() {
@@ -896,7 +943,8 @@ function delimitIntakeArea() {
         coordinates.push(geom[0]);
         copyCoordinates.push(coordinates);
     })
-    mapDelimit.removeLayer(editablepolygon);
+    if (editablepolygon !== void (0))
+        mapDelimit.removeLayer(editablepolygon);
     editablepolygon = L.polygon(copyCoordinates, { color: 'red' });
     editablepolygon.addTo(mapDelimit)
     editablepolygon.enableEdit();
