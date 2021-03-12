@@ -514,7 +514,7 @@ def createStepTwo(request):
             existingIntake.save()
             actualElements = list(ElementSystem.objects.filter(
                 intake=existingIntake.pk).values_list('id', flat=True))
-            print(existingIntake.pk)
+
             if (len(actualElements) > 0):
                 for element in actualElements:
                     el = ElementSystem.objects.get(id=element)
@@ -558,58 +558,66 @@ def createStepTwo(request):
                                             template_function=templateFunction,
                                             user=request.user
                                         )
+
+                        # External element
+                        else:
+                            parameter = json.loads(element['resultdb'])
+                            try:
+                                if (len(parameter) > 0):
+                                    element_system = ElementSystem.objects.create(
+                                        graphId=element['id'],
+                                        name=element['name'],
+                                        normalized_category=parameter[0]['fields']['normalized_category'],
+                                        transported_water=parameter[0]['fields']['predefined_transp_water_perc'],
+                                        sediment=parameter[0]['fields']['predefined_sediment_perc'],
+                                        nitrogen=parameter[0]['fields']['predefined_nitrogen_perc'],
+                                        phosphorus=parameter[0]['fields']['predefined_phosphorus_perc'],
+                                        is_external=True,
+                                        intake=existingIntake
+                                    )
+                                    elementC = {}
+                                    elementC['pk'] = element_system.pk
+                                    elementC['xmlId'] = element_system.graphId
+                                    elementsCreated.append(elementC)
+
+                                    if not (element['funcost'] == None):
+                                        costFunction = json.loads(element['funcost'])
+                                        if (len(costFunction) > 0):
+                                            for function in costFunction:
+                                                templateFunction = CostFunctionsProcess.objects.get(id=function['pk'])
+                                                userCostFunctions.objects.create(
+                                                    function=function['fields']['function_value'],
+                                                    template_function=templateFunction,
+                                                    user=request.user
+                                                )
+                                    external_info = json.loads(element['externaldata'])
+                                    elementCreated = ElementSystem.objects.get(graphId=element['id'], intake=intakeId)
+                                    for external in external_info:
+                                        external_input = ValuesTime.objects.create(
+                                            year=external['year'],
+                                            water_volume=external['waterVol'],
+                                            sediment=external['sediment'],
+                                            nitrogen=external['nitrogen'],
+                                            phosphorus=external['phosphorus'],
+                                            element=elementCreated
+                                        )
+                                else:
+                                    print("Testing2")
+                                    element_system = ElementSystem.objects.create(
+                                        graphId=element['id'],
+                                        name=element['name'],
+                                        transported_water=0,
+                                        sediment=0,
+                                        nitrogen=0,
+                                        phosphorus=0,
+                                        is_external=True,
+                                        intake=existingIntake
+                                    )
+                            except Exception as e:
+                                print(e)
                     except Exception as e:
                         print(e)
-                    # External element
-                    else:
-                        parameter = json.loads(element['resultdb'])
-                        try:
-                            if (len(parameter) > 0):
-                                element_system = ElementSystem.objects.create(
-                                    graphId=element['id'],
-                                    name=element['name'],
-                                    normalized_category=parameter[0]['fields']['normalized_category'],
-                                    transported_water=parameter[0]['fields']['predefined_transp_water_perc'],
-                                    sediment=parameter[0]['fields']['predefined_sediment_perc'],
-                                    nitrogen=parameter[0]['fields']['predefined_nitrogen_perc'],
-                                    phosphorus=parameter[0]['fields']['predefined_phosphorus_perc'],
-                                    is_external=True,
-                                    intake=existingIntake
-                                )
-                                elementC = {}
-                                elementC['pk'] = element_system.pk
-                                elementC['xmlId'] = element_system.graphId
-                                elementsCreated.append(elementC)
-
-                                if not (element['funcost'] == None):
-                                    costFunction = json.loads(element['funcost'])
-                                    if (len(costFunction) > 0):
-                                        for function in costFunction:
-                                            templateFunction = CostFunctionsProcess.objects.get(id=function['pk'])
-                                            userCostFunctions.objects.create(
-                                                function=function['fields']['function_value'],
-                                                template_function=templateFunction,
-                                                user=request.user
-                                            )
-                            else:
-                                element_system = ElementSystem.objects.create(
-                                    graphId=element['id'],
-                                    name=element['name'],
-                                    transported_water=0,
-                                    sediment=0,
-                                    nitrogen=0,
-                                    phosphorus=0,
-                                    is_external=True,
-                                    intake=existingIntake
-                                )
-                                elementC = {}
-                                elementC['pk'] = element_system.pk
-                                elementC['xmlId'] = element_system.graphId
-                                elementsCreated.append(elementC)
-
-                        except Exception as e:
-                            print(e)
-                    # Connections
+                # Connections
                 else:
                     parameter = json.loads(element['resultdb'])
                     if (len(parameter) > 0):
@@ -711,7 +719,6 @@ def createStepThree(request):
                 }
                 return response
             else:
-                print("Edit true")
                 if (existingIntake.demand_parameters != None):
                     demandParameter = DemandParameters.objects.get(id=existingIntake.demand_parameters.pk)
                     demandParameter.interpolation_type = interpolation['typeInterpolation']
@@ -757,6 +764,7 @@ def createStepThree(request):
                     }
                     return response
         except Exception as e:
+            print("Fallo paso 3")
             print(e)
             response = {
                 'status': False,
@@ -782,28 +790,63 @@ def createStepFour(request):
     else:
         try:
             intakeId = request.POST.get('intakeId')
+            edit = request.POST.get('edit')
             existingIntake = Intake.objects.get(id=intakeId)
             graphElementsString = request.POST.get('graphElements')
             graphElements = json.loads(graphElementsString)
-            for element in graphElements:
-                if ('external' in element):
-                    if (element['external'] == 'true'):
-                        external_info = json.loads(element['externaldata'])
-                        elementCreated = ElementSystem.objects.get(graphId=element['id'], intake=intakeId)
-                        for external in external_info:
-                            external_input = ValuesTime.objects.create(
-                                year=external['year'],
-                                water_volume=external['waterVol'],
-                                sediment=external['sediment'],
-                                nitrogen=external['nitrogen'],
-                                phosphorus=external['phosphorus'],
-                                element=elementCreated
-                            )
-            response = {
-                'status': True,
-                'intakeId': existingIntake.pk
-            }
-            return response
+            if (edit == 'false'):
+                for element in graphElements:
+                    if ('external' in element):
+                        if (element['external'] == 'true'):
+                            external_info = json.loads(element['externaldata'])
+                            elementCreated = ElementSystem.objects.get(graphId=element['id'], intake=intakeId)
+                            for external in external_info:
+                                external_input = ValuesTime.objects.create(
+                                    year=external['year'],
+                                    water_volume=external['waterVol'],
+                                    sediment=external['sediment'],
+                                    nitrogen=external['nitrogen'],
+                                    phosphorus=external['phosphorus'],
+                                    element=elementCreated
+                                )
+                response = {
+                    'status': True,
+                    'intakeId': existingIntake.pk
+                }
+                return response
+            else:
+                actualElements = list(ElementSystem.objects.filter(
+                    intake=existingIntake.pk).values_list('id', flat=True))
+                if (len(actualElements) > 0):
+                    for element in actualElements:
+                        print(element)
+                        el = ElementSystem.objects.get(id=element)
+                        existingValuesTime = list(ValuesTime.objects.filter(element=el.pk).values_list('id', flat=True))
+                        if (len(existingValuesTime) > 0):
+                            for value in existingValuesTime:
+                                val = ValuesTime.objects.get(id=value)
+                                val.delete()
+
+                for element in graphElements:
+                    if ('external' in element):
+                        if (element['external'] == 'true'):
+                            external_info = json.loads(element['externaldata'])
+                            elementCreated = ElementSystem.objects.get(graphId=element['id'], intake=intakeId)
+                            print("External")
+                            for external in external_info:
+                                external_input = ValuesTime.objects.create(
+                                    year=external['year'],
+                                    water_volume=external['waterVol'],
+                                    sediment=external['sediment'],
+                                    nitrogen=external['nitrogen'],
+                                    phosphorus=external['phosphorus'],
+                                    element=elementCreated
+                                )
+                response = {
+                    'status': True,
+                    'intakeId': existingIntake.pk
+                }
+                return response
         except Exception as e:
             print(e)
             response = {
