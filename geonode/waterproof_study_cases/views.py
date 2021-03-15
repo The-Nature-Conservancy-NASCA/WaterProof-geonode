@@ -17,7 +17,7 @@ from rest_framework.parsers import JSONParser
 from django.urls import reverse
 from .models import StudyCases
 from . import forms
-from geonode.waterproof_parameters.models import Cities , Countries ,Regions
+from geonode.waterproof_parameters.models import Cities, Countries, Regions
 from geonode.waterproof_intake.models import Intake, ElementSystem
 from geonode.waterproof_treatment_plants.models import Header
 from geonode.waterproof_nbs_ca.models import WaterproofNbsCa
@@ -29,7 +29,7 @@ from django.views.generic import CreateView, DetailView, ListView
 from django_libs.views_mixins import AccessMixin
 
 from .forms import StudyCasesForm
-from .models import StudyCases , Portfolio, ModelParameter
+from .models import StudyCases, Portfolio, ModelParameter
 
 import datetime
 logger = logging.getLogger(__name__)
@@ -83,6 +83,7 @@ def listStudyCases(request):
                 }
             )
 
+
 def create(request):
     # POST submit FORM
     if request.method == 'POST':
@@ -94,18 +95,66 @@ def create(request):
         intakes = ElementSystem.objects.filter(normalized_category='CSINFRA').values(
             "id", "name", "intake__name", "intake__id", "graphId")
         form = forms.StudyCasesForm()
-        nbs = WaterproofNbsCa.objects.filter(added_by__professional_role ='ADMIN').values(
+        nbs = WaterproofNbsCa.objects.filter(added_by__professional_role='ADMIN').values(
             "id", "name")
-        
+        logger.error(nbs)
         return render(request,
                       'waterproof_study_cases/studycases_form.html',
                       context={"form": form,
                                "serverApi": settings.WATERPROOF_API_SERVER,
                                'intakes': intakes,
                                'portfolios': portfolios,
-                               'tratamentPlants':tratamentPlants,
+                               'tratamentPlants': tratamentPlants,
                                'ModelParameters': models,
                                'nbs': nbs
                                }
                       )
 
+
+def edit(request, idx):
+    if not request.user.is_authenticated:
+        return render(request, 'waterproof_study_cases/intake_login_error.html')
+    else:
+        if request.method == 'GET':
+            portfolios = Portfolio.objects.all()
+            models = ModelParameter.objects.all()
+            tratamentPlants = Header.objects.filter()
+            intakes = ElementSystem.objects.filter(normalized_category='CSINFRA' ).values(
+                "id", "name", "intake__name", "intake__id", "graphId")
+            form = forms.StudyCasesForm()
+            nbs = WaterproofNbsCa.objects.filter(added_by__professional_role='ADMIN').values(
+                "id", "name")
+            study_case = StudyCases.objects.get(id=idx)
+            return render(
+                request, 'waterproof_study_cases/studycases_edit.html',
+                {
+                    "serverApi": settings.WATERPROOF_API_SERVER,
+                    'study_case': study_case,
+                    'intakes': intakes,
+                    'portfolios': portfolios,
+                    'tratamentPlants': tratamentPlants,
+                    'ModelParameters': models,
+                    'nbs': nbs
+                }
+            )
+
+def view(request, idx):
+    if not request.user.is_authenticated:
+        return render(request, 'waterproof_study_cases/studycases_login_error.html')
+    else:
+        if request.method == 'GET':
+            portfolios = Portfolio.objects.all()
+            models = ModelParameter.objects.all()
+            nbs = WaterproofNbsCa.objects.filter(added_by__professional_role='ADMIN').values(
+                "id", "name")
+            study_case = StudyCases.objects.get(id=idx)
+            return render(
+                request, 'waterproof_study_cases/studycases_view.html',
+                {
+                    "serverApi": settings.WATERPROOF_API_SERVER,
+                    'study_case': study_case,
+                    'portfolios': portfolios,
+                    'ModelParameters': models,
+                    'nbs': nbs
+                }
+            )
