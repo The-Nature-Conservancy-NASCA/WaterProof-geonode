@@ -6,7 +6,8 @@ from django import forms
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 
-from .models import WaterproofNbsCa, RiosTransition, RiosTransformation, RiosActivity,Countries,Currency
+from .models import WaterproofNbsCa, RiosTransition, RiosTransformation, RiosActivity
+from geonode.waterproof_parameters.models import Regions,Countries
 from django.contrib.gis.geos import Polygon
 
 class WaterproofNbsCaForm(forms.ModelForm):
@@ -20,7 +21,7 @@ class WaterproofNbsCaForm(forms.ModelForm):
     rios_transformations = forms.ModelMultipleChoiceField(
         widget=forms.SelectMultiple, queryset=RiosTransformation.objects.all())
     country = forms.ModelChoiceField(queryset=Countries.objects.all())
-    currency = forms.ModelChoiceField(queryset=Currency.objects.all())
+    currency = forms.ModelChoiceField(queryset=Countries.objects.all())
     transformations_available=forms.ModelMultipleChoiceField(
         widget=forms.SelectMultiple, queryset=RiosTransformation.objects.all())
     def __init__(self, *args, **kwargs):

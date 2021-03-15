@@ -9,7 +9,7 @@
     <div class="col-md-4">
         <h4 class="text-center" id="countryLabel">{{country.name}}</h4>
         <p><b>{% trans "Region:" %}</b> <span id="regionLabel">{{region.name}}</span> </p>
-        <p><b>{% trans "Currency:" %}</b><span id="currencyLabel">({{currency.code}}) - {{currency.name}}</span></p>
+        <p><b>{% trans "Currency:" %}</b><span id="currencyLabel">({{currency.currency}}) - {{currency.name}}</span></p>
     </div>
     <div class="col-md-8">
         <div id="mapid" style="width: 700px; height: 200px;"></div>
@@ -41,9 +41,9 @@
                 <select id="countryNBS" {{countryEnable}} class="form-control" data-error="This field is required" required>
                     {% for country in countries %}
                     {% if nbs.country.pk == country.pk %}
-                    <option value="{{country.pk}}" data-value="{{country.code}}" selected>{{country.name}}</option>
+                    <option value="{{country.pk}}" data-value="{{country.iso3}}" selected>{{country.name}}</option>
                     {% else %}
-                    <option value="{{country.pk}}" data-value="{{country.code}}">{{country.name}}</option>
+                    <option value="{{country.pk}}" data-value="{{country.iso3}}">{{country.name}}</option>
                     {% endif %}
                     {% endfor %}
                 </select>
@@ -54,9 +54,9 @@
                 <select id="currencyCost" {{countryEnable}} class="form-control" data-error="This field is required" required>
                     {% for currency in currencies %}
                     {% if nbs.currency.pk == currency.pk%}
-                    <option value="{{currency.pk}}" data-country="{{currency.country.code}}" selected>({{currency.code}}) - {{currency.name}}</option>
+                    <option value="{{currency.pk}}" data-country="{{currency.iso3}}" selected>({{currency.currency}}) - {{currency.name}}</option>
                     {% else %}
-                    <option value="{{currency.pk}}" data-country="{{currency.country.code}}">({{currency.code}}) - {{currency.name}}</option>
+                    <option value="{{currency.pk}}" data-country="{{currency.iso3}}">({{currency.currency}}) - {{currency.name}}</option>
                     {% endif %}
                     {% endfor %}
                 </select>
@@ -95,19 +95,19 @@
             {% if user.professional_role == 'ANALYS' and nbs.added_by.professional_role == 'ADMIN' %}
                 <div class="col-md-4">
                     <label id="implementCostLabel">{% trans "Implementation cost (US$/ha)" %} <span class="text-danger-wp">(*)</span> </label>
-                    <input id="implementCost" value="{{ nbs.unit_implementation_cost|multiplyFactor:userCountry.factor|decimalFormat:2}}" type="text" onInput="return checkDecimalFormat(event,value)" 
+                    <input id="implementCost" value="{{ nbs.unit_implementation_cost|multiplyFactor:userCountry.global_multiplier_factor|decimalFormat:2 }}" type="text" onInput="return checkDecimalFormat(event,value)" 
                     class="form-control" data-error='{% trans "Field is required" %}' required>
                     <div class="help-block with-errors"></div>
                 </div>
                 <div class="col-md-4">
                     <label id="maintenanceCostLabel">{% trans "Maintenace cost (US$/ha)" %} <span class="text-danger-wp">(*)</span> </label>
-                    <input id="maintenanceCost" value="{{ nbs.unit_maintenance_cost|multiplyFactor:userCountry.factor|decimalFormat:2 }}" type="text" onInput="return checkDecimalFormat(event,value)" 
+                    <input id="maintenanceCost" value="{{ nbs.unit_maintenance_cost|multiplyFactor:userCountry.global_multiplier_factor|decimalFormat:2 }}" type="text" onInput="return checkDecimalFormat(event,value)" 
                     class="form-control" data-error='{% trans "Field is required" %}' required>
                     <div class="help-block with-errors"></div>
                 </div>
                 <div class="col-md-4">
                     <label id="oportunityCostLabel">{% trans "Oportunity cost (US$/ha)" %} <span class="text-danger-wp">(*)</span> </label>
-                    <input id="oportunityCost" value="{{ nbs.unit_oportunity_cost|multiplyFactor:userCountry.factor|decimalFormat:2 }}" type="text" onInput="return checkDecimalFormat(event,value)"  class="form-control" data-error='{% trans "Field is required" %}' required>
+                    <input id="oportunityCost" value="{{ nbs.unit_oportunity_cost|multiplyFactor:userCountry.global_multiplier_factor|decimalFormat:2 }}" type="text" onInput="return checkDecimalFormat(event,value)"  class="form-control" data-error='{% trans "Field is required" %}' required>
                     <div class="help-block with-errors"></div>
                 </div>
             {% else %}
@@ -256,15 +256,15 @@
     var currencyNbs = '{{ sbn.currency.pk }}';
     var countriesLayerUrl = '{{ STATIC_URL }}waterproof_nbs_ca/data/countries.geojson';
     var userCountryId = '{{userCountry.id}}';
-    var userCountryCode = '{{userCountry.code}}';
+    var userCountryCode = '{{userCountry.iso3}}';
     var userCountryName = '{{userCountry.name}}';
     var countryId = '{{country.id}}';
     var realImplemCost='{{nbs.unit_implementation_cost}}';
     var realOportCost='{{nbs.unit_oportunity_cost}}';
     var realMaintCost='{{nbs.unit_maintenance_cost}}';
-    var factorMaintCost='{{ nbs.unit_maintenance_cost|multiplyFactor:userCountry.factor|decimalFormat:2 }}';
-    var factorImplemCost='{{ nbs.unit_implementation_cost|multiplyFactor:userCountry.factor|decimalFormat:2}}';
-    var factorOportCost='{{ nbs.unit_oportunity_cost|multiplyFactor:userCountry.factor|decimalFormat:2 }}';
+    var factorMaintCost='{{ nbs.unit_maintenance_cost|multiplyFactor:userCountry.global_multiplier_factor|decimalFormat:2 }}';
+    var factorImplemCost='{{ nbs.unit_implementation_cost|multiplyFactor:userCountry.global_multiplier_factor|decimalFormat:2}}';
+    var factorOportCost='{{ nbs.unit_oportunity_cost|multiplyFactor:userCountry.global_multiplier_factor|decimalFormat:2 }}';
     var globalBaseCost=false;
 </script>
 {% if user.professional_role == 'ADMIN' %}

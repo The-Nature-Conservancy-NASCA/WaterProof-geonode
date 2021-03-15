@@ -17,6 +17,7 @@
 <!--header-->
 <div class="page-header">
     <h1>{% trans "Clone water intake" %}</h1>
+    <h4 class="title-city">{% trans "Intake creation city" %} <span id="cityLabel">{{intake.city.name}}</span> </h4>
 </div>
 <!--Begin Form-->
 <form id="form" method="POST" action="">
@@ -66,8 +67,8 @@
                             {% trans "Name" %}
                         </label>
                         <div class="">
-                            <input type="text" name="name" maxlength="100" class=" form-control" id="id_name"
-                                value="{{intake.name}}">
+                            <input type="text" id="intakeName" name="name" maxlength="100" class=" form-control" id="id_name"
+                                value='{{intake.name}}_{% trans "Cloned" %}'>
                         </div>
                     </div>
                 </div>
@@ -77,7 +78,7 @@
                         {% trans "Description" %}
                     </label>
                     <div class="">
-                        <input type="text" name="description" maxlength="1024" class=" form-control" id="id_description"
+                        <input type="text" id="intakeDesc" name="description" maxlength="1024" class=" form-control" id="id_description"
                             value="{{intake.description}}">
                     </div>
                 </div>
@@ -87,7 +88,7 @@
                         {% trans "Water source name" %}
                     </label>
                     <div class="">
-                        <input type="text" name="water_source_name" maxlength="100" id="id_water_source_name"
+                        <input type="text" id="waterSource" name="water_source_name" maxlength="100" id="id_water_source_name"
                             class=" form-control" value="{{intake.water_source_name}}">
                     </div>
                 </div>
@@ -189,8 +190,8 @@
                     </div>
                 </div>
             </div>
-               <!--Step 3-->
-               <div id="step-3" class="tab-pane" role="tabpanel">
+            <!--Step 3-->
+            <div id="step-3" class="tab-pane" role="tabpanel">
                 <!--Header-->
                 <div class="page-header">
                     <h3>{% trans "Water extraction"%}</h3>
@@ -324,7 +325,6 @@
                             <select class="form-control" id="externalSelect"></select>
                         </div>
                         <div id="IntakeTDLE"></div>
-                        <button class="btn btn-primary" type="button" id="saveExternalData">{% trans "Save data" %}</button>
                     </div>
                 </div>
                 <br>
@@ -344,8 +344,8 @@
                             <div id="mapid" style="width: 100%; height: 400px;"></div>
                         </div>
                     </div>
-                   <!--Panel Information Right-->
-                   <div class="col-md-5">
+                    <!--Panel Information Right-->
+                    <div class="col-md-5">
                         <div class="panel panel-default">
                             <div class="panel-body">
                                 <div class="alert alert-info" role="alert">
@@ -374,13 +374,14 @@
                 <div class="row text-center">
                     <div class="col-md-12 form-group">
                         <button type="button" class="btn btn-primary" id="step5PrevBtn">{% trans "Previous" %}</button>
-                        <input type="submit" id="submit" class="btn btn-primary" value="{% trans 'Submit' %}"></input>
+                        <input type="submit" id="submit" class="btn btn-primary" value="{% trans 'Save' %}"></input>
                     </div>
                 </div>
             </div>
         </div>
 
         <!--Inputs hidden for save data-->
+        <input type="hidden" id="intakeCity" name="intakeCity" value="{{intake.city.pk}}">
         <input type="hidden" id="xmlGraph" name="xmlGraph" value="{{intake.xml_graph}}">
         <input type="hidden" id="graphConnections" name="graphConnections">
         <input type="hidden" id="isFile" name="isFile">
@@ -391,6 +392,7 @@
         <input type="hidden" id="intakeAreaPolygon" name="intakeAreaPolygon" value="">
         <input type="hidden" id="graphElements" name="graphElements" value="">
         <input type="hidden" id="basinId" name="basinId" value="">
+        <input type="hidden" id="intakeId" name="intakeId" value="">
 </form>
 <!--Modal Calculator-->
 <div class="modal fade" id="CalculatorModal" tabindex="-1" aria-labelledby="CalculatorModalLabel" aria-hidden="true">
@@ -570,6 +572,7 @@
     var intakeExternalInputs = JSON.parse('{{externalInputs|safe}}');
     var intakeObject = {};
     intakeObject.id = '{{intake.id}}'
+    $('#intakeId').val(intakeObject.id);
     intakeObject.polygon = '{{intake.polygon_set.first.geomIntake|safe}}';
     intakeObject.point=JSON.parse('{{intake.polygon_set.first.geomPoint|safe}}');
     intakeObject.delimitArea='{{intake.polygon_set.first.geom}}';

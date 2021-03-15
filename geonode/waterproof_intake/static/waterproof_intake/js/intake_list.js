@@ -3,7 +3,7 @@
  * @author Luis Saltron
  * @version 1.0
  */
-$(function() {
+$(function () {
     var table = $('#example').DataTable({
         'dom': 'lrtip'
     });
@@ -27,23 +27,23 @@ $(function() {
         weight: 0.2,
         fillOpacity: 0
     };
-    initialize = function() {
+    initialize = function () {
         console.log('init event loaded');
         // Transformations widget change option event
-        $('#menu-toggle').click(function(e) {
+        $('#menu-toggle').click(function (e) {
             e.preventDefault();
             $('#wrapper').toggleClass('toggled');
         });
 
         // show/hide div with checkbuttons 
-        $("#riosTransition").change(function() {
+        $("#riosTransition").change(function () {
             dato = $("#riosTransition").val();
             var data_value = $(`#selectlanduse${dato}`).attr('data-value');
-            $('div[name=selectlanduse]').each(function() {
+            $('div[name=selectlanduse]').each(function () {
                 $('div[name=selectlanduse]').css({
                     "display": "none"
                 });
-                $('div[name=selectlanduse]').find('input[type=checkbox]:checked').each(function(idx, input) {
+                $('div[name=selectlanduse]').find('input[type=checkbox]:checked').each(function (idx, input) {
                     input.checked = false;
                 });
             });
@@ -53,7 +53,7 @@ $(function() {
                 })
             }
         });
-        $('.btn-danger').click(function(evt) {
+        $('.btn-danger').click(function (evt) {
             Swal.fire({
                 title: gettext('Delete intake'),
                 text: gettext("Are you sure?") + gettext("You won't be able to revert this!"),
@@ -67,25 +67,25 @@ $(function() {
             }).then((result) => {
                 if (result.isConfirmed) {
                     intakeId = evt.currentTarget.getAttribute('data-id')
-                        /** 
-                         * Get filtered activities by transition id 
-                         * @param {String} url   activities URL 
-                         * @param {Object} data  transition id  
-                         *
-                         * @return {String} activities in HTML option format
-                         */
+                    /** 
+                     * Get filtered activities by transition id 
+                     * @param {String} url   activities URL 
+                     * @param {Object} data  transition id  
+                     *
+                     * @return {String} activities in HTML option format
+                     */
                     $.ajax({
                         url: '/intake/delete/' + intakeId,
                         type: 'POST',
-                        success: function(result) {
+                        success: function (result) {
                             Swal.fire({
                                 icon: 'success',
                                 title: gettext('Great!'),
                                 text: gettext('The intake has been deleted')
                             })
-                            setTimeout(function() { location.href = "/intake/"; }, 1000);
+                            setTimeout(function () { location.href = "/intake/"; }, 1000);
                         },
-                        error: function(error) {
+                        error: function (error) {
                             Swal.fire({
                                 icon: 'error',
                                 title: gettext('Error!'),
@@ -110,7 +110,7 @@ $(function() {
     CENTER = [4.582, -74.4879];
     MAXZOOM = 11;
 
-    initMap = function() {
+    initMap = function () {
 
         map = L.map('mapidcuenca', {
             scrollWheelZoom: false,
@@ -187,7 +187,7 @@ $(function() {
     }
 
     var searchPoints = L.geoJson(null, {
-        onEachFeature: function(feature, layer) {
+        onEachFeature: function (feature, layer) {
             layer.bindPopup(feature.properties.name);
         }
     });
@@ -216,7 +216,7 @@ $(function() {
         localStorage.setItem('cityCoords', JSON.stringify(waterproof["cityCoords"]));
 
 
-        searchPoints.eachLayer(function(layer) {
+        searchPoints.eachLayer(function (layer) {
             if (layer.feature.properties.osm_id != feat.properties.osm_id) {
                 layer.remove();
             }
@@ -234,7 +234,7 @@ $(function() {
 
         let urlAPI = '{{ SEARCH_COUNTRY_API_URL }}' + countryCode;
 
-        $.get(urlAPI, function(data) {
+        $.get(urlAPI, function (data) {
             //console.log(data);
             $("#regionLabel").html(data.region);
             $("#currencyLabel").html(data.currencies[0].name + " - " + data.currencies[0].symbol);
@@ -246,42 +246,47 @@ $(function() {
         });
     }
 
-    udpateCreateUrl = function(countryId) {
+    udpateCreateUrl = function (countryId) {
         $('#createUrl').attr('href', 'create/' + countryId)
     };
+
+    $('createUrlDisabled').html('<a>{% trans "Debe ser un usuario registrado para realizar esta acción" %}</a>' ); 
+
+
     /** 
      * Get the transformations selected
      * @param {Array} transformations transformations selected
      */
-    getTransformationsSelected = function() {
+    getTransformationsSelected = function () {
         var transformations = [];
         // Obtención de valores de los check de la solución
-        $('input[name=itemRT]:checked').each(function() {
+        $('input[name=itemRT]:checked').each(function () {
             transformations.push($(this).val());
         });
         return transformations;
     };
 
     //draw polygons
-    drawPolygons = function(citySearch) {
+    drawPolygons = function (citySearch) {
         lyrsPolygons.forEach(lyr => map.removeLayer(lyr));
         lyrsPolygons = [];
         var bounds;
         intakePolygons.forEach((feature) => {
             if (citySearch.substr(0, 5) == feature.city.substr(0, 5)) {
-                let poly = feature.polygon;
-                if (poly.indexOf("SRID") >= 0) {
-                    poly = poly.split(";")[1];
-                }
-                var lyrPoly = omnivore.wkt.parse(poly).addTo(map);
-                lyrsPolygons.push(lyrPoly);
-                if (bounds == undefined) {
-                    bounds = lyrPoly.getBounds();
-                } else {
-                    bounds = bounds.extend(lyrPoly.getBounds());
+                if (feature.polygon !== 'None') {
+                    let poly = feature.polygon;
+                    if (poly.indexOf("SRID") >= 0) {
+                        poly = poly.split(";")[1];
+                    }
+                    var lyrPoly = omnivore.wkt.parse(poly).addTo(map);
+                    lyrsPolygons.push(lyrPoly);
+                    if (bounds == undefined) {
+                        bounds = lyrPoly.getBounds();
+                    } else {
+                        bounds = bounds.extend(lyrPoly.getBounds());
+                    }
                 }
             }
-
         });
         if (bounds != undefined) {
             map.fitBounds(bounds);
@@ -289,8 +294,8 @@ $(function() {
 
     }
 
-    menu = function() {
-        $('.topnav a').click(function() {
+    menu = function () {
+        $('.topnav a').click(function () {
             $('#sideNavigation').style.width = "250px";
             $("#main").style.marginLeft = "250px";
         });

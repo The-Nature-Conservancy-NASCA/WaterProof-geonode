@@ -14,8 +14,8 @@ class StudyCasesForm(forms.ModelForm):
     class Meta:
         model = StudyCases
         fields = (
-            'dws_name', 
-            'dws_description'
+            'name', 
+            'description'
         )    
     def save(self, *args, **kwargs):
         
