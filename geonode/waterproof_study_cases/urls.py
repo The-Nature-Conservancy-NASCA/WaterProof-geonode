@@ -10,6 +10,10 @@ urlpatterns = [
     path('', views.listStudyCases, name='study_cases_list'),
     # Create Study Cases
     path('create/', views.create, name='create'),
+    # Edit Study Cases
+    path('edit/<int:idx>', views.edit, name='edit-study-cases'),
+     # View Study Cases
+    path('view/<int:idx>', views.view, name='edit-study-cases'),
     path('scinfra/<int:id_scinfra>/', api.getSCInfra, name='intake-scinfra'),
     path('save/', api.save, name='study_cases_save'),
     
