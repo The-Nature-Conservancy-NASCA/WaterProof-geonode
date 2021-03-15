@@ -89,3 +89,25 @@ class Cities(models.Model):
 
     def __str__(self):
         return "%s" % self.name
+
+class ManagmentCosts_Discount(models.Model):
+    country = models.ForeignKey(Countries, on_delete=models.CASCADE)
+    Program_Director_USD_YEAR = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
+    Implementation_Manager_USD_YEAR = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
+    Monitoring_and_Evaluation_Manager_USD_YEAR = models.DecimalField(
+        max_digits=10, decimal_places=2, blank=True, null=True)
+    Finance_Manager_USD_YEAR = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
+    Administrative_Assistant_USD_YEAR = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
+    Office_Costs_USD_YEAR = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
+    Overhead_USD_YEAR = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
+    Equipment_Purchased_In_Year_1_USD = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
+    Vehicles_Purchased_In_Year_1_USD = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
+    Equipment_Maintenance_USD_YEAR = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
+    Vehicle_Maintenance_USD_YEAR = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
+    drt_discount_rate_medium = models.DecimalField(max_digits=3, decimal_places=2, blank=True, null=True)
+    drt_discount_rate_upper_limit = models.DecimalField(max_digits=3, decimal_places=2, blank=True, null=True)
+    drt_discount_rate_lower_limit = models.DecimalField(max_digits=3, decimal_places=2, blank=True, null=True)
+    Transaction_cost = models.DecimalField(max_digits=3, decimal_places=2, blank=True, null=True)
+
+    def _str_(self):
+        return "%s" % self.name
