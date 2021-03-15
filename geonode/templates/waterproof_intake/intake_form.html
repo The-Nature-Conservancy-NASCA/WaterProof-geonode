@@ -63,7 +63,7 @@
                             {% trans "Name" %}
                         </label>
                         <div class="">
-                            <input type="text" id="intakeName" name="name" value="test" maxlength="100" class=" form-control" id="id_name">
+                            <input type="text" id="intakeName" name="name"  maxlength="100" class=" form-control" id="id_name">
                         </div>
                     </div>
                 </div>
@@ -73,7 +73,7 @@
                         {% trans "Description" %}
                     </label>
                     <div class="">
-                        <input type="text" name="description" maxlength="1024" class=" form-control" id="id_description">
+                        <input type="text" id="intakeDesc" name="description"  maxlength="1024" class=" form-control" id="id_description">
                     </div>
                 </div>
                 <!--Input Source Name -->
@@ -82,7 +82,7 @@
                         {% trans "Water source name" %}
                     </label>
                     <div class="">
-                        <input type="text" name="water_source_name" maxlength="100" id="id_water_source_name" class="form-control">
+                        <input type="text" id="waterSource" name="water_source_name"  maxlength="100" id="id_water_source_name" class="form-control">
                     </div>
                 </div>
                 <!-- Map -->
@@ -386,7 +386,7 @@
                 <div class="row text-center">
                     <div class="col-md-12 form-group">
                         <button type="button" class="btn btn-primary" id="step5PrevBtn">{% trans "Previous" %}</button>
-                        <input type="submit" id="submit" class="btn btn-primary" value="{% trans 'Save' %}"></input>
+                        <input type="button" id="submit" class="btn btn-primary" value="{% trans 'Save' %}"></input>
                     </div>
                 </div>
             </div>
@@ -404,6 +404,8 @@
         <input type="hidden" id="intakeAreaPolygon" name="intakeAreaPolygon" value="">
         <input type="hidden" id="graphElements" name="graphElements" value="">
         <input type="hidden" id="basinId" name="basinId" value="">
+        <input type="hidden" id="intakeId" name="intakeId" value="">
+
 </form>
 <!--Modal Calculator-->
 <div class="modal fade" id="CalculatorModal" tabindex="-1" aria-labelledby="CalculatorModalLabel" aria-hidden="true">

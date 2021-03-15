@@ -380,7 +380,7 @@ $(document).ready(function () {
                 }
             }
             clearDataHtml();
-            $('#smartwizard').smartWizard("next");
+            intakeStepTwo();
         } else {
             Swal.fire({
                 icon: 'warning',
@@ -418,7 +418,7 @@ $(document).ready(function () {
                 waterExtractionData.yearValues = waterExtractionValue;
                 $('#waterExtraction').val(JSON.stringify(waterExtractionData));
                 if (waterExtractionData.yearCount == waterExtractionData.yearValues.length) {
-                    $('#smartwizard').smartWizard("next");
+                    intakeStepThree();
                 } else {
                     Swal.fire({
                         icon: 'warning',
@@ -428,7 +428,7 @@ $(document).ready(function () {
                     return;
                 }
             } else {
-                $('#smartwizard').smartWizard("next");
+                intakeStepThree();
             }
         } else {
             Swal.fire({
@@ -458,12 +458,7 @@ $(document).ready(function () {
                 text: gettext('You must validate the basin geometry')
             })
         } else {
-            Swal.fire({
-                icon: 'success',
-                text: gettext('The water intake is being saved'),
-                allowOutsideClick: true,
-                showConfirmButton: false
-            });
+            intakeStepFive();
         }
     });
 
@@ -603,6 +598,8 @@ function intakeStepOne() {
     var formData = new FormData();
     // Intake step
     formData.append('step', '1');
+    // Intake step
+    formData.append('edit', 'false');
     // Intake name
     formData.append('intakeName', $('#intakeName').val());
     // Intake description
@@ -628,6 +625,7 @@ function intakeStepOne() {
         enctype: 'multipart/form-data',
         success: function (response) {
             console.log(response);
+            $('#intakeId').val(response.intakeId);
             $('#smartwizard').smartWizard("next");
         },
         error: function (xhr, errmsg, err) {
@@ -641,6 +639,181 @@ function intakeStepOne() {
         }
     });
     return true;
+}
+/** 
+ * Intake step two creation
+ *
+ * @return {boolean} true if is saved
+ */
+function intakeStepTwo() {
+    console.log("Saving step two");
+    var formData = new FormData();
+    // Intake step
+    formData.append('step', '2');
+    // Intake id
+    formData.append('intakeId', $('#intakeId').val());
+    // Intake xml graph
+    formData.append('xmlGraph', $('#xmlGraph').val());
+    // Intake graph elements object
+    formData.append('graphElements', $('#graphElements').val());
+    // Intake graph connections object
+    formData.append('graphConnections', $('#graphConnections').val());
+    console.log(formData);
+    $.ajax({
+        type: 'POST',
+        url: '/intake/create/',
+        data: formData,
+        cache: false,
+        processData: false,
+        contentType: false,
+        enctype: 'multipart/form-data',
+        success: function (response) {
+            console.log(response);
+            $('#smartwizard').smartWizard("next");
+        },
+        error: function (xhr, errmsg, err) {
+            console.log(xhr.status + ":" + xhr.responseText);
+            let response = JSON.parse(xhr.responseText);
+            Swal.fire({
+                icon: 'error',
+                title: gettext('Intake saving error'),
+                text: response.message,
+            })
+        }
+    });
+    return true;
+}
+/** 
+ * Intake step three creation
+ *
+ * @return {boolean} true if is saved
+ */
+function intakeStepThree() {
+    console.log("Saving step three");
+    var formData = new FormData();
+    // Intake step
+    formData.append('step', '3');
+    // Intake id
+    formData.append('intakeId', $('#intakeId').val());
+    // Intake xml graph
+    formData.append('waterExtraction', $('#waterExtraction').val());
+    console.log(formData);
+    $.ajax({
+        type: 'POST',
+        url: '/intake/create/',
+        data: formData,
+        cache: false,
+        processData: false,
+        contentType: false,
+        enctype: 'multipart/form-data',
+        success: function (response) {
+            console.log(response);
+            $('#smartwizard').smartWizard("next");
+        },
+        error: function (xhr, errmsg, err) {
+            console.log(xhr.status + ":" + xhr.responseText);
+            let response = JSON.parse(xhr.responseText);
+            Swal.fire({
+                icon: 'error',
+                title: gettext('Intake saving error'),
+                text: response.message,
+            })
+        }
+    });
+    return true;
+}
+/** 
+ * Intake step four creation
+ *
+ * @return {boolean} true if is saved
+ */
+function intakeStepFour() {
+    console.log("Saving step four");
+    var formData = new FormData();
+    // Intake step
+    formData.append('step', '4');
+    // Intake id
+    formData.append('intakeId', $('#intakeId').val());
+    // Intake edit
+    formData.append('edit', 'false');
+    // Intake xml graph
+    formData.append('graphElements', $('#graphElements').val());
+    console.log(formData);
+    $.ajax({
+        type: 'POST',
+        url: '/intake/create/',
+        data: formData,
+        cache: false,
+        processData: false,
+        contentType: false,
+        enctype: 'multipart/form-data',
+        success: function (response) {
+            console.log(response);
+            $('#smartwizard').smartWizard("next");
+        },
+        error: function (xhr, errmsg, err) {
+            console.log(xhr.status + ":" + xhr.responseText);
+            let response = JSON.parse(xhr.responseText);
+            Swal.fire({
+                icon: 'error',
+                title: gettext('Intake saving error'),
+                text: response.message,
+            })
+        }
+    });
+    return true;
+}
+/** 
+ * Intake step five creation
+ *
+ * @return {boolean} true if is saved
+ */
+function intakeStepFive() {
+    console.log("Saving step five");
+    var formData = new FormData();
+    // Intake step
+    formData.append('step', '5');
+    // Intake id
+    formData.append('intakeId', $('#intakeId').val());
+    // Intake area polygon
+    formData.append('intakeAreaPolygon', $('#intakeAreaPolygon').val());
+    // Intake delimit area polygon
+    formData.append('delimitArea', $('#delimitArea').val());
+    // Intake type delimit
+    formData.append('typeDelimit', $('#typeDelimit').val());
+    // Intake is File?
+    formData.append('isFile', $('#isFile').val());
+    console.log(formData);
+    $.ajax({
+        type: 'POST',
+        url: '/intake/create/',
+        data: formData,
+        cache: false,
+        processData: false,
+        contentType: false,
+        enctype: 'multipart/form-data',
+        success: function (response) {
+            console.log(response);
+            Swal.fire({
+                icon: 'success',
+                text: gettext('The water intake is being saved'),
+                allowOutsideClick: true,
+                showConfirmButton: false
+            });
+            setTimeout(function () { location.href = "/intake/"; }, 1000);
+        },
+        error: function (xhr, errmsg, err) {
+            console.log(xhr.status + ":" + xhr.responseText);
+            let response = JSON.parse(xhr.responseText);
+            Swal.fire({
+                icon: 'error',
+                title: gettext('Intake saving error'),
+                text: response.message,
+            })
+            return false;
+        }
+    });
+
 }
 /** 
  * Delimit manually the intake polygon
