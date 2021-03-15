@@ -12,7 +12,7 @@ js_info_dict = {
 urlpatterns = [
     url(r'^jsi18n/$', JavaScriptCatalog.as_view(), js_info_dict, name='javascript-catalog-intake'),
     # Create Water Intake
-    path('create/', views.create, name='create'),
+    path('create/', views.createIntake, name='create'),
     # Default view, list all views
     path('', views.listIntake, name='list-intake'),
     # Edit Water Intake

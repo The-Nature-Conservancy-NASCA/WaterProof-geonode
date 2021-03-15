@@ -12,6 +12,7 @@ from . import forms
 from geonode.waterproof_parameters.models import Countries, Regions , Cities
 from geonode.waterproof_intake.models import  Intake, ElementSystem
 from geonode.waterproof_treatment_plants.models import Header
+from geonode.waterproof_nbs_ca.models import WaterproofNbsCa
 from .models import StudyCases , Portfolio, ModelParameter
 
 import requests
@@ -40,6 +41,7 @@ def save(request):
             sc.create_date = datetime.datetime.now()
             sc.name = name
             sc.description =description
+            logger.error(request.user)
             sc.save()
             intakes = request.POST.getlist('intakes[]')
             for intake in intakes:
@@ -68,6 +70,14 @@ def save(request):
             for portfolio in portfolios:
                 it = Portfolio.objects.get(pk=portfolio)
                 sc.portfolios.add(it)
+            return JsonResponse({'id_study_case': sc.id}, safe=False)
+        elif(request.POST.getlist('nbs[]')):
+            nbs = request.POST.getlist('nbs[]')
+            id_study_case = request.POST['id_study_case']
+            sc = StudyCases.objects.get(pk=id_study_case)
+            for nb in nbs:
+                n = WaterproofNbsCa.objects.get(pk=nb)
+                sc.nbs.add(n)
             return JsonResponse({'id_study_case': sc.id}, safe=False)
         elif(request.POST.getlist('status')):
             portfolios = request.POST.getlist('status')
