@@ -52,7 +52,7 @@
             <div id="step-1" class="tab-pane" role="tabpanel">
                 <div class="page-header">
                     <h3>{% trans "Define water intake" %}
-                        <button type="button" data-toggle="modal" data-target="#HelpStep1" id="HelpModalBtnModal" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca;"></button>
+                        <button type="button" data-toggle="modal" data-target="#HelpStep1" id="HelpModalBtnModal" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
                     </h3>
                     <p>{% trans "Enter the data with which you will identify your wáter inteake. Note that in addition to the name, a description and the name of the water source, you must indicate its spatial location." %}</p>
                 </div>
@@ -63,7 +63,7 @@
                             {% trans "Name" %}
                         </label>
                         <div class="">
-                            <input type="text" id="intakeName" name="name" value="test" maxlength="100" class=" form-control" id="id_name">
+                            <input type="text" id="intakeName" name="name"  maxlength="100" class=" form-control" id="id_name">
                         </div>
                     </div>
                 </div>
@@ -73,7 +73,7 @@
                         {% trans "Description" %}
                     </label>
                     <div class="">
-                        <input type="text" name="description" maxlength="1024" class=" form-control" id="id_description">
+                        <input type="text" id="intakeDesc" name="description"  maxlength="1024" class=" form-control" id="id_description">
                     </div>
                 </div>
                 <!--Input Source Name -->
@@ -82,7 +82,7 @@
                         {% trans "Water source name" %}
                     </label>
                     <div class="">
-                        <input type="text" name="water_source_name" maxlength="100" id="id_water_source_name" class="form-control">
+                        <input type="text" id="waterSource" name="water_source_name"  maxlength="100" id="id_water_source_name" class="form-control">
                     </div>
                 </div>
                 <!-- Map -->
@@ -188,7 +188,7 @@
                 <!--Header-->
                 <div class="page-header">
                     <h3>{% trans "Water extraction"%}
-                        <button type="button" data-toggle="modal" data-target="#HelpStep3" id="HelpModalBtnModal" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca;"></button>
+                        <button type="button" data-toggle="modal" data-target="#HelpStep3" id="HelpModalBtnModal" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
                     </h3>
                     <p>{% trans "Please indicate the demand (extraction) of water that you make from your wáter intake, for this you can rely on the system interpolation tool or enter it manually." %} </p>
                 </div>
@@ -386,7 +386,7 @@
                 <div class="row text-center">
                     <div class="col-md-12 form-group">
                         <button type="button" class="btn btn-primary" id="step5PrevBtn">{% trans "Previous" %}</button>
-                        <input type="submit" id="submit" class="btn btn-primary" value="{% trans 'Save' %}"></input>
+                        <input type="button" id="submit" class="btn btn-primary" value="{% trans 'Save' %}"></input>
                     </div>
                 </div>
             </div>
@@ -404,6 +404,8 @@
         <input type="hidden" id="intakeAreaPolygon" name="intakeAreaPolygon" value="">
         <input type="hidden" id="graphElements" name="graphElements" value="">
         <input type="hidden" id="basinId" name="basinId" value="">
+        <input type="hidden" id="intakeId" name="intakeId" value="">
+
 </form>
 <!--Modal Calculator-->
 <div class="modal fade" id="CalculatorModal" tabindex="-1" aria-labelledby="CalculatorModalLabel" aria-hidden="true">
@@ -785,15 +787,17 @@
                 </h3>
             </div>
             <div class="modal-body">
-                <nav>
-                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                        <button class="nav-link active" id="nav-ext-tab" data-toggle="tab" href="#nav-ext" role="tab" aria-controls="nav-ext" aria-selected="true" style="color: white; background-color: #6398C1;">{% trans "interpolation" %}
-                        </button>
-                        <button class="nav-link" id="nav-inter-tab" data-toggle="tab" href="#nav-inter" role="tab" aria-controls="nav-inter" aria-selected="false" style="color: white; background-color: #6398C1;">{% trans "external inputs" %} </button>
-                    </div>
-                </nav>
-                <div class="tab-content" id="nav-tabContent">
-                    <div class="tab-pane fade show active" id="nav-ext" role="tabpanel" aria-labelledby="nav-ext-tab">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="overview-tab" data-toggle="tab" href="#nav-ext" role="tab" aria-controls="home" aria-selected="true">{% trans "interpolation" %}
+                        </a></li>
+                    <li class="nav-item">
+                        <a class="nav-link active" id="overview-tab" data-toggle="tab" href="#nav-inter" role="tab" aria-controls="home" aria-selected="true">{% trans "external inputs" %} 
+                        </a></li>
+                   
+                    </ul>
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade active in" id="nav-ext" role="tabpanel" aria-labelledby="overview-tab">
                         <p>
                             {% trans "The system offers you several alternatives to define the demand (extraction) of water from your catchment:" %}
                         </p>
@@ -815,7 +819,7 @@
                     </div>
                     <div class="tab-pane fade" id="nav-inter" role="tabpanel" aria-labelledby="nav-inter-tab">
                         <p>{% trans "The system offers you a selection list with each of the external inputs that you included in the drawing panel of the capture system. You must indicate for each external inlet the values ​​of volume of water (m3) that enters from them, as well as the annual contributions of sediment (Ton), nitrogen (Kg) and phosphorus (Kg)." %}</p>
-                        <img style="margin: 10px auto 10px; display: block;" src="/static/geonode/img/step3-3.png"></img>
+                        <img style="width: 80%; height: 80%; display: block;" src="/static/geonode/img/step3-3.png"></img>
                     </div>
                 </div>
 

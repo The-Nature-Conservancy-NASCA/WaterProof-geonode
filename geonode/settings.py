@@ -105,14 +105,14 @@ if not SITEURL.endswith('/'):
     SITEURL = '{}/'.format(SITEURL)
 
 DATABASE_URL = os.getenv(
-      'DATABASE_URL',
-      'spatialite:///{path}'.format(
-          path=os.path.join(PROJECT_ROOT, 'development.db')
-      )
- )
+    'DATABASE_URL',
+    'spatialite:///{path}'.format(
+        path=os.path.join(PROJECT_ROOT, 'development.db')
+    )
+)
 
 #DATABASE_URL='postgresql://geonode:{&Uid&QXZ&6f;|F@dev.skaphe.com:5432/geonode'
-DATABASE_URL='postgresql://geonode:geonode@localhost:5432/geonode'
+#DATABASE_URL='postgresql://geonode:geonode@localhost:5432/geonode'
 
 if DATABASE_URL.startswith("spatialite"):
     try:
