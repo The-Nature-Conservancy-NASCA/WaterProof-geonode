@@ -69,6 +69,7 @@
                 <th scope="col" class="small text-center vat">{% trans "Creation Date" %}</th>
                 <th scope="col" class="small text-center vat">{% trans "Water source name" %}</th>
                 <th scope="col" class="small text-center vat">{% trans "City" %}</th>
+                <th scope="col" class="small text-center vat">{% trans "Status" %}</th>
                 <th scope="col" class="small text-center vat" style="display: none;">{% trans "Region" %}</th>
                 <th scope="col" class="small text-center vat">{% trans "Demand" %}</th>
                 <th scope="col" class="small text-center vat">{% trans "Options" %}</th>
@@ -85,6 +86,11 @@
                 <td class="small text-center vat">{{intake.water_source_name}}</td>
                 <td class="small text-center vat">{{intake.city.name}}</td>
                 <td class="small text-center vat" style="display: none;">{{intake.area}}</td>
+                {% if intake.is_complete%}
+                    <td class="small text-center vat"><i class="glyphicon glyphicon-ok-circle fa-lg text-success" title='{% trans "Completed" %}'></i></td>
+                {% else %}
+                    <td class="small text-center vat"><i class="glyphicon glyphicon-hourglass fa-lg text-warning" title='{% trans "In Progress" %}'></i></td>
+                {% endif %}
                 <!--td>{{intake.total_profits_intake_consec_time}}</td-->
                 <!--td class="small text-center vat">{{intake.creation_date}}</td>
                 <!td class="small text-center vat">{{intake.unit_maintenance_cost|floatformat:2}}</td>
