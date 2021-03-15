@@ -56,6 +56,28 @@ $(document).ready(function() {
         $('#autoAdjustHeightF').css("height", "auto");
     });
 
+    $('#btn-full').click(function() {
+        $("#full-table").removeClass("panel-hide");
+        $('#autoAdjustHeightF').css("height", "auto");
+    });
+    $('#btn-investment').click(function() {
+        $("#investment-table").removeClass("panel-hide");
+        $('#autoAdjustHeightF').css("height", "auto");
+    });
+
+    $('#full').click(function() {
+        $("#panel-full").removeClass("panel-hide");
+        $("#panel-investment").addClass("panel-hide");
+        $("#investment-table").addClass("panel-hide");
+        $('#autoAdjustHeightF').css("height", "auto");
+    });
+    $('#investment').click(function() {
+        $("#panel-investment").removeClass("panel-hide");
+        $("#panel-full").addClass("panel-hide");
+        $("#full-table").addClass("panel-hide");
+        $('#autoAdjustHeightF').css("height", "auto");
+    });
+
     $('#add_wi').click(function() {
         text = $("#select_custom option:selected").text();
         value = $("#select_custom option:selected").val();
@@ -184,9 +206,37 @@ $(document).ready(function() {
         $('#smartwizard').smartWizard("next");
     });
     $('#step6NextBtn').click(function() {
-        $('#smartwizard').smartWizard("next");
+        nbs = [];
+        $('#nbs-ul input:checked').each(function() {
+            id = $(this).attr("id").replace('nbs-', '')
+            nbs.push(id)
+        })
+        if (nbs.length > 0) {
+            $.post("../../study_cases/save/", {
+                id_study_case: id_study_case,
+                nbs: nbs
+            }, function(data) {
+                $('#smartwizard').smartWizard("next");
+                $('#autoAdjustHeightF').css("height", "auto");
+            }, "json");
+        } else {
+            Swal.fire({
+                icon: 'warning',
+                title: `Field empty`,
+                text: `Please check options`
+            });
+            return;
+        }
     });
     $('#step7EndBtn').click(function() {
+        var analysis_type = $("input[name='analysis_type']:checked").val();
+        $.post("../../study_cases/save/", {
+            id_study_case: id_study_case,
+            analysys_type: analysis_type
+        }, function(data) {
+            $('#smartwizard').smartWizard("next");
+            $('#autoAdjustHeightF').css("height", "auto");
+        }, "json");
         $("#form").submit();
     });
     $('#step7RunBtn').click(function() {

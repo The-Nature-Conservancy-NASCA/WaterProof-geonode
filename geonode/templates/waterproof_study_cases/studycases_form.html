@@ -129,6 +129,34 @@
                                     </tbody>
                                 </table>
                             </div>
+                            <div class="col-md-12">
+                                <div class="row form-group">
+                                    <legend><label>{% trans "Water Intake" %} <span class="text-danger-wp">(*)</span> </label></legend>
+                                    <div class="col-md-9">
+                                        <select class="form-control" id="select_custom">
+                                            {% for intake in intakes %}
+                                            <option value="{{intake.id}}">{{intake.intake__name}} - {{intake.name}} - {{intake.graphId}}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <button type="button" class="btn btn-primary" id="add_wi">{% trans "Add WI" %}</button>
+                                    </div>
+                                </div>
+                                <table id="custom_table" class="table table-striped table-bordered table-condensed" style="width:100%">
+                                    <thead>
+                                        <tr class="info">
+                                            <th scope="col" class="small text-center vat">{% trans "name" %}</th>
+                                            <th scope="col" class="small text-center vat">{% trans "Name of the water source" %}</th>
+                                            <th scope="col" class="small text-center vat">{% trans "Study cases infrastructure" %}</th>
+                                            <th scope="col" class="small text-center vat">{% trans "Action" %}</th>
+                                        </tr>
+
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                         <div class="panel panel-hide" id="panel-custom">
                             <div class="col-md-12">
@@ -179,7 +207,7 @@
                     </div>
                     <div class="row text-center" id="cm_form">
                         <div class="col-md-5">
-                            <p>{% trans "CO2 Eq for (Selected Country)" %}></p>
+                            <p>{% trans "CO2 Eq for (Selected Country)" %}</p>
                         </div>
                         <div class="col-md-1">
                             <input type="text" name="dws_cm" maxlength="100" class="form-control" id="id_cm" value="27.93" />
@@ -366,36 +394,27 @@
                 <div class="page-header">
                     <h3> {% trans "NBS/Conservation activities" %}</h3>
                     <p></p>
-                    <li class="list-group-item">
-                        <div class="custom-control custom-checkbox">
-                            <input id="nbs-1" type="checkbox" class="custom-control-input">
-                            <label class="custom-control-label" for="nbs-1">{% trans "Conservation" %}</label>
-                        </div>
-                    </li>
-                    <li class="list-group-item">
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="nbs-2">
-                            <label class="custom-control-label" for="nbs-2">{% trans "Active restoration" %}</label>
-                        </div>
-                    </li>
-                    <li class="list-group-item">
-                        <div class="custom-control custom-checkbox">
-                            <input id="nbs-3" type="checkbox" class="custom-control-input">
-                            <label class="custom-control-label" for="nbs-3">{% trans "Passive restoration" %}</label>
-                        </div>
-                    </li>
-                    <li class="list-group-item">
-                        <div class="custom-control custom-checkbox">
-                            <input id="nbs-4" type="checkbox" class="custom-control-input">
-                            <label class="custom-control-label" for="nbs-4">{% trans "Agroforestry" %}</label>
-                        </div>
-                    </li>
-                    <li class="list-group-item">
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="nbs-5">
-                            <label class="custom-control-label" for="nbs-5">{% trans "Silvopastoral" %}</label>
-                        </div>
-                    </li>
+
+                    <ul class="list-group list-group-flush" id="nbs-ul">
+                        {% for nb in nbs %}
+                        <li class="list-group-item">
+                            <!-- Default checked -->
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="nbs-{{nb.id}}">
+                                <label class="custom-control-label" for="nbs-{{nb.id}}">{{nb.name}}</label>
+                            </div>
+                        </li>
+                        {% endfor %}
+                        {% for nb in nbs_user %}
+                        <li class="list-group-item">
+                            <!-- Default checked -->
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="nbs-{{nb.id}}">
+                                <label class="custom-control-label" for="nbs-{{nb.id}}">{{nb.name}}</label>
+                            </div>
+                        </li>
+                        {% endfor %}
+                    </ul>
                 </div>
                 <div class="row text-center">
                     <div class="col-md-12">
@@ -408,7 +427,6 @@
                 <div class="page-header">
                     <h3> {% trans "RUN Analysis" %}</h3>
                     <p></p>
-
                     <div class="custom-control custom-checkbox">
                         <label class="custom-control-label" for="analysis_select">{% trans "Analysis time period (years)" %}</label>
                         <input id="period-analysis" type="number" class="custom-control-input">
@@ -421,57 +439,126 @@
                             <option value="1">USD</option>
                         </select>
                     </div>
-                </div>
-                <div class="page-header">
-                    <label class="custom-control-label" for="period-analysis">{% trans "Select an option to run the analysis" %}</label>
-                    <br> <br> <br>
 
-                    <div class="custom-control custom-checkbox">
-                        <input id="nbs-1" type="checkbox" class="custom-control-input">
-                        <label class="custom-control-label" for="run-1">{% trans "Full portfolio" %}</label>
-                    </div>
-                    <div class="custom-control custom-checkbox px-2">
-                        <label class="custom-control-label" for="analysis_select">{% trans "Implementation Time of Nature-Based solution (yr)" %}</label>
-                        <input id="period-analysis" type="number" class="custom-control-input">
-                    </div>
-                    <div class="custom-control custom-select px-2">
-                        <label class="custom-control-label" for="period-analysis">{% trans "Climate Selection for Vaseline and NBS Scenario Analysis" %}</label>
-                        <select id="analysis_select" class="custom-control-input">
-                            <option value="1">Historical</option>
-                        </select>
-                    </div>
-                    <div class="custom-control custom-select px-2">
-                        <button type="button" class="btn btn-primary">{% trans "Assign minimum investment percentages" %}</button>
-                    </div>
-                    <br> <br> <br>
-
-                    <div class="custom-control custom-checkbox">
-                        <input id="nbs-1" type="checkbox" class="custom-control-input">
-                        <label class="custom-control-label" for="run-1">{% trans "Investment scenario" %}</label>
-                    </div>
-                    <div class="custom-control custom-checkbox px-2">
-                        <label class="custom-control-label" for="analysis_select">{% trans "Annual Investmet" %}</label>
-                        <input id="period-analysis" type="number" class="custom-control-input">
-                    </div>
-                    <div class="custom-control custom-checkbox px-2">
-                        <label class="custom-control-label" for="analysis_select">{% trans "Implementation Time of Nature-Based solution (yr)" %}</label>
-                        <input id="period-analysis" type="number" class="custom-control-input">
-                    </div>
-                    <div class="custom-control custom-select px-2">
-                        <label class="custom-control-label" for="period-analysis">{% trans "Climate Selection for Vaseline and NBS Scenario Analysis" %}</label>
-                        <select id="analysis_select" class="custom-control-input">
-                            <option value="1">Historical</option>
-                        </select>
-                    </div>
-                    <div class="custom-control custom-select px-2">
-
-                        <button type="button" class="btn btn-primary">{% trans "Assign minimum investment percentages" %}</button>
+                    <div id="div_id_type" class="form-group">
+                        <label for="div_id_type" class="control-label required-field ">
+                            {% trans "Select an option to run the analysis" %}
+                        </label>
+                        <div class="custom-control custom-checkbox px-2">
+                            <label class="custom-control-label" for="analysis_select">{% trans "Implementation Time of Nature-Based solution (yr)" %}</label>
+                            <input id="period-analysis" type="number" class="custom-control-input">
+                        </div>
+                        <div class="custom-control custom-select px-2">
+                            <label class="custom-control-label" for="period-analysis">{% trans "Climate Selection for Vaseline and NBS Scenario Analysis" %}</label>
+                            <select id="analysis_select" class="custom-control-input">
+                                <option value="1">Historical</option>
+                            </select>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="analysis_type" id="full" value="1">
+                            <label class="form-check-label" for="full">
+                                {% trans "Full portfolio" %}
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="analysis_type" id="investment" value="2">
+                            <label class="form-check-label" for="investment">
+                                {% trans "Investment scenario" %}
+                            </label>
+                        </div>
                     </div>
 
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel panel-hide" id="panel-full">
+                                <div class="col-md-12">
+                                    <div class="row form-group">
+                                        <div class="custom-control custom-select px-2">
+                                            <button type="button" class="btn btn-primary" id="btn-full">{% trans "Assign minimum investment percentages" %}</button>
+                                        </div>
+                                    </div>
+                                    <table id="full-table" class="table table-striped table-bordered table-condensed panel-hide" style="width:100%">
+                                        <thead>
+                                            <tr class="info">
+                                                <th scope="col" class="small text-center vat">{% trans "Activity" %}</th>
+                                                <th scope="col" class="small text-center vat">{% trans "Percentage" %}</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Conservation</td>
+                                                <td><input type="number" /></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Active restoration</td>
+                                                <td><input type="number" /></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Passive restoration</td>
+                                                <td><input type="number" /></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Agroforestry</td>
+                                                <td><input type="number" /></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Silvopastoral</td>
+                                                <td><input type="number" /></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="panel panel-hide" id="panel-investment">
+                                <div class="col-md-12">
+                                    <div class="row form-group">
+                                        <div class="custom-control custom-checkbox px-2">
+                                            <label class="custom-control-label" for="analysis_select">{% trans "Annual Investmet" %}</label>
+                                            <input id="period-analysis" type="number" class="custom-control-input">
+                                        </div>
+                                        <div class="custom-control custom-select px-2">
+                                            <button type="button" class="btn btn-primary" id="btn-investment">{% trans "Assign minimum investment" %}</button>
+                                        </div>
+                                    </div>
+                                    <table id="investment-table" class="table table-striped table-bordered table-condensed panel-hide" style="width:100%">
+                                        <thead>
+                                            <tr class="info">
+                                                <th scope="col" class="small text-center vat">{% trans "Activity" %}</th>
+                                                <th scope="col" class="small text-center vat">{% trans "Percentage" %}</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Conservation</td>
+                                                <td><input type="number" /></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Active restoration</td>
+                                                <td><input type="number" /></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Passive restoration</td>
+                                                <td><input type="number" /></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Agroforestry</td>
+                                                <td><input type="number" /></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Silvopastoral</td>
+                                                <td><input type="number" /></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
                 </div>
                 <div class="row text-center">
                     <div class="col-md-6">
-                        <button type="button" class="btn btn-primary" id="step7EndBtn">{% trans "end" %}</button>
+                        <button type="button" class="btn btn-primary" id="step7EndBtn">{% trans "save" %}</button>
                     </div>
                     <div class="col-md-6">
                         <button type="button" class="btn btn-primary" id="step7RunBtn">{% trans "RUN Analysis" %}</button>

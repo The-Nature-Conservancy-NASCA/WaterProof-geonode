@@ -4,8 +4,7 @@ from django.conf import settings
 from django.db import models
 from django.contrib.gis.db import models
 from django.utils.translation import ugettext_lazy as _
-from geonode.waterproof_parameters.models import Countries,Cities
-
+from geonode.waterproof_parameters.models import Countries, Cities
 
 
 class UserCosts(models.Model):
@@ -249,11 +248,18 @@ class Intake(models.Model):
 
     city = models.ForeignKey(Cities, on_delete=models.CASCADE)
 
-    demand_parameters = models.ForeignKey(DemandParameters, on_delete=models.CASCADE)
+    demand_parameters = models.ForeignKey(
+        DemandParameters,
+        on_delete=models.CASCADE,
+        null=True
+    )
 
     xml_graph = models.TextField(
-        verbose_name=_('Graph')
+        verbose_name=_('Graph'),
+        null=True
     )
+
+    is_complete = models.BooleanField(verbose_name=_('Is complete'), default=False)
 
     creation_date = models.DateField()
 
@@ -342,7 +348,8 @@ class Polygon(models.Model):
 
     delimitation_type = models.CharField(
         max_length=30,
-        verbose_name=_('Delimitation type')
+        verbose_name=_('Delimitation type'),
+        null=True
     )
 
     basin = models.ForeignKey(Basins, on_delete=models.CASCADE)
