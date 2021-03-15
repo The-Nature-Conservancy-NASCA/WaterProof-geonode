@@ -31,11 +31,13 @@
     integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
     crossorigin="" />
 <div>
-    <h1>{% trans "Intakes" %}
-        <button type="button" data-toggle="modal" data-target="#HelpCreate" id="HelpModalBtnModal" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca;"></button> 
+    <h1>{% trans "Water Intake" %}
+        <button type="button" data-toggle="modal" data-target="#HelpCreate" id="HelpModalBtnModal" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button> 
     </h1>
     <h7>{% trans "From this section you can consult the water intakes created in the system associated with a city of interest. You can search for intakes of different cities from 'Search city'. The system will show you a list of cities with matches around the world. Select the appropriate option from the list. You can also create your own basin associated with a city, to do this search for the city to which you will associate your basin and then click on the 'Create new water intake' button." %}</h7>
 </div>
+<br>
+
 <div class="row">
     <div class="col-md-4">
         <h4 class="text-center" id="countryLabel">{{city.name}}</h4>
@@ -50,7 +52,6 @@
 </div>
 <div class="page-header">
 
-    <br>
     <br>
     {% if user.is_authenticated and not READ_ONLY_MODE %}
     <a href="create/" id="createUrl" textColor="red" style="outline-color: dimgrey;">{% trans "Create new Water Intake" %}</a>
