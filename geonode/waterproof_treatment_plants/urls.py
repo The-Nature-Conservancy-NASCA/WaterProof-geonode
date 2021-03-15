@@ -11,6 +11,5 @@ urlpatterns = [
       path('getInfoTree/', api.getInfoTree, name='treatment-info-tree'),
       path('getTreatmentPlant/', api.getTreatmentPlant, name='treatment-find_plant'),
       path('setHeaderPlant/', api.setHeaderPlant, name='treatment-set-header'),
-      path('edit/<int:idx>', views.editTreatmentPlants, name='edit-treatment-plants'),
-      path('create/<int:userCountryId>', views.newTreatmentPlants, name='create-treatment-plants'),
+      path('create/', views.newTreatmentPlants, name='create-treatment-plants'),
 ]
