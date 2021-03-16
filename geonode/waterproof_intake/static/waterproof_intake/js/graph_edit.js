@@ -150,7 +150,7 @@ function onInit(editor) {
     var textNode = document.getElementById('xml');
     var graphNode = editor.graph.container;
 
-    if (xmlGraph==='None') {
+    if (xmlGraph === 'None') {
         var parent = editor.graph.getDefaultParent();
         let xmlDocument = mxUtils.createXmlDocument().createElement('Symbol');
         //Create River at the beginning of the diagram
@@ -388,8 +388,7 @@ function onInit(editor) {
             }
         });
 
-
-        validateGraphIntake();
+        if (banderaValideGraph != 0) { validateGraphIntake() }
 
 
         editor.graph.addListener(mxEvent.CELLS_REMOVED, (sender, evt) => {
