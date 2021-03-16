@@ -627,7 +627,10 @@
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">{% trans "Close" %}</span></button>
             <h4 class="modal-title" id="myModalLabel">{% trans "Sign in" %}</h4>
-          </div>
+          </div>          
+          <div class="center">
+            <img class="img-underconstruction" src="{% static 'geonode/img/under-construction.png' %}">              
+          </div>          
           <form class="form-signin" role="form" action="{% url "account_login" %}?next={{ request.path }}" method="post">
             <div class="modal-body">
               {% csrf_token %}
@@ -658,7 +661,7 @@
           </form>
         </div>
       </div>
-    </div>
+    </div>       
     {% endif %}
     <!-- End of Modal -->
 
@@ -688,8 +691,14 @@
     <script type="text/javascript" src="{% url "javascript-catalog" %}"></script>
     
     {% block extra_script %}{% endblock extra_script %}
+    {% if not user.is_authenticated %}
+      <script type="text/javascript">
+        $(document).ready(function() {      
+          $("#SigninModal").modal({backdrop: 'static', keyboard: false});
+        })
+      </script> 
+    {% endif %}
     <script type="text/javascript">
-
       // Autocomplete instance for the search found in the header.
       $(document).ready(function() {
         window.autocomplete2 = new Autocomplete({
@@ -714,9 +723,9 @@
           //console.log("maybe rootwizard is in another page");
         }
         
-        //initializeStudyCaseForm();
+        //initializeStudyCaseForm();        
       })
-
+      
       $('#search').on('submit', (e) => {
           $('#search_abstract_input')[0].value =$('#search_input')[0].value;
           $('#search_purpose_input')[0].value = $('#search_input')[0].value;
@@ -734,7 +743,7 @@
       });
     </script>
 
-    <div class="modal fade" style="width: 100%; height: 100%;" id="_resource_uploading" data-backdrop="static" data-keyboard="false" aria-hidden="true">
+    <div class="modal fade" style="width: 100%; height: 100%;" id="_resource_uploading" data-backdrop="static" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
