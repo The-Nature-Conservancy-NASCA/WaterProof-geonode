@@ -660,18 +660,15 @@ function onInit(editor) {
                 'currencyCost': $('#currencyCost').val(),
                 'logical': [{
                         'condition_1': mathFieldlog1.latex(),
-                        'ecuation_1': mathFieldE1.latex()
-                    },
-                    {
+                        'ecuation_1': mathFieldE1.latex(),
                         'condition_2': mathFieldlog2.latex(),
-                        'ecuation_2': mathFieldE1.latex()
-                    },
-                    {
+                        'ecuation_2': mathFieldE2.latex(),
                         'condition_3': mathFieldlog3.latex(),
-                        'ecuation_3': mathFieldE1.latex()
+                        'ecuation_3': mathFieldE3.latex()
                     }
                 ]
             }
+            temp.logical=JSON.stringify(temp.logical);
             $.extend(funcostdb[CostSelected].fields, temp);
             funcostdb[CostSelected].fields.function_value = mathField.latex();
             selectedCell.setAttribute('funcost', JSON.stringify(funcostdb));
