@@ -29,7 +29,7 @@ function onInit(editor) {
     mxGraphHandler.prototype.guidesEnabled = false;
 
     // Alt disables guides
-    mxGuide.prototype.isEnabledForEvent = function (evt) {
+    mxGuide.prototype.isEnabledForEvent = function(evt) {
         return !mxEvent.isAltDown(evt);
     };
 
@@ -59,25 +59,25 @@ function onInit(editor) {
 
 
     // Installs a popupmenu handler using local function (see below).
-    editor.graph.popupMenuHandler.factoryMethod = function (menu, cell, evt) {
+    editor.graph.popupMenuHandler.factoryMethod = function(menu, cell, evt) {
         return createPopupMenu(editor.graph, menu, cell, evt);
     };
 
     // Removes cells when [DELETE] is pressed
     // elements with id == 2 is River and id==3 is CSINFRA can't remove
     var keyHandler = new mxKeyHandler(editor.graph);
-    keyHandler.bindKey(46, function (evt) {
+    keyHandler.bindKey(46, function(evt) {
         deleteWithValidations(editor);
     });
 
     editor.graph.setAllowDanglingEdges(false);
     editor.graph.setMultigraph(false);
 
-    var listener = function (sender, evt) {
+    var listener = function(sender, evt) {
         editor.graph.validateGraph();
     };
 
-    editor.graph.getLabel = function (cell) {
+    editor.graph.getLabel = function(cell) {
         var label = (this.labelsVisible) ? this.convertValueToString(cell) : '';
         var geometry = this.model.getGeometry(cell);
 
@@ -87,7 +87,7 @@ function onInit(editor) {
         }
         if (label == undefined) {
             label = gettext("This connection doesn't have a defined type, \n please define a type");
-            if (typeof (cell.value) == "string" && cell.value.length > 0) {
+            if (typeof(cell.value) == "string" && cell.value.length > 0) {
                 try {
                     let obj = JSON.parse(cell.value);
                     label = connectionsType[obj.connectorType].name + " (" + cell.id + ")";
@@ -99,11 +99,11 @@ function onInit(editor) {
         return label;
     };
 
-    editor.graph.addListener(mxEvent.CELLS_ADDED, function (sender, evt) {
+    editor.graph.addListener(mxEvent.CELLS_ADDED, function(sender, evt) {
         //return;
 
         let cell = evt.properties.cells[0];
-        if (cell.value != undefined && typeof (cell.value) == "object") {
+        if (cell.value != undefined && typeof(cell.value) == "object") {
             let lbl = cell.getAttribute("label");
             cell.setAttribute("label", lbl + " (" + cell.id + ")");
             editor.graph.model.setValue(cell, cell.value);
@@ -116,7 +116,7 @@ function onInit(editor) {
     var title = document.getElementById('title');
 
     if (title != null) {
-        var f = function (sender) {
+        var f = function(sender) {
             title.innerHTML = sender.getTitle();
         };
 
@@ -154,14 +154,14 @@ function onInit(editor) {
 
     $.ajax({
         url: `/intake/loadProcess/RIVER`,
-        success: function (result) {
+        success: function(result) {
             river.setAttribute('varcost', JSON.stringify(temp));
             river.setAttribute('resultdb', result);
         }
     });
 
     //Validate connections between elements
-    editor.graph.getEdgeValidationError = function (edge, source, target) {
+    editor.graph.getEdgeValidationError = function(edge, source, target) {
         if (source != null && target != null &&
             this.model.getValue(source) != null &&
             this.model.getValue(target) != null) {
@@ -211,7 +211,7 @@ function onInit(editor) {
     var getdata = document.getElementById('getdata');
     getdata.checked = false;
 
-    var funct = function (editor) {
+    var funct = function(editor) {
         if (getdata.checked) {
             graphNode.style.display = 'none';
             textNode.style.display = 'inline';
@@ -247,7 +247,7 @@ function onInit(editor) {
 
     // Defines a new action to switch between
     // XML and graphical display
-    mxEvent.addListener(getdata, 'click', function () {
+    mxEvent.addListener(getdata, 'click', function() {
         editor.execute('switchView');
     });
 
@@ -259,7 +259,7 @@ function onInit(editor) {
     // NOTE: The old image export in mxEditor is not used, the urlImage is used for the new export.
     if (editor.urlImage != null) {
         // Client-side code for image export
-        var exportImage = function (editor) {
+        var exportImage = function(editor) {
             var graph = editor.graph;
             var scale = graph.view.scale;
             var bounds = graph.getGraphBounds();
@@ -290,14 +290,14 @@ function onInit(editor) {
 
                 new mxXmlRequest(editor.urlImage, 'filename=' + name + '&format=' + format +
                     bg + '&w=' + w + '&h=' + h + '&xml=' + encodeURIComponent(xml)).
-                    simulate(document, '_blank');
+                simulate(document, '_blank');
             }
         };
 
         editor.addAction('exportImage', exportImage);
 
         // Client-side code for SVG export
-        var exportSvg = function (editor) {
+        var exportSvg = function(editor) {
             var graph = editor.graph;
             var scale = graph.view.scale;
             var bounds = graph.getGraphBounds();
@@ -353,8 +353,8 @@ function onInit(editor) {
         var button = document.createElement('button');
         mxUtils.write(button, mxResources.get(buttons[i]));
 
-        var factory = function (name) {
-            return function () {
+        var factory = function(name) {
+            return function() {
                 editor.execute(name);
             };
         };
@@ -364,7 +364,7 @@ function onInit(editor) {
     }
 
     //use jquery
-    $(document).ready(function () {
+    $(document).ready(function() {
 
 
 
@@ -379,7 +379,7 @@ function onInit(editor) {
             restrictMismatchedBrackets: true,
             supSubsRequireOperand: true,
             handlers: {
-                edit: function () {
+                edit: function() {
                     mathField.focus();
 
                 }
@@ -397,7 +397,7 @@ function onInit(editor) {
             restrictMismatchedBrackets: true,
             supSubsRequireOperand: true,
             handlers: {
-                edit: function () {
+                edit: function() {
                     mathFieldlog1.focus();
 
                 }
@@ -415,7 +415,7 @@ function onInit(editor) {
             restrictMismatchedBrackets: true,
             supSubsRequireOperand: true,
             handlers: {
-                edit: function () {
+                edit: function() {
                     mathFieldlog2.focus();
 
                 }
@@ -433,7 +433,7 @@ function onInit(editor) {
             restrictMismatchedBrackets: true,
             supSubsRequireOperand: true,
             handlers: {
-                edit: function () {
+                edit: function() {
                     mathFieldlog3.focus();
 
                 }
@@ -452,7 +452,7 @@ function onInit(editor) {
             restrictMismatchedBrackets: true,
             supSubsRequireOperand: true,
             handlers: {
-                edit: function () {
+                edit: function() {
                     mathFieldE1.focus();
                 }
             }
@@ -470,7 +470,7 @@ function onInit(editor) {
             restrictMismatchedBrackets: true,
             supSubsRequireOperand: true,
             handlers: {
-                edit: function () {
+                edit: function() {
                     mathFieldE2.focus();
                 }
             }
@@ -488,7 +488,7 @@ function onInit(editor) {
             restrictMismatchedBrackets: true,
             supSubsRequireOperand: true,
             handlers: {
-                edit: function () {
+                edit: function() {
                     mathFieldE3.focus();
                 }
             }
@@ -497,23 +497,23 @@ function onInit(editor) {
         mathQuillSelected = 'mathField';
 
         //KeyBoard calculator funcion cost
-        $('button[name=mathKeyBoard]').click(function () {
+        $('button[name=mathKeyBoard]').click(function() {
             addInfo(mathQuillSelected, $(this).attr('value'));
         });
 
-        $('button[name=mathKeyBoard]').each(function () {
+        $('button[name=mathKeyBoard]').each(function() {
             MQ.StaticMath(this);
         });
 
-        $('span[id^=math-fieldlogic').click(function () {
+        $('span[id^=math-fieldlogic').click(function() {
             mathQuillSelected = $(this).attr('valinfo');
         });
 
-        $('span[id^=math-fieldex').click(function () {
+        $('span[id^=math-fieldex').click(function() {
             mathQuillSelected = $(this).attr('valinfo');
         });
 
-        $('#math-field').click(function () {
+        $('#math-field').click(function() {
             mathQuillSelected = $(this).attr('valinfo');
         });
 
@@ -526,7 +526,7 @@ function onInit(editor) {
             });
         });
         //load data when add an object in a diagram
-        editor.graph.addListener(mxEvent.ADD_CELLS, function (sender, evt) {
+        editor.graph.addListener(mxEvent.ADD_CELLS, function(sender, evt) {
             var selectedCell = evt.getProperty("cells");
             var idvar = selectedCell[0].id;
 
@@ -550,14 +550,14 @@ function onInit(editor) {
 
                     $.ajax({
                         url: `/intake/loadProcess/${selectedCell[0].dbreference}`,
-                        success: function (result) {
+                        success: function(result) {
                             selectedCell[0].setAttribute("resultdb", result);
                         }
                     });
 
                     $.ajax({
                         url: `/intake/loadFunctionBySymbol/${selectedCell[0].funcionreference}`,
-                        success: function (result) {
+                        success: function(result) {
                             selectedCell[0].setAttribute("funcost", result);
                         }
                     });
@@ -569,14 +569,14 @@ function onInit(editor) {
         });
 
         //Load data from figure to html
-        editor.graph.addListener(mxEvent.CLICK, function (sender, evt) {
+        editor.graph.addListener(mxEvent.CLICK, function(sender, evt) {
             selectedCell = evt.getProperty('cell');
             // Clear Inputs
             if (selectedCell != undefined) { addData(selectedCell, MQ); } else { clearDataHtml(); }
         });
 
         //Button for valide graph
-        $('#saveGraph').click(function () {
+        $('#saveGraph').click(function() {
             validateGraphIntake();
         });
 
@@ -592,7 +592,7 @@ function onInit(editor) {
             clearDataHtml();
             if (!bandera) {
                 $('#hideCostFuntion').show();
-                node.querySelectorAll('Symbol').forEach(function (node) {
+                node.querySelectorAll('Symbol').forEach(function(node) {
                     graphData.push({
                         'id': node.id,
                         "name": node.getAttribute('name'),
@@ -605,7 +605,7 @@ function onInit(editor) {
                 });
 
                 let temp = [];
-                node.querySelectorAll('mxCell').forEach(function (node) {
+                node.querySelectorAll('mxCell').forEach(function(node) {
                     if (node.id != "") {
                         let value = Object.values(JSON.parse(node.getAttribute('value')));
                         graphData.push({
@@ -643,21 +643,34 @@ function onInit(editor) {
 
         }
 
-        $('#step4NextBtn').click(function () {
+        $('#step4NextBtn').click(function() {
             var datop = false;
             saveExternalData(datop);
         });
 
         //Set var into calculator
-        $(document).on('click', '.list-group-item', function () {
+        $(document).on('click', '.list-group-item', function() {
             addInfo(mathQuillSelected, `\\mathit{${$(this).attr('value')}}`);
         });
 
 
-        $('#saveAndValideCost').click(function () {
+        $('#saveAndValideCost').click(function() {
             var temp = {
                 'global_multiplier_factorCalculator': $('#global_multiplier_factorCalculator').val(),
-                'currencyCost': $('#currencyCost').val()
+                'currencyCost': $('#currencyCost').val(),
+                'logical': [{
+                        'condition_1': mathFieldlog1.latex(),
+                        'ecuation_1': mathFieldE1.latex()
+                    },
+                    {
+                        'condition_2': mathFieldlog2.latex(),
+                        'ecuation_2': mathFieldE1.latex()
+                    },
+                    {
+                        'condition_3': mathFieldlog3.latex(),
+                        'ecuation_3': mathFieldE1.latex()
+                    }
+                ]
             }
             $.extend(funcostdb[CostSelected].fields, temp);
             funcostdb[CostSelected].fields.function_value = mathField.latex();
@@ -672,7 +685,7 @@ function onInit(editor) {
         });
 
         //Edit funcion cost 
-        $(document).on('click', 'a[name=glyphicon-edit]', function () {
+        $(document).on('click', 'a[name=glyphicon-edit]', function() {
             mathField.clearSelection();
             $('#CalculatorModal').modal('show');
             CostSelected = $(this).attr('idvalue');
@@ -688,7 +701,7 @@ function onInit(editor) {
         });
 
         //Delete funcion cost 
-        $(document).on('click', 'a[name=glyphicon-trash]', function () {
+        $(document).on('click', 'a[name=glyphicon-trash]', function() {
             Swal.fire({
                 title: gettext('Are you sure?'),
                 text: gettext("You won't be able to revert this!"),
@@ -701,7 +714,7 @@ function onInit(editor) {
                 if (result.isConfirmed) {
                     var id = $(this).attr('idvalue');
                     $(`#funcostgenerate div[idvalue = 'fun_${id}']`).remove();
-                    if (typeof (selectedCell.value) == "string" && selectedCell.value.length > 0) {
+                    if (typeof(selectedCell.value) == "string" && selectedCell.value.length > 0) {
                         var obj = JSON.parse(selectedCell.value);
                         let dbfields = JSON.parse(obj.funcost);
                         dbfields.splice(id, 1);
@@ -755,7 +768,7 @@ function onInit(editor) {
             }
         }
 
-        $('#ModalAddCostBtn').click(function () {
+        $('#ModalAddCostBtn').click(function() {
             $('#VarCostListGroup div').remove();
             $('#VarCostListGroup').empty();
             for (const index of graphData) {
@@ -781,8 +794,8 @@ function onInit(editor) {
 
 
         //Add value entered in sediments in the field resultdb
-        $('#sedimentosDiagram').change(function () {
-            if (typeof (selectedCell.value) == "string" && selectedCell.value.length > 0) {
+        $('#sedimentosDiagram').change(function() {
+            if (typeof(selectedCell.value) == "string" && selectedCell.value.length > 0) {
                 var obj = JSON.parse(selectedCell.value);
                 let dbfields = obj.resultdb;
                 dbfields[0].fields.predefined_sediment_perc = $('#sedimentosDiagram').val();
@@ -795,8 +808,8 @@ function onInit(editor) {
         });
 
         //Add value entered in nitrogen in the field resultdb
-        $('#nitrogenoDiagram').change(function () {
-            if (typeof (selectedCell.value) == "string" && selectedCell.value.length > 0) {
+        $('#nitrogenoDiagram').change(function() {
+            if (typeof(selectedCell.value) == "string" && selectedCell.value.length > 0) {
                 var obj = JSON.parse(selectedCell.value);
                 let dbfields = obj.resultdb;
                 dbfields[0].fields.predefined_nitrogen_perc = $('#nitrogenoDiagram').val();
@@ -809,8 +822,8 @@ function onInit(editor) {
         });
 
         //Add value entered in phosphorus in the field resultdb
-        $('#fosforoDiagram').change(function () {
-            if (typeof (selectedCell.value) == "string" && selectedCell.value.length > 0) {
+        $('#fosforoDiagram').change(function() {
+            if (typeof(selectedCell.value) == "string" && selectedCell.value.length > 0) {
                 var obj = JSON.parse(selectedCell.value);
                 let dbfields = obj.resultdb;
                 dbfields[0].fields.predefined_phosphorus_perc = $('#fosforoDiagram').val();
@@ -823,8 +836,8 @@ function onInit(editor) {
         });
 
         //Add value entered in aguaDiagram in the field resultdb
-        $('#aguaDiagram').change(function () {
-            if (typeof (selectedCell.value) == "string" && selectedCell.value.length > 0) {
+        $('#aguaDiagram').change(function() {
+            if (typeof(selectedCell.value) == "string" && selectedCell.value.length > 0) {
                 var obj = JSON.parse(selectedCell.value);
                 let dbfields = obj.resultdb;
                 dbfields[0].fields.predefined_transp_water_perc = $('#aguaDiagram').val();
@@ -843,7 +856,7 @@ function onInit(editor) {
             for (let id = 0; id < graphData.length; id++) {
                 if (graphData[id].external) {
                     graphData[id].externaldata = [];
-                    $(`th[name=year_${graphData[id].id}]`).each(function () {
+                    $(`th[name=year_${graphData[id].id}]`).each(function() {
                         let watersita = $(`input[name="waterVolume_${$(this).attr('year_value')}_${graphData[id].id}"]`).val();
                         let sedimentsito = $(`input[name="sediment_${$(this).attr('year_value')}_${graphData[id].id}"]`).val();
                         let nitrogenito = $(`input[name="nitrogen_${$(this).attr('year_value')}_${graphData[id].id}"]`).val();
@@ -892,9 +905,9 @@ function onInit(editor) {
             }
         }
 
-        jQuery.fn.ForceNumericOnly = function () {
-            return this.each(function () {
-                $(this).keydown(function (e) {
+        jQuery.fn.ForceNumericOnly = function() {
+            return this.each(function() {
+                $(this).keydown(function(e) {
                     var key = e.charCode || e.keyCode || 0;
                     return (
                         key == 8 ||

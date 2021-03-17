@@ -388,8 +388,7 @@ function onInit(editor) {
             }
         });
 
-
-        validateGraphIntake();
+        if (banderaValideGraph != 0) { validateGraphIntake() }
 
 
         editor.graph.addListener(mxEvent.CELLS_REMOVED, (sender, evt) => {
