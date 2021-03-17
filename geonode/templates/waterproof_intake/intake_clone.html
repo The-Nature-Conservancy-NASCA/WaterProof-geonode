@@ -67,7 +67,7 @@
                             {% trans "Name" %}
                         </label>
                         <div class="">
-                            <input type="text" name="name" maxlength="100" class=" form-control" id="id_name"
+                            <input type="text" id="intakeName" name="name" maxlength="100" class=" form-control" id="id_name"
                                 value='{{intake.name}}_{% trans "Cloned" %}'>
                         </div>
                     </div>
@@ -78,7 +78,7 @@
                         {% trans "Description" %}
                     </label>
                     <div class="">
-                        <input type="text" name="description" maxlength="1024" class=" form-control" id="id_description"
+                        <input type="text" id="intakeDesc" name="description" maxlength="1024" class=" form-control" id="id_description"
                             value="{{intake.description}}">
                     </div>
                 </div>
@@ -88,7 +88,7 @@
                         {% trans "Water source name" %}
                     </label>
                     <div class="">
-                        <input type="text" name="water_source_name" maxlength="100" id="id_water_source_name"
+                        <input type="text" id="waterSource" name="water_source_name" maxlength="100" id="id_water_source_name"
                             class=" form-control" value="{{intake.water_source_name}}">
                     </div>
                 </div>
@@ -190,8 +190,8 @@
                     </div>
                 </div>
             </div>
-               <!--Step 3-->
-               <div id="step-3" class="tab-pane" role="tabpanel">
+            <!--Step 3-->
+            <div id="step-3" class="tab-pane" role="tabpanel">
                 <!--Header-->
                 <div class="page-header">
                     <h3>{% trans "Water extraction"%}</h3>
@@ -344,8 +344,8 @@
                             <div id="mapid" style="width: 100%; height: 400px;"></div>
                         </div>
                     </div>
-                   <!--Panel Information Right-->
-                   <div class="col-md-5">
+                    <!--Panel Information Right-->
+                    <div class="col-md-5">
                         <div class="panel panel-default">
                             <div class="panel-body">
                                 <div class="alert alert-info" role="alert">
@@ -392,6 +392,7 @@
         <input type="hidden" id="intakeAreaPolygon" name="intakeAreaPolygon" value="">
         <input type="hidden" id="graphElements" name="graphElements" value="">
         <input type="hidden" id="basinId" name="basinId" value="">
+        <input type="hidden" id="intakeId" name="intakeId" value="">
 </form>
 <!--Modal Calculator-->
 <div class="modal fade" id="CalculatorModal" tabindex="-1" aria-labelledby="CalculatorModalLabel" aria-hidden="true">
@@ -571,6 +572,7 @@
     var intakeExternalInputs = JSON.parse('{{externalInputs|safe}}');
     var intakeObject = {};
     intakeObject.id = '{{intake.id}}'
+    $('#intakeId').val(intakeObject.id);
     intakeObject.polygon = '{{intake.polygon_set.first.geomIntake|safe}}';
     intakeObject.point=JSON.parse('{{intake.polygon_set.first.geomPoint|safe}}');
     intakeObject.delimitArea='{{intake.polygon_set.first.geom}}';

@@ -734,6 +734,8 @@ function intakeStepFour() {
     formData.append('step', '4');
     // Intake id
     formData.append('intakeId', $('#intakeId').val());
+    // Intake edit
+    formData.append('edit', 'false');
     // Intake xml graph
     formData.append('graphElements', $('#graphElements').val());
     console.log(formData);
