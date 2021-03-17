@@ -7,33 +7,6 @@ from django.utils.translation import ugettext_lazy as _
 from geonode.waterproof_parameters.models import Countries, Cities
 
 
-class UserCosts(models.Model):
-    name = models.CharField(
-        max_length=100,
-        verbose_name=_('Name'),
-    )
-
-    value = models.DecimalField(
-        decimal_places=4,
-        max_digits=14,
-        verbose_name=_('Value')
-    )
-
-
-class SystemCosts(models.Model):
-
-    name = models.CharField(
-        max_length=100,
-        verbose_name=_('Name'),
-    )
-
-    value = models.DecimalField(
-        decimal_places=4,
-        max_digits=14,
-        verbose_name=_('Extraction value')
-    )
-
-
 class CostFunctionsProcess(models.Model):
 
     symbol = models.CharField(
@@ -82,14 +55,32 @@ class CostFunctionsProcess(models.Model):
     )
 
 
-class userCostFunctions(models.Model):
+class UserCostFunctions(models.Model):
+
+    name = models.TextField(
+        null=True,
+        blank=True,
+        verbose_name=_('Name')
+    )
+
+    description = models.TextField(
+        null=True,
+        blank=True,
+        verbose_name=_('Description')
+    )
+
     function = models.TextField(
-        null=False,
-        blank=False,
+        null=True,
+        blank=True,
         verbose_name=_('Function')
     )
 
-    template_function = models.ForeignKey(CostFunctionsProcess, on_delete=models.DO_NOTHING)
+    template_function = models.ForeignKey(
+        CostFunctionsProcess,
+        on_delete=models.DO_NOTHING,
+        null=True,
+        blank=True
+    )
 
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
@@ -97,6 +88,54 @@ class userCostFunctions(models.Model):
         blank=False,
         on_delete=models.CASCADE
     )
+
+    currency = models.ForeignKey(
+        Countries,
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True
+    )
+
+
+class UserLogicalFunctions(models.Model):
+
+    function1 = models.TextField(
+        null=False,
+        blank=False,
+        verbose_name=_('Function1')
+    )
+
+    condition1 = models.TextField(
+        null=False,
+        blank=False,
+        verbose_name=_('Condition1')
+    )
+
+    function2 = models.TextField(
+        null=False,
+        blank=False,
+        verbose_name=_('Function2')
+    )
+
+    condition2 = models.TextField(
+        null=False,
+        blank=False,
+        verbose_name=_('Condition2')
+    )
+
+    function3 = models.TextField(
+        null=False,
+        blank=False,
+        verbose_name=_('Function3')
+    )
+
+    condition3 = models.TextField(
+        null=False,
+        blank=False,
+        verbose_name=_('Condition3')
+    )
+
+    mainFunction = models.ForeignKey(UserCostFunctions, on_delete=models.CASCADE)
 
 
 class ProcessEfficiencies(models.Model):

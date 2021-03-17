@@ -11,7 +11,7 @@ from django.contrib import messages
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.translation import ugettext as _
-from .models import ValuesTime, ProcessEfficiencies, Intake, DemandParameters, WaterExtraction, ElementSystem, ValuesTime, CostFunctionsProcess, Polygon, Basins, ElementConnections, userCostFunctions
+from .models import ValuesTime, ProcessEfficiencies, Intake, DemandParameters, WaterExtraction, ElementSystem, ValuesTime, CostFunctionsProcess, Polygon, Basins, ElementConnections, UserCostFunctions, UserLogicalFunctions
 from geonode.waterproof_parameters.models import Countries, Regions, Cities
 from django.contrib.gis.gdal import SpatialReference, CoordTransform
 from django.core import serializers
@@ -311,12 +311,31 @@ def createStepTwo(request):
                                 if (len(costFunction) > 0):
                                     for function in costFunction:
                                         templateFunction = CostFunctionsProcess.objects.get(id=function['pk'])
-                                        userCostFunctions.objects.create(
+                                        if ('currencyCost' in function['fields']):
+                                            currency = Countries.objects.get(id=function['fields']['currencyCost'])
+                                        else:
+                                            currency = None
+                                        mainFunction = UserCostFunctions.objects.create(
+                                            name=function['fields']['function_value'],
+                                            description=function['fields']['function_description'],
                                             function=function['fields']['function_value'],
+                                            currency=currency,
                                             template_function=templateFunction,
                                             user=request.user
                                         )
-
+                                        if ('logical' in function['fields']):
+                                            logicalFunctions = json.loads(function['fields']['logical'])
+                                            if (len(logicalFunctions) > 0):
+                                                for logical in logicalFunctions:
+                                                    createdLogical = UserLogicalFunctions.objects.create(
+                                                        function1=logical['ecuation_1'],
+                                                        condition1=logical['condition_1'],
+                                                        function2=logical['ecuation_2'],
+                                                        condition2=logical['condition_2'],
+                                                        function3=logical['ecuation_3'],
+                                                        condition3=logical['condition_3'],
+                                                        mainFunction=mainFunction
+                                                    )
                         # External element
                         else:
                             parameter = json.loads(element['resultdb'])
@@ -343,11 +362,33 @@ def createStepTwo(request):
                                         if (len(costFunction) > 0):
                                             for function in costFunction:
                                                 templateFunction = CostFunctionsProcess.objects.get(id=function['pk'])
-                                                userCostFunctions.objects.create(
+                                                if ('currencyCost' in function['fields']):
+                                                    currency = Countries.objects.get(id=function['fields']['currencyCost'])
+                                                else:
+                                                    currency = None
+                                                mainFunction = UserCostFunctions.objects.create(
+                                                    name=function['fields']['function_value'],
+                                                    description=function['fields']['function_description'],
                                                     function=function['fields']['function_value'],
                                                     template_function=templateFunction,
+                                                    currency=currency,
                                                     user=request.user
                                                 )
+
+                                            if ('logical' in function['fields']):
+                                                logicalFunctions = json.loads(function['fields']['logical'])
+                                                if (len(logicalFunctions) > 0):
+                                                    for logical in logicalFunctions:
+                                                        createdLogical = UserLogicalFunctions.objects.create(
+                                                            function1=logical['ecuation_1'],
+                                                            condition1=logical['condition_1'],
+                                                            function2=logical['ecuation_2'],
+                                                            condition2=logical['condition_2'],
+                                                            function3=logical['ecuation_3'],
+                                                            condition3=logical['condition_3'],
+                                                            mainFunction=mainFunction
+                                                        )
+
                                     external_info = json.loads(element['externaldata'])
                                     elementCreated = ElementSystem.objects.get(graphId=element['id'], intake=intakeId)
                                     for external in external_info:
@@ -399,11 +440,35 @@ def createStepTwo(request):
                             if (len(costFunction) > 0):
                                 for function in costFunction:
                                     templateFunction = CostFunctionsProcess.objects.get(id=function['pk'])
-                                    userCostFunctions.objects.create(
+                                    if ('currencyCost' in function['fields']):
+                                        currency = Countries.objects.get(id=function['fields']['currencyCost'])
+                                    else:
+                                        currency = None
+                                    mainFunction = UserCostFunctions.objects.create(
+                                        name=function['fields']['function_value'],
+                                        description=function['fields']['function_description'],
                                         function=function['fields']['function_value'],
+                                        currency=currency,
                                         template_function=templateFunction,
                                         user=request.user
                                     )
+                                    if ('logical' in function['fields']):
+                                        print("Entra entra entra")
+                                        logicalFunctions = json.loads(function['fields']['logical'])
+                                        print(len(logicalFunctions))
+                                        if (len(logicalFunctions) > 0):
+                                            for logical in logicalFunctions:
+                                                print(logical)
+                                                createdLogical = UserLogicalFunctions.objects.create(
+                                                    function1=logical['ecuation_1'],
+                                                    condition1=logical['condition_1'],
+                                                    function2=logical['ecuation_2'],
+                                                    condition2=logical['condition_2'],
+                                                    function3=logical['ecuation_3'],
+                                                    condition3=logical['condition_3'],
+                                                    mainFunction=mainFunction
+                                                )
+
             # Once all elements created, save the connections
             for con in connectionsElements:
                 source = next((item for item in elementsCreated if item["xmlId"] == con['source']), None)
