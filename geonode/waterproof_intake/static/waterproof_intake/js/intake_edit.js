@@ -890,6 +890,8 @@ function intakeStepFive() {
     formData.append('intakeAreaPolygon', $('#intakeAreaPolygon').val());
     // Intake delimit area polygon
     formData.append('delimitArea', $('#delimitArea').val());
+    // Intake basin 
+    formData.append('basinId', $('#basinId').val());
     // Intake type delimit
     formData.append('typeDelimit', $('#typeDelimit').val());
     // Intake is File?

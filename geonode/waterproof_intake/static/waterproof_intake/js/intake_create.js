@@ -775,6 +775,8 @@ function intakeStepFive() {
     formData.append('step', '5');
     // Intake id
     formData.append('intakeId', $('#intakeId').val());
+    // Intake basin 
+    formData.append('basinId', $('#basinId').val());
     // Intake area polygon
     formData.append('intakeAreaPolygon', $('#intakeAreaPolygon').val());
     // Intake delimit area polygon
