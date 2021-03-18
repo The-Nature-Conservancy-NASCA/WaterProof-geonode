@@ -363,7 +363,8 @@ def createStepTwo(request):
                                             for function in costFunction:
                                                 templateFunction = CostFunctionsProcess.objects.get(id=function['pk'])
                                                 if ('currencyCost' in function['fields']):
-                                                    currency = Countries.objects.get(id=function['fields']['currencyCost'])
+                                                    currency = Countries.objects.get(
+                                                        id=function['fields']['currencyCost'])
                                                 else:
                                                     currency = None
                                                 mainFunction = UserCostFunctions.objects.create(
@@ -746,7 +747,6 @@ def createStepFive(request):
                 'models': 'sdr',
                 'models': 'awy',
                 'models': 'ndr',
-                'models': 'carbon',
                 'catchment': existingIntake.pk,
             }
             argsWb = {
@@ -1227,7 +1227,6 @@ catchment:  Int Intake id
 
 
 def execWb(request, args):
-    print(args)
     url = settings.WATERPROOF_INVEST_API+'wb'
     r = request.get(url, params=args)
     if r.status_code == 200:
