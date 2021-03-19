@@ -191,9 +191,10 @@
         localStorage.setItem('city', cityName);
 
         let urlAPI = '{{ SEARCH_COUNTRY_API_URL }}' + countryCode;
+        console.log(urlAPI)
 
         $.get(urlAPI, function(data){
-            //console.log(data);
+            console.log("data en buscar ciudad es:"+data.region);
             $("#regionLabel").html(data.region);
             $("#currencyLabel").html(data.currencies[0].name + " - " + data.currencies[0].symbol);
             $("#listIntakes").show();
