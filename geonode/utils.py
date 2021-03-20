@@ -20,7 +20,6 @@
 import os
 import gc
 import re
-import six
 import ast
 import copy
 import json
@@ -38,7 +37,8 @@ import traceback
 import subprocess
 
 from osgeo import ogr
-from io import StringIO
+from PIL import Image
+from io import BytesIO, StringIO
 from decimal import Decimal
 from slugify import slugify
 from contextlib import closing
@@ -59,10 +59,11 @@ from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
 from django.core.exceptions import PermissionDenied
 from django.core.serializers.json import DjangoJSONEncoder
+from django.core.files.storage import default_storage as storage
 from django.db import models, connection, transaction
 from django.utils.translation import ugettext_lazy as _
 
-from geonode import geoserver, qgis_server, GeoNodeException  # noqa
+from geonode import geoserver, GeoNodeException  # noqa
 from geonode.compat import ensure_string
 from geonode.base.auth import (
     extend_token,
@@ -122,7 +123,7 @@ def unzip_file(upload_file, extension='.shp', tempdir=None):
     """
     absolute_base_file = None
     if tempdir is None:
-        tempdir = tempfile.mkdtemp()
+        tempdir = tempfile.mkdtemp(dir=settings.STATIC_ROOT)
     if not os.path.isdir(tempdir):
         os.makedirs(tempdir)
 
@@ -141,7 +142,7 @@ def extract_tarfile(upload_file, extension='.shp', tempdir=None):
     """
     absolute_base_file = None
     if tempdir is None:
-        tempdir = tempfile.mkdtemp()
+        tempdir = tempfile.mkdtemp(dir=settings.STATIC_ROOT)
 
     the_tar = tarfile.open(upload_file)
     the_tar.extractall(tempdir)
@@ -781,7 +782,7 @@ class GXPLayerBase(object):
         if self.styles:
             try:
                 cfg['styles'] = ast.literal_eval(self.styles) \
-                    if isinstance(self.styles, six.string_types) else self.styles
+                    if isinstance(self.styles, str) else self.styles
             except Exception:
                 pass
         if self.transparent:
@@ -993,7 +994,7 @@ def json_response(body=None, errors=None, url=None, redirect_to=None, exception=
     if content_type is None:
         content_type = "application/json"
     if errors:
-        if isinstance(errors, six.string_types):
+        if isinstance(errors, str):
             errors = [errors]
         body = {
             'success': False,
@@ -1026,7 +1027,7 @@ def json_response(body=None, errors=None, url=None, redirect_to=None, exception=
     if status is None:
         status = 200
 
-    if not isinstance(body, six.string_types):
+    if not isinstance(body, str):
         try:
             body = json.dumps(body, cls=DjangoJSONEncoder)
         except Exception:
@@ -1158,7 +1159,7 @@ def fixup_shp_columnnames(inShapefile, charset, tempdir=None):
     charset = charset if charset and 'undefined' not in charset else 'UTF-8'
 
     if not tempdir:
-        tempdir = tempfile.mkdtemp()
+        tempdir = tempfile.mkdtemp(dir=settings.STATIC_ROOT)
 
     if is_zipfile(inShapefile):
         inShapefile = unzip_file(inShapefile, '.shp', tempdir=tempdir)
@@ -1424,12 +1425,13 @@ class HttpClient(object):
             self.username = ogc_server_settings.get('USER', 'admin')
             self.password = ogc_server_settings.get('PASSWORD', 'geoserver')
 
-    def request(self, url, method='GET', data=None, headers={}, stream=False, timeout=None, retries=None, user=None):
+    def request(self, url, method='GET', data=None, headers={}, stream=False,
+                timeout=None, retries=None, user=None, verify=False):
         if (user or self.username != 'admin') and \
         check_ogc_backend(geoserver.BACKEND_PACKAGE) and 'Authorization' not in headers:
             if connection.cursor().db.vendor not in ('sqlite', 'sqlite3', 'spatialite'):
                 try:
-                    if user and isinstance(user, six.string_types):
+                    if user and isinstance(user, str):
                         user = get_user_model().objects.get(username=user)
                     _u = user or get_user_model().objects.get(username=self.username)
                     access_token = get_or_create_token(_u)
@@ -1469,7 +1471,8 @@ class HttpClient(object):
                     data=data,
                     headers=headers,
                     timeout=_req_tout,
-                    stream=stream)
+                    stream=stream,
+                    verify=verify)
             except (requests.exceptions.RequestException, ValueError) as e:
                 msg = f"Request exception [{e}] - TOUT [{_req_tout}] to URL: {url} - headers: {headers}"
                 logger.exception(Exception(msg))
@@ -1484,23 +1487,25 @@ class HttpClient(object):
 
         return (response, content)
 
-    def get(self, url, data=None, headers={}, stream=False, timeout=None, user=None):
+    def get(self, url, data=None, headers={}, stream=False, timeout=None, user=None, verify=False):
         return self.request(url,
                             method='GET',
                             data=data,
                             headers=headers,
                             timeout=timeout or self.timeout,
                             stream=stream,
-                            user=user)
+                            user=user,
+                            verify=verify)
 
-    def post(self, url, data=None, headers={}, stream=False, timeout=None, user=None):
+    def post(self, url, data=None, headers={}, stream=False, timeout=None, user=None, verify=False):
         return self.request(url,
                             method='POST',
                             data=data,
                             headers=headers,
                             timeout=timeout or self.timeout,
                             stream=stream,
-                            user=user)
+                            user=user,
+                            verify=verify)
 
 
 http_client = HttpClient()
@@ -1891,192 +1896,6 @@ def set_resource_default_links(instance, layer, prune=False, **kwargs):
                     )
                 )
         logger.debug(" -- Resource Links[OWS Links]...done!")
-    elif check_ogc_backend(qgis_server.BACKEND_PACKAGE):
-        from geonode.layers.models import LayerFile
-        from geonode.qgis_server.helpers import (
-            tile_url_format, style_list, create_qgis_project)
-        from geonode.qgis_server.models import QGISServerLayer
-
-        # args
-        is_shapefile = kwargs.pop('is_shapefile', False)
-        original_ext = kwargs.pop('original_ext', None)
-
-        # base url for geonode
-        base_url = settings.SITEURL
-
-        # Set Link for Download Raw in Zip File
-        zip_download_url = reverse(
-            'qgis_server:download-zip', kwargs={'layername': instance.name})
-        zip_download_url = urljoin(base_url, zip_download_url)
-        logger.debug('zip_download_url: %s' % zip_download_url)
-        if is_shapefile:
-            link_name = 'Zipped Shapefile'
-            link_mime = 'SHAPE-ZIP'
-        else:
-            link_name = 'Zipped All Files'
-            link_mime = 'ZIP'
-
-        # Zip file
-        Link.objects.update_or_create(
-            resource=instance.resourcebase_ptr,
-            name=link_name,
-            defaults=dict(
-                extension='zip',
-                mime=link_mime,
-                url=zip_download_url,
-                link_type='data'
-            )
-        )
-
-        # WMS link layer workspace
-        ogc_wms_url = urljoin(
-            settings.SITEURL,
-            reverse(
-                'qgis_server:layer-request', kwargs={'layername': instance.name}))
-        ogc_wms_name = 'OGC WMS: %s Service' % instance.workspace
-        ogc_wms_link_type = 'OGC:WMS'
-        Link.objects.update_or_create(
-            resource=instance.resourcebase_ptr,
-            name=ogc_wms_name,
-            link_type=ogc_wms_link_type,
-            defaults=dict(
-                extension='html',
-                url=ogc_wms_url,
-                mime='text/html',
-                link_type=ogc_wms_link_type
-            )
-        )
-
-        # QGS link layer workspace
-        ogc_qgs_url = urljoin(
-            base_url,
-            reverse(
-                'qgis_server:download-qgs',
-                kwargs={'layername': instance.name}))
-        logger.debug('qgs_download_url: %s' % ogc_qgs_url)
-        link_name = 'QGIS project file (.qgs)'
-        link_mime = 'application/xml'
-        Link.objects.update_or_create(
-            resource=instance.resourcebase_ptr,
-            name=link_name,
-            defaults=dict(
-                extension='qgs',
-                mime=link_mime,
-                url=ogc_qgs_url,
-                link_type='data'
-            )
-        )
-
-        if instance.is_vector():
-            # WFS link layer workspace
-            ogc_wfs_url = urljoin(
-                settings.SITEURL,
-                reverse(
-                    'qgis_server:layer-request',
-                    kwargs={'layername': instance.name}))
-            ogc_wfs_name = 'OGC WFS: %s Service' % instance.workspace
-            ogc_wfs_link_type = 'OGC:WFS'
-            Link.objects.update_or_create(
-                resource=instance.resourcebase_ptr,
-                name=ogc_wfs_name,
-                link_type=ogc_wfs_link_type,
-                defaults=dict(
-                    extension='html',
-                    url=ogc_wfs_url,
-                    mime='text/html',
-                    link_type=ogc_wfs_link_type
-                )
-            )
-
-        # QLR link layer workspace
-        ogc_qlr_url = urljoin(
-            base_url,
-            reverse(
-                'qgis_server:download-qlr',
-                kwargs={'layername': instance.name}))
-        logger.debug('qlr_download_url: %s' % ogc_qlr_url)
-        link_name = 'QGIS layer file (.qlr)'
-        link_mime = 'application/xml'
-        Link.objects.update_or_create(
-            resource=instance.resourcebase_ptr,
-            name=link_name,
-            defaults=dict(
-                extension='qlr',
-                mime=link_mime,
-                url=ogc_qlr_url,
-                link_type='data'
-            )
-        )
-
-        # if layer has overwrite attribute, then it probably comes from
-        # importlayers management command and needs to be overwritten
-        overwrite = getattr(instance, 'overwrite', False)
-
-        # Create the QGIS Project
-        response = create_qgis_project(
-            instance, layer.qgis_project_path, overwrite=overwrite,
-            internal=True)
-
-        logger.debug('Creating the QGIS Project : %s' % response.url)
-        if ensure_string(response.content) != 'OK':
-            logger.debug('Result : %s' % ensure_string(response.content))
-
-        # Generate style model cache
-        style_list(instance, internal=False)
-
-        # Remove QML file if necessary
-        try:
-            qml_file = instance.upload_session.layerfile_set.get(name='qml')
-            if not os.path.exists(qml_file.file.path):
-                qml_file.delete()
-        except LayerFile.DoesNotExist:
-            pass
-
-        Link.objects.update_or_create(
-            resource=instance.resourcebase_ptr,
-            name="Tiles",
-            defaults=dict(
-                url=tile_url_format(instance.name),
-                extension='tiles',
-                mime='image/png',
-                link_type='image'
-            )
-        )
-
-        if original_ext.split('.')[-1] in QGISServerLayer.geotiff_format:
-            # geotiff link
-            geotiff_url = reverse(
-                'qgis_server:geotiff', kwargs={'layername': instance.name})
-            geotiff_url = urljoin(base_url, geotiff_url)
-            logger.debug('geotif_url: %s' % geotiff_url)
-
-            Link.objects.update_or_create(
-                resource=instance.resourcebase_ptr,
-                name="GeoTIFF",
-                defaults=dict(
-                    extension=original_ext.split('.')[-1],
-                    url=geotiff_url,
-                    mime='image/tiff',
-                    link_type='image'
-                )
-            )
-
-        # Create legend link
-        legend_url = reverse(
-            'qgis_server:legend',
-            kwargs={'layername': instance.name}
-        )
-        legend_url = urljoin(base_url, legend_url)
-        Link.objects.update_or_create(
-            resource=instance.resourcebase_ptr,
-            name='Legend',
-            defaults=dict(
-                extension='png',
-                url=legend_url,
-                mime='image/png',
-                link_type='image',
-            )
-        )
 
 
 def add_url_params(url, params):
@@ -2151,7 +1970,7 @@ def json_serializer_producer(dictionary):
     def to_json(keys):
         if isinstance(keys, datetime.datetime):
             return str(keys)
-        elif isinstance(keys, six.string_types) or isinstance(keys, int):
+        elif isinstance(keys, str) or isinstance(keys, int):
             return keys
         elif isinstance(keys, dict):
             return json_serializer_producer(keys)
@@ -2188,3 +2007,56 @@ def json_serializer_producer(dictionary):
                     y = model_to_dict(_obj)
             output[x] = to_json(y)
     return output
+
+
+def is_monochromatic_image(image_url, image_data=None):
+
+    def is_local_static(url):
+        if url.startswith(settings.STATIC_URL) or \
+        (url.startswith(settings.SITEURL) and settings.STATIC_URL in url):
+            return True
+        return False
+
+    def is_absolute(url):
+        return bool(urlparse(url).netloc)
+
+    def get_thumb_handler(url):
+        _index = url.find(settings.STATIC_URL)
+        _thumb_path = urlparse(url[_index + len(settings.STATIC_URL):]).path
+        if storage.exists(_thumb_path):
+            return storage.open(_thumb_path)
+        return None
+
+    def verify_image(stream):
+        with Image.open(stream) as _stream:
+            img = _stream.convert("L")
+            img.verify()  # verify that it is, in fact an image
+            extr = img.getextrema()
+            a = 0
+            for i in extr:
+                if isinstance(i, tuple):
+                    a += abs(i[0] - i[1])
+                else:
+                    a = abs(extr[0] - extr[1])
+                    break
+            return a == 0
+
+    try:
+        if image_data:
+            logger.debug("...Checking if image is a blank image")
+            with BytesIO(image_data) as stream:
+                return verify_image(stream)
+        elif image_url:
+            logger.debug(f"...Checking if '{image_url}' is a blank image")
+            url = image_url if is_absolute(image_url) else urljoin(settings.SITEURL, image_url)
+            if not is_local_static(url):
+                req, stream_content = http_client.get(url, timeout=5)
+                with BytesIO(stream_content) as stream:
+                    return verify_image(stream)
+            else:
+                with get_thumb_handler(url) as stream:
+                    return verify_image(stream)
+        return True
+    except Exception as e:
+        logger.exception(e)
+        return False

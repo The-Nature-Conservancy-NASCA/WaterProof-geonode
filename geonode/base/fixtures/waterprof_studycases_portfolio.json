@@ -1,0 +1,65 @@
+[
+    {
+        "model": "waterproof_study_cases.portfolio",
+        "pk": 1,
+        "fields": {
+            "name": "Erosion Control for Drinking Water Quality",
+            "description": "Erosion Control for Drinking Water Quality",
+            "default": true
+        }
+    },
+    {
+        "model": "waterproof_study_cases.portfolio",
+        "pk": 2,
+        "fields": {
+            "name": "Erosion Control for Reservoir Maintenance",
+            "description": "Erosion Control for Drinking Water Quality",
+            "default": false
+        }
+    },
+    {
+        "model": "waterproof_study_cases.portfolio",
+        "pk": 3,
+        "fields": {
+            "name": "Nutrient Retention (Phosphorus)",
+            "description": "Nutrient Retention (Phosphorus)",
+            "default": true
+        }
+    },
+    {
+        "model": "waterproof_study_cases.portfolio",
+        "pk": 4,
+        "fields": {
+            "name": "Nutrient Retention (Nitrogen)",
+            "description": "Nutrient Retention (Nitrogen)",
+            "default": true
+        }
+    },
+    {
+        "model": "waterproof_study_cases.portfolio",
+        "pk": 5,
+        "fields": {
+            "name": "Flood Mitigation",
+            "description": "Flood Mitigation",
+            "default": false
+        }
+    },
+    {
+        "model": "waterproof_study_cases.portfolio",
+        "pk": 6,
+        "fields": {
+            "name": "Groundwater Recharge Enhancement",
+            "description": "Groundwater Recharge Enhancement",
+            "default": false
+        }
+    },
+    {
+        "model": "waterproof_study_cases.portfolio",
+        "pk": 7,
+        "fields": {
+            "name": "Baseflow",
+            "description": "Baseflow",
+            "default": true
+        }
+    }
+]
