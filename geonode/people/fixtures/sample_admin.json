@@ -1,7 +1,7 @@
 [{
 	"fields": {
 		"date_joined": "2011-06-09 15:15:27",
-		"email": "luis.gutierrez@skaphe.com",
+		"email": "edwin.piragauta@skaphe.com",
 		"first_name": "",
 		"groups": [],
 		"is_active": true,
@@ -20,7 +20,7 @@
 	"pk": 1,
 	"fields": {
 		"user": 1000,
-		"email": "luis.gutierrez@skaphe.com",
+		"email": "edwin.piragauta@skaphe.com",
 		"verified": true,
 		"primary": true
 	}
