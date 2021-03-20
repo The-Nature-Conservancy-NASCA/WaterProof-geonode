@@ -137,9 +137,25 @@ print("5.1 Initial Data")
 call_command('loaddata', 'initial_data')
 print("5.2 Themes")
 call_command('loaddata', 'geonode_themes')
-print("5.2 Cost Functions Process")
-call_command('loaddata', 'waterprof_intake_costfunctionsprocess')
-print("5.3 Regions")
+print("5.2 Intake Cost Functions Process")
+call_command('loaddata', 'waterproof_intake_costfunctionsprocess')
+
+print("5.2a Intape Process Efficiencies")
+call_command('loaddata', 'waterproof_intake_processefficiencies')
+
+print("5.3 WaterProof Study Cases Portfolio")
+call_command('loaddata', 'waterproof_studycases_portfolio')
+
+print("5.4 WaterProof NBS Rios Transition")
+call_command('loaddata', 'waterproof_nbs_ca_riostransition')
+
+print("5.5 WaterProof NBS Rios Activity")
+call_command('loaddata', 'waterproof_nbs_ca_riosactivity')
+
+print("5.6 WaterProof NBS Rios Transformation")
+call_command('loaddata', 'waterproof_nbs_ca_riostransformation')
+
+print("5.7 Regions")
 call_command('loaddata', 'waterproof_parameters_regions')
 #print("5.4 Countries")
 #call_command('loaddata', 'waterproof_parameters_countries')
