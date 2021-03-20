@@ -209,6 +209,7 @@ def setHeaderPlant(request):
 				request.data.get('header').get('plantSuggest'),
 				request.user.username))
 			plantId = cur.fetchone()[0]
+
 			for row in request.data.get('header').get('element'):
 				queryStrElement = "INSERT INTO waterproof_treatment_plants_element (element_normalize_category, element_plant_id, element_graph_id, element_on_off, element_q_l, element_awy, element_cn_mg_l, element_cp_mg_l, element_csed_mg_l, element_wn_kg, element_wn_rent_kg, element_wp_rent_ton, element_wsed_tom, element_wp_kg, element_user, element_date_create) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, now()) RETURNING element_id;";
 				cur.execute(queryStrElement, (row.get('normalizeCategory'),
@@ -248,6 +249,19 @@ def setHeaderPlant(request):
 				cur.execute(queryStrFunction, (plantId,
 					request.user.username,
 					row.get('intake')))
+
+			for row in request.data.get('header').get('ptap'):
+				queryStrFunction = "INSERT INTO waterproof_treatment_plants_ptap (ptap_plant_id, ptap_type, ptap_awy, ptap_cn, ptap_cp, ptap_cs, ptap_wn, ptap_wp, ptap_ws, ptap_date_create, ptap_user) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, now(), %s) RETURNING ptap_id;";
+				cur.execute(queryStrFunction, (plantId,
+					row.get('ptapType'),
+					row.get('ptapAwy'),
+					row.get('ptapCn'),
+					row.get('ptapCp'),
+					row.get('ptapCs'),
+					row.get('ptapWn'),
+					row.get('ptapWp'),
+					row.get('ptapWs'),
+					request.user.username))
 
 			jsonObject = [{	'plant_id' : plantId}]
 			con.commit()
