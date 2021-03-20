@@ -63,3 +63,18 @@ class Csinfra(models.Model):
     csinfra_date_create = models.CharField(max_length=100,verbose_name=_('Date Create'))
     csinfra_date_update = models.CharField(max_length=100,verbose_name=_('Date Update'))
     csinfra_elementsystem_id = models.CharField(max_length=100,verbose_name=_('Element System'))
+
+class Ptap(models.Model):
+    ptap_id = models.IntegerField(auto_created=True, primary_key=True,verbose_name=_('Id Csinfra'))
+    ptap_plant_id = models.IntegerField(verbose_name=_('Plant Id'))
+    ptap_user = models.CharField(max_length=100,verbose_name=_('User'))
+    ptap_type = models.CharField(max_length=100,verbose_name=_('Type ptap'))
+    ptap_date_create = models.CharField(max_length=100,verbose_name=_('Date Update'))
+    ptap_awy = models.FloatField(null=True,blank=True,default=None,verbose_name=_('Awy ptap'))
+    ptap_cn = models.FloatField(null=True,blank=True,default=None,verbose_name=_('Cn ptap'))
+    ptap_cp = models.FloatField(null=True,blank=True,default=None,verbose_name=_('Cp ptap'))
+    ptap_cs = models.FloatField(null=True,blank=True,default=None,verbose_name=_('Cs ptap'))
+    ptap_wn = models.FloatField(null=True,blank=True,default=None,verbose_name=_('Wn ptap'))
+    ptap_wp = models.FloatField(null=True,blank=True,default=None,verbose_name=_('Wp ptap'))
+    ptap_ws = models.FloatField(null=True,blank=True,default=None,verbose_name=_('Ws ptap'))
+

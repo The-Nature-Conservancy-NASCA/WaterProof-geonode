@@ -1,0 +1,646 @@
+[
+{
+  "model": "waterproof_intake.costfunctionsprocess",
+  "pk": 1,
+  "fields": {
+    "symbol": "E",
+    "categorys": "EMBALSE",
+    "energy": "100.0000",
+    "labour": "100.0000",
+    "mater_equipment": "100.0000",
+    "function_value": "\\min \\left(\\left[\\left(0.8515\\cdot \\mathrm{W\\Pr }\\cdot \\left(\\frac{\\left(1\\cdot 10^3\\right)}{31536}\\right)\\right),\\left(0.0532\\cdot \\mathrm{W\\Pr }\\cdot \\left(\\frac{\\left(1\\cdot 10^3\\right)}{31536}\\right)\\right)\\right]\\right)",
+    "function_name": "Retiro de buchon",
+    "function_description": "Embalse"
+  }
+},
+{
+  "model": "waterproof_intake.costfunctionsprocess",
+  "pk": 2,
+  "fields": {
+    "symbol": "E",
+    "categorys": "EMBALSE",
+    "energy": "100.0000",
+    "labour": "100.0000",
+    "mater_equipment": "100.0000",
+    "function_value": "\\left(\\left(-5.064\\cdot 10^{-4}\\right)\\cdot \\left(0.315\\cdot \\mathrm{WsedR}\\cdot \\left(\\frac{1\\cdot 10^6}{31536}\\right)\\right)^2\\right)+\\left(126.6\\cdot \\left(0.315\\cdot \\mathrm{WsedR}\\cdot \\left(\\frac{1\\cdot 10^6}{31536}\\right)\\right)\\right)",
+    "function_name": "Dredge",
+    "function_description": "Embalse"
+  }
+},
+{
+  "model": "waterproof_intake.costfunctionsprocess",
+  "pk": 3,
+  "fields": {
+    "symbol": "RA",
+    "categorys": "RESERVORIOAGUACRUDA",
+    "energy": "100.0000",
+    "labour": "100.0000",
+    "mater_equipment": "100.0000",
+    "function_value": "\\min \\left(\\left[\\left(0.8515\\cdot \\mathrm{W\\Pr }\\cdot \\left(\\frac{\\left(1\\cdot 10^3\\right)}{31536}\\right)\\right),\\left(0.0532\\cdot \\mathrm{W\\Pr }\\cdot \\left(\\frac{\\left(1\\cdot 10^3\\right)}{31536}\\right)\\right)\\right]\\right)",
+    "function_name": "Algae Removal",
+    "function_description": "Reservorio de Agua Cruda"
+  }
+},
+{
+  "model": "waterproof_intake.costfunctionsprocess",
+  "pk": 4,
+  "fields": {
+    "symbol": "RA",
+    "categorys": "RESERVORIOAGUACRUDA",
+    "energy": "100.0000",
+    "labour": "100.0000",
+    "mater_equipment": "100.0000",
+    "function_value": "\\left(\\left(-5.064\\cdot 10^{-4}\\right)\\cdot \\left(0.315\\cdot \\mathrm{WsedR}\\cdot \\left(\\frac{1\\cdot 10^6}{31536}\\right)\\right)^2\\right)+\\left(126.6\\cdot \\left(0.315\\cdot \\mathrm{WsedR}\\cdot \\left(\\frac{1\\cdot 10^6}{31536}\\right)\\right)\\right)",
+    "function_name": "Dredge",
+    "function_description": "Reservorio de Agua Cruda"
+  }
+},
+{
+  "model": "waterproof_intake.costfunctionsprocess",
+  "pk": 5,
+  "fields": {
+    "symbol": "B",
+    "categorys": "BOMBEO",
+    "energy": "100.0000",
+    "labour": "100.0000",
+    "mater_equipment": "100.0000",
+    "function_value": "\\left(\\left(11126.6\\cdot \\mathrm{Q}\\right)+30929.7\\right)\\cdot \\left(1+\\left(0.24\\cdot \\left(\\frac{\\mathrm{Csed}-56}{56}\\right)\\right)+\\left(0.06\\cdot \\left(\\frac{\\mathrm{CN}-20}{20}\\right)\\right)\\right)",
+    "function_name": "Annual Operation and Maintenance Cost",
+    "function_description": "Pumping"
+  }
+},
+{
+  "model": "waterproof_intake.costfunctionsprocess",
+  "pk": 6,
+  "fields": {
+    "symbol": "BODF",
+    "categorys": "BOCATOMADEFONDO",
+    "energy": "100.0000",
+    "labour": "100.0000",
+    "mater_equipment": "100.0000",
+    "function_value": "\\left(4.1181\\cdot \\mathrm{Q}^{-0.344}\\right)\\cdot \\left(1+\\left(0.24\\cdot \\left(\\frac{\\mathrm{Csed}-56}{56}\\right)\\right)+\\left(0.06\\cdot \\left(\\frac{\\mathrm{CN}-20}{20}\\right)\\right)\\right)",
+    "function_name": "Annual Operation and Maintenance Cost",
+    "function_description": "Bottom Intake"
+  }
+},
+{
+  "model": "waterproof_intake.costfunctionsprocess",
+  "pk": 7,
+  "fields": {
+    "symbol": "BOL",
+    "categorys": "BOCATOMALATERAL",
+    "energy": "100.0000",
+    "labour": "100.0000",
+    "mater_equipment": "100.0000",
+    "function_value": "\\left(\\left(381.44\\cdot \\mathrm{Q}\\right)+46465.2\\right)\\cdot \\left(1+\\left(0.24\\cdot \\left(\\frac{\\mathrm{Csed}-56}{56}\\right)\\right)+\\left(0.06\\cdot \\left(\\frac{\\mathrm{CN}-20}{20}\\right)\\right)\\right)",
+    "function_name": "Annual Operation and Maintenance Cost",
+    "function_description": "Side intake"
+  }
+},
+{
+  "model": "waterproof_intake.costfunctionsprocess",
+  "pk": 8,
+  "fields": {
+    "symbol": "BOF",
+    "categorys": "BOCATOMAFLOTANTE",
+    "energy": "100.0000",
+    "labour": "100.0000",
+    "mater_equipment": "100.0000",
+    "function_value": "\\left(381.44\\cdot \\mathrm{Q}\\right)+46465.2",
+    "function_name": "Annual Operation and Maintenance Cost",
+    "function_description": "Floating intake"
+  }
+},
+{
+  "model": "waterproof_intake.costfunctionsprocess",
+  "pk": 9,
+  "fields": {
+    "symbol": "D",
+    "categorys": "DESARENADOR",
+    "energy": "100.0000",
+    "labour": "100.0000",
+    "mater_equipment": "100.0000",
+    "function_value": "\\left(\\left(16.498\\cdot \\mathrm{Q}\\right)+10264\\right)\\cdot \\left(1+\\left(0.24\\cdot \\left(\\frac{\\mathrm{Csed}-56}{56}\\right)\\right)+\\left(0.06\\cdot \\left(\\frac{\\mathrm{CN}-20}{20}\\right)\\right)\\right)",
+    "function_name": "Annual Operation and Maintenance Cost",
+    "function_description": "Desander"
+  }
+},
+{
+  "model": "waterproof_intake.costfunctionsprocess",
+  "pk": 10,
+  "fields": {
+    "symbol": "CQ",
+    "categorys": "CAMARADEQUIEBRE",
+    "energy": "100.0000",
+    "labour": "100.0000",
+    "mater_equipment": "100.0000",
+    "function_value": "\\left(381.44\\cdot \\mathrm{Q}\\right)+46465.2",
+    "function_name": "Costo de Operaci\u00f3n y Mantenimiento Anual",
+    "function_description": "C\u00e1mara de Quiebre"
+  }
+},
+{
+  "model": "waterproof_intake.costfunctionsprocess",
+  "pk": 11,
+  "fields": {
+    "symbol": "CS",
+    "categorys": "CSINFRA",
+    "energy": "100.0000",
+    "labour": "100.0000",
+    "mater_equipment": "100.0000",
+    "function_value": "NO EXISTE",
+    "function_name": "NO EXISTE",
+    "function_description": "CSINFA"
+  }
+},
+{
+  "model": "waterproof_intake.costfunctionsprocess",
+  "pk": 12,
+  "fields": {
+    "symbol": "T",
+    "categorys": "PIPELINE",
+    "energy": "100.0000",
+    "labour": "100.0000",
+    "mater_equipment": "100.0000",
+    "function_value": "0.01861\\cdot 1\\cdot \\left(\\left(0.763\\cdot \\mathrm{Q}\\right)+8.402\\cdot \\sqrt{\\left(\\mathrm{Q}\\right)}\\right)\\cdot \\left(1+\\left(0.24\\cdot \\left(\\frac{\\mathrm{Csed}-56}{56}\\right)\\right)+\\left(0.06\\cdot \\left(\\frac{\\mathrm{CN}-20}{20}\\right)\\right)\\right)",
+    "function_name": "Annual Operation and Maintenance Cost",
+    "function_description": "Pipeline"
+  }
+},
+{
+  "model": "waterproof_intake.costfunctionsprocess",
+  "pk": 13,
+  "fields": {
+    "symbol": "C",
+    "categorys": "CHANNEL",
+    "energy": "100.0000",
+    "labour": "100.0000",
+    "mater_equipment": "100.0000",
+    "function_value": "15.3\\cdot \\mathrm{WsedC}\\cdot \\left(\\frac{1\\cdot 10^6}{31536}\\right)",
+    "function_name": "Annual Operation and Maintenance Cost",
+    "function_description": "Channel"
+  }
+},
+{
+  "model": "waterproof_intake.costfunctionsprocess",
+  "pk": 14,
+  "fields": {
+    "symbol": "CON",
+    "categorys": "CONNECTION",
+    "energy": "100.0000",
+    "labour": "100.0000",
+    "mater_equipment": "100.0000",
+    "function_value": "NO EXISTE",
+    "function_name": "NO EXISTE",
+    "function_description": "CSINFA"
+  }
+},
+{
+  "model": "waterproof_intake.costfunctionsprocess",
+  "pk": 15,
+  "fields": {
+    "symbol": "EC",
+    "categorys": "EXTRACTIONCONNECTION",
+    "energy": "100.0000",
+    "labour": "100.0000",
+    "mater_equipment": "100.0000",
+    "function_value": "NO EXISTE",
+    "function_name": "NO EXISTE",
+    "function_description": "CSINFA"
+  }
+},
+{
+  "model": "waterproof_intake.costfunctionsprocess",
+  "pk": 16,
+  "fields": {
+    "symbol": "DQ",
+    "categorys": "SULFATODEALIMINIOLIQUIDO",
+    "energy": "51.0000",
+    "labour": "46.0000",
+    "mater_equipment": "3.0000",
+    "function_value": "xxxxxxx",
+    "function_name": "Mano de obra dosificaci\u00f3n",
+    "function_description": "Mano de obra dosificaci\u00f3n"
+  }
+},
+{
+  "model": "waterproof_intake.costfunctionsprocess",
+  "pk": 17,
+  "fields": {
+    "symbol": "DQ",
+    "categorys": "SULFATODEALIMINIOGRANULADO",
+    "energy": "12.0000",
+    "labour": "86.0000",
+    "mater_equipment": "2.0000",
+    "function_value": "\\left(\\left(164.98\\cdot Q_{C\\sin fra}\\right)+10264\\right)\\cdot \\left(1+\\left(0.24\\cdot \\left(Csed_{\\frac{c\\sin frainput^{^{-56}}}{56}}\\right)\\right)+\\left(0.06\\cdot \\left(CN_{\\frac{C\\sin fraInput^{^{-20}}}{20}}\\right)\\right)\\right)",
+    "function_name": "Mano de obra dosificaci\u00f3n",
+    "function_description": "Mano de obra dosificaci\u00f3n"
+  }
+},
+{
+  "model": "waterproof_intake.costfunctionsprocess",
+  "pk": 18,
+  "fields": {
+    "symbol": "DQ",
+    "categorys": "CLORUROFERICO",
+    "energy": "0.0000",
+    "labour": "0.0000",
+    "mater_equipment": "0.0000",
+    "function_value": "\\left(\\left(\\left(2.25\\cdot 10^{^{74}}\\right)\\cdot \\left(Q_{c\\sin fra^{^3}}\\right)-\\left(4.44\\cdot 10^{^{-6}}\\right)\\cdot Qc\\sin fra^{^2}\\right)+\\left(41.27\\cdot Qc\\sin fra\\right)+8625\\right)\\cdot \\left(1+\\left(0.24\\cdot \\left(\\frac{Csed_{C\\sin fraInput^{^{-56}}}^{ }}{56}\\right)\\right)+\\left(0.06\\cdot \\left(CN_{\\frac{C\\sin fraInput^{^{-20}}}{20}}\\right)\\right)\\right)",
+    "function_name": "Mano de obra dosificaci\u00f3n",
+    "function_description": "Mano de obra dosificaci\u00f3n"
+  }
+},
+{
+  "model": "waterproof_intake.costfunctionsprocess",
+  "pk": 19,
+  "fields": {
+    "symbol": "DQ",
+    "categorys": "PILIMOERO",
+    "energy": "0.0000",
+    "labour": "0.0000",
+    "mater_equipment": "0.0000",
+    "function_value": "\\left(\\left(-4.4\\cdot10^{^{-8}}\\right)\\cdot QCINFRA^{^3}+\\left(0.00111\\cdot QCSINFRA^{^2}\\right)+\\left(3.756\\cdot QCSINFRA\\right)+29338\\right)\\cdot\\left(1+\\left(0.24\\cdot\\left(\\frac{CsedC\\sin fraInput^{^{-56}}}{56}\\right)\\right)+\\left(0.06\\cdot\\left(\\frac{CNC\\sin frainput^{^{-20}}}{20}\\right)\\right)\\right)",
+    "function_name": "Mano de obra dosificaci\u00f3n",
+    "function_description": "Mano de obra dosificaci\u00f3n"
+  }
+},
+{
+  "model": "waterproof_intake.costfunctionsprocess",
+  "pk": 20,
+  "fields": {
+    "symbol": "MR",
+    "categorys": "MEZCLARAPIDA",
+    "energy": "44.0000",
+    "labour": "55.0000",
+    "mater_equipment": "1.0000",
+    "function_value": "\\left(\\left(-4.4\\cdot10^{^{-8}}\\right)\\cdot QCINFRA^{^3}+\\left(0.00111\\cdot QCSINFRA^{^2}\\right)+\\left(3.756\\cdot QCSINFRA\\right)+29338\\right)\\cdot\\left(1+\\left(0.24\\cdot\\left(\\frac{CsedC\\sin fraInput^{^{-56}}}{56}\\right)\\right)+\\left(0.06\\cdot\\left(\\frac{CNC\\sin frainput^{^{-20}}}{20}\\right)\\right)\\right)",
+    "function_name": "Costos de operaci\u00f3n y mantanimiento Anual",
+    "function_description": ""
+  }
+},
+{
+  "model": "waterproof_intake.costfunctionsprocess",
+  "pk": 21,
+  "fields": {
+    "symbol": "MR",
+    "categorys": "MEZCLARAPIDA",
+    "energy": "44.0000",
+    "labour": "55.0000",
+    "mater_equipment": "1.0000",
+    "function_value": "No esta en el GIT",
+    "function_name": "Costos de operaci\u00f3n y mantenimiento Anual",
+    "function_description": ""
+  }
+},
+{
+  "model": "waterproof_intake.costfunctionsprocess",
+  "pk": 22,
+  "fields": {
+    "symbol": "ML",
+    "categorys": "MEZCLALENTA",
+    "energy": "44.0000",
+    "labour": "30.0000",
+    "mater_equipment": "26.0000",
+    "function_value": "\\left(\\left(\\left(2.25\\cdot 10^{^{74}}\\right)\\cdot \\left(Q_{c\\sin fra^{^3}}\\right)-\\left(4.44\\cdot 10^{^{-6}}\\right)\\cdot Qc\\sin fra^{^2}\\right)+\\left(41.27\\cdot Qc\\sin fra\\right)+8625\\right)\\cdot \\left(1+\\left(0.24\\cdot \\left(\\frac{Csed_{C\\sin fraInput^{^{-56}}}^{ }}{56}\\right)\\right)+\\left(0.06\\cdot \\left(CN_{\\frac{C\\sin fraInput^{^{-20}}}{20}}\\right)\\right)\\right)",
+    "function_name": "Costos de operaci\u00f3n y mantenimiento Anual",
+    "function_description": ""
+  }
+},
+{
+  "model": "waterproof_intake.costfunctionsprocess",
+  "pk": 23,
+  "fields": {
+    "symbol": "ML",
+    "categorys": "MEZCLALENTA",
+    "energy": "44.0000",
+    "labour": "30.0000",
+    "mater_equipment": "26.0000",
+    "function_value": "No esta en el GIT",
+    "function_name": "Costos de operaci\u00f3n y mantenimiento Anual",
+    "function_description": ""
+  }
+},
+{
+  "model": "waterproof_intake.costfunctionsprocess",
+  "pk": 24,
+  "fields": {
+    "symbol": "S",
+    "categorys": "SEDIMENTACION",
+    "energy": "3.0000",
+    "labour": "89.0000",
+    "mater_equipment": "8.0000",
+    "function_value": "\\left(\\left(164.98\\cdot Q_{C\\sin fra}\\right)+10264\\right)\\cdot \\left(1+\\left(0.24\\cdot \\left(Csed_{\\frac{c\\sin frainput^{^{-56}}}{56}}\\right)\\right)+\\left(0.06\\cdot \\left(CN_{\\frac{C\\sin fraInput^{^{-20}}}{20}}\\right)\\right)\\right)",
+    "function_name": "Costos de operaci\u00f3n y mantenimiento Anual",
+    "function_description": ""
+  }
+},
+{
+  "model": "waterproof_intake.costfunctionsprocess",
+  "pk": 25,
+  "fields": {
+    "symbol": "S",
+    "categorys": "SEDIMENTACION",
+    "energy": "24.0000",
+    "labour": "67.0000",
+    "mater_equipment": "9.0000",
+    "function_value": "\\left(\\left(-0.002199\\cdot QCSINFRA^{^2}\\right)+\\left(24.227\\cdot QCSINFRA\\right)+31272\\right)+\\left(1+\\left(0.24\\cdot\\left(\\frac{Csedc\\sin frainput}{56}^{^{-56}}\\right)\\right)+\\left(0.06\\cdot\\left(\\frac{CNc\\sin fra}{20}^{^{-20}}\\right)\\right)\\right)",
+    "function_name": "Costos de operaci\u00f3n y mantenimiento Anual",
+    "function_description": ""
+  }
+},
+{
+  "model": "waterproof_intake.costfunctionsprocess",
+  "pk": 26,
+  "fields": {
+    "symbol": "S",
+    "categorys": "SEDIMENTACION",
+    "energy": "24.0000",
+    "labour": "67.0000",
+    "mater_equipment": "9.0000",
+    "function_value": "\\left(\\left(-0.002199\\cdot QCSINFRA^{^2}\\right)+\\left(24.227\\cdot QCSINFRA\\right)+31272\\right)+\\left(1+\\left(0.24\\cdot\\left(\\frac{Csedc\\sin frainput}{56}^{^{-56}}\\right)\\right)+\\left(0.06\\cdot\\left(\\frac{CNc\\sin fra}{20}^{^{-20}}\\right)\\right)\\right)",
+    "function_name": "Costos de operaci\u00f3n y mantenimiento Anual",
+    "function_description": ""
+  }
+},
+{
+  "model": "waterproof_intake.costfunctionsprocess",
+  "pk": 27,
+  "fields": {
+    "symbol": "F",
+    "categorys": "FILTRACION",
+    "energy": "30.0000",
+    "labour": "62.0000",
+    "mater_equipment": "8.0000",
+    "function_value": "(((1.55\\cdot10^{-11})\\cdot(Qc\\sin fra^3))-((2.52\\cdot10^{-6})\\cdot Qc\\sin fra^2)+(2.599\\cdot Qc\\sin fra)+86719)\\cdot\\left(1+\\left(0.24\\cdot\\left(\\frac{Csedc\\sin fra^{-56}}{56}\\right)\\right)+\\left(0.06\\cdot\\left(\\frac{CNc\\sin fra^{-20}}{20}\\right)\\right)\\right)",
+    "function_name": "Costos operaci\u00f3n y mantanimiento anual",
+    "function_description": ""
+  }
+},
+{
+  "model": "waterproof_intake.costfunctionsprocess",
+  "pk": 28,
+  "fields": {
+    "symbol": "F",
+    "categorys": "FILTRACION",
+    "energy": "30.0000",
+    "labour": "62.0000",
+    "mater_equipment": "8.0000",
+    "function_value": "(((6.94^{-8})\\cdot(Qc\\sin fra^3))-(0.00176\\cdot Qc\\sin fra^2)+(17.023\\cdot Qc\\sin fra)+14300)\\cdot\\left(1+\\left(0.24\\cdot\\left(\\frac{Csedc\\sin fra^{-56}}{56}\\right)\\right)+\\left(0.06\\cdot\\left(\\frac{CNc\\sin fra^{-20}}{20}\\right)\\right)\\right)",
+    "function_name": "Lavado por agua-aire",
+    "function_description": ""
+  }
+},
+{
+  "model": "waterproof_intake.costfunctionsprocess",
+  "pk": 29,
+  "fields": {
+    "symbol": "F",
+    "categorys": "FILTRACION",
+    "energy": "30.0000",
+    "labour": "62.0000",
+    "mater_equipment": "8.0000",
+    "function_value": "(((7.33\\cdot10^{-8})\\cdot(Qc\\sin fra^3))-(0.00495\\cdot Qc\\sin fra^2)+(126.17\\cdot Qc\\sin fra)+14300)\\cdot\\left(1+\\left(0.24\\cdot\\left(\\frac{Csedc\\sin fra^{-56}}{56}\\right)\\right)+\\left(0.06\\cdot\\left(\\frac{CNc\\sin fra^{-20}}{20}\\right)\\right)\\right)",
+    "function_name": "Lavado por bombeo",
+    "function_description": ""
+  }
+},
+{
+  "model": "waterproof_intake.costfunctionsprocess",
+  "pk": 30,
+  "fields": {
+    "symbol": "F",
+    "categorys": "FILTRACION",
+    "energy": "50.0000",
+    "labour": "18.0000",
+    "mater_equipment": "32.0000",
+    "function_value": "(((1.55\\cdot10^{-11})\\cdot(Qc\\sin fra^3))-((2.52\\cdot10^{-6})\\cdot Qc\\sin fra^2)+(2.599\\cdot Qc\\sin fra)+86719)\\cdot\\left(1+\\left(0.24\\cdot\\left(\\frac{Csedc\\sin fra^{-56}}{56}\\right)\\right)+\\left(0.06\\cdot\\left(\\frac{CNc\\sin fra^{-20}}{20}\\right)\\right)\\right)",
+    "function_name": "Costos operaci\u00f3n y mantanimiento anual",
+    "function_description": ""
+  }
+},
+{
+  "model": "waterproof_intake.costfunctionsprocess",
+  "pk": 31,
+  "fields": {
+    "symbol": "F",
+    "categorys": "FILTRACION",
+    "energy": "50.0000",
+    "labour": "18.0000",
+    "mater_equipment": "32.0000",
+    "function_value": "(((6.94^{-8})\\cdot(Qc\\sin fra^3))-(0.00176\\cdot Qc\\sin fra^2)+(17.023\\cdot Qc\\sin fra)+14300)\\cdot\\left(1+\\left(0.24\\cdot\\left(\\frac{Csedc\\sin fra^{-56}}{56}\\right)\\right)+\\left(0.06\\cdot\\left(\\frac{CNc\\sin fra^{-20}}{20}\\right)\\right)\\right)",
+    "function_name": "Lavado por agua-aire",
+    "function_description": ""
+  }
+},
+{
+  "model": "waterproof_intake.costfunctionsprocess",
+  "pk": 32,
+  "fields": {
+    "symbol": "F",
+    "categorys": "FILTRACION",
+    "energy": "50.0000",
+    "labour": "18.0000",
+    "mater_equipment": "32.0000",
+    "function_value": "(((7.33\\cdot10^{-8})\\cdot(Qc\\sin fra^3))-(0.00495\\cdot Qc\\sin fra^2)+(126.17\\cdot Qc\\sin fra)+14300)\\cdot\\left(1+\\left(0.24\\cdot\\left(\\frac{Csedc\\sin fra^{-56}}{56}\\right)\\right)+\\left(0.06\\cdot\\left(\\frac{CNc\\sin fra^{-20}}{20}\\right)\\right)\\right)",
+    "function_name": "Lavado por bombeo",
+    "function_description": ""
+  }
+},
+{
+  "model": "waterproof_intake.costfunctionsprocess",
+  "pk": 33,
+  "fields": {
+    "symbol": "F",
+    "categorys": "FILTRACION",
+    "energy": "30.0000",
+    "labour": "62.0000",
+    "mater_equipment": "8.0000",
+    "function_value": "(((1.55\\cdot10^{-11})\\cdot(Qc\\sin fra^3))-((2.52\\cdot10^{-6})\\cdot Qc\\sin fra^2)+(2.599\\cdot Qc\\sin fra)+86719)\\cdot\\left(1+\\left(0.24\\cdot\\left(\\frac{Csedc\\sin fra^{-56}}{56}\\right)\\right)+\\left(0.06\\cdot\\left(\\frac{CNc\\sin fra^{-20}}{20}\\right)\\right)\\right)",
+    "function_name": "Costos operaci\u00f3n y mantanimiento anual",
+    "function_description": ""
+  }
+},
+{
+  "model": "waterproof_intake.costfunctionsprocess",
+  "pk": 34,
+  "fields": {
+    "symbol": "F",
+    "categorys": "FILTRACION",
+    "energy": "30.0000",
+    "labour": "62.0000",
+    "mater_equipment": "8.0000",
+    "function_value": "(((6.94^{-8})\\cdot(Qc\\sin fra^3))-(0.00176\\cdot Qc\\sin fra^2)+(17.023\\cdot Qc\\sin fra)+14300)\\cdot\\left(1+\\left(0.24\\cdot\\left(\\frac{Csedc\\sin fra^{-56}}{56}\\right)\\right)+\\left(0.06\\cdot\\left(\\frac{CNc\\sin fra^{-20}}{20}\\right)\\right)\\right)",
+    "function_name": "Lavado por agua-aire",
+    "function_description": ""
+  }
+},
+{
+  "model": "waterproof_intake.costfunctionsprocess",
+  "pk": 43,
+  "fields": {
+    "symbol": "F",
+    "categorys": "FILTRACION",
+    "energy": "30.0000",
+    "labour": "62.0000",
+    "mater_equipment": "8.0000",
+    "function_value": "(((7.33\\cdot10^{-8})\\cdot(Qc\\sin fra^3))-(0.00495\\cdot Qc\\sin fra^2)+(126.17\\cdot Qc\\sin fra)+14300)\\cdot\\left(1+\\left(0.24\\cdot\\left(\\frac{Csedc\\sin fra^{-56}}{56}\\right)\\right)+\\left(0.06\\cdot\\left(\\frac{CNc\\sin fra^{-20}}{20}\\right)\\right)\\right)",
+    "function_name": "Lavado por bombeo",
+    "function_description": ""
+  }
+},
+{
+  "model": "waterproof_intake.costfunctionsprocess",
+  "pk": 44,
+  "fields": {
+    "symbol": "FM",
+    "categorys": "FILTRACIONPORMEMBRANANIVEL4",
+    "energy": "55.0000",
+    "labour": "1.0000",
+    "mater_equipment": "44.0000",
+    "function_value": "\\left(\\left(11582.2\\cdot Qc\\sin fra\\right)+272885\\right)\\cdot\\left(1+\\left(0.24\\cdot\\left(\\frac{Csedc\\sin frainput^{-56}}{56}\\right)\\right)+\\left(0.06\\cdot\\left(\\frac{CNc\\sin fainput^{-20}}{20}\\right)\\right)\\right)",
+    "function_name": "Operaci\u00f3n y Mantenimiento Anual",
+    "function_description": ""
+  }
+},
+{
+  "model": "waterproof_intake.costfunctionsprocess",
+  "pk": 45,
+  "fields": {
+    "symbol": "FM",
+    "categorys": "FILTRACIONPORMEMBRANANIVEL3",
+    "energy": "55.0000",
+    "labour": "1.0000",
+    "mater_equipment": "44.0000",
+    "function_value": "\\left(2.404\\cdot10^{1.828\\left(\\log\\left(86.4\\cdot Qc\\sin fra\\right)\\right)^{0.598}+1.876}\\right)\\cdot\\left(1+\\left(0.24\\cdot\\left(\\frac{Csedc\\sin frainput^{-56}}{56}\\right)\\right)+\\left(0.06\\cdot\\left(\\frac{CNc\\sin frainput^{-20}}{20}\\right)\\right)\\right)",
+    "function_name": "Operaci\u00f3n y Mantenimiento Anual",
+    "function_description": ""
+  }
+},
+{
+  "model": "waterproof_intake.costfunctionsprocess",
+  "pk": 46,
+  "fields": {
+    "symbol": "FM",
+    "categorys": "FILTRACIONPORMEMBRANANIVEL2",
+    "energy": "55.0000",
+    "labour": "1.0000",
+    "mater_equipment": "44.0000",
+    "function_value": "\\left(1.202\\cdot10^{1.828\\left(\\log\\left(86.4\\cdot Qc\\sin fra\\right)\\right)^{0.598}+1.876}\\right)\\cdot\\left(1+\\left(0.24\\cdot\\left(\\frac{Csedc\\sin frainput^{-56}}{56}\\right)\\right)+\\left(0.06\\cdot\\left(\\frac{CNc\\sin frainput^{-20}}{20}\\right)\\right)\\right)",
+    "function_name": "Operaci\u00f3n y Mantenimiento Anual",
+    "function_description": ""
+  }
+},
+{
+  "model": "waterproof_intake.costfunctionsprocess",
+  "pk": 47,
+  "fields": {
+    "symbol": "FM",
+    "categorys": "FILTRACIONPORMEMBRANANIVEL1",
+    "energy": "55.0000",
+    "labour": "1.0000",
+    "mater_equipment": "44.0000",
+    "function_value": "\\left(1.202\\cdot10^{1.828\\left(\\log\\left(86.4\\cdot Qc\\sin fra\\right)\\right)^{0.598}+1.876}\\right)\\cdot\\left(1+\\left(0.24\\cdot\\left(\\frac{Csedc\\sin frainput^{-56}}{56}\\right)\\right)+\\left(0.06\\cdot\\left(\\frac{CNc\\sin frainput^{-20}}{20}\\right)\\right)\\right)",
+    "function_name": "Operaci\u00f3n y Mantenimiento Anual",
+    "function_description": ""
+  }
+},
+{
+  "model": "waterproof_intake.costfunctionsprocess",
+  "pk": 50,
+  "fields": {
+    "symbol": "IO",
+    "categorys": "INTERCAMBIOIONICO",
+    "energy": "4.0000",
+    "labour": "26.0000",
+    "mater_equipment": "70.0000",
+    "function_value": "\\left(\\left(-0.4151\\cdot Qc\\sin fra^2\\right)+\\left(2527.19\\cdot Qc\\sin fra\\right)+136307\\right)\\cdot\\left(1+\\left(0.24\\cdot\\left(\\frac{Csedc\\sin frainput^{-56}}{56}\\right)\\right)+\\left(0.06\\cdot\\left(\\frac{CNc\\sin frainput^{-20}}{20}\\right)\\right)\\right)",
+    "function_name": "Operaci\u00f3n y Mantenimiento Anual",
+    "function_description": ""
+  }
+},
+{
+  "model": "waterproof_intake.costfunctionsprocess",
+  "pk": 51,
+  "fields": {
+    "symbol": "DS",
+    "categorys": "DESINFECCION",
+    "energy": "2.0000",
+    "labour": "74.0000",
+    "mater_equipment": "24.0000",
+    "function_value": "\\left(\\left(\\left(1.56\\cdot10^{-8}\\right)\\cdot Qc\\sin fra^3\\right)-\\left(0.0000845\\cdot Qc\\sin fra^2\\right)+\\left(23337\\cdot Qc\\sin fra\\right)+26482\\right)\\cdot\\left(1+\\left(0.24\\cdot\\left(\\frac{Csedc\\sin frainput^{-56}}{56}\\right)\\right)+\\left(0.06\\cdot\\left(\\frac{CNc\\sin frainput^{-20}}{20}\\right)\\right)\\right)",
+    "function_name": "Costos operaci\u00f3n y mantanimiento anual",
+    "function_description": ""
+  }
+},
+{
+  "model": "waterproof_intake.costfunctionsprocess",
+  "pk": 52,
+  "fields": {
+    "symbol": "DS",
+    "categorys": "DESINFECCION",
+    "energy": "66.0000",
+    "labour": "20.0000",
+    "mater_equipment": "14.0000",
+    "function_value": "\\left(\\left(-0.000161\\cdot Qc\\sin fra^2\\right)+\\left(50.563\\cdot Qc\\sin fra\\right)+36680\\right)\\cdot\\left(1+\\left(0.24\\cdot\\left(\\frac{Csedc\\sin frainput^{-56}}{56}\\right)\\right)+\\left(0.06\\cdot\\left(\\frac{CNc\\sin frainput^{-20}}{20}\\right)\\right)\\right)",
+    "function_name": "Costos operaci\u00f3n y mantanimiento anual",
+    "function_description": ""
+  }
+},
+{
+  "model": "waterproof_intake.costfunctionsprocess",
+  "pk": 53,
+  "fields": {
+    "symbol": "TL",
+    "categorys": "TRATAMIENTODELODOS",
+    "energy": "25.0000",
+    "labour": "27.0000",
+    "mater_equipment": "48.0000",
+    "function_value": "\\left(\\left(5\\cdot10^{-7}\\right)\\cdot\\left(4.565\\cdot Wsedsret\\cdot\\left(\\frac{1\\cdot10^6}{31356}\\right)\\right)^{^{^3}}\\right)-\\left(0.0071\\cdot\\left(4.565\\cdot Wsedsret\\cdot\\left(\\frac{1\\cdot10^6}{31536}\\right)\\right)^{^{^2}}\\right)+\\left(54.211\\cdot\\left(4.565\\cdot Wsedsret\\cdot\\left(\\frac{1\\cdot10^6}{31536}\\right)\\right)\\right)+14402",
+    "function_name": "Operaci\u00f3n y Mantenimiento Anual",
+    "function_description": ""
+  }
+},
+{
+  "model": "waterproof_intake.costfunctionsprocess",
+  "pk": 54,
+  "fields": {
+    "symbol": "TL",
+    "categorys": "TRATAMIENTODELODOS",
+    "energy": "10.0000",
+    "labour": "86.0000",
+    "mater_equipment": "4.0000",
+    "function_value": "0.8920\\cdot\\left(\\left(1.86\\cdot Wsedsret+0.465\\cdot Wsedfret\\right)\\cdot\\left(\\frac{1\\cdot10^6}{31536}\\right)\\right)^{^2}+2334.4\\cdot\\left(\\left(1.86\\cdot Wsedsret+0.465Wsedfret\\right)\\cdot\\left(\\frac{1\\cdot10^6}{31536}\\right)\\right)+31482",
+    "function_name": "Operaci\u00f3n y Mantenimiento Anual",
+    "function_description": ""
+  }
+},
+{
+  "model": "waterproof_intake.costfunctionsprocess",
+  "pk": 55,
+  "fields": {
+    "symbol": "TL",
+    "categorys": "TRATAMIENTODELODOS",
+    "energy": "9.0000",
+    "labour": "73.0000",
+    "mater_equipment": "18.0000",
+    "function_value": "\\left(3.29\\cdot10^{-3}\\cdot Wsedsret\\cdot\\left(\\frac{1\\cdot10^6}{31536}\\right)\\right)+\\left(8.58\\cdot\\sqrt{Wsedsret\\cdot\\left(\\frac{1\\cdot10^6}{31536}\\right)}\\right)+5887.3",
+    "function_name": "Operaci\u00f3n y Mantenimiento Anual",
+    "function_description": ""
+  }
+},
+{
+  "model": "waterproof_intake.costfunctionsprocess",
+  "pk": 56,
+  "fields": {
+    "symbol": "TL",
+    "categorys": "TRATAMIENTODELODOS",
+    "energy": "30.0000",
+    "labour": "62.0000",
+    "mater_equipment": "8.0000",
+    "function_value": "\\left(0.771\\cdot\\left(27.39\\cdot Wsedsret\\cdot\\left(\\frac{1\\cdot10^6}{31536}\\right)\\right)^{^2}\\right)+\\left(2074\\cdot\\left(27.39\\cdot Wsedsret\\cdot\\left(\\frac{1\\cdot10^6}{31536}\\right)\\right)\\right)+61152",
+    "function_name": "Operaci\u00f3n y Mantenimiento Anual",
+    "function_description": ""
+  }
+}
+]

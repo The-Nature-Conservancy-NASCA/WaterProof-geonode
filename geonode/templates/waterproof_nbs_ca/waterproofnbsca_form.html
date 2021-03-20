@@ -10,7 +10,7 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <div>
     <h1>{% trans "Create Nature based solution (NBS)" %}
-        <button type="button" data-toggle="modal" data-target="#HelpCreate" id="HelpModalBtnModal" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca;"></button> 
+        <button type="button" data-toggle="modal" data-target="#HelpCreate" id="HelpModalBtnModal" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button> 
     </h1>
     <h6>{% trans "Through this form you can create a custom NbS. Select the country for which you want to be considered and fill in your identification data, costs and the transitions obtained with its implementation." %}</h6>
 </div>
@@ -135,10 +135,10 @@
                     <thead>
                         <tr>
                             <th>
-                                <h4 class="text-primary">{% trans "LAND USE" %}</h4>
+                                <h5>{% trans "Land use" %}</h5>
                             </th>
                             <th>
-                                <h4 class="text-primary">{% trans "LAND COVER CHANGE DEFINITION" %}</h4>
+                                <h5 >{% trans "Land cover change definition" %}</h5>
                             </th>
                         </tr>
                         

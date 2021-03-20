@@ -1,0 +1,58 @@
+[
+    {
+        "model": "waterproof_parameters.regions",
+        "pk": 1,
+        "fields": {
+            "name": "Europe and Central Asia"
+        }
+    },
+    {
+        "model": "waterproof_parameters.regions",
+        "pk": 2,
+        "fields": {
+            "name": "Middle East and North Africa"
+        }
+    },
+    {
+        "model": "waterproof_parameters.regions",
+        "pk": 3,
+        "fields": {
+            "name": "WORLD"
+        }
+    },
+    {
+        "model": "waterproof_parameters.regions",
+        "pk": 4,
+        "fields": {
+            "name": "Latin America and Caribbean"
+        }
+    },
+    {
+        "model": "waterproof_parameters.regions",
+        "pk": 5,
+        "fields": {
+            "name": "Sub-Saharan Africa"
+        }
+    },
+    {
+        "model": "waterproof_parameters.regions",
+        "pk": 6,
+        "fields": {
+            "name": "East Asia and Pacific"
+        }
+    },
+    {
+        "model": "waterproof_parameters.regions",
+        "pk": 7,
+        "fields": {
+            "name": "South Asia"
+        }
+    },
+    {
+        "model": "waterproof_parameters.regions",
+        "pk": 8,
+        "fields": {
+            "name": "North America"
+        }
+    }
+]
