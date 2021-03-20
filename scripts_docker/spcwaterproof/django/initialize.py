@@ -133,7 +133,16 @@ else:
 
 print("-----------------------------------------------------")
 print("5. Loading fixtures")
+print("5.1 Initial Data")
 call_command('loaddata', 'initial_data')
+print("5.2 Themes")
+call_command('loaddata', 'geonode_themes')
+print("5.2 Cost Functions Process")
+call_command('loaddata', 'waterprof_intake_costfunctionsprocess')
+print("5.3 Regions")
+call_command('loaddata', 'waterproof_parameters_regions')
+#print("5.4 Countries")
+#call_command('loaddata', 'waterproof_parameters_countries')
 
 
 #########################################################
