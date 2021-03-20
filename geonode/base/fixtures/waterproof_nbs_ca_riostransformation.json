@@ -1,0 +1,416 @@
+[{
+        "model": "waterproof_nbs_ca.riostransformation",
+        "pk": 1,
+        "fields": {
+            "activity": 1,
+            "name": "Forest",
+            "description": "Forest",
+            "unique_id": "1"
+        }
+    }, {
+        "model": "waterproof_nbs_ca.riostransformation",
+        "pk": 2,
+        "fields": {
+            "activity": 2,
+            "name": "Grassland",
+            "description": "Grassland",
+            "unique_id": "1"
+        }
+    }, {
+        "model": "waterproof_nbs_ca.riostransformation",
+        "pk": 3,
+        "fields": {
+            "activity": 3,
+            "name": "Shrublands",
+            "description": "Shrubland",
+            "unique_id": "1"
+        }
+    }, {
+        "model": "waterproof_nbs_ca.riostransformation",
+        "pk": 4,
+        "fields": {
+            "activity": 4,
+            "name": "Sparse vegetation",
+            "description": "Sparse vegetation",
+            "unique_id": "1"
+        }
+    }, {
+        "model": "waterproof_nbs_ca.riostransformation",
+        "pk": 5,
+        "fields": {
+            "activity": 5,
+            "name": "Forest",
+            "description": "Forest",
+            "unique_id": "1"
+        }
+    }, {
+        "model": "waterproof_nbs_ca.riostransformation",
+        "pk": 6,
+        "fields": {
+            "activity": 5,
+            "name": "Shrublands",
+            "description": "Shrubland",
+            "unique_id": "1"
+        }
+    }, {
+        "model": "waterproof_nbs_ca.riostransformation",
+        "pk": 7,
+        "fields": {
+            "activity": 5,
+            "name": "Sparse vegetation",
+            "description": "Sparse vegetation",
+            "unique_id": "1"
+        }
+    }, {
+        "model": "waterproof_nbs_ca.riostransformation",
+        "pk": 8,
+        "fields": {
+            "activity": 6,
+            "name": "Forest",
+            "description": "Forest",
+            "unique_id": "1"
+        }
+    }, {
+        "model": "waterproof_nbs_ca.riostransformation",
+        "pk": 9,
+        "fields": {
+            "activity": 6,
+            "name": "Shrublands",
+            "description": "Shrubland",
+            "unique_id": "1"
+        }
+    }, {
+        "model": "waterproof_nbs_ca.riostransformation",
+        "pk": 10,
+        "fields": {
+            "activity": 6,
+            "name": "Sparse vegetation",
+            "description": "Sparse vegetation",
+            "unique_id": "1"
+        }
+    }, {
+        "model": "waterproof_nbs_ca.riostransformation",
+        "pk": 11,
+        "fields": {
+            "activity": 7,
+            "name": "Forest",
+            "description": "Forest",
+            "unique_id": "1"
+        }
+    }, {
+        "model": "waterproof_nbs_ca.riostransformation",
+        "pk": 12,
+        "fields": {
+            "activity": 8,
+            "name": "Forest",
+            "description": "Forest",
+            "unique_id": "1"
+        }
+    }, {
+        "model": "waterproof_nbs_ca.riostransformation",
+        "pk": 13,
+        "fields": {
+            "activity": 8,
+            "name": "Shrublands",
+            "description": "Shrubland",
+            "unique_id": "1"
+        }
+    }, {
+        "model": "waterproof_nbs_ca.riostransformation",
+        "pk": 14,
+        "fields": {
+            "activity": 9,
+            "name": "Forest",
+            "description": "Forest",
+            "unique_id": "1"
+        }
+    }, {
+        "model": "waterproof_nbs_ca.riostransformation",
+        "pk": 15,
+        "fields": {
+            "activity": 9,
+            "name": "Shrublands",
+            "description": "Shrubland",
+            "unique_id": "1"
+        }
+    }, {
+        "model": "waterproof_nbs_ca.riostransformation",
+        "pk": 16,
+        "fields": {
+            "activity": 9,
+            "name": "Sparse vegetation",
+            "description": "Sparse vegetation",
+            "unique_id": "1"
+        }
+    }, {
+        "model": "waterproof_nbs_ca.riostransformation",
+        "pk": 17,
+        "fields": {
+            "activity": 10,
+            "name": "Forest",
+            "description": "Forest",
+            "unique_id": "1"
+        }
+    }, {
+        "model": "waterproof_nbs_ca.riostransformation",
+        "pk": 18,
+        "fields": {
+            "activity": 10,
+            "name": "Shrublands",
+            "description": "Shrubland",
+            "unique_id": "1"
+        }
+    }, {
+        "model": "waterproof_nbs_ca.riostransformation",
+        "pk": 19,
+        "fields": {
+            "activity": 10,
+            "name": "Sparse vegetation",
+            "description": "Sparse vegetation",
+            "unique_id": "1"
+        }
+    }, {
+        "model": "waterproof_nbs_ca.riostransformation",
+        "pk": 20,
+        "fields": {
+            "activity": 11,
+            "name": "Forest",
+            "description": "Forest",
+            "unique_id": "1"
+        }
+    }, {
+        "model": "waterproof_nbs_ca.riostransformation",
+        "pk": 21,
+        "fields": {
+            "activity": 11,
+            "name": "Shrublands",
+            "description": "Shrubland",
+            "unique_id": "1"
+        }
+    }, {
+        "model": "waterproof_nbs_ca.riostransformation",
+        "pk": 22,
+        "fields": {
+            "activity": 11,
+            "name": "Sparse vegetation",
+            "description": "Sparse vegetation",
+            "unique_id": "1"
+        }
+    }, {
+        "model": "waterproof_nbs_ca.riostransformation",
+        "pk": 23,
+        "fields": {
+            "activity": 12,
+            "name": "Forest",
+            "description": "Forest",
+            "unique_id": "1"
+        }
+    }, {
+        "model": "waterproof_nbs_ca.riostransformation",
+        "pk": 24,
+        "fields": {
+            "activity": 13,
+            "name": "Shrublands",
+            "description": "Shrubland",
+            "unique_id": "1"
+        }
+    }, {
+        "model": "waterproof_nbs_ca.riostransformation",
+        "pk": 25,
+        "fields": {
+            "activity": 13,
+            "name": "Forest",
+            "description": "Forest",
+            "unique_id": "1"
+        }
+    }, {
+        "model": "waterproof_nbs_ca.riostransformation",
+        "pk": 26,
+        "fields": {
+            "activity": 14,
+            "name": "Forest",
+            "description": "Forest",
+            "unique_id": "1"
+        }
+    }, {
+        "model": "waterproof_nbs_ca.riostransformation",
+        "pk": 27,
+        "fields": {
+            "activity": 14,
+            "name": "Shrublands",
+            "description": "Shrubland",
+            "unique_id": "1"
+        }
+    }, {
+        "model": "waterproof_nbs_ca.riostransformation",
+        "pk": 28,
+        "fields": {
+            "activity": 14,
+            "name": "Sparse vegetation",
+            "description": "Sparse vegetation",
+            "unique_id": "1"
+        }
+    }, {
+        "model": "waterproof_nbs_ca.riostransformation",
+        "pk": 29,
+        "fields": {
+            "activity": 16,
+            "name": "Agriculture with Vegetation Management (High Effect)",
+            "description": "Agriculture with Vegetation Management (High Effect)",
+            "unique_id": "1"
+        }
+    }, {
+        "model": "waterproof_nbs_ca.riostransformation",
+        "pk": 30,
+        "fields": {
+            "activity": 16,
+            "name": "Agriculture with Vegetation Management (Low Effect)",
+            "description": "Agriculture with Vegetation Management (Low Effect)",
+            "unique_id": "1"
+        }
+    }, {
+        "model": "waterproof_nbs_ca.riostransformation",
+        "pk": 31,
+        "fields": {
+            "activity": 16,
+            "name": "Agriculture with Vegetation Management (Medium Effect)",
+            "description": "Agriculture with Vegetation Management (Medium Effect)",
+            "unique_id": "1"
+        }
+    }, {
+        "model": "waterproof_nbs_ca.riostransformation",
+        "pk": 32,
+        "fields": {
+            "activity": 17,
+            "name": "Bare Area with Ditching (High Effect)",
+            "description": "Bare Area with Ditching (High Effect)",
+            "unique_id": "1"
+        }
+    }, {
+        "model": "waterproof_nbs_ca.riostransformation",
+        "pk": 33,
+        "fields": {
+            "activity": 18,
+            "name": "Bare Area with Ditching (High Effect)",
+            "description": "Bare Area with Ditching (High Effect)",
+            "unique_id": "1"
+        }
+    }, {
+        "model": "waterproof_nbs_ca.riostransformation",
+        "pk": 34,
+        "fields": {
+            "activity": 17,
+            "name": "Agriculture with Ditching (Medium Effect)",
+            "description": "Agriculture with Ditching (Medium Effect)",
+            "unique_id": "1"
+        }
+    }, {
+        "model": "waterproof_nbs_ca.riostransformation",
+        "pk": 35,
+        "fields": {
+            "activity": 17,
+            "name": "Agriculture with Ditching (Low Effect)",
+            "description": "Agriculture with Ditching (Low Effect)",
+            "unique_id": "1"
+        }
+    }, {
+        "model": "waterproof_nbs_ca.riostransformation",
+        "pk": 36,
+        "fields": {
+            "activity": 18,
+            "name": "Bare Area with Ditching (Medium Effect)",
+            "description": "Bare Area with Ditching (Medium Effect)",
+            "unique_id": "1"
+        }
+    }, {
+        "model": "waterproof_nbs_ca.riostransformation",
+        "pk": 37,
+        "fields": {
+            "activity": 18,
+            "name": "Bare Area with Ditching (Low Effect)",
+            "description": "Bare Area with Ditching (Low Effect)",
+            "unique_id": "1"
+        }
+    }, {
+        "model": "waterproof_nbs_ca.riostransformation",
+        "pk": 38,
+        "fields": {
+            "activity": 19,
+            "name": "Grassland with Pasture Management (High Effect)",
+            "description": "Grassland with Pasture Management (High Effect)",
+            "unique_id": "1"
+        }
+    }, {
+        "model": "waterproof_nbs_ca.riostransformation",
+        "pk": 39,
+        "fields": {
+            "activity": 19,
+            "name": "Grassland with Pasture Management (Medium Effect)",
+            "description": "Grassland with Pasture Management (Medium Effect)",
+            "unique_id": "1"
+        }
+    }, {
+        "model": "waterproof_nbs_ca.riostransformation",
+        "pk": 40,
+        "fields": {
+            "activity": 19,
+            "name": "Grassland with Pasture Management (Low Effect)",
+            "description": "Grassland with Pasture Management (Low Effect)",
+            "unique_id": "1"
+        }
+    }, {
+        "model": "waterproof_nbs_ca.riostransformation",
+        "pk": 41,
+        "fields": {
+            "activity": 20,
+            "name": "Agriculture with Fertilizer Management (High Effect)",
+            "description": "Agriculture with Fertilizer Management (High Effect)",
+            "unique_id": "1"
+        }
+    }, {
+        "model": "waterproof_nbs_ca.riostransformation",
+        "pk": 42,
+        "fields": {
+            "activity": 20,
+            "name": "Agriculture with Fertilizer Management (Medium Effect)",
+            "description": "Agriculture with Fertilizer Management (Medium Effect)",
+            "unique_id": "1"
+        }
+    }, {
+        "model": "waterproof_nbs_ca.riostransformation",
+        "pk": 43,
+        "fields": {
+            "activity": 20,
+            "name": "Agriculture with Fertilizer Management (Low Effect)",
+            "description": "Agriculture with Fertilizer Management (Low Effect)",
+            "unique_id": "1"
+        }
+    }, {
+        "model": "waterproof_nbs_ca.riostransformation",
+        "pk": 44,
+        "fields": {
+            "activity": 21,
+            "name": "Grassland with Fertilizer Management (High Effect)",
+            "description": "Grassland with Fertilizer Management (High Effect)",
+            "unique_id": "1"
+        }
+    }, {
+        "model": "waterproof_nbs_ca.riostransformation",
+        "pk": 45,
+        "fields": {
+            "activity": 21,
+            "name": "Grassland with Fertilizer Management (Medium Effect)",
+            "description": "Grassland with Fertilizer Management (Medium Effect)",
+            "unique_id": "1"
+        }
+    }, {
+        "model": "waterproof_nbs_ca.riostransformation",
+        "pk": 46,
+        "fields": {
+            "activity": 21,
+            "name": "Grassland with Fertilizer Management (Low Effect)",
+            "description": "Grassland with Fertilizer Management (Low Effect)",
+            "unique_id": "1"
+        }
+    }
+]
