@@ -1,0 +1,51 @@
+[{
+        "model": "waterproof_nbs_ca.riostransition",
+        "pk": 1,
+        "fields": {
+            "name": "Keep Native Vegetation",
+            "description": "Keep Native Vegetation"
+        }
+    }, {
+        "model": "waterproof_nbs_ca.riostransition",
+        "pk": 2,
+        "fields": {
+            "name": "Revegetation (unassisted)",
+            "description": "Revegetation (unassisted)"
+        }
+    }, {
+        "model": "waterproof_nbs_ca.riostransition",
+        "pk": 3,
+        "fields": {
+            "name": "Revegetation (assisted)",
+            "description": "Revegetation (assisted)"
+        }
+    }, {
+        "model": "waterproof_nbs_ca.riostransition",
+        "pk": 4,
+        "fields": {
+            "name": "Agricultural vegetation management",
+            "description": "Agricultural vegetation management"
+        }
+    }, {
+        "model": "waterproof_nbs_ca.riostransition",
+        "pk": 5,
+        "fields": {
+            "name": "Ditching",
+            "description": "Ditching"
+        }
+    }, {
+        "model": "waterproof_nbs_ca.riostransition",
+        "pk": 6,
+        "fields": {
+            "name": "Fertilizer management",
+            "description": "Fertilizer management"
+        }
+    }, {
+        "model": "waterproof_nbs_ca.riostransition",
+        "pk": 7,
+        "fields": {
+            "name": "Pasture management",
+            "description": "Pasture management"
+        }
+    }
+]
