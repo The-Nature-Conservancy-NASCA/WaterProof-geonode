@@ -7,48 +7,8 @@ x-common-django:
   build:
     context: ../../
     dockerfile: scripts_docker/spcwaterproof/django/Dockerfile
-  environment:
-    # editable in .env
-    - HTTPS_HOST=${HTTPS_HOST}
-    - HTTPS_PORT=${HTTPS_PORT}
-    - HTTP_HOST=${HTTP_HOST}
-    - HTTP_PORT=${HTTP_PORT}
-    - ADMIN_USERNAME=${ADMIN_USERNAME}
-    - ADMIN_PASSWORD=${ADMIN_PASSWORD}
-    - ADMIN_EMAIL=${ADMIN_EMAIL}
-    - GEOSERVER_ADMIN_USER=${ADMIN_USERNAME}
-    - GEOSERVER_ADMIN_PASSWORD=${ADMIN_PASSWORD}
-    - REGISTRATION_OPEN=${REGISTRATION_OPEN}
-    - TIME_ZONE=${TIME_ZONE}
-    - ALLOWED_HOSTS=['nginx','127.0.0.1','localhost','$HTTPS_HOST','$HTTP_HOST']
-    - SECRET_KEY=${SECRET_KEY}
-    # data
-    ## -- comment to disable postgis ingestion of uploaded shapefiles
-    - DEFAULT_BACKEND_UPLOADER=geonode.importer
-    - DEFAULT_BACKEND_DATASTORE=datastore
-    # database info, ${variables} are read from .env
-    - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-    - GEONODE_DATABASE=${GEONODE_DATABASE}
-    - GEONODE_DATABASE_PASSWORD=${GEONODE_DATABASE_PASSWORD}
-    - GEONODE_GEODATABASE=${GEONODE_GEODATABASE}
-    - GEONODE_GEODATABASE_PASSWORD=${GEONODE_GEODATABASE_PASSWORD}
-    - DATABASE_URL=postgres://${GEONODE_DATABASE_USER}:${GEONODE_DATABASE_PASSWORD}@postgres:5432/${GEONODE_DATABASE}
-    - GEODATABASE_URL=postgis://${GEONODE_GEODATABASE_USER}:${GEONODE_GEODATABASE_PASSWORD}@postgres:5432/${GEONODE_GEODATABASE}
-    # hardcoded
-    - DEBUG=False
-    - DJANGO_SETTINGS_MODULE=geonode.settings
-    - BROKER_URL=amqp://guest:guest@rabbitmq:5672/
-    - STATIC_ROOT=/spcwaterproof-static/
-    - MEDIA_ROOT=/spcwaterproof-media/
-    - STATIC_URL=/static/
-    - MEDIA_URL=/uploaded/
-    - GEOSERVER_LOCATION=http://nginx/geoserver/
-    - ASYNC_SIGNALS=True
-    - SESSION_EXPIRED_CONTROL_ENABLED=True
-    # TODO : we should probably remove this and set Celery to use JSON serialization instead of pickle
-    - C_FORCE_ROOT=True
-    # We get an exception after migrations on startup (it seems the monitoring app tries to resolve the geoserver domain name after it's migration, which can happen before oauth migrations on which geoserver startup depends...)
-    - MONITORING_ENABLED=False
+  env_file:
+    - .env
   volumes:
     - static:/spcwaterproof-static/
     - media:/spcwaterproof-media/

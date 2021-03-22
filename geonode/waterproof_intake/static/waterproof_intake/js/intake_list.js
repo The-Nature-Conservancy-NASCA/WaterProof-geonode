@@ -129,7 +129,12 @@ $(function () {
         var cityCoords = localStorage.getItem('cityCoords');
         var city = localStorage.getItem('city');
         var initialZoom = 5;
+       if(localStorage.length != 0){
+           console.log(localStorage.length)
         var cityNameMap = localStorage.getItem('city').substr(0, 5);
+       } else{
+        var cityNameMap = localStorage.getItem('');
+       }
 
         if (cityCoords == undefined) {
             table.search(cityNameMap).draw();
@@ -231,15 +236,16 @@ $(function () {
 
         drawPolygons(cityName);
         table.search(cityName.substr(0, 5)).draw();
+        
+        let urlAPI = SEARCH_COUNTRY_API_URL + countryCode;
+        console.log(urlAPI)
 
-        let urlAPI = '{{ SEARCH_COUNTRY_API_URL }}' + countryCode;
-
-        $.get(urlAPI, function (data) {
-            //console.log(data);
+        $.get(urlAPI, function(data){
+            console.log("data en intakes es:"+data.region);
             $("#regionLabel").html(data.region);
             $("#currencyLabel").html(data.currencies[0].name + " - " + data.currencies[0].symbol);
             $("#listIntakes").show();
-
+            
             localStorage.setItem('country', country);
             localStorage.setItem('region', data.region);
             localStorage.setItem('currency', data.currencies[0].name + " - " + data.currencies[0].symbol);

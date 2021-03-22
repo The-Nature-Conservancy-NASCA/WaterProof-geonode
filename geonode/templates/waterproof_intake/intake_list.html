@@ -177,6 +177,7 @@
 </div>
 {% block body %}{% endblock body %} {% block sidebar %}{% endblock sidebar %} {% endblock body_outer %} {% block extra_script %}
 <script>
+    SEARCH_CITY_API_URL = '{{ SEARCH_CITY_API_URL }}';
     var countriesLayerUrl = '{{ STATIC_URL }}waterproof_intake/data/countries.geojson';
     var userCountryId = '{{userCountry.id}}';
     var userCountryCode = '{{userCountry.code}}';
@@ -202,6 +203,7 @@
 <script src=" {{ STATIC_URL }}geonode/sample_data/intake_polygon.js "></script>
 <script src=" https://cdn.jsdelivr.net/npm/sweetalert2@10 "></script>
 <script type=" text/javascript ">
+
     API_URL = '/proxy/?url=https://photon.komoot.de/api/?';
     TILELAYER = 'http://{s}.tile.osm.org/{z}/{x}/{y}.png';
     CENTER = [-74.4879, 4.582];

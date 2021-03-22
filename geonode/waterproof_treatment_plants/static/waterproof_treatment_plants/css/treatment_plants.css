@@ -511,7 +511,7 @@ textarea {
 }
 .overflow-form {
     overflow-y: hidden;
-    overflow-x: scroll;
+    overflow-x: hidden;
     width: 700px;
 }
 .form-popup {
@@ -546,4 +546,10 @@ textarea {
     font-family: cursive;
     padding: 4px;
     cursor: pointer;
+}
+.link-form {
+    color: #0b10af;
+    text-decoration: underline;
+    cursor: pointer;
+    font-size: 15px;
 }
