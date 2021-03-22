@@ -684,7 +684,9 @@ function onInit(editor) {
                             'ecuation_3': mathFieldE3.latex()
                         }],
                     }
-                })
+                });
+
+                funcostdb[funcostdb.length - 1].fields.logical = JSON.stringify(funcostdb[funcostdb.length - 1].fields.logical);
             } else {
                 //false = editar
                 var temp = {
@@ -727,6 +729,7 @@ function onInit(editor) {
             $('#CalculatorModalLabel').text('Modify Cost - ' + $('#titleCostFunSmall').text())
             setVarCost();
             let value = funcostdb[CostSelected].fields.function_value;
+            mathField.latex(value).blur();
             if (funcostdb[CostSelected].fields.logical != undefined) {
                 let logicalcost = JSON.parse(funcostdb[CostSelected].fields.logical);
                 mathFieldlog1.latex(logicalcost[0].condition_1).blur();
@@ -736,7 +739,7 @@ function onInit(editor) {
                 mathFieldE2.latex(logicalcost[0].ecuation_2).blur();
                 mathFieldE3.latex(logicalcost[0].ecuation_3).blur();
             }
-            mathField.latex(value).blur();
+
         });
 
         //Delete funcion cost 
