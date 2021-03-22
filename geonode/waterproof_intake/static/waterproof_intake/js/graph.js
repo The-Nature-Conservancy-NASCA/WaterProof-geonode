@@ -675,14 +675,14 @@ function onInit(editor) {
                         'function_description': $('#costFuntionDescription').val(),
                         'global_multiplier_factorCalculator': $('#global_multiplier_factorCalculator').val(),
                         'currencyCost': $('#currencyCost').val(),
-                        'logical': {
+                        'logical': [{
                             'condition_1': mathFieldlog1.latex(),
                             'ecuation_1': mathFieldE1.latex(),
                             'condition_2': mathFieldlog2.latex(),
                             'ecuation_2': mathFieldE2.latex(),
                             'condition_3': mathFieldlog3.latex(),
                             'ecuation_3': mathFieldE3.latex()
-                        },
+                        }],
                     }
                 })
             } else {
@@ -692,14 +692,14 @@ function onInit(editor) {
                     'function_description': $('#costFuntionDescription').val(),
                     'global_multiplier_factorCalculator': $('#global_multiplier_factorCalculator').val(),
                     'currencyCost': $('#currencyCost').val(),
-                    'logical': {
+                    'logical': [{
                         'condition_1': mathFieldlog1.latex(),
                         'ecuation_1': mathFieldE1.latex(),
                         'condition_2': mathFieldlog2.latex(),
                         'ecuation_2': mathFieldE2.latex(),
                         'condition_3': mathFieldlog3.latex(),
                         'ecuation_3': mathFieldE3.latex()
-                    },
+                    }],
                 }
 
                 temp.logical = JSON.stringify(temp.logical);
@@ -729,12 +729,12 @@ function onInit(editor) {
             let value = funcostdb[CostSelected].fields.function_value;
             if (funcostdb[CostSelected].fields.logical != undefined) {
                 let logicalcost = JSON.parse(funcostdb[CostSelected].fields.logical);
-                mathFieldlog1.latex(logicalcost.condition_1).blur();
-                mathFieldlog2.latex(logicalcost.condition_2).blur();
-                mathFieldlog3.latex(logicalcost.condition_3).blur();
-                mathFieldE1.latex(logicalcost.ecuation_1).blur();
-                mathFieldE2.latex(logicalcost.ecuation_2).blur();
-                mathFieldE3.latex(logicalcost.ecuation_3).blur();
+                mathFieldlog1.latex(logicalcost[0].condition_1).blur();
+                mathFieldlog2.latex(logicalcost[0].condition_2).blur();
+                mathFieldlog3.latex(logicalcost[0].condition_3).blur();
+                mathFieldE1.latex(logicalcost[0].ecuation_1).blur();
+                mathFieldE2.latex(logicalcost[0].ecuation_2).blur();
+                mathFieldE3.latex(logicalcost[0].ecuation_3).blur();
             }
             mathField.latex(value).blur();
         });
