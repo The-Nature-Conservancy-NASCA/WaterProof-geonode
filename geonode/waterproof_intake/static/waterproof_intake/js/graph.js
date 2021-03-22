@@ -16,6 +16,7 @@ var connection = [];
 var funcostdb = [];
 var bandera = true;
 var banderaValideGraph = 1;
+var banderaFunctionCost = false;
 // Program starts here. The document.onLoad executes the
 // createEditor function with a given configuration.
 // In the config file, the mxEditor.onInit method is
@@ -517,6 +518,16 @@ function onInit(editor) {
             mathQuillSelected = $(this).attr('valinfo');
         });
 
+        function clearInputsMath() {
+            mathField.latex('').blur();
+            mathFieldlog1.latex('').blur();
+            mathFieldlog2.latex('').blur();
+            mathFieldlog3.latex('').blur();
+            mathFieldE1.latex('').blur();
+            mathFieldE2.latex('').blur();
+            mathFieldE3.latex('').blur();
+        }
+
         $("#currencyCost").on("change", function() {
             $.ajax({
                 url: `/parameters/load-currency/?currency=${$('#currencyCost').val()}`,
@@ -655,24 +666,46 @@ function onInit(editor) {
 
 
         $('#saveAndValideCost').click(function() {
-            $('#costFunctionName').val();
-            $('#costFuntionDescription').val();
-            var temp = {
-                'global_multiplier_factorCalculator': $('#global_multiplier_factorCalculator').val(),
-                'currencyCost': $('#currencyCost').val(),
-                'logical': [{
+            if (banderaFunctionCost) {
+                //true = nueva
+                funcostdb.push({
+                    'fields': {
+                        'function_value': mathField.latex(),
+                        'function_name': $('#costFunctionName').val() == '' ? 'Undefined name' : $('#costFunctionName').val(),
+                        'function_description': $('#costFuntionDescription').val(),
+                        'global_multiplier_factorCalculator': $('#global_multiplier_factorCalculator').val(),
+                        'currencyCost': $('#currencyCost').val(),
+                        'logical': {
+                            'condition_1': mathFieldlog1.latex(),
+                            'ecuation_1': mathFieldE1.latex(),
+                            'condition_2': mathFieldlog2.latex(),
+                            'ecuation_2': mathFieldE2.latex(),
+                            'condition_3': mathFieldlog3.latex(),
+                            'ecuation_3': mathFieldE3.latex()
+                        },
+                    }
+                })
+            } else {
+                //false = editar
+                var temp = {
+                    'function_name': $('#costFunctionName').val() == '' ? 'Undefined name' : $('#costFunctionName').val(),
+                    'function_description': $('#costFuntionDescription').val(),
+                    'global_multiplier_factorCalculator': $('#global_multiplier_factorCalculator').val(),
+                    'currencyCost': $('#currencyCost').val(),
+                    'logical': {
                         'condition_1': mathFieldlog1.latex(),
                         'ecuation_1': mathFieldE1.latex(),
                         'condition_2': mathFieldlog2.latex(),
                         'ecuation_2': mathFieldE2.latex(),
                         'condition_3': mathFieldlog3.latex(),
                         'ecuation_3': mathFieldE3.latex()
-                    }
-                ]
+                    },
+                }
+
+                temp.logical = JSON.stringify(temp.logical);
+                $.extend(funcostdb[CostSelected].fields, temp);
+                funcostdb[CostSelected].fields.function_value = mathField.latex();
             }
-            temp.logical=JSON.stringify(temp.logical);
-            $.extend(funcostdb[CostSelected].fields, temp);
-            funcostdb[CostSelected].fields.function_value = mathField.latex();
             selectedCell.setAttribute('funcost', JSON.stringify(funcostdb));
             $('#funcostgenerate div').remove();
             $('#funcostgenerate').empty();
@@ -686,17 +719,24 @@ function onInit(editor) {
         //Edit funcion cost 
         $(document).on('click', 'a[name=glyphicon-edit]', function() {
             mathField.clearSelection();
+            clearInputsMath();
             $('#CalculatorModal').modal('show');
             CostSelected = $(this).attr('idvalue');
+            $('#costFunctionName').val(funcostdb[CostSelected].fields.function_name);
+            $('#costFuntionDescription').val(funcostdb[CostSelected].fields.function_description);
+            $('#CalculatorModalLabel').text('Modify Cost - ' + $('#titleCostFunSmall').text())
             setVarCost();
-            if (funcostdb[CostSelected].fields.global_multiplier_factorCalculator) {
-
-            } else {
-
-            }
             let value = funcostdb[CostSelected].fields.function_value;
-            mathField.latex(value);
-            mathField.focus();
+            if (funcostdb[CostSelected].fields.logical != undefined) {
+                let logicalcost = JSON.parse(funcostdb[CostSelected].fields.logical);
+                mathFieldlog1.latex(logicalcost.condition_1).blur();
+                mathFieldlog2.latex(logicalcost.condition_2).blur();
+                mathFieldlog3.latex(logicalcost.condition_3).blur();
+                mathFieldE1.latex(logicalcost.ecuation_1).blur();
+                mathFieldE2.latex(logicalcost.ecuation_2).blur();
+                mathFieldE3.latex(logicalcost.ecuation_3).blur();
+            }
+            mathField.latex(value).blur();
         });
 
         //Delete funcion cost 
@@ -745,6 +785,7 @@ function onInit(editor) {
         });
 
         function setVarCost() {
+            banderaFunctionCost = false;
             $('#VarCostListGroup div').remove();
             $('#VarCostListGroup').empty();
             for (const index of graphData) {
@@ -768,8 +809,13 @@ function onInit(editor) {
         }
 
         $('#ModalAddCostBtn').click(function() {
+            banderaFunctionCost = true;
             $('#VarCostListGroup div').remove();
             $('#VarCostListGroup').empty();
+            clearInputsMath();
+            $('#costFunctionName').val('');
+            $('#costFuntionDescription').val('');
+            $('#CalculatorModalLabel').text('New Function Cost - ' + $('#titleCostFunSmall').text())
             for (const index of graphData) {
                 var costlabel = "";
                 for (const iterator of JSON.parse(index.varcost)) {
