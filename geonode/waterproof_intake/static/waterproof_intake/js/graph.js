@@ -655,6 +655,8 @@ function onInit(editor) {
 
 
         $('#saveAndValideCost').click(function() {
+            $('#costFunctionName').val();
+            $('#costFuntionDescription').val();
             var temp = {
                 'global_multiplier_factorCalculator': $('#global_multiplier_factorCalculator').val(),
                 'currencyCost': $('#currencyCost').val(),
@@ -757,7 +759,7 @@ function onInit(editor) {
                     <div class="panel panel-info">
                         <div class="panel-heading">
                             <h4 class="panel-title">
-                                <a data-toggle="collapse" data-parent="#VarCostListGroup" href="#VarCostListGroup_${index.id}">${index.id} - ${index.name}</a>
+                                <a data-toggle="collapse" data-parent="#VarCostListGroup" href="#VarCostListGroup_${index.id}">${index.id} - ${index.name.replace(/['"]+/g, '')}</a>
                             </h4>
                         </div>
                         <div id="VarCostListGroup_${index.id}" class="panel-collapse collapse">
@@ -780,7 +782,7 @@ function onInit(editor) {
                 <div class="panel panel-info">
                     <div class="panel-heading">
                         <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#VarCostListGroup" href="#VarCostListGroup_${index.id}">${index.id} - ${index.name}</a>
+                            <a data-toggle="collapse" data-parent="#VarCostListGroup" href="#VarCostListGroup_${index.id}">${index.id} - ${index.name.replace(/['"]+/g, '')}</a>
                         </h4>
                     </div>
                     <div id="VarCostListGroup_${index.id}" class="panel-collapse collapse">
