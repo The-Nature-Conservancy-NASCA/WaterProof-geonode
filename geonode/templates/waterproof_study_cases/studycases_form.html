@@ -197,11 +197,6 @@
                 </div>
                 <div class="row text-center">
                     <div class="col-md-12">
-                        <button type="button" class="btn btn-primary" id="step2BackBtn">{% trans "Back" %}</button>
-                    </div>
-                </div>
-                <div class="row text-center">
-                    <div class="col-md-12">
                         <button type="button" class="btn btn-primary" id="step2NextBtn">{% trans "Next" %}</button>
                     </div>
                 </div>
@@ -230,11 +225,6 @@
                 </div>
                 <div class="row text-center">
                     <div class="col-md-12">
-                        <button type="button" class="btn btn-primary" id="step3BackBtn">{% trans "Back" %}</button>
-                    </div>
-                </div>
-                <div class="row text-center">
-                    <div class="col-md-12">
                         <button type="button" class="btn btn-primary" id="step3NextBtn">{% trans "Next" %}</button>
                     </div>
                 </div>
@@ -246,11 +236,6 @@
                     <button type="button" class="btn btn-primary" id="advancer_option">{% trans "Advanced options" %}</button>
                     <p>{% trans "In this step you will find the biophysical parameters required for the execution of the models. If you want to see or edit them, click on advanced options, otherwise click on next and the system will use the default values." %}</p>
 
-                </div>
-                <div class="row text-center">
-                    <div class="col-md-12">
-                        <button type="button" class="btn btn-primary" id="step4BackBtn">{% trans "Back" %}</button>
-                    </div>
                 </div>
                 <div class="row text-center">
                     <div class="col-md-12">
@@ -276,98 +261,98 @@
                             <label class="custom-control-label" for="total_platform">{% trans "Platform cost per year (US$/yr)" %}</label>
                         </div>
                         <div class="custom-control custom-checkbox col-md-4">
-                            <input id="total_platform" type="number" class="custom-control-input" disabled>
+                            <input id="total_platform" class="text-number" type="number" class="custom-control-input" disabled>
                         </div>
 
                         <div class="col-md-6">
                             <label class="custom-control-label platform-label" for="total_personnel">{% trans "Personnel Salary and Benefits" %}</label>
                         </div>
                         <div class="custom-control custom-checkbox col-md-4">
-                            <input id="total_personnel" type="number" class="custom-control-input" disabled>
+                            <input id="total_personnel" class="text-number" type="number" class="custom-control-input" disabled>
                         </div>
                         <div class="col-md-6">
                             <label class="custom-control-label personnel-label" for="director">{% trans "Program director" %}</label>
                         </div>
                         <div class="custom-control custom-checkbox col-md-4">
-                            <input id="director" type="number" class="custom-control-input" value="{{financialParameters.Program_Director_USD_YEAR|stringformat:'f'}}">
+                            <input id="director" class="text-number" type="number" class="custom-control-input" value="{{financialParameters.Program_Director_USD_YEAR|stringformat:'1.2f'}}">
                         </div>
                         <div class="col-md-6">
                             <label class="custom-control-label personnel-label" for="evaluation"> {%trans "Monitoring and Evaluation Manager" %}</label>
                         </div>
                         <div class="custom-control custom-checkbox col-md-4">
-                            <input id="evaluation" type="number" class="custom-control-input" value="{{financialParameters.Monitoring_and_Evaluation_Manager_USD_YEAR|stringformat:'f'}}">
+                            <input id="evaluation" class="text-number" type="number" class="custom-control-input" value="{{financialParameters.Monitoring_and_Evaluation_Manager_USD_YEAR|stringformat:'1.2f'}}">
                         </div>
                         <div class="col-md-6">
                             <label class="custom-control-label personnel-label" for="finance">{% trans "Finance and Administrator" %}</label>
                         </div>
                         <div class="custom-control custom-checkbox col-md-4">
-                            <input id="finance" type="number" class="custom-control-input" value="{{financialParameters.Finance_Manager_USD_YEAR|stringformat:'f'}}">
+                            <input id="finance" class="text-number" type="number" class="custom-control-input" value="{{financialParameters.Finance_Manager_USD_YEAR|stringformat:'1.2f'}}">
                         </div>
                         <div class="col-md-6">
                             <label class="custom-control-label personnel-label" for="implementation">{% trans "Implementation Manager" %}</label>
                         </div>
                         <div class="custom-control custom-checkbox col-md-4">
-                            <input id="implementation" type="number" class="custom-control-input" value="{{financialParameters.Implementation_Manager_USD_YEAR|stringformat:'f'}}">
+                            <input id="implementation" class="text-number" type="number" class="custom-control-input" value="{{financialParameters.Implementation_Manager_USD_YEAR|stringformat:'1.2f'}}">
                         </div>
                         <div class="col-md-6">
                             <label class="custom-control-label platform-label" for="office">{% trans "Office Costs" %}</label>
                         </div>
                         <div class="custom-control custom-checkbox col-md-4">
-                            <input id="office" type="number" class="custom-control-input" value="{{financialParameters.Office_Costs_USD_YEAR|stringformat:'f'}}">
+                            <input id="office" class="text-number" type="number" class="custom-control-input" value="{{financialParameters.Office_Costs_USD_YEAR|stringformat:'1.2f'}}">
                         </div>
                         <div class="col-md-6">
                             <label class="custom-control-label platform-label" for="travel">{% trans "Travel" %}</label>
                         </div>
                         <div class="custom-control custom-checkbox col-md-4">
-                            <input id="travel" type="number" class="custom-control-input" value="0">
+                            <input id="travel" class="text-number" type="number" class="custom-control-input" value="0">
                         </div>
                         <div class="col-md-6">
                             <label class="custom-control-label platform-label" for="equipment">{% trans "Equipment" %}</label>
                         </div>
                         <div class="custom-control custom-checkbox col-md-4">
-                            <input id="equipment" type="number" class="custom-control-input" value="{{financialParameters.Equipment_Purchased_In_Year_1_USD|stringformat:'f'}}">
+                            <input id="equipment" class="text-number" type="number" class="custom-control-input" value="{{financialParameters.Equipment_Purchased_In_Year_1_USD|stringformat:'1.2f'}}">
                         </div>
                         <div class="col-md-6">
                             <label class="custom-control-label platform-label" for="contracts">{% trans "Contracts" %}</label>
                         </div>
                         <div class="custom-control custom-checkbox col-md-4">
-                            <input id="contracts" type="number" class="custom-control-input" value="0">
+                            <input id="contracts" class="text-number" type="number" class="custom-control-input" value="0">
                         </div>
                         <div class="col-md-6">
                             <label class="custom-control-label platform-label" for="overhead">{% trans "Overhead" %}</label>
                         </div>
                         <div class="custom-control custom-checkbox col-md-4">
-                            <input id="overhead" type="number" class="custom-control-input" value="{{financialParameters.Office_Costs_USD_YEAR|stringformat:'f'}}">
+                            <input id="overhead" class="text-number" type="number" class="custom-control-input" value="{{financialParameters.Office_Costs_USD_YEAR|stringformat:'1.2f'}}">
                         </div>
                         <div class="col-md-6">
                             <label class="custom-control-label platform-label" for="others">{% trans "Others" %}</label>
                         </div>
                         <div class="custom-control custom-checkbox col-md-4">
-                            <input id="others" type="number" class="custom-control-input" value="0">
+                            <input id="others" class="text-number" type="number" class="custom-control-input" value="0">
                         </div>
                         <div class="col-md-6">
                             <label class="custom-control-label" for="transaction">{% trans "Transaction cost (%)" %}</label>
                         </div>
                         <div class="custom-control custom-checkbox col-md-4">
-                            <input id="transaction" type="number" class="custom-control-input" value="{{financialParameters.Transaction_cost|stringformat:'f'}}">
+                            <input id="transaction" class="text-number" type="number" class="custom-control-input" value="{{financialParameters.Transaction_cost|stringformat:'1.2f'}}">
                         </div>
                         <div class="col-md-6">
                             <label class="custom-control-label" for="discount">{% trans "Discount rate (%)" %}</label>
                         </div>
                         <div class="custom-control custom-checkbox col-md-4">
-                            <input id="discount" type="number" class="custom-control-input" value="{{financialParameters.drt_discount_rate_medium|stringformat:'f'}}">
+                            <input id="discount" class="text-number" type="number" class="custom-control-input" value="{{financialParameters.drt_discount_rate_medium|stringformat:'1.2f'}}">
                         </div>
                         <div class="col-md-6">
                             <label class="custom-control-label" for="minimum">{% trans "Sensitivity Analysis - Minimun Discount Rate" %}</label>
                         </div>
                         <div class="custom-control custom-checkbox col-md-4">
-                            <input id="minimum" type="number" class="custom-control-input" value="{{financialParameters.drt_discount_rate_lower_limit|stringformat:'f'}}">
+                            <input id="minimum" class="text-number" type="number" class="custom-control-input" value="{{financialParameters.drt_discount_rate_lower_limit|stringformat:'1.2f'}}">
                         </div>
                         <div class="col-md-6">
                             <label class="custom-control-label" for="maximum">{% trans "Sensitivity Analysis - Maximun Discount Rate" %}</label>
                         </div>
                         <div class="custom-control custom-checkbox col-md-4">
-                            <input id="maximum" type="number" class="custom-control-input" value="{{financialParameters.drt_discount_rate_upper_limit|stringformat:'f'}}">
+                            <input id="maximum" class="text-number" type="number" class="custom-control-input" value="{{financialParameters.drt_discount_rate_upper_limit|stringformat:'1.2f'}}">
                         </div>
                     </div>
                 </div>
@@ -411,7 +396,7 @@
                     <label for="period_analysis" class="control-label required-field">
                         {% trans "Analysis time period (years) (10-100)" %}
                     </label>
-                    <input id="period_analysis" type="number" class="form-control">
+                    <input id="period_analysis" type="number" class="form-control text-number">
                 </div>
                 <div id="div_analysis_currency" class="form-group">
                     <label for="analysis_currency" class="control-label required-field ">
@@ -425,7 +410,7 @@
                 <div id="div_analysis_type" class="form-group">
                     <div id="div_period_nbs" class="form-group">
                         <label class="control-label required-field" for="period-nbs">{% trans "Implementation Time of Nature-Based Solution (yr)" %}</label>
-                        <input id="period_nbs" type="number" class="form-control">
+                        <input id="period_nbs" type="number" class="form-control text-number">
                     </div>
                     <div id="div_analysis_nbs" class="form-group">
                         <label class="control-label required-field" for="analysis_nbs">{% trans "Climate Selection for Vaseline and NBS Scenario Analysis" %}</label>
@@ -466,7 +451,7 @@
                                 <div class="row form-group">
                                     <div id="div_annual_investment" class="form-group">
                                         <label class="control-label required-field" for="annual_investment">{% trans "Annual Investment" %}</label>
-                                        <input id="annual_investment" type="number" class="form-control">
+                                        <input id="annual_investment" type="number" class="text-number form-control">
                                     </div>
                                     <div id="div_btn-investment" class="form-group">
                                         <button type="button" class="btn btn-primary" id="btn-investment">{% trans "Assign minimum investment" %}</button>
@@ -478,29 +463,29 @@
                             <thead>
                                 <tr class="info">
                                     <th scope="col" class="small text-center vat">{% trans "Activity" %}</th>
-                                    <th scope="col" class="small text-center vat">{% trans "Percentage" %}</th>
+                                    <th scope="col" id="column_investment" class="small text-center vat">{% trans "Percentage" %}</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <td>Conservation</td>
-                                    <td><input type="number" id="conservation" /></td>
+                                    <td><input class="text-number" type="number" id="conservation" /></td>
                                 </tr>
                                 <tr>
                                     <td>Active restoration</td>
-                                    <td><input type="number" id="active" /></td>
+                                    <td><input class="text-number" type="number" id="active" /></td>
                                 </tr>
                                 <tr>
                                     <td>Passive restoration</td>
-                                    <td><input type="number" id="passive" /></td>
+                                    <td><input class="text-number" type="number" id="passive" /></td>
                                 </tr>
                                 <tr>
                                     <td>Agroforestry</td>
-                                    <td><input type="number" id="agroforestry" /></td>
+                                    <td><input class="text-number" type="number" id="agroforestry" /></td>
                                 </tr>
                                 <tr>
                                     <td>Silvopastoral</td>
-                                    <td><input type="number" id="silvopastoral" /></td>
+                                    <td><input class="text-number" type="number" id="silvopastoral" /></td>
                                 </tr>
                             </tbody>
                         </table>

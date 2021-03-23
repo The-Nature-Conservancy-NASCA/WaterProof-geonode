@@ -85,10 +85,12 @@ $(document).ready(function() {
     $('#btn-full').click(function() {
         $("#full-table").removeClass("panel-hide");
         $('#autoAdjustHeightF').css("height", "auto");
+        $('#column_investment').text("Percentage");
     });
     $('#btn-investment').click(function() {
         $("#full-table").removeClass("panel-hide");
         $('#autoAdjustHeightF').css("height", "auto");
+        $('#column_investment').text("Investment");
     });
 
     $('#full').click(function() {

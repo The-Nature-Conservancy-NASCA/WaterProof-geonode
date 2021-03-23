@@ -156,7 +156,7 @@
                             <p>{% trans "CO2 Eq for (Selected Country)" %}</p>
                         </div>
                         <div class="col-md-1">
-                            <input type="text" name="dws_cm" maxlength="100" class="form-control" id="id_cm" value="{{study_case.cm_value|stringformat:'f'}}" disabled />
+                            <input type="text" name="dws_cm" maxlength="100" class="form-control" id="id_cm" value="{{study_case.cm_value|stringformat:'1.2f'}}" disabled />
                         </div>
                         <div class="col-md-3">
                             <p>{% trans "USD/TonCO2eq" %}</p>
@@ -241,98 +241,98 @@
                             <label class="custom-control-label" for="total_platform">{% trans "Platform cost per year (US$/yr)" %}</label>
                         </div>
                         <div class="custom-control custom-checkbox col-md-4">
-                            <input id="total_platform" type="number" class="custom-control-input" disabled>
+                            <input class="text-number" id="total_platform" type="number" class="custom-control-input" disabled>
                         </div>
 
                         <div class="col-md-6">
                             <label class="custom-control-label platform-label" for="total_personnel">{% trans "Personnel Salary and Benefits" %}</label>
                         </div>
                         <div class="custom-control custom-checkbox col-md-4">
-                            <input id="total_personnel" type="number" class="custom-control-input" disabled>
+                            <input class="text-number" id="total_personnel" type="number" class="custom-control-input" disabled>
                         </div>
                         <div class="col-md-6">
                             <label class="custom-control-label personnel-label" for="director">{% trans "Program director" %}</label>
                         </div>
                         <div class="custom-control custom-checkbox col-md-4">
-                            <input id="director" type="number" class="custom-control-input" value="{{study_case.program_Director|stringformat:'f'}}" disabled>
+                            <input class="text-number" id="director" type="number" class="custom-control-input" value="{{study_case.program_Director|stringformat:'1.2f'}}" disabled>
                         </div>
                         <div class="col-md-6">
                             <label class="custom-control-label personnel-label" for="evaluation"> {%trans "Monitoring and Evaluation Manager" %}</label>
                         </div>
                         <div class="custom-control custom-checkbox col-md-4">
-                            <input id="evaluation" type="number" class="custom-control-input" value="{{study_case.monitoring_Manager|stringformat:'f'}}" disabled>
+                            <input class="text-number" id="evaluation" type="number" class="custom-control-input" value="{{study_case.monitoring_Manager|stringformat:'1.2f'}}" disabled>
                         </div>
                         <div class="col-md-6">
                             <label class="custom-control-label personnel-label" for="finance">{% trans "Finance and Administrator" %}</label>
                         </div>
                         <div class="custom-control custom-checkbox col-md-4">
-                            <input id="finance" type="number" class="custom-control-input" value="{{study_case.finance_Manager|stringformat:'f'}}" disabled>
+                            <inputclass="text-number" id="finance" type="number" class="custom-control-input" value="{{study_case.finance_Manager|stringformat:'1.2f'}}" disabled>
                         </div>
                         <div class="col-md-6">
                             <label class="custom-control-label personnel-label" for="implementation">{% trans "Implementation Manager" %}</label>
                         </div>
                         <div class="custom-control custom-checkbox col-md-4">
-                            <input id="implementation" type="number" class="custom-control-input" value="{{study_case.implementation_Manager|stringformat:'f'}}" disabled>
+                            <input class="text-number" id="implementation" type="number" class="custom-control-input" value="{{study_case.implementation_Manager|stringformat:'1.2f'}}" disabled>
                         </div>
                         <div class="col-md-6">
                             <label class="custom-control-label platform-label" for="office">{% trans "Office Costs" %}</label>
                         </div>
                         <div class="custom-control custom-checkbox col-md-4">
-                            <input id="office" type="number" class="custom-control-input" value="{{study_case.office_Costs|stringformat:'f'}}" disabled>
+                            <input class="text-number" id="office" type="number" class="custom-control-input" value="{{study_case.office_Costs|stringformat:'1.2f'}}" disabled>
                         </div>
                         <div class="col-md-6">
                             <label class="custom-control-label platform-label" for="travel">{% trans "Travel" %}</label>
                         </div>
                         <div class="custom-control custom-checkbox col-md-4">
-                            <input id="travel" type="number" class="custom-control-input" value="{{study_case.travel|stringformat:'f'}}" disabled>
+                            <input class="text-number" id="travel" type="number" class="custom-control-input" value="{{study_case.travel|stringformat:'1.2f'}}" disabled>
                         </div>
                         <div class="col-md-6">
                             <label class="custom-control-label platform-label" for="equipment">{% trans "Equipment" %}</label>
                         </div>
                         <div class="custom-control custom-checkbox col-md-4">
-                            <input id="equipment" type="number" class="custom-control-input" value="{{study_case.equipment_Purchased|stringformat:'f'}}" disabled>
+                            <input class="text-number" id="equipment" type="number" class="custom-control-input" value="{{study_case.equipment_Purchased|stringformat:'1.2f'}}" disabled>
                         </div>
                         <div class="col-md-6">
                             <label class="custom-control-label platform-label" for="contracts">{% trans "Contracts" %}</label>
                         </div>
                         <div class="custom-control custom-checkbox col-md-4">
-                            <input id="contracts" type="number" class="custom-control-input" value="{{study_case.contracts|stringformat:'f'}}" disabled>
+                            <input class="text-number" id="contracts" type="number" class="custom-control-input" value="{{study_case.contracts|stringformat:'1.2f'}}" disabled>
                         </div>
                         <div class="col-md-6">
                             <label class="custom-control-label platform-label" for="overhead">{% trans "Overhead" %}</label>
                         </div>
                         <div class="custom-control custom-checkbox col-md-4">
-                            <input id="overhead" type="number" class="custom-control-input" value="{{study_case.overhead|stringformat:'f'}}" disabled>
+                            <input class="text-number" id="overhead" type="number" class="custom-control-input" value="{{study_case.overhead|stringformat:'1.2f'}}" disabled>
                         </div>
                         <div class="col-md-6">
                             <label class="custom-control-label platform-label" for="others">{% trans "Others" %}</label>
                         </div>
                         <div class="custom-control custom-checkbox col-md-4">
-                            <input id="others" type="number" class="custom-control-input" value="{{study_case.others|stringformat:'f'}}" disabled>
+                            <input class="text-number" id="others" type="number" class="custom-control-input" value="{{study_case.others|stringformat:'1.2f'}}" disabled>
                         </div>
                         <div class="col-md-6">
                             <label class="custom-control-label" for="transaction">{% trans "Transaction cost (%)" %}</label>
                         </div>
                         <div class="custom-control custom-checkbox col-md-4">
-                            <input id="transaction" type="number" class="custom-control-input" value="{{study_case.transaction_cost|stringformat:'f'}}" disabled>
+                            <input class="text-number" id="transaction" type="number" class="custom-control-input" value="{{study_case.transaction_cost|stringformat:'1.2f'}}" disabled>
                         </div>
                         <div class="col-md-6">
                             <label class="custom-control-label" for="discount">{% trans "Discount rate (%)" %}</label>
                         </div>
                         <div class="custom-control custom-checkbox col-md-4">
-                            <input id="discount" type="number" class="custom-control-input" value="{{study_case.discount_rate|stringformat:'f'}}" disabled>
+                            <input class="text-number" id="discount" type="number" class="custom-control-input" value="{{study_case.discount_rate|stringformat:'1.2f'}}" disabled>
                         </div>
                         <div class="col-md-6">
                             <label class="custom-control-label" for="minimun">{% trans "Sensitivity Analysis - Minimun Discount Rate" %}</label>
                         </div>
                         <div class="custom-control custom-checkbox col-md-4">
-                            <input id="minimun" type="number" class="custom-control-input" value="{{study_case.discount_rate_minimunm|stringformat:'f'}}" disabled>
+                            <input class="text-number" id="minimun" type="number" class="custom-control-input" value="{{study_case.discount_rate_minimunm|stringformat:'1.2f'}}" disabled>
                         </div>
                         <div class="col-md-6">
                             <label class="custom-control-label" for="maximun">{% trans "Sensitivity Analysis - Maximun Discount Rate" %}</label>
                         </div>
                         <div class="custom-control custom-checkbox col-md-4">
-                            <input id="maximun" type="number" class="custom-control-input" value="{{study_case.discount_rate_maximum|stringformat:'f'}}" disabled>
+                            <input class="text-number" id="maximun" type="number" class="custom-control-input" value="{{study_case.discount_rate_maximum|stringformat:'1.2f'}}" disabled>
                         </div>
                     </div>
                 </div>
@@ -380,7 +380,7 @@
                     <label for="period_analysis" class="control-label required-field">
                         {% trans "Analysis time period (years) (10-100)" %}
                     </label>
-                    <input id="period_analysis" type="number" class="form-control" value="{{study_case.analysis_period_value|stringformat:'f'}}" disabled>
+                    <input id="period_analysis" type="number" class="form-control" value="{{study_case.analysis_period_value|stringformat:'1.2f'}}" disabled>
                 </div>
                 <div id="div_analysis_currency" class="form-group">
                     <label for="analysis_currency" class="control-label required-field ">
@@ -394,7 +394,7 @@
                 <div id="div_analysis_type" class="form-group">
                     <div id="div_period_nbs" class="form-group">
                         <label class="control-label required-field" for="period-nbs">{% trans "Implementation Time of Nature-Based Solution (yr)" %}</label>
-                        <input id="period_nbs" type="number" class="form-control" value="{{study_case.time_implement|stringformat:'f'}}" disabled>
+                        <input id="period_nbs" type="number" class="form-control" value="{{study_case.time_implement|stringformat:'1.2f'}}" disabled>
                     </div>
                     <div id="div_analysis_nbs" class="form-group">
                         <label class="control-label required-field" for="analysis_nbs">{% trans "Climate Selection for Vaseline and NBS Scenario Analysis" %}</label>
@@ -431,7 +431,7 @@
                                 <div class="row form-group">
                                     <div id="div_annual_investment" class="form-group">
                                         <label class="control-label required-field" for="annual_investment">{% trans "Annual Investment" %}</label>
-                                        <input id="annual_investment" type="number" class="form-control" value="{{study_case.annual_investment|stringformat:'f'}}" disabled>
+                                        <input id="annual_investment" type="number" class="form-control" value="{{study_case.annual_investment|stringformat:'1.2f'}}" disabled>
                                     </div>
                                 </div>
                             </div>
@@ -442,29 +442,33 @@
                             <thead>
                                 <tr class="info">
                                     <th scope="col" class="small text-center vat">{% trans "Activity" %}</th>
+                                    {% if study_case.studycase_type == 'FULL' %}
                                     <th scope="col" class="small text-center vat">{% trans "Percentage" %}</th>
+                                    {% else %}
+                                    <th scope="col" class="small text-center vat">{% trans "Investment" %}</th>
+                                    {% endif %}
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <td>Conservation</td>
-                                    <td><input type="number" id="conservation" value="{{study_case.analysis_conservation|stringformat:'f'}}" disabled /></td>
+                                    <td><input type="number" id="conservation" value="{{study_case.analysis_conservation|stringformat:'1.2f'}}" disabled /></td>
                                 </tr>
                                 <tr>
                                     <td>Active restoration</td>
-                                    <td><input type="number" id="active" value="{{study_case.analysis_active_restoration|stringformat:'f'}}" disabled /></td>
+                                    <td><input type="number" id="active" value="{{study_case.analysis_active_restoration|stringformat:'1.2f'}}" disabled /></td>
                                 </tr>
                                 <tr>
                                     <td>Passive restoration</td>
-                                    <td><input type="number" id="passive" value="{{study_case.analysis_passive_restoration|stringformat:'f'}}" disabled /></td>
+                                    <td><input type="number" id="passive" value="{{study_case.analysis_passive_restoration|stringformat:'1.2f'}}" disabled /></td>
                                 </tr>
                                 <tr>
                                     <td>Agroforestry</td>
-                                    <td><input type="number" id="agroforestry" value="{{study_case.analysis_silvopastoral|stringformat:'f'}}" disabled /></td>
+                                    <td><input type="number" id="agroforestry" value="{{study_case.analysis_silvopastoral|stringformat:'1.2f'}}" disabled /></td>
                                 </tr>
                                 <tr>
                                     <td>Silvopastoral</td>
-                                    <td><input type="number" id="silvopastoral" value="{{study_case.analysis_agroforestry|stringformat:'f'}}" disabled /></td>
+                                    <td><input type="number" id="silvopastoral" value="{{study_case.analysis_agroforestry|stringformat:'1.2f'}}" disabled /></td>
                                 </tr>
                             </tbody>
                         </table>
