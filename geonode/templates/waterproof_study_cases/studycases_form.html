@@ -197,6 +197,11 @@
                 </div>
                 <div class="row text-center">
                     <div class="col-md-12">
+                        <button type="button" class="btn btn-primary" id="step2BackBtn">{% trans "Back" %}</button>
+                    </div>
+                </div>
+                <div class="row text-center">
+                    <div class="col-md-12">
                         <button type="button" class="btn btn-primary" id="step2NextBtn">{% trans "Next" %}</button>
                     </div>
                 </div>
@@ -225,6 +230,11 @@
                 </div>
                 <div class="row text-center">
                     <div class="col-md-12">
+                        <button type="button" class="btn btn-primary" id="step3BackBtn">{% trans "Back" %}</button>
+                    </div>
+                </div>
+                <div class="row text-center">
+                    <div class="col-md-12">
                         <button type="button" class="btn btn-primary" id="step3NextBtn">{% trans "Next" %}</button>
                     </div>
                 </div>
@@ -236,6 +246,11 @@
                     <button type="button" class="btn btn-primary" id="advancer_option">{% trans "Advanced options" %}</button>
                     <p>{% trans "In this step you will find the biophysical parameters required for the execution of the models. If you want to see or edit them, click on advanced options, otherwise click on next and the system will use the default values." %}</p>
 
+                </div>
+                <div class="row text-center">
+                    <div class="col-md-12">
+                        <button type="button" class="btn btn-primary" id="step4BackBtn">{% trans "Back" %}</button>
+                    </div>
                 </div>
                 <div class="row text-center">
                     <div class="col-md-12">
@@ -370,15 +385,6 @@
 
                     <ul class="list-group list-group-flush" id="nbs-ul">
                         {% for nb in nbs %}
-                        <li class="list-group-item">
-                            <!-- Default checked -->
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="nbs-{{nb.id}}">
-                                <label class="custom-control-label" for="nbs-{{nb.id}}">{{nb.name}}</label>
-                            </div>
-                        </li>
-                        {% endfor %}
-                        {% for nb in nbs_user %}
                         <li class="list-group-item">
                             <!-- Default checked -->
                             <div class="custom-control custom-checkbox">
