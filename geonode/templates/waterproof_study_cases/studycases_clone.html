@@ -9,7 +9,7 @@
 {% endblock %} {% block body_outer %}
 <!--header-->
 <div class="page-header">
-    <h1>{% trans "Edit Study Cases" %}</h1>
+    <h1>{% trans "Clone Study Cases" %}</h1>
 </div>
 <!--Begin Form-->
 <form id="form" method="POST" action="">
@@ -45,7 +45,7 @@
             <!--Step 1-->
             <div id="step-1" class="tab-pane" role="tabpanel">
                 <div class="page-header">
-                    <h3>{% trans "Edit Study Case" %}</h3>
+                    <h3>{% trans "Clone Study Case" %}</h3>
                     <p></p>
                 </div>
                 <!--Input Name -->
@@ -69,7 +69,7 @@
                 <!--Input Desc -->
                 <div id="div_type" class="form-group">
                     <label for="type" class="control-label required-field ">
-                        {% trans "Select type of study case to edit" %}
+                        {% trans "Select type of study case to clone" %}
                     </label>
                     {% if tratamentPlants %}
                     <div class="form-check">
@@ -418,7 +418,7 @@
                         <label for="period_analysis" class="control-label required-field">
                             {% trans "Analysis time period (years) (10-100)" %}
                         </label>
-                        <input id="period_analysis" type="number" min="0" step="1" class="form-control" value="{{study_case.analysis_period_value}}">
+                        <input id="period_analysis" type="number" step="1" class="form-control" value="{{study_case.analysis_period_value|stringformat:'f'}}">
                     </div>
                     <div id="div_analysis_currency" class="form-group">
                         <label for="analysis_currency" class="control-label required-field ">
@@ -432,7 +432,7 @@
                     <div id="div_analysis_type" class="form-group">
                         <div id="div_period_nbs" class="form-group">
                             <label class="control-label required-field" for="period-nbs">{% trans "Implementation Time of Nature-Based Solution (yr)" %}</label>
-                            <input id="period_nbs" type="number" min="0" step="1" class="form-control" value="{{study_case.time_implement}}">
+                            <input id="period_nbs" type="number" step="1" class="form-control" value="{{study_case.time_implement|stringformat:'f'}}">
                         </div>
                         <div id="div_analysis_nbs" class="form-group">
                             <label class="control-label required-field" for="analysis_nbs">{% trans "Climate Selection for Vaseline and NBS Scenario Analysis" %}</label>
@@ -573,7 +573,7 @@
     GEOSERVER_WMS = "{{ GEOSERVER_WMS }}";
     HYDRO_NETWORK_LYR = "{{ HYDRO_NETWORK_LYR }}";
 </script>
-<script src="{{ STATIC_URL }}study_cases/js/study_cases_edit.js"></script>
+<script src="{{ STATIC_URL }}study_cases/js/study_cases_clone.js"></script>
 <script src="{{ STATIC_URL }}study_cases/js/graph.js"></script>
 <script src="{{ STATIC_URL }}study_cases/js/graphValidations.js"></script>
 <script src="{{ STATIC_URL }}geonode/js/mxgraph/mxClient.js"></script>
