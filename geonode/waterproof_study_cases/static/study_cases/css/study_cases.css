@@ -130,3 +130,7 @@
 .personnel-label {
     padding-left: 90px;
 }
+
+.text-number {
+    text-align: right;
+}

@@ -28,7 +28,6 @@ var validPolygon;
 var isFile;
 var delimitationFileType;
 var xmlGraph;
-var id_study_case = '';
 var waterExtractionData = {};
 var waterExtractionValue;
 const delimitationFileEnum = {
@@ -41,6 +40,8 @@ const interpolationType = {
     EXPONENTIAL: 'EXPONENTIAL',
     LOGISTICS: 'LOGISTICS'
 }
+
+var id_study_case = '';
 
 var mapLoader;
 $(document).ready(function() {
@@ -85,12 +86,10 @@ $(document).ready(function() {
     $('#btn-full').click(function() {
         $("#full-table").removeClass("panel-hide");
         $('#autoAdjustHeightF').css("height", "auto");
-        $('#column_investment').text("Percentage");
     });
     $('#btn-investment').click(function() {
         $("#full-table").removeClass("panel-hide");
         $('#autoAdjustHeightF').css("height", "auto");
-        $('#column_investment').text("Investment");
     });
 
     $('#full').click(function() {
@@ -175,7 +174,6 @@ $(document).ready(function() {
                 } else {
                     $('#smartwizard').smartWizard("next");
                     $('#autoAdjustHeightF').css("height", "auto");
-                    $("#cm_form").hide();
                 }
 
             }, "json");
@@ -190,7 +188,7 @@ $(document).ready(function() {
     });
 
     $("#cb_check").click(function() {
-
+        console.log("si")
         if ($(this).is(":checked")) // "this" refers to the element that fired the event
         {
             $("#cm_form").show();
@@ -286,7 +284,6 @@ $(document).ready(function() {
             });
             return;
         }
-
     });
     $('#step6NextBtn').click(function() {
         nbs = [];
@@ -329,6 +326,7 @@ $(document).ready(function() {
         if (type == "2") {
             valid_investment = $('#annual_investment').val() != ''
         }
+        console.log($('#annual_investment').val())
         if ($('#period_analysis').val() != '' && $('#period_nbs').val() != '' && type && valid_edit && valid_investment) {
             $.post("../../study_cases/save/", {
                 id_study_case: id_study_case,
@@ -346,8 +344,8 @@ $(document).ready(function() {
             }, function(data) {
                 $('#smartwizard').smartWizard("next");
                 $('#autoAdjustHeightF').css("height", "auto");
+                $("#form").submit()
             }, "json");
-            $("#form").submit();
         } else {
             Swal.fire({
                 icon: 'warning',
@@ -358,11 +356,6 @@ $(document).ready(function() {
         }
 
     });
-    $('#step7RunBtn').click(function() {
-
-    });
-
-
     $('#custom_table').on('click', 'a', function() {
         var row = $(this).closest("tr")
         var tds = row.find("td");
@@ -398,7 +391,6 @@ $(document).ready(function() {
         row.remove();
 
     });
-
     $("#director").keyup(function() {
         calculate_Personnel();
         calculate_Platform();
