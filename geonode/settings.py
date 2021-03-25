@@ -474,6 +474,7 @@ GEONODE_INTERNAL_APPS = (
     'geonode.waterproof_intake',
     'geonode.waterproof_parameters',
     'geonode.waterproof_treatment_plants',
+    'geonode.waterproof_reports',
 )
 
 GEONODE_CONTRIB_APPS = (
