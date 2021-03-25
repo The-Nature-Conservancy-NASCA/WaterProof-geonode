@@ -167,7 +167,7 @@
 
     function showSearchPoints (geojson) {
         searchPoints.clearLayers();
-        let geojsonFilter = geojson.features.filter(feature  => feature.properties.type == "city");
+        let geojsonFilter = geojson.features.filter(feature  => (feature.properties.type == "city" || feature.properties.type == "district"));
         searchPoints.addData(geojsonFilter);
     }
 
