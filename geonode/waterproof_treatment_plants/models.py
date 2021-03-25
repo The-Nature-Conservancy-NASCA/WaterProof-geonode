@@ -62,7 +62,7 @@ class Csinfra(models.Model):
     csinfra_user = models.CharField(max_length=100,verbose_name=_('User'))
     csinfra_date_create = models.CharField(max_length=100,verbose_name=_('Date Create'))
     csinfra_date_update = models.CharField(max_length=100,verbose_name=_('Date Update'))
-    csinfra_elementsystem_id = models.CharField(max_length=100,verbose_name=_('Element System'))
+    csinfra_elementsystem = models.ForeignKey('waterproof_intake.ElementSystem', on_delete=models.CASCADE)
 
 class Ptap(models.Model):
     ptap_id = models.IntegerField(auto_created=True, primary_key=True,verbose_name=_('Id Csinfra'))
