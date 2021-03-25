@@ -90,7 +90,7 @@ SECRET_KEY = os.getenv('SECRET_KEY', _DEFAULT_SECRET_KEY)
 SITE_HOST_SCHEMA = os.getenv('SITE_HOST_SCHEMA', 'http')
 SITE_HOST_NAME = os.getenv('SITE_HOST_NAME', 'apps.skaphe.com')
 SITE_HOST_PORT = os.getenv('SITE_HOST_PORT', 8000)
-SITE_HOST_API = os.getenv('SITE_HOST_API', 'http://localhost:8000/')
+SITE_HOST_API = os.getenv('SITE_HOST_API', 'http://apps.skaphe.com:8000/')
 _default_siteurl = "%s://%s:%s/" % (SITE_HOST_SCHEMA,
                                     SITE_HOST_NAME,
                                     SITE_HOST_PORT) if SITE_HOST_PORT else "%s://%s/" % (SITE_HOST_SCHEMA, SITE_HOST_NAME)
