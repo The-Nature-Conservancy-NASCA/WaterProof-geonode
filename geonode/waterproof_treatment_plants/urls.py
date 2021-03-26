@@ -7,7 +7,6 @@ urlpatterns = [
       path('getTreatmentPlantsList/', api.getTreatmentPlantsList, name='treatment-plants'),
       path('getIntakeList/', api.getIntakeList, name='treatment-intake'),
       path('getTypePtap/', api.getTypePtap, name='treatment-type-ptap'),
-      path('getEnviroment/', api.getEnviroment, name='treatment-enviroment'),
       path('getInfoTree/', api.getInfoTree, name='treatment-info-tree'),
       path('getTreatmentPlant/', api.getTreatmentPlant, name='treatment-find_plant'),
       path('setHeaderPlant/', api.setHeaderPlant, name='treatment-set-header'),
