@@ -260,7 +260,7 @@ msgstr "El polígono editado no es válido, por favor, intente nuevamente"
 #: geonode/waterproof_intake/static/waterproof_intake/js/intake_edit.js:765
 msgid "The polygon geometries must be inside basin geometry"
 msgstr ""
-"La geometría del polígno debe estar contenida en la geometría de la cuenca"
+"La geometría del polígono debe estar contenida en la geometría de la cuenca"
 
 #: geonode/waterproof_intake/static/waterproof_intake/js/intake_clone.js:774
 #: geonode/waterproof_intake/static/waterproof_intake/js/intake_create.js:613

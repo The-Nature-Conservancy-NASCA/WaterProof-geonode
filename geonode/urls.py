@@ -322,3 +322,8 @@ if settings.MONITORING_ENABLED:
     urlpatterns += [url(r'^monitoring/',
                         include(('geonode.monitoring.urls', 'geonode.monitoring'),
                                 namespace='monitoring'))]
+
+# waterproof_reports
+urlpatterns += [
+    url(r'^reports/', include('geonode.waterproof_reports.urls'), name='waterproof_reports'),
+]

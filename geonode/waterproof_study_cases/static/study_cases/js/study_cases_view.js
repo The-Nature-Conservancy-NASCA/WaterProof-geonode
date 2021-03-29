@@ -45,40 +45,8 @@ const interpolationType = {
 var mapLoader;
 $(document).ready(function() {
     $('#autoAdjustHeightF').css("height", "auto");
-    $('#custom').click(function() {
-        $("#panel-custom").removeClass("panel-hide");
-        $("#panel-ptap").addClass("panel-hide");
-        $('#autoAdjustHeightF').css("height", "auto");
-    });
-    $('#ptap').click(function() {
-        $("#panel-ptap").removeClass("panel-hide");
-        $("#panel-custom").addClass("panel-hide");
-        $('#autoAdjustHeightF').css("height", "auto");
-    });
-
-    $('#btn-full').click(function() {
-        $("#full-table").removeClass("panel-hide");
-        $('#autoAdjustHeightF').css("height", "auto");
-    });
-    $('#btn-investment').click(function() {
-        $("#investment-table").removeClass("panel-hide");
-        $('#autoAdjustHeightF').css("height", "auto");
-    });
-
-    $('#full').click(function() {
-        $("#panel-full").removeClass("panel-hide");
-        $("#panel-investment").addClass("panel-hide");
-        $("#investment-table").addClass("panel-hide");
-        $('#autoAdjustHeightF').css("height", "auto");
-    });
-    $('#investment').click(function() {
-        $("#panel-investment").removeClass("panel-hide");
-        $("#panel-full").addClass("panel-hide");
-        $("#full-table").addClass("panel-hide");
-        $('#autoAdjustHeightF').css("height", "auto");
-    });
-
-
+    calculate_Personnel();
+    calculate_Platform();
 
 
     $('#step1NextBtn').click(function() {
@@ -114,6 +82,87 @@ $(document).ready(function() {
     });
 
 
+    function calculate_Personnel() {
+        var total = 0.0;
+        var total_personnel = $("#total_personnel");
+        var director = $("#director").val();
+        var evaluation = $("#evaluation").val();
+        var finance = $("#finance").val();
+        var implementation = $("#implementation").val();
+        if (director && !isNaN(director)) {
+            total += parseFloat(director)
+        }
+        if (evaluation && !isNaN(evaluation)) {
+            total += parseFloat(evaluation)
+        }
+        if (finance && !isNaN(finance)) {
+            total += parseFloat(finance)
+        }
+        if (implementation && !isNaN(implementation)) {
+            total += parseFloat(implementation)
+        }
+        total_personnel.val(total)
+    }
+
+    function calculate_Platform() {
+        var total = 0.0;
+        var total_plaform = $("#total_platform");
+        var personnel = $("#total_personnel").val();
+        var office = $("#office").val();
+        var travel = $("#travel").val();
+        var equipment = $("#equipment").val();
+        var overhead = $("#overhead").val();
+        var contracts = $("#contracts").val();
+        var others = $("#others").val();
+
+        if (personnel && !isNaN(personnel)) {
+            total += parseFloat(personnel)
+        }
+        if (director && !isNaN(director)) {
+            total += parseFloat(director)
+        }
+        if (office && !isNaN(office)) {
+            total += parseFloat(office)
+        }
+        if (travel && !isNaN(travel)) {
+            total += parseFloat(travel)
+        }
+        if (equipment && !isNaN(equipment)) {
+            total += parseFloat(equipment)
+        }
+        if (contracts && !isNaN(contracts)) {
+            total += parseFloat(contracts)
+        }
+        if (overhead && !isNaN(overhead)) {
+            total += parseFloat(overhead)
+        }
+        if (others && !isNaN(others)) {
+            total += parseFloat(others)
+        }
+        total_plaform.val(total)
+    }
+
+
+    $('#smartwizard').smartWizard({
+        selected: 0,
+        theme: 'dots',
+        enableURLhash: false,
+        autoAdjustHeight: true,
+        transition: {
+            animation: 'fade', // Effect on navigation, none/fade/slide-horizontal/slide-vertical/slide-swing
+        },
+        toolbarSettings: {
+            toolbarPosition: 'bottom', // both bottom
+            toolbarButtonPosition: 'center', // both bottom
+        },
+        keyboardSettings: {
+            keyNavigation: false
+        },
+        toolbarSettings: {
+            showNextButton: false,
+            showPreviousButton: false,
+        }
+    });
 
 
     $('#autoAdjustHeightF').css("height", "auto");
