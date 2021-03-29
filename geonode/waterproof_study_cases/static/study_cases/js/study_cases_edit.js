@@ -199,6 +199,10 @@ $(document).ready(function() {
         }
     })
 
+    $('#step2PreviousBtn').click(function() {
+        $('#smartwizard').smartWizard("prev");
+    });
+
     $('#step2NextBtn').click(function() {
         if ($("#cb_check").is(':checked')) {
             $.post("../../study_cases/save/", {
@@ -215,6 +219,10 @@ $(document).ready(function() {
             $('#autoAdjustHeightF').css("height", "auto");
 
         }
+    });
+
+    $('#step3PreviousBtn').click(function() {
+        $('#smartwizard').smartWizard("prev");
     });
 
     $('#step3NextBtn').click(function() {
@@ -241,9 +249,18 @@ $(document).ready(function() {
         }
     });
 
+    $('#step4PreviousBtn').click(function() {
+        $('#smartwizard').smartWizard("prev");
+    });
+
     $('#step4NextBtn').click(function() {
         $('#smartwizard').smartWizard("next");
     });
+
+    $('#step5PreviousBtn').click(function() {
+        $('#smartwizard').smartWizard("prev");
+    });
+
     $('#step5NextBtn').click(function() {
         var valid = true;
         $("#div_financial").find("input").each(function() {
@@ -285,6 +302,11 @@ $(document).ready(function() {
             return;
         }
     });
+
+    $('#step6PreviousBtn').click(function() {
+        $('#smartwizard').smartWizard("prev");
+    });
+
     $('#step6NextBtn').click(function() {
         nbs = [];
         $('#nbs-ul input:checked').each(function() {
@@ -308,6 +330,11 @@ $(document).ready(function() {
             return;
         }
     });
+
+    $('#step7PreviousBtn').click(function() {
+        $('#smartwizard').smartWizard("prev");
+    });
+
     $('#step7EndBtn').click(function() {
         edit = !$("#full-table").hasClass("panel-hide")
         var valid_edit = true;

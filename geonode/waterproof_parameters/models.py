@@ -108,6 +108,21 @@ class ManagmentCosts_Discount(models.Model):
     drt_discount_rate_upper_limit = models.DecimalField(max_digits=3, decimal_places=2, blank=True, null=True)
     drt_discount_rate_lower_limit = models.DecimalField(max_digits=3, decimal_places=2, blank=True, null=True)
     Transaction_cost = models.DecimalField(max_digits=3, decimal_places=2, blank=True, null=True)
+    drinking_water_standard_code = models.IntegerField(blank=True, null=True)
+    energy_multiplier_factor = models.DecimalField(max_digits=3, decimal_places=2, blank=True, null=True)
+    material_multiplier_factor = models.DecimalField(max_digits=3, decimal_places=2, blank=True, null=True)
+    work_hand_multiplier_factor = models.DecimalField(max_digits=3, decimal_places=2, blank=True, null=True)
+    market_carbon_precing_USD_TonCO2e = models.DecimalField(max_digits=3, decimal_places=2, blank=True, null=True) 		
 
+    def _str_(self):
+        return "%s" % self.name
+
+class Climate_value(models.Model):
+    name = models.CharField(max_length=50)
+    description = models.CharField(max_length=255)
+    status = models.CharField(max_length=50)
+    code = models.CharField(max_length=50)	
+    location = models.CharField(max_length=255)
+	
     def _str_(self):
         return "%s" % self.name

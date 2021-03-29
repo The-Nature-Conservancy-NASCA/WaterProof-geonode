@@ -4,9 +4,10 @@
  * @version 1.0
  */
 $(function() {
-    var table = $('#examples').DataTable({
+    var table = $('#studycases').DataTable({
         'dom': 'lrtip'
     });
+    console.log(table)
     var countryDropdown = $('#countryNBS');
     var currencyDropdown = $('#currencyCost');
     var transitionsDropdown = $('#riosTransition');

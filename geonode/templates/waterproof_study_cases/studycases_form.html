@@ -66,6 +66,11 @@
                     </label>
                     <textarea rows="3" class="form-control" name="description" id="description"></textarea>
                 </div>
+
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id='public_check'>
+                    <label class="custom-control-label" for="public_check">{% trans "Public" %}</label>
+                </div>
                 <!--Input Desc -->
                 <div id="div_id_type" class="form-group">
                     <label for="div_id_type" class="control-label required-field ">
@@ -197,6 +202,7 @@
                 </div>
                 <div class="row text-center">
                     <div class="col-md-12">
+                        <button type="button" class="btn btn-primary" id="step2PreviousBtn">{% trans "Previous" %}</button>
                         <button type="button" class="btn btn-primary" id="step2NextBtn">{% trans "Next" %}</button>
                     </div>
                 </div>
@@ -225,6 +231,7 @@
                 </div>
                 <div class="row text-center">
                     <div class="col-md-12">
+                        <button type="button" class="btn btn-primary" id="step3PreviousBtn">{% trans "Previous" %}</button>
                         <button type="button" class="btn btn-primary" id="step3NextBtn">{% trans "Next" %}</button>
                     </div>
                 </div>
@@ -239,6 +246,7 @@
                 </div>
                 <div class="row text-center">
                     <div class="col-md-12">
+                        <button type="button" class="btn btn-primary" id="step4PreviousBtn">{% trans "Previous" %}</button>
                         <button type="button" class="btn btn-primary" id="step4NextBtn">{% trans "Next" %}</button>
                     </div>
                 </div>
@@ -358,6 +366,7 @@
                 </div>
                 <div class="row text-center">
                     <div class="col-md-12">
+                        <button type="button" class="btn btn-primary" id="step5PreviousBtn">{% trans "Previous" %}</button>
                         <button type="button" class="btn btn-primary" id="step5NextBtn">{% trans "Next" %}</button>
                     </div>
                 </div>
@@ -382,6 +391,7 @@
                 </div>
                 <div class="row text-center">
                     <div class="col-md-12">
+                        <button type="button" class="btn btn-primary" id="step6PreviousBtn">{% trans "Previous" %}</button>
                         <button type="button" class="btn btn-primary" id="step6NextBtn">{% trans "Next" %}</button>
                     </div>
                 </div>
@@ -444,6 +454,10 @@
                                         <button type="button" class="btn btn-primary" id="btn-full">{% trans "Assign minimum investment percentages" %}</button>
                                     </div>
                                 </div>
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" id='rellocated_check'>
+                                    <label class="custom-control-label" for="rellocated_check">{% trans "Rellocated remainder" %}</label>
+                                </div>
                             </div>
                         </div>
                         <div class="panel panel-hide" id="panel-investment">
@@ -493,10 +507,9 @@
                 </div>
 
                 <div class="row text-center">
-                    <div class="col-md-6">
-                        <button type="button" class="btn btn-primary" id="step7EndBtn">{% trans "save" %}</button>
-                    </div>
-                    <div class="col-md-6">
+                    <div class="col-md-12">
+                        <button type="button" class="btn btn-primary" id="step7PreviousBtn">{% trans "Previous" %}</button>
+                        <button type="button" class="btn btn-primary" id="step7EndBtn">{% trans "Save" %}</button>
                         <button type="button" class="btn btn-primary" id="step7RunBtn">{% trans "RUN Analysis" %}</button>
                     </div>
                 </div>
