@@ -117,11 +117,11 @@ $(document).ready(function() {
             $.each(data, function(index, scinfra) {
                 var name = "<td>" + scinfra.intake__name + "</td>";
                 var name_source = "<td>" + scinfra.intake__water_source_name + "</td>";
-                check = " <td>";
-                check += "<div>" + scinfra.name + " - " + scinfra.graphId
+                //check = " <td>";
+                //check += "<div>" + scinfra.name + " - " + scinfra.graphId
                 // "</div><button type='button' class='btn btn-primary' id='add_wi'>Add new cost</button>"
-                check += "</td>";
-                var markup = "<tr id='custom-" + value + "'>" + name + name_source + check + action + "</tr>";
+                //check += "</td>";
+                var markup = "<tr id='custom-" + value + "'>" + name + name_source + action + "</tr>";
                 $("#custom_table").find('tbody').append(markup);
             });
 
@@ -144,26 +144,27 @@ $(document).ready(function() {
 
     $('#step1NextBtn').click(function() {
         intakes = [];
+        ptaps = [];
         $('#custom_table').find('tbody > tr').each(function(index, tr) {
             id = tr.id.replace('custom-', '')
             intakes.push(id)
         });
         var type = $("input[name='type']:checked").val();
         if (type == "1") {
-            ptaps = [];
             $('#ptap_table').find('tbody > tr').each(function(index, tr) {
                 id = tr.id.replace('ptap-', '')
                 ptaps.push(id)
             });
         }
         if (($('#name').val() != '' && $('#description').val() != '' && intakes.length > 0)) {
-            console.log(id_study_case)
             $.post("../../study_cases/save/", {
                 name: $('#name').val(),
                 id_study_case: id_study_case,
                 description: $('#description').val(),
                 intakes: intakes,
                 ptaps: ptaps,
+                city: localStorage.city,
+                country: localStorage.country,
                 type: type
             }, function(data) {
                 id_study_case = data.id_study_case;
@@ -291,7 +292,8 @@ $(document).ready(function() {
                 travel: $('#travel').val(),
                 contracts: $('#contracts').val(),
                 others: $('#others').val(),
-                total_platform: $('#total_platform').val()
+                total_platform: $('#total_platform').val(),
+                financial_currency: $("#financial_currency option:selected").text()
             }, function(data) {
                 $('#smartwizard').smartWizard("next");
                 $('#autoAdjustHeightF').css("height", "auto");
@@ -370,6 +372,7 @@ $(document).ready(function() {
                 agroforestry: $('#agroforestry').val(),
                 analysis_currency: $('#analysis_currency').val(),
                 analysis_nbs: $("#analysis_nbs option:selected").text(),
+                analysis_currency: $("#analysis_currency option:selected").text(),
                 annual_investment: $('#annual_investment').val(),
             }, function(data) {
                 $('#smartwizard').smartWizard("next");
