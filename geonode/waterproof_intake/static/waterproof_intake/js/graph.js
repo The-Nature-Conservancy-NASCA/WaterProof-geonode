@@ -367,8 +367,6 @@ function onInit(editor) {
     //use jquery
     $(document).ready(function() {
 
-
-
         var MQ = MathQuill.getInterface(2);
         var CostSelected = null;
         var mathFieldSpan = document.getElementById('math-field');
@@ -663,7 +661,6 @@ function onInit(editor) {
         $(document).on('click', '.list-group-item', function() {
             addInfo(mathQuillSelected, `\\mathit{${$(this).attr('value')}}`);
         });
-
 
         $('#saveAndValideCost').click(function() {
             if (banderaFunctionCost) {
@@ -972,6 +969,14 @@ function onInit(editor) {
         };
         //Force only numbers into calculator funcion cost
         $("#math-field").ForceNumericOnly();
+        $("#math-fieldlogic1").ForceNumericOnly();
+        $("#math-fieldlogic2").ForceNumericOnly();
+        $("#math-fieldlogic3").ForceNumericOnly();
+        $("#math-fieldex1").ForceNumericOnly();
+        $("#math-fieldex2").ForceNumericOnly();
+        $("#math-fieldex3").ForceNumericOnly();
+
+
         //Append values and var into funcion cost
         function addInfo(type, value) {
             if (type == 'mathField') {

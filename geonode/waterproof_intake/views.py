@@ -961,6 +961,7 @@ def editIntake(request, idx):
             intakeExtInputs = json.dumps(extInputs)
             city = Cities.objects.all()
             form = forms.IntakeForm()
+            currencies = Countries.objects.all()
             return render(
                 request, 'waterproof_intake/intake_edit.html',
                 {
@@ -968,7 +969,8 @@ def editIntake(request, idx):
                     'countries': countries,
                     'city': city,
                     'externalInputs': intakeExtInputs,
-                    "serverApi": settings.WATERPROOF_API_SERVER
+                    "serverApi": settings.WATERPROOF_API_SERVER,
+                    'currencies': currencies,
                 }
             )
         response = redirect('/intake')
@@ -1151,6 +1153,7 @@ def cloneIntake(request, idx):
             intakeExtInputs = json.dumps(extInputs)
             city = Cities.objects.all()
             form = forms.IntakeForm()
+            currencies = Countries.objects.all()
             return render(
                 request, 'waterproof_intake/intake_clone.html',
                 {
