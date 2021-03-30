@@ -96,6 +96,8 @@ def create(request):
             portfolios = Portfolio.objects.all()
             models = ModelParameter.objects.all()
             tratamentPlants = Header.objects.all()
+            currencys = Countries.objects.values('currency').distinct()
+            logger.error(currencys)
             financial_parameters = ManagmentCosts_Discount.objects.get(country=48)
             intakes = ElementSystem.objects.filter(normalized_category='CSINFRA').values(
                 "id", "name", "intake__name", "intake__id", "graphId")
@@ -110,7 +112,8 @@ def create(request):
                               'tratamentPlants': tratamentPlants,
                               'ModelParameters': models,
                               'financialParameters': financial_parameters,
-                              'nbs': nbs
+                              'nbs': nbs,
+                              'currencys': currencys
                           }
                           )
 
@@ -132,6 +135,7 @@ def edit(request, idx):
             listNBSStudy = study_case.nbs.all()
             listIntakesStudy = study_case.intakes.all()
             listPTAPStudy = study_case.ptaps.all()
+            currencys = Countries.objects.values('currency').distinct()
             for portfolio in listPortfolios:
                 defaultValue = False
                 for portfolioStudy in listPortfoliosStudy:
@@ -185,7 +189,8 @@ def edit(request, idx):
                     'portfolios': portfolios,
                     'tratamentPlants': ptaps,
                     'ModelParameters': models,
-                    'nbs': nbs
+                    'nbs': nbs,
+                    'currencys': currencys
                 }
             )
 
@@ -205,6 +210,7 @@ def clone(request, idx):
             intakes = []
             ptaps = []
             nbs = []
+            currencys = Countries.objects.values('currency').distinct()
             listPortfoliosStudy = study_case.portfolios.all()
             listNBSStudy = study_case.nbs.all()
             listIntakesStudy = study_case.intakes.all()
@@ -262,7 +268,8 @@ def clone(request, idx):
                     'portfolios': portfolios,
                     'tratamentPlants': ptaps,
                     'ModelParameters': models,
-                    'nbs': nbs
+                    'nbs': nbs,
+                    'currencys': currencys
                 }
             )
 

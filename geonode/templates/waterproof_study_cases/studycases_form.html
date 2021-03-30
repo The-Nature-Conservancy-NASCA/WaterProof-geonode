@@ -135,7 +135,6 @@
 
                         <div class="panel panel-hide" id="panel-cost">
                             <div class="col-md-12">
-
                                 <div class="row form-group">
                                     <div class="col-md-2">
                                         <button type="button" class="btn btn-primary" id="add_wi">{% trans "Add cost function" %}</button>
@@ -217,8 +216,14 @@
                             <p>{% trans "USD/TonCO2eq" %}</p>
                         </div>
                         <div class="col-md-3">
-                            <select class="form-control" id="cm_select">
-                                <option value="1">USD</option>
+                            <select id="cm_select" class="custom-control-input">
+                                {% for currency in currencys %}
+                                {% if currency.currency == 'USD' %}
+                                <option value='{{currency.currency}}' selected>{{currency.currency}}</option>
+                                {% else %}
+                                <option value='{{currency.currency}}'>{{currency.currency}}</option>
+                                {% endif %}
+                                {% endfor %}
                             </select>
                         </div>
                     </div>
@@ -281,9 +286,15 @@
                     <p></p>
                     <div class="row ">
                         <div class="custom-control custom-select float-right col-md-4">
-                            <label class="custom-control-label" for="period-analysis">{% trans "Currency" %}</label>
-                            <select id="analysis_select" class="custom-control-input">
-                                <option value="1">USD</option>
+                            <label class="custom-control-label" for="financial_currency">{% trans "Currency" %}</label>
+                            <select id="financial_currency" class="custom-control-input">
+                                {% for currency in currencys %}
+                                {% if currency.currency == 'USD' %}
+                                <option value='{{currency.currency}}' selected>{{currency.currency}}</option>
+                                {% else %}
+                                <option value='{{currency.currency}}'>{{currency.currency}}</option>
+                                {% endif %}
+                                {% endfor %}
                             </select>
                         </div>
                     </div>
@@ -436,7 +447,13 @@
                         {% trans "Currency" %}
                     </label>
                     <select id="analysis_currency" class="form-control">
-                        <option value="1">USD</option>
+                        {% for currency in currencys %}
+                        {% if currency.currency == 'USD' %}
+                        <option value='{{currency.currency}}' selected>{{currency.currency}}</option>
+                        {% else %}
+                        <option value='{{currency.currency}}'>{{currency.currency}}</option>
+                        {% endif %}
+                        {% endfor %}
                     </select>
                 </div>
 
@@ -486,7 +503,7 @@
                                         <label class="control-label required-field" for="annual_investment">{% trans "Annual Investment" %}</label>
                                         <input id="annual_investment" type="number" class="text-number form-control">
                                     </div>
-                                    <div id="div_annual_investment" class="form-group">
+                                    <div id="div_rellocated_check" class="form-group">
                                         <div class="custom-control custom-checkbox">
                                             <input type="checkbox" class="custom-control-input" id='rellocated_check'>
                                             <label class="custom-control-label" for="rellocated_check">{% trans "Rellocated remainder" %}</label>
