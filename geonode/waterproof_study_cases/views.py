@@ -96,8 +96,7 @@ def create(request):
             portfolios = Portfolio.objects.all()
             models = ModelParameter.objects.all()
             tratamentPlants = Header.objects.all()
-            currencys = Countries.objects.values('currency').distinct()
-            logger.error(currencys)
+            currencys = Countries.objects.values('currency').distinct().order_by('currency')
             financial_parameters = ManagmentCosts_Discount.objects.get(country=48)
             intakes = ElementSystem.objects.filter(normalized_category='CSINFRA').values(
                 "id", "name", "intake__name", "intake__id", "graphId")

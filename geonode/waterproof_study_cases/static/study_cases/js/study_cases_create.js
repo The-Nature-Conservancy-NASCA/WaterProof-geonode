@@ -153,16 +153,20 @@ $(document).ready(function() {
         var type = $("input[name='type']:checked").val();
         if (type == "1") {
             $('#ptap_table').find('tbody > tr').each(function(index, tr) {
+                console.log(tr)
                 id = tr.id.replace('ptap-', '')
                 ptaps.push(id)
             });
         }
+        console.log(ptaps)
         if (($('#name').val() != '' && $('#description').val() != '' && intakes.length > 0)) {
             console.log(id_study_case)
             $.post("../../study_cases/save/", {
                 name: $('#name').val(),
                 id_study_case: id_study_case,
                 description: $('#description').val(),
+                city: localStorage.city,
+                country: localStorage.country,
                 intakes: intakes,
                 ptaps: ptaps,
                 type: type
@@ -293,7 +297,8 @@ $(document).ready(function() {
                 travel: $('#travel').val(),
                 contracts: $('#contracts').val(),
                 others: $('#others').val(),
-                total_platform: $('#total_platform').val()
+                total_platform: $('#total_platform').val(),
+                financial_currency: $("#financial_currency option:selected").text()
             }, function(data) {
                 $('#smartwizard').smartWizard("next");
                 $('#autoAdjustHeightF').css("height", "auto");
@@ -372,6 +377,7 @@ $(document).ready(function() {
                 agroforestry: $('#agroforestry').val(),
                 analysis_currency: $('#analysis_currency').val(),
                 analysis_nbs: $("#analysis_nbs option:selected").text(),
+                analysis_currency: $("#analysis_currency option:selected").text(),
                 annual_investment: $('#annual_investment').val(),
             }, function(data) {
                 $('#smartwizard').smartWizard("next");

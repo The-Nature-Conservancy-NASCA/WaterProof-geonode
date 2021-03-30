@@ -83,6 +83,7 @@ class StudyCases(models.Model):
     """
     name = models.CharField(max_length=100, blank=False, null=False)
     description = models.CharField(max_length=500, blank=False, null=False)
+    city = models.ForeignKey(Cities, on_delete=models.CASCADE)
     studycase_type = models.CharField(max_length=10, blank=True, null=True)
     program_Director = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     implementation_Manager = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
@@ -105,7 +106,7 @@ class StudyCases(models.Model):
     contracts = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     analysis_type = models.CharField(max_length=10, blank=True, null=True)
     analysis_period_value = models.IntegerField(blank=True, null=True)
-    analysis_currency = models.CharField(max_length=10, blank=True, null=True)
+    analysis_currency = models.CharField(max_length=4, blank=True, null=True)
     status = models.IntegerField(blank=True, null=True)
     added_by = models.ForeignKey(
         settings.AUTH_USER_MODEL,
@@ -125,11 +126,12 @@ class StudyCases(models.Model):
     analysis_passive_restoration = models.DecimalField(max_digits=20, decimal_places=2, blank=True, null=True)
     analysis_silvopastoral = models.DecimalField(max_digits=20, decimal_places=2, blank=True, null=True)
     analysis_agroforestry = models.DecimalField(max_digits=20, decimal_places=2, blank=True, null=True)
+    financial_currency = models.CharField(max_length=4, blank=True, null=True)
     intakes = models.ManyToManyField(ElementSystem)
     ptaps = models.ManyToManyField(Header)
     portfolios = models.ManyToManyField(Portfolio)
     nbs = models.ManyToManyField(WaterproofNbsCa)
-    cm_city = models.ForeignKey(Cities , on_delete=models.CASCADE, null=True)
+    cm_currency = models.CharField(max_length=4, blank=True, null=True)
     cm_value = models.DecimalField(max_digits=20, decimal_places=2, blank=True, null=True)
 
 class Meta:

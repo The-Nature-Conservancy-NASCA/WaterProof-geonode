@@ -38,6 +38,8 @@ def save(request):
     else:
         if request.method == 'POST':
             if(request.POST.get('name')):
+                logger.error(request.POST['city'])
+                city = Cities.objects.filter(name__startswith=request.POST['city'], country__name__startswith=request.POST['country']).first()
                 name = request.POST['name']
                 name_old = ''
                 id_study_case = request.POST['id_study_case']
@@ -61,6 +63,7 @@ def save(request):
                         sc.studycase_type = 'CUSTOM'
                     sc.create_date = datetime.datetime.now()
                     sc.name = name
+                    sc.city = city
                     sc.description = description
                     sc.save()
                     intakes = request.POST.getlist('intakes[]')
@@ -88,6 +91,7 @@ def save(request):
                     cm_value = request.POST['carbon_market_value']
                     cm_currency = request.POST['carbon_market_currency']
                     sc.cm_value = cm_value
+                    sc.cm_currency = cm_currency
                     sc.benefit_carbon_market = True
                     sc.save()
                     return JsonResponse({'id_study_case': sc.id}, safe=False)
@@ -130,6 +134,7 @@ def save(request):
                 sc.others = request.POST['others']
                 sc.travel = request.POST['travel']
                 sc.contracts = request.POST['contracts']
+                sc.financial_currency = request.POST['financial_currency']
                 sc.save()
                 return JsonResponse({'id_study_case': sc.id}, safe=False)
             elif(request.POST.get('analysis_type')):
@@ -138,6 +143,7 @@ def save(request):
                 sc.time_implement = request.POST['period_nbs']
                 sc.climate_scenario = request.POST['analysis_nbs']
                 sc.analysis_type = request.POST.get('analysis_type')
+                sc.analysis_currency = request.POST.get('analysis_currency')
                 sc.analysis_period_value = request.POST.get('period_analysis')
                 analysistype = request.POST['analysis_type']
                 if(analysistype == '1'):
