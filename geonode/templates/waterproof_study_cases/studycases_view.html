@@ -182,7 +182,13 @@
                         </div>
                         <div class="col-md-3">
                             <select class="form-control" id="cm_select" disabled>
-                                <option value="1">USD</option>
+                                {% for currency in currencys %}
+                                {% if currency.currency == study_case.cm_currency %}
+                                <option value='{{currency.currency}}' selected>{{currency.currency}}</option>
+                                {% else %}
+                                <option value='{{currency.currency}}'>{{currency.currency}}</option>
+                                {% endif %}
+                                {% endfor %}
                             </select>
                         </div>
                     </div>
@@ -253,7 +259,13 @@
                         <div class="custom-control custom-select float-right col-md-4">
                             <label class="custom-control-label" for="period-analysis">{% trans "Currency" %}</label>
                             <select id="analysis_select" class="custom-control-input" disabled>
-                                <option value="1">USD</option>
+                                {% for currency in currencys %}
+                                {% if currency.currency == study_case.financial_currency %}
+                                <option value='{{currency.currency}}' selected>{{currency.currency}}</option>
+                                {% else %}
+                                <option value='{{currency.currency}}'>{{currency.currency}}</option>
+                                {% endif %}
+                                {% endfor %}
                             </select>
                         </div>
                     </div>
@@ -410,7 +422,13 @@
                         {% trans "Currency" %}
                     </label>
                     <select id="analysis_currency" class="form-control" disabled>
-                        <option value="1">USD</option>
+                        {% for currency in currencys %}
+                        {% if currency.currency == study_case.analysis_currency %}
+                        <option value='{{currency.currency}}' selected>{{currency.currency}}</option>
+                        {% else %}
+                        <option value='{{currency.currency}}'>{{currency.currency}}</option>
+                        {% endif %}
+                        {% endfor %}
                     </select>
                 </div>
 
