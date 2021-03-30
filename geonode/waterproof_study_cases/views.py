@@ -42,6 +42,7 @@ def listStudyCases(request):
                 userCountry = Countries.objects.get(iso3=request.user.country)
                 region = Regions.objects.get(id=userCountry.region_id)
                 studyCases = StudyCases.objects.all()
+                logger.error(studyCases)
                 city = Cities.objects.get(id=1)
                 return render(
                     request,

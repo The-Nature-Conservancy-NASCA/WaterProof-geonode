@@ -65,6 +65,7 @@ $(document).ready(function() {
                     $("#panel-custom").removeClass("panel-hide");
                     $("#panel-ptap").addClass("panel-hide");
                     $('#autoAdjustHeightF').css("height", "auto");
+                    $("#panel-cost").removeClass("panel-hide");
                     $("#ptap_table tbody tr").empty();
                 } else {
                     $("input[name=type][value='1']").prop('checked', true);
@@ -74,12 +75,14 @@ $(document).ready(function() {
             $("#panel-custom").removeClass("panel-hide");
             $("#panel-ptap").addClass("panel-hide");
             $('#autoAdjustHeightF').css("height", "auto");
+            $("#panel-cost").removeClass("panel-hide");
         }
     });
 
     $('#ptap').click(function() {
         $("#panel-ptap").removeClass("panel-hide");
         $("#panel-custom").removeClass("panel-hide");
+        $("#panel-cost").addClass("panel-hide");
         $('#autoAdjustHeightF').css("height", "auto");
     });
 

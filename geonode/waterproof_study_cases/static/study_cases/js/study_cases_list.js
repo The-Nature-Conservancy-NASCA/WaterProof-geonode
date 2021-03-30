@@ -7,7 +7,6 @@ $(function() {
     var table = $('#studycases').DataTable({
         'dom': 'lrtip'
     });
-    console.log(table)
     var countryDropdown = $('#countryNBS');
     var currencyDropdown = $('#currencyCost');
     var transitionsDropdown = $('#riosTransition');
@@ -92,10 +91,10 @@ $(function() {
         var cityCoords = localStorage.getItem('cityCoords');
         if (cityCoords == undefined) {
             cityCoords = initialCoords;
-            table.search('').draw();
+            //table.search('').draw();
         } else {
             initialCoords = JSON.parse(cityCoords);
-            table.search(localStorage.getItem('city').substr(0, 5)).draw();
+            //table.search(localStorage.getItem('city').substr(0, 5)).draw();
             try {
                 $("#countryLabel").html(localStorage.getItem('country'));
                 $("#cityLabel").html(localStorage.getItem('city'));
@@ -171,7 +170,7 @@ $(function() {
         let cityName = geojsonFilter[0].properties.name;
         console.log(geojsonFilter[0].properties.name)
         //table.search(localStorage.getItem('city').substr(0, 2)).draw();
-        table.search(cityName.substr(0, 5)).draw();
+        //table.search(cityName.substr(0, 5)).draw();
         drawPolygons();
     }
 

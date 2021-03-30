@@ -62,6 +62,7 @@ $(document).ready(function() {
             }).then((result) => {
                 if (result.isConfirmed) {
                     $("#panel-custom").removeClass("panel-hide");
+                    $("#panel-cost").removeClass("panel-hide");
                     $("#panel-ptap").addClass("panel-hide");
                     $('#autoAdjustHeightF').css("height", "auto");
                     $("#ptap_table tbody tr").empty();
@@ -72,6 +73,7 @@ $(document).ready(function() {
         } else {
             $("#panel-custom").removeClass("panel-hide");
             $("#panel-ptap").addClass("panel-hide");
+            $("#panel-cost").removeClass("panel-hide");
             $('#autoAdjustHeightF').css("height", "auto");
         }
     });
@@ -79,6 +81,7 @@ $(document).ready(function() {
     $('#ptap').click(function() {
         $("#panel-ptap").removeClass("panel-hide");
         $("#panel-custom").removeClass("panel-hide");
+        $("#panel-cost").addClass("panel-hide");
         $('#autoAdjustHeightF').css("height", "auto");
     });
 
@@ -115,11 +118,11 @@ $(document).ready(function() {
             $.each(data, function(index, scinfra) {
                 var name = "<td>" + scinfra.intake__name + "</td>";
                 var name_source = "<td>" + scinfra.intake__water_source_name + "</td>";
-                check = " <td>";
-                check += "<div>" + scinfra.name + " - " + scinfra.graphId
+                // check = " <td>";
+                //check += "<div>" + scinfra.name + " - " + scinfra.graphId
                 // "</div><button type='button' class='btn btn-primary' id='add_wi'>Add new cost</button>"
-                check += "</td>";
-                var markup = "<tr id='custom-" + value + "'>" + name + name_source + check + action + "</tr>";
+                //check += "</td>";
+                var markup = "<tr id='custom-" + value + "'>" + name + name_source + action + "</tr>";
                 $("#custom_table").find('tbody').append(markup);
             });
 
@@ -142,13 +145,13 @@ $(document).ready(function() {
 
     $('#step1NextBtn').click(function() {
         intakes = [];
+        ptaps = [];
         $('#custom_table').find('tbody > tr').each(function(index, tr) {
             id = tr.id.replace('custom-', '')
             intakes.push(id)
         });
         var type = $("input[name='type']:checked").val();
         if (type == "1") {
-            ptaps = [];
             $('#ptap_table').find('tbody > tr').each(function(index, tr) {
                 id = tr.id.replace('ptap-', '')
                 ptaps.push(id)
