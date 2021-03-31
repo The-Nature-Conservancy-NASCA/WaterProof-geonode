@@ -164,7 +164,7 @@ def edit(request, idx):
             for ptap in listPtaps:
                 add = True
                 for ptapStudy in listPTAPStudy:
-                    if ptap.plant_id == ptapStudy.pk:
+                    if ptap.id == ptapStudy.pk:
                         add = False
                         break
                 if(add):
@@ -243,7 +243,7 @@ def clone(request, idx):
             for ptap in listPtaps:
                 add = True
                 for ptapStudy in listPTAPStudy:
-                    if ptap.plant_id == ptapStudy.pk:
+                    if ptap.id == ptapStudy.pk:
                         add = False
                         break
                 if(add):
