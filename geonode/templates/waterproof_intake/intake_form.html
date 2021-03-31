@@ -12,11 +12,14 @@
 <div class="page-header">
     <h1>{% trans "Create water intake" %}</h1>
     <h4 class="title-city">{% trans "Intake creation city" %} <span id="cityLabel"></span> </h4>
+    
 </div>
+<br>
 <!--Begin Form-->
 <form id="form" method="POST" action="">
     {% csrf_token %}
     <!--Start smartwizard-->
+    <br>
     <div id="smartwizard">
         <!--panel of navigation-->
         <ul class="nav">
