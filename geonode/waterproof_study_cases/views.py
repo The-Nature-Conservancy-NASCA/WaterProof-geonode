@@ -134,7 +134,7 @@ def edit(request, idx):
             listNBSStudy = study_case.nbs.all()
             listIntakesStudy = study_case.intakes.all()
             listPTAPStudy = study_case.ptaps.all()
-            currencys = Countries.objects.values('currency').distinct()
+            currencys = Countries.objects.values('currency').distinct().order_by('currency')
             for portfolio in listPortfolios:
                 defaultValue = False
                 for portfolioStudy in listPortfoliosStudy:
@@ -209,7 +209,7 @@ def clone(request, idx):
             intakes = []
             ptaps = []
             nbs = []
-            currencys = Countries.objects.values('currency').distinct()
+            currencys = Countries.objects.values('currency').distinct().order_by('currency')
             listPortfoliosStudy = study_case.portfolios.all()
             listNBSStudy = study_case.nbs.all()
             listIntakesStudy = study_case.intakes.all()
