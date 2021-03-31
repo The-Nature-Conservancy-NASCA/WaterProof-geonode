@@ -364,6 +364,8 @@ $(document).ready(function() {
         if (type == "2") {
             valid_investment = $('#annual_investment').val() != ''
         }
+        console.log($("#analysis_nbs option:selected"))
+        console.log($("#analysis_nbs option:selected").val())
         if ($('#period_analysis').val() != '' && $('#period_nbs').val() != '' && type && valid_edit && valid_investment) {
             $.post("../../study_cases/save/", {
                 id_study_case: id_study_case,
@@ -376,7 +378,7 @@ $(document).ready(function() {
                 silvopastoral: $('#silvopastoral').val(),
                 agroforestry: $('#agroforestry').val(),
                 analysis_currency: $('#analysis_currency').val(),
-                analysis_nbs: $("#analysis_nbs option:selected").text(),
+                analysis_nbs: $("#analysis_nbs option:selected").val(),
                 analysis_currency: $("#analysis_currency option:selected").text(),
                 annual_investment: $('#annual_investment').val(),
             }, function(data) {

@@ -17,7 +17,7 @@ from rest_framework.parsers import JSONParser
 from django.urls import reverse
 from .models import StudyCases
 from . import forms
-from geonode.waterproof_parameters.models import Cities, Countries, Regions, ManagmentCosts_Discount
+from geonode.waterproof_parameters.models import Cities, Countries, Regions, ManagmentCosts_Discount, Climate_value
 from geonode.waterproof_intake.models import Intake, ElementSystem
 from geonode.waterproof_treatment_plants.models import Header
 from geonode.waterproof_nbs_ca.models import WaterproofNbsCa
@@ -97,6 +97,7 @@ def create(request):
             models = ModelParameter.objects.all()
             tratamentPlants = Header.objects.all()
             currencys = Countries.objects.values('currency').distinct().order_by('currency')
+            scenarios = Climate_value.objects.all()
             financial_parameters = ManagmentCosts_Discount.objects.get(country=48)
             intakes = ElementSystem.objects.filter(normalized_category='CSINFRA').values(
                 "id", "name", "intake__name", "intake__id", "graphId")
@@ -112,7 +113,8 @@ def create(request):
                               'ModelParameters': models,
                               'financialParameters': financial_parameters,
                               'nbs': nbs,
-                              'currencys': currencys
+                              'currencys': currencys,
+                              'scenarios': scenarios
                           }
                           )
 
@@ -134,6 +136,7 @@ def edit(request, idx):
             listNBSStudy = study_case.nbs.all()
             listIntakesStudy = study_case.intakes.all()
             listPTAPStudy = study_case.ptaps.all()
+            scenarios = Climate_value.objects.all()
             currencys = Countries.objects.values('currency').distinct().order_by('currency')
             for portfolio in listPortfolios:
                 defaultValue = False
@@ -189,7 +192,8 @@ def edit(request, idx):
                     'tratamentPlants': ptaps,
                     'ModelParameters': models,
                     'nbs': nbs,
-                    'currencys': currencys
+                    'currencys': currencys,
+                    'scenarios': scenarios
                 }
             )
 
@@ -214,6 +218,7 @@ def clone(request, idx):
             listNBSStudy = study_case.nbs.all()
             listIntakesStudy = study_case.intakes.all()
             listPTAPStudy = study_case.ptaps.all()
+            scenarios = Climate_value.objects.all()
             for portfolio in listPortfolios:
                 defaultValue = False
                 for portfolioStudy in listPortfoliosStudy:
@@ -268,7 +273,8 @@ def clone(request, idx):
                     'tratamentPlants': ptaps,
                     'ModelParameters': models,
                     'nbs': nbs,
-                    'currencys': currencys
+                    'currencys': currencys,
+                    'scenarios': scenarios
                 }
             )
 
@@ -281,6 +287,7 @@ def view(request, idx):
         listPortfolios = Portfolio.objects.all()
         portfolios = []
         listPortfoliosStudy = study_case.portfolios.all()
+        scenarios = Climate_value.objects.all()
         for portfolio in listPortfolios:
             defaultValue = False
             for portfolioStudy in listPortfoliosStudy:
@@ -303,6 +310,7 @@ def view(request, idx):
                 'study_case': study_case,
                 'portfolios': portfolios,
                 'ModelParameters': models,
-                'nbs': nbs
+                'nbs': nbs,
+                'scenarios': scenarios
             }
         )

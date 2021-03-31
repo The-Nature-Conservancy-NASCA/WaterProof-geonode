@@ -25,7 +25,7 @@ from django.db import models
 from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 from geonode.waterproof_intake.models import ElementSystem
-from geonode.waterproof_parameters.models import Countries , Cities
+from geonode.waterproof_parameters.models import Countries , Cities , Climate_value
 from geonode.waterproof_treatment_plants.models import Header
 from geonode.waterproof_nbs_ca.models import WaterproofNbsCa
 
@@ -117,7 +117,7 @@ class StudyCases(models.Model):
     create_date = models.DateTimeField(blank=True, null=True)
     edit_date = models.DateTimeField(blank=True, null=True)
     time_implement = models.IntegerField(blank=True, null=True)
-    climate_scenario = models.CharField(max_length=100, blank=True, null=True)
+    climate_scenario = models.ForeignKey(Climate_value, blank=True, null=True, on_delete=models.CASCADE)
     annual_investment = models.DecimalField(max_digits=20, decimal_places=2, blank=True, null=True)
     benefit_carbon_market = models.BooleanField(blank=True, null=True)
     rellocated_remainder = models.BooleanField(blank=True, null=True)

@@ -487,7 +487,13 @@
                         <div id="div_analysis_nbs" class="form-group">
                             <label class="control-label required-field" for="analysis_nbs">{% trans "Climate Selection for Vaseline and NBS Scenario Analysis" %}</label>
                             <select id="analysis_nbs" class="form-control">
-                                <option value="1">Historical</option>
+                                {% for scenario in scenarios %}
+                                {% if scenario.name == study_case.climate_scenario.name %}
+                                <option value='{{scenario.id}}' selected>{{scenario.name}}</option>
+                                {% else %}
+                                <option value='{{scenario.id}}'>{{scenario.name}}</option>
+                                {% endif %}
+                                {% endfor %}
                             </select>
                         </div>
                         <label class="control-label required-field ">

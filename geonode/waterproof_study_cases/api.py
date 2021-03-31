@@ -9,7 +9,7 @@ from rest_framework.parsers import JSONParser
 from django.urls import reverse
 from .models import StudyCases
 from . import forms
-from geonode.waterproof_parameters.models import Countries, Regions, Cities
+from geonode.waterproof_parameters.models import Countries, Regions, Cities , Climate_value
 from geonode.waterproof_intake.models import Intake, ElementSystem
 from geonode.waterproof_treatment_plants.models import Header
 from geonode.waterproof_nbs_ca.models import WaterproofNbsCa
@@ -141,7 +141,9 @@ def save(request):
                 id_study_case = request.POST['id_study_case']
                 sc = StudyCases.objects.get(pk=id_study_case)
                 sc.time_implement = request.POST['period_nbs']
-                sc.climate_scenario = request.POST['analysis_nbs']
+                id_climate = request.POST['analysis_nbs']
+                cs = Climate_value.objects.get(pk=id_climate)
+                sc.climate_scenario = cs
                 sc.analysis_type = request.POST.get('analysis_type')
                 sc.analysis_currency = request.POST.get('analysis_currency')
                 sc.analysis_period_value = request.POST.get('period_analysis')

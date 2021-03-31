@@ -181,15 +181,7 @@
                             <p>{% trans "USD/TonCO2eq" %}</p>
                         </div>
                         <div class="col-md-3">
-                            <select class="form-control" id="cm_select" disabled>
-                                {% for currency in currencys %}
-                                {% if currency.currency == study_case.cm_currency %}
-                                <option value='{{currency.currency}}' selected>{{currency.currency}}</option>
-                                {% else %}
-                                <option value='{{currency.currency}}'>{{currency.currency}}</option>
-                                {% endif %}
-                                {% endfor %}
-                            </select>
+                            <input id="cm_select" class="form-control" value="{{study_case.cm_currency}}" disabled>
                         </div>
                     </div>
                     {% else %}
@@ -257,16 +249,8 @@
                     <p></p>
                     <div class="row ">
                         <div class="custom-control custom-select float-right col-md-4">
-                            <label class="custom-control-label" for="period-analysis">{% trans "Currency" %}</label>
-                            <select id="analysis_select" class="custom-control-input" disabled>
-                                {% for currency in currencys %}
-                                {% if currency.currency == study_case.financial_currency %}
-                                <option value='{{currency.currency}}' selected>{{currency.currency}}</option>
-                                {% else %}
-                                <option value='{{currency.currency}}'>{{currency.currency}}</option>
-                                {% endif %}
-                                {% endfor %}
-                            </select>
+                            <label class="custom-control-label" for="analysis_select">{% trans "Currency" %}</label>
+                            <input id="analysis_currency" class="form-control" value="{{study_case.financial_currency}}" disabled>
                         </div>
                     </div>
                     <div class="row ">
@@ -421,15 +405,7 @@
                     <label for="analysis_currency" class="control-label required-field ">
                         {% trans "Currency" %}
                     </label>
-                    <select id="analysis_currency" class="form-control" disabled>
-                        {% for currency in currencys %}
-                        {% if currency.currency == study_case.analysis_currency %}
-                        <option value='{{currency.currency}}' selected>{{currency.currency}}</option>
-                        {% else %}
-                        <option value='{{currency.currency}}'>{{currency.currency}}</option>
-                        {% endif %}
-                        {% endfor %}
-                    </select>
+                    <input id="analysis_currency" class="form-control" value="{{study_case.analysis_currency}}" disabled>
                 </div>
 
                 <div id="div_analysis_type" class="form-group">
@@ -439,9 +415,7 @@
                     </div>
                     <div id="div_analysis_nbs" class="form-group">
                         <label class="control-label required-field" for="analysis_nbs">{% trans "Climate Selection for Vaseline and NBS Scenario Analysis" %}</label>
-                        <select id="analysis_nbs" class="form-control" disabled>
-                            <option value="1">Historical</option>
-                        </select>
+                        <input id="analysis_nbs" class="form-control" value="{{study_case.climate_scenario.name}}" disabled>
                     </div>
                     <label class="control-label required-field ">
                         {% trans "Select an option to run the analysis" %}

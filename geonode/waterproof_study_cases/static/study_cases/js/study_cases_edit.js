@@ -371,7 +371,7 @@ $(document).ready(function() {
                 silvopastoral: $('#silvopastoral').val(),
                 agroforestry: $('#agroforestry').val(),
                 analysis_currency: $('#analysis_currency').val(),
-                analysis_nbs: $("#analysis_nbs option:selected").text(),
+                analysis_nbs: $("#analysis_nbs option:selected").val(),
                 analysis_currency: $("#analysis_currency option:selected").text(),
                 annual_investment: $('#annual_investment').val(),
             }, function(data) {
