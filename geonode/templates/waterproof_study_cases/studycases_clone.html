@@ -161,7 +161,7 @@
                                     </thead>
                                     <tbody>
                                         {% for ptap in study_case.ptaps.all %}
-                                        <tr id='ptap-{{ptap.plant_id}}'>
+                                        <tr id='ptap-{{ptap.id}}'>
                                             <td>{{ptap.plant_name}}</td>
                                             <td><a class='btn btn-danger'><span class='glyphicon glyphicon-trash' aria-hidden='true'></span></a></td>
                                         </tr>
@@ -343,7 +343,7 @@
                                 <input class="text-number" id="evaluation" type="number" class="custom-control-input" value="{{study_case.monitoring_Manager|stringformat:'1.2f'}}">
                             </div>
                             <div class="col-md-6">
-                                <label class="text-number" class="custom-control-label personnel-label" for="finance">{% trans "Finance and Administrator" %}</label>
+                                <label class="custom-control-label personnel-label" for="finance">{% trans "Finance and Administrator" %}</label>
                             </div>
                             <div class="custom-control custom-checkbox col-md-4">
                                 <input class="text-number" id="finance" type="number" class="custom-control-input" value="{{study_case.finance_Manager|stringformat:'1.2f'}}">

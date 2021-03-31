@@ -7,7 +7,7 @@ from . import views, api
 urlpatterns = [
 
     # Default view, list all views
-    path('', views.listStudyCases, name='study_cases_list'),
+    path('', views.list, name='study_cases_list'),
     # Create Study Cases
     path('create/', views.create, name='create'),
     # Edit Study Cases

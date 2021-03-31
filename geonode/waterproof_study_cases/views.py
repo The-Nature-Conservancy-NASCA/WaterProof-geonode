@@ -35,14 +35,13 @@ import datetime
 logger = logging.getLogger(__name__)
 
 
-def listStudyCases(request):
+def list(request):
     if request.method == 'GET':
         if request.user.is_authenticated:
             if (request.user.professional_role == 'ADMIN'):
                 userCountry = Countries.objects.get(iso3=request.user.country)
                 region = Regions.objects.get(id=userCountry.region_id)
                 studyCases = StudyCases.objects.all()
-                logger.error(studyCases)
                 city = Cities.objects.get(id=1)
                 return render(
                     request,
@@ -93,6 +92,7 @@ def create(request):
         if request.method == 'POST':
             return HttpResponseRedirect(reverse('study_cases_list'))
         else:
+            logger.error(request)
             portfolios = Portfolio.objects.all()
             models = ModelParameter.objects.all()
             tratamentPlants = Header.objects.all()
