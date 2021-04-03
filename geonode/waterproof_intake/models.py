@@ -149,7 +149,7 @@ class CostFunctionsProcess(models.Model):
         verbose_name=_('Function description')
     )
 
-    sub_proceso = models.CharField(
+    sub_process = models.CharField(
         null=True,
         blank=True,
         max_length=100,
@@ -161,7 +161,7 @@ class CostFunctionsProcess(models.Model):
         default=False
     )
 
-    proceso_efeciente = models.ForeignKey(ProcessEfficiencies, on_delete=models.CASCADE, null=True)
+    process_efficiencies = models.ForeignKey(ProcessEfficiencies, on_delete=models.CASCADE, null=True)
 
 class UserCostFunctions(models.Model):
 
