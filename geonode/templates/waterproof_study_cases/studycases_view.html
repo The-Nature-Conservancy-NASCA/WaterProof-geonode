@@ -86,9 +86,31 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-
                         <div class="panel" id="panel-ptap">
-                            {% if study_case.studycase_type == 'PTAP' %}
+                            <div class="col-md-12">
+                                <div class="row form-group">
+                                    <legend><label>{% trans "Water Intake" %}</label></legend>
+                                </div>
+                                <table id="custom_table" class="table table-striped table-bordered table-condensed" style="width:100%">
+                                    <thead>
+                                        <tr class="info">
+                                            <th scope="col" class="small text-center vat">{% trans "name" %}</th>
+                                            <th scope="col" class="small text-center vat">{% trans "Name of the water source" %}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for intake in study_case.intakes.all %}
+                                        <tr id='custom-{{intake.id}}'>
+                                            <td>{{intake.intake.name}}</td>
+                                            <td>{{intake.intake.water_source_name}}</td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        {% if study_case.studycase_type == 'PTAP' %}
+                        <div class="panel" id="panel-ptap">
                             <div class="col-md-12">
                                 <div class="row form-group">
                                     <legend><label>{% trans "Treatments plants" %}</label></legend>
@@ -101,38 +123,35 @@
                                     </thead>
                                     <tbody>
                                         {% for ptap in study_case.ptaps.all %}
-                                        <tr id='custom-{{ptap.plant_id}}'>
+                                        <tr id='custom-{{ptap.id}}'>
                                             <td>{{ptap.plant_name}}</td>
                                         </tr>
                                         {% endfor %}
                                     </tbody>
                                 </table>
                             </div>
-                            {% endif %}
+                        </div>
+                        {% else %}
+                        <div class="panel" id="panel-cost">
                             <div class="col-md-12">
-                                <div class="row form-group">
-                                    <legend><label>{% trans "Water Intake" %}</label></legend>
-                                </div>
-                                <table id="custom_table" class="table table-striped table-bordered table-condensed" style="width:100%">
+                                <table id="cost_table" class="table table-striped table-bordered table-condensed" style="width:100%">
                                     <thead>
                                         <tr class="info">
-                                            <th scope="col" class="small text-center vat">{% trans "name" %}</th>
-                                            <th scope="col" class="small text-center vat">{% trans "Name of the water source" %}</th>
-                                            <th scope="col" class="small text-center vat">{% trans "Study cases infrastructure" %}</th>
+                                            <th scope="col" class="small text-center vat">{% trans "Function name" %}</th>
+                                            <th scope="col" class="small text-center vat">{% trans "Function" %}</th>
+                                            <th scope="col" class="small text-center vat">{% trans "Currency" %}</th>
+                                            <th scope="col" class="small text-center vat">{% trans "Factor" %}</th>
+                                            <th scope="col" class="small text-center vat">{% trans "Options" %}</th>
                                         </tr>
+
                                     </thead>
                                     <tbody>
-                                        {% for intake in study_case.intakes.all %}
-                                        <tr id='custom-{{intake.id}}'>
-                                            <td>{{intake.intake.name}}</td>
-                                            <td>{{intake.intake.water_source_name}}</td>
-                                            <td>{{intake.name}} - {{intake.graphId}}</td>
-                                        </tr>
-                                        {% endfor %}
                                     </tbody>
                                 </table>
                             </div>
                         </div>
+                        {% endif %}
+
                     </div>
                 </div>
                 <div class="row text-center">
@@ -162,9 +181,7 @@
                             <p>{% trans "USD/TonCO2eq" %}</p>
                         </div>
                         <div class="col-md-3">
-                            <select class="form-control" id="cm_select" disabled>
-                                <option value="1">USD</option>
-                            </select>
+                            <input id="cm_select" class="form-control" value="{{study_case.cm_currency}}" disabled>
                         </div>
                     </div>
                     {% else %}
@@ -173,10 +190,10 @@
                         <label class="custom-control-label" for="cb_check">{% trans "Carbon market" %}</label>
                     </div>
                     {% endif %}
-
                 </div>
                 <div class="row text-center">
                     <div class="col-md-12">
+                        <button type="button" class="btn btn-primary" id="step2PreviousBtn">{% trans "Previous" %}</button>
                         <button type="button" class="btn btn-primary" id="step2NextBtn">{% trans "Next" %}</button>
                     </div>
                 </div>
@@ -205,6 +222,7 @@
                 </div>
                 <div class="row text-center">
                     <div class="col-md-12">
+                        <button type="button" class="btn btn-primary" id="step3PreviousBtn">{% trans "Previous" %}</button>
                         <button type="button" class="btn btn-primary" id="step3NextBtn">{% trans "Next" %}</button>
                     </div>
                 </div>
@@ -219,6 +237,7 @@
                 </div>
                 <div class="row text-center">
                     <div class="col-md-12">
+                        <button type="button" class="btn btn-primary" id="step4PreviousBtn">{% trans "Previous" %}</button>
                         <button type="button" class="btn btn-primary" id="step4NextBtn">{% trans "Next" %}</button>
                     </div>
                 </div>
@@ -230,10 +249,8 @@
                     <p></p>
                     <div class="row ">
                         <div class="custom-control custom-select float-right col-md-4">
-                            <label class="custom-control-label" for="period-analysis">{% trans "Currency" %}</label>
-                            <select id="analysis_select" class="custom-control-input" disabled>
-                                <option value="1">USD</option>
-                            </select>
+                            <label class="custom-control-label" for="analysis_select">{% trans "Currency" %}</label>
+                            <input id="analysis_currency" class="form-control" value="{{study_case.financial_currency}}" disabled>
                         </div>
                     </div>
                     <div class="row ">
@@ -266,7 +283,7 @@
                             <label class="custom-control-label personnel-label" for="finance">{% trans "Finance and Administrator" %}</label>
                         </div>
                         <div class="custom-control custom-checkbox col-md-4">
-                            <inputclass="text-number" id="finance" type="number" class="custom-control-input" value="{{study_case.finance_Manager|stringformat:'1.2f'}}" disabled>
+                            <input class="text-number" id="finance" type="number" class="custom-control-input" value="{{study_case.finance_Manager|stringformat:'1.2f'}}" disabled>
                         </div>
                         <div class="col-md-6">
                             <label class="custom-control-label personnel-label" for="implementation">{% trans "Implementation Manager" %}</label>
@@ -338,6 +355,7 @@
                 </div>
                 <div class="row text-center">
                     <div class="col-md-12">
+                        <button type="button" class="btn btn-primary" id="step5PreviousBtn">{% trans "Previous" %}</button>
                         <button type="button" class="btn btn-primary" id="step5NextBtn">{% trans "Next" %}</button>
                     </div>
                 </div>
@@ -366,6 +384,7 @@
                 </div>
                 <div class="row text-center">
                     <div class="col-md-12">
+                        <button type="button" class="btn btn-primary" id="step6PreviousBtn">{% trans "Previous" %}</button>
                         <button type="button" class="btn btn-primary" id="step6NextBtn">{% trans "Next" %}</button>
                     </div>
                 </div>
@@ -386,9 +405,7 @@
                     <label for="analysis_currency" class="control-label required-field ">
                         {% trans "Currency" %}
                     </label>
-                    <select id="analysis_currency" class="form-control" disabled>
-                        <option value="1">USD</option>
-                    </select>
+                    <input id="analysis_currency" class="form-control" value="{{study_case.analysis_currency}}" disabled>
                 </div>
 
                 <div id="div_analysis_type" class="form-group">
@@ -398,9 +415,7 @@
                     </div>
                     <div id="div_analysis_nbs" class="form-group">
                         <label class="control-label required-field" for="analysis_nbs">{% trans "Climate Selection for Vaseline and NBS Scenario Analysis" %}</label>
-                        <select id="analysis_nbs" class="form-control" disabled>
-                            <option value="1">Historical</option>
-                        </select>
+                        <input id="analysis_nbs" class="form-control" value="{{study_case.climate_scenario.name}}" disabled>
                     </div>
                     <label class="control-label required-field ">
                         {% trans "Select an option to run the analysis" %}
@@ -425,13 +440,23 @@
 
                 <div class="row">
                     <div class="col-md-12">
-                        {% if study_case.studycase_type == 'FULL' %}
+                        {% if study_case.studycase_type != 'FULL' %}
                         <div class="panel" id="panel-investment">
                             <div class="col-md-12">
                                 <div class="row form-group">
                                     <div id="div_annual_investment" class="form-group">
                                         <label class="control-label required-field" for="annual_investment">{% trans "Annual Investment" %}</label>
                                         <input id="annual_investment" type="number" class="form-control" value="{{study_case.annual_investment|stringformat:'1.2f'}}" disabled>
+                                    </div>
+                                    <div id="div_rellocated_check" class="form-group">
+                                        <div class="custom-control custom-checkbox">
+                                            {% if study_case.rellocated_remainder %}
+                                            <input type="checkbox" class="custom-control-input" id='rellocated_check' checked disabled>
+                                            {% else %}
+                                            <input type="checkbox" class="custom-control-input" id='rellocated_check' disabled>
+                                            {% endif %}
+                                            <label class="custom-control-label" for="rellocated_check">{% trans "Rellocated remainder" %}</label>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -478,7 +503,8 @@
 
                 <div class="row text-center">
                     <div class="col-md-6">
-                        <button type="button" class="btn btn-primary" id="step7EndBtn">{% trans "back" %}</button>
+                        <button type="button" class="btn btn-primary" id="step7PreviousBtn">{% trans "Previous" %}</button>
+                        <button type="button" class="btn btn-primary" id="step7EndBtn">{% trans "Return" %}</button>
                     </div>
                 </div>
             </div>

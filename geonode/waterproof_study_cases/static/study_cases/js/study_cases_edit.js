@@ -65,6 +65,7 @@ $(document).ready(function() {
                     $("#panel-custom").removeClass("panel-hide");
                     $("#panel-ptap").addClass("panel-hide");
                     $('#autoAdjustHeightF').css("height", "auto");
+                    $("#panel-cost").removeClass("panel-hide");
                     $("#ptap_table tbody tr").empty();
                 } else {
                     $("input[name=type][value='1']").prop('checked', true);
@@ -74,12 +75,14 @@ $(document).ready(function() {
             $("#panel-custom").removeClass("panel-hide");
             $("#panel-ptap").addClass("panel-hide");
             $('#autoAdjustHeightF').css("height", "auto");
+            $("#panel-cost").removeClass("panel-hide");
         }
     });
 
     $('#ptap').click(function() {
         $("#panel-ptap").removeClass("panel-hide");
         $("#panel-custom").removeClass("panel-hide");
+        $("#panel-cost").addClass("panel-hide");
         $('#autoAdjustHeightF').css("height", "auto");
     });
 
@@ -114,11 +117,11 @@ $(document).ready(function() {
             $.each(data, function(index, scinfra) {
                 var name = "<td>" + scinfra.intake__name + "</td>";
                 var name_source = "<td>" + scinfra.intake__water_source_name + "</td>";
-                check = " <td>";
-                check += "<div>" + scinfra.name + " - " + scinfra.graphId
+                //check = " <td>";
+                //check += "<div>" + scinfra.name + " - " + scinfra.graphId
                 // "</div><button type='button' class='btn btn-primary' id='add_wi'>Add new cost</button>"
-                check += "</td>";
-                var markup = "<tr id='custom-" + value + "'>" + name + name_source + check + action + "</tr>";
+                //check += "</td>";
+                var markup = "<tr id='custom-" + value + "'>" + name + name_source + action + "</tr>";
                 $("#custom_table").find('tbody').append(markup);
             });
 
@@ -141,26 +144,27 @@ $(document).ready(function() {
 
     $('#step1NextBtn').click(function() {
         intakes = [];
+        ptaps = [];
         $('#custom_table').find('tbody > tr').each(function(index, tr) {
             id = tr.id.replace('custom-', '')
             intakes.push(id)
         });
         var type = $("input[name='type']:checked").val();
         if (type == "1") {
-            ptaps = [];
             $('#ptap_table').find('tbody > tr').each(function(index, tr) {
                 id = tr.id.replace('ptap-', '')
                 ptaps.push(id)
             });
         }
         if (($('#name').val() != '' && $('#description').val() != '' && intakes.length > 0)) {
-            console.log(id_study_case)
             $.post("../../study_cases/save/", {
                 name: $('#name').val(),
                 id_study_case: id_study_case,
                 description: $('#description').val(),
                 intakes: intakes,
                 ptaps: ptaps,
+                city: localStorage.city,
+                country: localStorage.country,
                 type: type
             }, function(data) {
                 id_study_case = data.id_study_case;
@@ -199,6 +203,10 @@ $(document).ready(function() {
         }
     })
 
+    $('#step2PreviousBtn').click(function() {
+        $('#smartwizard').smartWizard("prev");
+    });
+
     $('#step2NextBtn').click(function() {
         if ($("#cb_check").is(':checked')) {
             $.post("../../study_cases/save/", {
@@ -215,6 +223,10 @@ $(document).ready(function() {
             $('#autoAdjustHeightF').css("height", "auto");
 
         }
+    });
+
+    $('#step3PreviousBtn').click(function() {
+        $('#smartwizard').smartWizard("prev");
     });
 
     $('#step3NextBtn').click(function() {
@@ -241,9 +253,18 @@ $(document).ready(function() {
         }
     });
 
+    $('#step4PreviousBtn').click(function() {
+        $('#smartwizard').smartWizard("prev");
+    });
+
     $('#step4NextBtn').click(function() {
         $('#smartwizard').smartWizard("next");
     });
+
+    $('#step5PreviousBtn').click(function() {
+        $('#smartwizard').smartWizard("prev");
+    });
+
     $('#step5NextBtn').click(function() {
         var valid = true;
         $("#div_financial").find("input").each(function() {
@@ -271,7 +292,8 @@ $(document).ready(function() {
                 travel: $('#travel').val(),
                 contracts: $('#contracts').val(),
                 others: $('#others').val(),
-                total_platform: $('#total_platform').val()
+                total_platform: $('#total_platform').val(),
+                financial_currency: $("#financial_currency option:selected").text()
             }, function(data) {
                 $('#smartwizard').smartWizard("next");
                 $('#autoAdjustHeightF').css("height", "auto");
@@ -285,6 +307,11 @@ $(document).ready(function() {
             return;
         }
     });
+
+    $('#step6PreviousBtn').click(function() {
+        $('#smartwizard').smartWizard("prev");
+    });
+
     $('#step6NextBtn').click(function() {
         nbs = [];
         $('#nbs-ul input:checked').each(function() {
@@ -308,6 +335,11 @@ $(document).ready(function() {
             return;
         }
     });
+
+    $('#step7PreviousBtn').click(function() {
+        $('#smartwizard').smartWizard("prev");
+    });
+
     $('#step7EndBtn').click(function() {
         edit = !$("#full-table").hasClass("panel-hide")
         var valid_edit = true;
@@ -339,7 +371,8 @@ $(document).ready(function() {
                 silvopastoral: $('#silvopastoral').val(),
                 agroforestry: $('#agroforestry').val(),
                 analysis_currency: $('#analysis_currency').val(),
-                analysis_nbs: $("#analysis_nbs option:selected").text(),
+                analysis_nbs: $("#analysis_nbs option:selected").val(),
+                analysis_currency: $("#analysis_currency option:selected").text(),
                 annual_investment: $('#annual_investment').val(),
             }, function(data) {
                 $('#smartwizard').smartWizard("next");

@@ -54,9 +54,17 @@ $(document).ready(function() {
         $('#autoAdjustHeightF').css("height", "auto");
     });
 
+    $('#step2PreviousBtn').click(function() {
+        $('#smartwizard').smartWizard("prev");
+    });
+
     $('#step2NextBtn').click(function() {
         $('#smartwizard').smartWizard("next");
         $('#autoAdjustHeightF').css("height", "auto");
+    });
+
+    $('#step3PreviousBtn').click(function() {
+        $('#smartwizard').smartWizard("prev");
     });
 
     $('#step3NextBtn').click(function() {
@@ -64,18 +72,37 @@ $(document).ready(function() {
         $('#autoAdjustHeightF').css("height", "auto");
     });
 
+    $('#step4PreviousBtn').click(function() {
+        $('#smartwizard').smartWizard("prev");
+    });
+
     $('#step4NextBtn').click(function() {
         $('#smartwizard').smartWizard("next");
         $('#autoAdjustHeightF').css("height", "auto");
     });
+
+    $('#step5PreviousBtn').click(function() {
+        $('#smartwizard').smartWizard("prev");
+    });
+
     $('#step5NextBtn').click(function() {
         $('#smartwizard').smartWizard("next");
         $('#autoAdjustHeightF').css("height", "auto");
     });
+
+    $('#step6PreviousBtn').click(function() {
+        $('#smartwizard').smartWizard("prev");
+    });
+
     $('#step6NextBtn').click(function() {
         $('#smartwizard').smartWizard("next");
         $('#autoAdjustHeightF').css("height", "auto");
     });
+
+    $('#step7PreviousBtn').click(function() {
+        $('#smartwizard').smartWizard("prev");
+    });
+
     $('#step7EndBtn').click(function() {
         $('#smartwizard').smartWizard("next");
         $('#autoAdjustHeightF').css("height", "auto");

@@ -4,7 +4,7 @@
  * @version 1.0
  */
 $(function() {
-    var table = $('#examples').DataTable({
+    var table = $('#studycases').DataTable({
         'dom': 'lrtip'
     });
     var countryDropdown = $('#countryNBS');
@@ -169,7 +169,7 @@ $(function() {
         }*/
         let cityName = geojsonFilter[0].properties.name;
         console.log(geojsonFilter[0].properties.name)
-        //table.search(localStorage.getItem('city').substr(0, 2)).draw();
+        table.search(localStorage.getItem('city').substr(0, 2)).draw();
         table.search(cityName.substr(0, 5)).draw();
         drawPolygons();
     }
