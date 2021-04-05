@@ -210,22 +210,18 @@ $(document).ready(function() {
     });
 
     $('#step2NextBtn').click(function() {
-        if ($("#cb_check").is(':checked')) {
-            $.post("../../study_cases/save/", {
-                id_study_case: id_study_case,
-                carbon_market: $("#cb_check").is(':checked'),
-                carbon_market_value: $('#id_cm').val(),
-                carbon_market_currency: $("#cm_select option:selected").text()
-            }, function(data) {
-                $('#smartwizard').smartWizard("next");
-                $('#autoAdjustHeightF').css("height", "auto");
-            }, "json");
-        } else {
+        $.post("../../study_cases/save/", {
+            id_study_case: id_study_case,
+            carbon_market: $("#cb_check").is(':checked'),
+            carbon_market_value: $('#id_cm').val(),
+            carbon_market_currency: $("#cm_select option:selected").text()
+        }, function(data) {
             $('#smartwizard').smartWizard("next");
             $('#autoAdjustHeightF').css("height", "auto");
+        }, "json");
 
-        }
     });
+
 
     $('#step3PreviousBtn').click(function() {
         $('#smartwizard').smartWizard("prev");
@@ -376,6 +372,7 @@ $(document).ready(function() {
                 analysis_nbs: $("#analysis_nbs option:selected").val(),
                 analysis_currency: $("#analysis_currency option:selected").text(),
                 annual_investment: $('#annual_investment').val(),
+                rellocated_remainder: $("#rellocated_check").is(':checked'),
             }, function(data) {
                 $('#smartwizard').smartWizard("next");
                 $('#autoAdjustHeightF').css("height", "auto");
