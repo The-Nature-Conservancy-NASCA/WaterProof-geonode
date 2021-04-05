@@ -16,7 +16,9 @@ urlpatterns = [
     path('clone/<int:idx>', views.clone, name='clone-study-cases'),
      # View Study Cases
     path('view/<int:idx>', views.view, name='edit-study-cases'),
-    path('scinfra/<int:id_scinfra>/', api.getSCInfra, name='intake-scinfra'),
+    path('intakebyid/<int:id_intake>/', api.getIntakeByID, name='intake-id'),
+    path('intakebycity/<str:name>/', api.getIntakeByCity, name='intake-city'),
+    path('ptapbycity/<str:name>/', api.getPtapByCity, name='ptap-city'),    
     path('save/', api.save, name='study_cases_save'),
     
 ]

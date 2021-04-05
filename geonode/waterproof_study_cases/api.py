@@ -23,12 +23,36 @@ logger = logging.getLogger(__name__)
 
 
 @api_view(['GET'])
-def getSCInfra(request, id_scinfra):
+def getIntakeByID(request, id_intake):
     if request.method == 'GET':
-        filterIntakeCSInfra = ElementSystem.objects.filter(id=id_scinfra).values(
+        logger.error(id_intake)
+        filterIntakeCSInfra = ElementSystem.objects.filter(id=id_intake).values(
+            "id", "name", "intake__name", "intake__id", "intake__water_source_name", "graphId")
+        data = list(filterIntakeCSInfra)
+        logger.error(data)
+        return JsonResponse(data, safe=False)
+    
+    
+@api_view(['GET'])
+def getIntakeByCity(request, name):
+    if request.method == 'GET':
+        logger.error(name)
+        filterIntakeCSInfra = ElementSystem.objects.filter(intake__city__name__startswith=name,normalized_category='CSINFRA').values(
             "id", "name", "intake__name", "intake__id", "intake__water_source_name", "graphId")
         data = list(filterIntakeCSInfra)
         return JsonResponse(data, safe=False)
+
+
+@api_view(['GET'])
+def getPtapByCity(request, name):
+    if request.method == 'GET':
+        logger.error(name)
+        filterptap = Header.objects.filter(plant_city__name__startswith=name).values(
+            "id", "plant_name")
+        data = list(filterptap)
+        return JsonResponse(data, safe=False)
+    
+    
 
 
 @api_view(['POST'])

@@ -95,21 +95,16 @@ def create(request):
             logger.error(request)
             portfolios = Portfolio.objects.all()
             models = ModelParameter.objects.all()
-            tratamentPlants = Header.objects.all()
             currencys = Countries.objects.values('currency').distinct().order_by('currency')
             scenarios = Climate_value.objects.all()
             financial_parameters = ManagmentCosts_Discount.objects.get(country=48)
-            intakes = ElementSystem.objects.filter(normalized_category='CSINFRA').values(
-                "id", "name", "intake__name", "intake__id", "graphId")
             nbs = WaterproofNbsCa.objects.filter(added_by__professional_role='ADMIN').values(
                 "id", "name")
             return render(request,
                           'waterproof_study_cases/studycases_form.html',
                           context={
                               "serverApi": settings.WATERPROOF_API_SERVER,
-                              'intakes': intakes,
                               'portfolios': portfolios,
-                              'tratamentPlants': tratamentPlants,
                               'ModelParameters': models,
                               'financialParameters': financial_parameters,
                               'nbs': nbs,
