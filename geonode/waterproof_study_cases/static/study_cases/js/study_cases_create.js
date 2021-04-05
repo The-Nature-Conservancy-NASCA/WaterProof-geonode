@@ -48,6 +48,8 @@ $(document).ready(function() {
 
     calculate_Personnel();
     calculate_Platform();
+    loadIntakes();
+    loadPtaps();
 
     $('#custom').click(function() {
         if ($('#ptap_table').find('tbody > tr').length > 0) {
@@ -112,9 +114,10 @@ $(document).ready(function() {
     $('#add_wi').click(function() {
         text = $("#select_custom option:selected").text();
         value = $("#select_custom option:selected").val();
+        console.log(value)
         $('#select_custom option:selected').remove();
         var action = "<td><a class='btn btn-danger'><span class='glyphicon glyphicon-trash' aria-hidden='true'></span></a></td>";
-        $.get("../../study_cases/scinfra/" + value, function(data) {
+        $.get("../../study_cases/intakebyid/" + value, function(data) {
             $.each(data, function(index, scinfra) {
                 var name = "<td>" + scinfra.intake__name + "</td>";
                 var name_source = "<td>" + scinfra.intake__water_source_name + "</td>";
@@ -158,7 +161,6 @@ $(document).ready(function() {
                 ptaps.push(id)
             });
         }
-        console.log(ptaps)
         if (($('#name').val() != '' && $('#description').val() != '' && intakes.length > 0)) {
             console.log(id_study_case)
             $.post("../../study_cases/save/", {
@@ -213,21 +215,15 @@ $(document).ready(function() {
     });
 
     $('#step2NextBtn').click(function() {
-        if ($("#cb_check").is(':checked')) {
-            $.post("../../study_cases/save/", {
-                id_study_case: id_study_case,
-                carbon_market: $("#cb_check").is(':checked'),
-                carbon_market_value: $('#id_cm').val(),
-                carbon_market_currency: $("#cm_select option:selected").text()
-            }, function(data) {
-                $('#smartwizard').smartWizard("next");
-                $('#autoAdjustHeightF').css("height", "auto");
-            }, "json");
-        } else {
+        $.post("../../study_cases/save/", {
+            id_study_case: id_study_case,
+            carbon_market: $("#cb_check").is(':checked'),
+            carbon_market_value: $('#id_cm').val(),
+            carbon_market_currency: $("#cm_select option:selected").text()
+        }, function(data) {
             $('#smartwizard').smartWizard("next");
             $('#autoAdjustHeightF').css("height", "auto");
-
-        }
+        }, "json");
     });
 
     $('#step3PreviousBtn').click(function() {
@@ -364,8 +360,6 @@ $(document).ready(function() {
         if (type == "2") {
             valid_investment = $('#annual_investment').val() != ''
         }
-        console.log($("#analysis_nbs option:selected"))
-        console.log($("#analysis_nbs option:selected").val())
         if ($('#period_analysis').val() != '' && $('#period_nbs').val() != '' && type && valid_edit && valid_investment) {
             $.post("../../study_cases/save/", {
                 id_study_case: id_study_case,
@@ -381,6 +375,7 @@ $(document).ready(function() {
                 analysis_nbs: $("#analysis_nbs option:selected").val(),
                 analysis_currency: $("#analysis_currency option:selected").text(),
                 annual_investment: $('#annual_investment').val(),
+                rellocated_remainder: $("#rellocated_check").is(':checked'),
             }, function(data) {
                 $('#smartwizard').smartWizard("next");
                 $('#autoAdjustHeightF').css("height", "auto");
@@ -436,6 +431,23 @@ $(document).ready(function() {
         row.remove();
 
     });
+
+    $("#conservation").keyup(function() {
+        calculateAnalysisValues($(this))
+    });
+    $("#active").keyup(function() {
+        calculateAnalysisValues($(this))
+    });
+    $("#passive").keyup(function() {
+        calculateAnalysisValues($(this))
+    });
+    $("#silvopastoral").keyup(function() {
+        calculateAnalysisValues($(this))
+    });
+    $("#agroforestry").keyup(function() {
+        calculateAnalysisValues($(this))
+    });
+
 
     $("#director").keyup(function() {
         calculate_Personnel();
@@ -542,6 +554,74 @@ $(document).ready(function() {
         total_plaform.val(total)
     }
 
+    function calculateAnalysisValues(input) {
+        var type = $("input[name='analysis_type']:checked").val();
+        var total = 100
+        if (type == "2") {
+            total = $('#annual_investment').val()
+        }
+        if (total != '') {
+            suma = 0.0;
+            $("#full-table").find("input").each(function() {
+                var $this = $(this);
+                if ($this.val().length > 0) {
+                    suma += Number($this.val());
+                    if (suma > total) {
+                        input.val('')
+                        Swal.fire({
+                            icon: 'warning',
+                            title: `mayor value`,
+                            text: `Please `
+                        });
+                    }
+                }
+            });
+        } else {
+            Swal.fire({
+                icon: 'warning',
+                title: `Field empty`,
+                text: `Please add annual investment`
+            });
+            return;
+        }
+    }
+
+    function loadIntakes() {
+        var city = localStorage.city
+        $.get("../../study_cases/intakebycity/" + city, function(data) {
+            if (data.length > 0) {
+                $.each(data, function(index, intake) {
+                    var name = intake.intake__name;
+                    option = name
+                    $("#select_custom").append(new Option(option, intake.id));
+                });
+                $("#div-customcase").removeClass("panel-hide");
+                $('#autoAdjustHeightF').css("height", "auto");
+            } else {
+                $("#div-emptyintakes").removeClass("panel-hide");
+            }
+
+        });
+    }
+
+    function loadPtaps() {
+        var city = localStorage.city
+        $.get("../../study_cases/ptapbycity/" + city, function(data) {
+            if (data.length > 0) {
+                $.each(data, function(index, ptap) {
+                    var name = ptap.plant_name;
+                    option = name
+                    $("#select_ptap").append(new Option(option, ptap.id));
+                });
+                $("#div-ptaps").removeClass("panel-hide");
+                $('#autoAdjustHeightF').css("height", "auto");
+            } else {
+                $("#div-emptyptaps").removeClass("panel-hide");
+            }
+
+        });
+    }
+
 
     $('#smartwizard').smartWizard({
         selected: 0,
@@ -566,26 +646,6 @@ $(document).ready(function() {
 
     $('#autoAdjustHeightF').css("height", "auto");
 
-
-    /*$("#smartwizard").on("showStep", function(e, anchorObject, stepIndex, stepDirection) {
-        if (stepIndex == 3) {
-            if (catchmentPoly)
-                mapDelimit.fitBounds(catchmentPoly.getBounds());
-            changeFileEvent();
-        }
-    });
-
-    /*
-        var menu1Tab = document.getElementById('mapid');
-        var observer2 = new MutationObserver(function() {
-            if (menu1Tab.style.display != 'none') {
-                mapDelimit.invalidateSize();
-            }
-        });
-        observer2.observe(menu1Tab, {
-            attributes: true
-        });
-    */
 });
 
 

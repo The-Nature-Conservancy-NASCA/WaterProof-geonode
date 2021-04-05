@@ -72,33 +72,27 @@
                     <label for="div_id_type" class="control-label required-field ">
                         {% trans "Select type of study case to create" %}
                     </label>
-                    {% if intakes %}
-                    {% if tratamentPlants %}
-                    <div class="form-check">
+
+                    <div class="form-check panel-hide" id="div-ptaps">
                         <input class="form-check-input" type="radio" name="type" id="ptap" value="1">
                         <label class="form-check-label" for="ptap">
                             {% trans "Treatment plants" %}
                         </label>
                     </div>
-                    {% else %}
-                    <div class="alert alert-warning text-center" role="alert">
+                    <div class="alert alert-warning text-center panel-hide" role="alert" id="div-emptyptaps">
                         {% trans "there are no treatment plants in the selected city" %}
                     </div>
-
-                    {% endif %}
-                    <div class="form-check">
+                    <div class="form-check panel-hide" id="div-customcase">
                         <input class="form-check-input" type="radio" name="type" id="custom" value="2">
                         <label class="form-check-label" for="custom">
                             {% trans "Custom case" %}
                         </label>
                     </div>
-                    {% else %}
-                    <div class="alert alert-danger text-center" role="alert">
-                        <button type="button" class="btn btn-link btn-block" data-toggle="modal" data-target="#HelpModal" id="HelpModalBtnModal" style="outline:none; text-decoration:none;">
-                            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> </button>
+                    <div class="alert alert-danger text-center panel-hide" role="alert" id="div-emptyintakes">
+                        <button type="button" class="btn btn-link btn-block" style="outline:none; text-decoration:none;" onclick="window.location.href='/intake/?limit=5'">
+                            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> {% trans "First create a intake" %} </button>
                         </button>
                     </div>
-                    {% endif %}
                 </div>
 
                 <div class="row">
@@ -109,9 +103,6 @@
                                     <legend><label>{% trans "Water Intake" %} <span class="text-danger-wp">*</span> </label></legend>
                                     <div class="col-md-9">
                                         <select class="form-control" id="select_custom">
-                                            {% for intake in intakes %}
-                                            <option value="{{intake.id}}">{{intake.intake__name}}</option>
-                                            {% endfor %}
                                         </select>
                                     </div>
                                     <div class="col-md-2">
@@ -165,9 +156,6 @@
                                     <legend><label>{% trans "Treatments plants" %} <span class="text-danger-wp">*</span> </label></legend>
                                     <div class="col-md-9">
                                         <select class="form-control" id="select_ptap">
-                                            {% for tratamentPlant in tratamentPlants %}
-                                            <option value="{{tratamentPlant.id}}">{{tratamentPlant.plant_name}}</option>
-                                            {% endfor %}
                                         </select>
                                     </div>
                                     <div class="col-md-2">

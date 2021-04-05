@@ -23,12 +23,32 @@ logger = logging.getLogger(__name__)
 
 
 @api_view(['GET'])
-def getSCInfra(request, id_scinfra):
+def getIntakeByID(request, id_intake):
     if request.method == 'GET':
-        filterIntakeCSInfra = ElementSystem.objects.filter(id=id_scinfra).values(
+        filterIntakeCSInfra = ElementSystem.objects.filter(id=id_intake).values(
             "id", "name", "intake__name", "intake__id", "intake__water_source_name", "graphId")
         data = list(filterIntakeCSInfra)
         return JsonResponse(data, safe=False)
+    
+    
+@api_view(['GET'])
+def getIntakeByCity(request, name):
+    if request.method == 'GET':
+        filterIntakeCSInfra = ElementSystem.objects.filter(intake__city__name__startswith=name,normalized_category='CSINFRA').values(
+            "id", "name", "intake__name", "intake__id", "intake__water_source_name", "graphId")
+        data = list(filterIntakeCSInfra)
+        return JsonResponse(data, safe=False)
+
+
+@api_view(['GET'])
+def getPtapByCity(request, name):
+    if request.method == 'GET':
+        filterptap = Header.objects.filter(plant_city__name__startswith=name).values(
+            "id", "plant_name")
+        data = list(filterptap)
+        return JsonResponse(data, safe=False)
+    
+    
 
 
 @api_view(['POST'])
@@ -38,7 +58,6 @@ def save(request):
     else:
         if request.method == 'POST':
             if(request.POST.get('name')):
-                logger.error(request.POST['city'])
                 city = Cities.objects.filter(name__startswith=request.POST['city'], country__name__startswith=request.POST['country']).first()
                 name = request.POST['name']
                 name_old = ''
@@ -85,14 +104,18 @@ def save(request):
                     return JsonResponse({'id_study_case': ''}, safe=False)
             elif(request.POST.get('carbon_market')):
                 cm = request.POST['carbon_market']
-                if(cm):
-                    id_study_case = request.POST['id_study_case']
-                    sc = StudyCases.objects.get(pk=id_study_case)
+                id_study_case = request.POST['id_study_case']
+                sc = StudyCases.objects.get(pk=id_study_case)
+                if(cm == 'true'):
                     cm_value = request.POST['carbon_market_value']
                     cm_currency = request.POST['carbon_market_currency']
                     sc.cm_value = cm_value
                     sc.cm_currency = cm_currency
                     sc.benefit_carbon_market = True
+                    sc.save()
+                    return JsonResponse({'id_study_case': sc.id}, safe=False)
+                else:
+                    sc.benefit_carbon_market = False
                     sc.save()
                     return JsonResponse({'id_study_case': sc.id}, safe=False)
             elif(request.POST.getlist('portfolios[]')):
@@ -153,6 +176,11 @@ def save(request):
                 else:
                     sc.analysis_type = 'INVESTMENT'
                     sc.annual_investment = request.POST['annual_investment']
+                    rr = request.POST['rellocated_remainder']
+                    if (rr =='true'):
+                        sc.rellocated_remainder=True
+                    else:
+                        sc.rellocated_remainder=False
                 if(request.POST.get('conservation') != ''):
                     sc.analysis_conservation = request.POST['conservation']
                     sc.analysis_active_restoration = request.POST['active']

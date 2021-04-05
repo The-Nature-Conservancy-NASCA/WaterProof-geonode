@@ -49,6 +49,21 @@
     vertical-align: middle;
 }
 
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 9px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    background: red;
+    cursor: inherit;
+    display: block;
+  }
+
 .modal {
     text-align: center;
 }
@@ -62,10 +77,22 @@
     }
 }
 
+.title-city {
+    position: absolute;
+    right: 26%;
+    top: 5%;
+}
+
 .modal-dialog {
     display: inline-block;
     text-align: left;
     vertical-align: middle;
+}
+
+.modal-xl {
+    min-width: 1140px;
+    margin: auto;
+    min-height: 800px;
 }
 
 .mxToolbarMode:hover {
@@ -115,26 +142,49 @@
     color: #3B819B;
 }
 
-.panel-hide {
-    display: none;
+.math-span .mq-root-block {
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
-.float-right {
-    float: right;
+.mathTable {
+    margin-bottom: 0;
 }
 
-.platform-label {
-    padding-left: 50px;
+#math-field {
+    margin-top: 8px;
 }
 
-.personnel-label {
-    padding-left: 90px;
+#mathBasic_tab>.btn-group {
+    margin-top: 8px;
 }
 
-.text-number {
-    text-align: right;
+#mathAdvanced_tab>.btn-group {
+    margin-top: 8px;
 }
 
-.custom-checkbox .custom-control-input:disabled~.custom-control-label {
-    background-color: rgba(0, 123, 255, .5) im !important;
+#mathTrigonometry_tab>.btn-group {
+    margin-top: 8px;
+}
+
+#mathLogical_tab>.btn-group {
+    margin-top: 8px;
+}
+
+.math-btn {
+    padding: 0px;
+}
+
+.px-5 {
+    padding-left: 10rem !important;
+    padding-right: 10rem !important;
+}
+
+.truncate {
+    display: -webkit-box;
+    max-height: 4.3rem;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
