@@ -552,6 +552,17 @@
                     {% endif %}                
                     </ul>
             </li>
+            <li>
+              <a href="#Reports" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                  <img src="/static/geonode/img/01-flecha.png" class="flecha"><h5>{% trans "Reports" %}</h5></a>
+                  <ul class="collapse list-unstylede" id="Reports">
+                  <li><a href="{% url "reports" %}?limit={{ CLIENT_RESULTS_LIMIT }}" class="dropdown-toggle">
+                          <img src="/static/geonode/img/01-flecha.png" class="flecha">
+                          <h6>{% trans "View" %}</h6></a>
+                        </li>
+    
+                    </ul>
+            </li>
             {% if user.is_authenticated and not READ_ONLY_MODE %}
             <li>
               <a href="#Historic" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
