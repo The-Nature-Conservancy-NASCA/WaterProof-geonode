@@ -10,7 +10,9 @@
 <!--header-->
 <div class="page-header">
     <h1>{% trans "Create Study Cases" %}</h1>
+    <h4 class="title-city-add">{% trans "Creation city" %} <span id="cityLabel"></span> </h4>
 </div>
+<br>
 <!--Begin Form-->
 <form id="form" method="POST" action="">
     {% csrf_token %}
@@ -133,7 +135,7 @@
 
                                 </div>
 
-                                <table id="cost_table" class="table table-striped table-bordered table-condensed" style="width:100%">
+                                <table id="cost_table" class="table table-striped table-bordered table-condensed panel-hide" style="width:100%">
                                     <thead>
                                         <tr class="info">
                                             <th scope="col" class="small text-center vat">{% trans "Function name" %}</th>
@@ -304,7 +306,7 @@
                             <label class="custom-control-label personnel-label" for="director">{% trans "Program director" %}</label>
                         </div>
                         <div class="custom-control custom-checkbox col-md-4">
-                            <input id="director" class="text-number" type="number" class="custom-control-input" value="{{financialParameters.Program_Director_USD_YEAR|stringformat:'1.2f'}}">
+                            <input id="director" max="16" class="text-number" type="number" class="custom-control-input" value="{{financialParameters.Program_Director_USD_YEAR|stringformat:'1.2f'}}">
                         </div>
                         <div class="col-md-6">
                             <label class="custom-control-label personnel-label" for="evaluation"> {%trans "Monitoring and Evaluation Manager" %}</label>

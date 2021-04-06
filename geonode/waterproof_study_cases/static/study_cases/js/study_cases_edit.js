@@ -46,7 +46,7 @@ var id_study_case = window.location.href.substring(window.location.href.lastInde
 var mapLoader;
 $(document).ready(function() {
     $('#autoAdjustHeightF').css("height", "auto");
-
+    $('#cityLabel').text(localStorage.city);
     calculate_Personnel();
     calculate_Platform();
     loadIntakes()
@@ -117,9 +117,9 @@ $(document).ready(function() {
         $('#select_custom option:selected').remove();
         var action = "<td><a class='btn btn-danger'><span class='glyphicon glyphicon-trash' aria-hidden='true'></span></a></td>";
         $.get("../../study_cases/intakebyid/" + value, function(data) {
-            $.each(data, function(index, scinfra) {
-                var name = "<td>" + scinfra.intake__name + "</td>";
-                var name_source = "<td>" + scinfra.intake__water_source_name + "</td>";
+            $.each(data, function(index, intake) {
+                var name = "<td>" + intake.name + "</td>";
+                var name_source = "<td>" + intake.water_source_name + "</td>";
                 //check = " <td>";
                 //check += "<div>" + scinfra.name + " - " + scinfra.graphId
                 // "</div><button type='button' class='btn btn-primary' id='add_wi'>Add new cost</button>"
@@ -654,6 +654,7 @@ $(document).ready(function() {
                 $("#div-ptaps").removeClass("panel-hide");
                 $('#autoAdjustHeightF').css("height", "auto");
             } else {
+                $("#radio-ptap").addClass("panel-hide");
                 $("#div-emptyptaps").removeClass("panel-hide");
             }
 

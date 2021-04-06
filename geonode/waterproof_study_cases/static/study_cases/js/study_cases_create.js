@@ -45,7 +45,7 @@ const interpolationType = {
 var mapLoader;
 $(document).ready(function() {
     $('#autoAdjustHeightF').css("height", "auto");
-
+    $('#cityLabel').text(localStorage.city);
     calculate_Personnel();
     calculate_Platform();
     loadIntakes();
@@ -114,13 +114,12 @@ $(document).ready(function() {
     $('#add_wi').click(function() {
         text = $("#select_custom option:selected").text();
         value = $("#select_custom option:selected").val();
-        console.log(value)
         $('#select_custom option:selected').remove();
         var action = "<td><a class='btn btn-danger'><span class='glyphicon glyphicon-trash' aria-hidden='true'></span></a></td>";
         $.get("../../study_cases/intakebyid/" + value, function(data) {
-            $.each(data, function(index, scinfra) {
-                var name = "<td>" + scinfra.intake__name + "</td>";
-                var name_source = "<td>" + scinfra.intake__water_source_name + "</td>";
+            $.each(data, function(index, intake) {
+                var name = "<td>" + intake.name + "</td>";
+                var name_source = "<td>" + intake.water_source_name + "</td>";
                 // check = " <td>";
                 //check += "<div>" + scinfra.name + " - " + scinfra.graphId
                 // "</div><button type='button' class='btn btn-primary' id='add_wi'>Add new cost</button>"
@@ -156,7 +155,6 @@ $(document).ready(function() {
         var type = $("input[name='type']:checked").val();
         if (type == "1") {
             $('#ptap_table').find('tbody > tr').each(function(index, tr) {
-                console.log(tr)
                 id = tr.id.replace('ptap-', '')
                 ptaps.push(id)
             });
@@ -591,7 +589,7 @@ $(document).ready(function() {
         $.get("../../study_cases/intakebycity/" + city, function(data) {
             if (data.length > 0) {
                 $.each(data, function(index, intake) {
-                    var name = intake.intake__name;
+                    var name = intake.name;
                     option = name
                     $("#select_custom").append(new Option(option, intake.id));
                 });

@@ -46,7 +46,7 @@ var id_study_case = '';
 var mapLoader;
 $(document).ready(function() {
     $('#autoAdjustHeightF').css("height", "auto");
-
+    $('#cityLabel').text(localStorage.city);
     calculate_Personnel();
     calculate_Platform();
     loadIntakes()
@@ -653,6 +653,7 @@ $(document).ready(function() {
                 $("#div-ptaps").removeClass("panel-hide");
                 $('#autoAdjustHeightF').css("height", "auto");
             } else {
+                $("#radio-ptap").addClass("panel-hide");
                 $("#div-emptyptaps").removeClass("panel-hide");
             }
 

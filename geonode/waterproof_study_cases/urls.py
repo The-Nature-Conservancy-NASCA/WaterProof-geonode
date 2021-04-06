@@ -16,6 +16,8 @@ urlpatterns = [
     path('clone/<int:idx>', views.clone, name='clone-study-cases'),
      # View Study Cases
     path('view/<int:idx>', views.view, name='edit-study-cases'),
+    # Delete Study Cases
+    path('delete/<int:idx>', api.delete, name='delete-study-cases'),
     path('intakebyid/<int:id_intake>/', api.getIntakeByID, name='intake-id'),
     path('intakebycity/<str:name>/', api.getIntakeByCity, name='intake-city'),
     path('ptapbycity/<str:name>/', api.getPtapByCity, name='ptap-city'),    
