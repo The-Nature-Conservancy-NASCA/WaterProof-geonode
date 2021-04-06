@@ -162,34 +162,34 @@
             </div>
         </div>
     </div>
-    {% block body %}{% endblock body %} {% block sidebar %}{% endblock sidebar %} {% endblock body_outer %} {% block extra_script %}
-    <script>
-        SEARCH_CITY_API_URL = '{{ SEARCH_CITY_API_URL }}';
-        var countriesLayerUrl = '{{ STATIC_URL }}waterproof_intake/data/countries.geojson';
-        var userCountryId = '{{userCountry.id}}';
-        var userCountryCode = '{{userCountry.code}}';
-        var userCountryName = '{{userCountry.name}}';
-        var intakeList = '{{intakeList}}';
-    </script>
-    <script src="{{ STATIC_URL }}geonode/js/datatables/jquery.dataTables.min.js"></script>
-    <script src="{{ STATIC_URL }}geonode/js/datatables/dataTables.bootstrap.min.js"></script>
-    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
-    <script src="{{ STATIC_URL }}geonode/js/leaflet/leaflet.ajax.min.js"></script>
-    <script src="{{ STATIC_URL }}waterproof_intake/js/intake_list.js"></script>
-    <script src="https://vinceg.github.io/twitter-bootstrap-wizard/jquery.bootstrap.wizard.js"></script>
-    <script src="https://vinceg.github.io/twitter-bootstrap-wizard/prettify.js"></script>
-    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
-    <script src="{{ STATIC_URL }}geonode/js/leaflet/photon/leaflet.photon.js"></script>
-    <script src="{{ STATIC_URL }}geonode/js/leaflet/Leaflet.Coordinates.js" %} "></script>
+</div>
+{% block body %}{% endblock body %} {% block sidebar %}{% endblock sidebar %} {% endblock body_outer %} {% block extra_script %}
+<script>
+    var countriesLayerUrl = '{{ STATIC_URL }}waterproof_intake/data/countries.geojson';
+    var userCountryId = '{{userCountry.id}}';
+    var userCountryCode = '{{userCountry.code}}';
+    var userCountryName = '{{userCountry.name}}';
+    var intakeList = '{{intakeList}}';
+</script>
+<script src="{{ STATIC_URL }}geonode/js/datatables/jquery.dataTables.min.js"></script>
+<script src="{{ STATIC_URL }}geonode/js/datatables/dataTables.bootstrap.min.js"></script>
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+<script src="{{ STATIC_URL }}geonode/js/leaflet/leaflet.ajax.min.js"></script>
+<script src="{{ STATIC_URL }}waterproof_intake/js/intake_list.js"></script>
+<script src="https://vinceg.github.io/twitter-bootstrap-wizard/jquery.bootstrap.wizard.js"></script>
+<script src="https://vinceg.github.io/twitter-bootstrap-wizard/prettify.js"></script>
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+<script src="{{ STATIC_URL }}geonode/js/leaflet/photon/leaflet.photon.js"></script>
+<script src="{{ STATIC_URL }}geonode/js/leaflet/Leaflet.Coordinates.js" %} "></script>
 <script src=" {{ STATIC_URL }}geonode/js/leaflet/leaflet-omnivore.min.js "></script>
 
 <script src=" {{ STATIC_URL }}geonode/sample_data/intake_polygon.js "></script>
 <script src=" https://cdn.jsdelivr.net/npm/sweetalert2@10 "></script>
-<script type=" text/javascript">
-        API_URL = '/proxy/?url=https://photon.komoot.de/api/?';
-        TILELAYER = 'http://{s}.tile.osm.org/{z}/{x}/{y}.png';
-        CENTER = [-74.4879, 4.582];
-        MAXZOOM = 11;
+<script type=" text/javascript ">
+    API_URL = '/proxy/?url=https://photon.komoot.de/api/?';
+    TILELAYER = 'http://{s}.tile.osm.org/{z}/{x}/{y}.png';
+    CENTER = [-74.4879, 4.582];
+    MAXZOOM = 11;
 
         let waterproof = {};
 
