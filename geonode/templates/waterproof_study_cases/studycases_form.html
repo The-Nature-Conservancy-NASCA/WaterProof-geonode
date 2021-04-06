@@ -274,7 +274,7 @@
                 <div class="page-header">
                     <h3> {% trans "Financial parameters" %}</h3>
                     <p></p>
-                    <div class="row ">
+                    <div class="row">
                         <div class="custom-control custom-select float-right col-md-4">
                             <label class="custom-control-label" for="financial_currency">{% trans "Currency" %}</label>
                             <select id="financial_currency" class="custom-control-input">
@@ -426,40 +426,49 @@
                     <h3> {% trans "RUN Analysis" %}</h3>
                     <p></p>
                 </div>
-                <div id="div_period_analysis" class="form-group">
-                    <label for="period_analysis" class="control-label required-field">
-                        {% trans "Analysis time period (years) (10-100)" %}
-                    </label>
-                    <input id="period_analysis" type="number" class="form-control text-number">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div id="div_period_analysis" class="form-group">
+                            <label for="period_analysis" class="control-label required-field">
+                                {% trans "Analysis time period (years) (10-100)" %}
+                            </label>
+                            <input id="period_analysis" type="number" class="form-control text-number">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div id="div_analysis_currency" class="form-group">
+                            <label for="analysis_currency" class="control-label required-field ">
+                                {% trans "Currency" %}
+                            </label>
+                            <select id="analysis_currency" class="form-control">
+                                {% for currency in currencys %}
+                                {% if currency.currency == 'USD' %}
+                                <option value='{{currency.currency}}' selected>{{currency.currency}}</option>
+                                {% else %}
+                                <option value='{{currency.currency}}'>{{currency.currency}}</option>
+                                {% endif %}
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div id="div_period_nbs" class="form-group">
+                            <label class="control-label required-field" for="period-nbs">{% trans "Implementation Time of Nature-Based Solution (yr)" %}</label>
+                            <input id="period_nbs" type="number" class="form-control text-number">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div id="div_analysis_nbs" class="form-group">
+                            <label class="control-label required-field" for="analysis_nbs">{% trans "Climate Selection for Vaseline and NBS Scenario Analysis" %}</label>
+                            <select id="analysis_nbs" class="form-control">
+                                {% for scenario in scenarios %}
+                                <option value='{{scenario.id}}' selected>{{scenario.name}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
                 </div>
-                <div id="div_analysis_currency" class="form-group">
-                    <label for="analysis_currency" class="control-label required-field ">
-                        {% trans "Currency" %}
-                    </label>
-                    <select id="analysis_currency" class="form-control">
-                        {% for currency in currencys %}
-                        {% if currency.currency == 'USD' %}
-                        <option value='{{currency.currency}}' selected>{{currency.currency}}</option>
-                        {% else %}
-                        <option value='{{currency.currency}}'>{{currency.currency}}</option>
-                        {% endif %}
-                        {% endfor %}
-                    </select>
-                </div>
-
                 <div id="div_analysis_type" class="form-group">
-                    <div id="div_period_nbs" class="form-group">
-                        <label class="control-label required-field" for="period-nbs">{% trans "Implementation Time of Nature-Based Solution (yr)" %}</label>
-                        <input id="period_nbs" type="number" class="form-control text-number">
-                    </div>
-                    <div id="div_analysis_nbs" class="form-group">
-                        <label class="control-label required-field" for="analysis_nbs">{% trans "Climate Selection for Vaseline and NBS Scenario Analysis" %}</label>
-                        <select id="analysis_nbs" class="form-control">
-                            {% for scenario in scenarios %}
-                            <option value='{{scenario.id}}' selected>{{scenario.name}}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
                     <label class="control-label required-field ">
                         {% trans "Select an option to run the analysis" %}
                     </label>
@@ -477,68 +486,74 @@
                     </div>
                 </div>
 
-                <div class="row">
+                <div class="panel panel-hide" id="panel-full">
                     <div class="col-md-12">
-                        <div class="panel panel-hide" id="panel-full">
-                            <div class="col-md-12">
-                                <div class="row form-group">
-                                    <div id="div_btn-full" class="form-group">
-                                        <button type="button" class="btn btn-primary" id="btn-full">{% trans "Assign minimum investment percentages" %}</button>
-                                    </div>
-                                </div>
+                        <div class="row form-group">
+                            <div id="div_btn-full" class="form-group">
+                                <button type="button" class="btn btn-primary" id="btn-full">{% trans "Assign minimum investment percentages" %}</button>
                             </div>
                         </div>
-                        <div class="panel panel-hide" id="panel-investment">
-                            <div class="col-md-12">
-                                <div class="row form-group">
-                                    <div id="div_annual_investment" class="form-group">
-                                        <label class="control-label required-field" for="annual_investment">{% trans "Annual Investment" %}</label>
-                                        <input id="annual_investment" type="number" class="text-number form-control">
-                                    </div>
-                                    <div id="div_rellocated_check" class="form-group">
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id='rellocated_check'>
-                                            <label class="custom-control-label" for="rellocated_check">{% trans "Rellocated remainder" %}</label>
-                                        </div>
-                                    </div>
-                                    <div id="div_btn-investment" class="form-group">
-                                        <button type="button" class="btn btn-primary" id="btn-investment">{% trans "Assign minimum investment" %}</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <table id="full-table" class="table table-striped table-bordered table-condensed panel-hide" style="width:100%">
-                            <thead>
-                                <tr class="info">
-                                    <th scope="col" class="small text-center vat">{% trans "Activity" %}</th>
-                                    <th scope="col" id="column_investment" class="small text-center vat">{% trans "Percentage" %}</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Conservation</td>
-                                    <td><input class="text-number" type="number" id="conservation" /></td>
-                                </tr>
-                                <tr>
-                                    <td>Active restoration</td>
-                                    <td><input class="text-number" type="number" id="active" /></td>
-                                </tr>
-                                <tr>
-                                    <td>Passive restoration</td>
-                                    <td><input class="text-number" type="number" id="passive" /></td>
-                                </tr>
-                                <tr>
-                                    <td>Agroforestry</td>
-                                    <td><input class="text-number" type="number" id="agroforestry" /></td>
-                                </tr>
-                                <tr>
-                                    <td>Silvopastoral</td>
-                                    <td><input class="text-number" type="number" id="silvopastoral" /></td>
-                                </tr>
-                            </tbody>
-                        </table>
                     </div>
                 </div>
+                <div class="panel panel-hide" id="panel-investment">
+                    <div class="col-md-12">
+                        <div class="row form-group">
+                            <div class="col-md-6">
+                                <div id="div_annual_investment" class="form-group">
+                                    <label class="control-label required-field" for="annual_investment">{% trans "Annual Investment" %}</label>
+                                    <input id="annual_investment" type="number" class="text-number form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div id="div_rellocated_check" class="form-group">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" id='rellocated_check'>
+                                        <label class="custom-control-label" for="rellocated_check">{% trans "Rellocated remainder" %}</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div id="div_btn-investment" class="form-group">
+                                    <button type="button" class="btn btn-primary" id="btn-investment">{% trans "Assign minimum investment" %}</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <table id="full-table" class="table table-striped table-bordered table-condensed panel-hide">
+                    <thead>
+                        <tr class="info">
+                            <th scope="col" class="small text-center vat">{% trans "Activity" %}</th>
+                            <th scope="col" id="column_investment" class="small text-center vat">{% trans "Percentage" %}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Conservation</td>
+                            <td><input class="text-number" type="number" id="conservation" /></td>
+                        </tr>
+                        <tr>
+                            <td>Active restoration</td>
+                            <td><input class="text-number" type="number" id="active" /></td>
+                        </tr>
+                        <tr>
+                            <td>Passive restoration</td>
+                            <td><input class="text-number" type="number" id="passive" /></td>
+                        </tr>
+                        <tr>
+                            <td>Agroforestry</td>
+                            <td><input class="text-number" type="number" id="agroforestry" /></td>
+                        </tr>
+                        <tr>
+                            <td>Silvopastoral</td>
+                            <td><input class="text-number" type="number" id="silvopastoral" /></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+
 
                 <div class="row text-center">
                     <div class="col-md-12">

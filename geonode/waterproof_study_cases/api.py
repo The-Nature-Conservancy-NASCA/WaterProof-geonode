@@ -196,8 +196,11 @@ def save(request):
                 sc.analysis_currency = request.POST.get('analysis_currency')
                 sc.analysis_period_value = request.POST.get('period_analysis')
                 analysistype = request.POST['analysis_type']
+                sc.annual_investment = request.POST['annual_investment']
                 if(analysistype == '1'):
                     sc.analysis_type = 'FULL'
+                    sc.annual_investment = None
+                    sc.rellocated_remainder = False
                 else:
                     sc.analysis_type = 'INVESTMENT'
                     sc.annual_investment = request.POST['annual_investment']
@@ -212,5 +215,11 @@ def save(request):
                     sc.analysis_passive_restoration = request.POST['passive']
                     sc.analysis_silvopastoral = request.POST['silvopastoral']
                     sc.analysis_agroforestry = request.POST['agroforestry']
+                else:
+                    sc.analysis_conservation = None
+                    sc.analysis_active_restoration = None
+                    sc.analysis_passive_restoration = None
+                    sc.analysis_silvopastoral = None
+                    sc.analysis_agroforestry = None
                 sc.save()
                 return JsonResponse({'id_study_case': sc.id}, safe=False)

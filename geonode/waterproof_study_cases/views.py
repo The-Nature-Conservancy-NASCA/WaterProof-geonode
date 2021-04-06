@@ -92,7 +92,6 @@ def create(request):
         if request.method == 'POST':
             return HttpResponseRedirect(reverse('study_cases_list'))
         else:
-            logger.error(request)
             portfolios = Portfolio.objects.all()
             models = ModelParameter.objects.all()
             currencys = Countries.objects.values('currency').distinct().order_by('currency')
@@ -281,6 +280,7 @@ def view(request, idx):
         study_case = StudyCases.objects.get(id=idx)
         listPortfolios = Portfolio.objects.all()
         portfolios = []
+        nbs = []
         listPortfoliosStudy = study_case.portfolios.all()
         scenarios = Climate_value.objects.all()
         for portfolio in listPortfolios:
@@ -295,9 +295,20 @@ def view(request, idx):
             }
             portfolios.append(pObject)
         models = ModelParameter.objects.all()
-        nbs = WaterproofNbsCa.objects.filter(added_by__professional_role='ADMIN').values(
+        listNBSStudy = study_case.nbs.all()
+        listNbs = WaterproofNbsCa.objects.filter(added_by__professional_role='ADMIN').values(
             "id", "name")
-
+        for n in listNbs:
+            defaultValue = False
+            for nbsStudy in listNBSStudy:
+                if n['id'] == nbsStudy.id:
+                    defaultValue = True
+            nObject = {
+                'id': n['id'],
+                'name': n['name'],
+                'default': defaultValue
+            }
+            nbs.append(nObject)
         return render(
             request, 'waterproof_study_cases/studycases_view.html',
             {

@@ -45,6 +45,7 @@ const interpolationType = {
 var mapLoader;
 $(document).ready(function() {
     $('#autoAdjustHeightF').css("height", "auto");
+    $('#cityLabel').text(localStorage.city);
     calculate_Personnel();
     calculate_Platform();
 
@@ -104,9 +105,10 @@ $(document).ready(function() {
     });
 
     $('#step7EndBtn').click(function() {
-        $('#smartwizard').smartWizard("next");
-        $('#autoAdjustHeightF').css("height", "auto");
+        location.href = "/study_cases/";
     });
+
+
 
 
     function calculate_Personnel() {
@@ -193,27 +195,6 @@ $(document).ready(function() {
 
 
     $('#autoAdjustHeightF').css("height", "auto");
-
-
-    /*$("#smartwizard").on("showStep", function(e, anchorObject, stepIndex, stepDirection) {
-        if (stepIndex == 3) {
-            if (catchmentPoly)
-                mapDelimit.fitBounds(catchmentPoly.getBounds());
-            changeFileEvent();
-        }
-    });
-
-    /*
-        var menu1Tab = document.getElementById('mapid');
-        var observer2 = new MutationObserver(function() {
-            if (menu1Tab.style.display != 'none') {
-                mapDelimit.invalidateSize();
-            }
-        });
-        observer2.observe(menu1Tab, {
-            attributes: true
-        });
-    */
 });
 
 

@@ -89,40 +89,63 @@ $(document).ready(function() {
     });
 
     $('#btn-full').click(function() {
-        $("#full-table").removeClass("panel-hide");
-        $('#autoAdjustHeightF').css("height", "auto");
+        if ($("#full-table").hasClass("panel-hide")) {
+            $("#full-table").removeClass("panel-hide");
+            $("#full-table").find("input").each(function() {
+                var $this = $(this).val('');
+            });
+            $('#autoAdjustHeightF').css("height", "auto");
+            $('#column_investment').text("Percentage");
+        } else {
+            $("#full-table").addClass("panel-hide");
+        }
     });
+
     $('#btn-investment').click(function() {
-        $("#full-table").removeClass("panel-hide");
-        $('#autoAdjustHeightF').css("height", "auto");
+        if ($("#full-table").hasClass("panel-hide")) {
+            $("#full-table").removeClass("panel-hide");
+            $('#autoAdjustHeightF').css("height", "auto");
+            $('#column_investment').text("Investment");
+            $("#full-table").find("input").each(function() {
+                var $this = $(this).val('');
+            });
+        } else {
+            $("#full-table").addClass("panel-hide");
+        }
     });
 
     $('#full').click(function() {
         $("#panel-full").removeClass("panel-hide");
         $("#panel-investment").addClass("panel-hide");
-        $("#investment-table").addClass("panel-hide");
+        $("#full-table").addClass("panel-hide");
         $('#autoAdjustHeightF').css("height", "auto");
+        $('#column_investment').text("Percentage");
+        $("#full-table").find("input").each(function() {
+            var $this = $(this).val('');
+        });
     });
+
     $('#investment').click(function() {
         $("#panel-investment").removeClass("panel-hide");
         $("#panel-full").addClass("panel-hide");
         $("#full-table").addClass("panel-hide");
         $('#autoAdjustHeightF').css("height", "auto");
+        $('#column_investment').text("Investment");
+        $("#full-table").find("input").each(function() {
+            var $this = $(this).val('');
+        });
     });
 
     $('#add_wi').click(function() {
         text = $("#select_custom option:selected").text();
         value = $("#select_custom option:selected").val();
+
         $('#select_custom option:selected').remove();
         var action = "<td><a class='btn btn-danger'><span class='glyphicon glyphicon-trash' aria-hidden='true'></span></a></td>";
         $.get("../../study_cases/intakebyid/" + value, function(data) {
-            $.each(data, function(index, scinfra) {
-                var name = "<td>" + scinfra.intake__name + "</td>";
-                var name_source = "<td>" + scinfra.intake__water_source_name + "</td>";
-                //check = " <td>";
-                //check += "<div>" + scinfra.name + " - " + scinfra.graphId
-                // "</div><button type='button' class='btn btn-primary' id='add_wi'>Add new cost</button>"
-                //check += "</td>";
+            $.each(data, function(index, intake) {
+                var name = "<td>" + intake.name + "</td>";
+                var name_source = "<td>" + intake.water_source_name + "</td>";
                 var markup = "<tr id='custom-" + value + "'>" + name + name_source + action + "</tr>";
                 $("#custom_table").find('tbody').append(markup);
             });
@@ -395,12 +418,9 @@ $(document).ready(function() {
         $.each(tds, function(i) {
             if (i == 0) {
                 intake_name = $(this).text();
-            } else if (i == 2) {
-                csinfra_name = $(this).text();
             }
-
         });
-        option = intake_name + " - " + csinfra_name
+        option = intake_name
         id = row.attr("id").replace('custom-', '')
         $("#select_custom").append(new Option(option, id));
         row.remove();
@@ -561,8 +581,8 @@ $(document).ready(function() {
                         input.val('')
                         Swal.fire({
                             icon: 'warning',
-                            title: `mayor value`,
-                            text: `Please `
+                            title: `greater value`,
+                            text: `the sum of values ​​is greater than ` + total
                         });
                     }
                 }
@@ -576,6 +596,7 @@ $(document).ready(function() {
             return;
         }
     }
+
 
 
     $('#smartwizard').smartWizard({
