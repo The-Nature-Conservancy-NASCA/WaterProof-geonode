@@ -80,10 +80,10 @@
                 <td class="small text-center vat">{{studyCases.create_date | date:"d-m-Y"}}</td>
                 <td class="small text-center vat">{{studyCases.city}}</td>
                 <td class="small text-center vat">{% for ptap in studyCases.ptaps.all %}
-                    - {{ptap.plant_name}} <br>
+                    <a onclick='viewPtap({{ptap.id}})'>- {{ptap.plant_name}} </a><br>
                     {% endfor %}</td>
                 <td class="small text-center vat">{% for intake in studyCases.intakes.all %}
-                    - {{intake.name}} <br>
+                    <a href="../intake/view/{{intake.id}}" target="_blank">- {{intake.name}} </a> <br>
                     {% endfor %}</td>
                 <td class="small text-center vat"></td>
                 <td class="small text-center vat">
