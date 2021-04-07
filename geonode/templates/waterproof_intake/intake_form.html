@@ -175,7 +175,20 @@
                         <h3 style="padding:1rem;">{% trans "Cost functions "%} <small id="titleCostFunSmall"></small>
                             <button type="button" class="btn btn-primary btn-add-cost" data-toggle="modal" data-target="#CalculatorModal" id="ModalAddCostBtn">{% trans "Add Cost" %}</button>
                         </h3>
-                        <div id="funcostgenerate" style="padding:1rem;"></div>
+                        <table class="table table-striped table-bordered table-condensed" style="width:100%">
+                            <thead>
+                                <tr class="info">
+                                    <th scope="col" class="small text-center vat">Function name</th>
+                                    <th scope="col" class="small text-center vat">Function</th>
+                                    <th scope="col" class="small text-center vat">Currency</th>
+                                    <th scope="col" class="small text-center vat">Factor</th>
+                                    <th scope="col" class="small text-center vat">Options</th>
+                                </tr>
+                            </thead>
+                            <tbody id="funcostgenerate">
+                            
+                            </tbody>
+                        </table>
                     </div>
                 </div>
                 <br>
@@ -448,7 +461,7 @@
                         </div>
                          <div class="form-group">
                             <label class="text-primary">{% trans "Multiplying factor for overrall cost" %} </label>
-                            <input type="text" id="global_multiplier_factorCalculator" class="form-control" disabled>
+                            <input type="text" value="1" id="global_multiplier_factorCalculator" class="form-control" disabled>
                         </div>
                         <h5 class="text-primary">Syntax keyboard</h5>
                         <ul class="nav nav-tabs">

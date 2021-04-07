@@ -1048,6 +1048,7 @@ def cloneIntake(request, idx):
         return render(request, 'waterproof_intake/intake_login_error.html')
     else:
         if request.method == 'GET':
+            currencies = Countries.objects.all()
             countries = Countries.objects.all()
             filterIntake = Intake.objects.get(id=idx)
             filterElementSystem = ElementSystem.objects.filter(intake=filterIntake.pk)
@@ -1163,6 +1164,7 @@ def cloneIntake(request, idx):
             return render(
                 request, 'waterproof_intake/intake_clone.html',
                 {
+                    'currencies': Countries.objects.all(),
                     'intake': newIntake,
                     'countries': countries,
                     'city': city,
