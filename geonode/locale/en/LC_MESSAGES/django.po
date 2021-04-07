@@ -5611,7 +5611,7 @@ msgstr ""
 #: geonode/people/models.py:134
 #, fuzzy
 #| msgid "Other constraints"
-msgid "Other Analisys"
+msgid "Other Analisis"
 msgstr "Other constraints"
 
 #: geonode/people/models.py:140
