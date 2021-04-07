@@ -71,7 +71,11 @@
             <tr>
                 <td class="small text-center vat">{{studyCases.name}}</td>
                 <td class="small text-center vat">{{studyCases.description}}</td>
-                <td class="small text-center vat"></td>
+                {% if studyCases.is_complete%}
+                <td class="small text-center vat"><i class="glyphicon glyphicon-ok-circle fa-lg text-success" title='{% trans "Completed" %}'></i></td>
+                {% else %}
+                <td class="small text-center vat"><i class="glyphicon glyphicon-hourglass fa-lg text-warning" title='{% trans "In Progress" %}'></i></td>
+                {% endif %}
                 <td class="small text-center vat">{{studyCases.added_by}}</td>
                 <td class="small text-center vat">{{studyCases.create_date | date:"d-m-Y"}}</td>
                 <td class="small text-center vat">{{studyCases.city}}</td>
@@ -79,7 +83,7 @@
                     - {{ptap.plant_name}} <br>
                     {% endfor %}</td>
                 <td class="small text-center vat">{% for intake in studyCases.intakes.all %}
-                    - {{intake.intake.name}} <br>
+                    - {{intake.name}} <br>
                     {% endfor %}</td>
                 <td class="small text-center vat"></td>
                 <td class="small text-center vat">
@@ -129,7 +133,7 @@
 <script src="{{ STATIC_URL }}geonode/js/leaflet/leaflet-omnivore.min.js"></script>
 
 <script src="{{ STATIC_URL }}geonode/sample_data/intake_polygon.js"></script>
-
+<script src=" https://cdn.jsdelivr.net/npm/sweetalert2@10 "></script>
 <script type="text/javascript">
     API_URL = '/proxy/?url=https://photon.komoot.de/api/?';
     TILELAYER = 'http://{s}.tile.osm.org/{z}/{x}/{y}.png';

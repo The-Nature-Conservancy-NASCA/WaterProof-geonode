@@ -99,4 +99,11 @@ class calculateCostFunctionPtap(models.Model):
     currency_function = models.CharField(max_length=4, blank=True, null=True)
     date_excution = models.DateTimeField(blank=True, null=True)
 
-
+class investIndicators(models.Model):
+    study_case = models.ForeignKey(StudyCases, on_delete=models.CASCADE)
+    user = models.ForeignKey( settings.AUTH_USER_MODEL, null=True, blank=True, on_delete=models.CASCADE)	
+    name = models.CharField(max_length=10)
+    type = models.CharField(max_length=10)
+    path = models.CharField(max_length=10)
+    value = models.FloatField(null=True, blank=True, default=None, verbose_name=_('value'))
+    date = models.DateField()

@@ -134,3 +134,19 @@
 .text-number {
     text-align: right;
 }
+
+.custom-checkbox .custom-control-input:disabled~.custom-control-label {
+    background-color: rgba(0, 123, 255, .5) im !important;
+}
+
+.title-city-add {
+    position: absolute;
+    right: 26%;
+    top: 8.3%;
+}
+
+.title-city {
+    position: absolute;
+    right: 26%;
+    top: 6.6%;
+}
