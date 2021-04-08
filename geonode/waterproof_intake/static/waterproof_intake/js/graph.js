@@ -690,7 +690,7 @@ function onInit(editor) {
                     'function_name': $('#costFunctionName').val() == '' ? 'Undefined name' : $('#costFunctionName').val(),
                     'function_description': $('#costFuntionDescription').val(),
                     'global_multiplier_factorCalculator': $('#global_multiplier_factorCalculator').val(),
-                    'currencyCost': $('#currencyCost').val(),
+                    'currencyCost': $('#currencyCost').find('option:selected').attr("name"),
                     'logical': [{
                         'condition_1': mathFieldlog1.latex(),
                         'ecuation_1': mathFieldE1.latex(),
@@ -706,10 +706,10 @@ function onInit(editor) {
                 funcostdb[CostSelected].fields.function_value = mathField.latex();
             }
             selectedCell.setAttribute('funcost', JSON.stringify(funcostdb));
-            $('#funcostgenerate div').remove();
+            $('#funcostgenerate tr').remove();
             $('#funcostgenerate').empty();
             for (let index = 0; index < funcostdb.length; index++) {
-                funcost(funcostdb[index].fields.function_value, funcostdb[index].fields.function_name, index, MQ);
+                funcost(index, MQ);
             }
             $('#CalculatorModal').modal('hide');
             validateGraphIntake();
@@ -752,26 +752,26 @@ function onInit(editor) {
             }).then((result) => {
                 if (result.isConfirmed) {
                     var id = $(this).attr('idvalue');
-                    $(`#funcostgenerate div[idvalue = 'fun_${id}']`).remove();
+                    $(`#funcostgenerate tr[idvalue = 'fun_${id}']`).remove();
                     if (typeof(selectedCell.value) == "string" && selectedCell.value.length > 0) {
                         var obj = JSON.parse(selectedCell.value);
                         let dbfields = JSON.parse(obj.funcost);
                         dbfields.splice(id, 1);
                         obj.funcost = JSON.stringify(dbfields);
                         selectedCell.setValue(JSON.stringify(obj));
-                        $('#funcostgenerate div').remove();
+                        $('#funcostgenerate tr').remove();
                         $('#funcostgenerate').empty();
                         for (let index = 0; index < funcostdb.length; index++) {
-                            funcost(funcostdb[index].fields.function_value, funcostdb[index].fields.function_name, index, MQ);
+                            funcost(index, MQ);
                         }
 
                     } else {
                         funcostdb.splice(id, 1);
                         selectedCell.setAttribute('funcost', JSON.stringify(funcostdb));
-                        $('#funcostgenerate div').remove();
+                        $('#funcostgenerate tr').remove();
                         $('#funcostgenerate').empty();
                         for (let index = 0; index < funcostdb.length; index++) {
-                            funcost(funcostdb[index].fields.function_value, funcostdb[index].fields.function_name, index, MQ);
+                            funcost(index, MQ);
                         }
                     }
 
@@ -782,6 +782,11 @@ function onInit(editor) {
                     )
                 }
             })
+        });
+
+        $(document).on('click', 'a[name=fun_display_btn]', function() {
+            var idx = $(this).attr('idvalue');
+            $(`#fun_display_${idx}`).toggle();
         });
 
         function setVarCost() {
@@ -949,6 +954,8 @@ function onInit(editor) {
                 intakeStepFour();
             }
         }
+
+
 
         jQuery.fn.ForceNumericOnly = function() {
             return this.each(function() {

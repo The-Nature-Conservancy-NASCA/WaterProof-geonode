@@ -121,33 +121,38 @@ function clearDataHtml() {
     $('#sedimentosDiagram').val('');
     $('#nitrogenoDiagram').val('');
     $('#fosforoDiagram').val('');
-    $('#funcostgenerate div').remove();
+    $('#funcostgenerate tr').remove();
     $('#funcostgenerate').empty();
 }
 
-function funcost(ecuation_db, ecuation_name, index, MQ) {
+function funcost(index, MQ) {
     $('#funcostgenerate').append(
-        `<div class="alert alert-info" role="alert" idvalue="fun_${index}" style="margin-bottom: 12px">
-        <a name="glyphicon-trash" idvalue="${index}" class="alert-link close" style="opacity: 1"><span class="glyphicon glyphicon-trash text-danger" aria-hidden="true"></span></a>
-        <h4>${ecuation_name}</h4><a name="glyphicon-edit" idvalue="${index}" class="alert-link close" style="opacity: 1"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
-        <p name="render_ecuation" style="font-size: 1.8rem; width:92%">${ ecuation_db }</p>
-    </div>
-`
+        `
+    <tr idvalue="fun_${index}">
+        <td aling="center">${funcostdb[index].fields.function_name}</td>
+        <td class="small text-center vat" style="width: 160px">
+        <a class="btn btn-info" idvalue="${index}" name="fun_display_btn">fx</a>
+        <div id="fun_display_${index}" style="position: absolute; left: 50%; width: auto; display: none">
+        <div class="alert alert-info mb-0" style="position: relative; left: -50%; bottom: -10px;" role="alert">
+        <p name="render_ecuation" style="font-size: 1.8rem; width:100%;">${ funcostdb[index].fields.function_value }</p>
+         </div>
+        </div>
+        </td>
+        <td class="small text-center vat">${funcostdb[index].fields.currencyCost}</td>
+        <td class="small text-center vat">${funcostdb[index].fields.global_multiplier_factorCalculator}</td>
+        <td class="small text-center vat" style="width: 85px">
+        <a class="btn btn-info" name="glyphicon-edit" idvalue="${index}"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
+        <a class="btn btn-danger" name="glyphicon-trash" idvalue="${index}"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+        </td>
+
+    </tr>
+    `
     );
+
     $('p[name=render_ecuation]').each(function() {
         MQ.StaticMath(this);
     });
 }
-
-/*
-`<div class="alert alert-info" role="alert" idvalue="fun_${index}" style="margin-bottom: 12px">
-            <a name="glyphicon-trash" idvalue="${index}" class="alert-link close" style="opacity: 1"><span class="glyphicon glyphicon-trash text-danger" aria-hidden="true"></span></a>
-            <h4>${ecuation_name}</h4><a name="glyphicon-edit" idvalue="${index}" class="alert-link close" style="opacity: 1"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>
-            <p name="render_ecuation" style="font-size: 1.8rem; width:92%">${ ecuation_db }</p>
-        </div>
-    `
-
-*/
 
 function addData(element, MQ) {
     //add data in HTML for connectors
@@ -161,7 +166,7 @@ function addData(element, MQ) {
         addData2HTML(dbfields, element)
         funcostdb = obj.funcost;
         for (let index = 0; index < funcostdb.length; index++) {
-            funcost(funcostdb[index].fields.function_value, funcostdb[index].fields.function_name, index, MQ);
+            funcost(index, MQ);
         }
     } else {
         $('#titleDiagram').text(element.getAttribute('name'));
@@ -178,7 +183,7 @@ function addData(element, MQ) {
         $('#titleDiagram').text(resultdb[0].fields.categorys);
         addData2HTML(resultdb, element);
         for (let index = 0; index < funcostdb.length; index++) {
-            funcost(funcostdb[index].fields.function_value, funcostdb[index].fields.function_name, index, MQ);
+            funcost(index, MQ);
 
         }
     }
@@ -195,7 +200,7 @@ function addData2HTML(resultdb, cell) {
     $('#sedimentosDiagram').prop('disabled', show);
     $('#nitrogenoDiagram').prop('disabled', show);
     $('#fosforoDiagram').prop('disabled', show);
-    $('#funcostgenerate div').remove();
+    $('#funcostgenerate tr').remove();
     $('#funcostgenerate').empty();
     // Add Value to Panel Information Right on HTML
     $('#aguaDiagram').val(resultdb[0].fields.predefined_transp_water_perc);
@@ -490,7 +495,7 @@ function clearDataHtmlView() {
     $('#sedimentosDiagram').val('');
     $('#nitrogenoDiagram').val('');
     $('#fosforoDiagram').val('');
-    $('#funcostgenerate div').remove();
+    $('#funcostgenerate tr').remove();
     $('#funcostgenerate').empty();
 }
 
@@ -500,7 +505,7 @@ function addData2HTMLView(resultdb) {
     $('#sedimentosDiagram').prop('disabled', show);
     $('#nitrogenoDiagram').prop('disabled', show);
     $('#fosforoDiagram').prop('disabled', show);
-    $('#funcostgenerate div').remove();
+    $('#funcostgenerate tr').remove();
     $('#funcostgenerate').empty();
     // Add Value to Panel Information Right on HTML
     $('#aguaDiagram').val(resultdb[0].fields.predefined_transp_water_perc);
