@@ -20,12 +20,6 @@ def reportMenu(request):
                     'waterproof_reports/reports_menu.html',
                     {})
 
-def dashGraph(request):
-                return render(
-                    request,
-                    'waterproof_reports/dash_plot.html',
-                    {})
-
 def physicalIndicators(request):
                 return render(
                     request,

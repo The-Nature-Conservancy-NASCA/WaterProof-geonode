@@ -27,7 +27,7 @@ from django.utils.translation import ugettext_lazy as _
 from geonode.waterproof_treatment_plants.models import Header, Function
 from geonode.waterproof_parameters.models import Countries, Cities , Climate_value
 from geonode.waterproof_study_cases.models import StudyCases
-from geonode.waterproof_intake.models import ElementSystem 
+from geonode.waterproof_intake.models import ElementSystem, Intake
 
 
 class wbPtap(models.Model):
@@ -101,9 +101,15 @@ class calculateCostFunctionPtap(models.Model):
 
 class investIndicators(models.Model):
     study_case = models.ForeignKey(StudyCases, on_delete=models.CASCADE)
-    user = models.ForeignKey( settings.AUTH_USER_MODEL, null=True, blank=True, on_delete=models.CASCADE)	
-    name = models.CharField(max_length=10)
+    intake = models.ForeignKey(Intake, on_delete=models.CASCADE)
+    time = models.IntegerField(verbose_name=_('Time'))
+    user = models.ForeignKey( settings.AUTH_USER_MODEL, null=True, blank=True, on_delete=models.CASCADE)
     type = models.CharField(max_length=10)
     path = models.CharField(max_length=10)
-    value = models.FloatField(null=True, blank=True, default=None, verbose_name=_('value'))
     date = models.DateField()
+    awy = models.FloatField(null=True, blank=True, default=None, verbose_name=_('Awy'))
+    wn_kg = models.FloatField(null=True, blank=True, default=None, verbose_name=_('WnKg'))
+    wp_kg = models.FloatField(null=True, blank=True, default=None, verbose_name=_('WpKg'))
+    wsed_ton = models.FloatField(null=True, blank=True, default=None, verbose_name=_('WsedTon'))
+    bf_m3 = models.FloatField(null=True, blank=True, default=None, verbose_name=_('BfM3'))
+    wc_ton = models.FloatField(null=True, blank=True, default=None, verbose_name=_('WcTon'))
