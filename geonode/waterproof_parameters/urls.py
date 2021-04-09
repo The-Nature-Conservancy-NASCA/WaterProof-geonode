@@ -18,5 +18,8 @@ urlpatterns = [
     # Load all currencies
     path('load-allCurrencies/', views.loadAllCurrencies, name='load_allCurrencies'),
     # Load city by standard name
-    path('load-cityByName/', views.loadCityByName, name='load_cityByName')
+    path('load-cityByName/', views.loadCityByName, name='load_cityByName'),
+
+    path('verciudad/', views.verCiudad, name='verciudad')
+
 ]
