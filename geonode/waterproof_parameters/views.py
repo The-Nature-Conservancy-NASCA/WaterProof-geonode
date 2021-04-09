@@ -96,3 +96,9 @@ def loadRegionByCountry(request):
     region = Regions.objects.filter(id=regionId)
     region_serialized = serializers.serialize('json', region)
     return JsonResponse(region_serialized, safe=False)
+
+def verCiudad(request):
+                return render(
+                    request,
+                    'waterproof_parameters/verCiudad.html',
+                    {})

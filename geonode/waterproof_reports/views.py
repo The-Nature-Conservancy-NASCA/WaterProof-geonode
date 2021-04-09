@@ -5,7 +5,7 @@ from geonode.waterproof_parameters.models import Countries, Regions, Cities
 
 
 def dashboard(request):
-    return render(request, 'dashboard.html', {})
+    return render(request, 'waterproof_reports/dashboard.html', {})
 
 
 
@@ -18,4 +18,10 @@ def reportMenu(request):
                 return render(
                     request,
                     'waterproof_reports/reports_menu.html',
+                    {})
+
+def physicalIndicators(request):
+                return render(
+                    request,
+                    'waterproof_reports/physicalIndicators.html',
                     {})
