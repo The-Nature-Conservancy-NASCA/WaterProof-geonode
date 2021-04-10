@@ -28,7 +28,7 @@ var validPolygon;
 var isFile;
 var delimitationFileType;
 var xmlGraph;
-var id_study_case;
+var id_study_case = '';
 var waterExtractionData = {};
 var waterExtractionValue;
 const delimitationFileEnum = {
@@ -45,37 +45,94 @@ const interpolationType = {
 var mapLoader;
 $(document).ready(function() {
     $('#autoAdjustHeightF').css("height", "auto");
+    $('#cityLabel').text(localStorage.city);
+    calculate_Personnel();
+    calculate_Platform();
+    loadIntakes();
+    loadPtaps();
+
     $('#custom').click(function() {
-        $("#panel-custom").removeClass("panel-hide");
-        $("#panel-ptap").addClass("panel-hide");
-        $('#autoAdjustHeightF').css("height", "auto");
+        if ($('#ptap_table').find('tbody > tr').length > 0) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $("#panel-custom").removeClass("panel-hide");
+                    $("#panel-cost").removeClass("panel-hide");
+                    $("#panel-ptap").addClass("panel-hide");
+                    $('#autoAdjustHeightF').css("height", "auto");
+                    $("#ptap_table tbody tr").empty();
+                } else {
+                    $("input[name=type][value='1']").prop('checked', true);
+                }
+            })
+        } else {
+            $("#panel-custom").removeClass("panel-hide");
+            $("#panel-ptap").addClass("panel-hide");
+            $("#panel-cost").removeClass("panel-hide");
+            $('#autoAdjustHeightF').css("height", "auto");
+        }
     });
+
     $('#ptap').click(function() {
         $("#panel-ptap").removeClass("panel-hide");
-        $("#panel-custom").addClass("panel-hide");
+        $("#panel-custom").removeClass("panel-hide");
+        $("#panel-cost").addClass("panel-hide");
         $('#autoAdjustHeightF').css("height", "auto");
     });
 
     $('#btn-full').click(function() {
-        $("#full-table").removeClass("panel-hide");
-        $('#autoAdjustHeightF').css("height", "auto");
+        if ($("#full-table").hasClass("panel-hide")) {
+            $("#full-table").removeClass("panel-hide");
+            $("#full-table").find("input").each(function() {
+                var $this = $(this).val('');
+            });
+            $('#autoAdjustHeightF').css("height", "auto");
+            $('#column_investment').text("Percentage");
+        } else {
+            $("#full-table").addClass("panel-hide");
+        }
     });
+
     $('#btn-investment').click(function() {
-        $("#investment-table").removeClass("panel-hide");
-        $('#autoAdjustHeightF').css("height", "auto");
+        if ($("#full-table").hasClass("panel-hide")) {
+            $("#full-table").removeClass("panel-hide");
+            $('#autoAdjustHeightF').css("height", "auto");
+            $('#column_investment').text("Investment");
+            $("#full-table").find("input").each(function() {
+                var $this = $(this).val('');
+            });
+        } else {
+            $("#full-table").addClass("panel-hide");
+        }
     });
 
     $('#full').click(function() {
         $("#panel-full").removeClass("panel-hide");
         $("#panel-investment").addClass("panel-hide");
-        $("#investment-table").addClass("panel-hide");
+        $("#full-table").addClass("panel-hide");
         $('#autoAdjustHeightF').css("height", "auto");
+        $('#column_investment').text("Percentage");
+        $("#full-table").find("input").each(function() {
+            var $this = $(this).val('');
+        });
     });
+
     $('#investment').click(function() {
         $("#panel-investment").removeClass("panel-hide");
         $("#panel-full").addClass("panel-hide");
         $("#full-table").addClass("panel-hide");
         $('#autoAdjustHeightF').css("height", "auto");
+        $('#column_investment').text("Investment");
+        $("#full-table").find("input").each(function() {
+            var $this = $(this).val('');
+        });
     });
 
     $('#add_wi').click(function() {
@@ -83,15 +140,11 @@ $(document).ready(function() {
         value = $("#select_custom option:selected").val();
         $('#select_custom option:selected').remove();
         var action = "<td><a class='btn btn-danger'><span class='glyphicon glyphicon-trash' aria-hidden='true'></span></a></td>";
-        $.get("../../study_cases/scinfra/" + value, function(data) {
-            $.each(data, function(index, scinfra) {
-                var name = "<td>" + scinfra.intake__name + "</td>";
-                var name_source = "<td>" + scinfra.intake__water_source_name + "</td>";
-                check = " <td>";
-                check += "<div>" + scinfra.name + " - " + scinfra.graphId
-                // "</div><button type='button' class='btn btn-primary' id='add_wi'>Add new cost</button>"
-                check += "</td>";
-                var markup = "<tr id='custom-" + value + "'>" + name + name_source + check + action + "</tr>";
+        $.get("../../study_cases/intakebyid/" + value, function(data) {
+            $.each(data, function(index, intake) {
+                var name = "<td>" + intake.name + "</td>";
+                var name_source = "<td>" + intake.water_source_name + "</td>";
+                var markup = "<tr id='custom-" + value + "'>" + name + name_source + action + "</tr>";
                 $("#custom_table").find('tbody').append(markup);
             });
 
@@ -113,27 +166,45 @@ $(document).ready(function() {
 
 
     $('#step1NextBtn').click(function() {
-        if ($('#id_name').val() != '' && $('#id_description').val() != '' && $('table tr').length > 1) {
-            intakes = [];
-            $('#custom_table').find('tbody > tr').each(function(index, tr) {
-                id = tr.id.replace('custom-', '')
-                intakes.push(id)
-            });
-            ptaps = [];
+        intakes = [];
+        ptaps = [];
+        $('#custom_table').find('tbody > tr').each(function(index, tr) {
+            id = tr.id.replace('custom-', '')
+            intakes.push(id)
+        });
+        var type = $("input[name='type']:checked").val();
+        if (type == "1") {
             $('#ptap_table').find('tbody > tr').each(function(index, tr) {
                 id = tr.id.replace('ptap-', '')
                 ptaps.push(id)
             });
+        }
+        if (($('#name').val() != '' && $('#description').val() != '' && intakes.length > 0)) {
+            console.log(id_study_case)
             $.post("../../study_cases/save/", {
-                name: $('#id_name').val(),
-                description: $('#id_description').val(),
+                name: $('#name').val(),
+                id_study_case: id_study_case,
+                description: $('#description').val(),
+                city: localStorage.city,
+                country: localStorage.country,
                 intakes: intakes,
-                ptaps: ptaps
+                ptaps: ptaps,
+                type: type
             }, function(data) {
                 id_study_case = data.id_study_case;
-                $('#smartwizard').smartWizard("next");
-                $('#autoAdjustHeightF').css("height", "auto");
-                $("#cm_form").hide();
+                if (id_study_case == '') {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: `Study Case exist`,
+                        text: `please change the name`
+                    });
+                    return;
+                } else {
+                    $('#smartwizard').smartWizard("next");
+                    $('#autoAdjustHeightF').css("height", "auto");
+                    $("#cm_form").hide();
+                }
+
             }, "json");
         } else {
             Swal.fire({
@@ -157,22 +228,24 @@ $(document).ready(function() {
         }
     })
 
+    $('#step2PreviousBtn').click(function() {
+        $('#smartwizard').smartWizard("prev");
+    });
+
     $('#step2NextBtn').click(function() {
-        if ($("#cb_check").is(':checked')) {
-            $.post("../../study_cases/save/", {
-                id_study_case: id_study_case,
-                carbon_market: $("#cb_check").is(':checked'),
-                carbon_market_value: $('#id_cm').val(),
-                carbon_market_currency: $("#cm_select option:selected").text()
-            }, function(data) {
-                $('#smartwizard').smartWizard("next");
-                $('#autoAdjustHeightF').css("height", "auto");
-            }, "json");
-        } else {
+        $.post("../../study_cases/save/", {
+            id_study_case: id_study_case,
+            carbon_market: $("#cb_check").is(':checked'),
+            carbon_market_value: $('#id_cm').val(),
+            carbon_market_currency: $("#cm_select option:selected").text()
+        }, function(data) {
             $('#smartwizard').smartWizard("next");
             $('#autoAdjustHeightF').css("height", "auto");
+        }, "json");
+    });
 
-        }
+    $('#step3PreviousBtn').click(function() {
+        $('#smartwizard').smartWizard("prev");
     });
 
     $('#step3NextBtn').click(function() {
@@ -199,12 +272,66 @@ $(document).ready(function() {
         }
     });
 
+    $('#step4PreviousBtn').click(function() {
+        $('#smartwizard').smartWizard("prev");
+    });
+
     $('#step4NextBtn').click(function() {
         $('#smartwizard').smartWizard("next");
     });
-    $('#step5NextBtn').click(function() {
-        $('#smartwizard').smartWizard("next");
+
+    $('#step5PreviousBtn').click(function() {
+        $('#smartwizard').smartWizard("prev");
     });
+
+    $('#step5NextBtn').click(function() {
+        var valid = true;
+        $("#div_financial").find("input").each(function() {
+            var $this = $(this);
+            if ($this.val().length <= 0) {
+                valid = false;
+                return false;
+            }
+        });
+
+        if (valid) {
+            $.post("../../study_cases/save/", {
+                id_study_case: id_study_case,
+                director: $('#director').val(),
+                implementation: $('#implementation').val(),
+                evaluation: $('#evaluation').val(),
+                finance: $('#finance').val(),
+                office: $('#office').val(),
+                overhead: $('#overhead').val(),
+                equipment: $('#equipment').val(),
+                discount: $('#discount').val(),
+                minimum: $('#minimum').val(),
+                minimum: $('#minimum').val(),
+                transaction: $('#transaction').val(),
+                travel: $('#travel').val(),
+                contracts: $('#contracts').val(),
+                others: $('#others').val(),
+                total_platform: $('#total_platform').val(),
+                financial_currency: $("#financial_currency option:selected").text()
+            }, function(data) {
+                $('#smartwizard').smartWizard("next");
+                $('#autoAdjustHeightF').css("height", "auto");
+            }, "json");
+        } else {
+            Swal.fire({
+                icon: 'warning',
+                title: `Field empty`,
+                text: `Please check options`
+            });
+            return;
+        }
+
+    });
+
+    $('#step6PreviousBtn').click(function() {
+        $('#smartwizard').smartWizard("prev");
+    });
+
     $('#step6NextBtn').click(function() {
         nbs = [];
         $('#nbs-ul input:checked').each(function() {
@@ -228,16 +355,59 @@ $(document).ready(function() {
             return;
         }
     });
+
+    $('#step7PreviousBtn').click(function() {
+        $('#smartwizard').smartWizard("prev");
+    });
+
     $('#step7EndBtn').click(function() {
-        var analysis_type = $("input[name='analysis_type']:checked").val();
-        $.post("../../study_cases/save/", {
-            id_study_case: id_study_case,
-            analysys_type: analysis_type
-        }, function(data) {
-            $('#smartwizard').smartWizard("next");
-            $('#autoAdjustHeightF').css("height", "auto");
-        }, "json");
-        $("#form").submit();
+        edit = !$("#full-table").hasClass("panel-hide")
+        var valid_edit = true;
+        var valid_investment = true;
+        if (edit) {
+            var valid_edit = true;
+            $("#full-table").find("input").each(function() {
+                var $this = $(this);
+                if ($this.val().length <= 0) {
+                    valid_edit = false;
+                    return false;
+                }
+            });
+        }
+        var type = $("input[name='analysis_type']:checked").val();
+        if (type == "2") {
+            valid_investment = $('#annual_investment').val() != ''
+        }
+        if ($('#period_analysis').val() != '' && $('#period_nbs').val() != '' && type && valid_edit && valid_investment) {
+            $.post("../../study_cases/save/", {
+                id_study_case: id_study_case,
+                analysis_type: type,
+                period_nbs: $('#period_nbs').val(),
+                period_analysis: $('#period_analysis').val(),
+                conservation: $('#conservation').val(),
+                active: $('#active').val(),
+                passive: $('#passive').val(),
+                silvopastoral: $('#silvopastoral').val(),
+                agroforestry: $('#agroforestry').val(),
+                analysis_currency: $('#analysis_currency').val(),
+                analysis_nbs: $("#analysis_nbs option:selected").val(),
+                analysis_currency: $("#analysis_currency option:selected").text(),
+                annual_investment: $('#annual_investment').val(),
+                rellocated_remainder: $("#rellocated_check").is(':checked'),
+            }, function(data) {
+                $('#smartwizard').smartWizard("next");
+                $('#autoAdjustHeightF').css("height", "auto");
+            }, "json");
+            $("#form").submit();
+        } else {
+            Swal.fire({
+                icon: 'warning',
+                title: `Field empty`,
+                text: `Please check options`
+            });
+            return;
+        }
+
     });
     $('#step7RunBtn').click(function() {
 
@@ -251,12 +421,10 @@ $(document).ready(function() {
         $.each(tds, function(i) {
             if (i == 0) {
                 intake_name = $(this).text();
-            } else if (i == 2) {
-                csinfra_name = $(this).text();
             }
 
         });
-        option = intake_name + " - " + csinfra_name
+        option = intake_name
         id = row.attr("id").replace('custom-', '')
         $("#select_custom").append(new Option(option, id));
         row.remove();
@@ -279,6 +447,23 @@ $(document).ready(function() {
         row.remove();
 
     });
+
+    $("#conservation").keyup(function() {
+        calculateAnalysisValues($(this))
+    });
+    $("#active").keyup(function() {
+        calculateAnalysisValues($(this))
+    });
+    $("#passive").keyup(function() {
+        calculateAnalysisValues($(this))
+    });
+    $("#silvopastoral").keyup(function() {
+        calculateAnalysisValues($(this))
+    });
+    $("#agroforestry").keyup(function() {
+        calculateAnalysisValues($(this))
+    });
+
 
     $("#director").keyup(function() {
         calculate_Personnel();
@@ -385,6 +570,74 @@ $(document).ready(function() {
         total_plaform.val(total)
     }
 
+    function calculateAnalysisValues(input) {
+        var type = $("input[name='analysis_type']:checked").val();
+        var total = 100
+        if (type == "2") {
+            total = $('#annual_investment').val()
+        }
+        if (total != '') {
+            suma = 0.0;
+            $("#full-table").find("input").each(function() {
+                var $this = $(this);
+                if ($this.val().length > 0) {
+                    suma += Number($this.val());
+                    if (suma > total) {
+                        input.val('')
+                        Swal.fire({
+                            icon: 'warning',
+                            title: `greater value`,
+                            text: `the sum of values ​​is greater than ` + total
+                        });
+                    }
+                }
+            });
+        } else {
+            Swal.fire({
+                icon: 'warning',
+                title: `Field empty`,
+                text: `Please add annual investment`
+            });
+            return;
+        }
+    }
+
+    function loadIntakes() {
+        var city = localStorage.city
+        $.get("../../study_cases/intakebycity/" + city, function(data) {
+            if (data.length > 0) {
+                $.each(data, function(index, intake) {
+                    var name = intake.name;
+                    option = name
+                    $("#select_custom").append(new Option(option, intake.id));
+                });
+                $("#div-customcase").removeClass("panel-hide");
+                $('#autoAdjustHeightF').css("height", "auto");
+            } else {
+                $("#div-emptyintakes").removeClass("panel-hide");
+            }
+
+        });
+    }
+
+    function loadPtaps() {
+        var city = localStorage.city
+        $.get("../../study_cases/ptapbycity/" + city, function(data) {
+            if (data.length > 0) {
+                $.each(data, function(index, ptap) {
+                    var name = ptap.plant_name;
+                    option = name
+                    $("#select_ptap").append(new Option(option, ptap.id));
+                });
+                $("#div-ptaps").removeClass("panel-hide");
+                $('#autoAdjustHeightF').css("height", "auto");
+            } else {
+                $("#div-emptyptaps").removeClass("panel-hide");
+            }
+
+        });
+    }
+
 
     $('#smartwizard').smartWizard({
         selected: 0,
@@ -409,26 +662,6 @@ $(document).ready(function() {
 
     $('#autoAdjustHeightF').css("height", "auto");
 
-
-    /*$("#smartwizard").on("showStep", function(e, anchorObject, stepIndex, stepDirection) {
-        if (stepIndex == 3) {
-            if (catchmentPoly)
-                mapDelimit.fitBounds(catchmentPoly.getBounds());
-            changeFileEvent();
-        }
-    });
-
-    /*
-        var menu1Tab = document.getElementById('mapid');
-        var observer2 = new MutationObserver(function() {
-            if (menu1Tab.style.display != 'none') {
-                mapDelimit.invalidateSize();
-            }
-        });
-        observer2.observe(menu1Tab, {
-            attributes: true
-        });
-    */
 });
 
 

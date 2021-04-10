@@ -8,7 +8,7 @@ L.Control.Photon = L.Control.extend({
         placeholder: "Start typing...",
         emptyMessage: "No result",
         minChar: 3,
-        limit: 5,
+        limit: 10,
         submitDelay: 300,
         includePosition: true,
         noResultLabel: "No result",
@@ -289,7 +289,10 @@ L.Control.Photon = L.Control.extend({
         this.clear();
         this.resultsContainer.style.display = "block";
         this.resizeContainer();
-        geojson.features = geojson.features.filter(feature => feature.properties.type=="city" || feature.properties.osm_value=="town");
+        geojson.features = geojson.features.filter(feature => feature.properties.type=="city" || 
+                                                            feature.properties.osm_value=="town" ||
+                                                            feature.properties.type=="locality"  ||
+                                                            feature.properties.type=="district" );
         this.forEach(geojson.features, function (feature, index) {
             self.RESULTS.push(self.createResult(feature));
         });

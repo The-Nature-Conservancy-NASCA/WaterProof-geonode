@@ -4,23 +4,25 @@
 {% endblock %} {% block body_outer %}
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <div class="row">
-  
+
 </div>
 <div class="page-header">
     <h1>{% trans "Permission denied" %}</h1>
-    
+
 </div>
 <div class="table-responsive">
-    
+
 </div>
 
 {% block body %}{% endblock body %} {% block sidebar %}{% endblock sidebar %} {% endblock body_outer %} {% block extra_script %}
 <script>
-     Swal.fire({
+    Swal.fire({
         icon: 'error',
         title: 'Login required',
         text: 'Please login!',
     });
-    setTimeout(function () { location.href = "/waterproof_nbs_ca/"; }, 1500);
+    setTimeout(function() {
+        location.href = "/study_cases/";
+    }, 1500);
 </script>
 {% endblock %}

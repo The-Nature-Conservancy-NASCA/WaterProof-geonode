@@ -1,0 +1,113 @@
+{% extends "menu.html" %} 
+{% load i18n %} 
+{% block title %}{% trans "Reports" %}{% endblock %}
+{% load i18n %} 
+{% load static from staticfiles %} 
+{% load bootstrap_tags %}
+<h1>{% trans "Reports" %}</h1>
+
+{% block extra_head %}
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+    crossorigin="" />
+<link rel="stylesheet" href="{{ STATIC_URL }}geonode/css/leaflet/Control.Coordinates.css " />
+<link rel="stylesheet" href="https://photon.komoot.io/static/leaflet.photon/leaflet.photon.css">
+</link>
+
+<script>
+    var intakePolygons = [];
+    SEARCH_CITY_API_URL = '{{ SEARCH_CITY_API_URL }}';
+    SEARCH_COUNTRY_API_URL = '{{ SEARCH_COUNTRY_API_URL }}';
+</script>
+{% endblock %} 
+
+{% block body_outer %}
+
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_nbs_ca/css/dataTables.bootstrap.min.css">
+
+<link href="{% static "geonode/css/sidenav.css" %}" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_nbs_ca/css/waterproof_nbs_ca.css">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+    crossorigin="" />
+<div>
+    <h1>{% trans "Reports" %}    </h1>
+</div>
+<br>
+
+<div class="row">
+    <!--
+    <div class="col-md-4">
+        <h4 class="text-center" id="countryLabel">{{city.name}}</h4>
+        <p><b>{% trans "Selected City" %} :</b> <span id="cityLabel"></span> </p>
+        <p><b>{% trans "Region" %} :</b> <span id="regionLabel"></span> </p>
+        <p><b>{% trans "Currency" %}:</b><span id="currencyLabel"></span></p>
+    </div>
+    -->
+    <div class="col-md-8">
+        <div id="mapidcuenca"></div>
+
+    </div>
+</div>
+
+<div class="page-header">
+
+    <br>
+    <h5 textColor="red" style="outline-color: dimgrey;">{% trans "Explore the results for this analysis" %}</h5>
+</div>
+
+<div>
+    <img href="/dashboard" src="/static/geonode/img/Indicadores-financieros.png" style="height: 200px; width: 200px; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;" title="{% trans "Financial indicators" %}"/> <a>{% trans "Financial indicators" %}</a>
+    <img src="/static/geonode/img/indicadores-fisicos.png" style="height: 200px; width: 200px; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;" title="{% trans "Physical indicators" %}"/> <a href="physical/">{% trans "Physical indicators" %}</a>
+    <img src="/static/geonode/img/indicadores-decision.png" style="height: 200px; width: 200px; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;" title="{% trans "Decision indicators" %}"/><a>{% trans "Decision indicators" %}</a>
+    <img src="/static/geonode/img/indicadores-geograficos.png" style="height: 200px; width: 200px; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;" title="{% trans "Geographic visualization" %}"/><a>{% trans "Geographic visualization" %}</a>
+
+</div>
+{% block body %}{% endblock body %} {% block sidebar %}{% endblock sidebar %} {% endblock body_outer %} {% block extra_script %}
+<script>
+    var countriesLayerUrl = '{{ STATIC_URL }}waterproof_intake/data/countries.geojson';
+    var userCountryId = '{{userCountry.id}}';
+    var userCountryCode = '{{userCountry.code}}';
+    var userCountryName = '{{userCountry.name}}';
+    var intakeList = '{{intakeList}}';
+</script>
+<script src="{{ STATIC_URL }}geonode/js/datatables/jquery.dataTables.min.js"></script>
+<script src="{{ STATIC_URL }}geonode/js/datatables/dataTables.bootstrap.min.js"></script>
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+    crossorigin=""></script>
+<script src="{{ STATIC_URL }}geonode/js/leaflet/leaflet.ajax.min.js"></script>
+<script src="{{ STATIC_URL }}waterproof_reports/js/reports_menu.js"></script>
+<script src="https://vinceg.github.io/twitter-bootstrap-wizard/jquery.bootstrap.wizard.js"></script>
+<script src="https://vinceg.github.io/twitter-bootstrap-wizard/prettify.js"></script>
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+    crossorigin=""></script>
+<script src="{{ STATIC_URL }}geonode/js/leaflet/photon/leaflet.photon.js"></script>
+<script src="{{ STATIC_URL }}geonode/js/leaflet/Leaflet.Coordinates.js" %} "></script>
+<script src=" {{ STATIC_URL }}geonode/js/leaflet/leaflet-omnivore.min.js "></script>
+
+<script src=" {{ STATIC_URL }}geonode/sample_data/intake_polygon.js "></script>
+<script src=" https://cdn.jsdelivr.net/npm/sweetalert2@10 "></script>
+<script type=" text/javascript ">
+    API_URL = '/proxy/?url=https://photon.komoot.de/api/?';
+    TILELAYER = 'http://{s}.tile.osm.org/{z}/{x}/{y}.png';
+    CENTER = [-74.4879, 4.582];
+    MAXZOOM = 11;
+
+    let waterproof = {};
+
+    $(document).ready(function() {
+
+
+
+    });
+
+    var searchPoints = L.geoJson(null, {
+        onEachFeature: function(feature, layer) {
+            layer.bindPopup(feature.properties.name);
+        }
+    });
+
+</script>
+{% endblock %}

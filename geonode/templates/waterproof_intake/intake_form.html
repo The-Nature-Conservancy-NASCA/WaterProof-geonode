@@ -12,11 +12,14 @@
 <div class="page-header">
     <h1>{% trans "Create water intake" %}</h1>
     <h4 class="title-city">{% trans "Intake creation city" %} <span id="cityLabel"></span> </h4>
+    
 </div>
+<br>
 <!--Begin Form-->
 <form id="form" method="POST" action="">
     {% csrf_token %}
     <!--Start smartwizard-->
+    <br>
     <div id="smartwizard">
         <!--panel of navigation-->
         <ul class="nav">
@@ -54,7 +57,7 @@
                     <h3>{% trans "Define water intake" %}
                         <button type="button" data-toggle="modal" data-target="#HelpStep1" id="HelpModalBtnModal" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
                     </h3>
-                    <p>{% trans "Enter the data with which you will identify your wáter inteake. Note that in addition to the name, a description and the name of the water source, you must indicate its spatial location." %}</p>
+                    <p>{% trans "Enter the data with which you will identify your water intake. Note that in addition to the name, a description and the name of the water source, you must indicate its spatial location." %}</p>
                 </div>
                 <!--Input Name -->
                 <div id="water_intake">
@@ -169,7 +172,7 @@
                 </div>
                 <div class="row" id="hideCostFuntion" style="display: none">
                     <div class="col-md-12">
-                        <h3 style="padding:1rem;">{% trans "Cost functions "%}<small id="titleCostFunSmall"></small>
+                        <h3 style="padding:1rem;">{% trans "Cost functions "%} <small id="titleCostFunSmall"></small>
                             <button type="button" class="btn btn-primary btn-add-cost" data-toggle="modal" data-target="#CalculatorModal" id="ModalAddCostBtn">{% trans "Add Cost" %}</button>
                         </h3>
                         <div id="funcostgenerate" style="padding:1rem;"></div>
@@ -190,7 +193,7 @@
                     <h3>{% trans "Water extraction"%}
                         <button type="button" data-toggle="modal" data-target="#HelpStep3" id="HelpModalBtnModal" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
                     </h3>
-                    <p>{% trans "Please indicate the demand (extraction) of water that you make from your wáter intake, for this you can rely on the system interpolation tool or enter it manually." %} </p>
+                    <p>{% trans "Please indicate the demand (extraction) of water that you make from your water intake, for this you can rely on the system interpolation tool or enter it manually." %} </p>
                 </div>
                 <!--navigation-->
                 <ul class="nav nav-tabs" id="minitabsInportalion">
@@ -415,22 +418,21 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title" id="CalculatorModalLabel">Add Cost</h4>
+                <h4 class="modal-title" id="CalculatorModalLabel"></h4>
             </div>
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-5">
-                        <div class="panel-group" id="VarCostListGroup" style="max-height: 342px; overflow-y: auto;">
-                        </div>
+                        <div class="panel-group" id="VarCostListGroup" style="max-height: 480px; overflow-y: auto;"></div>
                     </div>
                     <div class="col-md-7">
                         <div class="form-group">
                             <label class="text-primary">Cost function name</label>
-                            <input type="text" class="form-control">
+                            <input id="costFunctionName" type="text" class="form-control">
                         </div>
                         <div class="form-group">
                             <label class="text-primary">Cost function description</label>
-                            <textarea rows="3" class="form-control"></textarea>
+                            <textarea id="costFuntionDescription" rows="3" class="form-control"></textarea>
                         </div>
                         <div class="form-group">
                             <label class="text-primary">{% trans "Currency for definition of costs" %} </label>
@@ -444,16 +446,16 @@
                                 {% endfor %}
                             </select>
                         </div>
-                        <div class="form-group">
-                            <label class="text-primary">{% trans "Multiplying factor for overrall cost" %} </label> {% for currency in currencies %} {% if currency.id == 48 %}
-                            <input type="text" id="global_multiplier_factorCalculator" class="form-control" value="{{currency.global_multiplier_factor }}" disabled> {% endif %} {% endfor %}
+                         <div class="form-group">
+                            <label class="text-primary">{% trans "Multiplying factor for overrall cost" %} </label>
+                            <input type="text" id="global_multiplier_factorCalculator" class="form-control" disabled>
                         </div>
                         <h5 class="text-primary">Syntax keyboard</h5>
                         <ul class="nav nav-tabs">
                             <li class="active"><a href="#mathBasic_tab" data-toggle="tab">Basic</a></li>
-                            <li><a href="#mathAdvanced_tab" data-toggle="tab">Advanced</a></li>
-                            <li><a href="#mathTrigonometry_tab" data-toggle="tab">Trigonometry</a></li>
-                            <li><a href="#mathLogical_tab" data-toggle="tab">Logical</a></li>
+                            <li><a href="#mathAdvanced_tab" data-toggle="tab" >Advanced</a></li>
+                            <li><a href="#mathTrigonometry_tab" data-toggle="tab" >Trigonometry</a></li>
+                            <li><a href="#mathLogical_tab" data-toggle="tab" >Logical</a></li>
                         </ul>
                         <div class="tab-content">
                             <div id="mathBasic_tab" class="tab-pane fade in active">
@@ -464,11 +466,10 @@
                                     <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="*">&#215</button>
                                     <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="/">\frac{a}{b}</button>
                                     <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="^">a^b</button>
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="\sqrt">&#8730</button>
-
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="\sqrt">&#8730</button>     
                                 </div>
                             </div>
-
+                            
                             <div id="mathAdvanced_tab" class="tab-pane fade in">
                                 <div class="btn-group" role="group">
                                     <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="\pi">π</button>
@@ -491,10 +492,8 @@
                                 <div class="btn-group" role="group">
                                     <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value=">">></button>
                                     <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="\ge">\ge</button>
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="<">
-                                        << /button>
-                                            <button type="button" class="btn btn-default math-btn" name="mathKeyBoard"
-                                                value="\le">\le</button>
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="<"><</button>
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="\le">\le</button>
                                     <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="\ne">\ne</button>
                                     <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="\and">\and</button>
                                     <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="\or">\or</button>
@@ -509,7 +508,7 @@
                         <h5 class="text-primary">Math expression</h5>
                         <ul class="nav nav-tabs">
                             <li class="active"><a href="#mathNatural" data-toggle="tab">Natural</a></li>
-                            <li><a href="#mathLogical" data-toggle="tab">Logical</a></li>
+                            <li><a href="#mathLogical" data-toggle="tab" >Logical</a></li>
                         </ul>
                         <div class="tab-content">
                             <div id="mathNatural" class="tab-pane fade in active">
@@ -519,44 +518,32 @@
                                 <table class="table mathTable">
                                     <thead>
                                         <tr>
-                                            <th class="text-center" scope="col">#</th>
-                                            <th class="text-center" scope="col">Logical</th>
-                                            <th class="text-center" scope="col">Math expression</th>
-                                            <th class="text-center" scope="col"></th>
+                                        <th class="text-center" scope="col">#</th>
+                                        <th class="text-center" scope="col">Logical</th>
+                                        <th class="text-center" scope="col">Math expression</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <th class="text-center" scope="row">1</th>
-                                            <td style="width: 250px"><span id="math-fieldlogic1" class="form-control math-span" style="height: auto;"></span></td>
-                                            <td><span id="math-fieldex1" class="form-control math-span" style="height: auto;"></span>
+                                            <th class="text-center" style="width: 20px" scope="row">1</th>
+                                            <td style="width: 250px"><span valinfo="mathFieldlog1" id="math-fieldlogic1" class="form-control math-span" style="height: auto;"></span></td>
+                                            <td><span valinfo="mathFieldE1" id="math-fieldex1" class="form-control math-span" style="height: auto;"></span>
                                             </td>
-                                            <td style="width: 60px"><button type="button" class="btn btn-danger btn-block"><span
-                                                        class="glyphicon glyphicon-trash text-white"
-                                                        aria-hidden="true"></span></button></td>
+                                        </tr>
+                                       <tr>
+                                            <th class="text-center" style="width: 20px" scope="row">2</th>
+                                            <td style="width: 250px"><span valinfo="mathFieldlog2" id="math-fieldlogic2" class="form-control math-span" style="height: auto;"></span></td>
+                                            <td><span valinfo="mathFieldE2" id="math-fieldex2" class="form-control math-span" style="height: auto;"></span>
+                                            </td>
                                         </tr>
                                         <tr>
-                                            <th class="text-center" scope="row">2</th>
-                                            <td style="width: 250px"><input type="text" class="form-control"></td>
-                                            <td><input type="text" class="form-control"></td>
-                                            <td style="width: 60px"><button type="button" class="btn btn-danger btn-block"><span
-                                                        class="glyphicon glyphicon-trash text-white"
-                                                        aria-hidden="true"></span></button></td>
-
-                                        </tr>
-                                        <tr>
-                                            <th class="text-center" scope="row">3</th>
-                                            <td style="width: 250px"><input type="text" class="form-control"></td>
-                                            <td><input type="text" class="form-control"></td>
-                                            <td style="width: 60px"><button type="button" class="btn btn-danger btn-block"><span
-                                                        class="glyphicon glyphicon-trash text-white"
-                                                        aria-hidden="true"></span></button></td>
-
+                                            <th class="text-center" style="width: 20px" scope="row">3</th>
+                                            <td style="width: 250px"><span valinfo="mathFieldlog3" id="math-fieldlogic3" class="form-control math-span" style="height: auto;"></span></td>
+                                            <td><span valinfo="mathFieldE3" id="math-fieldex3" class="form-control math-span" style="height: auto;"></span>
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
-                                <button type="button" class="btn btn-primary" style="float: right">Add
-                                    Condition</button>
                             </div>
                         </div>
                     </div>
@@ -612,8 +599,8 @@
             </div>
             <div class="modal-body">
                 <p>
-                    {% trans "This is the first step in creating a wáter intake. In addition to indicating its name, description and supplier source, a geographic viewer is offered that through the icon" %} <img src="/static/geonode/img/ubicacion.png"
-                    /> {% trans "helps you identify the most precise location of your wáter inteake (you can move the icon" %}<img src="/static/geonode/img/ubicacion.png" /> {% trans "on the map to define the wáter intake location or you can directly enter latitude and longitude coordinates)." %}
+                    {% trans "This is the first step in creating a water intake. In addition to indicating its name, description and supplier source, a geographic viewer is offered that through the icon" %} <img src="/static/geonode/img/ubicacion.png"
+                    /> {% trans "helps you identify the most precise location of your water intake (you can move the icon" %}<img src="/static/geonode/img/ubicacion.png" /> {% trans "on the map to define the water intake location or you can directly enter latitude and longitude coordinates)." %}
                 </p>
                 <p>
                     {% trans "With this information, the system will calculate the polygon of the basin to be used by the InVest and RIOS models in the definition of portfolios and calculation of Return on investment:" %}
@@ -783,7 +770,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h3 class="modal-title text-center" id="HelpModalLabel" style="color:#6398C1 ;">{% trans "Definition of demand (extraction) of water in the wáter intake" %}
+                <h3 class="modal-title text-center" id="HelpModalLabel" style="color:#6398C1 ;">{% trans "Definition of demand (extraction) of water in the water intake" %}
                 </h3>
             </div>
             <div class="modal-body">
@@ -841,7 +828,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h3 class="modal-title text-center" id="HelpModalLabel" style="color:#6398C1 ;">{% trans "Definition of demand (extraction) of water in the wáter intake" %}
+                <h3 class="modal-title text-center" id="HelpModalLabel" style="color:#6398C1 ;">{% trans "Definition of demand (extraction) of water in the water intake" %}
                 </h3>
             </div>
             <div class="modal-body">

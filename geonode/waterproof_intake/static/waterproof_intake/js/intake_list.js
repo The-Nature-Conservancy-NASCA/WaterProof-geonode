@@ -279,7 +279,7 @@ $(function () {
         var bounds;
         intakePolygons.forEach((feature) => {
             if (citySearch.substr(0, 5) == feature.city.substr(0, 5)) {
-                if (feature.polygon !== 'None') {
+                if (feature.polygon !== 'None' && feature.polygon != '') {
                     let poly = feature.polygon;
                     if (poly.indexOf("SRID") >= 0) {
                         poly = poly.split(";")[1];

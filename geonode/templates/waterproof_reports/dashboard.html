@@ -1,0 +1,88 @@
+{% extends "menu.html" %} 
+
+{% block extra_head %}
+    <meta charset="UTF-8">
+    <title>Waterproof Reports</title>
+    
+    <link rel="stylesheet" href="https://cdn.flexmonster.com/demo.css">
+{% endblock %}
+
+{% block extra_script %}
+    <script src="https://cdn.flexmonster.com/flexmonster.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript">
+
+        function processData(dataset) {
+            var result = []
+            dataset = JSON.parse(dataset);
+            dataset.forEach(item => result.push(item.fields));
+            return result;
+        }
+        $.ajax({
+            url: $("#pivot-table-container").attr("data-url"),
+            dataType: 'json',
+            success: function (data) {
+                new Flexmonster({
+                    container: "#pivot-table-container",
+                    componentFolder: "https://cdn.flexmonster.com/",
+                    width: "100%",
+                    height: 430,
+                    toolbar: true,
+                    report: {
+                        dataSource: {
+                            type: "json",
+                            data: processData(data)
+                        },
+                        slice: {},
+                        mapping: {
+                            "region": {
+                                "caption": "Region",
+                                "type": "string"
+                            },
+                            "currency_symbol": {
+                                "caption": "Currency Symbol",
+                                "type": "string"
+                            },
+                            "subregion": {
+                                "caption": "Subregion",
+                                "type": "string"
+                            },
+                            "global_multipler_factor": {
+                                "caption": "Multiplier Factor",
+                                "type": "number"
+                            }
+                        }
+                    }
+                });
+                new Flexmonster({
+                    container: "#pivot-chart-container",
+                    componentFolder: "https://cdn.flexmonster.com/",
+                    width: "100%",
+                    height: 430,
+                    //toolbar: true,
+                    report: {
+                        dataSource: {
+                            type: "json",
+                            data: processData(data)
+                        },
+                        slice: {},
+                        "options": {
+                            "viewType": "charts",
+                            "chart": {
+                                "type": "pie"
+                            }
+                        }
+                    }
+                });
+            }
+        });
+
+    </script>
+
+{% endblock %}
+
+
+{% block body_outer %}
+<div id="pivot-table-container" data-url="{% url 'pivot_data' %}"></div>
+<div id="pivot-chart-container"></div>
+{% endblock %}
