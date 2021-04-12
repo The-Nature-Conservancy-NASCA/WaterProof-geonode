@@ -11,7 +11,7 @@ from .models import StudyCases
 from . import forms
 from geonode.waterproof_parameters.models import Countries, Regions, Cities, Climate_value
 from geonode.waterproof_intake.models import Intake
-from geonode.waterproof_treatment_plants.models import Header
+from geonode.waterproof_treatment_plants.models import Header, Csinfra
 from geonode.waterproof_nbs_ca.models import WaterproofNbsCa
 from .models import StudyCases, Portfolio, ModelParameter
 
@@ -38,6 +38,14 @@ def getIntakeByCity(request, name):
         filterIntakeCity = Intake.objects.filter(city__name__startswith=name, is_complete=True).values(
             "id", "name", "water_source_name")
         data = list(filterIntakeCity)
+        return JsonResponse(data, safe=False)
+
+@api_view(['GET'])
+def getIntakeByPtap(request, id):
+    if request.method == 'GET':
+        filterIntakePtap = Csinfra.objects.filter(csinfra_plant__id=id).values(
+            "csinfra_elementsystem__intake__id", "csinfra_elementsystem__intake__name", "csinfra_elementsystem__intake__water_source_name")
+        data = list(filterIntakePtap)
         return JsonResponse(data, safe=False)
 
 

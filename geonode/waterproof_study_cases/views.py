@@ -97,8 +97,22 @@ def create(request):
             currencys = Countries.objects.values('currency').distinct().order_by('currency')
             scenarios = Climate_value.objects.all()
             financial_parameters = ManagmentCosts_Discount.objects.get(country=48)
-            nbs = WaterproofNbsCa.objects.filter(added_by__professional_role='ADMIN').values(
+            nbs_admin = WaterproofNbsCa.objects.filter(added_by__professional_role='ADMIN').values(
                 "id", "name")
+            nbs_user = WaterproofNbsCa.objects.filter(added_by=request.user).values(
+                "id", "name")
+            for n in nbs_user:
+                nbs_add = True
+                for nbs_a in nbs_admin:
+                    if n['id'] == nbs_a['id']:
+                        nbs_add = False
+                if nbs_add:
+                    nObject = {
+                        'id': nbs_a['id'],
+                        'name': nbs_a['name'],
+                        'default': False
+                    }
+                    nbs_admin.append(nObject)
             return render(request,
                           'waterproof_study_cases/studycases_form.html',
                           context={
@@ -106,7 +120,7 @@ def create(request):
                               'portfolios': portfolios,
                               'ModelParameters': models,
                               'financialParameters': financial_parameters,
-                              'nbs': nbs,
+                              'nbs': nbs_admin,
                               'currencys': currencys,
                               'scenarios': scenarios
                           }
@@ -143,9 +157,23 @@ def edit(request, idx):
                     'default': defaultValue
                 }
                 portfolios.append(pObject)
-            listNbs = WaterproofNbsCa.objects.filter(added_by__professional_role='ADMIN').values(
+            nbs_admin = WaterproofNbsCa.objects.filter(added_by__professional_role='ADMIN').values(
                 "id", "name")
-            for n in listNbs:
+            nbs_user = WaterproofNbsCa.objects.filter(added_by=request.user).values(
+                "id", "name")
+            for n in nbs_user:
+                nbs_add = True
+                for nbs_a in nbs_admin:
+                    if n['id'] == nbs_a['id']:
+                        nbs_add = False
+                if nbs_add:
+                    nObject = {
+                        'id': nbs_a['id'],
+                        'name': nbs_a['name'],
+                        'default': False
+                    }
+                    nbs_admin.append(nObject)
+            for n in nbs_admin:
                 defaultValue = False
                 for nbsStudy in listNBSStudy:
                     if n['id'] == nbsStudy.id:
@@ -206,10 +234,8 @@ def clone(request, idx):
             portfolios = []
             intakes = []
             ptaps = []
-            nbs = []
             currencys = Countries.objects.values('currency').distinct().order_by('currency')
             listPortfoliosStudy = study_case.portfolios.all()
-            listNBSStudy = study_case.nbs.all()
             listIntakesStudy = study_case.intakes.all()
             listPTAPStudy = study_case.ptaps.all()
             scenarios = Climate_value.objects.all()
@@ -224,19 +250,22 @@ def clone(request, idx):
                     'default': defaultValue
                 }
                 portfolios.append(pObject)
-            listNbs = WaterproofNbsCa.objects.filter(added_by__professional_role='ADMIN').values(
+            nbs_admin = WaterproofNbsCa.objects.filter(added_by__professional_role='ADMIN').values(
                 "id", "name")
-            for n in listNbs:
-                defaultValue = False
-                for nbsStudy in listNBSStudy:
-                    if n['id'] == nbsStudy.id:
-                        defaultValue = True
-                nObject = {
-                    'id': n['id'],
-                    'name': n['name'],
-                    'default': defaultValue
-                }
-                nbs.append(nObject)
+            nbs_user = WaterproofNbsCa.objects.filter(added_by=request.user).values(
+                "id", "name")
+            for n in nbs_user:
+                nbs_add = True
+                for nbs_a in nbs_admin:
+                    if n['id'] == nbs_a['id']:
+                        nbs_add = False
+                if nbs_add:
+                    nObject = {
+                        'id': nbs_a['id'],
+                        'name': nbs_a['name'],
+                        'default': False
+                    }
+                    nbs_admin.append(nObject)
             models = ModelParameter.objects.all()
             listPtaps = Header.objects.filter()
             for ptap in listPtaps:
@@ -266,7 +295,7 @@ def clone(request, idx):
                     'portfolios': portfolios,
                     'tratamentPlants': ptaps,
                     'ModelParameters': models,
-                    'nbs': nbs,
+                    'nbs': nbs_admin,
                     'currencys': currencys,
                     'scenarios': scenarios
                 }
