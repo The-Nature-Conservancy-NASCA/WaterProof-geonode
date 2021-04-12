@@ -4,9 +4,9 @@
 set -e
 
 if [ ! -z "${S3_ACCESS_KEY}" ]; then
-    rclone sync -v --config /rclone.s3.conf /spcgeonode-geodatadir/ spcgeonode:geodatadir/
-    rclone sync -v --config /rclone.s3.conf /spcgeonode-media/ spcgeonode:media/
-    rclone sync -v --config /rclone.s3.conf /spcgeonode-pgdumps/ spcgeonode:pgdumps/
+    rclone sync -v --config /rclone.s3.conf /spcwaterproof-geodatadir/ spcwaterproof:geodatadir/
+    rclone sync -v --config /rclone.s3.conf /spcwaterproof-media/ spcwaterproof:media/
+    rclone sync -v --config /rclone.s3.conf /spcwaterproof-pgdumps/ spcwaterproof:pgdumps/
 
     echo "S3 sync successful !!"
 fi

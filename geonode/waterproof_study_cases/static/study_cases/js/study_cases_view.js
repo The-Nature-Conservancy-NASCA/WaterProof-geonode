@@ -45,6 +45,7 @@ const interpolationType = {
 var mapLoader;
 $(document).ready(function() {
     $('#autoAdjustHeightF').css("height", "auto");
+    $('#cityLabel').text(localStorage.city);
     calculate_Personnel();
     calculate_Platform();
 
@@ -54,9 +55,17 @@ $(document).ready(function() {
         $('#autoAdjustHeightF').css("height", "auto");
     });
 
+    $('#step2PreviousBtn').click(function() {
+        $('#smartwizard').smartWizard("prev");
+    });
+
     $('#step2NextBtn').click(function() {
         $('#smartwizard').smartWizard("next");
         $('#autoAdjustHeightF').css("height", "auto");
+    });
+
+    $('#step3PreviousBtn').click(function() {
+        $('#smartwizard').smartWizard("prev");
     });
 
     $('#step3NextBtn').click(function() {
@@ -64,22 +73,42 @@ $(document).ready(function() {
         $('#autoAdjustHeightF').css("height", "auto");
     });
 
+    $('#step4PreviousBtn').click(function() {
+        $('#smartwizard').smartWizard("prev");
+    });
+
     $('#step4NextBtn').click(function() {
         $('#smartwizard').smartWizard("next");
         $('#autoAdjustHeightF').css("height", "auto");
     });
+
+    $('#step5PreviousBtn').click(function() {
+        $('#smartwizard').smartWizard("prev");
+    });
+
     $('#step5NextBtn').click(function() {
         $('#smartwizard').smartWizard("next");
         $('#autoAdjustHeightF').css("height", "auto");
     });
+
+    $('#step6PreviousBtn').click(function() {
+        $('#smartwizard').smartWizard("prev");
+    });
+
     $('#step6NextBtn').click(function() {
         $('#smartwizard').smartWizard("next");
         $('#autoAdjustHeightF').css("height", "auto");
     });
-    $('#step7EndBtn').click(function() {
-        $('#smartwizard').smartWizard("next");
-        $('#autoAdjustHeightF').css("height", "auto");
+
+    $('#step7PreviousBtn').click(function() {
+        $('#smartwizard').smartWizard("prev");
     });
+
+    $('#step7EndBtn').click(function() {
+        location.href = "/study_cases/";
+    });
+
+
 
 
     function calculate_Personnel() {
@@ -166,27 +195,6 @@ $(document).ready(function() {
 
 
     $('#autoAdjustHeightF').css("height", "auto");
-
-
-    /*$("#smartwizard").on("showStep", function(e, anchorObject, stepIndex, stepDirection) {
-        if (stepIndex == 3) {
-            if (catchmentPoly)
-                mapDelimit.fitBounds(catchmentPoly.getBounds());
-            changeFileEvent();
-        }
-    });
-
-    /*
-        var menu1Tab = document.getElementById('mapid');
-        var observer2 = new MutationObserver(function() {
-            if (menu1Tab.style.display != 'none') {
-                mapDelimit.invalidateSize();
-            }
-        });
-        observer2.observe(menu1Tab, {
-            attributes: true
-        });
-    */
 });
 
 
