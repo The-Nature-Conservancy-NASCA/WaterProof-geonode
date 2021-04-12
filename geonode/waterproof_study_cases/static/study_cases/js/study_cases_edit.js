@@ -162,6 +162,16 @@ $(document).ready(function() {
         var name = "<td>" + text + "</td>";
         var markup = "<tr id='ptap-" + value + "'>" + name + action + "</tr>";
         $("#ptap_table").find('tbody').append(markup);
+        $.get("../../study_cases/intakebyptap/" + value, function(data) {
+            $.each(data, function(index, intake) {
+                id = intake.csinfra_elementsystem__intake__id
+                $("#select_custom option").each(function(i) {
+                    if (id == $(this).val()) {
+                        $(this).remove();
+                    }
+                });
+            });
+        });
         $('#autoAdjustHeightF').css("height", "auto");
     });
 
@@ -169,18 +179,28 @@ $(document).ready(function() {
     $('#step1NextBtn').click(function() {
         intakes = [];
         ptaps = [];
+        valid_ptaps = true;
+        valid_intakes = true;
         $('#custom_table').find('tbody > tr').each(function(index, tr) {
             id = tr.id.replace('custom-', '')
             intakes.push(id)
         });
+        if (intakes.length <= 0) {
+            valid_intakes = false
+        }
         var type = $("input[name='type']:checked").val();
         if (type == "1") {
             $('#ptap_table').find('tbody > tr').each(function(index, tr) {
                 id = tr.id.replace('ptap-', '')
                 ptaps.push(id)
             });
+            if (ptaps.length <= 0) {
+                valid_ptaps = false;
+            } else {
+                valid_intakes = true
+            }
         }
-        if (($('#name').val() != '' && $('#description').val() != '' && intakes.length > 0)) {
+        if (($('#name').val() != '' && $('#description').val() != '' && valid_intakes && valid_ptaps)) {
             $.post("../../study_cases/save/", {
                 name: $('#name').val(),
                 id_study_case: id_study_case,
@@ -437,6 +457,13 @@ $(document).ready(function() {
         });
         option = ptap_name
         id = row.attr("id").replace('ptap-', '')
+        $.get("../../study_cases/intakebyptap/" + id, function(data) {
+            $.each(data, function(index, intake) {
+                id = intake.csinfra_elementsystem__intake__id
+                option = intake.csinfra_elementsystem__intake__name
+                $("#select_custom").append(new Option(option, id));
+            });
+        });
         $("#select_ptap").append(new Option(option, id));
         row.remove();
 

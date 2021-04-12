@@ -20,6 +20,7 @@ urlpatterns = [
     path('delete/<int:idx>', api.delete, name='delete-study-cases'),
     path('intakebyid/<int:id_intake>/', api.getIntakeByID, name='intake-id'),
     path('intakebycity/<str:name>/', api.getIntakeByCity, name='intake-city'),
+    path('intakebyptap/<int:id>/', api.getIntakeByPtap, name='intake-ptap'),
     path('ptapbycity/<str:name>/', api.getPtapByCity, name='ptap-city'),    
     path('save/', api.save, name='study_cases_save'),
     
