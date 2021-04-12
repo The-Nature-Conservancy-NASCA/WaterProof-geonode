@@ -150,7 +150,7 @@ services:
     restart: on-failure
     # uncomment to enable remote connections to postgres
     ports:
-      - "5433:5432"
+      - "5432:5432"
 
   # Vanilla RabbitMQ service. This is needed by celery
   rabbitmq:
