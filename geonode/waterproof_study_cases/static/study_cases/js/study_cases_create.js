@@ -50,6 +50,7 @@ $(document).ready(function() {
     calculate_Platform();
     loadIntakes();
     loadPtaps();
+    loadNBS();
 
     $('#custom').click(function() {
         if ($('#ptap_table').find('tbody > tr').length > 0) {
@@ -642,6 +643,27 @@ $(document).ready(function() {
             } else {
                 $("#div-emptyintakes").removeClass("panel-hide");
             }
+
+        });
+    }
+
+    function loadNBS() {
+        var country = localStorage.country
+        $.post("../../study_cases/nbs/", {
+            id_study_case: "",
+            country: country,
+            process: "Create"
+        }, function(data) {
+            $.each(data, function(index, nbs) {
+                var name = nbs.name;
+                var id = nbs.id
+                content = '<li class="list-group-item"><div class="custom-control custom-checkbox">' +
+                    '<input type="checkbox" class="custom-control-input" id="nbs-' + id + '">' +
+                    '<label class="custom-control-label" for="nbs-' + id + '"> ' + name + '</label></div></li>'
+                console.log(content)
+                $("#nbs-ul").append(content);
+            });
+            $('#autoAdjustHeightF').css("height", "auto");
 
         });
     }

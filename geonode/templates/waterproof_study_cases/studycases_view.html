@@ -375,19 +375,7 @@
                     <p></p>
 
                     <ul class="list-group list-group-flush" id="nbs-ul">
-                        {% for nb in nbs %}
-                        <li class="list-group-item">
-                            <div class="custom-control custom-checkbox">
-                                {% if nb.default %}
-                                <input id='nbs-{{nb.id}}' type="checkbox" class="custom-control-input" checked disabled>
-                                {% else %}
-                                <input type="checkbox" class="custom-control-input" id="nbs-{{portfolio.nb}}" disabled>
-                                {% endif %}
 
-                                <label class="custom-control-label" for="nbs-{{nb.id}}">{{nb.name}}</label>
-                            </div>
-                        </li>
-                        {% endfor %}
                     </ul>
                 </div>
                 <div class="row text-center">
