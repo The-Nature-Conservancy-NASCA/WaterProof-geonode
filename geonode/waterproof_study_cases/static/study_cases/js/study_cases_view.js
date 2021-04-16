@@ -15,6 +15,8 @@ var urlParams = (function(url) {
     return result;
 })(window.location.href);
 
+
+
 var mxLanguage = urlParams['lang'];
 var map;
 var basinId;
@@ -42,11 +44,15 @@ const interpolationType = {
     LOGISTICS: 'LOGISTICS'
 }
 
+var id_study_case = window.location.href.substring(window.location.href.lastIndexOf('/') + 1);
+
 var mapLoader;
 $(document).ready(function() {
     $('#autoAdjustHeightF').css("height", "auto");
+    $('#cityLabel').text(localStorage.city);
     calculate_Personnel();
     calculate_Platform();
+    loadNBS();
 
 
     $('#step1NextBtn').click(function() {
@@ -104,9 +110,10 @@ $(document).ready(function() {
     });
 
     $('#step7EndBtn').click(function() {
-        $('#smartwizard').smartWizard("next");
-        $('#autoAdjustHeightF').css("height", "auto");
+        location.href = "/study_cases/";
     });
+
+
 
 
     function calculate_Personnel() {
@@ -169,6 +176,31 @@ $(document).ready(function() {
         total_plaform.val(total)
     }
 
+    function loadNBS() {
+        var country = localStorage.country
+        $.post("../../study_cases/nbs/", {
+            id_study_case: id_study_case,
+            country: country,
+            process: "View"
+        }, function(data) {
+            $.each(data, function(index, nbs) {
+                var name = nbs.name;
+                var id = nbs.id
+                var def = nbs.default
+                content = '<li class="list-group-item"><div class="custom-control custom-checkbox">'
+                if (def) {
+                    content += '<input type="checkbox" class="custom-control-input" id="nbs-' + id + '" checked disabled>'
+                } else {
+                    content += '<input type="checkbox" class="custom-control-input" id="nbs-' + id + '">'
+                }
+                content += '<label class="custom-control-label" for="nbs-' + id + '"> ' + name + '</label></div></li>'
+                $("#nbs-ul").append(content);
+            });
+            $('#autoAdjustHeightF').css("height", "auto");
+
+        });
+    }
+
 
     $('#smartwizard').smartWizard({
         selected: 0,
@@ -193,27 +225,6 @@ $(document).ready(function() {
 
 
     $('#autoAdjustHeightF').css("height", "auto");
-
-
-    /*$("#smartwizard").on("showStep", function(e, anchorObject, stepIndex, stepDirection) {
-        if (stepIndex == 3) {
-            if (catchmentPoly)
-                mapDelimit.fitBounds(catchmentPoly.getBounds());
-            changeFileEvent();
-        }
-    });
-
-    /*
-        var menu1Tab = document.getElementById('mapid');
-        var observer2 = new MutationObserver(function() {
-            if (menu1Tab.style.display != 'none') {
-                mapDelimit.invalidateSize();
-            }
-        });
-        observer2.observe(menu1Tab, {
-            attributes: true
-        });
-    */
 });
 
 

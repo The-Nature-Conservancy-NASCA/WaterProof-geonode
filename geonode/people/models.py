@@ -131,7 +131,7 @@ class Profile(AbstractUser):
         null=True,
         help_text=_('Use Analysis'))
     other_analysis = models.CharField(
-        _('Other Analisys'),        
+        _('Other Analysis'),        
         max_length=50,
         blank=True,
         null=True,

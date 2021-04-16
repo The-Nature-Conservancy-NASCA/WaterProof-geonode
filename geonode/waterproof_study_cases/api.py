@@ -6,18 +6,20 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.template.response import TemplateResponse
 from rest_framework.decorators import api_view
 from rest_framework.parsers import JSONParser
+from itertools import chain
 from django.urls import reverse
 from .models import StudyCases
 from . import forms
-from geonode.waterproof_parameters.models import Countries, Regions, Cities , Climate_value
-from geonode.waterproof_intake.models import Intake, ElementSystem
-from geonode.waterproof_treatment_plants.models import Header
+from geonode.waterproof_parameters.models import Countries, Regions, Cities, Climate_value
+from geonode.waterproof_intake.models import Intake
+from geonode.waterproof_treatment_plants.models import Header, Csinfra
 from geonode.waterproof_nbs_ca.models import WaterproofNbsCa
 from .models import StudyCases, Portfolio, ModelParameter
 
 import requests
 import datetime
 import logging
+import simplejson as json
 
 logger = logging.getLogger(__name__)
 
@@ -25,18 +27,27 @@ logger = logging.getLogger(__name__)
 @api_view(['GET'])
 def getIntakeByID(request, id_intake):
     if request.method == 'GET':
-        filterIntakeCSInfra = ElementSystem.objects.filter(id=id_intake).values(
-            "id", "name", "intake__name", "intake__id", "intake__water_source_name", "graphId")
-        data = list(filterIntakeCSInfra)
+        filterIntake = Intake.objects.filter(id=id_intake).values(
+            "id", "name", "water_source_name")
+        data = list(filterIntake)
         return JsonResponse(data, safe=False)
-    
-    
+
+
 @api_view(['GET'])
 def getIntakeByCity(request, name):
     if request.method == 'GET':
-        filterIntakeCSInfra = ElementSystem.objects.filter(intake__city__name__startswith=name,normalized_category='CSINFRA').values(
-            "id", "name", "intake__name", "intake__id", "intake__water_source_name", "graphId")
-        data = list(filterIntakeCSInfra)
+        filterIntakeCity = Intake.objects.filter(city__name__startswith=name, is_complete=True).values(
+            "id", "name", "water_source_name")
+        data = list(filterIntakeCity)
+        return JsonResponse(data, safe=False)
+
+
+@api_view(['GET'])
+def getIntakeByPtap(request, id):
+    if request.method == 'GET':
+        filterIntakePtap = Csinfra.objects.filter(csinfra_plant__id=id).values(
+            "csinfra_elementsystem__intake__id", "csinfra_elementsystem__intake__name", "csinfra_elementsystem__intake__water_source_name")
+        data = list(filterIntakePtap)
         return JsonResponse(data, safe=False)
 
 
@@ -47,8 +58,68 @@ def getPtapByCity(request, name):
             "id", "plant_name")
         data = list(filterptap)
         return JsonResponse(data, safe=False)
-    
-    
+
+
+@api_view(['POST'])
+def getNBS(request):
+    if request.method == 'POST':
+        nbs = []
+        nbs_admin = WaterproofNbsCa.objects.filter(added_by__professional_role='ADMIN').values(
+            "id", "name")
+        country = request.POST['country']
+        process = request.POST['process']
+        id_study_case = request.POST['id_study_case']
+        if(process == 'Edit' or process == 'View'or process == 'Clone'):
+            sc = StudyCases.objects.get(pk=id_study_case)       
+            scnbs_list = sc.nbs.all()
+            if(process == 'Clone'):
+                nbs_user = WaterproofNbsCa.objects.filter(added_by=request.user, country__name__startswith=country ).exclude(added_by__professional_role ='ADMIN').values(
+                "id", "name")
+            else:
+                nbs_user = WaterproofNbsCa.objects.filter(added_by=sc.added_by, country__name__startswith=country ).exclude(added_by__professional_role ='ADMIN').values(
+                "id", "name")
+            nbs_list = chain(nbs_admin, nbs_user)
+            for n in nbs_list:
+                defaultValue = False
+                for nbsStudy in scnbs_list:
+                    if n['id'] == nbsStudy.id:
+                        defaultValue = True
+                nObject = {
+                    'id': n['id'],
+                    'name': n['name'],
+                    'default': defaultValue
+                }
+                nbs.append(nObject)
+        elif(process == 'Create'):
+            nbs_user = WaterproofNbsCa.objects.filter(added_by=request.user, country__name__startswith=country).exclude(added_by__professional_role ='ADMIN').values(
+                "id", "name")
+            nbs_list = chain(nbs_admin, nbs_user)
+            nbs= list(nbs_list)
+        return JsonResponse(nbs, safe=False)
+
+
+@api_view(['POST'])
+def delete(request, idx):
+    sc = StudyCases.objects.get(id=idx)
+    if not sc:
+        print("Not found")
+        context = {
+            'status': '400', 'reason': 'Intake not found'
+        }
+        response = HttpResponse(json.dumps(context), content_type='application/json')
+        response.status_code = 400
+        return response
+    else:
+        # delete object
+        print(sc.delete())
+        # after deleting redirect to
+        # home page
+        context = {
+            'status': '200', 'reason': 'sucess'
+        }
+        response = HttpResponse(json.dumps(context), content_type='application/json')
+        response.status_code = 200
+        return response
 
 
 @api_view(['POST'])
@@ -58,7 +129,8 @@ def save(request):
     else:
         if request.method == 'POST':
             if(request.POST.get('name')):
-                city = Cities.objects.filter(name__startswith=request.POST['city'], country__name__startswith=request.POST['country']).first()
+                city = Cities.objects.filter(
+                    name__startswith=request.POST['city'], country__name__startswith=request.POST['country']).first()
                 name = request.POST['name']
                 name_old = ''
                 id_study_case = request.POST['id_study_case']
@@ -67,7 +139,7 @@ def save(request):
                 valid = True
                 if(id_study_case == ''):
                     sc = StudyCases()
-                    sc.added_by=request.user
+                    sc.added_by = request.user
                 else:
                     sc = StudyCases.objects.get(pk=id_study_case)
                     name_old = sc.name
@@ -88,7 +160,7 @@ def save(request):
                     intakes = request.POST.getlist('intakes[]')
                     sc.intakes.clear()
                     for intake in intakes:
-                        it = ElementSystem.objects.get(pk=intake)
+                        it = Intake.objects.get(pk=intake)
                         intakelist = StudyCases.objects.filter(intakes=intake, pk=sc.id)
                         if(len(intakelist) == 0):
                             sc.intakes.add(it)
@@ -163,6 +235,7 @@ def save(request):
             elif(request.POST.get('analysis_type')):
                 id_study_case = request.POST['id_study_case']
                 sc = StudyCases.objects.get(pk=id_study_case)
+                sc.is_complete = True
                 sc.time_implement = request.POST['period_nbs']
                 id_climate = request.POST['analysis_nbs']
                 cs = Climate_value.objects.get(pk=id_climate)
@@ -171,21 +244,30 @@ def save(request):
                 sc.analysis_currency = request.POST.get('analysis_currency')
                 sc.analysis_period_value = request.POST.get('period_analysis')
                 analysistype = request.POST['analysis_type']
+                sc.annual_investment = request.POST['annual_investment']
                 if(analysistype == '1'):
                     sc.analysis_type = 'FULL'
+                    sc.annual_investment = None
+                    sc.rellocated_remainder = False
                 else:
                     sc.analysis_type = 'INVESTMENT'
                     sc.annual_investment = request.POST['annual_investment']
                     rr = request.POST['rellocated_remainder']
-                    if (rr =='true'):
-                        sc.rellocated_remainder=True
+                    if (rr == 'true'):
+                        sc.rellocated_remainder = True
                     else:
-                        sc.rellocated_remainder=False
+                        sc.rellocated_remainder = False
                 if(request.POST.get('conservation') != ''):
                     sc.analysis_conservation = request.POST['conservation']
                     sc.analysis_active_restoration = request.POST['active']
                     sc.analysis_passive_restoration = request.POST['passive']
                     sc.analysis_silvopastoral = request.POST['silvopastoral']
                     sc.analysis_agroforestry = request.POST['agroforestry']
+                else:
+                    sc.analysis_conservation = None
+                    sc.analysis_active_restoration = None
+                    sc.analysis_passive_restoration = None
+                    sc.analysis_silvopastoral = None
+                    sc.analysis_agroforestry = None
                 sc.save()
                 return JsonResponse({'id_study_case': sc.id}, safe=False)

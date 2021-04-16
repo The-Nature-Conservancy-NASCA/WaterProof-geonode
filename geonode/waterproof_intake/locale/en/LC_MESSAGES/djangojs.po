@@ -182,8 +182,8 @@ msgstr "Please validate graph"
 #: geonode/waterproof_intake/static/waterproof_intake/js/intake_create.js:401
 #: geonode/waterproof_intake/static/waterproof_intake/js/intake_create.js:420
 #: geonode/waterproof_intake/static/waterproof_intake/js/intake_create.js:431
-msgid "Data analisys empty"
-msgstr "Data analisys empty"
+msgid "Data analysis empty"
+msgstr "Data analysis empty"
 
 #: geonode/waterproof_intake/static/waterproof_intake/js/intake_clone.js:405
 #: geonode/waterproof_intake/static/waterproof_intake/js/intake_clone.js:423
@@ -192,8 +192,8 @@ msgstr "Data analisys empty"
 #: geonode/waterproof_intake/static/waterproof_intake/js/intake_create.js:402
 #: geonode/waterproof_intake/static/waterproof_intake/js/intake_create.js:421
 #: geonode/waterproof_intake/static/waterproof_intake/js/intake_create.js:432
-msgid "Please Generate Data analisys"
-msgstr "Please Generate Data analisys"
+msgid "Please Generate Data analysis"
+msgstr "Please Generate Data analysis"
 
 #: geonode/waterproof_intake/static/waterproof_intake/js/intake_clone.js:505
 #: geonode/waterproof_intake/static/waterproof_intake/js/intake_clone.js:538
