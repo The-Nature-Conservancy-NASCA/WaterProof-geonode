@@ -21,12 +21,23 @@ def reportMenu(request):
                     'waterproof_reports/reports_menu.html',
                     {})
 
+def getNames(indicators):
+    result = []
+
+    for objectIndicator in indicators:
+        if objectIndicator.intake.name not in result:
+            result.append(objectIndicator.intake.name)
+
+    return result
+
 def physicalIndicators(request):
 
-                Indicators = investIndicators.objects.all()
+                indicators = investIndicators.objects.all()
+                indicatorsNames = getNames(indicators)
                 return render(
                     request,
                     'waterproof_reports/physicalIndicators.html',
                     {
-                        'Indicators': Indicators
+                        'Indicators': indicators,
+                        'NamesIndicators': indicatorsNames
                     })
