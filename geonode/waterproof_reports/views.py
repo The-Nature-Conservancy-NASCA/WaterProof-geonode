@@ -30,14 +30,25 @@ def getNames(indicators):
 
     return result
 
+def getNameCity(indicators):
+    result = []
+
+    for objectIndicatorcity in indicators:
+        if objectIndicatorcity.intake.city.name not in result:
+            result.append(objectIndicatorcity.intake.city.name)
+
+    return result
+
 def physicalIndicators(request):
 
                 indicators = investIndicators.objects.all()
                 indicatorsNames = getNames(indicators)
+                indicatorsNameCity = getNameCity(indicators)
                 return render(
                     request,
                     'waterproof_reports/physicalIndicators.html',
                     {
                         'Indicators': indicators,
-                        'NamesIndicators': indicatorsNames
+                        'NamesIndicators': indicatorsNames,
+                        'NameCityIndicators': indicatorsNameCity
                     })

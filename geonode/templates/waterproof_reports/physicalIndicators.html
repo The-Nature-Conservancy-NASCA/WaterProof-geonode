@@ -54,7 +54,7 @@
                 </div>
                 <div style="text-align: center;">
                         <div style="width: 50%; float: left;">
-                            <img src="/static/geonode/img/indicadores-fisicos-invest.png" style="height: 70%; width: 70%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;"/>
+                            <img src="/static/geonode/img/indicadores-fisicos.png" style="height: 70%; width: 70%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;"/>
                         </div>
                         <div style="width: 50%; float: left;">
                             <div class="row">
@@ -79,21 +79,23 @@
                                 <th scope="col" class="small text-center vat">{% trans "Change in nitrogen load (%)" %}</th>
                                 <th scope="col" class="small text-center vat">{% trans "Change in phosphorus Load (%)" %}</th>
                                 <th scope="col" class="small text-center vat">{% trans "Change in carbon storage" %}</th>
-                                <th scope="col" class="small text-center vat">{% trans "Date" %}</th>
+                                <th scope="col" class="small text-center vat" style="display: none;">{% trans "Date" %}</th>
+                                <th scope="col" class="small text-center vat" style="display: none;">{% trans "Name" %}</th>
                             </tr>
                         </thead>
                         <tbody>
                             {% for investIndicators in Indicators %}
                             <tr id="filas">
                                 <td class="small text-center vat" >{{investIndicators.intake.name}}</td>
-                                <td class="small text-center vat truncate">{{investIndicators.awy}}</td>
-                                <td class="small text-center vat" >{{investIndicators.bf_m3}}</td>
+                                <td class="small text-center vat truncate" id="valor1">{{investIndicators.awy}}</td>
+                                <td class="small text-center vat" id="valor2">{{investIndicators.bf_m3}}</td>
                                 <!--td>{{intake.max_benefit_req_time}}</td-->
-                                <td class="small text-center vat" id="valor1">{{investIndicators.wsed_ton}}</td>
-                                <td class="small text-center vat">{{investIndicators.wn_kg}}</td>
-                                <td class="small text-center vat">{{investIndicators.wp_kg}}</td>
-                                <td class="small text-center vat">{{investIndicators.wc_ton}}</td>
-                                <td class="small text-center vat">{{investIndicators.date}}</td>
+                                <td class="small text-center vat" id="valor3">{{investIndicators.wsed_ton}}</td>
+                                <td class="small text-center vat" id="valor4">{{investIndicators.wn_kg}}</td>
+                                <td class="small text-center vat" id="valor5">{{investIndicators.wp_kg}}</td>
+                                <td class="small text-center vat" id="valor6">{{investIndicators.wc_ton}}</td>
+                                <td class="small text-center vat" style="display: none;">{{investIndicators.date}}</td>
+                                <td class="small text-center vat" style="display: none;">{{investIndicators.intake.city.name}}</td>
                             </tr>
                             {% endfor %}
                         </tbody>
@@ -157,21 +159,30 @@
     var table = $('#example').DataTable({
         'dom': 'lrtip'
     });
+    
     console.log(table.rows())
     function show(){
-        a=document.querySelectorAll('#valor1')[4].innerHTML
+       // a=document.querySelectorAll('#valor1').innerHTML
         table.search(e.value).draw();
         console.log(e.value)
 
+        var value_awy = document.getElementById("valor1").innerText;
+        var value_bf_m3 = document.getElementById("valor2").innerText;
+        var value_wsed_ton = document.getElementById("valor3").innerText;
+        var value_wn_kg = document.getElementById("valor4").innerText;
+        var value_wp_kg = document.getElementById("valor5").innerText;
+        var value_wc_ton = document.getElementById("valor6").innerText;
 
-        console.log(a);
+        console.log("valor filtro es "+value_awy)
+
+        //console.log(a);
 
         Highcharts.chart('container', {
             chart: {
                 type: 'column'
             },
             title: {
-                text: 'Column chart with negative values'
+                text: e.value
             },
             xAxis: {
                 categories: ['{% trans "Change in volume of water yield (%)" %}', '{% trans "Change in base flow(%)" %}', '{% trans "Change in total sediments (%)" %}', '{% trans "Change in nitrogen load (%)" %}', '{% trans "Change in phosphorus Load (%)" %}', '{% trans "Change in carbon storage" %}']
@@ -181,7 +192,7 @@
             },
             series: [{
                 name: 'Intake',
-                data: [parseFloat(a), 3, 4, 7, 2, -8.5]
+                data: [parseFloat(value_awy), parseFloat(value_bf_m3), parseFloat(value_wsed_ton), parseFloat(value_wn_kg), parseFloat(value_wp_kg), parseFloat(value_wc_ton)]
             }]
         });
 
