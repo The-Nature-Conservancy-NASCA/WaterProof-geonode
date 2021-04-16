@@ -2,6 +2,7 @@ from django.http import JsonResponse
 from django.shortcuts import render
 from django.core import serializers
 from geonode.waterproof_parameters.models import Countries, Regions, Cities
+from .models import investIndicators
 
 
 def dashboard(request):
@@ -21,7 +22,11 @@ def reportMenu(request):
                     {})
 
 def physicalIndicators(request):
+
+                Indicators = investIndicators.objects.all()
                 return render(
                     request,
                     'waterproof_reports/physicalIndicators.html',
-                    {})
+                    {
+                        'Indicators': Indicators
+                    })
