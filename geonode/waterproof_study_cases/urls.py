@@ -23,5 +23,7 @@ urlpatterns = [
     path('intakebyptap/<int:id>/', api.getIntakeByPtap, name='intake-ptap'),
     path('ptapbycity/<str:name>/', api.getPtapByCity, name='ptap-city'),    
     path('save/', api.save, name='study_cases_save'),
+    path('nbs/', api.getNBS, name='study_cases_nbs'),
+    
     
 ]

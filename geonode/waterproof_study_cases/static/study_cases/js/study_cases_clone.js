@@ -221,6 +221,7 @@ $(document).ready(function() {
                     });
                     return;
                 } else {
+                    loadNBS()
                     $('#smartwizard').smartWizard("next");
                     $('#autoAdjustHeightF').css("height", "auto");
                 }
@@ -649,6 +650,32 @@ $(document).ready(function() {
 
     $('#autoAdjustHeightF').css("height", "auto");
 
+    function loadNBS() {
+        var country = localStorage.country
+        $.post("../../study_cases/nbs/", {
+            id_study_case: id_study_case,
+            country: country,
+            process: "Clone"
+        }, function(data) {
+            $.each(data, function(index, nbs) {
+                var name = nbs.name;
+                var id = nbs.id
+                var def = nbs.default
+                content = '<li class="list-group-item"><div class="custom-control custom-checkbox">'
+                if (def) {
+                    content += '<input type="checkbox" class="custom-control-input" id="nbs-' + id + '" checked>'
+                } else {
+                    content += '<input type="checkbox" class="custom-control-input" id="nbs-' + id + '">'
+                }
+                content += '<label class="custom-control-label" for="nbs-' + id + '"> ' + name + '</label></div></li>'
+                $("#nbs-ul").append(content);
+            });
+            $('#autoAdjustHeightF').css("height", "auto");
+
+        });
+    }
+
+
     function loadIntakes() {
         var city = localStorage.city
         $.get("../../study_cases/intakebycity/" + city, function(data) {
@@ -663,7 +690,7 @@ $(document).ready(function() {
                         }
                     });
                     if (!contains) {
-                        var name = intake.intake__name;
+                        var name = intake.name;
                         option = name
                         $("#select_custom").append(new Option(option, intake.id));
                     }

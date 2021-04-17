@@ -6,6 +6,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.template.response import TemplateResponse
 from rest_framework.decorators import api_view
 from rest_framework.parsers import JSONParser
+from itertools import chain
 from django.urls import reverse
 from .models import StudyCases
 from . import forms
@@ -40,6 +41,7 @@ def getIntakeByCity(request, name):
         data = list(filterIntakeCity)
         return JsonResponse(data, safe=False)
 
+
 @api_view(['GET'])
 def getIntakeByPtap(request, id):
     if request.method == 'GET':
@@ -56,6 +58,44 @@ def getPtapByCity(request, name):
             "id", "plant_name")
         data = list(filterptap)
         return JsonResponse(data, safe=False)
+
+
+@api_view(['POST'])
+def getNBS(request):
+    if request.method == 'POST':
+        nbs = []
+        nbs_admin = WaterproofNbsCa.objects.filter(added_by__professional_role='ADMIN').values(
+            "id", "name")
+        country = request.POST['country']
+        process = request.POST['process']
+        id_study_case = request.POST['id_study_case']
+        if(process == 'Edit' or process == 'View'or process == 'Clone'):
+            sc = StudyCases.objects.get(pk=id_study_case)       
+            scnbs_list = sc.nbs.all()
+            if(process == 'Clone'):
+                nbs_user = WaterproofNbsCa.objects.filter(added_by=request.user, country__name__startswith=country ).exclude(added_by__professional_role ='ADMIN').values(
+                "id", "name")
+            else:
+                nbs_user = WaterproofNbsCa.objects.filter(added_by=sc.added_by, country__name__startswith=country ).exclude(added_by__professional_role ='ADMIN').values(
+                "id", "name")
+            nbs_list = chain(nbs_admin, nbs_user)
+            for n in nbs_list:
+                defaultValue = False
+                for nbsStudy in scnbs_list:
+                    if n['id'] == nbsStudy.id:
+                        defaultValue = True
+                nObject = {
+                    'id': n['id'],
+                    'name': n['name'],
+                    'default': defaultValue
+                }
+                nbs.append(nObject)
+        elif(process == 'Create'):
+            nbs_user = WaterproofNbsCa.objects.filter(added_by=request.user, country__name__startswith=country).exclude(added_by__professional_role ='ADMIN').values(
+                "id", "name")
+            nbs_list = chain(nbs_admin, nbs_user)
+            nbs= list(nbs_list)
+        return JsonResponse(nbs, safe=False)
 
 
 @api_view(['POST'])
