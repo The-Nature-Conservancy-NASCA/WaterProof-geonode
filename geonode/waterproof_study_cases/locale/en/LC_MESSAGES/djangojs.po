@@ -1245,3 +1245,9 @@ msgstr ""
 
 #~ msgid "No error message supplied"
 #~ msgstr "No error message supplied"
+
+#~ msgid "portfolios intro"
+#~ msgstr "portfolios info"
+
+#~ msgid "portfolios objectives"
+#~ msgstr "portfolios objectives"

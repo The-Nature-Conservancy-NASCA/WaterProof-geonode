@@ -6,12 +6,13 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.template.response import TemplateResponse
 from rest_framework.decorators import api_view
 from rest_framework.parsers import JSONParser
+from itertools import chain
 from django.urls import reverse
 from .models import StudyCases
 from . import forms
 from geonode.waterproof_parameters.models import Countries, Regions, Cities, Climate_value
 from geonode.waterproof_intake.models import Intake
-from geonode.waterproof_treatment_plants.models import Header
+from geonode.waterproof_treatment_plants.models import Header, Csinfra
 from geonode.waterproof_nbs_ca.models import WaterproofNbsCa
 from .models import StudyCases, Portfolio, ModelParameter
 
@@ -42,12 +43,59 @@ def getIntakeByCity(request, name):
 
 
 @api_view(['GET'])
+def getIntakeByPtap(request, id):
+    if request.method == 'GET':
+        filterIntakePtap = Csinfra.objects.filter(csinfra_plant__id=id).values(
+            "csinfra_elementsystem__intake__id", "csinfra_elementsystem__intake__name", "csinfra_elementsystem__intake__water_source_name")
+        data = list(filterIntakePtap)
+        return JsonResponse(data, safe=False)
+
+
+@api_view(['GET'])
 def getPtapByCity(request, name):
     if request.method == 'GET':
         filterptap = Header.objects.filter(plant_city__name__startswith=name).values(
             "id", "plant_name")
         data = list(filterptap)
         return JsonResponse(data, safe=False)
+
+
+@api_view(['POST'])
+def getNBS(request):
+    if request.method == 'POST':
+        nbs = []
+        nbs_admin = WaterproofNbsCa.objects.filter(added_by__professional_role='ADMIN').values(
+            "id", "name")
+        country = request.POST['country']
+        process = request.POST['process']
+        id_study_case = request.POST['id_study_case']
+        if(process == 'Edit' or process == 'View'or process == 'Clone'):
+            sc = StudyCases.objects.get(pk=id_study_case)       
+            scnbs_list = sc.nbs.all()
+            if(process == 'Clone'):
+                nbs_user = WaterproofNbsCa.objects.filter(added_by=request.user, country__name__startswith=country ).exclude(added_by__professional_role ='ADMIN').values(
+                "id", "name")
+            else:
+                nbs_user = WaterproofNbsCa.objects.filter(added_by=sc.added_by, country__name__startswith=country ).exclude(added_by__professional_role ='ADMIN').values(
+                "id", "name")
+            nbs_list = chain(nbs_admin, nbs_user)
+            for n in nbs_list:
+                defaultValue = False
+                for nbsStudy in scnbs_list:
+                    if n['id'] == nbsStudy.id:
+                        defaultValue = True
+                nObject = {
+                    'id': n['id'],
+                    'name': n['name'],
+                    'default': defaultValue
+                }
+                nbs.append(nObject)
+        elif(process == 'Create'):
+            nbs_user = WaterproofNbsCa.objects.filter(added_by=request.user, country__name__startswith=country).exclude(added_by__professional_role ='ADMIN').values(
+                "id", "name")
+            nbs_list = chain(nbs_admin, nbs_user)
+            nbs= list(nbs_list)
+        return JsonResponse(nbs, safe=False)
 
 
 @api_view(['POST'])

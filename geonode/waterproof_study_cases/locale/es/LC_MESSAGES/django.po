@@ -79,3 +79,9 @@ msgstr "Listar captaciones"
 
 #~ msgid "List Water Intake"
 #~ msgstr "Listar captaciones"
+
+#~ msgid "portfolios intro"
+#~ msgstr "Seleccione los objetivos para los cuales el sistema generará portafolios de Soluciones Basadas en la Naturaleza, utilizando el marco técnico de RIOS"
+
+#~ msgid "portfolios objectives"
+#~ msgstr "portfolios objectives"

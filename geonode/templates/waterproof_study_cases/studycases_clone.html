@@ -233,7 +233,7 @@
                                         <input type="text" name="dws_cm" maxlength="100" class="form-control" id="id_cm" value="{{study_case.cm_value|stringformat:'1.2f'}}" />
                                     </div>
                                     <div class="col-md-3">
-                                        <p>{% trans "USD/TonCO2eq" %}</p>
+                                        <p>{% trans "TonCO2eq" %}</p>
                                     </div>
                                     <div class="col-md-3">
                                         <select class="form-control" id="cm_select">
@@ -320,7 +320,7 @@
                                 </div>
                                 <div class="row" id="div_financial">
                                     <div class="col-md-6">
-                                        <label class="custom-control-label" for="total_platform">{% trans "Platform cost per year (US$/yr)" %}</label>
+                                        <label class="custom-control-label" for="total_platform">{% trans "Platform cost per year" %}</label>
                                     </div>
                                     <div class="custom-control custom-checkbox col-md-4">
                                         <input class="text-number" id="total_platform" type="number" class="custom-control-input" disabled>
@@ -405,13 +405,13 @@
                                         <input class="text-number" id="discount" type="number" class="custom-control-input" value="{{study_case.discount_rate|stringformat:'1.2f'}}">
                                     </div>
                                     <div class="col-md-6">
-                                        <label class="custom-control-label" for="minimum">{% trans "Sensitivity Analysis - Minimun Discount Rate" %}</label>
+                                        <label class="custom-control-label" for="minimum">{% trans "Sensitivity Analysis - Minimun Discount Rate (%)" %}</label>
                                     </div>
                                     <div class="custom-control custom-checkbox col-md-4">
                                         <input class="text-number" id="minimum" type="number" class="custom-control-input" value="{{study_case.discount_rate_minimunm|stringformat:'1.2f'}}">
                                     </div>
                                     <div class="col-md-6">
-                                        <label class="custom-control-label" for="maximum">{% trans "Sensitivity Analysis - Maximun Discount Rate" %}</label>
+                                        <label class="custom-control-label" for="maximum">{% trans "Sensitivity Analysis - Maximun Discount Rate (%)" %}</label>
                                     </div>
                                     <div class="custom-control custom-checkbox col-md-4">
                                         <input class="text-number" id="maximum" type="number" class="custom-control-input" value="{{study_case.discount_rate_maximum|stringformat:'1.2f'}}">
@@ -432,19 +432,7 @@
                                 <p></p>
 
                                 <ul class="list-group list-group-flush" id="nbs-ul">
-                                    {% for nb in nbs %}
-                                    <li class="list-group-item">
-                                        <!-- Default checked -->
-                                        <div class="custom-control custom-checkbox">
-                                            {% if nb.default %}
-                                            <input id='nbs-{{nb.id}}' type="checkbox" class="custom-control-input" checked>
-                                            {% else %}
-                                            <input type="checkbox" class="custom-control-input" id="nbs-{{nb.id}}">
-                                            {% endif %}
-                                            <label class="custom-control-label" for="nbs-{{nb.id}}">{{nb.name}}</label>
-                                        </div>
-                                    </li>
-                                    {% endfor %}
+
                                 </ul>
                             </div>
                             <div class="row text-center">
