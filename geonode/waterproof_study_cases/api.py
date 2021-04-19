@@ -10,8 +10,8 @@ from itertools import chain
 from django.urls import reverse
 from .models import StudyCases
 from . import forms
-from geonode.waterproof_parameters.models import Countries, Regions, Cities, Climate_value
-from geonode.waterproof_intake.models import Intake
+from geonode.waterproof_parameters.models import Countries, Regions, Cities, Climate_value, Parameters_Biophysical
+from geonode.waterproof_intake.models import Intake, Polygon
 from geonode.waterproof_treatment_plants.models import Header, Csinfra
 from geonode.waterproof_nbs_ca.models import WaterproofNbsCa
 from .models import StudyCases, Portfolio, ModelParameter
@@ -69,15 +69,15 @@ def getNBS(request):
         country = request.POST['country']
         process = request.POST['process']
         id_study_case = request.POST['id_study_case']
-        if(process == 'Edit' or process == 'View'or process == 'Clone'):
-            sc = StudyCases.objects.get(pk=id_study_case)       
+        if(process == 'Edit' or process == 'View' or process == 'Clone'):
+            sc = StudyCases.objects.get(pk=id_study_case)
             scnbs_list = sc.nbs.all()
             if(process == 'Clone'):
-                nbs_user = WaterproofNbsCa.objects.filter(added_by=request.user, country__name__startswith=country ).exclude(added_by__professional_role ='ADMIN').values(
-                "id", "name")
+                nbs_user = WaterproofNbsCa.objects.filter(added_by=request.user, country__name__startswith=country).exclude(added_by__professional_role='ADMIN').values(
+                    "id", "name")
             else:
-                nbs_user = WaterproofNbsCa.objects.filter(added_by=sc.added_by, country__name__startswith=country ).exclude(added_by__professional_role ='ADMIN').values(
-                "id", "name")
+                nbs_user = WaterproofNbsCa.objects.filter(added_by=sc.added_by, country__name__startswith=country).exclude(added_by__professional_role='ADMIN').values(
+                    "id", "name")
             nbs_list = chain(nbs_admin, nbs_user)
             for n in nbs_list:
                 defaultValue = False
@@ -91,11 +91,39 @@ def getNBS(request):
                 }
                 nbs.append(nObject)
         elif(process == 'Create'):
-            nbs_user = WaterproofNbsCa.objects.filter(added_by=request.user, country__name__startswith=country).exclude(added_by__professional_role ='ADMIN').values(
+            nbs_user = WaterproofNbsCa.objects.filter(added_by=request.user, country__name__startswith=country).exclude(added_by__professional_role='ADMIN').values(
                 "id", "name")
             nbs_list = chain(nbs_admin, nbs_user)
-            nbs= list(nbs_list)
+            nbs = list(nbs_list)
         return JsonResponse(nbs, safe=False)
+
+
+@api_view(['POST'])
+def getBiophysical(request):
+    if request.method == 'POST':
+        biophysical_list = []
+        id_intake = request.POST['id_intake']
+        macro_region = Polygon.objects.filter(intake__pk=id_intake).values(
+            "basin__label").first()
+        biophysical = Parameters_Biophysical.objects.filter(
+            macro_region=macro_region['basin__label'], default='y').values()
+        if(request.POST['id_study_case']):
+            id_study_case = request.POST['id_study_case']
+            biophysical_sc = Parameters_Biophysical.objects.filter(
+                study_case_id=id_study_case).values()
+            for bio in biophysical:
+                add_bio = True
+                for biosc in biophysical_sc:
+                    if(bio['lucode'] == biosc['lucode']):
+                        add_bio = False
+                        biophysical_list.append(biosc)
+                if(add_bio):
+                    biophysical_list.append(bio)
+
+        else:
+            biophysical_list = biophysical
+        data = list(biophysical_list)
+        return JsonResponse(data, safe=False)
 
 
 @api_view(['POST'])
@@ -120,6 +148,34 @@ def delete(request, idx):
         response = HttpResponse(json.dumps(context), content_type='application/json')
         response.status_code = 200
         return response
+
+
+@api_view(['POST'])
+def saveBiophysicals(request):
+    if not request.user.is_authenticated:
+        return render(request, 'waterproof_study_cases/studycases_login_error.html')
+    else:
+        if request.method == 'POST':
+            if(request.POST['biophysicals']):
+                biophysicals = request.POST['biophysicals']
+                biophysicals_list = json.loads(biophysicals[1:])
+                if(request.POST['process']):
+                    process = request.POST['process']
+                    id_study = request.POST['id_study_case']
+                    biophysical_sc = Parameters_Biophysical.objects.filter(
+                        study_case_id=id_study)
+                    for biosc in biophysical_sc:
+                        biosc.delete()
+                    for bio in biophysicals_list:
+                        bio['study_case_id'] = id_study
+                        bio['default'] = 'N'
+                        pb = Parameters_Biophysical()
+                        for key in bio:
+                            value = bio[key]
+                            setattr(pb, key, value)
+                        pb.user_id = request.user.id
+                        pb.save()
+    return JsonResponse({'id_study_case': '2'}, safe=False)
 
 
 @api_view(['POST'])

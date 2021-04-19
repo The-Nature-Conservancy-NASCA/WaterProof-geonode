@@ -24,6 +24,8 @@ urlpatterns = [
     path('ptapbycity/<str:name>/', api.getPtapByCity, name='ptap-city'),    
     path('save/', api.save, name='study_cases_save'),
     path('nbs/', api.getNBS, name='study_cases_nbs'),
+    path('bio/', api.getBiophysical, name='study_cases_bio'),
+    path('savebio/', api.saveBiophysicals, name='study_cases_bio_save'),
     
     
 ]
