@@ -746,6 +746,7 @@ $(document).ready(function() {
     function loadBiophysical(id_intake, name) {
         $.post("../../study_cases/bio/", {
             id_intake: id_intake,
+            id_study_case: id_study_case,
         }, function(data) {
             labels = data[0]
             content = '<div class="col-md-12"><legend><label>Intake ' + name + '</span> </label></legend>'
