@@ -348,7 +348,6 @@ $(document).ready(function() {
             $('#autoAdjustHeightF').css("height", "auto");
         }, "json");
 
-        $('#smartwizard').smartWizard("next");
     });
 
 
