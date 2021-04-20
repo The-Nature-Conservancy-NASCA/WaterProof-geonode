@@ -9,7 +9,7 @@ urlpatterns = [
     # Default view, list all views
     path('', views.list, name='study_cases_list'),
     # Create Study Cases
-    path('create/', views.create, name='create'),
+    path('create/', views.create, name='create-study-cases'),
     # Edit Study Cases
     path('edit/<int:idx>', views.edit, name='edit-study-cases'),
     # Clone Study Cases
@@ -24,6 +24,8 @@ urlpatterns = [
     path('ptapbycity/<str:name>/', api.getPtapByCity, name='ptap-city'),    
     path('save/', api.save, name='study_cases_save'),
     path('nbs/', api.getNBS, name='study_cases_nbs'),
+    path('bio/', api.getBiophysical, name='study_cases_bio'),
+    path('savebio/', api.saveBiophysicals, name='study_cases_bio_save'),
     
     
 ]
