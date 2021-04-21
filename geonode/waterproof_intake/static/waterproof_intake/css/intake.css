@@ -62,10 +62,14 @@
     background: red;
     cursor: inherit;
     display: block;
-  }
+}
 
 .modal {
     text-align: center;
+}
+
+textarea {
+    resize: vertical;
 }
 
 @media screen and (min-width: 768px) {

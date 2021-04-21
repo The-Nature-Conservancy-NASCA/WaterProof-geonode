@@ -170,7 +170,7 @@ $(document).ready(function() {
                 var filterExternal = intakeExternalInputs.filter(e => e.xmlId == parseInt(graphData[id].id));
                 if (filterExternal.length > 0) {
                     console.log(filterExternal);
-                    filterExternal[0].waterExtraction.forEach(function (external) {
+                    filterExternal[0].waterExtraction.forEach(function(external) {
                         graphData[id].externaldata.push({
                             "year": external.year,
                             "waterVol": external.waterVol,
@@ -268,7 +268,7 @@ $(document).ready(function() {
     });
 
     $('#smartwizard').smartWizard({
-        selected: 0,
+        selected: 1,
         theme: 'dots',
         enableURLhash: false,
         autoAdjustHeight: true,
@@ -463,8 +463,7 @@ $(document).ready(function() {
                 title: gettext('Geometry error'),
                 text: gettext('You must validate the basin geometry')
             })
-        }
-        else {
+        } else {
             intakeStepFive();
         }
     });
@@ -858,11 +857,11 @@ function intakeStepFour() {
         processData: false,
         contentType: false,
         enctype: 'multipart/form-data',
-        success: function (response) {
+        success: function(response) {
             console.log(response);
             $('#smartwizard').smartWizard("next");
         },
-        error: function (xhr, errmsg, err) {
+        error: function(xhr, errmsg, err) {
             console.log(xhr.status + ":" + xhr.responseText);
             let response = JSON.parse(xhr.responseText);
             Swal.fire({
@@ -905,7 +904,7 @@ function intakeStepFive() {
         processData: false,
         contentType: false,
         enctype: 'multipart/form-data',
-        success: function (response) {
+        success: function(response) {
             console.log(response);
             Swal.fire({
                 icon: 'success',
@@ -913,9 +912,9 @@ function intakeStepFive() {
                 allowOutsideClick: true,
                 showConfirmButton: false
             });
-            setTimeout(function () { location.href = "/intake/"; }, 1000);
+            setTimeout(function() { location.href = "/intake/"; }, 1000);
         },
-        error: function (xhr, errmsg, err) {
+        error: function(xhr, errmsg, err) {
             console.log(xhr.status + ":" + xhr.responseText);
             let response = JSON.parse(xhr.responseText);
             Swal.fire({
@@ -945,7 +944,7 @@ function delimitIntakeArea() {
         coordinates.push(geom[0]);
         copyCoordinates.push(coordinates);
     })
-    if (editablepolygon !== void (0))
+    if (editablepolygon !== void(0))
         mapDelimit.removeLayer(editablepolygon);
     editablepolygon = L.polygon(copyCoordinates, { color: 'red' });
     editablepolygon.addTo(mapDelimit)
