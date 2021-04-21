@@ -71,8 +71,7 @@ class Portfolio(models.Model):
     )
 
     def __str__(self):
-        return "%s" % self.name
-        
+        return "%s" % self.name       
     
 class StudyCases(models.Model):
     """
@@ -121,18 +120,17 @@ class StudyCases(models.Model):
     annual_investment = models.DecimalField(max_digits=20, decimal_places=2, blank=True, null=True)
     benefit_carbon_market = models.BooleanField(blank=True, null=True)
     rellocated_remainder = models.BooleanField(blank=True, null=True)
-    analysis_conservation = models.DecimalField(max_digits=20, decimal_places=2, blank=True, null=True)
-    analysis_active_restoration = models.DecimalField(max_digits=20, decimal_places=2, blank=True, null=True)
-    analysis_passive_restoration = models.DecimalField(max_digits=20, decimal_places=2, blank=True, null=True)
-    analysis_silvopastoral = models.DecimalField(max_digits=20, decimal_places=2, blank=True, null=True)
-    analysis_agroforestry = models.DecimalField(max_digits=20, decimal_places=2, blank=True, null=True)
     financial_currency = models.CharField(max_length=4, blank=True, null=True)
     intakes = models.ManyToManyField(Intake)
     ptaps = models.ManyToManyField(Header)
     portfolios = models.ManyToManyField(Portfolio)
-    nbs = models.ManyToManyField(WaterproofNbsCa)
     cm_currency = models.CharField(max_length=4, blank=True, null=True)
     cm_value = models.DecimalField(max_digits=20, decimal_places=2, blank=True, null=True)
+
+class StudyCases_NBS(models.Model):
+    studycase = models.ForeignKey(StudyCases, on_delete=models.CASCADE)
+    nbs = models.ForeignKey(WaterproofNbsCa, on_delete=models.CASCADE)
+    value = models.DecimalField(max_digits=20, decimal_places=2, blank=True, null=True)
 
 class Meta:
     managed = False

@@ -14,7 +14,7 @@ from geonode.waterproof_parameters.models import Countries, Regions, Cities, Cli
 from geonode.waterproof_intake.models import Intake, Polygon
 from geonode.waterproof_treatment_plants.models import Header, Csinfra
 from geonode.waterproof_nbs_ca.models import WaterproofNbsCa
-from .models import StudyCases, Portfolio, ModelParameter
+from .models import StudyCases, Portfolio, ModelParameter, StudyCases_NBS
 
 import requests
 import datetime
@@ -71,7 +71,7 @@ def getNBS(request):
         id_study_case = request.POST['id_study_case']
         if(process == 'Edit' or process == 'View' or process == 'Clone'):
             sc = StudyCases.objects.get(pk=id_study_case)
-            scnbs_list = sc.nbs.all()
+            scnbs_list = StudyCases_NBS.objects.filter(studycase=sc)
             if(process == 'Clone'):
                 nbs_user = WaterproofNbsCa.objects.filter(added_by=request.user, country__name__startswith=country).exclude(added_by__professional_role='ADMIN').values(
                     "id", "name")
@@ -81,13 +81,20 @@ def getNBS(request):
             nbs_list = chain(nbs_admin, nbs_user)
             for n in nbs_list:
                 defaultValue = False
+                id_nbs = n['id'],
+                id_nbssc = None,
+                value_nbs = None
                 for nbsStudy in scnbs_list:
-                    if n['id'] == nbsStudy.id:
+                    if n['id'] == nbsStudy.nbs.id:
                         defaultValue = True
+                        id_nbssc = nbsStudy.id
+                        value_nbs = nbsStudy.value
                 nObject = {
-                    'id': n['id'],
+                    'id': id_nbs,
+                    'id_nbssc': id_nbssc,
                     'name': n['name'],
-                    'default': defaultValue
+                    'default': defaultValue,
+                    'value': value_nbs
                 }
                 nbs.append(nObject)
         elif(process == 'Create'):
@@ -261,12 +268,25 @@ def save(request):
                 nbs = request.POST.getlist('nbs[]')
                 id_study_case = request.POST['id_study_case']
                 sc = StudyCases.objects.get(pk=id_study_case)
-                sc.nbs.clear()
+                nlist = StudyCases_NBS.objects.filter(studycase=sc)
                 for nb in nbs:
-                    n = WaterproofNbsCa.objects.get(pk=nb)
-                    nlist = StudyCases.objects.filter(nbs=n, pk=sc.id)
-                    if(len(nlist) == 0):
-                        sc.nbs.add(n)
+                    add = True
+                    for nbssc in nlist:
+                        if(nbssc.nbs.id == int(nb)):
+                            add = False
+                    if(add):
+                        n = WaterproofNbsCa.objects.get(pk=nb)
+                        nnbsscn = StudyCases_NBS()
+                        nnbsscn.studycase = sc
+                        nnbsscn.nbs = n
+                        nnbsscn.save()
+                for nbssc in nlist:
+                    delete = True
+                    for nb in nbs:
+                        if(int(nb) == nbssc.nbs.id):
+                            delete = False
+                    if(delete):
+                        nbssc.delete()
                 return JsonResponse({'id_study_case': sc.id}, safe=False)
             elif(request.POST.get('total_platform')):
                 id_study_case = request.POST['id_study_case']
@@ -313,17 +333,17 @@ def save(request):
                         sc.rellocated_remainder = True
                     else:
                         sc.rellocated_remainder = False
-                if(request.POST.get('conservation') != ''):
-                    sc.analysis_conservation = request.POST['conservation']
-                    sc.analysis_active_restoration = request.POST['active']
-                    sc.analysis_passive_restoration = request.POST['passive']
-                    sc.analysis_silvopastoral = request.POST['silvopastoral']
-                    sc.analysis_agroforestry = request.POST['agroforestry']
-                else:
-                    sc.analysis_conservation = None
-                    sc.analysis_active_restoration = None
-                    sc.analysis_passive_restoration = None
-                    sc.analysis_silvopastoral = None
-                    sc.analysis_agroforestry = None
+                if(request.POST['nbsactivities']):
+                    nbsactivities = request.POST['nbsactivities']
+                    nbsactivities_list = json.loads(nbsactivities[1:])
+                    logger.error(nbsactivities_list)
+                    for nbsa in nbsactivities_list:
+                        id_nbssa = nbsa['id']
+                        logger.error(id_nbssa)
+                        nbssc = StudyCases_NBS.objects.get(pk=id_nbssa)
+                        logger.error(nbssc)
+                        if(nbsa['value']):
+                            nbssc.value = nbsa['value']
+                            nbssc.save()
                 sc.save()
                 return JsonResponse({'id_study_case': sc.id}, safe=False)
