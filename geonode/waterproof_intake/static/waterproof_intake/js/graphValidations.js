@@ -97,6 +97,7 @@ function updateStyleLine(graph, cell, type) {
                             let dbfields = obj.resultdb;
                             label = connectionsType[obj.connectorType].name;
                             $('#titleDiagram').text(connectionsType[obj.connectorType].name);
+                            $('#titleCostFunSmall').attr("valueid", element.id);
                             $('#titleCostFunSmall').text(`ID: ${cell.id} - ${connectionsType[obj.connectorType].name}`);
                             addData2HTML(dbfields, cell)
                         } catch (e) {
@@ -161,6 +162,7 @@ function addData(element, MQ) {
         let dbfields = obj.resultdb;
         label = connectionsType[obj.connectorType].name;
         $('#titleDiagram').text(connectionsType[obj.connectorType].name);
+        $('#titleCostFunSmall').attr("valueid", element.id);
         $('#titleCostFunSmall').text(`ID: ${element.id} - ${connectionsType[obj.connectorType].name}`);
         $('#idDiagram').val(element.id);
         addData2HTML(dbfields, element)
@@ -170,6 +172,7 @@ function addData(element, MQ) {
         }
     } else {
         $('#titleDiagram').text(element.getAttribute('name'));
+        $('#titleCostFunSmall').attr("valueid", element.id);
         $('#titleCostFunSmall').text(`ID: ${element.id} - ${element.getAttribute('name')}`);
         $('#idDiagram').val(element.id);
         if (element.getAttribute('resultdb') == undefined && element.getAttribute('funcost') == undefined) return;
@@ -442,6 +445,7 @@ function addDataView(element, MQ) {
         let dbfields = obj.resultdb;
         label = connectionsType[obj.connectorType].name;
         $('#titleDiagram').text(connectionsType[obj.connectorType].name);
+        $('#titleCostFunSmall').attr("valueid", element.id);
         $('#titleCostFunSmall').text(`ID: ${element.id} - ${connectionsType[obj.connectorType].name}`);
         $('#idDiagram').val(element.id);
         addData2HTMLView(dbfields)
@@ -451,6 +455,7 @@ function addDataView(element, MQ) {
         }
     } else {
         $('#titleDiagram').text(element.getAttribute('name'));
+        $('#titleCostFunSmall').attr("valueid", element.id);
         $('#titleCostFunSmall').text(`ID: ${element.id} - ${element.getAttribute('name')}`);
         $('#idDiagram').val(element.id);
         if (element.getAttribute('resultdb') == undefined && element.getAttribute('funcost') == undefined) return;
