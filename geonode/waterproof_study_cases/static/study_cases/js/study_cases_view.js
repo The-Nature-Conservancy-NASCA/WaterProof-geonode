@@ -106,6 +106,7 @@ $(document).ready(function() {
     $('#step6NextBtn').click(function() {
         $('#smartwizard').smartWizard("next");
         $('#autoAdjustHeightF').css("height", "auto");
+        loadNBSActivities()
     });
 
     $('#step7PreviousBtn').click(function() {
@@ -204,6 +205,7 @@ $(document).ready(function() {
             country: country,
             process: "View"
         }, function(data) {
+            content = ''
             $.each(data, function(index, nbs) {
                 var name = nbs.name;
                 var id = nbs.id
@@ -212,7 +214,7 @@ $(document).ready(function() {
                 if (def) {
                     content += '<input type="checkbox" class="custom-control-input" id="nbs-' + id + '" checked disabled>'
                 } else {
-                    content += '<input type="checkbox" class="custom-control-input" id="nbs-' + id + '">'
+                    content += '<input type="checkbox" class="custom-control-input" id="nbs-' + id + '" disabled>'
                 }
                 content += '<label class="custom-control-label" for="nbs-' + id + '"> ' + name + '</label></div></li>'
                 $("#nbs-ul").append(content);
@@ -222,6 +224,37 @@ $(document).ready(function() {
         });
     }
 
+
+    function loadNBSActivities() {
+        var country = localStorage.country
+        $.post("../../study_cases/nbs/", {
+            id_study_case: id_study_case,
+            country: country,
+            process: "View"
+        }, function(data) {
+            content = ''
+            values = false
+            $.each(data, function(index, nbs) {
+                var name = nbs.name;
+                var def = nbs.default
+                var value = nbs.value
+
+                if (value) {
+                    values = true
+                }
+                if (def) {
+                    content += '<tr><td>' + name + '</td>'
+                    content += '<td>' + value + '</td></tr>'
+                }
+            });
+            if (values) {
+                $("#full-table").removeClass('panel-hide');
+            }
+            $("#full-table").find('tbody').append(content);
+            $('#autoAdjustHeightF').css("height", "auto");
+
+        });
+    }
 
     function loadBiophysicals() {
         if (ptaps.length > 0) {

@@ -122,8 +122,10 @@ $(document).ready(function() {
     $('#btn-advanced_option').click(function() {
         if ($("#biophysical-panel").hasClass("panel-hide")) {
             $("#biophysical-panel").removeClass("panel-hide");
+            $("#biophysical-panel").empty();
             loadBiophysicals();
         } else {
+            $("#biophysical-panel").empty();
             $("#biophysical-panel").addClass("panel-hide");
         }
     });
@@ -308,6 +310,7 @@ $(document).ready(function() {
     });
 
     $('#step4PreviousBtn').click(function() {
+        $("#biophysical-panel").empty();
         $('#smartwizard').smartWizard("prev");
     });
 
@@ -415,6 +418,7 @@ $(document).ready(function() {
             }, function(data) {
                 $('#smartwizard').smartWizard("next");
                 $('#autoAdjustHeightF').css("height", "auto");
+                loadNBSActivities()
             }, "json");
         } else {
             Swal.fire({
@@ -430,10 +434,12 @@ $(document).ready(function() {
         $('#smartwizard').smartWizard("prev");
     });
 
+
     $('#step7EndBtn').click(function() {
         edit = !$("#full-table").hasClass("panel-hide")
         var valid_edit = true;
         var valid_investment = true;
+        nbsactivities = []
         if (edit) {
             var valid_edit = true;
             $("#full-table").find("input").each(function() {
@@ -448,28 +454,34 @@ $(document).ready(function() {
         if (type == "2") {
             valid_investment = $('#annual_investment').val() != ''
         }
-        console.log($('#annual_investment').val())
         if ($('#period_analysis').val() != '' && $('#period_nbs').val() != '' && type && valid_edit && valid_investment) {
+            $("#full-table").find("input").each(function(index, input) {
+                nbsactivity = {}
+                input_id = input.id
+                if (input_id) {
+                    split = input_id.split('-')
+                    nbssc_id = split.pop();
+                    val = $("#" + input_id).val()
+                    nbsactivity['id'] = nbssc_id;
+                    nbsactivity['value'] = val;
+                    nbsactivities.push(nbsactivity)
+                }
+            });
             $.post("../../study_cases/save/", {
                 id_study_case: id_study_case,
                 analysis_type: type,
                 period_nbs: $('#period_nbs').val(),
                 period_analysis: $('#period_analysis').val(),
-                conservation: $('#conservation').val(),
-                active: $('#active').val(),
-                passive: $('#passive').val(),
-                silvopastoral: $('#silvopastoral').val(),
-                agroforestry: $('#agroforestry').val(),
-                analysis_currency: $('#analysis_currency').val(),
                 analysis_nbs: $("#analysis_nbs option:selected").val(),
                 analysis_currency: $("#analysis_currency option:selected").text(),
                 annual_investment: $('#annual_investment').val(),
                 rellocated_remainder: $("#rellocated_check").is(':checked'),
+                nbsactivities: '1' + JSON.stringify(nbsactivities),
             }, function(data) {
                 $('#smartwizard').smartWizard("next");
                 $('#autoAdjustHeightF').css("height", "auto");
-                $("#form").submit()
             }, "json");
+            $("#form").submit();
         } else {
             Swal.fire({
                 icon: 'warning',
@@ -480,6 +492,8 @@ $(document).ready(function() {
         }
 
     });
+
+
     $('#custom_table').on('click', 'a', function() {
         var row = $(this).closest("tr")
         var tds = row.find("td");
@@ -518,23 +532,6 @@ $(document).ready(function() {
         $("#select_ptap").append(new Option(option, id));
         row.remove();
 
-    });
-
-
-    $("#conservation").keyup(function() {
-        calculateAnalysisValues($(this))
-    });
-    $("#active").keyup(function() {
-        calculateAnalysisValues($(this))
-    });
-    $("#passive").keyup(function() {
-        calculateAnalysisValues($(this))
-    });
-    $("#silvopastoral").keyup(function() {
-        calculateAnalysisValues($(this))
-    });
-    $("#agroforestry").keyup(function() {
-        calculateAnalysisValues($(this))
     });
 
     $("#director").keyup(function() {
@@ -764,6 +761,7 @@ $(document).ready(function() {
             country: country,
             process: "Edit"
         }, function(data) {
+            content = ''
             $.each(data, function(index, nbs) {
                 var name = nbs.name;
                 var id = nbs.id
@@ -777,6 +775,40 @@ $(document).ready(function() {
                 content += '<label class="custom-control-label" for="nbs-' + id + '"> ' + name + '</label></div></li>'
                 $("#nbs-ul").append(content);
             });
+            $('#autoAdjustHeightF').css("height", "auto");
+
+        });
+    }
+
+    function loadNBSActivities() {
+        var country = localStorage.country
+        $.post("../../study_cases/nbs/", {
+            id_study_case: id_study_case,
+            country: country,
+            process: "View"
+        }, function(data) {
+            content = ''
+            values = false
+            $.each(data, function(index, nbs) {
+                var name = nbs.name;
+                var id = nbs.id_nbssc
+                var def = nbs.default
+                var val = nbs.value;
+                if (val) {
+                    values = true
+                }
+                if (def) {
+                    content += '<tr><td>' + name + '</td>'
+                    content += '<td><input class="text-number" type="number" id="nbssc-' + id + '" value="' + val + '"> </td></tr > '
+                }
+            });
+            $("#full-table").find('tbody').append(content);
+            $('#full-table tbody tr td input').on('keyup', function(e) {
+                calculateAnalysisValues($(this))
+            });
+            if (values) {
+                $("#full-table").removeClass('panel-hide');
+            }
             $('#autoAdjustHeightF').css("height", "auto");
 
         });
