@@ -288,9 +288,11 @@
                         <div id="step-4" class="tab-pane" role="tabpanel">
                             <div class="page-header">
                                 <h3> {% trans "Biophysical tables" %}</h3>
-                                <button type="button" class="btn btn-primary" id="advancer_option">{% trans "Advanced options" %}</button>
+                                <button type="button" class="btn btn-primary" id="btn-advanced_option">{% trans "Advanced options" %}</button>
                                 <p>{% trans "In this step you will find the biophysical parameters required for the execution of the models. If you want to see or edit them, click on advanced options, otherwise click on next and the system will use the default values." %}</p>
+                                <div class="row biophysical-panel panel-hide" id="biophysical-panel">
 
+                                </div>
                             </div>
                             <div class="row text-center">
                                 <div class="col-md-12">
@@ -565,44 +567,21 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            {% if study_case.analysis_conservation %}
-                                            <table id="full-table" class="table table-striped table-bordered table-condensed">
-                                                {% else %}
-                                                <table id="full-table" class="table table-striped table-bordered table-condensed panel-hide">
-                                                    {% endif %}
-                                                    <thead>
-                                                        <tr class="info">
-                                                            <th scope="col" class="small text-center vat">{% trans "Activity" %}</th>
-                                                            {% if study_case.analysis_type == 'FULL' %}
-                                                            <th scope="col" class="small text-center vat" id="column_investment">{% trans "Percentage" %}</th>
-                                                            {% else %}
-                                                            <th scope="col" class="small text-center vat" id="column_investment">{% trans "Investment" %}</th>
-                                                            {% endif %}
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>Conservation</td>
-                                                            <td><input class="text-number" type="number" id="conservation" value="{{study_case.analysis_conservation|stringformat:'1.2f'}}" /></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Active restoration</td>
-                                                            <td><input class="text-number" type="number" id="active" value="{{study_case.analysis_active_restoration|stringformat:'1.2f'}}" /></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Passive restoration</td>
-                                                            <td><input class="text-number" type="number" id="passive" value="{{study_case.analysis_passive_restoration|stringformat:'1.2f'}}" /></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Agroforestry</td>
-                                                            <td><input class="text-number" type="number" id="agroforestry" value="{{study_case.analysis_silvopastoral|stringformat:'1.2f'}}" /></td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Silvopastoral</td>
-                                                            <td><input class="text-number" type="number" id="silvopastoral" value="{{study_case.analysis_agroforestry|stringformat:'1.2f'}}" /></td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
+                                            <table id="full-table" class="table table-striped table-bordered table-condensed panel-hide">
+                                                <thead>
+                                                    <tr class="info">
+                                                        <th scope="col" class="small text-center vat">{% trans "Activity" %}</th>
+                                                        {% if study_case.analysis_type == 'FULL' %}
+                                                        <th scope="col" class="small text-center vat" id="column_investment">{% trans "Percentage" %}</th>
+                                                        {% else %}
+                                                        <th scope="col" class="small text-center vat" id="column_investment">{% trans "Investment" %}</th>
+                                                        {% endif %}
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
                                     <div class="row text-center">

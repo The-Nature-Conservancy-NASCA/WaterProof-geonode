@@ -117,8 +117,6 @@ $(function () {
             formData.append('maxBenefitTime', $('#maxBenefitTime').val());
             // NBS Percentage of benefit associated with interventions at time t=0
             formData.append('benefitTimePorc', $('#benefitTimePorc').val());
-            // NBS Consecution Time Total Benefits
-            formData.append('totalConsecTime', $('#totalConsecTime').val());
             // NBS Maintenance Perodicity
             formData.append('maintenancePeriod', $('#maintenancePeriod').val());
             // NBS Unit Implementation Cost (US$/ha)
@@ -297,6 +295,7 @@ $(function () {
     }
     udpateCreateUrl = function (countryId) {
         $('#createUrl').attr('href', 'create/' + countryId)
+        $('#nbs-createUrl').attr('href', 'create/' + countryId)
     };
     /** 
     * Get the transformations selected

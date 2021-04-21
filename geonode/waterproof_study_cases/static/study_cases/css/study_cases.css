@@ -150,3 +150,8 @@
     right: 26%;
     top: 6.6%;
 }
+
+.biophysical-panel {
+    height: 60vh;
+    overflow: scroll;
+}

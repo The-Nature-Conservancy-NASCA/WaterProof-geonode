@@ -111,8 +111,8 @@ DATABASE_URL = os.getenv(
     )
 )
 
-# DATABASE_URL='postgresql://geonode:{&Uid&QXZ&6f;|F@dev.skaphe.com:5432/geonode'
-# DATABASE_URL='postgresql://geonode:geonode@localhost:5432/geonode'
+#DATABASE_URL='postgresql://geonode:{&Uid&QXZ&6f;|F@dev.skaphe.com:5432/geonode'
+DATABASE_URL='postgresql://geonode:geonode@localhost:5432/geonode'
 
 if DATABASE_URL.startswith("spatialite"):
     try:
@@ -2213,7 +2213,8 @@ WATERPROOF_NBS_CA_ALLOW_ANONYMOUS = True
 WATERPROOF_API_SERVER = "/proxy/?url=http://dev.skaphe.com:8000/"
 
 WATERPROOF_INVEST_API="http://dev.skaphe.com:8000/"
-
+WATERPROOF_MODELS_PY3_API="http://dev.skaphe.com:8000/"
+WATERPROOF_MODELS_PY2_API="http://dev.skaphe.com:5050/"
 SEARCH_CITY_API_URL = '/proxy/?url=https://photon.komoot.io/api/?'
 
 SEARCH_COUNTRY_API_URL = "https://restcountries.eu/rest/v2/alpha/"

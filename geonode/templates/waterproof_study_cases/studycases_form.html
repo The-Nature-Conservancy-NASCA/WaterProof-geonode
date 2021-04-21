@@ -258,9 +258,11 @@
             <div id="step-4" class="tab-pane" role="tabpanel">
                 <div class="page-header">
                     <h3> {% trans "Biophysical tables" %}</h3>
-                    <button type="button" class="btn btn-primary" id="advancer_option">{% trans "Advanced options" %}</button>
+                    <button type="button" class="btn btn-primary" id="btn-advanced_option">{% trans "Advanced options" %}</button>
                     <p>{% trans "In this step you will find the biophysical parameters required for the execution of the models. If you want to see or edit them, click on advanced options, otherwise click on next and the system will use the default values." %}</p>
+                    <div class="row biophysical-panel panel-hide" id="biophysical-panel">
 
+                    </div>
                 </div>
                 <div class="row text-center">
                     <div class="col-md-12">
@@ -522,26 +524,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Conservation</td>
-                            <td><input class="text-number" type="number" id="conservation" /></td>
-                        </tr>
-                        <tr>
-                            <td>Active restoration</td>
-                            <td><input class="text-number" type="number" id="active" /></td>
-                        </tr>
-                        <tr>
-                            <td>Passive restoration</td>
-                            <td><input class="text-number" type="number" id="passive" /></td>
-                        </tr>
-                        <tr>
-                            <td>Agroforestry</td>
-                            <td><input class="text-number" type="number" id="agroforestry" /></td>
-                        </tr>
-                        <tr>
-                            <td>Silvopastoral</td>
-                            <td><input class="text-number" type="number" id="silvopastoral" /></td>
-                        </tr>
+
                     </tbody>
                 </table>
 

@@ -10,11 +10,11 @@ from itertools import chain
 from django.urls import reverse
 from .models import StudyCases
 from . import forms
-from geonode.waterproof_parameters.models import Countries, Regions, Cities, Climate_value
-from geonode.waterproof_intake.models import Intake
+from geonode.waterproof_parameters.models import Countries, Regions, Cities, Climate_value, Parameters_Biophysical
+from geonode.waterproof_intake.models import Intake, Polygon
 from geonode.waterproof_treatment_plants.models import Header, Csinfra
 from geonode.waterproof_nbs_ca.models import WaterproofNbsCa
-from .models import StudyCases, Portfolio, ModelParameter
+from .models import StudyCases, Portfolio, ModelParameter, StudyCases_NBS
 
 import requests
 import datetime
@@ -69,33 +69,68 @@ def getNBS(request):
         country = request.POST['country']
         process = request.POST['process']
         id_study_case = request.POST['id_study_case']
-        if(process == 'Edit' or process == 'View'or process == 'Clone'):
-            sc = StudyCases.objects.get(pk=id_study_case)       
-            scnbs_list = sc.nbs.all()
+        if(process == 'Edit' or process == 'View' or process == 'Clone'):
+            sc = StudyCases.objects.get(pk=id_study_case)
+            scnbs_list = StudyCases_NBS.objects.filter(studycase=sc)
             if(process == 'Clone'):
-                nbs_user = WaterproofNbsCa.objects.filter(added_by=request.user, country__name__startswith=country ).exclude(added_by__professional_role ='ADMIN').values(
-                "id", "name")
+                nbs_user = WaterproofNbsCa.objects.filter(added_by=request.user, country__name__startswith=country).exclude(added_by__professional_role='ADMIN').values(
+                    "id", "name")
             else:
-                nbs_user = WaterproofNbsCa.objects.filter(added_by=sc.added_by, country__name__startswith=country ).exclude(added_by__professional_role ='ADMIN').values(
-                "id", "name")
+                nbs_user = WaterproofNbsCa.objects.filter(added_by=sc.added_by, country__name__startswith=country).exclude(added_by__professional_role='ADMIN').values(
+                    "id", "name")
             nbs_list = chain(nbs_admin, nbs_user)
             for n in nbs_list:
                 defaultValue = False
+                id_nbs = n['id'],
+                id_nbssc = None,
+                value_nbs = None
                 for nbsStudy in scnbs_list:
-                    if n['id'] == nbsStudy.id:
+                    if n['id'] == nbsStudy.nbs.id:
                         defaultValue = True
+                        id_nbssc = nbsStudy.id
+                        value_nbs = nbsStudy.value
                 nObject = {
-                    'id': n['id'],
+                    'id': id_nbs,
+                    'id_nbssc': id_nbssc,
                     'name': n['name'],
-                    'default': defaultValue
+                    'default': defaultValue,
+                    'value': value_nbs
                 }
                 nbs.append(nObject)
         elif(process == 'Create'):
-            nbs_user = WaterproofNbsCa.objects.filter(added_by=request.user, country__name__startswith=country).exclude(added_by__professional_role ='ADMIN').values(
+            nbs_user = WaterproofNbsCa.objects.filter(added_by=request.user, country__name__startswith=country).exclude(added_by__professional_role='ADMIN').values(
                 "id", "name")
             nbs_list = chain(nbs_admin, nbs_user)
-            nbs= list(nbs_list)
+            nbs = list(nbs_list)
         return JsonResponse(nbs, safe=False)
+
+
+@api_view(['POST'])
+def getBiophysical(request):
+    if request.method == 'POST':
+        biophysical_list = []
+        id_intake = request.POST['id_intake']
+        macro_region = Polygon.objects.filter(intake__pk=id_intake).values(
+            "basin__label").first()
+        biophysical = Parameters_Biophysical.objects.filter(
+            macro_region=macro_region['basin__label'], default='y').values()
+        if(request.POST['id_study_case']):
+            id_study_case = request.POST['id_study_case']
+            biophysical_sc = Parameters_Biophysical.objects.filter(
+                study_case_id=id_study_case).values()
+            for bio in biophysical:
+                add_bio = True
+                for biosc in biophysical_sc:
+                    if(bio['lucode'] == biosc['lucode']):
+                        add_bio = False
+                        biophysical_list.append(biosc)
+                if(add_bio):
+                    biophysical_list.append(bio)
+
+        else:
+            biophysical_list = biophysical
+        data = list(biophysical_list)
+        return JsonResponse(data, safe=False)
 
 
 @api_view(['POST'])
@@ -120,6 +155,34 @@ def delete(request, idx):
         response = HttpResponse(json.dumps(context), content_type='application/json')
         response.status_code = 200
         return response
+
+
+@api_view(['POST'])
+def saveBiophysicals(request):
+    if not request.user.is_authenticated:
+        return render(request, 'waterproof_study_cases/studycases_login_error.html')
+    else:
+        if request.method == 'POST':
+            if(request.POST['biophysicals']):
+                biophysicals = request.POST['biophysicals']
+                biophysicals_list = json.loads(biophysicals[1:])
+                if(request.POST['process']):
+                    process = request.POST['process']
+                    id_study = request.POST['id_study_case']
+                    biophysical_sc = Parameters_Biophysical.objects.filter(
+                        study_case_id=id_study)
+                    for biosc in biophysical_sc:
+                        biosc.delete()
+                    for bio in biophysicals_list:
+                        bio['study_case_id'] = id_study
+                        bio['default'] = 'N'
+                        pb = Parameters_Biophysical()
+                        for key in bio:
+                            value = bio[key]
+                            setattr(pb, key, value)
+                        pb.user_id = request.user.id
+                        pb.save()
+    return JsonResponse({'id_study_case': '2'}, safe=False)
 
 
 @api_view(['POST'])
@@ -205,12 +268,25 @@ def save(request):
                 nbs = request.POST.getlist('nbs[]')
                 id_study_case = request.POST['id_study_case']
                 sc = StudyCases.objects.get(pk=id_study_case)
-                sc.nbs.clear()
+                nlist = StudyCases_NBS.objects.filter(studycase=sc)
                 for nb in nbs:
-                    n = WaterproofNbsCa.objects.get(pk=nb)
-                    nlist = StudyCases.objects.filter(nbs=n, pk=sc.id)
-                    if(len(nlist) == 0):
-                        sc.nbs.add(n)
+                    add = True
+                    for nbssc in nlist:
+                        if(nbssc.nbs.id == int(nb)):
+                            add = False
+                    if(add):
+                        n = WaterproofNbsCa.objects.get(pk=nb)
+                        nnbsscn = StudyCases_NBS()
+                        nnbsscn.studycase = sc
+                        nnbsscn.nbs = n
+                        nnbsscn.save()
+                for nbssc in nlist:
+                    delete = True
+                    for nb in nbs:
+                        if(int(nb) == nbssc.nbs.id):
+                            delete = False
+                    if(delete):
+                        nbssc.delete()
                 return JsonResponse({'id_study_case': sc.id}, safe=False)
             elif(request.POST.get('total_platform')):
                 id_study_case = request.POST['id_study_case']
@@ -257,17 +333,17 @@ def save(request):
                         sc.rellocated_remainder = True
                     else:
                         sc.rellocated_remainder = False
-                if(request.POST.get('conservation') != ''):
-                    sc.analysis_conservation = request.POST['conservation']
-                    sc.analysis_active_restoration = request.POST['active']
-                    sc.analysis_passive_restoration = request.POST['passive']
-                    sc.analysis_silvopastoral = request.POST['silvopastoral']
-                    sc.analysis_agroforestry = request.POST['agroforestry']
-                else:
-                    sc.analysis_conservation = None
-                    sc.analysis_active_restoration = None
-                    sc.analysis_passive_restoration = None
-                    sc.analysis_silvopastoral = None
-                    sc.analysis_agroforestry = None
+                if(request.POST['nbsactivities']):
+                    nbsactivities = request.POST['nbsactivities']
+                    nbsactivities_list = json.loads(nbsactivities[1:])
+                    logger.error(nbsactivities_list)
+                    for nbsa in nbsactivities_list:
+                        id_nbssa = nbsa['id']
+                        logger.error(id_nbssa)
+                        nbssc = StudyCases_NBS.objects.get(pk=id_nbssa)
+                        logger.error(nbssc)
+                        if(nbsa['value']):
+                            nbssc.value = nbsa['value']
+                            nbssc.save()
                 sc.save()
                 return JsonResponse({'id_study_case': sc.id}, safe=False)

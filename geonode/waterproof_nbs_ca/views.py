@@ -529,7 +529,6 @@ def cloneNbs(request, idx):
             currencyCost = request.POST.get('currencyCost')
             maxBenefitTime = request.POST.get('maxBenefitTime')
             benefitTimePorc = request.POST.get('benefitTimePorc')
-            totalConsecTime = request.POST.get('totalConsecTime')
             maintenancePeriod = request.POST.get('maintenancePeriod')
             implementCost = request.POST.get('implementCost')
             maintenanceCost = request.POST.get('maintenanceCost')
