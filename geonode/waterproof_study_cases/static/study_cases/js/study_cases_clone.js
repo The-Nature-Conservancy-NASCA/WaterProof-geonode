@@ -42,6 +42,8 @@ const interpolationType = {
 }
 
 var id_study_case = '';
+var intakes = [];
+var ptaps = [];
 
 var mapLoader;
 $(document).ready(function() {
@@ -125,6 +127,18 @@ $(document).ready(function() {
         });
     });
 
+    $('#btn-advanced_option').click(function() {
+        if ($("#biophysical-panel").hasClass("panel-hide")) {
+            $("#biophysical-panel").removeClass("panel-hide");
+            $("#biophysical-panel").empty();
+            loadBiophysicals();
+        } else {
+            $("#biophysical-panel").empty();
+            $("#biophysical-panel").addClass("panel-hide");
+        }
+    });
+
+
     $('#investment').click(function() {
         $("#panel-investment").removeClass("panel-hide");
         $("#panel-full").addClass("panel-hide");
@@ -163,6 +177,16 @@ $(document).ready(function() {
         var name = "<td>" + text + "</td>";
         var markup = "<tr id='ptap-" + value + "'>" + name + action + "</tr>";
         $("#ptap_table").find('tbody').append(markup);
+        $.get("../../study_cases/intakebyptap/" + value, function(data) {
+            $.each(data, function(index, intake) {
+                id = intake.csinfra_elementsystem__intake__id
+                $("#select_custom option").each(function(i) {
+                    if (id == $(this).val()) {
+                        $(this).remove();
+                    }
+                });
+            });
+        });
         $('#autoAdjustHeightF').css("height", "auto");
     });
 
@@ -170,18 +194,28 @@ $(document).ready(function() {
     $('#step1NextBtn').click(function() {
         intakes = [];
         ptaps = [];
+        valid_ptaps = true;
+        valid_intakes = true;
         $('#custom_table').find('tbody > tr').each(function(index, tr) {
             id = tr.id.replace('custom-', '')
             intakes.push(id)
         });
+        if (intakes.length <= 0) {
+            valid_intakes = false
+        }
         var type = $("input[name='type']:checked").val();
         if (type == "1") {
             $('#ptap_table').find('tbody > tr').each(function(index, tr) {
                 id = tr.id.replace('ptap-', '')
                 ptaps.push(id)
             });
+            if (ptaps.length <= 0) {
+                valid_ptaps = false;
+            } else {
+                valid_intakes = true
+            }
         }
-        if (($('#name').val() != '' && $('#description').val() != '' && intakes.length > 0)) {
+        if (($('#name').val() != '' && $('#description').val() != '' && valid_intakes && valid_ptaps)) {
             $.post("../../study_cases/save/", {
                 name: $('#name').val(),
                 id_study_case: id_study_case,
@@ -201,6 +235,7 @@ $(document).ready(function() {
                     });
                     return;
                 } else {
+                    loadNBS()
                     $('#smartwizard').smartWizard("next");
                     $('#autoAdjustHeightF').css("height", "auto");
                 }
@@ -275,11 +310,46 @@ $(document).ready(function() {
     });
 
     $('#step4PreviousBtn').click(function() {
+        $("#biophysical-panel").empty();
         $('#smartwizard').smartWizard("prev");
     });
 
     $('#step4NextBtn').click(function() {
-        $('#smartwizard').smartWizard("next");
+        biophysical = []
+        $('#biophysical-panel').find('table').each(function(index, table) {
+            id = table.id.split('_').pop()
+            bio = {
+                intake_id: id
+            }
+            $('#' + table.id).find('tbody > tr.edit').each(function(index, tr) {
+                $('#' + tr.id).find('td').each(function(index, td) {
+                    td_id = td.id
+                    if (td_id) {
+                        split = td_id.split('_')
+                        split.pop();
+                        name_td = split.join("_");
+                        val = undefined
+                        $('#' + td.id).find("input").each(function() {
+                            val = $(this).val();
+                        });
+                        if (!val) {
+                            val = $('#' + td.id).text();
+                        }
+                        bio[name_td] = val;
+                    }
+                });
+            });
+            biophysical.push(bio)
+        });
+        $.post("../../study_cases/savebio/", {
+            id_study_case: id_study_case,
+            biophysicals: '1' + JSON.stringify(biophysical),
+            process: "Clone",
+        }, function(data) {
+            $('#smartwizard').smartWizard("next");
+            $('#autoAdjustHeightF').css("height", "auto");
+        }, "json");
+
     });
 
     $('#step5PreviousBtn').click(function() {
@@ -346,6 +416,7 @@ $(document).ready(function() {
             }, function(data) {
                 $('#smartwizard').smartWizard("next");
                 $('#autoAdjustHeightF').css("height", "auto");
+                loadNBSActivities();
             }, "json");
         } else {
             Swal.fire({
@@ -365,6 +436,7 @@ $(document).ready(function() {
         edit = !$("#full-table").hasClass("panel-hide")
         var valid_edit = true;
         var valid_investment = true;
+        nbsactivities = []
         if (edit) {
             var valid_edit = true;
             $("#full-table").find("input").each(function() {
@@ -379,28 +451,34 @@ $(document).ready(function() {
         if (type == "2") {
             valid_investment = $('#annual_investment').val() != ''
         }
-        console.log($('#annual_investment').val())
         if ($('#period_analysis').val() != '' && $('#period_nbs').val() != '' && type && valid_edit && valid_investment) {
+            $("#full-table").find("input").each(function(index, input) {
+                nbsactivity = {}
+                input_id = input.id
+                if (input_id) {
+                    split = input_id.split('-')
+                    nbssc_id = split.pop();
+                    val = $("#" + input_id).val()
+                    nbsactivity['id'] = nbssc_id;
+                    nbsactivity['value'] = val;
+                    nbsactivities.push(nbsactivity)
+                }
+            });
             $.post("../../study_cases/save/", {
                 id_study_case: id_study_case,
                 analysis_type: type,
                 period_nbs: $('#period_nbs').val(),
                 period_analysis: $('#period_analysis').val(),
-                conservation: $('#conservation').val(),
-                active: $('#active').val(),
-                passive: $('#passive').val(),
-                silvopastoral: $('#silvopastoral').val(),
-                agroforestry: $('#agroforestry').val(),
-                analysis_currency: $('#analysis_currency').val(),
                 analysis_nbs: $("#analysis_nbs option:selected").val(),
                 analysis_currency: $("#analysis_currency option:selected").text(),
                 annual_investment: $('#annual_investment').val(),
                 rellocated_remainder: $("#rellocated_check").is(':checked'),
+                nbsactivities: '1' + JSON.stringify(nbsactivities),
             }, function(data) {
                 $('#smartwizard').smartWizard("next");
                 $('#autoAdjustHeightF').css("height", "auto");
-                $("#form").submit()
             }, "json");
+            $("#form").submit();
         } else {
             Swal.fire({
                 icon: 'warning',
@@ -411,6 +489,7 @@ $(document).ready(function() {
         }
 
     });
+
     $('#custom_table').on('click', 'a', function() {
         var row = $(this).closest("tr")
         var tds = row.find("td");
@@ -439,25 +518,16 @@ $(document).ready(function() {
         });
         option = ptap_name
         id = row.attr("id").replace('ptap-', '')
+        $.get("../../study_cases/intakebyptap/" + id, function(data) {
+            $.each(data, function(index, intake) {
+                id = intake.csinfra_elementsystem__intake__id
+                option = intake.csinfra_elementsystem__intake__name
+                $("#select_custom").append(new Option(option, id));
+            });
+        });
         $("#select_ptap").append(new Option(option, id));
         row.remove();
 
-    });
-
-    $("#conservation").keyup(function() {
-        calculateAnalysisValues($(this))
-    });
-    $("#active").keyup(function() {
-        calculateAnalysisValues($(this))
-    });
-    $("#passive").keyup(function() {
-        calculateAnalysisValues($(this))
-    });
-    $("#silvopastoral").keyup(function() {
-        calculateAnalysisValues($(this))
-    });
-    $("#agroforestry").keyup(function() {
-        calculateAnalysisValues($(this))
     });
 
     $("#director").keyup(function() {
@@ -622,6 +692,67 @@ $(document).ready(function() {
 
     $('#autoAdjustHeightF').css("height", "auto");
 
+    function loadNBS() {
+        var country = localStorage.country
+        $.post("../../study_cases/nbs/", {
+            id_study_case: id_study_case,
+            country: country,
+            process: "Edit"
+        }, function(data) {
+            content = ''
+            $.each(data, function(index, nbs) {
+                var name = nbs.name;
+                var id = nbs.id
+                var def = nbs.default
+                content = '<li class="list-group-item"><div class="custom-control custom-checkbox">'
+                if (def) {
+                    content += '<input type="checkbox" class="custom-control-input" id="nbs-' + id + '" checked>'
+                } else {
+                    content += '<input type="checkbox" class="custom-control-input" id="nbs-' + id + '">'
+                }
+                content += '<label class="custom-control-label" for="nbs-' + id + '"> ' + name + '</label></div></li>'
+                $("#nbs-ul").append(content);
+            });
+            $('#autoAdjustHeightF').css("height", "auto");
+
+        });
+    }
+
+    function loadNBSActivities() {
+        var country = localStorage.country
+        $.post("../../study_cases/nbs/", {
+            id_study_case: id_study_case,
+            country: country,
+            process: "View"
+        }, function(data) {
+            content = ''
+            values = false
+            $.each(data, function(index, nbs) {
+                var name = nbs.name;
+                var id = nbs.id_nbssc
+                var def = nbs.default
+                var val = nbs.value;
+                if (val) {
+                    values = true
+                }
+                if (def) {
+                    content += '<tr><td>' + name + '</td>'
+                    content += '<td><input class="text-number" type="number" id="nbssc-' + id + '" value="' + val + '"> </td></tr > '
+                }
+            });
+            $("#full-table").find('tbody').append(content);
+            $('#full-table tbody tr td input').on('keyup', function(e) {
+                calculateAnalysisValues($(this))
+            });
+            console.log(values)
+            if (values) {
+                $("#full-table").removeClass('panel-hide');
+            }
+            $('#autoAdjustHeightF').css("height", "auto");
+
+        });
+    }
+
     function loadIntakes() {
         var city = localStorage.city
         $.get("../../study_cases/intakebycity/" + city, function(data) {
@@ -636,7 +767,7 @@ $(document).ready(function() {
                         }
                     });
                     if (!contains) {
-                        var name = intake.intake__name;
+                        var name = intake.name;
                         option = name
                         $("#select_custom").append(new Option(option, intake.id));
                     }
@@ -680,6 +811,67 @@ $(document).ready(function() {
 
         });
     }
+
+    function loadBiophysicals() {
+        if (ptaps.length > 0) {
+            $.each(ptaps, function(index, id_ptap) {
+                $.get("../../study_cases/intakebyptap/" + id_ptap, function(data) {
+                    $.each(data, function(index, intake) {
+                        loadBiophysical(intake.csinfra_elementsystem__intake__id, intake.csinfra_elementsystem__intake__name)
+                    });
+                });
+            });
+
+        }
+        if (intakes.length > 0) {
+            $.each(intakes, function(index, id_intake) {
+                $.get("../../study_cases/intakebyid/" + id_intake, function(data) {
+                    intake = data[0];
+                    loadBiophysical(intake.id, intake.name)
+                });
+            });
+
+        }
+    }
+
+    function loadBiophysical(id_intake, name) {
+        $.post("../../study_cases/bio/", {
+            id_intake: id_intake,
+            id_study_case: id_study_case,
+        }, function(data) {
+            labels = data[0]
+            content = '<div class="col-md-12"><legend><label>Intake ' + name + '</span> </label></legend>'
+            content += '<table id="bio_table_' + id_intake + '" class="table table-striped table-bordered table-condensed" style="width:100%"><thead><tr class="info">'
+            content += '<th scope="col" class="small text-center vat">description</th>'
+            content += '<th scope="col" class="small text-center vat">lucode</th>'
+            $.each(labels, function(key, v) {
+                if (key != 'lucode' && key != 'default' && key != 'lulc_desc' && key != 'description' && key != 'user_id' && key != 'intake_id' && key != 'study_case_id' && key != 'id' && key != 'macro_region' && key != 'kc') {
+                    content += '<th scope="col" class="small text-center vat">' + key + '</th>'
+                }
+            });
+            content += '</tr></thead><tbody>'
+            $.each(data, function(index, bio) {
+                content += '<tr id="id_' + bio.id + '">'
+                content += '<td id="description_' + bio.id + '">' + bio.description + '</td>'
+                content += '<td id="lucode_' + bio.id + '">' + bio.lucode + '</td>'
+                $.each(bio, function(key, v) {
+                    if (key != 'lucode' && key != 'default' && key != 'lulc_desc' && key != 'description' && key != 'user_id' && key != 'intake_id' && key != 'study_case_id' && key != 'id' && key != 'macro_region' && key != 'kc') {
+                        content += '<td id="' + key + '_' + bio.id + '"><input class="text-number" type="number" value="' + v + '"/></td>'
+                    }
+                });
+                content += '</tr>'
+            });
+            content += '</tbody></table></div>'
+            $("#biophysical-panel").append(content);
+            $('#autoAdjustHeightF').css("height", "auto");
+
+        });
+
+
+
+        content += '</tbody></table>'
+    }
+
 
 });
 

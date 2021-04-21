@@ -1,5 +1,9 @@
-
-$(function () {
+/**
+ * @file Create form validations
+ * @author Luis Saltron
+ * @version 1.0
+ */
+ $(function () {
     var table = $('#example').DataTable({
         'dom': 'lrtip'
     });

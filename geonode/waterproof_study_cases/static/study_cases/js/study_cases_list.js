@@ -345,6 +345,15 @@ $(function() {
         });
 
     }
+
+
+    viewPtap = function(id) {
+        localStorage.loadInf = "true";
+        localStorage.plantId = id;
+        window.open('../../treatment_plants/create/', '_blank');
+    };
+
+
     /** 
      * Validate input file on change
      * @param {HTML} dropdown Dropdown selected element

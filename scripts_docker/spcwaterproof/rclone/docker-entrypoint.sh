@@ -15,7 +15,7 @@ date
 echo "-----------------------------------------------------"
 echo "1. Assert there is data to be backed up"
 
-if [ "$(ls -A /spcgeonode-geodatadir)" ] || [ "$(ls -A /spcgeonode-media)" ] || [ "$(ls -A /spcgeonode-pgdumps)" ]; then
+if [ "$(ls -A /spcwaterproof-geodatadir)" ] || [ "$(ls -A /spcwaterproof-media)" ] || [ "$(ls -A /spcwaterproof-pgdumps)" ]; then
     echo 'Found data do backup'
 else
     # If all backups directories are empty, we quit, because

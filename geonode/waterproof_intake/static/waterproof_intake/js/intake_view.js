@@ -54,7 +54,7 @@ $(document).ready(function() {
         if ($("#numberYearsInterpolationValue").val() == '' || $("#initialDataExtractionInterpolationValue").val() == '' || $("#finalDataExtractionInterpolationValue").val() == '') {
             Swal.fire({
                 icon: 'warning',
-                title: `Data analisys empty`,
+                title: `Data analysis empty`,
                 text: `Please Generate Data anlisys`
             });
             return
@@ -330,8 +330,8 @@ $(document).ready(function() {
                     if ($(this).val() == '' || $('#intakeNIYMI').val() == '') {
                         Swal.fire({
                             icon: 'warning',
-                            title: gettext('Data analisys empty'),
-                            text: gettext('Please Generate Data analisys')
+                            title: gettext('Data analysis empty'),
+                            text: gettext('Please Generate Data analysis')
                         });
                         return;
                     } else {
@@ -348,7 +348,7 @@ $(document).ready(function() {
                 } else {
                     Swal.fire({
                         icon: 'warning',
-                        title: `Data analisys empty`,
+                        title: `Data analysis empty`,
                         text: `Please Generate Data anlisys`
                     });
                     return;
@@ -359,8 +359,8 @@ $(document).ready(function() {
         } else {
             Swal.fire({
                 icon: 'warning',
-                title: gettext('Data analisys empty'),
-                text: gettext('Please Generate Data analisys')
+                title: gettext('Data analysis empty'),
+                text: gettext('Please Generate Data analysis')
             });
             return;
         }

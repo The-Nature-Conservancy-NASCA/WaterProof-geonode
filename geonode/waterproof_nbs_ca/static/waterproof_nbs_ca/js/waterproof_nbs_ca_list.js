@@ -297,6 +297,7 @@ $(function () {
     }
     udpateCreateUrl = function (countryId) {
         $('#createUrl').attr('href', 'create/' + countryId)
+        $('#nbs-createUrl').attr('href', 'create/' + countryId)
     };
     /** 
     * Get the transformations selected

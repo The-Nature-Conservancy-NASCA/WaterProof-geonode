@@ -38,7 +38,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='profile',
             name='other_analysis',
-            field=models.CharField(blank=True, help_text='Other Analysis', max_length=50, null=True, verbose_name='Other Analisys'),
+            field=models.CharField(blank=True, help_text='Other Analysis', max_length=50, null=True, verbose_name='Other Analysis'),
         ),
         migrations.AddField(
             model_name='profile',
