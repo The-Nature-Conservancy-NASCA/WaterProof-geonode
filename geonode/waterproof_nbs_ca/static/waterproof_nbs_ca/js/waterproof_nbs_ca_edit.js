@@ -100,6 +100,8 @@ $(function () {
                 formData.append('maxBenefitTime', $('#maxBenefitTime').val());
                 // NBS Percentage of benefit associated with interventions at time t=0
                 formData.append('benefitTimePorc', $('#benefitTimePorc').val());
+                // NBS Maintenance Perodicity
+                formData.append('maintenancePeriod', $('#maintenancePeriod').val());
                 // NBS Unit Implementation Cost (US$/ha)
                 formData.append('implementCost', $('#implementCost').val());
                 // NBS Unit Maintenace Cost (US$/ha)

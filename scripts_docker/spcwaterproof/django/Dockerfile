@@ -7,6 +7,8 @@ FROM python:3.7-slim-stretch
 # Install system dependencies
 RUN echo "Updating apt-get" && \
     apt-get update && \
+    mkdir -p /usr/share/man/man1 && \
+    mkdir -p /usr/share/man/man7 && \
     echo "Installing build dependencies" && \
     apt-get install -y gcc make libc-dev musl-dev libpcre3 libpcre3-dev g++ git && \
     echo "Installing Pillow dependencies" && \
@@ -23,7 +25,11 @@ RUN echo "Updating apt-get" && \
     apt-get install -y curl && \
     echo "Activate memcached" && \
     apt-get update && apt-get install -y memcached && \
-    pip install pylibmc  && pip install sherlock && \
+    echo "Install postgresql-client" && \
+    apt-get install -y postgresql-client && \
+    echo "Install GDAL/OGR" && \
+    apt install -y libpq-dev gdal-bin && \
+    pip install pylibmc  && pip install sherlock && \    
     echo "Python server" && \
     pip install uwsgi && \
     echo "Removing build dependencies and cleaning up" && \
