@@ -7,6 +7,12 @@ async function validateCoordinateWithApi(e) {
  
   let result = await response.json();
   if (result.estado) {
+
+    if (L.Location.Marker){
+      map.removeLayer(L.Location.Marker);
+      L.Location.Marker._latlng = null;
+    }
+
     let x = result.resultado.x_snap;
     let y = result.resultado.y_snap;
 
