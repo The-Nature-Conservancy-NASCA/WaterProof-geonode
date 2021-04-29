@@ -28,7 +28,7 @@ logger = logging.getLogger(__name__)
 def getIntakeByID(request, id_intake):
     if request.method == 'GET':
         filterIntake = Intake.objects.filter(id=id_intake).values(
-            "id", "name", "water_source_name")
+            "id", "name", "description", "water_source_name")
         data = list(filterIntake)
         return JsonResponse(data, safe=False)
 
@@ -56,6 +56,14 @@ def getPtapByCity(request, name):
     if request.method == 'GET':
         filterptap = Header.objects.filter(plant_city__name__startswith=name).values(
             "id", "plant_name")
+        data = list(filterptap)
+        return JsonResponse(data, safe=False)
+    
+@api_view(['GET'])
+def getPtapByID(request, id_ptap):
+    if request.method == 'GET':
+        filterptap = Header.objects.filter(id=id_ptap).values(
+            "id", "plant_name", "plant_description")
         data = list(filterptap)
         return JsonResponse(data, safe=False)
 
@@ -181,8 +189,9 @@ def saveBiophysicals(request):
                             value = bio[key]
                             setattr(pb, key, value)
                         pb.user_id = request.user.id
+                        
                         pb.save()
-    return JsonResponse({'id_study_case': '2'}, safe=False)
+    return JsonResponse({'id_study_case': id_study}, safe=False)
 
 
 @api_view(['POST'])
@@ -336,12 +345,9 @@ def save(request):
                 if(request.POST['nbsactivities']):
                     nbsactivities = request.POST['nbsactivities']
                     nbsactivities_list = json.loads(nbsactivities[1:])
-                    logger.error(nbsactivities_list)
                     for nbsa in nbsactivities_list:
                         id_nbssa = nbsa['id']
-                        logger.error(id_nbssa)
                         nbssc = StudyCases_NBS.objects.get(pk=id_nbssa)
-                        logger.error(nbssc)
                         if(nbsa['value']):
                             nbssc.value = nbsa['value']
                             nbssc.save()

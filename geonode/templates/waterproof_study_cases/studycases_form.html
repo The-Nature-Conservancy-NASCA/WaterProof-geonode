@@ -102,7 +102,9 @@
                         <div class="panel panel-hide" id="panel-custom">
                             <div class="col-md-12">
                                 <div class="row form-group">
-                                    <legend><label>{% trans "Water Intake" %} <span class="text-danger-wp">*</span> </label></legend>
+                                    <legend><label>{% trans "Water Intake" %} <span class="text-danger-wp" id="custom-required"></span> </label></legend>
+                                    <p>{% trans "Select the intake you want to consider in the ROI Analysis" %}</p>
+
                                     <div class="col-md-9">
                                         <select class="form-control" id="select_custom">
                                         </select>
@@ -115,6 +117,7 @@
                                     <thead>
                                         <tr class="info">
                                             <th scope="col" class="small text-center vat">{% trans "name" %}</th>
+                                            <th scope="col" class="small text-center vat">{% trans "description" %}</th>
                                             <th scope="col" class="small text-center vat">{% trans "Name of the water source" %}</th>
                                             <th scope="col" class="small text-center vat">{% trans "Action" %}</th>
                                         </tr>
@@ -155,7 +158,9 @@
                         <div class="panel panel-hide" id="panel-ptap">
                             <div class="col-md-12">
                                 <div class="row form-group">
-                                    <legend><label>{% trans "Treatments plants" %} <span class="text-danger-wp">*</span> </label></legend>
+                                    <legend><label>{% trans "Treatments plants" %} <span class="text-danger-wp" id="ptap-required"></span> </label></legend>
+                                    <p>{% trans "Select the treatment plants you want to consider in the ROI Analysis" %}</p>
+
                                     <div class="col-md-9">
                                         <select class="form-control" id="select_ptap">
                                         </select>
@@ -168,6 +173,7 @@
                                     <thead>
                                         <tr class="info">
                                             <th scope="col" class="small text-center vat">{% trans "name" %}</th>
+                                            <th scope="col" class="small text-center vat">{% trans "description" %}</th>
                                             <th scope="col" class="small text-center vat">{% trans "Action" %}</th>
                                         </tr>
 
@@ -194,10 +200,11 @@
                     <div class="custom-control custom-checkbox">
                         <input type="checkbox" class="custom-control-input" id='cb_check'>
                         <label class="custom-control-label" for="cb_check">{% trans "Carbon market" %}</label>
+                        <p>{% trans "If you wish, WaterProof can consider benefits associated with the Carbon market, click on the following checkbox to include in the analysis" %}</p>
                     </div>
                     <div class="row text-center" id="cm_form">
                         <div class="col-md-4">
-                            <p>{% trans "CO2 Eq for (Selected Country)" %}</p>
+                            <p>{% trans "CO2 Eq for (Country)" %}</p>
                         </div>
                         <div class="col-md-2">
                             <input type="number" name="dws_cm" maxlength="100" class="form-control" id="id_cm" value="27.93" />
@@ -229,7 +236,7 @@
             <div id="step-3" class="tab-pane" role="tabpanel">
                 <div class="page-header">
                     <h3>Portfolios</h3>
-                    <p>{% trans "portfolios intro" %}</p>
+                    <p>{% trans "Select the objetives for which the systemwill generate portfolios of Nature-bassed Solutions, using the RIOS technnical framework" %}</p>
 
                     <ul class="list-group list-group-flush" id="portfolios-ul">
                         {% for portfolio in portfolios %}
@@ -258,8 +265,10 @@
             <div id="step-4" class="tab-pane" role="tabpanel">
                 <div class="page-header">
                     <h3> {% trans "Biophysical tables" %}</h3>
-                    <button type="button" class="btn btn-primary" id="btn-advanced_option">{% trans "Advanced options" %}</button>
                     <p>{% trans "In this step you will find the biophysical parameters required for the execution of the models. If you want to see or edit them, click on advanced options, otherwise click on next and the system will use the default values." %}</p>
+                    <button type="button" class="btn btn-primary" id="btn-advanced_option">{% trans "Advanced options" %}</button>
+                    <p>{% trans "Below are the biophysical tables that will be used in modeling un inVEST and RIOS. You can edit the values according to the specific knowledge of the supplying basins" %}</p>
+                    <p>{% trans "Please see the InVEST documentation" %}</p>
                     <div class="row biophysical-panel panel-hide" id="biophysical-panel">
 
                     </div>
@@ -401,7 +410,7 @@
             <div id="step-6" class="tab-pane" role="tabpanel">
                 <div class="page-header">
                     <h3> {% trans "NBS/Conservation activities" %}</h3>
-                    <p></p>
+                    <p>{% trans "Select the NBS you want to consider in the analysis" %}</p>
 
                     <ul class="list-group list-group-flush" id="nbs-ul">
 
