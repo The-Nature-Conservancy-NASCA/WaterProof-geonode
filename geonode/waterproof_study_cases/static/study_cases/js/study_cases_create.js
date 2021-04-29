@@ -72,6 +72,8 @@ $(document).ready(function() {
                     $("#panel-ptap").addClass("panel-hide");
                     $('#autoAdjustHeightF').css("height", "auto");
                     $("#ptap_table tbody tr").empty();
+                    $('#ptap-required').text("");
+                    $('#custom-required').text("*");
                 } else {
                     $("input[name=type][value='1']").prop('checked', true);
                 }
@@ -81,6 +83,9 @@ $(document).ready(function() {
             $("#panel-ptap").addClass("panel-hide");
             $("#panel-cost").removeClass("panel-hide");
             $('#autoAdjustHeightF').css("height", "auto");
+            $('#ptap-required').text("");
+            $('#custom-required').text("*");
+
         }
     });
 
@@ -89,6 +94,8 @@ $(document).ready(function() {
         $("#panel-custom").removeClass("panel-hide");
         $("#panel-cost").addClass("panel-hide");
         $('#autoAdjustHeightF').css("height", "auto");
+        $('#ptap-required').text("*");
+        $('#custom-required').text("");
     });
 
     $('#btn-full').click(function() {
@@ -159,8 +166,9 @@ $(document).ready(function() {
         $.get("../../study_cases/intakebyid/" + value, function(data) {
             $.each(data, function(index, intake) {
                 var name = "<td>" + intake.name + "</td>";
+                var description = "<td>" + intake.description + "</td>";
                 var name_source = "<td>" + intake.water_source_name + "</td>";
-                var markup = "<tr id='custom-" + value + "'>" + name + name_source + action + "</tr>";
+                var markup = "<tr id='custom-" + value + "'>" + name + description + name_source + action + "</tr>";
                 $("#custom_table").find('tbody').append(markup);
             });
 
@@ -174,9 +182,14 @@ $(document).ready(function() {
         value = $("#select_ptap option:selected").val();
         $('#select_ptap option:selected').remove();
         var action = "<td><a class='btn btn-danger'><span class='glyphicon glyphicon-trash' aria-hidden='true'></span></a></td>";
-        var name = "<td>" + text + "</td>";
-        var markup = "<tr id='ptap-" + value + "'>" + name + action + "</tr>";
-        $("#ptap_table").find('tbody').append(markup);
+        $.get("../../study_cases/ptapbyid/" + value, function(data) {
+            $.each(data, function(index, ptap) {
+                var name = "<td>" + ptap.plant_name + "</td>";
+                var description = "<td>" + ptap.plant_description + "</td>";
+                var markup = "<tr id='ptap-" + value + "'>" + name + description + action + "</tr>";
+                $("#ptap_table").find('tbody').append(markup);
+            });
+        });
         $.get("../../study_cases/intakebyptap/" + value, function(data) {
             $.each(data, function(index, intake) {
                 id = intake.csinfra_elementsystem__intake__id
@@ -185,6 +198,7 @@ $(document).ready(function() {
                         $(this).remove();
                     }
                 });
+                $("#custom-" + id).remove();
             });
         });
         $('#autoAdjustHeightF').css("height", "auto");
@@ -196,13 +210,6 @@ $(document).ready(function() {
         ptaps = [];
         valid_ptaps = true;
         valid_intakes = true;
-        $('#custom_table').find('tbody > tr').each(function(index, tr) {
-            id = tr.id.replace('custom-', '')
-            intakes.push(id)
-        });
-        if (intakes.length <= 0) {
-            valid_intakes = false
-        }
         var type = $("input[name='type']:checked").val();
         if (type == "1") {
             $('#ptap_table').find('tbody > tr').each(function(index, tr) {
@@ -214,7 +221,16 @@ $(document).ready(function() {
             } else {
                 valid_intakes = true
             }
+        } else {
+            $('#custom_table').find('tbody > tr').each(function(index, tr) {
+                id = tr.id.replace('custom-', '')
+                intakes.push(id)
+            });
+            if (intakes.length <= 0) {
+                valid_intakes = false
+            }
         }
+
         if (($('#name').val() != '' && $('#description').val() != '' && valid_intakes && valid_ptaps)) {
             $.post("../../study_cases/save/", {
                 name: $('#name').val(),

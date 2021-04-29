@@ -19,6 +19,7 @@ urlpatterns = [
     # Delete Study Cases
     path('delete/<int:idx>', api.delete, name='delete-study-cases'),
     path('intakebyid/<int:id_intake>/', api.getIntakeByID, name='intake-id'),
+    path('ptapbyid/<int:id_ptap>/', api.getPtapByID, name='ptap-id'),
     path('intakebycity/<str:name>/', api.getIntakeByCity, name='intake-city'),
     path('intakebyptap/<int:id>/', api.getIntakeByPtap, name='intake-ptap'),
     path('ptapbycity/<str:name>/', api.getPtapByCity, name='ptap-city'),    

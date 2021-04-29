@@ -78,6 +78,25 @@ $(document).ready(function() {
 
     $('#step3NextBtn').click(function() {
         $('#smartwizard').smartWizard("next");
+        $('#custom_table').find('tbody > tr').each(function(index, tr) {
+            id = tr.id.replace('custom-', '')
+            intakes.push(id)
+        });
+        var type = $("input[name='type']:checked").val();
+        if (type == "1") {
+            $('#ptap_table').find('tbody > tr').each(function(index, tr) {
+                id = tr.id.replace('ptap-', '')
+                ptaps.push(id)
+            });
+        }
+        if ($("#biophysical-panel").hasClass("panel-hide")) {
+            $("#biophysical-panel").removeClass("panel-hide");
+
+        } else {
+            $("#biophysical-panel").addClass("panel-hide");
+        }
+        console.log("CARGANDO")
+        loadBiophysicals();
         $('#autoAdjustHeightF').css("height", "auto");
     });
 
@@ -117,26 +136,6 @@ $(document).ready(function() {
         location.href = "/study_cases/";
     });
 
-
-    $('#btn-advanced_option').click(function() {
-        $('#custom_table').find('tbody > tr').each(function(index, tr) {
-            id = tr.id.replace('custom-', '')
-            intakes.push(id)
-        });
-        var type = $("input[name='type']:checked").val();
-        if (type == "1") {
-            $('#ptap_table').find('tbody > tr').each(function(index, tr) {
-                id = tr.id.replace('ptap-', '')
-                ptaps.push(id)
-            });
-        }
-        if ($("#biophysical-panel").hasClass("panel-hide")) {
-            $("#biophysical-panel").removeClass("panel-hide");
-            loadBiophysicals();
-        } else {
-            $("#biophysical-panel").addClass("panel-hide");
-        }
-    });
 
     function calculate_Personnel() {
         var total = 0.0;
@@ -286,11 +285,11 @@ $(document).ready(function() {
             labels = data[0]
             content = '<div class="col-md-12"><legend><label>Intake ' + name + '</span> </label></legend>'
             content += '<table id="bio_table_' + id_intake + '" class="table table-striped table-bordered table-condensed" style="width:100%"><thead><tr class="info">'
-            content += '<th scope="col" class="small text-center vat">description</th>'
+            content += '<th scope="col" class="small text-center vat px-5">description</th>'
             content += '<th scope="col" class="small text-center vat">lucode</th>'
             $.each(labels, function(key, v) {
                 if (key != 'lucode' && key != 'default' && key != 'lulc_desc' && key != 'description' && key != 'user_id' && key != 'intake_id' && key != 'study_case_id' && key != 'id' && key != 'macro_region' && key != 'kc') {
-                    content += '<th scope="col" class="small text-center vat">' + key + '</th>'
+                    content += '<th scope="col" class="small text-center vat px-1">' + key + '</th>'
                 }
             });
             content += '</tr></thead><tbody>'
