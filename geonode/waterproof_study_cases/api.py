@@ -10,7 +10,7 @@ from itertools import chain
 from django.urls import reverse
 from .models import StudyCases
 from . import forms
-from geonode.waterproof_parameters.models import Countries, Regions, Cities, Climate_value, Parameters_Biophysical
+from geonode.waterproof_parameters.models import Countries, Regions, Cities, Climate_value, Parameters_Biophysical, ManagmentCosts_Discount
 from geonode.waterproof_intake.models import Intake, Polygon
 from geonode.waterproof_treatment_plants.models import Header, Csinfra
 from geonode.waterproof_nbs_ca.models import WaterproofNbsCa
@@ -65,6 +65,14 @@ def getPtapByID(request, id_ptap):
         filterptap = Header.objects.filter(id=id_ptap).values(
             "id", "plant_name", "plant_description")
         data = list(filterptap)
+        return JsonResponse(data, safe=False)
+    
+
+@api_view(['GET'])
+def getParameterByCountry(request, name):
+    if request.method == 'GET':
+        filterpm = ManagmentCosts_Discount.objects.filter(country__name__startswith=name).values()
+        data = list(filterpm)
         return JsonResponse(data, safe=False)
 
 

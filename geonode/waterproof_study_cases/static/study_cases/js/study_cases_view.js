@@ -344,6 +344,7 @@ $(document).ready(function() {
 });
 
 
+
 window.onbeforeunload = function() {
     return mxResources.get('changesLost');
 };

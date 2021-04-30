@@ -96,14 +96,12 @@ def create(request):
             models = ModelParameter.objects.all()
             currencys = Countries.objects.values('currency').distinct().order_by('currency')
             scenarios = Climate_value.objects.all()
-            financial_parameters = ManagmentCosts_Discount.objects.get(country=48)
             return render(request,
                           'waterproof_study_cases/studycases_form.html',
                           context={
                               "serverApi": settings.WATERPROOF_API_SERVER,
                               'portfolios': portfolios,
                               'ModelParameters': models,
-                              'financialParameters': financial_parameters,
                               'currencys': currencys,
                               'scenarios': scenarios
                           }

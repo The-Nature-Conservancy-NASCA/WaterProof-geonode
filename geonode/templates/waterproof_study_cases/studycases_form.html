@@ -317,31 +317,31 @@
                             <label class="custom-control-label personnel-label" for="director">{% trans "Program director" %}</label>
                         </div>
                         <div class="custom-control custom-checkbox col-md-4">
-                            <input id="director" max="16" class="text-number" type="number" class="custom-control-input" value="{{financialParameters.Program_Director_USD_YEAR|stringformat:'1.2f'}}">
+                            <input id="director" max="16" class="text-number" type="number" class="custom-control-input">
                         </div>
                         <div class="col-md-6">
                             <label class="custom-control-label personnel-label" for="evaluation"> {%trans "Monitoring and Evaluation Manager" %}</label>
                         </div>
                         <div class="custom-control custom-checkbox col-md-4">
-                            <input id="evaluation" class="text-number" type="number" class="custom-control-input" value="{{financialParameters.Monitoring_and_Evaluation_Manager_USD_YEAR|stringformat:'1.2f'}}">
+                            <input id="evaluation" class="text-number" type="number" class="custom-control-input">
                         </div>
                         <div class="col-md-6">
                             <label class="custom-control-label personnel-label" for="finance">{% trans "Finance and Administrator" %}</label>
                         </div>
                         <div class="custom-control custom-checkbox col-md-4">
-                            <input id="finance" class="text-number" type="number" class="custom-control-input" value="{{financialParameters.Finance_Manager_USD_YEAR|stringformat:'1.2f'}}">
+                            <input id="finance" class="text-number" type="number" class="custom-control-input">
                         </div>
                         <div class="col-md-6">
                             <label class="custom-control-label personnel-label" for="implementation">{% trans "Implementation Manager" %}</label>
                         </div>
                         <div class="custom-control custom-checkbox col-md-4">
-                            <input id="implementation" class="text-number" type="number" class="custom-control-input" value="{{financialParameters.Implementation_Manager_USD_YEAR|stringformat:'1.2f'}}">
+                            <input id="implementation" class="text-number" type="number" class="custom-control-input">
                         </div>
                         <div class="col-md-6">
                             <label class="custom-control-label platform-label" for="office">{% trans "Office Costs" %}</label>
                         </div>
                         <div class="custom-control custom-checkbox col-md-4">
-                            <input id="office" class="text-number" type="number" class="custom-control-input" value="{{financialParameters.Office_Costs_USD_YEAR|stringformat:'1.2f'}}">
+                            <input id="office" class="text-number" type="number" class="custom-control-input">
                         </div>
                         <div class="col-md-6">
                             <label class="custom-control-label platform-label" for="travel">{% trans "Travel" %}</label>
@@ -353,7 +353,7 @@
                             <label class="custom-control-label platform-label" for="equipment">{% trans "Equipment" %}</label>
                         </div>
                         <div class="custom-control custom-checkbox col-md-4">
-                            <input id="equipment" class="text-number" type="number" class="custom-control-input" value="{{financialParameters.Equipment_Purchased_In_Year_1_USD|stringformat:'1.2f'}}">
+                            <input id="equipment" class="text-number" type="number" class="custom-control-input">
                         </div>
                         <div class="col-md-6">
                             <label class="custom-control-label platform-label" for="contracts">{% trans "Contracts" %}</label>
@@ -365,7 +365,7 @@
                             <label class="custom-control-label platform-label" for="overhead">{% trans "Overhead" %}</label>
                         </div>
                         <div class="custom-control custom-checkbox col-md-4">
-                            <input id="overhead" class="text-number" type="number" class="custom-control-input" value="{{financialParameters.Office_Costs_USD_YEAR|stringformat:'1.2f'}}">
+                            <input id="overhead" class="text-number" type="number" class="custom-control-input">
                         </div>
                         <div class="col-md-6">
                             <label class="custom-control-label platform-label" for="others">{% trans "Others" %}</label>
@@ -377,25 +377,25 @@
                             <label class="custom-control-label" for="transaction">{% trans "Transaction cost (%)" %}</label>
                         </div>
                         <div class="custom-control custom-checkbox col-md-4">
-                            <input id="transaction" class="text-number" type="number" class="custom-control-input" value="{{financialParameters.Transaction_cost|stringformat:'1.2f'}}">
+                            <input id="transaction" class="text-number" type="number" class="custom-control-input">
                         </div>
                         <div class="col-md-6">
                             <label class="custom-control-label" for="discount">{% trans "Discount rate (%)" %}</label>
                         </div>
                         <div class="custom-control custom-checkbox col-md-4">
-                            <input id="discount" class="text-number" type="number" class="custom-control-input" value="{{financialParameters.drt_discount_rate_medium|stringformat:'1.2f'}}">
+                            <input id="discount" class="text-number" type="number" class="custom-control-input">
                         </div>
                         <div class="col-md-6">
                             <label class="custom-control-label" for="minimum">{% trans "Sensitivity Analysis - Minimun Discount Rate (%)" %}</label>
                         </div>
                         <div class="custom-control custom-checkbox col-md-4">
-                            <input id="minimum" class="text-number" type="number" class="custom-control-input" value="{{financialParameters.drt_discount_rate_lower_limit|stringformat:'1.2f'}}">
+                            <input id="minimum" class="text-number" type="number" class="custom-control-input">
                         </div>
                         <div class="col-md-6">
                             <label class="custom-control-label" for="maximum">{% trans "Sensitivity Analysis - Maximun Discount Rate (%)" %}</label>
                         </div>
                         <div class="custom-control custom-checkbox col-md-4">
-                            <input id="maximum" class="text-number" type="number" class="custom-control-input" value="{{financialParameters.drt_discount_rate_upper_limit|stringformat:'1.2f'}}">
+                            <input id="maximum" class="text-number" type="number" class="custom-control-input">
                         </div>
                     </div>
                 </div>
@@ -435,7 +435,7 @@
                             <label for="period_analysis" class="control-label required-field">
                                 {% trans "Analysis time period (years) (10-100)" %}
                             </label>
-                            <input id="period_analysis" type="number" class="form-control text-number">
+                            <input id="period_analysis" type="number" class="form-control text-number" min="10" max="100">
                         </div>
                     </div>
                     <div class="col-md-6">
