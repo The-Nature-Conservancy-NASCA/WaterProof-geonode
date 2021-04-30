@@ -1,13 +1,19 @@
 
-{% extends "wagtailadmin/base.html" %}
+
+{% load i18n avatar_tags %}
+{% load static from staticfiles %}
+{% load account socialaccount %}
+{% load base_tags %}
+{% load flags %}
+{% load static from staticfiles %}
+
+{% load i18n %}
 
 {% block header %}
-<section>
 	<div class="imgheaderpag">          
-		<img src= "{{ STATIC_URL }} geonode/img/2-IMAGEN.jpg">
+		<img src= "{{ STATIC_URL }}geonode/img/2-IMAGEN.jpg">
 	</div>
-</section>
-{% endblock header %}
+{% endblock %}
 
 {% block branding_logo %}
     <img src="{{ STATIC_URL }}geonode/img/icon-waterproof.png" alt="Waterproof CMS" width="80" />    
@@ -20,5 +26,4 @@
     Welcome to Waterproof (CMS)
 {% endblock %}
 
-
-
+<script src="{% static "geonode/js/base/base.js" %}"></script>
