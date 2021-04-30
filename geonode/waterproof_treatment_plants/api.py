@@ -119,30 +119,30 @@ def getInfoTree(request):
 			objects_list = []
 			lastNull = ''
 			objects_list = []
-			for costFunctionsProcess in CostFunctionsProcess.objects.all().order_by('sub_proceso','categorys'):
+			for costFunctionsProcess in CostFunctionsProcess.objects.all().order_by('sub_process','categorys'):
 				try:
-					if costFunctionsProcess.proceso_efeciente.normalized_category == request.query_params.get('plantElement'):
+					if costFunctionsProcess.process_efficiencies.normalized_category == request.query_params.get('plantElement'):
 						objects_list.append({
 							"idSubprocess": costFunctionsProcess.id,
-							"subprocess": costFunctionsProcess.sub_proceso,
-							"subprocessAddId": costFunctionsProcess.sub_proceso,
-							"technology": costFunctionsProcess.proceso_efeciente.categorys,
-							"technologyAddId":str(costFunctionsProcess.id) + costFunctionsProcess.proceso_efeciente.categorys,
+							"subprocess": costFunctionsProcess.sub_process,
+							"subprocessAddId": costFunctionsProcess.sub_process,
+							"technology": costFunctionsProcess.process_efficiencies.categorys,
+							"technologyAddId":str(costFunctionsProcess.id) + costFunctionsProcess.process_efficiencies.categorys,
 							"costFunction": costFunctionsProcess.function_name,
 							"function": costFunctionsProcess.function_value,
 							"default": costFunctionsProcess.default_function,
-							"transportedWater": costFunctionsProcess.proceso_efeciente.predefined_nitrogen_perc,
-							"sedimentsRetained": costFunctionsProcess.proceso_efeciente.predefined_phosphorus_perc,
-							"nitrogenRetained": costFunctionsProcess.proceso_efeciente.predefined_sediment_perc,
-							"phosphorusRetained": costFunctionsProcess.proceso_efeciente.predefined_transp_water_perc,
-							"minimalTransportedWater": costFunctionsProcess.proceso_efeciente.minimal_nitrogen_perc,
-							"minimalSedimentsRetained": costFunctionsProcess.proceso_efeciente.minimal_phoshorus_perc,
-							"minimalNitrogenRetained": costFunctionsProcess.proceso_efeciente.minimal_sediment_perc,
-							"minimalPhosphorusRetained": costFunctionsProcess.proceso_efeciente.minimal_transp_water_perc,
-							"maximalTransportedWater": costFunctionsProcess.proceso_efeciente.maximal_nitrogen_perc,
-							"maximalSedimentsRetained": costFunctionsProcess.proceso_efeciente.maximal_phosphorus_perc,
-							"maximalNitrogenRetained": costFunctionsProcess.proceso_efeciente.maximal_sediment_perc,
-							"maximalPhosphorusRetained": costFunctionsProcess.proceso_efeciente.maximal_transp_water_perc,
+							"transportedWater": costFunctionsProcess.process_efficiencies.predefined_nitrogen_perc,
+							"sedimentsRetained": costFunctionsProcess.process_efficiencies.predefined_phosphorus_perc,
+							"nitrogenRetained": costFunctionsProcess.process_efficiencies.predefined_sediment_perc,
+							"phosphorusRetained": costFunctionsProcess.process_efficiencies.predefined_transp_water_perc,
+							"minimalTransportedWater": costFunctionsProcess.process_efficiencies.minimal_nitrogen_perc,
+							"minimalSedimentsRetained": costFunctionsProcess.process_efficiencies.minimal_phoshorus_perc,
+							"minimalNitrogenRetained": costFunctionsProcess.process_efficiencies.minimal_sediment_perc,
+							"minimalPhosphorusRetained": costFunctionsProcess.process_efficiencies.minimal_transp_water_perc,
+							"maximalTransportedWater": costFunctionsProcess.process_efficiencies.maximal_nitrogen_perc,
+							"maximalSedimentsRetained": costFunctionsProcess.process_efficiencies.maximal_phosphorus_perc,
+							"maximalNitrogenRetained": costFunctionsProcess.process_efficiencies.maximal_sediment_perc,
+							"maximalPhosphorusRetained": costFunctionsProcess.process_efficiencies.maximal_transp_water_perc,
 							"currency": "COP",
 							"factor": "0.251"
 						})

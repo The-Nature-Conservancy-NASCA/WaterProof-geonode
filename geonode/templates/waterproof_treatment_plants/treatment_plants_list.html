@@ -82,6 +82,7 @@
     var userCountryCode='{{country.codeCountry}}';
     var userCountryName='{{country.nameCountry}}';
 </script>
+<script type="text/javascript" src="{% url 'javascript-catalog-treatment' %}"></script>
 <script src="{{ STATIC_URL }}geonode/js/datatables/jquery.dataTables.min.js"></script>
 <script src="{{ STATIC_URL }}geonode/js/datatables/dataTables.bootstrap.min.js"></script>
 <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
@@ -98,9 +99,6 @@
     let waterproof = {};
 
     $(document).ready(function() {
-
-
-
     });
 
     var searchPoints = L.geoJson(null, {

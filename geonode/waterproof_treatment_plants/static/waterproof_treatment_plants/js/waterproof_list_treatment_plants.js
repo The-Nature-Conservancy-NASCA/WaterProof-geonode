@@ -2,6 +2,10 @@
  * @file Create form validations
  * @author Yeismer Espejo
  * @version 1.0
+
+ text: gettext('The intake has not been deleted, try again!')
+
+ 
  */
 
 $(function () {
@@ -29,6 +33,51 @@ $(function () {
         weight: 0.2,
         fillOpacity: 0.7
     };
+    var ptapArray = [{
+            idElement: 1,
+            nameElelent: null,
+            element: ['Q1','Csed1','CN1','CP1','WSed1','WN1','WP1']
+        },{
+            idElement: 2,
+            nameElelent: null,
+            element: ['Q2','Csed2','CN2','CP2','WSed2','WN2','WP2','WsedRet2','WNRet2','WPRet2']
+        },{
+            idElement: 3,
+            nameElelent: null,
+            element: ['Q3','Csed3','CN3','CP3','WSed3','WN3','WP3','WsedRet3','WNRet3','WPRet3']
+        },{
+            idElement: 4,
+            nameElelent: null,
+            element: ['Q4','Csed4','CN4','CP4','WSed4','WN4','WP4','WsedRet4','WNRet4','WPRet4']
+        },{
+            idElement: 5,
+            nameElelent: null,
+            element: ['Q5','Csed5','CN5','CP5','WSed5','WN5','WP5','WsedRet5','WNRet5','WPRet5']
+        },{
+            idElement: 6,
+            nameElelent: null,
+            element: ['Q6','Csed6','CN6','CP6','WSed6','WN6','WP6','WsedRet6','WNRet6','WPRet6']
+        },{
+            idElement: 7,
+            nameElelent: null,
+            element: ['Q7','Csed7','CN7','CP7','WSed7','WN7','WP7','WsedRet7','WNRet7','WPRet7']
+        },{
+            idElement: 8,
+            nameElelent: null,
+            element: ['Q8','Csed8','CN8','CP8','WSed8','WN8','WP8','WsedRet8','WNRet8','WPRet8']
+        },{
+            idElement: 9,
+            nameElelent: null,
+            element: ['Q9','Csed9','CN9','CP9','WSed9','WN9','WP9','WsedRet9','WNRet9','WPRet9']
+        },{
+            idElement: 10,
+            nameElelent: null,
+            element: ['Q10','Csed10','CN10','CP10','WSed10','WN10','WP10','WsedRet10','WNRet10','WPRet10']
+        },{
+            idElement: 11,
+            nameElelent: null,
+            element: ['Q11','Csed11','CN11','CP11','WSed11','WN11','WP11','WsedRet11','WNRet11','WPRet11']
+        }]
     var defaultStyle = {
         fillColor: "#337ab7",
         color: "#333333",
@@ -100,6 +149,10 @@ $(function () {
     * @returns 
     */
     initialize = function () {
+        setTimeout(function(){
+            alert(1);
+            alert(gettext('154'));
+        },5000);
         $('#submit').click(function (e) {
             var saveForm = true;
             if($('#idNamePlant').val() === "" || $('#idNamePlant').val() === null) {
@@ -619,7 +672,7 @@ $(function () {
     * @returns 
     */
     callBackFormula = function() {
-
+        ptapArray
     };
     /**
     * Call form with the formula inforation
@@ -627,7 +680,7 @@ $(function () {
     * @returns 
     */
     callFormFormula = function() {
-
+        ptapArray
     };
     /**
     * Load the tree variables
