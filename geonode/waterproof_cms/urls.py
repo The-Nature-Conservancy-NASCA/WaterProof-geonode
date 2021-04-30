@@ -7,8 +7,8 @@ from django.conf.urls import include, url
 from wagtail.documents import urls as wagtaildocs_urls
 
 urlpatterns = [
-    path('cmsView/', views.principalView, name='cms'),
-    path('', include(wagtailadmin_urls)),
+    path('cmsView/', views.principalView, name='cmsView'),
+    path('', include(wagtailadmin_urls), name = 'cmsPanel'),
     path('docs/', include(wagtaildocs_urls)),
     path('pages/', include(wagtail_urls)),
 ]
