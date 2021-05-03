@@ -1,0 +1,147 @@
+:root {
+    --color-primary: rgb(124, 133, 253);
+    --color-primary-darker: rebeccapurple;
+    --color-primary-dark: hsl(330, 100%, 70%);
+    --color-input-focus: rgb(204, 0, 102);
+    --color-input-focus-border: #4d0026;
+}
+
+header {
+    padding-top: 1em;
+    padding-bottom: 1em;
+    background-color: #fff;
+    margin-bottom: 2em;
+}
+
+.nav-wrapper, .nav-wrapper .inner {
+    background: rgb(254, 254, 255);
+}
+
+.nav-main a {
+    font-family: 'Montserrat', sans-serif;
+    -webkit-font-smoothing: auto;
+    text-decoration: none;
+    display: block;
+    color: #458acc;
+    padding: .8em 1.7em;
+    font-size: 1em;
+    font-weight: 400;
+}
+
+header .user-name, header h1 {
+    font-family: 'Montserrat', sans-serif;
+    color: #458acc !important;
+}
+
+.nav-search input {
+    font-family: 'Montserrat', sans-serif;
+    cursor: pointer;
+    border: 1px solid #999;
+    background-color: #458acc;
+    color: #fff;
+    padding: .8em 2.5em .8em 1em;
+    font-weight: 600;
+}
+
+.nav-main {
+    font-family: 'Montserrat', sans-serif;
+    overflow: auto;
+    margin-bottom: 50px;
+}
+
+.nav-main .menu-active {
+    background: #458acc;
+    text-shadow: -1px -1px 0 rgb(0 0 0 / 30%);
+}
+
+.nav-main .footer {
+    position: fixed;
+    width: 200px;
+    bottom: 0;
+    background-color: #458acc;
+}
+
+.nav-main .account {
+    background: #458acc;
+    color: #ccc;
+    text-transform: uppercase;
+    display: block;
+    cursor: pointer;
+}
+
+.c-explorer {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    background: #fcfffd;
+}
+
+.c-explorer__item__title {
+    margin: 0;
+    color: #458acc;
+    display: inline-block;
+}
+
+.c-explorer__header {
+    display: block;
+    background-color: #458acc;
+    border-bottom: 1px solid #333;
+    color: #fff;
+}
+
+.object>.title-wrapper {
+    box-sizing: border-box;
+    height: 40px;
+    -webkit-font-smoothing: auto;
+    background: #cae4f4 !important;
+    color: #200200;
+    text-transform: uppercase;
+    padding: .9em 0 .9em 5em;
+    font-size: .95em;
+    margin: 0;
+    line-height: 1.5em;
+    font-weight: 400;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.object>.title-wrapper:before {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-shadow: none;
+    font-family: wagtail;
+    text-transform: none;
+    content: "";
+    text-align: center;
+    display: block;
+    position: absolute;
+    z-index: 2;
+    font-size: 2em;
+    top: 0;
+    line-height: 1.8em;
+    left: 0;
+    width: 50px;
+    color: #fff;
+    padding: 0;
+    margin: 0;
+    background-color: #458acc !important;
+}
+
+.listing .title .title-wrapper, .listing .title h2 {
+    text-transform: none;
+    margin: 0;
+    font-size: 1.15em;
+    font-weight: 600;
+    color: #458acc;
+    line-height: 1.5em;
+}
+
+a {
+    font-family: 'Montserrat', sans-serif;
+    color: #2476c2;
+    text-decoration: none;
+}

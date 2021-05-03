@@ -1,8 +1,16 @@
+from django.utils.html import format_html
+from django.templatetags.static import static
 import wagtail.admin.rich_text.editors.draftail.features as draftail_features
 from wagtail.admin.rich_text.converters.html_to_contentstate import (
     InlineStyleElementHandler
 )
 from wagtail.core import hooks
+
+@hooks.register('insert_global_admin_css')
+def global_admin_css():
+    return format_html('<link rel="stylesheet" href="{}">', static('/geonode/css/theme.css'))
+
+
 
 @hooks.register("register_rich_text_features")
 def register_code_styling(features):
