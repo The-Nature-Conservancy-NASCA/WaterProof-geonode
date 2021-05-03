@@ -393,7 +393,7 @@ $(document).ready(function() {
             Swal.fire({
                 icon: 'warning',
                 title: `Discount value`,
-                text: `Please check minimum discount`
+                text: `Please check  discount`
             });
             valid = false
             return;
@@ -482,7 +482,7 @@ $(document).ready(function() {
                 }
             });
         }
-        if ($('#period_nbs').val() < 10 || $('#period_nbs').val() > 100) {
+        if ($('#period_analysis').val() < 10 || $('#period_analysis').val() > 100) {
             Swal.fire({
                 icon: 'warning',
                 title: `Field problem`,
@@ -496,6 +496,28 @@ $(document).ready(function() {
             valid_investment = $('#annual_investment').val() != ''
         }
         if ($('#period_analysis').val() != '' && $('#period_nbs').val() != '' && type && valid_edit && valid_investment && valid_period) {
+
+
+            /*
+
+                        Swal.fire({
+                            title: 'Exchange rate',
+                            html: '<input id="swal-input1" class="swal2-input">' +
+                                '<input id="swal-input2" class="swal2-input">',
+                            focusConfirm: false,
+                            preConfirm: () => {
+                                return [
+                                    document.getElementById('swal-input1').value,
+                                    document.getElementById('swal-input2').value
+                                ]
+                            }
+                        })
+
+            */
+
+
+
+
             $("#full-table").find("input").each(function(index, input) {
                 nbsactivity = {}
                 input_id = input.id

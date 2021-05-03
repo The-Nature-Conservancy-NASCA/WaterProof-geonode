@@ -12,7 +12,7 @@ from .models import StudyCases
 from . import forms
 from geonode.waterproof_parameters.models import Countries, Regions, Cities, Climate_value, Parameters_Biophysical, ManagmentCosts_Discount
 from geonode.waterproof_intake.models import Intake, Polygon
-from geonode.waterproof_treatment_plants.models import Header, Csinfra
+from geonode.waterproof_treatment_plants.models import Header, Csinfra,Function
 from geonode.waterproof_nbs_ca.models import WaterproofNbsCa
 from .models import StudyCases, Portfolio, ModelParameter, StudyCases_NBS
 
@@ -75,6 +75,23 @@ def getParameterByCountry(request, name):
         data = list(filterpm)
         return JsonResponse(data, safe=False)
 
+
+@api_view(['GET'])
+def getStudyCaseCurrencys(request, id):
+    if request.method == 'GET':
+        sc = StudyCases.objects.get(id=id)
+        currencys = []
+        scptaps = sc.ptaps.all()
+        scintakes = sc.intakes.all()
+        for ptap in scptaps :
+            ptapCurrency = Function.objects.filter(function_plant=ptap).values('function_currency').distinct()
+            currencys = chain(currencys,ptapCurrency)
+        for intake in scintakes :
+            intakeCurrency = Function.objects.filter(function_plant=ptap).values('function_currency').distinct()
+            currencys = chain(currencys,intakeCurrency)
+        data = list(currencys)
+        logger.error(data)
+        return JsonResponse(data, safe=False)
 
 @api_view(['POST'])
 def getNBS(request):

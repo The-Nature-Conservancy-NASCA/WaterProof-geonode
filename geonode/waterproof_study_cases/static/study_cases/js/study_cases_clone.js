@@ -380,7 +380,7 @@ $(document).ready(function() {
             Swal.fire({
                 icon: 'warning',
                 title: `Discount value`,
-                text: `Please check minimum discount`
+                text: `Please check discount`
             });
             valid = false
             return;
@@ -468,7 +468,7 @@ $(document).ready(function() {
                 }
             });
         }
-        if ($('#period_nbs').val() < 10 || $('#period_nbs').val() > 100) {
+        if ($('#period_analysis').val() < 10 || $('#period_analysis').val() > 100) {
             Swal.fire({
                 icon: 'warning',
                 title: `Field problem`,
