@@ -351,9 +351,11 @@ $(document).ready(function() {
                         bio[name_td] = val;
                     }
                 });
+                biophysical.push(bio)
             });
-            biophysical.push(bio)
+
         });
+        console.log(biophysical)
         $.post("../../study_cases/savebio/", {
             id_study_case: id_study_case,
             biophysicals: '1' + JSON.stringify(biophysical),

@@ -133,7 +133,7 @@ def getBiophysical(request):
         if(request.POST['id_study_case']):
             id_study_case = request.POST['id_study_case']
             biophysical_sc = Parameters_Biophysical.objects.filter(
-                study_case_id=id_study_case).values()
+                study_case_id=id_study_case, intake_id = id_intake).values()
             for bio in biophysical:
                 add_bio = True
                 for biosc in biophysical_sc:
@@ -185,19 +185,19 @@ def saveBiophysicals(request):
                 if(request.POST['process']):
                     process = request.POST['process']
                     id_study = request.POST['id_study_case']
-                    biophysical_sc = Parameters_Biophysical.objects.filter(
-                        study_case_id=id_study)
-                    for biosc in biophysical_sc:
-                        biosc.delete()
                     for bio in biophysicals_list:
                         bio['study_case_id'] = id_study
                         bio['default'] = 'N'
                         pb = Parameters_Biophysical()
+                        biophysical_sc = Parameters_Biophysical.objects.filter(
+                        study_case_id=id_study, intake_id= bio['intake_id'])
+                        for biosc in biophysical_sc:
+                            if(str(biosc.lucode) == bio['lucode']):
+                                pb = biosc
                         for key in bio:
                             value = bio[key]
                             setattr(pb, key, value)
                         pb.user_id = request.user.id
-                        
                         pb.save()
     return JsonResponse({'id_study_case': id_study}, safe=False)
 
