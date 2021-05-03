@@ -61,7 +61,7 @@
                 <th scope="col" class="small text-center vat">{% trans "City" %}</th>
                 <th scope="col" class="small text-center vat">{% trans "Treatment plants" %}</th>
                 <th scope="col" class="small text-center vat">{% trans "Water intakes" %}</th>
-                <th scope="col" class="small text-center vat">{% trans "Run Analysis" %}</th>
+                <th scope="col" class="small text-center vat">{% trans "Execution status" %}</th>
                 <th scope="col" class="small text-center vat">{% trans "Actions" %}</th>
 
             </tr>
@@ -79,13 +79,25 @@
                 <td class="small text-center vat">{{studyCases.added_by}}</td>
                 <td class="small text-center vat">{{studyCases.create_date | date:"d-m-Y"}}</td>
                 <td class="small text-center vat">{{studyCases.city}}</td>
-                <td class="small text-center vat">{% for ptap in studyCases.ptaps.all %}
+                <td class="small text-center vat">
+                    {% if studyCases.studycase_type == "PTAP" %}
+                    {% for ptap in studyCases.ptaps.all %}
                     <a onclick='viewPtap({{ptap.id}})'>- {{ptap.plant_name}} </a><br>
                     {% endfor %}</td>
+                {% else %}
+                {% trans "N/A" %}<br>{% trans "Custom case" %}
+                {% endif %}
+
                 <td class="small text-center vat">{% for intake in studyCases.intakes.all %}
                     <a href="../intake/view/{{intake.id}}" target="_blank">- {{intake.name}} </a> <br>
                     {% endfor %}</td>
-                <td class="small text-center vat"><i class="glyphicon glyphicon-hourglass fa-lg text-warning" title='{% trans "In Progress" %}'></i></td>
+                {% if studyCases.is_complete%}
+                <td class="small text-center vat"><i class="glyphicon glyphicon-play-circle fa-lg text-success" title='{% trans "Completed" %}'></i></td>
+                {% else %}
+                <td class="small text-center vat"><i class="glyphicon glyphicon-stop fa-lg text-danger" title='{% trans "In Progress" %}'></i></td>
+                {% endif %}
+
+
                 <td class="small text-center vat">
                     <div class="btn-group btn-group-table" role="group"></div>
                     <a class="btn btn-primary" href="view/{{studyCases.pk}}"><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>

@@ -42,6 +42,8 @@ const interpolationType = {
 }
 
 var id_study_case = '';
+var intakes = [];
+var ptaps = [];
 
 var mapLoader;
 $(document).ready(function() {
@@ -124,6 +126,18 @@ $(document).ready(function() {
             var $this = $(this).val('');
         });
     });
+
+    $('#btn-advanced_option').click(function() {
+        if ($("#biophysical-panel").hasClass("panel-hide")) {
+            $("#biophysical-panel").removeClass("panel-hide");
+            $("#biophysical-panel").empty();
+            loadBiophysicals();
+        } else {
+            $("#biophysical-panel").empty();
+            $("#biophysical-panel").addClass("panel-hide");
+        }
+    });
+
 
     $('#investment').click(function() {
         $("#panel-investment").removeClass("panel-hide");
@@ -296,11 +310,47 @@ $(document).ready(function() {
     });
 
     $('#step4PreviousBtn').click(function() {
+        $("#biophysical-panel").empty();
         $('#smartwizard').smartWizard("prev");
     });
 
     $('#step4NextBtn').click(function() {
-        $('#smartwizard').smartWizard("next");
+        biophysical = []
+        $('#biophysical-panel').find('table').each(function(index, table) {
+            id = table.id.split('_').pop()
+            bio = {
+                intake_id: id
+            }
+            $('#' + table.id).find('tbody > tr.edit').each(function(index, tr) {
+                $('#' + tr.id).find('td').each(function(index, td) {
+                    td_id = td.id
+                    if (td_id) {
+                        split = td_id.split('_')
+                        split.pop();
+                        name_td = split.join("_");
+                        val = undefined
+                        $('#' + td.id).find("input").each(function() {
+                            val = $(this).val();
+                        });
+                        if (!val) {
+                            val = $('#' + td.id).text();
+                        }
+                        bio[name_td] = val;
+                    }
+                });
+            });
+            biophysical.push(bio)
+        });
+        $.post("../../study_cases/savebio/", {
+            id_study_case: id_study_case,
+            biophysicals: '1' + JSON.stringify(biophysical),
+            process: "Clone",
+        }, function(data) {
+            $('#smartwizard').smartWizard("next");
+            loadFinancialParameter()
+            $('#autoAdjustHeightF').css("height", "auto");
+        }, "json");
+
     });
 
     $('#step5PreviousBtn').click(function() {
@@ -316,6 +366,25 @@ $(document).ready(function() {
                 return false;
             }
         });
+
+        if ($('#minimum').val() >= $('#maximum').val()) {
+            Swal.fire({
+                icon: 'warning',
+                title: `Minimum value`,
+                text: `Please check minimum value`
+            });
+            valid = false
+            return;
+        }
+        if (($('#discount').val() < $('#minimum').val()) || ($('#discount').val() > $('#maximum').val())) {
+            Swal.fire({
+                icon: 'warning',
+                title: `Discount value`,
+                text: `Please check minimum discount`
+            });
+            valid = false
+            return;
+        }
 
         if (valid) {
             $.post("../../study_cases/save/", {
@@ -367,6 +436,7 @@ $(document).ready(function() {
             }, function(data) {
                 $('#smartwizard').smartWizard("next");
                 $('#autoAdjustHeightF').css("height", "auto");
+                loadNBSActivities();
             }, "json");
         } else {
             Swal.fire({
@@ -386,6 +456,8 @@ $(document).ready(function() {
         edit = !$("#full-table").hasClass("panel-hide")
         var valid_edit = true;
         var valid_investment = true;
+        var valid_period = true;
+        nbsactivities = []
         if (edit) {
             var valid_edit = true;
             $("#full-table").find("input").each(function() {
@@ -396,32 +468,47 @@ $(document).ready(function() {
                 }
             });
         }
+        if ($('#period_nbs').val() < 10 || $('#period_nbs').val() > 100) {
+            Swal.fire({
+                icon: 'warning',
+                title: `Field problem`,
+                text: `Please check period value`
+            });
+            valid_period = false;
+            return
+        }
         var type = $("input[name='analysis_type']:checked").val();
         if (type == "2") {
             valid_investment = $('#annual_investment').val() != ''
         }
-        console.log($('#annual_investment').val())
-        if ($('#period_analysis').val() != '' && $('#period_nbs').val() != '' && type && valid_edit && valid_investment) {
+        if ($('#period_analysis').val() != '' && $('#period_nbs').val() != '' && type && valid_edit && valid_investment && valid_period) {
+            $("#full-table").find("input").each(function(index, input) {
+                nbsactivity = {}
+                input_id = input.id
+                if (input_id) {
+                    split = input_id.split('-')
+                    nbssc_id = split.pop();
+                    val = $("#" + input_id).val()
+                    nbsactivity['id'] = nbssc_id;
+                    nbsactivity['value'] = val;
+                    nbsactivities.push(nbsactivity)
+                }
+            });
             $.post("../../study_cases/save/", {
                 id_study_case: id_study_case,
                 analysis_type: type,
                 period_nbs: $('#period_nbs').val(),
                 period_analysis: $('#period_analysis').val(),
-                conservation: $('#conservation').val(),
-                active: $('#active').val(),
-                passive: $('#passive').val(),
-                silvopastoral: $('#silvopastoral').val(),
-                agroforestry: $('#agroforestry').val(),
-                analysis_currency: $('#analysis_currency').val(),
                 analysis_nbs: $("#analysis_nbs option:selected").val(),
                 analysis_currency: $("#analysis_currency option:selected").text(),
                 annual_investment: $('#annual_investment').val(),
                 rellocated_remainder: $("#rellocated_check").is(':checked'),
+                nbsactivities: '1' + JSON.stringify(nbsactivities),
             }, function(data) {
                 $('#smartwizard').smartWizard("next");
                 $('#autoAdjustHeightF').css("height", "auto");
-                $("#form").submit()
             }, "json");
+            $("#form").submit();
         } else {
             Swal.fire({
                 icon: 'warning',
@@ -432,6 +519,7 @@ $(document).ready(function() {
         }
 
     });
+
     $('#custom_table').on('click', 'a', function() {
         var row = $(this).closest("tr")
         var tds = row.find("td");
@@ -472,21 +560,48 @@ $(document).ready(function() {
 
     });
 
-    $("#conservation").keyup(function() {
-        calculateAnalysisValues($(this))
+    $('#biophysical-panel').on('keyup change', 'table tr input', function() {
+        var row = $(this).closest("tr")
+        row.addClass("edit");
+
     });
-    $("#active").keyup(function() {
-        calculateAnalysisValues($(this))
-    });
-    $("#passive").keyup(function() {
-        calculateAnalysisValues($(this))
-    });
-    $("#silvopastoral").keyup(function() {
-        calculateAnalysisValues($(this))
-    });
-    $("#agroforestry").keyup(function() {
-        calculateAnalysisValues($(this))
-    });
+
+    function loadFinancialParameter() {
+        $.get("../../study_cases/parametersbycountry/" + localStorage.country, function(data) {
+            $.each(data, function(index, financialParameters) {
+                if (!$("#director").val())
+                    $("#director").val(financialParameters.Program_Director_USD_YEAR);
+                if (!$("#evaluation").val())
+                    $("#evaluation").val(financialParameters.Monitoring_and_Evaluation_Manager_USD_YEAR);
+                if (!$("#finance").val())
+                    $("#finance").val(financialParameters.Finance_Manager_USD_YEAR);
+                if (!$("#implementation").val())
+                    $("#implementation").val(financialParameters.Implementation_Manager_USD_YEAR);
+                if (!$("#office").val())
+                    $("#office").val(financialParameters.Office_Costs_USD_YEAR);
+                if (!$("#equipment").val())
+                    $("#equipment").val(financialParameters.Equipment_Purchased_In_Year_1_USD);
+                if (!$("#overhead").val())
+                    $("#overhead").val(financialParameters.Overhead_USD_YEAR);
+                if (!$("#discount").val())
+                    $('#discount').val(financialParameters.drt_discount_rate_medium);
+                if (!$("#minimum").val())
+                    $('#minimum').val(financialParameters.drt_discount_rate_lower_limit);
+                if (!$("#maximum").val())
+                    $('#maximum').val(financialParameters.drt_discount_rate_upper_limit);
+                if (!$("#transaction").val())
+                    $('#transaction').val(financialParameters.Transaction_cost);
+                if (!$("#contracts").val())
+                    $('#contracts').val(0);
+                if (!$("#travel").val())
+                    $('#travel').val(0);
+                if (!$("#others").val())
+                    $('#others').val(0);
+                calculate_Personnel();
+                calculate_Platform();
+            });
+        });
+    }
 
     $("#director").keyup(function() {
         calculate_Personnel();
@@ -655,8 +770,9 @@ $(document).ready(function() {
         $.post("../../study_cases/nbs/", {
             id_study_case: id_study_case,
             country: country,
-            process: "Clone"
+            process: "Edit"
         }, function(data) {
+            content = ''
             $.each(data, function(index, nbs) {
                 var name = nbs.name;
                 var id = nbs.id
@@ -675,6 +791,40 @@ $(document).ready(function() {
         });
     }
 
+    function loadNBSActivities() {
+        var country = localStorage.country
+        $.post("../../study_cases/nbs/", {
+            id_study_case: id_study_case,
+            country: country,
+            process: "View"
+        }, function(data) {
+            content = ''
+            values = false
+            $.each(data, function(index, nbs) {
+                var name = nbs.name;
+                var id = nbs.id_nbssc
+                var def = nbs.default
+                var val = nbs.value;
+                if (val) {
+                    values = true
+                }
+                if (def) {
+                    content += '<tr><td>' + name + '</td>'
+                    content += '<td><input class="text-number" type="number" id="nbssc-' + id + '" value="' + val + '"> </td></tr > '
+                }
+            });
+            $("#full-table").find('tbody').append(content);
+            $('#full-table tbody tr td input').on('keyup', function(e) {
+                calculateAnalysisValues($(this))
+            });
+            console.log(values)
+            if (values) {
+                $("#full-table").removeClass('panel-hide');
+            }
+            $('#autoAdjustHeightF').css("height", "auto");
+
+        });
+    }
 
     function loadIntakes() {
         var city = localStorage.city
@@ -734,6 +884,67 @@ $(document).ready(function() {
 
         });
     }
+
+    function loadBiophysicals() {
+        if (ptaps.length > 0) {
+            $.each(ptaps, function(index, id_ptap) {
+                $.get("../../study_cases/intakebyptap/" + id_ptap, function(data) {
+                    $.each(data, function(index, intake) {
+                        loadBiophysical(intake.csinfra_elementsystem__intake__id, intake.csinfra_elementsystem__intake__name)
+                    });
+                });
+            });
+
+        }
+        if (intakes.length > 0) {
+            $.each(intakes, function(index, id_intake) {
+                $.get("../../study_cases/intakebyid/" + id_intake, function(data) {
+                    intake = data[0];
+                    loadBiophysical(intake.id, intake.name)
+                });
+            });
+
+        }
+    }
+
+    function loadBiophysical(id_intake, name) {
+        $.post("../../study_cases/bio/", {
+            id_intake: id_intake,
+            id_study_case: id_study_case,
+        }, function(data) {
+            labels = data[0]
+            content = '<div class="col-md-12"><legend><label>Intake ' + name + '</span> </label></legend>'
+            content += '<table id="bio_table_' + id_intake + '" class="table table-striped table-bordered table-condensed" style="width:100%"><thead><tr class="info">'
+            content += '<th scope="col" class="small text-center vat">description</th>'
+            content += '<th scope="col" class="small text-center vat">lucode</th>'
+            $.each(labels, function(key, v) {
+                if (key != 'lucode' && key != 'default' && key != 'lulc_desc' && key != 'description' && key != 'user_id' && key != 'intake_id' && key != 'study_case_id' && key != 'id' && key != 'macro_region' && key != 'kc') {
+                    content += '<th scope="col" class="small text-center vat">' + key + '</th>'
+                }
+            });
+            content += '</tr></thead><tbody>'
+            $.each(data, function(index, bio) {
+                content += '<tr id="id_' + bio.id + '">'
+                content += '<td id="description_' + bio.id + '">' + bio.description + '</td>'
+                content += '<td id="lucode_' + bio.id + '">' + bio.lucode + '</td>'
+                $.each(bio, function(key, v) {
+                    if (key != 'lucode' && key != 'default' && key != 'lulc_desc' && key != 'description' && key != 'user_id' && key != 'intake_id' && key != 'study_case_id' && key != 'id' && key != 'macro_region' && key != 'kc') {
+                        content += '<td id="' + key + '_' + bio.id + '"><input class="text-number" type="number" value="' + v + '"/></td>'
+                    }
+                });
+                content += '</tr>'
+            });
+            content += '</tbody></table></div>'
+            $("#biophysical-panel").append(content);
+            $('#autoAdjustHeightF').css("height", "auto");
+
+        });
+
+
+
+        content += '</tbody></table>'
+    }
+
 
 });
 

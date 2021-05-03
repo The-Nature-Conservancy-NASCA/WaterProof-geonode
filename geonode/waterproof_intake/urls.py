@@ -1,8 +1,9 @@
 """URLs for the ``WaterProof Intake`` module."""
 from django.conf.urls import url, include
 from django.urls import path
-from . import views
+from . import views, api
 from django.views.i18n import JavaScriptCatalog
+
 
 js_info_dict = {
     'domain': 'djangojs',
@@ -12,7 +13,7 @@ js_info_dict = {
 urlpatterns = [
     url(r'^jsi18n/$', JavaScriptCatalog.as_view(), js_info_dict, name='javascript-catalog-intake'),
     # Create Water Intake
-    path('create/', views.createIntake, name='create'),
+    path('create/', views.createIntake, name='create-intake'),
     # Default view, list all views
     path('', views.listIntake, name='list-intake'),
     # Edit Water Intake
@@ -31,4 +32,5 @@ urlpatterns = [
     path('loadFunctionBySymbol/<str:symbol>', views.loadCostFunctionsProcess, name='load-functionCost'),
     # Load process effciciency by ID
     path('validateGeometry/', views.validateGeometry, name='valid-geometry'),
+    path('validatePyExpression/', api.validatePyExpression, name='validatePyExpression')
 ]

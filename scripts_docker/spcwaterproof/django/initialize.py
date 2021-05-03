@@ -157,8 +157,9 @@ call_command('loaddata', 'waterproof_nbs_ca_riostransformation')
 
 print("5.7 Regions")
 call_command('loaddata', 'waterproof_parameters_regions')
-#print("5.4 Countries")
-#call_command('loaddata', 'waterproof_parameters_countries')
+
+print("5.8 ManagmentCosts_Discount")
+call_command('loaddata', 'waterproof_parameters_managmentcosts_discount')
 
 
 #########################################################
