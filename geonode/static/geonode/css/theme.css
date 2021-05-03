@@ -145,3 +145,7 @@ a {
     color: #2476c2;
     text-decoration: none;
 }
+
+.help-warning {
+    background-color: #e3f0f8;
+}
