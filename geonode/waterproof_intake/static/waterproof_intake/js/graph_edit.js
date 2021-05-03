@@ -181,14 +181,11 @@ function onInit(editor) {
             }
         });
     } else {
-
         //esto va para edit :v
         xmlDoc = mxUtils.parseXml(xmlGraph)
         var dec = new mxCodec(xmlDoc);
         dec.decode(xmlDoc.documentElement, editor.graph.getModel());
     }
-
-
     // River not have a entrance connection
     editor.graph.multiplicities.push(new mxMultiplicity(
         false, 'Symbol', 'name', 'River', 0, 0, ['Symbol'],
@@ -388,7 +385,6 @@ function onInit(editor) {
             handlers: {
                 edit: function() {
                     mathField.focus();
-
                 }
             }
         });
@@ -406,7 +402,6 @@ function onInit(editor) {
             handlers: {
                 edit: function() {
                     mathFieldlog1.focus();
-
                 }
             }
         });
@@ -657,8 +652,6 @@ function onInit(editor) {
                 $('#xmlGraph').val(textxml);
                 $('#graphElements').val(JSON.stringify(graphData));
             }
-
-
         }
 
         //Set var into calculator
@@ -669,9 +662,10 @@ function onInit(editor) {
         $('#saveAndValideCost').click(function() {
             if (banderaFunctionCost) {
                 //true = nueva
+                var pyExp = $('#python-expression').val();
                 funcostdb.push({
                     'fields': {
-                        'function_value': mathField.latex(),
+                        'function_value': pyExp /*mathField.latex()*/,
                         'function_name': $('#costFunctionName').val() == '' ? 'Undefined name' : $('#costFunctionName').val(),
                         'function_description': $('#costFuntionDescription').val(),
                         'global_multiplier_factorCalculator': $('#global_multiplier_factorCalculator').val(),
@@ -707,13 +701,15 @@ function onInit(editor) {
 
                 temp.logical = JSON.stringify(temp.logical);
                 $.extend(funcostdb[CostSelected].fields, temp);
-                funcostdb[CostSelected].fields.function_value = mathField.latex();
+                var pyExp = $('#python-expression').val();
+                funcostdb[CostSelected].fields.function_value = pyExp; //mathField.latex();
             }
             selectedCell.setAttribute('funcost', JSON.stringify(funcostdb));
             $('#funcostgenerate div').remove();
             $('#funcostgenerate').empty();
             for (let index = 0; index < funcostdb.length; index++) {
-                funcost(funcostdb[index].fields.function_value, funcostdb[index].fields.function_name, index, MQ);
+                // funcostdb[index].fields.function_value, funcostdb[index].fields.function_name,
+                funcost( index, MQ);
             }
             $('#CalculatorModal').modal('hide');
             validateGraphIntake();
@@ -740,7 +736,6 @@ function onInit(editor) {
                 mathFieldE2.latex(logicalcost[0].ecuation_2).blur();
                 mathFieldE3.latex(logicalcost[0].ecuation_3).blur();
             }
-
         });
 
         //Delete funcion cost 
@@ -899,8 +894,6 @@ function onInit(editor) {
             validationTransportedWater(editor, selectedCell);
         });
 
-
-
         jQuery.fn.ForceNumericOnly = function() {
             return this.each(function() {
                 $(this).keydown(function(e) {
@@ -1012,7 +1005,28 @@ function onInit(editor) {
             if (!date) {
                 intakeStepFour();
             }
+        };
 
+        $('#btnValidatePyExp').click(function(){
+            validatePyExpression();
+        });
+
+        async function validatePyExpression(){
+            let pyExp = $('#python-expression').val().trim();
+            if (pyExp.length > 0){
+                pyExpEncode = encodeURIComponent(pyExp);
+                localApi = location.protocol + "//" + location.host;
+                let url = localApi + "/intake/validatePyExpression?expression=" + pyExpEncode;
+                let response = await fetch(url); 
+                let result = await response.json();
+                if (result){
+                    console.log(result);
+                    $('#py2ltx-expression').val(result.replaceAll("$$",""));
+                    mathField.latex(result.replaceAll("$$",""));
+                }
+            }
         }
+        
     });
+
 }
