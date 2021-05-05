@@ -8,7 +8,6 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('waterproof_intake', '0002_auto_20210504_2159'),
         ('waterproof_study_cases', '0003_studycases_currency'),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
         ('waterproof_parameters', '0003_auto_20210329_1316'),
