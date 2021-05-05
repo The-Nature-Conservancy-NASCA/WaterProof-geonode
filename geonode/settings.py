@@ -112,7 +112,7 @@ DATABASE_URL = os.getenv(
 )
 
 #DATABASE_URL='postgresql://geonode:{&Uid&QXZ&6f;|F@dev.skaphe.com:5432/geonode'
-DATABASE_URL='postgresql://geonode:geonode@localhost:5432/geonode'
+#DATABASE_URL='postgresql://geonode:geonode@localhost:5432/geonode'
 
 if DATABASE_URL.startswith("spatialite"):
     try:
@@ -2232,3 +2232,5 @@ WAGTAIL_SITE_NAME = 'Waterproof CMS'
 #
 # }
 CATALOG_METADATA_TEMPLATE = os.getenv("CATALOG_METADATA_TEMPLATE", "catalogue/full_metadata.xml")
+
+WATERPROOF_SPECIAL_VALUES = ['min', 'E2', 'E3']
