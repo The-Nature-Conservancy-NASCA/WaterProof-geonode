@@ -724,3 +724,133 @@ AS $function$	DECLARE
     END;
     $function$
 ;
+
+CREATE OR REPLACE FUNCTION public.get_activities(
+	listnbs integer[])
+    RETURNS TABLE(name character varying, unit_implementation_cost numeric, unit_maintenance_cost numeric, id integer) 
+    LANGUAGE 'plpgsql'
+
+    COST 100
+    VOLATILE 
+    ROWS 1000
+AS $function$
+BEGIN
+		return query 
+			select nbs.name,nbs.unit_implementation_cost, nbs.unit_maintenance_cost,nbs.id
+				from waterproof_nbs_ca_waterproofnbsca nbs
+				where nbs.id = ANY(listNbs);
+    END;
+$function$
+;
+
+CREATE OR REPLACE FUNCTION public.get_activities_shapefiles(
+	listnbs integer[])
+    RETURNS TABLE(id integer, activity character varying, action character varying, geom geometry) 
+    LANGUAGE 'plpgsql'
+
+    COST 100
+    VOLATILE 
+    ROWS 1000
+AS $function$
+BEGIN
+		return query 					
+				select shp.id,nbs.name,shp.action,shp.area
+					from waterproof_nbs_ca_waterproofnbsca nbs
+					join waterproof_nbs_ca_activityshapefile shp on nbs.activity_shapefile_id = shp.id
+					where nbs.id = ANY(listNbs);
+    END;
+$function$
+;
+
+CREATE OR REPLACE FUNCTION public.get_default_biophysycal_params(
+	macro_value text,
+	default_value text)
+    RETURNS TABLE(lucode integer, lulc_desc text, description text, kc double precision, root_depth double precision, usle_c double precision, usle_p double precision, load_n double precision, eff_n double precision, load_p double precision, eff_p double precision, crit_len_n integer, crit_len_p integer, proportion_subsurface_n double precision, cn_a double precision, cn_b double precision, cn_c double precision, cn_d double precision, kc_1 double precision, kc_2 double precision, kc_3 double precision, kc_4 double precision, kc_5 double precision, kc_6 double precision, kc_7 double precision, kc_8 double precision, kc_9 double precision, kc_10 double precision, kc_11 double precision, kc_12 double precision, c_above double precision, c_below double precision, c_soil double precision, c_dead double precision, sed_exp double precision, sed_ret double precision, rough_rank double precision, cover_rank double precision, p_ret double precision, p_exp double precision, n_ret double precision, n_exp double precision, native_veg integer, lulc_veg integer, macro_region text, "default" text, id integer, intake_id integer, study_case_id integer, user_id integer) 
+    LANGUAGE 'plpgsql'
+
+    COST 100
+    VOLATILE 
+    ROWS 1000
+AS $function$
+BEGIN
+		return query select *
+			from waterproof_parameters_biophysical param WHERE param.user_id=1000 AND param.macro_region=macro_value AND param.default=default_value;	
+    END;
+$function$
+;
+
+CREATE OR REPLACE FUNCTION public.get_nbs_transformations(
+	listnbs integer[])
+    RETURNS TABLE(from_lucode integer, from_cob character varying, to_lucode integer, to_cob character varying, from_nbs character varying) 
+    LANGUAGE 'plpgsql'
+
+    COST 100
+    VOLATILE 
+    ROWS 1000
+AS $function$
+BEGIN
+		return query select from_lulc.lucode as from_lucode,ra.name as from_cob,to_lulc.lucode  as to_lucode, rtrans.name as to_cob,nbs.name as from_nbs
+						from waterproof_nbs_ca_waterproofnbsca nbs
+						join waterproof_nbs_ca_waterproofnbsca_rios_transformations rt on nbs.id = rt.waterproofnbsca_id
+						join waterproof_nbs_ca_riostransformation rtrans on rt.riostransformation_id = rtrans.id
+						join waterproof_nbs_ca_riosactivity ra on ra.id = rtrans.activity_id
+						join waterproof_pr_lulc from_lulc on ra.lucode = from_lulc.lucode
+						join waterproof_pr_lulc to_lulc on rtrans.lucode = to_lulc.lucode
+						where nbs.id =ANY(listNbs) ;
+    END;
+$function$
+;
+
+CREATE OR REPLACE FUNCTION public.get_studycase_catchments(
+	idcase integer)
+    RETURNS TABLE(id integer) 
+    LANGUAGE 'plpgsql'
+
+    COST 100
+    VOLATILE 
+    ROWS 1000
+AS $function$
+BEGIN
+		return query select catchment.intake_id
+			from waterproof_study_cases_studycases_intakes catchment WHERE studycases_id=idcase;	
+    END;
+$function$
+;
+
+CREATE OR REPLACE FUNCTION public.get_studycase_nbs(
+	idcase integer)
+    RETURNS TABLE(id integer) 
+    LANGUAGE 'plpgsql'
+
+    COST 100
+    VOLATILE 
+    ROWS 1000
+AS $function$
+BEGIN
+		return query select nbs.nbs_id
+			from waterproof_study_cases_studycases_nbs nbs WHERE studycase_id=idcase;	
+    END;
+$function$
+;
+
+CREATE OR REPLACE FUNCTION public.check_nbs_transition_map(
+	idnbs integer,
+	transition character varying)
+    RETURNS TABLE(trans_lucode character varying) 
+    LANGUAGE 'plpgsql'
+
+    COST 100
+    VOLATILE 
+    ROWS 1000
+AS $function$
+BEGIN
+		return query select rtransition.id_transition as trans_lucode
+						from waterproof_nbs_ca_waterproofnbsca nbs
+						join waterproof_nbs_ca_waterproofnbsca_rios_transformations rt on nbs.id = rt.waterproofnbsca_id
+						join waterproof_nbs_ca_riostransformation rtrans on rt.riostransformation_id = rtrans.id
+						join waterproof_nbs_ca_riosactivity ra on ra.id = rtrans.activity_id
+						join waterproof_nbs_ca_riostransition rtransition on rtransition.id=ra.transition_id AND rtransition.id_transition=transition
+						where nbs.id =idNbs;
+    END;
+$function$
+;
