@@ -11,7 +11,7 @@ from django.contrib import messages
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.translation import ugettext as _
-from .models import ValuesTime, ProcessEfficiencies, Intake, DemandParameters, WaterExtraction, ElementSystem, ValuesTime, CostFunctionsProcess, Polygon, Basins, ElementConnections, UserCostFunctions, UserLogicalFunctions
+from .models import ValuesTime, ProcessEfficiencies, Intake, DemandParameters, WaterExtraction, ElementSystem, ValuesTime, CostFunctionsProcess, Polygon, Basins, ElementConnections, UserCostFunctions
 from geonode.waterproof_parameters.models import Countries, Regions, Cities
 from django.contrib.gis.gdal import SpatialReference, CoordTransform
 from django.core import serializers
@@ -257,6 +257,7 @@ request: Request
 
 
 def createStepTwo(request):
+    print("createStepTwo")
     if not request.user.is_authenticated:
         return render(request, 'waterproof_nbs_ca/waterproofnbsca_login_error.html')
     else:
@@ -269,12 +270,14 @@ def createStepTwo(request):
             graphElements = json.loads(graphElementsString)
             connectionsElements = json.loads(connectionsElementString)
             existingIntake.xml_graph = xmlGraph
+            print("existingIntake.save()")
             existingIntake.save()
             actualElements = list(ElementSystem.objects.filter(
                 intake=existingIntake.pk).values_list('id', flat=True))
 
             if (len(actualElements) > 0):
                 for element in actualElements:
+                    print("deleting actualElements")
                     el = ElementSystem.objects.get(id=element)
                     existingValuesTime = list(ValuesTime.objects.filter(element=el.pk).values_list('id', flat=True))
                     for value in existingValuesTime:
@@ -285,6 +288,7 @@ def createStepTwo(request):
             elementsCreated = []
             # Save all graph elements
             for idx, element in enumerate(graphElements):
+
                 if ('external' in element):
                     try:
                         # Regular element
@@ -323,22 +327,24 @@ def createStepTwo(request):
                                                 function=function['fields']['function_value'],
                                                 currency=currency,
                                                 template_function=templateFunction,
-                                                user=request.user
+                                                user=request.user,
+                                                element_system = element_system,
+                                                intake = existingIntake,
                                             )
                                             print(mainFunction)
-                                            if ('logical' in function['fields']):
-                                                logicalFunctions = json.loads(function['fields']['logical'])
-                                                if (len(logicalFunctions) > 0):
-                                                    for logical in logicalFunctions:
-                                                        createdLogical = UserLogicalFunctions.objects.create(
-                                                            function1=logical['ecuation_1'],
-                                                            condition1=logical['condition_1'],
-                                                            function2=logical['ecuation_2'],
-                                                            condition2=logical['condition_2'],
-                                                            function3=logical['ecuation_3'],
-                                                            condition3=logical['condition_3'],
-                                                            mainFunction=mainFunction
-                                                        )
+                                            # if ('logical' in function['fields']):
+                                            #     logicalFunctions = json.loads(function['fields']['logical'])
+                                            #     if (len(logicalFunctions) > 0):
+                                            #         for logical in logicalFunctions:
+                                            #             createdLogical = UserLogicalFunctions.objects.create(
+                                            #                 function1=logical['ecuation_1'],
+                                            #                 condition1=logical['condition_1'],
+                                            #                 function2=logical['ecuation_2'],
+                                            #                 condition2=logical['condition_2'],
+                                            #                 function3=logical['ecuation_3'],
+                                            #                 condition3=logical['condition_3'],
+                                            #                 mainFunction=mainFunction
+                                            #             )
                                         except Exception as e:
                                             print(e)
                         # External element
@@ -378,22 +384,24 @@ def createStepTwo(request):
                                                     function=function['fields']['function_value'],
                                                     template_function=templateFunction,
                                                     currency=currency,
-                                                    user=request.user
+                                                    user=request.user,
+                                                    element_system = element_system,
+                                                    intake = existingIntake,
                                                 )
 
-                                            if ('logical' in function['fields']):
-                                                logicalFunctions = json.loads(function['fields']['logical'])
-                                                if (len(logicalFunctions) > 0):
-                                                    for logical in logicalFunctions:
-                                                        createdLogical = UserLogicalFunctions.objects.create(
-                                                            function1=logical['ecuation_1'],
-                                                            condition1=logical['condition_1'],
-                                                            function2=logical['ecuation_2'],
-                                                            condition2=logical['condition_2'],
-                                                            function3=logical['ecuation_3'],
-                                                            condition3=logical['condition_3'],
-                                                            mainFunction=mainFunction
-                                                        )
+                                            # if ('logical' in function['fields']):
+                                            #     logicalFunctions = json.loads(function['fields']['logical'])
+                                            #     if (len(logicalFunctions) > 0):
+                                            #         for logical in logicalFunctions:
+                                            #             createdLogical = UserLogicalFunctions.objects.create(
+                                            #                 function1=logical['ecuation_1'],
+                                            #                 condition1=logical['condition_1'],
+                                            #                 function2=logical['ecuation_2'],
+                                            #                 condition2=logical['condition_2'],
+                                            #                 function3=logical['ecuation_3'],
+                                            #                 condition3=logical['condition_3'],
+                                            #                 mainFunction=mainFunction
+                                            #             )
 
                                     external_info = json.loads(element['externaldata'])
                                     elementCreated = ElementSystem.objects.get(graphId=element['id'], intake=intakeId)
@@ -457,24 +465,26 @@ def createStepTwo(request):
                                         function=function['fields']['function_value'],
                                         currency=currency,
                                         template_function=templateFunction,
-                                        user=request.user
+                                        user=request.user,
+                                        element_system = element_system,
+                                        intake = existingIntake,
                                     )
                                     if ('logical' in function['fields']):
                                         print("Saving logical function for connection")
                                         logicalFunctions = json.loads(function['fields']['logical'])
                                         print(len(logicalFunctions))
-                                        if (len(logicalFunctions) > 0):
-                                            for logical in logicalFunctions:
-                                                print(logical)
-                                                createdLogical = UserLogicalFunctions.objects.create(
-                                                    function1=logical['ecuation_1'],
-                                                    condition1=logical['condition_1'],
-                                                    function2=logical['ecuation_2'],
-                                                    condition2=logical['condition_2'],
-                                                    function3=logical['ecuation_3'],
-                                                    condition3=logical['condition_3'],
-                                                    mainFunction=mainFunction
-                                                )
+                                        # if (len(logicalFunctions) > 0):
+                                        #     for logical in logicalFunctions:
+                                        #         print(logical)
+                                        #         createdLogical = UserLogicalFunctions.objects.create(
+                                        #             function1=logical['ecuation_1'],
+                                        #             condition1=logical['condition_1'],
+                                        #             function2=logical['ecuation_2'],
+                                        #             condition2=logical['condition_2'],
+                                        #             function3=logical['ecuation_3'],
+                                        #             condition3=logical['condition_3'],
+                                        #             mainFunction=mainFunction
+                                        #         )
 
             # Once all elements created, save the connections
             for con in connectionsElements:
@@ -967,6 +977,7 @@ def editIntake(request, idx):
             intakeExtInputs = json.dumps(extInputs)
             city = Cities.objects.all()
             form = forms.IntakeForm()
+            currencies = Countries.objects.all()
             return render(
                 request, 'waterproof_intake/intake_edit.html',
                 {
@@ -974,7 +985,8 @@ def editIntake(request, idx):
                     'countries': countries,
                     'city': city,
                     'externalInputs': intakeExtInputs,
-                    "serverApi": settings.WATERPROOF_API_SERVER
+                    "serverApi": settings.WATERPROOF_API_SERVER,
+                    'currencies': currencies,
                 }
             )
         response = redirect('/intake')
@@ -1046,6 +1058,7 @@ def cloneIntake(request, idx):
         return render(request, 'waterproof_intake/intake_login_error.html')
     else:
         if request.method == 'GET':
+            currencies = Countries.objects.all()
             countries = Countries.objects.all()
             filterIntake = Intake.objects.get(id=idx)
             filterElementSystem = ElementSystem.objects.filter(intake=filterIntake.pk)
@@ -1157,9 +1170,11 @@ def cloneIntake(request, idx):
             intakeExtInputs = json.dumps(extInputs)
             city = Cities.objects.all()
             form = forms.IntakeForm()
+            currencies = Countries.objects.all()
             return render(
                 request, 'waterproof_intake/intake_clone.html',
                 {
+                    'currencies': Countries.objects.all(),
                     'intake': newIntake,
                     'countries': countries,
                     'city': city,

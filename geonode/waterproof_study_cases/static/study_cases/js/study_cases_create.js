@@ -72,6 +72,8 @@ $(document).ready(function() {
                     $("#panel-ptap").addClass("panel-hide");
                     $('#autoAdjustHeightF').css("height", "auto");
                     $("#ptap_table tbody tr").empty();
+                    $('#ptap-required').text("");
+                    $('#custom-required').text("*");
                 } else {
                     $("input[name=type][value='1']").prop('checked', true);
                 }
@@ -81,6 +83,9 @@ $(document).ready(function() {
             $("#panel-ptap").addClass("panel-hide");
             $("#panel-cost").removeClass("panel-hide");
             $('#autoAdjustHeightF').css("height", "auto");
+            $('#ptap-required').text("");
+            $('#custom-required').text("*");
+
         }
     });
 
@@ -89,6 +94,8 @@ $(document).ready(function() {
         $("#panel-custom").removeClass("panel-hide");
         $("#panel-cost").addClass("panel-hide");
         $('#autoAdjustHeightF').css("height", "auto");
+        $('#ptap-required').text("*");
+        $('#custom-required').text("");
     });
 
     $('#btn-full').click(function() {
@@ -159,8 +166,9 @@ $(document).ready(function() {
         $.get("../../study_cases/intakebyid/" + value, function(data) {
             $.each(data, function(index, intake) {
                 var name = "<td>" + intake.name + "</td>";
+                var description = "<td>" + intake.description + "</td>";
                 var name_source = "<td>" + intake.water_source_name + "</td>";
-                var markup = "<tr id='custom-" + value + "'>" + name + name_source + action + "</tr>";
+                var markup = "<tr id='custom-" + value + "'>" + name + description + name_source + action + "</tr>";
                 $("#custom_table").find('tbody').append(markup);
             });
 
@@ -174,9 +182,14 @@ $(document).ready(function() {
         value = $("#select_ptap option:selected").val();
         $('#select_ptap option:selected').remove();
         var action = "<td><a class='btn btn-danger'><span class='glyphicon glyphicon-trash' aria-hidden='true'></span></a></td>";
-        var name = "<td>" + text + "</td>";
-        var markup = "<tr id='ptap-" + value + "'>" + name + action + "</tr>";
-        $("#ptap_table").find('tbody').append(markup);
+        $.get("../../study_cases/ptapbyid/" + value, function(data) {
+            $.each(data, function(index, ptap) {
+                var name = "<td>" + ptap.plant_name + "</td>";
+                var description = "<td>" + ptap.plant_description + "</td>";
+                var markup = "<tr id='ptap-" + value + "'>" + name + description + action + "</tr>";
+                $("#ptap_table").find('tbody').append(markup);
+            });
+        });
         $.get("../../study_cases/intakebyptap/" + value, function(data) {
             $.each(data, function(index, intake) {
                 id = intake.csinfra_elementsystem__intake__id
@@ -185,6 +198,7 @@ $(document).ready(function() {
                         $(this).remove();
                     }
                 });
+                $("#custom-" + id).remove();
             });
         });
         $('#autoAdjustHeightF').css("height", "auto");
@@ -196,13 +210,6 @@ $(document).ready(function() {
         ptaps = [];
         valid_ptaps = true;
         valid_intakes = true;
-        $('#custom_table').find('tbody > tr').each(function(index, tr) {
-            id = tr.id.replace('custom-', '')
-            intakes.push(id)
-        });
-        if (intakes.length <= 0) {
-            valid_intakes = false
-        }
         var type = $("input[name='type']:checked").val();
         if (type == "1") {
             $('#ptap_table').find('tbody > tr').each(function(index, tr) {
@@ -214,7 +221,16 @@ $(document).ready(function() {
             } else {
                 valid_intakes = true
             }
+        } else {
+            $('#custom_table').find('tbody > tr').each(function(index, tr) {
+                id = tr.id.replace('custom-', '')
+                intakes.push(id)
+            });
+            if (intakes.length <= 0) {
+                valid_intakes = false
+            }
         }
+
         if (($('#name').val() != '' && $('#description').val() != '' && valid_intakes && valid_ptaps)) {
             $.post("../../study_cases/save/", {
                 name: $('#name').val(),
@@ -345,13 +361,13 @@ $(document).ready(function() {
             process: "Create",
         }, function(data) {
             $('#smartwizard').smartWizard("next");
+            loadFinancialParameter();
             $('#autoAdjustHeightF').css("height", "auto");
         }, "json");
 
     });
 
     $('#step5PreviousBtn').click(function() {
-
         $('#smartwizard').smartWizard("prev");
     });
 
@@ -364,6 +380,24 @@ $(document).ready(function() {
                 return false;
             }
         });
+        if ($('#minimum').val() >= $('#maximum').val()) {
+            Swal.fire({
+                icon: 'warning',
+                title: `Minimum value`,
+                text: `Please check minimum value`
+            });
+            valid = false
+            return;
+        }
+        if (($('#discount').val() < $('#minimum').val()) || ($('#discount').val() > $('#maximum').val())) {
+            Swal.fire({
+                icon: 'warning',
+                title: `Discount value`,
+                text: `Please check  discount`
+            });
+            valid = false
+            return;
+        }
 
         if (valid) {
             $.post("../../study_cases/save/", {
@@ -377,7 +411,7 @@ $(document).ready(function() {
                 equipment: $('#equipment').val(),
                 discount: $('#discount').val(),
                 minimum: $('#minimum').val(),
-                minimum: $('#minimum').val(),
+                maximum: $('#maximum').val(),
                 transaction: $('#transaction').val(),
                 travel: $('#travel').val(),
                 contracts: $('#contracts').val(),
@@ -436,6 +470,7 @@ $(document).ready(function() {
         edit = !$("#full-table").hasClass("panel-hide")
         var valid_edit = true;
         var valid_investment = true;
+        var valid_period = true;
         nbsactivities = []
         if (edit) {
             var valid_edit = true;
@@ -447,11 +482,42 @@ $(document).ready(function() {
                 }
             });
         }
+        if ($('#period_analysis').val() < 10 || $('#period_analysis').val() > 100) {
+            Swal.fire({
+                icon: 'warning',
+                title: `Field problem`,
+                text: `Please check period value`
+            });
+            valid_period = false;
+            return
+        }
         var type = $("input[name='analysis_type']:checked").val();
         if (type == "2") {
             valid_investment = $('#annual_investment').val() != ''
         }
-        if ($('#period_analysis').val() != '' && $('#period_nbs').val() != '' && type && valid_edit && valid_investment) {
+        if ($('#period_analysis').val() != '' && $('#period_nbs').val() != '' && type && valid_edit && valid_investment && valid_period) {
+
+
+            /*
+
+                        Swal.fire({
+                            title: 'Exchange rate',
+                            html: '<input id="swal-input1" class="swal2-input">' +
+                                '<input id="swal-input2" class="swal2-input">',
+                            focusConfirm: false,
+                            preConfirm: () => {
+                                return [
+                                    document.getElementById('swal-input1').value,
+                                    document.getElementById('swal-input2').value
+                                ]
+                            }
+                        })
+
+            */
+
+
+
+
             $("#full-table").find("input").each(function(index, input) {
                 nbsactivity = {}
                 input_id = input.id
@@ -587,6 +653,38 @@ $(document).ready(function() {
         calculate_Personnel();
         calculate_Platform();
     });
+
+    function loadFinancialParameter() {
+        $.get("../../study_cases/parametersbycountry/" + localStorage.country, function(data) {
+            $.each(data, function(index, financialParameters) {
+                if (!$("#director").val())
+                    $("#director").val(financialParameters.Program_Director_USD_YEAR);
+                if (!$("#evaluation").val())
+                    $("#evaluation").val(financialParameters.Monitoring_and_Evaluation_Manager_USD_YEAR);
+                if (!$("#finance").val())
+                    $("#finance").val(financialParameters.Finance_Manager_USD_YEAR);
+                if (!$("#implementation").val())
+                    $("#implementation").val(financialParameters.Implementation_Manager_USD_YEAR);
+                if (!$("#office").val())
+                    $("#office").val(financialParameters.Office_Costs_USD_YEAR);
+                if (!$("#equipment").val())
+                    $("#equipment").val(financialParameters.Equipment_Purchased_In_Year_1_USD);
+                if (!$("#overhead").val())
+                    $("#overhead").val(financialParameters.Overhead_USD_YEAR);
+                if (!$("#discount").val())
+                    $('#discount').val(financialParameters.drt_discount_rate_medium);
+                if (!$("#minimum").val())
+                    $('#minimum').val(financialParameters.drt_discount_rate_lower_limit);
+                if (!$("#maximum").val())
+                    $('#maximum').val(financialParameters.drt_discount_rate_upper_limit);
+                if (!$("#transaction").val())
+                    $('#transaction').val(financialParameters.Transaction_cost);
+                calculate_Personnel();
+                calculate_Platform();
+            });
+        });
+    }
+
 
     function calculate_Personnel() {
         var total = 0.0;

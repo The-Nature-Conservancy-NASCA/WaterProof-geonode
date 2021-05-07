@@ -48,7 +48,7 @@
             <div id="step-1" class="tab-pane" role="tabpanel">
                 <div class="page-header">
                     <h3>{% trans "Edit Study Case" %}</h3>
-                    <p></p>
+                    <p>{% trans "Please complete the fields to define your Study Case" %}</p>
                 </div>
                 <!--Input Name -->
                 <div id="study_case">
@@ -103,7 +103,8 @@
                         <div class="panel" id="panel-custom">
                             <div class="col-md-12">
                                 <div class="row form-group">
-                                    <legend><label>{% trans "Water Intake" %} <span class="text-danger-wp">*</span> </label></legend>
+                                    <legend><label>{% trans "Water Intake" %} <span class="text-danger-wp" id="custom-required"></span> </label></legend>
+                                    <p>{% trans "Select the intake you want to consider in the ROI Analysis" %}</p>
                                     <div class="col-md-9">
                                         <select class="form-control" id="select_custom">
 
@@ -140,7 +141,8 @@
                                 {% endif %}
                                 <div class="col-md-12">
                                     <div class="row form-group">
-                                        <legend><label>{% trans "Treatments plants" %} <span class="text-danger-wp">*</span> </label></legend>
+                                        <legend><label>{% trans "Treatments plants" %} <span class="text-danger-wp" id="ptap-required"></span> </label></legend>
+                                        <p>{% trans "Select the treatment plants you want to consider in the ROI Analysis" %}</p>
                                         <div class="col-md-9">
                                             <select class="form-control" id="select_ptap">
 
