@@ -347,6 +347,7 @@ $(document).ready(function() {
             process: "Clone",
         }, function(data) {
             $('#smartwizard').smartWizard("next");
+            loadFinancialParameter()
             $('#autoAdjustHeightF').css("height", "auto");
         }, "json");
 
@@ -365,6 +366,25 @@ $(document).ready(function() {
                 return false;
             }
         });
+
+        if ($('#minimum').val() >= $('#maximum').val()) {
+            Swal.fire({
+                icon: 'warning',
+                title: `Minimum value`,
+                text: `Please check minimum value`
+            });
+            valid = false
+            return;
+        }
+        if (($('#discount').val() < $('#minimum').val()) || ($('#discount').val() > $('#maximum').val())) {
+            Swal.fire({
+                icon: 'warning',
+                title: `Discount value`,
+                text: `Please check discount`
+            });
+            valid = false
+            return;
+        }
 
         if (valid) {
             $.post("../../study_cases/save/", {
@@ -436,6 +456,7 @@ $(document).ready(function() {
         edit = !$("#full-table").hasClass("panel-hide")
         var valid_edit = true;
         var valid_investment = true;
+        var valid_period = true;
         nbsactivities = []
         if (edit) {
             var valid_edit = true;
@@ -447,11 +468,20 @@ $(document).ready(function() {
                 }
             });
         }
+        if ($('#period_analysis').val() < 10 || $('#period_analysis').val() > 100) {
+            Swal.fire({
+                icon: 'warning',
+                title: `Field problem`,
+                text: `Please check period value`
+            });
+            valid_period = false;
+            return
+        }
         var type = $("input[name='analysis_type']:checked").val();
         if (type == "2") {
             valid_investment = $('#annual_investment').val() != ''
         }
-        if ($('#period_analysis').val() != '' && $('#period_nbs').val() != '' && type && valid_edit && valid_investment) {
+        if ($('#period_analysis').val() != '' && $('#period_nbs').val() != '' && type && valid_edit && valid_investment && valid_period) {
             $("#full-table").find("input").each(function(index, input) {
                 nbsactivity = {}
                 input_id = input.id
@@ -529,6 +559,49 @@ $(document).ready(function() {
         row.remove();
 
     });
+
+    $('#biophysical-panel').on('keyup change', 'table tr input', function() {
+        var row = $(this).closest("tr")
+        row.addClass("edit");
+
+    });
+
+    function loadFinancialParameter() {
+        $.get("../../study_cases/parametersbycountry/" + localStorage.country, function(data) {
+            $.each(data, function(index, financialParameters) {
+                if (!$("#director").val())
+                    $("#director").val(financialParameters.Program_Director_USD_YEAR);
+                if (!$("#evaluation").val())
+                    $("#evaluation").val(financialParameters.Monitoring_and_Evaluation_Manager_USD_YEAR);
+                if (!$("#finance").val())
+                    $("#finance").val(financialParameters.Finance_Manager_USD_YEAR);
+                if (!$("#implementation").val())
+                    $("#implementation").val(financialParameters.Implementation_Manager_USD_YEAR);
+                if (!$("#office").val())
+                    $("#office").val(financialParameters.Office_Costs_USD_YEAR);
+                if (!$("#equipment").val())
+                    $("#equipment").val(financialParameters.Equipment_Purchased_In_Year_1_USD);
+                if (!$("#overhead").val())
+                    $("#overhead").val(financialParameters.Overhead_USD_YEAR);
+                if (!$("#discount").val())
+                    $('#discount').val(financialParameters.drt_discount_rate_medium);
+                if (!$("#minimum").val())
+                    $('#minimum').val(financialParameters.drt_discount_rate_lower_limit);
+                if (!$("#maximum").val())
+                    $('#maximum').val(financialParameters.drt_discount_rate_upper_limit);
+                if (!$("#transaction").val())
+                    $('#transaction').val(financialParameters.Transaction_cost);
+                if (!$("#contracts").val())
+                    $('#contracts').val(0);
+                if (!$("#travel").val())
+                    $('#travel').val(0);
+                if (!$("#others").val())
+                    $('#others').val(0);
+                calculate_Personnel();
+                calculate_Platform();
+            });
+        });
+    }
 
     $("#director").keyup(function() {
         calculate_Personnel();

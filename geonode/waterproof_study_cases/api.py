@@ -10,9 +10,9 @@ from itertools import chain
 from django.urls import reverse
 from .models import StudyCases
 from . import forms
-from geonode.waterproof_parameters.models import Countries, Regions, Cities, Climate_value, Parameters_Biophysical
+from geonode.waterproof_parameters.models import Countries, Regions, Cities, Climate_value, Parameters_Biophysical, ManagmentCosts_Discount
 from geonode.waterproof_intake.models import Intake, Polygon
-from geonode.waterproof_treatment_plants.models import Header, Csinfra
+from geonode.waterproof_treatment_plants.models import Header, Csinfra,Function
 from geonode.waterproof_nbs_ca.models import WaterproofNbsCa
 from .models import StudyCases, Portfolio, ModelParameter, StudyCases_NBS
 
@@ -28,7 +28,7 @@ logger = logging.getLogger(__name__)
 def getIntakeByID(request, id_intake):
     if request.method == 'GET':
         filterIntake = Intake.objects.filter(id=id_intake).values(
-            "id", "name", "water_source_name")
+            "id", "name", "description", "water_source_name")
         data = list(filterIntake)
         return JsonResponse(data, safe=False)
 
@@ -58,7 +58,40 @@ def getPtapByCity(request, name):
             "id", "plant_name")
         data = list(filterptap)
         return JsonResponse(data, safe=False)
+    
+@api_view(['GET'])
+def getPtapByID(request, id_ptap):
+    if request.method == 'GET':
+        filterptap = Header.objects.filter(id=id_ptap).values(
+            "id", "plant_name", "plant_description")
+        data = list(filterptap)
+        return JsonResponse(data, safe=False)
+    
 
+@api_view(['GET'])
+def getParameterByCountry(request, name):
+    if request.method == 'GET':
+        filterpm = ManagmentCosts_Discount.objects.filter(country__name__startswith=name).values()
+        data = list(filterpm)
+        return JsonResponse(data, safe=False)
+
+
+@api_view(['GET'])
+def getStudyCaseCurrencys(request, id):
+    if request.method == 'GET':
+        sc = StudyCases.objects.get(id=id)
+        currencys = []
+        scptaps = sc.ptaps.all()
+        scintakes = sc.intakes.all()
+        for ptap in scptaps :
+            ptapCurrency = Function.objects.filter(function_plant=ptap).values('function_currency').distinct()
+            currencys = chain(currencys,ptapCurrency)
+        for intake in scintakes :
+            intakeCurrency = Function.objects.filter(function_plant=ptap).values('function_currency').distinct()
+            currencys = chain(currencys,intakeCurrency)
+        data = list(currencys)
+        logger.error(data)
+        return JsonResponse(data, safe=False)
 
 @api_view(['POST'])
 def getNBS(request):
@@ -117,7 +150,7 @@ def getBiophysical(request):
         if(request.POST['id_study_case']):
             id_study_case = request.POST['id_study_case']
             biophysical_sc = Parameters_Biophysical.objects.filter(
-                study_case_id=id_study_case).values()
+                study_case_id=id_study_case, intake_id = id_intake).values()
             for bio in biophysical:
                 add_bio = True
                 for biosc in biophysical_sc:
@@ -169,20 +202,21 @@ def saveBiophysicals(request):
                 if(request.POST['process']):
                     process = request.POST['process']
                     id_study = request.POST['id_study_case']
-                    biophysical_sc = Parameters_Biophysical.objects.filter(
-                        study_case_id=id_study)
-                    for biosc in biophysical_sc:
-                        biosc.delete()
                     for bio in biophysicals_list:
                         bio['study_case_id'] = id_study
                         bio['default'] = 'N'
                         pb = Parameters_Biophysical()
+                        biophysical_sc = Parameters_Biophysical.objects.filter(
+                        study_case_id=id_study, intake_id= bio['intake_id'])
+                        for biosc in biophysical_sc:
+                            if(str(biosc.lucode) == bio['lucode']):
+                                pb = biosc
                         for key in bio:
                             value = bio[key]
                             setattr(pb, key, value)
                         pb.user_id = request.user.id
                         pb.save()
-    return JsonResponse({'id_study_case': '2'}, safe=False)
+    return JsonResponse({'id_study_case': id_study}, safe=False)
 
 
 @api_view(['POST'])
@@ -336,12 +370,9 @@ def save(request):
                 if(request.POST['nbsactivities']):
                     nbsactivities = request.POST['nbsactivities']
                     nbsactivities_list = json.loads(nbsactivities[1:])
-                    logger.error(nbsactivities_list)
                     for nbsa in nbsactivities_list:
                         id_nbssa = nbsa['id']
-                        logger.error(id_nbssa)
                         nbssc = StudyCases_NBS.objects.get(pk=id_nbssa)
-                        logger.error(nbssc)
                         if(nbsa['value']):
                             nbssc.value = nbsa['value']
                             nbssc.save()

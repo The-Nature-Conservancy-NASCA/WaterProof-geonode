@@ -112,7 +112,8 @@ DATABASE_URL = os.getenv(
 )
 
 #DATABASE_URL='postgresql://geonode:{&Uid&QXZ&6f;|F@dev.skaphe.com:5432/geonode'
-DATABASE_URL='postgresql://geonode:geonode@localhost:5432/geonode'
+#DATABASE_URL='postgresql://geonode:G30N0D3@water-proof.org:5432/geonode'
+#DATABASE_URL='postgresql://geonode:geonode@localhost:5432/geonode'
 
 if DATABASE_URL.startswith("spatialite"):
     try:
@@ -2207,14 +2208,12 @@ FREQUENTLY_READY_FOR_V1 = True
 FREQUENTLY_ALLOW_ANONYMOUS = True
 
 WATERPROOF_STUDY_CASES_ALLOW_ANONYMOUS = True
-
 WATERPROOF_NBS_CA_ALLOW_ANONYMOUS = True
+WATERPROOF_API_SERVER = os.getenv('WATERPROOF_API_SERVER',"/proxy/?url=http://dev.skaphe.com:8000/")
 
-WATERPROOF_API_SERVER = "/proxy/?url=http://dev.skaphe.com:8000/"
-
-WATERPROOF_INVEST_API="http://dev.skaphe.com:8000/"
-WATERPROOF_MODELS_PY3_API="http://dev.skaphe.com:8000/"
-WATERPROOF_MODELS_PY2_API="http://dev.skaphe.com:5050/"
+WATERPROOF_INVEST_API=os.getenv('WATERPROOF_INVEST_API',"http://dev.skaphe.com:8000/")
+WATERPROOF_MODELS_PY3_API=os.getenv('WATERPROOF_MODELS_PY3_API',"http://dev.skaphe.com:8000/")
+WATERPROOF_MODELS_PY2_API=os.getenv('WATERPROOF_MODELS_PY2_API',"http://dev.skaphe.com:5050/")
 SEARCH_CITY_API_URL = '/proxy/?url=https://photon.komoot.io/api/?'
 
 SEARCH_COUNTRY_API_URL = "https://restcountries.eu/rest/v2/alpha/"
@@ -2223,7 +2222,7 @@ OSM_BASEMAP_URL = 'https://{s}.tile.osm.org/{z}/{x}/{y}.png'
 IMG_BASEMAP_URL = "https://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryTopo/MapServer/tile/{z}/{y}/{x}"
 HYDRO_BASEMAP_URL = "https://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/Esri_Hydro_Reference_Overlay/MapServer/tile/{z}/{y}/{x}"
 GRAY_BASEMAP_URL = "https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png"
-GEOSERVER_WMS = 'http://apps.skaphe.com:8080/geoserver/waterproof/wms?'
+GEOSERVER_WMS = os.getenv('GEOSERVER_WMS','http://apps.skaphe.com:8080/geoserver/waterproof/wms?')
 HYDRO_NETWORK_LYR = 'waterproof:world_hydro_network'
 
 WAGTAIL_SITE_NAME = 'Waterproof CMS'
@@ -2232,3 +2231,5 @@ WAGTAIL_SITE_NAME = 'Waterproof CMS'
 #
 # }
 CATALOG_METADATA_TEMPLATE = os.getenv("CATALOG_METADATA_TEMPLATE", "catalogue/full_metadata.xml")
+
+WATERPROOF_SPECIAL_VALUES = ['min', 'E2', 'E3']

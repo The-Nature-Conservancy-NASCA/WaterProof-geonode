@@ -18,8 +18,13 @@ urlpatterns = [
     path('view/<int:idx>', views.view, name='edit-study-cases'),
     # Delete Study Cases
     path('delete/<int:idx>', api.delete, name='delete-study-cases'),
+    
+    path('currencys/<int:id>', api.getStudyCaseCurrencys, name='currencys-study-cases'),
+    
     path('intakebyid/<int:id_intake>/', api.getIntakeByID, name='intake-id'),
+    path('ptapbyid/<int:id_ptap>/', api.getPtapByID, name='ptap-id'),
     path('intakebycity/<str:name>/', api.getIntakeByCity, name='intake-city'),
+    path('parametersbycountry/<str:name>/', api.getParameterByCountry, name='parameters-country'),
     path('intakebyptap/<int:id>/', api.getIntakeByPtap, name='intake-ptap'),
     path('ptapbycity/<str:name>/', api.getPtapByCity, name='ptap-city'),    
     path('save/', api.save, name='study_cases_save'),

@@ -58,9 +58,6 @@ def createNbs(request, countryId):
             riosTransformation = transformations.split(",")
             if (
                 nameNBS and descNBS and countryNBS and currencyCost
-                and maxBenefitTime and benefitTimePorc and maintenancePeriod
-                and implementCost and maintenanceCost and oportunityCost
-
             ):
                 # Check duplicated NBS name
                 try:
