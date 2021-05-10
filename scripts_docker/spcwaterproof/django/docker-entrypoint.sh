@@ -34,12 +34,19 @@ python -u scripts_docker/spcwaterproof/django/initialize.py
 
 echo "Running sql scripts... '$GEONODE_DATABASE_USER' :: '$GEONODE_DATABASE'"
 export PGPASSWORD="${GEONODE_DATABASE_PASSWORD}"
+
+psql -U $GEONODE_DATABASE_USER -d $GEONODE_DATABASE -h postgres -c "ALTER TABLE public.waterproof_intake_basins ALTER COLUMN geom type geometry(MultiPolygon, 4326) using ST_Multi(geom);"
+psql -U $GEONODE_DATABASE_USER -d $GEONODE_DATABASE -h postgres -c "ALTER TABLE public.waterproof_parameters_countries ALTER COLUMN region_id DROP NOT NULL;"
+psql -U $GEONODE_DATABASE_USER -d $GEONODE_DATABASE -h postgres -c "ALTER TABLE public.waterproof_parameters_cities ALTER COLUMN country_id DROP  NOT NULL;"
+
 psql -U $GEONODE_DATABASE_USER -d $GEONODE_DATABASE -h postgres -f initial_data/waterproof_tbls-parameters-models.sql
 psql -U $GEONODE_DATABASE_USER -d $GEONODE_DATABASE -h postgres -f initial_data/waterproof_parameters_countries.sql
 psql -U $GEONODE_DATABASE_USER -d $GEONODE_DATABASE -h postgres -f initial_data/waterproof_parameters_cities.sql
 psql -U $GEONODE_DATABASE_USER -d $GEONODE_DATABASE -h postgres -f initial_data/waterproof_functions.sql
 
 ogr2ogr -append --config PG_USE_COPY YES -nlt PROMOTE_TO_MULTI -nln public.waterproof_intake_basins -f "PostgreSQL" PG:"dbname=geonode host=postgres user=geonode password=G30N0D3" -a_srs EPSG:4326 initial_data/basins.gpkg waterproof_intake_basins
+
+# python manage.py loaddata waterproof_parameters_managmentcosts_discount
 
 echo "-----------------------------------------------------"
 echo "FINISHED DJANGO ENTRYPOINT --------------------------"
