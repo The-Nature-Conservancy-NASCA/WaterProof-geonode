@@ -61,6 +61,7 @@
                 <th scope="col" class="small text-center vat">{% trans "City" %}</th>
                 <th scope="col" class="small text-center vat">{% trans "Treatment plants" %}</th>
                 <th scope="col" class="small text-center vat">{% trans "Water intakes" %}</th>
+                <th scope="col" class="small text-center vat">{% trans "Currencys" %}</th>
                 <th scope="col" class="small text-center vat">{% trans "Execution status" %}</th>
                 <th scope="col" class="small text-center vat">{% trans "Actions" %}</th>
 
@@ -91,7 +92,7 @@
                 <td class="small text-center vat">{% for intake in studyCases.intakes.all %}
                     <a href="../intake/view/{{intake.id}}" target="_blank">- {{intake.name}} </a> <br>
                     {% endfor %}</td>
-                {% if studyCases.is_complete%}
+                {% if studyCases.is_run_analysis%}
                 <td class="small text-center vat"><i class="glyphicon glyphicon-play-circle fa-lg text-success" title='{% trans "Completed" %}'></i></td>
                 {% else %}
                 <td class="small text-center vat"><i class="glyphicon glyphicon-stop fa-lg text-danger" title='{% trans "In Progress" %}'></i></td>
