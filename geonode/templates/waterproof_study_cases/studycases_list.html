@@ -92,6 +92,7 @@
                 <td class="small text-center vat">{% for intake in studyCases.intakes.all %}
                     <a href="../intake/view/{{intake.id}}" target="_blank">- {{intake.name}} </a> <br>
                     {% endfor %}</td>
+                <td class="small text-center vat"></td>
                 {% if studyCases.is_run_analysis%}
                 <td class="small text-center vat"><i class="glyphicon glyphicon-play-circle fa-lg text-success" title='{% trans "Completed" %}'></i></td>
                 {% else %}
