@@ -19,7 +19,7 @@ def validatePyExpression(request):
         exp = request.GET['expression']
         is_valid = validateAndExecuteExpression(exp)
         latex = py2tex(exp)
-		return JsonResponse(latex, safe=False)
+        return JsonResponse(latex, safe=False)
 
 def validateAndExecuteExpression(expression):
     """ 1. Extract variables from expression """
