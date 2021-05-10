@@ -2,7 +2,11 @@ async function validateCoordinateWithApi(e) {
   const snapPoint = "snapPoint";
   const delineateCatchment = "delineateCatchment";
   let center =  waterproof.cityCoords == undefined ? map.getCenter(): waterproof.cityCoords;
-  let url = serverApi + snapPoint + "?x=" + center[1] + "%26y=" + center[0];
+  let amp = "&";
+  if (serverApi.indexOf("proxy") >=0){
+    amp = "%26";
+  }
+  let url = serverApi + snapPoint + "?x=" + center[1] + amp + "y=" + center[0];
   let response = await fetch(url);
  
   let result = await response.json();
@@ -25,7 +29,7 @@ async function validateCoordinateWithApi(e) {
     snapMarkerMapDelimit.setLatLng(ll);
     snapMarker.addTo(map);
     snapMarkerMapDelimit.addTo(mapDelimit);
-    url = serverApi + delineateCatchment + "?x=" + x + "%26y=" + y;
+    url = serverApi + delineateCatchment + "?x=" + x + amp + "y=" + y;
 
     let responseCatchment = await fetch(url);
     let resultCatchment = await responseCatchment.json();
