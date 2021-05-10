@@ -726,7 +726,8 @@ function onInit(editor) {
             $('#CalculatorModalLabel').text('Modify Cost - ' + $('#titleCostFunSmall').text())
             setVarCost();
             let value = funcostdb[CostSelected].fields.function_value;
-            mathField.latex(value).blur();
+            $('#python-expression').val(value);
+            validatePyExpression();
             if (funcostdb[CostSelected].fields.logical != undefined) {
                 let logicalcost = JSON.parse(funcostdb[CostSelected].fields.logical);
                 mathFieldlog1.latex(logicalcost[0].condition_1).blur();
@@ -1021,7 +1022,6 @@ function onInit(editor) {
                 let result = await response.json();
                 if (result){
                     console.log(result);
-                    $('#py2ltx-expression').val(result.replaceAll("$$",""));
                     mathField.latex(result.replaceAll("$$",""));
                 }
             }
