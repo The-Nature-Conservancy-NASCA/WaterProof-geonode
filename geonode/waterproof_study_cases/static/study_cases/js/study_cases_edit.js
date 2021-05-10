@@ -478,15 +478,16 @@ $(document).ready(function() {
 
         analysis_currency = $("#analysis_currency option:selected").text()
         html = '<div class="row" id="currencys-panel"> <div class="col-md-10 currency-panel">Currency for the execution this analisys</div><div class="col-md-2 currency-panel currency-text">' + analysis_currency
-        html += '</div><div class="col-md-12 currency-panel">Next, the exchange rate will be applied to the currencues identifed in the cost functions configured for this analysis ins described.</div>'
+        html += '</div><div class="col-md-12 currency-panel">Next, the exchange rate will be applied to the currencies identifed in the cost functions configured for this analysis ins described.</div>'
         $.get("../../study_cases/currencys/", {
             id: id_study_case,
             currency: analysis_currency
         }, function(data) {
             $.each(data, function(index, currency) {
                 if (currency.currency != analysis_currency) {
+                    value = Number.parseFloat(currency.value).toFixed(5);
                     html += '<div class="col-md-2 currency-value"><label class="custom-control-label" for="currency">' + currency.currency + '</label></div>'
-                    html += '<div class="custom-control col-md-10 currency-value"><input id="' + currency.currency + '" class="text-number" type="number" class="custom-control-input" value="' + currency.value + '"></div>'
+                    html += '<div class="custom-control col-md-10 currency-value"><input id="' + currency.currency + '" class="text-number" type="number" class="custom-control-input" value="' + value + '"></div>'
                 }
             });
             Swal.fire({
@@ -549,15 +550,16 @@ $(document).ready(function() {
 
             analysis_currency = $("#analysis_currency option:selected").text()
             html = '<div class="row" id="currencys-panel"> <div class="col-md-10 currency-panel">Currency for the execution this analisys</div><div class="col-md-2 currency-panel currency-text">' + analysis_currency
-            html += '</div><div class="col-md-12 currency-panel">Next, the exchange rate will be applied to the currencues identifed in the cost functions configured for this analysis ins described.</div>'
+            html += '</div><div class="col-md-12 currency-panel">Next, the exchange rate will be applied to the currencies identifed in the cost functions configured for this analysis ins described.</div>'
             $.get("../../study_cases/currencys/", {
                 id: id_study_case,
                 currency: analysis_currency
             }, function(data) {
                 $.each(data, function(index, currency) {
                     if (currency.currency != analysis_currency) {
+                        value = Number.parseFloat(currency.value).toFixed(5);
                         html += '<div class="col-md-2 currency-value"><label class="custom-control-label" for="currency">' + currency.currency + '</label></div>'
-                        html += '<div class="custom-control col-md-10 currency-value"><input id="' + currency.currency + '" class="text-number" type="number" class="custom-control-input" value="' + currency.value + '"></div>'
+                        html += '<div class="custom-control col-md-10 currency-value"><input id="' + currency.currency + '" class="text-number" type="number" class="custom-control-input" value="' + value + '"></div>'
                     }
                 });
                 Swal.fire({
