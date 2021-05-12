@@ -95,7 +95,7 @@ CREATE OR REPLACE FUNCTION public.__wpget_nbs_data(study_cases_id integer)
  LANGUAGE plpgsql
 AS $function$
 BEGIN
-		return query select nbs.name::text nbs_name, max_benefit_req_time time_max_benefit, profit_pct_time_inter_assoc::numeric(10,2) benefit_t0, analysis_period_value from 
+		return query select nbs.slug::text nbs_name, max_benefit_req_time time_max_benefit, profit_pct_time_inter_assoc::numeric(10,2) benefit_t0, analysis_period_value from 
 						waterproof_study_cases_studycases sc 
 						left join waterproof_study_cases_studycases_nbs sc_nbs
 						on sc.id = sc_nbs.studycases_id 
@@ -442,7 +442,7 @@ CREATE OR REPLACE FUNCTION public.getactivities(iduser integer)
  LANGUAGE plpgsql
 AS $function$    BEGIN
 		return query 
-			select nbs.name,nbs.unit_implementation_cost, nbs.unit_maintenance_cost
+			select nbs.slug,nbs.unit_implementation_cost, nbs.unit_maintenance_cost
 				from waterproof_nbs_ca_waterproofnbsca nbs
 				where added_by_id = iduser;
     END;
@@ -454,7 +454,7 @@ CREATE OR REPLACE FUNCTION public.getactivityshp(iduser integer)
  LANGUAGE plpgsql
 AS $function$    BEGIN
 		return query 					
-				select shp.id,nbs.name,shp.action,shp.area
+				select shp.id,nbs.slug,shp.action,shp.area
 					from waterproof_nbs_ca_waterproofnbsca nbs
 					join waterproof_nbs_ca_activityshapefile shp on nbs.activity_shapefile_id = shp.id
 					where nbs.added_by_id = iduser;
@@ -629,7 +629,7 @@ AS $function$    BEGIN
     $function$
 ;
 
-CREATE OR REPLACE FUNCTION public.gettransformations(nbs_name character varying)
+CREATE OR REPLACE FUNCTION public.gettransformationsbyname(nbs_name character varying)
  RETURNS TABLE(from_lucode integer, from_cob character varying, to_lucode integer, to_cob character varying)
  LANGUAGE plpgsql
 AS $function$    BEGIN
@@ -640,12 +640,12 @@ AS $function$    BEGIN
 						join waterproof_nbs_ca_riosactivity ra on ra.id = rtrans.activity_id
 						join waterproof_pr_lulc from_lulc on ra.lucode = from_lulc.lucode
 						join waterproof_pr_lulc to_lulc on rtrans.lucode = to_lulc.lucode
-						where nbs.name = nbs_name;
+						where nbs.slug = nbs_name;
     END;
     $function$
 ;
 
-CREATE OR REPLACE FUNCTION public.gettransformations(nbs_id integer)
+CREATE OR REPLACE FUNCTION public.gettransformationsbyid(nbs_id integer)
  RETURNS TABLE(from_lucode integer, from_cob character varying, to_lucode integer, to_cob character varying)
  LANGUAGE plpgsql
 AS $function$    BEGIN
@@ -736,7 +736,7 @@ CREATE OR REPLACE FUNCTION public.get_activities(
 AS $function$
 BEGIN
 		return query 
-			select nbs.name,nbs.unit_implementation_cost, nbs.unit_maintenance_cost,nbs.id
+			select nbs.slug,nbs.unit_implementation_cost, nbs.unit_maintenance_cost,nbs.id
 				from waterproof_nbs_ca_waterproofnbsca nbs
 				where nbs.id = ANY(listNbs);
     END;
@@ -754,7 +754,7 @@ CREATE OR REPLACE FUNCTION public.get_activities_shapefiles(
 AS $function$
 BEGIN
 		return query 					
-				select shp.id,nbs.name,shp.action,shp.area
+				select shp.id,nbs.slug,shp.action,shp.area
 					from waterproof_nbs_ca_waterproofnbsca nbs
 					join waterproof_nbs_ca_activityshapefile shp on nbs.activity_shapefile_id = shp.id
 					where nbs.id = ANY(listNbs);
