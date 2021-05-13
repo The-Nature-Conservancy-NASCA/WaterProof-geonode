@@ -492,10 +492,12 @@
                         <h5 class="text-primary">Math expression</h5>
                         <ul class="nav nav-tabs">
                             <li class="active"><a href="#mathNatural" data-toggle="tab">Natural</a></li>
-                            <li><a href="#mathLogical" data-toggle="tab" >Logical</a></li>
+                            <!--li><a href="#mathLogical" data-toggle="tab" >Logical</a></li-->
                         </ul>
                         <div class="tab-content">
                             <div id="mathNatural" class="tab-pane fade in active">
+                                <textarea id="python-expression" style="width: 90%;font-family: monospace;"></textarea>
+                                <button id="btnValidatePyExp">Validate </button>
                                 <span valinfo="mathField" id="math-field" class="form-control math-span" style="height: auto;"></span>
                             </div>
                             <div id="mathLogical" class="tab-pane fade">
