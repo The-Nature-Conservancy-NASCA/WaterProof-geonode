@@ -178,7 +178,19 @@
                             <h3 style="padding:1rem;">{% trans "Cost functions "%}<small id="titleCostFunSmall"></small>
                                 <button type="button" class="btn btn-primary btn-add-cost" data-toggle="modal" data-target="#CalculatorModal" id="ModalAddCostBtn">{% trans "Add Cost" %}</button>
                             </h3>
-                            <div id="funcostgenerate" style="padding:1rem;"></div>
+                            <table class="table table-striped table-bordered table-condensed" style="width:100%; margin-bottom: 100px">
+                                <thead>
+                                    <tr class="info">
+                                        <th scope="col" class="small text-center vat">{% trans "Function name" %}</th>
+                                        <th scope="col" class="small text-center vat">{% trans "Function" %}</th>
+                                        <th scope="col" class="small text-center vat">{% trans "Currency" %}</th>
+                                        <th scope="col" class="small text-center vat">{% trans "Factor" %}</th>
+                                        <th scope="col" class="small text-center vat">{% trans "Options" %}</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="funcostgenerate">
+                                
+                                </tbody>
                         </div>
                     </div>
                     <br>
