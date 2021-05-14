@@ -31,9 +31,10 @@ def validateAndExecuteExpression(expression):
     global_vars = dict()
     for v in args:
         global_vars[v] = 1
-    x = eval(expression,global_vars)
+    
     is_valid = True
     try:
+        x = eval(expression,global_vars)
         print ('Valid Expression: %s' % x)        
     except:
         print ('No a valid Expression')
