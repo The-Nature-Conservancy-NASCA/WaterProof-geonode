@@ -24,8 +24,8 @@ from django.conf import settings
 from django.db import models
 from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
-from geonode.waterproof_intake.models import ElementSystem
-from geonode.waterproof_parameters.models import Countries , Cities
+from geonode.waterproof_intake.models import Intake
+from geonode.waterproof_parameters.models import Countries , Cities , Climate_value
 from geonode.waterproof_treatment_plants.models import Header
 from geonode.waterproof_nbs_ca.models import WaterproofNbsCa
 
@@ -71,8 +71,7 @@ class Portfolio(models.Model):
     )
 
     def __str__(self):
-        return "%s" % self.name
-        
+        return "%s" % self.name       
     
 class StudyCases(models.Model):
     """
@@ -83,30 +82,31 @@ class StudyCases(models.Model):
     """
     name = models.CharField(max_length=100, blank=False, null=False)
     description = models.CharField(max_length=500, blank=False, null=False)
-    studycase_type = models.CharField(max_length=10, blank=True, null=True)
-    program_Director = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
-    implementation_Manager = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
+    city = models.ForeignKey(Cities, on_delete=models.CASCADE)
+    studycase_type = models.CharField(max_length=20, blank=True, null=True)
+    program_Director = models.DecimalField(max_digits=20, decimal_places=2, blank=True, null=True)
+    implementation_Manager = models.DecimalField(max_digits=20, decimal_places=2, blank=True, null=True)
     monitoring_Manager= models.DecimalField(
-        max_digits=10, decimal_places=2, blank=True, null=True)
-    finance_Manager = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
-    administrative_Assistant = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
-    office_Costs = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
-    overhead = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
-    equipment_Purchased = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
-    vehicles_Purchased = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
-    equipment_Maintenance = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
-    vehicle_Maintenance = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
-    discount_rate = models.DecimalField(max_digits=3, decimal_places=2, blank=True, null=True)
-    discount_rate_maximum = models.DecimalField(max_digits=3, decimal_places=2, blank=True, null=True)
-    discount_rate_minimunm= models.DecimalField(max_digits=3, decimal_places=2, blank=True, null=True)
-    transaction_cost = models.DecimalField(max_digits=3, decimal_places=2, blank=True, null=True)
-    others = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
-    travel = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
-    contracts = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
-    analysis_type = models.CharField(max_length=10, blank=True, null=True)
+        max_digits=20, decimal_places=2, blank=True, null=True)
+    finance_Manager = models.DecimalField(max_digits=20, decimal_places=2, blank=True, null=True)
+    administrative_Assistant = models.DecimalField(max_digits=20, decimal_places=2, blank=True, null=True)
+    office_Costs = models.DecimalField(max_digits=20, decimal_places=2, blank=True, null=True)
+    overhead = models.DecimalField(max_digits=20, decimal_places=2, blank=True, null=True)
+    equipment_Purchased = models.DecimalField(max_digits=20, decimal_places=2, blank=True, null=True)
+    vehicles_Purchased = models.DecimalField(max_digits=20, decimal_places=2, blank=True, null=True)
+    equipment_Maintenance = models.DecimalField(max_digits=20, decimal_places=2, blank=True, null=True)
+    vehicle_Maintenance = models.DecimalField(max_digits=20, decimal_places=2, blank=True, null=True)
+    discount_rate = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
+    discount_rate_maximum = models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
+    discount_rate_minimunm= models.DecimalField(max_digits=5, decimal_places=2, blank=True, null=True)
+    transaction_cost = models.DecimalField(max_digits=20, decimal_places=2, blank=True, null=True)
+    others = models.DecimalField(max_digits=20, decimal_places=2, blank=True, null=True)
+    travel = models.DecimalField(max_digits=20, decimal_places=2, blank=True, null=True)
+    contracts = models.DecimalField(max_digits=20, decimal_places=2, blank=True, null=True)
+    analysis_type = models.CharField(max_length=20, blank=True, null=True)
     analysis_period_value = models.IntegerField(blank=True, null=True)
-    analysis_currency = models.CharField(max_length=10, blank=True, null=True)
-    status = models.IntegerField(blank=True, null=True)
+    analysis_currency = models.CharField(max_length=4, blank=True, null=True)
+    is_complete = models.BooleanField(verbose_name=_('Is complete'), default=False)
     added_by = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         null=True,
@@ -116,21 +116,21 @@ class StudyCases(models.Model):
     create_date = models.DateTimeField(blank=True, null=True)
     edit_date = models.DateTimeField(blank=True, null=True)
     time_implement = models.IntegerField(blank=True, null=True)
-    climate_scenario = models.CharField(max_length=100, blank=True, null=True)
+    climate_scenario = models.ForeignKey(Climate_value, blank=True, null=True, on_delete=models.CASCADE)
     annual_investment = models.DecimalField(max_digits=20, decimal_places=2, blank=True, null=True)
     benefit_carbon_market = models.BooleanField(blank=True, null=True)
     rellocated_remainder = models.BooleanField(blank=True, null=True)
-    analysis_conservation = models.DecimalField(max_digits=20, decimal_places=2, blank=True, null=True)
-    analysis_active_restoration = models.DecimalField(max_digits=20, decimal_places=2, blank=True, null=True)
-    analysis_passive_restoration = models.DecimalField(max_digits=20, decimal_places=2, blank=True, null=True)
-    analysis_silvopastoral = models.DecimalField(max_digits=20, decimal_places=2, blank=True, null=True)
-    analysis_agroforestry = models.DecimalField(max_digits=20, decimal_places=2, blank=True, null=True)
-    intakes = models.ManyToManyField(ElementSystem)
+    financial_currency = models.CharField(max_length=4, blank=True, null=True)
+    intakes = models.ManyToManyField(Intake)
     ptaps = models.ManyToManyField(Header)
     portfolios = models.ManyToManyField(Portfolio)
-    nbs = models.ManyToManyField(WaterproofNbsCa)
-    cm_city = models.ForeignKey(Cities , on_delete=models.CASCADE, null=True)
+    cm_currency = models.CharField(max_length=4, blank=True, null=True)
     cm_value = models.DecimalField(max_digits=20, decimal_places=2, blank=True, null=True)
+
+class StudyCases_NBS(models.Model):
+    studycase = models.ForeignKey(StudyCases, on_delete=models.CASCADE)
+    nbs = models.ForeignKey(WaterproofNbsCa, on_delete=models.CASCADE)
+    value = models.DecimalField(max_digits=20, decimal_places=2, blank=True, null=True)
 
 class Meta:
     managed = False

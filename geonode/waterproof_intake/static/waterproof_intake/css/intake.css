@@ -62,10 +62,14 @@
     background: red;
     cursor: inherit;
     display: block;
-  }
+}
 
 .modal {
     text-align: center;
+}
+
+textarea {
+    resize: vertical;
 }
 
 @media screen and (min-width: 768px) {
@@ -80,7 +84,7 @@
 .title-city {
     position: absolute;
     right: 26%;
-    top: 16%;
+    top: 5%;
 }
 
 .modal-dialog {

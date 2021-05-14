@@ -12,11 +12,14 @@
 <div class="page-header">
     <h1>{% trans "Create water intake" %}</h1>
     <h4 class="title-city">{% trans "Intake creation city" %} <span id="cityLabel"></span> </h4>
+    
 </div>
+<br>
 <!--Begin Form-->
 <form id="form" method="POST" action="">
     {% csrf_token %}
     <!--Start smartwizard-->
+    <br>
     <div id="smartwizard">
         <!--panel of navigation-->
         <ul class="nav">
@@ -54,7 +57,7 @@
                     <h3>{% trans "Define water intake" %}
                         <button type="button" data-toggle="modal" data-target="#HelpStep1" id="HelpModalBtnModal" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
                     </h3>
-                    <p>{% trans "Enter the data with which you will identify your wáter inteake. Note that in addition to the name, a description and the name of the water source, you must indicate its spatial location." %}</p>
+                    <p>{% trans "Enter the data with which you will identify your water intake. Note that in addition to the name, a description and the name of the water source, you must indicate its spatial location." %}</p>
                 </div>
                 <!--Input Name -->
                 <div id="water_intake">
@@ -172,7 +175,20 @@
                         <h3 style="padding:1rem;">{% trans "Cost functions "%} <small id="titleCostFunSmall"></small>
                             <button type="button" class="btn btn-primary btn-add-cost" data-toggle="modal" data-target="#CalculatorModal" id="ModalAddCostBtn">{% trans "Add Cost" %}</button>
                         </h3>
-                        <div id="funcostgenerate" style="padding:1rem;"></div>
+                        <table class="table table-striped table-bordered table-condensed" style="width:100%; margin-bottom: 100px">
+                            <thead>
+                                <tr class="info">
+                                    <th scope="col" class="small text-center vat">{% trans "Function name" %}</th>
+                                    <th scope="col" class="small text-center vat">{% trans "Function" %}</th>
+                                    <th scope="col" class="small text-center vat">{% trans "Currency" %}</th>
+                                    <th scope="col" class="small text-center vat">{% trans "Factor" %}</th>
+                                    <th scope="col" class="small text-center vat">{% trans "Options" %}</th>
+                                </tr>
+                            </thead>
+                            <tbody id="funcostgenerate">
+                            
+                            </tbody>
+                        </table>
                     </div>
                 </div>
                 <br>
@@ -190,7 +206,7 @@
                     <h3>{% trans "Water extraction"%}
                         <button type="button" data-toggle="modal" data-target="#HelpStep3" id="HelpModalBtnModal" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
                     </h3>
-                    <p>{% trans "Please indicate the demand (extraction) of water that you make from your wáter intake, for this you can rely on the system interpolation tool or enter it manually." %} </p>
+                    <p>{% trans "Please indicate the demand (extraction) of water that you make from your water intake, for this you can rely on the system interpolation tool or enter it manually." %} </p>
                 </div>
                 <!--navigation-->
                 <ul class="nav nav-tabs" id="minitabsInportalion">
@@ -433,19 +449,19 @@
                         </div>
                         <div class="form-group">
                             <label class="text-primary">{% trans "Currency for definition of costs" %} </label>
-                            <select id="currencyCost" class="form-control" required>
+                            <select id="currencyCost" class="form-control"required>
                                 {% for currency in currencies %}
                                     {% if currency.iso3 == 'USA'%}
-                                        <option value="{{currency.pk}}" data-country="{{currency.iso3}}" selected>({{currency.currency}}) - {{currency.name}}</option>
+                                        <option value="{{currency.pk}}" name="{{currency.currency}}"  data-country="{{currency.iso3}}" selected>({{currency.currency}}) - {{currency.name}}</option>
                                     {% else %}
-                                        <option value="{{currency.pk}}">({{currency.currency}}) - {{currency.name}}</option>
+                                        <option value="{{currency.pk}}" name="{{currency.currency}}" >({{currency.currency}}) - {{currency.name}}</option>
                                     {% endif %}
                                 {% endfor %}
                             </select>
                         </div>
                          <div class="form-group">
                             <label class="text-primary">{% trans "Multiplying factor for overrall cost" %} </label>
-                            <input type="text" id="global_multiplier_factorCalculator" class="form-control" disabled>
+                            <input type="text" value="1" id="global_multiplier_factorCalculator" class="form-control" disabled>
                         </div>
                         <h5 class="text-primary">Syntax keyboard</h5>
                         <ul class="nav nav-tabs">
@@ -506,6 +522,7 @@
                         <ul class="nav nav-tabs">
                             <li class="active"><a href="#mathNatural" data-toggle="tab">Natural</a></li>
                             <li><a href="#mathLogical" data-toggle="tab" >Logical</a></li>
+                            <li><a href="#mathPython" data-toggle="tab" >Python</a></li>
                         </ul>
                         <div class="tab-content">
                             <div id="mathNatural" class="tab-pane fade in active">
@@ -542,6 +559,9 @@
                                     </tbody>
                                 </table>
                             </div>
+                            <div id="mathPython" class="tab-pane fade">
+                                <textarea id="math-fieldPython" class="form-control" rows="6"></textarea>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -554,6 +574,7 @@
         </div>
     </div>
 </div>
+
 <!--Modal Help Geom Files-->
 <div class="modal fade" id="HelpGeom" tabindex="-1" aria-labelledby="HelpGeomLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
@@ -596,8 +617,8 @@
             </div>
             <div class="modal-body">
                 <p>
-                    {% trans "This is the first step in creating a wáter intake. In addition to indicating its name, description and supplier source, a geographic viewer is offered that through the icon" %} <img src="/static/geonode/img/ubicacion.png"
-                    /> {% trans "helps you identify the most precise location of your wáter inteake (you can move the icon" %}<img src="/static/geonode/img/ubicacion.png" /> {% trans "on the map to define the wáter intake location or you can directly enter latitude and longitude coordinates)." %}
+                    {% trans "This is the first step in creating a water intake. In addition to indicating its name, description and supplier source, a geographic viewer is offered that through the icon" %} <img src="/static/geonode/img/ubicacion.png"
+                    /> {% trans "helps you identify the most precise location of your water intake (you can move the icon" %}<img src="/static/geonode/img/ubicacion.png" /> {% trans "on the map to define the water intake location or you can directly enter latitude and longitude coordinates)." %}
                 </p>
                 <p>
                     {% trans "With this information, the system will calculate the polygon of the basin to be used by the InVest and RIOS models in the definition of portfolios and calculation of Return on investment:" %}
@@ -767,7 +788,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h3 class="modal-title text-center" id="HelpModalLabel" style="color:#6398C1 ;">{% trans "Definition of demand (extraction) of water in the wáter intake" %}
+                <h3 class="modal-title text-center" id="HelpModalLabel" style="color:#6398C1 ;">{% trans "Definition of demand (extraction) of water in the water intake" %}
                 </h3>
             </div>
             <div class="modal-body">
@@ -817,6 +838,7 @@
         </div>
     </div>
 </div>
+
 <!--Help Step3 external inputs-->
 <div class="modal fade" id="HelpStep3-2" tabindex="-1" aria-labelledby="HelpModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
@@ -825,7 +847,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h3 class="modal-title text-center" id="HelpModalLabel" style="color:#6398C1 ;">{% trans "Definition of demand (extraction) of water in the wáter intake" %}
+                <h3 class="modal-title text-center" id="HelpModalLabel" style="color:#6398C1 ;">{% trans "Definition of demand (extraction) of water in the water intake" %}
                 </h3>
             </div>
             <div class="modal-body">
@@ -857,6 +879,7 @@
         </div>
     </div>
 </div>
+
 <!--Help Step5-->
 <div class="modal fade" id="HelpStep5" tabindex="-1" aria-labelledby="HelpModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">

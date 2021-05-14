@@ -61,12 +61,18 @@ class CostFunctionsProcess(models.Model):
         verbose_name=_('Sub Proccess')
     )
 
+    function_py_value = models.CharField(
+        max_length=2500,
+        null=True,
+        verbose_name=_('FunctionPy')
+    )
+
     default_function = models.BooleanField(
         verbose_name=_('Default Function'), 
         default=False
     )
 
-    process_efficiencies = models.ForeignKey(ProcessEfficiencies, on_delete=models.CASCADE, null=True)
+    #process_efficiencies = models.ForeignKey(ProcessEfficiencies, on_delete=models.CASCADE, null=True)
 
 class UserCostFunctions(models.Model):
 

@@ -149,10 +149,6 @@ $(function () {
     * @returns 
     */
     initialize = function () {
-        setTimeout(function(){
-            alert(1);
-            alert(gettext('154'));
-        },5000);
         $('#submit').click(function (e) {
             var saveForm = true;
             if($('#idNamePlant').val() === "" || $('#idNamePlant').val() === null) {

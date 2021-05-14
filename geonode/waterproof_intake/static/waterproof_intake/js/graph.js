@@ -367,8 +367,6 @@ function onInit(editor) {
     //use jquery
     $(document).ready(function() {
 
-
-
         var MQ = MathQuill.getInterface(2);
         var CostSelected = null;
         var mathFieldSpan = document.getElementById('math-field');
@@ -518,6 +516,10 @@ function onInit(editor) {
             mathQuillSelected = $(this).attr('valinfo');
         });
 
+        $('#math-fieldPython').click(function() {
+            mathQuillSelected = false;
+        });
+
         function clearInputsMath() {
             mathField.latex('').blur();
             mathFieldlog1.latex('').blur();
@@ -526,6 +528,7 @@ function onInit(editor) {
             mathFieldE1.latex('').blur();
             mathFieldE2.latex('').blur();
             mathFieldE3.latex('').blur();
+            $('#math-fieldPython').val('');
         }
 
         $("#currencyCost").on("change", function() {
@@ -661,9 +664,8 @@ function onInit(editor) {
 
         //Set var into calculator
         $(document).on('click', '.list-group-item', function() {
-            addInfo(mathQuillSelected, `\\mathit{${$(this).attr('value')}}`);
+            mathQuillSelected ? addInfo(mathQuillSelected, `\\mathit{${$(this).attr('value')}}`) : addInfo(false, `${$(this).attr('value')}`);
         });
-
 
         $('#saveAndValideCost').click(function() {
             if (banderaFunctionCost) {
@@ -671,6 +673,7 @@ function onInit(editor) {
                 funcostdb.push({
                     'fields': {
                         'function_value': mathField.latex(),
+                        'function_py_value': $('#math-fieldPython').val(),
                         'function_name': $('#costFunctionName').val() == '' ? 'Undefined name' : $('#costFunctionName').val(),
                         'function_description': $('#costFuntionDescription').val(),
                         'global_multiplier_factorCalculator': $('#global_multiplier_factorCalculator').val(),
@@ -692,8 +695,9 @@ function onInit(editor) {
                 var temp = {
                     'function_name': $('#costFunctionName').val() == '' ? 'Undefined name' : $('#costFunctionName').val(),
                     'function_description': $('#costFuntionDescription').val(),
+                    'function_py_value': $('#math-fieldPython').val(),
                     'global_multiplier_factorCalculator': $('#global_multiplier_factorCalculator').val(),
-                    'currencyCost': $('#currencyCost').val(),
+                    'currencyCost': $('#currencyCost').find('option:selected').attr("name"),
                     'logical': [{
                         'condition_1': mathFieldlog1.latex(),
                         'ecuation_1': mathFieldE1.latex(),
@@ -709,10 +713,10 @@ function onInit(editor) {
                 funcostdb[CostSelected].fields.function_value = mathField.latex();
             }
             selectedCell.setAttribute('funcost', JSON.stringify(funcostdb));
-            $('#funcostgenerate div').remove();
+            $('#funcostgenerate tr').remove();
             $('#funcostgenerate').empty();
             for (let index = 0; index < funcostdb.length; index++) {
-                funcost(funcostdb[index].fields.function_value, funcostdb[index].fields.function_name, index, MQ);
+                funcost(index, MQ);
             }
             $('#CalculatorModal').modal('hide');
             validateGraphIntake();
@@ -728,6 +732,13 @@ function onInit(editor) {
             $('#costFuntionDescription').val(funcostdb[CostSelected].fields.function_description);
             $('#CalculatorModalLabel').text('Modify Cost - ' + $('#titleCostFunSmall').text())
             setVarCost();
+
+            let val_py = funcostdb[CostSelected].fields.function_py_value
+            let rem = ['Q', 'CSed', 'CN', 'CP', 'WSed', 'WN', 'WP', 'WSedRet', 'WNRet', 'WPRet']
+            for (const it of rem) {
+                val_py = val_py.replaceAll(it, `${it}${$('#titleCostFunSmall').attr('valueid')}`)
+            }
+            $('#math-fieldPython').val(val_py);
             let value = funcostdb[CostSelected].fields.function_value;
             mathField.latex(value).blur();
             if (funcostdb[CostSelected].fields.logical != undefined) {
@@ -755,26 +766,26 @@ function onInit(editor) {
             }).then((result) => {
                 if (result.isConfirmed) {
                     var id = $(this).attr('idvalue');
-                    $(`#funcostgenerate div[idvalue = 'fun_${id}']`).remove();
+                    $(`#funcostgenerate tr[idvalue = 'fun_${id}']`).remove();
                     if (typeof(selectedCell.value) == "string" && selectedCell.value.length > 0) {
                         var obj = JSON.parse(selectedCell.value);
                         let dbfields = JSON.parse(obj.funcost);
                         dbfields.splice(id, 1);
                         obj.funcost = JSON.stringify(dbfields);
                         selectedCell.setValue(JSON.stringify(obj));
-                        $('#funcostgenerate div').remove();
+                        $('#funcostgenerate tr').remove();
                         $('#funcostgenerate').empty();
                         for (let index = 0; index < funcostdb.length; index++) {
-                            funcost(funcostdb[index].fields.function_value, funcostdb[index].fields.function_name, index, MQ);
+                            funcost(index, MQ);
                         }
 
                     } else {
                         funcostdb.splice(id, 1);
                         selectedCell.setAttribute('funcost', JSON.stringify(funcostdb));
-                        $('#funcostgenerate div').remove();
+                        $('#funcostgenerate tr').remove();
                         $('#funcostgenerate').empty();
                         for (let index = 0; index < funcostdb.length; index++) {
-                            funcost(funcostdb[index].fields.function_value, funcostdb[index].fields.function_name, index, MQ);
+                            funcost(index, MQ);
                         }
                     }
 
@@ -785,6 +796,11 @@ function onInit(editor) {
                     )
                 }
             })
+        });
+
+        $(document).on('click', 'a[name=fun_display_btn]', function() {
+            var idx = $(this).attr('idvalue');
+            $(`#fun_display_${idx}`).toggle();
         });
 
         function setVarCost() {
@@ -953,6 +969,8 @@ function onInit(editor) {
             }
         }
 
+
+
         jQuery.fn.ForceNumericOnly = function() {
             return this.each(function() {
                 $(this).keydown(function(e) {
@@ -972,36 +990,49 @@ function onInit(editor) {
         };
         //Force only numbers into calculator funcion cost
         $("#math-field").ForceNumericOnly();
+        $("#math-fieldlogic1").ForceNumericOnly();
+        $("#math-fieldlogic2").ForceNumericOnly();
+        $("#math-fieldlogic3").ForceNumericOnly();
+        $("#math-fieldex1").ForceNumericOnly();
+        $("#math-fieldex2").ForceNumericOnly();
+        $("#math-fieldex3").ForceNumericOnly();
+
+
         //Append values and var into funcion cost
         function addInfo(type, value) {
-            if (type == 'mathField') {
-                mathField.cmd(value);
-                mathField.focus();
+            if (type) {
+                if (type == 'mathField') {
+                    mathField.cmd(value);
+                    mathField.focus();
+                }
+                if (type == 'mathFieldlog1') {
+                    mathFieldlog1.cmd(value);
+                    mathFieldlog1.focus();
+                }
+                if (type == 'mathFieldlog2') {
+                    mathFieldlog2.cmd(value);
+                    mathFieldlog2.focus();
+                }
+                if (type == 'mathFieldlog3') {
+                    mathFieldlog3.cmd(value);
+                    mathFieldlog3.focus();
+                }
+                if (type == 'mathFieldE1') {
+                    mathFieldE1.cmd(value);
+                    mathFieldE1.focus();
+                }
+                if (type == 'mathFieldE2') {
+                    mathFieldE2.cmd(value);
+                    mathFieldE2.focus();
+                }
+                if (type == 'mathFieldE3') {
+                    mathFieldE3.cmd(value);
+                    mathFieldE3.focus();
+                }
+            } else {
+                $('#math-fieldPython').val($('#math-fieldPython').val() + value);
             }
-            if (type == 'mathFieldlog1') {
-                mathFieldlog1.cmd(value);
-                mathFieldlog1.focus();
-            }
-            if (type == 'mathFieldlog2') {
-                mathFieldlog2.cmd(value);
-                mathFieldlog2.focus();
-            }
-            if (type == 'mathFieldlog3') {
-                mathFieldlog3.cmd(value);
-                mathFieldlog3.focus();
-            }
-            if (type == 'mathFieldE1') {
-                mathFieldE1.cmd(value);
-                mathFieldE1.focus();
-            }
-            if (type == 'mathFieldE2') {
-                mathFieldE2.cmd(value);
-                mathFieldE2.focus();
-            }
-            if (type == 'mathFieldE3') {
-                mathFieldE3.cmd(value);
-                mathFieldE3.focus();
-            }
+
         }
 
 

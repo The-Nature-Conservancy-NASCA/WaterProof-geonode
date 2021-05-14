@@ -10,6 +10,7 @@
 <!--header-->
 <div class="page-header">
     <h1>{% trans "View Study Cases" %}</h1>
+    <h4 class="title-city">{% trans "View city" %} <span id="cityLabel"></span> </h4>
 </div>
 <!--Begin Form-->
 <form id="form" method="POST" action="">
@@ -86,53 +87,80 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12">
-
                         <div class="panel" id="panel-ptap">
-                            {% if study_case.studycase_type == 'PTAP' %}
-                            <div class="col-md-12">
-                                <div class="row form-group">
-                                    <legend><label>{% trans "Treatments plants" %}</label></legend>
-                                </div>
-                                <table id="ptap_table" class="table table-striped table-bordered table-condensed" style="width:100%">
-                                    <thead>
-                                        <tr class="info">
-                                            <th scope="col" class="small text-center vat">{% trans "name" %}</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {% for ptap in study_case.ptaps.all %}
-                                        <tr id='custom-{{ptap.plant_id}}'>
-                                            <td>{{ptap.plant_name}}</td>
-                                        </tr>
-                                        {% endfor %}
-                                    </tbody>
-                                </table>
-                            </div>
-                            {% endif %}
                             <div class="col-md-12">
                                 <div class="row form-group">
                                     <legend><label>{% trans "Water Intake" %}</label></legend>
+                                    <p>{% trans "Select the intake you want to consider in the ROI Analysis" %}</p>
+
                                 </div>
                                 <table id="custom_table" class="table table-striped table-bordered table-condensed" style="width:100%">
                                     <thead>
                                         <tr class="info">
                                             <th scope="col" class="small text-center vat">{% trans "name" %}</th>
+                                            <th scope="col" class="small text-center vat">{% trans "description" %}</th>
                                             <th scope="col" class="small text-center vat">{% trans "Name of the water source" %}</th>
-                                            <th scope="col" class="small text-center vat">{% trans "Study cases infrastructure" %}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         {% for intake in study_case.intakes.all %}
                                         <tr id='custom-{{intake.id}}'>
-                                            <td>{{intake.intake.name}}</td>
-                                            <td>{{intake.intake.water_source_name}}</td>
-                                            <td>{{intake.name}} - {{intake.graphId}}</td>
+                                            <td>{{intake.name}}</td>
+                                            <td>{{intake.description}}</td>
+                                            <td>{{intake.water_source_name}}</td>
                                         </tr>
                                         {% endfor %}
                                     </tbody>
                                 </table>
                             </div>
                         </div>
+                        {% if study_case.studycase_type == 'PTAP' %}
+                        <div class="panel" id="panel-ptap">
+                            <div class="col-md-12">
+                                <div class="row form-group">
+                                    <legend><label>{% trans "Treatments plants" %}</label></legend>
+                                    <p>{% trans "Select the treatment plants you want to consider in the ROI Analysis" %}</p>
+
+                                </div>
+                                <table id="ptap_table" class="table table-striped table-bordered table-condensed" style="width:100%">
+                                    <thead>
+                                        <tr class="info">
+                                            <th scope="col" class="small text-center vat">{% trans "name" %}</th>
+                                            <th scope="col" class="small text-center vat">{% trans "description" %}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for ptap in study_case.ptaps.all %}
+                                        <tr id='ptap-{{ptap.id}}'>
+                                            <td>{{ptap.plant_name}}</td>
+                                            <td>{{ptap.plant_description}}</td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        {% else %}
+                        <div class="panel panel-hide" id="panel-cost">
+                            <div class="col-md-12">
+                                <table id="cost_table" class="table table-striped table-bordered table-condensed" style="width:100%">
+                                    <thead>
+                                        <tr class="info">
+                                            <th scope="col" class="small text-center vat">{% trans "Function name" %}</th>
+                                            <th scope="col" class="small text-center vat">{% trans "Function" %}</th>
+                                            <th scope="col" class="small text-center vat">{% trans "Currency" %}</th>
+                                            <th scope="col" class="small text-center vat">{% trans "Factor" %}</th>
+                                            <th scope="col" class="small text-center vat">{% trans "Options" %}</th>
+                                        </tr>
+
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        {% endif %}
+
                     </div>
                 </div>
                 <div class="row text-center">
@@ -145,26 +173,24 @@
             <div id="step-2" class="tab-pane" role="tabpanel">
                 <div class="page-header">
                     <h3>Carbon Market Benefits</h3>
-                    <p></p>
+                    <p>{% trans "If you wish, WaterProof can consider benefits associated with the Carbon market, click on the following checkbox to include in the analysis" %}</p>
                     {% if study_case.benefit_carbon_market %}
                     <div class="custom-control custom-checkbox">
                         <input type="checkbox" class="custom-control-input" id='cb_check' checked disabled>
                         <label class="custom-control-label" for="cb_check">{% trans "Carbon market" %}</label>
                     </div>
                     <div class="row text-center" id="cm_form">
-                        <div class="col-md-5">
+                        <div class="col-md-4">
                             <p>{% trans "CO2 Eq for (Selected Country)" %}</p>
                         </div>
-                        <div class="col-md-1">
+                        <div class="col-md-2">
                             <input type="text" name="dws_cm" maxlength="100" class="form-control" id="id_cm" value="{{study_case.cm_value|stringformat:'1.2f'}}" disabled />
                         </div>
                         <div class="col-md-3">
-                            <p>{% trans "USD/TonCO2eq" %}</p>
+                            <p>{% trans "TonCO2eq" %}</p>
                         </div>
                         <div class="col-md-3">
-                            <select class="form-control" id="cm_select" disabled>
-                                <option value="1">USD</option>
-                            </select>
+                            <input id="cm_select" class="form-control" value="{{study_case.cm_currency}}" disabled>
                         </div>
                     </div>
                     {% else %}
@@ -173,10 +199,10 @@
                         <label class="custom-control-label" for="cb_check">{% trans "Carbon market" %}</label>
                     </div>
                     {% endif %}
-
                 </div>
                 <div class="row text-center">
                     <div class="col-md-12">
+                        <button type="button" class="btn btn-primary" id="step2PreviousBtn">{% trans "Previous" %}</button>
                         <button type="button" class="btn btn-primary" id="step2NextBtn">{% trans "Next" %}</button>
                     </div>
                 </div>
@@ -185,7 +211,8 @@
             <div id="step-3" class="tab-pane" role="tabpanel">
                 <div class="page-header">
                     <h3>Portfolios</h3>
-                    <p></p>
+                    <p>{% trans "Select the objetives for which the systemwill generate portfolios of Nature-bassed Solutions, using the RIOS technnical framework" %}</p>
+
 
                     <ul class="list-group list-group-flush" id="portfolios-ul">
                         {% for portfolio in portfolios %}
@@ -205,6 +232,7 @@
                 </div>
                 <div class="row text-center">
                     <div class="col-md-12">
+                        <button type="button" class="btn btn-primary" id="step3PreviousBtn">{% trans "Previous" %}</button>
                         <button type="button" class="btn btn-primary" id="step3NextBtn">{% trans "Next" %}</button>
                     </div>
                 </div>
@@ -213,12 +241,16 @@
             <div id="step-4" class="tab-pane" role="tabpanel">
                 <div class="page-header">
                     <h3> {% trans "Biophysical tables" %}</h3>
-                    <button type="button" class="btn btn-primary" id="advancer_option">{% trans "Advanced options" %}</button>
                     <p>{% trans "In this step you will find the biophysical parameters required for the execution of the models. If you want to see or edit them, click on advanced options, otherwise click on next and the system will use the default values." %}</p>
+                    <p>{% trans "Below are the biophysical tables that will be used in modeling un inVEST and RIOS. You can edit the values according to the specific knowledge of the supplying basins" %}</p>
+                    <p>{% trans "Please see the InVEST documentation" %}</p>
+                    <div class="row biophysical-panel panel-hide" id="biophysical-panel">
 
+                    </div>
                 </div>
                 <div class="row text-center">
                     <div class="col-md-12">
+                        <button type="button" class="btn btn-primary" id="step4PreviousBtn">{% trans "Previous" %}</button>
                         <button type="button" class="btn btn-primary" id="step4NextBtn">{% trans "Next" %}</button>
                     </div>
                 </div>
@@ -228,56 +260,61 @@
                 <div class="page-header">
                     <h3> {% trans "Financial parameters" %}</h3>
                     <p></p>
-                    <div class="row ">
-                        <div class="custom-control custom-select float-right col-md-4">
-                            <label class="custom-control-label" for="period-analysis">{% trans "Currency" %}</label>
-                            <select id="analysis_select" class="custom-control-input" disabled>
-                                <option value="1">USD</option>
-                            </select>
+                    <div class="row">
+                        <div class="custom-control float-right col-md-4">
+                            <div class="row">
+                                <div class="custom-control col-md-3">
+                                    <label class="custom-control-label" for="financial_currency">{% trans "Currency" %}</label>
+                                </div>
+                                <div class="custom-control col-md-4">
+                                    <input id="financial_currency" class="form-control" value="{{study_case.financial_currency}}" disabled>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                     <div class="row ">
                         <div class="col-md-6">
-                            <label class="custom-control-label" for="total_platform">{% trans "Platform cost per year (US$/yr)" %}</label>
+                            <label class="custom-control-label" for="total_platform">{% trans "Platform cost per year" %}</label>
                         </div>
-                        <div class="custom-control custom-checkbox col-md-4">
+                        <div class="custom-control col-md-4">
                             <input class="text-number" id="total_platform" type="number" class="custom-control-input" disabled>
                         </div>
 
                         <div class="col-md-6">
                             <label class="custom-control-label platform-label" for="total_personnel">{% trans "Personnel Salary and Benefits" %}</label>
                         </div>
-                        <div class="custom-control custom-checkbox col-md-4">
+                        <div class="custom-control col-md-4">
                             <input class="text-number" id="total_personnel" type="number" class="custom-control-input" disabled>
                         </div>
                         <div class="col-md-6">
                             <label class="custom-control-label personnel-label" for="director">{% trans "Program director" %}</label>
                         </div>
-                        <div class="custom-control custom-checkbox col-md-4">
+                        <div class="custom-control col-md-4">
                             <input class="text-number" id="director" type="number" class="custom-control-input" value="{{study_case.program_Director|stringformat:'1.2f'}}" disabled>
                         </div>
                         <div class="col-md-6">
                             <label class="custom-control-label personnel-label" for="evaluation"> {%trans "Monitoring and Evaluation Manager" %}</label>
                         </div>
-                        <div class="custom-control custom-checkbox col-md-4">
+                        <div class="custom-control col-md-4">
                             <input class="text-number" id="evaluation" type="number" class="custom-control-input" value="{{study_case.monitoring_Manager|stringformat:'1.2f'}}" disabled>
                         </div>
                         <div class="col-md-6">
                             <label class="custom-control-label personnel-label" for="finance">{% trans "Finance and Administrator" %}</label>
                         </div>
-                        <div class="custom-control custom-checkbox col-md-4">
-                            <inputclass="text-number" id="finance" type="number" class="custom-control-input" value="{{study_case.finance_Manager|stringformat:'1.2f'}}" disabled>
+                        <div class="custom-control col-md-4">
+                            <input class="text-number" id="finance" type="number" class="custom-control-input" value="{{study_case.finance_Manager|stringformat:'1.2f'}}" disabled>
                         </div>
                         <div class="col-md-6">
                             <label class="custom-control-label personnel-label" for="implementation">{% trans "Implementation Manager" %}</label>
                         </div>
-                        <div class="custom-control custom-checkbox col-md-4">
+                        <div class="custom-control col-md-4">
                             <input class="text-number" id="implementation" type="number" class="custom-control-input" value="{{study_case.implementation_Manager|stringformat:'1.2f'}}" disabled>
                         </div>
                         <div class="col-md-6">
                             <label class="custom-control-label platform-label" for="office">{% trans "Office Costs" %}</label>
                         </div>
-                        <div class="custom-control custom-checkbox col-md-4">
+                        <div class="custom-control col-md-4">
                             <input class="text-number" id="office" type="number" class="custom-control-input" value="{{study_case.office_Costs|stringformat:'1.2f'}}" disabled>
                         </div>
                         <div class="col-md-6">
@@ -323,13 +360,13 @@
                             <input class="text-number" id="discount" type="number" class="custom-control-input" value="{{study_case.discount_rate|stringformat:'1.2f'}}" disabled>
                         </div>
                         <div class="col-md-6">
-                            <label class="custom-control-label" for="minimun">{% trans "Sensitivity Analysis - Minimun Discount Rate" %}</label>
+                            <label class="custom-control-label" for="minimun">{% trans "Sensitivity Analysis - Minimun Discount Rate (%)" %}</label>
                         </div>
                         <div class="custom-control custom-checkbox col-md-4">
                             <input class="text-number" id="minimun" type="number" class="custom-control-input" value="{{study_case.discount_rate_minimunm|stringformat:'1.2f'}}" disabled>
                         </div>
                         <div class="col-md-6">
-                            <label class="custom-control-label" for="maximun">{% trans "Sensitivity Analysis - Maximun Discount Rate" %}</label>
+                            <label class="custom-control-label" for="maximun">{% trans "Sensitivity Analysis - Maximun Discount Rate (%)" %}</label>
                         </div>
                         <div class="custom-control custom-checkbox col-md-4">
                             <input class="text-number" id="maximun" type="number" class="custom-control-input" value="{{study_case.discount_rate_maximum|stringformat:'1.2f'}}" disabled>
@@ -338,6 +375,7 @@
                 </div>
                 <div class="row text-center">
                     <div class="col-md-12">
+                        <button type="button" class="btn btn-primary" id="step5PreviousBtn">{% trans "Previous" %}</button>
                         <button type="button" class="btn btn-primary" id="step5NextBtn">{% trans "Next" %}</button>
                     </div>
                 </div>
@@ -346,26 +384,16 @@
             <div id="step-6" class="tab-pane" role="tabpanel">
                 <div class="page-header">
                     <h3> {% trans "NBS/Conservation activities" %}</h3>
-                    <p></p>
+                    <p>{% trans "Select the NBS you want to consider in the analysis" %}</p>
+
 
                     <ul class="list-group list-group-flush" id="nbs-ul">
-                        {% for nb in nbs %}
-                        <li class="list-group-item">
-                            <div class="custom-control custom-checkbox">
-                                {% if nb.default %}
-                                <input id='nbs-{{nb.id}}' type="checkbox" class="custom-control-input" checked disabled>
-                                {% else %}
-                                <input type="checkbox" class="custom-control-input" id="nbs-{{portfolio.nb}}" disabled>
-                                {% endif %}
 
-                                <label class="custom-control-label" for="nbs-{{nb.id}}">{{nb.name}}</label>
-                            </div>
-                        </li>
-                        {% endfor %}
                     </ul>
                 </div>
                 <div class="row text-center">
                     <div class="col-md-12">
+                        <button type="button" class="btn btn-primary" id="step6PreviousBtn">{% trans "Previous" %}</button>
                         <button type="button" class="btn btn-primary" id="step6NextBtn">{% trans "Next" %}</button>
                     </div>
                 </div>
@@ -376,37 +404,43 @@
                     <h3> {% trans "RUN Analysis" %}</h3>
                     <p></p>
                 </div>
-                <div id="div_period_analysis" class="form-group">
-                    <label for="period_analysis" class="control-label required-field">
-                        {% trans "Analysis time period (years) (10-100)" %}
-                    </label>
-                    <input id="period_analysis" type="number" class="form-control" value="{{study_case.analysis_period_value|stringformat:'1.2f'}}" disabled>
-                </div>
-                <div id="div_analysis_currency" class="form-group">
-                    <label for="analysis_currency" class="control-label required-field ">
-                        {% trans "Currency" %}
-                    </label>
-                    <select id="analysis_currency" class="form-control" disabled>
-                        <option value="1">USD</option>
-                    </select>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div id="div_period_analysis" class="form-group">
+                            <label for="period_analysis" class="control-label required-field">
+                                {% trans "Analysis time period (years) (10-100)" %}
+                            </label>
+                            <input id="period_analysis" type="number" class="form-control" value="{{study_case.analysis_period_value|stringformat:'1.2f'}}" disabled>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div id="div_analysis_currency" class="form-group">
+                            <label for="analysis_currency" class="control-label required-field ">
+                                {% trans "Currency" %}
+                            </label>
+                            <input id="analysis_currency" class="form-control" value="{{study_case.analysis_currency}}" disabled>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div id="div_period_nbs" class="form-group">
+                            <label class="control-label required-field" for="period-nbs">{% trans "Implementation Time of Nature-Based Solution (yr)" %}</label>
+                            <input id="period_nbs" type="number" class="form-control" value="{{study_case.time_implement|stringformat:'1.2f'}}" disabled>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div id="div_analysis_nbs" class="form-group">
+                            <label class="control-label required-field" for="analysis_nbs">{% trans "Climate Selection for Baseline and NBS Scenario Analysis" %}</label>
+                            <input id="analysis_nbs" class="form-control" value="{{study_case.climate_scenario.name}}" disabled>
+                        </div>
+                    </div>
                 </div>
 
                 <div id="div_analysis_type" class="form-group">
-                    <div id="div_period_nbs" class="form-group">
-                        <label class="control-label required-field" for="period-nbs">{% trans "Implementation Time of Nature-Based Solution (yr)" %}</label>
-                        <input id="period_nbs" type="number" class="form-control" value="{{study_case.time_implement|stringformat:'1.2f'}}" disabled>
-                    </div>
-                    <div id="div_analysis_nbs" class="form-group">
-                        <label class="control-label required-field" for="analysis_nbs">{% trans "Climate Selection for Vaseline and NBS Scenario Analysis" %}</label>
-                        <select id="analysis_nbs" class="form-control" disabled>
-                            <option value="1">Historical</option>
-                        </select>
-                    </div>
                     <label class="control-label required-field ">
                         {% trans "Select an option to run the analysis" %}
                     </label>
 
-                    {% if study_case.studycase_type == 'FULL' %}
+                    {% if study_case.analysis_type == 'FULL' %}
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="analysis_type" id="full" value="1" checked disabled>
                         <label class="form-check-label" for="full">
@@ -423,62 +457,50 @@
                     {% endif %}
                 </div>
 
-                <div class="row">
+                {% if study_case.analysis_type != 'FULL' %}
+                <div class="panel" id="panel-investment">
                     <div class="col-md-12">
-                        {% if study_case.studycase_type == 'FULL' %}
-                        <div class="panel" id="panel-investment">
+                        <div class="row form-group">
+                            <div class="col-md-6">
+                                <div id="div_annual_investment" class="form-group">
+                                    <label class="control-label required-field" for="annual_investment">{% trans "Annual Investment" %}</label>
+                                    <input id="annual_investment" type="number" class="form-control" value="{{study_case.annual_investment|stringformat:'1.2f'}}" disabled>
+                                </div>
+                            </div>
                             <div class="col-md-12">
-                                <div class="row form-group">
-                                    <div id="div_annual_investment" class="form-group">
-                                        <label class="control-label required-field" for="annual_investment">{% trans "Annual Investment" %}</label>
-                                        <input id="annual_investment" type="number" class="form-control" value="{{study_case.annual_investment|stringformat:'1.2f'}}" disabled>
+                                <div id="div_rellocated_check" class="form-group">
+                                    <div class="custom-control custom-checkbox">
+                                        {% if study_case.rellocated_remainder %}
+                                        <input type="checkbox" class="custom-control-input" id='rellocated_check' checked disabled>
+                                        {% else %}
+                                        <input type="checkbox" class="custom-control-input" id='rellocated_check' disabled>
+                                        {% endif %}
+                                        <label class="custom-control-label" for="rellocated_check">{% trans "Rellocated remainder" %}</label>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        {% endif %}
-                        {% if study_case.analysis_conservation != '' %}
-                        <table id="full-table" class="table table-striped table-bordered table-condensed" style="width:100%">
-                            <thead>
-                                <tr class="info">
-                                    <th scope="col" class="small text-center vat">{% trans "Activity" %}</th>
-                                    {% if study_case.studycase_type == 'FULL' %}
-                                    <th scope="col" class="small text-center vat">{% trans "Percentage" %}</th>
-                                    {% else %}
-                                    <th scope="col" class="small text-center vat">{% trans "Investment" %}</th>
-                                    {% endif %}
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>Conservation</td>
-                                    <td><input type="number" id="conservation" value="{{study_case.analysis_conservation|stringformat:'1.2f'}}" disabled /></td>
-                                </tr>
-                                <tr>
-                                    <td>Active restoration</td>
-                                    <td><input type="number" id="active" value="{{study_case.analysis_active_restoration|stringformat:'1.2f'}}" disabled /></td>
-                                </tr>
-                                <tr>
-                                    <td>Passive restoration</td>
-                                    <td><input type="number" id="passive" value="{{study_case.analysis_passive_restoration|stringformat:'1.2f'}}" disabled /></td>
-                                </tr>
-                                <tr>
-                                    <td>Agroforestry</td>
-                                    <td><input type="number" id="agroforestry" value="{{study_case.analysis_silvopastoral|stringformat:'1.2f'}}" disabled /></td>
-                                </tr>
-                                <tr>
-                                    <td>Silvopastoral</td>
-                                    <td><input type="number" id="silvopastoral" value="{{study_case.analysis_agroforestry|stringformat:'1.2f'}}" disabled /></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        {% endif %}
                     </div>
                 </div>
-
+                {% endif %}
+                <table id="full-table" class="table table-striped table-bordered table-condensed table-analysis panel-hide">
+                    <thead>
+                        <tr class="info">
+                            <th scope="col" class="small text-center vat">{% trans "Activity" %}</th>
+                            {% if study_case.analysis_type == 'FULL' %}
+                            <th scope="col" class="small text-center vat">{% trans "Percentage" %}</th>
+                            {% else %}
+                            <th scope="col" class="small text-center vat">{% trans "Investment" %}</th>
+                            {% endif %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
                 <div class="row text-center">
-                    <div class="col-md-6">
-                        <button type="button" class="btn btn-primary" id="step7EndBtn">{% trans "back" %}</button>
+                    <div class="col-md-12">
+                        <button type="button" class="btn btn-primary" id="step7PreviousBtn">{% trans "Previous" %}</button>
+                        <button type="button" class="btn btn-primary" id="step7EndBtn">{% trans "Return" %}</button>
                     </div>
                 </div>
             </div>

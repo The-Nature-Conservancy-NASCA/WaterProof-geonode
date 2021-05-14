@@ -4,7 +4,7 @@
  * @version 1.0
  */
 $(function() {
-    var table = $('#examples').DataTable({
+    var table = $('#studycases').DataTable({
         'dom': 'lrtip'
     });
     var countryDropdown = $('#countryNBS');
@@ -52,6 +52,55 @@ $(function() {
                     "display": "block"
                 })
             }
+        });
+
+
+        $('.btn-danger').click(function(evt) {
+            Swal.fire({
+                title: gettext('Delete study case'),
+                text: gettext("Are you sure?") + gettext("You won't be able to revert this!"),
+                icon: 'warning',
+                showCancelButton: false,
+                showDenyButton: true,
+                confirmButtonColor: '#d33',
+                denyButtonColor: '#3085d6',
+                confirmButtonText: gettext('Yes, delete it!'),
+                denyButtonText: gettext('Cancel')
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    studycaseId = evt.currentTarget.getAttribute('data-id')
+                    /** 
+                     * Get filtered activities by transition id 
+                     * @param {String} url   activities URL 
+                     * @param {Object} data  transition id  
+                     *
+                     * @return {String} activities in HTML option format
+                     */
+                    $.ajax({
+                        url: '/study_cases/delete/' + studycaseId,
+                        type: 'POST',
+                        success: function(result) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: gettext('Great!'),
+                                text: gettext('The study case has been deleted')
+                            })
+                            setTimeout(function() {
+                                location.href = "/study_cases/";
+                            }, 1000);
+                        },
+                        error: function(error) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: gettext('Error!'),
+                                text: gettext('The study case has not been deleted, try again!')
+                            })
+                        }
+                    });
+                } else if (result.isDenied) {
+                    return;
+                }
+            })
         });
         fillTransitionsDropdown(transitionsDropdown);
 
@@ -169,7 +218,7 @@ $(function() {
         }*/
         let cityName = geojsonFilter[0].properties.name;
         console.log(geojsonFilter[0].properties.name)
-        //table.search(localStorage.getItem('city').substr(0, 2)).draw();
+        table.search(localStorage.getItem('city').substr(0, 2)).draw();
         table.search(cityName.substr(0, 5)).draw();
         drawPolygons();
     }
@@ -296,6 +345,15 @@ $(function() {
         });
 
     }
+
+
+    viewPtap = function(id) {
+        localStorage.loadInf = "true";
+        localStorage.plantId = id;
+        window.open('../../treatment_plants/create/', '_blank');
+    };
+
+
     /** 
      * Validate input file on change
      * @param {HTML} dropdown Dropdown selected element

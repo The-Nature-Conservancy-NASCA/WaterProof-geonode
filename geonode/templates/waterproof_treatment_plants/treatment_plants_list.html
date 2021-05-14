@@ -3,7 +3,7 @@
 
 {% block extra_head %}
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
-<link rel="stylesheet" href="{% static " geonode/css/leaflet/Control.Coordinates.css " %}" />
+<link rel="stylesheet" href="{{ STATIC_URL }}geonode/css/leaflet/Control.Coordinates.css"/>
 <link rel="stylesheet" href="https://photon.komoot.io/static/leaflet.photon/leaflet.photon.css">
 </link>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
@@ -32,7 +32,7 @@
     <h1>{% trans "Treatment Plants List" %}</h1>
     <br>
     <br>
-    <a id="createUrl">{% trans "Create new Treatment Plants" %}</a>
+    <a href="create/" id="createUrl">{% trans "Create new Treatment Plants" %}</a>
 </div>
 
 <div class="table-responsive">
