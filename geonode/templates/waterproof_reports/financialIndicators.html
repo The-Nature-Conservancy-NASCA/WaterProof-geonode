@@ -58,7 +58,7 @@
         <!--panel of navigation-->
         <div class="title-inform">
             <div id="idSectionRoi" class="inform-section">{% trans "Return of investment (ROI)" %}</div>
-            <div id="idSectionNvp" class="inform-section inform-section-free">{% trans "Net present value (NPV)" %}</div>
+            <div id="idSectionNvp" class="inform-section inform-section-free">{% trans "Portfolio Efficiency" %}</div>
             <div class="inform-section inform-section-free">{% trans "Sensitivity analysis" %}</div>
         </div>
         <!--Steps-->
@@ -223,7 +223,7 @@
             <div id="step2"  style="display: none;">
                 <div style="text-align: center;">
                         <div class="content-image">
-                            <img src="/static/geonode/img/Indicadores-beneficio.png"/>
+                            <img src="/static/geonode/img/eficiencia-de-portafolio.png"/>
                         </div>
                         <div class="contain-detail">
                             <!--Graph-->
@@ -361,7 +361,7 @@ $(function () {
                 type: 'bar'
             },
             title: {
-                text: 'Net present value'
+                text: 'Portfolio Efficiency'
             },
             xAxis: {
                 categories: ['Carbon storage', 'Phosphorus load', 'Nitrogen load', 'Total sediments', 'Base flow', 'Volumen of water yield']
@@ -370,7 +370,7 @@ $(function () {
                 enabled: false
             },
             series: [{
-                name: 'NPV',
+                name: 'PE',
                 data: [parseFloat("40"),parseFloat("-73"),parseFloat("-75"),parseFloat("-13"),parseFloat("40"),parseFloat("17")]
             }]
         });

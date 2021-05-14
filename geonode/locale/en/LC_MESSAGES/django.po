@@ -10769,13 +10769,13 @@ msgstr "Create a new layer"
 #: geonode/templates/waterproof_treatment_plants/treatment_plants_edit.html:41
 msgid ""
 "Select from the list water intakes that arrive at your treatment plant and "
-"click on the button 'Add wather intake'"
+"click on the button 'Add water intake'"
 msgstr ""
 
 #: geonode/templates/waterproof_treatment_plants/treatment_plants_edit.html:50
 #, fuzzy
 #| msgid "Create a new layer"
-msgid "Add wather intake"
+msgid "Add water intake"
 msgstr "Create a new layer"
 
 #: geonode/templates/waterproof_treatment_plants/treatment_plants_edit.html:56

@@ -190,17 +190,6 @@ $(document).ready(function() {
                 $("#ptap_table").find('tbody').append(markup);
             });
         });
-        $.get("../../study_cases/intakebyptap/" + value, function(data) {
-            $.each(data, function(index, intake) {
-                id = intake.csinfra_elementsystem__intake__id
-                $("#select_custom option").each(function(i) {
-                    if (id == $(this).val()) {
-                        $(this).remove();
-                    }
-                });
-                $("#custom-" + id).remove();
-            });
-        });
         $('#autoAdjustHeightF').css("height", "auto");
     });
 
@@ -332,18 +321,21 @@ $(document).ready(function() {
         biophysical = []
         $('#biophysical-panel').find('table').each(function(index, table) {
             id = table.id.split('_').pop()
-            bio = {
-                intake_id: id
-            }
             $('#' + table.id).find('tbody > tr.edit').each(function(index, tr) {
-                $('#' + tr.id).find('td').each(function(index, td) {
+                bio = {
+                    intake_id: id
+                }
+                $(" #" + tr.id).find('td').each(function(index, td) {
                     td_id = td.id
                     if (td_id) {
                         split = td_id.split('_')
                         split.pop();
                         name_td = split.join("_");
+                        split = name_td.split('_')
+                        split.pop();
+                        name_td = split.join("_");
                         val = undefined
-                        $('#' + td.id).find("input").each(function() {
+                        $('#' + td_id).find("input").each(function() {
                             val = $(this).val();
                         });
                         if (!val) {
@@ -352,9 +344,11 @@ $(document).ready(function() {
                         bio[name_td] = val;
                     }
                 });
+                biophysical.push(bio)
             });
-            biophysical.push(bio)
+
         });
+
         $.post("../../study_cases/savebio/", {
             id_study_case: id_study_case,
             biophysicals: '1' + JSON.stringify(biophysical),
@@ -393,7 +387,7 @@ $(document).ready(function() {
             Swal.fire({
                 icon: 'warning',
                 title: `Discount value`,
-                text: `Please check minimum discount`
+                text: `Please check  discount`
             });
             valid = false
             return;
@@ -482,7 +476,7 @@ $(document).ready(function() {
                 }
             });
         }
-        if ($('#period_nbs').val() < 10 || $('#period_nbs').val() > 100) {
+        if ($('#period_analysis').val() < 10 || $('#period_analysis').val() > 100) {
             Swal.fire({
                 icon: 'warning',
                 title: `Field problem`,
@@ -496,33 +490,74 @@ $(document).ready(function() {
             valid_investment = $('#annual_investment').val() != ''
         }
         if ($('#period_analysis').val() != '' && $('#period_nbs').val() != '' && type && valid_edit && valid_investment && valid_period) {
-            $("#full-table").find("input").each(function(index, input) {
-                nbsactivity = {}
-                input_id = input.id
-                if (input_id) {
-                    split = input_id.split('-')
-                    nbssc_id = split.pop();
-                    val = $("#" + input_id).val()
-                    nbsactivity['id'] = nbssc_id;
-                    nbsactivity['value'] = val;
-                    nbsactivities.push(nbsactivity)
-                }
-            });
-            $.post("../../study_cases/save/", {
-                id_study_case: id_study_case,
-                analysis_type: type,
-                period_nbs: $('#period_nbs').val(),
-                period_analysis: $('#period_analysis').val(),
-                analysis_nbs: $("#analysis_nbs option:selected").val(),
-                analysis_currency: $("#analysis_currency option:selected").text(),
-                annual_investment: $('#annual_investment').val(),
-                rellocated_remainder: $("#rellocated_check").is(':checked'),
-                nbsactivities: '1' + JSON.stringify(nbsactivities),
+
+            analysis_currency = $("#analysis_currency option:selected").text()
+            html = '<div class="row" id="currencys-panel"> <div class="col-md-10 currency-panel">Currency for the execution this analisys</div><div class="col-md-2 currency-panel currency-text">' + analysis_currency
+            html += '</div><div class="col-md-12 currency-panel">Next, the exchange rate will be applied to the currencies identifed in the cost functions configured for this analysis ins described.</div>'
+            $.get("../../study_cases/currencys/", {
+                id: id_study_case,
+                currency: analysis_currency
             }, function(data) {
-                $('#smartwizard').smartWizard("next");
-                $('#autoAdjustHeightF').css("height", "auto");
-            }, "json");
-            $("#form").submit();
+                $.each(data, function(index, currency) {
+                    if (currency.currency != analysis_currency) {
+                        value = Number.parseFloat(currency.value).toFixed(5);
+                        html += '<div class="col-md-2 currency-value"><label class="custom-control-label" for="currency">' + currency.currency + '</label></div>'
+                        html += '<div class="custom-control col-md-10 currency-value"><input id="' + currency.currency + '" class="text-number" type="number" class="custom-control-input" value="' + value + '"></div>'
+                    }
+                });
+                Swal.fire({
+                    title: 'Exchange rate',
+                    html: html,
+                    showCancelButton: true,
+                    confirmButtonText: 'Save',
+                    preConfirm: () => {
+                        currencys = []
+                        $("#currencys-panel").find("input").each(function(index, input) {
+                            currency = {}
+                            input_id = input.id
+                            if (input_id) {
+                                val = $("#" + input_id).val()
+                                currency['currency'] = input_id;
+                                currency['value'] = val;
+                                currencys.push(currency)
+                            }
+                        });
+                        return currencys
+                    }
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $("#full-table").find("input").each(function(index, input) {
+                            nbsactivity = {}
+                            input_id = input.id
+                            if (input_id) {
+                                split = input_id.split('-')
+                                nbssc_id = split.pop();
+                                val = $("#" + input_id).val()
+                                nbsactivity['id'] = nbssc_id;
+                                nbsactivity['value'] = val;
+                                nbsactivities.push(nbsactivity)
+                            }
+                        });
+                        $.post("../../study_cases/save/", {
+                            id_study_case: id_study_case,
+                            analysis_type: type,
+                            period_nbs: $('#period_nbs').val(),
+                            period_analysis: $('#period_analysis').val(),
+                            analysis_nbs: $("#analysis_nbs option:selected").val(),
+                            analysis_currency: $("#analysis_currency option:selected").text(),
+                            annual_investment: $('#annual_investment').val(),
+                            rellocated_remainder: $("#rellocated_check").is(':checked'),
+                            nbsactivities: '1' + JSON.stringify(nbsactivities),
+                            currencys: '1' + JSON.stringify(result.value),
+                        }, function(data) {
+                            $('#smartwizard').smartWizard("next");
+                            $('#autoAdjustHeightF').css("height", "auto");
+                        }, "json");
+                        $("#form").submit();
+                    }
+                })
+            });
+
         } else {
             Swal.fire({
                 icon: 'warning',
@@ -536,7 +571,45 @@ $(document).ready(function() {
 
 
     $('#step7RunBtn').click(function() {
+        analysis_currency = $("#analysis_currency option:selected").text()
+        html = '<div class="row" id="currencys-panel"> <div class="col-md-10 currency-panel">Currency for the execution this analisys</div><div class="col-md-2 currency-panel currency-text">' + analysis_currency
+        html += '</div><div class="col-md-12 currency-panel">Next, the exchange rate will be applied to the currencies identifed in the cost functions configured for this analysis ins described.</div>'
+        $.get("../../study_cases/currencys/", {
+            id: id_study_case,
+            currency: analysis_currency
+        }, function(data) {
+            $.each(data, function(index, currency) {
+                if (currency.currency != analysis_currency) {
+                    value = Number.parseFloat(currency.value).toFixed(5);
+                    html += '<div class="col-md-2 currency-value"><label class="custom-control-label" for="currency">' + currency.currency + '</label></div>'
+                    html += '<div class="custom-control col-md-10 currency-value"><input id="' + currency.currency + '" class="text-number" type="number" class="custom-control-input" value="' + value + '"></div>'
+                }
+            });
+            Swal.fire({
+                title: 'Exchange rate',
+                html: html,
+                showCancelButton: true,
+                confirmButtonText: 'Run',
+                preConfirm: () => {
+                    currencys = []
+                    $("#currencys-panel").find("input").each(function(index, input) {
+                        currency = {}
+                        input_id = input.id
+                        if (input_id) {
+                            val = $("#" + input_id).val()
+                            currency['currency'] = input_id;
+                            currency['value'] = val;
+                            currencys.push(currency)
+                        }
+                    });
+                    return currencys
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
 
+                }
+            })
+        });
     });
 
 
@@ -569,13 +642,6 @@ $(document).ready(function() {
         });
         option = ptap_name
         id = row.attr("id").replace('ptap-', '')
-        $.get("../../study_cases/intakebyptap/" + id, function(data) {
-            $.each(data, function(index, intake) {
-                id = intake.csinfra_elementsystem__intake__id
-                option = intake.csinfra_elementsystem__intake__name
-                $("#select_custom").append(new Option(option, id));
-            });
-        });
         $("#select_ptap").append(new Option(option, id));
         row.remove();
 
@@ -862,12 +928,12 @@ $(document).ready(function() {
             });
             content += '</tr></thead><tbody>'
             $.each(data, function(index, bio) {
-                content += '<tr id="id_' + bio.id + '">'
-                content += '<td id="description_' + bio.id + '">' + bio.description + '</td>'
-                content += '<td id="lucode_' + bio.id + '">' + bio.lucode + '</td>'
+                content += '<tr id="' + id_intake + '_' + bio.id + '">'
+                content += '<td id="description_' + id_intake + '_' + bio.id + '">' + bio.description + '</td>'
+                content += '<td id="lucode_' + id_intake + '_' + bio.id + '">' + bio.lucode + '</td>'
                 $.each(bio, function(key, v) {
                     if (key != 'lucode' && key != 'default' && key != 'lulc_desc' && key != 'description' && key != 'user_id' && key != 'intake_id' && key != 'study_case_id' && key != 'id' && key != 'macro_region' && key != 'kc') {
-                        content += '<td id="' + key + '_' + bio.id + '"><input class="text-number" type="number" value="' + v + '"/></td>'
+                        content += '<td id="' + key + '_' + id_intake + '_' + bio.id + '"><input class="text-number" type="number" value="' + v + '"/></td>'
                     }
                 });
                 content += '</tr>'

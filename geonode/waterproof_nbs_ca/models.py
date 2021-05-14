@@ -119,6 +119,12 @@ class WaterproofNbsCa(models.Model):
         verbose_name=_('Name'),
     )
 
+    slug = models.CharField(
+        max_length=100,
+        unique=True,
+        verbose_name=_('slug'),
+    )
+
     description = models.CharField(
         max_length=2048,
         verbose_name=_('Description'),

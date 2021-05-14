@@ -31,15 +31,11 @@ from geonode.waterproof_intake.models import ElementSystem, Intake
 
 
 class wbPtap(models.Model):
-    # Create your models here.
-    studycase = models.ForeignKey(StudyCases, on_delete=models.CASCADE) #Hace referencia al caso de estudio que originó la ejecución del análisis 
+    # Create your models here.    
     stage = models.CharField(max_length=10) #Almacena el escenario para el cual se generaron las variables
-    function_plant = models.ForeignKey(Function, on_delete=models.CASCADE)#hace referencia al elemento del diagrama.
-    function_graph = models.IntegerField(verbose_name=_('Graph Id Function'))
+    element_id = models.IntegerField(default=-1, verbose_name=_('Element Id'))
     year = models.IntegerField(verbose_name=_('Year')) 
-    user = models.ForeignKey( settings.AUTH_USER_MODEL, null=True, blank=True, on_delete=models.CASCADE)
     awy = models.FloatField(null=True, blank=True, default=None, verbose_name=_('Awy'))
-    q_l_s = models.FloatField(null=True, blank=True, default=None, verbose_name=_('Qls'))
     cn_mg_l = models.FloatField(null=True, blank=True, default=None, verbose_name=_('Cn'))
     cp_mg_l = models.FloatField(null=True, blank=True, default=None, verbose_name=_('CpMgl'))
     csed_mg_l = models.FloatField(null=True, blank=True, default=None, verbose_name=_('CsedMgL'))
@@ -47,8 +43,11 @@ class wbPtap(models.Model):
     wp_kg = models.FloatField(null=True, blank=True, default=None, verbose_name=_('WpKg'))
     wsed_ton = models.FloatField(null=True, blank=True, default=None, verbose_name=_('WsedTon'))
     wn_ret_kg = models.FloatField(null=True, blank=True, default=None, verbose_name=_('WnRetKg'))
-    wp_ret_ton = models.FloatField(null=True, blank=True, default=None, verbose_name=_('WpRetTon'))
+    wp_ret_kg = models.FloatField(null=True, blank=True, default=None, verbose_name=_('WpRetKg'))
     wsed_ret_ton = models.FloatField(null=True, blank=True, default=None, verbose_name=_('WsedRetTon'))
+    ptap = models.ForeignKey(Header, on_delete=models.CASCADE, null=True)
+    studycase = models.ForeignKey(StudyCases, on_delete=models.CASCADE) #Hace referencia al caso de estudio que originó la ejecución del análisis 
+    user = models.ForeignKey( settings.AUTH_USER_MODEL, null=True, blank=True, on_delete=models.CASCADE)
 
 
 class wbIntake(models.Model):
@@ -113,3 +112,28 @@ class investIndicators(models.Model):
     wsed_ton = models.FloatField(null=True, blank=True, default=None, verbose_name=_('WsedTon'))
     bf_m3 = models.FloatField(null=True, blank=True, default=None, verbose_name=_('BfM3'))
     wc_ton = models.FloatField(null=True, blank=True, default=None, verbose_name=_('WcTon'))
+
+class rios_ipa(models.Model):
+    year = models.IntegerField(verbose_name=_('Year'))
+    sbn = models.CharField(max_length=100)
+    actual_spent = models.FloatField(null=True, blank=True, default=None, verbose_name=_('Actual spent'))
+    total_budget = models.FloatField(null=True, blank=True, default=None, verbose_name=_('Total budget'))
+    area_converted_ha = models.FloatField(null=True, blank=True, default=None, verbose_name=_('Area converted ha'))
+    study_case = models.ForeignKey(StudyCases, on_delete=models.CASCADE)
+    intake = models.ForeignKey(Intake, on_delete=models.CASCADE)
+    user = models.ForeignKey( settings.AUTH_USER_MODEL, null=True, blank=True, on_delete=models.CASCADE)
+    execution_date = models.DateField()
+
+class invest_results(models.Model):
+    year = models.IntegerField(verbose_name=_('Year'))
+    type = models.CharField(max_length=100)
+    awy = models.FloatField(null=True, blank=True, default=None, verbose_name=_('Awy'))
+    wn_kg = models.FloatField(null=True, blank=True, default=None, verbose_name=_('WnKg'))
+    wp_kg = models.FloatField(null=True, blank=True, default=None, verbose_name=_('WpKg'))
+    wsed_ton = models.FloatField(null=True, blank=True, default=None, verbose_name=_('WsedTon'))
+    bf_m3 = models.FloatField(null=True, blank=True, default=None, verbose_name=_('BfM3'))
+    wc_ton = models.FloatField(null=True, blank=True, default=None, verbose_name=_('WcTon'))
+    study_case = models.ForeignKey(StudyCases, on_delete=models.CASCADE)
+    intake = models.ForeignKey(Intake, on_delete=models.CASCADE)
+    user = models.ForeignKey( settings.AUTH_USER_MODEL, null=True, blank=True, on_delete=models.CASCADE)
+    execution_date = models.DateField()

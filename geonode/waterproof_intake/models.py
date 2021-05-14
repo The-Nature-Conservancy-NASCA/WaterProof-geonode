@@ -74,89 +74,6 @@ class CostFunctionsProcess(models.Model):
 
     #process_efficiencies = models.ForeignKey(ProcessEfficiencies, on_delete=models.CASCADE, null=True)
 
-class UserCostFunctions(models.Model):
-
-    name = models.TextField(
-        null=True,
-        blank=True,
-        verbose_name=_('Name')
-    )
-
-    description = models.TextField(
-        null=True,
-        blank=True,
-        verbose_name=_('Description')
-    )
-
-    function = models.TextField(
-        null=True,
-        blank=True,
-        verbose_name=_('Function')
-    )
-
-    template_function = models.ForeignKey(
-        CostFunctionsProcess,
-        on_delete=models.DO_NOTHING,
-        null=True,
-        blank=True
-    )
-
-    user = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        null=False,
-        blank=False,
-        on_delete=models.CASCADE
-    )
-
-    currency = models.ForeignKey(
-        Countries,
-        on_delete=models.CASCADE,
-        null=True,
-        blank=True
-    )
-
-
-class UserLogicalFunctions(models.Model):
-
-    function1 = models.TextField(
-        null=False,
-        blank=False,
-        verbose_name=_('Function1')
-    )
-
-    condition1 = models.TextField(
-        null=False,
-        blank=False,
-        verbose_name=_('Condition1')
-    )
-
-    function2 = models.TextField(
-        null=False,
-        blank=False,
-        verbose_name=_('Function2')
-    )
-
-    condition2 = models.TextField(
-        null=False,
-        blank=False,
-        verbose_name=_('Condition2')
-    )
-
-    function3 = models.TextField(
-        null=False,
-        blank=False,
-        verbose_name=_('Function3')
-    )
-
-    condition3 = models.TextField(
-        null=False,
-        blank=False,
-        verbose_name=_('Condition3')
-    )
-
-    mainFunction = models.ForeignKey(UserCostFunctions, on_delete=models.CASCADE)
-
-
 
 
 class DemandParameters(models.Model):
@@ -728,6 +645,7 @@ class ElementSystem(models.Model):
         verbose_name=_('WpRetTon')
     )
 
+<<<<<<< HEAD
 class ProcessEfficiencies(models.Model):
 
     name = models.CharField(
@@ -823,7 +741,104 @@ class ProcessEfficiencies(models.Model):
         default=0,
         verbose_name=_('Maximal transported water')
     )
+=======
+class UserCostFunctions(models.Model):
+>>>>>>> 0a63c18ba9cb66ad9dd7c6dbc79a34d673eb0714
 
+    name = models.TextField(
+        null=True,
+        blank=True,
+        verbose_name=_('Name')
+    )
+
+    description = models.TextField(
+        null=True,
+        blank=True,
+        verbose_name=_('Description')
+    )
+
+    function = models.TextField(
+        null=True,
+        blank=True,
+        verbose_name=_('Function')
+    )
+
+    template_function = models.ForeignKey(
+        CostFunctionsProcess,
+        on_delete=models.DO_NOTHING,
+        null=True,
+        blank=True
+    )
+
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        null=False,
+        blank=False,
+        on_delete=models.CASCADE
+    )
+
+    currency = models.ForeignKey(
+        Countries,
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True
+    )
+
+    intake = models.ForeignKey(
+        Intake,
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True
+    )
+
+    element_system= models.ForeignKey(
+        ElementSystem,
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+    )
+
+
+class UserLogicalFunctions(models.Model):
+
+    function1 = models.TextField(
+        null=False,
+        blank=False,
+        verbose_name=_('Function1')
+    )
+
+    condition1 = models.TextField(
+        null=False,
+        blank=False,
+        verbose_name=_('Condition1')
+    )
+
+    function2 = models.TextField(
+        null=False,
+        blank=False,
+        verbose_name=_('Function2')
+    )
+
+    condition2 = models.TextField(
+        null=False,
+        blank=False,
+        verbose_name=_('Condition2')
+    )
+
+    function3 = models.TextField(
+        null=False,
+        blank=False,
+        verbose_name=_('Function3')
+    )
+
+    condition3 = models.TextField(
+        null=False,
+        blank=False,
+        verbose_name=_('Condition3')
+    )
+
+    mainFunction = models.ForeignKey(UserCostFunctions, on_delete=models.CASCADE)
+    
 class ElementConnections(models.Model):
     source = models.ForeignKey(ElementSystem,  related_name="source", on_delete=models.CASCADE)
 

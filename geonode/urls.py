@@ -115,9 +115,7 @@ urlpatterns = [
 
 urlpatterns += [
 
-    path('cms/', include(wagtailadmin_urls)),
-    path('docs/', include(wagtaildocs_urls)),
-    path('pages/', include(wagtail_urls)),
+    
 
     # ResourceBase views
     url(r'^base/', include('geonode.base.urls')),
@@ -330,4 +328,9 @@ if settings.MONITORING_ENABLED:
 # waterproof_reports
 urlpatterns += [
     url(r'^reports/', include('geonode.waterproof_reports.urls'), name='waterproof_reports'),
+]
+
+# waterproof_cms
+urlpatterns += [
+    url(r'^cms/', include('geonode.waterproof_cms.urls'), name='waterproof_cms'),
 ]

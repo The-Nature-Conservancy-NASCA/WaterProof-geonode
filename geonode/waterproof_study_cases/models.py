@@ -107,6 +107,7 @@ class StudyCases(models.Model):
     analysis_period_value = models.IntegerField(blank=True, null=True)
     analysis_currency = models.CharField(max_length=4, blank=True, null=True)
     is_complete = models.BooleanField(verbose_name=_('Is complete'), default=False)
+    is_run_analysis = models.BooleanField(verbose_name=_('Is run analysis'), default=False)
     added_by = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         null=True,
@@ -131,6 +132,11 @@ class StudyCases_NBS(models.Model):
     studycase = models.ForeignKey(StudyCases, on_delete=models.CASCADE)
     nbs = models.ForeignKey(WaterproofNbsCa, on_delete=models.CASCADE)
     value = models.DecimalField(max_digits=20, decimal_places=2, blank=True, null=True)
+    
+class StudyCases_Currency(models.Model):
+    studycase = models.ForeignKey(StudyCases, on_delete=models.CASCADE)
+    currency = models.CharField(max_length=4, blank=True, null=True)
+    value = models.DecimalField(max_digits=20, decimal_places=3, blank=True, null=True)
 
 class Meta:
     managed = False

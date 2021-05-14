@@ -444,6 +444,7 @@
                   {% if user.is_superuser or user.is_staff %}
                       <li role="separator" class="divider"></li>
                       <li><a href="{% url "admin:index" %}">{% trans "Admin" %}</a></li>
+                    <li><a href="/cms" >{% trans "CMS" %}</a></li>
                       {% if 'geonode.geoserver' in INSTALLED_APPS %}
                       <li><a href="{{ OGC_SERVER.default.WEB_UI_LOCATION }}">GeoServer</a></li>
                       {% endif %}
