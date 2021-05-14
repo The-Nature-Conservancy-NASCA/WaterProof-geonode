@@ -1,0 +1,142 @@
+.border-table-title {
+    border-style: solid;
+    border-width: 2px;
+    border-color: #b9b9b9;
+    width: 50%;
+}
+.title-table {
+    text-align: center;
+    margin: 4px;
+    font-size: 12px;
+    font-weight: bold;
+    color: #3a809a;
+}
+.column-left-table {
+    width: 50%;
+    border-right-style: solid;
+    border-width: 2px;
+    border-color: #b9b9b9;
+    font-size: 12px;
+    height: 80px;
+}
+.column-right-table {
+	position: absolute;
+    top: 0px;
+    right: 0px;
+    width: 50%;
+    font-size: 12px;
+}
+.file-column-left {
+	position: relative;
+}
+.title-file-column-right {
+    width: 70%;
+    left: 10px;
+    position: relative;
+}
+.value-file-column-left {
+    position: absolute;
+    top: 0px;
+    right: 10px;
+}
+.detail-table {
+	position: relative;
+}
+.title-inform {
+	margin-top: 50px;
+    font-size: 14px;
+}
+.inform-section {
+    width: 250px;
+    background-color: #3a809a;
+    color: #ffffff;
+    text-align: center;
+    padding: 10px;
+    border-style: solid;
+    border-color: #1a6784;
+    border-width: 1px;
+    border-bottom-style: none;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    float: left;
+    margin-right: 3px;
+    cursor: pointer;
+}
+.inform-section-free {
+    background-color: #ffffff;
+    color: #3a809a;
+}
+.contain-detail {
+    margin-top: 150px;
+    right: 50px;
+    position: relative;
+}
+.first-detail {
+	border-style: solid;
+    border-color: #b9b9b9;
+    border-radius: 10px;
+    border-width: 2px;
+    width: 20%;
+    font-size: 12px;
+    float: left;
+    margin-left: 20px;
+}
+.content-title-first {
+    height: 30px;
+    position: relative;
+}
+.text-title-first {
+    height: 30px;
+    border-bottom-style: solid;
+    width: 70%;
+    margin-left: 10%;
+    border-width: 2px;
+    border-color: #b9b9b9;
+    padding-top: 10px;
+    text-align: left;
+    font-weight: bold;
+}
+.close-title-first {
+    height: 30px;
+    font-size: 20px;
+    top: -5px;
+    position: absolute;
+    cursor: pointer;
+    padding: 10px;
+    right: 5px;
+}
+.first-detail-in {
+    margin: 20px;
+}
+.text-first-detail {
+    text-align: left;
+}
+.content-option-first-detail {
+    width: 80%;
+    left: 20%;
+    position: relative;
+    margin: 5px;
+}
+.div-option {
+    text-align: left;
+    float: left;
+}
+.div-option > input {
+	margin-top: 0px;
+	cursor: pointer;
+}
+.div-text {
+	text-align: left;
+    margin-left: 20px;
+}
+.content-image {
+	width: 400px;
+	height: 500px;
+    float: left;
+}
+.content-image > img {
+    width: 70%;
+    background: #e2e2e2;
+    border-radius: 50%;
+    padding: 20px;
+}
