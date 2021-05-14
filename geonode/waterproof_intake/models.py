@@ -645,7 +645,6 @@ class ElementSystem(models.Model):
         verbose_name=_('WpRetTon')
     )
 
-<<<<<<< HEAD
 class ProcessEfficiencies(models.Model):
 
     name = models.CharField(
@@ -741,9 +740,8 @@ class ProcessEfficiencies(models.Model):
         default=0,
         verbose_name=_('Maximal transported water')
     )
-=======
+
 class UserCostFunctions(models.Model):
->>>>>>> 0a63c18ba9cb66ad9dd7c6dbc79a34d673eb0714
 
     name = models.TextField(
         null=True,
