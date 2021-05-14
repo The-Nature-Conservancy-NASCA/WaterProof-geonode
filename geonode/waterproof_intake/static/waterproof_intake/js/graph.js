@@ -794,7 +794,7 @@
  
                      Swal.fire(
                          gettext('Deleted!'),
-                         gettext('Your funcion has been deleted'),
+                         gettext('Your function has been deleted'),
                          'success'
                      )
                  }
@@ -985,8 +985,10 @@
                  let response = await fetch(url); 
                  let result = await response.json();
                  if (result){
-                     console.log(result);
-                     mathField.latex(result.replaceAll("$$",""));
+                    is_valid = result.valid;
+                    latex = result.latex
+                    console.log(result);
+                    mathField.latex(latex);
                  }
              }
          }

@@ -435,22 +435,24 @@
                             <label class="text-primary">Cost function description</label>
                             <textarea id="costFuntionDescription" rows="3" class="form-control"></textarea>
                         </div>
-                        <div class="form-group">
-                            <label class="text-primary">{% trans "Currency for definition of costs" %} </label>
-                            <select id="currencyCost" class="form-control" required>
-                                {% for currency in currencies %}
-                                    {% if currency.iso3 == 'USA'%}
-                                        <option value="{{currency.pk}}" data-country="{{currency.iso3}}" selected>({{currency.currency}}) - {{currency.name}}</option>
-                                    {% else %}
-                                        <option value="{{currency.pk}}">({{currency.currency}}) - {{currency.name}}</option>
-                                    {% endif %}
-                                {% endfor %}
-                            </select>
-                        </div>
-                         <div class="form-group">
-                            <label class="text-primary">{% trans "Multiplying factor for overrall cost" %} </label>
-                            <input type="text" value="1" id="global_multiplier_factorCalculator" class="form-control" disabled>
-                        </div>
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <label class="text-primary">{% trans "Currency for definition of costs" %} </label>
+                                <select id="currencyCost" class="form-control" required>
+                                    {% for currency in currencies %}
+                                        {% if currency.iso3 == 'USA'%}
+                                            <option value="{{currency.pk}}" data-country="{{currency.iso3}}" selected>({{currency.currency}}) - {{currency.name}}</option>
+                                        {% else %}
+                                            <option value="{{currency.pk}}">({{currency.currency}}) - {{currency.name}}</option>
+                                        {% endif %}
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-xs-6">
+                                <label class="text-primary">{% trans "Multiplying factor for overrall cost" %} </label>
+                                <input type="text" value="1" id="global_multiplier_factorCalculator" class="form-control" disabled>
+                            </div>
+                        </div>                         
                         <h5 class="text-primary">Syntax keyboard</h5>
                         <ul class="nav nav-tabs">
                             <li class="active"><a href="#mathBasic_tab" data-toggle="tab">Basic</a></li>
@@ -505,50 +507,17 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-12">
-                        <h5 class="text-primary">Math expression</h5>
-                        <ul class="nav nav-tabs">
-                            <li class="active"><a href="#mathNatural" data-toggle="tab">Natural</a></li>
-                            <!--li><a href="#mathLogical" data-toggle="tab" >Logical</a></li-->
-                        </ul>
-                        <div class="tab-content">
-                            <div id="mathNatural" class="tab-pane fade in active">
-                                <textarea id="python-expression" style="width: 90%;font-family: monospace;"></textarea>
-                                <button id="btnValidatePyExp">Validate </button>
-                                <span valinfo="mathField" id="math-field" class="form-control math-span" style="height: auto;"></span>                                
-                            </div>
-                            <div id="mathLogical" class="tab-pane fade">
-                                <table class="table mathTable">
-                                    <thead>
-                                        <tr>
-                                        <th class="text-center" scope="col">#</th>
-                                        <th class="text-center" scope="col">Logical</th>
-                                        <th class="text-center" scope="col">Math expression</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <th class="text-center" style="width: 20px" scope="row">1</th>
-                                            <td style="width: 250px"><span valinfo="mathFieldlog1" id="math-fieldlogic1" class="form-control math-span" style="height: auto;"></span></td>
-                                            <td><span valinfo="mathFieldE1" id="math-fieldex1" class="form-control math-span" style="height: auto;"></span>
-                                            </td>
-                                        </tr>
-                                       <tr>
-                                            <th class="text-center" style="width: 20px" scope="row">2</th>
-                                            <td style="width: 250px"><span valinfo="mathFieldlog2" id="math-fieldlogic2" class="form-control math-span" style="height: auto;"></span></td>
-                                            <td><span valinfo="mathFieldE2" id="math-fieldex2" class="form-control math-span" style="height: auto;"></span>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th class="text-center" style="width: 20px" scope="row">3</th>
-                                            <td style="width: 250px"><span valinfo="mathFieldlog3" id="math-fieldlogic3" class="form-control math-span" style="height: auto;"></span></td>
-                                            <td><span valinfo="mathFieldE3" id="math-fieldex3" class="form-control math-span" style="height: auto;"></span>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                    <div class="col-md-12">                        
+                        <div id="mathNatural" class="tab-pane fade in active">
+                            <textarea id="python-expression" style="width: 90%;font-family: monospace;font-size: 1.2rem;" autocapitalize="off" autocomplete="off" 
+                                    autocorrect="off" spellcheck="false" x-palm-disable-ste-all="true"></textarea>
+                            <button id="btnValidatePyExp">Validate </button>
+                            <div id="MathPreview" class="preview"></div>
+                            <span valinfo="mathField" id="math-field" class="form-control math-span" style="height: auto;"></span>
                         </div>
+                        <div id="mathLogical" class="tab-pane fade">
+                            
+                        </div>                        
                     </div>
                 </div>
                 <br>
@@ -664,6 +633,7 @@
 <script src="{{ STATIC_URL }}geonode/js/mxgraph/mxClient.js"></script>
 <script src="{{ STATIC_URL }}geonode/js/mxgraph/examples/editors/js/app.js"></script>
 <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 <script src="{{ STATIC_URL }}geonode/js/mxgraph/examples/editors/js/app.js"></script>
 <script src="{{ STATIC_URL }}waterproof_intake/mathquill/mathquill.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
