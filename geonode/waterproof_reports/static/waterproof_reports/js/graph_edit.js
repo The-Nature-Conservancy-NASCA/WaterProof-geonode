@@ -402,24 +402,26 @@
          var CostSelected = null;
          var mathFieldSpan = document.getElementById('math-field');
          //var latexSpan = document.getElementById('latex');
-         var mathField = MQ.MathField(mathFieldSpan, {
-             spaceBehavesLikeTab: true,
-             autoCommands: 'pi theta sqrt sum mod',
-             autoOperatorNames: 'sin cos tan',
-             restrictMismatchedBrackets: true,
-             supSubsRequireOperand: true,
-             handlers: {
-                 edit: function() {
-                     mathField.focus();
-                 }
-             }
-         });
+         // var mathField = MQ.MathField(mathFieldSpan, {
+         //     spaceBehavesLikeTab: true,
+         //     autoCommands: 'pi theta sqrt sum mod',
+         //     autoOperatorNames: 'sin cos tan',
+         //     restrictMismatchedBrackets: true,
+         //     supSubsRequireOperand: true,
+         //     handlers: {
+         //         edit: function() {
+         //             mathField.focus();
+         //         }
+         //     }
+         // });
  
-         mathQuillSelected = 'mathField';
+         // mathQuillSelected = 'mathField';
  
          //KeyBoard calculator funcion cost
          $('button[name=mathKeyBoard]').click(function() {
-             addInfo(mathQuillSelected, $(this).attr('value'));
+             //addInfo(mathQuillSelected, $(this).attr('value'));
+             var el = document.getElementById("python-expression");
+             typeInTextarea($(this).attr('value'),el);
          });
  
          $('button[name=mathKeyBoard]').each(function() {
@@ -439,7 +441,7 @@
          });
  
          function clearInputsMath() {
-             mathField.latex('').blur();            
+             //mathField.latex('').blur();            
          }
  
          $("#currencyCost").on("change", function() {
@@ -568,8 +570,24 @@
  
          //Set var into calculator
          $(document).on('click', '.list-group-item', function() {
-             addInfo(mathQuillSelected, `\\mathit{${$(this).attr('value')}}`);
+             //addInfo(mathQuillSelected, `\\mathit{${$(this).attr('value')}}`);
+             var el = document.getElementById("python-expression");
+             typeInTextarea($(this).attr('value'),el);
          });
+ 
+         function typeInTextarea(newText, el) {
+             const [start, end] = [el.selectionStart, el.selectionEnd];
+             el.setRangeText(newText, start, end, 'select');
+         }
+ 
+         $('#python-expression').on('keypress',function(evt) {
+             var charCode = (evt.which) ? evt.which : evt.keyCode;
+             let symbols = [40,41,42,43,45,60,61,62,106,107,109,111];
+             if (charCode != 46 && charCode > 31 && (charCode < 48 || charCode > 57))
+                 return (symbols.indexOf(charCode) >= 0);
+ 
+             return true;
+         })
  
          $('#saveAndValideCost').click(function() {
              if (banderaFunctionCost) {
@@ -577,7 +595,7 @@
                  var pyExp = $('#python-expression').val();
                  funcostdb.push({
                      'fields': {
-                         'function_value': pyExp /*mathField.latex()*/,
+                         'function_value': pyExp,
                          'function_name': $('#costFunctionName').val() == '' ? 'Undefined name' : $('#costFunctionName').val(),
                          'function_description': $('#costFuntionDescription').val(),
                          'global_multiplier_factorCalculator': $('#global_multiplier_factorCalculator').val(),
@@ -614,7 +632,7 @@
                  temp.logical = JSON.stringify(temp.logical);
                  $.extend(funcostdb[CostSelected].fields, temp);
                  var pyExp = $('#python-expression').val();
-                 funcostdb[CostSelected].fields.function_value = pyExp; //mathField.latex();
+                 funcostdb[CostSelected].fields.function_value = pyExp; 
              }
              selectedCell.setAttribute('funcost', JSON.stringify(funcostdb));
              $('#funcostgenerate div').remove();
@@ -629,7 +647,7 @@
  
          //Edit funcion cost 
          $(document).on('click', 'a[name=glyphicon-edit]', function() {
-             mathField.clearSelection();
+             //mathField.clearSelection();
              clearInputsMath();
              $('#CalculatorModal').modal('show');
              CostSelected = $(this).attr('idvalue');
@@ -697,11 +715,9 @@
                  $('#VarCostListGroup').append(`
                      <div class="panel panel-info">
                          <div class="panel-heading">
-                             <h4 class="panel-title">
-                                 <a data-toggle="collapse" data-parent="#VarCostListGroup" href="#VarCostListGroup_${index.id}">${index.id} - ${index.name.replace(/['"]+/g, '')}</a>
-                             </h4>
+                             <a data-toggle="collapse" data-parent="#VarCostListGroup" href="#VarCostListGroup_${index.id}">${index.id} - ${index.name.replace(/['"]+/g, '')}</a>                            
                          </div>
-                         <div id="VarCostListGroup_${index.id}" class="panel-collapse collapse">
+                         <div id="VarCostListGroup_${index.id}" class="panel-collapse var-cost-panel collapse">
                              ${costlabel}
                          </div>
                      </div>
@@ -817,10 +833,10 @@
  
          //Append values and var into funcion cost
          function addInfo(type, value) {
-             if (type == 'mathField') {
-                 mathField.cmd(value);
-                 mathField.focus();
-             }
+             // if (type == 'mathField') {
+             //     mathField.cmd(value);
+             //     mathField.focus();
+             // }
          }
  
          $('#step4NextBtn').click(function() {
@@ -895,8 +911,14 @@
                      is_valid = result.valid;
                      latex = result.latex
                      console.log(result.latex);
-                     //mathField.latex(latex);
                      typesetInput(result.latex);
+                     if (is_valid){
+                         $("#python-expression").removeClass("invalid_expression");
+                         $("#python-expression").addClass("valid_expression");
+                     }else{
+                         $("#python-expression").addClass("invalid_expression");
+                         $("#python-expression").removeClass("valid_expression");
+                     }
                  }
              }
          }        
