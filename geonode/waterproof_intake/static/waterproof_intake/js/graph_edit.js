@@ -350,7 +350,6 @@ function onInit(editor) {
         };
 
         editor.addAction('exportSvg', exportSvg);
-
         buttons.push('exportImage');
         buttons.push('exportSvg');
     };
@@ -372,15 +371,6 @@ function onInit(editor) {
     //use jquery
     $(document).ready(function() {
 
-        // MathJax = {
-        //     tex: {
-        //       inlineMath: [['$', '$'], ['\\(', '\\)']]
-        //     },
-        //     svg: {
-        //       fontCache: 'global'
-        //     }
-        // };
-
         var output = document.getElementById('MathPreview');
         var button = document.getElementById('btnValidatePyExp');
 
@@ -396,36 +386,18 @@ function onInit(editor) {
             }).then(function () {
               button.disabled = false;
             });
-          }
+        }
 
-        var MQ = MathQuill.getInterface(2);
-        var CostSelected = null;
-        var mathFieldSpan = document.getElementById('math-field');
-        //var latexSpan = document.getElementById('latex');
-        // var mathField = MQ.MathField(mathFieldSpan, {
-        //     spaceBehavesLikeTab: true,
-        //     autoCommands: 'pi theta sqrt sum mod',
-        //     autoOperatorNames: 'sin cos tan',
-        //     restrictMismatchedBrackets: true,
-        //     supSubsRequireOperand: true,
-        //     handlers: {
-        //         edit: function() {
-        //             mathField.focus();
-        //         }
-        //     }
-        // });
-
-        // mathQuillSelected = 'mathField';
+        var CostSelected = null;      
 
         //KeyBoard calculator funcion cost
         $('button[name=mathKeyBoard]').click(function() {
-            //addInfo(mathQuillSelected, $(this).attr('value'));
             var el = document.getElementById("python-expression");
             typeInTextarea($(this).attr('value'),el);
         });
 
         $('button[name=mathKeyBoard]').each(function() {
-            MQ.StaticMath(this);
+            // MQ.StaticMath(this);
         });
 
         $('span[id^=math-fieldlogic').click(function() {
@@ -441,7 +413,7 @@ function onInit(editor) {
         });
 
         function clearInputsMath() {
-            //mathField.latex('').blur();            
+            console.log("clearInputsMath");
         }
 
         $("#currencyCost").on("change", function() {
@@ -499,7 +471,7 @@ function onInit(editor) {
             selectedCell = evt.getProperty('cell');
             // Clear Inputs
             if (selectedCell != undefined) clearDataHtml(selectedCell, evt);
-            if (selectedCell != undefined) { addData(selectedCell, MQ); } else { clearDataHtml(selectedCell, evt); }
+            if (selectedCell != undefined) { addData(selectedCell); } else { clearDataHtml(selectedCell, evt); }
         });
 
         //Button for valide graph
@@ -509,7 +481,7 @@ function onInit(editor) {
         });
 
         function validateGraphIntake() {
-
+            console.log("validateGraphIntake");
             graphData = [];
             connection = [];
             var enc = new mxCodec();
@@ -570,7 +542,6 @@ function onInit(editor) {
 
         //Set var into calculator
         $(document).on('click', '.list-group-item', function() {
-            //addInfo(mathQuillSelected, `\\mathit{${$(this).attr('value')}}`);
             var el = document.getElementById("python-expression");
             typeInTextarea($(this).attr('value'),el);
         });
@@ -830,15 +801,7 @@ function onInit(editor) {
         };
         //Force only numbers into calculator funcion cost
         $("#math-field").ForceNumericOnly();
-
-        //Append values and var into funcion cost
-        function addInfo(type, value) {
-            // if (type == 'mathField') {
-            //     mathField.cmd(value);
-            //     mathField.focus();
-            // }
-        }
-
+        
         $('#step4NextBtn').click(function() {
             var datop = false;
             saveExternalData(datop);

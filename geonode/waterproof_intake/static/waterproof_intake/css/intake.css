@@ -185,7 +185,6 @@ textarea {
 }
 
 .truncate {
-    display: -webkit-box;
     max-height: 4.3rem;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
@@ -221,4 +220,9 @@ textarea {
 
 .panel-group {
     margin-bottom: 2px;
+}
+
+.header-waterproof{
+    padding-left: 28rem;
+    padding-bottom: 2px;
 }

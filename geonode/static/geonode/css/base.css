@@ -1256,15 +1256,17 @@ h6 .small,
 }
 h1,
 .h1 {
-  font-size: 41px;
+  font-size: 35px;
+  margin-block-start: 0.1em;
+  margin-block-end: 0.27em;
 }
 h2,
 .h2 {
-  font-size: 34px;
+  font-size: 31px;
 }
 h3,
 .h3 {
-  font-size: 28px;
+  font-size: 27px;
 }
 h4,
 .h4 {
@@ -1598,6 +1600,10 @@ pre code {
   margin-left: auto;
 }
 .row {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
   margin-right: -15px;
   margin-left: -15px;
 }
@@ -4041,7 +4047,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .nav > li > a {
   position: relative;
   display: block;
-  padding: 10px 15px;
+  padding: 10px 10px;
 }
 .nav > li > a:hover,
 .nav > li > a:focus {
@@ -7053,9 +7059,9 @@ form input {
 #wrap {
   background: #fff;
   padding-bottom: 40px;
-  padding-top: 10px;
+  padding-top: 1px;
   width: 100%;
-  margin-top: 60px;
+  margin-top: 50px;
 }
 article.tab-pane {
   padding: 20px 0;
@@ -7161,7 +7167,7 @@ article.tab-pane {
   max-height: none;
 }
 .navbar-header i {
-  color: white;
+  color: #2c689c;
   font-size: 2em;
 }
 .navbar-header button {
@@ -8795,9 +8801,32 @@ top:50px;
   left: -6px;
 }
 
+@media (min-width: 768px) {
+  #map{
+      width: 580px !important;
+      border: 2px solid;        
+  } 
+}
+@media (min-width: 992px) {
+  #map{
+      width: auto !important;
+      border: 2px solid;        
+  } 
+}
+@media (min-width: 1200px) {
+  #map{
+      width: auto !important;
+      border: 2px solid;        
+  } 
+}
+
 #map { 
+  width: 380px; 
   height: 380px; 
   cursor: pointer;
+  border: 2px solid;
+  border-radius: 0.5em;
+  border-color: #aaa;
 }
 
 #analysisOptions{

@@ -207,31 +207,50 @@ $(function () {
     * Initialize map 
     */
     initMap = function () {
-        map = L.map('mapid').setView([51.505, -0.09], 13);
-
+        //map = L.map('mapid').setView([51.505, -0.09], 13);
+        CENTER = [4.582, -74.4879];
         // Basemap layer
-        L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
-            maxZoom: 18,
-            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, ' +
-                'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-            id: 'mapbox/streets-v11',
-            tileSize: 512,
-            zoomOffset: -1
-        }).addTo(map);
+        var osm = L.tileLayer(OSM_BASEMAP_URL, {
+            maxZoom: MAXZOOM, 
+            attribution: 'Data \u00a9 <a href="http://www.openstreetmap.org/copyright"> OpenStreetMap Contributors </a> Tiles \u00a9 Komoot'});
+        var images = L.tileLayer(IMG_BASEMAP_URL); 
+        //var hydroLyr = L.tileLayer(HYDRO_BASEMAP_URL);
+        var grayLyr = L.tileLayer(GRAY_BASEMAP_URL, {
+                    maxZoom: 20,
+                        attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
+                    });
+
+        var baseLayers = {
+            OpenStreetMap: osm,
+            Images: images,
+            Grayscale: grayLyr,
+        };
+        
+        var map = L.map('mapid', {
+            scrollWheelZoom: false, 
+            layers: [osm],            
+        });
+
         // Countries layer
         let countries = new L.GeoJSON.AJAX(countriesLayerUrl,
             {
                 style: defaultStyle,
                 onEachFeature: onEachFeature
             }
-        );
-        countries.addTo(map);
+        ).addTo(map);
+        var overlays = {
+            "Countries": countries,            
+        };
+
+        let initialCoords = CENTER;
+        map.setView(initialCoords,5);
+        L.control.layers(baseLayers,overlays,{position: 'topleft'}).addTo(map);
 
         // When countries layer is loaded fire dropdown event change
-        countries.on("data:loaded", function () {
+        countries.on("data:loaded", function (evt) {
             let mapClick = false;
             // Preload selected country form list view
-            updateCountryMap(userCountryCode);
+            updateCountryMap(userCountryCode, evt.target);
             // Filter datables with country name
             table.search(userCountryName).draw();
             // Update url to create with country id parameter
@@ -369,17 +388,15 @@ $(function () {
             });
         });
     };
-    updateCountryMap = function (countryCode) {
-        map.eachLayer(function (layer) {
-            if (layer.feature) {
-                if (layer.feature.id == countryCode) {
-                    if (lastClickedLayer) {
-                        lastClickedLayer.setStyle(defaultStyle);
-                    }
-                    layer.setStyle(highlighPolygon);
-                    map.fitBounds(layer.getBounds());
-                    lastClickedLayer = layer;
+    updateCountryMap = function (countryCode, lyr) {
+        lyr.eachLayer(function (layer) {            
+            if (layer.feature.id == countryCode) {
+                if (lastClickedLayer) {
+                    lastClickedLayer.setStyle(defaultStyle);
                 }
+                layer.setStyle(highlighPolygon);
+                map.fitBounds(layer.getBounds());
+                lastClickedLayer = layer;
             }
         });
 
