@@ -10,6 +10,7 @@
     background-image: url('/static/geonode/img/FONDO.jpg');
 }
 #mapidcuenca{
+    width: 380px;
     height: 450px;
     border: 2px solid;
     border-radius: 0.5em;
@@ -141,7 +142,7 @@
         padding-left: 1rem !important;
     }
     #mapidcuenca{
-        /* width: auto;  */
+         width: auto !important; 
         height: 450px;
     } 
     #wrapper {
@@ -197,7 +198,7 @@
     }
 
     #mapidcuenca{
-        /* width: 430px;  */
+        width: 430px !important; 
         height: 400px;
     }
     #wrapper {
@@ -239,7 +240,7 @@
         width: 755px !important;
     }
     #mapidcuenca{
-        /* width: 2000px;  */
+        width: 400px !important;  
         height: 400px;
     }
     #wrapper {
