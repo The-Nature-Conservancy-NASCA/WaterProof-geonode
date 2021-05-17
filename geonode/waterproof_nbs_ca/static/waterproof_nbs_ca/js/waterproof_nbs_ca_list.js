@@ -226,7 +226,7 @@ $(function () {
             Grayscale: grayLyr,
         };
         
-        var map = L.map('mapid', {
+        map = L.map('mapid', {
             scrollWheelZoom: false, 
             layers: [osm],            
         });
