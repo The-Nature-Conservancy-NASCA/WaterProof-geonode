@@ -149,3 +149,56 @@ a {
 .help-warning {
     background-color: #e3f0f8;
 }
+
+.page-explorer .listing .index {
+    color: #458acc;
+    background-color: #fff;
+}
+
+.listing .title .title-wrapper a, .listing .title h2 a {
+    color: #458acc;
+    text-decoration: none;
+}
+
+.page-explorer .listing .index .button {
+    background-color: transparent;
+    color: #458acc;
+    border-color: rgba(0,0,0,.35);
+}
+
+.listing .index .button {
+    background-color: #fff;
+    color: #458acc;
+    border-color: rgba(0,0,0,.35);
+}
+
+.button-secondary {
+    color: #458acc;
+    background-color: transparent;
+}
+
+.listing td.children:hover {
+    background-color: #458acc;
+}
+
+.t-default .u-btn-current {
+    border-color: rgba(0,0,0,.15);
+    color: #458acc;
+}
+
+.listing .index .button {
+    content: " ";
+    display: table;
+    color: #2476c2;
+}
+
+.breadcrumb {
+    padding-top: 0;
+    background: #458acc;
+    margin-left: -50px;
+    margin-right: -50px;
+}
+
+.listing tr:hover .children {
+    background-color: none;
+}

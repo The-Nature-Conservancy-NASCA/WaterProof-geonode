@@ -98,7 +98,7 @@ def getTypePtap(request):
 	if request.method == 'POST':
 		if request.user.is_authenticated:
 
-			url = settings.WATERPROOF_INVEST_API + '/ptapSelection'
+			url = settings.WATERPROOF_INVEST_API + 'ptapSelection'
 			print (url)
 			x = requests.post( url, json = request.data)
 			return JsonResponse(json.loads(x.text), safe=False)
