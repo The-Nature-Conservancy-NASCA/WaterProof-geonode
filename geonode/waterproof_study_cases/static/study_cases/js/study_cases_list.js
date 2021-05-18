@@ -54,6 +54,27 @@ $(function() {
             }
         });
 
+        viewCurrencys = function(id) {
+            html = '<div class="row" id="currencys-panel"> <div class="col-md-12 currency-panel">The following exchange rates have been applied for the analysis</div>'
+            $.get("../../study_cases/currencys/", {
+                id: id,
+                currency: ""
+            }, function(data) {
+                $.each(data, function(index, currency) {
+                    value = Number.parseFloat(currency.value).toFixed(5);
+                    html += '<div class="col-md-6 currency-value"><label class="custom-control-label" for="currency">1 ' + currency.currency + '</label></div>'
+                    html += '<div class="custom-control col-md-6 currency-value">' + value + '</div>'
+                });
+                Swal.fire({
+                    title: 'Exchange rate',
+                    html: html
+                })
+
+            })
+        };
+
+
+
 
         $('.btn-danger').click(function(evt) {
             Swal.fire({
