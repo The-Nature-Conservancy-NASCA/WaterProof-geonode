@@ -81,49 +81,90 @@ def getParameterByCountry(request, name):
 def getStudyCaseCurrencys(request):
     if request.method == 'GET':
         id = request.GET.get('id')
+        currencys = []
         sc = StudyCases.objects.get(id=id)
         sc_currency = request.GET.get('currency')
-        sc_factor = Countries_factor.objects.get(currency=sc_currency)
-        currencys = []
-        scptaps = sc.ptaps.all()
-        scintakes = sc.intakes.all()
-        for ptap in scptaps:
-            ptapCurrency = Function.objects.filter(function_plant=ptap).values('function_currency').distinct()
-            for ptapc in ptapCurrency:
-                if(ptapc['function_currency'] != sc_currency):
-                    currency = {}
-                    currency['currency'] = ptapc['function_currency']
-                    factor = Countries_factor.objects.get(currency=ptapc['function_currency'])
-                    value = factor.factor_EUR / sc_factor.factor_EUR
-                    currency['value'] = str(value)
-                    currencys.append(currency)
-        for intake in scintakes:
-            intakeCurrency = UserCostFunctions.objects.filter(intake=intake).values('currency__currency').distinct()
-            for intakec in intakeCurrency:
-                if(intakec['function_currency'] != sc_currency and any(element['currency'] in intakec['function_currency'] for element in currencys)):
-                    currency = {}
-                    currency['currency'] = intakec['function_currency']
-                    factor = Countries_factor.objects.get(currency=intakec['function_currency'])
-                    value = factor.factor_EUR / sc_factor.factor_EUR
-                    currency['value'] = str(value)
-                    currencys.append(currency)
-        sc_cm_currency = sc.cm_currency
-        if(sc_cm_currency and sc_cm_currency != sc_currency and not any(element['currency'] in sc_cm_currency for element in currencys)):
-            sc_cm_factor = Countries_factor.objects.get(currency=sc_cm_currency)
-            currency = {}
-            currency['currency'] = sc_cm_currency
-            value = sc_cm_factor.factor_EUR / sc_factor.factor_EUR
-            currency['value'] = str(value)
-            currencys.append(currency)
-        sc_f_currency = sc.financial_currency
-        if(sc_f_currency and sc_f_currency != sc_currency and not any(element['currency'] in sc_f_currency for element in currencys)):
-            sc_f_factor = Countries_factor.objects.get(currency=sc_f_currency)
-            currency = {}
-            currency['currency'] = sc_f_currency
-            value = sc_f_factor.factor_EUR / sc_factor.factor_EUR
-            currency['value'] = str(value)
-            currencys.append(currency)
-        data = list(currencys)
+        if(sc_currency):
+            sc_factor = Countries_factor.objects.filter(currency=sc_currency).first()
+            scptaps = sc.ptaps.all()
+            scintakes = sc.intakes.all()
+            scnbs = StudyCases_NBS.objects.filter(studycase=sc)
+            for ptap in scptaps:
+                ptapCurrency = Function.objects.filter(function_plant=ptap).values('function_currency').distinct()
+                for ptapc in ptapCurrency:
+                    if(ptapc['function_currency'] != sc_currency):
+                        currency = {}
+                        currency['currency'] = ptapc['function_currency']
+                        scc = StudyCases_Currency.objects.filter(studycase=sc, currency=ptapc['function_currency']).first()
+                        if(scc):
+                            value = scc.value
+                        else:
+                            factor = Countries_factor.objects.filter(currency=ptapc['function_currency']).first()
+                            value = factor.factor_EUR / sc_factor.factor_EUR
+                        currency['value'] = str(value)
+                        currencys.append(currency)
+            for intake in scintakes:
+                intakeCurrency = UserCostFunctions.objects.filter(intake=intake).values('currency__currency').distinct()
+                for intakec in intakeCurrency:
+                    if(intakec['currency__currency'] != sc_currency and any(element['currency'] in intakec['currency__currency'] for element in currencys)):
+                        currency = {}
+                        currency['currency'] = intakec['currency__currency']
+                        scc = StudyCases_Currency.objects.filter(studycase=sc, currency=intakec['currency__currency']).first()
+                        if(scc):
+                            value = scc.value
+                        else:
+                            factor = Countries_factor.objects.filter(currency=ptapc['function_currency']).first()
+                            value = factor.factor_EUR / sc_factor.factor_EUR
+                        currency['value'] = str(value)
+                        currencys.append(currency)
+            for nbs in scnbs:
+                nbsCurrency = WaterproofNbsCa.objects.filter(id=nbs.pk).values('currency__currency').distinct()
+                for nbsc in nbsCurrency:
+                    if(nbsc['currency__currency'] != sc_currency and any(element['currency'] in nbsc['currency__currency'] for element in currencys)):
+                        currency = {}
+                        currency['currency'] = nbsc['currency__currency']
+                        scc = StudyCases_Currency.objects.filter(studycase=sc, currency=nbsc['currency__currency']).first()
+                        if(scc):
+                            value = scc.value
+                        else:
+                            factor = Countries_factor.objects.filter(currency=ptapc['function_currency']).first()
+                            value = factor.factor_EUR / sc_factor.factor_EUR
+                        currency['value'] = str(value)
+                        currencys.append(currency)
+            sc_cm_currency = sc.cm_currency
+            if(sc_cm_currency and sc_cm_currency != sc_currency and not any(element['currency'] in sc_cm_currency for element in currencys)):
+                sc_cm_factor = Countries_factor.objects.filter(currency=sc_cm_currency).first()
+                currency = {}
+                currency['currency'] = sc_cm_currency
+                scc = StudyCases_Currency.objects.filter(studycase=sc, currency=sc_cm_currency).first()
+                if(scc):
+                    value = scc.value
+                else:
+                    value = sc_cm_factor.factor_EUR / sc_factor.factor_EUR
+                currency['value'] = str(value)
+                currencys.append(currency)
+            sc_f_currency = sc.financial_currency
+            if(sc_f_currency and sc_f_currency != sc_currency and not any(element['currency'] in sc_f_currency for element in currencys)):
+                sc_f_factor = Countries_factor.objects.filter(currency=sc_f_currency).first()
+                currency = {}
+                currency['currency'] = sc_f_currency
+                scc = StudyCases_Currency.objects.filter(studycase=sc, currency=sc_f_currency).first()
+                if(scc):
+                    value = scc.value
+                else:
+                    value = sc_f_factor.factor_EUR / sc_factor.factor_EUR
+                currency['value'] = str(value)
+                currencys.append(currency)
+            data = list(currencys)
+        else:
+            scc = StudyCases_Currency.objects.filter(studycase=sc)
+            for c in scc:
+                currency = {}
+                currency['currency'] = c.currency
+                value = c.value
+                currency['value'] = str(value)
+                currencys.append(currency)
+            data = list(currencys)
         return JsonResponse(data, safe=False)
 
 
@@ -187,11 +228,11 @@ def getBiophysical(request):
                 study_case_id=id_study_case, intake_id=id_intake).values()
             for bio in biophysical:
                 add_bio = True
-                bio['edit'] =  False
+                bio['edit'] = False
                 for biosc in biophysical_sc:
                     if(bio['lucode'] == biosc['lucode']):
                         add_bio = False
-                        biosc['edit'] =  True
+                        biosc['edit'] = True
                         biophysical_list.append(biosc)
                 if(add_bio):
                     biophysical_list.append(bio)
@@ -235,34 +276,39 @@ def saveBiophysicals(request):
             if(request.POST['biophysicals']):
                 biophysicals = request.POST['biophysicals']
                 biophysicals_list = json.loads(biophysicals[1:])
-                if(request.POST['process']):
-                    process = request.POST['process']
-                    id_study = request.POST['id_study_case']
-                    biophysical_sc = Parameters_Biophysical.objects.filter(
-                            study_case_id=id_study)
-                    for biosc in biophysical_sc:
-                        delete = True
-                        for bio in biophysicals_list:
-                            if(str(biosc.lucode) == bio['lucode'] and str(biosc.intake_id) == bio['intake_id']):
-                                bio['study_case_id'] = id_study
-                                bio['default'] = 'N'
-                                for key in bio:
-                                    value = bio[key]
-                                    setattr(biosc, key, value)
-                                biosc.save()
-                                biophysicals_list.remove(bio)
-                                delete =False
-                        if(delete):
-                            biosc.delete()
+                id_study = request.POST['id_study_case']
+                biophysical_sc = Parameters_Biophysical.objects.filter(
+                    study_case_id=id_study)
+                for biosc in biophysical_sc:
+                    delete = True
                     for bio in biophysicals_list:
-                        pb = Parameters_Biophysical()
-                        bio['study_case_id'] = id_study
-                        bio['default'] = 'N'
-                        for key in bio:
-                            value = bio[key]
-                            setattr(pb, key, value)
-                        pb.user_id = request.user.id
-                        pb.save()
+                        if(str(biosc.lucode) == bio['lucode'] and str(biosc.intake_id) == bio['intake_id']):
+                            bio['study_case_id'] = id_study
+                            bio['default'] = 'N'
+                            for key in bio:
+                                value = bio[key]
+                                setattr(biosc, key, value)
+                            biosc.save()
+                            biophysicals_list.remove(bio)
+                            delete = False
+                    if(delete):
+                        biosc.delete()
+                for bio in biophysicals_list:
+                    macro_region = Polygon.objects.filter(intake__pk=bio['intake_id']).values(
+                        "basin__label").first()
+                    biophysical = Parameters_Biophysical.objects.filter(
+                        macro_region=macro_region['basin__label'], default='y', lucode=bio['lucode']).values().first()
+                    pb = Parameters_Biophysical()
+                    bio['lulc_desc'] = biophysical['lulc_desc']
+                    bio['kc'] = biophysical['kc']
+                    bio['macro_region'] = biophysical['macro_region']
+                    bio['study_case_id'] = id_study
+                    bio['default'] = 'N'
+                    for key in bio:
+                        value = bio[key]
+                        setattr(pb, key, value)
+                    pb.user_id = request.user.id
+                    pb.save()
     return JsonResponse({'id_study_case': id_study}, safe=False)
 
 
@@ -426,7 +472,7 @@ def save(request):
                 if(request.POST['currencys']):
                     currencys = request.POST['currencys']
                     currencys_list = json.loads(currencys[1:])
-                    currencys_sc= StudyCases_Currency.objects.filter(studycase=sc)
+                    currencys_sc = StudyCases_Currency.objects.filter(studycase=sc)
                     for currency_sc in currencys_sc:
                         delete = True
                         for currency in currencys_list:
@@ -434,7 +480,7 @@ def save(request):
                                 currency_sc.value = currency['value']
                                 currency_sc.save()
                                 currencys_list.remove(currency)
-                                delete =False
+                                delete = False
                         if(delete):
                             currencys_sc.delete()
                     for currency in currencys_list:
