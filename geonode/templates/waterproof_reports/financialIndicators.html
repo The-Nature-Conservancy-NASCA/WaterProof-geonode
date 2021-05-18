@@ -58,8 +58,9 @@
         <!--panel of navigation-->
         <div class="title-inform">
             <div id="idSectionRoi" class="inform-section">{% trans "Return of investment (ROI)" %}</div>
-            <div id="idSectionNvp" class="inform-section inform-section-free">{% trans "Portfolio Efficiency" %}</div>
-            <div class="inform-section inform-section-free">{% trans "Sensitivity analysis" %}</div>
+            <div id="idSectionPe" class="inform-section inform-section-free">{% trans "Portfolio Efficiency" %}</div>
+            <div id="idSectionNvp" class="inform-section inform-section-free">{% trans "Net Present Value (NPV)" %}</div>
+            <div id="idSectionSA" class="inform-section inform-section-free">{% trans "Sensibility Analysis" %}</div>
         </div>
         <!--Steps-->
         <div>
@@ -228,14 +229,14 @@
                         <div class="contain-detail">
                             <!--Graph-->
                             <div style="width: 50%;position: absolute;left: 450px;">
-                                <div id="containerNpv"></div>
+                                <div id="containerPe"></div>
                             </div>
                         </div>
                 </div>                
                 <br>
                 <!--Table-->
                 <div style="clear:both;" class="table-responsive">
-                    <table id="idTableNpv" class="table table-striped table-bordered table-condensed" style=" width:100%">
+                    <table id="idTablePe" class="table table-striped table-bordered table-condensed" style=" width:100%">
                         <thead>
                             <tr class="info">
                                 <th scope="col" class="small text-center vat">{% trans "Indicator" %}</th>
@@ -262,17 +263,111 @@
                 </div>
             </div>
             <!--Step 3-->
-            <div id="step3">
+            <div id="step3"  style="display: none;">
+                <div style="text-align: center;width: 100%;position: relative;height: 400px;">
+                        <div class="content-image">
+                            <img src="/static/geonode/img/indicadores-fisicos-invest.png"/>
+                        </div>
+                        <div class="contain-detail">
+                            <!--Graph-->
+                            <div style="width: 50%;position: absolute;left: 450px;">
+                                <div id="containerCB"></div>
+                            </div>
+                        </div>
+                </div>                
+                <br>
+                <div style="text-align: center;width: 100%;position: relative;height: 400px;">
+                        <div class="content-image">
+                            <div style="clear:both;" class="table-responsive">
+                                <table id="idTableNpv" class="table table-striped table-bordered table-condensed" style=" width:100%">
+                                    <thead>
+                                        <tr class="info">
+                                            <th colspan="2" scope="col" class="small text-center vat">Net present value summary</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr id="filas">
+                                            <td class="small text-center vat" >Cost: implementation</td>
+                                            <td class="small text-center vat truncate" id="valor1">($227.092.206)</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="contain-detail">
+                            <!--Graph-->
+                            <div style="width: 50%;position: absolute;left: 450px;">
+                                <div id="containerNpv"></div>
+                            </div>
+                        </div>
+                </div>                
+            </div>            <!--Step 3-->
+            <div id="step4"  style="display: none;">
+                <div style="text-align: center;width: 100%;position: relative;height: 400px;">
+                        <div class="contain-detail">
+                            <!--Graph-->
+                            <div style="width: 45%;position: absolute;left: 600px;">
+                                <div id="containerTDB"></div>
+                            </div>
+                        </div>
+                        <div class="contain-detail">
+                            <!--Graph-->
+                            <div style="width: 45%;position: absolute;left: 50px;">
+                                <div id="containerTDC"></div>
+                            </div>
+                        </div>
+                </div>                
+                <br>
+                <!--Table-->
+                <div style="clear:both;" class="table-responsive">
+                    <table id="idTableRoi" class="table table-striped table-bordered table-condensed" style=" width:100%">
+                        <thead>
+                            <tr class="info">
+                                <th scope="col" class="small text-center vat">{% trans "Time Period" %}</th>
+                                <th scope="col" class="small text-center vat">{% trans "1" %}</th>
+                                <th scope="col" class="small text-center vat">{% trans "2" %}</th>
+                                <th scope="col" class="small text-center vat">{% trans "3" %}</th>
+                                <th scope="col" class="small text-center vat">{% trans "4" %}</th>
+                                <th scope="col" class="small text-center vat">{% trans "5" %}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr id="filas">
+                                <td class="small text-center vat" >Width turbidity treatment</td>
+                                <td class="small text-center vat truncate" id="valor1">77654,15</td>
+                                <td class="small text-center vat" id="valor2">257363,48</td>
+                                <td class="small text-center vat" id="valor3">826028,32</td>
+                                <td class="small text-center vat" id="valor4">2602428,59</td>
+                                <td class="small text-center vat" id="valor5">67829527,58</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <br>
+                <div style="text-align: center;width: 100%;position: relative;height: 400px;">
+                        <div class="contain-detail">
+                            <!--Graph-->
+                            <div style="width: 45%;position: absolute;left: 600px;">
+                                <div id="containerRoiS"></div>
+                            </div>
+                        </div>
+                        <div class="contain-detail">
+                            <!--Graph-->
+                            <div style="width: 45%;position: absolute;left: 50px;">
+                                <div id="containerCvB"></div>
+                            </div>
+                        </div>
+                </div>
             </div>
         </div>
-
 </form>
 
 {% endblock %} {% block extra_script %}
-<script src="{{ STATIC_URL }}lib/Highcharts-9.0.1/code/highcharts.js"></script>
-<script src="{{ STATIC_URL }}lib/Highcharts-9.0.1/code/modules/exporting.js"></script>
-<script src="{{ STATIC_URL }}lib/Highcharts-9.0.1/code/modules/export-data.js"></script>
-<script src="{{ STATIC_URL }}lib/Highcharts-9.0.1/code/modules/accessibility.js"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/highcharts-more.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
 
 <script src="{{ STATIC_URL }}geonode/js/datatables/jquery.dataTables.min.js"></script>
 <script src="{{ STATIC_URL }}geonode/js/datatables/dataTables.bootstrap.min.js"></script>
@@ -320,7 +415,7 @@ $(function () {
         var table = $('#idTableRoi').DataTable({
                 'dom': 'lrtip'
             });
-        var table = $('#idTableNpv').DataTable({
+        var table = $('#idTablePe').DataTable({
                 'dom': 'lrtip'
             });
         Highcharts.chart('containerRoi', {
@@ -356,7 +451,7 @@ $(function () {
             }]
         });
 
-        Highcharts.chart('containerNpv', {
+        Highcharts.chart('containerPe', {
             chart: {
                 type: 'bar'
             },
@@ -375,21 +470,213 @@ $(function () {
             }]
         });
 
+        Highcharts.chart('containerCB', {
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Cost and Benefits'
+            },
+            colors: ['#fe7700', '#ffc400'],
+            xAxis: {
+                categories: ['Cost and Benefits']
+            },
+            credits: {
+                enabled: false
+            },
+            series: [{
+                name: 'Cost',
+                data: [parseFloat("19359827")]
+            },{
+                name: 'Benefits',
+                data: [parseFloat("65740719")]
+            }]
+        });
+
+        Highcharts.chart('containerNpv', {
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Net present value summary'
+            },
+            xAxis: {
+                categories: ['Implementation', 'Maintance', 'Oportunity', 'Transaction', 'Platform', 'Benefit', 'Total']
+            },
+            credits: {
+                enabled: false
+            },
+            series: [{
+                name: 'NPV',
+                data: [parseFloat("-5652284"),parseFloat("-8064853"),parseFloat("-1122203"),parseFloat("-2967868"),parseFloat("-1552617"),parseFloat("65740719"),parseFloat("46380892")]
+            }]
+        });
+
+        Highcharts.chart('containerTDB', {
+            title: {
+                text: 'Sensibility analysis - total discounted benefit'
+            },
+            credits: {
+                enabled: false
+            },
+            series: [{
+                name: 'Time (yr)',
+                color: "#4c99d8",
+                data: [[1,90732],[2,213482],[3,239773],[4,248777],[5,247966]]
+            }, {
+                name: 'Range',
+                data: [[1,87403,93401],[2,198101,226224],[3,214333,261558],[4,214221,279362],[5,205687,286641]],
+                type: 'arearange',
+                lineWidth: 0,
+                linkedTo: ':previous',
+                color: "#ffc9a8",
+                fillOpacity: 0.3,
+                zIndex: 0,
+                marker: {
+                    enabled: false
+                }
+            }]
+        });
+
+        Highcharts.chart('containerTDC', {
+            title: {
+                text: 'Sensibility analysis - total discounted cost'
+            },
+            credits: {
+                enabled: false
+            },
+            series: [{
+                name: 'Time (yr)',
+                color: "#006bc3",
+                data: [[1,1897733],[2,1345555],[3,1067348],[4,153698],[5,123088]],
+                marker: {
+                    fillColor: "#a5a5a5",
+                    lineColor: "#006bc3"
+                }
+            }, {
+                name: 'Range',
+                data: [[1,1498210,2372166],[2,838642,2102430],[3,525193,2084664],[4,59706,375241],[5,37748,375664]],
+                type: 'arearange',
+                lineWidth: 0,
+                linkedTo: ':previous',
+                color: "#ffe894",
+                fillOpacity: 0.3,
+                zIndex: 0,
+                marker: {
+                    enabled: false
+                }
+            }]
+        });
+
+        Highcharts.chart('containerCvB', {
+            chart: {
+                polar: true,
+                type: 'line'
+            },
+            title: {
+                text: 'Cost vs benefits',
+                x: -80
+            },
+            xAxis: {
+                categories: ['Minimun discount rate (2%)', 'Maximun discount rate (9%)', 'Discount rate (5%)'],
+                tickmarkPlacement: 'on',
+                lineWidth: 0
+            },
+            yAxis: {
+                gridLineInterpolation: 'polygon',
+                lineWidth: 0,
+                min: 0
+            },
+            credits: {
+                enabled: false
+            },
+            series: [{ 
+                name: 'C vs B',
+                data: [7310173, 2929501, 4587423],
+                pointPlacement: 'on'
+            }]
+        });
+
+        Highcharts.chart('containerRoiS', {
+            chart: {
+                polar: true,
+                type: 'line'
+            },
+            title: {
+                text: 'Return of investment ROI',
+                x: -80
+            },
+            xAxis: {
+                categories: ['Minimun discount rate (2%)', 'Maximun discount rate (9%)', 'Discount rate (5%)'],
+                tickmarkPlacement: 'on',
+                lineWidth: 0
+            },
+            yAxis: {
+                gridLineInterpolation: 'polygon',
+                lineWidth: 0,
+                min: 0
+            },
+            credits: {
+                enabled: false
+            },
+            series: [{ 
+                name: 'ROI',
+                data: [3.98, 2.77, 3.39],
+                pointPlacement: 'on'
+            }]
+        });
+
         $('#idSectionRoi').click(function (e) {
+            $('#idSectionSA').attr('class', 'inform-section inform-section-free');
+            $('#step4').css("display", "none");
+
             $('#idSectionNvp').attr('class', 'inform-section inform-section-free');
+            $('#step3').css("display", "none");
+
+            $('#idSectionPe').attr('class', 'inform-section inform-section-free');
             $('#step2').css("display", "none");
 
             $('#idSectionRoi').attr('class', 'inform-section');
             $('#step1').css("display", "block");
-            
+        });
+        $('#idSectionPe').click(function (e) {
+            $('#idSectionSA').attr('class', 'inform-section inform-section-free');
+            $('#step4').css("display", "none");
 
+            $('#idSectionNvp').attr('class', 'inform-section inform-section-free');
+            $('#step3').css("display", "none");
+
+            $('#idSectionRoi').attr('class', 'inform-section inform-section-free');
+            $('#step1').css("display", "none");
+
+            $('#idSectionPe').attr('class', 'inform-section');
+            $('#step2').css("display", "block");
         });
         $('#idSectionNvp').click(function (e) {
-           $('#idSectionRoi').attr('class', 'inform-section inform-section-free');
-           $('#step1').css("display", "none");
+            $('#idSectionSA').attr('class', 'inform-section inform-section-free');
+            $('#step4').css("display", "none");
 
-           $('#idSectionNvp').attr('class', 'inform-section');
-           $('#step2').css("display", "block");
+            $('#idSectionRoi').attr('class', 'inform-section inform-section-free');
+            $('#step1').css("display", "none");
+
+            $('#idSectionPe').attr('class', 'inform-section inform-section-free');
+            $('#step2').css("display", "none");
+
+            $('#idSectionNvp').attr('class', 'inform-section');
+            $('#step3').css("display", "block");
+        });
+        $('#idSectionSA').click(function (e) {
+            $('#idSectionRoi').attr('class', 'inform-section inform-section-free');
+            $('#step1').css("display", "none");
+
+            $('#idSectionPe').attr('class', 'inform-section inform-section-free');
+            $('#step2').css("display", "none");
+
+            $('#idSectionNvp').attr('class', 'inform-section inform-section-free');
+            $('#step3').css("display", "none");
+
+            $('#idSectionSA').attr('class', 'inform-section');
+            $('#step4').css("display", "block");
         });
     };
     initialize();
