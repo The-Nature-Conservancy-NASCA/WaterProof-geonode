@@ -391,7 +391,7 @@ BEGIN
 $function$
 ;
 
-CREATE OR REPLACE FUNCTION public.get_biophysycal_params(macro_value text, default_value text, user_value integer)
+CREATE OR REPLACE FUNCTION public.__wp_get_biophysycal_params(macro_value text, default_value text, user_value integer)
  RETURNS TABLE(lucode integer, lulc_desc text, description text, kc real, root_depth integer, usle_c integer, usle_p real, load_n real, eff_n real, load_p integer, eff_p real, crit_len_n integer, crit_len_p integer, proportion_subsurface_n integer, cn_a integer, cn_b integer, cn_c integer, cn_d integer, kc_1 real, kc_2 real, kc_3 real, kc_4 real, kc_5 real, kc_6 real, kc_7 real, kc_8 real, kc_9 real, kc_10 real, kc_11 real, kc_12 real, c_above integer, c_below integer, c_soil integer, c_dead integer, sed_exp integer, sed_ret integer, rough_rank real, cover_rank real, p_ret real, p_exp integer, n_ret real, n_exp real, native_veg integer, lulc_veg integer, macro_region text, "default" text, "user" text, id integer, intake_id integer, study_case_id integer, user_id integer)
  LANGUAGE plpgsql
 AS $function$
@@ -403,7 +403,7 @@ $function$
 ;
 
 
-CREATE OR REPLACE FUNCTION public.get_default_biophysycal_params(macro_value text, default_value text)
+CREATE OR REPLACE FUNCTION public.__wp_get_default_biophysycal_params(macro_value text, default_value text)
  RETURNS TABLE(lucode integer, lulc_desc text, description text, kc real, root_depth integer, usle_c integer, usle_p real, load_n real, eff_n real, load_p integer, eff_p real, crit_len_n integer, crit_len_p integer, proportion_subsurface_n integer, cn_a integer, cn_b integer, cn_c integer, cn_d integer, kc_1 real, kc_2 real, kc_3 real, kc_4 real, kc_5 real, kc_6 real, kc_7 real, kc_8 real, kc_9 real, kc_10 real, kc_11 real, kc_12 real, c_above integer, c_below integer, c_soil integer, c_dead integer, sed_exp integer, sed_ret integer, rough_rank real, cover_rank real, p_ret real, p_exp integer, n_ret real, n_exp real, native_veg integer, lulc_veg integer, macro_region text, "default" text, id integer, intake_id integer, study_case_id integer, user_id integer)
  LANGUAGE plpgsql
 AS $function$
@@ -415,7 +415,7 @@ $function$
 ;
 
 
-CREATE OR REPLACE FUNCTION public.get_user_biophysycal_params(macro_value text, default_value text, intake_value integer, study_case integer, user_value integer)
+CREATE OR REPLACE FUNCTION public.__wp_get_user_biophysycal_params(macro_value text, default_value text, intake_value integer, study_case integer, user_value integer)
  RETURNS TABLE(lucode integer, lulc_desc text, description text, kc real, root_depth integer, usle_c integer, usle_p real, load_n real, eff_n real, load_p integer, eff_p real, crit_len_n integer, crit_len_p integer, proportion_subsurface_n integer, cn_a integer, cn_b integer, cn_c integer, cn_d integer, kc_1 real, kc_2 real, kc_3 real, kc_4 real, kc_5 real, kc_6 real, kc_7 real, kc_8 real, kc_9 real, kc_10 real, kc_11 real, kc_12 real, c_above integer, c_below integer, c_soil integer, c_dead integer, sed_exp integer, sed_ret integer, rough_rank real, cover_rank real, p_ret real, p_exp integer, n_ret real, n_exp real, native_veg integer, lulc_veg integer, macro_region text, "default" text, id integer, intake_id integer, study_case_id integer, user_id integer)
  LANGUAGE plpgsql
 AS $function$
@@ -426,7 +426,7 @@ END;
 $function$
 ;
 
-CREATE OR REPLACE FUNCTION public.get_catchment_basin(idcatchment integer)
+CREATE OR REPLACE FUNCTION public.__wp_get_catchment_basin(idcatchment integer)
  RETURNS TABLE(id integer)
  LANGUAGE plpgsql
 AS $function$
@@ -437,7 +437,7 @@ BEGIN
 $function$
 ;
 
-CREATE OR REPLACE FUNCTION public.getactivities(iduser integer)
+CREATE OR REPLACE FUNCTION public.__wp_getactivities(iduser integer)
  RETURNS TABLE(name character varying, unit_implementation_cost numeric, unit_maintenance_cost numeric)
  LANGUAGE plpgsql
 AS $function$    BEGIN
@@ -449,7 +449,7 @@ AS $function$    BEGIN
     $function$
 ;
 
-CREATE OR REPLACE FUNCTION public.getactivityshp(iduser integer)
+CREATE OR REPLACE FUNCTION public.__wp_getactivityshp(iduser integer)
  RETURNS TABLE(id integer, activity character varying, action character varying, geom geometry)
  LANGUAGE plpgsql
 AS $function$    BEGIN
@@ -462,7 +462,7 @@ AS $function$    BEGIN
     $function$
 ;
 
-CREATE OR REPLACE FUNCTION public.getallbasins()
+CREATE OR REPLACE FUNCTION public.__wp_getallbasins()
  RETURNS TABLE(id numeric, continent character varying, symbol character varying, code numeric, label character varying)
  LANGUAGE plpgsql
 AS $function$    BEGIN
@@ -472,7 +472,7 @@ AS $function$    BEGIN
     $function$
 ;
 
-CREATE OR REPLACE FUNCTION public.getbasin(idbasin integer)
+CREATE OR REPLACE FUNCTION public.__wp_getbasin(idbasin integer)
  RETURNS TABLE(id numeric, continent character varying, symbol character varying, code numeric, label character varying)
  LANGUAGE plpgsql
 AS $function$    BEGIN
@@ -483,7 +483,7 @@ AS $function$    BEGIN
     $function$
 ;
 
-CREATE OR REPLACE FUNCTION public.getbasinbylabel(labelbasin character varying)
+CREATE OR REPLACE FUNCTION public.__wp_getbasinbylabel(labelbasin character varying)
  RETURNS TABLE(id numeric, continent character varying, symbol character varying, code numeric, label character varying)
  LANGUAGE plpgsql
 AS $function$    BEGIN
@@ -494,7 +494,7 @@ AS $function$    BEGIN
     $function$
 ;
 
-CREATE OR REPLACE FUNCTION public.getcasecatchments(idcase integer)
+CREATE OR REPLACE FUNCTION public.__wp_getcasecatchments(idcase integer)
  RETURNS TABLE(id integer)
  LANGUAGE plpgsql
 AS $function$
@@ -505,7 +505,7 @@ BEGIN
 $function$
 ;
 
-CREATE OR REPLACE FUNCTION public.getcsinfra(cs_id integer)
+CREATE OR REPLACE FUNCTION public.__wp_getcsinfra(cs_id integer)
  RETURNS TABLE(id integer, name character varying, nitrogen numeric, normalized_category character varying, phosporus numeric, sediment numeric, intake_id integer, q_l_s double precision, awy double precision, cn_mg_l double precision, cp_mg_l double precision, csed_mg_l double precision, wn_kg double precision, wn_ret_kg double precision, wp_ret_ton double precision, wsed_ret_ton double precision, wsed_ton double precision, wp_kg double precision, graphid integer, transported_water numeric, is_external boolean)
  LANGUAGE plpgsql
 AS $function$    BEGIN
@@ -520,7 +520,7 @@ AS $function$    BEGIN
     $function$
 ;
 
-CREATE OR REPLACE FUNCTION public.getconstant(idbasin integer, constantname character varying)
+CREATE OR REPLACE FUNCTION public.__wp_getconstant(idbasin integer, constantname character varying)
  RETURNS TABLE(id_constant integer, name character varying, value character varying, id_basin integer)
  LANGUAGE plpgsql
 AS $function$    BEGIN
@@ -533,7 +533,7 @@ AS $function$    BEGIN
 ;
 
 
-CREATE OR REPLACE FUNCTION public.getcsinfras(csinfras_array character varying)
+CREATE OR REPLACE FUNCTION public.__wp_getcsinfras(csinfras_array character varying)
  RETURNS void
  LANGUAGE plpgsql
 AS $function$
@@ -546,7 +546,7 @@ END
 $function$
 ;
 
-CREATE OR REPLACE FUNCTION public.getobjectives(idobj integer)
+CREATE OR REPLACE FUNCTION public.__wp_getobjectives(idobj integer)
  RETURNS TABLE(name character varying, id_obj integer)
  LANGUAGE plpgsql
 AS $function$    BEGIN
@@ -558,7 +558,7 @@ AS $function$    BEGIN
     $function$
 ;
 
-CREATE OR REPLACE FUNCTION public.getparameterbyname(name_parameter character varying)
+CREATE OR REPLACE FUNCTION public.__wp_getparameterbyname(name_parameter character varying)
  RETURNS TABLE(id_tipo_parametro integer, nombre character varying, cut boolean, constant boolean, suffix boolean, empty boolean, file boolean, folder boolean, out_path boolean, calc boolean)
  LANGUAGE plpgsql
 AS $function$    BEGIN
@@ -570,7 +570,7 @@ AS $function$    BEGIN
     $function$
 ;
 
-CREATE OR REPLACE FUNCTION public.getparametersbymodel(model_name character varying)
+CREATE OR REPLACE FUNCTION public.__wp_getparametersbymodel(model_name character varying)
  RETURNS TABLE(id_tipo_parametro integer, nombre character varying, cut boolean, constant boolean, suffix boolean, empty boolean, file boolean, folder boolean, out_path boolean, calc boolean, input_user boolean, biophysical_parameters boolean, from_preproc boolean, rios_type character varying)
  LANGUAGE plpgsql
 AS $function$    BEGIN
@@ -584,7 +584,7 @@ AS $function$    BEGIN
     $function$
 ;
 
-CREATE OR REPLACE FUNCTION public.getparametersbyobj(idbasin integer, idobj integer)
+CREATE OR REPLACE FUNCTION public.__wp_getparametersbyobj(idbasin integer, idobj integer)
  RETURNS TABLE(nombre character varying, basin integer, ruta character varying)
  LANGUAGE plpgsql
 AS $function$    BEGIN
@@ -598,7 +598,7 @@ AS $function$    BEGIN
     $function$
 ;
 
-CREATE OR REPLACE FUNCTION public.getparametersmodel(idbasin integer, model character varying)
+CREATE OR REPLACE FUNCTION public.__wp_getparametersmodel(idbasin integer, model character varying)
  RETURNS TABLE(name character varying, ruta character varying, cut boolean, constant boolean, suffix boolean, empty boolean, file boolean, folder boolean, out_path boolean, out_folder character varying, out_folder_quality character varying, calc boolean, inputuser boolean, biophysical_parameters boolean, from_preproc boolean, rios_type character varying)
  LANGUAGE plpgsql
 AS $function$    BEGIN
@@ -618,7 +618,7 @@ AS $function$    BEGIN
     $function$
 ;
 
-CREATE OR REPLACE FUNCTION public.getpathbasinparameter(idbasin integer, id_parameter integer)
+CREATE OR REPLACE FUNCTION public.__wp_getpathbasinparameter(idbasin integer, id_parameter integer)
  RETURNS TABLE(path character varying)
  LANGUAGE plpgsql
 AS $function$    BEGIN
@@ -629,7 +629,7 @@ AS $function$    BEGIN
     $function$
 ;
 
-CREATE OR REPLACE FUNCTION public.gettransformationsbyname(nbs_name character varying)
+CREATE OR REPLACE FUNCTION public.__wp_gettransformationsbyname(nbs_name character varying)
  RETURNS TABLE(from_lucode integer, from_cob character varying, to_lucode integer, to_cob character varying)
  LANGUAGE plpgsql
 AS $function$    BEGIN
@@ -645,7 +645,7 @@ AS $function$    BEGIN
     $function$
 ;
 
-CREATE OR REPLACE FUNCTION public.gettransformationsbyid(nbs_id integer)
+CREATE OR REPLACE FUNCTION public.__wp_gettransformationsbyid(nbs_id integer)
  RETURNS TABLE(from_lucode integer, from_cob character varying, to_lucode integer, to_cob character varying)
  LANGUAGE plpgsql
 AS $function$    BEGIN
@@ -661,7 +661,7 @@ AS $function$    BEGIN
     $function$
 ;
 
-CREATE OR REPLACE FUNCTION public.gettransitions(iduser integer)
+CREATE OR REPLACE FUNCTION public.__wp_gettransitions(iduser integer)
  RETURNS TABLE(name character varying, file_name character varying, transition_type character varying, id_transition character varying, label character varying)
  LANGUAGE plpgsql
 AS $function$    BEGIN
@@ -673,7 +673,7 @@ AS $function$    BEGIN
     $function$
 ;
 
-CREATE OR REPLACE FUNCTION public.gettransitions()
+CREATE OR REPLACE FUNCTION public.__wp_gettransitions()
  RETURNS TABLE(name character varying, file_name character varying, transition_type character varying, id_transition character varying, label character varying)
  LANGUAGE plpgsql
 AS $function$    BEGIN
@@ -685,7 +685,7 @@ AS $function$    BEGIN
     $function$
 ;
 
-CREATE OR REPLACE FUNCTION public.insertconcentrationsinvest(id_intake integer, elementtype character varying, awy_m double precision, wsed double precision, wn double precision, wp double precision, csed double precision, cn double precision, cp double precision)
+CREATE OR REPLACE FUNCTION public.__wp_insertconcentrationsinvest(id_intake integer, elementtype character varying, awy_m double precision, wsed double precision, wn double precision, wp double precision, csed double precision, cn double precision, cp double precision)
  RETURNS void
  LANGUAGE plpgsql
 AS $function$    BEGIN
@@ -696,7 +696,7 @@ AS $function$    BEGIN
     $function$
 ;
 
-CREATE OR REPLACE FUNCTION public.intersectmacroregionfromcoords(x double precision, y double precision)
+CREATE OR REPLACE FUNCTION public.__wp_intersectmacroregionfromcoords(x double precision, y double precision)
  RETURNS TABLE(id_macroregion integer)
  LANGUAGE plpgsql
 AS $function$	DECLARE
@@ -725,7 +725,7 @@ AS $function$	DECLARE
     $function$
 ;
 
-CREATE OR REPLACE FUNCTION public.get_activities(
+CREATE OR REPLACE FUNCTION public.__wp_get_activities(
 	listnbs integer[])
     RETURNS TABLE(name character varying, unit_implementation_cost numeric, unit_maintenance_cost numeric, id integer) 
     LANGUAGE 'plpgsql'
@@ -743,7 +743,7 @@ BEGIN
 $function$
 ;
 
-CREATE OR REPLACE FUNCTION public.get_activities_shapefiles(
+CREATE OR REPLACE FUNCTION public.__wp_get_activities_shapefiles(
 	listnbs integer[])
     RETURNS TABLE(id integer, activity character varying, action character varying, geom geometry) 
     LANGUAGE 'plpgsql'
@@ -762,7 +762,7 @@ BEGIN
 $function$
 ;
 
-CREATE OR REPLACE FUNCTION public.get_default_biophysycal_params(
+CREATE OR REPLACE FUNCTION public.__wp_get_default_biophysycal_params(
 	macro_value text,
 	default_value text)
     RETURNS TABLE(lucode integer, lulc_desc text, description text, kc double precision, root_depth double precision, usle_c double precision, usle_p double precision, load_n double precision, eff_n double precision, load_p double precision, eff_p double precision, crit_len_n integer, crit_len_p integer, proportion_subsurface_n double precision, cn_a double precision, cn_b double precision, cn_c double precision, cn_d double precision, kc_1 double precision, kc_2 double precision, kc_3 double precision, kc_4 double precision, kc_5 double precision, kc_6 double precision, kc_7 double precision, kc_8 double precision, kc_9 double precision, kc_10 double precision, kc_11 double precision, kc_12 double precision, c_above double precision, c_below double precision, c_soil double precision, c_dead double precision, sed_exp double precision, sed_ret double precision, rough_rank double precision, cover_rank double precision, p_ret double precision, p_exp double precision, n_ret double precision, n_exp double precision, native_veg integer, lulc_veg integer, macro_region text, "default" text, id integer, intake_id integer, study_case_id integer, user_id integer) 
@@ -779,7 +779,7 @@ BEGIN
 $function$
 ;
 
-CREATE OR REPLACE FUNCTION public.get_nbs_transformations(
+CREATE OR REPLACE FUNCTION public.__wp_get_nbs_transformations(
 	listnbs integer[])
     RETURNS TABLE(from_lucode integer, from_cob character varying, to_lucode integer, to_cob character varying, from_nbs character varying) 
     LANGUAGE 'plpgsql'
@@ -801,7 +801,7 @@ BEGIN
 $function$
 ;
 
-CREATE OR REPLACE FUNCTION public.get_studycase_catchments(
+CREATE OR REPLACE FUNCTION public.__wp_get_studycase_catchments(
 	idcase integer)
     RETURNS TABLE(id integer) 
     LANGUAGE 'plpgsql'
@@ -817,7 +817,7 @@ BEGIN
 $function$
 ;
 
-CREATE OR REPLACE FUNCTION public.get_studycase_nbs(
+CREATE OR REPLACE FUNCTION public.__wp_get_studycase_nbs(
 	idcase integer)
     RETURNS TABLE(id integer) 
     LANGUAGE 'plpgsql'
@@ -833,7 +833,7 @@ BEGIN
 $function$
 ;
 
-CREATE OR REPLACE FUNCTION public.check_nbs_transition_map(
+CREATE OR REPLACE FUNCTION public.__wp_check_nbs_transition_map(
 	idnbs integer,
 	transition character varying)
     RETURNS TABLE(trans_lucode character varying) 
@@ -851,6 +851,20 @@ BEGIN
 						join waterproof_nbs_ca_riosactivity ra on ra.id = rtrans.activity_id
 						join waterproof_nbs_ca_riostransition rtransition on rtransition.id=ra.transition_id AND rtransition.id_transition=transition
 						where nbs.id =idNbs;
+    END;
+$function$
+;
+
+CREATE OR REPLACE FUNCTION public.__wp_get_closest_cities(x numeric, y numeric)
+ RETURNS TABLE(id_city integer, city varchar, dist numeric, lon numeric, lat numeric)
+ LANGUAGE plpgsql
+AS $function$
+DECLARE		
+    BEGIN				
+			return query SELECT id, name, ST_Distance(ST_SetSRID(ST_MakePoint(x,y),4326), geom)::numeric(8,5) AS dist, longitude::numeric(8,5) as lon, latitude::numeric(8,5) as lat
+							FROM public.waterproof_parameters_cities
+							ORDER BY dist LIMIT 5;
+				
     END;
 $function$
 ;
