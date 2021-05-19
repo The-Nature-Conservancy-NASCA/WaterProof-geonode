@@ -21,7 +21,7 @@ $function$
 ;
 
 CREATE OR REPLACE FUNCTION public.__wp_dissagregation_invest(
-	intakes integer)
+	intakes integer,cases integer)
     RETURNS TABLE(name character varying, awyres double precision, wsedres double precision, wnres double precision, wpres double precision, bfres double precision, wcres double precision) 
     LANGUAGE 'plpgsql'
     COST 100
@@ -44,7 +44,7 @@ BEGIN
 	wc_ton as WC
 	from
 	public.waterproof_reports_invest_results
-	where intake_id=intakes
+	where intake_id=intakes and study_case_id = cases
 	order by type,year;
     END;
 $BODY$
