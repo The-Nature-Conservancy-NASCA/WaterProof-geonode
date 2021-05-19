@@ -1178,3 +1178,18 @@ BEGIN
     END;
 $function$
 ;
+
+CREATE OR REPLACE FUNCTION public.__wpget_paths_climate_value(study_cases_id integer)
+ RETURNS TABLE(id_path_parameter integer, id_basin integer, path varchar, id_parameter integer)
+ LANGUAGE plpgsql
+AS $function$
+BEGIN		
+		return query select p.id_parametro_ruta, p.id_basin, p.ruta, p.id_parametro from public.waterproof_pr_parametro_ruta p where id_parametro in (
+						select id_tipo_parametro  from public.waterproof_pr_parametro where nombre like  '%' ||  (select c.name 
+							from public.waterproof_study_cases_studycases s
+							left join public.waterproof_parameters_climate_value c
+							on s.climate_scenario_id  = c.id
+							where s.id = study_cases_id and s.climate_scenario_id  is not null))
+    END;
+$function$
+;
