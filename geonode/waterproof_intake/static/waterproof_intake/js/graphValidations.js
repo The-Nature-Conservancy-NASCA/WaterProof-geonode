@@ -142,8 +142,10 @@ function funcost(index, MQ) {
         <td class="small text-center vat">${funcostdb[index].fields.currencyCost}</td>
         <td class="small text-center vat">${funcostdb[index].fields.global_multiplier_factorCalculator}</td>
         <td class="small text-center vat" style="width: 85px">
-        <a class="btn btn-info" name="glyphicon-edit" idvalue="${index}"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
-        <a class="btn btn-danger" name="glyphicon-trash" idvalue="${index}"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+            <div class="btn-group btn-group-table" role="group">
+                <a class="btn btn-info" name="glyphicon-edit" idvalue="${index}"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
+                <a class="btn btn-danger" name="glyphicon-trash" idvalue="${index}"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+            </div>
         </td>
 
     </tr>

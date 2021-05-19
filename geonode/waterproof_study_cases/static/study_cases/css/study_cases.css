@@ -155,3 +155,15 @@
     height: 60vh;
     overflow: scroll;
 }
+
+.currency-panel {
+    padding: 13px;
+}
+
+.currency-value {
+    padding: 5px;
+}
+
+.currency-text {
+    font-weight: 800;
+}

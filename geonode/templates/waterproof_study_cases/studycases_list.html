@@ -19,7 +19,7 @@
 
 {% endblock %} {% block body_outer %}
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_nbs_ca/css/dataTables.bootstrap.min.css">
-<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_nbs_ca/css/waterproof_nbs_ca.css">
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}study_cases/css/study_cases.css">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
 <div class="row">
     <div class="col-md-4">
@@ -36,15 +36,15 @@
 
 
 <div class="page-header">
-    <h1>{% trans "List Cases Study" %}</h1>
+    <h1>{% trans "list_study_case" %}</h1>
 
 
     <br>
     <br>
     {% if user.is_authenticated and not READ_ONLY_MODE %}
-    <a href="create/" id="createUrl" textColor="red" style="outline-color: dimgrey;">{% trans "Create new Case Study" %}</a>
+    <a href="create/" id="createUrl" textColor="red" style="outline-color: dimgrey;">{% trans "new_study_case" %}</a>
     {% else %}
-    <a id="createUrlDisabled">{% trans "Create new Case Study" %}</a>
+    <a id="createUrlDisabled">{% trans "new_study_case" %}</a>
     <h6>{% trans "You must be a registered user to create a new Case Study*" %}</h6>
     {% endif %}
 
@@ -59,9 +59,10 @@
                 <th scope="col" class="small text-center vat">{% trans "User" %}</th>
                 <th scope="col" class="small text-center vat">{% trans "Date" %}</th>
                 <th scope="col" class="small text-center vat">{% trans "City" %}</th>
-                <th scope="col" class="small text-center vat">{% trans "Treatment plants" %}</th>
-                <th scope="col" class="small text-center vat">{% trans "Water intakes" %}</th>
-                <th scope="col" class="small text-center vat">{% trans "Execution status" %}</th>
+                <th scope="col" class="small text-center vat">{% trans "treatment_plants" %}</th>
+                <th scope="col" class="small text-center vat">{% trans "water_intakes" %}</th>
+                <th scope="col" class="small text-center vat">{% trans "Currency" %}</th>
+                <th scope="col" class="small text-center vat">{% trans "execution_status" %}</th>
                 <th scope="col" class="small text-center vat">{% trans "Actions" %}</th>
 
             </tr>
@@ -91,7 +92,8 @@
                 <td class="small text-center vat">{% for intake in studyCases.intakes.all %}
                     <a href="../intake/view/{{intake.id}}" target="_blank">- {{intake.name}} </a> <br>
                     {% endfor %}</td>
-                {% if studyCases.is_complete%}
+                <td class="small text-center vat"><a onclick='viewCurrencys({{studyCases.id}})'>{{studyCases.analysis_currency}}</a></td>
+                {% if studyCases.is_run_analysis%}
                 <td class="small text-center vat"><i class="glyphicon glyphicon-play-circle fa-lg text-success" title='{% trans "Completed" %}'></i></td>
                 {% else %}
                 <td class="small text-center vat"><i class="glyphicon glyphicon-stop fa-lg text-danger" title='{% trans "In Progress" %}'></i></td>

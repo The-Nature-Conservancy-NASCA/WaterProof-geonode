@@ -326,23 +326,30 @@ $(document).ready(function() {
         $('#smartwizard').smartWizard("prev");
     });
 
+    $('#step4PreviousBtn').click(function() {
+        $("#biophysical-panel").empty();
+        $('#smartwizard').smartWizard("prev");
+    });
+
     $('#step4NextBtn').click(function() {
         biophysical = []
         $('#biophysical-panel').find('table').each(function(index, table) {
             id = table.id.split('_').pop()
-            bio = {
-                intake_id: id
-            }
             $('#' + table.id).find('tbody > tr.edit').each(function(index, tr) {
-                bio[id] = id = tr.id.split('_').pop();
-                $('#' + tr.id).find('td').each(function(index, td) {
+                bio = {
+                    intake_id: id
+                }
+                $(" #" + tr.id).find('td').each(function(index, td) {
                     td_id = td.id
                     if (td_id) {
                         split = td_id.split('_')
                         split.pop();
                         name_td = split.join("_");
+                        split = name_td.split('_')
+                        split.pop();
+                        name_td = split.join("_");
                         val = undefined
-                        $('#' + td.id).find("input").each(function() {
+                        $('#' + td_id).find("input").each(function() {
                             val = $(this).val();
                         });
                         if (!val) {
@@ -355,14 +362,14 @@ $(document).ready(function() {
             });
 
         });
-        console.log(biophysical)
+
         $.post("../../study_cases/savebio/", {
             id_study_case: id_study_case,
             biophysicals: '1' + JSON.stringify(biophysical),
-            process: "Edit",
+            process: "Create",
         }, function(data) {
             $('#smartwizard').smartWizard("next");
-            loadFinancialParameter()
+            loadFinancialParameter();
             $('#autoAdjustHeightF').css("height", "auto");
         }, "json");
 
@@ -382,8 +389,6 @@ $(document).ready(function() {
                 return false;
             }
         });
-        var min = $('#minimum').val()
-        var max = $('#maximum').val()
         if ($('#minimum').val() >= $('#maximum').val()) {
             Swal.fire({
                 icon: 'warning',
@@ -415,7 +420,7 @@ $(document).ready(function() {
                 equipment: $('#equipment').val(),
                 discount: $('#discount').val(),
                 minimum: $('#minimum').val(),
-                minimum: $('#minimum').val(),
+                maximum: $('#maximum').val(),
                 transaction: $('#transaction').val(),
                 travel: $('#travel').val(),
                 contracts: $('#contracts').val(),
@@ -469,6 +474,48 @@ $(document).ready(function() {
         $('#smartwizard').smartWizard("prev");
     });
 
+    $('#step7RunBtn').click(function() {
+
+        analysis_currency = $("#analysis_currency option:selected").text()
+        html = '<div class="row" id="currencys-panel"> <div class="col-md-10 currency-panel">Currency for the execution this analisys</div><div class="col-md-2 currency-panel currency-text">' + analysis_currency
+        html += '</div><div class="col-md-12 currency-panel">Next, the exchange rate will be applied to the currencies identifed in the cost functions configured for this analysis ins described.</div>'
+        $.get("../../study_cases/currencys/", {
+            id: id_study_case,
+            currency: analysis_currency
+        }, function(data) {
+            $.each(data, function(index, currency) {
+                if (currency.currency != analysis_currency) {
+                    value = Number.parseFloat(currency.value).toFixed(5);
+                    html += '<div class="col-md-2 currency-value"><label class="custom-control-label" for="currency">' + currency.currency + '</label></div>'
+                    html += '<div class="custom-control col-md-10 currency-value"><input id="' + currency.currency + '" class="text-number" type="number" class="custom-control-input" value="' + value + '"></div>'
+                }
+            });
+            Swal.fire({
+                title: 'Exchange rate',
+                html: html,
+                showCancelButton: true,
+                confirmButtonText: 'Run',
+                preConfirm: () => {
+                    currencys = []
+                    $("#currencys-panel").find("input").each(function(index, input) {
+                        currency = {}
+                        input_id = input.id
+                        if (input_id) {
+                            val = $("#" + input_id).val()
+                            currency['currency'] = input_id;
+                            currency['value'] = val;
+                            currencys.push(currency)
+                        }
+                    });
+                    return currencys
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+
+                }
+            })
+        });
+    });
 
     $('#step7EndBtn').click(function() {
         edit = !$("#full-table").hasClass("panel-hide")
@@ -500,33 +547,74 @@ $(document).ready(function() {
             valid_investment = $('#annual_investment').val() != ''
         }
         if ($('#period_analysis').val() != '' && $('#period_nbs').val() != '' && type && valid_edit && valid_investment && valid_period) {
-            $("#full-table").find("input").each(function(index, input) {
-                nbsactivity = {}
-                input_id = input.id
-                if (input_id) {
-                    split = input_id.split('-')
-                    nbssc_id = split.pop();
-                    val = $("#" + input_id).val()
-                    nbsactivity['id'] = nbssc_id;
-                    nbsactivity['value'] = val;
-                    nbsactivities.push(nbsactivity)
-                }
-            });
-            $.post("../../study_cases/save/", {
-                id_study_case: id_study_case,
-                analysis_type: type,
-                period_nbs: $('#period_nbs').val(),
-                period_analysis: $('#period_analysis').val(),
-                analysis_nbs: $("#analysis_nbs option:selected").val(),
-                analysis_currency: $("#analysis_currency option:selected").text(),
-                annual_investment: $('#annual_investment').val(),
-                rellocated_remainder: $("#rellocated_check").is(':checked'),
-                nbsactivities: '1' + JSON.stringify(nbsactivities),
+
+            analysis_currency = $("#analysis_currency option:selected").text()
+            html = '<div class="row" id="currencys-panel"> <div class="col-md-10 currency-panel">Currency for the execution this analisys</div><div class="col-md-2 currency-panel currency-text">' + analysis_currency
+            html += '</div><div class="col-md-12 currency-panel">Next, the exchange rate will be applied to the currencies identifed in the cost functions configured for this analysis ins described.</div>'
+            $.get("../../study_cases/currencys/", {
+                id: id_study_case,
+                currency: analysis_currency
             }, function(data) {
-                $('#smartwizard').smartWizard("next");
-                $('#autoAdjustHeightF').css("height", "auto");
-            }, "json");
-            $("#form").submit();
+                $.each(data, function(index, currency) {
+                    if (currency.currency != analysis_currency) {
+                        value = Number.parseFloat(currency.value).toFixed(5);
+                        html += '<div class="col-md-2 currency-value"><label class="custom-control-label" for="currency">' + currency.currency + '</label></div>'
+                        html += '<div class="custom-control col-md-10 currency-value"><input id="' + currency.currency + '" class="text-number" type="number" class="custom-control-input" value="' + value + '"></div>'
+                    }
+                });
+                Swal.fire({
+                    title: 'Exchange rate',
+                    html: html,
+                    showCancelButton: true,
+                    confirmButtonText: 'Save',
+                    preConfirm: () => {
+                        currencys = []
+                        $("#currencys-panel").find("input").each(function(index, input) {
+                            currency = {}
+                            input_id = input.id
+                            if (input_id) {
+                                val = $("#" + input_id).val()
+                                currency['currency'] = input_id;
+                                currency['value'] = val;
+                                currencys.push(currency)
+                            }
+                        });
+                        return currencys
+                    }
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $("#full-table").find("input").each(function(index, input) {
+                            nbsactivity = {}
+                            input_id = input.id
+                            if (input_id) {
+                                split = input_id.split('-')
+                                nbssc_id = split.pop();
+                                val = $("#" + input_id).val()
+                                nbsactivity['id'] = nbssc_id;
+                                nbsactivity['value'] = val;
+                                nbsactivities.push(nbsactivity)
+                            }
+                        });
+                        $.post("../../study_cases/save/", {
+                            id_study_case: id_study_case,
+                            analysis_type: type,
+                            period_nbs: $('#period_nbs').val(),
+                            period_analysis: $('#period_analysis').val(),
+                            analysis_nbs: $("#analysis_nbs option:selected").val(),
+                            analysis_currency: $("#analysis_currency option:selected").text(),
+                            annual_investment: $('#annual_investment').val(),
+                            rellocated_remainder: $("#rellocated_check").is(':checked'),
+                            nbsactivities: '1' + JSON.stringify(nbsactivities),
+                            currencys: '1' + JSON.stringify(result.value),
+
+                        }, function(data) {
+                            $('#smartwizard').smartWizard("next");
+                            $('#autoAdjustHeightF').css("height", "auto");
+                        }, "json");
+                        $("#form").submit();
+                    }
+                })
+            });
         } else {
             Swal.fire({
                 icon: 'warning',
@@ -942,12 +1030,16 @@ $(document).ready(function() {
             });
             content += '</tr></thead><tbody>'
             $.each(data, function(index, bio) {
-                content += '<tr id="id_' + bio.id + '">'
-                content += '<td id="description_' + bio.id + '">' + bio.description + '</td>'
-                content += '<td id="lucode_' + bio.id + '">' + bio.lucode + '</td>'
+                if (bio.edit) {
+                    content += '<tr class="edit" id="' + id_intake + '_' + bio.id + '">'
+                } else {
+                    content += '<tr id="' + id_intake + '_' + bio.id + '">'
+                }
+                content += '<td id="description_' + id_intake + '_' + bio.id + '">' + bio.description + '</td>'
+                content += '<td id="lucode_' + id_intake + '_' + bio.id + '">' + bio.lucode + '</td>'
                 $.each(bio, function(key, v) {
                     if (key != 'lucode' && key != 'default' && key != 'lulc_desc' && key != 'description' && key != 'user_id' && key != 'intake_id' && key != 'study_case_id' && key != 'id' && key != 'macro_region' && key != 'kc') {
-                        content += '<td id="' + key + '_' + bio.id + '"><input class="text-number" type="number" value="' + v + '"/></td>'
+                        content += '<td id="' + key + '_' + id_intake + '_' + bio.id + '"><input class="text-number" type="number" value="' + v + '"/></td>'
                     }
                 });
                 content += '</tr>'

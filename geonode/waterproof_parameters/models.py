@@ -70,6 +70,12 @@ class Countries(models.Model):
     def __str__(self):
         return "%s" % self.name
 
+class Countries_factor(models.Model):
+    currency = models.CharField(max_length=4)
+    factor_EUR = models.DecimalField(max_digits=21, decimal_places=6, blank=True, null=True)
+    created_at = models.DateTimeField()
+    updated_at = models.DateTimeField()
+    
 
 class Cities(models.Model):
     name = models.CharField(max_length=255)
