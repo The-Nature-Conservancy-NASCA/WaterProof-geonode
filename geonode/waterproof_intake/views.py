@@ -35,6 +35,7 @@ request: Request
 
 
 def createIntake(request):
+    print("createIntake")
     logger.debug(request.method)
     # POST submit FORM
     if request.method == 'POST':
@@ -161,6 +162,7 @@ request: Request
 
 
 def createStepOne(request):
+    print("createStepOne")
     if not request.user.is_authenticated:
         return render(request, 'waterproof_nbs_ca/waterproofnbsca_login_error.html')
     else:
@@ -785,167 +787,130 @@ def createStepFive(request):
 
 
 def listIntake(request):
+    #print("listIntake")
     if request.method == 'GET':
-        if request.user.is_authenticated:
+        city_id = request.GET['city']
+        if (city_id != ''):
+            intakes = Intake.objects.filter(city=city_id)            
+        else:
+            intakes = Intake.objects.all()
+
+        count = intakes.count()
+        # print ("total intakes: %s" % count)
+        if request.user.is_authenticated:            
+            userCountry = Countries.objects.get(iso3=request.user.country)
+            region = Regions.objects.get(id=userCountry.region_id)           
+
             if (request.user.professional_role == 'ADMIN'):
-                userCountry = Countries.objects.get(iso3=request.user.country)
-                region = Regions.objects.get(id=userCountry.region_id)
-                intake = Intake.objects.all()
-                city = Cities.objects.all()
                 return render(
                     request,
                     'waterproof_intake/intake_list.html',
                     {
-                        'intakeList': intake,
-                        'city': city,
+                        'intakeList': intakes,
                         'userCountry': userCountry,
                         'region': region
                     }
                 )
 
             if (request.user.professional_role == 'ANALYS'):
-                intake = Intake.objects.all()
-                userCountry = Countries.objects.get(iso3=request.user.country)
-                region = Regions.objects.get(id=userCountry.region_id)
-                city = Cities.objects.all()
                 return render(
                     request,
                     'waterproof_intake/intake_list.html',
                     {
-                        'intakeList': intake,
-                        'city': city,
+                        'intakeList': intakes,
                         'userCountry': userCountry,
                         'region': region
                     }
                 )
 
             if (request.user.professional_role == 'COPART'):
-                intake = Intake.objects.all()
-                userCountry = Countries.objects.get(iso3=request.user.country)
-                region = Regions.objects.get(id=userCountry.region_id)
-                city = Cities.objects.all()
                 return render(
                     request,
                     'waterproof_intake/intake_list.html',
                     {
-                        'intakeList': intake,
-                        'city': city,
+                        'intakeList': intakes,
                         'userCountry': userCountry,
                         'region': region
                     }
                 )
 
             if (request.user.professional_role == 'ACDMC'):
-                intake = Intake.objects.all()
-                userCountry = Countries.objects.get(iso3=request.user.country)
-                region = Regions.objects.get(id=userCountry.region_id)
-                city = Cities.objects.all()
                 return render(
                     request,
                     'waterproof_intake/intake_list.html',
                     {
-                        'intakeList': intake,
-                        'city': city,
+                        'intakeList': intakes,
                         'userCountry': userCountry,
                         'region': region
                     }
                 )
 
             if (request.user.professional_role == 'SCADM'):
-                intake = Intake.objects.all()
-                userCountry = Countries.objects.get(iso3=request.user.country)
-                region = Regions.objects.get(id=userCountry.region_id)
-                city = Cities.objects.all()
                 return render(
                     request,
                     'waterproof_intake/intake_list.html',
                     {
-                        'intakeList': intake,
-                        'city': city,
+                        'intakeList': intakes,
                         'userCountry': userCountry,
                         'region': region
                     }
                 )
 
             if (request.user.professional_role == 'MCOMC'):
-                intake = Intake.objects.all()
-                userCountry = Countries.objects.get(iso3=request.user.country)
-                region = Regions.objects.get(id=userCountry.region_id)
-                city = Cities.objects.all()
                 return render(
                     request,
                     'waterproof_intake/intake_list.html',
                     {
-                        'intakeList': intake,
-                        'city': city,
+                        'intakeList': intakes,
                         'userCountry': userCountry,
                         'region': region
                     }
                 )
 
             if (request.user.professional_role == 'CITIZN'):
-                intake = Intake.objects.all()
-                userCountry = Countries.objects.get(iso3=request.user.country)
-                region = Regions.objects.get(id=userCountry.region_id)
-                city = Cities.objects.all()
                 return render(
                     request,
                     'waterproof_intake/intake_list.html',
                     {
-                        'intakeList': intake,
-                        'city': city,
+                        'intakeList': intakes,
                         'userCountry': userCountry,
                         'region': region
                     }
                 )
 
             if (request.user.professional_role == 'REPECS'):
-                intake = Intake.objects.all()
-                userCountry = Countries.objects.get(iso3=request.user.country)
-                region = Regions.objects.get(id=userCountry.region_id)
-                city = Cities.objects.all()
                 return render(
                     request,
                     'waterproof_intake/intake_list.html',
                     {
-                        'intakeList': intake,
-                        'city': city,
+                        'intakeList': intakes,
                         'userCountry': userCountry,
                         'region': region
                     }
                 )
 
             if (request.user.professional_role == 'OTHER'):
-                intake = Intake.objects.all()
-                userCountry = Countries.objects.get(iso3=request.user.country)
-                region = Regions.objects.get(id=userCountry.region_id)
-                city = Cities.objects.all()
                 return render(
                     request,
                     'waterproof_intake/intake_list.html',
                     {
-                        'intakeList': intake,
-                        'city': city,
+                        'intakeList': intakes,
                         'userCountry': userCountry,
                         'region': region
                     }
                 )
         else:
-            intake = Intake.objects.all()
-            userCountry = Countries.objects.get(iso3='COL')
-            region = Regions.objects.get(id=userCountry.region_id)
-            city = Cities.objects.all()
             return render(
                 request,
                 'waterproof_intake/intake_list.html',
                 {
-                    'intakeList': intake,
-                    'city': city,
+                    'intakeList': intakes,
                 }
             )
 
 
 def editIntake(request, idx):
+    print("editIntake")
     if not request.user.is_authenticated:
         return render(request, 'waterproof_intake/intake_login_error.html')
     else:

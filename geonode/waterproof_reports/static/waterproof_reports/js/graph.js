@@ -780,7 +780,7 @@ function onInit(editor) {
 
                     Swal.fire(
                         gettext('Deleted!'),
-                        gettext('Your funcion has been deleted'),
+                        gettext('Your function has been deleted'),
                         'success'
                     )
                 }

@@ -181,7 +181,6 @@
 }
 
 .truncate {
-    display: -webkit-box;
     max-height: 4.3rem;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
