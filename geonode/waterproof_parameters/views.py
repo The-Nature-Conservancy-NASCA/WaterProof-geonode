@@ -4,6 +4,8 @@ Views for the ``django-WaterproofNbsCa`` application.
 """
 
 import logging
+import requests
+import datetime
 
 from math import fsum
 from geonode.base.enumerations import PROFESSIONAL_ROLES
@@ -24,6 +26,8 @@ from django import template
 from django.http import JsonResponse
 from django.contrib.auth import get_user_model
 from decimal import Decimal
+from geonode.waterproof_parameters.models import  Countries_factor
+
 import json
 from shapely.geometry import shape, Point, Polygon
 logger = logging.getLogger(__name__)
@@ -49,6 +53,17 @@ def loadCityByName(request):
         response = HttpResponse(json.dumps(context), content_type='application/json')
         response.status_code = 400
         return response
+
+def loadCityById(request):
+    id = request.GET.get('id')
+    print("city id: %s" % id)
+    if (id != ''):
+        city = Cities.objects.filter(id=id)
+        city_serialized = serializers.serialize('json', city)
+        return JsonResponse(city_serialized, safe=False)
+    else:
+        return JsonResponse({},safe=False)
+    
 
 def loadCurrency(request):
     currency = request.GET.get('currency')
@@ -97,8 +112,26 @@ def loadRegionByCountry(request):
     region_serialized = serializers.serialize('json', region)
     return JsonResponse(region_serialized, safe=False)
 
+
+def loadCurrencys(requests):
+    response = requests.get('http://api.exchangeratesapi.io/v1/latest?access_key=9b2f5c878a36ddfe3a1b5318bce18a85')
+    currencys = response.json()["rates"]
+    for cur in currencys:
+        value = currencys[cur]
+        try:
+            factor = Countries_factor.objects.get(currency=cur)
+        except Countries_factor.DoesNotExist:
+            factor = Countries_factor()
+            factor.created_at = datetime.datetime.now()
+            factor.currency =cur
+        factor.updated_at = datetime.datetime.now()
+        factor.factor_EUR = value
+        factor.save()
+    
+    return JsonResponse("ok", safe=False)
+
 def verCiudad(request):
-                return render(
-                    request,
-                    'waterproof_parameters/verCiudad.html',
-                    {})
+    return render(
+        request,
+        'waterproof_parameters/verCiudad.html',
+        {})

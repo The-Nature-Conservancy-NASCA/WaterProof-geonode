@@ -27,7 +27,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <meta Http-Equiv="Cache-Control" Content="no-cache">
     <meta Http-Equiv="Pragma" Content="no-cache">
     <meta Http-Equiv="Expires" Content="0">
@@ -57,12 +57,12 @@
       {% endif %}
 
      <!----> 
-          <link href="{% static "geonode/css/sidenav.css" %}" rel="stylesheet" />
-          <link href="{% static "geonode/css/base.css" %}" rel="stylesheet" />
+      <link href="{% static "geonode/css/sidenav.css" %}" rel="stylesheet" />
+      <link href="{% static "geonode/css/base.css" %}" rel="stylesheet" />
       <link rel='stylesheet' id='cookie-law-info-css'  href="{% static "geonode/css/cookie-law-info/cookie-law-info-public.css" %}" type='text/css' media='all' />
       <link rel='stylesheet' id='cookie-law-info-gdpr-css'  href="{% static "geonode/css/cookie-law-info/cookie-law-info-gdpr.css" %}" type='text/css' media='all' />
 	    <link href="https://cdn.boomcdn.com/libs/owl-carousel/2.3.4/assets/owl.carousel.min.css" rel="stylesheet"/>
-	  <link href="https://cdn.boomcdn.com/libs/owl-carousel/2.3.4/assets/owl.theme.default.css" rel="stylesheet"/>
+	    <link href="https://cdn.boomcdn.com/libs/owl-carousel/2.3.4/assets/owl.theme.default.css" rel="stylesheet"/>
 	  
       <!--<style type="text/css">[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}</style>-->
       <style type="text/css">
@@ -356,7 +356,7 @@
                     <li><a href="{% url "apps_browse" %}?limit={{ CLIENT_RESULTS_LIMIT }}">{% trans "Explore" %} {% blocktrans %}{{GEONODE_APPS_NAME}}{% endblocktrans %}</a></li>
                     <li><a href="{% url "search_city" %}">{% trans "Search City" %} </a></li>
                     <li><a href="{% url "list-nbs" %}?limit={{ CLIENT_RESULTS_LIMIT }}">{% trans "NBS" %} </a></li>
-                    <li><a href="{% url "list-intake" %}?limit={{ CLIENT_RESULTS_LIMIT }}">{% trans "Intakes" %} </a></li>
+                    <li><a href="#" class="listIntakes">{% trans "Intakes" %} </a></li>
                     <li><a href="{% url "treatment-plants-list" %}?limit={{ CLIENT_RESULTS_LIMIT }}">{% trans "Treatment Plants" %} </a></li>
                   </ul>
               {% else %}
@@ -444,6 +444,7 @@
                   {% if user.is_superuser or user.is_staff %}
                       <li role="separator" class="divider"></li>
                       <li><a href="{% url "admin:index" %}">{% trans "Admin" %}</a></li>
+                    <li><a href="/cms" >{% trans "CMS" %}</a></li>
                       {% if 'geonode.geoserver' in INSTALLED_APPS %}
                       <li><a href="{{ OGC_SERVER.default.WEB_UI_LOCATION }}">GeoServer</a></li>
                       {% endif %}
@@ -508,7 +509,7 @@
               </a>
               <ul class="collapse list-unstylede" id="Intake">
                 <li>
-                  <a href="{% url "list-intake" %}?limit={{ CLIENT_RESULTS_LIMIT }}" class="dropdown-toggle">
+                  <a href="#" class="dropdown-toggle listIntakes">
                     <img src="/static/geonode/img/01-flecha.png" class="flecha"><h6>{% trans "List" %}</h6>
                   </a>
                 </li>
@@ -819,11 +820,20 @@
               document.body.scrollTop = 0;
               document.documentElement.scrollTop = 0;
           });
-        });
+      });
 
       $(".datepicker").datepicker({
           format: "yyyy-mm-dd"
       });
+
+      $(".listIntakes").click(function(){
+          var cityId = localStorage.cityId;
+          if (cityId == undefined){
+            cityId = "";
+          }
+          url="{% url "list-intake" %}?limit={{ CLIENT_RESULTS_LIMIT }}&city=" + cityId;
+          window.location.href = url;
+        });
     </script>
 
     <div class="modal fade" style="width: 100%; height: 100%;" id="_resource_uploading" data-backdrop="static" data-keyboard="false" aria-hidden="true">

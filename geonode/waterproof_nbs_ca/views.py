@@ -28,6 +28,7 @@ from django.views import View
 from django import template
 from django.http import JsonResponse
 from django.contrib.auth import get_user_model
+from django.template.defaultfilters import slugify
 from decimal import Decimal
 import json
 from shapely.geometry import shape, Point, Polygon
@@ -56,6 +57,7 @@ def createNbs(request, countryId):
             transformations = request.POST.get('riosTransformation')
             extensionFile = request.POST.get('extension')
             riosTransformation = transformations.split(",")
+            slug=slugify(nameNBS)[:100]
             if (
                 nameNBS and descNBS and countryNBS and currencyCost
             ):
@@ -102,6 +104,7 @@ def createNbs(request, countryId):
                         country=country,
                         currency=currency,
                         name=nameNBS,
+                        slug=slug,
                         description=descNBS,
                         max_benefit_req_time=maxBenefitTime,
                         profit_pct_time_inter_assoc=benefitTimePorc,
@@ -143,6 +146,7 @@ def createNbs(request, countryId):
             transitions = RiosTransition.objects.all()
             riosActivity = RiosActivity.objects.all()
             riosTransformation = RiosTransformation.objects.all()
+            
             if (request.user.professional_role == 'ADMIN'):
                 countryEnable = 'disabled'
             else:
@@ -160,7 +164,7 @@ def createNbs(request, countryId):
                     'currencies': currencies,
                     'transitions': transitions,
                     'riosActivity': riosActivity,
-                    'riosTransformation': riosTransformation
+                    'riosTransformation': riosTransformation,                    
                 }
             )
 
@@ -370,6 +374,7 @@ def editNbs(request, idx):
             duplicatedNbs = True
             # Get all parameters from form
             nameNBS = request.POST.get('nameNBS')
+            slug = slugify(nameNBS)[:100]
             descNBS = request.POST.get('descNBS')
             countryNBS = request.POST.get('countryNBS')
             currencyCost = request.POST.get('currencyCost')
@@ -455,6 +460,7 @@ def editNbs(request, idx):
                                 shapefile.save()
 
                     nbs.name = nameNBS
+                    nbs.slug = slugify(nameNBS)
                     nbs.description = descNBS
                     nbs.country = country
                     nbs.currency = currency
@@ -521,6 +527,7 @@ def cloneNbs(request, idx):
         else:
             # Get all parameters from form
             nameNBS = request.POST.get('nameNBS')
+            slug = slugify(nameNBS)
             descNBS = request.POST.get('descNBS')
             countryNBS = request.POST.get('countryNBS')
             currencyCost = request.POST.get('currencyCost')

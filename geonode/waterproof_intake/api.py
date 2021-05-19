@@ -7,20 +7,23 @@ from django.core.exceptions import ObjectDoesNotExist
 import requests
 import json
 import re
+import math
 from pytexit import py2tex
 
 
 @api_view(['GET'])
 def validatePyExpression(request):
-	"""Validate Python Expression
+    """Validate Python Expression
 
-	
-	"""
-	if request.method == 'GET':
-		exp = request.GET['expression']
-		is_valid = validateAndExecuteExpression(exp)
-		latex = py2tex(exp)
-		return JsonResponse(latex, safe=False)
+    """
+    if request.method == 'GET':
+        exp = request.GET['expression']
+        is_valid = validateAndExecuteExpression(exp)
+        latex = python2latex(exp)
+        result = dict()
+        result['valid'] = is_valid
+        result['latex'] = latex
+        return JsonResponse(result, safe=False)
 
 def validateAndExecuteExpression(expression):
     """ 1. Extract variables from expression """
@@ -28,13 +31,19 @@ def validateAndExecuteExpression(expression):
 
     # exp_to_function = "def generic_function"
     args = re.findall(r'[a-zA-Z_]\w*', expression)
+    ALLOWED_NAMES = {
+        k: v for k, v in math.__dict__.items() if not k.startswith("__")
+    }
     args = remove_no_vars(args)
     global_vars = dict()
     for v in args:
         global_vars[v] = 1
-    x = eval(expression,global_vars)
+    
     is_valid = True
     try:
+        #x = eval(expression,global_vars)
+        code = compile(expression, "<string>", "eval")
+        x = eval(code,global_vars,ALLOWED_NAMES)
         print ('Valid Expression: %s' % x)        
     except:
         print ('No a valid Expression')
@@ -52,3 +61,31 @@ def remove_no_vars(vars):
 		while v in vars:
 			vars.remove(v)    
 	return vars
+
+
+def python2latex(exp):
+
+    ltx = ''
+    ELSE = ' else '
+    IF = ' if '
+    try:
+        if ELSE in exp:
+            cond_exps = []
+            conditional_exp = exp.split(ELSE)
+            for cond in conditional_exp:
+                sub_exp = cond.split(IF)
+                if (len(sub_exp) == 2):
+                    cond_exps.append(py2tex(sub_exp[1]) + " , " + py2tex(sub_exp[0]))
+                    ltx += "$$" + py2tex(sub_exp[1]).replace("$$","") + " , " + py2tex(sub_exp[0]).replace("$$","") + "$$ "
+                else:
+                    cond_exps.append(" , " + py2tex(sub_exp[0]))
+                    ltx += "$$ \\textit{Another Case}, " + py2tex(sub_exp[0]).replace("$$","") + "$$ "
+            # print (cond_exps)
+        else:
+            ltx = py2tex(exp)
+    except:
+        print ("error processing expression: %s" % exp)
+    
+    #ltx = ltx.replace("$$","")
+    print (ltx)
+    return ltx

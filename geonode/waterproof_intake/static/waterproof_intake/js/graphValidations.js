@@ -126,7 +126,7 @@ function clearDataHtml() {
     $('#funcostgenerate').empty();
 }
 
-function funcost(index, MQ) {
+function funcost(index) {
     $('#funcostgenerate').append(
         `
     <tr idvalue="fun_${index}">
@@ -142,8 +142,10 @@ function funcost(index, MQ) {
         <td class="small text-center vat">${funcostdb[index].fields.currencyCost}</td>
         <td class="small text-center vat">${funcostdb[index].fields.global_multiplier_factorCalculator}</td>
         <td class="small text-center vat" style="width: 85px">
-        <a class="btn btn-info" name="glyphicon-edit" idvalue="${index}"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
-        <a class="btn btn-danger" name="glyphicon-trash" idvalue="${index}"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+            <div class="btn-group btn-group-table" role="group">
+                <a class="btn btn-info" name="glyphicon-edit" idvalue="${index}"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
+                <a class="btn btn-danger" name="glyphicon-trash" idvalue="${index}"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+            </div>
         </td>
 
     </tr>
@@ -151,11 +153,11 @@ function funcost(index, MQ) {
     );
 
     $('p[name=render_ecuation]').each(function() {
-        MQ.StaticMath(this);
+        //MQ.StaticMath(this);
     });
 }
 
-function addData(element, MQ) {
+function addData(element) {
     //add data in HTML for connectors
     if (typeof(element.value) == "string" && element.value.length > 0) {
         let obj = JSON.parse(element.value);
@@ -168,7 +170,7 @@ function addData(element, MQ) {
         addData2HTML(dbfields, element)
         funcostdb = obj.funcost;
         for (let index = 0; index < funcostdb.length; index++) {
-            funcost(index, MQ);
+            funcost(index);
         }
     } else {
         $('#titleDiagram').text(element.getAttribute('name'));
@@ -186,7 +188,7 @@ function addData(element, MQ) {
         $('#titleDiagram').text(resultdb[0].fields.categorys);
         addData2HTML(resultdb, element);
         for (let index = 0; index < funcostdb.length; index++) {
-            funcost(index, MQ);
+            funcost(index);
 
         }
     }
