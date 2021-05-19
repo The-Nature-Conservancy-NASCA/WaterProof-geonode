@@ -549,6 +549,10 @@ function onInit(editor) {
         function typeInTextarea(newText, el) {
             const [start, end] = [el.selectionStart, el.selectionEnd];
             el.setRangeText(newText, start, end, 'select');
+            el.focus();
+            document.getSelection().removeAllRanges();
+            el.selectionStart = start + newText.length;
+            el.selectionEnd = el.selectionStart;
         }
 
         $('#python-expression').on('keypress',function(evt) {

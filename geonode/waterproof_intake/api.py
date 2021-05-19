@@ -79,7 +79,7 @@ def python2latex(exp):
                     ltx += "$$" + py2tex(sub_exp[1]).replace("$$","") + " , " + py2tex(sub_exp[0]).replace("$$","") + "$$ "
                 else:
                     cond_exps.append(" , " + py2tex(sub_exp[0]))
-                    ltx += "$$ , " + py2tex(sub_exp[0]).replace("$$","") + "$$ "
+                    ltx += "$$ \\textit{Another Case}, " + py2tex(sub_exp[0]).replace("$$","") + "$$ "
             # print (cond_exps)
         else:
             ltx = py2tex(exp)
