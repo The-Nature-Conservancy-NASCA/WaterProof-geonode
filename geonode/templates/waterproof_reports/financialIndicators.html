@@ -32,25 +32,25 @@
                 <div class="column-left-table">
                     <div class="file-column-left">
                         <div>{% trans "City:" %}</div>
-                        <div class="value-file-column-left">{% trans "Bogota" %}</div>
+                        <div class="value-file-column-left" id="idCity">{% trans "-" %}</div>
                     </div>
                     <div class="file-column-left">
                         <div>{% trans "Country:" %}</div>
-                        <div class="value-file-column-left">{% trans "Colombia" %}</div>
+                        <div class="value-file-column-left" id="idCountri">{% trans "-" %}</div>
                     </div>
                     <div class="file-column-left">
                         <div>{% trans "Region:" %}</div>
-                        <div class="value-file-column-left">{% trans "Central" %}</div>
+                        <div class="value-file-column-left" id="idRegion">{% trans "-" %}</div>
                     </div>
                 </div>
                 <div class="column-right-table">
                     <div class="file-column-left">
                         <div class="title-file-column-right">{% trans "Number of water intakes that are part of the analysis:" %}</div>
-                        <div class="value-file-column-left">{% trans "2" %}</div>
+                        <div class="value-file-column-left">{% trans "-" %}</div>
                     </div>
                     <div class="file-column-left">
                         <div class="title-file-column-right">{% trans "Number of drinking water treatment plants in the system:" %}</div>
-                        <div class="value-file-column-left">{% trans "1" %}</div>
+                        <div class="value-file-column-left">{% trans "-" %}</div>
                     </div>
                 </div>
             </div>
@@ -369,11 +369,13 @@
 <script src="https://code.highcharts.com/modules/export-data.js"></script>
 <script src="https://code.highcharts.com/modules/accessibility.js"></script>
 
-<script src="{{ STATIC_URL }}geonode/js/datatables/jquery.dataTables.min.js"></script>
 <script src="{{ STATIC_URL }}geonode/js/datatables/dataTables.bootstrap.min.js"></script>
 
 <script type="text/javascript" src="{% url 'javascript-catalog-intake' %}"></script>
-<script src="{{ STATIC_URL }}waterproof_intake/js/jquery.smartWizard.min.js" type="text/javascript"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js" type="text/javascript"></script>
+<script src="https://unpkg.com/smartwizard@5/dist/js/jquery.smartWizard.min.js" type="text/javascript"></script>
+
+
 <!--
 <script src="{{ STATIC_URL }}geonode/js/leaflet/Leaflet.Editable.js"></script>
 <script src="{{ STATIC_URL }}geonode/js/leaflet/Leaflet.Coordinates.js"></script>
@@ -408,10 +410,13 @@
 
 <script type="text/javascript">
 
-    
-
 $(function () {
     initialize = function () {
+
+        $("#idCountri").html(localStorage.getItem('country'));
+        $("#idCity").html(localStorage.getItem('city'));
+        $("#idRegion").html(localStorage.getItem('region'));
+
         var table = $('#idTableRoi').DataTable({
                 'dom': 'lrtip'
             });
@@ -512,118 +517,150 @@ $(function () {
             }]
         });
 
-        Highcharts.chart('containerTDB', {
-            title: {
-                text: 'Sensibility analysis - total discounted benefit'
-            },
-            credits: {
-                enabled: false
-            },
-            series: [{
-                name: 'Time (yr)',
-                color: "#4c99d8",
-                data: [[1,90732],[2,213482],[3,239773],[4,248777],[5,247966]]
-            }, {
-                name: 'Range',
-                data: [[1,87403,93401],[2,198101,226224],[3,214333,261558],[4,214221,279362],[5,205687,286641]],
-                type: 'arearange',
-                lineWidth: 0,
-                linkedTo: ':previous',
-                color: "#ffc9a8",
-                fillOpacity: 0.3,
-                zIndex: 0,
-                marker: {
+        var dataSensibilityAnalysisBenefitsTime = [];
+        var dataSensibilityAnalysisBenefitsRange = [];
+        var urlDetail = "../../reports/getSensibilityAnalysisBenefits/?studyCase=" + localStorage.idStudyCase;
+        $.getJSON(urlDetail, function (data) {
+            $.each( data, function( key, value ) {
+                dataSensibilityAnalysisBenefitsTime.push([value.timer, Math.round(value.totalMedBenefitR)]);
+                dataSensibilityAnalysisBenefitsRange.push([value.timer, Math.round(value.totalMinBenefitR), Math.round(value.totalMaxBenefittR)]);
+            });
+            Highcharts.chart('containerTDB', {
+                title: {
+                    text: 'Sensibility analysis - total discounted benefit'
+                },
+                credits: {
                     enabled: false
-                }
-            }]
+                },
+                series: [{
+                    name: 'Time (yr)',
+                    color: "#4c99d8",
+                    data: dataSensibilityAnalysisBenefitsTime
+                }, {
+                    name: 'Range',
+                    data: dataSensibilityAnalysisBenefitsRange,
+                    type: 'arearange',
+                    lineWidth: 0,
+                    linkedTo: ':previous',
+                    color: "#ffc9a8",
+                    fillOpacity: 0.3,
+                    zIndex: 0,
+                    marker: {
+                        enabled: false
+                    }
+                }]
+            });
         });
 
-        Highcharts.chart('containerTDC', {
-            title: {
-                text: 'Sensibility analysis - total discounted cost'
-            },
-            credits: {
-                enabled: false
-            },
-            series: [{
-                name: 'Time (yr)',
-                color: "#006bc3",
-                data: [[1,1897733],[2,1345555],[3,1067348],[4,153698],[5,123088]],
-                marker: {
-                    fillColor: "#a5a5a5",
-                    lineColor: "#006bc3"
-                }
-            }, {
-                name: 'Range',
-                data: [[1,1498210,2372166],[2,838642,2102430],[3,525193,2084664],[4,59706,375241],[5,37748,375664]],
-                type: 'arearange',
-                lineWidth: 0,
-                linkedTo: ':previous',
-                color: "#ffe894",
-                fillOpacity: 0.3,
-                zIndex: 0,
-                marker: {
+        var dataSensibilityAnalysisCostTime = [];
+        var dataSensibilityAnalysisCostRange = [];
+        var urlDetail = "../../reports/getSensibilityAnalysisCost/?studyCase=" + localStorage.idStudyCase;
+        $.getJSON(urlDetail, function (data) {
+            $.each( data, function( key, value ) {
+                dataSensibilityAnalysisCostTime.push([value.timer, Math.round(value.totalMedCostR)]);
+                dataSensibilityAnalysisCostRange.push([value.timer, Math.round(value.totalMinCostR), Math.round(value.totalMaxCostR)]);
+            });
+            Highcharts.chart('containerTDC', {
+                title: {
+                    text: 'Sensibility analysis - total discounted cost'
+                },
+                credits: {
                     enabled: false
-                }
-            }]
+                },
+                series: [{
+                    name: 'Time (yr)',
+                    color: "#006bc3",
+                    data: dataSensibilityAnalysisCostTime,
+                    marker: {
+                        fillColor: "#a5a5a5",
+                        lineColor: "#006bc3"
+                    }
+                }, {
+                    name: 'Range',
+                    data: dataSensibilityAnalysisCostRange,
+                    type: 'arearange',
+                    lineWidth: 0,
+                    linkedTo: ':previous',
+                    color: "#ffe894",
+                    fillOpacity: 0.3,
+                    zIndex: 0,
+                    marker: {
+                        enabled: false
+                    }
+                }]
+            });
         });
 
-        Highcharts.chart('containerCvB', {
-            chart: {
-                polar: true,
-                type: 'line'
-            },
-            title: {
-                text: 'Cost vs benefits',
-                x: -80
-            },
-            xAxis: {
-                categories: ['Minimun discount rate (2%)', 'Maximun discount rate (9%)', 'Discount rate (5%)'],
-                tickmarkPlacement: 'on',
-                lineWidth: 0
-            },
-            yAxis: {
-                gridLineInterpolation: 'polygon',
-                lineWidth: 0,
-                min: 0
-            },
-            credits: {
-                enabled: false
-            },
-            series: [{ 
-                name: 'C vs B',
-                data: [7310173, 2929501, 4587423],
-                pointPlacement: 'on'
-            }]
+        var serieCvB = []
+        var urlDetail = "../../reports/getSensibilityAnalysisCostVsBenefit/?studyCase=" + localStorage.idStudyCase;
+        $.getJSON(urlDetail, function (data) {
+            $.each( data, function( key, value ) {
+                serieCvB.push({ 
+                    name: value.titleR,
+                    data: [Math.round(value.totalMinimumR), Math.round(value.totalMediumR), Math.round(value.totalMaximumR)],
+                    pointPlacement: 'on'
+                });
+            });
+            Highcharts.chart('containerCvB', {
+                chart: {
+                    polar: true,
+                    type: 'line'
+                },
+                title: {
+                    text: 'Cost vs benefits',
+                    x: -80
+                },
+                xAxis: {
+                    categories: ['Minimun discount rate (2%)', 'Maximun discount rate (9%)', 'Discount rate (5%)'],
+                    tickmarkPlacement: 'on',
+                    lineWidth: 0
+                },
+                yAxis: {
+                    gridLineInterpolation: 'polygon',
+                    lineWidth: 0,
+                    min: 0
+                },
+                credits: {
+                    enabled: false
+                },
+                series: serieCvB
+            });
         });
 
-        Highcharts.chart('containerRoiS', {
-            chart: {
-                polar: true,
-                type: 'line'
-            },
-            title: {
-                text: 'Return of investment ROI',
-                x: -80
-            },
-            xAxis: {
-                categories: ['Minimun discount rate (2%)', 'Maximun discount rate (9%)', 'Discount rate (5%)'],
-                tickmarkPlacement: 'on',
-                lineWidth: 0
-            },
-            yAxis: {
-                gridLineInterpolation: 'polygon',
-                lineWidth: 0,
-                min: 0
-            },
-            credits: {
-                enabled: false
-            },
-            series: [{ 
-                name: 'ROI',
-                data: [3.98, 2.77, 3.39],
-                pointPlacement: 'on'
-            }]
+        var serieDataRoi = []
+        var urlDetail = "../../reports/getSensibilityAnalysisReturnOfInvest/?studyCase=" + localStorage.idStudyCase;
+        $.getJSON(urlDetail, function (data) {
+            $.each( data, function( key, value ) {
+                serieDataRoi.push([parseFloat(value.roiMaximumR), parseFloat(value.roiMinimumR), parseFloat(value.roiMediumR)]);
+            });
+            Highcharts.chart('containerRoiS', {
+                chart: {
+                    polar: true,
+                    type: 'line'
+                },
+                title: {
+                    text: 'Return of investment ROI',
+                    x: -80
+                },
+                xAxis: {
+                    categories: ['Minimun discount rate (2%)', 'Maximun discount rate (9%)', 'Discount rate (5%)'],
+                    tickmarkPlacement: 'on',
+                    lineWidth: 0
+                },
+                yAxis: {
+                    gridLineInterpolation: 'polygon',
+                    lineWidth: 0,
+                    min: 0
+                },
+                credits: {
+                    enabled: false
+                },
+                series: [{ 
+                    name: 'ROI',
+                    data: [3.98, 2.77, 3.39],
+                    pointPlacement: 'on'
+                }]
+            });
         });
 
         $('#idSectionRoi').click(function (e) {

@@ -36,14 +36,6 @@
 <br>
 
 <div style="text-align: center;" class="row">
-    <!--
-    <div class="col-md-4">
-        <h4 class="text-center" id="countryLabel">{{city.name}}</h4>
-        <p><b>{% trans "Selected City" %} :</b> <span id="cityLabel"></span> </p>
-        <p><b>{% trans "Region" %} :</b> <span id="regionLabel"></span> </p>
-        <p><b>{% trans "Currency" %}:</b><span id="currencyLabel"></span></p>
-    </div>
-    -->
     <div class="row">
         <div class="col-md-4">
             <h4 class="text-center" id="countryLabel">{{city.name}}</h4>
@@ -65,15 +57,15 @@
 </div>
 
 <div style="text-align: center;">
-    <div style="float: left;">
+    <div style="float: left;" id="idFinancialIndicators">
         <img src="/static/geonode/img/Indicadores-financieros.png" style="height: 75%; width: 75%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;" title="{% trans "Financial indicators" %}"/> 
         <br> 
-        <a href="financial/">{% trans "Financial indicators" %}</a>
+        <a href="../../reports/financial/">{% trans "Financial indicators" %}</a>
     </div>
     <div style="float: left;">
         <img src="/static/geonode/img/indicadores-fisicos.png" style="height: 75%; width: 75%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;" title="{% trans "Physical indicators" %}"/> 
         <br>
-        <a href="physical/">{% trans "Physical indicators" %}</a>
+        <a href="../../reports/physical/">{% trans "Physical indicators" %}</a>
     </div>
     <div style="float: left;">
         <img src="/static/geonode/img/indicadores-decision.png" style="height: 75%; width: 75%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;" title="{% trans "Decision indicators" %}"/>
@@ -94,6 +86,14 @@
     var userCountryCode = '{{userCountry.code}}';
     var userCountryName = '{{userCountry.name}}';
     var intakeList = '{{intakeList}}';
+
+    if("{{study_case.id}}" === ""){
+        document.getElementById('idFinancialIndicators').style.background = "#ffffff";
+        document.getElementById('idFinancialIndicators').style.opacity = "0.4";
+    } else {
+        localStorage.idStudyCase = "{{study_case.id}}";
+    }
+
 </script>
 <script src="{{ STATIC_URL }}geonode/js/datatables/jquery.dataTables.min.js"></script>
 <script src="{{ STATIC_URL }}geonode/js/datatables/dataTables.bootstrap.min.js"></script>

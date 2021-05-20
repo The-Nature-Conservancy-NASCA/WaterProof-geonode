@@ -267,3 +267,16 @@ def view(request, idx):
                 'scenarios': scenarios
             }
         )
+
+def report(request, idx):
+    if request.method == 'POST':
+        return HttpResponseRedirect(reverse('study_cases_list'))
+    else:
+        study_case = StudyCases.objects.get(id=idx)
+        return render(
+            request, 'waterproof_reports/reports_menu.html',
+            {
+                "serverApi": settings.WATERPROOF_API_SERVER,
+                'study_case': study_case
+            }
+        )
