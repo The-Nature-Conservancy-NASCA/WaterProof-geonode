@@ -1193,3 +1193,17 @@ BEGIN
     END;
 $function$
 ;
+
+CREATE OR REPLACE FUNCTION public.__wp_invest_result_insert
+(year integer, model_type character varying, awy double precision , wn_kg double precision , wp_kg double precision , wsed_ton double precision , 
+bf_m3 double precision , wc_ton double precision , intake_id integer , study_case_id integer , user_id integer)
+ RETURNS void
+ LANGUAGE plpgsql
+AS $function$
+BEGIN				
+	INSERT INTO public.waterproof_reports_invest_results
+	("year", "type", awy, wn_kg, wp_kg, wsed_ton, bf_m3, wc_ton, execution_date, intake_id, study_case_id, user_id)
+	VALUES(year, model_type, awy , wn_kg, wp_kg, wsed_ton, bf_m3, wc_ton, current_date, intake_id, study_case_id, user_id);
+    END;
+$function$
+;
