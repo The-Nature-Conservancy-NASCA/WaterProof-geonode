@@ -1207,3 +1207,40 @@ BEGIN
     END;
 $function$
 ;
+
+CREATE OR REPLACE FUNCTION public.__wp_get_function_cost_study_cases(casestudyid integer)
+ RETURNS TABLE("yearA" integer, elementa integer, currencymoneycosta character varying, global_multiplier_factora numeric, stagea character varying, awya double precision, q_l_sa double precision, cn_mg_la double precision, cp_mg_la double precision, csed_mg_la double precision, wn_kga double precision, wp_kga double precision, wsed_tona double precision, wn_ret_kga double precision, wp_ret_tona double precision, wsed_ret_tona double precision, functioncosa character varying, graphida integer)
+ LANGUAGE plpgsql
+AS $function$
+Begin
+	return query 
+			select  distinct "year","element",coB.currency as currencyMoneyCost,co.global_multiplier_factor,stage,
+			wi.awy,wi.q_l_s,wi.cn_mg_l,wi.cp_mg_l,wi.csed_mg_l,
+			wi.wn_kg,wi.wp_kg,wi.wsed_ton,wi.wn_ret_kg,wi.wp_ret_ton,wi.wsed_ret_ton, ucf."function", elt."graphId" 
+			from public.waterproof_reports_wbintake wi left join public.waterproof_intake_usercostfunctions ucf 
+			on (wi.water_intake=ucf.intake_id and wi."element"=ucf.element_system_id)
+			left join public.waterproof_study_cases_studycases sc on (wi.studycase_id=sc.id)
+			left join public.waterproof_parameters_cities ci on (sc.city_id=ci.id) 
+			left join public.waterproof_parameters_countries co on (ci.country_id =co.id)
+			left join public.waterproof_parameters_countries coB on (ucf.currency_id=coB.id)
+			left join public.waterproof_intake_elementsystem elt on (wi."element"=elt.id)
+			where studycase_id =caseStudyId 
+			order by "year";
+end;
+$function$
+;
+
+CREATE OR REPLACE FUNCTION public.__wp_get_aggregate_result_function_cost(varstage character varying, varintake_id_plant_id integer, varelement_id integer, varyear integer, varvalue_calculate double precision, varcurrency_function character varying, varstudy_case_id integer, varuser_id integer)
+ RETURNS void
+ LANGUAGE plpgsql
+AS $function$
+begin
+	insert into public.waterproof_reports_result_cost_function 
+	(stage,intake_id_plant_id,element_id,"year",value_calculate,currency_function,date_excution,study_case_id,user_id)
+	values (varstage,varintake_id_plant_id,varelement_id,varyear,varvalue_calculate,varcurrency_function,now(),varstudy_case_id,varuser_id);
+	
+end;
+$function$
+;
+
+
