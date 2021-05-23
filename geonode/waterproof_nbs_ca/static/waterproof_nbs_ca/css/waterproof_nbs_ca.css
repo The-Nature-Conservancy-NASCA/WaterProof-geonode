@@ -115,7 +115,6 @@ input:checked+.slider:before {
 }
 
 .truncate {
-    display: -webkit-box;
     max-height: 5.3rem;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
@@ -132,3 +131,42 @@ input:checked+.slider:before {
 .borde{
     border: 1px black solid;
 }
+
+@media (min-width: 768px) {
+    .header-waterproof{
+        padding-left: 16rem;
+        padding-bottom: 1rem;
+    }
+    #mapid{
+        width: 580px !important;
+        border: 2px solid;        
+    } 
+}
+@media (min-width: 992px) {
+    .header-waterproof{
+        padding-left: 24rem;
+        padding-bottom: 1rem;
+    }
+    #mapid{
+        width: auto !important;
+        border: 2px solid;        
+    } 
+}
+@media (min-width: 1200px) {
+    .header-waterproof{
+        padding-left: 28rem;
+        padding-bottom: 3rem;
+    }
+    #mapid{
+        width: auto !important;
+        border: 2px solid;        
+    } 
+}
+
+#mapid{
+    width: 350px; 
+    height: 400px;
+    border: 1px solid;
+    border-radius: 0.5em;
+    border-color: #aaa;
+} 

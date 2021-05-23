@@ -167,3 +167,22 @@
 .currency-text {
     font-weight: 800;
 }
+
+@media (min-width: 768px) {
+    .header-waterproof{
+        padding-left: 16rem;
+        padding-bottom: 1rem;
+    }    
+}
+@media (min-width: 992px) {
+    .header-waterproof{
+        padding-left: 24rem;
+        padding-bottom: 1rem;
+    }    
+}
+@media (min-width: 1200px) {
+    .header-waterproof{
+        padding-left: 28rem;
+        padding-bottom: 3rem;
+    }
+}

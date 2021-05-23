@@ -54,6 +54,17 @@ def loadCityByName(request):
         response.status_code = 400
         return response
 
+def loadCityById(request):
+    id = request.GET.get('id')
+    print("city id: %s" % id)
+    if (id != ''):
+        city = Cities.objects.filter(id=id)
+        city_serialized = serializers.serialize('json', city)
+        return JsonResponse(city_serialized, safe=False)
+    else:
+        return JsonResponse({},safe=False)
+    
+
 def loadCurrency(request):
     currency = request.GET.get('currency')
     currencies = Countries.objects.filter(id=currency)
@@ -120,7 +131,7 @@ def loadCurrencys(requests):
     return JsonResponse("ok", safe=False)
 
 def verCiudad(request):
-                return render(
-                    request,
-                    'waterproof_parameters/verCiudad.html',
-                    {})
+    return render(
+        request,
+        'waterproof_parameters/verCiudad.html',
+        {})
