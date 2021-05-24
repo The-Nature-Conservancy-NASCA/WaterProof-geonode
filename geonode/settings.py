@@ -1324,6 +1324,11 @@ except ValueError:
 # The proxy to use when making cross origin requests.
 PROXY_URL = os.environ.get('PROXY_URL', '/proxy/?url=')
 
+LANGUAGES = (
+    ('en', _("English")),
+    ('es', _("Español")),
+)
+
 # Haystack Search Backend Configuration. To enable,
 # first install the following:
 # - pip install django-haystack
