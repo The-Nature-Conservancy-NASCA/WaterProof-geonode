@@ -202,3 +202,13 @@ a {
 .listing tr:hover .children {
     background-color: none;
 }
+
+.listing .actions a {
+    text-decoration: none;
+    color: #458acc;
+}
+
+.t-inverted .u-btn-current:hover {
+    border-color: rgba(0,0,0,.35);
+}
+
