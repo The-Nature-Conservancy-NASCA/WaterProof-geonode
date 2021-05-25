@@ -140,3 +140,6 @@
     border-radius: 50%;
     padding: 20px;
 }
+.container {
+    padding-left: 30rem !important;
+}

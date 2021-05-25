@@ -74,117 +74,17 @@
                             <div class="first-detail">
                                 <div class="content-title-first">
                                     <div class="text-title-first">Benefits</div>
-                                    <div class="close-title-first">-</div>
+                                    <div class="close-title-first" onclick="displayList('listCheckBenefits')">-</div>
                                 </div>
-                                <div>
-                                    <div class="first-detail-in">
-                                        <div class="text-first-detail">Water intake (currency)</div>
-                                        <div class="content-option-first-detail">
-                                            <div class="div-option"><input type="checkbox"></div>
-                                            <div class="div-text">Option one</div>
-                                        </div>
-                                        <div class="content-option-first-detail">
-                                            <div class="div-option"><input type="checkbox"></div>
-                                            <div class="div-text">Option two</div>
-                                        </div>
-                                    </div>
-                                    <div class="first-detail-in">
-                                        <div class="text-first-detail">Treatment plants (currency)</div>
-                                        <div class="content-option-first-detail">
-                                            <div class="div-option"><input type="checkbox"></div>
-                                            <div class="div-text">Option one</div>
-                                        </div>
-                                        <div class="content-option-first-detail">
-                                            <div class="div-option"><input type="checkbox"></div>
-                                            <div class="div-text">Option two</div>
-                                        </div>
-                                        <div class="content-option-first-detail">
-                                            <div class="div-option"><input type="checkbox"></div>
-                                            <div class="div-text">Option three</div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <div id="listCheckBenefits" style="display: none; overflow-x: hidden;overflow-y: scroll;height: 400px;"></div>
                             </div>
 
                             <div class="first-detail">
                                 <div class="content-title-first">
                                     <div class="text-title-first">Cost</div>
-                                    <div class="close-title-first">-</div>
+                                    <div class="close-title-first" onclick="displayList('listCheckCost')">-</div>
                                 </div>
-                                <div>
-                                    <div class="first-detail-in">
-                                        <div class="text-first-detail">Implementation</div>
-                                        <div class="content-option-first-detail">
-                                            <div class="div-option"><input type="checkbox"></div>
-                                            <div class="div-text">Option one</div>
-                                        </div>
-                                        <div class="content-option-first-detail">
-                                            <div class="div-option"><input type="checkbox"></div>
-                                            <div class="div-text">Option two</div>
-                                        </div>
-                                    </div>
-                                    <div class="first-detail-in">
-                                        <div class="text-first-detail">Maintance</div>
-                                        <div class="content-option-first-detail">
-                                            <div class="div-option"><input type="checkbox"></div>
-                                            <div class="div-text">Option one</div>
-                                        </div>
-                                        <div class="content-option-first-detail">
-                                            <div class="div-option"><input type="checkbox"></div>
-                                            <div class="div-text">Option two</div>
-                                        </div>
-                                    </div>
-                                    <div class="first-detail-in">
-                                        <div class="text-first-detail">Oportunity</div>
-                                        <div class="content-option-first-detail">
-                                            <div class="div-option"><input type="checkbox"></div>
-                                            <div class="div-text">Option one</div>
-                                        </div>
-                                        <div class="content-option-first-detail">
-                                            <div class="div-option"><input type="checkbox"></div>
-                                            <div class="div-text">Option two</div>
-                                        </div>
-                                    </div>
-                                    <div class="first-detail-in">
-                                        <div class="text-first-detail">Transaction</div>
-                                        <div class="content-option-first-detail">
-                                            <div class="div-option"><input type="checkbox"></div>
-                                            <div class="div-text">Option one</div>
-                                        </div>
-                                        <div class="content-option-first-detail">
-                                            <div class="div-option"><input type="checkbox"></div>
-                                            <div class="div-text">Option two</div>
-                                        </div>
-                                    </div>
-                                    <div class="first-detail-in">
-                                        <div class="text-first-detail">Platform</div>
-                                        <div class="content-option-first-detail">
-                                            <div class="div-option"><input type="checkbox"></div>
-                                            <div class="div-text">Option one</div>
-                                        </div>
-                                        <div class="content-option-first-detail">
-                                            <div class="div-option"><input type="checkbox"></div>
-                                            <div class="div-text">Option two</div>
-                                        </div>
-                                        <div class="content-option-first-detail">
-                                            <div class="div-option"><input type="checkbox"></div>
-                                            <div class="div-text">Option three</div>
-                                        </div>
-                                        <div class="content-option-first-detail">
-                                            <div class="div-option"><input type="checkbox"></div>
-                                            <div class="div-text">Option four</div>
-                                        </div>
-                                        <div class="content-option-first-detail">
-                                            <div class="div-option"><input type="checkbox"></div>
-                                            <div class="div-text">Option five</div>
-                                        </div>
-                                        <div class="content-option-first-detail">
-                                            <div class="div-option"><input type="checkbox"></div>
-                                            <div class="div-text">Option six</div>
-                                        </div>
-                                    </div>
-
-                                </div>
+                                <div id="listCheckCost" style="display: none; overflow-x: hidden;overflow-y: scroll;height: 400px;"></div>
                             </div>
                         </div>
                 </div>
@@ -207,16 +107,7 @@
                                 <th scope="col" class="small text-center vat">{% trans "5" %}</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr id="filas">
-                                <td class="small text-center vat" >Width turbidity treatment</td>
-                                <td class="small text-center vat truncate" id="valor1">77654,15</td>
-                                <td class="small text-center vat" id="valor2">257363,48</td>
-                                <td class="small text-center vat" id="valor3">826028,32</td>
-                                <td class="small text-center vat" id="valor4">2602428,59</td>
-                                <td class="small text-center vat" id="valor5">67829527,58</td>
-                            </tr>
-                        </tbody>
+                        <tbody id="idTbodyRoi"></tbody>
                     </table>
                 </div>
             </div>
@@ -228,7 +119,7 @@
                         </div>
                         <div class="contain-detail">
                             <!--Graph-->
-                            <div style="width: 50%;position: absolute;left: 450px;">
+                            <div style="width: 45%;position: absolute;left: 52%;">
                                 <div id="containerPe"></div>
                             </div>
                         </div>
@@ -260,7 +151,7 @@
                         </div>
                         <div class="contain-detail">
                             <!--Graph-->
-                            <div style="width: 50%;position: absolute;left: 450px;">
+                            <div style="width: 45%;position: absolute;left: 52%;">
                                 <div id="containerCB"></div>
                             </div>
                         </div>
@@ -281,7 +172,7 @@
                         </div>
                         <div class="contain-detail">
                             <!--Graph-->
-                            <div style="width: 50%;position: absolute;left: 450px;">
+                            <div style="width: 45%;position: absolute;left: 50%;">
                                 <div id="containerNpv"></div>
                             </div>
                         </div>
@@ -291,13 +182,13 @@
                 <div style="text-align: center;width: 100%;position: relative;height: 400px;">
                         <div class="contain-detail">
                             <!--Graph-->
-                            <div style="width: 45%;position: absolute;left: 600px;">
+                            <div style="width: 45%;position: absolute;left: 52%;">
                                 <div id="containerTDB"></div>
                             </div>
                         </div>
                         <div class="contain-detail">
                             <!--Graph-->
-                            <div style="width: 45%;position: absolute;left: 50px;">
+                            <div style="width: 45%;position: absolute;left: 5%;">
                                 <div id="containerTDC"></div>
                             </div>
                         </div>
@@ -323,13 +214,13 @@
                 <div style="text-align: center;width: 100%;position: relative;height: 400px;">
                         <div class="contain-detail">
                             <!--Graph-->
-                            <div style="width: 45%;position: absolute;left: 600px;">
+                            <div style="width: 45%;position: absolute;left: 52%;">
                                 <div id="containerRoiS"></div>
                             </div>
                         </div>
                         <div class="contain-detail">
                             <!--Graph-->
-                            <div style="width: 45%;position: absolute;left: 50px;">
+                            <div style="width: 45%;position: absolute;left: 5%;">
                                 <div id="containerCvB"></div>
                             </div>
                         </div>
@@ -381,47 +272,116 @@
 <script type="text/javascript">
 
 $(function () {
+
+    displayList = function(nameObject) {
+        if(document.getElementById(nameObject).style.display === "none") {
+            document.getElementById(nameObject).style.display = "block";
+        } else {
+            document.getElementById(nameObject).style.display = "none";
+        }
+    };
+
     initialize = function () {
 
         $("#idCountri").html(localStorage.getItem('country'));
         $("#idCity").html(localStorage.getItem('city'));
         $("#idRegion").html(localStorage.getItem('region'));
 
-        var table = $('#idTableRoi').DataTable({
-                'dom': 'lrtip'
+        var htmlBenefitsFilter = "";
+        var urlDetail = "../../reports/getReportAnalysisBenefitsFilter/?studyCase=" + localStorage.idStudyCase;
+        $.getJSON(urlDetail, function (data) {
+            $.each( data, function( key, value ) {
+                if(value.subCategory ===  null) {
+                    value.subCategory = value.name;
+                }
+                htmlBenefitsFilter = htmlBenefitsFilter + '<div class="first-detail-in"><div class="text-first-detail">' + value.name + '</div><div class="content-option-first-detail"><div class="div-option"><input type="checkbox" checked ></div><div class="div-text">' + value.subCategory + '</div></div></div>';
             });
+            document.getElementById("listCheckBenefits").innerHTML = htmlBenefitsFilter;
+        });
 
-        Highcharts.chart('containerRoi', {
-            chart: {
-                type: 'column'
-            },
-            title: {
-                text: 'Return of investment'
-            },
-            colors: ['#fe7700', '#ffc400', '#426ac7', '#a5a5a5'],
-            xAxis: {
-                categories: ['1', '2', '3', '4', '5']
-            },
-            credits: {
-                enabled: false
-            },
-            series: [{
-                name: 'Total Cost',
-                data: [parseFloat("2846600"), parseFloat("3027500"), parseFloat("3602300"), parseFloat("778100"), parseFloat("934700")]
-            },{
-                name: 'Total Discounted Cost',
-                data: [parseFloat("2711047"), parseFloat("2746031"), parseFloat("3111802"), parseFloat("640144"), parseFloat("732361")]
-            },{
-                name: 'Total Benefits',
-                type: 'spline',
-                dashStyle: 'shortdot',
-                data: [parseFloat("95269"), parseFloat("235364"), parseFloat("277568"), parseFloat("302390"), parseFloat("316475")]
-            },{
-                name: 'Total Discounted Benefits',
-                type: 'spline',
-                dashStyle: 'shortdot',
-                data: [parseFloat("2711047"), parseFloat("2746031"), parseFloat("3111802"), parseFloat("640144"), parseFloat("732361")]
-            }]
+        var htmlCostFilter = "";
+        var urlDetail = "../../reports/getReportCostsAnalysisFilter/?studyCase=" + localStorage.idStudyCase;
+        $.getJSON(urlDetail, function (data) {
+            var lastName = "";
+            $.each( data, function( key, value ) {
+                if(value.subCategory ===  null) {
+                    value.subCategory = value.name;
+                }
+                if(lastName !== value.name) {
+                    htmlCostFilter = htmlCostFilter + '<div class="first-detail-in"><div class="text-first-detail">' + value.name + '</div></div>';
+                    lastName = value.name;
+                }
+                htmlCostFilter = htmlCostFilter + '<div class="content-option-first-detail"><div class="div-option"><input type="checkbox" checked ></div><div class="div-text">' + value.subName + '</div></div>';
+            });
+            document.getElementById("listCheckCost").innerHTML = htmlCostFilter;
+        });
+
+
+
+        var categories = [];
+        var totalCost = [];
+        var totalDiscountedCost = [];
+        var totalBenefits= [];
+        var totalDiscountedBenefits = [];
+        var htmlCost = '<tr><td class="small text-center vat" >Total cost</td>';
+        var htmlDiscountedCost = '<tr><td class="small text-center vat" >Total discounted cost</td>';
+        var htmlBenefits= '<tr><td class="small text-center vat" >total benefits</td>';
+        var htmlDiscountedBenefits = '<tr><td class="small text-center vat" >total discounted benefits</td>';
+
+        var urlDetail = "../../reports/getReportCostsAnalysisRoi/?studyCase=" + localStorage.idStudyCase;
+        $.getJSON(urlDetail, function (data) {
+            $.each( data, function( key, value ) {
+                categories.push(value.record);
+                totalCost.push(parseFloat(value.totalCost));
+                totalDiscountedCost.push(parseFloat(value.totalDiscountedCost));
+                totalBenefits.push(parseFloat(value.totalBenefits));
+                totalDiscountedBenefits.push(parseFloat(value.totalDiscountedBenefits));
+                htmlCost = htmlCost + '<td class="small text-center vat" id="valor2">' + value.totalCost + '</td>';
+                htmlDiscountedCost = htmlDiscountedCost + '<td class="small text-center vat" id="valor3">' + value.totalDiscountedCost + '</td>';
+                htmlBenefits = htmlBenefits + '<td class="small text-center vat" id="valor3">' + value.totalBenefits + '</td>';
+                htmlDiscountedBenefits = htmlDiscountedBenefits + '<td class="small text-center vat" id="valor3">' + value.totalDiscountedBenefits + '</td>';
+
+            });
+            htmlCost = htmlCost + '</tr>';
+            htmlDiscountedCost = htmlDiscountedCost + '</tr>';
+            htmlBenefits = htmlBenefits + '</tr>';
+            htmlDiscountedBenefits = htmlDiscountedBenefits + '</tr>';
+
+            document.getElementById("idTbodyRoi").innerHTML = htmlCost +  htmlDiscountedCost + htmlBenefits + htmlDiscountedBenefits;
+            
+
+            Highcharts.chart('containerRoi', {
+                chart: {
+                    type: 'column'
+                },
+                title: {
+                    text: 'Return of investment'
+                },
+                colors: ['#fe7700', '#ffc400', '#426ac7', '#a5a5a5'],
+                xAxis: {
+                    categories: categories
+                },
+                credits: {
+                    enabled: false
+                },
+                series: [{
+                    name: 'Total Cost',
+                    data: totalCost
+                },{
+                    name: 'Total Discounted Cost',
+                    data: totalDiscountedCost
+                },{
+                    name: 'Total Benefits',
+                    type: 'spline',
+                    dashStyle: 'shortdot',
+                    data: totalBenefits
+                },{
+                    name: 'Total Discounted Benefits',
+                    type: 'spline',
+                    dashStyle: 'shortdot',
+                    data: totalDiscountedBenefits
+                }]
+            });
         });
         
         var dataEfficiency = [];
