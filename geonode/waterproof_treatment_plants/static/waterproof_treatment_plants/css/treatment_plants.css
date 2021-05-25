@@ -551,21 +551,42 @@ textarea {
     cursor: pointer;
     font-size: 15px;
 }
+
+#mapid{
+    width: 380px;
+    height: 450px;
+    border: 2px solid;
+    border-radius: 0.5em;
+    border-color: #aaa;
+}
+
 @media (min-width: 768px) {
     .header-waterproof{
         padding-left: 16rem;
         padding-bottom: 1rem;
-    }    
+    }
+    #mapid{
+        width: 400px !important;  
+        height: 400px;
+    }
 }
 @media (min-width: 992px) {
     .header-waterproof{
         padding-left: 24rem;
         padding-bottom: 1rem;
-    }    
+    }
+    #mapid{
+        width: 430px !important; 
+        height: 400px;
+    }
 }
 @media (min-width: 1200px) {
     .header-waterproof{
         padding-left: 28rem;
         padding-bottom: 3rem;
     }
+    #mapid{
+        width: auto !important; 
+       height: 450px;
+   } 
 }
