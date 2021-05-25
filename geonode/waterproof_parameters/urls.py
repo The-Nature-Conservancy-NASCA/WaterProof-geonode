@@ -1,7 +1,7 @@
 """URLs for the ``WaterProof Parameters`` module."""
 from django.conf.urls import url, include
 from django.urls import path
-from . import views
+from . import views, api
 
 urlpatterns = [
     path('load-country/', views.loadCountry, name='load_country'),
@@ -19,8 +19,9 @@ urlpatterns = [
     path('load-allCurrencies/', views.loadAllCurrencies, name='load_allCurrencies'),
     # Load city by standard name
     path('load-cityByName/', views.loadCityByName, name='load_cityByName'),
-    
+    path('loadCityById/', views.loadCityById, name='loadCityById'),
+    path('verciudad/', views.verCiudad, name='verciudad'),
 
-    path('verciudad/', views.verCiudad, name='verciudad')
+    path('getClosetsCities/', api.getClosetsCities, name='getClosetsCities')
 
 ]

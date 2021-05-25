@@ -13,4 +13,7 @@ urlpatterns = [
     path('getSensibilityAnalysisBenefits/', api.getSensibilityAnalysisBenefits, name='get-sensibility-analysis-benefits'),
     path('getSensibilityAnalysisCostVsBenefit/', api.getSensibilityAnalysisCostVsBenefit, name='get-sensibility-analysis-cost-vs-benefit'),
     path('getSensibilityAnalysisReturnOfInvest/', api.getSensibilityAnalysisReturnOfInvest, name='get-sensibility-analysis-return-of-invest'),
+    path('getNetPresentValueSummary/', api.getNetPresentValueSummary, name='get-net-present-value-summary'),
+    path('getCostAndBenefit/', api.getCostAndBenefit, name='get_cost_and_benefit'),
+    path('getTotalBenefitsForMilion/', api.getTotalBenefitsForMilion, name='get_total_benefits_for_milion'),
 ]

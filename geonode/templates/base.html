@@ -355,7 +355,7 @@
                   <li><a href="{% url "apps_browse" %}?limit={{ CLIENT_RESULTS_LIMIT }}">{% trans "Explore" %} {% blocktrans %}{{GEONODE_APPS_NAME}}{% endblocktrans %}</a></li>
                   <li><a href="{% url "search_city" %}">{% trans "Search City" %} </a></li>
                   <li><a href="{% url "list-nbs" %}?limit={{ CLIENT_RESULTS_LIMIT }}">{% trans "NBS" %} </a></li>
-                  <li><a href="{% url "list-intake" %}?limit={{ CLIENT_RESULTS_LIMIT }}">{% trans "Intakes" %} </a></li>
+                  <li><a id="listIntakes" href="#">{% trans "Intakes" %} </a></li>
                   <li><a href="{% url "treatment-plants-list" %}?limit={{ CLIENT_RESULTS_LIMIT }}">{% trans "Treatment Plants" %} </a></li>
                 </ul>
             {% else %}
@@ -742,6 +742,15 @@
       $(".datepicker").datepicker({
           format: "yyyy-mm-dd"
       });
+
+      $("#listIntakes").click(function(){
+          var cityId = localStorage.cityId;
+          if (cityId == undefined){
+            cityId = "";
+          }
+          url="{% url "list-intake" %}?limit={{ CLIENT_RESULTS_LIMIT }}&city=" + cityId;
+          window.location.href = url;
+        });
     </script>
 
     <div class="modal fade" style="width: 100%; height: 100%;" id="_resource_uploading" data-backdrop="static" aria-hidden="true">

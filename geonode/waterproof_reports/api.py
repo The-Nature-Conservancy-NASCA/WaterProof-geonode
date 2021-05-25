@@ -127,8 +127,108 @@ def getSensibilityAnalysisReturnOfInvest(request):
 				"roiMaximumR":row[1],
 				"roiMinimumR":row[2],
 				"porcentDiscountRater":row[3],
-				"porcentDiscountRaterMinimumR":row[3],
-				"porcentDiscountRaterMaximumR":row[3],
+				"porcentDiscountRaterMinimumR":row[4],
+				"porcentDiscountRaterMaximumR":row[5],
 			})
 
 		return JsonResponse(objects_list, safe=False)
+
+@api_view(['GET'])
+def getNetPresentValueSummary(request):
+	"""Returns the list of treatment plants
+
+	Find all the stored treatment plants that have
+	the minimum characteristics stored in all components
+
+	Parameters:
+	without parameters
+
+	Exceptions:
+	If it does not have data in the minimal relations of the model it does not deliver
+	information about the treatment plant
+	"""
+	if request.method == 'GET':
+		con = psycopg2.connect(settings.DATABASE_URL)
+		cur = con.cursor()
+		cur.execute("SELECT * FROM __get_report_graph_vpn(" + request.query_params.get('studyCase') + ")")
+		rows = cur.fetchall()
+		objects_list = []
+		for row in rows:
+			objects_list.append({
+				"currencyr":row[0],
+				"implementationr":row[1],
+				"maintenancer":row[2],
+				"oportunityr":row[3],
+				"transactionr":row[4],
+				"platformr":row[5],
+				"benefitr":row[6],
+				"totalr":row[7],
+			})
+
+		return JsonResponse(objects_list, safe=False)
+
+@api_view(['GET'])
+def getCostAndBenefit(request):
+	"""Returns the list of treatment plants
+
+	Find all the stored treatment plants that have
+	the minimum characteristics stored in all components
+
+	Parameters:
+	without parameters
+
+	Exceptions:
+	If it does not have data in the minimal relations of the model it does not deliver
+	information about the treatment plant
+	"""
+	if request.method == 'GET':
+		con = psycopg2.connect(settings.DATABASE_URL)
+		cur = con.cursor()
+		cur.execute("SELECT * FROM __get_report_graph_cost_bene(" + request.query_params.get('studyCase') + ")")
+		rows = cur.fetchall()
+		objects_list = []
+		for row in rows:
+			objects_list.append({
+				"currencyr":row[0],
+				"costr":row[1],
+				"benefift":row[2]
+			})
+
+		return JsonResponse(objects_list, safe=False)
+
+@api_view(['GET'])
+def getTotalBenefitsForMilion(request):
+	"""Returns the list of treatment plants
+
+	Find all the stored treatment plants that have
+	the minimum characteristics stored in all components
+
+	Parameters:
+	without parameters
+
+	Exceptions:
+	If it does not have data in the minimal relations of the model it does not deliver
+	information about the treatment plant
+	"""
+	if request.method == 'GET':
+		con = psycopg2.connect(settings.DATABASE_URL)
+		cur = con.cursor()
+		cur.execute("SELECT * FROM __get_report_total_benefits_for_milion(" + request.query_params.get('studyCase') + ")")
+		rows = cur.fetchall()
+		objects_list = []
+		for row in rows:
+			objects_list.append({
+				"waterYear":row[0],
+				"nitrogenLoad":row[1],
+				"phosphorousLoad":row[2],
+				"totalSediments":row[3],
+				"baseFlow":row[4],
+				"carbonStorage":row[5]
+			})
+
+		return JsonResponse(objects_list, safe=False)
+
+
+
+
+

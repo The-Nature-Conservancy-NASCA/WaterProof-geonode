@@ -248,17 +248,7 @@
                                 <th scope="col" class="small text-center vat">{% trans "Change in carbon storage (%)" %}</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr id="filas">
-                                <td class="small text-center vat" >Value</td>
-                                <td class="small text-center vat truncate" id="valor1">17 %</td>
-                                <td class="small text-center vat" id="valor2">40 %</td>
-                                <td class="small text-center vat" id="valor3">-13 %</td>
-                                <td class="small text-center vat" id="valor4">-75 %</td>
-                                <td class="small text-center vat" id="valor5">-73 %</td>
-                                <td class="small text-center vat" id="valor6">40 %</td>
-                            </tr>
-                        </tbody>
+                        <tbody id="idTbodyEfficiency"></tbody>
                     </table>
                 </div>
             </div>
@@ -285,12 +275,7 @@
                                             <th colspan="2" scope="col" class="small text-center vat">Net present value summary</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <tr id="filas">
-                                            <td class="small text-center vat" >Cost: implementation</td>
-                                            <td class="small text-center vat truncate" id="valor1">($227.092.206)</td>
-                                        </tr>
-                                    </tbody>
+                                    <tbody id="idTbodyNpv"></tbody>
                                 </table>
                             </div>
                         </div>
@@ -323,7 +308,7 @@
                     <table id="idTableRoi" class="table table-striped table-bordered table-condensed" style=" width:100%">
                         <thead>
                             <tr class="info">
-                                <th scope="col" class="small text-center vat">{% trans "Time Period" %}</th>
+                                <th scope="col" class="small text-center vat">{% trans "Sensibility Analysis" %}</th>
                                 <th scope="col" class="small text-center vat">{% trans "1" %}</th>
                                 <th scope="col" class="small text-center vat">{% trans "2" %}</th>
                                 <th scope="col" class="small text-center vat">{% trans "3" %}</th>
@@ -331,16 +316,7 @@
                                 <th scope="col" class="small text-center vat">{% trans "5" %}</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr id="filas">
-                                <td class="small text-center vat" >Width turbidity treatment</td>
-                                <td class="small text-center vat truncate" id="valor1">77654,15</td>
-                                <td class="small text-center vat" id="valor2">257363,48</td>
-                                <td class="small text-center vat" id="valor3">826028,32</td>
-                                <td class="small text-center vat" id="valor4">2602428,59</td>
-                                <td class="small text-center vat" id="valor5">67829527,58</td>
-                            </tr>
-                        </tbody>
+                        <tbody id="idTbodySensibility"></tbody>
                     </table>
                 </div>
                 <br>
@@ -375,12 +351,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js" type="text/javascript"></script>
 <script src="https://unpkg.com/smartwizard@5/dist/js/jquery.smartWizard.min.js" type="text/javascript"></script>
 
-
-<!--
-<script src="{{ STATIC_URL }}geonode/js/leaflet/Leaflet.Editable.js"></script>
-<script src="{{ STATIC_URL }}geonode/js/leaflet/Leaflet.Coordinates.js"></script>
-<script src="{{ STATIC_URL }}geonode/js/leaflet/Control.Loader.js"></script>
--->
 <!--ZIP reader library-->
 <script src="{{ STATIC_URL }}geonode/js/jszip/jszip.min.js"></script>
 <!--Shapefile reader library -->
@@ -420,9 +390,7 @@ $(function () {
         var table = $('#idTableRoi').DataTable({
                 'dom': 'lrtip'
             });
-        var table = $('#idTablePe').DataTable({
-                'dom': 'lrtip'
-            });
+
         Highcharts.chart('containerRoi', {
             chart: {
                 type: 'column'
@@ -455,76 +423,138 @@ $(function () {
                 data: [parseFloat("2711047"), parseFloat("2746031"), parseFloat("3111802"), parseFloat("640144"), parseFloat("732361")]
             }]
         });
+        
+        var dataEfficiency = [];
+        var urlDetail = "../../reports/getTotalBenefitsForMilion/?studyCase=" + localStorage.idStudyCase;
+        $.getJSON(urlDetail, function (data) {
+            var txtFileEfficiency = '<tr><td class="small text-center vat" >Value</td>';
+            $.each( data, function( key, value ) {
+                dataEfficiency.push(parseFloat(value.carbonStorage));
+                dataEfficiency.push(parseFloat(value.phosphorousLoad));
+                dataEfficiency.push(parseFloat(value.nitrogenLoad));
+                dataEfficiency.push(parseFloat(value.totalSediments));
+                dataEfficiency.push(parseFloat(value.baseFlow));
+                dataEfficiency.push(parseFloat(value.waterYear));
+                txtFileEfficiency = txtFileEfficiency + '<td class="small text-center vat">' + value.carbonStorage + '</td>';
+                txtFileEfficiency = txtFileEfficiency + '<td class="small text-center vat">' + value.phosphorousLoad + '</td>';
+                txtFileEfficiency = txtFileEfficiency + '<td class="small text-center vat">' + value.nitrogenLoad + '</td>';
+                txtFileEfficiency = txtFileEfficiency + '<td class="small text-center vat">' + value.totalSediments + '</td>';
+                txtFileEfficiency = txtFileEfficiency + '<td class="small text-center vat">' + value.baseFlow + '</td>';
+                txtFileEfficiency = txtFileEfficiency + '<td class="small text-center vat">' + value.carbonStorage + '</td>';
+            });
+            txtFileEfficiency = txtFileEfficiency + '</tr>';
+            document.getElementById("idTbodyEfficiency").innerHTML = document.getElementById("idTbodyEfficiency").innerHTML + txtFileEfficiency;
 
-        Highcharts.chart('containerPe', {
-            chart: {
-                type: 'bar'
-            },
-            title: {
-                text: 'Portfolio Efficiency'
-            },
-            xAxis: {
-                categories: ['Carbon storage', 'Phosphorus load', 'Nitrogen load', 'Total sediments', 'Base flow', 'Volumen of water yield']
-            },
-            credits: {
-                enabled: false
-            },
-            series: [{
-                name: 'PE',
-                data: [parseFloat("40"),parseFloat("-73"),parseFloat("-75"),parseFloat("-13"),parseFloat("40"),parseFloat("17")]
-            }]
+            Highcharts.chart('containerPe', {
+                chart: {
+                    type: 'bar'
+                },
+                title: {
+                    text: 'Portfolio Efficiency'
+                },
+                xAxis: {
+                    categories: ['Carbon storage', 'Phosphorus load', 'Nitrogen load', 'Total sediments', 'Base flow', 'Volumen of water yield']
+                },
+                credits: {
+                    enabled: false
+                },
+                series: [{
+                    name: 'PE',
+                    data: dataEfficiency
+                }]
+            });
         });
 
-        Highcharts.chart('containerCB', {
-            chart: {
-                type: 'column'
-            },
-            title: {
-                text: 'Cost and Benefits'
-            },
-            colors: ['#fe7700', '#ffc400'],
-            xAxis: {
-                categories: ['Cost and Benefits']
-            },
-            credits: {
-                enabled: false
-            },
-            series: [{
-                name: 'Cost',
-                data: [parseFloat("19359827")]
-            },{
-                name: 'Benefits',
-                data: [parseFloat("65740719")]
-            }]
+        var dataCost = [];
+        var dataBenefit = [];
+        var urlDetail = "../../reports/getCostAndBenefit/?studyCase=" + localStorage.idStudyCase;
+        $.getJSON(urlDetail, function (data) {
+            var txtFileNet = "";
+            $.each( data, function( key, value ) {
+                dataCost.push(parseFloat(value.costr));
+                dataBenefit.push(parseFloat(value.benefift));
+            });
+            Highcharts.chart('containerCB', {
+                chart: {
+                    type: 'column'
+                },
+                title: {
+                    text: 'Cost and Benefits'
+                },
+                colors: ['#fe7700', '#ffc400'],
+                xAxis: {
+                    categories: ['Cost and Benefits']
+                },
+                credits: {
+                    enabled: false
+                },
+                series: [{
+                    name: 'Cost',
+                    data: dataCost
+                },{
+                    name: 'Benefits',
+                    data: dataBenefit
+                }]
+            });
         });
 
-        Highcharts.chart('containerNpv', {
-            chart: {
-                type: 'column'
-            },
-            title: {
-                text: 'Net present value summary'
-            },
-            xAxis: {
-                categories: ['Implementation', 'Maintance', 'Oportunity', 'Transaction', 'Platform', 'Benefit', 'Total']
-            },
-            credits: {
-                enabled: false
-            },
-            series: [{
-                name: 'NPV',
-                data: [parseFloat("-5652284"),parseFloat("-8064853"),parseFloat("-1122203"),parseFloat("-2967868"),parseFloat("-1552617"),parseFloat("65740719"),parseFloat("46380892")]
-            }]
+        var dataNetPresentValueSummary = [];
+        var urlDetail = "../../reports/getNetPresentValueSummary/?studyCase=" + localStorage.idStudyCase;
+        var typeMoney = "";
+        $.getJSON(urlDetail, function (data) {
+            var txtFileNet = "";
+            $.each( data, function( key, value ) {
+                typeMoney = value.currencyr;
+                dataNetPresentValueSummary.push(parseFloat(value.implementationr));
+                dataNetPresentValueSummary.push(parseFloat(value.maintenancer));
+                dataNetPresentValueSummary.push(parseFloat(value.oportunityr));
+                dataNetPresentValueSummary.push(parseFloat(value.transactionr));
+                dataNetPresentValueSummary.push(parseFloat(value.platformr));
+                dataNetPresentValueSummary.push(parseFloat(value.benefitr));
+                dataNetPresentValueSummary.push(parseFloat(value.totalr));
+                txtFileNet = txtFileNet + '<tr><td class="small text-center vat" >Cost: implementation</td><td class="small text-center vat">' + value.implementationr + '</td></tr>';
+                txtFileNet = txtFileNet + '<tr><td class="small text-center vat" >Cost: maintenance</td><td class="small text-center vat">' + value.maintenancer + '</td></tr>';
+                txtFileNet = txtFileNet + '<tr><td class="small text-center vat" >Cost: oportunity</td><td class="small text-center vat">' + value.oportunityr + '</td></tr>';
+                txtFileNet = txtFileNet + '<tr><td class="small text-center vat" >Cost: transaction</td><td class="small text-center vat">' + value.transactionr + '</td></tr>';
+                txtFileNet = txtFileNet + '<tr><td class="small text-center vat" >Cost: platform</td><td class="small text-center vat">' + value.platformr + '</td></tr>';
+                txtFileNet = txtFileNet + '<tr><td class="small text-center vat" >Cost: benefit</td><td class="small text-center vat">' + value.benefitr + '</td></tr>';
+                txtFileNet = txtFileNet + '<tr><td class="small text-center vat" >Cost: total</td><td class="small text-center vat">' + value.totalr + '</td></tr>';
+            });
+            document.getElementById("idTbodyNpv").innerHTML = document.getElementById("idTbodyNpv").innerHTML + txtFileNet;
+
+            Highcharts.chart('containerNpv', {
+                chart: {
+                    type: 'column'
+                },
+                title: {
+                    text: 'Net present value summary'
+                },
+                xAxis: {
+                    categories: ['Implementation', 'Maintance', 'Oportunity', 'Transaction', 'Platform', 'Benefit', 'Total']
+                },
+                credits: {
+                    enabled: false
+                },
+                series: [{
+                    name: 'NPV (' + typeMoney + ')',
+                    data: dataNetPresentValueSummary
+                }]
+            });
         });
 
         var dataSensibilityAnalysisBenefitsTime = [];
         var dataSensibilityAnalysisBenefitsRange = [];
         var urlDetail = "../../reports/getSensibilityAnalysisBenefits/?studyCase=" + localStorage.idStudyCase;
         $.getJSON(urlDetail, function (data) {
+            var txtFileBenefits = '<tr><td class="small text-center vat" >Discounted benefit</td>';
             $.each( data, function( key, value ) {
                 dataSensibilityAnalysisBenefitsTime.push([value.timer, Math.round(value.totalMedBenefitR)]);
                 dataSensibilityAnalysisBenefitsRange.push([value.timer, Math.round(value.totalMinBenefitR), Math.round(value.totalMaxBenefittR)]);
+                txtFileBenefits = txtFileBenefits + '<td class="small text-center vat" id="valor' + value.timer + '">' + value.totalMedBenefitR + '</td>';
             });
+            txtFileBenefits = txtFileBenefits + '</tr>';
+            document.getElementById("idTbodySensibility").innerHTML = document.getElementById("idTbodySensibility").innerHTML + txtFileBenefits;
+
             Highcharts.chart('containerTDB', {
                 title: {
                     text: 'Sensibility analysis - total discounted benefit'
@@ -556,10 +586,15 @@ $(function () {
         var dataSensibilityAnalysisCostRange = [];
         var urlDetail = "../../reports/getSensibilityAnalysisCost/?studyCase=" + localStorage.idStudyCase;
         $.getJSON(urlDetail, function (data) {
+            var txtFileCost = '<tr><td class="small text-center vat" >Discounted Cost</td>';
             $.each( data, function( key, value ) {
                 dataSensibilityAnalysisCostTime.push([value.timer, Math.round(value.totalMedCostR)]);
                 dataSensibilityAnalysisCostRange.push([value.timer, Math.round(value.totalMinCostR), Math.round(value.totalMaxCostR)]);
+                txtFileCost = txtFileCost + '<td class="small text-center vat" id="valor' + value.timer + '">' + value.totalMedCostR + '</td>';
             });
+            txtFileCost = txtFileCost + '</tr>';
+            document.getElementById("idTbodySensibility").innerHTML = document.getElementById("idTbodySensibility").innerHTML + txtFileCost;
+
             Highcharts.chart('containerTDC', {
                 title: {
                     text: 'Sensibility analysis - total discounted cost'
