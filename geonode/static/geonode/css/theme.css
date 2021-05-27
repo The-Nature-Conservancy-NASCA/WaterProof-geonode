@@ -212,3 +212,66 @@ a {
     border-color: rgba(0,0,0,.35);
 }
 
+.listing .button-secondary:hover {
+    border-color: transparent !important;
+    background-color: transparent !important;
+}
+
+.page-explorer .listing .index .button.bicolor {
+    background: transparent !important;
+}
+
+.listing .index .button.bicolor {
+    background: transparent !important;
+    border: 1px solid #003537;
+}
+
+.t-inverted .u-btn-current:hover {
+    background-color: transparent !important;
+    border-color: rgba(0,0,0,.35);
+}
+
+.t-default .u-btn-current:hover {
+    background: transparent !important;
+    color: #458acc;
+    border-color: #007d7e;
+}
+
+.page-explorer .listing .index .button:hover {
+    color: #458acc;
+    background: #00676a;
+}
+
+.page-explorer .listing .index .title h2 a:hover {
+    color: #458acc !important;
+}
+
+.listing .children a {
+    color: #458acc !important;
+    display: block;
+}
+
+.listing td.children:hover {
+    background-color: #458acc !important;
+}
+
+.tab-nav.merged {
+    background-color: #458acc;
+}
+
+.tab-nav a {
+    background-color: #1f5f9b;
+    text-transform: uppercase;
+    font-weight: 600;
+    text-decoration: none;
+    display: block;
+    padding: .6em .7em .8em;
+    color: #fff;
+    border-top: .3em solid #5499da;
+    max-height: 1.44em;
+    overflow: hidden;
+}
+
+a:hover {
+    color: #5499da;
+}
