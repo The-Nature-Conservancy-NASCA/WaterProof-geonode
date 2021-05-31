@@ -58,7 +58,6 @@
         <!--panel of navigation-->
         <div class="title-inform">
             <div id="idSectionRoi" class="inform-section">{% trans "Return of investment (ROI)" %}</div>
-            <div id="idSectionPe" class="inform-section inform-section-free">{% trans "Portfolio Efficiency" %}</div>
             <div id="idSectionNvp" class="inform-section inform-section-free">{% trans "Net Present Value (NPV)" %}</div>
             <div id="idSectionSA" class="inform-section inform-section-free">{% trans "Sensibility Analysis" %}</div>
         </div>
@@ -73,16 +72,16 @@
                         <div class="contain-detail">
                             <div class="first-detail">
                                 <div class="content-title-first">
-                                    <div class="text-title-first">Benefits</div>
-                                    <div class="close-title-first" onclick="displayList('listCheckBenefits')">-</div>
+                                    <div class="text-title-first" id="idTitleBenefits">Benefits</div>
+                                    <div class="close-title-first" onclick="displayList('listCheckBenefits','idTitleBenefits')">-</div>
                                 </div>
                                 <div id="listCheckBenefits" style="display: none; overflow-x: hidden;overflow-y: scroll;height: 400px;"></div>
                             </div>
 
                             <div class="first-detail">
                                 <div class="content-title-first">
-                                    <div class="text-title-first">Cost</div>
-                                    <div class="close-title-first" onclick="displayList('listCheckCost')">-</div>
+                                    <div class="text-title-first" id="idTitleCost">Cost</div>
+                                    <div class="close-title-first" onclick="displayList('listCheckCost', 'idTitleCost')">-</div>
                                 </div>
                                 <div id="listCheckCost" style="display: none; overflow-x: hidden;overflow-y: scroll;height: 400px;"></div>
                             </div>
@@ -108,38 +107,6 @@
                             </tr>
                         </thead>
                         <tbody id="idTbodyRoi"></tbody>
-                    </table>
-                </div>
-            </div>
-            <!--Step 2-->
-            <div id="step2"  style="display: none;">
-                <div style="text-align: center;">
-                        <div class="content-image">
-                            <img src="/static/geonode/img/eficiencia-de-portafolio.png"/>
-                        </div>
-                        <div class="contain-detail">
-                            <!--Graph-->
-                            <div style="width: 45%;position: absolute;left: 52%;">
-                                <div id="containerPe"></div>
-                            </div>
-                        </div>
-                </div>                
-                <br>
-                <!--Table-->
-                <div style="clear:both;" class="table-responsive">
-                    <table id="idTablePe" class="table table-striped table-bordered table-condensed" style=" width:100%">
-                        <thead>
-                            <tr class="info">
-                                <th scope="col" class="small text-center vat">{% trans "Indicator" %}</th>
-                                <th scope="col" class="small text-center vat">{% trans "Change in volume of water yield (%)" %}</th>
-                                <th scope="col" class="small text-center vat">{% trans "Change in base flow (%)" %}</th>
-                                <th scope="col" class="small text-center vat">{% trans "Change in total sediments (%)" %}</th>
-                                <th scope="col" class="small text-center vat">{% trans "Change in nitrogen load (%)" %}</th>
-                                <th scope="col" class="small text-center vat">{% trans "Change in phosphorus load (%)" %}</th>
-                                <th scope="col" class="small text-center vat">{% trans "Change in carbon storage (%)" %}</th>
-                            </tr>
-                        </thead>
-                        <tbody id="idTbodyEfficiency"></tbody>
                     </table>
                 </div>
             </div>
@@ -272,12 +239,42 @@
 <script type="text/javascript">
 
 $(function () {
+    
+    changeGraphRoiCost = function() {
+        Highcharts.chart('containerRoi', {
+                chart: {
+                    type: 'column'
+                },
+                title: {
+                    text: 'Return of investment'
+                },
+                colors: ['#fe7700', '#ffc400', '#426ac7', '#a5a5a5'],
+                xAxis: {
+                    categories: [1,2,3]
+                },
+                credits: {
+                    enabled: false
+                },
+                series: [{
+                    name: 'Total Cost',
+                    data: [1,2,3]
+                },{
+                    name: 'Total Discounted Benefits',
+                    type: 'spline',
+                    dashStyle: 'shortdot',
+                    data: [1,2,3]
+                }]
+            });
+    };
 
-    displayList = function(nameObject) {
+    displayList = function(nameObject, nameTitle) {
         if(document.getElementById(nameObject).style.display === "none") {
             document.getElementById(nameObject).style.display = "block";
+            document.getElementById(nameTitle).style.borderWidth = "2px";
         } else {
             document.getElementById(nameObject).style.display = "none";
+            document.getElementById(nameTitle).style.borderWidth = "0px";
+            changeGraphRoiCost();
         }
     };
 
@@ -290,11 +287,16 @@ $(function () {
         var htmlBenefitsFilter = "";
         var urlDetail = "../../reports/getReportAnalysisBenefitsFilter/?studyCase=" + localStorage.idStudyCase;
         $.getJSON(urlDetail, function (data) {
+            var lastName = "";
             $.each( data, function( key, value ) {
                 if(value.subCategory ===  null) {
                     value.subCategory = value.name;
                 }
-                htmlBenefitsFilter = htmlBenefitsFilter + '<div class="first-detail-in"><div class="text-first-detail">' + value.name + '</div><div class="content-option-first-detail"><div class="div-option"><input type="checkbox" checked ></div><div class="div-text">' + value.subCategory + '</div></div></div>';
+                if(lastName !== value.name) {
+                    htmlBenefitsFilter = htmlBenefitsFilter + '<div class="first-detail-in"><div class="text-first-detail">' + value.name + '</div></div>';
+                    lastName = value.name;
+                }
+                htmlBenefitsFilter = htmlBenefitsFilter + '<div class="content-option-first-detail"><div class="div-option"><input type="checkbox" checked ></div><div class="div-text">' + value.subCategory + '</div></div>';
             });
             document.getElementById("listCheckBenefits").innerHTML = htmlBenefitsFilter;
         });
@@ -665,24 +667,8 @@ $(function () {
             $('#idSectionNvp').attr('class', 'inform-section inform-section-free');
             $('#step3').css("display", "none");
 
-            $('#idSectionPe').attr('class', 'inform-section inform-section-free');
-            $('#step2').css("display", "none");
-
             $('#idSectionRoi').attr('class', 'inform-section');
             $('#step1').css("display", "block");
-        });
-        $('#idSectionPe').click(function (e) {
-            $('#idSectionSA').attr('class', 'inform-section inform-section-free');
-            $('#step4').css("display", "none");
-
-            $('#idSectionNvp').attr('class', 'inform-section inform-section-free');
-            $('#step3').css("display", "none");
-
-            $('#idSectionRoi').attr('class', 'inform-section inform-section-free');
-            $('#step1').css("display", "none");
-
-            $('#idSectionPe').attr('class', 'inform-section');
-            $('#step2').css("display", "block");
         });
         $('#idSectionNvp').click(function (e) {
             $('#idSectionSA').attr('class', 'inform-section inform-section-free');
@@ -691,18 +677,12 @@ $(function () {
             $('#idSectionRoi').attr('class', 'inform-section inform-section-free');
             $('#step1').css("display", "none");
 
-            $('#idSectionPe').attr('class', 'inform-section inform-section-free');
-            $('#step2').css("display", "none");
-
             $('#idSectionNvp').attr('class', 'inform-section');
             $('#step3').css("display", "block");
         });
         $('#idSectionSA').click(function (e) {
             $('#idSectionRoi').attr('class', 'inform-section inform-section-free');
             $('#step1').css("display", "none");
-
-            $('#idSectionPe').attr('class', 'inform-section inform-section-free');
-            $('#step2').css("display", "none");
 
             $('#idSectionNvp').attr('class', 'inform-section inform-section-free');
             $('#step3').css("display", "none");

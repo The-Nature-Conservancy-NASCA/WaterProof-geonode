@@ -311,7 +311,7 @@ def getReportAnalysisBenefitsFilter(request):
 	if request.method == 'GET':
 		con = psycopg2.connect(settings.DATABASE_URL)
 		cur = con.cursor()
-		cur.execute("SELECT * FROM _get_report_analysis_benefits_filter(" + request.query_params.get('studyCase') + ")")
+		cur.execute("SELECT * FROM __get_report_analysis_benefits_filter(" + request.query_params.get('studyCase') + ")")
 		rows = cur.fetchall()
 		objects_list = []
 		for row in rows:
@@ -324,6 +324,162 @@ def getReportAnalysisBenefitsFilter(request):
 			})
 
 		return JsonResponse(objects_list, safe=False)
+
+
+@api_view(['GET'])
+def getReportCostsAnalysisFilter(request):
+	"""Returns the list of treatment plants
+
+	Find all the stored treatment plants that have
+	the minimum characteristics stored in all components
+
+	Parameters:
+	without parameters
+
+	Exceptions:
+	If it does not have data in the minimal relations of the model it does not deliver
+	information about the treatment plant
+	"""
+	if request.method == 'GET':
+		con = psycopg2.connect(settings.DATABASE_URL)
+		cur = con.cursor()
+		cur.execute("SELECT typer, SUM(medbenefitr) AS sum_filter FROM __get_report_costs_analysis_filter(" + request.query_params.get('studyCase') + ") GROUP BY  typer ORDER BY typer")
+		rows = cur.fetchall()
+		objects_list = []
+		for row in rows:
+			objects_list.append({
+				"typer":row[0],
+				"sumFilter":row[1]
+			})
+
+		return JsonResponse(objects_list, safe=False)
+
+
+@api_view(['GET'])
+def getReportCostsAnalysisFilterNbs(request):
+	"""Returns the list of treatment plants
+
+	Find all the stored treatment plants that have
+	the minimum characteristics stored in all components
+
+	Parameters:
+	without parameters
+
+	Exceptions:
+	If it does not have data in the minimal relations of the model it does not deliver
+	information about the treatment plant
+	"""
+	if request.method == 'GET':
+		con = psycopg2.connect(settings.DATABASE_URL)
+		cur = con.cursor()
+		cur.execute("SELECT cost_idr, SUM(medbenefitr) AS sum_filter FROM __get_report_costs_analysis_filter(" + request.query_params.get('studyCase') + ") WHERE cost_idr IN (SELECT DISTINCT cost_idr FROM __get_report_costs_analysis_filter(" + request.query_params.get('studyCase') + ") WHERE cost_idr LIKE '%NB%') GROUP BY cost_idr")
+
+		rows = cur.fetchall()
+		objects_list = []
+		for row in rows:
+			objects_list.append({
+				"costIdr":row[0],
+				"sumFilter":row[1]
+			})
+
+		return JsonResponse(objects_list, safe=False)
+
+
+@api_view(['GET'])
+def getReportAnalysisBenefitsFilterSum(request):
+	"""Returns the list of treatment plants
+
+	Find all the stored treatment plants that have
+	the minimum characteristics stored in all components
+
+	Parameters:
+	without parameters
+
+	Exceptions:
+	If it does not have data in the minimal relations of the model it does not deliver
+	information about the treatment plant
+	"""
+	if request.method == 'GET':
+		con = psycopg2.connect(settings.DATABASE_URL)
+		cur = con.cursor()
+		cur.execute("SELECT typer ,SUM(vpn_med_benefitr) AS vpn_med_benefitr FROM __get_report_analysis_benefits_filter(" + request.query_params.get('studyCase') + ") GROUP BY typer")
+
+		rows = cur.fetchall()
+		objects_list = []
+		for row in rows:
+			objects_list.append({
+				"typer":row[0],
+				"vpnMedBenefitr":row[1]
+			})
+
+		return JsonResponse(objects_list, safe=False)
+
+
+@api_view(['GET'])
+def getWaterproofReportsAnalysisBenefits(request):
+	"""Returns the list of treatment plants
+
+	Find all the stored treatment plants that have
+	the minimum characteristics stored in all components
+
+	Parameters:
+	without parameters
+
+	Exceptions:
+	If it does not have data in the minimal relations of the model it does not deliver
+	information about the treatment plant
+	"""
+	if request.method == 'GET':
+		con = psycopg2.connect(settings.DATABASE_URL)
+		cur = con.cursor()
+		cur.execute("SELECT element_id,type_id, SUM(vpn_med_benefit) AS vpn_med_benefit FROM waterproof_reports_analysis_benefits WHERE type_id<>'CARBONO' GROUP BY element_id, type_id")
+
+		rows = cur.fetchall()
+		objects_list = []
+		for row in rows:
+			objects_list.append({
+				"elementId":row[0],
+				"typeId":row[1],
+				"vpnMedBenefit":row[2]
+			})
+
+		return JsonResponse(objects_list, safe=False)
+
+
+@api_view(['GET'])
+def getReportOportunityResultIndicators(request):
+	"""Returns the list of treatment plants
+
+	Find all the stored treatment plants that have
+	the minimum characteristics stored in all components
+
+	Parameters:
+	without parameters
+
+	Exceptions:
+	If it does not have data in the minimal relations of the model it does not deliver
+	information about the treatment plant
+	"""
+	if request.method == 'GET':
+		con = psycopg2.connect(settings.DATABASE_URL)
+		cur = con.cursor()
+		cur.execute("SELECT * FROM __get_report_oportunity_result_indicators(" + request.query_params.get('studyCase') + ")")
+
+		rows = cur.fetchall()
+		objects_list = []
+		for row in rows:
+			objects_list.append({
+				"currency":row[0],
+				"value":row[1],
+				"description":row[2]
+			})
+
+		return JsonResponse(objects_list, safe=False)
+
+
+
+
+
 
 
 

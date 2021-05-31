@@ -8,8 +8,6 @@ from .models import investIndicators
 def dashboard(request):
     return render(request, 'waterproof_reports/dashboard.html', {})
 
-
-
 def pivot_data(request):
     dataset = Countries.objects.all()
     data = serializers.serialize('json', dataset)
@@ -62,6 +60,20 @@ def financialIndicators(request):
                 return render(
                     request,
                     'waterproof_reports/financialIndicators.html',
+                    {
+                        'Indicators': indicators,
+                        'NamesIndicators': indicatorsNames,
+                        'NameCityIndicators': indicatorsNameCity
+                    })
+
+def decisionIndicators(request):
+
+                indicators = investIndicators.objects.all()
+                indicatorsNames = getNames(indicators)
+                indicatorsNameCity = getNameCity(indicators)
+                return render(
+                    request,
+                    'waterproof_reports/decisionIndicators.html',
                     {
                         'Indicators': indicators,
                         'NamesIndicators': indicatorsNames,

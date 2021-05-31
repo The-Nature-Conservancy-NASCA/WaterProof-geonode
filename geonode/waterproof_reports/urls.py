@@ -9,6 +9,7 @@ urlpatterns = [
     path('data', views.pivot_data, name='pivot_data'),
     path('physical/', views.physicalIndicators, name='physical'),
     path('financial/', views.financialIndicators, name='financial'),
+    path('decision/', views.decisionIndicators, name='decision'),
     path('getSensibilityAnalysisCost/', api.getSensibilityAnalysisCost, name='get-sensibility-analysis-cost'),
     path('getSensibilityAnalysisBenefits/', api.getSensibilityAnalysisBenefits, name='get-sensibility-analysis-benefits'),
     path('getSensibilityAnalysisCostVsBenefit/', api.getSensibilityAnalysisCostVsBenefit, name='get-sensibility-analysis-cost-vs-benefit'),
@@ -19,4 +20,9 @@ urlpatterns = [
     path('getReportCostsAnalysisRoi/', api.getReportCostsAnalysisRoi, name='get_report_costs_analysis_roi'),
     path('getReportCostsAnalysisFilter/', api.getReportCostsAnalysisFilter, name='get_report_costs_analysis_filter'),
     path('getReportAnalysisBenefitsFilter/', api.getReportAnalysisBenefitsFilter, name='get_report_analysis_benefits_filter'),
+    path('getReportCostsAnalysisFilter/', api.getReportCostsAnalysisFilter, name='get_report_costs_analysis_filter'),
+    path('getReportCostsAnalysisFilterNbs/', api.getReportCostsAnalysisFilterNbs, name='get_report_costs_analysis_filter_nbs'),
+    path('getReportAnalysisBenefitsFilterSum/', api.getReportAnalysisBenefitsFilterSum, name='get_report_analysis_benefits_filter_sum'),
+    path('getWaterproofReportsAnalysisBenefits/', api.getWaterproofReportsAnalysisBenefits, name='get_waterproof_reports_analysis_benefits'),
+    path('getReportOportunityResultIndicators/', api.getReportOportunityResultIndicators, name='get_report_oportunity_result_indicators'),
 ]
