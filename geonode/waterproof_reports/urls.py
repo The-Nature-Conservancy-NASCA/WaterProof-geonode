@@ -25,4 +25,10 @@ urlpatterns = [
     path('getReportAnalysisBenefitsFilterSum/', api.getReportAnalysisBenefitsFilterSum, name='get_report_analysis_benefits_filter_sum'),
     path('getWaterproofReportsAnalysisBenefits/', api.getWaterproofReportsAnalysisBenefits, name='get_waterproof_reports_analysis_benefits'),
     path('getReportOportunityResultIndicators/', api.getReportOportunityResultIndicators, name='get_report_oportunity_result_indicators'),
+    path('getReportAnalisysBenefics/', api.getReportAnalisysBenefics, name='get_report_analisys_benefics'),
+    path('getReportAnalisysBeneficsB/', api.getReportAnalisysBeneficsB, name='get_report_analisys_benefics_b'),
+    path('getReportAnalisysBeneficsC/', api.getReportAnalisysBeneficsC, name='get_report_analisys_benefics_c'),
+    path('getSelectorStudyCasesId/', api.getSelectorStudyCasesId, name='get_selector_study_cases_id'),
+    
+    
 ]

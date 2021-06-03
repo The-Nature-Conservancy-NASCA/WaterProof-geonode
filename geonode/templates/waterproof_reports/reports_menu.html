@@ -44,15 +44,15 @@
                     <div class="column-left-table">
                         <div class="file-column-left">
                             <div>{% trans "City:" %}</div>
-                            <div class="value-file-column-left" id="idCity">{% trans "-" %}</div>
+                            <div class="value-file-column-left" id="idCityMain">{% trans "-" %}</div>
                         </div>
                         <div class="file-column-left">
                             <div>{% trans "Country:" %}</div>
-                            <div class="value-file-column-left" id="idCountri">{% trans "-" %}</div>
+                            <div class="value-file-column-left" id="idCountryMain">{% trans "-" %}</div>
                         </div>
                         <div class="file-column-left">
                             <div>{% trans "Region:" %}</div>
-                            <div class="value-file-column-left" id="idRegion">{% trans "-" %}</div>
+                            <div class="value-file-column-left" id="idRegionMain">{% trans "-" %}</div>
                         </div>
                     </div>
                     <div class="column-right-table">
@@ -77,32 +77,28 @@
             </div>
         </div>
         <div style="text-align: center;">
-            <select class="select-condition">
-                <option>Tibitoc</option>
-                <option>Tibitoc</option>
-                <option>Tibitoc</option>
-            </select>
+            <select class="select-condition" id="idSelectStudyCase"></select>
         </div>
         <div style="margin-top: 40px;">
             <div class="marc-report">
                 <div class="title-marc">Physical risk quantity (qan_def)</div>
                 <div class="detail-border-marc">Physical risk quantity measures risk related to too little or too much water by aggregating all selected indicators from the physical risk quantity category</div>
-                <div class="button-marc">Medium</div>
+                <div class="button-marc" id="idButtonPrq">Medium</div>
             </div>
             <div class="marc-report">
                 <div class="title-marc">Physical risk quantity (qal_def)</div>
                 <div class="detail-border-marc">Physical risk quantity measures risk related to water that in unfit for use by aggregating all selected indicators from the physical risk quantity category</div>
-                <div class="button-marc">Medium to high</div>
+                <div class="button-marc" id="idButtonPrqa">Medium to high</div>
             </div>
             <div class="marc-report">
                 <div class="title-marc">Regulatory and reputational (rrr_def)</div>
                 <div class="detail-border-marc">Risk regulatory and reputational risk measures risk related to uncertainty in regulatory chance, as well as conflich with re public regarding water issues</div>
-                <div class="button-marc">Medium to high</div>
+                <div class="button-marc" id="idButtonRar">Medium to high</div>
             </div>
             <div class="marc-report">
                 <div class="title-marc">Overall water risk score (tot_def)</div>
                 <div class="detail-border-marc">Overall water risk measures all water related risk, by aggregating all selected indicators from the physical risjk quantity, physical risk quality, and regulatory and reputational risk categories</div>
-                <div class="button-marc">Medium</div>
+                <div class="button-marc">MEDIUM</div>
             </div>
         </div>
         <div class="marc-table">
@@ -110,27 +106,27 @@
                 <div class="title-marc-table">Estimated percent improvement from area businnes as usual</div>
                 <div class="line-marc-table">
                     <div>Anual water yield</div>
-                    <div class="line-number-marc-table">20%</div>
+                    <div class="line-number-marc-table" id="changeInVolumeOfWater">20%</div>
                 </div>
                 <div class="line-marc-table">
                     <div>Seasonal water yield</div>
-                    <div class="line-number-marc-table">10%</div>
+                    <div class="line-number-marc-table" id="changeInBaseFlow">10%</div>
                 </div>
                 <div class="line-marc-table">
                     <div>Sediment delivery ratio</div>
-                    <div class="line-number-marc-table">15%</div>
+                    <div class="line-number-marc-table" id="changeIntotalSediments">15%</div>
                 </div>
                 <div class="line-marc-table">
                     <div>Nutrient delivery ratio - nitrogen</div>
-                    <div class="line-number-marc-table">10%</div>
+                    <div class="line-number-marc-table" id="changeInNitrogenLoad">10%</div>
                 </div>
                 <div class="line-marc-table">
                     <div>Nutrient delivery ratio - phosphorus</div>
-                    <div class="line-number-marc-table">5%</div>
+                    <div class="line-number-marc-table" id="changeInPhosphorus">5%</div>
                 </div>
                 <div class="line-marc-table">
                     <div>Carbon storage and sequestration</div>
-                    <div class="line-number-marc-table">20%</div>
+                    <div class="line-number-marc-table" id="changeInCarbonStorage">20%</div>
                 </div>
             </div>
             <div class="border-marc-table" style="width: 60%;">
@@ -139,35 +135,11 @@
                     <div class="tile-center-title">Cost per hectare (USD)</div>
                     <div class="tile-center-title">Recommended intervection (Hectares)</div>
                 </div>
-                <div class="line-marc-table">
-                    <div style="width: 30%;">Agriculture best management practices</div>
-                    <div class="top-center-line">376</div>
-                    <div class="line-number-marc-table">5.000</div>
-                </div>
-                <div class="line-marc-table">
-                    <div style="width: 30%;">Riparian buffers</div>
-                    <div class="top-center-line">875</div>
-                    <div class="line-number-marc-table">3.000</div>
-                </div>
-                <div class="line-marc-table">
-                    <div style="width: 30%;">Forest protection</div>
-                    <div class="top-center-line">376</div>
-                    <div class="line-number-marc-table">2.000</div>
-                </div>
-                <div class="line-marc-table">
-                    <div style="width: 30%;">Grassland reforestation</div>
-                    <div class="top-center-line">477</div>
-                    <div class="line-number-marc-table">0</div>
-                </div>
-                <div class="line-marc-table">
-                    <div style="width: 30%;">Forest fuel reduction</div>
-                    <div class="top-center-line">276</div>
-                    <div class="line-number-marc-table">5.000</div>
-                </div>
+                <div id="listFielTable"></div>
             </div>
         </div>
 
-        <div class="page-header">
+        <div class="page-header" style="margin-top: 600px;">
             <br>
             <h5 textColor="red" style="outline-color: dimgrey;">{% trans "Explore the results for this analysis" %}</h5>
         </div>
@@ -215,6 +187,10 @@
     } else {
         localStorage.idStudyCase = "{{study_case.id}}";
     }
+
+    $("#idCountryMain").html(localStorage.getItem('country'));
+    $("#idCityMain").html(localStorage.getItem('city'));
+    $("#idRegionMain").html(localStorage.getItem('region'));
 
 </script>
 <script src="{{ STATIC_URL }}geonode/js/datatables/jquery.dataTables.min.js"></script>
@@ -281,6 +257,60 @@ $(function () {
                 }]
             });
         });
+        var urlDetail = "../../reports/getReportAnalisysBenefics/?studyCase=" + localStorage.idStudyCase;
+        $.getJSON(urlDetail, function (data) {
+            $.each( data, function( key, value ) {
+                var objectButton;
+                if(value.nameIndicator === "Physical risk quantity") {
+                    objectButton = document.getElementById("idButtonPrq");
+                } else if(value.nameIndicator === "Physical Risk associated with Amount of Water") {
+                    objectButton = document.getElementById("idButtonPrqa");
+                } else if(value.nameIndicator === "Regulatory and reputational") {
+                    objectButton = document.getElementById("idButtonRar");
+                }
+
+                if(value.color === "Dark Green") {
+                    objectButton.style.backgroundColor = "#094e09";
+                }
+                objectButton.innerHTML = value.description;
+
+            });
+        });
+
+        var urlDetail = "../../reports/getReportAnalisysBeneficsB/?studyCase=" + localStorage.idStudyCase;
+        $.getJSON(urlDetail, function (data) {
+            $.each( data, function( key, value ) {
+                document.getElementById("changeInVolumeOfWater").innerHTML = value.changeInVolumeOfWater;
+                document.getElementById("changeInBaseFlow").innerHTML = value.changeInBaseFlow;
+                document.getElementById("changeIntotalSediments").innerHTML = value.changeIntotalSediments;
+                document.getElementById("changeInNitrogenLoad").innerHTML = value.changeInNitrogenLoad;
+                document.getElementById("changeInPhosphorus").innerHTML = value.changeInPhosphorus;
+                document.getElementById("changeInCarbonStorage").innerHTML = value.changeInCarbonStorage;
+            });
+        });
+
+        var urlDetail = "../../reports/getReportAnalisysBeneficsC/?studyCase=" + localStorage.idStudyCase;
+        $.getJSON(urlDetail, function (data) {
+            var listFielTable = "";
+            $.each( data, function( key, value ) {
+                listFielTable = listFielTable + '<div class="line-marc-table"><div style="width: 30%;">' + value.sbnf + '</div><div class="top-center-line">' + value.costPerHectarea + '</div><div class="line-number-marc-table">' + value.recomendedIntervetion + '</div></div>';
+            });
+            document.getElementById("listFielTable").innerHTML = listFielTable;
+        });
+
+        var urlDetail = "../../reports/getSelectorStudyCasesId/?studyCase=" + localStorage.idStudyCase;
+        $.getJSON(urlDetail, function (data) {
+            var listFielTable = "";
+            $.each( data, function( key, value ) {
+                var option = document.createElement("option");
+                option.text = value.selector;
+                option.value = value.studyCasesId;
+                document.getElementById("idSelectStudyCase").add(option);
+            });
+        });
+        document.getElementById("idSelectStudyCase").onchange = function() {
+            location.href = "../report/" + this.value;
+        }
     }
     initialize();
 });

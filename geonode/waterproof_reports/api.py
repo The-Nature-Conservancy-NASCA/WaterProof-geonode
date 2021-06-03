@@ -445,7 +445,6 @@ def getWaterproofReportsAnalysisBenefits(request):
 
 		return JsonResponse(objects_list, safe=False)
 
-
 @api_view(['GET'])
 def getReportOportunityResultIndicators(request):
 	"""Returns the list of treatment plants
@@ -475,6 +474,139 @@ def getReportOportunityResultIndicators(request):
 			})
 
 		return JsonResponse(objects_list, safe=False)
+
+@api_view(['GET'])
+def getReportAnalisysBenefics(request):
+	"""Returns the list of treatment plants
+
+	Find all the stored treatment plants that have
+	the minimum characteristics stored in all components
+
+	Parameters:
+	without parameters
+
+	Exceptions:
+	If it does not have data in the minimal relations of the model it does not deliver
+	information about the treatment plant
+	"""
+	if request.method == 'GET':
+		con = psycopg2.connect(settings.DATABASE_URL)
+		cur = con.cursor()
+		cur.execute("SELECT * FROM __get_report_analisys_benefics(" + request.query_params.get('studyCase') + ")")
+
+		rows = cur.fetchall()
+		objects_list = []
+		for row in rows:
+			objects_list.append({
+				"nameIndicator":row[0],
+				"value":row[1],
+				"color":row[2],
+				"description":row[3]
+			})
+
+		return JsonResponse(objects_list, safe=False)
+
+@api_view(['GET'])
+def getReportAnalisysBeneficsB(request):
+	"""Returns the list of treatment plants
+
+	Find all the stored treatment plants that have
+	the minimum characteristics stored in all components
+
+	Parameters:
+	without parameters
+
+	Exceptions:
+	If it does not have data in the minimal relations of the model it does not deliver
+	information about the treatment plant
+	"""
+	if request.method == 'GET':
+		con = psycopg2.connect(settings.DATABASE_URL)
+		cur = con.cursor()
+		cur.execute("SELECT * FROM __get_report_analisys_beneficsB(" + request.query_params.get('studyCase') + ")")
+
+		rows = cur.fetchall()
+		objects_list = []
+		for row in rows:
+			objects_list.append({
+				"changeInVolumeOfWater":row[0],
+				"changeInBaseFlow":row[1],
+				"changeIntotalSediments":row[2],
+				"changeInNitrogenLoad":row[3],
+				"changeInPhosphorus":row[4],
+				"changeInCarbonStorage":row[5]
+			})
+
+		return JsonResponse(objects_list, safe=False)
+
+@api_view(['GET'])
+def getReportAnalisysBeneficsC(request):
+	"""Returns the list of treatment plants
+
+	Find all the stored treatment plants that have
+	the minimum characteristics stored in all components
+
+	Parameters:
+	without parameters
+
+	Exceptions:
+	If it does not have data in the minimal relations of the model it does not deliver
+	information about the treatment plant
+	"""
+	if request.method == 'GET':
+		con = psycopg2.connect(settings.DATABASE_URL)
+		cur = con.cursor()
+		cur.execute("SELECT * FROM __get_report_analisys_beneficsC(" + request.query_params.get('studyCase') + ")")
+
+		rows = cur.fetchall()
+		objects_list = []
+		for row in rows:
+			objects_list.append({
+				"sbnf":row[0],
+				"costPerHectarea":row[1],
+				"recomendedIntervetion":row[2]
+			})
+
+		return JsonResponse(objects_list, safe=False)
+
+@api_view(['GET'])
+def getSelectorStudyCasesId(request):
+	"""Returns the list of treatment plants
+
+	Find all the stored treatment plants that have
+	the minimum characteristics stored in all components
+
+	Parameters:
+	without parameters
+
+	Exceptions:
+	If it does not have data in the minimal relations of the model it does not deliver
+	information about the treatment plant
+	"""
+	if request.method == 'GET':
+		con = psycopg2.connect(settings.DATABASE_URL)
+		cur = con.cursor()
+		cur.execute("SELECT ii.name AS selector, si.studycases_id FROM public.waterproof_study_cases_studycases SC INNER JOIN public.waterproof_study_cases_studycases_intakes SI ON (sc.id=si.studycases_id) INNER JOIN public.waterproof_intake_intake II ON (si.intake_id=ii.id) WHERE sc.id = 1")
+
+		rows = cur.fetchall()
+		objects_list = []
+		for row in rows:
+			objects_list.append({
+				"selector":row[0],
+				"studyCasesId":row[1]
+			})
+
+		return JsonResponse(objects_list, safe=False)
+
+
+
+
+
+
+
+
+
+
 
 
 
