@@ -1,10 +1,7 @@
-
-
-
 @media (min-width:120px) and (max-width:767){
     .container {
-        padding-right: 15px !important;
-        padding-left: 30rem !important;
+        padding-right: 2px !important;
+        padding-left: 1rem !important;
         width: 735px !important;
     }
 }
@@ -13,8 +10,11 @@
     background-image: url('/static/geonode/img/FONDO.jpg');
 }
 #mapidcuenca{
-    width: 430px; 
-    height: 300px;
+    width: 380px;
+    height: 450px;
+    border: 2px solid;
+    border-radius: 0.5em;
+    border-color: #aaa;
 }
 
 
@@ -37,18 +37,17 @@
 
 #sidebar-wrapper {
     z-index: 1;
-    position: absolute;
+    position: initial;
     left: 30rem;
     width: 0;
-    margin-left: -30rem;
     overflow-y: auto;
     -webkit-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
     transition: all 0.5s ease;
     overflow-x: hidden;
-    top: 0px;
-    margin-bottom: 143px;
+    top: 55px;
+    margin-bottom: 300px;
     bottom: 0px;
 }
 
@@ -71,7 +70,7 @@
 
 .sidebar-nav {
     position: absolute;
-    top: 1.5rem;
+    top: 1rem;
     width: 28rem;
     margin: 0;
     padding: 0 0.5rem 0 0;
@@ -80,8 +79,8 @@
 
 .sidebar-nav li {
     padding-left: 0.5rem;
-    margin-bottom: 1rem;
-    margin-top: 1rem;
+    margin-bottom: 0.2rem;
+    margin-top: 0.5rem;
 }
 
 .list-unstylede li a {
@@ -102,9 +101,12 @@
     vertical-align: middle;
     align-items: center;
     background-color: rgba(58, 128, 154, 0.7);
-    font-size: 20px;
+    font-size: 15px;
     border-radius: 0.5rem;
-    height: 6rem;
+    height: 3.5rem;
+    width: 93%;
+    border: 1px solid;
+    border-color: rgba(58, 128, 154, 2.2);
 }
 
 .sidebar-nav li a:hover {
@@ -133,17 +135,15 @@
     background: none;
 }
 
-
 @media (min-width:1200px){
-
     .container {
         width: auto !important;
-        padding-right: 7rem !important;
-        padding-left: 30rem !important;
+        padding-right: 2rem !important;
+        padding-left: 1rem !important;
     }
     #mapidcuenca{
-        width: auto; 
-        height: 400px;
+         width: auto !important; 
+        height: 450px;
     } 
     #wrapper {
         padding-left: 28rem;
@@ -154,7 +154,14 @@
     }
 
     #sidebar-wrapper {
+        position: absolute;
+        margin-left: -30rem;
         width: 28rem;
+        height: 48rem;
+        border: 2px solid;
+        border-color: #aaa;
+        border-radius: 0.5rem;
+        top: 0px;        
     }
 
     #wrapper.toggled #sidebar-wrapper {
@@ -169,18 +176,30 @@
     #wrapper.toggled #page-content-wrapper {
         position: relative;
         margin-right: 0;
+    }
+
+    .sidebar-nav li {
+        padding-left: 0.5rem;
+        margin-bottom: 1rem;
+        margin-top: 1rem;
+    }
+
+    .sidebar-nav li a {
+        font-size: 20px;
+        height: 4.5rem;
+        width: 93%;        
     }
 }
 @media (min-width:993px) and (max-width:1200px){
     .container {
         width: 970px !important;
-        padding-right: 15px !important;
-        padding-left: 30rem !important;
+        padding-right: 2px !important;
+        padding-left: 1rem !important;
     }
 
     #mapidcuenca{
-        width: 430px; 
-        height: 300px;
+        width: 430px !important; 
+        height: 400px;
     }
     #wrapper {
         padding-left: 28rem;
@@ -191,7 +210,8 @@
     }
 
     #sidebar-wrapper {
-        width: 28rem;
+        width: 17rem;
+        height: 460px;
     }
 
     #wrapper.toggled #sidebar-wrapper {
@@ -206,17 +226,22 @@
     #wrapper.toggled #page-content-wrapper {
         position: relative;
         margin-right: 0;
+    }
+
+    .sidebar-nav li a {        
+        height: 4.5rem;
+        width: 55%;
     }
 }
 @media (min-width:768px) and (max-width:992px){
     .container {
-        padding-right: 15px !important;
-        padding-left: 30rem !important;
+        padding-right: 2px !important;
+        padding-left: 1rem !important;
         width: 755px !important;
     }
     #mapidcuenca{
-        width: 430px; 
-        height: 300px;
+        width: 400px !important;  
+        height: 400px;
     }
     #wrapper {
         padding-left: 28rem;
@@ -227,7 +252,9 @@
     }
 
     #sidebar-wrapper {
-        width: 28rem;
+        width: 17rem;
+        height: 480px;
+        z-index: 9999;
     }
 
     #wrapper.toggled #sidebar-wrapper {
@@ -242,5 +269,10 @@
     #wrapper.toggled #page-content-wrapper {
         position: relative;
         margin-right: 0;
+    }
+
+    .sidebar-nav li a {        
+        height: 4.5rem;
+        width: 55%;
     }
 }

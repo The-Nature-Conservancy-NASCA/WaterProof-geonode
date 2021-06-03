@@ -10,15 +10,15 @@ async function validateCoordinateWithApi(e) {
   let response = await fetch(url);
  
   let result = await response.json();
-  if (result.estado) {
+  if (result.status) {
 
     if (L.Location.Marker){
       map.removeLayer(L.Location.Marker);
       L.Location.Marker._latlng = null;
     }
 
-    let x = result.resultado.x_snap;
-    let y = result.resultado.y_snap;
+    let x = result.result.x_snap;
+    let y = result.result.y_snap;
 
     if (!snapMarker) {
       snapMarker = L.marker(null, {});
@@ -33,7 +33,7 @@ async function validateCoordinateWithApi(e) {
 
     let responseCatchment = await fetch(url);
     let resultCatchment = await responseCatchment.json();
-    if (resultCatchment.estado) {
+    if (resultCatchment.status) {
       if (!catchmentPoly) {
         catchmentPoly = L.geoJSON().addTo(map);
         catchmentPolyDelimit = L.geoJSON().addTo(mapDelimit);
@@ -48,9 +48,9 @@ async function validateCoordinateWithApi(e) {
         catchmentPolyDelimit = L.geoJSON().addTo(mapDelimit);
       }
 
-      catchmentPoly.addData(resultCatchment.resultado.geometry.features);
-      catchmentPolyDelimit.addData(resultCatchment.resultado.geometry.features);
-      basinId=resultCatchment.resultado.basin;
+      catchmentPoly.addData(resultCatchment.result.geometry.features);
+      catchmentPolyDelimit.addData(resultCatchment.result.geometry.features);
+      basinId=resultCatchment.result.basin;
       map.fitBounds(catchmentPoly.getBounds());
       mapDelimit.fitBounds(catchmentPoly.getBounds());
       mapLoader.hide();

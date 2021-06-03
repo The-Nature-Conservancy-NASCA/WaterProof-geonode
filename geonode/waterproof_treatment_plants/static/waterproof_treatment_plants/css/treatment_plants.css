@@ -30,8 +30,7 @@ textarea {
 .name-intake {
     padding: 5px;
 }
-.container-config {
-    margin: 30px;
+.container-config {   
     border-width: 1px;
     border-style: solid;
     border-radius: 10px;
@@ -48,8 +47,7 @@ textarea {
     position: absolute;
     top: 0px;
     background-color: #000000;
-    opacity: 0.5;
-    margin-left: 30px;
+    opacity: 0.5;    
     width: 100%;
 }
 .div-scroll {
@@ -552,4 +550,43 @@ textarea {
     text-decoration: underline;
     cursor: pointer;
     font-size: 15px;
+}
+
+#mapid{
+    width: 380px;
+    height: 450px;
+    border: 2px solid;
+    border-radius: 0.5em;
+    border-color: #aaa;
+}
+
+@media (min-width: 768px) {
+    .header-waterproof{
+        padding-left: 16rem;
+        padding-bottom: 1rem;
+    }
+    #mapid{
+        width: 400px !important;  
+        height: 400px;
+    }
+}
+@media (min-width: 992px) {
+    .header-waterproof{
+        padding-left: 24rem;
+        padding-bottom: 1rem;
+    }
+    #mapid{
+        width: 430px !important; 
+        height: 400px;
+    }
+}
+@media (min-width: 1200px) {
+    .header-waterproof{
+        padding-left: 28rem;
+        padding-bottom: 3rem;
+    }
+    #mapid{
+        width: auto !important; 
+       height: 450px;
+   } 
 }

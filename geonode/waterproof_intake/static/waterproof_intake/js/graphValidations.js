@@ -126,7 +126,7 @@ function clearDataHtml() {
     $('#funcostgenerate').empty();
 }
 
-function funcost(index, MQ) {
+function funcost(index) {
     $('#funcostgenerate').append(
         `
     <tr idvalue="fun_${index}">
@@ -153,11 +153,11 @@ function funcost(index, MQ) {
     );
 
     $('p[name=render_ecuation]').each(function() {
-        MQ.StaticMath(this);
+        //MQ.StaticMath(this);
     });
 }
 
-function addData(element, MQ) {
+function addData(element) {
     //add data in HTML for connectors
     if (typeof(element.value) == "string" && element.value.length > 0) {
         let obj = JSON.parse(element.value);
@@ -170,7 +170,7 @@ function addData(element, MQ) {
         addData2HTML(dbfields, element)
         funcostdb = obj.funcost;
         for (let index = 0; index < funcostdb.length; index++) {
-            funcost(index, MQ);
+            funcost(index);
         }
     } else {
         $('#titleDiagram').text(element.getAttribute('name'));
@@ -188,7 +188,7 @@ function addData(element, MQ) {
         $('#titleDiagram').text(resultdb[0].fields.categorys);
         addData2HTML(resultdb, element);
         for (let index = 0; index < funcostdb.length; index++) {
-            funcost(index, MQ);
+            funcost(index);
 
         }
     }

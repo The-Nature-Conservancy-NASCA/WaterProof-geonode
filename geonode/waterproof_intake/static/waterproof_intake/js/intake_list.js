@@ -4,8 +4,7 @@
  * @version 1.0
  */
 $(function () {
-    var table = $('#example').DataTable({
-        'dom': 'lrtip'
+    var table = $('#example').DataTable({        
     });
     var countryDropdown = $('#countryNBS');
     var currencyDropdown = $('#currencyCost');
@@ -53,7 +52,10 @@ $(function () {
                 })
             }
         });
-        $('.btn-danger').click(function (evt) {
+
+        
+        //$('.btn-danger').click(function (evt) {
+        $('#example tbody').on('click', '.btn-danger', function (evt) {
             Swal.fire({
                 title: gettext('Delete intake'),
                 text: gettext("Are you sure?") + gettext("You won't be able to revert this!"),
@@ -66,7 +68,7 @@ $(function () {
                 denyButtonText: gettext('Cancel')
             }).then((result) => {
                 if (result.isConfirmed) {
-                    intakeId = evt.currentTarget.getAttribute('data-id')
+                    intakeId = evt.currentTarget.getAttribute('data-id');
                     /** 
                      * Get filtered activities by transition id 
                      * @param {String} url   activities URL 
@@ -83,7 +85,11 @@ $(function () {
                                 title: gettext('Great!'),
                                 text: gettext('The intake has been deleted')
                             })
-                            setTimeout(function () { location.href = "/intake/"; }, 1000);
+                            var cityId = localStorage.getItem('cityId');
+                            if (cityId == undefined){
+                                cityId = "";
+                              }
+                            setTimeout(function () { location.href = "/intake/?city="+cityId; }, 1000);
                         },
                         error: function (error) {
                             Swal.fire({
@@ -128,21 +134,22 @@ $(function () {
         // find in localStorage if cityCoords exist
         var cityCoords = localStorage.getItem('cityCoords');
         var city = localStorage.getItem('city');
+        var cityId = localStorage.getItem('cityId');
         var initialZoom = 5;
-       if(localStorage.length != 0){
-           console.log(localStorage.length)
-        var cityNameMap = localStorage.getItem('city').substr(0, 5);
-       } else{
-        var cityNameMap = localStorage.getItem('');
-       }
+        if(localStorage.length != 0){
+            console.log(localStorage.length)
+            var cityNameMap = localStorage.getItem('city').substr(0, 5);
+        } else{
+            var cityNameMap = localStorage.getItem('');
+        }
 
         if (cityCoords == undefined) {
-            table.search(cityNameMap).draw();
+            //table.search(cityNameMap).draw();
             cityCoords = initialCoords;
         } else {
             initialCoords = JSON.parse(cityCoords);
             drawPolygons(city);
-            table.search(cityNameMap).draw();
+            //table.search(cityNameMap).draw();
             initialZoom = 9;
             try {
                 $("#countryLabel").html(localStorage.getItem('country'));
@@ -156,15 +163,10 @@ $(function () {
 
         }
         waterproof["cityCoords"] = cityCoords;
-
         map.setView(initialCoords, initialZoom);
-
         searchPoints.addTo(map);
-
         var tilelayer = L.tileLayer(TILELAYER, { maxZoom: MAXZOOM, attribution: 'Data \u00a9 <a href="http://www.openstreetmap.org/copyright"> OpenStreetMap Contributors </a> Tiles \u00a9 Komoot' }).addTo(map);
         var images = L.tileLayer(IMAGE_LYR_URL);
-
-
         var hydroLyr = L.tileLayer(HYDRO_LYR_URL);
 
         var baseLayers = {
@@ -177,13 +179,11 @@ $(function () {
             "Hydro (esri)": hydroLyr,
         };
 
-
         var zoomControl = new L.Control.Zoom({ position: 'topright' }).addTo(map);
         L.control.layers(baseLayers, overlays, { position: 'topleft' }).addTo(map);
 
         //var c = new L.Control.Coordinates();        
         //c.addTo(map);
-
 
         function onMapClick(e) {
             // c.setCoordinates(e);
@@ -219,7 +219,6 @@ $(function () {
 
         waterproof["cityCoords"] = [feat.geometry.coordinates[1], feat.geometry.coordinates[0]];
         localStorage.setItem('cityCoords', JSON.stringify(waterproof["cityCoords"]));
-
 
         searchPoints.eachLayer(function (layer) {
             if (layer.feature.properties.osm_id != feat.properties.osm_id) {
@@ -297,7 +296,6 @@ $(function () {
         if (bounds != undefined) {
             map.fitBounds(bounds);
         }
-
     }
 
     menu = function () {
