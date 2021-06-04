@@ -15,7 +15,7 @@
             <h1>{% trans "Create water intake" %}</h1>
         </div>
         <div class="col-sm-6">
-            <h4 class="title-city">{% trans "Intake creation city" %} <span id="cityLabel"></span> </h4>    
+            <h4 class="title-city">{% trans "Intake creation city" %} <span id="cityLabel"></span></h4>    
         </div>
     </div>
     <!--Begin Form-->
@@ -459,6 +459,9 @@
                                 <label class="text-primary">{% trans "Currency for definition of costs" %} </label>
                                 <select id="currencyCost" class="form-control" required>
                                     {% for currency in currencies %}
+                                        {% if currency.name == intake.city.country.name %}
+                                            <option value="{{currency.pk}}" selected>({{currency.currency}}) - {{currency.name}} </option>
+                                        {% endif %}
                                         {% if currency.iso3 == 'USA'%}
                                             <option value="{{currency.pk}}" data-country="{{currency.iso3}}" selected>({{currency.currency}}) - {{currency.name}}</option>
                                         {% else %}
@@ -469,7 +472,7 @@
                             </div>
                             <div class="col-xs-6">
                                 <label class="text-primary">{% trans "Multiplying factor for overrall cost" %} </label>
-                                <input type="text" value="1" id="global_multiplier_factorCalculator" class="form-control" disabled>
+                                <input type="text" id="global_multiplier_factorCalculator" class="form-control">
                             </div>
                         </div>                         
                         <h5 class="text-primary keyboard-title">Syntax keyboard</h5>
