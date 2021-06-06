@@ -462,7 +462,7 @@
                             <div class="col-xs-6">
                                 <label class="text-primary">{% trans "Multiplying factor for overrall cost" %} </label>
 
-                                <input type="text" id="global_multiplier_factorCalculator" class="form-control">
+                                <input type="text" value="1.00" id="global_multiplier_factorCalculator" class="form-control">
                             </div>
                         </div>                         
                         <h5 class="text-primary keyboard-title">Syntax keyboard</h5>
@@ -595,6 +595,7 @@
     </div>
 </div>
 
+
 {% endblock %}
 {% block extra_script %}
 <script type="text/javascript" src="{% url 'javascript-catalog-intake' %}"></script>
@@ -611,6 +612,7 @@
 <script src="{{ STATIC_URL }}geonode/js/jszip/jszip.min.js"></script>
 <!--Shapefile reader library -->
 <script src="{{ STATIC_URL }}geonode/js/shp/shp.min.js"></script>
+<script src="{{ STATIC_URL }}geonode/js/proj4js/proj4.js"></script>
 <script type="text/javascript">
     var intakePolygons=[];
     var mxBasePath = '{{ STATIC_URL }}geonode/js/mxgraph/src';
