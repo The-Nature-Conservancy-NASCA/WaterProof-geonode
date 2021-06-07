@@ -576,12 +576,12 @@ function onInit(editor) {
                         'global_multiplier_factorCalculator': $('#global_multiplier_factorCalculator').val(),
                         'currencyCost': $('#currencyCost').val(),
                         'logical': [{
-                            'condition_1': "", /* mathFieldlog1.latex(), */
-                            'ecuation_1': "", /* mathFieldE1.latex(), */
-                            'condition_2': "", /* mathFieldlog2.latex(), */
-                            'ecuation_2': "", /* mathFieldE2.latex(), */
-                            'condition_3': "", /* mathFieldlog3.latex(), */
-                            'ecuation_3': "", /* mathFieldE3.latex() */
+                            'condition_1': mathFieldlog1.latex(),
+                             'ecuation_1': mathFieldE1.latex(),
+                             'condition_2': mathFieldlog2.latex(),
+                             'ecuation_2': mathFieldE2.latex(),
+                             'condition_3': mathFieldlog3.latex(),
+                             'ecuation_3': mathFieldE3.latex()
                         }],
                     }
                 });
@@ -592,6 +592,7 @@ function onInit(editor) {
                 var temp = {
                     'function_name': $('#costFunctionName').val() == '' ? 'Undefined name' : $('#costFunctionName').val(),
                     'function_description': $('#costFuntionDescription').val(),
+                    'function_py_value': $('#python-expression').val(),
                     'global_multiplier_factorCalculator': $('#global_multiplier_factorCalculator').val(),
                     'currencyCost': $('#currencyCost').val(),
                     'logical': [{
@@ -610,11 +611,11 @@ function onInit(editor) {
                 funcostdb[CostSelected].fields.function_value = pyExp; 
             }
             selectedCell.setAttribute('funcost', JSON.stringify(funcostdb));
-            $('#funcostgenerate div').remove();
+            $('#funcostgenerate tr').remove();
             $('#funcostgenerate').empty();
             for (let index = 0; index < funcostdb.length; index++) {
                 // funcostdb[index].fields.function_value, funcostdb[index].fields.function_name,
-                funcost( index, MQ);
+                funcost( index);
             }
             $('#CalculatorModal').modal('hide');
             validateGraphIntake();
@@ -648,14 +649,14 @@ function onInit(editor) {
             }).then((result) => {
                 if (result.isConfirmed) {
                     var id = $(this).attr('idvalue');
-                    $(`#funcostgenerate div[idvalue = 'fun_${id}']`).remove();
+                    $(`#funcostgenerate tr[idvalue = 'fun_${id}']`).remove();
                     if (typeof(selectedCell.value) == "string" && selectedCell.value.length > 0) {
                         var obj = JSON.parse(selectedCell.value);
                         let dbfields = JSON.parse(obj.funcost);
                         dbfields.splice(id, 1);
                         obj.funcost = JSON.stringify(dbfields);
                         selectedCell.setValue(JSON.stringify(obj));
-                        $('#funcostgenerate div').remove();
+                        $('#funcostgenerate tr').remove();
                         $('#funcostgenerate').empty();
                         for (let index = 0; index < funcostdb.length; index++) {
                             funcost(funcostdb[index].fields.function_value, funcostdb[index].fields.function_name, index, MQ);
@@ -663,7 +664,7 @@ function onInit(editor) {
                     } else {
                         funcostdb.splice(id, 1);
                         selectedCell.setAttribute('funcost', JSON.stringify(funcostdb));
-                        $('#funcostgenerate div').remove();
+                        $('#funcostgenerate tr').remove();
                         $('#funcostgenerate').empty();
                         for (let index = 0; index < funcostdb.length; index++) {
                             funcost(funcostdb[index].fields.function_value, funcostdb[index].fields.function_name, index, MQ);

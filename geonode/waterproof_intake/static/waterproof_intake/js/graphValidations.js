@@ -123,6 +123,7 @@ function clearDataHtml() {
     $('#nitrogenoDiagram').val('');
     $('#fosforoDiagram').val('');
     $('#funcostgenerate tr').remove();
+    $('#funcostgenerate div').remove();
     $('#funcostgenerate').empty();
 }
 
@@ -133,9 +134,9 @@ function funcost(index) {
         <td aling="center">${funcostdb[index].fields.function_name}</td>
         <td class="small text-center vat" style="width: 160px">
         <a class="btn btn-info" idvalue="${index}" name="fun_display_btn">fx</a>
-        <div id="fun_display_${index}" style="position: absolute; left: 50%; width: auto; display: none">
+        <div id="fun_display_${index}" style="position: absolute; left: 50%; width: auto;">
         <div class="alert alert-info mb-0" style="position: relative; left: -50%; bottom: -10px;" role="alert">
-        <p name="render_ecuation" style="font-size: 1.8rem; width:100%;">${ funcostdb[index].fields.function_value }</p>
+        <p name="render_ecuation" style="font-size: 1.8rem; width:100%;">${funcostdb[index].fields.function_value}</p>
          </div>
         </div>
         </td>
@@ -151,11 +152,14 @@ function funcost(index) {
     </tr>
     `
     );
+    console.log("Holiiiii" + funcostdb[index].fields.function_value)
 
     $('p[name=render_ecuation]').each(function() {
         //MQ.StaticMath(this);
     });
 }
+
+
 
 function addData(element) {
     //add data in HTML for connectors
@@ -206,6 +210,7 @@ function addData2HTML(resultdb, cell) {
     $('#nitrogenoDiagram').prop('disabled', show);
     $('#fosforoDiagram').prop('disabled', show);
     $('#funcostgenerate tr').remove();
+    $('#funcostgenerate div').remove();
     $('#funcostgenerate').empty();
     // Add Value to Panel Information Right on HTML
     $('#aguaDiagram').val(resultdb[0].fields.predefined_transp_water_perc);
@@ -503,6 +508,7 @@ function clearDataHtmlView() {
     $('#nitrogenoDiagram').val('');
     $('#fosforoDiagram').val('');
     $('#funcostgenerate tr').remove();
+    $('#funcostgenerate div').remove();
     $('#funcostgenerate').empty();
 }
 
@@ -513,6 +519,7 @@ function addData2HTMLView(resultdb) {
     $('#nitrogenoDiagram').prop('disabled', show);
     $('#fosforoDiagram').prop('disabled', show);
     $('#funcostgenerate tr').remove();
+    $('#funcostgenerate div').remove();
     $('#funcostgenerate').empty();
     // Add Value to Panel Information Right on HTML
     $('#aguaDiagram').val(resultdb[0].fields.predefined_transp_water_perc);
