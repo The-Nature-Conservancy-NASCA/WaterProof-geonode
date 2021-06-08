@@ -185,20 +185,8 @@ $(document).ready(function() {
         $.get("../../study_cases/ptapbyid/" + value, function(data) {
             $.each(data, function(index, ptap) {
                 var name = "<td>" + ptap.plant_name + "</td>";
-                var description = "<td>" + ptap.plant_description + "</td>";
-                var markup = "<tr id='ptap-" + value + "'>" + name + description + action + "</tr>";
+                var markup = "<tr id='ptap-" + value + "'>" + name + action + "</tr>";
                 $("#ptap_table").find('tbody').append(markup);
-            });
-        });
-        $.get("../../study_cases/intakebyptap/" + value, function(data) {
-            $.each(data, function(index, intake) {
-                id = intake.csinfra_elementsystem__intake__id
-                $("#select_custom option").each(function(i) {
-                    if (id == $(this).val()) {
-                        $(this).remove();
-                    }
-                });
-                $("#custom-" + id).remove();
             });
         });
         $('#autoAdjustHeightF').css("height", "auto");
@@ -478,7 +466,7 @@ $(document).ready(function() {
 
         analysis_currency = $("#analysis_currency option:selected").text()
         html = '<div class="row" id="currencys-panel"> <div class="col-md-10 currency-panel">Currency for the execution this analisys</div><div class="col-md-2 currency-panel currency-text">' + analysis_currency
-        html += '</div><div class="col-md-12 currency-panel">Next, the exchange rate will be applied to the currencies identifed in the cost functions configured for this analysis ins described.</div>'
+        html += '</div><div class="col-md-12 currency-panel">The following exchange rates will be applied for the analysis.</div>'
         $.get("../../study_cases/currencys/", {
             id: id_study_case,
             currency: analysis_currency
@@ -550,7 +538,7 @@ $(document).ready(function() {
 
             analysis_currency = $("#analysis_currency option:selected").text()
             html = '<div class="row" id="currencys-panel"> <div class="col-md-10 currency-panel">Currency for the execution this analisys</div><div class="col-md-2 currency-panel currency-text">' + analysis_currency
-            html += '</div><div class="col-md-12 currency-panel">Next, the exchange rate will be applied to the currencies identifed in the cost functions configured for this analysis ins described.</div>'
+            html += '</div><div class="col-md-12 currency-panel">The following exchange rates will be applied for the analysis.</div>'
             $.get("../../study_cases/currencys/", {
                 id: id_study_case,
                 currency: analysis_currency
@@ -996,6 +984,7 @@ $(document).ready(function() {
             $.each(ptaps, function(index, id_ptap) {
                 $.get("../../study_cases/intakebyptap/" + id_ptap, function(data) {
                     $.each(data, function(index, intake) {
+                        console.log(intake)
                         loadBiophysical(intake.csinfra_elementsystem__intake__id, intake.csinfra_elementsystem__intake__name)
                     });
                 });
@@ -1049,10 +1038,6 @@ $(document).ready(function() {
             $('#autoAdjustHeightF').css("height", "auto");
 
         });
-
-
-
-        content += '</tbody></table>'
     }
 
 

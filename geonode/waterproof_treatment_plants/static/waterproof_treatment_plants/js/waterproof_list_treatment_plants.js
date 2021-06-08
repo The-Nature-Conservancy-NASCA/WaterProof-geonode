@@ -261,19 +261,19 @@ $(function () {
                     data: JSON.stringify({
                         "csinfras": arrayCsinfra
                     }),success: function(result) {
-                        if(result.estado === true) {
+                        if(result.status === true) {
                             localStorage.setItem('csInfra', result);
                             arrayPtap.push({
-                                ptapType: result.resultado.ptap_type,
-                                ptapAwy: result.resultado.awy,
-                                ptapCn: result.resultado.cn,
-                                ptapCp: result.resultado.cp,
-                                ptapCs: result.resultado.cs,
-                                ptapWn: result.resultado.wn,
-                                ptapWp: result.resultado.wp,
-                                ptapWs: result.resultado.ws
+                                ptapType: result.ptap_type,
+                                ptapAwy: result.awy,
+                                ptapCn: result.cn,
+                                ptapCp: result.cp,
+                                ptapCs: result.cs,
+                                ptapWn: result.wn,
+                                ptapWp: result.wp,
+                                ptapWs: result.ws
                             })
-                            letterPlant = result.resultado.ptap_type;
+                            letterPlant = result.ptap_type;
                             activePlantGraph(letterPlant)
                             setTimeout(function(){
                                 document.getElementById("idBackgroundGraph").style.display = "none";

@@ -610,7 +610,7 @@
                  temp.logical = JSON.stringify(temp.logical);
                  $.extend(funcostdb[CostSelected].fields, temp);
                  var pyExp = $('#python-expression').val();
-                 funcostdb[CostSelected].fields.function_value = mathField.latex();
+                 funcostdb[CostSelected].fields.function_value = pyExp;
              }
              selectedCell.setAttribute('funcost', JSON.stringify(funcostdb));
              $('#funcostgenerate tr').remove();
