@@ -138,7 +138,7 @@ msgstr ""
 
 #: geonode/waterproof_intake/static/waterproof_intake/js/graph.js:581
 #: geonode/waterproof_intake/static/waterproof_intake/js/graph_edit.js:544
-msgid "Your funcion has been deleted"
+msgid "Your function has been deleted"
 msgstr ""
 
 #: geonode/waterproof_intake/static/waterproof_intake/js/graph.js:719

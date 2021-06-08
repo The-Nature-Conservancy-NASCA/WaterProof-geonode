@@ -565,7 +565,7 @@ function prevalidateAdjustCoordinates() {
 }
 
 function setIntakeCity() {
-    console.log(localStorage);
+    console.log("setIntakeCity, localStorage.cityId: ", localStorage.cityId);
     /** 
      * Get a city by name
      * @param {String} url   activities URL 
@@ -573,20 +573,25 @@ function setIntakeCity() {
      *
      * @return {Object} City
      */
-    $.ajax({
-        url: '/parameters/load-cityByName/',
-        data: {
-            'lang': lang,
-            'city': localStorage.city
-        },
-        success: function(result) {
-            let resultCity = JSON.parse(result);
-            $('#intakeCity').val(resultCity[0].pk)
-        },
-        error: function(error) {
-            console.log(error);
-        }
-    });
+    if (localStorage.cityId){
+        $('#intakeCity').val(localStorage.cityId);
+    }else{
+        $.ajax({
+            url: '/parameters/load-cityByName/',
+            data: {
+                'lang': lang,
+                'city': localStorage.city
+            },
+            success: function(result) {
+                let resultCity = JSON.parse(result);
+                $('#intakeCity').val(resultCity[0].pk);
+            },
+            error: function(error) {
+                console.log(error);
+            }
+        });
+    }
+    
 }
 /** 
  * Intake step one creation
@@ -802,7 +807,13 @@ function intakeStepFive() {
                 allowOutsideClick: true,
                 showConfirmButton: false
             });
-            setTimeout(function() { location.href = "/intake/"; }, 1000);
+            var cityId = 143873; //Default Bogota
+            if (localStorage.cityId){
+                cityId = localStorage.cityId;
+            }
+            setTimeout(function() { 
+                location.href = "/intake/?city="+cityId; 
+            }, 1000);
         },
         error: function(xhr, errmsg, err) {
             console.log(xhr.status + ":" + xhr.responseText);
