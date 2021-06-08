@@ -185,8 +185,7 @@ $(document).ready(function() {
         $.get("../../study_cases/ptapbyid/" + value, function(data) {
             $.each(data, function(index, ptap) {
                 var name = "<td>" + ptap.plant_name + "</td>";
-                var description = "<td>" + ptap.plant_description + "</td>";
-                var markup = "<tr id='ptap-" + value + "'>" + name + description + action + "</tr>";
+                var markup = "<tr id='ptap-" + value + "'>" + name + action + "</tr>";
                 $("#ptap_table").find('tbody').append(markup);
             });
         });
@@ -944,9 +943,6 @@ $(document).ready(function() {
 
         });
 
-
-
-        content += '</tbody></table>'
     }
 
     function loadPtaps() {

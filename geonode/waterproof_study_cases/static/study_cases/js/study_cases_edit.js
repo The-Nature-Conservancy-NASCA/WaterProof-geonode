@@ -185,8 +185,7 @@ $(document).ready(function() {
         $.get("../../study_cases/ptapbyid/" + value, function(data) {
             $.each(data, function(index, ptap) {
                 var name = "<td>" + ptap.plant_name + "</td>";
-                var description = "<td>" + ptap.plant_description + "</td>";
-                var markup = "<tr id='ptap-" + value + "'>" + name + description + action + "</tr>";
+                var markup = "<tr id='ptap-" + value + "'>" + name + action + "</tr>";
                 $("#ptap_table").find('tbody').append(markup);
             });
         });
@@ -985,6 +984,7 @@ $(document).ready(function() {
             $.each(ptaps, function(index, id_ptap) {
                 $.get("../../study_cases/intakebyptap/" + id_ptap, function(data) {
                     $.each(data, function(index, intake) {
+                        console.log(intake)
                         loadBiophysical(intake.csinfra_elementsystem__intake__id, intake.csinfra_elementsystem__intake__name)
                     });
                 });
@@ -1038,10 +1038,6 @@ $(document).ready(function() {
             $('#autoAdjustHeightF').css("height", "auto");
 
         });
-
-
-
-        content += '</tbody></table>'
     }
 
 

@@ -169,22 +169,18 @@ $(document).ready(function() {
 
     });
 
+
+
     $('#add_ptap').click(function() {
         text = $("#select_ptap option:selected").text();
         value = $("#select_ptap option:selected").val();
         $('#select_ptap option:selected').remove();
         var action = "<td><a class='btn btn-danger'><span class='glyphicon glyphicon-trash' aria-hidden='true'></span></a></td>";
-        var name = "<td>" + text + "</td>";
-        var markup = "<tr id='ptap-" + value + "'>" + name + action + "</tr>";
-        $("#ptap_table").find('tbody').append(markup);
-        $.get("../../study_cases/intakebyptap/" + value, function(data) {
-            $.each(data, function(index, intake) {
-                id = intake.csinfra_elementsystem__intake__id
-                $("#select_custom option").each(function(i) {
-                    if (id == $(this).val()) {
-                        $(this).remove();
-                    }
-                });
+        $.get("../../study_cases/ptapbyid/" + value, function(data) {
+            $.each(data, function(index, ptap) {
+                var name = "<td>" + ptap.plant_name + "</td>";
+                var markup = "<tr id='ptap-" + value + "'>" + name + action + "</tr>";
+                $("#ptap_table").find('tbody').append(markup);
             });
         });
         $('#autoAdjustHeightF').css("height", "auto");
@@ -1038,9 +1034,6 @@ $(document).ready(function() {
 
         });
 
-
-
-        content += '</tbody></table>'
     }
 
 
