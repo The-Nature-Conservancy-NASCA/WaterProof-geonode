@@ -264,16 +264,16 @@ $(function () {
                         if(result.status === true) {
                             localStorage.setItem('csInfra', result);
                             arrayPtap.push({
-                                ptapType: result.ptap_type,
-                                ptapAwy: result.awy,
-                                ptapCn: result.cn,
-                                ptapCp: result.cp,
-                                ptapCs: result.cs,
-                                ptapWn: result.wn,
-                                ptapWp: result.wp,
-                                ptapWs: result.ws
+                                ptapType: result.result.ptap_type,
+                                ptapAwy: result.result.awy,
+                                ptapCn: result.result.cn,
+                                ptapCp: result.result.cp,
+                                ptapCs: result.result.cs,
+                                ptapWn: result.result.wn,
+                                ptapWp: result.result.wp,
+                                ptapWs: result.result.ws
                             })
-                            letterPlant = result.ptap_type;
+                            letterPlant = result.result.ptap_type;
                             activePlantGraph(letterPlant)
                             setTimeout(function(){
                                 document.getElementById("idBackgroundGraph").style.display = "none";
