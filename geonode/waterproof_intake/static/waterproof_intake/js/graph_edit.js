@@ -372,7 +372,7 @@ function onInit(editor) {
     $(document).ready(function() {
 
         var output = document.getElementById('MathPreview');
-       // console.log('MathPreview')
+        //console.log('MathPreview')
         var button = document.getElementById('btnValidatePyExp');
         console.log("tipo de valor"+typeof(output))
 
@@ -578,12 +578,12 @@ function onInit(editor) {
                         'global_multiplier_factorCalculator': $('#global_multiplier_factorCalculator').val(),
                         'currencyCost': $('#currencyCost').val(),
                         'logical': [{
-                            'condition_1': mathFieldlog1.latex(),
-                             'ecuation_1': mathFieldE1.latex(),
-                             'condition_2': mathFieldlog2.latex(),
-                             'ecuation_2': mathFieldE2.latex(),
-                             'condition_3': mathFieldlog3.latex(),
-                             'ecuation_3': mathFieldE3.latex()
+                            'condition_1': "", //mathFieldlog1.latex(),
+                             'ecuation_1': "", //mathFieldE1.latex(),
+                             'condition_2': "", //mathFieldlog2.latex(),
+                             'ecuation_2': "", //mathFieldE2.latex(),
+                             'condition_3': "", //mathFieldlog3.latex(),
+                             'ecuation_3': "", //mathFieldE3.latex()
                         }],
                     }
                 });

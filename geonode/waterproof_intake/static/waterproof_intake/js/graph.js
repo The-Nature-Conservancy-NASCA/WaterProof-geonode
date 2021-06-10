@@ -745,6 +745,9 @@
                  </div>
                  `);
              }
+            $('#python-expression').val('');
+            //$('#MathPreview').val('');
+            validatePyExpression();
          });
  
          //Add value entered in sediments in the field resultdb

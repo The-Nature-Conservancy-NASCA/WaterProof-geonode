@@ -24,25 +24,26 @@
 <link href="{% static "geonode/css/sidenav.css" %}" rel="stylesheet" />
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_nbs_ca/css/waterproof_nbs_ca.css">
 <div class="header-waterproof">    
+    <div>
+        <h1>{% trans "Water Intake" %}
+            <button type="button" data-toggle="modal" data-target="#HelpCreate" id="HelpModalBtnModal" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
+        </h1>
+    </div>
     <div class="row">
         <div class="col-md-4">
-            <div>
-                <h1>{% trans "Water Intake" %}
-                    <button type="button" data-toggle="modal" data-target="#HelpCreate" id="HelpModalBtnModal" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
-                </h1>
-                <p style="text-align: justify;">{% trans "From this section you can consult the water intakes created in the system associated with a city of interest. You can search for intakes of different cities from 'Search city'. The system will show you a list of cities with matches around the world. Select the appropriate option from the list. You can also create your own basin associated with a city, to do this search for the city to which you will associate your basin and then click on the 'Create new water intake' button." %}</p>
-            </div>
+            <p style="text-align: justify;">{% trans "From this section you can consult the water intakes created in the system associated with a city of interest. You can search for intakes of different cities from 'Search city'. The system will show you a list of cities with matches around the world. Select the appropriate option from the list. You can also create your own basin associated with a city, to do this search for the city to which you will associate your basin and then click on the 'Create new water intake' button." %}</p>
             <h4 class="text-center" id="countryLabel">{{city.name}}</h4>
             <p><b>{% trans "Selected City" %} :</b> <span id="cityLabel"></span> </p>
             <p><b>{% trans "Region" %} :</b> <span id="regionLabel"></span> </p>
             <p><b>{% trans "Currency" %}:</b><span id="currencyLabel"></span></p>
-            <br>
-            {% if user.is_authenticated and not READ_ONLY_MODE %}
-            <a href="create/" id="createUrl" textColor="red" style="outline-color: dimgrey;">{% trans "Create new Water Intake" %}</a>
-            {% else %}
-            <a id="createUrlDisabled">{% trans "Create new Water Intake" %}</a>
-            <h6>{% trans "You must be a registered user to create a new Intake*" %}</h6>
-            {% endif %}
+            <div>
+                {% if user.is_authenticated and not READ_ONLY_MODE %}
+                <a href="create/" id="createUrl" textColor="red" style="outline-color: dimgrey;">{% trans "Create new Water Intake" %}</a>
+                {% else %}
+                <a id="createUrlDisabled">{% trans "Create new Water Intake" %}</a>
+                <h6>{% trans "You must be a registered user to create a new Intake*" %}</h6>
+                {% endif %}
+            </div>
         </div>
         <div class="col-md-8">
             <div id="mapidcuenca"></div>
