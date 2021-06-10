@@ -152,7 +152,7 @@ function funcost(index) {
     </tr>
     `
     );
-    console.log("Holiiiii" + funcostdb[index].fields.function_value)
+    console.log("currencycost "+funcostdb[index].fields.currencyCost+typeof(funcostdb[index].fields.currencyCost))
 
     $('p[name=render_ecuation]').each(function() {
         //MQ.StaticMath(this);

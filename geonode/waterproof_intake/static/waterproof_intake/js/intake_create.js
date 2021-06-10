@@ -47,6 +47,7 @@ var mapLoader;
 $(document).ready(function() {
     setIntakeCity();
     $('#cityLabel').text(localStorage.city);
+    $("#countryLabel").html(localStorage.getItem('country'));
     // Interpolation with Wizard
     $("#intakeWECB").click(function() {
         if ($("#numberYearsInterpolationValue").val() == '' || $("#initialDataExtractionInterpolationValue").val() == '' || $("#finalDataExtractionInterpolationValue").val() == '') {
@@ -607,6 +608,8 @@ function intakeStepOne() {
     formData.append('edit', 'false');
     // Intake name
     formData.append('intakeName', $('#intakeName').val());
+    // Intake id
+    formData.append('intakeId', $('#intakeId').val());
     // Intake description
     formData.append('intakeDesc', $('#intakeDesc').val());
     // Intake water source name

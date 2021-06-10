@@ -578,12 +578,12 @@
                          'global_multiplier_factorCalculator': $('#global_multiplier_factorCalculator').val(),
                          'currencyCost': $('#currencyCost').val(),
                          'logical': [{
-                             'condition_1': mathFieldlog1.latex(),
-                             'ecuation_1': mathFieldE1.latex(),
-                             'condition_2': mathFieldlog2.latex(),
-                             'ecuation_2': mathFieldE2.latex(),
-                             'condition_3': mathFieldlog3.latex(),
-                             'ecuation_3': mathFieldE3.latex()
+                            'condition_1': "",
+                            'ecuation_1': "",
+                            'condition_2': "",
+                            'ecuation_2': "",
+                            'condition_3': "",
+                            'ecuation_3': ""
                          }],
                      }
                  });
@@ -638,7 +638,13 @@
                 val_py = val_py.replaceAll(it, `${it}${$('#titleCostFunSmall').attr('valueid')}`)
             }
             let value = funcostdb[CostSelected].fields.function_value;
-            $('#python-expression').val(value);
+            console.log("valor de value es: "+value)
+            if (value == null){
+                $('#python-expression').val();
+            }
+            else{
+                $('#python-expression').val(value);
+            }
             validatePyExpression();
          });
  
