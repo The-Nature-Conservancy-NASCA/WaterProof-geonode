@@ -15,7 +15,7 @@
             <h1>{% trans "Create water intake" %}</h1>
         </div>
         <div class="col-sm-6">
-            <h4 class="title-city">{% trans "Intake creation city" %} <span>{cityLabel}</span></h4>    
+            <h4 class="title-city">{% trans "Intake creation city" %} <span id="cityLabel"></span></h4>    
         </div>
     </div>
     <!--Begin Form-->
@@ -459,7 +459,6 @@
                                 <label class="text-primary">{% trans "Currency for definition of costs" %} </label>
                                 <select id="currencyCost" class="form-control" required>
                                     {% for currency in currencies %}
-                                
                                         {% if currency.name == intake.city.country.name %}
                                             <option value="{{currency.pk}}" selected>({{currency.currency}}) - {{currency.name}} </option>
                                         {% endif %}
@@ -536,7 +535,7 @@
                         <div id="mathNatural" class="tab-pane fade in active">
                             <textarea id="python-expression" class="python-expression" autocapitalize="off" autocomplete="off"
                                     autocorrect="off" spellcheck="false" x-palm-disable-ste-all="true"></textarea>
-                            <button id="btnValidatePyExp">Validate </button>
+                            <button id="btnValidatePyExp">{% trans Validate %} </button>
                             <div id="MathPreview" class="preview"></div>
                         </div>
                         <div id="mathLogical" class="tab-pane fade"></div>
@@ -544,8 +543,8 @@
                 </div>
                 <br>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" id="saveAndValideCost">Valide and add cost</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{% trans Close %}</button>
+                    <button type="button" class="btn btn-primary" id="saveAndValideCost">{% trans Add cost %}</button>
                 </div>
             </div>
         </div>
@@ -941,6 +940,8 @@
     intakeObject.delimitArea='{{intake.polygon_set.first.geom}}';
     intakeObject.basin='{{intake.polygon_set.first.basin.pk}}';
     intakePolygons.push(intakeObject);
+    var countryNameStorage = localStorage.country;
+    console.log('holiiii'+ localStorage.country);
 </script>
 <script src="{{ STATIC_URL }}geonode/js/leaflet/leaflet-omnivore.min.js"></script>
 <script src="{{ STATIC_URL }}waterproof_intake/js/intake_create.js"></script>

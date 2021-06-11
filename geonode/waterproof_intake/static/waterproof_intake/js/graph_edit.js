@@ -715,6 +715,7 @@ function onInit(editor) {
             $('#VarCostListGroup').empty();
             console.log("este es agregar")
             clearInputsMath();
+            typesetInput('');
             $('#costFunctionName').val('');
             $('#costFuntionDescription').val('');
             $('#CalculatorModalLabel').text('New Function Cost - ' + $('#titleCostFunSmall').text())

@@ -726,6 +726,7 @@
              $('#VarCostListGroup div').remove();
              $('#VarCostListGroup').empty();
              clearInputsMath();
+             typesetInput('');
              $('#costFunctionName').val('');
              $('#costFuntionDescription').val('');
              $('#CalculatorModalLabel').text('New Function Cost - ' + $('#titleCostFunSmall').text())

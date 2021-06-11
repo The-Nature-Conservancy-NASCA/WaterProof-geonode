@@ -46,6 +46,7 @@ const interpolationType = {
 var mapLoader;
 $(document).ready(function() {
     setIntakeCity();
+    var countryNameStorage = localStorage.country;
     $('#cityLabel').text(localStorage.city);
     $("#countryLabel").html(localStorage.getItem('country'));
     // Interpolation with Wizard
