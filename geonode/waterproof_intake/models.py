@@ -6,6 +6,101 @@ from django.contrib.gis.db import models
 from django.utils.translation import ugettext_lazy as _
 from geonode.waterproof_parameters.models import Countries, Cities
 
+class ProcessEfficiencies(models.Model):
+
+    name = models.CharField(
+        max_length=100,
+        verbose_name=_('Name')
+    )
+
+    unitary_process = models.CharField(
+        max_length=100,
+        verbose_name=_('Unitary process')
+    )
+
+    symbol = models.CharField(
+        max_length=100,
+        verbose_name=_('Symbol')
+    )
+
+    categorys = models.CharField(
+        max_length=100,
+        verbose_name=_('Categorys')
+    )
+
+    normalized_category = models.CharField(
+        max_length=100,
+        verbose_name=_('Normalized category')
+    )
+
+    id_wb = models.IntegerField(
+        default=0,
+        verbose_name=_('ID Wb')
+    )
+
+    minimal_sediment_perc = models.IntegerField(
+        default=0,
+        verbose_name=_('Minimal sediment')
+    )
+
+    predefined_sediment_perc = models.DecimalField(
+        decimal_places=2,
+        max_digits=14,
+        verbose_name=_('Predefined sediment')
+    )
+
+    maximal_sediment_perc = models.IntegerField(
+        default=0,
+        verbose_name=_('Maximal sediment')
+    )
+
+    minimal_nitrogen_perc = models.IntegerField(
+        default=0,
+        verbose_name=_('Minimal nitrogen')
+    )
+
+    predefined_nitrogen_perc = models.DecimalField(
+        decimal_places=2,
+        max_digits=14,
+        verbose_name=_('Predefined nitrogen')
+    )
+
+    maximal_nitrogen_perc = models.IntegerField(
+        default=0,
+        verbose_name=_('Maximal nitrogen')
+    )
+
+    minimal_phoshorus_perc = models.IntegerField(
+        default=0,
+        verbose_name=_('Minimal phosphorus')
+    )
+
+    predefined_phosphorus_perc = models.DecimalField(
+        decimal_places=2,
+        max_digits=14,
+        verbose_name=_('Predefined phosphorus')
+    )
+
+    maximal_phosphorus_perc = models.IntegerField(
+        default=0,
+        verbose_name=_('Maximal phosphorus')
+    )
+
+    minimal_transp_water_perc = models.IntegerField(
+        default=0,
+        verbose_name=_('Minimal transported water')
+    )
+
+    predefined_transp_water_perc = models.DecimalField(
+        decimal_places=2,
+        max_digits=14,
+        verbose_name=_('Predefined transported water')
+    )
+
+    maximal_transp_water_perc = models.IntegerField(
+        default=0,
+        verbose_name=_('Maximal transported water')
+    )
 
 class CostFunctionsProcess(models.Model):
 
@@ -72,7 +167,7 @@ class CostFunctionsProcess(models.Model):
         default=False
     )
 
-    #process_efficiencies = models.ForeignKey(ProcessEfficiencies, on_delete=models.CASCADE, null=True)
+    process_efficiencies = models.ForeignKey(ProcessEfficiencies, on_delete=models.CASCADE, null=True)
 
 
 
@@ -152,101 +247,6 @@ class Intake(models.Model):
         on_delete=models.SET_NULL
     )
 
-class ProcessEfficiencies(models.Model):
-
-    name = models.CharField(
-        max_length=100,
-        verbose_name=_('Name')
-    )
-
-    unitary_process = models.CharField(
-        max_length=100,
-        verbose_name=_('Unitary process')
-    )
-
-    symbol = models.CharField(
-        max_length=100,
-        verbose_name=_('Symbol')
-    )
-
-    categorys = models.CharField(
-        max_length=100,
-        verbose_name=_('Categorys')
-    )
-
-    normalized_category = models.CharField(
-        max_length=100,
-        verbose_name=_('Normalized category')
-    )
-
-    id_wb = models.IntegerField(
-        default=0,
-        verbose_name=_('ID Wb')
-    )
-
-    minimal_sediment_perc = models.IntegerField(
-        default=0,
-        verbose_name=_('Minimal sediment')
-    )
-
-    predefined_sediment_perc = models.DecimalField(
-        decimal_places=2,
-        max_digits=14,
-        verbose_name=_('Predefined sediment')
-    )
-
-    maximal_sediment_perc = models.IntegerField(
-        default=0,
-        verbose_name=_('Maximal sediment')
-    )
-
-    minimal_nitrogen_perc = models.IntegerField(
-        default=0,
-        verbose_name=_('Minimal nitrogen')
-    )
-
-    predefined_nitrogen_perc = models.DecimalField(
-        decimal_places=2,
-        max_digits=14,
-        verbose_name=_('Predefined nitrogen')
-    )
-
-    maximal_nitrogen_perc = models.IntegerField(
-        default=0,
-        verbose_name=_('Maximal nitrogen')
-    )
-
-    minimal_phoshorus_perc = models.IntegerField(
-        default=0,
-        verbose_name=_('Minimal phosphorus')
-    )
-
-    predefined_phosphorus_perc = models.DecimalField(
-        decimal_places=2,
-        max_digits=14,
-        verbose_name=_('Predefined phosphorus')
-    )
-
-    maximal_phosphorus_perc = models.IntegerField(
-        default=0,
-        verbose_name=_('Maximal phosphorus')
-    )
-
-    minimal_transp_water_perc = models.IntegerField(
-        default=0,
-        verbose_name=_('Minimal transported water')
-    )
-
-    predefined_transp_water_perc = models.DecimalField(
-        decimal_places=2,
-        max_digits=14,
-        verbose_name=_('Predefined transported water')
-    )
-
-    maximal_transp_water_perc = models.IntegerField(
-        default=0,
-        verbose_name=_('Maximal transported water')
-    )
 
 class Basins(models.Model):
     geom = models.PolygonField(verbose_name='geom', srid=4326, null=True, blank=True)
@@ -299,101 +299,6 @@ class Basins(models.Model):
         verbose_name=_('Ymax')
     )
 
-class ProcessEfficiencies(models.Model):
-
-    name = models.CharField(
-        max_length=100,
-        verbose_name=_('Name')
-    )
-
-    unitary_process = models.CharField(
-        max_length=100,
-        verbose_name=_('Unitary process')
-    )
-
-    symbol = models.CharField(
-        max_length=100,
-        verbose_name=_('Symbol')
-    )
-
-    categorys = models.CharField(
-        max_length=100,
-        verbose_name=_('Categorys')
-    )
-
-    normalized_category = models.CharField(
-        max_length=100,
-        verbose_name=_('Normalized category')
-    )
-
-    id_wb = models.IntegerField(
-        default=0,
-        verbose_name=_('ID Wb')
-    )
-
-    minimal_sediment_perc = models.IntegerField(
-        default=0,
-        verbose_name=_('Minimal sediment')
-    )
-
-    predefined_sediment_perc = models.DecimalField(
-        decimal_places=2,
-        max_digits=14,
-        verbose_name=_('Predefined sediment')
-    )
-
-    maximal_sediment_perc = models.IntegerField(
-        default=0,
-        verbose_name=_('Maximal sediment')
-    )
-
-    minimal_nitrogen_perc = models.IntegerField(
-        default=0,
-        verbose_name=_('Minimal nitrogen')
-    )
-
-    predefined_nitrogen_perc = models.DecimalField(
-        decimal_places=2,
-        max_digits=14,
-        verbose_name=_('Predefined nitrogen')
-    )
-
-    maximal_nitrogen_perc = models.IntegerField(
-        default=0,
-        verbose_name=_('Maximal nitrogen')
-    )
-
-    minimal_phoshorus_perc = models.IntegerField(
-        default=0,
-        verbose_name=_('Minimal phosphorus')
-    )
-
-    predefined_phosphorus_perc = models.DecimalField(
-        decimal_places=2,
-        max_digits=14,
-        verbose_name=_('Predefined phosphorus')
-    )
-
-    maximal_phosphorus_perc = models.IntegerField(
-        default=0,
-        verbose_name=_('Maximal phosphorus')
-    )
-
-    minimal_transp_water_perc = models.IntegerField(
-        default=0,
-        verbose_name=_('Minimal transported water')
-    )
-
-    predefined_transp_water_perc = models.DecimalField(
-        decimal_places=2,
-        max_digits=14,
-        verbose_name=_('Predefined transported water')
-    )
-
-    maximal_transp_water_perc = models.IntegerField(
-        default=0,
-        verbose_name=_('Maximal transported water')
-    )
 
 class Polygon(models.Model):
 
@@ -426,101 +331,6 @@ class Polygon(models.Model):
 
     intake = models.ForeignKey(Intake, on_delete=models.CASCADE)
 
-class ProcessEfficiencies(models.Model):
-
-    name = models.CharField(
-        max_length=100,
-        verbose_name=_('Name')
-    )
-
-    unitary_process = models.CharField(
-        max_length=100,
-        verbose_name=_('Unitary process')
-    )
-
-    symbol = models.CharField(
-        max_length=100,
-        verbose_name=_('Symbol')
-    )
-
-    categorys = models.CharField(
-        max_length=100,
-        verbose_name=_('Categorys')
-    )
-
-    normalized_category = models.CharField(
-        max_length=100,
-        verbose_name=_('Normalized category')
-    )
-
-    id_wb = models.IntegerField(
-        default=0,
-        verbose_name=_('ID Wb')
-    )
-
-    minimal_sediment_perc = models.IntegerField(
-        default=0,
-        verbose_name=_('Minimal sediment')
-    )
-
-    predefined_sediment_perc = models.DecimalField(
-        decimal_places=2,
-        max_digits=14,
-        verbose_name=_('Predefined sediment')
-    )
-
-    maximal_sediment_perc = models.IntegerField(
-        default=0,
-        verbose_name=_('Maximal sediment')
-    )
-
-    minimal_nitrogen_perc = models.IntegerField(
-        default=0,
-        verbose_name=_('Minimal nitrogen')
-    )
-
-    predefined_nitrogen_perc = models.DecimalField(
-        decimal_places=2,
-        max_digits=14,
-        verbose_name=_('Predefined nitrogen')
-    )
-
-    maximal_nitrogen_perc = models.IntegerField(
-        default=0,
-        verbose_name=_('Maximal nitrogen')
-    )
-
-    minimal_phoshorus_perc = models.IntegerField(
-        default=0,
-        verbose_name=_('Minimal phosphorus')
-    )
-
-    predefined_phosphorus_perc = models.DecimalField(
-        decimal_places=2,
-        max_digits=14,
-        verbose_name=_('Predefined phosphorus')
-    )
-
-    maximal_phosphorus_perc = models.IntegerField(
-        default=0,
-        verbose_name=_('Maximal phosphorus')
-    )
-
-    minimal_transp_water_perc = models.IntegerField(
-        default=0,
-        verbose_name=_('Minimal transported water')
-    )
-
-    predefined_transp_water_perc = models.DecimalField(
-        decimal_places=2,
-        max_digits=14,
-        verbose_name=_('Predefined transported water')
-    )
-
-    maximal_transp_water_perc = models.IntegerField(
-        default=0,
-        verbose_name=_('Maximal transported water')
-    )
 
 class ElementSystem(models.Model):
 
@@ -645,102 +455,6 @@ class ElementSystem(models.Model):
         verbose_name=_('WpRetTon')
     )
 
-class ProcessEfficiencies(models.Model):
-
-    name = models.CharField(
-        max_length=100,
-        verbose_name=_('Name')
-    )
-
-    unitary_process = models.CharField(
-        max_length=100,
-        verbose_name=_('Unitary process')
-    )
-
-    symbol = models.CharField(
-        max_length=100,
-        verbose_name=_('Symbol')
-    )
-
-    categorys = models.CharField(
-        max_length=100,
-        verbose_name=_('Categorys')
-    )
-
-    normalized_category = models.CharField(
-        max_length=100,
-        verbose_name=_('Normalized category')
-    )
-
-    id_wb = models.IntegerField(
-        default=0,
-        verbose_name=_('ID Wb')
-    )
-
-    minimal_sediment_perc = models.IntegerField(
-        default=0,
-        verbose_name=_('Minimal sediment')
-    )
-
-    predefined_sediment_perc = models.DecimalField(
-        decimal_places=2,
-        max_digits=14,
-        verbose_name=_('Predefined sediment')
-    )
-
-    maximal_sediment_perc = models.IntegerField(
-        default=0,
-        verbose_name=_('Maximal sediment')
-    )
-
-    minimal_nitrogen_perc = models.IntegerField(
-        default=0,
-        verbose_name=_('Minimal nitrogen')
-    )
-
-    predefined_nitrogen_perc = models.DecimalField(
-        decimal_places=2,
-        max_digits=14,
-        verbose_name=_('Predefined nitrogen')
-    )
-
-    maximal_nitrogen_perc = models.IntegerField(
-        default=0,
-        verbose_name=_('Maximal nitrogen')
-    )
-
-    minimal_phoshorus_perc = models.IntegerField(
-        default=0,
-        verbose_name=_('Minimal phosphorus')
-    )
-
-    predefined_phosphorus_perc = models.DecimalField(
-        decimal_places=2,
-        max_digits=14,
-        verbose_name=_('Predefined phosphorus')
-    )
-
-    maximal_phosphorus_perc = models.IntegerField(
-        default=0,
-        verbose_name=_('Maximal phosphorus')
-    )
-
-    minimal_transp_water_perc = models.IntegerField(
-        default=0,
-        verbose_name=_('Minimal transported water')
-    )
-
-    predefined_transp_water_perc = models.DecimalField(
-        decimal_places=2,
-        max_digits=14,
-        verbose_name=_('Predefined transported water')
-    )
-
-    maximal_transp_water_perc = models.IntegerField(
-        default=0,
-        verbose_name=_('Maximal transported water')
-    )
-
 class UserCostFunctions(models.Model):
 
     name = models.TextField(
@@ -842,101 +556,6 @@ class ElementConnections(models.Model):
 
     target = models.ForeignKey(ElementSystem,  related_name="target", on_delete=models.CASCADE)
 
-class ProcessEfficiencies(models.Model):
-
-    name = models.CharField(
-        max_length=100,
-        verbose_name=_('Name')
-    )
-
-    unitary_process = models.CharField(
-        max_length=100,
-        verbose_name=_('Unitary process')
-    )
-
-    symbol = models.CharField(
-        max_length=100,
-        verbose_name=_('Symbol')
-    )
-
-    categorys = models.CharField(
-        max_length=100,
-        verbose_name=_('Categorys')
-    )
-
-    normalized_category = models.CharField(
-        max_length=100,
-        verbose_name=_('Normalized category')
-    )
-
-    id_wb = models.IntegerField(
-        default=0,
-        verbose_name=_('ID Wb')
-    )
-
-    minimal_sediment_perc = models.IntegerField(
-        default=0,
-        verbose_name=_('Minimal sediment')
-    )
-
-    predefined_sediment_perc = models.DecimalField(
-        decimal_places=2,
-        max_digits=14,
-        verbose_name=_('Predefined sediment')
-    )
-
-    maximal_sediment_perc = models.IntegerField(
-        default=0,
-        verbose_name=_('Maximal sediment')
-    )
-
-    minimal_nitrogen_perc = models.IntegerField(
-        default=0,
-        verbose_name=_('Minimal nitrogen')
-    )
-
-    predefined_nitrogen_perc = models.DecimalField(
-        decimal_places=2,
-        max_digits=14,
-        verbose_name=_('Predefined nitrogen')
-    )
-
-    maximal_nitrogen_perc = models.IntegerField(
-        default=0,
-        verbose_name=_('Maximal nitrogen')
-    )
-
-    minimal_phoshorus_perc = models.IntegerField(
-        default=0,
-        verbose_name=_('Minimal phosphorus')
-    )
-
-    predefined_phosphorus_perc = models.DecimalField(
-        decimal_places=2,
-        max_digits=14,
-        verbose_name=_('Predefined phosphorus')
-    )
-
-    maximal_phosphorus_perc = models.IntegerField(
-        default=0,
-        verbose_name=_('Maximal phosphorus')
-    )
-
-    minimal_transp_water_perc = models.IntegerField(
-        default=0,
-        verbose_name=_('Minimal transported water')
-    )
-
-    predefined_transp_water_perc = models.DecimalField(
-        decimal_places=2,
-        max_digits=14,
-        verbose_name=_('Predefined transported water')
-    )
-
-    maximal_transp_water_perc = models.IntegerField(
-        default=0,
-        verbose_name=_('Maximal transported water')
-    )
 
 class ValuesTime(models.Model):
     year = models.IntegerField(
@@ -970,101 +589,6 @@ class ValuesTime(models.Model):
 
     element = models.ForeignKey(ElementSystem, on_delete=models.CASCADE)
 
-class ProcessEfficiencies(models.Model):
-
-    name = models.CharField(
-        max_length=100,
-        verbose_name=_('Name')
-    )
-
-    unitary_process = models.CharField(
-        max_length=100,
-        verbose_name=_('Unitary process')
-    )
-
-    symbol = models.CharField(
-        max_length=100,
-        verbose_name=_('Symbol')
-    )
-
-    categorys = models.CharField(
-        max_length=100,
-        verbose_name=_('Categorys')
-    )
-
-    normalized_category = models.CharField(
-        max_length=100,
-        verbose_name=_('Normalized category')
-    )
-
-    id_wb = models.IntegerField(
-        default=0,
-        verbose_name=_('ID Wb')
-    )
-
-    minimal_sediment_perc = models.IntegerField(
-        default=0,
-        verbose_name=_('Minimal sediment')
-    )
-
-    predefined_sediment_perc = models.DecimalField(
-        decimal_places=2,
-        max_digits=14,
-        verbose_name=_('Predefined sediment')
-    )
-
-    maximal_sediment_perc = models.IntegerField(
-        default=0,
-        verbose_name=_('Maximal sediment')
-    )
-
-    minimal_nitrogen_perc = models.IntegerField(
-        default=0,
-        verbose_name=_('Minimal nitrogen')
-    )
-
-    predefined_nitrogen_perc = models.DecimalField(
-        decimal_places=2,
-        max_digits=14,
-        verbose_name=_('Predefined nitrogen')
-    )
-
-    maximal_nitrogen_perc = models.IntegerField(
-        default=0,
-        verbose_name=_('Maximal nitrogen')
-    )
-
-    minimal_phoshorus_perc = models.IntegerField(
-        default=0,
-        verbose_name=_('Minimal phosphorus')
-    )
-
-    predefined_phosphorus_perc = models.DecimalField(
-        decimal_places=2,
-        max_digits=14,
-        verbose_name=_('Predefined phosphorus')
-    )
-
-    maximal_phosphorus_perc = models.IntegerField(
-        default=0,
-        verbose_name=_('Maximal phosphorus')
-    )
-
-    minimal_transp_water_perc = models.IntegerField(
-        default=0,
-        verbose_name=_('Minimal transported water')
-    )
-
-    predefined_transp_water_perc = models.DecimalField(
-        decimal_places=2,
-        max_digits=14,
-        verbose_name=_('Predefined transported water')
-    )
-
-    maximal_transp_water_perc = models.IntegerField(
-        default=0,
-        verbose_name=_('Maximal transported water')
-    )
 
 class WaterExtraction(models.Model):
     year = models.IntegerField(
