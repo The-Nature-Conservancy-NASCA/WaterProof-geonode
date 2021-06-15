@@ -56,14 +56,19 @@ $(function() {
 
         viewCurrencys = function(id) {
             html = '<div class="row" id="currencys-panel"> <div class="col-md-12 currency-panel">The following exchange rates have been applied for the analysis</div>'
+            html += '<div class="custom-control col-md-3 currency-value">Quantity</div>'
+            html += '<div class="custom-control col-md-4 currency-value">Currency</div>'
+            html += '<div class="custom-control col-md-5 currency-value">Exchange</div>'
             $.get("../../study_cases/currencys/", {
                 id: id,
                 currency: ""
             }, function(data) {
+
                 $.each(data, function(index, currency) {
                     value = Number.parseFloat(currency.value).toFixed(5);
-                    html += '<div class="col-md-6 currency-value"><label class="custom-control-label" for="currency">1 ' + currency.currency + '</label></div>'
-                    html += '<div class="custom-control col-md-6 currency-value">' + value + '</div>'
+                    html += '<div class="custom-control col-md-3 currency-value">1</div>'
+                    html += '<div class="col-md-4 currency-value"><label class="custom-control-label" for="currency">' + currency.currency + '</label></div>'
+                    html += '<div class="custom-control col-md-5 currency-value">' + value + '</div>'
                 });
                 Swal.fire({
                     title: 'Exchange rate',
