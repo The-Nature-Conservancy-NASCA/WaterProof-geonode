@@ -687,6 +687,11 @@ function onInit(editor) {
             })
         });
 
+        $(document).on('click', 'a[name=fun_display_btn]', function() {
+            var idx = $(this).attr('idvalue');
+            $(`#fun_display_${idx}`).toggle();
+        });
+
         function setVarCost() {
             banderaFunctionCost = false;
             $('#VarCostListGroup div').remove();
