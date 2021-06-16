@@ -460,7 +460,15 @@ function onInit(editor) {
                 $.ajax({
                     url: `/intake/loadFunctionBySymbol/${selectedCell[0].funcionreference}`,
                     success: function(result) {
-                        selectedCell[0].setAttribute("funcost", result);
+                        var id = selectedCell[0].id;
+                        var costVars = ['WSedRet','WPRet','WNRet','WSed','WP','WN','CSed','CP','CN','Q'];
+                        var jsonResult = JSON.parse(result);
+                        var function_value = jsonResult[0].fields.function_value;
+                        costVars.forEach(v =>{
+                            function_value = function_value.replace(v, v + id);
+                        })
+                        jsonResult[0].fields.function_value = function_value;                        
+                        selectedCell[0].setAttribute("funcost", JSON.stringify(jsonResult));
                     }
                 });
             }

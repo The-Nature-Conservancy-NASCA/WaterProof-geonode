@@ -947,8 +947,8 @@ def editIntake(request, idx):
                 # external['waterExtraction'] = extractionElements
                 extInputs.append(external)
             intakeExtInputs = json.dumps(extInputs)
-            city = Cities.objects.all()
-            form = forms.IntakeForm()
+            # city = Cities.objects.all()
+            # form = forms.IntakeForm()
             currencies = Countries.objects.all()
             return render(
                 request, 'waterproof_intake/intake_edit.html',
