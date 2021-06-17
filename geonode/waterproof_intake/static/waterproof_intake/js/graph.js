@@ -646,14 +646,15 @@
             $('#costFunctionName').val(funcostdb[CostSelected].fields.function_name);
             $('#costFuntionDescription').val(funcostdb[CostSelected].fields.function_description);
             $('#CalculatorModalLabel').text('Modify Cost - ' + $('#titleCostFunSmall').text())
-            setVarCost(); 
-            let val_py = funcostdb[CostSelected].fields.function_py_value
-            let rem = ['Q', 'CSed', 'CN', 'CP', 'WSed', 'WN', 'WP', 'WSedRet', 'WNRet', 'WPRet']
-            for (const it of rem) {
-                val_py = val_py.replaceAll(it, `${it}${$('#titleCostFunSmall').attr('valueid')}`)
-            }
+            setVarCost();
             let value = funcostdb[CostSelected].fields.function_value;
-            $('#python-expression').val(value);
+            console.log("valor de value es: "+value)
+            if (value == ""){
+                $('#python-expression').val();
+            }
+            else{
+                $('#python-expression').val(value);
+            }
             validatePyExpression();
          });
  
@@ -735,6 +736,7 @@
              $('#VarCostListGroup div').remove();
              $('#VarCostListGroup').empty();
              clearInputsMath();
+             typesetInput('');
              $('#costFunctionName').val('');
              $('#costFuntionDescription').val('');
              $('#CalculatorModalLabel').text('New Function Cost - ' + $('#titleCostFunSmall').text())
@@ -754,6 +756,9 @@
                  </div>
                  `);
              }
+            $('#python-expression').val('');
+            //$('#MathPreview').val('');
+            validatePyExpression();
          });
  
          //Add value entered in sediments in the field resultdb

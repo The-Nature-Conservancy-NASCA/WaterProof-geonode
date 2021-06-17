@@ -18,6 +18,9 @@
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}study_cases/css/study_cases.css">
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_nbs_ca/css/waterproof_nbs_ca.css">
 <div class="header-waterproof">
+    <div>
+        <h1>{% trans "List Cases Study" %}</h1>
+    </div>
     <div class="row">
         <div class="col-md-4">
             <h4 class="text-center" id="countryLabel"></h4>
@@ -25,16 +28,12 @@
             <p><b>{% trans "Region" %} :</b> <span id="regionLabel">{{region.name}}</span></p>
             <p><b>{% trans "Currency" %}:</b><span id="currencyLabel">({{currency.code}}) - {{currency.name}}</span></p>
             <div>
-                <br>
-                <br>
                 {% if user.is_authenticated and not READ_ONLY_MODE %}
                 <a href="create/" id="createUrl" textColor="red" style="outline-color: dimgrey;">{% trans "Create new Case Study" %}</a>
                 {% else %}
                 <a id="createUrlDisabled">{% trans "Create new Case Study" %}</a>
                 <h6>{% trans "You must be a registered user to create a new Case Study*" %}</h6>
                 {% endif %}
-                <br>
-                <h3>{% trans "List Cases Study" %}</h3>
             </div>
         </div>
         <div class="col-md-8">

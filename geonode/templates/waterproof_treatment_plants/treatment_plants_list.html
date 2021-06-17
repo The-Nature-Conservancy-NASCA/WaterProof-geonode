@@ -25,16 +25,18 @@
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_nbs_ca/css/dataTables.bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_treatment_plants/css/treatment_plants.css" />
 <div class="header-waterproof">
+    <div>
+        <h1>{% trans "Treatment Plants List" %}</h1>
+    </div>
     <div class="row">
         <div class="col-md-4">
             <h4 class="text-center" id="countryLabel">{{city.name}}</h4>
             <p><b>{% trans "Selected City" %} :</b> <span id="cityLabel"></span> </p>
             <p><b>{% trans "Region" %} :</b> <span id="regionLabel"></span> </p>
-            <p><b>{% trans "Currency" %}:</b><span id="currencyLabel"></span></p>        
-            <br>
-            <br>
-            <h3>{% trans "Treatment Plants List" %}</h3>
-            <a href="create/" id="createUrl">{% trans "Create new Treatment Plants" %}</a>
+            <p><b>{% trans "Currency" %}:</b><span id="currencyLabel"></span></p>
+            <div>
+                <a href="create/" id="createUrl">{% trans "Create new Treatment Plants" %}</a>
+            </div>
         </div>
         <div class="col-md-8">
             <div id="mapid"></div>

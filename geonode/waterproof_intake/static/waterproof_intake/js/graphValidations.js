@@ -137,19 +137,20 @@ function clearDataHtml() {
 }
 
 function funcost(index) {
+    var currencyCostName = $('#currencyCost option:selected').text();
     $('#funcostgenerate').append(
         `
     <tr idvalue="fun_${index}">
         <td aling="center">${funcostdb[index].fields.function_name}</td>
         <td class="small text-center vat" style="width: 160px">
         <a class="btn btn-info" idvalue="${index}" name="fun_display_btn">fx</a>
-        <div id="fun_display_${index}" style="position: absolute; left: 50%; width: auto;">
+        <div id="fun_display_${index}" style="position: absolute; left: 50%; width: auto; display: none;">
         <div class="alert alert-info mb-0" style="position: relative; left: -50%; bottom: -10px;" role="alert">
         <p name="render_ecuation" style="font-size: 1.8rem; width:100%;">${funcostdb[index].fields.function_value}</p>
          </div>
         </div>
         </td>
-        <td class="small text-center vat">${funcostdb[index].fields.currencyCost}</td>
+        <td class="small text-center vat">${currencyCostName}</td>
         <td class="small text-center vat">${funcostdb[index].fields.global_multiplier_factorCalculator}</td>
         <td class="small text-center vat" style="width: 85px">
             <div class="btn-group btn-group-table" role="group">

@@ -374,7 +374,9 @@ function onInit(editor) {
     $(document).ready(function() {
 
         var output = document.getElementById('MathPreview');
+        //console.log('MathPreview')
         var button = document.getElementById('btnValidatePyExp');
+        console.log("tipo de valor"+typeof(output))
 
         function typesetInput(expression) {
             button.disabled = true;
@@ -611,7 +613,7 @@ function onInit(editor) {
                     'function_description': $('#costFuntionDescription').val(),
                     'function_py_value': $('#python-expression').val(),
                     'global_multiplier_factorCalculator': $('#global_multiplier_factorCalculator').val(),
-                    'currencyCost': $('#currencyCost').val(),
+                    'currencyCost': $('#currencyCost').find('option:selected').attr("name"),
                     'logical': [{
                         'condition_1': "", /* mathFieldlog1.latex(), */
                         'ecuation_1': "", /* mathFieldE1.latex(), */
@@ -649,7 +651,13 @@ function onInit(editor) {
             $('#CalculatorModalLabel').text('Modify Cost - ' + $('#titleCostFunSmall').text())
             setVarCost();
             let value = funcostdb[CostSelected].fields.function_value;
-            $('#python-expression').val(value);
+            console.log("valor de value es: "+value+typeof(value))
+            if (value == ""){
+                $('#python-expression').val();
+            }
+            else{
+                $('#python-expression').val(value);
+            }
             validatePyExpression();            
         });
 
@@ -696,6 +704,11 @@ function onInit(editor) {
             })
         });
 
+        $(document).on('click', 'a[name=fun_display_btn]', function() {
+            var idx = $(this).attr('idvalue');
+            $(`#fun_display_${idx}`).toggle();
+        });
+
         function setVarCost() {
             banderaFunctionCost = false;
             $('#VarCostListGroup div').remove();
@@ -722,7 +735,9 @@ function onInit(editor) {
             banderaFunctionCost = true;
             $('#VarCostListGroup div').remove();
             $('#VarCostListGroup').empty();
+            console.log("este es agregar")
             clearInputsMath();
+            typesetInput('');
             $('#costFunctionName').val('');
             $('#costFuntionDescription').val('');
             $('#CalculatorModalLabel').text('New Function Cost - ' + $('#titleCostFunSmall').text())
@@ -744,6 +759,9 @@ function onInit(editor) {
                 </div>
                 `);
             }
+            $('#python-expression').val('');
+            //$('#MathPreview').val('');
+            validatePyExpression();
         });
 
         //Add value entered in sediments in the field resultdb
