@@ -463,11 +463,14 @@ function onInit(editor) {
                         var id = selectedCell[0].id;
                         var costVars = ['WSedRet','WPRet','WNRet','WSed','WP','WN','CSed','CP','CN','Q'];
                         var jsonResult = JSON.parse(result);
-                        var function_value = jsonResult[0].fields.function_value;
-                        costVars.forEach(v =>{
-                            function_value = function_value.replace(v, v + id);
+                        jsonResult.forEach(r =>{
+                            var function_value = r.fields.function_value;
+                            costVars.forEach(v =>{
+                                function_value = function_value.replace(v, v + id);
+                            })
+                            r.fields.function_value = function_value;
                         })
-                        jsonResult[0].fields.function_value = function_value;                        
+                        
                         selectedCell[0].setAttribute("funcost", JSON.stringify(jsonResult));
                     }
                 });
@@ -584,12 +587,12 @@ function onInit(editor) {
                         'global_multiplier_factorCalculator': $('#global_multiplier_factorCalculator').val(),
                         'currencyCost': $('#currencyCost').val(),
                         'logical': [{
-                            'condition_1': mathFieldlog1.latex(),
-                             'ecuation_1': mathFieldE1.latex(),
-                             'condition_2': mathFieldlog2.latex(),
-                             'ecuation_2': mathFieldE2.latex(),
-                             'condition_3': mathFieldlog3.latex(),
-                             'ecuation_3': mathFieldE3.latex()
+                            'condition_1': "",
+                             'ecuation_1': "",
+                             'condition_2': "",
+                             'ecuation_2': "",
+                             'condition_3': "",
+                             'ecuation_3': ""
                         }],
                     }
                 });
