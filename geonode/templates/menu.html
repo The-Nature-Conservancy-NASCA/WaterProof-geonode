@@ -834,6 +834,18 @@
           url="{% url "list-intake" %}?limit={{ CLIENT_RESULTS_LIMIT }}&city=" + cityId;
           window.location.href = url;
         });
+
+      $(".subtitle .action").click(function(event){
+        var subtitle = $(this).parents(".subtitle");
+        var submenu = $(subtitle).find(".submenu");
+        $(".submenu").not($(submenu)).slideUp("slow").addClass("opacity");
+        $(".open").not($(subtitle)).removeClass("open");
+        $(subtitle).toggleClass("open");
+			  $(submenu).slideToggle("slow").toggleClass("opacity");
+
+			  return false;
+      });
+
     </script>
 
     <div class="modal fade" style="width: 100%; height: 100%;" id="_resource_uploading" data-backdrop="static" data-keyboard="false" aria-hidden="true">
