@@ -137,7 +137,7 @@ function clearDataHtml() {
 }
 
 function funcost(index) {
-    var currencyCostName = funcostdb[index].fields.currencyCost; 
+    var currencyCostName = funcostdb[index].fields.currencyCostName != undefined ? funcostdb[index].fields.currencyCostName : funcostdb[index].fields.currency; 
     $('#funcostgenerate').append(
         `
     <tr idvalue="fun_${index}">
