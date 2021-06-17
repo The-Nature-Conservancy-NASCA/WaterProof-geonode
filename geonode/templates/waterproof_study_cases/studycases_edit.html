@@ -123,15 +123,15 @@
                                         <thead>
                                             <tr class="info">
                                                 <th scope="col" class="small text-center vat">{% trans "name" %}</th>
-                                                <th scope="col" class="small text-center vat">{% trans "water_source" %}</th>
+                                                <th scope="col" class="small text-center vat">{% trans "description" %}</th>
                                                 <th scope="col" class="small text-center vat">{% trans "Action" %}</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {% for intake in study_case.intakes.all %}
-                                            <tr id='custom-{{intake.id}}'>
-                                                <td>{{intake.name}}</td>
-                                                <td>{{intake.water_source_name}}</td>
+                                            {% for ptap in study_case.ptaps.all %}
+                                            <tr id='ptap-{{ptap.id}}'>
+                                                <td>{{ptap.plant_name}}</td>
+                                                <td>{{ptap.plant_description}}</td>
                                                 <td><a class='btn btn-danger'><span class='glyphicon glyphicon-trash' aria-hidden='true'></span></a></td>
                                             </tr>
                                             {% endfor %}

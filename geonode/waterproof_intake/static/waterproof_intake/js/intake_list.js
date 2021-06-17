@@ -85,10 +85,10 @@ $(function () {
                                 title: gettext('Great!'),
                                 text: gettext('The intake has been deleted')
                             })
-                            var cityId = localStorage.getItem('cityId');
-                            if (cityId == undefined){
-                                cityId = "";
-                              }
+                            var cityId = 143873; //Default Bogota
+                            if (localStorage.cityId){
+                                cityId = localStorage.cityId;
+                            }
                             setTimeout(function () { location.href = "/intake/?city="+cityId; }, 1000);
                         },
                         error: function (error) {

@@ -162,6 +162,8 @@
 
 .currency-value {
     padding: 5px;
+    border-style: solid;
+    border-width: thin;
 }
 
 .currency-text {
@@ -169,19 +171,21 @@
 }
 
 @media (min-width: 768px) {
-    .header-waterproof{
+    .header-waterproof {
         padding-left: 16rem;
         padding-bottom: 1rem;
-    }    
+    }
 }
+
 @media (min-width: 992px) {
-    .header-waterproof{
+    .header-waterproof {
         padding-left: 24rem;
         padding-bottom: 1rem;
-    }    
+    }
 }
+
 @media (min-width: 1200px) {
-    .header-waterproof{
+    .header-waterproof {
         padding-left: 28rem;
         padding-bottom: 3rem;
     }

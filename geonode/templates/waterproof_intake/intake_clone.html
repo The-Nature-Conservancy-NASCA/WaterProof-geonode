@@ -1,27 +1,22 @@
-{% extends "menu.html" %} 
-{% load i18n %}
-{% load static from staticfiles %}
-{% load bootstrap_tags %}
-{% block extra_head %}
+{% extends "menu.html" %} {% load i18n %}{% load static from staticfiles %}{% load bootstrap_tags %}{% block extra_head %}
 <link href="https://unpkg.com/smartwizard@5/dist/css/smart_wizard_all.min.css" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
     integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
     crossorigin="" />
-<link rel="stylesheet" href="{{ STATIC_URL }}geonode/css/leaflet/Control.Coordinates.css"/>
-<link rel="stylesheet" href="{{ STATIC_URL }}geonode/css/leaflet/Control.Loader.css"/>
+<link rel="stylesheet" href="{{ STATIC_URL }}geonode/css/leaflet/Control.Coordinates.css" />
+<link rel="stylesheet" href="{{ STATIC_URL }}geonode/css/leaflet/Control.Loader.css" />
 <link rel="stylesheet" href="{{ STATIC_URL }}waterproof_intake/mathquill/mathquill.css" />
 <link rel="stylesheet" href="{{ STATIC_URL }}waterproof_intake/css/intake.css" />
-
-{% endblock %}
+{% endblock %} 
 {% block body_outer %}
 <!--header-->
 <div class="header-waterproof">
     <div class="row">
         <div class="col-sm-6">
-            <h1>{% trans "Clone water intake" %}</h1>
+            <h1>{% trans "Clone water intake" %} </h1>
         </div>
         <div class="col-sm-6">
-            <h4 class="title-city">{% trans "Intake creation city" %} <span id="cityLabel">{{intake.city.name}}</span> </h4>
+            <h4 class="title-city">{% trans "Intake creation city" %} <span id="cityLabel"></span></h4>    
         </div>
     </div>
     <!--Begin Form-->
@@ -178,33 +173,40 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row" id="hideCostFuntion" style="display: none">
-                        <div class="col-md-12">
-                            <h3 style="padding:1rem;">{% trans "Cost functions "%}<small id="titleCostFunSmall"></small>
-                                <button type="button" class="btn btn-primary btn-add-cost" data-toggle="modal" data-target="#CalculatorModal" id="ModalAddCostBtn">{% trans "Add Cost" %}</button>
-                            </h3>
-                            <table class="table table-striped table-bordered table-condensed" style="width:100%; margin-bottom: 100px">
-                                <thead>
-                                    <tr class="info">
-                                        <th scope="col" class="small text-center vat">{% trans "Function name" %}</th>
-                                        <th scope="col" class="small text-center vat">{% trans "Function" %}</th>
-                                        <th scope="col" class="small text-center vat">{% trans "Currency" %}</th>
-                                        <th scope="col" class="small text-center vat">{% trans "Factor" %}</th>
-                                        <th scope="col" class="small text-center vat">{% trans "Options" %}</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="funcostgenerate">
-                                
-                                </tbody>
-                            </table>
+                        <div class="row" id="hideCostFuntion" style="display: none">
+                            <div class="col-md-12">
+                                <h3 style="padding:1rem;">{% trans "Cost functions "%}<small
+                                        id="titleCostFunSmall"></small>
+                                    <button type="button" class="btn btn-primary btn-add-cost" data-toggle="modal"
+                                        data-target="#CalculatorModal" id="ModalAddCostBtn">{% trans "Add Cost"
+                                        %}</button>
+                                </h3>
+                                <table class="table table-striped table-bordered table-condensed"
+                                    style="width:100%; margin-bottom: 100px">
+                                    <thead>
+                                        <tr class="info">
+                                            <th scope="col" class="small text-center vat">{% trans "Function name" %}
+                                            </th>
+                                            <th scope="col" class="small text-center vat">{% trans "Function" %}</th>
+                                            <th scope="col" class="small text-center vat">{% trans "Currency" %}</th>
+                                            <th scope="col" class="small text-center vat">{% trans "Factor" %}</th>
+                                            <th scope="col" class="small text-center vat">{% trans "Options" %}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="funcostgenerate">
+
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
-                    </div>
-                    <br>
-                    <div class="row text-center">
-                        <div class="col-md-12">
-                            <button type="button" class="btn btn-primary" id="step2PrevBtn">{% trans "Previous" %}</button>
-                            <button type="button" class="btn btn-primary" id="step2NextBtn">{% trans "Next" %}</button>
+                        <br>
+                        <div class="row text-center">
+                            <div class="col-md-12">
+                                <button type="button" class="btn btn-primary" id="step2PrevBtn">{% trans "Previous"
+                                    %}</button>
+                                <button type="button" class="btn btn-primary" id="step2NextBtn">{% trans "Next"
+                                    %}</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -426,7 +428,8 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-5">
-                        <div class="panel-group" id="VarCostListGroup" style="max-height: 480px; overflow-y: auto;"></div>
+                        <div class="panel-group" id="VarCostListGroup" style="max-height: 480px; overflow-y: auto;">
+                        </div>
                     </div>
                     <div class="col-md-7">
                         <div class="form-group">
@@ -467,9 +470,9 @@
                         <h5 class="text-primary keyboard-title">Syntax keyboard</h5>
                         <ul class="nav nav-tabs">
                             <li class="active"><a href="#mathBasic_tab" data-toggle="tab">Basic</a></li>
-                            <li><a href="#mathAdvanced_tab" data-toggle="tab" >Advanced</a></li>
-                            <li><a href="#mathTrigonometry_tab" data-toggle="tab" >Trigonometry</a></li>
-                            <li><a href="#mathLogical_tab" data-toggle="tab" >Logical</a></li>
+                            <li><a href="#mathAdvanced_tab" data-toggle="tab">Advanced</a></li>
+                            <li><a href="#mathTrigonometry_tab" data-toggle="tab">Trigonometry</a></li>
+                            <li><a href="#mathLogical_tab" data-toggle="tab">Logical</a></li>
                         </ul>
                         <div class="tab-content">
                             <div id="mathBasic_tab" class="tab-pane fade in active">
@@ -483,7 +486,7 @@
                                     <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="sqrt">&#8730</button>     
                                 </div>
                             </div>
-                            
+
                             <div id="mathAdvanced_tab" class="tab-pane fade in">
                                 <div class="btn-group" role="group">
                                     <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="pi">π</button>
@@ -610,7 +613,7 @@
 <!--Shapefile reader library -->
 <script src="{{ STATIC_URL }}geonode/js/shp/shp.min.js"></script>
 <script type="text/javascript">
-    var intakePolygons=[];
+    var intakePolygons = [];
     var mxBasePath = '{{ STATIC_URL }}geonode/js/mxgraph/src';
     var mxImageBasePath = '{{ STATIC_URL }}geonode/js/mxgraph/examples/images';
     var editorUrl = '{{ STATIC_URL }}geonode/js/mxgraph/examples/editors/config/diagrameditor.xml';
@@ -634,9 +637,9 @@
     intakeObject.id = '{{intake.id}}'
     $('#intakeId').val(intakeObject.id);
     intakeObject.polygon = '{{intake.polygon_set.first.geomIntake|safe}}';
-    intakeObject.point=JSON.parse('{{intake.polygon_set.first.geomPoint|safe}}');
-    intakeObject.delimitArea='{{intake.polygon_set.first.geom}}';
-    intakeObject.basin='{{intake.polygon_set.first.basin.pk}}';
+    intakeObject.point = JSON.parse('{{intake.polygon_set.first.geomPoint|safe}}');
+    intakeObject.delimitArea = '{{intake.polygon_set.first.geom}}';
+    intakeObject.basin = '{{intake.polygon_set.first.basin.pk}}';
     intakePolygons.push(intakeObject);
 </script>
 
