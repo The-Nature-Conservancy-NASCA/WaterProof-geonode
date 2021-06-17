@@ -631,15 +631,10 @@
             $('#costFunctionName').val(funcostdb[CostSelected].fields.function_name);
             $('#costFuntionDescription').val(funcostdb[CostSelected].fields.function_description);
             $('#CalculatorModalLabel').text('Modify Cost - ' + $('#titleCostFunSmall').text())
-            setVarCost(); 
-            let val_py = funcostdb[CostSelected].fields.function_py_value
-            let rem = ['Q', 'CSed', 'CN', 'CP', 'WSed', 'WN', 'WP', 'WSedRet', 'WNRet', 'WPRet']
-            for (const it of rem) {
-                val_py = val_py.replaceAll(it, `${it}${$('#titleCostFunSmall').attr('valueid')}`)
-            }
+            setVarCost();
             let value = funcostdb[CostSelected].fields.function_value;
             console.log("valor de value es: "+value)
-            if (value == null){
+            if (value == ""){
                 $('#python-expression').val();
             }
             else{
