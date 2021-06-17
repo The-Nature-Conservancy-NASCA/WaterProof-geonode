@@ -17,6 +17,8 @@ var funcostdb = [];
 var bandera = true;
 var banderaValideGraph = 0;
 
+var costVars = ['WSedRet','WPRet','WNRet','WSed','WP','WN','CSed','CP','CN','Q'];
+
 // Program starts here. The document.onLoad executes the
 // createEditor function with a given configuration.
 // In the config file, the mxEditor.onInit method is
@@ -450,23 +452,27 @@ function onInit(editor) {
                 );
                 selectedCell[0].setAttribute('varcost', JSON.stringify(varcost));
 
-                $.ajax({
-                    url: `/intake/loadProcess/${selectedCell[0].dbreference}`,
-                    success: function(result) {
-                        selectedCell[0].setAttribute("resultdb", result);
-                    }
-                });
+                if (selectedCell[0].dbreference != undefined){
+                    $.ajax({
+                        url: `/intake/loadProcess/${selectedCell[0].dbreference}`,
+                        success: function(result) {
+                            selectedCell[0].setAttribute("resultdb", result);
+                        }
+                    });
+                }
+                
 
                 $.ajax({
                     url: `/intake/loadFunctionBySymbol/${selectedCell[0].funcionreference}`,
                     success: function(result) {
                         var id = selectedCell[0].id;
-                        var costVars = ['WSedRet','WPRet','WNRet','WSed','WP','WN','CSed','CP','CN','Q'];
+                        
                         var jsonResult = JSON.parse(result);
                         jsonResult.forEach(r =>{
                             var function_value = r.fields.function_value;
                             costVars.forEach(v =>{
-                                function_value = function_value.replace(v, v + id);
+                                let regex = new RegExp(v + '\\b', 'g');
+                                function_value = function_value.replaceAll(regex, v + id);                                
                             })
                             r.fields.function_value = function_value;
                         })
