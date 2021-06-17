@@ -613,7 +613,7 @@ function onInit(editor) {
                     'function_description': $('#costFuntionDescription').val(),
                     'function_py_value': $('#python-expression').val(),
                     'global_multiplier_factorCalculator': $('#global_multiplier_factorCalculator').val(),
-                    'currencyCost': $('#currencyCost').find('option:selected').attr("name"),
+                    'currencyCost': $('#currencyCost option:selected').val(),
                     'logical': [{
                         'condition_1': "", /* mathFieldlog1.latex(), */
                         'ecuation_1': "", /* mathFieldE1.latex(), */

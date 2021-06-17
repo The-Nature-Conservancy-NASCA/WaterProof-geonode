@@ -137,7 +137,7 @@ function clearDataHtml() {
 }
 
 function funcost(index) {
-    var currencyCostName = $('#currencyCost option:selected').text();
+    var currencyCostName = funcostdb[index].fields.currencyCost; 
     $('#funcostgenerate').append(
         `
     <tr idvalue="fun_${index}">
