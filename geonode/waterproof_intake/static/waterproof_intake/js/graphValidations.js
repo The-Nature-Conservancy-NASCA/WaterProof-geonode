@@ -76,15 +76,24 @@ function updateStyleLine(graph, cell, type) {
             $.ajax({
                 url: `/intake/loadFunctionBySymbol/${type.funcionreference}`,
                 success: function(result2) {
-                    let external = false;
-                    if (type.id == 'EI') external = true;
+                    let external = (type.id == 'EI');
+                    var jsonResult = JSON.parse(result2);
+                    jsonResult.forEach(r =>{
+                        var function_value = r.fields.function_value;
+                        costVars.forEach(v =>{
+                            let regex = new RegExp(v + '\\b', 'g');
+                            function_value = function_value.replaceAll(regex, v + cell.id);                            
+                        })
+                        r.fields.function_value = function_value;
+                    })
+                    
                     let value = {
                         "connectorType": type.id,
                         "varcost": varcost,
                         "external": external,
                         'resultdb': JSON.parse(result),
                         'name': type.name,
-                        "funcost": JSON.parse(result2)
+                        "funcost": jsonResult
                     };
 
                     value = JSON.stringify(value);
@@ -152,7 +161,7 @@ function funcost(index) {
     </tr>
     `
     );
-    console.log("Holiiiii" + funcostdb[index].fields.function_value)
+    console.log(funcostdb[index].fields.function_value)
 
     $('p[name=render_ecuation]').each(function() {
         //MQ.StaticMath(this);
