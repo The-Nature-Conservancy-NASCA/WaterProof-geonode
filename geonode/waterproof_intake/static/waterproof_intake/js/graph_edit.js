@@ -17,6 +17,8 @@ var funcostdb = [];
 var bandera = true;
 var banderaValideGraph = 0;
 
+var costVars = ['WSedRet','WPRet','WNRet','WSed','WP','WN','CSed','CP','CN','Q'];
+
 // Program starts here. The document.onLoad executes the
 // createEditor function with a given configuration.
 // In the config file, the mxEditor.onInit method is
@@ -372,7 +374,9 @@ function onInit(editor) {
     $(document).ready(function() {
 
         var output = document.getElementById('MathPreview');
+        //console.log('MathPreview')
         var button = document.getElementById('btnValidatePyExp');
+        console.log("tipo de valor"+typeof(output))
 
         function typesetInput(expression) {
             button.disabled = true;
@@ -450,17 +454,32 @@ function onInit(editor) {
                 );
                 selectedCell[0].setAttribute('varcost', JSON.stringify(varcost));
 
-                $.ajax({
-                    url: `/intake/loadProcess/${selectedCell[0].dbreference}`,
-                    success: function(result) {
-                        selectedCell[0].setAttribute("resultdb", result);
-                    }
-                });
+                if (selectedCell[0].dbreference != undefined){
+                    $.ajax({
+                        url: `/intake/loadProcess/${selectedCell[0].dbreference}`,
+                        success: function(result) {
+                            selectedCell[0].setAttribute("resultdb", result);
+                        }
+                    });
+                }
+                
 
                 $.ajax({
                     url: `/intake/loadFunctionBySymbol/${selectedCell[0].funcionreference}`,
                     success: function(result) {
-                        selectedCell[0].setAttribute("funcost", result);
+                        var id = selectedCell[0].id;
+                        
+                        var jsonResult = JSON.parse(result);
+                        jsonResult.forEach(r =>{
+                            var function_value = r.fields.function_value;
+                            costVars.forEach(v =>{
+                                let regex = new RegExp(v + '\\b', 'g');
+                                function_value = function_value.replaceAll(regex, v + id);                                
+                            })
+                            r.fields.function_value = function_value;
+                        })
+                        
+                        selectedCell[0].setAttribute("funcost", JSON.stringify(jsonResult));
                     }
                 });
             }
@@ -574,14 +593,15 @@ function onInit(editor) {
                         'function_name': $('#costFunctionName').val() == '' ? 'Undefined name' : $('#costFunctionName').val(),
                         'function_description': $('#costFuntionDescription').val(),
                         'global_multiplier_factorCalculator': $('#global_multiplier_factorCalculator').val(),
-                        'currencyCost': $('#currencyCost').val(),
+                        'currencyCost': $('#currencyCost option:selected').val(),
+                        'currencyCostName': $('#currencyCost option:selected').text(),
                         'logical': [{
-                            'condition_1': mathFieldlog1.latex(),
-                             'ecuation_1': mathFieldE1.latex(),
-                             'condition_2': mathFieldlog2.latex(),
-                             'ecuation_2': mathFieldE2.latex(),
-                             'condition_3': mathFieldlog3.latex(),
-                             'ecuation_3': mathFieldE3.latex()
+                            'condition_1': "",
+                             'ecuation_1': "",
+                             'condition_2': "",
+                             'ecuation_2': "",
+                             'condition_3': "",
+                             'ecuation_3': ""
                         }],
                     }
                 });
@@ -594,7 +614,8 @@ function onInit(editor) {
                     'function_description': $('#costFuntionDescription').val(),
                     'function_py_value': $('#python-expression').val(),
                     'global_multiplier_factorCalculator': $('#global_multiplier_factorCalculator').val(),
-                    'currencyCost': $('#currencyCost').val(),
+                    'currencyCost': $('#currencyCost option:selected').val(),
+                    'currencyCostName': $('#currencyCost option:selected').text(),
                     'logical': [{
                         'condition_1': "", /* mathFieldlog1.latex(), */
                         'ecuation_1': "", /* mathFieldE1.latex(), */
@@ -632,7 +653,13 @@ function onInit(editor) {
             $('#CalculatorModalLabel').text('Modify Cost - ' + $('#titleCostFunSmall').text())
             setVarCost();
             let value = funcostdb[CostSelected].fields.function_value;
-            $('#python-expression').val(value);
+            console.log("valor de value es: "+value+typeof(value))
+            if (value == ""){
+                $('#python-expression').val();
+            }
+            else{
+                $('#python-expression').val(value);
+            }
             validatePyExpression();            
         });
 
@@ -679,6 +706,11 @@ function onInit(editor) {
             })
         });
 
+        $(document).on('click', 'a[name=fun_display_btn]', function() {
+            var idx = $(this).attr('idvalue');
+            $(`#fun_display_${idx}`).toggle();
+        });
+
         function setVarCost() {
             banderaFunctionCost = false;
             $('#VarCostListGroup div').remove();
@@ -705,7 +737,9 @@ function onInit(editor) {
             banderaFunctionCost = true;
             $('#VarCostListGroup div').remove();
             $('#VarCostListGroup').empty();
+            console.log("este es agregar")
             clearInputsMath();
+            typesetInput('');
             $('#costFunctionName').val('');
             $('#costFuntionDescription').val('');
             $('#CalculatorModalLabel').text('New Function Cost - ' + $('#titleCostFunSmall').text())
@@ -727,6 +761,9 @@ function onInit(editor) {
                 </div>
                 `);
             }
+            $('#python-expression').val('');
+            //$('#MathPreview').val('');
+            validatePyExpression();
         });
 
         //Add value entered in sediments in the field resultdb
