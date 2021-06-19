@@ -102,7 +102,7 @@ $(function () {
         onOff: false
     }, {
         graphId: 5,
-        normalizeCategory: 'FILTRACIONRAPIDACONLECHOMIXTO',
+        normalizeCategory: 'FILTRACION',
         onOff: false
     }, {
         graphId: 6,
@@ -686,6 +686,8 @@ $(function () {
     * @returns 
     */
     loadArrayTree = function(plantElement, nameElement, graphid) {
+        var lastTreeBranch = [];
+
         var readOnlyTextTree = "";
         if(onlyReadPlant) {
             readOnlyTextTree = "readonly";
@@ -700,64 +702,69 @@ $(function () {
                     lastSubprocess = value.subprocessAddId;
                     $.each( data, function( keyTech, valueTech ) {
                         if(value.subprocessAddId === valueTech.subprocessAddId) {
-                            $('#subprocess' + value.idSubprocess).html($('#subprocess' + value.idSubprocess).html() + '<div class="title-tree" id="contentTechnology' + valueTech.idSubprocess + '"><div class="point-tree" onclick="viewBranch(\'technology' + valueTech.idSubprocess + '\', this)">-</div><div class="text-tree">' + valueTech.technology + '</div></div><div class="margin-main overflow-form" id="technology' + valueTech.idSubprocess + '"></div>');
-                            $.each( data, function( keyCostFunction, valueCostFunction ) {
-                                if(valueTech.technologyAddId === valueCostFunction.technologyAddId) {
-                                    var loadHtml = true;
-                                    var buttonsHtml = "";
-                                    var activateHtml = "";
-                                    if(onlyReadPlant) {
-                                        loadHtml = false;
-                                        $.each( arrayLoadingFunction, function( keyLoading, valueLoading ) {
-                                            if(valueTech.technology === valueLoading.functionTechnology &&
-                                                valueCostFunction.costFunction === valueLoading.functionName) {
+                            if(lastTreeBranch.indexOf(valueTech.idSubprocess) === -1){
+                                $('#subprocess' + value.idSubprocess).html($('#subprocess' + value.idSubprocess).html() + '<div class="title-tree" id="contentTechnology' + valueTech.idSubprocess + '"><div class="point-tree" onclick="viewBranch(\'technology' + valueTech.idSubprocess + '\', this)">-</div><div class="text-tree">' + valueTech.technology + '</div></div><div class="margin-main overflow-form" id="technology' + valueTech.idSubprocess + '"></div>');
+                                $.each( data, function( keyCostFunction, valueCostFunction ) {
+                                    if(valueTech.technologyAddId === valueCostFunction.technologyAddId) {
+                                        if(lastTreeBranch.indexOf(valueCostFunction.idSubprocess) === -1){
+                                            lastTreeBranch.push(valueCostFunction.idSubprocess);
+                                            var loadHtml = true;
+                                            var buttonsHtml = "";
+                                            var activateHtml = "";
+                                            if(onlyReadPlant) {
+                                                loadHtml = false;
+                                                $.each( arrayLoadingFunction, function( keyLoading, valueLoading ) {
+                                                    if(valueTech.technology === valueLoading.functionTechnology &&
+                                                        valueCostFunction.costFunction === valueLoading.functionName) {
+                                                        loadHtml = true;
+                                                        valueCostFunction.sedimentsRetained = valueLoading.functionSedimentsRetained;
+                                                        valueCostFunction.nitrogenRetained = valueLoading.functionNitrogenRetained;
+                                                        valueCostFunction.phosphorusRetained = valueLoading.functionPhosphorusRetained;
+                                                        valueCostFunction.costFunction = valueLoading.functionName;
+                                                        valueCostFunction.function = valueLoading.functionValue;
+                                                        valueCostFunction.currency = valueLoading.functionCurrency;
+                                                        valueCostFunction.factor = valueLoading.functionFactor;
+                                                    }
+                                                });
+                                            } else if (loadInfoTree) {
+                                                $.each( arrayLoadingFunction, function( keyLoading, valueLoading ) {
+                                                    if(valueTech.technology === valueLoading.functionTechnology &&
+                                                        valueCostFunction.costFunction === valueLoading.functionName) {
+                                                        valueCostFunction.sedimentsRetained = valueLoading.functionSedimentsRetained;
+                                                        valueCostFunction.nitrogenRetained = valueLoading.functionNitrogenRetained;
+                                                        valueCostFunction.phosphorusRetained = valueLoading.functionPhosphorusRetained;
+                                                        valueCostFunction.costFunction = valueLoading.functionName;
+                                                        valueCostFunction.function = valueLoading.functionValue;
+                                                        valueCostFunction.currency = valueLoading.functionCurrency;
+                                                        valueCostFunction.factor = valueLoading.functionFactor;
+                                                        valueTech.idSubprocess = valueLoading.functionIdSubProcess;
+                                                        valueTech.technology = valueLoading.functionTechnology;
+                                                        loadHtml = true;
+                                                    }
+                                                    buttonsHtml = '<a class="btn btn-info""><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>';
+                                                    activateHtml = '<div class="point-check" onclick="changeStatus(' + valueTech.idSubprocess + ')"><div name="listFunction" graphid="' + graphid + '" technology="' + valueTech.technology + '" idSubprocess="' + valueTech.idSubprocess + '" nameFunction="' + valueCostFunction.costFunction + '"  function="' + valueCostFunction.function + '" currency="' + valueCostFunction.currency + '" factor="' + valueCostFunction.factor + '" class="change-state-tree" id="id' + valueTech.idSubprocess + '"></div></div>';
+                                                });                                                
+                                            } else {
                                                 loadHtml = true;
-                                                valueCostFunction.sedimentsRetained = valueLoading.functionSedimentsRetained;
-                                                valueCostFunction.nitrogenRetained = valueLoading.functionNitrogenRetained;
-                                                valueCostFunction.phosphorusRetained = valueLoading.functionPhosphorusRetained;
-                                                valueCostFunction.costFunction = valueLoading.functionName;
-                                                valueCostFunction.function = valueLoading.functionValue;
-                                                valueCostFunction.currency = valueLoading.functionCurrency;
-                                                valueCostFunction.factor = valueLoading.functionFactor;
+                                                buttonsHtml = '<a class="btn btn-info""><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>';
+                                                activateHtml = '<div class="point-check" onclick="changeStatus(' + valueTech.idSubprocess + ')"><div name="listFunction"  graphid="' + graphid + '" subProcessMaster="' + value.idSubprocess + '" technology="' + valueTech.technology + '" idSubprocess="' + valueTech.idSubprocess + '" nameFunction="' + valueCostFunction.costFunction + '"  function="' + valueCostFunction.function + '" currency="' + valueCostFunction.currency + '" factor="' + valueCostFunction.factor + '" class="change-state-tree" id="id' + valueTech.idSubprocess + '"></div></div>';
                                             }
-                                        });
-                                    } else if (loadInfoTree) {
-                                        $.each( arrayLoadingFunction, function( keyLoading, valueLoading ) {
-                                            if(valueTech.technology === valueLoading.functionTechnology &&
-                                                valueCostFunction.costFunction === valueLoading.functionName) {
-                                                valueCostFunction.sedimentsRetained = valueLoading.functionSedimentsRetained;
-                                                valueCostFunction.nitrogenRetained = valueLoading.functionNitrogenRetained;
-                                                valueCostFunction.phosphorusRetained = valueLoading.functionPhosphorusRetained;
-                                                valueCostFunction.costFunction = valueLoading.functionName;
-                                                valueCostFunction.function = valueLoading.functionValue;
-                                                valueCostFunction.currency = valueLoading.functionCurrency;
-                                                valueCostFunction.factor = valueLoading.functionFactor;
-                                                valueTech.idSubprocess = valueLoading.functionIdSubProcess;
-                                                valueTech.technology = valueLoading.functionTechnology;
-                                                loadHtml = true;
-                                            }
-                                            buttonsHtml = '<a class="btn btn-info""><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>';
-                                            activateHtml = '<div class="point-check" onclick="changeStatus(' + valueTech.idSubprocess + ')"><div name="listFunction" graphid="' + graphid + '" technology="' + valueTech.technology + '" idSubprocess="' + valueTech.idSubprocess + '" nameFunction="' + valueCostFunction.costFunction + '"  function="' + valueCostFunction.function + '" currency="' + valueCostFunction.currency + '" factor="' + valueCostFunction.factor + '" class="change-state-tree" id="id' + valueTech.idSubprocess + '"></div></div>';
-                                        });                                                
-                                    } else {
-                                        loadHtml = true;
-                                        buttonsHtml = '<a class="btn btn-info""><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>';
-                                        activateHtml = '<div class="point-check" onclick="changeStatus(' + valueTech.idSubprocess + ')"><div name="listFunction"  graphid="' + graphid + '" subProcessMaster="' + value.idSubprocess + '" technology="' + valueTech.technology + '" idSubprocess="' + valueTech.idSubprocess + '" nameFunction="' + valueCostFunction.costFunction + '"  function="' + valueCostFunction.function + '" currency="' + valueCostFunction.currency + '" factor="' + valueCostFunction.factor + '" class="change-state-tree" id="id' + valueTech.idSubprocess + '"></div></div>';
-                                    }
 
-                                    if(loadHtml) {
-                                        var tableVar = '<div class="container-var" id="idContainerVar"><div><div class="input-var"><div class="form-group"><label>% Transported Water</label><input class="form-control" id="idTransportedWater" value="100" readonly><div class="help-block with-errors"></div></div></div><div class="input-var"><div class="form-group"><label>% Sediments Retained</label><input min="' + valueCostFunction.minimalSedimentsRetained + '" max="' + valueCostFunction.maximalSedimentsRetained + '" ' + readOnlyTextTree + ' value="' + valueCostFunction.sedimentsRetained + '" step="0.0001" type="number" class="form-control" onblur="changeRetained(' + valueTech.idSubprocess + ', this)" id="idSedimentsRetained' + valueTech.idSubprocess + '" placeholder="Enter Sediments retained" ><div class="help-block with-errors"></div></div></div></div><div><div class="input-var"><div class="form-group"><label>% Nitrogen Retained</label><input min="' + valueCostFunction.minimalNitrogenRetained + '" max="' + valueCostFunction.maximalNitrogenRetained + '"  ' + readOnlyTextTree + ' value="' + valueCostFunction.nitrogenRetained + '"  step="0.0001" type="number" class="form-control" onblur="changeRetained(' + valueTech.idSubprocess + ', this)" id="idNitrogenRetained' + valueTech.idSubprocess + '" placeholder="Enter nitrogen retained"><div class="help-block with-errors"></div></div></div><div class="input-var"><div class="form-group"><label>% Phosphorus Retained</label><input min="' + valueCostFunction.minimalPhosphorusRetained + '" max="' + valueCostFunction.maximalPhosphorusRetained + '"  ' + readOnlyTextTree + ' value="' + valueCostFunction.phosphorusRetained + '"  step="0.0001" type="number" class="form-control" onblur="changeRetained(' + valueTech.idSubprocess + ', this)" id="idPhosphorusRetained' + valueTech.idSubprocess + '" placeholder="Enter phosphorus retained"><div class="help-block with-errors"></div></div></div></div></div>';
-                                        var tableFunct = '<table class="table table-striped table-bordered table-condensed" style="width:100%"><thead><tr class="info"><th scope="col" class="small text-center vat">Activate</th><th scope="col" class="small text-center vat">Function name</th><th scope="col" class="small text-center vat">Function</th><th scope="col" class="small text-center vat">Currency</th><th scope="col" class="small text-center vat">Factor</th><th scope="col" class="small text-center vat">Options</th></tr></thead><tbody><tr><td aling="center">' + activateHtml + '</td><td class="small text-center vat">' + valueCostFunction.costFunction + '</td><td class="small text-center vat"><div class="open-popup-form" onclick="document.getElementById(\'popupForm' + valueTech.idSubprocess + '\').style.display=\'block\'">fx</div><div id="popupForm' + valueTech.idSubprocess + '" class="form-popup"><div class="close-form-popup" onclick="document.getElementById(\'popupForm' + valueTech.idSubprocess + '\').style.display=\'none\'">X</div><div class="equation">' + valueCostFunction.function + '</div></div></td><td class="small text-center vat">' + valueCostFunction.currency + '</td><td class="small text-center vat">' + valueCostFunction.factor + '</td><td aling="center">' + buttonsHtml + '</td></tr></tbody></table>';
-                                        $('#technology' + valueTech.idSubprocess).html($('#technology' + valueTech.idSubprocess).html() + tableVar + tableFunct);
-                                        if(valueCostFunction.default) {
-                                            changeStatus(valueTech.idSubprocess)
+                                            if(loadHtml) {
+                                                var tableVar = '<div class="container-var" id="idContainerVar"><div><div class="input-var"><div class="form-group"><label>% Transported Water</label><input class="form-control" id="idTransportedWater" value="100" readonly><div class="help-block with-errors"></div></div></div><div class="input-var"><div class="form-group"><label>% Sediments Retained</label><input min="' + valueCostFunction.minimalSedimentsRetained + '" max="' + valueCostFunction.maximalSedimentsRetained + '" ' + readOnlyTextTree + ' value="' + valueCostFunction.sedimentsRetained + '" step="0.0001" type="number" class="form-control" onblur="changeRetained(' + valueTech.idSubprocess + ', this)" id="idSedimentsRetained' + valueTech.idSubprocess + '" placeholder="Enter Sediments retained" ><div class="help-block with-errors"></div></div></div></div><div><div class="input-var"><div class="form-group"><label>% Nitrogen Retained</label><input min="' + valueCostFunction.minimalNitrogenRetained + '" max="' + valueCostFunction.maximalNitrogenRetained + '"  ' + readOnlyTextTree + ' value="' + valueCostFunction.nitrogenRetained + '"  step="0.0001" type="number" class="form-control" onblur="changeRetained(' + valueTech.idSubprocess + ', this)" id="idNitrogenRetained' + valueTech.idSubprocess + '" placeholder="Enter nitrogen retained"><div class="help-block with-errors"></div></div></div><div class="input-var"><div class="form-group"><label>% Phosphorus Retained</label><input min="' + valueCostFunction.minimalPhosphorusRetained + '" max="' + valueCostFunction.maximalPhosphorusRetained + '"  ' + readOnlyTextTree + ' value="' + valueCostFunction.phosphorusRetained + '"  step="0.0001" type="number" class="form-control" onblur="changeRetained(' + valueTech.idSubprocess + ', this)" id="idPhosphorusRetained' + valueTech.idSubprocess + '" placeholder="Enter phosphorus retained"><div class="help-block with-errors"></div></div></div></div></div>';
+                                                var tableFunct = '<table class="table table-striped table-bordered table-condensed" style="width:100%"><thead><tr class="info"><th scope="col" class="small text-center vat">Activate</th><th scope="col" class="small text-center vat">Function name</th><th scope="col" class="small text-center vat">Function</th><th scope="col" class="small text-center vat">Currency</th><th scope="col" class="small text-center vat">Factor</th><th scope="col" class="small text-center vat">Options</th></tr></thead><tbody><tr><td aling="center">' + activateHtml + '</td><td class="small text-center vat">' + valueCostFunction.costFunction + '</td><td class="small text-center vat"><div class="open-popup-form" onclick="document.getElementById(\'popupForm' + valueTech.idSubprocess + '\').style.display=\'block\'">fx</div><div id="popupForm' + valueTech.idSubprocess + '" class="form-popup"><div class="close-form-popup" onclick="document.getElementById(\'popupForm' + valueTech.idSubprocess + '\').style.display=\'none\'">X</div><div class="equation">' + valueCostFunction.function + '</div></div></td><td class="small text-center vat">' + valueCostFunction.currency + '</td><td class="small text-center vat">' + valueCostFunction.factor + '</td><td aling="center">' + buttonsHtml + '</td></tr></tbody></table>';
+                                                $('#technology' + valueTech.idSubprocess).html($('#technology' + valueTech.idSubprocess).html() + tableVar + tableFunct);
+                                                if(valueCostFunction.default) {
+                                                    changeStatus(valueTech.idSubprocess)
+                                                }
+                                            } else {
+                                                document.getElementById('contentTechnology' + valueTech.idSubprocess).style.display = "none";
+                                                document.getElementById('technology' + valueTech.idSubprocess).style.display = "none";
+                                            }
                                         }
-                                    } else {
-                                        document.getElementById('contentTechnology' + valueTech.idSubprocess).style.display = "none";
-                                        document.getElementById('technology' + valueTech.idSubprocess).style.display = "none";
                                     }
-                                }
-                            });
+                                });
+                            }
                         }
                     });
                 }
