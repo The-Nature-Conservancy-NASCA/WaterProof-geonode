@@ -4,201 +4,202 @@
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
+<div class="header-waterproof">
+    <div>
+        <h1>{% trans "Edit Nature based solution (NBS)" %}</h1>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <h4 class="text-center" id="countryLabel">{{country.name}}</h4>
+            <p><b>{% trans "Region:" %}</b> <span id="regionLabel">{{region.name}}</span> </p>
+            <p><b>{% trans "Currency:" %}</b><span id="currencyLabel">({{currency.code}}) - {{currency.name}}</span></p>
+        </div>
+        <div class="col-md-8">
+            <div id="mapid" style="width: 700px; height: 200px;"></div>
 
-<div class="row">
-    <div class="col-md-4">
-        <h4 class="text-center" id="countryLabel">{{country.name}}</h4>
-        <p><b>{% trans "Region:" %}</b> <span id="regionLabel">{{region.name}}</span> </p>
-        <p><b>{% trans "Currency:" %}</b><span id="currencyLabel">({{currency.code}}) - {{currency.name}}</span></p>
-    </div>
-    <div class="col-md-8">
-        <div id="mapid" style="width: 700px; height: 200px;"></div>
-
-    </div>
-</div>
-<div class="page-header">
-    <h1>{% trans "Edit Nature based solution (NBS)" %}</h1>
-</div>
-<form id="form" data-toggle="validator" role="form" action="">
-    <h4 class="text-primary">{% trans "General Settings" %}</h4>
-    <div class="form-group">
-        <label>{% trans "Name" %} <span class="text-danger-wp">(*)</span> </label>
-        <input type="text" value="{{ nbs.name }}" class="form-control" id="nameNBS" name="nameNBS" data-error="This field is required" placeholder="Enter title" required>
-        <div class="help-block with-errors"></div>
-    </div>
-    <div class="form-group">
-        <label>{% trans "Description" %} <span class="text-danger-wp">(*)</span> </label>
-        <textarea id="descNBS" class="form-control" placeholder="Enter description" data-error="This field is required" rows="4" required>{{ nbs.description }}</textarea>
-        <div class="help-block with-errors"></div>
-    </div>
-    <div class="form-group">
-        <div class="row">
-            <div class="col-md-6">
-                <label>{% trans "Country" %} <span class="text-danger-wp">(*)</span> </label>
-                <select id="countryNBS" {{countryEnable}} class="form-control" data-error="This field is required" required>
-                    {% for country in countries %}
-                    {% if nbs.country.pk == country.pk %}
-                        <option value="{{country.pk}}" data-value="{{country.iso3}}" selected>{{country.name}}</option>
-                    {% else %}
-                        <option value="{{country.pk}}" data-value="{{country.iso3}}">{{country.name}}</option>
-                    {% endif %}
-                    {% endfor %}
-                </select>
-                <div class="help-block with-errors"></div>
-            </div>
-            <div class="col-md-6">
-                <label>{% trans "Currency for definition of costs" %} <span class="text-danger-wp">(*)</span> </label>
-                <select id="currencyCost" {{countryEnable}} class="form-control" data-error="This field is required" required>
-                    {% for currency in currencies %}
-                    {% if nbs.currency.pk == currency.pk%}
-                    <option value="{{currency.pk}}" selected>({{currency.currency}})  - {{currency.name}}</option>
-                    {% else %}
-                    <option value="{{currency.pk}}">({{currency.currency}}) - {{currency.name}}</option>
-                    {% endif %}
-                    {% endfor %}
-                </select>
-                <div class="help-block with-errors"></div>
-            </div>
         </div>
     </div>
-    <div class="form-group">
-        <div class="row">
-            <div class="col-md-6">
-                <label>{% trans "Time required to generate maximun benefit (yr)" %} <span
-                        class="text-danger-wp">(*)</span> </label>
-                <input id="maxBenefitTime" value="{{nbs.max_benefit_req_time}}" onInput="return checkTime(event,value)" type="text" class="form-control" data-error='{% trans "Field is required" %}' required>
-                <div class="help-block with-errors"></div>
-            </div>
-            <div class="col-md-6">
-                <label>{% trans "Percentage of benefit associated with interventions at time t=0" %} <span
-                        class="text-danger-wp">(*)</span> </label>
-                <input id="benefitTimePorc" type="text" value="{{nbs.profit_pct_time_inter_assoc|decimalFormat:2}}" onInput="return checkPercentage(event,value)" class="form-control" data-error='{% trans "Field is required" %}' required>
-                <div class="help-block with-errors"></div>
-            </div>
+    <form id="form" data-toggle="validator" role="form" action="">
+        <h4 class="text-primary">{% trans "General Settings" %}</h4>
+        <div class="form-group">
+            <label>{% trans "Name" %} <span class="text-danger-wp">(*)</span> </label>
+            <input type="text" value="{{ nbs.name }}" class="form-control" id="nameNBS" name="nameNBS" data-error="This field is required" placeholder="Enter title" required>
+            <div class="help-block with-errors"></div>
         </div>
-    </div>
-    <div class="form-group">
-        <div class="row">
-            <div class="col-md-6">
-                <label>{% trans "Periodicity of maintenance (yr)" %} <span class="text-danger-wp">(*)</span> </label>
-                <input id="maintenancePeriod" value="{{ nbs.periodicity_maitenance }}" onInput="return checkTime(event,value)" type="text" class="form-control" data-error='{% trans "Field is required" %}' required>
-                <div class="help-block with-errors"></div>
-            </div>
+        <div class="form-group">
+            <label>{% trans "Description" %} <span class="text-danger-wp">(*)</span> </label>
+            <textarea id="descNBS" class="form-control" placeholder="Enter description" data-error="This field is required" rows="4" required>{{ nbs.description }}</textarea>
+            <div class="help-block with-errors"></div>
         </div>
-    </div>
-    <h4 class="text-primary">{% trans "Unit costs" %}</h4>
-    <div class="form-group">
-        <div class="row">
-            <div class="col-md-4">
-                <label id="implementCostLabel">{% trans "Implementation cost (US$/ha)" %} <span class="text-danger-wp">(*)</span> </label>
-                <input id="implementCost" value="{{ nbs.unit_implementation_cost|decimalFormat:2}}" type="text" onInput="return checkDecimalFormat(event,value)" 
-                class="form-control" data-error='{% trans "Field is required" %}' required>
-                <div class="help-block with-errors"></div>
-            </div>
-            <div class="col-md-4">
-                <label id="maintenanceCostLabel">{% trans "Maintenace cost (US$/ha)" %} <span class="text-danger-wp">(*)</span> </label>
-                <input id="maintenanceCost" value="{{ nbs.unit_maintenance_cost| decimalFormat:2 }}" type="text" onInput="return checkDecimalFormat(event,value)" 
-                class="form-control" data-error='{% trans "Field is required" %}' required>
-                <div class="help-block with-errors"></div>
-            </div>
-            <div class="col-md-4">
-                <label id="oportunityCostLabel">{% trans "Oportunity cost (US$/ha)" %} <span class="text-danger-wp">(*)</span> </label>
-                <input id="oportunityCost" value="{{ nbs.unit_oportunity_cost|decimalFormat:2 }}" type="text" onInput="return checkDecimalFormat(event,value)"  class="form-control" data-error='{% trans "Field is required" %}' required>
-                <div class="help-block with-errors"></div>
-            </div>
-        </div>
-    </div>
-    <h4 class="text-primary">{% trans "RIOS Transition" %}</h4>
-    <div class="form-group">
-        <div class="row">
-            <div class="col-md-12">
-                <select id="riosTransition" class="form-control" data-error="This field is required" required>
-                    {% for transition in transitions %}
-                    {% if transition.pk == selectedTransition.pk %}
-                    <option value="{{transition.pk}}" selected>{{transition.name}}</option>
-                    {% else %}
-                    <option value="{{transition.pk}}">{{transition.name}}</option>
-                    {% endif %}
-
-                    {% endfor %}
-                </select>
-                <div class="help-block with-errors"></div>
-            </div>
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="row">
-            {% for tran in transitions %}
-            <div class="col-md-12" id="selectlanduse{{tran.pk}}" name="selectlanduse" data-value="{{tran.pk}}"
-                style="display: none;">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>
-                                <h4 class="text-primary">{% trans "LAND USE" %}</h4>
-                            </th>
-                            <th>
-                                <h4 class="text-primary">{% trans "LAND COVER CHANGE DEFINITION" %}</h4>
-                            </th>
-                        </tr>
-                        
-                    </thead>
-                    <tbody>
-                        {% for riosa in riosActivity %} 
-                            {% if tran.pk == riosa.transition_id %}
-                            <tr>
-                                <td style="vertical-align: inherit; width: 50%;">
-                                    <h5>{{ riosa.name }}</h5>
-                                </td>
-                                <td>
-                                {% for riost in riosTransformation %} 
-                                    {% if riosa.pk == riost.activity_id %}
-                                    <div class="checkbox">
-                                        {% if riost.id in selectedTransf %}
-                                            <label><input data-value="itemRT" name="{{riosa.name}}_{{itemRT}}" type="radio"
-                                                id="itemRT{{riost.pk}}" value="{{ riost.pk }}" checked> {{riost.name}}</label>
-                                        {% else %}
-                                            <label><input data-value="itemRT" name="{{riosa.name}}_{{itemRT}}" type="radio"
-                                                id="itemRT{{riost.pk}}" value="{{ riost.pk }}" > {{riost.name}}</label>
-                                        {% endif %}
-                                    </div>
-                                    {% endif %} 
-                                {% endfor %}
-                                </td>
-                            </tr>
-                            {% endif %}
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-6">
+                    <label>{% trans "Country" %} <span class="text-danger-wp">(*)</span> </label>
+                    <select id="countryNBS" {{countryEnable}} class="form-control" data-error="This field is required" required>
+                        {% for country in countries %}
+                        {% if nbs.country.pk == country.pk %}
+                            <option value="{{country.pk}}" data-value="{{country.iso3}}" selected>{{country.name}}</option>
+                        {% else %}
+                            <option value="{{country.pk}}" data-value="{{country.iso3}}">{{country.name}}</option>
+                        {% endif %}
                         {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-            {% endfor %}
-        </div>
-    </div>
-    <div class="form-group">
-        <!-- Rounded switch -->
-        <label>{% trans "Load new restricted area" %}</label>
-        <label class="switch">
-            <input type="checkbox" id="loadArea">
-            <span class="slider round"></span>
-        </label>
-        <div class="row" style="display:none" id="areas">
-            <div class="col-md-4">
-                <div class="col-md-12">
-                    <label>{% trans "Restricted areas" %}</label>
-                    <button type="button" class="btn btn-link" data-toggle="modal" data-target="#HelpModal" id="HelpModalBtnModal" style="outline:none; text-decoration:none;">
-                        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> {% trans "Help"
-                        %}</button>
-                    </button>
+                    </select>
+                    <div class="help-block with-errors"></div>
                 </div>
-                <input id="restrictedArea" type="file">
-                <div class="help-block with-errors"></div>
+                <div class="col-md-6">
+                    <label>{% trans "Currency for definition of costs" %} <span class="text-danger-wp">(*)</span> </label>
+                    <select id="currencyCost" {{countryEnable}} class="form-control" data-error="This field is required" required>
+                        {% for currency in currencies %}
+                        {% if nbs.currency.pk == currency.pk%}
+                        <option value="{{currency.pk}}" selected>({{currency.currency}})  - {{currency.name}}</option>
+                        {% else %}
+                        <option value="{{currency.pk}}">({{currency.currency}}) - {{currency.name}}</option>
+                        {% endif %}
+                        {% endfor %}
+                    </select>
+                    <div class="help-block with-errors"></div>
+                </div>
             </div>
         </div>
-    </div>
-    <br>
-    <input type="hidden" value="{{nbs.pk}}" id="sbnId">
-    <button type="submit" id="submit" class="btn btn-primary ">{% trans "Save" %}</button>
-</form>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-6">
+                    <label>{% trans "Time required to generate maximun benefit (yr)" %} <span
+                            class="text-danger-wp">(*)</span> </label>
+                    <input id="maxBenefitTime" value="{{nbs.max_benefit_req_time}}" onInput="return checkTime(event,value)" type="text" class="form-control" data-error='{% trans "Field is required" %}' required>
+                    <div class="help-block with-errors"></div>
+                </div>
+                <div class="col-md-6">
+                    <label>{% trans "Percentage of benefit associated with interventions at time t=0" %} <span
+                            class="text-danger-wp">(*)</span> </label>
+                    <input id="benefitTimePorc" type="text" value="{{nbs.profit_pct_time_inter_assoc|decimalFormat:2}}" onInput="return checkPercentage(event,value)" class="form-control" data-error='{% trans "Field is required" %}' required>
+                    <div class="help-block with-errors"></div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-6">
+                    <label>{% trans "Periodicity of maintenance (yr)" %} <span class="text-danger-wp">(*)</span> </label>
+                    <input id="maintenancePeriod" value="{{ nbs.periodicity_maitenance }}" onInput="return checkTime(event,value)" type="text" class="form-control" data-error='{% trans "Field is required" %}' required>
+                    <div class="help-block with-errors"></div>
+                </div>
+            </div>
+        </div>
+        <h4 class="text-primary">{% trans "Unit costs" %}</h4>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-4">
+                    <label id="implementCostLabel">{% trans "Implementation cost (US$/ha)" %} <span class="text-danger-wp">(*)</span> </label>
+                    <input id="implementCost" value="{{ nbs.unit_implementation_cost|decimalFormat:2}}" type="text" onInput="return checkDecimalFormat(event,value)" 
+                    class="form-control" data-error='{% trans "Field is required" %}' required>
+                    <div class="help-block with-errors"></div>
+                </div>
+                <div class="col-md-4">
+                    <label id="maintenanceCostLabel">{% trans "Maintenace cost (US$/ha)" %} <span class="text-danger-wp">(*)</span> </label>
+                    <input id="maintenanceCost" value="{{ nbs.unit_maintenance_cost| decimalFormat:2 }}" type="text" onInput="return checkDecimalFormat(event,value)" 
+                    class="form-control" data-error='{% trans "Field is required" %}' required>
+                    <div class="help-block with-errors"></div>
+                </div>
+                <div class="col-md-4">
+                    <label id="oportunityCostLabel">{% trans "Oportunity cost (US$/ha)" %} <span class="text-danger-wp">(*)</span> </label>
+                    <input id="oportunityCost" value="{{ nbs.unit_oportunity_cost|decimalFormat:2 }}" type="text" onInput="return checkDecimalFormat(event,value)"  class="form-control" data-error='{% trans "Field is required" %}' required>
+                    <div class="help-block with-errors"></div>
+                </div>
+            </div>
+        </div>
+        <h4 class="text-primary">{% trans "RIOS Transition" %}</h4>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-12">
+                    <select id="riosTransition" class="form-control" data-error="This field is required" required>
+                        {% for transition in transitions %}
+                        {% if transition.pk == selectedTransition.pk %}
+                        <option value="{{transition.pk}}" selected>{{transition.name}}</option>
+                        {% else %}
+                        <option value="{{transition.pk}}">{{transition.name}}</option>
+                        {% endif %}
+
+                        {% endfor %}
+                    </select>
+                    <div class="help-block with-errors"></div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                {% for tran in transitions %}
+                <div class="col-md-12" id="selectlanduse{{tran.pk}}" name="selectlanduse" data-value="{{tran.pk}}"
+                    style="display: none;">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    <h4 class="text-primary">{% trans "LAND USE" %}</h4>
+                                </th>
+                                <th>
+                                    <h4 class="text-primary">{% trans "LAND COVER CHANGE DEFINITION" %}</h4>
+                                </th>
+                            </tr>
+                            
+                        </thead>
+                        <tbody>
+                            {% for riosa in riosActivity %} 
+                                {% if tran.pk == riosa.transition_id %}
+                                <tr>
+                                    <td style="vertical-align: inherit; width: 50%;">
+                                        <h5>{{ riosa.name }}</h5>
+                                    </td>
+                                    <td>
+                                    {% for riost in riosTransformation %} 
+                                        {% if riosa.pk == riost.activity_id %}
+                                        <div class="checkbox">
+                                            {% if riost.id in selectedTransf %}
+                                                <label><input data-value="itemRT" name="{{riosa.name}}_{{itemRT}}" type="radio"
+                                                    id="itemRT{{riost.pk}}" value="{{ riost.pk }}" checked> {{riost.name}}</label>
+                                            {% else %}
+                                                <label><input data-value="itemRT" name="{{riosa.name}}_{{itemRT}}" type="radio"
+                                                    id="itemRT{{riost.pk}}" value="{{ riost.pk }}" > {{riost.name}}</label>
+                                            {% endif %}
+                                        </div>
+                                        {% endif %} 
+                                    {% endfor %}
+                                    </td>
+                                </tr>
+                                {% endif %}
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="form-group">
+            <!-- Rounded switch -->
+            <label>{% trans "Load new restricted area" %}</label>
+            <label class="switch">
+                <input type="checkbox" id="loadArea">
+                <span class="slider round"></span>
+            </label>
+            <div class="row" style="display:none" id="areas">
+                <div class="col-md-4">
+                    <div class="col-md-12">
+                        <label>{% trans "Restricted areas" %}</label>
+                        <button type="button" class="btn btn-link" data-toggle="modal" data-target="#HelpModal" id="HelpModalBtnModal" style="outline:none; text-decoration:none;">
+                            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> {% trans "Help"
+                            %}</button>
+                        </button>
+                    </div>
+                    <input id="restrictedArea" type="file">
+                    <div class="help-block with-errors"></div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <input type="hidden" value="{{nbs.pk}}" id="sbnId">
+        <button type="submit" id="submit" class="btn btn-primary ">{% trans "Save" %}</button>
+    </form>
+</div>
 <!--Modal Help-->
 <div class="modal fade" id="HelpModal" tabindex="-1" aria-labelledby="HelpModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
