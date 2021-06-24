@@ -46,7 +46,9 @@ const interpolationType = {
 var mapLoader;
 $(document).ready(function() {
     setIntakeCity();
+    var countryNameStorage = localStorage.country;
     $('#cityLabel').text(localStorage.city);
+    $("#countryLabel").html(localStorage.getItem('country'));
     // Interpolation with Wizard
     $("#intakeWECB").click(function() {
         if ($("#numberYearsInterpolationValue").val() == '' || $("#initialDataExtractionInterpolationValue").val() == '' || $("#finalDataExtractionInterpolationValue").val() == '') {
@@ -607,6 +609,8 @@ function intakeStepOne() {
     formData.append('edit', 'false');
     // Intake name
     formData.append('intakeName', $('#intakeName').val());
+    // Intake id
+    formData.append('intakeId', $('#intakeId').val());
     // Intake description
     formData.append('intakeDesc', $('#intakeDesc').val());
     // Intake water source name
@@ -807,7 +811,13 @@ function intakeStepFive() {
                 allowOutsideClick: true,
                 showConfirmButton: false
             });
-            setTimeout(function() { location.href = "/intake/"; }, 1000);
+            var cityId = 143873; //Default Bogota
+            if (localStorage.cityId){
+                cityId = localStorage.cityId;
+            }
+            setTimeout(function() { 
+                location.href = "/intake/?city="+cityId; 
+            }, 1000);
         },
         error: function(xhr, errmsg, err) {
             console.log(xhr.status + ":" + xhr.responseText);

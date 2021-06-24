@@ -278,8 +278,7 @@ $(document).ready(function() {
     }
 
     function loadBiophysical(id_intake, name) {
-        console.log(id_intake)
-        console.log(name)
+
         $.post("../../study_cases/bio/", {
             id_intake: id_intake,
             id_study_case: id_study_case,
@@ -296,7 +295,6 @@ $(document).ready(function() {
             });
             content += '</tr></thead><tbody>'
             $.each(data, function(index, bio) {
-                console.log(bio)
                 content += '<tr id="id_' + bio.id + '">'
                 content += '<td id="description_' + bio.id + '">' + bio.description + '</td>'
                 content += '<td id="lucode_' + bio.id + '">' + bio.lucode + '</td>'
@@ -312,10 +310,6 @@ $(document).ready(function() {
             $('#autoAdjustHeightF').css("height", "auto");
 
         });
-
-
-
-        content += '</tbody></table>'
     }
 
 

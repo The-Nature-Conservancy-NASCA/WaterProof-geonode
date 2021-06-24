@@ -15,7 +15,7 @@
         </div>
         <div class="col-sm-6">
             <h5>{% trans "Creation city" %} : <span id="cityLabel"></span> </h5>
-        </div>        
+        </div>
     </div>
     <br>
     <!--Begin Form-->
@@ -73,13 +73,13 @@
                         </label>
                         <textarea rows="3" class="form-control" name="description" id="description"></textarea>
                     </div>
-    
+
                     <!--Input Desc -->
                     <div id="div_id_type" class="form-group">
                         <label for="div_id_type" class="control-label required-field ">
                             {% trans "Select type of study case to create" %}
                         </label>
-    
+
                         <div class="form-check panel-hide" id="div-ptaps">
                             <input class="form-check-input" type="radio" name="type" id="ptap" value="1">
                             <label class="form-check-label" for="ptap">
@@ -101,7 +101,7 @@
                             </button>
                         </div>
                     </div>
-    
+
                     <div class="row">
                         <div class="col-md-12">
                             <div class="panel panel-hide" id="panel-custom">
@@ -109,7 +109,7 @@
                                     <div class="row form-group">
                                         <legend><label>{% trans "Water Intake" %} <span class="text-danger-wp" id="custom-required"></span> </label></legend>
                                         <p>{% trans "Select the intake you want to consider in the ROI Analysis" %}</p>
-    
+
                                         <div class="col-md-9">
                                             <select class="form-control" id="select_custom">
                                             </select>
@@ -126,23 +126,23 @@
                                                 <th scope="col" class="small text-center vat">{% trans "Name of the water source" %}</th>
                                                 <th scope="col" class="small text-center vat">{% trans "Action" %}</th>
                                             </tr>
-    
+
                                         </thead>
                                         <tbody>
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
-    
+
                             <div class="panel panel-hide" id="panel-cost">
                                 <div class="col-md-12">
                                     <div class="row form-group">
                                         <div class="col-md-2">
                                             <button type="button" class="btn btn-primary" id="add_wi">{% trans "Add cost function" %}</button>
                                         </div>
-    
+
                                     </div>
-    
+
                                     <table id="cost_table" class="table table-striped table-bordered table-condensed panel-hide" style="width:100%">
                                         <thead>
                                             <tr class="info">
@@ -152,20 +152,20 @@
                                                 <th scope="col" class="small text-center vat">{% trans "Factor" %}</th>
                                                 <th scope="col" class="small text-center vat">{% trans "Options" %}</th>
                                             </tr>
-    
+
                                         </thead>
                                         <tbody>
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
-    
+
                             <div class="panel panel-hide" id="panel-ptap">
                                 <div class="col-md-12">
                                     <div class="row form-group">
                                         <legend><label>{% trans "Treatments plants" %} <span class="text-danger-wp" id="ptap-required"></span> </label></legend>
                                         <p>{% trans "Select the treatment plants you want to consider in the ROI Analysis" %}</p>
-    
+
                                         <div class="col-md-9">
                                             <select class="form-control" id="select_ptap">
                                             </select>
@@ -181,14 +181,14 @@
                                                 <th scope="col" class="small text-center vat">{% trans "description" %}</th>
                                                 <th scope="col" class="small text-center vat">{% trans "Action" %}</th>
                                             </tr>
-    
+
                                         </thead>
                                         <tbody>
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
-    
+
                         </div>
                     </div>
                     <div class="row text-center">
@@ -242,7 +242,7 @@
                     <div class="page-header">
                         <h3>Portfolios</h3>
                         <p>{% trans "Select the objetives for which the systemwill generate portfolios of Nature-bassed Solutions, using the RIOS technnical framework" %}</p>
-    
+
                         <ul class="list-group list-group-flush" id="portfolios-ul">
                             {% for portfolio in portfolios %}
                             <li class="list-group-item">
@@ -275,7 +275,7 @@
                         <p>{% trans "Below are the biophysical tables that will be used in modeling un inVEST and RIOS. You can edit the values according to the specific knowledge of the supplying basins" %}</p>
                         <p>{% trans "Please see the InVEST documentation" %}</p>
                         <div class="row biophysical-panel panel-hide" id="biophysical-panel">
-    
+
                         </div>
                     </div>
                     <div class="row text-center">
@@ -311,7 +311,7 @@
                             <div class="custom-control custom-checkbox col-md-4">
                                 <input id="total_platform" class="text-number" type="number" class="custom-control-input" disabled>
                             </div>
-    
+
                             <div class="col-md-6">
                                 <label class="custom-control-label platform-label" for="total_personnel">{% trans "Personnel Salary and Benefits" %}</label>
                             </div>
@@ -416,9 +416,9 @@
                     <div class="page-header">
                         <h3> {% trans "NBS/Conservation activities" %}</h3>
                         <p>{% trans "Select the NBS you want to consider in the analysis" %}</p>
-    
+
                         <ul class="list-group list-group-flush" id="nbs-ul">
-    
+
                         </ul>
                     </div>
                     <div class="row text-center">
@@ -485,6 +485,7 @@
                             <label class="form-check-label" for="full">
                                 {% trans "Full portfolio" %}
                             </label>
+                            <input id="period_analysis" type="number" class="form-control text-number" min="10" max="100" value="30">
                         </div>
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="analysis_type" id="investment" value="2">
@@ -493,7 +494,7 @@
                             </label>
                         </div>
                     </div>
-    
+
                     <div class="panel panel-hide" id="panel-full">
                         <div class="col-md-12">
                             <div class="row form-group">
@@ -527,7 +528,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>    
+                    </div>
                     <table id="full-table" class="table table-striped table-bordered table-condensed panel-hide">
                         <thead>
                             <tr class="info">
@@ -535,10 +536,10 @@
                                 <th scope="col" id="column_investment" class="small text-center vat">{% trans "Percentage" %}</th>
                             </tr>
                         </thead>
-                        <tbody>    
+                        <tbody>
                         </tbody>
-                    </table>  
-    
+                    </table>
+
                     <div class="row text-center">
                         <div class="col-md-12">
                             <button type="button" class="btn btn-primary" id="step7PreviousBtn">{% trans "Previous" %}</button>
@@ -549,7 +550,7 @@
                 </div>
             </div>
         </div>
-    </form>    
+    </form>
 </div>
 
 {% endblock %} {% block extra_script %}

@@ -4,7 +4,8 @@
 <link rel="stylesheet" href="{{ STATIC_URL }}geonode/css/leaflet/Control.Coordinates.css" />
 <link rel="stylesheet" href="{{ STATIC_URL }}geonode/css/leaflet/Control.Loader.css" />
 <link rel="stylesheet" href="{{ STATIC_URL }}waterproof_intake/mathquill/mathquill.css" />
-<link rel="stylesheet" href="{{ STATIC_URL }}waterproof_intake/css/intake.css" /> {% endblock %} {% block body_outer %}
+<link rel="stylesheet" href="{{ STATIC_URL }}waterproof_intake/css/intake.css" /> 
+{% endblock %} {% block body_outer %}
 <!--header-->
 <script type="text/javascript">
     var SelectedCurrency = "{{SelectedCurrency}}";
@@ -15,7 +16,7 @@
             <h1>{% trans "Create water intake" %}</h1>
         </div>
         <div class="col-sm-6">
-            <h4 class="title-city">{% trans "Intake creation city" %} <span id="cityLabel"></span> </h4>    
+            <h4 class="title-city">{% trans "Intake creation city" %} <span id="cityLabel"></span></h4>    
         </div>
     </div>
     <!--Begin Form-->
@@ -459,17 +460,23 @@
                                 <label class="text-primary">{% trans "Currency for definition of costs" %} </label>
                                 <select id="currencyCost" class="form-control" required>
                                     {% for currency in currencies %}
+                                        <!--{% if currency.name == intake.city.country.name %}
+                                            <option value="{{currency.pk}}" selected>({{currency.currency}}) - {{currency.name}} </option>
+                                        {% endif %}-->
+                                        <!--option selected="true" value="{{currency.pk}}" selected>({{currency.currency}}) - {{intake.city.country}}</option-->
                                         {% if currency.iso3 == 'USA'%}
-                                            <option value="{{currency.pk}}" data-country="{{currency.iso3}}" selected>({{currency.currency}}) - {{currency.name}}</option>
+                                            <option value="{{currency.pk}}" data-country="{{currency.iso3}}">({{currency.currency}}) - {{currency.name}}</option>
                                         {% else %}
                                             <option value="{{currency.pk}}">({{currency.currency}}) - {{currency.name}}</option>
                                         {% endif %}
+                                        
+                                        
                                     {% endfor %}
                                 </select>
                             </div>
                             <div class="col-xs-6">
                                 <label class="text-primary">{% trans "Multiplying factor for overrall cost" %} </label>
-                                <input type="text" value="1" id="global_multiplier_factorCalculator" class="form-control" disabled>
+                                <input type="text" value="1.00" id="global_multiplier_factorCalculator" class="form-control">
                             </div>
                         </div>                         
                         <h5 class="text-primary keyboard-title">Syntax keyboard</h5>
@@ -518,27 +525,27 @@
                                     <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="<=">\le</button>
                                     <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="!=">\ne</button>
                                     <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="and">and</button>
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="or">or</button>                                    
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="or">or</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-12">                        
+                    <div class="col-md-12">
                         <div id="mathNatural" class="tab-pane fade in active">
-                            <textarea id="python-expression" class="python-expression" autocapitalize="off" autocomplete="off" 
+                            <textarea id="python-expression" class="python-expression" autocapitalize="off" autocomplete="off"
                                     autocorrect="off" spellcheck="false" x-palm-disable-ste-all="true"></textarea>
-                            <button id="btnValidatePyExp">Validate </button>
-                            <div id="MathPreview" class="preview"></div>                            
+                            <button id="btnValidatePyExp">{% trans "Validate" %} </button>
+                            <div id="MathPreview" class="preview"></div>
                         </div>
-                        <div id="mathLogical" class="tab-pane fade"></div>                        
+                        <div id="mathLogical" class="tab-pane fade"></div>
                     </div>
                 </div>
                 <br>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" id="saveAndValideCost">Valide and add cost</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{% trans "Close" %}</button>
+                    <button type="button" class="btn btn-primary" id="saveAndValideCost">{% trans "Add cost" %}</button>
                 </div>
             </div>
         </div>
@@ -887,6 +894,10 @@
 </div>
 {% endblock %} {% block extra_script %}
 <script type="text/javascript" src="{% url 'javascript-catalog-intake' %}"></script>
+<script src="https://unpkg.com/smartwizard@5/dist/js/jquery.smartWizard.min.js" type="text/javascript"></script>
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+    crossorigin=""></script>
 <script src="{{ STATIC_URL }}waterproof_intake/js/jquery.smartWizard.min.js" type="text/javascript"></script>
 <script src="{{ STATIC_URL }}waterproof_intake/js/leaflet.js"></script>
 <script src="{{ STATIC_URL }}geonode/js/leaflet/Leaflet.Editable.js"></script>
@@ -894,6 +905,8 @@
 <script src="{{ STATIC_URL }}geonode/js/leaflet/Control.Loader.js"></script>
 <script src="{{ STATIC_URL }}geonode/js/waterproof/waterIntake.js"></script>
 <script src="{{ STATIC_URL }}geonode/js/waterproof/geomFile_validate.js"></script>
+
+
 
 <!--ZIP reader library-->
 <script src="{{ STATIC_URL }}geonode/js/jszip/jszip.min.js"></script>
@@ -913,7 +926,25 @@
     GRAY_BASEMAP_URL = '{{ GRAY_BASEMAP_URL }} ';
     GEOSERVER_WMS = '{{ GEOSERVER_WMS }}';
     HYDRO_NETWORK_LYR = '{{ HYDRO_NETWORK_LYR }}';
+    var intakeInterpolationParams = {};
+    intakeInterpolationParams.type = '{{ intake.demand_parameters.interpolation_type }}';
+    intakeInterpolationParams.yearsNum = '{{intake.demand_parameters.years_number}}';
+    intakeInterpolationParams.initialExtract = '{{intake.demand_parameters.initial_extraction}}';
+    intakeInterpolationParams.endingExtract = '{{intake.demand_parameters.ending_extraction}}';
+    var xmlGraph = $('#xmlGraph').val();
+    var intakeExternalInputs = JSON.parse('{{externalInputs|safe}}');
+    var intakeObject = {};
+    intakeObject.id = '{{intake.id}}'
+    $('#intakeId').val(intakeObject.id);
+    intakeObject.polygon = '{{intake.polygon_set.first.geomIntake|safe}}';
+    intakeObject.point=JSON.parse('{{intake.polygon_set.first.geomPoint|safe}}');
+    intakeObject.delimitArea='{{intake.polygon_set.first.geom}}';
+    intakeObject.basin='{{intake.polygon_set.first.basin.pk}}';
+    intakePolygons.push(intakeObject);
+    var countryNameStorage = localStorage.country;
+    console.log('holiiii'+ localStorage.country);
 </script>
+<script src="{{ STATIC_URL }}geonode/js/leaflet/leaflet-omnivore.min.js"></script>
 <script src="{{ STATIC_URL }}waterproof_intake/js/intake_create.js"></script>
 <script src="{{ STATIC_URL }}waterproof_intake/js/graph.js"></script>
 <script src="{{ STATIC_URL }}waterproof_intake/js/graphValidations.js"></script>

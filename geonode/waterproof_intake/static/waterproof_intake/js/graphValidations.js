@@ -76,15 +76,24 @@ function updateStyleLine(graph, cell, type) {
             $.ajax({
                 url: `/intake/loadFunctionBySymbol/${type.funcionreference}`,
                 success: function(result2) {
-                    let external = false;
-                    if (type.id == 'EI') external = true;
+                    let external = (type.id == 'EI');
+                    var jsonResult = JSON.parse(result2);
+                    jsonResult.forEach(r =>{
+                        var function_value = r.fields.function_value;
+                        costVars.forEach(v =>{
+                            let regex = new RegExp(v + '\\b', 'g');
+                            function_value = function_value.replaceAll(regex, v + cell.id);                            
+                        })
+                        r.fields.function_value = function_value;
+                    })
+                    
                     let value = {
                         "connectorType": type.id,
                         "varcost": varcost,
                         "external": external,
                         'resultdb': JSON.parse(result),
                         'name': type.name,
-                        "funcost": JSON.parse(result2)
+                        "funcost": jsonResult
                     };
 
                     value = JSON.stringify(value);
@@ -123,23 +132,25 @@ function clearDataHtml() {
     $('#nitrogenoDiagram').val('');
     $('#fosforoDiagram').val('');
     $('#funcostgenerate tr').remove();
+    $('#funcostgenerate div').remove();
     $('#funcostgenerate').empty();
 }
 
 function funcost(index) {
+    var currencyCostName = funcostdb[index].fields.currencyCost; 
     $('#funcostgenerate').append(
         `
     <tr idvalue="fun_${index}">
         <td aling="center">${funcostdb[index].fields.function_name}</td>
         <td class="small text-center vat" style="width: 160px">
         <a class="btn btn-info" idvalue="${index}" name="fun_display_btn">fx</a>
-        <div id="fun_display_${index}" style="position: absolute; left: 50%; width: auto; display: none">
+        <div id="fun_display_${index}" style="position: absolute; left: 50%; width: auto; display: none;">
         <div class="alert alert-info mb-0" style="position: relative; left: -50%; bottom: -10px;" role="alert">
-        <p name="render_ecuation" style="font-size: 1.8rem; width:100%;">${ funcostdb[index].fields.function_value }</p>
+        <p name="render_ecuation" style="font-size: 1.8rem; width:100%;">${funcostdb[index].fields.function_value}</p>
          </div>
         </div>
         </td>
-        <td class="small text-center vat">${funcostdb[index].fields.currencyCost}</td>
+        <td class="small text-center vat">${currencyCostName}</td>
         <td class="small text-center vat">${funcostdb[index].fields.global_multiplier_factorCalculator}</td>
         <td class="small text-center vat" style="width: 85px">
             <div class="btn-group btn-group-table" role="group">
@@ -151,11 +162,14 @@ function funcost(index) {
     </tr>
     `
     );
+    console.log(funcostdb[index].fields.function_value)
 
     $('p[name=render_ecuation]').each(function() {
         //MQ.StaticMath(this);
     });
 }
+
+
 
 function addData(element) {
     //add data in HTML for connectors
@@ -206,6 +220,7 @@ function addData2HTML(resultdb, cell) {
     $('#nitrogenoDiagram').prop('disabled', show);
     $('#fosforoDiagram').prop('disabled', show);
     $('#funcostgenerate tr').remove();
+    $('#funcostgenerate div').remove();
     $('#funcostgenerate').empty();
     // Add Value to Panel Information Right on HTML
     $('#aguaDiagram').val(resultdb[0].fields.predefined_transp_water_perc);
@@ -503,6 +518,7 @@ function clearDataHtmlView() {
     $('#nitrogenoDiagram').val('');
     $('#fosforoDiagram').val('');
     $('#funcostgenerate tr').remove();
+    $('#funcostgenerate div').remove();
     $('#funcostgenerate').empty();
 }
 
@@ -513,6 +529,7 @@ function addData2HTMLView(resultdb) {
     $('#nitrogenoDiagram').prop('disabled', show);
     $('#fosforoDiagram').prop('disabled', show);
     $('#funcostgenerate tr').remove();
+    $('#funcostgenerate div').remove();
     $('#funcostgenerate').empty();
     // Add Value to Panel Information Right on HTML
     $('#aguaDiagram').val(resultdb[0].fields.predefined_transp_water_perc);

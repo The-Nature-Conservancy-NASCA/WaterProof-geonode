@@ -83,7 +83,10 @@
                                 title: gettext('Great!'),
                                 text: gettext('The intake has been deleted')
                             })
-                            setTimeout(function () { location.href = "/intake/"; }, 1000);
+                            if (localStorage.cityId){
+                                cityId = localStorage.cityId;
+                            }
+                            setTimeout(function() { location.href = "/intake/?city="+cityId; }, 1000);
                         },
                         error: function (error) {
                             Swal.fire({

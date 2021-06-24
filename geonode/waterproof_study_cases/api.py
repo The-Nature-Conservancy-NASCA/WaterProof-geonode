@@ -46,7 +46,7 @@ def getIntakeByCity(request, name):
 def getIntakeByPtap(request, id):
     if request.method == 'GET':
         filterIntakePtap = Csinfra.objects.filter(csinfra_plant__id=id).values(
-            "csinfra_elementsystem__intake__id", "csinfra_elementsystem__intake__name", "csinfra_elementsystem__intake__water_source_name")
+            "csinfra_elementsystem__intake__id", "csinfra_elementsystem__intake__name", "csinfra_elementsystem__intake__water_source_name").order_by('csinfra_elementsystem__intake__name')
         data = list(filterIntakePtap)
         return JsonResponse(data, safe=False)
 
