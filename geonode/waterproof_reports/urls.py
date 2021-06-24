@@ -29,6 +29,10 @@ urlpatterns = [
     path('getReportAnalisysBeneficsB/', api.getReportAnalisysBeneficsB, name='get_report_analisys_benefics_b'),
     path('getReportAnalisysBeneficsC/', api.getReportAnalisysBeneficsC, name='get_report_analisys_benefics_c'),
     path('getSelectorStudyCasesId/', api.getSelectorStudyCasesId, name='get_selector_study_cases_id'),
+    path('getStudyCasesIntake/', api.getStudyCasesIntake, name='get_study_cases_intake'),
+    path('getDistinctGroupErr/', api.getDistinctGroupErr, name='get_distinct_group_err'),
+    path('getWpAqueductIndicatorGraph/', api.getWpAqueductIndicatorGraph, name='get_wp_aqueduct_indicator_graph'),
+    
     
     
 ]

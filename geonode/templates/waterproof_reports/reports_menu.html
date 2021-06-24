@@ -34,8 +34,12 @@
 
 <body>
     <div class="report-container">
+        <div class="title-report">Explore the reports resulting from the analysis of your case study</div>
+        <div class="help-report">
+            WaterProof provides you with reports in this section to understand the possible changes in soil and water resources due to the implementation of nature-based solutions, becoming powerful tools to make decisions about investment.
+        </div>
         <div>
-            <div id="mapidcuenca"></div>    
+            <div id="mapidcuenca" style="margin: 15px;margin-top: 30px;"></div>    
         </div>
         <div class="conainer-report-main">
             <div class="border-table-title">
@@ -58,11 +62,11 @@
                     <div class="column-right-table">
                         <div class="file-column-left">
                             <div class="title-file-column-right">{% trans "Number of water intakes that are part of the analysis:" %}</div>
-                            <div class="value-file-column-left">{% trans "-" %}</div>
+                            <div class="value-file-column-left" id="idNumberOfWater"></div>
                         </div>
                         <div class="file-column-left">
                             <div class="title-file-column-right">{% trans "Number of drinking water treatment plants in the system:" %}</div>
-                            <div class="value-file-column-left">{% trans "-" %}</div>
+                            <div class="value-file-column-left" id="idNumberOfDrinking"></div>
                         </div>
                     </div>
                 </div>
@@ -72,7 +76,7 @@
             <div class="content-image">
                 <img src="/static/geonode/img/valor-bruto.png"/>
             </div>
-            <div style="width: 40%;position: absolute;left: 50%;">
+            <div style="width: 50%;position: absolute;left: 45%;margin: 50px;">
                 <div id="containerNpv"></div>
             </div>
         </div>
@@ -81,29 +85,41 @@
         </div>
         <div style="margin-top: 40px;">
             <div class="marc-report">
+                <div style="height: 120px;overflow: hidden;">
+                    <img src="/static/geonode/img/picture-one.jpg" style="width: 100%;">
+                </div>
                 <div class="title-marc">Physical risk quantity (qan_def)</div>
                 <div class="detail-border-marc">Physical risk quantity measures risk related to too little or too much water by aggregating all selected indicators from the physical risk quantity category</div>
                 <div class="button-marc" id="idButtonPrq">Medium</div>
             </div>
             <div class="marc-report">
+                <div style="height: 120px;overflow: hidden;">
+                    <img src="/static/geonode/img/picture-two.jpg" style="width: 100%;">
+                </div>
                 <div class="title-marc">Physical risk quantity (qal_def)</div>
                 <div class="detail-border-marc">Physical risk quantity measures risk related to water that in unfit for use by aggregating all selected indicators from the physical risk quantity category</div>
                 <div class="button-marc" id="idButtonPrqa">Medium to high</div>
             </div>
             <div class="marc-report">
+                <div style="height: 120px;overflow: hidden;">
+                    <img src="/static/geonode/img/picture-three.jpg" style="width: 100%;">
+                </div>
                 <div class="title-marc">Regulatory and reputational (rrr_def)</div>
                 <div class="detail-border-marc">Risk regulatory and reputational risk measures risk related to uncertainty in regulatory chance, as well as conflich with re public regarding water issues</div>
                 <div class="button-marc" id="idButtonRar">Medium to high</div>
             </div>
             <div class="marc-report">
+                <div style="height: 120px;overflow: hidden;">
+                    <img src="/static/geonode/img/picture-four.jpg" style="width: 100%;">
+                </div>
                 <div class="title-marc">Overall water risk score (tot_def)</div>
                 <div class="detail-border-marc">Overall water risk measures all water related risk, by aggregating all selected indicators from the physical risjk quantity, physical risk quality, and regulatory and reputational risk categories</div>
                 <div class="button-marc">MEDIUM</div>
             </div>
         </div>
         <div class="marc-table">
-            <div class="border-marc-table">
-                <div class="title-marc-table">Estimated percent improvement from area businnes as usual</div>
+            <div style="width: calc(100% - 20px);margin-top: 50px;float: left;">
+                <div class="title-report" style="text-align: center;">Estimated percent improvement from area businnes as usual</div>
                 <div class="line-marc-table">
                     <div>Anual water yield</div>
                     <div class="line-number-marc-table" id="changeInVolumeOfWater">20%</div>
@@ -129,8 +145,10 @@
                     <div class="line-number-marc-table" id="changeInCarbonStorage">20%</div>
                 </div>
             </div>
-            <div class="border-marc-table" style="width: 60%;">
-                <div class="title-marc-table" style="margin: 0px;height: 70px;">
+        </div>
+        <div>
+            <div class="border-table-title" style="float: left;">
+                <div class="title-table">
                     <div class="tile-center-title">Green infraestructure activity</div>
                     <div class="tile-center-title">Cost per hectare (USD)</div>
                     <div class="tile-center-title">Recommended intervection (Hectares)</div>
@@ -270,7 +288,7 @@ $(function () {
                 }
 
                 if(value.color === "Dark Green") {
-                    objectButton.style.backgroundColor = "#094e09";
+                    objectButton.style.backgroundColor = "#2A6A7D";
                 }
                 objectButton.innerHTML = value.description;
 
@@ -280,12 +298,12 @@ $(function () {
         var urlDetail = "../../reports/getReportAnalisysBeneficsB/?studyCase=" + localStorage.idStudyCase;
         $.getJSON(urlDetail, function (data) {
             $.each( data, function( key, value ) {
-                document.getElementById("changeInVolumeOfWater").innerHTML = value.changeInVolumeOfWater;
-                document.getElementById("changeInBaseFlow").innerHTML = value.changeInBaseFlow;
-                document.getElementById("changeIntotalSediments").innerHTML = value.changeIntotalSediments;
-                document.getElementById("changeInNitrogenLoad").innerHTML = value.changeInNitrogenLoad;
-                document.getElementById("changeInPhosphorus").innerHTML = value.changeInPhosphorus;
-                document.getElementById("changeInCarbonStorage").innerHTML = value.changeInCarbonStorage;
+                document.getElementById("changeInVolumeOfWater").innerHTML = value.changeInVolumeOfWater.toFixed(2);
+                document.getElementById("changeInBaseFlow").innerHTML = value.changeInBaseFlow.toFixed(2);
+                document.getElementById("changeIntotalSediments").innerHTML = value.changeIntotalSediments.toFixed(2);
+                document.getElementById("changeInNitrogenLoad").innerHTML = value.changeInNitrogenLoad.toFixed(2);
+                document.getElementById("changeInPhosphorus").innerHTML = value.changeInPhosphorus.toFixed(2);
+                document.getElementById("changeInCarbonStorage").innerHTML = value.changeInCarbonStorage.toFixed(2);
             });
         });
 
@@ -293,7 +311,7 @@ $(function () {
         $.getJSON(urlDetail, function (data) {
             var listFielTable = "";
             $.each( data, function( key, value ) {
-                listFielTable = listFielTable + '<div class="line-marc-table"><div style="width: 30%;">' + value.sbnf + '</div><div class="top-center-line">' + value.costPerHectarea + '</div><div class="line-number-marc-table">' + value.recomendedIntervetion + '</div></div>';
+                listFielTable = listFielTable + '<div class="line-marc-table" style="width: 100%;color: #616160;margin-top: 20px;height: 0px;"><div style="width: 30%;">' + value.sbnf + '</div><div class="top-center-line">' + value.costPerHectarea.toFixed(2) + '</div><div class="line-number-marc-table" style="    position: absolute;right: 0px;width: 30%;color: #616160;font-size: 13px;padding: 0px;top: 0px;">' + value.recomendedIntervetion.toFixed(2) + '</div></div>';
             });
             document.getElementById("listFielTable").innerHTML = listFielTable;
         });
@@ -308,6 +326,16 @@ $(function () {
                 document.getElementById("idSelectStudyCase").add(option);
             });
         });
+
+        var urlDetail = "../../reports/getStudyCasesIntake/?studyCase=" + localStorage.idStudyCase;
+        $.getJSON(urlDetail, function (data) {
+            var listFielTable = "";
+            $.each( data, function( key, value ) {
+                document.getElementById("idNumberOfWater").innerHTML = value.numberStudyCase;
+                document.getElementById("idNumberOfDrinking").innerHTML = value.numberStudyCase;
+            });
+        });
+
         document.getElementById("idSelectStudyCase").onchange = function() {
             location.href = "../report/" + this.value;
         }

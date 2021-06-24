@@ -46,25 +46,25 @@
                 <div class="column-right-table">
                     <div class="file-column-left">
                         <div class="title-file-column-right">{% trans "Number of water intakes that are part of the analysis:" %}</div>
-                        <div class="value-file-column-left">{% trans "-" %}</div>
+                        <div class="value-file-column-left" id="idNumberOfWaterDecision"></div>
                     </div>
                     <div class="file-column-left">
                         <div class="title-file-column-right">{% trans "Number of drinking water treatment plants in the system:" %}</div>
-                        <div class="value-file-column-left">{% trans "-" %}</div>
+                        <div class="value-file-column-left" id="idNumberOfDrinkingDecision"></div>
                     </div>
                 </div>
             </div>
         </div>
         <div style="text-align: center;text-align: center;position: absolute;top: 0px;right: 0px;margin-left: 530px;font-size: 13px;">
             <div style="float: left;width: 25%;" id="idFinancialIndicators">
+                <img src="/static/geonode/img/indicadores-fisicos.png" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;" title="{% trans "Financial indicators" %}"/> 
+                <br> 
+                <a onclick="changeReport()">{% trans "Reports" %}</a>
+            </div>
+            <div style="float: left;width: 25%;" id="idFinancialIndicators">
                 <img src="/static/geonode/img/Indicadores-financieros.png" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;" title="{% trans "Financial indicators" %}"/> 
                 <br> 
                 <a href="../../reports/financial/">{% trans "Financial indicators" %}</a>
-            </div>
-            <div style="float: left;width: 25%;" id="idDecisionIndicators">
-                <img src="/static/geonode/img/indicadores-decision.png" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;" title="{% trans "Decision indicators" %}"/>
-                <br>
-                <a href="../../reports/decision/">{% trans "Decision indicators" %}</a>
             </div>
         </div>
         <!--panel of navigation-->
@@ -177,27 +177,9 @@
                 <br>
                 <div class="title-water">{% trans "Water Intake" %} <span class="name-title-water">"{% trans "Water Intake" %}"</span></div>
                 <div class="margin-select">
-                    <select class="select-condition">
-                        <option>Current Condition</option>
-                        <option>Future - 10 years</option>
-                        <option>Future - 20 years</option>
-                    </select>
+                    <select class="select-condition" id="idSelectWaterIntake"></select>
                 </div>
-                <div class="title-water">{% trans "Physical risk quantity" %}</div>
-                <div class="container-general-gauge">
-                    <div class="container-gauge"><div id="containerPr1"></div></div>
-                    <div class="container-gauge"><div id="containerPr2"></div></div>
-                </div>
-                <div class="title-water">{% trans "Regulatory and Reputational" %}</div>
-                <div class="container-general-gauge">
-                    <div class="container-gauge"><div id="containerRr1"></div></div>
-                    <div class="container-gauge"><div id="containerRr2"></div></div>
-                </div>
-                <div class="title-water">{% trans "Physical risk quality" %}</div>
-                <div class="container-general-gauge">
-                    <div class="container-gauge"><div id="containerPrq1"></div></div>
-                    <div class="container-gauge"><div id="containerPrq2"></div></div>
-                </div>
+                <div id="idListGraph"></div>
             </div>
         </div>
 </form>
@@ -312,6 +294,10 @@ $(function () {
         }
     });
 
+
+    changeReport = function() {
+        location.href = "../../study_cases/report/" + localStorage.idStudyCase;
+    }
 
     /**
     * Search the points of a city and load them in the polygon of the map
@@ -634,7 +620,7 @@ $(function () {
             }
         };
 
-        var chartSpeed = Highcharts.chart('containerPr1', Highcharts.merge(gaugeOptions, {
+/*        var chartSpeed = Highcharts.chart('containerPr1', Highcharts.merge(gaugeOptions, {
             yAxis: {
                 min: 0,
                 max: 100,
@@ -751,47 +737,25 @@ $(function () {
                 }
             }]
         }));
-        var chartSpeed = Highcharts.chart('containerPrq2', Highcharts.merge(gaugeOptions, {
-            yAxis: {
-                min: 0,
-                max: 100,
-                title: {
-                    text: 'Baseline water stress'
-                }
-            },
-            credits: {
-                enabled: false
-            },
-            series: [{
-                name: 'Baseline water stress',
-                data: [80],
-                dataLabels: {
-                    format:
-                        '<div style="text-align:center">' +
-                        '<span style="font-size:25px">{y}</span><br/>' +
-                        '<span style="font-size:12px;opacity:0.4">km/h</span>' +
-                        '</div>'
-                }
-            }]
-        }));
+        
 
-
+*/
 
 
         var urlDetail = "../../reports/getReportOportunityResultIndicators/?studyCase=" + localStorage.idStudyCase;
         $.getJSON(urlDetail, function (data) {
             $.each( data, function( key, value ) {
                 if(value.description === "TotalTreatmentCostSavings") {
-                    document.getElementById("idTotalTreatmentCostSavings").innerHTML = value.value
+                    document.getElementById("idTotalTreatmentCostSavings").innerHTML = value.value.toFixed(2);
                 }
                 if(value.description === "TimeFrame") {
-                    document.getElementById("idTimeFrame").innerHTML = value.value
+                    document.getElementById("idTimeFrame").innerHTML = value.value.toFixed(2);
                 }
                 if(value.description === "TotalEstimatedInvestment") {
-                    document.getElementById("idTotalEstimatedInvestment").innerHTML = value.value
+                    document.getElementById("idTotalEstimatedInvestment").innerHTML = value.value.toFixed(2);
                 }
                 if(value.description === "TotalAreaInterventionSize(Hec)") {
-                    document.getElementById("idTotalAreaInvestmentSize").innerHTML = value.value
+                    document.getElementById("idTotalAreaInvestmentSize").innerHTML = value.value.toFixed(2);s
                 }
             });
         });
@@ -1161,6 +1125,81 @@ $(function () {
             $('#idSectionPr').attr('class', 'inform-section');
             $('#step4').css("display", "block");
         });
+
+        var urlDetail = "../../reports/getStudyCasesIntake/?studyCase=" + localStorage.idStudyCase;
+        $.getJSON(urlDetail, function (data) {
+            var listFielTable = "";
+            $.each( data, function( key, value ) {
+                document.getElementById("idNumberOfWaterDecision").innerHTML = value.numberStudyCase;
+                document.getElementById("idNumberOfDrinkingDecision").innerHTML = value.numberStudyCase;
+            });
+        });
+
+        var urlDetail = "../../reports/getDistinctGroupErr/?studyCase=" + localStorage.idStudyCase;
+        $.getJSON(urlDetail, function (data) {
+            var listFielTable = "";
+            $.each( data, function( key, value ) {
+                var option = document.createElement("option");
+                option.text = value.resultGrouperr;
+                option.value = value.resultGrouperr;
+                document.getElementById("idSelectWaterIntake").add(option);
+            });
+        });
+
+        var urlDetail = "../../reports/getWpAqueductIndicatorGraph/?studyCase=" + localStorage.idStudyCase;
+        $.getJSON(urlDetail, function (data) {
+            var lastGroupImage = "";
+            var titleGraph = "";
+            var numberContainer = 0;
+            $.each( data, function( key, value ) {
+
+                if(lastGroupImage !== value.indicator) {
+                    if(titleGraph !== "") {
+                        titleGraph = titleGraph + '</div>';
+                    }
+                    titleGraph = titleGraph + '<div class="title-water" style="float: left;width: 1000px;">' + value.indicator + '</div><div class="container-general-gauge">';
+                    lastGroupImage = value.indicator;
+                }
+                titleGraph = titleGraph + '<div class="container-gauge"><div id="containerPr' + numberContainer + '"></div></div>';
+                numberContainer++;
+            });
+            titleGraph = titleGraph + '</div>';
+            document.getElementById("idListGraph").innerHTML = titleGraph;
+
+
+            setTimeout(function(){
+                var urlDetail = "../../reports/getWpAqueductIndicatorGraph/?studyCase=" + localStorage.idStudyCase;
+                $.getJSON(urlDetail, function (data) {
+                    var numberContainerG = 0;
+                    $.each( data, function( key, value ) {
+                        var chartSpeed = Highcharts.chart('containerPr' + numberContainerG, Highcharts.merge(gaugeOptions, {
+                            yAxis: {
+                                min: 0,
+                                max: (value.valueIndicator * 2),
+                                title: {
+                                    text: value.description
+                                }
+                            },
+                            credits: {
+                                enabled: false
+                            },
+                            series: [{
+                                name: 'Baseline water stress',
+                                data: [value.valueIndicator],
+                                dataLabels: {
+                                    format:
+                                        '<div style="text-align:center">' +
+                                        '<span style="font-size:25px">{y}</span><br/>' +
+                                        '</div>'
+                                }
+                            }]
+                        }));
+                        numberContainerG++;
+                    });
+                });
+            }, 3000);
+        });
+
     };
     initialize();
     initMapDecision();
