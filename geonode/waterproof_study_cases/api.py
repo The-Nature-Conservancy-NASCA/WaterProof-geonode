@@ -442,6 +442,7 @@ def save(request):
             elif(request.POST.get('analysis_type')):
                 id_study_case = request.POST['id_study_case']
                 run = request.POST.get('run_analysis')
+                logger.error(run)
                 sc = StudyCases.objects.get(pk=id_study_case)
                 sc.is_complete = True
                 sc.time_implement = request.POST['period_nbs']
@@ -494,11 +495,14 @@ def save(request):
                         currencys_sc.value = currency['value']
                         currencys_sc.studycase = sc
                         currencys_sc.save()
+                sc.save()
                 if(run == 'true'):
+                    logger.error(request.user.id)
+                    logger.error(id_study_case)
                     resp = requests.get('http://dev.skaphe.com:5050/preprocRIOS',
                                     params={'id_usuario': request.user.id,
                                             'id_case': id_study_case})
                     if resp.status_code == 200:
                         sc.is_run_analysis = True
-                sc.save()
+                        sc.save()
                 return JsonResponse({'id_study_case': sc.id}, safe=False)
