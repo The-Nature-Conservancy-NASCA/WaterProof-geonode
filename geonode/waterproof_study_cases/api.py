@@ -106,6 +106,7 @@ def getStudyCaseCurrencys(request):
                         currencys.append(currency)
             for intake in scintakes:
                 intakeCurrency = UserCostFunctions.objects.filter(intake=intake).values('currency__currency').distinct()
+                logger.error(intakeCurrency)
                 for intakec in intakeCurrency:
                     if(intakec['currency__currency'] != sc_currency and any(element['currency'] in intakec['currency__currency'] for element in currencys)):
                         currency = {}
@@ -440,6 +441,7 @@ def save(request):
                 return JsonResponse({'id_study_case': sc.id}, safe=False)
             elif(request.POST.get('analysis_type')):
                 id_study_case = request.POST['id_study_case']
+                run = request.POST.get('run_analysis')
                 sc = StudyCases.objects.get(pk=id_study_case)
                 sc.is_complete = True
                 sc.time_implement = request.POST['period_nbs']
@@ -492,17 +494,11 @@ def save(request):
                         currencys_sc.value = currency['value']
                         currencys_sc.studycase = sc
                         currencys_sc.save()
+                if(run == 'true'):
+                    resp = requests.get('http://dev.skaphe.com:5050/preprocRIOS',
+                                    params={'id_usuario': request.user.id,
+                                            'id_case': id_study_case})
+                    if resp.status_code == 200:
+                        sc.is_run_analysis = True
                 sc.save()
                 return JsonResponse({'id_study_case': sc.id}, safe=False)
-            elif(request.POST.get('run_analysis')):
-                id_study_case = request.POST['id_study_case']
-                sc = StudyCases.objects.get(pk=id_study_case)
-                resp = requests.get('http://dev.skaphe.com:5050/preprocRIOS',
-                                    params={'id_usuario': request.user.id,
-                                            'id_case': id_study_case},
-                                    )
-                logger.error(resp)
-                if resp.status_code == 200:
-                    sc.is_run_analysis = True
-                    sc.save()
-                return JsonResponse({'id_study_case': sc.id , 'status_code':resp.status_code}, safe=False)
