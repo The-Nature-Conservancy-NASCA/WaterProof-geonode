@@ -19,6 +19,9 @@ urlpatterns = [
     # Delete Study Cases
     path('delete/<int:idx>', api.delete, name='delete-study-cases'),
     
+    # Report Study Cases
+    path('report/<int:idx>', views.report, name='delete-study-cases'),
+
     path('currencys/', api.getStudyCaseCurrencys, name='currencys-study-cases'),
     
     path('intakebyid/<int:id_intake>/', api.getIntakeByID, name='intake-id'),

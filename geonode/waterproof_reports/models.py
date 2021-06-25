@@ -89,7 +89,6 @@ class calculateCostFunctionPtap(models.Model):
     # Create your models here.
     study_case = models.ForeignKey(StudyCases, on_delete=models.CASCADE)
     stage = models.CharField(max_length=10)	
-    function_plant = models.ForeignKey(Function, on_delete=models.CASCADE)#hace referencia al elemento del diagrama.
     function_graph = models.IntegerField(verbose_name=_('Graph Id Function'))
     user = models.ForeignKey( settings.AUTH_USER_MODEL, null=True, blank=True, on_delete=models.CASCADE)	
     year = models.IntegerField(verbose_name=_('Year'))	

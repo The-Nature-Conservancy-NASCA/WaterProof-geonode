@@ -13,9 +13,13 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
 <div class="header-waterproof">
-    <div>
-        <h1 id="titleFormTreatmentPlant"></h1>
-        <h1 class="title-city">{% trans "Treatment plant creation city: " %} <span id="nameCity"></span> </h1>
+    <div class="row">
+        <div class="col-sm-6">
+            <h1 id="titleFormTreatmentPlant"></h1>
+        </div>
+        <div class="col-sm-6">
+            <h1 class="title-city">{% trans "Treatment plant creation city: " %} <span id="nameCity"></span> </h1>
+        </div>
     </div>
     <form data-toggle="validator" role="form" action="#">
         <h4 class="text-primary">{% trans "General Settings" %}</h4>
@@ -30,7 +34,7 @@
                 rows="4" required></textarea>
             <div class="help-block with-errors"></div>
         </div>
-    
+
         <div class="form-group">
             <fieldset>
             <legend><label>{% trans "Water Intake" %} <span class="text-danger-wp">(*)</span> </label></legend>
@@ -55,7 +59,7 @@
                 <button type="button" class="btn btn-primary" id="idSendIntake">{% trans "Add water intake" %}</button>
             </fieldset>
         </div>
-    
+
         <div class="form-group">
             <fieldset>
                 <legend><label>{% trans "Configuration" %} <span class="text-danger-wp">(*)</span> </label></legend>

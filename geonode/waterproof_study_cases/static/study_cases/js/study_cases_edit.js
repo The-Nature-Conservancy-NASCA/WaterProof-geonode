@@ -455,8 +455,6 @@ $(document).ready(function() {
                 id_study_case: id_study_case,
                 nbs: nbs
             }, function(data) {
-                $('#smartwizard').smartWizard("next");
-                $('#autoAdjustHeightF').css("height", "auto");
                 loadNBSActivities()
             }, "json");
         } else {
@@ -474,7 +472,6 @@ $(document).ready(function() {
     });
 
     $('#step7RunBtn').click(function() {
-
         analysis_currency = $("#analysis_currency option:selected").text()
         html = '<div class="row" id="currencys-panel"> <div class="col-md-10 currency-panel">Currency for the execution this analisys</div><div class="col-md-2 currency-panel currency-text">' + analysis_currency
         html += '</div><div class="col-md-12 currency-panel">The following exchange rates will be applied for the analysis.</div>'
@@ -512,7 +509,16 @@ $(document).ready(function() {
                 }
             }).then((result) => {
                 if (result.isConfirmed) {
-
+                    $('#_analysis_processing').modal('toggle');
+                    $.post("../../study_cases/save/", {
+                        id_study_case: id_study_case,
+                        run_analysis: true
+                    }, function(data) {
+                        $('#smartwizard').smartWizard("next");
+                        $('#autoAdjustHeightF').css("height", "auto");
+                        $('#_analysis_processing').modal('hide');
+                        $("#form").submit();
+                    }, "json");
                 }
             })
         });
@@ -598,24 +604,24 @@ $(document).ready(function() {
                                 nbsactivities.push(nbsactivity)
                             }
                         });
-                        $.post("../../study_cases/save/", {
-                            id_study_case: id_study_case,
-                            analysis_type: type,
-                            period_nbs: $('#period_nbs').val(),
-                            period_analysis: $('#period_analysis').val(),
-                            analysis_nbs: $("#analysis_nbs option:selected").val(),
-                            analysis_currency: $("#analysis_currency option:selected").text(),
-                            annual_investment: $('#annual_investment').val(),
-                            rellocated_remainder: $("#rellocated_check").is(':checked'),
-                            nbsactivities: '1' + JSON.stringify(nbsactivities),
-                            currencys: '1' + JSON.stringify(result.value),
-
-                        }, function(data) {
-                            $('#smartwizard').smartWizard("next");
-                            $('#autoAdjustHeightF').css("height", "auto");
-                        }, "json");
-                        $("#form").submit();
                     }
+                    $.post("../../study_cases/save/", {
+                        id_study_case: id_study_case,
+                        analysis_type: type,
+                        period_nbs: $('#period_nbs').val(),
+                        period_analysis: $('#period_analysis').val(),
+                        analysis_nbs: $("#analysis_nbs option:selected").val(),
+                        analysis_currency: $("#analysis_currency option:selected").text(),
+                        annual_investment: $('#annual_investment').val(),
+                        rellocated_remainder: $("#rellocated_check").is(':checked'),
+                        nbsactivities: '1' + JSON.stringify(nbsactivities),
+                        currencys: '1' + JSON.stringify(result.value),
+                    }, function(data) {
+                        $('#smartwizard').smartWizard("next");
+                        $('#autoAdjustHeightF').css("height", "auto");
+                        $("#form").submit();
+                    }, "json");
+
                 })
             });
         } else {
@@ -1003,6 +1009,7 @@ $(document).ready(function() {
             if (values) {
                 $("#full-table").removeClass('panel-hide');
             }
+            $('#smartwizard').smartWizard("next");
             $('#autoAdjustHeightF').css("height", "auto");
 
         });

@@ -591,7 +591,8 @@
                          'function_name': $('#costFunctionName').val() == '' ? 'Undefined name' : $('#costFunctionName').val(),
                          'function_description': $('#costFuntionDescription').val(),
                          'global_multiplier_factorCalculator': $('#global_multiplier_factorCalculator').val(),
-                         'currencyCost': $('#currencyCost').val(),
+                         'currencyCost': $('#currencyCost option:selected').val(),
+                         'currencyCostName': $('#currencyCost option:selected').text(),
                          'logical': [{
                              'condition_1': "",
                              'ecuation_1': "",
@@ -611,7 +612,8 @@
                      'function_description': $('#costFuntionDescription').val(),
                      'function_py_value': $('#python-expression').val(),
                      'global_multiplier_factorCalculator': $('#global_multiplier_factorCalculator').val(),
-                     'currencyCost': $('#currencyCost').find('option:selected').attr("name"),
+                     'currencyCost': $('#currencyCost option:selected').val(),
+                     'currencyCostName': $('#currencyCost option:selected').text(),
                      'logical': [{
                          'condition_1': "",
                          'ecuation_1': "",

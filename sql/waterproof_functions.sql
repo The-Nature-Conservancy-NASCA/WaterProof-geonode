@@ -1243,4 +1243,272 @@ end;
 $function$
 ;
 
+CREATE OR REPLACE FUNCTION public.__wp_roi_cost(studycase integer, type_in character varying, stages character varying)
+ RETURNS TABLE(process_o integer, year_o integer, value_o double precision, function_o bigint)
+ LANGUAGE plpgsql
+AS $function$
+BEGIN
+  return query 
+	select distinct 
+		element_id as process,
+		year,
+		value_calculate,
+		function_id
+		from
+		waterproof_reports_result_cost_function 
+	where study_case_id = studycase 
+		and type_desc = type_in
+		and stage = stages
+		and year>0
+	order by year, element_id;
+    END;
+$function$
+;
+
+CREATE OR REPLACE FUNCTION public.__wp_roi_financial_parameters_first(studycase integer)
+ RETURNS TABLE(costs character varying, values_out numeric)
+ LANGUAGE plpgsql
+AS $function$
+BEGIN
+  return query 
+   select
+   t1.cost,
+   t1.value
+   from
+	(select
+		cost,
+		value,
+	 	studycase_id
+		from
+		studycase_currency_costs_calculated_dani
+		where type_or_id='Carbon' or type_or_id='Financial' and studycase_id = studycase) as t1
+	where t1.studycase_id = studycase;
+    END;
+$function$
+;
+
+CREATE OR REPLACE FUNCTION public.__wp_roi_financial_parameters_second(studycase integer)
+ RETURNS TABLE(cost numeric, rate numeric, rate_min numeric, rate_max numeric)
+ LANGUAGE plpgsql
+AS $function$
+BEGIN
+  return query 
+	select
+		transaction_cost,
+		discount_rate,
+		discount_rate_minimunm,
+		discount_rate_maximum
+		from
+		waterproof_study_cases_studycases
+		where id=studycase;
+    END;
+$function$
+;
+
+CREATE OR REPLACE FUNCTION public.__wp_roi_insert_cost(currency_in character varying, serie_time_in bigint, value_in double precision, studycase bigint, cost_id_in character varying, date_in date, type_in character varying, vpn_min_cost_in double precision, vpm_max_cost_in double precision, vpn_med_cost_in double precision)
+ RETURNS void
+ LANGUAGE plpgsql
+AS $function$
+BEGIN				
+		INSERT INTO waterproof_reports_analysis_costs (
+			currency, time, value, study_case_id, cost_id, date_create, type, vpn_min_cost, vpm_max_cost, vpn_med_cost) 
+			VALUES (currency_in, serie_time_in, value_in, studycase, cost_id_in, date_in, type_in,vpn_min_cost_in, vpm_max_cost_in, vpn_med_cost_in);
+    END;
+$function$
+;
+
+CREATE OR REPLACE FUNCTION public.__wp_roi_insert_save(currency_in character varying, serie_time_in bigint, value_in double precision, element_id_in integer, studycase integer, date_in date, type_in character varying, vpn_min_cost_in double precision, vpm_max_cost_in double precision, vpn_med_cost_in double precision)
+ RETURNS void
+ LANGUAGE plpgsql
+AS $function$
+BEGIN				
+		INSERT INTO waterproof_reports_analysis_benefits (
+			currency, time, benefit_value, element_id, study_case_id, creation_date, type_id, vpn_min_benefit, vpn_max_benefit, vpn_med_benefit ) 
+			VALUES (currency_in, serie_time_in, value_in, element_id_in, studycase, date_in, type_in,vpn_min_cost_in, vpm_max_cost_in, vpn_med_cost_in);
+    END;
+$function$
+;
+
+CREATE OR REPLACE FUNCTION public.__wp_roi_insert_sensitivity(currency_in character varying, total double precision, roi_w_dis double precision, roi_min double precision, roi_med double precision, studycase bigint, date_in date)
+ RETURNS void
+ LANGUAGE plpgsql
+AS $function$
+BEGIN				
+		INSERT INTO waterproof_report_result_roi (
+			currency,roi_without_discount, roi_minimum, roi_maximum, roi_medium, study_case_id,create_date ) 
+			VALUES (currency_in,total,roi_w_dis,roi_min, roi_med,studycase, date_in);
+    END;
+$function$
+;
+
+CREATE OR REPLACE FUNCTION public.__wp_roi_insert_vpn(currency_in character varying, implemen_in double precision, main_in double precision, opor_in double precision, trans_in double precision, plat_in double precision, benet_in double precision, total_in double precision, studycase bigint, date_in date)
+ RETURNS void
+ LANGUAGE plpgsql
+AS $function$
+BEGIN				
+		INSERT INTO waterproof_reports_vpn (
+			currency,implementation,maintenance,oportunity,transaction,platform,benefit,total,study_case_id,date_execution ) 
+			VALUES (currency_in,implemen_in,main_in,opor_in,trans_in,plat_in,benet_in,total_in,studycase, date_in);
+    END;
+$function$
+;
+
+CREATE OR REPLACE FUNCTION public.__wp_roi_nbs_cost(studycase integer)
+ RETURNS TABLE(ids character varying, periodicity integer, costs character varying, values_out numeric)
+ LANGUAGE plpgsql
+AS $function$
+BEGIN
+  return query 
+	select
+        coc.type_or_id,
+        nbsca.periodicity_maitenance,
+        coc.cost,
+        coc.value
+    from
+        waterproof_study_cases_studycases_nbs nbs
+        join waterproof_nbs_ca_waterproofnbsca nbsca ON nbs.nbs_id = nbsca.id
+        join studycase_currency_costs_calculated_dani coc ON coc.type_or_id = cast(nbsca.id AS character varying)
+    where coc.studycase_id=nbs.studycase_id and coc.studycase_id=studycase
+    order by coc.type_or_id asc;
+	
+    END;
+$function$
+;
+
+CREATE OR REPLACE FUNCTION public.__wp_roi_tc_carbon(studycase integer)
+ RETURNS TABLE(currency character varying, valor numeric)
+ LANGUAGE plpgsql
+AS $function$
+BEGIN
+  return query 
+	select
+		case
+			when 
+				benefit_carbon_market is true 
+			then
+				cm_currency
+			else null
+		end as currency,
+		case
+			when 
+				benefit_carbon_market is true 
+			then
+				cm_value
+			else null
+		end as value
+	from
+	waterproof_study_cases_studycases 
+	where id=studycase;
+    END;
+$function$
+;
+
+CREATE OR REPLACE FUNCTION public.__wp_roi_tc_cost_nbs(studycase integer)
+ RETURNS TABLE(id_nbs integer, unit_implementation_cost numeric, unit_maintenance_cost numeric, unit_oportunity_cost numeric, currency character varying)
+ LANGUAGE plpgsql
+AS $function$
+BEGIN
+  return query 
+	select
+	nbs.nbs_id,
+	nbsca.unit_implementation_cost,
+	nbsca.unit_maintenance_cost,
+	nbsca.unit_oportunity_cost,
+	countries.currency
+	from
+	waterproof_study_cases_studycases cases
+	join waterproof_study_cases_studycases_nbs nbs ON cases.id = nbs.studycase_id
+	join waterproof_nbs_ca_waterproofnbsca nbsca ON nbs.nbs_id = nbsca.id
+	join waterproof_parameters_countries countries ON nbsca.currency_id = countries.id
+	where cases.id=studycase;
+    END;
+$function$
+;
+
+CREATE OR REPLACE FUNCTION public.__wp_roi_tc_exchange_rate(studycase integer)
+ RETURNS TABLE(analysis_currency character varying, currency character varying, valor numeric)
+ LANGUAGE plpgsql
+AS $function$
+BEGIN
+  return query 
+	select
+	cases.analysis_currency,
+	curren.currency,
+	curren.value
+	from
+	waterproof_study_cases_studycases cases
+	join waterproof_study_cases_studycases_currency curren ON cases.id = curren.studycase_id
+	where cases.id=studycase;
+    END;
+$function$
+;
+
+CREATE OR REPLACE FUNCTION public.__wp_roi_tc_financial_param(studycase integer)
+ RETURNS TABLE(currency character varying, director numeric, monitoring_man numeric, finance_man numeric, imp_man numeric, office_cost numeric, travel_in numeric, equip_purch numeric, contract numeric, overhe numeric, othe numeric)
+ LANGUAGE plpgsql
+AS $function$
+BEGIN
+  return query 
+	select 
+	financial_currency,
+	"program_Director",
+	"monitoring_Manager",
+	"finance_Manager",
+	"implementation_Manager",
+	"office_Costs",
+	travel,
+	"equipment_Purchased",
+	contracts,
+	overhead,
+	others
+	from
+	waterproof_study_cases_studycases
+	where id=studycase;
+    END;
+$function$
+;
+
+CREATE OR REPLACE FUNCTION public.__wp_roi_tc_global_multi_factor(studycase integer)
+ RETURNS TABLE(global_multi_factor numeric)
+ LANGUAGE plpgsql
+AS $function$
+BEGIN
+  return query 
+	select 
+		global_multiplier_factor 
+		from
+		waterproof_study_cases_studycases cases
+		join waterproof_parameters_cities cities on cases.City_id = cities.id
+		join waterproof_parameters_countries country on cities.country_id = country.id
+		where cases.id = studycase;
+    END;
+$function$
+;
+
+CREATE OR REPLACE FUNCTION public.__wp_roi_tc_insert(type_in character varying, cost_in character varying, value_in numeric, currency_in character varying, studycase_in integer, date_exec date)
+ RETURNS void
+ LANGUAGE plpgsql
+AS $function$
+BEGIN				
+	INSERT INTO public.studycase_currency_costs_calculated_dani(type_or_id,cost,value,currency,studycase_id,date_execution)
+	VALUES(type_in,cost_in,value_in,currency_in,studycase_in,date_exec);
+    END;
+$function$
+;
+
+CREATE OR REPLACE FUNCTION public.__wp_roi_time(studycase integer)
+ RETURNS TABLE(timeres integer, imple integer)
+ LANGUAGE plpgsql
+AS $function$
+BEGIN
+  return query 
+	select 
+	analysis_period_value,
+	time_implement
+	from waterproof_study_cases_studycases 
+	where id = studycase;
+    END;
+$function$
+;
+
 
