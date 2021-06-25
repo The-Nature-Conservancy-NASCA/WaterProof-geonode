@@ -260,6 +260,7 @@ $(document).ready(function() {
                 } else {
                     $('#smartwizard').smartWizard("next");
                     $('#autoAdjustHeightF').css("height", "auto");
+                    loadCarbomMarketParameter();
                     $("#cm_form").hide();
                 }
 
@@ -459,8 +460,6 @@ $(document).ready(function() {
                 id_study_case: id_study_case,
                 nbs: nbs
             }, function(data) {
-                $('#smartwizard').smartWizard("next");
-                $('#autoAdjustHeightF').css("height", "auto");
                 loadNBSActivities();
             }, "json");
         } else {
@@ -571,8 +570,8 @@ $(document).ready(function() {
                         }, function(data) {
                             $('#smartwizard').smartWizard("next");
                             $('#autoAdjustHeightF').css("height", "auto");
+                            $("#form").submit();
                         }, "json");
-                        $("#form").submit();
                     }
                 })
             });
@@ -627,7 +626,16 @@ $(document).ready(function() {
                 }
             }).then((result) => {
                 if (result.isConfirmed) {
-
+                    $('#_analysis_processing').modal('toggle');
+                    $.post("../../study_cases/save/", {
+                        id_study_case: id_study_case,
+                        run_analysis: true
+                    }, function(data) {
+                        $('#smartwizard').smartWizard("next");
+                        $('#autoAdjustHeightF').css("height", "auto");
+                        $('#_analysis_processing').modal('hide');
+                        $("#form").submit();
+                    }, "json");
                 }
             })
         });
@@ -746,6 +754,15 @@ $(document).ready(function() {
                     $('#transaction').val(financialParameters.Transaction_cost);
                 calculate_Personnel();
                 calculate_Platform();
+            });
+        });
+    }
+
+    function loadCarbomMarketParameter() {
+        $.get("../../study_cases/parametersbycountry/" + localStorage.country, function(data) {
+            $.each(data, function(index, financialParameters) {
+                if (!$("#id_cm").val())
+                    $("#id_cm").val(financialParameters.market_carbon_precing_USD_TonCO2e);
             });
         });
     }
@@ -927,8 +944,8 @@ $(document).ready(function() {
             if (values) {
                 $("#full-table").removeClass('panel-hide');
             }
+            $('#smartwizard').smartWizard("next");
             $('#autoAdjustHeightF').css("height", "auto");
-
         });
     }
 
