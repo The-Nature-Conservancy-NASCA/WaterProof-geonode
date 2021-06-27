@@ -218,6 +218,14 @@ $(document).ready(function() {
         valid_ptaps = true;
         valid_intakes = true;
         var type = $("input[name='type']:checked").val();
+        $('#custom_table').find('tbody > tr').each(function(index, tr) {
+            id = tr.id.replace('custom-', '')
+            intakes.push(id)
+        });
+        if (intakes.length <= 0) {
+            valid_intakes = false
+        }
+        var type = $("input[name='type']:checked").val();
         if (type == "1") {
             $('#ptap_table').find('tbody > tr').each(function(index, tr) {
                 id = tr.id.replace('ptap-', '')
@@ -227,14 +235,6 @@ $(document).ready(function() {
                 valid_ptaps = false;
             } else {
                 valid_intakes = true
-            }
-        } else {
-            $('#custom_table').find('tbody > tr').each(function(index, tr) {
-                id = tr.id.replace('custom-', '')
-                intakes.push(id)
-            });
-            if (intakes.length <= 0) {
-                valid_intakes = false
             }
         }
 
