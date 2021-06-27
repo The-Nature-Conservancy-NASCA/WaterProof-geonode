@@ -455,8 +455,6 @@ $(document).ready(function() {
                 id_study_case: id_study_case,
                 nbs: nbs
             }, function(data) {
-                $('#smartwizard').smartWizard("next");
-                $('#autoAdjustHeightF').css("height", "auto");
                 loadNBSActivities()
             }, "json");
         } else {
@@ -473,49 +471,120 @@ $(document).ready(function() {
         $('#smartwizard').smartWizard("prev");
     });
 
-    $('#step7RunBtn').click(function() {
 
-        analysis_currency = $("#analysis_currency option:selected").text()
-        html = '<div class="row" id="currencys-panel"> <div class="col-md-10 currency-panel">Currency for the execution this analisys</div><div class="col-md-2 currency-panel currency-text">' + analysis_currency
-        html += '</div><div class="col-md-12 currency-panel">The following exchange rates will be applied for the analysis.</div>'
-        html += '<div class="custom-control col-md-4 currency-value">Currency</div>'
-        html += '<div class="custom-control col-md-8 currency-value">Exchange</div>'
-        $.get("../../study_cases/currencys/", {
-            id: id_study_case,
-            currency: analysis_currency
-        }, function(data) {
-            $.each(data, function(index, currency) {
-                if (currency.currency != analysis_currency) {
-                    value = Number.parseFloat(currency.value).toFixed(5);
-                    html += '<div class="col-md-4 currency-value"><label class="custom-control-label" for="currency">' + currency.currency + '</label></div>'
-                    html += '<div class="custom-control col-md-8 currency-value"><input id="' + currency.currency + '" class="text-number" type="number" class="custom-control-input" value="' + value + '"></div>'
+    $('#step7RunBtn').click(function() {
+        edit = !$("#full-table").hasClass("panel-hide")
+        var valid_edit = true;
+        var valid_investment = true;
+        var valid_period = true;
+        nbsactivities = []
+        if (edit) {
+            var valid_edit = true;
+            $("#full-table").find("input").each(function() {
+                var $this = $(this);
+                if ($this.val().length <= 0) {
+                    valid_edit = false;
+                    return false;
                 }
             });
+        }
+        if ($('#period_analysis').val() < 10 || $('#period_analysis').val() > 100) {
             Swal.fire({
-                title: 'Exchange rate',
-                html: html,
-                showCancelButton: true,
-                confirmButtonText: 'Run',
-                preConfirm: () => {
-                    currencys = []
-                    $("#currencys-panel").find("input").each(function(index, input) {
-                        currency = {}
-                        input_id = input.id
-                        if (input_id) {
-                            val = $("#" + input_id).val()
-                            currency['currency'] = input_id;
-                            currency['value'] = val;
-                            currencys.push(currency)
-                        }
-                    });
-                    return currencys
-                }
-            }).then((result) => {
-                if (result.isConfirmed) {
+                icon: 'warning',
+                title: `Field problem`,
+                text: `Please check period value`
+            });
+            valid_period = false;
+            return
+        }
+        var type = $("input[name='analysis_type']:checked").val();
+        if (type == "2") {
+            valid_investment = $('#annual_investment').val() != ''
+        }
+        if ($('#period_analysis').val() != '' && $('#period_nbs').val() != '' && type && valid_edit && valid_investment && valid_period) {
 
-                }
-            })
-        });
+            analysis_currency = $("#analysis_currency option:selected").text()
+            html = '<div class="row" id="currencys-panel"> <div class="col-md-10 currency-panel">Currency for the execution this analisys</div><div class="col-md-2 currency-panel currency-text">' + analysis_currency
+            html += '</div><div class="col-md-12 currency-panel">The following exchange rates will be applied for the analysis.</div>'
+            html += '<div class="custom-control col-md-4 currency-value">Currency</div>'
+            html += '<div class="custom-control col-md-8 currency-value">Exchange</div>'
+            $.get("../../study_cases/currencys/", {
+                id: id_study_case,
+                currency: analysis_currency
+            }, function(data) {
+                $.each(data, function(index, currency) {
+                    if (currency.currency != analysis_currency) {
+                        value = Number.parseFloat(currency.value).toFixed(5);
+                        html += '<div class="col-md-4 currency-value"><label class="custom-control-label" for="currency">' + currency.currency + '</label></div>'
+                        html += '<div class="custom-control col-md-8 currency-value"><input id="' + currency.currency + '" class="text-number" type="number" class="custom-control-input" value="' + value + '"></div>'
+                    }
+                });
+                Swal.fire({
+                    title: 'Exchange rate',
+                    html: html,
+                    showCancelButton: true,
+                    confirmButtonText: 'Save',
+                    preConfirm: () => {
+                        currencys = []
+                        $("#currencys-panel").find("input").each(function(index, input) {
+                            currency = {}
+                            input_id = input.id
+                            if (input_id) {
+                                val = $("#" + input_id).val()
+                                currency['currency'] = input_id;
+                                currency['value'] = val;
+                                currencys.push(currency)
+                            }
+                        });
+                        return currencys
+                    }
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $('#_analysis_processing').modal('toggle');
+                        $("#full-table").find("input").each(function(index, input) {
+                            nbsactivity = {}
+                            input_id = input.id
+                            if (input_id) {
+                                split = input_id.split('-')
+                                nbssc_id = split.pop();
+                                val = $("#" + input_id).val()
+                                nbsactivity['id'] = nbssc_id;
+                                nbsactivity['value'] = val;
+                                nbsactivities.push(nbsactivity)
+                            }
+                        });
+
+                        $.post("../../study_cases/save/", {
+                            id_study_case: id_study_case,
+                            analysis_type: type,
+                            period_nbs: $('#period_nbs').val(),
+                            period_analysis: $('#period_analysis').val(),
+                            analysis_nbs: $("#analysis_nbs option:selected").val(),
+                            analysis_currency: $("#analysis_currency option:selected").text(),
+                            annual_investment: $('#annual_investment').val(),
+                            rellocated_remainder: $("#rellocated_check").is(':checked'),
+                            nbsactivities: '1' + JSON.stringify(nbsactivities),
+                            currencys: '1' + JSON.stringify(result.value),
+                            run_analysis: true
+                        }, function(data) {
+                            $('#_analysis_processing').modal('hide');
+                            $('#smartwizard').smartWizard("next");
+                            $('#autoAdjustHeightF').css("height", "auto");
+                            $("#form").submit();
+                        }, "json");
+                    }
+                })
+            });
+
+        } else {
+            Swal.fire({
+                icon: 'warning',
+                title: `Field empty`,
+                text: `Please check options`
+            });
+            return;
+        }
+
     });
 
     $('#step7EndBtn').click(function() {
@@ -598,24 +667,26 @@ $(document).ready(function() {
                                 nbsactivities.push(nbsactivity)
                             }
                         });
-                        $.post("../../study_cases/save/", {
-                            id_study_case: id_study_case,
-                            analysis_type: type,
-                            period_nbs: $('#period_nbs').val(),
-                            period_analysis: $('#period_analysis').val(),
-                            analysis_nbs: $("#analysis_nbs option:selected").val(),
-                            analysis_currency: $("#analysis_currency option:selected").text(),
-                            annual_investment: $('#annual_investment').val(),
-                            rellocated_remainder: $("#rellocated_check").is(':checked'),
-                            nbsactivities: '1' + JSON.stringify(nbsactivities),
-                            currencys: '1' + JSON.stringify(result.value),
-
-                        }, function(data) {
-                            $('#smartwizard').smartWizard("next");
-                            $('#autoAdjustHeightF').css("height", "auto");
-                        }, "json");
-                        $("#form").submit();
                     }
+                    $.post("../../study_cases/save/", {
+                        id_study_case: id_study_case,
+                        analysis_type: type,
+                        period_nbs: $('#period_nbs').val(),
+                        period_analysis: $('#period_analysis').val(),
+                        analysis_nbs: $("#analysis_nbs option:selected").val(),
+                        analysis_currency: $("#analysis_currency option:selected").text(),
+                        annual_investment: $('#annual_investment').val(),
+                        rellocated_remainder: $("#rellocated_check").is(':checked'),
+                        nbsactivities: '1' + JSON.stringify(nbsactivities),
+                        currencys: '1' + JSON.stringify(result.value),
+                        run_analysis: false
+                    }, function(data) {
+
+                        $('#smartwizard').smartWizard("next");
+                        $('#autoAdjustHeightF').css("height", "auto");
+                        $("#form").submit();
+                    }, "json");
+
                 })
             });
         } else {
@@ -1003,6 +1074,7 @@ $(document).ready(function() {
             if (values) {
                 $("#full-table").removeClass('panel-hide');
             }
+            $('#smartwizard').smartWizard("next");
             $('#autoAdjustHeightF').css("height", "auto");
 
         });

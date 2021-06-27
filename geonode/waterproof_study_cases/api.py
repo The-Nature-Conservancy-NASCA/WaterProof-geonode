@@ -95,7 +95,8 @@ def getStudyCaseCurrencys(request):
                     if(ptapc['function_currency'] != sc_currency):
                         currency = {}
                         currency['currency'] = ptapc['function_currency']
-                        scc = StudyCases_Currency.objects.filter(studycase=sc, currency=ptapc['function_currency']).first()
+                        scc = StudyCases_Currency.objects.filter(
+                            studycase=sc, currency=ptapc['function_currency']).first()
                         if(scc):
                             value = scc.value
                         else:
@@ -105,11 +106,13 @@ def getStudyCaseCurrencys(request):
                         currencys.append(currency)
             for intake in scintakes:
                 intakeCurrency = UserCostFunctions.objects.filter(intake=intake).values('currency__currency').distinct()
+                logger.error(intakeCurrency)
                 for intakec in intakeCurrency:
                     if(intakec['currency__currency'] != sc_currency and any(element['currency'] in intakec['currency__currency'] for element in currencys)):
                         currency = {}
                         currency['currency'] = intakec['currency__currency']
-                        scc = StudyCases_Currency.objects.filter(studycase=sc, currency=intakec['currency__currency']).first()
+                        scc = StudyCases_Currency.objects.filter(
+                            studycase=sc, currency=intakec['currency__currency']).first()
                         if(scc):
                             value = scc.value
                         else:
@@ -123,7 +126,8 @@ def getStudyCaseCurrencys(request):
                     if(nbsc['currency__currency'] != sc_currency and any(element['currency'] in nbsc['currency__currency'] for element in currencys)):
                         currency = {}
                         currency['currency'] = nbsc['currency__currency']
-                        scc = StudyCases_Currency.objects.filter(studycase=sc, currency=nbsc['currency__currency']).first()
+                        scc = StudyCases_Currency.objects.filter(
+                            studycase=sc, currency=nbsc['currency__currency']).first()
                         if(scc):
                             value = scc.value
                         else:
@@ -437,6 +441,8 @@ def save(request):
                 return JsonResponse({'id_study_case': sc.id}, safe=False)
             elif(request.POST.get('analysis_type')):
                 id_study_case = request.POST['id_study_case']
+                run = request.POST.get('run_analysis')
+                logger.error(run)
                 sc = StudyCases.objects.get(pk=id_study_case)
                 sc.is_complete = True
                 sc.time_implement = request.POST['period_nbs']
@@ -490,4 +496,13 @@ def save(request):
                         currencys_sc.studycase = sc
                         currencys_sc.save()
                 sc.save()
+                if(run == 'true'):
+                    logger.error(request.user.id)
+                    logger.error(id_study_case)
+                    resp = requests.get('http://dev.skaphe.com:5050/preprocRIOS',
+                                    params={'id_usuario': request.user.id,
+                                            'id_case': id_study_case})
+                    if resp.status_code == 200:
+                        sc.is_run_analysis = True
+                        sc.save()
                 return JsonResponse({'id_study_case': sc.id}, safe=False)
