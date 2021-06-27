@@ -629,14 +629,22 @@
                  var pyExp = $('#python-expression').val();
                  funcostdb[CostSelected].fields.function_value = pyExp;
              }
-             selectedCell.setAttribute('funcost', JSON.stringify(funcostdb));
-             $('#funcostgenerate tr').remove();
-             $('#funcostgenerate').empty();
-             for (let index = 0; index < funcostdb.length; index++) {
-                 funcost(index);
-             }
-             $('#CalculatorModal').modal('hide');
-             validateGraphIntake();
+
+             if (typeof(selectedCell.value) == "object"){
+                selectedCell.setAttribute('funcost', JSON.stringify(funcostdb));                
+            }else{
+                var valueSelectedCell = JSON.parse(selectedCell.value);
+                valueSelectedCell.funcost = funcostdb;
+                selectedCell.value = JSON.stringify(valueSelectedCell);
+            }
+             
+            $('#funcostgenerate tr').remove();
+            $('#funcostgenerate').empty();
+            for (let index = 0; index < funcostdb.length; index++) {
+                funcost(index);
+            }
+            $('#CalculatorModal').modal('hide');
+            validateGraphIntake();
          });
  
          //Edit funcion cost 
