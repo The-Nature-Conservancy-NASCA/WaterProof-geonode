@@ -138,6 +138,11 @@ function clearDataHtml() {
 
 function funcost(index) {
     var currencyCostName = funcostdb[index].fields.currencyCostName != undefined ? funcostdb[index].fields.currencyCostName : funcostdb[index].fields.currency; 
+    var factor = funcostdb[index].fields.global_multiplier_factorCalculator;
+    if (currencyCostName == undefined){
+        currencyCostName = "";
+        factor = "";
+    }
     $('#funcostgenerate').append(
         `
     <tr idvalue="fun_${index}">
@@ -151,7 +156,7 @@ function funcost(index) {
         </div>
         </td>
         <td class="small text-center vat">${currencyCostName}</td>
-        <td class="small text-center vat">${funcostdb[index].fields.global_multiplier_factorCalculator}</td>
+        <td class="small text-center vat">${factor}</td>
         <td class="small text-center vat" style="width: 85px">
             <div class="btn-group btn-group-table" role="group">
                 <a class="btn btn-info" name="glyphicon-edit" idvalue="${index}"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
