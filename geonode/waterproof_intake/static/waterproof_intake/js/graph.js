@@ -387,7 +387,7 @@
         
         //logical input expresion
         
-        var CostSelected = null;     
+        var selectedCostId = null;     
 
         //KeyBoard calculator funcion cost
         $('button[name=mathKeyBoard]').click(function() {
@@ -608,9 +608,9 @@
              } else {
                  //false = editar
                  var temp = {
-                     'function_name': $('#costFunctionName').val() == '' ? 'Undefined name' : $('#costFunctionName').val(),
+                    'function_value': $('#python-expression').val(), 
+                    'function_name': $('#costFunctionName').val() == '' ? 'Undefined name' : $('#costFunctionName').val(),
                      'function_description': $('#costFuntionDescription').val(),
-                     'function_py_value': $('#python-expression').val(),
                      'global_multiplier_factorCalculator': $('#global_multiplier_factorCalculator').val(),
                      'currencyCost': $('#currencyCost option:selected').val(),
                      'currencyCostName': $('#currencyCost option:selected').text(),
@@ -625,9 +625,16 @@
                  }
  
                  temp.logical = JSON.stringify(temp.logical);
-                 $.extend(funcostdb[CostSelected].fields, temp);
-                 var pyExp = $('#python-expression').val();
-                 funcostdb[CostSelected].fields.function_value = pyExp;
+                 if (selectedCostId == 0){
+                    $.extend(funcostdb[selectedCostId].fields, temp);
+                }else{
+                    let clonedFunCost = JSON.parse(JSON.stringify(funcostdb[0]));
+                    $.extend(clonedFunCost.fields, temp);
+                    funcostdb[selectedCostId] = clonedFunCost;
+                }
+                
+                var pyExp = $('#python-expression').val();
+                funcostdb[selectedCostId].fields.function_value = pyExp;
              }
 
              if (typeof(selectedCell.value) == "object"){
@@ -652,12 +659,12 @@
             //mathField.clearSelection();
             clearInputsMath();
             $('#CalculatorModal').modal('show');
-            CostSelected = $(this).attr('idvalue');
-            $('#costFunctionName').val(funcostdb[CostSelected].fields.function_name);
-            $('#costFuntionDescription').val(funcostdb[CostSelected].fields.function_description);
+            selectedCostId = parseInt($(this).attr('idvalue');)
+            $('#costFunctionName').val(funcostdb[selectedCostId].fields.function_name);
+            $('#costFuntionDescription').val(funcostdb[selectedCostId].fields.function_description);
             $('#CalculatorModalLabel').text('Modify Cost - ' + $('#titleCostFunSmall').text())
             setVarCost();
-            let value = funcostdb[CostSelected].fields.function_value;
+            let value = funcostdb[selectedCostId].fields.function_value;
             console.log("valor de value es: "+value)
             if (value == ""){
                 $('#python-expression').val();

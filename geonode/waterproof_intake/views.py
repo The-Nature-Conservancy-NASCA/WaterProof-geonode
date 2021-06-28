@@ -452,9 +452,9 @@ def createStepTwo(request):
                         elementsCreated.append(elementC)
                         if not (element['funcost'] == None):
                             costFunction = json.loads(element['funcost'])
-                            if (len(costFunction) > 0):
-                                
+                            if (len(costFunction) > 0):                                
                                 for function in costFunction:
+                                    # print (function)
                                     templateFunction = CostFunctionsProcess.objects.get(id=function['pk'])
                                     if ('currencyCost' in function['fields']):
                                         currency = Countries.objects.get(id=function['fields']['currencyCost'])
@@ -472,8 +472,8 @@ def createStepTwo(request):
                                     )
                                     if ('logical' in function['fields']):
                                         print("Saving logical function for connection")
-                                        logicalFunctions = json.loads(function['fields']['logical'])
-                                        print(len(logicalFunctions))
+                                        # logicalFunctions = json.loads(function['fields']['logical'])
+                                        # print(len(logicalFunctions))
                                         # if (len(logicalFunctions) > 0):
                                         #     for logical in logicalFunctions:
                                         #         print(logical)
