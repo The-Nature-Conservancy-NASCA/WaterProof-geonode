@@ -461,8 +461,7 @@ function onInit(editor) {
                             selectedCell[0].setAttribute("resultdb", result);
                         }
                     });
-                }
-                
+                }                
 
                 $.ajax({
                     url: `/intake/loadFunctionBySymbol/${selectedCell[0].funcionreference}`,
@@ -610,24 +609,31 @@ function onInit(editor) {
             } else {
                 //false = editar
                 var temp = {
+                    'function_value': $('#python-expression').val(),
                     'function_name': $('#costFunctionName').val() == '' ? 'Undefined name' : $('#costFunctionName').val(),
-                    'function_description': $('#costFuntionDescription').val(),
-                    'function_py_value': $('#python-expression').val(),
+                    'function_description': $('#costFuntionDescription').val(),                    
                     'global_multiplier_factorCalculator': $('#global_multiplier_factorCalculator').val(),
                     'currencyCost': $('#currencyCost option:selected').val(),
                     'currencyCostName': $('#currencyCost option:selected').text(),
                     'logical': [{
-                        'condition_1': "", /* mathFieldlog1.latex(), */
-                        'ecuation_1': "", /* mathFieldE1.latex(), */
-                        'condition_2': "", /* mathFieldlog2.latex(), */
-                        'ecuation_2': "", /* mathFieldE2.latex(), */
-                        'condition_3': "", /* mathFieldlog3.latex(), */
-                        'ecuation_3': "", /* mathFieldE3.latex() */
+                        'condition_1': "", 
+                        'ecuation_1': "", 
+                        'condition_2': "", 
+                        'ecuation_2': "", 
+                        'condition_3': "", 
+                        'ecuation_3': "", 
                     }],
                 }
 
                 temp.logical = JSON.stringify(temp.logical);
-                $.extend(funcostdb[selectedCostId].fields, temp);
+                if (selectedCostId == 0){
+                    $.extend(funcostdb[selectedCostId].fields, temp);
+                }else{
+                    let clonedFunCost = JSON.parse(JSON.stringify(funcostdb[0]));
+                    $.extend(clonedFunCost.fields, temp);
+                    funcostdb[selectedCostId] = clonedFunCost;
+                }
+                
                 var pyExp = $('#python-expression').val();
                 funcostdb[selectedCostId].fields.function_value = pyExp; 
             }
@@ -654,7 +660,7 @@ function onInit(editor) {
             //mathField.clearSelection();
             clearInputsMath();
             $('#CalculatorModal').modal('show');
-            selectedCostId = $(this).attr('idvalue');
+            selectedCostId =  parseInt($(this).attr('idvalue'));
             $('#costFunctionName').val(funcostdb[selectedCostId].fields.function_name);
             $('#costFuntionDescription').val(funcostdb[selectedCostId].fields.function_description);
             $('#CalculatorModalLabel').text('Modify Cost - ' + $('#titleCostFunSmall').text())
