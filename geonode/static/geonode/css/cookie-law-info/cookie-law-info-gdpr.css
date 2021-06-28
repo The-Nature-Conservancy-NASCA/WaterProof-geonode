@@ -71,7 +71,7 @@
 }
 
 .modal-backdrop.fade {
-    opacity: 0
+    opacity: .5
 }
 
 .modal-backdrop.show {

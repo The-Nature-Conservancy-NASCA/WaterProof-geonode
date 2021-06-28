@@ -1,0 +1,278 @@
+@media (min-width:120px) and (max-width:767){
+    .container {
+        padding-right: 2px !important;
+        padding-left: 1rem !important;
+        width: 735px !important;
+    }
+}
+.side {
+    height: 100%;
+    background-image: url('/static/geonode/img/FONDO.jpg');
+}
+#mapidcuenca{
+    width: 350px;
+    height: 400px;
+    border: 1px solid;
+    border-radius: 0.5em;
+    border-color: #aaa;
+}
+
+
+.flecha {
+    padding-left: 0.5rem;
+    height: 2rem;
+}
+
+#wrapper {
+    padding-left: 0;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+#wrapper.toggled {
+    padding-left: 28rem;
+}
+
+#sidebar-wrapper {
+    z-index: 1;
+    position: initial;
+    left: 30rem;
+    width: 0;
+    overflow-y: auto;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+    overflow-x: hidden;
+    top: 55px;
+    margin-bottom: 300px;
+    bottom: 0px;
+}
+
+#wrapper.toggled #sidebar-wrapper {
+    width: 28rem;
+}
+
+#page-content-wrapper {
+    width: 100%;
+    position: absolute;
+    padding: 15px;
+}
+
+#wrapper.toggled #page-content-wrapper {
+    position: absolute;
+    margin-right: -750px;
+}
+
+/* Sidebar Styles */
+
+.sidebar-nav {
+    position: absolute;
+    top: 1rem;
+    width: 28rem;
+    margin: 0;
+    padding: 0 0.5rem 0 0;
+    list-style: none;
+}
+
+.sidebar-nav li {
+    padding-left: 0.5rem;
+    margin-bottom: 0.2rem;
+    margin-top: 0.5rem;
+}
+
+.list-unstylede li a {
+    padding-left: 0;
+    list-style: none;
+    background-color: rgba(52, 176, 204, 0.7) !important;
+}
+
+.list-unstylede{
+    padding-left: 15px;
+    list-style: none;
+}
+
+.sidebar-nav li a {
+    display: flex;
+    text-decoration: none;
+    color: #fff;
+    vertical-align: middle;
+    align-items: center;
+    background-color: rgba(58, 128, 154, 0.7);
+    font-size: 15px;
+    border-radius: 0.5rem;
+    height: 3.5rem;
+    width: 93%;
+    border: 1px solid;
+    border-color: rgba(58, 128, 154, 2.2);
+}
+
+.sidebar-nav li a:hover {
+    text-decoration: none;
+    color: #fff;
+    background: rgba(58, 128, 154, 0.7);
+}
+
+.sidebar-nav li a:active,
+.sidebar-nav li a:focus {
+    text-decoration: none;
+}
+
+.sidebar-nav>.sidebar-brand {
+    height: 65px;
+    font-size: 18px;
+    line-height: 60px;
+}
+
+.sidebar-nav>.sidebar-brand a {
+    color: #999999;
+}
+
+.sidebar-nav>.sidebar-brand a:hover {
+    color: #fff;
+    background: none;
+}
+
+@media (min-width:1200px){
+    .container {
+        width: auto !important;
+        padding-right: 2rem !important;
+        padding-left: 1rem !important;
+    }
+    #mapidcuenca{
+         width: auto !important; 
+         border: 2px solid;
+    } 
+    #wrapper {
+        padding-left: 28rem;
+    }
+
+    #wrapper.toggled {
+        padding-left: 0;
+    }
+
+    #sidebar-wrapper {
+        position: absolute;
+        margin-left: -30rem;
+        width: 28rem;
+        height: 48rem;
+        border: 2px solid;
+        border-color: #aaa;
+        border-radius: 0.5rem;
+        top: 0px;        
+    }
+
+    #wrapper.toggled #sidebar-wrapper {
+        width: 0;
+    }
+
+    #page-content-wrapper {
+        padding: 20px;
+        position: relative;
+    }
+
+    #wrapper.toggled #page-content-wrapper {
+        position: relative;
+        margin-right: 0;
+    }
+
+    .sidebar-nav li {
+        padding-left: 0.5rem;
+        margin-bottom: 1rem;
+        margin-top: 1rem;
+    }
+
+    .sidebar-nav li a {
+        font-size: 20px;
+        height: 4.5rem;
+        width: 93%;        
+    }
+}
+@media (min-width:993px) and (max-width:1200px){
+    .container {
+        width: 970px !important;
+        padding-right: 2px !important;
+        padding-left: 1rem !important;
+    }
+
+    #mapidcuenca{
+        width: auto !important;
+        border: 2px solid;
+    }
+    #wrapper {
+        padding-left: 28rem;
+    }
+
+    #wrapper.toggled {
+        padding-left: 0;
+    }
+
+    #sidebar-wrapper {
+        width: 17rem;
+        height: 460px;
+    }
+
+    #wrapper.toggled #sidebar-wrapper {
+        width: 0;
+    }
+
+    #page-content-wrapper {
+        padding: 20px;
+        position: relative;
+    }
+
+    #wrapper.toggled #page-content-wrapper {
+        position: relative;
+        margin-right: 0;
+    }
+
+    .sidebar-nav li a {        
+        height: 4.5rem;
+        width: 55%;
+    }
+}
+@media (min-width:768px) and (max-width:992px){
+    .container {
+        padding-right: 2px !important;
+        padding-left: 1rem !important;
+        width: 755px !important;
+    }
+    #mapidcuenca{
+        width: 580px !important;
+        border: 2px solid; 
+    }
+    #wrapper {
+        padding-left: 28rem;
+    }
+
+    #wrapper.toggled {
+        padding-left: 0;
+    }
+
+    #sidebar-wrapper {
+        width: 17rem;
+        height: 480px;
+        z-index: 9999;
+    }
+
+    #wrapper.toggled #sidebar-wrapper {
+        width: 0;
+    }
+
+    #page-content-wrapper {
+        padding: 20px;
+        position: relative;
+    }
+
+    #wrapper.toggled #page-content-wrapper {
+        position: relative;
+        margin-right: 0;
+    }
+
+    .sidebar-nav li a {        
+        height: 4.5rem;
+        width: 55%;
+    }
+}

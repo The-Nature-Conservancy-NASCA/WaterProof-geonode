@@ -50,6 +50,51 @@ $(function () {
                 })
             }
         });
+        $('.btn-danger').click(function (evt) {
+            Swal.fire({
+                title: gettext('Delete NBS'),
+                text: gettext("Are you sure?") + gettext("You won't be able to revert this!"),
+                icon: 'warning',
+                showCancelButton: false,
+                showDenyButton: true,
+                confirmButtonColor: '#d33',
+                denyButtonColor: '#3085d6',
+                confirmButtonText: gettext('Yes, delete it!'),
+                denyButtonText: gettext('Cancel')
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    nbsId = evt.currentTarget.getAttribute('data-id')
+                    /** 
+                    * Get filtered activities by transition id 
+                    * @param {String} url   activities URL 
+                    * @param {Object} data  transition id  
+                    *
+                    * @return {String} activities in HTML option format
+                    */
+                    $.ajax({
+                        url: '/waterproof_nbs_ca/delete/' + nbsId,
+                        type: 'POST',
+                        success: function (result) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: gettext('Great!'),
+                                text: gettext('The NBS has been deleted')
+                            })
+                            setTimeout(function () { location.href = "/waterproof_nbs_ca/"; }, 1000);
+                        },
+                        error: function (error) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: gettext('Error!'),
+                                text: gettext('The NBS has not been deleted, try again!')
+                            })
+                        }
+                    });
+                } else if (result.isDenied) {
+                    return;
+                }
+            })
+        });
         fillTransitionsDropdown(transitionsDropdown);
         submitFormEvent();
         changeCountryEvent(countryDropdown, currencyDropdown);
@@ -72,8 +117,6 @@ $(function () {
             formData.append('maxBenefitTime', $('#maxBenefitTime').val());
             // NBS Percentage of benefit associated with interventions at time t=0
             formData.append('benefitTimePorc', $('#benefitTimePorc').val());
-            // NBS Consecution Time Total Benefits
-            formData.append('totalConsecTime', $('#totalConsecTime').val());
             // NBS Maintenance Perodicity
             formData.append('maintenancePeriod', $('#maintenancePeriod').val());
             // NBS Unit Implementation Cost (US$/ha)
@@ -164,31 +207,50 @@ $(function () {
     * Initialize map 
     */
     initMap = function () {
-        map = L.map('mapid').setView([51.505, -0.09], 13);
-
+        //map = L.map('mapid').setView([51.505, -0.09], 13);
+        CENTER = [4.582, -74.4879];
         // Basemap layer
-        L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
-            maxZoom: 18,
-            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, ' +
-                'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-            id: 'mapbox/streets-v11',
-            tileSize: 512,
-            zoomOffset: -1
-        }).addTo(map);
+        var osm = L.tileLayer(OSM_BASEMAP_URL, {
+            maxZoom: MAXZOOM, 
+            attribution: 'Data \u00a9 <a href="http://www.openstreetmap.org/copyright"> OpenStreetMap Contributors </a> Tiles \u00a9 Komoot'});
+        var images = L.tileLayer(IMG_BASEMAP_URL); 
+        //var hydroLyr = L.tileLayer(HYDRO_BASEMAP_URL);
+        var grayLyr = L.tileLayer(GRAY_BASEMAP_URL, {
+                    maxZoom: 20,
+                        attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
+                    });
+
+        var baseLayers = {
+            OpenStreetMap: osm,
+            Images: images,
+            Grayscale: grayLyr,
+        };
+        
+        map = L.map('mapid', {
+            scrollWheelZoom: false, 
+            layers: [osm],            
+        });
+
         // Countries layer
         let countries = new L.GeoJSON.AJAX(countriesLayerUrl,
             {
                 style: defaultStyle,
                 onEachFeature: onEachFeature
             }
-        );
-        countries.addTo(map);
+        ).addTo(map);
+        var overlays = {
+            "Countries": countries,            
+        };
+
+        let initialCoords = CENTER;
+        map.setView(initialCoords,5);
+        L.control.layers(baseLayers,overlays,{position: 'topleft'}).addTo(map);
 
         // When countries layer is loaded fire dropdown event change
-        countries.on("data:loaded", function () {
+        countries.on("data:loaded", function (evt) {
             let mapClick = false;
             // Preload selected country form list view
-            updateCountryMap(userCountryCode);
+            updateCountryMap(userCountryCode, evt.target);
             // Filter datables with country name
             table.search(userCountryName).draw();
             // Update url to create with country id parameter
@@ -203,16 +265,16 @@ $(function () {
 
         function updateDropdownCountry(feature) {
             let mapClick = true;
-           
+
             let layerClicked = feature.target;
             if (lastClickedLayer) {
                 lastClickedLayer.setStyle(defaultStyle);
             }
             layerClicked.setStyle(highlighPolygon);
             let countryCode = feature.sourceTarget.feature.id;
-            
+
             $.ajax({
-                url: '/waterproof_nbs_ca/load-countryByCode/',
+                url: '/parameters/load-countryByCode/',
                 data: {
                     'code': countryCode
                 },
@@ -224,7 +286,7 @@ $(function () {
                     udpateCreateUrl(countryId);
                     //
                     $.ajax({
-                        url: '/waterproof_nbs_ca/load-regionByCountry/',
+                        url: '/parameters/load-regionByCountry/',
                         data: {
                             'country': countryId
                         },
@@ -235,13 +297,13 @@ $(function () {
                         }
                     });
                     $.ajax({
-                        url: '/waterproof_nbs_ca/load-currencyByCountry/',
+                        url: '/parameters/load-currencyByCountry/',
                         data: {
                             'country': countryId
                         },
                         success: function (result) {
                             result = JSON.parse(result);
-                            $('#currencyLabel').text('('+result[0].fields.code+') - '+result[0].fields.name);
+                            $('#currencyLabel').text('(' + result[0].fields.currency + ') - ' + result[0].fields.name);
                         }
                     });
                 }
@@ -251,7 +313,8 @@ $(function () {
         //map.on('click', onMapClick);
     }
     udpateCreateUrl = function (countryId) {
-       $('#createUrl').attr('href','create/'+countryId)
+        $('#createUrl').attr('href', 'create/' + countryId)
+        $('#nbs-createUrl').attr('href', 'create/' + countryId)
     };
     /** 
     * Get the transformations selected
@@ -294,14 +357,14 @@ $(function () {
              * @return {String} activities in HTML option format
              */
             $.ajax({
-                url: '/waterproof_nbs_ca/load-currencyByCountry/',
+                url: '/parameters/load-currencyByCountry/',
                 data: {
                     'country': country_id
                 },
                 success: function (result) {
                     result = JSON.parse(result);
                     currencyDropdown.val(result[0].pk);
-                    $('#currencyLabel').text('(' + result[0].fields.code + ') - ' + result[0].fields.name);
+                    $('#currencyLabel').text('(' + result[0].fields.currency + ') - ' + result[0].fields.name);
                     $('#countryLabel').text(countryName);
                     /** 
                      * Get filtered activities by transition id 
@@ -311,7 +374,7 @@ $(function () {
                      * @return {String} activities in HTML option format
                      */
                     $.ajax({
-                        url: '/waterproof_nbs_ca/load-regionByCountry/',
+                        url: '/parameters/load-regionByCountry/',
                         data: {
                             'country': country_id
                         },
@@ -325,25 +388,28 @@ $(function () {
             });
         });
     };
-    updateCountryMap = function (countryCode) {
-        map.eachLayer(function (layer) {
-            if (layer.feature) {
-                if (layer.feature.id == countryCode) {
-                    if (lastClickedLayer) {
-                        lastClickedLayer.setStyle(defaultStyle);
-                    }
-                    layer.setStyle(highlighPolygon);
-                    map.fitBounds(layer.getBounds());
-                    lastClickedLayer = layer;
+    updateCountryMap = function (countryCode, lyr) {
+        lyr.eachLayer(function (layer) {            
+            if (layer.feature.id == countryCode) {
+                if (lastClickedLayer) {
+                    lastClickedLayer.setStyle(defaultStyle);
                 }
+                layer.setStyle(highlighPolygon);
+                map.fitBounds(layer.getBounds());
+                lastClickedLayer = layer;
             }
         });
-    
+
     }
     /** 
      * Validate input file on change
      * @param {HTML} dropdown Dropdown selected element
      */
+
+  
+
+
+
     changeFileEvent = function () {
         $('#restrictedArea').change(function (evt) {
             var file = evt.currentTarget.files[0];

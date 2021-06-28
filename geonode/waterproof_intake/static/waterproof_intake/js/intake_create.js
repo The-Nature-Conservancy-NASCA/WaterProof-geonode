@@ -3,7 +3,7 @@
  * validations & interactions
  * @version 1.0
  */
-var urlParams = (function (url) {
+var urlParams = (function(url) {
     var result = new Object();
     var params = window.location.search.slice(1).split('&');
     for (var i = 0; i < params.length; i++) {
@@ -26,6 +26,7 @@ var catchmentPolyDelimit;
 var editablepolygon;
 var validPolygon;
 var isFile;
+var validGeometry = false;
 var delimitationFileType;
 var xmlGraph;
 var waterExtractionData = {};
@@ -38,16 +39,32 @@ const interpolationType = {
     LINEAR: 'LINEAR',
     POTENTIAL: 'POTENTIAL',
     EXPONENTIAL: 'EXPONENTIAL',
-    LOGISTICS: 'LOGISTICS'
+    LOGISTICS: 'LOGISTICS',
+    MANUAL: 'MANUAL'
 }
 
 var mapLoader;
-$(document).ready(function () {
-    $("#intakeWECB").click(function () {
+$(document).ready(function() {
+    setIntakeCity();
+    var countryNameStorage = localStorage.country;
+    $('#cityLabel').text(localStorage.city);
+    $("#countryLabel").html(localStorage.getItem('country'));
+    // Interpolation with Wizard
+    $("#intakeWECB").click(function() {
+        if ($("#numberYearsInterpolationValue").val() == '' || $("#initialDataExtractionInterpolationValue").val() == '' || $("#finalDataExtractionInterpolationValue").val() == '') {
+            Swal.fire({
+                icon: 'warning',
+                title: gettext('Data analysis empty'),
+                text: gettext('Please Generate Data analysis')
+            });
+            return
+        }
         $('#intakeECTAG tr').remove();
         $('#IntakeTDLE table').remove();
         $('#externalSelect option').remove();
-
+        $('#intakeECTAG').empty();
+        $('#IntakeTDLE').empty();
+        $('#externalSelect').empty();
 
         $('#autoAdjustHeightF').css("height", "auto");
         typeProcessInterpolation = Number($("#typeProcessInterpolation").val());
@@ -69,36 +86,45 @@ $(document).ready(function () {
                 waterExtractionValue.push(yearData);
                 $('#intakeECTAG').append(`<tr>
                 <th class="text-center" scope="row">${index}</th>
-                <td class="text-center">${((m * index) + b).toFixed(2)}</td>
+                <td class="text-center"><input type="text" class="form-control" value="${((m * index) + b).toFixed(2)}" disabled></td>
               </tr>`);
             }
         }
 
         // Potencial interpolation
         if (typeProcessInterpolation == 2) {
+            waterExtractionValue = [];
             waterExtractionData.typeInterpolation = interpolationType.POTENTIAL;
             m = (Math.log(finalDataExtractionInterpolationValue) - Math.log(initialDataExtractionInterpolationValue)) / ((Math.log(numberYearsInterpolationValue + 1) - Math.log(1)));
             b = Math.exp((-1 * m * Math.log(1)) + Math.log(initialDataExtractionInterpolationValue));
+
             for (let index = 1; index <= numberYearsInterpolationValue + 1; index++) {
+                var yearData = {};
+                yearData.year = index;
+                yearData.value = (b * (Math.pow(index, m))).toFixed(2);
+                waterExtractionValue.push(yearData);
                 $('#intakeECTAG').append(`<tr>
                 <th class="text-center" scope="row">${index - 1}</th>
-                <td class="text-center">${(b * (Math.pow(index, m))).toFixed(2)}</td>
+                <td class="text-center"><input type="text" class="form-control" value="${(b * (Math.pow(index, m))).toFixed(2)}" disabled></td>
               </tr>`);
             }
         }
 
         // Exponential interpolation
         if (typeProcessInterpolation == 3) {
+            waterExtractionValue = [];
             waterExtractionData.typeInterpolation = interpolationType.EXPONENTIAL;
             m = (Math.log(finalDataExtractionInterpolationValue) - Math.log(initialDataExtractionInterpolationValue)) / (numberYearsInterpolationValue - 0)
             b = Math.exp((-1 * m * 0) + Math.log(initialDataExtractionInterpolationValue));
+
             for (let index = 0; index <= numberYearsInterpolationValue; index++) {
                 var yearData = {};
                 yearData.year = index + 1;
-                yearData.value = (b * (Math.exp(m * index)));
+                yearData.value = (b * (Math.exp(m * index))).toFixed(2);
+                waterExtractionValue.push(yearData);
                 $('#intakeECTAG').append(`<tr>
                 <th class="text-center" scope="row">${index}</th>
-                <td class="text-center">${(b * (Math.exp(m * index))).toFixed(2)}</td>
+                <td class="text-center"><input type="text" class="form-control" value="${(b * (Math.exp(m * index))).toFixed(2)}" disabled></td>
               </tr>`);
             }
 
@@ -106,13 +132,16 @@ $(document).ready(function () {
 
         // Interpolación Logistica
         if (typeProcessInterpolation == 4) {
+            waterExtractionValue = [];
             waterExtractionData.typeInterpolation = interpolationType.LOGISTICS;
             r = (-Math.log(0.000000001) / initialDataExtractionInterpolationValue);
+
             for (let index = 0; index <= numberYearsInterpolationValue; index++) {
-                $('#intakeECTAG').append(`<tr>
-                <th class="text-center" scope="row">${index}</th>
-                <td class="text-center">${((finalDataExtractionInterpolationValue) / (1 + ((finalDataExtractionInterpolationValue / initialDataExtractionInterpolationValue) - 1) * Math.exp(-r * index))).toFixed(2)}</td>
-              </tr>`);
+                var yearData = {};
+                yearData.year = index + 1;
+                yearData.value = ((finalDataExtractionInterpolationValue) / (1 + ((finalDataExtractionInterpolationValue / initialDataExtractionInterpolationValue) - 1) * Math.exp(-r * index))).toFixed(2);
+                waterExtractionValue.push(yearData);
+                $('#intakeECTAG').append(`<tr><th class="text-center" scope="row">${index}</th><td class="text-center"><input type="text" class="form-control" value="${((finalDataExtractionInterpolationValue) / (1 + ((finalDataExtractionInterpolationValue / initialDataExtractionInterpolationValue) - 1) * Math.exp(-r * index))).toFixed(2)}" disabled></td></tr>`);
             }
         }
 
@@ -126,14 +155,121 @@ $(document).ready(function () {
 
     });
 
+    // Change Option Manual Tab
+    $('#btnManualTab').click(function() {
+        if ($('#initialDataExtractionInterpolationValue').val() != '' || $('#finalDataExtractionInterpolationValue').val() != '' || $('#numberYearsInterpolationValue').val() != '') {
+            Swal.fire({
+                title: gettext('Are you sure?'),
+                text: gettext("You won't be able to revert this!"),
+                icon: 'warning',
+                showCancelButton: false,
+                showDenyButton: true,
+                confirmButtonColor: '#d33',
+                denyButtonColor: '#3085d6',
+                confirmButtonText: gettext('Yes, change it!'),
+                denyButtonText: gettext('Cancel')
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $('#intakeECTAG tr').remove();
+                    $('#IntakeTDLE table').remove();
+                    $('#externalSelect option').remove();
+                    $('#intakeECTAG').empty();
+                    $('#IntakeTDLE').empty();
+                    $('#externalSelect').empty();
+                    waterExtractionData = [];
+                    $('#waterExtraction').val(JSON.stringify(waterExtractionData));
+                    $('#initialDataExtractionInterpolationValue').val('');
+                    $('#finalDataExtractionInterpolationValue').val('');
+                    $('#numberYearsInterpolationValue').val('');
+                } else if (result.isDenied) {
+                    $('[href="#automatic"]').tab('show');
+                }
+            })
+        }
+    });
+
+    // Change Option Automatic with Wizard Tab
+    $('#btnAutomaticTab').click(function() {
+        if ($('#intakeNIYMI').val() != '') {
+            Swal.fire({
+                title: gettext('Are you sure?'),
+                text: gettext("You won't be able to revert this!"),
+                icon: 'warning',
+                showCancelButton: false,
+                showDenyButton: true,
+                confirmButtonColor: '#d33',
+                denyButtonColor: '#3085d6',
+                confirmButtonText: gettext('Yes, change it!'),
+                denyButtonText: gettext('Cancel')
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $('#intakeWEMI tr').remove();
+                    $('#IntakeTDLE table').remove();
+                    $('#externalSelect option').remove();
+                    $('#intakeWEMI').empty();
+                    $('#IntakeTDLE').empty();
+                    $('#externalSelect').empty();
+                    waterExtractionData = [];
+                    $('#waterExtraction').val(JSON.stringify(waterExtractionData));
+                    $('#intakeNIYMI').val('');
+                } else if (result.isDenied) {
+                    $('[href="#manual"]').tab('show');
+                }
+            })
+        }
+    });
+
+    // Change Table external input
+    $('#externalSelect').change(function() {
+        for (let t = 0; t < graphData.length; t++) {
+            if (graphData[t].external == 'true') {
+                $(`#table_${graphData[t].id}`).css('display', 'none');
+            }
+        }
+        $(`#table_${$('#externalSelect').val()}`).css('display', 'block');
+    });
+
+
+    // Automatic height on clic next btn wizard
+    $('#smartwizard').smartWizard("next").click(function() {
+        $('#autoAdjustHeightF').css("height", "auto");
+        mapDelimit.invalidateSize();
+        map.invalidateSize();
+    });
+
+    // Generate Input Manual Interpolation
+    $('#intakeNIBYMI').click(function() {
+        $('#intakeWEMI tr').remove();
+        $('#intakeWEMI').empty();
+        intakeNIYMI = Number($("#intakeNIYMI").val());
+        waterExtractionData.typeInterpolation = interpolationType.MANUAL;
+        waterExtractionData.yearCount = intakeNIYMI;
+        $('#IntakeTDLE table').remove();
+        $('#IntakeTDLE').empty();
+        $('#externalSelect option').remove();
+        $('#externalSelect').empty();
+        externalInput(intakeNIYMI - 1);
+        for (let index = 0; index < intakeNIYMI; index++) {
+            $('#intakeWEMI').append(`
+            <tr>
+                <th class="text-center" scope="row">${index + 1}</th>
+                <td class="text-center"><input name="manualInputData" yearValue="${index + 1}" type="text" class="form-control"></td>
+              </tr>
+            `);
+        }
+    });
+
+    // Generate table external Input
     function externalInput(numYear) {
         var rows = "";
+        var numberExternal = 0;
         $('#externalSelect').append(`<option value="null" selected>Choose here</option>`);
         for (let p = 0; p < graphData.length; p++) {
             if (graphData[p].external == 'true') {
+                numberExternal += 1
                 $('#externalSelect').append(`
                             <option value="${graphData[p].id}">${graphData[p].id} - External Input</option>
-                 `);
+                    `);
                 rows = "";
                 for (let index = 0; index <= numYear; index++) {
                     rows += (`<tr>
@@ -142,7 +278,7 @@ $(document).ready(function () {
                                 <td class="text-center" scope="col"><input type="text" class="form-control" name="sediment_${index + 1}_${graphData[p].id}"></td>
                                 <td class="text-center" scope="col"><input type="text" class="form-control" name="nitrogen_${index + 1}_${graphData[p].id}" ></td>
                                 <td class="text-center" scope="col"><input type="text" class="form-control" name="phosphorus_${index + 1}_${graphData[p].id}"></td>
-                          </tr>`);
+                            </tr>`);
                 }
                 $('#IntakeTDLE').append(`
                         <table class="table" id="table_${graphData[p].id}" style="display: none">
@@ -160,72 +296,13 @@ $(document).ready(function () {
                 `);
             }
         }
+        $('#ExternalNumbersInputs').html(numberExternal)
     }
 
-
-    $('#saveExternalData').click(function () {
-        for (let id = 0; id < graphData.length; id++) {
-            if (graphData[id].external) {
-                graphData[id].externaldata = [];
-                $(`th[name=year_${graphData[id].id}]`).each(function () {
-                    let watersita = $(`input[name="waterVolume_${$(this).attr('year_value')}_${graphData[id].id}"]`).val();
-                    let sedimentsito = $(`input[name="sediment_${$(this).attr('year_value')}_${graphData[id].id}"]`).val();
-                    let nitrogenito = $(`input[name="nitrogen_${$(this).attr('year_value')}_${graphData[id].id}"]`).val();
-                    let phospharusito = $(`input[name="phosphorus_${$(this).attr('year_value')}_${graphData[id].id}"]`).val();
-                    if (watersita != null || sedimentsito != null || nitrogenito != null || phospharusito != null ||
-                        watersita != '' || sedimentsito != '' || nitrogenito != '' || phospharusito != '') {
-                        graphData[id].externaldata.push({
-                            "year": $(this).attr('year_value'),
-                            "water": watersita,
-                            "sediment": sedimentsito,
-                            "nitrogen": nitrogenito,
-                            "phosphorus": phospharusito
-                        });
-                    } else {
-                        Swal.fire({
-                            icon: 'warning',
-                            title: `Field empty`,
-                            text: `Please full every fields`
-                        });
-                        return;
-                    }
-                });
-                graphData[id].externaldata = JSON.stringify(graphData[id].externaldata);
-            }
-        }
-
-        $('#graphElements').val(JSON.stringify(graphData));
-    });
-
-    $('#externalSelect').change(function () {
-        for (let t = 0; t < graphData.length; t++) {
-            if (graphData[t].external == 'true') {
-                $(`#table_${graphData[t].id}`).css('display', 'none');
-            }
-        }
-        $(`#table_${$('#externalSelect').val()}`).css('display', 'block');
-    });
-
-    $('#smartwizard').smartWizard("next").click(function () {
+    $('#smartwizard').smartWizard("next").click(function() {
         $('#autoAdjustHeightF').css("height", "auto");
-        mapDelimit.invalidateSize();
         map.invalidateSize();
     });
-
-    $('#intakeNIBYMI').click(function () {
-        $('#intakeWEMI tr').remove();
-        intakeNIYMI = Number($("#intakeNIYMI").val());
-        for (let index = 0; index < intakeNIYMI; index++) {
-            $('#intakeWEMI').append(`
-            <tr>
-                <th class="text-center" scope="row">${index + 1}</th>
-                <td class="text-center"> <input type="text" class="form-control"></td>
-              </tr>
-            `);
-        }
-    });
-
-
     $('#smartwizard').smartWizard({
         selected: 0,
         theme: 'dots',
@@ -234,20 +311,23 @@ $(document).ready(function () {
         transition: {
             animation: 'fade', // Effect on navigation, none/fade/slide-horizontal/slide-vertical/slide-swing
         },
-        toolbarSettings: {
-            toolbarPosition: 'bottom', // both bottom
-            toolbarButtonPosition: 'center', // both bottom
-        },
         keyboardSettings: {
             keyNavigation: false
         },
         toolbarSettings: {
             showNextButton: false,
             showPreviousButton: false,
+        },
+        anchorSettings: {
+            emoveDoneStepOnNavigateBack: false,
+            markAllPreviousStepsAsDone: false,
+            anchorClickable: false,
+            enableAllAnchors: false,
+            markDoneStep: false,
         }
     });
 
-    $("#smartwizard").on("showStep", function (e, anchorObject, stepIndex, stepDirection) {
+    $("#smartwizard").on("showStep", function(e, anchorObject, stepIndex, stepDirection) {
         if (stepIndex == 4) {
             if (catchmentPoly) {
                 mapDelimit.invalidateSize();
@@ -270,67 +350,119 @@ $(document).ready(function () {
     });
 
     //Validated of steps
-
-    $('#step1NextBtn').click(function () {
+    $('#step1NextBtn').click(function() {
         if ($('#id_name').val() != '' && $('#id_description').val() != '' && $('#id_water_source_name').val() != '' && catchmentPoly != undefined) {
-            $('#smartwizard').smartWizard("next");
+            var intakePolygonJson = catchmentPoly.toGeoJSON();
+            var pointIntakeJson = snapMarker.toGeoJSON();
+            $('#intakeAreaPolygon').val(JSON.stringify(intakePolygonJson));
+            $('#pointIntake').val(JSON.stringify(pointIntakeJson));
+            $('#basinId').val(basinId);
+            intakeStepOne();
+
         } else {
             Swal.fire({
                 icon: 'warning',
-                title: `Field empty`,
-                text: `Please full every fields`
+                title: gettext('Field empty'),
+                text: gettext('Please fill every fields')
             });
             return;
         }
     });
 
-    $('#step2PrevBtn').click(function () {
+    $('#step2PrevBtn').click(function() {
         $('#smartwizard').smartWizard("prev");
     });
 
-    $('#step2NextBtn').click(function () {
+    $('#step2NextBtn').click(function() {
         if (!bandera) {
-            $('#smartwizard').smartWizard("next");
+            $('#smartwizard').smartWizard("stepState", [3], "hide");
+            for (const item of graphData) {
+                if (item.external != null && item.external != 'false') {
+                    $('#smartwizard').smartWizard("stepState", [3], "show");
+                }
+            }
+            clearDataHtml();
+            intakeStepTwo();
         } else {
             Swal.fire({
                 icon: 'warning',
-                title: `Validate Graph`,
-                text: `Please Validate Graph`
+                title: gettext('Validate graph'),
+                text: gettext('Please validate graph')
             });
             return;
         }
     });
 
-    $('#step3PrevBtn').click(function () {
+    $('#step3PrevBtn').click(function() {
         $('#smartwizard').smartWizard("prev");
     });
 
-    $('#step3NextBtn').click(function () {
-        if ($('#intakeECTAG')[0].childNodes.length > 1) {
-            $('#smartwizard').smartWizard("next");
+    $('#step3NextBtn').click(function() {
+        if ($('#intakeECTAG')[0].childNodes.length > 1 || $('#intakeWEMI')[0].childNodes.length > 1) {
+            if (waterExtractionData.typeInterpolation == interpolationType.MANUAL) {
+                waterExtractionValue = [];
+                $(`input[name=manualInputData]`).each(function() {
+                    if ($(this).val() == '' || $('#intakeNIYMI').val() == '') {
+                        Swal.fire({
+                            icon: 'warning',
+                            title: gettext('Data analysis empty'),
+                            text: gettext('Please Generate Data analysis')
+                        });
+                        return;
+                    } else {
+                        var yearData = {};
+                        yearData.year = Number($(this).attr('yearValue'));
+                        yearData.value = $(this).val();
+                        waterExtractionValue.push(yearData);
+                    }
+
+                });
+                waterExtractionData.yearValues = waterExtractionValue;
+                $('#waterExtraction').val(JSON.stringify(waterExtractionData));
+                if (waterExtractionData.yearCount == waterExtractionData.yearValues.length) {
+                    intakeStepThree();
+                } else {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: gettext('Data analysis empty'),
+                        text: gettext('Please Generate Data analysis')
+                    });
+                    return;
+                }
+            } else {
+                intakeStepThree();
+            }
         } else {
             Swal.fire({
                 icon: 'warning',
-                title: `Data analisys empty`,
-                text: `Please Generate Data anlisys`
+                title: gettext('Data analysis empty'),
+                text: gettext('Please Generate Data analysis')
             });
             return;
         }
 
     });
 
-    $('#step4PrevBtn').click(function () {
+    $('#step4PrevBtn').click(function() {
         $('#smartwizard').smartWizard("prev");
     });
 
-    $('#step4NextBtn').click(function () {
-        $('#smartwizard').smartWizard("next");
-    });
-
-    $('#step5PrevBtn').click(function () {
+    $('#step5PrevBtn').click(function() {
         $('#smartwizard').smartWizard("prev");
     });
 
+    $('#submit').click(function(event) {
+        if (!validGeometry) {
+            event.preventDefault();
+            Swal.fire({
+                icon: 'error',
+                title: gettext('Geometry error'),
+                text: gettext('You must validate the basin geometry')
+            })
+        } else {
+            intakeStepFive();
+        }
+    });
 
     let initialCoords = [4.5, -74.4];
     // find in localStorage if cityCoords exist
@@ -353,28 +485,28 @@ $(document).ready(function () {
     map.addLayer(osm);
 
     var c = new L.Control.Coordinates({
-        actionAfterDragEnd : prevalidateAdjustCoordinates
+        actionAfterDragEnd: prevalidateAdjustCoordinates
     }).addTo(map);
 
-    var images = L.tileLayer(IMG_BASEMAP_URL);   
+    var images = L.tileLayer(IMG_BASEMAP_URL);
     var gray = L.tileLayer(GRAY_BASEMAP_URL, {
         maxZoom: 20,
-            attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
-        });
+        attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
+    });
 
     var hydroLyr = L.tileLayer(HYDRO_BASEMAP_URL);
     var wmsHydroNetworkLyr = L.tileLayer.wms(GEOSERVER_WMS, {
-            layers: HYDRO_NETWORK_LYR,
-            format: 'image/png',
-            transparent: 'true',
-            opacity: 0.35,
-            minZoom: 6,
-        });
+        layers: HYDRO_NETWORK_LYR,
+        format: 'image/png',
+        transparent: 'true',
+        opacity: 0.35,
+        minZoom: 6,
+    });
 
     var baseLayers = {
         OpenStreetMap: osm,
         Images: images,
-        Grayscale: gray,   
+        Grayscale: gray,
     };
 
     var overlays = {
@@ -400,7 +532,7 @@ $(document).ready(function () {
     createEditor(editorUrl);
 
     var menu1Tab = document.getElementById('mapid');
-    var observer2 = new MutationObserver(function () {
+    var observer2 = new MutationObserver(function() {
         if (menu1Tab.style.display != 'none') {
             mapDelimit.invalidateSize();
         }
@@ -410,22 +542,22 @@ $(document).ready(function () {
 });
 
 
-window.onbeforeunload = function () { return mxResources.get('changesLost'); };
+//window.onbeforeunload = function() { return mxResources.get('changesLost'); };
 
 
 /**
  * Info Message to validate Adjust Coordinates
  */
-function prevalidateAdjustCoordinates(){
+function prevalidateAdjustCoordinates() {
     Swal.fire({
-        title: 'Delimitar punto y cuenca',
-        text: "El sistema ajustará las coordenadas del punto a la captación más cercana, ¿Desea continuar?",
+        title: gettext('Basin point delimitation'),
+        text: gettext('The point coordinates will be ajusted'),
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Ajustar punto',
-        cancelButtonText: 'Cancelar',
+        confirmButtonText: gettext('Yes, ajust!'),
+        cancelButtonText: gettext('Cancel'),
     }).then((result) => {
         if (result.isConfirmed) {
             mapLoader = L.control.loader().addTo(map);
@@ -434,6 +566,272 @@ function prevalidateAdjustCoordinates(){
     })
 }
 
+function setIntakeCity() {
+    console.log("setIntakeCity, localStorage.cityId: ", localStorage.cityId);
+    /** 
+     * Get a city by name
+     * @param {String} url   activities URL 
+     * @param {Object} data  lang,city parameters 
+     *
+     * @return {Object} City
+     */
+    if (localStorage.cityId){
+        $('#intakeCity').val(localStorage.cityId);
+    }else{
+        $.ajax({
+            url: '/parameters/load-cityByName/',
+            data: {
+                'lang': lang,
+                'city': localStorage.city
+            },
+            success: function(result) {
+                let resultCity = JSON.parse(result);
+                $('#intakeCity').val(resultCity[0].pk);
+            },
+            error: function(error) {
+                console.log(error);
+            }
+        });
+    }
+    
+}
+/** 
+ * Intake step one creation
+ *
+ * @return {boolean} true if is saved
+ */
+function intakeStepOne() {
+    console.log("Saving step one");
+    var formData = new FormData();
+    // Intake step
+    formData.append('step', '1');
+    // Intake step
+    formData.append('edit', 'false');
+    // Intake name
+    formData.append('intakeName', $('#intakeName').val());
+    // Intake id
+    formData.append('intakeId', $('#intakeId').val());
+    // Intake description
+    formData.append('intakeDesc', $('#intakeDesc').val());
+    // Intake water source name
+    formData.append('intakeWaterSource', $('#waterSource').val());
+    // Intake basin 
+    formData.append('basinId', $('#basinId').val());
+    // Intake point
+    formData.append('pointIntake', $('#pointIntake').val());
+    // Intake city
+    formData.append('intakeCity', $('#intakeCity').val());
+    // Intake area polygon
+    formData.append('intakeAreaPolygon', $('#intakeAreaPolygon').val());
+    console.log(formData);
+    $.ajax({
+        type: 'POST',
+        url: '/intake/create/',
+        data: formData,
+        cache: false,
+        processData: false,
+        contentType: false,
+        enctype: 'multipart/form-data',
+        success: function(response) {
+            console.log(response);
+            $('#intakeId').val(response.intakeId);
+            $('#smartwizard').smartWizard("next");
+        },
+        error: function(xhr, errmsg, err) {
+            console.log(xhr.status + ":" + xhr.responseText);
+            let response = JSON.parse(xhr.responseText);
+            Swal.fire({
+                icon: 'error',
+                title: gettext('Nbs saving error'),
+                text: response.message,
+            })
+        }
+    });
+    return true;
+}
+/** 
+ * Intake step two creation
+ *
+ * @return {boolean} true if is saved
+ */
+function intakeStepTwo() {
+    console.log("Saving step two");
+    var formData = new FormData();
+    // Intake step
+    formData.append('step', '2');
+    // Intake id
+    formData.append('intakeId', $('#intakeId').val());
+    // Intake xml graph
+    formData.append('xmlGraph', $('#xmlGraph').val());
+    // Intake graph elements object
+    formData.append('graphElements', $('#graphElements').val());
+    // Intake graph connections object
+    formData.append('graphConnections', $('#graphConnections').val());
+    console.log(formData);
+    $.ajax({
+        type: 'POST',
+        url: '/intake/create/',
+        data: formData,
+        cache: false,
+        processData: false,
+        contentType: false,
+        enctype: 'multipart/form-data',
+        success: function(response) {
+            console.log(response);
+            $('#smartwizard').smartWizard("next");
+        },
+        error: function(xhr, errmsg, err) {
+            console.log(xhr.status + ":" + xhr.responseText);
+            let response = JSON.parse(xhr.responseText);
+            Swal.fire({
+                icon: 'error',
+                title: gettext('Intake saving error'),
+                text: response.message,
+            })
+        }
+    });
+    return true;
+}
+/** 
+ * Intake step three creation
+ *
+ * @return {boolean} true if is saved
+ */
+function intakeStepThree() {
+    console.log("Saving step three");
+    var formData = new FormData();
+    // Intake step
+    formData.append('step', '3');
+    // Intake id
+    formData.append('intakeId', $('#intakeId').val());
+    // Intake xml graph
+    formData.append('waterExtraction', $('#waterExtraction').val());
+    console.log(formData);
+    $.ajax({
+        type: 'POST',
+        url: '/intake/create/',
+        data: formData,
+        cache: false,
+        processData: false,
+        contentType: false,
+        enctype: 'multipart/form-data',
+        success: function(response) {
+            console.log(response);
+            $('#smartwizard').smartWizard("next");
+        },
+        error: function(xhr, errmsg, err) {
+            console.log(xhr.status + ":" + xhr.responseText);
+            let response = JSON.parse(xhr.responseText);
+            Swal.fire({
+                icon: 'error',
+                title: gettext('Intake saving error'),
+                text: response.message,
+            })
+        }
+    });
+    return true;
+}
+/** 
+ * Intake step four creation
+ *
+ * @return {boolean} true if is saved
+ */
+function intakeStepFour() {
+    console.log("Saving step four");
+    var formData = new FormData();
+    // Intake step
+    formData.append('step', '4');
+    // Intake id
+    formData.append('intakeId', $('#intakeId').val());
+    // Intake edit
+    formData.append('edit', 'false');
+    // Intake xml graph
+    formData.append('graphElements', $('#graphElements').val());
+    console.log(formData);
+    $.ajax({
+        type: 'POST',
+        url: '/intake/create/',
+        data: formData,
+        cache: false,
+        processData: false,
+        contentType: false,
+        enctype: 'multipart/form-data',
+        success: function(response) {
+            console.log(response);
+            $('#smartwizard').smartWizard("next");
+        },
+        error: function(xhr, errmsg, err) {
+            console.log(xhr.status + ":" + xhr.responseText);
+            let response = JSON.parse(xhr.responseText);
+            Swal.fire({
+                icon: 'error',
+                title: gettext('Intake saving error'),
+                text: response.message,
+            })
+        }
+    });
+    return true;
+}
+/** 
+ * Intake step five creation
+ *
+ * @return {boolean} true if is saved
+ */
+function intakeStepFive() {
+    console.log("Saving step five");
+    var formData = new FormData();
+    // Intake step
+    formData.append('step', '5');
+    // Intake id
+    formData.append('intakeId', $('#intakeId').val());
+    // Intake basin 
+    formData.append('basinId', $('#basinId').val());
+    // Intake area polygon
+    formData.append('intakeAreaPolygon', $('#intakeAreaPolygon').val());
+    // Intake delimit area polygon
+    formData.append('delimitArea', $('#delimitArea').val());
+    // Intake type delimit
+    formData.append('typeDelimit', $('#typeDelimit').val());
+    // Intake is File?
+    formData.append('isFile', $('#isFile').val());
+    console.log(formData);
+    $.ajax({
+        type: 'POST',
+        url: '/intake/create/',
+        data: formData,
+        cache: false,
+        processData: false,
+        contentType: false,
+        enctype: 'multipart/form-data',
+        success: function(response) {
+            console.log(response);
+            Swal.fire({
+                icon: 'success',
+                text: gettext('The water intake is being saved'),
+                allowOutsideClick: true,
+                showConfirmButton: false
+            });
+            var cityId = 143873; //Default Bogota
+            if (localStorage.cityId){
+                cityId = localStorage.cityId;
+            }
+            setTimeout(function() { 
+                location.href = "/intake/?city="+cityId; 
+            }, 1000);
+        },
+        error: function(xhr, errmsg, err) {
+            console.log(xhr.status + ":" + xhr.responseText);
+            let response = JSON.parse(xhr.responseText);
+            Swal.fire({
+                icon: 'error',
+                title: gettext('Intake saving error'),
+                text: response.message,
+            })
+            return false;
+        }
+    });
+
+}
 /** 
  * Delimit manually the intake polygon
  */
@@ -444,12 +842,15 @@ function delimitIntakeArea() {
     var polygonKeys = Object.keys(catchmentPoly._layers);
     var keyNamePolygon = polygonKeys[0];
     var geometryCoordinates = catchmentPoly._layers[keyNamePolygon].feature.geometry.coordinates[0];
-    geometryCoordinates.forEach(function (geom) {
+    geometryCoordinates.forEach(function(geom) {
         var coordinates = [];
         coordinates.push(geom[1]);
         coordinates.push(geom[0]);
         copyCoordinates.push(coordinates);
     })
+    if (editablepolygon) {
+        mapDelimit.removeLayer(editablepolygon);
+    }
     editablepolygon = L.polygon(copyCoordinates, { color: 'red' });
     editablepolygon.addTo(mapDelimit)
     editablepolygon.enableEdit();
@@ -476,24 +877,25 @@ function validateIntakeArea() {
             'isFile': JSON.stringify(isFile),
             'typeDelimit': delimitationFileType
         },
-        success: function (result) {
+        success: function(result) {
             if (!result.validPolygon) {
                 Swal.fire({
                     icon: 'error',
-                    title: 'Error de Geometría',
-                    text: 'El polígono editado no es válido, por favor intente de nuevo',
+                    title: gettext('Geometry error'),
+                    text: gettext('The edited polygon is not valid')
                 })
             } else if (!result.polygonContains) {
                 Swal.fire({
-                    icon: 'error',
-                    title: 'El polígono debe estar dentro del área de la captación',
-                    text: 'El polígono editado no es válido, por favor intente de nuevo',
-                })
-                // Correct geometry
+                        icon: 'error',
+                        title: gettext('Geometry error'),
+                        text: gettext('The polygon geometries must be inside basin geometry'),
+                    })
+                    // Correct geometry
             } else {
+                validGeometry = true;
                 Swal.fire(
-                    'Excelente',
-                    'El polígono es válido y está dentro de la captación',
+                    gettext('Great!'),
+                    gettext("Is a valid polygon inside basin's geometries"),
                     'success'
                 );
                 // Set original intake area geom in hidden input for posterior reading
@@ -506,7 +908,7 @@ function validateIntakeArea() {
                 $('#typeDelimit').val(JSON.stringify(delimitationFileType));
             }
         },
-        error: function (error) {
+        error: function(error) {
             console.log(error);
         }
     });
@@ -515,9 +917,9 @@ function validateIntakeArea() {
 /** 
  * Validate input file on change
  * @param {HTML} dropdown Dropdown selected element
- */
+ Si */
 function changeFileEvent() {
-    $('#intakeArea').change(function (evt) {
+    $('#intakeArea').change(function(evt) {
         var file = evt.currentTarget.files[0];
         var extension = validExtension(file);
         // Validate file's extension
@@ -527,123 +929,64 @@ function changeFileEvent() {
             // Validate file's extension
             if (extension.extension == 'geojson') { //GeoJSON
                 var readerGeoJson = new FileReader();
-                readerGeoJson.onload = function (evt) {
+                readerGeoJson.onload = function(evt) {
                     var contents = evt.target.result;
-                    geojson = JSON.parse(contents);
-                    delimitationFileType = delimitationFileEnum.GEOJSON;
-                    let polygonStyle = {
-                        fillColor: "red",
-                        color: "#333333",
-                        weight: 0.2,
-                        fillOpacity: 0.3
+                    try {
+                        geojson = JSON.parse(contents);
+                        validGeojson = validateGeoJson(geojson);
+                        if (validGeojson) {
+                            delimitationFileType = delimitationFileEnum.GEOJSON;
+                            addEditablePolygonMap();
+                        } else {
+                            $('#intakeArea').val('');
+                            return;
+                        }
+                    } catch (e) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: gettext('GeoJSON file error'),
+                            text: gettext('Character errors in GeoJSON file'),
+                        })
+                        $('#intakeArea').val('');
+                        return;
                     };
-                    editablepolygon = L.geoJSON(geojson, { style: polygonStyle })
-                    editablepolygon.addTo(mapDelimit);
-                    mapDelimit.fitBounds(editablepolygon.getBounds())
-                    //loadShapefile(geojson, file.name);
-                }
+                };
+
+                readerGeoJson.onerror = function() {
+                    console.log(readerGeoJson.error);
+                };
                 readerGeoJson.readAsText(file);
             } else { //Zip
                 var reader = new FileReader();
-                var filename, readShp = false,
-                    readDbf = false,
-                    readShx = false,
-                    readPrj = false,
-                    prj, coord = true;
-                var prjName;
-                reader.onload = function (evt) {
+                reader.onload = function(evt) {
                     var contents = evt.target.result;
-                    JSZip.loadAsync(file).then(function (zip) {
-                        zip.forEach(function (relativePath, zipEntry) {
-                            filename = zipEntry.name.toLocaleLowerCase();
-                            if (filename.indexOf(".shp") != -1) {
-                                readShp = true;
-                            }
-                            if (filename.indexOf(".dbf") != -1) {
-                                readDbf = true;
-                            }
-                            if (filename.indexOf(".shx") != -1) {
-                                readShx = true;
-                            }
-                            if (filename.indexOf(".prj") != -1) {
-                                readPrj = true;
-                                prjName = zipEntry.name;
+                    JSZip.loadAsync(file).then(function(zip) {
+                        shapeValidation = validateShapeFile(zip);
+                        shapeValidation.then(function(resultFile) {
+                            //is valid shapefile
+                            if (resultFile.valid) {
+                                shp(contents).then(function(shpToGeojson) {
+                                    geojson = shpToGeojson;
+                                    delimitationFileType = delimitationFileEnum.SHP;
+                                    addEditablePolygonMap();
+                                });
+                            } else {
+                                $('#intakeArea').val('');
+                                return;
                             }
                         });
-                        // Valid shapefile with minimum files req
-                        if (readShp && readDbf && readPrj && readShx) {
-                            zip.file(prjName).async("string").then(function (data) {
-                                prj = data;
-                                // Validar sistema de referencia
-                                if (!prj) {
-                                    Swal.fire({
-                                        icon: 'error',
-                                        title: 'Error en shapefile',
-                                        text: 'Sistema de proyección incorrecto',
-                                    })
-                                }
-                                // Shapefile válido
-                                else {
-                                    shp(contents).then(function (shpToGeojson) {
-                                        geojson = shpToGeojson;
-                                        delimitationFileType = delimitationFileEnum.SHP;
-                                        let polygonStyle = {
-                                            fillColor: "#337ab7",
-                                            color: "#333333",
-                                            weight: 0.2,
-                                            fillOpacity: 0.3
-                                        };
-                                        editablepolygon = L.geoJSON(geojson, { style: polygonStyle })
-                                        editablepolygon.addTo(mapDelimit);
-                                        mapDelimit.fitBounds(editablepolygon.getBounds())
-                                        //loadShapefile(geojson, file.name);
-                                    }).catch(function (e) {
-                                        Swal.fire({
-                                            icon: 'error',
-                                            title: 'Error en shapefile',
-                                            text: 'Ha ocurrido un error de lectura en el shapefile',
-                                        })
-                                        console.log("Ocurrió error convirtiendo el shapefile " + e);
-                                    });
-                                }
-                            });
-                        } else { // Missing req files
-                            // Miss .shp
-                            if (!readShp) {
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'Error en shapefile',
-                                    text: 'Falta el archivo .shp requerido',
-                                })
-                            }
-                            // Miss .dbf
-                            if (!readDbf) {
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'Error en shapefile',
-                                    text: 'Falta el archivo .dbf requerido',
-                                })
-                            }
-                            // Miss .shx
-                            if (!readShx) {
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'Error en shapefile',
-                                    text: 'Falta el archivo .shx requerido',
-                                })
-                            }
-                            // Miss .prj
-                            if (!readPrj) {
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'Error en shapefile',
-                                    text: 'Falta el archivo .prj requerido',
-                                })
-                            }
-                        }
+                        //loadShapefile(geojson, file.name);
+                    }).catch(function(e) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: gettext('Shapefile error'),
+                            text: gettext("There's been an error reading the shapefile"),
+                        })
+                        console.log("Ocurrió error convirtiendo el shapefile " + e);
+                        $('#intakeArea').val('');
                     });
                 };
-                reader.onerror = function (event) {
+                reader.onerror = function(event) {
                     console.error("File could not be read! Code " + event.target.error.code);
                     //alert("El archivo no pudo ser cargado: " + event.target.error.code);
                 };
@@ -652,30 +995,25 @@ function changeFileEvent() {
         } else { //Invalid extension
             Swal.fire({
                 icon: 'error',
-                title: 'Error de extensión',
-                text: 'La extensión del archivo no está soportada, debe ser GeoJSON o un shapefile .zip',
+                title: gettext('Extension file error'),
+                text: gettext('Not supported file extension'),
             })
+            $('#intakeArea').val('');
         }
     });
 }
-/** 
- * Get if file has a valid shape or GeoJSON extension 
- * @param {StriFileng} file   zip or GeoJSON file
- *
- * @return {Object} extension Object contain extension and is valid
- */
-function validExtension(file) {
-    var fileExtension = {};
-    if (file.name.lastIndexOf(".") > 0) {
-        var extension = file.name.substring(file.name.lastIndexOf(".") + 1, file.name.length);
-        fileExtension.extension = extension;
+
+function addEditablePolygonMap() {
+    let polygonStyle = {
+        fillColor: "red",
+        color: "#333333",
+        weight: 0.2,
+        fillOpacity: 0.3
+    };
+    if (editablepolygon) {
+        mapDelimit.removeLayer(editablepolygon);
     }
-    if (file.type == 'application/x-zip-compressed' || file.type == 'application/zip') {
-        fileExtension.valid = true;
-    } else if (file.type == 'application/geo+json') {
-        fileExtension.valid = true;
-    } else {
-        fileExtension.valid = false;
-    }
-    return fileExtension;
+    editablepolygon = L.geoJSON(geojson, { style: polygonStyle })
+    editablepolygon.addTo(mapDelimit);
+    mapDelimit.fitBounds(editablepolygon.getBounds());
 }

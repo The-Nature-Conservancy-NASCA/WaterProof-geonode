@@ -45,6 +45,7 @@ from geonode.base.models import (
     MenuItem,
     CuratedThumbnail,
     Configuration,
+    Thesaurus, ThesaurusLabel, ThesaurusKeyword, ThesaurusKeywordLabel,
 )
 
 from geonode.base.forms import (
@@ -56,7 +57,7 @@ from geonode.base.widgets import TaggitSelect2Custom
 
 
 def metadata_batch_edit(modeladmin, request, queryset):
-    ids = ','.join([str(element.pk) for element in queryset])
+    ids = ','.join(str(element.pk) for element in queryset)
     resource = queryset[0].class_name.lower()
     form = BatchEditForm({
         'ids': ids
@@ -111,7 +112,7 @@ set_batch_permissions.short_description = 'Set permissions'
 
 
 def set_user_and_group_layer_permission(modeladmin, request, queryset):
-    ids = ','.join([str(element.pk) for element in queryset])
+    ids = ','.join(str(element.pk) for element in queryset)
     resource = queryset[0].__class__.__name__.lower()
 
     model_mapper = {
@@ -268,6 +269,62 @@ class ConfigurationAdmin(admin.ModelAdmin):
         return form
 
 
+class ThesaurusAdmin(admin.ModelAdmin):
+    model = Thesaurus
+    list_display = ('id', 'identifier')
+    list_display_links = ('id', 'identifier')
+    ordering = ('identifier',)
+
+
+class ThesaurusLabelAdmin(admin.ModelAdmin):
+    model = ThesaurusLabel
+    list_display = ('thesaurus_id', 'lang', 'label')
+    list_display_links = ('label',)
+    ordering = ('thesaurus__identifier', 'lang')
+
+    def thesaurus_id(self, obj):
+        return obj.thesaurus.identifier
+
+    thesaurus_id.short_description = 'Thesaurus'
+    thesaurus_id.admin_order_field = 'thesaurus__identifier'
+
+
+class ThesaurusKeywordAdmin(admin.ModelAdmin):
+    model = ThesaurusKeyword
+
+    list_display = ('thesaurus_id', 'about', 'alt_label',)
+    list_display_links = ('about', 'alt_label',)
+    ordering = ('thesaurus__identifier', 'alt_label',)
+    list_filter = ('thesaurus_id',)
+
+    def thesaurus_id(self, obj):
+        return obj.thesaurus.identifier
+
+    thesaurus_id.short_description = 'Thesaurus'
+    thesaurus_id.admin_order_field = 'thesaurus__identifier'
+
+
+class ThesaurusKeywordLabelAdmin(admin.ModelAdmin):
+    model = ThesaurusKeywordLabel
+
+    list_display = ('thesaurus_id', 'keyword_id', 'lang', 'label')
+    list_display_links = ('lang', 'label')
+    ordering = ('keyword__thesaurus__identifier', 'keyword__alt_label', 'lang')
+    list_filter = ('keyword__thesaurus__identifier', 'keyword_id', 'lang')
+
+    def thesaurus_id(self, obj):
+        return obj.keyword.thesaurus.identifier
+
+    thesaurus_id.short_description = 'Thesaurus'
+    thesaurus_id.admin_order_field = 'keyword__thesaurus__identifier'
+
+    def keyword_id(self, obj):
+        return obj.keyword.alt_label
+
+    keyword_id.short_description = 'Keyword'
+    keyword_id.admin_order_field = 'keyword__alt_label'
+
+
 admin.site.register(TopicCategory, TopicCategoryAdmin)
 admin.site.register(Region, RegionAdmin)
 admin.site.register(SpatialRepresentationType, SpatialRepresentationTypeAdmin)
@@ -281,6 +338,10 @@ admin.site.register(Menu, MenuAdmin)
 admin.site.register(MenuItem, MenuItemAdmin)
 admin.site.register(CuratedThumbnail, CuratedThumbnailAdmin)
 admin.site.register(Configuration, ConfigurationAdmin)
+admin.site.register(Thesaurus, ThesaurusAdmin)
+admin.site.register(ThesaurusLabel, ThesaurusLabelAdmin)
+admin.site.register(ThesaurusKeyword, ThesaurusKeywordAdmin)
+admin.site.register(ThesaurusKeywordLabel, ThesaurusKeywordLabelAdmin)
 
 
 class ResourceBaseAdminForm(autocomplete.FutureModelForm):

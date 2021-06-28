@@ -19,6 +19,7 @@
 #########################################################################
 
 import django
+from django.urls import path, re_path, include
 from django.conf.urls import include, url
 from django.conf import settings
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
@@ -38,11 +39,15 @@ from geonode.api.urls import api, router
 from geonode.api.views import verify_token, user_info, roles, users, admin_role
 from geonode.base.views import thumbnail_upload
 
-from geonode import geoserver, qgis_server  # noqa
+from geonode import geoserver
 from geonode.utils import check_ogc_backend
 from geonode.monitoring import register_url_event
 from geonode.messaging.urls import urlpatterns as msg_urls
 from .people.views import CustomSignupView
+
+from wagtail.admin import urls as wagtailadmin_urls
+from wagtail.core import urls as wagtail_urls
+from wagtail.documents import urls as wagtaildocs_urls
 
 admin.autodiscover()
 
@@ -55,6 +60,10 @@ sitemaps = {
     "layer": LayerSitemap,
     "map": MapSitemap
 }
+
+admin.site.site_header="WaterProof"
+admin.site.site_title="WaterProof Administration Panel"
+admin.site.index_title="WaterProof Administration Panel"
 
 homepage = register_url_event()(TemplateView.as_view(template_name='index.html'))
 
@@ -105,6 +114,8 @@ urlpatterns = [
 ]
 
 urlpatterns += [
+
+    
 
     # ResourceBase views
     url(r'^base/', include('geonode.base.urls')),
@@ -244,13 +255,6 @@ if check_ogc_backend(geoserver.BACKEND_PACKAGE):
             get_capabilities, name='capabilities_category'),
         url(r'^gs/', include('geonode.geoserver.urls')),
     ]
-elif check_ogc_backend(qgis_server.BACKEND_PACKAGE):
-    # QGIS Server's urls
-    urlpatterns += [  # '',
-        url(r'^qgis-server/',
-            include(('geonode.qgis_server.urls', 'geonode.qgis_server'),
-                    namespace='qgis_server')),
-    ]
 
 if settings.NOTIFICATIONS_MODULE in settings.INSTALLED_APPS:
     notifications_urls = '{}.urls'.format(settings.NOTIFICATIONS_MODULE)
@@ -312,8 +316,21 @@ urlpatterns += [
 urlpatterns += [
     url(r'^treatment_plants/', include('geonode.waterproof_treatment_plants.urls'), name='waterproof_treatment_plants'),
 ]
-
+# waterproof_parameters
+urlpatterns += [
+    url(r'^parameters/', include('geonode.waterproof_parameters.urls'), name='waterproof_parameters'),
+]
 if settings.MONITORING_ENABLED:
     urlpatterns += [url(r'^monitoring/',
                         include(('geonode.monitoring.urls', 'geonode.monitoring'),
                                 namespace='monitoring'))]
+
+# waterproof_reports
+urlpatterns += [
+    url(r'^reports/', include('geonode.waterproof_reports.urls'), name='waterproof_reports'),
+]
+
+# waterproof_cms
+urlpatterns += [
+    url(r'^cms/', include('geonode.waterproof_cms.urls'), name='waterproof_cms'),
+]

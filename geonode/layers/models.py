@@ -223,10 +223,12 @@ class Layer(ResourceBase):
 
     @property
     def display_type(self):
-        return ({
-            "dataStore": "Vector Data",
-            "coverageStore": "Raster Data",
-        }).get(self.storeType, "Data")
+        if self.storeType == "dataStore":
+            return "Vector Data"
+        elif self.storeType == "coverageStore":
+            return "Raster Data"
+        else:
+            return "Data"
 
     @property
     def data_model(self):
@@ -332,6 +334,10 @@ class Layer(ResourceBase):
             args=("%s:%s" % (self.store, self.alternate),)
         )
 
+    @property
+    def embed_url(self):
+        return reverse('layer_embed', kwargs={'layername': self.service_typename})
+
     def attribute_config(self):
         # Get custom attribute sort order and labels if any
         cfg = {}
@@ -339,8 +345,8 @@ class Layer(ResourceBase):
         if (visible_attributes.count() > 0):
             cfg["getFeatureInfo"] = {
                 "fields": [lyr.attribute for lyr in visible_attributes],
-                "propertyNames": dict([(lyr.attribute, lyr.attribute_label) for lyr in visible_attributes]),
-                "displayTypes": dict([(lyr.attribute, lyr.featureinfo_type) for lyr in visible_attributes])
+                "propertyNames": {lyr.attribute: lyr.attribute_label for lyr in visible_attributes},
+                "displayTypes": {lyr.attribute: lyr.featureinfo_type for lyr in visible_attributes}
             }
 
         if self.use_featureinfo_custom_template:
@@ -614,8 +620,14 @@ def pre_save_layer(instance, sender, **kwargs):
     if instance.owner is None:
         instance.owner = get_valid_user()
 
-    if instance.uuid == '':
-        instance.uuid = str(uuid.uuid1())
+    logger.debug("handling UUID In pre_save_layer")
+    if hasattr(settings, 'LAYER_UUID_HANDLER') and settings.LAYER_UUID_HANDLER != '':
+        logger.debug("using custom uuid handler In pre_save_layer")
+        from geonode.layers.utils import get_uuid_handler
+        instance.uuid = get_uuid_handler()(instance).create_uuid()
+    else:
+        if instance.uuid == '':
+            instance.uuid = str(uuid.uuid1())
 
     logger.debug("In pre_save_layer")
     if instance.alternate is None:

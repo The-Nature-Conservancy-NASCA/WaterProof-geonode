@@ -8,7 +8,9 @@
 
 {% block body_outer %}
     <div class="page-header">
-        <h2>{% trans "Sign up" %}</h2>
+        <h2>{% trans "Sign up" %}
+         <button type="button" data-toggle="modal" data-target="#HelpModal" id="HelpModalBtnModal" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; padding: 0.001cm; border-style: none; background-color:transparent;"></button>
+        </h2>
     </div>
     <div class="row">
       {% get_providers as socialaccount_providers %}
@@ -23,6 +25,7 @@
     {% if account_geonode_local_signup %}
         <div class="row">
           <p>{% trans "Create a new local account" %}</p>
+          <h6>{% trans "Create a new account. To access the case study creation functionalities in WaterProof, it is necessary to have login credentials. Then enter your contact details and review the Terms and Conditions." %}</h6>
           <form id="signup_form" method="post" action="{% url "account_signup" %}" autocapitalize="off" {% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
               <fieldset>
                   {% csrf_token %}
@@ -62,6 +65,33 @@
         </div>
     </div>
 
+    <!--Modal Help-->
+<div class="modal fade" id="HelpModal" tabindex="-1" aria-labelledby="HelpModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h3 class="modal-title text-center" id="HelpModalLabel" style="color:#6398C1 ;">{%  trans "Welcome to WaterProof" %}</h3>
+            </div>
+            <div class="modal-body">
+                <li>
+                    {%  trans "Through your registration as a WaterProof user, you will be able to access a set of services to perform an indicative analysis, at the pre-feasibility level, of the ROI return on investment in the implementation of Nature-Based Solutions in accordance with the environmental situation of the supply basins of interest. Please enter your contact information, indicating your professional role and interest in the use of the analysis, define your login password and review the terms of conditions of the tool. At the end, click on the 'Register' button."  %}
+                </li>
+                <div>
+                    <div class="form-actions">
+                        <button style="margin: 10px auto 10px; display: block;" type="submit" class="btn btn-primary">{% trans "Sign up" %}</button>
+                    </div>
+                <br>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" style="color: white; background-color: #6398C1;">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 {% endblock %}
 
 {% block extra_script %}
@@ -81,7 +111,7 @@
                 }
             })
 
-            $('#id_country').select2();
+            //$('#id_country').select2();
             
             $("#btnTerms").on("click",function(e){
                 let url = "/terms_of_use_flat/";

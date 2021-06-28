@@ -2,8 +2,13 @@
 from django.conf.urls import url, include
 from django.urls import path
 from . import views
-
+from django.views.i18n import JavaScriptCatalog
+js_info_dict = {
+    'domain': 'djangojs',
+    'packages': 'geonode.waterproof_nbs_ca'
+}
 urlpatterns = [
+    url(r'^jsi18n/$', JavaScriptCatalog.as_view(), js_info_dict, name='javascript-catalog-nbs'),
     # Create NBS
     path('create/<int:countryId>', views.createNbs, name='create-nbs'),
     # Default view, list all views
@@ -21,19 +26,5 @@ urlpatterns = [
     # Load activities by it's transition id
     path('load-activityByTransition/', views.loadActivityByTransition, name='waterproof_load_activities'),
     # Load transformations by it's activity id
-    path('load-transformationByActivity/', views.loadTransformationbyActivity, name='waterproof_load_transformations'),
-    # Load a country by id
-    path('load-country/', views.loadCountry, name='waterproof_load_country'),
-    # Load a country by id
-    path('load-countryByCode/', views.loadCountryByCode, name='waterproof_load_countryByCode'),
-    # Load all countries
-    path('load-allCountries/', views.loadAllCountries, name='load_allCountries'),
-    # Load currency by id
-    path('load-currency/', views.loadCurrency, name='load_currency'),
-    # Load currency by country id
-    path('load-currencyByCountry/', views.loadCurrencyByCountry, name='load_currencyByCountry'),
-     # Load region by country id
-    path('load-regionByCountry/', views.loadRegionByCountry, name='load_regionByCountry'),
-    # Load all currencies
-    path('load-allCurrencies/', views.loadAllCurrencies, name='load_allCurrencies')
+    path('load-transformationByActivity/', views.loadTransformationbyActivity, name='waterproof_load_transformations')
 ]

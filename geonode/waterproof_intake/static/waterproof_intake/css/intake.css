@@ -49,8 +49,27 @@
     vertical-align: middle;
 }
 
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 9px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    background: red;
+    cursor: inherit;
+    display: block;
+}
+
 .modal {
     text-align: center;
+}
+
+textarea {
+    resize: vertical;
 }
 
 @media screen and (min-width: 768px) {
@@ -62,10 +81,22 @@
     }
 }
 
+.title-city {
+    position: absolute;
+    right: 26%;
+    top: 5%;
+}
+
 .modal-dialog {
     display: inline-block;
     text-align: left;
     vertical-align: middle;
+}
+
+.modal-xl {
+    min-width: 1140px;
+    margin: auto;
+    min-height: 800px;
 }
 
 .mxToolbarMode:hover {
@@ -75,7 +106,7 @@
 
 .btn-group>button {
     height: 45px;
-    width: 50.2px;
+    width: 55.7px;
     outline: none;
 }
 
@@ -95,7 +126,7 @@
 
 .btn-add-cost {
     position: absolute;
-    right: 0;
+    right: 1rem;
     margin-right: 15px;
 }
 
@@ -113,4 +144,85 @@
 
 .text-intake {
     color: #3B819B;
+}
+
+.math-span .mq-root-block {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.mathTable {
+    margin-bottom: 0;
+}
+
+#math-field {
+    margin-top: 8px;
+}
+
+#mathBasic_tab>.btn-group {
+    margin-top: 8px;
+}
+
+#mathAdvanced_tab>.btn-group {
+    margin-top: 8px;
+}
+
+#mathTrigonometry_tab>.btn-group {
+    margin-top: 8px;
+}
+
+#mathLogical_tab>.btn-group {
+    margin-top: 8px;
+}
+
+.math-btn {
+    padding: 0px;
+}
+
+.px-5 {
+    padding-left: 10rem !important;
+    padding-right: 10rem !important;
+}
+
+.truncate {
+    max-height: 4.3rem;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.python-expression{
+    margin-top: 5px;
+    width: 90%;
+    font-family: monospace;
+    font-size: 1.2rem;
+}
+.valid_expression{
+    border: 2px solid #029902;
+    box-shadow: 0 0 10px #719ece;
+    color: rgb(2, 124, 33);
+}
+
+.invalid_expression{
+    border: 2px solid #af0900;
+    box-shadow: 0 0 10px #719ece;
+    color: red;
+}
+
+.var-cost-panel {
+    max-height: 150px;
+    overflow-y: auto;
+}
+.keyboard-title{
+    margin-top: 22px;
+}
+
+.panel-group {
+    margin-bottom: 2px;
+}
+
+.header-waterproof{
+    padding-left: 28rem;
+    padding-bottom: 2px;
 }

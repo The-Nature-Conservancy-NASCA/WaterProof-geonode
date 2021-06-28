@@ -41,7 +41,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GeoNode\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-14 16:58-0500\n"
+"POT-Creation-Date: 2021-02-11 20:03-0500\n"
 "PO-Revision-Date: 2020-12-15 18:41-0500\n"
 "Last-Translator: Julien Collaer <julien.collaer@opengeode.be>\n"
 "Language-Team: Spanish (http://www.transifex.com/geonode/geonode/language/"
@@ -53,29 +53,209 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 2.4.2\n"
 
-#: geonode/waterproof_study_cases/templates/study_cases/studycases_form.html:6
-msgid "Study Cases."
-msgstr ""
+msgid "study_cases"
+msgstr "Casos de estudio"
 
-#: geonode/waterproof_study_cases/templates/study_cases/studycases_form.html:12
-msgid "Save"
-msgstr ""
+msgid "new_study_case"
+msgstr "Nuevo caso de estudio"
 
-#: geonode/waterproof_study_cases/templates/study_cases/studycases_list.html:4
-#: geonode/waterproof_study_cases/templates/study_cases/studycases_list.html:6
-msgid "Study Cases"
-msgstr ""
+msgid "list_study_case"
+msgstr "Lista casos de estudio"
 
-#: geonode/waterproof_study_cases/templates/study_cases/studycases_list.html:7
-#, fuzzy
-#| msgid "List Water Intake"
-msgid "Create new study case"
-msgstr "Listar captaciones"
+msgid "treatment_plants"
+msgstr "Plantas de tratamiento"
 
-#, fuzzy
-#~| msgid "List Water Intake"
-#~ msgid "Water Intakes"
-#~ msgstr "Listar captaciones"
+msgid "water_intakes"
+msgstr "Captaciones"
 
-#~ msgid "List Water Intake"
-#~ msgstr "Listar captaciones"
+msgid "execution_status"
+msgstr "Estado ejecución"
+
+msgid "creation_city"
+msgstr "Ciudad de creación"
+
+msgid "carbon_market"
+msgstr "Mercado de Carbono"
+
+msgid "modelling_parameters"
+msgstr "Parametros de modelado"
+
+msgid "financial_parameters"
+msgstr "Parametros Financieros"
+
+msgid "NBS_conservation_activities"
+msgstr "NBS / Activiades de conservación"
+
+msgid "portfolios"
+msgstr "Portafolios"
+
+msgid "run_analysis"
+msgstr "Ejecutar Análisis"
+
+msgid "define_study_case"
+msgstr "Definir caso de estudio"
+
+msgid "define_study_case_text"
+msgstr "Por favor complete las filas para definir su caso de estudio"
+
+msgid "select_type_study"
+msgstr "Seleccione el tipo de caso de estudio a crear"
+
+msgid "no_treatment_plants"
+msgstr "No existen plantas de tratamiento en la ciudad seleccionada"
+
+msgid "custom_case"
+msgstr "Caso personalizado"
+
+msgid "select_water_intake"
+msgstr "Seleccione la captación que usted considere para el análisis ROI"
+
+msgid "water_source"
+msgstr "Nombre de la fuente de agua"
+
+msgid "add_wi"
+msgstr "Agregar captación"
+
+msgid "add_cost_function"
+msgstr "Agregar función de costo"
+
+msgid "select_treatments_plants"
+msgstr "Seleccione la planta de tratamiento que usted considere para el análisis ROI"
+
+msgid "add_plant"
+msgstr "Agregar Planta"
+
+msgid "carbon_market_benefits"
+msgstr "Beneficios mercado de carbono"
+
+msgid "carbon_market_text"
+msgstr "If you wish, WaterProof can consider benefits associated with the Carbon market, click on the following checkbox to include in the analysis"
+
+msgid "CO2_country"
+msgstr "CO2 Eq para (País)"
+
+msgid "portfolios_text"
+msgstr "Select the objetives for which the systemwill generate portfolios of Nature-bassed Solutions, using the RIOS technnical framework"
+
+msgid "edit_study_cases"
+msgstr "Editar caso de estudio"
+
+msgid "biophysical_tables"
+msgstr "Tablas biofisicas"
+
+msgid "Biophysical_tables_text"
+msgstr "In this step you will find the biophysical parameters required for the execution of the models. If you want to see or edit them, click on advanced options, otherwise click on next and the system will use the default values."
+
+msgid "advanced_options"
+msgstr "Opciones avanzadas"
+
+msgid "tables_text"
+msgstr "Below are the biophysical tables that will be used in modeling un inVEST and RIOS. You can edit the values according to the specific knowledge of the supplying basins"
+
+msgid "InVEST_documentation"
+msgstr "Please see the InVEST documentation"
+
+msgid "platform_cost"
+msgstr "Platform cost per year"
+
+msgid "personnel_salary_benefits"
+msgstr "Personnel Salary and Benefits"
+
+msgid "program_director"
+msgstr "Program director"
+
+msgid "monitoring_manager"
+msgstr "Monitoring and Evaluation Manager"
+
+msgid "finance_administrator"
+msgstr "Finance and Administrator"
+
+msgid "implementation_manager"
+msgstr "Implementation Manager"
+
+msgid "office_costs"
+msgstr "Office Costs"
+
+msgid "Travel"
+msgstr "Travel"
+
+msgid "Equipment"
+msgstr "Equipment"
+
+msgid "Contracts"
+msgstr "Contracts"
+
+msgid "Overhead"
+msgstr "Overhead"
+
+msgid "Others"
+msgstr "Others"
+
+msgid "transaction_cost"
+msgstr "Transaction cost (%)"
+
+msgid "discount_rate"
+msgstr "Discount rate (%)"
+
+msgid "sensitivity_minimun_discount"
+msgstr "Sensitivity Analysis - Minimun Discount Rate (%)"
+
+msgid "sensitivity_maximun_discount"
+msgstr "Sensitivity Analysis - Maximun Discount Rate (%)"
+
+msgid "NBS_conservation_activities_text"
+msgstr "Select the NBS you want to consider in the analysis"
+
+msgid "analysis_time_period"
+msgstr "Analysis time period (years) (10-100)"
+
+msgid "implementation_time_nbs"
+msgstr "Implementation Time of Nature-Based Solution (yr)"
+
+msgid "climate_baseline_nbs"
+msgstr "Climate Selection for Baseline and NBS Scenario Analysis"
+
+msgid "select_type_analysis"
+msgstr "Select an option to run the analysis"
+
+msgid "full_portfolio"
+msgstr "Full portfolio"
+
+msgid "investment_scenario"
+msgstr "Investment scenario"
+
+msgid "minimum_investment_percentages"
+msgstr "Assign minimum investment percentages"
+
+msgid "annual_investment"
+msgstr "Annual Investment"
+
+msgid "rellocated_remainder"
+msgstr "Rellocated remainder"
+
+msgid "assign_minimum_investment"
+msgstr "Assign minimum investment"
+
+msgid "Activity"
+msgstr "Activity"
+
+msgid "Percentage"
+msgstr "Percentage"
+
+msgid "Investment"
+msgstr "Investment"
+
+msgid "clone_study_cases"
+msgstr "Clonar caso de estudio"
+
+msgid "view_study_cases"
+msgstr "Ver caso de estudio"
+
+msgid "Return"
+msgstr "Regresar"
+
+
+
+
+
+

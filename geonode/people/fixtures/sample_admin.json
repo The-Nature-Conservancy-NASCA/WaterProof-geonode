@@ -1,7 +1,7 @@
 [{
 	"fields": {
 		"date_joined": "2011-06-09 15:15:27",
-		"email": "ad@m.in",
+		"email": "edwin.piragauta@skaphe.com",
 		"first_name": "",
 		"groups": [],
 		"is_active": true,
@@ -15,4 +15,13 @@
 	},
 	"model": "people.Profile",
 	"pk": 1000
+},{
+	"model": "account.emailaddress",
+	"pk": 1,
+	"fields": {
+		"user": 1000,
+		"email": "edwin.piragauta@skaphe.com",
+		"verified": true,
+		"primary": true
+	}
 }]

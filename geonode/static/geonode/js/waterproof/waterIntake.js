@@ -2,13 +2,23 @@ async function validateCoordinateWithApi(e) {
   const snapPoint = "snapPoint";
   const delineateCatchment = "delineateCatchment";
   let center =  waterproof.cityCoords == undefined ? map.getCenter(): waterproof.cityCoords;
-  let url = serverApi + snapPoint + "?x=" + center[1] + "%26y=" + center[0];
+  let amp = "&";
+  if (serverApi.indexOf("proxy") >=0){
+    amp = "%26";
+  }
+  let url = serverApi + snapPoint + "?x=" + center[1] + amp + "y=" + center[0];
   let response = await fetch(url);
  
   let result = await response.json();
-  if (result.estado) {
-    let x = result.resultado.x_snap;
-    let y = result.resultado.y_snap;
+  if (result.status) {
+
+    if (L.Location.Marker){
+      map.removeLayer(L.Location.Marker);
+      L.Location.Marker._latlng = null;
+    }
+
+    let x = result.result.x_snap;
+    let y = result.result.y_snap;
 
     if (!snapMarker) {
       snapMarker = L.marker(null, {});
@@ -19,11 +29,11 @@ async function validateCoordinateWithApi(e) {
     snapMarkerMapDelimit.setLatLng(ll);
     snapMarker.addTo(map);
     snapMarkerMapDelimit.addTo(mapDelimit);
-    url = serverApi + delineateCatchment + "?x=" + x + "%26y=" + y;
+    url = serverApi + delineateCatchment + "?x=" + x + amp + "y=" + y;
 
     let responseCatchment = await fetch(url);
     let resultCatchment = await responseCatchment.json();
-    if (resultCatchment.estado) {
+    if (resultCatchment.status) {
       if (!catchmentPoly) {
         catchmentPoly = L.geoJSON().addTo(map);
         catchmentPolyDelimit = L.geoJSON().addTo(mapDelimit);
@@ -38,9 +48,9 @@ async function validateCoordinateWithApi(e) {
         catchmentPolyDelimit = L.geoJSON().addTo(mapDelimit);
       }
 
-      catchmentPoly.addData(resultCatchment.resultado.geometry.features);
-      catchmentPolyDelimit.addData(resultCatchment.resultado.geometry.features);
-      basinId=resultCatchment.resultado.basin;
+      catchmentPoly.addData(resultCatchment.result.geometry.features);
+      catchmentPolyDelimit.addData(resultCatchment.result.geometry.features);
+      basinId=resultCatchment.result.basin;
       map.fitBounds(catchmentPoly.getBounds());
       mapDelimit.fitBounds(catchmentPoly.getBounds());
       mapLoader.hide();

@@ -90,7 +90,7 @@ SECRET_KEY = os.getenv('SECRET_KEY', _DEFAULT_SECRET_KEY)
 SITE_HOST_SCHEMA = os.getenv('SITE_HOST_SCHEMA', 'http')
 SITE_HOST_NAME = os.getenv('SITE_HOST_NAME', 'apps.skaphe.com')
 SITE_HOST_PORT = os.getenv('SITE_HOST_PORT', 8000)
-SITE_HOST_API = os.getenv('SITE_HOST_API', 'http://localhost:8000/')
+SITE_HOST_API = os.getenv('SITE_HOST_API', 'http://apps.skaphe.com:8000/')
 _default_siteurl = "%s://%s:%s/" % (SITE_HOST_SCHEMA,
                                     SITE_HOST_NAME,
                                     SITE_HOST_PORT) if SITE_HOST_PORT else "%s://%s/" % (SITE_HOST_SCHEMA, SITE_HOST_NAME)
@@ -105,14 +105,16 @@ if not SITEURL.endswith('/'):
     SITEURL = '{}/'.format(SITEURL)
 
 DATABASE_URL = os.getenv(
-      'DATABASE_URL',
-      'spatialite:///{path}'.format(
-          path=os.path.join(PROJECT_ROOT, 'development.db')
-      )
- )
+    'DATABASE_URL',
+    'spatialite:///{path}'.format(
+        path=os.path.join(PROJECT_ROOT, 'development.db')
+    )
+)
 
 #DATABASE_URL='postgresql://geonode:{&Uid&QXZ&6f;|F@dev.skaphe.com:5432/geonode'
-#DATABASE_URL = 'postgresql://geonode:{&Uid&QXZ&6f;|F@dev.skaphe.com:5432/geonode'
+#DATABASE_URL='postgresql://geonode:{&Uid&QXZ&6f;|F@dev.skaphe.com:5432/geonode'
+#DATABASE_URL='postgresql://geonode:G30N0D3@water-proof.org:5432/geonode'
+DATABASE_URL='postgresql://geonode:geonode@localhost:5432/geonode'
 
 if DATABASE_URL.startswith("spatialite"):
     try:
@@ -472,7 +474,9 @@ GEONODE_INTERNAL_APPS = (
     'geonode.waterproof_study_cases',
     'geonode.waterproof_nbs_ca',
     'geonode.waterproof_intake',
+    'geonode.waterproof_parameters',
     'geonode.waterproof_treatment_plants',
+    'geonode.waterproof_reports',
 )
 
 GEONODE_CONTRIB_APPS = (
@@ -557,7 +561,28 @@ INSTALLED_APPS = (
     # translation flags
     'django_translation_flags',
 
+    # waterproof cms
+    # 'waterproof',
+    'geonode.waterproof_cms',
+
 )
+
+WAGTAIL_APP = (
+    'wagtail.contrib.forms',
+    'wagtail.contrib.redirects',
+    'wagtail.embeds',
+    'wagtail.sites',
+    'wagtail.users',
+    'wagtail.snippets',
+    'wagtail.documents',
+    'wagtail.images',
+    'wagtail.search',
+    'wagtail.admin',
+    'wagtail.core',
+    'modelcluster',
+)
+
+INSTALLED_APPS += WAGTAIL_APP
 
 INSTALLED_APPS += ('markdownify',)
 MARKDOWNIFY_STRIP = os.getenv('MARKDOWNIFY_STRIP', False)
@@ -795,6 +820,7 @@ MIDDLEWARE = (
     'oauth2_provider.middleware.OAuth2TokenMiddleware',
     'geonode.base.middleware.MaintenanceMiddleware',
     'geonode.base.middleware.ReadOnlyMiddleware',   # a Middleware enabling Read Only mode of Geonode
+    'wagtail.contrib.redirects.middleware.RedirectMiddleware',
 )
 
 MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
@@ -987,6 +1013,10 @@ GEOSERVER_LOCATION = os.getenv(
     'GEOSERVER_LOCATION', 'http://localhost:8080/geoserver/'
 )
 
+# add trailing slash to geoserver location url.
+if not GEOSERVER_LOCATION.endswith('/'):
+    GEOSERVER_LOCATION = '{}/'.format(GEOSERVER_LOCATION)
+    
 GEOSERVER_PUBLIC_SCHEMA = os.getenv(
     'GEOSERVER_PUBLIC_SCHEMA', SITE_HOST_SCHEMA
 )
@@ -1017,8 +1047,8 @@ OGC_SERVER_DEFAULT_USER = os.getenv(
 )
 
 OGC_SERVER_DEFAULT_PASSWORD = os.getenv(
-#    'GEOSERVER_ADMIN_PASSWORD', 'geoserver'
-#    'GEOSERVER_ADMIN_PASSWORD', '{&Uid&QXZ&6f;|F'
+#    'GEOSERVER_ADMIN_PASSWORD', 'geoserver',
+    'GEOSERVER_ADMIN_PASSWORD', '{&Uid&QXZ&6f;|F'
 )
 
 GEOFENCE_SECURITY_ENABLED = False if TEST and not INTEGRATION else ast.literal_eval(
@@ -1919,6 +1949,7 @@ PINAX_NOTIFICATIONS_LOCK_WAIT_TIMEOUT = os.environ.get('NOTIFICATIONS_LOCK_WAIT_
 # pinax.notifications
 # or notification
 NOTIFICATIONS_MODULE = 'pinax.notifications'
+ADMINS_ONLY_NOTICE_TYPES = ast.literal_eval(os.getenv('ADMINS_ONLY_NOTICE_TYPES', "['monitoring_alert',]"))
 
 # set to true to have multiple recipients in /message/create/
 USER_MESSAGES_ALLOW_MULTIPLE_RECIPIENTS = ast.literal_eval(
@@ -2084,10 +2115,15 @@ SOCIALACCOUNT_PROFILE_EXTRACTORS = {
 INVITATIONS_ADAPTER = ACCOUNT_ADAPTER
 
 # Choose thumbnail generator -- this is the default generator
-THUMBNAIL_GENERATOR = "geonode.layers.utils.create_gs_thumbnail_geonode"
-#THUMBNAIL_GENERATOR_DEFAULT_BG = r"http://a.tile.openstreetmap.org/{z}/{x}/{y}.png"
-THUMBNAIL_GENERATOR_DEFAULT_BG = r"https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png"
-THUMBNAIL_GENERATOR_DEFAULT_SIZE = {'width': 240, 'height': 200}
+THUMBNAIL_GENERATOR = os.environ.get(
+    'THUMBNAIL_GENERATOR', 'geonode.layers.utils.create_gs_thumbnail_geonode')
+THUMBNAIL_GENERATOR_DEFAULT_BG = os.environ.get(
+    'THUMBNAIL_GENERATOR_DEFAULT_BG',
+    'https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png')
+THUMBNAIL_GENERATOR_DEFAULT_SIZE = {
+    'width': int(os.environ.get('THUMBNAIL_GENERATOR_DEFAULT_SIZE_WIDTH', 240)),
+    'height': int(os.environ.get('THUMBNAIL_GENERATOR_DEFAULT_SIZE_HEIGHT', 200))
+}
 
 # define the urls after the settings are overridden
 if USE_GEOSERVER:
@@ -2127,8 +2163,6 @@ MONITORING_DATA_TTL = timedelta(days=int(os.getenv("MONITORING_DATA_TTL", 365)))
 # this will disable csrf check for notification config views,
 # use with caution - for dev purpose only
 MONITORING_DISABLE_CSRF = ast.literal_eval(os.environ.get('MONITORING_DISABLE_CSRF', 'False'))
-
-os.environ["PATH"] += os.pathsep + r'C:\Graphviz\bin'
 
 if MONITORING_ENABLED:
     if 'geonode.monitoring' not in INSTALLED_APPS:
@@ -2180,6 +2214,9 @@ WATERPROOF_NBS_CA_ALLOW_ANONYMOUS = True
 
 WATERPROOF_API_SERVER = "/proxy/?url=http://dev.skaphe.com:8000/"
 
+WATERPROOF_INVEST_API="http://dev.skaphe.com:8000/"
+WATERPROOF_MODELS_PY3_API="http://dev.skaphe.com:8000/"
+WATERPROOF_MODELS_PY2_API="http://dev.skaphe.com:5050/"
 SEARCH_CITY_API_URL = '/proxy/?url=https://photon.komoot.io/api/?'
 
 SEARCH_COUNTRY_API_URL = "https://restcountries.eu/rest/v2/alpha/"
@@ -2188,10 +2225,14 @@ OSM_BASEMAP_URL = 'https://{s}.tile.osm.org/{z}/{x}/{y}.png'
 IMG_BASEMAP_URL = "https://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryTopo/MapServer/tile/{z}/{y}/{x}"
 HYDRO_BASEMAP_URL = "https://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/Esri_Hydro_Reference_Overlay/MapServer/tile/{z}/{y}/{x}"
 GRAY_BASEMAP_URL = "https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png"
-GEOSERVER_WMS = 'http://apps.skaphe.com:8080/geoserver/waterproof/wms?'
+GEOSERVER_WMS = os.getenv('GEOSERVER_WMS','http://apps.skaphe.com:8080/geoserver/waterproof/wms?')
 HYDRO_NETWORK_LYR = 'waterproof:world_hydro_network'
 
+WAGTAIL_SITE_NAME = 'Waterproof CMS'
 
 # WATERPROOF_API_METHODS = {
 #
 # }
+CATALOG_METADATA_TEMPLATE = os.getenv("CATALOG_METADATA_TEMPLATE", "catalogue/full_metadata.xml")
+
+WATERPROOF_SPECIAL_VALUES = ['min', 'E2', 'E3']

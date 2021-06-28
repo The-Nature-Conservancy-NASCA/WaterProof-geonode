@@ -1,0 +1,324 @@
+.border-table-title {
+    border-style: solid;
+    border-width: 2px;
+    border-color: #b9b9b9;
+    width: 40%;
+    background-color: #ffffff;
+}
+.title-table {
+    text-align: center;
+    margin: 4px;
+    font-size: 12px;
+    font-weight: bold;
+    color: #3a809a;
+}
+.column-left-table {
+    width: calc(50% - 10px);
+    border-right-style: solid;
+    border-width: 2px;
+    border-color: #b9b9b9;
+    font-size: 12px;
+    height: 80px;
+    margin-left: 10px;
+}
+.column-right-table {
+	position: absolute;
+    top: 0px;
+    right: 0px;
+    width: 50%;
+    font-size: 12px;
+}
+.file-column-left {
+	position: relative;
+}
+.title-file-column-right {
+    width: 70%;
+    left: 10px;
+    position: relative;
+}
+.value-file-column-left {
+    position: absolute;
+    top: 0px;
+    right: 10px;
+}
+.detail-table {
+	position: relative;
+}
+.title-inform {
+	margin-top: 50px;
+    font-size: 14px;
+}
+.inform-section {
+    width: 250px;
+    background-color: #3a809a;
+    color: #ffffff;
+    text-align: center;
+    padding: 10px;
+    border-style: solid;
+    border-color: #1a6784;
+    border-width: 1px;
+    border-bottom-style: none;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    float: left;
+    margin-right: 3px;
+    cursor: pointer;
+}
+.inform-section-free {
+    background-color: #ffffff;
+    color: #3a809a;
+}
+.contain-detail {
+    margin-top: 150px;
+    right: 50px;
+    position: relative;
+}
+.first-detail {
+	border-style: solid;
+    border-color: #b9b9b9;
+    border-radius: 10px;
+    border-width: 2px;
+    width: 20%;
+    font-size: 12px;
+    float: left;
+    margin-left: 20px;
+}
+.content-title-first {
+    height: 30px;
+    position: relative;
+}
+.text-title-first {
+    height: 30px;
+    border-bottom-style: solid;
+    width: 70%;
+    margin-left: 10%;
+    border-width: 0px;
+    border-color: #b9b9b9;
+    padding-top: 10px;
+    text-align: left;
+    font-weight: bold;
+}
+.close-title-first {
+    height: 30px;
+    font-size: 20px;
+    top: -5px;
+    position: absolute;
+    cursor: pointer;
+    padding: 10px;
+    right: 5px;
+}
+.first-detail-in {
+    margin: 20px;
+}
+.text-first-detail {
+    text-align: left;
+}
+.content-option-first-detail {
+    width: 80%;
+    left: 20%;
+    position: relative;
+    margin: 5px;
+}
+.div-option {
+    text-align: left;
+    float: left;
+}
+.div-option > input {
+	margin-top: 0px;
+	cursor: pointer;
+}
+.div-text {
+	text-align: left;
+    margin-left: 20px;
+}
+.content-image {
+	width: 400px;
+	height: 500px;
+    float: left;
+}
+.content-image > img {
+    width: 70%;
+    background: #e2e2e2;
+    border-radius: 50%;
+    padding: 20px;
+}
+.container {
+    padding-left: 30rem !important;
+}
+.container-border {
+    width: 50%;
+    height: 600px;
+}
+.container-page {
+    position: relative;
+    margin-top: 150px;    
+}
+.container-detail {
+    position: absolute;
+    top: 0px;
+    left: 50%;
+    width: 50%;
+}
+.margin-detail {
+    margin: 30px;
+}
+.margin-title {
+    margin: 150px;
+    background-color: #cccccc;
+    padding: 20px;
+    font-size: 12px;
+    margin-top: 10px;
+    margin-bottom: 40px;
+    border-top: 2px;
+    border-top-style: solid;
+    border-color: #1f421f;
+}
+.button-title {
+    background-color: #1f421f;
+    color: #ffffff;
+    text-align: center;
+    padding: 10px;
+    position: absolute;
+    padding-left: 50px;
+    padding-right: 50px;
+    margin: 5px;
+    margin-left: 10px;
+}
+.container-detail-line {
+    text-align: center;
+    margin: 50px;
+    padding: 10px;
+    background-color: #cccccc;
+    font-size: 13px;
+}
+.line-detail {
+    border-top: 2px;
+    border-top-style: solid;
+    border-color: #1f421f;
+    margin: 10px;
+    padding: 10px;
+}
+.value-line-detail {
+    font-size: 25px;
+    font-weight: bold;
+}
+.title-water {
+    font-size: 15px;
+    font-weight: bold;
+}
+.name-title-water {
+    font-weight: 300;
+}
+.margin-select {
+    margin: 15px;
+}
+.select-condition {
+    font-size: 15px;
+    width: 300px;
+    border-style: solid;
+    background: #f7f7f7;
+    padding-left: 35px;
+    border-radius: 8px;
+    border-color: #b3b3b3;
+}
+.container-general-gauge {
+    height: 250px;
+    margin: 10px;
+}
+.container-gauge {
+    width: 300px;
+    height: 230px;
+    margin: 10px;
+    float: left;
+}
+.container-gauge > div {
+    width: 300px;
+    height: 200px;
+}
+.report-container {
+    margin-left: 300px;
+    height: 1500px;
+}
+#mapidcuenca{
+    height: 250px !important;
+    border: 0px !important;
+    border-radius: 0px !important;
+}
+.conainer-report-main {
+    left: 50%;
+    position: relative;
+    margin-left: -20%;
+    margin-top: -30px;
+    z-index: 1000;
+    margin-bottom: 50px;
+}
+.marc-report {
+    width: 23%;
+    font-size: 11px;
+    border-width: 1.5px;
+    border-style: solid;
+    border-color: #888888;
+    padding: 15px;
+    border-radius: 7px;
+    padding-bottom: 3px;
+    float: left;
+    margin-right: 1%;
+    margin-left: 1%;
+}
+.title-marc {
+    border-bottom-style: solid;
+    border-width: 1.5px;
+    padding: 3px;
+    font-weight: bold;
+    text-align: center;
+}
+.detail-border-marc {
+    margin: 10px;
+    height: 75px;
+}
+.button-marc {
+    padding: 5px;
+    color: #ffffff;
+    text-align: center;
+    margin-left: 40px;
+    margin-right: 40px;
+    background-color: #359a35;
+}
+.marc-table {
+    margin-top: 250px;
+    font-size: 15px;
+}
+.border-marc-table {
+    width: 30%;
+    border-width: 1px;
+    border-style: solid;
+    padding: 10px;
+    border-radius: 5px;
+    border-color: #a9a9a9;
+    float: left;
+    margin: 20px;
+}
+.title-marc-table {
+    text-align: center;
+    font-weight: bold;
+    margin-left: 50px;
+    margin-right: 50px;
+    margin-bottom: 10px;
+}
+.line-marc-table {
+    position: relative;
+}
+.line-number-marc-table {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+}
+.tile-center-title {
+    width: 33%;
+    float: left;
+}
+.top-center-line {
+    position: absolute;
+    left: 50%;
+    top: 0px;
+}

@@ -51,6 +51,7 @@
           <link href="{% static "lib/css/jquery-ui.structure.min.css" %}" rel="stylesheet"/>
           <link href="{% static "lib/css/bootstrap-treeview.css" %}" rel="stylesheet"/>
           <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100&display=swap" rel="stylesheet" type="text\css">
+          
       {% else %}
      <!-- <link href="{% static "lib/css/assets.min.css" %}" rel="stylesheet"/>-->
       {% endif %}
@@ -292,28 +293,46 @@
       <div id="navbar" class="navbar-collapse collapse">
         <ul class="nav navbar-nav toolbar">
           {% block tabs %}
-
+          <!--Home-->
+          <li>
+            <a href="{% url "home" %}">{% trans "Home" %}</a>
+          </li>
+          <!--About US-->
+          <li>
+            <a href="{% url "about" %}">{% trans "About us" %}</a>
+          </li>
+          <!--Models-->
+          <li>
+            <a href="{% url "models" %}">{% trans "Models" %}</a>
+          </li>
+          <!--Take Action-->
+          <li>
+            <a href="{% url "take-action" %}">{% trans "Take Action" %}</a>
+          </li>
+          {% if user.is_authenticated %}
           <li id="nav_layers">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{% trans "Data" %}<i class="fa fa-angle-down fa-lg"></i></a>
-              <ul class="dropdown-menu">
-                <li><a href="{% url "layer_browse" %}?limit={{ CLIENT_RESULTS_LIMIT }}">{% trans "Layers" %}</a></li>
-                <li><a href="{% url "document_browse" %}?limit={{ CLIENT_RESULTS_LIMIT }}">{% trans "Documents" %}</a></li>
-                <li><a href="{% url "services" %}?limit={{ CLIENT_RESULTS_LIMIT }}">{% trans "Remote Services" %}</a></li>
-                {% if user.is_authenticated and not READ_ONLY_MODE %}
-                    <li role="separator" class="divider"></li>
-                    <li><a href="{% url "layer_upload" %}">{% trans "Upload Layer" %}</a></li>
-                    {% if USE_GEOSERVER and CREATE_LAYER %}
-                        <li><a href="{% url "layer_create" %}">{% trans "Create Layer" %}</a></li>
-                    {% endif %}
-                    <li><a href="{% url "document_upload" %}">{% trans "Upload Document" %}</a></li>
-                {% endif %}
-                {% if user.is_superuser or user.is_staff %}
-                  {%  if not READ_ONLY_MODE %}
-                    <li><a href="{% url "register_service" %}">{% trans "Add Remote Service" %}</a></li>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{% trans "Data" %}<i class="fa fa-angle-down fa-lg"></i></a>
+            <ul class="dropdown-menu">
+              <li><a href="{% url "layer_browse" %}?limit={{ CLIENT_RESULTS_LIMIT }}">{% trans "Layers" %}</a></li>
+              <li><a href="{% url "document_browse" %}?limit={{ CLIENT_RESULTS_LIMIT }}">{% trans "Documents" %}</a></li>
+              <li><a href="{% url "services" %}?limit={{ CLIENT_RESULTS_LIMIT }}">{% trans "Remote Services" %}</a></li>
+              {% if user.is_authenticated and not READ_ONLY_MODE %}
+                  <li role="separator" class="divider"></li>
+                  <li><a href="{% url "layer_upload" %}">{% trans "Upload Layer" %}</a></li>
+                  {% if USE_GEOSERVER and CREATE_LAYER %}
+                      <li><a href="{% url "layer_create" %}">{% trans "Create Layer" %}</a></li>
                   {% endif %}
+                  <li><a href="{% url "document_upload" %}">{% trans "Upload Document" %}</a></li>
+              {% endif %}
+              {% if user.is_superuser or user.is_staff %}
+                {%  if not READ_ONLY_MODE %}
+                  <li><a href="{% url "register_service" %}">{% trans "Add Remote Service" %}</a></li>
                 {% endif %}
-              </ul>
-            </li>
+              {% endif %}
+            </ul>
+          </li>
+          {% endif %}
+          <!--
           <li id="nav_maps">
               {% if user.is_authenticated %}
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{% trans "Maps" %}<i class="fa fa-angle-down fa-lg"></i></a>
@@ -327,22 +346,24 @@
                 <a href="{% url "maps_browse" %}?limit={{ CLIENT_RESULTS_LIMIT }}">{% trans "Maps" %}</a>
               {% endif %}
           </li>
-          {% if GEONODE_APPS_ENABLE and GEONODE_APPS_NAV_MENU_ENABLE %}
+          -->
+          {% if GEONODE_APPS_ENABLE and GEONODE_APPS_NAV_MENU_ENABLE and user.is_authenticated %}
           <li id="nav_maps">
             {% if user.is_authenticated %}
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{% blocktrans %}{{GEONODE_APPS_NAME}}{% endblocktrans %}<i class="fa fa-angle-down fa-lg"></i></a>
               <ul class="dropdown-menu">
                   <li><a href="{% url "apps_browse" %}?limit={{ CLIENT_RESULTS_LIMIT }}">{% trans "Explore" %} {% blocktrans %}{{GEONODE_APPS_NAME}}{% endblocktrans %}</a></li>
                   <li><a href="{% url "search_city" %}">{% trans "Search City" %} </a></li>
-                  <li><a href="{% url "list-nbs" %}?limit={{ CLIENT_RESULTS_LIMIT }}">{% trans "List SBN" %} </a></li>
-                  <li><a href="{% url "list-intake" %}?limit={{ CLIENT_RESULTS_LIMIT }}">{% trans "List Intakes" %} </a></li>
-                  <li><a href="{% url "treatment-plants-list" %}?limit={{ CLIENT_RESULTS_LIMIT }}">{% trans "Treatment Plants List" %} </a></li>
+                  <li><a href="{% url "list-nbs" %}?limit={{ CLIENT_RESULTS_LIMIT }}">{% trans "NBS" %} </a></li>
+                  <li><a id="listIntakes" href="#">{% trans "Intakes" %} </a></li>
+                  <li><a href="{% url "treatment-plants-list" %}?limit={{ CLIENT_RESULTS_LIMIT }}">{% trans "Treatment Plants" %} </a></li>
                 </ul>
             {% else %}
               <a href="{% url "apps_browse" %}?limit={{ CLIENT_RESULTS_LIMIT }}">{% blocktrans %}{{GEONODE_APPS_NAME}}{% endblocktrans %}</a>
             {% endif %}
           </li>
           {% endif %}
+          <!--
           <li>
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{% trans "About" %}<i class="fa fa-angle-down fa-lg"></i></a>
               <ul class="dropdown-menu">
@@ -361,7 +382,7 @@
                   <li><a href="{% url "group_create" %}">{% trans "Create Group" %}</a></li>
                 {% endif %}
               </ul>
-          </li>
+          </li>-->
 
           {% block extra_tab %}
 
@@ -422,6 +443,7 @@
                 {% if user.is_superuser or user.is_staff %}
                     <li role="separator" class="divider"></li>
                     <li><a href="{% url "admin:index" %}">{% trans "Admin" %}</a></li>
+                    <li><a href="/cms" >{% trans "CMS" %}</a></li>
                     {% if 'geonode.geoserver' in INSTALLED_APPS %}
                     <li><a href="{{ OGC_SERVER.default.WEB_UI_LOCATION }}">GeoServer</a></li>
                     {% endif %}
@@ -448,6 +470,7 @@
       </div> <!--/.nav-collapse -->
     </div>
   </nav>
+
       {% endblock header %}
       <!-- End of Navbar -->
 
@@ -603,9 +626,12 @@
       <div class="modal-dialog modal-sm">
         <div class="modal-content">
           <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">{% trans "Close" %}</span></button>
+            <button type="button" class="close"><span aria-hidden="true">&times;</span><span class="sr-only">{% trans "Close" %}</span></button>
             <h4 class="modal-title" id="myModalLabel">{% trans "Sign in" %}</h4>
-          </div>
+          </div>          
+          <div class="center">
+            <img class="img-underconstruction" src="{% static 'geonode/img/under-construction.png' %}">              
+          </div>          
           <form class="form-signin" role="form" action="{% url "account_login" %}?next={{ request.path }}" method="post">
             <div class="modal-body">
               {% csrf_token %}
@@ -636,7 +662,7 @@
           </form>
         </div>
       </div>
-    </div>
+    </div>       
     {% endif %}
     <!-- End of Modal -->
 
@@ -664,9 +690,16 @@
     <script src="{% static "geonode/js/utils/utils.js" %}"></script>
     <script src="{% static "geonode/js/base/base.js" %}"></script>
     <script type="text/javascript" src="{% url "javascript-catalog" %}"></script>
+    
     {% block extra_script %}{% endblock extra_script %}
+    {% if not user.is_authenticated %}
+      <script type="text/javascript">
+        $(document).ready(function() {      
+          $("#SigninModal").modal({backdrop: 'static', keyboard: false});
+        })
+      </script> 
+    {% endif %}
     <script type="text/javascript">
-
       // Autocomplete instance for the search found in the header.
       $(document).ready(function() {
         window.autocomplete2 = new Autocomplete({
@@ -691,9 +724,9 @@
           //console.log("maybe rootwizard is in another page");
         }
         
-        //initializeStudyCaseForm();
+        //initializeStudyCaseForm();        
       })
-
+      
       $('#search').on('submit', (e) => {
           $('#search_abstract_input')[0].value =$('#search_input')[0].value;
           $('#search_purpose_input')[0].value = $('#search_input')[0].value;
@@ -709,9 +742,18 @@
       $(".datepicker").datepicker({
           format: "yyyy-mm-dd"
       });
+
+      $("#listIntakes").click(function(){
+          var cityId = localStorage.cityId;
+          if (cityId == undefined){
+            cityId = "";
+          }
+          url="{% url "list-intake" %}?limit={{ CLIENT_RESULTS_LIMIT }}&city=" + cityId;
+          window.location.href = url;
+        });
     </script>
 
-    <div class="modal fade" style="width: 100%; height: 100%;" id="_resource_uploading" data-backdrop="static" data-keyboard="false" aria-hidden="true">
+    <div class="modal fade" style="width: 100%; height: 100%;" id="_resource_uploading" data-backdrop="static" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">

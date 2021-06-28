@@ -11,28 +11,27 @@
 {% endblock %}
 
 {% block body_outer %}
+
+<div class="page-header">
+    <h1>{% trans "Search your city" %}</h1>
+    <p style="text-align: justify;">{% trans "In this section you can consult the case studies configured in the system or start the configuration of a case study" %}</p>
+</div>
+
     <div class="row">
         <div class="col-md-4">
             <h4 class="text-center" id="countryLabel"></h4>
             <p><b>{% trans "Selected City" %} :</b> <span id="cityLabel"></span> </p>
             <p><b>{% trans "Region" %} :</b> <span id="regionLabel"></span> </p>
             <p><b>{% trans "Currency" %}:</b><span id="currencyLabel"></span></p>
-        </div>
-        <div class="col-md-8">
-            <div id="map" style="width: 700px; height: 300px;"></div>
-    
-        </div>
-    </div>   
-    <div class="row">
-        <div class="col-md-4">
-        </div>
-        <div class="col-md-8">
-            <div id="listIntakes" style="display: none;">
+            <div id="listIntakes">
                 <a href="/study_cases">{% trans "List Study Cases" %}</a>
             </div> 
         </div>
-    </div>
+        <div class="col-md-8">
+            <div id="map"></div>
     
+        </div>
+    </div>
 {% endblock %}
 
 {% block extra_script %}
@@ -56,17 +55,10 @@
     GRAY_BASEMAP_URL = '{{ GRAY_BASEMAP_URL }} ';
     CENTER = [4.582, -74.4879];
     MAXZOOM = 11;
-    COUNTRIES_API = '{{ DATABASE_URL }}';
     let waterproof = {};
 
     $(document).ready(function () {
-        
-        //var map = L.map('map').setView([4, -74],5);
-        //var osm = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-        //    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
-        //});
-        //map.addLayer(osm);
-
+                
         var gray = L.layerGroup();
 
         // more than one service can be grouped together and passed to the control together
@@ -76,12 +68,12 @@
         var osm = L.tileLayer(OSM_BASEMAP_URL, {
             maxZoom: MAXZOOM, 
             attribution: 'Data \u00a9 <a href="http://www.openstreetmap.org/copyright"> OpenStreetMap Contributors </a> Tiles \u00a9 Komoot'});
-        var images = L.tileLayer(IMG_BASEMAP_URL);        
+        var images = L.tileLayer(IMG_BASEMAP_URL); 
         //var hydroLyr = L.tileLayer(HYDRO_BASEMAP_URL);
         var grayLyr = L.tileLayer(GRAY_BASEMAP_URL, {
-                                    maxZoom: 20,
-                                        attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
-                                    });
+                        maxZoom: 20,
+                            attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
+                        });
 
         /* var wmsHydroNetworkLyr = L.tileLayer.wms('http://apps.skaphe.com:8080/geoserver/waterproof/wms?', {
             layers: 'waterproof:world_hydro_network',
@@ -134,14 +126,10 @@
         waterproof["cityCoords"] = cityCoords;
 
         map.setView(initialCoords,5);
-        searchPoints.addTo(map);        
-        
-        //var c = new L.Control.Coordinates();
-        //c.addTo(map);    
+        searchPoints.addTo(map); 
 
         L.control.layers(baseLayers,{},{position: 'topleft'}).addTo(map);
         var zoomControl = new L.Control.Zoom({position: 'topright'}).addTo(map);
-        //L.control.mapCenterCoord().addTo(map); 
 		
         function onMapClick(e) {
             //c.setCoordinates(e);      
@@ -150,7 +138,6 @@
         map.on('zoomend', function(e){
             console.log(map.getZoom());
         });      
-      
     });    
 
     var searchPoints = L.geoJson(null, {
@@ -161,15 +148,13 @@
 
     function showSearchPoints (geojson) {
         searchPoints.clearLayers();
-        let geojsonFilter = geojson.features.filter(feature  => feature.properties.type == "city");
-        searchPoints.addData(geojsonFilter);
+        //let geojsonFilter = geojson.features.filter(feature  => (feature.properties.type == "city"));
+        searchPoints.addData(geojson);
     }
 
     function selectedResultHandler(feat){
-
         waterproof["cityCoords"] = [feat.geometry.coordinates[1], feat.geometry.coordinates[0]];
         localStorage.setItem('cityCoords', JSON.stringify(waterproof["cityCoords"]));
-
 
         searchPoints.eachLayer(function(layer){
             if (layer.feature.properties.osm_id != feat.properties.osm_id){
@@ -185,9 +170,10 @@
         localStorage.setItem('city', cityName);
 
         let urlAPI = '{{ SEARCH_COUNTRY_API_URL }}' + countryCode;
+        console.log(urlAPI);
 
         $.get(urlAPI, function(data){
-            //console.log(data);
+            console.log("data in search city is: "+data.region);
             $("#regionLabel").html(data.region);
             $("#currencyLabel").html(data.currencies[0].name + " - " + data.currencies[0].symbol);
             $("#listIntakes").show();
@@ -196,6 +182,16 @@
             localStorage.setItem('region', data.region);
             localStorage.setItem('currency', data.currencies[0].name + " - " + data.currencies[0].symbol);
         });
+
+        urlAPI = location.protocol + "//" + location.host + "/parameters/getClosetsCities/?x=" + feat.geometry.coordinates[0] + "&y=" + feat.geometry.coordinates[1];
+        $.get(urlAPI, function(data){
+            
+            if (data.length > 0){
+                let cityId = data[0][0];
+                localStorage.setItem('cityId', cityId);
+            }
+        });
+
     }
     
   </script>  

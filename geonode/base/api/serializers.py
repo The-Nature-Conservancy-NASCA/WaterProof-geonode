@@ -17,6 +17,7 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 #
 #########################################################################
+from django.conf import settings
 from django.contrib.auth.models import Group
 from django.contrib.auth import get_user_model
 
@@ -25,6 +26,7 @@ from rest_framework_gis import fields
 from dynamic_rest.serializers import DynamicEphemeralSerializer, DynamicModelSerializer
 from dynamic_rest.fields.fields import DynamicRelationField, DynamicComputedField
 
+from urllib.parse import urljoin
 from avatar.templatetags.avatar_tags import avatar_url
 
 from geonode.base.models import (
@@ -147,6 +149,38 @@ class AvatarUrlField(DynamicComputedField):
         return avatar_url(instance, self.avatar_size)
 
 
+class EmbedUrlField(DynamicComputedField):
+
+    def __init__(self, **kwargs):
+        super(EmbedUrlField, self).__init__(**kwargs)
+
+    def get_attribute(self, instance):
+        _instance = instance.get_real_instance()
+        if hasattr(_instance, 'embed_url') and _instance.embed_url != NotImplemented:
+            return _instance.embed_url
+        else:
+            return ""
+
+
+class ThumbnailUrlField(DynamicComputedField):
+
+    def __init__(self, **kwargs):
+        super(ThumbnailUrlField, self).__init__(**kwargs)
+
+    def get_attribute(self, instance):
+        thumbnail_url = instance.thumbnail_url
+        if hasattr(instance, 'curatedthumbnail'):
+            try:
+                if hasattr(instance.curatedthumbnail.img_thumbnail, 'url'):
+                    thumbnail_url = instance.curatedthumbnail.thumbnail_url
+            except Exception as e:
+                logger.exception(e)
+
+        if thumbnail_url and 'http' not in thumbnail_url:
+            thumbnail_url = urljoin(settings.SITEURL, thumbnail_url)
+        return thumbnail_url
+
+
 class UserSerializer(DynamicModelSerializer):
 
     class Meta:
@@ -215,11 +249,17 @@ class ResourceBaseSerializer(DynamicModelSerializer):
         self.fields['featured'] = serializers.BooleanField()
         self.fields['is_published'] = serializers.BooleanField()
         self.fields['is_approved'] = serializers.BooleanField()
-        self.fields['thumbnail_url'] = serializers.CharField()
         self.fields['detail_url'] = serializers.CharField(read_only=True)
         self.fields['created'] = serializers.DateTimeField(read_only=True)
         self.fields['last_updated'] = serializers.DateTimeField(read_only=True)
+        self.fields['raw_abstract'] = serializers.CharField(read_only=True)
+        self.fields['raw_purpose'] = serializers.CharField(read_only=True)
+        self.fields['raw_constraints_other'] = serializers.CharField(read_only=True)
+        self.fields['raw_supplemental_information'] = serializers.CharField(read_only=True)
+        self.fields['raw_data_quality_statement'] = serializers.CharField(read_only=True)
 
+        self.fields['embed_url'] = EmbedUrlField()
+        self.fields['thumbnail_url'] = ThumbnailUrlField()
         self.fields['keywords'] = DynamicRelationField(
             HierarchicalKeywordSerializer, embed=False, many=True)
         self.fields['regions'] = DynamicRelationField(
@@ -246,7 +286,9 @@ class ResourceBaseSerializer(DynamicModelSerializer):
             'spatial_representation_type', 'temporal_extent_start', 'temporal_extent_end',
             'supplemental_information', 'data_quality_statement', 'group',
             'popular_count', 'share_count', 'rating', 'featured', 'is_published', 'is_approved',
-            'thumbnail_url', 'detail_url', 'created', 'last_updated'
+            'detail_url', 'embed_url', 'created', 'last_updated',
+            'raw_abstract', 'raw_purpose', 'raw_constraints_other',
+            'raw_supplemental_information', 'raw_data_quality_statement'
             # TODO
             # csw_typename, csw_schema, csw_mdsource, csw_insert_date, csw_type, csw_anytext, csw_wkt_geometry,
             # metadata_uploaded, metadata_uploaded_preserve, metadata_xml,

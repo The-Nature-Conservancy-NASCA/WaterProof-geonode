@@ -4,114 +4,7 @@ from django.conf import settings
 from django.db import models
 from django.contrib.gis.db import models
 from django.utils.translation import ugettext_lazy as _
-from geonode.waterproof_nbs_ca.models import Countries
-from geonode.waterproof_nbs_ca.models import Currency
-
-
-class City(models.Model):
-    country = models.ForeignKey(Countries, on_delete=models.CASCADE)
-
-    name = models.CharField(
-        max_length=100,
-        verbose_name=_('Name'),
-    )
-
-    def __str__(self):
-        return "%s" % self.name
-
-
-class UserCosts(models.Model):
-    name = models.CharField(
-        max_length=100,
-        verbose_name=_('Name'),
-    )
-
-    value = models.DecimalField(
-        decimal_places=4,
-        max_digits=14,
-        verbose_name=_('Value')
-    )
-
-
-class SystemCosts(models.Model):
-
-    name = models.CharField(
-        max_length=100,
-        verbose_name=_('Name'),
-    )
-
-    value = models.DecimalField(
-        decimal_places=4,
-        max_digits=14,
-        verbose_name=_('Extraction value')
-    )
-
-
-class CostFunctionsProcess(models.Model):
-
-    symbol = models.CharField(
-        max_length=5,
-        verbose_name=_('Symbol')
-    )
-
-    categorys = models.CharField(
-        max_length=100,
-        verbose_name=_('Categorys')
-    )
-
-    energy = models.DecimalField(
-        decimal_places=4,
-        max_digits=14,
-        verbose_name=_('Energy')
-    )
-
-    labour = models.DecimalField(
-        decimal_places=4,
-        max_digits=14,
-        verbose_name=_('Labour')
-    )
-
-    mater_equipment = models.DecimalField(
-        decimal_places=4,
-        max_digits=14,
-        verbose_name=_('Materials equipment')
-    )
-
-    function_value = models.CharField(
-        max_length=1000,
-        verbose_name=_('Function')
-    )
-
-    function_name = models.CharField(
-        max_length=250,
-        verbose_name=_('Function name')
-    )
-
-    function_description = models.CharField(
-        null=True,
-        blank=True,
-        max_length=250,
-        verbose_name=_('Function description')
-    )
-
-
-class userCostFunctions(models.Model):
-    function = models.CharField(
-        null=True,
-        blank=True,
-        max_length=250,
-        verbose_name=_('Function')
-    )
-
-    template_function = models.ForeignKey(CostFunctionsProcess, on_delete=models.DO_NOTHING)
-
-    user = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL
-    )
-
+from geonode.waterproof_parameters.models import Countries, Cities
 
 class ProcessEfficiencies(models.Model):
 
@@ -209,6 +102,74 @@ class ProcessEfficiencies(models.Model):
         verbose_name=_('Maximal transported water')
     )
 
+class CostFunctionsProcess(models.Model):
+
+    symbol = models.CharField(
+        max_length=5,
+        verbose_name=_('Symbol')
+    )
+
+    categorys = models.CharField(
+        max_length=100,
+        verbose_name=_('Categorys')
+    )
+
+    energy = models.DecimalField(
+        decimal_places=4,
+        max_digits=14,
+        verbose_name=_('Energy')
+    )
+
+    labour = models.DecimalField(
+        decimal_places=4,
+        max_digits=14,
+        verbose_name=_('Labour')
+    )
+
+    mater_equipment = models.DecimalField(
+        decimal_places=4,
+        max_digits=14,
+        verbose_name=_('Materials equipment')
+    )
+
+    function_value = models.CharField(
+        max_length=1000,
+        verbose_name=_('Function')
+    )
+
+    function_name = models.CharField(
+        max_length=250,
+        verbose_name=_('Function name')
+    )
+
+    function_description = models.CharField(
+        null=True,
+        blank=True,
+        max_length=250,
+        verbose_name=_('Function description')
+    )
+
+    sub_process = models.CharField(
+        null=True,
+        blank=True,
+        max_length=100,
+        verbose_name=_('Sub Proccess')
+    )
+
+    function_py_value = models.CharField(
+        max_length=2500,
+        null=True,
+        verbose_name=_('FunctionPy')
+    )
+
+    default_function = models.BooleanField(
+        verbose_name=_('Default Function'), 
+        default=False
+    )
+
+    process_efficiencies = models.ForeignKey(ProcessEfficiencies, on_delete=models.CASCADE, null=True)
+
+
 
 class DemandParameters(models.Model):
 
@@ -260,15 +221,22 @@ class Intake(models.Model):
         verbose_name=_('Source name'),
     )
 
-    city = models.ForeignKey(City, on_delete=models.CASCADE)
+    city = models.ForeignKey(Cities, on_delete=models.CASCADE)
 
-    demand_parameters = models.ForeignKey(DemandParameters, on_delete=models.CASCADE)
-
-    xml_graph = models.TextField(
-        verbose_name=_('Graph')
+    demand_parameters = models.ForeignKey(
+        DemandParameters,
+        on_delete=models.CASCADE,
+        null=True
     )
 
-    creation_date = models.DateField(auto_now=True)
+    xml_graph = models.TextField(
+        verbose_name=_('Graph'),
+        null=True
+    )
+
+    is_complete = models.BooleanField(verbose_name=_('Is complete'), default=False)
+
+    creation_date = models.DateField()
 
     updated_date = models.DateField(auto_now=True)
 
@@ -338,20 +306,25 @@ class Polygon(models.Model):
         null=True,
         blank=True,
         default=None,
-        verbose_name=_('Awy')
+        verbose_name=_('Area')
     )
 
     geom = models.PolygonField(verbose_name='geom', srid=4326, null=True, blank=True)
 
-    geomIntake = models.PolygonField(verbose_name='geomIntake', srid=4326, null=True, blank=True)
+    geomIntake = models.TextField(
+        verbose_name=_('Geom intake'),
+    )
 
-    geomPoint = models.PointField(verbose_name='geomPoint', srid=4326, null=True, blank=True)
+    geomPoint = models.TextField(
+        verbose_name=_('Geom point'),
+    )
 
     delimitation_date = models.DateField(auto_now=True)
 
     delimitation_type = models.CharField(
         max_length=30,
-        verbose_name=_('Delimitation type')
+        verbose_name=_('Delimitation type'),
+        null=True
     )
 
     basin = models.ForeignKey(Basins, on_delete=models.CASCADE)
@@ -482,7 +455,102 @@ class ElementSystem(models.Model):
         verbose_name=_('WpRetTon')
     )
 
+class UserCostFunctions(models.Model):
 
+    name = models.TextField(
+        null=True,
+        blank=True,
+        verbose_name=_('Name')
+    )
+
+    description = models.TextField(
+        null=True,
+        blank=True,
+        verbose_name=_('Description')
+    )
+
+    function = models.TextField(
+        null=True,
+        blank=True,
+        verbose_name=_('Function')
+    )
+
+    template_function = models.ForeignKey(
+        CostFunctionsProcess,
+        on_delete=models.DO_NOTHING,
+        null=True,
+        blank=True
+    )
+
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        null=False,
+        blank=False,
+        on_delete=models.CASCADE
+    )
+
+    currency = models.ForeignKey(
+        Countries,
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True
+    )
+
+    intake = models.ForeignKey(
+        Intake,
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True
+    )
+
+    element_system= models.ForeignKey(
+        ElementSystem,
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+    )
+
+
+class UserLogicalFunctions(models.Model):
+
+    function1 = models.TextField(
+        null=False,
+        blank=False,
+        verbose_name=_('Function1')
+    )
+
+    condition1 = models.TextField(
+        null=False,
+        blank=False,
+        verbose_name=_('Condition1')
+    )
+
+    function2 = models.TextField(
+        null=False,
+        blank=False,
+        verbose_name=_('Function2')
+    )
+
+    condition2 = models.TextField(
+        null=False,
+        blank=False,
+        verbose_name=_('Condition2')
+    )
+
+    function3 = models.TextField(
+        null=False,
+        blank=False,
+        verbose_name=_('Function3')
+    )
+
+    condition3 = models.TextField(
+        null=False,
+        blank=False,
+        verbose_name=_('Condition3')
+    )
+
+    mainFunction = models.ForeignKey(UserCostFunctions, on_delete=models.CASCADE)
+    
 class ElementConnections(models.Model):
     source = models.ForeignKey(ElementSystem,  related_name="source", on_delete=models.CASCADE)
 

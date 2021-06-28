@@ -4,7 +4,7 @@ var countriesJson = "/static/geonode/json/countries.json";
 var citiesJson = "/static/geonode/json/cities.json";
 
 $(function() {
-$(".announcement").find(".close").on("click", function (e) {
+  $(".announcement").find(".close").on("click", function (e) {
     url = $(e.target).data('dismiss-url');
 
     $.ajax({

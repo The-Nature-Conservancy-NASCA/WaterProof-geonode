@@ -26,7 +26,7 @@
       <p>{% trans jumbotron_welcome_content %}</p>
       {% endwith %}
       {% if not custom_theme.jumbotron_cta_hide %}
-      <p><a class="btn btn-default btn-lg" target="_blank"
+      <p><a class="btn btn-default btn-lg"
           href="{{custom_theme.jumbotron_cta_link|default:"https://docs.geonode.org/en/master/usage/index.html"}}"
           role="button">{{custom_theme.jumbotron_cta_text|default:_("Get Started &raquo;")}}</a></p>
       {% endif %}
@@ -125,107 +125,109 @@
       padding-top: 170px;
 }
 </style>
-<section class="container" id="soi-menu">
-  <div class="row text-center">
-      <h2 class="colorHeaderInstrucciones">{% trans "System operating instructions" %}</h2>
-  </div>
-  <div class="row hidden-xs hidden-sm hidden-md">
-      <div class="col-md-4">
-          <div class="center-block text-center">
-              <img class="center-img" src="/static/geonode/img/2.png">
-              <img class="img1 ani_headShake" src="/static/geonode/img/01-ICONO.png">
-              <h4 class="ico1-text ">{% trans "Choose or create a new NBS" %}</h4>
-              <img class="img2 ani_headShake" src="/static/geonode/img/02-ICONO.png">
-              <h4 class="ico2-text ">{% trans "Define and configure your Water Intakes" %}</h4>
-              <img class="img3 ani_headShake" src="/static/geonode/img/03-ICONO.png">
-              <h4 class="ico3-text ">{% trans "Locate your city" %}</h4>
-          </div>
-      </div>
-      <div class="col-md-4 center-block">
-          <div class="center-block text-center">
-              <img class="center-img principal_img ani_flip" src="/static/geonode/img/1.png">
-          </div>
-      </div>
-      <div class="col-md-4 center-block ">
-          <div class="center-block text-center">
-              <img class="center-img " src="/static/geonode/img/3.png">
-              <img class="img4 ani_headShake" src="/static/geonode/img/04-ICONO.png">
-              <h4 class="ico4-text ">{% trans "Configure your treatment plants or customized infrastructure" %} </h4>
-              <img class="img5 ani_headShake" src="/static/geonode/img/05-ICONO.png">
-              <h4 class="ico5-text ">{% trans "Define costs and create your case study" %}</h4>
-              <img class="img6 ani_headShake" src="/static/geonode/img/06-ICONO.png">
-              <h4 class="ico6-text ">{% trans "Consult Compare. download and share the results" %}</h4>
-          </div>
-      </div>
-  </div>
-  <div class="row hidden-lg">
-      <div class="col-md-12 center-block text-center">
-          <img class="center-img-movil" src="/static/geonode/img/1.png">
-      </div>
-  </div>
-  <div class="row hidden-lg">
-      <div class="col-md-12">
-          <div class="media">
-              <div class="media-left media-middle">
-                  <a href="#">
-                      <img class="media-object" src="/static/geonode/img/01-ICONO.png" style="max-width: 100px;">
-                  </a>
-              </div>
-              <div class="media-body">
-                  <h4>{% trans "Choose or create a new NBS" %}</h4>
-              </div>
-          </div>
-          <div class="media">
-              <div class="media-left media-middle">
-                  <a href="#">
-                      <img class="media-object" src="/static/geonode/img/02-ICONO.png" style="max-width: 100px;">
-                  </a>
-              </div>
-              <div class="media-body">
-                  <h4>{% trans "Define and configure your Water Intakes" %}</h4>
-              </div>
-          </div>
-          <div class="media">
-              <div class="media-left media-middle">
-                  <a href="#">
-                      <img class="media-object" src="/static/geonode/img/03-ICONO.png" style="max-width: 100px;">
-                  </a>
-              </div>
-              <div class="media-body">
-                  <h4>{% trans "Locate your city" %}</h4>
-              </div>
-          </div>
-          <div class="media">
-              <div class="media-left media-middle">
-                  <a href="#">
-                      <img class="media-object" src="/static/geonode/img/04-ICONO.png" style="max-width: 100px;">
-                  </a>
-              </div>
-              <div class="media-body">
-                  <h4>{% trans "Configure your treatment plants or customized infrastructure" %}</h4>
-              </div>
-          </div>
-          <div class="media">
-              <div class="media-left media-middle">
-                  <a href="#">
-                      <img class="media-object" src="/static/geonode/img/05-ICONO.png" style="max-width: 100px;">
-                  </a>
-              </div>
-              <div class="media-body">
-                  <h4>{% trans "Define costs and create your case study" %}</h4>
-              </div>
-          </div>
-          <div class="media">
-              <div class="media-left media-middle">
-                  <a href="#">
-                      <img class="media-object" src="/static/geonode/img/06-ICONO.png" style="max-width: 100px;">
-                  </a>
-              </div>
-              <div class="media-body">
-                  <h4>{% trans "Consult Compare. download and share the results" %}</h4>
-              </div>
-          </div>
-      </div>
+<section class="imgbackgroundSystemop">
+  <div class="container" id="soi-menu">
+    <div class="row text-center">
+        <h2 class="colorHeaderInstrucciones">{% trans "System operating instructions" %}</h2>
+    </div>
+    <div class="row hidden-xs hidden-sm hidden-md">
+        <div class="col-md-4">
+            <div class="center-block text-center">
+                <img class="center-img" src="/static/geonode/img/2.png">
+                <img class="img1 ani_headShake" src="/static/geonode/img/01-ICONO.png">
+                <h4 class="ico1-text ">{% trans "Choose or create a new NBS" %}</h4>
+                <img class="img2 ani_headShake" src="/static/geonode/img/02-ICONO.png">
+                <h4 class="ico2-text ">{% trans "Define and configure your Water Intakes" %}</h4>
+                <img class="img3 ani_headShake" src="/static/geonode/img/03-ICONO.png">
+                <h4 class="ico3-text ">{% trans "Locate your city" %}</h4>
+            </div>
+        </div>
+        <div class="col-md-4 center-block">
+            <div class="center-block text-center">
+                <img class="center-img principal_img ani_flip" src="/static/geonode/img/1.png">
+            </div>
+        </div>
+        <div class="col-md-4 center-block ">
+            <div class="center-block text-center">
+                <img class="center-img " src="/static/geonode/img/3.png">
+                <img class="img4 ani_headShake" src="/static/geonode/img/04-ICONO.png">
+                <h4 class="ico4-text ">{% trans "Configure your treatment plants or customized infrastructure" %} </h4>
+                <img class="img5 ani_headShake" src="/static/geonode/img/05-ICONO.png">
+                <h4 class="ico5-text ">{% trans "Define costs and create your case study" %}</h4>
+                <img class="img6 ani_headShake" src="/static/geonode/img/06-ICONO.png">
+                <h4 class="ico6-text ">{% trans "Consult Compare. download and share the results" %}</h4>
+            </div>
+        </div>
+    </div>
+    <div class="row hidden-lg">
+        <div class="col-md-12 center-block text-center">
+            <img class="center-img-movil" src="/static/geonode/img/1.png">
+        </div>
+    </div>
+    <div class="row hidden-lg">
+        <div class="col-md-12">
+            <div class="media">
+                <div class="media-left media-middle">
+                    <a href="#">
+                        <img class="media-object" src="/static/geonode/img/01-ICONO.png" style="max-width: 100px;">
+                    </a>
+                </div>
+                <div class="media-body">
+                    <h4>{% trans "Choose or create a new NBS" %}</h4>
+                </div>
+            </div>
+            <div class="media">
+                <div class="media-left media-middle">
+                    <a href="#">
+                        <img class="media-object" src="/static/geonode/img/02-ICONO.png" style="max-width: 100px;">
+                    </a>
+                </div>
+                <div class="media-body">
+                    <h4>{% trans "Define and configure your Water Intakes" %}</h4>
+                </div>
+            </div>
+            <div class="media">
+                <div class="media-left media-middle">
+                    <a href="#">
+                        <img class="media-object" src="/static/geonode/img/03-ICONO.png" style="max-width: 100px;">
+                    </a>
+                </div>
+                <div class="media-body">
+                    <h4>{% trans "Locate your city" %}</h4>
+                </div>
+            </div>
+            <div class="media">
+                <div class="media-left media-middle">
+                    <a href="#">
+                        <img class="media-object" src="/static/geonode/img/04-ICONO.png" style="max-width: 100px;">
+                    </a>
+                </div>
+                <div class="media-body">
+                    <h4>{% trans "Configure your treatment plants or customized infrastructure" %}</h4>
+                </div>
+            </div>
+            <div class="media">
+                <div class="media-left media-middle">
+                    <a href="#">
+                        <img class="media-object" src="/static/geonode/img/05-ICONO.png" style="max-width: 100px;">
+                    </a>
+                </div>
+                <div class="media-body">
+                    <h4>{% trans "Define costs and create your case study" %}</h4>
+                </div>
+            </div>
+            <div class="media">
+                <div class="media-left media-middle">
+                    <a href="#">
+                        <img class="media-object" src="/static/geonode/img/06-ICONO.png" style="max-width: 100px;">
+                    </a>
+                </div>
+                <div class="media-body">
+                    <h4>{% trans "Consult Compare. download and share the results" %}</h4>
+                </div>
+            </div>
+        </div>
+    </div>
   </div>
 </section>
 <section class="container" id="nbs-menu">
