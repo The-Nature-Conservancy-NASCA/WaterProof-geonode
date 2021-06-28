@@ -317,7 +317,6 @@ def createStepTwo(request):
                                 if (len(costFunction) > 0):
                                     for function in costFunction:
                                         try:
-
                                             templateFunction = CostFunctionsProcess.objects.get(id=function['pk'])
                                             if ('currencyCost' in function['fields']):
                                                 currency = Countries.objects.get(id=function['fields']['currencyCost'])
@@ -923,7 +922,6 @@ def editIntake(request, idx):
     else:
         filterIntake = Intake.objects.get(id=idx)
         if request.method == 'GET':
-            countries = Countries.objects.all()            
             filterExternal = ElementSystem.objects.filter(intake=filterIntake.pk, is_external=True)
             extInputs = []
 
@@ -949,12 +947,11 @@ def editIntake(request, idx):
             intakeExtInputs = json.dumps(extInputs)
             # city = Cities.objects.all()
             # form = forms.IntakeForm()
-            currencies = Countries.objects.all()
+            currencies = Countries.objects.all().order_by('name')
             return render(
                 request, 'waterproof_intake/intake_edit.html',
                 {
                     'intake': filterIntake,
-                    'countries': countries,
                     'city': filterIntake.city,
                     'externalInputs': intakeExtInputs,
                     "serverApi": settings.WATERPROOF_API_SERVER,
