@@ -16,8 +16,7 @@
     var SelectedCurrency = "{{SelectedCurrency}}";
 </script>
 <div class="page-header">
-    <h1>{% trans "Financial Indicators" %}</h1>
-    
+    <h1 style="font-size: 20pt;color: #1389AA;font-weight: bold;padding: 15px;">{% trans "Financial Indicators" %}</h1>
 </div>
 <br>
 <!--Begin Form-->
@@ -25,6 +24,23 @@
     {% csrf_token %}
     <!--Start smartwizard-->
     <br>
+    <div style="position: relative;">
+        <div class="help-in-report">
+            {% trans "En este reporte se presenta de forma sintetizada las proporciones en inversión y beneficios que se lograrán por la implementación de las SbN:" %}
+        </div>
+        <div style="text-align: center;text-align: center;position: absolute;top: 0px;right: 0px;margin-left: 530px;font-size: 13px;">
+            <div style="float: left;width: 25%;" id="idFinancialIndicators">
+                <img src="/static/geonode/img/indicadores-fisicos.png" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;" title="{% trans "Financial indicators" %}"/> 
+                <br> 
+                <a onclick="changeReport()">{% trans "Reports" %}</a>
+            </div>
+            <div style="float: left;width: 25%;" id="idDecisionIndicators">
+                <img src="/static/geonode/img/indicadores-decision.png" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;" title="{% trans "Decision indicators" %}"/>
+                <br>
+                <a href="../../reports/decision/">{% trans "Decision indicators" %}</a>
+            </div>
+        </div>
+    </div>
     <div id="smartwizard" style="position: relative;">
         <div class="border-table-title">
             <div class="title-table">{% trans "Study Case" %}</div>
@@ -55,18 +71,6 @@
                 </div>
             </div>
         </div>
-        <div style="text-align: center;text-align: center;position: absolute;top: 0px;right: 0px;margin-left: 530px;font-size: 13px;">
-            <div style="float: left;width: 25%;" id="idFinancialIndicators">
-                <img src="/static/geonode/img/indicadores-fisicos.png" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;" title="{% trans "Financial indicators" %}"/> 
-                <br> 
-                <a onclick="changeReport()">{% trans "Reports" %}</a>
-            </div>
-            <div style="float: left;width: 25%;" id="idDecisionIndicators">
-                <img src="/static/geonode/img/indicadores-decision.png" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;" title="{% trans "Decision indicators" %}"/>
-                <br>
-                <a href="../../reports/decision/">{% trans "Decision indicators" %}</a>
-            </div>
-        </div>
         <!--panel of navigation-->
         <div class="title-inform">
             <div id="idSectionRoi" class="inform-section">{% trans "Return of investment (ROI)" %}</div>
@@ -74,7 +78,7 @@
             <div id="idSectionSA" class="inform-section inform-section-free">{% trans "Sensibility Analysis" %}</div>
         </div>
         <!--Steps-->
-        <div>
+        <div class="margin-report">
             <!--Step 1-->
             <div id="step1">
                 <div style="text-align: center;">
@@ -291,7 +295,7 @@ $(function () {
                 title: {
                     text: 'Return of investment'
                 },
-                colors: ['#fe7700', '#ffc400', '#426ac7', '#a5a5a5'],
+                colors: ['#008BAB', '#90D3E7', '#004B56', '#61D1C2'],
                 xAxis: {
                     categories: categories
                 },
@@ -402,7 +406,7 @@ $(function () {
                 title: {
                     text: 'Return of investment'
                 },
-                colors: ['#fe7700', '#ffc400', '#426ac7', '#a5a5a5'],
+                colors: ['#008BAB', '#90D3E7', '#004B56', '#61D1C2'],
                 xAxis: {
                     categories: categories
                 },
@@ -445,7 +449,7 @@ $(function () {
                 title: {
                     text: 'Cost and Benefits'
                 },
-                colors: ['#fe7700', '#ffc400'],
+                colors: ['#008BAB', '#90D3E7'],
                 xAxis: {
                     categories: ['Cost and Benefits']
                 },
@@ -490,6 +494,7 @@ $(function () {
                 chart: {
                     type: 'column'
                 },
+                colors: ['#008BAB'],
                 title: {
                     text: 'Net present value summary'
                 },
@@ -526,6 +531,7 @@ $(function () {
                 credits: {
                     enabled: false
                 },
+                colors: ['#008BAB'],
                 series: [{
                     name: 'Time (yr)',
                     color: "#4c99d8",
@@ -536,7 +542,7 @@ $(function () {
                     type: 'arearange',
                     lineWidth: 0,
                     linkedTo: ':previous',
-                    color: "#ffc9a8",
+                    color: "#90D3E7",
                     fillOpacity: 0.3,
                     zIndex: 0,
                     marker: {
@@ -567,6 +573,7 @@ $(function () {
                 credits: {
                     enabled: false
                 },
+                colors: ['#008BAB'],
                 series: [{
                     name: 'Time (yr)',
                     color: "#006bc3",
@@ -581,7 +588,7 @@ $(function () {
                     type: 'arearange',
                     lineWidth: 0,
                     linkedTo: ':previous',
-                    color: "#ffe894",
+                    color: "#90D3E7",
                     fillOpacity: 0.3,
                     zIndex: 0,
                     marker: {
@@ -606,6 +613,7 @@ $(function () {
                     polar: true,
                     type: 'line'
                 },
+                colors: ['#008BAB'],
                 title: {
                     text: 'Cost vs benefits',
                     x: -80
@@ -638,6 +646,7 @@ $(function () {
                     polar: true,
                     type: 'line'
                 },
+                colors: ['#008BAB'],
                 title: {
                     text: 'Return of investment ROI',
                     x: -80

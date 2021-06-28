@@ -16,8 +16,7 @@
     var SelectedCurrency = "{{SelectedCurrency}}";
 </script>
 <div class="page-header">
-    <h1>{% trans "Decision Indicators" %}</h1>
-    
+    <h1 style="font-size: 20pt;color: #1389AA;font-weight: bold;padding: 15px;">{% trans "Decision Indicators" %}</h1>
 </div>
 <br>
 <!--Begin Form-->
@@ -25,6 +24,23 @@
     {% csrf_token %}
     <!--Start smartwizard-->
     <br>
+    <div style="position: relative;">
+        <div class="help-in-report">
+            {% trans "En este reporte se presenta de forma sintetizada las proporciones en inversión y beneficios que se lograrán por la implementación de las SbN:" %}
+        </div>
+        <div style="text-align: center;text-align: center;position: absolute;top: 0px;right: 0px;margin-left: 530px;font-size: 13px;">
+            <div style="float: left;width: 25%;" id="idFinancialIndicators">
+                <img src="/static/geonode/img/indicadores-fisicos.png" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;" title="{% trans "Financial indicators" %}"/> 
+                <br> 
+                <a onclick="changeReport()">{% trans "Reports" %}</a>
+            </div>
+            <div style="float: left;width: 25%;" id="idFinancialIndicators">
+                <img src="/static/geonode/img/Indicadores-financieros.png" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;" title="{% trans "Financial indicators" %}"/> 
+                <br> 
+                <a href="../../reports/financial/">{% trans "Financial indicators" %}</a>
+            </div>
+        </div>
+    </div>
     <div id="smartwizard" style="position: relative;">
         <div class="border-table-title">
             <div class="title-table">{% trans "Study Case" %}</div>
@@ -55,18 +71,6 @@
                 </div>
             </div>
         </div>
-        <div style="text-align: center;text-align: center;position: absolute;top: 0px;right: 0px;margin-left: 530px;font-size: 13px;">
-            <div style="float: left;width: 25%;" id="idFinancialIndicators">
-                <img src="/static/geonode/img/indicadores-fisicos.png" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;" title="{% trans "Financial indicators" %}"/> 
-                <br> 
-                <a onclick="changeReport()">{% trans "Reports" %}</a>
-            </div>
-            <div style="float: left;width: 25%;" id="idFinancialIndicators">
-                <img src="/static/geonode/img/Indicadores-financieros.png" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;" title="{% trans "Financial indicators" %}"/> 
-                <br> 
-                <a href="../../reports/financial/">{% trans "Financial indicators" %}</a>
-            </div>
-        </div>
         <!--panel of navigation-->
         <div class="title-inform">
             <div id="idSectionIbc" class="inform-section">{% trans "Incidence of benefits and cost" %}</div>
@@ -75,7 +79,7 @@
             <div id="idSectionPr" class="inform-section inform-section-free">{% trans "Physical and risk indicator" %}</div>
         </div>
         <!--Steps-->
-        <div>
+        <div class="margin-report">
             <!--Step 1-->
             <div id="step1">
                 <div style="text-align: center; height: 350px;">
@@ -94,13 +98,13 @@
                 <div style="text-align: center;height: 500px;">
                     <div class="contain-detail">
                         <!--Graph-->
-                        <div style="width: 30%;position: absolute;left: 1%;">
+                        <div style="width: 30%;position: absolute;left: 5%;">
                             <div id="containerAbt"></div>
                         </div>
-                        <div style="width: 30%;position: absolute;left: 33%;">
+                        <div style="width: 30%;position: absolute;left: 37%;">
                             <div id="containerAct"></div>
                         </div>
-                        <div style="width: 30%;position: absolute;left: 66%;">
+                        <div style="width: 30%;position: absolute;left: 70%;">
                             <div id="containerAca"></div>
                         </div>
                     </div>
@@ -821,6 +825,7 @@ $(function () {
                     plotShadow: false,
                     type: 'pie'
                 },
+                colors: ['#008BAB', '#90D3E7', '#004B56', '#61D1C2'],
                 title: {
                     text: 'Total Benefits'
                 },
@@ -865,6 +870,7 @@ $(function () {
                 title: {
                     text: 'Costs per Activity'
                 },
+                colors: ['#008BAB', '#90D3E7', '#004B56', '#61D1C2'],
                 plotOptions: {
                     pie: {
                         allowPointSelect: true,
@@ -906,6 +912,7 @@ $(function () {
                 title: {
                     text: 'Total Costs'
                 },
+                colors: ['#008BAB', '#90D3E7', '#004B56', '#61D1C2'],
                 plotOptions: {
                     pie: {
                         allowPointSelect: true,
@@ -952,6 +959,7 @@ $(function () {
                 chart: {
                     type: 'bar'
                 },
+                colors: ['#008BAB'],
                 title: {
                     text: 'Portfolio Efficiency'
                 },
@@ -1176,6 +1184,11 @@ $(function () {
                             yAxis: {
                                 min: 0,
                                 max: (value.valueIndicator * 2),
+                                stops: [
+                                    [0.1, '#008BAB'],
+                                    [0.5, '#008BAB'],
+                                    [0.9, '#008BAB']
+                                ],
                                 title: {
                                     text: value.description
                                 }

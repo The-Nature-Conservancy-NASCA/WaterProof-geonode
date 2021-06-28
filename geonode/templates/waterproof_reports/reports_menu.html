@@ -159,7 +159,7 @@
 
         <div class="page-header" style="margin-top: 600px;">
             <br>
-            <h5 textColor="red" style="outline-color: dimgrey;">{% trans "Explore the results for this analysis" %}</h5>
+            <h5 textColor="red" style="font-size: 20pt;color: #1389AA;font-weight: bold;padding: 15px;">{% trans "Explore the results for this analysis" %}</h5>
         </div>
 
         <div style="text-align: center;">
@@ -263,6 +263,7 @@ $(function () {
                 title: {
                     text: 'Net present value summary'
                 },
+                colors: ['#008BAB'],
                 xAxis: {
                     categories: ['Implementation', 'Maintance', 'Oportunity', 'Transaction', 'Platform', 'Benefit', 'Total']
                 },
@@ -311,7 +312,7 @@ $(function () {
         $.getJSON(urlDetail, function (data) {
             var listFielTable = "";
             $.each( data, function( key, value ) {
-                listFielTable = listFielTable + '<div class="line-marc-table" style="width: 100%;color: #616160;margin-top: 20px;height: 0px;"><div style="width: 30%;">' + value.sbnf + '</div><div class="top-center-line">' + value.costPerHectarea.toFixed(2) + '</div><div class="line-number-marc-table" style="    position: absolute;right: 0px;width: 30%;color: #616160;font-size: 13px;padding: 0px;top: 0px;">' + value.recomendedIntervetion.toFixed(2) + '</div></div>';
+                listFielTable = listFielTable + '<div class="line-marc-table" style="width: 100%;color: #616160;margin-top: 20px;height: 20px;"><div style="width: 30%;">' + value.sbnf + '</div><div class="top-center-line">' + value.costPerHectarea.toFixed(2) + '</div><div class="line-number-marc-table" style="    position: absolute;right: 0px;width: 30%;color: #616160;font-size: 13px;padding: 0px;top: 0px;">' + value.recomendedIntervetion.toFixed(2) + '</div></div>';
             });
             document.getElementById("listFielTable").innerHTML = listFielTable;
         });
