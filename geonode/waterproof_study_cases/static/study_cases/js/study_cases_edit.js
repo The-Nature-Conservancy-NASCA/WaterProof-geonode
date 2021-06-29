@@ -241,7 +241,7 @@ $(document).ready(function() {
                 description: $('#description').val(),
                 intakes: intakes,
                 ptaps: ptaps,
-                city: localStorage.city,
+                city_id: localStorage.cityId,
                 country: localStorage.country,
                 type: type
             }, function(data) {
@@ -946,8 +946,8 @@ $(document).ready(function() {
     $('#autoAdjustHeightF').css("height", "auto");
 
     function loadIntakes() {
-        var city = localStorage.city
-        $.get("../../study_cases/intakebycity/" + city, function(data) {
+        var city_id = localStorage.cityId
+        $.get("../../study_cases/intakebycity/" + city_id, function(data) {
             if (data.length > 0) {
                 $.each(data, function(index, intake) {
                     contains = false
@@ -975,8 +975,8 @@ $(document).ready(function() {
     }
 
     function loadPtaps() {
-        var city = localStorage.city
-        $.get("../../study_cases/ptapbycity/" + city, function(data) {
+        var city_id = localStorage.cityId
+        $.get("../../study_cases/ptapbycity/" + city_id, function(data) {
             if (data.length > 0) {
                 $.each(data, function(index, ptap) {
                     contains = false

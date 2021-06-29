@@ -34,9 +34,9 @@ def getIntakeByID(request, id_intake):
 
 
 @api_view(['GET'])
-def getIntakeByCity(request, name):
+def getIntakeByCity(request, id_city):
     if request.method == 'GET':
-        filterIntakeCity = Intake.objects.filter(city__name__startswith=name, is_complete=True).values(
+        filterIntakeCity = Intake.objects.filter(city__id=id_city, is_complete=True).values(
             "id", "name", "water_source_name")
         data = list(filterIntakeCity)
         return JsonResponse(data, safe=False)
@@ -52,10 +52,11 @@ def getIntakeByPtap(request, id):
 
 
 @api_view(['GET'])
-def getPtapByCity(request, name):
+def getPtapByCity(request, id_city):
     if request.method == 'GET':
-        filterptap = Header.objects.filter(plant_city__name__startswith=name).values(
+        filterptap = Header.objects.filter(plant_city__id=id_city).values(
             "id", "plant_name")
+        logger.error(filterptap)
         data = list(filterptap)
         return JsonResponse(data, safe=False)
 
@@ -323,8 +324,8 @@ def save(request):
     else:
         if request.method == 'POST':
             if(request.POST.get('name')):
-                city = Cities.objects.filter(
-                    name__startswith=request.POST['city'], country__name__startswith=request.POST['country']).first()
+                id_city = request.POST['city_id']
+                city = Cities.objects.get(pk=id_city)
                 name = request.POST['name']
                 name_old = ''
                 id_study_case = request.POST['id_study_case']
