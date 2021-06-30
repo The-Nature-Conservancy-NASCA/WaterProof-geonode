@@ -31,7 +31,7 @@
     </div>
     <div class="row">
         <div class="col-md-4">
-            <p style="text-align: justify;">{% trans "From this section you can consult the water intakes created in the system associated with a city of interest. You can search for intakes of different cities from 'Search city'. The system will show you a list of cities with matches around the world. Select the appropriate option from the list. You can also create your own basin associated with a city, to do this search for the city to which you will associate your basin and then click on the 'Create new water intake' button." %}</p>
+            <p style="text-align: justify;">{% trans "From this section you can view the water intakes created in the system associated with a city of interest. You can search for intakes of different cities from 'Search city'. The system will show you a list of cities with matches around the world. Select the appropriate option from the list. You can also create your own basin associated with a city. To do so, search for the city with which you will associate your basin and then click on the 'Create new water intake' button." %}</p>
             <h4 class="text-center" id="countryLabel">{{city.name}}</h4>
             <p><b>{% trans "Selected City" %} :</b> <span id="cityLabel"></span> </p>
             <p><b>{% trans "Region" %} :</b> <span id="regionLabel"></span> </p>
@@ -39,8 +39,10 @@
             <div>
                 {% if user.is_authenticated and not READ_ONLY_MODE %}
                 <a href="create/" id="createUrl" textColor="red" style="outline-color: dimgrey;">{% trans "Create new Water Intake" %}</a>
+                <button onclick="window.location.href='create/'" type="button" data-toggle="modal" class="glyphicon glyphicon-plus-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
                 {% else %}
                 <a id="createUrlDisabled">{% trans "Create new Water Intake" %}</a>
+                <button type="button" data-toggle="modal" class="glyphicon glyphicon-plus-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #6e6f70; border-style: none; background-color:transparent;"></button>
                 <h6>{% trans "You must be a registered user to create a new Intake*" %}</h6>
                 {% endif %}
             </div>
@@ -57,7 +59,11 @@
             <tr class="info">
                 <th scope="col" class="small text-center vat">{% trans "Name" %}</th>
                 <th scope="col" class="small text-center vat px-5">{% trans "Description" %}</th>
+                {% if user.professional_role == 'ADMIN' %}
                 <th scope="col" class="small text-center vat">{% trans "User" %}</th>
+                {% else %}
+                <th scope="col" class="small text-center vat" style="display: none;">{% trans "User" %}</th>
+                {% endif %}
                 <th scope="col" class="small text-center vat">{% trans "Creation Date" %}</th>
                 <th scope="col" class="small text-center vat">{% trans "Water source name" %}</th>
                 <th scope="col" class="small text-center vat">{% trans "City" %}</th>
@@ -72,7 +78,11 @@
             <tr>
                 <td class="small text-center vat">{{intake.name}}</td>
                 <td class="small text-center vat truncate">{{intake.description}}</td>
+                {% if user.professional_role == 'ADMIN' %}
                 <td class="small text-center vat">{{intake.added_by.first_name}} {{intake.added_by.last_name}}</td>
+                {% else %}
+                <td class="small text-center vat" style="display: none;">{{intake.added_by.first_name}} {{intake.added_by.last_name}}</td>
+                {% endif %}
                 <td class="small text-center vat">{{intake.creation_date | date:"d-m-Y"}}</td>
                 <td class="small text-center vat">{{intake.water_source_name}}</td>
                 <td class="small text-center vat">{{intake.city.name}}</td>
@@ -128,10 +138,10 @@
             </div>
             <div class="modal-body">
                 <p>
-                    {%  trans "Water intakes are civil works and electromechanical equipment used to obtain water from surface or underground sources (WaterProof version 1.0 is limited to surface sources). A basin is made up of information about its location, polygon of the supplying basin, infrastructure elements, its cost functions and data about its demand."  %}
+                    {%  trans "Water intakes are civil works and electromechanical equipment used to obtain water from surface or underground sources (WaterProof version 1.0 is limited to surface sources). A basin is made up of information about its location, polygon of the supplying basin, infrastructure elements, its cost functions and demand data"  %}
                 </p>
                 <p>
-                    {%  trans "To create a new watershed, WaterProof will help you with the steps you need to follow to complete your registration: "  %}
+                    {%  trans "To create a new basin, WaterProof will help you with the steps you need to follow to complete your registration: "  %}
                 </p>
                 <img style="margin: 10px auto 10px; display: block;" src="/static/geonode/img/Intake_List.png"></img>
                 <div>

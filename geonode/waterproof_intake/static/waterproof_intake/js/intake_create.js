@@ -47,7 +47,7 @@ var mapLoader;
 $(document).ready(function() {
     setIntakeCity();
     var countryNameStorage = localStorage.country;
-    $('#cityLabel').text(localStorage.city);
+    $('#cityLabel').text(localStorage.city+", "+localStorage.country);
     $("#countryLabel").html(localStorage.getItem('country'));
     // Interpolation with Wizard
     $("#intakeWECB").click(function() {

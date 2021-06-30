@@ -136,10 +136,10 @@
                         <thead>
                             <tr>
                                 <th>
-                                    <h5>{% trans "Land use" %}</h5>
+                                    <h5>{% trans "LAND USE / LAND COVER WHERE THE ACTIVITY CAN BE IMPLEMENTED" %}</h5>
                                 </th>
                                 <th>
-                                    <h5 >{% trans "Land cover change definition" %}</h5>
+                                    <h5>{% trans "LAND USE / LAND COVER TRANSFORMED" %}</h5>
                                 </th>
                             </tr>
                             
@@ -180,6 +180,7 @@
                 <div class="col-md-4">
                     <div class="col-md-12">
                         <label>{% trans "Restricted areas" %} </label>
+                        <p>{% trans "If there are areas with restrictions for the implementation of the NbS, attach them to the form through a geographic file by clicking on the following button." %}</p>
                         <button type="button" class="btn btn-link" data-toggle="modal" data-target="#HelpModal" id="HelpModalBtnModal" style="outline:none; text-decoration:none;">
                             <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> {% trans "Help" %}</button>
                         </button>
@@ -266,12 +267,16 @@
                     </li>
                 </p>
                 <p>
-                    {% trans "The system will verify that the polygon is within the watershed area and that it meets the coordinate standard." %} 
+                    {% trans "The system will verify that the polygon is within the watershed area and that it meets the coordinate standard. EPSG 3857 (world standard for flat coordinates) or EPSG 4326 (world standard for geographic coordinates)." %} 
+                </p>
+                <p>
+                    {% trans "Files are accepted only in compressed .zip format whose required structure must contain at least: 1 .shp file, 1 .dbf file, 1 .prj file and 1 .shx file." %} 
                 </p>
                 <div>
                 <br>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal" style="color: white; background-color: #6398C1;">Close</button>
+                </div>
                 </div>
             </div>
         </div>
