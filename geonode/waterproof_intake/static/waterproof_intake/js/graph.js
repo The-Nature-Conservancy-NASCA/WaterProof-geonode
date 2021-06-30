@@ -659,7 +659,7 @@
             //mathField.clearSelection();
             clearInputsMath();
             $('#CalculatorModal').modal('show');
-            selectedCostId = parseInt($(this).attr('idvalue');)
+            selectedCostId = parseInt($(this).attr('idvalue'));
             $('#costFunctionName').val(funcostdb[selectedCostId].fields.function_name);
             $('#costFuntionDescription').val(funcostdb[selectedCostId].fields.function_description);
             $('#CalculatorModalLabel').text('Modify Cost - ' + $('#titleCostFunSmall').text())
