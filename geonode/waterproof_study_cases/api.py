@@ -34,9 +34,9 @@ def getIntakeByID(request, id_intake):
 
 
 @api_view(['GET'])
-def getIntakeByCity(request, name):
+def getIntakeByCity(request, id_city):
     if request.method == 'GET':
-        filterIntakeCity = Intake.objects.filter(city__name__startswith=name, is_complete=True).values(
+        filterIntakeCity = Intake.objects.filter(city__id=id_city, is_complete=True).values(
             "id", "name", "water_source_name")
         data = list(filterIntakeCity)
         return JsonResponse(data, safe=False)
@@ -52,10 +52,11 @@ def getIntakeByPtap(request, id):
 
 
 @api_view(['GET'])
-def getPtapByCity(request, name):
+def getPtapByCity(request, id_city):
     if request.method == 'GET':
-        filterptap = Header.objects.filter(plant_city__name__startswith=name).values(
+        filterptap = Header.objects.filter(plant_city__id=id_city).values(
             "id", "plant_name")
+        logger.error(filterptap)
         data = list(filterptap)
         return JsonResponse(data, safe=False)
 
@@ -106,6 +107,7 @@ def getStudyCaseCurrencys(request):
                         currencys.append(currency)
             for intake in scintakes:
                 intakeCurrency = UserCostFunctions.objects.filter(intake=intake).values('currency__currency').distinct()
+                logger.error(intakeCurrency)
                 for intakec in intakeCurrency:
                     if(intakec['currency__currency'] != sc_currency and any(element['currency'] in intakec['currency__currency'] for element in currencys)):
                         currency = {}
@@ -322,8 +324,8 @@ def save(request):
     else:
         if request.method == 'POST':
             if(request.POST.get('name')):
-                city = Cities.objects.filter(
-                    name__startswith=request.POST['city'], country__name__startswith=request.POST['country']).first()
+                id_city = request.POST['city_id']
+                city = Cities.objects.get(pk=id_city)
                 name = request.POST['name']
                 name_old = ''
                 id_study_case = request.POST['id_study_case']
@@ -440,6 +442,8 @@ def save(request):
                 return JsonResponse({'id_study_case': sc.id}, safe=False)
             elif(request.POST.get('analysis_type')):
                 id_study_case = request.POST['id_study_case']
+                run = request.POST.get('run_analysis')
+                logger.error(run)
                 sc = StudyCases.objects.get(pk=id_study_case)
                 sc.is_complete = True
                 sc.time_implement = request.POST['period_nbs']
@@ -493,16 +497,13 @@ def save(request):
                         currencys_sc.studycase = sc
                         currencys_sc.save()
                 sc.save()
-                return JsonResponse({'id_study_case': sc.id}, safe=False)
-            elif(request.POST.get('run_analysis')):
-                id_study_case = request.POST['id_study_case']
-                sc = StudyCases.objects.get(pk=id_study_case)
-                resp = requests.get('http://dev.skaphe.com:5050/preprocRIOS',
+                if(run == 'true'):
+                    logger.error(request.user.id)
+                    logger.error(id_study_case)
+                    resp = requests.get('http://dev.skaphe.com:5050/preprocRIOS',
                                     params={'id_usuario': request.user.id,
-                                            'id_case': id_study_case},
-                                    )
-                logger.error(resp)
-                if resp.status_code == 200:
-                    sc.is_run_analysis = True
-                    sc.save()
-                return JsonResponse({'id_study_case': sc.id , 'status_code':resp.status_code}, safe=False)
+                                            'id_case': id_study_case})
+                    if resp.status_code == 200:
+                        sc.is_run_analysis = True
+                        sc.save()
+                return JsonResponse({'id_study_case': sc.id}, safe=False)

@@ -280,6 +280,7 @@ def createStepTwo(request):
             if (len(actualElements) > 0):
                 for element in actualElements:
                     print("deleting actualElements")
+                    print (element)
                     el = ElementSystem.objects.get(id=element)
                     existingValuesTime = list(ValuesTime.objects.filter(element=el.pk).values_list('id', flat=True))
                     for value in existingValuesTime:
@@ -317,7 +318,6 @@ def createStepTwo(request):
                                 if (len(costFunction) > 0):
                                     for function in costFunction:
                                         try:
-
                                             templateFunction = CostFunctionsProcess.objects.get(id=function['pk'])
                                             if ('currencyCost' in function['fields']):
                                                 currency = Countries.objects.get(id=function['fields']['currencyCost'])
@@ -333,20 +333,7 @@ def createStepTwo(request):
                                                 element_system = element_system,
                                                 intake = existingIntake,
                                             )
-                                            print(mainFunction)
-                                            # if ('logical' in function['fields']):
-                                            #     logicalFunctions = json.loads(function['fields']['logical'])
-                                            #     if (len(logicalFunctions) > 0):
-                                            #         for logical in logicalFunctions:
-                                            #             createdLogical = UserLogicalFunctions.objects.create(
-                                            #                 function1=logical['ecuation_1'],
-                                            #                 condition1=logical['condition_1'],
-                                            #                 function2=logical['ecuation_2'],
-                                            #                 condition2=logical['condition_2'],
-                                            #                 function3=logical['ecuation_3'],
-                                            #                 condition3=logical['condition_3'],
-                                            #                 mainFunction=mainFunction
-                                            #             )
+                                            print(mainFunction)                                            
                                         except Exception as e:
                                             print(e)
                         # External element
@@ -390,21 +377,7 @@ def createStepTwo(request):
                                                     element_system = element_system,
                                                     intake = existingIntake,
                                                 )
-
-                                            # if ('logical' in function['fields']):
-                                            #     logicalFunctions = json.loads(function['fields']['logical'])
-                                            #     if (len(logicalFunctions) > 0):
-                                            #         for logical in logicalFunctions:
-                                            #             createdLogical = UserLogicalFunctions.objects.create(
-                                            #                 function1=logical['ecuation_1'],
-                                            #                 condition1=logical['condition_1'],
-                                            #                 function2=logical['ecuation_2'],
-                                            #                 condition2=logical['condition_2'],
-                                            #                 function3=logical['ecuation_3'],
-                                            #                 condition3=logical['condition_3'],
-                                            #                 mainFunction=mainFunction
-                                            #             )
-
+                                           
                                     external_info = json.loads(element['externaldata'])
                                     elementCreated = ElementSystem.objects.get(graphId=element['id'], intake=intakeId)
                                     for external in external_info:
@@ -453,9 +426,9 @@ def createStepTwo(request):
                         elementsCreated.append(elementC)
                         if not (element['funcost'] == None):
                             costFunction = json.loads(element['funcost'])
-                            if (len(costFunction) > 0):
-                                
+                            if (len(costFunction) > 0):                                
                                 for function in costFunction:
+                                    # print (function)
                                     templateFunction = CostFunctionsProcess.objects.get(id=function['pk'])
                                     if ('currencyCost' in function['fields']):
                                         currency = Countries.objects.get(id=function['fields']['currencyCost'])
@@ -473,8 +446,8 @@ def createStepTwo(request):
                                     )
                                     if ('logical' in function['fields']):
                                         print("Saving logical function for connection")
-                                        logicalFunctions = json.loads(function['fields']['logical'])
-                                        print(len(logicalFunctions))
+                                        # logicalFunctions = json.loads(function['fields']['logical'])
+                                        # print(len(logicalFunctions))
                                         # if (len(logicalFunctions) > 0):
                                         #     for logical in logicalFunctions:
                                         #         print(logical)
@@ -923,7 +896,6 @@ def editIntake(request, idx):
     else:
         filterIntake = Intake.objects.get(id=idx)
         if request.method == 'GET':
-            countries = Countries.objects.all()            
             filterExternal = ElementSystem.objects.filter(intake=filterIntake.pk, is_external=True)
             extInputs = []
 
@@ -949,12 +921,11 @@ def editIntake(request, idx):
             intakeExtInputs = json.dumps(extInputs)
             # city = Cities.objects.all()
             # form = forms.IntakeForm()
-            currencies = Countries.objects.all()
+            currencies = Countries.objects.all().order_by('name')
             return render(
                 request, 'waterproof_intake/intake_edit.html',
                 {
                     'intake': filterIntake,
-                    'countries': countries,
                     'city': filterIntake.city,
                     'externalInputs': intakeExtInputs,
                     "serverApi": settings.WATERPROOF_API_SERVER,

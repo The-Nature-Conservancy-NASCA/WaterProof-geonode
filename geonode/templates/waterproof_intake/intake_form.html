@@ -126,12 +126,12 @@
                     <div class="row">
                         <!--Graph-->
                         <div class="col-md-8">
-                            <textarea id="xml" style="height:600px;width:100%;display:none;border-style:none;"></textarea>
+                            <textarea id="xml" style="height:535px;width:100%;display:none;border-style:none;"></textarea>
                             <span style="float:right;padding-right:36px;">
                                 <input id="getdata" type="checkbox" />{% trans "Source" %}
                             </span>
                             <div class="panel panel-info">
-                                <div class="panel-body" id="graph" tabindex="-1" style="height:700px;width:100%;overflow:scroll;cursor:default; outline:none;"></div>
+                                <div class="panel-body" id="graph" tabindex="-1" style="height:535px;width:100%;overflow:scroll;cursor:default; outline:none;"></div>
                             </div>
                         </div>
                         <!--Panel Information Right-->
@@ -459,18 +459,12 @@
                             <div class="col-xs-6">
                                 <label class="text-primary">{% trans "Currency for definition of costs" %} </label>
                                 <select id="currencyCost" class="form-control" required>
-                                    {% for currency in currencies %}
-                                        <!--{% if currency.name == intake.city.country.name %}
-                                            <option value="{{currency.pk}}" selected>({{currency.currency}}) - {{currency.name}} </option>
-                                        {% endif %}-->
-                                        <!--option selected="true" value="{{currency.pk}}" selected>({{currency.currency}}) - {{intake.city.country}}</option-->
+                                    {% for currency in currencies %}                                        
                                         {% if currency.iso3 == 'USA'%}
                                             <option value="{{currency.pk}}" data-country="{{currency.iso3}}">({{currency.currency}}) - {{currency.name}}</option>
                                         {% else %}
                                             <option value="{{currency.pk}}">({{currency.currency}}) - {{currency.name}}</option>
                                         {% endif %}
-                                        
-                                        
                                     {% endfor %}
                                 </select>
                             </div>

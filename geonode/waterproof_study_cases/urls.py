@@ -26,10 +26,10 @@ urlpatterns = [
     
     path('intakebyid/<int:id_intake>/', api.getIntakeByID, name='intake-id'),
     path('ptapbyid/<int:id_ptap>/', api.getPtapByID, name='ptap-id'),
-    path('intakebycity/<str:name>/', api.getIntakeByCity, name='intake-city'),
+    path('intakebycity/<int:id_city>/', api.getIntakeByCity, name='intake-city'),
     path('parametersbycountry/<str:name>/', api.getParameterByCountry, name='parameters-country'),
     path('intakebyptap/<int:id>/', api.getIntakeByPtap, name='intake-ptap'),
-    path('ptapbycity/<str:name>/', api.getPtapByCity, name='ptap-city'),    
+    path('ptapbycity/<int:id_city>/', api.getPtapByCity, name='ptap-city'),    
     path('save/', api.save, name='study_cases_save'),
     path('nbs/', api.getNBS, name='study_cases_nbs'),
     path('bio/', api.getBiophysical, name='study_cases_bio'),

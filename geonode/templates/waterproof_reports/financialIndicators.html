@@ -16,8 +16,7 @@
     var SelectedCurrency = "{{SelectedCurrency}}";
 </script>
 <div class="page-header">
-    <h1>{% trans "Financial Indicators" %}</h1>
-    
+    <h1 style="font-size: 20pt;color: #1389AA;font-weight: bold;padding: 15px;">{% trans "Financial Indicators" %}</h1>
 </div>
 <br>
 <!--Begin Form-->
@@ -25,6 +24,23 @@
     {% csrf_token %}
     <!--Start smartwizard-->
     <br>
+    <div style="position: relative;">
+        <div class="help-in-report">
+            {% trans "En este reporte se presenta de forma sintetizada las proporciones en inversión y beneficios que se lograrán por la implementación de las SbN:" %}
+        </div>
+        <div style="text-align: center;text-align: center;position: absolute;top: 0px;right: 0px;margin-left: 530px;font-size: 13px;">
+            <div style="float: left;width: 25%;" id="idFinancialIndicators">
+                <img src="/static/geonode/img/indicadores-fisicos.png" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;" title="{% trans "Financial indicators" %}"/> 
+                <br> 
+                <a onclick="changeReport()">{% trans "Reports" %}</a>
+            </div>
+            <div style="float: left;width: 25%;" id="idDecisionIndicators">
+                <img src="/static/geonode/img/indicadores-decision.png" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;" title="{% trans "Decision indicators" %}"/>
+                <br>
+                <a href="../../reports/decision/">{% trans "Decision indicators" %}</a>
+            </div>
+        </div>
+    </div>
     <div id="smartwizard" style="position: relative;">
         <div class="border-table-title">
             <div class="title-table">{% trans "Study Case" %}</div>
@@ -46,25 +62,13 @@
                 <div class="column-right-table">
                     <div class="file-column-left">
                         <div class="title-file-column-right">{% trans "Number of water intakes that are part of the analysis:" %}</div>
-                        <div class="value-file-column-left">{% trans "-" %}</div>
+                        <div class="value-file-column-left" id="idNumberOfWaterFinaltial"></div>
                     </div>
                     <div class="file-column-left">
                         <div class="title-file-column-right">{% trans "Number of drinking water treatment plants in the system:" %}</div>
-                        <div class="value-file-column-left">{% trans "-" %}</div>
+                        <div class="value-file-column-left" id="idNumberOfDrinkingFinaltial"></div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div style="text-align: center;text-align: center;position: absolute;top: 0px;right: 0px;margin-left: 530px;font-size: 13px;">
-            <div style="float: left;width: 25%;" id="idFinancialIndicators">
-                <img src="/static/geonode/img/Indicadores-financieros.png" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;" title="{% trans "Financial indicators" %}"/> 
-                <br> 
-                <a href="../../reports/financial/">{% trans "Financial indicators" %}</a>
-            </div>
-            <div style="float: left;width: 25%;" id="idDecisionIndicators">
-                <img src="/static/geonode/img/indicadores-decision.png" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;" title="{% trans "Decision indicators" %}"/>
-                <br>
-                <a href="../../reports/decision/">{% trans "Decision indicators" %}</a>
             </div>
         </div>
         <!--panel of navigation-->
@@ -74,7 +78,7 @@
             <div id="idSectionSA" class="inform-section inform-section-free">{% trans "Sensibility Analysis" %}</div>
         </div>
         <!--Steps-->
-        <div>
+        <div class="margin-report">
             <!--Step 1-->
             <div id="step1">
                 <div style="text-align: center;">
@@ -84,18 +88,16 @@
                         <div class="contain-detail">
                             <div class="first-detail">
                                 <div class="content-title-first">
-                                    <div class="text-title-first" id="idTitleBenefits">Benefits</div>
-                                    <div class="close-title-first" onclick="displayList('listCheckBenefits','idTitleBenefits')">-</div>
+                                    <div class="text-title-first" id="idTitleBenefits" style="border-width: 2px;">Benefits</div>
                                 </div>
-                                <div id="listCheckBenefits" style="display: none; overflow-x: hidden;overflow-y: scroll;height: 400px;"></div>
+                                <div id="listCheckBenefits" style="overflow-x: hidden;overflow-y: scroll;height: 400px;"></div>
                             </div>
 
                             <div class="first-detail">
                                 <div class="content-title-first">
-                                    <div class="text-title-first" id="idTitleCost">Cost</div>
-                                    <div class="close-title-first" onclick="displayList('listCheckCost', 'idTitleCost')">-</div>
+                                    <div class="text-title-first" id="idTitleCost" style="border-width: 2px;">Cost</div>
                                 </div>
-                                <div id="listCheckCost" style="display: none; overflow-x: hidden;overflow-y: scroll;height: 400px;"></div>
+                                <div id="listCheckCost" style="overflow-x: hidden;overflow-y: scroll;height: 400px;"></div>
                             </div>
                         </div>
                 </div>
@@ -251,33 +253,16 @@
 <script type="text/javascript">
 
 $(function () {
-    
-    changeGraphRoiCost = function() {
-        Highcharts.chart('containerRoi', {
-                chart: {
-                    type: 'column'
-                },
-                title: {
-                    text: 'Return of investment'
-                },
-                colors: ['#fe7700', '#ffc400', '#426ac7', '#a5a5a5'],
-                xAxis: {
-                    categories: [1,2,3]
-                },
-                credits: {
-                    enabled: false
-                },
-                series: [{
-                    name: 'Total Cost',
-                    data: [1,2,3]
-                },{
-                    name: 'Total Discounted Benefits',
-                    type: 'spline',
-                    dashStyle: 'shortdot',
-                    data: [1,2,3]
-                }]
-            });
-    };
+
+    var totalBenefits= [];
+    var categories = [];
+    var totalCost = [];
+    var totalDiscountedCost = [];
+    var totalDiscountedBenefits = [];
+
+    changeReport = function() {
+        location.href = "../../study_cases/report/" + localStorage.idStudyCase;
+    }
 
     displayList = function(nameObject, nameTitle) {
         if(document.getElementById(nameObject).style.display === "none") {
@@ -290,6 +275,54 @@ $(function () {
         }
     };
 
+    loadDetailFilter = function(object, name){
+        if(object.checked) {
+            var listObject = document.getElementsByName(name);
+            listObject.forEach( function(valor, indice) {
+                totalBenefits[parseInt(valor.getAttribute("idpipeline")) - 1] = parseFloat((totalBenefits[parseInt(valor.getAttribute("idpipeline")) - 1] + parseFloat(valor.value)).toFixed(2));
+            });
+        } else {
+            var listObject = document.getElementsByName(name);
+            listObject.forEach( function(valor, indice) {
+                totalBenefits[parseInt(valor.getAttribute("idpipeline")) - 1] = parseFloat((totalBenefits[parseInt(valor.getAttribute("idpipeline")) - 1] - parseFloat(valor.value)).toFixed(2));
+            });
+        }
+        setTimeout(function(){
+            Highcharts.chart('containerRoi', {
+                chart: {
+                    type: 'column'
+                },
+                title: {
+                    text: 'Return of investment'
+                },
+                colors: ['#008BAB', '#90D3E7', '#004B56', '#61D1C2'],
+                xAxis: {
+                    categories: categories
+                },
+                credits: {
+                    enabled: false
+                },
+                series: [{
+                    name: 'Total Cost',
+                    data: totalCost
+                },{
+                    name: 'Total Discounted Cost',
+                    data: totalDiscountedCost
+                },{
+                    name: 'Total Benefits',
+                    type: 'spline',
+                    dashStyle: 'shortdot',
+                    data: totalBenefits
+                },{
+                    name: 'Total Discounted Benefits',
+                    type: 'spline',
+                    dashStyle: 'shortdot',
+                    data: totalDiscountedBenefits
+                }]
+            });
+        }, 1000);
+    }
+
     initialize = function () {
 
         $("#idCountri").html(localStorage.getItem('country'));
@@ -300,6 +333,7 @@ $(function () {
         var urlDetail = "../../reports/getReportAnalysisBenefitsFilter/?studyCase=" + localStorage.idStudyCase;
         $.getJSON(urlDetail, function (data) {
             var lastName = "";
+            var lastSubCategory = "";
             $.each( data, function( key, value ) {
                 if(value.subCategory ===  null) {
                     value.subCategory = value.name;
@@ -308,7 +342,11 @@ $(function () {
                     htmlBenefitsFilter = htmlBenefitsFilter + '<div class="first-detail-in"><div class="text-first-detail">' + value.name + '</div></div>';
                     lastName = value.name;
                 }
-                htmlBenefitsFilter = htmlBenefitsFilter + '<div class="content-option-first-detail"><div class="div-option"><input type="checkbox" checked ></div><div class="div-text">' + value.subCategory + '</div></div>';
+                if(lastSubCategory !== value.subCategory) {
+                    htmlBenefitsFilter = htmlBenefitsFilter + '<div class="content-option-first-detail"><div class="div-option"><input type="checkbox" checked onclick="loadDetailFilter(this, \'' + value.subCategory + '\')"></div><div class="div-text">' + value.subCategory + '</div></div>';
+                    lastSubCategory = value.subCategory;
+                }
+                htmlBenefitsFilter = htmlBenefitsFilter + '<input style="display:none" name="' + value.subCategory + '" idPipeLine="' + value.subName + '" value="' + value.totalBenefits + '">';
             });
             document.getElementById("listCheckBenefits").innerHTML = htmlBenefitsFilter;
         });
@@ -317,6 +355,7 @@ $(function () {
         var urlDetail = "../../reports/getReportCostsAnalysisFilter/?studyCase=" + localStorage.idStudyCase;
         $.getJSON(urlDetail, function (data) {
             var lastName = "";
+            var lastSubCategory = "";
             $.each( data, function( key, value ) {
                 if(value.subCategory ===  null) {
                     value.subCategory = value.name;
@@ -325,18 +364,14 @@ $(function () {
                     htmlCostFilter = htmlCostFilter + '<div class="first-detail-in"><div class="text-first-detail">' + value.name + '</div></div>';
                     lastName = value.name;
                 }
-                htmlCostFilter = htmlCostFilter + '<div class="content-option-first-detail"><div class="div-option"><input type="checkbox" checked ></div><div class="div-text">' + value.subName + '</div></div>';
+                if(lastSubCategory !== value.subCategory) {
+                    htmlCostFilter = htmlCostFilter + '<div class="content-option-first-detail"><div class="div-option"><input type="checkbox" checked ></div><div class="div-text">' + value.subName + '</div></div>';
+                    lastSubCategory = value.subCategory;
+                }
             });
             document.getElementById("listCheckCost").innerHTML = htmlCostFilter;
         });
 
-
-
-        var categories = [];
-        var totalCost = [];
-        var totalDiscountedCost = [];
-        var totalBenefits= [];
-        var totalDiscountedBenefits = [];
         var htmlCost = '<tr><td class="small text-center vat" >Total cost</td>';
         var htmlDiscountedCost = '<tr><td class="small text-center vat" >Total discounted cost</td>';
         var htmlBenefits= '<tr><td class="small text-center vat" >total benefits</td>';
@@ -346,14 +381,14 @@ $(function () {
         $.getJSON(urlDetail, function (data) {
             $.each( data, function( key, value ) {
                 categories.push(value.record);
-                totalCost.push(parseFloat(value.totalCost));
-                totalDiscountedCost.push(parseFloat(value.totalDiscountedCost));
-                totalBenefits.push(parseFloat(value.totalBenefits));
-                totalDiscountedBenefits.push(parseFloat(value.totalDiscountedBenefits));
-                htmlCost = htmlCost + '<td class="small text-center vat" id="valor2">' + value.totalCost + '</td>';
-                htmlDiscountedCost = htmlDiscountedCost + '<td class="small text-center vat" id="valor3">' + value.totalDiscountedCost + '</td>';
-                htmlBenefits = htmlBenefits + '<td class="small text-center vat" id="valor3">' + value.totalBenefits + '</td>';
-                htmlDiscountedBenefits = htmlDiscountedBenefits + '<td class="small text-center vat" id="valor3">' + value.totalDiscountedBenefits + '</td>';
+                totalCost.push(parseFloat(value.totalCost.toFixed(2)));
+                totalDiscountedCost.push(parseFloat(value.totalDiscountedCost.toFixed(2)));
+                totalBenefits.push(parseFloat(value.totalBenefits.toFixed(2)));
+                totalDiscountedBenefits.push(parseFloat(value.totalDiscountedBenefits).toFixed(2));
+                htmlCost = htmlCost + '<td class="small text-center vat" id="valor2">' + value.totalCost.toFixed(2) + '</td>';
+                htmlDiscountedCost = htmlDiscountedCost + '<td class="small text-center vat" id="valor3">' + value.totalDiscountedCost.toFixed(2) + '</td>';
+                htmlBenefits = htmlBenefits + '<td class="small text-center vat" id="valor3">' + value.totalBenefits.toFixed(2) + '</td>';
+                htmlDiscountedBenefits = htmlDiscountedBenefits + '<td class="small text-center vat" id="valor3">' + value.totalDiscountedBenefits.toFixed(2) + '</td>';
 
             });
             htmlCost = htmlCost + '</tr>';
@@ -371,7 +406,7 @@ $(function () {
                 title: {
                     text: 'Return of investment'
                 },
-                colors: ['#fe7700', '#ffc400', '#426ac7', '#a5a5a5'],
+                colors: ['#008BAB', '#90D3E7', '#004B56', '#61D1C2'],
                 xAxis: {
                     categories: categories
                 },
@@ -397,47 +432,6 @@ $(function () {
                 }]
             });
         });
-        
-        var dataEfficiency = [];
-        var urlDetail = "../../reports/getTotalBenefitsForMilion/?studyCase=" + localStorage.idStudyCase;
-        $.getJSON(urlDetail, function (data) {
-            var txtFileEfficiency = '<tr><td class="small text-center vat" >Value</td>';
-            $.each( data, function( key, value ) {
-                dataEfficiency.push(parseFloat(value.carbonStorage));
-                dataEfficiency.push(parseFloat(value.phosphorousLoad));
-                dataEfficiency.push(parseFloat(value.nitrogenLoad));
-                dataEfficiency.push(parseFloat(value.totalSediments));
-                dataEfficiency.push(parseFloat(value.baseFlow));
-                dataEfficiency.push(parseFloat(value.waterYear));
-                txtFileEfficiency = txtFileEfficiency + '<td class="small text-center vat">' + value.carbonStorage + '</td>';
-                txtFileEfficiency = txtFileEfficiency + '<td class="small text-center vat">' + value.phosphorousLoad + '</td>';
-                txtFileEfficiency = txtFileEfficiency + '<td class="small text-center vat">' + value.nitrogenLoad + '</td>';
-                txtFileEfficiency = txtFileEfficiency + '<td class="small text-center vat">' + value.totalSediments + '</td>';
-                txtFileEfficiency = txtFileEfficiency + '<td class="small text-center vat">' + value.baseFlow + '</td>';
-                txtFileEfficiency = txtFileEfficiency + '<td class="small text-center vat">' + value.carbonStorage + '</td>';
-            });
-            txtFileEfficiency = txtFileEfficiency + '</tr>';
-            document.getElementById("idTbodyEfficiency").innerHTML = document.getElementById("idTbodyEfficiency").innerHTML + txtFileEfficiency;
-
-            Highcharts.chart('containerPe', {
-                chart: {
-                    type: 'bar'
-                },
-                title: {
-                    text: 'Portfolio Efficiency'
-                },
-                xAxis: {
-                    categories: ['Carbon storage', 'Phosphorus load', 'Nitrogen load', 'Total sediments', 'Base flow', 'Volumen of water yield']
-                },
-                credits: {
-                    enabled: false
-                },
-                series: [{
-                    name: 'PE',
-                    data: dataEfficiency
-                }]
-            });
-        });
 
         var dataCost = [];
         var dataBenefit = [];
@@ -445,8 +439,8 @@ $(function () {
         $.getJSON(urlDetail, function (data) {
             var txtFileNet = "";
             $.each( data, function( key, value ) {
-                dataCost.push(parseFloat(value.costr));
-                dataBenefit.push(parseFloat(value.benefift));
+                dataCost.push(parseFloat(value.costr.toFixed(2)));
+                dataBenefit.push(parseFloat(value.benefift.toFixed(2)));
             });
             Highcharts.chart('containerCB', {
                 chart: {
@@ -455,7 +449,7 @@ $(function () {
                 title: {
                     text: 'Cost and Benefits'
                 },
-                colors: ['#fe7700', '#ffc400'],
+                colors: ['#008BAB', '#90D3E7'],
                 xAxis: {
                     categories: ['Cost and Benefits']
                 },
@@ -479,20 +473,20 @@ $(function () {
             var txtFileNet = "";
             $.each( data, function( key, value ) {
                 typeMoney = value.currencyr;
-                dataNetPresentValueSummary.push(parseFloat(value.implementationr));
-                dataNetPresentValueSummary.push(parseFloat(value.maintenancer));
-                dataNetPresentValueSummary.push(parseFloat(value.oportunityr));
-                dataNetPresentValueSummary.push(parseFloat(value.transactionr));
-                dataNetPresentValueSummary.push(parseFloat(value.platformr));
-                dataNetPresentValueSummary.push(parseFloat(value.benefitr));
-                dataNetPresentValueSummary.push(parseFloat(value.totalr));
-                txtFileNet = txtFileNet + '<tr><td class="small text-center vat" >Cost: implementation</td><td class="small text-center vat">' + value.implementationr + '</td></tr>';
-                txtFileNet = txtFileNet + '<tr><td class="small text-center vat" >Cost: maintenance</td><td class="small text-center vat">' + value.maintenancer + '</td></tr>';
-                txtFileNet = txtFileNet + '<tr><td class="small text-center vat" >Cost: oportunity</td><td class="small text-center vat">' + value.oportunityr + '</td></tr>';
-                txtFileNet = txtFileNet + '<tr><td class="small text-center vat" >Cost: transaction</td><td class="small text-center vat">' + value.transactionr + '</td></tr>';
-                txtFileNet = txtFileNet + '<tr><td class="small text-center vat" >Cost: platform</td><td class="small text-center vat">' + value.platformr + '</td></tr>';
-                txtFileNet = txtFileNet + '<tr><td class="small text-center vat" >Cost: benefit</td><td class="small text-center vat">' + value.benefitr + '</td></tr>';
-                txtFileNet = txtFileNet + '<tr><td class="small text-center vat" >Cost: total</td><td class="small text-center vat">' + value.totalr + '</td></tr>';
+                dataNetPresentValueSummary.push(parseFloat(value.implementationr.toFixed(2)));
+                dataNetPresentValueSummary.push(parseFloat(value.maintenancer.toFixed(2)));
+                dataNetPresentValueSummary.push(parseFloat(value.oportunityr.toFixed(2)));
+                dataNetPresentValueSummary.push(parseFloat(value.transactionr.toFixed(2)));
+                dataNetPresentValueSummary.push(parseFloat(value.platformr.toFixed(2)));
+                dataNetPresentValueSummary.push(parseFloat(value.benefitr.toFixed(2)));
+                dataNetPresentValueSummary.push(parseFloat(value.totalr.toFixed(2)));
+                txtFileNet = txtFileNet + '<tr><td class="small text-center vat" >Cost: implementation</td><td class="small text-center vat">' + value.implementationr.toFixed(2) + '</td></tr>';
+                txtFileNet = txtFileNet + '<tr><td class="small text-center vat" >Cost: maintenance</td><td class="small text-center vat">' + value.maintenancer.toFixed(2) + '</td></tr>';
+                txtFileNet = txtFileNet + '<tr><td class="small text-center vat" >Cost: oportunity</td><td class="small text-center vat">' + value.oportunityr.toFixed(2) + '</td></tr>';
+                txtFileNet = txtFileNet + '<tr><td class="small text-center vat" >Cost: transaction</td><td class="small text-center vat">' + value.transactionr.toFixed(2) + '</td></tr>';
+                txtFileNet = txtFileNet + '<tr><td class="small text-center vat" >Cost: platform</td><td class="small text-center vat">' + value.platformr.toFixed(2) + '</td></tr>';
+                txtFileNet = txtFileNet + '<tr><td class="small text-center vat" >Cost: benefit</td><td class="small text-center vat">' + value.benefitr.toFixed(2) + '</td></tr>';
+                txtFileNet = txtFileNet + '<tr><td class="small text-center vat" >Cost: total</td><td class="small text-center vat">' + value.totalr.toFixed(2) + '</td></tr>';
             });
             document.getElementById("idTbodyNpv").innerHTML = document.getElementById("idTbodyNpv").innerHTML + txtFileNet;
 
@@ -500,6 +494,7 @@ $(function () {
                 chart: {
                     type: 'column'
                 },
+                colors: ['#008BAB'],
                 title: {
                     text: 'Net present value summary'
                 },
@@ -524,7 +519,7 @@ $(function () {
             $.each( data, function( key, value ) {
                 dataSensibilityAnalysisBenefitsTime.push([value.timer, Math.round(value.totalMedBenefitR)]);
                 dataSensibilityAnalysisBenefitsRange.push([value.timer, Math.round(value.totalMinBenefitR), Math.round(value.totalMaxBenefittR)]);
-                txtFileBenefits = txtFileBenefits + '<td class="small text-center vat" id="valor' + value.timer + '">' + value.totalMedBenefitR + '</td>';
+                txtFileBenefits = txtFileBenefits + '<td class="small text-center vat" id="valor' + value.timer + '">' + parseFloat(value.totalMedBenefitR).toFixed(2) + '</td>';
             });
             txtFileBenefits = txtFileBenefits + '</tr>';
             document.getElementById("idTbodySensibility").innerHTML = document.getElementById("idTbodySensibility").innerHTML + txtFileBenefits;
@@ -536,6 +531,7 @@ $(function () {
                 credits: {
                     enabled: false
                 },
+                colors: ['#008BAB'],
                 series: [{
                     name: 'Time (yr)',
                     color: "#4c99d8",
@@ -546,7 +542,7 @@ $(function () {
                     type: 'arearange',
                     lineWidth: 0,
                     linkedTo: ':previous',
-                    color: "#ffc9a8",
+                    color: "#90D3E7",
                     fillOpacity: 0.3,
                     zIndex: 0,
                     marker: {
@@ -564,7 +560,8 @@ $(function () {
             $.each( data, function( key, value ) {
                 dataSensibilityAnalysisCostTime.push([value.timer, Math.round(value.totalMedCostR)]);
                 dataSensibilityAnalysisCostRange.push([value.timer, Math.round(value.totalMinCostR), Math.round(value.totalMaxCostR)]);
-                txtFileCost = txtFileCost + '<td class="small text-center vat" id="valor' + value.timer + '">' + value.totalMedCostR + '</td>';
+                txtFileCost = txtFileCost + '<td class="small text-center vat" id="valor' + value.timer + '">' + parseFloat(value.totalMedCostR).toFixed(2) + '</td>';
+                
             });
             txtFileCost = txtFileCost + '</tr>';
             document.getElementById("idTbodySensibility").innerHTML = document.getElementById("idTbodySensibility").innerHTML + txtFileCost;
@@ -576,6 +573,7 @@ $(function () {
                 credits: {
                     enabled: false
                 },
+                colors: ['#008BAB'],
                 series: [{
                     name: 'Time (yr)',
                     color: "#006bc3",
@@ -590,7 +588,7 @@ $(function () {
                     type: 'arearange',
                     lineWidth: 0,
                     linkedTo: ':previous',
-                    color: "#ffe894",
+                    color: "#90D3E7",
                     fillOpacity: 0.3,
                     zIndex: 0,
                     marker: {
@@ -615,6 +613,7 @@ $(function () {
                     polar: true,
                     type: 'line'
                 },
+                colors: ['#008BAB'],
                 title: {
                     text: 'Cost vs benefits',
                     x: -80
@@ -647,6 +646,7 @@ $(function () {
                     polar: true,
                     type: 'line'
                 },
+                colors: ['#008BAB'],
                 title: {
                     text: 'Return of investment ROI',
                     x: -80
@@ -702,6 +702,16 @@ $(function () {
             $('#idSectionSA').attr('class', 'inform-section');
             $('#step4').css("display", "block");
         });
+
+        var urlDetail = "../../reports/getStudyCasesIntake/?studyCase=" + localStorage.idStudyCase;
+        $.getJSON(urlDetail, function (data) {
+            var listFielTable = "";
+            $.each( data, function( key, value ) {
+                document.getElementById("idNumberOfWaterFinaltial").innerHTML = value.numberStudyCase;
+                document.getElementById("idNumberOfDrinkingFinaltial").innerHTML = value.numberStudyCase;
+            });
+        });
+
     };
     initialize();
 });

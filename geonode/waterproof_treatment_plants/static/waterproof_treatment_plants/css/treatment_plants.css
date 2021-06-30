@@ -494,6 +494,7 @@ textarea {
 }
 .equation {
     font-size: 14px !important;
+    white-space: pre-line;
 }
 .container-graph {
     position: relative;
@@ -559,7 +560,21 @@ textarea {
     border-radius: 0.5em;
     border-color: #aaa;
 }
-
+.table-bordered {
+    border: 0px solid #fff !important;
+}
+.table-bordered > thead > tr > th, .table-bordered > tbody > tr > th, .table-bordered > tfoot > tr > th, .table-bordered > thead > tr > td, .table-bordered > tbody > tr > td, .table-bordered > tfoot > tr > td {
+    border: 0px solid #fff !important;
+}
+.swal2-content {
+    font-size: 20px !important;
+}
+.swal2-styled.swal2-confirm {
+    font-size: 15px !important;
+}
+.swal2-styled.swal2-cancel {
+    font-size: 15px !important;
+}
 @media (min-width: 768px) {
     .header-waterproof{
         padding-left: 16rem;

@@ -586,7 +586,7 @@ def getSelectorStudyCasesId(request):
 	if request.method == 'GET':
 		con = psycopg2.connect(settings.DATABASE_URL)
 		cur = con.cursor()
-		cur.execute("SELECT ii.name AS selector, si.studycases_id FROM public.waterproof_study_cases_studycases SC INNER JOIN public.waterproof_study_cases_studycases_intakes SI ON (sc.id=si.studycases_id) INNER JOIN public.waterproof_intake_intake II ON (si.intake_id=ii.id) WHERE sc.id = 1")
+		cur.execute("SELECT ii.name AS selector, si.studycases_id FROM public.waterproof_study_cases_studycases SC INNER JOIN public.waterproof_study_cases_studycases_intakes SI ON (sc.id=si.studycases_id) INNER JOIN public.waterproof_intake_intake II ON (si.intake_id=ii.id) WHERE sc.id = '" + request.query_params.get('studyCase') + "'")
 
 		rows = cur.fetchall()
 		objects_list = []
@@ -599,20 +599,91 @@ def getSelectorStudyCasesId(request):
 		return JsonResponse(objects_list, safe=False)
 
 
+@api_view(['GET'])
+def getStudyCasesIntake(request):
+	"""Returns the list of treatment plants
 
+	Find all the stored treatment plants that have
+	the minimum characteristics stored in all components
 
+	Parameters:
+	without parameters
 
+	Exceptions:
+	If it does not have data in the minimal relations of the model it does not deliver
+	information about the treatment plant
+	"""
+	if request.method == 'GET':
+		con = psycopg2.connect(settings.DATABASE_URL)
+		cur = con.cursor()
+		cur.execute("SELECT COUNT(*) as number_study_case FROM public.waterproof_study_cases_studycases_intakes si INNER JOIN public.waterproof_intake_intake ii  ON (si.intake_id=ii.id) inner join public.waterproof_intake_polygon ip on (ii.id=ip.intake_id) WHERE studycases_id = '" + request.query_params.get('studyCase') + "'")
 
+		rows = cur.fetchall()
+		objects_list = []
+		for row in rows:
+			objects_list.append({
+				"numberStudyCase":row[0],
+			})
 
+		return JsonResponse(objects_list, safe=False)
 
+@api_view(['GET'])
+def getDistinctGroupErr(request):
+	"""Returns the list of treatment plants
 
+	Find all the stored treatment plants that have
+	the minimum characteristics stored in all components
 
+	Parameters:
+	without parameters
 
+	Exceptions:
+	If it does not have data in the minimal relations of the model it does not deliver
+	information about the treatment plant
+	"""
+	if request.method == 'GET':
+		con = psycopg2.connect(settings.DATABASE_URL)
+		cur = con.cursor()
+		cur.execute("SELECT DISTINCT result_grouperr FROM  public.__get_wp_aqueduct_indicator_graph('" + request.query_params.get('studyCase') + "') ORDER BY result_grouperr")
 
+		rows = cur.fetchall()
+		objects_list = []
+		for row in rows:
+			objects_list.append({
+				"resultGrouperr":row[0],
+			})
 
+		return JsonResponse(objects_list, safe=False)
 
+@api_view(['GET'])
+def getWpAqueductIndicatorGraph(request):
+	"""Returns the list of treatment plants
 
+	Find all the stored treatment plants that have
+	the minimum characteristics stored in all components
 
+	Parameters:
+	without parameters
+
+	Exceptions:
+	If it does not have data in the minimal relations of the model it does not deliver
+	information about the treatment plant
+	"""
+	if request.method == 'GET':
+		con = psycopg2.connect(settings.DATABASE_URL)
+		cur = con.cursor()
+		cur.execute("SELECT * FROM public.__get_wp_aqueduct_indicator_graph('" + request.query_params.get('studyCase') + "') ORDER BY 2")
+
+		rows = cur.fetchall()
+		objects_list = []
+		for row in rows:
+			objects_list.append({
+				"indicator":row[1],
+				"valueIndicator":row[3],
+				"description":row[4]
+			})
+
+		return JsonResponse(objects_list, safe=False)
 
 
 

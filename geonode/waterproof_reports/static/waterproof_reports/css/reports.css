@@ -1,32 +1,36 @@
 .border-table-title {
     border-style: solid;
     border-width: 2px;
-    border-color: #b9b9b9;
-    width: 40%;
+    border-color: #1389AA;
+    width: 100%;
     background-color: #ffffff;
+    margin-bottom: 30px;
 }
 .title-table {
     text-align: center;
-    margin: 4px;
-    font-size: 12px;
-    font-weight: bold;
-    color: #3a809a;
+    color: #ffffff;
+    background-color: #1389AA;
+    font-size: 15px;
+    padding: 10px;
+    height: 40px;
 }
 .column-left-table {
     width: calc(50% - 10px);
     border-right-style: solid;
     border-width: 2px;
-    border-color: #b9b9b9;
-    font-size: 12px;
+    border-color: #1389AA;
+    font-size: 13px;
     height: 80px;
-    margin-left: 10px;
+    margin: 10px;
+    color: #0D385B;
 }
 .column-right-table {
-	position: absolute;
+    position: absolute;
     top: 0px;
     right: 0px;
     width: 50%;
-    font-size: 12px;
+    font-size: 14px;
+    color: #0D385B;
 }
 .file-column-left {
 	position: relative;
@@ -74,10 +78,9 @@
     position: relative;
 }
 .first-detail {
-	border-style: solid;
-    border-color: #b9b9b9;
-    border-radius: 10px;
-    border-width: 2px;
+    border-style: solid;
+    border-color: #1389AA;
+    border-width: 1px;
     width: 20%;
     font-size: 12px;
     float: left;
@@ -92,8 +95,8 @@
     border-bottom-style: solid;
     width: 70%;
     margin-left: 10%;
-    border-width: 0px;
-    border-color: #b9b9b9;
+    border-width: 1px !important;
+    border-color: #1389AA;
     padding-top: 10px;
     text-align: left;
     font-weight: bold;
@@ -137,10 +140,8 @@
     float: left;
 }
 .content-image > img {
-    width: 70%;
-    background: #e2e2e2;
-    border-radius: 50%;
-    padding: 20px;
+    width: 150px;
+    margin: 150px;
 }
 .container {
     padding-left: 30rem !important;
@@ -216,10 +217,10 @@
     font-size: 15px;
     width: 300px;
     border-style: solid;
-    background: #f7f7f7;
+    background: #ffffff;
     padding-left: 35px;
-    border-radius: 8px;
-    border-color: #b3b3b3;
+    border-color: #1389AA;
+    color: #0D385B;
 }
 .container-general-gauge {
     height: 250px;
@@ -244,45 +245,36 @@
     border: 0px !important;
     border-radius: 0px !important;
 }
-.conainer-report-main {
-    left: 50%;
-    position: relative;
-    margin-left: -20%;
-    margin-top: -30px;
-    z-index: 1000;
-    margin-bottom: 50px;
-}
 .marc-report {
     width: 23%;
     font-size: 11px;
-    border-width: 1.5px;
+    border-width: 2px;
     border-style: solid;
-    border-color: #888888;
-    padding: 15px;
-    border-radius: 7px;
+    border-color: #1389AA;
     padding-bottom: 3px;
     float: left;
     margin-right: 1%;
     margin-left: 1%;
 }
 .title-marc {
-    border-bottom-style: solid;
-    border-width: 1.5px;
-    padding: 3px;
-    font-weight: bold;
     text-align: center;
+    background-color: #1389AA;
+    color: #ffffff;
+    padding: 10px;
 }
 .detail-border-marc {
     margin: 10px;
     height: 75px;
+    color: #616160;
 }
 .button-marc {
     padding: 5px;
     color: #ffffff;
     text-align: center;
-    margin-left: 40px;
-    margin-right: 40px;
-    background-color: #359a35;
+    margin-left: 20px;
+    margin-right: 20px;
+    background-color: #1A4B56;
+    margin-bottom: 20px;
 }
 .marc-table {
     margin-top: 250px;
@@ -307,11 +299,21 @@
 }
 .line-marc-table {
     position: relative;
+    width: 15%;
+    font-size: 13px;
+    text-align: center;
+    color: #616160;
+    float: left;
+    height: 200px;
+    margin-top: 50px;
 }
 .line-number-marc-table {
+    font-size: 25pt;
+    color: #1389AA;
+    padding: 15px;
     position: absolute;
-    top: 0px;
-    right: 0px;
+    bottom: 0px;
+    width: 100%;
 }
 .tile-center-title {
     width: 33%;
@@ -322,3 +324,46 @@
     left: 50%;
     top: 0px;
 }
+.title-report {
+    font-size: 20pt;
+    color: #1389AA;
+    font-weight: bold;
+    padding: 15px;
+}
+.help-report {
+    border-style: solid;
+    padding: 15px;
+    border-width: 2px;
+    border-color: #3B819C;
+    margin: 15px;
+}
+.help-in-report {
+    width: 45%;
+    padding: 20px;
+    margin: 20px;
+    border: 1px;
+    border-style: solid;
+    border-color: #1389AA;
+    margin-left: 0px;
+}
+.margin-report {
+    border-style: solid;
+    margin-top: 90px;
+    position: relative;
+    margin-bottom: 30px;
+    border-width: 1px;
+    border-color: #1389AA;
+    padding: 10px;
+}
+.table-bordered {
+    border: 1px solid #1389AA !important;
+}
+.table-bordered > thead > tr > th {
+    background-color: #1389AA !important;
+    color: #ffffff !important;    
+    border: 1px solid #1389AA !important;
+}
+.table-bordered > tbody > tr > td {
+    border: 1px solid #1389AA !important;
+}
+

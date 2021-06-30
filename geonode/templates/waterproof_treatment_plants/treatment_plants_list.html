@@ -35,7 +35,7 @@
             <p><b>{% trans "Region" %} :</b> <span id="regionLabel"></span> </p>
             <p><b>{% trans "Currency" %}:</b><span id="currencyLabel"></span></p>
             <div>
-                <a href="create/" id="createUrl">{% trans "Create new Treatment Plants" %}</a>
+                <a href="create/"  onclick="localStorage.loadFormButton='true'" id="createUrl">{% trans "Create new Treatment Plants" %}</a>
             </div>
         </div>
         <div class="col-md-8">
@@ -49,6 +49,7 @@
         <thead>
             <tr class="info">
                 <th scope="col" class="small text-center vat">{% trans "Name" %}</th>
+                <th scope="col" class="small text-center vat">{% trans "ID" %}</th>
                 <th scope="col" class="small text-center vat">{% trans "Description" %}</th>
                 <th scope="col" class="small text-center vat">{% trans "City" %}</th>
                 <th scope="col" class="small text-center vat">{% trans "Catchment" %}</th>
@@ -58,6 +59,7 @@
         <tbody>
             {% for treatmentPlants in treatmentPlantsList %}
             <tr>
+                <td class="small text-center vat">{{treatmentPlants.plantId}}</td>
                 <td class="small text-center vat">{{treatmentPlants.plantName}}</td>
                 <td class="small text-center vat">{{treatmentPlants.plantDescription}}</td>
                 <td class="small text-center vat">{{treatmentPlants.standardNameSpanish}}</td>
