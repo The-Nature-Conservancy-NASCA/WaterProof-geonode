@@ -17,7 +17,7 @@ def treatmentPlantsList(request):
 	without Exceptions
 	"""
 	if request.method == 'GET':
-		response = requests.get(settings.SITE_HOST_API + 'treatment_plants/getTreatmentPlantsList/')
+		response = requests.get(settings.SITE_HOST_API + 'treatment_plants/getTreatmentPlantsList/', verify=False)
 		return render(
 			request,
 			'waterproof_treatment_plants/treatment_plants_list.html',
