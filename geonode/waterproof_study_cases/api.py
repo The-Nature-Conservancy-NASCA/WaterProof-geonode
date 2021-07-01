@@ -500,7 +500,7 @@ def save(request):
                 if(run == 'true'):
                     logger.error(request.user.id)
                     logger.error(id_study_case)
-                    resp = requests.get('http://dev.skaphe.com:5050/preprocRIOS',
+                    resp = requests.get(settings.WATERPROOF_MODELS_PY2_API + 'preprocRIOS',
                                     params={'id_usuario': request.user.id,
                                             'id_case': id_study_case})
                     if resp.status_code == 200:
