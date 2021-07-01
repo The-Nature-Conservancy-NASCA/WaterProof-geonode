@@ -85,7 +85,8 @@ def getStudyCaseCurrencys(request):
         currencys = []
         sc = StudyCases.objects.get(id=id)
         sc_currency = request.GET.get('currency')
-        if(sc_currency):
+        list_currency_type = []
+        if(sc_currency):            
             sc_factor = Countries_factor.objects.filter(currency=sc_currency).first()
             scptaps = sc.ptaps.all()
             scintakes = sc.intakes.all()
@@ -104,7 +105,9 @@ def getStudyCaseCurrencys(request):
                             factor = Countries_factor.objects.filter(currency=ptapc['function_currency']).first()
                             value = factor.factor_EUR / sc_factor.factor_EUR
                         currency['value'] = str(value)
-                        currencys.append(currency)
+                        if (not currency['currency'] in list_currency_type):
+                            list_currency_type.append(currency['currency'])
+                            currencys.append(currency)
             for intake in scintakes:
                 intakeCurrency = UserCostFunctions.objects.filter(intake=intake).values('currency__currency').distinct()
                 logger.error(intakeCurrency)
@@ -120,7 +123,9 @@ def getStudyCaseCurrencys(request):
                             factor = Countries_factor.objects.filter(currency=ptapc['function_currency']).first()
                             value = factor.factor_EUR / sc_factor.factor_EUR
                         currency['value'] = str(value)
-                        currencys.append(currency)
+                        if (not currency['currency'] in list_currency_type):
+                            list_currency_type.append(currency['currency'])
+                            currencys.append(currency)
             for nbs in scnbs:
                 nbsCurrency = WaterproofNbsCa.objects.filter(id=nbs.pk).values('currency__currency').distinct()
                 for nbsc in nbsCurrency:
@@ -135,7 +140,9 @@ def getStudyCaseCurrencys(request):
                             factor = Countries_factor.objects.filter(currency=ptapc['function_currency']).first()
                             value = factor.factor_EUR / sc_factor.factor_EUR
                         currency['value'] = str(value)
-                        currencys.append(currency)
+                        if (not currency['currency'] in list_currency_type):
+                            list_currency_type.append(currency['currency'])
+                            currencys.append(currency)
             sc_cm_currency = sc.cm_currency
             if(sc_cm_currency and sc_cm_currency != sc_currency and not any(element['currency'] in sc_cm_currency for element in currencys)):
                 sc_cm_factor = Countries_factor.objects.filter(currency=sc_cm_currency).first()
@@ -147,7 +154,9 @@ def getStudyCaseCurrencys(request):
                 else:
                     value = sc_cm_factor.factor_EUR / sc_factor.factor_EUR
                 currency['value'] = str(value)
-                currencys.append(currency)
+                if (not currency['currency'] in list_currency_type):
+                    list_currency_type.append(currency['currency'])
+                    currencys.append(currency)
             sc_f_currency = sc.financial_currency
             if(sc_f_currency and sc_f_currency != sc_currency and not any(element['currency'] in sc_f_currency for element in currencys)):
                 sc_f_factor = Countries_factor.objects.filter(currency=sc_f_currency).first()
@@ -159,7 +168,9 @@ def getStudyCaseCurrencys(request):
                 else:
                     value = sc_f_factor.factor_EUR / sc_factor.factor_EUR
                 currency['value'] = str(value)
-                currencys.append(currency)
+                if (not currency['currency'] in list_currency_type):
+                    list_currency_type.append(currency['currency'])
+                    currencys.append(currency)
             data = list(currencys)
         else:
             scc = StudyCases_Currency.objects.filter(studycase=sc)
@@ -168,7 +179,9 @@ def getStudyCaseCurrencys(request):
                 currency['currency'] = c.currency
                 value = c.value
                 currency['value'] = str(value)
-                currencys.append(currency)
+                if (not currency['currency'] in list_currency_type):
+                    list_currency_type.append(currency['currency'])
+                    currencys.append(currency)
             data = list(currencys)
         return JsonResponse(data, safe=False)
 
