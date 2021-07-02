@@ -304,6 +304,10 @@ $(function () {
         initMap();
 
         $('#createUrl').attr('href','create/' + userCountryId)
+        console.log("aqui crea ptap");
+        if (localStorage.clonePlant === "false" && localStorage.updatePlant === "false" && localStorage.loadInf === "false"){
+            document.getElementById("titleFormTreatmentPlant").innerHTML = "Create Treatment Plant";
+        }
         if(localStorage.clonePlant === "true") {
             localStorage.clonePlant = "false";
             document.getElementById("titleFormTreatmentPlant").innerHTML = "Clone Treatment Plant";
@@ -1003,7 +1007,7 @@ $(function () {
             }
             map.on('click', onMapClick);
         } else {
-            document.getElementById("nameCity").innerHTML = localStorage.getItem('city');
+            document.getElementById("nameCity").innerHTML = localStorage.getItem('city')+", "+localStorage.getItem('country');
             var urlDetail = "../../treatment_plants/getIntakeList/?cityName=" + localStorage.getItem('city');
             $.getJSON(urlDetail, function (data) {
                 document.getElementById("idIntakePlant").length = 1;
