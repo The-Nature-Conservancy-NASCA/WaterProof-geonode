@@ -280,6 +280,7 @@ def createStepTwo(request):
             if (len(actualElements) > 0):
                 for element in actualElements:
                     print("deleting actualElements")
+                    print (element)
                     el = ElementSystem.objects.get(id=element)
                     existingValuesTime = list(ValuesTime.objects.filter(element=el.pk).values_list('id', flat=True))
                     for value in existingValuesTime:
@@ -332,20 +333,7 @@ def createStepTwo(request):
                                                 element_system = element_system,
                                                 intake = existingIntake,
                                             )
-                                            print(mainFunction)
-                                            # if ('logical' in function['fields']):
-                                            #     logicalFunctions = json.loads(function['fields']['logical'])
-                                            #     if (len(logicalFunctions) > 0):
-                                            #         for logical in logicalFunctions:
-                                            #             createdLogical = UserLogicalFunctions.objects.create(
-                                            #                 function1=logical['ecuation_1'],
-                                            #                 condition1=logical['condition_1'],
-                                            #                 function2=logical['ecuation_2'],
-                                            #                 condition2=logical['condition_2'],
-                                            #                 function3=logical['ecuation_3'],
-                                            #                 condition3=logical['condition_3'],
-                                            #                 mainFunction=mainFunction
-                                            #             )
+                                            print(mainFunction)                                            
                                         except Exception as e:
                                             print(e)
                         # External element
@@ -389,21 +377,7 @@ def createStepTwo(request):
                                                     element_system = element_system,
                                                     intake = existingIntake,
                                                 )
-
-                                            # if ('logical' in function['fields']):
-                                            #     logicalFunctions = json.loads(function['fields']['logical'])
-                                            #     if (len(logicalFunctions) > 0):
-                                            #         for logical in logicalFunctions:
-                                            #             createdLogical = UserLogicalFunctions.objects.create(
-                                            #                 function1=logical['ecuation_1'],
-                                            #                 condition1=logical['condition_1'],
-                                            #                 function2=logical['ecuation_2'],
-                                            #                 condition2=logical['condition_2'],
-                                            #                 function3=logical['ecuation_3'],
-                                            #                 condition3=logical['condition_3'],
-                                            #                 mainFunction=mainFunction
-                                            #             )
-
+                                           
                                     external_info = json.loads(element['externaldata'])
                                     elementCreated = ElementSystem.objects.get(graphId=element['id'], intake=intakeId)
                                     for external in external_info:

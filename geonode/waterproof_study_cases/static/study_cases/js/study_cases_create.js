@@ -243,7 +243,7 @@ $(document).ready(function() {
                 name: $('#name').val(),
                 id_study_case: id_study_case,
                 description: $('#description').val(),
-                city: localStorage.city,
+                city_id: localStorage.cityId,
                 country: localStorage.country,
                 intakes: intakes,
                 ptaps: ptaps,
@@ -925,8 +925,8 @@ $(document).ready(function() {
     }
 
     function loadIntakes() {
-        var city = localStorage.city
-        $.get("../../study_cases/intakebycity/" + city, function(data) {
+        var city_id = localStorage.cityId
+        $.get("../../study_cases/intakebycity/" + city_id, function(data) {
             if (data.length > 0) {
                 $.each(data, function(index, intake) {
                     var name = intake.name;
@@ -1094,8 +1094,8 @@ $(document).ready(function() {
     }
 
     function loadPtaps() {
-        var city = localStorage.city
-        $.get("../../study_cases/ptapbycity/" + city, function(data) {
+        var city_id = localStorage.cityId
+        $.get("../../study_cases/ptapbycity/" + city_id, function(data) {
             if (data.length > 0) {
                 $.each(data, function(index, ptap) {
                     var name = ptap.plant_name;
