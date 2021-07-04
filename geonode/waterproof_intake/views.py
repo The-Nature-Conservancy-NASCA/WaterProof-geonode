@@ -762,26 +762,26 @@ def createStepFive(request):
 def listIntake(request):
 
     if request.method == 'GET':
-        city_id = request.GET['city']
+        try:            
+            city_id = request.GET['city']
+        except:
+            city_id = ''
         return intakes(request, city_id)
 
 
 def intakes(request, city_id):
     #print("intakes")
-    
-        
-    if (city_id != ''):
-        intakes = Intake.objects.filter(city=city_id)            
-    else:
-        intakes = Intake.objects.all()
-
-    count = intakes.count()
+            
     # print ("total intakes: %s" % count)
     if request.user.is_authenticated:            
         userCountry = Countries.objects.get(iso3=request.user.country)
-        region = Regions.objects.get(id=userCountry.region_id)           
+        region = Regions.objects.get(id=userCountry.region_id)
 
         if (request.user.professional_role == 'ADMIN'):
+            if (city_id != ''):
+                intakes = Intake.objects.filter(city=city_id)
+            else:
+                intakes = Intake.objects.all()
             return render(
                 request,
                 'waterproof_intake/intake_list.html',
@@ -791,6 +791,11 @@ def intakes(request, city_id):
                     'region': region
                 }
             )
+        else:
+            if (city_id != ''):
+                intakes = Intake.objects.filter(city=city_id, added_by=request.user)            
+            else:
+                intakes = Intake.objects.filter(added_by=request.user)
 
         if (request.user.professional_role == 'ANALYS'):
             return render(

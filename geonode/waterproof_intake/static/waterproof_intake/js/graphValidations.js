@@ -140,8 +140,10 @@ function funcost(index) {
     var currencyCostName = funcostdb[index].fields.currencyCostName != undefined ? funcostdb[index].fields.currencyCostName : funcostdb[index].fields.currency; 
     var factor = funcostdb[index].fields.global_multiplier_factorCalculator;
     if (currencyCostName == undefined){
-        currencyCostName = "";
-        factor = "";
+        currencyCostName = "";        
+    }
+    if (factor == undefined){
+        factor = localStorage.getItem("factor");
     }
     $('#funcostgenerate').append(
         `
