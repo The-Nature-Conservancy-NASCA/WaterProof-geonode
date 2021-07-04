@@ -420,14 +420,14 @@ function onInit(editor) {
             console.log("clearInputsMath");
         }
 
-        $("#currencyCost").on("change", function() {
+        /* $("#currencyCost").on("change", function() {
             $.ajax({
                 url: `/parameters/load-currency/?currency=${$('#currencyCost').val()}`,
                 success: function(result) {
                     $('#global_multiplier_factorCalculator').val(JSON.parse(result)[0].fields.global_multiplier_factor);
                 }
             });
-        });
+        }); */
 
         editor.graph.addListener(mxEvent.CELLS_REMOVED, (sender, evt) => {
                 bandera = true;
