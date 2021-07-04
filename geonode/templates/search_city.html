@@ -12,10 +12,10 @@
 
 {% block body_outer %}
 
-<div class="page-header">
-    <h1>{% trans "Search your city" %}</h1>
-    <p style="text-align: justify;">{% trans "In this section you can consult the case studies configured in the system or start the configuration of a case study" %}</p>
-</div>
+    <div class="header-waterproof">
+        <h1>{% trans "Search your city" %}</h1>
+        <p style="text-align: justify;">{% trans "In this section you can consult the case studies configured in the system or start the configuration of a case study" %}</p>
+    </div>
 
     <div class="row">
         <div class="col-md-4">
@@ -28,8 +28,7 @@
             </div> 
         </div>
         <div class="col-md-8">
-            <div id="map"></div>
-    
+            <div id="map"></div>    
         </div>
     </div>
 {% endblock %}
