@@ -663,7 +663,9 @@ function onInit(editor) {
             selectedCostId =  parseInt($(this).attr('idvalue'));
             $('#costFunctionName').val(funcostdb[selectedCostId].fields.function_name);
             $('#costFuntionDescription').val(funcostdb[selectedCostId].fields.function_description);
-            $('#CalculatorModalLabel').text('Modify Cost - ' + $('#titleCostFunSmall').text())
+            $('#CalculatorModalLabel').text('Modify Cost - ' + $('#titleCostFunSmall').text());
+            $('#currencyCost').val(funcostdb[selectedCostId].fields.currencyCost);
+            $('#global_multiplier_factorCalculator').val(funcostdb[selectedCostId].fields.global_multiplier_factorCalculator);
             setVarCost();
             let value = funcostdb[selectedCostId].fields.function_value;
             console.log("valor de value es: "+value+typeof(value))
