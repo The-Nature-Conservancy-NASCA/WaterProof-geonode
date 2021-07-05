@@ -111,10 +111,10 @@ DATABASE_URL = os.getenv(
     )
 )
 
-#DATABASE_URL='postgresql://geonode:{&Uid&QXZ&6f;|F@dev.skaphe.com:5432/geonode'
+DATABASE_URL='postgresql://geonode:{&Uid&QXZ&6f;|F@dev.skaphe.com:5432/geonode'
 #DATABASE_URL='postgresql://geonode:{&Uid&QXZ&6f;|F@dev.skaphe.com:5432/geonode'
 #DATABASE_URL='postgresql://geonode:G30N0D3@water-proof.org:5432/geonode'
-DATABASE_URL='postgresql://geonode:geonode@localhost:5432/geonode'
+#DATABASE_URL = 'postgresql://geonode:geonode_data@dev.skaphe.com:5432/geonode'
 
 if DATABASE_URL.startswith("spatialite"):
     try:
@@ -289,7 +289,8 @@ LOCALE_PATHS = [
     os.path.join(PROJECT_ROOT, "locale"),
     os.path.join(PROJECT_ROOT, "waterproof_intake/locale"),
     os.path.join(PROJECT_ROOT, "waterproof_nbs_ca/locale"),
-    os.path.join(PROJECT_ROOT, "waterproof_study_cases/locale")
+    os.path.join(PROJECT_ROOT, "waterproof_study_cases/locale"),
+    os.path.join(PROJECT_ROOT, "waterproof_study_cases_comparison/locale")
 ]
 
 # Location of url mappings
@@ -477,6 +478,7 @@ GEONODE_INTERNAL_APPS = (
     'geonode.waterproof_parameters',
     'geonode.waterproof_treatment_plants',
     'geonode.waterproof_reports',
+    'geonode.waterproof_study_cases_comparison',
 )
 
 GEONODE_CONTRIB_APPS = (
