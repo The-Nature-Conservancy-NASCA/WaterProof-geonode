@@ -327,6 +327,7 @@ def createStepTwo(request):
                                                 name=function['fields']['function_name'],
                                                 description=function['fields']['function_description'],
                                                 function=function['fields']['function_value'],
+                                                function_factor=function['fields']['global_multiplier_factorCalculator'],
                                                 currency=currency,
                                                 template_function=templateFunction,
                                                 user=request.user,
