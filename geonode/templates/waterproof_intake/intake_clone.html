@@ -95,6 +95,9 @@
                         </div>
                     </div>
                     <!-- Map -->
+                    <div>
+                        <h4 class="text-primary">{% trans "Water intake location" %}</h4>
+                    </div>
                     <div id="map">
                         <div id="analysisOptions">
                             <button type="button" id="validateBtn">Draw Basin</button>
@@ -182,11 +185,9 @@
                     </div>
                         <div class="row" id="hideCostFuntion" style="display: none">
                             <div class="col-md-12">
-                                <h3 style="padding:1rem;">{% trans "Cost functions" %}<small
-                                        id="titleCostFunSmall"></small>
-                                    <button type="button" class="btn btn-primary btn-add-cost" data-toggle="modal"
-                                        data-target="#CalculatorModal" id="ModalAddCostBtn">{% trans "Add Cost" %}</button>
-                                </h3>
+                                <h4 class="text-primary">{% trans "Cost functions "%}
+                                    <button type="button" class="btn btn-primary btn-add-cost" data-toggle="modal" data-target="#CalculatorModal" id="ModalAddCostBtn">{% trans "Add Cost" %}</button>
+                                </h4>
                                 <p>{% trans "The elements of the collection system have associated operating costs, you can modify them, discard them or add new costs" %}</p>
                                 <table class="table table-striped table-bordered table-condensed"
                                     style="width:100%; margin-bottom: 100px">
