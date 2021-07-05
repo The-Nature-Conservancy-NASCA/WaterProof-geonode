@@ -1,7 +1,7 @@
 """URLs for the ``WaterProof Intake`` module."""
 from django.conf.urls import url, include
 from django.urls import path
-from . import views
+from . import views, api
 from django.views.i18n import JavaScriptCatalog
 
 
@@ -32,4 +32,5 @@ urlpatterns = [
     path('loadFunctionBySymbol/<str:symbol>', views.loadCostFunctionsProcess, name='load-functionCost'),
     # Load process effciciency by ID
     path('validateGeometry/', views.validateGeometry, name='valid-geometry'),
+    path('validatePyExpression/', api.validatePyExpression, name='validatePyExpression')
 ]
