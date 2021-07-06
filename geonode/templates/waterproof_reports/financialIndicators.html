@@ -110,16 +110,7 @@
                 <!--Table-->
                 <div style="clear:both;" class="table-responsive">
                     <table id="idTableRoi" class="table table-striped table-bordered table-condensed" style=" width:100%">
-                        <thead>
-                            <tr class="info">
-                                <th scope="col" class="small text-center vat">{% trans "Time Period" %}</th>
-                                <th scope="col" class="small text-center vat">{% trans "1" %}</th>
-                                <th scope="col" class="small text-center vat">{% trans "2" %}</th>
-                                <th scope="col" class="small text-center vat">{% trans "3" %}</th>
-                                <th scope="col" class="small text-center vat">{% trans "4" %}</th>
-                                <th scope="col" class="small text-center vat">{% trans "5" %}</th>
-                            </tr>
-                        </thead>
+                        <thead id="idTheadRoi"></thead>
                         <tbody id="idTbodyRoi"></tbody>
                     </table>
                 </div>
@@ -178,16 +169,7 @@
                 <!--Table-->
                 <div style="clear:both;" class="table-responsive">
                     <table id="idTableRoi" class="table table-striped table-bordered table-condensed" style=" width:100%">
-                        <thead>
-                            <tr class="info">
-                                <th scope="col" class="small text-center vat">{% trans "Sensibility Analysis" %}</th>
-                                <th scope="col" class="small text-center vat">{% trans "1" %}</th>
-                                <th scope="col" class="small text-center vat">{% trans "2" %}</th>
-                                <th scope="col" class="small text-center vat">{% trans "3" %}</th>
-                                <th scope="col" class="small text-center vat">{% trans "4" %}</th>
-                                <th scope="col" class="small text-center vat">{% trans "5" %}</th>
-                            </tr>
-                        </thead>
+                        <thead id="idTheadSensibility"></thead>
                         <tbody id="idTbodySensibility"></tbody>
                     </table>
                 </div>
@@ -376,8 +358,11 @@ $(function () {
         var htmlDiscountedCost = '<tr><td class="small text-center vat" >Total discounted cost</td>';
         var htmlBenefits= '<tr><td class="small text-center vat" >total benefits</td>';
         var htmlDiscountedBenefits = '<tr><td class="small text-center vat" >total discounted benefits</td>';
+        var htmlTitle = '<tr class="info"><th scope="col" class="small text-center vat">{% trans "Time Period" %}</th>';
+        var contTitle = 1;
 
         var urlDetail = "../../reports/getReportCostsAnalysisRoi/?studyCase=" + localStorage.idStudyCase;
+
         $.getJSON(urlDetail, function (data) {
             $.each( data, function( key, value ) {
                 categories.push(value.record);
@@ -389,14 +374,17 @@ $(function () {
                 htmlDiscountedCost = htmlDiscountedCost + '<td class="small text-center vat" id="valor3">' + value.totalDiscountedCost.toFixed(2) + '</td>';
                 htmlBenefits = htmlBenefits + '<td class="small text-center vat" id="valor3">' + value.totalBenefits.toFixed(2) + '</td>';
                 htmlDiscountedBenefits = htmlDiscountedBenefits + '<td class="small text-center vat" id="valor3">' + value.totalDiscountedBenefits.toFixed(2) + '</td>';
-
+                htmlTitle = htmlTitle + '<th scope="col" class="small text-center vat">{% trans "' + contTitle + '" %}</th>'; 
+                contTitle ++;
             });
             htmlCost = htmlCost + '</tr>';
             htmlDiscountedCost = htmlDiscountedCost + '</tr>';
             htmlBenefits = htmlBenefits + '</tr>';
             htmlDiscountedBenefits = htmlDiscountedBenefits + '</tr>';
+            htmlTitle = htmlTitle + '</tr>';
 
             document.getElementById("idTbodyRoi").innerHTML = htmlCost +  htmlDiscountedCost + htmlBenefits + htmlDiscountedBenefits;
+            document.getElementById("idTheadRoi").innerHTML = htmlTitle;
             
 
             Highcharts.chart('containerRoi', {
@@ -480,13 +468,13 @@ $(function () {
                 dataNetPresentValueSummary.push(parseFloat(value.platformr.toFixed(2)));
                 dataNetPresentValueSummary.push(parseFloat(value.benefitr.toFixed(2)));
                 dataNetPresentValueSummary.push(parseFloat(value.totalr.toFixed(2)));
-                txtFileNet = txtFileNet + '<tr><td class="small text-center vat" >Cost: implementation</td><td class="small text-center vat">' + value.implementationr.toFixed(2) + '</td></tr>';
-                txtFileNet = txtFileNet + '<tr><td class="small text-center vat" >Cost: maintenance</td><td class="small text-center vat">' + value.maintenancer.toFixed(2) + '</td></tr>';
-                txtFileNet = txtFileNet + '<tr><td class="small text-center vat" >Cost: oportunity</td><td class="small text-center vat">' + value.oportunityr.toFixed(2) + '</td></tr>';
-                txtFileNet = txtFileNet + '<tr><td class="small text-center vat" >Cost: transaction</td><td class="small text-center vat">' + value.transactionr.toFixed(2) + '</td></tr>';
-                txtFileNet = txtFileNet + '<tr><td class="small text-center vat" >Cost: platform</td><td class="small text-center vat">' + value.platformr.toFixed(2) + '</td></tr>';
-                txtFileNet = txtFileNet + '<tr><td class="small text-center vat" >Cost: benefit</td><td class="small text-center vat">' + value.benefitr.toFixed(2) + '</td></tr>';
-                txtFileNet = txtFileNet + '<tr><td class="small text-center vat" >Cost: total</td><td class="small text-center vat">' + value.totalr.toFixed(2) + '</td></tr>';
+                txtFileNet = txtFileNet + '<tr><td class="small text-left vat" >Cost: implementation</td><td class="small text-right vat">' + value.implementationr.toFixed(2) + '</td></tr>';
+                txtFileNet = txtFileNet + '<tr><td class="small text-left vat" >Cost: maintenance</td><td class="small text-right vat">' + value.maintenancer.toFixed(2) + '</td></tr>';
+                txtFileNet = txtFileNet + '<tr><td class="small text-left vat" >Cost: oportunity</td><td class="small text-right vat">' + value.oportunityr.toFixed(2) + '</td></tr>';
+                txtFileNet = txtFileNet + '<tr><td class="small text-left vat" >Cost: transaction</td><td class="small text-right vat">' + value.transactionr.toFixed(2) + '</td></tr>';
+                txtFileNet = txtFileNet + '<tr><td class="small text-left vat" >Cost: platform</td><td class="small text-right vat">' + value.platformr.toFixed(2) + '</td></tr>';
+                txtFileNet = txtFileNet + '<tr><td class="small text-left vat" >Cost: benefit</td><td class="small text-right vat">' + value.benefitr.toFixed(2) + '</td></tr>';
+                txtFileNet = txtFileNet + '<tr><td class="small text-left vat" >Cost: total</td><td class="small text-right vat">' + value.totalr.toFixed(2) + '</td></tr>';
             });
             document.getElementById("idTbodyNpv").innerHTML = document.getElementById("idTbodyNpv").innerHTML + txtFileNet;
 
@@ -516,12 +504,19 @@ $(function () {
         var urlDetail = "../../reports/getSensibilityAnalysisBenefits/?studyCase=" + localStorage.idStudyCase;
         $.getJSON(urlDetail, function (data) {
             var txtFileBenefits = '<tr><td class="small text-center vat" >Discounted benefit</td>';
+            var txtTitleBenefits = '<tr class="info"><th scope="col" class="small text-center vat">{% trans "Sensibility Analysis" %}</th>';
+            var contTitleBenefits = 1;
             $.each( data, function( key, value ) {
                 dataSensibilityAnalysisBenefitsTime.push([value.timer, Math.round(value.totalMedBenefitR)]);
                 dataSensibilityAnalysisBenefitsRange.push([value.timer, Math.round(value.totalMinBenefitR), Math.round(value.totalMaxBenefittR)]);
                 txtFileBenefits = txtFileBenefits + '<td class="small text-center vat" id="valor' + value.timer + '">' + parseFloat(value.totalMedBenefitR).toFixed(2) + '</td>';
+                txtTitleBenefits = txtTitleBenefits + '<th scope="col" class="small text-center vat">{% trans "' + contTitleBenefits + '" %}</th>';
+                contTitleBenefits ++;
             });
             txtFileBenefits = txtFileBenefits + '</tr>';
+            txtTitleBenefits = txtTitleBenefits + '</tr>';
+
+            document.getElementById("idTheadSensibility").innerHTML = txtTitleBenefits;
             document.getElementById("idTbodySensibility").innerHTML = document.getElementById("idTbodySensibility").innerHTML + txtFileBenefits;
 
             Highcharts.chart('containerTDB', {

@@ -147,18 +147,17 @@
     padding-left: 30rem !important;
 }
 .container-border {
-    width: 50%;
-    height: 600px;
+    width: 100%;
 }
 .container-page {
     position: relative;
-    margin-top: 150px;    
 }
 .container-detail {
-    position: absolute;
+    position: relative;
     top: 0px;
     left: 50%;
     width: 50%;
+    margin-left: -25%;
 }
 .margin-detail {
     margin: 30px;
@@ -345,6 +344,7 @@
     border-style: solid;
     border-color: #1389AA;
     margin-left: 0px;
+    height: 150px;
 }
 .margin-report {
     border-style: solid;
