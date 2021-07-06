@@ -968,12 +968,13 @@ CREATE OR REPLACE FUNCTION public.__wpgetqbycatchmentdis(catchment_id integer)
  LANGUAGE plpgsql
 AS $function$
 BEGIN
-		return query select es.id as element, q.year, q.value
-from waterproof_intake_intake intake
-join waterproof_intake_waterextraction q on intake.demand_parameters_id = q.demand_id
-join waterproof_intake_elementsystem es on intake.id = es.intake_id and es.normalized_category = 'EXTRACTIONCONNECTION'
-where intake.id = catchment_id
-order by q.year;
+   return query 
+	select es.id as element, q.year as year, q.value as value
+	from waterproof_intake_intake intake
+	join waterproof_intake_waterextraction q on intake.demand_parameters_id = q.demand_id
+	join waterproof_intake_elementsystem es on intake.id = es.intake_id and es.normalized_category = 'EXTRACTIONCONNECTION'
+	where intake.id = catchment_id and q.year <= ((select analysis_period_value from public.waterproof_study_cases_studycases where id = studycases_in)+1)
+	order by q.year;
     END;
 $function$
 ;
