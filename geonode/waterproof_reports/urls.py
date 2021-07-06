@@ -32,7 +32,5 @@ urlpatterns = [
     path('getStudyCasesIntake/', api.getStudyCasesIntake, name='get_study_cases_intake'),
     path('getDistinctGroupErr/', api.getDistinctGroupErr, name='get_distinct_group_err'),
     path('getWpAqueductIndicatorGraph/', api.getWpAqueductIndicatorGraph, name='get_wp_aqueduct_indicator_graph'),
-    
-    
-    
+    path('getReportOportunityResultMaps/', api.getReportOportunityResultMaps, name='get_report_oportunity_result_maps'),
 ]

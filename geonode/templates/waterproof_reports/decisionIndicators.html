@@ -246,6 +246,7 @@
 <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
 <script src="{{ STATIC_URL }}geonode/js/leaflet/leaflet.ajax.min.js"></script>
 <script src="{{ STATIC_URL }}geonode/js/leaflet/photon/leaflet.photon.js"></script>
+<script src=" {{ STATIC_URL }}geonode/js/leaflet/leaflet-omnivore.min.js "></script>
 
 <script type=" text/javascript ">
     API_URL = '/proxy/?url=https://photon.komoot.de/api/?';
@@ -266,21 +267,6 @@
 
 </script>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <script type="text/javascript">
 
 $(function () {
@@ -291,6 +277,7 @@ $(function () {
     var TILELAYER = 'http://{s}.tile.osm.org/{z}/{x}/{y}.png';
     var CENTER = [4.582, -74.4879];
     var lyrsPolygons = [];
+    var map;
     var table = $('#example').DataTable();
     var searchPoints = L.geoJson(null, {
         onEachFeature: function(feature, layer) {
@@ -365,7 +352,7 @@ $(function () {
         lyrsPolygons = [];
         var bounds;
         intakePolygons.forEach((feature) => {
-            if (citySearch.substr(0, 5) == feature.city.substr(0, 5)) {
+            if (feature.polygon !== 'None' && feature.polygon != '') {
                 let poly = feature.polygon;
                 if (poly.indexOf("SRID") >= 0) {
                     poly = poly.split(";")[1];
@@ -378,12 +365,10 @@ $(function () {
                     bounds = bounds.extend(lyrPoly.getBounds());
                 }
             }
-
         });
         if (bounds != undefined) {
             map.fitBounds(bounds);
         }
-
     };
     initMapDecision = function () {
             map = L.map('mapiddecision', {
@@ -563,8 +548,6 @@ $(function () {
         $("#idCity").html(localStorage.getItem('city'));
         $("#idRegion").html(localStorage.getItem('region'));
 
-
-
         var gaugeOptions = {
             chart: {
                 type: 'solidgauge'
@@ -594,7 +577,6 @@ $(function () {
                 enabled: false
             },
 
-            // the value axis
             yAxis: {
                 stops: [
                     [0.1, '#55BF3B'], // green
@@ -624,128 +606,6 @@ $(function () {
             }
         };
 
-/*        var chartSpeed = Highcharts.chart('containerPr1', Highcharts.merge(gaugeOptions, {
-            yAxis: {
-                min: 0,
-                max: 100,
-                title: {
-                    text: 'Baseline water stress'
-                }
-            },
-            credits: {
-                enabled: false
-            },
-            series: [{
-                name: 'Baseline water stress',
-                data: [80],
-                dataLabels: {
-                    format:
-                        '<div style="text-align:center">' +
-                        '<span style="font-size:25px">{y}</span><br/>' +
-                        '<span style="font-size:12px;opacity:0.4">km/h</span>' +
-                        '</div>'
-                }
-            }]
-        }));
-
-        var chartSpeed = Highcharts.chart('containerPr2', Highcharts.merge(gaugeOptions, {
-            yAxis: {
-                min: 0,
-                max: 100,
-                title: {
-                    text: 'Baseline water stress'
-                }
-            },
-            credits: {
-                enabled: false
-            },
-            series: [{
-                name: 'Baseline water stress',
-                data: [80],
-                dataLabels: {
-                    format:
-                        '<div style="text-align:center">' +
-                        '<span style="font-size:25px">{y}</span><br/>' +
-                        '<span style="font-size:12px;opacity:0.4">km/h</span>' +
-                        '</div>'
-                }
-            }]
-        }));
-
-        var chartSpeed = Highcharts.chart('containerRr1', Highcharts.merge(gaugeOptions, {
-            yAxis: {
-                min: 0,
-                max: 100,
-                title: {
-                    text: 'Baseline water stress'
-                }
-            },
-            credits: {
-                enabled: false
-            },
-            series: [{
-                name: 'Baseline water stress',
-                data: [80],
-                dataLabels: {
-                    format:
-                        '<div style="text-align:center">' +
-                        '<span style="font-size:25px">{y}</span><br/>' +
-                        '<span style="font-size:12px;opacity:0.4">km/h</span>' +
-                        '</div>'
-                }
-            }]
-        }));
-        var chartSpeed = Highcharts.chart('containerRr2', Highcharts.merge(gaugeOptions, {
-            yAxis: {
-                min: 0,
-                max: 100,
-                title: {
-                    text: 'Baseline water stress'
-                }
-            },
-            credits: {
-                enabled: false
-            },
-            series: [{
-                name: 'Baseline water stress',
-                data: [80],
-                dataLabels: {
-                    format:
-                        '<div style="text-align:center">' +
-                        '<span style="font-size:25px">{y}</span><br/>' +
-                        '<span style="font-size:12px;opacity:0.4">km/h</span>' +
-                        '</div>'
-                }
-            }]
-        }));
-        var chartSpeed = Highcharts.chart('containerPrq1', Highcharts.merge(gaugeOptions, {
-            yAxis: {
-                min: 0,
-                max: 100,
-                title: {
-                    text: 'Baseline water stress'
-                }
-            },
-            credits: {
-                enabled: false
-            },
-            series: [{
-                name: 'Baseline water stress',
-                data: [80],
-                dataLabels: {
-                    format:
-                        '<div style="text-align:center">' +
-                        '<span style="font-size:25px">{y}</span><br/>' +
-                        '<span style="font-size:12px;opacity:0.4">km/h</span>' +
-                        '</div>'
-                }
-            }]
-        }));
-        
-
-*/
-
-
         var urlDetail = "../../reports/getReportOportunityResultIndicators/?studyCase=" + localStorage.idStudyCase;
         $.getJSON(urlDetail, function (data) {
             $.each( data, function( key, value ) {
@@ -759,11 +619,10 @@ $(function () {
                     document.getElementById("idTotalEstimatedInvestment").innerHTML = value.value.toFixed(2);
                 }
                 if(value.description === "TotalAreaInterventionSize(Hec)") {
-                    document.getElementById("idTotalAreaInvestmentSize").innerHTML = value.value.toFixed(2);s
+                    document.getElementById("idTotalAreaInvestmentSize").innerHTML = value.value.toFixed(2);
                 }
             });
         });
-
 
         var dataTotalBenefitsIntake = [];
         var urlDetail = "../../reports/getWaterproofReportsAnalysisBenefits/?studyCase=" + localStorage.idStudyCase;
@@ -805,8 +664,6 @@ $(function () {
                 }]
             });
         });
-
-
 
         var dataTotalBenefits = [];
         var urlDetail = "../../reports/getReportAnalysisBenefitsFilterSum/?studyCase=" + localStorage.idStudyCase;
@@ -976,111 +833,6 @@ $(function () {
             });
         });
 
-        var dataCost = [];
-        var dataBenefit = [];
-        var urlDetail = "../../reports/getCostAndBenefit/?studyCase=" + localStorage.idStudyCase;
-        $.getJSON(urlDetail, function (data) {
-            var txtFileNet = "";
-            $.each( data, function( key, value ) {
-                dataCost.push(parseFloat(value.costr));
-                dataBenefit.push(parseFloat(value.benefift));
-            });
-            Highcharts.chart('containerCB', {
-                chart: {
-                    type: 'column'
-                },
-                title: {
-                    text: 'Cost and Benefits'
-                },
-                colors: ['#fe7700', '#ffc400'],
-                xAxis: {
-                    categories: ['Cost and Benefits']
-                },
-                credits: {
-                    enabled: false
-                },
-                series: [{
-                    name: 'Cost',
-                    data: dataCost
-                },{
-                    name: 'Benefits',
-                    data: dataBenefit
-                }]
-            });
-        });
-
-        var serieCvB = []
-        var urlDetail = "../../reports/getSensibilityAnalysisCostVsBenefit/?studyCase=" + localStorage.idStudyCase;
-        $.getJSON(urlDetail, function (data) {
-            $.each( data, function( key, value ) {
-                serieCvB.push({ 
-                    name: value.titleR,
-                    data: [Math.round(value.totalMinimumR), Math.round(value.totalMediumR), Math.round(value.totalMaximumR)],
-                    pointPlacement: 'on'
-                });
-            });
-            Highcharts.chart('containerCvB', {
-                chart: {
-                    polar: true,
-                    type: 'line'
-                },
-                title: {
-                    text: 'Cost vs benefits',
-                    x: -80
-                },
-                xAxis: {
-                    categories: ['Minimun discount rate (2%)', 'Maximun discount rate (9%)', 'Discount rate (5%)'],
-                    tickmarkPlacement: 'on',
-                    lineWidth: 0
-                },
-                yAxis: {
-                    gridLineInterpolation: 'polygon',
-                    lineWidth: 0,
-                    min: 0
-                },
-                credits: {
-                    enabled: false
-                },
-                series: serieCvB
-            });
-        });
-
-        var serieDataRoi = []
-        var urlDetail = "../../reports/getSensibilityAnalysisReturnOfInvest/?studyCase=" + localStorage.idStudyCase;
-        $.getJSON(urlDetail, function (data) {
-            $.each( data, function( key, value ) {
-                serieDataRoi.push([parseFloat(value.roiMaximumR), parseFloat(value.roiMinimumR), parseFloat(value.roiMediumR)]);
-            });
-            Highcharts.chart('containerRoiS', {
-                chart: {
-                    polar: true,
-                    type: 'line'
-                },
-                title: {
-                    text: 'Return of investment ROI',
-                    x: -80
-                },
-                xAxis: {
-                    categories: ['Minimun discount rate (2%)', 'Maximun discount rate (9%)', 'Discount rate (5%)'],
-                    tickmarkPlacement: 'on',
-                    lineWidth: 0
-                },
-                yAxis: {
-                    gridLineInterpolation: 'polygon',
-                    lineWidth: 0,
-                    min: 0
-                },
-                credits: {
-                    enabled: false
-                },
-                series: [{ 
-                    name: 'ROI',
-                    data: [3.98, 2.77, 3.39],
-                    pointPlacement: 'on'
-                }]
-            });
-        });
-
         $('#idSectionIbc').click(function (e) {
             $('#idSectionPr').attr('class', 'inform-section inform-section-free');
             $('#step4').css("display", "none");
@@ -1119,6 +871,7 @@ $(function () {
 
             $('#idSectionOr').attr('class', 'inform-section');
             $('#step3').css("display", "block");
+            initMapDecision();
         });
         $('#idSectionPr').click(function (e) {
             $('#idSectionIbc').attr('class', 'inform-section inform-section-free');
@@ -1132,6 +885,7 @@ $(function () {
 
             $('#idSectionPr').attr('class', 'inform-section');
             $('#step4').css("display", "block");
+            initMapPhysical();
         });
 
         var urlDetail = "../../reports/getStudyCasesIntake/?studyCase=" + localStorage.idStudyCase;
@@ -1213,10 +967,29 @@ $(function () {
             }, 3000);
         });
 
+        var urlDetail = "../../reports/getReportOportunityResultMaps/?studyCase=" + localStorage.idStudyCase;
+        $.getJSON(urlDetail, function (data) {
+            $.each( data, function( key, value ) {
+                var jsonPolygon = JSON.parse(value.polygon);
+                var stringPolygon = "";
+                jsonPolygon.features.forEach((featureCoord) => {
+                    featureCoord.geometry.coordinates.forEach((featureCoordList) => {
+                        var contList = 0;
+                        featureCoordList.forEach((featureCoordListPoint) => {
+                            contList++;
+                            if(contList === featureCoordList.length) {
+                                stringPolygon = stringPolygon + featureCoordListPoint[0] + " " + featureCoordListPoint[1];
+                            } else {
+                                stringPolygon = stringPolygon + featureCoordListPoint[0] + " " + featureCoordListPoint[1] + ",";
+                            }
+                        });
+                    });
+                });
+                intakePolygons.push({polygon: "POLYGON ((" + stringPolygon + "))"});
+            });
+        });
     };
     initialize();
-    initMapDecision();
-    initMapPhysical();
 });
     
 </script>
