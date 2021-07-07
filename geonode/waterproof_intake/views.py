@@ -280,6 +280,7 @@ def createStepTwo(request):
             if (len(actualElements) > 0):
                 for element in actualElements:
                     print("deleting actualElements")
+                    print (element)
                     el = ElementSystem.objects.get(id=element)
                     existingValuesTime = list(ValuesTime.objects.filter(element=el.pk).values_list('id', flat=True))
                     for value in existingValuesTime:
@@ -326,26 +327,14 @@ def createStepTwo(request):
                                                 name=function['fields']['function_name'],
                                                 description=function['fields']['function_description'],
                                                 function=function['fields']['function_value'],
+                                                function_factor=function['fields']['global_multiplier_factorCalculator'],
                                                 currency=currency,
                                                 template_function=templateFunction,
                                                 user=request.user,
                                                 element_system = element_system,
                                                 intake = existingIntake,
                                             )
-                                            print(mainFunction)
-                                            # if ('logical' in function['fields']):
-                                            #     logicalFunctions = json.loads(function['fields']['logical'])
-                                            #     if (len(logicalFunctions) > 0):
-                                            #         for logical in logicalFunctions:
-                                            #             createdLogical = UserLogicalFunctions.objects.create(
-                                            #                 function1=logical['ecuation_1'],
-                                            #                 condition1=logical['condition_1'],
-                                            #                 function2=logical['ecuation_2'],
-                                            #                 condition2=logical['condition_2'],
-                                            #                 function3=logical['ecuation_3'],
-                                            #                 condition3=logical['condition_3'],
-                                            #                 mainFunction=mainFunction
-                                            #             )
+                                            print(mainFunction)                                            
                                         except Exception as e:
                                             print(e)
                         # External element
@@ -389,21 +378,7 @@ def createStepTwo(request):
                                                     element_system = element_system,
                                                     intake = existingIntake,
                                                 )
-
-                                            # if ('logical' in function['fields']):
-                                            #     logicalFunctions = json.loads(function['fields']['logical'])
-                                            #     if (len(logicalFunctions) > 0):
-                                            #         for logical in logicalFunctions:
-                                            #             createdLogical = UserLogicalFunctions.objects.create(
-                                            #                 function1=logical['ecuation_1'],
-                                            #                 condition1=logical['condition_1'],
-                                            #                 function2=logical['ecuation_2'],
-                                            #                 condition2=logical['condition_2'],
-                                            #                 function3=logical['ecuation_3'],
-                                            #                 condition3=logical['condition_3'],
-                                            #                 mainFunction=mainFunction
-                                            #             )
-
+                                           
                                     external_info = json.loads(element['externaldata'])
                                     elementCreated = ElementSystem.objects.get(graphId=element['id'], intake=intakeId)
                                     for external in external_info:
@@ -788,26 +763,26 @@ def createStepFive(request):
 def listIntake(request):
 
     if request.method == 'GET':
-        city_id = request.GET['city']
+        try:            
+            city_id = request.GET['city']
+        except:
+            city_id = ''
         return intakes(request, city_id)
 
 
 def intakes(request, city_id):
     #print("intakes")
-    
-        
-    if (city_id != ''):
-        intakes = Intake.objects.filter(city=city_id)            
-    else:
-        intakes = Intake.objects.all()
-
-    count = intakes.count()
+            
     # print ("total intakes: %s" % count)
     if request.user.is_authenticated:            
         userCountry = Countries.objects.get(iso3=request.user.country)
-        region = Regions.objects.get(id=userCountry.region_id)           
+        region = Regions.objects.get(id=userCountry.region_id)
 
         if (request.user.professional_role == 'ADMIN'):
+            if (city_id != ''):
+                intakes = Intake.objects.filter(city=city_id)
+            else:
+                intakes = Intake.objects.all()
             return render(
                 request,
                 'waterproof_intake/intake_list.html',
@@ -817,6 +792,11 @@ def intakes(request, city_id):
                     'region': region
                 }
             )
+        else:
+            if (city_id != ''):
+                intakes = Intake.objects.filter(city=city_id, added_by=request.user)            
+            else:
+                intakes = Intake.objects.filter(added_by=request.user)
 
         if (request.user.professional_role == 'ANALYS'):
             return render(

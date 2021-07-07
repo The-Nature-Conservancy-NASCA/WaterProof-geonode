@@ -8846,3 +8846,14 @@ top:50px;
   margin-right: auto;
   display: block;
 }
+
+.country-label{
+  padding-top: 25px;
+}
+
+.container-wp {
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}

@@ -23,7 +23,7 @@
     </div>
     <div class="row">
         <div class="col-md-4">
-            <h4 class="text-center" id="countryLabel"></h4>
+            <h4 class="country-label" id="countryLabel"></h4>
             <p><b>{% trans "Selected City" %} :</b> <span id="cityLabel">{{city}}</span></p>
             <p><b>{% trans "Region" %} :</b> <span id="regionLabel">{{region.name}}</span></p>
             <p><b>{% trans "Currency" %}:</b><span id="currencyLabel">({{currency.code}}) - {{currency.name}}</span></p>
@@ -57,7 +57,6 @@
                 <th scope="col" class="small text-center vat">{% trans "Currency" %}</th>
                 <th scope="col" class="small text-center vat">{% trans "execution_status" %}</th>
                 <th scope="col" class="small text-center vat">{% trans "Actions" %}</th>
-
             </tr>
         </thead>
         <tbody>
@@ -70,7 +69,7 @@
                 {% else %}
                 <td class="small text-center vat"><i class="glyphicon glyphicon-hourglass fa-lg text-warning" title='{% trans "In Progress" %}'></i></td>
                 {% endif %}
-                <td class="small text-center vat">{{studyCases.added_by}}</td>
+                <td class="small text-center vat">{{studyCases.added_by.first_name }} {{studyCases.added_by.last_name}}</td>
                 <td class="small text-center vat">{{studyCases.create_date | date:"d-m-Y"}}</td>
                 <td class="small text-center vat">{{studyCases.city}}</td>
                 <td class="small text-center vat">

@@ -12,14 +12,14 @@
 
 {% block body_outer %}
 
-<div class="page-header">
-    <h1>{% trans "Search your city" %}</h1>
-    <p style="text-align: justify;">{% trans "In this section you can consult the case studies configured in the system or start the configuration of a case study" %}</p>
-</div>
+    <div class="header-waterproof">
+        <h1>{% trans "Search your city" %}</h1>
+        <p style="text-align: justify;">{% trans "In this section you can consult the case studies configured in the system or start the configuration of a case study" %}</p>
+    </div>
 
     <div class="row">
         <div class="col-md-4">
-            <h4 class="text-center" id="countryLabel"></h4>
+            <h4 id="countryLabel"></h4>
             <p><b>{% trans "Selected City" %} :</b> <span id="cityLabel"></span> </p>
             <p><b>{% trans "Region" %} :</b> <span id="regionLabel"></span> </p>
             <p><b>{% trans "Currency" %}:</b><span id="currencyLabel"></span></p>
@@ -28,8 +28,7 @@
             </div> 
         </div>
         <div class="col-md-8">
-            <div id="map"></div>
-    
+            <div id="map"></div>    
         </div>
     </div>
 {% endblock %}
@@ -189,6 +188,7 @@
             if (data.length > 0){
                 let cityId = data[0][0];
                 localStorage.setItem('cityId', cityId);
+                localStorage.setItem('factor', data[0][2]);
             }
         });
 

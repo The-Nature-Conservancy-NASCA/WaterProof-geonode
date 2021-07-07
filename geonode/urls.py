@@ -115,7 +115,9 @@ urlpatterns = [
 
 urlpatterns += [
 
-    
+    # path('cms/', include(wagtailadmin_urls)),
+    # path('docs/', include(wagtaildocs_urls)),
+    # path('pages/', include(wagtail_urls)),
 
     # ResourceBase views
     url(r'^base/', include('geonode.base.urls')),
@@ -300,6 +302,11 @@ urlpatterns += [
 # Study Cases
 urlpatterns += [
     url(r'^study_cases/', include('geonode.waterproof_study_cases.urls'), name='study_cases'),
+]
+
+# Study Cases Comparison
+urlpatterns += [
+    url(r'^study_cases_comparison/', include('geonode.waterproof_study_cases_comparison.urls'), name='waterproof_study_cases_comparison'),
 ]
 
 # waterproof_nbs_ca

@@ -139,7 +139,8 @@ class StudyCases_NBS(models.Model):
 class StudyCases_Currency(models.Model):
     studycase = models.ForeignKey(StudyCases, on_delete=models.CASCADE)
     currency = models.CharField(max_length=4, blank=True, null=True)
-    value = models.DecimalField(max_digits=20, decimal_places=3, blank=True, null=True)
+    value = models.DecimalField(max_digits=20, decimal_places=15, blank=True, null=True)
+    
 
 class Meta:
     managed = False
