@@ -734,7 +734,8 @@ $BODY$
 CREATE OR REPLACE FUNCTION public.__wp_ptap_get_data_intakes(
 	ptap_id integer,
 	colfind character varying,
-	scenario character varying)
+	scenario character varying,
+	studycases_id_in integer)
     RETURNS TABLE(year integer, typecol double precision) 
     LANGUAGE 'plpgsql'
     COST 100
@@ -750,11 +751,10 @@ BEGIN
 		SUM (ele.%I) as typecol
 		from public.waterproof_treatment_plants_csinfra csin
 		join public.waterproof_reports_wbintake ele ON csin.csinfra_elementsystem_id = ele.element 
-		where csin.csinfra_plant_id = %s and ele.stage = %L
-		group by ele.year;', colfind, ptap_id, scenario );
+		where csin.csinfra_plant_id = %s and ele.stage = %L and ele.studycase_id=%s
+		group by ele.year;', colfind, ptap_id, scenario,studycases_id_in );
 END
-$BODY$
-;
+$BODY$;
 
 CREATE OR REPLACE FUNCTION public.__wp_ptap_insert_report(element_id double precision, ptap_id integer, year integer, user_id integer, awy double precision, cn_mg_l double precision, cp_mg_l double precision, csed_mg_l double precision, wn_kg double precision, wp_kg double precision, wsed_ton double precision, wn_ret_kg double precision, wp_ret_kg double precision, wsed_ret_ton double precision, study_case_id integer, scenario character varying)
  RETURNS void
