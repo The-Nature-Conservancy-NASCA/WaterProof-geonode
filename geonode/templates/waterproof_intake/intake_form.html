@@ -257,7 +257,7 @@
                                                 <div class="col-md-6">
                                                     <label>{% trans "Number of years for time series" %} <span
                                                             class="text-danger-wp">(*)</span> </label>
-                                                    <input type="text" class="form-control" id="numberYearsInterpolationValue">
+                                                    <input type="number" class="form-control justify-number" id="numberYearsInterpolationValue">
                                                 </div>
                                             </div>
                                         </div>
@@ -267,12 +267,12 @@
                                                 <div class="col-md-6">
                                                     <label>{% trans "Initial year" %}<span class="text-danger-wp">(*)</span>
                                                     </label>
-                                                    <input type="text" class="form-control" id="initialDataExtractionInterpolationValue">
+                                                    <input type="text" class="form-control justify-number" id="initialDataExtractionInterpolationValue">
                                                 </div>
                                                 <div class="col-md-6" id="finalColumnExtraction">
                                                     <label>{% trans "Final year" %}<span class="text-danger-wp">(*)</span>
                                                     </label>
-                                                    <input type="text" class="form-control" id="finalDataExtractionInterpolationValue">
+                                                    <input type="text" class="form-control justify-number" id="finalDataExtractionInterpolationValue">
                                                 </div>
                                             </div>
                                         </div>
@@ -310,7 +310,7 @@
                                         <div class="form-group">
                                             <label>{% trans "Number of years" %} <span class="text-danger-wp">(*)</span>
                                             </label>
-                                            <input type="text" class="form-control" id="intakeNIYMI">
+                                            <input type="number" class="form-control justify-number" id="intakeNIYMI">
                                         </div>
                                         <button type="button" class="btn btn-primary" id="intakeNIBYMI">{% trans "Generate" %}</button>
                                     </div>

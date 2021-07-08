@@ -86,7 +86,7 @@ $(document).ready(function() {
                 waterExtractionValue.push(yearData);
                 $('#intakeECTAG').append(`<tr>
                 <th class="text-center" scope="row">${index}</th>
-                <td class="text-center"><input type="text" class="form-control" value="${((m * index) + b).toFixed(2)}" disabled></td>
+                <td class="text-center"><input type="text" class="form-control justify-number" value="${((m * index) + b).toFixed(2)}" disabled></td>
               </tr>`);
             }
         }
@@ -253,7 +253,7 @@ $(document).ready(function() {
             $('#intakeWEMI').append(`
             <tr>
                 <th class="text-center" scope="row">${index + 1}</th>
-                <td class="text-center"><input name="manualInputData" yearValue="${index + 1}" type="text" class="form-control"></td>
+                <td class="text-center"><input name="manualInputData" yearValue="${index + 1}" type="number" class="form-control justify-number"></td>
               </tr>
             `);
         }
