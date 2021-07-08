@@ -262,7 +262,7 @@ def getReportCostsAnalysisRoi(request):
 		return JsonResponse(objects_list, safe=False)
 
 @api_view(['GET'])
-def getReportCostsAnalysisFilter(request):
+def getReportCostsAnalysisFilterOne(request):
 	"""Returns the list of treatment plants
 
 	Find all the stored treatment plants that have
@@ -284,14 +284,15 @@ def getReportCostsAnalysisFilter(request):
 		for row in rows:
 			objects_list.append({
 				"name":row[0],
-				"subName":row[1],
-				"totalCost":row[2],
-				"totalDiscountedCost":row[3],
-				"totalBenefits":row[4],
-				"totalDiscountedBenefits":row[5]
+				"subName":row[2],
+				"nameSubName":row[0]+row[2],
+				"totalCost":row[3],
+				"totalDiscountedCost":row[4],
+				"totalBenefits":row[5],
+				"totalDiscountedBenefits":row[6]
 			})
-
-		return JsonResponse(objects_list, safe=False)
+		order_register = sorted(objects_list, key=lambda tree : tree['nameSubName'])
+		return JsonResponse(order_register, safe=False)
 
 
 @api_view(['GET'])
@@ -316,14 +317,16 @@ def getReportAnalysisBenefitsFilter(request):
 		objects_list = []
 		for row in rows:
 			objects_list.append({
-				"name":row[0],
-				"subName":row[1],
-				"subCategory":row[2],
-				"totalCost":row[3],
-				"totalBenefits":row[4]
+				"name":row[2],
+				"subName":row[2],
+				"subCategory":row[3],
+				"subNameCategory":row[2] + row[3],
+				"totalCost":row[4],
+				"totalBenefits":row[5]
 			})
 
-		return JsonResponse(objects_list, safe=False)
+		order_register = sorted(objects_list, key=lambda tree : tree['subNameCategory'])
+		return JsonResponse(order_register, safe=False)
 
 
 @api_view(['GET'])
