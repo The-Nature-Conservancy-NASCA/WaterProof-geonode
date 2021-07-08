@@ -734,7 +734,8 @@ $BODY$
 CREATE OR REPLACE FUNCTION public.__wp_ptap_get_data_intakes(
 	ptap_id integer,
 	colfind character varying,
-	scenario character varying)
+	scenario character varying,
+	studycases_id_in integer)
     RETURNS TABLE(year integer, typecol double precision) 
     LANGUAGE 'plpgsql'
     COST 100
@@ -750,11 +751,10 @@ BEGIN
 		SUM (ele.%I) as typecol
 		from public.waterproof_treatment_plants_csinfra csin
 		join public.waterproof_reports_wbintake ele ON csin.csinfra_elementsystem_id = ele.element 
-		where csin.csinfra_plant_id = %s and ele.stage = %L
-		group by ele.year;', colfind, ptap_id, scenario );
+		where csin.csinfra_plant_id = %s and ele.stage = %L and ele.studycase_id=%s
+		group by ele.year;', colfind, ptap_id, scenario,studycases_id_in );
 END
-$BODY$
-;
+$BODY$;
 
 CREATE OR REPLACE FUNCTION public.__wp_ptap_insert_report(element_id double precision, ptap_id integer, year integer, user_id integer, awy double precision, cn_mg_l double precision, cp_mg_l double precision, csed_mg_l double precision, wn_kg double precision, wp_kg double precision, wsed_ton double precision, wn_ret_kg double precision, wp_ret_kg double precision, wsed_ret_ton double precision, study_case_id integer, scenario character varying)
  RETURNS void
@@ -968,12 +968,13 @@ CREATE OR REPLACE FUNCTION public.__wpgetqbycatchmentdis(catchment_id integer)
  LANGUAGE plpgsql
 AS $function$
 BEGIN
-		return query select es.id as element, q.year, q.value
-from waterproof_intake_intake intake
-join waterproof_intake_waterextraction q on intake.demand_parameters_id = q.demand_id
-join waterproof_intake_elementsystem es on intake.id = es.intake_id and es.normalized_category = 'EXTRACTIONCONNECTION'
-where intake.id = catchment_id
-order by q.year;
+   return query 
+	select es.id as element, q.year as year, q.value as value
+	from waterproof_intake_intake intake
+	join waterproof_intake_waterextraction q on intake.demand_parameters_id = q.demand_id
+	join waterproof_intake_elementsystem es on intake.id = es.intake_id and es.normalized_category = 'EXTRACTIONCONNECTION'
+	where intake.id = catchment_id and q.year <= ((select analysis_period_value from public.waterproof_study_cases_studycases where id = studycases_in)+1)
+	order by q.year;
     END;
 $function$
 ;

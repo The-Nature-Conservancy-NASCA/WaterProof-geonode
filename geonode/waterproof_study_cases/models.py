@@ -108,6 +108,7 @@ class StudyCases(models.Model):
     analysis_currency = models.CharField(max_length=4, blank=True, null=True)
     is_complete = models.BooleanField(verbose_name=_('Is complete'), default=False)
     is_run_analysis = models.BooleanField(verbose_name=_('Is run analysis'), default=False)
+    is_public = models.BooleanField(verbose_name=_('Is public'), default=False)
     added_by = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         null=True,
@@ -127,6 +128,8 @@ class StudyCases(models.Model):
     portfolios = models.ManyToManyField(Portfolio)
     cm_currency = models.CharField(max_length=4, blank=True, null=True)
     cm_value = models.DecimalField(max_digits=20, decimal_places=2, blank=True, null=True)
+    path_study_case_pdf = models.CharField(max_length=500, blank=False, null=True)
+    path_study_case_error_log = models.CharField(max_length=500, blank=False, null=True)
 
 class StudyCases_NBS(models.Model):
     studycase = models.ForeignKey(StudyCases, on_delete=models.CASCADE)
