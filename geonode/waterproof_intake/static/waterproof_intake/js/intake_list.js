@@ -4,8 +4,7 @@
  * @version 1.0
  */
 $(function () {
-    var table = $('#example').DataTable({        
-    });
+    var table = $('#tblIntakes').DataTable({});
     var countryDropdown = $('#countryNBS');
     var currencyDropdown = $('#currencyCost');
     var transitionsDropdown = $('#riosTransition');
@@ -55,7 +54,7 @@ $(function () {
 
         
         //$('.btn-danger').click(function (evt) {
-        $('#example tbody').on('click', '.btn-danger', function (evt) {
+        $('#tblIntakes tbody').on('click', '.btn-danger', function (evt) {
             Swal.fire({
                 title: gettext('Delete intake'),
                 text: gettext("Are you sure?") + gettext("You won't be able to revert this!"),
@@ -136,12 +135,11 @@ $(function () {
         var city = localStorage.getItem('city');
         var cityId = localStorage.getItem('cityId');
         var initialZoom = 5;
+        var cityNameMap = localStorage.getItem('');
         if(localStorage.length != 0){
-            console.log(localStorage.length)
-            var cityNameMap = localStorage.getItem('city').substr(0, 5);
-        } else{
-            var cityNameMap = localStorage.getItem('');
-        }
+            console.log(localStorage.length);
+            cityNameMap = localStorage.getItem('city').substr(0, 5);
+        } 
 
         if (cityCoords == undefined) {
             //table.search(cityNameMap).draw();
@@ -198,17 +196,11 @@ $(function () {
     });
 
     function showSearchPoints(geojson) {
-        console.log(localStorage.getItem('city'))
+        console.log(localStorage.getItem('city'));
         searchPoints.clearLayers();
 
         let geojsonFilter = geojson.features.filter(feature => feature.properties.type == "city");
-        searchPoints.addData(geojsonFilter);
-        //let cityName = null
-        /*if (cityCoords == undefined){
-             cityName = geojsonFilter[0].properties.name;
-        }else{
-            cityName = localStorage.getItem('city')
-        }*/
+        searchPoints.addData(geojsonFilter);        
         let cityName = geojsonFilter[0].properties.name;
         //table.search(localStorage.getItem('city').substr(0, 2)).draw();
         drawPolygons(cityName);
@@ -216,7 +208,6 @@ $(function () {
     }
 
     function selectedResultHandler(feat) {
-
         waterproof["cityCoords"] = [feat.geometry.coordinates[1], feat.geometry.coordinates[0]];
         localStorage.setItem('cityCoords', JSON.stringify(waterproof["cityCoords"]));
 
@@ -237,7 +228,7 @@ $(function () {
         table.search(cityName.substr(0, 5)).draw();
         
         let urlAPI = SEARCH_COUNTRY_API_URL + countryCode;
-        console.log(urlAPI)
+        console.log(urlAPI);
 
         $.get(urlAPI, function(data){
             console.log("data en intakes es:"+data.region);
@@ -248,6 +239,17 @@ $(function () {
             localStorage.setItem('country', country);
             localStorage.setItem('region', data.region);
             localStorage.setItem('currency', data.currencies[0].name + " - " + data.currencies[0].symbol);
+        });
+
+        urlAPI = location.protocol + "//" + location.host + "/parameters/getClosetsCities/?x=" + feat.geometry.coordinates[0] + "&y=" + feat.geometry.coordinates[1];
+        $.get(urlAPI, function(data){
+            
+            if (data.length > 0){
+                let cityId = data[0][0];
+                localStorage.setItem('cityId', cityId);
+                localStorage.setItem('factor', data[0][2]);
+                setTimeout(function () { location.href = "/intake/?city="+cityId; }, 300);
+            }
         });
     }
 

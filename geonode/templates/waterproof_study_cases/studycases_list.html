@@ -62,7 +62,6 @@
                 <th scope="col" class="small text-center vat">{% trans "Currency" %}</th>
                 <th scope="col" class="small text-center vat">{% trans "execution_status" %}</th>
                 <th scope="col" class="small text-center vat">{% trans "Actions" %}</th>
-
             </tr>
         </thead>
         <tbody>
@@ -75,7 +74,7 @@
                 {% else %}
                 <td class="small text-center vat"><i class="glyphicon glyphicon-hourglass fa-lg text-warning" title='{% trans "In Progress" %}'></i></td>
                 {% endif %}
-                <td class="small text-center vat">{{studyCases.added_by}}</td>
+                <td class="small text-center vat">{{studyCases.added_by.first_name }} {{studyCases.added_by.last_name}}</td>
                 <td class="small text-center vat">{{studyCases.create_date | date:"d-m-Y"}}</td>
                 <td class="small text-center vat">{{studyCases.city}}</td>
                 <td class="small text-center vat">

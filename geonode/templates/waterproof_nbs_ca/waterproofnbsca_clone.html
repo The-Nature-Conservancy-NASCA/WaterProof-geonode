@@ -15,7 +15,7 @@
     </div>
     <div class="row">
         <div class="col-md-4">
-            <h4 class="text-center" id="countryLabel">{{country.name}}</h4>
+            <h4 class="country-label" id="countryLabel">{{country.name}}</h4>
             <p><b>{% trans "Region:" %}</b> <span id="regionLabel">{{region.name}}</span> </p>
             <p><b>{% trans "Currency:" %}</b><span id="currencyLabel">({{currency.currency}}) - {{currency.name}}</span></p>
         </div>
@@ -71,7 +71,7 @@
                 <div class="col-md-6">
                     <label>{% trans "Time required to generate maximun benefit (yr)" %} <span
                             class="text-danger-wp">(*)</span> </label>
-                    <input id="maxBenefitTime" value="{{nbs.max_benefit_req_time}}" onInput="return checkTime(event,value)" type="text" class="form-control" data-error='{% trans "Field is required" %}' required>
+                    <input id="maxBenefitTime" value="{{nbs.max_benefit_req_time|decimalFormat:2}}" onInput="return checkDecimalFormat(event,value)" type="text" class="form-control" data-error='{% trans "Field is required" %}' required>
                     <div class="help-block with-errors"></div>
                 </div>
                 <div class="col-md-6">

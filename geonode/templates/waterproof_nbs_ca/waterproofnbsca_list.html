@@ -66,7 +66,7 @@
                 <td class="small text-center vat">{{sbn.pk}}</td>
                 <td class="small text-center vat">{{sbn.name}}</td>
                 <td class="small text-center vat truncate">{{sbn.description}}</td>
-                <td class="small text-center vat">{{sbn.added_by}}</td>
+                <td class="small text-center vat">{{sbn.added_by.first_name}} {{sbn.added_by.last_name}}</td>
                 <td class="small text-center vat">{{sbn.country}}</td>
                 <td class="small text-center vat">{{sbn.profit_pct_time_inter_assoc}}%</td>
                 <!-- Validate user type for multiplying country factor -->

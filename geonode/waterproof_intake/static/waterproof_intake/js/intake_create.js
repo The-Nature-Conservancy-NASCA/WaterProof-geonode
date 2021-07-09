@@ -489,10 +489,10 @@ $(document).ready(function() {
     }).addTo(map);
 
     var images = L.tileLayer(IMG_BASEMAP_URL);
-    var gray = L.tileLayer(GRAY_BASEMAP_URL, {
+    /* var gray = L.tileLayer(GRAY_BASEMAP_URL, {
         maxZoom: 20,
         attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
-    });
+    }); */
 
     var hydroLyr = L.tileLayer(HYDRO_BASEMAP_URL);
     var wmsHydroNetworkLyr = L.tileLayer.wms(GEOSERVER_WMS, {
@@ -506,7 +506,7 @@ $(document).ready(function() {
     var baseLayers = {
         OpenStreetMap: osm,
         Images: images,
-        Grayscale: gray,
+        /* Grayscale: gray, */
     };
 
     var overlays = {

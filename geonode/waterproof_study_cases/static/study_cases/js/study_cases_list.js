@@ -78,9 +78,6 @@ $(function() {
             })
         };
 
-
-
-
         $('.btn-danger').click(function(evt) {
             Swal.fire({
                 title: gettext('Delete study case'),
@@ -164,12 +161,14 @@ $(function() {
         let initialCoords = CENTER;
         // find in localStorage if cityCoords exist
         var cityCoords = localStorage.getItem('cityCoords');
+        var zoom = 5;
         if (cityCoords == undefined) {
             cityCoords = initialCoords;
-            table.search('').draw();
+            //table.search('').draw();
         } else {
             initialCoords = JSON.parse(cityCoords);
-            table.search(localStorage.getItem('city').substr(0, 5)).draw();
+            zoom = 14;
+            //table.search(localStorage.getItem('city').substr(0, 5)).draw();
             try {
                 $("#countryLabel").html(localStorage.getItem('country'));
                 $("#cityLabel").html(localStorage.getItem('city'));
@@ -183,7 +182,7 @@ $(function() {
         }
         waterproof["cityCoords"] = cityCoords;
 
-        map.setView(initialCoords, 5);
+        map.setView(initialCoords, zoom);
 
         searchPoints.addTo(map);
 
@@ -254,7 +253,6 @@ $(function() {
         waterproof["cityCoords"] = [feat.geometry.coordinates[1], feat.geometry.coordinates[0]];
         localStorage.setItem('cityCoords', JSON.stringify(waterproof["cityCoords"]));
 
-
         searchPoints.eachLayer(function(layer) {
             if (layer.feature.properties.osm_id != feat.properties.osm_id) {
                 layer.remove();
@@ -268,7 +266,7 @@ $(function() {
         $("#cityLabel").html(cityName);
         localStorage.setItem('city', cityName);
 
-        let urlAPI = '{{ SEARCH_COUNTRY_API_URL }}' + countryCode;
+        let urlAPI = SEARCH_COUNTRY_API_URL + countryCode;
 
         $.get(urlAPI, function(data) {
             //console.log(data);
@@ -279,6 +277,17 @@ $(function() {
             localStorage.setItem('country', country);
             localStorage.setItem('region', data.region);
             localStorage.setItem('currency', data.currencies[0].name + " - " + data.currencies[0].symbol);
+        });
+
+        urlAPI = location.protocol + "//" + location.host + "/parameters/getClosetsCities/?x=" + feat.geometry.coordinates[0] + "&y=" + feat.geometry.coordinates[1];
+        $.get(urlAPI, function(data){
+            
+            if (data.length > 0){
+                let cityId = data[0][0];
+                localStorage.setItem('cityId', cityId);
+                localStorage.setItem('factor', data[0][2]);
+                setTimeout(function () { location.href = "/study_cases/?city="+cityId; }, 300);
+            }
         });
     }
 

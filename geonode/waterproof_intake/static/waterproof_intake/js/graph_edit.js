@@ -420,14 +420,14 @@ function onInit(editor) {
             console.log("clearInputsMath");
         }
 
-        $("#currencyCost").on("change", function() {
+        /* $("#currencyCost").on("change", function() {
             $.ajax({
                 url: `/parameters/load-currency/?currency=${$('#currencyCost').val()}`,
                 success: function(result) {
                     $('#global_multiplier_factorCalculator').val(JSON.parse(result)[0].fields.global_multiplier_factor);
                 }
             });
-        });
+        }); */
 
         editor.graph.addListener(mxEvent.CELLS_REMOVED, (sender, evt) => {
                 bandera = true;
@@ -663,7 +663,9 @@ function onInit(editor) {
             selectedCostId =  parseInt($(this).attr('idvalue'));
             $('#costFunctionName').val(funcostdb[selectedCostId].fields.function_name);
             $('#costFuntionDescription').val(funcostdb[selectedCostId].fields.function_description);
-            $('#CalculatorModalLabel').text('Modify Cost - ' + $('#titleCostFunSmall').text())
+            $('#CalculatorModalLabel').text('Modify Cost - ' + $('#titleCostFunSmall').text());
+            $('#currencyCost').val(funcostdb[selectedCostId].fields.currencyCost);
+            $('#global_multiplier_factorCalculator').val(funcostdb[selectedCostId].fields.global_multiplier_factorCalculator);
             setVarCost();
             let value = funcostdb[selectedCostId].fields.function_value;
             console.log("valor de value es: "+value+typeof(value))
