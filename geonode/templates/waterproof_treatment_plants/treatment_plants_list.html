@@ -26,16 +26,18 @@
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_treatment_plants/css/treatment_plants.css" />
 <div class="header-waterproof">
     <div>
-        <h1>{% trans "Treatment Plants List" %}</h1>
+        <h1>{% trans "Drinking water treatment plants (DWTP)" %}</h1>
     </div>
     <div class="row">
         <div class="col-md-4">
-            <h4 class="country-label" id="countryLabel">{{city.name}}</h4>
+            <p>{% trans "In this section you can view and create the Treatment Plants that WaterProof uses in the Case Studies for ROI analysis. Indicate on the map the city for which you want to consult or create the treatment plant." %}</p>
+            <h4 class="text-center" id="countryLabel">{{city.name}}</h4>
             <p><b>{% trans "Selected City" %} :</b> <span id="cityLabel"></span> </p>
             <p><b>{% trans "Region" %} :</b> <span id="regionLabel"></span> </p>
             <p><b>{% trans "Currency" %}:</b><span id="currencyLabel"></span></p>
             <div>
                 <a href="create/"  onclick="localStorage.loadFormButton='true'" id="createUrl">{% trans "Create new Treatment Plants" %}</a>
+                <button onclick="window.location.href='create/'" type="button" data-toggle="modal" class="glyphicon glyphicon-plus-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
             </div>
         </div>
         <div class="col-md-8">
@@ -50,6 +52,7 @@
             <tr class="info">
                 <th scope="col" class="small text-center vat">{% trans "Name" %}</th>
                 <th scope="col" class="small text-center vat">{% trans "ID" %}</th>
+                <th scope="col" class="small text-center vat">{% trans "User" %}</th>
                 <th scope="col" class="small text-center vat">{% trans "Description" %}</th>
                 <th scope="col" class="small text-center vat">{% trans "City" %}</th>
                 <th scope="col" class="small text-center vat">{% trans "Catchment" %}</th>
@@ -61,6 +64,7 @@
             <tr>
                 <td class="small text-center vat">{{treatmentPlants.plantId}}</td>
                 <td class="small text-center vat">{{treatmentPlants.plantName}}</td>
+                <td class="small text-center vat">{{treatmentPlants.plantUser}}</td>
                 <td class="small text-center vat">{{treatmentPlants.plantDescription}}</td>
                 <td class="small text-center vat">{{treatmentPlants.standardNameSpanish}}</td>
                 <td class="small text-center vat">

@@ -6,7 +6,9 @@
 
 <div class="header-waterproof">
     <div class="page-header">
-        <h1>{% trans "Clone Nature based solution (NBS)" %}</h1>
+        <h1>{% trans "Clone Nature based solution (NBS)" %}
+            <button type="button" data-toggle="modal" data-target="#HelpClone" id="HelpModalBtnModal" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button> 
+        </h1>
         {% if user.professional_role == 'ADMIN' %}
             <h3>{% trans "Global USA based" %}</h3>
         {% endif %}
@@ -158,10 +160,10 @@
                         <thead>
                             <tr>
                                 <th>
-                                    <h4 class="text-primary">{% trans "LAND USE" %}</h4>
+                                    <h5>{% trans "LAND USE / LAND COVER WHERE THE ACTIVITY CAN BE IMPLEMENTED" %}</h5>
                                 </th>
                                 <th>
-                                    <h4 class="text-primary">{% trans "LAND COVER CHANGE DEFINITION" %}</h4>
+                                    <h5>{% trans "LAND USE / LAND COVER TRANSFORMED" %}</h5>
                                 </th>
                             </tr>
                             
@@ -208,6 +210,7 @@
                 <div class="col-md-4">
                     <div class="col-md-12">
                         <label>{% trans "Restricted areas" %}</label>
+                        <p>{% trans "If there are areas with restrictions for the implementation of the NbS, attach them to the form through a geographic file by clicking on the following button." %}</p>
                         <button type="button" class="btn btn-link" data-toggle="modal" data-target="#HelpModal" id="HelpModalBtnModal" style="outline:none; text-decoration:none;">
                             <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> {% trans "Help"
                             %}</button>
@@ -246,6 +249,54 @@
                 <br>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">{% trans "Close" %}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Help Clone-->
+<div class="modal fade" id="HelpClone" tabindex="-1" aria-labelledby="HelpModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h3 class="modal-title text-center" id="HelpModalLabel" style="color:#6398C1 ;">{% trans "Clone Nature based solution (NBS)" %}</h3>
+            </div>
+            <div class="modal-body">
+                <p>
+                    {%  trans "You can create a Nature-based Solution by entering your name, description, data about your implementation and maintenance costs, among others. However, you should pay special attention in the Coverage / land use transitions section, as the coverage changes that WaterProof will take into account for the generation of NBS portfolios, modeling and analysis of return on investment are configured there."  %}
+                </p>
+                <img style="margin: 10px auto 10px; display: block; width: 100%; height: 100%;" src="/static/geonode/img/CreateSBN_1.png"></img>
+                <p>
+                    {% trans "Once you select the transition of your interest, you must indicate the changes in the coverage that you hope to achieve:" %} 
+                </p>
+                <img style="margin: 10px auto 10px; display: block; width: 100%; height: 100%;" src="/static/geonode/img/CreateSBN_2.png"></img>
+                <p>
+                    {% trans "Finally, you can attach a shapefile where you indicate areas where the implementation of the created NbS is avoided:" %} 
+                </p>
+                <img style="margin: 10px auto 10px; display: block; width: 100%; height: 100%;" src="/static/geonode/img/CreateSBN_3.png"></img>
+                <p>
+                    {% trans "Note that the shapefile must have 2 attributes which are required for RiOS to interpret the information:" %} 
+                    <li>
+                        {% trans "activity_n: This field must contain the exact name of the activity that has been defined in the system (this refers to the csv file of parameters that enters RIOS and that the system arms according to what is selected by the user)." %} 
+                    </li>
+                    <li>
+                        {% trans "Action: This field is of type text and only admits two options: 1) prevent if you want to restrict an activity in that area or 2) prefer if you want to give priority to the activity in that area." %} 
+                    </li>
+                </p>
+                <p>
+                    {% trans "The system will verify that the polygon is within the watershed area and that it meets the coordinate standard. EPSG 3857 (world standard for flat coordinates) or EPSG 4326 (world standard for geographic coordinates)." %} 
+                </p>
+                <p>
+                    {% trans "Files are accepted only in compressed .zip format whose required structure must contain at least: 1 .shp file, 1 .dbf file, 1 .prj file and 1 .shx file." %} 
+                </p>
+                <div>
+                <br>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" style="color: white; background-color: #6398C1;">Close</button>
+                </div>
                 </div>
             </div>
         </div>
