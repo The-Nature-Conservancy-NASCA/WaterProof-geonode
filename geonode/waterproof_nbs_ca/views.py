@@ -600,6 +600,7 @@ def cloneNbs(request, idx):
                         country=country,
                         currency=currency,
                         name=nameNBS,
+                        slug=slug,
                         description=descNBS,
                         max_benefit_req_time=maxBenefitTime,
                         profit_pct_time_inter_assoc=benefitTimePorc,

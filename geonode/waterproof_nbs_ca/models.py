@@ -130,8 +130,9 @@ class WaterproofNbsCa(models.Model):
         verbose_name=_('Description'),
     )
 
-    max_benefit_req_time = models.IntegerField(
-        default=0,
+    max_benefit_req_time = models.DecimalField(
+        decimal_places=2,
+        max_digits=10,
         verbose_name=_('Time maximum benefit'),
     )
 
