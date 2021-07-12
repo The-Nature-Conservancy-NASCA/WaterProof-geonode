@@ -1300,3 +1300,14 @@ def validateGeometry(request):
         geometryValidations['polygonContains'] = False
 
     return JsonResponse(geometryValidations, safe=False)
+
+
+def compareMaps(request):
+
+    return render(
+                request,
+                'waterproof_intake/intake_compare_maps.html',
+                {
+                    'test': 'test',
+                }
+            )
