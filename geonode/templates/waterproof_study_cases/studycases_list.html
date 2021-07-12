@@ -26,7 +26,8 @@
     <div class="row">
         <div class="col-md-4">
             <p style="text-align: justify;">{% trans "In this section you can consult and configure the case studies for a defined city. To configure your case study, remember that you must have defined the water catchments and the different cost functions that will allow WaterProof to understand its context and costs, and provide the return on investment for the implementation of Nature-Based Solutions." %}</p>
-            <h4 class="text-center" id="countryLabel"></h4>
+            <br>
+            <h4 id="countryLabel"></h4>
             <p><b>{% trans "Selected City" %} :</b> <span id="cityLabel">{{city}}</span></p>
             <p><b>{% trans "Region" %} :</b> <span id="regionLabel">{{region.name}}</span></p>
             <p><b>{% trans "Currency" %}:</b><span id="currencyLabel">({{currency.code}}) - {{currency.name}}</span></p>
