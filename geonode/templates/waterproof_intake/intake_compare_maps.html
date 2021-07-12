@@ -72,5 +72,17 @@
     const windSpeedLayer = L.leafletGeotiff(windSpeedUrl, {
         renderer: plottyRenderer
     }).addTo(map);
+
+    var baseLayers = {
+        
+    };
+    
+    var overlays = {
+        "NDR": windSpeedLayer,
+    };
+    
+    L.control.layers(baseLayers, overlays).addTo(map);
+
+
 </script>
 {% endblock %}
