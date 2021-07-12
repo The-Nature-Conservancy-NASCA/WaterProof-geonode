@@ -48,7 +48,7 @@ def createNbs(request, countryId):
             descNBS = request.POST.get('descNBS')
             countryNBS = request.POST.get('countryNBS')
             currencyCost = request.POST.get('currencyCost')
-            maxBenefitTime = request.POST.get('maxBenefitTime')
+            maxBenefitTime = Decimal(request.POST.get('maxBenefitTime').replace(',', '.'))
             benefitTimePorc = Decimal(request.POST.get('benefitTimePorc').replace(',', '.'))
             maintenancePeriod = request.POST.get('maintenancePeriod')
             implementCost = Decimal(request.POST.get('implementCost').replace(',', '.'))
@@ -378,7 +378,7 @@ def editNbs(request, idx):
             descNBS = request.POST.get('descNBS')
             countryNBS = request.POST.get('countryNBS')
             currencyCost = request.POST.get('currencyCost')
-            maxBenefitTime = request.POST.get('maxBenefitTime')
+            maxBenefitTime = Decimal(request.POST.get('maxBenefitTime').replace(',', '.'))
             benefitTimePorc = Decimal(request.POST.get('benefitTimePorc').replace(',', '.'))
             maintenancePeriod = request.POST.get('maintenancePeriod')
             implementCost = Decimal(request.POST.get('implementCost').replace(',', '.'))
@@ -531,12 +531,12 @@ def cloneNbs(request, idx):
             descNBS = request.POST.get('descNBS')
             countryNBS = request.POST.get('countryNBS')
             currencyCost = request.POST.get('currencyCost')
-            maxBenefitTime = request.POST.get('maxBenefitTime')
-            benefitTimePorc = request.POST.get('benefitTimePorc')
+            maxBenefitTime = Decimal(request.POST.get('maxBenefitTime').replace(',', '.'))
+            benefitTimePorc = Decimal(request.POST.get('benefitTimePorc').replace(',', '.'))
             maintenancePeriod = request.POST.get('maintenancePeriod')
-            implementCost = request.POST.get('implementCost')
-            maintenanceCost = request.POST.get('maintenanceCost')
-            oportunityCost = request.POST.get('oportunityCost')
+            implementCost = Decimal(request.POST.get('implementCost').replace(',', '.'))
+            maintenanceCost = Decimal(request.POST.get('maintenanceCost').replace(',', '.'))
+            oportunityCost = Decimal(request.POST.get('oportunityCost').replace(',', '.'))            
             transformations = request.POST.get('riosTransformation')
             uploadNewArea = request.POST.get('uploadNewArea')
             nbs = WaterproofNbsCa.objects.get(id=idx)
@@ -600,6 +600,7 @@ def cloneNbs(request, idx):
                         country=country,
                         currency=currency,
                         name=nameNBS,
+                        slug=slug,
                         description=descNBS,
                         max_benefit_req_time=maxBenefitTime,
                         profit_pct_time_inter_assoc=benefitTimePorc,

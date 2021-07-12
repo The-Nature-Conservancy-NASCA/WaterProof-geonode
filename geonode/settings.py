@@ -114,8 +114,12 @@ DATABASE_URL = os.getenv(
 #DATABASE_URL='postgresql://geonode:{&Uid&QXZ&6f;|F@dev.skaphe.com:5432/geonode'
 #DATABASE_URL='postgresql://geonode:{&Uid&QXZ&6f;|F@dev.skaphe.com:5432/geonode'
 #DATABASE_URL='postgresql://geonode:G30N0D3@water-proof.org:5432/geonode'
+<<<<<<< HEAD
 #DATABASE_URL='postgresql://geonode:geonode@localhost:5432/geonode'
 #DATABASE_URL = 'postgresql://geonode:geonode_data@dev.skaphe.com:5432/geonode'
+=======
+DATABASE_URL='postgresql://geonode:geonode@localhost:5432/geonode'
+>>>>>>> 8e4fa3146cb2cb1aa7fd312dda5a97580f71a54a
 
 if DATABASE_URL.startswith("spatialite"):
     try:

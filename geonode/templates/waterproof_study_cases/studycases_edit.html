@@ -11,7 +11,7 @@
 <div class="header-waterproof">
     <div class="row">
         <div class="col-sm-6">
-            <h1>{% trans "" %}</h1>
+            <h1>{% trans "Edit study cases" %}</h1>
         </div>
         <div class="col-sm-6">
             <h4 class="title-city">{% trans "creation_city" %} <span id="cityLabel"></span> </h4>
@@ -29,22 +29,22 @@
                     <a class="nav-link" href="#step-1"> {% trans "Define" %} </a>
                 </li>
                 <li>
-                    <a class="nav-link" href="#step-2"> {% trans "carbon_market" %}</a>
+                    <a class="nav-link" href="#step-2"> {% trans "Carbon market" %}</a>
                 </li>
                 <li>
-                    <a class="nav-link" href="#step-3">{% trans "portfolios" %}</a>
+                    <a class="nav-link" href="#step-3">{% trans "Portfolio objetives" %}</a>
                 </li>
                 <li>
-                    <a class="nav-link" href="#step-4"> {% trans "modelling_parameters" %}</a>
+                    <a class="nav-link" href="#step-4"> {% trans "Modeling parameters" %}</a>
                 </li>
                 <li>
-                    <a class="nav-link" href="#step-5"> {% trans "financial_parameters" %}</a>
+                    <a class="nav-link" href="#step-5"> {% trans "Financial parameters" %}</a>
                 </li>
                 <li>
-                    <a class="nav-link" href="#step-6"> {% trans "NBS_conservation_activities" %}</a>
+                    <a class="nav-link" href="#step-6"> {% trans "NbS / Conservation activities" %}</a>
                 </li>
                 <li>
-                    <a class="nav-link" href="#step-7"> {% trans "run_analysis" %}</a>
+                    <a class="nav-link" href="#step-7"> {% trans "Analysis parameters" %}</a>
                 </li>
             </ul>
             <!--Steps-->
@@ -52,8 +52,10 @@
                 <!--Step 1-->
                 <div id="step-1" class="tab-pane" role="tabpanel">
                     <div class="page-header">
-                        <h3>{% trans "define_study_case" %}</h3>
-                        <p>{% trans "define_study_case_text" %}</p>
+                        <h3>{% trans "Define Study Case" %}
+                            <button type="button" data-toggle="modal" data-target="#HelpStep1" id="HelpModalBtnModal_step1" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
+                        </h3>
+                        <p>{% trans "Enter the data with which you will identify your case study. Note that in addition to the name and a description, you must indicate the treatment plants and catchments that derive costs." %}</p>
                     </div>
                     <!--Input Name -->
                     <div id="study_case">
@@ -85,7 +87,7 @@
                             <input class="form-check-input" type="radio" name="type" id="ptap" value="1">
                             {% endif %}
                             <label class="form-check-label" for="ptap">
-                                {% trans "treatment_plants" %}
+                                {% trans "Drinking water treatment plants (DWTP)" %}
                             </label>
                         </div>
                         <div class="alert alert-warning text-center panel-hide" role="alert" id="div-emptyptaps">
@@ -108,23 +110,23 @@
                             <div class="panel" id="panel-custom">
                                 <div class="col-md-12">
                                     <div class="row form-group">
-                                        <legend><label>{% trans "water_intakes" %} <span class="text-danger-wp" id="custom-required"></span> </label></legend>
-                                        <p>{% trans "select_water_intake" %}</p>
+                                        <legend><h4 class="text-primary">{% trans "Water Intake" %}<span class="text-danger-wp" id="ptap-required"></span></h4></legend>
+                                        <p>{% trans "Select the intake you want to consider in the ROI Analysis" %}</p>
                                         <div class="col-md-9">
                                             <select class="form-control" id="select_custom">
 
                                             </select>
                                         </div>
                                         <div class="col-md-2">
-                                            <button type="button" class="btn btn-primary" id="add_wi">{% trans "add_wi" %}</button>
+                                            <button type="button" class="btn btn-primary" id="add_wi">{% trans "Add" %}</button>
                                         </div>
                                     </div>
                                     <table id="custom_table" class="table table-striped table-bordered table-condensed" style="width:100%">
                                         <thead>
                                             <tr class="info">
-                                                <th scope="col" class="small text-center vat">{% trans "name" %}</th>
-                                                <th scope="col" class="small text-center vat">{% trans "description" %}</th>
-                                                <th scope="col" class="small text-center vat">{% trans "Action" %}</th>
+                                                <th scope="col" class="small text-center vat">{% trans "Name" %}</th>
+                                                <th scope="col" class="small text-center vat">{% trans "Description" %}</th>
+                                                <th scope="col" class="small text-center vat">{% trans "Options" %}</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -146,23 +148,24 @@
                                     {% endif %}
                                     <div class="col-md-12">
                                         <div class="row form-group">
-                                            <legend><label>{% trans "treatment_plants" %} <span class="text-danger-wp" id="ptap-required"></span> </label></legend>
-                                            <p>{% trans "select_treatments_plants" %}</p>
+                                            <legend><h4 class="text-primary">{% trans "Treatments plants" %}<span class="text-danger-wp" id="ptap-required"></span></h4></legend>
+                                        <p>{% trans "Select the treatment plants you want to consider in the ROI Analysis" %}</p>
+
                                             <div class="col-md-9">
                                                 <select class="form-control" id="select_ptap">
 
                                                 </select>
                                             </div>
                                             <div class="col-md-2">
-                                                <button type="button" class="btn btn-primary" id="add_ptap">{% trans "add_plant" %}</button>
+                                                <button type="button" class="btn btn-primary" id="add_ptap">{% trans "Add" %}</button>
                                             </div>
                                         </div>
                                         <table id="ptap_table" class="table table-striped table-bordered table-condensed" style="width:100%">
                                             <thead>
                                                 <tr class="info">
-                                                    <th scope="col" class="small text-center vat">{% trans "name" %}</th>
-                                                    <th scope="col" class="small text-center vat">{% trans "description" %}</th>
-                                                    <th scope="col" class="small text-center vat">{% trans "Action" %}</th>
+                                                    <th scope="col" class="small text-center vat">{% trans "Name" %}</th>
+                                                    <th scope="col" class="small text-center vat">{% trans "Description" %}</th>
+                                                    <th scope="col" class="small text-center vat">{% trans "Options" %}</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -219,8 +222,10 @@
                         <!--Step 2-->
                         <div id="step-2" class="tab-pane" role="tabpanel">
                             <div class="page-header">
-                                <h3>{% trans "carbon_market_benefits" %}</h3>
-                                <p></p>
+                                <h3>{% trans "Carbon Market Benefits" %}
+                                    <button type="button" data-toggle="modal" data-target="#HelpStep2" id="HelpModalBtnModal_step2" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
+                                </h3>
+                                <p>{% trans "WaterProof may consider benefits associated with the Carbon market, click the checkbox to include it in the analysis." %}</p>        
                                 <div class="custom-control custom-checkbox">
                                     {% if study_case.benefit_carbon_market %}
                                     <input type="checkbox" class="custom-control-input" id='cb_check' checked>
@@ -267,8 +272,10 @@
                             <!--Step 3-->
                             <div id="step-3" class="tab-pane" role="tabpanel">
                                 <div class="page-header">
-                                    <h3>{% trans "portfolios" %}</h3>
-                                    <p>{% trans "portfolios_text" %}</p>
+                                    <h3>{% trans "Portfolio objectives" %}
+                                        <button type="button" data-toggle="modal" data-target="#HelpStep3" id="HelpModalBtnModal_step3" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
+                                    </h3>
+                                    <p>{% trans "Select the objectives you want to achieve with the implementation of the NBS" %}</p>      
 
                                     <ul class="list-group list-group-flush" id="portfolios-ul">
                                         {% for portfolio in portfolios %}
@@ -296,9 +303,12 @@
                             <!--Step 4-->
                             <div id="step-4" class="tab-pane" role="tabpanel">
                                 <div class="page-header">
-                                    <h3> {% trans "biophysical_tables" %}</h3>
-                                    <p>{% trans "Biophysical_tables_text" %}</p>
+                                    <h3> {% trans "Modeling parameters" %}
+                                        <button type="button" data-toggle="modal" data-target="#HelpStep4" id="HelpModalBtnModal_step3" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
+                                    </h3>
+                                    <p>{% trans "In this step you will find the biophysical parameters required for the execution of the models. If you want to see or edit them, click on advanced options, otherwise click on next and the system will use the default values." %}</p>
                                     <button type="button" class="btn btn-primary" id="btn-advanced_option">{% trans "advanced_options" %}</button>
+                                    <br>
                                     <p>{% trans "tables_text" %}</p>
                                     <p>{% trans "InVEST_documentation" %}</p>
                                     <div class="row biophysical-panel panel-hide" id="biophysical-panel">
@@ -315,8 +325,11 @@
                             <!--Step 5-->
                             <div id="step-5" class="tab-pane" role="tabpanel">
                                 <div class="page-header">
-                                    <h3> {% trans "financial_parameters" %}</h3>
-                                    <p></p>
+                                    <h3> {% trans "Financial parameters" %}
+                                        <button type="button" data-toggle="modal" data-target="#HelpStep5" id="HelpModalBtnModal_step3" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
+                                    </h3>
+                                    <p>{% trans "In this section, the system offers you the pre-loaded the costs required for the implementation of the NBS. Confirm or edit the values ​​according to your reality:" %}</p>
+                                    
                                     <div class="row ">
                                         <div class="custom-control custom-select float-right col-md-4">
                                             <label class="custom-control-label" for="financial_currency">{% trans "Currency" %}</label>
@@ -441,9 +454,11 @@
                             <!--Step 6-->
                             <div id="step-6" class="tab-pane" role="tabpanel">
                                 <div class="page-header">
-                                    <h3> {% trans "NBS_conservation_activities" %}</h3>
-                                    <p>{% trans "NBS_conservation_activities_text" %}</p>
-
+                                    <h3> {% trans "NbS / Conservation activities" %}
+                                        <button type="button" data-toggle="modal" data-target="#HelpStep6" id="HelpModalBtnModal_step3" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
+                                    </h3>
+                                    <p>{% trans "Select the NbS that you want the system to consider in its analysis:" %}</p>
+            
                                     <ul class="list-group list-group-flush" id="nbs-ul">
 
                                     </ul>
@@ -458,7 +473,9 @@
                             <!--Step 7-->
                             <div id="step-7" class="tab-pane" role="tabpanel">
                                 <div class="page-header">
-                                    <h3> {% trans "run_analysis" %}</h3>
+                                    <h3> {% trans "Analysis parameters" %}
+                                        <button type="button" data-toggle="modal" data-target="#HelpStep7" id="HelpModalBtnModal_step3" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
+                                    </h3>
                                     <p></p>
                                 </div>
                                 <div class="row">
@@ -608,6 +625,252 @@
                             </div>
     </form>
 </div>
+
+<!--HelpStep1-->
+<div class="modal fade" id="HelpStep1" tabindex="-1" aria-labelledby="HelpModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h3 class="modal-title text-center" id="HelpModalLabel" style="color:#6398C1 ;">{% trans "Creation of study cases" %}
+                </h3>
+            </div>
+            <div class="modal-body">
+                <p>
+                    {% trans "In this section the key actions refer to the selection of treatment plants and catchments that make up the case study, since through them the system obtains the indications for the execution of the RIOS model in charge of recommending the areas of implementation of the Nature-Based Solutions NBS." %}
+                </p>
+                <p>
+                    {% trans "Thanks to the catchment configuration, the system knows the geographical area in which the user wishes to implement the NBS and analyze the costs, in order to proceed with the ROI analysis." %}
+                </p>
+                <p>
+                    {% trans "Remember that ROI is an indicator that allows you to know how much money is lost or earned with the investments made. It is a performance measure used to evaluate the efficiency of an investment or to compare the efficiency of a number of different investments." %}
+                </p>
+                <div>
+                    <br>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="color: white; background-color: #6398C1;">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--HelpStep2-->
+<div class="modal fade" id="HelpStep2" tabindex="-1" aria-labelledby="HelpModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h3 class="modal-title text-center" id="HelpModalLabel" style="color:#6398C1 ;">{% trans "Integrate Analysis Associated with the Carbon Market" %}
+                </h3>
+            </div>
+            <div class="modal-body">
+                <p>
+                    <h4>{% trans "WaterProof" %}</h4>
+                    {% trans "offers you the possibility to integrate in your analysis the possible benefits that you can obtain if you expect to participate in carbon markets. This is done by defining a monetary value per Ton of CO2eq." %}
+                </p>
+                <p>
+                    <h4>{% trans "WaterProof" %}</h4>
+                    {% trans "uses information from the database published in May 2020 by the Institute for Climate Economics (Sébastien Postic | Marion Fetet) to preload USD / TonCO2eq values ​​that vary according to the country where the analysis is being carried out, however, the user can modify these values ​​according to the information they have." %}
+                </p>
+                <div>
+                    <br>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="color: white; background-color: #6398C1;">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--HelpStep3-->
+<div class="modal fade" id="HelpStep3" tabindex="-1" aria-labelledby="HelpModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h3 class="modal-title text-center" id="HelpModalLabel" style="color:#6398C1 ;">{% trans "Definition of the objectives of the NBS" %}
+                </h3>
+            </div>
+            <div class="modal-body">
+                <p>
+                    {% trans "WaterProof will define the NBS of your portfolio according to your needs in relation to:" %}
+                </p>
+                <li>
+                    {% trans "Erosion control to keep sediments out of water courses, avoiding the physical-mechanical loss of soil, the impact on water quality and its deposition in reservoirs, where it can reduce the production capacity of hydroelectric facilities or damage reservoirs and irrigation infrastructure." %}
+                </li>
+                <li>
+                    {% trans "Retention of phosphorus and nitrogen nutrients to maintain nature's processes and reduce potential pollutant loads, which can lead to eutrophication, and / or the generation of algal blooms." %}
+                </li>
+                <li>
+                    {% trans "Flood mitigation by addressing situations where the watershed area is previously saturated, and rainfall events cause excess water to run off the saturated ground surface." %}
+                </li>
+                <li>
+                    {% trans "Aquifer recharge enhancements that seek to replenish groundwater or increase groundwater stored in aquifers during wet periods to help improve water supply security and sustainability." %}
+                </li>
+                <li>
+                    {% trans "Sustaining or improving the base flow to guarantee efficient processes and infiltration, redistribution, evaporation and percolation of the waters in the territory." %}
+                </li>
+                <div>
+                    <br>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="color: white; background-color: #6398C1;">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--HelpStep4-->
+<div class="modal fade" id="HelpStep4" tabindex="-1" aria-labelledby="HelpModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h3 class="modal-title text-center" id="HelpModalLabel" style="color:#6398C1 ;">{% trans "Adjustment of Biophysical Parameters" %}
+                </h3>
+            </div>
+            <div class="modal-body">
+                <p>
+                    {% trans "..." %}
+                </p>
+                
+                <div>
+                    <br>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="color: white; background-color: #6398C1;">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--HelpStep5-->
+<div class="modal fade" id="HelpStep5" tabindex="-1" aria-labelledby="HelpModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h3 class="modal-title text-center" id="HelpModalLabel" style="color:#6398C1 ;">{% trans "Definition of Financial Parameters" %}
+                </h3>
+            </div>
+            <div class="modal-body">
+                <p>
+                    {% trans "The implementation of your NBS portfolio requires a series of investments to support its implementation, which in the system is called the Platform. This includes the personnel costs, office, travel, acquisition of equipment, among others." %}
+                </p>
+                <p>
+                    {% trans "You may indicate the discount rate that you wish to use to determine the present value of the payments that will be incurred." %}
+                </p>
+                <p>
+                    {% trans "In addition, you need to indicate the minimum and maximum values ​​of the sensitivity analysis that will help you make your decisions in case of unexpected changes in your environment. To do this, WaterProof uses the following equation:" %}
+                </p>
+
+                <h3 style="text-align: center;">{% trans "TB/(1+TD)^A" %}</h3>
+
+                <h5>{% trans "Where:" %}</h5>
+                <h5>{% trans "TB  It is the Total of the benefit" %}</h5>
+                <h5>{% trans "TD  Discount rate, brought from financial parameters" %}</h5>
+                <h5>{% trans "A  Index for the current year" %}</h5>
+
+                
+                <div>
+                    <br>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="color: white; background-color: #6398C1;">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--HelpStep6-->
+<div class="modal fade" id="HelpStep6" tabindex="-1" aria-labelledby="HelpModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h3 class="modal-title text-center" id="HelpModalLabel" style="color:#6398C1 ;">{% trans "Definition of NBS Activities" %}
+                </h3>
+            </div>
+            <div class="modal-body">
+                <p>
+                    {% trans "WaterProof considers a set of Nature-Based Solutions that you can link to your analysis according to your interest in protecting, sustainably managing and restoring natural or modified ecosystems that address social challenges in an effective and adaptive way, providing simultaneous benefits for human well-being and biodiversity." %}
+                </p>
+
+                <p>
+                    {% trans "By default, WaterProof has the following NBS, however you may create new ones that you can link to your analysis. The default NBSs are:" %}
+                </p>
+
+                <li>{% trans "Conservation: refers to actions that seek to conserve current land use coverage by signing conservation agreements, paying forest rangers or fencing off areas." %}</li>
+                <li>{% trans "Passive restoration: when strategic assistance actions are carried out to enable degraded ecosystems that by themselves overcome or eliminate factors that prevented their regeneration." %}</li>
+                <li>{% trans "Active restoration: these activities seek to increase floristic diversity by sowing new species, whose individuals have been obtained from the collection of seeds and propagules, their sowing in the nurseries and subsequent planting in the reserve." %}</li>
+                <li>{% trans "Agroforestry activities: a series of land-use technologies is used to combine trees with agricultural crops and / or pastures to increase and optimize production in a sustainable manner. The planting of forest crops and trees is used sequentially and in combination, with the application of soil conservation practices." %}</li>
+                <li>{% trans "Pasture and rangeland management: where healthy native grasses and related vegetation are grown to profitably preserve forage availability and livestock production, while ensuring environmental health." %}</li>
+                <div>
+                    <br>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="color: white; background-color: #6398C1;">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--HelpStep7-->
+<div class="modal fade" id="HelpStep7" tabindex="-1" aria-labelledby="HelpModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h3 class="modal-title text-center" id="HelpModalLabel" style="color:#6398C1 ;">{% trans "Run the analysis" %}
+                </h3>
+            </div>
+            <div class="modal-body">
+                <p>
+                    {% trans "This is the last step in the configuration of your case study in which the user defines the time in which they want the analysis of the benefits to be projected, as well as the time that they estimate to carry out theNBS  implementation actions." %}
+                </p>
+                <img style="margin: 10px auto 10px; display: block; width: 100%; height: 100%;" src="/static/geonode/img/Step7Help.png"></img>
+                <p>
+                    {% trans "Then, you must indicate the climatic aspects to consider. WaterProof, by default, allows you to consider the conditions of the Climate Change Scenarios or the known historical conditions. This option is available due to the influence of the climate on the sustainability of program activities and possible additional costs that must be incurred in more adverse conditions." %}
+                </p>
+
+                <p>{% trans "Finally, the user can assign financial resources in two ways:" %}</p>
+
+                <li>{% trans "Total portfolio: In which there is no financial limit." %}</li>
+                <li>{% trans "Investment scenario: In which the user has a maximum investment figure" %}</li>
+                <br>
+                <p>{% trans "For both situations, the user must indicate the financial allocation percentages for the activities in which they have the greatest interest." %}</p>
+               <div>
+                    <br>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="color: white; background-color: #6398C1;">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 {% endblock %} {% block extra_script %}
 <script src="{{ STATIC_URL }}study_cases/js/jquery.smartWizard.min.js" type="text/javascript"></script>
 <script src="{{ STATIC_URL }}study_cases/js/leaflet.js"></script>
