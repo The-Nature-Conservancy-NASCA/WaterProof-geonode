@@ -18,7 +18,7 @@ urlpatterns = [
     path('getCostAndBenefit/', api.getCostAndBenefit, name='get_cost_and_benefit'),
     path('getTotalBenefitsForMilion/', api.getTotalBenefitsForMilion, name='get_total_benefits_for_milion'),
     path('getReportCostsAnalysisRoi/', api.getReportCostsAnalysisRoi, name='get_report_costs_analysis_roi'),
-    path('getReportCostsAnalysisFilter/', api.getReportCostsAnalysisFilter, name='get_report_costs_analysis_filter'),
+    path('getReportCostsAnalysisFilterOne/', api.getReportCostsAnalysisFilterOne, name='get_report_costs_analysis_filter_one'),
     path('getReportAnalysisBenefitsFilter/', api.getReportAnalysisBenefitsFilter, name='get_report_analysis_benefits_filter'),
     path('getReportCostsAnalysisFilter/', api.getReportCostsAnalysisFilter, name='get_report_costs_analysis_filter'),
     path('getReportCostsAnalysisFilterNbs/', api.getReportCostsAnalysisFilterNbs, name='get_report_costs_analysis_filter_nbs'),
@@ -32,7 +32,5 @@ urlpatterns = [
     path('getStudyCasesIntake/', api.getStudyCasesIntake, name='get_study_cases_intake'),
     path('getDistinctGroupErr/', api.getDistinctGroupErr, name='get_distinct_group_err'),
     path('getWpAqueductIndicatorGraph/', api.getWpAqueductIndicatorGraph, name='get_wp_aqueduct_indicator_graph'),
-    
-    
-    
+    path('getReportOportunityResultMaps/', api.getReportOportunityResultMaps, name='get_report_oportunity_result_maps'),
 ]

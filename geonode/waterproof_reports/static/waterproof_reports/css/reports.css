@@ -73,7 +73,7 @@
     color: #3a809a;
 }
 .contain-detail {
-    margin-top: 150px;
+    margin-top: 50px;
     right: 50px;
     position: relative;
 }
@@ -136,7 +136,6 @@
 }
 .content-image {
 	width: 400px;
-	height: 500px;
     float: left;
 }
 .content-image > img {
@@ -147,18 +146,17 @@
     padding-left: 30rem !important;
 }
 .container-border {
-    width: 50%;
-    height: 600px;
+    width: 100%;
 }
 .container-page {
     position: relative;
-    margin-top: 150px;    
 }
 .container-detail {
-    position: absolute;
+    position: relative;
     top: 0px;
     left: 50%;
     width: 50%;
+    margin-left: -25%;
 }
 .margin-detail {
     margin: 30px;
@@ -180,10 +178,10 @@
     text-align: center;
     padding: 10px;
     position: absolute;
-    padding-left: 50px;
-    padding-right: 50px;
     margin: 5px;
-    margin-left: 10px;
+    left: 50%;
+    width: 150px;
+    margin-left: -75px;
 }
 .container-detail-line {
     text-align: center;
@@ -345,6 +343,7 @@
     border-style: solid;
     border-color: #1389AA;
     margin-left: 0px;
+    height: 150px;
 }
 .margin-report {
     border-style: solid;
@@ -365,5 +364,10 @@
 }
 .table-bordered > tbody > tr > td {
     border: 1px solid #1389AA !important;
+}
+.icon-dashboard {
+    height: 80px;
+    margin: 20px;
+}
 }
 
