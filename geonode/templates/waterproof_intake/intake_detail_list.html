@@ -33,7 +33,7 @@
             <h1>View Water Intake</h1>
         </div>
         <div class="col-sm-6">
-            <h4 class="title-city">{% trans "Intake creation city" %} <span id="cityLabel">{{intake.city.name}}</span> </h4>
+            <h4 class="title-city">{% trans "Intake creation city" %} <span id="cityLabel">{{intake.city.name}}, {{intake.city.country.name}}</span> </h4>
         </div>
     </div>
     <!--Begin Form-->
@@ -45,27 +45,27 @@
             <ul class="nav">
                 <li>
                     <a class="nav-link" href="#step-1">
-                        Define
+                        {% trans "Location" %}
                     </a>
                 </li>
                 <li>
                     <a class="nav-link" href="#step-2">
-                        Configure Parameters
+                        {% trans "Infrastructure" %}
                     </a>
                 </li>
                 <li>
                     <a class="nav-link" href="#step-3">
-                        Water Extraction
+                        {% trans "Demand" %}
                     </a>
                 </li>
                 <li>
                     <a class="nav-link" href="#step-4">
-                        External
+                        {% trans "External input" %}
                     </a>
                 </li>
                 <li>
                     <a class="nav-link" href="#step-5">
-                        Sub-area
+                        {% trans "NbS area" %}
                     </a>
                 </li>
             </ul>
@@ -109,6 +109,9 @@
                         </div>
                     </div>
                     <!-- Map -->
+                    <div>
+                        <h4 class="text-primary">{% trans "Water intake location" %}</h4>
+                    </div>
                     <div id="map">
                     </div>
                     <br>
@@ -181,8 +184,7 @@
                             </div>
                         </div>
                         <div class="col-md-12">
-                            <h3>Cost functions <small id="titleCostFunSmall"></small>
-                            </h3>
+                            <h4 class="text-primary">{% trans "Cost functions "%}</h4>
                             <div class="panel panel-info">
                                 <div class="panel-body">
                                     <div id="funcostgenerate"></div>

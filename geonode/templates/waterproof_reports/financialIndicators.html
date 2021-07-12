@@ -130,7 +130,7 @@
                 </div>                
                 <br>
                 <div style="text-align: center;width: 100%;position: relative;height: 400px;">
-                        <div class="content-image">
+                        <div class="content-image" style="height: 50px;">
                             <div style="clear:both;" class="table-responsive">
                                 <table id="idTableNpv" class="table table-striped table-bordered table-condensed" style=" width:100%">
                                     <thead>
@@ -151,16 +151,16 @@
                 </div>                
             </div>            <!--Step 3-->
             <div id="step4"  style="display: none;">
-                <div style="text-align: center;width: 100%;position: relative;height: 400px;">
+                <div style="text-align: center;width: 100%;position: relative;height: 1000px;">
                         <div class="contain-detail">
                             <!--Graph-->
-                            <div style="width: 45%;position: absolute;left: 52%;">
+                            <div style="width: 90%;position: absolute;left: 5%;">
                                 <div id="containerTDB"></div>
                             </div>
                         </div>
                         <div class="contain-detail">
                             <!--Graph-->
-                            <div style="width: 45%;position: absolute;left: 5%;">
+                            <div style="width: 90%;position: absolute;left: 5%;margin-top: 500px;">
                                 <div id="containerTDC"></div>
                             </div>
                         </div>
@@ -261,14 +261,97 @@ $(function () {
         if(object.checked) {
             var listObject = document.getElementsByName(name);
             listObject.forEach( function(valor, indice) {
-                totalBenefits[parseInt(valor.getAttribute("idpipeline")) - 1] = parseFloat((totalBenefits[parseInt(valor.getAttribute("idpipeline")) - 1] + parseFloat(valor.value)).toFixed(2));
+                for (var countBenefits = 0; countBenefits < totalBenefits.length; countBenefits++) {
+                    totalBenefits[countBenefits] = parseFloat((totalBenefits[countBenefits] + parseFloat(valor.value)).toFixed(2));
+                }
+            });
+            var listObject = document.getElementsByName('dis' + name);
+            listObject.forEach( function(valor, indice) {
+                for (var countBenefits = 0; countBenefits < totalDiscountedBenefits.length; countBenefits++) {
+                    totalDiscountedBenefits[countBenefits] = parseFloat((totalDiscountedBenefits[countBenefits] + parseFloat(valor.value)).toFixed(2));
+                }
             });
         } else {
             var listObject = document.getElementsByName(name);
             listObject.forEach( function(valor, indice) {
-                totalBenefits[parseInt(valor.getAttribute("idpipeline")) - 1] = parseFloat((totalBenefits[parseInt(valor.getAttribute("idpipeline")) - 1] - parseFloat(valor.value)).toFixed(2));
+                for (var countBenefits = 0; countBenefits < totalBenefits.length; countBenefits++) {
+                    totalBenefits[countBenefits] = parseFloat((totalBenefits[countBenefits] - parseFloat(valor.value)).toFixed(2));
+                }
+            });
+            var listObject = document.getElementsByName('dis' + name);
+            listObject.forEach( function(valor, indice) {
+                for (var countBenefits = 0; countBenefits < totalDiscountedBenefits.length; countBenefits++) {
+                    totalDiscountedBenefits[countBenefits] = parseFloat((totalDiscountedBenefits[countBenefits] - parseFloat(valor.value)).toFixed(2));
+                }
             });
         }
+        setTimeout(function(){
+            Highcharts.chart('containerRoi', {
+                chart: {
+                    type: 'column'
+                },
+                title: {
+                    text: 'Interactive graph of cost and benefits'
+                },
+                colors: ['#008BAB', '#90D3E7', '#004B56', '#61D1C2'],
+                xAxis: {
+                    categories: categories
+                },
+                credits: {
+                    enabled: false
+                },
+                series: [{
+                    name: 'Total Cost',
+                    data: totalCost
+                },{
+                    name: 'Total Discounted Cost',
+                    data: totalDiscountedCost
+                },{
+                    name: 'Total Benefits',
+                    type: 'spline',
+                    dashStyle: 'shortdot',
+                    data: totalBenefits
+                },{
+                    name: 'Total Discounted Benefits',
+                    type: 'spline',
+                    dashStyle: 'shortdot',
+                    data: totalDiscountedBenefits
+                }]
+            });
+        }, 1000);
+    }
+
+    loadDetailFilterCost = function(object, name){
+        if(object.checked) {
+            var listObject = document.getElementsByName('cost' + name);
+            listObject.forEach( function(valor, indice) {
+                for (var countCost = 0; countCost < totalCost.length; countCost++) {
+                    totalCost[countCost] = parseFloat((totalCost[countCost] + parseFloat(valor.value)).toFixed(2));
+                }
+            });
+            var listObject = document.getElementsByName('costDis' + name);
+            listObject.forEach( function(valor, indice) {
+                for (var countCost = 0; countCost < totalDiscountedCost.length; countCost++) {
+                    totalDiscountedCost[countCost] = parseFloat((totalDiscountedCost[countCost] + parseFloat(valor.value)).toFixed(2));
+                }
+            });
+        } else {
+            var listObject = document.getElementsByName('cost' + name);
+            listObject.forEach( function(valor, indice) {
+                for (var countCost = 0; countCost < totalCost.length; countCost++) {
+                    totalCost[countCost] = parseFloat((totalCost[countCost] - parseFloat(valor.value)).toFixed(2));
+                }
+            });
+            var listObject = document.getElementsByName('costDis' + name);
+            listObject.forEach( function(valor, indice) {
+                for (var countCost = 0; countCost < totalDiscountedCost.length; countCost++) {
+                    totalDiscountedCost[countCost] = parseFloat((totalDiscountedCost[countCost] - parseFloat(valor.value)).toFixed(2));
+                }
+            });
+        }
+console.log(totalCost)
+console.log(totalDiscountedCost)
+
         setTimeout(function(){
             Highcharts.chart('containerRoi', {
                 chart: {
@@ -329,6 +412,7 @@ $(function () {
                     lastSubCategory = value.subCategory;
                 }
                 htmlBenefitsFilter = htmlBenefitsFilter + '<input style="display:none" name="' + value.subCategory + '" idPipeLine="' + value.subName + '" value="' + value.totalBenefits + '">';
+                htmlBenefitsFilter = htmlBenefitsFilter + '<input style="display:none" name="dis' + value.subCategory + '" idPipeLine="' + value.subName + '" value="' + value.totalBenefitsDiscount + '">';
             });
             document.getElementById("listCheckBenefits").innerHTML = htmlBenefitsFilter;
         });
@@ -337,7 +421,7 @@ $(function () {
         var urlDetail = "../../reports/getReportCostsAnalysisFilterOne/?studyCase=" + localStorage.idStudyCase;
         $.getJSON(urlDetail, function (data) {
             var lastName = "";
-            var lastSubCategory = "";
+            var lastSubName = "";
             $.each( data, function( key, value ) {
                 if(value.subCategory ===  null) {
                     value.subCategory = value.name;
@@ -346,10 +430,14 @@ $(function () {
                     htmlCostFilter = htmlCostFilter + '<div class="first-detail-in"><div class="text-first-detail">' + value.name + '</div></div>';
                     lastName = value.name;
                 }
-                if(lastSubCategory !== value.subCategory) {
-                    htmlCostFilter = htmlCostFilter + '<div class="content-option-first-detail"><div class="div-option"><input type="checkbox" checked ></div><div class="div-text">' + value.subName + '</div></div>';
-                    lastSubCategory = value.subCategory;
+                if(lastSubName !== value.subName) {
+                    htmlCostFilter = htmlCostFilter + '<div class="content-option-first-detail"><div class="div-option"><input type="checkbox" checked onclick="loadDetailFilterCost(this, \'' + value.name + value.subName + '\')"></div><div class="div-text">' + value.subName + '</div></div>';
+                    lastSubName = value.subName;
                 }
+                htmlCostFilter = htmlCostFilter + '<input style="display:none" name="cost' + value.name + value.subName + '" idPipeLine="' + value.subName + '" value="' + value.totalCost + '">';
+                htmlCostFilter = htmlCostFilter + '<input style="display:none" name="costDis' + value.name +value.subName + '" idPipeLine="' + value.subName + '" value="' + value.totalDiscountedCost + '">';
+
+
             });
             document.getElementById("listCheckCost").innerHTML = htmlCostFilter;
         });
@@ -369,7 +457,7 @@ $(function () {
                 totalCost.push(parseFloat(value.totalCost.toFixed(2)));
                 totalDiscountedCost.push(parseFloat(value.totalDiscountedCost.toFixed(2)));
                 totalBenefits.push(parseFloat(value.totalBenefits.toFixed(2)));
-                totalDiscountedBenefits.push(parseFloat(value.totalDiscountedBenefits).toFixed(2));
+                totalDiscountedBenefits.push(parseFloat(value.totalDiscountedBenefits.toFixed(2)));
                 htmlCost = htmlCost + '<td class="small text-center vat" id="valor2">' + value.totalCost.toFixed(2) + '</td>';
                 htmlDiscountedCost = htmlDiscountedCost + '<td class="small text-center vat" id="valor3">' + value.totalDiscountedCost.toFixed(2) + '</td>';
                 htmlBenefits = htmlBenefits + '<td class="small text-center vat" id="valor3">' + value.totalBenefits.toFixed(2) + '</td>';
@@ -385,14 +473,13 @@ $(function () {
 
             document.getElementById("idTbodyRoi").innerHTML = htmlCost +  htmlDiscountedCost + htmlBenefits + htmlDiscountedBenefits;
             document.getElementById("idTheadRoi").innerHTML = htmlTitle;
-            
 
             Highcharts.chart('containerRoi', {
                 chart: {
                     type: 'column'
                 },
                 title: {
-                    text: 'Return of investment'
+                    text: 'Interactive graph of cost and benefits'
                 },
                 colors: ['#008BAB', '#90D3E7', '#004B56', '#61D1C2'],
                 xAxis: {
@@ -643,7 +730,7 @@ $(function () {
                 },
                 colors: ['#008BAB'],
                 title: {
-                    text: 'Return of investment ROI',
+                    text: 'Interactive graph of cost and benefits',
                     x: -80
                 },
                 xAxis: {

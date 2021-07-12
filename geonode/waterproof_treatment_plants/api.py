@@ -40,6 +40,7 @@ def getTreatmentPlantsList(request):
 				lastInstakeName = tratamentPlants.csinfra_plant.plant_name
 				objects_list.append({
 					"plantId": tratamentPlants.csinfra_plant.id,
+					"plantUser": tratamentPlants.csinfra_plant.plant_user,
 					"plantName": tratamentPlants.csinfra_plant.plant_name,
 					"plantDescription": tratamentPlants.csinfra_plant.plant_description,
 					"plantSuggest": tratamentPlants.csinfra_plant.plant_suggest,

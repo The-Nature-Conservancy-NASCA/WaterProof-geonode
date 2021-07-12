@@ -218,3 +218,6 @@ msgstr "View study cases"
 
 msgid "Return"
 msgstr "Return"
+
+msgid "select_option"
+msgstr "-- select an option --"

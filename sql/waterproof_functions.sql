@@ -1354,9 +1354,14 @@ BEGIN
 $function$
 ;
 
-CREATE OR REPLACE FUNCTION public.__wp_roi_nbs_cost(studycase integer)
- RETURNS TABLE(ids character varying, periodicity integer, costs character varying, values_out numeric)
- LANGUAGE plpgsql
+CREATE OR REPLACE FUNCTION public.__wp_roi_nbs_cost(
+	studycase_in integer)
+    RETURNS TABLE(ids character varying, periodicity integer, costs character varying, values_out numeric) 
+    LANGUAGE 'plpgsql'
+    COST 100
+    VOLATILE PARALLEL UNSAFE
+    ROWS 1000
+
 AS $function$
 BEGIN
   return query 
@@ -1368,9 +1373,9 @@ BEGIN
     from
         waterproof_study_cases_studycases_nbs nbs
         join waterproof_nbs_ca_waterproofnbsca nbsca ON nbs.nbs_id = nbsca.id
-        join studycase_currency_costs_calculated_dani coc ON coc.type_or_id = cast(nbsca.id AS character varying)
-    where coc.studycase_id=nbs.studycase_id and coc.studycase_id=studycase
-    order by coc.type_or_id asc;
+        join waterproof_study_cases_currency_cost_calculated coc ON coc.type_or_id = cast(nbsca.id AS character varying)
+    where coc.studycase_id=nbs.studycase_id and coc.studycase_id=studycase_in
+    order by coc.type_or_id asc, coc.cost;
 	
     END;
 $function$
@@ -1512,4 +1517,30 @@ BEGIN
 $function$
 ;
 
+
+CREATE OR REPLACE FUNCTION public.__wp_indicators_insert(
+	time_in integer,
+	type_in character varying,
+	path_in character varying,
+	date_in date,
+	awy_in double precision,
+	wn_in double precision,
+	wp_in double precision,
+	wsed_in double precision,
+	bf_in double precision,
+	wc_in double precision,
+	intake_id_in integer,
+	study_case_id_in integer,
+	user_id_in integer)
+    RETURNS void
+    LANGUAGE 'plpgsql'
+    COST 100
+    VOLATILE PARALLEL UNSAFE
+AS $function$
+BEGIN				
+		INSERT INTO public.waterproof_reports_investindicators (
+			time,type,path,date,awy,wn_kg,wp_kg,wsed_ton,bf_m3,wc_ton,intake_id,study_case_id,user_id) 
+			VALUES (time_in,type_in,path_in,date_in,awy_in,wn_in,wp_in,wsed_in,bf_in,wc_in,intake_id_in,study_case_id_in,user_id_in);
+    END;
+$function$;
 

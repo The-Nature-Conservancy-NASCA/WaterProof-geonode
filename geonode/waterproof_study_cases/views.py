@@ -107,7 +107,7 @@ def create(request):
         else:
             portfolios = Portfolio.objects.all()
             models = ModelParameter.objects.all()
-            currencys = Countries.objects.values('currency').distinct().order_by('currency')
+            currencys = Countries.objects.values('currency', 'name', 'iso3').distinct().order_by('currency')
             scenarios = Climate_value.objects.all()
             return render(request,
                           'waterproof_study_cases/studycases_form.html',

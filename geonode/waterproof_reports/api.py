@@ -321,8 +321,8 @@ def getReportAnalysisBenefitsFilter(request):
 				"subName":row[2],
 				"subCategory":row[3],
 				"subNameCategory":row[2] + row[3],
-				"totalCost":row[4],
-				"totalBenefits":row[5]
+				"totalBenefits":row[4],
+				"totalBenefitsDiscount":row[5]
 			})
 
 		order_register = sorted(objects_list, key=lambda tree : tree['subNameCategory'])
@@ -443,10 +443,13 @@ def getWaterproofReportsAnalysisBenefits(request):
 			objects_list.append({
 				"elementId":row[0],
 				"typeId":row[1],
+				"typeElementId":str(row[1]) + str(row[0]),
 				"vpnMedBenefit":row[2]
 			})
 
-		return JsonResponse(objects_list, safe=False)
+		order_register = sorted(objects_list, key=lambda tree : tree['typeElementId'])
+		return JsonResponse(order_register, safe=False)
+
 
 @api_view(['GET'])
 def getReportOportunityResultIndicators(request):

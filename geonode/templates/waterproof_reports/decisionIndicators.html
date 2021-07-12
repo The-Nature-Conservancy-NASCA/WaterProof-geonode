@@ -89,6 +89,7 @@
                     <div class="contain-detail">
                         <!--Graph-->
                         <div style="width: 45%;position: absolute;left: 52%;">
+                            <select class="select-condition" id="idListSelectIntake" onchange="changePie(this.value)"></select>
                             <div id="containerAbi"></div>
                         </div>
                     </div>
@@ -157,13 +158,13 @@
                             </div>
                             <div class="container-detail-line">
                                 <div class="line-detail">
-                                    <div>{% trans "Total estimated investment (USD)" %}</div>
+                                    <div>{% trans "Total estimated investment" %}</div>
                                     <div class="value-line-detail" id="idTotalEstimatedInvestment"></div>
-                                    <div>{% trans "Total treatment cost savings (USD)" %}</div>
+                                    <div>{% trans "Total treatment cost savings" %}</div>
                                     <div class="value-line-detail" id="idTotalTreatmentCostSavings"></div>
                                 </div>
                                 <div class="line-detail">
-                                    <div>{% trans "Total area investment size (Hec)" %}</div>
+                                    <div>{% trans "Total area investment size (Ha)" %}</div>
                                     <div class="value-line-detail" id="idTotalAreaInvestmentSize"></div>
                                     <div>{% trans "Time frame (Years)" %}</div>
                                     <div class="value-line-detail" id="idTimeFrame"></div>
@@ -284,7 +285,8 @@ $(function () {
             layer.bindPopup(feature.properties.name);
         }
     });
-
+    var dataTotalBenefitsIntake = [];
+    var dataTotalBenefitsIntakeOne = [];
 
     changeReport = function() {
         location.href = "../../study_cases/report/" + localStorage.idStudyCase;
@@ -542,6 +544,48 @@ $(function () {
         }
     };
 
+    changePie = function (selectName) {
+        dataTotalBenefitsIntakeOne = [];
+        dataTotalBenefitsIntake.forEach((featureIntake) => {
+            if(featureIntake.type ===  selectName) {
+                dataTotalBenefitsIntakeOne.push({
+                    name: featureIntake.name,
+                    y: featureIntake.y
+                })
+            }
+        });
+
+        Highcharts.chart('containerAbi', {
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
+            },
+            title: {
+                text: 'Intake Benefits'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: false
+                    },
+                    showInLegend: true
+                }
+            },
+            credits: {
+                enabled: false
+            },
+            series: [{
+                name: 'Intake Benefits',
+                colorByPoint: true,
+                data: dataTotalBenefitsIntakeOne
+            }]
+        });
+    };
+
     initialize = function () {
 
         $("#idCountri").html(localStorage.getItem('country'));
@@ -624,14 +668,36 @@ $(function () {
             });
         });
 
-        var dataTotalBenefitsIntake = [];
+        var dataListBenefitsIntake = [];
+        var firstListIntage = "";
         var urlDetail = "../../reports/getWaterproofReportsAnalysisBenefits/?studyCase=" + localStorage.idStudyCase;
         $.getJSON(urlDetail, function (data) {
+
             $.each( data, function( key, value ) {
+                if(value.typeId !== firstListIntage) {
+                    firstListIntage = value.typeId;
+                    dataListBenefitsIntake.push(value.typeId);
+                    var sel = document.getElementById('idListSelectIntake');
+                    var opt = document.createElement('option');
+                    opt.appendChild( document.createTextNode(value.typeId) );
+                    opt.value = value.typeId; 
+                    sel.appendChild(opt); 
+                }
+
                 dataTotalBenefitsIntake.push({
-                    name: value.typeId,
+                    type: value.typeId,
+                    name: value.elementId,
                     y: value.vpnMedBenefit
                 })
+            });
+
+            dataTotalBenefitsIntake.forEach((featureIntake) => {
+                if(featureIntake.type ===  dataListBenefitsIntake[0]) {
+                    dataTotalBenefitsIntakeOne.push({
+                        name: featureIntake.name,
+                        y: featureIntake.y
+                    })
+                }
             });
 
             Highcharts.chart('containerAbi', {
@@ -660,7 +726,7 @@ $(function () {
                 series: [{
                     name: 'Intake Benefits',
                     colorByPoint: true,
-                    data: dataTotalBenefitsIntake
+                    data: dataTotalBenefitsIntakeOne
                 }]
             });
         });
