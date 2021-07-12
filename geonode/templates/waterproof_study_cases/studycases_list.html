@@ -39,7 +39,7 @@
                 <button type="button" data-toggle="modal" class="glyphicon glyphicon-plus-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #6e6f70; border-style: none; background-color:transparent;"></button>
                 <h6>{% trans "You must be a registered user to create a new Case Study*" %}</h6>
                 {% endif %}
-        
+
             </div>
         </div>
         <div class="col-md-8">
@@ -80,7 +80,7 @@
                 <td class="small text-center vat">
                     {% if studyCases.studycase_type == "PTAP" %}
                     {% for ptap in studyCases.ptaps.all %}
-                    <a onclick='viewPtap({{ptap.id}})'>- {{ptap.plant_name}} </a><br>
+                    <a onclick='viewPtap({{ptap.id}})' class="ptap-link">- {{ptap.plant_name}} </a><br>
                     {% endfor %}</td>
                 {% else %}
                 {% trans "N/A" %}<br>{% trans "Custom case" %}
@@ -89,7 +89,7 @@
                 <td class="small text-center vat">{% for intake in studyCases.intakes.all %}
                     <a href="../intake/view/{{intake.id}}" target="_blank">- {{intake.name}} </a> <br>
                     {% endfor %}</td>
-                <td class="small text-center vat"><a onclick='viewCurrencys({{studyCases.id}})'>{{studyCases.analysis_currency}}</a></td>
+                <td class="small text-center vat"><a class="currency-link" onclick='viewCurrencys({{studyCases.id}})'>{{studyCases.analysis_currency}}</a></td>
                 {% if studyCases.is_run_analysis%}
                 <td class="small text-center vat"><i class="glyphicon glyphicon-play-circle fa-lg text-success" title='{% trans "Completed" %}'></i></td>
                 {% else %}

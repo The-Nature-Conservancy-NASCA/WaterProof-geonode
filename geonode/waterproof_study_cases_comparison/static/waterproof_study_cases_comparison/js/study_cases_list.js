@@ -78,8 +78,24 @@ $(function () {
 
             })
         };
-
-
+        /** 
+        * Redirect to do analysis URL
+        * @param {Event} click       Click event
+        */
+        $('#doAnalysis').click(function(){
+            if (analysisCases.length<=0){ //No case selected
+                Swal.fire({
+                    icon: 'error',
+                    title: gettext('Comparison error'),
+                    text: gettext('No case selected')
+                })
+            }
+            else{ //At least one selected
+                setTimeout(function() { 
+                    location.href = "doAnalysis/"; 
+                }, 100);
+            }
+        });
         /** 
         * Add study case from table list to 
         * analysis case table 
@@ -90,21 +106,21 @@ $(function () {
             let studyCaseId = evt.target.getAttribute('data-id');
             if (analysisCases.length == 0) {
                 analysisCases.push(studyCaseId);
-                localStorage.setItem('analysisCases', analysisCases);
+                localStorage.setItem('analysisCases', JSON.stringify(analysisCases));
             }
             else {
                 var caseExist = analysisCases.filter(caseId => caseId == studyCaseId);
                 if (caseExist.length > 0) {
                     Swal.fire({
                         icon: 'error',
-                        title: 'Error',
-                        text: 'El caso de estudio seleccionado ya ha sido agregado a la lista',
+                        title: gettext('Comparison error'),
+                        text: gettext('Case already selected')
                     })
                     return;
                 }
                 else {
                     analysisCases.push(studyCaseId);
-                    localStorage.setItem('analysisCases', analysisCases);
+                    localStorage.setItem('analysisCases', JSON.stringify(analysisCases));
                 }
             }
             let currentRow = $(this).closest('tr');

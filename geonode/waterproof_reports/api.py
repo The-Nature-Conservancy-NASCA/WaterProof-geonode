@@ -262,7 +262,7 @@ def getReportCostsAnalysisRoi(request):
 		return JsonResponse(objects_list, safe=False)
 
 @api_view(['GET'])
-def getReportCostsAnalysisFilter(request):
+def getReportCostsAnalysisFilterOne(request):
 	"""Returns the list of treatment plants
 
 	Find all the stored treatment plants that have
@@ -284,14 +284,15 @@ def getReportCostsAnalysisFilter(request):
 		for row in rows:
 			objects_list.append({
 				"name":row[0],
-				"subName":row[1],
-				"totalCost":row[2],
-				"totalDiscountedCost":row[3],
-				"totalBenefits":row[4],
-				"totalDiscountedBenefits":row[5]
+				"subName":row[2],
+				"nameSubName":row[0]+row[2],
+				"totalCost":row[3],
+				"totalDiscountedCost":row[4],
+				"totalBenefits":row[5],
+				"totalDiscountedBenefits":row[6]
 			})
-
-		return JsonResponse(objects_list, safe=False)
+		order_register = sorted(objects_list, key=lambda tree : tree['nameSubName'])
+		return JsonResponse(order_register, safe=False)
 
 
 @api_view(['GET'])
@@ -316,14 +317,16 @@ def getReportAnalysisBenefitsFilter(request):
 		objects_list = []
 		for row in rows:
 			objects_list.append({
-				"name":row[0],
-				"subName":row[1],
-				"subCategory":row[2],
-				"totalCost":row[3],
-				"totalBenefits":row[4]
+				"name":row[2],
+				"subName":row[2],
+				"subCategory":row[3],
+				"subNameCategory":row[2] + row[3],
+				"totalBenefits":row[4],
+				"totalBenefitsDiscount":row[5]
 			})
 
-		return JsonResponse(objects_list, safe=False)
+		order_register = sorted(objects_list, key=lambda tree : tree['subNameCategory'])
+		return JsonResponse(order_register, safe=False)
 
 
 @api_view(['GET'])
@@ -440,10 +443,13 @@ def getWaterproofReportsAnalysisBenefits(request):
 			objects_list.append({
 				"elementId":row[0],
 				"typeId":row[1],
+				"typeElementId":str(row[1]) + str(row[0]),
 				"vpnMedBenefit":row[2]
 			})
 
-		return JsonResponse(objects_list, safe=False)
+		order_register = sorted(objects_list, key=lambda tree : tree['typeElementId'])
+		return JsonResponse(order_register, safe=False)
+
 
 @api_view(['GET'])
 def getReportOportunityResultIndicators(request):
@@ -685,8 +691,33 @@ def getWpAqueductIndicatorGraph(request):
 
 		return JsonResponse(objects_list, safe=False)
 
+@api_view(['GET'])
+def getReportOportunityResultMaps(request):
+	"""Returns the list of treatment plants
 
+	Find all the stored treatment plants that have
+	the minimum characteristics stored in all components
 
+	Parameters:
+	without parameters
 
-
-
+	Exceptions:
+	If it does not have data in the minimal relations of the model it does not deliver
+	information about the treatment plant
+	"""
+	if request.method == 'GET':
+		con = psycopg2.connect(settings.DATABASE_URL)
+		cur = con.cursor()
+		cur.execute("SELECT * FROM __get_report_oportunity_result_maps('" + request.query_params.get('studyCase') + "')")
+		rows = cur.fetchall()
+		objects_list = []
+		for row in rows:
+			objects_list.append({
+				"name":row[0],
+				"polygon": row[1]
+			})
+		"""
+		"POLYGON ((-75.408333 4.716667, -75.408333 4.7, -75.433333 4.7, -75.433333 4.691667, -75.458333 4.691667, -75.458333 4.683333, -75.466667 4.683333, -75.466667 4.675, -75.47499999999999 4.675, -75.47499999999999 4.666667, -75.516667 4.666667, -75.516667 4.675, -75.533333 4.675, -75.533333 4.658333, -75.541667 4.658333, -75.541667 4.641667, -75.55 4.641667, -75.55 4.625, -75.541667 4.625, -75.541667 4.6, -75.533333 4.6, -75.533333 4.591667, -75.52500000000001 4.591667, -75.52500000000001 4.566667, -75.516667 4.566667, -75.516667 4.558333, -75.5 4.558333, -75.5 4.566667, -75.49166700000001 4.566667, -75.49166700000001 4.575, -75.483333 4.575, -75.483333 4.583333, -75.47499999999999 4.583333, -75.47499999999999 4.591667, -75.466667 4.591667, -75.466667 4.6, -75.445391 4.610647, -75.425 4.616667, -75.416667 4.616667, -75.416667 4.633333, -75.425 4.633333, -75.425 4.658333, -75.416667 4.658333, -75.416667 4.666667, -75.40000000000001 4.666667, -75.40000000000001 4.691667, -75.391667 4.691667, -75.391667 4.7, -75.38333299999999 4.7, -75.38333299999999 4.716667, -75.408333 4.716667))"
+		[[-77.983333,0.941667],[-77.983333,0.933333],[-77.991667,0.933333],[-77.991667,0.925],[-78.016667,0.925],[-78.016667,0.916667],[-78.025,0.916667],[-78.025,0.908333],[-78.033333,0.908333],[-78.033333,0.875],[-78.016667,0.875],[-78.016667,0.866667],[-78.008333,0.866667],[-78.008333,0.858333],[-77.991667,0.858333],[-77.991667,0.85],[-77.983333,0.85],[-77.983333,0.841667],[-77.975,0.841667],[-77.975,0.833333],[-77.966667,0.833333],[-77.966667,0.825],[-77.95,0.825],[-77.95,0.816667],[-77.925,0.816667],[-77.925,0.841667],[-77.916667,0.841667],[-77.916667,0.883333],[-77.925,0.883333],[-77.925,0.908333],[-77.933333,0.908333],[-77.933333,0.916667],[-77.941667,0.916667],[-77.941667,0.925],[-77.95,0.925],[-77.95,0.933333],[-77.958333,0.933333],[-77.958333,0.941667],[-77.983333,0.941667]]
+		"""
+		return JsonResponse(objects_list, safe=False)

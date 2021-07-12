@@ -190,3 +190,21 @@
         padding-bottom: 3rem;
     }
 }
+
+.ptap-link {
+    cursor: pointer;
+}
+
+.currency-link {
+    cursor: pointer;
+}
+
+.btn-right {
+    right: 0px;
+    margin-right: 30px;
+    float: right;
+}
+
+.custom-control-label {
+    font-weight: 100;
+}

@@ -21,26 +21,22 @@ def reportMenu(request):
 
 def getNames(indicators):
     result = []
-    
     for objectIndicator in indicators:  
         try:
             if objectIndicator.intake.name not in result:
                 result.append(objectIndicator.intake.name)
         except:
-            print ("continue")
-
+            print ("")
     return result
 
 def getNameCity(indicators):
     result = []
-
     for objectIndicatorcity in indicators:
         try:
             if objectIndicatorcity.intake.city.name not in result:
                 result.append(objectIndicatorcity.intake.city.name)
         except:
-            print ("continue")
-
+            print ("")
     return result
 
 def physicalIndicators(request):

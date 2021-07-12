@@ -58,6 +58,10 @@
                             <div>{% trans "Region:" %}</div>
                             <div class="value-file-column-left" id="idRegionMain">{% trans "-" %}</div>
                         </div>
+                        <div class="file-column-left">
+                            <div>{% trans "currency:" %}</div>
+                            <div class="value-file-column-left" id="idCurrencyMain">{% trans "-" %}</div>
+                        </div>
                     </div>
                     <div class="column-right-table">
                         <div class="file-column-left">
@@ -122,26 +126,32 @@
                 <div class="title-report" style="text-align: center;">Estimated percent improvement from area businnes as usual</div>
                 <div class="line-marc-table">
                     <div>Anual water yield</div>
+                    <div><img src="/static/geonode/img/dashboard-01.png" class="icon-dashboard"></div>
                     <div class="line-number-marc-table" id="changeInVolumeOfWater">20%</div>
                 </div>
                 <div class="line-marc-table">
                     <div>Seasonal water yield</div>
+                    <div><img src="/static/geonode/img/dashboard-02.png" class="icon-dashboard"></div>
                     <div class="line-number-marc-table" id="changeInBaseFlow">10%</div>
                 </div>
                 <div class="line-marc-table">
                     <div>Sediment delivery ratio</div>
+                    <div><img src="/static/geonode/img/dashboard-03.png" class="icon-dashboard"></div>
                     <div class="line-number-marc-table" id="changeIntotalSediments">15%</div>
                 </div>
                 <div class="line-marc-table">
                     <div>Nutrient delivery ratio - nitrogen</div>
+                    <div><img src="/static/geonode/img/dashboard-04.png" class="icon-dashboard"></div>
                     <div class="line-number-marc-table" id="changeInNitrogenLoad">10%</div>
                 </div>
                 <div class="line-marc-table">
                     <div>Nutrient delivery ratio - phosphorus</div>
+                    <div><img src="/static/geonode/img/dashboard-05.png" class="icon-dashboard"></div>
                     <div class="line-number-marc-table" id="changeInPhosphorus">5%</div>
                 </div>
                 <div class="line-marc-table">
                     <div>Carbon storage and sequestration</div>
+                    <div><img src="/static/geonode/img/dashboard-06.png" class="icon-dashboard"></div>
                     <div class="line-number-marc-table" id="changeInCarbonStorage">20%</div>
                 </div>
             </div>
@@ -209,6 +219,7 @@
     $("#idCountryMain").html(localStorage.getItem('country'));
     $("#idCityMain").html(localStorage.getItem('city'));
     $("#idRegionMain").html(localStorage.getItem('region'));
+    $("#idCurrencyMain").html(localStorage.getItem('currency'));
 
 </script>
 <script src="{{ STATIC_URL }}geonode/js/datatables/jquery.dataTables.min.js"></script>
@@ -217,7 +228,6 @@
     integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
     crossorigin=""></script>
 <script src="{{ STATIC_URL }}geonode/js/leaflet/leaflet.ajax.min.js"></script>
-<script src="{{ STATIC_URL }}waterproof_reports/js/reports_menu.js"></script>
 <script src="https://vinceg.github.io/twitter-bootstrap-wizard/jquery.bootstrap.wizard.js"></script>
 <script src="https://vinceg.github.io/twitter-bootstrap-wizard/prettify.js"></script>
 <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"

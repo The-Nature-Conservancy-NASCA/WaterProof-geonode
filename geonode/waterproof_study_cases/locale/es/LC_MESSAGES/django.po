@@ -254,6 +254,9 @@ msgstr "Ver caso de estudio"
 msgid "Return"
 msgstr "Regresar"
 
+msgid "select_option"
+msgstr "-- seleccione una opción --"
+
 
 
 
