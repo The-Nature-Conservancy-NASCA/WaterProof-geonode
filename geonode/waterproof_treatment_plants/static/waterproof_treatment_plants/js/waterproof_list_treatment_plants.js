@@ -306,11 +306,11 @@ $(function () {
         $('#createUrl').attr('href','create/' + userCountryId)
         console.log("aqui crea ptap");
         if (localStorage.clonePlant === "false" && localStorage.updatePlant === "false" && localStorage.loadInf === "false"){
-            document.getElementById("titleFormTreatmentPlant").innerHTML = "Create Treatment Plant";
+            document.getElementById("titleFormTreatmentPlant").innerHTML = "  "+"Create Treatment Plant";
         }
         if(localStorage.clonePlant === "true") {
             localStorage.clonePlant = "false";
-            document.getElementById("titleFormTreatmentPlant").innerHTML = "Clone Treatment Plant";
+            document.getElementById("titleFormTreatmentPlant").innerHTML = "  "+"Clone Treatment Plant";
             var urlDetail = "../../treatment_plants/getTreatmentPlant/?plantId=" + localStorage.plantId;
             $.getJSON(urlDetail, function (data) {
                 localStorage.plantId = null;
@@ -364,7 +364,7 @@ $(function () {
         }
 
         if(localStorage.updatePlant === "true") {
-            document.getElementById("titleFormTreatmentPlant").innerHTML = "Update Treatment Plant";
+            document.getElementById("titleFormTreatmentPlant").innerHTML = "  "+"Update Treatment Plant";
             localStorage.updatePlant = "false";
             var urlDetail = "../../treatment_plants/getTreatmentPlant/?plantId=" + localStorage.plantId;
             $.getJSON(urlDetail, function (data) {
@@ -417,7 +417,7 @@ $(function () {
             });
         }
         if(localStorage.loadInf === "true") {
-            document.getElementById("titleFormTreatmentPlant").innerHTML = "View Treatment Plant";
+            document.getElementById("titleFormTreatmentPlant").innerHTML = "  "+"View Treatment Plant";
             localStorage.loadInf = "false";
             var urlDetail = "../../treatment_plants/getTreatmentPlant/?plantId=" + localStorage.plantId;
             $.getJSON(urlDetail, function (data) {
