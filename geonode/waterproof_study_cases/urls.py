@@ -18,6 +18,10 @@ urlpatterns = [
     path('view/<int:idx>', views.view, name='edit-study-cases'),
     # Delete Study Cases
     path('delete/<int:idx>', api.delete, name='delete-study-cases'),
+     # Public Study Cases
+    path('public/<int:idx>', api.public, name='public-study-cases'),
+     # Private Study Cases
+    path('private/<int:idx>', api.private, name='private-study-cases'),
     
     # Report Study Cases
     path('report/<int:idx>', views.report, name='delete-study-cases'),

@@ -48,7 +48,7 @@ const interpolationType = {
 var mapLoader;
 $(document).ready(function() {
     $('#autoAdjustHeightF').css("height", "auto");
-    $('#cityLabel').text(localStorage.city+", "+localStorage.country);
+    $('#cityLabel').text(localStorage.city + ", " + localStorage.country);
     calculate_Personnel();
     calculate_Platform();
     loadIntakes();
@@ -513,7 +513,7 @@ $(document).ready(function() {
         }
         if ($('#period_analysis').val() != '' && $('#period_nbs').val() != '' && type && valid_edit && valid_investment && valid_period) {
 
-            analysis_currency = $("#analysis_currency option:selected").text()
+            analysis_currency = $("#analysis_currency option:selected").val()
             html = '<div class="row" id="currencys-panel"> <div class="col-md-10 currency-panel">Currency for the execution this analisys</div><div class="col-md-2 currency-panel currency-text">' + analysis_currency
             html += '</div><div class="col-md-12 currency-panel">The following exchange rates will be applied for the analysis.</div>'
             html += '<div class="custom-control col-md-4 currency-value">Currency</div>'
@@ -568,7 +568,7 @@ $(document).ready(function() {
                             period_nbs: $('#period_nbs').val(),
                             period_analysis: $('#period_analysis').val(),
                             analysis_nbs: $("#analysis_nbs option:selected").val(),
-                            analysis_currency: $("#analysis_currency option:selected").text(),
+                            analysis_currency: $("#analysis_currency option:selected").val(),
                             annual_investment: $('#annual_investment').val(),
                             rellocated_remainder: $("#rellocated_check").is(':checked'),
                             nbsactivities: '1' + JSON.stringify(nbsactivities),
@@ -626,7 +626,7 @@ $(document).ready(function() {
         }
         if ($('#period_analysis').val() != '' && $('#period_nbs').val() != '' && type && valid_edit && valid_investment && valid_period) {
 
-            analysis_currency = $("#analysis_currency option:selected").text()
+            analysis_currency = $("#analysis_currency option:selected").val()
             html = '<div class="row" id="currencys-panel"> <div class="col-md-10 currency-panel">Currency for the execution this analisys</div><div class="col-md-2 currency-panel currency-text">' + analysis_currency
             html += '</div><div class="col-md-12 currency-panel">The following exchange rates will be applied for the analysis.</div>'
             html += '<div class="custom-control col-md-4 currency-value">Currency</div>'
@@ -683,7 +683,7 @@ $(document).ready(function() {
                             period_nbs: $('#period_nbs').val(),
                             period_analysis: $('#period_analysis').val(),
                             analysis_nbs: $("#analysis_nbs option:selected").val(),
-                            analysis_currency: $("#analysis_currency option:selected").text(),
+                            analysis_currency: $("#analysis_currency option:selected").val(),
                             annual_investment: $('#annual_investment').val(),
                             rellocated_remainder: $("#rellocated_check").is(':checked'),
                             nbsactivities: '1' + JSON.stringify(nbsactivities),
