@@ -260,7 +260,7 @@
                                                 <div class="col-md-6">
                                                     <label>{% trans "Number of years for time series  (10-100) Year" %} <span
                                                         class="text-danger-wp">(*)</span> </label>
-                                                    <input type="number" class="form-control justify-number" id="numberYearsInterpolationValue">
+                                                    <input type="number"  min="10" max="100" maxlength="3" onKeyUp="if(this.value>100){this.value='100';}else if(this.value<10){this.value='10';}" class="form-control justify-number" id="numberYearsInterpolationValue">
                                                 </div>
                                             </div>
                                         </div>
@@ -277,7 +277,10 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <button type="button" class="btn btn-primary" id="intakeWECB">{% trans "Generate" %}</button>
+                                        <div>
+                                            <button type="button" class="btn btn-primary" id="intakeWECB">{% trans "Generate" %}</button>
+                                            <p>{% trans "Clic the generate button to create the table before proceeding" %}</p>
+                                        </div>
                                     </div>
                                     <!--Data analysis Results-->
                                     <div class="col-md-4">
@@ -309,7 +312,7 @@
                                         <p>{% trans "You can edit the table manually" %}</p>
                                         <div class="form-group">
                                             <label>{% trans "Number of years  (10-100) Year" %} <span class="text-danger-wp">(*)</span> </label>
-                                            <input type="number" class="form-control justify-number" id="intakeNIYMI">
+                                            <input type="number"  min="10" max="100" maxlength="3" onKeyUp="if(this.value>100){this.value='100';}else if(this.value<10){this.value='10';}" class="form-control justify-number" id="intakeNIYMI">
                                         </div>
                                         <button type="button" class="btn btn-primary" id="intakeNIBYMI">{% trans "Generate" %}</button>
                                     </div>
