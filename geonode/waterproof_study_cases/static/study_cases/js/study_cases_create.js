@@ -48,7 +48,7 @@ const interpolationType = {
 var mapLoader;
 $(document).ready(function() {
     $('#autoAdjustHeightF').css("height", "auto");
-    $('#cityLabel').text(localStorage.city);
+    $('#cityLabel').text(localStorage.city + ", " + localStorage.country);
     calculate_Personnel();
     calculate_Platform();
     loadIntakes();
@@ -179,36 +179,41 @@ $(document).ready(function() {
     $('#add_wi').click(function() {
         text = $("#select_custom option:selected").text();
         value = $("#select_custom option:selected").val();
-        $('#select_custom option:selected').remove();
-        var action = "<td><a class='btn btn-danger'><span class='glyphicon glyphicon-trash' aria-hidden='true'></span></a></td>";
-        $.get("../../study_cases/intakebyid/" + value, function(data) {
-            $.each(data, function(index, intake) {
-                var name = "<td>" + intake.name + "</td>";
-                var description = "<td>" + intake.description + "</td>";
-                var name_source = "<td>" + intake.water_source_name + "</td>";
-                var markup = "<tr id='custom-" + value + "'>" + name + description + name_source + action + "</tr>";
-                $("#custom_table").find('tbody').append(markup);
-            });
+        if (value) {
+            $('#select_custom option:selected').remove();
+            var action = "<td><a class='btn btn-danger btn-right'><span class='glyphicon glyphicon-trash' aria-hidden='true'></span></a></td>";
+            $.get("../../study_cases/intakebyid/" + value, function(data) {
+                $.each(data, function(index, intake) {
+                    var name = "<td>" + intake.name + "</td>";
+                    var description = "<td>" + intake.description + "</td>";
+                    var name_source = "<td>" + intake.water_source_name + "</td>";
+                    var markup = "<tr id='custom-" + value + "'>" + name + description + name_source + action + "</tr>";
+                    $("#custom_table").find('tbody').append(markup);
+                });
 
-            $('#autoAdjustHeightF').css("height", "auto");
-        });
+                $('#autoAdjustHeightF').css("height", "auto");
+            });
+        }
+
 
     });
 
     $('#add_ptap').click(function() {
         text = $("#select_ptap option:selected").text();
         value = $("#select_ptap option:selected").val();
-        $('#select_ptap option:selected').remove();
-        var action = "<td><a class='btn btn-danger'><span class='glyphicon glyphicon-trash' aria-hidden='true'></span></a></td>";
-        $.get("../../study_cases/ptapbyid/" + value, function(data) {
-            $.each(data, function(index, ptap) {
-                var name = "<td>" + ptap.plant_name + "</td>";
-                var description = "<td>" + ptap.plant_description + "</td>";
-                var markup = "<tr id='ptap-" + value + "'>" + name + description + action + "</tr>";
-                $("#ptap_table").find('tbody').append(markup);
+        if (value) {
+            $('#select_ptap option:selected').remove();
+            var action = "<td><a class='btn btn-danger btn-right'><span class='glyphicon glyphicon-trash' aria-hidden='true'></span></a></td>";
+            $.get("../../study_cases/ptapbyid/" + value, function(data) {
+                $.each(data, function(index, ptap) {
+                    var name = "<td>" + ptap.plant_name + "</td>";
+                    var description = "<td>" + ptap.plant_description + "</td>";
+                    var markup = "<tr id='ptap-" + value + "'>" + name + description + action + "</tr>";
+                    $("#ptap_table").find('tbody').append(markup);
+                });
             });
-        });
-        $('#autoAdjustHeightF').css("height", "auto");
+            $('#autoAdjustHeightF').css("height", "auto");
+        }
     });
 
 
@@ -292,11 +297,12 @@ $(document).ready(function() {
     });
 
     $('#step2NextBtn').click(function() {
+        console.log($('#id_cm').val(), )
         $.post("../../study_cases/save/", {
             id_study_case: id_study_case,
             carbon_market: $("#cb_check").is(':checked'),
             carbon_market_value: $('#id_cm').val(),
-            carbon_market_currency: $("#cm_select option:selected").text()
+            carbon_market_currency: $("#cm_select option:selected").val()
         }, function(data) {
             $('#smartwizard').smartWizard("next");
             $('#autoAdjustHeightF').css("height", "auto");
@@ -429,7 +435,7 @@ $(document).ready(function() {
                 contracts: $('#contracts').val(),
                 others: $('#others').val(),
                 total_platform: $('#total_platform').val(),
-                financial_currency: $("#financial_currency option:selected").text()
+                financial_currency: $("#financial_currency option:selected").val()
             }, function(data) {
                 $('#smartwizard').smartWizard("next");
                 $('#autoAdjustHeightF').css("height", "auto");
@@ -507,7 +513,7 @@ $(document).ready(function() {
         }
         if ($('#period_analysis').val() != '' && $('#period_nbs').val() != '' && type && valid_edit && valid_investment && valid_period) {
 
-            analysis_currency = $("#analysis_currency option:selected").text()
+            analysis_currency = $("#analysis_currency option:selected").val()
             html = '<div class="row" id="currencys-panel"> <div class="col-md-10 currency-panel">Currency for the execution this analisys</div><div class="col-md-2 currency-panel currency-text">' + analysis_currency
             html += '</div><div class="col-md-12 currency-panel">The following exchange rates will be applied for the analysis.</div>'
             html += '<div class="custom-control col-md-4 currency-value">Currency</div>'
@@ -562,7 +568,7 @@ $(document).ready(function() {
                             period_nbs: $('#period_nbs').val(),
                             period_analysis: $('#period_analysis').val(),
                             analysis_nbs: $("#analysis_nbs option:selected").val(),
-                            analysis_currency: $("#analysis_currency option:selected").text(),
+                            analysis_currency: $("#analysis_currency option:selected").val(),
                             annual_investment: $('#annual_investment').val(),
                             rellocated_remainder: $("#rellocated_check").is(':checked'),
                             nbsactivities: '1' + JSON.stringify(nbsactivities),
@@ -620,7 +626,7 @@ $(document).ready(function() {
         }
         if ($('#period_analysis').val() != '' && $('#period_nbs').val() != '' && type && valid_edit && valid_investment && valid_period) {
 
-            analysis_currency = $("#analysis_currency option:selected").text()
+            analysis_currency = $("#analysis_currency option:selected").val()
             html = '<div class="row" id="currencys-panel"> <div class="col-md-10 currency-panel">Currency for the execution this analisys</div><div class="col-md-2 currency-panel currency-text">' + analysis_currency
             html += '</div><div class="col-md-12 currency-panel">The following exchange rates will be applied for the analysis.</div>'
             html += '<div class="custom-control col-md-4 currency-value">Currency</div>'
@@ -677,7 +683,7 @@ $(document).ready(function() {
                             period_nbs: $('#period_nbs').val(),
                             period_analysis: $('#period_analysis').val(),
                             analysis_nbs: $("#analysis_nbs option:selected").val(),
-                            analysis_currency: $("#analysis_currency option:selected").text(),
+                            analysis_currency: $("#analysis_currency option:selected").val(),
                             annual_investment: $('#annual_investment').val(),
                             rellocated_remainder: $("#rellocated_check").is(':checked'),
                             nbsactivities: '1' + JSON.stringify(nbsactivities),
@@ -1082,7 +1088,7 @@ $(document).ready(function() {
                 content += '<td id="lucode_' + id_intake + '_' + bio.id + '">' + bio.lucode + '</td>'
                 $.each(bio, function(key, v) {
                     if (key != 'lucode' && key != 'default' && key != 'lulc_desc' && key != 'description' && key != 'user_id' && key != 'intake_id' && key != 'study_case_id' && key != 'id' && key != 'macro_region' && key != 'kc') {
-                        content += '<td id="' + key + '_' + id_intake + '_' + bio.id + '"><input class="text-number" type="number" value="' + v + '"/></td>'
+                        content += '<td id="' + key + '_' + id_intake + '_' + bio.id + '"><input class="text-number" step="0.000001" oninput="validity.valid||(value=\'\');" type="number" value="' + v + '"/></td>'
                     }
                 });
                 content += '</tr>'
