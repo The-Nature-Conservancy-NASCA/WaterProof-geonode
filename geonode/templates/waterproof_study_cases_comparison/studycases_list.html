@@ -27,15 +27,7 @@
             <p><b>{% trans "Selected City" %} :</b> <span id="cityLabel">{{city}}</span></p>
             <p><b>{% trans "Region" %} :</b> <span id="regionLabel">{{region.name}}</span></p>
             <p><b>{% trans "Currency" %}:</b><span id="currencyLabel">({{currency.code}}) - {{currency.name}}</span></p>
-            <div>
-                {% if user.is_authenticated and not READ_ONLY_MODE %}
-                <a href="create/" id="createUrl" textColor="red" style="outline-color: dimgrey;">{% trans "new_study_case" %}</a>
-                {% else %}
-                <a id="createUrlDisabled">{% trans "new_study_case" %}</a>
-                <h6>{% trans "You must be a registered user to create a new Case Study*" %}</h6>
-                {% endif %}
-        
-            </div>
+            <p><b>{% trans "Show all cities" %}:</b><a class="btn btn-primary" id="showCities"><span class="glyphicon glyphicon-filter" aria-hidden="true"></span></a></p>
         </div>
         <div class="col-md-8">
             <div id="mapidcuenca"></div>

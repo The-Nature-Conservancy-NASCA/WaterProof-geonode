@@ -2,21 +2,11 @@
 <h1>{% trans "Cases Study" %}</h1>
 
 {% block extra_head %}
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
-<link rel="stylesheet" href="http://xguaita.github.io/Leaflet.MapCenterCoord/dist/L.Control.MapCenterCoord.min.css" />
-<link rel="stylesheet" href="https://photon.komoot.io/static/leaflet.photon/leaflet.photon.css">
-</link>
-
-<script>
-    var intakePolygons = [];
-    SEARCH_CITY_API_URL = '{{ SEARCH_CITY_API_URL }}';
-    SEARCH_COUNTRY_API_URL = '{{ SEARCH_COUNTRY_API_URL }}';
-</script>
 
 {% endblock %} {% block body_outer %}
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_nbs_ca/css/dataTables.bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_study_cases_comparison/css/study_cases.css">
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_study_cases_comparison/css/parallel_chart.css">
 <div class="header-waterproof">
     <div>
         <h1>{% trans "Case studies comparison" %}</h1>
@@ -58,11 +48,22 @@
             </div>
 
         </div>
+        <figure class="highcharts-figure">
+            <div id="container"></div>
+            <p class="highcharts-description">
+                
+            </p>
+        </figure>
     </div>
 </div>
 {% block body %}{% endblock body %} {% block sidebar %}{% endblock sidebar %} {% endblock body_outer %} {% block extra_script %}
 <script src="{{ STATIC_URL }}geonode/js/datatables/jquery.dataTables.min.js"></script>
 <script src="{{ STATIC_URL }}geonode/js/datatables/dataTables.bootstrap.min.js"></script>
+<!-- Highcharts -->
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/data.js"></script>
+<script src="https://code.highcharts.com/modules/parallel-coordinates.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
 <script src="{{ STATIC_URL }}waterproof_study_cases_comparison/js/studycases_doAnalysis.js"></script>
 <script src=" https://cdn.jsdelivr.net/npm/sweetalert2@10 "></script>
 {% endblock %}
