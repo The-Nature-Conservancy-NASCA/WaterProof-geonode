@@ -304,7 +304,7 @@ $(document).ready(function() {
         map.invalidateSize();
     });
     $('#smartwizard').smartWizard({
-        selected: 0,
+        selected: 2,
         theme: 'dots',
         enableURLhash: false,
         autoAdjustHeight: true,

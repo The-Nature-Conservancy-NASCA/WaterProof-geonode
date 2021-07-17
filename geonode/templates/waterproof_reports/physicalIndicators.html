@@ -14,8 +14,8 @@
 <div class="header-waterproof">   
     <div class="page-header">
         <h1>{% trans "Physical Indicators" %}</h1>
-        
     </div>
+    <!--div id="FilterPhisicalIndicators"></div-->
     <br>
     <!--Begin Form-->
     <div>
@@ -81,22 +81,7 @@
                                 <th scope="col" class="small text-center vat" style="display: none;">{% trans "Time" %}</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            {% for investIndicators in Indicators %}
-                            <tr id="filas">
-                                <td class="small text-center vat" >{{investIndicators.intake.name}}</td>
-                                <td class="small text-center vat truncate" id="valor1">{{investIndicators.awy}}</td>
-                                <td class="small text-center vat" id="valor2">{{investIndicators.bf_m3}}</td>
-                                <!--td>{{intake.max_benefit_req_time}}</td-->
-                                <td class="small text-center vat" id="valor3">{{investIndicators.wsed_ton}}</td>
-                                <td class="small text-center vat" id="valor4">{{investIndicators.wn_kg}}</td>
-                                <td class="small text-center vat" id="valor5">{{investIndicators.wp_kg}}</td>
-                                <td class="small text-center vat" id="valor6">{{investIndicators.wc_ton}}</td>
-                                <td class="small text-center vat" style="display: none;">{{investIndicators.date}}</td>
-                                <td class="small text-center vat" style="display: none;">{{investIndicators.intake.city.name}}</td>
-                                <td class="small text-center vat" id="valor6" style="display: none;">{{investIndicators.time}}</td>
-                            </tr>
-                            {% endfor %}
+                        <tbody id="FilterPhisicalIndicators">
                         </tbody>
                     </table>
                 </div>
@@ -161,14 +146,41 @@
 
 <script type="text/javascript">
     console.log(localStorage.idStudyCase+" este es el caso de estudio")
-    var filterindicators = "25";
+
+        var filterindicators = localStorage.idStudyCase;
+        console.log("este es filter indicators "+filterindicators+typeof(filterindicators))
+        $('#FilterPhisicalIndicators').append(
+            `
+            {% for investIndicators in Indicators %}
+            {% if investIndicators.study_case.id == 228 %}
+                <tr id="filas">
+                    <td class="small text-center vat" >{{investIndicators.intake.name}} {{investIndicators.study_case.id}}</td>
+                    <td class="small text-center vat truncate" id="valor1">{{investIndicators.awy}}</td>
+                    <td class="small text-center vat" id="valor2">{{investIndicators.bf_m3}}</td>
+                    <!--td>{{intake.max_benefit_req_time}}</td-->
+                    <td class="small text-center vat" id="valor3">{{investIndicators.wsed_ton}}</td>
+                    <td class="small text-center vat" id="valor4">{{investIndicators.wn_kg}}</td>
+                    <td class="small text-center vat" id="valor5">{{investIndicators.wp_kg}}</td>
+                    <td class="small text-center vat" id="valor6">{{investIndicators.wc_ton}}</td>
+                    <td class="small text-center vat" style="display: none;">{{investIndicators.date}}</td>
+                    <td class="small text-center vat" style="display: none;">{{investIndicators.intake.city.name}}</td>
+                    <td class="small text-center vat" id="valor6" style="display: none;">{{investIndicators.time}}</td>
+                </tr>
+            {% endif %}
+            {% endfor %}
+            `
+        );
+
+    /*function Filter(){
+        
+    }*/
+
     //localStorage.idStudyCase
     var e = document.getElementById("selectIntake");
     var table = $('#example').DataTable({
         "order": [[ 7, "desc" ], [ 9, "desc" ], [ 0, "asc" ]],
         'dom': 'lrtip'
     });
-    
     console.log(table.rows())
     function show(){
        // a=document.querySelectorAll('#valor1').innerHTML
