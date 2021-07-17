@@ -429,38 +429,39 @@
          });
          */
          //load data when add an object in a diagram
-         editor.graph.addListener(mxEvent.ADD_CELLS, function(sender, evt) {
-             var selectedCell = evt.getProperty("cells");
-             var idvar = selectedCell[0].id;
- 
-             bandera = true;
-             try {
-                 if (selectedCell != undefined) {
-                     var varcost = [];
-                     varcost.push(
-                         `Q${idvar}`,
-                         `CSed${idvar}`,
-                         `CN${idvar}`,
-                         `CP${idvar}`,
-                         `WSed${idvar}`,
-                         `WN${idvar}`,
-                         `WP${idvar}`,
-                         `WSedRet${idvar}`,
-                         `WNRet${idvar}`,
-                         `WPRet${idvar}`
-                     );
-                     selectedCell[0].setAttribute('varcost', JSON.stringify(varcost));
- 
-                    if (selectedCell[0].dbreference != undefined){
-                        $.ajax({
-                            url: `/intake/loadProcess/${selectedCell[0].dbreference}`,
-                            success: function(result) {
-                                selectedCell[0].setAttribute("resultdb", result);
-                            }
-                        });
-                    }
- 
-                     $.ajax({
+        editor.graph.addListener(mxEvent.ADD_CELLS, function(sender, evt) {
+            var selectedCell = evt.getProperty("cells");
+            var idvar = selectedCell[0].id;
+
+            bandera = true;
+            try {
+                if (selectedCell != undefined) {
+                    var varcost = [];
+                    varcost.push(
+                        `Q${idvar}`,
+                        `CSed${idvar}`,
+                        `CN${idvar}`,
+                        `CP${idvar}`,
+                        `WSed${idvar}`,
+                        `WN${idvar}`,
+                        `WP${idvar}`,
+                        `WSedRet${idvar}`,
+                        `WNRet${idvar}`,
+                        `WPRet${idvar}`
+                    );
+                    selectedCell[0].setAttribute('varcost', JSON.stringify(varcost));
+
+                if (selectedCell[0].dbreference != undefined){
+                    $.ajax({
+                        url: `/intake/loadProcess/${selectedCell[0].dbreference}`,
+                        success: function(result) {
+                            selectedCell[0].setAttribute("resultdb", result);
+                        }
+                    });
+                }
+
+                if (selectedCell[0].funcionreference != undefined){
+                    $.ajax({
                         url: `/intake/loadFunctionBySymbol/${selectedCell[0].funcionreference}`,
                         success: function(result) {
                             var id = selectedCell[0].id;                            
@@ -472,31 +473,34 @@
                                     function_value = function_value.replaceAll(regex, v + id);
                                 })
                                 r.fields.function_value = function_value;
-                            })
-                            
+                                r.fields['global_multiplier_factorCalculator'] = localStorage.getItem('factor') == null ? '0.38' : localStorage.getItem('factor');
+                                r.fields['currencyCost'] = '233';
+                                r.fields['currencyCostName'] = '(USD) - United States';
+                            })                        
                             selectedCell[0].setAttribute("funcost", JSON.stringify(jsonResult));
                         }
-                     });
-                 }
-             } catch (error) {
-                 console.log(error);
-             } 
-         });
+                    });
+                }
+                }
+            } catch (error) {
+                console.log(error);
+            } 
+        });
+
+        //Load data from figure to html
+        editor.graph.addListener(mxEvent.CLICK, function(sender, evt) {
+        selectedCell = evt.getProperty('cell');
+        // Clear Inputs
+        if (selectedCell != undefined) { addData(selectedCell); } else { clearDataHtml(); }
+        });
  
-         //Load data from figure to html
-         editor.graph.addListener(mxEvent.CLICK, function(sender, evt) {
-            selectedCell = evt.getProperty('cell');
-            // Clear Inputs
-            if (selectedCell != undefined) { addData(selectedCell); } else { clearDataHtml(); }
-         });
- 
-         //Button for valide graph
-         $('#saveGraph').click(function() {
-             validateGraphIntake();
-         });
+        //Button for valide graph
+        $('#saveGraph').click(function() {
+            validateGraphIntake();
+        });
  
  
-         function validateGraphIntake() {
+        function validateGraphIntake() {
             console.log("validateGraphIntake");
             graphData = [];
             connection = [];
@@ -593,15 +597,7 @@
                          'function_description': $('#costFuntionDescription').val(),
                          'global_multiplier_factorCalculator': $('#global_multiplier_factorCalculator').val(),
                          'currencyCost': $('#currencyCost option:selected').val(),
-                         'currencyCostName': $('#currencyCost option:selected').text(),
-                         'logical': [{
-                             'condition_1': "",
-                             'ecuation_1': "",
-                             'condition_2': "",
-                             'ecuation_2': "",
-                             'condition_3': "",
-                             'ecuation_3': "",
-                         }],
+                         'currencyCostName': $('#currencyCost option:selected').text(),                         
                      }
                  });
  
@@ -614,15 +610,7 @@
                      'function_description': $('#costFuntionDescription').val(),
                      'global_multiplier_factorCalculator': $('#global_multiplier_factorCalculator').val(),
                      'currencyCost': $('#currencyCost option:selected').val(),
-                     'currencyCostName': $('#currencyCost option:selected').text(),
-                     'logical': [{
-                         'condition_1': "",
-                         'ecuation_1': "",
-                         'condition_2': "",
-                         'ecuation_2': "",
-                         'condition_3': "",
-                         'ecuation_3': ""
-                     }],
+                     'currencyCostName': $('#currencyCost option:selected').text(),                     
                  }
  
                  temp.logical = JSON.stringify(temp.logical);
