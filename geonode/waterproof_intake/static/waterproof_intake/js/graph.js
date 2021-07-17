@@ -474,8 +474,8 @@
                                 })
                                 r.fields.function_value = function_value;
                                 r.fields['global_multiplier_factorCalculator'] = localStorage.getItem('factor') == null ? '0.38' : localStorage.getItem('factor');
-                                r.fields['currencyCost'] = '233';
-                                r.fields['currencyCostName'] = '(USD) - United States';
+                                r.fields['currencyCost'] = defaultCurrencyId;
+                                r.fields['currencyCostName'] = defaultCurrentyName;
                             })                        
                             selectedCell[0].setAttribute("funcost", JSON.stringify(jsonResult));
                         }

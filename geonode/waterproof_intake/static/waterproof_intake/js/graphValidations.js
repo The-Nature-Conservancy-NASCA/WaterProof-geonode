@@ -85,6 +85,9 @@ function updateStyleLine(graph, cell, type) {
                             function_value = function_value.replaceAll(regex, v + cell.id);                            
                         })
                         r.fields.function_value = function_value;
+                        r.fields['global_multiplier_factorCalculator'] = localStorage.getItem('factor') == null ? '0.38' : localStorage.getItem('factor');
+                        r.fields['currencyCost'] = defaultCurrencyId;
+                        r.fields['currencyCostName'] = defaultCurrentyName;
                     })
                     
                     let value = {
