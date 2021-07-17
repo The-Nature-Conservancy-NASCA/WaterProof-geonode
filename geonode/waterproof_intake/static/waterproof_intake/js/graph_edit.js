@@ -466,18 +466,19 @@ function onInit(editor) {
                 $.ajax({
                     url: `/intake/loadFunctionBySymbol/${selectedCell[0].funcionreference}`,
                     success: function(result) {
-                        var id = selectedCell[0].id;
-                        
+                        var id = selectedCell[0].id;                            
                         var jsonResult = JSON.parse(result);
                         jsonResult.forEach(r =>{
                             var function_value = r.fields.function_value;
                             costVars.forEach(v =>{
                                 let regex = new RegExp(v + '\\b', 'g');
-                                function_value = function_value.replaceAll(regex, v + id);                                
+                                function_value = function_value.replaceAll(regex, v + id);
                             })
                             r.fields.function_value = function_value;
-                        })
-                        
+                            r.fields['global_multiplier_factorCalculator'] = localStorage.getItem('factor') == null ? '0.38' : localStorage.getItem('factor');
+                            r.fields['currencyCost'] = '233';
+                            r.fields['currencyCostName'] = '(USD) - United States';
+                        })                        
                         selectedCell[0].setAttribute("funcost", JSON.stringify(jsonResult));
                     }
                 });
