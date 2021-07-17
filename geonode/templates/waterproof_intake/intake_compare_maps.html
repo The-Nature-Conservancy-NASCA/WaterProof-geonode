@@ -22,11 +22,19 @@
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_nbs_ca/css/waterproof_nbs_ca.css">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
 <div class="header-waterproof">    
-  <div class="row">
-      <div class="col-md-8">
-          <div id="map"/>
-      </div>
-  </div>
+    <div class="row">
+        <div class="col-md-8">
+            <div id="map"/>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div id="map-left"/>
+        </div>
+        <div class="col-md-6">
+            <div id="map-right"/>
+        </div>
+    </div>
 </div>
 
 
@@ -46,14 +54,16 @@
 
 <script type=" text/javascript ">
     var map = L.map('map').setView([2.2, -75.8], 10);
+    map.createPane('left');
+    map.createPane('right');
 
     var osmLayer = L.tileLayer('https://{s}.tile.osm.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap<\/a> contributors'
     }).addTo(map);
 
-    var stamenLayer = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/watercolor/{z}/{x}/{y}.png', {
+    var stamenLayer = L.tileLayer('https://opentopomap.org/{z}/{x}/{y}.png', {
         attribution:
-            'Map tiles by <a href="https://stamen.com">Stamen Design<\/a>, ' +
+            'Map tiles by <a href="https://opentopomap.org">Open Topomapn<\/a>, ' +
             '<a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0<\/a> &mdash; ' +
             'Map data {attribution.OpenStreetMap}',
         minZoom: 1,
@@ -92,8 +102,10 @@
         "rasterLyr2": rasterLyr2, 
     };
 
-    L.control.sideBySide([stamenLayer,rasterLyr1], [osmLayer,rasterLyr2]).addTo(map);    
+    L.control.sideBySide(rasterLyr1, rasterLyr2).addTo(map);    
     L.control.layers(baseLayers, overlays).addTo(map);
+
+
 
 
 </script>
