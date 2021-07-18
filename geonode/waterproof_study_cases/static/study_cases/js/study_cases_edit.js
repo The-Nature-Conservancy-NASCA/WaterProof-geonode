@@ -50,11 +50,13 @@ var mapLoader;
 $(document).ready(function() {
     $('#autoAdjustHeightF').css("height", "auto");
     $('#cityLabel').text(localStorage.city+", "+localStorage.country);
+    var output = document.getElementById('MathPreview');
+    var button = document.getElementById('btnValidatePyExp');
     calculate_Personnel();
     calculate_Platform();
-    loadIntakes()
-    loadPtaps()
-    loadNBS()
+    loadIntakes();
+    loadPtaps();
+    loadNBS();
 
     $('#custom').click(function() {
         if ($('#ptap_table').find('tbody > tr').length > 0) {
@@ -216,11 +218,11 @@ $(document).ready(function() {
         valid_ptaps = true;
         valid_intakes = true;
         $('#custom_table').find('tbody > tr').each(function(index, tr) {
-            id = tr.id.replace('custom-', '')
-            intakes.push(id)
+            id = tr.id.replace('custom-', '');
+            intakes.push(id);
         });
         if (intakes.length <= 0) {
-            valid_intakes = false
+            valid_intakes = false;
         }
         var type = $("input[name='type']:checked").val();
         if (type == "1") {
@@ -702,7 +704,7 @@ $(document).ready(function() {
 
 
     $('#custom_table').on('click', 'a', function() {
-        var row = $(this).closest("tr")
+        var row = $(this).closest("tr");
         var tds = row.find("td");
         intake_name = "";
         $.each(tds, function(i) {
@@ -710,8 +712,8 @@ $(document).ready(function() {
                 intake_name = $(this).text();
             }
         });
-        option = intake_name
-        id = row.attr("id").replace('custom-', '')
+        option = intake_name;
+        id = row.attr("id").replace('custom-', '');
         $("#select_custom").append(new Option(option, id));
         row.remove();
 
@@ -1159,6 +1161,113 @@ $(document).ready(function() {
         });
         return deferred.promise();
     }
+
+    $("#add_cost").click(function(){
+        setVarCost();
+    });
+
+    function setVarCost() {
+        $('#CalculatorModalLabel').text('Modify Cost ');
+        $('#VarCostListGroup div').remove();
+        let listIntakes = [];
+        $('#custom_table').find('tbody > tr').each(function(index, tr) {
+            id = tr.id.replace('custom-', '');
+            listIntakes.push({id: id, name: tr.cells[0].innerText});
+        });
+
+        var costVars = ['Q','CSed','CN','CP','WSed','WN','WP','WSedRet','WNRet','WPRet'];
+        
+        for (const intake of listIntakes) {
+            var costlabel = "";
+            for (const iterator of costVars) {
+                costlabel += `<a value="${iterator}${intake.id}" class="list-group-item list-group-item-action" style="padding-top: 4px;padding-bottom: 4px;">${iterator}${intake.id}</a>`
+            }
+            $('#VarCostListGroup').append(`
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#VarCostListGroup" href="#VarCostListGroup_${intake.id}">${intake.id} <label> ${intake.name} </label></a>
+                        </h4>
+                    </div>
+                    <div id="VarCostListGroup_${intake.id}" class="panel-collapse collapse">
+                        ${costlabel}
+                    </div>
+                </div>
+            `);
+        }
+    }
+
+    //Set var into calculator
+    $(document).on('click', '.list-group-item', function() {
+        var el = document.getElementById("python-expression");
+        typeInTextarea($(this).attr('value'),el);
+    });
+
+    function typeInTextarea(newText, el) {
+        const [start, end] = [el.selectionStart, el.selectionEnd];
+        el.setRangeText(newText, start, end, 'select');
+        el.focus();
+        document.getSelection().removeAllRanges();
+        el.selectionStart = start + newText.length;
+        el.selectionEnd = el.selectionStart;
+    }
+
+    $('#python-expression').on('keypress',function(evt) {
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        let symbols = [40,41,42,43,45,60,61,62,106,107,109,111];
+        if (charCode != 46 && charCode > 31 && (charCode < 48 || charCode > 57))
+            return (symbols.indexOf(charCode) >= 0);
+
+        return true;
+    })
+
+    $('#btnValidatePyExp').click(function(){
+        validatePyExpression();
+    });
+
+    async function validatePyExpression(){
+        let pyExp = $('#python-expression').val().trim();
+        if (pyExp.length > 0){
+            pyExpEncode = encodeURIComponent(pyExp);
+            localApi = location.protocol + "//" + location.host;
+            let url = localApi + "/intake/validatePyExpression?expression=" + pyExpEncode;
+            let response = await fetch(url); 
+            let result = await response.json();
+            if (result){
+                is_valid = result.valid;
+                latex = result.latex
+                console.log(result.latex);
+                typesetInput(result.latex);
+                if (is_valid){
+                    $("#python-expression").removeClass("invalid_expression");
+                    $("#python-expression").addClass("valid_expression");
+                }else{
+                    $("#python-expression").addClass("invalid_expression");
+                    $("#python-expression").removeClass("valid_expression");
+                }
+            }
+        }
+    }
+
+    function typesetInput(expression) {
+        button.disabled = true;
+        output.innerHTML = expression;
+        MathJax.texReset();
+        MathJax.typesetClear();
+        MathJax.typesetPromise([output]).catch(function (err) {
+          output.innerHTML = '';
+          output.appendChild(document.createTextNode(err.message));
+          console.error(err);
+        }).then(function () {
+          button.disabled = false;
+        });
+    }
+
+    //KeyBoard calculator funcion cost
+    $('button[name=mathKeyBoard]').click(function() {
+        var el = document.getElementById("python-expression");
+        typeInTextarea($(this).attr('value'),el);
+    });
 
 
 });

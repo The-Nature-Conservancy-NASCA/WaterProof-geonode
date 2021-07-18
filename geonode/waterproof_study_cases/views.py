@@ -137,7 +137,8 @@ def edit(request, idx):
             listIntakesStudy = study_case.intakes.all()
             listPTAPStudy = study_case.ptaps.all()
             scenarios = Climate_value.objects.all()
-            currencys = Countries.objects.values('currency').distinct().order_by('currency')
+            
+            currencys = Countries.objects.values('currency','name').exclude(currency__exact='').order_by('currency')
             for portfolio in listPortfolios:
                 defaultValue = False
                 for portfolioStudy in listPortfoliosStudy:
@@ -198,7 +199,7 @@ def clone(request, idx):
             portfolios = []
             intakes = []
             ptaps = []
-            currencys = Countries.objects.values('currency').distinct().order_by('currency')
+            currencys = Countries.objects.values('currency', 'name').distinct().order_by('currency')
             listPortfoliosStudy = study_case.portfolios.all()
             listIntakesStudy = study_case.intakes.all()
             listPTAPStudy = study_case.ptaps.all()
