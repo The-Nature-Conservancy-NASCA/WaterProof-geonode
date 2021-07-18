@@ -184,7 +184,7 @@ function onInit(editor) {
         });
     } else {
         //esto va para edit :v
-        xmlDoc = mxUtils.parseXml(xmlGraph)
+        xmlDoc = mxUtils.parseXml(xmlGraph);
         var dec = new mxCodec(xmlDoc);
         dec.decode(xmlDoc.documentElement, editor.graph.getModel());
     }
@@ -669,11 +669,8 @@ function onInit(editor) {
             $('#global_multiplier_factorCalculator').val(funcostdb[selectedCostId].fields.global_multiplier_factorCalculator);
             setVarCost();
             let value = funcostdb[selectedCostId].fields.function_value;
-            console.log("valor de value es: "+value+typeof(value))
-            if (value == ""){
-                $('#python-expression').val();
-            }
-            else{
+            $('#python-expression').val();
+            if (value != ""){
                 $('#python-expression').val(value);
             }
             validatePyExpression();            
