@@ -93,6 +93,7 @@ function updateStyleLine(graph, cell, type) {
                     let resultDbObj = JSON.parse(result);
                     if (type.style == 'PIPELINE' || type.style == 'CHANNEL'){
                         resultDbObj[0].fields.predefined_transp_water_perc = '';
+                        enableBtnValidateCount++;
                         validateTransportedWater('');
                         //$('#aguaDiagram').val(''); 
                     }
@@ -188,8 +189,6 @@ function funcost(index) {
     });
 }
 
-
-
 function addData(element) {
     //add data in HTML for connectors
     if (typeof(element.value) == "string" && element.value.length > 0) {
@@ -200,7 +199,10 @@ function addData(element) {
         $('#titleCostFunSmall').attr("valueid", element.id);
         $('#titleCostFunSmall').text(`ID: ${element.id} - ${connectionsType[obj.connectorType].name}`);
         $('#idDiagram').val(element.id);
-        addData2HTML(dbfields, element)
+        if (element.style == 'PIPELINE' || element.style == 'CHANNEL'){
+            validateTransportedWater(dbfields[0].fields.predefined_transp_water_perc);            
+        }
+        addData2HTML(dbfields, element);        
         funcostdb = obj.funcost;
         for (let index = 0; index < funcostdb.length; index++) {
             funcost(index);
@@ -585,14 +587,18 @@ function deleteWithValidationsView(editor) {
 }
 
 function validateTransportedWater(value){
-
+    console.log("validateTransportedWater, value: " + value + " :: enableBtnValidateCount :: " + enableBtnValidateCount);
     if (value.length == 0){
         $('#aguaDiagram').addClass('alert-danger');
+        enableBtnValidateCount++;
         $('#saveGraph').prop('disabled', true);
         return false;
     }else{
         $('#aguaDiagram').removeClass('alert-danger');
-        $('#saveGraph').prop('disabled', false);
+        enableBtnValidateCount--;
+        if (enableBtnValidateCount <= 0){
+            $('#saveGraph').prop('disabled', false);
+        }        
         return true;
     }
 }
