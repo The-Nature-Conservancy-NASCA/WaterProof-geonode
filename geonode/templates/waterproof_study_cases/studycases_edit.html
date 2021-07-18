@@ -190,7 +190,7 @@
 
                                             <div class="row form-group">
                                                 <div class="col-md-2">
-                                                    <button type="button" class="btn btn-primary" id="add_cost">{% trans "add_cost_function" %}</button>
+                                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#CalculatorModal" id="add_cost">{% trans "add_cost_function" %}</button>
                                                 </div>
 
                                             </div>
@@ -626,6 +626,121 @@
     </form>
 </div>
 
+<!--Modal Calculator-->
+<div class="modal fade" id="CalculatorModal" tabindex="-1" aria-labelledby="CalculatorModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="CalculatorModalLabel"></h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="panel-group" id="VarCostListGroup" style="max-height: 480px; overflow-y: auto;"></div>
+                    </div>
+                    <div class="col-md-7">
+                        <div class="form-group">
+                            <label class="text-primary">Cost function name</label>
+                            <input id="costFunctionName" type="text" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label class="text-primary">Cost function description</label>
+                            <textarea id="costFuntionDescription" rows="3" class="form-control"></textarea>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <label class="text-primary">{% trans "Currency for definition of costs" %} </label>
+                                <select id="currencyCost" class="form-control" required>
+                                    {% for currency in currencys %}
+                                        {% if currency.currency == study_case.cm_currency %}
+                                            <option value='{{currency.currency}}' selected>{{currency.currency}} - {{currency.name}}</option>
+                                        {% else %}
+                                            <option value='{{currency.currency}}'>{{currency.currency}} - {{currency.name}}</option>
+                                        {% endif %}
+                                    {% endfor %}                                    
+                                </select>
+                            </div>
+                            <div class="col-xs-6">
+                                <label class="text-primary">{% trans "Multiplying factor for overrall cost" %} </label>
+                                <input type="text" value="1.00" id="global_multiplier_factorCalculator" class="form-control">
+                            </div>
+                        </div>                         
+                        <h5 class="text-primary keyboard-title">Syntax keyboard</h5>
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a href="#mathBasic_tab" data-toggle="tab">Basic</a></li>
+                            <li><a href="#mathAdvanced_tab" data-toggle="tab" >Advanced</a></li>
+                            <li><a href="#mathTrigonometry_tab" data-toggle="tab" >Trigonometry</a></li>
+                            <li><a href="#mathLogical_tab" data-toggle="tab" >Logical</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div id="mathBasic_tab" class="tab-pane fade in active">
+                                <div class="btn-group" role="group">
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="=">&#61</button>
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="+">&#43</button>
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="-">&#8722;</button>
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="*">&#215</button>
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="/">a/b</button>
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="^">a^b</button>
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="sqrt">&#8730</button>     
+                                </div>
+                            </div>
+                            
+                            <div id="mathAdvanced_tab" class="tab-pane fade in">
+                                <div class="btn-group" role="group">
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="pi">π</button>
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="e">e</button>
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="ln">ln</button>
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="log">\log</button>
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="_">a_b</button>
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="%">mod</button>
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="**">&#8731</button>
+                                </div>
+                            </div>
+                            <div id="mathTrigonometry_tab" class="tab-pane fade in">
+                                <div class="btn-group" role="group">
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="sin( )">sin</button>
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="cos( )">cos</button>
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="tan( )">tan</button>
+                                </div>
+                            </div>
+                            <div id="mathLogical_tab" class="tab-pane fade in">
+                                <div class="btn-group" role="group">
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value=">">></button>
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value=">=">\ge</button>
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="<"><</button>
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="<=">\le</button>
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="!=">\ne</button>
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="and">and</button>
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="or">or</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div id="mathNatural" class="tab-pane fade in active">
+                            <textarea id="python-expression" class="python-expression" autocapitalize="off" autocomplete="off"
+                                    autocorrect="off" spellcheck="false" x-palm-disable-ste-all="true"></textarea>
+                            <button id="btnValidatePyExp">{% trans "Validate" %} </button>
+                            <div id="MathPreview" class="preview"></div>
+                        </div>
+                        <div id="mathLogical" class="tab-pane fade"></div>
+                    </div>
+                </div>
+                <br>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{% trans "Close" %}</button>
+                    <button type="button" class="btn btn-primary" id="saveAndValideCost">{% trans "Add cost" %}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!--HelpStep1-->
 <div class="modal fade" id="HelpStep1" tabindex="-1" aria-labelledby="HelpModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
@@ -896,6 +1011,8 @@
     GRAY_BASEMAP_URL = "{{ GRAY_BASEMAP_URL }} ";
     GEOSERVER_WMS = "{{ GEOSERVER_WMS }}";
     HYDRO_NETWORK_LYR = "{{ HYDRO_NETWORK_LYR }}";
+    
+
 </script>
 <script src="{{ STATIC_URL }}study_cases/js/study_cases_edit.js"></script>
 <script src="{{ STATIC_URL }}study_cases/js/graph.js"></script>
@@ -903,6 +1020,7 @@
 <script src="{{ STATIC_URL }}geonode/js/mxgraph/mxClient.js"></script>
 <script src="{{ STATIC_URL }}geonode/js/mxgraph/examples/editors/js/app.js"></script>
 <script src="{{ STATIC_URL }}geonode/js/mxgraph/examples/editors/js/app.js"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 <script src="{{ STATIC_URL }}study_cases/mathquill/mathquill.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min.js"
