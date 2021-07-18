@@ -16,6 +16,7 @@ var connection = [];
 var funcostdb = [];
 var bandera = true;
 var banderaValideGraph = 0;
+var enableBtnValidateCount = 0;  // count the number of default inconsistences in diagram. if (0) enabled else disabled
 
 var costVars = ['WSedRet','WPRet','WNRet','WSed','WP','WN','CSed','CP','CN','Q'];
 
@@ -182,6 +183,8 @@ function onInit(editor) {
                 river.setAttribute('resultdb', result);
             }
         });
+        enableBtnValidateCount++;
+        $('#saveGraph').prop('disabled', true);
     } else {
         //esto va para edit :v
         xmlDoc = mxUtils.parseXml(xmlGraph);
@@ -374,10 +377,8 @@ function onInit(editor) {
     $(document).ready(function() {
 
         var output = document.getElementById('MathPreview');
-        //console.log('MathPreview')
         var button = document.getElementById('btnValidatePyExp');
-        console.log("tipo de valor"+typeof(output))
-
+        
         function typesetInput(expression) {
             button.disabled = true;
             output.innerHTML = expression;
@@ -476,8 +477,8 @@ function onInit(editor) {
                             })
                             r.fields.function_value = function_value;
                             r.fields['global_multiplier_factorCalculator'] = localStorage.getItem('factor') == null ? '0.38' : localStorage.getItem('factor');
-                            r.fields['currencyCost'] = '233';
-                            r.fields['currencyCostName'] = '(USD) - United States';
+                            r.fields['currencyCost'] = defaultCurrencyId;
+                            r.fields['currencyCostName'] = defaultCurrentyName;
                         })                        
                         selectedCell[0].setAttribute("funcost", JSON.stringify(jsonResult));
                     }
