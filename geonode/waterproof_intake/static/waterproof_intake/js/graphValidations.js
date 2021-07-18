@@ -89,17 +89,24 @@ function updateStyleLine(graph, cell, type) {
                         r.fields['currencyCost'] = defaultCurrencyId;
                         r.fields['currencyCostName'] = defaultCurrentyName;
                     })
+
+                    let resultDbObj = JSON.parse(result);
+                    if (type.style == 'PIPELINE' || type.style == 'CHANNEL'){
+                        resultDbObj[0].fields.predefined_transp_water_perc = '';
+                        validateTransportedWater('');
+                        //$('#aguaDiagram').val(''); 
+                    }
                     
-                    let value = {
+                    let valueObj = {
                         "connectorType": type.id,
                         "varcost": varcost,
                         "external": external,
-                        'resultdb': JSON.parse(result),
+                        'resultdb': resultDbObj,
                         'name': type.name,
                         "funcost": jsonResult
                     };
 
-                    value = JSON.stringify(value);
+                    value = JSON.stringify(valueObj);
                     cell.setValue(value);
                     graph.model.setStyle(cell, type.style);
                     //add data in HTML for connectors
@@ -109,8 +116,10 @@ function updateStyleLine(graph, cell, type) {
                             let dbfields = obj.resultdb;
                             label = connectionsType[obj.connectorType].name;
                             $('#titleDiagram').text(connectionsType[obj.connectorType].name);
-                            $('#titleCostFunSmall').attr("valueid", element.id);
+                            $('#titleCostFunSmall').attr("valueid", label);
                             $('#titleCostFunSmall').text(`ID: ${cell.id} - ${connectionsType[obj.connectorType].name}`);
+                            
+
                             addData2HTML(dbfields, cell)
                         } catch (e) {
                             label = "";
@@ -233,7 +242,8 @@ function addData2HTML(resultdb, cell) {
     $('#funcostgenerate div').remove();
     $('#funcostgenerate').empty();
     // Add Value to Panel Information Right on HTML
-    $('#aguaDiagram').val(resultdb[0].fields.predefined_transp_water_perc);
+    $('#aguaDiagram').val(resultdb[0].fields.predefined_transp_water_perc); 
+    
     $('#sedimentosDiagram').val(resultdb[0].fields.predefined_sediment_perc);
     $('#nitrogenoDiagram').val(resultdb[0].fields.predefined_nitrogen_perc);
     $('#fosforoDiagram').val(resultdb[0].fields.predefined_phosphorus_perc);
@@ -335,6 +345,11 @@ var validateinput = function(e) {
     let minRange = e.getAttribute('min');
     let maxRange = e.getAttribute('max');
     var t = e.value;
+    if (e.id == "aguaDiagram"){
+        if (!validateTransportedWater(t)){
+            return;
+        }
+    }
     e.value = (t.indexOf(".") >= 0) ? (t.substr(0, t.indexOf(".")) + t.substr(t.indexOf("."), 3)) : t;
     if (parseFloat(e.value) < parseFloat(e.getAttribute('min'))) {
         let texttitle = gettext("The value must be between %s and %s");
@@ -449,8 +464,10 @@ function mensajeAlert(fin) {
 
 function validations(validate, editor) {
 
-    if (validationsCsinfraExternal(validate) == true || validationsNodeAlone(editor) == true || validationInputTransportedWater(editor) == true) {
-        return true
+    if (validationsCsinfraExternal(validate) || 
+        validationsNodeAlone(editor) || 
+        validationInputTransportedWater(editor)) {
+        return true;
     } else {
         if (banderaValideGraph != 0) {
             Swal.fire({
@@ -564,5 +581,18 @@ function deleteWithValidationsView(editor) {
         if (cells2Remove.length >= 0) {
             mxUtils.alert(`Isn't Editable`);
         }
+    }
+}
+
+function validateTransportedWater(value){
+
+    if (value.length == 0){
+        $('#aguaDiagram').addClass('alert-danger');
+        $('#saveGraph').prop('disabled', true);
+        return false;
+    }else{
+        $('#aguaDiagram').removeClass('alert-danger');
+        $('#saveGraph').prop('disabled', false);
+        return true;
     }
 }
