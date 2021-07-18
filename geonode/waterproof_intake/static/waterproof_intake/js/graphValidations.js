@@ -348,12 +348,10 @@ var validateinput = function(e) {
     let maxRange = e.getAttribute('max');
     var t = e.value;
     if (e.id == "aguaDiagram"){
-        if (!validateTransportedWater(t)){
-            return;
-        }
+        validateTransportedWater(t);
     }
     e.value = (t.indexOf(".") >= 0) ? (t.substr(0, t.indexOf(".")) + t.substr(t.indexOf("."), 3)) : t;
-    if (parseFloat(e.value) < parseFloat(e.getAttribute('min'))) {
+    if (parseFloat(e.value) < parseFloat(e.getAttribute('min')) || (e.value.length == 0)) {
         let texttitle = gettext("The value must be between %s and %s");
         let transtitle = interpolate(texttitle, [minRange, maxRange]);
         let text = gettext(`The minimun value is %s please use the arrows`)
@@ -595,7 +593,9 @@ function validateTransportedWater(value){
         return false;
     }else{
         $('#aguaDiagram').removeClass('alert-danger');
-        enableBtnValidateCount--;
+        if (enableBtnValidateCount >= 0){
+            enableBtnValidateCount--;
+        }        
         if (enableBtnValidateCount <= 0){
             $('#saveGraph').prop('disabled', false);
         }        
