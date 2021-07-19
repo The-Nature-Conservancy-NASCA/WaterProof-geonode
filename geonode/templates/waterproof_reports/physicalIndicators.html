@@ -145,37 +145,26 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
 <script type="text/javascript">
-    
-    var filterIN = "{{Indicators}}";
-    for (var filterPI in filterIN){
-        console.log("este es dentro del for"+filterPI.study_case.id)
-    }
-    console.log("este es el filter back"+typeof(filterIN.id)+" "+filterIN.id);
-    console.log(localStorage.idStudyCase+" este es el caso de estudio")
 
-        var filterindicators = localStorage.idStudyCase;
-        console.log("este es filter indicators "+filterindicators+typeof(filterindicators))
-        $('#FilterPhisicalIndicators').append(
-            `
-            {% for investIndicators in Indicators %}
-            {% if investIndicators.study_case.id == 228 %}
-                <tr id="filas">
-                    <td class="small text-center vat" >{{investIndicators.intake.name}} {{investIndicators.study_case.id}}</td>
-                    <td class="small text-center vat truncate" id="valor1">{{investIndicators.awy}}</td>
-                    <td class="small text-center vat" id="valor2">{{investIndicators.bf_m3}}</td>
-                    <!--td>{{intake.max_benefit_req_time}}</td-->
-                    <td class="small text-center vat" id="valor3">{{investIndicators.wsed_ton}}</td>
-                    <td class="small text-center vat" id="valor4">{{investIndicators.wn_kg}}</td>
-                    <td class="small text-center vat" id="valor5">{{investIndicators.wp_kg}}</td>
-                    <td class="small text-center vat" id="valor6">{{investIndicators.wc_ton}}</td>
-                    <td class="small text-center vat" style="display: none;">{{investIndicators.date}}</td>
-                    <td class="small text-center vat" style="display: none;">{{investIndicators.intake.city.name}}</td>
-                    <td class="small text-center vat" id="valor6" style="display: none;">{{investIndicators.time}}</td>
-                </tr>
-            {% endif %}
-            {% endfor %}
-            `
-        );
+    $('#FilterPhisicalIndicators').append(
+        `
+        {% for investIndicators in Indicators %}
+            <tr id="filas">
+                <td class="small text-center vat" >{{investIndicators.intake.name}} {{investIndicators.study_case.id}}</td>
+                <td class="small text-center vat truncate" id="valor1">{{investIndicators.awy}}</td>
+                <td class="small text-center vat" id="valor2">{{investIndicators.bf_m3}}</td>
+                <!--td>{{intake.max_benefit_req_time}}</td-->
+                <td class="small text-center vat" id="valor3">{{investIndicators.wsed_ton}}</td>
+                <td class="small text-center vat" id="valor4">{{investIndicators.wn_kg}}</td>
+                <td class="small text-center vat" id="valor5">{{investIndicators.wp_kg}}</td>
+                <td class="small text-center vat" id="valor6">{{investIndicators.wc_ton}}</td>
+                <td class="small text-center vat" style="display: none;">{{investIndicators.date}}</td>
+                <td class="small text-center vat" style="display: none;">{{investIndicators.intake.city.name}}</td>
+                <td class="small text-center vat" id="valor6" style="display: none;">{{investIndicators.time}}</td>
+            </tr>
+        {% endfor %}
+        `
+    );
 
     /*function Filter(){
         

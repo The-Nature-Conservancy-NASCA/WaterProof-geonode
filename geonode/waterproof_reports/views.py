@@ -41,10 +41,9 @@ def getNameCity(indicators):
             print ("")
     return result
 
-def physicalIndicators(request):
+def physicalIndicators(request, idx):
 
-                indicators = investIndicators.objects.all()
-                filterIndicator = StudyCases.objects.all()
+                indicators = investIndicators.objects.filter(study_case__id=idx)
                 indicatorsNames = getNames(indicators)
                 indicatorsNameCity = getNameCity(indicators)
                 return render(
@@ -53,8 +52,7 @@ def physicalIndicators(request):
                     {
                         'Indicators': indicators,
                         'NamesIndicators': indicatorsNames,
-                        'NameCityIndicators': indicatorsNameCity,
-                        'filterIndicator': filterIndicator
+                        'NameCityIndicators': indicatorsNameCity
                     })
 
 

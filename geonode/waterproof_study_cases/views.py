@@ -290,6 +290,7 @@ def report(request, idx):
             request, 'waterproof_reports/reports_menu.html',
             {
                 "serverApi": settings.WATERPROOF_API_SERVER,
-                'study_case': study_case
+                'study_case': study_case,
+                'idx': idx
             }
         )
