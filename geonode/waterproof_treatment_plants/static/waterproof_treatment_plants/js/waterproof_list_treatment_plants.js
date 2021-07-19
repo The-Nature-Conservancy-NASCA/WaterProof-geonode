@@ -306,7 +306,7 @@ $(function () {
         $('#createUrl').attr('href','create/' + userCountryId)
         console.log("aqui crea ptap");
         if (localStorage.clonePlant === "false" && localStorage.updatePlant === "false" && localStorage.loadInf === "false"){
-            document.getElementById("titleFormTreatmentPlant").innerHTML = "  "+"Create Treatment Plant";
+            document.getElementById("titleFormTreatmentPlant").innerHTML = "    "+"Create Treatment Plant";
         }
         if(localStorage.clonePlant === "true") {
             localStorage.clonePlant = "false";
