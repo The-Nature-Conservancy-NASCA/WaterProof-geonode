@@ -14,6 +14,6 @@ urlpatterns = [
     url(r'^jsi18n/$', JavaScriptCatalog.as_view(), js_info_dict, name='javascript-catalog-case-comparison'),
     path('', views.list, name='comparison_list'),
     path('doAnalysis/', views.doAnalysis, name='do_analysis'),
-    path('getAwy/', api.getAwyIndicator, name='getAwy'),
+    path('getInvestIndicators/', api.getInvestIndicators, name='getInvestIndicators'),
     path('getBfm3/', api.getBfm3Indicator, name='getBfm3')
 ]

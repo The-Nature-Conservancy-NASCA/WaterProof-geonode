@@ -6,12 +6,11 @@ from rest_framework.decorators import api_view
 from geonode.waterproof_reports.models import investIndicators
 
 @api_view(['GET'])
-def getAwyIndicator(request):
+def getInvestIndicators(request):
     if request.method == 'GET':
         cases=request.GET.getlist('cases[]')
-        print(cases)
-        filterIndicators = investIndicators.objects.filter(study_case__in=cases,intake='-1').distinct('study_case').order_by('-study_case').values(
-            "study_case","time","date", "awy")
+        fields=request.GET.getlist('fields[]')
+        filterIndicators = investIndicators.objects.filter(study_case__in=cases,intake='-1').distinct('study_case').order_by('-study_case').values(*fields)
         data = list(filterIndicators)
         return JsonResponse(data, safe=False)
 

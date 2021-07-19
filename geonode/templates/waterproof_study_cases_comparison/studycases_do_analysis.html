@@ -17,7 +17,7 @@
                 <div class="col-md-12">
                     <div class="row form-group">
                         <legend><label>{% trans "Axis selection" %} <span class="text-danger-wp" id="ptap-required"></span> </label></legend>
-                        <p>{% trans "Select the treatment plants you want to consider in the ROI Analysis" %}</p>
+                        <p>{% trans "Select the axis to show" %}</p>
 
                         <div class="col-md-9">
                             <select class="form-control" id="select_axis">
@@ -33,25 +33,23 @@
                             <button type="button" class="btn btn-primary" id="add_ptap">{% trans "Add axis" %}</button>
                         </div>
                     </div>
-                    <table id="ptap_table" class="table table-striped table-bordered table-condensed" style="width:100%">
+                    <table id="axis_table" class="table table-striped table-bordered table-condensed" style="width:100%">
                         <thead>
                             <tr class="info">
-                                <th scope="col" class="small text-center vat">{% trans "name" %}</th>
+                                <th scope="col" class="small text-center vat" >{% trans "Axis" %}</th>
                                 <th scope="col" class="small text-center vat">{% trans "Action" %}</th>
                             </tr>
-
                         </thead>
                         <tbody>
                         </tbody>
                     </table>
                 </div>
             </div>
-
         </div>
+        
         <figure class="highcharts-figure">
             <div id="container"></div>
-            <p class="highcharts-description">
-                
+            <p class="highcharts-description"> 
             </p>
         </figure>
     </div>
