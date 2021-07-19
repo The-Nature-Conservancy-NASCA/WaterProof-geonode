@@ -110,11 +110,13 @@
                             <div class="panel" id="panel-custom">
                                 <div class="col-md-12">
                                     <div class="row form-group">
-                                        <legend><h4 class="text-primary">{% trans "Water Intake" %}<span class="text-danger-wp" id="ptap-required"></span></h4></legend>
+                                        <legend>
+                                            <h4 class="text-primary">{% trans "Water Intake" %}<span class="text-danger-wp" id="ptap-required"></span></h4>
+                                        </legend>
                                         <p>{% trans "Select the intake you want to consider in the ROI Analysis" %}</p>
                                         <div class="col-md-9">
                                             <select class="form-control" id="select_custom">
-
+                                                <option disabled selected value>{% trans "select_option" %}</option>
                                             </select>
                                         </div>
                                         <div class="col-md-2">
@@ -126,6 +128,7 @@
                                             <tr class="info">
                                                 <th scope="col" class="small text-center vat">{% trans "Name" %}</th>
                                                 <th scope="col" class="small text-center vat">{% trans "Description" %}</th>
+                                                <th scope="col" class="small text-center vat">{% trans "Water intake sources" %}</th>
                                                 <th scope="col" class="small text-center vat">{% trans "Options" %}</th>
                                             </tr>
                                         </thead>
@@ -148,12 +151,14 @@
                                     {% endif %}
                                     <div class="col-md-12">
                                         <div class="row form-group">
-                                            <legend><h4 class="text-primary">{% trans "Treatments plants" %}<span class="text-danger-wp" id="ptap-required"></span></h4></legend>
-                                        <p>{% trans "Select the treatment plants you want to consider in the ROI Analysis" %}</p>
+                                            <legend>
+                                                <h4 class="text-primary">{% trans "Treatments plants" %}<span class="text-danger-wp" id="ptap-required"></span></h4>
+                                            </legend>
+                                            <p>{% trans "Select the treatment plants you want to consider in the ROI Analysis" %}</p>
 
                                             <div class="col-md-9">
                                                 <select class="form-control" id="select_ptap">
-
+                                                    <option disabled selected value>{% trans "select_option" %}</option>
                                                 </select>
                                             </div>
                                             <div class="col-md-2">
@@ -222,10 +227,10 @@
                         <!--Step 2-->
                         <div id="step-2" class="tab-pane" role="tabpanel">
                             <div class="page-header">
-                                <h3>{% trans "Carbon Market Benefits" %}
+                                <h3>{% trans "carbon_market_title" %}
                                     <button type="button" data-toggle="modal" data-target="#HelpStep2" id="HelpModalBtnModal_step2" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
                                 </h3>
-                                <p>{% trans "WaterProof may consider benefits associated with the Carbon market, click the checkbox to include it in the analysis." %}</p>        
+                                <p>{% trans "carbon_market_tip" %}</p>
                                 <div class="custom-control custom-checkbox">
                                     {% if study_case.benefit_carbon_market %}
                                     <input type="checkbox" class="custom-control-input" id='cb_check' checked>
@@ -240,14 +245,11 @@
                                     {% else %}
                                     <div class="row text-center panel-hide" id="cm_form">
                                         {% endif %}
-                                        <div class="col-md-4">
+                                        <div class="col-md-4 cm-title-label">
                                             <p>{% trans "CO2_country" %}</p>
                                         </div>
                                         <div class="col-md-2">
-                                            <input type="text" name="dws_cm" maxlength="100" class="form-control" id="id_cm" value="{{study_case.cm_value|stringformat:'1.2f'}}" />
-                                        </div>
-                                        <div class="col-md-3">
-                                            <p>{% trans "TonCO2eq" %}</p>
+                                            <input type="number" name="dws_cm" maxlength="100" class="form-control" id="id_cm" min="0" step="0.01" oninput="validity.valid||(value='');" value="{{study_case.cm_value|stringformat:'1.2f'}}" />
                                         </div>
                                         <div class="col-md-3">
                                             <select class="form-control" id="cm_select">
@@ -259,6 +261,9 @@
                                                 {% endif %}
                                                 {% endfor %}
                                             </select>
+                                        </div>
+                                        <div class="col-md-3 cm-unit-label">
+                                            <p> / {% trans "TonCO2eq" %}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -275,7 +280,7 @@
                                     <h3>{% trans "Portfolio objectives" %}
                                         <button type="button" data-toggle="modal" data-target="#HelpStep3" id="HelpModalBtnModal_step3" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
                                     </h3>
-                                    <p>{% trans "Select the objectives you want to achieve with the implementation of the NBS" %}</p>      
+                                    <p>{% trans "Select the objectives you want to achieve with the implementation of the NBS" %}</p>
 
                                     <ul class="list-group list-group-flush" id="portfolios-ul">
                                         {% for portfolio in portfolios %}
@@ -306,7 +311,7 @@
                                     <h3> {% trans "Modeling parameters" %}
                                         <button type="button" data-toggle="modal" data-target="#HelpStep4" id="HelpModalBtnModal_step3" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
                                     </h3>
-                                    <p>{% trans "In this step you will find the biophysical parameters required for the execution of the models. If you want to see or edit them, click on advanced options, otherwise click on next and the system will use the default values." %}</p>
+                                    <p>{% trans "biophysical_tip" %}</p>
                                     <button type="button" class="btn btn-primary" id="btn-advanced_option">{% trans "advanced_options" %}</button>
                                     <br>
                                     <p>{% trans "tables_text" %}</p>
@@ -329,7 +334,7 @@
                                         <button type="button" data-toggle="modal" data-target="#HelpStep5" id="HelpModalBtnModal_step3" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
                                     </h3>
                                     <p>{% trans "In this section, the system offers you the pre-loaded the costs required for the implementation of the NBS. Confirm or edit the values ​​according to your reality:" %}</p>
-                                    
+
                                     <div class="row ">
                                         <div class="custom-control custom-select float-right col-md-4">
                                             <label class="custom-control-label" for="financial_currency">{% trans "Currency" %}</label>
@@ -458,7 +463,7 @@
                                         <button type="button" data-toggle="modal" data-target="#HelpStep6" id="HelpModalBtnModal_step3" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
                                     </h3>
                                     <p>{% trans "Select the NbS that you want the system to consider in its analysis:" %}</p>
-            
+
                                     <ul class="list-group list-group-flush" id="nbs-ul">
 
                                     </ul>
@@ -745,7 +750,7 @@
                 <p>
                     {% trans "..." %}
                 </p>
-                
+
                 <div>
                     <br>
                     <div class="modal-footer">
@@ -786,7 +791,7 @@
                 <h5>{% trans "TD  Discount rate, brought from financial parameters" %}</h5>
                 <h5>{% trans "A  Index for the current year" %}</h5>
 
-                
+
                 <div>
                     <br>
                     <div class="modal-footer">
@@ -860,7 +865,7 @@
                 <li>{% trans "Investment scenario: In which the user has a maximum investment figure" %}</li>
                 <br>
                 <p>{% trans "For both situations, the user must indicate the financial allocation percentages for the activities in which they have the greatest interest." %}</p>
-               <div>
+                <div>
                     <br>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal" style="color: white; background-color: #6398C1;">Close</button>

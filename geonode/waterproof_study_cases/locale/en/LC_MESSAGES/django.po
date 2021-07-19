@@ -221,3 +221,19 @@ msgstr "Return"
 
 msgid "select_option"
 msgstr "-- select an option --"
+
+msgid "financial_discount_rates"
+msgstr "Discount rates for ROI Analysis"
+
+msgid "financial_transaction_cost"
+msgstr "Transaction cot per year as a percentage of Implementation, Maintenance and Oportunity costs"
+
+msgid "carbon_market_title"
+msgstr "Carbon Market Benefits"
+
+msgid "carbon_market_tip"
+msgstr "WaterProof may consider benefits associated with the Carbon market, click the checkbox to include it in the analysis."
+
+msgid "biophysical_tip"
+msgstr "In this step you will find the biophysical parameters required for the execution of the models. If you want to see or edit them, click on advanced options, otherwise click on next and the system will use the default values."
+

@@ -257,8 +257,11 @@ msgstr "Regresar"
 msgid "select_option"
 msgstr "-- seleccione una opción --"
 
+msgid "financial_discount_rates"
+msgstr "Discount rates para el análisis ROI"
 
-
+msgid "financial_transaction_cost"
+msgstr "Transaction cost per year as a percentage of Implementation, Maintenance and Oportunity costs"
 
 
 

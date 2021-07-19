@@ -131,8 +131,17 @@
     padding-left: 90px;
 }
 
+.transaction-label {
+    padding-left: 90px;
+}
+
+.discount-label {
+    padding-left: 90px;
+}
+
 .text-number {
     text-align: right;
+    width: 40% !important;
 }
 
 .custom-checkbox .custom-control-input:disabled~.custom-control-label {
@@ -207,4 +216,12 @@
 
 .custom-control-label {
     font-weight: 100;
+}
+
+.cm-unit-label {
+    text-align: initial;
+}
+
+.cm-title-label {
+    text-align: end;
 }

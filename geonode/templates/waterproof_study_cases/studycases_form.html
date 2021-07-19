@@ -79,7 +79,7 @@
                     <!--Input Desc -->
                     <div id="div_id_type" class="form-group">
                         <label for="div_id_type" class="control-label required-field ">
-                            {% trans "Select type of study case to create" %}
+                            {% trans "select_type_study" %}
                         </label>
 
                         <div class="form-check panel-hide" id="div-ptaps">
@@ -89,7 +89,7 @@
                             </label>
                         </div>
                         <div class="alert alert-warning text-center panel-hide" role="alert" id="div-emptyptaps">
-                            {% trans "there are no treatment plants in the selected city" %}
+                            {% trans "no_treatment_plants" %}
                         </div>
                         <div class="form-check panel-hide" id="div-customcase">
                             <input class="form-check-input" type="radio" name="type" id="custom" value="2">
@@ -109,7 +109,9 @@
                             <div class="panel panel-hide" id="panel-custom">
                                 <div class="col-md-12">
                                     <div class="row form-group">
-                                        <legend><h4 class="text-primary">{% trans "Water Intake" %}<span class="text-danger-wp" id="ptap-required"></span></h4></legend>
+                                        <legend>
+                                            <h4 class="text-primary">{% trans "Water Intake" %}<span class="text-danger-wp" id="ptap-required"></span></h4>
+                                        </legend>
                                         <p>{% trans "Select the intake you want to consider in the ROI Analysis" %}</p>
                                         <div class="col-md-9">
                                             <select class="form-control" id="select_custom">
@@ -128,7 +130,6 @@
                                                 <th scope="col" class="small text-center vat">{% trans "Water intake sources" %}</th>
                                                 <th scope="col" class="small text-center vat">{% trans "Options" %}</th>
                                             </tr>
-
                                         </thead>
                                         <tbody>
                                         </tbody>
@@ -165,7 +166,9 @@
                             <div class="panel panel-hide" id="panel-ptap">
                                 <div class="col-md-12">
                                     <div class="row form-group">
-                                        <legend><h4 class="text-primary">{% trans "Treatments plants" %}<span class="text-danger-wp" id="ptap-required"></span></h4></legend>
+                                        <legend>
+                                            <h4 class="text-primary">{% trans "Treatments plants" %}<span class="text-danger-wp" id="ptap-required"></span></h4>
+                                        </legend>
                                         <p>{% trans "Select the treatment plants you want to consider in the ROI Analysis" %}</p>
 
                                         <div class="col-md-9">
@@ -203,34 +206,34 @@
                 <!--Step 2-->
                 <div id="step-2" class="tab-pane" role="tabpanel">
                     <div class="page-header">
-                        <h3>{% trans "Carbon Market Benefits" %}
+                        <h3>{% trans "carbon_market_title" %}
                             <button type="button" data-toggle="modal" data-target="#HelpStep2" id="HelpModalBtnModal_step2" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
                         </h3>
-                        <p>{% trans "WaterProof may consider benefits associated with the Carbon market, click the checkbox to include it in the analysis." %}</p>
+                        <p>{% trans "carbon_market_tip" %}</p>
                         <div class="custom-control custom-checkbox">
                             <input type="checkbox" class="custom-control-input" id='cb_check'>
                             <label class="custom-control-label" for="cb_check">{% trans "Carbon market" %}</label>
-                            <p>{% trans "If you wish, WaterProof can consider benefits associated with the Carbon market, click on the following checkbox to include in the analysis" %}</p>
+                            <p>{% trans "carbon_market_text" %}</p>
                         </div>
-                        <div class="row text-center" id="cm_form">
-                            <div class="col-md-4">
-                                <p>{% trans "CO2 Eq for (Country)" %}</p>
+                        <div class="row" id="cm_form">
+                            <div class="col-md-4 cm-title-label">
+                                <p>{% trans "CO2_country" %}</p>
                             </div>
                             <div class="col-md-2">
                                 <input type="number" name="dws_cm" maxlength="100" class="form-control" id="id_cm" min="0" step="0.01" oninput="validity.valid||(value='');" />
                             </div>
                             <div class="col-md-3">
-                                <select id="cm_select" class="custom-control-input">
+                                <select class="form-control" id="cm_select">
                                     {% for currency in currencys %}
-                                    {% if currency.iso3 == 'USA' %}
-                                    <option value='{{currency.currency}}' selected>({{currency.currency}}) - {{currency.name}}</option>
+                                    {% if currency.currency == study_case.cm_currency %}
+                                    <option value='{{currency.currency}}' selected>{{currency.currency}}</option>
                                     {% else %}
-                                    <option value='{{currency.currency}}'>({{currency.currency}}) - {{currency.name}}</option>
+                                    <option value='{{currency.currency}}'>{{currency.currency}}</option>
                                     {% endif %}
                                     {% endfor %}
                                 </select>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-3 cm-unit-label">
                                 <p> / {% trans "TonCO2eq" %}</p>
                             </div>
                         </div>
@@ -279,7 +282,7 @@
                         <h3> {% trans "Modeling parameters" %}
                             <button type="button" data-toggle="modal" data-target="#HelpStep4" id="HelpModalBtnModal_step3" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
                         </h3>
-                        <p>{% trans "In this step you will find the biophysical parameters required for the execution of the models. If you want to see or edit them, click on advanced options, otherwise click on next and the system will use the default values." %}</p>
+                        <p>{% trans "biophysical_tip" %}</p>
                         <button type="button" class="btn btn-primary" id="btn-advanced_option">{% trans "Advanced options" %}</button>
                         <br>
                         <p>{% trans "Below are the biophysical tables that will be used in modeling un inVEST and RIOS. You can edit the values according to the specific knowledge of the supplying basins" %}</p>
@@ -390,29 +393,35 @@
                             <div class="custom-control custom-checkbox col-md-4">
                                 <input id="others" class="text-number" type="number" class="custom-control-input" value="0" min="0" step="0.001" oninput="validity.valid||(value='');">
                             </div>
-                            <div class="col-md-6">
-                                <label class="custom-control-label" for="transaction">{% trans "Transaction cost (%)" %}</label>
-                            </div>
-                            <div class="custom-control custom-checkbox col-md-4">
-                                <input id="transaction" class="text-number" type="number" class="custom-control-input" min="0" step="0.001" oninput="validity.valid||(value='');" max="100">
+                            <div class="col-md-12">
+                                <p>{% trans "financial_transaction_cost" %}</p>
                             </div>
                             <div class="col-md-6">
-                                <label class="custom-control-label" for="discount">{% trans "Discount rate (%)" %}</label>
+                                <label class="custom-control-label transaction-label" for="transaction">{% trans "Transaction cost (%)" %}</label>
                             </div>
                             <div class="custom-control custom-checkbox col-md-4">
-                                <input id="discount" class="text-number" type="number" class="custom-control-input" min="0" step="0.001" oninput="validity.valid||(value='');" max="100">
+                                <input id="transaction" class="text-number" type="number" class="custom-control-input" min="0" step="0" oninput="validity.valid||(value='');" max="100">
+                            </div>
+                            <div class="col-md-12">
+                                <p>{% trans "financial_discount_rates" %}</p>
                             </div>
                             <div class="col-md-6">
-                                <label class="custom-control-label" for="minimum">{% trans "Sensitivity Analysis - Minimun Discount Rate (%)" %}</label>
+                                <label class="custom-control-label discount-label" for="discount">{% trans "Discount rate (%)" %}</label>
                             </div>
                             <div class="custom-control custom-checkbox col-md-4">
-                                <input id="minimum" class="text-number" type="number" class="custom-control-input" min="0" step="0.001" oninput="validity.valid||(value='');" max="100">
+                                <input id="discount" class="text-number" type="number" class="custom-control-input" min="0" step="0" oninput="validity.valid||(value='');" max="100">
                             </div>
                             <div class="col-md-6">
-                                <label class="custom-control-label" for="maximum">{% trans "Sensitivity Analysis - Maximun Discount Rate (%)" %}</label>
+                                <label class="custom-control-label discount-label" for="minimum">{% trans "Sensitivity Analysis - Minimun Discount Rate (%)" %}</label>
                             </div>
                             <div class="custom-control custom-checkbox col-md-4">
-                                <input id="maximum" class="text-number" type="number" class="custom-control-input" min="0" step="0.001" oninput="validity.valid||(value='');" max="100">
+                                <input id="minimum" class="text-number" type="number" class="custom-control-input" min="0" step="0" oninput="validity.valid||(value='');" max="100">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="custom-control-label discount-label" for="maximum">{% trans "Sensitivity Analysis - Maximun Discount Rate (%)" %}</label>
+                            </div>
+                            <div class="custom-control custom-checkbox col-md-4">
+                                <input id="maximum" class="text-number" type="number" class="custom-control-input" min="0" step="0" oninput="validity.valid||(value='');" max="100">
                             </div>
                         </div>
                     </div>
@@ -456,7 +465,7 @@
                                 <label for="period_analysis" class="control-label required-field">
                                     {% trans "Analysis time period (years) (10-100)" %}
                                 </label>
-                                <input id="period_analysis" type="number" class="form-control text-number" min="0" step="0.001" oninput="validity.valid||(value='');" max="100">
+                                <input id="period_analysis" type="number" class="form-control text-number" min="10" step="0.001" oninput="validity.valid||(value='');" max="100">
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -478,7 +487,7 @@
                         <div class="col-md-6">
                             <div id="div_period_nbs" class="form-group">
                                 <label class="control-label required-field" for="period-nbs">{% trans "Implementation Time of Nature-Based Solution (yr)" %}</label>
-                                <input id="period_nbs" type="number" class="form-control text-number">
+                                <input id="period_nbs" type="number" class="form-control text-number" min="1" step="0" oninput="validity.valid||(value='');" max="100">
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -688,7 +697,7 @@
                 <p>
                     {% trans "..." %}
                 </p>
-                
+
                 <div>
                     <br>
                     <div class="modal-footer">
@@ -729,7 +738,7 @@
                 <h5>{% trans "TD  Discount rate, brought from financial parameters" %}</h5>
                 <h5>{% trans "A  Index for the current year" %}</h5>
 
-                
+
                 <div>
                     <br>
                     <div class="modal-footer">
@@ -803,7 +812,7 @@
                 <li>{% trans "Investment scenario: In which the user has a maximum investment figure" %}</li>
                 <br>
                 <p>{% trans "For both situations, the user must indicate the financial allocation percentages for the activities in which they have the greatest interest." %}</p>
-               <div>
+                <div>
                     <br>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal" style="color: white; background-color: #6398C1;">Close</button>
