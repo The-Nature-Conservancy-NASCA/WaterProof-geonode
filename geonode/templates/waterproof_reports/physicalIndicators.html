@@ -147,7 +147,7 @@
 <script type="text/javascript">
     
     var filterIN = "{{Indicators}}";
-    for (let filterPI = ""; filterPI <= filterIN; filterPI++){
+    for (var filterPI in filterIN){
         console.log("este es dentro del for"+filterPI.study_case.id)
     }
     console.log("este es el filter back"+typeof(filterIN.id)+" "+filterIN.id);
