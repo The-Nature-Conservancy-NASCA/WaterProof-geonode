@@ -905,15 +905,17 @@
     intakeInterpolationParams.initialExtract = '{{intake.demand_parameters.initial_extraction}}';
     intakeInterpolationParams.endingExtract = '{{intake.demand_parameters.ending_extraction}}';
     var xmlGraph = $('#xmlGraph').val();
-    var intakeExternalInputs = JSON.parse('{{externalInputs|safe}}');
+    var intakeExternalInputs = '{{externalInputs|safe}}' == "" ? "" : JSON.parse('{{externalInputs|safe}}');
     var intakeObject = {};
     intakeObject.id = '{{intake.id}}'
     $('#intakeId').val(intakeObject.id);
     intakeObject.polygon = '{{intake.polygon_set.first.geomIntake|safe}}';
-    intakeObject.point=JSON.parse('{{intake.polygon_set.first.geomPoint|safe}}');
+    intakeObject.point = '{{intake.polygon_set.first.geomPoint|safe}}' == "" ? "" : JSON.parse('{{intake.polygon_set.first.geomPoint|safe}}');
     intakeObject.delimitArea='{{intake.polygon_set.first.geom}}';
     intakeObject.basin='{{intake.polygon_set.first.basin.pk}}';
     intakePolygons.push(intakeObject);
+    var defaultCurrencyId = '233';
+    var defaultCurrentyName = '(USD) - United States';
 </script>
 
 <script src="{{ STATIC_URL }}geonode/js/leaflet/leaflet-omnivore.min.js"></script>

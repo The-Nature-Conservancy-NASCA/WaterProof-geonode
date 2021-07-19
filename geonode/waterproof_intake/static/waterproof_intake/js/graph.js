@@ -17,6 +17,7 @@
  var bandera = true;
  var banderaValideGraph = 1;
  var banderaFunctionCost = false;
+ var enableBtnValidateCount = 0;  // count the number of default inconsistences in diagram. if (0) enabled else disabled
  var costVars = ['WSedRet','WPRet','WNRet','WSed','WP','WN','CSed','CP','CN','Q'];
 
  // Program starts here. The document.onLoad executes the
@@ -429,38 +430,39 @@
          });
          */
          //load data when add an object in a diagram
-         editor.graph.addListener(mxEvent.ADD_CELLS, function(sender, evt) {
-             var selectedCell = evt.getProperty("cells");
-             var idvar = selectedCell[0].id;
- 
-             bandera = true;
-             try {
-                 if (selectedCell != undefined) {
-                     var varcost = [];
-                     varcost.push(
-                         `Q${idvar}`,
-                         `CSed${idvar}`,
-                         `CN${idvar}`,
-                         `CP${idvar}`,
-                         `WSed${idvar}`,
-                         `WN${idvar}`,
-                         `WP${idvar}`,
-                         `WSedRet${idvar}`,
-                         `WNRet${idvar}`,
-                         `WPRet${idvar}`
-                     );
-                     selectedCell[0].setAttribute('varcost', JSON.stringify(varcost));
- 
-                    if (selectedCell[0].dbreference != undefined){
-                        $.ajax({
-                            url: `/intake/loadProcess/${selectedCell[0].dbreference}`,
-                            success: function(result) {
-                                selectedCell[0].setAttribute("resultdb", result);
-                            }
-                        });
-                    }
- 
-                     $.ajax({
+        editor.graph.addListener(mxEvent.ADD_CELLS, function(sender, evt) {
+            var selectedCell = evt.getProperty("cells");
+            var idvar = selectedCell[0].id;
+
+            bandera = true;
+            try {
+                if (selectedCell != undefined) {
+                    var varcost = [];
+                    varcost.push(
+                        `Q${idvar}`,
+                        `CSed${idvar}`,
+                        `CN${idvar}`,
+                        `CP${idvar}`,
+                        `WSed${idvar}`,
+                        `WN${idvar}`,
+                        `WP${idvar}`,
+                        `WSedRet${idvar}`,
+                        `WNRet${idvar}`,
+                        `WPRet${idvar}`
+                    );
+                    selectedCell[0].setAttribute('varcost', JSON.stringify(varcost));
+
+                if (selectedCell[0].dbreference != undefined){
+                    $.ajax({
+                        url: `/intake/loadProcess/${selectedCell[0].dbreference}`,
+                        success: function(result) {
+                            selectedCell[0].setAttribute("resultdb", result);
+                        }
+                    });
+                }
+
+                if (selectedCell[0].funcionreference != undefined){
+                    $.ajax({
                         url: `/intake/loadFunctionBySymbol/${selectedCell[0].funcionreference}`,
                         success: function(result) {
                             var id = selectedCell[0].id;                            
@@ -472,31 +474,34 @@
                                     function_value = function_value.replaceAll(regex, v + id);
                                 })
                                 r.fields.function_value = function_value;
-                            })
-                            
+                                r.fields['global_multiplier_factorCalculator'] = localStorage.getItem('factor') == null ? '0.38' : localStorage.getItem('factor');
+                                r.fields['currencyCost'] = defaultCurrencyId;
+                                r.fields['currencyCostName'] = defaultCurrentyName;
+                            })                        
                             selectedCell[0].setAttribute("funcost", JSON.stringify(jsonResult));
                         }
-                     });
-                 }
-             } catch (error) {
-                 console.log(error);
-             } 
-         });
+                    });
+                }
+                }
+            } catch (error) {
+                console.log(error);
+            } 
+        });
+
+        //Load data from figure to html
+        editor.graph.addListener(mxEvent.CLICK, function(sender, evt) {
+        selectedCell = evt.getProperty('cell');
+        // Clear Inputs
+        if (selectedCell != undefined) { addData(selectedCell); } else { clearDataHtml(); }
+        });
  
-         //Load data from figure to html
-         editor.graph.addListener(mxEvent.CLICK, function(sender, evt) {
-            selectedCell = evt.getProperty('cell');
-            // Clear Inputs
-            if (selectedCell != undefined) { addData(selectedCell); } else { clearDataHtml(); }
-         });
- 
-         //Button for valide graph
-         $('#saveGraph').click(function() {
-             validateGraphIntake();
-         });
+        //Button for valide graph
+        $('#saveGraph').click(function() {
+            validateGraphIntake();
+        });
  
  
-         function validateGraphIntake() {
+        function validateGraphIntake() {
             console.log("validateGraphIntake");
             graphData = [];
             connection = [];
@@ -582,51 +587,35 @@
         })
  
          $('#saveAndValideCost').click(function() {
-             if (banderaFunctionCost) {
-                 //true = nueva
-                 var pyExp = $('#python-expression').val();
-                 funcostdb.push({
-                     'fields': {
-                         'function_value': pyExp,
-                         'function_py_value': pyExp,
-                         'function_name': $('#costFunctionName').val() == '' ? 'Undefined name' : $('#costFunctionName').val(),
-                         'function_description': $('#costFuntionDescription').val(),
-                         'global_multiplier_factorCalculator': $('#global_multiplier_factorCalculator').val(),
-                         'currencyCost': $('#currencyCost option:selected').val(),
-                         'currencyCostName': $('#currencyCost option:selected').text(),
-                         'logical': [{
-                             'condition_1': "",
-                             'ecuation_1': "",
-                             'condition_2': "",
-                             'ecuation_2': "",
-                             'condition_3': "",
-                             'ecuation_3': "",
-                         }],
-                     }
-                 });
+            if (banderaFunctionCost) {
+                //true = nueva
+                var pyExp = $('#python-expression').val();
+                funcostdb.push({
+                    'fields': {
+                        'function_value': pyExp,
+                        'function_py_value': pyExp,
+                        'function_name': $('#costFunctionName').val() == '' ? 'Undefined name' : $('#costFunctionName').val(),
+                        'function_description': $('#costFuntionDescription').val(),
+                        'global_multiplier_factorCalculator': $('#global_multiplier_factorCalculator').val(),
+                        'currencyCost': $('#currencyCost option:selected').val(),
+                        'currencyCostName': $('#currencyCost option:selected').text(),                         
+                    }
+                });
  
-                 funcostdb[funcostdb.length - 1].fields.logical = JSON.stringify(funcostdb[funcostdb.length - 1].fields.logical);
-             } else {
-                 //false = editar
-                 var temp = {
-                    'function_value': $('#python-expression').val(), 
-                    'function_name': $('#costFunctionName').val() == '' ? 'Undefined name' : $('#costFunctionName').val(),
-                     'function_description': $('#costFuntionDescription').val(),
-                     'global_multiplier_factorCalculator': $('#global_multiplier_factorCalculator').val(),
-                     'currencyCost': $('#currencyCost option:selected').val(),
-                     'currencyCostName': $('#currencyCost option:selected').text(),
-                     'logical': [{
-                         'condition_1': "",
-                         'ecuation_1': "",
-                         'condition_2': "",
-                         'ecuation_2': "",
-                         'condition_3': "",
-                         'ecuation_3': ""
-                     }],
-                 }
+                funcostdb[funcostdb.length - 1].fields.logical = JSON.stringify(funcostdb[funcostdb.length - 1].fields.logical);
+            } else {
+                //false = editar
+                var temp = {
+                'function_value': $('#python-expression').val(), 
+                'function_name': $('#costFunctionName').val() == '' ? 'Undefined name' : $('#costFunctionName').val(),
+                    'function_description': $('#costFuntionDescription').val(),
+                    'global_multiplier_factorCalculator': $('#global_multiplier_factorCalculator').val(),
+                    'currencyCost': $('#currencyCost option:selected').val(),
+                    'currencyCostName': $('#currencyCost option:selected').text(),                     
+                }
  
-                 temp.logical = JSON.stringify(temp.logical);
-                 if (selectedCostId == 0){
+                temp.logical = JSON.stringify(temp.logical);
+                if (selectedCostId == 0){
                     $.extend(funcostdb[selectedCostId].fields, temp);
                 }else{
                     let clonedFunCost = JSON.parse(JSON.stringify(funcostdb[0]));
@@ -722,10 +711,10 @@
              })
          });
  
-         $(document).on('click', 'a[name=fun_display_btn]', function() {
-             var idx = $(this).attr('idvalue');
-             $(`#fun_display_${idx}`).toggle();
-         });
+        $(document).on('click', 'a[name=fun_display_btn]', function() {
+            var idx = $(this).attr('idvalue');
+            $(`#fun_display_${idx}`).toggle();
+        });
  
          function setVarCost() {
              banderaFunctionCost = false;
@@ -751,31 +740,31 @@
              }
          }
  
-         $('#ModalAddCostBtn').click(function() {
-             banderaFunctionCost = true;
-             $('#VarCostListGroup div').remove();
-             $('#VarCostListGroup').empty();
-             clearInputsMath();
-             typesetInput('');
-             $('#costFunctionName').val('');
-             $('#costFuntionDescription').val('');
-             $('#CalculatorModalLabel').text('New Function Cost - ' + $('#titleCostFunSmall').text())
-             for (const index of graphData) {
-                 var costlabel = "";
-                 for (const iterator of JSON.parse(index.varcost)) {
-                     costlabel += `<a value="${iterator}" class="list-group-item list-group-item-action" style="padding-top: 4px;padding-bottom: 4px;">${iterator}</a>`
-                 }
-                 $('#VarCostListGroup').append(`
-                 <div class="panel panel-info">
-                     <div class="panel-heading">
-                        <a data-toggle="collapse" data-parent="#VarCostListGroup" href="#VarCostListGroup_${index.id}">${index.id} - ${index.name.replace(/['"]+/g, '')}</a>                         
-                     </div>
-                     <div id="VarCostListGroup_${index.id}" class="panel-collapse collapse">
-                         ${costlabel}
-                     </div>
-                 </div>
-                 `);
-             }
+        $('#ModalAddCostBtn').click(function() {
+            banderaFunctionCost = true;
+            $('#VarCostListGroup div').remove();
+            $('#VarCostListGroup').empty();
+            clearInputsMath();
+            typesetInput('');
+            $('#costFunctionName').val('');
+            $('#costFuntionDescription').val('');
+            $('#CalculatorModalLabel').text('New Function Cost - ' + $('#titleCostFunSmall').text())
+            for (const index of graphData) {
+                var costlabel = "";
+                for (const iterator of JSON.parse(index.varcost)) {
+                    costlabel += `<a value="${iterator}" class="list-group-item list-group-item-action" style="padding-top: 4px;padding-bottom: 4px;">${iterator}</a>`
+                }
+                $('#VarCostListGroup').append(`
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                    <a data-toggle="collapse" data-parent="#VarCostListGroup" href="#VarCostListGroup_${index.id}">${index.id} - ${index.name.replace(/['"]+/g, '')}</a>                         
+                    </div>
+                    <div id="VarCostListGroup_${index.id}" class="panel-collapse collapse">
+                        ${costlabel}
+                    </div>
+                </div>
+                `);
+            }
             $('#python-expression').val('');
             //$('#MathPreview').val('');
             validatePyExpression();

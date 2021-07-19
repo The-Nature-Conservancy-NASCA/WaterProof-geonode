@@ -518,8 +518,6 @@ $(document).ready(function() {
 
     mapDelimit.addLayer(osmid);
 
-
-
     $("#validateBtn").on("click", prevalidateAdjustCoordinates);
     $('#btnDelimitArea').on("click", delimitIntakeArea)
     $('#btnValidateArea').on("click", validateIntakeArea)
@@ -538,6 +536,9 @@ $(document).ready(function() {
         }
     });
     observer2.observe(menu1Tab, { attributes: true });
+
+    defaultCurrencyId = '233';
+    defaultCurrentyName = $("#currencyCost option[value=233]").text();
 
 });
 
