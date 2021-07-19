@@ -208,3 +208,59 @@
 .custom-control-label {
     font-weight: 100;
 }
+
+.modal-dialog {
+    display: inline-block;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.modal-xl {
+    min-width: 1140px;
+    margin: auto;
+    min-height: 800px;
+}
+
+.python-expression{
+    margin-top: 5px;
+    width: 90%;
+    font-family: monospace;
+    font-size: 1.2rem;
+}
+.valid_expression{
+    border: 2px solid #029902;
+    box-shadow: 0 0 10px #719ece;
+    color: rgb(2, 124, 33);
+}
+
+.invalid_expression{
+    border: 2px solid #af0900;
+    box-shadow: 0 0 10px #719ece;
+    color: red;
+}
+
+.var-cost-panel {
+    max-height: 150px;
+    overflow-y: auto;
+}
+.keyboard-title{
+    margin-top: 22px;
+}
+
+.panel-group {
+    margin-bottom: 2px;
+}
+
+.header-waterproof{
+    padding-left: 28rem;
+    padding-bottom: 2px;
+}
+
+.justify-number{
+    text-align: right;
+}
+
+.panel-title a label{
+    font-size: 12px;
+    cursor: pointer;
+}

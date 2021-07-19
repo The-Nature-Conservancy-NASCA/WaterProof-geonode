@@ -137,12 +137,18 @@
     margin-left: 20px;
 }
 .content-image {
-	width: 400px;
+    width: 400px;
     float: left;
+    height: 460px;
 }
-.content-image > img {
-    width: 150px;
-    margin: 150px;
+.content-image > div {
+    width: 200px;
+    height: 270px;
+    position: relative;
+    left: 50%;
+    margin-left: -100px;
+    top: 50%;
+    margin-top: -135px;
 }
 .container {
     padding-left: 30rem !important;
@@ -503,4 +509,38 @@
     width: 80%;
     position: relative;
     float: left;
+}
+.name-roi {
+    font-size: 15px;
+    position: relative;
+    font-weight: bold;
+    padding-bottom: 20px;
+}
+.value-roi {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+}
+.img-roi {
+    width: 150px;
+    left: 50%;
+    position: relative;
+    margin-left: -75px;
+}
+.bootom-roi {
+    font-size: 15px;
+    position: relative;
+    font-weight: bold;
+    text-align: center;
+}
+.buttom-roi {
+    background-color: #094609;
+    color: #ffffff;
+    width: 100px;
+    font-weight: normal;
+    margin-top: 10px;
+    padding: 3px;
+    position: relative;
+    left: 50%;
+    margin-left: -50px;
 }

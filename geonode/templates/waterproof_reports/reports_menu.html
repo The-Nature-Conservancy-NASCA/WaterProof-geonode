@@ -59,8 +59,8 @@
                             <div class="value-file-column-left" id="idRegionMain">{% trans "-" %}</div>
                         </div>
                         <div class="file-column-left">
-                            <div>{% trans "currency:" %}</div>
-                            <div class="value-file-column-left" id="idCurrencyMain">{% trans "-" %}</div>
+                            <div>{% trans "Time frame (year):" %}</div>
+                            <div class="value-file-column-left" id="idTimeMain">{% trans "-" %}</div>
                         </div>
                     </div>
                     <div class="column-right-table">
@@ -72,13 +72,24 @@
                             <div class="title-file-column-right">{% trans "Number of drinking water treatment plants in the system:" %}</div>
                             <div class="value-file-column-left" id="idNumberOfDrinking"></div>
                         </div>
+                        <div class="file-column-left">
+                            <div class="title-file-column-right">{% trans "currency:" %}</div>
+                            <div class="value-file-column-left" id="idCurrencyMain">{% trans "-" %}</div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
         <div style="height: 500px;">
             <div class="content-image">
-                <img src="/static/geonode/img/valor-bruto.png"/>
+                <div>
+                    <div class="name-roi">{% trans "Calculate ROI:" %}<div class="value-roi" id="idRoi"></div></div>
+                    <img src="/static/geonode/img/valor-bruto.png" class="img-roi" />
+                    <div class="bootom-roi">
+                        <div>{% trans "ROI ON NATURE BASED SOLUTIONS OPPORTUNITY" %}</div>
+                        <div class="buttom-roi" id="idBtnRoi">Adove 1</div>
+                    </div>
+                </div>
             </div>
             <div style="width: 50%;position: absolute;left: 45%;margin: 50px;">
                 <div id="containerNpv"></div>
@@ -221,7 +232,6 @@
     $("#idCountryMain").html(localStorage.getItem('country'));
     $("#idCityMain").html(localStorage.getItem('city'));
     $("#idRegionMain").html(localStorage.getItem('region'));
-    $("#idCurrencyMain").html(localStorage.getItem('currency'));
 
 </script>
 <script src="{{ STATIC_URL }}geonode/js/datatables/jquery.dataTables.min.js"></script>
@@ -317,6 +327,12 @@ $(function () {
                 document.getElementById("changeInNitrogenLoad").innerHTML = value.changeInNitrogenLoad.toFixed(2);
                 document.getElementById("changeInPhosphorus").innerHTML = value.changeInPhosphorus.toFixed(2);
                 document.getElementById("changeInCarbonStorage").innerHTML = value.changeInCarbonStorage.toFixed(2);
+                document.getElementById("idCurrencyMain").innerHTML = value.currency;
+                document.getElementById("idRoi").innerHTML = value.roi.toFixed(2);
+                var nameButtom = value.result.split("::");
+                var colorButton = nameButtom[1].split(" ");
+                document.getElementById("idBtnRoi").innerHTML = nameButtom[0];
+                document.getElementById("idBtnRoi").style.backgroundColor = colorButton[1];
             });
         });
 

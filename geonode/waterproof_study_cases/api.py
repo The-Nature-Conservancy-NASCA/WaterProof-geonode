@@ -283,6 +283,54 @@ def delete(request, idx):
         response = HttpResponse(json.dumps(context), content_type='application/json')
         response.status_code = 200
         return response
+    
+@api_view(['POST'])
+def private(request, idx):
+    sc = StudyCases.objects.get(id=idx)
+    if not sc:
+        print("Not found")
+        context = {
+            'status': '400', 'reason': 'Intake not found'
+        }
+        response = HttpResponse(json.dumps(context), content_type='application/json')
+        response.status_code = 400
+        return response
+    else:
+        # private object
+        sc.is_public = False
+        sc.save()
+        # after public redirect to
+        # home page
+        context = {
+            'status': '200', 'reason': 'sucess'
+        }
+        response = HttpResponse(json.dumps(context), content_type='application/json')
+        response.status_code = 200
+        return response
+    
+@api_view(['POST'])
+def public(request, idx):
+    sc = StudyCases.objects.get(id=idx)
+    if not sc:
+        print("Not found")
+        context = {
+            'status': '400', 'reason': 'Intake not found'
+        }
+        response = HttpResponse(json.dumps(context), content_type='application/json')
+        response.status_code = 400
+        return response
+    else:
+        # public object
+        sc.is_public = True
+        sc.save()
+        # after public redirect to
+        # home page
+        context = {
+            'status': '200', 'reason': 'sucess'
+        }
+        response = HttpResponse(json.dumps(context), content_type='application/json')
+        response.status_code = 200
+        return response
 
 
 @api_view(['POST'])

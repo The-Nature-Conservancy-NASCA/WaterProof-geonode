@@ -85,18 +85,29 @@ function updateStyleLine(graph, cell, type) {
                             function_value = function_value.replaceAll(regex, v + cell.id);                            
                         })
                         r.fields.function_value = function_value;
+                        r.fields['global_multiplier_factorCalculator'] = localStorage.getItem('factor') == null ? '0.38' : localStorage.getItem('factor');
+                        r.fields['currencyCost'] = defaultCurrencyId;
+                        r.fields['currencyCostName'] = defaultCurrentyName;
                     })
+
+                    let resultDbObj = JSON.parse(result);
+                    if (type.style == 'PIPELINE' || type.style == 'CHANNEL'){
+                        resultDbObj[0].fields.predefined_transp_water_perc = '';
+                        enableBtnValidateCount++;
+                        validateTransportedWater('');
+                        //$('#aguaDiagram').val(''); 
+                    }
                     
-                    let value = {
+                    let valueObj = {
                         "connectorType": type.id,
                         "varcost": varcost,
                         "external": external,
-                        'resultdb': JSON.parse(result),
+                        'resultdb': resultDbObj,
                         'name': type.name,
                         "funcost": jsonResult
                     };
 
-                    value = JSON.stringify(value);
+                    value = JSON.stringify(valueObj);
                     cell.setValue(value);
                     graph.model.setStyle(cell, type.style);
                     //add data in HTML for connectors
@@ -106,8 +117,10 @@ function updateStyleLine(graph, cell, type) {
                             let dbfields = obj.resultdb;
                             label = connectionsType[obj.connectorType].name;
                             $('#titleDiagram').text(connectionsType[obj.connectorType].name);
-                            $('#titleCostFunSmall').attr("valueid", element.id);
+                            $('#titleCostFunSmall').attr("valueid", label);
                             $('#titleCostFunSmall').text(`ID: ${cell.id} - ${connectionsType[obj.connectorType].name}`);
+                            
+
                             addData2HTML(dbfields, cell)
                         } catch (e) {
                             label = "";
@@ -176,8 +189,6 @@ function funcost(index) {
     });
 }
 
-
-
 function addData(element) {
     //add data in HTML for connectors
     if (typeof(element.value) == "string" && element.value.length > 0) {
@@ -188,7 +199,10 @@ function addData(element) {
         $('#titleCostFunSmall').attr("valueid", element.id);
         $('#titleCostFunSmall').text(`ID: ${element.id} - ${connectionsType[obj.connectorType].name}`);
         $('#idDiagram').val(element.id);
-        addData2HTML(dbfields, element)
+        if (element.style == 'PIPELINE' || element.style == 'CHANNEL'){
+            validateTransportedWater(dbfields[0].fields.predefined_transp_water_perc);            
+        }
+        addData2HTML(dbfields, element);        
         funcostdb = obj.funcost;
         for (let index = 0; index < funcostdb.length; index++) {
             funcost(index);
@@ -230,7 +244,8 @@ function addData2HTML(resultdb, cell) {
     $('#funcostgenerate div').remove();
     $('#funcostgenerate').empty();
     // Add Value to Panel Information Right on HTML
-    $('#aguaDiagram').val(resultdb[0].fields.predefined_transp_water_perc);
+    $('#aguaDiagram').val(resultdb[0].fields.predefined_transp_water_perc); 
+    
     $('#sedimentosDiagram').val(resultdb[0].fields.predefined_sediment_perc);
     $('#nitrogenoDiagram').val(resultdb[0].fields.predefined_nitrogen_perc);
     $('#fosforoDiagram').val(resultdb[0].fields.predefined_phosphorus_perc);
@@ -332,8 +347,11 @@ var validateinput = function(e) {
     let minRange = e.getAttribute('min');
     let maxRange = e.getAttribute('max');
     var t = e.value;
+    if (e.id == "aguaDiagram"){
+        validateTransportedWater(t);
+    }
     e.value = (t.indexOf(".") >= 0) ? (t.substr(0, t.indexOf(".")) + t.substr(t.indexOf("."), 3)) : t;
-    if (parseFloat(e.value) < parseFloat(e.getAttribute('min'))) {
+    if (parseFloat(e.value) < parseFloat(e.getAttribute('min')) || (e.value.length == 0)) {
         let texttitle = gettext("The value must be between %s and %s");
         let transtitle = interpolate(texttitle, [minRange, maxRange]);
         let text = gettext(`The minimun value is %s please use the arrows`)
@@ -446,8 +464,10 @@ function mensajeAlert(fin) {
 
 function validations(validate, editor) {
 
-    if (validationsCsinfraExternal(validate) == true || validationsNodeAlone(editor) == true || validationInputTransportedWater(editor) == true) {
-        return true
+    if (validationsCsinfraExternal(validate) || 
+        validationsNodeAlone(editor) || 
+        validationInputTransportedWater(editor)) {
+        return true;
     } else {
         if (banderaValideGraph != 0) {
             Swal.fire({
@@ -494,10 +514,8 @@ function addDataView(element, MQ) {
         addData2HTMLView(resultdb);
         for (let index = 0; index < funcostdb.length; index++) {
             funcostView(funcostdb[index].fields.function_value, funcostdb[index].fields.function_name, index, MQ);
-
         }
     }
-
 }
 
 function funcostView(ecuation_db, ecuation_name, index, MQ) {
@@ -561,5 +579,24 @@ function deleteWithValidationsView(editor) {
         if (cells2Remove.length >= 0) {
             mxUtils.alert(`Isn't Editable`);
         }
+    }
+}
+
+function validateTransportedWater(value){
+    console.log("validateTransportedWater, value: " + value + " :: enableBtnValidateCount :: " + enableBtnValidateCount);
+    if (value.length == 0){
+        $('#aguaDiagram').addClass('alert-danger');
+        enableBtnValidateCount++;
+        $('#saveGraph').prop('disabled', true);
+        return false;
+    }else{
+        $('#aguaDiagram').removeClass('alert-danger');
+        if (enableBtnValidateCount >= 0){
+            enableBtnValidateCount--;
+        }        
+        if (enableBtnValidateCount <= 0){
+            $('#saveGraph').prop('disabled', false);
+        }        
+        return true;
     }
 }

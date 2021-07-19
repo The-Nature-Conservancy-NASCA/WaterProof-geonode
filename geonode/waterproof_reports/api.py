@@ -540,7 +540,11 @@ def getReportAnalisysBeneficsB(request):
 				"changeIntotalSediments":row[2],
 				"changeInNitrogenLoad":row[3],
 				"changeInPhosphorus":row[4],
-				"changeInCarbonStorage":row[5]
+				"changeInCarbonStorage":row[5],
+				"time":row[6],
+				"currency":row[7],
+				"roi":row[8],
+				"result":row[9]
 			})
 
 		return JsonResponse(objects_list, safe=False)
