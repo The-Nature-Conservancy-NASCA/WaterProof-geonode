@@ -17,6 +17,7 @@
  var bandera = true;
  var banderaValideGraph = 1;
  var banderaFunctionCost = false;
+ var enableBtnValidateCount = 0;  // count the number of default inconsistences in diagram. if (0) enabled else disabled
  var costVars = ['WSedRet','WPRet','WNRet','WSed','WP','WN','CSed','CP','CN','Q'];
 
  // Program starts here. The document.onLoad executes the
@@ -586,35 +587,35 @@
         })
  
          $('#saveAndValideCost').click(function() {
-             if (banderaFunctionCost) {
-                 //true = nueva
-                 var pyExp = $('#python-expression').val();
-                 funcostdb.push({
-                     'fields': {
-                         'function_value': pyExp,
-                         'function_py_value': pyExp,
-                         'function_name': $('#costFunctionName').val() == '' ? 'Undefined name' : $('#costFunctionName').val(),
-                         'function_description': $('#costFuntionDescription').val(),
-                         'global_multiplier_factorCalculator': $('#global_multiplier_factorCalculator').val(),
-                         'currencyCost': $('#currencyCost option:selected').val(),
-                         'currencyCostName': $('#currencyCost option:selected').text(),                         
-                     }
-                 });
+            if (banderaFunctionCost) {
+                //true = nueva
+                var pyExp = $('#python-expression').val();
+                funcostdb.push({
+                    'fields': {
+                        'function_value': pyExp,
+                        'function_py_value': pyExp,
+                        'function_name': $('#costFunctionName').val() == '' ? 'Undefined name' : $('#costFunctionName').val(),
+                        'function_description': $('#costFuntionDescription').val(),
+                        'global_multiplier_factorCalculator': $('#global_multiplier_factorCalculator').val(),
+                        'currencyCost': $('#currencyCost option:selected').val(),
+                        'currencyCostName': $('#currencyCost option:selected').text(),                         
+                    }
+                });
  
-                 funcostdb[funcostdb.length - 1].fields.logical = JSON.stringify(funcostdb[funcostdb.length - 1].fields.logical);
-             } else {
-                 //false = editar
-                 var temp = {
-                    'function_value': $('#python-expression').val(), 
-                    'function_name': $('#costFunctionName').val() == '' ? 'Undefined name' : $('#costFunctionName').val(),
-                     'function_description': $('#costFuntionDescription').val(),
-                     'global_multiplier_factorCalculator': $('#global_multiplier_factorCalculator').val(),
-                     'currencyCost': $('#currencyCost option:selected').val(),
-                     'currencyCostName': $('#currencyCost option:selected').text(),                     
-                 }
+                funcostdb[funcostdb.length - 1].fields.logical = JSON.stringify(funcostdb[funcostdb.length - 1].fields.logical);
+            } else {
+                //false = editar
+                var temp = {
+                'function_value': $('#python-expression').val(), 
+                'function_name': $('#costFunctionName').val() == '' ? 'Undefined name' : $('#costFunctionName').val(),
+                    'function_description': $('#costFuntionDescription').val(),
+                    'global_multiplier_factorCalculator': $('#global_multiplier_factorCalculator').val(),
+                    'currencyCost': $('#currencyCost option:selected').val(),
+                    'currencyCostName': $('#currencyCost option:selected').text(),                     
+                }
  
-                 temp.logical = JSON.stringify(temp.logical);
-                 if (selectedCostId == 0){
+                temp.logical = JSON.stringify(temp.logical);
+                if (selectedCostId == 0){
                     $.extend(funcostdb[selectedCostId].fields, temp);
                 }else{
                     let clonedFunCost = JSON.parse(JSON.stringify(funcostdb[0]));

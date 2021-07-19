@@ -393,7 +393,7 @@ function onInit(editor) {
             });
         }
 
-        var selectedCostId = null;      
+        var selectedCostId = null;
 
         //KeyBoard calculator funcion cost
         $('button[name=mathKeyBoard]').click(function() {

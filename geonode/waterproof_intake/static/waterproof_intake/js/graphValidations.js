@@ -514,10 +514,8 @@ function addDataView(element, MQ) {
         addData2HTMLView(resultdb);
         for (let index = 0; index < funcostdb.length; index++) {
             funcostView(funcostdb[index].fields.function_value, funcostdb[index].fields.function_name, index, MQ);
-
         }
     }
-
 }
 
 function funcostView(ecuation_db, ecuation_name, index, MQ) {
