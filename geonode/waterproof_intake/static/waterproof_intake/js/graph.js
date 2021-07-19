@@ -711,10 +711,10 @@
              })
          });
  
-         $(document).on('click', 'a[name=fun_display_btn]', function() {
-             var idx = $(this).attr('idvalue');
-             $(`#fun_display_${idx}`).toggle();
-         });
+        $(document).on('click', 'a[name=fun_display_btn]', function() {
+            var idx = $(this).attr('idvalue');
+            $(`#fun_display_${idx}`).toggle();
+        });
  
          function setVarCost() {
              banderaFunctionCost = false;
@@ -740,31 +740,31 @@
              }
          }
  
-         $('#ModalAddCostBtn').click(function() {
-             banderaFunctionCost = true;
-             $('#VarCostListGroup div').remove();
-             $('#VarCostListGroup').empty();
-             clearInputsMath();
-             typesetInput('');
-             $('#costFunctionName').val('');
-             $('#costFuntionDescription').val('');
-             $('#CalculatorModalLabel').text('New Function Cost - ' + $('#titleCostFunSmall').text())
-             for (const index of graphData) {
-                 var costlabel = "";
-                 for (const iterator of JSON.parse(index.varcost)) {
-                     costlabel += `<a value="${iterator}" class="list-group-item list-group-item-action" style="padding-top: 4px;padding-bottom: 4px;">${iterator}</a>`
-                 }
-                 $('#VarCostListGroup').append(`
-                 <div class="panel panel-info">
-                     <div class="panel-heading">
-                        <a data-toggle="collapse" data-parent="#VarCostListGroup" href="#VarCostListGroup_${index.id}">${index.id} - ${index.name.replace(/['"]+/g, '')}</a>                         
-                     </div>
-                     <div id="VarCostListGroup_${index.id}" class="panel-collapse collapse">
-                         ${costlabel}
-                     </div>
-                 </div>
-                 `);
-             }
+        $('#ModalAddCostBtn').click(function() {
+            banderaFunctionCost = true;
+            $('#VarCostListGroup div').remove();
+            $('#VarCostListGroup').empty();
+            clearInputsMath();
+            typesetInput('');
+            $('#costFunctionName').val('');
+            $('#costFuntionDescription').val('');
+            $('#CalculatorModalLabel').text('New Function Cost - ' + $('#titleCostFunSmall').text())
+            for (const index of graphData) {
+                var costlabel = "";
+                for (const iterator of JSON.parse(index.varcost)) {
+                    costlabel += `<a value="${iterator}" class="list-group-item list-group-item-action" style="padding-top: 4px;padding-bottom: 4px;">${iterator}</a>`
+                }
+                $('#VarCostListGroup').append(`
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                    <a data-toggle="collapse" data-parent="#VarCostListGroup" href="#VarCostListGroup_${index.id}">${index.id} - ${index.name.replace(/['"]+/g, '')}</a>                         
+                    </div>
+                    <div id="VarCostListGroup_${index.id}" class="panel-collapse collapse">
+                        ${costlabel}
+                    </div>
+                </div>
+                `);
+            }
             $('#python-expression').val('');
             //$('#MathPreview').val('');
             validatePyExpression();
