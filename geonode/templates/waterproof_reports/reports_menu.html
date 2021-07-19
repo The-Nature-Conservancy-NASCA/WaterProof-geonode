@@ -188,10 +188,10 @@
                 <br>
                 <a href="../../reports/decision/">{% trans "Decision indicators" %}</a>
             </div>
-            <div style="float: left;width: 25%;">
+            <div style="float: left;width: 25%;" id="idGeographicIndicators">
                 <img src="/static/geonode/img/indicadores-geograficos.png" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;" title="{% trans "Geographic visualization" %}"/>
                 <br>
-                <a>{% trans "Geographic visualization" %}</a>
+                <a href="../../reports/geographic/">{% trans "Geographic visualization" %}</a>
             </div>
 
         </div>
@@ -212,6 +212,8 @@
         document.getElementById('idFinancialIndicators').style.opacity = "0.4";
         document.getElementById('idDecisionIndicators').style.background = "#ffffff";
         document.getElementById('idDecisionIndicators').style.opacity = "0.4";
+        document.getElementById('idGeographicIndicators').style.background = "#ffffff";
+        document.getElementById('idGeographicIndicators').style.opacity = "0.4";
     } else {
         localStorage.idStudyCase = "{{study_case.id}}";
     }

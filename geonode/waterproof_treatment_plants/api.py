@@ -65,8 +65,13 @@ def getIntakeList(request):
 	"""
 	if request.method == 'GET':
 		objects_list = []
+		print(str(request.query_params.get('cityId')))
+		print("-----------------------")
 		for elementSystem in ElementSystem.objects.filter(normalized_category='CSINFRA'):
-			if elementSystem.intake.city.standard_name_spanish == str(request.query_params.get('cityName')):
+			print(elementSystem.intake.city.id)
+
+			if str(elementSystem.intake.city.id) == str(request.query_params.get('cityId')):
+				print(" Entro ")
 				objects_list.append({
 					"id": elementSystem.id,
 					"name": elementSystem.intake.name,

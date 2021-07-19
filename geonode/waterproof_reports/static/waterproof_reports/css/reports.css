@@ -53,7 +53,7 @@
     font-size: 14px;
 }
 .inform-section {
-    width: 250px;
+    width: 200px;
     background-color: #3a809a;
     color: #ffffff;
     text-align: center;
@@ -67,6 +67,8 @@
     float: left;
     margin-right: 3px;
     cursor: pointer;
+    font-size: 12px;
+    height: 40px;
 }
 .inform-section-free {
     background-color: #ffffff;
@@ -369,5 +371,136 @@
     height: 80px;
     margin: 20px;
 }
+.content-icon-inter {
+    width: 50%;
+    float: left;
+    height: 404px;
 }
-
+.center-icon-inter {
+    position: relative;
+    left: 50%;
+    margin-left: -100px;
+    top: 50%;
+    margin-top: -82px;
+}
+.img-icon-inter {
+    width: 200px;
+    height: 164px;
+}
+.margin-detail-title-inter {
+    width: calc(50% - 200px);
+    float: left;
+    background: #cccccc;
+    margin: 100px;
+    padding: 50px;
+    text-align: center;
+    font-size: 14px;
+    padding-bottom: 20px;
+}
+.text-detail-title-inter {
+    margin: 10px;
+}
+.value-detail-title-inter {
+    font-size: 30px;
+    font-weight: bold;
+}
+.line-detail-title-inter {
+    background: #6b6b6b;
+    height: 2px;
+    margin-top: 30px;
+}
+.cont-filter-inter {
+    width: 400px;
+    position: relative;
+    left: 50%;
+    margin-left: -200px;
+}
+.name-filtar-inter {
+    font-size: 15px;
+    float: left;
+    width: 100px;
+}
+.title-inform-title {
+    text-align: center;
+    margin: 30px;
+    font-size: 20px;
+    font-weight: bold;
+}
+.total-inform-title {
+    font-size: 15px;
+    float: left;
+    width: 80px;
+    height: 30px;
+}
+.table-option {
+    width: 25%;
+    float: left;
+}
+.list-table-option {
+    font-size: 13px;
+    margin: 20px;
+    text-align: center;
+    border-style: solid;
+    border-width: 1px;
+    border-color: #1389AA;
+}
+.title-table-opton {
+    background-color: #1389A9;
+    padding: 10px;
+    color: #ffffff;
+} 
+.option-table-opion {
+    width: 10%;
+    float: left;
+}
+.height-option {
+    height: 40px;
+}
+.container-graph {
+    display: none;
+    border-style: solid;
+    width: 500px;
+    margin: 10px;
+    height: 500px;
+    border-width: 1px;
+    border-color: #1389A9;
+    font-size: 12px;
+    float: left;
+    margin-top: 20px;
+}
+.title-cont-graph {
+    background-color: #1389A9;
+    text-align: center;
+    padding: 5px;
+    color: #ffffff;
+    height: 30px;
+}
+.list-year-cont {
+    width: 20%;
+    border-right-style: solid;
+    border-width: 1px;
+    height: 469px;
+    border-color: #1389A9;
+    float: left;
+}
+.title-year-cont {
+    background-color: #1389A9;
+    padding: 5px;
+    color: #ffffff;
+}
+.td-year-cont {
+    float: left;
+    width: 30px;
+}
+.field-year-cont {
+    margin: 5px;
+}
+.field-num-year {
+    width: 20px;
+    float: left;
+}
+.graph-year-cont {
+    width: 80%;
+    position: relative;
+    float: left;
+}

@@ -81,3 +81,17 @@ def decisionIndicators(request):
                         'NamesIndicators': indicatorsNames,
                         'NameCityIndicators': indicatorsNameCity
                     })
+
+def geographicIndicators(request):
+
+                indicators = investIndicators.objects.all()
+                indicatorsNames = getNames(indicators)
+                indicatorsNameCity = getNameCity(indicators)
+                return render(
+                    request,
+                    'waterproof_reports/geographicIndicators.html',
+                    {
+                        'Indicators': indicators,
+                        'NamesIndicators': indicatorsNames,
+                        'NameCityIndicators': indicatorsNameCity
+                    })
