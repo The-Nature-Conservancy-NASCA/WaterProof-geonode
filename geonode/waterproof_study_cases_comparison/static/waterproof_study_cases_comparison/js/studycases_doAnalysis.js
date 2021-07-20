@@ -12,7 +12,7 @@ $(function () {
         WP_KG: 'Change in Phosphorus Load (%)',
         WSED_TON: 'Change in Total Sediments (%)',
         WC_TON: 'Change in Carbon Storage'
-    }
+    };
     const CHART_CATEGORIES = {
         AWY: 'awy',
         BF_M3: 'bf_m3',
@@ -21,10 +21,19 @@ $(function () {
         WSED_TON: 'wsed_ton',
         WC_TON: 'wc_ton',
         STUDYCASE: 'study_case'
-    }
-    const AXIS_TABLE={
-        DOM_ID:'axis_table'
-    }
+    };
+    const AXIS_TABLE = {
+        DOM_ID: 'axis_table'
+    };
+    const AXIS_SELECT = {
+        DOM_ID: 'select_axis'
+    };
+    const ADD_BUTTON = {
+        DOM_ID: 'add_axis'
+    };
+    const INVEST_API = {
+        URL: '../getInvestIndicators/'
+    };
     chartCategories = [];
     try {
         var casesSelected = JSON.parse(localStorage.analysisCases);
@@ -54,47 +63,49 @@ $(function () {
         /* DEFAULT REQUEST AT LOAD PAGE
         /******************************/
         // Get invest indicator for selected cases
-        var seriesDataRequest = $.ajax({
-            url: '../getInvestIndicators/',
-            data: {
-                'cases': selectedCases,
-                'fields': fields
-            }
-        });
+        var seriesDataRequest = indicatorsRequest(INVEST_API.URL, selectedCases, fields);
         fields = [];
         fields.push(
             CHART_CATEGORIES.STUDYCASE,
         );
-        var seriesCasesRequest = $.ajax({
-            url: '../getInvestIndicators/',
-            data: {
-                'cases': selectedCases,
-                'fields': fields
-            }
-        });
+        var seriesCasesRequest = indicatorsRequest(INVEST_API.URL, selectedCases, fields);
         var investRequest = [];
         investRequest.push(seriesDataRequest, seriesCasesRequest);
         Promise.all(investRequest).then(promiseResponse => {
-            console.log(promiseResponse);
             let seriesData = promiseResponse[0];
             let seriesCases = promiseResponse[1];
             if (seriesData.length > 0 && seriesCases.length > 0) { //results found!
-                chartCategories.push(AXIS_CATEGORIES.AWY, AXIS_CATEGORIES.BF_M3,AXIS_CATEGORIES.WN_KG,AXIS_CATEGORIES.WP_KG);
+                let categoriesOb = {};
+                categoriesOb.id = CHART_CATEGORIES.AWY;
+                categoriesOb.name = AXIS_CATEGORIES.AWY;
+                chartCategories.push(categoriesOb);
+                categoriesOb = {};
+                categoriesOb.id = CHART_CATEGORIES.BF_M3;
+                categoriesOb.name = AXIS_CATEGORIES.BF_M3;
+                chartCategories.push(categoriesOb);
+                categoriesOb = {};
+                categoriesOb.id = CHART_CATEGORIES.WN_KG;
+                categoriesOb.name = AXIS_CATEGORIES.WN_KG;
+                chartCategories.push(categoriesOb);
+                categoriesOb = {};
+                categoriesOb.id = CHART_CATEGORIES.WP_KG;
+                categoriesOb.name = AXIS_CATEGORIES.WP_KG;
+                chartCategories.push(categoriesOb);
                 var serie = [];
                 seriesData.forEach(function (record, i) {
                     let data = [];
                     let serieObject = {};
                     for (const field in record) {
-                        console.log(field);
                         data.push(record[field]);
                     }
-                    serieObject.name = gettext('Study case')+' '+seriesCases[i].study_case;
+                    serieObject.name = gettext('Study case') + ' ' + seriesCases[i].study_case;
                     serieObject.data = data;
                     serie.push(serieObject);
                 });
                 let chartConfig = {};
-
-                chartConfig.categories = chartCategories;
+                chartConfig.categories = chartCategories.map(function (category, i) {
+                    return category.name;
+                });
                 chartConfig.series = serie;
                 fillAxisTable(chartCategories);
                 drawChart(chartConfig);
@@ -112,22 +123,80 @@ $(function () {
         });
     }
     /*
+    * Add a new axis to parallel chart
+    * 
+    * @returns
+    */
+    $('#' + ADD_BUTTON.DOM_ID).click(function () {
+        let axis_select = $('#' + AXIS_SELECT.DOM_ID + ' option:selected');
+        let exist_cat = chartCategories.filter(cat => cat.id == axis_select[0].value);
+        // Check if axis has been added
+        if (exist_cat.length > 0) {
+            Swal.fire({
+                icon: 'error',
+                title: gettext('Error!'),
+                text: gettext('Axis already added')
+            });
+            return
+        }
+        var axisName = axis_select[0].value;
+        switch (axisName) {
+            case CHART_CATEGORIES.AWY, CHART_CATEGORIES.BF_M3, CHART_CATEGORIES.WN_KG,
+                CHART_CATEGORIES.WP_KG, CHART_CATEGORIES.WSED_TON, CHART_CATEGORIES.WC_TON:
+                var url = INVEST_API.URL;
+                break;
+            default:
+                break;
+        }
+        let chartCatAsArray = Object.entries(CHART_CATEGORIES);
+        let filteredChartCat = chartCatAsArray.filter(cat => cat[1] == axis_select[0].value);
+        let axisCatAsArray = Object.entries(AXIS_CATEGORIES);
+        let filteredAxisCat = axisCatAsArray.filter(cat => cat[0] == filteredChartCat[0][0]);
+        let catObject = {
+            'id': filteredChartCat[0][1],
+            'name': filteredAxisCat[0][1]
+        }
+        chartCategories.push(catObject);
+        let fields = chartCategories.map(function (category, i) {
+            return category.id;
+        });
+        var seriesDataRequest = indicatorsRequest(url, selectedCases, fields);
+    });
+    /*
     * Render axis selected in table
     * 
     * @param  {Array}  axis_selected - The chart serie config
     * 
-    * @return
+    * @returns
     */
-    function fillAxisTable(axis_selected){
-        let axis_table=$('#'+AXIS_TABLE.DOM_ID+' tr:last');
+    function fillAxisTable(axis_selected) {
+        let axis_table = $('#' + AXIS_TABLE.DOM_ID + ' tr:last');
         axis_selected.forEach(axis => {
-            console.log(axis);
-            let row=`<tr><td class="small text-center vat">${axis}</td>`;
-            row +=`<td class="small text-center vat"><a class="btn btn-danger removeAxis" data-id="${axis}">`;
-            row+=`<span class="glyphicon glyphicon-trash" aria-hidden="true" data-id="${axis}"></span></a></td></tr>`;
+            let row = `<tr><td class="small text-center vat">${axis.name}</td>`;
+            row += `<td class="small text-center vat"><a class="btn btn-danger removeAxis" data-id="${axis}">`;
+            row += `<span class="glyphicon glyphicon-trash" aria-hidden="true" data-id="${axis}"></span></a></td></tr>`;
             axis_table.after(row);
         });
-       
+
+    }
+    /*
+    * Set a indicators promise request
+    * 
+    * @param  {String}  apiUrl - Request URL 
+    * @param  {Array}   cases  - The selected cases for analysis
+    * @param  {Array}   fields - Fiels returned in the promises response
+    * 
+    * @returns {Promise} The indicator request promise 
+    */
+    function indicatorsRequest(apiUrl, cases, fields) {
+        let seriesDataRequest = $.ajax({
+            url: apiUrl,
+            data: {
+                'cases': cases,
+                'fields': fields
+            }
+        });
+        return seriesDataRequest;
     }
     /*
     * Render parallel chart
@@ -136,7 +205,7 @@ $(function () {
     * @param  {Array}   chartConfig.categories - The chart categories
     * @param  {Array}   chartConfig.serie - The chart serie config
     * 
-    * @return
+    * @returns
     */
     function drawChart(chartConfig) {
         console.log(chartConfig);
