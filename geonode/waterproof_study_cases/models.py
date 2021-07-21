@@ -24,7 +24,7 @@ from django.conf import settings
 from django.db import models
 from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
-from geonode.waterproof_intake.models import Intake
+from geonode.waterproof_intake.models import Intake, ElementSystem
 from geonode.waterproof_parameters.models import Countries , Cities , Climate_value
 from geonode.waterproof_treatment_plants.models import Header
 from geonode.waterproof_nbs_ca.models import WaterproofNbsCa
@@ -130,6 +130,8 @@ class StudyCases(models.Model):
     cm_value = models.DecimalField(max_digits=20, decimal_places=2, blank=True, null=True)
     path_study_case_pdf = models.CharField(max_length=500, blank=False, null=True)
     path_study_case_error_log = models.CharField(max_length=500, blank=False, null=True)
+    cost_functions =  models.TextField(null=True,blank=True,verbose_name=_('Cost_function')
+    )
 
 class StudyCases_NBS(models.Model):
     studycase = models.ForeignKey(StudyCases, on_delete=models.CASCADE)
@@ -140,7 +142,52 @@ class StudyCases_Currency(models.Model):
     studycase = models.ForeignKey(StudyCases, on_delete=models.CASCADE)
     currency = models.CharField(max_length=4, blank=True, null=True)
     value = models.DecimalField(max_digits=20, decimal_places=15, blank=True, null=True)
+
+class CostFunctions(models.Model):
+
+    name = models.TextField(
+        null=True,
+        blank=True,
+        verbose_name=_('Name')
+    )
+    description = models.TextField(
+        null=True,
+        blank=True,
+        verbose_name=_('Description')
+    )
+    function = models.TextField(
+        null=True,
+        blank=True,
+        verbose_name=_('Function')
+    )
+    csinfra_graph_id = models.IntegerField(
+        default=-1,
+        verbose_name=_('CSInfra_graph_Id')
+    )
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        null=False,
+        blank=False,
+        on_delete=models.CASCADE
+    )
+    currency = models.ForeignKey(
+        Countries,
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True
+    )
+    factor = models.FloatField(null=True,blank=True,default=1.0,verbose_name=_('Factor'))    
+    element_system= models.ForeignKey(
+        ElementSystem,
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+    )
+    studycase = models.ForeignKey(StudyCases, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     
+
 
 class Meta:
     managed = False

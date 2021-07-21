@@ -15,8 +15,6 @@ var urlParams = (function(url) {
     return result;
 })(window.location.href);
 
-var mxLanguage = urlParams['lang'];
-var map;
 var basinId;
 var mapDelimit;
 var snapMarker;
@@ -27,7 +25,6 @@ var editablepolygon;
 var validPolygon;
 var isFile;
 var delimitationFileType;
-var xmlGraph;
 var waterExtractionData = {};
 var waterExtractionValue;
 const delimitationFileEnum = {
@@ -45,18 +42,28 @@ var id_study_case = window.location.href.substring(window.location.href.lastInde
 
 var intakes = [];
 var ptaps = [];
-
 var mapLoader;
+var flagFunctionCost = false;
+
 $(document).ready(function() {
-    $('#autoAdjustHeightF').css("height", "auto");
+    autoAdjustHeight();
     $('#cityLabel').text(localStorage.city+", "+localStorage.country);
     var output = document.getElementById('MathPreview');
     var button = document.getElementById('btnValidatePyExp');
+    var selectedCostId = 0;   
+
     calculate_Personnel();
     calculate_Platform();
     loadIntakes();
     loadPtaps();
     loadNBS();
+
+    if (funcostdb.length > 0){
+        $("#cost_table").removeClass('panel-hide');
+    }
+    funcostdb.forEach((f, index) => {
+        funcost(index);
+    });
 
     $('#custom').click(function() {
         if ($('#ptap_table').find('tbody > tr').length > 0) {
@@ -72,7 +79,7 @@ $(document).ready(function() {
                 if (result.isConfirmed) {
                     $("#panel-custom").removeClass("panel-hide");
                     $("#panel-ptap").addClass("panel-hide");
-                    $('#autoAdjustHeightF').css("height", "auto");
+                    autoAdjustHeight();
                     $("#panel-cost").removeClass("panel-hide");
                     $("#ptap_table tbody tr").empty();
                     $('#ptap-required').text("");
@@ -84,7 +91,7 @@ $(document).ready(function() {
         } else {
             $("#panel-custom").removeClass("panel-hide");
             $("#panel-ptap").addClass("panel-hide");
-            $('#autoAdjustHeightF').css("height", "auto");
+            autoAdjustHeight();
             $("#panel-cost").removeClass("panel-hide");
             $('#ptap-required').text("");
             $('#custom-required').text("*");
@@ -95,7 +102,7 @@ $(document).ready(function() {
         $("#panel-ptap").removeClass("panel-hide");
         $("#panel-custom").removeClass("panel-hide");
         $("#panel-cost").addClass("panel-hide");
-        $('#autoAdjustHeightF').css("height", "auto");
+        autoAdjustHeight();
         $('#ptap-required').text("*");
         $('#custom-required').text("");
     });
@@ -114,7 +121,7 @@ $(document).ready(function() {
                     var $this = $(this).val('');
                 }
             });
-            $('#autoAdjustHeightF').css("height", "auto");
+            autoAdjustHeight();
             $('#column_investment').text("Percentage");
         } else {
             $("#full-table").addClass("panel-hide");
@@ -124,7 +131,7 @@ $(document).ready(function() {
     $('#btn-investment').click(function() {
         if ($("#full-table").hasClass("panel-hide")) {
             $("#full-table").removeClass("panel-hide");
-            $('#autoAdjustHeightF').css("height", "auto");
+            autoAdjustHeight();
             $('#column_investment').text("Investment");
             nbsactivities = $("#full-table").find("input")
             nbsactivities.each(function() {
@@ -142,7 +149,6 @@ $(document).ready(function() {
         }
     });
 
-
     $('#btn-advanced_option').click(function() {
         if ($("#biophysical-panel").hasClass("panel-hide")) {
             $("#biophysical-panel").removeClass("panel-hide");
@@ -154,12 +160,11 @@ $(document).ready(function() {
         }
     });
 
-
     $('#full').click(function() {
         $("#panel-full").removeClass("panel-hide");
         $("#panel-investment").addClass("panel-hide");
         $("#full-table").addClass("panel-hide");
-        $('#autoAdjustHeightF').css("height", "auto");
+        autoAdjustHeight();
         $('#column_investment').text("Percentage");
         $("#full-table").find("input").each(function() {
             var $this = $(this).val('');
@@ -170,12 +175,13 @@ $(document).ready(function() {
         $("#panel-investment").removeClass("panel-hide");
         $("#panel-full").addClass("panel-hide");
         $("#full-table").addClass("panel-hide");
-        $('#autoAdjustHeightF').css("height", "auto");
+        autoAdjustHeight();
         $('#column_investment').text("Investment");
         $("#full-table").find("input").each(function() {
             var $this = $(this).val('');
         });
     });
+
     $('#add_wi').click(function() {
         text = $("#select_custom option:selected").text();
         value = $("#select_custom option:selected").val();
@@ -189,8 +195,7 @@ $(document).ready(function() {
                 var markup = "<tr id='custom-" + value + "'>" + name + name_source + action + "</tr>";
                 $("#custom_table").find('tbody').append(markup);
             });
-
-            $('#autoAdjustHeightF').css("height", "auto");
+            autoAdjustHeight();
         });
 
     });
@@ -208,9 +213,8 @@ $(document).ready(function() {
                 $("#ptap_table").find('tbody').append(markup);
             });
         });
-        $('#autoAdjustHeightF').css("height", "auto");
+        autoAdjustHeight();
     });
-
 
     $('#step1NextBtn').click(function() {
         intakes = [];
@@ -245,7 +249,8 @@ $(document).ready(function() {
                 ptaps: ptaps,
                 city_id: localStorage.cityId,
                 country: localStorage.country,
-                type: type
+                type: type,
+                functions: JSON.stringify(funcostdb),
             }, function(data) {
                 id_study_case = data.id_study_case;
                 if (id_study_case == '') {
@@ -257,7 +262,7 @@ $(document).ready(function() {
                     return;
                 } else {
                     $('#smartwizard').smartWizard("next");
-                    $('#autoAdjustHeightF').css("height", "auto");
+                    autoAdjustHeight();
                 }
 
             }, "json");
@@ -273,14 +278,12 @@ $(document).ready(function() {
 
     $("#cb_check").click(function() {
         console.log("si")
-        if ($(this).is(":checked")) // "this" refers to the element that fired the event
-        {
-            $("#cm_form").show();
-            $('#autoAdjustHeightF').css("height", "auto");
+        if ($(this).is(":checked")){ // "this" refers to the element that fired the event
+            $("#cm_form").show();            
         } else {
-            $("#cm_form").hide();
-            $('#autoAdjustHeightF').css("height", "auto");
+            $("#cm_form").hide();            
         }
+        autoAdjustHeight();
     })
 
     $('#step2PreviousBtn').click(function() {
@@ -295,7 +298,7 @@ $(document).ready(function() {
             carbon_market_currency: $("#cm_select option:selected").text()
         }, function(data) {
             $('#smartwizard').smartWizard("next");
-            $('#autoAdjustHeightF').css("height", "auto");
+            autoAdjustHeight();
         }, "json");
 
     });
@@ -316,7 +319,7 @@ $(document).ready(function() {
                 portfolios: portfolios
             }, function(data) {
                 $('#smartwizard').smartWizard("next");
-                $('#autoAdjustHeightF').css("height", "auto");
+                autoAdjustHeight();
             }, "json");
         } else {
             Swal.fire({
@@ -371,11 +374,10 @@ $(document).ready(function() {
         }, function(data) {
             $('#smartwizard').smartWizard("next");
             loadFinancialParameter();
-            $('#autoAdjustHeightF').css("height", "auto");
+            autoAdjustHeight();
         }, "json");
 
     });
-
 
     $('#step5PreviousBtn').click(function() {
         $('#smartwizard').smartWizard("prev");
@@ -430,7 +432,7 @@ $(document).ready(function() {
                 financial_currency: $("#financial_currency option:selected").text()
             }, function(data) {
                 $('#smartwizard').smartWizard("next");
-                $('#autoAdjustHeightF').css("height", "auto");
+                autoAdjustHeight();
             }, "json");
         } else {
             Swal.fire({
@@ -472,7 +474,6 @@ $(document).ready(function() {
     $('#step7PreviousBtn').click(function() {
         $('#smartwizard').smartWizard("prev");
     });
-
 
     $('#step7RunBtn').click(function() {
         edit = !$("#full-table").hasClass("panel-hide")
@@ -571,7 +572,7 @@ $(document).ready(function() {
                         }, function(data) {
                             $('#_analysis_processing').modal('hide');
                             $('#smartwizard').smartWizard("next");
-                            $('#autoAdjustHeightF').css("height", "auto");
+                            autoAdjustHeight();
                             $("#form").submit();
                         }, "json");
                     }
@@ -685,7 +686,7 @@ $(document).ready(function() {
                     }, function(data) {
 
                         $('#smartwizard').smartWizard("next");
-                        $('#autoAdjustHeightF').css("height", "auto");
+                        autoAdjustHeight();
                         $("#form").submit();
                     }, "json");
 
@@ -701,7 +702,6 @@ $(document).ready(function() {
         }
 
     });
-
 
     $('#custom_table').on('click', 'a', function() {
         var row = $(this).closest("tr");
@@ -727,7 +727,6 @@ $(document).ready(function() {
             if (i == 0) {
                 ptap_name = $(this).text();
             }
-
         });
         option = ptap_name
         id = row.attr("id").replace('ptap-', '')
@@ -945,7 +944,7 @@ $(document).ready(function() {
         }
     });
 
-    $('#autoAdjustHeightF').css("height", "auto");
+    autoAdjustHeight();
 
     function loadIntakes() {
         var city_id = localStorage.cityId
@@ -968,7 +967,7 @@ $(document).ready(function() {
 
                 });
                 $("#div-customcase").removeClass("panel-hide");
-                $('#autoAdjustHeightF').css("height", "auto");
+                autoAdjustHeight();
             } else {
                 $("#div-emptyintakes").removeClass("panel-hide");
             }
@@ -997,7 +996,7 @@ $(document).ready(function() {
 
                 });
                 $("#div-ptaps").removeClass("panel-hide");
-                $('#autoAdjustHeightF').css("height", "auto");
+                autoAdjustHeight();
             } else {
                 $("#radio-ptap").addClass("panel-hide");
                 $("#div-emptyptaps").removeClass("panel-hide");
@@ -1027,7 +1026,7 @@ $(document).ready(function() {
                 content += '<label class="custom-control-label" for="nbs-' + id + '"> ' + name + '</label></div></li>'
                 $("#nbs-ul").append(content);
             });
-            $('#autoAdjustHeightF').css("height", "auto");
+            autoAdjustHeight();
 
         });
     }
@@ -1077,7 +1076,7 @@ $(document).ready(function() {
                 $("#full-table").removeClass('panel-hide');
             }
             $('#smartwizard').smartWizard("next");
-            $('#autoAdjustHeightF').css("height", "auto");
+            autoAdjustHeight();
 
         });
     }
@@ -1114,15 +1113,11 @@ $(document).ready(function() {
             Promise.all(promisesIntake).then(valuesIntake => {
                 $.each(valuesIntake, function(i, content) {
                     $("#biophysical-panel").append(content);
-                    $('#autoAdjustHeightF').css("height", "auto");
+                    autoAdjustHeight();
                 });
             });
-
         });
-
     }
-
-
 
     function loadBiophysical(id_intake, name) {
         var deferred = $.Deferred();
@@ -1160,41 +1155,6 @@ $(document).ready(function() {
             deferred.resolve(content);
         });
         return deferred.promise();
-    }
-
-    $("#add_cost").click(function(){
-        setVarCost();
-    });
-
-    function setVarCost() {
-        $('#CalculatorModalLabel').text('Modify Cost ');
-        $('#VarCostListGroup div').remove();
-        let listIntakes = [];
-        $('#custom_table').find('tbody > tr').each(function(index, tr) {
-            id = tr.id.replace('custom-', '');
-            listIntakes.push({id: id, name: tr.cells[0].innerText});
-        });
-
-        var costVars = ['Q','CSed','CN','CP','WSed','WN','WP','WSedRet','WNRet','WPRet'];
-        
-        for (const intake of listIntakes) {
-            var costlabel = "";
-            for (const iterator of costVars) {
-                costlabel += `<a value="${iterator}${intake.id}" class="list-group-item list-group-item-action" style="padding-top: 4px;padding-bottom: 4px;">${iterator}${intake.id}</a>`
-            }
-            $('#VarCostListGroup').append(`
-                <div class="panel panel-info">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#VarCostListGroup" href="#VarCostListGroup_${intake.id}">${intake.id} <label> ${intake.name} </label></a>
-                        </h4>
-                    </div>
-                    <div id="VarCostListGroup_${intake.id}" class="panel-collapse collapse">
-                        ${costlabel}
-                    </div>
-                </div>
-            `);
-        }
     }
 
     //Set var into calculator
@@ -1269,10 +1229,190 @@ $(document).ready(function() {
         typeInTextarea($(this).attr('value'),el);
     });
 
+    $("#ModalAddCostBtn").click(function(){
+        flagFunctionCost = true;
+        $('#costFunctionName').val('');
+        $('#costFuntionDescription').val('');
+        $('#currencyCost').val('');
+        $('#global_multiplier_factorCalculator').val('');
+        $('#python-expression').val('');
+        setVarCost();
+    });
+
+    $('#saveAndValideCost').click(function() {
+        if (flagFunctionCost) {
+            //true = nueva
+            var pyExp = $('#python-expression').val();
+            funcostdb.push({
+                'function': {
+                    'value': pyExp,
+                    'name': $('#costFunctionName').val() == '' ? 'Undefined name' : $('#costFunctionName').val(),
+                    'description': $('#costFuntionDescription').val(),
+                    'factor': $('#global_multiplier_factorCalculator').val(),
+                    'currencyCost': $('#currencyCost option:selected').val(),
+                    'currencyCostName': $('#currencyCost option:selected').text(),
+                }
+            });
+        } else {
+            //false = editar
+            var temp = {
+                'value': $('#python-expression').val(),
+                'name': $('#costFunctionName').val() == '' ? 'Undefined name' : $('#costFunctionName').val(),
+                'description': $('#costFuntionDescription').val(),
+                'factor': $('#global_multiplier_factorCalculator').val(),
+                'currencyCost': $('#currencyCost option:selected').val(),
+                'currencyCostName': $('#currencyCost option:selected').text(),            
+            }
+    
+            if (selectedCostId == 0){
+                $.extend(funcostdb[selectedCostId].function, temp);
+            }else{
+                let clonedFunCost = JSON.parse(JSON.stringify(funcostdb[0]));
+                $.extend(clonedFunCost.function, temp);
+                funcostdb[selectedCostId] = clonedFunCost;
+            }
+            
+            var pyExp = $('#python-expression').val();
+            funcostdb[selectedCostId].function.value = pyExp; 
+        }
+                
+        $('#funcostgenerate tr').remove();
+        $('#funcostgenerate').empty();
+
+        if (funcostdb.length > 0){
+            $("#cost_table").removeClass('panel-hide');
+        }
+    
+        for (let index = 0; index < funcostdb.length; index++) {
+            funcost(index);
+        }
+        $('#CalculatorModal').modal('hide');    
+    });
+
+    //Edit funcion cost 
+    $(document).on('click', 'a[name=glyphicon-edit]', function() {
+        flagFunctionCost = false;
+        $('#CalculatorModal').modal('show');
+        selectedCostId =  parseInt($(this).attr('idvalue'));
+        $('#costFunctionName').val(funcostdb[selectedCostId].function.name);
+        $('#costFuntionDescription').val(funcostdb[selectedCostId].function.description);
+        $('#CalculatorModalLabel').text('Modify Cost - ' + $('#titleCostFunSmall').text());
+        $('#currencyCost').val(funcostdb[selectedCostId].function.currencyCost);
+        $('#global_multiplier_factorCalculator').val(funcostdb[selectedCostId].function.global_multiplier_factorCalculator);
+        setVarCost();
+        let value = funcostdb[selectedCostId].function.value;
+        $('#python-expression').val();
+        if (value != ""){
+            $('#python-expression').val(value);
+        }
+        validatePyExpression();            
+    });
+
+    //Delete funcion cost 
+    $(document).on('click', 'a[name=glyphicon-trash]', function() {
+        Swal.fire({
+            title: gettext('Are you sure?'),
+            text: gettext("You won't be able to revert this!"),
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: gettext('Yes, delete it!')
+        }).then((result) => {
+            if (result.isConfirmed) {
+                var id = $(this).attr('idvalue');
+                $(`#funcostgenerate tr[idvalue = 'fun_${id}']`).remove();
+                funcostdb.splice(id, 1);
+                $('#funcostgenerate tr').remove();
+                $('#funcostgenerate').empty();
+                for (let index = 0; index < funcostdb.length; index++) {
+                    funcost(index);
+                }
+                
+                Swal.fire(
+                    gettext('Deleted!'),
+                    gettext('Your function has been deleted'),
+                    'success'
+                );
+            }
+        })
+    });
+
+    function setVarCost() {
+        
+        $('#CalculatorModalLabel').text('Modify Cost ');
+        $('#VarCostListGroup div').remove();
+        let listIntakes = [];
+        $('#custom_table').find('tbody > tr').each(function(index, tr) {
+            id = tr.id.replace('custom-', '');
+            listIntakes.push({id: id, name: tr.cells[0].innerText});
+        });
+
+        var costVars = ['Q','CSed','CN','CP','WSed','WN','WP','WSedRet','WNRet','WPRet'];
+        
+        for (const intake of listIntakes) {
+            var costlabel = "";
+            for (const iterator of costVars) {
+                costlabel += `<a value="${iterator}${intake.id}" class="list-group-item list-group-item-action" style="padding-top: 4px;padding-bottom: 4px;">${iterator}${intake.id}</a>`
+            }
+            $('#VarCostListGroup').append(`
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#VarCostListGroup" href="#VarCostListGroup_${intake.id}">${intake.id} <label> ${intake.name} </label></a>
+                        </h4>
+                    </div>
+                    <div id="VarCostListGroup_${intake.id}" class="panel-collapse collapse">
+                        ${costlabel}
+                    </div>
+                </div>
+            `);
+        }
+    } 
 
 });
 
+function funcost(index) {
+    var currencyCostName = funcostdb[index].function.currencyCostName != undefined ? funcostdb[index].function.currencyCostName : funcostdb[index].function.currency; 
+    var factor = funcostdb[index].function.factor;
+    if (currencyCostName == undefined){
+        currencyCostName = "";        
+    }
+    if (factor == undefined){
+        factor = localStorage.getItem("factor");
+    }
+    $('#funcostgenerate').append(
+        `<tr idvalue="fun_${index}">
+        <td aling="center">${funcostdb[index].function.name}</td>
+        <td class="small text-center vat" style="width: 160px">
+        <a class="btn btn-info" idvalue="${index}" name="fun_display_btn">fx</a>
+        <div id="fun_display_${index}" style="position: absolute; left: 50%; width: auto; display: none;">
+        <div class="alert alert-info mb-0" style="position: relative; left: -25%; bottom: 90px;" role="alert">
+        <p name="render_ecuation" style="font-size: 1.8rem; width:100%;">${funcostdb[index].function.value}</p>
+         </div>
+        </div>
+        </td>
+        <td class="small text-center vat">${currencyCostName}</td>
+        <td class="small text-center vat">${factor}</td>
+        <td class="small text-center vat" style="width: 85px">
+            <div class="btn-group btn-group-table" role="group">
+                <a class="btn btn-info" name="glyphicon-edit" idvalue="${index}"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
+                <a class="btn btn-danger" name="glyphicon-trash" idvalue="${index}"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+            </div>
+        </td>
+    </tr>`);
+    autoAdjustHeight();  
+}
 
+//add function set autoAdjustHeight
+function autoAdjustHeight(){
+    $('#autoAdjustHeightF').css("height", "auto");
+}
+
+$(document).on('click', 'a[name=fun_display_btn]', function() {
+    var idx = $(this).attr('idvalue');
+    $(`#fun_display_${idx}`).toggle();
+});
 
 
 window.onbeforeunload = function() {
