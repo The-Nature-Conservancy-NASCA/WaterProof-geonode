@@ -135,7 +135,7 @@ urlpatterns += [
     url(r'^documents/', include('geonode.documents.urls')),
 
     # Apps views
-    url(r'^apps/', include('geonode.geoapps.urls')),
+#    url(r'^apps/', include('geonode.geoapps.urls')),
 
     # Catalogue views
     url(r'^catalogue/', include('geonode.catalogue.urls')),
