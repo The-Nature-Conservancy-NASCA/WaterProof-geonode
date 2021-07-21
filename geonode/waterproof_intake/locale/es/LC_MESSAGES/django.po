@@ -20,17 +20,17 @@ msgstr ""
 
 #: template/intake_clone.html:16
 msgid "Clone water intake"
-msgstr ""
+msgstr "Clonar captación"
 
 #: template/intake_clone.html:19 template/intake_detail_list.html:32
 #: template/intake_edit.html:23 template/intake_form.html:19
 msgid "Intake creation city"
-msgstr ""
+msgstr "Ciudad de creación de la captación"
 
 #: template/intake_clone.html:31 template/intake_edit.html:35
 #: template/intake_form.html:32
 msgid "Define"
-msgstr ""
+msgstr "Definir"
 
 #: template/intake_clone.html:36 template/intake_clone.html:111
 #: template/intake_edit.html:40 template/intake_edit.html:116
