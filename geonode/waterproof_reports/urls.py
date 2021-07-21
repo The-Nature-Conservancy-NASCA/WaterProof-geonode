@@ -10,6 +10,7 @@ urlpatterns = [
     path('physical/', views.physicalIndicators, name='physical'),
     path('financial/', views.financialIndicators, name='financial'),
     path('decision/', views.decisionIndicators, name='decision'),
+    path('geographic/', views.geographicIndicators, name='geographic'),
     path('getSensibilityAnalysisCost/', api.getSensibilityAnalysisCost, name='get-sensibility-analysis-cost'),
     path('getSensibilityAnalysisBenefits/', api.getSensibilityAnalysisBenefits, name='get-sensibility-analysis-benefits'),
     path('getSensibilityAnalysisCostVsBenefit/', api.getSensibilityAnalysisCostVsBenefit, name='get-sensibility-analysis-cost-vs-benefit'),
@@ -33,4 +34,9 @@ urlpatterns = [
     path('getDistinctGroupErr/', api.getDistinctGroupErr, name='get_distinct_group_err'),
     path('getWpAqueductIndicatorGraph/', api.getWpAqueductIndicatorGraph, name='get_wp_aqueduct_indicator_graph'),
     path('getReportOportunityResultMaps/', api.getReportOportunityResultMaps, name='get_report_oportunity_result_maps'),
+    path('getSizeRecomendedIntervention/', api.getSizeRecomendedIntervention, name='get_size_recomended_intervention'),
+    path('getNameWaterproofIntakeIntake/', api.getNameWaterproofIntakeIntake, name='get_name_waterproof_intake_intake'),
+    path('getTotalSizeWaterproofIntakePolygon/', api.getTotalSizeWaterproofIntakePolygon, name='get_total_size_waterproof_intake_polygon'),
+    path('getWaterproofReportsRiosIpa/', api.getWaterproofReportsRiosIpa, name='get_waterproof_reports_rios_ipa'),
+    path('getWaterproofReportsDesagregation/', api.getWaterproofReportsDesagregation, name='get_waterproof_reports_desagregation'),
 ]

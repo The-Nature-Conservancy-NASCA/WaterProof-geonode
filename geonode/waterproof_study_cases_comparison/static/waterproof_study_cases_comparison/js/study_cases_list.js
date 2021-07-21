@@ -96,6 +96,9 @@ $(function () {
                 }, 100);
             }
         });
+        $('#showCities').click(function(){
+            table.search('').draw();
+        });
         /** 
         * Add study case from table list to 
         * analysis case table 
