@@ -23,7 +23,7 @@ msgstr ""
 
 #: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:14
 msgid "You won't be able to revert this!"
-msgstr ""
+msgstr "¡No podrás revertir esto!"
 
 #: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:15
 msgid "Yes, delete it!"
