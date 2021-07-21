@@ -26,7 +26,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GeoNode\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-08 19:02-0500\n"
+"POT-Creation-Date: 2021-07-21 14:59-0500\n"
 "PO-Revision-Date: 2021-02-05 18:51-0500\n"
 "Last-Translator: Julien Collaer <julien.collaer@opengeode.be>\n"
 "Language-Team: Spanish (http://www.transifex.com/geonode/geonode/language/"
@@ -38,102 +38,14 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 2.4.2\n"
 
-#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:154
-msgid "154"
+#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:14
+msgid "You won't be able to revert this!"
 msgstr ""
 
-#~ msgid "Are you sure?"
-#~ msgstr "¿Está seguro?"
+#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:15
+msgid "Yes, delete it!"
+msgstr ""
 
-#~ msgid "You won't be able to revert this!"
-#~ msgstr "¡No podrá revertir esta acción!"
-
-#, fuzzy
-#~| msgid "Yes, change it!"
-#~ msgid "Yes, delete it!"
-#~ msgstr "Si, cambiarlo"
-
-#~ msgid "Field empty"
-#~ msgstr "Campo vacío"
-
-#~ msgid "Please fill every fields"
-#~ msgstr "Por favor, diligencie todos los campos"
-
-#~ msgid "Validate graph"
-#~ msgstr "Validar gráfico"
-
-#~ msgid "Please validate graph"
-#~ msgstr "Por favor, validar el gráfico"
-
-#~ msgid "Data analisys empty"
-#~ msgstr "Datos de análisis vacío"
-
-#~ msgid "Please Generate Data analisys"
-#~ msgstr "Por favor, genere los datos de análisis"
-
-#~ msgid "Yes, change it!"
-#~ msgstr "Si, cambiarlo"
-
-#~ msgid "Cancel"
-#~ msgstr "Cancelar"
-
-#~ msgid "Basin point delimitation"
-#~ msgstr "Delimitación del punto de la cuenca "
-
-#~ msgid "The point coordinates will be ajusted"
-#~ msgstr ""
-#~ "Las coordenadas del punto serán ajustadas a la cuenca más cercana, ¿Está "
-#~ "de acuerdo?"
-
-#~ msgid "Yes, ajust!"
-#~ msgstr "Si, ajustar"
-
-#~ msgid "Geometry error"
-#~ msgstr "Error de geometría"
-
-#~ msgid "The edited polygon is not valid"
-#~ msgstr "El polígono editado no es válido, por favor, intente nuevamente"
-
-#~ msgid "The polygon geometries must be inside basin geometry"
-#~ msgstr ""
-#~ "La geometría del polígono debe estar contenida en la geometría de la "
-#~ "cuenca"
-
-#~ msgid "Great!"
-#~ msgstr "Excelente!"
-
-#~ msgid "Is a valid polygon inside basin's geometries"
-#~ msgstr "El polígono es valido y está dentro de la cuenca"
-
-#~ msgid "GeoJSON file error"
-#~ msgstr "Eror en archivo GeoJSON"
-
-#~ msgid "Character errors in GeoJSON file"
-#~ msgstr ""
-#~ "Carácteres erróneos en el archivo GeoJSON, o el archivo puede estar "
-#~ "corrupto"
-
-#~ msgid "Shapefile error"
-#~ msgstr "Error en shapefile"
-
-#~ msgid "There's been an error reading the shapefile"
-#~ msgstr "Ha ocurrido un error leyendo el shapefile"
-
-#~ msgid "Extension file error"
-#~ msgstr "Error en extensión de archivo"
-
-#~ msgid "Not supported file extension"
-#~ msgstr ""
-#~ "Extensión no soportada, el archivo debe ser .geojson o un .zip shapefile"
-
-#~ msgid "Delete intake"
-#~ msgstr "Eliminar captación"
-
-#~ msgid "The intake has been deleted"
-#~ msgstr "La captación ha sido borrada"
-
-#~ msgid "Error!"
-#~ msgstr "Error"
-
-#~ msgid "The intake has not been deleted, try again!"
-#~ msgstr "La captación no ha sido borrada, intente nuevamente"
+#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:16
+msgid "Trouble deleting treatment plant, must be in use in one study case"
+msgstr ""

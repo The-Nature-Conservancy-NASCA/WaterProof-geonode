@@ -6,12 +6,11 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2021
 # WaterProof, 2021
 # Yeismer Espejo. <yespejo@gmail.com>, 2021
-
 msgid ""
 msgstr ""
 "Project-Id-Version: GeoNode\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-25 09:35-0500\n"
+"POT-Creation-Date: 2021-07-21 14:36-0500\n"
 "PO-Revision-Date: 2021-02-05 19:13-0500\n"
 "Last-Translator: Julien Collaer <julien.collaer@opengeode.be>\n"
 "Language-Team: English (http://www.transifex.com/geonode/geonode/language/"
@@ -23,6 +22,179 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 2.4.2\n"
 
-#: geonode/waterproof_treatment_plants/static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:154
-msgid "154"
-msgstr "adsfadfasdfdfas"
+#: models.py:9
+msgid "Name Plant"
+msgstr ""
+
+#: models.py:10
+msgid "Description Plant"
+msgstr ""
+
+#: models.py:11
+msgid "Suggest Plant"
+msgstr ""
+
+#: models.py:12
+msgid "User Plant"
+msgstr ""
+
+#: models.py:13
+msgid "Date Create Plant"
+msgstr ""
+
+#: models.py:14
+msgid "Date Update Plant"
+msgstr ""
+
+#: models.py:18
+msgid "Name Function"
+msgstr ""
+
+#: models.py:19
+msgid "Graph Id Function"
+msgstr ""
+
+#: models.py:20
+msgid "Value Function"
+msgstr ""
+
+#: models.py:21
+msgid "Currency Function"
+msgstr ""
+
+#: models.py:22
+msgid "Factor"
+msgstr ""
+
+#: models.py:23
+msgid "Sub Process"
+msgstr ""
+
+#: models.py:24 models.py:54 models.py:61
+msgid "User"
+msgstr ""
+
+#: models.py:25 models.py:55
+msgid "Date Create"
+msgstr ""
+
+#: models.py:26 models.py:56 models.py:63
+msgid "Date Update"
+msgstr ""
+
+#: models.py:27
+msgid "Water"
+msgstr ""
+
+#: models.py:28
+msgid "Sediments"
+msgstr ""
+
+#: models.py:29
+msgid "Nitrogen"
+msgstr ""
+
+#: models.py:30
+msgid "Phosphorus"
+msgstr ""
+
+#: models.py:31
+msgid "Technology"
+msgstr ""
+
+#: models.py:35
+msgid "Name Element"
+msgstr ""
+
+#: models.py:36
+msgid "Id Graph"
+msgstr ""
+
+#: models.py:37
+msgid "On off Element"
+msgstr ""
+
+#: models.py:38
+msgid "Q L Element"
+msgstr ""
+
+#: models.py:39
+msgid "Awy Element"
+msgstr ""
+
+#: models.py:40
+msgid "CN Mg L Element"
+msgstr ""
+
+#: models.py:41
+msgid "CP Mg L Element"
+msgstr ""
+
+#: models.py:42
+msgid "Mg L Csed Element"
+msgstr ""
+
+#: models.py:43
+msgid "Wn Kg Element"
+msgstr ""
+
+#: models.py:44
+msgid "Wn Rent Kg Element"
+msgstr ""
+
+#: models.py:45
+msgid "Wn Rent Ton Element"
+msgstr ""
+
+#: models.py:46
+msgid "Wsed Ton Element"
+msgstr ""
+
+#: models.py:47
+msgid "Wp Kg Element"
+msgstr ""
+
+#: models.py:48
+msgid "User Element"
+msgstr ""
+
+#: models.py:49
+msgid "Date Create Element"
+msgstr ""
+
+#: models.py:50
+msgid "Date Update Element"
+msgstr ""
+
+#: models.py:62
+msgid "Type ptap"
+msgstr ""
+
+#: models.py:64
+msgid "Awy ptap"
+msgstr ""
+
+#: models.py:65
+msgid "Cn ptap"
+msgstr ""
+
+#: models.py:66
+msgid "Cp ptap"
+msgstr ""
+
+#: models.py:67
+msgid "Cs ptap"
+msgstr ""
+
+#: models.py:68
+msgid "Wn ptap"
+msgstr ""
+
+#: models.py:69
+msgid "Wp ptap"
+msgstr ""
+
+#: models.py:70
+msgid "Ws ptap"
+msgstr ""
+

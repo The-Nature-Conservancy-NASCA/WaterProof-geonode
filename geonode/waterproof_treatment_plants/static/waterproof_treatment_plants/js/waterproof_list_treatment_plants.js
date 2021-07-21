@@ -5,10 +5,16 @@
 
  text: gettext('The intake has not been deleted, try again!')
 
- 
+
  */
 
 $(function () {
+
+    var msgs = {
+        notRevert : gettext("You won't be able to revert this!"),
+        yesDelete : gettext("Yes, delete it!"),
+        troubleDeletingTreatmentPlant : gettext("Trouble deleting treatment plant, must be in use in one study case")
+    };
     var TILELAYER = 'http://{s}.tile.osm.org/{z}/{x}/{y}.png';
     var IMAGE_LYR_URL = "https://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryTopo/MapServer/tile/{z}/{y}/{x}";
     var HYDRO_LYR_URL = "https://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/Esri_Hydro_Reference_Overlay/MapServer/tile/{z}/{y}/{x}";
@@ -1086,12 +1092,12 @@ $(function () {
         var intakeId='{{idx}}';
         Swal.fire({
             title: "<div style='font-size: 25px;'>Are you sure?</div>",
-            text: "You won't be able to revert this!",
+            text: msgs.notRevert,
             icon: "warning",
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
+            confirmButtonText: msgs.yesDelete
         }).then((result) => {
             if (result.isConfirmed) {
                 var urlDetail = "../../treatment_plants/setHeaderPlant/";
@@ -1109,7 +1115,7 @@ $(function () {
                         localStorage.plantId = null;
                         Swal.fire({
                             title: 'Error',
-                            text: "Problemas eliminando la planta de tratamiento, ya se debe estar usando en un caso de estudio",
+                            text: msgs.troubleDeletingTreatmentPlant,
                             icon: 'error',
                             confirmButtonColor: '#3085d6',
                             cancelButtonColor: '#d33',

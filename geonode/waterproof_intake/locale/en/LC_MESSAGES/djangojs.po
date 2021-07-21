@@ -19,12 +19,13 @@
 # Translators:
 # Translators:
 # Translators:
-#: geonode/waterproof_intake/static/waterproof_intake/mathquill/mathquill.min.js:10
+#: static/waterproof_intake/mathquill/mathquill.min copy.js:10
+#: static/waterproof_intake/mathquill/mathquill.min.js:10
 msgid ""
 msgstr ""
 "Project-Id-Version: GeoNode\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-11 16:18-0500\n"
+"POT-Creation-Date: 2021-07-21 14:47-0500\n"
 "PO-Revision-Date: 2021-02-05 19:17-0500\n"
 "Last-Translator: Julien Collaer <julien.collaer@opengeode.be>\n"
 "Language-Team: English (http://www.transifex.com/geonode/geonode/language/"
@@ -36,314 +37,411 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 2.4.2\n"
 
-#: geonode/waterproof_intake/static/waterproof_intake/js/graph.js:89
-#: geonode/waterproof_intake/static/waterproof_intake/js/graph_edit.js:90
-#: geonode/waterproof_intake/static/waterproof_intake/js/graph_view.js:91
+#: static/waterproof_intake/js/graph.js:93
+#: static/waterproof_intake/js/graph_edit.js:93
+#: static/waterproof_intake/js/graph_view.js:91
 msgid ""
 "This connection doesn't have a defined type, \n"
 " please define a type"
 msgstr ""
 
-#: geonode/waterproof_intake/static/waterproof_intake/js/graph.js:169
-#: geonode/waterproof_intake/static/waterproof_intake/js/graph_edit.js:134
-#: geonode/waterproof_intake/static/waterproof_intake/js/graph_view.js:135
+#: static/waterproof_intake/js/graph.js:173
+#: static/waterproof_intake/js/graph_edit.js:137
+#: static/waterproof_intake/js/graph_view.js:135
 msgid ""
 "The water intake element can only receive connection from the river element"
 msgstr ""
 
-#: geonode/waterproof_intake/static/waterproof_intake/js/graph.js:172
-#: geonode/waterproof_intake/static/waterproof_intake/js/graph_edit.js:137
-#: geonode/waterproof_intake/static/waterproof_intake/js/graph_view.js:138
+#: static/waterproof_intake/js/graph.js:176
+#: static/waterproof_intake/js/graph_edit.js:140
+#: static/waterproof_intake/js/graph_view.js:138
 msgid ""
 "The floating intake element can only receive connection from the river, "
 "reservoir and water reservoir"
 msgstr ""
 
-#: geonode/waterproof_intake/static/waterproof_intake/js/graph.js:175
-#: geonode/waterproof_intake/static/waterproof_intake/js/graph_edit.js:140
-#: geonode/waterproof_intake/static/waterproof_intake/js/graph_view.js:141
+#: static/waterproof_intake/js/graph.js:179
+#: static/waterproof_intake/js/graph_edit.js:143
+#: static/waterproof_intake/js/graph_view.js:141
 msgid ""
 "The side intake element can only receive connection from the river, "
 "reservoir and water reservoir"
 msgstr ""
 
-#: geonode/waterproof_intake/static/waterproof_intake/js/graph.js:177
-#: geonode/waterproof_intake/static/waterproof_intake/js/graph_edit.js:142
-#: geonode/waterproof_intake/static/waterproof_intake/js/graph_view.js:143
+#: static/waterproof_intake/js/graph.js:181
+#: static/waterproof_intake/js/graph_edit.js:145
+#: static/waterproof_intake/js/graph_view.js:143
 msgid "No element could connect to itself"
 msgstr ""
 
-#: geonode/waterproof_intake/static/waterproof_intake/js/graph.js:196
-#: geonode/waterproof_intake/static/waterproof_intake/js/graph_edit.js:172
+#: static/waterproof_intake/js/graph.js:190
+#: static/waterproof_intake/js/graph_edit.js:197
+msgid "No element can be connected to the River"
+msgstr ""
+
+#: static/waterproof_intake/js/graph.js:195
+#: static/waterproof_intake/js/graph_edit.js:202
+msgid "No element can be connected to the External input"
+msgstr ""
+
+#: static/waterproof_intake/js/graph.js:200
+#: static/waterproof_intake/js/graph_edit.js:207
 msgid "External Input only have 1 target"
 msgstr ""
 
-#: geonode/waterproof_intake/static/waterproof_intake/js/graph.js:197
-#: geonode/waterproof_intake/static/waterproof_intake/js/graph.js:203
-#: geonode/waterproof_intake/static/waterproof_intake/js/graph_edit.js:173
-#: geonode/waterproof_intake/static/waterproof_intake/js/graph_edit.js:179
+#: static/waterproof_intake/js/graph.js:201
+#: static/waterproof_intake/js/graph.js:207
+#: static/waterproof_intake/js/graph_edit.js:208
+#: static/waterproof_intake/js/graph_edit.js:214
 msgid "Source Must Connect to Target"
 msgstr ""
 
-#: geonode/waterproof_intake/static/waterproof_intake/js/graph.js:202
-#: geonode/waterproof_intake/static/waterproof_intake/js/graph_edit.js:178
+#: static/waterproof_intake/js/graph.js:206
+#: static/waterproof_intake/js/graph_edit.js:213
 msgid "River only have 1 target"
 msgstr ""
 
-#: geonode/waterproof_intake/static/waterproof_intake/js/graph.js:208
+#: static/waterproof_intake/js/graph.js:212
+#: static/waterproof_intake/js/graph_edit.js:219
 msgid "From element CSINFRA can't connect to other element"
 msgstr ""
 
-#: geonode/waterproof_intake/static/waterproof_intake/js/graph.js:209
-#: geonode/waterproof_intake/static/waterproof_intake/js/graph_edit.js:185
+#: static/waterproof_intake/js/graph.js:213
+#: static/waterproof_intake/js/graph_edit.js:220
 msgid "Target Must Connect From Source"
 msgstr ""
 
-#: geonode/waterproof_intake/static/waterproof_intake/js/graph.js:546
-#: geonode/waterproof_intake/static/waterproof_intake/js/graph_edit.js:512
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_clone.js:498
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_clone.js:531
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_create.js:158
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_create.js:191
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_edit.js:494
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_edit.js:527
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_list.js:59
+#: static/waterproof_intake/js/graph.js:673
+#: static/waterproof_intake/js/graph_edit.js:683
+#: static/waterproof_intake/js/intake_clone.js:476
+#: static/waterproof_intake/js/intake_clone.js:509
+#: static/waterproof_intake/js/intake_create.js:162
+#: static/waterproof_intake/js/intake_create.js:195
+#: static/waterproof_intake/js/intake_edit.js:475
+#: static/waterproof_intake/js/intake_edit.js:508
+#: static/waterproof_intake/js/intake_list.js:60
 msgid "Are you sure?"
 msgstr "Are you sure?"
 
-#: geonode/waterproof_intake/static/waterproof_intake/js/graph.js:547
-#: geonode/waterproof_intake/static/waterproof_intake/js/graph_edit.js:513
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_clone.js:499
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_clone.js:532
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_create.js:159
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_create.js:192
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_edit.js:495
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_edit.js:528
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_list.js:59
+#: static/waterproof_intake/js/graph.js:674
+#: static/waterproof_intake/js/graph_edit.js:684
+#: static/waterproof_intake/js/intake_clone.js:477
+#: static/waterproof_intake/js/intake_clone.js:510
+#: static/waterproof_intake/js/intake_create.js:163
+#: static/waterproof_intake/js/intake_create.js:196
+#: static/waterproof_intake/js/intake_edit.js:476
+#: static/waterproof_intake/js/intake_edit.js:509
+#: static/waterproof_intake/js/intake_list.js:60
 msgid "You won't be able to revert this!"
 msgstr "You won't be able to revert this!"
 
-#: geonode/waterproof_intake/static/waterproof_intake/js/graph.js:552
-#: geonode/waterproof_intake/static/waterproof_intake/js/graph_edit.js:518
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_list.js:65
+#: static/waterproof_intake/js/graph.js:679
+#: static/waterproof_intake/js/graph_edit.js:689
+#: static/waterproof_intake/js/intake_list.js:66
 #, fuzzy
 #| msgid "Yes, change it!"
 msgid "Yes, delete it!"
 msgstr "Yes, change it!"
 
-#: geonode/waterproof_intake/static/waterproof_intake/js/graph.js:580
-#: geonode/waterproof_intake/static/waterproof_intake/js/graph_edit.js:543
+#: static/waterproof_intake/js/graph.js:706
+#: static/waterproof_intake/js/graph_edit.js:715
 msgid "Deleted!"
 msgstr ""
 
-#: geonode/waterproof_intake/static/waterproof_intake/js/graph.js:581
-#: geonode/waterproof_intake/static/waterproof_intake/js/graph_edit.js:544
+#: static/waterproof_intake/js/graph.js:707
+#: static/waterproof_intake/js/graph_edit.js:716
 msgid "Your function has been deleted"
 msgstr ""
 
-#: geonode/waterproof_intake/static/waterproof_intake/js/graph.js:719
-#: geonode/waterproof_intake/static/waterproof_intake/js/graph_edit.js:712
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_clone.js:220
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_clone.js:330
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_create.js:358
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_edit.js:300
+#: static/waterproof_intake/js/graph.js:845
+#: static/waterproof_intake/js/graph_edit.js:879
+#: static/waterproof_intake/js/intake_clone.js:329
+#: static/waterproof_intake/js/intake_create.js:365
+#: static/waterproof_intake/js/intake_edit.js:329
 msgid "Field empty"
 msgstr "Field empty"
 
-#: geonode/waterproof_intake/static/waterproof_intake/js/graph.js:720
-#: geonode/waterproof_intake/static/waterproof_intake/js/graph_edit.js:713
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_clone.js:221
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_clone.js:331
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_create.js:359
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_edit.js:301
+#: static/waterproof_intake/js/graph.js:846
+#: static/waterproof_intake/js/graph_edit.js:880
+#: static/waterproof_intake/js/intake_clone.js:330
+#: static/waterproof_intake/js/intake_create.js:366
+#: static/waterproof_intake/js/intake_edit.js:330
 msgid "Please fill every fields"
 msgstr "Please fill every fields"
 
-#: geonode/waterproof_intake/static/waterproof_intake/js/graph_edit.js:184
-msgid "t connect to other element`),"
+#: static/waterproof_intake/js/graphValidations.js:264
+msgid ""
+"Selected element is connected with Extraction connection element. Can't be "
+"deleted!"
 msgstr ""
 
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_clone.js:359
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_create.js:382
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_edit.js:329
+#: static/waterproof_intake/js/graphValidations.js:287
+msgid "The River can't be Removed"
+msgstr ""
+
+#: static/waterproof_intake/js/graphValidations.js:326
+msgid ""
+"The sum of % of transported water from the Outgoing connectors of %s cannot "
+"be greater than %s %"
+msgstr ""
+
+#: static/waterproof_intake/js/graphValidations.js:328
+msgid "The sum of % of water transported from the connectors is %s %"
+msgstr ""
+
+#: static/waterproof_intake/js/graphValidations.js:355
+#: static/waterproof_intake/js/graphValidations.js:367
+#, javascript-format
+msgid "The value must be between %s and %s"
+msgstr ""
+
+#: static/waterproof_intake/js/graphValidations.js:357
+#, javascript-format
+msgid "The minimun value is %s please use the arrows"
+msgstr ""
+
+#: static/waterproof_intake/js/graphValidations.js:369
+#, javascript-format
+msgid "The maximum value is %s please use the arrows"
+msgstr ""
+
+#: static/waterproof_intake/js/graphValidations.js:391
+#, javascript-format
+msgid "No exist %s %s in a diagram"
+msgstr ""
+
+#: static/waterproof_intake/js/graphValidations.js:396
+#, fuzzy
+#| msgid "Missing shp"
+msgid "Missing elements"
+msgstr ".shp required file is missing"
+
+#: static/waterproof_intake/js/graphValidations.js:433
+msgid "Exist a connector whitout defined type"
+msgstr ""
+
+#: static/waterproof_intake/js/graphValidations.js:440
+msgid "Element %s - %s has a % transported water invalid"
+msgstr ""
+
+#: static/waterproof_intake/js/graphValidations.js:444
+msgid "Percentage transported water invalid"
+msgstr ""
+
+#: static/waterproof_intake/js/graphValidations.js:456
+#, javascript-format
+msgid "Element %s - %s is disconnect"
+msgstr ""
+
+#: static/waterproof_intake/js/graphValidations.js:460
+msgid "Disconnected elements"
+msgstr ""
+
+#: static/waterproof_intake/js/graphValidations.js:475
+msgid "Graph validated"
+msgstr ""
+
+#: static/waterproof_intake/js/intake_clone.js:354
+#: static/waterproof_intake/js/intake_create.js:389
+#: static/waterproof_intake/js/intake_edit.js:354
 msgid "Validate graph"
 msgstr "Validate graph"
 
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_clone.js:360
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_create.js:383
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_edit.js:330
+#: static/waterproof_intake/js/intake_clone.js:355
+#: static/waterproof_intake/js/intake_create.js:390
+#: static/waterproof_intake/js/intake_edit.js:355
 msgid "Please validate graph"
 msgstr "Please validate graph"
 
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_clone.js:404
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_clone.js:422
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_clone.js:433
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_create.js:53
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_create.js:401
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_create.js:420
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_create.js:431
+#: static/waterproof_intake/js/intake_clone.js:375
+#: static/waterproof_intake/js/intake_clone.js:404
+#: static/waterproof_intake/js/intake_create.js:57
+#: static/waterproof_intake/js/intake_create.js:408
+#: static/waterproof_intake/js/intake_create.js:427
+#: static/waterproof_intake/js/intake_create.js:438
+#: static/waterproof_intake/js/intake_edit.js:375
+#: static/waterproof_intake/js/intake_edit.js:404
+#: static/waterproof_intake/js/intake_view.js:333
+#: static/waterproof_intake/js/intake_view.js:362
 msgid "Data analysis empty"
 msgstr "Data analysis empty"
 
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_clone.js:405
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_clone.js:423
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_clone.js:434
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_create.js:54
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_create.js:402
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_create.js:421
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_create.js:432
+#: static/waterproof_intake/js/intake_clone.js:376
+#: static/waterproof_intake/js/intake_clone.js:405
+#: static/waterproof_intake/js/intake_create.js:58
+#: static/waterproof_intake/js/intake_create.js:409
+#: static/waterproof_intake/js/intake_create.js:428
+#: static/waterproof_intake/js/intake_create.js:439
+#: static/waterproof_intake/js/intake_edit.js:376
+#: static/waterproof_intake/js/intake_edit.js:405
+#: static/waterproof_intake/js/intake_view.js:334
+#: static/waterproof_intake/js/intake_view.js:363
 msgid "Please Generate Data analysis"
 msgstr "Please Generate Data analysis"
 
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_clone.js:505
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_clone.js:538
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_create.js:165
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_create.js:198
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_edit.js:501
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_edit.js:534
+#: static/waterproof_intake/js/intake_clone.js:463
+#: static/waterproof_intake/js/intake_clone.js:984
+#: static/waterproof_intake/js/intake_clone.js:990
+#: static/waterproof_intake/js/intake_create.js:459
+#: static/waterproof_intake/js/intake_create.js:885
+#: static/waterproof_intake/js/intake_create.js:891
+#: static/waterproof_intake/js/intake_edit.js:463
+#: static/waterproof_intake/js/intake_edit.js:985
+#: static/waterproof_intake/js/intake_edit.js:991
+msgid "Geometry error"
+msgstr "Geometry error"
+
+#: static/waterproof_intake/js/intake_clone.js:464
+#: static/waterproof_intake/js/intake_create.js:460
+#: static/waterproof_intake/js/intake_edit.js:464
+msgid "You must validate the basin geometry"
+msgstr ""
+
+#: static/waterproof_intake/js/intake_clone.js:483
+#: static/waterproof_intake/js/intake_clone.js:516
+#: static/waterproof_intake/js/intake_create.js:169
+#: static/waterproof_intake/js/intake_create.js:202
+#: static/waterproof_intake/js/intake_edit.js:482
+#: static/waterproof_intake/js/intake_edit.js:515
 msgid "Yes, change it!"
 msgstr "Yes, change it!"
 
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_clone.js:506
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_clone.js:539
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_clone.js:634
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_create.js:166
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_create.js:199
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_create.js:543
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_edit.js:502
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_edit.js:535
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_edit.js:630
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_list.js:66
+#: static/waterproof_intake/js/intake_clone.js:484
+#: static/waterproof_intake/js/intake_clone.js:517
+#: static/waterproof_intake/js/intake_clone.js:616
+#: static/waterproof_intake/js/intake_create.js:170
+#: static/waterproof_intake/js/intake_create.js:203
+#: static/waterproof_intake/js/intake_create.js:561
+#: static/waterproof_intake/js/intake_edit.js:483
+#: static/waterproof_intake/js/intake_edit.js:516
+#: static/waterproof_intake/js/intake_edit.js:615
+#: static/waterproof_intake/js/intake_list.js:67
 msgid "Cancel"
 msgstr "Cancel"
 
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_clone.js:627
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_create.js:536
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_edit.js:623
+#: static/waterproof_intake/js/intake_clone.js:609
+#: static/waterproof_intake/js/intake_create.js:554
+#: static/waterproof_intake/js/intake_edit.js:608
 msgid "Basin point delimitation"
 msgstr "Basin point delimitation"
 
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_clone.js:628
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_create.js:537
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_edit.js:624
+#: static/waterproof_intake/js/intake_clone.js:610
+#: static/waterproof_intake/js/intake_create.js:555
+#: static/waterproof_intake/js/intake_edit.js:609
 msgid "The point coordinates will be ajusted"
 msgstr ""
 "The point coordinates will be ajusted to the most near basin, are you agree?"
 
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_clone.js:633
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_create.js:542
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_edit.js:629
+#: static/waterproof_intake/js/intake_clone.js:615
+#: static/waterproof_intake/js/intake_create.js:560
+#: static/waterproof_intake/js/intake_edit.js:614
 msgid "Yes, ajust!"
 msgstr "Yes, ajust!"
 
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_clone.js:762
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_clone.js:768
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_create.js:601
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_create.js:607
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_edit.js:758
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_edit.js:764
-msgid "Geometry error"
-msgstr "Geometry error"
+#: static/waterproof_intake/js/intake_clone.js:745
+#: static/waterproof_intake/js/intake_create.js:646
+#: static/waterproof_intake/js/intake_edit.js:744
+msgid "Nbs saving error"
+msgstr ""
 
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_clone.js:763
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_create.js:602
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_edit.js:759
+#: static/waterproof_intake/js/intake_clone.js:788
+#: static/waterproof_intake/js/intake_clone.js:829
+#: static/waterproof_intake/js/intake_clone.js:870
+#: static/waterproof_intake/js/intake_clone.js:927
+#: static/waterproof_intake/js/intake_create.js:689
+#: static/waterproof_intake/js/intake_create.js:728
+#: static/waterproof_intake/js/intake_create.js:769
+#: static/waterproof_intake/js/intake_create.js:828
+#: static/waterproof_intake/js/intake_edit.js:787
+#: static/waterproof_intake/js/intake_edit.js:828
+#: static/waterproof_intake/js/intake_edit.js:869
+#: static/waterproof_intake/js/intake_edit.js:928
+msgid "Intake saving error"
+msgstr ""
+
+#: static/waterproof_intake/js/intake_clone.js:912
+#: static/waterproof_intake/js/intake_create.js:811
+#: static/waterproof_intake/js/intake_edit.js:911
+#, fuzzy
+#| msgid "The intake has been deleted"
+msgid "The water intake is being saved"
+msgstr "The intake has been deleted"
+
+#: static/waterproof_intake/js/intake_clone.js:985
+#: static/waterproof_intake/js/intake_create.js:886
+#: static/waterproof_intake/js/intake_edit.js:986
 msgid "The edited polygon is not valid"
 msgstr "The edited polygon is not valid"
 
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_clone.js:769
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_create.js:608
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_edit.js:765
+#: static/waterproof_intake/js/intake_clone.js:991
+#: static/waterproof_intake/js/intake_create.js:892
+#: static/waterproof_intake/js/intake_edit.js:992
 msgid "The polygon geometries must be inside basin geometry"
 msgstr "The polygon geometries must be inside basin geometry"
 
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_clone.js:774
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_create.js:613
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_edit.js:770
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_list.js:83
+#: static/waterproof_intake/js/intake_clone.js:997
+#: static/waterproof_intake/js/intake_create.js:898
+#: static/waterproof_intake/js/intake_edit.js:998
+#: static/waterproof_intake/js/intake_list.js:84
 msgid "Great!"
 msgstr "Great!"
 
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_clone.js:775
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_create.js:614
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_edit.js:771
+#: static/waterproof_intake/js/intake_clone.js:998
+#: static/waterproof_intake/js/intake_create.js:899
+#: static/waterproof_intake/js/intake_edit.js:999
 msgid "Is a valid polygon inside basin's geometries"
 msgstr "Is a valid polygon inside basin's geometries"
 
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_clone.js:824
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_create.js:663
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_edit.js:820
+#: static/waterproof_intake/js/intake_clone.js:1047
+#: static/waterproof_intake/js/intake_create.js:948
+#: static/waterproof_intake/js/intake_edit.js:1048
 msgid "GeoJSON file error"
 msgstr "GeoJSON file error"
 
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_clone.js:825
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_create.js:664
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_edit.js:821
+#: static/waterproof_intake/js/intake_clone.js:1048
+#: static/waterproof_intake/js/intake_create.js:949
+#: static/waterproof_intake/js/intake_edit.js:1049
 msgid "Character errors in GeoJSON file"
 msgstr "Character errors in GeoJSON file, or may be the file is corrupted!"
 
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_clone.js:859
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_create.js:698
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_edit.js:855
+#: static/waterproof_intake/js/intake_clone.js:1082
+#: static/waterproof_intake/js/intake_create.js:983
+#: static/waterproof_intake/js/intake_edit.js:1083
 msgid "Shapefile error"
 msgstr "Shapefile error"
 
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_clone.js:860
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_create.js:699
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_edit.js:856
+#: static/waterproof_intake/js/intake_clone.js:1083
+#: static/waterproof_intake/js/intake_create.js:984
+#: static/waterproof_intake/js/intake_edit.js:1084
 msgid "There's been an error reading the shapefile"
 msgstr "There's been an error reading the shapefile"
 
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_clone.js:875
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_create.js:714
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_edit.js:871
+#: static/waterproof_intake/js/intake_clone.js:1098
+#: static/waterproof_intake/js/intake_create.js:999
+#: static/waterproof_intake/js/intake_edit.js:1099
 msgid "Extension file error"
 msgstr "Extension file error"
 
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_clone.js:876
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_create.js:715
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_edit.js:872
+#: static/waterproof_intake/js/intake_clone.js:1099
+#: static/waterproof_intake/js/intake_create.js:1000
+#: static/waterproof_intake/js/intake_edit.js:1100
 msgid "Not supported file extension"
 msgstr "Not supported file extension"
 
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_list.js:58
+#: static/waterproof_intake/js/intake_list.js:59
 msgid "Delete intake"
 msgstr "Delete intake"
 
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_list.js:84
+#: static/waterproof_intake/js/intake_list.js:85
 msgid "The intake has been deleted"
 msgstr "The intake has been deleted"
 
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_list.js:91
+#: static/waterproof_intake/js/intake_list.js:96
 msgid "Error!"
 msgstr "Error!"
 
-#: geonode/waterproof_intake/static/waterproof_intake/js/intake_list.js:92
+#: static/waterproof_intake/js/intake_list.js:97
 msgid "The intake has not been deleted, try again!"
 msgstr "The intake has not been deleted, try again!"
 
-#~ msgid "The CRS is not correct!"
-#~ msgstr ""
-#~ "The coordinate reference system is not correct!, expects EPSG 3857 or "
-#~ "EPSG 4326"
 
-#~ msgid "Missing shp"
-#~ msgstr ".shp required file is missing"
-
-#~ msgid "Missing dbf"
-#~ msgstr ".dbf required file is missing"
-
-#~ msgid "Missing shx"
-#~ msgstr ".shx required file is missing"
-
-#~ msgid "Missing prj"
-#~ msgstr ".prj required file is missing"
-
-#~ msgid "Geometry must be polygon"
-#~ msgstr "The geometry must be polygon type"
-
-#~ msgid "Bad geojson structure"
-#~ msgstr "The GeoJSON does not have the required standard structure"
-
-#~ msgid "Coordinates out of WSG84"
-#~ msgstr "Coordinates out of WSG84 geographic expected range"
