@@ -140,7 +140,7 @@
                                 <div class="col-md-12">
                                     <div class="row form-group">
                                         <div class="col-md-2">
-                                            <button type="button" class="btn btn-primary" id="add_cost">{% trans "Add cost function" %}</button>
+                                            <button type="button" class="btn btn-primary" id="ModalAddCostBtn">{% trans "Add cost function" %}</button>
                                         </div>
 
                                     </div>
@@ -154,9 +154,8 @@
                                                 <th scope="col" class="small text-center vat">{% trans "Factor" %}</th>
                                                 <th scope="col" class="small text-center vat">{% trans "Options" %}</th>
                                             </tr>
-
                                         </thead>
-                                        <tbody>
+                                        <tbody id="funcostgenerate">
                                         </tbody>
                                     </table>
                                 </div>
@@ -277,7 +276,7 @@
                 <div id="step-4" class="tab-pane" role="tabpanel">
                     <div class="page-header">
                         <h3> {% trans "Modeling parameters" %}
-                            <button type="button" data-toggle="modal" data-target="#HelpStep4" id="HelpModalBtnModal_step3" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
+                            <button type="button" data-toggle="modal" data-target="#HelpStep4" id="HelpModalBtnModal_step4" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
                         </h3>
                         <p>{% trans "In this step you will find the biophysical parameters required for the execution of the models. If you want to see or edit them, click on advanced options, otherwise click on next and the system will use the default values." %}</p>
                         <button type="button" class="btn btn-primary" id="btn-advanced_option">{% trans "Advanced options" %}</button>
@@ -299,7 +298,7 @@
                 <div id="step-5" class="tab-pane" role="tabpanel">
                     <div class="page-header">
                         <h3> {% trans "Financial parameters" %}
-                            <button type="button" data-toggle="modal" data-target="#HelpStep5" id="HelpModalBtnModal_step3" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
+                            <button type="button" data-toggle="modal" data-target="#HelpStep5" id="HelpModalBtnModal_step5" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
                         </h3>
                         <p>{% trans "In this section, the system offers you the pre-loaded the costs required for the implementation of the NBS. Confirm or edit the values ​​according to your reality:" %}</p>
                         <div class="row">
@@ -427,7 +426,7 @@
                 <div id="step-6" class="tab-pane" role="tabpanel">
                     <div class="page-header">
                         <h3> {% trans "NbS / Conservation activities" %}
-                            <button type="button" data-toggle="modal" data-target="#HelpStep6" id="HelpModalBtnModal_step3" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
+                            <button type="button" data-toggle="modal" data-target="#HelpStep6" id="HelpModalBtnModal_step6" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
                         </h3>
                         <p>{% trans "Select the NbS that you want the system to consider in its analysis:" %}</p>
 
@@ -446,7 +445,7 @@
                 <div id="step-7" class="tab-pane" role="tabpanel">
                     <div class="page-header">
                         <h3> {% trans "Analysis parameters" %}
-                            <button type="button" data-toggle="modal" data-target="#HelpStep7" id="HelpModalBtnModal_step3" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
+                            <button type="button" data-toggle="modal" data-target="#HelpStep7" id="HelpModalBtnModal_step7" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
                         </h3>
                         <p></p>
                     </div>
