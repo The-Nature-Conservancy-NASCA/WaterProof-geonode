@@ -20,12 +20,12 @@ msgstr ""
 
 #: template/intake_clone.html:16
 msgid "Clone water intake"
-msgstr ""
+msgstr "Clone water intake"
 
 #: template/intake_clone.html:19 template/intake_detail_list.html:32
 #: template/intake_edit.html:23 template/intake_form.html:19
 msgid "Intake creation city"
-msgstr ""
+msgstr "Intake creation city"
 
 #: template/intake_clone.html:31 template/intake_edit.html:35
 #: template/intake_form.html:32
