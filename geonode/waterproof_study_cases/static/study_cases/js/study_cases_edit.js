@@ -15,8 +15,6 @@ var urlParams = (function(url) {
     return result;
 })(window.location.href);
 
-var mxLanguage = urlParams['lang'];
-var map;
 var basinId;
 var mapDelimit;
 var snapMarker;
@@ -45,16 +43,27 @@ const interpolationType = {
 }
 
 var mapLoader;
+var flagFunctionCost = false;
+
 $(document).ready(function() {
     $('#autoAdjustHeightF').css("height", "auto");
     $('#cityLabel').text(localStorage.city + ", " + localStorage.country);
     var output = document.getElementById('MathPreview');
     var button = document.getElementById('btnValidatePyExp');
+    var selectedCostId = 0;
+
     calculate_Personnel();
     calculate_Platform();
     loadIntakes();
     loadPtaps();
     loadNBS();
+
+    if (funcostdb.length > 0) {
+        $("#cost_table").removeClass('panel-hide');
+    }
+    funcostdb.forEach((f, index) => {
+        funcost(index);
+    });
 
     $('#custom').click(function() {
         if ($('#ptap_table').find('tbody > tr').length > 0) {
@@ -93,7 +102,7 @@ $(document).ready(function() {
         $("#panel-ptap").removeClass("panel-hide");
         $("#panel-custom").removeClass("panel-hide");
         $("#panel-cost").addClass("panel-hide");
-        $('#autoAdjustHeightF').css("height", "auto");
+        autoAdjustHeight();
         $('#ptap-required').text("*");
         $('#custom-required').text("");
     });
@@ -123,7 +132,7 @@ $(document).ready(function() {
                     var $this = $(this).val('');
                 }
             });
-            $('#autoAdjustHeightF').css("height", "auto");
+            autoAdjustHeight();
             $('#column_investment').text("Percentage");
         } else {
             $("#full-table").addClass("panel-hide");
@@ -133,7 +142,7 @@ $(document).ready(function() {
     $('#btn-investment').click(function() {
         if ($("#full-table").hasClass("panel-hide")) {
             $("#full-table").removeClass("panel-hide");
-            $('#autoAdjustHeightF').css("height", "auto");
+            autoAdjustHeight();
             $('#column_investment').text("Investment");
             nbsactivities = $("#full-table").find("input")
             nbsactivities.each(function() {
@@ -155,7 +164,7 @@ $(document).ready(function() {
         $("#panel-full").removeClass("panel-hide");
         $("#panel-investment").addClass("panel-hide");
         $("#full-table").addClass("panel-hide");
-        $('#autoAdjustHeightF').css("height", "auto");
+        autoAdjustHeight();
         $('#column_investment').text("Percentage");
         $("#full-table").find("input").each(function() {
             var $this = $(this).val('');
@@ -166,12 +175,13 @@ $(document).ready(function() {
         $("#panel-investment").removeClass("panel-hide");
         $("#panel-full").addClass("panel-hide");
         $("#full-table").addClass("panel-hide");
-        $('#autoAdjustHeightF').css("height", "auto");
+        autoAdjustHeight();
         $('#column_investment').text("Investment");
         $("#full-table").find("input").each(function() {
             var $this = $(this).val('');
         });
     });
+
     $('#add_wi').click(function() {
         text = $("#select_custom option:selected").text();
         value = $("#select_custom option:selected").val();
@@ -210,7 +220,6 @@ $(document).ready(function() {
         }
     });
 
-
     $('#step1NextBtn').click(function() {
         intakes = [];
         ptaps = [];
@@ -244,7 +253,8 @@ $(document).ready(function() {
                 ptaps: ptaps,
                 city_id: localStorage.cityId,
                 country: localStorage.country,
-                type: type
+                type: type,
+                functions: JSON.stringify(funcostdb),
             }, function(data) {
                 id_study_case = data.id_study_case;
                 if (id_study_case == '') {
@@ -256,7 +266,7 @@ $(document).ready(function() {
                     return;
                 } else {
                     $('#smartwizard').smartWizard("next");
-                    $('#autoAdjustHeightF').css("height", "auto");
+                    autoAdjustHeight();
                 }
 
             }, "json");
@@ -277,8 +287,8 @@ $(document).ready(function() {
             $('#autoAdjustHeightF').css("height", "auto");
         } else {
             $("#cm_form").hide();
-            $('#autoAdjustHeightF').css("height", "auto");
         }
+        autoAdjustHeight();
     })
 
     $('#step2PreviousBtn').click(function() {
@@ -293,7 +303,7 @@ $(document).ready(function() {
             carbon_market_currency: $("#cm_select option:selected").val()
         }, function(data) {
             $('#smartwizard').smartWizard("next");
-            $('#autoAdjustHeightF').css("height", "auto");
+            autoAdjustHeight();
         }, "json");
     });
 
@@ -313,7 +323,7 @@ $(document).ready(function() {
                 portfolios: portfolios
             }, function(data) {
                 $('#smartwizard').smartWizard("next");
-                $('#autoAdjustHeightF').css("height", "auto");
+                autoAdjustHeight();
             }, "json");
         } else {
             Swal.fire({
@@ -368,7 +378,7 @@ $(document).ready(function() {
         }, function(data) {
             $('#smartwizard').smartWizard("next");
             loadFinancialParameter();
-            $('#autoAdjustHeightF').css("height", "auto");
+            autoAdjustHeight();
         }, "json");
 
     });
@@ -426,7 +436,7 @@ $(document).ready(function() {
                 financial_currency: $("#financial_currency option:selected").val()
             }, function(data) {
                 $('#smartwizard').smartWizard("next");
-                $('#autoAdjustHeightF').css("height", "auto");
+                autoAdjustHeight();
             }, "json");
         } else {
             Swal.fire({
@@ -597,7 +607,7 @@ $(document).ready(function() {
                         }, function(data) {
                             $('#_thumbnail_processing').modal('hide');
                             $('#smartwizard').smartWizard("next");
-                            $('#autoAdjustHeightF').css("height", "auto");
+                            autoAdjustHeight();
                             $("#form").submit();
                         }, "json");
                     }
@@ -784,7 +794,6 @@ $(document).ready(function() {
             if (i == 0) {
                 ptap_name = $(this).text();
             }
-
         });
         option = ptap_name
         id = row.attr("id").replace('ptap-', '')
@@ -969,7 +978,7 @@ $(document).ready(function() {
                     }
                 });
                 $("#div-customcase").removeClass("panel-hide");
-                $('#autoAdjustHeightF').css("height", "auto");
+                autoAdjustHeight();
             } else {
                 $("#div-emptyintakes").removeClass("panel-hide");
             }
@@ -998,7 +1007,7 @@ $(document).ready(function() {
 
                 });
                 $("#div-ptaps").removeClass("panel-hide");
-                $('#autoAdjustHeightF').css("height", "auto");
+                autoAdjustHeight();
             } else {
                 $("#radio-ptap").addClass("panel-hide");
                 $("#div-emptyptaps").removeClass("panel-hide");
@@ -1028,7 +1037,7 @@ $(document).ready(function() {
                 content += '<label class="custom-control-label" for="nbs-' + id + '"> ' + name + '</label></div></li>'
                 $("#nbs-ul").append(content);
             });
-            $('#autoAdjustHeightF').css("height", "auto");
+            autoAdjustHeight();
 
         });
     }
@@ -1099,15 +1108,11 @@ $(document).ready(function() {
             Promise.all(promisesIntake).then(valuesIntake => {
                 $.each(valuesIntake, function(i, content) {
                     $("#biophysical-panel").append(content);
-                    $('#autoAdjustHeightF').css("height", "auto");
+                    autoAdjustHeight();
                 });
             });
-
         });
-
     }
-
-
 
     function loadBiophysical(id_intake, name) {
         var deferred = $.Deferred();

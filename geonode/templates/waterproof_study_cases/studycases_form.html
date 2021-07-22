@@ -141,7 +141,7 @@
                                 <div class="col-md-12">
                                     <div class="row form-group">
                                         <div class="col-md-2">
-                                            <button type="button" class="btn btn-primary" id="add_cost">{% trans "Add cost function" %}</button>
+                                            <button type="button" class="btn btn-primary" id="ModalAddCostBtn">{% trans "Add cost function" %}</button>
                                         </div>
 
                                     </div>
@@ -155,9 +155,8 @@
                                                 <th scope="col" class="small text-center vat">{% trans "Factor" %}</th>
                                                 <th scope="col" class="small text-center vat">{% trans "Options" %}</th>
                                             </tr>
-
                                         </thead>
-                                        <tbody>
+                                        <tbody id="funcostgenerate">
                                         </tbody>
                                     </table>
                                 </div>
@@ -301,7 +300,7 @@
                 <div id="step-5" class="tab-pane" role="tabpanel">
                     <div class="page-header">
                         <h3> {% trans "Financial parameters" %}
-                            <button type="button" data-toggle="modal" data-target="#HelpStep5" id="HelpModalBtnModal_step3" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
+                            <button type="button" data-toggle="modal" data-target="#HelpStep5" id="HelpModalBtnModal_step5" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
                         </h3>
                         <p>{% trans "financial_tip" %}</p>
                         <div class="row">

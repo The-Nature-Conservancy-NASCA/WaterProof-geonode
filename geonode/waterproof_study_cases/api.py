@@ -397,6 +397,7 @@ def save(request):
                 id_study_case = request.POST['id_study_case']
                 description = request.POST['description']
                 sctype = request.POST['type']
+                functions = request.POST['functions']
                 valid = True
                 if(id_study_case == ''):
                     sc = StudyCases()
@@ -418,6 +419,7 @@ def save(request):
                     sc.name = name
                     sc.city = city
                     sc.description = description
+                    sc.cost_functions = functions
                     sc.save()
                     intakes = request.POST.getlist('intakes[]')
                     sc.intakes.clear()
