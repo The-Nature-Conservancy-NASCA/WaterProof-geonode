@@ -44,7 +44,7 @@
                     <a class="nav-link" href="#step-6"> {% trans "NBS_conservation_activities" %}</a>
                 </li>
                 <li>
-                    <a class="nav-link" href="#step-7"> {% trans "run_analysis" %}</a>
+                    <a class="nav-link" href="#step-7"> {% trans "analysis_parameter" %}</a>
                 </li>
             </ul>
             <!--Steps-->
@@ -334,9 +334,9 @@
                                             <select id="financial_currency" class="custom-control-input">
                                                 {% for currency in currencys %}
                                                 {% if currency.currency == study_case.financial_currency %}
-                                                <option value='{{currency.currency}}' selected>{{currency.currency}}</option>
+                                                <option value='{{currency.currency}}' selected>({{currency.currency}}) - {{currency.name}}</option>
                                                 {% else %}
-                                                <option value='{{currency.currency}}'>{{currency.currency}}</option>
+                                                <option value='{{currency.currency}}'>({{currency.currency}}) - {{currency.name}}</option>
                                                 {% endif %}
                                                 {% endfor %}
                                             </select>
@@ -477,7 +477,7 @@
                             <!--Step 7-->
                             <div id="step-7" class="tab-pane" role="tabpanel">
                                 <div class="page-header">
-                                    <h3> {% trans "run_analysis" %}
+                                    <h3> {% trans "analysis_parameter" %}
                                         <button type="button" data-toggle="modal" data-target="#HelpStep7" id="HelpModalBtnModal_step3" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
                                     </h3>
                                     <p>{% trans "analysis_tip" %}</p>
@@ -488,7 +488,7 @@
                                             <label for="period_analysis" class="control-label required-field">
                                                 {% trans "analysis_time_period" %}
                                             </label>
-                                            <input id="period_analysis" type="number" class="form-control text-number" min="10" step="0" oninput="validity.valid||(value='');" max="100" value="{{study_case.analysis_period_value}}">
+                                            <input id="period_analysis" type="number" class="form-control text-number-full" min="10" step="0" oninput="validity.valid||(value='');" max="100" value="{{study_case.analysis_period_value}}">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -510,7 +510,7 @@
                                     <div class="col-md-6">
                                         <div id="div_period_nbs" class="form-group">
                                             <label class="control-label required-field" for="period-nbs">{% trans "implementation_time_nbs" %}</label>
-                                            <input id="period_nbs" type="number" class="form-control text-number" min="1" step="0" oninput="validity.valid||(value='');" max="100" value="{{study_case.time_implement}}">
+                                            <input id="period_nbs" type="number" class="form-control text-number-full" min="1" step="0" oninput="validity.valid||(value='');" max="100" value="{{study_case.time_implement}}">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -535,13 +535,9 @@
                                         </label>
                                         <p>{% trans "investment_tip" %}</p>
                                     </div>
-                                    <div class="col-md-12">
-                                        <div class="col-md-6">
-                                            <div id="div_annual_investment" class="form-group">
-                                                <label class="control-label required-field" for="annual_investment">{% trans "annual_investment" %}</label>
-                                                <input id="annual_investment" type="number" class="text-number-full form-control" value="{{study_case.annual_investment|stringformat:'1.2f'}}">
-                                            </div>
-                                        </div>
+                                    <div class="col-md-6">
+                                            <label class="control-label required-field" for="annual_investment">{% trans "annual_investment" %}</label>
+                                            <input id="annual_investment" type="number" class="text-number-full form-control" value="{{study_case.annual_investment|stringformat:'1.2f'}}">
                                     </div>
                                     <div class="col-md-12">
                                         <label class="control-label required-field ">
@@ -960,12 +956,7 @@
     var mxImageBasePath = "{{ STATIC_URL }}geonode/js/mxgraph/examples/images";
     var editorUrl = "{{ STATIC_URL }}geonode/js/mxgraph/examples/editors/config/diagrameditor.xml";
     var serverApi = "{{serverApi}}";
-    var funcostdb = {
-        {
-            costFunctions | safe
-        }
-    };
-
+    var funcostdb = {{costFunctions|safe}};
     OSM_BASEMAP_URL = "{{ OSM_BASEMAP_URL }} ";
     IMG_BASEMAP_URL = "{{ IMG_BASEMAP_URL }} ";
     HYDRO_BASEMAP_URL = "{{ HYDRO_BASEMAP_URL }} ";
@@ -973,6 +964,7 @@
     GEOSERVER_WMS = "{{ GEOSERVER_WMS }}";
     HYDRO_NETWORK_LYR = "{{ HYDRO_NETWORK_LYR }}";
 </script>
+<script type="text/javascript" src="{% url 'javascript-catalog-study-cases' %}"></script>
 <script src="{{ STATIC_URL }}study_cases/js/study_cases_edit.js"></script>
 <script src="{{ STATIC_URL }}study_cases/js/graph.js"></script>
 <script src="{{ STATIC_URL }}study_cases/js/graphValidations.js"></script>

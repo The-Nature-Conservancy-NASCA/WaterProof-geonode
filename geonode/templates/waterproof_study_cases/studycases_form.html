@@ -44,7 +44,7 @@
                     <a class="nav-link" href="#step-6"> {% trans "NBS_conservation_activities" %}</a>
                 </li>
                 <li>
-                    <a class="nav-link" href="#step-7"> {% trans "run_analysis" %}</a>
+                    <a class="nav-link" href="#step-7"> {% trans "analysis_parameter" %}</a>
                 </li>
             </ul>
             <!--Steps-->
@@ -452,7 +452,7 @@
                 <!--Step 7-->
                 <div id="step-7" class="tab-pane" role="tabpanel">
                     <div class="page-header">
-                        <h3> {% trans "run_analysis" %}
+                        <h3> {% trans "analysis_parameter" %}
                             <button type="button" data-toggle="modal" data-target="#HelpStep7" id="HelpModalBtnModal_step3" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
                         </h3>
                     </div>
@@ -505,13 +505,9 @@
                             </label>
                             <p>{% trans "investment_tip" %}</p>
                         </div>
-                        <div class="col-md-12">
                             <div class="col-md-6">
-                                <div id="div_annual_investment" class="form-group">
-                                    <label class="control-label required-field" for="annual_investment">{% trans "annual_investment" %}</label>
-                                    <input id="annual_investment" type="number" class="text-number-full form-control" value="0">
-                                </div>
-                            </div>
+                            <label class="control-label required-field" for="annual_investment">{% trans "annual_investment" %}</label>
+                            <input id="annual_investment" type="number" class="text-number-full form-control" value="0">
                         </div>
                         <div class="col-md-12">
                             <label class="control-label required-field ">
@@ -665,7 +661,6 @@
         </div>
     </div>
 </div>
-
 <!--HelpStep1-->
 <div class="modal fade" id="HelpStep1" tabindex="-1" aria-labelledby="HelpModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
@@ -928,7 +923,7 @@
     var editorUrl =
         "{{ STATIC_URL }}geonode/js/mxgraph/examples/editors/config/diagrameditor.xml";
     var serverApi = "{{serverApi}}";
-    let waterproof = {};
+    var funcostdb = {{costFunctions|safe}};
     OSM_BASEMAP_URL = "{{ OSM_BASEMAP_URL }} ";
     IMG_BASEMAP_URL = "{{ IMG_BASEMAP_URL }} ";
     HYDRO_BASEMAP_URL = "{{ HYDRO_BASEMAP_URL }} ";
