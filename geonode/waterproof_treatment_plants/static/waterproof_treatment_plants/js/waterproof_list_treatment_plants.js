@@ -891,7 +891,6 @@ $(function () {
         waterproof["cityCoords"] = [feat.geometry.coordinates[1], feat.geometry.coordinates[0]];
         localStorage.setItem('cityCoords', JSON.stringify(waterproof["cityCoords"]));
 
-
         searchPoints.eachLayer(function(layer) {
             if (layer.feature.properties.osm_id != feat.properties.osm_id) {
                 layer.remove();
@@ -908,16 +907,28 @@ $(function () {
         drawPolygons(cityName);
         table.search(cityName.substr(0, 5)).draw();
 
-        let urlAPI = '{{ SEARCH_COUNTRY_API_URL }}' + countryCode;
+        let urlAPI = SEARCH_COUNTRY_API_URL + countryCode;
 
         $.get(urlAPI, function(data) {
             $("#regionLabel").html(data.region);
             $("#currencyLabel").html(data.currencies[0].name + " - " + data.currencies[0].symbol);
-            $("#listIntakes").show();
-
+            
             localStorage.setItem('country', country);
             localStorage.setItem('region', data.region);
             localStorage.setItem('currency', data.currencies[0].name + " - " + data.currencies[0].symbol);
+        });
+
+        urlAPI = location.protocol + "//" + location.host + "/parameters/getClosetsCities/?x=" + feat.geometry.coordinates[0] + "&y=" + feat.geometry.coordinates[1];
+        $.get(urlAPI, function(data) {
+
+            if (data.length > 0) {
+                let cityId = data[0][0];
+                localStorage.setItem('cityId', cityId);
+                localStorage.setItem('factor', data[0][2]);
+                setTimeout(function() {
+                    location.href = "/treatment_plants/?city=" + cityId;
+                }, 300);
+            }
         });
     }
     /**
