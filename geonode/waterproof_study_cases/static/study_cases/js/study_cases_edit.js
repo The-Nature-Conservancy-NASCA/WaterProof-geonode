@@ -1287,7 +1287,7 @@ $(document).ready(function() {
 
 });
 
-$("#ModalAddCostBtn").click(function(){
+$("#ModalAddCostBtn").click(function() {
     flagFunctionCost = true;
     $('#costFunctionName').val('');
     $('#costFuntionDescription').val('');
@@ -1319,39 +1319,39 @@ $('#saveAndValideCost').click(function() {
             'description': $('#costFuntionDescription').val(),
             'factor': $('#global_multiplier_factorCalculator').val(),
             'currencyCost': $('#currencyCost option:selected').val(),
-            'currencyCostName': $('#currencyCost option:selected').text(),            
+            'currencyCostName': $('#currencyCost option:selected').text(),
         }
 
-        if (selectedCostId == 0){
+        if (selectedCostId == 0) {
             $.extend(funcostdb[selectedCostId].function, temp);
-        }else{
+        } else {
             let clonedFunCost = JSON.parse(JSON.stringify(funcostdb[0]));
             $.extend(clonedFunCost.function, temp);
             funcostdb[selectedCostId] = clonedFunCost;
         }
-        
+
         var pyExp = $('#python-expression').val();
-        funcostdb[selectedCostId].function.value = pyExp; 
+        funcostdb[selectedCostId].function.value = pyExp;
     }
-            
+
     $('#funcostgenerate tr').remove();
     $('#funcostgenerate').empty();
 
-    if (funcostdb.length > 0){
+    if (funcostdb.length > 0) {
         $("#cost_table").removeClass('panel-hide');
     }
 
     for (let index = 0; index < funcostdb.length; index++) {
         funcost(index);
     }
-    $('#CalculatorModal').modal('hide');    
+    $('#CalculatorModal').modal('hide');
 });
 
 //Edit funcion cost 
 $(document).on('click', 'a[name=glyphicon-edit]', function() {
     flagFunctionCost = false;
     $('#CalculatorModal').modal('show');
-    selectedCostId =  parseInt($(this).attr('idvalue'));
+    selectedCostId = parseInt($(this).attr('idvalue'));
     $('#costFunctionName').val(funcostdb[selectedCostId].function.name);
     $('#costFuntionDescription').val(funcostdb[selectedCostId].function.description);
     $('#CalculatorModalLabel').text('Modify Cost - ' + $('#titleCostFunSmall').text());
@@ -1360,10 +1360,10 @@ $(document).on('click', 'a[name=glyphicon-edit]', function() {
     setVarCost();
     let value = funcostdb[selectedCostId].function.value;
     $('#python-expression').val();
-    if (value != ""){
+    if (value != "") {
         $('#python-expression').val(value);
     }
-    validatePyExpression();            
+    validatePyExpression();
 });
 
 //Delete funcion cost 
@@ -1386,7 +1386,7 @@ $(document).on('click', 'a[name=glyphicon-trash]', function() {
             for (let index = 0; index < funcostdb.length; index++) {
                 funcost(index);
             }
-            
+
             Swal.fire(
                 gettext('Deleted!'),
                 gettext('Your function has been deleted'),
@@ -1397,17 +1397,20 @@ $(document).on('click', 'a[name=glyphicon-trash]', function() {
 });
 
 function setVarCost() {
-    
+
     $('#CalculatorModalLabel').text('Modify Cost ');
     $('#VarCostListGroup div').remove();
     let listIntakes = [];
     $('#custom_table').find('tbody > tr').each(function(index, tr) {
         id = tr.id.replace('custom-', '');
-        listIntakes.push({id: id, name: tr.cells[0].innerText});
+        listIntakes.push({
+            id: id,
+            name: tr.cells[0].innerText
+        });
     });
 
-    var costVars = ['Q','CSed','CN','CP','WSed','WN','WP','WSedRet','WNRet','WPRet'];
-    
+    var costVars = ['Q', 'CSed', 'CN', 'CP', 'WSed', 'WN', 'WP', 'WSedRet', 'WNRet', 'WPRet'];
+
     for (const intake of listIntakes) {
         var costlabel = "";
         for (const iterator of costVars) {
@@ -1426,21 +1429,19 @@ function setVarCost() {
             </div>
         `);
     }
-} 
-
-});
+}
 
 function funcost(index) {
-var currencyCostName = funcostdb[index].function.currencyCostName != undefined ? funcostdb[index].function.currencyCostName : funcostdb[index].function.currency; 
-var factor = funcostdb[index].function.factor;
-if (currencyCostName == undefined){
-    currencyCostName = "";        
-}
-if (factor == undefined){
-    factor = localStorage.getItem("factor");
-}
-$('#funcostgenerate').append(
-    `<tr idvalue="fun_${index}">
+    var currencyCostName = funcostdb[index].function.currencyCostName != undefined ? funcostdb[index].function.currencyCostName : funcostdb[index].function.currency;
+    var factor = funcostdb[index].function.factor;
+    if (currencyCostName == undefined) {
+        currencyCostName = "";
+    }
+    if (factor == undefined) {
+        factor = localStorage.getItem("factor");
+    }
+    $('#funcostgenerate').append(
+        `<tr idvalue="fun_${index}">
     <td aling="center">${funcostdb[index].function.name}</td>
     <td class="small text-center vat" style="width: 160px">
     <a class="btn btn-info" idvalue="${index}" name="fun_display_btn">fx</a>
@@ -1459,17 +1460,17 @@ $('#funcostgenerate').append(
         </div>
     </td>
 </tr>`);
-autoAdjustHeight();  
+    autoAdjustHeight();
 }
 
 //add function set autoAdjustHeight
-function autoAdjustHeight(){
-$('#autoAdjustHeightF').css("height", "auto");
+function autoAdjustHeight() {
+    $('#autoAdjustHeightF').css("height", "auto");
 }
 
 $(document).on('click', 'a[name=fun_display_btn]', function() {
-var idx = $(this).attr('idvalue');
-$(`#fun_display_${idx}`).toggle();
+    var idx = $(this).attr('idvalue');
+    $(`#fun_display_${idx}`).toggle();
 });
 
 window.onbeforeunload = function() {

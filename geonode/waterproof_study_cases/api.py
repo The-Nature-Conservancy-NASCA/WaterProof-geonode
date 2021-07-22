@@ -397,7 +397,7 @@ def save(request):
                 id_study_case = request.POST['id_study_case']
                 description = request.POST['description']
                 sctype = request.POST['type']
-                functions = request.POST['functions']
+                functions = request.POST.getlist('functions[]')
                 valid = True
                 if(id_study_case == ''):
                     sc = StudyCases()
