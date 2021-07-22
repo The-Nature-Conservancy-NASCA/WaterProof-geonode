@@ -584,7 +584,8 @@ $(document).ready(function() {
                         $("#full-table").find("input").each(function(index, input) {
                             nbsactivity = {}
                             input_id = input.id
-                            if (input_id) {
+                            input_type = input.type
+                            if (input_id && input_type != 'hidden') {
                                 split = input_id.split('-')
                                 nbssc_id = split.pop();
                                 val = $("#" + input_id).val()
@@ -730,7 +731,8 @@ $(document).ready(function() {
                         $("#full-table").find("input").each(function(index, input) {
                             nbsactivity = {}
                             input_id = input.id
-                            if (input_id) {
+                            input_type = input.type
+                            if (input_id && input_type != 'hidden') {
                                 split = input_id.split('-')
                                 nbssc_id = split.pop();
                                 val = $("#" + input_id).val()

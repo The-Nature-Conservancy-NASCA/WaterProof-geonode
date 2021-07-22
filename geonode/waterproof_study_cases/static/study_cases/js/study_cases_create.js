@@ -586,7 +586,8 @@ $(document).ready(function() {
                         $("#full-table").find("input").each(function(index, input) {
                             nbsactivity = {}
                             input_id = input.id
-                            if (input_id) {
+                            input_type = input.type
+                            if (input_id && input_type != 'hidden') {
                                 split = input_id.split('-')
                                 nbssc_id = split.pop();
                                 val = $("#" + input_id).val()
@@ -730,8 +731,10 @@ $(document).ready(function() {
                         $('#_thumbnail_processing').modal('toggle');
                         $("#full-table").find("input").each(function(index, input) {
                             nbsactivity = {}
+                            console.log(input);
                             input_id = input.id
-                            if (input_id) {
+                            input_type = input.type
+                            if (input_id && input_type != 'hidden') {
                                 split = input_id.split('-')
                                 nbssc_id = split.pop();
                                 val = $("#" + input_id).val()
@@ -756,7 +759,7 @@ $(document).ready(function() {
                             $('#_thumbnail_processing').modal('hide');
                             $('#smartwizard').smartWizard("next");
                             $('#autoAdjustHeightF').css("height", "auto");
-                            $("#form").submit();
+                            //$("#form").submit();
                         }, "json");
                     }
                 })
@@ -796,7 +799,6 @@ $(document).ready(function() {
             if (i == 0) {
                 ptap_name = $(this).text();
             }
-
         });
         option = ptap_name
         id = row.attr("id").replace('ptap-', '')
@@ -1024,7 +1026,6 @@ $(document).ready(function() {
             invesment = 0.0;
             min = 0.0;
             $.each(data, function(index, nbs) {
-                console.log(nbs)
                 var name = nbs.name;
                 var id = nbs.id_nbssc
                 var def = nbs.default

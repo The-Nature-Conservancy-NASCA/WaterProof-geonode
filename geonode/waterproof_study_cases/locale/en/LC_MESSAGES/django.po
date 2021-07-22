@@ -54,8 +54,11 @@ msgstr "NbS / Conservation activities"
 msgid "portfolios"
 msgstr "Portfolio objetives"
 
-msgid "run_analysis"
+msgid "analysis_parameter"
 msgstr "Analysis parameters"
+
+msgid "run_analysis"
+msgstr "Run analysis"
 
 msgid "define_study_case"
 msgstr "Define Study Case"
