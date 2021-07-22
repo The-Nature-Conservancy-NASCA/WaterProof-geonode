@@ -987,18 +987,12 @@ $(function () {
                 }
             }
 
-            table.search(cityNameMap).draw();
-
-            waterproof["cityCoords"] = cityCoords;
-
+            table.search(cityNameMap).draw();            
             map.setView(initialCoords, initialZoom);
-
             searchPoints.addTo(map);
 
             var tilelayer = L.tileLayer(TILELAYER, { maxZoom: MAXZOOM, attribution: 'Data \u00a9 <a href="http://www.openstreetmap.org/copyright"> OpenStreetMap Contributors </a> Tiles \u00a9 Komoot' }).addTo(map);
             var images = L.tileLayer(IMAGE_LYR_URL);
-
-
             var hydroLyr = L.tileLayer(HYDRO_LYR_URL);
 
             var baseLayers = {
@@ -1009,7 +1003,6 @@ $(function () {
             var overlays = {
                 "Hydro (esri)": hydroLyr,
             };
-
 
             var zoomControl = new L.Control.Zoom({ position: 'topright' }).addTo(map);
             L.control.layers(baseLayers, overlays, { position: 'topleft' }).addTo(map);
