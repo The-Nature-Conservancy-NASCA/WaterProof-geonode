@@ -110,7 +110,9 @@
                             <div class="panel" id="panel-custom">
                                 <div class="col-md-12">
                                     <div class="row form-group">
-                                        <legend><h4 class="text-primary">{% trans "Water Intake" %}<span class="text-danger-wp" id="ptap-required"></span></h4></legend>
+                                        <legend><h4 class="text-primary">{% trans "Water Intake" %}
+                                            <span class="text-danger-wp" id="ptap-required"></span></h4>
+                                        </legend>
                                         <p>{% trans "Select the intake you want to consider in the ROI Analysis" %}</p>
                                         <div class="col-md-9">
                                             <select class="form-control" id="select_custom">
@@ -143,9 +145,9 @@
                             </div>
                             {% if study_case.studycase_type == 'PTAP' %}
                             <div class="panel" id="panel-ptap">
-                                {% else %}
+                            {% else %}
                                 <div class="panel panel-hide" id="panel-ptap">
-                                    {% endif %}
+                            {% endif %}
                                     <div class="col-md-12">
                                         <div class="row form-group">
                                             <legend><h4 class="text-primary">{% trans "Treatments plants" %}<span class="text-danger-wp" id="ptap-required"></span></h4></legend>
@@ -153,7 +155,6 @@
 
                                             <div class="col-md-9">
                                                 <select class="form-control" id="select_ptap">
-
                                                 </select>
                                             </div>
                                             <div class="col-md-2">
@@ -182,17 +183,14 @@
                                 </div>
                                 {% if study_case.studycase_type == 'PTAP' %}
                                 <div class="panel panel-hide" id="panel-cost">
-                                    {% else %}
+                                {% else %}
                                     <div class="panel" id="panel-cost">
-                                        {% endif %}
-
+                                {% endif %}
                                         <div class="col-md-12">
-
                                             <div class="row form-group">
                                                 <div class="col-md-2">
-                                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#CalculatorModal" id="add_cost">{% trans "add_cost_function" %}</button>
+                                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#CalculatorModal" id="ModalAddCostBtn">{% trans "add_cost_function" %}</button>
                                                 </div>
-
                                             </div>
                                             <table id="cost_table" class="table table-striped table-bordered table-condensed panel-hide" style="width:100%">
                                                 <thead>
@@ -203,14 +201,11 @@
                                                         <th scope="col" class="small text-center vat">{% trans "Factor" %}</th>
                                                         <th scope="col" class="small text-center vat">{% trans "Options" %}</th>
                                                     </tr>
-
                                                 </thead>
-                                                <tbody>
-                                                </tbody>
+                                                <tbody id="funcostgenerate"></tbody>
                                             </table>
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
                             <div class="row text-center">
@@ -304,7 +299,7 @@
                             <div id="step-4" class="tab-pane" role="tabpanel">
                                 <div class="page-header">
                                     <h3> {% trans "Modeling parameters" %}
-                                        <button type="button" data-toggle="modal" data-target="#HelpStep4" id="HelpModalBtnModal_step3" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
+                                        <button type="button" data-toggle="modal" data-target="#HelpStep4" id="4" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
                                     </h3>
                                     <p>{% trans "In this step you will find the biophysical parameters required for the execution of the models. If you want to see or edit them, click on advanced options, otherwise click on next and the system will use the default values." %}</p>
                                     <button type="button" class="btn btn-primary" id="btn-advanced_option">{% trans "advanced_options" %}</button>
@@ -326,7 +321,7 @@
                             <div id="step-5" class="tab-pane" role="tabpanel">
                                 <div class="page-header">
                                     <h3> {% trans "Financial parameters" %}
-                                        <button type="button" data-toggle="modal" data-target="#HelpStep5" id="HelpModalBtnModal_step3" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
+                                        <button type="button" data-toggle="modal" data-target="#HelpStep5" id="HelpModalBtnModal_step5" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
                                     </h3>
                                     <p>{% trans "In this section, the system offers you the pre-loaded the costs required for the implementation of the NBS. Confirm or edit the values ​​according to your reality:" %}</p>
                                     
@@ -455,7 +450,7 @@
                             <div id="step-6" class="tab-pane" role="tabpanel">
                                 <div class="page-header">
                                     <h3> {% trans "NbS / Conservation activities" %}
-                                        <button type="button" data-toggle="modal" data-target="#HelpStep6" id="HelpModalBtnModal_step3" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
+                                        <button type="button" data-toggle="modal" data-target="#HelpStep6" id="HelpModalBtnModal_step6" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
                                     </h3>
                                     <p>{% trans "Select the NbS that you want the system to consider in its analysis:" %}</p>
             
@@ -474,7 +469,7 @@
                             <div id="step-7" class="tab-pane" role="tabpanel">
                                 <div class="page-header">
                                     <h3> {% trans "Analysis parameters" %}
-                                        <button type="button" data-toggle="modal" data-target="#HelpStep7" id="HelpModalBtnModal_step3" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
+                                        <button type="button" data-toggle="modal" data-target="#HelpStep7" id="HelpModalBtnModal_step7" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
                                     </h3>
                                     <p></p>
                                 </div>
@@ -1001,17 +996,16 @@
 <script type="text/javascript">
     var mxBasePath = "{{ STATIC_URL }}geonode/js/mxgraph/src";
     var mxImageBasePath = "{{ STATIC_URL }}geonode/js/mxgraph/examples/images";
-    var editorUrl =
-        "{{ STATIC_URL }}geonode/js/mxgraph/examples/editors/config/diagrameditor.xml";
+    var editorUrl = "{{ STATIC_URL }}geonode/js/mxgraph/examples/editors/config/diagrameditor.xml";
     var serverApi = "{{serverApi}}";
-    let waterproof = {};
+    var funcostdb = {{costFunctions|safe}};
+    
     OSM_BASEMAP_URL = "{{ OSM_BASEMAP_URL }} ";
     IMG_BASEMAP_URL = "{{ IMG_BASEMAP_URL }} ";
     HYDRO_BASEMAP_URL = "{{ HYDRO_BASEMAP_URL }} ";
     GRAY_BASEMAP_URL = "{{ GRAY_BASEMAP_URL }} ";
     GEOSERVER_WMS = "{{ GEOSERVER_WMS }}";
     HYDRO_NETWORK_LYR = "{{ HYDRO_NETWORK_LYR }}";
-    
 
 </script>
 <script src="{{ STATIC_URL }}study_cases/js/study_cases_edit.js"></script>

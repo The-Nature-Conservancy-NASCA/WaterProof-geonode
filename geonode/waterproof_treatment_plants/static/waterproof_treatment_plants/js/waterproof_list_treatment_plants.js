@@ -1008,7 +1008,7 @@ $(function () {
             map.on('click', onMapClick);
         } else {
             document.getElementById("nameCity").innerHTML = localStorage.getItem('city')+", "+localStorage.getItem('country');
-            var urlDetail = "../../treatment_plants/getIntakeList/?cityName=" + localStorage.getItem('city');
+            var urlDetail = "../../treatment_plants/getIntakeList/?cityId=" + localStorage.getItem('idCityTreatmentPlant');
             $.getJSON(urlDetail, function (data) {
                 document.getElementById("idIntakePlant").length = 1;
                 $.each( data, function( key, value ) {

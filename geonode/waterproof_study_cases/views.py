@@ -32,6 +32,7 @@ from .forms import StudyCasesForm
 from .models import StudyCases, Portfolio, ModelParameter
 
 import datetime
+import json
 logger = logging.getLogger(__name__)
 
 
@@ -170,6 +171,11 @@ def edit(request, idx):
                         break
                 if(add):
                     intakes.append(intake)
+            
+            functions = []
+            if study_case.cost_functions:
+                functions = json.loads(study_case.cost_functions)
+            
             return render(
                 request, 'waterproof_study_cases/studycases_edit.html',
                 {
@@ -180,10 +186,10 @@ def edit(request, idx):
                     'tratamentPlants': ptaps,
                     'ModelParameters': models,
                     'currencys': currencys,
-                    'scenarios': scenarios
+                    'scenarios': scenarios,
+                    'costFunctions' : functions
                 }
             )
-
 
 def clone(request, idx):
     if not request.user.is_authenticated:
