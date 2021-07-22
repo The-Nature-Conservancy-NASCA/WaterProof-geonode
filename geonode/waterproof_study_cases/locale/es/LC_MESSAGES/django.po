@@ -57,13 +57,13 @@ msgid "study_cases"
 msgstr "Casos de estudio"
 
 msgid "new_study_case"
-msgstr "Nuevo caso de estudio"
+msgstr "Crear caso de estudio"
 
 msgid "list_study_case"
 msgstr "Lista casos de estudio"
 
 msgid "treatment_plants"
-msgstr "Plantas de tratamiento"
+msgstr "Plantas de tratamiento de agua potable"
 
 msgid "water_intakes"
 msgstr "Captaciones"
@@ -75,7 +75,7 @@ msgid "creation_city"
 msgstr "Ciudad de creación"
 
 msgid "carbon_market"
-msgstr "Mercado de Carbono"
+msgstr "Mercado de carbono"
 
 msgid "modelling_parameters"
 msgstr "Parametros de modelado"
@@ -84,13 +84,13 @@ msgid "financial_parameters"
 msgstr "Parametros Financieros"
 
 msgid "NBS_conservation_activities"
-msgstr "NBS / Activiades de conservación"
+msgstr "NbS / Activiades de conservación"
 
 msgid "portfolios"
-msgstr "Portafolios"
+msgstr "Parametros portafolios"
 
 msgid "run_analysis"
-msgstr "Ejecutar Análisis"
+msgstr "Parametros análisis"
 
 msgid "define_study_case"
 msgstr "Definir caso de estudio"
@@ -103,6 +103,9 @@ msgstr "Seleccione el tipo de caso de estudio a crear"
 
 msgid "no_treatment_plants"
 msgstr "No existen plantas de tratamiento en la ciudad seleccionada"
+
+msgid "no_water_intakes"
+msgstr "No existen captaciones en la ciudad seleccionada"
 
 msgid "custom_case"
 msgstr "Caso personalizado"
@@ -257,8 +260,11 @@ msgstr "Regresar"
 msgid "select_option"
 msgstr "-- seleccione una opción --"
 
+msgid "financial_discount_rates"
+msgstr "Discount rates para el análisis ROI"
 
-
+msgid "financial_transaction_cost"
+msgstr "Transaction cost per year as a percentage of Implementation, Maintenance and Oportunity costs"
 
 
 

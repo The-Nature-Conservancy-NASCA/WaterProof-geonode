@@ -54,7 +54,8 @@ $(function() {
             }
         });
 
-        viewCurrencys = function(id) {
+        viewCurrencys = function(id, currency_sc) {
+            console.log(currency_sc)
             html = '<div class="row" id="currencys-panel"> <div class="col-md-12 currency-panel">The following exchange rates have been applied for the analysis</div>'
             html += '<div class="custom-control col-md-3 currency-value">Quantity</div>'
             html += '<div class="custom-control col-md-4 currency-value">Currency</div>'
@@ -66,7 +67,7 @@ $(function() {
 
                 $.each(data, function(index, currency) {
                     value = Number.parseFloat(currency.value).toFixed(5);
-                    html += '<div class="custom-control col-md-3 currency-value">1</div>'
+                    html += '<div class="custom-control col-md-3 currency-value">1 ' + currency_sc + '</div>'
                     html += '<div class="col-md-4 currency-value"><label class="custom-control-label" for="currency">' + currency.currency + '</label></div>'
                     html += '<div class="custom-control col-md-5 currency-value">' + value + '</div>'
                 });
