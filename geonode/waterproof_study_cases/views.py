@@ -48,7 +48,6 @@ def list(request):
                 userCountry = Countries.objects.get(iso3=request.user.country)
                 region = Regions.objects.get(id=userCountry.region_id)
                 if (city_id != ''):
-                    logger.log(city_id)
                     studyCases = StudyCases.objects.filter(city=city_id).order_by('edit_date')
                     city = Cities.objects.get(id=city_id)
                 else:
