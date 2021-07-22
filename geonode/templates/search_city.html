@@ -23,7 +23,7 @@
             <p><b>{% trans "Selected City" %} :</b> <span id="cityLabel"></span> </p>
             <p><b>{% trans "Region" %} :</b> <span id="regionLabel"></span> </p>
             <p><b>{% trans "Currency" %}:</b><span id="currencyLabel"></span></p>
-            <div id="listIntakes">
+            <div>
                 <a class="listStudyCases" href="#">{% trans "List Study Cases" %}</a>
             </div> 
         </div>
@@ -116,8 +116,7 @@
                 $("#countryLabel").html(localStorage.getItem('country'));
                 $("#cityLabel").html(localStorage.getItem('city'));
                 $("#regionLabel").html(localStorage.getItem('region'));
-                $("#currencyLabel").html(localStorage.getItem('currency'));
-                $("#listIntakes").show();
+                $("#currencyLabel").html(localStorage.getItem('currency'));                
             }catch(e){
 
             }
@@ -185,8 +184,7 @@
             console.log("data in search city is: "+data.region);
             $("#regionLabel").html(data.region);
             $("#currencyLabel").html(data.currencies[0].name + " - " + data.currencies[0].symbol);
-            $("#listIntakes").show();
-            
+                        
             localStorage.setItem('country', country);
             localStorage.setItem('region', data.region);
             localStorage.setItem('currency', data.currencies[0].name + " - " + data.currencies[0].symbol);
