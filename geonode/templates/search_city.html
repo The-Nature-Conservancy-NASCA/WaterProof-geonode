@@ -24,7 +24,7 @@
             <p><b>{% trans "Region" %} :</b> <span id="regionLabel"></span> </p>
             <p><b>{% trans "Currency" %}:</b><span id="currencyLabel"></span></p>
             <div id="listIntakes">
-                <a href="/study_cases">{% trans "List Study Cases" %}</a>
+                <a class="listStudyCases" href="#">{% trans "List Study Cases" %}</a>
             </div> 
         </div>
         <div class="col-md-8">
@@ -136,7 +136,17 @@
         map.on('click', onMapClick);  
         map.on('zoomend', function(e){
             console.log(map.getZoom());
-        });      
+        });
+
+        $(".listStudyCases").click(function(){
+          var cityId = localStorage.cityId;
+          if (cityId == undefined){
+            cityId = "";
+          }
+          url="{% url "study_cases_list" %}?limit={{ CLIENT_RESULTS_LIMIT }}&city=" + cityId;
+          window.location.href = url;
+        });
+
     });    
 
     var searchPoints = L.geoJson(null, {
