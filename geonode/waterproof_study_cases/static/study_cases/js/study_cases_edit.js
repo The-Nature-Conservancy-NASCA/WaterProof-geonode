@@ -1287,6 +1287,191 @@ $(document).ready(function() {
 
 });
 
+$("#ModalAddCostBtn").click(function(){
+    flagFunctionCost = true;
+    $('#costFunctionName').val('');
+    $('#costFuntionDescription').val('');
+    $('#currencyCost').val('');
+    $('#global_multiplier_factorCalculator').val('');
+    $('#python-expression').val('');
+    setVarCost();
+});
+
+$('#saveAndValideCost').click(function() {
+    if (flagFunctionCost) {
+        //true = nueva
+        var pyExp = $('#python-expression').val();
+        funcostdb.push({
+            'function': {
+                'value': pyExp,
+                'name': $('#costFunctionName').val() == '' ? 'Undefined name' : $('#costFunctionName').val(),
+                'description': $('#costFuntionDescription').val(),
+                'factor': $('#global_multiplier_factorCalculator').val(),
+                'currencyCost': $('#currencyCost option:selected').val(),
+                'currencyCostName': $('#currencyCost option:selected').text(),
+            }
+        });
+    } else {
+        //false = editar
+        var temp = {
+            'value': $('#python-expression').val(),
+            'name': $('#costFunctionName').val() == '' ? 'Undefined name' : $('#costFunctionName').val(),
+            'description': $('#costFuntionDescription').val(),
+            'factor': $('#global_multiplier_factorCalculator').val(),
+            'currencyCost': $('#currencyCost option:selected').val(),
+            'currencyCostName': $('#currencyCost option:selected').text(),            
+        }
+
+        if (selectedCostId == 0){
+            $.extend(funcostdb[selectedCostId].function, temp);
+        }else{
+            let clonedFunCost = JSON.parse(JSON.stringify(funcostdb[0]));
+            $.extend(clonedFunCost.function, temp);
+            funcostdb[selectedCostId] = clonedFunCost;
+        }
+        
+        var pyExp = $('#python-expression').val();
+        funcostdb[selectedCostId].function.value = pyExp; 
+    }
+            
+    $('#funcostgenerate tr').remove();
+    $('#funcostgenerate').empty();
+
+    if (funcostdb.length > 0){
+        $("#cost_table").removeClass('panel-hide');
+    }
+
+    for (let index = 0; index < funcostdb.length; index++) {
+        funcost(index);
+    }
+    $('#CalculatorModal').modal('hide');    
+});
+
+//Edit funcion cost 
+$(document).on('click', 'a[name=glyphicon-edit]', function() {
+    flagFunctionCost = false;
+    $('#CalculatorModal').modal('show');
+    selectedCostId =  parseInt($(this).attr('idvalue'));
+    $('#costFunctionName').val(funcostdb[selectedCostId].function.name);
+    $('#costFuntionDescription').val(funcostdb[selectedCostId].function.description);
+    $('#CalculatorModalLabel').text('Modify Cost - ' + $('#titleCostFunSmall').text());
+    $('#currencyCost').val(funcostdb[selectedCostId].function.currencyCost);
+    $('#global_multiplier_factorCalculator').val(funcostdb[selectedCostId].function.global_multiplier_factorCalculator);
+    setVarCost();
+    let value = funcostdb[selectedCostId].function.value;
+    $('#python-expression').val();
+    if (value != ""){
+        $('#python-expression').val(value);
+    }
+    validatePyExpression();            
+});
+
+//Delete funcion cost 
+$(document).on('click', 'a[name=glyphicon-trash]', function() {
+    Swal.fire({
+        title: gettext('Are you sure?'),
+        text: gettext("You won't be able to revert this!"),
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: gettext('Yes, delete it!')
+    }).then((result) => {
+        if (result.isConfirmed) {
+            var id = $(this).attr('idvalue');
+            $(`#funcostgenerate tr[idvalue = 'fun_${id}']`).remove();
+            funcostdb.splice(id, 1);
+            $('#funcostgenerate tr').remove();
+            $('#funcostgenerate').empty();
+            for (let index = 0; index < funcostdb.length; index++) {
+                funcost(index);
+            }
+            
+            Swal.fire(
+                gettext('Deleted!'),
+                gettext('Your function has been deleted'),
+                'success'
+            );
+        }
+    })
+});
+
+function setVarCost() {
+    
+    $('#CalculatorModalLabel').text('Modify Cost ');
+    $('#VarCostListGroup div').remove();
+    let listIntakes = [];
+    $('#custom_table').find('tbody > tr').each(function(index, tr) {
+        id = tr.id.replace('custom-', '');
+        listIntakes.push({id: id, name: tr.cells[0].innerText});
+    });
+
+    var costVars = ['Q','CSed','CN','CP','WSed','WN','WP','WSedRet','WNRet','WPRet'];
+    
+    for (const intake of listIntakes) {
+        var costlabel = "";
+        for (const iterator of costVars) {
+            costlabel += `<a value="${iterator}${intake.id}" class="list-group-item list-group-item-action" style="padding-top: 4px;padding-bottom: 4px;">${iterator}${intake.id}</a>`
+        }
+        $('#VarCostListGroup').append(`
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#VarCostListGroup" href="#VarCostListGroup_${intake.id}">${intake.id} <label> ${intake.name} </label></a>
+                    </h4>
+                </div>
+                <div id="VarCostListGroup_${intake.id}" class="panel-collapse collapse">
+                    ${costlabel}
+                </div>
+            </div>
+        `);
+    }
+} 
+
+});
+
+function funcost(index) {
+var currencyCostName = funcostdb[index].function.currencyCostName != undefined ? funcostdb[index].function.currencyCostName : funcostdb[index].function.currency; 
+var factor = funcostdb[index].function.factor;
+if (currencyCostName == undefined){
+    currencyCostName = "";        
+}
+if (factor == undefined){
+    factor = localStorage.getItem("factor");
+}
+$('#funcostgenerate').append(
+    `<tr idvalue="fun_${index}">
+    <td aling="center">${funcostdb[index].function.name}</td>
+    <td class="small text-center vat" style="width: 160px">
+    <a class="btn btn-info" idvalue="${index}" name="fun_display_btn">fx</a>
+    <div id="fun_display_${index}" style="position: absolute; left: 50%; width: auto; display: none;">
+    <div class="alert alert-info mb-0" style="position: relative; left: -25%; bottom: 90px;" role="alert">
+    <p name="render_ecuation" style="font-size: 1.8rem; width:100%;">${funcostdb[index].function.value}</p>
+     </div>
+    </div>
+    </td>
+    <td class="small text-center vat">${currencyCostName}</td>
+    <td class="small text-center vat">${factor}</td>
+    <td class="small text-center vat" style="width: 85px">
+        <div class="btn-group btn-group-table" role="group">
+            <a class="btn btn-info" name="glyphicon-edit" idvalue="${index}"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
+            <a class="btn btn-danger" name="glyphicon-trash" idvalue="${index}"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+        </div>
+    </td>
+</tr>`);
+autoAdjustHeight();  
+}
+
+//add function set autoAdjustHeight
+function autoAdjustHeight(){
+$('#autoAdjustHeightF').css("height", "auto");
+}
+
+$(document).on('click', 'a[name=fun_display_btn]', function() {
+var idx = $(this).attr('idvalue');
+$(`#fun_display_${idx}`).toggle();
+});
+
 window.onbeforeunload = function() {
     return mxResources.get('changesLost');
 };
