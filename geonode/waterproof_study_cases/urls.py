@@ -2,10 +2,16 @@
 from django.conf.urls import url
 from django.urls import path
 from . import views, api
+from django.views.i18n import JavaScriptCatalog
+
+js_info_dict = {
+    'domain': 'djangojs',
+    'packages': 'geonode.waterproof_study_cases'
+}
 
 
 urlpatterns = [
-
+    url(r'^jsi18n/$', JavaScriptCatalog.as_view(), js_info_dict, name='javascript-catalog-study-cases'),
     # Default view, list all views
     path('', views.list, name='study_cases_list'),
     # Create Study Cases

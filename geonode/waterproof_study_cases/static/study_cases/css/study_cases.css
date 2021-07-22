@@ -144,6 +144,10 @@
     width: 40% !important;
 }
 
+.text-number-full {
+    text-align: right;
+}
+
 .custom-checkbox .custom-control-input:disabled~.custom-control-label {
     background-color: rgba(0, 123, 255, .5) im !important;
 }

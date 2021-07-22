@@ -190,7 +190,7 @@ def getNBS(request):
     if request.method == 'POST':
         nbs = []
         nbs_admin = WaterproofNbsCa.objects.filter(added_by__professional_role='ADMIN').values(
-            "id", "name")
+            "id", "name","unit_implementation_cost", "unit_maintenance_cost","periodicity_maitenance","unit_oportunity_cost", "currency__currency")
         country = request.POST['country']
         process = request.POST['process']
         id_study_case = request.POST['id_study_case']
@@ -199,10 +199,10 @@ def getNBS(request):
             scnbs_list = StudyCases_NBS.objects.filter(studycase=sc)
             if(process == 'Clone'):
                 nbs_user = WaterproofNbsCa.objects.filter(added_by=request.user, country__name__startswith=country).exclude(added_by__professional_role='ADMIN').values(
-                    "id", "name")
+                    "id", "name" ,"unit_implementation_cost", "unit_maintenance_cost","periodicity_maitenance","unit_oportunity_cost", "currency__currency")
             else:
                 nbs_user = WaterproofNbsCa.objects.filter(added_by=sc.added_by, country__name__startswith=country).exclude(added_by__professional_role='ADMIN').values(
-                    "id", "name")
+                    "id", "name","unit_implementation_cost", "unit_maintenance_cost","periodicity_maitenance","unit_oportunity_cost", "currency__currency")
             nbs_list = chain(nbs_admin, nbs_user)
             for n in nbs_list:
                 defaultValue = False
@@ -219,12 +219,16 @@ def getNBS(request):
                     'id_nbssc': id_nbssc,
                     'name': n['name'],
                     'default': defaultValue,
-                    'value': value_nbs
+                    'value': value_nbs,
+                    'unit_implementation_cost':n['unit_implementation_cost'],
+                    'unit_maintenance_cost':n['unit_maintenance_cost'],
+                    'periodicity_maitenance':n['periodicity_maitenance'],
+                    'unit_oportunity_cost':n['unit_oportunity_cost'],
                 }
                 nbs.append(nObject)
         elif(process == 'Create'):
             nbs_user = WaterproofNbsCa.objects.filter(added_by=request.user, country__name__startswith=country).exclude(added_by__professional_role='ADMIN').values(
-                "id", "name")
+                "id", "name","unit_implementation_cost", "unit_maintenance_cost","periodicity_maitenance","unit_oportunity_cost", "currency__currency")
             nbs_list = chain(nbs_admin, nbs_user)
             nbs = list(nbs_list)
         return JsonResponse(nbs, safe=False)

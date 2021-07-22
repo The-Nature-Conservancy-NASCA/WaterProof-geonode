@@ -22,13 +22,13 @@ msgid "study_cases"
 msgstr "Study Cases"
 
 msgid "new_study_case"
-msgstr "New Study Case"
+msgstr "Create Study Cases"
 
 msgid "list_study_case"
 msgstr "List Study Cases"
 
 msgid "treatment_plants"
-msgstr "Treatment plants"
+msgstr "Drinking water treatment plants (DWTP)"
 
 msgid "water_intakes"
 msgstr "Water intakes"
@@ -40,25 +40,25 @@ msgid "creation_city"
 msgstr "Creation city"
 
 msgid "carbon_market"
-msgstr "Carbon Market"
+msgstr "Carbon market"
 
 msgid "modelling_parameters"
-msgstr "Modelling Parameters"
+msgstr "Modelling parameters"
 
 msgid "financial_parameters"
-msgstr "Financial Parameters"
+msgstr "Financial parameters"
 
 msgid "NBS_conservation_activities"
-msgstr "NBS / Conservation activities"
+msgstr "NbS / Conservation activities"
 
 msgid "portfolios"
-msgstr "Portfolios"
+msgstr "Portfolio objetives"
 
 msgid "run_analysis"
-msgstr "RUN Analysis"
+msgstr "Analysis parameters"
 
 msgid "define_study_case"
-msgstr "Define study case"
+msgstr "Define Study Case"
 
 msgid "define_study_case_text"
 msgstr "Please complete the fields to define your Study Case"
@@ -69,6 +69,9 @@ msgstr "Select type of study case to create"
 msgid "no_treatment_plants"
 msgstr "There are no treatment plants in the selected city"
 
+msgid "no_water_intakes"
+msgstr "First create a intake"
+
 msgid "custom_case"
 msgstr "Custom case"
 
@@ -76,7 +79,7 @@ msgid "select_water_intake"
 msgstr "Select the intake you want to consider in the ROI Analysis"
 
 msgid "water_source"
-msgstr "Name of the water source"
+msgstr "Water intake sources"
 
 msgid "add_wi"
 msgstr "Add WI"
@@ -103,7 +106,7 @@ msgid "portfolios_text"
 msgstr "Select the objetives for which the systemwill generate portfolios of Nature-bassed Solutions, using the RIOS technnical framework"
 
 msgid "edit_study_cases"
-msgstr "Edit Study Cases"
+msgstr "Edit study cases"
 
 msgid "biophysical_tables"
 msgstr "biophysical tables"
@@ -169,7 +172,10 @@ msgid "sensitivity_maximun_discount"
 msgstr "Sensitivity Analysis - Maximun Discount Rate (%)"
 
 msgid "NBS_conservation_activities_text"
-msgstr "Select the NBS you want to consider in the analysis"
+msgstr "Select the NbS that you want the system to consider in its analysis:"
+
+msgid "investment_tip"
+msgstr "Enter here the amount of money you want to have spent of each NbS per year. If you do not want to pre-determine how much is spent on each NbS, enter the total budget in the Yearly Floating Budget box. You can also enter values of some NbS and enter the remaining budget in the Floating Budget box."
 
 msgid "analysis_time_period"
 msgstr "Analysis time period (years) (10-100)"
@@ -183,8 +189,8 @@ msgstr "Climate Selection for Baseline and NBS Scenario Analysis"
 msgid "select_type_analysis"
 msgstr "Select an option to run the analysis"
 
-msgid "full_portfolio"
-msgstr "Full portfolio"
+msgid "investment_table"
+msgstr "Yearly activity allocation"
 
 msgid "investment_scenario"
 msgstr "Investment scenario"
@@ -193,13 +199,10 @@ msgid "minimum_investment_percentages"
 msgstr "Assign minimum investment percentages"
 
 msgid "annual_investment"
-msgstr "Annual Investment"
+msgstr "Yearly floating budget"
 
 msgid "rellocated_remainder"
 msgstr "Rellocated remainder"
-
-msgid "assign_minimum_investment"
-msgstr "Assign minimum investment"
 
 msgid "Activity"
 msgstr "Activity"
@@ -236,4 +239,11 @@ msgstr "WaterProof may consider benefits associated with the Carbon market, clic
 
 msgid "biophysical_tip"
 msgstr "In this step you will find the biophysical parameters required for the execution of the models. If you want to see or edit them, click on advanced options, otherwise click on next and the system will use the default values."
+
+msgid "financial_tip"
+msgstr "In this section, the system offers you the pre-loaded the costs required for the implementation of the NBS. Confirm or edit the values ​​according to your reality:"
+
+msgid "study_case_tip"
+msgstr "Enter the data with which you will identify your case study. Note that in addition to the name and a description, you must indicate the treatment plants and catchments that derive costs"
+
 
