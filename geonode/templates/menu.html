@@ -525,7 +525,7 @@
               <a href="#TPlants" data-toggle="collapse" aria-expanded="false" class="action">
                   <img src="/static/geonode/img/01-flecha.png" class="flecha"><h5>{% trans "Treatment plants" %}</h5></a>
                   <ul class="submenu opacity" id="TPlants" style="display: none;">
-                  <li><a href="{% url "treatment-plants-list" %}?limit={{ CLIENT_RESULTS_LIMIT }}" class="dropdown-toggle">
+                  <li><a href="#" class="dropdown-toggle listTreatmentPlants">
                           <img src="/static/geonode/img/01-flecha.png" class="flecha">
                           <h6>{% trans "List" %}</h6></a>                
                         </li>
@@ -841,6 +841,15 @@
             cityId = "";
           }
           url="{% url "study_cases_list" %}?limit={{ CLIENT_RESULTS_LIMIT }}&city=" + cityId;
+          window.location.href = url;
+        });
+
+        $(".listTreatmentPlants").click(function(){
+          var cityId = localStorage.cityId;
+          if (cityId == undefined){
+            cityId = "";
+          }
+          url="{% url "treatment-plants-list" %}?limit={{ CLIENT_RESULTS_LIMIT }}&city=" + cityId;
           window.location.href = url;
         });
 

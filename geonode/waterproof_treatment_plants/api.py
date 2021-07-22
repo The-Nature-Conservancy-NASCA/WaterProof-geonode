@@ -29,7 +29,15 @@ def getTreatmentPlantsList(request):
 		objects_list = []
 		lastNull = ''
 		lastInstakeName = ''
-		for tratamentPlants in Csinfra.objects.all():
+		try:            
+			city_id = request.GET['city']
+		except:
+			city_id = ''
+
+		headers = Header.objects.filter(plant_city=city_id)
+		tratamentPlantsList = Csinfra.objects.filter(csinfra_plant__in=headers)
+
+		for tratamentPlants in tratamentPlantsList:
 			lastPlantIntakeName = ''
 			try:
 			  lastPlantIntakeName = tratamentPlants.csinfra_elementsystem.intake.name + " " + tratamentPlants.csinfra_elementsystem.name + " " + str(tratamentPlants.csinfra_elementsystem.graphId)
