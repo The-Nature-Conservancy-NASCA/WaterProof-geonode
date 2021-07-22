@@ -334,9 +334,9 @@
                                             <select id="financial_currency" class="custom-control-input">
                                                 {% for currency in currencys %}
                                                 {% if currency.currency == study_case.financial_currency %}
-                                                <option value='{{currency.currency}}' selected>{{currency.currency}}</option>
+                                                <option value='{{currency.currency}}' selected>({{currency.currency}}) - {{currency.name}}</option>
                                                 {% else %}
-                                                <option value='{{currency.currency}}'>{{currency.currency}}</option>
+                                                <option value='{{currency.currency}}'>({{currency.currency}}) - {{currency.name}}</option>
                                                 {% endif %}
                                                 {% endfor %}
                                             </select>

@@ -523,7 +523,7 @@ $(document).ready(function() {
             valid_period = false;
             return
         }
-        if ($('#period_nbs').val() < 10 || $('#period_nbs').val() > $('#period_analysis').val()) {
+        if ($('#period_nbs').val() > $('#period_analysis').val()) {
             Swal.fire({
                 icon: 'warning',
                 title: gettext('field_problem'),
