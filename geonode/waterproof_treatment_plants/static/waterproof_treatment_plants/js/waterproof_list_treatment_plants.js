@@ -888,8 +888,7 @@ $(function () {
     */
     selectedResultHandler = function (feat) {
 
-        waterproof["cityCoords"] = [feat.geometry.coordinates[1], feat.geometry.coordinates[0]];
-        localStorage.setItem('cityCoords', JSON.stringify(waterproof["cityCoords"]));
+        localStorage.setItem('cityCoords', JSON.stringify([feat.geometry.coordinates[1], feat.geometry.coordinates[0]]));
 
         searchPoints.eachLayer(function(layer) {
             if (layer.feature.properties.osm_id != feat.properties.osm_id) {
