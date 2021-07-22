@@ -15,6 +15,8 @@ var urlParams = (function(url) {
     return result;
 })(window.location.href);
 
+var mxLanguage = urlParams['lang'];
+var map;
 var basinId;
 var mapDelimit;
 var snapMarker;
@@ -51,7 +53,6 @@ $(document).ready(function() {
     var output = document.getElementById('MathPreview');
     var button = document.getElementById('btnValidatePyExp');
     var selectedCostId = 0;
-
     calculate_Personnel();
     calculate_Platform();
     loadIntakes();
@@ -181,7 +182,7 @@ $(document).ready(function() {
             var $this = $(this).val('');
         });
     });
-
+    
     $('#add_wi').click(function() {
         text = $("#select_custom option:selected").text();
         value = $("#select_custom option:selected").val();
@@ -520,7 +521,7 @@ $(document).ready(function() {
             valid_period = false;
             return
         }
-        if ($('#period_nbs').val() > $('#period_analysis').val()) {
+        if ($('#period_nbs').val() < 10 || $('#period_nbs').val() > $('#period_analysis').val()) {
             Swal.fire({
                 icon: 'warning',
                 title: gettext('field_problem'),
