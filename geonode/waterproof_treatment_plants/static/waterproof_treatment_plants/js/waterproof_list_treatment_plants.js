@@ -888,9 +888,7 @@ $(function () {
     */
     selectedResultHandler = function (feat) {
 
-        waterproof["cityCoords"] = [feat.geometry.coordinates[1], feat.geometry.coordinates[0]];
-        localStorage.setItem('cityCoords', JSON.stringify(waterproof["cityCoords"]));
-
+        localStorage.setItem('cityCoords', JSON.stringify([feat.geometry.coordinates[1], feat.geometry.coordinates[0]]));
 
         searchPoints.eachLayer(function(layer) {
             if (layer.feature.properties.osm_id != feat.properties.osm_id) {
@@ -908,16 +906,28 @@ $(function () {
         drawPolygons(cityName);
         table.search(cityName.substr(0, 5)).draw();
 
-        let urlAPI = '{{ SEARCH_COUNTRY_API_URL }}' + countryCode;
+        let urlAPI = SEARCH_COUNTRY_API_URL + countryCode;
 
         $.get(urlAPI, function(data) {
             $("#regionLabel").html(data.region);
             $("#currencyLabel").html(data.currencies[0].name + " - " + data.currencies[0].symbol);
-            $("#listIntakes").show();
-
+            
             localStorage.setItem('country', country);
             localStorage.setItem('region', data.region);
             localStorage.setItem('currency', data.currencies[0].name + " - " + data.currencies[0].symbol);
+        });
+
+        urlAPI = location.protocol + "//" + location.host + "/parameters/getClosetsCities/?x=" + feat.geometry.coordinates[0] + "&y=" + feat.geometry.coordinates[1];
+        $.get(urlAPI, function(data) {
+
+            if (data.length > 0) {
+                let cityId = data[0][0];
+                localStorage.setItem('cityId', cityId);
+                localStorage.setItem('factor', data[0][2]);
+                setTimeout(function() {
+                    location.href = "/treatment_plants/?city=" + cityId;
+                }, 300);
+            }
         });
     }
     /**
@@ -976,18 +986,12 @@ $(function () {
                 }
             }
 
-            table.search(cityNameMap).draw();
-
-            waterproof["cityCoords"] = cityCoords;
-
+            table.search(cityNameMap).draw();            
             map.setView(initialCoords, initialZoom);
-
             searchPoints.addTo(map);
 
             var tilelayer = L.tileLayer(TILELAYER, { maxZoom: MAXZOOM, attribution: 'Data \u00a9 <a href="http://www.openstreetmap.org/copyright"> OpenStreetMap Contributors </a> Tiles \u00a9 Komoot' }).addTo(map);
             var images = L.tileLayer(IMAGE_LYR_URL);
-
-
             var hydroLyr = L.tileLayer(HYDRO_LYR_URL);
 
             var baseLayers = {
@@ -999,7 +1003,6 @@ $(function () {
                 "Hydro (esri)": hydroLyr,
             };
 
-
             var zoomControl = new L.Control.Zoom({ position: 'topright' }).addTo(map);
             L.control.layers(baseLayers, overlays, { position: 'topleft' }).addTo(map);
 
@@ -1008,7 +1011,7 @@ $(function () {
             map.on('click', onMapClick);
         } else {
             document.getElementById("nameCity").innerHTML = localStorage.getItem('city')+", "+localStorage.getItem('country');
-            var urlDetail = "../../treatment_plants/getIntakeList/?cityId=" + localStorage.getItem('idCityTreatmentPlant');
+            var urlDetail = "../../treatment_plants/getIntakeList/?cityId=" + localStorage.getItem('cityId');
             $.getJSON(urlDetail, function (data) {
                 document.getElementById("idIntakePlant").length = 1;
                 $.each( data, function( key, value ) {

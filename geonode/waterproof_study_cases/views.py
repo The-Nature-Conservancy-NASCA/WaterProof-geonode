@@ -48,7 +48,6 @@ def list(request):
                 userCountry = Countries.objects.get(iso3=request.user.country)
                 region = Regions.objects.get(id=userCountry.region_id)
                 if (city_id != ''):
-                    logger.log(city_id)
                     studyCases = StudyCases.objects.filter(city=city_id).order_by('edit_date')
                     city = Cities.objects.get(id=city_id)
                 else:
@@ -119,7 +118,8 @@ def create(request):
                               'portfolios': portfolios,
                               'ModelParameters': models,
                               'currencys': currencys,
-                              'scenarios': scenarios
+                              'scenarios': scenarios,
+                              'costFunctions' : []
                           }
                           )
 
@@ -243,6 +243,9 @@ def clone(request, idx):
                         break
                 if(add):
                     intakes.append(intake)
+            functions = []
+            if study_case.cost_functions:
+                functions = json.loads(study_case.cost_functions)
             return render(
                 request, 'waterproof_study_cases/studycases_clone.html',
                 {
@@ -253,7 +256,8 @@ def clone(request, idx):
                     'tratamentPlants': ptaps,
                     'ModelParameters': models,
                     'currencys': currencys,
-                    'scenarios': scenarios
+                    'scenarios': scenarios,
+                    'costFunctions' : functions
                 }
             )
 
