@@ -65,7 +65,7 @@
 <script type=" text/javascript ">
   
   const baseData = '{{ base_data }}';
-  const server = location.protocol + '//' + location.hostname + ':82/';
+  const server = location.protocol + '//' + location.hostname.replace('apps','dev') + ':82/';
   const urlWaterProofLyrsWMS = server + `?map=/etc/mapserver/${baseData}/mapserver.map&SERVICE=WMS`;
 </script>
 {% endblock %}
