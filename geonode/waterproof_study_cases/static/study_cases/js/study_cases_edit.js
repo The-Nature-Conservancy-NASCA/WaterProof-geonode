@@ -1366,7 +1366,7 @@ $(document).on('click', 'a[name=glyphicon-edit]', function() {
     $('#costFuntionDescription').val(funcostdb[selectedCostId].function.description);
     $('#CalculatorModalLabel').text('Modify Cost - ' + $('#titleCostFunSmall').text());
     $('#currencyCost').val(funcostdb[selectedCostId].function.currencyCost);
-    $('#global_multiplier_factorCalculator').val(funcostdb[selectedCostId].function.global_multiplier_factorCalculator);
+    $('#global_multiplier_factorCalculator').val(funcostdb[selectedCostId].function.factor);
     setVarCost();
     let value = funcostdb[selectedCostId].function.value;
     $('#python-expression').val();
