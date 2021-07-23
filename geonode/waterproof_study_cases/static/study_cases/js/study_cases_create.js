@@ -523,14 +523,18 @@ $(document).ready(function() {
             valid_period = false;
             return
         }
-        if ($('#period_nbs').val() > $('#period_analysis').val()) {
-            Swal.fire({
-                icon: 'warning',
-                title: gettext('field_problem'),
-                text: gettext('error_period_nbs'),
-            });
+        if($('#period_analysis').val() != '' && $('#period_nbs').val() != ''){
+            if (parseInt($('#period_analysis').val()) < parseInt($('#period_nbs').val())) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: gettext('field_problem'),
+                    text: gettext('error_period_nbs'),
+                });
+                valid_period = false;
+                return
+            }
+        }else{
             valid_period = false;
-            return
         }
 
         if ($('#annual_investment').val() < min) {
@@ -670,16 +674,19 @@ $(document).ready(function() {
             valid_period = false;
             return
         }
-        if ($('#period_nbs').val() > $('#period_analysis').val()) {
-            Swal.fire({
-                icon: 'warning',
-                title: gettext('field_problem'),
-                text: gettext('error_period_nbs'),
-            });
+        if($('#period_analysis').val() != '' && $('#period_nbs').val() != ''){
+            if (parseInt($('#period_analysis').val()) < parseInt($('#period_nbs').val())) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: gettext('field_problem'),
+                    text: gettext('error_period_nbs'),
+                });
+                valid_period = false;
+                return
+            }
+        }else{
             valid_period = false;
-            return
         }
-
         if ($('#annual_investment').val() < min) {
             Swal.fire({
                 icon: 'warning',

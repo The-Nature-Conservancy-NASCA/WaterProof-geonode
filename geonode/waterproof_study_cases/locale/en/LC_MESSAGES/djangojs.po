@@ -1295,7 +1295,7 @@ msgid "exchange_rate"
 msgstr "Exchange Rate"
 
 msgid "error_period_nbs"
-msgstr "Exchange Rate"
+msgstr "The value of Implementation Time of Nature-Based Solution (yr) must be less to Analysis time period"
 
 msgid "error_annual_investment"
 msgstr "The investment scenario value does not meet the minimum budget parameters for the activity. Review and adjust the investment scenario value"
