@@ -488,7 +488,7 @@
                                             <label for="period_analysis" class="control-label required-field">
                                                 {% trans "analysis_time_period" %}
                                             </label>
-                                            <input id="period_analysis" type="number" class="form-control text-number-full" min="10" step="0" oninput="validity.valid||(value='');" max="100" value="{{study_case.analysis_period_value}}">
+                                            <input id="period_analysis" type="number" class="form-control text-number-full" min="1" step="0" oninput="validity.valid||(value='');" max="100" value="{{study_case.analysis_period_value}}">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
