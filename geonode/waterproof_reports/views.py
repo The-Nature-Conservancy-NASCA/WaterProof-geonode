@@ -95,3 +95,22 @@ def geographicIndicators(request):
                         'NamesIndicators': indicatorsNames,
                         'NameCityIndicators': indicatorsNameCity
                     })
+
+
+def compareMaps(request):
+
+    base_data = ''
+    if request.method == 'GET':
+        try:            
+            base_data = request.GET['folder']
+        except:
+            base_data = 'mapserver'
+        
+
+    return render(
+                request,
+                'waterproof_reports/compare_maps.html',
+                {
+                    'base_data': base_data,
+                }
+            )

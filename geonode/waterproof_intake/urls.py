@@ -32,5 +32,8 @@ urlpatterns = [
     path('loadFunctionBySymbol/<str:symbol>', views.loadCostFunctionsProcess, name='load-functionCost'),
     # Load process effciciency by ID
     path('validateGeometry/', views.validateGeometry, name='valid-geometry'),
-    path('validatePyExpression/', api.validatePyExpression, name='validatePyExpression')
+    # validate python expression
+    path('validatePyExpression/', api.validatePyExpression, name='validatePyExpression'),
+    # Compare Maps
+    path('compare-maps/', views.compareMaps, name='compare-maps'),
 ]
