@@ -43,7 +43,7 @@
                 <div style=" align-items: center;">
                     <h5>{% trans "Water intake" %}
                         <select name="select" id="selectIntake">
-                            <option selected disabled>Select a Intake</option>
+                            <option selected disabled>{% trans "Select a Intake" %}</option>
                             {% for Option in NamesIndicators %}
                             <option value={{Option}} >{{Option}}</option>
                             {% endfor %}
@@ -69,7 +69,8 @@
                     <table id="example" class="table table-striped table-bordered table-condensed" style=" width:100%">
                         <thead>
                             <tr class="info">
-                                <th scope="col" class="small text-center vat">{% trans "Indicator" %}</th>
+                                <th scope="col" class="small text-center vat" style="display: none;">{% trans "Indicator" %}</th>
+                                <th scope="col" class="small text-center vat">{% trans "Year" %}</th>
                                 <th scope="col" class="small text-center vat px-5">{% trans "Change in volume of water yield (%)" %}</th>
                                 <th scope="col" class="small text-center vat">{% trans "Change in base flow(%)" %}</th>
                                 <th scope="col" class="small text-center vat">{% trans "Change in total sediments (%)" %}</th>
@@ -78,7 +79,6 @@
                                 <th scope="col" class="small text-center vat">{% trans "Change in carbon storage" %}</th>
                                 <th scope="col" class="small text-center vat" style="display: none;">{% trans "Date" %}</th>
                                 <th scope="col" class="small text-center vat" style="display: none;">{% trans "Name" %}</th>
-                                <th scope="col" class="small text-center vat" style="display: none;">{% trans "Time" %}</th>
                             </tr>
                         </thead>
                         <tbody id="FilterPhisicalIndicators">
@@ -150,7 +150,8 @@
         `
         {% for investIndicators in Indicators %}
             <tr id="filas">
-                <td class="small text-center vat" >{{investIndicators.intake.name}} {{investIndicators.study_case.id}}</td>
+                <td class="small text-center vat" style="display: none;">{{investIndicators.intake.name}}</td>
+                <td class="small text-center vat" id="valor6">{{investIndicators.time}}</td>
                 <td class="small text-center vat truncate" id="valor1">{{investIndicators.awy}}</td>
                 <td class="small text-center vat" id="valor2">{{investIndicators.bf_m3}}</td>
                 <!--td>{{intake.max_benefit_req_time}}</td-->
@@ -160,7 +161,6 @@
                 <td class="small text-center vat" id="valor6">{{investIndicators.wc_ton}}</td>
                 <td class="small text-center vat" style="display: none;">{{investIndicators.date}}</td>
                 <td class="small text-center vat" style="display: none;">{{investIndicators.intake.city.name}}</td>
-                <td class="small text-center vat" id="valor6" style="display: none;">{{investIndicators.time}}</td>
             </tr>
         {% endfor %}
         `
@@ -172,10 +172,12 @@
 
     //localStorage.idStudyCase
     var e = document.getElementById("selectIntake");
+    console.log("este es el valor de e  :"+e)
     var table = $('#example').DataTable({
-        "order": [[ 7, "desc" ], [ 9, "desc" ], [ 0, "asc" ]],
+        "order": [ [ 1, "desc" ], [ 7, "desc" ], [ 0, "asc" ]],
         'dom': 'lrtip'
     });
+    table.search("is simply dummy text of the printing and t").draw();
     console.log(table.rows())
     function show(){
        // a=document.querySelectorAll('#valor1').innerHTML
