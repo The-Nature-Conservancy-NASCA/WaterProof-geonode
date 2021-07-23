@@ -32,6 +32,7 @@ from .forms import StudyCasesForm
 from .models import StudyCases, Portfolio, ModelParameter
 
 import datetime
+import json
 logger = logging.getLogger(__name__)
 
 
@@ -42,14 +43,15 @@ def list(request):
         except:
             city_id = ''
         if request.user.is_authenticated:
+            logger.error(city_id)
             if (request.user.professional_role == 'ADMIN'):
                 userCountry = Countries.objects.get(iso3=request.user.country)
                 region = Regions.objects.get(id=userCountry.region_id)
                 if (city_id != ''):
-                    studyCases = StudyCases.objects.filter(city=city_id)
+                    studyCases = StudyCases.objects.filter(city=city_id).order_by('edit_date')
                     city = Cities.objects.get(id=city_id)
                 else:
-                    studyCases = StudyCases.objects.all()
+                    studyCases = StudyCases.objects.all().order_by('edit_date')
                     city = Cities.objects.get(id=1)
                 return render(
                     request,
@@ -67,7 +69,7 @@ def list(request):
                     studyCases = StudyCases.objects.filter(city=city_id,added_by=request.user)
                     city = Cities.objects.get(id=city_id)
                 else:
-                    studyCases = StudyCases.objects.filter(added_by=request.user)
+                    studyCases = StudyCases.objects.filter(added_by=request.user).order_by('edit_date')
                     city = Cities.objects.get(id=1)
                 
                 userCountry = Countries.objects.get(iso3=request.user.country)
@@ -83,7 +85,7 @@ def list(request):
                     }
                 )
         else:
-            studyCases = StudyCases.objects.all()
+            studyCases = StudyCases.objects.all().order_by('edit_date')
             userCountry = Countries.objects.get(iso3='COL')
             region = Regions.objects.get(id=userCountry.region_id)
             city = Cities.objects.get(id=1)
@@ -107,7 +109,7 @@ def create(request):
         else:
             portfolios = Portfolio.objects.all()
             models = ModelParameter.objects.all()
-            currencys = Countries.objects.values('currency').distinct().order_by('currency')
+            currencys = Countries.objects.values('currency', 'name', 'iso3').distinct().order_by('currency')
             scenarios = Climate_value.objects.all()
             return render(request,
                           'waterproof_study_cases/studycases_form.html',
@@ -116,7 +118,8 @@ def create(request):
                               'portfolios': portfolios,
                               'ModelParameters': models,
                               'currencys': currencys,
-                              'scenarios': scenarios
+                              'scenarios': scenarios,
+                              'costFunctions' : []
                           }
                           )
 
@@ -137,7 +140,8 @@ def edit(request, idx):
             listIntakesStudy = study_case.intakes.all()
             listPTAPStudy = study_case.ptaps.all()
             scenarios = Climate_value.objects.all()
-            currencys = Countries.objects.values('currency').distinct().order_by('currency')
+            
+            currencys = Countries.objects.values('currency','name').exclude(currency__exact='').order_by('currency')
             for portfolio in listPortfolios:
                 defaultValue = False
                 for portfolioStudy in listPortfoliosStudy:
@@ -169,6 +173,11 @@ def edit(request, idx):
                         break
                 if(add):
                     intakes.append(intake)
+            
+            functions = []
+            if study_case.cost_functions:
+                functions = json.loads(study_case.cost_functions)
+            
             return render(
                 request, 'waterproof_study_cases/studycases_edit.html',
                 {
@@ -179,10 +188,10 @@ def edit(request, idx):
                     'tratamentPlants': ptaps,
                     'ModelParameters': models,
                     'currencys': currencys,
-                    'scenarios': scenarios
+                    'scenarios': scenarios,
+                    'costFunctions' : functions
                 }
             )
-
 
 def clone(request, idx):
     if not request.user.is_authenticated:
@@ -198,7 +207,7 @@ def clone(request, idx):
             portfolios = []
             intakes = []
             ptaps = []
-            currencys = Countries.objects.values('currency').distinct().order_by('currency')
+            currencys = Countries.objects.values('currency', 'name').distinct().order_by('currency')
             listPortfoliosStudy = study_case.portfolios.all()
             listIntakesStudy = study_case.intakes.all()
             listPTAPStudy = study_case.ptaps.all()
@@ -234,6 +243,9 @@ def clone(request, idx):
                         break
                 if(add):
                     intakes.append(intake)
+            functions = []
+            if study_case.cost_functions:
+                functions = json.loads(study_case.cost_functions)
             return render(
                 request, 'waterproof_study_cases/studycases_clone.html',
                 {
@@ -244,7 +256,8 @@ def clone(request, idx):
                     'tratamentPlants': ptaps,
                     'ModelParameters': models,
                     'currencys': currencys,
-                    'scenarios': scenarios
+                    'scenarios': scenarios,
+                    'costFunctions' : functions
                 }
             )
 

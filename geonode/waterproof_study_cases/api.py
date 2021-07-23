@@ -56,7 +56,6 @@ def getPtapByCity(request, id_city):
     if request.method == 'GET':
         filterptap = Header.objects.filter(plant_city__id=id_city).values(
             "id", "plant_name")
-        logger.error(filterptap)
         data = list(filterptap)
         return JsonResponse(data, safe=False)
 
@@ -71,9 +70,10 @@ def getPtapByID(request, id_ptap):
 
 
 @api_view(['GET'])
-def getParameterByCountry(request, name):
+def getParameterByCountry(request, id_city):
     if request.method == 'GET':
-        filterpm = ManagmentCosts_Discount.objects.filter(country__name__startswith=name).values()
+        filtercity = Cities.objects.get(pk=id_city)
+        filterpm = ManagmentCosts_Discount.objects.filter(country=filtercity.country).values()
         data = list(filterpm)
         return JsonResponse(data, safe=False)
 
@@ -110,7 +110,6 @@ def getStudyCaseCurrencys(request):
                             currencys.append(currency)
             for intake in scintakes:
                 intakeCurrency = UserCostFunctions.objects.filter(intake=intake).values('currency__currency').distinct()
-                logger.error(intakeCurrency)
                 for intakec in intakeCurrency:
                     if(intakec['currency__currency'] != sc_currency and any(element['currency'] in intakec['currency__currency'] for element in currencys)):
                         currency = {}
@@ -191,7 +190,7 @@ def getNBS(request):
     if request.method == 'POST':
         nbs = []
         nbs_admin = WaterproofNbsCa.objects.filter(added_by__professional_role='ADMIN').values(
-            "id", "name")
+            "id", "name","unit_implementation_cost", "unit_maintenance_cost","periodicity_maitenance","unit_oportunity_cost", "currency__currency")
         country = request.POST['country']
         process = request.POST['process']
         id_study_case = request.POST['id_study_case']
@@ -200,10 +199,10 @@ def getNBS(request):
             scnbs_list = StudyCases_NBS.objects.filter(studycase=sc)
             if(process == 'Clone'):
                 nbs_user = WaterproofNbsCa.objects.filter(added_by=request.user, country__name__startswith=country).exclude(added_by__professional_role='ADMIN').values(
-                    "id", "name")
+                    "id", "name" ,"unit_implementation_cost", "unit_maintenance_cost","periodicity_maitenance","unit_oportunity_cost", "currency__currency")
             else:
                 nbs_user = WaterproofNbsCa.objects.filter(added_by=sc.added_by, country__name__startswith=country).exclude(added_by__professional_role='ADMIN').values(
-                    "id", "name")
+                    "id", "name","unit_implementation_cost", "unit_maintenance_cost","periodicity_maitenance","unit_oportunity_cost", "currency__currency")
             nbs_list = chain(nbs_admin, nbs_user)
             for n in nbs_list:
                 defaultValue = False
@@ -220,12 +219,16 @@ def getNBS(request):
                     'id_nbssc': id_nbssc,
                     'name': n['name'],
                     'default': defaultValue,
-                    'value': value_nbs
+                    'value': value_nbs,
+                    'unit_implementation_cost':n['unit_implementation_cost'],
+                    'unit_maintenance_cost':n['unit_maintenance_cost'],
+                    'periodicity_maitenance':n['periodicity_maitenance'],
+                    'unit_oportunity_cost':n['unit_oportunity_cost'],
                 }
                 nbs.append(nObject)
         elif(process == 'Create'):
             nbs_user = WaterproofNbsCa.objects.filter(added_by=request.user, country__name__startswith=country).exclude(added_by__professional_role='ADMIN').values(
-                "id", "name")
+                "id", "name","unit_implementation_cost", "unit_maintenance_cost","periodicity_maitenance","unit_oportunity_cost", "currency__currency")
             nbs_list = chain(nbs_admin, nbs_user)
             nbs = list(nbs_list)
         return JsonResponse(nbs, safe=False)
@@ -276,6 +279,56 @@ def delete(request, idx):
         # delete object
         print(sc.delete())
         # after deleting redirect to
+        # home page
+        context = {
+            'status': '200', 'reason': 'sucess'
+        }
+        response = HttpResponse(json.dumps(context), content_type='application/json')
+        response.status_code = 200
+        return response
+    
+@api_view(['POST'])
+def private(request, idx):
+    sc = StudyCases.objects.get(id=idx)
+    if not sc:
+        print("Not found")
+        context = {
+            'status': '400', 'reason': 'Intake not found'
+        }
+        response = HttpResponse(json.dumps(context), content_type='application/json')
+        response.status_code = 400
+        return response
+    else:
+        # private object
+        sc.is_public = False
+        sc.edit_date = datetime.datetime.now()
+        sc.save()
+        # after public redirect to
+        # home page
+        context = {
+            'status': '200', 'reason': 'sucess'
+        }
+        response = HttpResponse(json.dumps(context), content_type='application/json')
+        response.status_code = 200
+        return response
+    
+@api_view(['POST'])
+def public(request, idx):
+    sc = StudyCases.objects.get(id=idx)
+    if not sc:
+        print("Not found")
+        context = {
+            'status': '400', 'reason': 'Intake not found'
+        }
+        response = HttpResponse(json.dumps(context), content_type='application/json')
+        response.status_code = 400
+        return response
+    else:
+        # public object
+        sc.is_public = True
+        sc.edit_date = datetime.datetime.now()
+        sc.save()
+        # after public redirect to
         # home page
         context = {
             'status': '200', 'reason': 'sucess'
@@ -344,6 +397,7 @@ def save(request):
                 id_study_case = request.POST['id_study_case']
                 description = request.POST['description']
                 sctype = request.POST['type']
+                functions = request.POST['functions']
                 valid = True
                 if(id_study_case == ''):
                     sc = StudyCases()
@@ -361,9 +415,11 @@ def save(request):
                     else:
                         sc.studycase_type = 'CUSTOM'
                     sc.create_date = datetime.datetime.now()
+                    sc.edit_date = datetime.datetime.now()
                     sc.name = name
                     sc.city = city
                     sc.description = description
+                    sc.cost_functions = functions
                     sc.save()
                     intakes = request.POST.getlist('intakes[]')
                     sc.intakes.clear()
@@ -392,10 +448,12 @@ def save(request):
                     sc.cm_value = cm_value
                     sc.cm_currency = cm_currency
                     sc.benefit_carbon_market = True
+                    sc.edit_date = datetime.datetime.now()
                     sc.save()
                     return JsonResponse({'id_study_case': sc.id}, safe=False)
                 else:
                     sc.benefit_carbon_market = False
+                    sc.edit_date = datetime.datetime.now()
                     sc.save()
                     return JsonResponse({'id_study_case': sc.id}, safe=False)
             elif(request.POST.getlist('portfolios[]')):
@@ -451,12 +509,12 @@ def save(request):
                 sc.travel = request.POST['travel']
                 sc.contracts = request.POST['contracts']
                 sc.financial_currency = request.POST['financial_currency']
+                sc.edit_date = datetime.datetime.now()
                 sc.save()
                 return JsonResponse({'id_study_case': sc.id}, safe=False)
             elif(request.POST.get('analysis_type')):
                 id_study_case = request.POST['id_study_case']
                 run = request.POST.get('run_analysis')
-                logger.error(run)
                 sc = StudyCases.objects.get(pk=id_study_case)
                 sc.is_complete = True
                 sc.time_implement = request.POST['period_nbs']
@@ -488,6 +546,7 @@ def save(request):
                         nbssc = StudyCases_NBS.objects.get(pk=id_nbssa)
                         if(nbsa['value']):
                             nbssc.value = nbsa['value']
+                            sc.edit_date = datetime.datetime.now()
                             nbssc.save()
                 if(request.POST['currencys']):
                     currencys = request.POST['currencys']
@@ -509,14 +568,14 @@ def save(request):
                         currencys_sc.value = currency['value']
                         currencys_sc.studycase = sc
                         currencys_sc.save()
+                sc.edit_date = datetime.datetime.now()
                 sc.save()
                 if(run == 'true'):
-                    logger.error(request.user.id)
-                    logger.error(id_study_case)
                     resp = requests.get(settings.WATERPROOF_MODELS_PY2_API + 'preprocRIOS',
                                     params={'id_usuario': request.user.id,
                                             'id_case': id_study_case})
                     if resp.status_code == 200:
                         sc.is_run_analysis = True
+                        sc.edit_date = datetime.datetime.now()
                         sc.save()
                 return JsonResponse({'id_study_case': sc.id}, safe=False)

@@ -52,7 +52,7 @@ var ptaps = [];
 var mapLoader;
 $(document).ready(function() {
     $('#autoAdjustHeightF').css("height", "auto");
-    $('#cityLabel').text(localStorage.city);
+    $('#cityLabel').text(localStorage.city+", "+localStorage.country);
     calculate_Personnel();
     calculate_Platform();
     loadNBS();

@@ -54,7 +54,8 @@ $(function() {
             }
         });
 
-        viewCurrencys = function(id) {
+        viewCurrencys = function(id, currency_sc) {
+            console.log(currency_sc)
             html = '<div class="row" id="currencys-panel"> <div class="col-md-12 currency-panel">The following exchange rates have been applied for the analysis</div>'
             html += '<div class="custom-control col-md-3 currency-value">Quantity</div>'
             html += '<div class="custom-control col-md-4 currency-value">Currency</div>'
@@ -66,7 +67,7 @@ $(function() {
 
                 $.each(data, function(index, currency) {
                     value = Number.parseFloat(currency.value).toFixed(5);
-                    html += '<div class="custom-control col-md-3 currency-value">1</div>'
+                    html += '<div class="custom-control col-md-3 currency-value">1 ' + currency_sc + '</div>'
                     html += '<div class="col-md-4 currency-value"><label class="custom-control-label" for="currency">' + currency.currency + '</label></div>'
                     html += '<div class="custom-control col-md-5 currency-value">' + value + '</div>'
                 });
@@ -78,7 +79,7 @@ $(function() {
             })
         };
 
-        $('.btn-danger').click(function(evt) {
+        $('#btn-delete').click(function(evt) {
             Swal.fire({
                 title: gettext('Delete study case'),
                 text: gettext("Are you sure?") + gettext("You won't be able to revert this!"),
@@ -131,6 +132,105 @@ $(function() {
         changeFileEvent();
         initMap();
     };
+
+
+    $('#btn-public').click(function(evt) {
+        Swal.fire({
+            title: gettext('Public study case'),
+            text: gettext("Are you sure?"),
+            icon: 'warning',
+            showCancelButton: false,
+            showDenyButton: true,
+            confirmButtonColor: '#d33',
+            denyButtonColor: '#3085d6',
+            confirmButtonText: gettext('Yes, public it!'),
+            denyButtonText: gettext('Cancel')
+        }).then((result) => {
+            if (result.isConfirmed) {
+                studycaseId = evt.currentTarget.getAttribute('data-id')
+                /** 
+                 * Get filtered activities by transition id 
+                 * @param {String} url   activities URL 
+                 * @param {Object} data  transition id  
+                 *
+                 * @return {String} activities in HTML option format
+                 */
+                $.ajax({
+                    url: '/study_cases/public/' + studycaseId,
+                    type: 'POST',
+                    success: function(result) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: gettext('Great!'),
+                            text: gettext('The study case has been public')
+                        })
+                        setTimeout(function() {
+                            location.href = "/study_cases/";
+                        }, 1000);
+                    },
+                    error: function(error) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: gettext('Error!'),
+                            text: gettext('The study case has not been public, try again!')
+                        })
+                    }
+                });
+            } else if (result.isDenied) {
+                return;
+            }
+        })
+    });
+
+    $('#btn-private').click(function(evt) {
+        Swal.fire({
+            title: gettext('Private study case'),
+            text: gettext("Are you sure?"),
+            icon: 'warning',
+            showCancelButton: false,
+            showDenyButton: true,
+            confirmButtonColor: '#d33',
+            denyButtonColor: '#3085d6',
+            confirmButtonText: gettext('Yes, private it!'),
+            denyButtonText: gettext('Cancel')
+        }).then((result) => {
+            if (result.isConfirmed) {
+                studycaseId = evt.currentTarget.getAttribute('data-id')
+                /** 
+                 * Get filtered activities by transition id 
+                 * @param {String} url   activities URL 
+                 * @param {Object} data  transition id  
+                 *
+                 * @return {String} activities in HTML option format
+                 */
+                $.ajax({
+                    url: '/study_cases/private/' + studycaseId,
+                    type: 'POST',
+                    success: function(result) {
+                        Swal.fire({
+                            icon: 'success',
+                            title: gettext('Great!'),
+                            text: gettext('The study case has been private')
+                        })
+                        setTimeout(function() {
+                            location.href = "/study_cases/";
+                        }, 1000);
+                    },
+                    error: function(error) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: gettext('Error!'),
+                            text: gettext('The study case has not been private, try again!')
+                        })
+                    }
+                });
+            } else if (result.isDenied) {
+                return;
+            }
+        })
+    });
+
+
     /** 
      * Initialize map 
      */
@@ -280,13 +380,15 @@ $(function() {
         });
 
         urlAPI = location.protocol + "//" + location.host + "/parameters/getClosetsCities/?x=" + feat.geometry.coordinates[0] + "&y=" + feat.geometry.coordinates[1];
-        $.get(urlAPI, function(data){
-            
-            if (data.length > 0){
+        $.get(urlAPI, function(data) {
+
+            if (data.length > 0) {
                 let cityId = data[0][0];
                 localStorage.setItem('cityId', cityId);
                 localStorage.setItem('factor', data[0][2]);
-                setTimeout(function () { location.href = "/study_cases/?city="+cityId; }, 300);
+                setTimeout(function() {
+                    location.href = "/study_cases/?city=" + cityId;
+                }, 300);
             }
         });
     }

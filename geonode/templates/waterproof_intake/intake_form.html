@@ -202,8 +202,7 @@
                                         <th scope="col" class="small text-center vat">{% trans "Options" %}</th>
                                     </tr>
                                 </thead>
-                                <tbody id="funcostgenerate">
-                                
+                                <tbody id="funcostgenerate">                                
                                 </tbody>
                             </table>
                         </div>
@@ -255,9 +254,9 @@
                                                     </select>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <label>{% trans "Number of years for time series" %} <span
+                                                    <label>{% trans "Number of years for time series  (10-100) Year" %} <span
                                                             class="text-danger-wp">(*)</span> </label>
-                                                    <input type="number" class="form-control justify-number" id="numberYearsInterpolationValue">
+                                                    <input type="number"  min="10" max="100" maxlength="3" onKeyUp="if(this.value>100){this.value='100';}else if(this.value<10){this.value='10';}" class="form-control justify-number" id="numberYearsInterpolationValue">
                                                 </div>
                                             </div>
                                         </div>
@@ -276,7 +275,10 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <button type="button" class="btn btn-primary" id="intakeWECB">{% trans "Generate" %}</button>
+                                        <div>
+                                            <button type="button" class="btn btn-primary" id="intakeWECB">{% trans "Generate" %}</button>
+                                            <p>{% trans "Clic the generate button to create the table before proceeding" %}</p>
+                                        </div>
                                     </div>
                                     <!--Data analysis Results-->
                                     <div class="col-md-4">
@@ -308,11 +310,14 @@
                                         <h5 class="text-primary">{% trans "Number of years for time series" %}</h5>
                                         <p>{% trans "You can edit the table manually" %}</p>
                                         <div class="form-group">
-                                            <label>{% trans "Number of years" %} <span class="text-danger-wp">(*)</span>
+                                            <label>{% trans "Number of years  (10-100) Year" %} <span class="text-danger-wp">(*)</span>
                                             </label>
-                                            <input type="number" class="form-control justify-number" id="intakeNIYMI">
+                                            <input type="number"  min="10" max="100" maxlength="3" onKeyUp="if(this.value>100){this.value='100';}else if(this.value<10){this.value='10';}" class="form-control justify-number" id="intakeNIYMI">
                                         </div>
-                                        <button type="button" class="btn btn-primary" id="intakeNIBYMI">{% trans "Generate" %}</button>
+                                        <div>
+                                            <button type="button" class="btn btn-primary" id="intakeNIBYMI">{% trans "Generate" %}</button>
+                                            <p>{% trans "Clic the generate button to create the table before proceeding" %}</p>
+                                        </div>
                                     </div>
                                     <!--Results-->
                                     <div class="col-md-6">
@@ -886,6 +891,7 @@
 <script src="{{ STATIC_URL }}geonode/js/shp/shp.min.js"></script>
 <script src="{{ STATIC_URL }}geonode/js/proj4js/proj4.js"></script>
 <script type="text/javascript">
+    var intakePolygons=[];
     var mxBasePath = '{{ STATIC_URL }}geonode/js/mxgraph/src';
     var mxImageBasePath = '{{ STATIC_URL }}geonode/js/mxgraph/examples/images';
     var editorUrl = '{{ STATIC_URL }}geonode/js/mxgraph/examples/editors/config/diagrameditor.xml';
@@ -904,17 +910,18 @@
     intakeInterpolationParams.initialExtract = '{{intake.demand_parameters.initial_extraction}}';
     intakeInterpolationParams.endingExtract = '{{intake.demand_parameters.ending_extraction}}';
     var xmlGraph = $('#xmlGraph').val();
-    var intakeExternalInputs = JSON.parse('{{externalInputs|safe}}');
+    var intakeExternalInputs = '{{externalInputs|safe}}' == "" ? "" : JSON.parse('{{externalInputs|safe}}');
     var intakeObject = {};
     intakeObject.id = '{{intake.id}}'
     $('#intakeId').val(intakeObject.id);
     intakeObject.polygon = '{{intake.polygon_set.first.geomIntake|safe}}';
-    intakeObject.point=JSON.parse('{{intake.polygon_set.first.geomPoint|safe}}');
+    intakeObject.point = '{{intake.polygon_set.first.geomPoint|safe}}' == "" ? "" : JSON.parse('{{intake.polygon_set.first.geomPoint|safe}}');
     intakeObject.delimitArea='{{intake.polygon_set.first.geom}}';
     intakeObject.basin='{{intake.polygon_set.first.basin.pk}}';
     intakePolygons.push(intakeObject);
     var countryNameStorage = localStorage.country;
-    console.log('holiiii'+ localStorage.country);
+    var defaultCurrencyId = '233';
+    var defaultCurrentyName = '(USD) - United States';
 </script>
 <script src="{{ STATIC_URL }}geonode/js/leaflet/leaflet-omnivore.min.js"></script>
 <script src="{{ STATIC_URL }}waterproof_intake/js/intake_create.js"></script>
