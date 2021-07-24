@@ -22,14 +22,12 @@
 # Andres Alfonso Lemon Gomez <lemon.andres@gmail.com>, 2014
 # Juan Lautaro Silva Ortiz <jlautarosilva@gmail.com>, 2015
 # Sergio Luis Arnal <sergioarnal@gmail.com>, 2015
-#: static/waterproof_intake/mathquill/mathquill.min copy.js:10
-#: static/waterproof_intake/mathquill/mathquill.min.js:10
 msgid ""
 msgstr ""
 "Project-Id-Version: GeoNode\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-07-21 14:49-0500\n"
-"PO-Revision-Date: 2021-02-05 18:51-0500\n"
+"PO-Revision-Date: 2021-07-23 22:05-0500\n"
 "Last-Translator: Julien Collaer <julien.collaer@opengeode.be>\n"
 "Language-Team: Spanish (http://www.transifex.com/geonode/geonode/language/"
 "es/)\n"
@@ -38,7 +36,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.4.2\n"
+"X-Generator: Poedit 2.4.3\n"
 
 #: static/waterproof_intake/js/graph.js:93
 #: static/waterproof_intake/js/graph_edit.js:93
@@ -47,13 +45,15 @@ msgid ""
 "This connection doesn't have a defined type, \n"
 " please define a type"
 msgstr ""
+"El tipo de conexión no ha sido definido, \n"
+"por favor, defínalo"
 
 #: static/waterproof_intake/js/graph.js:173
 #: static/waterproof_intake/js/graph_edit.js:137
 #: static/waterproof_intake/js/graph_view.js:135
 msgid ""
 "The water intake element can only receive connection from the river element"
-msgstr ""
+msgstr "El elemento de la captación sólo puede recibir conexión del río"
 
 #: static/waterproof_intake/js/graph.js:176
 #: static/waterproof_intake/js/graph_edit.js:140
@@ -62,6 +62,8 @@ msgid ""
 "The floating intake element can only receive connection from the river, "
 "reservoir and water reservoir"
 msgstr ""
+"El elemento de bocatoma flotante solo puede recibir una conexión del río y "
+"reservorio de agua"
 
 #: static/waterproof_intake/js/graph.js:179
 #: static/waterproof_intake/js/graph_edit.js:143
@@ -70,49 +72,51 @@ msgid ""
 "The side intake element can only receive connection from the river, "
 "reservoir and water reservoir"
 msgstr ""
+"El elemento de bocatoma lateral solo puede recibir una conexión del río y "
+"reservorio de agua"
 
 #: static/waterproof_intake/js/graph.js:181
 #: static/waterproof_intake/js/graph_edit.js:145
 #: static/waterproof_intake/js/graph_view.js:143
 msgid "No element could connect to itself"
-msgstr ""
+msgstr "Un elemento no puede conectarse a si mismo"
 
 #: static/waterproof_intake/js/graph.js:190
 #: static/waterproof_intake/js/graph_edit.js:197
 msgid "No element can be connected to the River"
-msgstr ""
+msgstr "El río no puede estar desconectado"
 
 #: static/waterproof_intake/js/graph.js:195
 #: static/waterproof_intake/js/graph_edit.js:202
 msgid "No element can be connected to the External input"
-msgstr ""
+msgstr "La entrada externa no puede estar desconectada"
 
 #: static/waterproof_intake/js/graph.js:200
 #: static/waterproof_intake/js/graph_edit.js:207
 msgid "External Input only have 1 target"
-msgstr ""
+msgstr "La entrada externa solo puede tener 1 conexión"
 
 #: static/waterproof_intake/js/graph.js:201
 #: static/waterproof_intake/js/graph.js:207
 #: static/waterproof_intake/js/graph_edit.js:208
 #: static/waterproof_intake/js/graph_edit.js:214
 msgid "Source Must Connect to Target"
-msgstr ""
+msgstr "La fuente debe estar conectada al objetivo"
 
 #: static/waterproof_intake/js/graph.js:206
 #: static/waterproof_intake/js/graph_edit.js:213
 msgid "River only have 1 target"
-msgstr ""
+msgstr "El río solo puede tener un objetivo"
 
 #: static/waterproof_intake/js/graph.js:212
 #: static/waterproof_intake/js/graph_edit.js:219
 msgid "From element CSINFRA can't connect to other element"
-msgstr ""
+msgstr "Desde el elemento CSINFRA no pueden conectarse otros elementos"
 
 #: static/waterproof_intake/js/graph.js:213
 #: static/waterproof_intake/js/graph_edit.js:220
 msgid "Target Must Connect From Source"
-msgstr ""
+msgstr "El objetivo debe estar conectado a la fuente"
 
 #: static/waterproof_intake/js/graph.js:673
 #: static/waterproof_intake/js/graph_edit.js:683
@@ -141,20 +145,18 @@ msgstr "¡No podrá revertir esta acción!"
 #: static/waterproof_intake/js/graph.js:679
 #: static/waterproof_intake/js/graph_edit.js:689
 #: static/waterproof_intake/js/intake_list.js:66
-#, fuzzy
-#| msgid "Yes, change it!"
 msgid "Yes, delete it!"
-msgstr "Si, cambiarlo"
+msgstr "Si, eliminarlo!"
 
 #: static/waterproof_intake/js/graph.js:706
 #: static/waterproof_intake/js/graph_edit.js:715
 msgid "Deleted!"
-msgstr ""
+msgstr "Eliminado!"
 
 #: static/waterproof_intake/js/graph.js:707
 #: static/waterproof_intake/js/graph_edit.js:716
 msgid "Your function has been deleted"
-msgstr ""
+msgstr "Su función ha sido eliminada"
 
 #: static/waterproof_intake/js/graph.js:845
 #: static/waterproof_intake/js/graph_edit.js:879
@@ -177,70 +179,75 @@ msgid ""
 "Selected element is connected with Extraction connection element. Can't be "
 "deleted!"
 msgstr ""
+"El elemento seleccionado está conectado con un elemento de conexión "
+"extracción, no puede ser eliminado!"
 
 #: static/waterproof_intake/js/graphValidations.js:287
 msgid "The River can't be Removed"
-msgstr ""
+msgstr "El río no puede ser removido"
 
 #: static/waterproof_intake/js/graphValidations.js:326
 msgid ""
 "The sum of % of transported water from the Outgoing connectors of %s cannot "
 "be greater than %s %"
 msgstr ""
+"La sumatoria del % de agua transportada desde el elemento seleccionado no "
+"puede ser mayo a 100%"
 
 #: static/waterproof_intake/js/graphValidations.js:328
 msgid "The sum of % of water transported from the connectors is %s %"
 msgstr ""
+"La sumatoria de porcentaje de agua transportada desde los conectores es"
 
 #: static/waterproof_intake/js/graphValidations.js:355
 #: static/waterproof_intake/js/graphValidations.js:367
 #, javascript-format
 msgid "The value must be between %s and %s"
-msgstr ""
+msgstr "El valor debe estar entre %s y %s"
 
 #: static/waterproof_intake/js/graphValidations.js:357
 #, javascript-format
 msgid "The minimun value is %s please use the arrows"
-msgstr ""
+msgstr "El valor mínimo es %s por favor, use las flechas"
 
 #: static/waterproof_intake/js/graphValidations.js:369
 #, javascript-format
 msgid "The maximum value is %s please use the arrows"
-msgstr ""
+msgstr "El valor máximo es %s por favor, use las flechas"
 
 #: static/waterproof_intake/js/graphValidations.js:391
 #, javascript-format
 msgid "No exist %s %s in a diagram"
-msgstr ""
+msgstr "No existe %s %s en el diagrama"
 
 #: static/waterproof_intake/js/graphValidations.js:396
 msgid "Missing elements"
-msgstr ""
+msgstr "Faltan elementos"
 
 #: static/waterproof_intake/js/graphValidations.js:433
 msgid "Exist a connector whitout defined type"
-msgstr ""
+msgstr "Existe un conector sin tipo definido"
 
 #: static/waterproof_intake/js/graphValidations.js:440
 msgid "Element %s - %s has a % transported water invalid"
-msgstr ""
+msgstr "Elemento %s . %s tiene un % de agua inválido"
 
 #: static/waterproof_intake/js/graphValidations.js:444
 msgid "Percentage transported water invalid"
-msgstr ""
+msgstr "Porcentaje de agua transportada inválido"
 
 #: static/waterproof_intake/js/graphValidations.js:456
 #, javascript-format
 msgid "Element %s - %s is disconnect"
-msgstr ""
+msgstr "Elemento %s - %s está desconectado"
 
 #: static/waterproof_intake/js/graphValidations.js:460
 msgid "Disconnected elements"
-msgstr ""
+msgstr "Elementos desconectados"
 
 #: static/waterproof_intake/js/graphValidations.js:475
 msgid "Graph validated"
-msgstr ""
+msgstr "Gráfico validado"
 
 #: static/waterproof_intake/js/intake_clone.js:354
 #: static/waterproof_intake/js/intake_create.js:389
@@ -296,7 +303,7 @@ msgstr "Error de geometría"
 #: static/waterproof_intake/js/intake_create.js:460
 #: static/waterproof_intake/js/intake_edit.js:464
 msgid "You must validate the basin geometry"
-msgstr ""
+msgstr "Usted debe validar la geometría de la cuenca"
 
 #: static/waterproof_intake/js/intake_clone.js:483
 #: static/waterproof_intake/js/intake_clone.js:516
@@ -305,7 +312,7 @@ msgstr ""
 #: static/waterproof_intake/js/intake_edit.js:482
 #: static/waterproof_intake/js/intake_edit.js:515
 msgid "Yes, change it!"
-msgstr "Si, cambiarlo"
+msgstr "Si, cambiarlo!"
 
 #: static/waterproof_intake/js/intake_clone.js:484
 #: static/waterproof_intake/js/intake_clone.js:517
@@ -324,27 +331,25 @@ msgstr "Cancelar"
 #: static/waterproof_intake/js/intake_create.js:554
 #: static/waterproof_intake/js/intake_edit.js:608
 msgid "Basin point delimitation"
-msgstr "Delimitación del punto de la cuenca "
+msgstr "Delimitación del punto de la cuenca"
 
 #: static/waterproof_intake/js/intake_clone.js:610
 #: static/waterproof_intake/js/intake_create.js:555
 #: static/waterproof_intake/js/intake_edit.js:609
 msgid "The point coordinates will be ajusted"
-msgstr ""
-"Las coordenadas del punto serán ajustadas a la cuenca más cercana, ¿Está de "
-"acuerdo?"
+msgstr "Las coordenadas del punto serán ajustadas a la cuenca más cercana"
 
 #: static/waterproof_intake/js/intake_clone.js:615
 #: static/waterproof_intake/js/intake_create.js:560
 #: static/waterproof_intake/js/intake_edit.js:614
 msgid "Yes, ajust!"
-msgstr "Si, ajustar"
+msgstr "Si, ajustar!"
 
 #: static/waterproof_intake/js/intake_clone.js:745
 #: static/waterproof_intake/js/intake_create.js:646
 #: static/waterproof_intake/js/intake_edit.js:744
 msgid "Nbs saving error"
-msgstr ""
+msgstr "Error guardando la captación"
 
 #: static/waterproof_intake/js/intake_clone.js:788
 #: static/waterproof_intake/js/intake_clone.js:829
@@ -359,15 +364,13 @@ msgstr ""
 #: static/waterproof_intake/js/intake_edit.js:869
 #: static/waterproof_intake/js/intake_edit.js:928
 msgid "Intake saving error"
-msgstr ""
+msgstr "Error guardando la captación"
 
 #: static/waterproof_intake/js/intake_clone.js:912
 #: static/waterproof_intake/js/intake_create.js:811
 #: static/waterproof_intake/js/intake_edit.js:911
-#, fuzzy
-#| msgid "The intake has been deleted"
 msgid "The water intake is being saved"
-msgstr "La captación ha sido borrada"
+msgstr "La captación está siendo guardada"
 
 #: static/waterproof_intake/js/intake_clone.js:985
 #: static/waterproof_intake/js/intake_create.js:886
@@ -443,8 +446,8 @@ msgstr "La captación ha sido borrada"
 
 #: static/waterproof_intake/js/intake_list.js:96
 msgid "Error!"
-msgstr "Error"
+msgstr "Error!"
 
 #: static/waterproof_intake/js/intake_list.js:97
 msgid "The intake has not been deleted, try again!"
-msgstr "La captación no ha sido borrada, intente nuevamente"
+msgstr "La captación no ha sido borrada, intente nuevamente!"
