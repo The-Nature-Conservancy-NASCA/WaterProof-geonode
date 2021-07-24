@@ -1,0 +1,71 @@
+{% extends "menu.html" %}
+{% load i18n %}
+{% block title %}{% trans "Water Intakes" %}{% endblock %}
+{% load i18n %}
+{% load static from staticfiles %}
+{% load bootstrap_tags %}
+<h1>{% trans "Water Intakes" %}</h1>
+
+{% block extra_head %}
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
+
+<style type="text/css">
+
+    .map__compare { 
+        width: auto;
+        height: 420px; 
+        cursor: pointer;
+        border: 2px solid;
+        border-radius: 0.5em;
+        border-color: #aaa;
+    }
+</style>
+
+
+<script>
+    
+</script>
+{% endblock %}
+
+{% block body_outer %}
+
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_nbs_ca/css/dataTables.bootstrap.min.css">
+<link href="{% static "geonode/css/sidenav.css" %}" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_nbs_ca/css/waterproof_nbs_ca.css">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
+<div class="header-waterproof">    
+    
+    <div class="row">
+        <div class="col-md-6">
+            <div id="map-left" class="map__compare"></div>
+        </div>
+        <div class="col-md-6">
+            <div id="map-right" class="map__compare"></div>
+        </div>
+    </div>   
+    
+</div>
+
+{% block body %}{% endblock body %} {% block sidebar %}{% endblock sidebar %} {% endblock body_outer %} {% block extra_script %}
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+<script src=" {{ STATIC_URL }}geonode/js/leaflet/leaflet-omnivore.min.js"></script>
+<script src=" {{ STATIC_URL }}geonode/js/leaflet/L.Map.Sync.js"></script>
+
+<!--deps-->
+<script src="https://unpkg.com/geotiff@1.0.0-beta.13/dist-browser/geotiff.js"></script>
+<script src="https://unpkg.com/plotty@0.4.1/dist/plotty.js"></script>
+
+<!--the plugin-->
+<script src="https://unpkg.com/leaflet-geotiff-2@0.2.5/dist/leaflet-geotiff.js"></script>
+<script src="https://unpkg.com/leaflet-geotiff-2@0.2.5/dist/leaflet-geotiff-plotty.js"></script>
+<script src="https://unpkg.com/leaflet-geotiff-2@0.2.5/dist/leaflet-geotiff-vector-arrows.js"></script>
+
+<script src="https://jieter.github.io/Leaflet.Sync/L.Map.Sync.js"></script>
+<script src="{{ STATIC_URL }}waterproof_reports/js/reports_maps.js"></script>
+<script type=" text/javascript ">
+  
+  const baseData = '{{ base_data }}';
+  const server = location.protocol + '//' + location.hostname.replace('apps','dev') + ':82/';
+  const urlWaterProofLyrsWMS = server + `?map=/etc/mapserver/${baseData}/mapserver.map&SERVICE=WMS`;
+</script>
+{% endblock %}
