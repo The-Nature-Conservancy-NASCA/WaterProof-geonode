@@ -1246,8 +1246,56 @@ msgstr ""
 #~ msgid "No error message supplied"
 #~ msgstr "No error message supplied"
 
-#~ msgid "portfolios intro"
-#~ msgstr "portfolios info"
+msgid "portfolios intro"
+msgstr "portfolios info"
 
-#~ msgid "portfolios objectives"
-#~ msgstr "portfolios objectives"
+msgid "portfolios objectives"
+msgstr "portfolios objectives"
+
+msgid "error_period_analysis"
+msgstr "Please check period value must be greater than 10 and less than 100"
+
+msgid "error_fields"
+msgstr "Please full every fields"
+
+msgid "question_revert"
+msgstr "You won't be able to revert this!"
+
+msgid "response_delete"
+msgstr "Yes, delete it!"
+
+msgid "error_name"
+msgstr "please change the name"
+
+msgid "error_minimum"
+msgstr "Please check minimum value"
+
+msgid "error_discount"
+msgstr "Please check discount"
+
+msgid "are_you_sure"
+msgstr "Are you sure?"
+
+msgid "study_case_exist"
+msgstr "Study Case exist"
+
+msgid "field_empty"
+msgstr "Field Empty"
+
+msgid "minimum_value"
+msgstr "Minimum Value"
+
+msgid "discount_value"
+msgstr "Discount value"
+
+msgid "field_problem"
+msgstr "Field problem"
+
+msgid "exchange_rate"
+msgstr "Exchange Rate"
+
+msgid "error_period_nbs"
+msgstr "The value of Implementation Time of Nature-Based Solution (yr) must be less to Analysis time period"
+
+msgid "error_annual_investment"
+msgstr "The investment scenario value does not meet the minimum budget parameters for the activity. Review and adjust the investment scenario value"

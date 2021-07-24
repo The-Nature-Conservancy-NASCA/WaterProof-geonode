@@ -39,4 +39,7 @@ urlpatterns = [
     path('getTotalSizeWaterproofIntakePolygon/', api.getTotalSizeWaterproofIntakePolygon, name='get_total_size_waterproof_intake_polygon'),
     path('getWaterproofReportsRiosIpa/', api.getWaterproofReportsRiosIpa, name='get_waterproof_reports_rios_ipa'),
     path('getWaterproofReportsDesagregation/', api.getWaterproofReportsDesagregation, name='get_waterproof_reports_desagregation'),
+
+       # Compare Maps
+    path('compare-maps/', views.compareMaps, name='compare-maps'),
 ]

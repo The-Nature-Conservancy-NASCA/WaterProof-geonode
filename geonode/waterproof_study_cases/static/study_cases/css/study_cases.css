@@ -131,7 +131,20 @@
     padding-left: 90px;
 }
 
+.transaction-label {
+    padding-left: 90px;
+}
+
+.discount-label {
+    padding-left: 90px;
+}
+
 .text-number {
+    text-align: right;
+    width: 40% !important;
+}
+
+.text-number-full {
     text-align: right;
 }
 
@@ -209,6 +222,14 @@
     font-weight: 100;
 }
 
+.cm-unit-label {
+    text-align: initial;
+}
+
+.cm-title-label {
+    text-align: end;
+}
+
 .modal-dialog {
     display: inline-block;
     text-align: left;
@@ -221,19 +242,20 @@
     min-height: 800px;
 }
 
-.python-expression{
+.python-expression {
     margin-top: 5px;
     width: 90%;
     font-family: monospace;
     font-size: 1.2rem;
 }
-.valid_expression{
+
+.valid_expression {
     border: 2px solid #029902;
     box-shadow: 0 0 10px #719ece;
     color: rgb(2, 124, 33);
 }
 
-.invalid_expression{
+.invalid_expression {
     border: 2px solid #af0900;
     box-shadow: 0 0 10px #719ece;
     color: red;
@@ -243,7 +265,8 @@
     max-height: 150px;
     overflow-y: auto;
 }
-.keyboard-title{
+
+.keyboard-title {
     margin-top: 22px;
 }
 
@@ -251,16 +274,16 @@
     margin-bottom: 2px;
 }
 
-.header-waterproof{
+.header-waterproof {
     padding-left: 28rem;
     padding-bottom: 2px;
 }
 
-.justify-number{
+.justify-number {
     text-align: right;
 }
 
-.panel-title a label{
+.panel-title a label {
     font-size: 12px;
     cursor: pointer;
 }
