@@ -170,13 +170,15 @@ $(document).ready(function() {
                 denyButtonText: gettext('Cancel')
             }).then((result) => {
                 if (result.isConfirmed) {
+                    console.log("wxtraccion"+ JSON.stringify(waterExtractionData));
                     $('#intakeECTAG tr').remove();
                     $('#IntakeTDLE table').remove();
                     $('#externalSelect option').remove();
                     $('#intakeECTAG').empty();
                     $('#IntakeTDLE').empty();
                     $('#externalSelect').empty();
-                    waterExtractionData = [];
+                    $('#waterExtraction').empty();
+                    //waterExtractionData = [];
                     $('#waterExtraction').val(JSON.stringify(waterExtractionData));
                     $('#initialDataExtractionInterpolationValue').val('');
                     $('#finalDataExtractionInterpolationValue').val('');
@@ -209,8 +211,10 @@ $(document).ready(function() {
                     $('#intakeWEMI').empty();
                     $('#IntakeTDLE').empty();
                     $('#externalSelect').empty();
-                    waterExtractionData = [];
+                    $('#waterExtraction').empty();
+                    //waterExtractionData = [];
                     $('#waterExtraction').val(JSON.stringify(waterExtractionData));
+                    $('#numberYearsInterpolationValue').val('');
                     $('#intakeNIYMI').val('');
                 } else if (result.isDenied) {
                     $('[href="#manual"]').tab('show');
