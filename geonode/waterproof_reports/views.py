@@ -100,11 +100,14 @@ def geographicIndicators(request):
 def compareMaps(request):
 
     base_data = ''
+    intake = ''
     if request.method == 'GET':
         try:            
             base_data = request.GET['folder']
+            intake = request.GET['intake']
         except:
             base_data = 'mapserver'
+            intake = ''
         
 
     return render(
@@ -112,5 +115,6 @@ def compareMaps(request):
                 'waterproof_reports/compare_maps.html',
                 {
                     'base_data': base_data,
+                    'intake': intake,
                 }
             )
