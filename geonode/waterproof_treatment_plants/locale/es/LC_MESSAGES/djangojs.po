@@ -27,7 +27,7 @@ msgstr ""
 "Project-Id-Version: GeoNode\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-07-21 14:59-0500\n"
-"PO-Revision-Date: 2021-02-05 18:51-0500\n"
+"PO-Revision-Date: 2021-07-23 23:29-0500\n"
 "Last-Translator: Julien Collaer <julien.collaer@opengeode.be>\n"
 "Language-Team: Spanish (http://www.transifex.com/geonode/geonode/language/"
 "es/)\n"
@@ -36,16 +36,18 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.4.2\n"
+"X-Generator: Poedit 2.4.3\n"
 
 #: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:14
 msgid "You won't be able to revert this!"
-msgstr ""
+msgstr "No podrá revertir esto!"
 
 #: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:15
 msgid "Yes, delete it!"
-msgstr ""
+msgstr "Si, eliminarlo!"
 
 #: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:16
 msgid "Trouble deleting treatment plant, must be in use in one study case"
 msgstr ""
+"Problemas eliminando la planta, debe estar siendo usada en algún caso de "
+"uso"
