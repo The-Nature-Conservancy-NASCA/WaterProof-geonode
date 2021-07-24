@@ -24,16 +24,15 @@ msgstr ""
 "Project-Id-Version: GeoNode\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-02-15 10:17-0500\n"
-"PO-Revision-Date: 2020-11-28 19:14+0100\n"
+"PO-Revision-Date: 2021-07-15 19:24-0500\n"
 "Last-Translator: Julien Collaer <julien.collaer@opengeode.be>\n"
-"Language-Team: English (http://www.transifex.com/geonode/geonode/language/"
-"en/)\n"
+"Language-Team: English (http://www.transifex.com/geonode/geonode/language/en/)\n"
 "Language: en\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.4.2\n"
+"X-Generator: Poedit 2.4.3\n"
 
 #: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca.js:109
 #: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca.js:147
@@ -76,34 +75,34 @@ msgstr "The NBS has been saved"
 #: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca_edit.js:195
 #: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca_edit.js:237
 msgid "Nbs saving error"
-msgstr ""
+msgstr "NbS saving error"
 
 #: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca.js:324
 #: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca_clone.js:465
 #: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca_edit.js:465
 #, javascript-format
 msgid "Implementation cost (%s/ha) "
-msgstr ""
+msgstr "Implementation cost (%s/ha) "
 
 #: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca.js:326
 #: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca_clone.js:467
 #: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca_edit.js:467
 #, javascript-format
 msgid "Maintenace cost (%s/ha) "
-msgstr ""
+msgstr "Maintenace cost (%s/ha) "
 
 #: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca.js:328
 #: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca_clone.js:469
 #: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca_edit.js:469
 #, javascript-format
 msgid "Oportunity cost (%s/ha) "
-msgstr ""
+msgstr "Oportunity cost (%s/ha) "
 
 #: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca.js:404
 #: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca_clone.js:281
 #: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca_edit.js:281
 msgid "The GeoJSON is valid!"
-msgstr ""
+msgstr "The GeoJSON is valid!"
 
 #: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca.js:415
 #: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca_clone.js:292
@@ -115,13 +114,13 @@ msgstr "GeoJSON file error"
 #: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca_clone.js:293
 #: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca_edit.js:293
 msgid "Character errors in GeoJSON file"
-msgstr "Character errors in GeoJSON file, or may be the file is corrupted!"
+msgstr "Character errors in GeoJSON file, or may be the file is corrupted"
 
 #: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca.js:446
 #: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca_clone.js:323
 #: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca_edit.js:323
 msgid "The shapefile is valid!"
-msgstr ""
+msgstr "The shapefile is valid!"
 
 #: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca.js:460
 #: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca_clone.js:337
@@ -179,34 +178,32 @@ msgstr "Error!"
 msgid "The NBS has not been deleted, try again!"
 msgstr "The NBS has not been deleted, try again!"
 
-#~ msgid "The CRS is not correct!"
-#~ msgstr ""
-#~ "The coordinate reference system is not correct!, expects EPSG 3857 or "
-#~ "EPSG 4326"
+#~ msgid "The coordinate reference system is not correct!, expects EPSG 3857 or EPSG 4326"
+#~ msgstr "The coordinate reference system is not correct!, expects EPSG 3857 or EPSG 4326"
 
-#~ msgid "Missing shp"
+#~ msgid ".shp required file is missing"
 #~ msgstr ".shp required file is missing"
 
-#~ msgid "Missing dbf"
+#~ msgid ".dbf required file is missing"
 #~ msgstr ".dbf required file is missing"
 
-#~ msgid "Missing shx"
+#~ msgid ".shx required file is missing"
 #~ msgstr ".shx required file is missing"
 
-#~ msgid "Missing prj"
+#~ msgid ".prj required file is missing"
 #~ msgstr ".prj required file is missing"
 
-#~ msgid "Geometry must be polygon"
+#~ msgid "The geometry must be polygon type"
 #~ msgstr "The geometry must be polygon type"
 
-#~ msgid "Bad geojson structure"
+#~ msgid "The GeoJSON does not have the required standard structure"
 #~ msgstr "The GeoJSON does not have the required standard structure"
 
-#~ msgid "Coordinates out of WSG84"
+#~ msgid "Coordinates out of WSG84 geographic expected range"
 #~ msgstr "Coordinates out of WSG84 geographic expected range"
 
-#~ msgid "Dbf action field missing"
-#~ msgstr "The required field 'action' is missing in dbf file"
+#~ msgid "The required field 'action' is missing in .dbf file"
+#~ msgstr "The required field 'action' is missing in .dbf file"
 
-#~ msgid "Dbf activity field missing"
-#~ msgstr "The required field 'activity_n' is missing in dbf file"
+#~ msgid "The required field 'activity_n' is missing in .dbf file"
+#~ msgstr "The required field 'activity_n' is missing in .dbf file"
