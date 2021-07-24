@@ -6,23 +6,377 @@
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2021
 # WaterProof, 2021
 # Yeismer Espejo. <yespejo@gmail.com>, 2021
-
 msgid ""
 msgstr ""
-"Project-Id-Version: GeoNode\n"
+"Project-Id-Version: Waterproof valpha\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-25 09:35-0500\n"
-"PO-Revision-Date: 2021-02-05 19:13-0500\n"
+"POT-Creation-Date: 2021-07-21 14:36-0500\n"
+"PO-Revision-Date: 2021-07-23 23:55-0500\n"
 "Last-Translator: Julien Collaer <julien.collaer@opengeode.be>\n"
-"Language-Team: English (http://www.transifex.com/geonode/geonode/language/"
-"en/)\n"
+"Language-Team: Skaphe\n"
 "Language: en\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.4.2\n"
+"X-Generator: Poedit 2.4.3\n"
 
-#: geonode/waterproof_treatment_plants/static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:154
-msgid "154"
-msgstr "adsfadfasdfdfas"
+#: models.py:9
+msgid "Name Plant"
+msgstr "Plant name"
+
+#: models.py:10
+msgid "Description Plant"
+msgstr "Plant description"
+
+#: models.py:11
+msgid "Suggest Plant"
+msgstr "Suggest plant"
+
+#: models.py:12
+msgid "User Plant"
+msgstr "User plant"
+
+#: models.py:13
+msgid "Date Create Plant"
+msgstr "Creation date"
+
+#: models.py:14
+msgid "Date Update Plant"
+msgstr "Update date"
+
+#: models.py:18
+msgid "Name Function"
+msgstr "Function name"
+
+#: models.py:19
+msgid "Graph Id Function"
+msgstr "Function graph id"
+
+#: models.py:20
+msgid "Value Function"
+msgstr "Function value"
+
+#: models.py:21
+msgid "Currency Function"
+msgstr "Currency"
+
+#: models.py:22
+msgid "Factor"
+msgstr "Multiplication factor of the total cost"
+
+#: models.py:23
+msgid "Sub Process"
+msgstr "Sub process"
+
+#: models.py:24 models.py:54 models.py:61
+msgid "User"
+msgstr "User"
+
+#: models.py:25 models.py:55
+msgid "Date Create"
+msgstr "Creation date"
+
+#: models.py:26 models.py:56 models.py:63
+msgid "Date Update"
+msgstr "Update date"
+
+#: models.py:27
+msgid "Water"
+msgstr "Water"
+
+#: models.py:28
+msgid "Sediments"
+msgstr "Sediments"
+
+#: models.py:29
+msgid "Nitrogen"
+msgstr "Nitrogen"
+
+#: models.py:30
+msgid "Phosphorus"
+msgstr "Phosphorus"
+
+#: models.py:31
+msgid "Technology"
+msgstr "Technology"
+
+#: models.py:35
+msgid "Name Element"
+msgstr "Element name"
+
+#: models.py:36
+msgid "Id Graph"
+msgstr "Graph id"
+
+#: models.py:37
+msgid "On off Element"
+msgstr "On off Element"
+
+#: models.py:38
+msgid "Q L Element"
+msgstr "Q L Element"
+
+#: models.py:39
+msgid "Awy Element"
+msgstr "Awy Element"
+
+#: models.py:40
+msgid "CN Mg L Element"
+msgstr "CN Mg L Element"
+
+#: models.py:41
+msgid "CP Mg L Element"
+msgstr "CP Mg L Element"
+
+#: models.py:42
+msgid "Mg L Csed Element"
+msgstr "Mg L Csed Element"
+
+#: models.py:43
+msgid "Wn Kg Element"
+msgstr "Wn Kg Element"
+
+#: models.py:44
+msgid "Wn Rent Kg Element"
+msgstr "Wn Rent Kg Element"
+
+#: models.py:45
+msgid "Wn Rent Ton Element"
+msgstr "Wn Rent Ton Element"
+
+#: models.py:46
+msgid "Wsed Ton Element"
+msgstr "Wsed Ton Element"
+
+#: models.py:47
+msgid "Wp Kg Element"
+msgstr "Wp Kg Element"
+
+#: models.py:48
+msgid "User Element"
+msgstr "Element user"
+
+#: models.py:49
+msgid "Date Create Element"
+msgstr "Element creation date"
+
+#: models.py:50
+msgid "Date Update Element"
+msgstr "Element update date"
+
+#: models.py:62
+msgid "Type ptap"
+msgstr "PTAP type"
+
+#: models.py:64
+msgid "Awy ptap"
+msgstr "PTAP Awy"
+
+#: models.py:65
+msgid "Cn ptap"
+msgstr "Cn ptap"
+
+#: models.py:66
+msgid "Cp ptap"
+msgstr "Cp ptap"
+
+#: models.py:67
+msgid "Cs ptap"
+msgstr "Cs ptap"
+
+#: models.py:68
+msgid "Wn ptap"
+msgstr "Wn ptap"
+
+#: models.py:69
+msgid "Wp ptap"
+msgstr "Wp ptap"
+
+#: models.py:70
+msgid "Ws ptap"
+msgstr "Ws ptap"
+
+#: treatment_plants_edit:26
+msgid "Treatment plant creation city:"
+msgstr "City of creation:"
+
+#: treatment_plants_edit:30
+msgid "General information"
+msgstr "General information"
+
+#: treatment_plants_edit:32 treatment_plants_edit:54 treatment_plants_list:54
+msgid "Name"
+msgstr "Name"
+
+#: treatment_plants_edit:37
+msgid "Description"
+msgstr "Description"
+
+#: treatment_plants_edit:45
+msgid "Water Intake"
+msgstr "Water Intake"
+
+#: treatment_plants_edit:46
+msgid "Select from the list water intakes that arrive at your treatment plant and click on the button 'Add water intake'"
+msgstr "Select from the list water intakes that arrive at your treatment plant and click on the button 'Confirm water intakes sources'"
+
+#: treatment_plants_edit:55
+msgid "Water intake sources"
+msgstr "Water intake sources"
+
+#: treatment_plants_edit:56
+msgid "Infraestructure associated with the DWTP"
+msgstr "Infraestructure associated with the DWTP"
+
+#: treatment_plants_edit:57
+msgid "Options"
+msgstr "Options"
+
+#: treatment_plants_edit:64
+msgid "Confirm water intakes sources"
+msgstr "Confirm water intakes sources"
+
+#: treatment_plants_edit:70
+msgid "Treatment unit process diagram"
+msgstr "Treatment unit process diagram"
+
+#: treatment_plants_edit:71
+msgid "WaterProof presents below the suggested components or processes for treating the water quality of the selected catchments. Click on the processes that are part of your treatment plant and use the checkbox to enable or disable them."
+msgstr "WaterProof presents below the suggested components or processes for treating the water quality of the selected catchments. Click on the processes that are part of your treatment plant and use the checkbox to enable or disable them."
+
+#: treatment_plants_edit:155
+msgid "Dosificación"
+msgstr "Dosage"
+
+#: treatment_plants_edit:161
+msgid "Mezcla lenta"
+msgstr "Slow mixing"
+
+#: treatment_plants_edit:167
+msgid "Sedimentación"
+msgstr "Sedimentation"
+
+#: treatment_plants_edit:173
+msgid "Filtración"
+msgstr "Filtration"
+
+#: treatment_plants_edit:180
+msgid "Filtración por membranas tamaño de particula retenida 0.01 μm"
+msgstr "Membrane filtration retained particle size 0.01 μm"
+
+#: treatment_plants_edit:186
+msgid "Filtración por membranas tamaño de particula retenida 0.1 μm"
+msgstr "Membrane filtration retained particle size 0.1 μm"
+
+#: treatment_plants_edit:192
+msgid "Filtración por membranas tamaño de particula retenida 0.001 μm"
+msgstr "Membrane filtration retained particle size 0.001 μm"
+
+#: treatment_plants_edit:198
+msgid "Filtración por membranas tamaño de particula retenida 0.0001 μm"
+msgstr "Retained particle size membrane filtration 0.0001 μm"
+
+#: treatment_plants_edit:203
+msgid "Tratamiento de lodos"
+msgstr "Sludge treatment"
+
+#: treatment_plants_edit:209
+msgid "Intercambio iónico"
+msgstr "Ion exchange"
+
+#: treatment_plants_edit:215
+msgid "Desinfección"
+msgstr "Disinfection"
+
+#: treatment_plants_edit:227
+msgid "Processes, technologies and cost functions"
+msgstr "Processes, technologies and cost functions"
+
+#: treatment_plants_edit:70
+msgid "Submit"
+msgstr "Save"
+
+#: treatment_plants_edit:247
+msgid "Creation of treatment plants"
+msgstr "Creation of treatment plants"
+
+#: treatment_plants_edit:252
+msgid "Treatment plants are a key element in ROI analysis setup. Once there are water  intakes that deliver the water to the treatment plants, a set of processes is responsible for eliminating coarse solids, resulting in a reduction of the pollutant load in the water, seeking to make it suitable for human consumption, or meet the requirements of current legislation. WaterProof offers  default cost functions forthe following processes:"
+msgstr "Treatment plants are a key element in ROI analysis setup. Once there are water  intakes that deliver the water to the treatment plants, a set of processes is responsible for eliminating coarse solids, resulting in a reduction of the pollutant load in the water, seeking to make it suitable for human consumption, or meet the requirements of current legislation. WaterProof offers  default cost functions for the following processes:"
+
+#: treatment_plants_edit:258
+msgid "Represents the process in which coagulant is applied to the water to promote the increase in  particle size forming floc, to promote settling of particles."
+msgstr "Represents the process in which coagulant is applied to the water to promote the increase in  particle size forming floc, to promote settling of particles."
+
+#: treatment_plants_edit:263
+msgid "Process in which the coagulant is dispersed uniformly and quickly through turbulence formed by hydraulic or mechanical means."
+msgstr "Process in which the coagulant is dispersed uniformly and quickly through turbulence formed by hydraulic or mechanical means."
+
+#: treatment_plants_edit:268
+msgid "Process that relies on channels or structures where the turbulence necessary for floc formation is produced."
+msgstr "Process that relies on channels or structures where the turbulence necessary for floc formation is produced."
+
+#: treatment_plants_edit:273
+msgid "Process in which the floc already formed separates from the water thanks to the low flow velocity and the floc's own weight, allowing it to fall to the bottom of the tank forming a sludge that must be removed for proper management."
+msgstr "Process in which the floc already formed separates from the water thanks to the low flow velocity and the floc's own weight, allowing it to fall to the bottom of the tank forming a sludge that must be removed for proper management."
+
+#: treatment_plants_edit:278
+msgid "Process in which water is passed through a bed (mainly sand, sand and anthracite) so that particles and certain microorganisms are filtered out and retained within the bed."
+msgstr "Process in which water is passed through a bed (mainly sand, sand and anthracite) so that particles and certain microorganisms are filtered out and retained within the bed."
+
+#: treatment_plants_edit:283
+msgid "A process in which membranes are used to remove all particles, molecules and microorganisms larger than their pore size. The main classification of advanced filtration establishes four categories: microfiltration, ultrafiltration, nanofiltration and reverse osmosis. The differences in each are the minimum pore sizes, being 100 nanometers (nm) for microfiltration, 10 nm for ultrafiltration, 1 nm for nanofiltration and smaller sizes for reverse osmosis."
+msgstr "A process in which membranes are used to remove all particles, molecules and microorganisms larger than their pore size. The main classification of advanced filtration establishes four categories: microfiltration, ultrafiltration, nanofiltration and reverse osmosis. The differences in each are the minimum pore sizes, being 100 nanometers (nm) for microfiltration, 10 nm for ultrafiltration, 1 nm for nanofiltration and smaller sizes for reverse osmosis."
+
+#: treatment_plants_edit:300
+msgid "A chemical process in which unwanted dissolved ions in water and effluents –  such as nitrate, fluorine, sulfate, and arsenic - are exchanged for other ions with a similar charge. This is done by means of a polymer capable of exchanging ions for other ions in a solution that passes through them. These synthetic gel spheres are called 'Ion Exchange Resins'. Process in which reagents, usually chlorine and ammonia, are added to form chloramines, eliminating any microorganisms that may have survived the previous processes and guaranteeing water quality throughout its journey through the distribution network. The final disposal of sludge from the flocculation and filtration processes is carried out by pumping, thickeners, drying beds or belt filters."
+msgstr "A chemical process in which unwanted dissolved ions in water and effluents –  such as nitrate, fluorine, sulfate, and arsenic - are exchanged for other ions with a similar charge. This is done by means of a polymer capable of exchanging ions for other ions in a solution that passes through them. These synthetic gel spheres are called 'Ion Exchange Resins'. Process in which reagents, usually chlorine and ammonia, are added to form chloramines, eliminating any microorganisms that may have survived the previous processes and guaranteeing water quality throughout its journey through the distribution network. The final disposal of sludge from the flocculation and filtration processes is carried out by pumping, thickeners, drying beds or belt filters."
+
+#: treatment_plants_list:29
+msgid "Drinking water treatment plants (DWTP)"
+msgstr "Drinking water treatment plants (DWTP)"
+
+#: treatment_plants_list:33
+msgid "In this section you can view and create the Treatment Plants that WaterProof uses in the Case Studies for ROI analysis. Indicate on the map the city for which you want to consult or create the treatment plant."
+msgstr "In this section you can view and create the Treatment Plants that WaterProof uses in the Case Studies for ROI analysis. Indicate on the map the city for which you want to consult or create the treatment plant."
+
+#: treatment_plants_list:36
+msgid "Selected City"
+msgstr "Selected city"
+
+#: treatment_plants_list:37
+msgid "Region"
+msgstr "Region"
+
+#: treatment_plants_list:38
+msgid "Currency"
+msgstr "Currency"
+
+#: treatment_plants_list:40
+msgid "Create new Treatment Plants"
+msgstr "Create a new DWTP"
+
+#: treatment_plants_list:55
+msgid "ID"
+msgstr "ID"
+
+#: treatment_plants_list:56
+msgid "User "
+msgstr "User "
+
+#: treatment_plants_list:57
+msgid "Description "
+msgstr "Description "
+
+#: treatment_plants_list:58
+msgid "City"
+msgstr "City"
+
+#: treatment_plants_list:59
+msgid "Catchment"
+msgstr "Water intake"
+
+#: treatment_plants_list:60
+msgid "Water intakes"
+msgstr "Options"
