@@ -11,8 +11,18 @@ $(function () {
         WN_KG: 'Change in Nitrogen Load (%)',
         WP_KG: 'Change in Phosphorus Load (%)',
         WSED_TON: 'Change in Total Sediments (%)',
-        WC_TON: 'Change in Carbon Storage'
+        WC_TON: 'Change in Carbon Storage (%)',
+        RWD: 'ROI Benefic/Cost (Total)',
+        RME: 'ROI Benefit/Cost (Discounted)',
+        VPN_IMP: 'Cost Implementation NPV',
+        VPN_MAINT: 'Cost Maintenance NPV',
+        VPN_OPORT: 'Cost Oportunity NPV',
+        VPN_TRANS: 'Cost Transaction NPV',
+        VPN_PLAT: 'Cost Platform NPV',
+        VPN_BENF: 'Benefits NPV',
+        VPN_TOTAL: 'Total NPV'
     };
+    //INDICATORS BD FIELDS
     const CHART_CATEGORIES = {
         AWY: 'awy',
         BF_M3: 'bf_m3',
@@ -20,6 +30,15 @@ $(function () {
         WP_KG: 'wp_kg',
         WSED_TON: 'wsed_ton',
         WC_TON: 'wc_ton',
+        RWD: 'roi_without_discount',
+        RME: 'roi_medium',
+        VPN_IMP: 'implementation',
+        VPN_MAINT: 'maintenance',
+        VPN_OPORT: 'oportunity',
+        VPN_TRANS: 'transaction',
+        VPN_PLAT: 'platform',
+        VPN_BENF: 'benefit',
+        VPN_TOTAL: 'total',
         STUDYCASE: 'study_case'
     };
     const AXIS_TABLE = {
@@ -31,10 +50,16 @@ $(function () {
     const ADD_BUTTON = {
         DOM_ID: 'add_axis'
     };
-    const INVEST_API = {
-        URL: '../getInvestIndicators/'
+    const REMOVE_BUTTON = {
+        DOM_ID: ''
+    }
+    const INDICATORS_API = {
+        INVEST: '../getInvestIndicators/',
+        ROI: '../getRoiIndicators/',
+        VPN: '../getVpnIndicators/'
     };
-    chartCategories = [];
+    var chartCategories = [];
+    var chartConfig = {};
     try {
         var casesSelected = JSON.parse(localStorage.analysisCases);
     } catch (error) {
@@ -50,51 +75,59 @@ $(function () {
             window.location = "../";
         });
     }
+    /******************/
+    /* DEFAULT REQUEST
+    /******************/
     else { //there are cases selected
         selectedCases = JSON.parse(localStorage.analysisCases);
         fields = [];
         fields.push(
             CHART_CATEGORIES.AWY,
-            CHART_CATEGORIES.BF_M3,
+            CHART_CATEGORIES.WSED_TON,
             CHART_CATEGORIES.WN_KG,
-            CHART_CATEGORIES.WP_KG
+            CHART_CATEGORIES.WP_KG,
+            CHART_CATEGORIES.WC_TON
         );
         /******************************/
         /* DEFAULT REQUEST AT LOAD PAGE
         /******************************/
         // Get invest indicator for selected cases
-        var seriesDataRequest = indicatorsRequest(INVEST_API.URL, selectedCases, fields);
+        var seriesInvestRequest = indicatorsRequest(INDICATORS_API.INVEST, selectedCases, fields);
         fields = [];
         fields.push(
             CHART_CATEGORIES.STUDYCASE,
         );
-        var seriesCasesRequest = indicatorsRequest(INVEST_API.URL, selectedCases, fields);
-        var investRequest = [];
-        investRequest.push(seriesDataRequest, seriesCasesRequest);
-        Promise.all(investRequest).then(promiseResponse => {
-            let seriesData = promiseResponse[0];
-            let seriesCases = promiseResponse[1];
-            if (seriesData.length > 0 && seriesCases.length > 0) { //results found!
-                let categoriesOb = {};
-                categoriesOb.id = CHART_CATEGORIES.AWY;
-                categoriesOb.name = AXIS_CATEGORIES.AWY;
-                chartCategories.push(categoriesOb);
-                categoriesOb = {};
-                categoriesOb.id = CHART_CATEGORIES.BF_M3;
-                categoriesOb.name = AXIS_CATEGORIES.BF_M3;
-                chartCategories.push(categoriesOb);
-                categoriesOb = {};
-                categoriesOb.id = CHART_CATEGORIES.WN_KG;
-                categoriesOb.name = AXIS_CATEGORIES.WN_KG;
-                chartCategories.push(categoriesOb);
-                categoriesOb = {};
-                categoriesOb.id = CHART_CATEGORIES.WP_KG;
-                categoriesOb.name = AXIS_CATEGORIES.WP_KG;
-                chartCategories.push(categoriesOb);
+        var seriesCasesRequest = indicatorsRequest(INDICATORS_API.INVEST, selectedCases, fields);
+        fields = [];
+        fields.push(
+            CHART_CATEGORIES.RWD
+        )
+        var seriesRoiRequest = indicatorsRequest(INDICATORS_API.ROI, selectedCases, fields);
+        var requests = [];
+        requests.push(seriesInvestRequest, seriesRoiRequest, seriesCasesRequest);
+        Promise.all(requests).then(promiseResponse => {
+            let seriesDataInvest = promiseResponse[0];
+            let seriessDataRoi = promiseResponse[1];
+            let seriesCases = promiseResponse[2];
+            if (seriesDataInvest.length > 0 && seriessDataRoi.length > 0 && seriesCases.length > 0) { //results found!
+                let categoriesObj = setChartObject(CHART_CATEGORIES.RWD, AXIS_CATEGORIES.RWD);
+                chartCategories.push(categoriesObj);
+                categoriesObj = setChartObject(CHART_CATEGORIES.AWY, AXIS_CATEGORIES.AWY);
+                chartCategories.push(categoriesObj);
+                categoriesObj = setChartObject(CHART_CATEGORIES.WSED_TON, AXIS_CATEGORIES.WSED_TON);
+                chartCategories.push(categoriesObj);
+                categoriesObj = setChartObject(CHART_CATEGORIES.WN_KG, AXIS_CATEGORIES.WN_KG);
+                chartCategories.push(categoriesObj);
+                categoriesObj = setChartObject(CHART_CATEGORIES.WP_KG, AXIS_CATEGORIES.WP_KG);
+                chartCategories.push(categoriesObj);
+                categoriesObj = setChartObject(CHART_CATEGORIES.WC_TON, AXIS_CATEGORIES.WC_TON);
+                chartCategories.push(categoriesObj);
                 var serie = [];
-                seriesData.forEach(function (record, i) {
+                seriesDataInvest.forEach(function (record, i) {
                     let data = [];
                     let serieObject = {};
+                    //Add roi_whitout_discount value
+                    data.push(seriessDataRoi[i].roi_without_discount);
                     for (const field in record) {
                         data.push(record[field]);
                     }
@@ -102,7 +135,6 @@ $(function () {
                     serieObject.data = data;
                     serie.push(serieObject);
                 });
-                let chartConfig = {};
                 chartConfig.categories = chartCategories.map(function (category, i) {
                     return category.name;
                 });
@@ -123,6 +155,21 @@ $(function () {
         });
     }
     /*
+    * Set object for axis config in chart
+    * 
+    * @param  {String}  id - id field used in request 
+    * @param  {String}  name - Name visible of axis chart  
+    * 
+    * @returns {Object} The object with id & name 
+    */
+    function setChartObject(id, name) {
+        let chartObj = {
+            'id': id,
+            'name': name
+        }
+        return chartObj;
+    }
+    /*
     * Add a new axis to parallel chart
     * 
     * @returns
@@ -141,9 +188,20 @@ $(function () {
         }
         var axisName = axis_select[0].value;
         switch (axisName) {
-            case CHART_CATEGORIES.AWY, CHART_CATEGORIES.BF_M3, CHART_CATEGORIES.WN_KG,
-                CHART_CATEGORIES.WP_KG, CHART_CATEGORIES.WSED_TON, CHART_CATEGORIES.WC_TON:
-                var url = INVEST_API.URL;
+            //Invest
+            case CHART_CATEGORIES.AWY: case CHART_CATEGORIES.BF_M3: case CHART_CATEGORIES.WN_KG:
+            case CHART_CATEGORIES.WP_KG: case CHART_CATEGORIES.WSED_TON: case CHART_CATEGORIES.WC_TON:
+                var url = INDICATORS_API.INVEST;
+                break;
+            //ROI
+            case CHART_CATEGORIES.RWD: case CHART_CATEGORIES.RME:
+                var url = INDICATORS_API.ROI;
+                break;
+            //VPN
+            case CHART_CATEGORIES.VPN_IMP: case CHART_CATEGORIES.VPN_MAINT: case CHART_CATEGORIES.VPN_OPORT:
+            case CHART_CATEGORIES.VPN_PLAT: case CHART_CATEGORIES.VPN_TRANS: case CHART_CATEGORIES.VPN_TOTAL:
+            case CHART_CATEGORIES.VPN_BENF:
+                var url = INDICATORS_API.VPN;
                 break;
             default:
                 break;
@@ -157,10 +215,44 @@ $(function () {
             'name': filteredAxisCat[0][1]
         }
         chartCategories.push(catObject);
-        let fields = chartCategories.map(function (category, i) {
-            return category.id;
-        });
+        let fields = [catObject.id];
         var seriesDataRequest = indicatorsRequest(url, selectedCases, fields);
+        var requests = [];
+        requests.push(seriesDataRequest);
+        Promise.all(requests).then(promiseResponse => {
+            chartConfig.categories = chartCategories.map(function (category, i) {
+                return category.name;
+            });
+            let series = chartConfig.series;
+            for (let i = 0; i < series.length; i++) {
+                let seriesData = series[i].data;
+                for (const field in promiseResponse[0][i]) {
+                    seriesData.push(promiseResponse[0][i][field]);
+                }
+            }
+            let axisTable = [chartCategories[chartCategories.length - 1]];
+            fillAxisTable(axisTable);
+            drawChart(chartConfig);
+        });
+    });
+    /** 
+    * Remove axis from chart and table
+    * @param {Event} click       Click event
+    * @param {HTML}  ButtonClass Button class
+    */
+    $('#' + AXIS_TABLE.DOM_ID).on('click', '.removeAxis', function (evt) {
+        let axis = evt.target.getAttribute('data-id');
+        let axisIndex = chartCategories.map(function (e) { return e.id; }).indexOf(axis);
+        //Remove Axis values from chart series
+        chartConfig.series.forEach(function (element, index) {
+            console.log(element);
+            let newSerie = element.data.slice(0, axisIndex);
+            element.data = newSerie;
+        });
+        let currentRow = $(this).closest('tr').remove();
+        chartCategories = chartCategories.slice(0, axisIndex);
+        drawChart(chartConfig);
+
     });
     /*
     * Render axis selected in table
@@ -170,14 +262,13 @@ $(function () {
     * @returns
     */
     function fillAxisTable(axis_selected) {
-        let axis_table = $('#' + AXIS_TABLE.DOM_ID + ' tr:last');
+        let axis_table = $('#' + AXIS_TABLE.DOM_ID);
         axis_selected.forEach(axis => {
             let row = `<tr><td class="small text-center vat">${axis.name}</td>`;
-            row += `<td class="small text-center vat"><a class="btn btn-danger removeAxis" data-id="${axis}">`;
-            row += `<span class="glyphicon glyphicon-trash" aria-hidden="true" data-id="${axis}"></span></a></td></tr>`;
-            axis_table.after(row);
+            row += `<td class="small text-center vat"><a class="btn btn-danger removeAxis" data-id="${axis.id}">`;
+            row += `<span class="glyphicon glyphicon-trash" aria-hidden="true" data-id="${axis.id}"></span></a></td></tr>`;
+            axis_table.append(row);
         });
-
     }
     /*
     * Set a indicators promise request
@@ -208,8 +299,7 @@ $(function () {
     * @returns
     */
     function drawChart(chartConfig) {
-        console.log(chartConfig);
-        Highcharts.chart('container', {
+        Highcharts.chart('parallel', {
             chart: {
                 type: 'spline',
                 parallelCoordinates: true,
