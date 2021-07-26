@@ -59,15 +59,23 @@
                         <div>{% trans "Region:" %}</div>
                         <div class="value-file-column-left" id="idRegion">{% trans "-" %}</div>
                     </div>
+                    <div class="file-column-left">
+                        <div>{% trans "Time frame (year):" %}</div>
+                        <div class="value-file-column-left" id="idTimeMainGeographic">{% trans "-" %}</div>
+                    </div>
                 </div>
                 <div class="column-right-table">
                     <div class="file-column-left">
                         <div class="title-file-column-right">{% trans "Number of water intakes that are part of the analysis:" %}</div>
-                        <div class="value-file-column-left" id="idNumberOfWaterDecision"></div>
+                        <div class="value-file-column-left" id="idNumberOfWaterGeographic"></div>
                     </div>
                     <div class="file-column-left">
                         <div class="title-file-column-right">{% trans "Number of drinking water treatment plants in the system:" %}</div>
-                        <div class="value-file-column-left" id="idNumberOfDrinkingDecision"></div>
+                        <div class="value-file-column-left" id="idNumberOfDrinkingGeographic"></div>
+                    </div>
+                    <div class="file-column-left">
+                        <div class="title-file-column-right">{% trans "currency:" %}</div>
+                        <div class="value-file-column-left" id="idCurrencyMainGeographic">{% trans "-" %}</div>
                     </div>
                 </div>
             </div>
@@ -624,14 +632,10 @@ $(function () {
             initMapNbs()
         });
 
-        var urlDetail = "../../reports/getStudyCasesIntake/?studyCase=" + localStorage.idStudyCase;
-        $.getJSON(urlDetail, function (data) {
-            var listFielTable = "";
-            $.each( data, function( key, value ) {
-                document.getElementById("idNumberOfWaterDecision").innerHTML = value.numberStudyCase;
-                document.getElementById("idNumberOfDrinkingDecision").innerHTML = value.numberStudyCase;
-            });
-        });
+        document.getElementById("idNumberOfWaterGeographic").innerHTML = localStorage.getItem('idNumberOfWater');
+        document.getElementById("idNumberOfDrinkingGeographic").innerHTML = localStorage.getItem('idNumberOfDrinking');
+        document.getElementById("idCurrencyMainGeographic").innerHTML = localStorage.getItem('idCurrencyMain');
+        document.getElementById("idTimeMainGeographic").innerHTML = localStorage.getItem('idTimeMain');
 
         var dataTotalBenefits = [];
         var urlDetail = "../../reports/getWaterproofReportsDesagregation/?studyCase=" + localStorage.idStudyCase;

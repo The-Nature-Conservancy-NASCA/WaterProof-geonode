@@ -1,0 +1,910 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Waterproof\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-07-21 14:34-0500\n"
+"PO-Revision-Date: 2021-07-23 18:52-0500\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Last-Translator: \n"
+"Language-Team: Skaphe\n"
+"X-Generator: Poedit 2.4.3\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+
+#: template/intake_clone.html:16
+msgid "Clone water intake"
+msgstr "Clone water intake"
+
+#: template/intake_clone.html:19 template/intake_detail_list.html:32
+#: template/intake_edit.html:23 template/intake_form.html:19
+msgid "Intake creation city"
+msgstr "City of creation"
+
+#: template/intake_clone.html:31 template/intake_edit.html:35
+#: template/intake_form.html:32
+msgid "Define"
+msgstr "Location"
+
+#: template/intake_clone.html:36 template/intake_clone.html:111
+#: template/intake_edit.html:40 template/intake_edit.html:116
+#: template/intake_form.html:37 template/intake_form.html:115
+msgid "Configure parameters"
+msgstr "Infraestructure"
+
+#: template/intake_clone.html:41 template/intake_clone.html:226
+#: template/intake_detail_list.html:200 template/intake_edit.html:45
+#: template/intake_edit.html:218 template/intake_form.html:42
+#: template/intake_form.html:214
+msgid "Water extraction"
+msgstr "Demand"
+
+#: template/intake_clone.html:46 template/intake_edit.html:50
+#: template/intake_form.html:47
+msgid "External"
+msgstr "External input"
+
+#: template/intake_clone.html:51 template/intake_edit.html:55
+#: template/intake_form.html:52
+msgid "Sub area"
+msgstr "NbS area"
+
+#: template/intake_clone.html:60 template/intake_edit.html:64
+#: template/intake_form.html:61 template/intake_form.html:586
+#: template/intake_form.html:620
+msgid "Define water intake"
+msgstr "Define water intake"
+
+#: template/intake_clone.html:61 template/intake_edit.html:65
+msgid "Please complete the fields to define your Water Intake"
+msgstr "Please complete the fields to define your water intake"
+
+#: template/intake_clone.html:67 template/intake_edit.html:71
+#: template/intake_form.html:70 template/intake_list.html:55
+msgid "Name"
+msgstr "Name"
+
+#: template/intake_clone.html:71
+msgid "Cloned"
+msgstr "Clone"
+
+#: template/intake_clone.html:78 template/intake_edit.html:82
+#: template/intake_form.html:81 template/intake_list.html:56
+msgid "Description"
+msgstr "Description"
+
+#: template/intake_clone.html:88 template/intake_edit.html:93
+#: template/intake_form.html:92 template/intake_list.html:59
+msgid "Water source name"
+msgstr "Water source name"
+
+#: template/intake_clone.html:104 template/intake_clone.html:351
+#: template/intake_clone.html:378 template/intake_detail_list.html:112
+#: template/intake_detail_list.html:191 template/intake_detail_list.html:312
+#: template/intake_detail_list.html:338 template/intake_edit.html:109
+#: template/intake_edit.html:210 template/intake_edit.html:329
+#: template/intake_edit.html:355 template/intake_form.html:108
+#: template/intake_form.html:206 template/intake_form.html:332
+#: template/intake_form.html:358
+msgid "Next"
+msgstr "Next"
+
+#: template/intake_clone.html:112 template/intake_edit.html:117
+#: template/intake_form.html:116
+msgid "Select the elements that make up your capture system"
+msgstr "Select the elements that make up your capture system"
+
+#: template/intake_clone.html:126 template/intake_edit.html:131
+#: template/intake_form.html:131
+msgid "Source"
+msgstr "Source"
+
+#: template/intake_clone.html:153 template/intake_edit.html:154
+#: template/intake_form.html:152
+msgid "ID"
+msgstr "ID"
+
+#: template/intake_clone.html:158 template/intake_edit.html:159
+#: template/intake_form.html:157
+#, python-format
+msgid "%% Transported water"
+msgstr "%% Water transported"
+
+#: template/intake_clone.html:164 template/intake_edit.html:164
+#: template/intake_form.html:162
+#, python-format
+msgid "%% Sediments retained"
+msgstr "%% Sediments retained"
+
+#: template/intake_clone.html:170 template/intake_edit.html:169
+#: template/intake_form.html:167
+#, python-format
+msgid "%% Nitrogen retained"
+msgstr "%%  Nitrogen retained"
+
+#: template/intake_clone.html:176 template/intake_edit.html:174
+#: template/intake_form.html:172
+#, python-format
+msgid "%% Phosphorus retained"
+msgstr "%% Phosphorus retained"
+
+#: template/intake_clone.html:187 template/intake_edit.html:184
+#: template/intake_form.html:183
+msgid "Cost functions "
+msgstr "Cost functions "
+
+#: template/intake_clone.html:197 template/intake_edit.html:191
+#: template/intake_form.html:189
+msgid "Function name"
+msgstr "Cost function name"
+
+#: template/intake_clone.html:199 template/intake_edit.html:192
+#: template/intake_form.html:190
+msgid "Function"
+msgstr "Function"
+
+#: template/intake_clone.html:200 template/intake_edit.html:193
+#: template/intake_form.html:191 template/intake_list.html:38
+msgid "Currency"
+msgstr "Currency"
+
+#: template/intake_clone.html:201 template/intake_edit.html:194
+#: template/intake_form.html:192
+msgid "Factor"
+msgstr "Multiplication factor of the total cost"
+
+#: template/intake_clone.html:202 template/intake_edit.html:195
+#: template/intake_form.html:193 template/intake_list.html:64
+msgid "Options"
+msgstr "Options"
+
+#: template/intake_clone.html:227 template/intake_detail_list.html:201
+#: template/intake_edit.html:219
+msgid "Please enter the annual water extraction"
+msgstr "Please enter the annual water extraction"
+
+#: template/intake_clone.html:233 template/intake_detail_list.html:206
+#: template/intake_edit.html:224 template/intake_form.html:222
+msgid "Manual edit"
+msgstr "Manual edit"
+
+#: template/intake_clone.html:244 template/intake_detail_list.html:217
+#: template/intake_edit.html:235 template/intake_form.html:233
+msgid "Data analysis"
+msgstr "Data analysis"
+
+#: template/intake_clone.html:245 template/intake_detail_list.html:218
+#: template/intake_edit.html:236 template/intake_form.html:234
+msgid "Please select the method you wish to use"
+msgstr ""
+"Please select the method you wish to use to fill in the table associated with "
+"annual water extraction from the source, y de clic en el botón generar para "
+"obtener la serie de datos"
+
+#: template/intake_clone.html:249 template/intake_detail_list.html:222
+#: template/intake_edit.html:240 template/intake_form.html:238
+msgid "Interpolation method "
+msgstr "Interpolation method "
+
+#: template/intake_clone.html:253 template/intake_detail_list.html:225
+#: template/intake_edit.html:243 template/intake_form.html:242
+#: template/intake_form.html:781 template/intake_form.html:829
+msgid "Linear interpolation"
+msgstr "Linear interpolation"
+
+#: template/intake_clone.html:254 template/intake_detail_list.html:226
+#: template/intake_edit.html:244 template/intake_form.html:243
+#: template/intake_form.html:782 template/intake_form.html:830
+msgid "Potential interpolation"
+msgstr "Potential interpolation"
+
+#: template/intake_clone.html:255 template/intake_detail_list.html:227
+#: template/intake_edit.html:245 template/intake_form.html:244
+#: template/intake_form.html:783 template/intake_form.html:831
+msgid "Exponential interpolation"
+msgstr "Exponential interpolation"
+
+#: template/intake_clone.html:257 template/intake_detail_list.html:228
+#: template/intake_edit.html:246 template/intake_form.html:245
+msgid "Logistics interpolation"
+msgstr "Logistics interpolation"
+
+#: template/intake_clone.html:261 template/intake_clone.html:315
+#: template/intake_detail_list.html:232 template/intake_detail_list.html:280
+#: template/intake_edit.html:250 template/intake_edit.html:297
+#: template/intake_form.html:249 template/intake_form.html:299
+msgid "Number of years for time series"
+msgstr "Number of years for time series"
+
+#: template/intake_clone.html:268 template/intake_detail_list.html:239
+#: template/intake_edit.html:256 template/intake_form.html:255
+msgid "Extraction"
+msgstr "Extraction"
+
+#: template/intake_clone.html:272 template/intake_detail_list.html:243
+#: template/intake_edit.html:260 template/intake_form.html:259
+msgid "Initial year"
+msgstr "Initial year (l/s)"
+
+#: template/intake_clone.html:278 template/intake_detail_list.html:247
+#: template/intake_edit.html:264 template/intake_form.html:264
+msgid "Final year"
+msgstr "Final year (l/s)"
+
+#: template/intake_clone.html:290 template/intake_clone.html:327
+#: template/intake_detail_list.html:256 template/intake_detail_list.html:290
+#: template/intake_edit.html:273 template/intake_edit.html:307
+#: template/intake_form.html:274 template/intake_form.html:310
+msgid "Results"
+msgstr "Results"
+
+#: template/intake_clone.html:295 template/intake_clone.html:332
+#: template/intake_detail_list.html:261 template/intake_detail_list.html:295
+#: template/intake_edit.html:278 template/intake_edit.html:312
+#: template/intake_form.html:279 template/intake_form.html:315
+msgid "Year"
+msgstr "Year"
+
+#: template/intake_clone.html:316 template/intake_detail_list.html:281
+#: template/intake_edit.html:298 template/intake_form.html:300
+msgid "You can edit the table manually"
+msgstr "You can edit the table manually"
+
+#: template/intake_clone.html:318 template/intake_detail_list.html:283
+#: template/intake_edit.html:300 template/intake_form.html:302
+msgid "Number of years"
+msgstr "Number of years for time series"
+
+#: template/intake_clone.html:359 template/intake_detail_list.html:320
+#: template/intake_edit.html:337 template/intake_form.html:340
+msgid "External inputs"
+msgstr "External inputs"
+
+#: template/intake_clone.html:360 template/intake_detail_list.html:321
+#: template/intake_edit.html:338 template/intake_form.html:341
+msgid "External inputs to define"
+msgstr ""
+"1 External inputs to define. For each of these external inputs you have to "
+"define Annual Water Volume (m3), Annual Sediment Load (Ton), Annual Nitrogen "
+"Load(kg), Annual Phosphorus Load (kg)"
+
+#: template/intake_clone.html:365 template/intake_detail_list.html:326
+#: template/intake_edit.html:343 template/intake_form.html:346
+msgid "Asignation"
+msgstr "Definition"
+
+#: template/intake_clone.html:367 template/intake_detail_list.html:328
+#: template/intake_edit.html:345 template/intake_form.html:348
+msgid "Type element for asignation"
+msgstr "Select the external input for definition"
+
+#: template/intake_clone.html:396 template/intake_detail_list.html:356
+#: template/intake_edit.html:373 template/intake_form.html:379
+#: template/intake_form.html:862
+msgid "Intake area delimitation"
+msgstr "NbS implementation area"
+
+#: template/intake_clone.html:398 template/intake_edit.html:375
+#: template/intake_form.html:383
+msgid "You can change the area"
+msgstr "You must define the implementation area for the NbS"
+
+#: template/intake_clone.html:399 template/intake_form.html:384
+msgid "To move area vertices"
+msgstr ""
+"Choose between \"Delimit NbS implementation area\" or uploading a "
+"\"geographic file\""
+
+#: template/intake_clone.html:404 template/intake_edit.html:380
+#: template/intake_form.html:388
+msgid "To load shapefile"
+msgstr ""
+"Once defined implementation area, you must validate the process, do clic in "
+"the above button"
+
+#: template/intake_clone.html:410 template/intake_edit.html:383
+#: template/intake_form.html:398
+msgid "Help"
+msgstr "Help"
+
+#: template/intake_clone.html:413 template/intake_edit.html:386
+#: template/intake_form.html:401
+msgid "Once defined the area"
+msgstr ""
+"Waterproof will take by default the basin polygon as the implementation area "
+"for NbS, you can reshape this area moving the vertices highlited in red"
+
+#: template/intake_clone.html:427 template/intake_edit.html:398
+#: template/intake_form.html:413
+msgid "Save"
+msgstr "Save"
+
+#: template/intake_clone.html:475 template/intake_edit.html:445
+#: template/intake_form.html:460
+msgid "Currency for definition of costs"
+msgstr "Currency for definition of costs"
+
+#: template/intake_clone.html:492 template/intake_edit.html:465
+#: template/intake_form.html:472
+msgid "Multiplying factor for overrall cost"
+msgstr "Multiplying factor for overrall cost"
+
+#: template/intake_clone.html:646 template/intake_edit.html:551
+#: template/intake_form.html:557
+msgid "Geom files help"
+msgstr "Geo files help"
+
+#: template/intake_clone.html:652 template/intake_edit.html:557
+#: template/intake_form.html:563
+msgid "Only zip and GeoJSON"
+msgstr "Only zip and GeoJSON"
+
+#: template/intake_clone.html:653 template/intake_edit.html:558
+#: template/intake_form.html:564
+msgid "Only EPSG"
+msgstr "Only EPSG"
+
+#: template/intake_clone.html:654 template/intake_edit.html:559
+#: template/intake_form.html:565
+msgid "Max upload size"
+msgstr "Max upload size"
+
+#: template/intake_clone.html:660 template/intake_edit.html:535
+#: template/intake_edit.html:565 template/intake_form.html:541
+#: template/intake_form.html:571
+msgid "Close"
+msgstr "Close"
+
+#: template/intake_confirm_delete.html:1 template/intake_confirm_delete.html:2
+#: template/intake_login_error.html:1 template/intake_login_error.html:2
+msgid "Waterproof NBS CA"
+msgstr "Waterproof NbS CA"
+
+#: template/intake_confirm_delete.html:10
+msgid "Delete intake"
+msgstr "Delete intake"
+
+#: template/intake_detail_list.html:190 template/intake_detail_list.html:311
+#: template/intake_detail_list.html:337 template/intake_detail_list.html:373
+#: template/intake_edit.html:209 template/intake_edit.html:328
+#: template/intake_edit.html:354 template/intake_edit.html:397
+#: template/intake_form.html:205 template/intake_form.html:331
+#: template/intake_form.html:357 template/intake_form.html:412
+msgid "Previous"
+msgstr "Previous"
+
+#: template/intake_detail_list.html:205 template/intake_edit.html:223
+#: template/intake_form.html:221
+msgid "Interpolation wizard"
+msgstr "Interpolation wizard"
+
+#: template/intake_detail_list.html:252 template/intake_detail_list.html:286
+#: template/intake_edit.html:269 template/intake_edit.html:303
+#: template/intake_form.html:270 template/intake_form.html:306
+msgid "Generate"
+msgstr "Generate"
+
+#: template/intake_detail_list.html:262 template/intake_detail_list.html:296
+#: template/intake_edit.html:279 template/intake_edit.html:313
+#: template/intake_form.html:280 template/intake_form.html:316
+msgid "Extraction Value (l/s)"
+msgstr "Extraction value (l/s)"
+
+#: template/intake_detail_list.html:374
+msgid "Exit"
+msgstr "Exit"
+
+#: template/intake_edit.html:20
+msgid "Edit water intake"
+msgstr "Edit water intake"
+
+#: template/intake_edit.html:143 template/intake_form.html:141
+msgid "How to use the graph"
+msgstr "How to use the graph"
+
+#: template/intake_edit.html:177 template/intake_form.html:175
+msgid "Validate graph"
+msgstr "Validate graph"
+
+#: template/intake_edit.html:185 template/intake_form.html:184
+msgid "Add Cost"
+msgstr "Add new cost"
+
+#: template/intake_edit.html:376
+msgid "To  move area vertices"
+msgstr ""
+"Choose between \"Delimit NbS implementation area\" or uploading a "
+"\"geographic file\""
+
+#: template/intake_edit.html:378 template/intake_form.html:386
+msgid "Manually area delimit"
+msgstr ""
+
+#: template/intake_edit.html:388 template/intake_form.html:403
+msgid "Validate delimit area"
+msgstr "Validate delimit area"
+
+#: template/intake_edit.html:527 template/intake_form.html:533
+msgid "Validate"
+msgstr "Validate"
+
+#: template/intake_edit.html:536 template/intake_form.html:542
+msgid "Add cost"
+msgstr "Add new cost"
+
+#: template/intake_form.html:16
+msgid "Create water intake"
+msgstr "Create water intake"
+
+#: template/intake_form.html:64
+msgid ""
+"Enter the data with which you will identify your water intake. Note that in "
+"addition to the name, a description and the name of the water source, you "
+"must indicate its spatial location."
+msgstr ""
+"Enter the data with which you will identify your water intake. Note that in "
+"addition to the name, a description and the name of the water source, you "
+"must indicate its spatial location."
+
+#: template/intake_form.html:217
+msgid ""
+"Please indicate the demand (extraction) of water that you make from your "
+"water intake, for this you can rely on the system interpolation tool or enter "
+"it manually."
+msgstr ""
+"Please indicate the demand (extraction) of water that you make from your "
+"water intake, for this you can rely on the system interpolation tool or enter "
+"it manually."
+
+#: template/intake_form.html:298
+msgid ""
+"*You have defined external water inlets to your water inteake system. For "
+"each of them, you must define the annual volume of water (m3), the annual "
+"sediment load (tons), the annual nitrogen load (kg) and the annual phosphorus "
+"load (kg).*"
+msgstr ""
+"*You have defined external water inlets to your water inteake system. For "
+"each of them, you must define the annual volume of water (m3), the annual "
+"sediment load (tons), the annual nitrogen load (kg) and the annual phosphorus "
+"load (kg).*"
+
+#: template/intake_form.html:364 template/intake_form.html:867
+msgid ""
+"You can delimit the area within the basin in which the implementation of "
+"Nature Based Solutions (NBS) will be considered. By default, the system will "
+"consider that the NBS can be implemented in the entire basin area. However, "
+"by clicking on the button 'Delimit NBS implementation area' the system will "
+"highlight the vertices of the basin so that you can define the area in which "
+"WaterProof will consider that it is possible to implement the NBS."
+msgstr ""
+"You can delimit the area within the basin in which the implementation of "
+"Nature Based Solutions (NBS) will be considered. By default, the system will "
+"consider that the NBS can be implemented in the entire basin area. However, "
+"by clicking on the button 'Delimit NBS implementation area' the system will "
+"highlight the vertices of the basin so that you can define the area in which "
+"WaterProof will consider that it is possible to implement the NBS."
+
+#: template/intake_form.html:365 template/intake_form.html:870
+msgid ""
+"WaterProof also allows you to load a spatial file in shp format that contains "
+"the polygon where NbS implementations are possible. When finished click on "
+"'Validate area'"
+msgstr ""
+"WaterProof also allows you to load a spatial file in shp format that contains "
+"the polygon where NbS implementations are possible. When finished click on "
+"'Validate area'"
+
+#: template/intake_form.html:393
+msgid "Select a file"
+msgstr "Select a file"
+
+#: template/intake_form.html:591
+msgid ""
+"This is the first step in creating a water intake. In addition to indicating "
+"its name, description and supplier source, a geographic viewer is offered "
+"that through the icon"
+msgstr ""
+"This is the first step in creating a water intake. In addition to indicating "
+"its name, description and supplier source, a geographic viewer is offered "
+"that through the icon"
+
+#: template/intake_form.html:592
+msgid ""
+"helps you identify the most precise location of your water intake (you can "
+"move the icon"
+msgstr ""
+"helps you identify the most precise location of your water intake (you can "
+"move the icon"
+
+#: template/intake_form.html:592
+msgid ""
+"on the map to define the water intake location or you can directly enter "
+"latitude and longitude coordinates)."
+msgstr ""
+"on the map to define the water intake location or you can directly enter "
+"latitude and longitude coordinates)."
+
+#: template/intake_form.html:595
+msgid ""
+"With this information, the system will calculate the polygon of the basin to "
+"be used by the InVest and RIOS models in the definition of portfolios and "
+"calculation of Return on investment:"
+msgstr ""
+"With this information, the system will calculate the polygon of the basin to "
+"be used by the InVest and RIOS models in the definition of portfolios and "
+"calculation of Return on investment:"
+
+#: template/intake_form.html:599
+msgid "To continue click the Next button"
+msgstr "To continue click the Next button"
+
+#: template/intake_form.html:627
+msgid "Element of the water intake system"
+msgstr "Element of the water intake system"
+
+#: template/intake_form.html:632
+msgid "Connections"
+msgstr "Connections"
+
+#: template/intake_form.html:637
+msgid "Construction of the scheme"
+msgstr "Construction of the scheme"
+
+#: template/intake_form.html:649 template/intake_form.html:659
+msgid ""
+"Represents a big reservoir, or structure that contains a large water "
+"reservoir, where river waters are stored."
+msgstr ""
+"Represents a big reservoir, or structure that contains a large water "
+"reservoir, where river waters are stored."
+
+#: template/intake_form.html:654
+msgid ""
+"Represents pumping mechanisms to absorb water to deliver it to another "
+"element of the water intakesystem."
+msgstr ""
+"Represents pumping mechanisms to absorb water to deliver it to another "
+"element of the water intakesystem."
+
+#: template/intake_form.html:664
+msgid "Represents a reservoir, in which water is deposited."
+msgstr "Represents a reservoir, in which water is deposited."
+
+#: template/intake_form.html:669
+msgid ""
+"It represents a bottom intake in which the water collection is located "
+"horizontally and below the flow of the current."
+msgstr ""
+"It represents a bottom intake in which the water collection is located "
+"horizontally and below the flow of the current."
+
+#: template/intake_form.html:674
+msgid ""
+"It represents a lateral intake in which the water collection is located on "
+"one side of the stream."
+msgstr ""
+"It represents a lateral intake in which the water collection is located on "
+"one side of the stream."
+
+#: template/intake_form.html:679
+msgid ""
+"Represents a floating intake that is installed on top of a floating surface "
+"(slab), anchored to the bottom of the body of water, and that allows to "
+"capture water."
+msgstr ""
+"Represents a floating intake that is installed on top of a floating surface "
+"(slab), anchored to the bottom of the body of water, and that allows to "
+"capture water."
+
+#: template/intake_form.html:684
+msgid ""
+"It represents a sand trap that, by reducing the speed of the water, makes "
+"large particles fall under their own weight to the bottom of the sand trap to "
+"be removed."
+msgstr ""
+"It represents a sand trap that, by reducing the speed of the water, makes "
+"large particles fall under their own weight to the bottom of the sand trap to "
+"be removed."
+
+#: template/intake_form.html:689
+msgid ""
+"Represents the case study infrastructure where water treatment is carried out "
+"or other processes are carried out with costs to be integrated into its "
+"analysis."
+msgstr ""
+"Represents the case study infrastructure where water treatment is carried out "
+"or other processes are carried out with costs to be integrated into its "
+"analysis."
+
+#: template/intake_form.html:694
+msgid ""
+"Represents external inputs to the system in charge of making water "
+"contributions through hydraulic works of an emitting river basin to meet "
+"water requirements."
+msgstr ""
+"Represents external inputs to the system in charge of making water "
+"contributions through hydraulic works of an emitting river basin to meet "
+"water requirements."
+
+#: template/intake_form.html:700
+msgid ""
+"Note that you must make the connections by clicking between the source "
+"element and the destination element. Right click to indicate the type of "
+"connection:"
+msgstr ""
+"Note that you must make the connections by clicking between the source "
+"element and the destination element. Right click to indicate the type of "
+"connection:"
+
+#: template/intake_form.html:707
+msgid "Channel:"
+msgstr "Channel:"
+
+#: template/intake_form.html:708
+msgid ""
+"To represent structures that collect the collected water and lead it to "
+"another element of the collection system"
+msgstr ""
+"To represent structures that collect the collected water and lead it to "
+"another element of the collection system"
+
+#: template/intake_form.html:709
+msgid "Tubing:"
+msgstr "Piping:"
+
+#: template/intake_form.html:710
+msgid ""
+"Rigid type or flexible hoses, that are in the intake system operating either "
+"by means of pumping and / or re-pumping, or by gravity"
+msgstr ""
+"Rigid type or flexible hoses, that are in the intake system operating either "
+"by means of pumping and / or re-pumping, or by gravity"
+
+#: template/intake_form.html:711
+msgid "Connection:"
+msgstr "Connection:"
+
+#: template/intake_form.html:712
+msgid ""
+"where there is no pipe or channel type element that connects them, but it is "
+"required to symbolize their topological connection relationship"
+msgstr ""
+"where there is no pipe or channel type element that connects them, but it is "
+"required to symbolize their topological connection relationship"
+
+#: template/intake_form.html:722
+msgid ""
+"Click on the element you want to incorporate. Then click on the graphic board "
+"to include it in the scheme. Establish connections by clicking your mouse "
+"between elements:"
+msgstr ""
+"Click on the element you want to incorporate. Then click on the graphic board "
+"to include it in the scheme. Establish connections by clicking your mouse "
+"between elements:"
+
+#: template/intake_form.html:726
+msgid ""
+"Once you have defined the connection, you can right click on the arrow to "
+"determine if it is a channel, a pipe, a connection or an extraction "
+"connection:"
+msgstr ""
+"Once you have defined the connection, you can right click on the arrow to "
+"determine if it is a channel, a pipe, a connection or an extraction "
+"connection:"
+
+#: template/intake_form.html:732
+msgid ""
+"For each item, confirm or edit the values ​​of percentage of transported water, "
+"percentage of sediment retention, percentage of nitrogen retention, and "
+"percentage of phosphorus retention. These values ​​will influence the model "
+"calculations:"
+msgstr ""
+"For each item, confirm or edit the values ​​f percentage of transported water, "
+"percentage of sediment retention, percentage of nitrogen retention, and "
+"percentage of phosphorus retention. These values ​​will influence the model "
+"calculations:"
+
+#: template/intake_form.html:733
+msgid "When your system is complete, click on the 'Validate chart' button."
+msgstr "When your system is complete, click on the 'Validate chart' button."
+
+#: template/intake_form.html:737
+msgid ""
+"For each item confirm or edit the operation and maintenance cost function. "
+"You can also create new cost functions."
+msgstr ""
+"For each item confirm or edit the operation and maintenance cost function. "
+"You can also create new cost functions."
+
+#: template/intake_form.html:762 template/intake_form.html:821
+msgid "Definition of demand (extraction) of water in the water intake"
+msgstr "Definition of demand (extraction) of water in the water intake"
+
+#: template/intake_form.html:768
+msgid "interpolation"
+msgstr "interpolation"
+
+#: template/intake_form.html:771
+msgid "external inputs"
+msgstr "external inputs"
+
+#: template/intake_form.html:778 template/intake_form.html:826
+msgid ""
+"The system offers you several alternatives to define the demand (extraction) "
+"of water from your catchment:"
+msgstr ""
+"The system offers you several alternatives to define the demand (extraction) "
+"of water from your catchment:"
+
+#: template/intake_form.html:784 template/intake_form.html:832
+msgid "Logarithmic interpolation"
+msgstr "Logarithmic interpolation"
+
+#: template/intake_form.html:785 template/intake_form.html:833
+msgid "Manually"
+msgstr "Manually"
+
+#: template/intake_form.html:788 template/intake_form.html:836
+msgid ""
+"If you select the interpolation method, you must enter the number of years "
+"for which you want to estimate demand and the expected minimum and maximum "
+"demand flow (extraction) values ​​(unit in l / s):"
+msgstr ""
+"If you select the interpolation method, you must enter the number of years "
+"for which you want to estimate demand and the expected minimum and maximum "
+"demand flow (extraction) values ​​(unit in l / s):"
+
+#: template/intake_form.html:792 template/intake_form.html:840
+msgid ""
+"If you know your water demand (withdrawal) data from year to year, you can "
+"enter it manually. For this, just enter the number of years for which you "
+"have information and WaterProof will generate a table in which you can enter "
+"the data (units in l / s):"
+msgstr ""
+"If you know your water demand (withdrawal) data from year to year, you can "
+"enter it manually. For this, just enter the number of years for which you "
+"have information and WaterProof will generate a table in which you can enter "
+"the data (units in l/s):"
+
+#: template/intake_form.html:797
+msgid ""
+"The system offers you a selection list with each of the external inputs that "
+"you included in the drawing panel of the capture system. You must indicate "
+"for each external inlet the values ​​of volume of water (m3) that enters from "
+"them, as well as the annual contributions of sediment (Ton), nitrogen (Kg) "
+"and phosphorus (Kg)."
+msgstr ""
+"The system offers you a selection list with each of the external inputs that "
+"you included in the drawing panel of the capture system. You must indicate "
+"for each external inlet the values ​​of volume of water (m3) that enters from "
+"them, as well as the annual contributions of sediment (Ton), nitrogen (Kg) "
+"and phosphorus (Kg)."
+
+#: template/intake_form.html:874
+msgid ""
+"The system also offers you the option of loading a spatial file for loading "
+"shapefiles containing the polygon where it is possible to implement the NbSs. "
+"The system will verify that the polygon is within the basin area and that it "
+"complies with the EPSG 3857 coordinate standard (world standard of flat "
+"coordinates) or the EPSG 4326 (world standard in geographic coordinates)."
+msgstr ""
+"The system also offers you the option of loading a spatial file for loading "
+"shapefiles containing the polygon where it is possible to implement the NbSs. "
+"The system will verify that the polygon is within the basin area and that it "
+"complies with the EPSG 3857 coordinate standard (world standard of flat "
+"coordinates) or the EPSG 4326 (world standard in geographic coordinates)."
+
+#: template/intake_form.html:877
+msgid ""
+"Files are accepted only in compressed .zip format whose required structure "
+"must contain at least: 1 .shp file, 1 .dbf file, 1 .prj file and 1 .shx file"
+msgstr ""
+"Files are accepted only in compressed .zip format whose required structure "
+"must contain at least: 1 .shp file, 1 .dbf file, 1 .prj file and 1 .shx file"
+
+#: template/intake_list.html:3 template/intake_list.html:7
+msgid "Water Intakes"
+msgstr "Water Intakes"
+
+#: template/intake_list.html:28
+msgid "Water Intake"
+msgstr "Water Intake"
+
+#: template/intake_list.html:31
+msgid ""
+"From this section you can consult the water intakes created in the system "
+"associated with a city of interest. You can search for intakes of different "
+"cities from 'Search city'. The system will show you a list of cities with "
+"matches around the world. Select the appropriate option from the list. You "
+"can also create your own basin associated with a city, to do this search for "
+"the city to which you will associate your basin and then click on the 'Create "
+"new water intake' button."
+msgstr ""
+"From this section you can consult the water intakes created in the system "
+"associated with a city of interest. You can search for intakes of different "
+"cities from 'Search city'. The system will show you a list of cities with "
+"matches around the world. Select the appropriate option from the list. You "
+"can also create your own basin associated with a city, to do this search for "
+"the city to which you will associate your basin and then click on the 'Create "
+"new water intake' button."
+
+#: template/intake_list.html:36
+msgid "Selected City"
+msgstr "Selected City"
+
+#: template/intake_list.html:37 template/intake_list.html:62
+msgid "Region"
+msgstr "Region"
+
+#: template/intake_list.html:41 template/intake_list.html:43
+msgid "Create new Water Intake"
+msgstr "Create water intake"
+
+#: template/intake_list.html:44
+msgid "You must be a registered user to create a new Intake*"
+msgstr "You must be a registered user to create a new Intake*"
+
+#: template/intake_list.html:57
+msgid "User"
+msgstr "User"
+
+#: template/intake_list.html:58
+msgid "Creation Date"
+msgstr "Creation Date"
+
+#: template/intake_list.html:60
+msgid "City"
+msgstr "City"
+
+#: template/intake_list.html:61
+msgid "Status"
+msgstr "Status"
+
+#: template/intake_list.html:63
+msgid "Demand"
+msgstr "Water demand"
+
+#: template/intake_list.html:78
+msgid "Completed"
+msgstr "Completed"
+
+#: template/intake_list.html:80
+msgid "In Progress"
+msgstr "In Progress"
+
+#: template/intake_list.html:124
+msgid "Creating a new water intake"
+msgstr "Create a new water intake"
+
+#: template/intake_list.html:128
+msgid ""
+"Water intakes are civil works and electromechanical equipment used to obtain "
+"water from surface or underground sources (WaterProof version 1.0 is limited "
+"to surface sources). A basin is made up of information about its location, "
+"polygon of the supplying basin, infrastructure elements, its cost functions "
+"and data about its demand."
+msgstr ""
+"Water intakes are civil works and electromechanical equipment used to obtain "
+"water from surface or underground sources (WaterProof version 1.0 is limited "
+"to surface sources). A basin is made up of information about its location, "
+"polygon of the supplying basin, infrastructure elements, its cost functions "
+"and data about its demand."
+
+#: template/intake_list.html:131
+msgid ""
+"To create a new watershed, WaterProof will help you with the steps you need "
+"to follow to complete your registration: "
+msgstr ""
+"To create a new watershed, WaterProof will help you with the steps you need "
+"to follow to complete your registration: "
+
+#: template/intake_login_error.html:10
+msgid "Permission denied"
+msgstr "Permission denied"

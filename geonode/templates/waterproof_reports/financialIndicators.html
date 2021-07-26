@@ -58,6 +58,10 @@
                         <div>{% trans "Region:" %}</div>
                         <div class="value-file-column-left" id="idRegion">{% trans "-" %}</div>
                     </div>
+                    <div class="file-column-left">
+                        <div>{% trans "Time frame (year):" %}</div>
+                        <div class="value-file-column-left" id="idTimeMainFinaltial">{% trans "-" %}</div>
+                    </div>
                 </div>
                 <div class="column-right-table">
                     <div class="file-column-left">
@@ -67,6 +71,10 @@
                     <div class="file-column-left">
                         <div class="title-file-column-right">{% trans "Number of drinking water treatment plants in the system:" %}</div>
                         <div class="value-file-column-left" id="idNumberOfDrinkingFinaltial"></div>
+                    </div>
+                    <div class="file-column-left">
+                        <div class="title-file-column-right">{% trans "currency:" %}</div>
+                        <div class="value-file-column-left" id="idCurrencyMainFinaltial">{% trans "-" %}</div>
                     </div>
                 </div>
             </div>
@@ -785,15 +793,10 @@ console.log(totalDiscountedCost)
             $('#step4').css("display", "block");
         });
 
-        var urlDetail = "../../reports/getStudyCasesIntake/?studyCase=" + localStorage.idStudyCase;
-        $.getJSON(urlDetail, function (data) {
-            var listFielTable = "";
-            $.each( data, function( key, value ) {
-                document.getElementById("idNumberOfWaterFinaltial").innerHTML = value.numberStudyCase;
-                document.getElementById("idNumberOfDrinkingFinaltial").innerHTML = value.numberStudyCase;
-            });
-        });
-
+        document.getElementById("idNumberOfWaterFinaltial").innerHTML = localStorage.getItem('idNumberOfWater');
+        document.getElementById("idNumberOfDrinkingFinaltial").innerHTML = localStorage.getItem('idNumberOfDrinking');
+        document.getElementById("idCurrencyMainFinaltial").innerHTML = localStorage.getItem('idCurrencyMain');
+        document.getElementById("idTimeMainFinaltial").innerHTML = localStorage.getItem('idTimeMain');
     };
     initialize();
 });
