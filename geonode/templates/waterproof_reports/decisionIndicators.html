@@ -58,6 +58,10 @@
                         <div>{% trans "Region:" %}</div>
                         <div class="value-file-column-left" id="idRegion">{% trans "-" %}</div>
                     </div>
+                    <div class="file-column-left">
+                        <div>{% trans "Time frame (year):" %}</div>
+                        <div class="value-file-column-left" id="idTimeMainDecision">{% trans "-" %}</div>
+                    </div>
                 </div>
                 <div class="column-right-table">
                     <div class="file-column-left">
@@ -67,6 +71,10 @@
                     <div class="file-column-left">
                         <div class="title-file-column-right">{% trans "Number of drinking water treatment plants in the system:" %}</div>
                         <div class="value-file-column-left" id="idNumberOfDrinkingDecision"></div>
+                    </div>
+                    <div class="file-column-left">
+                        <div class="title-file-column-right">{% trans "currency:" %}</div>
+                        <div class="value-file-column-left" id="idCurrencyMainDecision">{% trans "-" %}</div>
                     </div>
                 </div>
             </div>
@@ -1021,15 +1029,11 @@ $(function () {
             initMapPhysical();
         });
 
-        var urlDetail = "../../reports/getStudyCasesIntake/?studyCase=" + localStorage.idStudyCase;
-        $.getJSON(urlDetail, function (data) {
-            var listFielTable = "";
-            $.each( data, function( key, value ) {
-                document.getElementById("idNumberOfWaterDecision").innerHTML = value.numberStudyCase;
-                document.getElementById("idNumberOfDrinkingDecision").innerHTML = value.numberStudyCase;
-            });
-        });
-
+        document.getElementById("idNumberOfWaterDecision").innerHTML = localStorage.getItem('idNumberOfWater');
+        document.getElementById("idNumberOfDrinkingDecision").innerHTML = localStorage.getItem('idNumberOfDrinking');
+        document.getElementById("idCurrencyMainDecision").innerHTML = localStorage.getItem('idCurrencyMain');
+        document.getElementById("idTimeMainDecision").innerHTML = localStorage.getItem('idTimeMain');
+        
         var urlDetail = "../../reports/getDistinctGroupErr/?studyCase=" + localStorage.idStudyCase;
         $.getJSON(urlDetail, function (data) {
             var listFielTable = "";
