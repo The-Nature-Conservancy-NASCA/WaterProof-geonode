@@ -21,20 +21,22 @@ def reportMenu(request):
 
 def getNames(indicators):
     result = []
-
-    for objectIndicator in indicators:
-        if objectIndicator.intake.name not in result:
-            result.append(objectIndicator.intake.name)
-
+    for objectIndicator in indicators:  
+        try:
+            if objectIndicator.intake.name not in result:
+                result.append(objectIndicator.intake.name)
+        except:
+            print ("")
     return result
 
 def getNameCity(indicators):
     result = []
-
     for objectIndicatorcity in indicators:
-        if objectIndicatorcity.intake.city.name not in result:
-            result.append(objectIndicatorcity.intake.city.name)
-
+        try:
+            if objectIndicatorcity.intake.city.name not in result:
+                result.append(objectIndicatorcity.intake.city.name)
+        except:
+            print ("")
     return result
 
 def physicalIndicators(request):
@@ -79,3 +81,40 @@ def decisionIndicators(request):
                         'NamesIndicators': indicatorsNames,
                         'NameCityIndicators': indicatorsNameCity
                     })
+
+def geographicIndicators(request):
+
+                indicators = investIndicators.objects.all()
+                indicatorsNames = getNames(indicators)
+                indicatorsNameCity = getNameCity(indicators)
+                return render(
+                    request,
+                    'waterproof_reports/geographicIndicators.html',
+                    {
+                        'Indicators': indicators,
+                        'NamesIndicators': indicatorsNames,
+                        'NameCityIndicators': indicatorsNameCity
+                    })
+
+
+def compareMaps(request):
+
+    base_data = ''
+    intake = ''
+    if request.method == 'GET':
+        try:            
+            base_data = request.GET['folder']
+            intake = request.GET['intake']
+        except:
+            base_data = 'mapserver'
+            intake = ''
+        
+
+    return render(
+                request,
+                'waterproof_reports/compare_maps.html',
+                {
+                    'base_data': base_data,
+                    'intake': intake,
+                }
+            )

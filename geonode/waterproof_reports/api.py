@@ -262,7 +262,7 @@ def getReportCostsAnalysisRoi(request):
 		return JsonResponse(objects_list, safe=False)
 
 @api_view(['GET'])
-def getReportCostsAnalysisFilter(request):
+def getReportCostsAnalysisFilterOne(request):
 	"""Returns the list of treatment plants
 
 	Find all the stored treatment plants that have
@@ -284,14 +284,15 @@ def getReportCostsAnalysisFilter(request):
 		for row in rows:
 			objects_list.append({
 				"name":row[0],
-				"subName":row[1],
-				"totalCost":row[2],
-				"totalDiscountedCost":row[3],
-				"totalBenefits":row[4],
-				"totalDiscountedBenefits":row[5]
+				"subName":row[2],
+				"nameSubName":row[0]+row[2],
+				"totalCost":row[3],
+				"totalDiscountedCost":row[4],
+				"totalBenefits":row[5],
+				"totalDiscountedBenefits":row[6]
 			})
-
-		return JsonResponse(objects_list, safe=False)
+		order_register = sorted(objects_list, key=lambda tree : tree['nameSubName'])
+		return JsonResponse(order_register, safe=False)
 
 
 @api_view(['GET'])
@@ -316,14 +317,16 @@ def getReportAnalysisBenefitsFilter(request):
 		objects_list = []
 		for row in rows:
 			objects_list.append({
-				"name":row[0],
-				"subName":row[1],
-				"subCategory":row[2],
-				"totalCost":row[3],
-				"totalBenefits":row[4]
+				"name":row[2],
+				"subName":row[2],
+				"subCategory":row[3],
+				"subNameCategory":row[2] + row[3],
+				"totalBenefits":row[4],
+				"totalBenefitsDiscount":row[5]
 			})
 
-		return JsonResponse(objects_list, safe=False)
+		order_register = sorted(objects_list, key=lambda tree : tree['subNameCategory'])
+		return JsonResponse(order_register, safe=False)
 
 
 @api_view(['GET'])
@@ -440,10 +443,13 @@ def getWaterproofReportsAnalysisBenefits(request):
 			objects_list.append({
 				"elementId":row[0],
 				"typeId":row[1],
+				"typeElementId":str(row[1]) + str(row[0]),
 				"vpnMedBenefit":row[2]
 			})
 
-		return JsonResponse(objects_list, safe=False)
+		order_register = sorted(objects_list, key=lambda tree : tree['typeElementId'])
+		return JsonResponse(order_register, safe=False)
+
 
 @api_view(['GET'])
 def getReportOportunityResultIndicators(request):
@@ -534,7 +540,11 @@ def getReportAnalisysBeneficsB(request):
 				"changeIntotalSediments":row[2],
 				"changeInNitrogenLoad":row[3],
 				"changeInPhosphorus":row[4],
-				"changeInCarbonStorage":row[5]
+				"changeInCarbonStorage":row[5],
+				"time":row[6],
+				"currency":row[7],
+				"roi":row[8],
+				"result":row[9]
 			})
 
 		return JsonResponse(objects_list, safe=False)
@@ -684,6 +694,175 @@ def getWpAqueductIndicatorGraph(request):
 			})
 
 		return JsonResponse(objects_list, safe=False)
+
+@api_view(['GET'])
+def getReportOportunityResultMaps(request):
+	"""Returns the list of treatment plants
+
+	Find all the stored treatment plants that have
+	the minimum characteristics stored in all components
+
+	Parameters:
+	without parameters
+
+	Exceptions:
+	If it does not have data in the minimal relations of the model it does not deliver
+	information about the treatment plant
+	"""
+	if request.method == 'GET':
+		con = psycopg2.connect(settings.DATABASE_URL)
+		cur = con.cursor()
+		cur.execute("SELECT * FROM __get_report_oportunity_result_maps('" + request.query_params.get('studyCase') + "')")
+		rows = cur.fetchall()
+		objects_list = []
+		for row in rows:
+			objects_list.append({
+				"name":row[0],
+				"polygon": row[1]
+			})
+		return JsonResponse(objects_list, safe=False)
+
+@api_view(['GET'])
+def getSizeRecomendedIntervention(request):
+	"""Returns the list of treatment plants
+
+	Find all the stored treatment plants that have
+	the minimum characteristics stored in all components
+
+	Parameters:
+	without parameters
+
+	Exceptions:
+	If it does not have data in the minimal relations of the model it does not deliver
+	information about the treatment plant
+	"""
+	if request.method == 'GET':
+		con = psycopg2.connect(settings.DATABASE_URL)
+		cur = con.cursor()
+		cur.execute("SELECT SUM(ip.area)/SUM(ai.area_converted_ha) as size_recomended_intervention FROM  public.waterproof_intake_polygon ip INNER JOIN (SELECT study_case_id,intake_id,area_converted_ha FROM public.waterproof_reports_rios_ipa WHERE year=9999 and study_case_id =  '" + request.query_params.get('studyCase') + "' AND sbn = 'Total') as ai on (ip.intake_id=ai.intake_id)")
+		rows = cur.fetchall()
+		objects_list = []
+		for row in rows:
+			objects_list.append({
+				"sizeRecomendedIntervention":row[0],
+			})
+		return JsonResponse(objects_list, safe=False)
+
+@api_view(['GET'])
+def getNameWaterproofIntakeIntake(request):
+	"""Returns the list of treatment plants
+
+	Find all the stored treatment plants that have
+	the minimum characteristics stored in all components
+
+	Parameters:
+	without parameters
+
+	Exceptions:
+	If it does not have data in the minimal relations of the model it does not deliver
+	information about the treatment plant
+	"""
+	if request.method == 'GET':
+		con = psycopg2.connect(settings.DATABASE_URL)
+		cur = con.cursor()
+		cur.execute("SELECT ii.name FROM public.waterproof_intake_intake ii INNER JOIN public.waterproof_study_cases_studycases_intakes si ON (ii.id=si.intake_id) WHERE si.studycases_id =  '" + request.query_params.get('studyCase') + "'")
+		rows = cur.fetchall()
+		objects_list = []
+		for row in rows:
+			objects_list.append({
+				"name":row[0],
+			})
+		return JsonResponse(objects_list, safe=False)
+
+@api_view(['GET'])
+def getTotalSizeWaterproofIntakePolygon(request):
+	"""Returns the list of treatment plants
+
+	Find all the stored treatment plants that have
+	the minimum characteristics stored in all components
+
+	Parameters:
+	without parameters
+
+	Exceptions:
+	If it does not have data in the minimal relations of the model it does not deliver
+	information about the treatment plant
+	"""
+	if request.method == 'GET':
+		con = psycopg2.connect(settings.DATABASE_URL)
+		cur = con.cursor()
+		cur.execute("SELECT SUM(area) as total_size FROM public.waterproof_intake_polygon ip INNER JOIN public.waterproof_study_cases_studycases_intakes si ON (ip.intake_id =si.intake_id) WHERE si.studycases_id = '" + request.query_params.get('studyCase') + "'")
+		rows = cur.fetchall()
+		objects_list = []
+		for row in rows:
+			objects_list.append({
+				"totalSize":row[0],
+			})
+		return JsonResponse(objects_list, safe=False)
+
+@api_view(['GET'])
+def getWaterproofReportsRiosIpa(request):
+	"""Returns the list of treatment plants
+
+	Find all the stored treatment plants that have
+	the minimum characteristics stored in all components
+
+	Parameters:
+	without parameters
+
+	Exceptions:
+	If it does not have data in the minimal relations of the model it does not deliver
+	information about the treatment plant
+	"""
+	if request.method == 'GET':
+		con = psycopg2.connect(settings.DATABASE_URL)
+		cur = con.cursor()
+		cur.execute("SELECT sbn,actual_spent,area_converted_ha FROM public.waterproof_reports_rios_ipa WHERE year=9999 AND study_case_id = '" + request.query_params.get('studyCase') + "' AND sbn NOT IN ('Total','Floating Budget')")
+		rows = cur.fetchall()
+		objects_list = []
+		for row in rows:
+			objects_list.append({
+				"sbn":row[0],
+				"actualSpent":row[1],
+				"areaConvertedHa":row[2]
+			})
+		return JsonResponse(objects_list, safe=False)
+
+
+
+@api_view(['GET'])
+def getWaterproofReportsDesagregation(request):
+	"""Returns the list of treatment plants
+
+	Find all the stored treatment plants that have
+	the minimum characteristics stored in all components
+
+	Parameters:
+	without parameters
+
+	Exceptions:
+	If it does not have data in the minimal relations of the model it does not deliver
+	information about the treatment plant
+	"""
+	if request.method == 'GET':
+		con = psycopg2.connect(settings.DATABASE_URL)
+		cur = con.cursor()
+		cur.execute("SELECT time,CASE stage WHEN 'NBS' THEN 'NBS Scenario' WHEN 'BAU' THEN 'Business as usual' END AS stage_filter,\"AWY(m3)\" AS volume_of_water_yield_change_in_time,\"BF(m3)\" AS annual_volume_base_flow_change_in_time,\"Wsed(Ton)\" AS total_sediments_change_in_time,\"WN(Kg)\" AS nitrogen_load_change_in_time,\"WP(kg)\" AS phosphorus_load_change_in_time,\"WC(Ton)\" AS carbon_storage_change_in_time FROM public.waterproof_reports_desagregation WHERE study_case_id = '" + request.query_params.get('studyCase') + "'")
+		rows = cur.fetchall()
+		objects_list = []
+		for row in rows:
+			objects_list.append({
+				"time":row[0],
+				"stageFilter":row[1],
+				"volumeOfWaterYieldChangeInTime":row[2],
+				"annualVolumeBaseFlowChangeInTime":row[3],
+				"totalSedimentsChangeInTime":row[4],
+				"nitrogenLoadChangeInTime":row[5],
+				"phosphorusLoadChangeInTime":row[6],
+				"carbonStorageChangeInTime":row[7]
+			})
+		return JsonResponse(objects_list, safe=False)
+
 
 
 

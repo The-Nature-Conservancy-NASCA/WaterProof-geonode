@@ -12,24 +12,23 @@
 
 {% block body_outer %}
 
-<div class="page-header">
-    <h1>{% trans "Search your city" %}</h1>
-    <p style="text-align: justify;">{% trans "In this section you can consult the case studies configured in the system or start the configuration of a case study" %}</p>
-</div>
+    <div class="header-waterproof">
+        <h1>{% trans "Search your city" %}</h1>
+        <p style="text-align: justify;">{% trans "In this section you can consult the case studies configured in the system or start the configuration of a case study" %}</p>
+    </div>
 
     <div class="row">
         <div class="col-md-4">
-            <h4 class="text-center" id="countryLabel"></h4>
+            <h4 id="countryLabel"></h4>
             <p><b>{% trans "Selected City" %} :</b> <span id="cityLabel"></span> </p>
             <p><b>{% trans "Region" %} :</b> <span id="regionLabel"></span> </p>
             <p><b>{% trans "Currency" %}:</b><span id="currencyLabel"></span></p>
-            <div id="listIntakes">
-                <a href="/study_cases">{% trans "List Study Cases" %}</a>
+            <div>
+                <a class="listStudyCases" href="#">{% trans "List Study Cases" %}</a>
             </div> 
         </div>
         <div class="col-md-8">
-            <div id="map"></div>
-    
+            <div id="map"></div>    
         </div>
     </div>
 {% endblock %}
@@ -43,6 +42,7 @@
   <script src="{% static "geonode/js/leaflet/photon/leaflet.photon.js" %}"></script>
   <script src="{% static "geonode/js/leaflet/Leaflet.Coordinates.js" %}"></script>
   <script src="https://leaflet-extras.github.io/leaflet-providers/leaflet-providers.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
   <!-- <script src="https://unpkg.com/esri-leaflet@2.5.3/dist/esri-leaflet.js"
     integrity="sha512-K0Vddb4QdnVOAuPJBHkgrua+/A9Moyv8AQEWi0xndQ+fqbRfAFd47z4A9u1AW/spLO0gEaiE1z98PK1gl5mC5Q=="
     crossorigin=""></script> -->
@@ -117,8 +117,7 @@
                 $("#countryLabel").html(localStorage.getItem('country'));
                 $("#cityLabel").html(localStorage.getItem('city'));
                 $("#regionLabel").html(localStorage.getItem('region'));
-                $("#currencyLabel").html(localStorage.getItem('currency'));
-                $("#listIntakes").show();
+                $("#currencyLabel").html(localStorage.getItem('currency'));                
             }catch(e){
 
             }
@@ -137,7 +136,25 @@
         map.on('click', onMapClick);  
         map.on('zoomend', function(e){
             console.log(map.getZoom());
-        });      
+        });
+
+        $(".listStudyCases").click(function(){
+          var cityId = localStorage.cityId;
+          if (cityId == null){
+            Swal.fire({
+                icon: 'warning',
+                title: gettext('Search City'),
+                text: gettext('Please Search a City in the Map.')
+            });
+            return;
+            cityId = "";
+          }else{
+            url="{% url "study_cases_list" %}?limit={{ CLIENT_RESULTS_LIMIT }}&city=" + cityId;
+            window.location.href = url;
+          }
+          
+        });
+
     });    
 
     var searchPoints = L.geoJson(null, {
@@ -176,8 +193,7 @@
             console.log("data in search city is: "+data.region);
             $("#regionLabel").html(data.region);
             $("#currencyLabel").html(data.currencies[0].name + " - " + data.currencies[0].symbol);
-            $("#listIntakes").show();
-            
+                        
             localStorage.setItem('country', country);
             localStorage.setItem('region', data.region);
             localStorage.setItem('currency', data.currencies[0].name + " - " + data.currencies[0].symbol);
@@ -189,6 +205,7 @@
             if (data.length > 0){
                 let cityId = data[0][0];
                 localStorage.setItem('cityId', cityId);
+                localStorage.setItem('factor', data[0][2]);
             }
         });
 

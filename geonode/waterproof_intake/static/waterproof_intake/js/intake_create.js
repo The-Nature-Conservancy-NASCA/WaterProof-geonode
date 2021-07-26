@@ -47,7 +47,7 @@ var mapLoader;
 $(document).ready(function() {
     setIntakeCity();
     var countryNameStorage = localStorage.country;
-    $('#cityLabel').text(localStorage.city);
+    $('#cityLabel').text(localStorage.city+", "+localStorage.country);
     $("#countryLabel").html(localStorage.getItem('country'));
     // Interpolation with Wizard
     $("#intakeWECB").click(function() {
@@ -86,7 +86,7 @@ $(document).ready(function() {
                 waterExtractionValue.push(yearData);
                 $('#intakeECTAG').append(`<tr>
                 <th class="text-center" scope="row">${index}</th>
-                <td class="text-center"><input type="text" class="form-control" value="${((m * index) + b).toFixed(2)}" disabled></td>
+                <td class="text-center"><input type="text" class="form-control justify-number" value="${((m * index) + b).toFixed(2)}" disabled></td>
               </tr>`);
             }
         }
@@ -253,7 +253,7 @@ $(document).ready(function() {
             $('#intakeWEMI').append(`
             <tr>
                 <th class="text-center" scope="row">${index + 1}</th>
-                <td class="text-center"><input name="manualInputData" yearValue="${index + 1}" type="text" class="form-control"></td>
+                <td class="text-center"><input name="manualInputData" yearValue="${index + 1}" type="number" class="form-control justify-number"></td>
               </tr>
             `);
         }
@@ -489,10 +489,10 @@ $(document).ready(function() {
     }).addTo(map);
 
     var images = L.tileLayer(IMG_BASEMAP_URL);
-    var gray = L.tileLayer(GRAY_BASEMAP_URL, {
+    /* var gray = L.tileLayer(GRAY_BASEMAP_URL, {
         maxZoom: 20,
         attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
-    });
+    }); */
 
     var hydroLyr = L.tileLayer(HYDRO_BASEMAP_URL);
     var wmsHydroNetworkLyr = L.tileLayer.wms(GEOSERVER_WMS, {
@@ -506,7 +506,7 @@ $(document).ready(function() {
     var baseLayers = {
         OpenStreetMap: osm,
         Images: images,
-        Grayscale: gray,
+        /* Grayscale: gray, */
     };
 
     var overlays = {
@@ -517,8 +517,6 @@ $(document).ready(function() {
 
 
     mapDelimit.addLayer(osmid);
-
-
 
     $("#validateBtn").on("click", prevalidateAdjustCoordinates);
     $('#btnDelimitArea').on("click", delimitIntakeArea)
@@ -538,6 +536,9 @@ $(document).ready(function() {
         }
     });
     observer2.observe(menu1Tab, { attributes: true });
+
+    defaultCurrencyId = '233';
+    defaultCurrentyName = $("#currencyCost option[value=233]").text();
 
 });
 

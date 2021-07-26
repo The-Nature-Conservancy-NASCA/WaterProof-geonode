@@ -29,7 +29,16 @@ def getTreatmentPlantsList(request):
 		objects_list = []
 		lastNull = ''
 		lastInstakeName = ''
-		for tratamentPlants in Csinfra.objects.all():
+		tratamentPlantsList = []
+		try:            
+			city_id = request.GET['city']
+			headers = Header.objects.filter(plant_city=city_id)
+			tratamentPlantsList = Csinfra.objects.filter(csinfra_plant__in=headers)
+		except:
+			city_id = ''
+			tratamentPlantsList = Csinfra.objects.all()	
+
+		for tratamentPlants in tratamentPlantsList:
 			lastPlantIntakeName = ''
 			try:
 			  lastPlantIntakeName = tratamentPlants.csinfra_elementsystem.intake.name + " " + tratamentPlants.csinfra_elementsystem.name + " " + str(tratamentPlants.csinfra_elementsystem.graphId)
@@ -40,6 +49,7 @@ def getTreatmentPlantsList(request):
 				lastInstakeName = tratamentPlants.csinfra_plant.plant_name
 				objects_list.append({
 					"plantId": tratamentPlants.csinfra_plant.id,
+					"plantUser": tratamentPlants.csinfra_plant.plant_user,
 					"plantName": tratamentPlants.csinfra_plant.plant_name,
 					"plantDescription": tratamentPlants.csinfra_plant.plant_description,
 					"plantSuggest": tratamentPlants.csinfra_plant.plant_suggest,
@@ -64,8 +74,13 @@ def getIntakeList(request):
 	"""
 	if request.method == 'GET':
 		objects_list = []
+		print(str(request.query_params.get('cityId')))
+		print("-----------------------")
 		for elementSystem in ElementSystem.objects.filter(normalized_category='CSINFRA'):
-			if elementSystem.intake.city.standard_name_spanish == str(request.query_params.get('cityName')):
+			print(elementSystem.intake.city.id)
+
+			if str(elementSystem.intake.city.id) == str(request.query_params.get('cityId')):
+				print(" Entro ")
 				objects_list.append({
 					"id": elementSystem.id,
 					"name": elementSystem.intake.name,

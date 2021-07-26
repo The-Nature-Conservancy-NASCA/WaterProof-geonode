@@ -58,6 +58,10 @@
                             <div>{% trans "Region:" %}</div>
                             <div class="value-file-column-left" id="idRegionMain">{% trans "-" %}</div>
                         </div>
+                        <div class="file-column-left">
+                            <div>{% trans "Time frame (year):" %}</div>
+                            <div class="value-file-column-left" id="idTimeMain">{% trans "-" %}</div>
+                        </div>
                     </div>
                     <div class="column-right-table">
                         <div class="file-column-left">
@@ -68,13 +72,24 @@
                             <div class="title-file-column-right">{% trans "Number of drinking water treatment plants in the system:" %}</div>
                             <div class="value-file-column-left" id="idNumberOfDrinking"></div>
                         </div>
+                        <div class="file-column-left">
+                            <div class="title-file-column-right">{% trans "currency:" %}</div>
+                            <div class="value-file-column-left" id="idCurrencyMain">{% trans "-" %}</div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
         <div style="height: 500px;">
             <div class="content-image">
-                <img src="/static/geonode/img/valor-bruto.png"/>
+                <div>
+                    <div class="name-roi">{% trans "Calculate ROI:" %}<div class="value-roi" id="idRoi"></div></div>
+                    <img src="/static/geonode/img/valor-bruto.png" class="img-roi" />
+                    <div class="bootom-roi">
+                        <div>{% trans "ROI ON NATURE BASED SOLUTIONS OPPORTUNITY" %}</div>
+                        <div class="buttom-roi" id="idBtnRoi">Adove 1</div>
+                    </div>
+                </div>
             </div>
             <div style="width: 50%;position: absolute;left: 45%;margin: 50px;">
                 <div id="containerNpv"></div>
@@ -122,26 +137,32 @@
                 <div class="title-report" style="text-align: center;">Estimated percent improvement from area businnes as usual</div>
                 <div class="line-marc-table">
                     <div>Anual water yield</div>
+                    <div><img src="/static/geonode/img/dashboard-01.png" class="icon-dashboard"></div>
                     <div class="line-number-marc-table" id="changeInVolumeOfWater">20%</div>
                 </div>
                 <div class="line-marc-table">
                     <div>Seasonal water yield</div>
+                    <div><img src="/static/geonode/img/dashboard-02.png" class="icon-dashboard"></div>
                     <div class="line-number-marc-table" id="changeInBaseFlow">10%</div>
                 </div>
                 <div class="line-marc-table">
                     <div>Sediment delivery ratio</div>
+                    <div><img src="/static/geonode/img/dashboard-03.png" class="icon-dashboard"></div>
                     <div class="line-number-marc-table" id="changeIntotalSediments">15%</div>
                 </div>
                 <div class="line-marc-table">
                     <div>Nutrient delivery ratio - nitrogen</div>
+                    <div><img src="/static/geonode/img/dashboard-04.png" class="icon-dashboard"></div>
                     <div class="line-number-marc-table" id="changeInNitrogenLoad">10%</div>
                 </div>
                 <div class="line-marc-table">
                     <div>Nutrient delivery ratio - phosphorus</div>
+                    <div><img src="/static/geonode/img/dashboard-05.png" class="icon-dashboard"></div>
                     <div class="line-number-marc-table" id="changeInPhosphorus">5%</div>
                 </div>
                 <div class="line-marc-table">
                     <div>Carbon storage and sequestration</div>
+                    <div><img src="/static/geonode/img/dashboard-06.png" class="icon-dashboard"></div>
                     <div class="line-number-marc-table" id="changeInCarbonStorage">20%</div>
                 </div>
             </div>
@@ -178,10 +199,10 @@
                 <br>
                 <a href="../../reports/decision/">{% trans "Decision indicators" %}</a>
             </div>
-            <div style="float: left;width: 25%;">
+            <div style="float: left;width: 25%;" id="idGeographicIndicators">
                 <img src="/static/geonode/img/indicadores-geograficos.png" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;" title="{% trans "Geographic visualization" %}"/>
                 <br>
-                <a>{% trans "Geographic visualization" %}</a>
+                <a href="../../reports/geographic/">{% trans "Geographic visualization" %}</a>
             </div>
 
         </div>
@@ -202,6 +223,8 @@
         document.getElementById('idFinancialIndicators').style.opacity = "0.4";
         document.getElementById('idDecisionIndicators').style.background = "#ffffff";
         document.getElementById('idDecisionIndicators').style.opacity = "0.4";
+        document.getElementById('idGeographicIndicators').style.background = "#ffffff";
+        document.getElementById('idGeographicIndicators').style.opacity = "0.4";
     } else {
         localStorage.idStudyCase = "{{study_case.id}}";
     }
@@ -217,7 +240,6 @@
     integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
     crossorigin=""></script>
 <script src="{{ STATIC_URL }}geonode/js/leaflet/leaflet.ajax.min.js"></script>
-<script src="{{ STATIC_URL }}waterproof_reports/js/reports_menu.js"></script>
 <script src="https://vinceg.github.io/twitter-bootstrap-wizard/jquery.bootstrap.wizard.js"></script>
 <script src="https://vinceg.github.io/twitter-bootstrap-wizard/prettify.js"></script>
 <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
@@ -305,6 +327,12 @@ $(function () {
                 document.getElementById("changeInNitrogenLoad").innerHTML = value.changeInNitrogenLoad.toFixed(2);
                 document.getElementById("changeInPhosphorus").innerHTML = value.changeInPhosphorus.toFixed(2);
                 document.getElementById("changeInCarbonStorage").innerHTML = value.changeInCarbonStorage.toFixed(2);
+                document.getElementById("idCurrencyMain").innerHTML = value.currency;
+                document.getElementById("idRoi").innerHTML = value.roi.toFixed(2);
+                var nameButtom = value.result.split("::");
+                var colorButton = nameButtom[1].split(" ");
+                document.getElementById("idBtnRoi").innerHTML = nameButtom[0];
+                document.getElementById("idBtnRoi").style.backgroundColor = colorButton[1];
             });
         });
 

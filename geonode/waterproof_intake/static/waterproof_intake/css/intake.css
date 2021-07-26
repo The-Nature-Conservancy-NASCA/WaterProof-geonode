@@ -226,3 +226,7 @@ textarea {
     padding-left: 28rem;
     padding-bottom: 2px;
 }
+
+.justify-number{
+    text-align: right;
+}

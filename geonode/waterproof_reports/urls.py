@@ -10,6 +10,7 @@ urlpatterns = [
     path('physical/', views.physicalIndicators, name='physical'),
     path('financial/', views.financialIndicators, name='financial'),
     path('decision/', views.decisionIndicators, name='decision'),
+    path('geographic/', views.geographicIndicators, name='geographic'),
     path('getSensibilityAnalysisCost/', api.getSensibilityAnalysisCost, name='get-sensibility-analysis-cost'),
     path('getSensibilityAnalysisBenefits/', api.getSensibilityAnalysisBenefits, name='get-sensibility-analysis-benefits'),
     path('getSensibilityAnalysisCostVsBenefit/', api.getSensibilityAnalysisCostVsBenefit, name='get-sensibility-analysis-cost-vs-benefit'),
@@ -18,7 +19,7 @@ urlpatterns = [
     path('getCostAndBenefit/', api.getCostAndBenefit, name='get_cost_and_benefit'),
     path('getTotalBenefitsForMilion/', api.getTotalBenefitsForMilion, name='get_total_benefits_for_milion'),
     path('getReportCostsAnalysisRoi/', api.getReportCostsAnalysisRoi, name='get_report_costs_analysis_roi'),
-    path('getReportCostsAnalysisFilter/', api.getReportCostsAnalysisFilter, name='get_report_costs_analysis_filter'),
+    path('getReportCostsAnalysisFilterOne/', api.getReportCostsAnalysisFilterOne, name='get_report_costs_analysis_filter_one'),
     path('getReportAnalysisBenefitsFilter/', api.getReportAnalysisBenefitsFilter, name='get_report_analysis_benefits_filter'),
     path('getReportCostsAnalysisFilter/', api.getReportCostsAnalysisFilter, name='get_report_costs_analysis_filter'),
     path('getReportCostsAnalysisFilterNbs/', api.getReportCostsAnalysisFilterNbs, name='get_report_costs_analysis_filter_nbs'),
@@ -32,7 +33,13 @@ urlpatterns = [
     path('getStudyCasesIntake/', api.getStudyCasesIntake, name='get_study_cases_intake'),
     path('getDistinctGroupErr/', api.getDistinctGroupErr, name='get_distinct_group_err'),
     path('getWpAqueductIndicatorGraph/', api.getWpAqueductIndicatorGraph, name='get_wp_aqueduct_indicator_graph'),
-    
-    
-    
+    path('getReportOportunityResultMaps/', api.getReportOportunityResultMaps, name='get_report_oportunity_result_maps'),
+    path('getSizeRecomendedIntervention/', api.getSizeRecomendedIntervention, name='get_size_recomended_intervention'),
+    path('getNameWaterproofIntakeIntake/', api.getNameWaterproofIntakeIntake, name='get_name_waterproof_intake_intake'),
+    path('getTotalSizeWaterproofIntakePolygon/', api.getTotalSizeWaterproofIntakePolygon, name='get_total_size_waterproof_intake_polygon'),
+    path('getWaterproofReportsRiosIpa/', api.getWaterproofReportsRiosIpa, name='get_waterproof_reports_rios_ipa'),
+    path('getWaterproofReportsDesagregation/', api.getWaterproofReportsDesagregation, name='get_waterproof_reports_desagregation'),
+
+       # Compare Maps
+    path('compare-maps/', views.compareMaps, name='compare-maps'),
 ]

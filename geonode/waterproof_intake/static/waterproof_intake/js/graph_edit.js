@@ -16,6 +16,7 @@ var connection = [];
 var funcostdb = [];
 var bandera = true;
 var banderaValideGraph = 0;
+var enableBtnValidateCount = 0;  // count the number of default inconsistences in diagram. if (0) enabled else disabled
 
 var costVars = ['WSedRet','WPRet','WNRet','WSed','WP','WN','CSed','CP','CN','Q'];
 
@@ -182,9 +183,11 @@ function onInit(editor) {
                 river.setAttribute('resultdb', result);
             }
         });
+        enableBtnValidateCount++;
+        $('#saveGraph').prop('disabled', true);
     } else {
         //esto va para edit :v
-        xmlDoc = mxUtils.parseXml(xmlGraph)
+        xmlDoc = mxUtils.parseXml(xmlGraph);
         var dec = new mxCodec(xmlDoc);
         dec.decode(xmlDoc.documentElement, editor.graph.getModel());
     }
@@ -374,10 +377,8 @@ function onInit(editor) {
     $(document).ready(function() {
 
         var output = document.getElementById('MathPreview');
-        //console.log('MathPreview')
         var button = document.getElementById('btnValidatePyExp');
-        console.log("tipo de valor"+typeof(output))
-
+        
         function typesetInput(expression) {
             button.disabled = true;
             output.innerHTML = expression;
@@ -392,7 +393,7 @@ function onInit(editor) {
             });
         }
 
-        var selectedCostId = null;      
+        var selectedCostId = null;
 
         //KeyBoard calculator funcion cost
         $('button[name=mathKeyBoard]').click(function() {
@@ -420,14 +421,14 @@ function onInit(editor) {
             console.log("clearInputsMath");
         }
 
-        $("#currencyCost").on("change", function() {
+        /* $("#currencyCost").on("change", function() {
             $.ajax({
                 url: `/parameters/load-currency/?currency=${$('#currencyCost').val()}`,
                 success: function(result) {
                     $('#global_multiplier_factorCalculator').val(JSON.parse(result)[0].fields.global_multiplier_factor);
                 }
             });
-        });
+        }); */
 
         editor.graph.addListener(mxEvent.CELLS_REMOVED, (sender, evt) => {
                 bandera = true;
@@ -466,18 +467,19 @@ function onInit(editor) {
                 $.ajax({
                     url: `/intake/loadFunctionBySymbol/${selectedCell[0].funcionreference}`,
                     success: function(result) {
-                        var id = selectedCell[0].id;
-                        
+                        var id = selectedCell[0].id;                            
                         var jsonResult = JSON.parse(result);
                         jsonResult.forEach(r =>{
                             var function_value = r.fields.function_value;
                             costVars.forEach(v =>{
                                 let regex = new RegExp(v + '\\b', 'g');
-                                function_value = function_value.replaceAll(regex, v + id);                                
+                                function_value = function_value.replaceAll(regex, v + id);
                             })
                             r.fields.function_value = function_value;
-                        })
-                        
+                            r.fields['global_multiplier_factorCalculator'] = localStorage.getItem('factor') == null ? '0.38' : localStorage.getItem('factor');
+                            r.fields['currencyCost'] = defaultCurrencyId;
+                            r.fields['currencyCostName'] = defaultCurrentyName;
+                        })                        
                         selectedCell[0].setAttribute("funcost", JSON.stringify(jsonResult));
                     }
                 });
@@ -663,14 +665,13 @@ function onInit(editor) {
             selectedCostId =  parseInt($(this).attr('idvalue'));
             $('#costFunctionName').val(funcostdb[selectedCostId].fields.function_name);
             $('#costFuntionDescription').val(funcostdb[selectedCostId].fields.function_description);
-            $('#CalculatorModalLabel').text('Modify Cost - ' + $('#titleCostFunSmall').text())
+            $('#CalculatorModalLabel').text('Modify Cost - ' + $('#titleCostFunSmall').text());
+            $('#currencyCost').val(funcostdb[selectedCostId].fields.currencyCost);
+            $('#global_multiplier_factorCalculator').val(funcostdb[selectedCostId].fields.global_multiplier_factorCalculator);
             setVarCost();
             let value = funcostdb[selectedCostId].fields.function_value;
-            console.log("valor de value es: "+value+typeof(value))
-            if (value == ""){
-                $('#python-expression').val();
-            }
-            else{
+            $('#python-expression').val();
+            if (value != ""){
                 $('#python-expression').val(value);
             }
             validatePyExpression();            

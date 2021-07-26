@@ -5,10 +5,16 @@
 
  text: gettext('The intake has not been deleted, try again!')
 
- 
+
  */
 
 $(function () {
+
+    var msgs = {
+        notRevert : gettext("You won't be able to revert this!"),
+        yesDelete : gettext("Yes, delete it!"),
+        troubleDeletingTreatmentPlant : gettext("Trouble deleting treatment plant, must be in use in one study case")
+    };
     var TILELAYER = 'http://{s}.tile.osm.org/{z}/{x}/{y}.png';
     var IMAGE_LYR_URL = "https://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryTopo/MapServer/tile/{z}/{y}/{x}";
     var HYDRO_LYR_URL = "https://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/Esri_Hydro_Reference_Overlay/MapServer/tile/{z}/{y}/{x}";
@@ -304,9 +310,13 @@ $(function () {
         initMap();
 
         $('#createUrl').attr('href','create/' + userCountryId)
+        console.log("aqui crea ptap");
+        if (localStorage.clonePlant === "false" && localStorage.updatePlant === "false" && localStorage.loadInf === "false"){
+            document.getElementById("titleFormTreatmentPlant").innerHTML = "    "+"Create Treatment Plant";
+        }
         if(localStorage.clonePlant === "true") {
             localStorage.clonePlant = "false";
-            document.getElementById("titleFormTreatmentPlant").innerHTML = "Clone Treatment Plant";
+            document.getElementById("titleFormTreatmentPlant").innerHTML = "  "+"Clone Treatment Plant";
             var urlDetail = "../../treatment_plants/getTreatmentPlant/?plantId=" + localStorage.plantId;
             $.getJSON(urlDetail, function (data) {
                 localStorage.plantId = null;
@@ -360,7 +370,7 @@ $(function () {
         }
 
         if(localStorage.updatePlant === "true") {
-            document.getElementById("titleFormTreatmentPlant").innerHTML = "Update Treatment Plant";
+            document.getElementById("titleFormTreatmentPlant").innerHTML = "  "+"Update Treatment Plant";
             localStorage.updatePlant = "false";
             var urlDetail = "../../treatment_plants/getTreatmentPlant/?plantId=" + localStorage.plantId;
             $.getJSON(urlDetail, function (data) {
@@ -413,7 +423,7 @@ $(function () {
             });
         }
         if(localStorage.loadInf === "true") {
-            document.getElementById("titleFormTreatmentPlant").innerHTML = "View Treatment Plant";
+            document.getElementById("titleFormTreatmentPlant").innerHTML = "  "+"View Treatment Plant";
             localStorage.loadInf = "false";
             var urlDetail = "../../treatment_plants/getTreatmentPlant/?plantId=" + localStorage.plantId;
             $.getJSON(urlDetail, function (data) {
@@ -884,9 +894,7 @@ $(function () {
     */
     selectedResultHandler = function (feat) {
 
-        waterproof["cityCoords"] = [feat.geometry.coordinates[1], feat.geometry.coordinates[0]];
-        localStorage.setItem('cityCoords', JSON.stringify(waterproof["cityCoords"]));
-
+        localStorage.setItem('cityCoords', JSON.stringify([feat.geometry.coordinates[1], feat.geometry.coordinates[0]]));
 
         searchPoints.eachLayer(function(layer) {
             if (layer.feature.properties.osm_id != feat.properties.osm_id) {
@@ -904,16 +912,28 @@ $(function () {
         drawPolygons(cityName);
         table.search(cityName.substr(0, 5)).draw();
 
-        let urlAPI = '{{ SEARCH_COUNTRY_API_URL }}' + countryCode;
+        let urlAPI = SEARCH_COUNTRY_API_URL + countryCode;
 
         $.get(urlAPI, function(data) {
             $("#regionLabel").html(data.region);
             $("#currencyLabel").html(data.currencies[0].name + " - " + data.currencies[0].symbol);
-            $("#listIntakes").show();
-
+            
             localStorage.setItem('country', country);
             localStorage.setItem('region', data.region);
             localStorage.setItem('currency', data.currencies[0].name + " - " + data.currencies[0].symbol);
+        });
+
+        urlAPI = location.protocol + "//" + location.host + "/parameters/getClosetsCities/?x=" + feat.geometry.coordinates[0] + "&y=" + feat.geometry.coordinates[1];
+        $.get(urlAPI, function(data) {
+
+            if (data.length > 0) {
+                let cityId = data[0][0];
+                localStorage.setItem('cityId', cityId);
+                localStorage.setItem('factor', data[0][2]);
+                setTimeout(function() {
+                    location.href = "/treatment_plants/?city=" + cityId;
+                }, 300);
+            }
         });
     }
     /**
@@ -972,18 +992,12 @@ $(function () {
                 }
             }
 
-            table.search(cityNameMap).draw();
-
-            waterproof["cityCoords"] = cityCoords;
-
+            table.search(cityNameMap).draw();            
             map.setView(initialCoords, initialZoom);
-
             searchPoints.addTo(map);
 
             var tilelayer = L.tileLayer(TILELAYER, { maxZoom: MAXZOOM, attribution: 'Data \u00a9 <a href="http://www.openstreetmap.org/copyright"> OpenStreetMap Contributors </a> Tiles \u00a9 Komoot' }).addTo(map);
             var images = L.tileLayer(IMAGE_LYR_URL);
-
-
             var hydroLyr = L.tileLayer(HYDRO_LYR_URL);
 
             var baseLayers = {
@@ -995,7 +1009,6 @@ $(function () {
                 "Hydro (esri)": hydroLyr,
             };
 
-
             var zoomControl = new L.Control.Zoom({ position: 'topright' }).addTo(map);
             L.control.layers(baseLayers, overlays, { position: 'topleft' }).addTo(map);
 
@@ -1003,8 +1016,8 @@ $(function () {
             }
             map.on('click', onMapClick);
         } else {
-            document.getElementById("nameCity").innerHTML = localStorage.getItem('city');
-            var urlDetail = "../../treatment_plants/getIntakeList/?cityName=" + localStorage.getItem('city');
+            document.getElementById("nameCity").innerHTML = localStorage.getItem('city')+", "+localStorage.getItem('country');
+            var urlDetail = "../../treatment_plants/getIntakeList/?cityId=" + localStorage.getItem('cityId');
             $.getJSON(urlDetail, function (data) {
                 document.getElementById("idIntakePlant").length = 1;
                 $.each( data, function( key, value ) {
@@ -1082,12 +1095,12 @@ $(function () {
         var intakeId='{{idx}}';
         Swal.fire({
             title: "<div style='font-size: 25px;'>Are you sure?</div>",
-            text: "You won't be able to revert this!",
+            text: msgs.notRevert,
             icon: "warning",
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
+            confirmButtonText: msgs.yesDelete
         }).then((result) => {
             if (result.isConfirmed) {
                 var urlDetail = "../../treatment_plants/setHeaderPlant/";
@@ -1105,7 +1118,7 @@ $(function () {
                         localStorage.plantId = null;
                         Swal.fire({
                             title: 'Error',
-                            text: "Problemas eliminando la planta de tratamiento, ya se debe estar usando en un caso de estudio",
+                            text: msgs.troubleDeletingTreatmentPlant,
                             icon: 'error',
                             confirmButtonColor: '#3085d6',
                             cancelButtonColor: '#d33',

@@ -21,15 +21,18 @@
     
     <div class="row">
         <div class="col-md-4">
-            <p style="text-align: justify;">{% trans "From this section you can consult the nature-based solutions available in the system, understood as the actions that may be part of the portfolios offered by the system when it executes its analyzes. You can also create your own nature-based solutions by clicking on 'Create new SNB' " %}</p>
-            <h4 class="text-center" id="countryLabel">{{country.name}}</h4>
+            <p style="text-align: justify;">{% trans "In this section you can select the Nature-Based Solutions available in the system, understood as the actions that may be part of the portfolios when running your analysis. You can also create your own Nature-Based Solutions by clicking on 'Create new NBS' " %}</p>
+            <br>
+            <h4 id="countryLabel">{{country.name}}</h4>
             <p><b>{% trans "Region:" %}</b> <span id="regionLabel">{{region.name}}</span> </p>
             <p><b>{% trans "Currency:" %}</b><span id="currencyLabel"> ({{currency.currency}}) - {{currency.name}}</span></p>
             <div>    
                 {% if user.is_authenticated and not READ_ONLY_MODE %}
                 <a href="create/" id="createUrl">{% trans "Create a new NBS" %}</a>
+                <button onclick="window.location.href='create/'" type="button" data-toggle="modal" class="glyphicon glyphicon-plus-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
                 {% else %}
                 <a>{% trans "Create a new NBS" %}</a>
+                <button type="button" data-toggle="modal" class="glyphicon glyphicon-plus-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #6e6f70; border-style: none; background-color:transparent;"></button>
                 <h6>{% trans "You must be a registered user to create a new NBS*" %}</h6>
                 {% endif %}
             </div>
@@ -64,7 +67,7 @@
                 <td class="small text-center vat">{{sbn.pk}}</td>
                 <td class="small text-center vat">{{sbn.name}}</td>
                 <td class="small text-center vat truncate">{{sbn.description}}</td>
-                <td class="small text-center vat">{{sbn.added_by}}</td>
+                <td class="small text-center vat">{{sbn.added_by.first_name}} {{sbn.added_by.last_name}}</td>
                 <td class="small text-center vat">{{sbn.country}}</td>
                 <td class="small text-center vat">{{sbn.profit_pct_time_inter_assoc}}%</td>
                 <!-- Validate user type for multiplying country factor -->
@@ -128,10 +131,10 @@
                         {%  trans "The system offers you a default list of Solutions based on Nature (NBS) by country, with standard information on their implementation and maintenance costs, known times about the time required to obtain benefits and the possible transformations that are possible through of its implementation."  %}
                     </li>
                     <li>
-                        {% trans "Use the icon" %} <img src="/static/geonode/img/see_more.png"/> {% trans "to see the information of the system NbSs." %}
+                        {% trans "Use the icon" %} <img src="/static/geonode/img/see_more.png"/> {% trans "to see the information in the system." %}
                     </li>
                     <div>
-                    <img style="margin: 10px auto 10px; display: block;" src="/static/geonode/img/SBNTable.png"></img>
+                    <img style="margin: 10px auto 10px; display: block; width: 100%; height: 100%;" src="/static/geonode/img/SBNTable.png"></img>
                     <br>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal" style="color: white; background-color: #6398C1;">Close</button>

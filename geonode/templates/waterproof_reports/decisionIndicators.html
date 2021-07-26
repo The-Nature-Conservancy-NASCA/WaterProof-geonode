@@ -77,6 +77,7 @@
             <div id="idSectionPe" class="inform-section inform-section-free">{% trans "Portfolio Efficiency" %}</div>
             <div id="idSectionOr" class="inform-section inform-section-free">{% trans "Oportunity result" %}</div>
             <div id="idSectionPr" class="inform-section inform-section-free">{% trans "Physical and risk indicator" %}</div>
+            <div id="idSectionRi" class="inform-section inform-section-free">{% trans "Result of interventions" %}</div>
         </div>
         <!--Steps-->
         <div class="margin-report">
@@ -89,6 +90,7 @@
                     <div class="contain-detail">
                         <!--Graph-->
                         <div style="width: 45%;position: absolute;left: 52%;">
+                            <select class="select-condition" id="idListSelectIntake" onchange="changePie(this.value)"></select>
                             <div id="containerAbi"></div>
                         </div>
                     </div>
@@ -147,7 +149,7 @@
             <div id="step3"  style="display: none;">
                 <div class="container-page">
                     <div class="container-border">
-                        <div id="mapiddecision" style="position: relative;width: 400px;height: 400px;"></div>
+                        <div id="mapiddecision" style="position: relative;width: 100%;height: 400px;"></div>
                     </div>
                     <div class="container-detail">
                         <div class="margin-detail">
@@ -157,13 +159,13 @@
                             </div>
                             <div class="container-detail-line">
                                 <div class="line-detail">
-                                    <div>{% trans "Total estimated investment (USD)" %}</div>
+                                    <div>{% trans "Total estimated investment" %}</div>
                                     <div class="value-line-detail" id="idTotalEstimatedInvestment"></div>
-                                    <div>{% trans "Total treatment cost savings (USD)" %}</div>
+                                    <div>{% trans "Total treatment cost savings" %}</div>
                                     <div class="value-line-detail" id="idTotalTreatmentCostSavings"></div>
                                 </div>
                                 <div class="line-detail">
-                                    <div>{% trans "Total area investment size (Hec)" %}</div>
+                                    <div>{% trans "Total area investment size (Ha)" %}</div>
                                     <div class="value-line-detail" id="idTotalAreaInvestmentSize"></div>
                                     <div>{% trans "Time frame (Years)" %}</div>
                                     <div class="value-line-detail" id="idTimeFrame"></div>
@@ -184,6 +186,46 @@
                     <select class="select-condition" id="idSelectWaterIntake"></select>
                 </div>
                 <div id="idListGraph"></div>
+            </div>
+            <!--Step 5-->
+            <div id="step5"  style="display: none;">
+                <div>
+                    <div class="content-icon-inter">
+                        <div class="center-icon-inter">
+                            <img src="/static/geonode/img/01-conservacion.png" class="img-icon-inter">
+                        </div>
+                    </div>
+                    <div class="margin-detail-title-inter">
+                        <div class="text-detail-title-inter">{% trans "Size recomended intervetion as a percent to total area" %}</div>
+                        <div class="value-detail-title-inter" id="idSizeRecomend"></div>
+                        <div class="line-detail-title-inter"></div>
+                    </div>
+                </div>
+                <div>
+                    <div class="cont-filter-inter">
+                        <div class="name-filtar-inter">{% trans "Intervetion" %}</div>
+                        <div>
+                            <select class="select-condition" id="idSelectNameIntake"></select>
+                        </div>    
+                    </div>
+                    <div class="title-inform-title">{% trans "Watershed information" %}</div>
+                    <div>
+                        <div class="total-inform-title">{% trans "Total size:" %}</div>
+                        <div id="idTotalSizeWater"></div>
+                    </div>
+                </div>
+                <div style="clear:both;" class="table-responsive">
+                    <table id="idTablePe" class="table table-striped table-bordered table-condensed" style=" width:100%">
+                        <thead>
+                            <tr class="info">
+                                <th scope="col" class="small text-center vat">{% trans "Green infraestructure activity" %}</th>
+                                <th scope="col" class="small text-center vat">{% trans "Cost per hectare (USD)" %}</th>
+                                <th scope="col" class="small text-center vat">{% trans "Recommended intervetion (Hectares)" %}</th>
+                            </tr>
+                        </thead>
+                        <tbody id="idTbodyInterventions"></tbody>
+                    </table>
+                </div>
             </div>
         </div>
 </form>
@@ -246,6 +288,7 @@
 <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
 <script src="{{ STATIC_URL }}geonode/js/leaflet/leaflet.ajax.min.js"></script>
 <script src="{{ STATIC_URL }}geonode/js/leaflet/photon/leaflet.photon.js"></script>
+<script src=" {{ STATIC_URL }}geonode/js/leaflet/leaflet-omnivore.min.js "></script>
 
 <script type=" text/javascript ">
     API_URL = '/proxy/?url=https://photon.komoot.de/api/?';
@@ -266,21 +309,6 @@
 
 </script>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <script type="text/javascript">
 
 $(function () {
@@ -291,13 +319,15 @@ $(function () {
     var TILELAYER = 'http://{s}.tile.osm.org/{z}/{x}/{y}.png';
     var CENTER = [4.582, -74.4879];
     var lyrsPolygons = [];
+    var map;
     var table = $('#example').DataTable();
     var searchPoints = L.geoJson(null, {
         onEachFeature: function(feature, layer) {
             layer.bindPopup(feature.properties.name);
         }
     });
-
+    var dataTotalBenefitsIntake = [];
+    var dataTotalBenefitsIntakeOne = [];
 
     changeReport = function() {
         location.href = "../../study_cases/report/" + localStorage.idStudyCase;
@@ -365,7 +395,7 @@ $(function () {
         lyrsPolygons = [];
         var bounds;
         intakePolygons.forEach((feature) => {
-            if (citySearch.substr(0, 5) == feature.city.substr(0, 5)) {
+            if (feature.polygon !== 'None' && feature.polygon != '') {
                 let poly = feature.polygon;
                 if (poly.indexOf("SRID") >= 0) {
                     poly = poly.split(";")[1];
@@ -378,12 +408,10 @@ $(function () {
                     bounds = bounds.extend(lyrPoly.getBounds());
                 }
             }
-
         });
         if (bounds != undefined) {
             map.fitBounds(bounds);
         }
-
     };
     initMapDecision = function () {
             map = L.map('mapiddecision', {
@@ -557,13 +585,53 @@ $(function () {
         }
     };
 
+    changePie = function (selectName) {
+        dataTotalBenefitsIntakeOne = [];
+        dataTotalBenefitsIntake.forEach((featureIntake) => {
+            if(featureIntake.type ===  selectName) {
+                dataTotalBenefitsIntakeOne.push({
+                    name: featureIntake.name,
+                    y: featureIntake.y
+                })
+            }
+        });
+
+        Highcharts.chart('containerAbi', {
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
+            },
+            title: {
+                text: 'Intake Benefits'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: false
+                    },
+                    showInLegend: true
+                }
+            },
+            credits: {
+                enabled: false
+            },
+            series: [{
+                name: 'Intake Benefits',
+                colorByPoint: true,
+                data: dataTotalBenefitsIntakeOne
+            }]
+        });
+    };
+
     initialize = function () {
 
         $("#idCountri").html(localStorage.getItem('country'));
         $("#idCity").html(localStorage.getItem('city'));
         $("#idRegion").html(localStorage.getItem('region'));
-
-
 
         var gaugeOptions = {
             chart: {
@@ -594,7 +662,6 @@ $(function () {
                 enabled: false
             },
 
-            // the value axis
             yAxis: {
                 stops: [
                     [0.1, '#55BF3B'], // green
@@ -624,128 +691,6 @@ $(function () {
             }
         };
 
-/*        var chartSpeed = Highcharts.chart('containerPr1', Highcharts.merge(gaugeOptions, {
-            yAxis: {
-                min: 0,
-                max: 100,
-                title: {
-                    text: 'Baseline water stress'
-                }
-            },
-            credits: {
-                enabled: false
-            },
-            series: [{
-                name: 'Baseline water stress',
-                data: [80],
-                dataLabels: {
-                    format:
-                        '<div style="text-align:center">' +
-                        '<span style="font-size:25px">{y}</span><br/>' +
-                        '<span style="font-size:12px;opacity:0.4">km/h</span>' +
-                        '</div>'
-                }
-            }]
-        }));
-
-        var chartSpeed = Highcharts.chart('containerPr2', Highcharts.merge(gaugeOptions, {
-            yAxis: {
-                min: 0,
-                max: 100,
-                title: {
-                    text: 'Baseline water stress'
-                }
-            },
-            credits: {
-                enabled: false
-            },
-            series: [{
-                name: 'Baseline water stress',
-                data: [80],
-                dataLabels: {
-                    format:
-                        '<div style="text-align:center">' +
-                        '<span style="font-size:25px">{y}</span><br/>' +
-                        '<span style="font-size:12px;opacity:0.4">km/h</span>' +
-                        '</div>'
-                }
-            }]
-        }));
-
-        var chartSpeed = Highcharts.chart('containerRr1', Highcharts.merge(gaugeOptions, {
-            yAxis: {
-                min: 0,
-                max: 100,
-                title: {
-                    text: 'Baseline water stress'
-                }
-            },
-            credits: {
-                enabled: false
-            },
-            series: [{
-                name: 'Baseline water stress',
-                data: [80],
-                dataLabels: {
-                    format:
-                        '<div style="text-align:center">' +
-                        '<span style="font-size:25px">{y}</span><br/>' +
-                        '<span style="font-size:12px;opacity:0.4">km/h</span>' +
-                        '</div>'
-                }
-            }]
-        }));
-        var chartSpeed = Highcharts.chart('containerRr2', Highcharts.merge(gaugeOptions, {
-            yAxis: {
-                min: 0,
-                max: 100,
-                title: {
-                    text: 'Baseline water stress'
-                }
-            },
-            credits: {
-                enabled: false
-            },
-            series: [{
-                name: 'Baseline water stress',
-                data: [80],
-                dataLabels: {
-                    format:
-                        '<div style="text-align:center">' +
-                        '<span style="font-size:25px">{y}</span><br/>' +
-                        '<span style="font-size:12px;opacity:0.4">km/h</span>' +
-                        '</div>'
-                }
-            }]
-        }));
-        var chartSpeed = Highcharts.chart('containerPrq1', Highcharts.merge(gaugeOptions, {
-            yAxis: {
-                min: 0,
-                max: 100,
-                title: {
-                    text: 'Baseline water stress'
-                }
-            },
-            credits: {
-                enabled: false
-            },
-            series: [{
-                name: 'Baseline water stress',
-                data: [80],
-                dataLabels: {
-                    format:
-                        '<div style="text-align:center">' +
-                        '<span style="font-size:25px">{y}</span><br/>' +
-                        '<span style="font-size:12px;opacity:0.4">km/h</span>' +
-                        '</div>'
-                }
-            }]
-        }));
-        
-
-*/
-
-
         var urlDetail = "../../reports/getReportOportunityResultIndicators/?studyCase=" + localStorage.idStudyCase;
         $.getJSON(urlDetail, function (data) {
             $.each( data, function( key, value ) {
@@ -759,20 +704,41 @@ $(function () {
                     document.getElementById("idTotalEstimatedInvestment").innerHTML = value.value.toFixed(2);
                 }
                 if(value.description === "TotalAreaInterventionSize(Hec)") {
-                    document.getElementById("idTotalAreaInvestmentSize").innerHTML = value.value.toFixed(2);s
+                    document.getElementById("idTotalAreaInvestmentSize").innerHTML = value.value.toFixed(2);
                 }
             });
         });
 
-
-        var dataTotalBenefitsIntake = [];
+        var dataListBenefitsIntake = [];
+        var firstListIntage = "";
         var urlDetail = "../../reports/getWaterproofReportsAnalysisBenefits/?studyCase=" + localStorage.idStudyCase;
         $.getJSON(urlDetail, function (data) {
+
             $.each( data, function( key, value ) {
+                if(value.typeId !== firstListIntage) {
+                    firstListIntage = value.typeId;
+                    dataListBenefitsIntake.push(value.typeId);
+                    var sel = document.getElementById('idListSelectIntake');
+                    var opt = document.createElement('option');
+                    opt.appendChild( document.createTextNode(value.typeId) );
+                    opt.value = value.typeId; 
+                    sel.appendChild(opt); 
+                }
+
                 dataTotalBenefitsIntake.push({
-                    name: value.typeId,
+                    type: value.typeId,
+                    name: value.elementId,
                     y: value.vpnMedBenefit
                 })
+            });
+
+            dataTotalBenefitsIntake.forEach((featureIntake) => {
+                if(featureIntake.type ===  dataListBenefitsIntake[0]) {
+                    dataTotalBenefitsIntakeOne.push({
+                        name: featureIntake.name,
+                        y: featureIntake.y
+                    })
+                }
             });
 
             Highcharts.chart('containerAbi', {
@@ -801,12 +767,10 @@ $(function () {
                 series: [{
                     name: 'Intake Benefits',
                     colorByPoint: true,
-                    data: dataTotalBenefitsIntake
+                    data: dataTotalBenefitsIntakeOne
                 }]
             });
         });
-
-
 
         var dataTotalBenefits = [];
         var urlDetail = "../../reports/getReportAnalysisBenefitsFilterSum/?studyCase=" + localStorage.idStudyCase;
@@ -976,114 +940,9 @@ $(function () {
             });
         });
 
-        var dataCost = [];
-        var dataBenefit = [];
-        var urlDetail = "../../reports/getCostAndBenefit/?studyCase=" + localStorage.idStudyCase;
-        $.getJSON(urlDetail, function (data) {
-            var txtFileNet = "";
-            $.each( data, function( key, value ) {
-                dataCost.push(parseFloat(value.costr));
-                dataBenefit.push(parseFloat(value.benefift));
-            });
-            Highcharts.chart('containerCB', {
-                chart: {
-                    type: 'column'
-                },
-                title: {
-                    text: 'Cost and Benefits'
-                },
-                colors: ['#fe7700', '#ffc400'],
-                xAxis: {
-                    categories: ['Cost and Benefits']
-                },
-                credits: {
-                    enabled: false
-                },
-                series: [{
-                    name: 'Cost',
-                    data: dataCost
-                },{
-                    name: 'Benefits',
-                    data: dataBenefit
-                }]
-            });
-        });
-
-        var serieCvB = []
-        var urlDetail = "../../reports/getSensibilityAnalysisCostVsBenefit/?studyCase=" + localStorage.idStudyCase;
-        $.getJSON(urlDetail, function (data) {
-            $.each( data, function( key, value ) {
-                serieCvB.push({ 
-                    name: value.titleR,
-                    data: [Math.round(value.totalMinimumR), Math.round(value.totalMediumR), Math.round(value.totalMaximumR)],
-                    pointPlacement: 'on'
-                });
-            });
-            Highcharts.chart('containerCvB', {
-                chart: {
-                    polar: true,
-                    type: 'line'
-                },
-                title: {
-                    text: 'Cost vs benefits',
-                    x: -80
-                },
-                xAxis: {
-                    categories: ['Minimun discount rate (2%)', 'Maximun discount rate (9%)', 'Discount rate (5%)'],
-                    tickmarkPlacement: 'on',
-                    lineWidth: 0
-                },
-                yAxis: {
-                    gridLineInterpolation: 'polygon',
-                    lineWidth: 0,
-                    min: 0
-                },
-                credits: {
-                    enabled: false
-                },
-                series: serieCvB
-            });
-        });
-
-        var serieDataRoi = []
-        var urlDetail = "../../reports/getSensibilityAnalysisReturnOfInvest/?studyCase=" + localStorage.idStudyCase;
-        $.getJSON(urlDetail, function (data) {
-            $.each( data, function( key, value ) {
-                serieDataRoi.push([parseFloat(value.roiMaximumR), parseFloat(value.roiMinimumR), parseFloat(value.roiMediumR)]);
-            });
-            Highcharts.chart('containerRoiS', {
-                chart: {
-                    polar: true,
-                    type: 'line'
-                },
-                title: {
-                    text: 'Return of investment ROI',
-                    x: -80
-                },
-                xAxis: {
-                    categories: ['Minimun discount rate (2%)', 'Maximun discount rate (9%)', 'Discount rate (5%)'],
-                    tickmarkPlacement: 'on',
-                    lineWidth: 0
-                },
-                yAxis: {
-                    gridLineInterpolation: 'polygon',
-                    lineWidth: 0,
-                    min: 0
-                },
-                credits: {
-                    enabled: false
-                },
-                series: [{ 
-                    name: 'ROI',
-                    data: [3.98, 2.77, 3.39],
-                    pointPlacement: 'on'
-                }]
-            });
-        });
-
         $('#idSectionIbc').click(function (e) {
-            $('#idSectionPr').attr('class', 'inform-section inform-section-free');
-            $('#step4').css("display", "none");
+            $('#idSectionRi').attr('class', 'inform-section inform-section-free');
+            $('#step5').css("display", "none");
 
             $('#idSectionOr').attr('class', 'inform-section inform-section-free');
             $('#step3').css("display", "none");
@@ -1095,6 +954,9 @@ $(function () {
             $('#step1').css("display", "block");
         });
         $('#idSectionPe').click(function (e) {
+            $('#idSectionRi').attr('class', 'inform-section inform-section-free');
+            $('#step5').css("display", "none");
+
             $('#idSectionPr').attr('class', 'inform-section inform-section-free');
             $('#step4').css("display", "none");
 
@@ -1108,6 +970,9 @@ $(function () {
             $('#step2').css("display", "block");
         });
         $('#idSectionOr').click(function (e) {
+            $('#idSectionRi').attr('class', 'inform-section inform-section-free');
+            $('#step5').css("display", "none");
+
             $('#idSectionPr').attr('class', 'inform-section inform-section-free');
             $('#step4').css("display", "none");
 
@@ -1119,8 +984,12 @@ $(function () {
 
             $('#idSectionOr').attr('class', 'inform-section');
             $('#step3').css("display", "block");
+            initMapDecision();
         });
         $('#idSectionPr').click(function (e) {
+            $('#idSectionRi').attr('class', 'inform-section inform-section-free');
+            $('#step5').css("display", "none");
+
             $('#idSectionIbc').attr('class', 'inform-section inform-section-free');
             $('#step1').css("display", "none");
 
@@ -1132,6 +1001,24 @@ $(function () {
 
             $('#idSectionPr').attr('class', 'inform-section');
             $('#step4').css("display", "block");
+            initMapPhysical();
+        });
+        $('#idSectionRi').click(function (e) {
+            $('#idSectionPr').attr('class', 'inform-section inform-section-free');
+            $('#step4').css("display", "none");
+
+            $('#idSectionIbc').attr('class', 'inform-section inform-section-free');
+            $('#step1').css("display", "none");
+
+            $('#idSectionPe').attr('class', 'inform-section inform-section-free');
+            $('#step2').css("display", "none");
+
+            $('#idSectionOr').attr('class', 'inform-section inform-section-free');
+            $('#step3').css("display", "none");
+
+            $('#idSectionRi').attr('class', 'inform-section');
+            $('#step5').css("display", "block");
+            initMapPhysical();
         });
 
         var urlDetail = "../../reports/getStudyCasesIntake/?studyCase=" + localStorage.idStudyCase;
@@ -1213,10 +1100,67 @@ $(function () {
             }, 3000);
         });
 
+        var urlDetail = "../../reports/getReportOportunityResultMaps/?studyCase=" + localStorage.idStudyCase;
+        $.getJSON(urlDetail, function (data) {
+            $.each( data, function( key, value ) {
+                var jsonPolygon = JSON.parse(value.polygon);
+                var stringPolygon = "";
+                jsonPolygon.features.forEach((featureCoord) => {
+                    featureCoord.geometry.coordinates.forEach((featureCoordList) => {
+                        var contList = 0;
+                        featureCoordList.forEach((featureCoordListPoint) => {
+                            contList++;
+                            if(contList === featureCoordList.length) {
+                                stringPolygon = stringPolygon + featureCoordListPoint[0] + " " + featureCoordListPoint[1];
+                            } else {
+                                stringPolygon = stringPolygon + featureCoordListPoint[0] + " " + featureCoordListPoint[1] + ",";
+                            }
+                        });
+                    });
+                });
+                intakePolygons.push({polygon: "POLYGON ((" + stringPolygon + "))"});
+            });
+        });
+
+        var urlDetail = "../../reports/getSizeRecomendedIntervention/?studyCase=" + localStorage.idStudyCase;
+        $.getJSON(urlDetail, function (data) {
+            $.each( data, function( key, value ) {
+                document.getElementById("idSizeRecomend").innerHTML = value.sizeRecomendedIntervention + " % ";
+                
+            });
+        });
+
+        var urlDetail = "../../reports/getNameWaterproofIntakeIntake/?studyCase=" + localStorage.idStudyCase;
+        $.getJSON(urlDetail, function (data) {
+            $.each( data, function( key, value ) {
+                var sel = document.getElementById('idSelectNameIntake');
+                var opt = document.createElement('option');
+                opt.appendChild( document.createTextNode(value.name) );
+                opt.value = value.typeId; 
+                sel.appendChild(opt); 
+            });
+        });
+
+        var urlDetail = "../../reports/getTotalSizeWaterproofIntakePolygon/?studyCase=" + localStorage.idStudyCase;
+        $.getJSON(urlDetail, function (data) {
+            $.each( data, function( key, value ) {
+                document.getElementById("idTotalSizeWater").innerHTML = value.totalSize;
+            });
+        });
+
+        var urlDetail = "../../reports/getWaterproofReportsRiosIpa/?studyCase=" + localStorage.idStudyCase;
+        $.getJSON(urlDetail, function (data) {
+            $.each( data, function( key, value ) {
+                var txtInterventions = '<tr>';
+                txtInterventions = txtInterventions + '<td class="small text-center vat">' + value.sbn + '</td>';
+                txtInterventions = txtInterventions + '<td class="small text-center vat">' + value.actualSpent + '</td>';
+                txtInterventions = txtInterventions + '<td class="small text-center vat">' + value.areaConvertedHa + '</td>';
+                txtInterventions = txtInterventions + '</tr>';
+                document.getElementById("idTbodyInterventions").innerHTML = document.getElementById("idTbodyInterventions").innerHTML + txtInterventions;
+            });
+        });
     };
     initialize();
-    initMapDecision();
-    initMapPhysical();
 });
     
 </script>
@@ -1228,7 +1172,4 @@ $(function () {
 
 
 </script>
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min.js"
-    integrity="sha512-dTu0vJs5ndrd3kPwnYixvOCsvef5SGYW/zSSK4bcjRBcZHzqThq7pt7PmCv55yb8iBvni0TSeIDV8RYKjZL36A=="
-    crossorigin="anonymous"></script>-->
 {% endblock %}

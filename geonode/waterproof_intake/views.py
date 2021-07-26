@@ -327,6 +327,7 @@ def createStepTwo(request):
                                                 name=function['fields']['function_name'],
                                                 description=function['fields']['function_description'],
                                                 function=function['fields']['function_value'],
+                                                function_factor=function['fields']['global_multiplier_factorCalculator'],
                                                 currency=currency,
                                                 template_function=templateFunction,
                                                 user=request.user,
@@ -371,6 +372,7 @@ def createStepTwo(request):
                                                     name=function['fields']['function_name'],
                                                     description=function['fields']['function_description'],
                                                     function=function['fields']['function_value'],
+                                                    function_factor=function['fields']['global_multiplier_factorCalculator'],
                                                     template_function=templateFunction,
                                                     currency=currency,
                                                     user=request.user,
@@ -438,6 +440,7 @@ def createStepTwo(request):
                                         name=function['fields']['function_name'],
                                         description=function['fields']['function_description'],
                                         function=function['fields']['function_value'],
+                                        function_factor=function['fields']['global_multiplier_factorCalculator'],
                                         currency=currency,
                                         template_function=templateFunction,
                                         user=request.user,
@@ -762,26 +765,26 @@ def createStepFive(request):
 def listIntake(request):
 
     if request.method == 'GET':
-        city_id = request.GET['city']
+        try:            
+            city_id = request.GET['city']
+        except:
+            city_id = ''
         return intakes(request, city_id)
 
 
 def intakes(request, city_id):
     #print("intakes")
-    
-        
-    if (city_id != ''):
-        intakes = Intake.objects.filter(city=city_id)            
-    else:
-        intakes = Intake.objects.all()
-
-    count = intakes.count()
+            
     # print ("total intakes: %s" % count)
     if request.user.is_authenticated:            
         userCountry = Countries.objects.get(iso3=request.user.country)
-        region = Regions.objects.get(id=userCountry.region_id)           
+        region = Regions.objects.get(id=userCountry.region_id)
 
         if (request.user.professional_role == 'ADMIN'):
+            if (city_id != ''):
+                intakes = Intake.objects.filter(city=city_id)
+            else:
+                intakes = Intake.objects.all()
             return render(
                 request,
                 'waterproof_intake/intake_list.html',
@@ -791,6 +794,11 @@ def intakes(request, city_id):
                     'region': region
                 }
             )
+        else:
+            if (city_id != ''):
+                intakes = Intake.objects.filter(city=city_id, added_by=request.user)            
+            else:
+                intakes = Intake.objects.filter(added_by=request.user)
 
         if (request.user.professional_role == 'ANALYS'):
             return render(
@@ -1294,3 +1302,14 @@ def validateGeometry(request):
         geometryValidations['polygonContains'] = False
 
     return JsonResponse(geometryValidations, safe=False)
+
+
+def compareMaps(request):
+
+    return render(
+                request,
+                'waterproof_intake/intake_compare_maps.html',
+                {
+                    'test': 'test',
+                }
+            )
