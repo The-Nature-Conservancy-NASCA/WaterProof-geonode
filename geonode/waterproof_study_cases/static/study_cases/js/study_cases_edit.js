@@ -491,18 +491,7 @@ $(document).ready(function () {
             if ($this.val().length <= 0) {
                 valid_edit = false;
                 return false;
-            } else {
-                if ($this.hasClass("hiddennbs")) {
-                    if (min) {
-                        if (min > $this.val()) {
-                            min = $this.val();
-                        }
-                    } else {
-                        min = $this.val();
-                    }
-                }
-
-            }
+            } 
         });
         if (!valid_edit) {
             Swal.fire({
@@ -534,7 +523,7 @@ $(document).ready(function () {
             valid_period = false;
         }
 
-        if ($('#period_analysis').val() != '' && $('#period_nbs').val() != '' && valid_edit && valid_investment && valid_period) {
+        if ($('#period_analysis').val() != '' && $('#period_nbs').val() != '' && valid_edit && valid_period) {
 
             analysis_currency = $("#analysis_currency option:selected").val()
             html = '<div class="row" id="currencys-panel"> <div class="col-md-10 currency-panel">Currency for the execution this analisys</div><div class="col-md-2 currency-panel currency-text">' + analysis_currency
@@ -552,6 +541,54 @@ $(document).ready(function () {
                         html += '<div class="custom-control col-md-8 currency-value"><input id="' + currency.currency + '" class="text-number" type="number" class="custom-control-input" value="' + value + '"></div>'
                     }
                 });
+                nbs_value = 0;
+                nbs_min = 0;
+                minimun = 0;
+                valid_nbs = true
+                valid_investment = true;
+                $("#full-table").find("input").each(function (index, input) {
+                    input_id = input.id
+                    if ($("#" + input_id).hasClass("hiddennbs")) {
+                        split = input_id.split('-')
+                        nbssc_id = split.pop();
+                        nbs_min = parseFloat($("#" + input_id).val());
+                        nbs_min *= conversion
+                        if (minimun) {
+                            if (minimun > nbs_min) {
+                                minimun = nbs_min;
+                            }
+                        } else {
+                            minimun = nbs_min;
+                        }
+                        if (nbs_value < nbs_min && nbs_value > 0) {
+                            valid_nbs = false
+                            valid_investment = false;
+                            $('#nbssc-' + nbssc_id).css('border-color', 'red');
+                            Swal.fire({
+                                icon: 'warning',
+                                title: gettext('field_problem'),
+                                text: gettext('error_minimun_nbs') + nbs_min,
+                            });
+                            return false
+                        }
+                    } else {
+                        nbs_value = parseFloat($("#" + input_id).val());
+                        $("#" + input_id).css('border-color', '#eeeeee');
+                    }
+                });
+                if (valid_investment) {
+                    if ($('#annual_investment').val() < minimun) {
+                        valid_nbs = false;
+                        Swal.fire({
+                            icon: 'warning',
+                            title: gettext('field_problem'),
+                            text: gettext('error_annual_investment')+minimun,
+                        });
+                        return false
+                    }
+                }
+
+                if (valid_nbs) {
                 Swal.fire({
                     title: gettext('exchange_rate'),
                     html: html,
@@ -607,6 +644,7 @@ $(document).ready(function () {
                         }, "json");
                     }
                 })
+            }
             });
 
         } else {
