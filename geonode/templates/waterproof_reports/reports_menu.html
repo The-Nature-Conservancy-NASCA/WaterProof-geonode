@@ -307,13 +307,13 @@ $(function () {
         $.getJSON(urlDetail, function (data) {
             $.each( data, function( key, value ) {
                 var objectButton;
-                if(value.nameIndicator === "Physical risk quantity") {
+                if(value.nameIndicator.toUpperCase() === "PHYSICAL RISK QUANTITY") {
                     objectButton = document.getElementById("idButtonPrq");
-                } else if(value.nameIndicator === "Physical Risk associated with Amount of Water") {
+                } else if(value.nameIndicator.toUpperCase() === "PHYSICAL RISK ASSOCIATED WITH AMOUNT OF WATER") {
                     objectButton = document.getElementById("idButtonPrqa");
-                } else if(value.nameIndicator === "Regulatory and reputational") {
+                } else if(value.nameIndicator.toUpperCase() === "REGULATORY AND REPUTATIONAL") {
                     objectButton = document.getElementById("idButtonRar");
-                } else if(value.nameIndicator === "Overall water risk score") {
+                } else if(value.nameIndicator.toUpperCase() === "OVERALL WATER RISK SCORE") {
                     objectButton = document.getElementById("idButtonOwr");
                 }
 
