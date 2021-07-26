@@ -22,9 +22,9 @@ $(document).ready(function () {
   }).addTo(mapRight);
 
   //let urlWaterProofLyrsWMS = 'http://localhost:81/?map=/etc/mapserver/1000_142_2021-6-25.map&SERVICE=WMS';
-  let lyrNameYear0 = 'WI_222_LULC_SA_1_YEAR_0';
-  let lyrNameLastYear = 'WI_222_LULC_LAST_YEAR';
-  let lyrNameYearFuture = 'WI_222_LULC_SA_1_FUTURE';
+  let lyrNameYear0 = `WI_${intake}_LULC_SA_1_YEAR_0`;
+  let lyrNameLastYear = `WI_${intake}_LULC_LAST_YEAR`;
+  let lyrNameYearFuture = `WI_${intake}_LULC_SA_1_FUTURE`;
   let attribution = "Waterproof data © 2021 TNC"
 
   let lyrsNames = [lyrNameYear0, lyrNameLastYear, lyrNameYearFuture];
