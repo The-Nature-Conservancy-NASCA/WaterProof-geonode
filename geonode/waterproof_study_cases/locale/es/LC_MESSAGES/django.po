@@ -171,5 +171,8 @@ msgstr "Discount rates para el análisis ROI"
 msgid "financial_transaction_cost"
 msgstr "Transaction cost per year as a percentage of Implementation, Maintenance and Oportunity costs"
 
+msgid "study_cases_list_tip"
+msgstr "In this section you can consult and configure the case studies for a defined city. To configure your case study, remember that you must have defined the water catchments and the different cost functions that will allow WaterProof to understand its context and costs, and provide the return on investment for the implementation of Nature-Based Solutions."
 
-
+msgid "study_cases_list_create"
+msgstr "You must be a registered user to create a new Case Study*"
