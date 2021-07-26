@@ -41,7 +41,7 @@
         </div>
         <div class="conainer-report-main">
             <div class="border-table-title">
-                <div class="title-table">{% trans "Study Case" %}</div>
+                <div class="title-table" id="idNameStadyCase">{% trans "Study Case" %}</div>
                 <div class="detail-table">
                     <div class="column-left-table">
                         <div class="file-column-left">
@@ -372,6 +372,8 @@ $(function () {
                 option.text = value.selector;
                 option.value = value.studyCasesId;
                 document.getElementById("idSelectStudyCase").add(option);
+                document.getElementById("idNameStadyCase").innerHTML = value.studyCasesName;
+                localStorage.studyCasesName = value.studyCasesName;
             });
         });
 

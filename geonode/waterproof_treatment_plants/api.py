@@ -85,7 +85,8 @@ def getIntakeList(request):
 					"cityId": elementSystem.intake.city.id,
 					"nameIntake":str(elementSystem.intake.name) + str(" - ") + str(elementSystem.name) + str(" - ") + str(elementSystem.graphId)})
 
-		return JsonResponse(objects_list, safe=False)
+		order_register = sorted(objects_list, key=lambda tree : tree['nameIntake'])
+		return JsonResponse(order_register, safe=False)
 
 @api_view(['POST'])
 def getTypePtap(request):

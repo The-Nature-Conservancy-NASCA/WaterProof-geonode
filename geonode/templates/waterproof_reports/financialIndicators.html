@@ -15,7 +15,7 @@
 <script type="text/javascript">
     var SelectedCurrency = "{{SelectedCurrency}}";
 </script>
-<div class="page-header">
+<div class="page-header" style="margin-bottom: 0px;height: 50px;margin-top: 0px;">
     <h1 style="font-size: 20pt;color: #1389AA;font-weight: bold;padding: 15px;">{% trans "Financial Indicators" %}</h1>
 </div>
 <br>
@@ -23,19 +23,18 @@
 <form id="form" method="POST" action="">
     {% csrf_token %}
     <!--Start smartwizard-->
-    <br>
     <div style="position: relative;">
         <div class="help-in-report">
-            {% trans "En este reporte se presenta de forma sintetizada las proporciones en inversión y beneficios que se lograrán por la implementación de las SbN:" %}
+            {% trans "This report summarizes the proportions in investment and benefits that will be achieved by the implementation of the SbN:" %}
         </div>
         <div style="text-align: center;text-align: center;position: absolute;top: 0px;right: 0px;margin-left: 530px;font-size: 13px;">
-            <div style="float: left;width: 25%;" id="idFinancialIndicators">
-                <img src="/static/geonode/img/indicadores-fisicos.png" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;" title="{% trans "Financial indicators" %}"/> 
+            <div style="float: left;width: 15%;" id="idFinancialIndicators">
+                <img src="/static/geonode/img/indicadores-fisicos.png" style="width: 100%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;" title="{% trans "Financial indicators" %}"/> 
                 <br> 
                 <a onclick="changeReport()">{% trans "Reports" %}</a>
             </div>
-            <div style="float: left;width: 25%;" id="idDecisionIndicators">
-                <img src="/static/geonode/img/indicadores-decision.png" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;" title="{% trans "Decision indicators" %}"/>
+            <div style="float: left;width: 15%;" id="idDecisionIndicators">
+                <img src="/static/geonode/img/indicadores-decision.png" style="width: 100%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;" title="{% trans "Decision indicators" %}"/>
                 <br>
                 <a href="../../reports/decision/">{% trans "Decision indicators" %}</a>
             </div>
@@ -43,7 +42,7 @@
     </div>
     <div id="smartwizard" style="position: relative;">
         <div class="border-table-title">
-            <div class="title-table">{% trans "Study Case" %}</div>
+            <div class="title-table" id="idNameStudyCase">{% trans "Study Case" %}</div>
             <div class="detail-table">
                 <div class="column-left-table">
                     <div class="file-column-left">
@@ -83,7 +82,7 @@
         <div class="title-inform">
             <div id="idSectionRoi" class="inform-section">{% trans "Return of investment (ROI)" %}</div>
             <div id="idSectionNvp" class="inform-section inform-section-free">{% trans "Net Present Value (NPV)" %}</div>
-            <div id="idSectionSA" class="inform-section inform-section-free">{% trans "Sensibility Analysis" %}</div>
+            <div id="idSectionSA" class="inform-section inform-section-free">{% trans "Sensitivity Analysis" %}</div>
         </div>
         <!--Steps-->
         <div class="margin-report">
@@ -96,14 +95,14 @@
                         <div class="contain-detail">
                             <div class="first-detail">
                                 <div class="content-title-first">
-                                    <div class="text-title-first" id="idTitleBenefits" style="border-width: 2px;">Benefits</div>
+                                    <div class="text-title-first" id="idTitleBenefits" style="border-width: 2px;">{% trans "Benefits" %}</div>
                                 </div>
                                 <div id="listCheckBenefits" style="overflow-x: hidden;overflow-y: scroll;height: 400px;"></div>
                             </div>
 
                             <div class="first-detail">
                                 <div class="content-title-first">
-                                    <div class="text-title-first" id="idTitleCost" style="border-width: 2px;">Cost</div>
+                                    <div class="text-title-first" id="idTitleCost" style="border-width: 2px;">{% trans "Cost" %}</div>
                                 </div>
                                 <div id="listCheckCost" style="overflow-x: hidden;overflow-y: scroll;height: 400px;"></div>
                             </div>
@@ -127,7 +126,7 @@
             <div id="step3"  style="display: none;">
                 <div style="text-align: center;width: 100%;position: relative;height: 400px;">
                         <div class="content-image">
-                            <img src="/static/geonode/img/indicadores-fisicos-invest.png"/>
+                            <img src="/static/geonode/img/indicadores-fisicos-invest.png" style="width: 50%;margin-top: 25%;" />
                         </div>
                         <div class="contain-detail">
                             <!--Graph-->
@@ -138,12 +137,12 @@
                 </div>                
                 <br>
                 <div style="text-align: center;width: 100%;position: relative;height: 400px;">
-                        <div class="content-image" style="height: 50px;">
-                            <div style="clear:both;" class="table-responsive">
+                        <div class="content-image" style="height: 100%;position: relative;">
+                            <div style="width: 100%;position: absolute;bottom: 0px;height: auto;left: auto;margin-left: auto;margin-top: auto;top: auto;" class="table-responsive">
                                 <table id="idTableNpv" class="table table-striped table-bordered table-condensed" style=" width:100%">
                                     <thead>
                                         <tr class="info">
-                                            <th colspan="2" scope="col" class="small text-center vat">Net present value summary</th>
+                                            <th colspan="2" scope="col" class="small text-center vat">{% trans "Net present value summary" %}</th>
                                         </tr>
                                     </thead>
                                     <tbody id="idTbodyNpv"></tbody>
@@ -185,12 +184,14 @@
                 <div style="text-align: center;width: 100%;position: relative;height: 400px;">
                         <div class="contain-detail">
                             <!--Graph-->
+                            <div style="width: 45%;position: absolute;left: 52%;top: -50px;font-size: 15px;">{% trans "Observe the posible behaivor of the ROI due to materialization of change de environment" %}</div>
                             <div style="width: 45%;position: absolute;left: 52%;">
                                 <div id="containerRoiS"></div>
                             </div>
                         </div>
                         <div class="contain-detail">
                             <!--Graph-->
+                            <div style="width: 45%;position: absolute;left: 5%;top: -50px;font-size: 15px;">{% trans "Compare the benefits and cost obtained in the event on changes inthe environment that effect the discount rate" %}</div>
                             <div style="width: 45%;position: absolute;left: 5%;">
                                 <div id="containerCvB"></div>
                             </div>
@@ -357,8 +358,6 @@ $(function () {
                 }
             });
         }
-console.log(totalCost)
-console.log(totalDiscountedCost)
 
         setTimeout(function(){
             Highcharts.chart('containerRoi', {
@@ -401,6 +400,7 @@ console.log(totalDiscountedCost)
         $("#idCountri").html(localStorage.getItem('country'));
         $("#idCity").html(localStorage.getItem('city'));
         $("#idRegion").html(localStorage.getItem('region'));
+        $("#idNameStudyCase").html(localStorage.getItem('studyCasesName'));
 
         var htmlBenefitsFilter = "";
         var urlDetail = "../../reports/getReportAnalysisBenefitsFilter/?studyCase=" + localStorage.idStudyCase;
@@ -568,8 +568,8 @@ console.log(totalDiscountedCost)
                 txtFileNet = txtFileNet + '<tr><td class="small text-left vat" >Cost: oportunity</td><td class="small text-right vat">' + value.oportunityr.toFixed(2) + '</td></tr>';
                 txtFileNet = txtFileNet + '<tr><td class="small text-left vat" >Cost: transaction</td><td class="small text-right vat">' + value.transactionr.toFixed(2) + '</td></tr>';
                 txtFileNet = txtFileNet + '<tr><td class="small text-left vat" >Cost: platform</td><td class="small text-right vat">' + value.platformr.toFixed(2) + '</td></tr>';
-                txtFileNet = txtFileNet + '<tr><td class="small text-left vat" >Cost: benefit</td><td class="small text-right vat">' + value.benefitr.toFixed(2) + '</td></tr>';
-                txtFileNet = txtFileNet + '<tr><td class="small text-left vat" >Cost: total</td><td class="small text-right vat">' + value.totalr.toFixed(2) + '</td></tr>';
+                txtFileNet = txtFileNet + '<tr><td class="small text-left vat" >Benefit</td><td class="small text-right vat">' + value.benefitr.toFixed(2) + '</td></tr>';
+                txtFileNet = txtFileNet + '<tr><td class="small text-left vat" >Total</td><td class="small text-right vat">' + value.totalr.toFixed(2) + '</td></tr>';
             });
             document.getElementById("idTbodyNpv").innerHTML = document.getElementById("idTbodyNpv").innerHTML + txtFileNet;
 
@@ -604,7 +604,7 @@ console.log(totalDiscountedCost)
             $.each( data, function( key, value ) {
                 dataSensibilityAnalysisBenefitsTime.push([value.timer, Math.round(value.totalMedBenefitR)]);
                 dataSensibilityAnalysisBenefitsRange.push([value.timer, Math.round(value.totalMinBenefitR), Math.round(value.totalMaxBenefittR)]);
-                txtFileBenefits = txtFileBenefits + '<td class="small text-center vat" id="valor' + value.timer + '">' + parseFloat(value.totalMedBenefitR).toFixed(2) + '</td>';
+                txtFileBenefits = txtFileBenefits + '<td class="small text-center vat" style="text-align: right;" id="valor' + value.timer + '">' + parseFloat(value.totalMedBenefitR).toFixed(2) + '</td>';
                 txtTitleBenefits = txtTitleBenefits + '<th scope="col" class="small text-center vat">{% trans "' + contTitleBenefits + '" %}</th>';
                 contTitleBenefits ++;
             });
@@ -616,14 +616,24 @@ console.log(totalDiscountedCost)
 
             Highcharts.chart('containerTDB', {
                 title: {
-                    text: 'Sensibility analysis - total discounted benefit'
+                    text: 'Sensibility analysis - total discounted benefit (TDB)'
                 },
                 credits: {
                     enabled: false
                 },
+                yAxis: {
+                    title: {
+                        text: 'Total descounted benefits'
+                    }
+                },
+                xAxis: {
+                    title: {
+                        text: 'Time in years descoyunted benefits'
+                    }
+                },
                 colors: ['#008BAB'],
                 series: [{
-                    name: 'Time (yr)',
+                    name: 'TDB',
                     color: "#4c99d8",
                     data: dataSensibilityAnalysisBenefitsTime
                 }, {
@@ -650,7 +660,7 @@ console.log(totalDiscountedCost)
             $.each( data, function( key, value ) {
                 dataSensibilityAnalysisCostTime.push([value.timer, Math.round(value.totalMedCostR)]);
                 dataSensibilityAnalysisCostRange.push([value.timer, Math.round(value.totalMinCostR), Math.round(value.totalMaxCostR)]);
-                txtFileCost = txtFileCost + '<td class="small text-center vat" id="valor' + value.timer + '">' + parseFloat(value.totalMedCostR).toFixed(2) + '</td>';
+                txtFileCost = txtFileCost + '<td class="small text-center vat" style="text-align: right;" id="valor' + value.timer + '">' + parseFloat(value.totalMedCostR).toFixed(2) + '</td>';
                 
             });
             txtFileCost = txtFileCost + '</tr>';
@@ -658,14 +668,24 @@ console.log(totalDiscountedCost)
 
             Highcharts.chart('containerTDC', {
                 title: {
-                    text: 'Sensibility analysis - total discounted cost'
+                    text: 'Sensibility analysis - total discounted cost (TDC)'
                 },
                 credits: {
                     enabled: false
                 },
+                yAxis: {
+                    title: {
+                        text: 'Total descounted costs'
+                    }
+                },
+                xAxis: {
+                    title: {
+                        text: 'Time in years descounted benefits'
+                    }
+                },
                 colors: ['#008BAB'],
                 series: [{
-                    name: 'Time (yr)',
+                    name: 'TDC',
                     color: "#006bc3",
                     data: dataSensibilityAnalysisCostTime,
                     marker: {
@@ -705,11 +725,11 @@ console.log(totalDiscountedCost)
                 },
                 colors: ['#008BAB'],
                 title: {
-                    text: 'Cost vs benefits',
+                    text: 'Costs and benefits sensitivity',
                     x: -80
                 },
                 xAxis: {
-                    categories: ['Minimun discount rate (2%)', 'Maximun discount rate (9%)', 'Discount rate (5%)'],
+                    categories: ['Minimun discount rate', 'Maximun discount rate', 'Discount rate'],
                     tickmarkPlacement: 'on',
                     lineWidth: 0
                 },
@@ -738,11 +758,11 @@ console.log(totalDiscountedCost)
                 },
                 colors: ['#008BAB'],
                 title: {
-                    text: 'Interactive graph of cost and benefits',
+                    text: 'ROI sensitivity',
                     x: -80
                 },
                 xAxis: {
-                    categories: ['Minimun discount rate (2%)', 'Maximun discount rate (9%)', 'Discount rate (5%)'],
+                    categories: ['Minimun discount rate', 'Maximun discount rate', 'Discount rate'],
                     tickmarkPlacement: 'on',
                     lineWidth: 0
                 },
