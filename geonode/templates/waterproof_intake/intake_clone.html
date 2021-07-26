@@ -255,7 +255,7 @@
                                                 <div class="col-md-6">
                                                     <label>{% trans "Number of years for time series  (10-100) Year" %} <span
                                                         class="text-danger-wp">(*)</span> </label>
-                                                    <input type="number"  min="10" max="100" maxlength="3" minlength="2" onKeyUp="if(this.value>100){this.value='100';}else if(this.value[0]=0){this.value='10';}" class="form-control justify-number" id="numberYearsInterpolationValue">
+                                                    <input type="number"  min="1" step="0" oninput="validity.valid||(value='');" max="100" class="form-control justify-number" id="numberYearsInterpolationValue">
                                                 </div>
                                             </div>
                                         </div>
@@ -308,7 +308,7 @@
                                         <p>{% trans "You can edit the table manually" %}</p>
                                         <div class="form-group">
                                             <label>{% trans "Number of years  (10-100) Year" %} <span class="text-danger-wp">(*)</span> </label>
-                                            <input type="number"  min="10" max="100" maxlength="3" minlength="2" onKeyUp="if(this.value>100){this.value='100';}else if(this.value[0]=0){this.value='10';}" class="form-control justify-number" id="intakeNIYMI">
+                                            <input type="number"  min="1" step="0" oninput="validity.valid||(value='');" max="100" class="form-control justify-number" id="intakeNIYMI">
                                         </div>
                                         <div>
                                             <p>{% trans "Clic the following button to calculate the wather extraction in each year" %}
