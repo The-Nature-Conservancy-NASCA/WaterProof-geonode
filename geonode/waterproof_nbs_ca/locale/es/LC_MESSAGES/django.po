@@ -42,7 +42,7 @@ msgstr ""
 "Project-Id-Version: GeoNode\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-02-19 11:28-0500\n"
-"PO-Revision-Date: 2021-07-27 10:34-0500\n"
+"PO-Revision-Date: 2021-07-27 12:05-0500\n"
 "Last-Translator: \n"
 "Language-Team: Spanish (http://www.transifex.com/geonode/geonode/language/es/)\n"
 "Language: es_419\n"
@@ -261,14 +261,14 @@ msgstr "Transición"
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_edit.html:135
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_form.html:125
 msgid "LAND USE"
-msgstr "LAND USE / LAND COVER WHERE THE ACTIVITY CAN BE IMPLEMENTED"
+msgstr "Uso y cobertura del suelo donde la actividad puede ser implementada"
 
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_clone.html:152
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_detail_list.html:152
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_edit.html:135
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_form.html:125
 msgid "LAND COVER CHANGE DEFINITION"
-msgstr "LAND USE / LAND COVER TRANSFORMED"
+msgstr "Uso y cobertura del suelo transformada"
 
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_clone.html:175
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_edit.html:161
@@ -422,6 +422,14 @@ msgstr "Desde esta sección puede consultar las Soluciones basadas en la natural
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_list.html:23
 msgid "Nature based solutions (NBS)"
 msgstr "Soluciones basadas en la naturaleza (SbN)"
+
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_form.html:119
+msgid "Select from the drop-down list the transition according to the possibilities of the Resource Investment Optimization System (RIOS) software"
+msgstr "Seleccione de la lista desplegable la transición de acuerdo a las posibilidades del software Resource Investment Optimization System (RIOS)"
+
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_form.html:182
+msgid "If there are areas with restrictions for the implementation of the NbS, attach them to the form through a geographic file by clicking on the following button."
+msgstr "Si existen áreas con restricciones para la implementación de la SbN,  adjuntelas al formulario a través de un archivo geográfico dando clic en el siguiente botón."
 
 #~ msgid "Consecution Time Total Benefits (to elimitate)"
 #~ msgstr "Consecution Time Total Benefits (to elimitate)"
