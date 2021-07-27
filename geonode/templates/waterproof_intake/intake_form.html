@@ -17,7 +17,7 @@
         </div>
         <br>
         <div class="col-lg-4">
-            <h4 class="title-city">{% trans "Intake creation city" %} <span id="cityLabel"></span></h4>    
+            <h4 class="title-city">{% trans "Intake creation city" %} : <span id="cityLabel"></span></h4>    
         </div>
     </div>
     <!--Begin Form-->
@@ -180,9 +180,10 @@
                                         <label>{% trans "% Phosphorus retained" %}</label>
                                         <input type="number" id="fosforoDiagram" class="form-control" oninput="validateinput(this)" disabled>
                                     </div>
-                                    <button type="button" class="btn btn-primary btn-block" id="saveGraph">{% trans "Validate graph" %}</button>
                                 </div>
                             </div>
+                            <button type="button" class="btn btn-primary btn-block" id="saveGraph">{% trans "Validate graph" %}</button>
+
     
                         </div>
                     </div>
@@ -404,7 +405,7 @@
                                     <div class="form-group col-md-4">
                                         <button type="button" class="btn btn-primary" id="btnDelimitArea"> {%trans "Manually area delimit" %}</button>
                                     </div>
-                                    <div class="col-md-1"><p>ó</p></div>
+                                    <div class="col-md-1"><p>{% trans "or" %}</p></div>
                                     <div class="form-group col-md-3">
                                         <div class="input-group">
                                             <span class="input-group-btn">
