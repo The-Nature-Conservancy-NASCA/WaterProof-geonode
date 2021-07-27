@@ -69,18 +69,18 @@
                 <td class="small text-center vat truncate">{{sbn.description}}</td>
                 <td class="small text-center vat">{{sbn.added_by.first_name}} {{sbn.added_by.last_name}}</td>
                 <td class="small text-center vat">{{sbn.country}}</td>
-                <td class="small text-center vat">{{sbn.profit_pct_time_inter_assoc}}%</td>
+                <td class="small text-center vat justify-number">{{sbn.profit_pct_time_inter_assoc}}%</td>
                 <!-- Validate user type for multiplying country factor -->
                 {% if user.professional_role != 'ADMIN' %}
                     <!-- The NBS was created by admin user, so we add country multiplying factor -->
                     {% if sbn.added_by.professional_role == 'ADMIN' %}
-                        <td class="small text-center vat">{{sbn.unit_implementation_cost|multiplyFactor:userCountry.global_multiplier_factor|decimalFormat:2}}</td>
-                        <td class="small text-center vat">{{sbn.unit_maintenance_cost|multiplyFactor:userCountry.global_multiplier_factor|decimalFormat:2}}</td>
-                        <td class="small text-center vat">{{sbn.unit_oportunity_cost|multiplyFactor:userCountry.global_multiplier_factor|decimalFormat:2}}</td>
+                        <td class="small text-center vat justify-number">{{sbn.unit_implementation_cost|multiplyFactor:userCountry.global_multiplier_factor|decimalFormat:2}}</td>
+                        <td class="small text-center vat justify-number">{{sbn.unit_maintenance_cost|multiplyFactor:userCountry.global_multiplier_factor|decimalFormat:2}}</td>
+                        <td class="small text-center vat justify-number">{{sbn.unit_oportunity_cost|multiplyFactor:userCountry.global_multiplier_factor|decimalFormat:2}}</td>
                     {% else %}
-                        <td class="small text-center vat">{{sbn.unit_implementation_cost|decimalFormat:2}}</td>
-                        <td class="small text-center vat">{{sbn.unit_maintenance_cost|decimalFormat:2}}</td>
-                        <td class="small text-center vat">{{sbn.unit_oportunity_cost|decimalFormat:2}}</td>
+                        <td class="small text-center vatjustify-number">{{sbn.unit_implementation_cost|decimalFormat:2}}</td>
+                        <td class="small text-center vat justify-number">{{sbn.unit_maintenance_cost|decimalFormat:2}}</td>
+                        <td class="small text-center vat justify-number">{{sbn.unit_oportunity_cost|decimalFormat:2}}</td>
                     {% endif %}
                 <!-- The user is not analyst so, we show normal values -->
                 {% else %}
