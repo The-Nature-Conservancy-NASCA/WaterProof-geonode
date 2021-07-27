@@ -264,7 +264,7 @@ $(function () {
                                 "csinfra" : arrayCsinfra
                             }
                         }),success: function(result) {
-                            window.location.href ="../../treatment_plants/";
+                            window.location.href ="../../treatment_plants/?limit=5&city=" + localStorage.getItem('cityId');
                             localStorage.plantId = null;
                         },error: function (err) {
                             Swal.fire({
@@ -1198,7 +1198,7 @@ $(function () {
                     data: JSON.stringify({
                         "plantId" : plantId
                     }),success: function(result) {
-                        window.location.href ="../../treatment_plants/";
+                        window.location.href ="../../treatment_plants/?limit=5&city=" + localStorage.getItem('cityId');
                         localStorage.plantId = null;
                     },error: function (err) {
                         Swal.fire({
