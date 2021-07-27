@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Waterproof\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-07-21 14:34-0500\n"
-"PO-Revision-Date: 2021-07-27 17:28-0500\n"
+"PO-Revision-Date: 2021-07-27 17:44-0500\n"
 "Language: en\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -616,6 +616,10 @@ msgstr "To create a new watershed, WaterProof will help you with the steps you n
 #: template/intake_login_error.html:10
 msgid "Permission denied"
 msgstr "Permission denied"
+
+#: template/intake_form.html:877
+msgid "or"
+msgstr "or"
 
 #: template/intake_list.html:34
 msgid "From this section you can view the water intakes created in the system associated with a city of interest. You can search for intakes of different cities from 'Search city'. The system will show you a list of cities with matches around the world. Select the appropriate option from the list. "
