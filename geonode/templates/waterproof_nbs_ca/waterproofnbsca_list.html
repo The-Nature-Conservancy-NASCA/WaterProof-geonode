@@ -49,7 +49,7 @@
             <tr class="info">
                 <th scope="col" class="small text-center vat">{% trans "Id" %}</th>
                 <th scope="col" class="small text-center vat">{% trans "Name" %}</th>
-                <th scope="col" class="small text-center vat px-5">{% trans "Description" %}</th>
+                <th scope="col" class="small text-center vat px-5" style="width:'10px';">{% trans "Description" %}</th>
                 <th scope="col" class="small text-center vat">{% trans "User" %}</th>                
                 <th scope="col" class="small text-center vat">{% trans "Country" %}</th>
                 <th scope="col" class="small text-center vat" style="font-size: 11px;font-weight: bold;">{% trans "Percentage of benefit associated with interventions at time t=0" %}</th>
@@ -65,8 +65,8 @@
             {% for sbn in nbs %}
             <tr>
                 <td class="small text-center vat">{{sbn.pk}}</td>
-                <td class="small text-center vat">{{sbn.name}}</td>
-                <td class="small text-center vat truncate">{{sbn.description}}</td>
+                <td class="small text-center vat justify-text">{{sbn.name}}</td>
+                <td class="small text-center vat truncate justify-text" style="width:'10px';" >{{sbn.description}}</td>
                 <td class="small text-center vat">{{sbn.added_by.first_name}} {{sbn.added_by.last_name}}</td>
                 <td class="small text-center vat">{{sbn.country}}</td>
                 <td class="small text-center vat justify-number">{{sbn.profit_pct_time_inter_assoc}}%</td>
@@ -78,15 +78,15 @@
                         <td class="small text-center vat justify-number">{{sbn.unit_maintenance_cost|multiplyFactor:userCountry.global_multiplier_factor|decimalFormat:2}}</td>
                         <td class="small text-center vat justify-number">{{sbn.unit_oportunity_cost|multiplyFactor:userCountry.global_multiplier_factor|decimalFormat:2}}</td>
                     {% else %}
-                        <td class="small text-center vatjustify-number">{{sbn.unit_implementation_cost|decimalFormat:2}}</td>
+                        <td class="small text-center vat justify-number">{{sbn.unit_implementation_cost|decimalFormat:2}}</td>
                         <td class="small text-center vat justify-number">{{sbn.unit_maintenance_cost|decimalFormat:2}}</td>
                         <td class="small text-center vat justify-number">{{sbn.unit_oportunity_cost|decimalFormat:2}}</td>
                     {% endif %}
                 <!-- The user is not analyst so, we show normal values -->
                 {% else %}
-                    <td class="small text-center vat">{{sbn.unit_implementation_cost|decimalFormat:2}}</td>
-                    <td class="small text-center vat">{{sbn.unit_maintenance_cost|decimalFormat:2}}</td>
-                    <td class="small text-center vat">{{sbn.unit_oportunity_cost|decimalFormat:2}}</td>
+                    <td class="small text-center vat justify-number">{{sbn.unit_implementation_cost|decimalFormat:2}}</td>
+                    <td class="small text-center vat justify-number">{{sbn.unit_maintenance_cost|decimalFormat:2}}</td>
+                    <td class="small text-center vat justify-number">{{sbn.unit_oportunity_cost|decimalFormat:2}}</td>
                 {% endif %}
                 <td class="small text-center vat">{{sbn.periodicity_maitenance}}</td>
                 <td class="small text-center vat">{{sbn.currency.currency}}</td>
@@ -96,14 +96,20 @@
                                 class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a> {% if user.is_authenticated %} {% if user.professional_role == 'ADMIN' %}
                         <a class="btn btn-info" href="/waterproof_nbs_ca/edit/{{sbn.pk}}"><span
                                 class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
+                    </div>
+                    <div class="btn-group btn-group-table" role="group">
                         <a class="btn btn-warning" href="/waterproof_nbs_ca/clone/{{sbn.pk}}"><span
                                 class="glyphicon glyphicon-copy" aria-hidden="true"></span></a>
                         <a class="btn btn-danger" data-id="{{sbn.pk}}"><span class="glyphicon glyphicon-trash"
                                 aria-hidden="true"></span></a> {% endif %} {% if user.professional_role == 'ANALYS' %} {% if sbn.added_by.pk == user.pk %}
+                    </div>
+                    <div class="btn-group btn-group-table" role="group">
                         <a class="btn btn-info" href="/waterproof_nbs_ca/edit/{{sbn.pk}}"><span
                                 class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
                         <a class="btn btn-warning" href="/waterproof_nbs_ca/clone/{{sbn.pk}}"><span
                                 class="glyphicon glyphicon-copy" aria-hidden="true"></span></a>
+                    </div>
+                    <div class="btn-group btn-group-table" role="group">
                         <a class="btn btn-danger" data-id="{{sbn.pk}}"><span class="glyphicon glyphicon-trash"
                                 aria-hidden="true"></span></a> {% else %}
                         <a class="btn btn-warning" href="/waterproof_nbs_ca/clone/{{sbn.pk}}"><span

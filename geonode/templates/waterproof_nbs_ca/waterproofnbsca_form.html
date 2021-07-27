@@ -19,12 +19,10 @@
             <p style="text-align: justify;">{% trans "Through this form you can create a custom NbS. Select the country for which you want to be considered and fill in your identification data, costs and the transitions obtained with its implementation." %}</p>
             <h4 class="country-label" id="countryLabel">{{country.name}}</h4>
             <p><b>{% trans "Region:" %}</b> <span id="regionLabel">{{region.name}}</span> </p>
-            <p><b>{% trans "Currency:" %}</b><span id="currencyLabel">({{currency.code}}) - {{currency.name}}</span></p>            
-            <div class="page-header">
+            <p><b>{% trans "Currency:" %} </b><span id="currencyLabel">({{currency.code}}) - {{currency.name}}</span></p>            
                 {% if user.professional_role == 'ADMIN' %}
-                    <h3>{% trans "Global USA based" %}</h3>
-                {% endif %}
-            </div>            
+                    <h4>{% trans "Global USA based" %}</h4>
+                {% endif %}           
         </div>
         
         <div class="col-md-8">
@@ -118,6 +116,7 @@
             </div>
         </div>
         <h4 class="text-primary">{% trans "RIOS Transition" %}</h4>
+        <p>{% trans "Select from the drop-down list the transition according to the possibilities of the Resource Investment Optimization System (RIOS) software"%}</p>
         <div class="form-group">
             <div class="row">
                 <div class="col-md-12">
@@ -177,15 +176,13 @@
         </div>
         <div class="form-group">
             <div class="row">
-                <div class="col-md-4">
+                <div>
                     <div class="col-md-12">
                         <label>{% trans "Restricted areas" %} </label>
                         <p>{% trans "If there are areas with restrictions for the implementation of the NbS, attach them to the form through a geographic file by clicking on the following button." %}</p>
-                        <button type="button" class="btn btn-link" data-toggle="modal" data-target="#HelpModal" id="HelpModalBtnModal" style="outline:none; text-decoration:none;">
-                            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> {% trans "Help" %}</button>
-                        </button>
+                        
                     </div>
-                    <div class="input-group">
+                    <div class="col-md-2">
                         <span class="input-group-btn">
                           <span class="btn btn-default btn-file">
                             {% trans "Select a file" %}
@@ -193,6 +190,13 @@
                         </span>
                         </span>
                     </div>
+                        <div class="col-md-2">
+                            <button type="button" class="btn btn-link" data-toggle="modal" data-target="#HelpModal" id="HelpModalBtnModal" style="outline:none; text-decoration:none;">
+                                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> {% trans "Help" %}</button>
+                            </button>
+                        </div>
+                       
+                    
     
     
                     <div class="help-block with-errors"></div>
@@ -200,7 +204,11 @@
             </div>
         </div>
         <br>
+        <div class="row text-center">
+            <div class="col-md-12">
         <button id="submit" type="submit" class="btn btn-primary ">{% trans "Save" %}</button>
+        </div>
+        </div>
     
     </form>
 </div>
