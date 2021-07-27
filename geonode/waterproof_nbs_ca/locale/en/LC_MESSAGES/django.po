@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Waterproof Valpha\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-02-19 11:27-0500\n"
-"PO-Revision-Date: 2021-07-27 12:04-0500\n"
+"PO-Revision-Date: 2021-07-27 12:16-0500\n"
 "Last-Translator: Julien Collaer <julien.collaer@opengeode.be>\n"
 "Language-Team: Skaphe\n"
 "Language: en\n"
@@ -225,14 +225,14 @@ msgstr "Transition"
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_detail_list.html:149
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_edit.html:135
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_form.html:125
-msgid "LAND USE"
+msgid "LAND USE / LAND COVER WHERE THE ACTIVITY CAN BE IMPLEMENTED"
 msgstr "Land use / Land cover where the activiy can be implemented"
 
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_clone.html:152
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_detail_list.html:152
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_edit.html:135
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_form.html:125
-msgid "LAND COVER CHANGE DEFINITION"
+msgid "LAND USE / LAND COVER TRANSFORMED"
 msgstr "Land use / Land cover transformed"
 
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_clone.html:175
@@ -391,6 +391,10 @@ msgstr "Select from the drop-down list the transition according to the possibili
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_form.html:182
 msgid "If there are areas with restrictions for the implementation of the NbS, attach them to the form through a geographic file by clicking on the following button."
 msgstr "If there are areas with restrictions for the implementation of the NbS, attach them to the form through a geographic file by clicking on the following button."
+
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_form.html:19
+msgid "Through this form you can create a custom NbS. Select the country for which you want to be considered and fill in your identification data, costs and the transitions obtained with its implementation."
+msgstr "Through this form you can create a custom NbS. Select the country for which you want to be considered and fill in your identification data, costs and the transitions obtained with its implementation."
 
 #~ msgid "Percentaje of benefit"
 #~ msgstr "Percentage of benefits"

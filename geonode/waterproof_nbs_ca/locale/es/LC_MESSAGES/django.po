@@ -42,7 +42,7 @@ msgstr ""
 "Project-Id-Version: GeoNode\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-02-19 11:28-0500\n"
-"PO-Revision-Date: 2021-07-27 12:05-0500\n"
+"PO-Revision-Date: 2021-07-27 12:16-0500\n"
 "Last-Translator: \n"
 "Language-Team: Spanish (http://www.transifex.com/geonode/geonode/language/es/)\n"
 "Language: es_419\n"
@@ -260,14 +260,14 @@ msgstr "Transición"
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_detail_list.html:149
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_edit.html:135
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_form.html:125
-msgid "LAND USE"
+msgid "LAND USE / LAND COVER WHERE THE ACTIVITY CAN BE IMPLEMENTED"
 msgstr "Uso y cobertura del suelo donde la actividad puede ser implementada"
 
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_clone.html:152
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_detail_list.html:152
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_edit.html:135
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_form.html:125
-msgid "LAND COVER CHANGE DEFINITION"
+msgid "LAND USE / LAND COVER TRANSFORMED"
 msgstr "Uso y cobertura del suelo transformada"
 
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_clone.html:175
@@ -430,6 +430,10 @@ msgstr "Seleccione de la lista desplegable la transición de acuerdo a las posib
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_form.html:182
 msgid "If there are areas with restrictions for the implementation of the NbS, attach them to the form through a geographic file by clicking on the following button."
 msgstr "Si existen áreas con restricciones para la implementación de la SbN,  adjuntelas al formulario a través de un archivo geográfico dando clic en el siguiente botón."
+
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_form.html:19
+msgid "Through this form you can create a custom NbS. Select the country for which you want to be considered and fill in your identification data, costs and the transitions obtained with its implementation."
+msgstr "A través de este formulario usted puede crear una SbN personalizada. Seleccione el país para el cual desea que se considere y diligencie sus datos de identificación, costos y las transiciones obtenidas con su implementación."
 
 #~ msgid "Consecution Time Total Benefits (to elimitate)"
 #~ msgstr "Consecution Time Total Benefits (to elimitate)"
