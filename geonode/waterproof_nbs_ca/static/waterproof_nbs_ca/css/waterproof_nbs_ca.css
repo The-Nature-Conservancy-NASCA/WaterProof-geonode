@@ -169,4 +169,8 @@ input:checked+.slider:before {
     border: 1px solid;
     border-radius: 0.5em;
     border-color: #aaa;
-} 
+}
+
+.justify-number{
+    text-align: right;
+}
