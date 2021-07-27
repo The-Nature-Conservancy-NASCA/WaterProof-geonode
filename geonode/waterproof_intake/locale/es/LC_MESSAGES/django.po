@@ -615,6 +615,10 @@ msgstr "Para crear una nueva captación, Waterproof lo asistirá indicando los p
 msgid "Permission denied"
 msgstr "Permiso denegado"
 
+#: template/intake_form.html:877
+msgid "or"
+msgstr "ó"
+
 #: template/intake_list.html:34
 msgid "From this section you can view the water intakes created in the system associated with a city of interest. You can search for intakes of different cities from 'Search city'. The system will show you a list of cities with matches around the world. Select the appropriate option from the list. "
 msgstr ""
