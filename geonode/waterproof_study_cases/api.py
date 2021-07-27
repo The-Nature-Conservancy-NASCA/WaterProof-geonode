@@ -94,15 +94,16 @@ def getStudyCaseCurrencys(request):
             for ptap in scptaps:
                 ptapCurrency = Function.objects.filter(function_plant=ptap).values('function_currency').distinct()
                 for ptapc in ptapCurrency:
-                    if(ptapc['function_currency'] != sc_currency):
+                    ptap_cu = ptapc['function_currency']
+                    if(ptap_cu and ptap_cu != sc_currency):
                         currency = {}
-                        currency['currency'] = ptapc['function_currency']
+                        currency['currency'] = ptap_cu
                         scc = StudyCases_Currency.objects.filter(
-                            studycase=sc, currency=ptapc['function_currency']).first()
+                            studycase=sc, currency=ptap_cu).first()
                         if(scc):
                             value = scc.value
                         else:
-                            factor = Countries_factor.objects.filter(currency=ptapc['function_currency']).first()
+                            factor = Countries_factor.objects.filter(currency=ptap_cu).first()
                             value = factor.factor_EUR / sc_factor.factor_EUR
                         currency['value'] = str(value)
                         if (not currency['currency'] in list_currency_type):
@@ -111,32 +112,34 @@ def getStudyCaseCurrencys(request):
             for intake in scintakes:
                 intakeCurrency = UserCostFunctions.objects.filter(intake=intake).values('currency__currency').distinct()
                 for intakec in intakeCurrency:
-                    if(intakec['currency__currency'] != sc_currency and any(element['currency'] in intakec['currency__currency'] for element in currencys)):
+                    intake_cu = intakec['currency__currency']
+                    if(intake_cu and intake_cu != sc_currency and not any(element['currency'] in intake_cu for element in currencys)):
                         currency = {}
-                        currency['currency'] = intakec['currency__currency']
+                        currency['currency'] = intake_cu
                         scc = StudyCases_Currency.objects.filter(
-                            studycase=sc, currency=intakec['currency__currency']).first()
+                            studycase=sc, currency=intake_cu).first()
                         if(scc):
                             value = scc.value
                         else:
-                            factor = Countries_factor.objects.filter(currency=ptapc['function_currency']).first()
+                            factor = Countries_factor.objects.filter(currency=intake_cu).first()
                             value = factor.factor_EUR / sc_factor.factor_EUR
                         currency['value'] = str(value)
                         if (not currency['currency'] in list_currency_type):
                             list_currency_type.append(currency['currency'])
                             currencys.append(currency)
             for nbs in scnbs:
-                nbsCurrency = WaterproofNbsCa.objects.filter(id=nbs.pk).values('currency__currency').distinct()
+                nbsCurrency = WaterproofNbsCa.objects.filter(pk=nbs.nbs_id).values('currency_id__currency').distinct()
                 for nbsc in nbsCurrency:
-                    if(nbsc['currency__currency'] != sc_currency and any(element['currency'] in nbsc['currency__currency'] for element in currencys)):
+                    nbs_cu = nbsc['currency_id__currency']
+                    if( nbs_cu and nbs_cu != sc_currency and not any(element['currency'] in nbs_cu for element in currencys)):
                         currency = {}
-                        currency['currency'] = nbsc['currency__currency']
+                        currency['currency'] = nbs_cu
                         scc = StudyCases_Currency.objects.filter(
-                            studycase=sc, currency=nbsc['currency__currency']).first()
+                            studycase=sc, currency=nbs_cu).first()
                         if(scc):
                             value = scc.value
                         else:
-                            factor = Countries_factor.objects.filter(currency=ptapc['function_currency']).first()
+                            factor = Countries_factor.objects.filter(currency=nbs_cu).first()
                             value = factor.factor_EUR / sc_factor.factor_EUR
                         currency['value'] = str(value)
                         if (not currency['currency'] in list_currency_type):
@@ -190,18 +193,19 @@ def getNBS(request):
     if request.method == 'POST':
         nbs = []
         nbs_admin = WaterproofNbsCa.objects.filter(added_by__professional_role='ADMIN').values(
-            "id", "name","unit_implementation_cost", "unit_maintenance_cost","periodicity_maitenance","unit_oportunity_cost", "currency__currency")
-        country = request.POST['country']
+            "id", "name","unit_implementation_cost", "unit_maintenance_cost","periodicity_maitenance","unit_oportunity_cost", "currency__currency", "country__global_multiplier_factor")
+        id_city = request.POST['city_id'] 
         process = request.POST['process']
         id_study_case = request.POST['id_study_case']
+        filtercity = Cities.objects.get(pk=id_city)
         if(process == 'Edit' or process == 'View' or process == 'Clone'):
             sc = StudyCases.objects.get(pk=id_study_case)
             scnbs_list = StudyCases_NBS.objects.filter(studycase=sc)
             if(process == 'Clone'):
-                nbs_user = WaterproofNbsCa.objects.filter(added_by=request.user, country__name__startswith=country).exclude(added_by__professional_role='ADMIN').values(
+                nbs_user = WaterproofNbsCa.objects.filter(added_by=request.user, country=filtercity.country).exclude(added_by__professional_role='ADMIN').values(
                     "id", "name" ,"unit_implementation_cost", "unit_maintenance_cost","periodicity_maitenance","unit_oportunity_cost", "currency__currency")
             else:
-                nbs_user = WaterproofNbsCa.objects.filter(added_by=sc.added_by, country__name__startswith=country).exclude(added_by__professional_role='ADMIN').values(
+                nbs_user = WaterproofNbsCa.objects.filter(added_by=sc.added_by, country=filtercity.country).exclude(added_by__professional_role='ADMIN').values(
                     "id", "name","unit_implementation_cost", "unit_maintenance_cost","periodicity_maitenance","unit_oportunity_cost", "currency__currency")
             nbs_list = chain(nbs_admin, nbs_user)
             for n in nbs_list:
@@ -227,7 +231,7 @@ def getNBS(request):
                 }
                 nbs.append(nObject)
         elif(process == 'Create'):
-            nbs_user = WaterproofNbsCa.objects.filter(added_by=request.user, country__name__startswith=country).exclude(added_by__professional_role='ADMIN').values(
+            nbs_user = WaterproofNbsCa.objects.filter(added_by=request.user, country=filtercity.country).exclude(added_by__professional_role='ADMIN').values(
                 "id", "name","unit_implementation_cost", "unit_maintenance_cost","periodicity_maitenance","unit_oportunity_cost", "currency__currency")
             nbs_list = chain(nbs_admin, nbs_user)
             nbs = list(nbs_list)

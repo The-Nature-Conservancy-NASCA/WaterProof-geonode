@@ -112,6 +112,35 @@ class investIndicators(models.Model):
     bf_m3 = models.FloatField(null=True, blank=True, default=None, verbose_name=_('BfM3'))
     wc_ton = models.FloatField(null=True, blank=True, default=None, verbose_name=_('WcTon'))
 
+class resultRoi(models.Model):
+    currency = models.CharField(max_length=4, blank=True, null=True)
+    roi_without_discount = models.FloatField()
+    roi_minimum = models.FloatField()
+    roi_maximum = models.FloatField()
+    roi_medium = models.FloatField()
+    study_case = models.ForeignKey(StudyCases, on_delete=models.CASCADE)
+    create_date = models.DateField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'waterproof_report_result_roi'
+
+class reportsVpn(models.Model):
+    currency = models.CharField(max_length=4)
+    implementation = models.FloatField()
+    maintenance = models.FloatField()
+    oportunity = models.FloatField()
+    transaction = models.FloatField()
+    platform = models.FloatField()
+    benefit = models.FloatField()
+    total = models.FloatField()
+    study_case = models.ForeignKey(StudyCases, on_delete=models.CASCADE)
+    date_execution = models.DateField(blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'waterproof_reports_vpn'
+
 class rios_ipa(models.Model):
     year = models.IntegerField(verbose_name=_('Year'))
     sbn = models.CharField(max_length=100)

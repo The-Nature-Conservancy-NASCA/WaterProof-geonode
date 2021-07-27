@@ -51,6 +51,17 @@ $(document).ready(function() {
     $("#countryLabel").html(localStorage.getItem('country'));
     // Interpolation with Wizard
     $("#intakeWECB").click(function() {
+
+        if ($('#numberYearsInterpolationValue').val() < 10 || $('#numberYearsInterpolationValue').val() > 100) {
+            Swal.fire({
+                icon: 'warning',
+                title: gettext('field_problem'),
+                text: gettext('Error number of years for time series  (10-100) Year'),
+            });
+            valid_period = false;
+            return
+        }
+
         if ($("#numberYearsInterpolationValue").val() == '' || $("#initialDataExtractionInterpolationValue").val() == '' || $("#finalDataExtractionInterpolationValue").val() == '') {
             Swal.fire({
                 icon: 'warning',
@@ -105,7 +116,7 @@ $(document).ready(function() {
                 waterExtractionValue.push(yearData);
                 $('#intakeECTAG').append(`<tr>
                 <th class="text-center" scope="row">${index - 1}</th>
-                <td class="text-center"><input type="text" class="form-control" value="${(b * (Math.pow(index, m))).toFixed(2)}" disabled></td>
+                <td class="text-center"><input type="text" class="form-control justify-number" value="${(b * (Math.pow(index, m))).toFixed(2)}" disabled></td>
               </tr>`);
             }
         }
@@ -124,7 +135,7 @@ $(document).ready(function() {
                 waterExtractionValue.push(yearData);
                 $('#intakeECTAG').append(`<tr>
                 <th class="text-center" scope="row">${index}</th>
-                <td class="text-center"><input type="text" class="form-control" value="${(b * (Math.exp(m * index))).toFixed(2)}" disabled></td>
+                <td class="text-center"><input type="text" class="form-control justify-number" value="${(b * (Math.exp(m * index))).toFixed(2)}" disabled></td>
               </tr>`);
             }
 
@@ -141,7 +152,7 @@ $(document).ready(function() {
                 yearData.year = index + 1;
                 yearData.value = ((finalDataExtractionInterpolationValue) / (1 + ((finalDataExtractionInterpolationValue / initialDataExtractionInterpolationValue) - 1) * Math.exp(-r * index))).toFixed(2);
                 waterExtractionValue.push(yearData);
-                $('#intakeECTAG').append(`<tr><th class="text-center" scope="row">${index}</th><td class="text-center"><input type="text" class="form-control" value="${((finalDataExtractionInterpolationValue) / (1 + ((finalDataExtractionInterpolationValue / initialDataExtractionInterpolationValue) - 1) * Math.exp(-r * index))).toFixed(2)}" disabled></td></tr>`);
+                $('#intakeECTAG').append(`<tr><th class="text-center" scope="row">${index}</th><td class="text-center"><input type="text" class="form-control justify-number" value="${((finalDataExtractionInterpolationValue) / (1 + ((finalDataExtractionInterpolationValue / initialDataExtractionInterpolationValue) - 1) * Math.exp(-r * index))).toFixed(2)}" disabled></td></tr>`);
             }
         }
 
@@ -170,13 +181,15 @@ $(document).ready(function() {
                 denyButtonText: gettext('Cancel')
             }).then((result) => {
                 if (result.isConfirmed) {
+                    console.log("wxtraccion"+ JSON.stringify(waterExtractionData));
                     $('#intakeECTAG tr').remove();
                     $('#IntakeTDLE table').remove();
                     $('#externalSelect option').remove();
                     $('#intakeECTAG').empty();
                     $('#IntakeTDLE').empty();
                     $('#externalSelect').empty();
-                    waterExtractionData = [];
+                    $('#waterExtraction').empty();
+                    //waterExtractionData = [];
                     $('#waterExtraction').val(JSON.stringify(waterExtractionData));
                     $('#initialDataExtractionInterpolationValue').val('');
                     $('#finalDataExtractionInterpolationValue').val('');
@@ -209,8 +222,10 @@ $(document).ready(function() {
                     $('#intakeWEMI').empty();
                     $('#IntakeTDLE').empty();
                     $('#externalSelect').empty();
-                    waterExtractionData = [];
+                    $('#waterExtraction').empty();
+                    //waterExtractionData = [];
                     $('#waterExtraction').val(JSON.stringify(waterExtractionData));
+                    $('#numberYearsInterpolationValue').val('');
                     $('#intakeNIYMI').val('');
                 } else if (result.isDenied) {
                     $('[href="#manual"]').tab('show');
@@ -239,6 +254,17 @@ $(document).ready(function() {
 
     // Generate Input Manual Interpolation
     $('#intakeNIBYMI').click(function() {
+
+        if ($('#intakeNIYMI').val() < 10 || $('#intakeNIYMI').val() > 100) {
+            Swal.fire({
+                icon: 'warning',
+                title: gettext('field_problem'),
+                text: gettext('Error number of years  (10-100) Year'),
+            });
+            valid_period = false;
+            return
+        }
+
         $('#intakeWEMI tr').remove();
         $('#intakeWEMI').empty();
         intakeNIYMI = Number($("#intakeNIYMI").val());
