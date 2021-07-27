@@ -178,3 +178,8 @@ input:checked+.slider:before {
 .justify-text{
     text-align: left;
 }
+.table-center-item{
+    display: block;
+    text-align:center;
+    vertical-align: middle;
+}
