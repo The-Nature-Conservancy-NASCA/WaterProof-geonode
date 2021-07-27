@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Waterproof_valpha\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-07-21 14:34-0500\n"
-"PO-Revision-Date: 2021-07-27 15:09-0500\n"
+"PO-Revision-Date: 2021-07-27 17:26-0500\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -145,7 +145,7 @@ msgstr "Análisis de datos"
 
 #: template/intake_clone.html:245 template/intake_detail_list.html:218 template/intake_edit.html:236 template/intake_form.html:234
 msgid "Please select the method you wish to use"
-msgstr "Por favor seleccione el método que desea usar para lelenar la tabla asociadad con la extracción anual de agua de la fuente y de clic en el botón generar para obtener la serie de datos"
+msgstr "Por favor seleccione el método que desea usar para lelenar la tabla asociadad con la extracción anual de agua de la fuente"
 
 #: template/intake_clone.html:249 template/intake_detail_list.html:222 template/intake_edit.html:240 template/intake_form.html:238
 msgid "Interpolation method "
@@ -193,7 +193,7 @@ msgstr "Año"
 
 #: template/intake_clone.html:316 template/intake_detail_list.html:281 template/intake_edit.html:298 template/intake_form.html:300
 msgid "You can edit the table manually"
-msgstr "Usted puede editar la tabla manualmente"
+msgstr "Ingrese el número de años de la extracción de agua y diligencie la tabla de demanda"
 
 #: template/intake_clone.html:318 template/intake_detail_list.html:283 template/intake_edit.html:300 template/intake_form.html:302
 msgid "Number of years"
@@ -225,11 +225,11 @@ msgstr "Usted debe definir el área de implementación de la SbN"
 
 #: template/intake_clone.html:399 template/intake_form.html:384
 msgid "To move area vertices"
-msgstr "1. Choose between \"Delimit NbS implementation area\" or uploading a \"geographic file\""
+msgstr "Elija entre 'Delimitación manual' o cargar un archivo geográfico"
 
 #: template/intake_clone.html:404 template/intake_edit.html:380 template/intake_form.html:388
 msgid "To load shapefile"
-msgstr "2. Una vez definida el área de implementación, valide el proceso haciendo clic en el botón de arriba"
+msgstr "Una vez definida el área de implementación, valide el proceso haciendo clic en el botón de abajo"
 
 #: template/intake_clone.html:410 template/intake_edit.html:383 template/intake_form.html:398
 msgid "Help"
@@ -322,7 +322,7 @@ msgstr "1. Choose between \"Delimit NbS implementation area\" or uploading a \"g
 
 #: template/intake_edit.html:378 template/intake_form.html:386
 msgid "Manually area delimit"
-msgstr "Delimitar área manualmente"
+msgstr "Delimitación manual"
 
 #: template/intake_edit.html:388 template/intake_form.html:403
 msgid "Validate delimit area"
