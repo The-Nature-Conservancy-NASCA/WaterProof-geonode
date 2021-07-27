@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Waterproof_valpha\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-07-21 14:34-0500\n"
-"PO-Revision-Date: 2021-07-23 21:50-0500\n"
+"PO-Revision-Date: 2021-07-27 15:09-0500\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,42 +22,31 @@ msgstr ""
 msgid "Clone water intake"
 msgstr "Clonar captación"
 
-#: template/intake_clone.html:19 template/intake_detail_list.html:32
-#: template/intake_edit.html:23 template/intake_form.html:19
+#: template/intake_clone.html:19 template/intake_detail_list.html:32 template/intake_edit.html:23 template/intake_form.html:19
 msgid "Intake creation city"
 msgstr "Ciudad de creación"
 
-#: template/intake_clone.html:31 template/intake_edit.html:35
-#: template/intake_form.html:32
+#: template/intake_clone.html:31 template/intake_edit.html:35 template/intake_form.html:32
 msgid "Define"
 msgstr "Localización"
 
-#: template/intake_clone.html:36 template/intake_clone.html:111
-#: template/intake_edit.html:40 template/intake_edit.html:116
-#: template/intake_form.html:37 template/intake_form.html:115
+#: template/intake_clone.html:36 template/intake_clone.html:111 template/intake_edit.html:40 template/intake_edit.html:116 template/intake_form.html:37 template/intake_form.html:115
 msgid "Configure parameters"
 msgstr "Infraestructura"
 
-#: template/intake_clone.html:41 template/intake_clone.html:226
-#: template/intake_detail_list.html:200 template/intake_edit.html:45
-#: template/intake_edit.html:218 template/intake_form.html:42
-#: template/intake_form.html:214
+#: template/intake_clone.html:41 template/intake_clone.html:226 template/intake_detail_list.html:200 template/intake_edit.html:45 template/intake_edit.html:218 template/intake_form.html:42 template/intake_form.html:214
 msgid "Water extraction"
 msgstr "Demanda"
 
-#: template/intake_clone.html:46 template/intake_edit.html:50
-#: template/intake_form.html:47
+#: template/intake_clone.html:46 template/intake_edit.html:50 template/intake_form.html:47
 msgid "External"
 msgstr "Entradas externas"
 
-#: template/intake_clone.html:51 template/intake_edit.html:55
-#: template/intake_form.html:52
+#: template/intake_clone.html:51 template/intake_edit.html:55 template/intake_form.html:52
 msgid "Sub area"
 msgstr "Área de SbN"
 
-#: template/intake_clone.html:60 template/intake_edit.html:64
-#: template/intake_form.html:61 template/intake_form.html:586
-#: template/intake_form.html:620
+#: template/intake_clone.html:60 template/intake_edit.html:64 template/intake_form.html:61 template/intake_form.html:586 template/intake_form.html:620
 msgid "Define water intake"
 msgstr "Definir captación"
 
@@ -65,8 +54,7 @@ msgstr "Definir captación"
 msgid "Please complete the fields to define your Water Intake"
 msgstr "Por favor, complete los campos para definir su captación"
 
-#: template/intake_clone.html:67 template/intake_edit.html:71
-#: template/intake_form.html:70 template/intake_list.html:55
+#: template/intake_clone.html:67 template/intake_edit.html:71 template/intake_form.html:70 template/intake_list.html:55
 msgid "Name"
 msgstr "Nombre"
 
@@ -74,293 +62,216 @@ msgstr "Nombre"
 msgid "Cloned"
 msgstr "Clon"
 
-#: template/intake_clone.html:78 template/intake_edit.html:82
-#: template/intake_form.html:81 template/intake_list.html:56
+#: template/intake_clone.html:78 template/intake_edit.html:82 template/intake_form.html:81 template/intake_list.html:56
 msgid "Description"
 msgstr "Descripción"
 
-#: template/intake_clone.html:88 template/intake_edit.html:93
-#: template/intake_form.html:92 template/intake_list.html:59
+#: template/intake_clone.html:88 template/intake_edit.html:93 template/intake_form.html:92 template/intake_list.html:59
 msgid "Water source name"
 msgstr "Nombre de la fuente hídrica"
 
-#: template/intake_clone.html:104 template/intake_clone.html:351
-#: template/intake_clone.html:378 template/intake_detail_list.html:112
-#: template/intake_detail_list.html:191 template/intake_detail_list.html:312
-#: template/intake_detail_list.html:338 template/intake_edit.html:109
-#: template/intake_edit.html:210 template/intake_edit.html:329
-#: template/intake_edit.html:355 template/intake_form.html:108
-#: template/intake_form.html:206 template/intake_form.html:332
-#: template/intake_form.html:358
+#: template/intake_clone.html:104 template/intake_clone.html:351 template/intake_clone.html:378 template/intake_detail_list.html:112 template/intake_detail_list.html:191 template/intake_detail_list.html:312 template/intake_detail_list.html:338 template/intake_edit.html:109 template/intake_edit.html:210
+#: template/intake_edit.html:329 template/intake_edit.html:355 template/intake_form.html:108 template/intake_form.html:206 template/intake_form.html:332 template/intake_form.html:358
 msgid "Next"
 msgstr "Next"
 
-#: template/intake_clone.html:112 template/intake_edit.html:117
-#: template/intake_form.html:116
+#: template/intake_clone.html:112 template/intake_edit.html:117 template/intake_form.html:116
 msgid "Select the elements that make up your capture system"
 msgstr "Selecciona los elementos que componen su sistema de captación"
 
-#: template/intake_clone.html:126 template/intake_edit.html:131
-#: template/intake_form.html:131
+#: template/intake_clone.html:126 template/intake_edit.html:131 template/intake_form.html:131
 msgid "Source"
 msgstr "Source"
 
-#: template/intake_clone.html:153 template/intake_edit.html:154
-#: template/intake_form.html:152
+#: template/intake_clone.html:153 template/intake_edit.html:154 template/intake_form.html:152
 msgid "ID"
 msgstr "ID"
 
-#: template/intake_clone.html:158 template/intake_edit.html:159
-#: template/intake_form.html:157
+#: template/intake_clone.html:158 template/intake_edit.html:159 template/intake_form.html:157
 #, python-format
 msgid "%% Transported water"
 msgstr "%% de agua transportada"
 
-#: template/intake_clone.html:164 template/intake_edit.html:164
-#: template/intake_form.html:162
+#: template/intake_clone.html:164 template/intake_edit.html:164 template/intake_form.html:162
 #, python-format
 msgid "%% Sediments retained"
 msgstr "%% de sedimentos retenidos"
 
-#: template/intake_clone.html:170 template/intake_edit.html:169
-#: template/intake_form.html:167
+#: template/intake_clone.html:170 template/intake_edit.html:169 template/intake_form.html:167
 #, python-format
 msgid "%% Nitrogen retained"
 msgstr "%% de nitrógeno retenido"
 
-#: template/intake_clone.html:176 template/intake_edit.html:174
-#: template/intake_form.html:172
+#: template/intake_clone.html:176 template/intake_edit.html:174 template/intake_form.html:172
 #, python-format
 msgid "%% Phosphorus retained"
 msgstr "%% de fósforo retenido"
 
-#: template/intake_clone.html:187 template/intake_edit.html:184
-#: template/intake_form.html:183
+#: template/intake_clone.html:187 template/intake_edit.html:184 template/intake_form.html:183
 msgid "Cost functions "
 msgstr "Funciones de costo "
 
-#: template/intake_clone.html:197 template/intake_edit.html:191
-#: template/intake_form.html:189
+#: template/intake_clone.html:197 template/intake_edit.html:191 template/intake_form.html:189
 msgid "Function name"
 msgstr "Nombre de la función de costo"
 
-#: template/intake_clone.html:199 template/intake_edit.html:192
-#: template/intake_form.html:190
+#: template/intake_clone.html:199 template/intake_edit.html:192 template/intake_form.html:190
 msgid "Function"
 msgstr "Función"
 
-#: template/intake_clone.html:200 template/intake_edit.html:193
-#: template/intake_form.html:191 template/intake_list.html:38
+#: template/intake_clone.html:200 template/intake_edit.html:193 template/intake_form.html:191 template/intake_list.html:38
 msgid "Currency"
 msgstr "Moneda"
 
-#: template/intake_clone.html:201 template/intake_edit.html:194
-#: template/intake_form.html:192
+#: template/intake_clone.html:201 template/intake_edit.html:194 template/intake_form.html:192
 msgid "Factor"
 msgstr "Multiplication factor of the total cost"
 
-#: template/intake_clone.html:202 template/intake_edit.html:195
-#: template/intake_form.html:193 template/intake_list.html:64
+#: template/intake_clone.html:202 template/intake_edit.html:195 template/intake_form.html:193 template/intake_list.html:64
 msgid "Options"
 msgstr "Opciones"
 
-#: template/intake_clone.html:227 template/intake_detail_list.html:201
-#: template/intake_edit.html:219
+#: template/intake_clone.html:227 template/intake_detail_list.html:201 template/intake_edit.html:219
 msgid "Please enter the annual water extraction"
 msgstr "Ingrese la extracción de agua anual"
 
-#: template/intake_clone.html:233 template/intake_detail_list.html:206
-#: template/intake_edit.html:224 template/intake_form.html:222
+#: template/intake_clone.html:233 template/intake_detail_list.html:206 template/intake_edit.html:224 template/intake_form.html:222
 msgid "Manual edit"
 msgstr "Edición manual"
 
-#: template/intake_clone.html:244 template/intake_detail_list.html:217
-#: template/intake_edit.html:235 template/intake_form.html:233
+#: template/intake_clone.html:244 template/intake_detail_list.html:217 template/intake_edit.html:235 template/intake_form.html:233
 msgid "Data analysis"
 msgstr "Análisis de datos"
 
-#: template/intake_clone.html:245 template/intake_detail_list.html:218
-#: template/intake_edit.html:236 template/intake_form.html:234
+#: template/intake_clone.html:245 template/intake_detail_list.html:218 template/intake_edit.html:236 template/intake_form.html:234
 msgid "Please select the method you wish to use"
-msgstr ""
-"Por favor seleccione el método que desea usar para lelenar la tabla asociadad "
-"con la extracción anual de agua de la fuente y de clic en el botón generar "
-"para obtener la serie de datos"
+msgstr "Por favor seleccione el método que desea usar para lelenar la tabla asociadad con la extracción anual de agua de la fuente y de clic en el botón generar para obtener la serie de datos"
 
-#: template/intake_clone.html:249 template/intake_detail_list.html:222
-#: template/intake_edit.html:240 template/intake_form.html:238
+#: template/intake_clone.html:249 template/intake_detail_list.html:222 template/intake_edit.html:240 template/intake_form.html:238
 msgid "Interpolation method "
 msgstr "Método de interpolación "
 
-#: template/intake_clone.html:253 template/intake_detail_list.html:225
-#: template/intake_edit.html:243 template/intake_form.html:242
-#: template/intake_form.html:781 template/intake_form.html:829
+#: template/intake_clone.html:253 template/intake_detail_list.html:225 template/intake_edit.html:243 template/intake_form.html:242 template/intake_form.html:781 template/intake_form.html:829
 msgid "Linear interpolation"
 msgstr "Interpolación lineal"
 
-#: template/intake_clone.html:254 template/intake_detail_list.html:226
-#: template/intake_edit.html:244 template/intake_form.html:243
-#: template/intake_form.html:782 template/intake_form.html:830
+#: template/intake_clone.html:254 template/intake_detail_list.html:226 template/intake_edit.html:244 template/intake_form.html:243 template/intake_form.html:782 template/intake_form.html:830
 msgid "Potential interpolation"
 msgstr "Interpolación potencial"
 
-#: template/intake_clone.html:255 template/intake_detail_list.html:227
-#: template/intake_edit.html:245 template/intake_form.html:244
-#: template/intake_form.html:783 template/intake_form.html:831
+#: template/intake_clone.html:255 template/intake_detail_list.html:227 template/intake_edit.html:245 template/intake_form.html:244 template/intake_form.html:783 template/intake_form.html:831
 msgid "Exponential interpolation"
 msgstr "Interpolación exponencial"
 
-#: template/intake_clone.html:257 template/intake_detail_list.html:228
-#: template/intake_edit.html:246 template/intake_form.html:245
+#: template/intake_clone.html:257 template/intake_detail_list.html:228 template/intake_edit.html:246 template/intake_form.html:245
 msgid "Logistics interpolation"
 msgstr "Interpolación logística"
 
-#: template/intake_clone.html:261 template/intake_clone.html:315
-#: template/intake_detail_list.html:232 template/intake_detail_list.html:280
-#: template/intake_edit.html:250 template/intake_edit.html:297
-#: template/intake_form.html:249 template/intake_form.html:299
+#: template/intake_clone.html:261 template/intake_clone.html:315 template/intake_detail_list.html:232 template/intake_detail_list.html:280 template/intake_edit.html:250 template/intake_edit.html:297 template/intake_form.html:249 template/intake_form.html:299
 msgid "Number of years for time series"
 msgstr "Número de años para la serie de tiempo"
 
-#: template/intake_clone.html:268 template/intake_detail_list.html:239
-#: template/intake_edit.html:256 template/intake_form.html:255
+#: template/intake_clone.html:268 template/intake_detail_list.html:239 template/intake_edit.html:256 template/intake_form.html:255
 msgid "Extraction"
 msgstr "Extracción"
 
-#: template/intake_clone.html:272 template/intake_detail_list.html:243
-#: template/intake_edit.html:260 template/intake_form.html:259
+#: template/intake_clone.html:272 template/intake_detail_list.html:243 template/intake_edit.html:260 template/intake_form.html:259
 msgid "Initial year"
 msgstr "Año inicial (l/s)"
 
-#: template/intake_clone.html:278 template/intake_detail_list.html:247
-#: template/intake_edit.html:264 template/intake_form.html:264
+#: template/intake_clone.html:278 template/intake_detail_list.html:247 template/intake_edit.html:264 template/intake_form.html:264
 msgid "Final year"
 msgstr "Año Final (l/s)"
 
-#: template/intake_clone.html:290 template/intake_clone.html:327
-#: template/intake_detail_list.html:256 template/intake_detail_list.html:290
-#: template/intake_edit.html:273 template/intake_edit.html:307
-#: template/intake_form.html:274 template/intake_form.html:310
+#: template/intake_clone.html:290 template/intake_clone.html:327 template/intake_detail_list.html:256 template/intake_detail_list.html:290 template/intake_edit.html:273 template/intake_edit.html:307 template/intake_form.html:274 template/intake_form.html:310
 msgid "Results"
 msgstr "Resultados"
 
-#: template/intake_clone.html:295 template/intake_clone.html:332
-#: template/intake_detail_list.html:261 template/intake_detail_list.html:295
-#: template/intake_edit.html:278 template/intake_edit.html:312
-#: template/intake_form.html:279 template/intake_form.html:315
+#: template/intake_clone.html:295 template/intake_clone.html:332 template/intake_detail_list.html:261 template/intake_detail_list.html:295 template/intake_edit.html:278 template/intake_edit.html:312 template/intake_form.html:279 template/intake_form.html:315
 msgid "Year"
 msgstr "Año"
 
-#: template/intake_clone.html:316 template/intake_detail_list.html:281
-#: template/intake_edit.html:298 template/intake_form.html:300
+#: template/intake_clone.html:316 template/intake_detail_list.html:281 template/intake_edit.html:298 template/intake_form.html:300
 msgid "You can edit the table manually"
 msgstr "Usted puede editar la tabla manualmente"
 
-#: template/intake_clone.html:318 template/intake_detail_list.html:283
-#: template/intake_edit.html:300 template/intake_form.html:302
+#: template/intake_clone.html:318 template/intake_detail_list.html:283 template/intake_edit.html:300 template/intake_form.html:302
 msgid "Number of years"
 msgstr "Número de años para la serie de tiempo"
 
-#: template/intake_clone.html:359 template/intake_detail_list.html:320
-#: template/intake_edit.html:337 template/intake_form.html:340
+#: template/intake_clone.html:359 template/intake_detail_list.html:320 template/intake_edit.html:337 template/intake_form.html:340
 msgid "External inputs"
 msgstr "Entradas externas"
 
-#: template/intake_clone.html:360 template/intake_detail_list.html:321
-#: template/intake_edit.html:338 template/intake_form.html:341
+#: template/intake_clone.html:360 template/intake_detail_list.html:321 template/intake_edit.html:338 template/intake_form.html:341
 msgid "External inputs to define"
 msgstr "Entradas externas por definir"
 
-#: template/intake_clone.html:365 template/intake_detail_list.html:326
-#: template/intake_edit.html:343 template/intake_form.html:346
+#: template/intake_clone.html:365 template/intake_detail_list.html:326 template/intake_edit.html:343 template/intake_form.html:346
 msgid "Asignation"
 msgstr "Definición"
 
-#: template/intake_clone.html:367 template/intake_detail_list.html:328
-#: template/intake_edit.html:345 template/intake_form.html:348
+#: template/intake_clone.html:367 template/intake_detail_list.html:328 template/intake_edit.html:345 template/intake_form.html:348
 msgid "Type element for asignation"
 msgstr "Seleccione la entrada externa para la definición"
 
-#: template/intake_clone.html:396 template/intake_detail_list.html:356
-#: template/intake_edit.html:373 template/intake_form.html:379
-#: template/intake_form.html:862
+#: template/intake_clone.html:396 template/intake_detail_list.html:356 template/intake_edit.html:373 template/intake_form.html:379 template/intake_form.html:862
 msgid "Intake area delimitation"
 msgstr "Área de implementación para SbN"
 
-#: template/intake_clone.html:398 template/intake_edit.html:375
-#: template/intake_form.html:383
+#: template/intake_clone.html:398 template/intake_edit.html:375 template/intake_form.html:383
 msgid "You can change the area"
 msgstr "Usted debe definir el área de implementación de la SbN"
 
 #: template/intake_clone.html:399 template/intake_form.html:384
 msgid "To move area vertices"
-msgstr ""
-"1. Choose between \"Delimit NbS implementation area\" or uploading a "
-"\"geographic file\""
+msgstr "1. Choose between \"Delimit NbS implementation area\" or uploading a \"geographic file\""
 
-#: template/intake_clone.html:404 template/intake_edit.html:380
-#: template/intake_form.html:388
+#: template/intake_clone.html:404 template/intake_edit.html:380 template/intake_form.html:388
 msgid "To load shapefile"
-msgstr ""
-"2. Una vez definida el área de implementación, valide el proceso haciendo "
-"clic en el botón de arriba"
+msgstr "2. Una vez definida el área de implementación, valide el proceso haciendo clic en el botón de arriba"
 
-#: template/intake_clone.html:410 template/intake_edit.html:383
-#: template/intake_form.html:398
+#: template/intake_clone.html:410 template/intake_edit.html:383 template/intake_form.html:398
 msgid "Help"
 msgstr "Ayuda"
 
-#: template/intake_clone.html:413 template/intake_edit.html:386
-#: template/intake_form.html:401
+#: template/intake_clone.html:413 template/intake_edit.html:386 template/intake_form.html:401
 msgid "Once defined the area"
-msgstr ""
-"Waterproof tomará por defecto el polígono de la cuenca como el área de "
-"implementación para SbN, usted puede remodelar esta área moviendo los "
-"vértices resaltados en rojo"
+msgstr "Waterproof tomará por defecto el polígono de la cuenca como el área de implementación para SbN, usted puede remodelar esta área moviendo los vértices resaltados en rojo"
 
-#: template/intake_clone.html:427 template/intake_edit.html:398
-#: template/intake_form.html:413
+#: template/intake_clone.html:427 template/intake_edit.html:398 template/intake_form.html:413
 msgid "Save"
 msgstr "Guardar"
 
-#: template/intake_clone.html:475 template/intake_edit.html:445
-#: template/intake_form.html:460
+#: template/intake_clone.html:475 template/intake_edit.html:445 template/intake_form.html:460
 msgid "Currency for definition of costs"
 msgstr "Moneda para la definición de costos"
 
-#: template/intake_clone.html:492 template/intake_edit.html:465
-#: template/intake_form.html:472
+#: template/intake_clone.html:492 template/intake_edit.html:465 template/intake_form.html:472
 msgid "Multiplying factor for overrall cost"
 msgstr "Factor multiplicador global"
 
-#: template/intake_clone.html:646 template/intake_edit.html:551
-#: template/intake_form.html:557
+#: template/intake_clone.html:646 template/intake_edit.html:551 template/intake_form.html:557
 msgid "Geom files help"
 msgstr "Ayuda archivos geográficos"
 
-#: template/intake_clone.html:652 template/intake_edit.html:557
-#: template/intake_form.html:563
+#: template/intake_clone.html:652 template/intake_edit.html:557 template/intake_form.html:563
 msgid "Only zip and GeoJSON"
 msgstr "Solo ZIP y GeoJSON"
 
-#: template/intake_clone.html:653 template/intake_edit.html:558
-#: template/intake_form.html:564
+#: template/intake_clone.html:653 template/intake_edit.html:558 template/intake_form.html:564
 msgid "Only EPSG"
 msgstr "Solo EPSG"
 
-#: template/intake_clone.html:654 template/intake_edit.html:559
-#: template/intake_form.html:565
+#: template/intake_clone.html:654 template/intake_edit.html:559 template/intake_form.html:565
 msgid "Max upload size"
 msgstr "Tamaño máximo del archivo"
 
-#: template/intake_clone.html:660 template/intake_edit.html:535
-#: template/intake_edit.html:565 template/intake_form.html:541
-#: template/intake_form.html:571
+#: template/intake_clone.html:660 template/intake_edit.html:535 template/intake_edit.html:565 template/intake_form.html:541 template/intake_form.html:571
 msgid "Close"
 msgstr "Cerrar"
 
-#: template/intake_confirm_delete.html:1 template/intake_confirm_delete.html:2
-#: template/intake_login_error.html:1 template/intake_login_error.html:2
+#: template/intake_confirm_delete.html:1 template/intake_confirm_delete.html:2 template/intake_login_error.html:1 template/intake_login_error.html:2
 msgid "Waterproof NBS CA"
 msgstr "Waterproof SbN"
 
@@ -368,29 +279,20 @@ msgstr "Waterproof SbN"
 msgid "Delete intake"
 msgstr "Borrar captación"
 
-#: template/intake_detail_list.html:190 template/intake_detail_list.html:311
-#: template/intake_detail_list.html:337 template/intake_detail_list.html:373
-#: template/intake_edit.html:209 template/intake_edit.html:328
-#: template/intake_edit.html:354 template/intake_edit.html:397
-#: template/intake_form.html:205 template/intake_form.html:331
-#: template/intake_form.html:357 template/intake_form.html:412
+#: template/intake_detail_list.html:190 template/intake_detail_list.html:311 template/intake_detail_list.html:337 template/intake_detail_list.html:373 template/intake_edit.html:209 template/intake_edit.html:328 template/intake_edit.html:354 template/intake_edit.html:397 template/intake_form.html:205
+#: template/intake_form.html:331 template/intake_form.html:357 template/intake_form.html:412
 msgid "Previous"
 msgstr "Anterior"
 
-#: template/intake_detail_list.html:205 template/intake_edit.html:223
-#: template/intake_form.html:221
+#: template/intake_detail_list.html:205 template/intake_edit.html:223 template/intake_form.html:221
 msgid "Interpolation wizard"
 msgstr "Herramienta de interpolación"
 
-#: template/intake_detail_list.html:252 template/intake_detail_list.html:286
-#: template/intake_edit.html:269 template/intake_edit.html:303
-#: template/intake_form.html:270 template/intake_form.html:306
+#: template/intake_detail_list.html:252 template/intake_detail_list.html:286 template/intake_edit.html:269 template/intake_edit.html:303 template/intake_form.html:270 template/intake_form.html:306
 msgid "Generate"
 msgstr "Generar"
 
-#: template/intake_detail_list.html:262 template/intake_detail_list.html:296
-#: template/intake_edit.html:279 template/intake_edit.html:313
-#: template/intake_form.html:280 template/intake_form.html:316
+#: template/intake_detail_list.html:262 template/intake_detail_list.html:296 template/intake_edit.html:279 template/intake_edit.html:313 template/intake_form.html:280 template/intake_form.html:316
 msgid "Extraction Value (l/s)"
 msgstr "Valor de la extracción (l/s)"
 
@@ -416,9 +318,7 @@ msgstr "Añadir nuevo costo"
 
 #: template/intake_edit.html:376
 msgid "To  move area vertices"
-msgstr ""
-"1. Choose between \"Delimit NbS implementation area\" or uploading a "
-"\"geographic file\""
+msgstr "1. Choose between \"Delimit NbS implementation area\" or uploading a \"geographic file\""
 
 #: template/intake_edit.html:378 template/intake_form.html:386
 msgid "Manually area delimit"
@@ -441,103 +341,48 @@ msgid "Create water intake"
 msgstr "Crear captación"
 
 #: template/intake_form.html:64
-msgid ""
-"Enter the data with which you will identify your water intake. Note that in "
-"addition to the name, a description and the name of the water source, you "
-"must indicate its spatial location."
-msgstr ""
-"Ingrese los datos con los que identificará su captación. Observe que además "
-"del nombre, una descripción y el nombre de la fuente hídrica, debe indicar su "
-"ubicación espacial."
+msgid "Enter the data with which you will identify your water intake. Note that in addition to the name, a description and the name of the water source, you must indicate its spatial location."
+msgstr "Ingrese los datos con los que identificará su captación. Observe que además del nombre, una descripción y el nombre de la fuente hídrica, debe indicar su ubicación espacial."
 
 #: template/intake_form.html:217
-msgid ""
-"Please indicate the demand (extraction) of water that you make from your "
-"water intake, for this you can rely on the system interpolation tool or enter "
-"it manually."
-msgstr ""
-"Por favor indique la demanda(extracción)de agua que realiza desde su "
-"captación, para ello usted puede apoyarse en la herramienta de interpolación "
-"del sistema o ingresarla manualmente."
+msgid "Please indicate the demand (extraction) of water that you make from your water intake, for this you can rely on the system interpolation tool or enter it manually."
+msgstr "Por favor indique la demanda(extracción)de agua que realiza desde su captación, para ello usted puede apoyarse en la herramienta de interpolación del sistema o ingresarla manualmente."
 
 #: template/intake_form.html:298
-msgid ""
-"*You have defined external water inlets to your water inteake system. For "
-"each of them, you must define the annual volume of water (m3), the annual "
-"sediment load (tons), the annual nitrogen load (kg) and the annual phosphorus "
-"load (kg).*"
-msgstr ""
-"*Usted ha definido entradas externas de agua a su sistema de captación. Para "
-"cada una de éstas, debe definir el volumen anual de agua (m3), la carga anual "
-"de sedimentos (toneladas), la carga anual de nitrógeno (kg) y la carga anual "
-"de fósforo (kg)*"
+msgid "*You have defined external water inlets to your water inteake system. For each of them, you must define the annual volume of water (m3), the annual sediment load (tons), the annual nitrogen load (kg) and the annual phosphorus load (kg).*"
+msgstr "*Usted ha definido entradas externas de agua a su sistema de captación. Para cada una de éstas, debe definir el volumen anual de agua (m3), la carga anual de sedimentos (toneladas), la carga anual de nitrógeno (kg) y la carga anual de fósforo (kg)*"
 
 #: template/intake_form.html:364 template/intake_form.html:867
 msgid ""
-"You can delimit the area within the basin in which the implementation of "
-"Nature Based Solutions (NBS) will be considered. By default, the system will "
-"consider that the NBS can be implemented in the entire basin area. However, "
-"by clicking on the button 'Delimit NBS implementation area' the system will "
-"highlight the vertices of the basin so that you can define the area in which "
-"WaterProof will consider that it is possible to implement the NBS."
+"You can delimit the area within the basin in which the implementation of Nature Based Solutions (NBS) will be considered. By default, the system will consider that the NBS can be implemented in the entire basin area. However, by clicking on the button 'Delimit NBS implementation area' the system will highlight the vertices "
+"of the basin so that you can define the area in which WaterProof will consider that it is possible to implement the NBS."
 msgstr ""
-"Usted puede delimitar el área dentro de la cuenca en la cual se considerará "
-"la implementación de las Soluciones Basadas en Naturaleza (SbN). Por defecto, "
-"el sistema considerará que las SbN pueden implementarse en toda el área de la "
-"cuenca. Sin embargo, dando clic en el botón “Delimitar área de implementación "
-"de SbN” el sistema resaltará los vertices de la cuenca para que pueda "
-"delimitar el área en la cual WaterProof considerará que es posible "
-"implementar las SbN."
+"Usted puede delimitar el área dentro de la cuenca en la cual se considerará la implementación de las Soluciones Basadas en Naturaleza (SbN). Por defecto, el sistema considerará que las SbN pueden implementarse en toda el área de la cuenca. Sin embargo, dando clic en el botón “Delimitar área de implementación de SbN” el "
+"sistema resaltará los vertices de la cuenca para que pueda delimitar el área en la cual WaterProof considerará que es posible implementar las SbN."
 
 #: template/intake_form.html:365 template/intake_form.html:870
-msgid ""
-"WaterProof also allows you to load a spatial file in shp format that contains "
-"the polygon where NbS implementations are possible. When finished click on "
-"'Validate area'"
-msgstr ""
-"WaterProof también le permite cargar un archivo espacial en formato shp que "
-"contenga el polígono donde es posible realizar implementaciones de SbN. "
-"Cuando termine de clic en “Validar area”"
+msgid "WaterProof also allows you to load a spatial file in shp format that contains the polygon where NbS implementations are possible. When finished click on 'Validate area'"
+msgstr "WaterProof también le permite cargar un archivo espacial en formato shp que contenga el polígono donde es posible realizar implementaciones de SbN. Cuando termine de clic en “Validar area”"
 
 #: template/intake_form.html:393
 msgid "Select a file"
 msgstr "Seleccione un archivo"
 
 #: template/intake_form.html:591
-msgid ""
-"This is the first step in creating a water intake. In addition to indicating "
-"its name, description and supplier source, a geographic viewer is offered "
-"that through the icon"
-msgstr ""
-"Este es el primer paso en la creación de una captación. Además de indicar su "
-"nombre, descripción y fuente abastecedora, se ofrece un visor geográfico que "
-"por medio del icono"
+msgid "This is the first step in creating a water intake. In addition to indicating its name, description and supplier source, a geographic viewer is offered that through the icon"
+msgstr "Este es el primer paso en la creación de una captación. Además de indicar su nombre, descripción y fuente abastecedora, se ofrece un visor geográfico que por medio del icono"
 
 #: template/intake_form.html:592
-msgid ""
-"helps you identify the most precise location of your water intake (you can "
-"move the icon"
-msgstr ""
-"le ayuda a identificar la ubicación más precisa de su captación(puede mover "
-"el ícono"
+msgid "helps you identify the most precise location of your water intake (you can move the icon"
+msgstr "le ayuda a identificar la ubicación más precisa de su captación(puede mover el ícono"
 
 #: template/intake_form.html:592
-msgid ""
-"on the map to define the water intake location or you can directly enter "
-"latitude and longitude coordinates)."
-msgstr ""
-"en el mapa para definir la ubicación de la captación o puede ingresar "
-"directamente las coordenadas latitud y longitud)."
+msgid "on the map to define the water intake location or you can directly enter latitude and longitude coordinates)."
+msgstr "en el mapa para definir la ubicación de la captación o puede ingresar directamente las coordenadas latitud y longitud)."
 
 #: template/intake_form.html:595
-msgid ""
-"With this information, the system will calculate the polygon of the basin to "
-"be used by the InVest and RIOS models in the definition of portfolios and "
-"calculation of Return on investment:"
-msgstr ""
-"Con esta información el sistema calculará el polígono de la cuenca para ser "
-"empleada por los modelos InVest y RIOS en la definición de portafolios y "
-"cálculo de Retorno de inversión:"
+msgid "With this information, the system will calculate the polygon of the basin to be used by the InVest and RIOS models in the definition of portfolios and calculation of Return on investment:"
+msgstr "Con esta información el sistema calculará el polígono de la cuenca para ser empleada por los modelos InVest y RIOS en la definición de portafolios y cálculo de Retorno de inversión:"
 
 #: template/intake_form.html:599
 msgid "To continue click the Next button"
@@ -556,170 +401,88 @@ msgid "Construction of the scheme"
 msgstr "Construcción del esquema"
 
 #: template/intake_form.html:649 template/intake_form.html:659
-msgid ""
-"Represents a big reservoir, or structure that contains a large water "
-"reservoir, where river waters are stored."
-msgstr ""
-"Representa un embalse,o estructura que contiene un gran depósito de agua, "
-"donde se almacenan aguas de ríos."
+msgid "Represents a big reservoir, or structure that contains a large water reservoir, where river waters are stored."
+msgstr "Representa un embalse,o estructura que contiene un gran depósito de agua, donde se almacenan aguas de ríos."
 
 #: template/intake_form.html:654
-msgid ""
-"Represents pumping mechanisms to absorb water to deliver it to another "
-"element of the water intakesystem."
-msgstr ""
-"Representa mecanismos de bombeo para absorber agua para entregarla a otro "
-"elemento del sistema de captación."
+msgid "Represents pumping mechanisms to absorb water to deliver it to another element of the water intakesystem."
+msgstr "Representa mecanismos de bombeo para absorber agua para entregarla a otro elemento del sistema de captación."
 
 #: template/intake_form.html:664
 msgid "Represents a reservoir, in which water is deposited."
 msgstr "Representa un reservorio, en el cual se deposita agua."
 
 #: template/intake_form.html:669
-msgid ""
-"It represents a bottom intake in which the water collection is located "
-"horizontally and below the flow of the current."
-msgstr ""
-"Representa una bocatoma de fondo en la cual la recolección del agua se "
-"localiza de manera horizontal y por debajo del flujo de la corriente."
+msgid "It represents a bottom intake in which the water collection is located horizontally and below the flow of the current."
+msgstr "Representa una bocatoma de fondo en la cual la recolección del agua se localiza de manera horizontal y por debajo del flujo de la corriente."
 
 #: template/intake_form.html:674
-msgid ""
-"It represents a lateral intake in which the water collection is located on "
-"one side of the stream."
-msgstr ""
-"Representa una bocatoma lateral en la cual la recolección del agua se "
-"localiza a un lado de la corriente."
+msgid "It represents a lateral intake in which the water collection is located on one side of the stream."
+msgstr "Representa una bocatoma lateral en la cual la recolección del agua se localiza a un lado de la corriente."
 
 #: template/intake_form.html:679
-msgid ""
-"Represents a floating intake that is installed on top of a floating surface "
-"(slab), anchored to the bottom of the body of water, and that allows to "
-"capture water."
-msgstr ""
-"Representa una bocatoma flotante que se instala encima de una superficie "
-"flotante (planchón), anclados al fondo del cuerpo de agua, y que permite "
-"captar agua."
+msgid "Represents a floating intake that is installed on top of a floating surface (slab), anchored to the bottom of the body of water, and that allows to capture water."
+msgstr "Representa una bocatoma flotante que se instala encima de una superficie flotante (planchón), anclados al fondo del cuerpo de agua, y que permite captar agua."
 
 #: template/intake_form.html:684
-msgid ""
-"It represents a sand trap that, by reducing the speed of the water, makes "
-"large particles fall under their own weight to the bottom of the sand trap to "
-"be removed."
-msgstr ""
-"Representa un desarenador que por medio de la disminución de la velocidad del "
-"agua, logra que las partículas de tamaños grandes caigan por su propio peso "
-"al fondo del desarenador para ser removidas."
+msgid "It represents a sand trap that, by reducing the speed of the water, makes large particles fall under their own weight to the bottom of the sand trap to be removed."
+msgstr "Representa un desarenador que por medio de la disminución de la velocidad del agua, logra que las partículas de tamaños grandes caigan por su propio peso al fondo del desarenador para ser removidas."
 
 #: template/intake_form.html:689
-msgid ""
-"Represents the case study infrastructure where water treatment is carried out "
-"or other processes are carried out with costs to be integrated into its "
-"analysis."
-msgstr ""
-"Representa la Infraestructura de caso de estudio en donde se realiza el "
-"tratamiento del agua o se realizan otros proceso con costos a integrar en su "
-"análisis."
+msgid "Represents the case study infrastructure where water treatment is carried out or other processes are carried out with costs to be integrated into its analysis."
+msgstr "Representa la Infraestructura de caso de estudio en donde se realiza el tratamiento del agua o se realizan otros proceso con costos a integrar en su análisis."
 
 #: template/intake_form.html:694
-msgid ""
-"Represents external inputs to the system in charge of making water "
-"contributions through hydraulic works of an emitting river basin to meet "
-"water requirements."
-msgstr ""
-"Representa entradas externas al sistema encargada de hacer aportes de agua a "
-"través de obras hidráulicas de una cuenca de río emisora para atender los "
-"requerimientos de agua."
+msgid "Represents external inputs to the system in charge of making water contributions through hydraulic works of an emitting river basin to meet water requirements."
+msgstr "Representa entradas externas al sistema encargada de hacer aportes de agua a través de obras hidráulicas de una cuenca de río emisora para atender los requerimientos de agua."
 
 #: template/intake_form.html:700
-msgid ""
-"Note that you must make the connections by clicking between the source "
-"element and the destination element. Right click to indicate the type of "
-"connection:"
-msgstr ""
-"Tenga en cuenta que debe hacer las conexiones dando clic entre el elemento "
-"origen y el elemento destino. De clic derecho para indicar el tipo de "
-"conexión:"
+msgid "Note that you must make the connections by clicking between the source element and the destination element. Right click to indicate the type of connection:"
+msgstr "Tenga en cuenta que debe hacer las conexiones dando clic entre el elemento origen y el elemento destino. De clic derecho para indicar el tipo de conexión:"
 
 #: template/intake_form.html:707
 msgid "Channel:"
 msgstr "Canal:"
 
 #: template/intake_form.html:708
-msgid ""
-"To represent structures that collect the collected water and lead it to "
-"another element of the collection system"
-msgstr ""
-"Para representar estructuras que recolectan el agua captada y conducir la a "
-"otro elemento del sistema de captación"
+msgid "To represent structures that collect the collected water and lead it to another element of the collection system"
+msgstr "Para representar estructuras que recolectan el agua captada y conducir la a otro elemento del sistema de captación"
 
 #: template/intake_form.html:709
 msgid "Tubing:"
 msgstr "Tubería:"
 
 #: template/intake_form.html:710
-msgid ""
-"Rigid type or flexible hoses, that are in the intake system operating either "
-"by means of pumping and / or re-pumping, or by gravity"
-msgstr ""
-"De tipo rígidas o mangueras flexibles, que se encuentren en el sistema de "
-"captación funcionando ya sea por medio de bombeo y/o rebombeo, ó a gravedad"
+msgid "Rigid type or flexible hoses, that are in the intake system operating either by means of pumping and / or re-pumping, or by gravity"
+msgstr "De tipo rígidas o mangueras flexibles, que se encuentren en el sistema de captación funcionando ya sea por medio de bombeo y/o rebombeo, ó a gravedad"
 
 #: template/intake_form.html:711
 msgid "Connection:"
 msgstr "Conexión:"
 
 #: template/intake_form.html:712
-msgid ""
-"where there is no pipe or channel type element that connects them, but it is "
-"required to symbolize their topological connection relationship"
-msgstr ""
-"donde no existe un elemento tipo tubería o canal que los conecte, pero que se "
-"requiere simbolizar su relación de conexión topológica"
+msgid "where there is no pipe or channel type element that connects them, but it is required to symbolize their topological connection relationship"
+msgstr "donde no existe un elemento tipo tubería o canal que los conecte, pero que se requiere simbolizar su relación de conexión topológica"
 
 #: template/intake_form.html:722
-msgid ""
-"Click on the element you want to incorporate. Then click on the graphic board "
-"to include it in the scheme. Establish connections by clicking your mouse "
-"between elements:"
-msgstr ""
-"De clic sobre el elemento que desee incorporar.  Luego de clic en el tablero "
-"gráfico para incluirlo en el esquema. Establezca las conexiones arrastrando "
-"su mouse entre elementos:"
+msgid "Click on the element you want to incorporate. Then click on the graphic board to include it in the scheme. Establish connections by clicking your mouse between elements:"
+msgstr "De clic sobre el elemento que desee incorporar.  Luego de clic en el tablero gráfico para incluirlo en el esquema. Establezca las conexiones arrastrando su mouse entre elementos:"
 
 #: template/intake_form.html:726
-msgid ""
-"Once you have defined the connection, you can right click on the arrow to "
-"determine if it is a channel, a pipe, a connection or an extraction "
-"connection:"
-msgstr ""
-"Una vez que haya definido la conexión podrá dar clic derecho sobre la flecha "
-"para determinar si es un canal, una tubería, una conexión o una conexión "
-"extracción:"
+msgid "Once you have defined the connection, you can right click on the arrow to determine if it is a channel, a pipe, a connection or an extraction connection:"
+msgstr "Una vez que haya definido la conexión podrá dar clic derecho sobre la flecha para determinar si es un canal, una tubería, una conexión o una conexión extracción:"
 
 #: template/intake_form.html:732
-msgid ""
-"For each item, confirm or edit the values ​​of percentage of transported water, "
-"percentage of sediment retention, percentage of nitrogen retention, and "
-"percentage of phosphorus retention. These values ​​will influence the model "
-"calculations:"
-msgstr ""
-"Por cada elemento confirme o edite los valores de porcentaje de agua "
-"transportada, porcentaje de retención de sedimentos, porcentaje de retención "
-"de nitrógeno y porcentaje de retención de fósforo. Estos valores influirán en "
-"los cálculos de los modelos:"
+msgid "For each item, confirm or edit the values ​​of percentage of transported water, percentage of sediment retention, percentage of nitrogen retention, and percentage of phosphorus retention. These values ​​will influence the model calculations:"
+msgstr "Por cada elemento confirme o edite los valores de porcentaje de agua transportada, porcentaje de retención de sedimentos, porcentaje de retención de nitrógeno y porcentaje de retención de fósforo. Estos valores influirán en los cálculos de los modelos:"
 
 #: template/intake_form.html:733
 msgid "When your system is complete, click on the 'Validate chart' button."
 msgstr "Cuando su sistema esté completo de clic en el botón “Validar gráfico”."
 
 #: template/intake_form.html:737
-msgid ""
-"For each item confirm or edit the operation and maintenance cost function. "
-"You can also create new cost functions."
-msgstr ""
-"Por cada elemento confirme o edite la función de costos de operación y "
-"mantenimiento. También puede crear nuevas funciones de costo."
+msgid "For each item confirm or edit the operation and maintenance cost function. You can also create new cost functions."
+msgstr "Por cada elemento confirme o edite la función de costos de operación y mantenimiento. También puede crear nuevas funciones de costo."
 
 #: template/intake_form.html:762 template/intake_form.html:821
 msgid "Definition of demand (extraction) of water in the water intake"
@@ -734,12 +497,8 @@ msgid "external inputs"
 msgstr "entradas externas"
 
 #: template/intake_form.html:778 template/intake_form.html:826
-msgid ""
-"The system offers you several alternatives to define the demand (extraction) "
-"of water from your catchment:"
-msgstr ""
-"El sistema le ofrece varias alternativas para definir la demanda(extracción) "
-"de aguade su captación:"
+msgid "The system offers you several alternatives to define the demand (extraction) of water from your catchment:"
+msgstr "El sistema le ofrece varias alternativas para definir la demanda(extracción) de aguade su captación:"
 
 #: template/intake_form.html:784 template/intake_form.html:832
 msgid "Logarithmic interpolation"
@@ -750,64 +509,31 @@ msgid "Manually"
 msgstr "Manual"
 
 #: template/intake_form.html:788 template/intake_form.html:836
-msgid ""
-"If you select the interpolation method, you must enter the number of years "
-"for which you want to estimate demand and the expected minimum and maximum "
-"demand flow (extraction) values ​​(unit in l / s):"
-msgstr ""
-"Si selecciona el método por interpolación deberá ingresar el número de años "
-"para los cuales desea estimar la demanda y los valores mínimos y máximos de "
-"caudal de demanda (extracción) esperados(unidad en l/s):"
+msgid "If you select the interpolation method, you must enter the number of years for which you want to estimate demand and the expected minimum and maximum demand flow (extraction) values ​​(unit in l / s):"
+msgstr "Si selecciona el método por interpolación deberá ingresar el número de años para los cuales desea estimar la demanda y los valores mínimos y máximos de caudal de demanda (extracción) esperados(unidad en l/s):"
 
 #: template/intake_form.html:792 template/intake_form.html:840
-msgid ""
-"If you know your water demand (withdrawal) data from year to year, you can "
-"enter it manually. For this, just enter the number of years for which you "
-"have information and WaterProof will generate a table in which you can enter "
-"the data (units in l / s):"
-msgstr ""
-"Si conoce los datos de demanda(extracción) de agua año a año, puede "
-"ingresarlos manualmente. Para esto, solo ingrese la cantidad de años para los "
-"que tiene información y WaterProof generará una tabla en la cual usted podrá "
-"ingresar los datos (unidades en l/s):"
+msgid "If you know your water demand (withdrawal) data from year to year, you can enter it manually. For this, just enter the number of years for which you have information and WaterProof will generate a table in which you can enter the data (units in l / s):"
+msgstr "Si conoce los datos de demanda(extracción) de agua año a año, puede ingresarlos manualmente. Para esto, solo ingrese la cantidad de años para los que tiene información y WaterProof generará una tabla en la cual usted podrá ingresar los datos (unidades en l/s):"
 
 #: template/intake_form.html:797
 msgid ""
-"The system offers you a selection list with each of the external inputs that "
-"you included in the drawing panel of the capture system. You must indicate "
-"for each external inlet the values ​​of volume of water (m3) that enters from "
-"them, as well as the annual contributions of sediment (Ton), nitrogen (Kg) "
-"and phosphorus (Kg)."
+"The system offers you a selection list with each of the external inputs that you included in the drawing panel of the capture system. You must indicate for each external inlet the values ​​of volume of water (m3) that enters from them, as well as the annual contributions of sediment (Ton), nitrogen (Kg) and phosphorus (Kg)."
 msgstr ""
-"El sistema le ofrece una lista de selección con cada una de las entradas "
-"externas que usted incluyó en el panel de dibujo del sistema de captación. "
-"Usted debe indicar por cada entrada externa los valores de volumen de "
-"agua(m3)que ingresa desde ellas, así como los aportes anuales de sedimentos "
-"(Ton), nitrógeno (Kg)y fósforo (Kg)."
+"El sistema le ofrece una lista de selección con cada una de las entradas externas que usted incluyó en el panel de dibujo del sistema de captación. Usted debe indicar por cada entrada externa los valores de volumen de agua(m3)que ingresa desde ellas, así como los aportes anuales de sedimentos (Ton), nitrógeno (Kg)y fósforo "
+"(Kg)."
 
 #: template/intake_form.html:874
 msgid ""
-"The system also offers you the option of loading a spatial file for loading "
-"shapefiles containing the polygon where it is possible to implement the NbSs. "
-"The system will verify that the polygon is within the basin area and that it "
-"complies with the EPSG 3857 coordinate standard (world standard of flat "
-"coordinates) or the EPSG 4326 (world standard in geographic coordinates)."
+"The system also offers you the option of loading a spatial file for loading shapefiles containing the polygon where it is possible to implement the NbSs. The system will verify that the polygon is within the basin area and that it complies with the EPSG 3857 coordinate standard (world standard of flat coordinates) or the "
+"EPSG 4326 (world standard in geographic coordinates)."
 msgstr ""
-"El sistema también le ofrece la opción de cargar un archivo espacial Para la "
-"carga de archivos shapefiles que contenga el polígono donde es posible "
-"realizar la implementación de las SbN. El sistema verificará que el polígono "
-"se encuentre dentro del área dela cuenca y que cumpla con el estándar de "
-"coordenadas EPSG 3857 (standard mundial de coordenadas  planas) o el EPSG "
-"4326 (standard mundial en coordenadas geográficas)"
+"El sistema también le ofrece la opción de cargar un archivo espacial Para la carga de archivos shapefiles que contenga el polígono donde es posible realizar la implementación de las SbN. El sistema verificará que el polígono se encuentre dentro del área dela cuenca y que cumpla con el estándar de coordenadas EPSG 3857 "
+"(standard mundial de coordenadas  planas) o el EPSG 4326 (standard mundial en coordenadas geográficas)"
 
 #: template/intake_form.html:877
-msgid ""
-"Files are accepted only in compressed .zip format whose required structure "
-"must contain at least: 1 .shp file, 1 .dbf file, 1 .prj file and 1 .shx file"
-msgstr ""
-"Se aceptan archivos únicamente en formato comprimido.zip cuya estructura "
-"requerida debe contener al menos: 1 archivo .shp, 1 archivo .dbf, 1 archivo ."
-"prj y 1 archivo .shx"
+msgid "Files are accepted only in compressed .zip format whose required structure must contain at least: 1 .shp file, 1 .dbf file, 1 .prj file and 1 .shx file"
+msgstr "Se aceptan archivos únicamente en formato comprimido.zip cuya estructura requerida debe contener al menos: 1 archivo .shp, 1 archivo .dbf, 1 archivo .prj y 1 archivo .shx"
 
 #: template/intake_list.html:3 template/intake_list.html:7
 msgid "Water Intakes"
@@ -819,21 +545,11 @@ msgstr "Captación"
 
 #: template/intake_list.html:31
 msgid ""
-"From this section you can consult the water intakes created in the system "
-"associated with a city of interest. You can search for intakes of different "
-"cities from 'Search city'. The system will show you a list of cities with "
-"matches around the world. Select the appropriate option from the list. You "
-"can also create your own basin associated with a city, to do this search for "
-"the city to which you will associate your basin and then click on the 'Create "
-"new water intake' button."
+"From this section you can consult the water intakes created in the system associated with a city of interest. You can search for intakes of different cities from 'Search city'. The system will show you a list of cities with matches around the world. Select the appropriate option from the list. You can also create your own "
+"basin associated with a city, to do this search for the city to which you will associate your basin and then click on the 'Create new water intake' button."
 msgstr ""
-"Desde esta sección puede consultar las captaciones de agua creadas en el "
-"sistema asociadas a una ciudad de interés. Puede buscar captaciones de "
-"diferentes ciudades desde “Buscar ciudad”. El sistema le mostrará un listado "
-"de ciudades con las coincidencias a nivel mundial. Seleccione de la lista la "
-"opción que corresponda. También puede crear su propia captación asociada a "
-"una ciudad, para ello busque la ciudad a la cual asociará su captación y "
-"luego de clic en el botón “Crear nueva captación”."
+"Desde esta sección puede consultar las captaciones de agua creadas en el sistema asociadas a una ciudad de interés. Puede buscar captaciones de diferentes ciudades desde “Buscar ciudad”. El sistema le mostrará un listado de ciudades con las coincidencias a nivel mundial. Seleccione de la lista la opción que corresponda. "
+"También puede crear su propia captación asociada a una ciudad, para ello busque la ciudad a la cual asociará su captación y luego de clic en el botón “Crear nueva captación”."
 
 #: template/intake_list.html:36
 msgid "Selected City"
@@ -885,27 +601,25 @@ msgstr "Creando una nueva captación"
 
 #: template/intake_list.html:128
 msgid ""
-"Water intakes are civil works and electromechanical equipment used to obtain "
-"water from surface or underground sources (WaterProof version 1.0 is limited "
-"to surface sources). A basin is made up of information about its location, "
-"polygon of the supplying basin, infrastructure elements, its cost functions "
-"and data about its demand."
+"Water intakes are civil works and electromechanical equipment used to obtain water from surface or underground sources (WaterProof version 1.0 is limited to surface sources). A basin is made up of information about its location, polygon of the supplying basin, infrastructure elements, its cost functions and data about its "
+"demand."
 msgstr ""
-"Las obras de captación son las obras civiles y equipos electromecánicos que "
-"se utilizan para obtener agua de fuentes superficiales o subterráneas (La "
-"versión 1.0 de Waterproof está limitada a fuentes superficiales). Una "
-"captación está conformada por información sobre su ubicación, polígono de la "
-"cuenca abastecedora, elementos de infraestructura, sus funciones de costo y "
-"datos de su demanda."
+"Las obras de captación son las obras civiles y equipos electromecánicos que se utilizan para obtener agua de fuentes superficiales o subterráneas (La versión 1.0 de Waterproof está limitada a fuentes superficiales). Una captación está conformada por información sobre su ubicación, polígono de la cuenca abastecedora, "
+"elementos de infraestructura, sus funciones de costo y datos de su demanda."
 
 #: template/intake_list.html:131
-msgid ""
-"To create a new watershed, WaterProof will help you with the steps you need "
-"to follow to complete your registration: "
-msgstr ""
-"Para crear una nueva captación, Waterproof lo asistirá indicando los pasos "
-"que debe seguir para hacer su registro completo: "
+msgid "To create a new watershed, WaterProof will help you with the steps you need to follow to complete your registration: "
+msgstr "Para crear una nueva captación, Waterproof lo asistirá indicando los pasos que debe seguir para hacer su registro completo: "
 
 #: template/intake_login_error.html:10
 msgid "Permission denied"
 msgstr "Permiso denegado"
+
+#: template/intake_list.html:34
+msgid "From this section you can view the water intakes created in the system associated with a city of interest. You can search for intakes of different cities from 'Search city'. The system will show you a list of cities with matches around the world. Select the appropriate option from the list. "
+msgstr ""
+"Desde esta sección puede consultar las captaciones de agua creadas en el sistema asociadas a una ciudad de interés. Puede buscar captaciones de diferentes ciudades desde “Buscar ciudad”. El sistema le mostrará un listado de ciudades con las coincidencias a nivel mundial. Seleccione de la lista la opción que corresponda. "
+
+#: template/intake_list.html:35
+msgid "You can also create your own basin associated with a city. To do so, search for the city with which you will associate your basin and then click on the 'Create new water intake' button."
+msgstr "También puede crear su propia captación asociada a una ciudad, para ello busque la ciudad a la cual asociará su captación y luego de clic en el botón “Crear nueva captación”."
