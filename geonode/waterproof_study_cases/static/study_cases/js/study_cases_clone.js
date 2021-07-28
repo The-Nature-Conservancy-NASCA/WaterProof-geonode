@@ -57,6 +57,7 @@ $(document).ready(function () {
     calculate_Platform();
     loadIntakes();
     loadPtaps();
+    loadNBS();
 
     if (funcostdb.length > 0) {
         $("#cost_table").removeClass('panel-hide');
@@ -102,7 +103,7 @@ $(document).ready(function () {
         $("#panel-ptap").removeClass("panel-hide");
         $("#panel-custom").removeClass("panel-hide");
         $("#panel-cost").addClass("panel-hide");
-        $('#autoAdjustHeightF').css("height", "auto");
+        autoAdjustHeight();
         $('#ptap-required').text("*");
         $('#custom-required').text("");
     });
@@ -132,7 +133,7 @@ $(document).ready(function () {
                     var $this = $(this).val('');
                 }
             });
-            $('#autoAdjustHeightF').css("height", "auto");
+            autoAdjustHeight();
             $('#column_investment').text("Percentage");
         } else {
             $("#full-table").addClass("panel-hide");
@@ -142,7 +143,7 @@ $(document).ready(function () {
     $('#btn-investment').click(function () {
         if ($("#full-table").hasClass("panel-hide")) {
             $("#full-table").removeClass("panel-hide");
-            $('#autoAdjustHeightF').css("height", "auto");
+            autoAdjustHeight();
             $('#column_investment').text("Investment");
             nbsactivities = $("#full-table").find("input")
             nbsactivities.each(function () {
@@ -164,7 +165,7 @@ $(document).ready(function () {
         $("#panel-full").removeClass("panel-hide");
         $("#panel-investment").addClass("panel-hide");
         $("#full-table").addClass("panel-hide");
-        $('#autoAdjustHeightF').css("height", "auto");
+        autoAdjustHeight();
         $('#column_investment').text("Percentage");
         $("#full-table").find("input").each(function () {
             var $this = $(this).val('');
@@ -175,7 +176,7 @@ $(document).ready(function () {
         $("#panel-investment").removeClass("panel-hide");
         $("#panel-full").addClass("panel-hide");
         $("#full-table").addClass("panel-hide");
-        $('#autoAdjustHeightF').css("height", "auto");
+        autoAdjustHeight();
         $('#column_investment').text("Investment");
         $("#full-table").find("input").each(function () {
             var $this = $(this).val('');
@@ -266,7 +267,7 @@ $(document).ready(function () {
                     return;
                 } else {
                     $('#smartwizard').smartWizard("next");
-                    $('#autoAdjustHeightF').css("height", "auto");
+                    autoAdjustHeight();
                 }
 
             }, "json");
@@ -287,8 +288,8 @@ $(document).ready(function () {
             $('#autoAdjustHeightF').css("height", "auto");
         } else {
             $("#cm_form").hide();
-            $('#autoAdjustHeightF').css("height", "auto");
         }
+        autoAdjustHeight();
     })
 
     $('#step2PreviousBtn').click(function () {
@@ -303,7 +304,7 @@ $(document).ready(function () {
             carbon_market_currency: $("#cm_select option:selected").val()
         }, function (data) {
             $('#smartwizard').smartWizard("next");
-            $('#autoAdjustHeightF').css("height", "auto");
+            autoAdjustHeight();
         }, "json");
     });
 
@@ -323,7 +324,7 @@ $(document).ready(function () {
                 portfolios: portfolios
             }, function (data) {
                 $('#smartwizard').smartWizard("next");
-                $('#autoAdjustHeightF').css("height", "auto");
+                autoAdjustHeight();
             }, "json");
         } else {
             Swal.fire({
@@ -378,7 +379,7 @@ $(document).ready(function () {
         }, function (data) {
             $('#smartwizard').smartWizard("next");
             loadFinancialParameter();
-            $('#autoAdjustHeightF').css("height", "auto");
+            autoAdjustHeight();
         }, "json");
 
     });
@@ -437,7 +438,7 @@ $(document).ready(function () {
             }, function (data) {
                 loadNBS();
                 $('#smartwizard').smartWizard("next");
-                $('#autoAdjustHeightF').css("height", "auto");
+                autoAdjustHeight();
             }, "json");
         } else {
             Swal.fire({
@@ -642,7 +643,7 @@ $(document).ready(function () {
                         }, function (data) {
                             $('#_thumbnail_processing').modal('hide');
                             $('#smartwizard').smartWizard("next");
-                            $('#autoAdjustHeightF').css("height", "auto");
+                            autoAdjustHeight();
                             $("#form").submit();
                         }, "json");
                     }
@@ -1050,7 +1051,7 @@ $(document).ready(function () {
                     }
                 });
                 $("#div-customcase").removeClass("panel-hide");
-                $('#autoAdjustHeightF').css("height", "auto");
+                autoAdjustHeight();
             } else {
                 $("#div-emptyintakes").removeClass("panel-hide");
             }
@@ -1079,7 +1080,7 @@ $(document).ready(function () {
 
                 });
                 $("#div-ptaps").removeClass("panel-hide");
-                $('#autoAdjustHeightF').css("height", "auto");
+                autoAdjustHeight();
             } else {
                 $("#radio-ptap").addClass("panel-hide");
                 $("#div-emptyptaps").removeClass("panel-hide");
@@ -1109,7 +1110,7 @@ $(document).ready(function () {
                 content += '<label class="custom-control-label" for="nbs-' + id + '"> ' + name + '</label></div></li>'
                 $("#nbs-ul").append(content);
             });
-            $('#autoAdjustHeightF').css("height", "auto");
+            autoAdjustHeight();
 
         });
     }
@@ -1181,7 +1182,7 @@ $(document).ready(function () {
             Promise.all(promisesIntake).then(valuesIntake => {
                 $.each(valuesIntake, function (i, content) {
                     $("#biophysical-panel").append(content);
-                    $('#autoAdjustHeightF').css("height", "auto");
+                    autoAdjustHeight();
                 });
             });
         });
@@ -1368,6 +1369,7 @@ $("#ModalAddCostBtn").click(function () {
     $('#global_multiplier_factorCalculator').val('');
     $('#python-expression').val('');
     setVarCost();
+    validatePyExpression();
 });
 
 $('#saveAndValideCost').click(function () {
@@ -1429,7 +1431,7 @@ $(document).on('click', 'a[name=glyphicon-edit]', function () {
     $('#costFuntionDescription').val(funcostdb[selectedCostId].function.description);
     $('#CalculatorModalLabel').text('Modify Cost - ' + $('#titleCostFunSmall').text());
     $('#currencyCost').val(funcostdb[selectedCostId].function.currencyCost);
-    $('#global_multiplier_factorCalculator').val(funcostdb[selectedCostId].function.global_multiplier_factorCalculator);
+    $('#global_multiplier_factorCalculator').val(funcostdb[selectedCostId].function.factor);
     setVarCost();
     let value = funcostdb[selectedCostId].function.value;
     $('#python-expression').val();

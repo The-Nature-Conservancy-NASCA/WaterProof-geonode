@@ -110,8 +110,8 @@ input:checked+.slider:before {
 }
 
 .px-5 {
-    padding-left: 10rem !important;
-    padding-right: 10rem !important;
+    padding-left: 5rem !important;
+    padding-right: 5rem !important;
 }
 
 .truncate {
@@ -169,4 +169,17 @@ input:checked+.slider:before {
     border: 1px solid;
     border-radius: 0.5em;
     border-color: #aaa;
-} 
+}
+
+.justify-number{
+    text-align: right;
+}
+
+.justify-text{
+    text-align: left;
+}
+.table-center-item{
+    display: block;
+    text-align:center;
+    vertical-align: middle;
+}
