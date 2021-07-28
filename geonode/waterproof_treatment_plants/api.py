@@ -74,13 +74,9 @@ def getIntakeList(request):
 	"""
 	if request.method == 'GET':
 		objects_list = []
-		print(str(request.query_params.get('cityId')))
-		print("-----------------------")
 		for elementSystem in ElementSystem.objects.filter(normalized_category='CSINFRA'):
-			print(elementSystem.intake.city.id)
 
 			if str(elementSystem.intake.city.id) == str(request.query_params.get('cityId')):
-				print(" Entro ")
 				objects_list.append({
 					"id": elementSystem.id,
 					"name": elementSystem.intake.name,
@@ -89,7 +85,8 @@ def getIntakeList(request):
 					"cityId": elementSystem.intake.city.id,
 					"nameIntake":str(elementSystem.intake.name) + str(" - ") + str(elementSystem.name) + str(" - ") + str(elementSystem.graphId)})
 
-		return JsonResponse(objects_list, safe=False)
+		order_register = sorted(objects_list, key=lambda tree : tree['nameIntake'])
+		return JsonResponse(order_register, safe=False)
 
 @api_view(['POST'])
 def getTypePtap(request):
@@ -176,78 +173,153 @@ def setHeaderPlant(request):
 	if request.method == 'PUT':
 		if request.user.is_authenticated:
 			if request.data.get('header').get('plantId') != "null":
-				Header.objects.filter(id = request.data.get('header').get('plantId')).delete()
+				Header.objects.filter(id = request.data.get('header').get('plantId')).update(plant_city_id = request.data.get('header').get('cityId'),
+					plant_name = request.data.get('header').get('plantName'), 
+					plant_description = request.data.get('header').get('plantDescription'),
+					plant_suggest = request.data.get('header').get('plantSuggest'),
+					plant_user = request.user.username)
 
-			headerSave = Header.objects.create(
-				plant_city_id = request.data.get('header').get('cityId'),
-				plant_name = request.data.get('header').get('plantName'),
-				plant_description = request.data.get('header').get('plantDescription'),
-				plant_suggest = request.data.get('header').get('plantSuggest'),
-				plant_user = request.user.username
-			)
-			headerSave.save()
+				Ptap.objects.filter(ptap_plant_id = request.data.get('header').get('plantId')).delete()
 
-			for row in request.data.get('header').get('ptap'):
-				ptapSave = Ptap.objects.create(
-					ptap_plant_id = headerSave.id,
-					ptap_type = row.get('ptapType'),
-					ptap_awy = row.get('ptapAwy'),
-					ptap_cn = row.get('ptapCn'),
-					ptap_cp = row.get('ptapCp'),
-					ptap_cs = row.get('ptapCs'),
-					ptap_wn = row.get('ptapWn'),
-					ptap_wp = row.get('ptapWp'),
-					ptap_ws = row.get('ptapWs'),
-					ptap_user = request.user.username
+				for row in request.data.get('header').get('ptap'):
+					ptapSave = Ptap.objects.create(
+						ptap_plant_id = request.data.get('header').get('plantId'),
+						ptap_type = row.get('ptapType'),
+						ptap_awy = row.get('ptapAwy'),
+						ptap_cn = row.get('ptapCn'),
+						ptap_cp = row.get('ptapCp'),
+						ptap_cs = row.get('ptapCs'),
+						ptap_wn = row.get('ptapWn'),
+						ptap_wp = row.get('ptapWp'),
+						ptap_ws = row.get('ptapWs'),
+						ptap_user = request.user.username
+					)
+					ptapSave.save()
+
+				Csinfra.objects.filter(csinfra_plant_id = request.data.get('header').get('plantId')).delete()
+
+				for row in request.data.get('header').get('csinfra'):
+					csinfraSave = Csinfra.objects.create(
+						csinfra_plant_id = request.data.get('header').get('plantId'),
+						csinfra_user = request.user.username,
+						csinfra_elementsystem_id = row.get('intake')
+					)
+					csinfraSave.save()
+
+				Element.objects.filter(element_plant_id = request.data.get('header').get('plantId')).delete()
+
+				for row in request.data.get('header').get('element'):
+					elementSave = Element.objects.create(
+						element_normalize_category = row.get('normalizeCategory'),
+						element_plant_id = request.data.get('header').get('plantId'),
+						element_graph_id = row.get('graphId'),
+						element_on_off = row.get('onOff'),
+						element_q_l = 0,
+						element_awy = 0,
+						element_cn_mg_l = 0,
+						element_cp_mg_l = 0,
+						element_csed_mg_l = 0,
+						element_wn_kg = 0,
+						element_wn_rent_kg = 0,
+						element_wp_rent_ton = 0,
+						element_wsed_tom = 0,
+						element_wp_kg = 0,
+						element_user = request.user.username
+					)
+					elementSave.save()
+
+				Function.objects.filter(function_plant_id = request.data.get('header').get('plantId')).delete()
+
+				for row in request.data.get('header').get('function'):
+					functionSave = Function.objects.create(
+						function_name = row.get('nameFunction'),
+						function_graph_id = row.get('graphid'),
+						function_value = row.get('functionValue'),
+						function_currency = row.get('currency'),
+						function_factor = row.get('factor'),
+						function_id_sub_process = row.get('idSubprocess'),
+						function_user = request.user.username,
+						function_transported_water = 100,
+						function_sediments_retained = row.get('sedimentsRetained'),
+						function_nitrogen_retained = row.get('nitrogenRetained'),
+						function_phosphorus_retained = row.get('phosphorusRetained'),
+						function_technology = row.get('technology'),
+						function_plant_id = request.data.get('header').get('plantId')
+					)
+					functionSave.save()
+
+				jsonObject = [{	'plant_id' : request.data.get('header').get('plantId')}]
+			else:
+				headerSave = Header.objects.create(
+					plant_city_id = request.data.get('header').get('cityId'),
+					plant_name = request.data.get('header').get('plantName'),
+					plant_description = request.data.get('header').get('plantDescription'),
+					plant_suggest = request.data.get('header').get('plantSuggest'),
+					plant_user = request.user.username
 				)
-				ptapSave.save()
+				headerSave.save()
 
-			for row in request.data.get('header').get('csinfra'):
-				csinfraSave = Csinfra.objects.create(
-					csinfra_plant_id = headerSave.id,
-					csinfra_user = request.user.username,
-					csinfra_elementsystem_id = row.get('intake')
-				)
-				csinfraSave.save()
+				for row in request.data.get('header').get('ptap'):
+					ptapSave = Ptap.objects.create(
+						ptap_plant_id = headerSave.id,
+						ptap_type = row.get('ptapType'),
+						ptap_awy = row.get('ptapAwy'),
+						ptap_cn = row.get('ptapCn'),
+						ptap_cp = row.get('ptapCp'),
+						ptap_cs = row.get('ptapCs'),
+						ptap_wn = row.get('ptapWn'),
+						ptap_wp = row.get('ptapWp'),
+						ptap_ws = row.get('ptapWs'),
+						ptap_user = request.user.username
+					)
+					ptapSave.save()
 
-			for row in request.data.get('header').get('element'):
-				elementSave = Element.objects.create(
-					element_normalize_category = row.get('normalizeCategory'),
-					element_plant_id = headerSave.id,
-					element_graph_id = row.get('graphId'),
-					element_on_off = row.get('onOff'),
-					element_q_l = 0,
-					element_awy = 0,
-					element_cn_mg_l = 0,
-					element_cp_mg_l = 0,
-					element_csed_mg_l = 0,
-					element_wn_kg = 0,
-					element_wn_rent_kg = 0,
-					element_wp_rent_ton = 0,
-					element_wsed_tom = 0,
-					element_wp_kg = 0,
-					element_user = request.user.username
-				)
-				elementSave.save()
+				for row in request.data.get('header').get('csinfra'):
+					csinfraSave = Csinfra.objects.create(
+						csinfra_plant_id = headerSave.id,
+						csinfra_user = request.user.username,
+						csinfra_elementsystem_id = row.get('intake')
+					)
+					csinfraSave.save()
 
-			for row in request.data.get('header').get('function'):
-				functionSave = Function.objects.create(
-					function_name = row.get('nameFunction'),
-					function_graph_id = row.get('graphid'),
-					function_value = row.get('functionValue'),
-					function_currency = row.get('currency'),
-					function_factor = row.get('factor'),
-					function_id_sub_process = row.get('idSubprocess'),
-					function_user = request.user.username,
-					function_transported_water = 100,
-					function_sediments_retained = row.get('sedimentsRetained'),
-					function_nitrogen_retained = row.get('nitrogenRetained'),
-					function_phosphorus_retained = row.get('phosphorusRetained'),
-					function_technology = row.get('technology'),
-					function_plant_id = headerSave.id
-				)
-				functionSave.save()
-			jsonObject = [{	'plant_id' : headerSave.id}]
+				for row in request.data.get('header').get('element'):
+					elementSave = Element.objects.create(
+						element_normalize_category = row.get('normalizeCategory'),
+						element_plant_id = headerSave.id,
+						element_graph_id = row.get('graphId'),
+						element_on_off = row.get('onOff'),
+						element_q_l = 0,
+						element_awy = 0,
+						element_cn_mg_l = 0,
+						element_cp_mg_l = 0,
+						element_csed_mg_l = 0,
+						element_wn_kg = 0,
+						element_wn_rent_kg = 0,
+						element_wp_rent_ton = 0,
+						element_wsed_tom = 0,
+						element_wp_kg = 0,
+						element_user = request.user.username
+					)
+					elementSave.save()
+
+				for row in request.data.get('header').get('function'):
+					functionSave = Function.objects.create(
+						function_name = row.get('nameFunction'),
+						function_graph_id = row.get('graphid'),
+						function_value = row.get('functionValue'),
+						function_currency = row.get('currency'),
+						function_factor = row.get('factor'),
+						function_id_sub_process = row.get('idSubprocess'),
+						function_user = request.user.username,
+						function_transported_water = 100,
+						function_sediments_retained = row.get('sedimentsRetained'),
+						function_nitrogen_retained = row.get('nitrogenRetained'),
+						function_phosphorus_retained = row.get('phosphorusRetained'),
+						function_technology = row.get('technology'),
+						function_plant_id = headerSave.id
+					)
+					functionSave.save()
+				jsonObject = [{	'plant_id' : headerSave.id}]
 			return JsonResponse(jsonObject, safe=False)
 	if request.method == 'DELETE':
 		if request.user.is_authenticated:
@@ -282,7 +354,8 @@ def getTreatmentPlant(request):
 				"csinfraId": csinfra.id,
 				"csinfraName": csinfra.csinfra_elementsystem.intake.name,
 				"csinfraGraphId": csinfra.csinfra_elementsystem.graphId,
-				"csinfraCode": csinfra.csinfra_elementsystem.name
+				"csinfraCode": csinfra.csinfra_elementsystem.name,
+				"csinfraElementsystemId": csinfra.csinfra_elementsystem.id
 			})
 
 		objectElement = []

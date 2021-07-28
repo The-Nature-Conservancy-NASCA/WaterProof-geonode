@@ -111,10 +111,11 @@ DATABASE_URL = os.getenv(
     )
 )
 
-#DATABASE_URL='postgresql://geonode:{&Uid&QXZ&6f;|F@dev.skaphe.com:5432/geonode'
+DATABASE_URL='postgresql://geonode:{&Uid&QXZ&6f;|F@dev.skaphe.com:5432/geonode'
 #DATABASE_URL='postgresql://geonode:{&Uid&QXZ&6f;|F@dev.skaphe.com:5432/geonode'
 #DATABASE_URL='postgresql://geonode:G30N0D3@water-proof.org:5432/geonode'
-
+DATABASE_URL='postgresql://geonode:geonode@localhost:5432/geonode'
+#DATABASE_URL = 'postgresql://geonode:geonode_data@dev.skaphe.com:5432/geonode'
 
 if DATABASE_URL.startswith("spatialite"):
     try:
@@ -234,12 +235,7 @@ _DEFAULT_LANGUAGES = """(
 )"""
 
 
-LANGUAGES =  ast.literal_eval(os.getenv('LANGUAGES', _DEFAULT_LANGUAGES))
-
-#LANGUAGES = (
-#    ('en', "English"),
-#    ('es', "Español"),
-#)
+LANGUAGES = ast.literal_eval(os.getenv('LANGUAGES', _DEFAULT_LANGUAGES))
 
 EXTRA_LANG_INFO = {
     'am': {
@@ -294,7 +290,8 @@ LOCALE_PATHS = [
     os.path.join(PROJECT_ROOT, "locale"),
     os.path.join(PROJECT_ROOT, "waterproof_intake/locale"),
     os.path.join(PROJECT_ROOT, "waterproof_nbs_ca/locale"),
-    os.path.join(PROJECT_ROOT, "waterproof_study_cases/locale")
+    os.path.join(PROJECT_ROOT, "waterproof_study_cases/locale"),
+    os.path.join(PROJECT_ROOT, "waterproof_study_cases_comparison/locale")
 ]
 
 # Location of url mappings
@@ -482,6 +479,7 @@ GEONODE_INTERNAL_APPS = (
     'geonode.waterproof_parameters',
     'geonode.waterproof_treatment_plants',
     'geonode.waterproof_reports',
+    'geonode.waterproof_study_cases_comparison',
 )
 
 GEONODE_CONTRIB_APPS = (
@@ -1329,7 +1327,6 @@ except ValueError:
 
 # The proxy to use when making cross origin requests.
 PROXY_URL = os.environ.get('PROXY_URL', '/proxy/?url=')
-
 
 # Haystack Search Backend Configuration. To enable,
 # first install the following:
@@ -2215,12 +2212,14 @@ FREQUENTLY_READY_FOR_V1 = True
 FREQUENTLY_ALLOW_ANONYMOUS = True
 
 WATERPROOF_STUDY_CASES_ALLOW_ANONYMOUS = True
-WATERPROOF_NBS_CA_ALLOW_ANONYMOUS = True
-WATERPROOF_API_SERVER = os.getenv('WATERPROOF_API_SERVER',"/proxy/?url=http://dev.skaphe.com:8000/")
 
-WATERPROOF_INVEST_API=os.getenv('WATERPROOF_INVEST_API',"http://dev.skaphe.com:8000/")
-WATERPROOF_MODELS_PY3_API=os.getenv('WATERPROOF_MODELS_PY3_API',"http://dev.skaphe.com:8000/")
-WATERPROOF_MODELS_PY2_API=os.getenv('WATERPROOF_MODELS_PY2_API',"http://dev.skaphe.com:5050/")
+WATERPROOF_NBS_CA_ALLOW_ANONYMOUS = True
+
+WATERPROOF_API_SERVER = "/proxy/?url=http://dev.skaphe.com:8000/"
+
+WATERPROOF_INVEST_API="http://dev.skaphe.com:8000/"
+WATERPROOF_MODELS_PY3_API="http://dev.skaphe.com:8000/"
+WATERPROOF_MODELS_PY2_API="http://dev.skaphe.com:5050/"
 SEARCH_CITY_API_URL = '/proxy/?url=https://photon.komoot.io/api/?'
 
 SEARCH_COUNTRY_API_URL = "https://restcountries.eu/rest/v2/alpha/"

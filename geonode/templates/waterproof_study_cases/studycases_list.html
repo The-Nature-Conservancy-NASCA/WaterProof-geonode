@@ -25,7 +25,7 @@
     </div>
     <div class="row">
         <div class="col-md-4">
-            <p style="text-align: justify;">{% trans "In this section you can consult and configure the case studies for a defined city. To configure your case study, remember that you must have defined the water catchments and the different cost functions that will allow WaterProof to understand its context and costs, and provide the return on investment for the implementation of Nature-Based Solutions." %}</p>
+            <p style="text-align: justify;">{% trans "study_cases_list_tip" %}</p>
             <br>
             <h4 id="countryLabel"></h4>
             <p><b>{% trans "Selected City" %} :</b> <span id="cityLabel">{{city}}</span></p>
@@ -38,7 +38,7 @@
                 {% else %}
                 <a id="createUrlDisabled">{% trans "new_study_case" %}</a>
                 <button type="button" data-toggle="modal" class="glyphicon glyphicon-plus-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #6e6f70; border-style: none; background-color:transparent;"></button>
-                <h6>{% trans "You must be a registered user to create a new Case Study*" %}</h6>
+                <h6>{% trans "study_cases_list_create" %}</h6>
                 {% endif %}
 
             </div>

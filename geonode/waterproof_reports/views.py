@@ -3,6 +3,8 @@ from django.shortcuts import render
 from django.core import serializers
 from geonode.waterproof_parameters.models import Countries, Regions, Cities
 from .models import investIndicators
+from geonode.waterproof_study_cases.models import StudyCases
+
 
 
 def dashboard(request):
@@ -39,9 +41,9 @@ def getNameCity(indicators):
             print ("")
     return result
 
-def physicalIndicators(request):
+def physicalIndicators(request, idx):
 
-                indicators = investIndicators.objects.all()
+                indicators = investIndicators.objects.filter(study_case__id=idx)
                 indicatorsNames = getNames(indicators)
                 indicatorsNameCity = getNameCity(indicators)
                 return render(

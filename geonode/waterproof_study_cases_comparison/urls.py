@@ -15,5 +15,6 @@ urlpatterns = [
     path('', views.list, name='comparison_list'),
     path('doAnalysis/', views.doAnalysis, name='do_analysis'),
     path('getInvestIndicators/', api.getInvestIndicators, name='getInvestIndicators'),
-    path('getBfm3/', api.getBfm3Indicator, name='getBfm3')
+    path('getRoiIndicators/', api.getRoiIndicators, name='getRoiIndicators'),
+    path('getVpnIndicators/', api.getVpnIndicators, name='getVpnIndicators')
 ]

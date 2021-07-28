@@ -5,16 +5,10 @@
 
  text: gettext('The intake has not been deleted, try again!')
 
-
+ 
  */
 
 $(function () {
-
-    var msgs = {
-        notRevert : gettext("You won't be able to revert this!"),
-        yesDelete : gettext("Yes, delete it!"),
-        troubleDeletingTreatmentPlant : gettext("Trouble deleting treatment plant, must be in use in one study case")
-    };
     var TILELAYER = 'http://{s}.tile.osm.org/{z}/{x}/{y}.png';
     var IMAGE_LYR_URL = "https://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryTopo/MapServer/tile/{z}/{y}/{x}";
     var HYDRO_LYR_URL = "https://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/Esri_Hydro_Reference_Overlay/MapServer/tile/{z}/{y}/{x}";
@@ -149,100 +143,14 @@ $(function () {
             layer.bindPopup(feature.properties.name);
         }
     });
+
     /**
-    * Initialize the methods from the context of treatment plants
+    * Load ptat when update register
     * @param 
     * @returns 
     */
-    initialize = function () {
-        $('#submit').click(function (e) {
-            var saveForm = true;
-            if($('#idNamePlant').val() === "" || $('#idNamePlant').val() === null) {
-                $('#idNamePlant').focusin()
-                $('#idNamePlant').focusout()
-                saveForm = false;
-            }
-            if($('#idDescriptionPlant').val() === "" || $('#idDescriptionPlant').val() === null) {
-                $('#idDescriptionPlant').focusin()
-                $('#idDescriptionPlant').focusout()
-                saveForm = false;
-            }
-            if(letterPlant === null) {
-                $('#idIntakePlant').focusin()
-                $('#idIntakePlant').focusout()
-                saveForm = false;
-            }
-
-            var arrayCsinfra = [];
-            $("[name=nameListAdd]").each(function( index ) {
-                arrayCsinfra.push({
-                    name: $("[name=nameListAdd]").get(index).getAttribute("nameList"),
-                    graphId: $("[name=nameListAdd]").get(index).getAttribute("graphIdlist"),
-                    csinfra: $("[name=nameListAdd]").get(index).getAttribute("csinfraList"),
-                    intake: $("[name=nameListAdd]").get(index).getAttribute("idIntake")
-                })
-            });
-
-            if(saveForm) {
-                var urlDetail = "../../treatment_plants/setHeaderPlant/";
-                $.ajax({
-                    url: urlDetail,
-                    method: 'PUT',
-                    contentType: 'application/json; charset=utf-8',
-                    dataType: 'json',
-                    data: JSON.stringify({
-                        "header": {
-                            "plantId" : localStorage.plantId,
-                            "cityId" : localStorage.idCityTreatmentPlant,
-                            "plantName" : $('#idNamePlant').val(),
-                            "plantDescription" : $('#idDescriptionPlant').val(),
-                            "plantSuggest" : letterPlant,
-                            "element" : arrayPlant,
-                            "function" : arrayFunction,
-                            "ptap" : arrayPtap,
-                            "csinfra" : arrayCsinfra
-                        }
-                    }),success: function(result) {
-                        window.location.href ="../../treatment_plants/";
-                        localStorage.plantId = null;
-                    },error: function (err) {
-                        localStorage.plantId = null;
-                        Swal.fire({
-                            title: 'Error',
-                            text: "Problemas guardando la planta de tratamiento",
-                            icon: 'error',
-                            confirmButtonColor: '#3085d6',
-                            cancelButtonColor: '#d33',
-                        })
-                    }
-                });
-            }
-        });
-
-        $('#idIntakePlant').change(function (e) {
-            var validCsinfra = true;
-            var textNameCsinfra = $('option:selected', this).attr("namelist");
-            $("[name=nameListAdd]").each(function( index ) {
-                if($("[name=nameListAdd]").get(index).getAttribute("nameList") === textNameCsinfra) {
-                    validCsinfra = false;
-                }
-            });
-            if(validCsinfra) {
-                $('#idTbodyIntake').append('<tr id="child' + this.value + '"><td class="small text-center vat" name="nameListAdd" idIntake="' + $('option:selected', this).attr("value") + '" nameList="' + textNameCsinfra + '"  graphIdlist="' + $('option:selected', this).attr("graphIdlist") + '"  csinfraList="' + $('option:selected', this).attr("csinfra") + '">' + textNameCsinfra + '</td><td class="small text-center vat">' + $('option:selected', this).attr("intake") + '</td><td class="small text-center vat">' + $('option:selected', this).attr("csinfra") + '</td><td aling="center"><a class="btn btn-danger" onclick="deleteOption(' + this.value + ')"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td></tr>');
-            } else {
-                Swal.fire({
-                    title: 'Information',
-                    text: "No puedes agregar la fuente hidrica",
-                    icon: 'warning',
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                })
-            }
-        });
-
-        $('#idSendIntake').click(function (e) {
-            arrayFunction = [];
-
+    loadUpdatePtap = function () {        
+        setTimeout(function(){
             if($('#idTbodyIntake').html().trim() === "") {
                 $('#idIntakePlant').focusin()
                 $('#idIntakePlant').focusout()
@@ -279,13 +187,7 @@ $(function () {
                                 ptapWp: result.result.wp,
                                 ptapWs: result.result.ws
                             })
-                            letterPlant = result.result.ptap_type;
-                            activePlantGraph(letterPlant)
-                            setTimeout(function(){
-                                document.getElementById("idBackgroundGraph").style.display = "none";
-                            },3000);
                         } else {
-                            localStorage.plantId = null;
                             Swal.fire({
                                 title: 'Error',
                                 text: result.error[0],
@@ -295,7 +197,6 @@ $(function () {
                             })
                         }
                     },error: function (err) {
-                        localStorage.plantId = null;
                         Swal.fire({
                             title: 'Error',
                             text: "Problemas calculando la planta sugerida",
@@ -306,6 +207,175 @@ $(function () {
                     }
                 });
             }
+        },2000);
+    }
+    /**
+    * Initialize the methods from the context of treatment plants
+    * @param 
+    * @returns 
+    */
+    initialize = function () {
+        $('#submit').click(function (e) {
+            var saveForm = true;
+            if($('#idNamePlant').val() === "" || $('#idNamePlant').val() === null) {
+                $('#idNamePlant').focusin()
+                $('#idNamePlant').focusout()
+                saveForm = false;
+            }
+            if($('#idDescriptionPlant').val() === "" || $('#idDescriptionPlant').val() === null) {
+                $('#idDescriptionPlant').focusin()
+                $('#idDescriptionPlant').focusout()
+                saveForm = false;
+            }
+            if(letterPlant === null) {
+                $('#idIntakePlant').focusin()
+                $('#idIntakePlant').focusout()
+                saveForm = false;
+            }
+
+            var arrayCsinfra = [];
+            $("[name=nameListAdd]").each(function( index ) {
+                arrayCsinfra.push({
+                    name: $("[name=nameListAdd]").get(index).getAttribute("nameList"),
+                    graphId: $("[name=nameListAdd]").get(index).getAttribute("graphIdlist"),
+                    csinfra: $("[name=nameListAdd]").get(index).getAttribute("csinfraList"),
+                    intake: $("[name=nameListAdd]").get(index).getAttribute("idIntake")
+                })
+            });
+
+            if(saveForm) {
+                if(arrayPtap.length > 0) {
+                    var urlDetail = "../../treatment_plants/setHeaderPlant/";
+                    $.ajax({
+                        url: urlDetail,
+                        method: 'PUT',
+                        contentType: 'application/json; charset=utf-8',
+                        dataType: 'json',
+                        data: JSON.stringify({
+                            "header": {
+                                "plantId" : localStorage.plantId,
+                                "cityId" : localStorage.idCityTreatmentPlant,
+                                "plantName" : $('#idNamePlant').val(),
+                                "plantDescription" : $('#idDescriptionPlant').val(),
+                                "plantSuggest" : letterPlant,
+                                "element" : arrayPlant,
+                                "function" : arrayFunction,
+                                "ptap" : arrayPtap,
+                                "csinfra" : arrayCsinfra
+                            }
+                        }),success: function(result) {
+                            window.location.href ="../../treatment_plants/?limit=5&city=" + localStorage.getItem('cityId');
+                            localStorage.plantId = null;
+                        },error: function (err) {
+                            Swal.fire({
+                                title: 'Error',
+                                text: "Problemas guardando la planta de tratamiento",
+                                icon: 'error',
+                                confirmButtonColor: '#3085d6',
+                                cancelButtonColor: '#d33',
+                            })
+                        }
+                    });
+                } else {
+                    Swal.fire({
+                        title: 'Error',
+                        text: "No tiene registro en el tipo de PTAP",
+                        icon: 'error',
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                    })
+                }
+            }
+        });
+
+        $('#idIntakePlant').change(function (e) {
+            var validCsinfra = true;
+            var textNameCsinfra = $('option:selected', this).attr("namelist");
+            $("[name=nameListAdd]").each(function( index ) {
+                if($("[name=nameListAdd]").get(index).getAttribute("nameList") === textNameCsinfra) {
+                    validCsinfra = false;
+                }
+            });
+            if(validCsinfra) {
+                $('#idTbodyIntake').append('<tr id="child' + this.value + '"><td class="small text-center vat" name="nameListAdd" idIntake="' + $('option:selected', this).attr("value") + '" nameList="' + textNameCsinfra + '"  graphIdlist="' + $('option:selected', this).attr("graphIdlist") + '"  csinfraList="' + $('option:selected', this).attr("csinfra") + '">' + textNameCsinfra + '</td><td class="small text-center vat">' + $('option:selected', this).attr("intake") + '</td><td class="small text-center vat">' + $('option:selected', this).attr("csinfra") + '</td><td aling="center"><a class="btn btn-danger" onclick="deleteOption(' + this.value + ')"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td></tr>');
+            } else {
+                Swal.fire({
+                    title: 'Information',
+                    text: "No puedes agregar la fuente hidrica",
+                    icon: 'warning',
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                })
+            }
+        });
+
+        $('#idSendIntake').click(function (e) {
+            deactivePlantGraph();
+            setTimeout(function(){
+                arrayFunction = [];
+
+                if($('#idTbodyIntake').html().trim() === "") {
+                    $('#idIntakePlant').focusin()
+                    $('#idIntakePlant').focusout()
+                    $("[name=disableElement]").each(function( index ) {
+                        $("[name=disableElement]").get(index).style.display = "block";
+                        var idr =  $("[name=disableElement]").get(index).getAttribute("idr");
+                        $('#' + idr ).css("background-color", "#ffffff");
+                        $('#' + idr ).css("border-color", "#ffffff");
+                    });
+                    document.getElementById("idBackgroundGraph").style.display = "block";
+                } else  {
+                    var arrayCsinfra = [];
+                    $("[name=nameListAdd]").each(function( index ) {
+                        arrayCsinfra.push($("[name=nameListAdd]").get(index).getAttribute("idIntake"))
+                    });
+
+                    $.ajax({
+                        url: "../../treatment_plants/getTypePtap/",
+                        method: 'POST',
+                        contentType: 'application/json; charset=utf-8',
+                        dataType: 'json',
+                        data: JSON.stringify({
+                            "csinfras": arrayCsinfra
+                        }),success: function(result) {
+                            if(result.status === true) {
+                                localStorage.setItem('csInfra', result);
+                                arrayPtap.push({
+                                    ptapType: result.result.ptap_type,
+                                    ptapAwy: result.result.awy,
+                                    ptapCn: result.result.cn,
+                                    ptapCp: result.result.cp,
+                                    ptapCs: result.result.cs,
+                                    ptapWn: result.result.wn,
+                                    ptapWp: result.result.wp,
+                                    ptapWs: result.result.ws
+                                })
+                                letterPlant = result.result.ptap_type;
+                                activePlantGraph(letterPlant)
+                                setTimeout(function(){
+                                    document.getElementById("idBackgroundGraph").style.display = "none";
+                                },3000);
+                            } else {
+                                Swal.fire({
+                                    title: 'Error',
+                                    text: result.error[0],
+                                    icon: 'error',
+                                    confirmButtonColor: '#3085d6',
+                                    cancelButtonColor: '#d33',
+                                })
+                            }
+                        },error: function (err) {
+                            Swal.fire({
+                                title: 'Error',
+                                text: "Problemas calculando la planta sugerida",
+                                icon: 'error',
+                                confirmButtonColor: '#3085d6',
+                                cancelButtonColor: '#d33',
+                            })
+                        }
+                    });
+                }
+            },1000);
         });
         initMap();
 
@@ -327,7 +397,7 @@ $(function () {
                 });
 
                 $.each( data.csinfra, function( key, value ) {
-                    $('#idTbodyIntake').append('<tr id="child' + value.csinfraId + '"><td class="small text-center vat" name="nameListAdd" idIntake="' + value.id + '" nameList="' + value.csinfraName + '"  graphIdlist="' + value.csinfraGraphId + '"  csinfraList="' + value.csinfraCode + '">' + value.csinfraName + '</td><td class="small text-center vat">' + value.csinfraName + ' - ' + value.csinfraCode + ' - ' + value.csinfraGraphId + '</td><td class="small text-center vat">' + value.csinfraCode + '</td><td aling="center"><a class="btn btn-danger" onclick="deleteOption(' + value.csinfraId + ')"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td></tr>');
+                    $('#idTbodyIntake').append('<tr id="child' + value.csinfraId + '"><td class="small text-center vat" name="nameListAdd" idIntake="' + value.csinfraElementsystemId + '" nameList="' + value.csinfraName + '"  graphIdlist="' + value.csinfraGraphId + '"  csinfraList="' + value.csinfraCode + '">' + value.csinfraName + '</td><td class="small text-center vat">' + value.csinfraName + ' - ' + value.csinfraCode + ' - ' + value.csinfraGraphId + '</td><td class="small text-center vat">' + value.csinfraCode + '</td><td aling="center"><a class="btn btn-danger" onclick="deleteOption(' + value.csinfraId + ')"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td></tr>');
                 });
 
                 $.each( data.element, function( key, value ) {
@@ -363,6 +433,8 @@ $(function () {
                     })
                 });
 
+                loadUpdatePtap()
+
                 arrayLoadingFunction = data.function;
                 document.getElementById("idBackgroundGraph").style.display = "none";
                 loadInfoTree = true;
@@ -381,7 +453,7 @@ $(function () {
                 });
 
                 $.each( data.csinfra, function( key, value ) {
-                    $('#idTbodyIntake').append('<tr id="child' + value.csinfraId + '"><td class="small text-center vat" name="nameListAdd" idIntake="' + value.id + '" nameList="' + value.csinfraName + '"  graphIdlist="' + value.csinfraGraphId + '"  csinfraList="' + value.csinfraCode + '">' + value.csinfraName + '</td><td class="small text-center vat">' + value.csinfraName + ' - ' + value.csinfraCode + ' - ' + value.csinfraGraphId + '</td><td class="small text-center vat">' + value.csinfraCode + '</td><td aling="center"><a class="btn btn-danger" onclick="deleteOption(' + value.csinfraId + ')"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td></tr>');
+                    $('#idTbodyIntake').append('<tr id="child' + value.csinfraId + '"><td class="small text-center vat" name="nameListAdd" idIntake="' + value.csinfraElementsystemId + '" nameList="' + value.csinfraName + '"  graphIdlist="' + value.csinfraGraphId + '"  csinfraList="' + value.csinfraCode + '">' + value.csinfraName + '</td><td class="small text-center vat">' + value.csinfraName + ' - ' + value.csinfraCode + ' - ' + value.csinfraGraphId + '</td><td class="small text-center vat">' + value.csinfraCode + '</td><td aling="center"><a class="btn btn-danger" onclick="deleteOption(' + value.csinfraId + ')"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td></tr>');
                 });
 
                 $.each( data.element, function( key, value ) {
@@ -436,7 +508,7 @@ $(function () {
                 });
 
                 $.each( data.csinfra, function( key, value ) {
-                    $('#idTbodyIntake').append('<tr id="child' + value.csinfraId + '"><td class="small text-center vat" name="nameListAdd" idIntake="' + value.id + '" nameList="' + value.csinfraName + '"  graphIdlist="' + value.csinfraGraphId + '"  csinfraList="' + value.csinfraCode + '">' + value.csinfraName + '</td><td class="small text-center vat">' + value.csinfraName + ' - ' + value.csinfraCode + ' - ' + value.csinfraGraphId + '</td><td class="small text-center vat">' + value.csinfraCode + '</td><td aling="center"></td></tr>');
+                    $('#idTbodyIntake').append('<tr id="child' + value.csinfraId + '"><td class="small text-center vat" name="nameListAdd" idIntake="' + value.csinfraElementsystemId + '" nameList="' + value.csinfraName + '"  graphIdlist="' + value.csinfraGraphId + '"  csinfraList="' + value.csinfraCode + '">' + value.csinfraName + '</td><td class="small text-center vat">' + value.csinfraName + ' - ' + value.csinfraCode + ' - ' + value.csinfraGraphId + '</td><td class="small text-center vat">' + value.csinfraCode + '</td><td aling="center"></td></tr>');
                 });
 
                 $.each( data.element, function( key, value ) {
@@ -470,6 +542,20 @@ $(function () {
             });
         }
     };
+    /**
+    * Deactivates the elements of the treatment plant model
+    * @param {String} Letter of the Ptap type calculated with the selected intakes
+    * @returns 
+    */
+    deactivePlantGraph = function() {
+        $("[name=disableElement]").each(function( index ) {
+            $("[name=disableElement]").get(index).style.display = "block";
+            var idr =  $("[name=disableElement]").get(index).getAttribute("idr");
+            $('#' + idr ).css("background-color", "#ffffff");
+            $('#' + idr ).css("border-color", "#ffffff");
+        });
+    };
+
     /**
     * Activates the elements of the treatment plant model
     * @param {String} Letter of the Ptap type calculated with the selected intakes
@@ -1095,12 +1181,12 @@ $(function () {
         var intakeId='{{idx}}';
         Swal.fire({
             title: "<div style='font-size: 25px;'>Are you sure?</div>",
-            text: msgs.notRevert,
+            text: "You won't be able to revert this!",
             icon: "warning",
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: msgs.yesDelete
+            confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.isConfirmed) {
                 var urlDetail = "../../treatment_plants/setHeaderPlant/";
@@ -1112,13 +1198,12 @@ $(function () {
                     data: JSON.stringify({
                         "plantId" : plantId
                     }),success: function(result) {
-                        window.location.href ="../../treatment_plants/";
+                        window.location.href ="../../treatment_plants/?limit=5&city=" + localStorage.getItem('cityId');
                         localStorage.plantId = null;
                     },error: function (err) {
-                        localStorage.plantId = null;
                         Swal.fire({
                             title: 'Error',
-                            text: msgs.troubleDeletingTreatmentPlant,
+                            text: "Problemas eliminando la planta de tratamiento, ya se debe estar usando en un caso de estudio",
                             icon: 'error',
                             confirmButtonColor: '#3085d6',
                             cancelButtonColor: '#d33',

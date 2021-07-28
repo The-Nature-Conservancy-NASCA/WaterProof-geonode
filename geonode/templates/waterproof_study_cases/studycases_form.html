@@ -141,7 +141,7 @@
                                 <div class="col-md-12">
                                     <div class="row form-group">
                                         <div class="col-md-2">
-                                            <button type="button" class="btn btn-primary" id="ModalAddCostBtn">{% trans "Add cost function" %}</button>
+                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#CalculatorModal" id="ModalAddCostBtn">{% trans "Add cost function" %}</button>
                                         </div>
 
                                     </div>
@@ -575,7 +575,7 @@
                             <div class="col-xs-6">
                                 <label class="text-primary">{% trans "Currency for definition of costs" %} </label>
                                 <select id="currencyCost" class="form-control" required>
-                                    {% for currency in currencies %}
+                                    {% for currency in currencys %}
                                     {% if currency.iso3 == 'USA'%}
                                     <option value="{{currency.pk}}" data-country="{{currency.iso3}}">({{currency.currency}}) - {{currency.name}}</option>
                                     {% else %}
@@ -631,8 +631,7 @@
                                 <div class="btn-group" role="group">
                                     <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value=">">></button>
                                     <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value=">=">\ge</button>
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="<">
-                                        << /button>
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="<"><</button>
                                             <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="<=">\le</button>
                                             <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="!=">\ne</button>
                                             <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="and">and</button>

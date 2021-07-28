@@ -15,7 +15,7 @@
 <script type="text/javascript">
     var SelectedCurrency = "{{SelectedCurrency}}";
 </script>
-<div class="page-header">
+<div class="page-header" style="margin-bottom: 0px;height: 50px;margin-top: 0px;">
     <h1 style="font-size: 20pt;color: #1389AA;font-weight: bold;padding: 15px;">{% trans "Decision Indicators" %}</h1>
 </div>
 <br>
@@ -23,19 +23,18 @@
 <form id="form" method="POST" action="">
     {% csrf_token %}
     <!--Start smartwizard-->
-    <br>
     <div style="position: relative;">
         <div class="help-in-report">
             {% trans "En este reporte se presenta de forma sintetizada las proporciones en inversión y beneficios que se lograrán por la implementación de las SbN:" %}
         </div>
         <div style="text-align: center;text-align: center;position: absolute;top: 0px;right: 0px;margin-left: 530px;font-size: 13px;">
-            <div style="float: left;width: 25%;" id="idFinancialIndicators">
-                <img src="/static/geonode/img/indicadores-fisicos.png" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;" title="{% trans "Financial indicators" %}"/> 
+            <div style="float: left;width: 15%;" id="idFinancialIndicators">
+                <img src="/static/geonode/img/indicadores-fisicos.png" style="width: 100%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;" title="{% trans "Financial indicators" %}"/> 
                 <br> 
                 <a onclick="changeReport()">{% trans "Reports" %}</a>
             </div>
-            <div style="float: left;width: 25%;" id="idFinancialIndicators">
-                <img src="/static/geonode/img/Indicadores-financieros.png" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;" title="{% trans "Financial indicators" %}"/> 
+            <div style="float: left;width: 15%;" id="idFinancialIndicators">
+                <img src="/static/geonode/img/Indicadores-financieros.png" style="width: 100%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;" title="{% trans "Financial indicators" %}"/> 
                 <br> 
                 <a href="../../reports/financial/">{% trans "Financial indicators" %}</a>
             </div>
@@ -43,7 +42,7 @@
     </div>
     <div id="smartwizard" style="position: relative;">
         <div class="border-table-title">
-            <div class="title-table">{% trans "Study Case" %}</div>
+            <div class="title-table" id="idNameStudyCase">{% trans "Study Case" %}</div>
             <div class="detail-table">
                 <div class="column-left-table">
                     <div class="file-column-left">
@@ -58,6 +57,10 @@
                         <div>{% trans "Region:" %}</div>
                         <div class="value-file-column-left" id="idRegion">{% trans "-" %}</div>
                     </div>
+                    <div class="file-column-left">
+                        <div>{% trans "Time frame (year):" %}</div>
+                        <div class="value-file-column-left" id="idTimeMainDecision">{% trans "-" %}</div>
+                    </div>
                 </div>
                 <div class="column-right-table">
                     <div class="file-column-left">
@@ -67,6 +70,10 @@
                     <div class="file-column-left">
                         <div class="title-file-column-right">{% trans "Number of drinking water treatment plants in the system:" %}</div>
                         <div class="value-file-column-left" id="idNumberOfDrinkingDecision"></div>
+                    </div>
+                    <div class="file-column-left">
+                        <div class="title-file-column-right">{% trans "currency:" %}</div>
+                        <div class="value-file-column-left" id="idCurrencyMainDecision">{% trans "-" %}</div>
                     </div>
                 </div>
             </div>
@@ -632,6 +639,7 @@ $(function () {
         $("#idCountri").html(localStorage.getItem('country'));
         $("#idCity").html(localStorage.getItem('city'));
         $("#idRegion").html(localStorage.getItem('region'));
+        $("#idNameStudyCase").html(localStorage.getItem('studyCasesName'));
 
         var gaugeOptions = {
             chart: {
@@ -1021,15 +1029,11 @@ $(function () {
             initMapPhysical();
         });
 
-        var urlDetail = "../../reports/getStudyCasesIntake/?studyCase=" + localStorage.idStudyCase;
-        $.getJSON(urlDetail, function (data) {
-            var listFielTable = "";
-            $.each( data, function( key, value ) {
-                document.getElementById("idNumberOfWaterDecision").innerHTML = value.numberStudyCase;
-                document.getElementById("idNumberOfDrinkingDecision").innerHTML = value.numberStudyCase;
-            });
-        });
-
+        document.getElementById("idNumberOfWaterDecision").innerHTML = localStorage.getItem('idNumberOfWater');
+        document.getElementById("idNumberOfDrinkingDecision").innerHTML = localStorage.getItem('idNumberOfDrinking');
+        document.getElementById("idCurrencyMainDecision").innerHTML = localStorage.getItem('idCurrencyMain');
+        document.getElementById("idTimeMainDecision").innerHTML = localStorage.getItem('idTimeMain');
+        
         var urlDetail = "../../reports/getDistinctGroupErr/?studyCase=" + localStorage.idStudyCase;
         $.getJSON(urlDetail, function (data) {
             var listFielTable = "";

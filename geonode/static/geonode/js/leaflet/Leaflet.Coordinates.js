@@ -83,11 +83,19 @@ L.Control.Coordinates = L.Control.extend({
 			ySpan = L.DomUtil.create("span", "", this._inputcontainer);
 			this._inputY = this._createInput("inputY", this._inputcontainer);
 		}
+
+		var input = L.DomUtil.create("button", 'glyphicon glyphicon-screenshot', this._inputcontainer);
+    input.type = "button";
+		input.style = "padding: 4px; margin-left: 3px;";
+		L.DomEvent.disableClickPropagation(input);
+		//var span = L.DomUtil.create("span", "glyphicon glyphicon-screenshot", input);
+		L.DomEvent.on(input, 'click', this._handleSubmit, this);
+
 		xSpan.innerHTML = options.labelTemplateLng.replace("{x}", "");
 		ySpan.innerHTML = options.labelTemplateLat.replace("{y}", "");
 
-		L.DomEvent.on(this._inputX, 'keyup', this._handleKeypress, this);
-		L.DomEvent.on(this._inputY, 'keyup', this._handleKeypress, this);
+		//L.DomEvent.on(this._inputX, 'keyup', this._handleKeypress, this);
+		//L.DomEvent.on(this._inputY, 'keyup', this._handleKeypress, this);
 
 		//connect to mouseevents
 		//map.on("mousemove", this._update, this);
@@ -160,6 +168,7 @@ L.Control.Coordinates = L.Control.extend({
 			var ll = new L.LatLng(y, x);
 			marker.setLatLng(ll);
 			marker.addTo(this._map);
+			this._map.flyTo(ll);
 			if (this.options.centerUserCoordinates) {
 				this._map.setView(ll, this._map.getZoom());
 			}

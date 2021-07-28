@@ -143,7 +143,6 @@
 }
 .content-image > div {
     width: 200px;
-    height: 270px;
     position: relative;
     left: 50%;
     margin-left: -100px;
@@ -327,7 +326,7 @@
 }
 .top-center-line {
     position: absolute;
-    left: 50%;
+    right: 47%;
     top: 0px;
 }
 .title-report {
@@ -351,7 +350,6 @@
     border-style: solid;
     border-color: #1389AA;
     margin-left: 0px;
-    height: 150px;
 }
 .margin-report {
     border-style: solid;

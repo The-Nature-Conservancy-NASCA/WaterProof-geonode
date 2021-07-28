@@ -640,7 +640,7 @@ def viewNbs(request, idx):
     userCountry = Countries.objects.get(iso3=request.user.country)
     region = Regions.objects.get(id=nbs.country.region_id)
     currency = Countries.objects.get(id=country.id)
-    currencies = Countries.objects.all()
+    currencies = Countries.objects.filter()
     transitions = RiosTransition.objects.all()
     riosTransition = RiosActivity.objects.filter(transition_id=2)
     return render(request, 'waterproof_nbs_ca/waterproofnbsca_detail_list.html',
