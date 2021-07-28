@@ -536,6 +536,11 @@ $(document).ready(function () {
             }, function (data) {
                 valid_investment = true;
                 $.each(data, function (index, currency) {
+                    value = Number.parseFloat(currency.value).toFixed(5);
+                    conversion = 1;
+                    if (currency.currency == 'USD') {
+                        conversion = value;
+                    }
                     if (currency.currency != analysis_currency) {
                         value = Number.parseFloat(currency.value).toFixed(5);
                         html += '<div class="col-md-4 currency-value"><label class="custom-control-label" for="currency">' + currency.currency + '</label></div>'
@@ -586,7 +591,6 @@ $(document).ready(function () {
                     });
                     return false
                 }
-
                 if (valid_nbs) {
                     Swal.fire({
                         title: gettext('exchange_rate'),
@@ -658,7 +662,6 @@ $(document).ready(function () {
     });
 
     $('#step7EndBtn').click(function () {
-        edit = !$("#full-table").hasClass("panel-hide")
         var valid_edit = true;
         var valid_period = true;
         nbsactivities = []
@@ -700,7 +703,6 @@ $(document).ready(function () {
         } else {
             valid_period = false;
         }
-
         if ($('#period_analysis').val() != '' && $('#period_nbs').val() != '' && valid_edit && valid_period) {
             analysis_currency = $("#analysis_currency option:selected").val()
             html = '<div class="row" id="currencys-panel"> <div class="col-md-10 currency-panel">Currency for the execution this analisys</div><div class="col-md-2 currency-panel currency-text">' + analysis_currency
@@ -829,7 +831,6 @@ $(document).ready(function () {
                     })
                 }
             });
-
         } else {
             Swal.fire({
                 icon: 'warning',
@@ -1213,7 +1214,7 @@ $(document).ready(function () {
                 content += '<td id="lucode_' + id_intake + '_' + bio.id + '">' + bio.lucode + '</td>'
                 $.each(bio, function (key, v) {
                     if (key != 'lucode' && key != 'default' && key != 'lulc_desc' && key != 'description' && key != 'user_id' && key != 'intake_id' && key != 'study_case_id' && key != 'id' && key != 'macro_region' && key != 'kc') {
-                        content += '<td id="' + key + '_' + id_intake + '_' + bio.id + '"><input class="text-number" step="0.000001" oninput="validity.valid||(value=\'\');" type="number" value="' + v + '"/></td>'
+                        content += '<td id="' + key + '_' + id_intake + '_' + bio.id + '"><input class="text-number-full" step="0.000001" oninput="validity.valid||(value=\'\');" type="number" value="' + v + '"/></td>'
                     }
                 });
                 content += '</tr>'
