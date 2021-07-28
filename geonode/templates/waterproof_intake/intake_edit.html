@@ -121,7 +121,7 @@
                         <h3>{% trans "Water intake infrastructure setup" %}
                             <button type="button" data-toggle="modal" data-target="#HelpStep2" id="HelpModalBtnModal_step2" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
                         </h3>
-                        <p>{% trans "In this section you can build your water intake infrastructure and define operating cost functions. Note that in the drawing panel shows the river from which the water comes and that a series of icons representing the elements that can be part of your catchment system are provided. Click on the element that you want to incorporate into your scheme and then click on the graphic panel to include the desired element. Then establish the connections between the elements to define their topology." %}</p>
+                        <p>{% trans "In this section you can build your water intake infrastructure and define operating cost functions. Note that in the drawing panel shows the river from which the water comes and that a series of icons representing the elements that can be part of your catchment system are provided." %}</p>
                         <br>
                         <p>{% trans "Select the elements that make up your capture system and click on the drawing area to add them; when finished, click validate graph." %}</p>
                     </div>
@@ -183,9 +183,9 @@
                                         <label>{% trans "% Phosphorus retained" %}</label>
                                         <input type="number" id="fosforoDiagram" class="form-control" oninput="validateinput(this)" disabled>
                                     </div> 
-                                    <button type="button" class="btn btn-primary btn-block" id="saveGraph">{% trans "Validate graph" %}</button>
                                 </div>
                             </div>
+                            <button type="button" class="btn btn-primary btn-block" id="saveGraph">{% trans "Validate graph" %}</button>
                         </div>
                     </div>
                     <div class="row" id="hideCostFuntion" style="display: none">
@@ -393,22 +393,36 @@
                         <div class="col-md-5">
                             <div class="panel panel-default">
                                 <div class="panel-body">
-                                    <div class="alert alert-info" role="alert">
-                                        <h1 class="text-center">{% trans "Intake area delimitation" %}</h1>
-                                    </div>
+                                    <!--div class="alert alert-info" role="alert">
+                                        <button type="button" class="btn btn-link btn-block" data-toggle="modal" data-target="#HelpStep5" id="HelpModalBtnModal_step5" style="outline:none; text-decoration:none;">
+                                    <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>{% trans "Intake area delimitation" %}</button>
+                                        </button>
+    
+                                    </div-->
                                     <p>{% trans "You can change the area"%}</p>
-                                    <p>{% trans "To  move area vertices" %}</p>
-                                    <div class="form-group">
+                                    <p>{% trans "To move area vertices" %}</p>
+                                    <div class="form-group col-md-4">
                                         <button type="button" class="btn btn-primary" id="btnDelimitArea"> {%trans "Manually area delimit" %}</button>
                                     </div>
-                                    <p>{% trans "To load shapefile" %}</p>
-                                    <div class="form-group">
-                                        <input id="intakeArea" type="file"> <button type="button" class="btn btn-link" data-toggle="modal" data-target="#HelpGeom" id="HelpGeomModal" style="outline:none; text-decoration:none;">
-                                            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> {% trans "Help" %}</button>
-                                        </button>
+                                    <div class="col-md-1"><p>{% trans "or" %}</p></div>
+                                    <div class="form-group col-md-4">
+                                        <div class="input-group">
+                                            <span class="input-group-btn">
+                                                <span class="btn btn-default btn-file">
+                                                    {% trans "Select a file" %}
+                                                    <input id="intakeArea" type="file">
+                                                </span>
+                                            </span>
+                                        </div>
                                     </div>
+                                    <div class="col-md-3">
+                                       
+                                    </div>
+                                    <br>
+                                    <br>
                                     <p>{% trans "Once defined the area" %}</p>
-                                    <div class="form-group">
+                                    <p>{% trans "To load shapefile" %}</p>
+                                    <div class="form-group col-md-4">
                                         <button type="button" class="btn btn-primary" id="btnValidateArea"> {% trans "Validate delimit area" %}</button>
                                     </div>
                                 </div>

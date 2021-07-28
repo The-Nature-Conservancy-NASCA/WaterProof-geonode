@@ -27,7 +27,7 @@ msgstr ""
 "Project-Id-Version: GeoNode\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-07-21 14:49-0500\n"
-"PO-Revision-Date: 2021-07-23 22:05-0500\n"
+"PO-Revision-Date: 2021-07-28 13:05-0500\n"
 "Last-Translator: Julien Collaer <julien.collaer@opengeode.be>\n"
 "Language-Team: Spanish (http://www.transifex.com/geonode/geonode/language/"
 "es/)\n"
@@ -451,3 +451,23 @@ msgstr "Error!"
 #: static/waterproof_intake/js/intake_list.js:97
 msgid "The intake has not been deleted, try again!"
 msgstr "La captación no ha sido borrada, intente nuevamente!"
+
+#: static/waterproof_intake/js/intake_list.js:96
+msgid "Year"
+msgstr "Años"
+
+#: static/waterproof_intake/js/intake_list.js:96
+msgid "Water Volume (m3)"
+msgstr "Volúmen de agua (m3)"
+
+#: static/waterproof_intake/js/intake_list.js:96
+msgid "Sediment (Ton)"
+msgstr "Sedimentos (Ton)"
+
+#: static/waterproof_intake/js/intake_list.js:96
+msgid "Nitrogen (Kg)"
+msgstr "Nitrógeno (Kg)"
+
+#: static/waterproof_intake/js/intake_list.js:96
+msgid "Phosphorus (Kg)"
+msgstr "Fósforo (Kg)"
