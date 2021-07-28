@@ -57,7 +57,7 @@
                             <div class="value-file-column-left" id="idRegionMain">{% trans "-" %}</div>
                         </div>
                         <div class="file-column-left">
-                            <div>{% trans "Time frame (year):" %}</div>
+                            <div>{% trans "Time frame (years):" %}</div>
                             <div class="value-file-column-left" id="idTimeMain">{% trans "-" %}</div>
                         </div>
                     </div>
@@ -71,7 +71,7 @@
                             <div class="value-file-column-left" id="idNumberOfDrinking"></div>
                         </div>
                         <div class="file-column-left">
-                            <div class="title-file-column-right">{% trans "currency:" %}</div>
+                            <div class="title-file-column-right">{% trans "Currency:" %}</div>
                             <div class="value-file-column-left" id="idCurrencyMain">{% trans "-" %}</div>
                         </div>
                     </div>
@@ -79,10 +79,12 @@
             </div>
         </div>
         <div class="title-report" style="font-size: 20px;">{% trans "Financial summary" %}</div>
-        <div style="height: 500px;">
-            <div class="content-image">
+        <div class="col-md-12">
+            <div class="col-md-1"></div>
+            <div class="content-image col-md-3">
                 <div>
-                    <div class="name-roi">{% trans "Calculate ROI:" %}<div class="value-roi" id="idRoi"></div></div>
+                    <div class="name-roi">{% trans "Calculated ROI:" %} <div class="value-roi" id="idRoi"></div></div>
+                
                     <img src="/static/geonode/img/valor-bruto.png" class="img-roi" />
                     <div class="bootom-roi">
                         <div>{% trans "ROI on nature based solutions opportunity" %}</div>
@@ -90,14 +92,16 @@
                     </div>
                 </div>
             </div>
-            <div style="width: 50%;position: absolute;left: 45%;margin: 50px;">
+            <div class="col-md-7">
                 <div id="containerNpv"></div>
             </div>
         </div>
         <div class="title-report" style="font-size: 20px;">{% trans "Summary of risks in the basins" %}</div>
         <div class="help-report" style="border-width: 0px; padding: 0px;">{% trans "Select the basin of your interest from the drop-down list to know a summary of its risks (The risk results have been estimated using the Acueduct - WRI database)" %}</div>
         <div style="text-align: center;">
-            <select class="select-condition" style="width: 400px;" id="idSelectStudyCase"></select>
+            <h5>{% trans "Water Intake" %} : 
+            <select class="select-condition" style="width: 800px; text-align: center;" id="idSelectStudyCase"></select>
+        </h5>
         </div>
         <div style="margin-top: 40px;">
             <div class="marc-report">
@@ -137,32 +141,32 @@
             <div style="width: calc(100% - 20px);margin-top: 50px;float: left;">
                 <div class="title-report" style="font-size: 20px;">{% trans " Estimated change in ecosystem services (Business as Usual Scenario Vs Nature-based Solutions Scenario)" %}</div>
                 <div style="height: 250px;left: 5%;position: relative;">
-                    <div class="line-marc-table">
-                        <div>{% trans "Anual water yield" %}</div>
+                    <div class="line-marc-table-icons">
+                        <div><h8>{% trans "Anual water yield" %}</h8></div>
                         <div><img src="/static/geonode/img/dashboard-01.png" class="icon-dashboard"></div>
                         <div class="line-number-marc-table" id="changeInVolumeOfWater"></div>
                     </div>
-                    <div class="line-marc-table">
+                    <div class="line-marc-table-icons">
                         <div>{% trans "Seasonal water yield" %}</div>
                         <div><img src="/static/geonode/img/dashboard-02.png" class="icon-dashboard"></div>
                         <div class="line-number-marc-table" id="changeInBaseFlow"></div>
                     </div>
-                    <div class="line-marc-table">
+                    <div class="line-marc-table-icons">
                         <div>{% trans "Sediment delivery ratio" %}</div>
                         <div><img src="/static/geonode/img/dashboard-03.png" class="icon-dashboard"></div>
                         <div class="line-number-marc-table" id="changeIntotalSediments"></div>
                     </div>
-                    <div class="line-marc-table">
+                    <div class="line-marc-table-icons">
                         <div>{% trans "Nutrient delivery ratio - nitrogen" %}</div>
                         <div><img src="/static/geonode/img/dashboard-04.png" class="icon-dashboard"></div>
                         <div class="line-number-marc-table" id="changeInNitrogenLoad"></div>
                     </div>
-                    <div class="line-marc-table">
+                    <div class="line-marc-table-icons">
                         <div>{% trans "Nutrient delivery ratio - phosphorus" %}</div>
                         <div><img src="/static/geonode/img/dashboard-05.png" class="icon-dashboard"></div>
                         <div class="line-number-marc-table" id="changeInPhosphorus"></div>
                     </div>
-                    <div class="line-marc-table">
+                    <div class="line-marc-table-icons">
                         <div>{% trans "Carbon storage and sequestration" %}</div>
                         <div><img src="/static/geonode/img/dashboard-06.png" class="icon-dashboard"></div>
                         <div class="line-number-marc-table" id="changeInCarbonStorage"></div>
@@ -171,20 +175,22 @@
             </div>
         </div>
         <div class="title-report" style="font-size: 20px;">{% trans "Intervention and budget summary" %}</div>
-        <div>
-            <div class="border-table-title" style="float: left;">
+        <div class="conainer-report-main-table">
+            <div class="border-table-title-end">
                 <div class="title-table">
                     <div class="tile-center-title">{% trans "Nature based solution" %}</div>
                     <div class="tile-center-title">{% trans "Actual spend (USD)" %}</div>
                     <div class="tile-center-title">{% trans "Intervention área (Hectares)" %}</div>
                 </div>
-                <div id="listFielTable"></div>
+                <div class="all-time" id="listFielTable"></div>
             </div>
         </div>
 
-        <div class="page-header" style="margin-top: 600px;">
+        <div></div>
+
+        <div class="page-header">
             <br>
-            <h5 textColor="red" style="font-size: 20pt;color: #1389AA;font-weight: bold;padding: 15px;">{% trans "Explore detailed results of this case study" %}</h5>
+            <h5 textColor="red" style="font-size: 20pt;color: #1389AA;font-weight: bold; margin-top: 10px;">{% trans "Explore detailed results of this case study" %}</h5>
         </div>
 
         <div style="text-align: center;">
@@ -359,7 +365,7 @@ $(function () {
         $.getJSON(urlDetail, function (data) {
             var listFielTable = "";
             $.each( data, function( key, value ) {
-                listFielTable = listFielTable + '<div class="line-marc-table" style="width: 100%;color: #616160;margin-top: 20px;height: 20px;"><div style="width: 40%;text-align: left;margin-left: 10px;">' + value.sbnf + '</div><div class="top-center-line">' + value.costPerHectarea.toFixed(2) + '</div><div class="line-number-marc-table" style="    position: absolute;right: 0px;width: 30%;color: #616160;font-size: 13px;padding: 0px;top: 0px;">' + value.recomendedIntervetion.toFixed(2) + '</div></div>';
+                listFielTable = listFielTable + '<div><div class="line-marc-table" style="width: 100%;color: #616160;margin-top: 20px;height: 20px;"><div style="width: 100%;text-align: left;margin-left: 10px;">' + value.sbnf + '</div><div class="top-center-line">' + value.costPerHectarea.toFixed(2) + '</div><div class="line-number-marc-table" style="    position: absolute;right: 0px;width: 30%;color: #616160;font-size: 13px;padding: 0px;top: 0px;">' + value.recomendedIntervetion.toFixed(2) + '</div></div></div>';
             });
             document.getElementById("listFielTable").innerHTML = listFielTable;
         });
