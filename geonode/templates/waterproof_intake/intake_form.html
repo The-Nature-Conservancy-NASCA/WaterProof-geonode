@@ -17,7 +17,7 @@
         </div>
         <br>
         <div class="col-lg-4">
-            <h4 class="title-city">{% trans "Intake creation city" %} <span id="cityLabel"></span></h4>    
+            <h4 class="title-city">{% trans "Intake creation city" %} : <span id="cityLabel"></span></h4>    
         </div>
     </div>
     <!--Begin Form-->
@@ -119,7 +119,7 @@
                         <h3>{% trans "Water intake infrastructure setup" %}
                             <button type="button" data-toggle="modal" data-target="#HelpStep2" id="HelpModalBtnModal_step2" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
                         </h3>
-                        <p>{% trans "In this section you can build your water intake infrastructure and define operating cost functions. Note that in the drawing panel shows the river from which the water comes and that a series of icons representing the elements that can be part of your catchment system are provided. Click on the element that you want to incorporate into your scheme and then click on the graphic panel to include the desired element. Then establish the connections between the elements to define their topology." %}</p>
+                        <p>{% trans "In this section you can build your water intake infrastructure and define operating cost functions. Note that in the drawing panel shows the river from which the water comes and that a series of icons representing the elements that can be part of your catchment system are provided." %}</p>
                         <br>
                         <p>{% trans "Select the elements that make up your capture system and click on the drawing area to add them; when finished, click validate graph." %}</p>
                     </div>
@@ -180,9 +180,10 @@
                                         <label>{% trans "% Phosphorus retained" %}</label>
                                         <input type="number" id="fosforoDiagram" class="form-control" oninput="validateinput(this)" disabled>
                                     </div>
-                                    <button type="button" class="btn btn-primary btn-block" id="saveGraph">{% trans "Validate graph" %}</button>
                                 </div>
                             </div>
+                            <button type="button" class="btn btn-primary btn-block" id="saveGraph">{% trans "Validate graph" %}</button>
+
     
                         </div>
                     </div>
@@ -256,7 +257,7 @@
                                                 <div class="col-md-6">
                                                     <label>{% trans "Number of years for time series  (10-100) Year" %} <span
                                                             class="text-danger-wp">(*)</span> </label>
-                                                    <input type="number"  min="10" max="100" maxlength="3" onKeyUp="if(this.value>100){this.value='100';}else if(this.value<10){this.value='10';}" class="form-control justify-number" id="numberYearsInterpolationValue">
+                                                    <input type="number"  min="1" step="0" oninput="validity.valid||(value='');" max="100" class="form-control justify-number" id="numberYearsInterpolationValue">
                                                 </div>
                                             </div>
                                         </div>
@@ -275,9 +276,9 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <br>
                                         <div>
-                                            <button type="button" class="btn btn-primary" id="intakeWECB">{% trans "Generate" %}</button>
-                                            <p>{% trans "Clic the generate button to create the table before proceeding" %}</p>
+                                            <p>{% trans "Clic the following button to calculate the wather extraction in each year" %} &nbsp; <button type="button" class="btn btn-primary" id="intakeWECB">{% trans "Generate" %}</button></p>
                                         </div>
                                     </div>
                                     <!--Data analysis Results-->
@@ -306,17 +307,17 @@
                                 <div class="row">
                                     <!--Input number of years-->
                                     <div class="col-md-6">
-                                        <h7>{% trans "*You have defined external water inlets to your water inteake system. For each of them, you must define the annual volume of water (m3), the annual sediment load (tons), the annual nitrogen load (kg) and the annual phosphorus load (kg).*" %}</h7>
                                         <h5 class="text-primary">{% trans "Number of years for time series" %}</h5>
                                         <p>{% trans "You can edit the table manually" %}</p>
                                         <div class="form-group">
                                             <label>{% trans "Number of years  (10-100) Year" %} <span class="text-danger-wp">(*)</span>
                                             </label>
-                                            <input type="number"  min="10" max="100" maxlength="3" onKeyUp="if(this.value>100){this.value='100';}else if(this.value<10){this.value='10';}" class="form-control justify-number" id="intakeNIYMI">
+                                            <input type="number"  min="1" step="0" oninput="validity.valid||(value='');" max="100" class="form-control justify-number" id="intakeNIYMI">
                                         </div>
                                         <div>
+                                            <p>{% trans "Clic the following button to calculate the wather extraction in each year" %} &nbsp;
                                             <button type="button" class="btn btn-primary" id="intakeNIBYMI">{% trans "Generate" %}</button>
-                                            <p>{% trans "Clic the generate button to create the table before proceeding" %}</p>
+                                            </p>
                                         </div>
                                     </div>
                                     <!--Results-->
@@ -401,11 +402,11 @@
                                     </div-->
                                     <p>{% trans "You can change the area"%}</p>
                                     <p>{% trans "To move area vertices" %}</p>
-                                    <div class="form-group">
+                                    <div class="form-group col-md-4">
                                         <button type="button" class="btn btn-primary" id="btnDelimitArea"> {%trans "Manually area delimit" %}</button>
                                     </div>
-                                    <p>{% trans "To load shapefile" %}</p>
-                                    <div class="form-group">
+                                    <div class="col-md-1"><p>{% trans "or" %}</p></div>
+                                    <div class="form-group col-md-4">
                                         <div class="input-group">
                                             <span class="input-group-btn">
                                                 <span class="btn btn-default btn-file">
@@ -414,11 +415,15 @@
                                                 </span>
                                             </span>
                                         </div>
-                                        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> {% trans "Help" %}</button>
-                                        </button>
                                     </div>
+                                    <div class="col-md-3">
+                                       
+                                    </div>
+                                    <br>
+                                    <br>
                                     <p>{% trans "Once defined the area" %}</p>
-                                    <div class="form-group">
+                                    <p>{% trans "To load shapefile" %}</p>
+                                    <div class="form-group col-md-4">
                                         <button type="button" class="btn btn-primary" id="btnValidateArea"> {% trans "Validate delimit area" %}</button>
                                     </div>
                                 </div>
@@ -467,11 +472,11 @@
                     </div>
                     <div class="col-md-7">
                         <div class="form-group">
-                            <label class="text-primary">Cost function name</label>
+                            <label class="text-primary">{% trans "Cost function name" %}</label>
                             <input id="costFunctionName" type="text" class="form-control">
                         </div>
                         <div class="form-group">
-                            <label class="text-primary">Cost function description</label>
+                            <label class="text-primary">{% trans "Cost function description" %}</label>
                             <textarea id="costFuntionDescription" rows="3" class="form-control"></textarea>
                         </div>
                         <div class="row">
@@ -492,12 +497,12 @@
                                 <input type="text" value="1.00" id="global_multiplier_factorCalculator" class="form-control">
                             </div>
                         </div>                         
-                        <h5 class="text-primary keyboard-title">Syntax keyboard</h5>
+                        <h5 class="text-primary keyboard-title">{% trans "Syntax keyboard" %}</h5>
                         <ul class="nav nav-tabs">
-                            <li class="active"><a href="#mathBasic_tab" data-toggle="tab">Basic</a></li>
-                            <li><a href="#mathAdvanced_tab" data-toggle="tab" >Advanced</a></li>
-                            <li><a href="#mathTrigonometry_tab" data-toggle="tab" >Trigonometry</a></li>
-                            <li><a href="#mathLogical_tab" data-toggle="tab" >Logical</a></li>
+                            <li class="active"><a href="#mathBasic_tab" data-toggle="tab">{% trans "Basic" %}</a></li>
+                            <li><a href="#mathAdvanced_tab" data-toggle="tab" >{% trans "Advanced" %}</a></li>
+                            <!--li><a href="#mathTrigonometry_tab" data-toggle="tab" >Trigonometry</a></li>
+                            <li><a href="#mathLogical_tab" data-toggle="tab" >Logical</a></li-->
                         </ul>
                         <div class="tab-content">
                             <div id="mathBasic_tab" class="tab-pane fade in active">
@@ -523,7 +528,7 @@
                                     <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="**">&#8731</button>
                                 </div>
                             </div>
-                            <div id="mathTrigonometry_tab" class="tab-pane fade in">
+                            <!--div id="mathTrigonometry_tab" class="tab-pane fade in">
                                 <div class="btn-group" role="group">
                                     <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="sin( )">sin</button>
                                     <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="cos( )">cos</button>
@@ -540,7 +545,7 @@
                                     <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="and">and</button>
                                     <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="or">or</button>
                                 </div>
-                            </div>
+                            </div-->
                         </div>
                     </div>
                 </div>
@@ -619,7 +624,7 @@
                 <div>
                     <br>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="color: white; background-color: #6398C1;">Close</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="color: white; background-color: #6398C1;">{% trans "Close" %}</button>
                     </div>
                 </div>
             </div>
@@ -760,7 +765,7 @@
                 <div>
                     <br>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="color: white; background-color: #6398C1;">Close</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="color: white; background-color: #6398C1;">{% trans "Close" %}</button>
                     </div>
                 </div>
             </div>
@@ -801,7 +806,7 @@
                 <div>
                     <br>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="color: white; background-color: #6398C1;">Close</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="color: white; background-color: #6398C1;">{% trans "Close" %}</button>
                     </div>
                 </div>
             </div>
@@ -826,7 +831,7 @@
                 <div>
                     <br>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="color: white; background-color: #6398C1;">Close</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="color: white; background-color: #6398C1;">{% trans "Close" %}</button>
                     </div>
                 </div>
             </div>
@@ -862,7 +867,7 @@
                 <div>
                     <br>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="color: white; background-color: #6398C1;">Close</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="color: white; background-color: #6398C1;">{% trans "Close" %}</button>
                     </div>
                 </div>
             </div>

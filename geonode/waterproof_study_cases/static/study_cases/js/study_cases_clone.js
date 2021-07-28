@@ -3,7 +3,7 @@
  * validations & interactions
  * @version 1.0
  */
-var urlParams = (function(url) {
+var urlParams = (function (url) {
     var result = new Object();
     var params = window.location.search.slice(1).split('&');
     for (var i = 0; i < params.length; i++) {
@@ -47,15 +47,17 @@ const interpolationType = {
 var mapLoader;
 var flagFunctionCost = false;
 
-$(document).ready(function() {
+$(document).ready(function () {
     $('#autoAdjustHeightF').css("height", "auto");
     $('#cityLabel').text(localStorage.city + ", " + localStorage.country);
     var output = document.getElementById('MathPreview');
     var button = document.getElementById('btnValidatePyExp');
+    var selectedCostId = 0;
     calculate_Personnel();
     calculate_Platform();
     loadIntakes();
     loadPtaps();
+    loadNBS();
 
     if (funcostdb.length > 0) {
         $("#cost_table").removeClass('panel-hide');
@@ -64,7 +66,7 @@ $(document).ready(function() {
         funcost(index);
     });
 
-    $('#custom').click(function() {
+    $('#custom').click(function () {
         if ($('#ptap_table').find('tbody > tr').length > 0) {
             Swal.fire({
                 title: gettext('are_you_sure'),
@@ -97,16 +99,16 @@ $(document).ready(function() {
         }
     });
 
-    $('#ptap').click(function() {
+    $('#ptap').click(function () {
         $("#panel-ptap").removeClass("panel-hide");
         $("#panel-custom").removeClass("panel-hide");
         $("#panel-cost").addClass("panel-hide");
-        $('#autoAdjustHeightF').css("height", "auto");
+        autoAdjustHeight();
         $('#ptap-required').text("*");
         $('#custom-required').text("");
     });
 
-    $('#btn-advanced_option').click(function() {
+    $('#btn-advanced_option').click(function () {
         if ($("#biophysical-panel").hasClass("panel-hide")) {
             $("#biophysical-panel").removeClass("panel-hide");
             $("#biophysical-panel").empty();
@@ -117,11 +119,11 @@ $(document).ready(function() {
         }
     });
 
-    $('#btn-full').click(function() {
+    $('#btn-full').click(function () {
         if ($("#full-table").hasClass("panel-hide")) {
             $("#full-table").removeClass("panel-hide");
             nbsactivities = $("#full-table").find("input")
-            nbsactivities.each(function() {
+            nbsactivities.each(function () {
                 total = 50
                 if (total) {
                     value = total / nbsactivities.length
@@ -131,20 +133,20 @@ $(document).ready(function() {
                     var $this = $(this).val('');
                 }
             });
-            $('#autoAdjustHeightF').css("height", "auto");
+            autoAdjustHeight();
             $('#column_investment').text("Percentage");
         } else {
             $("#full-table").addClass("panel-hide");
         }
     });
 
-    $('#btn-investment').click(function() {
+    $('#btn-investment').click(function () {
         if ($("#full-table").hasClass("panel-hide")) {
             $("#full-table").removeClass("panel-hide");
-            $('#autoAdjustHeightF').css("height", "auto");
+            autoAdjustHeight();
             $('#column_investment').text("Investment");
             nbsactivities = $("#full-table").find("input")
-            nbsactivities.each(function() {
+            nbsactivities.each(function () {
                 total = $('#annual_investment').val() / 2
                 if (total) {
                     value = total / nbsactivities.length
@@ -159,36 +161,36 @@ $(document).ready(function() {
         }
     });
 
-    $('#full').click(function() {
+    $('#full').click(function () {
         $("#panel-full").removeClass("panel-hide");
         $("#panel-investment").addClass("panel-hide");
         $("#full-table").addClass("panel-hide");
-        $('#autoAdjustHeightF').css("height", "auto");
+        autoAdjustHeight();
         $('#column_investment').text("Percentage");
-        $("#full-table").find("input").each(function() {
+        $("#full-table").find("input").each(function () {
             var $this = $(this).val('');
         });
     });
 
-    $('#investment').click(function() {
+    $('#investment').click(function () {
         $("#panel-investment").removeClass("panel-hide");
         $("#panel-full").addClass("panel-hide");
         $("#full-table").addClass("panel-hide");
-        $('#autoAdjustHeightF').css("height", "auto");
+        autoAdjustHeight();
         $('#column_investment').text("Investment");
-        $("#full-table").find("input").each(function() {
+        $("#full-table").find("input").each(function () {
             var $this = $(this).val('');
         });
     });
 
-    $('#add_wi').click(function() {
+    $('#add_wi').click(function () {
         text = $("#select_custom option:selected").text();
         value = $("#select_custom option:selected").val();
         if (value) {
             $('#select_custom option:selected').remove();
             var action = "<td><a class='btn btn-danger btn-right'><span class='glyphicon glyphicon-trash' aria-hidden='true'></span></a></td>";
-            $.get("../../study_cases/intakebyid/" + value, function(data) {
-                $.each(data, function(index, intake) {
+            $.get("../../study_cases/intakebyid/" + value, function (data) {
+                $.each(data, function (index, intake) {
                     var name = "<td>" + intake.name + "</td>";
                     var description = "<td>" + intake.description + "</td>";
                     var name_source = "<td>" + intake.water_source_name + "</td>";
@@ -201,14 +203,14 @@ $(document).ready(function() {
         }
     });
 
-    $('#add_ptap').click(function() {
+    $('#add_ptap').click(function () {
         text = $("#select_ptap option:selected").text();
         value = $("#select_ptap option:selected").val();
         if (value) {
             $('#select_ptap option:selected').remove();
             var action = "<td><a class='btn btn-danger btn-right'><span class='glyphicon glyphicon-trash' aria-hidden='true'></span></a></td>";
-            $.get("../../study_cases/ptapbyid/" + value, function(data) {
-                $.each(data, function(index, ptap) {
+            $.get("../../study_cases/ptapbyid/" + value, function (data) {
+                $.each(data, function (index, ptap) {
                     var name = "<td>" + ptap.plant_name + "</td>";
                     var description = "<td>" + ptap.plant_description + "</td>";
                     var markup = "<tr id='ptap-" + value + "'>" + name + description + action + "</tr>";
@@ -219,13 +221,12 @@ $(document).ready(function() {
         }
     });
 
-
-    $('#step1NextBtn').click(function() {
+    $('#step1NextBtn').click(function () {
         intakes = [];
         ptaps = [];
         valid_ptaps = true;
         valid_intakes = true;
-        $('#custom_table').find('tbody > tr').each(function(index, tr) {
+        $('#custom_table').find('tbody > tr').each(function (index, tr) {
             id = tr.id.replace('custom-', '');
             intakes.push(id);
         });
@@ -234,7 +235,7 @@ $(document).ready(function() {
         }
         var type = $("input[name='type']:checked").val();
         if (type == "1") {
-            $('#ptap_table').find('tbody > tr').each(function(index, tr) {
+            $('#ptap_table').find('tbody > tr').each(function (index, tr) {
                 id = tr.id.replace('ptap-', '')
                 ptaps.push(id)
             });
@@ -255,7 +256,7 @@ $(document).ready(function() {
                 country: localStorage.country,
                 type: type,
                 functions: JSON.stringify(funcostdb),
-            }, function(data) {
+            }, function (data) {
                 id_study_case = data.id_study_case;
                 if (id_study_case == '') {
                     Swal.fire({
@@ -266,7 +267,7 @@ $(document).ready(function() {
                     return;
                 } else {
                     $('#smartwizard').smartWizard("next");
-                    $('#autoAdjustHeightF').css("height", "auto");
+                    autoAdjustHeight();
                 }
 
             }, "json");
@@ -280,40 +281,40 @@ $(document).ready(function() {
         }
     });
 
-    $("#cb_check").click(function() {
+    $("#cb_check").click(function () {
         if ($(this).is(":checked")) // "this" refers to the element that fired the event
         {
             $("#cm_form").show();
             $('#autoAdjustHeightF').css("height", "auto");
         } else {
             $("#cm_form").hide();
-            $('#autoAdjustHeightF').css("height", "auto");
         }
+        autoAdjustHeight();
     })
 
-    $('#step2PreviousBtn').click(function() {
+    $('#step2PreviousBtn').click(function () {
         $('#smartwizard').smartWizard("prev");
     });
 
-    $('#step2NextBtn').click(function() {
+    $('#step2NextBtn').click(function () {
         $.post("../../study_cases/save/", {
             id_study_case: id_study_case,
             carbon_market: $("#cb_check").is(':checked'),
             carbon_market_value: $('#id_cm').val(),
             carbon_market_currency: $("#cm_select option:selected").val()
-        }, function(data) {
+        }, function (data) {
             $('#smartwizard').smartWizard("next");
-            $('#autoAdjustHeightF').css("height", "auto");
+            autoAdjustHeight();
         }, "json");
     });
 
-    $('#step3PreviousBtn').click(function() {
+    $('#step3PreviousBtn').click(function () {
         $('#smartwizard').smartWizard("prev");
     });
 
-    $('#step3NextBtn').click(function() {
+    $('#step3NextBtn').click(function () {
         portfolios = [];
-        $('#portfolios-ul input:checked').each(function() {
+        $('#portfolios-ul input:checked').each(function () {
             id = $(this).attr("id").replace('portfolio-', '')
             portfolios.push(id)
         })
@@ -321,9 +322,9 @@ $(document).ready(function() {
             $.post("../../study_cases/save/", {
                 id_study_case: id_study_case,
                 portfolios: portfolios
-            }, function(data) {
+            }, function (data) {
                 $('#smartwizard').smartWizard("next");
-                $('#autoAdjustHeightF').css("height", "auto");
+                autoAdjustHeight();
             }, "json");
         } else {
             Swal.fire({
@@ -335,19 +336,19 @@ $(document).ready(function() {
         }
     });
 
-    $('#step4PreviousBtn').click(function() {
+    $('#step4PreviousBtn').click(function () {
         $('#smartwizard').smartWizard("prev");
     });
 
-    $('#step4NextBtn').click(function() {
+    $('#step4NextBtn').click(function () {
         biophysical = []
-        $('#biophysical-panel').find('table').each(function(index, table) {
+        $('#biophysical-panel').find('table').each(function (index, table) {
             id = table.id.split('_').pop()
-            $('#' + table.id).find('tbody > tr.edit').each(function(index, tr) {
+            $('#' + table.id).find('tbody > tr.edit').each(function (index, tr) {
                 bio = {
                     intake_id: id
                 }
-                $(" #" + tr.id).find('td').each(function(index, td) {
+                $(" #" + tr.id).find('td').each(function (index, td) {
                     td_id = td.id
                     if (td_id) {
                         split = td_id.split('_')
@@ -357,7 +358,7 @@ $(document).ready(function() {
                         split.pop();
                         name_td = split.join("_");
                         val = undefined
-                        $('#' + td_id).find("input").each(function() {
+                        $('#' + td_id).find("input").each(function () {
                             val = $(this).val();
                         });
                         if (!val) {
@@ -375,28 +376,28 @@ $(document).ready(function() {
             id_study_case: id_study_case,
             biophysicals: '1' + JSON.stringify(biophysical),
             process: "Create",
-        }, function(data) {
+        }, function (data) {
             $('#smartwizard').smartWizard("next");
             loadFinancialParameter();
-            $('#autoAdjustHeightF').css("height", "auto");
+            autoAdjustHeight();
         }, "json");
 
     });
 
-    $('#step5PreviousBtn').click(function() {
+    $('#step5PreviousBtn').click(function () {
         $('#smartwizard').smartWizard("prev");
     });
 
-    $('#step5NextBtn').click(function() {
+    $('#step5NextBtn').click(function () {
         var valid = true;
-        $("#div_financial").find("input").each(function() {
+        $("#div_financial").find("input").each(function () {
             var $this = $(this);
             if ($this.val().length <= 0) {
                 valid = false;
                 return false;
             }
         });
-        if ($('#minimum').val() >= $('#maximum').val()) {
+        if ($('#minimum').val() > $('#maximum').val()) {
             Swal.fire({
                 icon: 'warning',
                 title: gettext('minimum_value'),
@@ -434,10 +435,10 @@ $(document).ready(function() {
                 others: $('#others').val(),
                 total_platform: $('#total_platform').val(),
                 financial_currency: $("#financial_currency option:selected").val()
-            }, function(data) {
+            }, function (data) {
                 loadNBS();
                 $('#smartwizard').smartWizard("next");
-                $('#autoAdjustHeightF').css("height", "auto");
+                autoAdjustHeight();
             }, "json");
         } else {
             Swal.fire({
@@ -449,13 +450,13 @@ $(document).ready(function() {
         }
     });
 
-    $('#step6PreviousBtn').click(function() {
+    $('#step6PreviousBtn').click(function () {
         $('#smartwizard').smartWizard("prev");
     });
 
-    $('#step6NextBtn').click(function() {
+    $('#step6NextBtn').click(function () {
         nbs = [];
-        $('#nbs-ul input:checked').each(function() {
+        $('#nbs-ul input:checked').each(function () {
             id = $(this).attr("id").replace('nbs-', '')
             nbs.push(id)
         })
@@ -463,7 +464,7 @@ $(document).ready(function() {
             $.post("../../study_cases/save/", {
                 id_study_case: id_study_case,
                 nbs: nbs
-            }, function(data) {
+            }, function (data) {
                 loadNBSActivities();
             }, "json");
         } else {
@@ -476,34 +477,22 @@ $(document).ready(function() {
         }
     });
 
-    $('#step7PreviousBtn').click(function() {
+    $('#step7PreviousBtn').click(function () {
         $('#smartwizard').smartWizard("prev");
     });
 
-    $('#step7RunBtn').click(function() {
+    $('#step7RunBtn').click(function () {
         var valid_edit = true;
-        var valid_investment = true;
         var valid_period = true;
         nbsactivities = []
         var valid_edit = true;
         var min = undefined;
-        $("#full-table").find("input").each(function() {
+        $("#full-table").find("input").each(function () {
             var $this = $(this);
             if ($this.val().length <= 0) {
                 valid_edit = false;
                 return false;
-            } else {
-                if ($this.hasClass("hiddennbs")) {
-                    if (min) {
-                        if (min > $this.val()) {
-                            min = $this.val();
-                        }
-                    } else {
-                        min = $this.val();
-                    }
-                }
-
-            }
+            } 
         });
         if (!valid_edit) {
             Swal.fire({
@@ -521,7 +510,7 @@ $(document).ready(function() {
             valid_period = false;
             return
         }
-        if($('#period_analysis').val() != '' && $('#period_nbs').val() != ''){
+        if ($('#period_analysis').val() != '' && $('#period_nbs').val() != '') {
             if (parseInt($('#period_analysis').val()) < parseInt($('#period_nbs').val())) {
                 Swal.fire({
                     icon: 'warning',
@@ -531,21 +520,11 @@ $(document).ready(function() {
                 valid_period = false;
                 return
             }
-        }else{
+        } else {
             valid_period = false;
         }
 
-        if ($('#annual_investment').val() < min) {
-            Swal.fire({
-                icon: 'warning',
-                title: gettext('field_problem'),
-                text: gettext('error_annual_investment'),
-            });
-            valid_investment = false;
-            return
-        }
-
-        if ($('#period_analysis').val() != '' && $('#period_nbs').val() != '' && valid_edit && valid_investment && valid_period) {
+        if ($('#period_analysis').val() != '' && $('#period_nbs').val() != '' && valid_edit && valid_period) {
 
             analysis_currency = $("#analysis_currency option:selected").val()
             html = '<div class="row" id="currencys-panel"> <div class="col-md-10 currency-panel">Currency for the execution this analisys</div><div class="col-md-2 currency-panel currency-text">' + analysis_currency
@@ -555,14 +534,65 @@ $(document).ready(function() {
             $.get("../../study_cases/currencys/", {
                 id: id_study_case,
                 currency: analysis_currency
-            }, function(data) {
-                $.each(data, function(index, currency) {
+            }, function (data) {
+                valid_investment = true;
+                conversion = 1;
+                $.each(data, function (index, currency) {
+                    value = Number.parseFloat(currency.value).toFixed(5);
+                    if (currency.currency == 'USD') {
+                        conversion = value;
+                    }
                     if (currency.currency != analysis_currency) {
                         value = Number.parseFloat(currency.value).toFixed(5);
                         html += '<div class="col-md-4 currency-value"><label class="custom-control-label" for="currency">' + currency.currency + '</label></div>'
                         html += '<div class="custom-control col-md-8 currency-value"><input id="' + currency.currency + '" class="text-number" type="number" class="custom-control-input" value="' + value + '"></div>'
                     }
                 });
+                nbs_value = 0;
+                nbs_min = 0;
+                minimun = 0;
+                valid_nbs = true
+                $("#full-table").find("input").each(function (index, input) {
+                    input_id = input.id
+                    if ($("#" + input_id).hasClass("hiddennbs")) {
+                        split = input_id.split('-')
+                        nbssc_id = split.pop();
+                        nbs_min = parseFloat($("#" + input_id).val());
+                        nbs_min /= conversion
+                        if (minimun) {
+                            if (minimun > nbs_min) {
+                                minimun = nbs_min;
+                            }
+                        } else {
+                            minimun = nbs_min;
+                        }
+                        if (nbs_value < nbs_min && nbs_value > 0) {
+                            valid_nbs = false
+                            $('#nbssc-' + nbssc_id).css('border-color', 'red');
+                            Swal.fire({
+                                icon: 'warning',
+                                title: gettext('field_problem'),
+                                text: gettext('error_minimun_nbs') + nbs_min,
+                            });
+                            return false
+                        }
+                    } else {
+                        nbs_value = parseFloat($("#" + input_id).val());
+                        if (nbs_value > 0)
+                            valid_investment = false
+                        $("#" + input_id).css('border-color', '#eeeeee');
+                    }
+                });
+                if (valid_investment && $('#annual_investment').val() < minimun) {
+                    valid_nbs = false;
+                    Swal.fire({
+                        icon: 'warning',
+                        title: gettext('field_problem'),
+                        text: gettext('error_annual_investment') + minimun,
+                    });
+                    return false
+                }
+                if (valid_nbs) {
                 Swal.fire({
                     title: gettext('exchange_rate'),
                     html: html,
@@ -570,7 +600,7 @@ $(document).ready(function() {
                     confirmButtonText: gettext('save'),
                     preConfirm: () => {
                         currencys = []
-                        $("#currencys-panel").find("input").each(function(index, input) {
+                        $("#currencys-panel").find("input").each(function (index, input) {
                             currency = {}
                             input_id = input.id
                             if (input_id) {
@@ -585,7 +615,7 @@ $(document).ready(function() {
                 }).then((result) => {
                     if (result.isConfirmed) {
                         $('#_thumbnail_processing').modal('toggle');
-                        $("#full-table").find("input").each(function(index, input) {
+                        $("#full-table").find("input").each(function (index, input) {
                             nbsactivity = {}
                             input_id = input.id
                             input_type = input.type
@@ -610,14 +640,15 @@ $(document).ready(function() {
                             nbsactivities: '1' + JSON.stringify(nbsactivities),
                             currencys: '1' + JSON.stringify(result.value),
                             run_analysis: true
-                        }, function(data) {
+                        }, function (data) {
                             $('#_thumbnail_processing').modal('hide');
                             $('#smartwizard').smartWizard("next");
-                            $('#autoAdjustHeightF').css("height", "auto");
+                            autoAdjustHeight();
                             $("#form").submit();
                         }, "json");
                     }
                 })
+            }
             });
 
         } else {
@@ -631,31 +662,18 @@ $(document).ready(function() {
 
     });
 
-    $('#step7EndBtn').click(function() {
-        edit = !$("#full-table").hasClass("panel-hide")
+    $('#step7EndBtn').click(function () {
         var valid_edit = true;
-        var valid_investment = true;
         var valid_period = true;
         nbsactivities = []
         var valid_edit = true;
         var min = undefined;
-        $("#full-table").find("input").each(function() {
+        $("#full-table").find("input").each(function () {
             var $this = $(this);
             if ($this.val().length <= 0) {
                 valid_edit = false;
                 return false;
-            } else {
-                if ($this.hasClass("hiddennbs")) {
-                    if (min) {
-                        if (min > $this.val()) {
-                            min = $this.val();
-                        }
-                    } else {
-                        min = $this.val();
-                    }
-                }
-
-            }
+            } 
         });
         if (!valid_edit) {
             Swal.fire({
@@ -673,7 +691,7 @@ $(document).ready(function() {
             valid_period = false;
             return
         }
-        if($('#period_analysis').val() != '' && $('#period_nbs').val() != ''){
+        if ($('#period_analysis').val() != '' && $('#period_nbs').val() != '') {
             if (parseInt($('#period_analysis').val()) < parseInt($('#period_nbs').val())) {
                 Swal.fire({
                     icon: 'warning',
@@ -683,21 +701,10 @@ $(document).ready(function() {
                 valid_period = false;
                 return
             }
-        }else{
+        } else {
             valid_period = false;
         }
-
-        if ($('#annual_investment').val() < min) {
-            Swal.fire({
-                icon: 'warning',
-                title: gettext('field_problem'),
-                text: gettext('error_annual_investment'),
-            });
-            valid_investment = false;
-            return
-        }
-        if ($('#period_analysis').val() != '' && $('#period_nbs').val() != '' && valid_edit && valid_investment && valid_period) {
-
+        if ($('#period_analysis').val() != '' && $('#period_nbs').val() != '' && valid_edit && valid_period) {
             analysis_currency = $("#analysis_currency option:selected").val()
             html = '<div class="row" id="currencys-panel"> <div class="col-md-10 currency-panel">Currency for the execution this analisys</div><div class="col-md-2 currency-panel currency-text">' + analysis_currency
             html += '</div><div class="col-md-12 currency-panel">The following exchange rates will be applied for the analysis.</div>'
@@ -706,14 +713,68 @@ $(document).ready(function() {
             $.get("../../study_cases/currencys/", {
                 id: id_study_case,
                 currency: analysis_currency
-            }, function(data) {
-                $.each(data, function(index, currency) {
+            }, function (data) {
+                valid_investment = true;
+                conversion = 1;
+                $.each(data, function (index, currency) {
+                    value = Number.parseFloat(currency.value).toFixed(5);
+                    if (currency.currency == 'USD') {
+                        conversion = value;
+                    }
                     if (currency.currency != analysis_currency) {
                         value = Number.parseFloat(currency.value).toFixed(5);
                         html += '<div class="col-md-4 currency-value"><label class="custom-control-label" for="currency">' + currency.currency + '</label></div>'
                         html += '<div class="custom-control col-md-8 currency-value"><input id="' + currency.currency + '" class="text-number" type="number" class="custom-control-input" value="' + value + '"></div>'
                     }
                 });
+                nbs_value = 0;
+                nbs_min = 0;
+                minimun = 0;
+                valid_nbs = true
+                $("#full-table").find("input").each(function (index, input) {
+                    input_id = input.id
+                    if ($("#" + input_id).hasClass("hiddennbs")) {
+                        split = input_id.split('-')
+                        nbssc_id = split.pop();
+                        nbs_min = parseFloat($("#" + input_id).val());
+                        nbs_min /= conversion
+                        if (minimun) {
+                            if (minimun > nbs_min) {
+                                minimun = nbs_min;
+                            }
+                        } else {
+                            minimun = nbs_min;
+                        }
+                        if (nbs_value < nbs_min && nbs_value > 0) {
+                            valid_nbs = false
+                            $('#nbssc-' + nbssc_id).css('border-color', 'red');
+                            Swal.fire({
+                                icon: 'warning',
+                                title: gettext('field_problem'),
+                                text: gettext('error_minimun_nbs') + nbs_min,
+                            });
+                            return false
+                        }
+                    } else {
+                        nbs_value = parseFloat($("#" + input_id).val());
+                        if (nbs_value > 0)
+                            valid_investment = false
+                        $("#" + input_id).css('border-color', '#eeeeee');
+                    }
+                });
+                $('#annual_investment').css('border-color', '#eeeeee');
+                if (valid_investment && $('#annual_investment').val() < minimun) {
+                    valid_nbs = false;
+                    $('#annual_investment').css('border-color', 'red');
+                    Swal.fire({
+                        icon: 'warning',
+                        title: gettext('field_problem'),
+                        text: gettext('error_annual_investment') + minimun,
+                    });
+                    return false
+                }
+
+                if (valid_nbs) {
                 Swal.fire({
                     title: gettext('exchange_rate'),
                     html: html,
@@ -721,7 +782,7 @@ $(document).ready(function() {
                     confirmButtonText: gettext('save'),
                     preConfirm: () => {
                         currencys = []
-                        $("#currencys-panel").find("input").each(function(index, input) {
+                        $("#currencys-panel").find("input").each(function (index, input) {
                             currency = {}
                             input_id = input.id
                             if (input_id) {
@@ -736,7 +797,7 @@ $(document).ready(function() {
                 }).then((result) => {
                     if (result.isConfirmed) {
                         $('#_thumbnail_processing').modal('toggle');
-                        $("#full-table").find("input").each(function(index, input) {
+                        $("#full-table").find("input").each(function (index, input) {
                             nbsactivity = {}
                             input_id = input.id
                             input_type = input.type
@@ -761,7 +822,7 @@ $(document).ready(function() {
                             nbsactivities: '1' + JSON.stringify(nbsactivities),
                             currencys: '1' + JSON.stringify(result.value),
                             run_analysis: false
-                        }, function(data) {
+                        }, function (data) {
                             $('#_thumbnail_processing').modal('hide');
                             $('#smartwizard').smartWizard("next");
                             $('#autoAdjustHeightF').css("height", "auto");
@@ -769,6 +830,7 @@ $(document).ready(function() {
                         }, "json");
                     }
                 })
+            }
             });
         } else {
             Swal.fire({
@@ -781,11 +843,11 @@ $(document).ready(function() {
 
     });
 
-    $('#custom_table').on('click', 'a', function() {
+    $('#custom_table').on('click', 'a', function () {
         var row = $(this).closest("tr");
         var tds = row.find("td");
         intake_name = "";
-        $.each(tds, function(i) {
+        $.each(tds, function (i) {
             if (i == 0) {
                 intake_name = $(this).text();
             }
@@ -797,19 +859,19 @@ $(document).ready(function() {
 
     });
 
-    $('#ptap_table').on('click', 'a', function() {
+    $('#ptap_table').on('click', 'a', function () {
         var row = $(this).closest("tr")
         var tds = row.find("td");
         ptap_name = "";
-        $.each(tds, function(i) {
+        $.each(tds, function (i) {
             if (i == 0) {
                 ptap_name = $(this).text();
             }
         });
         option = ptap_name
         id = row.attr("id").replace('ptap-', '')
-        $.get("../../study_cases/intakebyptap/" + id, function(data) {
-            $.each(data, function(index, intake) {
+        $.get("../../study_cases/intakebyptap/" + id, function (data) {
+            $.each(data, function (index, intake) {
                 id = intake.csinfra_elementsystem__intake__id
                 option = intake.csinfra_elementsystem__intake__name
                 $("#select_custom").append(new Option(option, id));
@@ -821,8 +883,8 @@ $(document).ready(function() {
     });
 
     function loadFinancialParameter() {
-        $.get("../../study_cases/parametersbycountry/" + localStorage.cityId, function(data) {
-            $.each(data, function(index, financialParameters) {
+        $.get("../../study_cases/parametersbycountry/" + localStorage.cityId, function (data) {
+            $.each(data, function (index, financialParameters) {
                 if (!$("#director").val())
                     $("#director").val(financialParameters.Program_Director_USD_YEAR);
                 if (!$("#evaluation").val())
@@ -857,53 +919,53 @@ $(document).ready(function() {
         });
     }
 
-    $('#biophysical-panel').on('keyup change', 'table tr input', function() {
+    $('#biophysical-panel').on('keyup change', 'table tr input', function () {
         var row = $(this).closest("tr")
         row.addClass("edit");
 
     });
 
-    $("#director").keyup(function() {
+    $("#director").keyup(function () {
         calculate_Personnel();
         calculate_Platform();
     });
 
-    $("#evaluation").keyup(function() {
+    $("#evaluation").keyup(function () {
         calculate_Personnel();
         calculate_Platform();
     });
 
-    $("#finance").keyup(function() {
+    $("#finance").keyup(function () {
         calculate_Personnel();
         calculate_Platform();
     });
 
-    $("#implementation").keyup(function() {
+    $("#implementation").keyup(function () {
         calculate_Personnel();
         calculate_Platform();
     });
 
-    $("#office").keyup(function() {
+    $("#office").keyup(function () {
         calculate_Personnel();
         calculate_Platform();
     });
-    $("#travel").keyup(function() {
+    $("#travel").keyup(function () {
         calculate_Personnel();
         calculate_Platform();
     });
-    $("#equipment").keyup(function() {
+    $("#equipment").keyup(function () {
         calculate_Personnel();
         calculate_Platform();
     });
-    $("#overhead").keyup(function() {
+    $("#overhead").keyup(function () {
         calculate_Personnel();
         calculate_Platform();
     });
-    $("#contracts").keyup(function() {
+    $("#contracts").keyup(function () {
         calculate_Personnel();
         calculate_Platform();
     });
-    $("#others").keyup(function() {
+    $("#others").keyup(function () {
         calculate_Personnel();
         calculate_Platform();
     });
@@ -971,11 +1033,11 @@ $(document).ready(function() {
 
     function loadIntakes() {
         var city_id = localStorage.cityId
-        $.get("../../study_cases/intakebycity/" + city_id, function(data) {
+        $.get("../../study_cases/intakebycity/" + city_id, function (data) {
             if (data.length > 0) {
-                $.each(data, function(index, intake) {
+                $.each(data, function (index, intake) {
                     contains = false
-                    $('#custom_table').find('tbody > tr').each(function(index, tr) {
+                    $('#custom_table').find('tbody > tr').each(function (index, tr) {
                         id = tr.id.replace('custom-', '')
                         if (id == intake.id) {
                             contains = true
@@ -989,7 +1051,7 @@ $(document).ready(function() {
                     }
                 });
                 $("#div-customcase").removeClass("panel-hide");
-                $('#autoAdjustHeightF').css("height", "auto");
+                autoAdjustHeight();
             } else {
                 $("#div-emptyintakes").removeClass("panel-hide");
             }
@@ -999,11 +1061,11 @@ $(document).ready(function() {
 
     function loadPtaps() {
         var city_id = localStorage.cityId
-        $.get("../../study_cases/ptapbycity/" + city_id, function(data) {
+        $.get("../../study_cases/ptapbycity/" + city_id, function (data) {
             if (data.length > 0) {
-                $.each(data, function(index, ptap) {
+                $.each(data, function (index, ptap) {
                     contains = false
-                    $('#ptap_table').find('tbody > tr').each(function(index, tr) {
+                    $('#ptap_table').find('tbody > tr').each(function (index, tr) {
                         id = tr.id.replace('ptap-', '')
                         if (id == ptap.id) {
                             contains = true
@@ -1018,7 +1080,7 @@ $(document).ready(function() {
 
                 });
                 $("#div-ptaps").removeClass("panel-hide");
-                $('#autoAdjustHeightF').css("height", "auto");
+                autoAdjustHeight();
             } else {
                 $("#radio-ptap").addClass("panel-hide");
                 $("#div-emptyptaps").removeClass("panel-hide");
@@ -1028,14 +1090,14 @@ $(document).ready(function() {
     }
 
     function loadNBS() {
-        var country = localStorage.country
+        var city_id = localStorage.cityId
         $.post("../../study_cases/nbs/", {
             id_study_case: id_study_case,
-            country: country,
+            city_id: city_id,
             process: "Edit"
-        }, function(data) {
+        }, function (data) {
             content = ''
-            $.each(data, function(index, nbs) {
+            $.each(data, function (index, nbs) {
                 var name = nbs.name;
                 var id = nbs.id
                 var def = nbs.default
@@ -1048,28 +1110,29 @@ $(document).ready(function() {
                 content += '<label class="custom-control-label" for="nbs-' + id + '"> ' + name + '</label></div></li>'
                 $("#nbs-ul").append(content);
             });
-            $('#autoAdjustHeightF').css("height", "auto");
+            autoAdjustHeight();
 
         });
     }
 
     function loadNBSActivities() {
-        var country = localStorage.country
+        var city_id = localStorage.cityId
         $.post("../../study_cases/nbs/", {
             id_study_case: id_study_case,
-            country: country,
+            city_id: city_id,
             process: "Edit"
-        }, function(data) {
+        }, function (data) {
             content = ''
             invesment = 0.0;
             min = 0.0;
-            $.each(data, function(index, nbs) {
-                console.log(nbs)
+            $.each(data, function (index, nbs) {
                 var name = nbs.name;
                 var id = nbs.id_nbssc
                 var def = nbs.default
                 var val = nbs.value;
                 var min = ((parseFloat(nbs.unit_implementation_cost) + parseFloat(nbs.unit_maintenance_cost) / parseFloat(nbs.periodicity_maitenance) + parseFloat(nbs.unit_oportunity_cost)) * 10);
+                if (nbs.country__global_multiplier_factor)
+                    min *= parseFloat(nbs.country__global_multiplier_factor)
                 if (def) {
                     if (!val) {
                         val = 0
@@ -1091,7 +1154,7 @@ $(document).ready(function() {
     function loadBiophysicals() {
         promises = []
         if (ptaps.length > 0) {
-            $.each(ptaps, function(index, id_ptap) {
+            $.each(ptaps, function (index, id_ptap) {
                 promise = $.get("../../study_cases/intakebyptap/" + id_ptap);
                 promises.push(promise)
 
@@ -1099,15 +1162,15 @@ $(document).ready(function() {
 
         }
         if (intakes.length > 0) {
-            $.each(intakes, function(index, id_intake) {
+            $.each(intakes, function (index, id_intake) {
                 promise = $.get("../../study_cases/intakebyid/" + id_intake);
                 promises.push(promise)
             });
         }
         Promise.all(promises).then(values => {
             promisesIntake = []
-            $.each(values, function(i, data) {
-                $.each(data, function(j, intake) {
+            $.each(values, function (i, data) {
+                $.each(data, function (j, intake) {
                     if (intake.csinfra_elementsystem__intake__id)
                         promise = loadBiophysical(intake.csinfra_elementsystem__intake__id, intake.csinfra_elementsystem__intake__name);
                     else
@@ -1117,9 +1180,9 @@ $(document).ready(function() {
             });
 
             Promise.all(promisesIntake).then(valuesIntake => {
-                $.each(valuesIntake, function(i, content) {
+                $.each(valuesIntake, function (i, content) {
                     $("#biophysical-panel").append(content);
-                    $('#autoAdjustHeightF').css("height", "auto");
+                    autoAdjustHeight();
                 });
             });
         });
@@ -1130,19 +1193,19 @@ $(document).ready(function() {
         $.post("../../study_cases/bio/", {
             id_intake: id_intake,
             id_study_case: id_study_case,
-        }, function(data) {
+        }, function (data) {
             labels = data[0]
             content = '<div class="col-md-12"><legend><label>Intake ' + name + '</span> </label></legend>'
             content += '<table id="bio_table_' + id_intake + '" class="table table-striped table-bordered table-condensed" style="width:100%"><thead><tr class="info">'
             content += '<th scope="col" class="small text-center vat">description</th>'
             content += '<th scope="col" class="small text-center vat">lucode</th>'
-            $.each(labels, function(key, v) {
+            $.each(labels, function (key, v) {
                 if (key != 'lucode' && key != 'default' && key != 'lulc_desc' && key != 'description' && key != 'user_id' && key != 'intake_id' && key != 'study_case_id' && key != 'id' && key != 'macro_region' && key != 'kc') {
                     content += '<th scope="col" class="small text-center vat">' + key + '</th>'
                 }
             });
             content += '</tr></thead><tbody>'
-            $.each(data, function(index, bio) {
+            $.each(data, function (index, bio) {
                 if (bio.edit) {
                     content += '<tr class="edit" id="' + id_intake + '_' + bio.id + '">'
                 } else {
@@ -1150,9 +1213,9 @@ $(document).ready(function() {
                 }
                 content += '<td id="description_' + id_intake + '_' + bio.id + '">' + bio.description + '</td>'
                 content += '<td id="lucode_' + id_intake + '_' + bio.id + '">' + bio.lucode + '</td>'
-                $.each(bio, function(key, v) {
+                $.each(bio, function (key, v) {
                     if (key != 'lucode' && key != 'default' && key != 'lulc_desc' && key != 'description' && key != 'user_id' && key != 'intake_id' && key != 'study_case_id' && key != 'id' && key != 'macro_region' && key != 'kc') {
-                        content += '<td id="' + key + '_' + id_intake + '_' + bio.id + '"><input class="text-number" step="0.000001" oninput="validity.valid||(value=\'\');" type="number" value="' + v + '"/></td>'
+                        content += '<td id="' + key + '_' + id_intake + '_' + bio.id + '"><input class="text-number-full" step="0.000001" oninput="validity.valid||(value=\'\');" type="number" value="' + v + '"/></td>'
                     }
                 });
                 content += '</tr>'
@@ -1163,7 +1226,7 @@ $(document).ready(function() {
         return deferred.promise();
     }
 
-    $("#add_cost").click(function() {
+    $("#add_cost").click(function () {
         setVarCost();
     });
 
@@ -1171,7 +1234,7 @@ $(document).ready(function() {
         $('#CalculatorModalLabel').text('Modify Cost ');
         $('#VarCostListGroup div').remove();
         let listIntakes = [];
-        $('#custom_table').find('tbody > tr').each(function(index, tr) {
+        $('#custom_table').find('tbody > tr').each(function (index, tr) {
             id = tr.id.replace('custom-', '');
             listIntakes.push({
                 id: id,
@@ -1202,7 +1265,7 @@ $(document).ready(function() {
     }
 
     //Set var into calculator
-    $(document).on('click', '.list-group-item', function() {
+    $(document).on('click', '.list-group-item', function () {
         var el = document.getElementById("python-expression");
         typeInTextarea($(this).attr('value'), el);
     });
@@ -1216,7 +1279,7 @@ $(document).ready(function() {
         el.selectionEnd = el.selectionStart;
     }
 
-    $('#python-expression').on('keypress', function(evt) {
+    $('#python-expression').on('keypress', function (evt) {
         var charCode = (evt.which) ? evt.which : evt.keyCode;
         let symbols = [40, 41, 42, 43, 45, 60, 61, 62, 106, 107, 109, 111];
         if (charCode != 46 && charCode > 31 && (charCode < 48 || charCode > 57))
@@ -1225,7 +1288,7 @@ $(document).ready(function() {
         return true;
     })
 
-    $('#btnValidatePyExp').click(function() {
+    $('#btnValidatePyExp').click(function () {
         validatePyExpression();
     });
 
@@ -1258,17 +1321,17 @@ $(document).ready(function() {
         output.innerHTML = expression;
         MathJax.texReset();
         MathJax.typesetClear();
-        MathJax.typesetPromise([output]).catch(function(err) {
+        MathJax.typesetPromise([output]).catch(function (err) {
             output.innerHTML = '';
             output.appendChild(document.createTextNode(err.message));
             console.error(err);
-        }).then(function() {
+        }).then(function () {
             button.disabled = false;
         });
     }
 
     //KeyBoard calculator funcion cost
-    $('button[name=mathKeyBoard]').click(function() {
+    $('button[name=mathKeyBoard]').click(function () {
         var el = document.getElementById("python-expression");
         typeInTextarea($(this).attr('value'), el);
     });
@@ -1298,7 +1361,7 @@ $(document).ready(function() {
 
 });
 
-$("#ModalAddCostBtn").click(function() {
+$("#ModalAddCostBtn").click(function () {
     flagFunctionCost = true;
     $('#costFunctionName').val('');
     $('#costFuntionDescription').val('');
@@ -1306,9 +1369,10 @@ $("#ModalAddCostBtn").click(function() {
     $('#global_multiplier_factorCalculator').val('');
     $('#python-expression').val('');
     setVarCost();
+    validatePyExpression();
 });
 
-$('#saveAndValideCost').click(function() {
+$('#saveAndValideCost').click(function () {
     if (flagFunctionCost) {
         //true = nueva
         var pyExp = $('#python-expression').val();
@@ -1359,7 +1423,7 @@ $('#saveAndValideCost').click(function() {
 });
 
 //Edit funcion cost 
-$(document).on('click', 'a[name=glyphicon-edit]', function() {
+$(document).on('click', 'a[name=glyphicon-edit]', function () {
     flagFunctionCost = false;
     $('#CalculatorModal').modal('show');
     selectedCostId = parseInt($(this).attr('idvalue'));
@@ -1367,7 +1431,7 @@ $(document).on('click', 'a[name=glyphicon-edit]', function() {
     $('#costFuntionDescription').val(funcostdb[selectedCostId].function.description);
     $('#CalculatorModalLabel').text('Modify Cost - ' + $('#titleCostFunSmall').text());
     $('#currencyCost').val(funcostdb[selectedCostId].function.currencyCost);
-    $('#global_multiplier_factorCalculator').val(funcostdb[selectedCostId].function.global_multiplier_factorCalculator);
+    $('#global_multiplier_factorCalculator').val(funcostdb[selectedCostId].function.factor);
     setVarCost();
     let value = funcostdb[selectedCostId].function.value;
     $('#python-expression').val();
@@ -1378,7 +1442,7 @@ $(document).on('click', 'a[name=glyphicon-edit]', function() {
 });
 
 //Delete funcion cost 
-$(document).on('click', 'a[name=glyphicon-trash]', function() {
+$(document).on('click', 'a[name=glyphicon-trash]', function () {
     Swal.fire({
         title: gettext('Are you sure?'),
         text: gettext("You won't be able to revert this!"),
@@ -1412,7 +1476,7 @@ function setVarCost() {
     $('#CalculatorModalLabel').text('Modify Cost ');
     $('#VarCostListGroup div').remove();
     let listIntakes = [];
-    $('#custom_table').find('tbody > tr').each(function(index, tr) {
+    $('#custom_table').find('tbody > tr').each(function (index, tr) {
         id = tr.id.replace('custom-', '');
         listIntakes.push({
             id: id,
@@ -1479,11 +1543,11 @@ function autoAdjustHeight() {
     $('#autoAdjustHeightF').css("height", "auto");
 }
 
-$(document).on('click', 'a[name=fun_display_btn]', function() {
+$(document).on('click', 'a[name=fun_display_btn]', function () {
     var idx = $(this).attr('idvalue');
     $(`#fun_display_${idx}`).toggle();
 });
 
-window.onbeforeunload = function() {
+window.onbeforeunload = function () {
     return mxResources.get('changesLost');
 };

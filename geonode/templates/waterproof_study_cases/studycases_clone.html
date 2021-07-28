@@ -194,7 +194,7 @@
                                         <div class="col-md-12">
                                             <div class="row form-group">
                                                 <div class="col-md-2">
-                                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#CalculatorModal" id="add_cost">{% trans "add_cost_function" %}</button>
+                                                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#CalculatorModal" id="ModalAddCostBtn">{% trans "add_cost_function" %}</button>
                                                 </div>
                                             </div>
                                             <table id="cost_table" class="table table-striped table-bordered table-condensed panel-hide" style="width:100%">
@@ -609,7 +609,7 @@
                             <div class="col-xs-6">
                                 <label class="text-primary">{% trans "Currency for definition of costs" %} </label>
                                 <select id="currencyCost" class="form-control" required>
-                                    {% for currency in currencies %}
+                                    {% for currency in currencys %}
                                     {% if currency.iso3 == 'USA'%}
                                     <option value="{{currency.pk}}" data-country="{{currency.iso3}}">({{currency.currency}}) - {{currency.name}}</option>
                                     {% else %}
@@ -665,8 +665,7 @@
                                 <div class="btn-group" role="group">
                                     <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value=">">></button>
                                     <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value=">=">\ge</button>
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="<">
-                                        << /button>
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="<"><</button>
                                             <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="<=">\le</button>
                                             <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="!=">\ne</button>
                                             <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="and">and</button>
@@ -955,8 +954,7 @@
 <script type="text/javascript">
     var mxBasePath = "{{ STATIC_URL }}geonode/js/mxgraph/src";
     var mxImageBasePath = "{{ STATIC_URL }}geonode/js/mxgraph/examples/images";
-    var editorUrl =
-        "{{ STATIC_URL }}geonode/js/mxgraph/examples/editors/config/diagrameditor.xml";
+    var editorUrl = "{{ STATIC_URL }}geonode/js/mxgraph/examples/editors/config/diagrameditor.xml";
     var serverApi = "{{serverApi}}";
     var funcostdb = {{costFunctions|safe}};
     OSM_BASEMAP_URL = "{{ OSM_BASEMAP_URL }} ";
@@ -973,6 +971,7 @@
 <script src="{{ STATIC_URL }}geonode/js/mxgraph/mxClient.js"></script>
 <script src="{{ STATIC_URL }}geonode/js/mxgraph/examples/editors/js/app.js"></script>
 <script src="{{ STATIC_URL }}geonode/js/mxgraph/examples/editors/js/app.js"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 <script src="{{ STATIC_URL }}study_cases/mathquill/mathquill.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min.js"

@@ -491,7 +491,7 @@ $(document).ready(function () {
             if ($this.val().length <= 0) {
                 valid_edit = false;
                 return false;
-            } 
+            }
         });
         if (!valid_edit) {
             Swal.fire({
@@ -534,7 +534,13 @@ $(document).ready(function () {
                 id: id_study_case,
                 currency: analysis_currency
             }, function (data) {
+                valid_investment = true;
+                conversion = 1;
                 $.each(data, function (index, currency) {
+                    value = Number.parseFloat(currency.value).toFixed(5);
+                    if (currency.currency == 'USD') {
+                        conversion = value;
+                    }
                     if (currency.currency != analysis_currency) {
                         value = Number.parseFloat(currency.value).toFixed(5);
                         html += '<div class="col-md-4 currency-value"><label class="custom-control-label" for="currency">' + currency.currency + '</label></div>'
@@ -545,14 +551,13 @@ $(document).ready(function () {
                 nbs_min = 0;
                 minimun = 0;
                 valid_nbs = true
-                valid_investment = true;
                 $("#full-table").find("input").each(function (index, input) {
                     input_id = input.id
                     if ($("#" + input_id).hasClass("hiddennbs")) {
                         split = input_id.split('-')
                         nbssc_id = split.pop();
                         nbs_min = parseFloat($("#" + input_id).val());
-                        nbs_min *= conversion
+                        nbs_min /= conversion
                         if (minimun) {
                             if (minimun > nbs_min) {
                                 minimun = nbs_min;
@@ -562,7 +567,6 @@ $(document).ready(function () {
                         }
                         if (nbs_value < nbs_min && nbs_value > 0) {
                             valid_nbs = false
-                            valid_investment = false;
                             $('#nbssc-' + nbssc_id).css('border-color', 'red');
                             Swal.fire({
                                 icon: 'warning',
@@ -573,78 +577,77 @@ $(document).ready(function () {
                         }
                     } else {
                         nbs_value = parseFloat($("#" + input_id).val());
+                        if (nbs_value > 0)
+                            valid_investment = false
                         $("#" + input_id).css('border-color', '#eeeeee');
                     }
                 });
-                if (valid_investment) {
-                    if ($('#annual_investment').val() < minimun) {
-                        valid_nbs = false;
-                        Swal.fire({
-                            icon: 'warning',
-                            title: gettext('field_problem'),
-                            text: gettext('error_annual_investment')+minimun,
-                        });
-                        return false
-                    }
+                if (valid_investment && $('#annual_investment').val() < minimun) {
+                    valid_nbs = false;
+                    Swal.fire({
+                        icon: 'warning',
+                        title: gettext('field_problem'),
+                        text: gettext('error_annual_investment') + minimun,
+                    });
+                    return false
                 }
-
                 if (valid_nbs) {
-                Swal.fire({
-                    title: gettext('exchange_rate'),
-                    html: html,
-                    showCancelButton: true,
-                    confirmButtonText: gettext('save'),
-                    preConfirm: () => {
-                        currencys = []
-                        $("#currencys-panel").find("input").each(function (index, input) {
-                            currency = {}
-                            input_id = input.id
-                            if (input_id) {
-                                val = $("#" + input_id).val()
-                                currency['currency'] = input_id;
-                                currency['value'] = val;
-                                currencys.push(currency)
-                            }
-                        });
-                        return currencys
-                    }
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        $('#_thumbnail_processing').modal('toggle');
-                        $("#full-table").find("input").each(function (index, input) {
-                            nbsactivity = {}
-                            input_id = input.id
-                            input_type = input.type
-                            if (input_id && input_type != 'hidden') {
-                                split = input_id.split('-')
-                                nbssc_id = split.pop();
-                                val = $("#" + input_id).val()
-                                nbsactivity['id'] = nbssc_id;
-                                nbsactivity['value'] = val;
-                                nbsactivities.push(nbsactivity)
-                            }
-                        });
-                        $.post("../../study_cases/save/", {
-                            id_study_case: id_study_case,
-                            analysis_type: 'investment scenario',
-                            period_nbs: $('#period_nbs').val(),
-                            period_analysis: $('#period_analysis').val(),
-                            analysis_nbs: $("#analysis_nbs option:selected").val(),
-                            analysis_currency: $("#analysis_currency option:selected").val(),
-                            annual_investment: $('#annual_investment').val(),
-                            rellocated_remainder: $("#rellocated_check").is(':checked'),
-                            nbsactivities: '1' + JSON.stringify(nbsactivities),
-                            currencys: '1' + JSON.stringify(result.value),
-                            run_analysis: true
-                        }, function (data) {
-                            $('#_thumbnail_processing').modal('hide');
-                            $('#smartwizard').smartWizard("next");
-                            autoAdjustHeight();
-                            $("#form").submit();
-                        }, "json");
-                    }
-                })
-            }
+                    Swal.fire({
+                        title: gettext('exchange_rate'),
+                        html: html,
+                        showCancelButton: true,
+                        confirmButtonText: gettext('save'),
+                        preConfirm: () => {
+                            currencys = []
+                            $("#currencys-panel").find("input").each(function (index, input) {
+                                currency = {}
+                                input_id = input.id
+                                if (input_id) {
+                                    val = $("#" + input_id).val()
+                                    currency['currency'] = input_id;
+                                    currency['value'] = val;
+                                    currencys.push(currency)
+                                }
+                            });
+                            return currencys
+                        }
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            $('#_thumbnail_processing').modal('toggle');
+                            $("#full-table").find("input").each(function (index, input) {
+                                nbsactivity = {}
+                                input_id = input.id
+                                input_type = input.type
+                                if (input_id && input_type != 'hidden') {
+                                    split = input_id.split('-')
+                                    nbssc_id = split.pop();
+                                    val = $("#" + input_id).val()
+                                    nbsactivity['id'] = nbssc_id;
+                                    nbsactivity['value'] = val;
+                                    nbsactivities.push(nbsactivity)
+                                }
+                            });
+                            $.post("../../study_cases/save/", {
+                                id_study_case: id_study_case,
+                                analysis_type: 'investment scenario',
+                                period_nbs: $('#period_nbs').val(),
+                                period_analysis: $('#period_analysis').val(),
+                                analysis_nbs: $("#analysis_nbs option:selected").val(),
+                                analysis_currency: $("#analysis_currency option:selected").val(),
+                                annual_investment: $('#annual_investment').val(),
+                                rellocated_remainder: $("#rellocated_check").is(':checked'),
+                                nbsactivities: '1' + JSON.stringify(nbsactivities),
+                                currencys: '1' + JSON.stringify(result.value),
+                                run_analysis: true
+                            }, function (data) {
+                                $('#_thumbnail_processing').modal('hide');
+                                $('#smartwizard').smartWizard("next");
+                                autoAdjustHeight();
+                                $("#form").submit();
+                            }, "json");
+                        }
+                    })
+                }
             });
 
         } else {
@@ -659,7 +662,6 @@ $(document).ready(function () {
     });
 
     $('#step7EndBtn').click(function () {
-        edit = !$("#full-table").hasClass("panel-hide")
         var valid_edit = true;
         var valid_period = true;
         nbsactivities = []
@@ -701,7 +703,6 @@ $(document).ready(function () {
         } else {
             valid_period = false;
         }
-
         if ($('#period_analysis').val() != '' && $('#period_nbs').val() != '' && valid_edit && valid_period) {
             analysis_currency = $("#analysis_currency option:selected").val()
             html = '<div class="row" id="currencys-panel"> <div class="col-md-10 currency-panel">Currency for the execution this analisys</div><div class="col-md-2 currency-panel currency-text">' + analysis_currency
@@ -712,9 +713,10 @@ $(document).ready(function () {
                 id: id_study_case,
                 currency: analysis_currency
             }, function (data) {
+                valid_investment = true;
+                conversion = 1;
                 $.each(data, function (index, currency) {
                     value = Number.parseFloat(currency.value).toFixed(5);
-                    conversion = 1;
                     if (currency.currency == 'USD') {
                         conversion = value;
                     }
@@ -728,14 +730,13 @@ $(document).ready(function () {
                 nbs_min = 0;
                 minimun = 0;
                 valid_nbs = true
-                valid_investment = true;
                 $("#full-table").find("input").each(function (index, input) {
                     input_id = input.id
                     if ($("#" + input_id).hasClass("hiddennbs")) {
                         split = input_id.split('-')
                         nbssc_id = split.pop();
                         nbs_min = parseFloat($("#" + input_id).val());
-                        nbs_min *= conversion
+                        nbs_min /= conversion
                         if (minimun) {
                             if (minimun > nbs_min) {
                                 minimun = nbs_min;
@@ -745,7 +746,6 @@ $(document).ready(function () {
                         }
                         if (nbs_value < nbs_min && nbs_value > 0) {
                             valid_nbs = false
-                            valid_investment = false;
                             $('#nbssc-' + nbssc_id).css('border-color', 'red');
                             Swal.fire({
                                 icon: 'warning',
@@ -756,19 +756,21 @@ $(document).ready(function () {
                         }
                     } else {
                         nbs_value = parseFloat($("#" + input_id).val());
+                        if (nbs_value > 0)
+                            valid_investment = false
                         $("#" + input_id).css('border-color', '#eeeeee');
                     }
                 });
-                if (valid_investment) {
-                    if ($('#annual_investment').val() < minimun) {
-                        valid_nbs = false;
-                        Swal.fire({
-                            icon: 'warning',
-                            title: gettext('field_problem'),
-                            text: gettext('error_annual_investment')+minimun,
-                        });
-                        return false
-                    }
+                $('#annual_investment').css('border-color', '#eeeeee');
+                if (valid_investment && $('#annual_investment').val() < minimun) {
+                    valid_nbs = false;
+                    $('#annual_investment').css('border-color', 'red');
+                    Swal.fire({
+                        icon: 'warning',
+                        title: gettext('field_problem'),
+                        text: gettext('error_annual_investment') + minimun,
+                    });
+                    return false
                 }
 
                 if (valid_nbs) {
@@ -829,7 +831,6 @@ $(document).ready(function () {
                     })
                 }
             });
-
         } else {
             Swal.fire({
                 icon: 'warning',
@@ -1088,10 +1089,10 @@ $(document).ready(function () {
     }
 
     function loadNBS() {
-        var country = localStorage.country
+        var city_id = localStorage.cityId
         $.post("../../study_cases/nbs/", {
             id_study_case: id_study_case,
-            country: country,
+            city_id: city_id,
             process: "Edit"
         }, function (data) {
             content = ''
@@ -1114,10 +1115,10 @@ $(document).ready(function () {
     }
 
     function loadNBSActivities() {
-        var country = localStorage.country
+        var city_id = localStorage.cityId
         $.post("../../study_cases/nbs/", {
             id_study_case: id_study_case,
-            country: country,
+            city_id: city_id,
             process: "Edit"
         }, function (data) {
             content = ''
@@ -1129,6 +1130,8 @@ $(document).ready(function () {
                 var def = nbs.default
                 var val = nbs.value;
                 var min = ((parseFloat(nbs.unit_implementation_cost) + parseFloat(nbs.unit_maintenance_cost) / parseFloat(nbs.periodicity_maitenance) + parseFloat(nbs.unit_oportunity_cost)) * 10);
+                if (nbs.country__global_multiplier_factor)
+                    min *= parseFloat(nbs.country__global_multiplier_factor)
                 if (def) {
                     if (!val) {
                         val = 0
@@ -1211,7 +1214,7 @@ $(document).ready(function () {
                 content += '<td id="lucode_' + id_intake + '_' + bio.id + '">' + bio.lucode + '</td>'
                 $.each(bio, function (key, v) {
                     if (key != 'lucode' && key != 'default' && key != 'lulc_desc' && key != 'description' && key != 'user_id' && key != 'intake_id' && key != 'study_case_id' && key != 'id' && key != 'macro_region' && key != 'kc') {
-                        content += '<td id="' + key + '_' + id_intake + '_' + bio.id + '"><input class="text-number" step="0.000001" oninput="validity.valid||(value=\'\');" type="number" value="' + v + '"/></td>'
+                        content += '<td id="' + key + '_' + id_intake + '_' + bio.id + '"><input class="text-number-full" step="0.000001" oninput="validity.valid||(value=\'\');" type="number" value="' + v + '"/></td>'
                     }
                 });
                 content += '</tr>'

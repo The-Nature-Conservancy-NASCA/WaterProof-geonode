@@ -56,6 +56,24 @@ $(document).ready(function () {
 
     var banderaInpolation = 0;
     $("#intakeWECB").click(function () {
+        if ($('#numberYearsInterpolationValue').val() < 10 || $('#numberYearsInterpolationValue').val() > 100) {
+            Swal.fire({
+                icon: 'warning',
+                title: gettext('field_problem'),
+                text: gettext('Error number of years for time series  (10-100) Year'),
+            });
+            valid_period = false;
+            return
+        }
+
+        if ($("#numberYearsInterpolationValue").val() == '' || $("#initialDataExtractionInterpolationValue").val() == '' || $("#finalDataExtractionInterpolationValue").val() == '') {
+            Swal.fire({
+                icon: 'warning',
+                title: gettext('Data analysis empty'),
+                text: gettext('Please Generate Data analysis')
+            });
+            return
+        }
         banderaInpolation += 1;
         banderaExternal += 1;
         $('#intakeECTAG tr').remove();
@@ -122,7 +140,7 @@ $(document).ready(function () {
                 waterExtractionValue.push(yearData);
                 $('#intakeECTAG').append(`<tr>
                 <th class="text-center" scope="row">${index}</th>
-                <td class="text-center"><input type="text" class="form-control" value="${(b * (Math.exp(m * index))).toFixed(2)}" disabled></td>
+                <td class="text-center"><input type="text" class="form-control justify-number" value="${(b * (Math.exp(m * index))).toFixed(2)}" disabled></td>
               </tr>`);
             }
 
@@ -242,6 +260,15 @@ $(document).ready(function () {
 
     // Generate Input Manual Interpolation
     $('#intakeNIBYMI').click(function () {
+        if ($('#intakeNIYMI').val() < 10 || $('#intakeNIYMI').val() > 100) {
+            Swal.fire({
+                icon: 'warning',
+                title: gettext('field_problem'),
+                text: gettext('Error number of years  (10-100) Year'),
+            });
+            valid_period = false;
+            return
+        }
         $('#intakeWEMI tr').remove();
         $('#intakeWEMI').empty();
         intakeNIYMI = Number($("#intakeNIYMI").val());

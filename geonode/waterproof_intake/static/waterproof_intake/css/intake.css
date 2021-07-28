@@ -230,3 +230,12 @@ textarea {
 .justify-number{
     text-align: right;
 }
+
+.table-center-item{
+    display: block;
+    text-align:center;
+}
+
+.justify-text{
+    text-align: left;
+}
