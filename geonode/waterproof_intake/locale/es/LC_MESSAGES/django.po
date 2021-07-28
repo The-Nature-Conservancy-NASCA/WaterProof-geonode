@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Waterproof_valpha\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-07-21 14:34-0500\n"
-"PO-Revision-Date: 2021-07-28 11:43-0500\n"
+"PO-Revision-Date: 2021-07-28 12:32-0500\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -465,7 +465,7 @@ msgid "on the map to define the water intake location or you can directly enter 
 msgstr "en el mapa para definir la ubicación de la captación o puede ingresar directamente las coordenadas latitud y longitud)."
 
 #: template/intake_form.html:595
-msgid "With this information, the system will calculate the polygon of the basin to be used by the InVest and RIOS models in the definition of portfolios and calculation of Return on investment:"
+msgid "With this information the system will calculate the polygon of the basin to be used by the InVest and ROIS models in the portfolio definition and ROI calculation:"
 msgstr "Con esta información el sistema calculará el polígono de la cuenca para ser empleada por los modelos InVest y RIOS en la definición de portafolios y cálculo de Retorno de inversión:"
 
 #: template/intake_form.html:599
@@ -775,3 +775,15 @@ msgstr "De clic en el siguiente botón para calcular la extracción de agua para
 #: template/intake_form.html:313
 msgid "Number of years  (10-100) Year"
 msgstr "Número de años  (10-100) años"
+
+#: template/intake_form.html:381
+msgid "NbS implementation area"
+msgstr "Área de implementación de la NbS"
+
+#: template/intake_form.html:381
+msgid "To delimit the area within the basin in which it is possible to implement your Nature-Based Solutions, click on the 'Delimit NBS implementation area' button. The system will show you the polygon highlighted in red with vertices that you can move. The system will validate that your polygon is not outside the watershed."
+msgstr "Para delimitar elárea dentro de la cuenca en la cual es posible implementar sus soluciones basadas en la naturaleza de clic en el botón “Delimitar área de implementación de SbN”, el sistema le mostrará el polígono resaltado en rojo con vértices que podrá mover. El sistema validará que su polígono no quede fuera de la cuenca."
+
+#: template/intake_form.html:381
+msgid "When you have finished making your changes, click on the 'Validate area' button."
+msgstr "Al terminar de hacer sus cambios, de clic en el botón Validar area."
