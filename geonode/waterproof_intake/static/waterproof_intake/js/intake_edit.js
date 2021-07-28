@@ -228,11 +228,11 @@ $(document).ready(function() {
                         <table class="table" id="table_${graphData[p].id}" style="display: none">
                             <thead>
                                 <tr>
-                                    <th class="text-center" scope="col">Year</th>
-                                    <th class="text-center" scope="col">Water Volume (m3)</th>
-                                    <th class="text-center" scope="col">Sediment (Ton)</th>
-                                    <th class="text-center" scope="col">Nitrogen (Kg)</th>
-                                    <th class="text-center" scope="col">Phosphorus (Kg)</th>
+                                    <th class="text-center" scope="col">{% trans "Year" %}</th>
+                                    <th class="text-center" scope="col">{% trans "Water Volume (m3)" %}</th>
+                                    <th class="text-center" scope="col">{% trans "Sediment (Ton)" %}</th>
+                                    <th class="text-center" scope="col">{% trans "Nitrogen (Kg)" %}</th>
+                                    <th class="text-center" scope="col">{% trans "Phosphorus (Kg)" %}</th>
                                 </tr>
                             </thead>
                             <tbody>${rows}</tbody>
