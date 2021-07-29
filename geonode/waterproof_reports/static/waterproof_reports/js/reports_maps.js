@@ -1,32 +1,32 @@
+/*********
+ *  Maps in  Leaflet for WaterProof Reports
+ * 
+ * *******/
+
 $(document).ready(function () {
   let center = [4.6, -75.5];
-  var mapLeft = L.map('map-left').setView(center, 11);
-  var mapRight = L.map('map-right').setView(center, 11);
+  let zoom = 11;
+  var mapLeft = L.map('map-left').setView(center, zoom);
+  var mapRight = L.map('map-right').setView(center, zoom);
   var map = L.map('map').setView(center, 11);
 
   let urlTopoLyr = 'https://opentopomap.org/{z}/{x}/{y}.png';
   let urlOmsLyr = 'https:/{s}.tile.osm.org/{z}/{x}/{y}.png';
-  var topomapLyrLeft = L.tileLayer(urlOmsLyr, {
-    attribution:
-      'Map tiles by <a href="https://osm.org">OSM<\/a>, ' +
-      '<a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0<\/a> &mdash; ' +
-      'Map data {attribution.OpenStreetMap}',
+  let omsAttributions = 'Map tiles by <a href="https://osm.org">OSM<\/a>, ' +
+                        '<a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0<\/a> &mdash; ' +
+                        'Map data {attribution.OpenStreetMap}'
+  var OmsLyrLeft = L.tileLayer(urlOmsLyr, {
+    attribution: omsAttributions,
   }).addTo(mapLeft);
 
-  var topomapLyrRight = L.tileLayer(urlOmsLyr, {
-    attribution:
-      'Map tiles by <a href="https://osm.org">OSM<\/a>, ' +
-      '<a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0<\/a> &mdash; ' +
-      'Map data {attribution.OpenStreetMap}',
+  var OmsLyrRight = L.tileLayer(urlOmsLyr, {
+    attribution: omsAttributions,
     minZoom: 1,
     maxZoom: 16
   }).addTo(mapRight);
 
   var tileLyr = L.tileLayer(urlOmsLyr, {
-    attribution:
-      'Map tiles by <a href="https://osm.org">OSM<\/a>, ' +
-      '<a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0<\/a> &mdash; ' +
-      'Map data {attribution.OpenStreetMap}',
+    attribution:  omsAttributions,
     minZoom: 1,
     maxZoom: 16
   }).addTo(map);
@@ -84,12 +84,10 @@ $(document).ready(function () {
     }
     return L.tileLayer.wms(urlWaterProofLyrsWMS, params);
   }
-
-  
+ 
   
   function createLegend(lyrName) {
-    let legendParams = `&request=getlegendgraphic&layer=${lyrName}&format=image%2Fpng&SLD_VERSION=1.1.0&VERSION=1.3.0`  
-
+    let legendParams = `&request=getlegendgraphic&layer=${lyrName}&format=image%2Fpng&SLD_VERSION=1.1.0&VERSION=1.3.0`;
     const fetchAsBlob = url => fetch(url)
     .then(response => response.blob());
 

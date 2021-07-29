@@ -534,9 +534,9 @@ $(document).ready(function () {
                 currency: analysis_currency
             }, function (data) {
                 valid_investment = true;
+                conversion = 1;
                 $.each(data, function (index, currency) {
                     value = Number.parseFloat(currency.value).toFixed(5);
-                    conversion = 1;
                     if (currency.currency == 'USD') {
                         conversion = value;
                     }
@@ -713,9 +713,9 @@ $(document).ready(function () {
                 currency: analysis_currency
             }, function (data) {
                 valid_investment = true;
+                conversion = 1;
                 $.each(data, function (index, currency) {
                     value = Number.parseFloat(currency.value).toFixed(5);
-                    conversion = 1;
                     if (currency.currency == 'USD') {
                         conversion = value;
                     }
