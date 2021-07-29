@@ -50,6 +50,7 @@ def getTreatmentPlantsList(request):
 				objects_list.append({
 					"plantId": tratamentPlants.csinfra_plant.id,
 					"plantUser": tratamentPlants.csinfra_plant.plant_user,
+					"plantDate": tratamentPlants.csinfra_plant.plant_date_create,
 					"plantName": tratamentPlants.csinfra_plant.plant_name,
 					"plantDescription": tratamentPlants.csinfra_plant.plant_description,
 					"plantSuggest": tratamentPlants.csinfra_plant.plant_suggest,
