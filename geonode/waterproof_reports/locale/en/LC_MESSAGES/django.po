@@ -176,3 +176,131 @@ msgstr "Decision indicators"
 #: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
 msgid "Geographic visualization"
 msgstr "Geographic visualization"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/decisionIndicators.html:28
+msgid "En este reporte se presenta de forma sintetizada las proporciones en inversión y beneficios que se lograrán por la implementación de las SbN:"
+msgstr ""
+
+#: geonode/waterproof_reports/templates/waterproof_reports/decisionIndicators.html:28
+msgid "Reports"
+msgstr ""
+
+#: geonode/waterproof_reports/templates/waterproof_reports/decisionIndicators.html:83
+msgid "Incidence of benefits and cost"
+msgstr ""
+
+#: geonode/waterproof_reports/templates/waterproof_reports/decisionIndicators.html:84
+msgid "Portfolio Efficiency"
+msgstr ""
+
+#: geonode/waterproof_reports/templates/waterproof_reports/decisionIndicators.html:85
+msgid "Oportunity result"
+msgstr ""
+
+#: geonode/waterproof_reports/templates/waterproof_reports/decisionIndicators.html:86
+msgid "Physical and risk indicator"
+msgstr ""
+
+#: geonode/waterproof_reports/templates/waterproof_reports/decisionIndicators.html:86
+msgid "Result of interventions"
+msgstr ""
+
+#: geonode/waterproof_reports/templates/waterproof_reports/decisionIndicators.html:142
+msgid "Change in volume of water yield (%)"
+msgstr ""
+
+#: geonode/waterproof_reports/templates/waterproof_reports/decisionIndicators.html:142
+msgid "Change in base flow (%)"
+msgstr ""
+
+#: geonode/waterproof_reports/templates/waterproof_reports/decisionIndicators.html:142
+msgid "Change in total sediments (%)"
+msgstr ""
+
+#: geonode/waterproof_reports/templates/waterproof_reports/decisionIndicators.html:142
+msgid "Change in nitrogen load (%)"
+msgstr ""
+
+#: geonode/waterproof_reports/templates/waterproof_reports/decisionIndicators.html:142
+msgid "Change in phosphorus load (%)"
+msgstr ""
+
+#: geonode/waterproof_reports/templates/waterproof_reports/decisionIndicators.html:142
+msgid "Change in carbon storage (%)"
+msgstr ""
+
+#: geonode/waterproof_reports/templates/waterproof_reports/decisionIndicators.html:142
+msgid "ROI on Green Infrastructure Water treatment Opportunity"
+msgstr ""
+
+#: geonode/waterproof_reports/templates/waterproof_reports/decisionIndicators.html:142
+msgid "Adove 1"
+msgstr ""
+
+#: geonode/waterproof_reports/templates/waterproof_reports/decisionIndicators.html:142
+msgid "Total estimated investment"
+msgstr ""
+
+#: geonode/waterproof_reports/templates/waterproof_reports/decisionIndicators.html:142
+msgid "Total treatment cost savings"
+msgstr ""
+
+#: geonode/waterproof_reports/templates/waterproof_reports/decisionIndicators.html:142
+msgid "Total area investment size (Ha)"
+msgstr ""
+
+#: geonode/waterproof_reports/templates/waterproof_reports/decisionIndicators.html:206
+msgid "Size recomended intervetion as a percent to total area"
+msgstr ""
+
+#: geonode/waterproof_reports/templates/waterproof_reports/decisionIndicators.html:206
+msgid "Intervetion"
+msgstr ""
+
+#: geonode/waterproof_reports/templates/waterproof_reports/decisionIndicators.html:206
+msgid "Watershed information"
+msgstr ""
+
+#: geonode/waterproof_reports/templates/waterproof_reports/decisionIndicators.html:206
+msgid "Total size:"
+msgstr ""
+
+#: geonode/waterproof_reports/templates/waterproof_reports/decisionIndicators.html:206
+msgid "Green infraestructure activity"
+msgstr ""
+
+#: geonode/waterproof_reports/templates/waterproof_reports/decisionIndicators.html:206
+msgid "Cost per hectare (USD)"
+msgstr ""
+
+#: geonode/waterproof_reports/templates/waterproof_reports/decisionIndicators.html:206
+msgid "Recommended intervetion (Hectares)"
+msgstr ""
+
+#: geonode/waterproof_reports/templates/waterproof_reports/financialIndicators.html:206
+msgid "This report summarizes the proportions in investment and benefits that will be achieved by the implementation of the SbN:"
+msgstr ""
+
+#: geonode/waterproof_reports/templates/waterproof_reports/financialIndicators.html:83
+msgid "Return of investment (ROI)"
+msgstr ""
+
+#: geonode/waterproof_reports/templates/waterproof_reports/financialIndicators.html:83
+msgid "Net Present Value (NPV)"
+msgstr ""
+
+#: geonode/waterproof_reports/templates/waterproof_reports/financialIndicators.html:83
+msgid "Sensitivity Analysis"
+msgstr ""
+
+#: geonode/waterproof_reports/templates/waterproof_reports/financialIndicators.html:83
+msgid "Benefits"
+msgstr ""
+
+#: geonode/waterproof_reports/templates/waterproof_reports/financialIndicators.html:83
+msgid "Cost"
+msgstr ""
+
+#: geonode/waterproof_reports/templates/waterproof_reports/geographiacIndicators.html:25
+msgid "En este reporte se presenta de forma sintetizada las proporciones en inversión y beneficios que se lograrán por la implementación de las SbN:"
+msgstr ""

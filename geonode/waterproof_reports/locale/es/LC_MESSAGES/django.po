@@ -154,27 +154,27 @@ msgstr " Cambio estimado en servicios ecosistémicos (BaU vs NbS)"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
 msgid "Anual water yield"
-msgstr "Anual water yield"
+msgstr "Rendimiento hídrico anual"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
 msgid "Seasonal water yield"
-msgstr "Seasonal water yield"
+msgstr " Rendimiento de agua estacional"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
 msgid "Sediment delivery ratio"
-msgstr "Sediment delivery ratio"
+msgstr "Relación de entrega de sedimentos"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
 msgid "Nutrient delivery ratio - nitrogen"
-msgstr "Nutrient delivery ratio - nitrógeno"
+msgstr "Proporción de suministro de nutrientes - Nitrógeno"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
-msgid "Nutrient delivery ratio - Fósforo"
-msgstr ""
+msgid "Nutrient delivery ratio - phosphorus"
+msgstr "Proporción de suministro de nutrientes - Fósforo"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
 msgid "Carbon storage and sequestration"
-msgstr "Carbon storage and sequestration"
+msgstr "Almacenamiento y secuestro de carbono"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
 msgid "Intervention and budget summary"

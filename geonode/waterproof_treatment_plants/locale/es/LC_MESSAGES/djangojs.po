@@ -27,7 +27,7 @@ msgstr ""
 "Project-Id-Version: GeoNode\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-07-21 14:59-0500\n"
-"PO-Revision-Date: 2021-07-23 23:29-0500\n"
+"PO-Revision-Date: 2021-07-29 12:38-0500\n"
 "Last-Translator: Julien Collaer <julien.collaer@opengeode.be>\n"
 "Language-Team: Spanish (http://www.transifex.com/geonode/geonode/language/"
 "es/)\n"
@@ -51,3 +51,31 @@ msgid "Trouble deleting treatment plant, must be in use in one study case"
 msgstr ""
 "Problemas eliminando la planta, debe estar siendo usada en algún caso de "
 "uso"
+
+#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:15
+msgid "Treatment plant creation city :"
+msgstr "Ciudad de creación :"
+
+#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:15
+msgid "Create Treatment Plant"
+msgstr "Crear una nueva PTAP"
+
+#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:15
+msgid "Update Treatment Plant"
+msgstr "Editar una PTAP"
+
+#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:15
+msgid "Clone Treatment Plant"
+msgstr "Clonar una PTAP"
+
+#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:15
+msgid "View Treatment Plant"
+msgstr "Ver PTAP"
+
+#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:15
+msgid "Problemas calculando la planta sugerida"
+msgstr "Problemas calculando la planta sugerida"
+
+#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:15
+msgid "Error"
+msgstr "Error"
