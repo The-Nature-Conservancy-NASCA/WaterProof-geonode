@@ -24,9 +24,17 @@
     margin-right: 4px;
 }
 
+.align-text-left{
+    text-align: left;
+}
+
 .vertical-align {
     display: flex;
     align-items: center;
+}
+
+.btn-group-table {
+    display: flex;
 }
 
 .text-danger-wp {
@@ -216,6 +224,10 @@
     right: 0px;
     margin-right: 30px;
     float: right;
+}
+
+.margin-bottom-max{
+    margin-bottom: 0%;
 }
 
 .custom-control-label {

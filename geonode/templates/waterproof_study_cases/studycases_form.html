@@ -51,7 +51,7 @@
             <div class="tab-content" id="autoAdjustHeightF">
                 <!--Step 1-->
                 <div id="step-1" class="tab-pane" role="tabpanel">
-                    <div class="page-header">
+                    <div class="page-header" style="border-bottom: none;">
                         <h3>{% trans "define_study_case" %}
                             <button type="button" data-toggle="modal" data-target="#HelpStep1" id="HelpModalBtnModal_step1" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
                         </h3>
@@ -77,14 +77,16 @@
                     </div>
 
                     <!--Input Desc -->
-                    <div id="div_id_type" class="form-group">
-                        <label for="div_id_type" class="control-label required-field ">
-                            {% trans "select_type_study" %}
-                        </label>
+
+                    <h4 class="text-primary">
+                        {% trans "select_type_study" %}
+                    </h4>
+
+                    <div id="div_id_type" class="form-group" style="border-bottom: none;">
 
                         <div class="form-check panel-hide" id="div-ptaps">
                             <input class="form-check-input" type="radio" name="type" id="ptap" value="1">
-                            <label class="form-check-label" for="ptap">
+                            <label class="form-check-label" style="font-weight: normal;" for="ptap">
                                 {% trans "treatment_plants" %}
                             </label>
                         </div>
@@ -93,7 +95,7 @@
                         </div>
                         <div class="form-check panel-hide" id="div-customcase">
                             <input class="form-check-input" type="radio" name="type" id="custom" value="2">
-                            <label class="form-check-label" for="custom">
+                            <label class="form-check-label" style="font-weight: normal;" for="custom">
                                 {% trans "custom_case" %}
                             </label>
                         </div>
@@ -109,8 +111,8 @@
                             <div class="panel-hide" id="panel-custom">
                                 <div class="col-md-12">
                                     <div class="row form-group">
-                                        <legend>
-                                            <h4 class="text-primary">{% trans "water_intakes" %}<span class="text-danger-wp" id="ptap-required"></span></h4>
+                                        <legend class="margin-bottom-max" style="border-bottom: none;">
+                                            <label for="div_id_type" class="control-label required-field " style="font-size: 16px;">{% trans "water_intakes" %}<span class="text-danger-wp" id="ptap-required"></span></label>
                                         </legend>
                                         <p>{% trans "select_water_intake" %}</p>
                                         <div class="col-md-9">
@@ -165,8 +167,8 @@
                             <div class="panel panel-hide" id="panel-ptap">
                                 <div class="col-md-12">
                                     <div class="row form-group">
-                                        <legend>
-                                            <h4 class="text-primary">{% trans "treatment_plants" %}<span class="text-danger-wp" id="ptap-required"></span></h4>
+                                        <legend class="margin-bottom-max" style="border-bottom: none;">
+                                            <label for="div_id_type" class="control-label required-field " style="font-size: 16px;">{% trans "treatment_plants" %}<span class="text-danger-wp" id="ptap-required"></span></label>
                                         </legend>
                                         <p>{% trans "select_treatments_plants" %}</p>
 
@@ -208,15 +210,14 @@
                         <h3>{% trans "carbon_market_title" %}
                             <button type="button" data-toggle="modal" data-target="#HelpStep2" id="HelpModalBtnModal_step2" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
                         </h3>
-                        <p>{% trans "carbon_market_tip" %}</p>
+                            <p>{% trans "carbon_market_text" %}</p>
                         <div class="custom-control custom-checkbox">
                             <input type="checkbox" class="custom-control-input" id='cb_check'>
                             <label class="custom-control-label" for="cb_check">{% trans "Carbon market" %}</label>
-                            <p>{% trans "carbon_market_text" %}</p>
                         </div>
                         <div class="row" id="cm_form">
                             <div class="col-md-4 cm-title-label">
-                                <p>{% trans "CO2_country" %}</p>
+                                <p id="coeqCountry"></p>
                             </div>
                             <div class="col-md-2">
                                 <input type="number" name="dws_cm" maxlength="100" class="form-control" id="id_cm" min="0" step="0.01" oninput="validity.valid||(value='');" />

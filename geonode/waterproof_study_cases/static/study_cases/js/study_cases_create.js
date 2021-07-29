@@ -50,6 +50,7 @@ var flagFunctionCost = false;
 $(document).ready(function () {
     $('#autoAdjustHeightF').css("height", "auto");
     $('#cityLabel').text(localStorage.city + ", " + localStorage.country);
+    $('#coeqCountry').text("CO2_country"+" ("+localStorage.country+")")
     var output = document.getElementById('MathPreview');
     var button = document.getElementById('btnValidatePyExp');
     var selectedCostId = 0;
@@ -1303,7 +1304,7 @@ $(document).ready(function () {
     });
 
     $('#smartwizard').smartWizard({
-        selected: 0,
+        selected: 1,
         theme: 'dots',
         enableURLhash: false,
         autoAdjustHeight: true,
