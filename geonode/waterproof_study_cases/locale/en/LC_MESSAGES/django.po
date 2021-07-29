@@ -4,19 +4,18 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: GeoNode\n"
+"Project-Id-Version: GeoNode Valpha\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-02-11 20:03-0500\n"
-"PO-Revision-Date: 2020-11-28 19:00+0100\n"
+"PO-Revision-Date: 2021-07-29 14:56-0500\n"
 "Last-Translator: Julien Collaer <julien.collaer@opengeode.be>\n"
-"Language-Team: English (http://www.transifex.com/geonode/geonode/language/"
-"en/)\n"
+"Language-Team: English Skaphe\n"
 "Language: en\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.4.2\n"
+"X-Generator: Poedit 2.4.3\n"
 
 msgid "study_cases"
 msgstr "Study Cases"
@@ -28,10 +27,10 @@ msgid "list_study_case"
 msgstr "List Study Cases"
 
 msgid "treatment_plants"
-msgstr "Drinking water treatment plants (DWTP)"
+msgstr "DWTP"
 
 msgid "water_intakes"
-msgstr "Water intakes"
+msgstr "Water intakes sources"
 
 msgid "execution_status"
 msgstr "Execution status"
@@ -249,4 +248,14 @@ msgstr "In this section, the system offers you the pre-loaded the costs required
 msgid "study_case_tip"
 msgstr "Enter the data with which you will identify your case study. Note that in addition to the name and a description, you must indicate the treatment plants and catchments that derive costs"
 
+msgid "study_cases_list_tip"
+msgstr "In this section you can consult and configure the case studies fora defined city. To configure your case study, remember that you must have defined the water intakes and the different cost functions that will allow WaterProof to understand its context and costs, and provide the return on investment for the implementation of Nature-Based Solutions."
 
+msgid "Creating a new water intake"
+msgstr "Creating a new study case"
+
+msgid "The case studies are the tool in which the user consolidates the previous parameterizations of catchments and treatment plants and projects their analysis, that is, in this section the user indicates the objectives that (s)he wishes to achieve with the implementation of Nature-Based Solutions, indicates the budgetary availability of the project and the time in which (s)he expects to obtain results."
+msgstr "The case studies are the tool in which the user consolidates the previous parameterizations of catchments and treatment plants and projects their analysis, that is, in this section the user indicates the objectives that (s)he wishes to achieve with the implementation of Nature-Based Solutions, indicates the budgetary availability of the project and the time in which (s)he expects to obtain results."
+
+msgid "WaterProof will assist you by indicating the steps you must follow to complete your registration: "
+msgstr "WaterProof will assist you by indicating the steps you must follow to complete your registration: "

@@ -42,16 +42,15 @@ msgstr ""
 "Project-Id-Version: GeoNode\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-02-11 20:03-0500\n"
-"PO-Revision-Date: 2020-12-15 18:41-0500\n"
+"PO-Revision-Date: 2021-07-29 14:57-0500\n"
 "Last-Translator: Julien Collaer <julien.collaer@opengeode.be>\n"
-"Language-Team: Spanish (http://www.transifex.com/geonode/geonode/language/"
-"es/)\n"
+"Language-Team: Spanish (http://www.transifex.com/geonode/geonode/language/es/)\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.4.2\n"
+"X-Generator: Poedit 2.4.3\n"
 
 msgid "study_cases"
 msgstr "Casos de estudio"
@@ -63,10 +62,10 @@ msgid "list_study_case"
 msgstr "Lista casos de estudio"
 
 msgid "treatment_plants"
-msgstr "Plantas de tratamiento de agua potable"
+msgstr "PTAP"
 
 msgid "water_intakes"
-msgstr "Captaciones"
+msgstr "Fuentes de captación de agua"
 
 msgid "execution_status"
 msgstr "Estado ejecución"
@@ -152,7 +151,6 @@ msgstr "In this step you will find the biophysical parameters required for the e
 msgid "advanced_options"
 msgstr "Opciones avanzadas"
 
-
 msgid "clone_study_cases"
 msgstr "Clonar caso de estudio"
 
@@ -171,8 +169,17 @@ msgstr "Discount rates para el análisis ROI"
 msgid "financial_transaction_cost"
 msgstr "Transaction cost per year as a percentage of Implementation, Maintenance and Oportunity costs"
 
-msgid "study_cases_list_tip"
-msgstr "In this section you can consult and configure the case studies for a defined city. To configure your case study, remember that you must have defined the water catchments and the different cost functions that will allow WaterProof to understand its context and costs, and provide the return on investment for the implementation of Nature-Based Solutions."
-
 msgid "study_cases_list_create"
 msgstr "You must be a registered user to create a new Case Study*"
+
+msgid "study_cases_list_tip"
+msgstr "En esta sección puede consultar y configurar los casos de estudio de una ciudad definida. Para configurar su caso de estudio recuerde que debe haber definido las captaciones de agua y las diferentes funciones de costo que le permitirán a WaterProof comprender su contexto, los costos, y proveer el retorno de inversión en la implementación de soluciones basada en la naturaleza."
+
+msgid "Creating a new water intake"
+msgstr "Creating a new study case"
+
+msgid "The case studies are the tool in which the user consolidates the previous parameterizations of catchments and treatment plants and projects their analysis, that is, in this section the user indicates the objectives that (s)he wishes to achieve with the implementation of Nature-Based Solutions, indicates the budgetary availability of the project and the time in which (s)he expects to obtain results."
+msgstr "Los casos de estudio son la herramienta en la cual el usuario consolida las parametrizaciones previas de captaciones y plantas de tratamiento y proyecta su análisis, es decir, en esta sección el usuario indica los objetivos que desea lograr con la implementación de soluciones basadas en la naturaleza, indica la disponibilidad presupuestal de su proyecto y el tiempo con el que espera obtener resultados."
+
+msgid "WaterProof will assist you by indicating the steps you must follow to complete your registration: "
+msgstr "WaterProof lo asistirá indicando los pasos que debe seguir para hacer su registro completo: "
