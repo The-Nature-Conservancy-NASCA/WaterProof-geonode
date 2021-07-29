@@ -1,0 +1,213 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Translators:
+# Translators:
+# Translators:
+# Translators:
+# Translators:
+# Translators:
+# Translators:
+# Translators:
+# Translators:
+# Translators:
+# Translators:
+# Translators:
+# Translators:
+# Translators:
+# Translators:
+# Translators:
+# aaizemberg <ariel.aizemberg@gmail.com>, 2013
+# Andres Alfonso Lemon Gomez <lemon.andres@gmail.com>, 2014
+# aaizemberg <ariel.aizemberg@gmail.com>, 2013
+# aaizemberg <ariel.aizemberg@gmail.com>, 2013
+# Clarisa Andrea Moraña <clarisa.morana@gmail.com>, 2013
+# Clarisa Andrea Moraña <clarisa.morana@gmail.com>, 2013
+# cristianzamar <cristianzamar@gmail.com>, 2016
+# cristianzamar <cristianzamar@gmail.com>, 2016
+# francesco.stompanato <francesco.stompanato@wfp.org>, 2014
+# francesco.stompanato <francesco.stompanato@wfp.org>, 2014
+# ingenieroariel <ingenieroariel@gmail.com>, 2013-2015
+# ingenieroariel <ingenieroariel@gmail.com>, 2013
+# Juan Lautaro Silva Ortiz <jlautarosilva@gmail.com>, 2015
+# Scott Clark, 2013
+# Scott Clark, 2013
+# Scott Clark, 2013
+# Sergio Luis Arnal <sergioarnal@gmail.com>, 2013
+# Sergio Luis Arnal <sergioarnal@gmail.com>, 2013-2016
+msgid ""
+msgstr ""
+"Project-Id-Version: GeoNode\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-02-19 11:28-0500\n"
+"PO-Revision-Date: 2021-07-28 20:17-0500\n"
+"Last-Translator: \n"
+"Language-Team: Spanish (http://www.transifex.com/geonode/geonode/language/es/)\n"
+"Language: es_419\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 2.4.3\n"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
+msgid "Explore the reports resulting from the analysis of your case study"
+msgstr "Explore los reportes resultantes del análisis de su caso de estudio"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
+msgid "In this section WaterProof provides you to understand the possible changes in soil and water resources due to the implementation of Nature-Based Solutions, becoming powerful tools to make investment decisions"
+msgstr "WaterProof le provee en esta sección reportes para entender los posibles cambios en el suelo y en los recursos hídricos por la implementación de Soluciones basadas en la Naturaleza, convirtiéndose en herramientas poderosas para tomar decisiones sobre inversión"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
+msgid "Study Case"
+msgstr "Caso de estudio"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
+msgid "City:"
+msgstr "Ciudad:"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
+msgid "Country:"
+msgstr "País:"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
+msgid "Region:"
+msgstr "Región:"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
+msgid "Time frame (years):"
+msgstr "Periodo de tiempo (años):"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
+msgid "Number of water intakes that are part of the analysis:"
+msgstr "Número de captaciones en el análisis:"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
+msgid "Number of drinking water treatment plants in the system:"
+msgstr "Número de PTAP en el análisis:"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
+msgid "Currency:"
+msgstr "Moneda:"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
+msgid "Financial summary"
+msgstr "Resumen financiero"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
+msgid "Calculated ROI:"
+msgstr "ROI calculado:"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
+msgid "ROI on nature based solutions opportunity"
+msgstr "Oportunidad de ROI en Soluciones basadas en Naturaleza"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
+msgid "Summary of risks in the basins"
+msgstr "Resumen de riesgos en la cuenca"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
+msgid "Select the basin of your interest from the drop-down list to know a summary of its risks (The risk results have been estimated using the Acueduct - WRI database)"
+msgstr "Seleccione la captación de su interés de la lista desplegable para conocer el resumen de sus riesgos (Los riesgos han sido estumados usando la base de datos WRI - Aqueduct)"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
+msgid "Water Intake"
+msgstr "Captación"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
+msgid "Physical risk quantity qan_def"
+msgstr "Cantidad de riesgo físico"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
+msgid "Physical risk quantity measures risk related to too little or too much water by aggregating all selected indicators from the physical risk quantity category"
+msgstr "La cantidad de riesgo físico mide el riesgo relacionado con muy poca o demasiada agua agregando todos los indicadores seleccionados de la categoría de cantidad de riesgo físico"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
+msgid "Physical risk quantity qal_def"
+msgstr "Calidad de riesgo físico"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
+msgid "Physical risk quantity measures risk related to water that in unfit for use by aggregating all selected indicators from the physical risk quantity category"
+msgstr "La cantidad de riesgo físico mide el riesgo relacionado con el agua que no es apta para su uso agregando todos los indicadores seleccionados de la categoría de cantidad de riesgo físico"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
+msgid "Regulatory and reputational rrr_def"
+msgstr "Regulatorio y reputacional"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
+msgid "Risk regulatory and reputational risk measures risk related to uncertainty in regulatory chance, as well as conflich with re public regarding water issues"
+msgstr "Riesgo regulatorio y reputacional mide el riesgo relacionado con la incertidumbre en la posibilidad regulatoria, así como el conflicto con la opinión pública en relación con los problemas del agua"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
+msgid "Overall water risk score tot_def"
+msgstr "Puntaje general de riesgo de agua"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
+msgid "Overall water risk measures all water related risk, by aggregating all selected indicators from the physical risjk quantity, physical risk quality, and regulatory and reputational risk categories"
+msgstr "El riesgo general del agua mide todos los riesgos relacionados con el agua, agregando todos los indicadores seleccionados de la cantidad de riesgo físico, la calidad del riesgo físico y las categorías de riesgo regulatorio y de reputación"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
+msgid " Estimated change in ecosystem services (Business as Usual Scenario Vs Nature-based Solutions Scenario)"
+msgstr " Cambio estimado en servicios ecosistémicos (BaU vs NbS)"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
+msgid "Anual water yield"
+msgstr "Anual water yield"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
+msgid "Seasonal water yield"
+msgstr "Seasonal water yield"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
+msgid "Sediment delivery ratio"
+msgstr "Sediment delivery ratio"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
+msgid "Nutrient delivery ratio - nitrogen"
+msgstr "Nutrient delivery ratio - nitrógeno"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
+msgid "Nutrient delivery ratio - Fósforo"
+msgstr ""
+
+#: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
+msgid "Carbon storage and sequestration"
+msgstr "Carbon storage and sequestration"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
+msgid "Intervention and budget summary"
+msgstr "Resumen de intervención y presupuesto"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
+msgid "Nature based solution"
+msgstr "Solución basada en la naturaleza"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
+msgid "Actual spend (USD)"
+msgstr "Gasto real"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
+msgid "Intervention área (Hectares)"
+msgstr "Área convertida"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
+msgid "Explore detailed results of this case study"
+msgstr "Explore los resultados detallados de este caso de estudio"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
+msgid "Financial indicators"
+msgstr "Indicadores financieros"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
+msgid "Physical indicators"
+msgstr "Indicadores físicos"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
+msgid "Decision indicators"
+msgstr "Indicadores de decisión"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
+msgid "Geographic visualization"
+msgstr "Visualización geográfica"
