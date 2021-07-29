@@ -14,7 +14,7 @@
 
 <div class="header-waterproof">
     <div class="row">
-        <div class="col-sm-3.3">
+        <div class="col-sm-3.5">
             <h1 id="titleFormTreatmentPlant"></h1>
         </div>
         <div class="col-sm-1">
@@ -22,8 +22,8 @@
             <button type="button" data-toggle="modal" data-target="#HelpPTAP" id="HelpModalBtnModal" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
             </h1>
         </div>
-        <div class="col-sm-7.5">
-            <h1 class="title-city">{% trans "Treatment plant creation city: " %} <span id="nameCity"></span> </h1>
+        <div class="col-lg-4">
+            <h4>{% trans "Treatment plant creation city: " %} <span id="nameCity"></span> </h4>
         </div>
     </div>
     <form data-toggle="validator" role="form" action="#">
@@ -146,73 +146,73 @@
                             </div>
                             <div class="container-element container-element-two">
                                 <div class="img-container-two img-color-container" id="black1" graphId="2" nameElement="Mezcla rápida" plantElement="MEZCLARAPIDA" onclick="viewTree(this)"></div>
-                                <div class="text-container">Mezcla rápida</div>
+                                <div class="text-container">{% trans "Mezcla rápida" %}</div>
                                 <div class="container-change-state" onclick="changeStatus(1)"><div class="change-state" id="id1"></div></div>
                                 <div class="opacity-graph" name="disableElement" nameElement="Mezcla rápida" plantElement="MEZCLARAPIDA" graphId="2" model="A,B,C,D,E" id="id11d"  idr="id1"></div>
                             </div>
                             <div class="container-element container-element-two-top">
                                 <div class="img-container img-color-container" id="black2" graphId="12" nameElement="Dosificación" plantElement="DOSIFICACION" onclick="viewTree(this)"></div>
-                                <div class="text-container">Dosificación</div>
+                                <div class="text-container">{% trans "Dosificación" %}</div>
                                 <div class="container-change-state" onclick="changeStatus(2)"><div class="change-state" id="id2"></div></div>
                                 <div class="opacity-graph" name="disableElement" nameElement="Dosificación" plantElement="DOSIFICACION" graphId="12" model="A,B,C,D,E" id="id21d"  idr="id2"></div>
                             </div>
                             <div class="container-element container-element-three">
                                 <div class="img-container-three img-color-container" id="black3" graphId="3" nameElement="Mezcla lenta" plantElement="MEZCLALENTA" onclick="viewTree(this)"></div>
-                                <div class="text-container">Mezcla lenta</div>
+                                <div class="text-container">{% trans "Mezcla lenta" %}</div>
                                 <div class="container-change-state" onclick="changeStatus(3)"><div class="change-state" id="id3"></div></div>
                                 <div class="opacity-graph" name="disableElement" nameElement="Mezcla lenta" plantElement="MEZCLALENTA" graphId="3" model="A,B,C,D,E" id="id31d"  idr="id3"></div>
                             </div>
                             <div class="container-element container-element-four">
                                 <div class="img-container-four img-color-container" id="black4" graphId="4" nameElement="Sedimentación" plantElement="SEDIMENTACION" onclick="viewTree(this)"></div>
-                                <div class="text-container">Sedimentación</div>
+                                <div class="text-container">{% trans "Sedimentación" %}</div>
                                 <div class="container-change-state" onclick="changeStatus(4)"><div class="change-state" id="id4"></div></div>
                                 <div class="opacity-graph" name="disableElement" nameElement="Sedimentación" plantElement="SEDIMENTACION" graphId="4" model="A,B,C,D,E" id="id41d"  idr="id4"></div>
                             </div>
                             <div class="container-element container-element-five">
                                 <div class="img-container-five img-color-container" id="black5" graphId="5" nameElement="Filtración" plantElement="FILTRACION" onclick="viewTree(this)"></div>
-                                <div class="text-container">Filtración</div>
+                                <div class="text-container">{% trans "Filtración" %}</div>
                                 <div class="container-change-state" onclick="changeStatus(5)"><div class="change-state" id="id5"></div></div>
                                 <div class="opacity-graph" name="disableElement" nameElement="Filtración" plantElement="FILTRACION" graphId="5" model="A,B,C,D,E,F" id="id51d"  idr="id5"></div>
                             </div>
                             <div class="container-element container-element-six">
                                 <div class="img-container-six img-color-container" id="black6" graphId="7" nameElement="Filtración por membranas tamaño de particula retenida 0.01 μm" plantElement="FILTRACIONPORMEMBRANANIVEL2" onclick="viewTree(this)"></div>
                                 <div class="container-change-state" onclick="changeStatus(6)"><div class="change-state" id="id6"></div></div>
-                                <div class="text-container-one">Filtración por membranas tamaño de particula retenida 0.01 μm</div>
+                                <div class="text-container-one">{% trans "Filtración por membranas tamaño de particula retenida 0.01 μm" %}</div>
                                 <div class="opacity-graph" name="disableElement" nameElement="Filtración por membranas tamaño de particula retenida 0.01 μm" graphId="7" model="" id="id61d"  idr="id6"></div>
                             </div>
                             <div class="container-element container-element-six-left">
                                 <div class="img-container-seven img-color-container" id="black7" graphId="6" nameElement="Filtración por membranas tamaño de particula retenida 0.1 μm" plantElement="FILTRACIONPORMEMBRANANIVEL1" onclick="viewTree(this)"></div>
                                 <div class="container-change-state" onclick="changeStatus(7)"><div class="change-state" id="id7"></div></div>
-                                <div class="text-container-one">Filtración por membranas tamaño de particula retenida 0.1 μm</div>
+                                <div class="text-container-one">{% trans "Filtración por membranas tamaño de particula retenida 0.1 μm" %}</div>
                                 <div class="opacity-graph" name="disableElement" nameElement="Filtración por membranas tamaño de particula retenida 0.1 μm" plantElement="FILTRACIONPORMEMBRANANIVEL1" graphId="6" model="A,B,E" id="id71d"  idr="id7"></div>
                             </div>
                             <div class="container-element container-element-seven">
                                 <div class="img-container-nine img-color-container" id="black8" graphId="8" nameElement="Filtración por membranas tamaño de particula retenida 0.001 μm" plantElement="FILTRACIONPORMEMBRANANIVEL3" onclick="viewTree(this)"></div>
                                 <div class="container-change-state" onclick="changeStatus(8)"><div class="change-state" id="id8"></div></div>
-                                <div class="text-container-one">Filtración por membranas tamaño de particula retenida 0.001 μm</div>
+                                <div class="text-container-one">{% trans "Filtración por membranas tamaño de particula retenida 0.001 μm" %}</div>
                                 <div class="opacity-graph" name="disableElement" nameElement="Filtración por membranas tamaño de particula retenida 0.001 μm" plantElement="FILTRACIONPORMEMBRANANIVEL3" graphId="8" model="" id="id81d"  idr="id8"></div>
                             </div>
                             <div class="container-element container-element-seven-one">
                                 <div class="img-container-nine-one img-color-container" id="black9" graphId="9" nameElement="Filtración por membranas tamaño de particula retenida 0.0001 μm" plantElement="FILTRACIONPORMEMBRANANIVEL4" onclick="viewTree(this)"></div>
                                 <div class="container-change-state" onclick="changeStatus(9)"><div class="change-state" id="id9"></div></div>
-                                <div class="text-container-one">Filtración por membranas tamaño de particula retenida 0.0001 μm</div>
+                                <div class="text-container-one">{% trans "Filtración por membranas tamaño de particula retenida 0.0001 μm" %}</div>
                                 <div class="opacity-graph" name="disableElement" nameElement="Filtración por membranas tamaño de particula retenida 0.0001 μm" plantElement="FILTRACIONPORMEMBRANANIVEL4" graphId="9" model="A" id="id91d"  idr="id9"></div>
                             </div>
                             <div class="container-element container-element-seven-bottom">
                                 <div class="img-container-eight img-color-container" id="black10" graphId="13" nameElement="Tratamiento de lodos" plantElement="TRATAMIENTODELODOS" onclick="viewTree(this)"></div>
-                                <div class="text-container">Tratamiento de lodos</div>
+                                <div class="text-container">{% trans "Tratamiento de lodos" %}</div>
                                 <div class="container-change-state" onclick="changeStatus(10)"><div class="change-state" id="id10"></div></div>
                                 <div class="opacity-graph" name="disableElement" nameElement="Tratamiento de lodos" plantElement="TRATAMIENTODELODOS" graphId="13" model="A,B,C,D,E,F" id="id101d"  idr="id10"></div>
                             </div>
                             <div class="container-element container-element-eight">
                                 <div class="img-container-ten img-color-container" id="black11" graphId="10" nameElement="Intercambio iónico" plantElement="INTERCAMBIOIONICO" onclick="viewTree(this)"></div>
-                                <div class="text-container">Intercambio iónico</div>
+                                <div class="text-container">{% trans "Intercambio iónico" %}</div>
                                 <div class="container-change-state" onclick="changeStatus(11)"><div class="change-state" id="id11"></div></div>
                                 <div class="opacity-graph" name="disableElement" nameElement="Intercambio iónico" plantElement="INTERCAMBIOIONICO" graphId="10" model="B,C" id="id111d"  idr="id11"></div>
                             </div>
                             <div class="container-element container-element-eight-one">
                                 <div class="img-container-ten-one img-color-container" id="black12" graphId="11" nameElement="Desinfección" plantElement="DESINFECCION" onclick="viewTree(this)"></div>
-                                <div class="text-container">Desinfección</div>
+                                <div class="text-container">{% trans "Desinfección" %}</div>
                                 <div class="container-change-state" onclick="changeStatus(12)"><div class="change-state" id="id12"></div></div>
                                 <div class="opacity-graph" name="disableElement" nameElement="Desinfección" plantElement="DESINFECCION" graphId="11" model="A,B,C,D,E,F,G" id="id121d"  idr="id12"></div>
                             </div>
@@ -225,15 +225,21 @@
         <br>
         <div>
             <h4 class="text-primary">{% trans "Processes, technologies and cost functions" %} <span class="text-danger-wp">(*)</span> </h4>
+            <p>{% trans "Please confirm or edit the diagram according to your reality" %}</p>
         </div>
         <div class="main-tree-content">
             <div>
                 <div class="main-point" onclick="viewBranch('mainTree', this)">-</div>
-                <div class="text-point-main" id="branch1">Treatment Plant</div>
+                <div class="text-point-main" id="branch1">{% trans "Treatment Plant" %}</div>
             </div>
             <div class="margin-main" id="mainTree" style="visibility: hidden"></div>
         </div>
-        <button type="button" id="submit" class="btn btn-primary ">{% trans "Submit" %}</button>
+        <div class="row text-center">
+            <div class="col-md-12">
+                <button type="button" id="submit" class="btn btn-primary ">{% trans "Submit" %}</button>
+            </div>
+        </div>
+        
     </form>
 </div>
 
@@ -304,7 +310,7 @@
                 <div>
                     <br>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="color: white; background-color: #6398C1;">Close</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="color: white; background-color: #6398C1;">{% trans "Close" %}</button>
                     </div>
                 </div>
             </div>
