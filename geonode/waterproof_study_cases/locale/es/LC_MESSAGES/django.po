@@ -42,7 +42,7 @@ msgstr ""
 "Project-Id-Version: GeoNode\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-02-11 20:03-0500\n"
-"PO-Revision-Date: 2021-07-30 12:44-0500\n"
+"PO-Revision-Date: 2021-07-30 13:25-0500\n"
 "Last-Translator: Julien Collaer <julien.collaer@opengeode.be>\n"
 "Language-Team: Spanish (http://www.transifex.com/geonode/geonode/language/es/)\n"
 "Language: es\n"
@@ -471,3 +471,6 @@ msgstr "Escenario de inversión: En el cual el usuario cuenta con una cifra máx
 
 msgid "For both situations, the user must indicate the financial allocation percentages for the activities in which they have the greatest interest."
 msgstr "inversiónPara las dos situaciones el usuario debe indicar los porcentajes de asignación financiera para las actividades en las que tiene mayor interés."
+
+msgid "analysis_tip"
+msgstr "Defina el tiempo de análisis, condiciones climáticas para la proyección y los presupuestos de ejecución de las SbN"
