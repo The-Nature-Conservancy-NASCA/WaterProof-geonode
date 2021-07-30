@@ -50,6 +50,7 @@ var flagFunctionCost = false;
 $(document).ready(function () {
     $('#autoAdjustHeightF').css("height", "auto");
     $('#cityLabel').text(localStorage.city + ", " + localStorage.country);
+    $('#coeqCountry').text("CO2_country"+" ("+localStorage.country+")");
     var output = document.getElementById('MathPreview');
     var button = document.getElementById('btnValidatePyExp');
     var selectedCostId = 0;
@@ -113,9 +114,13 @@ $(document).ready(function () {
             $("#biophysical-panel").removeClass("panel-hide");
             $("#biophysical-panel").empty();
             loadBiophysicals();
+            $('#txtGuide1').text("tables_text");
+            $('#txtGuide2').text("InVEST_documentation");
         } else {
             $("#biophysical-panel").empty();
             $("#biophysical-panel").addClass("panel-hide");
+            $('#txtGuide1').text("");
+            $('#txtGuide2').text("");
         }
     });
 
