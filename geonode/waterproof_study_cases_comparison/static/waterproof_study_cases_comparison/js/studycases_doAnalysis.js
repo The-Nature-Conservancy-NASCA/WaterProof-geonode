@@ -39,7 +39,9 @@ $(function () {
         VPN_PLAT: 'platform',
         VPN_BENF: 'benefit',
         VPN_TOTAL: 'total',
-        STUDYCASE: 'study_case'
+        STUDYCASE: 'id',
+        STUDY_NAME: 'name',
+        STUDY_CITY: 'city__name'
     };
     const AXIS_TABLE = {
         DOM_ID: 'axis_table'
@@ -50,14 +52,15 @@ $(function () {
     const ADD_BUTTON = {
         DOM_ID: 'add_axis'
     };
-    const REMOVE_BUTTON = {
-        DOM_ID: ''
-    }
     const INDICATORS_API = {
         INVEST: '../getInvestIndicators/',
         ROI: '../getRoiIndicators/',
-        VPN: '../getVpnIndicators/'
+        VPN: '../getVpnIndicators/',
+        STUDY_CASE: '../getStudyCaseInfo/'
     };
+    const SLIDER_UL={
+        DOM_ID: 'splide_ul'
+    }
     var chartCategories = [];
     var chartConfig = {};
     try {
@@ -79,6 +82,8 @@ $(function () {
     /* DEFAULT REQUEST
     /******************/
     else { //there are cases selected
+        
+       
         selectedCases = JSON.parse(localStorage.analysisCases);
         fields = [];
         fields.push(
@@ -96,8 +101,10 @@ $(function () {
         fields = [];
         fields.push(
             CHART_CATEGORIES.STUDYCASE,
+            CHART_CATEGORIES.STUDY_NAME,
+            CHART_CATEGORIES.STUDY_CITY
         );
-        var seriesCasesRequest = indicatorsRequest(INDICATORS_API.INVEST, selectedCases, fields);
+        var seriesCasesRequest = indicatorsRequest(INDICATORS_API.STUDY_CASE, selectedCases, fields);
         fields = [];
         fields.push(
             CHART_CATEGORIES.RWD
@@ -131,7 +138,7 @@ $(function () {
                     for (const field in record) {
                         data.push(record[field]);
                     }
-                    serieObject.name = gettext('Study case') + ' ' + seriesCases[i].study_case;
+                    serieObject.name = gettext('Study case') + ' ' + seriesCases[i].name;
                     serieObject.data = data;
                     serie.push(serieObject);
                 });
@@ -140,6 +147,26 @@ $(function () {
                 });
                 chartConfig.series = serie;
                 fillAxisTable(chartCategories);
+                let colors = [];
+                serie.forEach(element => {
+                    let color = random_rgba();
+                    colors.push(color);
+                });
+                seriesCases.forEach(element => {
+                    let li='<li class="splide__slide"><img class="splideImg" src="'+static_prefix+'waterproof_study_cases_comparison/images/study_case.jpg"  height="150px" width="150px">';
+                    li+='<h4>'+element.name+'</h4><div>'+element.city__name+'</div>';
+                    $('#' + SLIDER_UL.DOM_ID).append(li);
+                    console.log(element);
+                });
+                new Splide('#card-slider', {
+                    perPage: 3,
+                    breakpoints: {
+                        600: {
+                            perPage:3,
+                        }
+                    }
+                }).mount();
+                chartConfig.colors = colors;
                 drawChart(chartConfig);
             }
             // No results for selected cases
@@ -271,6 +298,15 @@ $(function () {
         });
     }
     /*
+    * Set random rgba color
+    * 
+    * @returns {String} The rgba color 
+    */
+    function random_rgba() {
+        var o = Math.round, r = Math.random, s = 255;
+        return 'rgba(' + o(r() * s) + ',' + o(r() * s) + ',' + o(r() * s) + ',' + r().toFixed(1) + ')';
+    }
+    /*
     * Set a indicators promise request
     * 
     * @param  {String}  apiUrl - Request URL 
@@ -339,17 +375,46 @@ $(function () {
                 pointFormat: '<span style="color:{point.color}">\u25CF</span>' +
                     '{series.name}: <b>{point.formattedValue}</b><br/>'
             },
+            legend: {
+                enabled: true,
+                layout: "horizontal",
+                align: "center",
+                verticalAlign: "bottom",
+                // floating: false,
+                //x: -40, // -ve = left, +ve = right
+                //y: 50, // -ve = up, +ve = down
+
+                // labelFormat: "{name}",
+                labelFormatter: function () {
+                    return this.name;
+                },
+                itemStyle: {
+                    color: '#000000',
+                    fontWeight: 'bold',
+                    fontSize: 12,
+                },
+
+                itemDistance: 15,
+                //itemWidth: 130,
+                //height: 00,
+                width: 400,
+                // padding: 8,
+
+                borderWidth: 2,
+                // borderColor: #909090,
+                // borderRadius: 0,      
+            },
             xAxis: {
                 categories: chartConfig.categories,
                 offset: 2
             },
             yAxis: [{
-                tooltipValueFormat: '{value} km'
+                tooltipValueFormat: '{value} %'
             },
             {
-                tooltipValueFormat: '{value} km',
+                tooltipValueFormat: '{value} %',
             }],
-            colors: ['rgba(11, 200, 200, 0.1)'],
+            colors: chartConfig.colors,
             series: chartConfig.series
         });
     }
