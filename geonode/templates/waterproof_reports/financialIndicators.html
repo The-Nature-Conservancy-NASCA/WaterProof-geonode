@@ -624,6 +624,11 @@ $(function () {
             txtFileBenefitsMaxBen = txtFileBenefitsMaxBen + '</tr>';
             txtTitleBenefits = txtTitleBenefits + '</tr>';
 
+            document.getElementById("idTheadSensibilityBenefit").innerHTML = txtTitleBenefits;
+            document.getElementById("idTbodySensibilityBenefit").innerHTML = document.getElementById("idTbodySensibilityBenefit").innerHTML + txtFileBenefitsMinBen;
+            document.getElementById("idTbodySensibilityBenefit").innerHTML = document.getElementById("idTbodySensibilityBenefit").innerHTML + txtFileBenefitsMedBen;
+            document.getElementById("idTbodySensibilityBenefit").innerHTML = document.getElementById("idTbodySensibilityBenefit").innerHTML + txtFileBenefitsMaxBen;
+
             Highcharts.chart('containerTDB', {
                 title: {
                     text: 'Sensibility analysis - total discounted benefit (TDB)'
@@ -662,11 +667,6 @@ $(function () {
             });
         });
 
-        document.getElementById("idTheadSensibilityBenefit").innerHTML = txtTitleBenefits;
-        document.getElementById("idTbodySensibilityBenefit").innerHTML = document.getElementById("idTbodySensibilityBenefit").innerHTML + txtFileBenefitsMinBen;
-        document.getElementById("idTbodySensibilityBenefit").innerHTML = document.getElementById("idTbodySensibilityBenefit").innerHTML + txtFileBenefitsMedBen;
-        document.getElementById("idTbodySensibilityBenefit").innerHTML = document.getElementById("idTbodySensibilityBenefit").innerHTML + txtFileBenefitsMaxBen;
-
         var dataSensibilityAnalysisCostTime = [];
         var dataSensibilityAnalysisCostRange = [];
         var urlDetail = "../../reports/getSensibilityAnalysisCost/?studyCase=" + localStorage.idStudyCase;
@@ -690,6 +690,12 @@ $(function () {
             txtFileCostMedCost = txtFileCostMedCost + '</tr>';
             txtFileCostMaxCost = txtFileCostMaxCost + '</tr>';
             txtTitleCost = txtTitleCost + '</tr>';
+
+            document.getElementById("idTbodySensibilityCost").innerHTML = txtTitleCost;
+            document.getElementById("idTbodySensibilityCost").innerHTML = document.getElementById("idTbodySensibilityCost").innerHTML + txtFileCostMinCost;
+            document.getElementById("idTbodySensibilityCost").innerHTML = document.getElementById("idTbodySensibilityCost").innerHTML + txtFileCostMedCost;
+            document.getElementById("idTbodySensibilityCost").innerHTML = document.getElementById("idTbodySensibilityCost").innerHTML + txtFileCostMaxCost;
+
 
             Highcharts.chart('containerTDC', {
                 title: {
@@ -732,10 +738,6 @@ $(function () {
                 }]
             });
         });
-        document.getElementById("idTbodySensibilityCost").innerHTML = txtTitleCost;
-        document.getElementById("idTbodySensibilityCost").innerHTML = document.getElementById("idTbodySensibilityCost").innerHTML + txtFileCostMinCost;
-        document.getElementById("idTbodySensibilityCost").innerHTML = document.getElementById("idTbodySensibilityCost").innerHTML + txtFileCostMedCost;
-        document.getElementById("idTbodySensibilityCost").innerHTML = document.getElementById("idTbodySensibilityCost").innerHTML + txtFileCostMaxCost;
 
         var serieCvB = []
         var urlDetail = "../../reports/getSensibilityAnalysisCostVsBenefit/?studyCase=" + localStorage.idStudyCase;
