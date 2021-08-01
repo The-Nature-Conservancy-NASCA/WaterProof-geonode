@@ -682,6 +682,7 @@ $(function () {
             txtFileCostMinCost = txtFileCostMinCost + '</tr>';
             txtFileCostMedCost = txtFileCostMedCost + '</tr>';
             txtFileCostMaxCost = txtFileCostMaxCost + '</tr>';
+            txtTitleCost = txtTitleCost + '</tr>';
 
             Highcharts.chart('containerTDC', {
                 title: {
@@ -724,7 +725,7 @@ $(function () {
                 }]
             });
         });
-        document.getElementById("idTbodySensibilityCost").innerHTML = txtFileCost
+        document.getElementById("idTbodySensibilityCost").innerHTML = txtTitleCost;
         document.getElementById("idTbodySensibilityCost").innerHTML = document.getElementById("idTbodySensibilityCost").innerHTML + txtFileCostMinCost;
         document.getElementById("idTbodySensibilityCost").innerHTML = document.getElementById("idTbodySensibilityCost").innerHTML + txtFileCostMedCost;
         document.getElementById("idTbodySensibilityCost").innerHTML = document.getElementById("idTbodySensibilityCost").innerHTML + txtFileCostMaxCost;
