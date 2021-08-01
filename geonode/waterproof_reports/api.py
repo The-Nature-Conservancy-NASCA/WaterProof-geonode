@@ -435,7 +435,7 @@ def getWaterproofReportsAnalysisBenefits(request):
 	if request.method == 'GET':
 		con = psycopg2.connect(settings.DATABASE_URL)
 		cur = con.cursor()
-		cur.execute("SELECT element_id,type_id, SUM(vpn_med_benefit) AS vpn_med_benefit FROM waterproof_reports_analysis_benefits WHERE type_id<>'CARBONO' GROUP BY element_id, type_id")
+		cur.execute("select element_normalize_categorya as element_id,type_ida as type_id, vpn_med_benefita as vpn_med_benefit from __get_report_incicator_benefist_graphA(" + request.query_params.get('studyCase') + ")")
 
 		rows = cur.fetchall()
 		objects_list = []
@@ -818,7 +818,8 @@ def getWaterproofReportsRiosIpa(request):
 	if request.method == 'GET':
 		con = psycopg2.connect(settings.DATABASE_URL)
 		cur = con.cursor()
-		cur.execute("SELECT sbn,actual_spent,area_converted_ha FROM public.waterproof_reports_rios_ipa WHERE year=9999 AND study_case_id = '" + request.query_params.get('studyCase') + "' AND sbn NOT IN ('Total','Floating Budget')")
+		cur.execute("select sbnf as sbn, costperhectaref as actual_spent, recommendedinterventionf as area_converted_ha from __get_report_analisys_beneficsc('" + request.query_params.get('studyCase') + "')")
+##		cur.execute("SELECT sbn,actual_spent,area_converted_ha FROM public.waterproof_reports_rios_ipa WHERE year=9999 AND study_case_id = '" + request.query_params.get('studyCase') + "' AND sbn NOT IN ('Total','Floating Budget')")
 		rows = cur.fetchall()
 		objects_list = []
 		for row in rows:

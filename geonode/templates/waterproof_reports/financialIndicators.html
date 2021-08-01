@@ -598,21 +598,24 @@ $(function () {
         var dataSensibilityAnalysisBenefitsRange = [];
         var urlDetail = "../../reports/getSensibilityAnalysisBenefits/?studyCase=" + localStorage.idStudyCase;
         $.getJSON(urlDetail, function (data) {
-            var txtFileBenefits = '<tr><td class="small text-center vat" >Discounted benefit</td>';
-            var txtTitleBenefits = '<tr class="info"><th scope="col" class="small text-center vat">{% trans "Sensibility Analysis" %}</th>';
+            var txtFileBenefitsMinBen = '<tr><td class="small text-center vat" >Discounted minimum</td>';
+            var txtFileBenefitsMedBen = '<tr><td class="small text-center vat" >Discounted Medium</td>';
+            var txtFileBenefitsMaxBen = '<tr><td class="small text-center vat" >Discounted maximum</td>';
+            var txtTitleBenefits = '<tr class="info"><th scope="col" class="small text-center vat">{% trans "Total discounted benefit" %}</th>';
             var contTitleBenefits = 1;
             $.each( data, function( key, value ) {
                 dataSensibilityAnalysisBenefitsTime.push([value.timer, Math.round(value.totalMedBenefitR)]);
                 dataSensibilityAnalysisBenefitsRange.push([value.timer, Math.round(value.totalMinBenefitR), Math.round(value.totalMaxBenefittR)]);
-                txtFileBenefits = txtFileBenefits + '<td class="small text-center vat" style="text-align: right;" id="valor' + value.timer + '">' + parseFloat(value.totalMedBenefitR).toFixed(2) + '</td>';
+                txtFileBenefitsMinBen = txtFileBenefitsMinBen + '<td class="small text-center vat" style="text-align: right;" id="valor' + value.timer + '">' + parseFloat(value.totalMinBenefitR).toFixed(2) + '</td>';
+                txtFileBenefitsMedBen = txtFileBenefitsMedBen + '<td class="small text-center vat" style="text-align: right;" id="valor' + value.timer + '">' + parseFloat(value.totalMedBenefitR).toFixed(2) + '</td>';
+                txtFileBenefitsMaxBen = txtFileBenefitsMaxBen + '<td class="small text-center vat" style="text-align: right;" id="valor' + value.timer + '">' + parseFloat(value.totalMaxBenefittR).toFixed(2) + '</td>';
                 txtTitleBenefits = txtTitleBenefits + '<th scope="col" class="small text-center vat">{% trans "' + contTitleBenefits + '" %}</th>';
                 contTitleBenefits ++;
             });
-            txtFileBenefits = txtFileBenefits + '</tr>';
+            txtFileBenefitsMinBen = txtFileBenefitsMinBen + '</tr>';
+            txtFileBenefitsMedBen = txtFileBenefitsMedBen + '</tr>';
+            txtFileBenefitsMaxBen = txtFileBenefitsMaxBen + '</tr>';
             txtTitleBenefits = txtTitleBenefits + '</tr>';
-
-            document.getElementById("idTheadSensibility").innerHTML = txtTitleBenefits;
-            document.getElementById("idTbodySensibility").innerHTML = document.getElementById("idTbodySensibility").innerHTML + txtFileBenefits;
 
             Highcharts.chart('containerTDB', {
                 title: {
@@ -652,19 +655,33 @@ $(function () {
             });
         });
 
+        document.getElementById("idTheadSensibilityBenefit").innerHTML = txtTitleBenefits;
+        document.getElementById("idTbodySensibilityBenefit").innerHTML = document.getElementById("idTbodySensibilityBenefit").innerHTML + txtFileBenefitsMinBen;
+        document.getElementById("idTbodySensibilityBenefit").innerHTML = document.getElementById("idTbodySensibilityBenefit").innerHTML + txtFileBenefitsMedBen;
+        document.getElementById("idTbodySensibilityBenefit").innerHTML = document.getElementById("idTbodySensibilityBenefit").innerHTML + txtFileBenefitsMaxBen;
+
         var dataSensibilityAnalysisCostTime = [];
         var dataSensibilityAnalysisCostRange = [];
         var urlDetail = "../../reports/getSensibilityAnalysisCost/?studyCase=" + localStorage.idStudyCase;
         $.getJSON(urlDetail, function (data) {
-            var txtFileCost = '<tr><td class="small text-center vat" >Discounted Cost</td>';
+//#endregion            var txtFileCost = '<tr><td class="small text-center vat" >Discounted Cost</td>';
+            var txtFileCostMinCost = '<tr><td class="small text-center vat" >Discounted cost minimum</td>';
+            var txtFileCostMedCost = '<tr><td class="small text-center vat" >Discounted cost medium</td>';
+            var txtFileCostMaxCost = '<tr><td class="small text-center vat" >Discounted cost maximum</td>';
+            var txtTitleCost = '<tr class="info"><th scope="col" class="small text-center vat">{% trans "Total discounted cost" %}</th>';
+
+
             $.each( data, function( key, value ) {
                 dataSensibilityAnalysisCostTime.push([value.timer, Math.round(value.totalMedCostR)]);
                 dataSensibilityAnalysisCostRange.push([value.timer, Math.round(value.totalMinCostR), Math.round(value.totalMaxCostR)]);
-                txtFileCost = txtFileCost + '<td class="small text-center vat" style="text-align: right;" id="valor' + value.timer + '">' + parseFloat(value.totalMedCostR).toFixed(2) + '</td>';
+                txtFileCostMinCost = txtFileCostMinCost + '<td class="small text-center vat" style="text-align: right;" id="valor' + value.timer + '">' + parseFloat(value.totalMinCostR).toFixed(2) + '</td>';
+                txtFileCostMedCost = txtFileCostMedCost + '<td class="small text-center vat" style="text-align: right;" id="valor' + value.timer + '">' + parseFloat(value.totalMedCostR).toFixed(2) + '</td>';
+                txtFileCostMaxCost = txtFileCostMaxCost + '<td class="small text-center vat" style="text-align: right;" id="valor' + value.timer + '">' + parseFloat(value.totalMaxCostR).toFixed(2) + '</td>';
                 
             });
-            txtFileCost = txtFileCost + '</tr>';
-            document.getElementById("idTbodySensibility").innerHTML = document.getElementById("idTbodySensibility").innerHTML + txtFileCost;
+            txtFileCostMinCost = txtFileCostMinCost + '</tr>';
+            txtFileCostMedCost = txtFileCostMedCost + '</tr>';
+            txtFileCostMaxCost = txtFileCostMaxCost + '</tr>';
 
             Highcharts.chart('containerTDC', {
                 title: {
@@ -707,6 +724,10 @@ $(function () {
                 }]
             });
         });
+        document.getElementById("idTbodySensibilityCost").innerHTML = txtFileCost
+        document.getElementById("idTbodySensibilityCost").innerHTML = document.getElementById("idTbodySensibilityCost").innerHTML + txtFileCostMinCost;
+        document.getElementById("idTbodySensibilityCost").innerHTML = document.getElementById("idTbodySensibilityCost").innerHTML + txtFileCostMedCost;
+        document.getElementById("idTbodySensibilityCost").innerHTML = document.getElementById("idTbodySensibilityCost").innerHTML + txtFileCostMaxCost;
 
         var serieCvB = []
         var urlDetail = "../../reports/getSensibilityAnalysisCostVsBenefit/?studyCase=" + localStorage.idStudyCase;
