@@ -176,7 +176,6 @@
                     </div>
                 </div>
                 <br>
-                <br>
                 <div style="text-align: center;width: 100%;position: relative;height: 1000px;">
                     <div class="contain-detail">
                             <!--Graph-->
@@ -685,7 +684,7 @@ $(function () {
             var txtFileCostMedCost = '<tr><td class="small text-center vat" style="text-align: left;">Discounted cost medium</td>';
             var txtFileCostMaxCost = '<tr><td class="small text-center vat" style="text-align: left;">Discounted cost maximum</td>';
             var txtTitleCost = '<tr class="info"><th scope="col" class="small text-center vat">{% trans "Total discounted cost" %}</th>';
-
+            var contTitlecost = 1;
 
             $.each( data, function( key, value ) {
                 dataSensibilityAnalysisCostTime.push([value.timer, Math.round(value.totalMedCostR)]);
@@ -693,7 +692,8 @@ $(function () {
                 txtFileCostMinCost = txtFileCostMinCost + '<td class="small text-center vat" style="text-align: right;" id="valor' + value.timer + '">' + parseFloat(value.totalMinCostR).toFixed(2) + '</td>';
                 txtFileCostMedCost = txtFileCostMedCost + '<td class="small text-center vat" style="text-align: right;" id="valor' + value.timer + '">' + parseFloat(value.totalMedCostR).toFixed(2) + '</td>';
                 txtFileCostMaxCost = txtFileCostMaxCost + '<td class="small text-center vat" style="text-align: right;" id="valor' + value.timer + '">' + parseFloat(value.totalMaxCostR).toFixed(2) + '</td>';
-                
+                txtTitleCost = txtTitleCost + '<th scope="col" class="small text-center vat">{% trans "' + contTitlecost + '" %}</th>';
+                contTitlecost ++;               
             });
             txtFileCostMinCost = txtFileCostMinCost + '</tr>';
             txtFileCostMedCost = txtFileCostMedCost + '</tr>';
