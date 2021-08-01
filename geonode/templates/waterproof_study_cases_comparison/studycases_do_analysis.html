@@ -1,4 +1,4 @@
-{% extends "menu.html" %} {% load i18n %} {% block title %}{% trans "Cases Study" %}{% endblock %} {% load i18n %} {% load static from staticfiles %} {% load bootstrap_tags %}
+{% extends "menu.html" %} {% load i18n %} {% block title %}{% trans "Cases Study" %}{% endblock %} {% load i18n %} {% load static from staticfiles %} {% load bootstrap_tags %}{% load static %}
 <h1>{% trans "Cases Study" %}</h1>
 
 {% block extra_head %}
@@ -7,6 +7,7 @@
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_nbs_ca/css/dataTables.bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_study_cases_comparison/css/study_cases.css">
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_study_cases_comparison/css/parallel_chart.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@latest/dist/css/splide.min.css">
 <div class="header-waterproof">
     <div>
         <h1>{% trans "Case studies comparison" %}</h1>
@@ -15,6 +16,13 @@
         <div class="col-md-12">
             <div class="panel" id="panel-ptap">
                 <div class="col-md-12">
+                    <div id="card-slider" class="splide">
+                        <div class="splide__track">
+                            <ul id="splide_ul" class="splide__list">
+                            </ul>
+                        </div>
+                    </div>
+                    <br>
                     <div class="row form-group">
                         <legend><label>{% trans "Axis selection" %} <span class="text-danger-wp" id="ptap-required"></span> </label></legend>
                         <p>{% trans "Select the axis to show" %}</p>
@@ -54,12 +62,9 @@
                 </div>
             </div>
         </div>
-        
-        <figure class="highcharts-figure">
-            <div id="parallel"></div>
-            <p class="highcharts-description"> 
-            </p>
-        </figure>
+        <div id="parallel" style="height: 600px;"></div>
+        <p class="highcharts-description"> 
+        </p>
     </div>
 </div>
 {% block body %}{% endblock body %} {% block sidebar %}{% endblock sidebar %} {% endblock body_outer %} {% block extra_script %}
@@ -70,6 +75,11 @@
 <script src="https://code.highcharts.com/modules/data.js"></script>
 <script src="https://code.highcharts.com/modules/parallel-coordinates.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@latest/dist/js/splide.min.js"></script>
+
 <script src="{{ STATIC_URL }}waterproof_study_cases_comparison/js/studycases_doAnalysis.js"></script>
 <script src=" https://cdn.jsdelivr.net/npm/sweetalert2@10 "></script>
+<script type="text/javascript">
+var static_prefix="{% get_static_prefix %}";            
+</script>
 {% endblock %}
