@@ -756,6 +756,7 @@ $(function () {
                     plotShadow: false,
                     type: 'pie'
                 },
+                colors: ['#008BAB', '#90D3E7', '#004B56', '#61D1C2'],
                 title: {
                     text: 'Intake Benefits'
                 },
@@ -863,7 +864,7 @@ $(function () {
                 }]
             });
         });
-
+        console.log(dataCostActivity)
         var dataTotalCost = [];
         var urlDetail = "../../reports/getReportCostsAnalysisFilter/?studyCase=" + localStorage.idStudyCase;
         $.getJSON(urlDetail, function (data) {
