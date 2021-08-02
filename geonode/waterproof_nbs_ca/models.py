@@ -131,8 +131,8 @@ class WaterproofNbsCa(models.Model):
     )
 
     max_benefit_req_time = models.DecimalField(
-        decimal_places=2,
-        max_digits=10,
+        decimal_places=3,
+        max_digits=14,
         verbose_name=_('Time maximum benefit'),
     )
 

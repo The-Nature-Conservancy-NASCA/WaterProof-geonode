@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.http import HttpResponse, Http404, HttpResponseRedirect, JsonResponse
 from rest_framework.decorators import api_view
 from geonode.waterproof_reports.models import investIndicators,resultRoi,reportsVpn
+from geonode.waterproof_study_cases.models import StudyCases
 
 @api_view(['GET'])
 def getInvestIndicators(request):
@@ -29,6 +30,15 @@ def getVpnIndicators(request):
         cases=request.GET.getlist('cases[]')
         fields=request.GET.getlist('fields[]')
         filterIndicators = reportsVpn.objects.filter(study_case__in=cases).distinct('study_case_id').order_by('-study_case_id').values(*fields)
+        data = list(filterIndicators)
+        return JsonResponse(data, safe=False)
+
+@api_view(['GET'])
+def getStudyCaseInfo(request):
+    if request.method == 'GET':
+        cases=request.GET.getlist('cases[]')
+        fields=request.GET.getlist('fields[]')
+        filterIndicators = StudyCases.objects.filter(id__in=cases).distinct('id').order_by('-id').values(*fields)
         data = list(filterIndicators)
         return JsonResponse(data, safe=False)
 
