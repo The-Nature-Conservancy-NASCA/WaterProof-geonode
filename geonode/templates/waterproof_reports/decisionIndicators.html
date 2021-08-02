@@ -704,8 +704,8 @@ $(function () {
         $.getJSON(urlDetail, function (data) {
             $.each( data, function( key, value ) {
 
-                document.getElementById("idRoi").innerHTML = value.roi.toFixed(2);
                 if (value.description!="TotalTreatmentCostSavings" && value.description!="TimeFrame" && value.description != "TotalEstimatedInvestment" && value.description!="TotalAreaInterventionSize(Hec)"){
+                    document.getElementById("idRoi").innerHTML = value.value.toFixed(2);
                     var nameButtom = value.description.split("::");
                     if(nameButtom[1] === "Dark Green") {
                         document.getElementById("idBtnRoi").style.backgroundColor = "#155816";
