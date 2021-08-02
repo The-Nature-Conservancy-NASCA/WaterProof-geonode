@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Waterproof Valpha\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-02-19 11:27-0500\n"
-"PO-Revision-Date: 2021-07-28 20:16-0500\n"
+"PO-Revision-Date: 2021-08-02 18:01-0500\n"
 "Last-Translator: Julien Collaer <julien.collaer@opengeode.be>\n"
 "Language-Team: Skaphe\n"
 "Language: en\n"
@@ -177,6 +177,108 @@ msgstr "Decision indicators"
 msgid "Geographic visualization"
 msgstr "Geographic visualization"
 
+msgid "Invest ind text 1"
+msgstr "This report allows you to obtain an integrated view of the outcomes that maybe caused in each basin by the implementation of the selected NBS:"
+
+msgid "Invest ind text 2"
+msgstr "This report aims to enable decision-makers to assess the trade-offs that can be achieved and to identify water basins where investment in natural capital can enhance human development and conservation. Please note in your evaluation:"
+
+msgid "Invest ind text 3"
+msgstr "Change in volume of water yield: Do changes in the landscape affect the annual average  water  yield?  Note  that  the  model  helps  to  establish  changes  in  the storages by analyzing the inputs to the system minus the outputs from the system."
+
+msgid "Invest ind text 4"
+msgstr "Change in base flow: Do landscape changes affect basin runoff and recharge? The value  presented  depends  on  the  connectivity  and land  use  and  land  cover components,  so that the  recharge  is  influenced  by  variables  such  as  vegetation cover and connectivity."
+
+msgid "Invest ind text 5"
+msgstr "Change in total sediments: Do you see changes in the amount of sediment runoff from the  basin? Significant changes  will result inerosion  and  water  quality impacts."
+
+msgid "Invest ind text 6"
+msgstr "Change in total Nitrogen - Change in total Phosphorous: Do you notice significant changes  in  the  load  of  these  nutrients?  With  this  analysis  you  can assess the nutrient  retention  service  by  natural  vegetation.  It  also  allows  you  to  identify potential treatment costs or improve water safety through access to clean water"
+
+msgid "Invest ind text 7"
+msgstr "Change  in  Carbon  storage:  Are  you  seeing  changes  in  carbon  storage? Carbon storage  in  a land  parcel(pixel)  depends  on  four  carbon  pools: aboveground biomass, underground biomass, soil, and dead organic matter."
+
+msgid "Financial ind text 1"
+msgstr "This report organizes the financial data of NBS implementation into two groups: benefits and costs. The information is presented for the years parameterized in the user-defined ROI analysis timeframe."
+
+msgid "Financial ind text 2"
+msgstr "The  system  analyzes  the  benefits  for  turbidity  treatment,  dredging  or  sand  trap  maintenance,  reservoir cleaning  (elimination  of  algae),  color  treatment  and  elimination  of  organic  pollutants,  unavailability  of water resources, carbon market. This is to be compared by the user against implementation, maintenance, transaction,and platform costs."
+
+msgid "VPN ind text 1"
+msgstr "In this section you can analyze the Net Present Value NPV of the implementation costs of the selected NBS. Remember that the NPV refers to the projected cash flows, discounted to the present. It is a financial modeling method used to evaluate the profitability of investments and proposed projects to determine whether or not to invest in the project, given a user-selected discount rate, which expresses the cost of capital to be invested in the project."
+
+msgid "VPN ind text 2"
+msgstr "For the selected discount rate, if NPV is positive, the project is profitable. But if the NPV is negative, the project is not profitable."
+
+msgid "VPN ind text 3"
+msgstr "We invite you to compare several case studies to evaluate which of them gives you the best NPV and therefore the highest performance."
+
+msgid "Sensitivity ind text 1"
+msgstr "This report shows the calculation of the economic benefit of the savings (in operation and maintenance costs of )obtained by the NBS, year after year. Using the discount rate indicated by the user, the costs and benefits are brought to present value."
+
+msgid "Sensitivity ind text 2"
+msgstr "Compare the benefits and costs obtained in the event of changes in the environment that affect the discount rate."
+
+msgid "Sensitivity ind text 3"
+msgstr "Observe the possible behavior of the ROI due to materialization of changes in the environment."
+
+msgid "Return ROI ind text 1"
+msgstr "Select the aspects of the benefits and costs that you want to visualize in the graph. Those marked will be considered within the data to be plotted, those that are not marked will not be taken into account."
+
+msgid "Benefits and cost ind text 1"
+msgstr "This report presents a synthesis ofthe proportions ofinvestment and benefits that will be achieved by the implementation of the NBS:"
+
+msgid "Benefits and cost ind text 2"
+msgstr "In this graph you can identify the magnitudes of the costs, in order to help identify where greater investments are needed"
+
+msgid "Benefits and cost ind text 3"
+msgstr "Identify the proportion of costs for each of the activities of your interest"
+
+msgid "Benefits and cost ind text 4"
+msgstr "Identify the elements that will yield the most benefits"
+
+msgid "Benefits and cost ind text 5"
+msgstr "This is a disaggregated view of the benefits by elements"
+
+msgid "Portfolio efficiency ind text 1"
+msgstr "This section shows the efficiency of the portfolio, expressed as a physical variation of the parameters (in percentage) in relation to the amount of the investment."
+
+msgid "Oportunity results ind text 1"
+msgstr "Here you will find the overallinvestment and savings values that willresult from the implementation of the selected NBS in your case study:"
+
+msgid "Aqueduct ind text 1"
+msgstr "In this section we leverage the the Aqueduct tool to analyze water quality and quantity risks for thecase studyareas so that you identify areas that require more attention."
+
+msgid "Aqueduct ind text 2"
+msgstr "Aqueduct is a platform that compiles results in hydrological modeling, remote sensing data,Andotherdata sets."
+
+msgid "Aqueduct ind text 3"
+msgstr "Baseline water stress measures the ratio of total water withdrawals to available renewable surface and groundwater supplies. Higher values indicate more competition between users."
+
+msgid "Aqueduct ind text 4"
+msgstr "Baseline water depletion measures the total water consumption of available renewable water supplies. Higher values indicate a greater impact on the local water supply and decreased water availability for downstream users."
+
+msgid "Aqueduct ind text 5"
+msgstr "Interannual variability measures the average between-yearvariabilityof available water supply, including both renewable surface and groundwater supplies. Higher values indicate wider variations in available supply from year to year."
+
+msgid "Aqueduct ind text 6"
+msgstr "Seasonal variability measures the average within-year variability of available water supply, including renewable surface and ground watersupplies. Higher values indicate wider variations in the supply available within a year."
+
+msgid "Aqueduct ind text 7"
+msgstr "Water table decline measures the average water table decline as the average change for the study period (1990-2014). The result is expressed in centimeters per year (cm / year). Higher values indicate higher levels of unsustainable groundwater."
+
+msgid "Aqueduct ind text 8"
+msgstr "River flood risk measures the percentage of the population expected to be affected by river flooding in an average year, taking into account existing flood protection standards. Higher values indicate that, on average, a greater proportion of the population is expected to be affected by river flooding."
+
+msgid "Aqueduct ind text 9"
+msgstr "Unimproved / no drinking water reflects the percentage of the population that collects drinking water from an unprotected dugwell or spring,or directly from a river, dam, lake, pond, stream, canal or irrigation canal (WHO and UNICEF 2017). Higher values indicate areas where people have less access to clean water supplies."
+
+msgid "Aqueduct ind text 10"
+msgstr "Untreated connected wastewater measures the percentage of domestic wastewater that is connected through a sewer system and is not treated to at least a primary treatment level. Discharging wastewater without adequate treatment could expose water bodies, the general public, and ecosystems to pollutants such as pathogens and nutrients. Higher values indicate higher percentages of point source wastewater discharged without treatment."
+
+msgid "Interventions results ind text 1"
+msgstr "In this section you can get a view of activity implementation costs per hectare and quantify the distribution of the types of activities. Select the water basin of interest to see details:"
+
 #: geonode/waterproof_reports/templates/waterproof_reports/decisionIndicators.html:28
 msgid "En este reporte se presenta de forma sintetizada las proporciones en inversión y beneficios que se lograrán por la implementación de las SbN:"
 msgstr ""
@@ -291,7 +393,7 @@ msgstr ""
 
 #: geonode/waterproof_reports/templates/waterproof_reports/financialIndicators.html:83
 msgid "Sensitivity Analysis"
-msgstr ""
+msgstr "Sensitivity Analysis"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/financialIndicators.html:83
 msgid "Benefits"
@@ -299,8 +401,4 @@ msgstr ""
 
 #: geonode/waterproof_reports/templates/waterproof_reports/financialIndicators.html:83
 msgid "Cost"
-msgstr ""
-
-#: geonode/waterproof_reports/templates/waterproof_reports/geographiacIndicators.html:25
-msgid "En este reporte se presenta de forma sintetizada las proporciones en inversión y beneficios que se lograrán por la implementación de las SbN:"
 msgstr ""
