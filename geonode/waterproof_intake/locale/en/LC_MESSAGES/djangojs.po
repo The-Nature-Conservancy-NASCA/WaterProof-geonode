@@ -24,7 +24,7 @@ msgstr ""
 "Project-Id-Version: Waterproof Valpha\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-07-21 14:47-0500\n"
-"PO-Revision-Date: 2021-07-28 13:06-0500\n"
+"PO-Revision-Date: 2021-08-02 10:24-0500\n"
 "Last-Translator: Julien Collaer <julien.collaer@opengeode.be>\n"
 "Language-Team: Skaphe\n"
 "Language: en\n"
@@ -340,7 +340,7 @@ msgstr ""
 #: static/waterproof_intake/js/intake_create.js:560
 #: static/waterproof_intake/js/intake_edit.js:614
 msgid "Yes, ajust!"
-msgstr "Yes, ajust!"
+msgstr "Yes, adjust!"
 
 #: static/waterproof_intake/js/intake_clone.js:745
 #: static/waterproof_intake/js/intake_create.js:646
