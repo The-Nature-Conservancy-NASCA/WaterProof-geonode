@@ -8486,6 +8486,15 @@ form-inline {
   color: #0C89AA;
  font-weight:normal !important;
 }
+.colorCenterInstructions{
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+  color: #0C89AA;
+  font-weight:normal !important;
+  text-align: center;
+}
 .imgbackgroundwiki{
   background: url(/static/geonode/img/04-FOTO.jpg);
   height: 600px;
@@ -8501,6 +8510,11 @@ form-inline {
   min-width: 100%;
   background-repeat: round;
   background-size:cover;
+}
+.refImage{
+  position: absolute;
+  top: 10px;
+  left: 10px;
 }
 .backgroundcolorwiki{
   background-color: #0C89AAAD;

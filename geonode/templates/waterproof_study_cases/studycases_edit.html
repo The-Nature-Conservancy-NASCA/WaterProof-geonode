@@ -76,17 +76,18 @@
                         <textarea rows="3" class="form-control" name="description" id="description">{{study_case.description}}</textarea>
                     </div>
                     <!--Input Desc -->
-                    <div id="div_type" class="form-group">
-                        <label for="type" class="control-label required-field ">
-                            {% trans "select_type_study" %}
-                        </label>
+                    <h4 class="text-primary">
+                        {% trans "select_type_study" %}
+                    </h4>
+
+                    <div id="div_type" class="form-group" style="border-bottom: none;">
                         <div class="form-check" id="radio-ptap">
                             {% if study_case.studycase_type == 'PTAP' %}
                             <input class="form-check-input" type="radio" name="type" id="ptap" value="1" checked>
                             {% else %}
                             <input class="form-check-input" type="radio" name="type" id="ptap" value="1">
                             {% endif %}
-                            <label class="form-check-label" for="ptap">
+                            <label class="form-check-label" style="font-weight: normal;" for="ptap">
                                 {% trans "treatment_plants" %}
                             </label>
                         </div>
@@ -99,7 +100,7 @@
                             {% else %}
                             <input class="form-check-input" type="radio" name="type" id="custom" value="2" checked>
                             {% endif %}
-                            <label class="form-check-label" for="custom">
+                            <label class="form-check-label" style="font-weight: normal;" for="custom">
                                 {% trans "custom_case" %}
                             </label>
                         </div>
@@ -110,8 +111,8 @@
                             <div id="panel-custom">
                                 <div class="col-md-12">
                                     <div class="row form-group">
-                                        <legend>
-                                            <h4 class="text-primary">{% trans "water_intakes" %}<span class="text-danger-wp" id="ptap-required"></span></h4>
+                                        <legend class="margin-bottom-max" style="border-bottom: none;">
+                                            <label for="div_id_type" class="control-label required-field " style="font-size: 16px;">{% trans "water_intakes" %}<span class="text-danger-wp" id="ptap-required"></span></label>
                                         </legend>
                                         <p>{% trans "select_water_intake" %}</p>
                                         <div class="col-md-9">
@@ -152,8 +153,8 @@
                                     {% endif %}
                                     <div class="col-md-12">
                                         <div class="row form-group">
-                                            <legend>
-                                                <h4 class="text-primary">{% trans "treatment_plants" %}<span class="text-danger-wp" id="ptap-required"></span></h4>
+                                            <legend class="margin-bottom-max" style="border-bottom: none;">
+                                                <label for="div_id_type" class="control-label required-field " style="font-size: 16px;">{% trans "treatment_plants" %}<span class="text-danger-wp" id="ptap-required"></span></label>
                                             </legend>
                                             <p>{% trans "select_treatments_plants" %}</p>
 
@@ -241,7 +242,7 @@
                                     <div class="row text-center panel-hide" id="cm_form">
                                         {% endif %}
                                         <div class="col-md-4 cm-title-label">
-                                            <p>{% trans "CO2_country" %}</p>
+                                            <p id="coeqCountry"></p>
                                         </div>
                                         <div class="col-md-2">
                                             <input type="number" name="dws_cm" maxlength="100" class="form-control" id="id_cm" min="0" step="0.01" oninput="validity.valid||(value='');" value="{{study_case.cm_value|stringformat:'1.2f'}}" />
@@ -308,8 +309,8 @@
                                     <p>{% trans "biophysical_tip" %}</p>
                                     <button type="button" class="btn btn-primary" id="btn-advanced_option">{% trans "advanced_options" %}</button>
                                     <br>
-                                    <p>{% trans "tables_text" %}</p>
-                                    <p>{% trans "InVEST_documentation" %}</p>
+                                    <p style="margin-top: 20px;" id="txtGuide1"></p>
+                                    <p id="txtGuide2"></p>
                                     <div class="row biophysical-panel panel-hide" id="biophysical-panel">
 
                                     </div>

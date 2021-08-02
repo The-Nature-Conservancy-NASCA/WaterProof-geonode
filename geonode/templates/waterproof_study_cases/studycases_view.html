@@ -71,22 +71,21 @@
                         <textarea rows="3" class="form-control" name="description" id="description" disabled>{{study_case.description}}</textarea>
                     </div>
                     <!--Input type -->
-
-                    <div id="div_type" class="form-group">
-                        <label for="type" class="control-label required-field ">
-                            {% trans "select_type_study" %}
-                        </label>
+                    <h4 class="text-primary">
+                        {% trans "select_type_study" %}
+                    </h4>
+                    <div id="div_type" class="form-group" style="border-bottom: none;">
                         {% if study_case.studycase_type == 'PTAP' %}
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="type" id="ptap" value="1" disabled checked>
-                            <label class="form-check-label" for="ptap">
+                            <label class="form-check-label" style="font-weight: normal;" for="ptap">
                                 {% trans "treatment_plants" %}
                             </label>
                         </div>
                         {% else %}
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="type" id="custom" value="2" disabled checked>
-                            <label class="form-check-label" for="custom">
+                            <label class="form-check-label" style="font-weight: normal;" for="custom">
                                 {% trans "custom_case" %}
                             </label>
                         </div>
@@ -97,8 +96,8 @@
                             <div class="panel" id="panel-ptap">
                                 <div class="col-md-12">
                                     <div class="row form-group">
-                                        <legend>
-                                            <h4 class="text-primary">{% trans "water_intakes" %}<span class="text-danger-wp" id="ptap-required"></span></h4>
+                                        <legend class="margin-bottom-max" style="border-bottom: none;">
+                                            <label for="div_id_type" class="control-label required-field " style="font-size: 16px;">{% trans "water_intakes" %}<span class="text-danger-wp" id="ptap-required"></span></label>
                                         </legend>
 
                                     </div>
@@ -126,8 +125,8 @@
                             <div class="panel" id="panel-ptap">
                                 <div class="col-md-12">
                                     <div class="row form-group">
-                                        <legend>
-                                            <h4 class="text-primary">{% trans "treatment_plants" %}<span class="text-danger-wp" id="ptap-required"></span></h4>
+                                        <legend class="margin-bottom-max" style="border-bottom: none;">
+                                            <label for="div_id_type" class="control-label required-field " style="font-size: 16px;">{% trans "treatment_plants" %}<span class="text-danger-wp" id="ptap-required"></span></label>
                                         </legend>
                                     </div>
                                     <table id="ptap_table" class="table table-striped table-bordered table-condensed" style="width:100%">
@@ -188,7 +187,7 @@
                         </div>
                         <div class="row text-center" id="cm_form">
                             <div class="col-md-4 cm-title-label">
-                                <p>{% trans "CO2_country" %}</p>
+                                <p id="coeqCountry"></p>
                             </div>
                             <div class="col-md-2">
                                 <input type="text" name="dws_cm" maxlength="100" class="form-control" id="id_cm" value="{{study_case.cm_value|stringformat:'1.2f'}}" disabled />

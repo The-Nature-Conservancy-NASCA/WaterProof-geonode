@@ -382,12 +382,9 @@
     margin: 15px;
 }
 .help-in-report {
-    width: 45%;
+    width: 100%;
     padding: 20px;
     margin: 20px;
-    border: 1px;
-    border-style: solid;
-    border-color: #1389AA;
     margin-left: 0px;
 }
 .margin-report {
