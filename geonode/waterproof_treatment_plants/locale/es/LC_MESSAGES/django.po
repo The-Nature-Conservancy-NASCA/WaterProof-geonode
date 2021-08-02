@@ -42,7 +42,7 @@ msgstr ""
 "Project-Id-Version: GeoNode\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-07-21 14:36-0500\n"
-"PO-Revision-Date: 2021-07-29 12:38-0500\n"
+"PO-Revision-Date: 2021-08-02 16:37-0500\n"
 "Last-Translator: Julien Collaer <julien.collaer@opengeode.be>\n"
 "Language-Team: Spanish (http://www.transifex.com/geonode/geonode/language/es/)\n"
 "Language: es\n"
@@ -427,3 +427,23 @@ msgstr "Guardar"
 #: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:15
 msgid "Treatment plant creation city :"
 msgstr "City of creation :"
+
+#: treatment_plants_edit:60
+msgid "edit"
+msgstr "Editar"
+
+#: treatment_plants_edit:60
+msgid "view"
+msgstr "Ver"
+
+#: treatment_plants_edit:60
+msgid "clone"
+msgstr "Clonar"
+
+#: treatment_plants_edit:60
+msgid "report"
+msgstr "Reportes"
+
+#: treatment_plants_edit:60
+msgid "delete"
+msgstr "Eliminar"

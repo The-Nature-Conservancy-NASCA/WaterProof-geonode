@@ -42,7 +42,7 @@ msgstr ""
 "Project-Id-Version: GeoNode\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-02-11 20:03-0500\n"
-"PO-Revision-Date: 2021-07-30 13:25-0500\n"
+"PO-Revision-Date: 2021-08-02 16:34-0500\n"
 "Last-Translator: Julien Collaer <julien.collaer@opengeode.be>\n"
 "Language-Team: Spanish (http://www.transifex.com/geonode/geonode/language/es/)\n"
 "Language: es\n"
@@ -474,3 +474,18 @@ msgstr "inversiónPara las dos situaciones el usuario debe indicar los porcentaj
 
 msgid "analysis_tip"
 msgstr "Defina el tiempo de análisis, condiciones climáticas para la proyección y los presupuestos de ejecución de las SbN"
+
+msgid "edit"
+msgstr "Editar"
+
+msgid "view"
+msgstr "Ver"
+
+msgid "clone"
+msgstr "Clonar"
+
+msgid "report"
+msgstr "Reportes"
+
+msgid "delete"
+msgstr "Eliminar"

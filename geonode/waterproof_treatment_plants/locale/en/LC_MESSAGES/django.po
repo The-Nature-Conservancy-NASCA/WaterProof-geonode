@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: Waterproof valpha\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-07-21 14:36-0500\n"
-"PO-Revision-Date: 2021-07-29 12:34-0500\n"
+"PO-Revision-Date: 2021-08-02 16:39-0500\n"
 "Last-Translator: Julien Collaer <julien.collaer@opengeode.be>\n"
 "Language-Team: Skaphe\n"
 "Language: en\n"
@@ -396,3 +396,23 @@ msgstr "Save"
 #: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:15
 msgid "Treatment plant creation city :"
 msgstr "City of creation :"
+
+#: treatment_plants_edit:60
+msgid "edit"
+msgstr "Edit"
+
+#: treatment_plants_edit:60
+msgid "view"
+msgstr "View"
+
+#: treatment_plants_edit:60
+msgid "clone"
+msgstr "Clone"
+
+#: treatment_plants_edit:60
+msgid "report"
+msgstr "Report"
+
+#: treatment_plants_edit:60
+msgid "delete"
+msgstr "Delete"
