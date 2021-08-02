@@ -10,7 +10,6 @@ import requests
 import psycopg2
 import json
 
-
 @api_view(['GET'])
 def getSensibilityAnalysisCost(request):
 	"""Returns the list of treatment plants
@@ -375,8 +374,7 @@ def getReportCostsAnalysisFilterNbs(request):
 	if request.method == 'GET':
 		con = psycopg2.connect(settings.DATABASE_URL)
 		cur = con.cursor()
-		cur.execute("SELECT cost_idr, SUM(medbenefitr) AS sum_filter FROM __get_report_costs_analysis_filter(" + request.query_params.get('studyCase') + ") WHERE cost_idr IN (SELECT DISTINCT cost_idr FROM __get_report_costs_analysis_filter(" + request.query_params.get('studyCase') + ") WHERE cost_idr LIKE '%NB%') GROUP BY cost_idr")
-
+		cur.execute("select typer as cost_idr, medbenefitr AS sum_filter from __get_report_costs_analysis_filterBgraph(" + request.query_params.get('studyCase') + ")")
 		rows = cur.fetchall()
 		objects_list = []
 		for row in rows:
