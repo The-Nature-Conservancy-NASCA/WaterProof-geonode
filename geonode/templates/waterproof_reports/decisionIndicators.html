@@ -161,8 +161,14 @@
                     <div class="container-detail">
                         <div class="margin-detail">
                             <div class="margin-title">
-                                <div>{% trans "ROI on Green Infrastructure Water treatment Opportunity" %}</div>
-                                <div class="button-title">{% trans "Adove 1" %}</div>
+<!--                            <div>{% trans "Calculate ROI" %}</div> -->
+                                <div class="name-roi">{% trans "Calculated ROI:" %} <div class="value-roi" id="idRoi"></div></div>
+<!--                                <div class="button-title">{% trans "Adove 1" %}</div>  -->
+                                    <img src="/static/geonode/img/valor-bruto.png" class="img-roi" />
+                                    <div class="bootom-roi">
+                                    <div>{% trans "ROI on nature based solutions opportunity" %}</div>
+                                    <div class="buttom-roi" id="idBtnRoi">Define</div>
+                                </div>
                             </div>
                             <div class="container-detail-line">
                                 <div class="line-detail">
@@ -702,6 +708,20 @@ $(function () {
         var urlDetail = "../../reports/getReportOportunityResultIndicators/?studyCase=" + localStorage.idStudyCase;
         $.getJSON(urlDetail, function (data) {
             $.each( data, function( key, value ) {
+
+                if (value.description!="TotalTreatmentCostSavings" && value.description!="TimeFrame" && value.description != "TotalEstimatedInvestment" && value.description!="TotalAreaInterventionSize(Hec)"){
+                    document.getElementById("idRoi").innerHTML = value.value.toFixed(2);
+                    var nameButtom = value.description.split("::");
+                    if(nameButtom[1] === "Dark Green") {
+                        document.getElementById("idBtnRoi").style.backgroundColor = "#155816";
+                    } else if(nameButtom[1] === "Light Green") {
+                        document.getElementById("idBtnRoi").style.backgroundColor = "#35b137";
+                    } else {
+                        document.getElementById("idBtnRoi").style.backgroundColor = "#af0900";
+                    }
+                    document.getElementById("idBtnRoi").innerHTML = nameButtom[0];
+                }    
+
                 if(value.description === "TotalTreatmentCostSavings") {
                     document.getElementById("idTotalTreatmentCostSavings").innerHTML = value.value.toFixed(2);
                 }
@@ -748,7 +768,7 @@ $(function () {
                     })
                 }
             });
-
+            console.log(dataTotalBenefitsIntakeOne)
             Highcharts.chart('containerAbi', {
                 chart: {
                     plotBackgroundColor: null,
@@ -756,6 +776,7 @@ $(function () {
                     plotShadow: false,
                     type: 'pie'
                 },
+                colors: ['#008BAB', '#90D3E7', '#004B56', '#61D1C2'],
                 title: {
                     text: 'Intake Benefits'
                 },
@@ -863,7 +884,7 @@ $(function () {
                 }]
             });
         });
-
+        console.log(dataCostActivity)
         var dataTotalCost = [];
         var urlDetail = "../../reports/getReportCostsAnalysisFilter/?studyCase=" + localStorage.idStudyCase;
         $.getJSON(urlDetail, function (data) {
@@ -922,7 +943,7 @@ $(function () {
                 txtFileEfficiency = txtFileEfficiency + '<td class="small text-center vat">' + value.nitrogenLoad + '</td>';
                 txtFileEfficiency = txtFileEfficiency + '<td class="small text-center vat">' + value.totalSediments + '</td>';
                 txtFileEfficiency = txtFileEfficiency + '<td class="small text-center vat">' + value.baseFlow + '</td>';
-                txtFileEfficiency = txtFileEfficiency + '<td class="small text-center vat">' + value.carbonStorage + '</td>';
+                txtFileEfficiency = txtFileEfficiency + '<td class="small text-center vat">' + value.waterYear + '</td>';
             });
             txtFileEfficiency = txtFileEfficiency + '</tr>';
             document.getElementById("idTbodyEfficiency").innerHTML = document.getElementById("idTbodyEfficiency").innerHTML + txtFileEfficiency;

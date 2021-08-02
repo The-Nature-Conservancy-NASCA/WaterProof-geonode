@@ -79,6 +79,7 @@
     right: 50px;
     position: relative;
 }
+
 .first-detail {
     border-style: solid;
     border-color: #1389AA;
@@ -171,9 +172,9 @@
 }
 .margin-title {
     margin: 150px;
-    background-color: #cccccc;
+    background-color: #ffffff;
     padding: 20px;
-    font-size: 12px;
+    font-size: 18px;
     margin-top: 10px;
     margin-bottom: 40px;
     border-top: 2px;
@@ -195,8 +196,8 @@
     text-align: center;
     margin: 50px;
     padding: 10px;
-    background-color: #cccccc;
-    font-size: 13px;
+    background-color: #ffffff;
+    font-size: 18px;
 }
 .line-detail {
     border-top: 2px;
