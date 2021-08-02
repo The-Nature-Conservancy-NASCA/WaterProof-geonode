@@ -161,8 +161,9 @@
                     <div class="container-detail">
                         <div class="margin-detail">
                             <div class="margin-title">
-                                <div>{% trans "Calculate ROI" %}</div>
-                                <div class="button-title">{% trans "Adove 1" %}</div>
+<!--                            <div>{% trans "Calculate ROI" %}</div> -->
+                                <div class="name-roi">{% trans "Calculated ROI:" %} <div class="value-roi" id="idRoi"></div></div>
+<!--                                <div class="button-title">{% trans "Adove 1" %}</div>  -->
                             </div>
                             <div class="container-detail-line">
                                 <div class="line-detail">
@@ -702,6 +703,20 @@ $(function () {
         var urlDetail = "../../reports/getReportOportunityResultIndicators/?studyCase=" + localStorage.idStudyCase;
         $.getJSON(urlDetail, function (data) {
             $.each( data, function( key, value ) {
+
+                document.getElementById("idRoi").innerHTML = value.roi.toFixed(2);
+                if (value.description!="TotalTreatmentCostSavings" && value.description!="TimeFrame" && value.description != "TotalEstimatedInvestment" && value.description!="TotalAreaInterventionSize(Hec)"){
+                    var nameButtom = value.description.split("::");
+                    if(nameButtom[1] === "Dark Green") {
+                        document.getElementById("idBtnRoi").style.backgroundColor = "#155816";
+                    } else if(nameButtom[1] === "Light Green") {
+                        document.getElementById("idBtnRoi").style.backgroundColor = "#35b137";
+                    } else {
+                        document.getElementById("idBtnRoi").style.backgroundColor = "#af0900";
+                    }
+                    document.getElementById("idBtnRoi").innerHTML = nameButtom[0];
+                }    
+
                 if(value.description === "TotalTreatmentCostSavings") {
                     document.getElementById("idTotalTreatmentCostSavings").innerHTML = value.value.toFixed(2);
                 }
