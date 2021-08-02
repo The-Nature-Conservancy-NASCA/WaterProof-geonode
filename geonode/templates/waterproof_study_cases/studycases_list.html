@@ -117,38 +117,38 @@
                         <a class="btn btn-primary" href="view/{{studyCases.pk}}" title='{% trans "view" %}'><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
                         {% if user.is_authenticated %}
                         {% if user.professional_role == 'ADMIN' %}
-                        <a class="btn btn-info" href="edit/{{studyCases.pk}}"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
+                        <a class="btn btn-info" href="edit/{{studyCases.pk}}" title='{% trans "edit" %}'><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
                     </div>
                     <div class="btn-group btn-group-table" role="group">
-                        <a class="btn btn-warning" href="clone/{{studyCases.pk}}"><span class="glyphicon glyphicon-copy" aria-hidden="true"></span></a>
-                        <a class="btn btn-danger" id="btn-delete" data-id="{{studyCases.pk}}"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+                        <a class="btn btn-warning" href="clone/{{studyCases.pk}}" title='{% trans "clone" %}'><span class="glyphicon glyphicon-copy" aria-hidden="true"></span></a>
+                        <a class="btn btn-danger" id="btn-delete" data-id="{{studyCases.pk}}" title='{% trans "delete" %}'><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
                     </div>
                     <div class="btn-group btn-group-table" role="group">
-                        <a class="btn btn-info" href="report/{{studyCases.pk}}"><span class="glyphicon glyphicon-object-align-bottom" aria-hidden="true"></span></a>{% endif %}
+                        <a class="btn btn-info" href="report/{{studyCases.pk}}" title='{% trans "report" %}'><span class="glyphicon glyphicon-object-align-bottom" aria-hidden="true"></span></a>{% endif %}
                         {% if studyCases.is_public%}
-                        <a class="btn btn-warning" id="btn-private" data-id="{{studyCases.pk}}" title='{% trans "private" %}'><span class="glyphicon glyphicon-lock" aria-hidden="true"></span></a>
+                        <a class="btn btn-warning" id="btn-private" data-id="{{studyCases.pk}}" title='{% trans "Private" %}'><span class="glyphicon glyphicon-lock" aria-hidden="true"></span></a>
                         {% else %}
-                        <a class="btn btn-primary" id="btn-public" data-id="{{studyCases.pk}}"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span></a>
+                        <a class="btn btn-primary" id="btn-public" data-id="{{studyCases.pk}}" title='{% trans "Public" %}'><span class="glyphicon glyphicon-lock" aria-hidden="true"></span></a>
                         {% endif %}
                     </div>
                         {% if user.professional_role == 'ANALYS' or user.professional_role == 'COPART' or user.professional_role == 'ACDMC' or user.professional_role == 'SCADM' or user.professional_role == 'MCOMC' or user.professional_role == 'CITIZN' or user.professional_role == 'REPECS' or user.professional_role == 'OTHER' %}
                         {% if studyCases.added_by.pk == user.pk %}
-                        <a class="btn btn-info" href="edit/{{studyCases.pk}}"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
+                        <a class="btn btn-info" href="edit/{{studyCases.pk}}" title='{% trans "edit" %}'><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
                     <div class="btn-group btn-group-table" role="group">
-                        <a class="btn btn-warning" href="clone/{{studyCases.pk}}"><span class="glyphicon glyphicon-copy" aria-hidden="true"></span></a>
-                        <a class="btn btn-danger" id="btn-delete" data-id="{{studyCases.pk}}"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+                        <a class="btn btn-warning" href="clone/{{studyCases.pk}}" title='{% trans "clone" %}'><span class="glyphicon glyphicon-copy" aria-hidden="true"></span></a>
+                        <a class="btn btn-danger" id="btn-delete" data-id="{{studyCases.pk}}" title='{% trans "delete" %}'><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
                     </div>
                     <div class="btn-group btn-group-table" role="group">
                     
-                        <a class="btn btn-info" href="report/{{studyCases.pk}}"><span class="glyphicon glyphicon-object-align-bottom" aria-hidden="true"></span></a>{% else %}
-                        <a class="btn btn-warning" href="clone/{{studyCases.pk}}"><span class="glyphicon glyphicon-copy" aria-hidden="true"></span></a>
+                        <a class="btn btn-info" href="report/{{studyCases.pk}}" title='{% trans "report" %}'><span class="glyphicon glyphicon-object-align-bottom" aria-hidden="true"></span></a>{% else %}
+                        <a class="btn btn-warning" href="clone/{{studyCases.pk}}" title='{% trans "clone" %}'><span class="glyphicon glyphicon-copy" aria-hidden="true"></span></a>
                     </div>
                     <div class="btn-group btn-group-table" role="group">
                     
                         {% if studyCases.is_public%}
-                        <a class="btn btn-warning" id="btn-private" data-id="{{studyCases.pk}}" title='{% trans "private" %}'><span class="glyphicon glyphicon-lock" aria-hidden="true"></span></a>
+                        <a class="btn btn-warning" id="btn-private" data-id="{{studyCases.pk}}" title='{% trans "Private" %}'><span class="glyphicon glyphicon-lock" aria-hidden="true"></span></a>
                         {% else %}
-                        <a class="btn btn-primary" id="btn-public" data-id="{{studyCases.pk}}"><span class="glyphicon glyphicon-lock" aria-hidden="true"></span></a>
+                        <a class="btn btn-primary" id="btn-public" data-id="{{studyCases.pk}}" title='{% trans "Public" %}'><span class="glyphicon glyphicon-lock" aria-hidden="true"></span></a>
                         {% endif %}
                         {% endif %}
                         {% endif %}
