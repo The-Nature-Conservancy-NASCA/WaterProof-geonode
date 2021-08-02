@@ -165,7 +165,8 @@ $(function() {
                             text: gettext('The study case has been public')
                         })
                         setTimeout(function() {
-                            location.href = "/study_cases/";
+                            city_id = localStorage.cityId;
+                            location.href = "/study_cases/?city="+city_id;
                         }, 1000);
                     },
                     error: function(error) {
@@ -213,7 +214,8 @@ $(function() {
                             text: gettext('The study case has been private')
                         })
                         setTimeout(function() {
-                            location.href = "/study_cases/";
+                            city_id = localStorage.cityId;
+                            location.href = "/study_cases/?city="+city_id;
                         }, 1000);
                     },
                     error: function(error) {

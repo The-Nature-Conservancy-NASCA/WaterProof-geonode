@@ -297,7 +297,7 @@ def private(request, idx):
     if not sc:
         print("Not found")
         context = {
-            'status': '400', 'reason': 'Intake not found'
+            'status': '400', 'reason': 'tudy case not found'
         }
         response = HttpResponse(json.dumps(context), content_type='application/json')
         response.status_code = 400
@@ -322,7 +322,7 @@ def public(request, idx):
     if not sc:
         print("Not found")
         context = {
-            'status': '400', 'reason': 'Intake not found'
+            'status': '400', 'reason': 'Study case not found'
         }
         response = HttpResponse(json.dumps(context), content_type='application/json')
         response.status_code = 400
