@@ -111,7 +111,8 @@ class CostFunctionsProcess(models.Model):
 
     currency = models.CharField(
         max_length=255,
-        verbose_name=_('Currency')
+        verbose_name=_('Currency'),
+        null=True,
     )
 
     categorys = models.CharField(
