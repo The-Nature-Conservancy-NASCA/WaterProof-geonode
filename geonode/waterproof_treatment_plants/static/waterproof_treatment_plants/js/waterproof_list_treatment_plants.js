@@ -397,7 +397,7 @@ $(function () {
                 });
 
                 $.each( data.csinfra, function( key, value ) {
-                    $('#idTbodyIntake').append('<tr id="child' + value.csinfraId + '"><td class="small text-center vat" name="nameListAdd" idIntake="' + value.csinfraElementsystemId + '" nameList="' + value.csinfraName + '"  graphIdlist="' + value.csinfraGraphId + '"  csinfraList="' + value.csinfraCode + '">' + value.csinfraName + '</td><td class="small text-center vat">' + value.csinfraName + ' - ' + value.csinfraCode + ' - ' + value.csinfraGraphId + '</td><td class="small text-center vat">' + value.csinfraCode + '</td><td aling="center"><a class="btn btn-danger" onclick="deleteOption(' + value.csinfraId + ')"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td></tr>');
+                    $('#idTbodyIntake').append('<tr id="child' + value.csinfraId + '"><td class="small text-center vat" name="nameListAdd" idIntake="' + value.csinfraElementsystemId + '" nameList="' + value.csinfraName + '"  graphIdlist="' + value.csinfraGraphId + '"  csinfraList="' + value.csinfraCode + '">' + value.csinfraName + '</td><td class="small text-center vat">' + value.csinfraName + '</td><td class="small text-center vat">' + value.csinfraCode + '</td><td aling="center"><a class="btn btn-danger" onclick="deleteOption(' + value.csinfraId + ')"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td></tr>');
                 });
 
                 $.each( data.element, function( key, value ) {
@@ -453,7 +453,7 @@ $(function () {
                 });
 
                 $.each( data.csinfra, function( key, value ) {
-                    $('#idTbodyIntake').append('<tr id="child' + value.csinfraId + '"><td class="small text-center vat" name="nameListAdd" idIntake="' + value.csinfraElementsystemId + '" nameList="' + value.csinfraName + '"  graphIdlist="' + value.csinfraGraphId + '"  csinfraList="' + value.csinfraCode + '">' + value.csinfraName + '</td><td class="small text-center vat">' + value.csinfraName + ' - ' + value.csinfraCode + ' - ' + value.csinfraGraphId + '</td><td class="small text-center vat">' + value.csinfraCode + '</td><td aling="center"><a class="btn btn-danger" onclick="deleteOption(' + value.csinfraId + ')"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td></tr>');
+                    $('#idTbodyIntake').append('<tr id="child' + value.csinfraId + '"><td class="small text-center vat" name="nameListAdd" idIntake="' + value.csinfraElementsystemId + '" nameList="' + value.csinfraName + '"  graphIdlist="' + value.csinfraGraphId + '"  csinfraList="' + value.csinfraCode + '">' + value.csinfraName + '</td><td class="small text-center vat">' + value.csinfraName + '</td><td class="small text-center vat">' + value.csinfraCode + '</td><td aling="center"><a class="btn btn-danger" onclick="deleteOption(' + value.csinfraId + ')"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td></tr>');
                 });
 
                 $.each( data.element, function( key, value ) {

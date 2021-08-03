@@ -23,20 +23,33 @@
 <form id="form" method="POST" action="">
     {% csrf_token %}
     <!--Start smartwizard-->
-    <div style="position: relative;">
-        <div class="help-in-report">
+    <div style="position: relative; border: 1px; border-style: solid; margin-bottom: 10px; border-color: #1389AA;">
+        <div class="help-in-report" style="border-color: transparent;">
             {% trans "This report summarizes the proportions in investment and benefits that will be achieved by the implementation of the SbN:" %}
         </div>
-        <div style="text-align: center;text-align: center;position: absolute;top: 0px;right: 0px;margin-left: 530px;font-size: 13px;">
-            <div style="float: left;width: 15%;" id="idFinancialIndicators">
-                <img src="/static/geonode/img/indicadores-fisicos.png" style="width: 100%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;" title="{% trans "Financial indicators" %}"/> 
+        <div style="text-align: right;position: absolute;top: 0px;right: 0px;margin-left: 65%;font-size: 13px;">
+            <div style="float: left;width: 15%;">
+                <img src="/static/geonode/img/Indicadores-financieros.png" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black; opacity: 30%;" title="{% trans "Financial indicators" %}"/> 
                 <br> 
-                <a onclick="changeReport()">{% trans "Reports" %}</a>
+                <a>{% trans "Financial indicators" %}</a>
+                <!--a href="../../reports/financial/">{% trans "Financial indicators" %}</a-->
+            </div>
+            <div style="float: left;width: 15%;" id="idFinancialIndicators">
+                <img src="/static/geonode/img/indicadores-fisicos.png" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black; opacity: 30%;" title="{% trans "Financial indicators" %}"/> 
+                <br> 
+                <a>{% trans "Reports" %}</a>
+                <!--a onclick="changeReport()">{% trans "Reports" %}</a-->
             </div>
             <div style="float: left;width: 15%;" id="idDecisionIndicators">
-                <img src="/static/geonode/img/indicadores-decision.png" style="width: 100%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;" title="{% trans "Decision indicators" %}"/>
+                <img src="/static/geonode/img/indicadores-decision.png" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;" title="{% trans "Decision indicators" %}"/>
                 <br>
                 <a href="../../reports/decision/">{% trans "Decision indicators" %}</a>
+            </div>
+            <div style="float: left;width: 15%;" id="idGeographicIndicators">
+                <img src="/static/geonode/img/indicadores-geograficos.png" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black; opacity: 30%;" title="{% trans "Geographic visualization" %}"/>
+                <br>
+                <a>{% trans "Geographic visualization" %}</a>
+                <!--a href="../../reports/geographic/">{% trans "Geographic visualization" %}</a-->
             </div>
         </div>
     </div>
@@ -58,7 +71,7 @@
                         <div class="value-file-column-left" id="idRegion">{% trans "-" %}</div>
                     </div>
                     <div class="file-column-left">
-                        <div>{% trans "Time frame (year):" %}</div>
+                        <div>{% trans "Time frame (years):" %}</div>
                         <div class="value-file-column-left" id="idTimeMainFinaltial">{% trans "-" %}</div>
                     </div>
                 </div>
@@ -72,7 +85,7 @@
                         <div class="value-file-column-left" id="idNumberOfDrinkingFinaltial"></div>
                     </div>
                     <div class="file-column-left">
-                        <div class="title-file-column-right">{% trans "currency:" %}</div>
+                        <div class="title-file-column-right">{% trans "Currency:" %}</div>
                         <div class="value-file-column-left" id="idCurrencyMainFinaltial">{% trans "-" %}</div>
                     </div>
                 </div>
@@ -88,8 +101,10 @@
         <div class="margin-report">
             <!--Step 1-->
             <div id="step1">
+                <br>
+                <p>{% trans "Return ROI ind text 1" %}</p>
                 <div style="text-align: center;">
-                        <div class="content-image">
+                        <div class="content-image" style="margin-right: 5%;">
                             <img src="/static/geonode/img/Indicadores-financieros.png"/>
                         </div>
                         <div class="contain-detail">
@@ -97,21 +112,21 @@
                                 <div class="content-title-first">
                                     <div class="text-title-first" id="idTitleBenefits" style="border-width: 2px;">{% trans "Benefits" %}</div>
                                 </div>
-                                <div id="listCheckBenefits" style="overflow-x: hidden;overflow-y: scroll;height: 400px;"></div>
+                                <div id="listCheckBenefits" style="overflow-x: hidden;overflow-y: scroll;height: 400px; width: 100%;"></div>
                             </div>
 
                             <div class="first-detail">
                                 <div class="content-title-first">
                                     <div class="text-title-first" id="idTitleCost" style="border-width: 2px;">{% trans "Cost" %}</div>
                                 </div>
-                                <div id="listCheckCost" style="overflow-x: hidden;overflow-y: scroll;height: 400px;"></div>
+                                <div id="listCheckCost" style="overflow-x: hidden;overflow-y: scroll;height: 400px; width: 100%;"></div>
                             </div>
                         </div>
                 </div>
                 
                 <br>
                 <!--Graph-->
-                <div style="width: 100%; padding: 80px;margin-top: 500px;">
+                <div style="width: 100%; padding: 80px;margin-top: 400px;">
                     <div id="containerRoi"></div>
                 </div>
                 <!--Table-->
@@ -124,20 +139,22 @@
             </div>
             <!--Step 3-->
             <div id="step3"  style="display: none;">
-                <div style="text-align: center;width: 100%;position: relative;height: 400px;">
+                <p>{% trans "VPN ind text 1" %}</p>
+                <p>{% trans "VPN ind text 2" %}</p>
+                <div class="image-tab-center">
                         <div class="content-image">
-                            <img src="/static/geonode/img/indicadores-fisicos-invest.png" style="width: 50%;margin-top: 25%;" />
+                            <img src="/static/geonode/img/indicadores-fisicos-invest.png" style="width: 80%;margin-top: 25%;" />
                         </div>
                         <div class="contain-detail">
                             <!--Graph-->
-                            <div style="width: 45%;position: absolute;left: 52%;">
+                            <div style="width: 60%;position: absolute;left: 40%;">
                                 <div id="containerCB"></div>
                             </div>
                         </div>
                 </div>                
                 <br>
-                <div style="text-align: center;width: 100%;position: relative;height: 400px;">
-                        <div class="content-image" style="height: 100%;position: relative;">
+                <div class="image-tab-center">
+                        <div class="content-image" style="height: 100%;position: relative; margin-top: -4%;">
                             <div style="width: 100%;position: absolute;bottom: 0px;height: auto;left: auto;margin-left: auto;margin-top: auto;top: auto;" class="table-responsive">
                                 <table id="idTableNpv" class="table table-striped table-bordered table-condensed" style=" width:100%">
                                     <thead>
@@ -151,50 +168,66 @@
                         </div>
                         <div class="contain-detail">
                             <!--Graph-->
-                            <div style="width: 45%;position: absolute;left: 50%;">
+                            <div style="width: 60%;position: absolute;left: 40%;">
                                 <div id="containerNpv"></div>
                             </div>
                         </div>
-                </div>                
+                </div>              
             </div>            <!--Step 3-->
             <div id="step4"  style="display: none;">
-                <div style="text-align: center;width: 100%;position: relative;height: 1000px;">
-                        <div class="contain-detail">
-                            <!--Graph-->
-                            <div style="width: 90%;position: absolute;left: 5%;">
-                                <div id="containerTDB"></div>
-                            </div>
-                        </div>
-                        <div class="contain-detail">
-                            <!--Graph-->
-                            <div style="width: 90%;position: absolute;left: 5%;margin-top: 500px;">
-                                <div id="containerTDC"></div>
-                            </div>
-                        </div>
-                </div>                
                 <br>
-                <!--Table-->
-                <div style="clear:both;" class="table-responsive">
-                    <table id="idTableRoi" class="table table-striped table-bordered table-condensed" style=" width:100%">
-                        <thead id="idTheadSensibility"></thead>
-                        <tbody id="idTbodySensibility"></tbody>
-                    </table>
+                <p>{% trans "Sensitivity ind text 1" %}</p>
+                <div style="text-align: center;width: 100%;position: relative;height: 400px; margin-left: 3%;">
+                    <div class="contain-detail">
+                        <!--Graph-->
+                        <div style="width: 90%;position: absolute;left: 5%; text-align: center;">
+                            <div id="containerTDB"></div>
+                        </div>
+                    </div>
+                </div>        
+                <br>
+                <div style="text-align: center;width: 100%;position: relative;height: 100px;">
+                    <div style="clear:both;" class="table-responsive">
+                        <table id="idTableRoi" class="table table-striped table-bordered table-condensed" style=" width:100%">
+                            <thead id="idTheadSensibilityBenefit"></thead>
+                            <tbody id="idTbodySensibilityBenefit"></tbody>
+                        </table>
+                    </div>
                 </div>
                 <br>
-                <div style="text-align: center;width: 100%;position: relative;height: 400px;">
+                <div style="text-align: center;width: 100%;position: relative;height: 400px; margin-left: 3%;">
+                    <div class="contain-detail">
+                            <!--Graph-->
+                        <div style="width: 90%;position: absolute;left: 5%;">
+                            <div id="containerTDC"></div>
+                        </div>
+                    </div>
+                </div>                
+                <br>
+                <div style="text-align: center;width: 100%;position: relative;height: 100px;">
+                    <div style="clear:both;" class="table-responsive">
+                        <table id="idTableRoi" class="table table-striped table-bordered table-condensed" style=" width:100%">
+                            <thead id="idTbodySensibilityCost"></thead>
+                            <tbody id="idTbodySensibilityCost"></tbody>
+                        </table>
+                    </div>
+                </div>    
+                <br>
+                <!--Table-->
+                <div style="text-align: center;width: 100%;position: relative;height: 450px;">
                         <div class="contain-detail">
                             <!--Graph-->
-                            <div style="width: 45%;position: absolute;left: 52%;top: -50px;font-size: 15px;">{% trans "Observe the posible behaivor of the ROI due to materialization of change de environment" %}</div>
                             <div style="width: 45%;position: absolute;left: 52%;">
                                 <div id="containerRoiS"></div>
                             </div>
+                            <div style="width: 45%;position: absolute;left: 52%;top: 400px;font-size: 15px;">{% trans "Sensitivity ind text 3" %}</div>
                         </div>
                         <div class="contain-detail">
                             <!--Graph-->
-                            <div style="width: 45%;position: absolute;left: 5%;top: -50px;font-size: 15px;">{% trans "Compare the benefits and cost obtained in the event on changes inthe environment that effect the discount rate" %}</div>
                             <div style="width: 45%;position: absolute;left: 5%;">
                                 <div id="containerCvB"></div>
                             </div>
+                            <div style="width: 45%;position: absolute;left: 5%;top: 400px;font-size: 15px;">{% trans "Sensitivity ind text 2" %}</div>
                         </div>
                 </div>
             </div>
@@ -300,7 +333,7 @@ $(function () {
                     type: 'column'
                 },
                 title: {
-                    text: 'Interactive graph of cost and benefits'
+                    text: 'Cost and benefits'
                 },
                 colors: ['#008BAB', '#90D3E7', '#004B56', '#61D1C2'],
                 xAxis: {
@@ -487,7 +520,7 @@ $(function () {
                     type: 'column'
                 },
                 title: {
-                    text: 'Interactive graph of cost and benefits'
+                    text: 'Cost and benefits'
                 },
                 colors: ['#008BAB', '#90D3E7', '#004B56', '#61D1C2'],
                 xAxis: {
@@ -598,21 +631,29 @@ $(function () {
         var dataSensibilityAnalysisBenefitsRange = [];
         var urlDetail = "../../reports/getSensibilityAnalysisBenefits/?studyCase=" + localStorage.idStudyCase;
         $.getJSON(urlDetail, function (data) {
-            var txtFileBenefits = '<tr><td class="small text-center vat" >Discounted benefit</td>';
-            var txtTitleBenefits = '<tr class="info"><th scope="col" class="small text-center vat">{% trans "Sensibility Analysis" %}</th>';
+            var txtFileBenefitsMinBen = '<tr><td class="small text-center vat" style="text-align: left;">Discounted benefit minimum</td>';
+            var txtFileBenefitsMedBen = '<tr><td class="small text-center vat" style="text-align: left;">Discounted benefit Medium</td>';
+            var txtFileBenefitsMaxBen = '<tr><td class="small text-center vat" style="text-align: left;">Discounted benefit maximum</td>';
+            var txtTitleBenefits = '<tr class="info"><th scope="col" class="small text-center vat">{% trans "Total discounted benefit" %}</th>';
             var contTitleBenefits = 1;
             $.each( data, function( key, value ) {
                 dataSensibilityAnalysisBenefitsTime.push([value.timer, Math.round(value.totalMedBenefitR)]);
                 dataSensibilityAnalysisBenefitsRange.push([value.timer, Math.round(value.totalMinBenefitR), Math.round(value.totalMaxBenefittR)]);
-                txtFileBenefits = txtFileBenefits + '<td class="small text-center vat" style="text-align: right;" id="valor' + value.timer + '">' + parseFloat(value.totalMedBenefitR).toFixed(2) + '</td>';
+                txtFileBenefitsMinBen = txtFileBenefitsMinBen + '<td class="small text-center vat" style="text-align: right;" id="valor' + value.timer + '">' + parseFloat(value.totalMinBenefitR).toFixed(2) + '</td>';
+                txtFileBenefitsMedBen = txtFileBenefitsMedBen + '<td class="small text-center vat" style="text-align: right;" id="valor' + value.timer + '">' + parseFloat(value.totalMedBenefitR).toFixed(2) + '</td>';
+                txtFileBenefitsMaxBen = txtFileBenefitsMaxBen + '<td class="small text-center vat" style="text-align: right;" id="valor' + value.timer + '">' + parseFloat(value.totalMaxBenefittR).toFixed(2) + '</td>';
                 txtTitleBenefits = txtTitleBenefits + '<th scope="col" class="small text-center vat">{% trans "' + contTitleBenefits + '" %}</th>';
                 contTitleBenefits ++;
             });
-            txtFileBenefits = txtFileBenefits + '</tr>';
+            txtFileBenefitsMinBen = txtFileBenefitsMinBen + '</tr>';
+            txtFileBenefitsMedBen = txtFileBenefitsMedBen + '</tr>';
+            txtFileBenefitsMaxBen = txtFileBenefitsMaxBen + '</tr>';
             txtTitleBenefits = txtTitleBenefits + '</tr>';
 
-            document.getElementById("idTheadSensibility").innerHTML = txtTitleBenefits;
-            document.getElementById("idTbodySensibility").innerHTML = document.getElementById("idTbodySensibility").innerHTML + txtFileBenefits;
+            document.getElementById("idTheadSensibilityBenefit").innerHTML = txtTitleBenefits;
+            document.getElementById("idTbodySensibilityBenefit").innerHTML = document.getElementById("idTbodySensibilityBenefit").innerHTML + txtFileBenefitsMinBen;
+            document.getElementById("idTbodySensibilityBenefit").innerHTML = document.getElementById("idTbodySensibilityBenefit").innerHTML + txtFileBenefitsMedBen;
+            document.getElementById("idTbodySensibilityBenefit").innerHTML = document.getElementById("idTbodySensibilityBenefit").innerHTML + txtFileBenefitsMaxBen;
 
             Highcharts.chart('containerTDB', {
                 title: {
@@ -656,15 +697,32 @@ $(function () {
         var dataSensibilityAnalysisCostRange = [];
         var urlDetail = "../../reports/getSensibilityAnalysisCost/?studyCase=" + localStorage.idStudyCase;
         $.getJSON(urlDetail, function (data) {
-            var txtFileCost = '<tr><td class="small text-center vat" >Discounted Cost</td>';
+//#endregion            var txtFileCost = '<tr><td class="small text-center vat" >Discounted Cost</td>';
+            var txtFileCostMinCost = '<tr><td class="small text-center vat" style="text-align: left;">Discounted cost minimum</td>';
+            var txtFileCostMedCost = '<tr><td class="small text-center vat" style="text-align: left;">Discounted cost medium</td>';
+            var txtFileCostMaxCost = '<tr><td class="small text-center vat" style="text-align: left;">Discounted cost maximum</td>';
+            var txtTitleCost = '<tr class="info"><th scope="col" class="small text-center vat">{% trans "Total discounted cost" %}</th>';
+            var contTitlecost = 1;
+
             $.each( data, function( key, value ) {
                 dataSensibilityAnalysisCostTime.push([value.timer, Math.round(value.totalMedCostR)]);
                 dataSensibilityAnalysisCostRange.push([value.timer, Math.round(value.totalMinCostR), Math.round(value.totalMaxCostR)]);
-                txtFileCost = txtFileCost + '<td class="small text-center vat" style="text-align: right;" id="valor' + value.timer + '">' + parseFloat(value.totalMedCostR).toFixed(2) + '</td>';
-                
+                txtFileCostMinCost = txtFileCostMinCost + '<td class="small text-center vat" style="text-align: right;" id="valor' + value.timer + '">' + parseFloat(value.totalMinCostR).toFixed(2) + '</td>';
+                txtFileCostMedCost = txtFileCostMedCost + '<td class="small text-center vat" style="text-align: right;" id="valor' + value.timer + '">' + parseFloat(value.totalMedCostR).toFixed(2) + '</td>';
+                txtFileCostMaxCost = txtFileCostMaxCost + '<td class="small text-center vat" style="text-align: right;" id="valor' + value.timer + '">' + parseFloat(value.totalMaxCostR).toFixed(2) + '</td>';
+                txtTitleCost = txtTitleCost + '<th scope="col" class="small text-center vat">{% trans "' + contTitlecost + '" %}</th>';
+                contTitlecost ++;               
             });
-            txtFileCost = txtFileCost + '</tr>';
-            document.getElementById("idTbodySensibility").innerHTML = document.getElementById("idTbodySensibility").innerHTML + txtFileCost;
+            txtFileCostMinCost = txtFileCostMinCost + '</tr>';
+            txtFileCostMedCost = txtFileCostMedCost + '</tr>';
+            txtFileCostMaxCost = txtFileCostMaxCost + '</tr>';
+            txtTitleCost = txtTitleCost + '</tr>';
+
+            document.getElementById("idTbodySensibilityCost").innerHTML = txtTitleCost;
+            document.getElementById("idTbodySensibilityCost").innerHTML = document.getElementById("idTbodySensibilityCost").innerHTML + txtFileCostMinCost;
+            document.getElementById("idTbodySensibilityCost").innerHTML = document.getElementById("idTbodySensibilityCost").innerHTML + txtFileCostMedCost;
+            document.getElementById("idTbodySensibilityCost").innerHTML = document.getElementById("idTbodySensibilityCost").innerHTML + txtFileCostMaxCost;
+
 
             Highcharts.chart('containerTDC', {
                 title: {

@@ -784,3 +784,5 @@ msgstr "To delimit the area within the basin in which it is possible to implemen
 #: template/intake_form.html:381
 msgid "When you have finished making your changes, click on the 'Validate area' button."
 msgstr "When you have finished making your changes, click on the 'Validate area' button."
+
+#: template/intake_form.html:381

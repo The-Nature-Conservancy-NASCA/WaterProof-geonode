@@ -23,20 +23,33 @@
 <form id="form" method="POST" action="">
     {% csrf_token %}
     <!--Start smartwizard-->
-    <div style="position: relative;">
-        <div class="help-in-report">
-            {% trans "En este reporte se presenta de forma sintetizada las proporciones en inversión y beneficios que se lograrán por la implementación de las SbN:" %}
+    <div style="position: relative; border: 1px; border-style: solid; margin-bottom: 10px; border-color: #1389AA;">
+        <div class="help-in-report" style="border-color: transparent;">
+            {% trans "This report summarizes the proportions in investment and benefits that will be achieved by the implementation of the SbN:" %}
         </div>
-        <div style="text-align: center;text-align: center;position: absolute;top: 0px;right: 0px;margin-left: 530px;font-size: 13px;">
-            <div style="float: left;width: 15%;" id="idFinancialIndicators">
-                <img src="/static/geonode/img/indicadores-fisicos.png" style="width: 100%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;" title="{% trans "Financial indicators" %}"/> 
+        <div style="text-align: right;position: absolute;top: 0px;right: 0px;margin-left: 65%;font-size: 13px;">
+            <div style="float: left;width: 15%;">
+                <img src="/static/geonode/img/Indicadores-financieros.png" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black; " title="{% trans "Financial indicators" %}"/> 
                 <br> 
-                <a onclick="changeReport()">{% trans "Reports" %}</a>
+                <a href="../../reports/financial/">{% trans "Financial indicators" %}</a-->
             </div>
             <div style="float: left;width: 15%;" id="idFinancialIndicators">
-                <img src="/static/geonode/img/Indicadores-financieros.png" style="width: 100%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;" title="{% trans "Financial indicators" %}"/> 
+                <img src="/static/geonode/img/indicadores-fisicos.png" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black; opacity: 30%;" title="{% trans "Financial indicators" %}"/> 
                 <br> 
-                <a href="../../reports/financial/">{% trans "Financial indicators" %}</a>
+                <a>{% trans "Reports" %}</a>
+                <!--a onclick="changeReport()">{% trans "Reports" %}</a-->
+            </div>
+            <div style="float: left;width: 15%;" id="idDecisionIndicators">
+                <img src="/static/geonode/img/indicadores-decision.png" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black; opacity: 30%;" title="{% trans "Decision indicators" %}"/>
+                <br>
+                <a>{% trans "Decision indicators" %}</a>
+                <!--a href="../../reports/decision/">{% trans "Decision indicators" %}</a-->
+            </div>
+            <div style="float: left;width: 15%;" id="idGeographicIndicators">
+                <img src="/static/geonode/img/indicadores-geograficos.png" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black; opacity: 30%;" title="{% trans "Geographic visualization" %}"/>
+                <br>
+                <a>{% trans "Geographic visualization" %}</a>
+                <!--a href="../../reports/geographic/">{% trans "Geographic visualization" %}</a-->
             </div>
         </div>
     </div>
@@ -58,7 +71,7 @@
                         <div class="value-file-column-left" id="idRegion">{% trans "-" %}</div>
                     </div>
                     <div class="file-column-left">
-                        <div>{% trans "Time frame (year):" %}</div>
+                        <div>{% trans "Time frame (years):" %}</div>
                         <div class="value-file-column-left" id="idTimeMainDecision">{% trans "-" %}</div>
                     </div>
                 </div>
@@ -72,7 +85,7 @@
                         <div class="value-file-column-left" id="idNumberOfDrinkingDecision"></div>
                     </div>
                     <div class="file-column-left">
-                        <div class="title-file-column-right">{% trans "currency:" %}</div>
+                        <div class="title-file-column-right">{% trans "Currency:" %}</div>
                         <div class="value-file-column-left" id="idCurrencyMainDecision">{% trans "-" %}</div>
                     </div>
                 </div>
@@ -83,52 +96,65 @@
             <div id="idSectionIbc" class="inform-section">{% trans "Incidence of benefits and cost" %}</div>
             <div id="idSectionPe" class="inform-section inform-section-free">{% trans "Portfolio Efficiency" %}</div>
             <div id="idSectionOr" class="inform-section inform-section-free">{% trans "Oportunity result" %}</div>
-            <div id="idSectionPr" class="inform-section inform-section-free">{% trans "Physical and risk indicator" %}</div>
-            <div id="idSectionRi" class="inform-section inform-section-free">{% trans "Result of interventions" %}</div>
+            <!--div id="idSectionPr" class="inform-section inform-section-free">{% trans "Physical and risk indicator" %}</div>
+            <div id="idSectionRi" class="inform-section inform-section-free">{% trans "Result of interventions" %}</div-->
         </div>
         <!--Steps-->
         <div class="margin-report">
             <!--Step 1-->
+            <br>
+            <p>{% trans "Benefits and cost ind text 1" %}</p>
             <div id="step1">
-                <div style="text-align: center; height: 350px;">
-                    <div class="content-image">
+                <br>
+                <p></p>
+                <div style="text-align: center; height: 400px;">
+                    <!--div class="content-image">
                         <img src="/static/geonode/img/incidencia-costos.png"/>
-                    </div>
+                    </div-->
                     <div class="contain-detail">
                         <!--Graph-->
-                        <div style="width: 45%;position: absolute;left: 52%;">
+                        <div style="width: 45%;position: absolute;left: 3%;">
                             <select class="select-condition" id="idListSelectIntake" onchange="changePie(this.value)"></select>
                             <div id="containerAbi"></div>
+                            <p>{% trans "Benefits and cost ind text 2" %}</p>
+                        </div>
+                        <div style="width: 40%;position: absolute;left: 55%;">
+                            <div id="containerAbt"></div>
+                            <p>{% trans "Benefits and cost ind text 3" %}</p>
                         </div>
                     </div>
                 </div>                
+                <br>
+                <br>
                 <br>
                 <!--Table-->
                 <div style="text-align: center;height: 500px;">
                     <div class="contain-detail">
                         <!--Graph-->
-                        <div style="width: 30%;position: absolute;left: 5%;">
-                            <div id="containerAbt"></div>
-                        </div>
-                        <div style="width: 30%;position: absolute;left: 37%;">
+                        <div style="width: 45%;position: absolute;left: 3%;">
                             <div id="containerAct"></div>
+                            <p>{% trans "Benefits and cost ind text 4" %}</p>
                         </div>
-                        <div style="width: 30%;position: absolute;left: 70%;">
-                            <div id="containerAca"></div>
+                        <div class="contain-detail">
+                            <div style="width: 50%;position: absolute;left: 52%;">
+                                <div id="containerAca"></div>
+                                <p>{% trans "Benefits and cost ind text 5" %}</p>
+                            </div>
                         </div>
                     </div>
-                </div>                
-                <br>
+                </div>   
             </div>
             <!--Step 2-->
             <div id="step2"  style="display: none;">
+                <br>
+                <p>{% trans "Portfolio efficiency ind text 1" %}</p>
                 <div style="text-align: center;">
                         <div class="content-image">
                             <img src="/static/geonode/img/eficiencia-de-portafolio.png"/>
                         </div>
                         <div class="contain-detail">
                             <!--Graph-->
-                            <div style="width: 45%;position: absolute;left: 52%;">
+                            <div style="width: 60%;position: absolute;left: 40%;">
                                 <div id="containerPe"></div>
                             </div>
                         </div>
@@ -161,8 +187,14 @@
                     <div class="container-detail">
                         <div class="margin-detail">
                             <div class="margin-title">
-                                <div>{% trans "ROI on Green Infrastructure Water treatment Opportunity" %}</div>
-                                <div class="button-title">{% trans "Adove 1" %}</div>
+<!--                            <div>{% trans "Calculate ROI" %}</div> -->
+                                <div class="name-roi">{% trans "Calculated ROI:" %} <div class="value-roi" id="idRoi"></div></div>
+<!--                                <div class="button-title">{% trans "Adove 1" %}</div>  -->
+                                    <img src="/static/geonode/img/valor-bruto.png" class="img-roi" />
+                                    <div class="bootom-roi">
+                                    <div>{% trans "ROI on nature based solutions opportunity" %}</div>
+                                    <div class="buttom-roi" id="idBtnRoi">Define</div>
+                                </div>
                             </div>
                             <div class="container-detail-line">
                                 <div class="line-detail">
@@ -183,7 +215,7 @@
                 </div>
             </div>
             <!--Step 4-->
-            <div id="step4"  style="display: none;">
+            <!--div id="step4"  style="display: none;">
                 <div style="text-align: center;width: 100%;position: relative;height: 400px;margin-top: 130px;">
                     <div id="mapidphysical" style="position: relative;width: 100% ;height: 400px;"></div>
                 </div>                
@@ -193,9 +225,9 @@
                     <select class="select-condition" id="idSelectWaterIntake"></select>
                 </div>
                 <div id="idListGraph"></div>
-            </div>
+            </div-->
             <!--Step 5-->
-            <div id="step5"  style="display: none;">
+            <!--div id="step5"  style="display: none;">
                 <div>
                     <div class="content-icon-inter">
                         <div class="center-icon-inter">
@@ -233,7 +265,7 @@
                         <tbody id="idTbodyInterventions"></tbody>
                     </table>
                 </div>
-            </div>
+            </div-->
         </div>
 </form>
 
@@ -702,6 +734,20 @@ $(function () {
         var urlDetail = "../../reports/getReportOportunityResultIndicators/?studyCase=" + localStorage.idStudyCase;
         $.getJSON(urlDetail, function (data) {
             $.each( data, function( key, value ) {
+
+                if (value.description!="TotalTreatmentCostSavings" && value.description!="TimeFrame" && value.description != "TotalEstimatedInvestment" && value.description!="TotalAreaInterventionSize(Hec)"){
+                    document.getElementById("idRoi").innerHTML = value.value.toFixed(2);
+                    var nameButtom = value.description.split("::");
+                    if(nameButtom[1] === "Dark Green") {
+                        document.getElementById("idBtnRoi").style.backgroundColor = "#155816";
+                    } else if(nameButtom[1] === "Light Green") {
+                        document.getElementById("idBtnRoi").style.backgroundColor = "#35b137";
+                    } else {
+                        document.getElementById("idBtnRoi").style.backgroundColor = "#af0900";
+                    }
+                    document.getElementById("idBtnRoi").innerHTML = nameButtom[0];
+                }    
+
                 if(value.description === "TotalTreatmentCostSavings") {
                     document.getElementById("idTotalTreatmentCostSavings").innerHTML = value.value.toFixed(2);
                 }
@@ -748,7 +794,7 @@ $(function () {
                     })
                 }
             });
-
+            console.log(dataTotalBenefitsIntakeOne)
             Highcharts.chart('containerAbi', {
                 chart: {
                     plotBackgroundColor: null,
@@ -756,6 +802,7 @@ $(function () {
                     plotShadow: false,
                     type: 'pie'
                 },
+                colors: ['#008BAB', '#90D3E7', '#004B56', '#61D1C2'],
                 title: {
                     text: 'Intake Benefits'
                 },
@@ -863,7 +910,7 @@ $(function () {
                 }]
             });
         });
-
+        console.log(dataCostActivity)
         var dataTotalCost = [];
         var urlDetail = "../../reports/getReportCostsAnalysisFilter/?studyCase=" + localStorage.idStudyCase;
         $.getJSON(urlDetail, function (data) {
@@ -922,7 +969,7 @@ $(function () {
                 txtFileEfficiency = txtFileEfficiency + '<td class="small text-center vat">' + value.nitrogenLoad + '</td>';
                 txtFileEfficiency = txtFileEfficiency + '<td class="small text-center vat">' + value.totalSediments + '</td>';
                 txtFileEfficiency = txtFileEfficiency + '<td class="small text-center vat">' + value.baseFlow + '</td>';
-                txtFileEfficiency = txtFileEfficiency + '<td class="small text-center vat">' + value.carbonStorage + '</td>';
+                txtFileEfficiency = txtFileEfficiency + '<td class="small text-center vat">' + value.waterYear + '</td>';
             });
             txtFileEfficiency = txtFileEfficiency + '</tr>';
             document.getElementById("idTbodyEfficiency").innerHTML = document.getElementById("idTbodyEfficiency").innerHTML + txtFileEfficiency;

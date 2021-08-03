@@ -42,16 +42,15 @@ msgstr ""
 "Project-Id-Version: GeoNode\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-02-11 20:03-0500\n"
-"PO-Revision-Date: 2020-12-15 18:41-0500\n"
+"PO-Revision-Date: 2021-08-02 16:34-0500\n"
 "Last-Translator: Julien Collaer <julien.collaer@opengeode.be>\n"
-"Language-Team: Spanish (http://www.transifex.com/geonode/geonode/language/"
-"es/)\n"
+"Language-Team: Spanish (http://www.transifex.com/geonode/geonode/language/es/)\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.4.2\n"
+"X-Generator: Poedit 2.4.3\n"
 
 msgid "study_cases"
 msgstr "Casos de estudio"
@@ -63,10 +62,10 @@ msgid "list_study_case"
 msgstr "Lista casos de estudio"
 
 msgid "treatment_plants"
-msgstr "Plantas de tratamiento de agua potable"
+msgstr "Plantas de tratamiento de agua potable (PTAP)"
 
 msgid "water_intakes"
-msgstr "Captaciones"
+msgstr "Fuentes de captación de agua"
 
 msgid "execution_status"
 msgstr "Estado ejecución"
@@ -78,25 +77,22 @@ msgid "carbon_market"
 msgstr "Mercado de carbono"
 
 msgid "modelling_parameters"
-msgstr "Parametros de modelado"
+msgstr "Parametros de modelación"
 
 msgid "financial_parameters"
 msgstr "Parametros Financieros"
 
-msgid "NBS_conservation_activities"
-msgstr "NbS / Activiades de conservación"
-
 msgid "portfolios"
-msgstr "Parametros portafolios"
+msgstr "Objetivos del portafolio"
 
 msgid "run_analysis"
-msgstr "Parametros análisis"
+msgstr "Parametros de análisis"
 
 msgid "define_study_case"
 msgstr "Definir caso de estudio"
 
 msgid "define_study_case_text"
-msgstr "Por favor complete las filas para definir su caso de estudio"
+msgstr "Por favor complete los campos para definir su caso de estudio"
 
 msgid "select_type_study"
 msgstr "Seleccione el tipo de caso de estudio a crear"
@@ -126,19 +122,19 @@ msgid "select_treatments_plants"
 msgstr "Seleccione la planta de tratamiento que usted considere para el análisis ROI"
 
 msgid "add_plant"
-msgstr "Agregar Planta"
+msgstr "Agregar PTAP"
 
 msgid "carbon_market_benefits"
 msgstr "Beneficios mercado de carbono"
 
 msgid "carbon_market_text"
-msgstr "If you wish, WaterProof can consider benefits associated with the Carbon market, click on the following checkbox to include in the analysis"
+msgstr "WaterProof puede considerar beneficios asociados a mercado de Carbono, de clic en el checkbox para incluirlo en el análisis."
 
 msgid "CO2_country"
-msgstr "CO2 Eq para (País)"
+msgstr "CO2 Eq para "
 
 msgid "portfolios_text"
-msgstr "Select the objetives for which the systemwill generate portfolios of Nature-bassed Solutions, using the RIOS technnical framework"
+msgstr "Seleccione los objetivos que desea lograr con la implementación de las SbN, usando la herramienta tecnológica RIOS"
 
 msgid "edit_study_cases"
 msgstr "Editar caso de estudio"
@@ -147,11 +143,106 @@ msgid "biophysical_tables"
 msgstr "Tablas biofisicas"
 
 msgid "Biophysical_tables_text"
-msgstr "In this step you will find the biophysical parameters required for the execution of the models. If you want to see or edit them, click on advanced options, otherwise click on next and the system will use the default values."
+msgstr "En este paso encontrará los parámetros biofísicos necesarios para la ejecución de los modelos. Si desea verlos o editarlos, haga clic en opciones avanzadas, de lo contrario haga clic en siguiente y el sistema utilizará los valores predeterminados."
 
 msgid "advanced_options"
 msgstr "Opciones avanzadas"
 
+msgid "tables_text"
+msgstr "A continuación se muestran las tablas biofísicas que se utilizarán en el modelado de un inVEST y RIOS. Puede editar los valores de acuerdo con el conocimiento específico de las cuencas de abastecimiento"
+
+msgid "InVEST_documentation"
+msgstr "Consulte la documentación de InVEST"
+
+msgid "platform_cost"
+msgstr "Costo anual de la plataforma"
+
+msgid "personnel_salary_benefits"
+msgstr "Salario de personal y beneficios"
+
+msgid "program_director"
+msgstr "Director del programa"
+
+msgid "monitoring_manager"
+msgstr "Lider de evaluación y monitoreo"
+
+msgid "finance_administrator"
+msgstr "Administrador financiero"
+
+msgid "implementation_manager"
+msgstr "Líder de implementación"
+
+msgid "office_costs"
+msgstr "costos de oficina"
+
+msgid "Travel"
+msgstr "Gastos de viaje"
+
+msgid "Equipment"
+msgstr "Equipo y maquinaria"
+
+msgid "Contracts"
+msgstr "Vehículos"
+
+msgid "Overhead"
+msgstr "Gastos generales"
+
+msgid "Others"
+msgstr "Otros"
+
+msgid "transaction_cost"
+msgstr "Costos de transacción (%)"
+
+msgid "discount_rate"
+msgstr "Tasa de descuento (%)"
+
+msgid "sensitivity_minimun_discount"
+msgstr "Tasa de descuento mínima para el analisis de sensibilidad (%)"
+
+msgid "sensitivity_maximun_discount"
+msgstr "Tasa de descuento máxima para el analisis de sensibilidad (%)"
+
+msgid "NBS_conservation_activities_text"
+msgstr "Seleccione las SbN que desea considerar en el análisis:"
+
+msgid "investment_tip"
+msgstr "Ingrese aquí la cantidad de dinero que desea haber gastado en cada SbN por año. Si no desea predeterminar cuánto se gasta en cada SbN, ingrese el presupuesto total en el cuadro Presupuesto flotante anual. También puede ingresar valores de algunas SbN e ingresar el presupuesto restante en el cuadro Presupuesto flotante."
+
+msgid "analysis_time_period"
+msgstr "Periodo de tiempo del análisis (10 - 100 años)"
+
+msgid "implementation_time_nbs"
+msgstr "Tiempo de implementación de la SbN (Años)"
+
+msgid "climate_baseline_nbs"
+msgstr "Selección de clima para linea base y escenario de análisis de la SbN"
+
+msgid "select_type_analysis"
+msgstr "Seleccione una opción para ejecutar el análisis"
+
+msgid "investment_table"
+msgstr "Asignación anual por actividad"
+
+msgid "investment_scenario"
+msgstr "Escenario de inversión"
+
+msgid "minimum_investment_percentages"
+msgstr "Asignar porcentaje mínimo de inversión"
+
+msgid "annual_investment"
+msgstr "Presupuesto flotante anual"
+
+msgid "rellocated_remainder"
+msgstr "Reasignar remanente"
+
+msgid "Activity"
+msgstr "Actividad"
+
+msgid "Percentage"
+msgstr "Porcentaje"
+
+msgid "Investment"
+msgstr "Inversión"
 
 msgid "clone_study_cases"
 msgstr "Clonar caso de estudio"
@@ -166,13 +257,235 @@ msgid "select_option"
 msgstr "-- seleccione una opción --"
 
 msgid "financial_discount_rates"
-msgstr "Discount rates para el análisis ROI"
+msgstr "Tasas de descuento para el análisis ROI"
 
 msgid "financial_transaction_cost"
-msgstr "Transaction cost per year as a percentage of Implementation, Maintenance and Oportunity costs"
-
-msgid "study_cases_list_tip"
-msgstr "In this section you can consult and configure the case studies for a defined city. To configure your case study, remember that you must have defined the water catchments and the different cost functions that will allow WaterProof to understand its context and costs, and provide the return on investment for the implementation of Nature-Based Solutions."
+msgstr "Costos de transacción anuales como porcentaje de los costos de implementación, mantenimiento y oportunidad de las NbS"
 
 msgid "study_cases_list_create"
-msgstr "You must be a registered user to create a new Case Study*"
+msgstr "Usted debe ser un usuario registrado para crear un caso de estudio*"
+
+msgid "Creating a new water intake"
+msgstr "Creando un nuevo caso de estudio"
+
+msgid "study_cases_list_tip"
+msgstr "En esta sección puede consultar y configurar los casos de estudio de una ciudad definida. Para configurar su caso de estudio recuerde que debe haber definido las captaciones de agua y las diferentes funciones de costo que le permitirán a WaterProof comprender su contexto, los costos, y proveer el retorno de inversión en la implementación de soluciones basada en la naturaleza."
+
+msgid "carbon_market_title"
+msgstr "Beneficios de mercado de carbono"
+
+msgid "carbon_market_tip"
+msgstr "WaterProof puede considerar beneficios asociados a mercado de Carbono, de clic en el siguiente checkbox para incluirlo en el análisis."
+
+msgid "biophysical_tip"
+msgstr "En este paso encontrará los parámetros biofísicos necesarios para la ejecución de los modelos. Si desea verlos o editarlos, haga clic en opciones avanzadas, de lo contrario haga clic en siguiente y el sistema utilizará los valores predeterminados."
+
+msgid "financial_tip"
+msgstr "En esta sección el sistema le ofrece precargados los costos requeridos para la implementación de las SbN. Confirme o edites los valores de acuerdo con su realidad:"
+
+msgid "study_case_tip"
+msgstr "Ingrese los datos con los que identificará su caso de estudio. Observe que además del nombre y una descripción, debe indicar las plantas de tratamiento y captaciones que derivan costos."
+
+msgid "The case studies are the tool in which the user consolidates the previous parameterizations of catchments and treatment plants and projects their analysis, that is, in this section the user indicates the objectives that (s)he wishes to achieve with the implementation of Nature-Based Solutions, indicates the budgetary availability of the project and the time in which (s)he expects to obtain results."
+msgstr "Los casos de estudio son la herramienta en la cual el usuario consolida las parametrizaciones previas de captaciones y plantas de tratamiento y proyecta su análisis, es decir, en esta sección el usuario indica los objetivos que desea lograr con la implementación de soluciones basadas en la naturaleza, indica la disponibilidad presupuestal de su proyecto y el tiempo con el que espera obtener resultados."
+
+msgid "WaterProof will assist you by indicating the steps you must follow to complete your registration: "
+msgstr "WaterProof lo asistirá indicando los pasos que debe seguir para hacer su registro completo: "
+
+msgid "Creation city : "
+msgstr "Ciudad de creación :"
+
+msgid "You won't be able to revert this!"
+msgstr "Los datos diligenciados en esta sección se perderán"
+
+msgid "Define"
+msgstr "Definir"
+
+msgid "NBS_conservation_activities"
+msgstr "SbN / Actividades de conservación"
+
+msgid "Name"
+msgstr "Nombre"
+
+msgid "Description"
+msgstr "Descripción"
+
+msgid "Options"
+msgstr "Opciones"
+
+msgid "Function name"
+msgstr "Nombre de la función de costo"
+
+msgid "Function"
+msgstr "Función de costo"
+
+msgid "Currency"
+msgstr "Moneda"
+
+msgid "Add"
+msgstr "Añadir"
+
+msgid "Next"
+msgstr "Siguiente"
+
+msgid "Previous"
+msgstr "Anterior"
+
+msgid "Financial parameters"
+msgstr "Parámetros financieros"
+
+msgid "Save"
+msgstr "Guardar"
+
+msgid "Currency for definition of costs"
+msgstr "Moneda para la definición de costos"
+
+msgid "Multiplying factor for overrall cost"
+msgstr "Factor multiplicador del costo global"
+
+msgid "Syntax keyboard"
+msgstr "Operadores disponibles"
+
+msgid "Basic"
+msgstr "Básicos"
+
+msgid "Advanced"
+msgstr "Avanzados"
+
+msgid "Validate"
+msgstr "Validar"
+
+msgid "Close"
+msgstr "Cerrar"
+
+msgid "Add cost"
+msgstr "añadir costo"
+
+msgid "Creation of study cases"
+msgstr "Creación de un caso de estudio"
+
+msgid "In this section the key actions refer to the selection of treatment plants and catchments that make up the case study, since through them the system obtains the indications for the execution of the RIOS model in charge of recommending the areas of implementation of the Nature-Based Solutions NBS."
+msgstr "En esta sección las acciones clave se refieren a la selección de plantas de tratamiento y captaciones que conforman en caso de estudio, ya que a través de ellas el sistema obtiene las indicaciones para la ejecución del modelo RIOS encargado de recomendar las áreas de implementación de las Soluciones basadas en la Naturaleza SbN."
+
+msgid "Thanks to the catchment configuration, the system knows the geographical area in which the user wishes to implement the NBS and analyze the costs, in order to proceed with the ROI analysis."
+msgstr "Gracias a la configuración de captaciones, el sistema conoce el área geográfica en la cual el usuario desea implementar las SbN y analizar los costos, para proceder con el análisis de Retorno de Inversión."
+
+msgid "Remember that ROI is an indicator that allows you to know how much money is lost or earned with the investments made. It is a performance measure used to evaluate the efficiency of an investment or to compare the efficiency of a number of different investments."
+msgstr "Recuerde que el ROI es un indicador que permite saber cuánto dinero se pierde o se gana con las inversiones hechas. Es una medida de desempeño usada para evaluar la eficiencia de una inversión o para comparar la eficiencia de un número de diferentes inversiones."
+
+msgid "Integrate Analysis Associated with the Carbon Market"
+msgstr "Integrar análisis asociados al mercado de carbono"
+
+msgid "offers you the possibility to integrate in your analysis the possible benefits that you can obtain if you expect to participate in carbon markets. This is done by defining a monetary value per Ton of CO2eq."
+msgstr "WaterProof le ofrece la posibilidad de integrar en su análisis los posibles beneficios que puede obtener si se espera participar en mercados de carbono. Esto se hace a partir de la definición de un valor monetario por Tonelada de CO2eq."
+
+msgid "uses information from the database published in May 2020 by the Institute for Climate Economics (Sébastien Postic | Marion Fetet) to preload USD / TonCO2eq values ​​that vary according to the country where the analysis is being carried out, however, the user can modify these values ​​according to the information they have."
+msgstr "WaterProof utiliza la información de la base de datos publicada en mayo de 2020 por el Institute for Climate Economics (Sébastien Postic | Marion Fetet) para precargar valores de USD/TonCO2eq que varían de acuerdo al país en donde se esté realizando el análisis, sin embargo, elusuario puede realizar la modificación de estos valores de acuerdo a la información que posea."
+
+msgid "WaterProof will define the NBS of your portfolio according to your needs in relation to:"
+msgstr "WaterProof definirá las SbNde su portafolio de acuerdo a sus necesidades en relación a:"
+
+msgid "Erosion control to keep sediments out of water courses, avoiding the physical-mechanical loss of soil, the impact on water quality and its deposition in reservoirs, where it can reduce the production capacity of hydroelectric facilities or damage reservoirs and irrigation infrastructure."
+msgstr "Control de la erosión para mantenerlos sedimentos fuera de los cursos de agua, evitando la pérdida físico-mecánica del suelo, la afectación a la calidad del aguay su deposición en los reservorios, donde se puede reducir la capacidad de producción de las instalaciones hidroeléctricas o dañar los reservorios e infraestructura de riego."
+
+msgid "Retention of phosphorus and nitrogen nutrients to maintain nature's processes and reduce potential pollutant loads, which can lead to eutrophication, and / or the generation of algal blooms."
+msgstr "Retención de los nutrientes fósforo y nitrógeno para mantener los procesos de la naturaleza y evitar la eutrofización, la generación de blooms algales, la contaminación térmica, el aumento de la sedimentación, y el aumento de la carga de contaminantes."
+
+msgid "Flood mitigation by addressing situations where the watershed area is previously saturated, and rainfall events cause excess water to run off the saturated ground surface."
+msgstr "Mitigación de inundaciones atacando situacionesen lasque el área de la cuenca está saturada con anterioridad, y eventosde lluvia hacenque el exceso de agua se escurra de la superficie del suelo saturadoocasionando inundaciones."
+
+msgid "Aquifer recharge enhancements that seek to replenish groundwater or increase groundwater stored in aquifers during wet periods to help improve water supply security and sustainability."
+msgstr "Mejoramiento de recarga de acuíferos que buscanla reposición de las aguas subterráneas o el aumento del agua subterránea almacenada en acuíferos durante períodos húmedos para contribuir a mejorar la seguridad y la sostenibilidad del suministro de agua."
+
+msgid "Sustaining or improving the base flow to guarantee efficient processes and infiltration, redistribution, evaporation and percolation of the waters in the territory."
+msgstr "Sostenimiento o mejoramiento del flujo basepara garantizar procesos eficientes e infiltración, redistribución, evaporación y percolación de las aguasen el territorio."
+
+msgid "Adjustment of Biophysical Parameters"
+msgstr "Ajuste de parámetros biofísicos"
+
+msgid "Definition of Financial Parameters"
+msgstr "Definición de parámetros financieros"
+
+msgid "The implementation of your NBS portfolio requires a series of investments to support its implementation, which in the system is called the Platform. This includes the personnel costs, office, travel, acquisition of equipment, among others."
+msgstr "La implementación de su portafolio de SbN requiere de una serie de inversiones para soportar su implementación que en el sistema es llamado Plataforma.Esta incluye los costos de personal, de oficina, viajes, adquisición de equipos, entre otros."
+
+msgid "You may indicate the discount rate that you wish to use to determine the present value of the payments that will be incurred."
+msgstr "Usted podrá indicar la tasa de descuento que desea manejar para determinar el valor presente de los pagos que incurrirá."
+
+msgid "In addition, you need to indicate the minimum and maximum values ​​of the sensitivity analysis that will help you make your decisions in case of unexpected changes in your environment. To do this, WaterProof uses the following equation:"
+msgstr "Además, es necesario que indique los valores mínimos y máximos del análisis de sensibilidad que le ayudarán a tomar sus decisiones en caso de que se presenten cambios inesperados en su entorno. Para ello, WaterProofemplea la siguiente ecuación:"
+
+msgid "Where:"
+msgstr "Dónde:"
+
+msgid "TB  It is the Total of the benefit"
+msgstr "TB: Es el Total del beneficio"
+
+msgid "TD  Discount rate, brought from financial parameters"
+msgstr "TD: Tasa de descuento, traída de los parámetros financieros"
+
+msgid "A  Index for the current year"
+msgstr "A: Índice para el año actual"
+
+msgid "Definition of NBS Activities"
+msgstr "Definición de actividades SbN"
+
+msgid "WaterProof considers a set of Nature-Based Solutions that you can link to your analysis according to your interest in protecting, sustainably managing and restoring natural or modified ecosystems that address social challenges in an effective and adaptive way, providing simultaneous benefits for human well-being and biodiversity."
+msgstr "Los análisis de WaterProof consideran un conjunto de Soluciones basadas en la Naturaleza que usted puede vincular a su análisis de acuerdo a su interés para proteger, gestionar de manera sostenible y restaurar ecosistemas naturales o modificados que abordan los desafíos sociales demanera eficaz y adaptativa, proporcionando simultáneamente beneficios para el bienestar humano y la biodiversidad."
+
+msgid "By default, WaterProof has the following NBS, however you may create new ones that you can link to your analysis. The default NBSs are:"
+msgstr "Por defecto WaterProof dispone las siguientes SbN, sin embargo, usted pudo haber creado nuevas que puede vincular a su análisis. Las SbN pordefecto son:"
+
+msgid "Conservation: refers to actions that seek to conserve current land use coverage by signing conservation agreements, paying forest rangers or fencing off areas."
+msgstr "Conservación: se refieren a las acciones que buscan conservar la cobertura actual mediante la firma de acuerdos de conservación, el pago a guardabosques o el cercado de áreas."
+
+msgid "Passive restoration: when strategic assistance actions are carried out to enable degraded ecosystems that by themselves overcome or eliminate factors that prevented their regeneration."
+msgstr "Restauración pasiva: cuando se realizan acciones de asistencia estratégica para facilitar a los ecosistemas degradados que por sí solos superen o eliminen factores que impedían su regeneración."
+
+msgid "Active restoration: these activities seek to increase floristic diversity by sowing new species, whose individuals have been obtained from the collection of seeds and propagules, their sowing in the nurseries and subsequent planting in the reserve."
+msgstr "Restauración activa: buscan incrementar la diversidad florística, mediante la siembra de nuevas especies, cuyos individuos se hanobtenido a partir de la recolección de semillas y propágulos, su siembra en vivero y posterior plantación en la reserva."
+
+msgid "Agroforestry activities: a series of land-use technologies is used to combine trees with agricultural crops and / or pastures to increase and optimize production in a sustainable manner. The planting of forest crops and trees is used sequentially and in combination, with the application of soil conservation practices."
+msgstr "Actividades agroforestales: en donde se usa una serie de tecnologías para el uso de la tierra en las que se combinan árboles con cultivos agrícolas y/o pastos, para incrementar y optimizar la producción en forma sostenida. Se emplea la siembra de los cultivos y árboles forestales secuencialmente y en combinación, con la aplicación de prácticas de conservación de suelo."
+
+msgid "Pasture and rangeland management: where healthy native grasses and related vegetation are grown to profitably preserve forage availability and livestock production, while ensuring environmental health."
+msgstr "Manejo de pastos y pasturas: en donde se cultivan pastos nativos y vegetación relacionada saludables para preservar de manera rentable la disponibilidad de forraje y la producción pecuaria, garantizando al mismo tiempo la salud del medio ambiente."
+
+msgid "Run the analysis"
+msgstr "Ejecutar análisis"
+
+msgid "This is the last step in the configuration of your case study in which the user defines the time in which they want the analysis of the benefits to be projected, as well as the time that they estimate to carry out theNBS  implementation actions."
+msgstr "Este es el ultimopaso en la configuración de su caso de estudio en el que el usuario define el tiempo en el que desea que se proyecte el análisis de los beneficios en la implementación de sus SbN, así como el tiempo que estima adelantar las acciones de implementación. "
+
+msgid "Then, you must indicate the climatic aspects to consider. WaterProof, by default, allows you to consider the conditions of the Climate Change Scenarios or the known historical conditions. This option is available due to the influence of the climate on the sustainability of program activities and possible additional costs that must be incurred in more adverse conditions."
+msgstr "Seguidamente deberá indicar los aspectos climáticos a considerar. WaterProof por defecto, le permite considerar las condiciones de los Escenarios de cambio climático o las condiciones históricas conocidas. Esto debido a la influencia del clima en la sostenibilidad de sus actividades y posibles costos adicionales que se deben incurrir en condiciones más adversas.."
+
+msgid "Finally, the user can assign financial resources in two ways:"
+msgstr "Finalmente, el usuario podrá asignar los recursos financieros con los que dispone de dos formas:"
+
+msgid "Total portfolio: In which there is no financial limit."
+msgstr "Portafolio total: En el cual no existe un límite financiero"
+
+msgid "Investment scenario: In which the user has a maximum investment figure"
+msgstr "Escenario de inversión: En el cual el usuario cuenta con una cifra máxima de inversión"
+
+msgid "For both situations, the user must indicate the financial allocation percentages for the activities in which they have the greatest interest."
+msgstr "inversiónPara las dos situaciones el usuario debe indicar los porcentajes de asignación financiera para las actividades en las que tiene mayor interés."
+
+msgid "analysis_tip"
+msgstr "Defina el tiempo de análisis, condiciones climáticas para la proyección y los presupuestos de ejecución de las SbN"
+
+msgid "edit"
+msgstr "Editar"
+
+msgid "view"
+msgstr "Ver"
+
+msgid "clone"
+msgstr "Clonar"
+
+msgid "report"
+msgstr "Reportes"
+
+msgid "delete"
+msgstr "Eliminar"

@@ -5,9 +5,14 @@
         width: 735px !important;
     }
 }
+
 .side {
     height: 100%;
-    background-image: url('/static/geonode/img/FONDO.jpg');
+    background-color: #EDF2F7;
+    opacity: 5;
+    border-color: none;
+    border-bottom: none;
+    border-right: none;
 }
 #mapidcuenca{
     width: 350px;
@@ -157,9 +162,7 @@
         position: absolute;
         margin-left: -30rem;
         width: 28rem;
-        height: 48rem;
-        border: 2px solid;
-        border-color: #aaa;
+        height: 46rem;
         border-radius: 0.5rem;
         top: 0px;        
     }

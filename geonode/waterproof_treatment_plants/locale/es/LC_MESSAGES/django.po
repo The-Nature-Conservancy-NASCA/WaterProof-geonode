@@ -42,7 +42,7 @@ msgstr ""
 "Project-Id-Version: GeoNode\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-07-21 14:36-0500\n"
-"PO-Revision-Date: 2021-07-23 23:53-0500\n"
+"PO-Revision-Date: 2021-08-02 16:37-0500\n"
 "Last-Translator: Julien Collaer <julien.collaer@opengeode.be>\n"
 "Language-Team: Spanish (http://www.transifex.com/geonode/geonode/language/es/)\n"
 "Language: es\n"
@@ -322,11 +322,11 @@ msgstr "Desinfección"
 
 #: treatment_plants_edit:227
 msgid "Processes, technologies and cost functions"
-msgstr "Processes, technologies and cost functions"
+msgstr "Procesos, tecnologías y funciones de costo"
 
 #: treatment_plants_edit:70
-msgid "Submit"
-msgstr "Submit"
+msgid "submit "
+msgstr "Guardar "
 
 #: treatment_plants_edit:247
 msgid "Creation of treatment plants"
@@ -411,3 +411,39 @@ msgstr "Captación"
 #: treatment_plants_list:60
 msgid "Water intakes"
 msgstr "Opciones"
+
+#: treatment_plants_edit:60
+msgid "Please confirm or edit the diagram according to your reality"
+msgstr "Observe que por cada proceso el sistema le permitirá definir las funciones de costo. Por cada proceso confirme o edite las funciones de costo como corresponda"
+
+#: treatment_plants_edit:60
+msgid "Treatment Plant"
+msgstr "Planta de tratamiento"
+
+#: treatment_plants_edit:60
+msgid "Submit"
+msgstr "Guardar"
+
+#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:15
+msgid "Treatment plant creation city :"
+msgstr "City of creation :"
+
+#: treatment_plants_edit:60
+msgid "edit"
+msgstr "Editar"
+
+#: treatment_plants_edit:60
+msgid "view"
+msgstr "Ver"
+
+#: treatment_plants_edit:60
+msgid "clone"
+msgstr "Clonar"
+
+#: treatment_plants_edit:60
+msgid "report"
+msgstr "Reportes"
+
+#: treatment_plants_edit:60
+msgid "delete"
+msgstr "Eliminar"

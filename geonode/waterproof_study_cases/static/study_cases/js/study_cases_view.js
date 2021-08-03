@@ -53,6 +53,7 @@ var mapLoader;
 $(document).ready(function() {
     $('#autoAdjustHeightF').css("height", "auto");
     $('#cityLabel').text(localStorage.city+", "+localStorage.country);
+    $('#coeqCountry').text("CO2_country"+" ("+localStorage.country+")");
     calculate_Personnel();
     calculate_Platform();
     loadNBS();

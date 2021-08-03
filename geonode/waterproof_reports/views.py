@@ -4,6 +4,7 @@ import highchartexport as hc_export
 import json
 import requests
 import array
+import codecs
 
 from django.conf import settings
 from django.http import JsonResponse
