@@ -50,6 +50,7 @@ var flagFunctionCost = false;
 $(document).ready(function () {
     $('#autoAdjustHeightF').css("height", "auto");
     $('#cityLabel').text(localStorage.city + ", " + localStorage.country);
+    $('#coeqCountry').text("CO2_country"+" ("+localStorage.country+")");
     var output = document.getElementById('MathPreview');
     var button = document.getElementById('btnValidatePyExp');
     var selectedCostId = 0;
@@ -113,9 +114,13 @@ $(document).ready(function () {
             $("#biophysical-panel").removeClass("panel-hide");
             $("#biophysical-panel").empty();
             loadBiophysicals();
+            $('#txtGuide1').text("tables_text");
+            $('#txtGuide2').text("InVEST_documentation");
         } else {
             $("#biophysical-panel").empty();
             $("#biophysical-panel").addClass("panel-hide");
+            $('#txtGuide1').text("");
+            $('#txtGuide2').text("");
         }
     });
 
@@ -279,6 +284,8 @@ $(document).ready(function () {
             return;
         }
     });
+
+    $("#cm_form").hide();
 
     $("#cb_check").click(function () {
         if ($(this).is(":checked")) // "this" refers to the element that fired the event
@@ -1163,7 +1170,7 @@ $(document).ready(function () {
             labels = data[0]
             content = '<div class="col-md-12"><legend><label>Intake ' + name + '</span> </label></legend>'
             content += '<table id="bio_table_' + id_intake + '" class="table table-striped table-bordered table-condensed" style="width:100%"><thead><tr class="info">'
-            content += '<th scope="col" class="small text-center vat">description</th>'
+            content += '<th scope="col" style="width:1000px !important;" class="small text-center vat">description</th>'
             content += '<th scope="col" class="small text-center vat">lucode</th>'
             $.each(labels, function (key, v) {
                 if (key != 'lucode' && key != 'default' && key != 'lulc_desc' && key != 'description' && key != 'user_id' && key != 'intake_id' && key != 'study_case_id' && key != 'id' && key != 'macro_region' && key != 'kc') {

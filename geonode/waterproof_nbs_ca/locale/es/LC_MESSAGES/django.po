@@ -42,7 +42,7 @@ msgstr ""
 "Project-Id-Version: GeoNode\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-02-19 11:28-0500\n"
-"PO-Revision-Date: 2021-07-27 14:08-0500\n"
+"PO-Revision-Date: 2021-08-02 16:33-0500\n"
 "Last-Translator: \n"
 "Language-Team: Spanish (http://www.transifex.com/geonode/geonode/language/es/)\n"
 "Language: es_419\n"
@@ -434,6 +434,26 @@ msgstr "Si existen áreas con restricciones para la implementación de la SbN,  
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_form.html:19
 msgid "Through this form you can create a custom NbS. Select the country for which you want to be considered and fill in your identification data, costs and the transitions obtained with its implementation."
 msgstr "A través de este formulario usted puede crear una SbN personalizada. Seleccione el país para el cual desea que se considere y diligencie sus datos de identificación, costos y las transiciones obtenidas con su implementación."
+
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_form.html:19
+msgid "edit"
+msgstr "Editar"
+
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_form.html:19
+msgid "view"
+msgstr "Ver"
+
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_form.html:19
+msgid "clone"
+msgstr "Clonar"
+
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_form.html:19
+msgid "report"
+msgstr "Reportes"
+
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_form.html:19
+msgid "delete"
+msgstr "Eliminar"
 
 #~ msgid "Consecution Time Total Benefits (to elimitate)"
 #~ msgstr "Consecution Time Total Benefits (to elimitate)"
