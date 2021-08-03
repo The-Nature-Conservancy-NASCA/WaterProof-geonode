@@ -10,6 +10,7 @@ urlpatterns = [
     path('physical/<int:idx>', views.physicalIndicators, name='physical'),
     path('financial/', views.financialIndicators, name='financial'),
     path('decision/', views.decisionIndicators, name='decision'),
+    path('pdf/', views.pdf, name='pdf'),
     path('geographic/', views.geographicIndicators, name='geographic'),
     path('getSensibilityAnalysisCost/', api.getSensibilityAnalysisCost, name='get-sensibility-analysis-cost'),
     path('getSensibilityAnalysisBenefits/', api.getSensibilityAnalysisBenefits, name='get-sensibility-analysis-benefits'),

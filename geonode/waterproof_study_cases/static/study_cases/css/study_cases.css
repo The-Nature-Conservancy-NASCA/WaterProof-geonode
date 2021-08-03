@@ -24,9 +24,17 @@
     margin-right: 4px;
 }
 
+.align-text-left{
+    text-align: left;
+}
+
 .vertical-align {
     display: flex;
     align-items: center;
+}
+
+.btn-group-table {
+    display: flex;
 }
 
 .text-danger-wp {
@@ -218,6 +226,10 @@
     float: right;
 }
 
+.margin-bottom-max{
+    margin-bottom: 0%;
+}
+
 .custom-control-label {
     font-weight: 100;
 }
@@ -288,6 +300,6 @@
     cursor: pointer;
 }
 
-.studycases_wrapper{
+#studycases_wrapper{
     margin-top: 40px;
 }

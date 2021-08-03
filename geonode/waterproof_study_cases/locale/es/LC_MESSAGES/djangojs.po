@@ -27,7 +27,7 @@ msgstr ""
 "Project-Id-Version: GeoNode\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-11-28 18:12+0000\n"
-"PO-Revision-Date: 2020-05-19 18:03-0600\n"
+"PO-Revision-Date: 2021-07-30 13:25-0500\n"
 "Last-Translator: Julien Collaer <julien.collaer@opengeode.be>\n"
 "Language-Team: Spanish (http://www.transifex.com/geonode/geonode/language/"
 "es/)\n"
@@ -36,7 +36,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.3.1\n"
+"X-Generator: Poedit 2.4.3\n"
 
 #: geonode/monitoring/static/monitoring/bundle.js:170
 msgid "STORE_UPDATED"
@@ -473,6 +473,9 @@ msgstr ""
 "opciones obligatorias han sido validadas.\n"
 "\n"
 "Por favor, comprobar si hay errores en el formulario!"
+
+msgid "CO2_country"
+msgstr "CO2 Eq for "
 
 #, fuzzy
 #~| msgid "Now"
@@ -992,4 +995,3 @@ msgstr ""
 
 #~ msgid "No error message supplied"
 #~ msgstr "No error message supplied"
-

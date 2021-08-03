@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: Waterproof Valpha\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-07-21 14:59-0500\n"
-"PO-Revision-Date: 2021-07-23 23:27-0500\n"
+"PO-Revision-Date: 2021-07-29 12:35-0500\n"
 "Last-Translator: Julien Collaer <julien.collaer@opengeode.be>\n"
 "Language-Team: English Skaphe\n"
 "Language: en\n"
@@ -28,6 +28,34 @@ msgstr "You won't be able to revert this!"
 msgid "Yes, delete it!"
 msgstr "Yes, delete it!"
 
+#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:15
+msgid "Treatment plant creation city :"
+msgstr "City of creation:"
+
 #: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:16
 msgid "Trouble deleting treatment plant, must be in use in one study case"
 msgstr "Trouble deleting treatment plant, must be in use in one study case"
+
+#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:15
+msgid "Create Treatment Plant"
+msgstr "Create a new DWTP"
+
+#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:15
+msgid "Update Treatment Plant"
+msgstr "Edit a DWTP"
+
+#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:15
+msgid "Clone Treatment Plant"
+msgstr "Clone a DWTP"
+
+#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:15
+msgid "View Treatment Plant"
+msgstr "View DWTP"
+
+#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:15
+msgid "Problemas calculando la planta sugerida"
+msgstr "Trouble calculating the suggested plant"
+
+#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:15
+msgid "Error"
+msgstr "Error"

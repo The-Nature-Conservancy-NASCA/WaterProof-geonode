@@ -310,8 +310,10 @@
             <li>
               <a href="{% url "take-action" %}">{% trans "Take Action" %}</a>
             </li>
+<!--
+
             {% if user.is_authenticated %}
-            <li id="nav_layers">
+            li id="nav_layers">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{% trans "Data" %}<i class="fa fa-angle-down fa-lg"></i></a>
               <ul class="dropdown-menu">
                 <li><a href="{% url "layer_browse" %}?limit={{ CLIENT_RESULTS_LIMIT }}">{% trans "Layers" %}</a></li>
@@ -333,6 +335,8 @@
               </ul>
             </li>
             {% endif %}
+          -->
+
             <!--
             <li id="nav_maps">
                 {% if user.is_authenticated %}
@@ -348,6 +352,9 @@
                 {% endif %}
             </li>
             -->
+
+
+            <!--
             {% if GEONODE_APPS_ENABLE and GEONODE_APPS_NAV_MENU_ENABLE and user.is_authenticated %}
             <li id="nav_maps">
               {% if user.is_authenticated %}
@@ -364,6 +371,9 @@
               {% endif %}
             </li>
             {% endif %}
+            -->
+
+            
             <!--
             <li>
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{% trans "About" %}<i class="fa fa-angle-down fa-lg"></i></a>
@@ -481,13 +491,13 @@
       <p>{% trans "Please use a <strong>modern browser</strong> like Mozilla Firefox, Google Chrome or Safari." %}</p>
     </div>
 
-  <div id="wrap" style="position: relative;">
+  <div id="wrap" style="position: relative;" >
     {% block middle %}
       {% block sidenav %}
       <nav id="sidebar-wrapper" class="side">
-        <div class="p-4 pt-5">
+        <div class="p-4 pt-5 element.style">
             <ul class="sidebar-nav">
-              <li class="subtitle">
+              <!--li class="subtitle">
                 <a href="#SBN" data-toggle="collapse" aria-expanded="false" class="action">
                     <img src="/static/geonode/img/01-flecha.png" class="flecha"><h5> {% trans "Nature-based solutions" %} </h5></a>
                 <ul class="submenu" id="SBN" style="display: none;">
@@ -502,10 +512,10 @@
                   </li>
                   {% endif %}
                 </ul>
-            </li>
+            </li-->
             <li class="subtitle">
               <a href="#Intake" data-toggle="collapse" aria-expanded="false" class="action">
-                  <img src="/static/geonode/img/01-flecha.png" class="flecha"><h5>{% trans "Intakes" %}</h5>
+                  <img src="/static/geonode/img/01-flecha.png" class="flecha"><h5>{% trans "Water Intakes" %}</h5>
               </a>
               <ul class="submenu opacity" id="Intake" style="display: none;">
                 <li>

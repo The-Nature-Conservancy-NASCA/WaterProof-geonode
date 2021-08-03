@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: Waterproof valpha\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-07-21 14:36-0500\n"
-"PO-Revision-Date: 2021-07-23 23:55-0500\n"
+"PO-Revision-Date: 2021-08-02 16:39-0500\n"
 "Last-Translator: Julien Collaer <julien.collaer@opengeode.be>\n"
 "Language-Team: Skaphe\n"
 "Language: en\n"
@@ -294,8 +294,8 @@ msgid "Processes, technologies and cost functions"
 msgstr "Processes, technologies and cost functions"
 
 #: treatment_plants_edit:70
-msgid "Submit"
-msgstr "Save"
+msgid "Submit "
+msgstr "Save "
 
 #: treatment_plants_edit:247
 msgid "Creation of treatment plants"
@@ -380,3 +380,39 @@ msgstr "Water intake"
 #: treatment_plants_list:60
 msgid "Water intakes"
 msgstr "Options"
+
+#: treatment_plants_edit:60
+msgid "Please confirm or edit the diagram according to your reality"
+msgstr "Note that for each process the system will allow you to define cost functions. For each process, confirm or edit the cost functions accordingly"
+
+#: treatment_plants_edit:60
+msgid "Treatment Plant"
+msgstr ""
+
+#: treatment_plants_edit:60
+msgid "Submit"
+msgstr "Save"
+
+#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:15
+msgid "Treatment plant creation city :"
+msgstr "City of creation :"
+
+#: treatment_plants_edit:60
+msgid "edit"
+msgstr "Edit"
+
+#: treatment_plants_edit:60
+msgid "view"
+msgstr "View"
+
+#: treatment_plants_edit:60
+msgid "clone"
+msgstr "Clone"
+
+#: treatment_plants_edit:60
+msgid "report"
+msgstr "Report"
+
+#: treatment_plants_edit:60
+msgid "delete"
+msgstr "Delete"

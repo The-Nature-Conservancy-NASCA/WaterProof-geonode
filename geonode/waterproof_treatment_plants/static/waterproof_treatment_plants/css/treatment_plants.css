@@ -9,6 +9,7 @@ textarea {
     width: 150px;
     left: 50%;
     margin-left: -67px;
+    text-align: center;
 }
 .container-intake {
     margin: 30px;
@@ -604,4 +605,25 @@ textarea {
         width: auto !important;
         border: 2px solid; 
    } 
+}
+.table-center-item{
+    display: block;
+    text-align:center;
+    vertical-align: middle;
+}
+
+.align-text-table{
+    text-align: left;
+}
+
+.items-align-center{
+    align-items: center;
+}
+
+.btn-group-table {
+    display: flex;
+}
+
+.btn-primary{
+    align-items: center;
 }
