@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Waterproof Valpha\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-02-19 11:27-0500\n"
-"PO-Revision-Date: 2021-08-02 18:01-0500\n"
+"PO-Revision-Date: 2021-08-03 11:32-0500\n"
 "Last-Translator: Julien Collaer <julien.collaer@opengeode.be>\n"
 "Language-Team: Skaphe\n"
 "Language: en\n"
@@ -27,7 +27,7 @@ msgstr "In this section WaterProof provides you to understand the possible chang
 
 #: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
 msgid "Study Case"
-msgstr "Study case"
+msgstr "Case study"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
 msgid "City:"
@@ -280,116 +280,117 @@ msgid "Interventions results ind text 1"
 msgstr "In this section you can get a view of activity implementation costs per hectare and quantify the distribution of the types of activities. Select the water basin of interest to see details:"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/decisionIndicators.html:28
+#: geonode/waterproof_reports/templates/waterproof_reports/geographicIndicators.html:83
 msgid "En este reporte se presenta de forma sintetizada las proporciones en inversión y beneficios que se lograrán por la implementación de las SbN:"
-msgstr ""
+msgstr "This report summarizes the proportions in investment and benefits that will be achieved by the implementation of the NbS:"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/decisionIndicators.html:28
 msgid "Reports"
-msgstr ""
+msgstr "Reports"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/decisionIndicators.html:83
 msgid "Incidence of benefits and cost"
-msgstr ""
+msgstr "Incidence of benefits and cost"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/decisionIndicators.html:84
 msgid "Portfolio Efficiency"
-msgstr ""
+msgstr "Portfolio efficiency"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/decisionIndicators.html:85
 msgid "Oportunity result"
-msgstr ""
+msgstr "Opportunity result"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/decisionIndicators.html:86
 msgid "Physical and risk indicator"
-msgstr ""
+msgstr "Physical and risk indicator"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/decisionIndicators.html:86
 msgid "Result of interventions"
-msgstr ""
+msgstr "Result of interventions"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/decisionIndicators.html:142
 msgid "Change in volume of water yield (%)"
-msgstr ""
+msgstr "Change in volume of water yield (%)"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/decisionIndicators.html:142
 msgid "Change in base flow (%)"
-msgstr ""
+msgstr "Change in base flow (%)"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/decisionIndicators.html:142
 msgid "Change in total sediments (%)"
-msgstr ""
+msgstr "Change in total sediments (%)"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/decisionIndicators.html:142
 msgid "Change in nitrogen load (%)"
-msgstr ""
+msgstr "Change in nitrogen load (%)"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/decisionIndicators.html:142
 msgid "Change in phosphorus load (%)"
-msgstr ""
+msgstr "Change in phosphorus load (%)"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/decisionIndicators.html:142
 msgid "Change in carbon storage (%)"
-msgstr ""
+msgstr "Change in carbon storage (%)"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/decisionIndicators.html:142
 msgid "ROI on Green Infrastructure Water treatment Opportunity"
-msgstr ""
+msgstr "ROI on Green Infrastructure Water treatment Opportunity"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/decisionIndicators.html:142
 msgid "Adove 1"
-msgstr ""
+msgstr "Above 1"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/decisionIndicators.html:142
 msgid "Total estimated investment"
-msgstr ""
+msgstr "Total estimated investment"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/decisionIndicators.html:142
 msgid "Total treatment cost savings"
-msgstr ""
+msgstr "Total treatment cost savings"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/decisionIndicators.html:142
 msgid "Total area investment size (Ha)"
-msgstr ""
+msgstr "Total area investment size"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/decisionIndicators.html:206
 msgid "Size recomended intervetion as a percent to total area"
-msgstr ""
+msgstr "Size recommended intervetion as a percent to total area"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/decisionIndicators.html:206
 msgid "Intervetion"
-msgstr ""
+msgstr "Intervention"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/decisionIndicators.html:206
 msgid "Watershed information"
-msgstr ""
+msgstr "Watershed information"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/decisionIndicators.html:206
 msgid "Total size:"
-msgstr ""
+msgstr "Total size:"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/decisionIndicators.html:206
 msgid "Green infraestructure activity"
-msgstr ""
+msgstr "NbS Activity"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/decisionIndicators.html:206
 msgid "Cost per hectare (USD)"
-msgstr ""
+msgstr "Cost per hectare"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/decisionIndicators.html:206
 msgid "Recommended intervetion (Hectares)"
-msgstr ""
+msgstr "Recommended intervetion (Ha)"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/financialIndicators.html:206
 msgid "This report summarizes the proportions in investment and benefits that will be achieved by the implementation of the SbN:"
-msgstr ""
+msgstr "This report summarizes the proportions in investment and benefits that will be achieved by the implementation of the SbN:"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/financialIndicators.html:83
 msgid "Return of investment (ROI)"
-msgstr ""
+msgstr "Return of investment (ROI)"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/financialIndicators.html:83
 msgid "Net Present Value (NPV)"
-msgstr ""
+msgstr "Net present value (NPV)"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/financialIndicators.html:83
 msgid "Sensitivity Analysis"
@@ -397,8 +398,148 @@ msgstr "Sensitivity Analysis"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/financialIndicators.html:83
 msgid "Benefits"
-msgstr ""
+msgstr "Benefits"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/financialIndicators.html:83
 msgid "Cost"
-msgstr ""
+msgstr "Cost"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/geographicIndicators.html:83
+msgid "currency:"
+msgstr "Currency:"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/geographicIndicators.html:83
+msgid "NBS Vieber"
+msgstr "NbS Viewer"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/geographicIndicators.html:99
+msgid "Business as usual"
+msgstr "Business as usual"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/geographicIndicators.html:102
+msgid "Volume of water yield (change in time)"
+msgstr "Volume of water yield (change in time)"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/geographicIndicators.html:106
+msgid "Anual volume base flow (change in time)"
+msgstr "Anual volume base flow (change in time)"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/geographicIndicators.html:110
+msgid "Total sediments (change in time)"
+msgstr "Total sediments (change in time)"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/geographicIndicators.html:114
+msgid "Nitrogen load (change in time)"
+msgstr "Nitrogen load (change in time)"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/geographicIndicators.html:118
+msgid "Phosphorus load (change in time)"
+msgstr "Phosphorus load (change in time)"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/geographicIndicators.html:122
+msgid "Carbon storage (change in time)"
+msgstr "Carbon storage (change in time)"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/geographicIndicators.html:126
+msgid "NBS Scenario"
+msgstr "NbS scenario"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/geographicIndicators.html:155
+msgid "NBS Scenario - AWY (m3)"
+msgstr "NbS scenario - AWY (m3)"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/geographicIndicators.html:159
+msgid "Year"
+msgstr "Year"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/geographicIndicators.html:160
+msgid "Nitrogen"
+msgstr "Nitrogen"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/geographicIndicators.html:160
+msgid "NBS Scenario - WN (kg)"
+msgstr "NbS scenario - WN (kg)"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/geographicIndicators.html:200
+msgid "NBS Scenario - WP (kg)"
+msgstr "NbS scenario - WP (kg)"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/geographicIndicators.html:215
+msgid "NBS Scenario - BF (m3)"
+msgstr "NbS scenario - BF (m3)"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/geographicIndicators.html:230
+msgid "NBS Scenario - WC (Ton)"
+msgstr "NbS scenario - WC (Ton)"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/geographicIndicators.html:245
+msgid "Business as usual - AWY (m3)"
+msgstr "BaU scenario - AWY (m3)"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/geographicIndicators.html:260
+msgid "Business as usual - Wsed (Ton)"
+msgstr "BaU scenario - Wsed (Ton)"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/geographicIndicators.html:275
+msgid "Business as usual - WN (kg)"
+msgstr "BaU scenario - WN (kg)"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/geographicIndicators.html:290
+msgid "Business as usual - WP (kg)"
+msgstr "BaU scenario - WP (kg)"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/geographicIndicators.html:305
+msgid "Business as usual - BF (m3)"
+msgstr "BaU scenario - BF (m3)"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/geographicIndicators.html:320
+msgid "Business as usual - WC (Ton)"
+msgstr "BaU scenario - WC (Ton)"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/physicalIndicators.html:16
+msgid "Physical Indicators"
+msgstr "Physical Indicators"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/physicalIndicators.html:25
+msgid "Physical idicators (INVEST)"
+msgstr "Physical idicators (InVEST)"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/physicalIndicators.html:30
+msgid "CPhysical and risk indicators"
+msgstr "Physical and risk indicators"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/physicalIndicators.html:35
+msgid "Interventtions results"
+msgstr "Interventions results"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/physicalIndicators.html:44
+msgid "Water intake"
+msgstr "Water intake"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/physicalIndicators.html:46
+msgid "Select an Intake"
+msgstr "Select an intake"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/physicalIndicators.html:72
+msgid "Indicator"
+msgstr "Indicator"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/physicalIndicators.html:75
+msgid "Change in base flow(%)"
+msgstr "Change in base flow (%)"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/physicalIndicators.html:78
+msgid "Change in phosphorus Load (%)"
+msgstr "Change in phosphorus load (%)"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/physicalIndicators.html:78
+msgid "Change in carbon storage"
+msgstr "Change in carbon storage (%)"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/physicalIndicators.html:80
+msgid "Date"
+msgstr "Date"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/physicalIndicators.html:80
+msgid "Name"
+msgstr "Name"
