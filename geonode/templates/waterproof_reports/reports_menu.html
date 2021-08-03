@@ -628,8 +628,8 @@ $(function () {
 
                 if(value.color === "Dark Green") {
                     objectButton.style.backgroundColor = "#155816";
-                } else if(value.color === "Light Green") {
-                    objectButton.style.backgroundColor = "#35b137";
+                } else if(value.color === "Orange") {
+                    objectButton.style.backgroundColor = "#EC670A";
                 } else {
                     objectButton.style.backgroundColor = "#af0900";
                 }
@@ -641,20 +641,20 @@ $(function () {
         var urlDetail = "../../reports/getReportAnalisysBeneficsB/?studyCase=" + localStorage.idStudyCase;
         $.getJSON(urlDetail, function (data) {
             $.each( data, function( key, value ) {
-                document.getElementById("changeInVolumeOfWater").innerHTML = value.changeInVolumeOfWater.toFixed(2);
-                document.getElementById("changeInBaseFlow").innerHTML = value.changeInBaseFlow.toFixed(2);
-                document.getElementById("changeIntotalSediments").innerHTML = value.changeIntotalSediments.toFixed(2);
-                document.getElementById("changeInNitrogenLoad").innerHTML = value.changeInNitrogenLoad.toFixed(2);
-                document.getElementById("changeInPhosphorus").innerHTML = value.changeInPhosphorus.toFixed(2);
-                document.getElementById("changeInCarbonStorage").innerHTML = value.changeInCarbonStorage.toFixed(2);
+                document.getElementById("changeInVolumeOfWater").innerHTML = (value.changeInVolumeOfWater.toFixed(2)+"%");
+                document.getElementById("changeInBaseFlow").innerHTML = (value.changeInBaseFlow.toFixed(2)+"%");
+                document.getElementById("changeIntotalSediments").innerHTML = (value.changeIntotalSediments.toFixed(2)+"%");
+                document.getElementById("changeInNitrogenLoad").innerHTML = (value.changeInNitrogenLoad.toFixed(2)+"%");
+                document.getElementById("changeInPhosphorus").innerHTML = (value.changeInPhosphorus.toFixed(2)+"%");
+                document.getElementById("changeInCarbonStorage").innerHTML = (value.changeInCarbonStorage.toFixed(2)+"%");
                 document.getElementById("idCurrencyMain").innerHTML = value.currency;
                 document.getElementById("idTimeMain").innerHTML = value.time;
                 document.getElementById("idRoi").innerHTML = value.roi.toFixed(2);
                 var nameButtom = value.result.split("::");
                 if(nameButtom[1] === "Dark Green") {
                     document.getElementById("idBtnRoi").style.backgroundColor = "#155816";
-                } else if(nameButtom[1] === "Light Green") {
-                    document.getElementById("idBtnRoi").style.backgroundColor = "#35b137";
+                } else if(nameButtom[1] === "Orange") {
+                    document.getElementById("idBtnRoi").style.backgroundColor = "#EC670A";
                 } else {
                     document.getElementById("idBtnRoi").style.backgroundColor = "#af0900";
                 }
