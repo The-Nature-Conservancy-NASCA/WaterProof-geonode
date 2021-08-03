@@ -81,7 +81,7 @@
         <div class="title-report" style="font-size: 20px;">{% trans "Financial summary" %}</div>
         <div class="col-md-12">
             <div class="col-md-1"></div>
-            <div class="content-image col-md-3">
+            <div class="content-image-graph col-md-3">
                 <div>
                     <div class="name-roi">{% trans "Calculated ROI:" %} <div class="value-roi" id="idRoi"></div></div>
                 
@@ -211,9 +211,10 @@
                 <a href="../../reports/decision/">{% trans "Decision indicators" %}</a>
             </div>
             <div style="float: left;width: 25%;" id="idGeographicIndicators">
-                <img src="/static/geonode/img/indicadores-geograficos.png" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;" title="{% trans "Geographic visualization" %}"/>
+                <img src="/static/geonode/img/indicadores-geograficos.png" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black; opacity: 30%;" title="{% trans "Geographic visualization" %}"/>
                 <br>
-                <a href="../../reports/geographic/">{% trans "Geographic visualization" %}</a>
+                <a>{% trans "Geographic visualization" %}</a>
+                <!--a href="../../reports/geographic/">{% trans "Geographic visualization" %}</a-->
             </div>
 
         </div>
