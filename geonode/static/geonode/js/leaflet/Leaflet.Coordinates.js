@@ -172,6 +172,7 @@ L.Control.Coordinates = L.Control.extend({
 			if (this.options.centerUserCoordinates) {
 				this._map.setView(ll, this._map.getZoom());
 			}
+			this._updateCityCoords(ll);
 		}
 	},
 
@@ -310,24 +311,27 @@ L.Control.Coordinates = L.Control.extend({
 			this._currentPos = pos;
 			this._inputY.value = L.NumberFormatter.round(pos.lat, opts.decimals, opts.decimalSeperator);
 			this._inputX.value = L.NumberFormatter.round(pos.lng, opts.decimals, opts.decimalSeperator);
-			if (typeof waterproof !== 'undefined') {
-				waterproof["cityCoords"] = [pos.lat, pos.lng];
-			}
-			else {
-				waterproof = {
-					"cityCoords": [pos.lat, pos.lng]
-				}
-			}
-			// Put the object into storage
-			localStorage.setItem('cityCoords', JSON.stringify(waterproof["cityCoords"]));
-			//this._label.innerHTML = this._createCoordinateLabel(pos);
-
-			
+			this._updateCityCoords(pos);
+			//this._label.innerHTML = this._createCoordinateLabel(pos);			
 		}
 	},
 
 	_createNewMarker: function() {
 		return this.options.markerType(null, this.options.markerProps);
+	},
+
+	_updateCityCoords: function(pos) {
+		if (typeof waterproof !== 'undefined') {
+			waterproof["cityCoords"] = [pos.lat, pos.lng];
+		}
+		else {
+			waterproof = {
+				"cityCoords": [pos.lat, pos.lng]
+			}
+		}
+		// Put the object into storage
+		localStorage.setItem('cityCoords', JSON.stringify(waterproof["cityCoords"]));
+
 	}
 
 });
