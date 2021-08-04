@@ -577,7 +577,7 @@ def save(request):
                 if(run == 'true'):
                     resp = requests.get(settings.WATERPROOF_MODELS_PY2_API + 'preprocRIOS',
                                     params={'id_usuario': request.user.id,
-                                            'id_case': id_study_case})
+                                            'id_case': id_study_case},verify=False)
                     if resp.status_code == 200:
                         sc.is_run_analysis = True
                         sc.edit_date = datetime.datetime.now()

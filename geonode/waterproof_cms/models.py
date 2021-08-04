@@ -38,17 +38,17 @@ class TranslatablePageMixin(models.Model):
     class Meta:
         abstract = True
 
-class LanguageRedirectionPage(Page):
+# class LanguageRedirectionPage(Page):
 
-    def serve(self, request):
-        language = translation.get_language_from_request(request)
+#     def serve(self, request):
+#         language = translation.get_language_from_request(request)
 
-        return HttpResponseRedirect(self.url + language + '/')
+#         return HttpResponseRedirect(self.url + language + '/')
 
 
-class HomePage(Page):
-    body = RichTextField(blank=True)
+# class HomePage(Page):
+#     body = RichTextField(blank=True)
 
-    content_panels = Page.content_panels + [
-        FieldPanel('body', classname="full"),
-    ]
+#     content_panels = Page.content_panels + [
+#         FieldPanel('body', classname="full"),
+#     ]
