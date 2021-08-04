@@ -199,14 +199,14 @@ $(document).ready(function() {
     }
 
     function loadNBS() {
-        var country = localStorage.country
+        var city_id = localStorage.cityId
         $.post("../../study_cases/nbs/", {
             id_study_case: id_study_case,
-            country: country,
+            city_id: city_id,
             process: "View"
-        }, function(data) {
+        }, function (data) {
             content = ''
-            $.each(data, function(index, nbs) {
+            $.each(data, function (index, nbs) {
                 var name = nbs.name;
                 var id = nbs.id
                 var def = nbs.default
@@ -219,7 +219,7 @@ $(document).ready(function() {
                 content += '<label class="custom-control-label" for="nbs-' + id + '"> ' + name + '</label></div></li>'
                 $("#nbs-ul").append(content);
             });
-            $('#autoAdjustHeightF').css("height", "auto");
+            autoAdjustHeight();
 
         });
     }

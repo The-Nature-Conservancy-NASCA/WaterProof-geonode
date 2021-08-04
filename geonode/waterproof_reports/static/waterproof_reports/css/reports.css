@@ -6,6 +6,20 @@
     margin-bottom: 30px;
     width: 100%;
 }
+.container-step-3{
+    border-style: solid;
+    border: 3px;
+    border-color: #1389AA;
+}
+
+.border-step-3{
+    border-bottom: 1px solid;
+    border-left: 1px solid;
+    border-right: 1px solid;
+    border-color: #1389AA;
+    margin-bottom: 3%;
+}
+
 .title-table {
     text-align: center;
     color: #ffffff;
@@ -286,7 +300,7 @@
 }
 .marc-report {
     width: 23%;
-    font-size: 11px;
+    font-size: 12px;
     border-width: 2px;
     border-style: solid;
     border-color: #1389AA;
@@ -409,7 +423,7 @@
     margin-bottom: 30px;
     border-width: 1px;
     border-color: #1389AA;
-    padding: 10px;
+    /*padding: 10px;*/
 }
 .table-bordered {
     border: 1px solid #1389AA !important;

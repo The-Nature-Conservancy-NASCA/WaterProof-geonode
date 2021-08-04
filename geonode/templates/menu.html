@@ -310,6 +310,16 @@
             <li>
               <a href="{% url "take-action" %}">{% trans "Take Action" %}</a>
             </li>
+            <li id="nav_layers">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{% trans "NbS" %}<i class="fa fa-angle-down fa-lg"></i></a>
+              <ul class="dropdown-menu">
+                <li><a href="{% url "list-nbs" %}?limit={{ CLIENT_RESULTS_LIMIT }}">{% trans "List" %}</a></li>
+                {% if user.is_authenticated and not READ_ONLY_MODE %}
+                <li><a href="/waterproof_nbs_ca/create/" id="nbs-createUrl" >{% trans "Create" %}</a></li>
+                {% endif %}
+              </ul>
+            </li>
+
 <!--
 
             {% if user.is_authenticated %}

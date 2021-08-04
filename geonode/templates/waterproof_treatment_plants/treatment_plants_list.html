@@ -67,7 +67,7 @@
                 <td class="small text-center vat align-text-table">{{treatmentPlants.plantName}}</td>
                 <td class="small text-center vat align-text-table">{{treatmentPlants.plantDescription}}</td>
                 <td class="small text-center vat">{{treatmentPlants.plantUser}}</td>
-                <td class="small text-center vat">{{treatmentPlants.plantDate | date:"d-m-y"}}</td>
+                <td id="date" class="small text-center vat">{{treatmentPlants.plantDate}}</td>
                 <td class="small text-center vat">{{treatmentPlants.standardNameSpanish}}</td>
                 <td class="small text-center vat">
                     {% for intake in treatmentPlants.plantIntakeName %}
