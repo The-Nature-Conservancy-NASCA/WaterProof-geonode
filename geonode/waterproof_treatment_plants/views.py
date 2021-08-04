@@ -21,7 +21,7 @@ def treatmentPlantsList(request):
 			city_id = request.GET['city']
 		except:
 			city_id = ''
-		response = requests.get(settings.SITE_HOST_API + 'treatment_plants/getTreatmentPlantsList/?city='+city_id)
+		response = requests.get(settings.SITE_HOST_API + 'treatment_plants/getTreatmentPlantsList/?city='+city_id,verify=False)
 		return render(
 			request,
 			'waterproof_treatment_plants/treatment_plants_list.html',
