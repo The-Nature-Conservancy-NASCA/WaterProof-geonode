@@ -157,6 +157,7 @@ $(document).ready(function() {
         if (implementation && !isNaN(implementation)) {
             total += parseFloat(implementation)
         }
+        //total_personnel.html(new Intl.NumberFormat('es').format(total));
         total_personnel.val(total)
     }
 

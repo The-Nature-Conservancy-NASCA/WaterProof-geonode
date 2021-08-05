@@ -47,10 +47,12 @@ def getTreatmentPlantsList(request):
 
 			if lastInstakeName != tratamentPlants.csinfra_plant.plant_name:
 				lastInstakeName = tratamentPlants.csinfra_plant.plant_name
+				datePTAP = tratamentPlants.csinfra_plant.plant_date_create
+				dateFormat = datePTAP.strftime("%Y-%m-%d")
 				objects_list.append({
 					"plantId": tratamentPlants.csinfra_plant.id,
 					"plantUser": tratamentPlants.csinfra_plant.plant_user,
-					"plantDate": tratamentPlants.csinfra_plant.plant_date_create,
+					"plantDate": dateFormat,
 					"plantName": tratamentPlants.csinfra_plant.plant_name,
 					"plantDescription": tratamentPlants.csinfra_plant.plant_description,
 					"plantSuggest": tratamentPlants.csinfra_plant.plant_suggest,
