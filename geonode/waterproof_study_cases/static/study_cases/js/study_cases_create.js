@@ -807,12 +807,12 @@ $(document).ready(function () {
                             input_id = input.id
                             input_type = input.type
                             if (input_id && input_type != 'hidden') {
-                                split = input_id.split('-')
+                                split = input_id.split('-');
                                 nbssc_id = split.pop();
-                                val = $("#" + input_id).val()
+                                val = $("#" + input_id).val();
                                 nbsactivity['id'] = nbssc_id;
                                 nbsactivity['value'] = val;
-                                nbsactivities.push(nbsactivity)
+                                nbsactivities.push(nbsactivity);
                             }
                         });
                         $.post("../../study_cases/save/", {
