@@ -32,9 +32,9 @@ $(document).ready(function () {
   }).addTo(map);
 
   //let urlWaterProofLyrsWMS = 'http://localhost:81/?map=/etc/mapserver/1000_142_2021-6-25.map&SERVICE=WMS';
-  let lyrNameYear0 = `WI_${intake}_LULC_SA_1_YEAR_0`;
+  let lyrNameYear0 = `WI_${intake}_LULC_${region}_YEAR_0`;
   let lyrNameLastYear = `WI_${intake}_LULC_LAST_YEAR`;
-  let lyrNameYearFuture = `WI_${intake}_LULC_SA_1_FUTURE`;
+  let lyrNameYearFuture = `WI_${intake}_LULC_${region}_FUTURE`;
 
   let lyrNameAWY = `WI_${intake}_Annual_Water_Yield`;
   let lyrNameSWY = `WI_${intake}_Seasonal_Water_Yield`;
@@ -47,20 +47,22 @@ $(document).ready(function () {
 
   let attribution = "Waterproof data © 2021 TNC"
 
-  let lyrsNames = [lyrNameYear0, lyrNameLastYear, lyrNameYearFuture];
+  let lyrsNames = [lyrNameLastYear];
   var overlaysLeft = {};
   lyrsNames.forEach(function (lyrName) {
     overlaysLeft[lyrName] = createWMSLyr(lyrName).addTo(mapLeft);
   });
 
   var overlaysRight = {};
+  lyrsNames = [lyrNameYearFuture];
   lyrsNames.forEach(function (lyrName) {
     overlaysRight[lyrName] = createWMSLyr(lyrName).addTo(mapRight);
     createLegend(lyrName);
   });
 
   var overlays = {};
-  lyrsModelsResult.forEach(function (lyrName) {
+  lyrsNames = [lyrNameYear0];
+  lyrsNames.forEach(function (lyrName) {
     overlays[lyrName] = createWMSLyr(lyrName).addTo(map);    
   });
 
