@@ -419,6 +419,10 @@
         function clearInputsMath() {
             console.log("clearInputsMath");         
         }
+
+        $('#loadXml').click(function() {
+            loadDefaultXmlDiagram(editor);
+        });
  
         /* $("#currencyCost").on("change", function() {
             $.ajax({
@@ -928,4 +932,23 @@
             });
         };      
      }); 
+
+     function loadDefaultXmlDiagram(editor) {
+        $.ajax({
+            type: "GET",
+            url: "/uploaded/xml/intake_default.xml",
+            dataType: "xml",
+            success: function ( response ) {  
+                let xmlText = new XMLSerializer().serializeToString(response);          
+                xmlDoc = mxUtils.parseXml(xmlText);
+                var dec = new mxCodec(xmlDoc);
+                dec.decode(xmlDoc.documentElement, editor.graph.getModel());
+                //console.log(xmlText);
+            },
+            error: function (e) {
+                alert("An error occurred while processing XML file");
+                console.log("XML reading Failed: ", e);
+            },
+        });
+    }
  }
