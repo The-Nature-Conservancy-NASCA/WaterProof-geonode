@@ -41,7 +41,7 @@ def pdf(request):
     pdf.ln(0.15)
     pdf.cell(0, 125, 'los resultados de indicadores');
 
-    requestJson = requests.get(settings.SITE_HOST_API + 'reports/getReportCostsAnalysisRoi/?studyCase=177')
+    requestJson = requests.get(settings.SITE_HOST_API + 'reports/getReportCostsAnalysisRoi/?studyCase=177',verify=False)
     data = requestJson.json()
 
     categories = []
@@ -92,7 +92,7 @@ def pdf(request):
 
     hc_export.save_as_png(config=config, filename="igocab.png")
 
-    requestJson = requests.get(settings.SITE_HOST_API + 'reports/getCostAndBenefit/?studyCase=177')
+    requestJson = requests.get(settings.SITE_HOST_API + 'reports/getCostAndBenefit/?studyCase=177',verify=False)
     data = requestJson.json()
 
     dataCost = []
@@ -127,7 +127,7 @@ def pdf(request):
 
     hc_export.save_as_png(config=config, filename="cab.png")
 
-    requestJson = requests.get(settings.SITE_HOST_API + 'reports/getSensibilityAnalysisBenefits/?studyCase=177')
+    requestJson = requests.get(settings.SITE_HOST_API + 'reports/getSensibilityAnalysisBenefits/?studyCase=177',verify=False)
     data = requestJson.json()
 
     dataSensibilityAnalysisBenefitsTime = []

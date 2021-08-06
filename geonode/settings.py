@@ -112,7 +112,6 @@ DATABASE_URL = os.getenv(
 )
 
 #DATABASE_URL='postgresql://geonode:{&Uid&QXZ&6f;|F@dev.skaphe.com:5432/geonode'
-#DATABASE_URL='postgresql://geonode:{&Uid&QXZ&6f;|F@dev.skaphe.com:5432/geonode'
 #DATABASE_URL='postgresql://geonode:G30N0D3@water-proof.org:5432/geonode'
 #DATABASE_URL='postgresql://geonode:geonode@localhost:5432/geonode'
 #DATABASE_URL = 'postgresql://geonode:geonode_data@dev.skaphe.com:5432/geonode'
@@ -1301,7 +1300,7 @@ try:
     ALLOWED_HOSTS = ast.literal_eval(os.getenv('ALLOWED_HOSTS'))
 except ValueError:
     # fallback to regular list of values separated with misc chars
-    ALLOWED_HOSTS = [HOSTNAME, 'localhost', 'django', 'geonode', 'apps.skaphe.com', 'apps.skaphe.com:8000'] if os.getenv('ALLOWED_HOSTS') is None \
+    ALLOWED_HOSTS = [HOSTNAME, 'localhost', 'django', 'geonode', 'apps.skaphe.com', 'apps.skaphe.com:8000', 'water-proof.org', 'ec2-3-138-191-23.us-east-2.compute.amazonaws.com'] if os.getenv('ALLOWED_HOSTS') is None \
         else re.split(r' *[,|:|;] *', os.getenv('ALLOWED_HOSTS'))
 
 # AUTH_IP_WHITELIST property limits access to users/groups REST endpoints
@@ -2215,11 +2214,10 @@ WATERPROOF_STUDY_CASES_ALLOW_ANONYMOUS = True
 
 WATERPROOF_NBS_CA_ALLOW_ANONYMOUS = True
 
-WATERPROOF_API_SERVER = "/proxy/?url=http://dev.skaphe.com:8000/"
-
-WATERPROOF_INVEST_API="http://dev.skaphe.com:8000/"
-WATERPROOF_MODELS_PY3_API="http://dev.skaphe.com:8000/"
-WATERPROOF_MODELS_PY2_API="http://dev.skaphe.com:5050/"
+WATERPROOF_API_SERVER =  os.getenv("WATERPROOF_API_SERVER", "/proxy/?url=http://dev.skaphe.com:8000/")
+WATERPROOF_INVEST_API = os.getenv("WATERPROOF_INVEST_API","http://dev.skaphe.com:8000/")
+WATERPROOF_MODELS_PY3_API = os.getenv("WATERPROOF_MODELS_PY3_API","http://dev.skaphe.com:8000/")
+WATERPROOF_MODELS_PY2_API =  os.getenv("WATERPROOF_MODELS_PY2_API","http://dev.skaphe.com:5050/")
 SEARCH_CITY_API_URL = '/proxy/?url=https://photon.komoot.io/api/?'
 
 SEARCH_COUNTRY_API_URL = "https://restcountries.eu/rest/v2/alpha/"
