@@ -821,7 +821,8 @@ function intakeStepFive() {
     formData.append('typeDelimit', $('#typeDelimit').val());
     // Intake is File?
     formData.append('isFile', $('#isFile').val());
-    console.log(formData);
+    //console.log(formData);
+    $('#_thumbnail_processing').modal('toggle');
     $.ajax({
         type: 'POST',
         url: '/intake/create/',
@@ -831,7 +832,8 @@ function intakeStepFive() {
         contentType: false,
         enctype: 'multipart/form-data',
         success: function(response) {
-            console.log(response);
+            //console.log(response);
+            $('#_thumbnail_processing').modal('hide');
             Swal.fire({
                 icon: 'success',
                 text: gettext('The water intake is being saved'),
@@ -849,6 +851,7 @@ function intakeStepFive() {
         error: function(xhr, errmsg, err) {
             console.log(xhr.status + ":" + xhr.responseText);
             let response = JSON.parse(xhr.responseText);
+            $('#_thumbnail_processing').modal('hide');
             Swal.fire({
                 icon: 'error',
                 title: gettext('Intake saving error'),

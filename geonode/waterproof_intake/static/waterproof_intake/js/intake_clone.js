@@ -923,7 +923,8 @@ function intakeStepFive() {
     formData.append('typeDelimit', $('#typeDelimit').val());
     // Intake is File?
     formData.append('isFile', $('#isFile').val());
-    console.log(formData);
+    //console.log(formData);
+    $('#_thumbnail_processing').modal('toogle');
     $.ajax({
         type: 'POST',
         url: '/intake/create/',
@@ -933,7 +934,8 @@ function intakeStepFive() {
         contentType: false,
         enctype: 'multipart/form-data',
         success: function (response) {
-            console.log(response);
+            //console.log(response);
+            $('#_thumbnail_processing').modal('hide');
             Swal.fire({
                 icon: 'success',
                 text: gettext('The water intake is being saved'),
@@ -947,7 +949,8 @@ function intakeStepFive() {
             setTimeout(function() { location.href = "/intake/?city="+cityId; }, 1000);
         },
         error: function (xhr, errmsg, err) {
-            console.log(xhr.status + ":" + xhr.responseText);
+            //console.log(xhr.status + ":" + xhr.responseText);
+            $('#_thumbnail_processing').modal('hide');
             let response = JSON.parse(xhr.responseText);
             Swal.fire({
                 icon: 'error',
