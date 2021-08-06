@@ -134,10 +134,7 @@
             //c.setCoordinates(e);      
         }
         map.on('click', onMapClick);  
-        map.on('zoomend', function(e){
-            console.log(map.getZoom());
-        });
-
+        
         $(".listStudyCases").click(function(){
           var cityId = localStorage.cityId;
           if (cityId == null){
@@ -190,7 +187,7 @@
         console.log(urlAPI);
 
         $.get(urlAPI, function(data){
-            console.log("data in search city is: "+data.region);
+            console.log("data in search city is: " + data.region);
             $("#regionLabel").html(data.region);
             $("#currencyLabel").html(data.currencies[0].name + " - " + data.currencies[0].symbol);
                         
@@ -203,9 +200,14 @@
         $.get(urlAPI, function(data){
             
             if (data.length > 0){
-                let cityId = data[0][0];
+                let filterData = data.filter (c => feat.properties.name.toLocaleLowerCase() == c[1].toLocaleLowerCase());
+                let cityData = data[0];
+                if (filterData.length > 0){
+                    cityData = filterData[0];
+                }
+                let cityId = cityData[0];
                 localStorage.setItem('cityId', cityId);
-                localStorage.setItem('factor', data[0][2]);
+                localStorage.setItem('factor', cityId[2]);
             }
         });
 
