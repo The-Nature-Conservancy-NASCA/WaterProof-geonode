@@ -550,7 +550,7 @@
                           <h6>{% trans "List" %}</h6></a>                
                         </li>
                     {% if user.is_authenticated and not READ_ONLY_MODE %}                
-                      <li><a href="{% url "create-treatment-plants" %}" class="dropdown-toggle">
+                      <li><a href="{% url "create-treatment-plants" %}" onclick="localStorage.plantId = null;" class="dropdown-toggle">
                         <img src="/static/geonode/img/01-flecha.png" class="flecha">
                         <h6>{% trans "Create" %}</h6></a>                
                       </li>
