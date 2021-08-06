@@ -924,7 +924,7 @@ function intakeStepFive() {
     // Intake is File?
     formData.append('isFile', $('#isFile').val());
     //console.log(formData);
-    $('#_thumbnail_processing').modal('toogle');
+    $('#_thumbnail_processing').modal('toggle');
     $.ajax({
         type: 'POST',
         url: '/intake/create/',
