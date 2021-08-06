@@ -284,13 +284,19 @@ def compareMaps(request):
 
     base_data = ''
     intake = ''
+    region = ''
+    year = ''
     if request.method == 'GET':
         try:            
             base_data = request.GET['folder']
             intake = request.GET['intake']
+            region = request.GET['region']
+            year = request.GET['year']
         except:
             base_data = 'mapserver'
             intake = ''
+            region = ''
+            year = ''
         
 
     return render(
@@ -299,5 +305,7 @@ def compareMaps(request):
                 {
                     'base_data': base_data,
                     'intake': intake,
+                    'region': region,
+                    'year': year
                 }
             )
