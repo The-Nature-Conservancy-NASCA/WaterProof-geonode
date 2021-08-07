@@ -146,7 +146,8 @@
     var countriesLayerUrl = '{{ STATIC_URL }}waterproof_intake/data/countries.geojson';
     var userCountryId = '{{userCountry.id}}';
     var userCountryCode = '{{userCountry.code}}';
-    var userCountryName = '{{userCountry.name}}';
+    var userCountryName = '{{userCountry.name}}';   
+
 </script>
 <script src="{{ STATIC_URL }}geonode/js/datatables/dataTables.bootstrap.min.js"></script>
 <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
@@ -160,12 +161,5 @@
 
 <script src=" {{ STATIC_URL }}geonode/sample_data/intake_polygon.js "></script>
 <script src=" https://cdn.jsdelivr.net/npm/sweetalert2@10 "></script>
-<script type=" text/javascript ">
-    let waterproof = {};
-    var searchPoints = L.geoJson(null, {
-        onEachFeature: function(feature, layer) {
-            layer.bindPopup(feature.properties.name);
-        }
-    });
-</script>
+
 {% endblock %}
