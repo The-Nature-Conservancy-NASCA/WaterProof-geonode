@@ -307,9 +307,9 @@
               <a href="{% url "models" %}">{% trans "Models" %}</a>
             </li>
             <!--Take Action-->
-            <li>
+            <!--li>
               <a href="{% url "take-action" %}">{% trans "Take Action" %}</a>
-            </li>
+            </li-->
             <li id="nav_layers">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{% trans "NbS" %}<i class="fa fa-angle-down fa-lg"></i></a>
               <ul class="dropdown-menu">
@@ -550,7 +550,7 @@
                           <h6>{% trans "List" %}</h6></a>                
                         </li>
                     {% if user.is_authenticated and not READ_ONLY_MODE %}                
-                      <li><a href="{% url "create-treatment-plants" %}" class="dropdown-toggle">
+                      <li><a href="{% url "create-treatment-plants" %}" onclick="localStorage.plantId = null;" class="dropdown-toggle">
                         <img src="/static/geonode/img/01-flecha.png" class="flecha">
                         <h6>{% trans "Create" %}</h6></a>                
                       </li>

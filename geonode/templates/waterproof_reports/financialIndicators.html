@@ -516,10 +516,14 @@ $(function () {
                 totalDiscountedCost.push(parseFloat(value.totalDiscountedCost.toFixed(2)));
                 totalBenefits.push(parseFloat(value.totalBenefits.toFixed(2)));
                 totalDiscountedBenefits.push(parseFloat(value.totalDiscountedBenefits.toFixed(2)));
-                htmlCost = htmlCost + '<td class="small text-center vat" id="valor2">' + value.totalCost.toFixed(2) + '</td>';
-                htmlDiscountedCost = htmlDiscountedCost + '<td class="small text-center vat" id="valor3">' + value.totalDiscountedCost.toFixed(2) + '</td>';
-                htmlBenefits = htmlBenefits + '<td class="small text-center vat" id="valor3">' + value.totalBenefits.toFixed(2) + '</td>';
-                htmlDiscountedBenefits = htmlDiscountedBenefits + '<td class="small text-center vat" id="valor3">' + value.totalDiscountedBenefits.toFixed(2) + '</td>';
+                valHtmlCost = value.totalCost.toFixed(2);
+                htmlCost = htmlCost + '<td class="small text-center vat" id="valor2">' + Intl.NumberFormat('es').format(valHtmlCost) + '</td>';
+                valhtmlDiscountedCost = value.totalDiscountedCost.toFixed(2);
+                htmlDiscountedCost = htmlDiscountedCost + '<td class="small text-center vat" id="valor3">' + Intl.NumberFormat('es').format(valhtmlDiscountedCost) + '</td>';
+                valhtmlBenefits = value.totalBenefits.toFixed(2);
+                htmlBenefits = htmlBenefits + '<td class="small text-center vat" id="valor3">' + Intl.NumberFormat('es').format(valhtmlBenefits) + '</td>';
+                valhtmlDiscountedBenefits = value.totalDiscountedBenefits.toFixed(2);
+                htmlDiscountedBenefits = htmlDiscountedBenefits + '<td class="small text-center vat" id="valor3">' + Intl.NumberFormat('es').format(valhtmlDiscountedBenefits) + '</td>';
                 htmlTitle = htmlTitle + '<th scope="col" class="small text-center vat">{% trans "' + contTitle + '" %}</th>'; 
                 contTitle ++;
             });
@@ -613,13 +617,20 @@ $(function () {
                 dataNetPresentValueSummary.push(parseFloat(value.platformr.toFixed(2)));
                 dataNetPresentValueSummary.push(parseFloat(value.benefitr.toFixed(2)));
                 dataNetPresentValueSummary.push(parseFloat(value.totalr.toFixed(2)));
-                txtFileNet = txtFileNet + '<tr><td class="small text-left vat" >Cost: implementation</td><td class="small text-right vat">' + value.implementationr.toFixed(2) + '</td></tr>';
-                txtFileNet = txtFileNet + '<tr><td class="small text-left vat" >Cost: maintenance</td><td class="small text-right vat">' + value.maintenancer.toFixed(2) + '</td></tr>';
-                txtFileNet = txtFileNet + '<tr><td class="small text-left vat" >Cost: oportunity</td><td class="small text-right vat">' + value.oportunityr.toFixed(2) + '</td></tr>';
-                txtFileNet = txtFileNet + '<tr><td class="small text-left vat" >Cost: transaction</td><td class="small text-right vat">' + value.transactionr.toFixed(2) + '</td></tr>';
-                txtFileNet = txtFileNet + '<tr><td class="small text-left vat" >Cost: platform</td><td class="small text-right vat">' + value.platformr.toFixed(2) + '</td></tr>';
-                txtFileNet = txtFileNet + '<tr><td class="small text-left vat" >Benefit</td><td class="small text-right vat">' + value.benefitr.toFixed(2) + '</td></tr>';
-                txtFileNet = txtFileNet + '<tr><td class="small text-left vat" >Total</td><td class="small text-right vat">' + value.totalr.toFixed(2) + '</td></tr>';
+                valimplementationr = value.implementationr.toFixed(2);
+                valmaintenancer = value.maintenancer.toFixed(2);
+                valoportunityr = value.oportunityr.toFixed(2);
+                valtransactionr = value.transactionr.toFixed(2);
+                valplatformr = value.platformr.toFixed(2);
+                valbenefitr = value.benefitr.toFixed(2);
+                valtotalr = value.totalr.toFixed(2);
+                txtFileNet = txtFileNet + '<tr><td class="small text-left vat" >Cost: implementation</td><td class="small text-right vat">' + Intl.NumberFormat('es').format(valimplementationr) + '</td></tr>';
+                txtFileNet = txtFileNet + '<tr><td class="small text-left vat" >Cost: maintenance</td><td class="small text-right vat">' + Intl.NumberFormat('es').format(valmaintenancer) + '</td></tr>';
+                txtFileNet = txtFileNet + '<tr><td class="small text-left vat" >Cost: oportunity</td><td class="small text-right vat">' + Intl.NumberFormat('es').format(valoportunityr) + '</td></tr>';
+                txtFileNet = txtFileNet + '<tr><td class="small text-left vat" >Cost: transaction</td><td class="small text-right vat">' + Intl.NumberFormat('es').format(valtransactionr) + '</td></tr>';
+                txtFileNet = txtFileNet + '<tr><td class="small text-left vat" >Cost: platform</td><td class="small text-right vat">' + Intl.NumberFormat('es').format(valplatformr) + '</td></tr>';
+                txtFileNet = txtFileNet + '<tr><td class="small text-left vat" >Benefit</td><td class="small text-right vat">' + Intl.NumberFormat('es').format(valbenefitr) + '</td></tr>';
+                txtFileNet = txtFileNet + '<tr><td class="small text-left vat" >Total</td><td class="small text-right vat">' + Intl.NumberFormat('es').format(valtotalr) + '</td></tr>';
             });
             document.getElementById("idTbodyNpv").innerHTML = document.getElementById("idTbodyNpv").innerHTML + txtFileNet;
 
@@ -656,9 +667,12 @@ $(function () {
             $.each( data, function( key, value ) {
                 dataSensibilityAnalysisBenefitsTime.push([value.timer, Math.round(value.totalMedBenefitR)]);
                 dataSensibilityAnalysisBenefitsRange.push([value.timer, Math.round(value.totalMinBenefitR), Math.round(value.totalMaxBenefittR)]);
-                txtFileBenefitsMinBen = txtFileBenefitsMinBen + '<td class="small text-center vat" style="text-align: right;" id="valor' + value.timer + '">' + parseFloat(value.totalMinBenefitR).toFixed(2) + '</td>';
-                txtFileBenefitsMedBen = txtFileBenefitsMedBen + '<td class="small text-center vat" style="text-align: right;" id="valor' + value.timer + '">' + parseFloat(value.totalMedBenefitR).toFixed(2) + '</td>';
-                txtFileBenefitsMaxBen = txtFileBenefitsMaxBen + '<td class="small text-center vat" style="text-align: right;" id="valor' + value.timer + '">' + parseFloat(value.totalMaxBenefittR).toFixed(2) + '</td>';
+                valtotalMinBenefitR = parseFloat(value.totalMinBenefitR).toFixed(2);
+                valtotalMedBenefitR = parseFloat(value.totalMedBenefitR).toFixed(2);
+                valtotalMaxBenefittR = parseFloat(value.totalMaxBenefittR).toFixed(2);
+                txtFileBenefitsMinBen = txtFileBenefitsMinBen + '<td class="small text-center vat" style="text-align: right;" id="valor' + value.timer + '">' + Intl.NumberFormat('es').format(valtotalMinBenefitR) + '</td>';
+                txtFileBenefitsMedBen = txtFileBenefitsMedBen + '<td class="small text-center vat" style="text-align: right;" id="valor' + value.timer + '">' + Intl.NumberFormat('es').format(valtotalMedBenefitR) + '</td>';
+                txtFileBenefitsMaxBen = txtFileBenefitsMaxBen + '<td class="small text-center vat" style="text-align: right;" id="valor' + value.timer + '">' + Intl.NumberFormat('es').format(valtotalMaxBenefittR) + '</td>';
                 txtTitleBenefits = txtTitleBenefits + '<th scope="col" class="small text-center vat">{% trans "' + contTitleBenefits + '" %}</th>';
                 contTitleBenefits ++;
             });
@@ -724,9 +738,12 @@ $(function () {
             $.each( data, function( key, value ) {
                 dataSensibilityAnalysisCostTime.push([value.timer, Math.round(value.totalMedCostR)]);
                 dataSensibilityAnalysisCostRange.push([value.timer, Math.round(value.totalMinCostR), Math.round(value.totalMaxCostR)]);
-                txtFileCostMinCost = txtFileCostMinCost + '<td class="small text-center vat" style="text-align: right;" id="valor' + value.timer + '">' + parseFloat(value.totalMinCostR).toFixed(2) + '</td>';
-                txtFileCostMedCost = txtFileCostMedCost + '<td class="small text-center vat" style="text-align: right;" id="valor' + value.timer + '">' + parseFloat(value.totalMedCostR).toFixed(2) + '</td>';
-                txtFileCostMaxCost = txtFileCostMaxCost + '<td class="small text-center vat" style="text-align: right;" id="valor' + value.timer + '">' + parseFloat(value.totalMaxCostR).toFixed(2) + '</td>';
+                valtotalMinCostR = parseFloat(value.totalMinCostR).toFixed(2);
+                valtotalMedCostR = parseFloat(value.totalMedCostR).toFixed(2);
+                valtotalMaxCostR = parseFloat(value.totalMaxCostR).toFixed(2);
+                txtFileCostMinCost = txtFileCostMinCost + '<td class="small text-center vat" style="text-align: right;" id="valor' + value.timer + '">' + Intl.NumberFormat('es').format(valtotalMinCostR) + '</td>';
+                txtFileCostMedCost = txtFileCostMedCost + '<td class="small text-center vat" style="text-align: right;" id="valor' + value.timer + '">' + Intl.NumberFormat('es').format(valtotalMedCostR) + '</td>';
+                txtFileCostMaxCost = txtFileCostMaxCost + '<td class="small text-center vat" style="text-align: right;" id="valor' + value.timer + '">' + Intl.NumberFormat('es').format(valtotalMaxCostR) + '</td>';
                 txtTitleCost = txtTitleCost + '<th scope="col" class="small text-center vat">{% trans "' + contTitlecost + '" %}</th>';
                 contTitlecost ++;               
             });

@@ -668,7 +668,9 @@ $(function () {
         $.getJSON(urlDetail, function (data) {
             var listFielTable = "";
             $.each( data, function( key, value ) {
-                listFielTable = listFielTable + '<div><div class="line-marc-table" style="width: 100%;color: #616160;margin-top: 20px;height: 20px;"><div style="width: 100%;text-align: left;margin-left: 10px;">' + value.sbnf + '</div><div class="top-center-line">' + value.costPerHectarea.toFixed(2) + '</div><div class="line-number-marc-table" style="    position: absolute;right: 0px;width: 30%;color: #616160;font-size: 13px;padding: 0px;top: 0px;">' + value.recomendedIntervetion.toFixed(2) + '</div></div></div>';
+                valueCol2 = value.costPerHectarea.toFixed(2);
+                valuaCol3 = value.recomendedIntervetion.toFixed(2)
+                listFielTable = listFielTable + '<div><div class="line-marc-table" style="width: 100%;color: #616160;margin-top: 20px;height: 20px;"><div style="width: 100%;text-align: left;margin-left: 10px;">' + value.sbnf + '</div><div class="top-center-line">' + Intl.NumberFormat('es').format(valueCol2) + '</div><div class="line-number-marc-table" style="    position: absolute;right: 0px;width: 30%;color: #616160;font-size: 13px;padding: 0px;top: 0px;">' + Intl.NumberFormat('es').format(valuaCol3) + '</div></div></div>';
             });
             document.getElementById("listFielTable").innerHTML = listFielTable;
         });

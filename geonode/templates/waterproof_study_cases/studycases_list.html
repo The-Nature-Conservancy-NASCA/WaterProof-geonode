@@ -2,8 +2,7 @@
 <h1>{% trans "Cases Study" %}</h1>
 
 {% block extra_head %}
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
-<link rel="stylesheet" href="http://xguaita.github.io/Leaflet.MapCenterCoord/dist/L.Control.MapCenterCoord.min.css" />
+<link href="{{ STATIC_URL }}lib/css/leaflet.css" rel="stylesheet">
 <link rel="stylesheet" href="https://photon.komoot.io/static/leaflet.photon/leaflet.photon.css">
 </link>
 
@@ -45,15 +44,12 @@
             </div>
         </div>
         <div class="col-md-8">
-            <div id="mapidcuenca"></div>
+            <div id="map"></div>
         </div>
     </div>
 </div>
-
 <br>
-
 <br>
-
 <button id="doc"></button>
 
 <div class="table-responsive">
@@ -200,36 +196,28 @@
 </script>
 <script src="{{ STATIC_URL }}geonode/js/datatables/jquery.dataTables.min.js"></script>
 <script src="{{ STATIC_URL }}geonode/js/datatables/dataTables.bootstrap.min.js"></script>
-<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+<script src="{% static "lib/js/leaflet.js" %}"></script>  
 <script src="{{ STATIC_URL }}geonode/js/leaflet/leaflet.ajax.min.js"></script>
+<script src="{{ STATIC_URL }}geonode/js/leaflet/photon/leaflet.photon.js"></script>
+<script src="{{ STATIC_URL }}geonode/js/leaflet/leaflet-omnivore.min.js"></script>
 <script src="{{ STATIC_URL }}study_cases/js/study_cases_list.js"></script>
 <script src="https://vinceg.github.io/twitter-bootstrap-wizard/jquery.bootstrap.wizard.js"></script>
 <script src="https://vinceg.github.io/twitter-bootstrap-wizard/prettify.js"></script>
-<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
-<script src="{{ STATIC_URL }}geonode/js/leaflet/photon/leaflet.photon.js"></script>
-<script src="{{ STATIC_URL }}geonode/js/leaflet/Leaflet.Coordinates.js " %}"></script>
-<script src="{{ STATIC_URL }}geonode/js/leaflet/leaflet-omnivore.min.js"></script>
 
 <script src="{{ STATIC_URL }}geonode/sample_data/intake_polygon.js"></script>
+<script src="{% static "waterproof/js/waterproof-common.js" %}"></script>
 <script src=" https://cdn.jsdelivr.net/npm/sweetalert2@10 "></script>
 <script type="text/javascript">
-    API_URL = '/proxy/?url=https://photon.komoot.de/api/?';
-    TILELAYER = 'http://{s}.tile.osm.org/{z}/{x}/{y}.png';
+    API_URL = '{{ SEARCH_CITY_API_URL }}';
+    OSM_BASEMAP_URL = '{{ OSM_BASEMAP_URL }} ';
+    IMG_BASEMAP_URL =  '{{ IMG_BASEMAP_URL }} ';
+    HYDRO_BASEMAP_URL =  '{{ HYDRO_BASEMAP_URL }} ';
+    GRAY_BASEMAP_URL = '{{ GRAY_BASEMAP_URL }} ';
     CENTER = [-74.4879, 4.582];
-    MAXZOOM = 11;
-
+    MAXZOOM = 15;
+    URL_REFRESH_CITY = "/study_cases/?city=";
     let waterproof = {};
-
-    $(document).ready(function() {
-
-
-
-    });
-
-    var searchPoints = L.geoJson(null, {
-        onEachFeature: function(feature, layer) {
-            layer.bindPopup(feature.properties.name);
-        }
-    });
+    let showSearchPointsFunction = showSearchPoints; 
+    
 </script>
 {% endblock %}
