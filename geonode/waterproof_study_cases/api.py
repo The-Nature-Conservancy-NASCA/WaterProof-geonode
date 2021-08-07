@@ -518,7 +518,6 @@ def save(request):
                 return JsonResponse({'id_study_case': sc.id}, safe=False)
             elif(request.POST.get('analysis_type')):
                 id_study_case = request.POST['id_study_case']
-                run = request.POST.get('run_analysis')
                 sc = StudyCases.objects.get(pk=id_study_case)
                 sc.is_complete = True
                 sc.time_implement = request.POST['period_nbs']
@@ -574,12 +573,21 @@ def save(request):
                         currencys_sc.save()
                 sc.edit_date = datetime.datetime.now()
                 sc.save()
+                return JsonResponse({'id_study_case': sc.id}, safe=False)
+            
+@api_view(['POST'])
+def run(request):
+    if not request.user.is_authenticated:
+        return render(request, 'waterproof_study_cases/studycases_login_error.html')
+    else:
+        if request.method == 'POST':
+            if(request.POST.get('run_analysis')):
+                run = request.POST.get('run_analysis')
+                id_study_case = request.POST['id_study_case']
+                sc = StudyCases.objects.get(pk=id_study_case)
+                sc.is_run_analysis = False
                 if(run == 'true'):
-                    resp = requests.get(settings.WATERPROOF_MODELS_PY2_API + 'preprocRIOS',
-                                    params={'id_usuario': request.user.id,
-                                            'id_case': id_study_case},verify=False)
-                    if resp.status_code == 200:
-                        sc.is_run_analysis = True
-                        sc.edit_date = datetime.datetime.now()
-                        sc.save()
+                    sc.is_run_analysis = True
+                sc.edit_date = datetime.datetime.now()
+                sc.save()
                 return JsonResponse({'id_study_case': sc.id}, safe=False)

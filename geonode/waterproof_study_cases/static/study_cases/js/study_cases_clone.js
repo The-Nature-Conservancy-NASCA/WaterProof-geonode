@@ -644,12 +644,42 @@ $(document).ready(function () {
                             rellocated_remainder: $("#rellocated_check").is(':checked'),
                             nbsactivities: '1' + JSON.stringify(nbsactivities),
                             currencys: '1' + JSON.stringify(result.value),
-                            run_analysis: true
                         }, function (data) {
-                            $('#_thumbnail_processing').modal('hide');
-                            $('#smartwizard').smartWizard("next");
-                            autoAdjustHeight();
-                            $("#form").submit();
+                            $.ajax({
+                                url : servermodelApi+"preprocRIOS",
+                                data : { id_case: id_study_case,
+                                    id_usuario: id_user, },
+                                type : 'GET',
+                                dataType : 'json',
+                                success : function(json) {
+                                    if(json.status == 'success'){
+                                        $.post("../../study_cases/run/", {
+                                            id_study_case: id_study_case,
+                                            run_analysis: 'true'
+                                        }, function (data) {
+                                        $('#_thumbnail_processing').modal('hide');
+                                        autoAdjustHeight();
+                                        $("#form").submit();
+                                    }, "json");
+                                    }else{
+                                        $('#_thumbnail_processing').modal('hide');
+                                        Swal.fire({
+                                            icon: 'error',
+                                            title: gettext('error_api'),
+                                            text: gettext('error_model_api'),
+                                        });  
+                                    }
+                                },
+                                error : function(xhr, status) {
+                                    $('#_thumbnail_processing').modal('hide');
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: gettext('error_api'),
+                                        text: gettext('error_model_api'),
+                                    });  
+                                }
+
+                            })
                         }, "json");
                     }
                 })
