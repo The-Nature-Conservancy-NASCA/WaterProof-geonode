@@ -71,18 +71,19 @@ class wbIntake(models.Model):
     wsed_ret_ton = models.FloatField(null=True, blank=True, default=None, verbose_name=_('WsedRetTon'))
 
 
-class calculateCostFunctionIntake(models.Model):
+#class calculateCostFunctionIntake(models.Model):
     # Create your models here.
-    study_case = models.ForeignKey(StudyCases, on_delete=models.CASCADE)
-    stage = models.CharField(max_length=10)	
-    water_intake =models.IntegerField(verbose_name=_('Water intake id')) #hace referencia al elemento del diagrama.
-    element = models.IntegerField(verbose_name=_('Element Id'))
-    user = models.ForeignKey( settings.AUTH_USER_MODEL, null=True, blank=True, on_delete=models.CASCADE)	
-    year = models.IntegerField(verbose_name=_('Year'))	
-    value_calculate = models.FloatField(null=True, blank=True, default=0, verbose_name=_('Value calculate'))	
-    cost_function = models.IntegerField(verbose_name=_('Graph Id Function'))	
-    currency_function = models.CharField(max_length=4, blank=True, null=True)
-    date_excution = models.DateTimeField(blank=True, null=True)
+#    study_case = models.ForeignKey(StudyCases, on_delete=models.CASCADE)
+#    stage = models.CharField(max_length=10)	
+#    water_intake =models.IntegerField(verbose_name=_('Water intake id')) #hace referencia al elemento del diagrama.
+#    element = models.IntegerField(verbose_name=_('Element Id'))
+#--    user = models.ForeignKey( settings.AUTH_USER_MODEL, null=True, blank=True, on_delete=models.CASCADE)	
+#    user = models.CharField(max_length=50, blank=True, null=True)	
+#    year = models.IntegerField(verbose_name=_('Year'))	
+#    value_calculate = models.FloatField(null=True, blank=True, default=0, verbose_name=_('Value calculate'))	
+#    cost_function = models.IntegerField(verbose_name=_('Graph Id Function'))	
+#    currency_function = models.CharField(max_length=4, blank=True, null=True)
+#    date_excution = models.DateTimeField(blank=True, null=True)
 
 
 class calculateCostFunctionPtap(models.Model):
