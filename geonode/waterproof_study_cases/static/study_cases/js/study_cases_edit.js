@@ -656,7 +656,8 @@ $(document).ready(function () {
                                             }, function (data) {
                                             $('#_thumbnail_processing').modal('hide');
                                             autoAdjustHeight();
-                                            $("#form").submit();
+                                            //$("#form").submit();
+                                            location.href = "/study_cases/?city="+localStorage.cityId; 
                                         }, "json");
                                         }else{
                                             $('#_thumbnail_processing').modal('hide');
@@ -673,9 +674,9 @@ $(document).ready(function () {
                                             icon: 'error',
                                             title: gettext('error_api'),
                                             text: gettext('error_model_api'),
-                                        });  
+                                        });
+                                        location.href = "/study_cases/?city="+localStorage.cityId;   
                                     }
-
                                 })
                             }, "json");
 
@@ -701,12 +702,14 @@ $(document).ready(function () {
                                         $('#_thumbnail_processing').modal('hide');
                                         if (json.status[0]) {
                                             console.log("finish interval execution");
+                                            location.href = "/study_cases/?city="+localStorage.cityId; 
                                             clearInterval(validationInterval);
                                         }
                                         iteration++;                                        
                                     },
                                     error : function(xhr, status) {
-                                        $('#_thumbnail_processing').modal('hide');                                    
+                                        $('#_thumbnail_processing').modal('hide');
+                                        location.href = "/study_cases/?city="+localStorage.cityId; 
                                     }
                                 });
                             }    

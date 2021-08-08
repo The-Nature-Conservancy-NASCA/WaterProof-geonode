@@ -837,14 +837,16 @@ $(document).ready(function () {
                                             run_analysis: 'true'
                                         }, function (data) {                                        
                                             autoAdjustHeight();
-                                            $("#form").submit();
+                                            //$("#form").submit();
+                                            location.href = "/study_cases/?city="+localStorage.cityId; 
                                         }, "json");
                                     }else{                                        
                                         Swal.fire({
                                             icon: 'error',
                                             title: gettext('error_api'),
                                             text: gettext('error_model_api'),
-                                        });  
+                                        });
+                                        location.href = "/study_cases/?city="+localStorage.cityId; 
                                     }
                                     $('#_thumbnail_processing').modal('hide');
                                 },
@@ -854,7 +856,8 @@ $(document).ready(function () {
                                         icon: 'error',
                                         title: gettext('error_api'),
                                         text: gettext('error_model_api'),
-                                    });  
+                                    });
+                                    location.href = "/study_cases/?city="+localStorage.cityId;
                                 }
                             });
                             let urlQueryAnalisysResult = servermodelApi+"queryStudyCaseAnalisysResult?id_case="+id_study_case;
@@ -870,6 +873,7 @@ $(document).ready(function () {
                                 }else if (iteration == 12){
                                     console.log("iteration: " + iteration + ", waiting for the process to finish");
                                     clearInterval(validationInterval);
+                                    location.href = "/study_cases/?city="+localStorage.cityId; 
                                 }
                                 $.ajax({
                                     url : urlQueryAnalisysResult,
@@ -880,11 +884,13 @@ $(document).ready(function () {
                                         if (json.status[0]) {
                                             console.log("finish interval execution");
                                             clearInterval(validationInterval);
+                                            location.href = "/study_cases/?city="+localStorage.cityId; 
                                         }
                                         iteration++;                                       
                                     },
                                     error : function(xhr, status) {
-                                        $('#_thumbnail_processing').modal('hide');                                    
+                                        $('#_thumbnail_processing').modal('hide');
+                                        location.href = "/study_cases/?city="+localStorage.cityId;                
                                     }
                                 });
                             }                              
