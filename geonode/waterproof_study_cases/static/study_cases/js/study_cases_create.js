@@ -827,9 +827,7 @@ $(document).ready(function () {
                             currencys: '1' + JSON.stringify(result.value),
                         }, function (data) {
                             $.ajax({
-                                url : servermodelApi+"preprocRIOS",
-                                data : { id_case: id_study_case,
-                                    id_usuario: id_user, },
+                                url : servermodelApi+"preprocRIOS?id_case="+id_study_case+"%26id_usuario="+id_user,
                                 type : 'GET',
                                 dataType : 'json',
                                 success : function(json) {

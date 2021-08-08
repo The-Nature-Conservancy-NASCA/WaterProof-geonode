@@ -1321,7 +1321,7 @@ try:
     PROXY_ALLOWED_HOSTS = ast.literal_eval(os.getenv('PROXY_ALLOWED_HOSTS'))
 except ValueError:
     # fallback to regular list of values separated with misc chars
-    PROXY_ALLOWED_HOSTS = [HOSTNAME, 'localhost', 'django', 'geonode', 'spatialreference.org', 'nominatim.openstreetmap.org', 'dev.openlayers.org'] if os.getenv('PROXY_ALLOWED_HOSTS') is None \
+    PROXY_ALLOWED_HOSTS = [HOSTNAME, 'localhost', 'django', 'geonode', 'spatialreference.org', 'nominatim.openstreetmap.org', 'dev.openlayers.org', 'dev.skaphe.com'] if os.getenv('PROXY_ALLOWED_HOSTS') is None \
         else re.split(r' *[,|:|;] *', os.getenv('PROXY_ALLOWED_HOSTS'))
 
 # The proxy to use when making cross origin requests.
@@ -2217,7 +2217,7 @@ WATERPROOF_NBS_CA_ALLOW_ANONYMOUS = True
 WATERPROOF_API_SERVER =  os.getenv("WATERPROOF_API_SERVER", "/proxy/?url=http://dev.skaphe.com:8000/")
 WATERPROOF_INVEST_API = os.getenv("WATERPROOF_INVEST_API","http://dev.skaphe.com:8000/")
 WATERPROOF_MODELS_PY3_API = os.getenv("WATERPROOF_MODELS_PY3_API","http://dev.skaphe.com:8000/")
-WATERPROOF_MODELS_PY2_API =  os.getenv("WATERPROOF_MODELS_PY2_API","http://dev.skaphe.com:5050/")
+WATERPROOF_MODELS_PY2_API =  os.getenv("WATERPROOF_MODELS_PY2_API","/proxy/?url=http://dev.skaphe.com:5050/")
 SEARCH_CITY_API_URL = '/proxy/?url=https://photon.komoot.io/api/?'
 
 SEARCH_COUNTRY_API_URL = "https://restcountries.eu/rest/v2/alpha/"
