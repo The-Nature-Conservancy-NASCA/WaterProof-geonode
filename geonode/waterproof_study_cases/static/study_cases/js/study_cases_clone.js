@@ -691,7 +691,7 @@ $(document).ready(function () {
                                     console.log("iteration after 10 minutes, the process does´nt query yet");
                                     iteration++;
                                     return;
-                                }else if (iteration == 12){
+                                }else if (iteration == 18){
                                     console.log("iteration: " + iteration + ", waiting for the process to finish");
                                     clearInterval(validationInterval);
                                     location.href = "/study_cases/?city="+localStorage.cityId; 
