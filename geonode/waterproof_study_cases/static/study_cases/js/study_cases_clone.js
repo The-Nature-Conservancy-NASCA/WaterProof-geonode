@@ -701,8 +701,8 @@ $(document).ready(function () {
                                     type : 'GET',
                                     dataType : 'json',
                                     success : function(json) {                                    
-                                        $('#_thumbnail_processing').modal('hide');
                                         if (json.status[0]) {
+                                            $('#_thumbnail_processing').modal('hide');
                                             console.log("finish interval execution");
                                             clearInterval(validationInterval);
                                             location.href = "/study_cases/?city="+localStorage.cityId; 
