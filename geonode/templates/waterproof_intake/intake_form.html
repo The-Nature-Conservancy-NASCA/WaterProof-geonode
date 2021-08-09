@@ -134,7 +134,7 @@
                             <div class="panel panel-info">                                
                                 <div class="panel-body text-center" id="loadXml">
                                     <img src="/static/geonode/img/load-default-diagram.png" alt="load" id="loadImg">
-                                    <a href="#">Load Default Diagram</a>                                    
+                                    <a href="#">{% trans "Load Default Diagram" %}</a>                                    
                                 </div>
                             </div>
                         </div>
@@ -923,7 +923,7 @@
     var xmlGraph = $('#xmlGraph').val();
     var intakeExternalInputs = '{{externalInputs|safe}}' == "" ? "" : JSON.parse('{{externalInputs|safe}}');
     var intakeObject = {};
-    intakeObject.id = '{{intake.id}}'
+    intakeObject.id = '{{intake.id}}';
     $('#intakeId').val(intakeObject.id);
     intakeObject.polygon = '{{intake.polygon_set.first.geomIntake|safe}}';
     intakeObject.point = '{{intake.polygon_set.first.geomPoint|safe}}' == "" ? "" : JSON.parse('{{intake.polygon_set.first.geomPoint|safe}}');
