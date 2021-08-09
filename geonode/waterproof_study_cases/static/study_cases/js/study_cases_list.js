@@ -5,7 +5,7 @@
  */
 $(function() {
     console.log("Study cases list :: init");
-    var table = $('#studycases').DataTable({
+    var table = $('#tbl-studycases').DataTable({
         'dom': 'lrtip'
     });
     var countryDropdown = $('#countryNBS');
@@ -80,7 +80,7 @@ $(function() {
             })
         };
 
-        $('#btn-delete').click(function(evt) {
+        $('#tbl-studycases tbody').on('click', '.btn-danger', function (evt) {
             Swal.fire({
                 title: gettext('Delete study case'),
                 text: gettext("Are you sure?") + gettext("You won't be able to revert this!"),
@@ -134,8 +134,7 @@ $(function() {
         
     };
 
-
-    $('#btn-public').click(function(evt) {
+    $('#tbl-studycases tbody').on('click', '.btn-public', function (evt) {
         Swal.fire({
             title: gettext('Public study case'),
             text: gettext("Are you sure?"),
@@ -184,7 +183,7 @@ $(function() {
         })
     });
 
-    $('#btn-private').click(function(evt) {
+    $('#tbl-studycases tbody').on('click', '.btn-private', function (evt) {    
         Swal.fire({
             title: gettext('Private study case'),
             text: gettext("Are you sure?"),

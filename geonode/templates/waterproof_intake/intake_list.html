@@ -7,11 +7,11 @@
 <h1>{% trans "Water Intakes" %}</h1>
 
 {% block extra_head %}
-<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}lib/css/leaflet.css">
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}lib/css/leaflet.css"/>
 <link rel="stylesheet" type="text/css" href="https://photon.komoot.io/static/leaflet.photon/leaflet.photon.css"/>
-<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_nbs_ca/css/dataTables.bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_nbs_ca/css/dataTables.bootstrap.min.css"/>
 <link rel="stylesheet" type="text/css" href="{% static "geonode/css/sidenav.css" %}"/>
-<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_nbs_ca/css/waterproof_nbs_ca.css">
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_nbs_ca/css/waterproof_nbs_ca.css"/>
 
 <script>
     var intakePolygons = [];    
@@ -165,7 +165,6 @@
 {% block body %}{% endblock body %} {% block sidebar %}{% endblock sidebar %} {% endblock body_outer %} {% block extra_script %}
 
 <script>
-    var countriesLayerUrl = '{{ STATIC_URL }}waterproof_intake/data/countries.geojson';
     var userCountryId = '{{userCountry.id}}';
     var userCountryCode = '{{userCountry.code}}';
     var userCountryName = '{{userCountry.name}}';
