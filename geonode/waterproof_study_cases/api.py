@@ -591,3 +591,14 @@ def run(request):
                 sc.edit_date = datetime.datetime.now()
                 sc.save()
                 return JsonResponse({'id_study_case': sc.id}, safe=False)
+
+
+@api_view(['GET'])
+def validateStatusRunAnalisys(request, id_study_case):
+    
+    sc = StudyCases.objects.get(pk=id_study_case)
+    if(sc.is_run_analysis):
+        return JsonResponse({'status': 'true'}, safe=False)
+    else:
+        return JsonResponse({'status': 'false'}, safe=False)
+    
