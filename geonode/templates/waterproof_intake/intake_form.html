@@ -125,9 +125,17 @@
                     </div>
                     <!--Toolbar mxgraph-->
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-8">
                             <div class="panel panel-info">
                                 <div class="panel-body text-center" id="toolbar"></div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="panel panel-info">                                
+                                <div class="panel-body text-center" id="loadXml">
+                                    <img src="/static/geonode/img/load-default-diagram.png" alt="load" id="loadImg">
+                                    <a href="#">Load Default Diagram</a>                                    
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -887,8 +895,6 @@
 <script src="{{ STATIC_URL }}geonode/js/leaflet/Control.Loader.js"></script>
 <script src="{{ STATIC_URL }}geonode/js/waterproof/waterIntake.js"></script>
 <script src="{{ STATIC_URL }}geonode/js/waterproof/geomFile_validate.js"></script>
-
-
 
 <!--ZIP reader library-->
 <script src="{{ STATIC_URL }}geonode/js/jszip/jszip.min.js"></script>

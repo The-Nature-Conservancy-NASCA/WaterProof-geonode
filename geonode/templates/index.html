@@ -18,6 +18,7 @@
 
 {% if custom_theme.welcome_theme == 'JUMBOTRON_BG' or not slides %}
 <div class="jumbotron">
+    
   <div class="container gn-container">
       {% with jumbotron_welcome_title=custom_theme.jumbotron_welcome_title|default:"Welcome"|template_trans %}
       <h1>{% trans jumbotron_welcome_title %}</h1>
@@ -31,6 +32,7 @@
           role="button">{{custom_theme.jumbotron_cta_text|default:_("Get Started &raquo;")}}</a></p>
       {% endif %}
   </div>
+  <p class="copyright" style="text-align: right; font-size: 15px;">© Foto tomada por Pilar Galindo</p>
 </div>
 {% else %}
 <div class="geonode-slide-show">
@@ -313,9 +315,6 @@
     </div>
 </section>
 <section class="imgbackgroundwiki" id="wtw-menu">
-    <div class="refImage">
-        <p style="color:white;"> aquí va el textico</p>
-    </div>
     <div class="backgroundcolorwiki">
         <div class="text-center">
             <p class="ppwpwiki">{% trans "WATERPROOF WIKI" %}</p>
@@ -329,6 +328,7 @@
             <p class="ppwpwiki3"> {% trans "Nature based Solutions and calculate the return on your investment" %}</p>
         </div>
         <br>
+
     </div>
     <div class="row">
         <div class="col-md-12 text-center">
@@ -339,6 +339,7 @@
             <br>
         </div>
     </div>
+  <p class="copyright" style="text-align: right; font-size: 15px;">© Foto tomada por Pilar Galindo</p>
 </section>
 <section id="partner_tnc">
     <div class="row justify-content-md-center" style="height:20%;">

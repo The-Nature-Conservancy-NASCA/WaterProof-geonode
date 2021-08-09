@@ -263,6 +263,7 @@
                 <div id="step-5" class="tab-pane" role="tabpanel">
                     <div class="page-header">
                         <h3> {% trans "Financial parameters" %}</h3>
+                        <input id="ensayo"></input>
                         <p></p>
                         <div class="row">
                             <div class="custom-control float-right col-md-4">
@@ -424,7 +425,7 @@
                         </div>
                         <div class="col-md-6">
                             <div id="div_analysis_currency" class="form-group">
-                                <label for="analysis_currency" class="control-label required-field">
+                                <label for="analysis_currency" class="control-label required-field ">
                                     {% trans "Currency" %}
                                 </label>
                                 <select id="analysis_currency" class="form-control" disabled>
@@ -541,6 +542,7 @@
     GEOSERVER_WMS = "{{ GEOSERVER_WMS }}";
     HYDRO_NETWORK_LYR = "{{ HYDRO_NETWORK_LYR }}";
 </script>
+<script type="text/javascript" src="{% url 'javascript-catalog-study-cases' %}"></script>
 <script src="{{ STATIC_URL }}study_cases/js/study_cases_view.js"></script>
 <script src="{{ STATIC_URL }}study_cases/js/graph.js"></script>
 <script src="{{ STATIC_URL }}study_cases/js/graphValidations.js"></script>

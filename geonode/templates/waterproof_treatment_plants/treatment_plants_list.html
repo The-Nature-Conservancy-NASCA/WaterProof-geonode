@@ -37,7 +37,7 @@
             <p><b>{% trans "Region" %}:</b> <span id="regionLabel"></span> </p>
             <p><b>{% trans "Currency" %}:</b> <span id="currencyLabel"></span></p>
             <div>
-                <a href="create/"  onclick="localStorage.loadFormButton='true'" id="createUrl">{% trans "Create new Treatment Plants" %}</a>
+                <a href="create/"  onclick="localStorage.loadFormButton='true'; localStorage.plantId = null;" id="createUrl">{% trans "Create new Treatment Plants" %}</a>
                 <button onclick="window.location.href='create/'" type="button" data-toggle="modal" class="glyphicon glyphicon-plus-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
             </div>
         </div>
@@ -67,7 +67,7 @@
                 <td class="small text-center vat align-text-table">{{treatmentPlants.plantName}}</td>
                 <td class="small text-center vat align-text-table">{{treatmentPlants.plantDescription}}</td>
                 <td class="small text-center vat">{{treatmentPlants.plantUser}}</td>
-                <td class="small text-center vat">{{treatmentPlants.plantDate | date:"d-m-y"}}</td>
+                <td id="date" class="small text-center vat">{{treatmentPlants.plantDate}}</td>
                 <td class="small text-center vat">{{treatmentPlants.standardNameSpanish}}</td>
                 <td class="small text-center vat">
                     {% for intake in treatmentPlants.plantIntakeName %}

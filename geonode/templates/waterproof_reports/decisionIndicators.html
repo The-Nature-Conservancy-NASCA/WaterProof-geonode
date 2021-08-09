@@ -27,7 +27,7 @@
         <div class="help-in-report" style="border-color: transparent;">
             {% trans "This report summarizes the proportions in investment and benefits that will be achieved by the implementation of the SbN:" %}
         </div>
-        <div style="text-align: right;position: absolute;top: 0px;right: 0px;margin-left: 65%;font-size: 13px;">
+        <div style="text-align: center;position: absolute;top: 0px;right: 0px;margin-left: 65%;font-size: 13px;">
             <div style="float: left;width: 15%;">
                 <img src="/static/geonode/img/Indicadores-financieros.png" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black; " title="{% trans "Financial indicators" %}"/> 
                 <br> 
@@ -51,6 +51,11 @@
                 <a>{% trans "Geographic visualization" %}</a>
                 <!--a href="../../reports/geographic/">{% trans "Geographic visualization" %}</a-->
             </div>
+        </div>
+        <div style="text-align: center;position: absolute;top: 10%;right: 0px;margin-left: 75%;font-size: 13px;">
+            <img src="/static/geonode/img/reportes-icon.png" style="height: 30%; width: 30%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;" title="{% trans "Reports" %}"/>
+            <br>
+            <a id="Return"></a>
         </div>
     </div>
     <div id="smartwizard" style="position: relative;">
@@ -371,6 +376,14 @@ $(function () {
     changeReport = function() {
         location.href = "../../study_cases/report/" + localStorage.idStudyCase;
     }
+
+    var localStorageId = localStorage.idStudyCase;
+    $('#Return').append(
+        `
+        <a href="../../study_cases/report/${localStorageId}">{% trans "Return" %}</a>
+            
+        `
+    );
 
     /**
     * Search the points of a city and load them in the polygon of the map
@@ -749,16 +762,16 @@ $(function () {
                 }    
 
                 if(value.description === "TotalTreatmentCostSavings") {
-                    document.getElementById("idTotalTreatmentCostSavings").innerHTML = value.value.toFixed(2);
+                    document.getElementById("idTotalTreatmentCostSavings").innerHTML = Intl.NumberFormat('es').format(value.value.toFixed(2));
                 }
                 if(value.description === "TimeFrame") {
                     document.getElementById("idTimeFrame").innerHTML = value.value.toFixed(2);
                 }
                 if(value.description === "TotalEstimatedInvestment") {
-                    document.getElementById("idTotalEstimatedInvestment").innerHTML = value.value.toFixed(2);
+                    document.getElementById("idTotalEstimatedInvestment").innerHTML = Intl.NumberFormat('es').format(value.value.toFixed(2));
                 }
                 if(value.description === "TotalAreaInterventionSize(Hec)") {
-                    document.getElementById("idTotalAreaInvestmentSize").innerHTML = value.value.toFixed(2);
+                    document.getElementById("idTotalAreaInvestmentSize").innerHTML = Intl.NumberFormat('es-US').format(value.value.toFixed(2));
                 }
             });
         });

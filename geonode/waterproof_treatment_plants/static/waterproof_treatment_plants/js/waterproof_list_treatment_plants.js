@@ -380,7 +380,7 @@ $(function () {
         initMap();
 
         $('#createUrl').attr('href','create/' + userCountryId)
-        console.log("aqui crea ptap");
+        
         if (localStorage.clonePlant === "false" && localStorage.updatePlant === "false" && localStorage.loadInf === "false"){
             document.getElementById("titleFormTreatmentPlant").innerHTML = "    "+"Create Treatment Plant";
         }
@@ -869,12 +869,12 @@ $(function () {
                                                 }
                                                 
                                                 $('#technology' + valueTech.idSubprocess).html($('#technology' + valueTech.idSubprocess).html() + tableVar + tableFunct);
+                                                document.getElementById('technology' + valueTech.idSubprocess).style.display = "block !important";
                                                 if(valueCostFunction.default) {
                                                     changeStatus(valueTech.idSubprocess)
                                                 }
                                             } else {
                                                 document.getElementById('contentTechnology' + valueTech.idSubprocess).style.display = "none";
-                                                document.getElementById('technology' + valueTech.idSubprocess).style.display = "none";
                                             }
                                         }
                                     }
