@@ -155,13 +155,13 @@ def pdf(request):
     pdf.set_fill_color(0, 138, 173)
     pdf.set_draw_color(0, 138, 173)
 
-    pdf.cell(epw/4, 10,"Name", border=1, align='C', fill=1)
-    pdf.cell(epw/4, 5,"Percentage of benefit associated", border=1, align='C', fill=1)
-    pdf.cell(epw/10, 10,"Benefit", border=1, align='C', fill=1)
-    pdf.cell(epw/10, 5,"Implementa", border=1, align='C', fill=1)
-    pdf.cell(epw/10, 5,"Matenance", border=1, align='C', fill=1)
-    pdf.cell(epw/10, 5,"Periodicity", border=1, align='C', fill=1)
-    pdf.cell(epw/10, 5,"Opportunity", border=1, align='C', fill=1)
+    pdf.cell(epw/4, 10,"Name", border=1, align='L', fill=1)
+    pdf.cell(epw/4, 5,"Percentage of benefit associated", border=1, align='L', fill=1)
+    pdf.cell(epw/10, 10,"Benefit", border=1, align='L', fill=1)
+    pdf.cell(epw/10, 5,"Implementa", border=1, align='L', fill=1)
+    pdf.cell(epw/10, 5,"Matenance", border=1, align='L', fill=1)
+    pdf.cell(epw/10, 5,"Periodicity", border=1, align='L', fill=1)
+    pdf.cell(epw/10, 5,"Opportunity", border=1, align='L', fill=1)
     pdf.ln(4)
     pdf.cell(epw/4, 5,"")
     pdf.cell(epw/4, 5,"with intervenctions at time t=0", border=1, align='C', fill=1)
@@ -226,7 +226,7 @@ def pdf(request):
             'type': 'column'
         },
         'title': {
-            'text': 'Interactive graph of cost and benefits'
+            'text': 'Cost and benefits'
         },
         'colors': ['#008BAB', '#90D3E7', '#004B56', '#61D1C2'],
         'xAxis': {
@@ -303,7 +303,7 @@ def pdf(request):
 
     config = {
         'title': {
-            'text': 'Sensibility analysis - total discounted benefit (TDB)'
+            'text': 'Sensitivity analysis - total discounted benefit (TDB)'
         },
         'credits': {
             'enabled': 0
