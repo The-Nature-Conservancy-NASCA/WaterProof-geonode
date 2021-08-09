@@ -644,7 +644,6 @@ $(document).ready(function () {
                                 rellocated_remainder: $("#rellocated_check").is(':checked'),
                                 nbsactivities: '1' + JSON.stringify(nbsactivities),
                                 currencys: '1' + JSON.stringify(result.value),
-                                run_analysis: false
                             }, function (data) {
                                 $('#_thumbnail_processing').modal('hide');
                                 $('#smartwizard').smartWizard("next");
@@ -807,12 +806,12 @@ $(document).ready(function () {
                             input_id = input.id
                             input_type = input.type
                             if (input_id && input_type != 'hidden') {
-                                split = input_id.split('-')
+                                split = input_id.split('-');
                                 nbssc_id = split.pop();
-                                val = $("#" + input_id).val()
+                                val = $("#" + input_id).val();
                                 nbsactivity['id'] = nbssc_id;
                                 nbsactivity['value'] = val;
-                                nbsactivities.push(nbsactivity)
+                                nbsactivities.push(nbsactivity);
                             }
                         });
                         $.post("../../study_cases/save/", {
@@ -826,12 +825,78 @@ $(document).ready(function () {
                             rellocated_remainder: $("#rellocated_check").is(':checked'),
                             nbsactivities: '1' + JSON.stringify(nbsactivities),
                             currencys: '1' + JSON.stringify(result.value),
-                            run_analysis: true
                         }, function (data) {
-                            $('#_thumbnail_processing').modal('hide');
-                            $('#smartwizard').smartWizard("next");
-                            $('#autoAdjustHeightF').css("height", "auto");
-                            $("#form").submit();
+                            $.ajax({
+                                url : servermodelApi+"preprocRIOS?id_case="+id_study_case+"%26id_usuario="+id_user,
+                                type : 'GET',
+                                dataType : 'json',
+                                success : function(json) {
+                                    if(json.status == 'success'){
+                                        $.post("../../study_cases/run/", {
+                                            id_study_case: id_study_case,
+                                            run_analysis: 'true'
+                                        }, function (data) {                                        
+                                            autoAdjustHeight();
+                                            //$("#form").submit();
+                                            location.href = "/study_cases/?city="+localStorage.cityId; 
+                                        }, "json");
+                                    }else{                                        
+                                        Swal.fire({
+                                            icon: 'error',
+                                            title: gettext('error_api'),
+                                            text: gettext('error_model_api'),
+                                        });
+                                        location.href = "/study_cases/?city="+localStorage.cityId; 
+                                    }
+                                    $('#_thumbnail_processing').modal('hide');
+                                },
+                                error : function(xhr, status) {
+                                    if (xhr.status != 504) {
+                                        $('#_thumbnail_processing').modal('hide');
+                                        Swal.fire({
+                                            icon: 'error',
+                                            title: gettext('error_api'),
+                                            text: gettext('error_model_api'),
+                                        });
+                                        location.href = "/study_cases/?city="+localStorage.cityId;
+                                    }
+                                }
+                            });
+                            let urlQueryAnalisysResult = servermodelApi+"queryStudyCaseAnalisysResult?id_case="+id_study_case;
+                            let validationInterval = setInterval(queryAnalisysResult, 30000);
+                            let iteration = 1;
+
+                            function queryAnalisysResult(){
+                                console.log("queryAnalisysResult, iteracion: " + iteration);
+                                if (iteration < 3) {
+                                    console.log("iteration after 10 minutes, the process does´nt query yet");
+                                    iteration++;
+                                    return;
+                                }else if (iteration == 18){
+                                    console.log("iteration: " + iteration + ", waiting for the process to finish");
+                                    clearInterval(validationInterval);
+                                    location.href = "/study_cases/?city="+localStorage.cityId; 
+                                }
+                                $.ajax({
+                                    url : urlQueryAnalisysResult,
+                                    type : 'GET',
+                                    dataType : 'json',
+                                    success : function(json) {                                    
+                                        if (json.status[0]) {
+                                            $('#_thumbnail_processing').modal('hide');
+                                            console.log("finish interval execution");
+                                            clearInterval(validationInterval);
+                                            location.href = "/study_cases/?city="+localStorage.cityId; 
+                                        }
+                                        iteration++;                                       
+                                    },
+                                    error : function(xhr, status) {
+                                        $('#_thumbnail_processing').modal('hide');
+                                        location.href = "/study_cases/?city="+localStorage.cityId;                
+                                    }
+                                });
+                            }                              
+
                         }, "json");
                     }
                 })

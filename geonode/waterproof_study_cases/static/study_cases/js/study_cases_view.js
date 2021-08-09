@@ -124,8 +124,6 @@ $(document).ready(function() {
     });
 
     $('#step6NextBtn').click(function() {
-        $('#smartwizard').smartWizard("next");
-        $('#autoAdjustHeightF').css("height", "auto");
         loadNBSActivities()
     });
 
@@ -157,6 +155,7 @@ $(document).ready(function() {
         if (implementation && !isNaN(implementation)) {
             total += parseFloat(implementation)
         }
+        //total_personnel.html(new Intl.NumberFormat('es').format(total));
         total_personnel.val(total)
     }
 
@@ -226,10 +225,10 @@ $(document).ready(function() {
 
 
     function loadNBSActivities() {
-        var country = localStorage.country
+        var city_id = localStorage.cityId
         $.post("../../study_cases/nbs/", {
             id_study_case: id_study_case,
-            country: country,
+            city_id: city_id,
             process: "View"
         }, function(data) {
             content = ''
@@ -251,6 +250,7 @@ $(document).ready(function() {
                 $("#full-table").removeClass('panel-hide');
             }
             $("#full-table").find('tbody').append(content);
+            $('#smartwizard').smartWizard("next");
             $('#autoAdjustHeightF').css("height", "auto");
 
         });

@@ -512,6 +512,13 @@ msgstr "Investment scenario values ​​do not meet minimum budget parameters f
 msgid "CO2_country"
 msgstr "CO2 Eq for "
 
+
+msgid "error_api"
+msgstr "error api"
+
+msgid "error_model_api"
+msgstr "error run model api"
+
 #~ msgid " - "
 #~ msgstr " - "
 

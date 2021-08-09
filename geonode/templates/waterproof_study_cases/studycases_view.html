@@ -192,7 +192,6 @@
                             <div class="col-md-2">
                                 <input type="text" name="dws_cm" maxlength="100" class="form-control" id="id_cm" value="{{study_case.cm_value|stringformat:'1.2f'}}" disabled />
                             </div>
-
                             <div class="col-md-3">
                                 <input id="cm_select" class="form-control" value="{{study_case.cm_currency}}" disabled>
                             </div>
@@ -427,15 +426,7 @@
                                 <label for="analysis_currency" class="control-label required-field ">
                                     {% trans "Currency" %}
                                 </label>
-                                <select id="analysis_currency" class="form-control" disabled>
-                                    {% for currency in currencys %}
-                                    {% if currency.currency == study_case.analysis_currency %}
-                                    <option value='{{currency.currency}}' selected>({{currency.currency}}) - {{currency.name}} </option>
-                                    {% else %}
-                                    <option value='{{currency.currency}}'>({{currency.currency}}) - {{currency.name}}</option>
-                                    {% endif %}
-                                    {% endfor %}
-                                </select>
+                                <input id="cm_select" class="form-control" value="{{study_case.analysis_currency}}" disabled>
                             </div>
                         </div>
                         <div class="col-md-6">

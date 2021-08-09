@@ -762,16 +762,16 @@ $(function () {
                 }    
 
                 if(value.description === "TotalTreatmentCostSavings") {
-                    document.getElementById("idTotalTreatmentCostSavings").innerHTML = value.value.toFixed(2);
+                    document.getElementById("idTotalTreatmentCostSavings").innerHTML = Intl.NumberFormat('es').format(value.value.toFixed(2));
                 }
                 if(value.description === "TimeFrame") {
                     document.getElementById("idTimeFrame").innerHTML = value.value.toFixed(2);
                 }
                 if(value.description === "TotalEstimatedInvestment") {
-                    document.getElementById("idTotalEstimatedInvestment").innerHTML = value.value.toFixed(2);
+                    document.getElementById("idTotalEstimatedInvestment").innerHTML = Intl.NumberFormat('es').format(value.value.toFixed(2));
                 }
                 if(value.description === "TotalAreaInterventionSize(Hec)") {
-                    document.getElementById("idTotalAreaInvestmentSize").innerHTML = value.value.toFixed(2);
+                    document.getElementById("idTotalAreaInvestmentSize").innerHTML = Intl.NumberFormat('es-US').format(value.value.toFixed(2));
                 }
             });
         });

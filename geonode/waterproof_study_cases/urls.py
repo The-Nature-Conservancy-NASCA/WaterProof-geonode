@@ -41,6 +41,7 @@ urlpatterns = [
     path('intakebyptap/<int:id>/', api.getIntakeByPtap, name='intake-ptap'),
     path('ptapbycity/<int:id_city>/', api.getPtapByCity, name='ptap-city'),    
     path('save/', api.save, name='study_cases_save'),
+    path('run/', api.run, name='study_cases_run'),
     path('nbs/', api.getNBS, name='study_cases_nbs'),
     path('bio/', api.getBiophysical, name='study_cases_bio'),
     path('savebio/', api.saveBiophysicals, name='study_cases_bio_save'),
