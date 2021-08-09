@@ -26,6 +26,8 @@ services:
       - ./_volume_static:/spcwaterproof-static/
       - ./_volume_media:/spcwaterproof-media/
       - ./_volume_certificates:/spcwaterproof-certificates/
+      - /home/skaphe/Documentos/tnc/modelos/entradas/:/spcwaterproof-inputs/
+      - /home/skaphe/Documentos/tnc/modelos/salidas/:/spcwaterproof-outputs/
 
   geoserver:
     image: waterproof/spcwaterproof:geoserver-3.2
