@@ -669,13 +669,15 @@ $(document).ready(function () {
                                         }
                                     },
                                     error : function(xhr, status) {
-                                        $('#_thumbnail_processing').modal('hide');
-                                        Swal.fire({
-                                            icon: 'error',
-                                            title: gettext('error_api'),
-                                            text: gettext('error_model_api'),
-                                        });
-                                        location.href = "/study_cases/?city="+localStorage.cityId;   
+                                        if (xhr.status != 504) {
+                                            $('#_thumbnail_processing').modal('hide');
+                                            Swal.fire({
+                                                icon: 'error',
+                                                title: gettext('error_api'),
+                                                text: gettext('error_model_api'),
+                                            });
+                                            location.href = "/study_cases/?city="+localStorage.cityId;
+                                        }
                                     }
                                 })
                             }, "json");

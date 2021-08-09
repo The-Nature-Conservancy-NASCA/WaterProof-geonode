@@ -851,13 +851,15 @@ $(document).ready(function () {
                                     $('#_thumbnail_processing').modal('hide');
                                 },
                                 error : function(xhr, status) {
-                                    $('#_thumbnail_processing').modal('hide');
-                                    Swal.fire({
-                                        icon: 'error',
-                                        title: gettext('error_api'),
-                                        text: gettext('error_model_api'),
-                                    });
-                                    location.href = "/study_cases/?city="+localStorage.cityId;
+                                    if (xhr.status != 504) {
+                                        $('#_thumbnail_processing').modal('hide');
+                                        Swal.fire({
+                                            icon: 'error',
+                                            title: gettext('error_api'),
+                                            text: gettext('error_model_api'),
+                                        });
+                                        location.href = "/study_cases/?city="+localStorage.cityId;
+                                    }
                                 }
                             });
                             let urlQueryAnalisysResult = servermodelApi+"queryStudyCaseAnalisysResult?id_case="+id_study_case;
