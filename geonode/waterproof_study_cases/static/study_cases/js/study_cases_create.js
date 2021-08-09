@@ -272,6 +272,7 @@ $(document).ready(function () {
                 } else {
                     $('#smartwizard').smartWizard("next");
                     autoAdjustHeight();
+                    loadCarbomMarketParameter();
                 }
 
             }, "json");
