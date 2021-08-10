@@ -112,11 +112,13 @@ def create(request):
                           'waterproof_study_cases/studycases_form.html',
                           context={
                               "serverApi": settings.WATERPROOF_API_SERVER,
+                              "servermodelApi": settings.WATERPROOF_MODELS_PY2_API,
                               'portfolios': portfolios,
                               'ModelParameters': models,
                               'currencys': currencys,
                               'scenarios': scenarios,
-                              'costFunctions' : []
+                              'costFunctions' : [],
+                              'id_user' : request.user.id
                           }
                           )
 
@@ -179,6 +181,7 @@ def edit(request, idx):
                 request, 'waterproof_study_cases/studycases_edit.html',
                 {
                     "serverApi": settings.WATERPROOF_API_SERVER,
+                    "servermodelApi": settings.WATERPROOF_MODELS_PY2_API,
                     'study_case': study_case,
                     'intakes': intakes,
                     'portfolios': portfolios,
@@ -186,7 +189,8 @@ def edit(request, idx):
                     'ModelParameters': models,
                     'currencys': currencys,
                     'scenarios': scenarios,
-                    'costFunctions' : functions
+                    'costFunctions' : functions,
+                    'id_user' : request.user.id
                 }
             )
 
@@ -247,6 +251,7 @@ def clone(request, idx):
                 request, 'waterproof_study_cases/studycases_clone.html',
                 {
                     "serverApi": settings.WATERPROOF_API_SERVER,
+                    "servermodelApi": settings.WATERPROOF_MODELS_PY2_API,
                     'study_case': study_case,
                     'intakes': intakes,
                     'portfolios': portfolios,
@@ -254,7 +259,8 @@ def clone(request, idx):
                     'ModelParameters': models,
                     'currencys': currencys,
                     'scenarios': scenarios,
-                    'costFunctions' : functions
+                    'costFunctions' : functions,
+                    'id_user' : request.user.id
                 }
             )
 

@@ -50,9 +50,7 @@ $(function () {
                 })
             }
         });
-
         
-        //$('.btn-danger').click(function (evt) {
         $('#tblIntakes tbody').on('click', '.btn-danger', function (evt) {
             Swal.fire({
                 title: gettext('Delete intake'),

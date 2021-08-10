@@ -125,7 +125,7 @@ function selectedCityResultHandler(feat){
           }
           let cityId = cityData[0];
           localStorage.setItem('cityId', cityId);
-          localStorage.setItem('factor', cityId[2]);
+          localStorage.setItem('factor', cityData[2]);
           if (URL_REFRESH_CITY != '') {
               window.location.href = URL_REFRESH_CITY + cityId;
           }
