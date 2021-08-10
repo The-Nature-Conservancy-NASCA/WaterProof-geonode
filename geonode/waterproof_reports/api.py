@@ -816,8 +816,7 @@ def getWaterproofReportsRiosIpa(request):
 	if request.method == 'GET':
 		con = psycopg2.connect(settings.DATABASE_URL)
 		cur = con.cursor()
-		cur.execute("select sbnf as sbn, costperhectaref as actual_spent, recommendedinterventionf as area_converted_ha from __get_report_analisys_beneficsc('" + request.query_params.get('studyCase') + "')")
-##		cur.execute("SELECT sbn,actual_spent,area_converted_ha FROM public.waterproof_reports_rios_ipa WHERE year=9999 AND study_case_id = '" + request.query_params.get('studyCase') + "' AND sbn NOT IN ('Total','Floating Budget')")
+		cur.execute("SELECT sbnf AS sbn, costperhectaref AS actual_spent, recommendedinterventionf AS area_converted_ha FROM __get_report_analisys_beneficsc('" + request.query_params.get('studyCase') + "')")
 		rows = cur.fetchall()
 		objects_list = []
 		for row in rows:
@@ -827,8 +826,6 @@ def getWaterproofReportsRiosIpa(request):
 				"areaConvertedHa":row[2]
 			})
 		return JsonResponse(objects_list, safe=False)
-
-
 
 @api_view(['GET'])
 def getWaterproofReportsDesagregation(request):
@@ -860,6 +857,92 @@ def getWaterproofReportsDesagregation(request):
 				"nitrogenLoadChangeInTime":row[5],
 				"phosphorusLoadChangeInTime":row[6],
 				"carbonStorageChangeInTime":row[7]
+			})
+		return JsonResponse(objects_list, safe=False)
+
+@api_view(['GET'])
+def getCaracteristicsCsIntakePdf(request):
+	"""Returns the list of treatment plants
+
+	Find all the stored treatment plants that have
+	the minimum characteristics stored in all components
+
+	Parameters:
+	without parameters
+
+	Exceptions:
+	If it does not have data in the minimal relations of the model it does not deliver
+	information about the treatment plant
+	"""
+	if request.method == 'GET':
+		con = psycopg2.connect(settings.DATABASE_URL)
+		cur = con.cursor()
+		cur.execute("SELECT * FROM __get_caracteristics_cs_intake_pdf('" + request.query_params.get('studyCase') + "')")
+		rows = cur.fetchall()
+		objects_list = []
+		for row in rows:
+			objects_list.append({
+				"name":row[0],
+				"description":row[1]
+			})
+		return JsonResponse(objects_list, safe=False)
+
+@api_view(['GET'])
+def getCaracteristicsPtapDetailPdf(request):
+	"""Returns the list of treatment plants
+
+	Find all the stored treatment plants that have
+	the minimum characteristics stored in all components
+
+	Parameters:
+	without parameters
+
+	Exceptions:
+	If it does not have data in the minimal relations of the model it does not deliver
+	information about the treatment plant
+	"""
+	if request.method == 'GET':
+		con = psycopg2.connect(settings.DATABASE_URL)
+		cur = con.cursor()
+		cur.execute("SELECT * FROM __get_caracteristics_ptap_detail_pdf('" + request.query_params.get('studyCase') + "')")
+		rows = cur.fetchall()
+		objects_list = []
+		for row in rows:
+			objects_list.append({
+				"name":row[0],
+				"description":row[1]
+			})
+		return JsonResponse(objects_list, safe=False)
+
+@api_view(['GET'])
+def getconservationActivitiesPdf(request):
+	"""Returns the list of treatment plants
+
+	Find all the stored treatment plants that have
+	the minimum characteristics stored in all components
+
+	Parameters:
+	without parameters
+
+	Exceptions:
+	If it does not have data in the minimal relations of the model it does not deliver
+	information about the treatment plant
+	"""
+	if request.method == 'GET':
+		con = psycopg2.connect(settings.DATABASE_URL)
+		cur = con.cursor()
+		cur.execute("SELECT * FROM __get_conservation_activities_pdf('" + request.query_params.get('studyCase') + "')")
+		rows = cur.fetchall()
+		objects_list = []
+		for row in rows:
+			objects_list.append({
+				"name":row[0],
+				"description":row[1],
+				"benefit":row[2],
+				"implementation":row[3],
+				"maintenance":row[4],
+				"periodicity":row[5],
+				"oportunity":row[6]
 			})
 		return JsonResponse(objects_list, safe=False)
 
