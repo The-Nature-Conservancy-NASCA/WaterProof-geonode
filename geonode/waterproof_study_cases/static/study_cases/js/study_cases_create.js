@@ -115,7 +115,7 @@ $(document).ready(function () {
             $("#biophysical-panel").empty();
             loadBiophysicals();
             $('#txtGuide1').text(gettext("tables_text"));
-            $('#txtGuide2').text(("InVEST_documentation"));
+            $('#txtGuide2').text(gettext("InVEST_documentation"));
         } else {
             $("#biophysical-panel").empty();
             $("#biophysical-panel").addClass("panel-hide");
