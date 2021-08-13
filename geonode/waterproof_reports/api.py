@@ -946,7 +946,63 @@ def getconservationActivitiesPdf(request):
 			})
 		return JsonResponse(objects_list, safe=False)
 
+@api_view(['GET'])
+def getFinancialAnalysisPdfRunAnalisisPdf(request):
+	"""Returns the list of treatment plants
 
+	Find all the stored treatment plants that have
+	the minimum characteristics stored in all components
+
+	Parameters:
+	without parameters
+
+	Exceptions:
+	If it does not have data in the minimal relations of the model it does not deliver
+	information about the treatment plant
+	"""
+	if request.method == 'GET':
+		con = psycopg2.connect(settings.DATABASE_URL)
+		cur = con.cursor()
+		cur.execute("SELECT * FROM __get_financial_analysis_pdf_runAnalisis_pdf('" + request.query_params.get('studyCase') + "')")
+		rows = cur.fetchall()
+		objects_list = []
+		for row in rows:
+			objects_list.append({
+				"platformCost":str(row[0]),
+				"discountRate":str(row[1]),
+				"discountRateMinimum":str(row[2]),
+				"discountRateMaximum":str(row[3]),
+				"fullPorfolio":str(row[4]),
+				"fullRoi":str(row[5]),
+				"fullScenario":str(row[6])
+			})
+		return JsonResponse(objects_list, safe=False)
+
+@api_view(['GET'])
+def getObjetivesForPorfoliosPdf(request):
+	"""Returns the list of treatment plants
+
+	Find all the stored treatment plants that have
+	the minimum characteristics stored in all components
+
+	Parameters:
+	without parameters
+
+	Exceptions:
+	If it does not have data in the minimal relations of the model it does not deliver
+	information about the treatment plant
+	"""
+	if request.method == 'GET':
+		con = psycopg2.connect(settings.DATABASE_URL)
+		cur = con.cursor()
+		cur.execute("SELECT * FROM __get_objetives_for_porfolios_pdf('" + request.query_params.get('studyCase') + "')")
+		rows = cur.fetchall()
+		objects_list = []
+		for row in rows:
+			objects_list.append({
+				"name":str(row[0])
+			})
+		return JsonResponse(objects_list, safe=False)
 
 
 
