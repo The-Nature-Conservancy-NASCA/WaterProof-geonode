@@ -13,8 +13,8 @@ Delete the line below if you're just getting started and want to remove the welc
 {% endblock extra_css %}
 
 {% block body_outer %}
+{{ page.body|StreamField }}
 
-{{ page.body|richtext }}
 
 {% endblock %}
  

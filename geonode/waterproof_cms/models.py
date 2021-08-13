@@ -2,10 +2,26 @@ from django.db import models
 from django.utils import translation
 from django.http import HttpResponseRedirect
 
+from wagtail.core import blocks
 from wagtail.core.models import Page
-from wagtail.core.fields import RichTextField
-from wagtail.admin.edit_handlers import FieldPanel
-from wagtail.admin.edit_handlers import MultiFieldPanel, PageChooserPanel
+from wagtail.core.fields import RichTextField, StreamField
+from wagtail.admin.edit_handlers import MultiFieldPanel, PageChooserPanel, StreamFieldPanel, FieldPanel
+from wagtail.images.blocks import ImageChooserBlock
+
+#class BlogPage(Page):
+#    author = models.CharField(max_length=255)
+#    date = models.DateField("Post date")
+#    body = StreamField([
+#        ('heading', blocks.CharBlock(form_classname="full title")),
+#        ('paragraph', blocks.RichTextBlock()),
+#        ('image', ImageChooserBlock()),
+#    ])
+
+#    content_panels = Page.content_panels + [
+#        FieldPanel('author'),
+#        FieldPanel('date'),
+#        StreamFieldPanel('body'), 
+#    ]
 
 class TranslatablePageMixin(models.Model):
     spanish_link = models.ForeignKey(Page, null=True, on_delete=models.SET_NULL, blank=True, related_name='+')
@@ -46,9 +62,17 @@ class TranslatablePageMixin(models.Model):
 #         return HttpResponseRedirect(self.url + language + '/')
 
 
-# class HomePage(Page):
-#     body = RichTextField(blank=True)
+class HomePage(Page):
+   # author = models.CharField(max_length=255)
+   # date = models.DateField("Post date")
+    body = StreamField([
+        ('heading', blocks.CharBlock(form_classname="full title")),
+        ('paragraph', blocks.RichTextBlock()),
+        ('image', ImageChooserBlock()),
+    ])
 
-#     content_panels = Page.content_panels + [
-#         FieldPanel('body', classname="full"),
-#     ]
+    content_panels = Page.content_panels + [
+    #    FieldPanel('author'),
+    #    FieldPanel('date'),
+        StreamFieldPanel('body'), 
+    ]
