@@ -1,6 +1,6 @@
 FROM nginx:1.20.1-alpine
 
-#RUN apk add --no-cache openssl inotify-tools
+RUN apk add --no-cache openssl inotify-tools
 
 WORKDIR /etc/nginx/
 
