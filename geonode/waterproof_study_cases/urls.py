@@ -28,22 +28,33 @@ urlpatterns = [
     path('public/<int:idx>', api.public, name='public-study-cases'),
      # Private Study Cases
     path('private/<int:idx>', api.private, name='private-study-cases'),
-    
     # Report Study Cases
     path('report/<int:idx>', views.report, name='delete-study-cases'),
 
     path('currencys/', api.getStudyCaseCurrencys, name='currencys-study-cases'),
     
+    path('currencys/update', api.updateCurrencys, name='currencys-update'),
+    
     path('intakebyid/<int:id_intake>/', api.getIntakeByID, name='intake-id'),
+    
     path('ptapbyid/<int:id_ptap>/', api.getPtapByID, name='ptap-id'),
+    
     path('intakebycity/<int:id_city>/', api.getIntakeByCity, name='intake-city'),
+    
     path('parametersbycountry/<int:id_city>/', api.getParameterByCountry, name='parameters-country'),
+    
     path('intakebyptap/<int:id>/', api.getIntakeByPtap, name='intake-ptap'),
+    
     path('ptapbycity/<int:id_city>/', api.getPtapByCity, name='ptap-city'),    
+    
     path('save/', api.save, name='study_cases_save'),
+    
     path('run/', api.run, name='study_cases_run'),
+    
     path('nbs/', api.getNBS, name='study_cases_nbs'),
+    
     path('bio/', api.getBiophysical, name='study_cases_bio'),
+    
     path('savebio/', api.saveBiophysicals, name='study_cases_bio_save'),
     
     
