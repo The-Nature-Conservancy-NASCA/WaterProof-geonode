@@ -162,7 +162,7 @@
 
         {% for transformation in sbn.rios_transformations.all %}
         <li class="list-group-item">
-            <span class="badge">{{ transformation.description }}</span> {{ transformation.name }}
+            <span class="badge">{{ transformation.name }}</span> {{ transformation.activity.name }}
         </li>
         {% endfor %}
 
@@ -176,7 +176,23 @@
     var userCountryId='{{userCountry.id}}';
     var userCountryCode='{{userCountry.iso3}}';
     var userCountryName='{{userCountry.name}}';
+    OSM_BASEMAP_URL = '{{ OSM_BASEMAP_URL }} ';
+    IMG_BASEMAP_URL =  '{{ IMG_BASEMAP_URL }} ';
+    HYDRO_BASEMAP_URL =  '{{ HYDRO_BASEMAP_URL }} ';
+    GRAY_BASEMAP_URL = '{{ GRAY_BASEMAP_URL }} ';
+    MAXZOOM = 11;
 </script>
+{% if user.professional_role == 'ADMIN' %}
+    <script>
+         var countryId = '{{usaCountry.id}}';
+         var disableMap=true;
+    </script>
+{% else %}
+    <script>
+        var disableMap=false;
+        var countryId = '{{country.id}}';
+    </script>
+{% endif %}
 <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
     integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
     crossorigin=""></script>
