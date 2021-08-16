@@ -51,6 +51,11 @@ $(function () {
                 
             }
         });
+        $("#clear_options").click(function () {
+            $('div[name=selectlanduse]').find('input[type=radio]:checked').each(function (idx, input) {
+                input.checked = false;
+            });
+        });
         fillTransitionsDropdown(transitionsDropdown);
         submitFormEvent();
         changeCountryEvent(countryDropdown, currencyDropdown);

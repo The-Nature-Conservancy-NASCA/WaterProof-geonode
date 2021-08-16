@@ -56,6 +56,11 @@ $(function () {
                 });
             }
         });
+        $("#clear_options").click(function () {
+            $('div[name=selectlanduse]').find('input[type=radio]:checked').each(function (idx, input) {
+                input.checked = false;
+            });
+        });
         // Event to show or hide restricted area edition
         loadAreaChecked.click(function (e) {
             var checked = e.currentTarget.checked
@@ -357,8 +362,8 @@ $(function () {
         });
     };
     /** 
-   * Initialize map 
-   */
+     * Initialize map 
+     */
     initMap = function () {
         map = L.map('mapid').setView([51.505, -0.09], 13);
 
