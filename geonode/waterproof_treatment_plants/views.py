@@ -3,6 +3,7 @@ from django.http.response import JsonResponse
 from django.shortcuts import render
 from django.conf import settings
 import requests
+from geonode.waterproof_parameters.models import Countries
 
 
 def treatmentPlantsList(request):
@@ -32,8 +33,11 @@ def treatmentPlantsList(request):
 
 def newTreatmentPlants(request):
 	if request.method == 'GET':
-			return render(
-				request,
-				'waterproof_treatment_plants/treatment_plants_edit.html',
-				{}
-			)
+		currencies = Countries.objects.values('currency', 'name', 'iso3').distinct().order_by('currency')
+		return render(
+			request,
+			'waterproof_treatment_plants/treatment_plants_edit.html',
+			context = {
+				'currencies': currencies
+			}
+		)

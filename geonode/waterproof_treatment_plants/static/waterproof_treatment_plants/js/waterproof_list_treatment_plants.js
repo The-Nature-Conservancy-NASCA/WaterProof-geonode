@@ -9,16 +9,12 @@
  */
 
 $(function () {
-    var TILELAYER = 'http://{s}.tile.osm.org/{z}/{x}/{y}.png';
+    var TILELAYER = 'https://{s}.tile.osm.org/{z}/{x}/{y}.png';
     var IMAGE_LYR_URL = "https://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryTopo/MapServer/tile/{z}/{y}/{x}";
     var HYDRO_LYR_URL = "https://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/Esri_Hydro_Reference_Overlay/MapServer/tile/{z}/{y}/{x}";
     var CENTER = [4.582, -74.4879];
     var MAXZOOM = 11;
-    var table = $('#example').DataTable();
-    var countryDropdown = $('#countryNBS');
-    var currencyDropdown = $('#currencyCost');
-    var transitionsDropdown = $('#riosTransition');
-    var transformations = [];
+    var table = $('#example').DataTable();   
     var lastClickedLayer;
     var map;
     var lyrsPolygons = [];
@@ -35,47 +31,47 @@ $(function () {
     };
     var ptapArray = [{
             idElement: 1,
-            nameElelent: null,
+            nameElement: null,
             element: ['Q1','Csed1','CN1','CP1','WSed1','WN1','WP1']
         },{
             idElement: 2,
-            nameElelent: null,
+            nameElement: null,
             element: ['Q2','Csed2','CN2','CP2','WSed2','WN2','WP2','WsedRet2','WNRet2','WPRet2']
         },{
             idElement: 3,
-            nameElelent: null,
+            nameElement: null,
             element: ['Q3','Csed3','CN3','CP3','WSed3','WN3','WP3','WsedRet3','WNRet3','WPRet3']
         },{
             idElement: 4,
-            nameElelent: null,
+            nameElement: null,
             element: ['Q4','Csed4','CN4','CP4','WSed4','WN4','WP4','WsedRet4','WNRet4','WPRet4']
         },{
             idElement: 5,
-            nameElelent: null,
+            nameElement: null,
             element: ['Q5','Csed5','CN5','CP5','WSed5','WN5','WP5','WsedRet5','WNRet5','WPRet5']
         },{
             idElement: 6,
-            nameElelent: null,
+            nameElement: null,
             element: ['Q6','Csed6','CN6','CP6','WSed6','WN6','WP6','WsedRet6','WNRet6','WPRet6']
         },{
             idElement: 7,
-            nameElelent: null,
+            nameElement: null,
             element: ['Q7','Csed7','CN7','CP7','WSed7','WN7','WP7','WsedRet7','WNRet7','WPRet7']
         },{
             idElement: 8,
-            nameElelent: null,
+            nameElement: null,
             element: ['Q8','Csed8','CN8','CP8','WSed8','WN8','WP8','WsedRet8','WNRet8','WPRet8']
         },{
             idElement: 9,
-            nameElelent: null,
+            nameElement: null,
             element: ['Q9','Csed9','CN9','CP9','WSed9','WN9','WP9','WsedRet9','WNRet9','WPRet9']
         },{
             idElement: 10,
-            nameElelent: null,
+            nameElement: null,
             element: ['Q10','Csed10','CN10','CP10','WSed10','WN10','WP10','WsedRet10','WNRet10','WPRet10']
         },{
             idElement: 11,
-            nameElelent: null,
+            nameElement: null,
             element: ['Q11','Csed11','CN11','CP11','WSed11','WN11','WP11','WsedRet11','WNRet11','WPRet11']
         }]
     var defaultStyle = {
@@ -143,7 +139,12 @@ $(function () {
             layer.bindPopup(feature.properties.name);
         }
     });
-
+    var selectedPlantElement = null;
+    var selectedTechnologyId = -1;
+    var button = document.getElementById('btnValidatePyExp');
+    var output = document.getElementById('MathPreview');
+    var addFunction = false;
+    var flagNewFunction = false;
     /**
     * Load ptat when update register
     * @param 
@@ -379,7 +380,7 @@ $(function () {
         });
         initMap();
 
-        $('#createUrl').attr('href','create/' + userCountryId)
+        $('#createUrl').attr('href','create/' + userCountryId);
         
         if (localStorage.clonePlant === "false" && localStorage.updatePlant === "false" && localStorage.loadInf === "false"){
             document.getElementById("titleFormTreatmentPlant").innerHTML = "    "+"Create Treatment Plant";
@@ -397,7 +398,12 @@ $(function () {
                 });
 
                 $.each( data.csinfra, function( key, value ) {
-                    $('#idTbodyIntake').append('<tr id="child' + value.csinfraId + '"><td class="small text-center vat" name="nameListAdd" idIntake="' + value.csinfraElementsystemId + '" nameList="' + value.csinfraName + '"  graphIdlist="' + value.csinfraGraphId + '"  csinfraList="' + value.csinfraCode + '">' + value.csinfraName + '</td><td class="small text-center vat">' + value.csinfraName + '</td><td class="small text-center vat">' + value.csinfraCode + '</td><td aling="center"><a class="btn btn-danger" onclick="deleteOption(' + value.csinfraId + ')"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td></tr>');
+                    $('#idTbodyIntake').append('<tr id="child' + value.csinfraId + '"><td class="small text-center vat" name="nameListAdd" idIntake="' + 
+                                        value.csinfraElementsystemId + '" nameList="' + value.csinfraName + '"  graphIdlist="' + value.csinfraGraphId + 
+                                        '"  csinfraList="' + value.csinfraCode + '">' + value.csinfraName + '</td><td class="small text-center vat">' + 
+                                        value.csinfraName + '</td><td class="small text-center vat">' + value.csinfraCode + 
+                                        '</td><td aling="center"><a class="btn btn-danger" onclick="deleteOption(' + value.csinfraId + 
+                                        ')"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td></tr>');
                 });
 
                 $.each( data.element, function( key, value ) {
@@ -433,7 +439,7 @@ $(function () {
                     })
                 });
 
-                loadUpdatePtap()
+                loadUpdatePtap();
 
                 arrayLoadingFunction = data.function;
                 document.getElementById("idBackgroundGraph").style.display = "none";
@@ -686,7 +692,8 @@ $(function () {
     */
     viewTree = function(e) {
         document.getElementById("mainTree").style.visibility = "hidden";
-        loadArrayTree(e.getAttribute("plantElement"), e.getAttribute("nameElement"), e.getAttribute("graphid"));
+        selectedPlantElement = e.getAttribute("plantElement");
+        loadArrayTree(selectedPlantElement,  e.getAttribute("nameElement"), e.getAttribute("graphid"));
         let MQ = window.MathQuill.getInterface(2);
         setTimeout(function(){
             document.querySelectorAll('.equation').forEach(container => {
@@ -710,7 +717,7 @@ $(function () {
         '            <div class="input-var">'+
         '                <div class="form-group">'+
         '                    <label>% Transported Water</label>'+
-        '                    <input class="form-control" id="idTransportedWater" value="100" readonly="">'+
+        '                    <input class="form-control" value="100" readonly="">'+
         '                    <div class="help-block with-errors"></div>'+
         '                </div>'+
         '            </div>'+
@@ -753,7 +760,7 @@ $(function () {
         '        <tbody>'+
         '        </tbody>'+
         '    </table>'+
-        '   <div class="link-form" onclick="callFormFormula()">Add function</div>'+
+        '   <div class="link-form">Add function</div>'+
         '</div>';
         node.innerHTML = textNewForm;
         document.getElementById(divParent).insertBefore(node, document.getElementById(divParent).childNodes[0]);
@@ -772,7 +779,8 @@ $(function () {
     * @returns 
     */
     callFormFormula = function() {
-        ptapArray
+        //ptapArray
+        //showModalCalculator(true, graphId, "");
     };
     /**
     * Load the tree variables
@@ -789,22 +797,32 @@ $(function () {
             readOnlyTextTree = "readonly";
         }
         var urlDetail = "../../treatment_plants/getInfoTree/?plantElement=" + plantElement + "&country=" + localStorage.getItem('country');
-;
         $.getJSON(urlDetail, function (data) {
             var lastSubprocess = "";
             if(nameElement === null) {
                 nameElement = "N/A";
             }
-            $('#mainTree').html('<div class="title-tree"><div class="point-tree" onclick="viewBranch(\'id' + plantElement + '\', this)" >-</div><div class="text-tree">' + nameElement +'</div><div class="detail-tree"></div></div><div class="margin-main" id="id' + plantElement + '"></div>')
+            $('#mainTree').html('<div class="title-tree" graphId=' + graphid + '><div class="point-tree" onclick="viewBranch(\'id' + 
+            plantElement + '\', this)" >-</div><div class="text-tree">' + nameElement +
+            '</div><div class="detail-tree"></div></div><div class="margin-main" id="id' + plantElement + '"></div>');
             $.each( data, function( key, value ) {
                 if(value.subprocessAddId !== lastSubprocess) {
                     if(value.subprocess === null) {
                         value.subprocess = "N/A";
                     }
                     if(localStorage.loadFormButton === "true") {
-                        $('#id' + plantElement).html($('#id' + plantElement).html() + '<div class="title-tree"><div class="point-tree" onclick="viewBranch(\'subprocess' + value.idSubprocess + '\', this)" >-</div><div class="text-tree">' + value.subprocess + '</div><div class="link-form" onclick="loadNewTechnology(\'subprocess' + value.idSubprocess + '\')">Add new Technology</div></div><div class="margin-main" id="subprocess' + value.idSubprocess + '"></div>');
+                        $('#id' + plantElement).html($('#id' + plantElement).html() + 
+                        '<div class="title-tree"><div class="point-tree" onclick="viewBranch(\'subprocess' + 
+                        value.idSubprocess + '\', this)" >-</div><div class="text-tree">' + 
+                        value.subprocess + '</div><div class="link-form" onclick="loadNewTechnology(\'subprocess' + 
+                        value.idSubprocess + '\')">Add new Technology</div></div><div class="margin-main" id="subprocess' + 
+                        value.idSubprocess + '"></div>');
                     } else {
-                        $('#id' + plantElement).html($('#id' + plantElement).html() + '<div class="title-tree"><div class="point-tree" onclick="viewBranch(\'subprocess' + value.idSubprocess + '\', this)" >-</div><div class="text-tree">' + value.subprocess + '</div><div class="link-form"></div></div><div class="margin-main" id="subprocess' + value.idSubprocess + '"></div>');
+                        $('#id' + plantElement).html($('#id' + plantElement).html() + 
+                                            '<div class="title-tree"><div class="point-tree" onclick="viewBranch(\'subprocess' + value.idSubprocess + 
+                                            '\', this)" >-</div><div class="text-tree">' + value.subprocess + '</div>' + 
+                                            '<div class="link-form"></div></div>' + 
+                                            '<div class="margin-main" id="subprocess' + value.idSubprocess + '"></div>');
                     }
                     lastSubprocess = value.subprocessAddId;
                     $.each( data, function( keyTech, valueTech ) {
@@ -813,20 +831,23 @@ $(function () {
                                 if(valueTech.technology === null) {
                                     valueTech.technology = "N/A";
                                 }
-                                $('#subprocess' + value.idSubprocess).html($('#subprocess' + value.idSubprocess).html() + '<div class="title-tree" id="contentTechnology' + valueTech.idSubprocess + '"><div class="point-tree" onclick="viewBranch(\'technology' + valueTech.idSubprocess + '\', this)">-</div><div class="text-tree">' + valueTech.technology + '</div></div><div class="margin-main overflow-form" id="technology' + valueTech.idSubprocess + '"></div>');
+                                $('#subprocess' + value.idSubprocess).html($('#subprocess' + 
+                                value.idSubprocess).html() + '<div class="title-tree" id="contentTechnology' + valueTech.idSubprocess + '">' + 
+                                                            '<div class="point-tree" onclick="viewBranch(\'technology' + valueTech.idSubprocess + '\', this)">-</div>' + 
+                                                            '<div class="text-tree">' + valueTech.technology + '</div></div>' + 
+                                                            '<div class="margin-main overflow-form" id="technology' + valueTech.idSubprocess + '"></div>');
                                 $.each( data, function( keyCostFunction, valueCostFunction ) {
                                     if(valueTech.technologyAddId === valueCostFunction.technologyAddId) {
                                         if(lastTreeBranch.indexOf(valueCostFunction.idSubprocess) === -1){
                                             lastTreeBranch.push(valueCostFunction.idSubprocess);
                                             var loadHtml = true;
-                                            var buttonsHtml = "";
+                                            var buttonsHtml = false;
                                             var activateHtml = "";
                                             if(onlyReadPlant) {
                                                 loadHtml = false;
                                                 $.each( arrayLoadingFunction, function( keyLoading, valueLoading ) {
                                                     if(valueTech.technology === valueLoading.functionTechnology &&
-                                                        valueCostFunction.costFunction === valueLoading.functionName) {
-                                                        loadHtml = true;
+                                                        valueCostFunction.costFunction === valueLoading.functionName) {                                                        
                                                         valueCostFunction.sedimentsRetained = valueLoading.functionSedimentsRetained;
                                                         valueCostFunction.nitrogenRetained = valueLoading.functionNitrogenRetained;
                                                         valueCostFunction.phosphorusRetained = valueLoading.functionPhosphorusRetained;
@@ -834,6 +855,7 @@ $(function () {
                                                         valueCostFunction.function = valueLoading.functionValue;
                                                         valueCostFunction.currency = valueLoading.functionCurrency;
                                                         valueCostFunction.factor = valueLoading.functionFactor;
+                                                        loadHtml = true;
                                                     }
                                                 });
                                             } else if (loadInfoTree) {
@@ -851,27 +873,48 @@ $(function () {
                                                         valueTech.technology = valueLoading.functionTechnology;
                                                         loadHtml = true;
                                                     }
-                                                    buttonsHtml = '<a class="btn btn-info""><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>';
-                                                    activateHtml = '<div class="point-check" onclick="changeStatus(' + valueCostFunction.idSubprocess + ')"><div name="listFunction" graphid="' + graphid + '" technology="' + valueCostFunction.technology + '" idSubprocess="' + valueCostFunction.idSubprocess + '" nameFunction="' + valueCostFunction.costFunction + '"  function="' + valueCostFunction.function + '" currency="' + valueCostFunction.currency + '" factor="' + valueCostFunction.factor + '" class="change-state-tree" id="id' + valueCostFunction.idSubprocess + '"></div></div>';
+                                                    buttonsHtml = true;
+                                                    activateHtml = htmlCheckBox(valueCostFunction, null);
                                                 });                                                
                                             } else {
                                                 loadHtml = true;
-                                                buttonsHtml = '<a class="btn btn-info""><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>';
-                                                activateHtml = '<div class="point-check" onclick="changeStatus(' + valueCostFunction.idSubprocess + ')"><div name="listFunction"  graphid="' + graphid + '" subProcessMaster="' + valueTech.idSubprocess + '" technology="' + valueCostFunction.technology + '" idSubprocess="' + valueCostFunction.idSubprocess + '" nameFunction="' + valueCostFunction.costFunction + '"  function="' + valueCostFunction.function + '" currency="' + valueCostFunction.currency + '" factor="' + valueCostFunction.factor + '" class="change-state-tree" id="id' + valueCostFunction.idSubprocess + '"></div></div>';
+                                                activateHtml = htmlCheckBox(valueCostFunction,valueTech.idSubprocess);
                                             }
 
                                             if(loadHtml) {
-                                                var tableVar = '<div class="container-var" id="idContainerVar"><div><div class="input-var"><div class="form-group"><label>% Transported Water</label><input class="form-control" id="idTransportedWater" value="100" readonly><div class="help-block with-errors"></div></div></div><div class="input-var"><div class="form-group"><label>% Sediments Retained</label><input min="' + valueCostFunction.minimalSedimentsRetained + '" max="' + valueCostFunction.maximalSedimentsRetained + '" ' + readOnlyTextTree + ' value="' + valueCostFunction.sedimentsRetained + '" step="0.0001" type="number" class="form-control" onblur="changeRetained(' + valueCostFunction.idSubprocess + ', this)" id="idSedimentsRetained' + valueCostFunction.idSubprocess + '" placeholder="Enter Sediments retained" ><div class="help-block with-errors"></div></div></div></div><div><div class="input-var"><div class="form-group"><label>% Nitrogen Retained</label><input min="' + valueCostFunction.minimalNitrogenRetained + '" max="' + valueCostFunction.maximalNitrogenRetained + '"  ' + readOnlyTextTree + ' value="' + valueCostFunction.nitrogenRetained + '"  step="0.0001" type="number" class="form-control" onblur="changeRetained(' + valueCostFunction.idSubprocess + ', this)" id="idNitrogenRetained' + valueCostFunction.idSubprocess + '" placeholder="Enter nitrogen retained"><div class="help-block with-errors"></div></div></div><div class="input-var"><div class="form-group"><label>% Phosphorus Retained</label><input min="' + valueCostFunction.minimalPhosphorusRetained + '" max="' + valueCostFunction.maximalPhosphorusRetained + '"  ' + readOnlyTextTree + ' value="' + valueCostFunction.phosphorusRetained + '"  step="0.0001" type="number" class="form-control" onblur="changeRetained(' + valueCostFunction.idSubprocess + ', this)" id="idPhosphorusRetained' + valueCostFunction.idSubprocess + '" placeholder="Enter phosphorus retained"><div class="help-block with-errors"></div></div></div></div></div>';
+                                                var tableVar = '<div class="container-var" id="idContainerVar"><div><div class="input-var">' +
+                                                        '<div class="form-group"><label>% Transported Water</label><input class="form-control" value="100" ' + 
+                                                        ' readonly><div class="help-block with-errors"></div></div></div>' + 
+                                                        '<div class="input-var"> <div class="form-group"><label>% Sediments Retained</label><input min="' + 
+                                                        valueCostFunction.minimalSedimentsRetained + '" max="' + valueCostFunction.maximalSedimentsRetained + 
+                                                        '" ' + readOnlyTextTree + ' value="' + valueCostFunction.sedimentsRetained + 
+                                                        '" step="0.0001" type="number" class="form-control" onblur="changeRetained(' + 
+                                                        valueCostFunction.idSubprocess + ', this)" id="idSedimentsRetained' + valueCostFunction.idSubprocess + 
+                                                        '" placeholder="Enter Sediments retained" ><div class="help-block with-errors"></div></div></div></div>' + 
+                                                        '<div><div class="input-var"><div class="form-group"><label>% Nitrogen Retained</label><input min="' + 
+                                                        valueCostFunction.minimalNitrogenRetained + '" max="' + valueCostFunction.maximalNitrogenRetained + 
+                                                        '"  ' + readOnlyTextTree + ' value="' + valueCostFunction.nitrogenRetained + 
+                                                        '"  step="0.0001" type="number" class="form-control" onblur="changeRetained(' + valueCostFunction.idSubprocess + 
+                                                        ', this)" id="idNitrogenRetained' + valueCostFunction.idSubprocess + 
+                                                        '" placeholder="Enter nitrogen retained"><div class="help-block with-errors"> </div></div></div>' + 
+                                                        '<div class="input-var"><div class="form-group"><label>% Phosphorus Retained</label><input min="' + 
+                                                        valueCostFunction.minimalPhosphorusRetained + '" max="' + valueCostFunction.maximalPhosphorusRetained + '"  ' + 
+                                                        readOnlyTextTree + ' value="' + valueCostFunction.phosphorusRetained + 
+                                                        '"  step="0.0001" type="number" class="form-control" onblur="changeRetained(' + 
+                                                        valueCostFunction.idSubprocess + ', this)" id="idPhosphorusRetained' + valueCostFunction.idSubprocess + 
+                                                        '" placeholder="Enter phosphorus retained"><div class="help-block with-errors"></div></div></div></div></div>';
+                                                var tableFunct = '<table class="table table-striped table-bordered table-condensed" style="width:100%">' +
+                                                        addTitleFnRow(['Activate', 'Function name', 'Function', 'Currency', 'Factor', 'Options']) + '<tbody>' +
+                                                        addFunctionCostRow(activateHtml, valueCostFunction, buttonsHtml, graphid) + '</tbody></table>';
+                                                        
                                                 if(localStorage.loadFormButton === "true") {
-                                                    var tableFunct = '<table class="table table-striped table-bordered table-condensed" style="width:100%"><thead><tr class="info"><th scope="col" class="small text-center vat">Activate</th><th scope="col" class="small text-center vat">Function name</th><th scope="col" class="small text-center vat">Function</th><th scope="col" class="small text-center vat">Currency</th><th scope="col" class="small text-center vat">Factor</th><th scope="col" class="small text-center vat">Options</th></tr></thead><tbody><tr><td aling="center">' + activateHtml + '</td><td class="small text-center vat">' + valueCostFunction.costFunction + '</td><td class="small text-center vat"><div class="open-popup-form" onclick="document.getElementById(\'popupForm' + valueCostFunction.idSubprocess + '\').style.display=\'block\'">fx</div><div id="popupForm' + valueCostFunction.idSubprocess + '" class="form-popup"><div class="close-form-popup" onclick="document.getElementById(\'popupForm' + valueCostFunction.idSubprocess + '\').style.display=\'none\'">X</div><div class="equation">' + valueCostFunction.function + '</div></div></td><td class="small text-center vat">' + valueCostFunction.currency + '</td><td class="small text-center vat">' + valueCostFunction.factor + '</td><td aling="center">' + buttonsHtml + '</td></tr></tbody></table><div class="link-form" onclick="callFormFormula()">Add function</div>';
-                                                } else {
-                                                    var tableFunct = '<table class="table table-striped table-bordered table-condensed" style="width:100%"><thead><tr class="info"><th scope="col" class="small text-center vat">Activate</th><th scope="col" class="small text-center vat">Function name</th><th scope="col" class="small text-center vat">Function</th><th scope="col" class="small text-center vat">Currency</th><th scope="col" class="small text-center vat">Factor</th><th scope="col" class="small text-center vat">Options</th></tr></thead><tbody><tr><td aling="center">' + activateHtml + '</td><td class="small text-center vat">' + valueCostFunction.costFunction + '</td><td class="small text-center vat"><div class="open-popup-form" onclick="document.getElementById(\'popupForm' + valueCostFunction.idSubprocess + '\').style.display=\'block\'">fx</div><div id="popupForm' + valueCostFunction.idSubprocess + '" class="form-popup"><div class="close-form-popup" onclick="document.getElementById(\'popupForm' + valueCostFunction.idSubprocess + '\').style.display=\'none\'">X</div><div class="equation">' + valueCostFunction.function + '</div></div></td><td class="small text-center vat">' + valueCostFunction.currency + '</td><td class="small text-center vat">' + valueCostFunction.factor + '</td><td aling="center">' + buttonsHtml + '</td></tr></tbody></table>';
-                                                }
+                                                    tableFunct = tableFunct + '<div class="link-form">Add function</div>';
+                                                } 
                                                 
                                                 $('#technology' + valueTech.idSubprocess).html($('#technology' + valueTech.idSubprocess).html() + tableVar + tableFunct);
                                                 document.getElementById('technology' + valueTech.idSubprocess).style.display = "block !important";
                                                 if(valueCostFunction.default) {
-                                                    changeStatus(valueTech.idSubprocess)
+                                                    changeStatus(valueTech.idSubprocess);
                                                 }
                                             } else {
                                                 document.getElementById('contentTechnology' + valueTech.idSubprocess).style.display = "none";
@@ -1082,7 +1125,7 @@ $(function () {
             map.setView(initialCoords, initialZoom);
             searchPoints.addTo(map);
 
-            var tilelayer = L.tileLayer(TILELAYER, { maxZoom: MAXZOOM, attribution: 'Data \u00a9 <a href="http://www.openstreetmap.org/copyright"> OpenStreetMap Contributors </a> Tiles \u00a9 Komoot' }).addTo(map);
+            var tilelayer = L.tileLayer(TILELAYER, { maxZoom: MAXZOOM, attribution: 'Data \u00a9 <a href="https://www.openstreetmap.org/copyright"> OpenStreetMap Contributors </a> Tiles \u00a9 Komoot' }).addTo(map);
             var images = L.tileLayer(IMAGE_LYR_URL);
             var hydroLyr = L.tileLayer(HYDRO_LYR_URL);
 
@@ -1213,5 +1256,227 @@ $(function () {
             }
         })
     };
+
+    // add function cost
+    $(document).on('click', '.link-form', function() {
+        var graphId = $('#mainTree .title-tree')[0].getAttribute('graphId');
+        addFunction = true;
+        selectedTechnologyId = this.parentElement.id.replace("technology","");
+        showModalCalculator(true, graphId, "");
+    });
+
+    //Edit funcion cost 
+    $(document).on('click', '.btn-function-cost', function() {
+
+        let graphId = this.getAttribute('graphId');
+        addFunction = false;
+        let fn = this.parentElement.parentElement.children[0].children[0].children[0].getAttribute("function");
+        showModalCalculator(false,graphId,fn);
+        
+        //selectedCostId = parseInt($(this).attr('idvalue'));
+        // $('#costFunctionName').val(funcostdb[selectedCostId].function.name);
+        // $('#costFuntionDescription').val(funcostdb[selectedCostId].function.description);    
+        // $('#currencyCost').val(funcostdb[selectedCostId].function.currencyCost);
+        // $('#global_multiplier_factorCalculator').val(funcostdb[selectedCostId].function.factor);
+        // $('#CalculatorModalLabel').text('Modify Cost - ' + $('#titleCostFunSmall').text());
+                
+        //funcostdb[selectedCostId].function.value;        
+    });
+
+    //add function cost row
+    addFunctionCostRow = function(activateHtml,valueCostFunction,buttonsHtml,graphid) {
+        let htmlBtn = '';
+        if (buttonsHtml){
+            htmlBtn = '<a class="btn btn-info btn-function-cost" graphid=' + graphid + ' data-toggle="modal" data-target="#CalculatorModal">' + 
+                        '<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>';                                                
+        }
+
+        let rowFn = '<tr><td aling="center">' + activateHtml + '</td>' + 
+                '<td class="small text-center vat">' + valueCostFunction.costFunction + '</td>' + 
+                '<td class="small text-center vat"><div class="open-popup-form" ' + 
+                'onclick="document.getElementById(\'popupForm' + valueCostFunction.idSubprocess + 
+                '\').style.display=\'block\'">fx</div><div id="popupForm' + valueCostFunction.idSubprocess + 
+                '" class="form-popup"><div class="close-form-popup" onclick="document.getElementById(\'popupForm' + 
+                valueCostFunction.idSubprocess + '\').style.display=\'none\'">X</div><div class="equation">' + 
+                valueCostFunction.function + '</div></div></td>' + 
+                '<td class="small text-center vat">' + valueCostFunction.currency + '</td>' + 
+                '<td class="small text-center vat">' + valueCostFunction.factor + '</td>' + 
+                '<td aling="center">' + htmlBtn + '</td></tr>';
+        return rowFn;
+    }
+
+    // add titles to the table function
+    addTitleFnRow = function(titles){
+        let rowTitleFn = '';
+        titles.forEach(function(title, index) {
+            rowTitleFn += '<th scope="col" class="small text-center vat">' + title + '</th>';
+        });
+        return '<thead><tr class="info">' + rowTitleFn + '</tr></thead>';
+    }
+
+    function showModalCalculator(flag,graphId,fn) {
+        flagNewFunction = flag;
+        $('#CalculatorModal').modal('show');
+        setVarCost(selectedPlantElement, graphId);
+        $('#python-expression').val(fn);
+        if (fn != "") {
+            $('#python-expression').val(fn);
+            validatePyExpression();
+        }else{
+            typesetInput("");
+        }
+    }
+
+    function setVarCost(element, graphid) {
+
+        $('#CalculatorModalLabel').text('Modify Cost ');
+        $('#VarCostListGroup div').remove();
+        
+        var costVars = ['Q', 'CSed', 'CN', 'CP', 'WSed', 'WN', 'WP', 'WSedRet', 'WNRet', 'WPRet'];    
+        
+        var costlabel = "";
+        for (const iterator of costVars) {
+            costlabel += `<a value="${iterator}${graphid}" class="list-group-item list-group-item-action" style="padding-top: 4px;padding-bottom: 4px;">${iterator}${graphid}</a>`;
+        }
+        $('#VarCostListGroup').append(`
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#VarCostListGroup" href="#VarCostListGroup_${element}">${element} </a>
+                    </h4>
+                </div>
+                <div id="VarCostListGroup_${graphid}" class="panel-collapse">
+                    ${costlabel}
+                </div>
+            </div>
+        `);        
+    }
+
+    $('#btnValidatePyExp').click(function () {
+        validatePyExpression();
+    });
+
+    async function validatePyExpression() {
+        let pyExp = $('#python-expression').val().trim();
+        if (pyExp.length > 0) {
+            pyExpEncode = encodeURIComponent(pyExp);
+            localApi = location.protocol + "//" + location.host;
+            let url = "/intake/validatePyExpression?expression=" + pyExpEncode;
+            let response = await fetch(url);
+            let result = await response.json();
+            if (result) {
+                is_valid = result.valid;
+                latex = result.latex
+                console.log(result.latex);
+                typesetInput(result.latex);
+                if (is_valid) {
+                    $("#python-expression").removeClass("invalid_expression");
+                    $("#python-expression").addClass("valid_expression");
+                } else {
+                    $("#python-expression").addClass("invalid_expression");
+                    $("#python-expression").removeClass("valid_expression");
+                }
+            }
+        }
+    }
+
+    //Set var into calculator
+    $(document).on('click', '.list-group-item', function() {
+        var el = document.getElementById("python-expression");
+        typeInTextarea($(this).attr('value'),el);
+    });
+
+    typeInTextarea = function(newText, el) {
+        const [start, end] = [el.selectionStart, el.selectionEnd];
+        el.setRangeText(newText, start, end, 'select');
+        el.focus();
+        document.getSelection().removeAllRanges();
+        el.selectionStart = start + newText.length;
+        el.selectionEnd = el.selectionStart;
+    }
+
+    $('#python-expression').on('keypress',function(evt) {
+        var charCode = (evt.which) ? evt.which : evt.keyCode;
+        let symbols = [40,41,42,43,45,60,61,62,106,107,109,111];
+        if (charCode != 46 && charCode > 31 && (charCode < 48 || charCode > 57))
+            return (symbols.indexOf(charCode) >= 0);
+
+        return true;
+    })
+
+    //KeyBoard calculator funcion cost
+    $('button[name=mathKeyBoard]').click(function () {
+        var el = document.getElementById("python-expression");
+        typeInTextarea($(this).attr('value'), el);
+    });
+
+    typesetInput = function (expression) {
+        button.disabled = true;
+        output.innerHTML = expression;
+        MathJax.texReset();
+        MathJax.typesetClear();
+        MathJax.typesetPromise([output]).catch(function (err) {
+            output.innerHTML = '';
+            output.appendChild(document.createTextNode(err.message));
+            console.error(err);
+        }).then(function () {
+            button.disabled = false;
+        });
+    }
+
+    $('#saveAndValideCost').click(function() {
+        $('#CalculatorModal').modal('hide');
+        let graphId = $('#mainTree .title-tree')[0].getAttribute('graphId');
+        if (flagNewFunction){
+            let trNewFunction = addNewFunction(selectedTechnologyId, graphId);
+            let tbody = $("#technology" + selectedTechnologyId + " table tbody");
+            tbody.append (trNewFunction);
+        }else{
+
+        }
+    });
+
+    addNewFunction = function(tecnologyId, graphId){
+        let costFunctionName = $('#costFunctionName').val();
+        let description = $('#costFuntionDescription').val();
+        let factor = $('#global_multiplier_factorCalculator').val();
+        let currencyCost = $('#currencyCost option:selected').val();
+        let currencyCostName = $('#currencyCost option:selected').text();
+        let pyExp = $('#python-expression').val();
+        let idSubprocess =  $('#mainTree .margin-main .margin-main')[0].id;
+        let technology = $("#contentTechnology16 .text-tree").html()
+        let valueCostFunction = {
+            costFunction: costFunctionName,
+            description: description,
+            factor: factor,
+            currency: currencyCost,            
+            function: pyExp,
+            idSubprocess: idSubprocess.replace("subprocess",""),
+            technology: technology
+        }
+        let activateHtml = htmlCheckBox(valueCostFunction, graphId, null);
+
+        let tdRowFn = addFunctionCostRow(activateHtml,valueCostFunction,true,graphId);
+        return tdRowFn;
+    }
+
+    htmlCheckBox = function(valueCostFunction, graphid, subProcessMaster) {
+
+        let attrSubprocessMaster = "";
+        if (subProcessMaster !== undefined) {
+            attrSubprocessMaster ='subProcessMaster="' + subProcessMaster + '" ';
+        }
+        let activateHtml = '<div class="point-check" onclick="changeStatus(' + valueCostFunction.idSubprocess + ')">' +
+                        '<div name="listFunction"  graphid="' + graphid + '" ' + attrSubprocessMaster + 
+                        'technology="' + valueCostFunction.technology + '" ' + 
+                        'idSubprocess="' + valueCostFunction.idSubprocess + '" ' + 
+                        'nameFunction="' + valueCostFunction.costFunction + '" ' + 
+                        'function="' + valueCostFunction.function + '" ' + 
+                        'currency="' + valueCostFunction.currency + '" ' + 
+                        'factor="' + valueCostFunction.factor + '" ' + 
+                        'class="change-state-tree" id="id' + valueCostFunction.idSubprocess + '"></div></div>';
+        return activateHtml;
+    }
+    
     initialize();
 });
