@@ -341,3 +341,8 @@ urlpatterns += [
 urlpatterns += [
     url(r'^cms/', include('geonode.waterproof_cms.urls'), name='waterproof_cms'),
 ]
+
+# waterproof_wiki
+#urlpatterns += [
+#    url(r'^wiki/', include('geonode.waterproof_wiki.urls'), name='waterproof_wiki'),
+#]

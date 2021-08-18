@@ -86,7 +86,7 @@ msgid "portfolios"
 msgstr "Objetivos del portafolio"
 
 msgid "run_analysis"
-msgstr "Parametros de análisis"
+msgstr "Ejecutar análisis"
 
 msgid "define_study_case"
 msgstr "Definir caso de estudio"
