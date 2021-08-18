@@ -66,9 +66,10 @@ class HomePage(Page):
    # author = models.CharField(max_length=255)
    # date = models.DateField("Post date")
     body = StreamField([
-        ('heading', blocks.CharBlock(form_classname="full title")),
+        ('heading', blocks.CharBlock(form_classname="full title", help_text="Puede agregar etiquetas html como center, h1, h2... para ajustar el encabezado")),
         ('paragraph', blocks.RichTextBlock()),
         ('image', ImageChooserBlock()),
+        ('HTML', blocks.RawHTMLBlock()),
     ])
 
     content_panels = Page.content_panels + [
