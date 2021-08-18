@@ -1,17 +1,12 @@
-{% extends "menu.html" %}{% load i18n %} {% load l10n %}{% load bootstrap_tags %} 
-
-{% block extra_head %}
-{% endblock %}
-
-{% block body_outer %}
+{% extends "menu.html" %}{% load i18n %} {% load static from staticfiles %} {% load bootstrap_tags %} {% block extra_head %}
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_nbs_ca/css/bootstrap-duallistbox.min.css">
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_nbs_ca/css/waterproof_nbs_ca.css">
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
-    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
-    crossorigin="" />
-<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_treatment_plants/css/treatment_plants.css" />
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}lib/css/leaflet.css"/>
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_treatment_plants/css/treatment_plants.css"/>
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/mathquill/0.10.1/mathquill.css"/>
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof/css/waterproof-common.css"/>
+{% endblock %}{% block body_outer %}
+<!--header-->
 <div class="header-waterproof">
     <div class="row">
         <div class="col-sm-3.5">
@@ -30,7 +25,7 @@
         <h4 class="text-primary">{% trans "General information" %}</h4>
         <div class="form-group">
             <label>{% trans "Name" %} <span class="text-danger-wp">(*)</span> </label>
-            <input type="text" class="form-control" id="idNamePlant" data-error="This field is required" placeholder="Enter name" required>
+            <input type="text" class="form-control" id="idNamePlant" data-error="This field is required" placeholder="Enter name" required/>
             <div class="help-block with-errors"></div>
         </div>
         <div class="form-group">
@@ -318,25 +313,117 @@
     </div>
 </div>
 
+<!--Modal Calculator-->
+<div class="modal fade" id="CalculatorModal" tabindex="-1" aria-labelledby="CalculatorModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="CalculatorModalLabel"></h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="panel-group" id="VarCostListGroup" style="max-height: 480px; overflow-y: auto;"></div>
+                    </div>
+                    <div class="col-md-7">
+                        <div class="form-group">
+                            <label class="text-primary">{% trans "Cost function name" %}</label>
+                            <input id="costFunctionName" type="text" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label class="text-primary">{% trans "Cost function description" %}</label>
+                            <textarea id="costFuntionDescription" rows="3" class="form-control"></textarea>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <label class="text-primary">{% trans "Currency for definition of costs" %} </label>
+                                <select id="currencyCost" class="form-control" required>
+                                    {% for currency in currencies %}                                        
+                                        {% if currency.iso3 == 'USA'%}
+                                            <option value="{{currency.currency}}" data-country="{{currency.iso3}}">({{currency.currency}}) - {{currency.name}}</option>
+                                        {% else %}
+                                            <option value="{{currency.currency}}">({{currency.currency}}) - {{currency.name}}</option>
+                                        {% endif %}
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-xs-6">
+                                <label class="text-primary">{% trans "Multiplying factor for overrall cost" %} </label>
+                                <input type="text" value="1.00" id="global_multiplier_factorCalculator" class="form-control">
+                            </div>
+                        </div>                         
+                        <h5 class="text-primary keyboard-title">{% trans "Syntax keyboard" %}</h5>
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a href="#mathBasic_tab" data-toggle="tab">{% trans "Basic" %}</a></li>
+                            <li><a href="#mathAdvanced_tab" data-toggle="tab" >{% trans "Advanced" %}</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div id="mathBasic_tab" class="tab-pane fade in active">
+                                <div class="btn-group" role="group">
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="=">&#61</button>
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="+">&#43</button>
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="-">&#8722;</button>
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="*">&#215</button>
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="/">a/b</button>
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="^">a^b</button>
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="sqrt">&#8730</button>     
+                                </div>
+                            </div>                            
+                            <div id="mathAdvanced_tab" class="tab-pane fade in">
+                                <div class="btn-group" role="group">
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="pi">π</button>
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="e">e</button>
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="ln">ln</button>
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="log">\log</button>
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="_">a_b</button>
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="%">mod</button>
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="**">&#8731</button>
+                                </div>
+                            </div>                            
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div id="mathNatural" class="tab-pane fade in active">
+                            <textarea id="python-expression" class="python-expression" autocapitalize="off" autocomplete="off"
+                                    autocorrect="off" spellcheck="false" x-palm-disable-ste-all="true"></textarea>
+                            <button id="btnValidatePyExp">{% trans "Validate" %} </button>
+                            <div id="MathPreview" class="preview"></div>
+                        </div>
+                        <div id="mathLogical" class="tab-pane fade"></div>
+                    </div>
+                </div>
+                <br>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{% trans "Close" %}</button>
+                    <button type="button" class="btn btn-primary" id="saveAndValideCost">{% trans "Add cost" %}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
-    var countriesLayerUrl = '{{ STATIC_URL }}waterproof_intake/data/countries.geojson';
     var userCountryId = '{{userCountry.id}}';
     var userCountryCode = '{{userCountry.code}}';
     var userCountryName = '{{userCountry.name}}';
 </script>
-{% endblock body_outer %} {% block extra_script %}
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/mathquill/0.10.1/mathquill.css" />
+{% endblock %} {% block extra_script %}
 <script src="{{ STATIC_URL }}geonode/js/jszip/jszip.min.js"></script>
 <script src="{{ STATIC_URL }}geonode/js/shp/shp.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min.js"
     integrity="sha512-dTu0vJs5ndrd3kPwnYixvOCsvef5SGYW/zSSK4bcjRBcZHzqThq7pt7PmCv55yb8iBvni0TSeIDV8RYKjZL36A=="
     crossorigin="anonymous"></script>
-<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
-    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
-    crossorigin=""></script>
+<script src="{% static "lib/js/leaflet.js" %}"></script>
 <script src="{{ STATIC_URL }}geonode/js/leaflet/leaflet.ajax.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js" type="text/javascript"></script>
 <script src="{{ STATIC_URL }}waterproof_treatment_plants/js/waterproof_list_treatment_plants.js"></script>
 <script src="https://unpkg.com/smartwizard@5/dist/js/jquery.smartWizard.min.js" type="text/javascript"></script>
 <script src="{{ STATIC_URL }}waterproof_intake/mathquill/mathquill.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 {% endblock %}
