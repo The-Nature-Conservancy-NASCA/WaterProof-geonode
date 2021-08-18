@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Waterproof\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-07-21 14:34-0500\n"
-"PO-Revision-Date: 2021-07-28 12:31-0500\n"
+"PO-Revision-Date: 2021-08-03 16:15-0500\n"
 "Language: en\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -491,7 +491,7 @@ msgstr "Represents a big reservoir, or structure that contains a large water res
 
 #: template/intake_form.html:654
 msgid "Represents pumping mechanisms to pump water to deliver it to another element of the water intake system."
-msgstr "Represents pumping mechanisms to absorb water to deliver it to another element of the water intakesystem."
+msgstr "Represents pumping mechanisms to absorb water to deliver it to another element of the water intake system."
 
 #: template/intake_form.html:664
 msgid "Represents a reservoir, in which water is deposited."
@@ -767,7 +767,7 @@ msgstr "Number of years for time series  (10-100) Year"
 
 #: template/intake_form.html:281
 msgid "Clic the following button to calculate the wather extraction in each year"
-msgstr "Clic the following button to calculate the wather extraction in each year"
+msgstr "Clic the following button to calculate the water extraction in each year"
 
 #: template/intake_form.html:313
 msgid "Number of years  (10-100) Year"
@@ -786,3 +786,21 @@ msgid "When you have finished making your changes, click on the 'Validate area' 
 msgstr "When you have finished making your changes, click on the 'Validate area' button."
 
 #: template/intake_form.html:381
+msgid "edit"
+msgstr "Edit"
+
+#: template/intake_form.html:381
+msgid "view"
+msgstr "View"
+
+#: template/intake_form.html:381
+msgid "clone"
+msgstr "Clone"
+
+#: template/intake_form.html:381
+msgid "report"
+msgstr "Report"
+
+#: template/intake_form.html:381
+msgid "delete"
+msgstr "Delete"

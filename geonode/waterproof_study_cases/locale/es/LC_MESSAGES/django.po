@@ -173,7 +173,7 @@ msgid "implementation_manager"
 msgstr "Líder de implementación"
 
 msgid "office_costs"
-msgstr "costos de oficina"
+msgstr "Costos de oficina"
 
 msgid "Travel"
 msgstr "Gastos de viaje"
@@ -359,7 +359,7 @@ msgid "Close"
 msgstr "Cerrar"
 
 msgid "Add cost"
-msgstr "añadir costo"
+msgstr "Añadir costo"
 
 msgid "Creation of study cases"
 msgstr "Creación de un caso de estudio"
@@ -380,25 +380,25 @@ msgid "offers you the possibility to integrate in your analysis the possible ben
 msgstr "WaterProof le ofrece la posibilidad de integrar en su análisis los posibles beneficios que puede obtener si se espera participar en mercados de carbono. Esto se hace a partir de la definición de un valor monetario por Tonelada de CO2eq."
 
 msgid "uses information from the database published in May 2020 by the Institute for Climate Economics (Sébastien Postic | Marion Fetet) to preload USD / TonCO2eq values ​​that vary according to the country where the analysis is being carried out, however, the user can modify these values ​​according to the information they have."
-msgstr "WaterProof utiliza la información de la base de datos publicada en mayo de 2020 por el Institute for Climate Economics (Sébastien Postic | Marion Fetet) para precargar valores de USD/TonCO2eq que varían de acuerdo al país en donde se esté realizando el análisis, sin embargo, elusuario puede realizar la modificación de estos valores de acuerdo a la información que posea."
+msgstr "WaterProof utiliza la información de la base de datos publicada en mayo de 2020 por el Institute for Climate Economics (Sébastien Postic | Marion Fetet) para precargar valores de USD/TonCO2eq que varían de acuerdo al país en donde se esté realizando el análisis, sin embargo, el usuario puede realizar la modificación de estos valores de acuerdo a la información que posea."
 
 msgid "WaterProof will define the NBS of your portfolio according to your needs in relation to:"
-msgstr "WaterProof definirá las SbNde su portafolio de acuerdo a sus necesidades en relación a:"
+msgstr "WaterProof definirá las SbN de su portafolio de acuerdo a sus necesidades en relación a:"
 
 msgid "Erosion control to keep sediments out of water courses, avoiding the physical-mechanical loss of soil, the impact on water quality and its deposition in reservoirs, where it can reduce the production capacity of hydroelectric facilities or damage reservoirs and irrigation infrastructure."
-msgstr "Control de la erosión para mantenerlos sedimentos fuera de los cursos de agua, evitando la pérdida físico-mecánica del suelo, la afectación a la calidad del aguay su deposición en los reservorios, donde se puede reducir la capacidad de producción de las instalaciones hidroeléctricas o dañar los reservorios e infraestructura de riego."
+msgstr "Control de la erosión para mantenerlos sedimentos fuera de los cursos de agua, evitando la pérdida físico-mecánica del suelo, la afectación a la calidad del agua y su deposición en los reservorios, donde se puede reducir la capacidad de producción de las instalaciones hidroeléctricas o dañar los reservorios e infraestructura de riego."
 
 msgid "Retention of phosphorus and nitrogen nutrients to maintain nature's processes and reduce potential pollutant loads, which can lead to eutrophication, and / or the generation of algal blooms."
 msgstr "Retención de los nutrientes fósforo y nitrógeno para mantener los procesos de la naturaleza y evitar la eutrofización, la generación de blooms algales, la contaminación térmica, el aumento de la sedimentación, y el aumento de la carga de contaminantes."
 
 msgid "Flood mitigation by addressing situations where the watershed area is previously saturated, and rainfall events cause excess water to run off the saturated ground surface."
-msgstr "Mitigación de inundaciones atacando situacionesen lasque el área de la cuenca está saturada con anterioridad, y eventosde lluvia hacenque el exceso de agua se escurra de la superficie del suelo saturadoocasionando inundaciones."
+msgstr "Mitigación de inundaciones atacando situaciones en lasque el área de la cuenca está saturada con anterioridad, y eventosde lluvia hacen que el exceso de agua se escurra de la superficie del suelo saturado ocasionando inundaciones."
 
 msgid "Aquifer recharge enhancements that seek to replenish groundwater or increase groundwater stored in aquifers during wet periods to help improve water supply security and sustainability."
-msgstr "Mejoramiento de recarga de acuíferos que buscanla reposición de las aguas subterráneas o el aumento del agua subterránea almacenada en acuíferos durante períodos húmedos para contribuir a mejorar la seguridad y la sostenibilidad del suministro de agua."
+msgstr "Mejoramiento de recarga de acuíferos que buscan la reposición de las aguas subterráneas o el aumento del agua subterránea almacenada en acuíferos durante períodos húmedos para contribuir a mejorar la seguridad y la sostenibilidad del suministro de agua."
 
 msgid "Sustaining or improving the base flow to guarantee efficient processes and infiltration, redistribution, evaporation and percolation of the waters in the territory."
-msgstr "Sostenimiento o mejoramiento del flujo basepara garantizar procesos eficientes e infiltración, redistribución, evaporación y percolación de las aguasen el territorio."
+msgstr "Sostenimiento o mejoramiento del flujo base para garantizar procesos eficientes e infiltración, redistribución, evaporación y percolación de las aguas en el territorio."
 
 msgid "Adjustment of Biophysical Parameters"
 msgstr "Ajuste de parámetros biofísicos"
@@ -407,13 +407,13 @@ msgid "Definition of Financial Parameters"
 msgstr "Definición de parámetros financieros"
 
 msgid "The implementation of your NBS portfolio requires a series of investments to support its implementation, which in the system is called the Platform. This includes the personnel costs, office, travel, acquisition of equipment, among others."
-msgstr "La implementación de su portafolio de SbN requiere de una serie de inversiones para soportar su implementación que en el sistema es llamado Plataforma.Esta incluye los costos de personal, de oficina, viajes, adquisición de equipos, entre otros."
+msgstr "La implementación de su portafolio de SbN requiere de una serie de inversiones para soportar su implementación que en el sistema es llamado Plataforma. Esta incluye los costos de personal, de oficina, viajes, adquisición de equipos, entre otros."
 
 msgid "You may indicate the discount rate that you wish to use to determine the present value of the payments that will be incurred."
 msgstr "Usted podrá indicar la tasa de descuento que desea manejar para determinar el valor presente de los pagos que incurrirá."
 
 msgid "In addition, you need to indicate the minimum and maximum values ​​of the sensitivity analysis that will help you make your decisions in case of unexpected changes in your environment. To do this, WaterProof uses the following equation:"
-msgstr "Además, es necesario que indique los valores mínimos y máximos del análisis de sensibilidad que le ayudarán a tomar sus decisiones en caso de que se presenten cambios inesperados en su entorno. Para ello, WaterProofemplea la siguiente ecuación:"
+msgstr "Además, es necesario que indique los valores mínimos y máximos del análisis de sensibilidad que le ayudarán a tomar sus decisiones en caso de que se presenten cambios inesperados en su entorno. Para ello, WaterProof emplea la siguiente ecuación:"
 
 msgid "Where:"
 msgstr "Dónde:"
@@ -431,7 +431,7 @@ msgid "Definition of NBS Activities"
 msgstr "Definición de actividades SbN"
 
 msgid "WaterProof considers a set of Nature-Based Solutions that you can link to your analysis according to your interest in protecting, sustainably managing and restoring natural or modified ecosystems that address social challenges in an effective and adaptive way, providing simultaneous benefits for human well-being and biodiversity."
-msgstr "Los análisis de WaterProof consideran un conjunto de Soluciones basadas en la Naturaleza que usted puede vincular a su análisis de acuerdo a su interés para proteger, gestionar de manera sostenible y restaurar ecosistemas naturales o modificados que abordan los desafíos sociales demanera eficaz y adaptativa, proporcionando simultáneamente beneficios para el bienestar humano y la biodiversidad."
+msgstr "Los análisis de WaterProof consideran un conjunto de Soluciones basadas en la Naturaleza que usted puede vincular a su análisis de acuerdo a su interés para proteger, gestionar de manera sostenible y restaurar ecosistemas naturales o modificados que abordan los desafíos sociales de manera eficaz y adaptativa, proporcionando simultáneamente beneficios para el bienestar humano y la biodiversidad."
 
 msgid "By default, WaterProof has the following NBS, however you may create new ones that you can link to your analysis. The default NBSs are:"
 msgstr "Por defecto WaterProof dispone las siguientes SbN, sin embargo, usted pudo haber creado nuevas que puede vincular a su análisis. Las SbN pordefecto son:"
@@ -443,7 +443,7 @@ msgid "Passive restoration: when strategic assistance actions are carried out to
 msgstr "Restauración pasiva: cuando se realizan acciones de asistencia estratégica para facilitar a los ecosistemas degradados que por sí solos superen o eliminen factores que impedían su regeneración."
 
 msgid "Active restoration: these activities seek to increase floristic diversity by sowing new species, whose individuals have been obtained from the collection of seeds and propagules, their sowing in the nurseries and subsequent planting in the reserve."
-msgstr "Restauración activa: buscan incrementar la diversidad florística, mediante la siembra de nuevas especies, cuyos individuos se hanobtenido a partir de la recolección de semillas y propágulos, su siembra en vivero y posterior plantación en la reserva."
+msgstr "Restauración activa: buscan incrementar la diversidad florística, mediante la siembra de nuevas especies, cuyos individuos se han obtenido a partir de la recolección de semillas y propágulos, su siembra en vivero y posterior plantación en la reserva."
 
 msgid "Agroforestry activities: a series of land-use technologies is used to combine trees with agricultural crops and / or pastures to increase and optimize production in a sustainable manner. The planting of forest crops and trees is used sequentially and in combination, with the application of soil conservation practices."
 msgstr "Actividades agroforestales: en donde se usa una serie de tecnologías para el uso de la tierra en las que se combinan árboles con cultivos agrícolas y/o pastos, para incrementar y optimizar la producción en forma sostenida. Se emplea la siembra de los cultivos y árboles forestales secuencialmente y en combinación, con la aplicación de prácticas de conservación de suelo."
@@ -455,10 +455,10 @@ msgid "Run the analysis"
 msgstr "Ejecutar análisis"
 
 msgid "This is the last step in the configuration of your case study in which the user defines the time in which they want the analysis of the benefits to be projected, as well as the time that they estimate to carry out theNBS  implementation actions."
-msgstr "Este es el ultimopaso en la configuración de su caso de estudio en el que el usuario define el tiempo en el que desea que se proyecte el análisis de los beneficios en la implementación de sus SbN, así como el tiempo que estima adelantar las acciones de implementación. "
+msgstr "Este es el ultimo paso en la configuración de su caso de estudio en el que el usuario define el tiempo en el que desea que se proyecte el análisis de los beneficios en la implementación de sus SbN, así como el tiempo que estima adelantar las acciones de implementación. "
 
 msgid "Then, you must indicate the climatic aspects to consider. WaterProof, by default, allows you to consider the conditions of the Climate Change Scenarios or the known historical conditions. This option is available due to the influence of the climate on the sustainability of program activities and possible additional costs that must be incurred in more adverse conditions."
-msgstr "Seguidamente deberá indicar los aspectos climáticos a considerar. WaterProof por defecto, le permite considerar las condiciones de los Escenarios de cambio climático o las condiciones históricas conocidas. Esto debido a la influencia del clima en la sostenibilidad de sus actividades y posibles costos adicionales que se deben incurrir en condiciones más adversas.."
+msgstr "Seguidamente deberá indicar los aspectos climáticos a considerar. WaterProof por defecto, le permite considerar las condiciones de los Escenarios de cambio climático o las condiciones históricas conocidas. Esto debido a la influencia del clima en la sostenibilidad de sus actividades y posibles costos adicionales que se deben incurrir en condiciones más adversas."
 
 msgid "Finally, the user can assign financial resources in two ways:"
 msgstr "Finalmente, el usuario podrá asignar los recursos financieros con los que dispone de dos formas:"
@@ -470,7 +470,7 @@ msgid "Investment scenario: In which the user has a maximum investment figure"
 msgstr "Escenario de inversión: En el cual el usuario cuenta con una cifra máxima de inversión"
 
 msgid "For both situations, the user must indicate the financial allocation percentages for the activities in which they have the greatest interest."
-msgstr "inversiónPara las dos situaciones el usuario debe indicar los porcentajes de asignación financiera para las actividades en las que tiene mayor interés."
+msgstr "Para las dos situaciones el usuario debe indicar los porcentajes de asignación financiera para las actividades en las que tiene mayor interés."
 
 msgid "analysis_tip"
 msgstr "Defina el tiempo de análisis, condiciones climáticas para la proyección y los presupuestos de ejecución de las SbN"
