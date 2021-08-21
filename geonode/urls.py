@@ -116,8 +116,8 @@ urlpatterns = [
 urlpatterns += [
 
     # path('cms/', include(wagtailadmin_urls)),
-    # path('docs/', include(wagtaildocs_urls)),
-    # path('pages/', include(wagtail_urls)),
+    path('docs/', include(wagtaildocs_urls)),
+    path('pages/', include(wagtail_urls)),
 
     # ResourceBase views
     url(r'^base/', include('geonode.base.urls')),

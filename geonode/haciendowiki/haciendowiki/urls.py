@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-from seccioneswiki import views
+from .seccioneswiki import views
 from django.urls import path
 from django.conf import settings
 
