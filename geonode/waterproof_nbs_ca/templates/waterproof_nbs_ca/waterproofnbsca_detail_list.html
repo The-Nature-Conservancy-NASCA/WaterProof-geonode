@@ -1,174 +1,198 @@
 {% extends "menu.html" %} {% load i18n %} {% load decimal_format %}{% load multiply_factor %}{% block title %} {% trans "Waterproof Detail NBS CA" %} {% endblock %}
-<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_nbs_ca/css/waterproof_nbs_ca.css"> 
 {% block extra_head %}
 
 {% endblock %}
 {% block body_outer %} {% for sbn in nbs %}
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_nbs_ca/css/waterproof_nbs_ca.css"> 
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
     integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
     crossorigin="" />
-<div class="row">
-    <div class="col-md-4">
-        <h4 class="text-center" id="countryLabel">{{country.name}}</h4>
-        <p><b>{% trans "Region:" %}</b> <span id="regionLabel">{{region.name}}</span> </p>
-        <p><b>{% trans "Currency:" %}</b><span id="currencyLabel">({{currency.code}}) - {{currency.name}}</span></p>
-    </div>
-    <div class="col-md-8">
-        <div id="mapid" style="width: 700px; height: 200px;"></div>
 
-    </div>
-</div>
-<div class="page-header">
-    {{userCountry.name}}
-    <h1>{% trans "Detail sbn" %}</h1>
-</div>
+<div class="header-waterproof">
 
-<h4 class="text-primary">{% trans "General Settings" %}</h4>
-<div class="form-group">
-    <label>{% trans "Name" %}</label>
-    <input type="text" value="{{ sbn.name }}" class="form-control" disabled placeholder="Enter title" data-match-error="Whoops, these don't match" required>
-    <div class="help-block with-errors"></div>
-</div>
-<div class="form-group">
-    <label>{% trans "Description" %}</label>
-    <textarea class="form-control" disabled placeholder="Enter description" rows="5" required>{{ sbn.description }}</textarea>
-</div>
-<div class="form-group">
+    <div class="page-header">
+        <h1>{% trans "Detail sbn" %}</h1>
+    </div>
+
     <div class="row">
-        <div class="col-md-6">
-            <label>{% trans "Country" %}</label>
-            <select class="form-control" disabled required>
-                  {% for country in countries %}
-                  <option value="{{country.pk}}" {% if country.pk == sbn.country.pk %} selected{% endif %}>{{ country.name}}</option>
-                  {%  endfor %}
-                </select>
+        <div class="col-md-4">
+            <h4 class="country-label" id="countryLabel">{{country.name}}</h4>
+            <p><b>{% trans "Region:" %}</b> <span id="regionLabel">{{region.name}}</span> </p>
+            <p><b>{% trans "Currency:" %} </b><span id="currencyLabel">({{currency.currency}}) - {{currency.name}}</span></p>
         </div>
-        <div class="col-md-6">
-            <label>{% trans "Currency for definition of costs" %}</label>
-            <select class="form-control" disabled required>
-                  {% for cur in currencies %}
-                  <option value="{{cur.pk}}" {% if cur.pk == sbn.currency.pk %} selected{% endif %}>{{ cur.name}}</option>
-                  {%  endfor %}
-                </select>
+        <div class="col-md-8">
+            <div id="mapid" style="width: 700px; height: 200px;"></div>
+
         </div>
     </div>
-</div>
-<div class="form-group">
-    <div class="row">
-        <div class="col-md-6">
-            <label>{% trans "Time required to generate maximun benefit (yr)" %}</label>
-            <input value="{{sbn.max_benefit_req_time}}" type="text" disabled class="form-control" required>
-        </div>
-        <div class="col-md-6">
-            <label>{% trans "Percentage of benefit associated with interventions at time t=0" %}</label>
-            <input value="{{sbn.profit_pct_time_inter_assoc}}" type="text" disabled class="form-control" required>
-        </div>
+
+    <h4 class="text-primary">{% trans "General Settings" %}</h4>
+    <div class="form-group">
+        <label>{% trans "Name" %}</label>
+        <input type="text" value="{{ sbn.name }}" class="form-control" disabled placeholder="Enter title" data-match-error="Whoops, these don't match" required>
+        <div class="help-block with-errors"></div>
     </div>
-</div>
-<div class="form-group">
-    <div class="row">
-        <div class="col-md-6">
-            <label>{% trans "Periodicity of maintenance (yr)" %}</label>
-            <input value="{{ sbn.periodicity_maitenance }}" disabled type="text" class="form-control" required>
-        </div>
+    <div class="form-group">
+        <label>{% trans "Description" %}</label>
+        <textarea class="form-control" disabled placeholder="Enter description" rows="5" required>{{ sbn.description }}</textarea>
     </div>
-</div>
-<h4 class="text-primary">{% trans "Unit costs" %}</h4>
-<div class="form-group">
-    <div class="row">
-        {% if user.professional_role != 'ADMIN' %}
-            {% if sbn.added_by.professional_role == 'ADMIN' %}
-                <div class="col-md-6">
-                    <label>{% trans "Country for definition of costs" %}</label>
-                    <select id="currenciesComapreSelect" class="form-control" required>
-                        {% for country in countries %}
-                        <option value="{{country.factor}}" {% if country.pk == userCountry.pk %} selected{% endif %}>{{ country.name}}</option>
-                        {%  endfor %}
+    <div class="form-group">
+        <div class="row">
+            <div class="col-md-6">
+                <label>{% trans "Country" %}</label>
+                <select class="form-control" disabled required>
+                    {% for country in countries %}
+                    <option value="{{country.pk}}" {% if country.pk == sbn.country.pk %} selected{% endif %}>{{ country.name}}</option>
+                    {%  endfor %}
                     </select>
-                </div>
-                <div class="col-md-6">
-                    <label>{% trans "Multiplying factor for overrall cost" %}</label>
-                    <input disabled id="multiplyCurrencies" type="text" value="{{userCountry.factor}}"class="form-control" required>
-                </div>
-            {% endif %}
-        {% endif %}
+            </div>
+            <div class="col-md-6">
+                <label>{% trans "Currency for definition of costs" %}</label>
+                <select class="form-control" disabled required>
+                    {% for cur in currencies %}
+                    <option value="{{cur.pk}}" {% if cur.pk == sbn.currency.pk %} selected{% endif %}>{{ cur.name}}</option>
+                    {%  endfor %}
+                    </select>
+            </div>
+        </div>
     </div>
-</div>
-<div class="form-group">
-    <div class="row">
-        <div class="col-md-6">
-            <div class="panel  panel-info">
-                <div class="panel-heading">
-                    <h3 class="panel-title">{% trans "Reference cost" %}</h3>
-                </div>
-                <div class="panel-body">
-                    <div class="form-group">
-                        <label>{% trans "Implementation cost (US$/ha)" %}</label>
-                        <input value="{{ sbn.unit_implementation_cost|floatformat:2 }}" id="b_unit_implementation_cost" type="text" class="form-control" disabled required>
+    <div class="form-group">
+        <div class="row">
+            <div class="col-md-6">
+                <label>{% trans "Time required to generate maximun benefit (yr)" %}</label>
+                <input value="{{sbn.max_benefit_req_time}}" type="text" disabled class="form-control" required>
+            </div>
+            <div class="col-md-6">
+                <label>{% trans "Percentage of benefit associated with interventions at time t=0" %}</label>
+                <input value="{{sbn.profit_pct_time_inter_assoc}}" type="text" disabled class="form-control" required>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="row">
+            <div class="col-md-6">
+                <label>{% trans "Periodicity of maintenance (yr)" %}</label>
+                <input value="{{ sbn.periodicity_maitenance }}" disabled type="text" class="form-control" required>
+            </div>
+        </div>
+    </div>
+    <h4 class="text-primary">{% trans "Unit costs" %}</h4>
+    <div class="form-group">
+        <div class="row">
+            {% if user.professional_role != 'ADMIN' %}
+                {% if sbn.added_by.professional_role == 'ADMIN' %}
+                    <div class="col-md-6">
+                        <label>{% trans "Country for definition of costs" %}</label>
+                        <select id="currenciesComapreSelect" class="form-control" required>
+                            {% for country in countries %}
+                            <option value="{{country.global_multiplier_factor}}" {% if country.pk == userCountry.pk %} selected{% endif %}>{{ country.name}}</option>
+                            {%  endfor %}
+                        </select>
                     </div>
-                    <div class="form-group">
-                        <label>{% trans "Maintenace cost (US$/ha)" %}</label>
-                        <input value="{{ sbn.unit_maintenance_cost|floatformat:2 }}" id="b_unit_maintenance_cost" type="text" class="form-control" disabled required>
+                    <div class="col-md-6">
+                        <label>{% trans "Multiplying factor for overrall cost" %}</label>
+                        <input disabled id="multiplyCurrencies" type="text" value="{{userCountry.global_multiplier_factor}}"class="form-control" required>
                     </div>
-                    <div class="form-group">
-                        <label>{% trans "Oportunity cost (US$/ha)" %}</label>
-                        <input value="{{ sbn.unit_oportunity_cost|floatformat:2 }}" id="b_unit_oportunity_cost" type="text" class="form-control" disabled required>
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="panel  panel-info">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">{% trans "Reference cost" %}</h3>
+                    </div>
+                    <div class="panel-body">
+                        {% for cur in nbs %}
+                        <div class="form-group">
+                            <label>{% trans "Implementation cost (US$/ha)" %} ({{cur.country.currency}}/ha) </label>
+                            <input value="{{ sbn.unit_implementation_cost|floatformat:2 }}" id="b_unit_implementation_cost" type="text" class="form-control" disabled required>
+                            
+                        </div>
+                        <div class="form-group">
+                            <label>{% trans "Maintenace cost (US$/ha)" %} ({{cur.country.currency}}/ha)</label>
+                            <input value="{{ sbn.unit_maintenance_cost|floatformat:2 }}" id="b_unit_maintenance_cost" type="text" class="form-control" disabled required>
+                        </div>
+                        <div class="form-group">
+                            <label>{% trans "Oportunity cost (US$/ha)" %} ({{cur.country.currency}}/ha)</label>
+                            <input value="{{ sbn.unit_oportunity_cost|floatformat:2 }}" id="b_unit_oportunity_cost" type="text" class="form-control" disabled required>
+                        </div>
+                        {%  endfor %}
                     </div>
                 </div>
             </div>
-        </div>
-        {% if user.professional_role != 'ADMIN' %}
-            {% if sbn.added_by.professional_role == 'ADMIN' %}
-                <div class="col-md-6">
-                    <div class="panel  panel-danger">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">{% trans "Fact cost" %}</h3>
-                        </div>
-                        <div class="panel-body">
-                            <div class="form-group">
-                                <label>{% trans "Implementation cost (US$/ha)" %}</label>
-                                <input type="text"  value="{{sbn.unit_implementation_cost|multiplyFactor:userCountry.factor|decimalFormat:2}}" class="form-control" id="a_unit_implementation_cost" required disabled>
+            {% if user.professional_role != 'ADMIN' %}
+                {% if sbn.added_by.professional_role == 'ADMIN' %}
+                    <div class="col-md-6">
+                        <div class="panel  panel-danger">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">{% trans "Fact cost" %}</h3>
                             </div>
-                            <div class="form-group">
-                                <label>{% trans "Maintenace cost (US$/ha)" %}</label>
-                                <input type="text" value="{{sbn.unit_maintenance_cost|multiplyFactor:userCountry.factor|decimalFormat:2}}" class="form-control" id="a_unit_maintenance_cost" required disabled>
-                            </div>
-                            <div class="form-group">
-                                <label>{% trans "Oportunity cost (US$/ha)" %}</label>
-                                <input id="a_unit_oportunity_cost" value="{{sbn.unit_oportunity_cost|multiplyFactor:userCountry.factor|decimalFormat:2}}" type="text" class="form-control" required disabled>
+                            <div class="panel-body">
+                                <div class="form-group">
+                                    <label>{% trans "Implementation cost (US$/ha)" %} ({{cur.country.currency}}/ha)</label>
+                                    <input type="text"  value="{{sbn.unit_implementation_cost|multiplyFactor:userCountry.global_multiplier_factor|decimalFormat:2}}" class="form-control" id="a_unit_implementation_cost" required disabled>
+                                </div>
+                                <div class="form-group">
+                                    <label>{% trans "Maintenace cost (US$/ha)" %} ({{cur.country.currency}}/ha)</label>
+                                    <input type="text" value="{{sbn.unit_maintenance_cost|multiplyFactor:userCountry.global_multiplier_factor|decimalFormat:2}}" class="form-control" id="a_unit_maintenance_cost" required disabled>
+                                </div>
+                                <div class="form-group">
+                                    <label>{% trans "Oportunity cost (US$/ha)" %} ({{cur.country.currency}}/ha)</label>
+                                    <input id="a_unit_oportunity_cost" value="{{sbn.unit_oportunity_cost|multiplyFactor:userCountry.global_multiplier_factor|decimalFormat:2}}" type="text" class="form-control" required disabled>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                {% endif %}
             {% endif %}
-        {% endif %}
+        </div>
     </div>
+    <div class="row">
+        <div class="col-md-6">
+        <h4 class="text-primary text-left">{% trans "LAND USE / LAND COVER WHERE THE ACTIVITY CAN BE IMPLEMENTED" %}</h4>
+        </div>
+        <div class="col-md-6">
+            <h4 class="text-primary text-right">{% trans "LAND USE / LAND COVER TRANSFORMED" %}</h4>
+        </div>
+        </div>
+    <ul class="list-group">
+
+        {% for transformation in sbn.rios_transformations.all %}
+        <li class="list-group-item">
+            <span class="badge">{{ transformation.name }}</span> {{ transformation.activity.name }}
+        </li>
+        {% endfor %}
+
+    </ul>
 </div>
-<div class="row">
-    <div class="col-md-6">
-    <h4 class="text-primary text-left">{% trans "LAND USE" %}</h4>
-    </div>
-    <div class="col-md-6">
-    <h4 class="text-primary text-right">{% trans "LAND COVER CHANGE DEFINITION" %}</h4>
-    </div>
-    </div>
-<ul class="list-group">
 
-    {% for transformation in sbn.rios_transformations.all %}
-    <li class="list-group-item">
-        <span class="badge">{{ transformation.description }}</span> {{ transformation.name }}
-    </li>
-    {% endfor %}
-
-</ul>
 
 {% endfor %} {% endblock body_outer %} {% block extra_script %}
 <script>
     var countriesLayerUrl = '{{ STATIC_URL }}waterproof_nbs_ca/data/countries.geojson';
     var userCountryId='{{userCountry.id}}';
-    var userCountryCode='{{userCountry.code}}';
+    var userCountryCode='{{userCountry.iso3}}';
     var userCountryName='{{userCountry.name}}';
+    OSM_BASEMAP_URL = '{{ OSM_BASEMAP_URL }} ';
+    IMG_BASEMAP_URL =  '{{ IMG_BASEMAP_URL }} ';
+    HYDRO_BASEMAP_URL =  '{{ HYDRO_BASEMAP_URL }} ';
+    GRAY_BASEMAP_URL = '{{ GRAY_BASEMAP_URL }} ';
+    MAXZOOM = 11;
 </script>
+{% if user.professional_role == 'ADMIN' %}
+    <script>
+         var countryId = '{{sbn.country.pk}}';
+         var disableMap=true;
+    </script>
+{% else %}
+    <script>
+        var disableMap=false;
+        var countryId = '{{sbn.country.pk}}';
+    </script>
+{% endif %}
 <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
     integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
     crossorigin=""></script>
