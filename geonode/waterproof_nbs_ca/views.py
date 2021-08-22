@@ -36,7 +36,7 @@ logger = logging.getLogger(__name__)
 register = template.Library()
 
 
-def createNbs(request, countryId):
+def createNbs(request):
     # Login required
     if not request.user.is_authenticated:
         return render(request, 'waterproof_nbs_ca/waterproofnbsca_login_error.html')
@@ -50,7 +50,7 @@ def createNbs(request, countryId):
             currencyCost = request.POST.get('currencyCost')
             maxBenefitTime = Decimal(request.POST.get('maxBenefitTime').replace(',', '.'))
             benefitTimePorc = Decimal(request.POST.get('benefitTimePorc').replace(',', '.'))
-            maintenancePeriod = request.POST.get('maintenancePeriod')
+            maintenancePeriod = int(request.POST.get('maintenancePeriod'))
             implementCost = Decimal(request.POST.get('implementCost').replace(',', '.'))
             maintenanceCost = Decimal(request.POST.get('maintenanceCost').replace(',', '.'))
             oportunityCost = Decimal(request.POST.get('oportunityCost').replace(',', '.'))
@@ -59,72 +59,84 @@ def createNbs(request, countryId):
             riosTransformation = transformations.split(",")
             slug=slugify(nameNBS)[:100]
             if (
-                nameNBS and descNBS and countryNBS and currencyCost
+                    nameNBS and descNBS and countryNBS and currencyCost
             ):
-                # Check duplicated NBS name
-                try:
-                    existingNbs = WaterproofNbsCa.objects.get(name=nameNBS)
-                    errorMessage = _('Duplicated nbs')
+                if (
+                    maxBenefitTime>=0 and benefitTimePorc>=0 and maintenancePeriod>=0
+                    and implementCost>=0 and maintenanceCost>=0 and oportunityCost >=0
+                ):
+                    # Check duplicated NBS name
+                    try:
+                        existingNbs = WaterproofNbsCa.objects.get(name=nameNBS)
+                        errorMessage = _('Duplicated nbs')
+                        context = {
+                            'status': '400', 'message': str(errorMessage)
+                        }
+                        response = HttpResponse(json.dumps(context), content_type='application/json')
+                        response.status_code = 400
+                        return response
+                    except WaterproofNbsCa.DoesNotExist:
+                        country = Countries.objects.get(id=countryNBS)
+                        currency = Countries.objects.get(id=currencyCost)
+                        if (extensionFile):
+                            # Validate if file is geojson or shapefile
+                            if (extensionFile == 'zip'):  # Zip shapefile
+                                restrictedArea = request.POST.get('restrictedArea')  # request.FILES used for to get files
+                                areaJson = json.loads(restrictedArea)
+                            else:  # GeoJSON
+                                restrictedArea = request.FILES.get('restrictedArea')  # request.FILES used for to get files
+                                areaJson = json.load(restrictedArea)
+                            areas = []
+
+                            for feature in areaJson['features']:
+                                areaObject = {}
+                                areaObject['action'] = feature['properties']['action']
+                                areaObject['activity'] = feature['properties']['activity_n']
+                                areaObject['geometry'] = GEOSGeometry(str(feature['geometry']))
+                                areas.append(areaObject)
+                            for area in areas:
+                                shapefile = ActivityShapefile.objects.create(
+                                    action=area['action'],
+                                    activity=area['activity'],
+                                    area=area['geometry']
+                                )
+                                shapefile.save()
+                        else:
+                            shapefile = None
+
+                        nbs = WaterproofNbsCa(
+                            country=country,
+                            currency=currency,
+                            name=nameNBS,
+                            slug=slug,
+                            description=descNBS,
+                            max_benefit_req_time=maxBenefitTime,
+                            profit_pct_time_inter_assoc=benefitTimePorc,
+                            unit_implementation_cost=implementCost,
+                            unit_maintenance_cost=maintenanceCost,
+                            periodicity_maitenance=maintenancePeriod,
+                            unit_oportunity_cost=oportunityCost,
+                            activity_shapefile=shapefile,
+                            added_by=request.user
+                        )
+                        nbs.save()
+                        if (transformations):
+                            for trans in riosTransformation:
+                                transformation = RiosTransformation.objects.get(id=trans)
+                                nbs.rios_transformations.add(transformation)
+                        context = {
+                            'status': '200', 'message': 'Success'
+                        }
+                        response = HttpResponse(json.dumps(context), content_type='application/json')
+                        response.status_code = 200
+                        return response
+                else:
+                    errorMessage = _('Field empty')
                     context = {
                         'status': '400', 'message': str(errorMessage)
                     }
                     response = HttpResponse(json.dumps(context), content_type='application/json')
                     response.status_code = 400
-                    return response
-                except WaterproofNbsCa.DoesNotExist:
-                    country = Countries.objects.get(id=countryNBS)
-                    currency = Countries.objects.get(id=currencyCost)
-                    if (extensionFile):
-                        # Validate if file is geojson or shapefile
-                        if (extensionFile == 'zip'):  # Zip shapefile
-                            restrictedArea = request.POST.get('restrictedArea')  # request.FILES used for to get files
-                            areaJson = json.loads(restrictedArea)
-                        else:  # GeoJSON
-                            restrictedArea = request.FILES.get('restrictedArea')  # request.FILES used for to get files
-                            areaJson = json.load(restrictedArea)
-                        areas = []
-
-                        for feature in areaJson['features']:
-                            areaObject = {}
-                            areaObject['action'] = feature['properties']['action']
-                            areaObject['activity'] = feature['properties']['activity_n']
-                            areaObject['geometry'] = GEOSGeometry(str(feature['geometry']))
-                            areas.append(areaObject)
-                        for area in areas:
-                            shapefile = ActivityShapefile.objects.create(
-                                action=area['action'],
-                                activity=area['activity'],
-                                area=area['geometry']
-                            )
-                            shapefile.save()
-                    else:
-                        shapefile = None
-
-                    nbs = WaterproofNbsCa(
-                        country=country,
-                        currency=currency,
-                        name=nameNBS,
-                        slug=slug,
-                        description=descNBS,
-                        max_benefit_req_time=maxBenefitTime,
-                        profit_pct_time_inter_assoc=benefitTimePorc,
-                        unit_implementation_cost=implementCost,
-                        unit_maintenance_cost=maintenanceCost,
-                        periodicity_maitenance=maintenancePeriod,
-                        unit_oportunity_cost=oportunityCost,
-                        activity_shapefile=shapefile,
-                        added_by=request.user
-                    )
-                    nbs.save()
-                    if (transformations):
-                        for trans in riosTransformation:
-                            transformation = RiosTransformation.objects.get(id=trans)
-                            nbs.rios_transformations.add(transformation)
-                    context = {
-                        'status': '200', 'message': 'Success'
-                    }
-                    response = HttpResponse(json.dumps(context), content_type='application/json')
-                    response.status_code = 200
                     return response
             else:
                 errorMessage = _('Field empty')
@@ -137,10 +149,7 @@ def createNbs(request, countryId):
                 # Get render form
         else:  # GET METHOD
             nbs = WaterproofNbsCa.objects.all()
-            country = Countries.objects.get(id=countryId)
             usaCountry = Countries.objects.get(iso3='USA')
-            region = Regions.objects.get(id=country.region_id)
-            currency = Countries.objects.get(id=country.id)
             countries = Countries.objects.all()
             currencies = Countries.objects.all()
             transitions = RiosTransition.objects.all()
@@ -154,11 +163,8 @@ def createNbs(request, countryId):
             return render(
                 request, 'waterproof_nbs_ca/waterproofnbsca_form.html',
                 {
-                    'country': country,
                     'usaCountry': usaCountry,
                     'countryEnable': countryEnable,
-                    'region': region,
-                    'currency': currency,
                     'nbs': nbs,
                     'countries': countries,
                     'currencies': currencies,
@@ -380,7 +386,7 @@ def editNbs(request, idx):
             currencyCost = request.POST.get('currencyCost')
             maxBenefitTime = Decimal(request.POST.get('maxBenefitTime').replace(',', '.'))
             benefitTimePorc = Decimal(request.POST.get('benefitTimePorc').replace(',', '.'))
-            maintenancePeriod = request.POST.get('maintenancePeriod')
+            maintenancePeriod = int(request.POST.get('maintenancePeriod'))
             implementCost = Decimal(request.POST.get('implementCost').replace(',', '.'))
             maintenanceCost = Decimal(request.POST.get('maintenanceCost').replace(',', '.'))
             oportunityCost = Decimal(request.POST.get('oportunityCost').replace(',', '.'))
@@ -390,92 +396,101 @@ def editNbs(request, idx):
             uploadNewArea = request.POST.get('uploadNewArea')
             if (
                     nameNBS and descNBS and countryNBS and currencyCost
-                    and maxBenefitTime and benefitTimePorc and maintenancePeriod
-                    and implementCost and maintenanceCost and oportunityCost
-
             ):
-                # Check duplicated NBS name
-                try:
-                    existingNbs = WaterproofNbsCa.objects.get(name=nameNBS)
-                    if (existingNbs.pk == idx):
+                if (
+                    maxBenefitTime>=0 and benefitTimePorc>=0 and maintenancePeriod>=0
+                    and implementCost>=0 and maintenanceCost>=0 and oportunityCost >=0
+                ):
+                    # Check duplicated NBS name
+                    try:
+                        existingNbs = WaterproofNbsCa.objects.get(name=nameNBS)
+                        if (existingNbs.pk == idx):
+                            duplicatedNbs = False
+                        else:
+                            duplicatedNbs = True
+                            errorMessage = _('Duplicated nbs')
+                            context = {
+                                'status': '400', 'message': str(errorMessage)
+                            }
+                            response = HttpResponse(json.dumps(context), content_type='application/json')
+                            response.status_code = 400
+                            return response
+                    except WaterproofNbsCa.DoesNotExist:
                         duplicatedNbs = False
-                    else:
-                        duplicatedNbs = True
-                        errorMessage = _('Duplicated nbs')
+                    if (not duplicatedNbs):
+                        country = Countries.objects.get(id=countryNBS)
+                        currency = Countries.objects.get(id=currencyCost)
+                        nbs = WaterproofNbsCa.objects.get(id=idx)
+                        if(nbs.activity_shapefile != None):
+                            shapefile = ActivityShapefile.objects.get(id=nbs.activity_shapefile.id)
+                        else:
+                            shapefile = None
+                        actualTranstormations = list(nbs.rios_transformations.all().values_list('id', flat=True))
+                        # Get land use to add in edition
+                        transformationsAdd = [item for item in riosTransformation if item not in actualTranstormations]
+                        # Get land use to remove from DB
+                        transformationsRemove = [item for item in actualTranstormations if item not in riosTransformation]
+                        # Add not existing transformations selected for the user
+                        for trans in transformationsAdd:
+                            transformation = RiosTransformation.objects.get(id=trans)
+                            nbs.rios_transformations.add(transformation)
+                        # Remove unselected options for user
+                        for trans in transformationsRemove:
+                            transformation = RiosTransformation.objects.get(id=trans)
+                            nbs.rios_transformations.remove(transformation)
+                        # Validate if active upload new restricted area
+
+                        if (uploadNewArea == 'true'):  # upload
+                            if (extensionFile):
+                                extensionFile = request.POST.get('extension')
+                                if (extensionFile == 'zip'):  # Zip shapefile
+                                    # request.FILES used for to get files
+                                    restrictedArea = request.POST.get('restrictedArea')
+                                    areaJson = json.loads(restrictedArea)
+                                else:  # GeoJSON
+                                    # request.FILES used for to get files
+                                    restrictedArea = request.FILES.get('restrictedArea')
+                                    areaJson = json.load(restrictedArea)
+                                areas = []
+
+                                for feature in areaJson['features']:
+                                    areaObject = {}
+                                    areaObject['name'] = areaJson['fileName']
+                                    areaObject['action'] = feature['properties']['action']
+                                    areaObject['activity'] = feature['properties']['activity_n']
+                                    areaObject['geometry'] = GEOSGeometry(str(feature['geometry']))
+                                    areas.append(areaObject)
+                                for area in areas:
+                                    shapefile.action = areaObject['action']
+                                    shapefile.activity = areaObject['activity']
+                                    shapefile.area = areaObject['geometry']
+                                    shapefile.save()
+
+                        nbs.name = nameNBS
+                        nbs.slug = slugify(nameNBS)
+                        nbs.description = descNBS
+                        nbs.country = country
+                        nbs.currency = currency
+                        nbs.max_benefit_req_time = maxBenefitTime
+                        nbs.profit_pct_time_inter_assoc = benefitTimePorc
+                        nbs.unit_implementation_cost = implementCost
+                        nbs.unit_maintenance_cost = maintenanceCost
+                        nbs.periodicity_maitenance = maintenancePeriod
+                        nbs.unit_oportunity_cost = oportunityCost
+                        nbs.save()
                         context = {
-                            'status': '400', 'message': str(errorMessage)
+                            'status': '200', 'message': 'Success'
                         }
                         response = HttpResponse(json.dumps(context), content_type='application/json')
-                        response.status_code = 400
+                        response.status_code = 200
                         return response
-                except WaterproofNbsCa.DoesNotExist:
-                    duplicatedNbs = False
-                if (not duplicatedNbs):
-                    country = Countries.objects.get(id=countryNBS)
-                    currency = Countries.objects.get(id=currencyCost)
-                    nbs = WaterproofNbsCa.objects.get(id=idx)
-                    if(nbs.activity_shapefile != None):
-                        shapefile = ActivityShapefile.objects.get(id=nbs.activity_shapefile.id)
-                    else:
-                        shapefile = None
-                    actualTranstormations = list(nbs.rios_transformations.all().values_list('id', flat=True))
-                    # Get land use to add in edition
-                    transformationsAdd = [item for item in riosTransformation if item not in actualTranstormations]
-                    # Get land use to remove from DB
-                    transformationsRemove = [item for item in actualTranstormations if item not in riosTransformation]
-                    # Add not existing transformations selected for the user
-                    for trans in transformationsAdd:
-                        transformation = RiosTransformation.objects.get(id=trans)
-                        nbs.rios_transformations.add(transformation)
-                    # Remove unselected options for user
-                    for trans in transformationsRemove:
-                        transformation = RiosTransformation.objects.get(id=trans)
-                        nbs.rios_transformations.remove(transformation)
-                    # Validate if active upload new restricted area
-
-                    if (uploadNewArea == 'true'):  # upload
-                        if (extensionFile):
-                            extensionFile = request.POST.get('extension')
-                            if (extensionFile == 'zip'):  # Zip shapefile
-                                # request.FILES used for to get files
-                                restrictedArea = request.POST.get('restrictedArea')
-                                areaJson = json.loads(restrictedArea)
-                            else:  # GeoJSON
-                                # request.FILES used for to get files
-                                restrictedArea = request.FILES.get('restrictedArea')
-                                areaJson = json.load(restrictedArea)
-                            areas = []
-
-                            for feature in areaJson['features']:
-                                areaObject = {}
-                                areaObject['name'] = areaJson['fileName']
-                                areaObject['action'] = feature['properties']['action']
-                                areaObject['activity'] = feature['properties']['activity_n']
-                                areaObject['geometry'] = GEOSGeometry(str(feature['geometry']))
-                                areas.append(areaObject)
-                            for area in areas:
-                                shapefile.action = areaObject['action']
-                                shapefile.activity = areaObject['activity']
-                                shapefile.area = areaObject['geometry']
-                                shapefile.save()
-
-                    nbs.name = nameNBS
-                    nbs.slug = slugify(nameNBS)
-                    nbs.description = descNBS
-                    nbs.country = country
-                    nbs.currency = currency
-                    nbs.max_benefit_req_time = maxBenefitTime
-                    nbs.profit_pct_time_inter_assoc = benefitTimePorc
-                    nbs.unit_implementation_cost = implementCost
-                    nbs.unit_maintenance_cost = maintenanceCost
-                    nbs.periodicity_maitenance = maintenancePeriod
-                    nbs.unit_oportunity_cost = oportunityCost
-                    nbs.save()
+                else:
+                    errorMessage = _('Field empty')
                     context = {
-                        'status': '200', 'message': 'Success'
+                        'status': '400', 'message': str(errorMessage)
                     }
                     response = HttpResponse(json.dumps(context), content_type='application/json')
-                    response.status_code = 200
+                    response.status_code = 400
                     return response
             else:
                 errorMessage = _('Field empty')
@@ -533,7 +548,7 @@ def cloneNbs(request, idx):
             currencyCost = request.POST.get('currencyCost')
             maxBenefitTime = Decimal(request.POST.get('maxBenefitTime').replace(',', '.'))
             benefitTimePorc = Decimal(request.POST.get('benefitTimePorc').replace(',', '.'))
-            maintenancePeriod = request.POST.get('maintenancePeriod')
+            maintenancePeriod = int(request.POST.get('maintenancePeriod'))
             implementCost = Decimal(request.POST.get('implementCost').replace(',', '.'))
             maintenanceCost = Decimal(request.POST.get('maintenanceCost').replace(',', '.'))
             oportunityCost = Decimal(request.POST.get('oportunityCost').replace(',', '.'))            
@@ -542,85 +557,95 @@ def cloneNbs(request, idx):
             nbs = WaterproofNbsCa.objects.get(id=idx)
             riosTransformation = transformations.split(",")
             if (
-                nameNBS and descNBS and countryNBS and currencyCost
-                and maxBenefitTime and benefitTimePorc and maintenancePeriod
-                and implementCost and maintenanceCost and oportunityCost
+                    nameNBS and descNBS and countryNBS and currencyCost
             ):
-                # Check duplicated NBS name
-                try:
-                    existingNbs = WaterproofNbsCa.objects.get(name=nameNBS)
-                    errorMessage = _('Duplicated nbs')
+                if (
+                    maxBenefitTime>=0 and benefitTimePorc>=0 and maintenancePeriod>=0
+                    and implementCost>=0 and maintenanceCost>=0 and oportunityCost >=0
+                ):
+                    # Check duplicated NBS name
+                    try:
+                        existingNbs = WaterproofNbsCa.objects.get(name=nameNBS)
+                        errorMessage = _('Duplicated nbs')
+                        context = {
+                            'status': '400', 'message': str(errorMessage)
+                        }
+                        response = HttpResponse(json.dumps(context), content_type='application/json')
+                        response.status_code = 400
+                        return response
+                    except WaterproofNbsCa.DoesNotExist:
+                        # Validate if user want's to upload new area
+                        if (uploadNewArea == 'true'):  # Upload new area
+                            extensionFile = request.POST.get('extension')
+                            if (extensionFile == 'zip'):  # Zip shapefile
+                                restrictedArea = request.POST.get('restrictedArea')  # request.FILES used for to get files
+                                areaJson = json.loads(restrictedArea)
+                            else:  # GeoJSON
+                                restrictedArea = request.FILES.get('restrictedArea')  # request.FILES used for to get files
+                                areaJson = json.load(restrictedArea)
+                            areas = []
+
+                            for feature in areaJson['features']:
+                                areaObject = {}
+                                areaObject['name'] = areaJson['fileName']
+                                areaObject['action'] = feature['properties']['action']
+                                areaObject['activity'] = feature['properties']['activity_n']
+                                areaObject['geometry'] = GEOSGeometry(str(feature['geometry']))
+                                areas.append(areaObject)
+                            shapefile = ActivityShapefile(
+                                action=areaObject['action'],
+                                activity=areaObject['activity'],
+                                area=areaObject['geometry']
+                            )
+                            shapefile.save()
+                        else:  # Maitain same area
+                            if(nbs.activity_shapefile != None):
+                                shapefileOld = ActivityShapefile.objects.get(id=nbs.activity_shapefile.id)
+                                shapefileOld = ActivityShapefile.objects.get(id=nbs.activity_shapefile.id)
+                                shapefile = ActivityShapefile(
+                                    action=shapefileOld.action,
+                                    activity=shapefileOld.activity,
+                                    area=shapefileOld.area
+                                )
+                                shapefile.save()
+                            else:
+                                shapefile = None
+
+                        country = Countries.objects.get(id=countryNBS)
+                        currency = Countries.objects.get(id=currencyCost)
+                        nbs = WaterproofNbsCa(
+                            country=country,
+                            currency=currency,
+                            name=nameNBS,
+                            slug=slug,
+                            description=descNBS,
+                            max_benefit_req_time=maxBenefitTime,
+                            profit_pct_time_inter_assoc=benefitTimePorc,
+                            unit_implementation_cost=implementCost,
+                            unit_maintenance_cost=maintenanceCost,
+                            periodicity_maitenance=maintenancePeriod,
+                            unit_oportunity_cost=oportunityCost,
+                            activity_shapefile=shapefile,
+                            added_by=request.user
+                        )
+                        nbs.save()
+                        if (transformations):
+                            for trans in riosTransformation:
+                                transformation = RiosTransformation.objects.get(id=trans)
+                                nbs.rios_transformations.add(transformation)
+                        context = {
+                            'status': '200', 'message': 'Success'
+                        }
+                        response = HttpResponse(json.dumps(context), content_type='application/json')
+                        response.status_code = 200
+                        return response
+                else:
+                    errorMessage = _('Field empty')
                     context = {
                         'status': '400', 'message': str(errorMessage)
                     }
                     response = HttpResponse(json.dumps(context), content_type='application/json')
                     response.status_code = 400
-                    return response
-                except WaterproofNbsCa.DoesNotExist:
-                    # Validate if user want's to upload new area
-                    if (uploadNewArea == 'true'):  # Upload new area
-                        extensionFile = request.POST.get('extension')
-                        if (extensionFile == 'zip'):  # Zip shapefile
-                            restrictedArea = request.POST.get('restrictedArea')  # request.FILES used for to get files
-                            areaJson = json.loads(restrictedArea)
-                        else:  # GeoJSON
-                            restrictedArea = request.FILES.get('restrictedArea')  # request.FILES used for to get files
-                            areaJson = json.load(restrictedArea)
-                        areas = []
-
-                        for feature in areaJson['features']:
-                            areaObject = {}
-                            areaObject['name'] = areaJson['fileName']
-                            areaObject['action'] = feature['properties']['action']
-                            areaObject['activity'] = feature['properties']['activity_n']
-                            areaObject['geometry'] = GEOSGeometry(str(feature['geometry']))
-                            areas.append(areaObject)
-                        shapefile = ActivityShapefile(
-                            action=areaObject['action'],
-                            activity=areaObject['activity'],
-                            area=areaObject['geometry']
-                        )
-                        shapefile.save()
-                    else:  # Maitain same area
-                        if(nbs.activity_shapefile != None):
-                            shapefileOld = ActivityShapefile.objects.get(id=nbs.activity_shapefile.id)
-                            shapefileOld = ActivityShapefile.objects.get(id=nbs.activity_shapefile.id)
-                            shapefile = ActivityShapefile(
-                                action=shapefileOld.action,
-                                activity=shapefileOld.activity,
-                                area=shapefileOld.area
-                            )
-                            shapefile.save()
-                        else:
-                            shapefile = None
-
-                    country = Countries.objects.get(id=countryNBS)
-                    currency = Countries.objects.get(id=currencyCost)
-                    nbs = WaterproofNbsCa(
-                        country=country,
-                        currency=currency,
-                        name=nameNBS,
-                        slug=slug,
-                        description=descNBS,
-                        max_benefit_req_time=maxBenefitTime,
-                        profit_pct_time_inter_assoc=benefitTimePorc,
-                        unit_implementation_cost=implementCost,
-                        unit_maintenance_cost=maintenanceCost,
-                        periodicity_maitenance=maintenancePeriod,
-                        unit_oportunity_cost=oportunityCost,
-                        activity_shapefile=shapefile,
-                        added_by=request.user
-                    )
-                    nbs.save()
-                    if (transformations):
-                        for trans in riosTransformation:
-                            transformation = RiosTransformation.objects.get(id=trans)
-                            nbs.rios_transformations.add(transformation)
-                    context = {
-                        'status': '200', 'message': 'Success'
-                    }
-                    response = HttpResponse(json.dumps(context), content_type='application/json')
-                    response.status_code = 200
                     return response
             else:
                 errorMessage = _('Field empty')
@@ -648,7 +673,7 @@ def viewNbs(request, idx):
                       'region': region,
                       'userCountry': userCountry,
                       'country': country,
-                      'nbs': filterNbs,
+                      'sbn': nbs,
                       'currency': currency,
                       'countries': countries,
                       'currencies': currencies,

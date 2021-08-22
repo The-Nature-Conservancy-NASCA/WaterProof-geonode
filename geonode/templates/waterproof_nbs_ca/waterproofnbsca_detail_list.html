@@ -2,7 +2,7 @@
 {% block extra_head %}
 
 {% endblock %}
-{% block body_outer %} {% for sbn in nbs %}
+{% block body_outer %} 
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_nbs_ca/css/waterproof_nbs_ca.css"> 
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
     integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
@@ -105,21 +105,19 @@
                         <h3 class="panel-title">{% trans "Reference cost" %}</h3>
                     </div>
                     <div class="panel-body">
-                        {% for cur in nbs %}
                         <div class="form-group">
-                            <label>{% trans "Implementation cost (US$/ha)" %} ({{cur.country.currency}}/ha) </label>
+                            <label>{% trans "Implementation cost (US$/ha)" %} ({{sbn.country.currency}}/ha) </label>
                             <input value="{{ sbn.unit_implementation_cost|floatformat:2 }}" id="b_unit_implementation_cost" type="text" class="form-control" disabled required>
                             
                         </div>
                         <div class="form-group">
-                            <label>{% trans "Maintenace cost (US$/ha)" %} ({{cur.country.currency}}/ha)</label>
+                            <label>{% trans "Maintenace cost (US$/ha)" %} ({{sbn.country.currency}}/ha)</label>
                             <input value="{{ sbn.unit_maintenance_cost|floatformat:2 }}" id="b_unit_maintenance_cost" type="text" class="form-control" disabled required>
                         </div>
                         <div class="form-group">
-                            <label>{% trans "Oportunity cost (US$/ha)" %} ({{cur.country.currency}}/ha)</label>
+                            <label>{% trans "Oportunity cost (US$/ha)" %} ({{sbn.country.currency}}/ha)</label>
                             <input value="{{ sbn.unit_oportunity_cost|floatformat:2 }}" id="b_unit_oportunity_cost" type="text" class="form-control" disabled required>
                         </div>
-                        {%  endfor %}
                     </div>
                 </div>
             </div>
@@ -170,12 +168,12 @@
 </div>
 
 
-{% endfor %} {% endblock body_outer %} {% block extra_script %}
+{% endblock body_outer %} {% block extra_script %}
 <script>
     var countriesLayerUrl = '{{ STATIC_URL }}waterproof_nbs_ca/data/countries.geojson';
-    var userCountryId='{{userCountry.id}}';
-    var userCountryCode='{{userCountry.iso3}}';
-    var userCountryName='{{userCountry.name}}';
+    var userCountryId='{{filterNbs}}';
+    var userCountryCode='{{sbn.country.iso3}}';
+    var userCountryName='{{sbn.country.name}}';
     OSM_BASEMAP_URL = '{{ OSM_BASEMAP_URL }} ';
     IMG_BASEMAP_URL =  '{{ IMG_BASEMAP_URL }} ';
     HYDRO_BASEMAP_URL =  '{{ HYDRO_BASEMAP_URL }} ';
@@ -184,13 +182,13 @@
 </script>
 {% if user.professional_role == 'ADMIN' %}
     <script>
-         var countryId = '{{usaCountry.id}}';
+         var countryId = '{{sbn.country.pk}}';
          var disableMap=true;
     </script>
 {% else %}
     <script>
         var disableMap=false;
-        var countryId = '{{country.id}}';
+        var countryId = '{{sbn.country.pk}}';
     </script>
 {% endif %}
 <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"

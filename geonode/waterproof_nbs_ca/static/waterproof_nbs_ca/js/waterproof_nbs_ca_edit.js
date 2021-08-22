@@ -681,6 +681,36 @@ $(function () {
             event.target.value = value;
         }
     }
+    checkDecimalFormatZero = function (event, value) {
+        commaNum = null;
+        let regexp = /^(?=.*[1-9])([0-9]{0,12}(?:,[0-9]{1,2})?)$/gm;
+        valid = regexp.test(value);
+        // Validate string
+        if (valid) {
+            return true;
+        }
+        else {
+            //Remove extra decimals
+            value = value.replace(/^(\d+,?\d{0,2})\d*$/, "$1");
+            //Remove especial symbols included letters
+            value = value.replace(/[^1-9\,]/g, "");
+            if (value.match(/,/g) !== null) {
+                commaNum = (value.match(/,/g)).length;
+                if (commaNum == 1) {
+                    let result = value.substring(0, value.indexOf(","));
+                    if (result == "") {
+                        event.target.value = "";
+                        return false;
+                    }
+                }
+            }
+            if (commaNum !== null && commaNum > 1) {
+                // Remove comma at start or end
+                value = value.replace(/^,|,$/g, '');
+            }
+            event.target.value = value;
+        }
+    }
 
     checkTime = function (event, value) {
         commaNum = null;
