@@ -112,7 +112,7 @@ DATABASE_URL = os.getenv(
     )
 )
 
-#DATABASE_URL='postgresql://geonode:{&Uid&QXZ&6f;|F@dev.skaphe.com:5432/geonode'
+DATABASE_URL='postgresql://geonode:{&Uid&QXZ&6f;|F@dev.skaphe.com:5432/geonode'
 #DATABASE_URL='postgresql://geonode:G30N0D3@water-proof.org:5432/geonode'
 #DATABASE_URL='postgresql://geonode:geonode@localhost:5432/geonode'
 #DATABASE_URL = 'postgresql://geonode:geonode_data@dev.skaphe.com:5432/geonode'
@@ -2229,6 +2229,9 @@ HYDRO_BASEMAP_URL = "https://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest
 GRAY_BASEMAP_URL = "https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png"
 GEOSERVER_WMS = os.getenv('GEOSERVER_WMS','http://apps.skaphe.com:8080/geoserver/waterproof/wms?')
 HYDRO_NETWORK_LYR = 'waterproof:world_hydro_network'
+
+#API key for update euro currencys update
+EXCHANGE_ACCESS_KEY = '9b2f5c878a36ddfe3a1b5318bce18a85'
 
 WAGTAIL_SITE_NAME = 'Waterproof CMS'
 

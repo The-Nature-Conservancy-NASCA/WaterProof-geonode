@@ -591,6 +591,33 @@ def run(request):
                 sc.edit_date = datetime.datetime.now()
                 sc.save()
                 return JsonResponse({'id_study_case': sc.id}, safe=False)
+            
+@api_view(['GET'])
+def updateCurrencys(request):
+    response = requests.get('http://api.exchangeratesapi.io/v1/latest',
+    params={'access_key': settings.EXCHANGE_ACCESS_KEY})
+    json_response = response.json()
+    if "success" in json_response:
+        if(json_response["success"] == True):
+            for key, value in json_response['rates'].items():
+                currencys = Countries_factor.objects.filter(currency=key)
+                if currencys.exists():
+                    currency = currencys.first()
+                    currency.factor_EUR = value
+                    currency.updated_at = datetime.datetime.now()
+                    currency.save()
+                else:
+                    currency = Countries_factor()
+                    currency.currency = key
+                    currency.factor_EUR = value
+                    currency.created_at = datetime.datetime.now()
+                    currency.updated_at = datetime.datetime.now()
+                    currency.save()
+            return JsonResponse({'status': "success"}, safe=False)
+        else:
+            return JsonResponse({'status': "failure"}, safe=False) 
+    else:
+        return JsonResponse({'status': "failure"}, safe=False)
 
 
 @api_view(['GET'])

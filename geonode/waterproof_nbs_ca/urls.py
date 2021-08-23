@@ -10,7 +10,7 @@ js_info_dict = {
 urlpatterns = [
     url(r'^jsi18n/$', JavaScriptCatalog.as_view(), js_info_dict, name='javascript-catalog-nbs'),
     # Create NBS
-    path('create/<int:countryId>', views.createNbs, name='create-nbs'),
+    path('create/', views.createNbs, name='create-nbs'),
     # Default view, list all views
     path('', views.listNbs, name='list-nbs'),
     # View NBS details
