@@ -378,6 +378,12 @@ $(function () {
                 }
             },1000);
         });
+
+        $(document).on ("click", ".change-state-tree", function (e) {
+            console.log(e);
+            let id = e.currentTarget.id.replace("id","");
+            changeStatus(id);
+        });
         initMap();
 
         $('#createUrl').attr('href','create/' + userCountryId);
@@ -546,7 +552,7 @@ $(function () {
                 
                 onlyReadPlant = true;
             });
-        }
+        }        
     };
     /**
     * Deactivates the elements of the treatment plant model
@@ -874,11 +880,11 @@ $(function () {
                                                         loadHtml = true;
                                                     }
                                                     buttonsHtml = true;
-                                                    activateHtml = htmlCheckBox(valueCostFunction, null);
+                                                    activateHtml = htmlCheckBox(valueCostFunction, graphid, null);
                                                 });                                                
                                             } else {
                                                 loadHtml = true;
-                                                activateHtml = htmlCheckBox(valueCostFunction,valueTech.idSubprocess);
+                                                activateHtml = htmlCheckBox(valueCostFunction,graphid,valueTech.idSubprocess);
                                             }
 
                                             if(loadHtml) {
@@ -1463,10 +1469,11 @@ $(function () {
     htmlCheckBox = function(valueCostFunction, graphid, subProcessMaster) {
 
         let attrSubprocessMaster = "";
-        if (subProcessMaster !== undefined) {
+        if (subProcessMaster !== null) {
             attrSubprocessMaster ='subProcessMaster="' + subProcessMaster + '" ';
         }
-        let activateHtml = '<div class="point-check" onclick="changeStatus(' + valueCostFunction.idSubprocess + ')">' +
+        //onclick="changeStatus(' + valueCostFunction.idSubprocess + ')"
+        let activateHtml = '<div class="point-check"' + '>' +
                         '<div name="listFunction"  graphid="' + graphid + '" ' + attrSubprocessMaster + 
                         'technology="' + valueCostFunction.technology + '" ' + 
                         'idSubprocess="' + valueCostFunction.idSubprocess + '" ' + 
@@ -1477,6 +1484,9 @@ $(function () {
                         'class="change-state-tree" id="id' + valueCostFunction.idSubprocess + '"></div></div>';
         return activateHtml;
     }
+   
+    $( document ).ready(function() {
+        initialize();
+    });
     
-    initialize();
 });

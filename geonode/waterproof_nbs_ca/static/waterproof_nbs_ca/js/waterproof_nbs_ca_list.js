@@ -212,12 +212,12 @@ $(function () {
         // Basemap layer
         var osm = L.tileLayer(OSM_BASEMAP_URL, {
             maxZoom: MAXZOOM, 
-            attribution: 'Data \u00a9 <a href="http://www.openstreetmap.org/copyright"> OpenStreetMap Contributors </a> Tiles \u00a9 Komoot'});
+            attribution: 'Data \u00a9 <a href="https://www.openstreetmap.org/copyright"> OpenStreetMap Contributors </a> Tiles \u00a9 Komoot'});
         var images = L.tileLayer(IMG_BASEMAP_URL); 
         //var hydroLyr = L.tileLayer(HYDRO_BASEMAP_URL);
         var grayLyr = L.tileLayer(GRAY_BASEMAP_URL, {
                     maxZoom: 20,
-                        attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
+                        attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="https://openstreetmap.org">OpenStreetMap</a> contributors'
                     });
 
         var baseLayers = {
@@ -405,10 +405,6 @@ $(function () {
      * Validate input file on change
      * @param {HTML} dropdown Dropdown selected element
      */
-
-  
-
-
 
     changeFileEvent = function () {
         $('#restrictedArea').change(function (evt) {

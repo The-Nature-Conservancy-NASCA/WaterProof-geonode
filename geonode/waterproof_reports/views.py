@@ -26,7 +26,7 @@ def pdf(request):
     pdf.set_font('Arial', 'B', 20)
     pdf.set_text_color(57, 137, 169)
     pdf.ln(30)
-    pdf.cell(0, 0, 'Caso de estudio');
+    pdf.cell(0, 0, 'Caso de estudio')
     pdf.set_font('Arial', '', 11)
     pdf.set_text_color(179, 179, 179)
     pdf.ln(10)
@@ -38,7 +38,7 @@ def pdf(request):
     pdf.ln(5)
     pdf.cell(0, 0, 'y su retorno de inversion.')
     pdf.ln(10)
-    pdf.cell(0, 0, 'Desde este documento podrá tener una sitensis de')
+    pdf.cell(0, 0, 'Desde este documento podrá tener una sintesis de')
     pdf.ln(5)
     pdf.cell(0, 0, 'los resultados de indicadores')
     epw = pdf.w - 2*pdf.l_margin
@@ -98,9 +98,7 @@ def pdf(request):
     pdf.set_text_color(100, 100, 100)
     pdf.ln(15)
     pdf.cell(0, 20, 'Water intakes that are part of the analysis', align='C')
-
     pdf.ln(20)
-
     pdf.set_font('Arial', '', 10)
     pdf.set_text_color(255, 255, 255)
     pdf.set_fill_color(0, 138, 173)
@@ -111,7 +109,9 @@ def pdf(request):
     pdf.set_text_color(100, 100, 100)
     pdf.set_fill_color(255, 255, 255)
 
-    requestJson = requests.get(settings.SITE_HOST_API + 'reports/getCaracteristicsCsIntakePdf/?studyCase=' + request.GET['studyCase'],verify=False)
+    requestJson = requests.get(settings.SITE_HOST_API + 
+                'reports/getCaracteristicsCsIntakePdf/?studyCase=' + 
+                request.GET['studyCase'],verify=False)
 
     data = requestJson.json()
     for item in data:
@@ -207,22 +207,22 @@ def pdf(request):
     requestJson = requests.get(settings.SITE_HOST_API + 'reports/getFinancialAnalysisPdfRunAnalisisPdf/?studyCase=' + request.GET['studyCase'],verify=False)
     data = requestJson.json()
 
-    platformCost = "";
-    discountRate = "";
-    discountRateMinimum = "";
-    discountRateMaximum = "";
-    fullPorfolio = "";
-    fullRoi = "";
-    fullScenario = "";
+    platformCost = ""
+    discountRate = ""
+    discountRateMinimum = ""
+    discountRateMaximum = ""
+    fullPorfolio = ""
+    fullRoi = ""
+    fullScenario = ""
 
     for item in data:
-        platformCost = item['platformCost'];
-        discountRate = item['discountRate'];
-        discountRateMinimum = item['discountRateMinimum'];
-        discountRateMaximum = item['discountRateMaximum'];
-        fullPorfolio = item['fullPorfolio'];
-        fullRoi = item['fullRoi'];
-        fullScenario = item['fullScenario'];
+        platformCost = item['platformCost']
+        discountRate = item['discountRate']
+        discountRateMinimum = item['discountRateMinimum']
+        discountRateMaximum = item['discountRateMaximum']
+        fullPorfolio = item['fullPorfolio']
+        fullRoi = item['fullRoi']
+        fullScenario = item['fullScenario']
 
     pdf.add_page()
     pdf.set_font('Arial', '', 13)
@@ -273,7 +273,9 @@ def pdf(request):
     pdf.ln(8)
 
     pdf.add_page()
-    requestJson = requests.get(settings.SITE_HOST_API + 'reports/getReportCostsAnalysisRoi/?studyCase=' + request.GET['studyCase'],verify=False)
+    requestJson = requests.get(settings.SITE_HOST_API + 
+                'reports/getReportCostsAnalysisRoi/?studyCase=' + 
+                request.GET['studyCase'],verify=False)
     data = requestJson.json()
 
     categories = []
@@ -283,11 +285,11 @@ def pdf(request):
     totalDiscountedBenefits = []
 
     for item in data:
-        categories.append(item['record']);
-        totalCost.append(item['totalCost']);
-        totalDiscountedCost.append(item['totalDiscountedCost']);
-        totalBenefits.append(item['totalBenefits']);
-        totalDiscountedBenefits.append(item['totalDiscountedBenefits']);
+        categories.append(item['record'])
+        totalCost.append(item['totalCost'])
+        totalDiscountedCost.append(item['totalDiscountedCost'])
+        totalBenefits.append(item['totalBenefits'])
+        totalDiscountedBenefits.append(item['totalDiscountedBenefits'])
 
     config = {
         'chart': {
@@ -790,7 +792,6 @@ def physicalIndicators(request, idx):
                         'NameCityIndicators': indicatorsNameCity
                     })
 
-
 def financialIndicators(request):
 
                 indicators = investIndicators.objects.all()
@@ -832,7 +833,6 @@ def geographicIndicators(request):
                         'NamesIndicators': indicatorsNames,
                         'NameCityIndicators': indicatorsNameCity
                     })
-
 
 def compareMaps(request):
 

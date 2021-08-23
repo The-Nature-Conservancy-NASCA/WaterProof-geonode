@@ -750,8 +750,7 @@ function onInit(editor) {
         $('#ModalAddCostBtn').click(function() {
             banderaFunctionCost = true;
             $('#VarCostListGroup div').remove();
-            $('#VarCostListGroup').empty();
-            console.log("este es agregar")
+            $('#VarCostListGroup').empty();            
             clearInputsMath();
             typesetInput('');
             $('#costFunctionName').val('');

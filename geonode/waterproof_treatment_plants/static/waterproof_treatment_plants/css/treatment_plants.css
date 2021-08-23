@@ -626,3 +626,11 @@ textarea {
 .btn-primary{
     align-items: center;
 }
+
+.custom-checkbox-on{
+    border-color: #039edc;
+}
+
+.custom-checkbox-off{
+    border-color: #fff;
+}
