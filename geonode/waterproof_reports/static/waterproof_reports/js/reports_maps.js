@@ -11,7 +11,7 @@ $(document).ready(function () {
   var map = L.map('map').setView(center, 11);
 
   let urlTopoLyr = 'https://opentopomap.org/{z}/{x}/{y}.png';
-  let urlOmsLyr = 'https:/{s}.tile.osm.org/{z}/{x}/{y}.png';
+  let urlOmsLyr = 'https://{s}.tile.osm.org/{z}/{x}/{y}.png';
   let omsAttributions = 'Map tiles by <a href="https://osm.org">OSM<\/a>, ' +
                         '<a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0<\/a> &mdash; ' +
                         'Map data {attribution.OpenStreetMap}'
