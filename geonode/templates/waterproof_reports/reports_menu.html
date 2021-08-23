@@ -218,6 +218,12 @@
             </div>
 
         </div>
+        <div class="report-download">
+            <div class="report-download-pdf" onclick="openPDF()">
+                <img src="/static/geonode/img/documents.png"/>
+                PDF
+            </div>
+        </div>
     </div>
 </body>
 
@@ -344,6 +350,10 @@ $(function () {
     var dataTotalBenefitsIntake = [];
     var dataTotalBenefitsIntakeOne = [];
 
+    openPDF = function() {
+        window.open("../../reports/pdf/?studyCase=" + localStorage.idStudyCase + "&studyCity=" + localStorage.getItem('city') + "&studyCountry=" + localStorage.getItem('country') + "&studyRegion=" + localStorage.getItem('region'))
+    }
+    
     changeReport = function() {
         location.href = "../../study_cases/report/" + localStorage.idStudyCase;
     }
