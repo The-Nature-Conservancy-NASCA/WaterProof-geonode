@@ -66,11 +66,24 @@ def pdf(request):
 
     currencyCase = "-"
     timeCase = "-"
+    changeInVolumeOfWater = "-"
+    changeInBaseFlow = "-"
+    changeIntotalSediments = "-"
+    changeInNitrogenLoad = "-"
+    changeInPhosphorus = "-"
+    changeInCarbonStorage = "-"
+
     requestJson = requests.get(settings.SITE_HOST_API + 'reports/getReportAnalisysBeneficsB/?studyCase=' + request.GET['studyCase'],verify=False)
     data = requestJson.json()
     for item in data:
         currencyCase = item['currency']
         timeCase = item['time']
+        changeInVolumeOfWater = str(round(float(item['changeInVolumeOfWater']),2))
+        changeInBaseFlow = str(round(float(item['changeInBaseFlow']),2))
+        changeIntotalSediments = str(round(float(item['changeIntotalSediments']),2))
+        changeInNitrogenLoad = str(round(float(item['changeInNitrogenLoad']),2))
+        changeInPhosphorus = str(round(float(item['changeInPhosphorus']),2))
+        changeInCarbonStorage = str(round(float(item['changeInCarbonStorage']),2))
 
     pdf.ln(8)
     pdf.cell(epw, 8,studyCaseName, border=1, align='C', fill=1)
@@ -736,7 +749,252 @@ def pdf(request):
     }
 
     hc_export.save_as_png(config=config, filename="npvs.png")
-    pdf.image('npvs.png', 20, 180, w=160)    
+    pdf.image('npvs.png', 20, 180, w=160)
+
+    pdf.add_page()
+
+    requestJson = requests.get(settings.SITE_HOST_API + 'reports/getSelectorStudyCasesId/?studyCase=' + request.GET['studyCase'],verify=False)
+    data = requestJson.json()
+
+    for item in data:
+        pdf.cell(epw, 10, item['studyCasesName'], align='C')
+
+    pdf.image('picture-one.jpg', 10, 30, w=45)
+    pdf.image('picture-two.jpg', 58, 30, w=45)
+    pdf.image('picture-three.jpg', 106, 30, w=45)
+    pdf.image('picture-four.jpg', 154, 30, w=45)
+
+    pdf.ln(50)
+
+    pdf.set_font('Arial', '', 9)
+    pdf.set_text_color(255, 255, 255)
+    pdf.set_fill_color(0, 138, 173)
+    pdf.set_draw_color(0, 138, 173)
+    pdf.cell(45, 8, 'Physical risk quantity', border=1, align='C', fill=1)
+    pdf.cell(3, 8, '')
+    pdf.cell(45, 8, 'Physical risk quality', border=1, align='C', fill=1)
+    pdf.cell(3, 8, '')
+    pdf.cell(45, 8, 'Regulatory and reputational', border=1, align='C', fill=1)
+    pdf.cell(3, 8, '')
+    pdf.cell(45, 8, 'Overall water risk score', border=1, align='C', fill=1)
+    pdf.ln(8)
+    pdf.set_font('Arial', '', 6)
+    pdf.set_text_color(100, 100, 100)
+    pdf.set_fill_color(255, 255, 255)
+    pdf.cell(45, 30, '', border=1, align='C', fill=1)
+    pdf.cell(3, 30, '')
+    pdf.cell(45, 30, '', border=1, align='C', fill=1)
+    pdf.cell(3, 30, '')
+    pdf.cell(45, 30, '', border=1, align='C', fill=1)
+    pdf.cell(3, 30, '')
+    pdf.cell(45, 30, '', border=1, align='C', fill=1)
+    pdf.ln(0)
+    pdf.cell(45, 4, 'Physical risk quantity measures risk related', align='C')
+    pdf.cell(3, 4, '')
+    pdf.cell(45, 4, 'Physical risk quantity measures risk related', align='C')
+    pdf.cell(3, 4, '')
+    pdf.cell(45, 4, 'Risk regulatory and reputational risk', align='C')
+    pdf.cell(3, 4, '')
+    pdf.cell(45, 4, 'Overall water risk measures all water', align='C')
+    pdf.ln(4)
+    pdf.cell(45, 4, 'to too little or too much water by', align='C')
+    pdf.cell(3, 4, '')
+    pdf.cell(45, 4, 'to water that in unfit for use by aggregating', align='C')
+    pdf.cell(3, 4, '')
+    pdf.cell(45, 4, 'measures risk related to uncertainty in', align='C')
+    pdf.cell(3, 4, '')
+    pdf.cell(45, 4, 'related risk, by aggregating all selected', align='C')
+    pdf.ln(4)
+    pdf.cell(45, 4, 'aggregating all selected indicators from the', align='C')
+    pdf.cell(3, 4, '')
+    pdf.cell(45, 4, 'all selected indicators from the physical risk', align='C')
+    pdf.cell(3, 4, '')
+    pdf.cell(45, 4, 'regulatory chance, as well as conflich with', align='C')
+    pdf.cell(3, 4, '')
+    pdf.cell(45, 4, 'indicators from the physical risjk quantity,', align='C')
+    pdf.ln(4)
+    pdf.cell(45, 4, 'physical risk quantity category', align='C')
+    pdf.cell(3, 4, '')
+    pdf.cell(45, 4, 'quantity category', align='C')
+    pdf.cell(3, 4, '')
+    pdf.cell(45, 4, 're public regarding water issues', align='C')
+    pdf.cell(3, 4, '')
+    pdf.cell(45, 4, 'physical risk quality, and regulatory and', align='C')
+    pdf.ln(4)
+    pdf.cell(45, 4, '', align='C')
+    pdf.cell(3, 4, '')
+    pdf.cell(45, 4, '', align='C')
+    pdf.cell(3, 4, '')
+    pdf.cell(45, 4, '', align='C')
+    pdf.cell(3, 4, '')
+    pdf.cell(45, 4, 'reputational risk categories', align='C')
+    pdf.ln(8)
+
+    requestJson = requests.get(settings.SITE_HOST_API + 'reports/getReportAnalisysBenefics/?studyCase=' + request.GET['studyCase'],verify=False)
+    data = requestJson.json()
+
+    txtTd1 = ""
+    txtTd2 = ""
+    txtTd3 = ""
+    txtTd4 = ""
+    txtTd1CR = 0
+    txtTd2CR = 0
+    txtTd3CR = 0
+    txtTd4CR = 0
+    txtTd1CG = 0
+    txtTd2CG = 0
+    txtTd3CG = 0
+    txtTd4CG = 0
+    txtTd1CB = 0
+    txtTd2CB = 0
+    txtTd3CB = 0
+    txtTd4CB = 0
+    txtColorR = 175
+    txtColorG = 9
+    txtColorB = 0
+
+    for item in data:
+        txtColorR = 175
+        txtColorG = 9
+        txtColorB = 0
+
+        if item['color'].upper() == "DARK GREEN":
+            txtColorR = 21
+            txtColorG = 88
+            txtColorB = 22
+
+        if item['color'].upper() == "ORANGE":
+            txtColorR = 236
+            txtColorG = 104
+            txtColorB = 10
+
+        if item['nameIndicator'].upper() == "PHYSICAL RISK QUANTITY":
+            txtTd1 = item['description']
+            txtTd1CR = txtColorR
+            txtTd1CG = txtColorG
+            txtTd1CB = txtColorB
+
+        if item['nameIndicator'].upper() == "PHYSICAL RISK ASSOCIATED WITH AMOUNT OF WATER":
+            txtTd2 = item['description']
+            txtTd2CR = txtColorR
+            txtTd2CG = txtColorG
+            txtTd2CB = txtColorB
+
+        if item['nameIndicator'].upper() == "REGULATORY AND REPUTATIONAL":
+            txtTd3 = item['description']
+            txtTd3CR = txtColorR
+            txtTd3CG = txtColorG
+            txtTd3CB = txtColorB
+
+        if item['nameIndicator'].upper() == "OVERALL WATER RISK SCORE":
+            txtTd4 = item['description']
+            txtTd4CR = txtColorR
+            txtTd4CG = txtColorG
+            txtTd4CB = txtColorB
+
+    pdf.set_font('Arial', '', 9)
+    pdf.set_text_color(255, 255, 255)
+    pdf.set_fill_color(txtTd1CR, txtTd1CG, txtTd1CB)
+    pdf.set_draw_color(txtTd1CR, txtTd1CG, txtTd1CB)
+    pdf.cell(5, 4, '')
+    pdf.cell(35, 4, txtTd1, border=1, align='C', fill=1)
+    pdf.cell(13, 4, '')
+    pdf.set_fill_color(txtTd2CR, txtTd2CG, txtTd2CB)
+    pdf.set_draw_color(txtTd2CR, txtTd2CG, txtTd2CB)
+    pdf.cell(35, 4, txtTd2, border=1, align='C', fill=1)
+    pdf.cell(13, 4, '')
+    pdf.set_fill_color(txtTd3CR, txtTd3CG, txtTd3CB)
+    pdf.set_draw_color(txtTd3CR, txtTd3CG, txtTd3CB)
+    pdf.cell(35, 4, txtTd3, border=1, align='C', fill=1)
+    pdf.cell(13, 4, '')
+    pdf.set_fill_color(txtTd4CR, txtTd4CG, txtTd4CB)
+    pdf.set_draw_color(txtTd4CR, txtTd4CG, txtTd4CB)
+    pdf.cell(35, 4, txtTd4, border=1, align='C', fill=1)
+    pdf.ln(15)
+
+    pdf.set_text_color(100, 100, 100)
+    pdf.set_fill_color(255, 255, 255)
+    pdf.set_draw_color(255, 255, 255)
+    pdf.cell(epw, 10, 'Estimated change in ecosystem services (BaU vs NbS)', align='C')
+    pdf.ln(20)
+    pdf.cell(30, 6, 'Anual water yield', align='C')
+    pdf.cell(1, 6, '')
+    pdf.cell(30, 6, 'Seasonal water ', align='C')
+    pdf.cell(1, 6, '')
+    pdf.cell(30, 6, 'Sediment delivery ', align='C')
+    pdf.cell(1, 6, '')
+    pdf.cell(30, 6, 'Nutrient delivery ', align='C')
+    pdf.cell(1, 6, '')
+    pdf.cell(30, 6, 'Nutrient delivery', align='C')
+    pdf.cell(1, 6, '')
+    pdf.cell(30, 6, 'Carbon storage ', align='C')
+    pdf.ln(6)
+    pdf.cell(30, 6, '', align='C')
+    pdf.cell(1, 6, '')
+    pdf.cell(30, 6, 'yield', align='C')
+    pdf.cell(1, 6, '')
+    pdf.cell(30, 6, 'ratio', align='C')
+    pdf.cell(1, 6, '')
+    pdf.cell(30, 6, 'ratio - nitrogen', align='C')
+    pdf.cell(1, 6, '')
+    pdf.cell(30, 6, 'ratio - phosphorus', align='C')
+    pdf.cell(1, 6, '')
+    pdf.cell(30, 6, 'and sequestration', align='C')
+
+    pdf.image('dashboard-01.png', 13, 140, w=24)
+    pdf.image('dashboard-02.png', 44, 140, w=24)
+    pdf.image('dashboard-03.png', 75, 140, w=24)
+    pdf.image('dashboard-04.png', 106, 140, w=24)
+    pdf.image('dashboard-05.png', 137, 140, w=24)
+    pdf.image('dashboard-06.png', 168, 140, w=24)
+
+    pdf.ln(40)
+    pdf.set_font('Arial', '', 20)
+    pdf.cell(30, 6, changeInVolumeOfWater, align='C')
+    pdf.cell(1, 6, '')
+    pdf.cell(30, 6, changeInBaseFlow, align='C')
+    pdf.cell(1, 6, '')
+    pdf.cell(30, 6, changeIntotalSediments, align='C')
+    pdf.cell(1, 6, '')
+    pdf.cell(30, 6, changeInNitrogenLoad, align='C')
+    pdf.cell(1, 6, '')
+    pdf.cell(30, 6, changeInPhosphorus, align='C')
+    pdf.cell(1, 6, '')
+    pdf.cell(30, 6, changeInCarbonStorage, align='C')
+
+    pdf.set_font('Arial', '', 11)
+    pdf.ln(10)
+    pdf.cell(epw, 10, 'Intervention and budget summary', align='C')
+    pdf.ln(15)
+    pdf.set_font('Arial', '', 10)
+    pdf.set_text_color(255, 255, 255)
+    pdf.set_fill_color(0, 138, 173)
+    pdf.set_draw_color(0, 138, 173)
+    pdf.cell(epw/3, 8, 'Nature based Solution', border=1, align='C', fill=1)
+    pdf.cell(epw/3, 8, 'Actual spend', border=1, align='C', fill=1)
+    pdf.cell(epw/3, 8, 'Area converted (Ha)', border=1, align='C', fill=1)
+    pdf.ln(8)
+    pdf.set_font('Arial', '', 9)
+    pdf.set_text_color(100, 100, 100)
+    pdf.set_fill_color(255, 255, 255)
+
+
+    requestJson = requests.get(settings.SITE_HOST_API + 'reports/getReportAnalisysBeneficsC/?studyCase=' + request.GET['studyCase'],verify=False)
+    data = requestJson.json()
+
+    for item in data:
+        pdf.cell(epw/3, 8, "" , border=1, align='C', fill=1)
+        pdf.cell(epw/3, 8, "" , border=1, align='C', fill=1)
+        pdf.cell(epw/3, 8, "" , border=1, align='C', fill=1)
+        pdf.ln(0)
+        pdf.cell(epw/3, 4, str(item['sbnf'])[0:30] , align='C')
+        pdf.cell(epw/3, 4, str(round(float(item['costPerHectarea']),2)) , align='C')
+        pdf.cell(epw/3, 4, str(round(float(item['recomendedIntervetion']),2)) , align='C')
+        pdf.ln(4)
+        pdf.cell(epw/3, 4, str(item['sbnf'])[30:60] , align='C')
+        pdf.cell(epw/3, 4, "" , align='C')
+        pdf.cell(epw/3, 4, "" , align='C')
+        pdf.ln(4)
 
     response = HttpResponse(pdf.output(dest='S').encode('latin-1'))
     response['Content-Type'] = 'application/pdf'
