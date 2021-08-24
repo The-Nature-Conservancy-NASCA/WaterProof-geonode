@@ -115,7 +115,7 @@
                 {% else %}
                     <div class="col-md-4">
                         <label id="implementCostLabel">{% trans "Implementation cost (US$/ha)" %} <span class="text-danger-wp">(*)</span> </label>
-                        <input id="implementCost" value="{{ nbs.unit_implementation_cost|decimalFormat:2}}" type="text" onInput="return checkDecimalFormat(event,value)" 
+                        <input id="implementCost" value="{{ nbs.unit_implementation_cost|decimalFormat:2}}" type="text" onInput="return checkDecimalFormatZero(event,value)" 
                         class="form-control" data-error='{% trans "Field is required" %}' required>
                         <div class="help-block with-errors"></div>
                     </div>
@@ -198,6 +198,14 @@
                     </table>
                 </div>
                 {% endfor %}
+                <div class="col-md-12">
+                    <table class="table">
+                        <tr>
+                            <td class="col-md-4"></td>
+                            <td class="col-md-8"><button id="clear_options" type="button" class="btn btn-primary ">{% trans "Clear options" %}</button></td>
+                        </tr>
+                    </table>
+                </div>
             </div>
         </div>
         <div class="form-group">

@@ -1,0 +1,43 @@
+@media only screen and (min-width: 120.0625em){
+	.xxlarge-text-left{text-align:left !important}
+	.xxlarge-text-center{text-align:center !important}
+	.xxlarge-text-justify{text-align:justify !important}}
+	div{
+		margin:0;padding:0}
+	}
+	.owl-theme .owl-nav [class*=owl-]:hover {
+		background: #869791;
+		color: #FFF;
+		text-decoration: none;
+		border: none;
+	}
+	
+	#demos .owl-carousel{margin:2rem 0}
+	#demos .owl-carousel .item{
+		height:20rem;
+		background:#bcc2c0;
+		padding:1rem;
+		position: relative;
+		
+	}
+	#demos .owl-item .item{
+		height:20rem;
+		background:#bcc2c0;
+		padding:1rem;
+		position: relative;
+		
+	}
+
+	#demos .owl-carousel .item h4{
+		color:#FFF; 
+	}
+	#demos .texto-encima{
+		position: absolute;
+		top: 65%;
+		background-color: rgba(245, 237, 237, 0.6);
+		padding:3% 91px 3% 91px;
+		text-align: right;
+		width: 80%;
+		height: 15%;
+		font-weight: bold;
+	}
