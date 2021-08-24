@@ -26,7 +26,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GeoNode\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-23 21:00-0500\n"
+"POT-Creation-Date: 2021-08-23 21:55-0500\n"
 "PO-Revision-Date: 2021-07-29 12:38-0500\n"
 "Last-Translator: Julien Collaer <julien.collaer@opengeode.be>\n"
 "Language-Team: Spanish (http://www.transifex.com/geonode/geonode/language/"
@@ -150,39 +150,73 @@ msgstr "Ver"
 msgid "Enter name technology"
 msgstr "Ingresar nombre de tecnología"
 
+#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:740
+#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:908
+msgid "Transported Water"
+msgstr ""
+
+#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:747
+#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:911
+#, fuzzy
+#| msgid "Enter Sediments retained"
+msgid "Sediments Retained"
+msgstr "Ingresar sedimentos retenidos"
+
 #: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:748
+#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:916
 msgid "Enter Sediments retained"
 msgstr "Ingresar sedimentos retenidos"
 
+#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:756
+#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:918
+#, fuzzy
+#| msgid "Enter nitrogen retained"
+msgid "Nitrogen Retained"
+msgstr "Ingresar nitrógeno retenidos"
+
 #: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:757
+#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:923
 msgid "Enter nitrogen retained"
 msgstr "Ingresar nitrógeno retenidos"
 
+#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:763
+#, fuzzy
+#| msgid "Enter phosphorus retained"
+msgid "Phosphorus Retained"
+msgstr "Ingresar fósforo retenidos"
+
 #: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:764
+#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:930
 msgid "Enter phosphorus retained"
 msgstr "Ingresar fósforo retenidos"
 
 #: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:773
+#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:932
 msgid "Activate"
 msgstr "Activar"
 
 #: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:774
+#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:932
 msgid "Function name"
 msgstr "Nombre función"
 
 #: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:775
+#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:932
 msgid "Function"
 msgstr "Función"
 
 #: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:776
+#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:932
 msgid "Currency"
 msgstr "Moneda"
 
 #: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:777
+#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:932
 msgid "Factor"
 msgstr "Factor"
 
 #: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:778
+#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:932
 msgid "Options"
 msgstr "Opciones"
 
@@ -190,19 +224,19 @@ msgstr "Opciones"
 msgid "Add function"
 msgstr "Adicionar función"
 
-#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:1119
+#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:1123
 msgid "Search City..."
 msgstr "Buscar ciudad..."
 
-#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:1251
+#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:1255
 msgid "You won't be able to revert this!"
 msgstr "No podrá revertir esto!"
 
-#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:1256
+#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:1260
 msgid "Yes, delete it!"
 msgstr "Si, eliminarlo!"
 
-#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:1273
+#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:1277
 #, fuzzy
 #| msgid "Trouble deleting treatment plant, must be in use in one study case"
 msgid ""
