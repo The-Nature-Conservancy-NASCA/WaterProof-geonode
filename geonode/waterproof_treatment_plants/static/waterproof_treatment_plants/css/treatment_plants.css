@@ -554,6 +554,13 @@ textarea {
     font-size: 15px;
 }
 
+.link-form-2 {
+    color: #0b10af;
+    text-decoration: underline;
+    cursor: pointer;
+    font-size: 15px;
+}
+
 #mapid{
     width: 350px;
     height: 400px;
@@ -655,5 +662,5 @@ textarea {
 }
 
 form label {
-    margin-right: 1.5em !important;
+    margin-right: 1.1em !important;
 }

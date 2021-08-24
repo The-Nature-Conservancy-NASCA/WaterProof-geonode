@@ -76,7 +76,7 @@ msgstr "Filtración por Membrana Nivel 4"
 
 #: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:121
 msgid "INTERCAMBIOIONICO"
-msgstr "intercambio Iónico"
+msgstr "Intercambio Iónico"
 
 #: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:125
 msgid "DESINFECCION"

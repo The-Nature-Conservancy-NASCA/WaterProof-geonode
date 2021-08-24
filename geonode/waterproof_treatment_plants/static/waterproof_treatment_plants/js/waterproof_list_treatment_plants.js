@@ -835,8 +835,8 @@ $(function () {
                         $('#id' + plantElement).html($('#id' + plantElement).html() + 
                         '<div class="title-tree"><div class="point-tree" onclick="viewBranch(\'subprocess' + 
                         value.idSubprocess + '\', this)" >-</div><div class="text-tree">' + 
-                        value.subprocess + '</div><div class="link-form" onclick="loadNewTechnology(\'subprocess' + 
-                        value.idSubprocess + '\')">Add new Technology</div></div><div class="margin-main" id="subprocess' + 
+                        value.subprocess + '</div><div class="link-form-2" onclick="loadNewTechnology(\'subprocess' + 
+                        value.idSubprocess + '\')">' + gettext('Add new Technology') + '</div></div><div class="margin-main" id="subprocess' + 
                         value.idSubprocess + '"></div>');
                     } else {
                         $('#id' + plantElement).html($('#id' + plantElement).html() + 
@@ -922,7 +922,7 @@ $(function () {
                                                                 valueCostFunction.idSubprocess + ', this)" id="idNitrogenRetained' + valueCostFunction.idSubprocess + 
                                                                 '" placeholder="' + gettext('Enter nitrogen retained') + '"><div class="help-block with-errors"> </div></div></div>' + 
                                                                 '<div class="input-var"><div class="form-group">' + 
-                                                                '<label>% Phosphorus Retained</label><input min="' + valueCostFunction.minimalPhosphorusRetained + 
+                                                                '<label>% ' + gettext('Phosphorus Retained') + '</label><input min="' + valueCostFunction.minimalPhosphorusRetained + 
                                                                 '" max="' + valueCostFunction.maximalPhosphorusRetained + '"  ' + readOnlyTextTree + 
                                                                 ' value="' + valueCostFunction.phosphorusRetained + 
                                                                 '" step="0.0001" type="number" class="form-control" onblur="changeRetained(' + 
