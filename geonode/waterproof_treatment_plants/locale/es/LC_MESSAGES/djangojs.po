@@ -104,7 +104,6 @@ msgid "Error calculating the suggested plant"
 msgstr "Error calculando la planta sugerida"
 
 #: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:275
-#, fuzzy
 msgid "Error calculating the treatment plant"
 msgstr "Crear calculando la planta de tratamientos"
 
@@ -124,7 +123,6 @@ msgstr "Crear"
 #: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:398
 #: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:459
 #: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:519
-#, fuzzy
 msgid "Treatment Plant"
 msgstr "Planta de Tratamiento"
 
@@ -155,7 +153,6 @@ msgstr "Agua Transportada"
 
 #: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:747
 #: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:911
-#, fuzzy
 msgid "Sediments Retained"
 msgstr "Sedimentos retenidos"
 
@@ -166,7 +163,6 @@ msgstr "Ingresar sedimentos retenidos"
 
 #: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:756
 #: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:918
-#, fuzzy
 msgid "Nitrogen Retained"
 msgstr "Nitrógeno retenido"
 
@@ -176,7 +172,6 @@ msgid "Enter nitrogen retained"
 msgstr "Ingresar nitrógeno retenidos"
 
 #: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:763
-#, fuzzy
 msgid "Phosphorus Retained"
 msgstr "Fósforo retenido"
 
@@ -233,23 +228,7 @@ msgid "Yes, delete it!"
 msgstr "Si, eliminarlo!"
 
 #: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:1277
-#, fuzzy
 msgid ""
 "Error deleting the treatment plant, it must already be used in a case study"
 msgstr ""
 "Problemas eliminando la planta, puede estar siendo usada en algún caso de uso"
-
-#~ msgid "Treatment plant creation city :"
-#~ msgstr "Ciudad de creación :"
-
-#~ msgid "Update Treatment Plant"
-#~ msgstr "Editar una PTAP"
-
-#~ msgid "Clone Treatment Plant"
-#~ msgstr "Clonar una PTAP"
-
-#~ msgid "Problemas calculando la planta sugerida"
-#~ msgstr "Problemas calculando la planta sugerida"
-
-#~ msgid "Error"
-#~ msgstr "Error"

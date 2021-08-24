@@ -474,50 +474,48 @@ msgstr ""
 #: templates/treatment_plants_edit.html:312
 #: templates/treatment_plants_edit.html:407
 msgid "Close"
-msgstr ""
+msgstr "Cerrar"
 
 #: templates/treatment_plants_edit.html:338
 msgid "Cost function name"
-msgstr ""
+msgstr "Nombre función de costo"
 
 #: templates/treatment_plants_edit.html:342
 msgid "Cost function description"
-msgstr ""
+msgstr "Descripción  función de costo"
 
 #: templates/treatment_plants_edit.html:347
 msgid "Currency for definition of costs"
-msgstr ""
+msgstr "Moneda para la definición de costos"
 
 #: templates/treatment_plants_edit.html:359
 msgid "Multiplying factor for overrall cost"
-msgstr ""
+msgstr "Factor multiplicador"
 
 #: templates/treatment_plants_edit.html:363
 msgid "Syntax keyboard"
-msgstr ""
+msgstr "Sintaxis"
 
 #: templates/treatment_plants_edit.html:365
 msgid "Basic"
-msgstr ""
+msgstr "Básico"
 
 #: templates/treatment_plants_edit.html:366
 msgid "Advanced"
-msgstr ""
+msgstr "Avanzado"
 
 #: templates/treatment_plants_edit.html:399
 msgid "Validate"
-msgstr ""
+msgstr "Validar"
 
 #: templates/treatment_plants_edit.html:408
 msgid "Add cost"
-msgstr ""
+msgstr "Adicionar Costo"
 
 #: templates/treatment_plants_list.html:6
 #: templates/treatment_plants_list.html:24
-#, fuzzy
-#| msgid "Date Create Element"
 msgid "Water Treatment"
-msgstr "Fecha de creación del elemento"
+msgstr "Tratamiento de Agua"
 
 #: templates/treatment_plants_list.html:26
 msgid "Drinking water treatment plants (DWTP)"
@@ -556,7 +554,7 @@ msgstr "ID"
 
 #: templates/treatment_plants_list.html:54
 msgid "Creation Date"
-msgstr ""
+msgstr "Fecha creación"
 
 #: templates/treatment_plants_list.html:55
 msgid "City"
@@ -565,33 +563,3 @@ msgstr "Ciudad"
 #: templates/treatment_plants_list.html:56
 msgid "Catchment"
 msgstr "Captación"
-
-#~ msgid "Description "
-#~ msgstr "Descripción "
-
-#~ msgid "submit "
-#~ msgstr "Guardar "
-
-#~ msgid "User "
-#~ msgstr "Usuario "
-
-#~ msgid "Water intakes"
-#~ msgstr "Opciones"
-
-#~ msgid "Treatment plant creation city :"
-#~ msgstr "City of creation :"
-
-#~ msgid "edit"
-#~ msgstr "Editar"
-
-#~ msgid "view"
-#~ msgstr "Ver"
-
-#~ msgid "clone"
-#~ msgstr "Clonar"
-
-#~ msgid "report"
-#~ msgstr "Reportes"
-
-#~ msgid "delete"
-#~ msgstr "Eliminar"
