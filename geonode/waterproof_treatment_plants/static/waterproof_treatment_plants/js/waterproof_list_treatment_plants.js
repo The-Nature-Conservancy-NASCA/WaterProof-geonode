@@ -737,14 +737,14 @@ $(function () {
         '        <div>'+
         '            <div class="input-var">'+
         '                <div class="form-group">'+
-        '                    <label>% Transported Water</label>'+
+        '                    <label>% ' + gettext('Transported Water') + '</label>'+
         '                    <input class="form-control" value="100" readonly="">'+
         '                    <div class="help-block with-errors"></div>'+
         '                </div>'+
         '            </div>'+
         '            <div class="input-var">'+
         '                <div class="form-group">'+
-        '                    <label>% Sediments Retained</label>'+
+        '                    <label>% ' + gettext('Sediments Retained') + '</label>'+
         '                    <input type="number" class="form-control" placeholder="' + gettext('Enter Sediments retained') + '">'+
         '                    <div class="help-block with-errors"></div>'+
         '                </div>'+
@@ -753,14 +753,14 @@ $(function () {
         '        <div>'+
         '            <div class="input-var">'+
         '                <div class="form-group">'+
-        '                    <label>% Nitrogen Retained</label>'+
+        '                    <label>% ' + gettext('Nitrogen Retained') + '</label>'+
         '                    <input type="number" class="form-control" placeholder="' + gettext('Enter nitrogen retained') + '">'+
         '                    <div class="help-block with-errors"></div>'+
         '                </div>'+
         '            </div>'+
         '            <div class="input-var">'+
         '                <div class="form-group">'+
-        '                    <label>% Phosphorus Retained</label>'+
+        '                    <label>% ' + gettext('Phosphorus Retained') + '</label>'+
         '                    <input type="number" class="form-control" placeholder="' + gettext('Enter phosphorus retained') + '">'+
         '                    <div class="help-block with-errors"></div>'+
         '                </div>'+
@@ -903,29 +903,33 @@ $(function () {
                                             }
 
                                             if(loadHtml) {
-                                                var tableVar = '<div class="container-var" id="idContainerVar"><div><div class="input-var">' +
-                                                        '<div class="form-group"><label>% Transported Water</label><input class="form-control" value="100" ' + 
-                                                        ' readonly><div class="help-block with-errors"></div></div></div>' + 
-                                                        '<div class="input-var"> <div class="form-group"><label>% Sediments Retained</label><input min="' + 
-                                                        valueCostFunction.minimalSedimentsRetained + '" max="' + valueCostFunction.maximalSedimentsRetained + 
-                                                        '" ' + readOnlyTextTree + ' value="' + valueCostFunction.sedimentsRetained + 
-                                                        '" step="0.0001" type="number" class="form-control" onblur="changeRetained(' + 
-                                                        valueCostFunction.idSubprocess + ', this)" id="idSedimentsRetained' + valueCostFunction.idSubprocess + 
-                                                        '" placeholder="Enter Sediments retained" ><div class="help-block with-errors"></div></div></div></div>' + 
-                                                        '<div><div class="input-var"><div class="form-group"><label>% Nitrogen Retained</label><input min="' + 
-                                                        valueCostFunction.minimalNitrogenRetained + '" max="' + valueCostFunction.maximalNitrogenRetained + 
-                                                        '"  ' + readOnlyTextTree + ' value="' + valueCostFunction.nitrogenRetained + 
-                                                        '"  step="0.0001" type="number" class="form-control" onblur="changeRetained(' + valueCostFunction.idSubprocess + 
-                                                        ', this)" id="idNitrogenRetained' + valueCostFunction.idSubprocess + 
-                                                        '" placeholder="Enter nitrogen retained"><div class="help-block with-errors"> </div></div></div>' + 
-                                                        '<div class="input-var"><div class="form-group"><label>% Phosphorus Retained</label><input min="' + 
-                                                        valueCostFunction.minimalPhosphorusRetained + '" max="' + valueCostFunction.maximalPhosphorusRetained + '"  ' + 
-                                                        readOnlyTextTree + ' value="' + valueCostFunction.phosphorusRetained + 
-                                                        '"  step="0.0001" type="number" class="form-control" onblur="changeRetained(' + 
-                                                        valueCostFunction.idSubprocess + ', this)" id="idPhosphorusRetained' + valueCostFunction.idSubprocess + 
-                                                        '" placeholder="Enter phosphorus retained"><div class="help-block with-errors"></div></div></div></div></div>';
+                                                var tableVar = '<div class="container-var" id="idContainerVar">' + 
+                                                                '<div><div class="input-var"><div class="form-group">' + 
+                                                                '<label>% ' + gettext('Transported Water') + '</label><input class="form-control" value="100" ' + 
+                                                                ' readonly><div class="help-block with-errors"></div></div></div>' + 
+                                                                '<div class="input-var"> <div class="form-group">' + 
+                                                                '<label>% ' + gettext('Sediments Retained') + '</label><input min="' + valueCostFunction.minimalSedimentsRetained + 
+                                                                '" max="' + valueCostFunction.maximalSedimentsRetained + 
+                                                                '" ' + readOnlyTextTree + ' value="' + valueCostFunction.sedimentsRetained + 
+                                                                '" step="0.0001" type="number" class="form-control" onblur="changeRetained(' + 
+                                                                valueCostFunction.idSubprocess + ', this)" id="idSedimentsRetained' + valueCostFunction.idSubprocess + 
+                                                                '" placeholder="' + gettext('Enter Sediments retained') + '" ><div class="help-block with-errors"></div></div></div></div>' + 
+                                                                '<div><div class="input-var"><div class="form-group">' + 
+                                                                '<label>% ' + gettext('Nitrogen Retained') + '</label><input min="' + valueCostFunction.minimalNitrogenRetained + 
+                                                                '" max="' + valueCostFunction.maximalNitrogenRetained + '" ' + readOnlyTextTree + 
+                                                                ' value="' + valueCostFunction.nitrogenRetained + 
+                                                                '" step="0.0001" type="number" class="form-control" onblur="changeRetained(' + 
+                                                                valueCostFunction.idSubprocess + ', this)" id="idNitrogenRetained' + valueCostFunction.idSubprocess + 
+                                                                '" placeholder="' + gettext('Enter nitrogen retained') + '"><div class="help-block with-errors"> </div></div></div>' + 
+                                                                '<div class="input-var"><div class="form-group">' + 
+                                                                '<label>% Phosphorus Retained</label><input min="' + valueCostFunction.minimalPhosphorusRetained + 
+                                                                '" max="' + valueCostFunction.maximalPhosphorusRetained + '"  ' + readOnlyTextTree + 
+                                                                ' value="' + valueCostFunction.phosphorusRetained + 
+                                                                '" step="0.0001" type="number" class="form-control" onblur="changeRetained(' + 
+                                                                valueCostFunction.idSubprocess + ', this)" id="idPhosphorusRetained' + valueCostFunction.idSubprocess + 
+                                                                '" placeholder="' + gettext('Enter phosphorus retained') + '"><div class="help-block with-errors"></div></div></div></div></div>';
                                                 var tableFunct = '<table class="table table-striped table-bordered table-condensed" style="width:100%">' +
-                                                        addTitleFnRow(['Activate', 'Function name', 'Function', 'Currency', 'Factor', 'Options']) + '<tbody>' +
+                                                        addTitleFnRow([gettext('Activate'), gettext('Function name'), gettext('Function'), gettext('Currency'), gettext('Factor'), gettext('Options')]) + '<tbody>' +
                                                         addFunctionCostRow(activateHtml, valueCostFunction, buttonsHtml, graphid,'') + '</tbody></table>';
                                                         
                                                 if(localStorage.loadFormButton === "true") {
