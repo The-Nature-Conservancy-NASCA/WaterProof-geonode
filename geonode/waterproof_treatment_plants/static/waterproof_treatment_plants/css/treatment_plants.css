@@ -516,14 +516,15 @@ textarea {
 .form-popup {
     display: none;
     position: absolute;
-    left: 50%;
-    margin-left: -500px;
-    width: 1000px;
+    /* left: 50%;
+    margin-left: -500px; */
+    max-width: 1000px;
     background: #d9edf7;
     z-index: 1000;
     padding: 20px;
     border: 1px solid #ddd;
     border-radius: 10px;
+    font-family: 'console';
 }
 .close-form-popup {
     position: absolute;
@@ -633,4 +634,26 @@ textarea {
 
 .custom-checkbox-off{
     border-color: #fff;
+}
+
+.list-vars{
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+
+.var-cost-panel {
+    max-height: 150px;
+    overflow-y: auto;
+}
+
+.panel-heading {
+    padding: 3px 10px !important;    
+}
+
+.panel-group {
+    margin-bottom: 10px !important;
+}
+
+form label {
+    margin-right: 1.5em !important;
 }
