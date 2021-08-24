@@ -26,7 +26,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GeoNode\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-23 21:55-0500\n"
+"POT-Creation-Date: 2021-08-23 22:52-0500\n"
 "PO-Revision-Date: 2021-07-29 12:38-0500\n"
 "Last-Translator: Julien Collaer <julien.collaer@opengeode.be>\n"
 "Language-Team: Spanish (http://www.transifex.com/geonode/geonode/language/"
@@ -105,7 +105,6 @@ msgstr "Error calculando la planta sugerida"
 
 #: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:275
 #, fuzzy
-#| msgid "Create Treatment Plant"
 msgid "Error calculating the treatment plant"
 msgstr "Crear calculando la planta de tratamientos"
 
@@ -126,7 +125,6 @@ msgstr "Crear"
 #: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:459
 #: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:519
 #, fuzzy
-#| msgid "View Treatment Plant"
 msgid "Treatment Plant"
 msgstr "Planta de Tratamiento"
 
@@ -158,7 +156,6 @@ msgstr "Agua Transportada"
 #: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:747
 #: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:911
 #, fuzzy
-#| msgid "Enter Sediments retained"
 msgid "Sediments Retained"
 msgstr "Sedimentos retenidos"
 
@@ -170,7 +167,6 @@ msgstr "Ingresar sedimentos retenidos"
 #: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:756
 #: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:918
 #, fuzzy
-#| msgid "Enter nitrogen retained"
 msgid "Nitrogen Retained"
 msgstr "Nitrógeno retenido"
 
@@ -181,7 +177,6 @@ msgstr "Ingresar nitrógeno retenidos"
 
 #: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:763
 #, fuzzy
-#| msgid "Enter phosphorus retained"
 msgid "Phosphorus Retained"
 msgstr "Fósforo retenido"
 
@@ -221,6 +216,7 @@ msgid "Options"
 msgstr "Opciones"
 
 #: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:784
+#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:936
 msgid "Add function"
 msgstr "Adicionar función"
 
@@ -238,7 +234,6 @@ msgstr "Si, eliminarlo!"
 
 #: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:1277
 #, fuzzy
-#| msgid "Trouble deleting treatment plant, must be in use in one study case"
 msgid ""
 "Error deleting the treatment plant, it must already be used in a case study"
 msgstr ""
