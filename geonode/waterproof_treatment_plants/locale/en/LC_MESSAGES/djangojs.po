@@ -89,7 +89,7 @@ msgstr ""
 #, fuzzy
 #| msgid "Create Treatment Plant"
 msgid "Error calculating the treatment plant"
-msgstr "Create a new DWTP"
+msgstr ""
 
 #: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:285
 msgid "It does not have a record in the type of treatment plant"
@@ -110,7 +110,7 @@ msgstr ""
 #, fuzzy
 #| msgid "View Treatment Plant"
 msgid "Treatment Plant"
-msgstr "View DWTP"
+msgstr ""
 
 #: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:398
 msgid "Clone"
@@ -189,7 +189,7 @@ msgstr "Yes, delete it!"
 #| msgid "Trouble deleting treatment plant, must be in use in one study case"
 msgid ""
 "Error deleting the treatment plant, it must already be used in a case study"
-msgstr "Trouble deleting treatment plant, must be in use in one study case"
+msgstr "Error deleting the treatment plant, it must already be used in a study case"
 
 #~ msgid "Treatment plant creation city :"
 #~ msgstr "City of creation:"
