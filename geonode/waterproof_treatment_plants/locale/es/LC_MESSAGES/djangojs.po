@@ -153,14 +153,14 @@ msgstr "Ingresar nombre de tecnología"
 #: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:740
 #: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:908
 msgid "Transported Water"
-msgstr ""
+msgstr "Agua Transportada"
 
 #: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:747
 #: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:911
 #, fuzzy
 #| msgid "Enter Sediments retained"
 msgid "Sediments Retained"
-msgstr "Ingresar sedimentos retenidos"
+msgstr "Sedimentos retenidos"
 
 #: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:748
 #: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:916
@@ -172,7 +172,7 @@ msgstr "Ingresar sedimentos retenidos"
 #, fuzzy
 #| msgid "Enter nitrogen retained"
 msgid "Nitrogen Retained"
-msgstr "Ingresar nitrógeno retenidos"
+msgstr "Nitrógeno retenido"
 
 #: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:757
 #: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:923
@@ -183,12 +183,12 @@ msgstr "Ingresar nitrógeno retenidos"
 #, fuzzy
 #| msgid "Enter phosphorus retained"
 msgid "Phosphorus Retained"
-msgstr "Ingresar fósforo retenidos"
+msgstr "Fósforo retenido"
 
 #: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:764
 #: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:930
 msgid "Enter phosphorus retained"
-msgstr "Ingresar fósforo retenidos"
+msgstr "Ingresar fósforo retenido"
 
 #: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:773
 #: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:932

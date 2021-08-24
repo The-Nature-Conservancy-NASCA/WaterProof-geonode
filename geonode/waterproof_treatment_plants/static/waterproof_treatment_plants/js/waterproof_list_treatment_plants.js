@@ -933,7 +933,7 @@ $(function () {
                                                         addFunctionCostRow(activateHtml, valueCostFunction, buttonsHtml, graphid,'') + '</tbody></table>';
                                                         
                                                 if(localStorage.loadFormButton === "true") {
-                                                    tableFunct = tableFunct + '<div class="link-form">Add function</div>';
+                                                    tableFunct = tableFunct + '<div class="link-form">' + gettext('Add function') + '</div>';
                                                 } 
                                                 
                                                 $('#technology' + valueTech.idSubprocess).html($('#technology' + valueTech.idSubprocess).html() + tableVar + tableFunct);
