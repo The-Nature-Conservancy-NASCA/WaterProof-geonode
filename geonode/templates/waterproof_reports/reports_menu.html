@@ -200,10 +200,10 @@
                 <a href="../../reports/financial/">{% trans "Financial indicators" %}</a>
             </div>
             <div style="float: left;width: 25%;">
-                <img src="/static/geonode/img/indicadores-fisicos.png" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;opacity: 30%;" title="{% trans "Physical indicators" %}"/> 
+                <img src="/static/geonode/img/indicadores-fisicos.png" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;" title="{% trans "Physical indicators" %}"/> 
                 <br>
-                <a>{% trans "Physical indicators" %}</a>
-                <!--<a href="../../reports/physical/">{% trans "Physical indicators" %}</a>-->
+                <!--a>{% trans "Physical indicators" %}</a-->
+                <a href="../../reports/physical/">{% trans "Physical indicators" %}</a>
             </div>
             <div style="float: left;width: 25%;" id="idDecisionIndicators">
                 <img src="/static/geonode/img/indicadores-decision.png" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;" title="{% trans "Decision indicators" %}"/>
@@ -211,17 +211,24 @@
                 <a href="../../reports/decision/">{% trans "Decision indicators" %}</a>
             </div>
             <div style="float: left;width: 25%;" id="idGeographicIndicators">
-                <img src="/static/geonode/img/indicadores-geograficos.png" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black; opacity: 30%;" title="{% trans "Geographic visualization" %}"/>
+                <img src="/static/geonode/img/indicadores-geograficos.png" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;" title="{% trans "Geographic visualization" %}"/>
                 <br>
-                <a>{% trans "Geographic visualization" %}</a>
-                <!--a href="../../reports/geographic/">{% trans "Geographic visualization" %}</a-->
+                <!--a>{% trans "Geographic visualization" %}</a-->
+                <a href="../../reports/geographic/">{% trans "Geographic visualization" %}</a>
             </div>
 
         </div>
+        <br>
+        <br>
         <div class="report-download">
-            <div class="report-download-pdf" onclick="openPDF()">
+            <div class="col-md-1 report-download-pdf" onclick="openPDF()">
                 <img src="/static/geonode/img/documents.png"/>
                 PDF
+            </div>
+            <div class="col-md-1 report-download-pdf" onclick="downloadZip()">
+                <img src="/static/geonode/img/documents.png"/>
+                {{filter}}
+                ZIP
             </div>
         </div>
     </div>
@@ -352,6 +359,11 @@ $(function () {
 
     openPDF = function() {
         window.open("../../reports/pdf/?studyCase=" + localStorage.idStudyCase + "&studyCity=" + localStorage.getItem('city') + "&studyCountry=" + localStorage.getItem('country') + "&studyRegion=" + localStorage.getItem('region'))
+    }
+
+    downloadZip = function(){
+        //console.log(filter)
+        url.open("{{filter.link}}")
     }
     
     changeReport = function() {
