@@ -1548,7 +1548,7 @@ $(function () {
             idSubprocess: idSubprocess,
             technology: technology
         }
-        let subid = $("#technology16 table tbody tr").length; //num of rows in table
+        let subid = $("#technologyy" + idSubprocess + " table tbody tr").length; //num of rows in table
         let activateHtml = htmlCheckBox(valueCostFunction, graphId, null, idSubprocess, subid);        
         let tdRowFn = addFunctionCostRow(activateHtml,valueCostFunction,true,graphId,subid);
         return tdRowFn;
