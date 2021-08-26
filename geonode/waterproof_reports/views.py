@@ -1034,6 +1034,16 @@ def getNameCity(indicators):
             return result
     return result
 
+def linkDownload(request, idx):
+
+                filter = waterproof_study_cases_zip.objects.filter(study_case_id=idx)
+                return render(
+                    request,
+                    'waterproof_reports/reports_menu.html',
+                    {
+                        'filter': filter,
+                    })
+
 def physicalIndicators(request, idx):
 
                 indicators = investIndicators.objects.filter(study_case__id=idx)
