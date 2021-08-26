@@ -1524,7 +1524,7 @@ $(function () {
         let currencyCostName = $('#currencyCost option:selected').text();
         let pyExp = $('#python-expression').val();
         let idSubprocess =  $('#mainTree .margin-main .margin-main')[0].id.replace("subprocess","");
-        let technology = $("#contentTechnology" + idSubprocess + " .text-tree").html();
+        let technology = $("#contentTechnology" + tecnologyId + " .text-tree").html();
 
         arrayFunction.push({
             technology: technology,
@@ -1532,10 +1532,10 @@ $(function () {
             functionValue: pyExp,
             currency: currencyCost,
             factor: factor,
-            idSubprocess: idSubprocess,
-            sedimentsRetained: document.getElementById("idSedimentsRetained" + idSubprocess).value,
-            nitrogenRetained: document.getElementById("idNitrogenRetained" + idSubprocess).value,
-            phosphorusRetained: document.getElementById("idPhosphorusRetained" + idSubprocess).value,
+            idSubprocess: tecnologyId,
+            sedimentsRetained: document.getElementById("idSedimentsRetained" + tecnologyId).value,
+            nitrogenRetained: document.getElementById("idNitrogenRetained" + tecnologyId).value,
+            phosphorusRetained: document.getElementById("idPhosphorusRetained" + tecnologyId).value,
             id: -1
         })
 
@@ -1545,11 +1545,11 @@ $(function () {
             factor: factor,
             currency: currencyCost,            
             function: pyExp,
-            idSubprocess: idSubprocess,
+            idSubprocess: tecnologyId,
             technology: technology
         }
-        let subid = $("#technologyy" + idSubprocess + " table tbody tr").length; //num of rows in table
-        let activateHtml = htmlCheckBox(valueCostFunction, graphId, null, idSubprocess, subid);        
+        let subid = $("#technologyy" + tecnologyId + " table tbody tr").length; //num of rows in table
+        let activateHtml = htmlCheckBox(valueCostFunction, graphId, null, tecnologyId, subid);        
         let tdRowFn = addFunctionCostRow(activateHtml,valueCostFunction,true,graphId,subid);
         return tdRowFn;
     }
