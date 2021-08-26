@@ -219,76 +219,7 @@ $(function () {
     */
     initialize = function () {
         $('#submit').click(function (e) {
-            var saveForm = true;
-            if($('#idNamePlant').val() === "" || $('#idNamePlant').val() === null) {
-                $('#idNamePlant').focusin();
-                $('#idNamePlant').focusout();
-                saveForm = false;
-            }
-            if($('#idDescriptionPlant').val() === "" || $('#idDescriptionPlant').val() === null) {
-                $('#idDescriptionPlant').focusin();
-                $('#idDescriptionPlant').focusout();
-                saveForm = false;
-            }
-            if(letterPlant === null) {
-                $('#idIntakePlant').focusin();
-                $('#idIntakePlant').focusout();
-                saveForm = false;
-            }
-
-            var arrayCsinfra = [];
-            $("[name=nameListAdd]").each(function( index, element ) {
-                arrayCsinfra.push({
-                    name: element.getAttribute("nameList"),
-                    graphId: element.getAttribute("graphIdlist"),
-                    csinfra: element.getAttribute("csinfraList"),
-                    intake: element.getAttribute("idIntake")
-                })
-            });
-
-            if(saveForm) {
-                if(arrayPtap.length > 0) {
-                    var urlDetail = "../../treatment_plants/setHeaderPlant/";
-                    $.ajax({
-                        url: urlDetail,
-                        method: 'PUT',
-                        contentType: 'application/json; charset=utf-8',
-                        dataType: 'json',
-                        data: JSON.stringify({
-                            "header": {
-                                "plantId" : localStorage.plantId,
-                                "cityId" : localStorage.idCityTreatmentPlant,
-                                "plantName" : $('#idNamePlant').val(),
-                                "plantDescription" : $('#idDescriptionPlant').val(),
-                                "plantSuggest" : letterPlant,
-                                "element" : arrayPlant,
-                                "function" : arrayFunction,
-                                "ptap" : arrayPtap,
-                                "csinfra" : arrayCsinfra
-                            }
-                        }),success: function(result) {
-                            window.location.href ="../../treatment_plants/?limit=5&city=" + localStorage.getItem('cityId');
-                            localStorage.plantId = null;
-                        },error: function (err) {
-                            Swal.fire({
-                                title: 'Error',
-                                text: gettext('Error calculating the treatment plant'),
-                                icon: 'error',
-                                confirmButtonColor: '#3085d6',
-                                cancelButtonColor: '#d33',
-                            })
-                        }
-                    });
-                } else {
-                    Swal.fire({
-                        title: 'Error',
-                        text: gettext('It does not have a record in the type of treatment plant'),
-                        icon: 'error',
-                        confirmButtonColor: '#3085d6',
-                        cancelButtonColor: '#d33',
-                    })
-                }
-            }
+            validateAndSavePlant();
         });
 
         $('#idIntakePlant').change(function (e) {
@@ -571,6 +502,85 @@ $(function () {
             });
         }        
     };
+
+    /**
+    * validate And Save Treatment Plant
+    * @param {
+    * @returns 
+    */
+    validateAndSavePlant = function () {
+        var saveForm = true;
+        if($('#idNamePlant').val() === "" || $('#idNamePlant').val() === null) {
+            $('#idNamePlant').focusin();
+            $('#idNamePlant').focusout();
+            saveForm = false;
+        }
+        if($('#idDescriptionPlant').val() === "" || $('#idDescriptionPlant').val() === null) {
+            $('#idDescriptionPlant').focusin();
+            $('#idDescriptionPlant').focusout();
+            saveForm = false;
+        }
+        if(letterPlant === null) {
+            $('#idIntakePlant').focusin();
+            $('#idIntakePlant').focusout();
+            saveForm = false;
+        }
+
+        var arrayCsinfra = [];
+        $("[name=nameListAdd]").each(function( index, element ) {
+            arrayCsinfra.push({
+                name: element.getAttribute("nameList"),
+                graphId: element.getAttribute("graphIdlist"),
+                csinfra: element.getAttribute("csinfraList"),
+                intake: element.getAttribute("idIntake")
+            })
+        });
+
+        if(saveForm) {
+            if(arrayPtap.length > 0) {
+                var urlDetail = "../../treatment_plants/setHeaderPlant/";
+                $.ajax({
+                    url: urlDetail,
+                    method: 'PUT',
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    data: JSON.stringify({
+                        "header": {
+                            "plantId" : localStorage.plantId,
+                            "cityId" : localStorage.idCityTreatmentPlant,
+                            "plantName" : $('#idNamePlant').val(),
+                            "plantDescription" : $('#idDescriptionPlant').val(),
+                            "plantSuggest" : letterPlant,
+                            "element" : arrayPlant,
+                            "function" : arrayFunction,
+                            "ptap" : arrayPtap,
+                            "csinfra" : arrayCsinfra
+                        }
+                    }),success: function(result) {
+                        window.location.href ="../../treatment_plants/?limit=5&city=" + localStorage.getItem('cityId');
+                        localStorage.plantId = null;
+                    },error: function (err) {
+                        Swal.fire({
+                            title: 'Error',
+                            text: gettext('Error calculating the treatment plant'),
+                            icon: 'error',
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
+                        })
+                    }
+                });
+            } else {
+                Swal.fire({
+                    title: 'Error',
+                    text: gettext('It does not have a record in the type of treatment plant'),
+                    icon: 'error',
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                })
+            }
+        }
+    }
+
     /**
     * Deactivates the elements of the treatment plant model
     * @param {String} Letter of the Ptap type calculated with the selected intakes
@@ -894,8 +904,8 @@ $(function () {
                                                         valueTech.idSubprocess = valueLoading.functionIdSubProcess;
                                                         valueTech.technology = valueLoading.functionTechnology;
                                                         loadHtml = true;
-                                                        activateHtml = htmlCheckBox(valueCostFunction, graphid, null,(index==0 ? "" : index));
-                                                        listTrFunction.push(addFunctionCostRow(activateHtml, valueCostFunction, buttonsHtml, graphid,(index==0 ? "" : index)));
+                                                        activateHtml = htmlCheckBox(valueCostFunction, graphid, null,(listTrFunction.length==0 ? "" : listTrFunction.length));
+                                                        listTrFunction.push(addFunctionCostRow(activateHtml, valueCostFunction, buttonsHtml, graphid,(listTrFunction.length==0 ? "" : listTrFunction.length)));
                                                     }                                                    
                                                 });
                                                 if (listTrFunction.length == 0) {
