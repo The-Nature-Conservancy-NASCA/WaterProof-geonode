@@ -103,6 +103,14 @@ textarea {
     top: 250px;
     margin-top: -37.5px;
 }
+
+.container-element-selected{
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 5px;
+    border-color: #108e27;
+}
+
 .position-arrow-two {
     left: 20px;
 }
@@ -437,7 +445,7 @@ textarea {
     color: #07248c;
 }
 .main-tree-content {
-    margin: 50px;
+    margin: 5px;
 }
 .opacity-graph {
     background-color: #777777;
@@ -513,6 +521,11 @@ textarea {
     overflow-x: hidden;
     width: 700px;
 }
+
+.overflow-form:hover {
+    background-color: #ddd;
+}
+
 .form-popup {
     display: none;
     position: absolute;
