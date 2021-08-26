@@ -1524,7 +1524,7 @@ $(function () {
         let currencyCostName = $('#currencyCost option:selected').text();
         let pyExp = $('#python-expression').val();
         let idSubprocess =  $('#mainTree .margin-main .margin-main')[0].id.replace("subprocess","");
-        let technology = $("#contentTechnology16 .text-tree").html();
+        let technology = $("#contentTechnology" + idSubprocess + " .text-tree").html();
 
         arrayFunction.push({
             technology: technology,
