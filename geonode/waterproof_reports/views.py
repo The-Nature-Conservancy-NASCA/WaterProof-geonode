@@ -1034,15 +1034,7 @@ def getNameCity(indicators):
             return result
     return result
 
-def linkDownload(request, idx):
 
-                filter = waterproof_study_cases_zip.objects.filter(study_case_id=idx)
-                return render(
-                    request,
-                    'waterproof_reports/reports_menu.html',
-                    {
-                        'filter': filter,
-                    })
 
 def physicalIndicators(request, idx):
 
@@ -1131,3 +1123,12 @@ def compareMaps(request):
                     'year': year
                 }
             )
+#def linkDownload(request, idx):
+#
+ #               filter = waterproof_study_cases_zip.objects.filter(study_case_id=idx)
+  #              return render(
+   #                 request,
+    #                'waterproof_reports/reports_menu.html',
+     #               {
+      #                  'filter': filter,
+       #             })

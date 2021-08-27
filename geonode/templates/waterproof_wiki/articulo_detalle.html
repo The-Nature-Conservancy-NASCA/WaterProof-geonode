@@ -1,0 +1,34 @@
+{% extends 'layout.html'%}
+
+{% block content %}
+
+        <article class="art-item">
+            <div class="data">
+                <h2>{{articulo.titulo}}:</h2>
+                <h4>{{articulo.created_at}}</h4>
+                {{articulo.contenido|safe|linebreaks}}<br>
+            </div>
+            
+            <div class="referencias">
+                <h3>Referencies</h3>
+                <div class="data">
+                    {%for r in referencias %}
+                    <p> {{r.anno}}. {{r.nombre}}. {{r.publicador}}. 
+                        {% if r.url is not None %}
+                        | <a href="{{r.url}}" target="_blank">{{r.url}}</a></p>
+                        {%endif%}
+                    {%endfor%}
+                </div>
+            </div>
+
+            <div class="enlaces">
+                <h3>Bibliografía</h3>
+                <div class="data">
+                {%for e in enlaces %}
+                    <p>{{e.descripcion}} | <a href="{{e.url}}" target="_blank">{{e.url}}</a></p>
+                {%endfor%}
+                </div>
+            </div>
+        </article>
+
+{% endblock%}
