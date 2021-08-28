@@ -11,7 +11,7 @@ from django.http import JsonResponse
 from django.shortcuts import render
 from django.core import serializers
 from geonode.waterproof_parameters.models import Countries, Regions, Cities
-from .models import investIndicators
+from .models import investIndicators, zip
 from geonode.waterproof_study_cases.models import StudyCases
 from pylab import title, figure, xlabel, ylabel, xticks, bar, legend, axis, savefig
 from fpdf import FPDF
@@ -1034,15 +1034,7 @@ def getNameCity(indicators):
             return result
     return result
 
-def linkDownload(request, idx):
 
-                filter = waterproof_study_cases_zip.objects.filter(study_case_id=idx)
-                return render(
-                    request,
-                    'waterproof_reports/reports_menu.html',
-                    {
-                        'filter': filter,
-                    })
 
 def physicalIndicators(request, idx):
 
@@ -1131,3 +1123,13 @@ def compareMaps(request):
                     'year': year
                 }
             )
+def linkDownload(request, idx):
+
+                filter = zip.objects.filter(study_case_id__id=idx)
+                print(filter)
+                return render(
+                    request,
+                    'waterproof_reports/reports_menu.html',
+                    {
+                        'filterzip': filter,
+                    })

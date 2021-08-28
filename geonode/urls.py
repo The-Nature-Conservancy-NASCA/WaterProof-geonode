@@ -359,5 +359,5 @@ urlpatterns += [
 
 # waterproof_wiki
 urlpatterns += [
-    url(r'^wiki/', include('geonode.haciendowiki.haciendowiki.urls'), name='haciendowiki'),
+    url(r'^wiki/', include('geonode.waterproof_wiki.urls'), name='wiki'),
 ]

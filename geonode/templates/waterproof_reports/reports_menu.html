@@ -203,7 +203,7 @@
                 <img src="/static/geonode/img/indicadores-fisicos.png" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;" title="{% trans "Physical indicators" %}"/> 
                 <br>
                 <!--a>{% trans "Physical indicators" %}</a-->
-                <a href="../../reports/physical/">{% trans "Physical indicators" %}</a>
+                <a href="../../reports/physical/{{idx}}">{% trans "Physical indicators" %}</a>
             </div>
             <div style="float: left;width: 25%;" id="idDecisionIndicators">
                 <img src="/static/geonode/img/indicadores-decision.png" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;" title="{% trans "Decision indicators" %}"/>
@@ -218,16 +218,20 @@
             </div>
 
         </div>
-        <br>
-        <br>
+        <div>
+            <br>
+            <h5 textColor="red" style="font-size: 20pt;color: #1389AA;font-weight: bold; margin-top: 18%;">{% trans "If you want to download the results of this analysis from the following icons" %}</h5>
+        </div>
         <div class="report-download">
+            <div class="col-md-5"></div>
             <div class="col-md-1 report-download-pdf" onclick="openPDF()">
                 <img src="/static/geonode/img/documents.png"/>
+                <br>
                 PDF
             </div>
-            <div class="col-md-1 report-download-pdf" onclick="downloadZip()">
-                <img src="/static/geonode/img/documents.png"/>
-                {{filter}}
+            <div class="col-md-1 report-download-zip" onclick="downloadZip()">
+                <img src="/static/geonode/img/descarga.png"/>
+                <br>
                 ZIP
             </div>
         </div>
@@ -363,7 +367,9 @@ $(function () {
 
     downloadZip = function(){
         //console.log(filter)
-        url.open("{{filter.link}}")
+        var filter = "{{filterzip}}"
+        console.log("este es el filter"+filter)
+        window.open(filter.link, "zipDownload", "width=120,height=300")
     }
     
     changeReport = function() {
