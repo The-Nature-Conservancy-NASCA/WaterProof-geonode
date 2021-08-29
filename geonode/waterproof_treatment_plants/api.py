@@ -77,19 +77,20 @@ def getIntakeList(request):
 	"""
 	if request.method == 'GET':
 		objects_list = []
-		for elementSystem in ElementSystem.objects.filter(normalized_category='CSINFRA'):
+		city_id = request.query_params.get('cityId')
+		elements = ElementSystem.objects.filter(normalized_category='CSINFRA').filter(intake__city__id=city_id).order_by('intake__name')
+		for elementSystem in elements:
+			intake_name = elementSystem.intake.name
+			objects_list.append({
+				"id": elementSystem.id,
+				"name": intake_name,
+				"csinfra": elementSystem.name,
+				"graphId": elementSystem.graphId,
+				"cityId": city_id,
+				"nameIntake":str(intake_name) + str(" - ") + str(elementSystem.name) + str(" - ") + str(elementSystem.graphId)})
 
-			if str(elementSystem.intake.city.id) == str(request.query_params.get('cityId')):
-				objects_list.append({
-					"id": elementSystem.id,
-					"name": elementSystem.intake.name,
-					"csinfra": elementSystem.name,
-					"graphId": elementSystem.graphId,
-					"cityId": elementSystem.intake.city.id,
-					"nameIntake":str(elementSystem.intake.name) + str(" - ") + str(elementSystem.name) + str(" - ") + str(elementSystem.graphId)})
-
-		order_register = sorted(objects_list, key=lambda tree : tree['nameIntake'])
-		return JsonResponse(order_register, safe=False)
+		#order_register = sorted(objects_list, key=lambda tree : tree['nameIntake'])
+		return JsonResponse(objects_list, safe=False)
 
 @api_view(['POST'])
 def getTypePtap(request):
@@ -334,7 +335,7 @@ def setHeaderPlant(request):
 
 @api_view(['GET'])
 def getTreatmentPlant(request):
-	"""Consult the treatment plant
+	"""Query the treatment plant
 	searches all the tables related to the plant and returns 
 	the information related to the treatment plant
 	Parameters:
@@ -385,7 +386,8 @@ def getTreatmentPlant(request):
 				"functionSedimentsRetained": function.function_sediments_retained,
 				"functionNitrogenRetained": function.function_nitrogen_retained,
 				"functionPhosphorusRetained": function.function_phosphorus_retained,
-				"functionTechnology": function.function_technology
+				"functionTechnology": function.function_technology,
+				"functionGraphId" : function.function_graph_id,
 			})
 
 		response = {

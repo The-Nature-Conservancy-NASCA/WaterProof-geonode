@@ -377,7 +377,8 @@ $(function () {
                         sedimentsRetained: value.functionSedimentsRetained,
                         nitrogenRetained: value.functionNitrogenRetained,
                         phosphorusRetained: value.functionPhosphorusRetained,
-                        id: value.functionId
+                        id: value.functionId,
+                        graphid: value.functionGraphId,
                     })
                 });
 
@@ -439,7 +440,8 @@ $(function () {
                         sedimentsRetained: value.functionSedimentsRetained,
                         nitrogenRetained: value.functionNitrogenRetained,
                         phosphorusRetained: value.functionPhosphorusRetained,
-                        id: value.functionId
+                        id: value.functionId,
+                        graphid: value.functionGraphId,
                     })
                 });
 
@@ -724,18 +726,12 @@ $(function () {
     * @returns 
     */
     viewTree = function(e) {
-        document.getElementById("mainTree").style.visibility = "hidden";
+        $("#mainTree").hide();
         selectedPlantElement = e.getAttribute("plantElement");
         $(".container-element").removeClass('container-element-selected')
         $(e.parentElement).addClass('container-element-selected');
         loadArrayTree(selectedPlantElement,  e.getAttribute("nameElement"), e.getAttribute("graphid"));
-        //let MQ = window.MathQuill.getInterface(2);
-        setTimeout(function(){
-            // document.querySelectorAll('.equation').forEach(container => {
-            //     MQ.StaticMath(container);
-            // });
-            document.getElementById("mainTree").style.visibility = "visible";
-        }, 2000);
+        $("#mainTree").show();        
     };
     /**
     * Load new technology in the tree
@@ -891,31 +887,59 @@ $(function () {
                                             } else if (loadInfoTree) {
                                                 listTrFunction = [];
                                                 buttonsHtml = true;
-                                                $.each( arrayLoadingFunction, function( index, valueLoading ) {
-                                                    if(valueTech.technology === valueLoading.functionTechnology/* &&
-                                                        valueCostFunction.costFunction === valueLoading.functionName*/) {
-                                                        valueCostFunction.sedimentsRetained = valueLoading.functionSedimentsRetained;
-                                                        valueCostFunction.nitrogenRetained = valueLoading.functionNitrogenRetained;
-                                                        valueCostFunction.phosphorusRetained = valueLoading.functionPhosphorusRetained;
-                                                        valueCostFunction.costFunction = valueLoading.functionName;
-                                                        valueCostFunction.function = valueLoading.functionValue;
-                                                        valueCostFunction.currency = valueLoading.functionCurrency;
-                                                        valueCostFunction.factor = valueLoading.functionFactor;
-                                                        valueTech.idSubprocess = valueLoading.functionIdSubProcess;
-                                                        valueTech.technology = valueLoading.functionTechnology;
-                                                        loadHtml = true;
-                                                        activateHtml = htmlCheckBox(valueCostFunction, graphid, null,(listTrFunction.length==0 ? "" : listTrFunction.length));
-                                                        listTrFunction.push(addFunctionCostRow(activateHtml, valueCostFunction, buttonsHtml, graphid,(listTrFunction.length==0 ? "" : listTrFunction.length)));
-                                                    }                                                    
+                                                let defaultFn = false;
+                                                let fnFilterByTech =  arrayLoadingFunction.filter(f => (f.functionTechnology === valueTech.technology));
+                                                let fnFilterByTechAndExp =  arrayLoadingFunction.filter(f => (f.functionTechnology === valueTech.technology && 
+                                                                                                                f.functionName === valueCostFunction.costFunction));
+                                                if(fnFilterByTechAndExp.length == 0) {
+                                                    defaultFn = valueTech.default && fnFilterByTech.length == 0;
+                                                    // last validation, discard function in arrayFuntion with same graphId
+                                                    let f = arrayFunction.filter (f => f.graphid == graphid);
+                                                    defaultFn = f.length == 0;                                                    
+                                                    activateHtml = htmlCheckBox(valueTech, graphid, null,(listTrFunction.length==0 ? "" : listTrFunction.length),defaultFn);
+                                                    listTrFunction.push(addFunctionCostRow(activateHtml, valueTech, buttonsHtml, graphid,(listTrFunction.length==0 ? "" : listTrFunction.length)));
+                                                }
+
+                                                fnFilterByTech.forEach(f => {
+                                                    let filterCostFunction = {...valueTech,
+                                                        sedimentsRetained: f.functionSedimentsRetained,
+                                                        nitrogenRetained: f.functionNitrogenRetained,
+                                                        phosphorusRetained: f.functionPhosphorusRetained,
+                                                        costFunction: f.functionName,
+                                                        function: f.functionValue,
+                                                        currency: f.functionCurrency,
+                                                        factor: f.functionFactor,
+                                                        idSubprocess : f.functionIdSubProcess,
+                                                        technology : f.functionTechnology,
+                                                    };
+                                                    activateHtml = htmlCheckBox(filterCostFunction, graphid, f.functionIdSubProcess,(listTrFunction.length==0 ? "" : listTrFunction.length),true);
+                                                    valueTech.idSubprocess = f.functionIdSubProcess;
+                                                    valueTech.technology = f.functionTechnology;
+                                                    listTrFunction.push(addFunctionCostRow(activateHtml, filterCostFunction, buttonsHtml, graphid,(listTrFunction.length==0 ? "" : listTrFunction.length)));
                                                 });
-                                                if (listTrFunction.length == 0) {
-                                                    activateHtml = htmlCheckBox(valueCostFunction, graphid, null,'');
-                                                    listTrFunction.push(addFunctionCostRow(activateHtml, valueCostFunction, buttonsHtml, graphid,''));
-                                                }                             
+                                                
+                                                // $.each( arrayLoadingFunction, function( index, valueLoading ) {
+                                                //     if(valueTech.technology === valueLoading.functionTechnology/* &&
+                                                //         valueCostFunction.costFunction === valueLoading.functionName*/) {                                                        
+                                                //         let filterCostFunction = {...valueTech};
+                                                //         filterCostFunction.sedimentsRetained = valueLoading.functionSedimentsRetained;
+                                                //         filterCostFunction.nitrogenRetained = valueLoading.functionNitrogenRetained;
+                                                //         filterCostFunction.phosphorusRetained = valueLoading.functionPhosphorusRetained;
+                                                //         filterCostFunction.costFunction = valueLoading.functionName;
+                                                //         filterCostFunction.function = valueLoading.functionValue;
+                                                //         filterCostFunction.currency = valueLoading.functionCurrency;
+                                                //         filterCostFunction.factor = valueLoading.functionFactor;
+                                                //         valueTech.idSubprocess = valueLoading.functionIdSubProcess;
+                                                //         valueTech.technology = valueLoading.functionTechnology;
+                                                //         loadHtml = true;
+                                                //         activateHtml = htmlCheckBox(filterCostFunction, graphid, null,(listTrFunction.length==0 ? "" : listTrFunction.length));
+                                                //         listTrFunction.push(addFunctionCostRow(activateHtml, filterCostFunction, buttonsHtml, graphid,(listTrFunction.length==0 ? "" : listTrFunction.length)));
+                                                //     }                                                    
+                                                // });                                                
                                             } else {
                                                 loadHtml = true;
                                                 // TODO :: Review load mare that one function
-                                                activateHtml = htmlCheckBox(valueCostFunction,graphid,valueTech.idSubprocess,"");
+                                                activateHtml = htmlCheckBox(valueCostFunction,graphid,valueTech.idSubprocess,"",valueTech.default);
                                                 listTrFunction.push(addFunctionCostRow(activateHtml, valueCostFunction, buttonsHtml, graphid,''));
                                             }
 
@@ -956,8 +980,9 @@ $(function () {
                                                 $('#technology' + valueTech.idSubprocess).html($('#technology' + valueTech.idSubprocess).html() + tableVar + tableFunct);
                                                 document.getElementById('technology' + valueTech.idSubprocess).style.display = "block !important";
                                                 if(valueCostFunction.default) {
-                                                    changeStatus(valueTech.idSubprocess);
+                                                    //changeStatus(valueTech.idSubprocess);
                                                 }
+                                                validateAndAddFunction2Array();
                                             } else {
                                                 document.getElementById('contentTechnology' + valueTech.idSubprocess).style.display = "none";
                                             }
@@ -969,12 +994,13 @@ $(function () {
                     });
                 }
             });
+            
         });
 
         setTimeout(function(){
             for (var funVar = 0; funVar < arrayFunction.length; funVar++) {
                 if (document.getElementById("id" + arrayFunction[funVar].idSubprocess) !== null) {
-                    document.getElementById("id" + arrayFunction[funVar].idSubprocess).style.borderColor = "#039edc";
+                    // document.getElementById("id" + arrayFunction[funVar].idSubprocess).style.borderColor = "#039edc";
                 }
             }
         },3000);
@@ -985,9 +1011,10 @@ $(function () {
     * @returns 
     */
     changeStatus = function(i) {
+        var checkHexColor = "#039edc";
         if(!onlyReadPlant) {
             var e = document.getElementById("id" + i);
-            if(e.style.borderColor === "#039edc" || e.style.borderColor === "rgb(3, 158, 220)") {
+            if(e.style.borderColor === checkHexColor || e.style.borderColor === "rgb(3, 158, 220)") {
                 e.style.borderColor = "#ffffff";
                 if (document.getElementById(e.id + "1d") !== null) {
                     document.getElementById(e.id + "1d").style.display = "block";
@@ -998,7 +1025,7 @@ $(function () {
                     }
                 }
             } else {
-                e.style.borderColor = "#039edc";
+                e.style.borderColor = checkHexColor;
                 if (document.getElementById(e.id + "1d") !== null) {
                     document.getElementById(e.id + "1d").style.display = "none";
                     for (var indexArray = 0; indexArray < arrayPlant.length; indexArray++) {
@@ -1012,7 +1039,7 @@ $(function () {
                     let isCustomFunction = selectedElement.id.indexOf(element.id) !== -1 || element.id.indexOf(selectedElement.id) !== -1;
 
                     if(element.id !== selectedElement.id && !isCustomFunction) {
-                        if(element.getAttribute("subProcessMaster") === document.getElementById("id" + i).getAttribute("subProcessMaster")){
+                        //if(element.getAttribute("subProcessMaster") === document.getElementById("id" + i).getAttribute("subProcessMaster")){
                             element.style.borderColor = "#ffffff";
                             if (document.getElementById(element.id + "1d") !== null) {
                                 document.getElementById(element.id + "1d").style.display = "block";
@@ -1022,45 +1049,60 @@ $(function () {
                                     }
                                 }
                             }
-                        }
+                        //}
                     }
                 });
             }
-            $("[name=listFunction]").each(function( index, element ) {
-                if(element.style.borderColor === "rgb(3, 158, 220)") {
-                    var addFunctionToArray = true;
-                    for (var funVar = 0; funVar < arrayFunction.length; funVar++) {
-                        if(arrayFunction[funVar].nameFunction === element.getAttribute("nameFunction") &&
-                            arrayFunction[funVar].technology === element.getAttribute("technology")) {
-                            addFunctionToArray = false;
-                        }
-                    }
-
-                    if(addFunctionToArray) {
-                        arrayFunction.push({
-                            graphid: element.getAttribute("graphid"),
-                            technology: element.getAttribute("technology"),
-                            nameFunction: element.getAttribute("nameFunction"),
-                            functionValue: element.getAttribute("function"),
-                            currency: element.getAttribute("currency"),
-                            factor: element.getAttribute("factor"),
-                            idSubprocess: element.getAttribute("idSubprocess"),
-                            sedimentsRetained: document.getElementById("idSedimentsRetained" + element.getAttribute("idSubprocess")).value,
-                            nitrogenRetained: document.getElementById("idNitrogenRetained" + element.getAttribute("idSubprocess")).value,
-                            phosphorusRetained: document.getElementById("idPhosphorusRetained" + element.getAttribute("idSubprocess")).value
-                        })
-                    }
-                } else {
-                    for (var funVar = 0; funVar < arrayFunction.length; funVar++) {
-                        if(arrayFunction[funVar].nameFunction === element.getAttribute("nameFunction") &&
-                            arrayFunction[funVar].technology === element.getAttribute("technology")) {
-                            arrayFunction.splice(funVar,1);
-                        }
-                    }
-                }
-            });
+            validateAndAddFunction2Array();
         }
     };
+
+    /**
+    *  Validate and add funtion in arrayFunction
+    * 
+    * 
+    */
+    validateAndAddFunction2Array = function() {
+        $("[name=listFunction]").each(function( index, element ) {
+            if(element.style.borderColor === "rgb(3, 158, 220)") {
+                var addFunctionToArray = true;
+                for (var funVar = 0; funVar < arrayFunction.length; funVar++) {
+                    if(arrayFunction[funVar].nameFunction === element.getAttribute("nameFunction") &&
+                        arrayFunction[funVar].technology === element.getAttribute("technology")) {
+                        addFunctionToArray = false;
+                    }
+                }
+                if (addFunctionToArray) {
+                    let f = arrayFunction.filter (f => f.graphid == element.getAttribute("graphid"));
+                    addFunctionToArray = (f.length == 0);                    
+                }
+
+                if(addFunctionToArray) {
+                    arrayFunction.push({
+                        graphid: element.getAttribute("graphid"),
+                        technology: element.getAttribute("technology"),
+                        nameFunction: element.getAttribute("nameFunction"),
+                        functionValue: element.getAttribute("function"),
+                        currency: element.getAttribute("currency"),
+                        factor: element.getAttribute("factor"),
+                        idSubprocess: element.getAttribute("idSubprocess"),
+                        sedimentsRetained: document.getElementById("idSedimentsRetained" + element.getAttribute("idSubprocess")).value,
+                        nitrogenRetained: document.getElementById("idNitrogenRetained" + element.getAttribute("idSubprocess")).value,
+                        phosphorusRetained: document.getElementById("idPhosphorusRetained" + element.getAttribute("idSubprocess")).value
+                    })
+                }
+            } else {
+                for (var funVar = 0; funVar < arrayFunction.length; funVar++) {
+                    if(arrayFunction[funVar].nameFunction === element.getAttribute("nameFunction") &&
+                        arrayFunction[funVar].technology === element.getAttribute("technology")) {
+                        arrayFunction.splice(funVar,1);
+                    }
+                }
+            }
+        });
+    };
+
+
     /**
     * Load the results of the city on the map 
     * @param {String} map limit
@@ -1397,7 +1439,7 @@ $(function () {
         var costVars = ['Q', 'CSed', 'CN', 'CP', 'WSed', 'WN', 'WP', 'WSedRet', 'WNRet', 'WPRet'];    
         
         arrayPlant.forEach(function(plantElement, index) {
-            if (plantElement.onOff){
+            if (plantElement.onOff || plantElement.graphId == 1){
                 var costlabel = "";
                 if (plantElement.graphId == 1) {
                     for (const iterator of costVars.slice(0,7)) {
@@ -1527,6 +1569,7 @@ $(function () {
         let technology = $("#contentTechnology" + tecnologyId + " .text-tree").html();
 
         arrayFunction.push({
+            graphid: graphId,
             technology: technology,
             nameFunction: costFunctionName,
             functionValue: pyExp,
@@ -1548,13 +1591,13 @@ $(function () {
             idSubprocess: tecnologyId,
             technology: technology
         }
-        let subid = $("#technologyy" + tecnologyId + " table tbody tr").length; //num of rows in table
-        let activateHtml = htmlCheckBox(valueCostFunction, graphId, null, tecnologyId, subid);        
+        let subid = $("#technology" + tecnologyId + " table tbody tr").length; //num of rows in table
+        let activateHtml = htmlCheckBox(valueCostFunction, graphId, null, subid, true);        
         let tdRowFn = addFunctionCostRow(activateHtml,valueCostFunction,true,graphId,subid);
         return tdRowFn;
     }
 
-    htmlCheckBox = function(valueCostFunction, graphid, subProcessMaster, subid) {
+    htmlCheckBox = function(valueCostFunction, graphid, subProcessMaster, subid, checked) {
 
         let attrSubprocessMaster = "";
         if (subProcessMaster !== null) {
@@ -1569,7 +1612,7 @@ $(function () {
                         'function="' + valueCostFunction.function + '" ' + 
                         'currency="' + valueCostFunction.currency + '" ' + 
                         'factor="' + valueCostFunction.factor + '" ' +  
-                        (subid != "" ? 'style="border-color:#039edc;" ' : '') +
+                        (checked ? 'style="border-color:#039edc;" ' : '') +
                         'class="change-state-tree" id="id' + valueCostFunction.idSubprocess + 
                                 (subid != "" ? "-" + subid : "") + '"></div></div>';
         return activateHtml;
