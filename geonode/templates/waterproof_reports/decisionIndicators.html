@@ -27,35 +27,33 @@
         <div class="help-in-report" style="border-color: transparent;">
             {% trans "This report summarizes the proportions in investment and benefits that will be achieved by the implementation of the SbN:" %}
         </div>
-        <div style="text-align: center;position: absolute;top: 0px;right: 0px;margin-left: 65%;font-size: 13px;">
-            <div style="float: left;width: 15%;">
-                <img src="/static/geonode/img/Indicadores-financieros.png" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black; " title="{% trans "Financial indicators" %}"/> 
+        <div style="text-align: center;position: absolute;top: 0px;right: 0px;margin-left: 60%;font-size: 13px;">
+            <div style="float: left;width: 16%;">
+                <img src="/static/geonode/img/Indicadores-financieros.png" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;" title="{% trans "Financial indicators" %}"/> 
                 <br> 
                 <a href="../../reports/financial/">{% trans "Financial indicators" %}</a-->
             </div>
-            <div style="float: left;width: 15%;" id="idFinancialIndicators">
-                <img src="/static/geonode/img/indicadores-fisicos.png" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;" title="{% trans "Physical indicators" %}"/> 
+            <div style="float: left;width: 16%;" id="idFinancialIndicators">
+                <img src="/static/geonode/img/indicadores-fisicos.png" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black; opacity: 30%;" title="{% trans "Physical indicators" %}"/> 
                 <br> 
-                <!--a>{% trans "Physical indicators" %}</a-->
-                <a href="../../reports/physical/">{% trans "Physical indicators" %}</a>
+                <a>{% trans "Physical indicators" %}</a>
+                <!--<a href="../../reports/physical/">{% trans "Physical indicators" %}</a>-->
             </div>
-            <div style="float: left;width: 15%;" id="idDecisionIndicators">
+            <div style="float: left;width: 16%;" id="idDecisionIndicators">
                 <img src="/static/geonode/img/indicadores-decision.png" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black; opacity: 30%;" title="{% trans "Decision indicators" %}"/>
                 <br>
                 <a>{% trans "Decision indicators" %}</a>
-                <!--a href="../../reports/decision/">{% trans "Decision indicators" %}</a-->
             </div>
-            <div style="float: left;width: 15%;" id="idGeographicIndicators">
+            <div style="float: left;width: 16%;" id="idGeographicIndicators">
                 <img src="/static/geonode/img/indicadores-geograficos.png" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;" title="{% trans "Geographic visualization" %}"/>
                 <br>
-                <!--a>{% trans "Geographic visualization" %}</a-->
                 <a href="../../reports/geographic/">{% trans "Geographic visualization" %}</a>
             </div>
-        </div>
-        <div style="text-align: center;position: absolute;top: 10%;right: 0px;margin-left: 75%;font-size: 13px;">
-            <img src="/static/geonode/img/reportes-icon.png" style="height: 30%; width: 30%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;" title="{% trans "Reports" %}"/>
-            <br>
-            <a id="Return"></a>
+            <div style="float: left;width: 16%;margin-left: 10%;" id="idGeographicIndicators">
+                <img src="/static/geonode/img/reportes-icon.png" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;" title="{% trans "Geographic visualization" %}"/>
+                <br>
+                <a id="Return"></a>
+            </div>
         </div>
     </div>
     <div id="smartwizard" style="position: relative;">
@@ -101,15 +99,15 @@
             <div id="idSectionIbc" class="inform-section">{% trans "Incidence of benefits and cost" %}</div>
             <div id="idSectionPe" class="inform-section inform-section-free">{% trans "Portfolio Efficiency" %}</div>
             <div id="idSectionOr" class="inform-section inform-section-free">{% trans "Oportunity result" %}</div>
-            <!--div id="idSectionPr" class="inform-section inform-section-free">{% trans "Physical and risk indicator" %}</div>
-            <div id="idSectionRi" class="inform-section inform-section-free">{% trans "Result of interventions" %}</div-->
+            <div id="idSectionPr" class="inform-section inform-section-free">{% trans "Physical and risk indicator" %}</div>
+            <div id="idSectionRi" class="inform-section inform-section-free">{% trans "Result of interventions" %}</div>
         </div>
         <!--Steps-->
         <div class="margin-report">
             <!--Step 1-->
             <br>
             <p>{% trans "Benefits and cost ind text 1" %}</p>
-            <div id="step1">
+            <div id="step1" style="padding: 5px;">
                 <br>
                 <p></p>
                 <div style="text-align: center; height: 400px;">
@@ -118,12 +116,12 @@
                     </div-->
                     <div class="contain-detail">
                         <!--Graph-->
-                        <div style="width: 45%;position: absolute;left: 3%;">
+                        <div style="width: 45%;position: absolute;left: 7%;">
                             <select class="select-condition" id="idListSelectIntake" onchange="changePie(this.value)"></select>
                             <div id="containerAbi"></div>
                             <p>{% trans "Benefits and cost ind text 2" %}</p>
                         </div>
-                        <div style="width: 40%;position: absolute;left: 55%;">
+                        <div style="width: 40%;position: absolute;left: 59%;">
                             <div id="containerAbt"></div>
                             <p>{% trans "Benefits and cost ind text 3" %}</p>
                         </div>
@@ -136,12 +134,12 @@
                 <div style="text-align: center;height: 500px;">
                     <div class="contain-detail">
                         <!--Graph-->
-                        <div style="width: 45%;position: absolute;left: 3%;">
+                        <div style="width: 45%;position: absolute;left: 7%;">
                             <div id="containerAct"></div>
                             <p>{% trans "Benefits and cost ind text 4" %}</p>
                         </div>
                         <div class="contain-detail">
-                            <div style="width: 50%;position: absolute;left: 52%;">
+                            <div style="width: 50%;position: absolute;left: 57%;">
                                 <div id="containerAca"></div>
                                 <p>{% trans "Benefits and cost ind text 5" %}</p>
                             </div>
@@ -150,7 +148,7 @@
                 </div>   
             </div>
             <!--Step 2-->
-            <div id="step2"  style="display: none;">
+            <div id="step2" style="display: none; padding: 5px;">
                 <br>
                 <p>{% trans "Portfolio efficiency ind text 1" %}</p>
                 <div style="text-align: center;">
@@ -159,7 +157,7 @@
                         </div>
                         <div class="contain-detail">
                             <!--Graph-->
-                            <div style="width: 60%;position: absolute;left: 40%;">
+                            <div class="align-graph-resp" style="width: 60%;position: absolute;left: 40%;">
                                 <div id="containerPe"></div>
                             </div>
                         </div>
@@ -184,7 +182,7 @@
                 </div>
             </div>
             <!--Step 3-->
-            <div id="step3"  style="display: none;">
+            <div id="step3"  style="display: none; padding: 5px;">
                 <div class="container-page">
                     <div class="container-border">
                         <div id="mapiddecision" style="position: relative;width: 100%;height: 400px;"></div>
@@ -220,8 +218,8 @@
                 </div>
             </div>
             <!--Step 4-->
-            <!--div id="step4"  style="display: none;">
-                <div style="text-align: center;width: 100%;position: relative;height: 400px;margin-top: 130px;">
+            <div id="step4"  style="display: none; padding: 5px;">
+                <div style="text-align: center;width: 100%;position: relative;height: 400px;">
                     <div id="mapidphysical" style="position: relative;width: 100% ;height: 400px;"></div>
                 </div>                
                 <br>
@@ -230,9 +228,9 @@
                     <select class="select-condition" id="idSelectWaterIntake"></select>
                 </div>
                 <div id="idListGraph"></div>
-            </div-->
+            </div>
             <!--Step 5-->
-            <!--div id="step5"  style="display: none;">
+            <div id="step5"  style="display: none; padding: 5px;">
                 <div>
                     <div class="content-icon-inter">
                         <div class="center-icon-inter">
@@ -270,7 +268,7 @@
                         <tbody id="idTbodyInterventions"></tbody>
                     </table>
                 </div>
-            </div-->
+            </div>
         </div>
 </form>
 
@@ -1069,6 +1067,7 @@ $(function () {
 
             $('#idSectionPr').attr('class', 'inform-section');
             $('#step4').css("display", "block");
+
             initMapPhysical();
         });
         $('#idSectionRi').click(function (e) {
@@ -1134,11 +1133,13 @@ $(function () {
                         var chartSpeed = Highcharts.chart('containerPr' + numberContainerG, Highcharts.merge(gaugeOptions, {
                             yAxis: {
                                 min: 0,
-                                max: (value.valueIndicator * 2),
+                                max: 6,
                                 stops: [
-                                    [0.1, '#008BAB'],
-                                    [0.5, '#008BAB'],
-                                    [0.9, '#008BAB']
+                                    [0.1, '#CEE0F4'],
+                                    [0.3, '#629CDB'],
+                                    [0.5, '#00BD55'],
+                                    [0.7, '#FF0000'],
+                                    [0.9, '#E10000']
                                 ],
                                 title: {
                                     text: value.description
