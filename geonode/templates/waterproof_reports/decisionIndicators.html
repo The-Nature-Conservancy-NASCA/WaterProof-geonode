@@ -225,7 +225,9 @@
                 <br>
                 <div class="title-water">{% trans "Water Intake" %} <span class="name-title-water">"{% trans "Water Intake" %}"</span></div>
                 <div class="margin-select">
-                    <select class="select-condition" id="idSelectWaterIntake"></select>
+                    <select class="select-condition" id="idSelectWaterIntake" onchange="loadGraphIntahe(this.value)">
+                        <option></option>
+                    </select>
                 </div>
                 <div id="idListGraph"></div>
             </div>
@@ -370,6 +372,20 @@ $(function () {
     });
     var dataTotalBenefitsIntake = [];
     var dataTotalBenefitsIntakeOne = [];
+
+    loadGraphIntahe = function(valueSelect) {
+        var listObject = document.getElementsByName("listGraphIntake");
+        listObject.forEach((divVisible) => {
+            if(valueSelect !== "") {
+                divVisible.style.display = "none";
+                if(divVisible.getAttribute("nameSelect") === valueSelect) {
+                    divVisible.style.display = "block";
+                }                
+            } else  {
+                divVisible.style.display = "block";
+            }
+        });
+    }
 
     changeReport = function() {
         location.href = "../../study_cases/report/" + localStorage.idStudyCase;
@@ -805,7 +821,7 @@ $(function () {
                     })
                 }
             });
-            console.log(dataTotalBenefitsIntakeOne)
+
             Highcharts.chart('containerAbi', {
                 chart: {
                     plotBackgroundColor: null,
@@ -921,7 +937,7 @@ $(function () {
                 }]
             });
         });
-        console.log(dataCostActivity)
+
         var dataTotalCost = [];
         var urlDetail = "../../reports/getReportCostsAnalysisFilter/?studyCase=" + localStorage.idStudyCase;
         $.getJSON(urlDetail, function (data) {
@@ -1016,6 +1032,9 @@ $(function () {
             $('#idSectionPe').attr('class', 'inform-section inform-section-free');
             $('#step2').css("display", "none");
 
+            $('#idSectionPr').attr('class', 'inform-section inform-section-free');
+            $('#step4').css("display", "none");
+
             $('#idSectionIbc').attr('class', 'inform-section');
             $('#step1').css("display", "block");
         });
@@ -1097,10 +1116,6 @@ $(function () {
         $.getJSON(urlDetail, function (data) {
             var listFielTable = "";
             $.each( data, function( key, value ) {
-                var option = document.createElement("option");
-                option.text = value.resultGrouperr;
-                option.value = value.resultGrouperr;
-                document.getElementById("idSelectWaterIntake").add(option);
             });
         });
 
@@ -1115,8 +1130,13 @@ $(function () {
                     if(titleGraph !== "") {
                         titleGraph = titleGraph + '</div>';
                     }
-                    titleGraph = titleGraph + '<div class="title-water" style="float: left;width: 1000px;">' + value.indicator + '</div><div class="container-general-gauge">';
+                    titleGraph = titleGraph + '<div name="listGraphIntake" nameSelect="' + value.indicator + '" class="title-water" style="float: left;width: 100%;">' + value.indicator + '</div><div name="listGraphIntake"  nameSelect="' + value.indicator + '" class="container-general-gauge">';
                     lastGroupImage = value.indicator;
+
+                    var option = document.createElement("option");
+                    option.text = value.indicator;
+                    option.value = value.indicator;
+                    document.getElementById("idSelectWaterIntake").add(option);
                 }
                 titleGraph = titleGraph + '<div class="container-gauge"><div id="containerPr' + numberContainer + '"></div></div>';
                 numberContainer++;
@@ -1135,11 +1155,11 @@ $(function () {
                                 min: 0,
                                 max: 6,
                                 stops: [
-                                    [0.1, '#CEE0F4'],
-                                    [0.3, '#629CDB'],
-                                    [0.5, '#00BD55'],
-                                    [0.7, '#FF0000'],
-                                    [0.9, '#E10000']
+                                    [0.1, '#90D3E7'],
+                                    [0.3, '#61D1C2'],
+                                    [0.5, '#008BAB'],
+                                    [0.7, '#004B56'],
+                                    [0.9, '#01353D']
                                 ],
                                 title: {
                                     text: value.description

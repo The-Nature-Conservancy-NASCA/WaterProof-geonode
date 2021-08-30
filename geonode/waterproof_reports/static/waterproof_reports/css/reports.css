@@ -546,7 +546,7 @@
 .container-graph {
     display: none;
     border-style: solid;
-    width: 550px;
+    width: 65%;
     margin: 10px;
     height: 500px;
     border-width: 1px;
@@ -648,7 +648,7 @@
         font-size: 22pt;
     }
     .container {
-        padding-left: 80px !important;
+        padding-left: 17% !important;
     }
     .content-image {
         width: 350px;
@@ -663,6 +663,9 @@
     .align-graph-resp {
         width: 50% !important;
         left: 50% !important;
+    }
+    #sidebar-wrapper {
+        float: left;
     }
 }
 
