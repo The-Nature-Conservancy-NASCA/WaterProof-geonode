@@ -141,7 +141,6 @@
 <script src="{{ STATIC_URL }}geonode/js/mxgraph/examples/editors/js/app.js"></script>
 <script src="{{ STATIC_URL }}geonode/js/mxgraph/examples/editors/js/app.js"></script>
 <script src="{{ STATIC_URL }}waterproof_intake/mathquill/mathquill.min.js"></script>
-<script src="{{ STATIC_URL }}waterproof_reports/js/physicalIndicators.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
 <script type="text/javascript">
@@ -151,7 +150,7 @@
         {% for investIndicators in Indicators %}
             <tr id="filas">
                 <td class="small text-center vat" style="display: none;">{{investIndicators.intake.name}}</td>
-                <td class="small text-center vat" id="valor6">{{investIndicators.time}}</td>
+                <td class="small text-center vat" id="valor">{{investIndicators.time}}</td>
                 <td class="small text-center vat truncate" id="valor1">{{investIndicators.awy}}</td>
                 <td class="small text-center vat" id="valor2">{{investIndicators.bf_m3}}</td>
                 <!--td>{{intake.max_benefit_req_time}}</td-->

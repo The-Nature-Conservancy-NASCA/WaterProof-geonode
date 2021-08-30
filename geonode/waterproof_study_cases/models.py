@@ -142,7 +142,6 @@ class StudyCases_Currency(models.Model):
     studycase = models.ForeignKey(StudyCases, on_delete=models.CASCADE)
     currency = models.CharField(max_length=4, blank=True, null=True)
     value = models.DecimalField(max_digits=20, decimal_places=15, blank=True, null=True)
-
 class CostFunctions(models.Model):
 
     name = models.TextField(
