@@ -568,7 +568,7 @@ INSTALLED_APPS = (
     # 'waterproof',
     'geonode.waterproof_cms',
 
-    # waterproof cms
+    # waterproof wiki
     'geonode.waterproof_wiki'
 
 )
