@@ -568,6 +568,9 @@ INSTALLED_APPS = (
     # 'waterproof',
     'geonode.waterproof_cms',
 
+    # waterproof cms
+    'geonode.waterproof_wiki'
+
 )
 
 WAGTAIL_APP = (

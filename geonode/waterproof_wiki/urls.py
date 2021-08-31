@@ -21,7 +21,7 @@ from django.conf import settings
 from . import views #Se debe indicar en donde están las vistas
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    #path('admin/', admin.site.urls),
     path('', views.listar_articulos, name="listar_articulos"),
    
     path('articulos/', views.listar_articulos, name="listar_articulos"),
