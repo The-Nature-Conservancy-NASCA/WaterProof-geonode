@@ -47,7 +47,7 @@
     color: #0D385B;
 }
 .file-column-left {
-    position: relative;
+	position: relative;
 }
 .title-file-column-right {
     width: 70%;
@@ -60,10 +60,10 @@
     right: 10px;
 }
 .detail-table {
-    position: relative;
+	position: relative;
 }
 .title-inform {
-    margin-top: 50px;
+	margin-top: 50px;
     font-size: 14px;
 }
 .inform-section {
@@ -152,15 +152,15 @@
     float: left;
 }
 .div-option > input {
-    margin-top: 0px;
-    cursor: pointer;
+	margin-top: 0px;
+	cursor: pointer;
 }
 .div-text {
-    text-align: left;
+	text-align: left;
     margin-left: 20px;
 }
 .content-image {
-    margin-left: 3%;
+    margin-left: 10%;
     width: 350px;
     float: left;
     height: 460px;
@@ -262,34 +262,40 @@
     margin: 10px;
 }
 .container-gauge {
-    width: 240px;
+    width: 300px;
     height: 230px;
     margin: 10px;
     float: left;
 }
 .container-gauge > div {
-    width: 250px;
-    height: 160px;
+    width: 300px;
+    height: 200px;
 }
 .report-container {
     margin-left: 300px;
 }
 .report-download {
-    margin-top: 250px;
+    margin-top: 2%;
 }
 .report-download-pdf {
-    width: 50px;
-    left: 50%;
     position: relative;
-    margin-left: -25px;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+}
+.report-download-zip{
+    position: relative;
     font-size: 12px;
     font-weight: bold;
     text-align: center;
 }
 .report-download-pdf > img {
-    width: 50px;
+    width: 80px;
     cursor: pointer;
-    margin-bottom: 10px;
+}
+.report-download-zip > img {
+    width: 80px;
+    cursor: pointer;
 }
 .conainer-report-main{
     margin-left: 1%;
@@ -383,6 +389,10 @@
     border-bottom: transparent;
 }
 
+.page-headerTxt{
+    margin-top: 2% ;
+}
+
 .line-marc-table-icons {
     position: relative;
     width: 15%;
@@ -426,7 +436,7 @@
     margin: 15px;
 }
 .help-in-report {
-    width: 60%;
+    width: 100%;
     padding: 20px;
     margin: 20px;
     margin-left: 0px;
@@ -517,9 +527,8 @@
     height: 30px;
 }
 .table-option {
-    width: 32%;
+    width: 25%;
     float: left;
-    height: 900px;
 }
 .list-table-option {
     font-size: 13px;
@@ -540,13 +549,11 @@
 }
 .height-option {
     height: 40px;
-    text-align: left;
-    margin-left: 10px;
 }
 .container-graph {
     display: none;
     border-style: solid;
-    width: 65%;
+    width: 500px;
     margin: 10px;
     height: 500px;
     border-width: 1px;
@@ -563,7 +570,7 @@
     height: 30px;
 }
 .list-year-cont {
-    width: 22%;
+    width: 20%;
     border-right-style: solid;
     border-width: 1px;
     height: 469px;
@@ -581,14 +588,13 @@
 }
 .field-year-cont {
     margin: 5px;
-    text-align: right;
 }
 .field-num-year {
     width: 20px;
     float: left;
 }
 .graph-year-cont {
-    width: 78%;
+    width: 80%;
     position: relative;
     float: left;
 }
@@ -668,4 +674,3 @@
         float: left;
     }
 }
-
