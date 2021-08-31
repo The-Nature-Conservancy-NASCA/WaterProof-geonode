@@ -217,10 +217,21 @@
                 <a href="../../reports/geographic/">{% trans "Geographic visualization" %}</a>
             </div>
         </div>
+        <div>
+            <br>
+            <h5 textColor="red" style="font-size: 20pt;color: #1389AA;font-weight: bold; margin-top: 18%;">{% trans "If you want to download the results of this analysis from the following icons" %}</h5>
+        </div>
         <div class="report-download">
-            <div class="report-download-pdf" onclick="openPDF()">
+            <div class="col-md-5"></div>
+            <div class="col-md-1 report-download-pdf" onclick="openPDF()">
                 <img src="/static/geonode/img/documents.png"/>
+                <br>
                 PDF
+            </div>
+            <div class="col-md-1 report-download-zip" onclick="downloadZip()">
+                <img src="/static/geonode/img/descarga.png"/>
+                <br>
+                ZIP
             </div>
         </div>
     </div>
@@ -351,6 +362,13 @@ $(function () {
 
     openPDF = function() {
         window.open("../../reports/pdf/?studyCase=" + localStorage.idStudyCase + "&studyCity=" + localStorage.getItem('city') + "&studyCountry=" + localStorage.getItem('country') + "&studyRegion=" + localStorage.getItem('region'))
+    }
+
+    downloadZip = function(){
+        //console.log(filter)
+        var filter = "{{filterzip}}"
+        console.log("este es el filter"+filter)
+        window.open(filter.link, "zipDownload", "width=120,height=300")
     }
     
     changeReport = function() {
