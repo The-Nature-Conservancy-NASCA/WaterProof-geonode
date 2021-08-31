@@ -107,10 +107,24 @@ $(document).ready(function () {
       .then(base64Data => {
         $('#img-legend-left').attr('src', base64Data);
         $('#img-legend-right').attr('src', base64Data);
-        $('#legend-row').show();
+        $('#legend-row').trigger('click')
       })
     
   }
+
+  $(".leaflet-control-layers-selector")[0].parentElement.append($("#legend-left")[0]);
+  $(".leaflet-control-layers-selector")[1].parentElement.append($("#legend-right")[0]);
+  $("#menu3")[0].append($("#map-3")[0]);
+  $('#first_tab').tab('show');
+
+
+  $(".leaflet-control-layers-selector").on('click', function(e){
+    var t = e.currentTarget; 
+    var p = t.parentElement; 
+    l = p.children[p.childElementCount-1]; 
+    l.style.display= (t.checked ? 'block': 'none');
+    
+  });
   
 });
 
