@@ -2120,12 +2120,6 @@ msgid ""
 "We will send an answer as soon as possible. Thank you for your contribution."
 msgstr ""
 
-#: geonode/frequently/templates/frequently/entry_list.html:5
-#: geonode/templates/base.html:542 geonode/templates/frequently/entry_list.html:6
-#: geonode/templates/frequently/entry_list.html:9
-msgid "FAQ"
-msgstr ""
-
 #: geonode/frequently/templates/frequently/entry_list.html:6
 #: geonode/frequently/templates/frequently/plugin.html:2
 #: geonode/templates/frequently/entry_list.html:11
@@ -7551,16 +7545,6 @@ msgstr ""
 msgid "About Waterproof"
 msgstr "About GeoNode."
 
-#: geonode/templates/base.html:543
-msgid "Terms and conditions"
-msgstr ""
-
-#: geonode/templates/base.html:544
-#, fuzzy
-#| msgid "Privacy &#038; Cookies Policy"
-msgid "Privacy policy"
-msgstr "Privacy &#038; Cookies Policy"
-
 #: geonode/templates/base.html:545 geonode/templates/collaborators.html:14
 msgid "Collaborators"
 msgstr ""
@@ -8203,18 +8187,6 @@ msgid ""
 "evapotranspiration variable are scarce, since this variable is generally "
 "inferred from data such as temperature, relative humidity, radiation, among "
 "others."
-msgstr ""
-
-#: geonode/templates/index.html:324
-msgid "WATERPROOF WIKI"
-msgstr ""
-
-#: geonode/templates/index.html:328
-msgid "Knowledge bank"
-msgstr ""
-
-#: geonode/templates/index.html:331
-msgid "Check here the conceptual elements that Waterproof uses to propose"
 msgstr ""
 
 #: geonode/templates/index.html:332
@@ -9134,12 +9106,6 @@ msgstr "Connect with"
 #: geonode/templates/socialaccount/snippets/remaining_providers_list.html:23
 msgid "Sign up with"
 msgstr "Sign up with"
-
-#: geonode/templates/take_action.html:5
-#, fuzzy
-#| msgid "Sections"
-msgid "Take action"
-msgstr "Sections"
 
 #: geonode/templates/take_action.html:16
 #, fuzzy
@@ -10382,14 +10348,6 @@ msgstr ""
 msgid "Options"
 msgstr "Optional"
 
-#: geonode/templates/waterproof_intake/intake_login_error.html:10
-#: geonode/templates/waterproof_nbs_ca/waterproofnbsca_confirm_delete.html:10
-#: geonode/templates/waterproof_nbs_ca/waterproofnbsca_login_error.html:10
-#, fuzzy
-#| msgid "Permission Denied"
-msgid "Permission denied"
-msgstr "Permission Denied"
-
 #: geonode/templates/waterproof_nbs_ca/waterproofnbsca_clone.html:13
 #: geonode/templates/waterproof_nbs_ca/waterproofnbsca_detail_list.html:9
 #: geonode/templates/waterproof_nbs_ca/waterproofnbsca_edit.html:13
@@ -10810,22 +10768,18 @@ msgid "To support the time step, you must enable the OGC_SERVER DATASTORE option
 msgstr "To support the time step, you must enable the OGC_SERVER DATASTORE option"
 
 #: geonode/upload/utils.py:261
-#, python-format
 msgid "Unsupported file type: %s"
 msgstr "Unsupported file type: %s"
 
 #: geonode/upload/utils.py:526
-#, python-format
 msgid "File does not exist: %s"
 msgstr "File does not exist: %s"
 
 #: geonode/upload/utils.py:583
-#, python-format
 msgid "unknown item state: %s"
 msgstr "unknown item state: %s"
 
 #: geonode/upload/utils.py:591
-#, python-format
 msgid "error during import: %s"
 msgstr "error during import: %s"
 
@@ -10842,8 +10796,8 @@ msgid "Invalid permission level."
 msgstr "Invalid permission level."
 
 #: geonode/utils.py:977
-msgid "Permission Denied"
-msgstr "Permission Denied"
+msgid "Permission - Denied"
+msgstr "Permission - denied"
 
 #~ msgid "Open Data:"
 #~ msgstr "Open Data:"
@@ -11853,3 +11807,120 @@ msgstr "Permission Denied"
 
 #~ msgid "you"
 #~ msgstr "you"
+
+#~ msgid "What is WaterProof?"
+#~ msgstr "What is WaterProof?"
+
+#~ msgid "This platform will provide a rapid and indicative NbS investment portfolio and associated ROI. The tool is intended to engage actors interested in exploring solutions to local water challenges and prioritization of locations for possible NbS water security programs (such as Water Funds)."
+#~ msgstr "This platform will provide a rapid and indicative NbS investment portfolio and associated ROI. The tool is intended to engage actors interested in exploring solutions to local water challenges and prioritization of locations for possible NbS water security programs (such as Water Funds)."
+
+#~ msgid "Before starting"
+#~ msgstr "Before starting"
+
+#~ msgid "What is a case study?"
+#~ msgstr "What is a case study?"
+
+#~ msgid "Support data"
+#~ msgstr "Support data"
+
+#~ msgid "See an example"
+#~ msgstr "See an example"
+
+#~ msgid "Who can use the system?"
+#~ msgstr "Who can use the system?"
+
+#~ msgid "Why use WaterProof?"
+#~ msgstr "Why use WaterProof?"
+
+#~ msgid "FAST"
+#~ msgstr "Fast"
+
+#~ msgid "Rapidly develop a pre-feasibility understanding for how NbS can generate water security outcomes"
+#~ msgstr "Rapidly develop a pre-feasibility understanding for how NbS can generate water security outcomes"
+
+#~ msgid "COMPELLING"
+#~ msgstr "Compelling"
+
+#~ msgid "Clear analytics to promote stakeholder conversations"
+#~ msgstr "Clear analytics to promote stakeholder conversations"
+
+#~ msgid "CUSTOMIZABLE"
+#~ msgstr "Customizable"
+
+#~ msgid "Platform offers flexibility to define custom elements & parameters to approximate your local conditions"
+#~ msgstr "Platform offers flexibility to define custom elements & parameters to approximate your local conditions"
+
+#~ msgid "FREE"
+#~ msgstr "Free"
+
+#~ msgid "We are committed to equipping local NbS champions with the information"
+#~ msgstr "We are committed to equipping local NbS actors with the information"
+
+#~ msgid "How does WaterProof work?"
+#~ msgstr "How does WaterProof work?"
+
+#~ msgid "Find Your city"
+#~ msgstr "Find Your city"
+
+#~ msgid "Select / create your Nbs"
+#~ msgstr "Select / create your Nbs"
+
+#~ msgid "Configure water intakes"
+#~ msgstr "Configure water intakes"
+
+#~ msgid "Define infrastructure"
+#~ msgstr "Define infrastructure"
+
+#~ msgid "Create a case study"
+#~ msgstr "Create a case study"
+
+#~ msgid "Analize outputs"
+#~ msgstr "Analize outputs"
+
+#~ msgid "Realize the Investment"
+#~ msgstr "Realize the Investment"
+
+#~ msgid "Step beyond ROI assessment to learn about tangible steps you can take for advancing your NbS investment vision"
+#~ msgstr "Step beyond ROI assessment to learn about tangible steps you can take for advancing your NbS investment vision"
+
+#~ msgid "Take action"
+#~ msgstr "Take action"
+
+#~ msgid "WATERPROOF WIKI"
+#~ msgstr "WATERPROOF INFO"
+
+#~ msgid "Knowledge bank"
+#~ msgstr "Knowledge bank"
+
+#~ msgid "Check here the conceptual elements that Waterproof uses to propose"
+#~ msgstr "Check here the conceptual elements that WaterProof uses to propose"
+
+#~ msgid "Nature based Solutions and calculate the return on your investment"
+#~ msgstr "Nature based Solutions and calculate the return on your investment"
+
+#~ msgid "FAQ"
+#~ msgstr "FAQ"
+
+#~ msgid "Terms and conditions"
+#~ msgstr "Terms and conditions"
+
+#~ msgid "Privacy policy"
+#~ msgstr "Privacy policy"
+
+#~ msgid "Begin your Nature based Solutions journey"
+#~ msgstr "Begin your Nature based Solutions journey"
+
+#~ msgid "Explore how Nature-based Solutions can generate outcomes in your catchment."
+#~ msgstr "Explore how Nature based Solutions can generate outcomes in your catchment."
+
+#~ msgid "Start now"
+#~ msgstr "Start now"
+
+#~ msgid ""
+#~ msgstr ""
+
+#~ msgid ""
+#~ msgstr ""
+
+#~ msgid ""
+#~ msgstr ""
