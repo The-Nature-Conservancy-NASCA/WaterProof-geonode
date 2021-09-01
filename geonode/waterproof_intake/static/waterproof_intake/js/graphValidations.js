@@ -91,7 +91,8 @@ function updateStyleLine(graph, cell, type) {
                     })
 
                     let resultDbObj = JSON.parse(result);
-                    if (type.style == 'PIPELINE' || type.style == 'CHANNEL'){
+// A.R. 31/08/2021                    
+                    if (type.style == 'PIPELINE' || type.style == 'CHANNEL' || type.style == 'CONNECTION' ){
                         resultDbObj[0].fields.predefined_transp_water_perc = '';
                         enableBtnValidateCount++;
                         validateTransportedWater('');
@@ -199,7 +200,8 @@ function addData(element) {
         $('#titleCostFunSmall').attr("valueid", element.id);
         $('#titleCostFunSmall').text(`ID: ${element.id} - ${connectionsType[obj.connectorType].name}`);
         $('#idDiagram').val(element.id);
-        if (element.style == 'PIPELINE' || element.style == 'CHANNEL'){
+ //A.R 31082021
+        if (element.style == 'PIPELINE' || element.style == 'CHANNEL' || element.style == 'CONNECTION'){
             validateTransportedWater(dbfields[0].fields.predefined_transp_water_perc);            
         }
         addData2HTML(dbfields, element);        
