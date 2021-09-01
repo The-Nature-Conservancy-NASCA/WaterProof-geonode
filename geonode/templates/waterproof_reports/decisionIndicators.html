@@ -763,7 +763,10 @@ $(function () {
             $.each( data, function( key, value ) {
 
                 if (value.description!="TotalTreatmentCostSavings" && value.description!="TimeFrame" && value.description != "TotalEstimatedInvestment" && value.description!="TotalAreaInterventionSize(Hec)"){
-                    document.getElementById("idRoi").innerHTML = value.value.toFixed(2);
+                    document.getElementById("idRoi").innerHTML = parseInt(value.value);
+                    //value.value.toFixed(2);
+                    console.log(value.value);
+                    console.log(parseInt(value.value));                    
                     var nameButtom = value.description.split("::");
                     if(nameButtom[1] === "Dark Green") {
                         document.getElementById("idBtnRoi").style.backgroundColor = "#155816";
