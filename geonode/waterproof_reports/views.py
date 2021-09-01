@@ -651,8 +651,7 @@ def pdf(request):
 
     for item in data:
         if item['description'] != "TotalTreatmentCostSavings" and item['description'] !="TimeFrame" and item['description'] != "TotalEstimatedInvestment" and item['description'] !="TotalAreaInterventionSize(Hec)":
-#            valueRoi = str(round(float(item['value']),2))
-            valueRoi = item['value']
+            valueRoi = str(round(float(item['value']),2))
             nameButtom = item['description'].split("::");
             if nameButtom[1] == "Dark Green":
                 backgroundColorR = 21
