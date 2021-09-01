@@ -42,7 +42,7 @@ msgstr ""
 "Project-Id-Version: GeoNode\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-02-11 20:03-0500\n"
-"PO-Revision-Date: 2021-09-01 12:54-0500\n"
+"PO-Revision-Date: 2021-09-01 13:12-0500\n"
 "Last-Translator: Julien Collaer <julien.collaer@opengeode.be>\n"
 "Language-Team: Spanish (http://www.transifex.com/geonode/geonode/language/es/)\n"
 "Language: es\n"
@@ -6782,7 +6782,7 @@ msgstr ""
 
 #: geonode/templates/index.html:340
 msgid "Keep reading"
-msgstr ""
+msgstr "Seguir leyendo"
 
 #: geonode/templates/index.html:382
 msgid "Click to search for geospatial data published by other users, organizations and public sources. Download data in standard formats."
