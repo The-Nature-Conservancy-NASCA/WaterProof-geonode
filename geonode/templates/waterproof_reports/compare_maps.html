@@ -85,7 +85,7 @@
   const region = '{{ region }}';
   const year = '{{ year }}';
   let server = location.protocol + '//' + location.hostname.replace('apps','dev') + ':82/';
-  server = 'http://dev.skaphe.com:82/'
+  server = '/srv/';  //'http://dev.skaphe.com:82/'
   const urlWaterProofLyrsWMS = server + `?map=/etc/mapserver/${baseData}/mapserver.map&SERVICE=WMS`;
 </script>
 {% endblock %}

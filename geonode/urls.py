@@ -102,6 +102,21 @@ urlpatterns = [
 	url(r'^take-action/$',
         TemplateView.as_view(template_name='take_action.html'),
         name='take-action'),	
+	url(r'^nbs_active_restoration/$',
+        TemplateView.as_view(template_name='nbs_active_restoration.html'),
+        name='nbs_active_restoration'),	
+	url(r'^nbs_conservation/$',
+        TemplateView.as_view(template_name='nbs_conservation.html'),
+        name='nbs_conservation'),	
+	url(r'^nbs_forestal_activity/$',
+        TemplateView.as_view(template_name='nbs_forestal_activity.html'),
+        name='nbs_forestal_activity'),	
+	url(r'^nbs_pasive_restoration/$',
+        TemplateView.as_view(template_name='nbs_pasive_restoration.html'),
+        name='nbs_pasive_restoration'),	
+	url(r'^system_instruction/$',
+        TemplateView.as_view(template_name='system_instruction.html'),
+        name='system_instruction'),	
         
     # Meta
     url(r'^sitemap\.xml$', sitemap, {'sitemaps': sitemaps},
@@ -116,8 +131,8 @@ urlpatterns = [
 urlpatterns += [
 
     # path('cms/', include(wagtailadmin_urls)),
-    # path('docs/', include(wagtaildocs_urls)),
-    # path('pages/', include(wagtail_urls)),
+    path('docs/', include(wagtaildocs_urls)),
+    path('pages/', include(wagtail_urls)),
 
     # ResourceBase views
     url(r'^base/', include('geonode.base.urls')),
@@ -343,6 +358,6 @@ urlpatterns += [
 ]
 
 # waterproof_wiki
-#urlpatterns += [
-#    url(r'^wiki/', include('geonode.waterproof_wiki.urls'), name='waterproof_wiki'),
-#]
+urlpatterns += [
+    url(r'^wiki/', include('geonode.waterproof_wiki.urls'), name='wiki'),
+]
