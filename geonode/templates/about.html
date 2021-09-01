@@ -9,25 +9,27 @@
   <img src= "{% static 'geonode/img/2-IMAGEN.jpg' %}">
 </div>
 <section class="About-waterproof">
-  <div class="page-header colorHeaderInstrucciones">
-    <h2>{% trans "> About WaterProof platform" %}</h2>
+  <div class="container">
+    <div class="page-header colorHeaderInstrucciones">
+      <h2>{% trans "About WaterProof platform" %}</h2>
+    </div>
+    <p style= "text-align: justify;">
+    {% trans "Watersheds are being degraded around the world, with dire impacts on water security. Nature-based Solutions (NbS) can preserve or restore degraded watersheds, thereby addressing critical water security issues, however today there is a lack of sufficient uptake and investment. This is in part due to the complexity and time required to demonstrate an NbS portfolio’s positive return on investment (ROI) for water security outcomes, a significant first step required for unlocking at-scale funding commitments by public and private sector water actors." %}
+    </p>
+    <p style= "text-align: justify;">
+    {% trans "The WaterProof platform has been developed to provide users with a rapid and indicative NbS investment portfolio and associated ROI. The tool is intended to engage actors interested in exploring green infrastructure solutions to local water challenges and provide program sponsors with a pre-feasibility level of ROI estimation. Specifically, the system virtualizes a series of natural capital ecosystem service models developed by the Stanford Natural Capital Project (InVEST and RIOS) and pre-formats relevant global data sets to radically reduce the time, cost, and resources required for NbS portfolio ROI assessments." %}
+    </p>
+    <p style= "text-align: justify;">
+    {% trans "Key outputs provided to users include summary watershed characterization, maps for recommended NbS portfolios, full lifecycle costing, ROI evaluation at pre-feasibility level, and co-benefits estimation. The primary audience for this tool includes individuals concerned with watershed stewardship and water treatment costs at utilities, water stewardship leads at private sector companies who are large water users, and conservation practitioners or managers focused on water security and watershed health." %}
+    </p>
+    <br>
   </div>
-  <p style= "text-align: justify;">
-  {% trans "Watersheds are being degraded around the world, with dire impacts on water security. Nature-based Solutions (NbS) can preserve or restore degraded watersheds, thereby addressing critical water security issues, however today there is a lack of sufficient uptake and investment. This is in part due to the complexity and time required to demonstrate an NbS portfolio’s positive return on investment (ROI) for water security outcomes, a significant first step required for unlocking at-scale funding commitments by public and private sector water actors." %}
-  </p>
-  <p style= "text-align: justify;">
-  {% trans "The WaterProof platform has been developed to provide users with a rapid and indicative NbS investment portfolio and associated ROI. The tool is intended to engage actors interested in exploring green infrastructure solutions to local water challenges and provide program sponsors with a pre-feasibility level of ROI estimation. Specifically, the system virtualizes a series of natural capital ecosystem service models developed by the Stanford Natural Capital Project (InVEST and RIOS) and pre-formats relevant global data sets to radically reduce the time, cost, and resources required for NbS portfolio ROI assessments." %}
-  </p>
-  <p style= "text-align: justify;">
-  {% trans "Key outputs provided to users include summary watershed characterization, maps for recommended NbS portfolios, full lifecycle costing, ROI evaluation at pre-feasibility level, and co-benefits estimation. The primary audience for this tool includes individuals concerned with watershed stewardship and water treatment costs at utilities, water stewardship leads at private sector companies who are large water users, and conservation practitioners or managers focused on water security and watershed health." %}
-  </p>
-  <br>
 </section>
 <section class="About-us">
-  <div class="page-header colorHeaderInstrucciones">
-    <h2>{% trans "About Us" %}</h2>
-  </div>
   <div class="container">
+    <div class="page-header colorHeaderInstrucciones">
+      <h2>{% trans "About Us" %}</h2>
+    </div>  
     <div class="col-md-8">
       <p style= "text-align: justify;">
         {% trans "The Nature Conservancy (TNC) is a global environmental organization dedicated to conserving the lands and waters on which life depends. Guided by science, we create innovative and practical solutions to our world's most pressing challenges so that nature and people can thrive together." %}
@@ -45,13 +47,12 @@
   </div>
 </section>
 <section class="About-models">
-  <div class="page-header colorHeaderInstrucciones">
-    <h2>{% trans "About the models" %}</h2>
-  </div>
-  <div class="container">    
+  <div class="container"> 
+    <div class="page-header colorHeaderInstrucciones">
+      <h2>{% trans "About the models" %}</h2>
+    </div>     
     <div class="col-md-4">
-        <img class="img-responsive center-block" src="{% static 'geonode/img/LogoTNC2.png' %}" alt="InVEST-Naural Capital">  
-    </div> 
+        <img class="img-responsive center-block" src="{% static 'geonode/img/LogoTNC2.png' %}" alt="InVEST-Naural Capital">      
     <div class="col-md-8">
       <p style= "text-align: justify;">
         <a href="https://naturalcapitalproject.stanford.edu/software/invest">InVEST</a> {% trans "enables decision makers to assess quantified tradeoffs associated with alternative management choices and to identify areas where investment in natural capital can enhance human development and conservation. It uses maps (rasters) as sources of information and produces maps as outputs to communicate results in biophysical and/or economic terms." %}
@@ -87,18 +88,21 @@
           </ul>
         </p>
       </div> 
-    </div>
+     </div>
+    </div> 
   </div> 
 </section>
 <section class="About-NbS">
-  <div class="page-header colorHeaderInstrucciones">
-    <h2>{% trans "About Nature based Solutions" %}</h2>
-  </div>
-  <p style= "text-align: justify;">
-    <a href="https://www.iucn.org/theme/nature-based-solutions">Per IUCN</a> {% trans "'Nature-based Solutions are actions to protect, sustainably manage, and restore natural and modified ecosystems that address societal challenges effectively and adaptively, simultaneously providing human well-being and biodiversity benefits'. The WaterProof system specifically targets water security-related societal challenges and evaluates climate outcomes as co-benefits." %}
-         <br>         
-    </p>
-  <div class="container">    
+  <div class="container">
+    <div class="page-header colorHeaderInstrucciones">
+      <h2>{% trans "About Nature based Solutions" %}</h2>
+    </div>
+    <p style= "text-align: justify;">
+      <a href="https://www.iucn.org/theme/nature-based-solutions">Per IUCN</a> {% trans "'Nature-based Solutions are actions to protect, sustainably manage, and restore natural and modified ecosystems that address societal challenges effectively and adaptively, simultaneously providing human well-being and biodiversity benefits'. The WaterProof system specifically targets water security-related societal challenges and evaluates climate outcomes as co-benefits." %}
+          <br>         
+      </p>  
+  </div>    
+  <div class="container">  
     <div class="col-md-8">
       <div class="newstitle">
         <span><b>{% trans "Active Restoration" %}</b></span> 
@@ -130,7 +134,8 @@
     </div> 
     <div class="col-md-4">
       <img class="img-responsive center-block" src="{% static 'geonode/img/02-restauracion-activa.png' %}">  
-  </div> 
+    </div> 
+  </div>
   <div class="container">    
     <div class="col-md-8">
       <div class="newstitle">
@@ -159,28 +164,67 @@
   <div class="container">    
     <div class="col-md-8">
       <div class="newstitle">
-        <span><b>{% trans "Passive restoration %}</b></span> 
+        <span><b>{% trans "Passive restoration"%}</b></span> 
       </div>
       <p style= "text-align: justify;">
-        {% trans "Nature-based solutions supported by conservation refer to actions that seek to conserve current land coverby signing conservation agreements, paying rangers, or fencing off areas. This action does not generate changes in the coverage, but prevents degradation, as would occurin a no-project scenario" %}
+        {% trans "This type of restoration is achieved when strategic assistance actions are carried out to enabledegraded ecosystems toovercome or eliminate factors that prevent their regeneration." %}
       </p>
       <p style= "text-align: justify;">
-        {% trans "Conservation agreements arean efficient and effective instrument for negotiatinginterests and conflicts in watershedsbetween owners of areas of interest for water and biodiversity and the institutions that have clearercompetencies for management and conservation of these areas." %}
+        {% trans "It consists of eliminating the sources of disturbancethat cause deterioration and protecting the project site sufficiently to allownatural recovery processes to occur. " %}
       </p>  
         <p style= "text-align: justify;">
-          {% trans "These agreements become an instrument of trust, reciprocity and articulation between the actors involved: the owners, the authorities of local institutions and the users of ecosystem services, where, through contracts, the protection of areas at risk of degradationis agreed upon.Thus negotiating the non-deforestation of forests and moorlands, and the implementation of agroecological practices such as the removal of cattle from sensitive areas, the establishment of fences along the banks of streams and rivers to preventthe entryof clattleand favor natural regeneration, the construction of infiltration ditches and the application of zero or minimum tillage." %}
-				</p>
-				<p style= "text-align: justify;">
-          {% trans "They can include payments of environmental fees bytheusers of water for human consumption, to be repaidin incentives and compensation for the owners of areas of water interest through long-term agreements or contracts and conditioned to conservation, restoration and productive innovation." %}
-				</p>
-        <p style= "text-align: justify;">
-          {% trans "Conservation agreements are entered into in writing, and it is desirable that they beexpressly, clearly and concisely defined: the object of the contract, including the object of conservation, the actors who sign it, the actions and benefits that they will provide, the commitments and obligations of each of the parties, the threats they face, the penalties for non-compliance with the agreed conditions, the duration of the contract, and the modalities for their renewal and continuity." %}
-				</p>
+          {% trans "This is the least intrusive and least costly level of intervention to achieve ecological restoration. The most common strategy is physical fencing e.g., barbedor electric fencing). Some passive restoration exercises also include installing structures that serve as perches or shelters for animals that are potential seed dispersers in order to attract them and expedite the process. No planting is done in this scheme." %} 
+				</p>				
     </div> 
     <div class="col-md-4">
-      <img class="img-responsive center-block" src="{% static 'geonode/img/01-conservacion.png' %}">  
+      <img class="img-responsive center-block" src="{% static 'geonode/img/05-sistemas-sostenibles.png' %}">  
+    </div> 
   </div> 
-  </div> 
+  <div class="container">  
+    <div class="col-md-8">
+      <div class="newstitle">
+        <span><b>{% trans "Forestal activities" %}</b></span> 
+      </div>
+      <p style= "text-align: justify;">
+        {% trans "Agroforestry activities are defined as a series of technologies for land-use in which trees are combined with agricultural crops and / or pastures to increase and optimize production in a sustained manner. The planting of forest crops and trees is used sequentially and in combination, with the application of soil conservation practices. These practices and systems are designed and executed within the context of a farm management plan, where farmer participation is key." %}
+      </p>
+      <p style= "text-align: justify;">
+        {% trans "These practices can be classified into four large groups:" %}
+      </p>  
+      <p style= "text-align: justify;">
+          <b>{% trans "Agroforestry Systems (trees with crops)" %}</b>
+				  <ul>
+            <li> {% trans "Cultivation in alleys" %} </li>
+						<li> {% trans "Shade trees on perennial crops" %} </li>
+						<li> {% trans "Homegardens" %} </li>
+						<li> {% trans "Improved fallows" %} </li>
+						<li> {% trans "Windbreakers and protective fence" %} </li>
+						<li> {% trans "Mixing perennials with other crops" %} </li>
+						<li> {% trans "Agroforestry forfirewoodproduction" %} </li>
+          </ul>
+       </p>
+       <p style= "text-align: justify;">
+        <b>{% trans "Silvopastoral Systems (trees with livestock)" %}</b>
+        <ul>
+          <li> {% trans "Live fences Pastures with" %} </li>
+					<li> {% trans "Pastures with trees" %} </li>
+					<li> {% trans "Protein banks" %} </li>
+					<li> {% trans "ntegration of animals with wood production" %} </li>
+        </ul>
+     </p>
+     <p style= "text-align: justify;">
+      <b>{% trans "Agrosilvopastoral Systems (trees with crops and livestock)" %}</b>
+      <ul>
+        <li> {% trans "Home gardens with animals" %} </li>
+				<li> {% trans "Rows of shrubs for feeding animals, soil conservation and compost" %} </li>
+				<li> {% trans "Integrated crop, wood and animal production" %} </li>
+      </ul>
+   </p>
+    </div> 
+    <div class="col-md-4">
+      <img class="img-responsive center-block" src="{% static 'geonode/img/04-practicas-agricolas.png' %}">  
+    </div> 
+  </div>
 </section>
 
 {% endblock %}
