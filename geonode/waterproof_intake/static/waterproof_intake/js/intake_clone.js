@@ -449,10 +449,10 @@ $(document).ready(function () {
                 for (const iterator of extractionData.externaldata) {
                     rows += (`<tr>
                                 <th class="text-center" scope="col" name="year_${extractionData.id}" year_value="${iterator.year}">${iterator.year}</th>
-                                <td class="text-center" scope="col"><input type="text" value="${iterator.waterVol}" class="form-control" name="waterVolume_${iterator.year}_${extractionData.id}"></td>
-                                <td class="text-center" scope="col"><input type="text" value="${iterator.sediment}" class="form-control" name="sediment_${iterator.year}_${extractionData.id}"></td>
-                                <td class="text-center" scope="col"><input type="text" value="${iterator.nitrogen}" class="form-control" name="nitrogen_${iterator.year}_${extractionData.id}" ></td>
-                                <td class="text-center" scope="col"><input type="text" value="${iterator.phosphorus}" class="form-control" name="phosphorus_${iterator.year}_${extractionData.id}"></td>
+                                <td class="text-center" scope="col"><input type="number" class="form-control justify-number" value="${iterator.waterVol}" name="waterVolume_${iterator.year}_${extractionData.id}"></td>
+                                <td class="text-center" scope="col"><input type="number" class="form-control justify-number" value="${iterator.sediment}" name="sediment_${iterator.year}_${extractionData.id}"></td>
+                                <td class="text-center" scope="col"><input type="number" class="form-control justify-number" value="${iterator.nitrogen}" name="nitrogen_${iterator.year}_${extractionData.id}" ></td>
+                                <td class="text-center" scope="col"><input type="number" class="form-control justify-number" value="${iterator.phosphorus}" name="phosphorus_${iterator.year}_${extractionData.id}"></td>
                           </tr>`);
                 }
 
