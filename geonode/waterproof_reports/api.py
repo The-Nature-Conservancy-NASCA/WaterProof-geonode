@@ -592,17 +592,25 @@ def getSelectorStudyCasesId(request):
 	information about the treatment plant
 	"""
 	if request.method == 'GET':
+		study_case_id = request.query_params.get('studyCase')
 		con = psycopg2.connect(settings.DATABASE_URL)
 		cur = con.cursor()
-		cur.execute("SELECT ii.name AS selector, si.studycases_id, sc.name  FROM public.waterproof_study_cases_studycases SC INNER JOIN public.waterproof_study_cases_studycases_intakes SI ON (sc.id=si.studycases_id) INNER JOIN public.waterproof_intake_intake II ON (si.intake_id=ii.id) WHERE sc.id = '" + request.query_params.get('studyCase') + "'")
+
+		cur.execute("SELECT ii.name AS selector, ii.id AS intakeid, st_asgeojson(st_centroid(g.geom),2) as center, " + 
+							" si.studycases_id, sc.name  FROM public.waterproof_study_cases_studycases " + 
+							"SC INNER JOIN public.waterproof_study_cases_studycases_intakes SI ON (sc.id=si.studycases_id) INNER JOIN " + 
+							"public.waterproof_intake_intake II ON (si.intake_id=ii.id) LEFT JOIN public.waterproof_intake_polygon g on " + 
+							"(ii.id = g.id) WHERE sc.id = '" + study_case_id + "'")
 
 		rows = cur.fetchall()
 		objects_list = []
 		for row in rows:
 			objects_list.append({
 				"selector":row[0],
-				"studyCasesId":row[1],
-				"studyCasesName":row[2]
+				"intakeId":row[1],				
+				"center" : row[2],
+				"studyCasesId":row[3],
+				"studyCasesName":row[4],				
 			})
 
 		return JsonResponse(objects_list, safe=False)
