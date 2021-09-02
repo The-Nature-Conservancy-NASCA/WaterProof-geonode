@@ -100,7 +100,8 @@
         <div class="help-report" style="border-width: 0px; padding: 0px;">{% trans "Select the basin of your interest from the drop-down list to know a summary of its risks (The risk results have been estimated using the Acueduct - WRI database)" %}</div>
         <div style="text-align: center;">
             <h5>{% trans "Water Intake" %} : 
-            <select class="select-condition" style="width: 800px; text-align: center;" id="idSelectStudyCase"></select>
+            <select class="select-condition" style="width: 800px; text-align: center;" 
+            id="idSelectStudyCase"></select>
         </h5>
         </div>
         <div style="margin-top: 40px;">
@@ -200,10 +201,10 @@
                 <a href="../../reports/financial/">{% trans "Financial indicators" %}</a>
             </div>
             <div style="float: left;width: 25%;">
-                <img src="/static/geonode/img/indicadores-fisicos.png" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;opacity: 30%;" title="{% trans "Physical indicators" %}"/> 
+                <img src="/static/geonode/img/indicadores-fisicos.png" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;" title="{% trans "Physical indicators" %}"/> 
                 <br>
-                <a>{% trans "Physical indicators" %}</a>
-                <!--<a href="../../reports/physical/">{% trans "Physical indicators" %}</a>-->
+                <!--a>{% trans "Physical indicators" %}</a-->
+                <a href="../../reports/physical/{{idx}}">{% trans "Physical indicators" %}</a>
             </div>
             <div style="float: left;width: 25%;" id="idDecisionIndicators">
                 <img src="/static/geonode/img/indicadores-decision.png" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;" title="{% trans "Decision indicators" %}"/>
@@ -211,17 +212,26 @@
                 <a href="../../reports/decision/">{% trans "Decision indicators" %}</a>
             </div>
             <div style="float: left;width: 25%;" id="idGeographicIndicators">
-                <img src="/static/geonode/img/indicadores-geograficos.png" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black; opacity: 30%;" title="{% trans "Geographic visualization" %}"/>
+                <img src="/static/geonode/img/indicadores-geograficos.png" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black" title="{% trans "Geographic visualization" %}"/>
                 <br>
-                <a>{% trans "Geographic visualization" %}</a>
-                <!--a href="../../reports/geographic/">{% trans "Geographic visualization" %}</a-->
+                <a href="../../reports/geographic/">{% trans "Geographic visualization" %}</a>
             </div>
-
+        </div>
+        <div>
+            <br>
+            <h5 textColor="red" style="font-size: 20pt;color: #1389AA;font-weight: bold; margin-top: 18%;">{% trans "If you want to download the results of this analysis from the following icons" %}</h5>
         </div>
         <div class="report-download">
-            <div class="report-download-pdf" onclick="openPDF()">
+            <div class="col-md-5"></div>
+            <div class="col-md-1 report-download-pdf" onclick="openPDF()">
                 <img src="/static/geonode/img/documents.png"/>
+                <br>
                 PDF
+            </div>
+            <div class="col-md-1 report-download-zip" onclick="downloadZip()">
+                <img src="/static/geonode/img/descarga.png"/>
+                <br>
+                ZIP
             </div>
         </div>
     </div>
@@ -352,6 +362,13 @@ $(function () {
 
     openPDF = function() {
         window.open("../../reports/pdf/?studyCase=" + localStorage.idStudyCase + "&studyCity=" + localStorage.getItem('city') + "&studyCountry=" + localStorage.getItem('country') + "&studyRegion=" + localStorage.getItem('region'))
+    }
+
+    downloadZip = function(){
+        //console.log(filter)
+        var filter = "{{filterzip}}"
+        console.log("este es el filter"+filter)
+        window.open(filter.link, "zipDownload", "width=120,height=300")
     }
     
     changeReport = function() {

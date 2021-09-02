@@ -1,0 +1,86 @@
+{% extends "geonode_base.html" %}
+{% load static from staticfiles %}
+
+{% load i18n %}
+{% block title %} {% trans "Forestal activiy" %} — {{ block.super }} {% endblock %}
+
+{% block body_outer %}
+
+<section>
+	<div class="imgheaderpag">
+		<img src="{% static 'geonode/img/2-IMAGEN.jpg' %}">
+	</div>
+</section>
+<section>
+	<div class="page-header colorHeaderInstrucciones">
+		<h2>{% trans "Nature-based Solutions (NbS)" %}</h2>
+	</div>
+	<p class="text-justify">
+		{% trans "Nature-based Solutions (NbS) are ‘actions to protect, sustainably manage, and restore natural or
+		modified ecosystems, that address societal challenges, effectively and adaptively, simultaneously providing
+		human well-being and biodiversity benefits’ (IUCN).The concept of NbS arose out of an increasing recognition of
+		the fundamental role ecosystems play in addressing some of society’s biggest challenges, including enhancing
+		water security, reducing risk of natural disasters, avoiding degradation of natural ecosystems, and mitigating
+		or adapting to the impacts of climate change." %}
+		<br><br>
+		{% trans "NbS can be categorized by both their intervention type and their habitat. There are four major
+		intervention categories: protection, restoration, management and creation. These intervention types can be
+		carried out across a range of habitats, including forests, grasslands, wetlands, agricultural landscapes and
+		cities" %}
+	</p>
+	<div class="newstitle">
+		<span><b>{% trans "Agroforestry activities" %}</b></span>
+	</div>
+	<section>
+		<div class="row" style="height:500px;">
+			<div class="col-md-7 col-md-offset-1">
+				<div class="row alignetextright">
+					<p class="text-justify">
+						{% trans "Agroforestry activities are defined as a series of technologies for land-use in which
+						trees are combined with agricultural crops and / or pastures to increase and optimize production
+						in a sustained manner. The planting of forest crops and trees is used sequentially and in
+						combination, with the application of soil conservation practices. These practices and systems
+						are designed and executed within the context of a farm management plan, where farmer
+						participation is key." %}
+					</p>
+					<p class="text-justify">
+						{% trans "These practices can be classified into four large groups:" %}
+					</p>
+					<p class="text-justify"> <b>
+							{% trans "Agroforestry Systems (trees with crops)" %}</b>
+					</p>
+					<ul>
+						<li> {% trans "Cultivation in alleys" %} </li>
+						<li> {% trans "Shade trees on perennial crops" %} </li>
+						<li> {% trans "Homegardens" %} </li>
+						<li> {% trans "Improved fallows" %} </li>
+						<li> {% trans "Windbreakers and protective fence" %} </li>
+						<li> {% trans "Mixing perennials with other crops" %} </li>
+						<li> {% trans "Agroforestry forfirewoodproduction" %} </li>
+					</ul>
+					<p class="text-justify"> <b>
+						{% trans "Silvopastoral Systems (trees with livestock)" %}</b>
+					</p>
+					<ul>
+						<li> {% trans "Live fences•Pastures with" %} </li>
+						<li> {% trans "Pastures with trees" %} </li>
+						<li> {% trans "Protein banks" %} </li>
+						<li> {% trans "ntegration of animals with wood production" %} </li>
+					</ul>
+					<p class="text-justify"> <b>
+					{% trans "Agrosilvopastoral Systems (trees with crops and livestock)" %}</b>
+					</p>
+					<ul>
+						<li> {% trans "Home gardens with animals" %} </li>
+						<li> {% trans "Rows of shrubs for feeding animals, soil conservation and compost" %} </li>
+						<li> {% trans "Integrated crop, wood and animal production" %} </li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="row" style="height:30px;">
+		</div>
+	</section>
+</section>
+
+{% endblock %}

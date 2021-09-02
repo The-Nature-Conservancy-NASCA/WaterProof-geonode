@@ -952,13 +952,9 @@ msgstr ""
 "Represents a big reservoir, or structure that contains a large water "
 "reservoir, where river waters are stored."
 
-#: template/intake_form.html:685
-msgid ""
-"Represents pumping mechanisms to pump water to deliver it to another element "
-"of the water intake system."
-msgstr ""
-"Represents pumping mechanisms to absorb water to deliver it to another "
-"element of the water intakesystem."
+#: template/intake_form.html:654
+msgid "Represents pumping mechanisms to pump water to deliver it to another element of the water intake system."
+msgstr "Represents pumping mechanisms to absorb water to deliver it to another element of the water intake system."
 
 #: template/intake_form.html:690
 msgid "Represents a reservoir, in which water is deposited."
@@ -1310,61 +1306,118 @@ msgstr ""
 msgid "Permission denied"
 msgstr "Permission denied"
 
-#: views.py:54 views.py:74 views.py:93 views.py:113 views.py:134
-msgid "Error saving intake"
-msgstr ""
+#: template/intake_form.html:877
+msgid "or"
+msgstr "or"
 
-#~ msgid ""
-#~ "Please indicate the demand (extraction) of water that you make from your "
-#~ "water intake, for this you can rely on the system interpolation tool or "
-#~ "enter it manually."
-#~ msgstr ""
-#~ "Please indicate the demand (extraction) of water that you make from your "
-#~ "water intake, for this you can rely on the system interpolation tool or "
-#~ "enter it manually."
+#: template/intake_form.html:102
+msgid "Water intake location"
+msgstr "Water intake location"
 
-#~ msgid ""
-#~ "*You have defined external water inlets to your water inteake system. For "
-#~ "each of them, you must define the annual volume of water (m3), the annual "
-#~ "sediment load (tons), the annual nitrogen load (kg) and the annual "
-#~ "phosphorus load (kg).*"
-#~ msgstr ""
-#~ "*You have defined external water inlets to your water inteake system. For "
-#~ "each of them, you must define the annual volume of water (m3), the annual "
-#~ "sediment load (tons), the annual nitrogen load (kg) and the annual "
-#~ "phosphorus load (kg).*"
+#: template/intake_form.html:38
+msgid "Infrastructure"
+msgstr "Infrastructure"
 
-#~ msgid ""
-#~ "helps you identify the most precise location of your water intake (you "
-#~ "can move the icon"
-#~ msgstr ""
-#~ "helps you identify the most precise location of your water intake (you "
-#~ "can move the icon"
+#: template/intake_form.html:48
+msgid "External input"
+msgstr "External input"
 
-#~ msgid "Tubing:"
-#~ msgstr "Piping:"
+#: template/intake_form.html:53
+msgid "NbS area"
+msgstr "NbS area"
 
-#~ msgid "external inputs"
-#~ msgstr "external inputs"
+#: template/intake_form.html:119
+msgid "Water intake infrastructure setup"
+msgstr "Water intake infrastructure setup"
 
-#~ msgid ""
-#~ "From this section you can view the water intakes created in the system "
-#~ "associated with a city of interest. You can search for intakes of "
-#~ "different cities from 'Search city'. The system will show you a list of "
-#~ "cities with matches around the world. Select the appropriate option from "
-#~ "the list. "
-#~ msgstr ""
-#~ "From this section you can view the water intakes created in the system "
-#~ "associated with a city of interest. You can search for intakes of "
-#~ "different cities from 'Search city'. The system will show you a list of "
-#~ "cities with matches around the world. Select the appropriate option from "
-#~ "the list. "
+#: template/intake_form.html:122
+msgid "In this section you can build your water intake infrastructure and define operating cost functions. Note that in the drawing panel shows the river from which the water comes and that a series of icons representing the elements that can be part of your catchment system are provided."
+msgstr "In this section you can build your water intake infrastructure and define operating cost functions. Note that in the drawing panel shows the river from which the water comes and that a series of icons representing the elements that can be part of your catchment system are provided. Click on the element that you want to incorporate into your scheme and then click on the graphic panel to include the desired element. Then establish the connections between the elements to define their topology."
 
-#~ msgid ""
-#~ "You can also create your own basin associated with a city. To do so, "
-#~ "search for the city with which you will associate your basin and then "
-#~ "click on the 'Create new water intake' button."
-#~ msgstr ""
-#~ "You can also create your own basin associated with a city. To do so, "
-#~ "search for the city with which you will associate your basin and then "
-#~ "click on the 'Create new water intake' button."
+#: template/intake_form.html:126
+msgid "Select the elements that make up your capture system and click on the drawing area to add them; when finished, click validate graph."
+msgstr "Select the elements that make up your capture system and click on the drawing area to add them; when finished, click validate graph."
+
+#: template/intake_list.html:34
+msgid "From this section you can view the water intakes created in the system associated with a city of interest. You can search for intakes of different cities from 'Search city'. The system will show you a list of cities with matches around the world. Select the appropriate option from the list. "
+msgstr "From this section you can view the water intakes created in the system associated with a city of interest. You can search for intakes of different cities from 'Search city'. The system will show you a list of cities with matches around the world. Select the appropriate option from the list. "
+
+#: template/intake_list.html:35
+msgid "You can also create your own basin associated with a city. To do so, search for the city with which you will associate your basin and then click on the 'Create new water intake' button."
+msgstr "You can also create your own basin associated with a city. To do so, search for the city with which you will associate your basin and then click on the 'Create new water intake' button."
+
+#: template/intake_form.html:195
+msgid "The elements of the collection system have associated operating costs, you can modify them, discard them or add new costs"
+msgstr "The elements of the collection system have associated operating costs, you can modify them, discard them or add new costs"
+
+#: template/intake_form.html:460
+msgid "Cost function name"
+msgstr "Cost function name"
+
+#: template/intake_form.html:464
+msgid "Cost function description"
+msgstr "Cost function description"
+
+#: template/intake_form.html:494
+msgid "Syntax keyboard"
+msgstr "Syntax keyboard"
+
+#: template/intake_form.html:496
+msgid "Basic"
+msgstr "Basic"
+
+#: template/intake_form.html:497
+msgid "Advanced"
+msgstr "Advanced"
+
+#: template/intake_form.html:223
+msgid "Water demand"
+msgstr "Water demand"
+
+#: template/intake_form.html:226
+msgid "Please indicate the demand (extraction) from your catchment. You can use the interpolation tool of the system or enter it manually."
+msgstr "Please indicate the demand (extraction) from your catchment. You can use the interpolation tool of the system or enter it manually."
+
+#: template/intake_form.html:258
+msgid "Number of years for time series  (10-100) Year"
+msgstr "Number of years for time series  (10-100) Year"
+
+#: template/intake_form.html:281
+msgid "Clic the following button to calculate the wather extraction in each year"
+msgstr "Clic the following button to calculate the water extraction in each year"
+
+#: template/intake_form.html:313
+msgid "Number of years  (10-100) Year"
+msgstr "Number of years  (10-100) Year"
+
+#: template/intake_form.html:381
+msgid "NbS implementation area"
+msgstr "NbS implementation area"
+
+#: template/intake_form.html:381
+msgid "To delimit the area within the basin in which it is possible to implement your Nature-Based Solutions, click on the 'Delimit NBS implementation area' button. The system will show you the polygon highlighted in red with vertices that you can move. The system will validate that your polygon is not outside the watershed."
+msgstr "To delimit the area within the basin in which it is possible to implement your Nature-Based Solutions, click on the 'Delimit NBS implementation area' button. The system will show you the polygon highlighted in red with vertices that you can move. The system will validate that your polygon is not outside the watershed."
+
+#: template/intake_form.html:381
+msgid "When you have finished making your changes, click on the 'Validate area' button."
+msgstr "When you have finished making your changes, click on the 'Validate area' button."
+
+#: template/intake_form.html:381
+msgid "edit"
+msgstr "Edit"
+
+#: template/intake_form.html:381
+msgid "view"
+msgstr "View"
+
+#: template/intake_form.html:381
+msgid "clone"
+msgstr "Clone"
+
+#: template/intake_form.html:381
+msgid "report"
+msgstr "Report"
+
+#: template/intake_form.html:381
+msgid "delete"
+msgstr "Delete"

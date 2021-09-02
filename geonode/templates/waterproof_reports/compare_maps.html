@@ -1,13 +1,12 @@
 {% extends "menu.html" %}
 {% load i18n %}
-{% block title %}{% trans "Water Intakes" %}{% endblock %}
+{% block title %}{% trans "Maps Reports" %}{% endblock %}
 {% load i18n %}
 {% load static from staticfiles %}
 {% load bootstrap_tags %}
-<h1>{% trans "Water Intakes" %}</h1>
+<h1>{% trans "Maps Reports" %}</h1>
 
 {% block extra_head %}
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
 
 <style type="text/css">
 
@@ -19,46 +18,124 @@
         border-radius: 0.5em;
         border-color: #aaa;
     }
+
+    .title-inform {
+        margin-top: 50px;
+        font-size: 14px;
+    }
+    .inform-section {
+        width: 200px;
+        color: #ffffff;
+        text-align: center;        
+        border-style: solid;
+        border-color: #1a6784;
+        border-width: 1px;
+        border-bottom-style: none;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+        float: left;
+        margin-right: 3px;
+        cursor: pointer;
+        font-size: 12px;
+        height: 40px;
+    }
+    
+    li.active > a {
+        background-color: #1389AA !important;
+        color: #fff !important;        
+    }
+
+    .inform-section-free {
+        background-color: #ffffff;
+        color: #3a809a;
+    }
+    .contain-detail {
+        margin-top: 50px;
+        right: 50px;
+        position: relative;
+    }
+
+    .inform-section > a{
+        border: 0px solid #fff !important;
+        margin-right: 0px !important; 
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;      
+    }
+    
+    
 </style>
 
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_nbs_ca/css/dataTables.bootstrap.min.css">
+<link rel="stylesheet" href="{% static "geonode/css/sidenav.css" %}"/>
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_nbs_ca/css/waterproof_nbs_ca.css">
 
-<script>
-    
-</script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
+
 {% endblock %}
 
 {% block body_outer %}
 
-<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_nbs_ca/css/dataTables.bootstrap.min.css">
-<link href="{% static "geonode/css/sidenav.css" %}" rel="stylesheet" />
-<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_nbs_ca/css/waterproof_nbs_ca.css">
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
+
 <div class="header-waterproof">    
-    
-    <div class="row">
-        <div class="col-md-6">
-            <div id="map-left" class="map__compare"></div>
-        </div>
-        <div class="col-md-6">
-            <div id="map-right" class="map__compare"></div>
-        </div>
+    <div class="page-header" style="margin-bottom: 0px;height: 50px;margin-top: 0px;">
+        <h1 style="font-size: 20pt;color: #1389AA;">{% trans "Map Reports" %}</h1>
     </div>
-    <div class="row" id="legend-row" style="display: none;">
-        <div class="col-md-6">
-            <div id="legend-left" class="legend__compare">
-                <img src="" alt="legend" id="img-legend-left"/>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div id="legend-right" class="legend__compare"></div>
-            <img src="" alt="legend" id="img-legend-right"/>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-10">
-            <div id="map" class="map__compare"></div>
+    <div style="position: relative; border: 1px; border-style: solid; margin-bottom: 10px; border-color: #1389AA;">
+        <div class="help-in-report" style="border-color: transparent;">
+            {% trans "This report summarizes the Maps Reports... Lorep Ipsum ..." %}
         </div>        
-    </div>   
+    </div>
+
+    <div>
+        <ul class="nav nav-tabs">
+            <li id="first_tab" class="inform-section active"><a data-toggle="tab" href="#menu1">{% trans "Return of investment (ROI)" %}</a></li>
+            <li class="inform-section"><a data-toggle="tab" href="#menu2">{% trans "Net Present Value (NPV)" %}</a></li>
+            <li class="inform-section"><a data-toggle="tab" href="#menu3">{% trans "Sensitivity Analysis" %}</a></li>
+          </ul>
+          
+            <div class="tab-content">
+                <div id="menu1" class="tab-pane fade in active">
+                    <h3>Menu 1</h3>
+                    <div class="row">        
+                        <div class="col-md-6">
+                            <div id="map-left" class="map__compare"></div>
+                        </div>
+                    <div class="col-md-6">
+                        <div id="map-right" class="map__compare"></div>
+                    </div>
+                    </div>
+                    <div class="row" id="legend-row" style="display: none;">
+                    <div class="col-md-6">
+                        <div id="legend-left" class="legend__compare">
+                            <img src="" alt="legend" id="img-legend-left"/>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div id="legend-right" class="legend__compare">
+                            <img src="" alt="legend" id="img-legend-right"/>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                <div id="menu2" class="tab-pane fade">
+                    <h3>Menu 2</h3>
+                    <p>Some content in menu 1.</p>
+                </div>
+                <div id="menu3" class="tab-pane fade">
+                    <h3>Menu 3</h3>
+                    
+                </div>
+            </div>
+            <div id="map-3" class="row">
+                <div class="col-md-10">
+                    <div id="map" class="map__compare"></div>
+                </div>        
+            </div>
+    </div>
+
+    
+    
+      
     
 </div>
 
@@ -85,7 +162,7 @@
   const region = '{{ region }}';
   const year = '{{ year }}';
   let server = location.protocol + '//' + location.hostname.replace('apps','dev') + ':82/';
-  server = '/srv/';  //'http://dev.skaphe.com:82/'
+  server = 'https://dev.skaphe.com/srv/'; //'/srv/';  
   const urlWaterProofLyrsWMS = server + `?map=/etc/mapserver/${baseData}/mapserver.map&SERVICE=WMS`;
 </script>
 {% endblock %}

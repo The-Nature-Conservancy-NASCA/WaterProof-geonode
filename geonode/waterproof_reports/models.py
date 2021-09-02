@@ -98,6 +98,9 @@ class investIndicators(models.Model):
     bf_m3 = models.FloatField(null=True, blank=True, default=None, verbose_name=_('BfM3'))
     wc_ton = models.FloatField(null=True, blank=True, default=None, verbose_name=_('WcTon'))
 
+class zip(models.Model):
+    study_case_id = models.ForeignKey(StudyCases, on_delete=models.CASCADE)
+    link = models.CharField(max_length=200, blank=False)
 class resultRoi(models.Model):
     currency = models.CharField(max_length=4, blank=True, null=True)
     roi_without_discount = models.FloatField()
