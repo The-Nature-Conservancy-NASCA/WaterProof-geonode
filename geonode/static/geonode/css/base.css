@@ -2009,6 +2009,55 @@ pre code {
     margin-left: 0%;
   }
 }
+@media (min-width: 768px){
+  .iconsWhatIsWP{
+    width: 20% !important;
+    height: 20% !important;
+    align-items: left !important;
+  }
+  .divCenter{
+    text-align: left !important;
+  }
+  .buttonWhatIsWP{
+    left: 30% !important;
+    bottom: 10% !important;
+    width: 65% !important;
+    height: 35% !important;
+    top: 35% !important;
+  }
+}
+@media (min-width: 992px){
+  .iconsWhatIsWP{
+    width: 60% !important;
+    height: 80px !important;
+  }
+  .divCenter{
+    text-align: center !important;
+  }
+  .buttonWhatIsWP{
+    left: 0% !important;
+    top: 100% !important;
+    bottom: 10% !important;
+    width: 95% !important;
+    height: 60% !important;
+  }
+}
+@media (min-width: 1200px){
+  .iconsWhatIsWP{
+    width: 60% !important;
+    height: 100px !important;
+  }
+  .divCenter{
+    text-align: center !important;
+  }
+  .buttonWhatIsWP{
+    left: 0% !important;
+    top: 100% !important;
+    bottom: 10% !important;
+    width: 95% !important;
+    height: 55% !important;
+  }
+}
 @media (min-width: 992px) {
   .col-md-1,
   .col-md-2,
@@ -3010,6 +3059,7 @@ select[multiple].input-lg {
   margin-bottom: 10px;
   color: #737373;
 }
+
 @media (min-width: 768px) {
   .form-inline .form-group {
     display: inline-block;
@@ -8551,6 +8601,14 @@ form-inline {
   text-align: center;
   padding: 3%;
 }
+.iconWhyUsegif{
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  text-align: center;
+  padding: 3%;
+  background-image: url(/static/geonode/img/animator-gif-2.gif);
+}
 .iconWhyUse{
   width: 100%;
   height: 100%;
@@ -8636,11 +8694,22 @@ form-inline {
 .menuOrder{
   padding-left: 10% !important;
 }
+.menuOrder1{
+  padding-left: 5% !important;
+}
 .menuPadding{
-  padding-top: 30% !important;
+  padding-top: 35% !important;
+}
+.titleMenuT{
+  padding-top: 2%;
+  padding-left: 5%;
+  padding-right: 5%;
+  color: #0C89AA;
+  font-size: arial !important;
 }
 .titleMenu{
   padding-left: 5%;
+  padding-right: 5%;
 }
 .refImage{
   position: absolute;
