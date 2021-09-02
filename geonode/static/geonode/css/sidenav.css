@@ -102,17 +102,17 @@
 .sidebar-nav li a {
     display: flex;
     text-decoration: none;
-    color: #fff;
+    color: #0C89AA;
     vertical-align: middle;
     align-items: center;
-    background-color: rgba(58, 128, 154, 0.7);
+    /* background-color: rgba(58, 128, 154, 0.7); */
     font-size: 15px;
     border-radius: 0.5rem;
     height: 3.5rem;
     width: 93%;
-    border: 1px solid;
-    border-color: rgba(58, 128, 154, 2.2);
-}
+    /* border: 1px solid; */
+    /* border-color: rgba(58, 128, 154, 2.2); */
+  }
 
 .sidebar-nav li a:hover {
     text-decoration: none;
@@ -164,7 +164,8 @@
         width: 28rem;
         height: 46rem;
         border-radius: 0.5rem;
-        top: 0px;        
+        top: 0px;   
+        background-image: url(/static/geonode/img/city_map.png);
     }
 
     #wrapper.toggled #sidebar-wrapper {
