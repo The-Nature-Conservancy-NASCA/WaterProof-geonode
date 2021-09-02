@@ -8,6 +8,7 @@ $(function () {
         'dom': 'lrtip'
     }
     );
+    var search;
     var countryDropdown = $('#countryNBS');
     var currencyDropdown = $('#currencyCost');
     var transitionsDropdown = $('#riosTransition');
@@ -329,6 +330,17 @@ $(function () {
         }
         //map.on('click', onMapClick);
     }
+    setMultiplicationFactor = function (row, index, factor) {
+        if (row[4] === 'ADMIN') {
+            // Implementation cost 
+            oldImplCost = search.cell({ row: index, column: 7 }).data();
+            search.cell({ row: index, column: 7 }).data((parseFloat(oldImplCost) * parseFloat(factor)).toFixed(2));
+            oldMaintCost = search.cell({ row: index, column: 8 }).data();
+            search.cell({ row: index, column: 8 }).data((parseFloat(oldMaintCost) * parseFloat(factor)).toFixed(2));
+            oldOportCost = search.cell({ row: index, column: 9 }).data();
+            search.cell({ row: index, column: 9 }).data((parseFloat(oldOportCost) * parseFloat(factor)).toFixed(2));
+        }
+    }
     updateGeographicLabels = function (countryCode) {
         $.ajax({
             url: '/parameters/load-countryByCode/',
@@ -338,7 +350,13 @@ $(function () {
             success: function (result) {
                 result = JSON.parse(result);
                 $('#countryLabel').text(result[0].fields.name);
-                table.search(result[0].fields.name).draw();
+                search = table.search('(ADMIN|' + result[0].fields.name + ')', true, true);
+                let filteredData = search.rows({ search: 'applied' }).data();
+                let multiplicatorFactor = result[0].fields.global_multiplier_factor;
+                filteredData.filter(function (element, index) {
+                    return setMultiplicationFactor(element, index, multiplicatorFactor);
+                });
+                search.draw();
                 let countryId = result[0].pk;
                 //udpateCreateUrl(countryId);
                 //
