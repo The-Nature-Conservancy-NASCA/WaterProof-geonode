@@ -2009,6 +2009,45 @@ pre code {
     margin-left: 0%;
   }
 }
+@media (min-width: 360px){
+  .iconsWhatIsWP{
+    width: 20% !important;
+    height: 18% !important;
+    align-items: left !important;
+  }
+  .divCenter{
+    text-align: left !important;
+  }
+  .buttonWhatIsWP{
+    left: 30% !important;
+    bottom: 10% !important;
+    width: 65% !important;
+    height: 35% !important;
+    top: 35% !important;
+  }
+  .iconWhyUse{
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    text-align: center;
+    padding: 3%;
+    display: none !important;
+  }
+  .imgbackgroundSystemop{
+    background: url() !important;
+    height: 800px !important;
+    min-height: 100%;
+    min-width: 100%;
+    background-repeat: round;
+    background-size:cover;
+  }
+  .text-center {
+    text-align: center;
+  }
+  .responsive{
+    display: none !important;
+  }
+}
 @media (min-width: 768px){
   .iconsWhatIsWP{
     width: 20% !important;
@@ -2051,6 +2090,10 @@ pre code {
     border:none;
     text-align: center;
    } */
+   .responsive{
+     font-size: 17px !important;
+    /* display: none !important; */
+  }
 }
 @media (min-width: 992px){
   .iconsWhatIsWP{
@@ -2083,6 +2126,16 @@ pre code {
     background-repeat: round;
     background-size:cover;
   }
+  .responsive{
+    font-size: 17px !important;
+    display: table !important;
+  }
+  .menuOrder1{
+    padding-left: 2% !important;
+  }
+  .menuPadding{
+    padding-top: 50% !important;
+  }
 }
 @media (min-width: 1200px){
   .iconsWhatIsWP{
@@ -2114,6 +2167,10 @@ pre code {
     min-width: 100%;
     background-repeat: round;
     background-size:cover;
+  }
+  .responsive{
+    font-size: 1.17em !important;
+    display: table !important;
   }
 }
 @media (min-width: 992px) {
@@ -9074,7 +9131,7 @@ top:50px;
 
 @media (min-width: 768px) {
   #map{
-      width: 580px !important;
+      width: 100% !important;
       border: 2px solid;        
   } 
 }

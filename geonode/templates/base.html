@@ -302,9 +302,9 @@
             <a href="{% url "about" %}">{% trans "About us" %}</a>
           </li>
           <!--Models-->
-          <li>
+          <!-- <li>
             <a href="{% url "models" %}">{% trans "Models" %}</a>
-          </li>
+          </li> -->
           <!--Take Action-->
           <!--li>
             <a href="{% url "take-action" %}">{% trans "Take Action" %}</a>
@@ -407,7 +407,7 @@
                {% render_nav_menu 'TOPBAR_MENU' %}
             {% endblock my_extra_right_tab %}
 
-            <li>
+            <!-- <li>
               <div class="search">
                 <form id="search" action="{% url "search" %}" >
                   <span class="fa fa-search"></span>
@@ -426,7 +426,7 @@
                   </div>
                 </form>
               </div>
-            </li>
+            </li> -->
             {% if not user.is_authenticated and ACCOUNT_OPEN_SIGNUP and not READ_ONLY_MODE %}
               <li><a href="{% url "account_signup" %}">{% trans "Register" %}</a></li>
             {% endif %}
