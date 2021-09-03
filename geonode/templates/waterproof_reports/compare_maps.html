@@ -85,6 +85,11 @@
             {% trans "This report summarizes the Maps Reports... Lorep Ipsum ..." %}
         </div>        
     </div>
+    <div style="text-align: center;">
+        <h5>{% trans "Water Intake" %} : 
+            <select class="select-condition" style="width: 800px; text-align: center;" id="idSelectStudyCase"></select>
+        </h5>
+    </div>
 
     <div>
         <ul class="nav nav-tabs">
@@ -100,21 +105,33 @@
                         <div class="col-md-6">
                             <div id="map-left" class="map__compare"></div>
                         </div>
-                    <div class="col-md-6">
-                        <div id="map-right" class="map__compare"></div>
+                        <div class="col-md-6">
+                            <div id="map-right" class="map__compare"></div>
+                        </div>
                     </div>
+                    <div>-----</div>
+                    <div id="map-3" class="row">
+                        <div class="col-md-10">
+                            <div id="map-down" class="map__compare"></div>
+                        </div>        
                     </div>
                     <div class="row" id="legend-row" style="display: none;">
-                    <div class="col-md-6">
-                        <div id="legend-left" class="legend__compare">
-                            <img src="" alt="legend" id="img-legend-left"/>
+                        <div class="col-md-4">
+                            <div id="legend-left" class="legend__compare">
+                                <img src="" alt="legend" id="img-legend-left"/>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div id="legend-right" class="legend__compare">
-                            <img src="" alt="legend" id="img-legend-right"/>
+                        <div class="col-md-4">
+                            <div id="legend-right" class="legend__compare">
+                                <img src="" alt="legend" id="img-legend-right"/>
+                            </div>
                         </div>
-                    </div>
+                        <div class="col-md-4">
+                            <div id="legend-down" class="legend__compare">
+                                <img src="" alt="legend" id="img-legend-down"/>
+                            </div>
+                        </div>
+                        
                     </div>
                 </div>
                 <div id="menu2" class="tab-pane fade">
@@ -122,21 +139,21 @@
                     <p>Some content in menu 1.</p>
                 </div>
                 <div id="menu3" class="tab-pane fade">
-                    <h3>Menu 3</h3>
-                    
+                    <h3>Menu 3</h3>                    
                 </div>
-            </div>
-            <div id="map-3" class="row">
-                <div class="col-md-10">
-                    <div id="map" class="map__compare"></div>
-                </div>        
-            </div>
+                <div id="map-analysis-result" class="row">
+                    <div class="col-md-10">
+                        <div id="map-results" class="map__compare"></div>
+                    </div>        
+                </div>
+                <div id="map-areas-rios-container" class="row">
+                    <div class="col-md-10">
+                        <div id="map-areas-rios" class="map__compare"></div>
+                    </div>        
+                </div>
+            </div>            
     </div>
-
-    
-    
-      
-    
+         
 </div>
 
 {% block body %}{% endblock body %} {% block sidebar %}{% endblock sidebar %} {% endblock body_outer %} {% block extra_script %}
@@ -161,8 +178,14 @@
   const intake = '{{ intake }}';
   const region = '{{ region }}';
   const year = '{{ year }}';
+  const studyCaseId = '{{ study_case_id }}';
+  const bbox = '{{ bbox }}';
+  let center = [4, -74];
+  center = '{{ center}}';
+  center = center.split(",");
+
   let server = location.protocol + '//' + location.hostname.replace('apps','dev') + ':82/';
   server = 'https://dev.skaphe.com/srv/'; //'/srv/';  
-  const urlWaterProofLyrsWMS = server + `?map=/etc/mapserver/${baseData}/mapserver.map&SERVICE=WMS`;
+  const urlWaterProofLyrsWMS = server + `?map=/etc/mapserver/mapserver_test.map&SERVICE=WMS&usr_folder=${baseData}&intake=${intake}&year=${year}&region=${region}`;
 </script>
 {% endblock %}
