@@ -5,3 +5,19 @@
 .textCenter{
     text-align: center;
 }
+.listStudyCaseButton{
+  border-radius: 60px;
+  border: 1px solid #0C89AA;
+  background-color: #0C89AA;
+  color: #fff;
+  position: absolute;
+  left: 46%;
+  /*top: 100%;*/
+  /*bottom: 10%;*/
+  width: 10%;
+  height: 5%;
+  padding-top: 0.6%;
+}
+.button-padding{
+  padding-bottom: 3%;
+}
