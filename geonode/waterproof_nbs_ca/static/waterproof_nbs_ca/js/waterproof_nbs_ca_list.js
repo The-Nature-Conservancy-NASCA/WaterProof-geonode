@@ -5,7 +5,13 @@
  */
 $(function () {
     var table = $('#tblNbs').DataTable({
-        'dom': 'lrtip'
+        'dom': 'lrtip',
+        'columnDefs': [
+            {
+                "targets": [4],
+                "visible": false
+            }
+        ]
     }
     );
     var search;

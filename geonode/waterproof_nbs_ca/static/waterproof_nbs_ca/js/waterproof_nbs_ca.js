@@ -48,7 +48,7 @@ $(function () {
                 $(`#selectlanduse${dato}`).css({
                     "display": "block"
                 })
-                
+
             }
         });
         $("#clear_options").click(function () {
@@ -65,7 +65,7 @@ $(function () {
 
 
     };
-    
+
     submitFormEvent = function () {
         console.log('submit event loaded');
         var formData = new FormData();
@@ -255,7 +255,7 @@ $(function () {
                 },
                 success: function (result) {
                     result = JSON.parse(result);
-                    countryId=result[0].pk;
+                    countryId = result[0].pk;
                     updateGeographicLabels(countryCode);
                     $('#countryNBS option[value=' + countryId + ']').attr('selected', true).trigger('click', { mapClick });
 
@@ -290,7 +290,7 @@ $(function () {
             }
         }        //map.on('click', onMapClick);
     }
-    updateGeographicLabels=function(countryCode){
+    updateGeographicLabels = function (countryCode) {
         $.ajax({
             url: '/parameters/load-countryByCode/',
             data: {
@@ -672,8 +672,24 @@ $(function () {
             event.target.value = value;
         }
     }
-
-
+    // Only integers excluding 0
+    checkTimeBenefit = function (event, value) {
+        let regexp = /^[1-9]+[0-9]*$/;
+        valid = regexp.test(value);
+        if (valid) {
+            return true;
+        }
+        else {
+            event.target.value = "1";
+        }
+    }
+    $('#benefitTimePorc').focusout(function (event) {
+        let value = parseFloat(event.target.value.replace(",", "."));
+        if (value <= 0) {
+            this.value = "";
+            this.focus();
+        }
+    });
     checkTime = function (event, value) {
         commaNum = null;
         let regexp = /^(?=.*[0-9])([0-9]{0,12}(?:,[0-9]{1,2})?)$/gm;
