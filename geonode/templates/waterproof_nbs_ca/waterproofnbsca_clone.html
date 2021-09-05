@@ -71,7 +71,7 @@
                 <div class="col-md-6">
                     <label>{% trans "Time required to generate maximun benefit (yr)" %} <span
                             class="text-danger-wp">(*)</span> </label>
-                    <input id="maxBenefitTime" value="{{nbs.max_benefit_req_time|decimalFormat:2}}" onInput="return checkDecimalFormat(event,value)" type="text" class="form-control" data-error='{% trans "Field is required" %}' required>
+                    <input id="maxBenefitTime" value="{{nbs.max_benefit_req_time|decimalFormat:2}}" onInput="return checkTimeBenefit(event,value)" type="text" class="form-control" data-error='{% trans "Field is required" %}' required>
                     <div class="help-block with-errors"></div>
                 </div>
                 <div class="col-md-6">
@@ -86,7 +86,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <label>{% trans "Periodicity of maintenance (yr)" %} <span class="text-danger-wp">(*)</span> </label>
-                    <input id="maintenancePeriod" value="{{ nbs.periodicity_maitenance }}" onInput="return checkTime(event,value)" type="text" class="form-control" data-error='{% trans "Field is required" %}' required>
+                    <input id="maintenancePeriod" value="{{ nbs.periodicity_maitenance }}" onInput="return checkTimeBenefit(event,value)" type="text" class="form-control" data-error='{% trans "Field is required" %}' required>
                     <div class="help-block with-errors"></div>
                 </div>
             </div>
@@ -97,25 +97,25 @@
                 {% if user.professional_role == 'ANALYS' and nbs.added_by.professional_role == 'ADMIN' %}
                     <div class="col-md-4">
                         <label id="implementCostLabel">{% trans "Implementation cost (US$/ha)" %} <span class="text-danger-wp">(*)</span> </label>
-                        <input id="implementCost" value="{{ nbs.unit_implementation_cost|multiplyFactor:userCountry.global_multiplier_factor|decimalFormat:2 }}" type="text" onInput="return checkDecimalFormat(event,value)" 
+                        <input id="implementCost" value="{{ nbs.unit_implementation_cost|multiplyFactor:userCountry.global_multiplier_factor|decimalFormat:2 }}" type="text" onInput="return checkPercentage(event,value)" 
                         class="form-control" data-error='{% trans "Field is required" %}' required>
                         <div class="help-block with-errors"></div>
                     </div>
                     <div class="col-md-4">
                         <label id="maintenanceCostLabel">{% trans "Maintenace cost (US$/ha)" %} <span class="text-danger-wp">(*)</span> </label>
-                        <input id="maintenanceCost" value="{{ nbs.unit_maintenance_cost|multiplyFactor:userCountry.global_multiplier_factor|decimalFormat:2 }}" type="text" onInput="return checkDecimalFormat(event,value)" 
+                        <input id="maintenanceCost" value="{{ nbs.unit_maintenance_cost|multiplyFactor:userCountry.global_multiplier_factor|decimalFormat:2 }}" type="text" onInput="return checkPercentage(event,value)" 
                         class="form-control" data-error='{% trans "Field is required" %}' required>
                         <div class="help-block with-errors"></div>
                     </div>
                     <div class="col-md-4">
                         <label id="oportunityCostLabel">{% trans "Oportunity cost (US$/ha)" %} <span class="text-danger-wp">(*)</span> </label>
-                        <input id="oportunityCost" value="{{ nbs.unit_oportunity_cost|multiplyFactor:userCountry.global_multiplier_factor|decimalFormat:2 }}" type="text" onInput="return checkDecimalFormat(event,value)"  class="form-control" data-error='{% trans "Field is required" %}' required>
+                        <input id="oportunityCost" value="{{ nbs.unit_oportunity_cost|multiplyFactor:userCountry.global_multiplier_factor|decimalFormat:2 }}" type="text" onInput="return checkPercentage(event,value)"  class="form-control" data-error='{% trans "Field is required" %}' required>
                         <div class="help-block with-errors"></div>
                     </div>
                 {% else %}
                     <div class="col-md-4">
                         <label id="implementCostLabel">{% trans "Implementation cost (US$/ha)" %} <span class="text-danger-wp">(*)</span> </label>
-                        <input id="implementCost" value="{{ nbs.unit_implementation_cost|decimalFormat:2}}" type="text" onInput="return checkDecimalFormatZero(event,value)" 
+                        <input id="implementCost" value="{{ nbs.unit_implementation_cost|decimalFormat:2}}" type="text" onInput="return checkPercentage(event,value)" 
                         class="form-control" data-error='{% trans "Field is required" %}' required>
                         <div class="help-block with-errors"></div>
                     </div>
