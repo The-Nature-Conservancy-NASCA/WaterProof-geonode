@@ -8981,9 +8981,7 @@ top:50px;
 }
 
 #analysisOptions{
-  position: absolute;
-  z-index: 999;
-  right: 1px;
+  z-index: 999;  
 }
 
 .img-icon{
@@ -9008,3 +9006,10 @@ top:50px;
   margin-right: auto;
   margin-left: auto;
 }
+
+.div-draw-basin{
+  position: absolute;
+  bottom: 10px;
+  right: 2px;
+}
+
