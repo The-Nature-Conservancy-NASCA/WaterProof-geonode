@@ -39,6 +39,10 @@ def getStudyCaseInfo(request):
         cases=request.GET.getlist('cases[]')
         fields=request.GET.getlist('fields[]')
         filterIndicators = StudyCases.objects.filter(id__in=cases).distinct('id').order_by('-id').values(*fields)
+        filterRoiCase=resultRoi.objects.filter(study_case__in=cases).distinct('study_case_id').order_by('-study_case_id').values('roi_without_discount')
+        dataRoi=list(filterRoiCase)
         data = list(filterIndicators)
+        for idx, element in enumerate(data):
+            element['roi_discount']=dataRoi[idx]['roi_without_discount']
         return JsonResponse(data, safe=False)
 
