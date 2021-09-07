@@ -1,0 +1,12 @@
+{% extends 'waterproof_wiki/layout.html'%}
+
+{%block titulo%}
+    <p>Category: {{categoria.nombre}}</p>
+    <p>{{categoria.descripcion}}</p>
+{% endblock %}
+
+{% block content %}
+
+    {% include 'articulos.html'%}
+
+{% endblock%}

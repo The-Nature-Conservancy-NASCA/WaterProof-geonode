@@ -1,11 +1,4 @@
-.border-table-title {
-    border-style: solid;
-    border-width: 2px;
-    border-color: #1389AA;
-    background-color: #ffffff;
-    margin-bottom: 30px;
-    width: 100%;
-}
+
 .container-step-3{
     border-style: solid;
     border: 3px;
@@ -18,15 +11,6 @@
     border-right: 1px solid;
     border-color: #1389AA;
     margin-bottom: 3%;
-}
-
-.title-table {
-    text-align: center;
-    color: #ffffff;
-    background-color: #1389AA;
-    font-size: 15px;
-    padding: 10px;
-    height: 40px;
 }
 .column-left-table {
     width: calc(50% - 10px);
@@ -47,7 +31,7 @@
     color: #0D385B;
 }
 .file-column-left {
-    position: relative;
+	position: relative;
 }
 .title-file-column-right {
     width: 70%;
@@ -60,10 +44,10 @@
     right: 10px;
 }
 .detail-table {
-    position: relative;
+	position: relative;
 }
 .title-inform {
-    margin-top: 50px;
+	margin-top: 50px;
     font-size: 14px;
 }
 .inform-section {
@@ -152,25 +136,20 @@
     float: left;
 }
 .div-option > input {
-    margin-top: 0px;
-    cursor: pointer;
+	margin-top: 0px;
+	cursor: pointer;
 }
 .div-text {
-    text-align: left;
+	text-align: left;
     margin-left: 20px;
 }
 .content-image {
-    margin-left: 3%;
+    margin-left: 10%;
     width: 350px;
     float: left;
     height: 460px;
 }
-.content-image-graph {
-    margin-top: 3%;
-    width: 350px;
-    float: left;
-    height: 460px;
-}
+
 .content-image > div {
     width: 200px;
     position: relative;
@@ -248,48 +227,39 @@
 .margin-select {
     margin: 15px;
 }
-.select-condition {
-    font-size: 15px;
-    width: 300px;
-    border-style: solid;
-    background: #ffffff;
-    padding-left: 35px;
-    border-color: #1389AA;
-    color: #0D385B;
-}
 .container-general-gauge {
     height: 250px;
     margin: 10px;
 }
 .container-gauge {
-    width: 240px;
+    width: 300px;
     height: 230px;
     margin: 10px;
     float: left;
 }
 .container-gauge > div {
-    width: 250px;
-    height: 160px;
+    width: 300px;
+    height: 200px;
 }
 .report-container {
-    margin-left: 300px;
+    margin-left: 300px !important;
 }
 .report-download {
-    margin-top: 250px;
+    margin-top: 2%;
 }
-.report-download-pdf {
-    width: 50px;
-    left: 50%;
+.report-download-zip{
     position: relative;
-    margin-left: -25px;
     font-size: 12px;
     font-weight: bold;
     text-align: center;
 }
 .report-download-pdf > img {
-    width: 50px;
+    width: 80px;
     cursor: pointer;
-    margin-bottom: 10px;
+}
+.report-download-zip > img {
+    width: 80px;
+    cursor: pointer;
 }
 .conainer-report-main{
     margin-left: 1%;
@@ -313,17 +283,7 @@
     border: 0px !important;
     border-radius: 0px !important;
 }
-.marc-report {
-    width: 23%;
-    font-size: 12px;
-    border-width: 2px;
-    border-style: solid;
-    border-color: #1389AA;
-    padding-bottom: 3px;
-    float: left;
-    margin-right: 1%;
-    margin-left: 1%;
-}
+
 .title-marc {
     text-align: center;
     background-color: #1389AA;
@@ -379,33 +339,12 @@
     margin-top: 50px;
 }
 .page-header{
-    margin-top: 200px;
+    margin-top: 0px;
     border-bottom: transparent;
 }
 
-.line-marc-table-icons {
-    position: relative;
-    width: 15%;
-    font-size: 13px;
-    text-align: center;
-    color: #616160;
-    float: left;
-    height: 200px;
-    margin-top: 50px;
-    margin-bottom: 50px;
-    font-weight: bold;
-}
-.line-number-marc-table {
-    font-size: 25pt;
-    color: #1389AA;
-    padding: 15px;
-    position: absolute;
-    bottom: 0px;
-    width: 100%;
-}
-.tile-center-title {
-    width: 33%;
-    float: left;
+.page-headerTxt{
+    margin-top: 2% ;
 }
 .top-center-line {
     position: absolute;
@@ -426,7 +365,7 @@
     margin: 15px;
 }
 .help-in-report {
-    width: 60%;
+    width: 100%;
     padding: 20px;
     margin: 20px;
     margin-left: 0px;
@@ -450,10 +389,6 @@
 }
 .table-bordered > tbody > tr > td {
     border: 1px solid #1389AA !important;
-}
-.icon-dashboard {
-    height: 80px;
-    margin: 20px;
 }
 .content-icon-inter {
     width: 50%;
@@ -517,9 +452,8 @@
     height: 30px;
 }
 .table-option {
-    width: 32%;
+    width: 25%;
     float: left;
-    height: 900px;
 }
 .list-table-option {
     font-size: 13px;
@@ -540,13 +474,11 @@
 }
 .height-option {
     height: 40px;
-    text-align: left;
-    margin-left: 10px;
 }
 .container-graph {
     display: none;
     border-style: solid;
-    width: 65%;
+    width: 500px;
     margin: 10px;
     height: 500px;
     border-width: 1px;
@@ -563,7 +495,7 @@
     height: 30px;
 }
 .list-year-cont {
-    width: 22%;
+    width: 20%;
     border-right-style: solid;
     border-width: 1px;
     height: 469px;
@@ -581,14 +513,13 @@
 }
 .field-year-cont {
     margin: 5px;
-    text-align: right;
 }
 .field-num-year {
     width: 20px;
     float: left;
 }
 .graph-year-cont {
-    width: 78%;
+    width: 80%;
     position: relative;
     float: left;
 }
@@ -630,20 +561,558 @@
     height: 400px;
 }
 
+/*reports_menu styles and responsive*/
+
+.map-cuenca{
+    margin: 15px;
+    margin-top: 30px;
+}
+.font-title{
+    font-size: 20px;
+}
+.border-report{
+    border-width: 0px; padding: 0px;
+}
+.margin-risk {
+    margin-top: 40px;
+}
+.risk-list {
+    height: 120px;
+    overflow: hidden;
+}
+.risk-list img {
+    width: 100%;
+}
+.estimated-change-list {
+    height: 250px;
+    left: 5%;
+    position: relative;
+}
+.explore-results-title {
+    font-size: 20pt;
+    color: #1389AA;
+    font-weight: bold; 
+    margin-top: 10px;
+}
+.list-menu-results img {
+    height: 60%; 
+    width: 60%; 
+    background-repeat: no-repeat;
+    background-position: 50%; 
+    border-radius: 50%; 
+    background-size: 100% auto; 
+    border-color: black;
+}
+
+.align-text{
+    text-align: center;
+}
+.border-table{
+    border-top: none !important;
+    border-left: none !important;
+}
+@media (min-width: 360px){
+    .report-container{
+        margin-left: 0% !important;
+    }
+    .map-cuenca{
+        width: 90% !important;
+    }
+    .title-table {
+        text-align: center !important;
+        color: #ffffff !important;
+        background-color: #1389AA !important;
+        font-size: 15px !important;
+        padding: 10px !important;
+        height: 10% !important;
+    }
+    .border-table-title{
+        border-style: solid !important;
+        border-width: 2px !important;
+        border-color: #1389AA !important;
+        background-color: #ffffff !important;
+        margin-bottom: 30px !important;
+        width: 100% !important;
+        padding-bottom: 20% !important;
+    }
+    .select-condition-menu {
+        width: 90% !important; 
+        text-align: center !important;
+    }
+    .select-condition {
+        font-size: 15px !important;
+        width: 90% !important;
+        border-style: solid !important;
+        background: #ffffff !important;
+        padding-left: 0px !important;
+        border-color: #1389AA !important;
+        color: #0D385B !important;
+    }
+    .marc-report {
+        padding-left: 0% !important;
+        padding-right: 0% !important;
+        font-size: 12px !important;
+        border-width: 2px !important;
+        border-style: solid !important;
+        border-color: #1389AA !important;
+        padding-bottom: 3px !important;
+        float: left !important;
+        width: 90% !important;
+        margin-bottom: 1% !important;
+    }
+    .line-marc-table-icons {
+        position: relative;
+        width: 45%;
+        font-size: 13px;
+        text-align: center;
+        color: #616160;
+        float: left;
+        height: 85%;
+        margin-top: 5%;
+        margin-bottom: 5%;
+        font-weight: bold;
+    }
+    .tile-center-title {
+        width: 90%;
+        float: left;
+    }
+    .content-image-graph {
+        margin-top: 3%;
+        width: 95%;
+        float: left;
+        height: 460px;
+    }
+    .graph-position {
+        width: 95%;
+    }
+    .list-menu-results{
+        float: left;
+        width: 50%;
+    }
+    .download-title {
+        font-size: 20pt;
+        color: #1389AA;
+        font-weight: bold; 
+        /* margin-top: 18%; */
+    }
+    .div-padding{
+        padding-bottom: 100%;
+    }
+    .report-download-pdf {
+        position: relative;
+        font-size: 12px;
+        font-weight: bold;
+        text-align: center;
+    }
+    .icon-dashboard {
+        height: 80px;
+        margin: 20px;
+    }
+    .line-number-marc-table {
+        font-size: 25pt;
+        color: #1389AA;
+        padding: 15px;
+        position: absolute;
+        bottom: 0px;
+        width: 100%;
+    }
+    .estimated-change {
+        width: calc(100% - 20px);
+        margin-top: 50px;
+        float: left;
+    }
+}
+@media (min-width: 768px){
+    .report-container{
+        margin-left: 5% !important;
+    }
+    .map-cuenca{
+        width: 100% !important;
+    }
+    .title-table {
+        text-align: center !important;
+        color: #ffffff !important;
+        background-color: #1389AA !important;
+        font-size: 15px !important;
+        padding: 10px !important;
+        height: 10% !important;
+    }
+    .border-table-title{
+        border-style: solid !important;
+        border-width: 2px !important;
+        border-color: #1389AA !important;
+        background-color: #ffffff !important;
+        margin-bottom: 30px !important;
+        width: 100% !important;
+        padding-bottom: 0% !important;
+    }
+    .select-condition-menu {
+        width: 90% !important; 
+        text-align: center !important;
+    }
+    .select-condition {
+        font-size: 15px !important;
+        width: 90% !important;
+        border-style: solid !important;
+        background: #ffffff !important;
+        padding-left: 25% !important;
+        border-color: #1389AA !important;
+        color: #0D385B !important;
+    }
+    .marc-report {
+        padding-left: 0% !important;
+        padding-right: 0% !important;
+        font-size: 12px !important;
+        border-width: 2px !important;
+        border-style: solid !important;
+        border-color: #1389AA !important;
+        padding-bottom: 3px !important;
+        float: left !important;
+        width: 48% !important;
+        margin-left: 0.5% !important;
+        margin-right: 0.5% !important;
+        margin-bottom: 1% !important;
+    }
+    .line-marc-table-icons {
+        position: relative;
+        width: 45%;
+        font-size: 13px;
+        text-align: center;
+        color: #616160;
+        float: left;
+        height: 55%;
+        margin-top: 5%;
+        margin-bottom: 5%;
+        font-weight: bold;
+    }
+    .tile-center-title {
+        width: 90%;
+        float: left;
+    }
+    .content-image-graph {
+        margin-top: 3%;
+        width: 95%;
+        float: left;
+        height: 350px;
+    }
+    .graph-position {
+        width: 95%;
+    }
+    .list-menu-results{
+        float: left;
+        width: 50%;
+    }
+    .download-title {
+        font-size: 20pt;
+        color: #1389AA;
+        font-weight: bold; 
+        /* margin-top: 18%; */
+    }
+    .div-padding{
+        padding-bottom: 70%;
+    }
+    .report-download-pdf {
+        position: relative;
+        font-size: 12px;
+        font-weight: bold;
+        text-align: center;
+    }
+    .icon-dashboard {
+        height: 80px;
+        margin: 20px;
+    }
+    .line-number-marc-table {
+        font-size: 25pt;
+        color: #1389AA;
+        padding: 15px;
+        position: absolute;
+        bottom: 0px;
+        width: 100%;
+        top: 85%;
+    }
+    .estimated-change {
+        width: calc(100% - 20px);
+        margin-top: 50px;
+        float: left;
+        padding-bottom: 8%;
+    }
+}
+@media (min-width: 992px){
+    .report-container{
+        margin-left: 20% !important;
+    }
+    .map-cuenca{
+        width: 100% !important;
+    }
+    .title-table {
+        text-align: center !important;
+        color: #ffffff !important;
+        background-color: #1389AA !important;
+        font-size: 15px !important;
+        padding: 10px !important;
+        height: 10% !important;
+    }
+    .border-table-title{
+        border-style: solid !important;
+        border-width: 2px !important;
+        border-color: #1389AA !important;
+        background-color: #ffffff !important;
+        margin-bottom: 30px !important;
+        width: 100% !important;
+        padding-bottom: 0% !important;
+    }
+    .select-condition-menu {
+        width: 90% !important; 
+        text-align: center !important;
+    }
+    .select-condition {
+        font-size: 15px !important;
+        width: 90% !important;
+        border-style: solid !important;
+        background: #ffffff !important;
+        padding-left: 25% !important;
+        border-color: #1389AA !important;
+        color: #0D385B !important;
+    }
+    .marc-report {
+        padding-left: 0% !important;
+        padding-right: 0% !important;
+        font-size: 12px !important;
+        border-width: 2px !important;
+        border-style: solid !important;
+        border-color: #1389AA !important;
+        padding-bottom: 3px !important;
+        float: left !important;
+        width: 48% !important;
+        margin-left: 0.5% !important;
+        margin-right: 0.5% !important;
+        margin-bottom: 1% !important;
+    }
+    .line-marc-table-icons {
+        position: relative;
+        width: 45%;
+        font-size: 13px;
+        text-align: center;
+        color: #616160;
+        float: left;
+        height: 55%;
+        margin-top: 5%;
+        margin-bottom: 5%;
+        font-weight: bold;
+    }
+    .tile-center-title {
+        width: 90%;
+        float: left;
+    }
+    .content-image-graph {
+        margin-top: 3%;
+        width: 95%;
+        float: left;
+        height: 350px;
+    }
+    .graph-position {
+        width: 95%;
+    }
+    .list-menu-results{
+        float: left;
+        width: 50%;
+    }
+    .download-title {
+        font-size: 20pt;
+        color: #1389AA;
+        font-weight: bold; 
+        /* margin-top: 18%; */
+    }
+    .div-padding{
+        padding-bottom: 5%;
+    }
+    .report-download-pdf {
+        position: relative;
+        font-size: 12px;
+        font-weight: bold;
+        text-align: center;
+        left: -100px;
+    }
+    .icon-dashboard {
+        height: 80px;
+        margin: 20px;
+    }
+    .line-number-marc-table {
+        font-size: 25pt;
+        color: #1389AA;
+        padding: 15px;
+        position: absolute;
+        bottom: 0px;
+        width: 100%;
+        top: 95%;
+    }
+    .estimated-change {
+        width: calc(100% - 20px);
+        margin-top: 50px;
+        float: left;
+        padding-bottom: 10%;
+    }
+}
+@media (min-width: 1200px){
+    /*reports-menu*/
+    .report-container {
+        margin-left: 300px !important;
+    }
+    .border-table-title {
+        border-style: solid !important;
+        border-width: 2px !important;
+        border-color: #1389AA !important;
+        background-color: #ffffff !important;
+        margin-bottom: 30px !important;
+        width: 100% !important;
+        padding-bottom: 0% !important;
+    }
+    .select-condition-menu {
+        width: 800px !important; 
+        text-align: center !important;
+    }
+    .select-condition {
+        font-size: 15px !important;
+        width: 300px !important;
+        border-style: solid !important;
+        background: #ffffff !important;
+        padding-left: 35px !important;
+        border-color: #1389AA !important;
+        color: #0D385B !important;
+    }
+    .marc-report {
+        padding-left: 0% !important;
+        padding-right: 0% !important;
+        font-size: 12px !important;
+        border-width: 2px !important;
+        border-style: solid !important;
+        border-color: #1389AA !important;
+        padding-bottom: 3px !important;
+        float: left !important;
+        width: 24% !important;
+        margin-left: 0.1% !important;
+        margin-right: 0.1% !important;
+        margin-bottom: 1% !important;
+    }
+    .line-marc-table-icons {
+        position: relative;
+        width: 15%;
+        font-size: 13px;
+        text-align: center;
+        color: #616160;
+        float: left;
+        height: 200px;
+        margin-top: 50px;
+        margin-bottom: 50px;
+        font-weight: bold;
+    }
+    .title-table {
+        text-align: center !important;
+        color: #ffffff !important;
+        background-color: #1389AA !important;
+        font-size: 15px !important;
+        padding: 10px !important;
+        height: 40px !important;
+    }
+    .tile-center-title {
+        width: 33%;
+        float: left;
+    }
+    .content-image-graph {
+        margin-top: 3%;
+        width: 25%;
+        float: left;
+        height: 460px;
+    }
+    .graph-position {
+        width: 60%;
+    }
+    .list-menu-results{
+        float: left;
+        width: 25%;
+    }
+    .download-title {
+        font-size: 20pt;
+        color: #1389AA;
+        font-weight: bold; 
+        margin-top: 18%;
+    }
+    .div-padding{
+        padding-bottom: 3%;
+    }
+    .report-download-pdf {
+        position: relative;
+        font-size: 12px;
+        font-weight: bold;
+        text-align: center;
+    }
+    .icon-dashboard {
+        height: 80px;
+        margin: 20px;
+    }
+    .line-number-marc-table {
+        font-size: 25pt;
+        color: #1389AA;
+        padding: 15px;
+        position: absolute;
+        bottom: 0px;
+        width: 100%;
+    }
+    .estimated-change {
+        width: calc(100% - 20px);
+        margin-top: 50px;
+        float: left;
+    }
+
+    /*financial*/
+    .container-title{
+        margin-bottom: 0px;
+        height: 50px;
+        margin-top: 0px;
+    }
+    .title-financial{
+        font-size: 20pt;
+        color: #1389AA;
+        font-weight: bold;
+        padding: 15px;
+    }
+    .smart-wizard-financial{
+        position: relative; 
+        border: 1px; 
+        border-style: solid; 
+        margin-bottom: 10px; 
+        border-color: #1389AA;
+    }
+    .header-desc-fin {
+        border-color: transparent;
+    }
+    .align-menu-header {
+        text-align: center;
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        margin-left: 60%;
+        font-size: 13px;
+    }
+    .icons-menu-header{
+        float: left;
+        width: 16%;
+    }
+}
 @media only screen and (max-width: 1200px) {
     
     .report-container {
         margin-left: 80px;
     }
-    .content-image-graph {
+    /* .content-image-graph {
         width: 250px;
-    }
+    } */
     .detail-border-marc {
         height: 110px;
     }
-    .icon-dashboard {
+    /* .icon-dashboard {
         height: 70px;
-    }
+    } */
     .line-number-marc-table {
         font-size: 22pt;
     }
@@ -668,4 +1137,3 @@
         float: left;
     }
 }
-

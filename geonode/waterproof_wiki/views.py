@@ -21,7 +21,7 @@ def consultar_articulo(request, id=0):
         print("El error es:", e)
         r="Articulo no encontrado"
         print(f"--------*****")
-    return render(request, 'articulo_detalle.html', {
+    return render(request, 'waterproof_wiki/articulo_detalle.html', {
         'articulo':articulos,
         'referencias':referencias,
         'enlaces':enlaces, 
@@ -31,7 +31,7 @@ def consultar_articulo(request, id=0):
 def consultar_categorias(request , categoria_id):
     categoria= get_object_or_404(Category, id=categoria_id)
     articulos_=Article.objects.filter(categories=categoria_id)
-    return render (request, 'categorias.html', {
+    return render (request, 'waterproof_wiki/categorias.html', {
         'categoria':categoria,
         'articulos':articulos_
     })
@@ -50,14 +50,14 @@ def listar_articulos(request):
     except EmptyPage:
         articulosDePagina= paginator.page(paginator.num_pages)
     
-    return render(request, 'articulos.html', {
+    return render(request, 'waterproof_wiki/articulos.html', {
         'articulos':articulosDePagina, 
     })
 
 def listar_articulos_random(request):
     articulos=Article.objects.filter(publico='True').exclude(imagen='null').order_by('?')
     
-    return render(request, 'carrusel.html', {
+    return render(request, 'waterproof_wiki/carrusel.html', {
         'articulos':articulos, 
     })
 
@@ -79,7 +79,7 @@ def listar_articulos_filtro(request, p_titulo=""):
         # If page is out of range (e.g. 9999), deliver last page of results.
         articulosDePagina= paginator.page(paginator.num_pages)
     
-    return render(request, 'articulos.html', {
+    return render(request, 'waterproof_wiki/articulos.html', {
         'articulos':articulosDePagina, 
     })
 
