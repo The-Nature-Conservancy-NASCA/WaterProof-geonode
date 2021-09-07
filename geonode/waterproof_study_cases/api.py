@@ -193,11 +193,14 @@ def getNBS(request):
     if request.method == 'POST':
         nbs = []
         nbs_admin = WaterproofNbsCa.objects.filter(added_by__professional_role='ADMIN').values(
-            "id", "name","unit_implementation_cost", "unit_maintenance_cost","periodicity_maitenance","unit_oportunity_cost", "currency__currency", "country__global_multiplier_factor")
+            "id", "name","unit_implementation_cost", "unit_maintenance_cost","periodicity_maitenance","unit_oportunity_cost", "currency__currency")
         id_city = request.POST['city_id'] 
         process = request.POST['process']
         id_study_case = request.POST['id_study_case']
         filtercity = Cities.objects.get(pk=id_city)
+        global_multiplier_factor = filtercity.country.global_multiplier_factor
+        for n_admin in nbs_admin:
+            n_admin['country__global_multiplier_factor'] = global_multiplier_factor
         if(process == 'Edit' or process == 'View' or process == 'Clone'):
             sc = StudyCases.objects.get(pk=id_study_case)
             scnbs_list = StudyCases_NBS.objects.filter(studycase=sc)
@@ -228,6 +231,7 @@ def getNBS(request):
                     'unit_maintenance_cost':n['unit_maintenance_cost'],
                     'periodicity_maitenance':n['periodicity_maitenance'],
                     'unit_oportunity_cost':n['unit_oportunity_cost'],
+                    'country__global_multiplier_factor':n['country__global_multiplier_factor'],
                 }
                 nbs.append(nObject)
         elif(process == 'Create'):

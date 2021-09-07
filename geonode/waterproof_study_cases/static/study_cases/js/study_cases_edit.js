@@ -1201,6 +1201,7 @@ $(document).ready(function () {
                 var def = nbs.default
                 var val = nbs.value;
                 var min = ((parseFloat(nbs.unit_implementation_cost) + parseFloat(nbs.unit_maintenance_cost) / parseFloat(nbs.periodicity_maitenance) + parseFloat(nbs.unit_oportunity_cost)) * 10);
+                console.log(nbs.country__global_multiplier_factor)
                 if (nbs.country__global_multiplier_factor)
                     min *= parseFloat(nbs.country__global_multiplier_factor)
                 if (def) {
