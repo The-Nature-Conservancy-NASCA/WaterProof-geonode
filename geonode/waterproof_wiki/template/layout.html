@@ -1,0 +1,38 @@
+{% load static %} <!--Para cargar archivos en la carpeta--->
+
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+           <meta charset="utf-8"> 
+           
+  
+           <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+
+           <script src="{% static 'js/jquery.min.js' %}"></script>
+           <script src="{% static 'js/owl.carousel.js' %}"></script>
+
+           <!--Si no te agarra los estilos.. solo debes reiniciar el servidor--->
+    </head>
+    <body>
+    
+        <div id="titulo">
+            <h4>
+            {% block titulo%} 
+            <a href="../">Ir a la Wiki</a>
+            {% endblock%}
+            </h4>
+        </div>
+        <div id="content">
+           
+            {% block content%}
+                Por defecto<br>
+            {% endblock%}
+           
+        </div>
+    </body>
+
+
+    <script src="{% static 'js/highlight.js' %}"></script>
+    <script src="{% static 'js/app.js' %}"></script>
+
+</html>

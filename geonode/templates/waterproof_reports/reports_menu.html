@@ -37,7 +37,7 @@
         <div class="title-report">{% trans "Explore the reports resulting from the analysis of your case study" %}</div>
         <div class="help-report">{% trans "In this section WaterProof provides you to understand the possible changes in soil and water resources due to the implementation of Nature-Based Solutions, becoming powerful tools to make investment decisions" %}</div>
         <div>
-            <div id="mapidcuenca" style="margin: 15px;margin-top: 30px;"></div>    
+            <div id="mapidcuenca" class="map-cuenca"></div>    
         </div>
         <div class="conainer-report-main">
             <div class="border-table-title">
@@ -78,7 +78,7 @@
                 </div>
             </div>
         </div>
-        <div class="title-report" style="font-size: 20px;">{% trans "Financial summary" %}</div>
+        <div class="title-report" class="font-title">{% trans "Financial summary" %}</div>
         <div class="col-md-12">
             <div class="col-md-1"></div>
             <div class="content-image-graph col-md-3">
@@ -92,45 +92,46 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-7">
+            <div class="graph-position col-md-7">
                 <div id="containerNpv"></div>
             </div>
         </div>
-        <div class="title-report" style="font-size: 20px;">{% trans "Summary of risks in the basins" %}</div>
-        <div class="help-report" style="border-width: 0px; padding: 0px;">{% trans "Select the basin of your interest from the drop-down list to know a summary of its risks (The risk results have been estimated using the Acueduct - WRI database)" %}</div>
-        <div style="text-align: center;">
+        <div class="title-report font-title">{% trans "Summary of risks in the basins" %}</div>
+        <div class="help-report border-report">{% trans "Select the basin of your interest from the drop-down list to know a summary of its risks (The risk results have been estimated using the Acueduct - WRI database)" %}</div>
+        <div class="align-text">
             <h5>{% trans "Water Intake" %} : 
-            <select class="select-condition" style="width: 800px; text-align: center;" id="idSelectStudyCase"></select>
+            <select class="select-condition select-condition-menu"
+            id="idSelectStudyCase"></select>
         </h5>
         </div>
-        <div style="margin-top: 40px;">
-            <div class="marc-report">
-                <div style="height: 120px;overflow: hidden;">
-                    <img src="/static/geonode/img/picture-one.jpg" style="width: 100%;">
+        <div class="margin-risk col-md-12">
+            <div class="marc-report col-md-3">
+                <div class="risk-list">
+                    <img src="/static/geonode/img/picture-one.jpg">
                 </div>
                 <div class="title-marc">{% trans "Physical risk quantity qan_def" %}</div>
                 <div class="detail-border-marc">{% trans "Physical risk quantity measures risk related to too little or too much water by aggregating all selected indicators from the physical risk quantity category" %}</div>
                 <div class="button-marc" id="idButtonPrq"></div>
             </div>
-            <div class="marc-report">
-                <div style="height: 120px;overflow: hidden;">
-                    <img src="/static/geonode/img/picture-two.jpg" style="width: 100%;">
+            <div class="marc-report col-md-3">
+                <div class="risk-list">
+                    <img src="/static/geonode/img/picture-two.jpg">
                 </div>
                 <div class="title-marc">{% trans "Physical risk quantity qal_def" %}</div>
                 <div class="detail-border-marc">{% trans "Physical risk quantity measures risk related to water that in unfit for use by aggregating all selected indicators from the physical risk quantity category" %}</div>
                 <div class="button-marc" id="idButtonPrqa"></div>
             </div>
-            <div class="marc-report">
-                <div style="height: 120px;overflow: hidden;">
-                    <img src="/static/geonode/img/picture-three.jpg" style="width: 100%;">
+            <div class="marc-report col-md-3">
+                <div class="risk-list">
+                    <img src="/static/geonode/img/picture-three.jpg">
                 </div>
                 <div class="title-marc">{% trans "Regulatory and reputational rrr_def" %}</div>
                 <div class="detail-border-marc">{% trans "Risk regulatory and reputational risk measures risk related to uncertainty in regulatory chance, as well as conflich with re public regarding water issues" %}</div>
                 <div class="button-marc" id="idButtonRar"></div>
             </div>
-            <div class="marc-report">
-                <div style="height: 120px;overflow: hidden;">
-                    <img src="/static/geonode/img/picture-four.jpg" style="width: 100%;">
+            <div class="marc-report col-md-3">
+                <div class="risk-list">
+                    <img src="/static/geonode/img/picture-four.jpg">
                 </div>
                 <div class="title-marc">{% trans "Overall water risk score tot_def" %}</div>
                 <div class="detail-border-marc">{% trans "Overall water risk measures all water related risk, by aggregating all selected indicators from the physical risjk quantity, physical risk quality, and regulatory and reputational risk categories" %}</div>
@@ -138,9 +139,9 @@
             </div>
         </div>
         <div class="marc-table">
-            <div style="width: calc(100% - 20px);margin-top: 50px;float: left;">
-                <div class="title-report" style="font-size: 20px;">{% trans " Estimated change in ecosystem services (Business as Usual Scenario Vs Nature-based Solutions Scenario)" %}</div>
-                <div style="height: 250px;left: 5%;position: relative;">
+            <div class="estimated-change">
+                <div class="title-report font-title">{% trans " Estimated change in ecosystem services (Business as Usual Scenario Vs Nature-based Solutions Scenario)" %}</div>
+                <div class="estimated-change-list">
                     <div class="line-marc-table-icons">
                         <div><h8>{% trans "Anual water yield" %}</h8></div>
                         <div><img src="/static/geonode/img/dashboard-01.png" class="icon-dashboard"></div>
@@ -174,8 +175,33 @@
                 </div>
             </div>
         </div>
-        <div class="title-report" style="font-size: 20px;">{% trans "Intervention and budget summary" %}</div>
-        <div class="conainer-report-main-table">
+        <div class="title-report font-title">{% trans "Intervention and budget summary" %}</div>
+
+
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered table-condensed" style="width:98%; text-align: center;">
+                <thead class="tableStyleColor">
+                    <tr>
+                        <th class="align-text">{% trans "Nature based solution" %}</th>
+                        <th class="align-text">{% trans "Actual spend (USD)" %}</th>
+                        <th class="align-text">{% trans "Intervention área (Hectares)" %}</th>
+                    </tr>
+                </thead>
+                <tbody id="listFielTable"></tbody>
+            </table>
+
+
+            
+    
+            <!-- <h4 id="countryLabel"></h4>
+            <p><b>{% trans "Selected City" %} :</b> <span id="cityLabel"></span> </p>
+            <p><b>{% trans "Region" %} :</b> <span id="regionLabel"></span> </p>
+            <p><b>{% trans "Currency" %}:</b><span id="currencyLabel"></span></p> -->
+            
+        </div>
+
+
+        <!-- <div class="conainer-report-main-table">
             <div class="border-table-title-end">
                 <div class="title-table">
                     <div class="tile-center-title">{% trans "Nature based solution" %}</div>
@@ -184,44 +210,50 @@
                 </div>
                 <div class="all-time" id="listFielTable"></div>
             </div>
-        </div>
-
-        <div></div>
+        </div> -->
 
         <div class="page-header">
             <br>
-            <h5 textColor="red" style="font-size: 20pt;color: #1389AA;font-weight: bold; margin-top: 10px;">{% trans "Explore detailed results of this case study" %}</h5>
+            <h5 textColor="red" class="explore-results-title">{% trans "Explore detailed results of this case study" %}</h5>
         </div>
 
-        <div style="text-align: center;">
-            <div style="float: left;width: 25%;" id="idFinancialIndicators">
-                <img src="/static/geonode/img/Indicadores-financieros.png" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;" title="{% trans "Financial indicators" %}"/> 
+        <div class="align-text col-md-12 div-padding">
+            <div class="list-menu-results" id="idFinancialIndicators">
+                <img src="/static/geonode/img/Indicadores-financieros.png" title="{% trans "Financial indicators" %}"/> 
                 <br> 
                 <a href="../../reports/financial/">{% trans "Financial indicators" %}</a>
             </div>
-            <div style="float: left;width: 25%;">
-                <img src="/static/geonode/img/indicadores-fisicos.png" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;opacity: 30%;" title="{% trans "Physical indicators" %}"/> 
+            <div class="list-menu-results">
+                <img src="/static/geonode/img/indicadores-fisicos.png" title="{% trans "Physical indicators" %}"/> 
                 <br>
-                <a>{% trans "Physical indicators" %}</a>
-                <!--<a href="../../reports/physical/">{% trans "Physical indicators" %}</a>-->
+                <!--a>{% trans "Physical indicators" %}</a-->
+                <a href="../../reports/physical/{{idx}}">{% trans "Physical indicators" %}</a>
             </div>
-            <div style="float: left;width: 25%;" id="idDecisionIndicators">
-                <img src="/static/geonode/img/indicadores-decision.png" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;" title="{% trans "Decision indicators" %}"/>
+            <div class="list-menu-results" id="idDecisionIndicators">
+                <img src="/static/geonode/img/indicadores-decision.png" title="{% trans "Decision indicators" %}"/>
                 <br>
                 <a href="../../reports/decision/">{% trans "Decision indicators" %}</a>
             </div>
-            <div style="float: left;width: 25%;" id="idGeographicIndicators">
-                <img src="/static/geonode/img/indicadores-geograficos.png" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black; opacity: 30%;" title="{% trans "Geographic visualization" %}"/>
+            <div class="list-menu-results" id="idGeographicIndicators">
+                <img src="/static/geonode/img/indicadores-geograficos.png" title="{% trans "Geographic visualization" %}"/>
                 <br>
-                <a>{% trans "Geographic visualization" %}</a>
-                <!--a href="../../reports/geographic/">{% trans "Geographic visualization" %}</a-->
+                <a href="../../reports/geographic/">{% trans "Geographic visualization" %}</a>
             </div>
-
+        </div>
+        <div>
+            <h5 textColor="red" class="download-title">{% trans "If you want to download the results of this analysis from the following icons" %}</h5>
         </div>
         <div class="report-download">
-            <div class="report-download-pdf" onclick="openPDF()">
+            <div class="col-md-5"></div>
+            <div class="col-md-1 report-download-pdf" onclick="openPDF()">
                 <img src="/static/geonode/img/documents.png"/>
+                <br>
                 PDF
+            </div>
+            <div class="col-md-1 report-download-zip" onclick="downloadZip()">
+                <img src="/static/geonode/img/descarga.png"/>
+                <br>
+                ZIP
             </div>
         </div>
     </div>
@@ -352,6 +384,13 @@ $(function () {
 
     openPDF = function() {
         window.open("../../reports/pdf/?studyCase=" + localStorage.idStudyCase + "&studyCity=" + localStorage.getItem('city') + "&studyCountry=" + localStorage.getItem('country') + "&studyRegion=" + localStorage.getItem('region'))
+    }
+
+    downloadZip = function(){
+        //console.log(filter)
+        var filter = "{{filterzip}}"
+        console.log("este es el filter"+filter)
+        window.open(filter.link, "zipDownload", "width=120,height=300")
     }
     
     changeReport = function() {
@@ -680,8 +719,16 @@ $(function () {
             $.each( data, function( key, value ) {
                 valueCol2 = value.costPerHectarea.toFixed(2);
                 valuaCol3 = value.recomendedIntervetion.toFixed(2)
-                listFielTable = listFielTable + '<div><div class="line-marc-table" style="width: 100%;color: #616160;margin-top: 20px;height: 20px;"><div style="width: 100%;text-align: left;margin-left: 10px;">' + value.sbnf + '</div><div class="top-center-line">' + Intl.NumberFormat('es').format(valueCol2) + '</div><div class="line-number-marc-table" style="    position: absolute;right: 0px;width: 30%;color: #616160;font-size: 13px;padding: 0px;top: 0px;">' + Intl.NumberFormat('es').format(valuaCol3) + '</div></div></div>';
+                // listFielTable = listFielTable + '<div><div class="line-marc-table" style="width: 100%;color: #616160;margin-top: 20px;height: 20px;"><div style="width: 100%;text-align: left;margin-left: 10px;">' + value.sbnf + '</div><div class="top-center-line">' + Intl.NumberFormat('es').format(valueCol2) + '</div><div class="line-number-marc-table" style="    position: absolute;right: 0px;width: 30%;color: #616160;font-size: 13px;padding: 0px;top: 0px;">' + Intl.NumberFormat('es').format(valuaCol3) + '</div></div></div>';
+                listFielTable = listFielTable + `
+                    <tr>
+                        <td class="border-table"><span>` + value.sbnf + `</span></td>
+                        <td class="border-table"><span>` + Intl.NumberFormat('es').format(valueCol2) + `</span></td>
+                        <td class="border-table"><span>` + Intl.NumberFormat('es').format(valuaCol3) + `</span></td>
+                    </tr> 
+                `
             });
+
             document.getElementById("listFielTable").innerHTML = listFielTable;
         });
 

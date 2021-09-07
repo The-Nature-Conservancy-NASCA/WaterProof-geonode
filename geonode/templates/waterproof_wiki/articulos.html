@@ -1,0 +1,37 @@
+{% extends 'waterproof_wiki/layout.html'%}
+{%block titulo%}
+<h2></p>Articles:</h2>
+
+{% endblock %}
+
+{% block content %}
+
+    <form action="buscar" method="GET">
+        <label for="p_titulo">Buscar: </label>
+        <input type="text" name="p_titulo">
+        <input type="submit" value="Buscar">
+    </form>
+
+    <article >
+    {%for a in articulos %}
+            <div class="data">
+                <h2>{{a.titulo}}:</h2>
+                {{a.resumen|safe|linebreaks}}
+                <a href="{% url 'consultar_articulo' id=a.id %}">Ver más</a>
+            </div>
+    {% endfor%}
+    </article>
+    <br>  
+    <paginacion>
+        <a href="?p_titulo={{ p_titulo }}&page=1">&laquo; First</a>
+        {% for i in articulos.paginator.page_range %}
+            <a href="?p_titulo={{ p_titulo }}&page={{ i }}">{{ i }}</a>
+        {% endfor %}
+        
+        {% if articulos.has_next %}
+        <a href="?p_titulo={{ p_titulo }}&page={{ articulos.paginator.num_pages }}">Last &raquo;</a>
+        {% endif %}
+       
+    </paginacion>
+
+{% endblock%}

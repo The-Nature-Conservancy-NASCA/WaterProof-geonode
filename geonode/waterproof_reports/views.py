@@ -11,7 +11,7 @@ from django.http import JsonResponse
 from django.shortcuts import render
 from django.core import serializers
 from geonode.waterproof_parameters.models import Countries, Regions, Cities
-from .models import investIndicators
+from .models import investIndicators, zip
 from geonode.waterproof_study_cases.models import StudyCases
 from pylab import title, figure, xlabel, ylabel, xticks, bar, legend, axis, savefig
 from fpdf import FPDF
@@ -1034,6 +1034,8 @@ def getNameCity(indicators):
             return result
     return result
 
+
+
 def physicalIndicators(request, idx):
 
                 indicators = investIndicators.objects.filter(study_case__id=idx)
@@ -1098,17 +1100,22 @@ def compareMaps(request):
     intake = ''
     region = ''
     year = ''
+    bbox = ''
     if request.method == 'GET':
         try:            
             base_data = request.GET['folder']
             intake = request.GET['intake']
             region = request.GET['region']
             year = request.GET['year']
+            study_case_id = request.GET['study_case_id']
+            center = request.GET['center']
         except:
             base_data = 'mapserver'
             intake = ''
             region = ''
             year = ''
+            study_case_id = ''
+            center = ''
         
 
     return render(
@@ -1118,6 +1125,18 @@ def compareMaps(request):
                     'base_data': base_data,
                     'intake': intake,
                     'region': region,
-                    'year': year
+                    'year': year,
+                    'study_case_id' : study_case_id,
+                    'center' : center
                 }
             )
+def linkDownload(request, idx):
+
+                filter = zip.objects.filter(study_case_id__id=idx)
+                print(filter)
+                return render(
+                    request,
+                    'waterproof_reports/reports_menu.html',
+                    {
+                        'filterzip': filter,
+                    })

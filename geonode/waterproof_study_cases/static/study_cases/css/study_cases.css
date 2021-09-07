@@ -216,6 +216,10 @@
     cursor: pointer;
 }
 
+.divCenter{
+    text-align: center;
+}
+
 .currency-link {
     cursor: pointer;
 }

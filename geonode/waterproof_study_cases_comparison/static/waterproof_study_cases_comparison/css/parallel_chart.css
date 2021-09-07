@@ -7,3 +7,6 @@
   width: 180px;
   height: 180px;
 }
+.slider_title{
+  word-break: break-all;
+}

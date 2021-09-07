@@ -6,7 +6,10 @@
 <link rel="stylesheet" href="{{ STATIC_URL }}geonode/css/leaflet/Control.Coordinates.css" />
 <link rel="stylesheet" href="{{ STATIC_URL }}geonode/css/leaflet/Control.Loader.css" />
 <link rel="stylesheet" href="{{ STATIC_URL }}waterproof_intake/mathquill/mathquill.css" />
-<link rel="stylesheet" href="{{ STATIC_URL }}waterproof_intake/css/intake.css" /> {% endblock %} {% block body_outer %}
+<link rel="stylesheet" href="{{ STATIC_URL }}waterproof_intake/css/intake.css" />
+<!--link rel="stylesheet" href="{{ STATIC_URL }}waterproof_reports/css/reports.css" /-->
+
+{% endblock %} {% block body_outer %}
 <!--header-->
 <script type="text/javascript">
     var SelectedCurrency = "{{SelectedCurrency}}";
@@ -18,7 +21,42 @@
     <!--div id="FilterPhisicalIndicators"></div-->
     <br>
     <!--Begin Form-->
-    <div>
+    <div style="position: absolute; border: 1px; border-style: solid; margin-bottom: 10px; height: 8%; width: 80%; border-color: #1389AA;">
+        <div class="help-in-report col-md-7" style="border-color: transparent; padding-top: 1%;">
+            {% trans "This report summarizes the proportions in investment and benefits that will be achieved by the implementation of the SbN:" %}
+        </div>
+        <div class="col-md-5" style="text-align: center;position: absolute;top: 0px;right: 0px;margin-left: 65%;font-size: 13px;">
+            <div style="float: left;width: 15%;">
+                <img src="/static/geonode/img/Indicadores-financieros.png" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;" title="{% trans "Financial indicators" %}"/> 
+                <br> 
+                <!--a>{% trans "Financial indicators" %}</a-->
+                <a href="../../reports/financial/">{% trans "Financial indicators" %}</a>
+            </div>
+            <div style="float: left;width: 15%;" id="idFinancialIndicators">
+                <img src="/static/geonode/img/indicadores-fisicos.png" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black; opacity: 30%;" title="{% trans "Physical indicators" %}"/> 
+                <br> 
+                <a>{% trans "Physical indicators" %}</a>
+                <!--a href="../../reports/physical/">{% trans "Physical indicators" %}</a-->
+            </div>
+            <div style="float: left;width: 15%;" id="idDecisionIndicators">
+                <img src="/static/geonode/img/indicadores-decision.png" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;" title="{% trans "Decision indicators" %}"/>
+                <br>
+                <a href="../../reports/decision/">{% trans "Decision indicators" %}</a>
+            </div>
+            <div style="float: left;width: 15%;" id="idGeographicIndicators">
+                <img src="/static/geonode/img/indicadores-geograficos.png" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;" title="{% trans "Geographic visualization" %}"/>
+                <br>
+                <!--a>{% trans "Geographic visualization" %}</a-->
+                <a href="../../reports/geographic/">{% trans "Geographic visualization" %}</a>
+            </div>
+        </div>
+        <div style="text-align: center;position: absolute;top: 10%;right: 0px;margin-left: 75%;font-size: 13px;">
+            <img src="/static/geonode/img/reportes-icon.png" style="height: 30%; width: 30%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;" title="{% trans "Reports" %}"/>
+            <br>
+            <a id="Return"></a>
+        </div>
+    </div>
+    <div style="padding-top: 10%;">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item">
                 <a class="nav-link active" id="overview-tab" data-toggle="tab" href="#Physical" role="tab" aria-controls="home" aria-selected="true">
@@ -141,17 +179,24 @@
 <script src="{{ STATIC_URL }}geonode/js/mxgraph/examples/editors/js/app.js"></script>
 <script src="{{ STATIC_URL }}geonode/js/mxgraph/examples/editors/js/app.js"></script>
 <script src="{{ STATIC_URL }}waterproof_intake/mathquill/mathquill.min.js"></script>
-<script src="{{ STATIC_URL }}waterproof_reports/js/physicalIndicators.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
 <script type="text/javascript">
+
+var localStorageId = localStorage.idStudyCase;
+    $('#Return').append(
+        `
+        <a href="../../study_cases/report/${localStorageId}">{% trans "Return" %}</a>
+            
+        `
+    );
 
     $('#FilterPhisicalIndicators').append(
         `
         {% for investIndicators in Indicators %}
             <tr id="filas">
                 <td class="small text-center vat" style="display: none;">{{investIndicators.intake.name}}</td>
-                <td class="small text-center vat" id="valor6">{{investIndicators.time}}</td>
+                <td class="small text-center vat" id="valor">{{investIndicators.time}}</td>
                 <td class="small text-center vat truncate" id="valor1">{{investIndicators.awy}}</td>
                 <td class="small text-center vat" id="valor2">{{investIndicators.bf_m3}}</td>
                 <!--td>{{intake.max_benefit_req_time}}</td-->
