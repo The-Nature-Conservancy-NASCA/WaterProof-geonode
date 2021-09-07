@@ -8500,6 +8500,95 @@ form-inline {
   font-weight:normal !important;
   text-align: center;
 }
+.colorLeftInstructions{
+  padding-right: 15px;
+  margin-right: auto;
+  margin-left: auto;
+  color: #0C89AA;
+  font-weight:normal !important;
+  text-align: left;
+}
+.colorLeftInstructionsR{
+  padding-right: 15px;
+  padding-left: -15px;
+  margin-right: auto;
+  margin-left: auto;
+  color: #0C89AA;
+  font-weight:normal !important;
+  text-align: left;
+}
+.colorLeftInstructionsW{
+  padding-right: 15px;
+  margin-right: auto;
+  margin-left: auto;
+  color: #ffffff;
+  font-weight:normal !important;
+  text-align: left;
+}
+.colorLeftInstructionsWh3{
+  padding-right: 15px;
+  padding-left: 25px;
+  margin-right: auto;
+  margin-left: auto;
+  color: #ffffff;
+  font-weight:normal !important;
+  font-size: 22px;
+  text-align: left;
+}
+.colorLeftInstructionsWp{
+  padding-right: 15px;
+  padding-left: 25px;
+  margin-right: auto;
+  margin-left: auto;
+  color: #ffffff;
+  font-weight:normal !important;
+  text-align: left;
+}
+.iconsWhatIsWP{
+  width: 60%;
+  height: 100px;
+  align-items: center;
+  text-align: center;
+  padding: 3%;
+}
+.iconWhyUse{
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  text-align: center;
+  padding: 3%;
+}
+.buttonWhatIsWP{
+  border-radius: 60px;
+  border: 1px solid #0C89AA;
+  background-color: transparent;
+  color: #0C89AA;
+  position: absolute;
+  left: 0%;
+  top: 100%;
+  bottom: 10%;
+  width: 95%;
+  height: 55%;
+}
+.buttonRealize{
+  border: 1px solid #0C89AA;
+  background-color: #0C89AA;
+  color: #fff;
+  padding-left: 4%;
+  padding-right: 4%;
+  padding-top: 2%;
+  padding-bottom: 2%;
+}
+.buttonWhatIsWPnoPadding{
+  border-radius: 60px;
+  border: 1px solid #0C89AA;
+  background-color: transparent;
+  color: #0C89AA;
+  width: 100%;
+}
+.divCenter{
+  text-align: center;
+}
 .imgbackgroundwiki{
   background: url(/static/geonode/img/04-FOTO.jpg);
   height: 600px;
@@ -8515,6 +8604,43 @@ form-inline {
   min-width: 100%;
   background-repeat: round;
   background-size:cover;
+}
+.imgbackgroundWhyUse{
+  background: url(/static/geonode/img/Why_use_back.png);
+  height: 750px;
+  min-height: 100%;
+  min-width: 100%;
+  background-repeat: round;
+  background-size:cover;
+}
+
+.imgbackgroundRealize{
+  background: url(/static/geonode/img/Realize_investment_back.png);
+  height: 500px;
+  min-height: 100%;
+  min-width: 100%;
+  background-repeat: round;
+  background-size:cover;
+}
+.text-left{
+  text-align: left;
+}
+.size-left{
+  font-size: 18px;
+}
+.size-left-buttom{
+  font-size: 18px;
+  padding-left: 25px;
+  line-height : 15px;
+}
+.menuOrder{
+  padding-left: 10% !important;
+}
+.menuPadding{
+  padding-top: 30% !important;
+}
+.titleMenu{
+  padding-left: 5%;
 }
 .refImage{
   position: absolute;
@@ -8638,44 +8764,50 @@ top:50px;
 
     .img1{
         position: absolute;
-        max-width: 135px;
-        left: 137px;
-        top: 18px;
+        max-width: 120px;
+        max-height: 120px;
+        left: 159px;
+        top: 12px;
     }
 
     .img2{
         position: absolute;
-        max-width: 135px;
-        left: 75px;
-        top: 169px;
+        max-width: 120px;
+        max-height: 120px;
+        left: 98px;
+        top: 162px;
     }
 
     .img3{
         position: absolute;
-        max-width: 135px;
-        left: 136px;
-        top: 320px;
+        max-width: 120px;
+        max-height: 120px;
+        left: 160px;
+        top: 313px;
     }
 
     .img4{
         position: absolute;
-        max-width: 135px;
-        right: 175px;
-        top: 22px;
+        max-width: 120px;
+        max-height: 120px;
+        right: 168px;
+        top: 14px;
     }
 
     .img5{
         position: absolute;
-        max-width: 135px;
-        right: 112px;
-        top: 176px;
+        max-width: 120px;
+        max-height: 120px;
+        right: 106px;
+        top: 169px;
     }
 
     .img6{
         position: absolute;
-        max-width: 135px;
-        right: 175px;
-        top: 331px;
+        max-width: 120px;
+        max-height: 120px;
+        right: 168px;
+        top: 324px;
     }
 
     .ani_headShake:hover{
@@ -8849,9 +8981,7 @@ top:50px;
 }
 
 #analysisOptions{
-  position: absolute;
-  z-index: 999;
-  right: 1px;
+  z-index: 999;  
 }
 
 .img-icon{
@@ -8876,3 +9006,10 @@ top:50px;
   margin-right: auto;
   margin-left: auto;
 }
+
+.div-draw-basin{
+  position: absolute;
+  bottom: 10px;
+  right: 2px;
+}
+

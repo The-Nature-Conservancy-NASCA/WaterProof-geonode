@@ -11,6 +11,7 @@ urlpatterns = [
     path('financial/', views.financialIndicators, name='financial'),
     path('decision/', views.decisionIndicators, name='decision'),
     path('pdf/', views.pdf, name='pdf'),
+    path('zip/<int:idx>', views.linkDownload, name='zip'),
     path('geographic/', views.geographicIndicators, name='geographic'),
     path('getSensibilityAnalysisCost/', api.getSensibilityAnalysisCost, name='get-sensibility-analysis-cost'),
     path('getSensibilityAnalysisBenefits/', api.getSensibilityAnalysisBenefits, name='get-sensibility-analysis-benefits'),
@@ -42,7 +43,9 @@ urlpatterns = [
     path('getWaterproofReportsDesagregation/', api.getWaterproofReportsDesagregation, name='get_waterproof_reports_desagregation'),
     path('getCaracteristicsCsIntakePdf/', api.getCaracteristicsCsIntakePdf, name='get_caracteristics_cs_intake_pdf'),
     path('getCaracteristicsPtapDetailPdf/', api.getCaracteristicsPtapDetailPdf, name='get_caracteristics_ptap_detail_pdf'),
-    path('getconservationActivitiesPdf/', api.getconservationActivitiesPdf, name='__get_conservation_activities_pdf'),
+    path('getconservationActivitiesPdf/', api.getconservationActivitiesPdf, name='get_conservation_activities_pdf'),
+    path('getFinancialAnalysisPdfRunAnalisisPdf/', api.getFinancialAnalysisPdfRunAnalisisPdf, name='get_financial_analysis_pdf_run_analisis_pdf'),
+    path('getObjetivesForPorfoliosPdf/', api.getObjetivesForPorfoliosPdf, name='get_objetives_for_porfolios_pdf'),
 
 
        # Compare Maps

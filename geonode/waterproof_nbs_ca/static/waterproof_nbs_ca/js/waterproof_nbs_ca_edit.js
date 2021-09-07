@@ -56,6 +56,11 @@ $(function () {
                 });
             }
         });
+        $("#clear_options").click(function () {
+            $('div[name=selectlanduse]').find('input[type=radio]:checked').each(function (idx, input) {
+                input.checked = false;
+            });
+        });
         // Event to show or hide restricted area edition
         loadAreaChecked.click(function (e) {
             var checked = e.currentTarget.checked
@@ -357,8 +362,8 @@ $(function () {
         });
     };
     /** 
-   * Initialize map 
-   */
+     * Initialize map 
+     */
     initMap = function () {
         map = L.map('mapid').setView([51.505, -0.09], 13);
 
@@ -463,7 +468,7 @@ $(function () {
                     result = JSON.parse(result);
                     currencyDropdown.val(result[0].pk);
                     $('#currencyLabel').text('(' + result[0].fields.currency + ') - ' + result[0].fields.name);
-                    $('#countryLabel').text(countryName);                    
+                    $('#countryLabel').text(countryName);
                     let currencyCode = result[0].fields.currency;
                     let impCostText = gettext("Implementation cost (%s/ha) ");
                     let impCostTrans = interpolate(impCostText, [currencyCode]);
@@ -605,6 +610,17 @@ $(function () {
     fillTransitionsDropdown = function (dropdown) {
         dropdown.change();
     };
+    // Only integers excluding 0
+    checkTimeBenefit = function (event, value) {
+        let regexp = /^[1-9]+[0-9]*$/;
+        valid = regexp.test(value);
+        if (valid) {
+            return true;
+        }
+        else {
+            event.target.value = "1";
+        }
+    }
     checkPercentage = function (event, value) {
         commaNum = null;
         let regexp = /^(?=.*[0-9])([0-9]{0,12}(?:,[0-9]{1,2})?)$/gm;
@@ -651,6 +667,20 @@ $(function () {
         let regexp = /^(?=.*[1-9])([0-9]{0,12}(?:,[0-9]{1,2})?)$/gm;
         valid = regexp.test(value);
         // Validate string
+
+    }
+    $('#benefitTimePorc').focusout(function (event) {
+        let value = parseFloat(event.target.value.replace(",", "."));
+        if (value <= 0) {
+            this.value = "";
+            this.focus();
+        }
+    });
+    checkDecimalFormatZero = function (event, value) {
+        commaNum = null;
+        let regexp = /^(?=.*[1-9])([0-9]{0,12}(?:,[0-9]{1,2})?)$/gm;
+        valid = regexp.test(value);
+        // Validate string
         if (valid) {
             return true;
         }
@@ -658,7 +688,7 @@ $(function () {
             //Remove extra decimals
             value = value.replace(/^(\d+,?\d{0,2})\d*$/, "$1");
             //Remove especial symbols included letters
-            value = value.replace(/[^0-9\,]/g, "");
+            value = value.replace(/[^1-9\,]/g, "");
             if (value.match(/,/g) !== null) {
                 commaNum = (value.match(/,/g)).length;
                 if (commaNum == 1) {

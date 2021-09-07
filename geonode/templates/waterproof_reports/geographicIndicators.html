@@ -11,7 +11,7 @@
 <script type="text/javascript">
     var SelectedCurrency = "{{SelectedCurrency}}";
 </script>
-<div class="page-header">
+<div class="page-header" style="margin-bottom: 0px;height: 50px;margin-top: 0px;">
     <h1 style="font-size: 20pt;color: #1389AA;font-weight: bold;padding: 15px;">{% trans "Geographic visualization" %}</h1>
 </div>
 <br>
@@ -19,32 +19,42 @@
 <form id="form" method="POST" action="">
     {% csrf_token %}
     <!--Start smartwizard-->
-    <br>
-    <div style="position: relative;">
-        <div class="help-in-report">
-            {% trans "En este reporte se presenta de forma sintetizada las proporciones en inversión y beneficios que se lograrán por la implementación de las SbN:" %}
+    <div style="position: relative; border: 1px; border-style: solid; margin-bottom: 10px; border-color: #1389AA;">
+        <div class="help-in-report" style="border-color: transparent;">
+            {% trans "This report summarizes the proportions in investment and benefits that will be achieved by the implementation of the SbN:" %}
         </div>
-        <div style="text-align: center;text-align: center;position: absolute;top: 0px;right: 0px;margin-left: 530px;font-size: 13px;">
-            <div style="float: left;width: 25%;" id="idFinancialIndicators">
-                <img src="/static/geonode/img/indicadores-fisicos.png" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;" title="{% trans "Financial indicators" %}"/> 
-                <br> 
-                <a onclick="changeReport()">{% trans "Reports" %}</a>
-            </div>
-            <div style="float: left;width: 25%;" id="idFinancialIndicators">
+        <div style="text-align: center;position: absolute;top: 0px;right: 0px;margin-left: 60%;font-size: 13px;">
+            <div style="float: left;width: 16%;">
                 <img src="/static/geonode/img/Indicadores-financieros.png" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;" title="{% trans "Financial indicators" %}"/> 
                 <br> 
-                <a href="../../reports/financial/">{% trans "Financial indicators" %}</a>
+                <a href="../../reports/financial/">{% trans "Financial indicators" %}</a-->
             </div>
-            <div style="float: left;width: 25%;" id="idFinancialIndicators">
-                <img src="/static/geonode/img/indicadores-fisicos.png" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;" title="{% trans "Financial indicators" %}"/> 
+            <div style="float: left;width: 16%;" id="idFinancialIndicators">
+                <img src="/static/geonode/img/indicadores-fisicos.png" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black; opacity: 30%;" title="{% trans "Physical indicators" %}"/> 
                 <br> 
+                <a>{% trans "Physical indicators" %}</a>
+                <!--<a href="../../reports/physical/">{% trans "Physical indicators" %}</a>-->
+            </div>
+            <div style="float: left;width: 16%;" id="idDecisionIndicators">
+                <img src="/static/geonode/img/indicadores-decision.png" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;" title="{% trans "Decision indicators" %}"/>
+                <br>
                 <a href="../../reports/decision/">{% trans "Decision indicators" %}</a>
+            </div>
+            <div style="float: left;width: 16%;" id="idGeographicIndicators">
+                <img src="/static/geonode/img/indicadores-geograficos.png" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black; opacity: 30%;" title="{% trans "Geographic visualization" %}"/>
+                <br>
+                <a>{% trans "Geographic visualization" %}</a>
+            </div>
+            <div style="float: left;width: 16%;margin-left: 10%;" id="idGeographicIndicators">
+                <img src="/static/geonode/img/reportes-icon.png" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;" title="{% trans "Geographic visualization" %}"/>
+                <br>
+                <a id="Return"></a>
             </div>
         </div>
     </div>
     <div id="smartwizard" style="position: relative;">
         <div class="border-table-title">
-            <div class="title-table">{% trans "Study Case" %}</div>
+            <div class="title-table" id="idNameStudyCase">{% trans "Study Case" %}</div>
             <div class="detail-table">
                 <div class="column-left-table">
                     <div class="file-column-left">
@@ -96,58 +106,31 @@
                 <div class="table-option">
                 	<div class="list-table-option">
                 		<div>
-	                		<div class="title-table-opton">{% trans "Business as usual" %}</div>
+	                		<div class="title-table-opton">{% trans "Business as usual" %} / {% trans "NBS Scenario" %}</div>
 	                		<div class="height-option">
-	                			<div class="option-table-opion"><input type="checkbox" onclick="viewReport(1,this)"></div>
+	                			<div class="option-table-opion"><input type="radio" name="report" onclick="viewReport(1,7,this)"></div>
 	                			<div>{% trans "Volume of water yield (change in time)" %}</div>
 	                		</div>
 	                		<div class="height-option">
-	                			<div class="option-table-opion"><input type="checkbox" onclick="viewReport(2,this)"></div>
+	                			<div class="option-table-opion"><input type="radio" name="report" onclick="viewReport(2,8,this)"></div>
 	                			<div>{% trans "Anual volume base flow (change in time)" %}</div>
 	                		</div>
 	                		<div class="height-option">
-	                			<div class="option-table-opion"><input type="checkbox" onclick="viewReport(3,this)"></div>
+	                			<div class="option-table-opion"><input type="radio" name="report" onclick="viewReport(3,9,this)"></div>
 	                			<div>{% trans "Total sediments (change in time)" %}</div>
 	                		</div>
 	                		<div class="height-option">
-	                			<div class="option-table-opion"><input type="checkbox" onclick="viewReport(4,this)"></div>
+	                			<div class="option-table-opion"><input type="radio" name="report" onclick="viewReport(4,10,this)"></div>
 	                			<div>{% trans "Nitrogen load (change in time)" %}</div>
 	                		</div>
 	                		<div class="height-option">
-	                			<div class="option-table-opion"><input type="checkbox" onclick="viewReport(5,this)"></div>
+	                			<div class="option-table-opion"><input type="radio" name="report" onclick="viewReport(5,11,this)"></div>
 	                			<div>{% trans "Phosphorus load (change in time)" %}</div>
 	                		</div>
 	                		<div class="height-option">
-	                			<div class="option-table-opion"><input type="checkbox" onclick="viewReport(6,this)"></div>
+	                			<div class="option-table-opion"><input type="radio" name="report" onclick="viewReport(6,12,this)"></div>
 	                			<div>{% trans "Carbon storage (change in time)" %}</div>
 	                		</div>
-                		</div>
-                		<div>
-	                		<div class="title-table-opton">{% trans "NBS Scenario" %}</div>
-	                		<div class="height-option">
-	                			<div class="option-table-opion"><input type="checkbox" onclick="viewReport(7,this)"></div>
-	                			<div>{% trans "Volume of water yield (change in time)" %}</div>
-	                		</div>
-	                		<div class="height-option">
-	                			<div class="option-table-opion"><input type="checkbox" onclick="viewReport(8,this)"></div>
-	                			<div>{% trans "Anual volume base flow (change in time)" %}</div>
-	                		</div>
-	                		<div class="height-option">
-	                			<div class="option-table-opion"><input type="checkbox" onclick="viewReport(9,this)"></div>
-	                			<div>{% trans "Total sediments (change in time)" %}</div>
-	                		</div>
-	                		<div class="height-option">
-	                			<div class="option-table-opion"><input type="checkbox" onclick="viewReport(10,this)"></div>
-	                			<div>{% trans "Nitrogen load (change in time)" %}</div>
-	                		</div>
-	                		<div class="height-option">
-	                			<div class="option-table-opion"><input type="checkbox" onclick="viewReport(11,this)"></div>
-	                			<div>{% trans "Phosphorus load (change in time)" %}</div>
-	                		</div>
-	                		<div class="height-option">
-	                			<div class="option-table-opion"><input type="checkbox" onclick="viewReport(12,this)"></div>
-	                			<div>{% trans "Carbon storage (change in time)" %}</div>
-	                		</div>                			
                 		</div>
                 	</div>
                 </div>
@@ -438,6 +421,14 @@ $(function () {
         location.href = "../../study_cases/report/" + localStorage.idStudyCase;
     }
 
+    var localStorageId = localStorage.idStudyCase;
+    $('#Return').append(
+        `
+        <a href="../../study_cases/report/${localStorageId}">{% trans "Return" %}</a>
+            
+        `
+    );
+
     /**
     * Search the points of a city and load them in the polygon of the map
     * @param {String} Object with the identity of the city    
@@ -490,12 +481,22 @@ $(function () {
             localStorage.setItem('currency', data.currencies[0].name + " - " + data.currencies[0].symbol);
         });
     }
-    viewReport = function(idDiv, object) {
-    	if(object.checked) {
-    		document.getElementById("idGraph" + idDiv).style.display = "block";
-    	} else {
-    		document.getElementById("idGraph" + idDiv).style.display = "none";
-    	}
+    viewReport = function(idDiv1, idDiv2, object) {
+    	document.getElementById("idGraph1").style.display = "none";
+        document.getElementById("idGraph2").style.display = "none";
+        document.getElementById("idGraph3").style.display = "none";
+        document.getElementById("idGraph4").style.display = "none";
+        document.getElementById("idGraph5").style.display = "none";
+        document.getElementById("idGraph6").style.display = "none";
+        document.getElementById("idGraph7").style.display = "none";
+        document.getElementById("idGraph8").style.display = "none";
+        document.getElementById("idGraph9").style.display = "none";
+        document.getElementById("idGraph10").style.display = "none";
+        document.getElementById("idGraph11").style.display = "none";
+        document.getElementById("idGraph12").style.display = "none";
+
+    	document.getElementById("idGraph" + idDiv1).style.display = "block";
+        document.getElementById("idGraph" + idDiv2).style.display = "block";
     }
     /**
     * Draw the polygons on the map when selecting the city 
@@ -608,6 +609,7 @@ $(function () {
         $("#idCountri").html(localStorage.getItem('country'));
         $("#idCity").html(localStorage.getItem('city'));
         $("#idRegion").html(localStorage.getItem('region'));
+        $("#idNameStudyCase").html(localStorage.getItem('studyCasesName'));
 
         var urlDetail = "../../reports/getReportOportunityResultMaps/?studyCase=" + localStorage.idStudyCase;
         $.getJSON(urlDetail, function (data) {
@@ -681,12 +683,12 @@ $(function () {
         			phosphorusLoadChangeInTimeNbs.push(value.phosphorusLoadChangeInTime);
         			carbonStorageChangeInTimeNbs.push(value.carbonStorageChangeInTime);
 
-					volumeOfWaterYieldChangeInTimeNbsHhml = volumeOfWaterYieldChangeInTimeNbsHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + Math.round(value.volumeOfWaterYieldChangeInTime) +'</div></div>';
-        			annualVolumeBaseFlowChangeInTimeNbsHhml = annualVolumeBaseFlowChangeInTimeNbsHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + Math.round(value.annualVolumeBaseFlowChangeInTime) +'</div></div>';
-        			totalSedimentsChangeInTimeNbsHhml = totalSedimentsChangeInTimeNbsHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + Math.round(value.totalSedimentsChangeInTime) +'</div></div>';
-        			nitrogenLoadChangeInTimeNbsHhml = nitrogenLoadChangeInTimeNbsHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + Math.round(value.nitrogenLoadChangeInTime) +'</div></div>';
-        			phosphorusLoadChangeInTimeNbsHhml = phosphorusLoadChangeInTimeNbsHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + Math.round(value.phosphorusLoadChangeInTime) +'</div></div>';
-        			carbonStorageChangeInTimeNbsHhml = carbonStorageChangeInTimeNbsHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + Math.round(value.carbonStorageChangeInTime) +'</div></div>';
+					volumeOfWaterYieldChangeInTimeNbsHhml = volumeOfWaterYieldChangeInTimeNbsHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + parseFloat(value.volumeOfWaterYieldChangeInTime).toFixed(2) +'</div></div>';
+        			annualVolumeBaseFlowChangeInTimeNbsHhml = annualVolumeBaseFlowChangeInTimeNbsHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + parseFloat(value.annualVolumeBaseFlowChangeInTime).toFixed(2) +'</div></div>';
+        			totalSedimentsChangeInTimeNbsHhml = totalSedimentsChangeInTimeNbsHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + parseFloat(value.totalSedimentsChangeInTime).toFixed(2) +'</div></div>';
+        			nitrogenLoadChangeInTimeNbsHhml = nitrogenLoadChangeInTimeNbsHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + parseFloat(value.nitrogenLoadChangeInTime).toFixed(2) +'</div></div>';
+        			phosphorusLoadChangeInTimeNbsHhml = phosphorusLoadChangeInTimeNbsHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + parseFloat(value.phosphorusLoadChangeInTime).toFixed(2) +'</div></div>';
+        			carbonStorageChangeInTimeNbsHhml = carbonStorageChangeInTimeNbsHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + parseFloat(value.carbonStorageChangeInTime).toFixed(2) +'</div></div>';
             	} else  {
             		timeBusiness.push(value.time);
         			volumeOfWaterYieldChangeInTimeBusiness.push(value.volumeOfWaterYieldChangeInTime);
@@ -696,12 +698,12 @@ $(function () {
         			phosphorusLoadChangeInTimeBusiness.push(value.phosphorusLoadChangeInTime);
         			carbonStorageChangeInTimeBusiness.push(value.carbonStorageChangeInTime);
 
-        			volumeOfWaterYieldChangeInTimeBusinessHhml = volumeOfWaterYieldChangeInTimeBusinessHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + Math.round(value.volumeOfWaterYieldChangeInTime) +'</div></div>';
-        			annualVolumeBaseFlowChangeInTimeBusinessHhml = annualVolumeBaseFlowChangeInTimeBusinessHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + Math.round(value.annualVolumeBaseFlowChangeInTime) +'</div></div>';
-        			totalSedimentsChangeInTimeBusinessHhml = totalSedimentsChangeInTimeBusinessHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + Math.round(value.totalSedimentsChangeInTime) +'</div></div>';
-        			nitrogenLoadChangeInTimeBusinessHhml = nitrogenLoadChangeInTimeBusinessHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + Math.round(value.nitrogenLoadChangeInTime) +'</div></div>';
-        			phosphorusLoadChangeInTimeBusinessHhml = phosphorusLoadChangeInTimeBusinessHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + Math.round(value.phosphorusLoadChangeInTime) +'</div></div>';
-        			carbonStorageChangeInTimeBusinessHhml = carbonStorageChangeInTimeBusinessHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + Math.round(value.carbonStorageChangeInTime) +'</div></div>';
+        			volumeOfWaterYieldChangeInTimeBusinessHhml = volumeOfWaterYieldChangeInTimeBusinessHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + parseFloat(value.volumeOfWaterYieldChangeInTime).toFixed(2) +'</div></div>';
+        			annualVolumeBaseFlowChangeInTimeBusinessHhml = annualVolumeBaseFlowChangeInTimeBusinessHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + parseFloat(value.annualVolumeBaseFlowChangeInTime).toFixed(2) +'</div></div>';
+        			totalSedimentsChangeInTimeBusinessHhml = totalSedimentsChangeInTimeBusinessHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + parseFloat(value.totalSedimentsChangeInTime).toFixed(2) +'</div></div>';
+        			nitrogenLoadChangeInTimeBusinessHhml = nitrogenLoadChangeInTimeBusinessHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + parseFloat(value.nitrogenLoadChangeInTime).toFixed(2) +'</div></div>';
+        			phosphorusLoadChangeInTimeBusinessHhml = phosphorusLoadChangeInTimeBusinessHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + parseFloat(value.phosphorusLoadChangeInTime).toFixed(2) +'</div></div>';
+        			carbonStorageChangeInTimeBusinessHhml = carbonStorageChangeInTimeBusinessHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + parseFloat(value.carbonStorageChangeInTime).toFixed(2) +'</div></div>';
             	}
             });
 

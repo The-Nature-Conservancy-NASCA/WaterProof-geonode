@@ -10,7 +10,7 @@ class TitleAndTextBlock(blocks.StructBlock):
     text = blocks.TextBlock(required=True, help_text="Add additional text")
 
     class Meta:  # noqa
-        template = "streams/title_and_text_block.html"
+        template = "templates/newPage.html"
         icon = "edit"
         label = "Title & Text"
 

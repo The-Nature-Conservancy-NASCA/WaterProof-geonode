@@ -1,0 +1,88 @@
+{% extends "geonode_base.html" %}
+{% load static from staticfiles %}
+
+{% load i18n %}
+{% block title %} {% trans "Conservation" %} — {{ block.super }} {% endblock %}
+
+{% block body_outer %}
+
+<section>
+	<div class="imgheaderpag">
+		<img src="{% static 'geonode/img/2-IMAGEN.jpg' %}">
+	</div>
+</section>
+<section>
+	<div class="page-header colorHeaderInstrucciones">
+		<h2>{% trans "Nature-based Solutions (NbS)" %}</h2>
+	</div>
+	<p class="text-justify">
+		{% trans "Nature-based Solutions (NbS) are ‘actions to protect, sustainably manage, and restore natural or
+		modified ecosystems, that address societal challenges, effectively and adaptively, simultaneously providing
+		human well-being and biodiversity benefits’ (IUCN).The concept of NbS arose out of an increasing recognition of
+		the fundamental role ecosystems play in addressing some of society’s biggest challenges, including enhancing
+		water security, reducing risk of natural disasters, avoiding degradation of natural ecosystems, and mitigating
+		or adapting to the impacts of climate change." %}
+		<br><br>
+		{% trans "NbS can be categorized by both their intervention type and their habitat. There are four major
+		intervention categories: protection, restoration, management and creation. These intervention types can be
+		carried out across a range of habitats, including forests, grasslands, wetlands, agricultural landscapes and
+		cities" %}
+	</p>
+	<div class="newstitle">
+		<span><b>{% trans "Conservation" %}</b></span>
+	</div>
+	<section>
+		<div class="row" style="height:500px;">
+			<div class="col-md-4 text-center">
+				<img src="{% static 'geonode/img/take_action_info.png' %}"
+					style="max-inline-size: -webkit-fill-available;">
+			</div>
+			<div class="col-md-7 col-md-offset-1">
+				<div class="row alignetextright">
+					<p class="text-justify">
+						{% trans "Nature-based solutions supported by conservation refer to actions that seek to
+						conserve current land coverby signing conservation agreements, paying rangers, or fencing off
+						areas. This action does not generate changes in the coverage, but prevents degradation, as would
+						occurin a no-project scenario" %}
+					</p>
+					<p class="text-justify">
+						{% trans "Conservation agreements arean efficient and effective instrument for
+						negotiatinginterests and conflicts in watershedsbetween owners of areas of interest for water
+						and biodiversity and the institutions that have clearercompetencies for management and
+						conservation of these areas." %}
+					</p>
+					<p class="text-justify">
+						{% trans "These agreementsbecomean instrument of trust, reciprocity and articulation between the
+						actors involved: the owners, the authorities of local institutions and the users of ecosystem
+						services, where, through contracts, the protection of areas at risk of degradationis agreed
+						upon.Thus negotiating the non-deforestation of forests and moorlands, and the implementation of
+						agroecological practices such as the removal of cattle from sensitive areas, the establishment
+						of fences along the banks of streams and rivers to preventthe entryof clattleand favor natural
+						regeneration, the construction of infiltration ditches and the application of zero or minimum
+						tillage." %}
+					</p>
+					<p class="text-justify">
+						{% trans "They can include payments of environmental fees bytheusers of water for human
+						consumption, to be repaidin incentives and compensation for the owners of areas of water
+						interest through long-term agreements or contracts and conditioned to conservation, restoration
+						and productive innovation." %}
+					</p>
+					<p class="text-justify">
+						{% trans "Conservation agreements are entered into in writing, and it is desirable that they
+						beexpressly, clearly and concisely defined: the object of the contract, including the object of
+						conservation, the actors who sign it, the actions and benefits that they will provide, the
+						commitments and obligations of each of the parties, the threats they face, the penalties for
+						non-compliance with the agreed conditions, the duration of the contract, and the modalities for
+						their renewal and continuity." %}
+					</p>
+					
+				</div>
+			</div>
+		</div>
+		<div class="row" style="height:30px;">
+		</div>
+	</section>
+</section>
+
+
+{% endblock %}

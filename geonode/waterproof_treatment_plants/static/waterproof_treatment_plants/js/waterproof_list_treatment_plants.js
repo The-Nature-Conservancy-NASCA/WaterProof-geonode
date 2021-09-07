@@ -489,6 +489,8 @@ $(function () {
                     })
                 });
 
+                loadUpdatePtap()
+
                 arrayLoadingFunction = data.function;
                 document.getElementById("idBackgroundGraph").style.display = "none";
                 loadInfoTree = true;

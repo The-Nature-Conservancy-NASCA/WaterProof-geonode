@@ -51,7 +51,7 @@ msgid "NBS_conservation_activities"
 msgstr "NbS / Conservation activities"
 
 msgid "portfolios"
-msgstr "Portfolio objetives"
+msgstr "Portfolio objectives"
 
 msgid "analysis_parameter"
 msgstr "Analysis parameters"
@@ -63,7 +63,7 @@ msgid "define_study_case"
 msgstr "Define case study"
 
 msgid "define_study_case_text"
-msgstr "Please complete the fields to define your Study Case"
+msgstr "Please complete the fields to define your case study"
 
 msgid "select_type_study"
 msgstr "Select type of case study to create"
@@ -99,13 +99,13 @@ msgid "carbon_market_benefits"
 msgstr "Carbon Market Benefits"
 
 msgid "carbon_market_text"
-msgstr "If you wish, WaterProof can consider benefits associated with the Carbon market, click on the following checkbox to include in the analysis"
+msgstr "If you wish, WaterProof can consider benefits associated with the carbon market, click on the following checkbox to include in the analysis"
 
 msgid "CO2_country"
 msgstr "CO2 Eq for "
 
 msgid "portfolios_text"
-msgstr "Select the objetives for which the system will generate portfolios of Nature-bassed Solutions, using the RIOS technnical framework"
+msgstr "Select the objectives for which the system will generate portfolios of Nature-based Solutions, using the RIOS technnical framework"
 
 msgid "edit_study_cases"
 msgstr "Edit case study"
@@ -240,7 +240,7 @@ msgid "Creating a new water intake"
 msgstr "Creating a new case study"
 
 msgid "study_cases_list_tip"
-msgstr "In this section you can consult and configure the case studies fora defined city. To configure your case study, remember that you must have defined the water intakes and the different cost functions that will allow WaterProof to understand its context and costs, and provide the return on investment for the implementation of Nature-Based Solutions."
+msgstr "In this section you can consult and configure the case studies for a defined city. To configure your case study, remember that you must have defined the water intakes and the different cost functions that will allow WaterProof to understand its context and costs, and provide the return on investment for the implementation of Nature-Based Solutions."
 
 msgid "carbon_market_title"
 msgstr "Carbon Market Benefits"
@@ -252,7 +252,7 @@ msgid "biophysical_tip"
 msgstr "In this step you will find the biophysical parameters required for the execution of the models. If you want to see or edit them, click on advanced options, otherwise click on next and the system will use the default values."
 
 msgid "financial_tip"
-msgstr "In this section, the system offers you the pre-loaded the costs required for the implementation of the NBS. Confirm or edit the values ​​according to your reality:"
+msgstr "In this section, the system offers you the pre-loaded the costs required for the implementation of the NbS. Confirm or edit the values ​​according to your reality:"
 
 msgid "study_case_tip"
 msgstr "Enter the data with which you will identify your case study. Note that in addition to the name and a description, you must indicate the treatment plants and catchments that derive costs"
@@ -336,7 +336,7 @@ msgid "In this section the key actions refer to the selection of treatment plant
 msgstr "In this section the key actions refer to the selection of treatment plants and catchments that make up the case study, since through them the system obtains the indications for the execution of the RIOS model in charge of recommending the areas of implementation of the Nature-Based Solutions NbS."
 
 msgid "Thanks to the catchment configuration, the system knows the geographical area in which the user wishes to implement the NBS and analyze the costs, in order to proceed with the ROI analysis."
-msgstr "Thanks to the catchment configuration, the system knows the geographical area in which the user wishes to implement the NBS and analyze the costs, in order to proceed with the ROI analysis."
+msgstr "Thanks to the catchment configuration, the system knows the geographical area in which the user wishes to implement the NbS and analyze the costs, in order to proceed with the ROI analysis."
 
 msgid "Remember that ROI is an indicator that allows you to know how much money is lost or earned with the investments made. It is a performance measure used to evaluate the efficiency of an investment or to compare the efficiency of a number of different investments."
 msgstr "Remember that ROI is an indicator that allows you to know how much money is lost or earned with the investments made. It is a performance measure used to evaluate the efficiency of an investment or to compare the efficiency of a number of different investments."
@@ -351,7 +351,7 @@ msgid "uses information from the database published in May 2020 by the Institute
 msgstr "uses information from the database published in May 2020 by the Institute for Climate Economics (Sébastien Postic | Marion Fetet) to preload USD / TonCO2eq values ​​that vary according to the country where the analysis is being carried out, however, the user can modify these values ​​according to the information they have."
 
 msgid "WaterProof will define the NBS of your portfolio according to your needs in relation to:"
-msgstr "WaterProof will define the NBS of your portfolio according to your needs in relation to:"
+msgstr "WaterProof will define the NbS of your portfolio according to your needs in relation to:"
 
 msgid "Erosion control to keep sediments out of water courses, avoiding the physical-mechanical loss of soil, the impact on water quality and its deposition in reservoirs, where it can reduce the production capacity of hydroelectric facilities or damage reservoirs and irrigation infrastructure."
 msgstr "Erosion control to keep sediments out of water courses, avoiding the physical-mechanical loss of soil, the impact on water quality and its deposition in reservoirs, where it can reduce the production capacity of hydroelectric facilities or damage reservoirs and irrigation infrastructure."
@@ -375,7 +375,7 @@ msgid "Definition of Financial Parameters"
 msgstr "Definition of financial parameters"
 
 msgid "The implementation of your NBS portfolio requires a series of investments to support its implementation, which in the system is called the Platform. This includes the personnel costs, office, travel, acquisition of equipment, among others."
-msgstr "The implementation of your NBS portfolio requires a series of investments to support its implementation, which in the system is called the Platform. This includes the personnel costs, office, travel, acquisition of equipment, among others."
+msgstr "The implementation of your NbS portfolio requires a series of investments to support its implementation, which in the system is called the Platform. This includes the personnel costs, office, travel, acquisition of equipment, among others."
 
 msgid "You may indicate the discount rate that you wish to use to determine the present value of the payments that will be incurred."
 msgstr "You may indicate the discount rate that you wish to use to determine the present value of the payments that will be incurred."
@@ -402,7 +402,7 @@ msgid "WaterProof considers a set of Nature-Based Solutions that you can link to
 msgstr "WaterProof considers a set of Nature-Based Solutions that you can link to your analysis according to your interest in protecting, sustainably managing and restoring natural or modified ecosystems that address social challenges in an effective and adaptive way, providing simultaneous benefits for human well-being and biodiversity."
 
 msgid "By default, WaterProof has the following NBS, however you may create new ones that you can link to your analysis. The default NBSs are:"
-msgstr "By default, WaterProof has the following NBS, however you may create new ones that you can link to your analysis. The default NbSs are:"
+msgstr "By default, WaterProof has the following NbS, however you may create new ones that you can link to your analysis. The default NbSs are:"
 
 msgid "Conservation: refers to actions that seek to conserve current land use coverage by signing conservation agreements, paying forest rangers or fencing off areas."
 msgstr "Conservation: refers to actions that seek to conserve current land use coverage by signing conservation agreements, paying forest rangers or fencing off areas."

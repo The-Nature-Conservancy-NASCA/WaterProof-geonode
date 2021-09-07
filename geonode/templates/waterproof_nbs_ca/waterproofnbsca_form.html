@@ -70,7 +70,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <label>{% trans "Time required to generate maximun benefit (yr)" %} <span class="text-danger-wp">(*)</span> </label>
-                    <input id="maxBenefitTime"  onInput="return checkTime(event,value)"
+                    <input id="maxBenefitTime"  onInput="return checkTimeBenefit(event,value)"
                     type="text"  class="form-control" data-error='{% trans "Field is required" %}' required>
                     <div class="help-block with-errors"></div>
                 </div>
@@ -87,7 +87,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <label>{% trans "Periodicity of maintenance (yr)" %} <span class="text-danger-wp">(*)</span> </label>
-                    <input id="maintenancePeriod"  onInput="return checkTime(event,value)"
+                    <input id="maintenancePeriod"  onInput="return checkTimeBenefit(event,value)"
                     type="text" class="form-control" data-error='{% trans "Field is required" %}' required>
                     <div class="help-block with-errors"></div>
                 </div>
@@ -98,19 +98,19 @@
             <div class="row">
                 <div class="col-md-4">
                     <label id="implementCostLabel">{% trans "Implementation cost (US$/ha)" %} <span class="text-danger-wp">(*)</span> </label>
-                    <input id="implementCost"  type="text" onInput="return checkDecimalFormat(event,value)" 
+                    <input id="implementCost"  type="text" onInput="return checkPercentage(event,value)" 
                     class="form-control" data-error='{% trans "Field is required" %}' required>
                     <div class="help-block with-errors"></div>
                 </div>
                 <div class="col-md-4">
                     <label id="maintenanceCostLabel">{% trans "Maintenace cost (US$/ha)" %} <span class="text-danger-wp">(*)</span> </label>
-                    <input id="maintenanceCost"  type="text" onInput="return checkDecimalFormat(event,value)" 
+                    <input id="maintenanceCost"  type="text" onInput="return checkPercentage(event,value)" 
                     class="form-control" data-error='{% trans "Field is required" %}' required>
                     <div class="help-block with-errors"></div>
                 </div>
                 <div class="col-md-4">
                     <label id="oportunityCostLabel">{% trans "Oportunity cost (US$/ha)" %} <span class="text-danger-wp">(*)</span> </label>
-                    <input id="oportunityCost" type="text" onInput="return checkDecimalFormat(event,value)"  class="form-control" data-error='{% trans "Field is required" %}' required>
+                    <input id="oportunityCost" type="text" onInput="return checkPercentage(event,value)"  class="form-control" data-error='{% trans "Field is required" %}' required>
                     <div class="help-block with-errors"></div>
                 </div>
             </div>
@@ -172,6 +172,14 @@
                     </table>
                 </div>
                 {% endfor %}
+                <div class="col-md-12">
+                    <table class="table">
+                        <tr>
+                            <td class="col-md-4"></td>
+                            <td class="col-md-8"><button id="clear_options" type="button" class="btn btn-primary ">{% trans "Clear options" %}</button></td>
+                        </tr>
+                    </table>
+                </div>
             </div>
         </div>
         <div class="form-group">
@@ -304,11 +312,13 @@
     <script>
          var countryId = '{{usaCountry.id}}';
          var disableMap=true;
+         var countryCode = localStorage.countryCode;
     </script>
 {% else %}
     <script>
         var disableMap=false;
         var countryId = '{{country.id}}';
+        var countryCode = localStorage.countryCode;
     </script>
 {% endif %}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min.js"

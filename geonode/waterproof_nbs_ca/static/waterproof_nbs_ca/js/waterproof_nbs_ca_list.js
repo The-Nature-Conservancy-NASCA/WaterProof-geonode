@@ -4,7 +4,17 @@
  * @version 1.0
  */
 $(function () {
-    var table = $('#example').DataTable();
+    var table = $('#tblNbs').DataTable({
+        'dom': 'lrtip',
+        'columnDefs': [
+            {
+                "targets": [4],
+                "visible": false
+            }
+        ]
+    }
+    );
+    var search;
     var countryDropdown = $('#countryNBS');
     var currencyDropdown = $('#currencyCost');
     var transitionsDropdown = $('#riosTransition');
@@ -50,7 +60,7 @@ $(function () {
                 })
             }
         });
-        $('.btn-danger').click(function (evt) {
+        $('#tblNbs tbody').on('click', '.btn-danger', function (evt) {
             Swal.fire({
                 title: gettext('Delete NBS'),
                 text: gettext("Are you sure?") + gettext("You won't be able to revert this!"),
@@ -211,24 +221,25 @@ $(function () {
         CENTER = [4.582, -74.4879];
         // Basemap layer
         var osm = L.tileLayer(OSM_BASEMAP_URL, {
-            maxZoom: MAXZOOM, 
-            attribution: 'Data \u00a9 <a href="http://www.openstreetmap.org/copyright"> OpenStreetMap Contributors </a> Tiles \u00a9 Komoot'});
-        var images = L.tileLayer(IMG_BASEMAP_URL); 
+            maxZoom: MAXZOOM,
+            attribution: 'Data \u00a9 <a href="http://www.openstreetmap.org/copyright"> OpenStreetMap Contributors </a> Tiles \u00a9 Komoot'
+        });
+        var images = L.tileLayer(IMG_BASEMAP_URL);
         //var hydroLyr = L.tileLayer(HYDRO_BASEMAP_URL);
         var grayLyr = L.tileLayer(GRAY_BASEMAP_URL, {
-                    maxZoom: 20,
-                        attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
-                    });
+            maxZoom: 20,
+            attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
+        });
 
         var baseLayers = {
             OpenStreetMap: osm,
             Images: images,
             Grayscale: grayLyr,
         };
-        
+
         map = L.map('mapid', {
-            scrollWheelZoom: false, 
-            layers: [osm],            
+            scrollWheelZoom: false,
+            layers: [osm],
         });
 
         // Countries layer
@@ -239,22 +250,35 @@ $(function () {
             }
         ).addTo(map);
         var overlays = {
-            "Countries": countries,            
+            "Countries": countries,
         };
 
         let initialCoords = CENTER;
-        map.setView(initialCoords,5);
-        L.control.layers(baseLayers,overlays,{position: 'topleft'}).addTo(map);
+        map.setView(initialCoords, 5);
+        L.control.layers(baseLayers, overlays, { position: 'topleft' }).addTo(map);
 
         // When countries layer is loaded fire dropdown event change
         countries.on("data:loaded", function (evt) {
             let mapClick = false;
             // Preload selected country form list view
             updateCountryMap(userCountryCode, evt.target);
-            // Filter datables with country name
-            table.search(userCountryName).draw();
-            // Update url to create with country id parameter
-            udpateCreateUrl(userCountryId);
+            $.ajax({
+                url: '/parameters/load-countryByCode/',
+                data: {
+                    'code': userCountryCode
+                },
+                success: function (result) {
+                    result = JSON.parse(result);
+                    console.log(result);
+                    userCountryName = result[0].fields.name;
+                    userCountryId = result[0].pk;
+                    // Filter datables with country name
+                    //table.search(userCountryName).draw();
+                    // Update url to create with country id parameter
+                    //udpateCreateUrl(userCountryId);
+                    updateGeographicLabels(userCountryCode);
+                }
+            });
         });
 
         function onEachFeature(feature, layer) {
@@ -272,49 +296,103 @@ $(function () {
             }
             layerClicked.setStyle(highlighPolygon);
             let countryCode = feature.sourceTarget.feature.id;
+            updateGeographicLabels(countryCode);
+            // $.ajax({
+            //     url: '/parameters/load-countryByCode/',
+            //     data: {
+            //         'code': countryCode
+            //     },
+            //     success: function (result) {
+            //         result = JSON.parse(result);
+            //         $('#countryLabel').text(result[0].fields.name);
+            //         table.search(result[0].fields.name).draw();
+            //         let countryId = result[0].pk;
+            //         udpateCreateUrl(countryId);
+            //         //
+            //         $.ajax({
+            //             url: '/parameters/load-regionByCountry/',
+            //             data: {
+            //                 'country': countryId
+            //             },
+            //             success: function (result) {
+            //                 result = JSON.parse(result);
+            //                 $('#regionLabel').text(result[0].fields.name);
 
-            $.ajax({
-                url: '/parameters/load-countryByCode/',
-                data: {
-                    'code': countryCode
-                },
-                success: function (result) {
-                    result = JSON.parse(result);
-                    $('#countryLabel').text(result[0].fields.name);
-                    table.search(result[0].fields.name).draw();
-                    let countryId = result[0].pk;
-                    udpateCreateUrl(countryId);
-                    //
-                    $.ajax({
-                        url: '/parameters/load-regionByCountry/',
-                        data: {
-                            'country': countryId
-                        },
-                        success: function (result) {
-                            result = JSON.parse(result);
-                            $('#regionLabel').text(result[0].fields.name);
-
-                        }
-                    });
-                    $.ajax({
-                        url: '/parameters/load-currencyByCountry/',
-                        data: {
-                            'country': countryId
-                        },
-                        success: function (result) {
-                            result = JSON.parse(result);
-                            $('#currencyLabel').text('(' + result[0].fields.currency + ') - ' + result[0].fields.name);
-                        }
-                    });
-                }
-            });
+            //             }
+            //         });
+            //         $.ajax({
+            //             url: '/parameters/load-currencyByCountry/',
+            //             data: {
+            //                 'country': countryId
+            //             },
+            //             success: function (result) {
+            //                 result = JSON.parse(result);
+            //                 $('#currencyLabel').text('(' + result[0].fields.currency + ') - ' + result[0].fields.name);
+            //             }
+            //         });
+            //     }
+            // });
             lastClickedLayer = feature.target;
         }
         //map.on('click', onMapClick);
     }
+    setMultiplicationFactor = function (row, index, factor) {
+        if (row[4] === 'ADMIN') {
+            // Implementation cost 
+            oldImplCost = search.cell({ row: index, column: 7 }).data();
+            search.cell({ row: index, column: 7 }).data((parseFloat(oldImplCost) * parseFloat(factor)).toFixed(2));
+            oldMaintCost = search.cell({ row: index, column: 8 }).data();
+            search.cell({ row: index, column: 8 }).data((parseFloat(oldMaintCost) * parseFloat(factor)).toFixed(2));
+            oldOportCost = search.cell({ row: index, column: 9 }).data();
+            search.cell({ row: index, column: 9 }).data((parseFloat(oldOportCost) * parseFloat(factor)).toFixed(2));
+        }
+    }
+    updateGeographicLabels = function (countryCode) {
+        $.ajax({
+            url: '/parameters/load-countryByCode/',
+            data: {
+                'code': countryCode
+            },
+            success: function (result) {
+                result = JSON.parse(result);
+                $('#countryLabel').text(result[0].fields.name);
+                search = table.search('(ADMIN|' + result[0].fields.name + ')', true, true);
+                let filteredData = search.rows({ search: 'applied' }).data();
+                let multiplicatorFactor = result[0].fields.global_multiplier_factor;
+                filteredData.filter(function (element, index) {
+                    return setMultiplicationFactor(element, index, multiplicatorFactor);
+                });
+                search.draw();
+                let countryId = result[0].pk;
+                //udpateCreateUrl(countryId);
+                //
+                $.ajax({
+                    url: '/parameters/load-regionByCountry/',
+                    data: {
+                        'country': countryId
+                    },
+                    success: function (result) {
+                        result = JSON.parse(result);
+                        $('#regionLabel').text(result[0].fields.name);
+
+                    }
+                });
+                $.ajax({
+                    url: '/parameters/load-currencyByCountry/',
+                    data: {
+                        'country': countryId
+                    },
+                    success: function (result) {
+                        result = JSON.parse(result);
+                        $('#currencyLabel').text('(' + result[0].fields.currency + ') - ' + result[0].fields.name);
+                    }
+                });
+            }
+        });
+    }
     udpateCreateUrl = function (countryId) {
-        $('#createUrl').attr('href', 'create/' + countryId)
-        $('#nbs-createUrl').attr('href', 'create/' + countryId)
+        $('#createUrl').attr('href', 'create/' + countryId);
+        $('#nbs-createUrl').attr('href', 'create/' + countryId);
     };
     /** 
     * Get the transformations selected
@@ -389,7 +467,7 @@ $(function () {
         });
     };
     updateCountryMap = function (countryCode, lyr) {
-        lyr.eachLayer(function (layer) {            
+        lyr.eachLayer(function (layer) {
             if (layer.feature.id == countryCode) {
                 if (lastClickedLayer) {
                     lastClickedLayer.setStyle(defaultStyle);
@@ -405,11 +483,6 @@ $(function () {
      * Validate input file on change
      * @param {HTML} dropdown Dropdown selected element
      */
-
-  
-
-
-
     changeFileEvent = function () {
         $('#restrictedArea').change(function (evt) {
             var file = evt.currentTarget.files[0];

@@ -21,10 +21,10 @@
     
   <div class="container gn-container">
       {% with jumbotron_welcome_title=custom_theme.jumbotron_welcome_title|default:"Welcome"|template_trans %}
-      <h1>{% trans jumbotron_welcome_title %}</h1>
+      <h1>{% trans "Begin your Nature based Solutions journey" %}</h1>
       {% endwith %}
       {% with jumbotron_welcome_content=custom_theme.jumbotron_welcome_content|default:"GeoNode is an open source platform for sharing geospatial data and maps."|template_trans %}
-      <p>{% trans jumbotron_welcome_content %}</p>
+      <p>{% trans "Explore how Nature-based Solutions can generate outcomes in your catchment." %}</p>
       {% endwith %}
       {% if not custom_theme.jumbotron_cta_hide %}
       <p><a class="btn btn-default btn-lg"
@@ -48,7 +48,7 @@
 			 </ol>
 			 {% endif %}
        {% with jumbotron_welcome_title=custom_theme.jumbotron_welcome_title|default:"Welcome"|template_trans %}
-       <h1 class="carousel-header">{% trans jumbotron_welcome_title %}</h1>
+       <h1 class="carousel-header">{% trans "Begin your Nature based Solutions journey" %}</h1>
        {% endwith %}
 			 <!-- Wrapper for slides -->
 			 <div class="carousel-inner" role="listbox">
@@ -60,7 +60,7 @@
 				   {% if not slide.hide_jumbotron_slide_content %}
 				   <div class="carousel-caption">
             {% with jumbotron_slide_content=slide.jumbotron_slide_content|markdownify %}
-            {% trans jumbotron_slide_content %}
+            {% trans "Explore how Nature-based Solutions can generate outcomes in your catchment." %}
             {% endwith %}
 				   </div>
 				   {% endif %}
@@ -127,21 +127,83 @@
       padding-top: 170px;
 }
 </style>
+<!--section 2 What is waterproof-->
+<section>
+    <div class="container" id="soi-menu">
+      <div class="text-left">
+          <h2 class="colorLeftInstructions">{% trans "What is WaterProof?" %}</h2>
+      </div>
+      <br>
+      <p class="size-left">{% trans "This platform will provide a rapid and indicative NbS investment portfolio and associated ROI. The tool is intended to engage actors interested in exploring solutions to local water challenges and prioritization of locations for possible NbS water security programs (such as Water Funds)." %}</p>
+      <div class="divCenter col-md-12 size-left-buttom">
+        <div class="col-md-1"></div>
+        <div class="col-md-2">
+            <img class="iconsWhatIsWP" src="/static/geonode/img/before_starting.png">
+            <button class="buttonWhatIsWP">{% trans "Before starting" %}</button>
+        </div>
+        <div class="col-md-2">
+            <img class="iconsWhatIsWP" src="/static/geonode/img/what_is_CE.png">
+            <button class="buttonWhatIsWP">{% trans "What is a case study?" %}</button>
+        </div>
+        <div class="col-md-2">
+            <img class="iconsWhatIsWP" src="/static/geonode/img/Support_data.png">
+            <button class="buttonWhatIsWP">{% trans "Support data" %}</button>
+        </div>
+        <div class="col-md-2">
+            <img class="iconsWhatIsWP" src="/static/geonode/img/see_example.png">
+            <button class="buttonWhatIsWP">{% trans "See an example" %}</button>
+        </div>
+        <div class="col-md-2">
+            <img class="iconsWhatIsWP" src="/static/geonode/img/who_can_use.png">
+            <button class="buttonWhatIsWP">{% trans "Who can use the system?" %}</button>
+        </div>
+        <div class="col-md-1"></div>
+      </div>
+      <br>
+    </div>
+  </section>
+  <br>
+  <br>
+<!--section 3 why use waterproof-->
+<section class="imgbackgroundWhyUse">
+    <div class="container" id="soi-menu">
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+      <div class="size-left col-md-6">
+          <h2 class="colorLeftInstructionsW">{% trans "Why use WaterProof?" %}</h2>
+          <h3 class="colorLeftInstructionsWh3">{% trans "FAST" %}</h3>
+          <p class="colorLeftInstructionsWp size-left">{% trans "Rapidly develop a pre-feasibility understanding for how NbS can generate water security outcomes" %}</p>
+          <h3 class="colorLeftInstructionsWh3">{% trans "COMPELLING" %}</h3>
+          <p class="colorLeftInstructionsWp size-left">{% trans "Clear analytics to promote stakeholder conversations" %}</p>
+          <h3 class="colorLeftInstructionsWh3">{% trans "CUSTOMIZABLE" %}</h3>
+          <p class="colorLeftInstructionsWp size-left">{% trans "Platform offers flexibility to define custom elements & parameters to approximate your local conditions" %}</p>
+          <h3 class="colorLeftInstructionsWh3">{% trans "FREE" %}</h3>
+          <p class="colorLeftInstructionsWp size-left">{% trans "We are committed to equipping local NbS champions with the information" %}</p>
+      </div>
+      <div class="divCenter col-md-6">
+          <img class="iconWhyUse" src="/static/geonode/img/why_use.png">
+      </div>
+    </div>
+  </section>
+
 <section class="imgbackgroundSystemop">
   <div class="container" id="soi-menu">
     <div class="text-center">
-        <h2 class="colorCenterInstructions">{% trans "System Operating Instructions" %}</h2>
+        <h2 class="colorCenterInstructions">{% trans "How does WaterProof work?" %}</h2>
     </div>
     <div class="row hidden-xs hidden-sm hidden-md">
         <div class="col-md-4">
             <div class="center-block text-center">
                 <img class="center-img" src="/static/geonode/img/2.png">
                 <img class="img1 ani_headShake" src="/static/geonode/img/01-ICONO.png">
-                <h4 class="ico1-text ">{% trans "Choose or create a new NBS" %}</h4>
+                <h4 class="ico1-text ">{% trans "Find Your city" %}</h4>
                 <img class="img2 ani_headShake" src="/static/geonode/img/02-ICONO.png">
-                <h4 class="ico2-text ">{% trans "Define and configure your Water Intakes" %}</h4>
+                <h4 class="ico2-text ">{% trans "Select / create your Nbs" %}</h4>
                 <img class="img3 ani_headShake" src="/static/geonode/img/03-ICONO.png">
-                <h4 class="ico3-text ">{% trans "Locate your city" %}</h4>
+                <h4 class="ico3-text ">{% trans "Configure water intakes" %}</h4>
             </div>
         </div>
         <div class="col-md-4 center-block">
@@ -153,11 +215,11 @@
             <div class="center-block text-center">
                 <img class="center-img " src="/static/geonode/img/3.png">
                 <img class="img4 ani_headShake" src="/static/geonode/img/04-ICONO.png">
-                <h4 class="ico4-text ">{% trans "Configure your treatment plants or customized infrastructure" %} </h4>
+                <h4 class="ico4-text ">{% trans "Define infrastructure" %} </h4>
                 <img class="img5 ani_headShake" src="/static/geonode/img/05-ICONO.png">
-                <h4 class="ico5-text ">{% trans "Define costs and create your case study" %}</h4>
+                <h4 class="ico5-text ">{% trans "Create a case study" %}</h4>
                 <img class="img6 ani_headShake" src="/static/geonode/img/06-ICONO.png">
-                <h4 class="ico6-text ">{% trans "Consult, compare, download and share the results" %}</h4>
+                <h4 class="ico6-text ">{% trans "Analize outputs" %}</h4>
             </div>
         </div>
     </div>
@@ -232,7 +294,37 @@
     </div>
   </div>
 </section>
-<section class="container" id="nbs-menu">
+<br>
+<!--section 5 Realize the investment-->
+<section class="imgbackgroundRealize">
+    <div class="container" id="soi-menu">
+            <div class="col-md-8">
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <div class="text-left">
+                    <h2 class="colorLeftInstructionsR">{% trans "Realize the Investment" %}</h2>
+                </div>
+                <br>
+                <div class="size-left">
+                    <p>{% trans "Step beyond ROI assessment to learn about tangible steps you can take for advancing your NbS investment vision" %}</p>
+                    <br>
+                    <button class="buttonRealize">{% trans "Take action" %}</button>
+                    <br>
+                </div>
+            </div>
+            <div class="divCenter col-md-4">
+                <br>
+                <br>
+                <img class="iconWhyUse" src="/static/geonode/img/Realize_investment.png">
+            </div>
+        
+    </div>
+  </section>
+<!-- <section class="container" id="nbs-menu">
     <div class="text-center">
         <h2 class="colorHeaderInstrucciones">{% trans "Nature based Solutions" %}</h2>
         <p>{% trans "NbS can be categorized in four major interventions" %}</p>
@@ -313,7 +405,7 @@
             </div>
         </div>
     </div>
-</section>
+</section> -->
 <section class="imgbackgroundwiki" id="wtw-menu">
     <div class="backgroundcolorwiki">
         <div class="text-center">
@@ -334,7 +426,7 @@
         <div class="col-md-12 text-center">
             <br>
             <button class="button-viki">
-              <a class= "link-wp-syle" href="{{ partner.partner_link|safe }}" target="_blank"><span class="ppwpwiki3"> {% trans "Keep reading" %}  </span></a>
+              <a class= "link-wp-syle" href="/wiki" target="_blank"><span class="ppwpwiki3"> {% trans "Keep reading" %}  </span></a>
             </button>
             <br>
         </div>

@@ -1,0 +1,67 @@
+{% extends "geonode_base.html" %}
+{% load static from staticfiles %}
+
+{% load i18n %}
+{% block title %} {% trans "Pasive restoration" %} — {{ block.super }} {% endblock %}
+
+{% block body_outer %}
+
+<section>
+	<div class="imgheaderpag">
+		<img src="{% static 'geonode/img/2-IMAGEN.jpg' %}">
+	</div>
+</section>
+<section>
+	<div class="page-header colorHeaderInstrucciones">
+		<h2>{% trans "Nature-based Solutions (NbS)" %}</h2>
+	</div>
+	<p class="text-justify">
+		{% trans "Nature-based Solutions (NbS) are ‘actions to protect, sustainably manage, and restore natural or
+		modified ecosystems, that address societal challenges, effectively and adaptively, simultaneously providing
+		human well-being and biodiversity benefits’ (IUCN).The concept of NbS arose out of an increasing recognition of
+		the fundamental role ecosystems play in addressing some of society’s biggest challenges, including enhancing
+		water security, reducing risk of natural disasters, avoiding degradation of natural ecosystems, and mitigating
+		or adapting to the impacts of climate change." %}
+		<br><br>
+		{% trans "NbS can be categorized by both their intervention type and their habitat. There are four major
+		intervention categories: protection, restoration, management and creation. These intervention types can be
+		carried out across a range of habitats, including forests, grasslands, wetlands, agricultural landscapes and
+		cities" %}
+	</p>
+	<div class="newstitle">
+		<span><b>{% trans "Passive Restoration" %}</b></span>
+	</div>
+	<section>
+		<div class="row" style="height:500px;">
+			<div class="col-md-4 text-center">
+				<img src="{% static 'geonode/img/take_action_info.png' %}"
+					style="max-inline-size: -webkit-fill-available;">
+			</div>
+			<div class="col-md-7 col-md-offset-1">
+				<div class="row alignetextright">
+					<p class="text-justify">
+						{% trans "This type of restoration is achieved when strategic assistance actions are carried out
+						to enabledegraded ecosystems toovercome or eliminate factors that prevent their regeneration."
+						%}
+					</p>
+					<p class="text-justify">
+						{% trans "It consists of eliminating the sources of disturbancethat cause deterioration and
+						protecting the project site sufficiently to allownatural recovery processes to occur. " %}
+					</p>
+					<p class="text-justify">
+						{% trans "This is the least intrusive and least costly level of intervention to achieve
+						ecological restoration. The most common strategy is physical fencing e.g., barbedor electric
+						fencing). Some passive restoration exercises also include installing structures that serve as
+						perches or shelters for animals that are potential seed dispersers in order to attract them and
+						expedite the process. No planting is done in this scheme." %}
+					</p>
+				</div>
+			</div>
+		</div>
+		<div class="row" style="height:30px;">
+		</div>
+	</section>
+</section>
+
+
+{% endblock %}
