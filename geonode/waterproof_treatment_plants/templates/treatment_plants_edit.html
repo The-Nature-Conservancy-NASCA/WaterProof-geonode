@@ -13,7 +13,7 @@
 <!--header-->
 <div class="header-waterproof">
     <div class="row">
-        <div class="col-sm-5">
+        <div class="col-sm-3.5">
             <h1 id="titleFormTreatmentPlant"></h1>
         </div>
         <div class="col-sm-1">
@@ -231,7 +231,7 @@
                 <div class="main-point" onclick="viewBranch('mainTree', this)">-</div>
                 <div class="text-point-main" id="branch1">{% trans "Treatment Plant" %}</div>
             </div>
-            <div class="margin-main" id="mainTree" style="display: none;"></div>
+            <div class="margin-main" id="mainTree" style="visibility: hidden"></div>
         </div>
         <div class="row text-center">
             <div class="col-md-12">
@@ -357,7 +357,7 @@
                                 </div>
                                 <div class="col-xs-6">
                                     <label class="text-primary">{% trans "Multiplying factor for overrall cost" %} *</label>
-                                    <input type="text" value="1.00" id="factorCost" class="form-control">
+                                    <input type="text" value="1.00" id="global_multiplier_factorCalculator" class="form-control">
                                 </div>
                             </div>                         
                             <h5 class="text-primary keyboard-title">{% trans "Syntax keyboard" %}</h5>
@@ -396,7 +396,7 @@
                             <div id="mathNatural" class="tab-pane fade in active">
                                 <textarea id="python-expression" class="python-expression" autocapitalize="off" autocomplete="off"
                                         autocorrect="off" spellcheck="false" x-palm-disable-ste-all="true"></textarea>
-                                <button type="button" id="btnValidatePyExp">{% trans "Validate" %} </button>
+                                <button id="btnValidatePyExp">{% trans "Validate" %} </button>
                                 <div id="MathPreview" class="preview"></div>
                             </div>
                             <div id="mathLogical" class="tab-pane fade"></div>
