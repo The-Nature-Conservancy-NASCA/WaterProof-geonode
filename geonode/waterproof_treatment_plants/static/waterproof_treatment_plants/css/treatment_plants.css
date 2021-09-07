@@ -103,6 +103,14 @@ textarea {
     top: 250px;
     margin-top: -37.5px;
 }
+
+.container-element-selected{
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 5px;
+    border-color: #108e27;
+}
+
 .position-arrow-two {
     left: 20px;
 }
@@ -437,7 +445,7 @@ textarea {
     color: #07248c;
 }
 .main-tree-content {
-    margin: 50px;
+    margin: 5px;
 }
 .opacity-graph {
     background-color: #777777;
@@ -501,30 +509,35 @@ textarea {
     position: relative;
 }
 .container-var {
-    width: 100%;
-    height: 200px;
+    width: 100%;    
 }
 .input-var {
     width: 45%;
     float: left;
-    margin: 10px;
+    margin: 5px;
 }
 .overflow-form {
     overflow-y: hidden;
     overflow-x: hidden;
     width: 700px;
 }
+
+.overflow-form:hover {
+    background-color: #ddd;
+}
+
 .form-popup {
     display: none;
     position: absolute;
-    left: 50%;
-    margin-left: -500px;
-    width: 1000px;
+    /* left: 50%;
+    margin-left: -500px; */
+    max-width: 1000px;
     background: #d9edf7;
     z-index: 1000;
     padding: 20px;
     border: 1px solid #ddd;
     border-radius: 10px;
+    font-family: 'console';
 }
 .close-form-popup {
     position: absolute;
@@ -548,6 +561,13 @@ textarea {
     cursor: pointer;
 }
 .link-form {
+    color: #0b10af;
+    text-decoration: underline;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.link-form-2 {
     color: #0b10af;
     text-decoration: underline;
     cursor: pointer;
@@ -626,4 +646,34 @@ textarea {
 
 .btn-primary{
     align-items: center;
+}
+
+.custom-checkbox-on{
+    border-color: #039edc;
+}
+
+.custom-checkbox-off{
+    border-color: #fff;
+}
+
+.list-vars{
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+
+.var-cost-panel {
+    max-height: 150px;
+    overflow-y: auto;
+}
+
+.panel-heading {
+    padding: 3px 10px !important;    
+}
+
+.panel-group {
+    margin-bottom: 10px !important;
+}
+
+form label {
+    margin-right: 1.1em !important;
 }

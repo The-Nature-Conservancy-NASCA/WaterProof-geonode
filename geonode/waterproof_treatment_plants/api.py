@@ -77,19 +77,20 @@ def getIntakeList(request):
 	"""
 	if request.method == 'GET':
 		objects_list = []
-		for elementSystem in ElementSystem.objects.filter(normalized_category='CSINFRA'):
+		city_id = request.query_params.get('cityId')
+		elements = ElementSystem.objects.filter(normalized_category='CSINFRA').filter(intake__city__id=city_id).order_by('intake__name')
+		for elementSystem in elements:
+			intake_name = elementSystem.intake.name
+			objects_list.append({
+				"id": elementSystem.id,
+				"name": intake_name,
+				"csinfra": elementSystem.name,
+				"graphId": elementSystem.graphId,
+				"cityId": city_id,
+				"nameIntake":str(intake_name) + str(" - ") + str(elementSystem.name) + str(" - ") + str(elementSystem.graphId)})
 
-			if str(elementSystem.intake.city.id) == str(request.query_params.get('cityId')):
-				objects_list.append({
-					"id": elementSystem.id,
-					"name": elementSystem.intake.name,
-					"csinfra": elementSystem.name,
-					"graphId": elementSystem.graphId,
-					"cityId": elementSystem.intake.city.id,
-					"nameIntake":str(elementSystem.intake.name) + str(" - ") + str(elementSystem.name) + str(" - ") + str(elementSystem.graphId)})
-
-		order_register = sorted(objects_list, key=lambda tree : tree['nameIntake'])
-		return JsonResponse(order_register, safe=False)
+		#order_register = sorted(objects_list, key=lambda tree : tree['nameIntake'])
+		return JsonResponse(objects_list, safe=False)
 
 @api_view(['POST'])
 def getTypePtap(request):
@@ -162,7 +163,7 @@ def getInfoTree(request):
 
 @api_view(['PUT','DELETE'])
 def setHeaderPlant(request):
-	"""Create the treatment plant
+	"""Create / Update the treatment plant
 	Stores treatment plant information in the system
 	and of the entities attached to the treatment plant to guarantee
 	that the information is integrated only commits the transaction
@@ -176,18 +177,19 @@ def setHeaderPlant(request):
 	"""
 	if request.method == 'PUT':
 		if request.user.is_authenticated:
-			if request.data.get('header').get('plantId') != "null":
-				Header.objects.filter(id = request.data.get('header').get('plantId')).update(plant_city_id = request.data.get('header').get('cityId'),
-					plant_name = request.data.get('header').get('plantName'), 
-					plant_description = request.data.get('header').get('plantDescription'),
-					plant_suggest = request.data.get('header').get('plantSuggest'),
+			header = request.data.get('header')
+			if header.get('plantId') != "null":
+				Header.objects.filter(id = header.get('plantId')).update(plant_city_id = header.get('cityId'),
+					plant_name = header.get('plantName'), 
+					plant_description = header.get('plantDescription'),
+					plant_suggest = header.get('plantSuggest'),
 					plant_user = request.user.username)
 
-				Ptap.objects.filter(ptap_plant_id = request.data.get('header').get('plantId')).delete()
+				Ptap.objects.filter(ptap_plant_id = header.get('plantId')).delete()
 
-				for row in request.data.get('header').get('ptap'):
+				for row in header.get('ptap'):
 					ptapSave = Ptap.objects.create(
-						ptap_plant_id = request.data.get('header').get('plantId'),
+						ptap_plant_id = header.get('plantId'),
 						ptap_type = row.get('ptapType'),
 						ptap_awy = row.get('ptapAwy'),
 						ptap_cn = row.get('ptapCn'),
@@ -200,22 +202,22 @@ def setHeaderPlant(request):
 					)
 					ptapSave.save()
 
-				Csinfra.objects.filter(csinfra_plant_id = request.data.get('header').get('plantId')).delete()
+				Csinfra.objects.filter(csinfra_plant_id = header.get('plantId')).delete()
 
-				for row in request.data.get('header').get('csinfra'):
+				for row in header.get('csinfra'):
 					csinfraSave = Csinfra.objects.create(
-						csinfra_plant_id = request.data.get('header').get('plantId'),
+						csinfra_plant_id = header.get('plantId'),
 						csinfra_user = request.user.username,
 						csinfra_elementsystem_id = row.get('intake')
 					)
 					csinfraSave.save()
 
-				Element.objects.filter(element_plant_id = request.data.get('header').get('plantId')).delete()
+				Element.objects.filter(element_plant_id = header.get('plantId')).delete()
 
-				for row in request.data.get('header').get('element'):
+				for row in header.get('element'):
 					elementSave = Element.objects.create(
 						element_normalize_category = row.get('normalizeCategory'),
-						element_plant_id = request.data.get('header').get('plantId'),
+						element_plant_id = header.get('plantId'),
 						element_graph_id = row.get('graphId'),
 						element_on_off = row.get('onOff'),
 						element_q_l = 0,
@@ -232,9 +234,9 @@ def setHeaderPlant(request):
 					)
 					elementSave.save()
 
-				Function.objects.filter(function_plant_id = request.data.get('header').get('plantId')).delete()
+				Function.objects.filter(function_plant_id = header.get('plantId')).delete()
 
-				for row in request.data.get('header').get('function'):
+				for row in header.get('function'):
 					functionSave = Function.objects.create(
 						function_name = row.get('nameFunction'),
 						function_graph_id = row.get('graphid'),
@@ -248,22 +250,22 @@ def setHeaderPlant(request):
 						function_nitrogen_retained = row.get('nitrogenRetained'),
 						function_phosphorus_retained = row.get('phosphorusRetained'),
 						function_technology = row.get('technology'),
-						function_plant_id = request.data.get('header').get('plantId')
+						function_plant_id = header.get('plantId')
 					)
 					functionSave.save()
 
-				jsonObject = [{	'plant_id' : request.data.get('header').get('plantId')}]
+				jsonObject = [{	'plant_id' : header.get('plantId')}]
 			else:
 				headerSave = Header.objects.create(
-					plant_city_id = request.data.get('header').get('cityId'),
-					plant_name = request.data.get('header').get('plantName'),
-					plant_description = request.data.get('header').get('plantDescription'),
-					plant_suggest = request.data.get('header').get('plantSuggest'),
+					plant_city_id = header.get('cityId'),
+					plant_name = header.get('plantName'),
+					plant_description = header.get('plantDescription'),
+					plant_suggest = header.get('plantSuggest'),
 					plant_user = request.user.username
 				)
 				headerSave.save()
 
-				for row in request.data.get('header').get('ptap'):
+				for row in header.get('ptap'):
 					ptapSave = Ptap.objects.create(
 						ptap_plant_id = headerSave.id,
 						ptap_type = row.get('ptapType'),
@@ -278,7 +280,7 @@ def setHeaderPlant(request):
 					)
 					ptapSave.save()
 
-				for row in request.data.get('header').get('csinfra'):
+				for row in header.get('csinfra'):
 					csinfraSave = Csinfra.objects.create(
 						csinfra_plant_id = headerSave.id,
 						csinfra_user = request.user.username,
@@ -286,7 +288,7 @@ def setHeaderPlant(request):
 					)
 					csinfraSave.save()
 
-				for row in request.data.get('header').get('element'):
+				for row in header.get('element'):
 					elementSave = Element.objects.create(
 						element_normalize_category = row.get('normalizeCategory'),
 						element_plant_id = headerSave.id,
@@ -306,7 +308,7 @@ def setHeaderPlant(request):
 					)
 					elementSave.save()
 
-				for row in request.data.get('header').get('function'):
+				for row in header.get('function'):
 					functionSave = Function.objects.create(
 						function_name = row.get('nameFunction'),
 						function_graph_id = row.get('graphid'),
@@ -333,7 +335,7 @@ def setHeaderPlant(request):
 
 @api_view(['GET'])
 def getTreatmentPlant(request):
-	"""Consult the treatment plant
+	"""Query the treatment plant
 	searches all the tables related to the plant and returns 
 	the information related to the treatment plant
 	Parameters:
@@ -344,7 +346,8 @@ def getTreatmentPlant(request):
 	"""
 	if request.method == 'GET':
 		objectPlant = []
-		for header in Header.objects.filter(id = request.query_params.get('plantId')):
+		plantId = request.GET.get('plantId')
+		for header in Header.objects.filter(id = plantId):
 			objectPlant.append({
 				"plant_id": header.id,
 				"plantName": header.plant_name,
@@ -353,7 +356,7 @@ def getTreatmentPlant(request):
 			})
 
 		objectCsinfra = []
-		for csinfra in Csinfra.objects.filter(csinfra_plant_id = request.query_params.get('plantId')):
+		for csinfra in Csinfra.objects.filter(csinfra_plant_id = plantId):
 			objectCsinfra.append({
 				"csinfraId": csinfra.id,
 				"csinfraName": csinfra.csinfra_elementsystem.intake.name,
@@ -363,7 +366,7 @@ def getTreatmentPlant(request):
 			})
 
 		objectElement = []
-		for element in Element.objects.filter(element_plant_id = request.query_params.get('plantId')):
+		for element in Element.objects.filter(element_plant_id = plantId):
 			objectElement.append({
 				"elementId": element.id,
 				"elementNormalizeCategory": element.element_normalize_category,
@@ -372,7 +375,7 @@ def getTreatmentPlant(request):
 			})
 
 		objectFunction = []
-		for function in Function.objects.filter(function_plant_id = request.query_params.get('plantId')):
+		for function in Function.objects.filter(function_plant_id = plantId):
 			objectFunction.append({
 				"functionId": function.id,
 				"functionName": function.function_name,
@@ -383,7 +386,8 @@ def getTreatmentPlant(request):
 				"functionSedimentsRetained": function.function_sediments_retained,
 				"functionNitrogenRetained": function.function_nitrogen_retained,
 				"functionPhosphorusRetained": function.function_phosphorus_retained,
-				"functionTechnology": function.function_technology
+				"functionTechnology": function.function_technology,
+				"functionGraphId" : function.function_graph_id,
 			})
 
 		response = {
