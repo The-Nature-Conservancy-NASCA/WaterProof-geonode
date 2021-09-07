@@ -218,10 +218,10 @@ $(document).ready(function () {
                 for (let index = 0; index <= numYear; index++) {
                     rows += (`<tr>
                                 <th class="text-center" scope="col" name="year_${graphData[p].id}" year_value="${index + 1}">${index + 1}</th>
-                                <td class="text-center" scope="col"><input type="text" class="form-control" name="waterVolume_${index + 1}_${graphData[p].id}"></td>
-                                <td class="text-center" scope="col"><input type="text" class="form-control" name="sediment_${index + 1}_${graphData[p].id}"></td>
-                                <td class="text-center" scope="col"><input type="text" class="form-control" name="nitrogen_${index + 1}_${graphData[p].id}" ></td>
-                                <td class="text-center" scope="col"><input type="text" class="form-control" name="phosphorus_${index + 1}_${graphData[p].id}"></td>
+                                <td class="text-center" scope="col"><input type="number" class="form-control justify-number" name="waterVolume_${index + 1}_${graphData[p].id}"></td>
+                                <td class="text-center" scope="col"><input type="number" class="form-control justify-number" name="sediment_${index + 1}_${graphData[p].id}"></td>
+                                <td class="text-center" scope="col"><input type="number" class="form-control justify-number" name="nitrogen_${index + 1}_${graphData[p].id}" ></td>
+                                <td class="text-center" scope="col"><input type="number" class="form-control justify-number" name="phosphorus_${index + 1}_${graphData[p].id}"></td>
                             </tr>`);
                 }
                 $('#IntakeTDLE').append(`
