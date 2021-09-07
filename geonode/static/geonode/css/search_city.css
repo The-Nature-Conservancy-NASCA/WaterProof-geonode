@@ -25,6 +25,10 @@
   height: 100%;
   width: 100%;
 }
+.align-table{
+  width:70%; 
+  text-align: center;
+}
 
 @media(min-width: 768px){
   .listStudyCaseButton{

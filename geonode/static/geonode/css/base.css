@@ -2009,6 +2009,7 @@ pre code {
     margin-left: 0%;
   }
 }
+
 @media (min-width: 360px){
   .iconsWhatIsWP{
     width: 20% !important;
@@ -2138,6 +2139,7 @@ pre code {
   }
 }
 @media (min-width: 1200px){
+
   .iconsWhatIsWP{
     width: 60% !important;
     height: 100px !important;
@@ -2169,7 +2171,7 @@ pre code {
     background-size:cover;
   }
   .responsive{
-    font-size: 1.17em !important;
+    font-size: 3.4rem !important;
     display: table !important;
   }
 }

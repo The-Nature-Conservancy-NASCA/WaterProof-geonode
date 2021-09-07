@@ -111,9 +111,13 @@ width:250px;
 overflow:visible;
 }
 
+/* .menuResponsive{
+    display: none !important;
+} */
+
 .main-menu {
 /* border-right:1px solid #e5e5e5; */
-background-color: #6f9dc5;
+background-color: rgba(111, 157, 197);
 position:absolute;
 top:0;
 bottom:0;
@@ -272,7 +276,7 @@ height: 100%;
         /*background-image: url(/static/geonode/img/city_map.png);*/
         display: none !important;
     }
-    #menuResponsive{
+    .menuResponsive{
         display: table !important;
         padding-top: -50%;
     }
@@ -291,7 +295,7 @@ height: 100%;
         background-image: url(/static/geonode/img/city_map.png);
         display: table !important;
     } 
-    #menuResponsive{
+    .menuResponsive{
         display: none !important;
     }
     .navbar-fixed-left{
@@ -301,7 +305,7 @@ height: 100%;
     
 }
 @media (min-width: 1200px){
-    #menuResponsive{
+    .menuResponsive{
         display: none !important;
     }
     .navbar-fixed-left{
@@ -499,7 +503,7 @@ height: 100%;
         width: 755px !important;
     }
     #mapidcuenca{
-        width: 580px !important;
+        width: 95% !important;
         border: 2px solid; 
     }
     #wrapper {
@@ -511,7 +515,7 @@ height: 100%;
     }
 
     #sidebar-wrapper {
-        width: 17rem;
+        width: 25rem;
         height: 480px;
         z-index: 9999;
     }
