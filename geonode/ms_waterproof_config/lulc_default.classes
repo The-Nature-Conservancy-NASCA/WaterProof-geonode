@@ -1,0 +1,81 @@
+    CLASSITEM "[pixel]"
+    CLASSGROUP "group1"
+    # class using simple string comparison, equivalent to ([pixel] = 0)
+    CLASS
+      EXPRESSION "1"
+      NAME "Value 1"
+      GROUP "group1"
+      STYLE
+        COLOR 255 0 0
+      END
+    END
+    CLASS
+      NAME "Value 2"
+      GROUP "group1"
+      EXPRESSION "2"
+      STYLE
+        COLOR 0 255 0
+      END
+    END
+    CLASS
+      NAME "Value 3"
+      GROUP "group1"
+      EXPRESSION "3"
+      STYLE
+        COLOR 0 0 255
+      END
+    END
+    CLASS
+      NAME "Value 4"
+      GROUP "group1"
+      EXPRESSION "4"
+      STYLE
+        COLOR 241 196 15
+      END
+    END
+    CLASS
+      NAME "Value 5"
+      GROUP "group1"
+      EXPRESSION "5"
+      STYLE
+        COLOR 187 143 206
+      END
+    END
+    CLASS
+      NAME "Value 6"
+      GROUP "group1"
+      EXPRESSION "6"
+      STYLE
+        COLOR 118 215 196
+      END
+    END
+    CLASS
+      NAME "Value 7"
+      GROUP "group1"
+      EXPRESSION "7"
+      STYLE
+        COLOR 52 73 94
+      END
+    END
+    CLASS
+      NAME "Value 8"
+      GROUP "group1"
+      EXPRESSION "8"
+      STYLE
+        COLOR 35 155 86
+      END
+    END
+    CLASS
+      NAME "Value 9"
+      GROUP "group1"
+      EXPRESSION "9"
+      STYLE
+        COLOR 120 66 18 
+      END
+    END
+    CLASS
+      EXPRESSION "255"
+      STYLE
+        COLOR "#FF000000"
+      END
+    END 
