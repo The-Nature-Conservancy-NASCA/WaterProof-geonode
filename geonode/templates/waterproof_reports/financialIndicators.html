@@ -15,36 +15,36 @@
 <script type="text/javascript">
     var SelectedCurrency = "{{SelectedCurrency}}";
 </script>
-<div class="page-header" style="margin-bottom: 0px;height: 50px;margin-top: 0px;">
-    <h1 style="font-size: 20pt;color: #1389AA;font-weight: bold;padding: 15px;">{% trans "Financial Indicators" %}</h1>
+<div class="page-header container-title">
+    <h1 class="title-financial">{% trans "Financial Indicators" %}</h1>
 </div>
 <br>
 <!--Begin Form-->
 <form id="form" method="POST" action="">
     {% csrf_token %}
     <!--Start smartwizard-->
-    <div style="position: relative; border: 1px; border-style: solid; margin-bottom: 10px; border-color: #1389AA;">
-        <div class="help-in-report" style="border-color: transparent;">
+    <div class="smart-wizard-financial">
+        <div class="help-in-report header-desc-fin">
             {% trans "This report summarizes the proportions in investment and benefits that will be achieved by the implementation of the SbN:" %}
         </div>
-        <div style="text-align: center;position: absolute;top: 0px;right: 0px;margin-left: 60%;font-size: 13px;">
-            <div style="float: left;width: 16%;">
+        <div class="align-menu-header">
+            <div class="icons-menu-header">
                 <img src="/static/geonode/img/Indicadores-financieros.png" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black; opacity: 30%;" title="{% trans "Financial indicators" %}"/> 
                 <br> 
                 <a>{% trans "Financial indicators" %}</a>
             </div>
-            <div style="float: left;width: 16%;" id="idFinancialIndicators">
+            <div class="icons-menu-header" id="idFinancialIndicators">
                 <img src="/static/geonode/img/indicadores-fisicos.png" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black; opacity: 30%;" title="{% trans "Physical indicators" %}"/> 
                 <br> 
                 <a>{% trans "Physical indicators" %}</a>
                 <!--<a href="../../reports/physical/">{% trans "Physical indicators" %}</a>-->
             </div>
-            <div style="float: left;width: 16%;" id="idDecisionIndicators">
+            <div class="icons-menu-header" id="idDecisionIndicators">
                 <img src="/static/geonode/img/indicadores-decision.png" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;" title="{% trans "Decision indicators" %}"/>
                 <br>
                 <a href="../../reports/decision/">{% trans "Decision indicators" %}</a>
             </div>
-            <div style="float: left;width: 16%;" id="idGeographicIndicators">
+            <div class="icons-menu-header" id="idGeographicIndicators">
                 <img src="/static/geonode/img/indicadores-geograficos.png" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;" title="{% trans "Geographic visualization" %}"/>
                 <br>
                 <a href="../../reports/geographic/">{% trans "Geographic visualization" %}</a>

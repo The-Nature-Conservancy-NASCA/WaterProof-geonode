@@ -42,7 +42,7 @@ msgstr ""
 "Project-Id-Version: GeoNode\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-02-11 20:03-0500\n"
-"PO-Revision-Date: 2021-09-01 13:12-0500\n"
+"PO-Revision-Date: 2021-09-03 09:57-0500\n"
 "Last-Translator: Julien Collaer <julien.collaer@opengeode.be>\n"
 "Language-Team: Spanish (http://www.transifex.com/geonode/geonode/language/es/)\n"
 "Language: es\n"
@@ -184,9 +184,7 @@ msgstr "los datos se actualizan cada tres meses"
 msgid "No information provided"
 msgstr "No se provee información"
 
-#: geonode/base/forms.py:286 geonode/base/forms.py:518 geonode/base/templates/base/_resourcebase_info_panel.html:85 geonode/catalogue/templates/geonode_metadata_full.html:145 geonode/documents/templates/documents/document_metadata_advanced.html:76 geonode/documents/templates/layouts/doc_panels.html:321 geonode/frequently/models.py:91
-#: geonode/geoapps/templates/apps/app_metadata_advanced.html:76 geonode/geoapps/templates/layouts/app_panels.html:318 geonode/layers/templates/layers/layer_metadata_advanced.html:107 geonode/layers/templates/layouts/panels.html:325 geonode/maps/templates/layouts/map_panels.html:321 geonode/maps/templates/maps/map_metadata_advanced.html:77
-#: geonode/templates/metadata_detail.html:90
+#: geonode/base/forms.py:286 geonode/base/forms.py:518 geonode/base/templates/base/_resourcebase_info_panel.html:85 geonode/catalogue/templates/geonode_metadata_full.html:145 geonode/documents/templates/documents/document_metadata_advanced.html:76 geonode/documents/templates/layouts/doc_panels.html:321 geonode/frequently/models.py:91 geonode/geoapps/templates/apps/app_metadata_advanced.html:76 geonode/geoapps/templates/layouts/app_panels.html:318 geonode/layers/templates/layers/layer_metadata_advanced.html:107 geonode/layers/templates/layouts/panels.html:325 geonode/maps/templates/layouts/map_panels.html:321 geonode/maps/templates/maps/map_metadata_advanced.html:77 geonode/templates/metadata_detail.html:90
 msgid "Category"
 msgstr "Categoría"
 
@@ -232,8 +230,7 @@ msgstr "declaración de calidad de datos"
 msgid "Owner"
 msgstr "Dueño"
 
-#: geonode/base/forms.py:365 geonode/base/forms.py:530 geonode/base/templates/base/_resourcebase_info_panel.html:41 geonode/catalogue/templates/geonode_metadata_full.html:58 geonode/documents/exif/templates/exif/_exif_document_detail.html:13 geonode/templates/metadata_detail.html:73 geonode/templates/search/_general_filters.html:124
-#: geonode/templates/waterproof_study_cases/studycases_list.html:48
+#: geonode/base/forms.py:365 geonode/base/forms.py:530 geonode/base/templates/base/_resourcebase_info_panel.html:41 geonode/catalogue/templates/geonode_metadata_full.html:58 geonode/documents/exif/templates/exif/_exif_document_detail.html:13 geonode/templates/metadata_detail.html:73 geonode/templates/search/_general_filters.html:124 geonode/templates/waterproof_study_cases/studycases_list.html:48
 msgid "Date"
 msgstr "Fecha"
 
@@ -249,14 +246,12 @@ msgstr "fin de extensión temporal (extent)"
 msgid "Person outside GeoNode (fill form)"
 msgstr "Persona externa a GeoNode (llenar formulario)"
 
-#: geonode/base/forms.py:387 geonode/base/templates/base/_resourcebase_contact_snippet.html:14 geonode/base/templates/base/_resourcebase_info_panel.html:112 geonode/catalogue/templates/geonode_metadata_full.html:75 geonode/documents/templates/documents/document_metadata.html:42 geonode/documents/templates/documents/document_metadata.html:66
-#: geonode/documents/templates/documents/document_metadata_advanced.html:47 geonode/documents/templates/documents/document_metadata_advanced.html:100 geonode/geoapps/templates/apps/app_metadata.html:62 geonode/geoapps/templates/apps/app_metadata_advanced.html:100 geonode/layers/templates/layers/layer_metadata.html:53
-#: geonode/layers/templates/layers/layer_metadata.html:84 geonode/layers/templates/layers/layer_metadata_advanced.html:58 geonode/layers/templates/layers/layer_metadata_advanced.html:170 geonode/maps/templates/maps/map_metadata.html:67 geonode/maps/templates/maps/map_metadata_advanced.html:101
+#: geonode/base/forms.py:387 geonode/base/templates/base/_resourcebase_contact_snippet.html:14 geonode/base/templates/base/_resourcebase_info_panel.html:112 geonode/catalogue/templates/geonode_metadata_full.html:75 geonode/documents/templates/documents/document_metadata.html:42 geonode/documents/templates/documents/document_metadata.html:66 geonode/documents/templates/documents/document_metadata_advanced.html:47 geonode/documents/templates/documents/document_metadata_advanced.html:100 geonode/geoapps/templates/apps/app_metadata.html:62 geonode/geoapps/templates/apps/app_metadata_advanced.html:100 geonode/layers/templates/layers/layer_metadata.html:53 geonode/layers/templates/layers/layer_metadata.html:84 geonode/layers/templates/layers/layer_metadata_advanced.html:58 geonode/layers/templates/layers/layer_metadata_advanced.html:170 geonode/maps/templates/maps/map_metadata.html:67
+#: geonode/maps/templates/maps/map_metadata_advanced.html:101
 msgid "Point of Contact"
 msgstr "Punto de contacto"
 
-#: geonode/base/forms.py:395 geonode/base/templates/base/_resourcebase_contact_snippet.html:18 geonode/documents/templates/documents/document_metadata.html:38 geonode/documents/templates/documents/document_metadata_advanced.html:43 geonode/layers/templates/layers/layer_metadata.html:49 geonode/layers/templates/layers/layer_metadata_advanced.html:54
-#: geonode/templates/metadata_detail.html:351
+#: geonode/base/forms.py:395 geonode/base/templates/base/_resourcebase_contact_snippet.html:18 geonode/documents/templates/documents/document_metadata.html:38 geonode/documents/templates/documents/document_metadata_advanced.html:43 geonode/layers/templates/layers/layer_metadata.html:49 geonode/layers/templates/layers/layer_metadata_advanced.html:54 geonode/templates/metadata_detail.html:351
 msgid "Metadata Author"
 msgstr "Autor del Metadatos"
 
@@ -272,8 +267,7 @@ msgstr "Un espacio o una lista de palabras clave separadas por comas. Utilice el
 msgid "Regions"
 msgstr "Regiones"
 
-#: geonode/base/forms.py:510 geonode/base/forms.py:543 geonode/base/templates/base/_resourcebase_info_panel.html:117 geonode/documents/templates/layouts/doc_panels.html:340 geonode/geoapps/templates/layouts/app_panels.html:337 geonode/layers/templates/layouts/panels.html:345 geonode/maps/templates/layouts/map_panels.html:340
-#: geonode/templates/metadata_detail.html:114
+#: geonode/base/forms.py:510 geonode/base/forms.py:543 geonode/base/templates/base/_resourcebase_info_panel.html:117 geonode/documents/templates/layouts/doc_panels.html:340 geonode/geoapps/templates/layouts/app_panels.html:337 geonode/layers/templates/layouts/panels.html:345 geonode/maps/templates/layouts/map_panels.html:340 geonode/templates/metadata_detail.html:114
 msgid "Group"
 msgstr "Grupo"
 
@@ -581,8 +575,7 @@ msgstr "Propietario, Punto de Contacto, Autor de Metadatos"
 msgid "Responsible"
 msgstr "Responsable"
 
-#: geonode/base/templates/base/_resourcebase_info_panel.html:6 geonode/catalogue/templates/geonode_metadata_full.html:55 geonode/client/templates/leaflet/maps/map_view.html:101 geonode/groups/models.py:86 geonode/qgis_server/templates/qgis_server/forms/qml_style.html:20 geonode/services/forms.py:112
-#: geonode/services/templates/services/service_detail.html:22 geonode/services/templates/services/service_list.html:17 geonode/templates/announcements/announcement_list.html:21 geonode/templates/base.html:767 geonode/templates/metadata_detail.html:45
+#: geonode/base/templates/base/_resourcebase_info_panel.html:6 geonode/catalogue/templates/geonode_metadata_full.html:55 geonode/client/templates/leaflet/maps/map_view.html:101 geonode/groups/models.py:86 geonode/qgis_server/templates/qgis_server/forms/qml_style.html:20 geonode/services/forms.py:112 geonode/services/templates/services/service_detail.html:22 geonode/services/templates/services/service_list.html:17 geonode/templates/announcements/announcement_list.html:21 geonode/templates/base.html:767 geonode/templates/metadata_detail.html:45
 msgid "Title"
 msgstr "Título"
 
@@ -612,13 +605,11 @@ msgstr "Nombre de la posición"
 msgid "Revision Date"
 msgstr "Permiso Denegado"
 
-#: geonode/base/templates/base/_resourcebase_info_panel.html:53 geonode/catalogue/templates/geonode_metadata_full.html:91 geonode/favorite/templates/favorite/favorite_list.html:17 geonode/layers/templates/layers/layer_detail.html:719 geonode/services/templates/services/service_detail.html:8 geonode/services/templates/services/service_list.html:19
-#: geonode/templates/metadata_detail.html:78
+#: geonode/base/templates/base/_resourcebase_info_panel.html:53 geonode/catalogue/templates/geonode_metadata_full.html:91 geonode/favorite/templates/favorite/favorite_list.html:17 geonode/layers/templates/layers/layer_detail.html:719 geonode/services/templates/services/service_detail.html:8 geonode/services/templates/services/service_list.html:19 geonode/templates/metadata_detail.html:78
 msgid "Type"
 msgstr "Tipo"
 
-#: geonode/base/templates/base/_resourcebase_info_panel.html:58 geonode/catalogue/templates/geonode_metadata_full.html:142 geonode/groups/models.py:96 geonode/people/forms.py:103 geonode/people/templates/people/profile_detail.html:90 geonode/services/templates/services/service_detail.html:11 geonode/templates/metadata_detail.html:83
-#: geonode/templates/metadata_detail.html:157 geonode/templates/metadata_detail.html:299 geonode/templates/metadata_detail.html:380 geonode/templates/search/_h_keywords_filter.html:3
+#: geonode/base/templates/base/_resourcebase_info_panel.html:58 geonode/catalogue/templates/geonode_metadata_full.html:142 geonode/groups/models.py:96 geonode/people/forms.py:103 geonode/people/templates/people/profile_detail.html:90 geonode/services/templates/services/service_detail.html:11 geonode/templates/metadata_detail.html:83 geonode/templates/metadata_detail.html:157 geonode/templates/metadata_detail.html:299 geonode/templates/metadata_detail.html:380 geonode/templates/search/_h_keywords_filter.html:3
 msgid "Keywords"
 msgstr "Palabras claves"
 
@@ -714,14 +705,12 @@ msgstr "Edición por lotes"
 msgid "batch edit"
 msgstr "edición por lotes"
 
-#: geonode/base/templates/base/batch_edit.html:18 geonode/base/templates/base/batch_permissions.html:18 geonode/base/templates/base/user_and_group_permissions.html:18 geonode/layers/templates/layers/layer_metadata_upload.html:48 geonode/layers/templates/layers/layer_replace.html:46 geonode/layers/templates/layers/layer_style_upload.html:48
-#: geonode/layers/templates/upload/layer_upload.html:55 geonode/layers/templates/upload/layer_upload_crs.html:55 geonode/layers/templates/upload/layer_upload_csv.html:57 geonode/layers/templates/upload/layer_upload_time.html:119 geonode/maps/templates/maps/map_download.html:58 geonode/templates/_comments.html:64
-#: geonode/templates/_permissions_form.html:185 geonode/templates/_permissions_form.html:255 geonode/templates/admin/backups/confirm_cancel.html:21 geonode/templates/announcements/announcement_confirm_delete.html:20 geonode/templates/announcements/announcement_form.html:22 geonode/templates/base.html:789
+#: geonode/base/templates/base/batch_edit.html:18 geonode/base/templates/base/batch_permissions.html:18 geonode/base/templates/base/user_and_group_permissions.html:18 geonode/layers/templates/layers/layer_metadata_upload.html:48 geonode/layers/templates/layers/layer_replace.html:46 geonode/layers/templates/layers/layer_style_upload.html:48 geonode/layers/templates/upload/layer_upload.html:55 geonode/layers/templates/upload/layer_upload_crs.html:55 geonode/layers/templates/upload/layer_upload_csv.html:57 geonode/layers/templates/upload/layer_upload_time.html:119 geonode/maps/templates/maps/map_download.html:58 geonode/templates/_comments.html:64 geonode/templates/_permissions_form.html:185 geonode/templates/_permissions_form.html:255 geonode/templates/admin/backups/confirm_cancel.html:21 geonode/templates/announcements/announcement_confirm_delete.html:20
+#: geonode/templates/announcements/announcement_form.html:22 geonode/templates/base.html:789
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: geonode/base/templates/base/batch_edit.html:19 geonode/base/templates/base/batch_permissions.html:19 geonode/base/templates/base/user_and_group_permissions.html:19 geonode/layers/templates/layers/layer_change_poc.html:17 geonode/people/templates/people/forgot_username_form.html:15 geonode/templates/invitations/forms/_invite.html:29
-#: geonode/templates/waterproof_intake/intake_clone.html:371 geonode/templates/waterproof_intake/intake_edit.html:370 geonode/templates/waterproof_intake/intake_form.html:367 geonode/templates/waterproof_nbs_ca/waterproofnbsca_form.html:159 geonode/templates/waterproof_treatment_plants/treatment_plants_edit.html:361
+#: geonode/base/templates/base/batch_edit.html:19 geonode/base/templates/base/batch_permissions.html:19 geonode/base/templates/base/user_and_group_permissions.html:19 geonode/layers/templates/layers/layer_change_poc.html:17 geonode/people/templates/people/forgot_username_form.html:15 geonode/templates/invitations/forms/_invite.html:29 geonode/templates/waterproof_intake/intake_clone.html:371 geonode/templates/waterproof_intake/intake_edit.html:370 geonode/templates/waterproof_intake/intake_form.html:367 geonode/templates/waterproof_nbs_ca/waterproofnbsca_form.html:159 geonode/templates/waterproof_treatment_plants/treatment_plants_edit.html:361
 msgid "Submit"
 msgstr "Enviar"
 
@@ -745,8 +734,7 @@ msgstr "Subir una miniatura"
 msgid "Remove (and use auto generated thumbnail)"
 msgstr "Eliminar (y usar miniatura generada automáticamente)"
 
-#: geonode/base/templates/base/thumbnail_upload.html:35 geonode/documents/templates/documents/document_detail.html:181 geonode/documents/templates/documents/document_upload.html:15 geonode/layers/templates/layers/layer_detail.html:494 geonode/layers/templates/layers/layer_detail.html:515 geonode/maps/templates/maps/map_detail.html:167
-#: geonode/monitoring/models.py:355 geonode/qgis_server/templates/qgis_server/forms/qml_style.html:58 geonode/templates/_permissions_form.html:250
+#: geonode/base/templates/base/thumbnail_upload.html:35 geonode/documents/templates/documents/document_detail.html:181 geonode/documents/templates/documents/document_upload.html:15 geonode/layers/templates/layers/layer_detail.html:494 geonode/layers/templates/layers/layer_detail.html:515 geonode/maps/templates/maps/map_detail.html:167 geonode/monitoring/models.py:355 geonode/qgis_server/templates/qgis_server/forms/qml_style.html:58 geonode/templates/_permissions_form.html:250
 msgid "Upload"
 msgstr "Cargar"
 
@@ -814,8 +802,7 @@ msgstr "Para permitir el cambio, configure el recurso para que no esté \"Aproba
 msgid "Resource Metadata"
 msgstr "Metadatos de recursos"
 
-#: geonode/catalogue/templates/geonode_metadata_full.html:49 geonode/documents/templates/documents/document_detail.html:180 geonode/geoapps/templates/apps/app_detail.html:120 geonode/layers/templates/layers/layer_detail.html:511 geonode/layers/templates/layouts/panels.html:274 geonode/maps/templates/layouts/map_panels.html:271
-#: geonode/maps/templates/maps/map_detail.html:165
+#: geonode/catalogue/templates/geonode_metadata_full.html:49 geonode/documents/templates/documents/document_detail.html:180 geonode/geoapps/templates/apps/app_detail.html:120 geonode/layers/templates/layers/layer_detail.html:511 geonode/layers/templates/layouts/panels.html:274 geonode/maps/templates/layouts/map_panels.html:271 geonode/maps/templates/maps/map_detail.html:165
 msgid "Thumbnail"
 msgstr "Miniatura"
 
@@ -847,10 +834,8 @@ msgstr "Atributos"
 msgid "Attribute name"
 msgstr "Nombre de atributo"
 
-#: geonode/catalogue/templates/geonode_metadata_full.html:167 geonode/groups/models.py:51 geonode/groups/models.py:89 geonode/layers/templates/layers/layer_detail.html:188 geonode/layers/templates/layers/layer_metadata_advanced.html:145 geonode/layers/templates/layouts/panels.html:552 geonode/people/templates/people/profile_detail.html:85
-#: geonode/services/forms.py:122 geonode/services/templates/services/service_detail.html:23 geonode/services/templates/services/service_resources_harvest.html:32 geonode/templates/waterproof_intake/intake_clone.html:76 geonode/templates/waterproof_intake/intake_edit.html:76 geonode/templates/waterproof_intake/intake_form.html:75
-#: geonode/templates/waterproof_intake/intake_list.html:51 geonode/templates/waterproof_nbs_ca/waterproofnbsca_clone.html:33 geonode/templates/waterproof_nbs_ca/waterproofnbsca_detail_list.html:28 geonode/templates/waterproof_nbs_ca/waterproofnbsca_edit.html:33 geonode/templates/waterproof_nbs_ca/waterproofnbsca_form.html:31
-#: geonode/templates/waterproof_nbs_ca/waterproofnbsca_list.html:32 geonode/templates/waterproof_study_cases/studycases_list.html:46 geonode/templates/waterproof_treatment_plants/treatment_plants_edit.html:32 geonode/templates/waterproof_treatment_plants/treatment_plants_list.html:41
+#: geonode/catalogue/templates/geonode_metadata_full.html:167 geonode/groups/models.py:51 geonode/groups/models.py:89 geonode/layers/templates/layers/layer_detail.html:188 geonode/layers/templates/layers/layer_metadata_advanced.html:145 geonode/layers/templates/layouts/panels.html:552 geonode/people/templates/people/profile_detail.html:85 geonode/services/forms.py:122 geonode/services/templates/services/service_detail.html:23 geonode/services/templates/services/service_resources_harvest.html:32 geonode/templates/waterproof_intake/intake_clone.html:76 geonode/templates/waterproof_intake/intake_edit.html:76 geonode/templates/waterproof_intake/intake_form.html:75 geonode/templates/waterproof_intake/intake_list.html:51 geonode/templates/waterproof_nbs_ca/waterproofnbsca_clone.html:33 geonode/templates/waterproof_nbs_ca/waterproofnbsca_detail_list.html:28
+#: geonode/templates/waterproof_nbs_ca/waterproofnbsca_edit.html:33 geonode/templates/waterproof_nbs_ca/waterproofnbsca_form.html:31 geonode/templates/waterproof_nbs_ca/waterproofnbsca_list.html:32 geonode/templates/waterproof_study_cases/studycases_list.html:46 geonode/templates/waterproof_treatment_plants/treatment_plants_edit.html:32 geonode/templates/waterproof_treatment_plants/treatment_plants_list.html:41
 msgid "Description"
 msgstr "Descripción"
 
@@ -862,8 +847,7 @@ msgstr "Biblioteca de cliente GeoNode"
 msgid "Upload QML Style"
 msgstr "Subir estilo QML"
 
-#: geonode/client/templates/leaflet/maps/map_base.html:4 geonode/client/templates/leaflet/maps/map_list.html:12 geonode/maps/templates/maps/map_list_default.html:5 geonode/maps/templates/maps/map_list_default.html:14 geonode/maps/templates/maps/map_metadata_advanced.html:29 geonode/templates/500.html:180 geonode/templates/base.html:321
-#: geonode/templates/base.html:515
+#: geonode/client/templates/leaflet/maps/map_base.html:4 geonode/client/templates/leaflet/maps/map_list.html:12 geonode/maps/templates/maps/map_list_default.html:5 geonode/maps/templates/maps/map_list_default.html:14 geonode/maps/templates/maps/map_metadata_advanced.html:29 geonode/templates/500.html:180 geonode/templates/base.html:321 geonode/templates/base.html:515
 msgid "Explore Maps"
 msgstr "Explora Mapas"
 
@@ -871,9 +855,7 @@ msgstr "Explora Mapas"
 msgid "Edit Map"
 msgstr "Editar Mapa"
 
-#: geonode/client/templates/leaflet/maps/map_edit.html:77 geonode/documents/templates/documents/document_metadata.html:78 geonode/documents/templates/documents/document_metadata_advanced.html:62 geonode/documents/templates/documents/document_metadata_advanced.html:110 geonode/geoapps/templates/apps/app_metadata.html:74
-#: geonode/geoapps/templates/apps/app_metadata_advanced.html:62 geonode/geoapps/templates/apps/app_metadata_advanced.html:111 geonode/geoapps/templates/apps/app_update.html:7 geonode/groups/templates/groups/group_update.html:26 geonode/layers/templates/layers/layer_metadata.html:98 geonode/layers/templates/layers/layer_metadata_advanced.html:83
-#: geonode/layers/templates/layers/layer_metadata_advanced.html:183 geonode/maps/templates/maps/map_metadata.html:79 geonode/maps/templates/maps/map_metadata_advanced.html:63 geonode/maps/templates/maps/map_metadata_advanced.html:112
+#: geonode/client/templates/leaflet/maps/map_edit.html:77 geonode/documents/templates/documents/document_metadata.html:78 geonode/documents/templates/documents/document_metadata_advanced.html:62 geonode/documents/templates/documents/document_metadata_advanced.html:110 geonode/geoapps/templates/apps/app_metadata.html:74 geonode/geoapps/templates/apps/app_metadata_advanced.html:62 geonode/geoapps/templates/apps/app_metadata_advanced.html:111 geonode/geoapps/templates/apps/app_update.html:7 geonode/groups/templates/groups/group_update.html:26 geonode/layers/templates/layers/layer_metadata.html:98 geonode/layers/templates/layers/layer_metadata_advanced.html:83 geonode/layers/templates/layers/layer_metadata_advanced.html:183 geonode/maps/templates/maps/map_metadata.html:79 geonode/maps/templates/maps/map_metadata_advanced.html:63 geonode/maps/templates/maps/map_metadata_advanced.html:112
 msgid "Update"
 msgstr "Actualizar"
 
@@ -885,8 +867,7 @@ msgstr "Crear Mapa"
 msgid "Available layers"
 msgstr "Capas disponibles"
 
-#: geonode/client/templates/leaflet/maps/map_view.html:76 geonode/client/templates/leaflet/maps/map_view.html:114 geonode/groups/templates/groups/groupcategory_update_form.html:8 geonode/layers/templates/layouts/panels.html:283 geonode/maps/templates/layouts/map_panels.html:279 geonode/services/templates/services/service_edit.html:21
-#: geonode/templates/announcements/announcement_form.html:26 geonode/templates/waterproof_nbs_ca/waterproofnbsca_clone.html:176 geonode/templates/waterproof_nbs_ca/waterproofnbsca_edit.html:176
+#: geonode/client/templates/leaflet/maps/map_view.html:76 geonode/client/templates/leaflet/maps/map_view.html:114 geonode/groups/templates/groups/groupcategory_update_form.html:8 geonode/layers/templates/layouts/panels.html:283 geonode/maps/templates/layouts/map_panels.html:279 geonode/services/templates/services/service_edit.html:21 geonode/templates/announcements/announcement_form.html:26 geonode/templates/waterproof_nbs_ca/waterproofnbsca_clone.html:176 geonode/templates/waterproof_nbs_ca/waterproofnbsca_edit.html:176
 msgid "Save"
 msgstr "Guardar"
 
@@ -894,9 +875,8 @@ msgstr "Guardar"
 msgid "Save Map"
 msgstr "Guardar Mapa"
 
-#: geonode/client/templates/leaflet/maps/map_view.html:115 geonode/documents/templates/documents/document_detail.html:199 geonode/documents/templates/documents/document_detail.html:235 geonode/geoapps/templates/apps/app_detail.html:135 geonode/geoapps/templates/apps/app_detail.html:195 geonode/layers/templates/layers/layer_detail.html:433
-#: geonode/layers/templates/layers/layer_detail.html:538 geonode/layers/templates/layers/layer_detail.html:589 geonode/layers/templates/upload/layer_upload_time.html:282 geonode/layers/templates/upload/layer_upload_time.html:302 geonode/maps/templates/maps/map_detail.html:134 geonode/maps/templates/maps/map_detail.html:181
-#: geonode/maps/templates/maps/map_detail.html:301 geonode/templates/500.html:238 geonode/templates/_bulk_permissions_form.html:19 geonode/templates/base.html:606 geonode/templates/metadata_base.html:137 geonode/templates/metadata_base.html:171 geonode/templates/metadata_base.html:188
+#: geonode/client/templates/leaflet/maps/map_view.html:115 geonode/documents/templates/documents/document_detail.html:199 geonode/documents/templates/documents/document_detail.html:235 geonode/geoapps/templates/apps/app_detail.html:135 geonode/geoapps/templates/apps/app_detail.html:195 geonode/layers/templates/layers/layer_detail.html:433 geonode/layers/templates/layers/layer_detail.html:538 geonode/layers/templates/layers/layer_detail.html:589 geonode/layers/templates/upload/layer_upload_time.html:282 geonode/layers/templates/upload/layer_upload_time.html:302 geonode/maps/templates/maps/map_detail.html:134 geonode/maps/templates/maps/map_detail.html:181 geonode/maps/templates/maps/map_detail.html:301 geonode/templates/500.html:238 geonode/templates/_bulk_permissions_form.html:19 geonode/templates/base.html:606 geonode/templates/metadata_base.html:137 geonode/templates/metadata_base.html:171
+#: geonode/templates/metadata_base.html:188
 msgid "Close"
 msgstr "Cerrar"
 
@@ -1086,8 +1066,7 @@ msgstr "Editar Documento"
 msgid "Request change"
 msgstr "Solicitar cambio"
 
-#: geonode/documents/templates/documents/document_detail.html:172 geonode/documents/templates/documents/document_metadata.html:17 geonode/geoapps/templates/apps/app_detail.html:112 geonode/geoapps/templates/apps/app_metadata.html:15 geonode/layers/templates/layers/layer_detail.html:477 geonode/layers/templates/layers/layer_metadata.html:19
-#: geonode/maps/templates/maps/map_detail.html:157 geonode/maps/templates/maps/map_metadata.html:20 geonode/templates/metadata_detail.html:34
+#: geonode/documents/templates/documents/document_detail.html:172 geonode/documents/templates/documents/document_metadata.html:17 geonode/geoapps/templates/apps/app_detail.html:112 geonode/geoapps/templates/apps/app_metadata.html:15 geonode/layers/templates/layers/layer_detail.html:477 geonode/layers/templates/layers/layer_metadata.html:19 geonode/maps/templates/maps/map_detail.html:157 geonode/maps/templates/maps/map_metadata.html:20 geonode/templates/metadata_detail.html:34
 msgid "Metadata"
 msgstr "Metadata"
 
@@ -1109,8 +1088,7 @@ msgstr[1] "Documentos"
 msgid "Replace"
 msgstr "Remplazar"
 
-#: geonode/documents/templates/documents/document_detail.html:192 geonode/geoapps/templates/apps/app_detail.html:129 geonode/geoapps/templates/apps/app_remove.html:8 geonode/groups/templates/groups/group_members.html:42 geonode/groups/templates/groups/group_members.html:82 geonode/groups/templates/groups/group_members.html:114
-#: geonode/layers/templates/layers/layer_detail.html:531 geonode/maps/templates/maps/map_detail.html:175 geonode/monitoring/models.py:362 geonode/templates/account/email.html:36 geonode/templates/socialaccount/connections.html:33
+#: geonode/documents/templates/documents/document_detail.html:192 geonode/geoapps/templates/apps/app_detail.html:129 geonode/geoapps/templates/apps/app_remove.html:8 geonode/groups/templates/groups/group_members.html:42 geonode/groups/templates/groups/group_members.html:82 geonode/groups/templates/groups/group_members.html:114 geonode/layers/templates/layers/layer_detail.html:531 geonode/maps/templates/maps/map_detail.html:175 geonode/monitoring/models.py:362 geonode/templates/account/email.html:36 geonode/templates/socialaccount/connections.html:33
 msgid "Remove"
 msgstr "Remover"
 
@@ -1146,9 +1124,7 @@ msgstr "Lista de recursos utilizando este documento:"
 msgid "This document is not related to any maps or layers"
 msgstr "Este documento no está relacionado con ningún mapa o capa"
 
-#: geonode/documents/templates/documents/document_detail.html:259 geonode/documents/templates/documents/document_thumb_upload.html:64 geonode/documents/templates/documents/document_upload.html:24 geonode/geoapps/templates/apps/app_detail.html:162 geonode/geoserver/createlayer/templates/createlayer/layer_create.html:50
-#: geonode/groups/templates/groups/group_detail.html:73 geonode/layers/templates/layers/layer_detail.html:744 geonode/layers/templates/layers/layer_metadata_upload.html:101 geonode/layers/templates/layers/layer_metadata_upload.html:111 geonode/layers/templates/layers/layer_replace.html:111 geonode/layers/templates/layers/layer_replace.html:121
-#: geonode/layers/templates/layers/layer_style_upload.html:102 geonode/layers/templates/upload/layer_upload.html:114 geonode/maps/templates/maps/map_detail.html:242 geonode/people/admin.py:58
+#: geonode/documents/templates/documents/document_detail.html:259 geonode/documents/templates/documents/document_thumb_upload.html:64 geonode/documents/templates/documents/document_upload.html:24 geonode/geoapps/templates/apps/app_detail.html:162 geonode/geoserver/createlayer/templates/createlayer/layer_create.html:50 geonode/groups/templates/groups/group_detail.html:73 geonode/layers/templates/layers/layer_detail.html:744 geonode/layers/templates/layers/layer_metadata_upload.html:101 geonode/layers/templates/layers/layer_metadata_upload.html:111 geonode/layers/templates/layers/layer_replace.html:111 geonode/layers/templates/layers/layer_replace.html:121 geonode/layers/templates/layers/layer_style_upload.html:102 geonode/layers/templates/upload/layer_upload.html:114 geonode/maps/templates/maps/map_detail.html:242 geonode/people/admin.py:58
 msgid "Permissions"
 msgstr "Permisos"
 
@@ -1168,9 +1144,7 @@ msgstr "Explorar Documentos"
 msgid "Upload Documents"
 msgstr "Cargar Documentos"
 
-#: geonode/documents/templates/documents/document_metadata.html:10 geonode/documents/templates/documents/document_metadata_advanced.html:10 geonode/geoapps/templates/apps/app_base.html:6 geonode/geoapps/templates/apps/app_metadata.html:10 geonode/geoapps/templates/apps/app_metadata_advanced.html:10 geonode/layers/templates/layers/layer_base.html:6
-#: geonode/layers/templates/layers/layer_metadata.html:15 geonode/layers/templates/layers/layer_metadata_advanced.html:10 geonode/layers/templates/upload/layer_upload_base.html:10 geonode/layers/templates/upload/layer_upload_metadata_base.html:6 geonode/maps/templates/maps/map_base.html:6 geonode/maps/templates/maps/map_metadata.html:15
-#: geonode/maps/templates/maps/map_metadata_advanced.html:10 geonode/services/templates/services/services_base.html:6 geonode/templates/metadata_base.html:123 geonode/templates/metadata_detail.html:7
+#: geonode/documents/templates/documents/document_metadata.html:10 geonode/documents/templates/documents/document_metadata_advanced.html:10 geonode/geoapps/templates/apps/app_base.html:6 geonode/geoapps/templates/apps/app_metadata.html:10 geonode/geoapps/templates/apps/app_metadata_advanced.html:10 geonode/layers/templates/layers/layer_base.html:6 geonode/layers/templates/layers/layer_metadata.html:15 geonode/layers/templates/layers/layer_metadata_advanced.html:10 geonode/layers/templates/upload/layer_upload_base.html:10 geonode/layers/templates/upload/layer_upload_metadata_base.html:6 geonode/maps/templates/maps/map_base.html:6 geonode/maps/templates/maps/map_metadata.html:15 geonode/maps/templates/maps/map_metadata_advanced.html:10 geonode/services/templates/services/services_base.html:6 geonode/templates/metadata_base.html:123 geonode/templates/metadata_detail.html:7
 msgid "data"
 msgstr "datos"
 
@@ -1191,19 +1165,16 @@ msgstr "Campos obligatorios del esquema de metadatos completados"
 msgid "Check Schema mandatory fields"
 msgstr "Verificar los campos obligatorios del esquema"
 
-#: geonode/documents/templates/documents/document_metadata.html:35 geonode/documents/templates/documents/document_metadata_advanced.html:40 geonode/geoapps/templates/apps/app_metadata.html:38 geonode/geoapps/templates/apps/app_metadata_advanced.html:47 geonode/layers/templates/layers/layer_metadata.html:46
-#: geonode/layers/templates/layers/layer_metadata_advanced.html:51 geonode/maps/templates/maps/map_metadata.html:43 geonode/maps/templates/maps/map_metadata_advanced.html:48
+#: geonode/documents/templates/documents/document_metadata.html:35 geonode/documents/templates/documents/document_metadata_advanced.html:40 geonode/geoapps/templates/apps/app_metadata.html:38 geonode/geoapps/templates/apps/app_metadata_advanced.html:47 geonode/layers/templates/layers/layer_metadata.html:46 geonode/layers/templates/layers/layer_metadata_advanced.html:51 geonode/maps/templates/maps/map_metadata.html:43 geonode/maps/templates/maps/map_metadata_advanced.html:48
 msgid "Error updating metadata.  Please check the following fields: "
 msgstr "Error de actualización de metadatos. Verifique los siguientes campos: "
 
-#: geonode/documents/templates/documents/document_metadata.html:68 geonode/documents/templates/documents/document_metadata.html:73 geonode/documents/templates/documents/document_metadata_advanced.html:102 geonode/documents/templates/documents/document_metadata_advanced.html:107 geonode/geoapps/templates/apps/app_metadata.html:64
-#: geonode/geoapps/templates/apps/app_metadata.html:69 geonode/geoapps/templates/apps/app_metadata_advanced.html:102 geonode/geoapps/templates/apps/app_metadata_advanced.html:107 geonode/layers/templates/layers/layer_metadata.html:86 geonode/layers/templates/layers/layer_metadata.html:91 geonode/layers/templates/layers/layer_metadata_advanced.html:172
-#: geonode/layers/templates/layers/layer_metadata_advanced.html:177 geonode/maps/templates/maps/map_metadata.html:69 geonode/maps/templates/maps/map_metadata.html:74 geonode/maps/templates/maps/map_metadata_advanced.html:103 geonode/maps/templates/maps/map_metadata_advanced.html:108
+#: geonode/documents/templates/documents/document_metadata.html:68 geonode/documents/templates/documents/document_metadata.html:73 geonode/documents/templates/documents/document_metadata_advanced.html:102 geonode/documents/templates/documents/document_metadata_advanced.html:107 geonode/geoapps/templates/apps/app_metadata.html:64 geonode/geoapps/templates/apps/app_metadata.html:69 geonode/geoapps/templates/apps/app_metadata_advanced.html:102 geonode/geoapps/templates/apps/app_metadata_advanced.html:107 geonode/layers/templates/layers/layer_metadata.html:86 geonode/layers/templates/layers/layer_metadata.html:91 geonode/layers/templates/layers/layer_metadata_advanced.html:172 geonode/layers/templates/layers/layer_metadata_advanced.html:177 geonode/maps/templates/maps/map_metadata.html:69 geonode/maps/templates/maps/map_metadata.html:74 geonode/maps/templates/maps/map_metadata_advanced.html:103
+#: geonode/maps/templates/maps/map_metadata_advanced.html:108
 msgid "Done"
 msgstr "Hecho"
 
-#: geonode/documents/templates/documents/document_metadata.html:71 geonode/documents/templates/documents/document_metadata_advanced.html:105 geonode/geoapps/templates/apps/app_metadata.html:67 geonode/geoapps/templates/apps/app_metadata_advanced.html:105 geonode/layers/templates/layers/layer_metadata.html:89
-#: geonode/layers/templates/layers/layer_metadata_advanced.html:175 geonode/maps/templates/maps/map_metadata.html:72 geonode/maps/templates/maps/map_metadata_advanced.html:106
+#: geonode/documents/templates/documents/document_metadata.html:71 geonode/documents/templates/documents/document_metadata_advanced.html:105 geonode/geoapps/templates/apps/app_metadata.html:67 geonode/geoapps/templates/apps/app_metadata_advanced.html:105 geonode/layers/templates/layers/layer_metadata.html:89 geonode/layers/templates/layers/layer_metadata_advanced.html:175 geonode/maps/templates/maps/map_metadata.html:72 geonode/maps/templates/maps/map_metadata_advanced.html:106
 msgid "Metadata Provider"
 msgstr "Proveedor de metadatos"
 
@@ -1246,13 +1217,11 @@ msgstr ""
 "          Estás seguro de que desea borrar <a href=\"%(document.get_absolute_url)s\">%(document_title)s</a>?\n"
 "        "
 
-#: geonode/documents/templates/documents/document_remove.html:20 geonode/geoapps/templates/apps/app_remove.html:20 geonode/groups/templates/groups/group_remove.html:19 geonode/layers/templates/layers/layer_granule_remove.html:22 geonode/layers/templates/layers/layer_remove.html:22 geonode/maps/templates/maps/map_remove.html:22
-#: geonode/services/templates/services/service_remove.html:17
+#: geonode/documents/templates/documents/document_remove.html:20 geonode/geoapps/templates/apps/app_remove.html:20 geonode/groups/templates/groups/group_remove.html:19 geonode/layers/templates/layers/layer_granule_remove.html:22 geonode/layers/templates/layers/layer_remove.html:22 geonode/maps/templates/maps/map_remove.html:22 geonode/services/templates/services/service_remove.html:17
 msgid "Yes, I am sure"
 msgstr "Si, estoy seguro"
 
-#: geonode/documents/templates/documents/document_remove.html:21 geonode/geoapps/templates/apps/app_remove.html:21 geonode/groups/templates/groups/group_remove.html:20 geonode/layers/templates/layers/layer_granule_remove.html:23 geonode/layers/templates/layers/layer_remove.html:23 geonode/maps/templates/maps/map_remove.html:23
-#: geonode/services/templates/services/service_remove.html:18
+#: geonode/documents/templates/documents/document_remove.html:21 geonode/geoapps/templates/apps/app_remove.html:21 geonode/groups/templates/groups/group_remove.html:20 geonode/layers/templates/layers/layer_granule_remove.html:23 geonode/layers/templates/layers/layer_remove.html:23 geonode/maps/templates/maps/map_remove.html:23 geonode/services/templates/services/service_remove.html:18
 msgid "No, don't remove it"
 msgstr "No, no voy a eliminarlo"
 
@@ -1264,8 +1233,7 @@ msgstr "Remplaza Documento"
 msgid "Replace "
 msgstr "Remplazar "
 
-#: geonode/documents/templates/documents/document_replace.html:26 geonode/documents/templates/documents/document_thumb_upload.html:55 geonode/layers/templates/layers/layer_detail.html:404 geonode/layers/templates/layers/layer_metadata_upload.html:88 geonode/layers/templates/layers/layer_replace.html:98
-#: geonode/layers/templates/layers/layer_style_upload.html:89 geonode/layers/templates/upload/layer_upload.html:107 geonode/templates/search/_search_content.html:24
+#: geonode/documents/templates/documents/document_replace.html:26 geonode/documents/templates/documents/document_thumb_upload.html:55 geonode/layers/templates/layers/layer_detail.html:404 geonode/layers/templates/layers/layer_metadata_upload.html:88 geonode/layers/templates/layers/layer_replace.html:98 geonode/layers/templates/layers/layer_style_upload.html:89 geonode/layers/templates/upload/layer_upload.html:107 geonode/templates/search/_search_content.html:24
 msgid "Clear"
 msgstr "Borrar"
 
@@ -1309,8 +1277,7 @@ msgstr "Tipos de documentos permitidos"
 msgid "Done!"
 msgstr "Hecho!"
 
-#: geonode/documents/templates/layouts/doc_panels.html:220 geonode/geoapps/templates/apps/app_detail.html:128 geonode/geoapps/templates/apps/app_edit.html:7 geonode/geoapps/templates/layouts/app_panels.html:220 geonode/layers/templates/layers/layer_detail.html:490 geonode/layers/templates/layers/layer_detail.html:492
-#: geonode/layers/templates/layers/layer_detail.html:504 geonode/layers/templates/layouts/panels.html:220 geonode/layers/templates/layouts/panels.html:289 geonode/maps/templates/layouts/map_panels.html:220 geonode/maps/templates/layouts/map_panels.html:285 geonode/maps/templates/maps/map_detail.html:174
+#: geonode/documents/templates/layouts/doc_panels.html:220 geonode/geoapps/templates/apps/app_detail.html:128 geonode/geoapps/templates/apps/app_edit.html:7 geonode/geoapps/templates/layouts/app_panels.html:220 geonode/layers/templates/layers/layer_detail.html:490 geonode/layers/templates/layers/layer_detail.html:492 geonode/layers/templates/layers/layer_detail.html:504 geonode/layers/templates/layouts/panels.html:220 geonode/layers/templates/layouts/panels.html:289 geonode/maps/templates/layouts/map_panels.html:220 geonode/maps/templates/layouts/map_panels.html:285 geonode/maps/templates/maps/map_detail.html:174
 msgid "Edit"
 msgstr "Edición"
 
@@ -1318,8 +1285,7 @@ msgstr "Edición"
 msgid "Settings"
 msgstr "Configuracion"
 
-#: geonode/documents/templates/layouts/doc_panels.html:235 geonode/documents/templates/layouts/doc_panels.html:238 geonode/geoapps/templates/layouts/app_panels.html:235 geonode/geoapps/templates/layouts/app_panels.html:238 geonode/layers/templates/layouts/panels.html:235 geonode/layers/templates/layouts/panels.html:238
-#: geonode/maps/templates/layouts/map_panels.html:235 geonode/maps/templates/layouts/map_panels.html:238
+#: geonode/documents/templates/layouts/doc_panels.html:235 geonode/documents/templates/layouts/doc_panels.html:238 geonode/geoapps/templates/layouts/app_panels.html:235 geonode/geoapps/templates/layouts/app_panels.html:238 geonode/layers/templates/layouts/panels.html:235 geonode/layers/templates/layouts/panels.html:238 geonode/maps/templates/layouts/map_panels.html:235 geonode/maps/templates/layouts/map_panels.html:238
 msgid "Mandatory"
 msgstr "Obligatorio"
 
@@ -1359,8 +1325,7 @@ msgstr "Responsable y Permisos"
 msgid "Message box"
 msgstr "Caja de mensajeBandeja de Entrada"
 
-#: geonode/documents/templates/layouts/doc_panels.html:515 geonode/geoapps/templates/layouts/app_panels.html:512 geonode/layers/templates/layouts/panels.html:520 geonode/maps/templates/layouts/map_panels.html:515 geonode/templates/_permissions_form.html:204 geonode/templates/_permissions_form.html:539 geonode/templates/_permissions_form.html:540
-#: geonode/templates/_permissions_form.html:560 geonode/templates/_permissions_form.html:561 geonode/templates/_permissions_form.html:626 geonode/templates/_permissions_form.html:627 geonode/templates/_permissions_form.html:698 geonode/templates/_permissions_form.html:699 geonode/templates/base.html:759 geonode/templates/base.html:790
+#: geonode/documents/templates/layouts/doc_panels.html:515 geonode/geoapps/templates/layouts/app_panels.html:512 geonode/layers/templates/layouts/panels.html:520 geonode/maps/templates/layouts/map_panels.html:515 geonode/templates/_permissions_form.html:204 geonode/templates/_permissions_form.html:539 geonode/templates/_permissions_form.html:540 geonode/templates/_permissions_form.html:560 geonode/templates/_permissions_form.html:561 geonode/templates/_permissions_form.html:626 geonode/templates/_permissions_form.html:627 geonode/templates/_permissions_form.html:698 geonode/templates/_permissions_form.html:699 geonode/templates/base.html:759 geonode/templates/base.html:790
 msgid "OK"
 msgstr "OK"
 
@@ -1388,20 +1353,16 @@ msgstr "Usted no tiene permitido modificar los metadatos de este documento"
 msgid "You are not permitted to view this document"
 msgstr "Usted no tiene permitido ver este documento"
 
-#: geonode/documents/views.py:97 geonode/documents/views.py:355 geonode/documents/views.py:589 geonode/documents/views.py:604 geonode/documents/views.py:618 geonode/geoapps/views.py:121 geonode/geoapps/views.py:203 geonode/geoapps/views.py:261 geonode/geoapps/views.py:287 geonode/geoapps/views.py:319 geonode/layers/views.py:413
-#: geonode/layers/views.py:834 geonode/layers/views.py:886 geonode/layers/views.py:1280 geonode/layers/views.py:1381 geonode/layers/views.py:1431 geonode/layers/views.py:1476 geonode/layers/views.py:1546 geonode/layers/views.py:1583 geonode/layers/views.py:1620 geonode/layers/views.py:1645 geonode/maps/views.py:134 geonode/maps/views.py:230
-#: geonode/maps/views.py:448 geonode/maps/views.py:519 geonode/maps/views.py:542 geonode/maps/views.py:572 geonode/maps/views.py:593 geonode/maps/views.py:646 geonode/maps/views.py:772 geonode/maps/views.py:1081 geonode/maps/views.py:1170 geonode/maps/views.py:1200 geonode/maps/views.py:1314 geonode/maps/views.py:1361
+#: geonode/documents/views.py:97 geonode/documents/views.py:355 geonode/documents/views.py:589 geonode/documents/views.py:604 geonode/documents/views.py:618 geonode/geoapps/views.py:121 geonode/geoapps/views.py:203 geonode/geoapps/views.py:261 geonode/geoapps/views.py:287 geonode/geoapps/views.py:319 geonode/layers/views.py:413 geonode/layers/views.py:834 geonode/layers/views.py:886 geonode/layers/views.py:1280 geonode/layers/views.py:1381 geonode/layers/views.py:1431 geonode/layers/views.py:1476 geonode/layers/views.py:1546 geonode/layers/views.py:1583 geonode/layers/views.py:1620 geonode/layers/views.py:1645 geonode/maps/views.py:134 geonode/maps/views.py:230 geonode/maps/views.py:448 geonode/maps/views.py:519 geonode/maps/views.py:542 geonode/maps/views.py:572 geonode/maps/views.py:593 geonode/maps/views.py:646 geonode/maps/views.py:772 geonode/maps/views.py:1081 geonode/maps/views.py:1170
+#: geonode/maps/views.py:1200 geonode/maps/views.py:1314 geonode/maps/views.py:1361
 #, fuzzy
 #| msgid "Not provided"
 msgid "Not allowed"
 msgstr "No suministrado"
 
-#: geonode/documents/views.py:99 geonode/documents/views.py:101 geonode/documents/views.py:357 geonode/documents/views.py:359 geonode/documents/views.py:591 geonode/documents/views.py:593 geonode/documents/views.py:620 geonode/documents/views.py:622 geonode/geoapps/views.py:123 geonode/geoapps/views.py:125 geonode/geoapps/views.py:205
-#: geonode/geoapps/views.py:207 geonode/geoapps/views.py:263 geonode/geoapps/views.py:265 geonode/geoapps/views.py:289 geonode/geoapps/views.py:291 geonode/geoapps/views.py:321 geonode/geoapps/views.py:323 geonode/layers/views.py:415 geonode/layers/views.py:417 geonode/layers/views.py:836 geonode/layers/views.py:838 geonode/layers/views.py:888
-#: geonode/layers/views.py:890 geonode/layers/views.py:1282 geonode/layers/views.py:1284 geonode/layers/views.py:1383 geonode/layers/views.py:1385 geonode/layers/views.py:1433 geonode/layers/views.py:1435 geonode/layers/views.py:1478 geonode/layers/views.py:1480 geonode/layers/views.py:1548 geonode/layers/views.py:1550 geonode/layers/views.py:1585
-#: geonode/layers/views.py:1587 geonode/layers/views.py:1622 geonode/layers/views.py:1624 geonode/layers/views.py:1647 geonode/layers/views.py:1649 geonode/maps/views.py:136 geonode/maps/views.py:138 geonode/maps/views.py:232 geonode/maps/views.py:234 geonode/maps/views.py:450 geonode/maps/views.py:452 geonode/maps/views.py:521
-#: geonode/maps/views.py:523 geonode/maps/views.py:544 geonode/maps/views.py:546 geonode/maps/views.py:574 geonode/maps/views.py:576 geonode/maps/views.py:595 geonode/maps/views.py:597 geonode/maps/views.py:648 geonode/maps/views.py:650 geonode/maps/views.py:774 geonode/maps/views.py:776 geonode/maps/views.py:1083 geonode/maps/views.py:1085
-#: geonode/maps/views.py:1172 geonode/maps/views.py:1174 geonode/maps/views.py:1202 geonode/maps/views.py:1204 geonode/maps/views.py:1316 geonode/maps/views.py:1318 geonode/maps/views.py:1363 geonode/maps/views.py:1365
+#: geonode/documents/views.py:99 geonode/documents/views.py:101 geonode/documents/views.py:357 geonode/documents/views.py:359 geonode/documents/views.py:591 geonode/documents/views.py:593 geonode/documents/views.py:620 geonode/documents/views.py:622 geonode/geoapps/views.py:123 geonode/geoapps/views.py:125 geonode/geoapps/views.py:205 geonode/geoapps/views.py:207 geonode/geoapps/views.py:263 geonode/geoapps/views.py:265 geonode/geoapps/views.py:289 geonode/geoapps/views.py:291 geonode/geoapps/views.py:321 geonode/geoapps/views.py:323 geonode/layers/views.py:415 geonode/layers/views.py:417 geonode/layers/views.py:836 geonode/layers/views.py:838 geonode/layers/views.py:888 geonode/layers/views.py:890 geonode/layers/views.py:1282 geonode/layers/views.py:1284 geonode/layers/views.py:1383 geonode/layers/views.py:1385 geonode/layers/views.py:1433 geonode/layers/views.py:1435
+#: geonode/layers/views.py:1478 geonode/layers/views.py:1480 geonode/layers/views.py:1548 geonode/layers/views.py:1550 geonode/layers/views.py:1585 geonode/layers/views.py:1587 geonode/layers/views.py:1622 geonode/layers/views.py:1624 geonode/layers/views.py:1647 geonode/layers/views.py:1649 geonode/maps/views.py:136 geonode/maps/views.py:138 geonode/maps/views.py:232 geonode/maps/views.py:234 geonode/maps/views.py:450 geonode/maps/views.py:452 geonode/maps/views.py:521 geonode/maps/views.py:523 geonode/maps/views.py:544 geonode/maps/views.py:546 geonode/maps/views.py:574 geonode/maps/views.py:576 geonode/maps/views.py:595 geonode/maps/views.py:597 geonode/maps/views.py:648 geonode/maps/views.py:650 geonode/maps/views.py:774 geonode/maps/views.py:776 geonode/maps/views.py:1083 geonode/maps/views.py:1085 geonode/maps/views.py:1172 geonode/maps/views.py:1174 geonode/maps/views.py:1202
+#: geonode/maps/views.py:1204 geonode/maps/views.py:1316 geonode/maps/views.py:1318 geonode/maps/views.py:1363 geonode/maps/views.py:1365
 #, fuzzy
 #| msgid "Maps found"
 msgid "Not found"
@@ -1457,10 +1418,8 @@ msgstr ""
 msgid "Email"
 msgstr "Correo Electrónico"
 
-#: geonode/frequently/models.py:24 geonode/geoapps/models.py:50 geonode/groups/models.py:50 geonode/layers/models.py:171 geonode/qgis_server/templates/qgis_server/forms/qml_style.html:19 geonode/services/templates/services/service_resources_harvest.html:31 geonode/templates/metadata_detail.html:135 geonode/templates/metadata_detail.html:277
-#: geonode/templates/metadata_detail.html:358 geonode/templates/waterproof_intake/intake_clone.html:65 geonode/templates/waterproof_intake/intake_edit.html:65 geonode/templates/waterproof_intake/intake_form.html:65 geonode/templates/waterproof_intake/intake_list.html:50 geonode/templates/waterproof_nbs_ca/waterproofnbsca_clone.html:27
-#: geonode/templates/waterproof_nbs_ca/waterproofnbsca_detail_list.html:23 geonode/templates/waterproof_nbs_ca/waterproofnbsca_edit.html:27 geonode/templates/waterproof_nbs_ca/waterproofnbsca_form.html:25 geonode/templates/waterproof_nbs_ca/waterproofnbsca_list.html:31 geonode/templates/waterproof_treatment_plants/treatment_plants_edit.html:26
-#: geonode/templates/waterproof_treatment_plants/treatment_plants_list.html:40
+#: geonode/frequently/models.py:24 geonode/geoapps/models.py:50 geonode/groups/models.py:50 geonode/layers/models.py:171 geonode/qgis_server/templates/qgis_server/forms/qml_style.html:19 geonode/services/templates/services/service_resources_harvest.html:31 geonode/templates/metadata_detail.html:135 geonode/templates/metadata_detail.html:277 geonode/templates/metadata_detail.html:358 geonode/templates/waterproof_intake/intake_clone.html:65 geonode/templates/waterproof_intake/intake_edit.html:65 geonode/templates/waterproof_intake/intake_form.html:65 geonode/templates/waterproof_intake/intake_list.html:50 geonode/templates/waterproof_nbs_ca/waterproofnbsca_clone.html:27 geonode/templates/waterproof_nbs_ca/waterproofnbsca_detail_list.html:23 geonode/templates/waterproof_nbs_ca/waterproofnbsca_edit.html:27 geonode/templates/waterproof_nbs_ca/waterproofnbsca_form.html:25
+#: geonode/templates/waterproof_nbs_ca/waterproofnbsca_list.html:31 geonode/templates/waterproof_treatment_plants/treatment_plants_edit.html:26 geonode/templates/waterproof_treatment_plants/treatment_plants_list.html:40
 msgid "Name"
 msgstr "Nombre"
 
@@ -1812,8 +1771,7 @@ msgstr "Para insertar este mapa, agregue el siguiente fragmento de código y per
 msgid "Download"
 msgstr "Descargar"
 
-#: geonode/geoapps/templates/apps/app_download.html:7 geonode/geoapps/templates/apps/app_edit.html:7 geonode/geoapps/templates/apps/app_list_default.html:10 geonode/geoapps/templates/apps/app_list_default.html:12 geonode/geoapps/templates/apps/app_update.html:7 geonode/templates/500.html:66 geonode/templates/base.html:333
-#: geonode/templates/base.html:335 geonode/templates/base.html:342 geonode/templates/search/_search_content.html:60
+#: geonode/geoapps/templates/apps/app_download.html:7 geonode/geoapps/templates/apps/app_edit.html:7 geonode/geoapps/templates/apps/app_list_default.html:10 geonode/geoapps/templates/apps/app_list_default.html:12 geonode/geoapps/templates/apps/app_update.html:7 geonode/templates/500.html:66 geonode/templates/base.html:333 geonode/templates/base.html:335 geonode/templates/base.html:342 geonode/templates/search/_search_content.html:60
 #, python-format
 msgid "%(GEONODE_APPS_NAME)s"
 msgstr ""
@@ -1970,9 +1928,7 @@ msgstr "Tipo de geometría"
 msgid "Create Layer"
 msgstr "Crear capa"
 
-#: geonode/geoserver/createlayer/templates/createlayer/layer_create.html:19 geonode/layers/templates/layers/layer_granule_remove.html:8 geonode/layers/templates/layers/layer_list_default.html:5 geonode/layers/templates/layers/layer_list_default.html:14 geonode/layers/templates/layers/layer_metadata_advanced.html:29
-#: geonode/layers/templates/layers/layer_metadata_upload.html:24 geonode/layers/templates/layers/layer_remove.html:8 geonode/layers/templates/layers/layer_replace.html:23 geonode/layers/templates/layers/layer_style_upload.html:24 geonode/layers/templates/upload/layer_upload.html:17 geonode/layers/templates/upload/layer_upload_base.html:14
-#: geonode/layers/templates/upload/layer_upload_metadata_base.html:10
+#: geonode/geoserver/createlayer/templates/createlayer/layer_create.html:19 geonode/layers/templates/layers/layer_granule_remove.html:8 geonode/layers/templates/layers/layer_list_default.html:5 geonode/layers/templates/layers/layer_list_default.html:14 geonode/layers/templates/layers/layer_metadata_advanced.html:29 geonode/layers/templates/layers/layer_metadata_upload.html:24 geonode/layers/templates/layers/layer_remove.html:8 geonode/layers/templates/layers/layer_replace.html:23 geonode/layers/templates/layers/layer_style_upload.html:24 geonode/layers/templates/upload/layer_upload.html:17 geonode/layers/templates/upload/layer_upload_base.html:14 geonode/layers/templates/upload/layer_upload_metadata_base.html:10
 msgid "Explore Layers"
 msgstr "Explora Capas"
 
@@ -1983,10 +1939,6 @@ msgstr "Crea una capa vacía"
 #: geonode/geoserver/createlayer/templates/createlayer/layer_create.html:38
 msgid "Add Attribute"
 msgstr "Agregar Atributo"
-
-#: geonode/geoserver/createlayer/templates/createlayer/layer_create.html:41 geonode/groups/templates/groups/group_create.html:26 geonode/monitoring/models.py:354 geonode/services/templates/services/service_register.html:18
-msgid "Create"
-msgstr "Crear"
 
 #: geonode/geoserver/helpers.py:710
 msgid "No abstract provided"
@@ -2095,8 +2047,7 @@ msgstr "Privado"
 
 #: geonode/groups/models.py:77
 msgid "Public: Any registered user can view and join a public group.<br>Public (invite-only):Any registered user can view the group.  Only invited users can join.<br>Private: Registered users cannot see any details about the group, including membership.  Only invited users can join."
-msgstr ""
-"Público: Cualquier usuario registrado puede ver y unirse a un grupo público.<br>Público (solo invitación): Cualquier usuario registrado puede ver el grupo. Solamente usuarios invitados pueden unirse.<br>Privado: Los usuarios registrados no pueden ver ningun detalle acerca del grupo, incluyendo membresía. Solamente usuarios invitados pueden unirse."
+msgstr "Público: Cualquier usuario registrado puede ver y unirse a un grupo público.<br>Público (solo invitación): Cualquier usuario registrado puede ver el grupo. Solamente usuarios invitados pueden unirse.<br>Privado: Los usuarios registrados no pueden ver ningun detalle acerca del grupo, incluyendo membresía. Solamente usuarios invitados pueden unirse."
 
 #: geonode/groups/models.py:82
 msgid "Email used to contact one or all group members, such as a mailing list, shared email, or exchange group."
@@ -2150,8 +2101,7 @@ msgstr "Documentos"
 msgid "Comments"
 msgstr "Comentarios"
 
-#: geonode/groups/templates/groups/activity.html:37 geonode/groups/templates/groups/activity.html:46 geonode/groups/templates/groups/activity.html:55 geonode/groups/templates/groups/activity.html:64 geonode/groups/templates/groups/activity.html:73 geonode/social/templates/social/activity_list.html:32
-#: geonode/social/templates/social/activity_list.html:41 geonode/social/templates/social/activity_list.html:50 geonode/social/templates/social/activity_list.html:59 geonode/social/templates/social/activity_list.html:68 geonode/templates/actstream/actor.html:28
+#: geonode/groups/templates/groups/activity.html:37 geonode/groups/templates/groups/activity.html:46 geonode/groups/templates/groups/activity.html:55 geonode/groups/templates/groups/activity.html:64 geonode/groups/templates/groups/activity.html:73 geonode/social/templates/social/activity_list.html:32 geonode/social/templates/social/activity_list.html:41 geonode/social/templates/social/activity_list.html:50 geonode/social/templates/social/activity_list.html:59 geonode/social/templates/social/activity_list.html:68 geonode/templates/actstream/actor.html:28
 msgid "No actions yet"
 msgstr "No hay ninguna acción aún"
 
@@ -3024,8 +2974,7 @@ msgstr ""
 "          GeoNode soporta un subconjunto de los elementos de las especificaciones ISO, FGDC y Dublin Core. \n"
 "          Parte de sus metadatos originales pudieron perderse en el proceso."
 
-#: geonode/layers/templates/layers/layer_metadata.html:96 geonode/layers/templates/layers/layer_metadata_advanced.html:82 geonode/layers/templates/layers/layer_metadata_advanced.html:182 geonode/layers/templates/layers/layer_metadata_upload.html:25 geonode/layers/templates/layers/layer_replace.html:24
-#: geonode/layers/templates/layers/layer_style_upload.html:25 geonode/templates/metadata_detail.html:28
+#: geonode/layers/templates/layers/layer_metadata.html:96 geonode/layers/templates/layers/layer_metadata_advanced.html:82 geonode/layers/templates/layers/layer_metadata_advanced.html:182 geonode/layers/templates/layers/layer_metadata_upload.html:25 geonode/layers/templates/layers/layer_replace.html:24 geonode/layers/templates/layers/layer_style_upload.html:25 geonode/templates/metadata_detail.html:28
 msgid "Return to Layer"
 msgstr "Volver  a la Capa"
 
@@ -3089,8 +3038,7 @@ msgstr "última actualización en"
 msgid "Resume"
 msgstr "Reanudar"
 
-#: geonode/layers/templates/layers/layer_metadata_upload.html:40 geonode/layers/templates/layers/layer_metadata_upload.html:47 geonode/layers/templates/layers/layer_replace.html:38 geonode/layers/templates/layers/layer_replace.html:45 geonode/layers/templates/layers/layer_style_upload.html:40 geonode/layers/templates/layers/layer_style_upload.html:47
-#: geonode/layers/templates/upload/layer_upload.html:47 geonode/layers/templates/upload/layer_upload.html:54 geonode/templates/_comments.html:37 geonode/templates/announcements/announcement_confirm_delete.html:21 geonode/templates/announcements/announcement_form.html:24 geonode/templates/user_messages/_message_snippet.html:33
+#: geonode/layers/templates/layers/layer_metadata_upload.html:40 geonode/layers/templates/layers/layer_metadata_upload.html:47 geonode/layers/templates/layers/layer_replace.html:38 geonode/layers/templates/layers/layer_replace.html:45 geonode/layers/templates/layers/layer_style_upload.html:40 geonode/layers/templates/layers/layer_style_upload.html:47 geonode/layers/templates/upload/layer_upload.html:47 geonode/layers/templates/upload/layer_upload.html:54 geonode/templates/_comments.html:37 geonode/templates/announcements/announcement_confirm_delete.html:21 geonode/templates/announcements/announcement_form.html:24 geonode/templates/user_messages/_message_snippet.html:33
 msgid "Delete"
 msgstr "Eliminar"
 
@@ -3254,10 +3202,8 @@ msgstr ""
 "                     Se proporciona más información al final de la página en las secciones de \"Ayuda adicional\".\n"
 "                     "
 
-#: geonode/layers/templates/upload/layer_upload_crs.html:56 geonode/layers/templates/upload/layer_upload_csv.html:58 geonode/layers/templates/upload/layer_upload_time.html:120 geonode/services/templates/services/service_detail.html:70 geonode/services/templates/services/service_detail.html:72
-#: geonode/services/templates/services/service_resources_harvest.html:95 geonode/services/templates/services/service_resources_harvest.html:98 geonode/templates/waterproof_intake/intake_clone.html:102 geonode/templates/waterproof_intake/intake_clone.html:186 geonode/templates/waterproof_intake/intake_clone.html:306
-#: geonode/templates/waterproof_intake/intake_clone.html:333 geonode/templates/waterproof_intake/intake_edit.html:102 geonode/templates/waterproof_intake/intake_edit.html:186 geonode/templates/waterproof_intake/intake_edit.html:306 geonode/templates/waterproof_intake/intake_edit.html:332 geonode/templates/waterproof_intake/intake_form.html:99
-#: geonode/templates/waterproof_intake/intake_form.html:184 geonode/templates/waterproof_intake/intake_form.html:303 geonode/templates/waterproof_intake/intake_form.html:329
+#: geonode/layers/templates/upload/layer_upload_crs.html:56 geonode/layers/templates/upload/layer_upload_csv.html:58 geonode/layers/templates/upload/layer_upload_time.html:120 geonode/services/templates/services/service_detail.html:70 geonode/services/templates/services/service_detail.html:72 geonode/services/templates/services/service_resources_harvest.html:95 geonode/services/templates/services/service_resources_harvest.html:98 geonode/templates/waterproof_intake/intake_clone.html:102 geonode/templates/waterproof_intake/intake_clone.html:186 geonode/templates/waterproof_intake/intake_clone.html:306 geonode/templates/waterproof_intake/intake_clone.html:333 geonode/templates/waterproof_intake/intake_edit.html:102 geonode/templates/waterproof_intake/intake_edit.html:186 geonode/templates/waterproof_intake/intake_edit.html:306 geonode/templates/waterproof_intake/intake_edit.html:332
+#: geonode/templates/waterproof_intake/intake_form.html:99 geonode/templates/waterproof_intake/intake_form.html:184 geonode/templates/waterproof_intake/intake_form.html:303 geonode/templates/waterproof_intake/intake_form.html:329
 msgid "Next"
 msgstr "Siguiente"
 
@@ -3580,10 +3526,6 @@ msgstr "Convertir números (como año)"
 #: geonode/layers/templates/upload/layer_upload_time.html:193
 msgid "Time attribute Presentation"
 msgstr "Presentación del atributo de tiempo"
-
-#: geonode/layers/templates/upload/layer_upload_time.html:201
-msgid "List"
-msgstr "Lista"
 
 #: geonode/layers/templates/upload/layer_upload_time.html:201
 msgid "of all the distinct time values"
@@ -4419,8 +4361,7 @@ msgstr "ha detectado los siguientes problemas:"
 msgid "spotted"
 msgstr "detectado"
 
-#: geonode/monitoring/templates/pinax/notifications/monitoring_alert/full.txt:9 geonode/monitoring/templates/pinax/notifications/monitoring_alert/full.txt:10 geonode/monitoring/templates/pinax/notifications/monitoring_alert/short.txt:6 geonode/monitoring/templates/pinax/notifications/monitoring_alert/short.txt:7
-#: geonode/social/templates/social/_activity_item.html:31
+#: geonode/monitoring/templates/pinax/notifications/monitoring_alert/full.txt:9 geonode/monitoring/templates/pinax/notifications/monitoring_alert/full.txt:10 geonode/monitoring/templates/pinax/notifications/monitoring_alert/short.txt:6 geonode/monitoring/templates/pinax/notifications/monitoring_alert/short.txt:7 geonode/social/templates/social/_activity_item.html:31
 msgid "ago"
 msgstr "hace"
 
@@ -4567,8 +4508,7 @@ msgstr "Otros ajustes"
 msgid "Organization"
 msgstr "Organización"
 
-#: geonode/people/forms.py:172 geonode/people/models.py:85 geonode/templates/waterproof_nbs_ca/waterproofnbsca_clone.html:41 geonode/templates/waterproof_nbs_ca/waterproofnbsca_edit.html:41 geonode/templates/waterproof_nbs_ca/waterproofnbsca_form.html:39 geonode/templates/waterproof_nbs_ca/waterproofnbsca_list.html:34
-#: geonode/templates/waterproof_treatment_plants/treatment_plants_edit.html:12 geonode/templates/waterproof_treatment_plants/treatment_plants_list.html:21
+#: geonode/people/forms.py:172 geonode/people/models.py:85 geonode/templates/waterproof_nbs_ca/waterproofnbsca_clone.html:41 geonode/templates/waterproof_nbs_ca/waterproofnbsca_edit.html:41 geonode/templates/waterproof_nbs_ca/waterproofnbsca_form.html:39 geonode/templates/waterproof_nbs_ca/waterproofnbsca_list.html:34 geonode/templates/waterproof_treatment_plants/treatment_plants_edit.html:12 geonode/templates/waterproof_treatment_plants/treatment_plants_list.html:21
 msgid "Country"
 msgstr "País"
 
@@ -5127,9 +5067,7 @@ msgstr "Volver a detalles del servicio"
 msgid "Import Resources"
 msgstr "Importar Recursos"
 
-#: geonode/services/templates/services/service_resources_harvest.html:87 geonode/services/templates/services/service_resources_harvest.html:90 geonode/templates/waterproof_intake/intake_clone.html:185 geonode/templates/waterproof_intake/intake_clone.html:305 geonode/templates/waterproof_intake/intake_clone.html:332
-#: geonode/templates/waterproof_intake/intake_clone.html:370 geonode/templates/waterproof_intake/intake_edit.html:185 geonode/templates/waterproof_intake/intake_edit.html:305 geonode/templates/waterproof_intake/intake_edit.html:331 geonode/templates/waterproof_intake/intake_edit.html:369 geonode/templates/waterproof_intake/intake_form.html:183
-#: geonode/templates/waterproof_intake/intake_form.html:302 geonode/templates/waterproof_intake/intake_form.html:328 geonode/templates/waterproof_intake/intake_form.html:366
+#: geonode/services/templates/services/service_resources_harvest.html:87 geonode/services/templates/services/service_resources_harvest.html:90 geonode/templates/waterproof_intake/intake_clone.html:185 geonode/templates/waterproof_intake/intake_clone.html:305 geonode/templates/waterproof_intake/intake_clone.html:332 geonode/templates/waterproof_intake/intake_clone.html:370 geonode/templates/waterproof_intake/intake_edit.html:185 geonode/templates/waterproof_intake/intake_edit.html:305 geonode/templates/waterproof_intake/intake_edit.html:331 geonode/templates/waterproof_intake/intake_edit.html:369 geonode/templates/waterproof_intake/intake_form.html:183 geonode/templates/waterproof_intake/intake_form.html:302 geonode/templates/waterproof_intake/intake_form.html:328 geonode/templates/waterproof_intake/intake_form.html:366
 msgid "Previous"
 msgstr "Anterior"
 
@@ -5261,8 +5199,7 @@ msgstr "Activar navegación"
 msgid "People"
 msgstr "Personas"
 
-#: geonode/templates/500.html:84 geonode/templates/500.html:86 geonode/templates/_permissions_form.html:107 geonode/templates/_permissions_form.html:127 geonode/templates/base.html:385 geonode/templates/base.html:386 geonode/templates/base.html:387 geonode/templates/base.html:390 geonode/templates/base.html:391 geonode/templates/base.html:392
-#: geonode/templates/index.html:100 geonode/templates/index.html:101 geonode/templates/index.html:102 geonode/templates/index.html:105 geonode/templates/search/_text_filter.html:11 geonode/templates/search/search.html:5 geonode/templates/search/search.html:11
+#: geonode/templates/500.html:84 geonode/templates/500.html:86 geonode/templates/_permissions_form.html:107 geonode/templates/_permissions_form.html:127 geonode/templates/base.html:385 geonode/templates/base.html:386 geonode/templates/base.html:387 geonode/templates/base.html:390 geonode/templates/base.html:391 geonode/templates/base.html:392 geonode/templates/index.html:100 geonode/templates/index.html:101 geonode/templates/index.html:102 geonode/templates/index.html:105 geonode/templates/search/_text_filter.html:11 geonode/templates/search/search.html:5 geonode/templates/search/search.html:11
 msgid "Search"
 msgstr "Buscar"
 
@@ -5363,9 +5300,7 @@ msgid "The Water-proof's privacy policy."
 msgstr ""
 
 #: geonode/templates/Private_policy.html:20
-msgid ""
-"What information we collect: The Nature Conservancy may request and collect from you personally identifiable information at various points on the site. Depending on the information or the services you request, you may be asked to provide your name, email address electronic, entity, country and other similar information. Once you have supplied "
-"personal information, you will not be an anonymous user for The Nature Conservancy."
+msgid "What information we collect: The Nature Conservancy may request and collect from you personally identifiable information at various points on the site. Depending on the information or the services you request, you may be asked to provide your name, email address electronic, entity, country and other similar information. Once you have supplied personal information, you will not be an anonymous user for The Nature Conservancy."
 msgstr ""
 
 #: geonode/templates/Private_policy.html:22
@@ -5393,23 +5328,15 @@ msgid "The Nature Conservancy processes the information you provide on servers l
 msgstr ""
 
 #: geonode/templates/Private_policy.html:36
-msgid ""
-"With whom does The Nature Conservancy share information: Subject to the right that you has to choose otherwise (as explained later in this policy), The Nature The Conservancy may share your name and mailing address (but not your mailing address electronic) with organizations that offer products or services that we consider possible interest to you. "
-"The Nature Conservancy may also share information with third parties. provided by you in the following cases: (i) to fulfill your request, for example, to provide information about a project, product or service; (ii) for subcontract one or more of the functions described above; or (iii) to share User information with authorities in response to a "
-"court order or official request or when we consider that you have violated our Terms and Conditions of Use."
+msgid "With whom does The Nature Conservancy share information: Subject to the right that you has to choose otherwise (as explained later in this policy), The Nature The Conservancy may share your name and mailing address (but not your mailing address electronic) with organizations that offer products or services that we consider possible interest to you. The Nature Conservancy may also share information with third parties. provided by you in the following cases: (i) to fulfill your request, for example, to provide information about a project, product or service; (ii) for subcontract one or more of the functions described above; or (iii) to share User information with authorities in response to a court order or official request or when we consider that you have violated our Terms and Conditions of Use."
 msgstr ""
 
 #: geonode/templates/Private_policy.html:38
-msgid ""
-"When and where The Nature Conservancy collects information on the Website: In addition to the information that you voluntarily provide, The Nature Conservancy also collects the domain names and IP addresses used by people who visit us, as well as statistics on the use of the site, such as the type of browser and the pages visited. These data does "
-"not usually allow the personal identification of the user and is used to manage with greater efficiency in the activities of The Nature Conservancy, preparing ourselves to network load requirements, promote our organization and administer the Website."
+msgid "When and where The Nature Conservancy collects information on the Website: In addition to the information that you voluntarily provide, The Nature Conservancy also collects the domain names and IP addresses used by people who visit us, as well as statistics on the use of the site, such as the type of browser and the pages visited. These data does not usually allow the personal identification of the user and is used to manage with greater efficiency in the activities of The Nature Conservancy, preparing ourselves to network load requirements, promote our organization and administer the Website."
 msgstr ""
 
 #: geonode/templates/Private_policy.html:40
-msgid ""
-"How We Collect Information: In addition to the information collected in the manner described, there is a technology known as & quot; cookies & quot; that can be used to provide you with information customized from a website. A cookie is an element of data that a website can send to your browser, which in turn can - depending on the configuration "
-"you own — store it on your system. For example, some pages of the Website use cookies in order to that The Nature Conservancy can better serve you when you re-enter in the. Depending on the type of browser you use, you could configure it to notify you when you receive a cookie, giving you the opportunity to accept or reject it. However, note that "
-"the disabling cookies may prevent you from taking advantage of certain elements of our Website."
+msgid "How We Collect Information: In addition to the information collected in the manner described, there is a technology known as & quot; cookies & quot; that can be used to provide you with information customized from a website. A cookie is an element of data that a website can send to your browser, which in turn can - depending on the configuration you own — store it on your system. For example, some pages of the Website use cookies in order to that The Nature Conservancy can better serve you when you re-enter in the. Depending on the type of browser you use, you could configure it to notify you when you receive a cookie, giving you the opportunity to accept or reject it. However, note that the disabling cookies may prevent you from taking advantage of certain elements of our Website."
 msgstr ""
 
 #: geonode/templates/Private_policy.html:42
@@ -5657,145 +5584,6 @@ msgstr "Marcador de posición para mensaje de estado"
 #: geonode/templates/_status_message.html:5
 msgid "Placeholder for status-message-body"
 msgstr "Marcador de posición para status-message-body"
-
-#: geonode/templates/about.html:5
-#, fuzzy
-#| msgid "About GeoNode"
-msgid "About Geonode"
-msgstr "Acerca de GeoNode"
-
-#: geonode/templates/about.html:12
-#, fuzzy
-#| msgid "About"
-msgid "About Us"
-msgstr "Acerca de"
-
-#: geonode/templates/about.html:15
-msgid "The Nature Conservancy (TNC) is a global environmental organization dedicated to conserving the lands and waters on which life depends. Guided by science, we create innovative and practical solutions to our world's most pressing challenges so that nature and people can thrive together."
-msgstr ""
-
-#: geonode/templates/about.html:18
-msgid ""
-"The Waterproof web tool is focused on the macro-basins of the world and aims to support decision-making based on the calculation of environmental and financial indicators in a basin, presenting investment alternatives in Nature-Based Solutions projects. In this way, TNC, through the Waterproof app, promotes actions for the conservation of nature, "
-"sustainable development, the strengthening and well-being of communities (among others)."
-msgstr ""
-
-#: geonode/templates/about.html:21
-msgid ""
-"Scientific development matters, especially at this critical time for nature. Our work is based on science. We support innovation, leadership, and communication for conservation success. For this, Waterproof makes available mathematical, statistical and spatial analysis models such as the implementation of the InVEST, RIOS and ROI models, which "
-"require input data for physical variables such as precipitation, evapotranspiration, soil parameters, among others, with from which the user will be able to select a location anywhere in the world and receive recommendations from a portfolio of activities for certain water security challenges, and a high-level ROI based on implementation costs and "
-"savings in water treatment."
-msgstr ""
-
-#: geonode/templates/about_models.html:4
-#, fuzzy
-#| msgid "About GeoNode"
-msgid "About Models"
-msgstr "Acerca de GeoNode"
-
-#: geonode/templates/about_models.html:23
-#, fuzzy
-#| msgid "About GeoNode"
-msgid "About Waterproof models"
-msgstr "Acerca de GeoNode"
-
-#: geonode/templates/about_models.html:28
-msgid "Integrated Valuation of Ecosystem Services and Tradeoffs (InVEST):"
-msgstr ""
-
-#: geonode/templates/about_models.html:32
-msgid "InVEST is a set of models, developed by Natural Capital, used to map and value nature's goods and services that sustain and satisfy human life. It uses maps (Raster) as sources of information and produces maps as outputs on biophysical conditions or in economic terms."
-msgstr ""
-
-#: geonode/templates/about_models.html:34
-msgid "For the specific case of the Waterproof application, the InVEST models related to:"
-msgstr ""
-
-#: geonode/templates/about_models.html:37
-msgid "Annual Water Yield"
-msgstr ""
-
-#: geonode/templates/about_models.html:38
-msgid "Seasonal Water Yield"
-msgstr ""
-
-#: geonode/templates/about_models.html:39
-msgid "Sediment Delivery Ratio"
-msgstr ""
-
-#: geonode/templates/about_models.html:40
-msgid "Nutrient Delivery Ratio (Nitrógeno)"
-msgstr ""
-
-#: geonode/templates/about_models.html:41
-msgid "Nutrient Delivery Ratio (Fósforo)"
-msgstr ""
-
-#: geonode/templates/about_models.html:42
-msgid "Carbon Storage and Sequestration"
-msgstr ""
-
-#: geonode/templates/about_models.html:47
-msgid "InVEST models are based on production functions that define how changes in the structure and function of an ecosystem are likely to affect the flows and values ​​of ecosystem services in a landscape or seascape. The models take into account both the supply of services and the location and activities of the people who benefit from the services."
-msgstr ""
-
-#: geonode/templates/about_models.html:49 geonode/templates/about_models.html:70
-#, fuzzy
-#| msgid "Source"
-msgid "Source:"
-msgstr "Fuente"
-
-#: geonode/templates/about_models.html:54
-msgid "Resource Investment Optimization System (RIOS):"
-msgstr ""
-
-#: geonode/templates/about_models.html:58
-msgid ""
-"It is a tool developed by Natural Capital that can be used to prioritize investments in ecosystem services that helps answer several critical questions faced by those who invest in ecosystem services with limited resources. RIOS facilitates the identification of sites where protection or restoration activities can produce, at the lowest cost, the "
-"greatest benefits for people and nature."
-msgstr ""
-
-#: geonode/templates/about_models.html:60
-msgid "For the specific case of the Waterproof application, RIOS is used to create investment portfolios considering one or more of the following objectives that the software is able to analyze:"
-msgstr ""
-
-#: geonode/templates/about_models.html:62
-msgid "Erosion control for drinking water quality"
-msgstr ""
-
-#: geonode/templates/about_models.html:63
-msgid "Control de erosión para mantenimiento de embalses"
-msgstr ""
-
-#: geonode/templates/about_models.html:64
-msgid "Erosion control for reservoir maintenance"
-msgstr ""
-
-#: geonode/templates/about_models.html:65
-msgid "Retención de nutrientes (Nitrógeno)"
-msgstr ""
-
-#: geonode/templates/about_models.html:66
-msgid "Nutrient retention (Nitrogen)"
-msgstr ""
-
-#: geonode/templates/about_models.html:67
-msgid "Improved groundwater recharge"
-msgstr ""
-
-#: geonode/templates/about_models.html:68
-msgid "Base flow"
-msgstr ""
-
-#: geonode/templates/about_models.html:75
-msgid "Return on investment (ROI):"
-msgstr ""
-
-#: geonode/templates/about_models.html:79
-msgid ""
-"It is a financial ratio that compares the profit or profit obtained in relation to the investment made. Having a Return on investment analysis facilitates decision-making and negotiations between interested parties in making investments, for which it is necessary to offer scenarios mainly associated with land use, which show the performance of "
-"investments in hydrographic basins, which which is done by using data and model runs."
-msgstr ""
 
 #: geonode/templates/account/account_inactive.html:5 geonode/templates/account/account_inactive.html:8
 msgid "Account Inactive"
@@ -6288,12 +6076,6 @@ msgstr "Búsqueda GeoNode"
 msgid "Search City"
 msgstr "Buscar"
 
-#: geonode/templates/base.html:337
-#, fuzzy
-#| msgid "List"
-msgid "List SBN"
-msgstr "Lista"
-
 #: geonode/templates/base.html:338 geonode/templates/waterproof_intake/intake_list.html:40
 msgid "List Intakes"
 msgstr ""
@@ -6372,8 +6154,7 @@ msgstr "Información útil para desarrolladores interesados en GeoNode."
 #, python-format
 msgid ""
 "\n"
-"    <p><a href=\"http://geonode.org/\">GeoNode</a> is an open service built on open source software. We encourage you to build new applications using the components and resources it provides. This page is a starting point for developers interesting in taking full advantage of GeoNode. It also includes links to the project's source code so anyone "
-"can build and customize their own GeoNode. </p>\n"
+"    <p><a href=\"http://geonode.org/\">GeoNode</a> is an open service built on open source software. We encourage you to build new applications using the components and resources it provides. This page is a starting point for developers interesting in taking full advantage of GeoNode. It also includes links to the project's source code so anyone can build and customize their own GeoNode. </p>\n"
 "\n"
 "    <h3>GeoNode Software</h3>\n"
 "\n"
@@ -6387,9 +6168,7 @@ msgid ""
 "    </ul>\n"
 "\n"
 "    <h3>What are OGC Services?</h3>\n"
-"    <p>The data in this application is served using open standards endorsed by ISO and the <a href=\"http://opengeospatial.org/\">Open Geospatial Consortium</a>; in particular, WMS (Web Map Service) is used for accessing maps, WFS (Web Feature Service) is used for accessing vector data, and WCS (Web Coverage Service) is used for accessing raster "
-"data.  WMC (Web Map Context Documents) is used for sharing maps. You can use these services in your own applications using libraries such as OpenLayers, GeoTools, and OGR (all of which are open-source software and available at zero cost). Additionally, CSW (Catalog Service for the Web) supports access to collections of descriptive information "
-"(metadata) about data and services.</p>\n"
+"    <p>The data in this application is served using open standards endorsed by ISO and the <a href=\"http://opengeospatial.org/\">Open Geospatial Consortium</a>; in particular, WMS (Web Map Service) is used for accessing maps, WFS (Web Feature Service) is used for accessing vector data, and WCS (Web Coverage Service) is used for accessing raster data.  WMC (Web Map Context Documents) is used for sharing maps. You can use these services in your own applications using libraries such as OpenLayers, GeoTools, and OGR (all of which are open-source software and available at zero cost). Additionally, CSW (Catalog Service for the Web) supports access to collections of descriptive information (metadata) about data and services.</p>\n"
 "\n"
 "    <h3>What is GeoWebCache?</h3>\n"
 "    <p>GeoWebCache provides mapping tiles that are compatible with a number of mapping engines, including Google Maps, Bing Maps and OpenLayers. All the data hosted by GeoNode is also available through GeoWebCache. GeoWebCache improves on WMS by caching data and providing more responsive maps.</p>\n"
@@ -6406,8 +6185,7 @@ msgid ""
 "\n"
 "    <h3>OpenLayers Example Code</h3>\n"
 "\n"
-"    <p>To include a GeoNode map layer in an OpenLayers map, first find the name for that layer. This is found in the layer's <code>name</code> field (not <code>title</code>) of the layer list. For this example, we will use the Nicaraguan political boundaries background layer, whose name is <code>risk:nicaragua_admin</code>. Then, create an instance "
-"of OpenLayers.Layer.WMS:</p>\n"
+"    <p>To include a GeoNode map layer in an OpenLayers map, first find the name for that layer. This is found in the layer's <code>name</code> field (not <code>title</code>) of the layer list. For this example, we will use the Nicaraguan political boundaries background layer, whose name is <code>risk:nicaragua_admin</code>. Then, create an instance of OpenLayers.Layer.WMS:</p>\n"
 "    <p><code>var geonodeLayer = new OpenLayers.Layer.WMS(\"GeoNode Risk Data\", \"http://demo.geonode.org/geoserver/wms\",{ layers: \"risk:nicaragua_admin\" });</code></p>\n"
 "\n"
 "    <h3>Google Maps Example Code</h3>\n"
@@ -6424,8 +6202,7 @@ msgid ""
 "    "
 msgstr ""
 "\n"
-"    <p><a href=\"http://geonode.org/\"> GeoNode </a> es un servicio abierto basado en software de código abierto. Le recomendamos que cree nuevas aplicaciones utilizando los componentes y recursos que proporciona. Esta página es un punto de partida para desarrolladores interesados en aprovechar al máximo GeoNode. También incluye enlaces al código "
-"fuente del proyecto para que cualquiera pueda construir y personalizar su propio GeoNode. </p>\n"
+"    <p><a href=\"http://geonode.org/\"> GeoNode </a> es un servicio abierto basado en software de código abierto. Le recomendamos que cree nuevas aplicaciones utilizando los componentes y recursos que proporciona. Esta página es un punto de partida para desarrolladores interesados en aprovechar al máximo GeoNode. También incluye enlaces al código fuente del proyecto para que cualquiera pueda construir y personalizar su propio GeoNode. </p>\n"
 "\n"
 "    <h3> Software GeoNode </h3>\n"
 "\n"
@@ -6439,9 +6216,7 @@ msgstr ""
 "    </ul>\n"
 "\n"
 "    <h3> ¿Qué son los servicios OGC? </h3>\n"
-"    <p> Los datos en esta aplicación se sirven utilizando estándares abiertos avalados por ISO y el <a href=\"http://opengeospatial.org/\"> Open Geospatial Consortium </a>; en particular, WMS (Servicio de mapas web) se usa para acceder a los mapas, WFS (Servicio de características web) se usa para acceder a datos vectoriales y WCS (Servicio de "
-"cobertura web) se usa para acceder a datos ráster. WMC (Web Map Context Documents) se usa para compartir mapas. Puede usar estos servicios en sus propias aplicaciones usando bibliotecas como OpenLayers, GeoTools y OGR (todas las cuales son software de código abierto y están disponibles a un costo cero). Además, CSW (Servicio de catálogo para la "
-"Web) admite el acceso a colecciones de información descriptiva (metadatos) sobre datos y servicios. </p>\n"
+"    <p> Los datos en esta aplicación se sirven utilizando estándares abiertos avalados por ISO y el <a href=\"http://opengeospatial.org/\"> Open Geospatial Consortium </a>; en particular, WMS (Servicio de mapas web) se usa para acceder a los mapas, WFS (Servicio de características web) se usa para acceder a datos vectoriales y WCS (Servicio de cobertura web) se usa para acceder a datos ráster. WMC (Web Map Context Documents) se usa para compartir mapas. Puede usar estos servicios en sus propias aplicaciones usando bibliotecas como OpenLayers, GeoTools y OGR (todas las cuales son software de código abierto y están disponibles a un costo cero). Además, CSW (Servicio de catálogo para la Web) admite el acceso a colecciones de información descriptiva (metadatos) sobre datos y servicios. </p>\n"
 "\n"
 "    <h3> ¿Qué es GeoWebCache? </h3>\n"
 "    <p> GeoWebCache proporciona mosaicos de mapeo que son compatibles con varios motores de mapeo, incluidos Google Maps, Bing Maps y OpenLayers. Todos los datos alojados por GeoNode también están disponibles a través de GeoWebCache. GeoWebCache mejora el WMS almacenando datos en caché y proporcionando mapas más receptivos. </p>\n"
@@ -6458,8 +6233,7 @@ msgstr ""
 "\n"
 "    <h3> Código de ejemplo de OpenLayers </h3>\n"
 "\n"
-"    <p> Para incluir una capa de mapa GeoNode en un mapa OpenLayers, primero busque el nombre de esa capa. Esto se encuentra en el campo <code>name</code> de la capa (no <code>title</code>) de la lista de capas. Para este ejemplo, utilizaremos la capa de fondo de los límites políticos nicaragüenses, cuyo nombre es <code>risk: nicaragua_admin</"
-"code>. Luego, cree una instancia de OpenLayers.Layer.WMS: </p>\n"
+"    <p> Para incluir una capa de mapa GeoNode en un mapa OpenLayers, primero busque el nombre de esa capa. Esto se encuentra en el campo <code>name</code> de la capa (no <code>title</code>) de la lista de capas. Para este ejemplo, utilizaremos la capa de fondo de los límites políticos nicaragüenses, cuyo nombre es <code>risk: nicaragua_admin</code>. Luego, cree una instancia de OpenLayers.Layer.WMS: </p>\n"
 "    <p><code>var geonodeLayer = new OpenLayers.Layer.WMS(\"GeoNode Risk Data\", \"http://demo.geonode.org/geoserver/wms\",{ layers: \"risk:nicaragua_admin\" });</code></p>\n"
 "\n"
 "    <h3> Código de ejemplo de Google Maps </h3>\n"
@@ -6589,8 +6363,7 @@ msgstr ""
 "    <p>GeoNode permite a los usuarios crear y compartir mapas entre sí.</p>\n"
 "    <p> La pestaña <a href=\"/maps\"> Maps </a> es una puerta de entrada a la exploración de mapas en GeoNode. Desde aquí puede <strong> buscar un mapa </strong> o <strong> crear un mapa </strong>, que abrirá el <a href=\"/maps/new\"> Map Composer </a>. < / p>\n"
 "    <h5> Modo Google Earth </h5>\n"
-"    <p>Cualquier mapa visto en el editor de mapas interactivo se puede ver en modo 3D con el complemento de Google Earth. Para cambiar al modo 3D, seleccione el logotipo del globo terráqueo de Google Earth, el botón situado más a la derecha en la barra de herramientas superior. Si no tiene instalado el complemento de Google Earth, se le pedirá que "
-"lo instale. </p>\n"
+"    <p>Cualquier mapa visto en el editor de mapas interactivo se puede ver en modo 3D con el complemento de Google Earth. Para cambiar al modo 3D, seleccione el logotipo del globo terráqueo de Google Earth, el botón situado más a la derecha en la barra de herramientas superior. Si no tiene instalado el complemento de Google Earth, se le pedirá que lo instale. </p>\n"
 "\n"
 "    <h4 id=\"creating-a-map\">Crear un mapa</h4>\n"
 "    <p> Para crear un nuevo mapa, vaya a la pestaña <a href=\"/maps\"> Mapas contribuidos </a> y haga clic en el enlace <a href=\"/maps/new\"> cree su propio mapa </a> . </p>\n"
@@ -6708,29 +6481,11 @@ msgstr ""
 msgid "We work to meet this ambitious goal"
 msgstr ""
 
-#: geonode/templates/index.html:240
-#, fuzzy
-#| msgid "Elevation"
-msgid "Conservation"
-msgstr "Elevación"
-
 #: geonode/templates/index.html:246
 #, fuzzy
 #| msgid "Average rating"
 msgid "Active restoration"
 msgstr "Average rating"
-
-#: geonode/templates/index.html:252
-msgid "Passive restoration"
-msgstr ""
-
-#: geonode/templates/index.html:260
-msgid "Best agricultural practices"
-msgstr ""
-
-#: geonode/templates/index.html:266
-msgid "Sustainable production systems"
-msgstr ""
 
 #: geonode/templates/index.html:274
 msgid "News"
@@ -7055,9 +6810,8 @@ msgstr "Un nuevo usuario ha solicitado acceso al sitio"
 msgid "The following document was approved"
 msgstr "El siguiente documento fue aprobado"
 
-#: geonode/templates/pinax/notifications/document_approved/full.txt:3 geonode/templates/pinax/notifications/document_deleted/full.txt:3 geonode/templates/pinax/notifications/document_published/full.txt:3 geonode/templates/pinax/notifications/document_rated/full.txt:5 geonode/templates/pinax/notifications/document_updated/full.txt:3
-#: geonode/templates/pinax/notifications/layer_approved/full.txt:3 geonode/templates/pinax/notifications/layer_deleted/full.txt:3 geonode/templates/pinax/notifications/layer_published/full.txt:3 geonode/templates/pinax/notifications/layer_rated/full.txt:5 geonode/templates/pinax/notifications/layer_updated/full.txt:3
-#: geonode/templates/pinax/notifications/map_approved/full.txt:3 geonode/templates/pinax/notifications/map_deleted/full.txt:3 geonode/templates/pinax/notifications/map_published/full.txt:3 geonode/templates/pinax/notifications/map_rated/full.txt:5 geonode/templates/pinax/notifications/map_updated/full.txt:3
+#: geonode/templates/pinax/notifications/document_approved/full.txt:3 geonode/templates/pinax/notifications/document_deleted/full.txt:3 geonode/templates/pinax/notifications/document_published/full.txt:3 geonode/templates/pinax/notifications/document_rated/full.txt:5 geonode/templates/pinax/notifications/document_updated/full.txt:3 geonode/templates/pinax/notifications/layer_approved/full.txt:3 geonode/templates/pinax/notifications/layer_deleted/full.txt:3 geonode/templates/pinax/notifications/layer_published/full.txt:3 geonode/templates/pinax/notifications/layer_rated/full.txt:5 geonode/templates/pinax/notifications/layer_updated/full.txt:3 geonode/templates/pinax/notifications/map_approved/full.txt:3 geonode/templates/pinax/notifications/map_deleted/full.txt:3 geonode/templates/pinax/notifications/map_published/full.txt:3 geonode/templates/pinax/notifications/map_rated/full.txt:5
+#: geonode/templates/pinax/notifications/map_updated/full.txt:3
 msgid "owned by"
 msgstr "manejada por"
 
@@ -7081,8 +6835,7 @@ msgstr "por el usuario"
 msgid "A comment has been posted for a document"
 msgstr "Se ha publicado un comentario de un documento"
 
-#: geonode/templates/pinax/notifications/document_created/full.txt:2 geonode/templates/pinax/notifications/document_rated/full.txt:2 geonode/templates/pinax/notifications/layer_created/full.txt:2 geonode/templates/pinax/notifications/layer_rated/full.txt:2 geonode/templates/pinax/notifications/map_created/full.txt:2
-#: geonode/templates/pinax/notifications/map_rated/full.txt:2 geonode/templates/pinax/notifications/request_download_resourcebase/full.txt:2
+#: geonode/templates/pinax/notifications/document_created/full.txt:2 geonode/templates/pinax/notifications/document_rated/full.txt:2 geonode/templates/pinax/notifications/layer_created/full.txt:2 geonode/templates/pinax/notifications/layer_rated/full.txt:2 geonode/templates/pinax/notifications/map_created/full.txt:2 geonode/templates/pinax/notifications/map_rated/full.txt:2 geonode/templates/pinax/notifications/request_download_resourcebase/full.txt:2
 msgid "The user"
 msgstr "El usuario"
 
@@ -7118,8 +6871,7 @@ msgstr "calificado"
 msgid "the following document"
 msgstr "el siguiente documento"
 
-#: geonode/templates/pinax/notifications/document_rated/full.txt:6 geonode/templates/pinax/notifications/layer_approved/full.txt:4 geonode/templates/pinax/notifications/layer_comment/full.txt:3 geonode/templates/pinax/notifications/layer_created/full.txt:4 geonode/templates/pinax/notifications/layer_published/full.txt:4
-#: geonode/templates/pinax/notifications/layer_rated/full.txt:6 geonode/templates/pinax/notifications/layer_updated/full.txt:4
+#: geonode/templates/pinax/notifications/document_rated/full.txt:6 geonode/templates/pinax/notifications/layer_approved/full.txt:4 geonode/templates/pinax/notifications/layer_comment/full.txt:3 geonode/templates/pinax/notifications/layer_created/full.txt:4 geonode/templates/pinax/notifications/layer_published/full.txt:4 geonode/templates/pinax/notifications/layer_rated/full.txt:6 geonode/templates/pinax/notifications/layer_updated/full.txt:4
 msgid "You can visit the layer's detail page here"
 msgstr "Usted puede visitar la página de detalle de la capa aquí"
 
@@ -7488,20 +7240,14 @@ msgstr "Texto"
 msgid "Selected City"
 msgstr "Secciones"
 
-#: geonode/templates/search_city.html:18 geonode/templates/waterproof_intake/intake_list.html:30 geonode/templates/waterproof_intake/intake_list.html:56 geonode/templates/waterproof_study_cases/studycases_list.html:27 geonode/templates/waterproof_treatment_plants/treatment_plants_edit.html:13
-#: geonode/templates/waterproof_treatment_plants/treatment_plants_list.html:22
+#: geonode/templates/search_city.html:18 geonode/templates/waterproof_intake/intake_list.html:30 geonode/templates/waterproof_intake/intake_list.html:56 geonode/templates/waterproof_study_cases/studycases_list.html:27 geonode/templates/waterproof_treatment_plants/treatment_plants_edit.html:13 geonode/templates/waterproof_treatment_plants/treatment_plants_list.html:22
 #, fuzzy
 #| msgid "Regions"
 msgid "Region"
 msgstr "Regiones"
 
-#: geonode/templates/search_city.html:19 geonode/templates/waterproof_intake/intake_list.html:31 geonode/templates/waterproof_nbs_ca/waterproofnbsca_list.html:40 geonode/templates/waterproof_study_cases/studycases_list.html:28 geonode/templates/waterproof_treatment_plants/treatment_plants_edit.html:14
-#: geonode/templates/waterproof_treatment_plants/treatment_plants_list.html:23
+#: geonode/templates/search_city.html:19 geonode/templates/waterproof_intake/intake_list.html:31 geonode/templates/waterproof_nbs_ca/waterproofnbsca_list.html:40 geonode/templates/waterproof_study_cases/studycases_list.html:28 geonode/templates/waterproof_treatment_plants/treatment_plants_edit.html:14 geonode/templates/waterproof_treatment_plants/treatment_plants_list.html:23
 msgid "Currency"
-msgstr ""
-
-#: geonode/templates/search_city.html:31
-msgid "List Study Cases"
 msgstr ""
 
 #: geonode/templates/social_links.html:12
@@ -7600,21 +7346,15 @@ msgstr ""
 
 #: geonode/templates/take_action.html:29
 #, python-format
-msgid ""
-"Watersheds around the world are being transformed and degraded, as we lose terrestrial and freshwater ecosystems at ever higher rates. Likewise, the demand for water is increasing at a rate that is expected to have increased by 30%% by 2050, which, added to the impacts of climate change, pose a greater risk to the health of ecosystems and to "
-"security. water."
+msgid "Watersheds around the world are being transformed and degraded, as we lose terrestrial and freshwater ecosystems at ever higher rates. Likewise, the demand for water is increasing at a rate that is expected to have increased by 30%% by 2050, which, added to the impacts of climate change, pose a greater risk to the health of ecosystems and to security. water."
 msgstr ""
 
 #: geonode/templates/take_action.html:32
-msgid ""
-"Healthy ecosystems are the foundation for multiple ecosystem services that provide benefits to us as individuals and as a society. Therefore, the deterioration of ecosystems has important consequences on our well-being and exacerbates the challenges we currently face as a society. The degradation of ecosystems, climate change and the increase in "
-"water demand are just some of the factors that can increase social conflicts over water use, increase our vulnerability, decrease production and impact our economy."
+msgid "Healthy ecosystems are the foundation for multiple ecosystem services that provide benefits to us as individuals and as a society. Therefore, the deterioration of ecosystems has important consequences on our well-being and exacerbates the challenges we currently face as a society. The degradation of ecosystems, climate change and the increase in water demand are just some of the factors that can increase social conflicts over water use, increase our vulnerability, decrease production and impact our economy."
 msgstr ""
 
 #: geonode/templates/take_action.html:35
-msgid ""
-"Nature-based solutions are actions that are based on ecosystems and the services they provide, to respond to various societal challenges such as climate change, food security, disaster risk or water security. It is an umbrella concept that addresses various actions and approaches that seek to address social problems and share the interest of taking "
-"advantage of ecosystems, their characteristics or functions, to solve them, while providing benefits for human well-being and biodiversity."
+msgid "Nature-based solutions are actions that are based on ecosystems and the services they provide, to respond to various societal challenges such as climate change, food security, disaster risk or water security. It is an umbrella concept that addresses various actions and approaches that seek to address social problems and share the interest of taking advantage of ecosystems, their characteristics or functions, to solve them, while providing benefits for human well-being and biodiversity."
 msgstr ""
 
 #: geonode/templates/take_action.html:38
@@ -7626,9 +7366,7 @@ msgid "Why is it necessary to do it now?"
 msgstr ""
 
 #: geonode/templates/take_action.html:46
-msgid ""
-"People around the world are facing intensifying water security problems, hand in hand with the deterioration of nature. The degradation of watersheds, as a result of poor management of water resources, the transformation of their vegetation cover and poor management and land use practices, generates direct impacts on the health of aquatic "
-"ecosystems, which have been transformed from accelerated manner in recent years. These ecosystems present the highest rates of degradation, compared to terrestrial and marine ecosystems. In recent decades, the loss of these ecosystems has intensified around the world and almost one in three freshwater species is threatened."
+msgid "People around the world are facing intensifying water security problems, hand in hand with the deterioration of nature. The degradation of watersheds, as a result of poor management of water resources, the transformation of their vegetation cover and poor management and land use practices, generates direct impacts on the health of aquatic ecosystems, which have been transformed from accelerated manner in recent years. These ecosystems present the highest rates of degradation, compared to terrestrial and marine ecosystems. In recent decades, the loss of these ecosystems has intensified around the world and almost one in three freshwater species is threatened."
 msgstr ""
 
 #: geonode/templates/take_action.html:49
@@ -7672,9 +7410,7 @@ msgid "Confronting the loss of biodiversity:"
 msgstr ""
 
 #: geonode/templates/take_action.html:66
-msgid ""
-"improving the natural condition of watersheds through nature-based solutions, with actions of preservation, restoration and better land management practices, brings benefits to biodiversity. Recovering habitats, their connectivity and reducing pressures on basins, creates the conditions for biodiversity to flourish. A healthy territory with healthy "
-"terrestrial and freshwater ecosystems provides favorable conditions for multiple ecosystem services. Biodiversity provides benefits for productive systems, such as pest control and the fixation of nutrients in the soil, generates new business opportunities such as nature tourism, and better conditions for human health."
+msgid "improving the natural condition of watersheds through nature-based solutions, with actions of preservation, restoration and better land management practices, brings benefits to biodiversity. Recovering habitats, their connectivity and reducing pressures on basins, creates the conditions for biodiversity to flourish. A healthy territory with healthy terrestrial and freshwater ecosystems provides favorable conditions for multiple ecosystem services. Biodiversity provides benefits for productive systems, such as pest control and the fixation of nutrients in the soil, generates new business opportunities such as nature tourism, and better conditions for human health."
 msgstr ""
 
 #: geonode/templates/take_action.html:69
@@ -7838,50 +7574,35 @@ msgid "PLEASE READ THIS AGREEMENT CAREFULLY; THIS IS A BINDING CONTRACT."
 msgstr ""
 
 #: geonode/templates/terms_of_use.html:17 geonode/templates/terms_of_use_flat.html:10
-msgid ""
-"This website (this 'Website') is a service offered by The Nature Conservancy. This Terms of Use Agreement (the 'Terms of Use' or 'Agreement') describes the terms and conditions applicable to your access and use of this Website and The Nature Conservancy's services. The Nature Conservancy may revise this Agreement at any time by posting the amended "
-"Terms of Use on this Website, and you agree that you will be bound by any changes to the Terms of Use. For your convenience, the date of last revision is included at the top of this page. The Nature Conservancy may make changes in the services described on this Website at any time. You understand that The Nature Conservancy may discontinue or "
-"restrict your use of this Website for any reason."
+msgid "This website (this 'Website') is a service offered by The Nature Conservancy. This Terms of Use Agreement (the 'Terms of Use' or 'Agreement') describes the terms and conditions applicable to your access and use of this Website and The Nature Conservancy's services. The Nature Conservancy may revise this Agreement at any time by posting the amended Terms of Use on this Website, and you agree that you will be bound by any changes to the Terms of Use. For your convenience, the date of last revision is included at the top of this page. The Nature Conservancy may make changes in the services described on this Website at any time. You understand that The Nature Conservancy may discontinue or restrict your use of this Website for any reason."
 msgstr ""
 
 #: geonode/templates/terms_of_use.html:19 geonode/templates/terms_of_use_flat.html:12
-msgid ""
-"ABOUT THE INFORMATION ON THIS SITE. The Content (as defined below) available on this Website is intended to be a general information resource and is provided solely on an 'AS IS' and 'AS AVAILABLE' basis. You are encouraged to confirm the information contained herein. You should not construe The Nature Conservancy's publication of the Content on "
-"this Website as a warranty or guarantee of the quality or availability of any goods or services."
+msgid "ABOUT THE INFORMATION ON THIS SITE. The Content (as defined below) available on this Website is intended to be a general information resource and is provided solely on an 'AS IS' and 'AS AVAILABLE' basis. You are encouraged to confirm the information contained herein. You should not construe The Nature Conservancy's publication of the Content on this Website as a warranty or guarantee of the quality or availability of any goods or services."
 msgstr ""
 
 #: geonode/templates/terms_of_use.html:21 geonode/templates/terms_of_use_flat.html:14
-msgid ""
-"ELIGIBILITY. By using this Website, you represent and warrant that (a) all registration and other information you submit, if any, is truthful and accurate; (b) you will maintain the accuracy of any information you provide; (c) you will not submit any personal information if you are under 13 years of age; and (d) your use of this Website does not "
-"violate any applicable law or regulation."
+msgid "ELIGIBILITY. By using this Website, you represent and warrant that (a) all registration and other information you submit, if any, is truthful and accurate; (b) you will maintain the accuracy of any information you provide; (c) you will not submit any personal information if you are under 13 years of age; and (d) your use of this Website does not violate any applicable law or regulation."
 msgstr ""
 
 #: geonode/templates/terms_of_use.html:23 geonode/templates/terms_of_use_flat.html:16
 msgid ""
-"USE OF MATERIALS ON THIS SITE. The content on this Website includes, but is not limited to, text, graphics, images, photographs, illustrations, maps, trademarks, tradenames, service marks, logos, information obtained from The Nature Conservancy’s licensors, and other materials ('Content'). Title to the Content on this Website remains with The "
-"Nature Conservancy. The Nature Conservancy invites you to view and use a single copy of the materials obtained from this Website for your personal, non-commercial use. Except as expressly permitted on this Website, you agree not to license, distribute, create derivative works from, transfer, sell or re-sell any information, Content, or services "
-"obtained from this Website. No graphics, photographs or other visual elements obtained through this Website may be used, copied, or distributed separate from the accompanying text without the prior express written consent of the original owner or The Nature Conservancy. You are not permitted to use the materials on this Website except as expressly "
-"set forth herein. You may not under any circumstances attempt to deface, shut down or otherwise damage this Website. You may not, without The Nature Conservancy’s written permission, “mirror” any Content contained in this Website or any other server."
+"USE OF MATERIALS ON THIS SITE. The content on this Website includes, but is not limited to, text, graphics, images, photographs, illustrations, maps, trademarks, tradenames, service marks, logos, information obtained from The Nature Conservancy’s licensors, and other materials ('Content'). Title to the Content on this Website remains with The Nature Conservancy. The Nature Conservancy invites you to view and use a single copy of the materials obtained from this Website for your personal, non-commercial use. Except as expressly permitted on this Website, you agree not to license, distribute, create derivative works from, transfer, sell or re-sell any information, Content, or services obtained from this Website. No graphics, photographs or other visual elements obtained through this Website may be used, copied, or distributed separate from the accompanying text without the prior express "
+"written consent of the original owner or The Nature Conservancy. You are not permitted to use the materials on this Website except as expressly set forth herein. You may not under any circumstances attempt to deface, shut down or otherwise damage this Website. You may not, without The Nature Conservancy’s written permission, “mirror” any Content contained in this Website or any other server."
 msgstr ""
 
 #: geonode/templates/terms_of_use.html:25 geonode/templates/terms_of_use_flat.html:18
-msgid ""
-"LINKS TO THIS SITE AND USE OF MARKS. The Website may contain links to websites operated by other parties. The Nature Conservancy provides these links to other websites as a convenience, and use of these sites is at your own risk. The linked sites are not owned or operated by or under the control of The Nature Conservancy, and The Nature Conservancy "
-"is not responsible for the content available on the other sites. Such links do not imply The Nature Conservancy's endorsement of information or material on any other site and The Nature Conservancy disclaims all liability with regard to your access to and use of such linked Websites."
+msgid "LINKS TO THIS SITE AND USE OF MARKS. The Website may contain links to websites operated by other parties. The Nature Conservancy provides these links to other websites as a convenience, and use of these sites is at your own risk. The linked sites are not owned or operated by or under the control of The Nature Conservancy, and The Nature Conservancy is not responsible for the content available on the other sites. Such links do not imply The Nature Conservancy's endorsement of information or material on any other site and The Nature Conservancy disclaims all liability with regard to your access to and use of such linked Websites."
 msgstr ""
 
 #: geonode/templates/terms_of_use.html:27 geonode/templates/terms_of_use_flat.html:20
 msgid ""
-"TRADEMARKS. The Nature Conservancy, The Nature Conservancy & Design, The Nature Conservancy Logos, Diversidata, Last Great Places, The Nature Conservancy International, Parks in Peril, Adopt An Acre, Rescue the Reef & Design, Virginia Coast Reserve, America Verde, Wings of the Americas, TNC, tnc.org, Waterproof App and all other names of The Nature "
-"Conservancy programs referenced herein are registered or common law trademarks of The Nature Conservancy in the United States. The Nature Conservancy and other trademarks are registered in several other countries, including without limitation Argentina, Australia, Bolivia, Brazil, Chile, Columbia, Costa Rica, Dominican Republic, Ecuador, France, "
-"Guatemala, Honduras, Hong Kong, Indonesia, Jamaica, Japan, Mexico, New Zealand, Nicaragua, Panama, Papua New Guinea, Paraguay, Peru, Philippines, Taiwan, and Venezuela. For more information, please contact The Nature Conservancy Legal Department at 4245 North Fairfax Drive, Arlington Virginia, 22203-1606 USA. Unauthorized use of any Nature "
-"Conservancy trademark, service mark or logo may be a violation of federal and state law."
+"TRADEMARKS. The Nature Conservancy, The Nature Conservancy & Design, The Nature Conservancy Logos, Diversidata, Last Great Places, The Nature Conservancy International, Parks in Peril, Adopt An Acre, Rescue the Reef & Design, Virginia Coast Reserve, America Verde, Wings of the Americas, TNC, tnc.org, Waterproof App and all other names of The Nature Conservancy programs referenced herein are registered or common law trademarks of The Nature Conservancy in the United States. The Nature Conservancy and other trademarks are registered in several other countries, including without limitation Argentina, Australia, Bolivia, Brazil, Chile, Columbia, Costa Rica, Dominican Republic, Ecuador, France, Guatemala, Honduras, Hong Kong, Indonesia, Jamaica, Japan, Mexico, New Zealand, Nicaragua, Panama, Papua New Guinea, Paraguay, Peru, Philippines, Taiwan, and Venezuela. For more information, please "
+"contact The Nature Conservancy Legal Department at 4245 North Fairfax Drive, Arlington Virginia, 22203-1606 USA. Unauthorized use of any Nature Conservancy trademark, service mark or logo may be a violation of federal and state law."
 msgstr ""
 
 #: geonode/templates/terms_of_use.html:29 geonode/templates/terms_of_use_flat.html:22
-msgid ""
-"DISCLAIMERS AND LIMITATION OF LIABILITY. ALL CONTENT ON THE WEBSITE IS PROVIDED TO YOU ON AN 'AS IS' 'AS AVAILABLE' BASIS WITHOUT WARRANTY OF ANY KIND EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT. THE NATURE CONSERVANCY MAKES NO WARRANTY AS "
-"TO THE ACCURACY, COMPLETENESS OR RELIABILITY OF ANY CONTENT AVAILABLE THROUGH THE WEBSITE. YOU ARE RESPONSIBLE FOR VERIFYING ANY INFORMATION BEFORE RELYING ON IT. USE OF THE WEBSITE AND THE CONTENT AVAILABLE ON THE WEBSITE IS AT YOUR SOLE RISK."
+msgid "DISCLAIMERS AND LIMITATION OF LIABILITY. ALL CONTENT ON THE WEBSITE IS PROVIDED TO YOU ON AN 'AS IS' 'AS AVAILABLE' BASIS WITHOUT WARRANTY OF ANY KIND EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT. THE NATURE CONSERVANCY MAKES NO WARRANTY AS TO THE ACCURACY, COMPLETENESS OR RELIABILITY OF ANY CONTENT AVAILABLE THROUGH THE WEBSITE. YOU ARE RESPONSIBLE FOR VERIFYING ANY INFORMATION BEFORE RELYING ON IT. USE OF THE WEBSITE AND THE CONTENT AVAILABLE ON THE WEBSITE IS AT YOUR SOLE RISK."
 msgstr ""
 
 #: geonode/templates/terms_of_use.html:31 geonode/templates/terms_of_use_flat.html:24
@@ -7889,9 +7610,7 @@ msgid "THE NATURE CONSERVANCY MAKES NO REPRESENTATIONS OR WARRANTIES THAT USE OF
 msgstr ""
 
 #: geonode/templates/terms_of_use.html:33 geonode/templates/terms_of_use_flat.html:26
-msgid ""
-"TO THE MAXIMUM EXTENT PERMITTED BY LAW, THE NATURE CONSERVANCY DISCLAIMS ALL LIABILITY, WHETHER BASED IN CONTRACT, TORT (INCLUDING NEGLIGENCE), STRICT LIABILITY OR OTHERWISE, AND FURTHER DISCLAIMS ALL LOSSES, INCLUDING WITHOUT LIMITATION INDIRECT, INCIDENTAL, CONSEQUENTIAL, OR SPECIAL DAMAGES ARISING OUT OF OR IN ANY WAY CONNECTED WITH ACCESS TO OR "
-"USE OF THE WEBSITE, EVEN IF THE NATURE CONSERVANCY HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES."
+msgid "TO THE MAXIMUM EXTENT PERMITTED BY LAW, THE NATURE CONSERVANCY DISCLAIMS ALL LIABILITY, WHETHER BASED IN CONTRACT, TORT (INCLUDING NEGLIGENCE), STRICT LIABILITY OR OTHERWISE, AND FURTHER DISCLAIMS ALL LOSSES, INCLUDING WITHOUT LIMITATION INDIRECT, INCIDENTAL, CONSEQUENTIAL, OR SPECIAL DAMAGES ARISING OUT OF OR IN ANY WAY CONNECTED WITH ACCESS TO OR USE OF THE WEBSITE, EVEN IF THE NATURE CONSERVANCY HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES."
 msgstr ""
 
 #: geonode/templates/terms_of_use.html:35 geonode/templates/terms_of_use_flat.html:28
@@ -7900,25 +7619,18 @@ msgstr ""
 
 #: geonode/templates/terms_of_use.html:37 geonode/templates/terms_of_use_flat.html:30
 msgid ""
-"COPYRIGHT. The Website, including all text, graphics, user interfaces, visual interfaces, photographs, sounds, audio, video, artwork, computer code (including HTML, CSS, XML, and JavaScript), interactive features, programs, software, products, information, and documentation as well as the design, structure, selection, coordination, expression, "
-"'look and feel,' unless otherwise indicated is protected by U.S. and international copyright laws. The Nature Conservancy also owns a copyright in the Content of this Website, and Postings licensed to The Nature Conservancy by you as collective work and/or compilation, and in the selection, coordination, arrangement, and enhancement of the Content "
-"or Postings on this Website. Any downloadable or printable programs, information, or materials available through this Website and all copyrights, trade secrets, and know-how related thereto, unless otherwise indicated, are owned by The Nature Conservancy. Except for your use as authorized above, you may not modify, reproduce or distribute the "
-"Content, design or layout of this Website, or individual sections of the Content, design or layout of this Website, without The Nature Conservancy's express prior written permission."
+"COPYRIGHT. The Website, including all text, graphics, user interfaces, visual interfaces, photographs, sounds, audio, video, artwork, computer code (including HTML, CSS, XML, and JavaScript), interactive features, programs, software, products, information, and documentation as well as the design, structure, selection, coordination, expression, 'look and feel,' unless otherwise indicated is protected by U.S. and international copyright laws. The Nature Conservancy also owns a copyright in the Content of this Website, and Postings licensed to The Nature Conservancy by you as collective work and/or compilation, and in the selection, coordination, arrangement, and enhancement of the Content or Postings on this Website. Any downloadable or printable programs, information, or materials available through this Website and all copyrights, trade secrets, and know-how related thereto, unless "
+"otherwise indicated, are owned by The Nature Conservancy. Except for your use as authorized above, you may not modify, reproduce or distribute the Content, design or layout of this Website, or individual sections of the Content, design or layout of this Website, without The Nature Conservancy's express prior written permission."
 msgstr ""
 
 #: geonode/templates/terms_of_use.html:39 geonode/templates/terms_of_use_flat.html:32
 msgid ""
-"NOTICE FOR CLAIMS OF COPYRIGHT INFRINGEMENT. If you are a copyright owner or agent thereof and believe that Content posted on this Website by a Nature Conservancy user infringes upon your copyright, please submit notice, pursuant to the Digital Millennium Copyright Act (17 U.S.C. § 512(c)) to our Copyright Agent with the following information: (a) "
-"an electronic or physical signature of the person authorized to act on behalf of the owner of the copyright; (b) a description of the copyrighted work that you claim has been infringed; (c) the URL of the location on this Website containing the material that you claim is infringing; (d) your address, telephone number, and email address; (e) a "
-"statement by you that you have a good faith belief that the disputed use is not authorized by the copyright owner, its agent, or the law; and (f) a statement by you, made under penalty of perjury, that the above information in your notice is accurate and that you are the copyright owner or authorized to act on the copyright owner's behalf. Our "
-"Copyright Agent can be reached by mail at: The Nature Conservancy, ATTN: COPYRIGHT AGENT, Marketing, Digital Engagement, The Nature Conservancy, 4245 N. Fairfax Drive, Arlington, VA 22203-1606, USA, by phone at 1-703-841-2038, by fax at 1-703-247-3674, or by email at copyright@tnc.org. Please note that attachments cannot be accepted at the email "
-"address for security reasons. Accordingly, any notification of infringement submitted electronically with an attachment will not be received or processed."
+"NOTICE FOR CLAIMS OF COPYRIGHT INFRINGEMENT. If you are a copyright owner or agent thereof and believe that Content posted on this Website by a Nature Conservancy user infringes upon your copyright, please submit notice, pursuant to the Digital Millennium Copyright Act (17 U.S.C. § 512(c)) to our Copyright Agent with the following information: (a) an electronic or physical signature of the person authorized to act on behalf of the owner of the copyright; (b) a description of the copyrighted work that you claim has been infringed; (c) the URL of the location on this Website containing the material that you claim is infringing; (d) your address, telephone number, and email address; (e) a statement by you that you have a good faith belief that the disputed use is not authorized by the copyright owner, its agent, or the law; and (f) a statement by you, made under penalty of perjury, that the "
+"above information in your notice is accurate and that you are the copyright owner or authorized to act on the copyright owner's behalf. Our Copyright Agent can be reached by mail at: The Nature Conservancy, ATTN: COPYRIGHT AGENT, Marketing, Digital Engagement, The Nature Conservancy, 4245 N. Fairfax Drive, Arlington, VA 22203-1606, USA, by phone at 1-703-841-2038, by fax at 1-703-247-3674, or by email at copyright@tnc.org. Please note that attachments cannot be accepted at the email address for security reasons. Accordingly, any notification of infringement submitted electronically with an attachment will not be received or processed."
 msgstr ""
 
 #: geonode/templates/terms_of_use.html:41 geonode/templates/terms_of_use_flat.html:34
-msgid ""
-"LOCATION. The Website is operated by The Nature Conservancy from its offices in Colombia. The Nature Conservancy makes no representation that the Content of this Website is available or appropriate for use in other locations. Those who choose to access this Website do so on their own initiative and are responsible for compliance with applicable "
-"local laws."
+msgid "LOCATION. The Website is operated by The Nature Conservancy from its offices in Colombia. The Nature Conservancy makes no representation that the Content of this Website is available or appropriate for use in other locations. Those who choose to access this Website do so on their own initiative and are responsible for compliance with applicable local laws."
 msgstr ""
 
 #: geonode/templates/terms_of_use.html:43 geonode/templates/terms_of_use_flat.html:36
@@ -7931,23 +7643,16 @@ msgstr ""
 
 #: geonode/templates/terms_of_use.html:47 geonode/templates/terms_of_use_flat.html:40
 msgid ""
-"USER CONTENT. By submitting a Posting or providing any content on or through this Website, you hereby grant to The Nature Conservancy a worldwide, irrevocable, royalty-free, nonexclusive, limited license to reproduce, use, adapt, modify, publish, translate, publicly perform, publicly display, distribute and create derivative works from such content "
-"in any form, and The Nature Conservancy may sublicense all or part of its rights under this license or assign them to third parties. You represent and warrant that: (i) you own the content posted by you on or through this Website or otherwise have the right to grant the license set forth in this section, and (ii) the posting of your content on or "
-"through this Website does not violate the privacy rights, publicity rights, copyrights, contract rights or any other rights of any person. The Nature Conservancy may delete any content for any reason, including content that, in The Nature Conservancy's sole judgment, is offensive, illegal or violate the rights, harm, or threaten the safety of any "
-"person. The Nature Conservancy has the right, but does not assume the responsibility, for monitoring this Website for inappropriate content. You are solely responsible for the content of any Postings that you post on or through this Website."
+"USER CONTENT. By submitting a Posting or providing any content on or through this Website, you hereby grant to The Nature Conservancy a worldwide, irrevocable, royalty-free, nonexclusive, limited license to reproduce, use, adapt, modify, publish, translate, publicly perform, publicly display, distribute and create derivative works from such content in any form, and The Nature Conservancy may sublicense all or part of its rights under this license or assign them to third parties. You represent and warrant that: (i) you own the content posted by you on or through this Website or otherwise have the right to grant the license set forth in this section, and (ii) the posting of your content on or through this Website does not violate the privacy rights, publicity rights, copyrights, contract rights or any other rights of any person. The Nature Conservancy may delete any content for any reason, "
+"including content that, in The Nature Conservancy's sole judgment, is offensive, illegal or violate the rights, harm, or threaten the safety of any person. The Nature Conservancy has the right, but does not assume the responsibility, for monitoring this Website for inappropriate content. You are solely responsible for the content of any Postings that you post on or through this Website."
 msgstr ""
 
 #: geonode/templates/terms_of_use.html:49 geonode/templates/terms_of_use_flat.html:42
-msgid ""
-"SUBMISSIONS. It has been the long-standing policy of The Nature Conservancy not to accept or consider creative ideas, suggestions, or materials, including, but not limited to, notes, drawings, concepts, comments, questions or answers, techniques, know-how, or other information (hereinafter 'Submissions') other than those specifically requested. "
-"EThe intent of this policy is to avoid the possibility of future misunderstandings when projects developed by The Nature Conservancy's professional staff might seem to others to be similar to their own creative work. All Submissions, including unsolicited submissions and those made at the request of The Nature Conservancy, will be treated as non-"
-"confidential and non-proprietary, and will be subject to the license granted in the preceding paragraph. The Nature Conservancy will not be liable for any use or disclosure of any Submissions."
+msgid "SUBMISSIONS. It has been the long-standing policy of The Nature Conservancy not to accept or consider creative ideas, suggestions, or materials, including, but not limited to, notes, drawings, concepts, comments, questions or answers, techniques, know-how, or other information (hereinafter 'Submissions') other than those specifically requested. EThe intent of this policy is to avoid the possibility of future misunderstandings when projects developed by The Nature Conservancy's professional staff might seem to others to be similar to their own creative work. All Submissions, including unsolicited submissions and those made at the request of The Nature Conservancy, will be treated as non-confidential and non-proprietary, and will be subject to the license granted in the preceding paragraph. The Nature Conservancy will not be liable for any use or disclosure of any Submissions."
 msgstr ""
 
 #: geonode/templates/terms_of_use.html:51 geonode/templates/terms_of_use_flat.html:44
-msgid ""
-"PASSWORD. You may be assigned a username and password with which to access restricted areas of this Website. You agree not to use the username or password of another user at any time or to disclose your password to any third party. You agree to notify The Nature Conservancy immediately if you suspect any unauthorized use of your username or access "
-"to your password. You are solely responsible for any and all uses of your username and password."
+msgid "PASSWORD. You may be assigned a username and password with which to access restricted areas of this Website. You agree not to use the username or password of another user at any time or to disclose your password to any third party. You agree to notify The Nature Conservancy immediately if you suspect any unauthorized use of your username or access to your password. You are solely responsible for any and all uses of your username and password."
 msgstr ""
 
 #: geonode/templates/terms_of_use.html:53 geonode/templates/terms_of_use_flat.html:46
@@ -7955,10 +7660,7 @@ msgid "EMAIL. Email submissions over the internet may not be secure. Please do n
 msgstr ""
 
 #: geonode/templates/terms_of_use.html:55 geonode/templates/terms_of_use_flat.html:48
-msgid ""
-"MISCELLANEOUS. If any provision of this Agreement is held to be invalid or unenforceable, such provision shall be struck and the remaining provisions shall be enforced. Headings are for reference purposes only and in no way define, limit, construe or describe the scope or extent of such section. The Nature Conservancy's failure to act with respect "
-"to any failure by you or others to comply with these Terms of Use does not waive The Nature Conservancy's right to act with respect to subsequent or similar failures. These Terms of Use set forth the entire understanding and agreement between you and The Nature Conservancy with respect to the subject matter hereof. Any cause of action or claim you "
-"may have with respect to this Agreement or this Website must be commenced within six (6) months after the claim or cause of action arises or such claim or cause of action shall be barred."
+msgid "MISCELLANEOUS. If any provision of this Agreement is held to be invalid or unenforceable, such provision shall be struck and the remaining provisions shall be enforced. Headings are for reference purposes only and in no way define, limit, construe or describe the scope or extent of such section. The Nature Conservancy's failure to act with respect to any failure by you or others to comply with these Terms of Use does not waive The Nature Conservancy's right to act with respect to subsequent or similar failures. These Terms of Use set forth the entire understanding and agreement between you and The Nature Conservancy with respect to the subject matter hereof. Any cause of action or claim you may have with respect to this Agreement or this Website must be commenced within six (6) months after the claim or cause of action arises or such claim or cause of action shall be barred."
 msgstr ""
 
 #: geonode/templates/terms_of_use.html:57 geonode/templates/terms_of_use_flat.html:50
@@ -8083,8 +7785,7 @@ msgstr ""
 msgid "Configure parameters"
 msgstr "Configurar como series temporales"
 
-#: geonode/templates/waterproof_intake/intake_clone.html:39 geonode/templates/waterproof_intake/intake_clone.html:195 geonode/templates/waterproof_intake/intake_demand.html:57 geonode/templates/waterproof_intake/intake_detail_list.html:185 geonode/templates/waterproof_intake/intake_edit.html:39 geonode/templates/waterproof_intake/intake_edit.html:195
-#: geonode/templates/waterproof_intake/intake_form.html:39 geonode/templates/waterproof_intake/intake_form.html:192
+#: geonode/templates/waterproof_intake/intake_clone.html:39 geonode/templates/waterproof_intake/intake_clone.html:195 geonode/templates/waterproof_intake/intake_demand.html:57 geonode/templates/waterproof_intake/intake_detail_list.html:185 geonode/templates/waterproof_intake/intake_edit.html:39 geonode/templates/waterproof_intake/intake_edit.html:195 geonode/templates/waterproof_intake/intake_form.html:39 geonode/templates/waterproof_intake/intake_form.html:192
 #, fuzzy
 #| msgid "restrictions"
 msgid "Water extraction"
@@ -8213,8 +7914,7 @@ msgstr "información adicional"
 msgid "Logistics interpolation"
 msgstr ""
 
-#: geonode/templates/waterproof_intake/intake_clone.html:227 geonode/templates/waterproof_intake/intake_clone.html:274 geonode/templates/waterproof_intake/intake_demand.html:89 geonode/templates/waterproof_intake/intake_demand.html:136 geonode/templates/waterproof_intake/intake_detail_list.html:217
-#: geonode/templates/waterproof_intake/intake_detail_list.html:264 geonode/templates/waterproof_intake/intake_edit.html:227 geonode/templates/waterproof_intake/intake_edit.html:274 geonode/templates/waterproof_intake/intake_form.html:224 geonode/templates/waterproof_intake/intake_form.html:271
+#: geonode/templates/waterproof_intake/intake_clone.html:227 geonode/templates/waterproof_intake/intake_clone.html:274 geonode/templates/waterproof_intake/intake_demand.html:89 geonode/templates/waterproof_intake/intake_demand.html:136 geonode/templates/waterproof_intake/intake_detail_list.html:217 geonode/templates/waterproof_intake/intake_detail_list.html:264 geonode/templates/waterproof_intake/intake_edit.html:227 geonode/templates/waterproof_intake/intake_edit.html:274 geonode/templates/waterproof_intake/intake_form.html:224 geonode/templates/waterproof_intake/intake_form.html:271
 msgid "Number of years for time series"
 msgstr ""
 
@@ -8232,27 +7932,23 @@ msgstr ""
 msgid "Final year"
 msgstr ""
 
-#: geonode/templates/waterproof_intake/intake_clone.html:246 geonode/templates/waterproof_intake/intake_clone.html:280 geonode/templates/waterproof_intake/intake_detail_list.html:236 geonode/templates/waterproof_intake/intake_edit.html:246 geonode/templates/waterproof_intake/intake_edit.html:280 geonode/templates/waterproof_intake/intake_form.html:243
-#: geonode/templates/waterproof_intake/intake_form.html:277
+#: geonode/templates/waterproof_intake/intake_clone.html:246 geonode/templates/waterproof_intake/intake_clone.html:280 geonode/templates/waterproof_intake/intake_detail_list.html:236 geonode/templates/waterproof_intake/intake_edit.html:246 geonode/templates/waterproof_intake/intake_edit.html:280 geonode/templates/waterproof_intake/intake_form.html:243 geonode/templates/waterproof_intake/intake_form.html:277
 #, fuzzy
 #| msgid "rated"
 msgid "Generate"
 msgstr "calificado"
 
-#: geonode/templates/waterproof_intake/intake_clone.html:250 geonode/templates/waterproof_intake/intake_clone.html:284 geonode/templates/waterproof_intake/intake_demand.html:112 geonode/templates/waterproof_intake/intake_demand.html:145 geonode/templates/waterproof_intake/intake_detail_list.html:240
-#: geonode/templates/waterproof_intake/intake_detail_list.html:273 geonode/templates/waterproof_intake/intake_edit.html:250 geonode/templates/waterproof_intake/intake_edit.html:284 geonode/templates/waterproof_intake/intake_form.html:247 geonode/templates/waterproof_intake/intake_form.html:281
+#: geonode/templates/waterproof_intake/intake_clone.html:250 geonode/templates/waterproof_intake/intake_clone.html:284 geonode/templates/waterproof_intake/intake_demand.html:112 geonode/templates/waterproof_intake/intake_demand.html:145 geonode/templates/waterproof_intake/intake_detail_list.html:240 geonode/templates/waterproof_intake/intake_detail_list.html:273 geonode/templates/waterproof_intake/intake_edit.html:250 geonode/templates/waterproof_intake/intake_edit.html:284 geonode/templates/waterproof_intake/intake_form.html:247 geonode/templates/waterproof_intake/intake_form.html:281
 #, fuzzy
 #| msgid "Resume"
 msgid "Results"
 msgstr "Reanudar"
 
-#: geonode/templates/waterproof_intake/intake_clone.html:255 geonode/templates/waterproof_intake/intake_clone.html:289 geonode/templates/waterproof_intake/intake_demand.html:117 geonode/templates/waterproof_intake/intake_demand.html:150 geonode/templates/waterproof_intake/intake_detail_list.html:245
-#: geonode/templates/waterproof_intake/intake_detail_list.html:278 geonode/templates/waterproof_intake/intake_edit.html:255 geonode/templates/waterproof_intake/intake_edit.html:289 geonode/templates/waterproof_intake/intake_form.html:252 geonode/templates/waterproof_intake/intake_form.html:286
+#: geonode/templates/waterproof_intake/intake_clone.html:255 geonode/templates/waterproof_intake/intake_clone.html:289 geonode/templates/waterproof_intake/intake_demand.html:117 geonode/templates/waterproof_intake/intake_demand.html:150 geonode/templates/waterproof_intake/intake_detail_list.html:245 geonode/templates/waterproof_intake/intake_detail_list.html:278 geonode/templates/waterproof_intake/intake_edit.html:255 geonode/templates/waterproof_intake/intake_edit.html:289 geonode/templates/waterproof_intake/intake_form.html:252 geonode/templates/waterproof_intake/intake_form.html:286
 msgid "Year"
 msgstr ""
 
-#: geonode/templates/waterproof_intake/intake_clone.html:256 geonode/templates/waterproof_intake/intake_clone.html:290 geonode/templates/waterproof_intake/intake_demand.html:118 geonode/templates/waterproof_intake/intake_demand.html:151 geonode/templates/waterproof_intake/intake_detail_list.html:246
-#: geonode/templates/waterproof_intake/intake_detail_list.html:279 geonode/templates/waterproof_intake/intake_edit.html:256 geonode/templates/waterproof_intake/intake_edit.html:290 geonode/templates/waterproof_intake/intake_form.html:253 geonode/templates/waterproof_intake/intake_form.html:287
+#: geonode/templates/waterproof_intake/intake_clone.html:256 geonode/templates/waterproof_intake/intake_clone.html:290 geonode/templates/waterproof_intake/intake_demand.html:118 geonode/templates/waterproof_intake/intake_demand.html:151 geonode/templates/waterproof_intake/intake_detail_list.html:246 geonode/templates/waterproof_intake/intake_detail_list.html:279 geonode/templates/waterproof_intake/intake_edit.html:256 geonode/templates/waterproof_intake/intake_edit.html:290 geonode/templates/waterproof_intake/intake_form.html:253 geonode/templates/waterproof_intake/intake_form.html:287
 msgid "Extraction Value (l/s)"
 msgstr ""
 
@@ -8314,8 +8010,7 @@ msgstr ""
 msgid "Validate delimit area"
 msgstr ""
 
-#: geonode/templates/waterproof_intake/intake_confirm_delete.html:1 geonode/templates/waterproof_intake/intake_confirm_delete.html:2 geonode/templates/waterproof_intake/intake_login_error.html:1 geonode/templates/waterproof_intake/intake_login_error.html:2 geonode/templates/waterproof_nbs_ca/waterproofnbsca_confirm_delete.html:1
-#: geonode/templates/waterproof_nbs_ca/waterproofnbsca_confirm_delete.html:2 geonode/templates/waterproof_nbs_ca/waterproofnbsca_list.html:1 geonode/templates/waterproof_nbs_ca/waterproofnbsca_list.html:2 geonode/templates/waterproof_nbs_ca/waterproofnbsca_login_error.html:1 geonode/templates/waterproof_nbs_ca/waterproofnbsca_login_error.html:2
+#: geonode/templates/waterproof_intake/intake_confirm_delete.html:1 geonode/templates/waterproof_intake/intake_confirm_delete.html:2 geonode/templates/waterproof_intake/intake_login_error.html:1 geonode/templates/waterproof_intake/intake_login_error.html:2 geonode/templates/waterproof_nbs_ca/waterproofnbsca_confirm_delete.html:1 geonode/templates/waterproof_nbs_ca/waterproofnbsca_confirm_delete.html:2 geonode/templates/waterproof_nbs_ca/waterproofnbsca_list.html:1 geonode/templates/waterproof_nbs_ca/waterproofnbsca_list.html:2 geonode/templates/waterproof_nbs_ca/waterproofnbsca_login_error.html:1 geonode/templates/waterproof_nbs_ca/waterproofnbsca_login_error.html:2
 msgid "Waterproof NBS CA"
 msgstr ""
 
@@ -8393,11 +8088,8 @@ msgstr ""
 msgid "Time required to generate maximun benefit (yr)"
 msgstr ""
 
-#: geonode/templates/waterproof_nbs_ca/waterproofnbsca_clone.html:73 geonode/templates/waterproof_nbs_ca/waterproofnbsca_clone.html:80 geonode/templates/waterproof_nbs_ca/waterproofnbsca_clone.html:90 geonode/templates/waterproof_nbs_ca/waterproofnbsca_clone.html:101 geonode/templates/waterproof_nbs_ca/waterproofnbsca_clone.html:107
-#: geonode/templates/waterproof_nbs_ca/waterproofnbsca_clone.html:112 geonode/templates/waterproof_nbs_ca/waterproofnbsca_edit.html:73 geonode/templates/waterproof_nbs_ca/waterproofnbsca_edit.html:80 geonode/templates/waterproof_nbs_ca/waterproofnbsca_edit.html:90 geonode/templates/waterproof_nbs_ca/waterproofnbsca_edit.html:101
-#: geonode/templates/waterproof_nbs_ca/waterproofnbsca_edit.html:107 geonode/templates/waterproof_nbs_ca/waterproofnbsca_edit.html:112 geonode/templates/waterproof_nbs_ca/waterproofnbsca_form.html:26 geonode/templates/waterproof_nbs_ca/waterproofnbsca_form.html:32 geonode/templates/waterproof_nbs_ca/waterproofnbsca_form.html:40
-#: geonode/templates/waterproof_nbs_ca/waterproofnbsca_form.html:53 geonode/templates/waterproof_nbs_ca/waterproofnbsca_form.html:71 geonode/templates/waterproof_nbs_ca/waterproofnbsca_form.html:78 geonode/templates/waterproof_nbs_ca/waterproofnbsca_form.html:88 geonode/templates/waterproof_nbs_ca/waterproofnbsca_form.html:99
-#: geonode/templates/waterproof_nbs_ca/waterproofnbsca_form.html:105 geonode/templates/waterproof_nbs_ca/waterproofnbsca_form.html:110 geonode/templates/waterproof_nbs_ca/waterproofnbsca_form.html:119
+#: geonode/templates/waterproof_nbs_ca/waterproofnbsca_clone.html:73 geonode/templates/waterproof_nbs_ca/waterproofnbsca_clone.html:80 geonode/templates/waterproof_nbs_ca/waterproofnbsca_clone.html:90 geonode/templates/waterproof_nbs_ca/waterproofnbsca_clone.html:101 geonode/templates/waterproof_nbs_ca/waterproofnbsca_clone.html:107 geonode/templates/waterproof_nbs_ca/waterproofnbsca_clone.html:112 geonode/templates/waterproof_nbs_ca/waterproofnbsca_edit.html:73 geonode/templates/waterproof_nbs_ca/waterproofnbsca_edit.html:80 geonode/templates/waterproof_nbs_ca/waterproofnbsca_edit.html:90 geonode/templates/waterproof_nbs_ca/waterproofnbsca_edit.html:101 geonode/templates/waterproof_nbs_ca/waterproofnbsca_edit.html:107 geonode/templates/waterproof_nbs_ca/waterproofnbsca_edit.html:112 geonode/templates/waterproof_nbs_ca/waterproofnbsca_form.html:26
+#: geonode/templates/waterproof_nbs_ca/waterproofnbsca_form.html:32 geonode/templates/waterproof_nbs_ca/waterproofnbsca_form.html:40 geonode/templates/waterproof_nbs_ca/waterproofnbsca_form.html:53 geonode/templates/waterproof_nbs_ca/waterproofnbsca_form.html:71 geonode/templates/waterproof_nbs_ca/waterproofnbsca_form.html:78 geonode/templates/waterproof_nbs_ca/waterproofnbsca_form.html:88 geonode/templates/waterproof_nbs_ca/waterproofnbsca_form.html:99 geonode/templates/waterproof_nbs_ca/waterproofnbsca_form.html:105 geonode/templates/waterproof_nbs_ca/waterproofnbsca_form.html:110 geonode/templates/waterproof_nbs_ca/waterproofnbsca_form.html:119
 #, fuzzy
 #| msgid "Category is required."
 msgid "Field is required"
@@ -8533,10 +8225,6 @@ msgstr "Crea una nueva capa"
 
 #: geonode/templates/waterproof_study_cases/studycases_list.html:45
 msgid "Case study"
-msgstr ""
-
-#: geonode/templates/waterproof_study_cases/studycases_list.html:50
-msgid "Treatment plants"
 msgstr ""
 
 #: geonode/templates/waterproof_study_cases/studycases_list.html:51
@@ -8748,12 +8436,8 @@ msgstr "Código Postal"
 msgid "GeoNode is a geospatial content management system, a platform for the management and publication of geospatial data. It brings together mature and stable open-source software projects under a consistent and easy-to-use interface allowing non-specialized users to share data and create interactive maps."
 msgstr "GeoNode es un sistema de gestión de contenido geoespacial, una plataforma para la gestión y publicación de datos geoespaciales. Reúne proyectos de software de código abierto maduros y estables bajo una interfaz consistente y fácil de usar que permite a los usuarios no especializados compartir datos y crear mapas interactivos."
 
-msgid ""
-"Data management tools built into GeoNode allow for integrated creation of data, metadata, and map visualizations. Each dataset in the system can be shared publicly or restricted to allow access to only specific users. Social features like user profiles and commenting and rating systems allow for the development of communities around each platform "
-"to facilitate the use, management, and quality control of the data the GeoNode instance contains."
-msgstr ""
-"Las herramientas de gestión de datos integradas en GeoNode permiten la creación integrada de datos, metadatos y visualizaciones de mapas. Cada conjunto de datos en el sistema puede compartirse públicamente o restringirse para permitir el acceso solo a usuarios específicos. Las características sociales como los perfiles de usuario y los sistemas de "
-"comentarios y calificación permiten el desarrollo de comunidades alrededor de cada plataforma para facilitar el uso, la gestión y el control de calidad de los datos que contiene la instancia de GeoNode."
+msgid "Data management tools built into GeoNode allow for integrated creation of data, metadata, and map visualizations. Each dataset in the system can be shared publicly or restricted to allow access to only specific users. Social features like user profiles and commenting and rating systems allow for the development of communities around each platform to facilitate the use, management, and quality control of the data the GeoNode instance contains."
+msgstr "Las herramientas de gestión de datos integradas en GeoNode permiten la creación integrada de datos, metadatos y visualizaciones de mapas. Cada conjunto de datos en el sistema puede compartirse públicamente o restringirse para permitir el acceso solo a usuarios específicos. Las características sociales como los perfiles de usuario y los sistemas de comentarios y calificación permiten el desarrollo de comunidades alrededor de cada plataforma para facilitar el uso, la gestión y el control de calidad de los datos que contiene la instancia de GeoNode."
 
 #, fuzzy
 msgid "You are not allowed to edit this app."
@@ -8817,8 +8501,7 @@ msgid "Farming"
 msgstr "Agricultura"
 
 msgid "Information pertaining to earth sciences. Examples: geophysical features and processes, geology, minerals, sciences dealing with the composition, structure and origin of the earth s rocks, risks of earthquakes, volcanic activity, landslides, gravity information, soils, permafrost, hydrogeology, erosion."
-msgstr ""
-"Información relativa a las ciencias de la tierra. Ejemplos: características y procesos geofisicos, geología, minerales, ciencias relacionadas con la composición, estructura y origen de las rocas de la tierra, riesgos de terremotos, actividad volcanica, deslizamientos de tierra, información de gravedad, suelos, permafrost, hidrogeología erosión."
+msgstr "Información relativa a las ciencias de la tierra. Ejemplos: características y procesos geofisicos, geología, minerales, ciencias relacionadas con la composición, estructura y origen de las rocas de la tierra, riesgos de terremotos, actividad volcanica, deslizamientos de tierra, información de gravedad, suelos, permafrost, hidrogeología erosión."
 
 msgid "Geoscience"
 msgstr "Geociencia"
@@ -9318,3 +9001,256 @@ msgstr "Explore cómo las soluciones basadas en la naturaleza pueden generar res
 
 msgid "Start now"
 msgstr "Empieza ahora"
+
+msgid "About us"
+msgstr "Sobre nosotros"
+
+msgid "About WaterProof platform"
+msgstr "Sobre WaterProof"
+
+msgid "Watersheds are being degraded around the world, with dire impacts on water security. Nature based Solutions (NbS) can preserve or restore degraded watersheds, thereby addressing critical water security issues, however today there is a lack of sufficient uptake and investment. This is in part due to the complexity and time required to demonstrate an NbS portfolio’s positive return on investment (ROI) for water security outcomes, a significant first step required for unlocking at-scale funding commitments by public and private sector water actors."
+msgstr "Las cuencas hidrográficas se están degradando en todo el mundo, con graves impactos en la seguridad hídrica. Las soluciones basadas en la naturaleza (SbN) pueden preservar o restaurar las cuencas hidrográficas degradadas, abordando así problemas críticos de seguridad hídrica; sin embargo, hoy en día hay una falta de inversión. Esto se debe en parte a la complejidad y el tiempo necesarios para demostrar el retorno de la inversión (ROI) de un portafolio de SbN para los resultados de la seguridad hídrica; este es un paso importante para desbloquear compromisos de financiación a gran escala por parte de los actores del agua del sector público y privado."
+
+msgid "The WaterProof platform has been developed to provide users with a rapid and indicative NbS investment portfolio and associated ROI. The tool is intended to engage actors interested in exploring green infrastructure solutions to local water challenges and provide program sponsors with a pre-feasibility level of ROI estimation. Specifically, the system virtualizes a series of natural capital ecosystem service models developed by the Stanford Natural Capital Project (InVEST and RIOS) and pre-formats relevant global data sets to radically reduce the time, cost, and resources required for NbS portfolio ROI assessments."
+msgstr "La plataforma WaterProof se ha desarrollado para proporcionar a los usuarios un portafolio de inversiones SbN rápido e indicativo y un ROI asociado. La herramienta está destinada a involucrar a los actores interesados ​​en explorar soluciones basadas en la naturaleza para los desafíos locales del agua y proporcionar a los patrocinadores del programa un nivel de prefactibilidad de estimación del ROI. Específicamente, el sistema virtualiza una serie de modelos de servicios ecosistémicos de Natural Capital desarrollados por Stanford Natural Capital Project (InVEST y RIOS) y preformatea conjuntos de datos globales relevantes para reducir radicalmente el tiempo, costo y recursos requeridos para las evaluaciones de ROI del portafolio de SbN."
+
+msgid "Key outputs provided to users include summary watershed characterization, maps for recommended NbS portfolios, full lifecycle costing, ROI evaluation at pre-feasibility level, and co-benefits estimation. The primary audience for this tool includes individuals concerned with watershed stewardship and water treatment costs at utilities, water stewardship leads at private sector companies who are large water users, and conservation practitioners or managers focused on water security and watershed health."
+msgstr "Los resultados clave proporcionados a los usuarios incluyen una caracterización resumida de cuencas hidrográficas, mapas para carteras de SbN recomendadas, cálculo de costos del ciclo de vida completo, evaluación del ROI a nivel de prefactibilidad y estimación de cobeneficios. La audiencia principal de esta herramienta incluye a personas interesadas en la administración de cuencas hidrográficas y los costos de tratamiento del agua en las empresas de servicios públicos, los líderes de la administración del agua en empresas del sector privado que son grandes usuarios del agua y los profesionales o administradores de la conservación que se centran en la seguridad del agua y la salud de las cuencas hidrográficas."
+
+msgid "The Nature Conservancy (TNC) is a global environmental organization dedicated to conserving the lands and waters on which life depends. Guided by science, we create innovative and practical solutions to our world's most pressing challenges so that nature and people can thrive together."
+msgstr "The Nature Conservancy (TNC) es una organización ambiental global dedicada a conservar las tierras y aguas de las que depende la vida. Guiados por la ciencia, creamos soluciones innovadoras y prácticas para los desafíos más urgentes de nuestro mundo para que la naturaleza y las personas puedan prosperar juntas."
+
+msgid "The Waterproof web tool is focused on the macro-basins of the world and aims to support decision-making based on the calculation of environmental and financial indicators in a basin, presenting investment alternatives in Nature-Based Solutions projects. In this way, TNC, through the Waterproof app, promotes actions for the conservation of nature, sustainable development, the strengthening and well-being of communities (among others)."
+msgstr "La herramienta web Waterproof está enfocada a las macrocuencas del mundo y tiene como objetivo apoyar la toma de decisiones basadas en el cálculo de indicadores ambientales y financieros en una cuenca, presentando alternativas de inversión en proyectos de Soluciones Basadas en la Naturaleza. De esta forma, TNC, a través de la aplicación Waterproof, promueve acciones para la conservación de la naturaleza, el desarrollo sostenible, el fortalecimiento y el bienestar de las comunidades (entre otros)."
+
+msgid "Scientific development matters, especially at this critical time for nature. Our work is based on science. We support innovation, leadership, and communication for conservation success. For this, Waterproof makes available mathematical, statistical and spatial analysis models such as the implementation of the InVEST, RIOS and ROI models, which require input data for physical variables such as precipitation, evapotranspiration, soil parameters, among others, with from which the user will be able to select a location anywhere in the world and receive recommendations from a portfolio of activities for certain water security challenges, and a high-level ROI based on implementation costs and savings in water treatment."
+msgstr "El desarrollo científico es importante, especialmente en este momento crítico para la naturaleza. Nuestro trabajo se basa en la ciencia. Apoyamos la innovación, el liderazgo y la comunicación para el éxito de la conservación. Para ello, Waterproof pone a disposición modelos de análisis matemático, estadístico y espacial como la implementación de los modelos InVEST, RIOS y ROI, los cuales requieren datos de entrada para variables físicas como precipitación, evapotranspiración, parámetros del suelo, entre otros, con los cuales el usuario podrá seleccionar una ubicación en cualquier parte del mundo y recibir recomendaciones de un portafolio de actividades para ciertos desafíos de seguridad hídrica, y un ROI de alto nivel basado en costos de implementación y ahorros en el tratamiento del agua."
+
+msgid "About the models"
+msgstr "Sobre los modelos"
+
+msgid "enables decision makers to assess quantified tradeoffs associated with alternative management choices and to identify areas where investment in natural capital can enhance human development and conservation. It uses maps (rasters) as sources of information and produces maps as outputs to communicate results in biophysical and/or economic terms."
+msgstr "permite a los tomadores de decisiones evaluar las compensaciones cuantificadas asociadas con opciones de manejo alternativas e identificar áreas donde la inversión en capital natural puede mejorar el desarrollo humano y la conservación. Utiliza mapas (rásteres) como fuentes de información y produce mapas como salidas para comunicar los resultados en términos biofísicos y/o económicos."
+
+msgid "In WaterProof we use InVEST to model outputs for:"
+msgstr "En WaterProof usamos InVEST para modelar los resultados de:"
+
+msgid "Annual Water Yield"
+msgstr "Rendimiento hídrico anual"
+
+msgid "Seasonal Water Yield"
+msgstr "Rendimiento de agua estacional"
+
+msgid "Sediment Delivery Ratio"
+msgstr "Relación de entrega de sedimentos"
+
+msgid "Nutrient Delivery Ratio (Nitrógeno)"
+msgstr "Proporción de suministro de nutrientes - Nitrógeno"
+
+msgid "Nutrient Delivery Ratio (Fósforo)"
+msgstr "Proporción de suministro de nutrientes - Fósforo"
+
+msgid "Carbon Storage and Sequestration"
+msgstr "Almacenamiento y secuestro de carbono"
+
+msgid "In WaterProof we use RIOS to develop investment portfolios that prioritize:"
+msgstr "En WaterProof utilizamos RIOS para desarrollar portafolios de inversión que priorizan:"
+
+msgid "Erosion control for drinking water quality"
+msgstr "Control de erosión para la calidad del agua potable"
+
+msgid "Erosion control for reservoir maintenance"
+msgstr "Control de erosión para mantenimiento de embalses"
+
+msgid "Nutrient retention (Phosporus)"
+msgstr "Retención de nutrientes (Fósforo)"
+
+msgid "Nutrient retention (Nitrogen)"
+msgstr "Retención de nutrientes (Nitrógeno)"
+
+msgid "Flood Mitigation"
+msgstr "Mitigación de inundaciones"
+
+msgid "Improved groundwater recharge"
+msgstr "Recarga de agua subterránea mejorada"
+
+msgid "Base flow"
+msgstr "Flujo base"
+
+msgid "About Nature based Solutions"
+msgstr "Acerca de las soluciones basadas en la naturaleza"
+
+msgid "'Nature based Solutions are actions to protect, sustainably manage, and restore natural and modified ecosystems that address societal challenges effectively and adaptively, simultaneously providing human well-being and biodiversity benefits'. The WaterProof system specifically targets water security-related societal challenges and evaluates climate outcomes as co-benefits."
+msgstr "'Las soluciones basadas en la naturaleza son acciones para proteger, gestionar de forma sostenible y restaurar ecosistemas naturales y modificados que abordan los desafíos sociales de forma eficaz y adaptativa, proporcionando simultáneamente el bienestar humano y los beneficios de la biodiversidad'. El sistema WaterProof se enfoca específicamente en los desafíos sociales relacionados con la seguridad del agua y evalúa los resultados climáticos como co-beneficios."
+
+msgid "Active Restoration"
+msgstr "Restauración activa"
+
+msgid "This type of restoration seeks to increase diversity by plantingnew species, whose individuals have been obtained from the collection of seeds and propagules, their sowing in the nursery and subsequent planting in the reserve. In other words, it implies that, with human intervention, the ecosystem is helped to overcome factors that prevent regeneration and guarantee the development of recovery processes."
+msgstr "Este tipo de restauración busca incrementar la diversidad, mediante la siembra de nuevas especies, cuyos individuos se han obtenido a partir de la recolección de semillas y propágulos, su siembra en vivero y posterior plantación en la reserva. Es decir, implica que, con intervención humana, se ayuda al ecosistema para superar factores que impiden la regeneración y garantizar el desarrollo de procesos de recuperación."
+
+msgid "It is used when the ecosystem has low resilience or is too altered and therefore cannot recover on its own. Tree planting is a specific activity that is common in some watershed areas that maybe related to the planting of native trees in degraded forests, grasslands, or degraded agricultural lands. Planting native vegetation refers to the planting of any other type of vegetation including grasses, herbaceous plants, shrubs, wetland plants or riparian vegetation, and may include activities to maintain vegetation such as irrigation, weeding, thinning, replanting and invasive speciescontrol. Some types of silvopastoral practices can be included such as planting trees in pastures, fencing or other ways to keep livestock out of riparian areas or other natural vegetation."
+msgstr "Se emplea cuando el ecosistema presenta una baja resiliencia o está demasiado alterado y por lo tanto no se puede recuperar por sí solo. La plantación de árboleses una actividad específica que es común en algunas zonas de las cuencas hidrográficas que puede relacionarse con la plantación de árboles nativos en bosques degradados, pastizales o tierras agrícolas degradadas. La siembra de vegetación nativase refiere a la siembra de cualquier otro tipo de vegetación incluyendo hierbas, plantas herbáceas, arbustos, plantas de humedales o vegetación de ribera, y puede incluir actividades para mantener la vegetación como riego, deshierbe, clareo, replantación y control de especies invasoras. Algunostipos de prácticas silvopastorilesse pueden incluir como lo esla siembra de árboles en potreros, cercados u otras maneras mantener el ganado fuera de las áreas ribereñas u otra vegetación natural."
+
+msgid "Active restoration promotes the return of an ecosystem'sconditions to a trajectory similar to the one it had before deterioration, which requiressufficient knowledge about the most important cycles and processes of the ecosystem, about the pressures that originated the alteration; their nature and their causes, severity, spatial scale of the impacts and their possibilities of recurrence and frequency."
+msgstr "Mediante la restauración activa se promueve el retorno de las condiciones de un ecosistema hacia una trayectoria similar a la que tenía antes de un deterioro, para lo cual se requiere contar con conocimiento suficiente acerca de los ciclos y procesos más importantes del ecosistema, sobre las presiones que originaron la alteración; su naturaleza y sus causas, severidad, escala espacial de los impactos y sus posibilidades de recurrencia y frecuencia."
+
+msgid "Among the activities carried outare the following:"
+msgstr "Dentro de las actividades que se realizan, se incluyen:"
+
+msgid "Revegetation with native plants."
+msgstr "Revegetación con plantas nativas."
+
+msgid "Control or elimination of stressors or disturbances."
+msgstr "Control o eliminación de tensionantes o disturbios."
+
+msgid "Isolation or enclosure of the area by means of fencing with posts and wire and live fences."
+msgstr "Introducción de material vegetal nativo de diferentes estratos, diferente al material vegetal del ecosistema de referencia pero que cumple las misma funciones para la restauración"
+
+msgid "Water management"
+msgstr "Obras para el manejo de aguas"
+
+msgid "Soilmanagement and conservation"
+msgstr "Obras para el manejo y conservación de suelos"
+
+msgid "Reshaping of the topography or geoforms, such as terracing to prevent erosion"
+msgstr "Obras para la reconformación de la topografía o geoformas"
+
+msgid "Establishment of biomantos or other coverage"
+msgstr "Establecimiento de biomantos u otras coberturas"
+
+msgid "Maintenance of the planted material "
+msgstr "Mantenimiento del material vegetal plantado."
+
+msgid "Adaptive management in case of deviation from the desired successional trajectory or the presence of biological invasions or disturbances."
+msgstr "Manejo adaptativo en casode desviación de la trayectoria sucesional deseada o de la presencia de invasiones biológicas o disturbios. "
+
+msgid "Evaluation and monitoring of the restoration and its activities"
+msgstr "Evaluación y seguimiento a la restauración y sus actividades"
+
+msgid "Conservation"
+msgstr "Conservación"
+
+msgid "Nature based solutions supported by conservation refer to actions that seek to conserve current land coverby signing conservation agreements, paying rangers, or fencing off areas. This action does not generate changes in the coverage, but prevents degradation, as would occurin a no-project scenario"
+msgstr "Las soluciones basadas en la naturaleza soportados en la conservación se refierena las acciones que buscan conservar la cobertura actual mediante la firma de acuerdos de conservación, el pago a guardabosques oel cercado de áreas. Esta acción no genera cambios en la cobertura, pero evita que las coberturas sean degradadas en un escenario sin proyecto."
+
+msgid "Conservation agreements arean efficient and effective instrument for negotiating interests and conflicts in watersheds between owners of areas of interest for water and biodiversity and the institutions that have clearer competencies for management and conservation of these areas."
+msgstr "Los acuerdos de conservación se constituyen en un instrumento eficiente y eficaz para la negociación de intereses y conflictos en las cuencas hidrográficas entre propietarios de las áreas de interés para el agua y la biodiversidad y las instituciones que tienen mayor claridad en competencias para el manejo y conservación de estas áreas."
+
+msgid "These agreements become an instrument of trust, reciprocity and articulation between the actors involved: the owners, the authorities of local institutions and the users of ecosystem services, where, through contracts, the protection of areas at risk of degradationis agreed upon.Thus negotiating the non-deforestation of forests and moorlands, and the implementation of agroecological practices such as the removal of cattle from sensitive areas, the establishment of fences along the banks of streams and rivers to preventthe entryof clattleand favor natural regeneration, the construction of infiltration ditches and the application of zero or minimum tillage."
+msgstr "Se convierten en un instrumento de confianza, reciprocidad y articulación entre los actores involucrados: los propietarios, las autoridades de las instituciones locales y los usuarios de los servicios ecosistémicos, en donde, a través de contratos, se concertala protección de áreas que podrían ser deforestadas o cuyo uso podría ser cambiado, negociando así la no deforestación de bosques y páramos, y la implementación de prácticas agroecológicas como la salida de ganado vacuno de áreas sensibles, el establecimiento de cercas a lo largo de márgenes de quebradas y ríos para evitar el ingreso de ganado y favorecer la regeneración natural, la construcción de zanjas de infiltración y la aplicación de labranza cero o mínima."
+
+msgid "They can include payments of environmental fees bytheusers of water for human consumption, to be repaidin incentives and compensation for the owners of areas of water interest through long-term agreements or contracts and conditioned to conservation, restoration and productive innovation."
+msgstr "Pueden incluir pagos de tasas ambientales por parte de los usuarios de agua de consumo humano, para ser retribuidas en incentivos y compensaciones para los propietarios de las áreas de interés hídrico mediante acuerdos o contratos de largo plazo y condicionados a la conservación, restauración e innovación productiva."
+
+msgid "Conservation agreements are entered into in writing, and it is desirable that they beexpressly, clearly and concisely defined: the object of the contract, including the object of conservation, the actors who sign it, the actions and benefits that they will provide, the commitments and obligations of each of the parties, the threats they face, the penalties for non-compliance with the agreed conditions, the duration of the contract, and the modalities for their renewal and continuity."
+msgstr "Los acuerdos de conservación se celebran por escrito, siendo deseable que en ellos se definan de manera expresa, clara y concisa: el objeto del contrato, incluyendo el objeto de conservación, los actores que lo suscriben, las acciones y beneficios que estos proveerán, es decir, los compromisos y obligaciones de cada una de las partes, las amenazas que se enfrentan, las penalidades ante el incumplimiento de las condiciones pactadas, el tiempo de duración del contrato, y las modalidades para la renovación y continuidad de estos."
+
+msgid "Passive restoration"
+msgstr "Restauración pasiva"
+
+msgid "This type of restoration is achieved when strategic assistance actions are carried out to enable degraded ecosystems to overcome or eliminate factors that prevent their regeneration."
+msgstr "Este tipo de restauración se logra cuando se realizan acciones de asistencia estratégica para facilitar a los ecosistemas degradados que por sí solos superen o eliminen factores que impedían su regeneración."
+
+msgid "It consists of eliminating the sources of disturbancethat cause deterioration and protecting the project site sufficiently to allow natural recovery processes to occur."
+msgstr "Consiste en eliminar las fuentes de alteración que causan deterioro y proteger lo suficiente el sitio del proyecto para que ocurran procesos naturales de recuperación."
+
+msgid "This is the least intrusive and least costly level of intervention to achieve ecological restoration. The most common strategy is physical fencing e.g., barbedor electric fencing). Some passive restoration exercises also include installing structures that serve as perches or shelters for animals that are potential seed dispersers in order to attract them and expedite the process. No planting is done in this scheme."
+msgstr "Este es el nivel menos intrusivo y costoso de intervención para lograr la restauración ecológica. La estrategia más frecuente es el cercamiento físico (por ejemplo, cercado de púas o eléctrico). Algunos ejercicios de restauración pasiva también incluyen instalar estructuras que sirven de percha o refugio para animales que son potenciales dispersores de semillas con el fin de atraerlos y agilizar el proceso. En este esquema no se realiza ninguna siembra de plantas."
+
+msgid "Forestal activities"
+msgstr "Actividades agroforestales"
+
+msgid "Agroforestry activities are defined as a series of technologies for land-use in which trees are combined with agricultural crops and / or pastures to increase and optimize production in a sustained manner. The planting of forest crops and trees is used sequentially and in combination, with the application of soil conservation practices. These practices and systems are designed and executed within the context of a farm management plan, where farmer participation is key."
+msgstr "as actividades agroforestales se definen como una serie de tecnologías para el uso de la tierra en las que se combinan árboles con cultivos agrícolas y/o pastos, para incrementar y optimizar la producción en forma sostenida. Se emplea la siembra de los cultivos y árboles forestales secuencialmente y en combinación, con la aplicación de prácticas de conservación de suelo. Estas prácticas y sistemas están diseñados y ejecutados dentro del contexto de un plan de manejo de finca, donde la participación del campesino es clave."
+
+msgid "These practices can be classified into four large groups:"
+msgstr "Estas prácticas se pueden clasificar en cuatro grandes grupos:"
+
+msgid "Agroforestry Systems (trees with crops)"
+msgstr "Sistemas agrosilviculturales (árboles con cultivos)"
+
+msgid "Cultivation in alleys"
+msgstr "Cultivo en callejones"
+
+msgid "Shade trees on perennial crops"
+msgstr "Árboles de sombra sobre cultivos perennes"
+
+msgid "Homegardens"
+msgstr "Huertos caseros"
+
+msgid "Improved fallows"
+msgstr "Barbechos mejorados"
+
+msgid "Windbreakers and protective fence"
+msgstr "Rompevientos y cercas de protección"
+
+msgid "Mixing perennials with other crops"
+msgstr "Mezcla de perennes con otros cultivos"
+
+msgid "Agroforestry for firewood production"
+msgstr "Agroforestería para la producción de leña"
+
+msgid "Silvopastoral Systems (trees with livestock)"
+msgstr "leñaSistemas silvopastoriles (árboles con ganadería)"
+
+msgid "Live fences Pastures with"
+msgstr "Cercas vivas"
+
+msgid "Pastures with trees"
+msgstr "Pastos con árboles"
+
+msgid "Protein banks"
+msgstr "Bancos de proteína"
+
+msgid "Integration of animals with wood production"
+msgstr "Integracióndeanimales con producción de madera"
+
+msgid "Agrosilvopastoral Systems (trees with crops and livestock)"
+msgstr "Sistemas agrosilvopastoriles (árboles con cultivos y ganadería)"
+
+msgid "Home gardens with animals"
+msgstr "Huertos caseros con animales"
+
+msgid "Rows of shrubs for feeding animals, soil conservation and compost"
+msgstr "Hileras de arbustos para alimentaranimales, conservación del suelo y abono"
+
+msgid "Integrated crop, wood and animal production"
+msgstr "Producción integrada de cultivos, madera y animales"
+
+msgid "Main menu"
+msgstr "Menú principal"
+
+msgid "Use this menu to configure the inputs for a case study"
+msgstr "Use este menú para configurar las entradas para un caso de estudio"
+
+msgid "List"
+msgstr "Lista actual"
+
+msgid "Create"
+msgstr "Crear nuevo"
+
+msgid "Study cases"
+msgstr "Caso de estudio"
+
+msgid "Compare"
+msgstr "Comparar"
+
+msgid "Treatment plants"
+msgstr "Plantas de tratamiento"
+
+#: geonode/templates/index.html
+msgid "Explore investment returns"
+msgstr "Inicia ahora"
+
+#: geonode/templates/search_city.html
+msgid "Search your city"
+msgstr "Empieza ahora buscando una ciudad de análisis"
+
+#: geonode/templates/search_city.html
+msgid "In this section you can consult the case studies configured in the system or start the configuration of a case study"
+msgstr "Arrastre el mapa al área de su interés e ingrese el nombre de la ciudad donde desea iniciar el análisis"
+
+#: geonode/templates/search_city.html
+msgid "List Study Cases"
+msgstr "Lista actual de casos de estudio"

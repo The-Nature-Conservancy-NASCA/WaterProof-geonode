@@ -260,7 +260,7 @@ msgid "financial_discount_rates"
 msgstr "Tasas de descuento para el análisis ROI"
 
 msgid "financial_transaction_cost"
-msgstr "Costos de transacción anuales como porcentaje de los costos de implementación, mantenimiento y oportunidad de las NbS"
+msgstr "Costos de transacción anuales como porcentaje de los costos de implementación, mantenimiento y oportunidad de las SbN"
 
 msgid "study_cases_list_create"
 msgstr "Usted debe ser un usuario registrado para crear un caso de estudio*"
