@@ -1,4 +1,12 @@
 {% extends 'waterproof_wiki/layout.html'%}
+{% load i18n %}
+
+{% block extra_head %}
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_wiki/css/styles.css"/>
+{% endblock %}
+
+{% block body_outer %}
+
 {%block titulo%}
 <h2></p>Articles:</h2>
 
@@ -35,3 +43,6 @@
     </paginacion>
 
 {% endblock%}
+
+
+{% endblock %}
