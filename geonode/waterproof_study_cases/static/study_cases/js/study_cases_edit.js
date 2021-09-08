@@ -1498,10 +1498,10 @@ $(document).on('click', 'a[name=glyphicon-edit]', function () {
     $('#CalculatorModal').modal('show');
     selectedCostId = parseInt($(this).attr('idvalue'));
     $('#costFunctionName').val(funcostdb[selectedCostId].function.name);
-    $('#costFuntionDescription').val(funcostdb[selectedCostId].function.description);
-    $('#CalculatorModalLabel').text('Modify Cost - ' + $('#titleCostFunSmall').text());
+    $('#costFuntionDescription').val(funcostdb[selectedCostId].function.description);    
     $('#currencyCost').val(funcostdb[selectedCostId].function.currencyCost);
     $('#global_multiplier_factorCalculator').val(funcostdb[selectedCostId].function.factor);
+    $('#CalculatorModalLabel').text('Modify Cost - ' + $('#titleCostFunSmall').text());
     setVarCost();
     let value = funcostdb[selectedCostId].function.value;
     $('#python-expression').val();

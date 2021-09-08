@@ -2009,6 +2009,172 @@ pre code {
     margin-left: 0%;
   }
 }
+
+@media (min-width: 360px){
+  .iconsWhatIsWP{
+    width: 20% !important;
+    height: 18% !important;
+    align-items: left !important;
+  }
+  .divCenter{
+    text-align: left !important;
+  }
+  .buttonWhatIsWP{
+    left: 30% !important;
+    bottom: 10% !important;
+    width: 65% !important;
+    height: 35% !important;
+    top: 35% !important;
+  }
+  .iconWhyUse{
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    text-align: center;
+    padding: 3%;
+    display: none !important;
+  }
+  .imgbackgroundSystemop{
+    background: url() !important;
+    height: 800px !important;
+    min-height: 100%;
+    min-width: 100%;
+    background-repeat: round;
+    background-size:cover;
+  }
+  .text-center {
+    text-align: center;
+  }
+  .responsive{
+    display: none !important;
+  }
+}
+@media (min-width: 768px){
+  .iconsWhatIsWP{
+    width: 20% !important;
+    height: 18% !important;
+    align-items: left !important;
+  }
+  .divCenter{
+    text-align: left !important;
+  }
+  .buttonWhatIsWP{
+    left: 30% !important;
+    bottom: 10% !important;
+    width: 65% !important;
+    height: 35% !important;
+    top: 35% !important;
+  }
+  .iconWhyUse{
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    text-align: center;
+    padding: 3%;
+    display: none !important;
+  }
+  .imgbackgroundSystemop{
+    background: url() !important;
+    height: 800px !important;
+    min-height: 100%;
+    min-width: 100%;
+    background-repeat: round;
+    background-size:cover;
+  }
+  .text-center {
+    text-align: center;
+  }
+  /* .button-viki{
+    background-color: #0C89AAAD;
+    color: #FFFFFF;
+    padding: 15px 50px 15px 50px !important;
+    border:none;
+    text-align: center;
+   } */
+   .responsive{
+     font-size: 17px !important;
+    /* display: none !important; */
+  }
+}
+@media (min-width: 992px){
+  .iconsWhatIsWP{
+    width: 60% !important;
+    height: 80px !important;
+  }
+  .divCenter{
+    text-align: center !important;
+  }
+  .buttonWhatIsWP{
+    left: 0% !important;
+    top: 100% !important;
+    bottom: 10% !important;
+    width: 95% !important;
+    height: 60% !important;
+  }
+  .iconWhyUse{
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    text-align: center;
+    padding: 4%;
+    display: table !important;
+  }
+  .imgbackgroundSystemop{
+    background: url() !important;
+    height: 900px !important;
+    min-height: 100%;
+    min-width: 100%;
+    background-repeat: round;
+    background-size:cover;
+  }
+  .responsive{
+    font-size: 17px !important;
+    display: table !important;
+  }
+  .menuOrder1{
+    padding-left: 2% !important;
+  }
+  .menuPadding{
+    padding-top: 50% !important;
+  }
+}
+@media (min-width: 1200px){
+
+  .iconsWhatIsWP{
+    width: 60% !important;
+    height: 100px !important;
+  }
+  .divCenter{
+    text-align: center !important;
+  }
+  .buttonWhatIsWP{
+    left: 0% !important;
+    top: 100% !important;
+    bottom: 10% !important;
+    width: 95% !important;
+    height: 55% !important;
+  }
+  .iconWhyUse{
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    text-align: center;
+    padding: 3%;
+    display: table !important;
+  }
+  .imgbackgroundSystemop{
+    background: url(/static/geonode/img/bgSystemOperating.png) !important;
+    height: 600px !important;
+    min-height: 100%;
+    min-width: 100%;
+    background-repeat: round;
+    background-size:cover;
+  }
+  .responsive{
+    font-size: 3.4rem !important;
+    display: table !important;
+  }
+}
 @media (min-width: 992px) {
   .col-md-1,
   .col-md-2,
@@ -3010,6 +3176,7 @@ select[multiple].input-lg {
   margin-bottom: 10px;
   color: #737373;
 }
+
 @media (min-width: 768px) {
   .form-inline .form-group {
     display: inline-block;
@@ -8636,11 +8803,22 @@ form-inline {
 .menuOrder{
   padding-left: 10% !important;
 }
+.menuOrder1{
+  padding-left: 5% !important;
+}
 .menuPadding{
-  padding-top: 30% !important;
+  padding-top: 35% !important;
+}
+.titleMenuT{
+  padding-top: 2%;
+  padding-left: 5%;
+  padding-right: 5%;
+  color: #0C89AA;
+  font-size: arial !important;
 }
 .titleMenu{
   padding-left: 5%;
+  padding-right: 5%;
 }
 .refImage{
   position: absolute;
@@ -8679,6 +8857,7 @@ form-inline {
   color: #FFFFFF;
   padding: 15px 50px 15px 50px;
   border:none;
+  /* text-align: center; */
  }
  .link-wp-syle{
   text-decoration: none;
@@ -8954,7 +9133,7 @@ top:50px;
 
 @media (min-width: 768px) {
   #map{
-      width: 580px !important;
+      width: 100% !important;
       border: 2px solid;        
   } 
 }

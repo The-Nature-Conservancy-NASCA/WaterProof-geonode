@@ -16,20 +16,7 @@ $(document).ready(function () {
         Images: images,
         Grayscale: grayLyr,
     };
-
-    var map = L.map('map', {
-        scrollWheelZoom: false,
-        layers: [osm],
-        zoomControl: false,
-        photonControl: true,
-        photonControlOptions: {
-            resultsHandler: showSearchPointsFunction,
-            selectedResultHandler: selectedCityResultHandler,
-            placeholder: 'Search City...',
-            position: 'topleft', url: SEARCH_CITY_API_URL
-        }
-    });
-
+    
     let initialCoords = CENTER;
     // find in localStorage if cityCoords exist
     var cityCoords = localStorage.getItem('cityCoords');
@@ -49,11 +36,26 @@ $(document).ready(function () {
         }
     }
     waterproof["cityCoords"] = cityCoords;
+    var map = L.map('map', {
+        scrollWheelZoom: false,
+        layers: [osm],
+        zoomControl: false,
+        photonControl: true,        
+        zoom: zoom,
+        center: initialCoords,
+        photonControlOptions: {
+            resultsHandler: showSearchPointsFunction,
+            selectedResultHandler: selectedCityResultHandler,
+            placeholder: gettext('Search City') + '...',
+            position: 'topleft', url: SEARCH_CITY_API_URL
+        }
+    });
 
-    map.setView(initialCoords, zoom);
+    //map.setView(initialCoords, zoom);
     searchPoints.addTo(map);
 
     L.control.layers(baseLayers, {}, { position: 'topleft' }).addTo(map);
+    var defaultExtent = new L.Control.DefaultExtent({ title: gettext('Default extent'), position: 'topright'}).addTo(map);
     var zoomControl = new L.Control.Zoom({ position: 'topright' }).addTo(map);
 
     $(".listStudyCases").click(function () {

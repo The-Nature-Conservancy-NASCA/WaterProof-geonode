@@ -4,12 +4,12 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: GeoNode\n"
+"Project-Id-Version: Waterproof VBeta\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-02-11 20:03-0500\n"
-"PO-Revision-Date: 2021-09-01 12:58-0500\n"
+"PO-Revision-Date: 2021-09-03 09:57-0500\n"
 "Last-Translator: Julien Collaer <julien.collaer@opengeode.be>\n"
-"Language-Team: English (http://www.transifex.com/geonode/geonode/language/en/)\n"
+"Language-Team: English Skaphe\n"
 "Language: en\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1867,10 +1867,6 @@ msgstr "Create an empty layer"
 msgid "Add Attribute"
 msgstr "Add Attribute"
 
-#: geonode/geoserver/createlayer/templates/createlayer/layer_create.html:41 geonode/groups/templates/groups/group_create.html:26 geonode/monitoring/models.py:354 geonode/services/templates/services/service_register.html:18
-msgid "Create"
-msgstr "Create"
-
 #: geonode/geoserver/helpers.py:710
 msgid "No abstract provided"
 msgstr "No abstract provided"
@@ -3455,10 +3451,6 @@ msgstr "Convert Number (As Year)"
 #: geonode/layers/templates/upload/layer_upload_time.html:193
 msgid "Time attribute Presentation"
 msgstr "Time attribute Presentation"
-
-#: geonode/layers/templates/upload/layer_upload_time.html:201
-msgid "List"
-msgstr "List"
 
 #: geonode/layers/templates/upload/layer_upload_time.html:201
 msgid "of all the distinct time values"
@@ -6158,12 +6150,6 @@ msgstr "GeoNode Search"
 msgid "Search City"
 msgstr "Search"
 
-#: geonode/templates/base.html:337
-#, fuzzy
-#| msgid "List"
-msgid "List SBN"
-msgstr "List"
-
 #: geonode/templates/base.html:338 geonode/templates/waterproof_intake/intake_list.html:40
 msgid "List Intakes"
 msgstr ""
@@ -7375,12 +7361,6 @@ msgstr "Regions"
 msgid "Currency"
 msgstr ""
 
-#: geonode/templates/search_city.html:31
-#, fuzzy
-#| msgid "Create a new layer"
-msgid "List Study Cases"
-msgstr "Create a new layer"
-
 #: geonode/templates/social_links.html:12
 msgid "Share This"
 msgstr "Share This"
@@ -8457,10 +8437,6 @@ msgstr "Create a new layer"
 msgid "Case study"
 msgstr ""
 
-#: geonode/templates/waterproof_study_cases/studycases_list.html:50
-msgid "Treatment plants"
-msgstr ""
-
 #: geonode/templates/waterproof_study_cases/studycases_list.html:51
 #, fuzzy
 #| msgid "Create a new layer"
@@ -8655,13 +8631,183 @@ msgstr "Support data"
 msgid "See an example"
 msgstr "See an example"
 
+msgid "You do not have permission to view this document"
+msgstr "You do not have permission to view this document"
+
+msgid "Remote Thumbnail"
+msgstr "Remote Thumbnail"
+
+msgid "Group details"
+msgstr "Group details"
+
+msgid "Create a map"
+msgstr "Create a map"
+
+msgid "You do not have permission to view this layer"
+msgstr "You do not have permission to view this layer"
+
+msgid "You do not have permission to view this map"
+msgstr "You do not have permission to view this map"
+
+msgid "Add a Comment"
+msgstr "Add a Comment"
+
+msgid "Observed objects"
+msgstr "Observed objects"
+
+msgid "change under <a href=\"%(email_url)s\">Account</a>"
+msgstr "change under <a href=\"%(email_url)s\">Account</a>"
+
+msgid "You do not have a verified email address to which notices can be sent. You can add one by going to <a href=\"%(email_url)s\">Account</a>."
+msgstr "You do not have a verified email address to which notices can be sent. You can add one by going to <a href=\"%(email_url)s\">Account</a>."
+
+msgid "Mark all unseen notices seen"
+msgstr "Mark all unseen notices seen"
+
+msgid "MONTH_DAY_FORMAT"
+msgstr "MONTH_DAY_FORMAT"
+
+msgid "View Notice"
+msgstr "View Notice"
+
+msgid "No notices."
+msgstr "No notices."
+
+msgid "Notice"
+msgstr "Notice"
+
+msgid "you"
+msgstr "you"
+
+msgid "Who can use the system?"
+msgstr "Who can use the system?"
+
+msgid "Why use WaterProof?"
+msgstr "Why use WaterProof?"
+
+msgid "FAST"
+msgstr "Fast"
+
+msgid "Rapidly develop a pre-feasibility understanding for how NbS can generate water security outcomes"
+msgstr "Rapidly develop a pre-feasibility understanding for how NbS can generate water security outcomes"
+
+msgid "COMPELLING"
+msgstr "Compelling"
+
+msgid "Clear analytics to promote stakeholder conversations"
+msgstr "Clear analytics to promote stakeholder conversations"
+
+msgid "CUSTOMIZABLE"
+msgstr "Customizable"
+
+msgid "Platform offers flexibility to define custom elements & parameters to approximate your local conditions"
+msgstr "Platform offers flexibility to define custom elements & parameters to approximate your local conditions"
+
+msgid "FREE"
+msgstr "Free"
+
+msgid "We are committed to equipping local NbS champions with the information"
+msgstr "We are committed to equipping local NbS actors with the information"
+
+msgid "How does WaterProof work?"
+msgstr "How does WaterProof work?"
+
+msgid "Find Your city"
+msgstr "Find Your city"
+
+msgid "Select / create your Nbs"
+msgstr "Select / create your Nbs"
+
+msgid "Configure water intakes"
+msgstr "Configure water intakes"
+
+msgid "Define infrastructure"
+msgstr "Define infrastructure"
+
+msgid "Create a case study"
+msgstr "Create a case study"
+
+msgid "Analize outputs"
+msgstr "Analize outputs"
+
+msgid "Realize the Investment"
+msgstr "Realize the Investment"
+
+msgid "Step beyond ROI assessment to learn about tangible steps you can take for advancing your NbS investment vision"
+msgstr "Step beyond ROI assessment to learn about tangible steps you can take for advancing your NbS investment vision"
+
+msgid "Take action"
+msgstr "Take action"
+
+msgid "WATERPROOF WIKI"
+msgstr "WATERPROOF INFO"
+
+msgid "Knowledge bank"
+msgstr "Knowledge bank"
+
+msgid "Check here the conceptual elements that Waterproof uses to propose"
+msgstr "Check here the conceptual elements that WaterProof uses to propose"
+
+msgid "Nature based Solutions and calculate the return on your investment"
+msgstr "Nature based Solutions and calculate the return on your investment"
+
+msgid "FAQ"
+msgstr "FAQ"
+
+msgid "Terms and conditions"
+msgstr "Terms and conditions"
+
+msgid "Privacy policy"
+msgstr "Privacy policy"
+
+msgid "Begin your Nature based Solutions journey"
+msgstr "Begin your Nature based Solutions journey"
+
+msgid "Explore how Nature-based Solutions can generate outcomes in your catchment."
+msgstr "Explore how Nature based Solutions can generate outcomes in your catchment."
+
+msgid "Start now"
+msgstr "Start now"
+
+msgid "Main menu"
+msgstr "Main menu"
+
+msgid "Use this menu to configure the inputs for a case study"
+msgstr "Use this menu to configure the inputs for a case study"
+
+msgid "List"
+msgstr "Current list"
+
+msgid "Create"
+msgstr "Create new"
+
+msgid "Study cases"
+msgstr "Case study"
+
+msgid "Compare"
+msgstr "Compare"
+
+msgid "Treatment plants"
+msgstr "Treatment plants"
+
+#: geonode/templates/index.html
+msgid "Explore investment returns"
+msgstr "Start now"
+
+#: geonode/templates/search_city.html
+msgid "Search your city"
+msgstr "Start now looking for your city of analysis"
+
+#: geonode/templates/search_city.html
+msgid "In this section you can consult the case studies configured in the system or start the configuration of a case study"
+msgstr "Drag the map to the area of ​​your interest and enter the name of the city where you want to start the analysis"
+
+#: geonode/templates/search_city.html
+msgid "List Study Cases"
+msgstr "Case studies current list"
+
 #~ msgid "Open Data:"
 #~ msgstr "Open Data:"
-
-#, fuzzy
-#~| msgid "List"
-#~ msgid "List nbs"
-#~ msgstr "List"
 
 #, fuzzy
 #~| msgid "Monitoring & Analytics"
@@ -8697,11 +8843,6 @@ msgstr "See an example"
 #~| msgid "Attribute Information"
 #~ msgid "Active Restoration"
 #~ msgstr "Attribute Information"
-
-#, fuzzy
-#~| msgid "List"
-#~ msgid "List sbn"
-#~ msgstr "List"
 
 #, fuzzy
 #~| msgid "Create New"
@@ -9429,141 +9570,3 @@ msgstr "See an example"
 
 #~ msgid "view"
 #~ msgstr "view"
-
-#~ msgid "You do not have permission to view this document"
-#~ msgstr "You do not have permission to view this document"
-
-#~ msgid "Remote Thumbnail"
-#~ msgstr "Remote Thumbnail"
-
-#~ msgid "Group details"
-#~ msgstr "Group details"
-
-#~ msgid "Create a map"
-#~ msgstr "Create a map"
-
-#~ msgid "You do not have permission to view this layer"
-#~ msgstr "You do not have permission to view this layer"
-
-#~ msgid "You do not have permission to view this map"
-#~ msgstr "You do not have permission to view this map"
-
-#~ msgid "Add a Comment"
-#~ msgstr "Add a Comment"
-
-#~ msgid "Observed objects"
-#~ msgstr "Observed objects"
-
-#~ msgid "change under <a href=\"%(email_url)s\">Account</a>"
-#~ msgstr "change under <a href=\"%(email_url)s\">Account</a>"
-
-#~ msgid "You do not have a verified email address to which notices can be sent. You can add one by going to <a href=\"%(email_url)s\">Account</a>."
-#~ msgstr "You do not have a verified email address to which notices can be sent. You can add one by going to <a href=\"%(email_url)s\">Account</a>."
-
-#~ msgid "Mark all unseen notices seen"
-#~ msgstr "Mark all unseen notices seen"
-
-#~ msgid "MONTH_DAY_FORMAT"
-#~ msgstr "MONTH_DAY_FORMAT"
-
-#~ msgid "View Notice"
-#~ msgstr "View Notice"
-
-#~ msgid "No notices."
-#~ msgstr "No notices."
-
-#~ msgid "Notice"
-#~ msgstr "Notice"
-
-#~ msgid "you"
-#~ msgstr "you"
-
-#~ msgid "Who can use the system?"
-#~ msgstr "Who can use the system?"
-
-#~ msgid "Why use WaterProof?"
-#~ msgstr "Why use WaterProof?"
-
-#~ msgid "FAST"
-#~ msgstr "Fast"
-
-#~ msgid "Rapidly develop a pre-feasibility understanding for how NbS can generate water security outcomes"
-#~ msgstr "Rapidly develop a pre-feasibility understanding for how NbS can generate water security outcomes"
-
-#~ msgid "COMPELLING"
-#~ msgstr "Compelling"
-
-#~ msgid "Clear analytics to promote stakeholder conversations"
-#~ msgstr "Clear analytics to promote stakeholder conversations"
-
-#~ msgid "CUSTOMIZABLE"
-#~ msgstr "Customizable"
-
-#~ msgid "Platform offers flexibility to define custom elements & parameters to approximate your local conditions"
-#~ msgstr "Platform offers flexibility to define custom elements & parameters to approximate your local conditions"
-
-#~ msgid "FREE"
-#~ msgstr "Free"
-
-#~ msgid "We are committed to equipping local NbS champions with the information"
-#~ msgstr "We are committed to equipping local NbS actors with the information"
-
-#~ msgid "How does WaterProof work?"
-#~ msgstr "How does WaterProof work?"
-
-#~ msgid "Find Your city"
-#~ msgstr "Find Your city"
-
-#~ msgid "Select / create your Nbs"
-#~ msgstr "Select / create your Nbs"
-
-#~ msgid "Configure water intakes"
-#~ msgstr "Configure water intakes"
-
-#~ msgid "Define infrastructure"
-#~ msgstr "Define infrastructure"
-
-#~ msgid "Create a case study"
-#~ msgstr "Create a case study"
-
-#~ msgid "Analize outputs"
-#~ msgstr "Analize outputs"
-
-#~ msgid "Realize the Investment"
-#~ msgstr "Realize the Investment"
-
-#~ msgid "Step beyond ROI assessment to learn about tangible steps you can take for advancing your NbS investment vision"
-#~ msgstr "Step beyond ROI assessment to learn about tangible steps you can take for advancing your NbS investment vision"
-
-#~ msgid "Take action"
-#~ msgstr "Take action"
-
-#~ msgid "WATERPROOF WIKI"
-#~ msgstr "WATERPROOF INFO"
-
-#~ msgid "Knowledge bank"
-#~ msgstr "Knowledge bank"
-
-#~ msgid "Check here the conceptual elements that Waterproof uses to propose"
-#~ msgstr "Check here the conceptual elements that WaterProof uses to propose"
-
-#~ msgid "Nature based Solutions and calculate the return on your investment"
-#~ msgstr "Nature based Solutions and calculate the return on your investment"
-
-#~ msgid "FAQ"
-#~ msgstr "FAQ"
-
-#~ msgid "Terms and conditions"
-#~ msgstr "Terms and conditions"
-
-#~ msgid "Privacy policy"
-#~ msgstr "Privacy policy"
-
-#~ msgid "Begin your Nature based Solutions journey"
-#~ msgstr "Begin your Nature based Solutions journey"
-
-#~ msgid "Explore how Nature-based Solutions can generate outcomes in your catchment."
-#~ msgstr "Explore how Nature based Solutions can generate outcomes in your catchment."
-
-#~ msgid "Start now"
-#~ msgstr "Start now"

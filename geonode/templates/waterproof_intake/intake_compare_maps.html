@@ -58,13 +58,13 @@
     map.createPane('right');
 
     var osmLayer = L.tileLayer('https://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap<\/a> contributors'
+        attribution: '&copy; <a href="https://osm.org/copyright">OpenStreetMap<\/a> contributors'
     }).addTo(map);
 
     var stamenLayer = L.tileLayer('https://opentopomap.org/{z}/{x}/{y}.png', {
         attribution:
             'Map tiles by <a href="https://opentopomap.org">Open Topomapn<\/a>, ' +
-            '<a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0<\/a> &mdash; ' +
+            '<a href="https://creativecommons.org/licenses/by/3.0">CC BY 3.0<\/a> &mdash; ' +
             'Map data {attribution.OpenStreetMap}',
         minZoom: 1,
         maxZoom: 16
