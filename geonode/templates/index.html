@@ -153,7 +153,19 @@
         </div>
         <div class="col-md-2">
             <img class="iconsWhatIsWP" src="/static/geonode/img/what_is_CE.png">
-            <button class="buttonWhatIsWP">{% trans "What is a case study?" %}</button>
+            <a class="buttonWhatIsWP"
+            data-mdb-toggle="collapse"
+            href="#collapseExample2"
+            role="button"
+            aria-expanded="false"
+            aria-controls="collapseExample2"
+            >
+            {% trans "What is a case study?" %}
+            </a>
+            <!-- Collapsed content -->
+            <div class="collapse mt-3" id="collapseExample2">
+                {% trans "Text 2 - What is a case study?" %}
+            </div>
         </div>
         <div class="col-md-2">
             <img class="iconsWhatIsWP" src="/static/geonode/img/Support_data.png">
