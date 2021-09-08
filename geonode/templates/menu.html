@@ -303,9 +303,9 @@
               <a href="{% url "about" %}">{% trans "About us" %}</a>
             </li>
             <!--Models-->
-            <li>
+            <!-- <li>
               <a href="{% url "models" %}">{% trans "Models" %}</a>
-            </li>
+            </li> -->
             <!--Take Action-->
             <!--li>
               <a href="{% url "take-action" %}">{% trans "Take Action" %}</a>
@@ -418,7 +418,7 @@
                  {% render_nav_menu 'TOPBAR_MENU' %}
               {% endblock my_extra_right_tab %}
   
-              <li>
+              <!-- <li>
                 <div class="search">
                   <form id="search" action="{% url "search" %}" >
                     <span class="fa fa-search"></span>
@@ -437,7 +437,7 @@
                     </div>
                   </form>
                 </div>
-              </li>
+              </li> -->
               {% if not user.is_authenticated and ACCOUNT_OPEN_SIGNUP and not READ_ONLY_MODE %}
                 <li><a href="{% url "account_signup" %}">{% trans "Register" %}</a></li>
               {% endif %}
@@ -491,7 +491,6 @@
         </div> <!--/.nav-collapse -->
       </div>
     </nav>
-
     {% endblock header %}
     <!-- End of Navbar -->
 
@@ -501,6 +500,53 @@
       <p>{% trans "Please use a <strong>modern browser</strong> like Mozilla Firefox, Google Chrome or Safari." %}</p>
     </div>
 
+    <!-- menu lateral responsive -->
+    <div class="area"></div>
+    <div class="menuResponsive">
+      <nav class="main-menu">
+        <ul>
+
+            <li>
+              <a href="#">
+                  <i class="fa fa-chevron-right fa-2x"></i>
+                  <span class="nav-text-title">
+                    {% trans "Main menu" %}
+                  </span>
+              </a>
+          
+            </li>
+
+            <li>
+                <a href="{% url "study_cases_list" %}">
+                    <i class="fa fa-angle-right fa-2x"></i>
+                    <span class="nav-text">
+                      {% trans "Study cases" %}
+                    </span>
+                </a>
+              
+            </li>
+            <li class="has-subnav">
+                <a href="{% url "list-intake" %}">
+                    <i class="fa fa-angle-right fa-2x"></i>
+                    <span class="nav-text">
+                      {% trans "Water Intakes" %}
+                    </span>
+                </a>
+                
+            </li>
+            <li class="has-subnav">
+                <a href="{% url "treatment-plants-list" %}">
+                   <i class="fa fa-angle-right fa-2x"></i>
+                    <span class="nav-text">
+                      {% trans "Treatment plants" %}
+                    </span>
+                </a>
+                
+            </li>
+        </ul>
+      </nav>
+    </div>
+
   <div id="wrap" style="position: relative;" >
     {% block middle %}
       {% block sidenav %}
@@ -508,17 +554,17 @@
         <div class="p-4 pt-5 element.style">
           <div class="titleMenuT col-md-12">
             <div class="col-md-1" style="padding-left: 0%;">
-              <h1 class="glyphicon glyphicon-chevron-right"></h1>
+              <h1 class="glyphicon glyphicon-chevron-right responsive"></h1>
             </div>
-            <div class="col-mnd-10">
+            <div class="col-mnd-10 responsive">
               <div class="col-md-1"></div>
               <div class="col-md-11">
-                <h1>{% trans "Main menu" %}</h1>
+                <h1 class="responsive">{% trans "Main menu" %}</h1>
               </div>
             </div>
           </div>
         
-            <p class="titleMenu">{% trans "Use this menu to configure the inputs for a case study" %}</p>
+            <p class="titleMenu responsivep">{% trans "Use this menu to configure the inputs for a case study" %}</p>
           
           <br>
             <ul class="sidebar-nav menuPadding">
@@ -540,7 +586,7 @@
             </li-->
             <li class="subtitle menuOrder1">
               <a href="#StudyCase" data-toggle="collapse" aria-expanded="false" class="action">
-                  <img src="/static/geonode/img/01-flecha.png" class="flecha"><h5>{% trans "Study cases" %}</h5></a>
+                  <img src="/static/geonode/img/01-flecha.png" class="flecha"><h5>1.{% trans "Study cases" %}</h5></a>
                   <ul class="submenu opacity" id="StudyCase" style="display: none;">
                   <li><a href="#" class="dropdown-toggle listStudyCases">
                           <img src="/static/geonode/img/01-flecha.png" class="flecha">
@@ -558,9 +604,9 @@
                       </li>
                     </ul>
             </li>
-            <li class="subtitle menuOrder">
+            <li class="subtitle menuOrder1">
               <a href="#Intake" data-toggle="collapse" aria-expanded="false" class="action">
-                  <img src="/static/geonode/img/01-flecha.png" class="flecha"><h5>1.{% trans "Water Intakes" %}</h5>
+                  <img src="/static/geonode/img/01-flecha.png" class="flecha"><h5>2.{% trans "Water Intakes" %}</h5>
               </a>
               <ul class="submenu opacity" id="Intake" style="display: none;">
                 <li>
@@ -576,9 +622,9 @@
                 {% endif %}    
               </ul>
             </li>
-            <li class="subtitle menuOrder">
+            <li class="subtitle menuOrder1">
               <a href="#TPlants" data-toggle="collapse" aria-expanded="false" class="action">
-                  <img src="/static/geonode/img/01-flecha.png" class="flecha"><h5>2.{% trans "Treatment plants" %}</h5></a>
+                  <img src="/static/geonode/img/01-flecha.png" class="flecha"><h5>3.{% trans "Treatment plants" %}</h5></a>
                   <ul class="submenu opacity" id="TPlants" style="display: none;">
                   <li><a href="#" class="dropdown-toggle listTreatmentPlants">
                           <img src="/static/geonode/img/01-flecha.png" class="flecha">
@@ -638,6 +684,63 @@
     {% endblock extra_mainbody %}
 
   </div>
+
+  <!-- <div class="menuResponsive" style="padding-top: 20%;">
+    <nav class="navbar navbar-inverse navbar-fixed-left" role="navigation">
+      <div class="nav-container">
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav toolbar">
+            <li>
+              <a href="{% url "study_cases_list" %}">{% trans "Study cases" %}</a>
+            </li>
+            <li>
+              <a href="{% url "list-intake" %}">{% trans "Water Intakes" %}</a>
+            </li>
+            <li>
+              <a href="{% url "treatment-plants-list" %}">{% trans "Treatment plants" %}</a>
+            </li>  
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </div> -->
+  <!--menu lateral responsive-->
+<!-- <div class="menuResponsive">
+  <div class="navbar navbar-inverse navbar-fixed-left">
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="{% url "study_cases_list" %}">{% trans "Study cases" %}</a>
+      </li>
+      <li>
+        <a href="{% url "list-intake" %}">{% trans "Water Intakes" %}</a>
+      </li>
+      <li>
+        <a href="{% url "treatment-plants-list" %}">{% trans "Treatment plants" %}</a>
+      </li> 
+     
+    </ul>
+  </div>
+</div> -->
+  
+  
+
+  <!-- <div class="menuResponsive">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">    
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="{% url "study_cases_list" %}">{% trans "Study cases" %}</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="{% url "list-intake" %}">{% trans "Water Intakes" %}</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="{% url "treatment-plants-list" %}">{% trans "Treatment plants" %}</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </div> -->
 
   {% block monitoring %}
   {% endblock %}
