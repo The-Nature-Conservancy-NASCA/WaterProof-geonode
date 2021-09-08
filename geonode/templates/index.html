@@ -139,7 +139,16 @@
         <div class="col-md-1"></div>
         <div class="col-md-2">
             <img class="iconsWhatIsWP" src="/static/geonode/img/before_starting.png">
-            <button class="buttonWhatIsWP">{% trans "Before starting" %}</button>
+            <button class="buttonWhatIsWP"
+            data-mdb-toggle="collapse"
+            data-mdb-target="#collapseExample1"
+            aria-expanded="false"
+            aria-controls="collapseExample1">
+            {% trans "Before starting" %}</button>
+            <!-- Collapsed content -->
+            <div class="collapse mt-3" id="collapseExample1">
+            {% trans "Text 1 - Before starting" %}
+            </div>
         </div>
         <div class="col-md-2">
             <img class="iconsWhatIsWP" src="/static/geonode/img/what_is_CE.png">
