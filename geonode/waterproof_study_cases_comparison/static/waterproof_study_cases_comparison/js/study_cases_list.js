@@ -167,7 +167,7 @@ $(function () {
      * Initialize map 
      */
 
-    TILELAYER = 'http://{s}.tile.osm.org/{z}/{x}/{y}.png';
+    TILELAYER = 'https://{s}.tile.osm.org/{z}/{x}/{y}.png';
     IMAGE_LYR_URL = "https://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryTopo/MapServer/tile/{z}/{y}/{x}";
     HYDRO_LYR_URL = "https://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/Esri_Hydro_Reference_Overlay/MapServer/tile/{z}/{y}/{x}";
     CENTER = [4.582, -74.4879];

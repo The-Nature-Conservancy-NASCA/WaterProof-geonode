@@ -5,9 +5,16 @@
  */
 $(function () {
     var table = $('#tblNbs').DataTable({
-        'dom': 'lrtip'
+        'dom': 'lrtip',
+        'columnDefs': [
+            {
+                "targets": [4],
+                "visible": false
+            }
+        ]
     }
     );
+    var search;
     var countryDropdown = $('#countryNBS');
     var currencyDropdown = $('#currencyCost');
     var transitionsDropdown = $('#riosTransition');
@@ -214,15 +221,14 @@ $(function () {
         CENTER = [4.582, -74.4879];
         // Basemap layer
         var osm = L.tileLayer(OSM_BASEMAP_URL, {
-            maxZoom: MAXZOOM,
-            attribution: 'Data \u00a9 <a href="http://www.openstreetmap.org/copyright"> OpenStreetMap Contributors </a> Tiles \u00a9 Komoot'
-        });
-        var images = L.tileLayer(IMG_BASEMAP_URL);
+            maxZoom: MAXZOOM, 
+            attribution: 'Data \u00a9 <a href="https://www.openstreetmap.org/copyright"> OpenStreetMap Contributors </a> Tiles \u00a9 Komoot'});
+        var images = L.tileLayer(IMG_BASEMAP_URL); 
         //var hydroLyr = L.tileLayer(HYDRO_BASEMAP_URL);
         var grayLyr = L.tileLayer(GRAY_BASEMAP_URL, {
-            maxZoom: 20,
-            attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
-        });
+                    maxZoom: 20,
+                        attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="https://openstreetmap.org">OpenStreetMap</a> contributors'
+                    });
 
         var baseLayers = {
             OpenStreetMap: osm,
@@ -329,6 +335,17 @@ $(function () {
         }
         //map.on('click', onMapClick);
     }
+    setMultiplicationFactor = function (row, index, factor) {
+        if (row[4] === 'ADMIN') {
+            // Implementation cost 
+            oldImplCost = search.cell({ row: index, column: 7 }).data();
+            search.cell({ row: index, column: 7 }).data((parseFloat(oldImplCost) * parseFloat(factor)).toFixed(2));
+            oldMaintCost = search.cell({ row: index, column: 8 }).data();
+            search.cell({ row: index, column: 8 }).data((parseFloat(oldMaintCost) * parseFloat(factor)).toFixed(2));
+            oldOportCost = search.cell({ row: index, column: 9 }).data();
+            search.cell({ row: index, column: 9 }).data((parseFloat(oldOportCost) * parseFloat(factor)).toFixed(2));
+        }
+    }
     updateGeographicLabels = function (countryCode) {
         $.ajax({
             url: '/parameters/load-countryByCode/',
@@ -338,7 +355,13 @@ $(function () {
             success: function (result) {
                 result = JSON.parse(result);
                 $('#countryLabel').text(result[0].fields.name);
-                table.search(result[0].fields.name).draw();
+                search = table.search('(ADMIN|' + result[0].fields.name + ')', true, true);
+                let filteredData = search.rows({ search: 'applied' }).data();
+                let multiplicatorFactor = result[0].fields.global_multiplier_factor;
+                filteredData.filter(function (element, index) {
+                    return setMultiplicationFactor(element, index, multiplicatorFactor);
+                });
+                search.draw();
                 let countryId = result[0].pk;
                 //udpateCreateUrl(countryId);
                 //
@@ -459,6 +482,7 @@ $(function () {
      * Validate input file on change
      * @param {HTML} dropdown Dropdown selected element
      */
+
     changeFileEvent = function () {
         $('#restrictedArea').change(function (evt) {
             var file = evt.currentTarget.files[0];

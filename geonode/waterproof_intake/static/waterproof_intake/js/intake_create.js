@@ -502,11 +502,11 @@ $(document).ready(function() {
 
     map = L.map('map', {}).setView(initialCoords, 8);
     mapDelimit = L.map('mapid', { editable: true }).setView(initialCoords, 5);
-    var osm = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
+    var osm = L.tileLayer('https://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors',
     });
     var osmid = L.tileLayer(OSM_BASEMAP_URL, {
-        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
+        attribution: '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors',
     });
     map.addLayer(osm);
 
@@ -517,7 +517,7 @@ $(document).ready(function() {
     var images = L.tileLayer(IMG_BASEMAP_URL);
     /* var gray = L.tileLayer(GRAY_BASEMAP_URL, {
         maxZoom: 20,
-        attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
+        attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="https://openstreetmap.org">OpenStreetMap</a> contributors'
     }); */
 
     var hydroLyr = L.tileLayer(HYDRO_BASEMAP_URL);

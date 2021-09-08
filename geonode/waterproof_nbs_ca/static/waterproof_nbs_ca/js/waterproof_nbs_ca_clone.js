@@ -669,6 +669,17 @@ $(function () {
                 event.target.value = "";
         }
     }
+    // Only integers excluding 0
+    checkTimeBenefit = function (event, value) {
+        let regexp = /^[1-9]+[0-9]*$/;
+        valid = regexp.test(value);
+        if (valid) {
+            return true;
+        }
+        else {
+            event.target.value = "1";
+        }
+    }
     checkDecimalFormat = function (event, value) {
         commaNum = null;
         let regexp = /^(?=.*[1-9])([0-9]{0,12}(?:,[0-9]{1,2})?)$/gm;
@@ -699,6 +710,13 @@ $(function () {
             event.target.value = value;
         }
     }
+    $('#benefitTimePorc').focusout(function (event) {
+        let value = parseFloat(event.target.value.replace(",", "."));
+        if (value <= 0) {
+            this.value = "";
+            this.focus();
+        }
+    });
     checkDecimalFormatZero = function (event, value) {
         commaNum = null;
         let regexp = /^(?=.*[1-9])([0-9]{0,12}(?:,[0-9]{1,2})?)$/gm;

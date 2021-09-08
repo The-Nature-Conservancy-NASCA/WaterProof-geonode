@@ -1,0 +1,123 @@
+{% extends "menu.html" %} 
+{% load i18n %} 
+{% load staticfiles %} 
+{% load bootstrap_tags %}
+{% block title %}
+    {% trans "Water Treatment" %}
+{% endblock %} 
+{% block extra_head %}
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
+<link rel="stylesheet" href="{{ STATIC_URL }}geonode/css/leaflet/Control.Coordinates.css"/>
+<link rel="stylesheet" href="https://photon.komoot.io/static/leaflet.photon/leaflet.photon.css"/>
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_nbs_ca/css/dataTables.bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_treatment_plants/css/treatment_plants.css" />
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script>
+    var intakePolygons = [];
+    SEARCH_CITY_API_URL = '{{ SEARCH_CITY_API_URL }}';
+    SEARCH_COUNTRY_API_URL = '{{ SEARCH_COUNTRY_API_URL }}';
+</script>
+
+{% endblock %} 
+{% block body_outer %}
+<div class="header-waterproof">
+    <h1>{% trans "Water Treatment" %}</h1>
+    <div>
+        <h1>{% trans "Drinking water treatment plants (DWTP)" %}</h1>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <p>{% trans "In this section you can view and create the Treatment Plants that WaterProof uses in the Case Studies for ROI analysis. Indicate on the map the city for which you want to consult or create the treatment plant." %}</p>
+            <br>
+            <h4 id="countryLabel">{{city.name}}</h4>
+            <p><b>{% trans "Selected City" %}:</b> <span id="cityLabel"></span> </p>
+            <p><b>{% trans "Region" %}:</b> <span id="regionLabel"></span> </p>
+            <p><b>{% trans "Currency" %}:</b> <span id="currencyLabel"></span></p>
+            <div>
+                <a href="create/"  onclick="localStorage.loadFormButton='true'; localStorage.plantId = null;" id="createUrl">{% trans "Create new Treatment Plants" %}</a>
+                <button onclick="window.location.href='create/'" type="button" data-toggle="modal" class="glyphicon glyphicon-plus-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div id="mapid"></div>
+        </div>
+    </div>
+</div>
+<div class="table-responsive">
+    <table id="example" class="table table-striped table-bordered table-condensed" style="width:100%">
+        <thead>
+            <tr class="info">
+                <th scope="col" class="small text-center vat">{% trans "ID" %}</th>
+                <th scope="col" class="small text-center vat">{% trans "Name" %}</th>
+                <th scope="col" class="small text-center vat">{% trans "Description" %}</th>
+                <th scope="col" class="small text-center vat">{% trans "User" %}</th>
+                <th scope="col" class="small text-center vat">{% trans "Creation Date" %}</th>
+                <th scope="col" class="small text-center vat">{% trans "City" %}</th>
+                <th scope="col" class="small text-center vat">{% trans "Catchment" %}</th>
+                <th scope="col" class="small text-center vat items-align-center">{% trans "Options" %}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for treatmentPlants in treatmentPlantsList %}
+            <tr>
+                <td class="small text-center vat">{{treatmentPlants.plantId}}</td>
+                <td class="small text-center vat align-text-table">{{treatmentPlants.plantName}}</td>
+                <td class="small text-center vat align-text-table">{{treatmentPlants.plantDescription}}</td>
+                <td class="small text-center vat">{{treatmentPlants.plantUser}}</td>
+                <td id="date" class="small text-center vat">{{treatmentPlants.plantDate}}</td>
+                <td class="small text-center vat">{{treatmentPlants.standardNameSpanish}}</td>
+                <td class="small text-center vat">
+                    {% for intake in treatmentPlants.plantIntakeName %}
+                        {{intake}}<br>
+                    {% endfor %}
+                </td>
+                <td class="small text-center vat items-align-center">
+                    <div class="table-center-item" role="group">
+                        <a class="btn btn-primary" onclick="viewInformationPlant('{{treatmentPlants.plantId}}')"><span
+                                class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
+                        <a class="btn btn-info" onclick="updatePlant('{{treatmentPlants.plantId}}')"><span
+                                class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
+                    </div>
+                    <div class="table-center-item" role="group">                    
+                        <a class="btn btn-warning" onclick="clonePlant('{{treatmentPlants.plantId}}')"><span
+                                class="glyphicon glyphicon-copy" aria-hidden="true"></span></a>
+                        <a class="btn btn-danger" onclick="deletePlant('{{treatmentPlants.plantId}}')"><span
+                                class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% block body %}{% endblock body %} {% block sidebar %}{% endblock sidebar %} {% endblock body_outer %} {% block extra_script %}
+<script>
+    var countriesLayerUrl = '{{ STATIC_URL }}waterproof_nbs_ca/data/countries.geojson';
+    var userCountryId='{{country.id}}';
+    var userCountryCode='{{country.codeCountry}}';
+    var userCountryName='{{country.nameCountry}}';
+</script>
+<script type="text/javascript" src="{% url 'javascript-catalog-treatment' %}"></script>
+<script src="{{ STATIC_URL }}geonode/js/datatables/jquery.dataTables.min.js"></script>
+<script src="{{ STATIC_URL }}geonode/js/datatables/dataTables.bootstrap.min.js"></script>
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+<script src="{{ STATIC_URL }}geonode/js/leaflet/leaflet.ajax.min.js"></script>
+<script src="{{ STATIC_URL }}waterproof_treatment_plants/js/waterproof_list_treatment_plants.js"></script>
+<script src="{{ STATIC_URL }}geonode/js/leaflet/photon/leaflet.photon.js"></script>
+
+<script type=" text/javascript ">
+    API_URL = '/proxy/?url=https://photon.komoot.de/api/?';
+    TILELAYER = 'https://{s}.tile.osm.org/{z}/{x}/{y}.png';
+    CENTER = [-74.4879, 4.582];
+    MAXZOOM = 11;
+    SEARCH_COUNTRY_API_URL = '{{ SEARCH_COUNTRY_API_URL }}';
+        
+    var searchPoints = L.geoJson(null, {
+        onEachFeature: function(feature, layer) {
+            layer.bindPopup(feature.properties.name);
+        }
+    });
+
+</script>
+{% endblock %}

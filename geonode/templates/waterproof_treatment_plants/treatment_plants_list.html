@@ -1,18 +1,16 @@
 {% extends "menu.html" %} 
 {% load i18n %} 
-{% block title %}
-{% trans "Water Treatment" %}
-{% endblock %} 
-{% load i18n %} 
 {% load staticfiles %} 
 {% load bootstrap_tags %}
-<h1>{% trans "Water Treatment" %}</h1>
-
+{% block title %}
+    {% trans "Water Treatment" %}
+{% endblock %} 
 {% block extra_head %}
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
 <link rel="stylesheet" href="{{ STATIC_URL }}geonode/css/leaflet/Control.Coordinates.css"/>
-<link rel="stylesheet" href="https://photon.komoot.io/static/leaflet.photon/leaflet.photon.css">
-</link>
+<link rel="stylesheet" href="https://photon.komoot.io/static/leaflet.photon/leaflet.photon.css"/>
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_nbs_ca/css/dataTables.bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_treatment_plants/css/treatment_plants.css" />
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <script>
     var intakePolygons = [];
@@ -20,11 +18,10 @@
     SEARCH_COUNTRY_API_URL = '{{ SEARCH_COUNTRY_API_URL }}';
 </script>
 
-{% endblock %} {% block body_outer %}
-
-<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_nbs_ca/css/dataTables.bootstrap.min.css">
-<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_treatment_plants/css/treatment_plants.css" />
+{% endblock %} 
+{% block body_outer %}
 <div class="header-waterproof">
+    <h1>{% trans "Water Treatment" %}</h1>
     <div>
         <h1>{% trans "Drinking water treatment plants (DWTP)" %}</h1>
     </div>
@@ -57,7 +54,7 @@
                 <th scope="col" class="small text-center vat">{% trans "Creation Date" %}</th>
                 <th scope="col" class="small text-center vat">{% trans "City" %}</th>
                 <th scope="col" class="small text-center vat">{% trans "Catchment" %}</th>
-                <th scope="col" class="small text-center vat items-align-center">{% trans "Water intakes" %}</th>
+                <th scope="col" class="small text-center vat items-align-center">{% trans "Options" %}</th>
             </tr>
         </thead>
         <tbody>
@@ -111,14 +108,11 @@
 
 <script type=" text/javascript ">
     API_URL = '/proxy/?url=https://photon.komoot.de/api/?';
-    TILELAYER = 'http://{s}.tile.osm.org/{z}/{x}/{y}.png';
+    TILELAYER = 'https://{s}.tile.osm.org/{z}/{x}/{y}.png';
     CENTER = [-74.4879, 4.582];
     MAXZOOM = 11;
     SEARCH_COUNTRY_API_URL = '{{ SEARCH_COUNTRY_API_URL }}';
         
-    $(document).ready(function() {
-    });
-
     var searchPoints = L.geoJson(null, {
         onEachFeature: function(feature, layer) {
             layer.bindPopup(feature.properties.name);
@@ -126,6 +120,4 @@
     });
 
 </script>
-
-
 {% endblock %}
