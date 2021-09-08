@@ -144,7 +144,8 @@
             data-toggle="collapse"
             data-target="#collapseExample1"
             aria-expanded="false"
-            aria-controls="collapseExample1">
+            aria-controls="collapseExample1"
+            data-placement="bottom">
             {% trans "Before starting" %}</button>
             <!-- Collapsed content -->
             <div class="collapse" id="collapseExample1">
@@ -153,17 +154,16 @@
         </div>
         <div class="col-md-2">
             <img class="iconsWhatIsWP" src="/static/geonode/img/what_is_CE.png">
-            <a class="buttonWhatIsWP"
+            <button class="buttonWhatIsWP"
+            type="button"
             data-toggle="collapse"
-            href="#collapseExample2"
-            role="button"
+            data-target="#collapseExample2"
             aria-expanded="false"
             aria-controls="collapseExample2"
-            >
-            {% trans "What is a case study?" %}
-            </a>
+            data-placement="bottom">
+            {% trans "What is a case study?" %}</button>
             <!-- Collapsed content -->
-            <div class="collapse" id="collapseExample2">
+            <div class="collapse" id="collapseExample2" data-placement="bottom">
                 <div class="card card-body">
                 {% trans "Text 2 - What is a case study?" %}
                 </div>
