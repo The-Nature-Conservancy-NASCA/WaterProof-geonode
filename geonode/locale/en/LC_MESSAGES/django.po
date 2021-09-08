@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Waterproof VBeta\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-02-11 20:03-0500\n"
-"PO-Revision-Date: 2021-09-03 09:57-0500\n"
+"PO-Revision-Date: 2021-09-08 10:00-0500\n"
 "Last-Translator: Julien Collaer <julien.collaer@opengeode.be>\n"
 "Language-Team: English Skaphe\n"
 "Language: en\n"
@@ -8800,7 +8800,7 @@ msgstr "Start now looking for your city of analysis"
 
 #: geonode/templates/search_city.html
 msgid "In this section you can consult the case studies configured in the system or start the configuration of a case study"
-msgstr "Drag the map to the area of ​​your interest and enter the name of the city where you want to start the analysis"
+msgstr "Drag the map to the area of ​​your interest and enter the name of the city where you want to start the analysis. Confirm your selection by clicking on the Case study current list button."
 
 #: geonode/templates/search_city.html
 msgid "List Study Cases"

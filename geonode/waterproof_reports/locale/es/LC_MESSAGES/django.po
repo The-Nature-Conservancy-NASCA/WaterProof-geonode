@@ -42,7 +42,7 @@ msgstr ""
 "Project-Id-Version: GeoNode\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-02-19 11:28-0500\n"
-"PO-Revision-Date: 2021-08-03 16:18-0500\n"
+"PO-Revision-Date: 2021-09-08 10:29-0500\n"
 "Last-Translator: \n"
 "Language-Team: Spanish (http://www.transifex.com/geonode/geonode/language/es/)\n"
 "Language: es_419\n"
@@ -445,7 +445,7 @@ msgstr "Moneda:"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/geographicIndicators.html:83
 msgid "NBS Vieber"
-msgstr "Visor NbS"
+msgstr "Proyección temporal"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/geographicIndicators.html:99
 msgid "Business as usual"
@@ -578,3 +578,18 @@ msgstr "Fecha"
 #: geonode/waterproof_reports/templates/waterproof_reports/physicalIndicators.html:80
 msgid "Name"
 msgstr "Nombre"
+
+msgid "If you want to download the results of this analysis from the following icons"
+msgstr "Descargue los resultados del análisis"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/compare-maps.html:80
+msgid "Land cover comparision"
+msgstr "Comparación de cobertura del suelo"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/compare-maps.html:80
+msgid "Physical changes"
+msgstr "Cambios físicos"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/compare-maps.html:80
+msgid "NbS portfolio"
+msgstr "Portafolio SbN"

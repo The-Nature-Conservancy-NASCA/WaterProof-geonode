@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Waterproof Valpha\n"
+"Project-Id-Version: Waterproof Vbeta\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-02-19 11:27-0500\n"
-"PO-Revision-Date: 2021-08-03 16:18-0500\n"
+"PO-Revision-Date: 2021-09-08 10:29-0500\n"
 "Last-Translator: Julien Collaer <julien.collaer@opengeode.be>\n"
 "Language-Team: Skaphe\n"
 "Language: en\n"
@@ -410,7 +410,7 @@ msgstr "Currency:"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/geographicIndicators.html:83
 msgid "NBS Vieber"
-msgstr "NbS Viewer"
+msgstr "Temporal projection"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/geographicIndicators.html:99
 msgid "Business as usual"
@@ -543,3 +543,18 @@ msgstr "Date"
 #: geonode/waterproof_reports/templates/waterproof_reports/physicalIndicators.html:80
 msgid "Name"
 msgstr "Name"
+
+msgid "If you want to download the results of this analysis from the following icons"
+msgstr "Download analysis results"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/compare-maps.html:80
+msgid "Land cover comparision"
+msgstr "Land cover comparision"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/compare-maps.html:80
+msgid "Physical changes"
+msgstr "Physical changes"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/compare-maps.html:80
+msgid "NbS portfolio"
+msgstr "NbS portfolio"

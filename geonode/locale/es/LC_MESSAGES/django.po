@@ -42,7 +42,7 @@ msgstr ""
 "Project-Id-Version: GeoNode\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-02-11 20:03-0500\n"
-"PO-Revision-Date: 2021-09-03 09:57-0500\n"
+"PO-Revision-Date: 2021-09-08 10:00-0500\n"
 "Last-Translator: Julien Collaer <julien.collaer@opengeode.be>\n"
 "Language-Team: Spanish (http://www.transifex.com/geonode/geonode/language/es/)\n"
 "Language: es\n"
@@ -9219,7 +9219,7 @@ msgid "Integrated crop, wood and animal production"
 msgstr "Producción integrada de cultivos, madera y animales"
 
 msgid "Main menu"
-msgstr "Menú principal"
+msgstr "Menú"
 
 msgid "Use this menu to configure the inputs for a case study"
 msgstr "Use este menú para configurar las entradas para un caso de estudio"
@@ -9249,7 +9249,7 @@ msgstr "Empieza ahora buscando una ciudad de análisis"
 
 #: geonode/templates/search_city.html
 msgid "In this section you can consult the case studies configured in the system or start the configuration of a case study"
-msgstr "Arrastre el mapa al área de su interés e ingrese el nombre de la ciudad donde desea iniciar el análisis"
+msgstr "Arrastre el mapa al área de su interés e ingrese el nombre de la ciudad donde desea iniciar el análisis. Confirme su selección haciendo clic en el botón de Lista actual de casos de estudio."
 
 #: geonode/templates/search_city.html
 msgid "List Study Cases"
