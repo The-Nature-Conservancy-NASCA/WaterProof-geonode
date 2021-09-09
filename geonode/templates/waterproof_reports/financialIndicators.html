@@ -533,7 +533,7 @@ $(function () {
 
             document.getElementById("idTbodyRoi").innerHTML = htmlCost +  htmlDiscountedCost + htmlBenefits + htmlDiscountedBenefits;
             document.getElementById("idTheadRoi").innerHTML = htmlTitle;
-
+            // Los nombres de las columnas estaban errados por lo cual se ajustan, los datos corresonden al ajuste, es decir estan bien como quedan.
             Highcharts.chart('containerRoi', {
                 chart: {
                     type: 'column'
@@ -549,18 +549,18 @@ $(function () {
                     enabled: false
                 },
                 series: [{
-                    name: 'Total Cost',
+                    name: 'Total benefits',
                     data: totalCost
                 },{
-                    name: 'Total Discounted Cost',
+                    name: 'Total Cost',
                     data: totalDiscountedCost
                 },{
-                    name: 'Total Benefits',
+                    name: 'Total discounted benefits',
                     type: 'spline',
                     dashStyle: 'shortdot',
                     data: totalBenefits
                 },{
-                    name: 'Total Discounted Benefits',
+                    name: 'Total discounted cost',
                     type: 'spline',
                     dashStyle: 'shortdot',
                     data: totalDiscountedBenefits
