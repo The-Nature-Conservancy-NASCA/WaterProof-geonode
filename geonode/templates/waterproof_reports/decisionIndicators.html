@@ -1,16 +1,16 @@
-{% extends "menu.html" %} {% load i18n %} {% load static from staticfiles %} {% load bootstrap_tags %} {% block extra_head %}
+{% extends "menu.html" %} 
+{% load i18n %} 
+{% load static from staticfiles %} 
+{% load bootstrap_tags %} 
+{% block extra_head %}
 <link href="https://unpkg.com/smartwizard@5/dist/css/smart_wizard_all.min.css" rel="stylesheet" type="text/css" />
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
+<link rel="stylesheet" href="{{ STATIC_URL }}lib/css/leaflet.css"/>
+<link rel="stylesheet" href="{% static "geonode/css/leaflet/leaflet.defaultextent.css" %}"/>
 <link rel="stylesheet" href="{{ STATIC_URL }}geonode/css/leaflet/Control.Coordinates.css" />
 <link rel="stylesheet" href="{{ STATIC_URL }}geonode/css/leaflet/Control.Loader.css" />
-<!--
-<link rel="stylesheet" href="{{ STATIC_URL }}waterproof_intake/mathquill/mathquill.css" />
-<link rel="stylesheet" href="{{ STATIC_URL }}waterproof_intake/css/intake.css" /> 
--->
 <link rel="stylesheet" href="{{ STATIC_URL }}waterproof_reports/css/reports.css" />
-
-
-{% endblock %} {% block body_outer %}
+{% endblock %} 
+{% block body_outer %}
 <!--header-->
 <script type="text/javascript">
     var SelectedCurrency = "{{SelectedCurrency}}";
@@ -329,7 +329,8 @@
 <script type="text/javascript" src="{% url 'javascript-catalog-treatment' %}"></script>
 <script src="{{ STATIC_URL }}geonode/js/datatables/jquery.dataTables.min.js"></script>
 <script src="{{ STATIC_URL }}geonode/js/datatables/dataTables.bootstrap.min.js"></script>
-<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+<script src="{% static "lib/js/leaflet.js" %}"></script>
+<script src="{% static "geonode/js/leaflet/leaflet.defaultextent.js" %}"></script>
 <script src="{{ STATIC_URL }}geonode/js/leaflet/leaflet.ajax.min.js"></script>
 <script src="{{ STATIC_URL }}geonode/js/leaflet/photon/leaflet.photon.js"></script>
 <script src=" {{ STATIC_URL }}geonode/js/leaflet/leaflet-omnivore.min.js "></script>
@@ -487,7 +488,7 @@ $(function () {
                 photonControlOptions: {
                     resultsHandler: showSearchPoints,
                     selectedResultHandler: selectedResultHandler,
-                    placeholder: 'Search City...',
+                    placeholder: gettext('Search City') + '...',
                     position: 'topleft',
                     url: SEARCH_CITY_API_URL
                 }
@@ -517,15 +518,10 @@ $(function () {
             }
 
             table.search(cityNameMap).draw();
-
             map.setView(initialCoords, initialZoom);
-
             searchPoints.addTo(map);
-
             var tilelayer = L.tileLayer(TILELAYER, { maxZoom: MAXZOOM, attribution: 'Data \u00a9 <a href="http://www.openstreetmap.org/copyright"> OpenStreetMap Contributors </a> Tiles \u00a9 Komoot' }).addTo(map);
             var images = L.tileLayer(IMAGE_LYR_URL);
-
-
             var hydroLyr = L.tileLayer(HYDRO_LYR_URL);
 
             var baseLayers = {
@@ -537,7 +533,7 @@ $(function () {
                 "Hydro (esri)": hydroLyr,
             };
 
-
+            var defExt = new L.Control.DefaultExtent({ title: gettext('Default extent'), position: 'topright'}).addTo(map);
             var zoomControl = new L.Control.Zoom({ position: 'topright' }).addTo(map);
             L.control.layers(baseLayers, overlays, { position: 'topleft' }).addTo(map);
 
@@ -554,7 +550,7 @@ $(function () {
                 photonControlOptions: {
                     resultsHandler: showSearchPoints,
                     selectedResultHandler: selectedResultHandler,
-                    placeholder: 'Search City...',
+                    placeholder: gettext('Search City') + '...',
                     position: 'topleft',
                     url: SEARCH_CITY_API_URL
                 }
@@ -1144,7 +1140,6 @@ $(function () {
             titleGraph = titleGraph + '</div>';
             document.getElementById("idListGraph").innerHTML = titleGraph;
 
-
             setTimeout(function(){
                 var urlDetail = "../../reports/getWpAqueductIndicatorGraph/?studyCase=" + localStorage.idStudyCase;
                 $.getJSON(urlDetail, function (data) {
@@ -1169,7 +1164,7 @@ $(function () {
                                 enabled: false
                             },
                             series: [{
-                                name: 'Baseline water stress',
+                                name: gettext('Baseline water stress'),
                                 data: [value.valueIndicator],
                                 dataLabels: {
                                     format:
@@ -1250,11 +1245,4 @@ $(function () {
     
 </script>
 
-<script type="text/javascript">
-
-   
-
-
-
-</script>
 {% endblock %}

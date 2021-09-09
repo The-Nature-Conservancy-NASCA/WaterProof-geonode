@@ -502,17 +502,19 @@ $(document).ready(function() {
 
     map = L.map('map', {}).setView(initialCoords, 8);
     mapDelimit = L.map('mapid', { editable: true }).setView(initialCoords, 5);
-    var osm = L.tileLayer('https://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors',
+    let attr = '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors';
+    var osm = L.tileLayer(OSM_BASEMAP_URL, {
+        attribution: attr,
     });
     var osmid = L.tileLayer(OSM_BASEMAP_URL, {
-        attribution: '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors',
+        attribution: attr,
     });
     map.addLayer(osm);
 
     var c = new L.Control.Coordinates({
         actionAfterDragEnd: prevalidateAdjustCoordinates
     }).addTo(map);
+    var defExt = new L.Control.DefaultExtent({ title: gettext('Default extent'), position: 'topright'}).addTo(map);
 
     var images = L.tileLayer(IMG_BASEMAP_URL);
     /* var gray = L.tileLayer(GRAY_BASEMAP_URL, {
@@ -541,8 +543,8 @@ $(document).ready(function() {
     };
     L.control.layers(baseLayers, overlays, { position: 'topleft' }).addTo(map);
 
-
     mapDelimit.addLayer(osmid);
+    var defExtMapd = new L.Control.DefaultExtent({ title: gettext('Default extent'), position: 'topright'}).addTo(mapDelimit);
 
     $("#validateBtn").on("click", prevalidateAdjustCoordinates);
     $('#btnDelimitArea').on("click", delimitIntakeArea)

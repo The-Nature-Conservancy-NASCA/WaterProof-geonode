@@ -28,14 +28,13 @@ $(document).ready(function () {
       location.href = `/reports/compare-maps/?folder=${baseData}&intake=${this.value}&region=${region}&year=${year}&study_case_id=${studyCaseId}&center=${centroid}`;
     }
   }
-  
-  
-  let zoom = 10;
+    
+  let zoom = 9;
   var mapLeft = L.map('map-left').setView(center, zoom);
   var mapRight = L.map('map-right').setView(center, zoom);
-  var map = L.map('map-down').setView(center, 11);
-  var mapResults = L.map('map-results').setView(center, 11);
-  var mapAreasRios = L.map('map-areas-rios').setView(center, 11);
+  var map = L.map('map-down').setView(center, zoom);
+  var mapResults = L.map('map-results').setView(center, zoom);
+  var mapAreasRios = L.map('map-areas-rios').setView(center, zoom);
 
   let urlTopoLyr = 'https://opentopomap.org/{z}/{x}/{y}.png';
   let urlOmsLyr = 'https://{s}.tile.osm.org/{z}/{x}/{y}.png';
@@ -70,8 +69,6 @@ $(document).ready(function () {
     maxZoom: 16
   }).addTo(mapAreasRios);
 
-
-  //let urlWaterProofLyrsWMS = 'http://localhost:81/?map=/etc/mapserver/1000_142_2021-6-25.map&SERVICE=WMS';
   let lyrNameYear0 = `LULC_YEAR_0`;
   let lyrNameLastYear = `LULC_LAST_YEAR`;
   let lyrNameYearFuture = `LULC_FUTURE`;
@@ -123,6 +120,12 @@ $(document).ready(function () {
   L.control.layers({}, overlays,{collapsed:false}).addTo(map);
   L.control.layers({}, overlaysResults,{collapsed:false}).addTo(mapResults);
   L.control.layers({}, overlaysAreasRios,{collapsed:false}).addTo(mapAreasRios);
+
+  var defExt = new L.Control.DefaultExtent({ title: gettext('Default extent'), position: 'topleft'}).addTo(mapLeft);
+  defExt = new L.Control.DefaultExtent({ title: gettext('Default extent'), position: 'topleft'}).addTo(mapRight);
+  defExt = new L.Control.DefaultExtent({ title: gettext('Default extent'), position: 'topleft'}).addTo(map);
+  defExt = new L.Control.DefaultExtent({ title: gettext('Default extent'), position: 'topleft'}).addTo(mapResults);
+  defExt = new L.Control.DefaultExtent({ title: gettext('Default extent'), position: 'topleft'}).addTo(mapAreasRios);
 
   mapLeft.sync(mapRight);
   mapRight.sync(mapLeft);
