@@ -852,7 +852,7 @@ def getWaterproofReportsDesagregation(request):
 	if request.method == 'GET':
 		con = psycopg2.connect(settings.DATABASE_URL)
 		cur = con.cursor()
-		cur.execute("SELECT time,CASE stage WHEN 'NBS' THEN 'NBS Scenario' WHEN 'BAU' THEN 'Business as usual' END AS stage_filter,\"AWY(m3)\" AS volume_of_water_yield_change_in_time,\"BF(m3)\" AS annual_volume_base_flow_change_in_time,\"Wsed(Ton)\" AS total_sediments_change_in_time,\"WN(Kg)\" AS nitrogen_load_change_in_time,\"WP(kg)\" AS phosphorus_load_change_in_time,\"WC(Ton)\" AS carbon_storage_change_in_time FROM public.waterproof_reports_desagregation WHERE study_case_id = '" + request.query_params.get('studyCase') + "'")
+		cur.execute("SELECT time,CASE stage WHEN 'NBS' THEN 'NBS Scenario' WHEN 'BAU' THEN 'Business as usual' END AS stage_filter,\"AWY(m3)\" AS volume_of_water_yield_change_in_time,\"BF(m3)\" AS annual_volume_base_flow_change_in_time,\"Wsed(Ton)\" AS total_sediments_change_in_time,\"WN(Kg)\" AS nitrogen_load_change_in_time,\"WP(kg)\" AS phosphorus_load_change_in_time,\"WC(Ton)\" AS carbon_storage_change_in_time FROM public.waterproof_reports_desagregation WHERE \"time\" !=0 and study_case_id = '" + request.query_params.get('studyCase') + "'")
 		rows = cur.fetchall()
 		objects_list = []
 		for row in rows:
