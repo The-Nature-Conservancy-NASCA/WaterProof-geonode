@@ -435,7 +435,7 @@ function onInit(editor) {
         });
 
         $('#saveAndValideCost').click(function() {
-            console.log($('#RenderingMathAscii > mjx-container > mjx-assistive-mml')[0].innerHTML)
+            console.log($('#RenderingMathAscii > mjx-container > mjx-assistive-mml')[0].innerHTML);
         });
 
         $('#ModalAddCostBtn').click(function() {

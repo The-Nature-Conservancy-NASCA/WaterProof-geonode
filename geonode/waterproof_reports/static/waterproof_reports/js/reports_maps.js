@@ -40,7 +40,7 @@ $(document).ready(function () {
   let urlTopoLyr = 'https://opentopomap.org/{z}/{x}/{y}.png';
   let urlOmsLyr = 'https://{s}.tile.osm.org/{z}/{x}/{y}.png';
   let omsAttributions = 'Map tiles by <a href="https://osm.org">OSM<\/a>, ' +
-                        '<a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0<\/a> &mdash; ' +
+                        '<a href="https://creativecommons.org/licenses/by/3.0">CC BY 3.0<\/a> &mdash; ' +
                         'Map data {attribution.OpenStreetMap}'
   L.tileLayer(urlOmsLyr, {
     attribution: omsAttributions,
