@@ -102,9 +102,11 @@
                         <h4 class="text-primary">{% trans "Water intake location" %}</h4>
                     </div>
                     <div id="map">
-                        <div id="analysisOptions">
-                            <button type="button" class="btn btn-default" id="validateBtn">Draw Basin</button>
-                        </div>
+                        <div class="row text-center">
+                            <div id="analysisOptions" class="col-md-12 div-draw-basin">
+                                <button type="button" disabled class="btn btn-default" id="validateBtn">{% trans "Draw Basin" %}</button>
+                            </div>
+                        </div> 
                     </div>
                     <br>
                     <div class="row text-center">
@@ -944,6 +946,4 @@
 <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 <script src="{{ STATIC_URL }}waterproof_intake/mathquill/mathquill.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-
-
 {% endblock %}

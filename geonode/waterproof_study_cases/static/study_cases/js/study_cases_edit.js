@@ -1201,6 +1201,7 @@ $(document).ready(function () {
                 var def = nbs.default
                 var val = nbs.value;
                 var min = ((parseFloat(nbs.unit_implementation_cost) + parseFloat(nbs.unit_maintenance_cost) / parseFloat(nbs.periodicity_maitenance) + parseFloat(nbs.unit_oportunity_cost)) * 10);
+                console.log(nbs.country__global_multiplier_factor)
                 if (nbs.country__global_multiplier_factor)
                     min *= parseFloat(nbs.country__global_multiplier_factor)
                 if (def) {
@@ -1497,10 +1498,10 @@ $(document).on('click', 'a[name=glyphicon-edit]', function () {
     $('#CalculatorModal').modal('show');
     selectedCostId = parseInt($(this).attr('idvalue'));
     $('#costFunctionName').val(funcostdb[selectedCostId].function.name);
-    $('#costFuntionDescription').val(funcostdb[selectedCostId].function.description);
-    $('#CalculatorModalLabel').text('Modify Cost - ' + $('#titleCostFunSmall').text());
+    $('#costFuntionDescription').val(funcostdb[selectedCostId].function.description);    
     $('#currencyCost').val(funcostdb[selectedCostId].function.currencyCost);
     $('#global_multiplier_factorCalculator').val(funcostdb[selectedCostId].function.factor);
+    $('#CalculatorModalLabel').text('Modify Cost - ' + $('#titleCostFunSmall').text());
     setVarCost();
     let value = funcostdb[selectedCostId].function.value;
     $('#python-expression').val();

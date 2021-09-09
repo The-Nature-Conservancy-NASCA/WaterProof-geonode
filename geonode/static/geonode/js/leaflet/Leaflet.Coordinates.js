@@ -44,21 +44,21 @@ L.Control.Coordinates = L.Control.extend({
 	},
 
 	onAdd: function(map, options) {
-        this._map = map;
-        this.options = L.Util.extend(this.options, options);
-        var container = L.DomUtil.create('div', 'leaflet-bar leaflet-control');
+		this._map = map;
+		this.options = L.Util.extend(this.options, options);
+		var container = L.DomUtil.create('div', 'leaflet-bar leaflet-control');
 
-        this.link = L.DomUtil.create('a', 'leaflet-bar-part', container);
-        this.link.title = this.options.title;
-        var userIcon = L.DomUtil.create('img' , 'img-icon' , this.link);
-        userIcon.src = iconMarker.options.iconUrl;
-        userIcon.alt = '';
-        userIcon.setAttribute('role', 'presentation');
-        this.link.href = '#';
-        this.link.setAttribute('role', 'button');
+		this.link = L.DomUtil.create('a', 'leaflet-bar-part', container);
+		this.link.title = this.options.title;
+		var userIcon = L.DomUtil.create('img' , 'img-icon' , this.link);
+		userIcon.src = iconMarker.options.iconUrl;
+		userIcon.alt = '';
+		userIcon.setAttribute('role', 'presentation');
+		this.link.href = '#';
+		this.link.setAttribute('role', 'button');
 
-        L.DomEvent.on(this.link, 'click', this._click, this);
-        this._container = container;
+		L.DomEvent.on(this.link, 'click', this._click, this);
+		this._container = container;
 
 		var className = 'leaflet-control-coordinates',
 			/* container = this._container = L.DomUtil.create('div', className), */
@@ -100,7 +100,6 @@ L.Control.Coordinates = L.Control.extend({
 		//connect to mouseevents
 		//map.on("mousemove", this._update, this);
 		map.on('dragstart', this.collapse, this);
-
 		map.whenReady(this._update, this);
 
 		this._showsCoordinates = true;
@@ -109,10 +108,11 @@ L.Control.Coordinates = L.Control.extend({
 			L.DomEvent.addListener(this._container, "click", this._switchUI, this);
 		}
 
-        L.Location.Popup.setContent(this._inputcontainer);
-        //L.Location.InputContainer = this._inputcontainer;
+		L.Location.Popup.setContent(this._inputcontainer);
+		//L.Location.InputContainer = this._inputcontainer;
+		
 		return container;
-    },
+	},
     
     _click: function (e) {
         L.DomEvent.stopPropagation(e);
@@ -173,6 +173,14 @@ L.Control.Coordinates = L.Control.extend({
 				this._map.setView(ll, this._map.getZoom());
 			}
 			this._updateCityCoords(ll);
+			try{
+				$("#validateBtn").removeClass("btn-default");
+				$("#validateBtn").addClass("btn-primary");
+				$("#validateBtn").prop('disabled', false);
+			}catch(e){
+				console.log(e);
+			}
+			
 		}
 	},
 

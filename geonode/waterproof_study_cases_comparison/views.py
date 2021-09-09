@@ -19,7 +19,7 @@ def list(request):
             if (request.user.professional_role == 'ADMIN'):
                 userCountry = Countries.objects.get(iso3=request.user.country)
                 region = Regions.objects.get(id=userCountry.region_id)
-                studyCases = StudyCases.objects.all()
+                studyCases = StudyCases.objects.filter(is_public=True)
                 city = Cities.objects.get(id=1)
                 return render(
                     request,
@@ -33,7 +33,7 @@ def list(request):
                 )
 
             if (request.user.professional_role == 'ANALYS'):
-                studyCases = StudyCases.objects.all()
+                studyCases = StudyCases.objects.filter(is_public=True)
                 userCountry = Countries.objects.get(iso3=request.user.country)
                 region = Regions.objects.get(id=userCountry.region_id)
                 city = Cities.objects.all()
@@ -48,7 +48,7 @@ def list(request):
                     }
                 )
         else:
-            studyCases = StudyCases.objects.all()
+            studyCases = StudyCases.objects.filter(is_public=True)
             userCountry = Countries.objects.get(iso3='COL')
             region = Regions.objects.get(id=userCountry.region_id)
             city = Cities.objects.all()
