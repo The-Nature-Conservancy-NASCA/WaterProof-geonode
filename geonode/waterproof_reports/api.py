@@ -319,7 +319,7 @@ def getReportAnalysisBenefitsFilter(request):
 				"name":row[2],
 				"subName":row[2],
 				"subCategory":row[3],
-				"subNameCategory":row[2] + row[3],
+				"subNameCategory":str(row[2]) + str(row[3]),
 				"totalBenefits":row[4],
 				"totalBenefitsDiscount":row[5]
 			})
