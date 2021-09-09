@@ -8,19 +8,19 @@
            
   
            <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
-
            <script src="{% static 'js/jquery.min.js' %}"></script>
            <script src="{% static 'js/owl.carousel.js' %}"></script>
 
            <!--Si no te agarra los estilos.. solo debes reiniciar el servidor--->
     </head>
+    {% block body_outer %}
     <body>
     
         <div id="titulo">
             <h4>
-            {% block titulo%} 
+            
             <a href="../">Ir a la Wiki</a>
-            {% endblock%}
+            
             </h4>
         </div>
         <div id="content">
@@ -31,7 +31,7 @@
            
         </div>
     </body>
-
+    {% endblock%}
 
     <script src="{% static 'js/highlight.js' %}"></script>
     <script src="{% static 'js/app.js' %}"></script>

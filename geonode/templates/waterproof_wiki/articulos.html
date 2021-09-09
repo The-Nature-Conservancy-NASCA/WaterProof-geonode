@@ -8,8 +8,9 @@
 {% block body_outer %}
 
 {%block titulo%}
+<div class= "article">
 <h1>{% trans "Articles" %}:</h1>
-
+</div>
 {% endblock %}
 
 {% block content %}
@@ -27,6 +28,7 @@
                 {{a.resumen|safe|linebreaks}}
                 <a href="{% url 'consultar_articulo' id=a.id %}">Ver más</a>
             </div>
+
     {% endfor%}
     </article>
     <br>  
