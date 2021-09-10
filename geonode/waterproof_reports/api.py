@@ -1012,6 +1012,38 @@ def getObjetivesForPorfoliosPdf(request):
 			})
 		return JsonResponse(objects_list, safe=False)
 
+@api_view(['GET'])
+def getWpcompareMapas(request):
+	"""Returns the rute of folder for result maps
+
+	Find the of results executed path  
+	the minimum characteristics stored in all components
+
+	Parameters:
+	without parameters
+
+	Exceptions:
+	If it does not have data in the minimal relations of the model it does not deliver
+	information about the treatment plant
+	"""
+	if request.method == 'GET':
+		con = psycopg2.connect(settings.DATABASE_URL)
+		cur = con.cursor()
+		cur.execute("SELECT * FROM public.__get_reports_compare_maps('" + request.query_params.get('studyCase') + "')")
+
+		rows = cur.fetchall()
+		objects_list = []
+		for row in rows:
+			objects_list.append({
+				"folder":row[0],
+				"intake":row[1],
+				"region":row[2],
+				"year":row[3],
+				"studycase":row[4],
+				"center":row[5]
+			})
+
+		return JsonResponse(objects_list, safe=False)
 
 
 
