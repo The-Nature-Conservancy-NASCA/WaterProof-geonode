@@ -4,7 +4,6 @@
  * *******/
 
 $(document).ready(function () {
-
   var urlDetail = "../../reports/getSelectorStudyCasesId/?studyCase=" + studyCaseId;
   var selectIntake = document.getElementById("idSelectStudyCase");
   $.getJSON(urlDetail, function (data) {
@@ -25,7 +24,7 @@ $(document).ready(function () {
     if (this.value != -1) {
       let g = JSON.parse(this.selectedOptions[0].getAttribute("data-intake-geom")).coordinates;
       let centroid =g[1] + "," + g[0];
-      location.href = `/reports/compare-maps/?folder=${baseData}&intake=${this.value}&region=${region}&year=${year}&study_case_id=${studyCaseId}&center=${centroid}`;
+      location.href = `/reports/geographic/?folder=${baseData}&intake=${this.value}&region=${region}&year=${year}&study_case_id=${studyCaseId}&center=${centroid}`;
     }
   }
     
@@ -135,21 +134,17 @@ $(document).ready(function () {
   map.sync(mapLeft);
   
 
-  $(".leaflet-control-layers-selector")[0].parentElement.append($("#legend-left")[0]);
-  $(".leaflet-control-layers-selector")[1].parentElement.append($("#legend-right")[0]);
-  $(".leaflet-control-layers-selector")[2].parentElement.append($("#legend-down")[0]);
   $("#menu2")[0].append($("#map-analysis-result")[0]);
   $("#menu3")[0].append($("#map-areas-rios-container")[0]);
   $('#first_tab').trigger('click');
 
 
-  $(".leaflet-control-layers-selector").on('click', function(e){
-    var t = e.currentTarget; 
-    var p = t.parentElement; 
-    l = p.children[p.childElementCount-1]; 
-    l.style.display= (t.checked ? 'block': 'none');
-    
-  });
+  // $(".leaflet-control-layers-selector").on('click', function(e){
+  //   var t = e.currentTarget; 
+  //   var p = t.parentElement; 
+  //   l = p.children[p.childElementCount-1]; 
+  //   l.style.display= (t.checked ? 'block': 'none');    
+  // });
 
 
   function createWMSLyr(lyrName) {
@@ -187,6 +182,4 @@ $(document).ready(function () {
       })
     
   }
-  
 });
-

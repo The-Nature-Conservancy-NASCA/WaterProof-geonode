@@ -385,8 +385,6 @@ $(document).ready(function () {
         }
     });
 
-
-
     $('#step3PrevBtn').click(function () {
         $('#smartwizard').smartWizard("prev");
     });

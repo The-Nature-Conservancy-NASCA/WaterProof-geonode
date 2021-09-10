@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Waterproof Vbeta\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-02-19 11:27-0500\n"
-"PO-Revision-Date: 2021-09-08 18:33-0500\n"
+"PO-Revision-Date: 2021-09-10 15:41-0500\n"
 "Last-Translator: Julien Collaer <julien.collaer@opengeode.be>\n"
 "Language-Team: Skaphe\n"
 "Language: en\n"
@@ -624,6 +624,14 @@ msgid "This report summarizes the Maps Reports... Lorep Ipsum ..."
 msgstr "This report allow you to observe the results of the analysis specialized in a map"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/compare_maps
+msgid "LULC_text_1"
+msgstr "Compare the change in the land use/land cover area over the analysis basin when implementing the NbS."
+
+#: geonode/waterproof_reports/templates/waterproof_reports/compare_maps
+msgid "LULC_text_2"
+msgstr "Drag the mouse over the map in the area of ​​your interest to analyze the current scenario, the degraded future and the intervened future of your case study."
+
+#: geonode/waterproof_reports/templates/waterproof_reports/compare_maps
 msgid "InVEST text 1"
 msgstr "The following map represents the behavior of ecosystem services for the selected basin when implementing the NbS portfolio."
 
@@ -634,7 +642,3 @@ msgstr "Interact with the list of layers to visualize the result of your interes
 #: geonode/waterproof_reports/templates/waterproof_reports/compare_maps
 msgid "RIOS text 1"
 msgstr "This map shows the spatial location of the implementation portfolio suggested by the RIOS model, each pixel color represents each of the NbS configured for the analysis."
-
-#: geonode/waterproof_reports/templates/waterproof_reports/compare_maps
-msgid "RIOS text 2"
-msgstr "En este mapa se visualiza la ubicación espacial del portafolio de implementación sugerida por el modelo RIOS, cada color de pixel representa cada una de las SbN configuradas para el análisis."

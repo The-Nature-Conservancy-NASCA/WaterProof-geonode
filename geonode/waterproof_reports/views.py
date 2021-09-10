@@ -1085,51 +1085,78 @@ def geographicIndicators(request):
                 indicators = investIndicators.objects.all()
                 indicatorsNames = getNames(indicators)
                 indicatorsNameCity = getNameCity(indicators)
+                base_data = ''
+                intake = ''
+                region = ''
+                year = ''
+                bbox = ''
+                if request.method == 'GET':
+                    try:            
+                        base_data = request.GET['folder']
+                        intake = request.GET['intake']
+                        region = request.GET['region']
+                        year = request.GET['year']
+                        study_case_id = request.GET['study_case_id']
+                        center = request.GET['center']
+                    except:
+                        base_data = 'mapserver'
+                        intake = ''
+                        region = ''
+                        year = ''
+                        study_case_id = ''
+                        center = ''
                 return render(
                     request,
                     'waterproof_reports/geographicIndicators.html',
                     {
                         'Indicators': indicators,
                         'NamesIndicators': indicatorsNames,
-                        'NameCityIndicators': indicatorsNameCity
+                        'NameCityIndicators': indicatorsNameCity,
+                        'base_data': base_data,
+                        'intake': intake,
+                        'region': region,
+                        'year': year,
+                        'study_case_id' : study_case_id,
+                        'center' : center
                     })
 
-def compareMaps(request):
+# def compareMaps(request):
 
-    base_data = ''
-    intake = ''
-    region = ''
-    year = ''
-    bbox = ''
-    if request.method == 'GET':
-        try:            
-            base_data = request.GET['folder']
-            intake = request.GET['intake']
-            region = request.GET['region']
-            year = request.GET['year']
-            study_case_id = request.GET['study_case_id']
-            center = request.GET['center']
-        except:
-            base_data = 'mapserver'
-            intake = ''
-            region = ''
-            year = ''
-            study_case_id = ''
-            center = ''
+#     base_data = ''
+#     intake = ''
+#     region = ''
+#     year = ''
+#     bbox = ''
+#     if request.method == 'GET':
+#         try:            
+#             base_data = request.GET['folder']
+#             intake = request.GET['intake']
+#             region = request.GET['region']
+#             year = request.GET['year']
+#             study_case_id = request.GET['study_case_id']
+#             center = request.GET['center']
+#         except:
+#             base_data = 'mapserver'
+#             intake = ''
+#             region = ''
+#             year = ''
+#             study_case_id = ''
+#             center = ''
         
 
-    return render(
-                request,
-                'waterproof_reports/compare_maps.html',
-                {
-                    'base_data': base_data,
-                    'intake': intake,
-                    'region': region,
-                    'year': year,
-                    'study_case_id' : study_case_id,
-                    'center' : center
-                }
-            )
+#     return render(
+#                 request,
+#                 'waterproof_reports/compare_maps.html',
+#                 {
+#                     'base_data': base_data,
+#                     'intake': intake,
+#                     'region': region,
+#                     'year': year,
+#                     'study_case_id' : study_case_id,
+#                     'center' : center
+#                 }
+#             )
+
 def linkDownload(request, idx):
 
                 filter = zip.objects.filter(study_case_id__id=idx)
