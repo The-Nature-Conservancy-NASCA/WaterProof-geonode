@@ -42,7 +42,7 @@ msgstr ""
 "Project-Id-Version: GeoNode\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-02-11 20:03-0500\n"
-"PO-Revision-Date: 2021-09-03 09:57-0500\n"
+"PO-Revision-Date: 2021-09-09 14:28-0500\n"
 "Last-Translator: Julien Collaer <julien.collaer@opengeode.be>\n"
 "Language-Team: Spanish (http://www.transifex.com/geonode/geonode/language/es/)\n"
 "Language: es\n"
@@ -9219,7 +9219,7 @@ msgid "Integrated crop, wood and animal production"
 msgstr "Producción integrada de cultivos, madera y animales"
 
 msgid "Main menu"
-msgstr "Menú principal"
+msgstr "Menú"
 
 msgid "Use this menu to configure the inputs for a case study"
 msgstr "Use este menú para configurar las entradas para un caso de estudio"
@@ -9249,8 +9249,28 @@ msgstr "Empieza ahora buscando una ciudad de análisis"
 
 #: geonode/templates/search_city.html
 msgid "In this section you can consult the case studies configured in the system or start the configuration of a case study"
-msgstr "Arrastre el mapa al área de su interés e ingrese el nombre de la ciudad donde desea iniciar el análisis"
+msgstr "Arrastre el mapa al área de su interés e ingrese el nombre de la ciudad donde desea iniciar el análisis. Confirme su selección haciendo clic en el botón de Lista actual de casos de estudio."
 
 #: geonode/templates/search_city.html
 msgid "List Study Cases"
 msgstr "Lista actual de casos de estudio"
+
+#: geonode/templates/index.html
+msgid "Text 1 - Before starting"
+msgstr "Usted debe comprender que los requerimientos de información para hacer un análisis incluyen: selección de objetivos ambientales, captaciones, platas de tratamiento y presupuesto."
+
+#: geonode/templates/index.html
+msgid "Text 2 - What is a case study?"
+msgstr "Es la forma como se relacionan: costos de operación y mantenimiento de un sistema de captación, con los posibles beneficios de las NbS."
+
+#: geonode/templates/index.html
+msgid "Text 3 - Support data"
+msgstr "La herramienta usa datos globales biofisicos, de uso del suelo y escenarios de cambio climático , que han sido organizados como entradas los modelos InVEST y RIOS."
+
+#: geonode/templates/index.html
+msgid "Text 4 - See an example"
+msgstr "Aquí encontrarás la descripción de un caso de estudio y todos los elementos que lo conforman. Esperamos que te sirve de guia para cosntruir tu caso de estudio."
+
+#: geonode/templates/index.html
+msgid "Text 5 - Who can use the system?"
+msgstr "WaterProof está orientado principalmente a profesionales encargados del diseño de proyectos de implementación de Soluciones basadas en la Naturaleza. El publico general puede acceder de forma abierta."
