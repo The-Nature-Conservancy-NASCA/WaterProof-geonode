@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: GeoNode Vbeta\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-02-11 20:03-0500\n"
-"PO-Revision-Date: 2021-09-08 10:28-0500\n"
+"PO-Revision-Date: 2021-09-10 11:04-0500\n"
 "Last-Translator: Julien Collaer <julien.collaer@opengeode.be>\n"
 "Language-Team: English Skaphe\n"
 "Language: en\n"
@@ -66,7 +66,10 @@ msgid "define_study_case_text"
 msgstr "Please complete the fields to define your case study"
 
 msgid "select_type_study"
-msgstr "Select type of case study to create"
+msgstr "Select the type of infrastructure to analyze in the case study"
+
+msgid "define_type_study_text"
+msgstr "WaterProof can consider for ROI analysis the operating and maintenance costs associated with the analysis infrastructure. You can use the costs of a previously created drinking water treatment plant or you can create costs for a custom infrastructure. Select the desired option."
 
 msgid "no_treatment_plants"
 msgstr "There are no treatment plants in the selected city"
@@ -78,7 +81,7 @@ msgid "custom_case"
 msgstr "Custom case"
 
 msgid "select_water_intake"
-msgstr "Select the water intake you want to consider in the ROI Analysis"
+msgstr "Select the water intakes you want to consider in the ROI analysis. If you haven't created it yet, , please click here to create a new one."
 
 msgid "water_source"
 msgstr "Water intake source"
@@ -90,7 +93,7 @@ msgid "add_cost_function"
 msgstr "Add cost function"
 
 msgid "select_treatments_plants"
-msgstr "Select the treatment plants you want to consider in the ROI Analysis"
+msgstr "Select the treatment plants you want to consider in the ROI analysis. If you haven't created it yet, , please click here to create a new one."
 
 msgid "add_plant"
 msgstr "Add DWTP"
