@@ -49,5 +49,5 @@ urlpatterns = [
 
 
        # Compare Maps
-    path('compare-maps/', views.compareMaps, name='compare-maps'),
+    # path('compare-maps/', views.compareMaps, name='compare-maps'),
 ]

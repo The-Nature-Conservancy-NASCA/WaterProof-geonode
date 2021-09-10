@@ -139,26 +139,79 @@
         <div class="col-md-1"></div>
         <div class="col-md-2">
             <img class="iconsWhatIsWP" src="/static/geonode/img/before_starting.png">
-            <button class="buttonWhatIsWP">{% trans "Before starting" %}</button>
+            <button class="buttonWhatIsWP"
+            type="button"
+            data-toggle="collapse"
+            data-target="#collapseExample1"
+            aria-expanded="false"
+            aria-controls="collapseExample1"
+            data-placement="bottom">
+            {% trans "Before starting" %}</button>            
         </div>
         <div class="col-md-2">
             <img class="iconsWhatIsWP" src="/static/geonode/img/what_is_CE.png">
-            <button class="buttonWhatIsWP">{% trans "What is a case study?" %}</button>
-        </div>
+            <button class="buttonWhatIsWP"
+            type="button"
+            data-toggle="collapse"
+            data-target="#collapseExample2"
+            aria-expanded="false"
+            aria-controls="collapseExample2"
+            data-placement="top">
+            {% trans "What is a case study?" %}</button>
+        </div>        
         <div class="col-md-2">
             <img class="iconsWhatIsWP" src="/static/geonode/img/Support_data.png">
-            <button class="buttonWhatIsWP">{% trans "Support data" %}</button>
+            <button class="buttonWhatIsWP"
+            type="button"
+            data-toggle="collapse"
+            data-target="#collapseExample3"
+            aria-expanded="false"
+            aria-controls="collapseExample3"
+            data-placement="bottom">
+                {% trans "Support data" %}</button>
         </div>
         <div class="col-md-2">
             <img class="iconsWhatIsWP" src="/static/geonode/img/see_example.png">
-            <button class="buttonWhatIsWP">{% trans "See an example" %}</button>
+            <button class="buttonWhatIsWP"
+            type="button"
+            data-toggle="collapse"
+            data-target="#collapseExample4"
+            aria-expanded="false"
+            aria-controls="collapseExample4"
+            data-placement="bottom">
+                {% trans "See an example" %}</button>
         </div>
         <div class="col-md-2">
             <img class="iconsWhatIsWP" src="/static/geonode/img/who_can_use.png">
-            <button class="buttonWhatIsWP">{% trans "Who can use the system?" %}</button>
+            <button class="buttonWhatIsWP"
+            type="button"
+            data-toggle="collapse"
+            data-target="#collapseExample5"
+            aria-expanded="false"
+            aria-controls="collapseExample5"
+            data-placement="bottom">
+                {% trans "Who can use the system?" %}</button>
         </div>
-        <div class="col-md-1"></div>
+        <div class="col-md-1"></div>       
       </div>
+       <!-- Collapsed content -->
+       <div class="container">
+            <div class="collapse" id="collapseExample1">
+                {% trans "Text 1 - Before starting" %}
+            </div>
+            <div class="collapse" id="collapseExample2">
+                {% trans "Text 2 - What is a case study?" %}
+            </div>
+            <div class="collapse" id="collapseExample3">
+                {% trans "Text 3 - Support data" %}
+            </div>
+            <div class="collapse" id="collapseExample4">
+                {% trans "Text 4 - See an example" %}
+            </div> 
+            <div class="collapse" id="collapseExample5">
+                {% trans "Text 5 - Who can use the system?" %}
+            </div>
+        </div> 
       <br>
     </div>
   </section>
@@ -186,8 +239,7 @@
       </div>
       <br>
       <div class="divCenter col-md-6">
-        <img class="iconWhyUse" src="/static/geonode/img/animator-gif-21.gif">
-        <!-- gif-sin-fondo -->
+        <img class="iconWhyUse" src="/static/geonode/img/animator-index.gif">
       </div>
     </div>
   </section>

@@ -17,14 +17,17 @@
     
         <div id="titulo">
             <h4>
-            {% block titulo%} 
             <a href="../">Ir a la Wiki</a>
-            {% endblock%}
             </h4>
         </div>
         <div id="content">
            
             {% block content%}
+            <div id="titulo">
+                <h4>
+                <a href="../">Ir a la Wiki</a>
+                </h4>
+            </div>
                 Por defecto<br>
             {% endblock%}
            

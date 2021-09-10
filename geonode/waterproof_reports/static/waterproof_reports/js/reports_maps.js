@@ -4,7 +4,6 @@
  * *******/
 
 $(document).ready(function () {
-
   var urlDetail = "../../reports/getSelectorStudyCasesId/?studyCase=" + studyCaseId;
   var selectIntake = document.getElementById("idSelectStudyCase");
   $.getJSON(urlDetail, function (data) {
@@ -25,7 +24,7 @@ $(document).ready(function () {
     if (this.value != -1) {
       let g = JSON.parse(this.selectedOptions[0].getAttribute("data-intake-geom")).coordinates;
       let centroid =g[1] + "," + g[0];
-      location.href = `/reports/compare-maps/?folder=${baseData}&intake=${this.value}&region=${region}&year=${year}&study_case_id=${studyCaseId}&center=${centroid}`;
+      location.href = `/reports/geographic/?folder=${baseData}&intake=${this.value}&region=${region}&year=${year}&study_case_id=${studyCaseId}&center=${centroid}`;
     }
   }
     
@@ -183,6 +182,4 @@ $(document).ready(function () {
       })
     
   }
-  
 });
-
