@@ -424,6 +424,8 @@ $(document).ready(function() {
     });
 
     $('#step3NextBtn').click(function() {
+        console.log("execute clic of generate button");
+        $("#intakeWECB").click();
         if ($('#intakeECTAG')[0].childNodes.length > 1 || $('#intakeWEMI')[0].childNodes.length > 1) {
             if (waterExtractionData.typeInterpolation == interpolationType.MANUAL) {
                 waterExtractionValue = [];
