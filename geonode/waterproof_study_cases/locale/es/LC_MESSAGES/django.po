@@ -42,7 +42,7 @@ msgstr ""
 "Project-Id-Version: GeoNode\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-02-11 20:03-0500\n"
-"PO-Revision-Date: 2021-08-09 14:46-0500\n"
+"PO-Revision-Date: 2021-09-10 11:04-0500\n"
 "Last-Translator: Julien Collaer <julien.collaer@opengeode.be>\n"
 "Language-Team: Spanish (http://www.transifex.com/geonode/geonode/language/es/)\n"
 "Language: es\n"
@@ -95,7 +95,10 @@ msgid "define_study_case_text"
 msgstr "Por favor complete los campos para definir su caso de estudio"
 
 msgid "select_type_study"
-msgstr "Seleccione el tipo de caso de estudio a crear"
+msgstr "Seleccione el tipo de infraestructura a analizar en el caso de estudio"
+
+msgid "define_type_study_text"
+msgstr "WaterProof puede considerar para el análisis de retorno a la inversión, los costos de operacion y mantenimiento asociados a la infraestructura de análisis. Usted puede utilizar los costos de una planta de tratamiento de agua potable previamente creada o puede crear costos para una infraestructura personalizada. Seleccione la opción deseada."
 
 msgid "no_treatment_plants"
 msgstr "No existen plantas de tratamiento en la ciudad seleccionada"
@@ -107,7 +110,7 @@ msgid "custom_case"
 msgstr "Caso personalizado"
 
 msgid "select_water_intake"
-msgstr "Seleccione la captación que usted considere para el análisis ROI"
+msgstr "Seleccione la captación que usted considere para el análisis ROI. Si aún no ha sido creada, creela haciendo clic aquí."
 
 msgid "water_source"
 msgstr "Nombre de la fuente de agua"
@@ -119,7 +122,7 @@ msgid "add_cost_function"
 msgstr "Agregar función de costo"
 
 msgid "select_treatments_plants"
-msgstr "Seleccione la planta de tratamiento que usted considere para el análisis ROI"
+msgstr "Seleccione la planta de tratamiento que usted considere para el análisis ROI. Si aún no ha sido creada, creela haciendo clic aquí."
 
 msgid "add_plant"
 msgstr "Agregar PTAP"
