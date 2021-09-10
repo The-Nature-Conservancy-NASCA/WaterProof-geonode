@@ -734,7 +734,7 @@ $(function () {
         $("#mainTree").show();
         $('html, body').animate({
             scrollTop: $(".main-tree-content").offset().top
-        }, 2000);
+        }, 900);
 
     };
     /**
