@@ -1788,6 +1788,60 @@
         padding-right: 3%;
         height: auto;
     }
+
+    /* geographic */
+
+    .map__compare { 
+        width: auto;
+        height: 420px; 
+        cursor: pointer;
+        border: 2px solid;
+        border-radius: 0.5em;
+        border-color: #aaa;
+    }
+
+    .title-inform {
+        margin-top: 50px;
+        font-size: 14px;
+    }
+    .inform-section {
+        width: 200px;
+        color: #ffffff;
+        text-align: center;        
+        border-style: solid;
+        border-color: #1a6784;
+        border-width: 1px;
+        border-bottom-style: none;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+        float: left;
+        margin-right: 3px;
+        cursor: pointer;
+        font-size: 12px;
+        height: 40px;
+    }
+    
+    li.active > a {
+        background-color: #1389AA !important;
+        color: #fff !important;        
+    }
+
+    .inform-section-free {
+        background-color: #ffffff;
+        color: #3a809a;
+    }
+    .contain-detail {
+        margin-top: 50px;
+        right: 50px;
+        position: relative;
+    }
+
+    .inform-section > a{
+        border: 0px solid #fff !important;
+        margin-right: 0px !important; 
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;      
+    }
 }
 @media only screen and (max-width: 1200px) {
     
