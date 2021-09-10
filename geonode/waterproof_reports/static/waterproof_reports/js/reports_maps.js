@@ -135,21 +135,17 @@ $(document).ready(function () {
   map.sync(mapLeft);
   
 
-  $(".leaflet-control-layers-selector")[0].parentElement.append($("#legend-left")[0]);
-  $(".leaflet-control-layers-selector")[1].parentElement.append($("#legend-right")[0]);
-  $(".leaflet-control-layers-selector")[2].parentElement.append($("#legend-down")[0]);
   $("#menu2")[0].append($("#map-analysis-result")[0]);
   $("#menu3")[0].append($("#map-areas-rios-container")[0]);
   $('#first_tab').trigger('click');
 
 
-  $(".leaflet-control-layers-selector").on('click', function(e){
-    var t = e.currentTarget; 
-    var p = t.parentElement; 
-    l = p.children[p.childElementCount-1]; 
-    l.style.display= (t.checked ? 'block': 'none');
-    
-  });
+  // $(".leaflet-control-layers-selector").on('click', function(e){
+  //   var t = e.currentTarget; 
+  //   var p = t.parentElement; 
+  //   l = p.children[p.childElementCount-1]; 
+  //   l.style.display= (t.checked ? 'block': 'none');    
+  // });
 
 
   function createWMSLyr(lyrName) {
