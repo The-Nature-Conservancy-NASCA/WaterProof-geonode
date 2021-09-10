@@ -377,7 +377,10 @@
                     <div class="row text-center">
                         <div class="col-md-12 form-group">
                             <button type="button" class="btn btn-primary" id="step5PrevBtn">{% trans "Previous" %}</button>
-                            <a type="button" class="btn btn-primary" href="{% url "list-intake" %}?limit={{ CLIENT_RESULTS_LIMIT }}">{% trans "Exit" %}</a>
+                            <a type="button" class="btn btn-primary" 
+                                href="{% url "list-intake" %}?city={{ intake.city.id }}&limit={{ CLIENT_RESULTS_LIMIT }}" >
+                                {% trans "Exit" %}
+                            </a>
                         </div>
                     </div>
                 </div>
