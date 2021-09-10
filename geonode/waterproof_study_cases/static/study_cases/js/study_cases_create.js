@@ -1165,21 +1165,21 @@ $(document).ready(function () {
             invesment = 0.0;
             min = 0.0;
             $.each(data, function (index, nbs) {
-                console.log(nbs)
                 var name = nbs.name;
                 var id = nbs.id_nbssc
                 var def = nbs.default
                 var val = nbs.value;
-                var min = ((parseFloat(nbs.unit_implementation_cost) + parseFloat(nbs.unit_maintenance_cost)) /(parseFloat(nbs.periodicity_maitenance) + parseFloat(nbs.unit_oportunity_cost))) * 10;
-                console.log(nbs.country__global_multiplier_factor)
+                var min = (parseFloat(nbs.unit_implementation_cost) + parseFloat(nbs.unit_maintenance_cost) /parseFloat(nbs.periodicity_maitenance) + parseFloat(nbs.unit_oportunity_cost)) * 10;
                 if (nbs.country__global_multiplier_factor){
                     min *= parseFloat(nbs.country__global_multiplier_factor)
                 }
-                    if (def) {
+                if (def) {
                     if (!val) {
                         val = 0
                     }
                     if ($('#nbssc-' + id).length <= 0) {
+                        console.log(min)
+                        console.log(nbs)
                         content += '<tr><td>' + name + '</td>'
                         content += '<td><input class="text-number" type="number" id="nbssc-' + id + '" value="' + val + '"> </td></tr > '
                         content += '<input class="hiddennbs" id="minimun-' + id + '" " type="hidden" value="' + min + '">'
