@@ -2,10 +2,12 @@
 <h1>{% trans "Cases Study" %}</h1>
 
 {% block extra_head %}
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
+<link rel="stylesheet" href="{{ STATIC_URL }}lib/css/leaflet.css"/>
+<link rel="stylesheet" href="{% static "geonode/css/leaflet/leaflet.defaultextent.css" %}"/>
 <link rel="stylesheet" href="https://xguaita.github.io/Leaflet.MapCenterCoord/dist/L.Control.MapCenterCoord.min.css" />
-<link rel="stylesheet" href="https://photon.komoot.io/static/leaflet.photon/leaflet.photon.css">
-</link>
+<link rel="stylesheet" href="https://photon.komoot.io/static/leaflet.photon/leaflet.photon.css"/>
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_nbs_ca/css/dataTables.bootstrap.min.css"/>
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_study_cases_comparison/css/study_cases.css"/>
 
 <script>
     var intakePolygons = [];
@@ -14,9 +16,7 @@
 </script>
 
 {% endblock %} {% block body_outer %}
-<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_nbs_ca/css/dataTables.bootstrap.min.css">
-<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_study_cases_comparison/css/study_cases.css">
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
+
 <div class="header-waterproof">
     <div>
         <h1>{% trans "Case studies comparison" %}</h1>
@@ -117,12 +117,12 @@
 <script type="text/javascript" src="{% url 'javascript-catalog-case-comparison' %}"></script>
 <script src="{{ STATIC_URL }}geonode/js/datatables/jquery.dataTables.min.js"></script>
 <script src="{{ STATIC_URL }}geonode/js/datatables/dataTables.bootstrap.min.js"></script>
-<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+<script src="{% static "lib/js/leaflet.js" %}"></script>
+<script src="{% static "geonode/js/leaflet/leaflet.defaultextent.js" %}"></script>
 <script src="{{ STATIC_URL }}geonode/js/leaflet/leaflet.ajax.min.js"></script>
 <script src="{{ STATIC_URL }}waterproof_study_cases_comparison/js/study_cases_list.js"></script>
 <script src="https://vinceg.github.io/twitter-bootstrap-wizard/jquery.bootstrap.wizard.js"></script>
 <script src="https://vinceg.github.io/twitter-bootstrap-wizard/prettify.js"></script>
-<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
 <script src="{{ STATIC_URL }}geonode/js/leaflet/photon/leaflet.photon.js"></script>
 <script src="{{ STATIC_URL }}geonode/js/leaflet/Leaflet.Coordinates.js " %}"></script>
 <script src="{{ STATIC_URL }}geonode/js/leaflet/leaflet-omnivore.min.js"></script>

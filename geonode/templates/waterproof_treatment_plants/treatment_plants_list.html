@@ -6,10 +6,11 @@
     {% trans "Water Treatment" %}
 {% endblock %} 
 {% block extra_head %}
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
+<link rel="stylesheet" href="{{ STATIC_URL }}lib/css/leaflet.css"/>
+<link rel="stylesheet" href="{% static "geonode/css/leaflet/leaflet.defaultextent.css" %}"/>
 <link rel="stylesheet" href="{{ STATIC_URL }}geonode/css/leaflet/Control.Coordinates.css"/>
 <link rel="stylesheet" href="https://photon.komoot.io/static/leaflet.photon/leaflet.photon.css"/>
-<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_nbs_ca/css/dataTables.bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_nbs_ca/css/dataTables.bootstrap.min.css"/>
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_treatment_plants/css/treatment_plants.css" />
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <script>
@@ -101,7 +102,8 @@
 <script type="text/javascript" src="{% url 'javascript-catalog-treatment' %}"></script>
 <script src="{{ STATIC_URL }}geonode/js/datatables/jquery.dataTables.min.js"></script>
 <script src="{{ STATIC_URL }}geonode/js/datatables/dataTables.bootstrap.min.js"></script>
-<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+<script src="{% static "lib/js/leaflet.js" %}"></script>
+<script src="{% static "geonode/js/leaflet/leaflet.defaultextent.js" %}"></script>
 <script src="{{ STATIC_URL }}geonode/js/leaflet/leaflet.ajax.min.js"></script>
 <script src="{{ STATIC_URL }}waterproof_treatment_plants/js/waterproof_list_treatment_plants.js"></script>
 <script src="{{ STATIC_URL }}geonode/js/leaflet/photon/leaflet.photon.js"></script>
