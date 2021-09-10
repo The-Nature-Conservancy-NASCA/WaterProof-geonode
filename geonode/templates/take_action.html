@@ -7,18 +7,12 @@
 {% block body_outer %}
 
 <section>
-	<div class="imgheaderpag">          
-		<img src= "{% static 'geonode/img/2-IMAGEN.jpg' %}">
+	<div class="background-take-header">
+		<h2>{% trans "Take Action" %}</h2>
+		<span>{% trans "Now that you have a portfolio of nature-based solutions to improve water security in your basins of interest and you know the return on your investment," %}</span> <b>{% trans "Take it to action!" %}</b>
 	</div>
 </section>
 <section>
-	
-	<div class="page-header colorHeaderInstrucciones text-center">
-		<h2>{% trans "Take Action" %}</h2>
-	</div>
-	<div class="newstitle">
-		<span>{% trans "Now that you have a portfolio of nature-based solutions to improve water security in your basins of interest and you know the return on your investment," %}</span> <b>{% trans "Take it to action!" %}</b>
-	</div>
 	<div class="row" style="height: 10px;">
 	</div>
 	<div class="newstitle text-center" >
@@ -37,9 +31,9 @@
 		</p>
 	</div>
 	<div class ="take-action-middle-tittle col-md-12 text-center">
-		<p class="newstitle">
-		<h1>{% trans "The solution to face the challenge of water security in your basins of interest is in your hands. Go ahead and take the next step!" %}</h1>
-		</p>
+		<div class="col-md-12 background-solution">	
+			<p>{% trans "The solution to face the challenge of water security in your basins of interest is in your hands. Go ahead and take the next step!" %}</p>
+		</div>
 		<div class="newstitle">
 			<h2>{% trans "Why is it necessary to do it now?" %}</h2>
 		</div>
@@ -116,7 +110,7 @@
 <section>	
 	<div class=" col-md-12">            
 		<div class="col-md-4  ">
-			<img src= "{% static 'geonode/img/step1logo.png' %}" style="max-inline-size: -webkit-fill-available;">                              
+			<img class="image-steps-take" src= "{% static 'geonode/img/step1logo.png' %}">                              
 		</div>
 		<div class= "row">
 			<div class= "colorsubtitle ">
@@ -134,7 +128,7 @@
 <section>	 
     <div class=" col-md-12">    
 		<div class="col-md-4">
-			<img src= "{% static 'geonode/img/step2logo.png' %}" style="max-inline-size: -webkit-fill-available;">                              
+			<img class="image-steps-take" src= "{% static 'geonode/img/step2logo.png' %}">                              
 		</div> 
 		<div class="row">
 			<div class= "colorsubtitle ">
@@ -152,7 +146,7 @@
 <section>	
 	<div class="col-md-12">
 		<div class="col-md-4">
-			<img src= "{% static 'geonode/img/step3logo.png' %}" style="max-inline-size: -webkit-fill-available;">
+			<img class="image-steps-take" src= "{% static 'geonode/img/step3logo.png' %}">
 		</div>                              
 		<div class="row">
 			<div class= "colorsubtitle ">

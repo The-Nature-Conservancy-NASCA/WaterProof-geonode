@@ -2183,6 +2183,7 @@ pre code {
   .align-left-take-action{
     padding-left: 5%;
     padding-right: 30%;
+    padding-top: 7%;
   }
 
   .align-extraright-take-action{
@@ -2195,6 +2196,31 @@ pre code {
     font-weight:normal !important;
     padding-left: 5%;
     padding-right: 3%;
+  }
+  .image-steps-take{
+    width: 20%;
+    max-inline-size: -webkit-fill-available;
+    height: 30% !important;
+  }
+  .background-solution{
+    background-color: #0C89AA;
+    color: #fff;
+    font-size: 35px;
+    position: absolute;
+    margin-left: -6%;
+    width: 102% !important;
+  }
+  .background-solution > p {
+    padding: 2%;
+  }
+  .background-take-header{
+    background-image: url(/static/geonode/img/2-IMAGEN.jpg);
+    width: 100vw;
+    position: relative;
+    left: 50%;  
+    margin-left: -50vw;
+    height: 250px;
+    color: #fff;
   }
 }
 @media (min-width: 992px) {
