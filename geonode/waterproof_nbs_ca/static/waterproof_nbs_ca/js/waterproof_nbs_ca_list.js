@@ -217,7 +217,6 @@ $(function () {
     * Initialize map 
     */
     initMap = function () {
-        //map = L.map('mapid').setView([51.505, -0.09], 13);
         CENTER = [4.582, -74.4879];
         // Basemap layer
         var osm = L.tileLayer(OSM_BASEMAP_URL, {
@@ -253,14 +252,13 @@ $(function () {
         };
 
         let initialCoords = CENTER;
-        map.setView(initialCoords, 5);
-        L.control.layers(baseLayers, overlays, { position: 'topleft' }).addTo(map);
+        
 
         // When countries layer is loaded fire dropdown event change
         countries.on("data:loaded", function (evt) {
             let mapClick = false;
             // Preload selected country form list view
-            updateCountryMap(userCountryCode, evt.target);
+            let center = updateCountryMap(userCountryCode, evt.target);
             $.ajax({
                 url: '/parameters/load-countryByCode/',
                 data: {
@@ -268,7 +266,7 @@ $(function () {
                 },
                 success: function (result) {
                     result = JSON.parse(result);
-                    console.log(result);
+                    //console.log(result);
                     userCountryName = result[0].fields.name;
                     userCountryId = result[0].pk;
                     // Filter datables with country name
@@ -278,6 +276,12 @@ $(function () {
                     updateGeographicLabels(userCountryCode);
                 }
             });
+            if (center != undefined) {
+               initialCoords = center;
+            }
+            map.setView(initialCoords, 5);
+            L.control.layers(baseLayers, overlays, { position: 'topleft' }).addTo(map);
+            var defExt = new L.Control.DefaultExtent({ title: gettext('Default extent'), position: 'topright'}).addTo(map);
         });
 
         function onEachFeature(feature, layer) {
@@ -288,49 +292,13 @@ $(function () {
 
         function updateDropdownCountry(feature) {
             let mapClick = true;
-
             let layerClicked = feature.target;
             if (lastClickedLayer) {
                 lastClickedLayer.setStyle(defaultStyle);
             }
             layerClicked.setStyle(highlighPolygon);
             let countryCode = feature.sourceTarget.feature.id;
-            updateGeographicLabels(countryCode);
-            // $.ajax({
-            //     url: '/parameters/load-countryByCode/',
-            //     data: {
-            //         'code': countryCode
-            //     },
-            //     success: function (result) {
-            //         result = JSON.parse(result);
-            //         $('#countryLabel').text(result[0].fields.name);
-            //         table.search(result[0].fields.name).draw();
-            //         let countryId = result[0].pk;
-            //         udpateCreateUrl(countryId);
-            //         //
-            //         $.ajax({
-            //             url: '/parameters/load-regionByCountry/',
-            //             data: {
-            //                 'country': countryId
-            //             },
-            //             success: function (result) {
-            //                 result = JSON.parse(result);
-            //                 $('#regionLabel').text(result[0].fields.name);
-
-            //             }
-            //         });
-            //         $.ajax({
-            //             url: '/parameters/load-currencyByCountry/',
-            //             data: {
-            //                 'country': countryId
-            //             },
-            //             success: function (result) {
-            //                 result = JSON.parse(result);
-            //                 $('#currencyLabel').text('(' + result[0].fields.currency + ') - ' + result[0].fields.name);
-            //             }
-            //         });
-            //     }
-            // });
+            updateGeographicLabels(countryCode);            
             lastClickedLayer = feature.target;
         }
         //map.on('click', onMapClick);
@@ -372,8 +340,9 @@ $(function () {
                     },
                     success: function (result) {
                         result = JSON.parse(result);
-                        $('#regionLabel').text(result[0].fields.name);
-
+                        if (result.length > 0) {                            
+                            $('#regionLabel').text(result[0].fields.name);
+                        } 
                     }
                 });
                 $.ajax({
@@ -466,6 +435,7 @@ $(function () {
         });
     };
     updateCountryMap = function (countryCode, lyr) {
+        let center;
         lyr.eachLayer(function (layer) {
             if (layer.feature.id == countryCode) {
                 if (lastClickedLayer) {
@@ -473,10 +443,11 @@ $(function () {
                 }
                 layer.setStyle(highlighPolygon);
                 map.fitBounds(layer.getBounds());
+                center = layer.getBounds().getCenter();
                 lastClickedLayer = layer;
             }
         });
-
+        return center;
     }
     /** 
      * Validate input file on change

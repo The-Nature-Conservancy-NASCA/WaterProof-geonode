@@ -156,6 +156,15 @@
     text-align: right;
 }
 
+.text-description-bio {
+    min-width: 300px;
+}
+
+.text-number-bio {
+    text-align: right;
+    width: 120px;
+}
+
 .custom-checkbox .custom-control-input:disabled~.custom-control-label {
     background-color: rgba(0, 123, 255, .5) im !important;
 }

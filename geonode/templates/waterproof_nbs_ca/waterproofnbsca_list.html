@@ -1,17 +1,26 @@
 {% extends "menu.html" %} 
 {% load i18n %} 
-{% block title %}
-{% trans "Waterproof NBS CA" %}
+{% load static from staticfiles %}
 {% load decimal_format %}
 {% load multiply_factor %}
-{% endblock %} 
-{% block main %}
-<h1>{% trans "Waterproof NBS CA" %}</h1>
 
-{% endblock %} {% block body_outer %}
+{% block title %}
+    {% trans "Waterproof NBS CA" %}
+{% endblock title %} 
+
+{% block extra_head %}
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_nbs_ca/css/dataTables.bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_nbs_ca/css/waterproof_nbs_ca.css">
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
+<link rel="stylesheet" href="{{ STATIC_URL }}lib/css/leaflet.css"/>
+<link rel="stylesheet" href="{% static "geonode/css/leaflet/leaflet.defaultextent.css" %}"/>
+{% endblock extra_head %}
+
+{% block main %}
+<h1>{% trans "Waterproof NBS CA" %}</h1>
+{% endblock %} 
+
+{% block body_outer %}
+
 <div class="header-waterproof">
     <div>
         <h1>{% trans "Nature based solutions (NBS)" %}
@@ -166,7 +175,8 @@
 </script>
 <script src="{{ STATIC_URL }}geonode/js/datatables/jquery.dataTables.min.js"></script>
 <script src="{{ STATIC_URL }}geonode/js/datatables/dataTables.bootstrap.min.js"></script>
-<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+<script src="{% static "lib/js/leaflet.js" %}"></script>
+<script src="{% static "geonode/js/leaflet/leaflet.defaultextent.js" %}"></script>
 <script src="{{ STATIC_URL }}geonode/js/leaflet/leaflet.ajax.min.js"></script>
 <script src="{{ STATIC_URL }}waterproof_nbs_ca/js/waterproof_nbs_ca_list.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
