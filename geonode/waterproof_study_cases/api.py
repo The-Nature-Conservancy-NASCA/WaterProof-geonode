@@ -194,10 +194,12 @@ def getNBS(request):
         nbs = []
         nbs_admin = WaterproofNbsCa.objects.filter(added_by__professional_role='ADMIN').values(
             "id", "name","unit_implementation_cost", "unit_maintenance_cost","periodicity_maitenance","unit_oportunity_cost", "currency__currency")
-        id_city = request.POST['city_id'] 
+        id_city = request.POST['city_id']
+        logger.error(id_city) 
         process = request.POST['process']
         id_study_case = request.POST['id_study_case']
         filtercity = Cities.objects.get(pk=id_city)
+        logger.error(filtercity)
         global_multiplier_factor = filtercity.country.global_multiplier_factor
         for n_admin in nbs_admin:
             n_admin['country__global_multiplier_factor'] = global_multiplier_factor
