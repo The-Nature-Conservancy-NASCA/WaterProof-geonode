@@ -2174,6 +2174,28 @@ pre code {
     font-size: 3.4rem !important;
     display: table !important;
   }
+
+  .align-right-take-action{
+    padding-left: 20%;
+    padding-right: 3%;
+  }
+
+  .align-left-take-action{
+    padding-left: 5%;
+    padding-right: 30%;
+  }
+
+  .align-extraright-take-action{
+    padding-left: 40%;
+    padding-right: 3%;
+  }
+
+  .take-action-middle-tittle{
+    color: #0C89AA;
+    font-weight:normal !important;
+    padding-left: 5%;
+    padding-right: 3%;
+  }
 }
 @media (min-width: 992px) {
   .col-md-1,
