@@ -4,7 +4,6 @@
  * *******/
 
 $(document).ready(function () {
-
   var urlDetail = "../../reports/getSelectorStudyCasesId/?studyCase=" + studyCaseId;
   var selectIntake = document.getElementById("idSelectStudyCase");
   $.getJSON(urlDetail, function (data) {
@@ -25,17 +24,16 @@ $(document).ready(function () {
     if (this.value != -1) {
       let g = JSON.parse(this.selectedOptions[0].getAttribute("data-intake-geom")).coordinates;
       let centroid =g[1] + "," + g[0];
-      location.href = `/reports/compare-maps/?folder=${baseData}&intake=${this.value}&region=${region}&year=${year}&study_case_id=${studyCaseId}&center=${centroid}`;
+      location.href = `/reports/geographic/?folder=${baseData}&intake=${this.value}&region=${region}&year=${year}&study_case_id=${studyCaseId}&center=${centroid}`;
     }
   }
-  
-  
-  let zoom = 10;
+    
+  let zoom = 9;
   var mapLeft = L.map('map-left').setView(center, zoom);
   var mapRight = L.map('map-right').setView(center, zoom);
-  var map = L.map('map-down').setView(center, 11);
-  var mapResults = L.map('map-results').setView(center, 11);
-  var mapAreasRios = L.map('map-areas-rios').setView(center, 11);
+  var map = L.map('map-down').setView(center, zoom);
+  var mapResults = L.map('map-results').setView(center, zoom);
+  var mapAreasRios = L.map('map-areas-rios').setView(center, zoom);
 
   let urlTopoLyr = 'https://opentopomap.org/{z}/{x}/{y}.png';
   let urlOmsLyr = 'https://{s}.tile.osm.org/{z}/{x}/{y}.png';
@@ -70,8 +68,6 @@ $(document).ready(function () {
     maxZoom: 16
   }).addTo(mapAreasRios);
 
-
-  //let urlWaterProofLyrsWMS = 'http://localhost:81/?map=/etc/mapserver/1000_142_2021-6-25.map&SERVICE=WMS';
   let lyrNameYear0 = `LULC_YEAR_0`;
   let lyrNameLastYear = `LULC_LAST_YEAR`;
   let lyrNameYearFuture = `LULC_FUTURE`;
@@ -124,6 +120,12 @@ $(document).ready(function () {
   L.control.layers({}, overlaysResults,{collapsed:false}).addTo(mapResults);
   L.control.layers({}, overlaysAreasRios,{collapsed:false}).addTo(mapAreasRios);
 
+  var defExt = new L.Control.DefaultExtent({ title: gettext('Default extent'), position: 'topleft'}).addTo(mapLeft);
+  defExt = new L.Control.DefaultExtent({ title: gettext('Default extent'), position: 'topleft'}).addTo(mapRight);
+  defExt = new L.Control.DefaultExtent({ title: gettext('Default extent'), position: 'topleft'}).addTo(map);
+  defExt = new L.Control.DefaultExtent({ title: gettext('Default extent'), position: 'topleft'}).addTo(mapResults);
+  defExt = new L.Control.DefaultExtent({ title: gettext('Default extent'), position: 'topleft'}).addTo(mapAreasRios);
+
   mapLeft.sync(mapRight);
   mapRight.sync(mapLeft);
   mapLeft.sync(map);
@@ -132,21 +134,17 @@ $(document).ready(function () {
   map.sync(mapLeft);
   
 
-  $(".leaflet-control-layers-selector")[0].parentElement.append($("#legend-left")[0]);
-  $(".leaflet-control-layers-selector")[1].parentElement.append($("#legend-right")[0]);
-  $(".leaflet-control-layers-selector")[2].parentElement.append($("#legend-down")[0]);
   $("#menu2")[0].append($("#map-analysis-result")[0]);
   $("#menu3")[0].append($("#map-areas-rios-container")[0]);
   $('#first_tab').trigger('click');
 
 
-  $(".leaflet-control-layers-selector").on('click', function(e){
-    var t = e.currentTarget; 
-    var p = t.parentElement; 
-    l = p.children[p.childElementCount-1]; 
-    l.style.display= (t.checked ? 'block': 'none');
-    
-  });
+  // $(".leaflet-control-layers-selector").on('click', function(e){
+  //   var t = e.currentTarget; 
+  //   var p = t.parentElement; 
+  //   l = p.children[p.childElementCount-1]; 
+  //   l.style.display= (t.checked ? 'block': 'none');    
+  // });
 
 
   function createWMSLyr(lyrName) {
@@ -184,6 +182,4 @@ $(document).ready(function () {
       })
     
   }
-  
 });
-

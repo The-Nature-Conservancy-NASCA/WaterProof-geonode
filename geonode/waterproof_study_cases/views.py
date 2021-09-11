@@ -16,6 +16,7 @@ from rest_framework.decorators import api_view
 from rest_framework.parsers import JSONParser
 from django.urls import reverse
 from .models import StudyCases
+from django.db.models import Q
 from . import forms
 from geonode.waterproof_parameters.models import Cities, Countries, Regions, ManagmentCosts_Discount, Climate_value
 from geonode.waterproof_intake.models import Intake, ElementSystem
@@ -65,10 +66,14 @@ def list(request):
 
             if (request.user.professional_role == 'ANALYS'):
                 if (city_id != ''):
-                    studyCases = StudyCases.objects.filter(city=city_id,added_by=request.user)
+                    query = Q(city=city_id,added_by=request.user)
+                    query.add(Q(is_public=True), Q.OR)
+                    studyCases = StudyCases.objects.filter(query).order_by('-edit_date')
                     city = Cities.objects.get(id=city_id)
                 else:
-                    studyCases = StudyCases.objects.filter(added_by=request.user).order_by('-edit_date')
+                    query = Q(added_by=request.user)
+                    query.add(Q(is_public=True), Q.OR)
+                    studyCases = StudyCases.objects.filter(query).order_by('-edit_date')
                     city = Cities.objects.get(id=1)
                 
                 userCountry = Countries.objects.get(iso3=request.user.country)
@@ -82,16 +87,12 @@ def list(request):
                     }
                 )
         else:
-            studyCases = StudyCases.objects.all().order_by('-edit_date')
-            userCountry = Countries.objects.get(iso3='COL')
-            region = Regions.objects.get(id=userCountry.region_id)
-            city = Cities.objects.get(id=1)
+            studyCases = StudyCases.objects.filter(is_public=True).order_by('-edit_date')
             return render(
                 request,
                 'waterproof_study_cases/studycases_list.html',
                 {
                     'casesList': studyCases,
-                    'city': city,
                 }
             )
 

@@ -384,6 +384,7 @@ $(function () {
             }
         );
         countries.addTo(map);
+        var defExt = new L.Control.DefaultExtent({ title: gettext('Default extent'), position: 'topright'}).addTo(map);
 
         // When countries layer is loaded fire dropdown event change
         countries.on("data:loaded", function () {
