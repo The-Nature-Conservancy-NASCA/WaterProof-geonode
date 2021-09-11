@@ -2178,17 +2178,32 @@ pre code {
   .align-right-take-action{
     padding-left: 20%;
     padding-right: 3%;
+    font-size: 18px;
   }
-
+  .align-normal-take-action{
+    padding-left: 20% ;
+    padding-right: 20%;
+    font-size: 18px;
+    padding-top: 8%;
+  }
+  .align-complete-take{
+    padding-left: 10% ;
+    padding-right: 10%;
+    font-size: 18px;
+    text-justify: auto;
+  }
   .align-left-take-action{
-    padding-left: 5%;
-    padding-right: 30%;
-    padding-top: 7%;
+    padding-left: 8%;
+    padding-right: 40%;
+    padding-top: 3%;
+    font-size: 18px;
+    text-justify: auto;
   }
 
   .align-extraright-take-action{
     padding-left: 40%;
     padding-right: 3%;
+    font-size: 18px;
   }
 
   .take-action-middle-tittle{
@@ -2196,11 +2211,22 @@ pre code {
     font-weight:normal !important;
     padding-left: 5%;
     padding-right: 3%;
+
   }
   .image-steps-take{
-    width: 20%;
+    padding-left: 10%;
+    margin-left: 30%;
+    width: 50%;
     max-inline-size: -webkit-fill-available;
-    height: 30% !important;
+    height: 50% !important;
+  }
+  .image-icon-take{
+    padding-left: 10%;
+    margin-left: 30%;
+    width: 40%;
+    max-inline-size: -webkit-fill-available;
+    height: 40% !important;
+    padding-bottom: 3%;
   }
   .background-solution{
     background-color: #0C89AA;
@@ -2209,6 +2235,9 @@ pre code {
     position: absolute;
     margin-left: -6%;
     width: 102% !important;
+  }
+  .take-font-size{
+    font-size: 18px;
   }
   .background-solution > p {
     padding: 2%;
@@ -2219,8 +2248,39 @@ pre code {
     position: relative;
     left: 50%;  
     margin-left: -50vw;
-    height: 250px;
+    height: 300px;
     color: #fff;
+    font-size: 22px;
+  }
+  .background-take-header > h2{
+    padding-left: 65%;
+    padding-top: 5%;
+  }
+  .background-take-header > h4{
+    padding-left: 65%;
+    padding-right: 5%;
+    text-justify: auto;
+  }
+  .background-take-middle{
+    background-image: url(/static/geonode/img/TA_2.jpg);
+    width: 100vw;
+    position: relative;
+    left: 50%;  
+    margin-left: -50vw;
+    height: 350px;
+    color: #fff;
+    top: 1000px;
+  }
+
+  .background-take-middle > h1{
+    padding-left: 5%;
+    padding-top: 65%;
+    color: #FFF;
+  }
+  .background-take-middle > p{
+    padding-left: 5%;
+    padding-right: 65%;
+    text-justify: auto;
   }
 }
 @media (min-width: 992px) {
