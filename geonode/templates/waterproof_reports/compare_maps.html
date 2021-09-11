@@ -12,7 +12,7 @@
 
     .map__compare { 
         width: auto;
-        height: 420px; 
+        height: 480px; 
         cursor: pointer;
         border: 2px solid;
         border-radius: 0.5em;
@@ -61,20 +61,18 @@
         border-top-left-radius: 8px;
         border-top-right-radius: 8px;      
     }
-    
-    
+        
 </style>
 
-<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_nbs_ca/css/dataTables.bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_nbs_ca/css/dataTables.bootstrap.min.css"/>
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_nbs_ca/css/waterproof_nbs_ca.css"/>
+<link rel="stylesheet" href="{{ STATIC_URL }}lib/css/leaflet.css"/>
+<link rel="stylesheet" href="{% static "geonode/css/leaflet/leaflet.defaultextent.css" %}"/>
 <link rel="stylesheet" href="{% static "geonode/css/sidenav.css" %}"/>
-<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_nbs_ca/css/waterproof_nbs_ca.css">
-
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
 
 {% endblock %}
 
 {% block body_outer %}
-
 
 <div class="header-waterproof">    
     <div class="page-header" style="margin-bottom: 0px;height: 50px;margin-top: 0px;">
@@ -93,9 +91,9 @@
 
     <div>
         <ul class="nav nav-tabs">
-            <li id="first_tab" class="inform-section active"><a data-toggle="tab" href="#menu1">{% trans "Return of investment (ROI)" %}</a></li>
-            <li class="inform-section"><a data-toggle="tab" href="#menu2">{% trans "Net Present Value (NPV)" %}</a></li>
-            <li class="inform-section"><a data-toggle="tab" href="#menu3">{% trans "Sensitivity Analysis" %}</a></li>
+            <li id="first_tab" class="inform-section active"><a data-toggle="tab" href="#menu1">{% trans "Land cover comparision" %}</a></li>
+            <li class="inform-section"><a data-toggle="tab" href="#menu2">{% trans "Physical changes" %}</a></li>
+            <li class="inform-section"><a data-toggle="tab" href="#menu3">{% trans "NbS portfolio" %}</a></li>
           </ul>
           
             <div class="tab-content">
@@ -111,28 +109,16 @@
                     </div>
                     <div>-----</div>
                     <div id="map-3" class="row">
-                        <div class="col-md-10">
+                        <div class="col-md-6">
                             <div id="map-down" class="map__compare"></div>
                         </div>        
-                    </div>
-                    <div class="row" id="legend-row" style="display: none;">
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <div id="legend-left" class="legend__compare">
                                 <img src="" alt="legend" id="img-legend-left"/>
                             </div>
                         </div>
-                        <div class="col-md-4">
-                            <div id="legend-right" class="legend__compare">
-                                <img src="" alt="legend" id="img-legend-right"/>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div id="legend-down" class="legend__compare">
-                                <img src="" alt="legend" id="img-legend-down"/>
-                            </div>
-                        </div>
-                        
                     </div>
+                    
                 </div>
                 <div id="menu2" class="tab-pane fade">
                     <h3>Menu 2</h3>
@@ -157,20 +143,10 @@
 </div>
 
 {% block body %}{% endblock body %} {% block sidebar %}{% endblock sidebar %} {% endblock body_outer %} {% block extra_script %}
-<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+<script src="{% static "lib/js/leaflet.js" %}"></script>
+<script src="{% static "geonode/js/leaflet/leaflet.defaultextent.js" %}"></script>
 <script src=" {{ STATIC_URL }}geonode/js/leaflet/leaflet-omnivore.min.js"></script>
 <script src=" {{ STATIC_URL }}geonode/js/leaflet/L.Map.Sync.js"></script>
-
-<!--deps-->
-<script src="https://unpkg.com/geotiff@1.0.0-beta.13/dist-browser/geotiff.js"></script>
-<script src="https://unpkg.com/plotty@0.4.1/dist/plotty.js"></script>
-
-<!--the plugin-->
-<script src="https://unpkg.com/leaflet-geotiff-2@0.2.5/dist/leaflet-geotiff.js"></script>
-<script src="https://unpkg.com/leaflet-geotiff-2@0.2.5/dist/leaflet-geotiff-plotty.js"></script>
-<script src="https://unpkg.com/leaflet-geotiff-2@0.2.5/dist/leaflet-geotiff-vector-arrows.js"></script>
-
-<script src="https://jieter.github.io/Leaflet.Sync/L.Map.Sync.js"></script>
 <script src="{{ STATIC_URL }}waterproof_reports/js/reports_maps.js"></script>
 <script type=" text/javascript ">
   

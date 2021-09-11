@@ -41,7 +41,7 @@ $(function () {
         VPN_TOTAL: 'total',
         STUDYCASE: 'id',
         STUDY_NAME: 'name',
-        STUDY_CITY: 'city__name'
+        STUDY_CITY: 'city__name',
     };
     const AXIS_TABLE = {
         DOM_ID: 'axis_table'
@@ -82,8 +82,6 @@ $(function () {
     /* DEFAULT REQUEST
     /******************/
     else { //there are cases selected
-        
-       
         selectedCases = JSON.parse(localStorage.analysisCases);
         fields = [];
         fields.push(
@@ -153,8 +151,17 @@ $(function () {
                     colors.push(color);
                 });
                 seriesCases.forEach(element => {
-                    let li='<li class="splide__slide"><img class="splideImg" src="'+static_prefix+'waterproof_study_cases_comparison/images/study_case.jpg"  height="150px" width="150px">';
-                    li+='<h4>'+element.name+'</h4><div>'+element.city__name+'</div>';
+                    if (element.roi_discount<1){
+                        imagePath=static_prefix+'waterproof_study_cases_comparison/images/discount_below1.png';
+                    }
+                    else if(element.roi_discount>=1 && element.roi_discount<=2){
+                        imagePath=static_prefix+'waterproof_study_cases_comparison/images/discount_above1.png';
+                    }
+                    else if(element.roi_discount>2){
+                        imagePath=static_prefix+'waterproof_study_cases_comparison/images/discount_above2.png';
+                    }
+                    let li='<li class="splide__slide"><img class="splideImg" src='+imagePath+' height="150px" width="150px">';
+                    li+='<h4 class="slider_title">'+element.name+'</h4><div>'+element.city__name+'</div>';
                     $('#' + SLIDER_UL.DOM_ID).append(li);
                     console.log(element);
                 });

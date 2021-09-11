@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Waterproof VBeta\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-02-11 20:03-0500\n"
-"PO-Revision-Date: 2021-09-03 09:57-0500\n"
+"PO-Revision-Date: 2021-09-10 10:45-0500\n"
 "Last-Translator: Julien Collaer <julien.collaer@opengeode.be>\n"
 "Language-Team: English Skaphe\n"
 "Language: en\n"
@@ -8770,7 +8770,7 @@ msgid "Start now"
 msgstr "Start now"
 
 msgid "Main menu"
-msgstr "Main menu"
+msgstr "Menu"
 
 msgid "Use this menu to configure the inputs for a case study"
 msgstr "Use this menu to configure the inputs for a case study"
@@ -8800,11 +8800,31 @@ msgstr "Start now looking for your city of analysis"
 
 #: geonode/templates/search_city.html
 msgid "In this section you can consult the case studies configured in the system or start the configuration of a case study"
-msgstr "Drag the map to the area of ​​your interest and enter the name of the city where you want to start the analysis"
+msgstr "Drag or zoom the map to the area of ​​your interest and enter the name of the city where you want to start the analysis. Confirm your selection by clicking on the Case study current list button."
 
 #: geonode/templates/search_city.html
 msgid "List Study Cases"
 msgstr "Case studies current list"
+
+#: geonode/templates/index.html
+msgid "Text 1 - Before starting"
+msgstr "You must understand that the information requirements to make an analysis: environmental objectives, catchments, treatment plants and Budget."
+
+#: geonode/templates/index.html
+msgid "Text 2 - What is a case study?"
+msgstr "It is the way that are related: operation and maintenance costs of a catchment system, with the possible benefits of NbS"
+
+#: geonode/templates/index.html
+msgid "Text 3 - Support data"
+msgstr "The tool uses global biophysical data, land use and climate change scenarios, which have been organized as inputs in the InVEST and RIOS models."
+
+#: geonode/templates/index.html
+msgid "Text 4 - See an example"
+msgstr "Here you will find the description of a case study and all the elements that make it up. We hope that it serves as a guide to build your case study."
+
+#: geonode/templates/index.html
+msgid "Text 5 - Who can use the system?"
+msgstr "WaterProof is mainly aimed at professionals in charge of designing projects for the implementation of Nature-based Solutions. The general public can access openly."
 
 #~ msgid "Open Data:"
 #~ msgstr "Open Data:"

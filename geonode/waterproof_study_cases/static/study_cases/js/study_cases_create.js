@@ -1169,14 +1169,17 @@ $(document).ready(function () {
                 var id = nbs.id_nbssc
                 var def = nbs.default
                 var val = nbs.value;
-                var min = ((parseFloat(nbs.unit_implementation_cost) + parseFloat(nbs.unit_maintenance_cost) / parseFloat(nbs.periodicity_maitenance) + parseFloat(nbs.unit_oportunity_cost)) * 10);
-                if (nbs.country__global_multiplier_factor)
+                var min = (parseFloat(nbs.unit_implementation_cost) + parseFloat(nbs.unit_maintenance_cost) /parseFloat(nbs.periodicity_maitenance) + parseFloat(nbs.unit_oportunity_cost)) * 10;
+                if (nbs.country__global_multiplier_factor){
                     min *= parseFloat(nbs.country__global_multiplier_factor)
+                }
                 if (def) {
                     if (!val) {
                         val = 0
                     }
                     if ($('#nbssc-' + id).length <= 0) {
+                        console.log(min)
+                        console.log(nbs)
                         content += '<tr><td>' + name + '</td>'
                         content += '<td><input class="text-number" type="number" id="nbssc-' + id + '" value="' + val + '"> </td></tr > '
                         content += '<input class="hiddennbs" id="minimun-' + id + '" " type="hidden" value="' + min + '">'
@@ -1236,7 +1239,7 @@ $(document).ready(function () {
             labels = data[0]
             content = '<div class="col-md-12"><legend><label>Intake ' + name + '</span> </label></legend>'
             content += '<table id="bio_table_' + id_intake + '" class="table table-striped table-bordered table-condensed" style="width:100%"><thead><tr class="info">'
-            content += '<th scope="col" style="width:1000px !important;" class="small text-center vat">description</th>'
+            content += '<th scope="col" class="small text-center vat text-description-bio">description</th>'
             content += '<th scope="col" class="small text-center vat">lucode</th>'
             $.each(labels, function (key, v) {
                 if (key != 'lucode' && key != 'default' && key != 'lulc_desc' && key != 'description' && key != 'user_id' && key != 'intake_id' && key != 'study_case_id' && key != 'id' && key != 'macro_region' && key != 'kc') {
@@ -1250,11 +1253,14 @@ $(document).ready(function () {
                 } else {
                     content += '<tr id="' + id_intake + '_' + bio.id + '">'
                 }
-                content += '<td id="description_' + id_intake + '_' + bio.id + '">' + bio.description + '</td>'
+                content += '<td id="description_' + id_intake + '_' + bio.id + '" class="text-description-bio">' + bio.description + '</td>'
                 content += '<td id="lucode_' + id_intake + '_' + bio.id + '">' + bio.lucode + '</td>'
                 $.each(bio, function (key, v) {
+                    if(v){
+                        v = Number.parseFloat(v).toFixed(6);
+                    }
                     if (key != 'lucode' && key != 'default' && key != 'lulc_desc' && key != 'description' && key != 'user_id' && key != 'intake_id' && key != 'study_case_id' && key != 'id' && key != 'macro_region' && key != 'kc') {
-                        content += '<td id="' + key + '_' + id_intake + '_' + bio.id + '"><input class="text-number-full" step="0.000001" oninput="validity.valid||(value=\'\');" type="number" value="' + v + '"/></td>'
+                        content += '<td id="' + key + '_' + id_intake + '_' + bio.id + '"><input class="text-number-bio" step="0.000001" oninput="validity.valid||(value=\'\');" type="number" value="' + v + '"/></td>'
                     }
                 });
                 content += '</tr>'

@@ -385,13 +385,13 @@ $(document).ready(function() {
         }
     });
 
-
-
     $('#step3PrevBtn').click(function() {
         $('#smartwizard').smartWizard("prev");
     });
 
     $('#step3NextBtn').click(function() {
+        console.log("execute clic of generate button");
+        $("#intakeWECB").click();        
         if ($('#intakeECTAG')[0].childNodes.length > 1 || $('#intakeWEMI')[0].childNodes.length > 1) {
             if (waterExtractionData.typeInterpolation == interpolationType.MANUAL) {
                 waterExtractionValue = [];
@@ -559,13 +559,25 @@ $(document).ready(function() {
         }
     });
 
-    map = L.map('map', {}).setView([4.1, -74.1], 5);
-    mapDelimit = L.map('mapid', { editable: true }).setView([4.1, -74.1], 5);
-    var osm = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
+    let initialCoords = [4.5, -74.4];
+    let zoom = 5;
+    let urlOSM = 'https://{s}.tile.osm.org/{z}/{x}/{y}.png';
+    let attr = '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors';
+    var cityCoords = localStorage.getItem('cityCoords');
+    if (cityCoords == undefined) {
+        cityCoords = initialCoords;
+    } else {
+        initialCoords = JSON.parse(cityCoords);
+        zoom = 10;
+    }
+
+    map = L.map('map', {}).setView(initialCoords, zoom);
+    mapDelimit = L.map('mapid', { editable: true }).setView(initialCoords, zoom);
+    var osm = L.tileLayer(urlOSM, {
+        attribution: attr,
     });
-    var osmid = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
+    var osmid = L.tileLayer(urlOSM, {
+        attribution: attr,
     });
     map.addLayer(osm);
     var images = L.tileLayer("https://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryTopo/MapServer/tile/{z}/{y}/{x}");
@@ -579,10 +591,11 @@ $(document).ready(function() {
     var overlays = {
         "Hydro (esri)": hydroLyr,
     };
-    var c = new L.Control.Coordinates();
-    c.addTo(map);
+    var c = new L.Control.Coordinates().addTo(map);
+    var defExt = new L.Control.DefaultExtent({ title: gettext('Default extent'), position: 'topright'}).addTo(map);
     L.control.layers(baseLayers, overlays, { position: 'topleft' }).addTo(map);
     mapDelimit.addLayer(osmid);
+    var defExtD = new L.Control.DefaultExtent({ title: gettext('Default extent'), position: 'topright'}).addTo(mapDelimit);
     intakePolygons.forEach(feature => {
         let poly = feature.polygon;
         let point = feature.point;
@@ -638,7 +651,7 @@ $(document).ready(function() {
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: gettext('Yes, ajust!'),
+            confirmButtonText: gettext('Yes, adjust!'),
             cancelButtonText: gettext('Cancel'),
         }).then((result) => {
             if (result.isConfirmed) {
@@ -647,14 +660,13 @@ $(document).ready(function() {
             }
         })
     });
-    $('#btnDelimitArea').on("click", delimitIntakeArea)
-    $('#btnValidateArea').on("click", validateIntakeArea)
+    $('#btnDelimitArea').on("click", delimitIntakeArea);
+    $('#btnValidateArea').on("click", validateIntakeArea);
     if (!mapLoader) {
         mapLoader = L.control.loader().addTo(map);
     }
 
     mapLoader.hide();
-
     createEditor(editorUrl);
 
     var menu1Tab = document.getElementById('mapid');

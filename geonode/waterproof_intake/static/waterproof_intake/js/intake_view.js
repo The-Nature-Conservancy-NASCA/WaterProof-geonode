@@ -503,15 +503,29 @@ $(document).ready(function() {
         }
     });
 
-    map = L.map('map', {}).setView([4.1, -74.1], 5);
-    mapDelimit = L.map('mapid', { editable: true }).setView([4.1, -74.1], 5);
-    var osm = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
+    let initialCoords = [4.5, -74.4];
+    let zoom = 5;
+    let urlOSM = 'https://{s}.tile.osm.org/{z}/{x}/{y}.png';
+    let attr = '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors';
+    // find in localStorage if cityCoords exist
+    var cityCoords = localStorage.getItem('cityCoords');
+    if (cityCoords == undefined) {
+        cityCoords = initialCoords;
+    } else {
+        initialCoords = JSON.parse(cityCoords);
+    }
+
+    map = L.map('map', {}).setView(initialCoords, zoom);
+    mapDelimit = L.map('mapid', { editable: true }).setView(initialCoords, zoom);
+    var osm = L.tileLayer(urlOSM, {
+        attribution: attr,
     });
-    var osmid = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
+    var osmid = L.tileLayer(urlOSM, {
+        attribution: attr,
     });
     map.addLayer(osm);
+    
+    
     var images = L.tileLayer("https://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryTopo/MapServer/tile/{z}/{y}/{x}");
     var esriHydroOverlayURL = "https://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/Esri_Hydro_Reference_Overlay/MapServer/tile/{z}/{y}/{x}";
     var hydroLyr = L.tileLayer(esriHydroOverlayURL);
@@ -525,44 +539,52 @@ $(document).ready(function() {
     };
     L.control.layers(baseLayers, overlays, { position: 'topleft' }).addTo(map);
     mapDelimit.addLayer(osmid);
+    
     intakePolygons.forEach(feature => {
         let poly = feature.polygon;
         let point = feature.point;
         let delimitPolygon = feature.delimitArea;
-        if (delimitPolygon.indexOf("SRID") >= 0) {
-            delimitPolygon = delimitPolygon.split(";")[1];
-        }
-
-        let delimitLayerTransformed = omnivore.wkt.parse(delimitPolygon);
-        let delimitLayerKeys = Object.keys(delimitLayerTransformed._layers);
-        let keyNameDelimitPol = delimitLayerKeys[0];
-        let delimitPolyCoord = delimitLayerTransformed._layers[keyNameDelimitPol].feature.geometry.coordinates[0];
-        delimitPolyCoord.forEach(function(geom) {
-            var coordinates = [];
-            coordinates.push(geom[1]);
-            coordinates.push(geom[0]);
-            copyCoordinates.push(coordinates);
-        })
-        let ll = new L.LatLng(feature.point.geometry.coordinates[1], feature.point.geometry.coordinates[0]);
-        snapMarker = L.marker(null, {});
-        snapMarkerMapDelimit = L.marker(null, {});
-        snapMarker.setLatLng(ll);
-        snapMarkerMapDelimit.setLatLng(ll);
-        snapMarker.addTo(map);
-        snapMarkerMapDelimit.addTo(mapDelimit);
-        catchmentPoly = L.geoJSON(JSON.parse(feature.polygon)).addTo(map);
-        catchmentPolyDelimit = L.geoJSON(JSON.parse(feature.polygon)).addTo(mapDelimit);
-        map.fitBounds(catchmentPoly.getBounds());
-        editablepolygon = L.polygon(copyCoordinates, { color: 'red' });
-        editablepolygon.addTo(mapDelimit)
+        if (feature.delimitArea != "None") {
+            if (delimitPolygon.indexOf("SRID") >= 0) {
+                delimitPolygon = delimitPolygon.split(";")[1];
+            }
+    
+            let delimitLayerTransformed = omnivore.wkt.parse(delimitPolygon);
+            let delimitLayerKeys = Object.keys(delimitLayerTransformed._layers);
+            let keyNameDelimitPol = delimitLayerKeys[0];
+            let delimitPolyCoord = delimitLayerTransformed._layers[keyNameDelimitPol].feature.geometry.coordinates[0];
+            delimitPolyCoord.forEach(function(geom) {
+                var coordinates = [];
+                coordinates.push(geom[1]);
+                coordinates.push(geom[0]);
+                copyCoordinates.push(coordinates);
+            })
+            let ll = new L.LatLng(feature.point.geometry.coordinates[1], feature.point.geometry.coordinates[0]);
+            snapMarker = L.marker(null, {});
+            snapMarkerMapDelimit = L.marker(null, {});
+            snapMarker.setLatLng(ll);
+            snapMarkerMapDelimit.setLatLng(ll);
+            snapMarker.addTo(map);
+            snapMarkerMapDelimit.addTo(mapDelimit);
+            catchmentPoly = L.geoJSON(JSON.parse(feature.polygon)).addTo(map);
+            catchmentPolyDelimit = L.geoJSON(JSON.parse(feature.polygon)).addTo(mapDelimit);
+            map.fitBounds(catchmentPoly.getBounds());
+            zoom = 9;
+            map.setView(catchmentPoly.getBounds().getCenter(), zoom);
+            mapDelimit.setView(catchmentPoly.getBounds().getCenter(), zoom);
+            editablepolygon = L.polygon(copyCoordinates, { color: 'red' });
+            editablepolygon.addTo(mapDelimit);    
+        }        
     });
 
     if (!mapLoader) {
         mapLoader = L.control.loader().addTo(map);
     }
 
-    mapLoader.hide();
+    var defExt = new L.Control.DefaultExtent({ title: gettext('Default extent'), position: 'topright'}).addTo(map);
+    defExt = new L.Control.DefaultExtent({ title: gettext('Default extent'), position: 'topright'}).addTo(mapDelimit);
 
+    mapLoader.hide();
     createEditor(editorUrl);
 
     var menu1Tab = document.getElementById('mapid');
@@ -582,7 +604,6 @@ drawPolygons = function() {
     //intakePolygons = polygons;
 
     lyrsPolygons.forEach(lyr => map.removeLayer(lyr));
-
 
     intakePolygons.forEach(feature => {
         let poly = feature.polygon;

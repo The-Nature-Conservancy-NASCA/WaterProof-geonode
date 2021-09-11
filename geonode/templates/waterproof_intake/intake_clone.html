@@ -1,8 +1,7 @@
 {% extends "menu.html" %} {% load i18n %}{% load static from staticfiles %}{% load bootstrap_tags %}{% block extra_head %}
 <link href="https://unpkg.com/smartwizard@5/dist/css/smart_wizard_all.min.css" rel="stylesheet" type="text/css" />
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
-    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
-    crossorigin="" />
+<link rel="stylesheet" href="{{ STATIC_URL }}lib/css/leaflet.css"/>
+    <link rel="stylesheet" href="{% static "geonode/css/leaflet/leaflet.defaultextent.css" %}"/>
 <link rel="stylesheet" href="{{ STATIC_URL }}geonode/css/leaflet/Control.Coordinates.css" />
 <link rel="stylesheet" href="{{ STATIC_URL }}geonode/css/leaflet/Control.Loader.css" />
 <link rel="stylesheet" href="{{ STATIC_URL }}waterproof_intake/mathquill/mathquill.css" />
@@ -99,9 +98,11 @@
                         <h4 class="text-primary">{% trans "Water intake location" %}</h4>
                     </div>
                     <div id="map">
-                        <div id="analysisOptions">
-                            <button type="button" id="validateBtn">Draw Basin</button>
-                        </div>
+                        <div class="row text-center">
+                            <div id="analysisOptions" class="col-md-12 div-draw-basin">
+                                <button type="button" disabled class="btn btn-default" id="validateBtn">{% trans "Draw Basin" %}</button>
+                            </div>
+                        </div> 
                     </div>
                     <br>
                     <div class="row text-center">
@@ -883,9 +884,8 @@
 {% block extra_script %}
 <script type="text/javascript" src="{% url 'javascript-catalog-intake' %}"></script>
 <script src="https://unpkg.com/smartwizard@5/dist/js/jquery.smartWizard.min.js" type="text/javascript"></script>
-<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
-    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
-    crossorigin=""></script>
+<script src="{% static "lib/js/leaflet.js" %}"></script>
+  <script src="{% static "geonode/js/leaflet/leaflet.defaultextent.js" %}"></script>
 <script src="{{ STATIC_URL }}geonode/js/leaflet/Leaflet.Editable.js"></script>
 <script src="{{ STATIC_URL }}geonode/js/leaflet/Leaflet.Coordinates.js"></script>
 <script src="{{ STATIC_URL }}geonode/js/leaflet/Control.Loader.js"></script>

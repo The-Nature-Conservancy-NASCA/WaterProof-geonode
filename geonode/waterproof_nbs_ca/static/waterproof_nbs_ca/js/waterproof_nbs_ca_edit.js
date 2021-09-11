@@ -384,6 +384,7 @@ $(function () {
             }
         );
         countries.addTo(map);
+        var defExt = new L.Control.DefaultExtent({ title: gettext('Default extent'), position: 'topright'}).addTo(map);
 
         // When countries layer is loaded fire dropdown event change
         countries.on("data:loaded", function () {
@@ -468,7 +469,7 @@ $(function () {
                     result = JSON.parse(result);
                     currencyDropdown.val(result[0].pk);
                     $('#currencyLabel').text('(' + result[0].fields.currency + ') - ' + result[0].fields.name);
-                    $('#countryLabel').text(countryName);                    
+                    $('#countryLabel').text(countryName);
                     let currencyCode = result[0].fields.currency;
                     let impCostText = gettext("Implementation cost (%s/ha) ");
                     let impCostTrans = interpolate(impCostText, [currencyCode]);
@@ -610,6 +611,17 @@ $(function () {
     fillTransitionsDropdown = function (dropdown) {
         dropdown.change();
     };
+    // Only integers excluding 0
+    checkTimeBenefit = function (event, value) {
+        let regexp = /^[1-9]+[0-9]*$/;
+        valid = regexp.test(value);
+        if (valid) {
+            return true;
+        }
+        else {
+            event.target.value = "1";
+        }
+    }
     checkPercentage = function (event, value) {
         commaNum = null;
         let regexp = /^(?=.*[0-9])([0-9]{0,12}(?:,[0-9]{1,2})?)$/gm;
@@ -656,31 +668,15 @@ $(function () {
         let regexp = /^(?=.*[1-9])([0-9]{0,12}(?:,[0-9]{1,2})?)$/gm;
         valid = regexp.test(value);
         // Validate string
-        if (valid) {
-            return true;
-        }
-        else {
-            //Remove extra decimals
-            value = value.replace(/^(\d+,?\d{0,2})\d*$/, "$1");
-            //Remove especial symbols included letters
-            value = value.replace(/[^0-9\,]/g, "");
-            if (value.match(/,/g) !== null) {
-                commaNum = (value.match(/,/g)).length;
-                if (commaNum == 1) {
-                    let result = value.substring(0, value.indexOf(","));
-                    if (result == "") {
-                        event.target.value = "";
-                        return false;
-                    }
-                }
-            }
-            if (commaNum !== null && commaNum > 1) {
-                // Remove comma at start or end
-                value = value.replace(/^,|,$/g, '');
-            }
-            event.target.value = value;
-        }
+
     }
+    $('#benefitTimePorc').focusout(function (event) {
+        let value = parseFloat(event.target.value.replace(",", "."));
+        if (value <= 0) {
+            this.value = "";
+            this.focus();
+        }
+    });
     checkDecimalFormatZero = function (event, value) {
         commaNum = null;
         let regexp = /^(?=.*[1-9])([0-9]{0,12}(?:,[0-9]{1,2})?)$/gm;

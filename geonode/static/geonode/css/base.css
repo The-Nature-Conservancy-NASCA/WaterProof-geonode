@@ -1595,7 +1595,7 @@ pre code {
 }
 @media (min-width: 1200px) {
   .container {
-    width: 1170px;
+    width: 1170px;;
   }
 }
 .container-fluid {
@@ -4441,7 +4441,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .nav-pills > li.active > a:hover,
 .nav-pills > li.active > a:focus {
   color: #fff;
-  background-color: #2c689c;
+  background-color: #1389AA;
 }
 .nav-stacked > li {
   float: none;
@@ -5284,7 +5284,7 @@ a.badge:focus {
 }
 .list-group-item.active > .badge,
 .nav-pills > .active > a > .badge {
-  color: #2c689c;
+  color: #1389AA;
   background-color: #fff;
 }
 .list-group-item > .badge {
@@ -9268,9 +9268,7 @@ top:50px;
 }
 
 #analysisOptions{
-  position: absolute;
-  z-index: 999;
-  right: 1px;
+  z-index: 999;  
 }
 
 .img-icon{
@@ -9295,3 +9293,10 @@ top:50px;
   margin-right: auto;
   margin-left: auto;
 }
+
+.div-draw-basin{
+  position: absolute;
+  bottom: 10px;
+  right: 2px;
+}
+

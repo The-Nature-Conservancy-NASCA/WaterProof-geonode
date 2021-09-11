@@ -385,13 +385,13 @@ $(document).ready(function () {
         }
     });
 
-
-
     $('#step3PrevBtn').click(function () {
         $('#smartwizard').smartWizard("prev");
     });
 
     $('#step3NextBtn').click(function () {
+        console.log("execute clic of generate button");
+        $("#intakeWECB").click();
         if ($('#intakeECTAG')[0].childNodes.length > 1 || $('#intakeWEMI')[0].childNodes.length > 1) {
             if (waterExtractionData.typeInterpolation == interpolationType.MANUAL) {
                 waterExtractionValue = [];
@@ -560,13 +560,23 @@ $(document).ready(function () {
         }
     });
 
-    map = L.map('map', {}).setView([4.1, -74.1], 5);
-    mapDelimit = L.map('mapid', { editable: true }).setView([4.1, -74.1], 5);
-    var osm = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
+    let initialCoords = [4.5, -74.4];
+    let zoom = 5;
+    var cityCoords = localStorage.getItem('cityCoords');
+    if (cityCoords == undefined) {
+        cityCoords = initialCoords;
+    } else {
+        initialCoords = JSON.parse(cityCoords);
+        zoom = 10;
+    }
+
+    map = L.map('map', {}).setView(initialCoords, zoom);
+    mapDelimit = L.map('mapid', { editable: true }).setView(initialCoords, zoom);
+    var osm = L.tileLayer('https://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors',
     });
-    var osmid = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
+    var osmid = L.tileLayer('https://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors',
     });
     map.addLayer(osm);
     var images = L.tileLayer("https://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryTopo/MapServer/tile/{z}/{y}/{x}");
@@ -619,6 +629,8 @@ $(document).ready(function () {
         catchmentPoly = L.geoJSON(JSON.parse(feature.polygon)).addTo(map);
         catchmentPolyDelimit = L.geoJSON(JSON.parse(feature.polygon)).addTo(mapDelimit);
         map.fitBounds(catchmentPoly.getBounds());
+        map.setView(catchmentPoly.getBounds().getCenter(), zoom);
+        mapDelimit.setView(catchmentPoly.getBounds().getCenter(), zoom);
         var intakePolygonJson = catchmentPoly.toGeoJSON();
         var pointIntakeJson = snapMarker.toGeoJSON();
         basinId = feature.basin;
@@ -630,6 +642,9 @@ $(document).ready(function () {
         $('#isFile').val(JSON.stringify(isFile));
         $('#typeDelimit').val(JSON.stringify(delimitationFileType));
     });
+
+    var defExt = new L.Control.DefaultExtent({ title: gettext('Default extent'), position: 'topright'}).addTo(map);
+    defExt = new L.Control.DefaultExtent({ title: gettext('Default extent'), position: 'topright'}).addTo(mapDelimit);
 
     $("#validateBtn").on("click", function () {
         Swal.fire({
