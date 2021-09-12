@@ -95,7 +95,7 @@ $(document).ready(function () {
   lyrsNames = [lyrNameYearFuture];
   lyrsNames.forEach(function (lyrName) {
     overlaysRight[lyrName] = createWMSLyr(lyrName).addTo(mapRight);
-    createLegend(lyrName);
+    createLegend(lyrName, "#img-legend-left");
   });
 
   var overlays = {};
@@ -114,6 +114,7 @@ $(document).ready(function () {
   lyrsNames.forEach(function (lyrName) {
     overlaysAreasRios[lyrName] = createWMSLyr(lyrName).addTo(mapAreasRios);
   });
+  createLegend(lyrNameAreasRios, "#img-legend-areas-rios");
 
   L.control.layers({}, overlaysLeft,{collapsed:false}).addTo(mapLeft,);
   L.control.layers({}, overlaysRight,{collapsed:false}).addTo(mapRight);
@@ -159,7 +160,7 @@ $(document).ready(function () {
   }
  
   
-  function createLegend(lyrName) {
+  function createLegend(lyrName, elId) {
     let legendParams = `&request=getlegendgraphic&layer=${lyrName}&format=image%2Fpng&SLD_VERSION=1.1.0&VERSION=1.3.0`;
     const fetchAsBlob = url => fetch(url)
     .then(response => response.blob());
@@ -176,9 +177,9 @@ $(document).ready(function () {
     fetchAsBlob(urlWaterProofLyrsWMS + legendParams)
       .then(convertBlobToBase64)
       .then(base64Data => {
-        $('#img-legend-left').attr('src', base64Data);
-        $('#img-legend-right').attr('src', base64Data);
-        $('#img-legend-down').attr('src', base64Data);
+        $(elId).attr('src', base64Data);
+        //$('#img-legend-right').attr('src', base64Data);
+        //$('#img-legend-down').attr('src', base64Data);
         //$('#legend-row').show();
       })
     
