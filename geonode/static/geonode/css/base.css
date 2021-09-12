@@ -2269,18 +2269,18 @@ pre code {
   .background-solution{
     background-color: #0C89AA;
     color: #fff;
-    font-size: 35px;
+    font-size: 34px;
     position: absolute;
     margin-left: -6%;
     width: 102% !important;
+  }
+  .background-solution > p {
+    padding: 2%;
   }
   .background-steps-take-action{
     background-color: #D2E8EF;
     position: relative;
     width: 100% !important;
-  }
-  .background-solution > p {
-    padding: 2%;
   }
   .background-take-header{
     background-image: url(/static/geonode/img/TA_1.jpg);
