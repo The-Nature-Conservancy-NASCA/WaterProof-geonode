@@ -345,7 +345,7 @@ def getReportCostsAnalysisFilter(request):
 	if request.method == 'GET':
 		con = psycopg2.connect(settings.DATABASE_URL)
 		cur = con.cursor()
-		cur.execute("SELECT typer, SUM(medbenefitr) AS sum_filter FROM __get_report_costs_analysis_filter(" + request.query_params.get('studyCase') + ") GROUP BY  typer ORDER BY typer")
+		cur.execute("SELECT typer, round(cast(SUM(medbenefitr) as numeric),2)::double precision AS sum_filter FROM __get_report_costs_analysis_filter(" + request.query_params.get('studyCase') + ") GROUP BY  typer ORDER BY typer")
 		rows = cur.fetchall()
 		objects_list = []
 		for row in rows:
@@ -403,7 +403,7 @@ def getReportAnalysisBenefitsFilterSum(request):
 	if request.method == 'GET':
 		con = psycopg2.connect(settings.DATABASE_URL)
 		cur = con.cursor()
-		cur.execute("SELECT typer ,SUM(vpn_med_benefitr) AS vpn_med_benefitr FROM __get_report_analysis_benefits_filter(" + request.query_params.get('studyCase') + ") GROUP BY typer")
+		cur.execute("SELECT case when typer='CARBONO' then 'CARBON' else typer end as typer,round(cast(SUM(vpn_med_benefitr) as numeric),2)::double precision AS vpn_med_benefitr FROM __get_report_analysis_benefits_filter(" + request.query_params.get('studyCase') + ") GROUP BY typer")
 
 		rows = cur.fetchall()
 		objects_list = []
