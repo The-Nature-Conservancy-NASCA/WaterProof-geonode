@@ -1,5 +1,7 @@
-{% extends 'waterproof_wiki/layout_random.html'%}
+{% extends 'waterproof_wiki/layout.html'%}
+{% load i18n %}
 
+{% block body_outer %}
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 
     <!--[if lt IE 9]>
@@ -69,4 +71,10 @@
     
 
     {% endblock%}
+    <div id="titulo" class="data">
+      <h4>
+      <a href="../">Ir a la Wiki</a>
+      </h4>
+  </div>
 
+{% endblock%}

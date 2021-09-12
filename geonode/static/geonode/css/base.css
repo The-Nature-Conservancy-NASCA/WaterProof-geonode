@@ -2174,13 +2174,170 @@ pre code {
     font-size: 3.4rem !important;
     display: table !important;
   }
-  .align-items-left{
-    margin-left: 5%;
-    margin-right: 5%;
+
+  .align-right-take-action{
+    padding-left: 20%;
+    padding-right: 3%;
+    font-size: 18px;
   }
-  .text-align-take{
+  .align-normal-take-action{
+    padding-left: 20% ;
+    padding-right: 20%;
+    font-size: 18px;
+    padding-top: 8%;
+  }
+  .align-complete-take{
+    padding-left: 10% ;
+    padding-right: 10%;
+    font-size: 18px;
+    text-align: justify;
+    
+  }
+  .align-left-take-action{
+    padding-left: 8%;
+    padding-right: 40%;
+    padding-top: 3%;
+    font-size: 18px;
+    text-justify: auto;
+  }
+
+  .align-extraright-take-action{
+    padding-left: 40%;
+    padding-right: 3%;
+    font-size: 18px;
+  }
+
+  .take-action-middle-tittle{
+    color: #0C89AA;
+    font-weight:normal !important;
+    padding-left: 5%;
+    padding-right: 3%;
+
+  }
+  .image-steps-take{
+    padding-left: 10%;
+    margin-left: 30%;
+    width: 50%;
+    max-inline-size: -webkit-fill-available;
+    height: 50% !important;
+  }
+  .image-user-take{
+    padding-left: 10%;
+    margin-left: 30%;
+    width: 40%;
+    max-inline-size: -webkit-fill-available;
+    height: 40% !important;
+  }
+  .image-icon-take{
+    padding-left: 10%;
+    margin-left: 30%;
+    width: 40%;
+    max-inline-size: -webkit-fill-available;
+    height: 40% !important;
+    padding-bottom: 3%;
+  }
+  .image-actor-take{
+    padding-left: 10%;
+    width: 80%;
+    max-inline-size: -webkit-fill-available;
+    height: 80% !important;
+    padding-bottom: 3%;
+  }
+  .image-right-take-action{
+    width: 50%;
+    height: 40% !important;
+    margin-left: 10% !important;
+    padding: 0%;
+  }
+  .image-left-take-action{
+    width: 54%;
+    height: 60% !important;
+    margin-left: 15% !important;
+    padding: 0%;
+  }
+  .font-image-take-action{
+    font-size: 18px;
+    text-align: justify;
+  }
+  .font-steps-take-action{
+    font-size: 16px;
+    text-align: justify;
+  }
+  .take-font-size{
+    font-size: 18px;
+  }
+  .background-solution{
+    background-color: #0C89AA;
+    color: #fff;
+    font-size: 34px;
+    position: absolute;
+    margin-left: -6%;
+    width: 102% !important;
+  }
+  .background-solution > p {
+    padding: 2%;
+  }
+  .background-steps-take-action{
+    background-color: #D2E8EF;
+    position: relative;
+    width: 100% !important;
+  }
+  .background-take-header{
+    background-image: url(/static/geonode/img/TA_1.jpg);
+    width: 100vw;
+    position: relative;
+    left: 50%;  
+    margin-left: -50vw;
+    height: 300px;
+    color: #fff;
+    font-size: 22px;
+  }
+  .background-take-header > h2{
+    padding-left: 65%;
     padding-top: 5%;
-    text-align: center;
+  }
+  .background-take-header > h4{
+    padding-left: 65%;
+    padding-right: 5%;
+    text-justify: auto;
+  }
+  .background-take-middle{
+    background-image: url(/static/geonode/img/TA_2.jpg);
+    width: 100vw;
+    position: relative;
+    left: 50%;  
+    margin-left: -50vw;
+    height: 300px;
+    color: #fff;
+  }
+  .background-take-middle > h1{
+    text-align: left;
+    padding-top: 8%;
+    padding-left: 15%;
+    font-size: 50px;
+    color: #FFF;
+  }
+  .background-take-middle > p{
+    text-align: left;
+    padding-left: 15%;
+    text-justify: auto;
+    color: #FFF;
+  }
+  .background-take-bot{
+    background-image: url(/static/geonode/img/TA_3.jpg);
+    width: 100vw;
+    position: relative;
+    left: 50%;  
+    margin-left: -50vw;
+    height: 300px;
+    color: #fff;
+    
+  }
+  .background-take-bot > h1{
+  text-align: left;
+  padding-top: 8%;
+  padding-left: 15%;
+  font-size: 50px;
   }
 }
 @media (min-width: 992px) {

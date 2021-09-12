@@ -994,10 +994,18 @@ function delimitIntakeArea() {
     })
     if (editablepolygon !== void(0))
         mapDelimit.removeLayer(editablepolygon);
-    editablepolygon = L.polygon(copyCoordinates, { color: 'red' });
+    
+    editablepolygon = L.polygon(copyCoordinates, { color: 'red' });    
     editablepolygon.addTo(mapDelimit)
     editablepolygon.enableEdit();
     editablepolygon.on('dblclick', L.DomEvent.stop).on('dblclick', editablepolygon.toggleEdit);
+}
+
+function simplifyPolygon(coords) {
+    var geojson = turf.polygon([coords]);
+    var options = {tolerance: simplifyTolerance, highQuality: false};
+    var simplified = turf.simplify(geojson, options);
+    return simplified;
 }
 
 function validateIntakeArea() {
