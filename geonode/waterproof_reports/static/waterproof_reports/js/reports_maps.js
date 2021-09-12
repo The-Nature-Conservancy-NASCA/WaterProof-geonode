@@ -33,9 +33,8 @@ $(document).ready(function () {
   var mapRight = L.map('map-right').setView(center, zoom);
   var map = L.map('map-down').setView(center, zoom);
   var mapResults = L.map('map-results').setView(center, zoom);
-  var mapAreasRios = L.map('map-areas-rios').setView(center, zoom);
+  mapAreasRios = L.map('map-areas-rios').setView(center, zoom);
 
-  let urlTopoLyr = 'https://opentopomap.org/{z}/{x}/{y}.png';
   let urlOmsLyr = 'https://{s}.tile.osm.org/{z}/{x}/{y}.png';
   let omsAttributions = 'Map tiles by <a href="https://osm.org">OSM<\/a>, ' +
                         '<a href="https://creativecommons.org/licenses/by/3.0">CC BY 3.0<\/a> &mdash; ' +
