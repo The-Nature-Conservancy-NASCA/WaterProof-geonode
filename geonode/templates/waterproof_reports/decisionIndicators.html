@@ -429,8 +429,6 @@
 
 <script type="text/javascript">
 
-$("#step3-map")[0].append($("#map-step-3")[0]);
-
 $(function () {
 
     var IMAGE_LYR_URL = "https://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryTopo/MapServer/tile/{z}/{y}/{x}";
@@ -615,6 +613,7 @@ $(function () {
             function onMapClick(e) {
             }
             map.on('click', onMapClick);
+            $("#step3-map")[0].append($("#map-step-3")[0]);
     }
 
     initMapPhysical = function () {
@@ -1269,13 +1268,13 @@ $(function () {
             });
         });
 
-        var urlDetail = "../../reports/getSizeRecomendedIntervention/?studyCase=" + localStorage.idStudyCase;
-        $.getJSON(urlDetail, function (data) {
-            $.each( data, function( key, value ) {
-                // document.getElementById("idSizeRecomend").innerHTML = value.sizeRecomendedIntervention + " % ";
+        // var urlDetail = "../../reports/getSizeRecomendedIntervention/?studyCase=" + localStorage.idStudyCase;
+        // $.getJSON(urlDetail, function (data) {
+        //     $.each( data, function( key, value ) {
+        //         // document.getElementById("idSizeRecomend").innerHTML = value.sizeRecomendedIntervention + " % ";
                 
-            });
-        });
+        //     });
+        // });
 
         // var urlDetail = "../../reports/getNameWaterproofIntakeIntake/?studyCase=" + localStorage.idStudyCase;
         // $.getJSON(urlDetail, function (data) {
