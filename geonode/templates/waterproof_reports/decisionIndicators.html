@@ -1182,70 +1182,70 @@ $(function () {
             });
         });
 
-        var urlDetail = "../../reports/getWpAqueductIndicatorGraph/?studyCase=" + localStorage.idStudyCase;
-        $.getJSON(urlDetail, function (data) {
-            var lastGroupImage = "";
-            var titleGraph = "";
-            var numberContainer = 0;
-            $.each( data, function( key, value ) {
+        // var urlDetail = "../../reports/getWpAqueductIndicatorGraph/?studyCase=" + localStorage.idStudyCase;
+        // $.getJSON(urlDetail, function (data) {
+        //     var lastGroupImage = "";
+        //     var titleGraph = "";
+        //     var numberContainer = 0;
+        //     $.each( data, function( key, value ) {
 
-                if(lastGroupImage !== value.indicator) {
-                    if(titleGraph !== "") {
-                        titleGraph = titleGraph + '</div>';
-                    }
-                    titleGraph = titleGraph + '<div name="listGraphIntake" nameSelect="' + value.indicator + '" class="title-water" style="float: left;width: 100%;">' + value.indicator + '</div><div name="listGraphIntake"  nameSelect="' + value.indicator + '" class="container-general-gauge">';
-                    lastGroupImage = value.indicator;
+        //         if(lastGroupImage !== value.indicator) {
+        //             if(titleGraph !== "") {
+        //                 titleGraph = titleGraph + '</div>';
+        //             }
+        //             titleGraph = titleGraph + '<div name="listGraphIntake" nameSelect="' + value.indicator + '" class="title-water" style="float: left;width: 100%;">' + value.indicator + '</div><div name="listGraphIntake"  nameSelect="' + value.indicator + '" class="container-general-gauge">';
+        //             lastGroupImage = value.indicator;
 
-                    var option = document.createElement("option");
-                    option.text = value.indicator;
-                    option.value = value.indicator;
-                    document.getElementById("idSelectWaterIntake").add(option);
-                }
-                titleGraph = titleGraph + '<div class="container-gauge"><div id="containerPr' + numberContainer + '"></div></div>';
-                numberContainer++;
-            });
-            titleGraph = titleGraph + '</div>';
-            document.getElementById("idListGraph").innerHTML = titleGraph;
+        //             var option = document.createElement("option");
+        //             option.text = value.indicator;
+        //             option.value = value.indicator;
+        //             // document.getElementById("idSelectWaterIntake").add(option);
+        //         }
+        //         titleGraph = titleGraph + '<div class="container-gauge"><div id="containerPr' + numberContainer + '"></div></div>';
+        //         numberContainer++;
+        //     });
+        //     titleGraph = titleGraph + '</div>';
+        //     // document.getElementById("idListGraph").innerHTML = titleGraph;
 
-            setTimeout(function(){
-                var urlDetail = "../../reports/getWpAqueductIndicatorGraph/?studyCase=" + localStorage.idStudyCase;
-                $.getJSON(urlDetail, function (data) {
-                    var numberContainerG = 0;
-                    $.each( data, function( key, value ) {
-                        var chartSpeed = Highcharts.chart('containerPr' + numberContainerG, Highcharts.merge(gaugeOptions, {
-                            yAxis: {
-                                min: 0,
-                                max: 6,
-                                stops: [
-                                    [0.1, '#90D3E7'],
-                                    [0.3, '#61D1C2'],
-                                    [0.5, '#008BAB'],
-                                    [0.7, '#004B56'],
-                                    [0.9, '#01353D']
-                                ],
-                                title: {
-                                    text: value.description
-                                }
-                            },
-                            credits: {
-                                enabled: false
-                            },
-                            series: [{
-                                name: gettext('Baseline water stress'),
-                                data: [value.valueIndicator],
-                                dataLabels: {
-                                    format:
-                                        '<div style="text-align:center">' +
-                                        '<span style="font-size:25px">{y}</span><br/>' +
-                                        '</div>'
-                                }
-                            }]
-                        }));
-                        numberContainerG++;
-                    });
-                });
-            }, 3000);
-        });
+        //     setTimeout(function(){
+        //         var urlDetail = "../../reports/getWpAqueductIndicatorGraph/?studyCase=" + localStorage.idStudyCase;
+        //         $.getJSON(urlDetail, function (data) {
+        //             var numberContainerG = 0;
+        //             $.each( data, function( key, value ) {
+        //                 var chartSpeed = Highcharts.chart('containerPr' + numberContainerG, Highcharts.merge(gaugeOptions, {
+        //                     yAxis: {
+        //                         min: 0,
+        //                         max: 6,
+        //                         stops: [
+        //                             [0.1, '#90D3E7'],
+        //                             [0.3, '#61D1C2'],
+        //                             [0.5, '#008BAB'],
+        //                             [0.7, '#004B56'],
+        //                             [0.9, '#01353D']
+        //                         ],
+        //                         title: {
+        //                             text: value.description
+        //                         }
+        //                     },
+        //                     credits: {
+        //                         enabled: false
+        //                     },
+        //                     series: [{
+        //                         name: gettext('Baseline water stress'),
+        //                         data: [value.valueIndicator],
+        //                         dataLabels: {
+        //                             format:
+        //                                 '<div style="text-align:center">' +
+        //                                 '<span style="font-size:25px">{y}</span><br/>' +
+        //                                 '</div>'
+        //                         }
+        //                     }]
+        //                 }));
+        //                 numberContainerG++;
+        //             });
+        //         });
+        //     }, 3000);
+        // });
 
         var urlDetail = "../../reports/getReportOportunityResultMaps/?studyCase=" + localStorage.idStudyCase;
         $.getJSON(urlDetail, function (data) {
@@ -1272,40 +1272,40 @@ $(function () {
         var urlDetail = "../../reports/getSizeRecomendedIntervention/?studyCase=" + localStorage.idStudyCase;
         $.getJSON(urlDetail, function (data) {
             $.each( data, function( key, value ) {
-                document.getElementById("idSizeRecomend").innerHTML = value.sizeRecomendedIntervention + " % ";
+                // document.getElementById("idSizeRecomend").innerHTML = value.sizeRecomendedIntervention + " % ";
                 
             });
         });
 
-        var urlDetail = "../../reports/getNameWaterproofIntakeIntake/?studyCase=" + localStorage.idStudyCase;
-        $.getJSON(urlDetail, function (data) {
-            $.each( data, function( key, value ) {
-                var sel = document.getElementById('idSelectNameIntake');
-                var opt = document.createElement('option');
-                opt.appendChild( document.createTextNode(value.name) );
-                opt.value = value.typeId; 
-                sel.appendChild(opt); 
-            });
-        });
+        // var urlDetail = "../../reports/getNameWaterproofIntakeIntake/?studyCase=" + localStorage.idStudyCase;
+        // $.getJSON(urlDetail, function (data) {
+        //     $.each( data, function( key, value ) {
+        //         var sel = document.getElementById('idSelectNameIntake');
+        //         var opt = document.createElement('option');
+        //         opt.appendChild( document.createTextNode(value.name) );
+        //         opt.value = value.typeId; 
+        //         // sel.appendChild(opt); 
+        //     });
+        // });
 
-        var urlDetail = "../../reports/getTotalSizeWaterproofIntakePolygon/?studyCase=" + localStorage.idStudyCase;
-        $.getJSON(urlDetail, function (data) {
-            $.each( data, function( key, value ) {
-                document.getElementById("idTotalSizeWater").innerHTML = value.totalSize;
-            });
-        });
+        // var urlDetail = "../../reports/getTotalSizeWaterproofIntakePolygon/?studyCase=" + localStorage.idStudyCase;
+        // $.getJSON(urlDetail, function (data) {
+        //     $.each( data, function( key, value ) {
+        //         // document.getElementById("idTotalSizeWater").innerHTML = value.totalSize;
+        //     });
+        // });
 
-        var urlDetail = "../../reports/getWaterproofReportsRiosIpa/?studyCase=" + localStorage.idStudyCase;
-        $.getJSON(urlDetail, function (data) {
-            $.each( data, function( key, value ) {
-                var txtInterventions = '<tr>';
-                txtInterventions = txtInterventions + '<td class="small text-center vat">' + value.sbn + '</td>';
-                txtInterventions = txtInterventions + '<td class="small text-center vat">' + value.actualSpent + '</td>';
-                txtInterventions = txtInterventions + '<td class="small text-center vat">' + value.areaConvertedHa + '</td>';
-                txtInterventions = txtInterventions + '</tr>';
-                document.getElementById("idTbodyInterventions").innerHTML = document.getElementById("idTbodyInterventions").innerHTML + txtInterventions;
-            });
-        });
+        // var urlDetail = "../../reports/getWaterproofReportsRiosIpa/?studyCase=" + localStorage.idStudyCase;
+        // $.getJSON(urlDetail, function (data) {
+        //     $.each( data, function( key, value ) {
+        //         var txtInterventions = '<tr>';
+        //         txtInterventions = txtInterventions + '<td class="small text-center vat">' + value.sbn + '</td>';
+        //         txtInterventions = txtInterventions + '<td class="small text-center vat">' + value.actualSpent + '</td>';
+        //         txtInterventions = txtInterventions + '<td class="small text-center vat">' + value.areaConvertedHa + '</td>';
+        //         txtInterventions = txtInterventions + '</tr>';
+        //         // document.getElementById("idTbodyInterventions").innerHTML = document.getElementById("idTbodyInterventions").innerHTML + txtInterventions;
+        //     });
+        // });
     };
     initialize();
 });

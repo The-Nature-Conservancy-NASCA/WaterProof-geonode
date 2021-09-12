@@ -21,6 +21,7 @@ $(document).ready(function () {
   });
   
   document.getElementById("idSelectStudyCase").onchange = function() {
+    console.log(this.value);
     if (this.value != -1) {
       let g = JSON.parse(this.selectedOptions[0].getAttribute("data-intake-geom")).coordinates;
       let centroid =g[1] + "," + g[0];
