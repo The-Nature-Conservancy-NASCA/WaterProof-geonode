@@ -47,18 +47,18 @@ def pdf(request):
     pdf.set_text_color(250, 250, 250)
     pdf.set_fill_color(0, 138, 173)
     pdf.set_draw_color(0, 138, 173)
-    
 
     studyCaseName = "-"
-    requestJson = requests.get(settings.SITE_HOST_API + 'reports/getSelectorStudyCasesId/?studyCase=' + request.GET['studyCase'],verify=False)
+    requestJson = requests.get(settings.SITE_HOST_API +
+                               'reports/getSelectorStudyCasesId/?studyCase=' + request.GET['studyCase'], verify=False)
     data = requestJson.json()
     for item in data:
         studyCaseName = item['studyCasesName']
-        
 
     numerOfWater = "-"
     numerOfDwtp = "-"
-    requestJson = requests.get(settings.SITE_HOST_API + 'reports/getStudyCasesIntake/?studyCase=' + request.GET['studyCase'],verify=False)
+    requestJson = requests.get(settings.SITE_HOST_API +
+                               'reports/getStudyCasesIntake/?studyCase=' + request.GET['studyCase'], verify=False)
     data = requestJson.json()
     for item in data:
         numerOfWater = item['numberStudyCase']
@@ -73,37 +73,38 @@ def pdf(request):
     changeInPhosphorus = "-"
     changeInCarbonStorage = "-"
 
-    requestJson = requests.get(settings.SITE_HOST_API + 'reports/getReportAnalisysBeneficsB/?studyCase=' + request.GET['studyCase'],verify=False)
+    requestJson = requests.get(settings.SITE_HOST_API +
+                               'reports/getReportAnalisysBeneficsB/?studyCase=' + request.GET['studyCase'], verify=False)
     data = requestJson.json()
     for item in data:
         currencyCase = item['currency']
         timeCase = item['time']
-        changeInVolumeOfWater = str(round(float(item['changeInVolumeOfWater']),2))
-        changeInBaseFlow = str(round(float(item['changeInBaseFlow']),2))
-        changeIntotalSediments = str(round(float(item['changeIntotalSediments']),2))
-        changeInNitrogenLoad = str(round(float(item['changeInNitrogenLoad']),2))
-        changeInPhosphorus = str(round(float(item['changeInPhosphorus']),2))
-        changeInCarbonStorage = str(round(float(item['changeInCarbonStorage']),2))
+        changeInVolumeOfWater = str(round(float(item['changeInVolumeOfWater']), 2))
+        changeInBaseFlow = str(round(float(item['changeInBaseFlow']), 2))
+        changeIntotalSediments = str(round(float(item['changeIntotalSediments']), 2))
+        changeInNitrogenLoad = str(round(float(item['changeInNitrogenLoad']), 2))
+        changeInPhosphorus = str(round(float(item['changeInPhosphorus']), 2))
+        changeInCarbonStorage = str(round(float(item['changeInCarbonStorage']), 2))
 
     pdf.ln(8)
-    pdf.cell(epw, 8,studyCaseName, border=1, align='C', fill=1)
+    pdf.cell(epw, 8, studyCaseName, border=1, align='C', fill=1)
     title = 0
     pdf.ln(8)
     pdf.set_text_color(100, 100, 100)
     pdf.set_fill_color(255, 255, 255)
-    pdf.cell(epw/2, 32,"", border=1, fill=1)
-    pdf.cell(epw/2, 32,"", border=1, fill=1)
+    pdf.cell(epw/2, 32, "", border=1, fill=1)
+    pdf.cell(epw/2, 32, "", border=1, fill=1)
     pdf.ln(0)
-    pdf.cell(epw/2, 8,"City:   " +  request.GET['studyCity'])
-    pdf.cell(epw/2, 8,"Number of water intakes that are part of the analysis:   " + str(numerOfWater))
+    pdf.cell(epw/2, 8, "City:   " + request.GET['studyCity'])
+    pdf.cell(epw/2, 8, "Number of water intakes that are part of the analysis:   " + str(numerOfWater))
     pdf.ln(8)
-    pdf.cell(epw/2, 8,"Country:   " +  request.GET['studyCountry'])
-    pdf.cell(epw/2, 8,"Number of DWTP in the analysis:   " + str(numerOfDwtp))
+    pdf.cell(epw/2, 8, "Country:   " + request.GET['studyCountry'])
+    pdf.cell(epw/2, 8, "Number of DWTP in the analysis:   " + str(numerOfDwtp))
     pdf.ln(8)
-    pdf.cell(epw/2, 8,"Region:   " +  request.GET['studyRegion'])
-    pdf.cell(epw/2, 8,"Currency:   " + currencyCase)
+    pdf.cell(epw/2, 8, "Region:   " + request.GET['studyRegion'])
+    pdf.cell(epw/2, 8, "Currency:   " + currencyCase)
     pdf.ln(8)
-    pdf.cell(epw/2, 8,"Time frame (years):   " + str(timeCase))
+    pdf.cell(epw/2, 8, "Time frame (years):   " + str(timeCase))
 
     pdf.ln(8)
 
@@ -117,20 +118,20 @@ def pdf(request):
     pdf.set_fill_color(0, 138, 173)
     pdf.set_draw_color(0, 138, 173)
 
-    pdf.cell(epw/2, 8,"Water Intake", border=1, align='C', fill=1)
-    pdf.cell(epw/2, 8,"System caracteristics", border=1, align='C', fill=1)
+    pdf.cell(epw/2, 8, "Water Intake", border=1, align='C', fill=1)
+    pdf.cell(epw/2, 8, "System caracteristics", border=1, align='C', fill=1)
     pdf.set_text_color(100, 100, 100)
     pdf.set_fill_color(255, 255, 255)
 
-    requestJson = requests.get(settings.SITE_HOST_API + 
-                'reports/getCaracteristicsCsIntakePdf/?studyCase=' + 
-                request.GET['studyCase'],verify=False)
+    requestJson = requests.get(settings.SITE_HOST_API +
+                               'reports/getCaracteristicsCsIntakePdf/?studyCase=' +
+                               request.GET['studyCase'], verify=False)
 
     data = requestJson.json()
     for item in data:
         pdf.ln(8)
-        pdf.cell(epw/2, 8,item['name'], border=1, align='C', fill=1)
-        pdf.cell(epw/2, 8,item['description'], border=1, align='C', fill=1)
+        pdf.cell(epw/2, 8, item['name'], border=1, align='C', fill=1)
+        pdf.cell(epw/2, 8, item['description'], border=1, align='C', fill=1)
 
     pdf.add_page()
     pdf.set_font('Arial', '', 13)
@@ -144,18 +145,19 @@ def pdf(request):
     pdf.set_fill_color(0, 138, 173)
     pdf.set_draw_color(0, 138, 173)
 
-    pdf.cell(epw/2, 8,"Drinking water Tratament plant", border=1, align='C', fill=1)
-    pdf.cell(epw/2, 8,"Nombre intake", border=1, align='C', fill=1)
+    pdf.cell(epw/2, 8, "Drinking water Tratament plant", border=1, align='C', fill=1)
+    pdf.cell(epw/2, 8, "Nombre intake", border=1, align='C', fill=1)
     pdf.set_text_color(100, 100, 100)
     pdf.set_fill_color(255, 255, 255)
 
-    requestJson = requests.get(settings.SITE_HOST_API + 'reports/getCaracteristicsPtapDetailPdf/?studyCase=' + request.GET['studyCase'],verify=False)
+    requestJson = requests.get(
+        settings.SITE_HOST_API + 'reports/getCaracteristicsPtapDetailPdf/?studyCase=' + request.GET['studyCase'], verify=False)
 
     data = requestJson.json()
     for item in data:
         pdf.ln(8)
-        pdf.cell(epw/2, 8,item['name'], border=1, align='C', fill=1)
-        pdf.cell(epw/2, 8,item['description'], border=1, align='C', fill=1)
+        pdf.cell(epw/2, 8, item['name'], border=1, align='C', fill=1)
+        pdf.cell(epw/2, 8, item['description'], border=1, align='C', fill=1)
 
     pdf.set_font('Arial', '', 13)
     pdf.set_text_color(100, 100, 100)
@@ -168,56 +170,58 @@ def pdf(request):
     pdf.set_fill_color(0, 138, 173)
     pdf.set_draw_color(0, 138, 173)
 
-    pdf.cell(epw/4, 10,"Name", border=1, align='C', fill=1)
-    pdf.cell(epw/4, 5,"Percentage of benefit associated", border=1, align='C', fill=1)
-    pdf.cell(epw/10, 10,"Benefit", border=1, align='C', fill=1)
-    pdf.cell(epw/10, 5,"Implementa", border=1, align='C', fill=1)
-    pdf.cell(epw/10, 5,"Matenance", border=1, align='C', fill=1)
-    pdf.cell(epw/10, 5,"Periodicity", border=1, align='C', fill=1)
-    pdf.cell(epw/10, 5,"Opportunity", border=1, align='C', fill=1)
+    pdf.cell(epw/4, 10, "Name", border=1, align='C', fill=1)
+    pdf.cell(epw/4, 5, "Percentage of benefit associated", border=1, align='C', fill=1)
+    pdf.cell(epw/10, 10, "Benefit", border=1, align='C', fill=1)
+    pdf.cell(epw/10, 5, "Implementa", border=1, align='C', fill=1)
+    pdf.cell(epw/10, 5, "Matenance", border=1, align='C', fill=1)
+    pdf.cell(epw/10, 5, "Periodicity", border=1, align='C', fill=1)
+    pdf.cell(epw/10, 5, "Opportunity", border=1, align='C', fill=1)
     pdf.ln(4)
-    pdf.cell(epw/4, 5,"")
-    pdf.cell(epw/4, 5,"with intervenctions at time t=0", border=1, align='C', fill=1)
-    pdf.cell(epw/10, 5,"")
-    pdf.cell(epw/10, 5,"tion cost", border=1, align='C', fill=1)
-    pdf.cell(epw/10, 5,"cost", border=1, align='C', fill=1)
-    pdf.cell(epw/10, 5,"maintenance", border=1, align='C', fill=1)
-    pdf.cell(epw/10, 5,"cost", border=1, align='C', fill=1)
+    pdf.cell(epw/4, 5, "")
+    pdf.cell(epw/4, 5, "with intervenctions at time t=0", border=1, align='C', fill=1)
+    pdf.cell(epw/10, 5, "")
+    pdf.cell(epw/10, 5, "tion cost", border=1, align='C', fill=1)
+    pdf.cell(epw/10, 5, "cost", border=1, align='C', fill=1)
+    pdf.cell(epw/10, 5, "maintenance", border=1, align='C', fill=1)
+    pdf.cell(epw/10, 5, "cost", border=1, align='C', fill=1)
     pdf.ln(4)
     pdf.set_text_color(100, 100, 100)
     pdf.set_fill_color(255, 255, 255)
-    
-    requestJson = requests.get(settings.SITE_HOST_API + 'reports/getconservationActivitiesPdf/?studyCase=' + request.GET['studyCase'],verify=False)
+
+    requestJson = requests.get(
+        settings.SITE_HOST_API + 'reports/getconservationActivitiesPdf/?studyCase=' + request.GET['studyCase'], verify=False)
 
     data = requestJson.json()
     for item in data:
-        pdf.cell(epw/4, 20,"", border=1, fill=1)
-        pdf.cell(epw/4, 20,"", border=1, fill=1)
-        pdf.cell(epw/10, 20,"", border=1, fill=1)
-        pdf.cell(epw/10, 20,"", border=1, fill=1)
-        pdf.cell(epw/10, 20,"", border=1, fill=1)
-        pdf.cell(epw/10, 20,"", border=1, fill=1)
-        pdf.cell(epw/10, 20,"", border=1, fill=1)
+        pdf.cell(epw/4, 20, "", border=1, fill=1)
+        pdf.cell(epw/4, 20, "", border=1, fill=1)
+        pdf.cell(epw/10, 20, "", border=1, fill=1)
+        pdf.cell(epw/10, 20, "", border=1, fill=1)
+        pdf.cell(epw/10, 20, "", border=1, fill=1)
+        pdf.cell(epw/10, 20, "", border=1, fill=1)
+        pdf.cell(epw/10, 20, "", border=1, fill=1)
         pdf.ln(0)
-        pdf.cell(epw/4, 5,str(item['name'])[0:30], align='C')
-        pdf.cell(epw/4, 5,str(item['description'])[0:30], align='C')
-        pdf.cell(epw/10, 20,str(item['benefit']), align='C')
-        pdf.cell(epw/10, 20,str(item['implementation']), align='C')
-        pdf.cell(epw/10, 20,str(item['maintenance']), align='C')
-        pdf.cell(epw/10, 20,str(item['periodicity']), align='C')
-        pdf.cell(epw/10, 20,str(item['oportunity']), align='C')
+        pdf.cell(epw/4, 5, str(item['name'])[0:30], align='C')
+        pdf.cell(epw/4, 5, str(item['description'])[0:30], align='C')
+        pdf.cell(epw/10, 20, str(item['benefit']), align='C')
+        pdf.cell(epw/10, 20, str(item['implementation']), align='C')
+        pdf.cell(epw/10, 20, str(item['maintenance']), align='C')
+        pdf.cell(epw/10, 20, str(item['periodicity']), align='C')
+        pdf.cell(epw/10, 20, str(item['oportunity']), align='C')
         pdf.ln(5)
-        pdf.cell(epw/4, 5,str(item['name'])[30:60], align='C')
-        pdf.cell(epw/4, 5,str(item['description'])[30:60], align='C')
+        pdf.cell(epw/4, 5, str(item['name'])[30:60], align='C')
+        pdf.cell(epw/4, 5, str(item['description'])[30:60], align='C')
         pdf.ln(5)
-        pdf.cell(epw/4, 5,str(item['name'])[60:90], align='C')
-        pdf.cell(epw/4, 5,str(item['description'])[60:90], align='C')
+        pdf.cell(epw/4, 5, str(item['name'])[60:90], align='C')
+        pdf.cell(epw/4, 5, str(item['description'])[60:90], align='C')
         pdf.ln(5)
-        pdf.cell(epw/4, 5,str(item['name'])[90:120], align='C')
-        pdf.cell(epw/4, 5,str(item['description'])[90:120], align='C')
+        pdf.cell(epw/4, 5, str(item['name'])[90:120], align='C')
+        pdf.cell(epw/4, 5, str(item['description'])[90:120], align='C')
         pdf.ln(5)
 
-    requestJson = requests.get(settings.SITE_HOST_API + 'reports/getFinancialAnalysisPdfRunAnalisisPdf/?studyCase=' + request.GET['studyCase'],verify=False)
+    requestJson = requests.get(
+        settings.SITE_HOST_API + 'reports/getFinancialAnalysisPdfRunAnalisisPdf/?studyCase=' + request.GET['studyCase'], verify=False)
     data = requestJson.json()
 
     platformCost = ""
@@ -244,17 +248,17 @@ def pdf(request):
     pdf.cell(0, 15, 'Financial Analysis', align='C')
     pdf.ln(15)
     pdf.set_font('Arial', '', 9)
-    pdf.cell(epw/2, 8,"Platform cost year 1 (US$/yr)")
-    pdf.cell(epw/2, 8,platformCost, align='R')
+    pdf.cell(epw/2, 8, "Platform cost year 1 (US$/yr)")
+    pdf.cell(epw/2, 8, platformCost, align='R')
     pdf.ln(8)
-    pdf.cell(epw/2, 8,"Discount rate (%)")
-    pdf.cell(epw/2, 8,discountRate, align='R')
+    pdf.cell(epw/2, 8, "Discount rate (%)")
+    pdf.cell(epw/2, 8, discountRate, align='R')
     pdf.ln(8)
-    pdf.cell(epw/2, 8,"Sensivity analysis - Minimum discount rate")
-    pdf.cell(epw/2, 8,discountRateMinimum, align='R')
+    pdf.cell(epw/2, 8, "Sensivity analysis - Minimum discount rate")
+    pdf.cell(epw/2, 8, discountRateMinimum, align='R')
     pdf.ln(8)
-    pdf.cell(epw/2, 8,"Sensivity analysis - Maximum discount rate")
-    pdf.cell(epw/2, 8,discountRateMaximum, align='R')
+    pdf.cell(epw/2, 8, "Sensivity analysis - Maximum discount rate")
+    pdf.cell(epw/2, 8, discountRateMaximum, align='R')
     pdf.ln(8)
 
     pdf.set_font('Arial', '', 13)
@@ -262,12 +266,13 @@ def pdf(request):
     pdf.cell(0, 15, 'Objetives for portafolio', align='C')
     pdf.ln(15)
     pdf.set_font('Arial', '', 9)
-   
-    requestJson = requests.get(settings.SITE_HOST_API + 'reports/getObjetivesForPorfoliosPdf/?studyCase=' + request.GET['studyCase'],verify=False)
+
+    requestJson = requests.get(
+        settings.SITE_HOST_API + 'reports/getObjetivesForPorfoliosPdf/?studyCase=' + request.GET['studyCase'], verify=False)
     data = requestJson.json()
 
     for item in data:
-        pdf.cell(epw, 8,item['name'])
+        pdf.cell(epw, 8, item['name'])
         pdf.ln(8)
 
     pdf.set_font('Arial', '', 13)
@@ -275,20 +280,20 @@ def pdf(request):
     pdf.cell(0, 15, 'Run analysis: Full portafolio', align='C')
     pdf.ln(15)
     pdf.set_font('Arial', '', 9)
-    pdf.cell(epw/2, 8,"Implementation time  of Nature-Based solution (yr)")
-    pdf.cell(epw/2, 8,fullPorfolio, align='R')
+    pdf.cell(epw/2, 8, "Implementation time  of Nature-Based solution (yr)")
+    pdf.cell(epw/2, 8, fullPorfolio, align='R')
     pdf.ln(8)
-    pdf.cell(epw/2, 8,"ROI analysis time (yr)")
-    pdf.cell(epw/2, 8,fullRoi, align='R')
+    pdf.cell(epw/2, 8, "ROI analysis time (yr)")
+    pdf.cell(epw/2, 8, fullRoi, align='R')
     pdf.ln(8)
-    pdf.cell(epw/2, 8,"Climate selection for baseline and NBS scenario analysis")
-    pdf.cell(epw/2, 8,fullScenario, align='R')
+    pdf.cell(epw/2, 8, "Climate selection for baseline and NBS scenario analysis")
+    pdf.cell(epw/2, 8, fullScenario, align='R')
     pdf.ln(8)
 
     pdf.add_page()
-    requestJson = requests.get(settings.SITE_HOST_API + 
-                'reports/getReportCostsAnalysisRoi/?studyCase=' + 
-                request.GET['studyCase'],verify=False)
+    requestJson = requests.get(settings.SITE_HOST_API +
+                               'reports/getReportCostsAnalysisRoi/?studyCase=' +
+                               request.GET['studyCase'], verify=False)
     data = requestJson.json()
 
     categories = []
@@ -321,15 +326,15 @@ def pdf(request):
         'series': [{
             'name': 'Total Cost',
             'data': totalCost
-        },{
+        }, {
             'name': 'Total Discounted Cost',
             'data': totalDiscountedCost
-        },{
+        }, {
             'name': 'Total Benefits',
             'type': 'spline',
             'dashStyle': 'shortdot',
             'data': totalBenefits
-        },{
+        }, {
             'name': 'Total Discounted Benefits',
             'type': 'spline',
             'dashStyle': 'shortdot',
@@ -356,26 +361,27 @@ def pdf(request):
     pdf.set_text_color(100, 100, 100)
     pdf.set_fill_color(255, 255, 255)
 
-    contTitle = 1;
+    contTitle = 1
     for item in data:
         pdf.cell(epw/5, 4, str(contTitle), border=1, align='C', fill=1)
-        pdf.cell(epw/5, 4, str(round(item['totalCost'],2)) , border=1, align='C', fill=1)
-        pdf.cell(epw/5, 4, str(round(item['totalDiscountedCost'],2)) , border=1, align='C', fill=1)
-        pdf.cell(epw/5, 4, str(round(item['totalBenefits'],2)) , border=1, align='C', fill=1)
-        pdf.cell(epw/5, 4, str(round(item['totalDiscountedBenefits'],2)) , border=1, align='C', fill=1)
+        pdf.cell(epw/5, 4, str(round(item['totalCost'], 2)), border=1, align='C', fill=1)
+        pdf.cell(epw/5, 4, str(round(item['totalDiscountedCost'], 2)), border=1, align='C', fill=1)
+        pdf.cell(epw/5, 4, str(round(item['totalBenefits'], 2)), border=1, align='C', fill=1)
+        pdf.cell(epw/5, 4, str(round(item['totalDiscountedBenefits'], 2)), border=1, align='C', fill=1)
         contTitle = contTitle + 1
         pdf.ln(4)
 
     pdf.add_page()
-    requestJson = requests.get(settings.SITE_HOST_API + 'reports/getCostAndBenefit/?studyCase=' + request.GET['studyCase'],verify=False)
+    requestJson = requests.get(settings.SITE_HOST_API + 'reports/getCostAndBenefit/?studyCase=' +
+                               request.GET['studyCase'], verify=False)
     data = requestJson.json()
 
     dataCost = []
     dataBenefit = []
 
     for item in data:
-        dataCost.append(item['costr']);
-        dataBenefit.append(item['benefift']);
+        dataCost.append(item['costr'])
+        dataBenefit.append(item['benefift'])
 
     config = {
         'chart': {
@@ -394,7 +400,7 @@ def pdf(request):
         'series': [{
             'name': 'Cost',
             'data': dataCost
-        },{
+        }, {
             'name': 'Benefits',
             'data': dataBenefit
         }]
@@ -403,7 +409,8 @@ def pdf(request):
     hc_export.save_as_png(config=config, filename="cab.png")
     pdf.image('cab.png', 20, 30, w=160)
 
-    requestJson = requests.get(settings.SITE_HOST_API + 'reports/getNetPresentValueSummary/?studyCase=' + request.GET['studyCase'],verify=False)
+    requestJson = requests.get(settings.SITE_HOST_API +
+                               'reports/getNetPresentValueSummary/?studyCase=' + request.GET['studyCase'], verify=False)
     data = requestJson.json()
 
     dataNetPresentValueSummary = []
@@ -418,23 +425,21 @@ def pdf(request):
 
     for item in data:
         typeMoney = item['currencyr']
-        dataNetPresentValueSummary.append(round(item['implementationr'],2));
-        dataNetPresentValueSummary.append(round(item['maintenancer'],2));
-        dataNetPresentValueSummary.append(round(item['oportunityr'],2));
-        dataNetPresentValueSummary.append(round(item['transactionr'],2));
-        dataNetPresentValueSummary.append(round(item['platformr'],2));
-        dataNetPresentValueSummary.append(round(item['benefitr'],2));
-        dataNetPresentValueSummary.append(round(item['totalr'],2));
+        dataNetPresentValueSummary.append(round(item['implementationr'], 2))
+        dataNetPresentValueSummary.append(round(item['maintenancer'], 2))
+        dataNetPresentValueSummary.append(round(item['oportunityr'], 2))
+        dataNetPresentValueSummary.append(round(item['transactionr'], 2))
+        dataNetPresentValueSummary.append(round(item['platformr'], 2))
+        dataNetPresentValueSummary.append(round(item['benefitr'], 2))
+        dataNetPresentValueSummary.append(round(item['totalr'], 2))
 
-        valimplementationr = round(item['implementationr'],2)
-        valmaintenancer = round(item['maintenancer'],2)
-        valoportunityr = round(item['oportunityr'],2)
-        valtransactionr = round(item['transactionr'],2)
-        valplatformr = round(item['platformr'],2)
-        valbenefitr = round(item['benefitr'],2)
-        valtotalr = round(item['totalr'],2)
-
-
+        valimplementationr = round(item['implementationr'], 2)
+        valmaintenancer = round(item['maintenancer'], 2)
+        valoportunityr = round(item['oportunityr'], 2)
+        valtransactionr = round(item['transactionr'], 2)
+        valplatformr = round(item['platformr'], 2)
+        valbenefitr = round(item['benefitr'], 2)
+        valtotalr = round(item['totalr'], 2)
 
     config = {
         'chart': {
@@ -458,7 +463,7 @@ def pdf(request):
 
     hc_export.save_as_png(config=config, filename="npvs.png")
     pdf.image('npvs.png', 20, 150, w=160)
-    
+
     pdf.add_page()
     pdf.set_font('Arial', '', 10)
     pdf.set_text_color(255, 255, 255)
@@ -472,36 +477,38 @@ def pdf(request):
     pdf.set_fill_color(255, 255, 255)
 
     pdf.cell(epw/2, 4, str("Cost: implementation"), border=1, align='C', fill=1)
-    pdf.cell(epw/2, 4, str(round(valimplementationr,2)) , border=1, align='C', fill=1)
+    pdf.cell(epw/2, 4, str(round(valimplementationr, 2)), border=1, align='C', fill=1)
     pdf.ln(4)
     pdf.cell(epw/2, 4, str("Cost: maintenance"), border=1, align='C', fill=1)
-    pdf.cell(epw/2, 4, str(round(valmaintenancer,2)) , border=1, align='C', fill=1)
+    pdf.cell(epw/2, 4, str(round(valmaintenancer, 2)), border=1, align='C', fill=1)
     pdf.ln(4)
     pdf.cell(epw/2, 4, str("Cost: oportunity"), border=1, align='C', fill=1)
-    pdf.cell(epw/2, 4, str(round(valoportunityr,2)) , border=1, align='C', fill=1)
+    pdf.cell(epw/2, 4, str(round(valoportunityr, 2)), border=1, align='C', fill=1)
     pdf.ln(4)
     pdf.cell(epw/2, 4, str("Cost: transaction"), border=1, align='C', fill=1)
-    pdf.cell(epw/2, 4, str(round(valtransactionr,2)) , border=1, align='C', fill=1)
+    pdf.cell(epw/2, 4, str(round(valtransactionr, 2)), border=1, align='C', fill=1)
     pdf.ln(4)
     pdf.cell(epw/2, 4, str("Cost: platform"), border=1, align='C', fill=1)
-    pdf.cell(epw/2, 4, str(round(valplatformr,2)) , border=1, align='C', fill=1)
+    pdf.cell(epw/2, 4, str(round(valplatformr, 2)), border=1, align='C', fill=1)
     pdf.ln(4)
     pdf.cell(epw/2, 4, str("Benefit"), border=1, align='C', fill=1)
-    pdf.cell(epw/2, 4, str(round(valbenefitr,2)) , border=1, align='C', fill=1)
+    pdf.cell(epw/2, 4, str(round(valbenefitr, 2)), border=1, align='C', fill=1)
     pdf.ln(4)
     pdf.cell(epw/2, 4, str("Total"), border=1, align='C', fill=1)
-    pdf.cell(epw/2, 4, str(round(valtotalr,2)) , border=1, align='C', fill=1)
+    pdf.cell(epw/2, 4, str(round(valtotalr, 2)), border=1, align='C', fill=1)
     pdf.ln(4)
 
-    requestJson = requests.get(settings.SITE_HOST_API + 'reports/getSensibilityAnalysisBenefits/?studyCase=' + request.GET['studyCase'],verify=False)
+    requestJson = requests.get(
+        settings.SITE_HOST_API + 'reports/getSensibilityAnalysisBenefits/?studyCase=' + request.GET['studyCase'], verify=False)
     data = requestJson.json()
 
     dataSensibilityAnalysisBenefitsTime = []
     dataSensibilityAnalysisBenefitsRange = []
 
     for item in data:
-        dataSensibilityAnalysisBenefitsTime.append([item['timer'], float(item['totalMedBenefitR'])]);
-        dataSensibilityAnalysisBenefitsRange.append([item['timer'], float(item['totalMinBenefitR']), float(item['totalMaxBenefittR'])]);
+        dataSensibilityAnalysisBenefitsTime.append([item['timer'], float(item['totalMedBenefitR'])])
+        dataSensibilityAnalysisBenefitsRange.append([item['timer'], float(
+            item['totalMinBenefitR']), float(item['totalMaxBenefittR'])])
 
     config = {
         'title': {
@@ -558,23 +565,25 @@ def pdf(request):
     pdf.set_fill_color(255, 255, 255)
 
     for item in data:
-        pdf.cell(epw/4, 3.5, str(item['timer']) , border=1, align='C', fill=1)
-        pdf.cell(epw/4, 3.5, str(round(float(item['totalMinBenefitR']),2)) , border=1, align='C', fill=1)
-        pdf.cell(epw/4, 3.5, str(round(float(item['totalMedBenefitR']),2)) , border=1, align='C', fill=1)
-        pdf.cell(epw/4, 3.5, str(round(float(item['totalMaxBenefittR']),2)) , border=1, align='C', fill=1)
-        pdf.ln(3.5)    
+        pdf.cell(epw/4, 3.5, str(item['timer']), border=1, align='C', fill=1)
+        pdf.cell(epw/4, 3.5, str(round(float(item['totalMinBenefitR']), 2)), border=1, align='C', fill=1)
+        pdf.cell(epw/4, 3.5, str(round(float(item['totalMedBenefitR']), 2)), border=1, align='C', fill=1)
+        pdf.cell(epw/4, 3.5, str(round(float(item['totalMaxBenefittR']), 2)), border=1, align='C', fill=1)
+        pdf.ln(3.5)
 
     pdf.add_page()
 
-    requestJson = requests.get(settings.SITE_HOST_API + 'reports/getSensibilityAnalysisCost/?studyCase=' + request.GET['studyCase'],verify=False)
+    requestJson = requests.get(settings.SITE_HOST_API +
+                               'reports/getSensibilityAnalysisCost/?studyCase=' + request.GET['studyCase'], verify=False)
     data = requestJson.json()
 
     dataSensibilityAnalysisCostTime = []
     dataSensibilityAnalysisCostRange = []
 
     for item in data:
-        dataSensibilityAnalysisCostTime.append([item['timer'], float(item['totalMedCostR'])]);
-        dataSensibilityAnalysisCostRange.append([item['timer'], float(item['totalMinCostR']), float(item['totalMaxCostR'])]);
+        dataSensibilityAnalysisCostTime.append([item['timer'], float(item['totalMedCostR'])])
+        dataSensibilityAnalysisCostRange.append(
+            [item['timer'], float(item['totalMinCostR']), float(item['totalMaxCostR'])])
 
     config = {
         'title': {
@@ -631,15 +640,16 @@ def pdf(request):
     pdf.set_fill_color(255, 255, 255)
 
     for item in data:
-        pdf.cell(epw/4, 4, str(item['timer']) , border=1, align='C', fill=1)
-        pdf.cell(epw/4, 4, str(round(float(item['totalMinCostR']),2)) , border=1, align='C', fill=1)
-        pdf.cell(epw/4, 4, str(round(float(item['totalMedCostR']),2)) , border=1, align='C', fill=1)
-        pdf.cell(epw/4, 4, str(round(float(item['totalMaxCostR']),2)) , border=1, align='C', fill=1)
-        pdf.ln(4)    
+        pdf.cell(epw/4, 4, str(item['timer']), border=1, align='C', fill=1)
+        pdf.cell(epw/4, 4, str(round(float(item['totalMinCostR']), 2)), border=1, align='C', fill=1)
+        pdf.cell(epw/4, 4, str(round(float(item['totalMedCostR']), 2)), border=1, align='C', fill=1)
+        pdf.cell(epw/4, 4, str(round(float(item['totalMaxCostR']), 2)), border=1, align='C', fill=1)
+        pdf.ln(4)
 
     pdf.add_page()
 
-    requestJson = requests.get(settings.SITE_HOST_API + 'reports/getReportOportunityResultIndicators/?studyCase=' + request.GET['studyCase'],verify=False)
+    requestJson = requests.get(
+        settings.SITE_HOST_API + 'reports/getReportOportunityResultIndicators/?studyCase=' + request.GET['studyCase'], verify=False)
     data = requestJson.json()
     valueRoi = ""
     idTotalTreatmentCostSavings = ""
@@ -652,9 +662,9 @@ def pdf(request):
     nameBackgroundColor = ""
 
     for item in data:
-        if item['description'] != "TotalTreatmentCostSavings" and item['description'] !="TimeFrame" and item['description'] != "TotalEstimatedInvestment" and item['description'] !="TotalAreaInterventionSize(Hec)":
-            valueRoi = str(round(float(item['value']),2))
-            nameButtom = item['description'].split("::");
+        if item['description'] != "TotalTreatmentCostSavings" and item['description'] != "TimeFrame" and item['description'] != "TotalEstimatedInvestment" and item['description'] != "TotalAreaInterventionSize(Hec)":
+            valueRoi = str(round(float(item['value']), 2))
+            nameButtom = item['description'].split("::")
             if nameButtom[1] == "Dark Green":
                 backgroundColorR = 21
                 backgroundColorG = 88
@@ -668,23 +678,23 @@ def pdf(request):
                     backgroundColorR = 175
                     backgroundColorG = 9
                     backgroundColorB = 0
-            nameBackgroundColor = nameButtom[0];
+            nameBackgroundColor = nameButtom[0]
 
         if item['description'] == "TotalTreatmentCostSavings":
-            idTotalTreatmentCostSavings = str(round(float(item['value']),2))
+            idTotalTreatmentCostSavings = str(round(float(item['value']), 2))
         if item['description'] == "TimeFrame":
-            idTimeFrame = str(round(float(item['value']),2))
+            idTimeFrame = str(round(float(item['value']), 2))
         if item['description'] == "TotalEstimatedInvestment":
-            idTotalEstimatedInvestment = str(round(float(item['value']),2))
+            idTotalEstimatedInvestment = str(round(float(item['value']), 2))
         if item['description'] == "TotalAreaInterventionSize(Hec)":
-            idTotalAreaInvestmentSize = str(round(float(item['value']),2))
+            idTotalAreaInvestmentSize = str(round(float(item['value']), 2))
 
     pdf.ln(10)
     pdf.set_font('Arial', '', 10)
     pdf.set_text_color(100, 100, 100)
     pdf.set_fill_color(255, 255, 255)
     pdf.cell(epw, 10, 'Canculated ROI', align='C')
-    pdf.cell(epw, 10, valueRoi , align='C')
+    pdf.cell(epw, 10, valueRoi, align='C')
     pdf.image('valor-bruto.png', 80, 30, w=50)
     pdf.ln(60)
     pdf.cell(epw, 10, 'ROI on nature based solutions opportunity', align='C')
@@ -712,7 +722,8 @@ def pdf(request):
     pdf.cell(epw, 10, idTimeFrame, align='C')
     pdf.ln(5)
 
-    requestJson = requests.get(settings.SITE_HOST_API + 'reports/getNetPresentValueSummary/?studyCase=' + request.GET['studyCase'],verify=False)
+    requestJson = requests.get(settings.SITE_HOST_API +
+                               'reports/getNetPresentValueSummary/?studyCase=' + request.GET['studyCase'], verify=False)
     data = requestJson.json()
 
     typeMoney = ""
@@ -720,15 +731,13 @@ def pdf(request):
 
     for item in data:
         typeMoney = item['currencyr']
-        dataNetPresentValueSummary.append(item['implementationr']);
-        dataNetPresentValueSummary.append(item['maintenancer']);
-        dataNetPresentValueSummary.append(item['oportunityr']);
-        dataNetPresentValueSummary.append(item['transactionr']);
-        dataNetPresentValueSummary.append(item['platformr']);
-        dataNetPresentValueSummary.append(item['benefitr']);
-        dataNetPresentValueSummary.append(item['totalr']);
-
-    
+        dataNetPresentValueSummary.append(item['implementationr'])
+        dataNetPresentValueSummary.append(item['maintenancer'])
+        dataNetPresentValueSummary.append(item['oportunityr'])
+        dataNetPresentValueSummary.append(item['transactionr'])
+        dataNetPresentValueSummary.append(item['platformr'])
+        dataNetPresentValueSummary.append(item['benefitr'])
+        dataNetPresentValueSummary.append(item['totalr'])
 
     config = {
         'chart': {
@@ -755,7 +764,8 @@ def pdf(request):
 
     pdf.add_page()
 
-    requestJson = requests.get(settings.SITE_HOST_API + 'reports/getSelectorStudyCasesId/?studyCase=' + request.GET['studyCase'],verify=False)
+    requestJson = requests.get(settings.SITE_HOST_API +
+                               'reports/getSelectorStudyCasesId/?studyCase=' + request.GET['studyCase'], verify=False)
     data = requestJson.json()
 
     for item in data:
@@ -832,7 +842,8 @@ def pdf(request):
     pdf.cell(45, 4, 'reputational risk categories', align='C')
     pdf.ln(8)
 
-    requestJson = requests.get(settings.SITE_HOST_API + 'reports/getReportAnalisysBenefics/?studyCase=' + request.GET['studyCase'],verify=False)
+    requestJson = requests.get(settings.SITE_HOST_API +
+                               'reports/getReportAnalisysBenefics/?studyCase=' + request.GET['studyCase'], verify=False)
     data = requestJson.json()
 
     txtTd1 = ""
@@ -980,51 +991,56 @@ def pdf(request):
     pdf.set_text_color(100, 100, 100)
     pdf.set_fill_color(255, 255, 255)
 
-
-    requestJson = requests.get(settings.SITE_HOST_API + 'reports/getReportAnalisysBeneficsC/?studyCase=' + request.GET['studyCase'],verify=False)
+    requestJson = requests.get(settings.SITE_HOST_API +
+                               'reports/getReportAnalisysBeneficsC/?studyCase=' + request.GET['studyCase'], verify=False)
     data = requestJson.json()
 
     for item in data:
-        pdf.cell(epw/3, 8, "" , border=1, align='C', fill=1)
-        pdf.cell(epw/3, 8, "" , border=1, align='C', fill=1)
-        pdf.cell(epw/3, 8, "" , border=1, align='C', fill=1)
+        pdf.cell(epw/3, 8, "", border=1, align='C', fill=1)
+        pdf.cell(epw/3, 8, "", border=1, align='C', fill=1)
+        pdf.cell(epw/3, 8, "", border=1, align='C', fill=1)
         pdf.ln(0)
-        pdf.cell(epw/3, 4, str(item['sbnf'])[0:30] , align='C')
-        pdf.cell(epw/3, 4, str(round(float(item['costPerHectarea']),2)) , align='C')
-        pdf.cell(epw/3, 4, str(round(float(item['recomendedIntervetion']),2)) , align='C')
+        pdf.cell(epw/3, 4, str(item['sbnf'])[0:30], align='C')
+        pdf.cell(epw/3, 4, str(round(float(item['costPerHectarea']), 2)), align='C')
+        pdf.cell(epw/3, 4, str(round(float(item['recomendedIntervetion']), 2)), align='C')
         pdf.ln(4)
-        pdf.cell(epw/3, 4, str(item['sbnf'])[30:60] , align='C')
-        pdf.cell(epw/3, 4, "" , align='C')
-        pdf.cell(epw/3, 4, "" , align='C')
+        pdf.cell(epw/3, 4, str(item['sbnf'])[30:60], align='C')
+        pdf.cell(epw/3, 4, "", align='C')
+        pdf.cell(epw/3, 4, "", align='C')
         pdf.ln(4)
 
     response = HttpResponse(pdf.output(dest='S').encode('latin-1'))
     response['Content-Type'] = 'application/pdf'
     return response
 
+
 def dashboard(request):
     return render(request, 'waterproof_reports/dashboard.html', {})
+
 
 def pivot_data(request):
     dataset = Countries.objects.all()
     data = serializers.serialize('json', dataset)
     return JsonResponse(data, safe=False)
 
+
 def reportMenu(request):
-                return render(
-                    request,
-                    'waterproof_reports/reports_menu.html',
-                    {})
+    return render(
+        request,
+        'waterproof_reports/reports_menu.html',
+        {})
+
 
 def getNames(indicators):
     result = []
-    for objectIndicator in indicators:  
+    for objectIndicator in indicators:
         try:
             if objectIndicator.intake.name not in result:
                 result.append(objectIndicator.intake.name)
         except:
             return result
     return result
+
 
 def getNameCity(indicators):
     result = []
@@ -1037,88 +1053,90 @@ def getNameCity(indicators):
     return result
 
 
-
 def physicalIndicators(request, idx):
 
-                indicators = investIndicators.objects.filter(study_case__id=idx)
-                indicatorsNames = getNames(indicators)
-                indicatorsNameCity = getNameCity(indicators)
-                return render(
-                    request,
-                    'waterproof_reports/physicalIndicators.html',
-                    {
-                        'Indicators': indicators,
-                        'NamesIndicators': indicatorsNames,
-                        'NameCityIndicators': indicatorsNameCity
-                    })
+    indicators = investIndicators.objects.filter(study_case__id=idx)
+    indicatorsNames = getNames(indicators)
+    indicatorsNameCity = getNameCity(indicators)
+    return render(
+        request,
+        'waterproof_reports/physicalIndicators.html',
+        {
+            'Indicators': indicators,
+            'NamesIndicators': indicatorsNames,
+            'NameCityIndicators': indicatorsNameCity
+        })
+
 
 def financialIndicators(request):
 
-                indicators = investIndicators.objects.all()
-                indicatorsNames = getNames(indicators)
-                indicatorsNameCity = getNameCity(indicators)
-                return render(
-                    request,
-                    'waterproof_reports/financialIndicators.html',
-                    {
-                        'Indicators': indicators,
-                        'NamesIndicators': indicatorsNames,
-                        'NameCityIndicators': indicatorsNameCity
-                    })
+    indicators = investIndicators.objects.all()
+    indicatorsNames = getNames(indicators)
+    indicatorsNameCity = getNameCity(indicators)
+    return render(
+        request,
+        'waterproof_reports/financialIndicators.html',
+        {
+            'Indicators': indicators,
+            'NamesIndicators': indicatorsNames,
+            'NameCityIndicators': indicatorsNameCity
+        })
+
 
 def decisionIndicators(request):
 
-                indicators = investIndicators.objects.all()
-                indicatorsNames = getNames(indicators)
-                indicatorsNameCity = getNameCity(indicators)
-                return render(
-                    request,
-                    'waterproof_reports/decisionIndicators.html',
-                    {
-                        'Indicators': indicators,
-                        'NamesIndicators': indicatorsNames,
-                        'NameCityIndicators': indicatorsNameCity
-                    })
+    indicators = investIndicators.objects.all()
+    indicatorsNames = getNames(indicators)
+    indicatorsNameCity = getNameCity(indicators)
+    return render(
+        request,
+        'waterproof_reports/decisionIndicators.html',
+        {
+            'Indicators': indicators,
+            'NamesIndicators': indicatorsNames,
+            'NameCityIndicators': indicatorsNameCity
+        })
+
 
 def geographicIndicators(request):
 
-                indicators = investIndicators.objects.all()
-                indicatorsNames = getNames(indicators)
-                indicatorsNameCity = getNameCity(indicators)
-                base_data = ''
-                intake = ''
-                region = ''
-                year = ''
-                bbox = ''
-                if request.method == 'GET':
-                    try:            
-                        base_data = request.GET['folder']
-                        intake = request.GET['intake']
-                        region = request.GET['region']
-                        year = request.GET['year']
-                        study_case_id = request.GET['study_case_id']
-                        center = request.GET['center']
-                    except:
-                        base_data = 'mapserver'
-                        intake = ''
-                        region = ''
-                        year = ''
-                        study_case_id = ''
-                        center = ''
-                return render(
-                    request,
-                    'waterproof_reports/geographicIndicators.html',
-                    {
-                        'Indicators': indicators,
-                        'NamesIndicators': indicatorsNames,
-                        'NameCityIndicators': indicatorsNameCity,
-                        'base_data': base_data,
-                        'intake': intake,
-                        'region': region,
-                        'year': year,
-                        'study_case_id' : study_case_id,
-                        'center' : center
-                    })
+    indicators = investIndicators.objects.all()
+    indicatorsNames = getNames(indicators)
+    indicatorsNameCity = getNameCity(indicators)
+    base_data = ''
+    intake = ''
+    region = ''
+    year = ''
+    bbox = ''
+    if request.method == 'GET':
+        try:
+            base_data = request.GET['folder']
+            intake = request.GET['intake']
+            region = request.GET['region']
+            year = request.GET['year']
+            study_case_id = request.GET['study_case_id']
+            center = request.GET['center']
+        except:
+            base_data = 'mapserver'
+            intake = ''
+            region = ''
+            year = ''
+            study_case_id = ''
+            center = ''
+    return render(
+        request,
+        'waterproof_reports/geographicIndicators.html',
+        {
+            'Indicators': indicators,
+            'NamesIndicators': indicatorsNames,
+            'NameCityIndicators': indicatorsNameCity,
+            'base_data': base_data,
+            'intake': intake,
+            'region': region,
+            'year': year,
+            'study_case_id': study_case_id,
+            'center': center
+        })
 
 # def compareMaps(request):
 
@@ -1128,7 +1146,7 @@ def geographicIndicators(request):
 #     year = ''
 #     bbox = ''
 #     if request.method == 'GET':
-#         try:            
+#         try:
 #             base_data = request.GET['folder']
 #             intake = request.GET['intake']
 #             region = request.GET['region']
@@ -1142,7 +1160,7 @@ def geographicIndicators(request):
 #             year = ''
 #             study_case_id = ''
 #             center = ''
-        
+
 
 #     return render(
 #                 request,
@@ -1159,11 +1177,11 @@ def geographicIndicators(request):
 
 def linkDownload(request, idx):
 
-                filter = zip.objects.filter(study_case_id__id=idx)
-                print(filter)
-                return render(
-                    request,
-                    'waterproof_reports/reports_menu.html',
-                    {
-                        'filterzip': filter,
-                    })
+    filter = zip.objects.filter(study_case_id__id=idx)
+    print(filter)
+    return render(
+        request,
+        'waterproof_reports/reports_menu.html',
+        {
+            'filterzip': filter,
+        })

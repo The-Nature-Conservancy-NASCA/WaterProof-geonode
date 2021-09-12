@@ -79,6 +79,7 @@ $(document).ready(function () {
   let lyrNameNDRP = `NDR_Phosphorus`;
   let lyrNameCarbon = `Carbon_storage_and_sequestration`;
   let lyrNameAreasRios = 'Areas_Rios';
+  let lyrNameCatchment = 'catchment';
 
   let lyrsModelsResult = [lyrNameAWY, lyrNameSWY, lyrNameSDR, lyrNameNDRN, lyrNameNDRP, lyrNameCarbon];
 
@@ -109,7 +110,7 @@ $(document).ready(function () {
   });
 
   var overlaysAreasRios = {};
-  lyrsNames = [lyrNameAreasRios];
+  lyrsNames = [lyrNameAreasRios,lyrNameCatchment];
   lyrsNames.forEach(function (lyrName) {
     overlaysAreasRios[lyrName] = createWMSLyr(lyrName).addTo(mapAreasRios);
   });
