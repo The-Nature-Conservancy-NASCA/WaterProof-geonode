@@ -2190,7 +2190,8 @@ pre code {
     padding-left: 10% ;
     padding-right: 10%;
     font-size: 18px;
-    text-justify: auto;
+    text-align: justify;
+    
   }
   .align-left-take-action{
     padding-left: 8%;
@@ -2220,6 +2221,13 @@ pre code {
     max-inline-size: -webkit-fill-available;
     height: 50% !important;
   }
+  .image-user-take{
+    padding-left: 10%;
+    margin-left: 30%;
+    width: 40%;
+    max-inline-size: -webkit-fill-available;
+    height: 40% !important;
+  }
   .image-icon-take{
     padding-left: 10%;
     margin-left: 30%;
@@ -2228,22 +2236,54 @@ pre code {
     height: 40% !important;
     padding-bottom: 3%;
   }
-  .background-solution{
-    background-color: #0C89AA;
-    color: #fff;
-    font-size: 35px;
-    position: absolute;
-    margin-left: -6%;
-    width: 102% !important;
+  .image-actor-take{
+    padding-left: 10%;
+    width: 80%;
+    max-inline-size: -webkit-fill-available;
+    height: 80% !important;
+    padding-bottom: 3%;
+  }
+  .image-right-take-action{
+    width: 50%;
+    height: 40% !important;
+    margin-left: 10% !important;
+    padding: 0%;
+  }
+  .image-left-take-action{
+    width: 54%;
+    height: 60% !important;
+    margin-left: 15% !important;
+    padding: 0%;
+  }
+  .font-image-take-action{
+    font-size: 18px;
+    text-align: justify;
+  }
+  .font-steps-take-action{
+    font-size: 16px;
+    text-align: justify;
   }
   .take-font-size{
     font-size: 18px;
   }
+  .background-solution{
+    background-color: #0C89AA;
+    color: #fff;
+    font-size: 34px;
+    position: absolute;
+    margin-left: -6%;
+    width: 102% !important;
+  }
   .background-solution > p {
     padding: 2%;
   }
+  .background-steps-take-action{
+    background-color: #D2E8EF;
+    position: relative;
+    width: 100% !important;
+  }
   .background-take-header{
-    background-image: url(/static/geonode/img/2-IMAGEN.jpg);
+    background-image: url(/static/geonode/img/TA_1.jpg);
     width: 100vw;
     position: relative;
     left: 50%;  
@@ -2267,20 +2307,37 @@ pre code {
     position: relative;
     left: 50%;  
     margin-left: -50vw;
-    height: 350px;
+    height: 300px;
     color: #fff;
-    top: 1000px;
   }
-
   .background-take-middle > h1{
-    padding-left: 5%;
-    padding-top: 65%;
+    text-align: left;
+    padding-top: 8%;
+    padding-left: 15%;
+    font-size: 50px;
     color: #FFF;
   }
   .background-take-middle > p{
-    padding-left: 5%;
-    padding-right: 65%;
+    text-align: left;
+    padding-left: 15%;
     text-justify: auto;
+    color: #FFF;
+  }
+  .background-take-bot{
+    background-image: url(/static/geonode/img/TA_3.jpg);
+    width: 100vw;
+    position: relative;
+    left: 50%;  
+    margin-left: -50vw;
+    height: 300px;
+    color: #fff;
+    
+  }
+  .background-take-bot > h1{
+  text-align: left;
+  padding-top: 8%;
+  padding-left: 15%;
+  font-size: 50px;
   }
 }
 @media (min-width: 992px) {
