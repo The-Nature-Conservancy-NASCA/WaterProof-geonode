@@ -1,12 +1,21 @@
 {% extends 'waterproof_wiki/layout.html'%}
-{%block titulo%}
-<h2></p>Articles:</h2>
+{% load i18n %}
 
+{% block extra_head %}
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_wiki/css/styles.css"/>
+{% endblock %}
+
+{% block body_outer %}
+
+{%block titulo%}
+<div class= "article">
+<h1>{% trans "Articles" %}:</h1>
+</div>
 {% endblock %}
 
 {% block content %}
 
-    <form action="buscar" method="GET">
+    <form action="buscar" method="GET" class="search-article">
         <label for="p_titulo">Buscar: </label>
         <input type="text" name="p_titulo">
         <input type="submit" value="Buscar">
@@ -19,6 +28,7 @@
                 {{a.resumen|safe|linebreaks}}
                 <a href="{% url 'consultar_articulo' id=a.id %}">Ver más</a>
             </div>
+
     {% endfor%}
     </article>
     <br>  
@@ -35,3 +45,6 @@
     </paginacion>
 
 {% endblock%}
+
+
+{% endblock %}

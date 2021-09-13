@@ -35,9 +35,8 @@ $(document).ready(function () {
   var mapRight = L.map('map-right').setView(center, zoom);
   var map = L.map('map-down').setView(center, zoom);
   var mapResults = L.map('map-results').setView(center, zoom);
-  var mapAreasRios = L.map('map-areas-rios').setView(center, zoom);
+  mapAreasRios = L.map('map-areas-rios').setView(center, zoom);
 
-  let urlTopoLyr = 'https://opentopomap.org/{z}/{x}/{y}.png';
   let urlOmsLyr = 'https://{s}.tile.osm.org/{z}/{x}/{y}.png';
   let omsAttributions = 'Map tiles by <a href="https://osm.org">OSM<\/a>, ' +
                         '<a href="https://creativecommons.org/licenses/by/3.0">CC BY 3.0<\/a> &mdash; ' +
@@ -81,7 +80,7 @@ $(document).ready(function () {
   let lyrNameNDRP = `NDR_Phosphorus`;
   let lyrNameCarbon = `Carbon_storage_and_sequestration`;
   let lyrNameAreasRios = 'Areas_Rios';
-
+  let lyrNameCatchment = 'catchment';
   let lyrsModelsResult = [lyrNameAWY, lyrNameSWY, lyrNameSDR, lyrNameNDRN, lyrNameNDRP, lyrNameCarbon];
 
   let attribution = "Waterproof data © 2021 TNC"
@@ -89,32 +88,38 @@ $(document).ready(function () {
   let lyrsNames = [lyrNameLastYear];
   var overlaysLeft = {};
   lyrsNames.forEach(function (lyrName) {
-    overlaysLeft[lyrName] = createWMSLyr(lyrName).addTo(mapLeft);
+    overlaysLeft[lyrName] = createWMSLyr(urlWaterProofLyrsWMS, lyrName).addTo(mapLeft);
   });
 
   var overlaysRight = {};
   lyrsNames = [lyrNameYearFuture];
   lyrsNames.forEach(function (lyrName) {
-    overlaysRight[lyrName] = createWMSLyr(lyrName).addTo(mapRight);
-    createLegend(lyrName);
+    overlaysRight[lyrName] = createWMSLyr(urlWaterProofLyrsWMS, lyrName).addTo(mapRight);
+    createLegend(urlWaterProofLyrsWMS, lyrName, "#img-legend-left");
   });
 
   var overlays = {};
   lyrsNames = [lyrNameYear0];
   lyrsNames.forEach(function (lyrName) {
-    overlays[lyrName] = createWMSLyr(lyrName).addTo(map);    
+    overlays[lyrName] = createWMSLyr(urlWaterProofLyrsWMS, lyrName).addTo(map);    
   });
 
   var overlaysResults = {};
   lyrsModelsResult.forEach(function (lyrName) {
-    overlaysResults[lyrName] = createWMSLyr(lyrName).addTo(mapResults);
+    overlaysResults[lyrName] = createWMSLyr(urlWaterProofLyrsWMS, lyrName).addTo(mapResults);
   });
 
   var overlaysAreasRios = {};
   lyrsNames = [lyrNameAreasRios];
   lyrsNames.forEach(function (lyrName) {
-    overlaysAreasRios[lyrName] = createWMSLyr(lyrName).addTo(mapAreasRios);
+    overlaysAreasRios[lyrName] = createWMSLyr(urlWaterProofLyrAreasRiosMS, lyrName).addTo(mapAreasRios);
   });
+  createLegend(urlWaterProofLyrAreasRiosMS, lyrNameAreasRios, "#img-legend-areas-rios");
+  lyrsNames = [lyrNameCatchment];
+  lyrsNames.forEach(function (lyrName) {
+    overlaysAreasRios[lyrName] = createWMSLyr(urlWaterProofLyrsWMS, lyrName).addTo(mapAreasRios);
+  });
+  
 
   L.control.layers({}, overlaysLeft,{collapsed:false}).addTo(mapLeft,);
   L.control.layers({}, overlaysRight,{collapsed:false}).addTo(mapRight);
@@ -149,18 +154,18 @@ $(document).ready(function () {
   // });
 
 
-  function createWMSLyr(lyrName) {
+  function createWMSLyr(urlWMS, lyrName) {
     let params = {
       layers: lyrName,
       format: 'image/png',
       transparent: true,
       attribution: attribution
     }
-    return L.tileLayer.wms(urlWaterProofLyrsWMS, params);
+    return L.tileLayer.wms(urlWMS, params);
   }
  
   
-  function createLegend(lyrName) {
+  function createLegend(urlWMS ,lyrName, elId) {
     let legendParams = `&request=getlegendgraphic&layer=${lyrName}&format=image%2Fpng&SLD_VERSION=1.1.0&VERSION=1.3.0`;
     const fetchAsBlob = url => fetch(url)
     .then(response => response.blob());
@@ -174,12 +179,12 @@ $(document).ready(function () {
       reader.readAsDataURL(blob);
     });
 
-    fetchAsBlob(urlWaterProofLyrsWMS + legendParams)
+    fetchAsBlob(urlWMS + legendParams)
       .then(convertBlobToBase64)
       .then(base64Data => {
-        $('#img-legend-left').attr('src', base64Data);
-        $('#img-legend-right').attr('src', base64Data);
-        $('#img-legend-down').attr('src', base64Data);
+        $(elId).attr('src', base64Data);
+        //$('#img-legend-right').attr('src', base64Data);
+        //$('#img-legend-down').attr('src', base64Data);
         //$('#legend-row').show();
       })
     

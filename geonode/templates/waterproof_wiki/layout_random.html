@@ -1,4 +1,7 @@
 {% load static %} <!--Para cargar archivos en la carpeta--->
+{% extends 'waterproof_wiki/layout.html'%}
+{% load i18n %}
+{% block body_outer %}
 
 <!DOCTYPE html>
 <html lang="es">
@@ -38,3 +41,4 @@
     <script src="{% static 'js/app.js' %}"></script>
 
 </html>
+{% endblock%}
