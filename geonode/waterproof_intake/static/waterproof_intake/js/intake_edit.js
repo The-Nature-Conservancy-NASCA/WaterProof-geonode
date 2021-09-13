@@ -63,7 +63,7 @@ $(document).ready(function() {
                 text: gettext('Error number of years for time series  (10-100) Year'),
             });
             valid_period = false;
-            return
+            return;
         }
 
         if ($("#numberYearsInterpolationValue").val() == '' || $("#initialDataExtractionInterpolationValue").val() == '' || $("#finalDataExtractionInterpolationValue").val() == '') {
@@ -72,7 +72,7 @@ $(document).ready(function() {
                 title: gettext('Data analysis empty'),
                 text: gettext('Please Generate Data analysis')
             });
-            return
+            return;
         }
         banderaInpolation += 1;
         banderaExternal += 1;
@@ -597,8 +597,6 @@ $(document).ready(function() {
     mapDelimit.addLayer(osmid);
     var defExtD = new L.Control.DefaultExtent({ title: gettext('Default extent'), position: 'topright'}).addTo(mapDelimit);
     intakePolygons.forEach(feature => {
-        let poly = feature.polygon;
-        let point = feature.point;
         if (feature.delimitArea !== 'None') {
             let delimitPolygon = feature.delimitArea;
             if (delimitPolygon.indexOf("SRID") >= 0) {
@@ -616,9 +614,7 @@ $(document).ready(function() {
             })
             editablepolygon = L.polygon(copyCoordinates, { color: 'red' });
             editablepolygon.addTo(mapDelimit);
-            var editablePolygonJson = editablepolygon.toGeoJSON();
-            editablepolygon = L.polygon(copyCoordinates, { color: 'red' });
-            editablepolygon.addTo(mapDelimit);
+            var editablePolygonJson = editablepolygon.toGeoJSON();            
         }
 
         let ll = new L.LatLng(feature.point.geometry.coordinates[1], feature.point.geometry.coordinates[0]);
@@ -628,9 +624,38 @@ $(document).ready(function() {
         snapMarkerMapDelimit.setLatLng(ll);
         snapMarker.addTo(map);
         snapMarkerMapDelimit.addTo(mapDelimit);
-        catchmentPoly = L.geoJSON(JSON.parse(feature.polygon)).addTo(map);
-        catchmentPolyDelimit = L.geoJSON(JSON.parse(feature.polygon)).addTo(mapDelimit);
+        var jsPolygon = JSON.parse(feature.polygon);
+        // validate if polygon have more than one Ring and take only external Ring
+        try{
+            if (jsPolygon.features[0].geometry.coordinates.length > 1){
+                jsPolygon = {type: jsPolygon.type, 
+                                features : [{
+                                    type:jsPolygon.features[0].type, 
+                                    properties: jsPolygon.features[0].properties,
+                                    geometry: {
+                                        type:jsPolygon.features[0].geometry.type,
+                                        coordinates:[jsPolygon.features[0].geometry.coordinates[0]]
+                                    }
+                                }]
+                            };
+            }            
+            if (jsPolygon.features[0].geometry.coordinates[0].length > MAX_NUM_POINTS) {
+                console.log("too many points : " + jsPolygon.features[0].geometry.coordinates[0].length + " ... simplifying");
+                var polygonSimplified = simplifyPolygon(jsPolygon.features[0].geometry.coordinates[0]);
+                if (polygonSimplified.geometry.coordinates[0].length > 0) {
+                  jsPolygon = polygonSimplified;
+                  console.log("new num points in polygon : " + polygonSimplified.geometry.coordinates[0].length);
+                }
+            } 
+        }catch(err){
+            console.log(err);
+        }
+
+        catchmentPoly = L.geoJSON(jsPolygon).addTo(map);        
+        catchmentPolyDelimit = L.geoJSON(jsPolygon).addTo(mapDelimit);
         map.fitBounds(catchmentPoly.getBounds());
+        map.setView(catchmentPoly.getBounds().getCenter(), zoom);
+        mapDelimit.setView(catchmentPoly.getBounds().getCenter(), zoom);
         var intakePolygonJson = catchmentPoly.toGeoJSON();
         var pointIntakeJson = snapMarker.toGeoJSON();
         basinId = feature.basin;
@@ -957,9 +982,7 @@ function intakeStepFive() {
             if (localStorage.cityId){
                 cityId = localStorage.cityId;
             }
-            setTimeout(function() { 
-                location.href = "/intake/?city="+cityId; 
-            }, 1000);
+            setTimeout(function() { location.href = "/intake/?city="+cityId; }, 1000);
         },
         error: function(xhr, errmsg, err) {
            // console.log(xhr.status + ":" + xhr.responseText);
@@ -993,25 +1016,30 @@ function delimitIntakeArea() {
         copyCoordinates.push(coordinates);
     })
     if (editablepolygon !== void(0))
-        mapDelimit.removeLayer(editablepolygon);
-    
-    editablepolygon = L.polygon(copyCoordinates, { color: 'red' });    
+        mapDelimit.removeLayer(editablepolygon);    
+    editablepolygon = L.polygon( copyCoordinates   , { color: 'red' });    
     editablepolygon.addTo(mapDelimit)
     editablepolygon.enableEdit();
     editablepolygon.on('dblclick', L.DomEvent.stop).on('dblclick', editablepolygon.toggleEdit);
 }
 
-function simplifyPolygon(coords) {
-    var geojson = turf.polygon([coords]);
-    var options = {tolerance: simplifyTolerance, highQuality: false};
-    var simplified = turf.simplify(geojson, options);
-    return simplified;
-}
-
 function validateIntakeArea() {
-    var editablePolygonJson = editablepolygon.toGeoJSON();
+    
     var intakePolygonJson = catchmentPoly.toGeoJSON();
+    var editablePolygonJson;
+    if (editablepolygon == undefined){
+        if (intakePolygonJson.type == 'FeatureCollection'){
+            editablePolygonJson = intakePolygonJson.features[0];
+        }else{
+            editablePolygonJson = JSON.parse(JSON.stringify(intakePolygonJson)); 
+        }
+        
+    }else{
+        editablePolygonJson = editablepolygon.toGeoJSON();
+    }    
     var pointIntakeJson = snapMarker.toGeoJSON();
+    isFile = (isFile == undefined ? false : isFile);
+    delimitationFileType = (delimitationFileType == undefined ? delimitationFileEnum.GEOJSON : delimitationFileType);
     /** 
      * Get filtered activities by transition id 
      * @param {String} url   activities URL 
@@ -1164,7 +1192,7 @@ function addEditablePolygonMap() {
     if (editablepolygon) {
         mapDelimit.removeLayer(editablepolygon);
     }
-    editablepolygon = L.geoJSON(geojson, { style: polygonStyle })
+    editablepolygon = L.geoJSON(geojson, { style: polygonStyle });
     editablepolygon.addTo(mapDelimit);
     mapDelimit.fitBounds(editablepolygon.getBounds());
 }

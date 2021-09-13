@@ -1,3 +1,9 @@
+
+/**
+ * Validate Coordinates with API
+ *  
+ * 
+ */
 async function validateCoordinateWithApi(e) {
   const snapPoint = "snapPoint";
   const delineateCatchment = "delineateCatchment";
@@ -71,3 +77,17 @@ async function validateCoordinateWithApi(e) {
     }
   }
 }
+/**
+ * Simplify a polygon using turf.js
+ * default tolerance is 0.01
+ * 
+ * @param {*} coords 
+ * @returns 
+ */
+function simplifyPolygon(coords) {
+  var geojson = turf.polygon([coords]);
+  var options = {tolerance: simplifyTolerance, highQuality: false};
+  var simplified = turf.simplify(geojson, options);
+  return simplified;
+}
+

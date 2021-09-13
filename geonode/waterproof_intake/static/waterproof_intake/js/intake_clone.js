@@ -63,7 +63,7 @@ $(document).ready(function () {
                 text: gettext('Error number of years for time series  (10-100) Year'),
             });
             valid_period = false;
-            return
+            return;
         }
 
         if ($("#numberYearsInterpolationValue").val() == '' || $("#initialDataExtractionInterpolationValue").val() == '' || $("#finalDataExtractionInterpolationValue").val() == '') {
@@ -72,7 +72,7 @@ $(document).ready(function () {
                 title: gettext('Data analysis empty'),
                 text: gettext('Please Generate Data analysis')
             });
-            return
+            return;
         }
         banderaInpolation += 1;
         banderaExternal += 1;
@@ -490,8 +490,7 @@ $(document).ready(function () {
                 title: gettext('Geometry error'),
                 text: gettext('You must validate the basin geometry')
             })
-        }
-        else {
+        }else {
             intakeStepFive();
         }
     });
@@ -562,6 +561,8 @@ $(document).ready(function () {
 
     let initialCoords = [4.5, -74.4];
     let zoom = 5;
+    let urlOSM = 'https://{s}.tile.osm.org/{z}/{x}/{y}.png';
+    let attr = '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors';
     var cityCoords = localStorage.getItem('cityCoords');
     if (cityCoords == undefined) {
         cityCoords = initialCoords;
@@ -572,11 +573,11 @@ $(document).ready(function () {
 
     map = L.map('map', {}).setView(initialCoords, zoom);
     mapDelimit = L.map('mapid', { editable: true }).setView(initialCoords, zoom);
-    var osm = L.tileLayer('https://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors',
+    var osm = L.tileLayer(urlOSM, {
+        attribution: attr,
     });
-    var osmid = L.tileLayer('https://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors',
+    var osmid = L.tileLayer(urlOSM, {
+        attribution: attr,
     });
     map.addLayer(osm);
     var images = L.tileLayer("https://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryTopo/MapServer/tile/{z}/{y}/{x}");
@@ -590,13 +591,12 @@ $(document).ready(function () {
     var overlays = {
         "Hydro (esri)": hydroLyr,
     };
-    var c = new L.Control.Coordinates();
-    c.addTo(map);
+    var c = new L.Control.Coordinates().addTo(map);
+    var defExt = new L.Control.DefaultExtent({ title: gettext('Default extent'), position: 'topright'}).addTo(map);
     L.control.layers(baseLayers, overlays, { position: 'topleft' }).addTo(map);
     mapDelimit.addLayer(osmid);
+    var defExtD = new L.Control.DefaultExtent({ title: gettext('Default extent'), position: 'topright'}).addTo(mapDelimit);
     intakePolygons.forEach(feature => {
-        let poly = feature.polygon;
-        let point = feature.point;
         if (feature.delimitArea !== 'None') {
             let delimitPolygon = feature.delimitArea;
             if (delimitPolygon.indexOf("SRID") >= 0) {
@@ -614,9 +614,7 @@ $(document).ready(function () {
             })
             editablepolygon = L.polygon(copyCoordinates, { color: 'red' });
             editablepolygon.addTo(mapDelimit);
-            var editablePolygonJson = editablepolygon.toGeoJSON();
-            editablepolygon = L.polygon(copyCoordinates, { color: 'red' });
-            editablepolygon.addTo(mapDelimit);
+            var editablePolygonJson = editablepolygon.toGeoJSON();            
         }
 
         let ll = new L.LatLng(feature.point.geometry.coordinates[1], feature.point.geometry.coordinates[0]);
@@ -626,8 +624,35 @@ $(document).ready(function () {
         snapMarkerMapDelimit.setLatLng(ll);
         snapMarker.addTo(map);
         snapMarkerMapDelimit.addTo(mapDelimit);
-        catchmentPoly = L.geoJSON(JSON.parse(feature.polygon)).addTo(map);
-        catchmentPolyDelimit = L.geoJSON(JSON.parse(feature.polygon)).addTo(mapDelimit);
+        var jsPolygon = JSON.parse(feature.polygon);
+         // validate if polygon have more than one Ring and take only external Ring
+         try{
+            if (jsPolygon.features[0].geometry.coordinates.length > 1){
+                jsPolygon = {type: jsPolygon.type, 
+                                features : [{
+                                    type:jsPolygon.features[0].type, 
+                                    properties: jsPolygon.features[0].properties,
+                                    geometry: {
+                                        type:jsPolygon.features[0].geometry.type,
+                                        coordinates:[jsPolygon.features[0].geometry.coordinates[0]]
+                                    }
+                                }]
+                            };
+            }            
+            if (jsPolygon.features[0].geometry.coordinates[0].length > MAX_NUM_POINTS) {
+                console.log("too many points : " + jsPolygon.features[0].geometry.coordinates[0].length + " ... simplifying");
+                var polygonSimplified = simplifyPolygon(jsPolygon.features[0].geometry.coordinates[0]);
+                if (polygonSimplified.geometry.coordinates[0].length > 0) {
+                  jsPolygon = polygonSimplified;
+                  console.log("new num points in polygon : " + polygonSimplified.geometry.coordinates[0].length);
+                }
+            } 
+        }catch(err){
+            console.log(err);
+        }
+
+        catchmentPoly = L.geoJSON(jsPolygon).addTo(map);        
+        catchmentPolyDelimit = L.geoJSON(jsPolygon).addTo(mapDelimit);
         map.fitBounds(catchmentPoly.getBounds());
         map.setView(catchmentPoly.getBounds().getCenter(), zoom);
         mapDelimit.setView(catchmentPoly.getBounds().getCenter(), zoom);
@@ -642,9 +667,6 @@ $(document).ready(function () {
         $('#isFile').val(JSON.stringify(isFile));
         $('#typeDelimit').val(JSON.stringify(delimitationFileType));
     });
-
-    var defExt = new L.Control.DefaultExtent({ title: gettext('Default extent'), position: 'topright'}).addTo(map);
-    defExt = new L.Control.DefaultExtent({ title: gettext('Default extent'), position: 'topright'}).addTo(mapDelimit);
 
     $("#validateBtn").on("click", function () {
         Swal.fire({
@@ -670,7 +692,6 @@ $(document).ready(function () {
     }
 
     mapLoader.hide();
-
     createEditor(editorUrl);
 
     var menu1Tab = document.getElementById('mapid');
@@ -1003,9 +1024,22 @@ function delimitIntakeArea() {
 }
 
 function validateIntakeArea() {
-    var editablePolygonJson = editablepolygon.toGeoJSON();
+    
     var intakePolygonJson = catchmentPoly.toGeoJSON();
+    var editablePolygonJson;
+    if (editablepolygon == undefined){
+        if (intakePolygonJson.type == 'FeatureCollection'){
+            editablePolygonJson = intakePolygonJson.features[0];
+        }else{
+            editablePolygonJson = JSON.parse(JSON.stringify(intakePolygonJson)); 
+        }
+        
+    }else{
+        editablePolygonJson = editablepolygon.toGeoJSON();
+    }
     var pointIntakeJson = snapMarker.toGeoJSON();
+    isFile = (isFile == undefined ? false : isFile);
+    delimitationFileType = (delimitationFileType == undefined ? delimitationFileEnum.GEOJSON : delimitationFileType);
     /** 
      * Get filtered activities by transition id 
      * @param {String} url   activities URL 
@@ -1158,7 +1192,7 @@ function addEditablePolygonMap() {
     if (editablepolygon) {
         mapDelimit.removeLayer(editablepolygon);
     }
-    editablepolygon = L.geoJSON(geojson, { style: polygonStyle })
+    editablepolygon = L.geoJSON(geojson, { style: polygonStyle });
     editablepolygon.addTo(mapDelimit);
     mapDelimit.fitBounds(editablepolygon.getBounds());
 }
