@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: Waterproof vbeta\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-08-23 23:16-0500\n"
-"PO-Revision-Date: 2021-09-10 18:59-0500\n"
+"PO-Revision-Date: 2021-09-13 12:06-0500\n"
 "Last-Translator: Julien Collaer <julien.collaer@opengeode.be>\n"
 "Language-Team: Skaphe\n"
 "Language: en\n"
@@ -295,7 +295,7 @@ msgstr "Processes, technologies and cost functions"
 
 #: templates/treatment_plants_edit.html:227
 msgid "Please confirm or edit the diagram according to your reality"
-msgstr "Note that for each process the system will allow you to define cost functions. For each process, confirm or edit the cost functions accordingly"
+msgstr "Click on the processes that are part of your treatment plant and use the checkbox to enable or disable them. For each process confirm or edit the cost functions accordingly:"
 
 #: templates/treatment_plants_edit.html:232
 #, fuzzy
@@ -480,3 +480,9 @@ msgstr "Select from the list water intakes that arrive at your treatment plant a
 
 msgid "WaterProof presents below the suggested components or processes for treating the water quality of the selected catchments. Click on the processes that are part of your treatment plant and use the checkbox to enable or disable them."
 msgstr "WaterProof presents below the suggested components or processes for treating the water quality of the selected catchments. Click on the processes that are part of your treatment plant and use the checkbox to enable or disable them."
+
+msgid "Create_text_1"
+msgstr "Enter the identification data of the treatment plant, identify the catchments from which the water comes and the components that make it up to carry out its treatment."
+
+msgid "Create_text_2"
+msgstr "Click on the following button for WaterProof to configure the treatment plan"
