@@ -29,7 +29,7 @@
       {% if not custom_theme.jumbotron_cta_hide %}
       <p><a class="btn btn-default btn-lg"
           href="{{custom_theme.jumbotron_cta_link|default:"https://docs.geonode.org/en/master/usage/index.html"}}"
-          role="button">{{custom_theme.jumbotron_cta_text|default:_("Get Started &raquo;")}}</a></p>
+          role="button">{% trans "Explore investment returns" %} </a></p>
       {% endif %}
   </div>
   <p class="copyright" style="text-align: right; font-size: 15px;">© Foto tomada por Pilar Galindo</p>
@@ -488,13 +488,43 @@
     </div>
   <p class="copyright" style="text-align: right; font-size: 15px;">© Foto tomada por Pilar Galindo</p>
 </section>
-<section id="partner_tnc">
+<!-- <section id="partner_tnc">
     <div class="row justify-content-md-center" style="height:20%;">
         <div class="col-md-6 text-center">
             <img src="{% static 'geonode/img/LogoTNC2.png' %}" alt="The nature Conservancy" style="max-height: 100px;">
         </div>
         <div class="col-md-6 text-center">
             <img src="{% static 'geonode/img/fundacionmoore.png' %}" alt="Moore fundation" style="max-height: 100px;">
+        </div>
+    </div>
+</section>  -->
+<section id="partner_tnc">
+    <div class="row justify-content-md-center" style="height:20%;">
+        <div class="col-md-2 text-left"></div>    
+        <div class="col-md-3 text-left">
+            <div class="text-center">
+            <h3 class="colorLeftInstructionsR">{% trans "Developed by:" %}</h3> 
+            </div>
+            <div class="text-left">
+            <img src="{% static 'geonode/img/LogoTNC2.png' %}" alt="The nature Conservancy" style="max-height: 100px;">
+            </div>
+        </div>
+        
+            <div class="col-md-6 text-left">
+                <div class="text-center">
+                    <h3 class="colorLeftInstructionsR">{% trans "Whith the support of:" %}</h3> 
+                </div>
+            
+            <div class="col-md-3 text-left align-items-center">    
+                <div class="text-left">    
+                    <img src="{% static 'geonode/img/fundacionmoore.png' %}" alt="Moore fundation" style="max-height: 100px;">
+                </div>
+            </div>
+            <div class="col-md-9 text-left align-items-center" style="height:50%">
+                <br>
+                <p>{% trans "This website is funded by the Gordon and Betty Moore Foundation through Grant GBMF7100 to support the work of WaterProof" %}</p>            
+            </div>
+        
         </div>
     </div>
 </section> 
