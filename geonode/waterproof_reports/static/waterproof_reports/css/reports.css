@@ -852,6 +852,17 @@
         height: auto;
     }
 }
+.buttom-roi-menu{
+    background-color: #094609;
+    color: #ffffff;
+    width: 100px;
+    font-weight: normal;
+    margin-top: 10px;
+    padding: 3px;
+    position: relative;
+    left: 50%;
+    margin-left: -50px;
+}
 @media (min-width: 768px){
     .report-container{
         margin-left: 5% !important;

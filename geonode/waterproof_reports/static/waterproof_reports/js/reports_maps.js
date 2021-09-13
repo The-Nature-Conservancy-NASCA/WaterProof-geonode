@@ -11,6 +11,7 @@ $(document).ready(function () {
     option.text = gettext("Select an Intake");
     option.value = -1;
     selectIntake.add(option);
+    console.log(selectIntake)
       $.each( data, function( key, value ) {
           var option = document.createElement("option");
           option.text = value.selector;
