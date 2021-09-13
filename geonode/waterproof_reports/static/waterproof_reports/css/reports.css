@@ -1832,7 +1832,7 @@
     }
     .contain-detail {
         margin-top: 50px;
-        right: 50px;
+        /* right: 50px; */
         position: relative;
     }
 
