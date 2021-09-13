@@ -373,6 +373,8 @@ $(function () {
     });
     var dataTotalBenefitsIntake = [];
     var dataTotalBenefitsIntakeOne = [];
+    var waterIntakeGraph = [];
+    var analisysBenefics = [];
 
     openPDF = function() {
         window.open("../../reports/pdf/?studyCase=" + localStorage.idStudyCase + "&studyCity=" + localStorage.getItem('city') + "&studyCountry=" + localStorage.getItem('country') + "&studyRegion=" + localStorage.getItem('region'))
@@ -628,6 +630,12 @@ $(function () {
 
             });
 
+            Highcharts.setOptions({
+                lang: {
+                    decimalPoint: ',',
+                    thousandsSep: '.'
+                }
+            });
             Highcharts.chart('containerNpv', {
                 chart: {
                     type: 'column'
@@ -646,31 +654,6 @@ $(function () {
                     name: 'NPV (' + typeMoney + ')',
                     data: dataNetPresentValueSummary
                 }]
-            });
-        });
-        var urlDetail = "../../reports/getReportAnalisysBenefics/?studyCase=" + localStorage.idStudyCase;
-        $.getJSON(urlDetail, function (data) {
-            $.each( data, function( key, value ) {
-                var objectButton;
-                if(value.nameIndicator.toUpperCase() === "PHYSICAL RISK QUANTITY") {
-                    objectButton = document.getElementById("idButtonPrq");
-                } else if(value.nameIndicator.toUpperCase() === "PHYSICAL RISK ASSOCIATED WITH AMOUNT OF WATER") {
-                    objectButton = document.getElementById("idButtonPrqa");
-                } else if(value.nameIndicator.toUpperCase() === "REGULATORY AND REPUTATIONAL") {
-                    objectButton = document.getElementById("idButtonRar");
-                } else if(value.nameIndicator.toUpperCase() === "OVERALL WATER RISK SCORE") {
-                    objectButton = document.getElementById("idButtonOwr");
-                }
-
-                if(value.color === "Dark Green") {
-                    objectButton.style.backgroundColor = "#155816";
-                } else if(value.color === "Orange") {
-                    objectButton.style.backgroundColor = "#EC670A";
-                } else {
-                    objectButton.style.backgroundColor = "#af0900";
-                }
-                objectButton.innerHTML = value.description;
-
             });
         });
 
@@ -700,35 +683,70 @@ $(function () {
             });
         });
 
-        var urlDetail = "../../reports/getReportAnalisysBeneficsC/?studyCase=" + localStorage.idStudyCase;
-        $.getJSON(urlDetail, function (data) {
-            var listFielTable = "";
-            $.each( data, function( key, value ) {
-                valueCol2 = value.costPerHectarea.toFixed(2);
-                valuaCol3 = value.recomendedIntervetion.toFixed(2)
-                // listFielTable = listFielTable + '<div><div class="line-marc-table" style="width: 100%;color: #616160;margin-top: 20px;height: 20px;"><div style="width: 100%;text-align: left;margin-left: 10px;">' + value.sbnf + '</div><div class="top-center-line">' + Intl.NumberFormat('es').format(valueCol2) + '</div><div class="line-number-marc-table" style="    position: absolute;right: 0px;width: 30%;color: #616160;font-size: 13px;padding: 0px;top: 0px;">' + Intl.NumberFormat('es').format(valuaCol3) + '</div></div></div>';
-                listFielTable = listFielTable + `
-                    <tr>
-                        <td class="border-table"><span>` + value.sbnf + `</span></td>
-                        <td class="border-table"><span>` + Intl.NumberFormat('es').format(valueCol2) + `</span></td>
-                        <td class="border-table"><span>` + Intl.NumberFormat('es').format(valuaCol3) + `</span></td>
-                    </tr> 
-                `
-            });
-
-            document.getElementById("listFielTable").innerHTML = listFielTable;
-        });
-
         var urlDetail = "../../reports/getSelectorStudyCasesId/?studyCase=" + localStorage.idStudyCase;
         $.getJSON(urlDetail, function (data) {
             var listFielTable = "";
+            var contLastSelector = true;
             $.each( data, function( key, value ) {
                 var option = document.createElement("option");
+                var firstIntake = value.intakeId;
                 option.text = value.selector;
-                option.value = value.studyCasesId;
+                option.value = value.intakeId;
                 document.getElementById("idSelectStudyCase").add(option);
                 document.getElementById("idNameStadyCase").innerHTML = value.studyCasesName;
                 localStorage.studyCasesName = value.studyCasesName;
+                if (contLastSelector) {
+                    contLastSelector = false;
+                    var urlDetail = "../../reports/getReportAnalisysBenefics/?studyCase=" + localStorage.idStudyCase;
+                    $.getJSON(urlDetail, function (data) {
+                        waterIntakeGraph = data;
+                        $.each( data, function( key, value ) {
+                            if(value.intakeId === firstIntake){
+                                var objectButton;
+                                if(value.nameIndicator.toUpperCase() === "PHYSICAL RISK QUANTITY") {
+                                    objectButton = document.getElementById("idButtonPrq");
+                                } else if(value.nameIndicator.toUpperCase() === "PHYSICAL RISK ASSOCIATED WITH AMOUNT OF WATER") {
+                                    objectButton = document.getElementById("idButtonPrqa");
+                                } else if(value.nameIndicator.toUpperCase() === "REGULATORY AND REPUTATIONAL") {
+                                    objectButton = document.getElementById("idButtonRar");
+                                } else if(value.nameIndicator.toUpperCase() === "OVERALL WATER RISK SCORE") {
+                                    objectButton = document.getElementById("idButtonOwr");
+                                }
+
+                                if(value.color === "Dark Green") {
+                                    objectButton.style.backgroundColor = "#155816";
+                                } else if(value.color === "Orange") {
+                                    objectButton.style.backgroundColor = "#EC670A";
+                                } else {
+                                    objectButton.style.backgroundColor = "#af0900";
+                                }
+                                objectButton.innerHTML = value.description;
+                            }
+                        });
+                    });
+
+                    var urlDetail = "../../reports/getReportAnalisysBeneficsC/?studyCase=" + localStorage.idStudyCase;
+                    $.getJSON(urlDetail, function (data) {
+                        analisysBenefics = data;
+                        var listFielTable = "";
+                        $.each( data, function( key, value ) {
+                            if(parseInt(value.intakeId) === parseInt(firstIntake)){
+                                valueCol2 = value.costPerHectarea.toFixed(2);
+                                valuaCol3 = value.recomendedIntervetion.toFixed(2)
+                                // listFielTable = listFielTable + '<div><div class="line-marc-table" style="width: 100%;color: #616160;margin-top: 20px;height: 20px;"><div style="width: 100%;text-align: left;margin-left: 10px;">' + value.sbnf + '</div><div class="top-center-line">' + Intl.NumberFormat('es').format(valueCol2) + '</div><div class="line-number-marc-table" style="    position: absolute;right: 0px;width: 30%;color: #616160;font-size: 13px;padding: 0px;top: 0px;">' + Intl.NumberFormat('es').format(valuaCol3) + '</div></div></div>';
+                                listFielTable = listFielTable + `
+                                    <tr>
+                                        <td class="border-table"><span>` + value.sbnf + `</span></td>
+                                        <td class="border-table"><span>` + Intl.NumberFormat('es').format(valueCol2) + `</span></td>
+                                        <td class="border-table"><span>` + Intl.NumberFormat('es').format(valuaCol3) + `</span></td>
+                                    </tr> 
+                                `
+                            }
+                        });
+
+                        document.getElementById("listFielTable").innerHTML = listFielTable;
+                    });
+                }
             });
         });
 
@@ -744,7 +762,48 @@ $(function () {
         });
 
         document.getElementById("idSelectStudyCase").onchange = function() {
-            location.href = "../report/" + this.value;
+            document.getElementById("idButtonPrq").innerHTML = "---";
+            document.getElementById("idButtonPrqa").innerHTML = "---";
+            document.getElementById("idButtonRar").innerHTML = "---";
+            document.getElementById("idButtonOwr").innerHTML = "---";
+            $.each( waterIntakeGraph, function( key, value ) {
+                if(parseInt(value.intakeId) === parseInt(document.getElementById("idSelectStudyCase").value)){
+                    var objectButton;
+                    if(value.nameIndicator.toUpperCase() === "PHYSICAL RISK QUANTITY") {
+                        objectButton = document.getElementById("idButtonPrq");
+                    } else if(value.nameIndicator.toUpperCase() === "PHYSICAL RISK ASSOCIATED WITH AMOUNT OF WATER") {
+                        objectButton = document.getElementById("idButtonPrqa");
+                    } else if(value.nameIndicator.toUpperCase() === "REGULATORY AND REPUTATIONAL") {
+                        objectButton = document.getElementById("idButtonRar");
+                    } else if(value.nameIndicator.toUpperCase() === "OVERALL WATER RISK SCORE") {
+                        objectButton = document.getElementById("idButtonOwr");
+                    }
+
+                    if(value.color === "Dark Green") {
+                        objectButton.style.backgroundColor = "#155816";
+                    } else if(value.color === "Orange") {
+                        objectButton.style.backgroundColor = "#EC670A";
+                    } else {
+                        objectButton.style.backgroundColor = "#af0900";
+                    }
+                    objectButton.innerHTML = value.description;
+                }
+            });
+
+            var listFielTable = "";
+            $.each( analisysBenefics, function( key, value ) {
+                if(parseInt(value.intakeId) === parseInt(document.getElementById("idSelectStudyCase").value)){
+                    valueCol2 = value.costPerHectarea.toFixed(2);
+                    valuaCol3 = value.recomendedIntervetion.toFixed(2)
+                    listFielTable = listFielTable + `
+                        <tr>
+                            <td class="border-table"><span>` + value.sbnf + `</span></td>
+                            <td class="border-table"><span>` + Intl.NumberFormat('es').format(valueCol2) + `</span></td>
+                            <td class="border-table"><span>` + Intl.NumberFormat('es').format(valuaCol3) + `</span></td>
+                        </tr> 
+                    `
+                }
+            });
         }
 
         var urlDetail = "../../reports/getReportOportunityResultMaps/?studyCase=" + localStorage.idStudyCase;

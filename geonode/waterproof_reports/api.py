@@ -505,7 +505,8 @@ def getReportAnalisysBenefics(request):
 				"nameIndicator":row[0],
 				"value":row[1],
 				"color":row[2],
-				"description":row[3]
+				"description":row[3],
+				"intakeId":row[4]
 			})
 
 		return JsonResponse(objects_list, safe=False)
@@ -572,7 +573,8 @@ def getReportAnalisysBeneficsC(request):
 			objects_list.append({
 				"sbnf":row[0],
 				"costPerHectarea":row[1],
-				"recomendedIntervetion":row[2]
+				"recomendedIntervetion":row[2],
+				"intakeId":row[3]
 			})
 
 		return JsonResponse(objects_list, safe=False)
@@ -772,12 +774,13 @@ def getNameWaterproofIntakeIntake(request):
 	if request.method == 'GET':
 		con = psycopg2.connect(settings.DATABASE_URL)
 		cur = con.cursor()
-		cur.execute("SELECT ii.name FROM public.waterproof_intake_intake ii INNER JOIN public.waterproof_study_cases_studycases_intakes si ON (ii.id=si.intake_id) WHERE si.studycases_id =  '" + request.query_params.get('studyCase') + "'")
+		cur.execute("SELECT ii.name, ii.id FROM public.waterproof_intake_intake ii INNER JOIN public.waterproof_study_cases_studycases_intakes si ON (ii.id=si.intake_id) WHERE si.studycases_id =  '" + request.query_params.get('studyCase') + "'")
 		rows = cur.fetchall()
 		objects_list = []
 		for row in rows:
 			objects_list.append({
 				"name":row[0],
+				"id":row[1]
 			})
 		return JsonResponse(objects_list, safe=False)
 
@@ -824,14 +827,15 @@ def getWaterproofReportsRiosIpa(request):
 	if request.method == 'GET':
 		con = psycopg2.connect(settings.DATABASE_URL)
 		cur = con.cursor()
-		cur.execute("SELECT sbnf AS sbn, costperhectaref AS actual_spent, recommendedinterventionf AS area_converted_ha FROM __get_report_analisys_beneficsc('" + request.query_params.get('studyCase') + "')")
+		cur.execute("SELECT sbnf AS sbn, costperhectaref AS actual_spent, recommendedinterventionf AS area_converted_ha, intake_idf FROM __get_report_analisys_beneficsc('" + request.query_params.get('studyCase') + "')")
 		rows = cur.fetchall()
 		objects_list = []
 		for row in rows:
 			objects_list.append({
 				"sbn":row[0],
 				"actualSpent":row[1],
-				"areaConvertedHa":row[2]
+				"areaConvertedHa":row[2],
+				"intakeId":row[3]
 			})
 		return JsonResponse(objects_list, safe=False)
 
@@ -912,7 +916,7 @@ def getCaracteristicsPtapDetailPdf(request):
 	if request.method == 'GET':
 		con = psycopg2.connect(settings.DATABASE_URL)
 		cur = con.cursor()
-		cur.execute("SELECT * FROM __get_caracteristics_ptap_detail_pdf('" + request.query_params.get('studyCase') + "')")
+		cur.execute("SELECT DISTINCT * FROM __get_caracteristics_ptap_detail_pdf('" + request.query_params.get('studyCase') + "')")
 		rows = cur.fetchall()
 		objects_list = []
 		for row in rows:
