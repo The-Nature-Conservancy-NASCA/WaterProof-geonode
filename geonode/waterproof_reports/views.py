@@ -1177,11 +1177,11 @@ def geographicIndicators(request):
 
 def linkDownload(request, idx):
 
-    filter = zip.objects.filter(study_case_id__id=idx)
-    print(filter)
-    return render(
-        request,
-        'waterproof_reports/reports_menu.html',
-        {
-            'filterzip': filter,
-        })
+                downloadZip = zip.objects.filter(study_case_id__id=idx).first()
+                print(downloadZip.link)
+                return render(
+                    request,
+                    'waterproof_reports/reports_menu.html',
+                    {
+                        'filterzip': downloadZip,
+                    })

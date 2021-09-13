@@ -2138,6 +2138,27 @@ pre code {
     padding-top: 50% !important;
   }
 }
+/* .video-responsive {
+	height: 100%;
+	overflow: hidden;
+	padding-bottom: 56.25%;
+	padding-top: 30px;
+	position: relative;
+	}
+.video-responsive iframe, .video-responsive object, .video-responsive embed {
+	height: 100%;
+	left: 0;
+	position: absolute;
+	top: 0;
+	width: 100%;
+	} */
+  .modal-form{
+    display: block; 
+    padding-top: 20%; 
+    /* width: 350px;  */
+    /* margin-left: 40%;  */
+    padding-right: 15px;
+  }
 @media (min-width: 1200px){
 
   .iconsWhatIsWP{

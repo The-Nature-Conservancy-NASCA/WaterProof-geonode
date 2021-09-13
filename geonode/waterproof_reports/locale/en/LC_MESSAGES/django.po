@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Waterproof Vbeta\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-02-19 11:27-0500\n"
-"PO-Revision-Date: 2021-09-10 15:41-0500\n"
+"PO-Revision-Date: 2021-09-11 16:24-0500\n"
 "Last-Translator: Julien Collaer <julien.collaer@opengeode.be>\n"
 "Language-Team: Skaphe\n"
 "Language: en\n"
@@ -115,7 +115,7 @@ msgstr "Overall water risk measures all water related risks, by aggregating all 
 
 #: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
 msgid " Estimated change in ecosystem services (Business as Usual Scenario Vs Nature-based Solutions Scenario)"
-msgstr " Estimated change in ecosystem services (Business as Usual Scenario Vs Nature based Solutions Scenario)"
+msgstr " Estimated maximun change in ecosystem services (Business as Usual Scenario Vs Nature based Solutions Scenario)"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
 msgid "Anual water yield"
