@@ -1036,10 +1036,10 @@ def getWpcompareMapas(request):
 		for row in rows:
 			objects_list.append({
 				"folder":row[0],
-				"intake":row[1],
+				"intake":row[4],
 				"region":row[2],
 				"year":row[3],
-				"studycase":row[4],
+				"studycase":row[1],
 				"center":row[5]
 			})
 
