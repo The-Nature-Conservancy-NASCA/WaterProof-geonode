@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: GeoNode Vbeta\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-02-11 20:03-0500\n"
-"PO-Revision-Date: 2021-09-10 11:04-0500\n"
+"PO-Revision-Date: 2021-09-13 17:29-0500\n"
 "Last-Translator: Julien Collaer <julien.collaer@opengeode.be>\n"
 "Language-Team: English Skaphe\n"
 "Language: en\n"
@@ -267,7 +267,7 @@ msgid "WaterProof will assist you by indicating the steps you must follow to com
 msgstr "WaterProof will assist you by indicating the steps you must follow to complete your registration: "
 
 msgid "Creation city : "
-msgstr "City of creation :"
+msgstr "City of creation:"
 
 msgid "You won't be able to revert this!"
 msgstr "The data in this section will be lost"
