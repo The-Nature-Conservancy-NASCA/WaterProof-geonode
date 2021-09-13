@@ -238,7 +238,7 @@
           <h3 class="colorLeftInstructionsWh3">{% trans "CUSTOMIZABLE" %}</h3>
           <p class="colorLeftInstructionsWp size-left">{% trans "Platform offers flexibility to define custom elements & parameters to approximate your local conditions" %}</p>
           <h3 class="colorLeftInstructionsWh3">{% trans "FREE" %}</h3>
-          <p class="colorLeftInstructionsWp size-left">{% trans "We are committed to equipping local NbS champions with the information" %}</p>
+          <p id="scroll" class="colorLeftInstructionsWp size-left">{% trans "We are committed to equipping local NbS champions with the information" %}</p>
       </div>
       <br>
       <div class="divCenter col-md-6">
@@ -256,11 +256,11 @@
         <div class="col-md-4">
             <div class="center-block text-center">
                 <img class="center-img" src="/static/geonode/img/2.png">
-                <img class="img1 ani_headShake" src="/static/geonode/img/01-ICONO.png">
+                <a type="button" data-toggle="modal" data-target="#search-city" onclick="center(this)" ><img class="img1 ani_headShake" src="/static/geonode/img/01-ICONO.png"></a>
                 <h4 class="ico1-text ">{% trans "Find Your city" %}</h4>
-                <img class="img2 ani_headShake" src="/static/geonode/img/02-ICONO.png">
+                <a type="button" data-toggle="modal" data-target="#NbS" onclick="center(this)"><img class="img2 ani_headShake" src="/static/geonode/img/02-ICONO.png"></a>
                 <h4 class="ico2-text ">{% trans "Select / create your Nbs" %}</h4>
-                <img class="img3 ani_headShake" src="/static/geonode/img/03-ICONO.png">
+                <a type="button" data-toggle="modal" data-target="#intake" onclick="center(this)"><img class="img3 ani_headShake" src="/static/geonode/img/03-ICONO.png"></a>
                 <h4 class="ico3-text ">{% trans "Configure water intakes" %}</h4>
             </div>
         </div>
@@ -272,11 +272,11 @@
         <div class="col-md-4 center-block ">
             <div class="center-block text-center">
                 <img class="center-img " src="/static/geonode/img/3.png">
-                <img class="img4 ani_headShake" src="/static/geonode/img/04-ICONO.png">
+                <a type="button" data-toggle="modal" data-target="#ptap" onclick="center(this)"><img class="img4 ani_headShake" src="/static/geonode/img/04-ICONO.png"></a>
                 <h4 class="ico4-text ">{% trans "Define infrastructure" %} </h4>
-                <img class="img5 ani_headShake" src="/static/geonode/img/05-ICONO.png">
+                <a type="button" data-toggle="modal" data-target="#case-study" onclick="center(this)"><img class="img5 ani_headShake" src="/static/geonode/img/05-ICONO.png"></a>
                 <h4 class="ico5-text ">{% trans "Create a case study" %}</h4>
-                <img class="img6 ani_headShake" src="/static/geonode/img/06-ICONO.png">
+                <a type="button" data-toggle="modal" data-target="#reports" onclick="center(this)"><img class="img6 ani_headShake" src="/static/geonode/img/06-ICONO.png"></a>
                 <h4 class="ico6-text ">{% trans "Analize outputs" %}</h4>
             </div>
         </div>
@@ -502,6 +502,103 @@
         </div>
     </div>
 </section> 
+
+<!--search-city modal-->
+<div class="modal fade modal-form" id="search-city" tabindex="-1" aria-labelledby="HelpModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" style="width: 350px !important;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h3 class="modal-title text-center" id="HelpModalLabel" style="color:#6398C1 ;">{% trans "Find Your city" %}</h3>
+            </div>
+            <div class="modal-body video-responsive">
+               <iframe src="http://dev.skaphe.com:81/salidas/Media/VIDEO%201%20CAPAS%2007-09-21.mp4" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+<!--NbS modal-->
+<div class="modal fade modal-form" id="NbS" tabindex="-1" aria-labelledby="HelpModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" style="width: 350px !important;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h3 class="modal-title text-center" id="HelpModalLabel" style="color:#6398C1 ;">{% trans "Select / create your Nbs" %}</h3>
+            </div>
+            <div class="modal-body video-responsive">
+               <iframe src="http://dev.skaphe.com:81/salidas/Media/VIDEO%202%20CAPAS%2007-09-21_1.mp4" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+<!--intake modal-->
+<div class="modal fade modal-form" id="intake" tabindex="-1" aria-labelledby="HelpModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" style="width: 350px !important;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h3 class="modal-title text-center" id="HelpModalLabel" style="color:#6398C1 ;">{% trans "Configure water intakes" %}</h3>
+            </div>
+            <div class="modal-body video-responsive">
+               <iframe src="http://dev.skaphe.com:81/salidas/Media/VIDEO%204%20CAPAS.mp4" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+<!--ptap modal-->
+<div class="modal fade modal-form" id="ptap" tabindex="-1" aria-labelledby="HelpModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" style="width: 350px !important;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h3 class="modal-title text-center" id="HelpModalLabel" style="color:#6398C1 ;">{% trans "Define infrastructure" %}</h3>
+            </div>
+            <div class="modal-body video-responsive">
+               <iframe src="http://dev.skaphe.com:81/salidas/Media/VIDEO%205%20CAPAS_2.mp4" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+<!--case-study modal-->
+<div class="modal fade modal-form" id="case-study" tabindex="-1" aria-labelledby="HelpModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" style="width: 350px !important;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h3 class="modal-title text-center" id="HelpModalLabel" style="color:#6398C1 ;">{% trans "Create a case study" %}</h3>
+            </div>
+            <div class="modal-body video-responsive">
+               <iframe src="http://dev.skaphe.com:81/salidas/Media/VIDEO%203%20CAPAS_1%20(1).mp4" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+<!--reports modal-->
+<div class="modal fade modal-form" id="reports" tabindex="-1" aria-labelledby="HelpModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" style="width: 350px !important;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h3 class="modal-title text-center" id="HelpModalLabel" style="color:#6398C1 ;">{% trans "Analize outputs" %}</h3>
+            </div>
+            <div class="modal-body video-responsive">
+               <iframe src="http://dev.skaphe.com:81/salidas/Media/VIDEO%206%20CAPAS_1.mp4" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+</div>
       
     
 	<!-- <section> -->
@@ -673,6 +770,11 @@
 <script type="text/javascript">
     FEATURED_URL = '{% url 'api_dispatch_list' api_name='api' resource_name='featured' %}'
     'use strict';
+    center = function(e){
+        $('html, body').animate({
+            scrollTop: $("#scroll").offset().top
+        }, 900);
+    };
     (function(){
       var module = angular.module('featured', []);
       module.run(function($http, $rootScope){
