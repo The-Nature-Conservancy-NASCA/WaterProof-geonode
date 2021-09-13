@@ -1,3 +1,4 @@
+{% extends "base.html" %}
 {% load static %} <!--Para cargar archivos en la carpeta--->
 
 <!DOCTYPE html>
@@ -7,12 +8,12 @@
            
   
            <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
-
            <script src="{% static 'js/jquery.min.js' %}"></script>
            <script src="{% static 'js/owl.carousel.js' %}"></script>
 
            <!--Si no te agarra los estilos.. solo debes reiniciar el servidor--->
     </head>
+    {% block body_outer %}
     <body>
     
         <div id="titulo">
@@ -21,7 +22,6 @@
             </h4>
         </div>
         <div id="content">
-           
             {% block content%}
             <div id="titulo">
                 <h4>
@@ -30,10 +30,9 @@
             </div>
                 Por defecto<br>
             {% endblock%}
-           
         </div>
     </body>
-
+    {% endblock%}
 
     <script src="{% static 'js/highlight.js' %}"></script>
     <script src="{% static 'js/app.js' %}"></script>

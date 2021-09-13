@@ -85,7 +85,7 @@
                 {% if user.professional_role != 'ADMIN' %}
                     <!-- The NBS was created by admin user, so we add country multiplying factor -->
                     {% if sbn.added_by.professional_role == 'ADMIN' %}
-                        <td class="small text-center vat justify-number">{{sbn.unit_implementation_cost|multiplyFactor:userCountry.global_multiplier_factor|decimalFormat:2}}</td>
+                        <td class="small text-center vat justify-number impl">{{sbn.unit_implementation_cost|multiplyFactor:userCountry.global_multiplier_factor|decimalFormat:2}}</td>
                         <td class="small text-center vat justify-number">{{sbn.unit_maintenance_cost|multiplyFactor:userCountry.global_multiplier_factor|decimalFormat:2}}</td>
                         <td class="small text-center vat justify-number">{{sbn.unit_oportunity_cost|multiplyFactor:userCountry.global_multiplier_factor|decimalFormat:2}}</td>
                     {% else %}

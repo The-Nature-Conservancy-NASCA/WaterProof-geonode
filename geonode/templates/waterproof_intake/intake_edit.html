@@ -896,6 +896,8 @@
 <script src="{{ STATIC_URL }}geonode/js/leaflet/Control.Loader.js"></script>
 <script src="{{ STATIC_URL }}geonode/js/waterproof/waterIntake.js"></script>
 <script src="{{ STATIC_URL }}geonode/js/waterproof/geomFile_validate.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@turf/turf@6/turf.min.js"></script>
+
 <!--ZIP reader library-->
 <script src="{{ STATIC_URL }}geonode/js/jszip/jszip.min.js"></script>
 <!--Shapefile reader library -->
@@ -915,6 +917,7 @@
     GRAY_BASEMAP_URL = '{{ GRAY_BASEMAP_URL }} ';
     GEOSERVER_WMS = '{{ GEOSERVER_WMS }}';
     HYDRO_NETWORK_LYR = '{{ HYDRO_NETWORK_LYR }}';
+    MAX_NUM_POINTS = 500;
     var intakeInterpolationParams = {};
     intakeInterpolationParams.type = '{{ intake.demand_parameters.interpolation_type }}';
     intakeInterpolationParams.yearsNum = '{{intake.demand_parameters.years_number}}';
@@ -932,6 +935,7 @@
     intakePolygons.push(intakeObject);
     var defaultCurrencyId = '233';
     var defaultCurrentyName = '(USD) - United States';
+    var simplifyTolerance = 0.01;
 </script>
 
 <script src="{{ STATIC_URL }}geonode/js/leaflet/leaflet-omnivore.min.js"></script>
