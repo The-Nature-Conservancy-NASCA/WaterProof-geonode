@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Waterproof VBeta\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-02-11 20:03-0500\n"
-"PO-Revision-Date: 2021-09-10 10:45-0500\n"
+"PO-Revision-Date: 2021-09-13 11:10-0500\n"
 "Last-Translator: Julien Collaer <julien.collaer@opengeode.be>\n"
 "Language-Team: English Skaphe\n"
 "Language: en\n"
@@ -8826,6 +8826,10 @@ msgstr "Here you will find the description of a case study and all the elements 
 msgid "Text 5 - Who can use the system?"
 msgstr "WaterProof is mainly aimed at professionals in charge of designing projects for the implementation of Nature-based Solutions. The general public can access openly."
 
+#: geonode/templates/menu.html
+msgid "This website is funded by the Gordon and Betty Moore Foundation through Grant GBMF7100 to support the work of WaterProof"
+msgstr "This website is funded by the Gordon and Betty Moore Foundation through Grant GBMF7100 to support the work of WaterProof"
+
 #~ msgid "Open Data:"
 #~ msgstr "Open Data:"
 
@@ -9590,3 +9594,63 @@ msgstr "WaterProof is mainly aimed at professionals in charge of designing proje
 
 #~ msgid "view"
 #~ msgstr "view"
+
+#: geonode/templates/take-action.html
+msgid "Take Action"
+msgstr "Take Action"
+
+#: geonode/templates/take-action.html
+msgid "Now that you have a portfolio of nature-based solutions to improve water security in your basins of interest and you know the return on your investment," 
+msgstr "Now that you have a portfolio of nature-based solutions to improve water security in your basins of interest and you know the return on your investment," 
+
+#: geonode/templates/take-action.html
+msgid "Take it to action!"
+msgstr "Take it to action!"
+
+#: geonode/templates/take-action.html
+msgid "Why is it important to do it?"
+msgstr "Why is it important to do it?"
+
+#: geonode/templates/take-action.html
+msgid "Watersheds around the world are being transformed and degraded, as we lose terrestrial and freshwater ecosystems at ever higher rates. Likewise, the demand for water is increasing at a rate that is expected to have increased by 30% by 2050, which, added to the impacts of climate change, pose a greater risk to the health of ecosystems and to security. water."
+msgstr "Watersheds around the world are being transformed and degraded, as we lose terrestrial and freshwater ecosystems at ever higher rates. Likewise, the demand for water is increasing at a rate that is expected to have increased by 30% by 2050, which, added to the impacts of climate change, pose a greater risk to the health of ecosystems and to security. water."
+
+#: geonode/templates/take-action.html
+msgid "Healthy ecosystems are the foundation for multiple ecosystem services that provide benefits to us as individuals and as a society. Therefore, the deterioration of ecosystems has important consequences on our well-being and exacerbates the challenges we currently face as a society. The degradation of ecosystems, climate change and the increase in water demand are just some of the factors that can increase social conflicts over water use, increase our vulnerability, decrease production and impact our economy."
+msgstr "Healthy ecosystems are the foundation for multiple ecosystem services that provide benefits to us as individuals and as a society. Therefore, the deterioration of ecosystems has important consequences on our well-being and exacerbates the challenges we currently face as a society. The degradation of ecosystems, climate change and the increase in water demand are just some of the factors that can increase social conflicts over water use, increase our vulnerability, decrease production and impact our economy."
+
+#: geonode/templates/take-action.html
+msgid "Nature-based solutions are actions that are based on ecosystems and the services they provide, to respond to various societal challenges such as climate change, food security, disaster risk or water security. It is an umbrella concept that addresses various actions and approaches that seek to address social problems and share the interest of taking advantage of ecosystems, their characteristics or functions, to solve them, while providing benefits for human well-being and biodiversity."
+msgstr "Nature-based solutions are actions that are based on ecosystems and the services they provide, to respond to various societal challenges such as climate change, food security, disaster risk or water security. It is an umbrella concept that addresses various actions and approaches that seek to address social problems and share the interest of taking advantage of ecosystems, their characteristics or functions, to solve them, while providing benefits for human well-being and biodiversity."
+
+#: geonode/templates/take-action.html
+msgid "The solution to face the challenge of water security in your basins of interest is in your hands.<b> Go ahead and take the next step!</b>"
+msgstr "The solution to face the challenge of water security in your basins of interest is in your hands.<b> Go ahead and take the next step!</b>"
+
+#: geonode/templates/take-action.html
+msgid "Why is it necessary to do it now?"
+msgstr "Why is it necessary to do it now?"
+
+#: geonode/templates/take-action.html
+msgid "People around the world are facing intensifying water security problems, hand in hand with the deterioration of nature. The degradation of watersheds, as a result of poor management of water resources, the transformation of their vegetation cover and poor management and land use practices, generates direct impacts on the health of aquatic ecosystems, which have been transformed from accelerated manner in recent years. These ecosystems present the highest rates of degradation, compared to terrestrial and marine ecosystems. In recent decades, the loss of these ecosystems has intensified around the world and almost one in three freshwater species is threatened."
+msgstr "People around the world are facing intensifying water security problems, hand in hand with the deterioration of nature. The degradation of watersheds, as a result of poor management of water resources, the transformation of their vegetation cover and poor management and land use practices, generates direct impacts on the health of aquatic ecosystems, which have been transformed from accelerated manner in recent years. These ecosystems present the highest rates of degradation, compared to terrestrial and marine ecosystems. In recent decades, the loss of these ecosystems has intensified around the world and almost one in three freshwater species is threatened."
+
+#: geonode/templates/take-action.html
+msgid "The cost of water treatment in several cities of the planet has increased due to the degradation of the basins, which translates into higher costs for users and a lower quality of the water supply service. "
+msgstr "The cost of water treatment in several cities of the planet has increased due to the degradation of the basins, which translates into higher costs for users and a lower quality of the water supply service. "
+
+#: geonode/templates/take-action.html
+msgid "We are at a crucial moment to make decisions and take them to action. It is necessary to diversify our actions and accelerate them, to address the challenges we face as a society such as water security. "
+msgstr "We are at a crucial moment to make decisions and take them to action. It is necessary to diversify our actions and accelerate them, to address the challenges we face as a society such as water security. "
+
+#: geonode/templates/take-action.html
+msgid "Because investing in nature brings multiple benefits!"
+msgstr "Because investing in nature brings multiple benefits!"
+
+#: geonode/templates/take-action.html
+msgid "By implementing your portfolio of nature-based solutions you are not only improving water security in the basins of interest. It is also helping to solve other social challenges that concern us as a global society. The following are some of them:"
+msgstr "By implementing your portfolio of nature-based solutions you are not only improving water security in the basins of interest. It is also helping to solve other social challenges that concern us as a global society. The following are some of them:"
+
+#: geonode/templates/take-action.html
+msgid "Addressing climate change:"
+msgstr "Addressing climate change:"
