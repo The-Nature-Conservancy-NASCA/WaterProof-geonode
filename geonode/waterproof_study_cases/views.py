@@ -31,6 +31,7 @@ from django_libs.views_mixins import AccessMixin
 
 from .forms import StudyCasesForm
 from .models import StudyCases, Portfolio, ModelParameter
+from ..waterproof_reports.models import zip
 
 import datetime
 import json
@@ -302,12 +303,14 @@ def report(request, idx):
     if request.method == 'POST':
         return HttpResponseRedirect(reverse('study_cases_list'))
     else:
+        downloadZip = zip.objects.filter(study_case_id__id=idx).first()
         study_case = StudyCases.objects.get(id=idx)
         return render(
             request, 'waterproof_reports/reports_menu.html',
             {
                 "serverApi": settings.WATERPROOF_API_SERVER,
                 'study_case': study_case,
+                'filterzip': downloadZip,
                 'idx': idx
             }
         )

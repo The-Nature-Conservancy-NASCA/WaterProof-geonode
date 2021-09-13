@@ -379,10 +379,7 @@ $(function () {
     }
 
     downloadZip = function(){
-        //console.log(filter)
-        var filter = "{{filterzip}}"
-        console.log("este es el filter"+filter)
-        window.open(filter.link, "zipDownload", "width=120,height=300")
+        window.open("{{filterzip.link}}", "zipDownload", "width=120,height=300")
     }
     
     changeReport = function() {
