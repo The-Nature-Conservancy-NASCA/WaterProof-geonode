@@ -490,7 +490,7 @@ $(document).ready(function () {
                 title: gettext('Geometry error'),
                 text: gettext('You must validate the basin geometry')
             })
-        }else {
+        } else {
             intakeStepFive();
         }
     });
@@ -592,10 +592,10 @@ $(document).ready(function () {
         "Hydro (esri)": hydroLyr,
     };
     var c = new L.Control.Coordinates().addTo(map);
-    var defExt = new L.Control.DefaultExtent({ title: gettext('Default extent'), position: 'topright'}).addTo(map);
+    var defExt = new L.Control.DefaultExtent({ title: gettext('Default extent'), position: 'topright' }).addTo(map);
     L.control.layers(baseLayers, overlays, { position: 'topleft' }).addTo(map);
     mapDelimit.addLayer(osmid);
-    var defExtD = new L.Control.DefaultExtent({ title: gettext('Default extent'), position: 'topright'}).addTo(mapDelimit);
+    var defExtD = new L.Control.DefaultExtent({ title: gettext('Default extent'), position: 'topright' }).addTo(mapDelimit);
     intakePolygons.forEach(feature => {
         if (feature.delimitArea !== 'None') {
             let delimitPolygon = feature.delimitArea;
@@ -614,7 +614,7 @@ $(document).ready(function () {
             })
             editablepolygon = L.polygon(copyCoordinates, { color: 'red' });
             editablepolygon.addTo(mapDelimit);
-            var editablePolygonJson = editablepolygon.toGeoJSON();            
+            var editablePolygonJson = editablepolygon.toGeoJSON();
         }
 
         let ll = new L.LatLng(feature.point.geometry.coordinates[1], feature.point.geometry.coordinates[0]);
@@ -625,33 +625,34 @@ $(document).ready(function () {
         snapMarker.addTo(map);
         snapMarkerMapDelimit.addTo(mapDelimit);
         var jsPolygon = JSON.parse(feature.polygon);
-         // validate if polygon have more than one Ring and take only external Ring
-         try{
-            if (jsPolygon.features[0].geometry.coordinates.length > 1){
-                jsPolygon = {type: jsPolygon.type, 
-                                features : [{
-                                    type:jsPolygon.features[0].type, 
-                                    properties: jsPolygon.features[0].properties,
-                                    geometry: {
-                                        type:jsPolygon.features[0].geometry.type,
-                                        coordinates:[jsPolygon.features[0].geometry.coordinates[0]]
-                                    }
-                                }]
-                            };
-            }            
+        // validate if polygon have more than one Ring and take only external Ring
+        try {
+            if (jsPolygon.features[0].geometry.coordinates.length > 1) {
+                jsPolygon = {
+                    type: jsPolygon.type,
+                    features: [{
+                        type: jsPolygon.features[0].type,
+                        properties: jsPolygon.features[0].properties,
+                        geometry: {
+                            type: jsPolygon.features[0].geometry.type,
+                            coordinates: [jsPolygon.features[0].geometry.coordinates[0]]
+                        }
+                    }]
+                };
+            }
             if (jsPolygon.features[0].geometry.coordinates[0].length > MAX_NUM_POINTS) {
                 console.log("too many points : " + jsPolygon.features[0].geometry.coordinates[0].length + " ... simplifying");
                 var polygonSimplified = simplifyPolygon(jsPolygon.features[0].geometry.coordinates[0]);
                 if (polygonSimplified.geometry.coordinates[0].length > 0) {
-                  jsPolygon = polygonSimplified;
-                  console.log("new num points in polygon : " + polygonSimplified.geometry.coordinates[0].length);
+                    jsPolygon = polygonSimplified;
+                    console.log("new num points in polygon : " + polygonSimplified.geometry.coordinates[0].length);
                 }
-            } 
-        }catch(err){
+            }
+        } catch (err) {
             console.log(err);
         }
 
-        catchmentPoly = L.geoJSON(jsPolygon).addTo(map);        
+        catchmentPoly = L.geoJSON(jsPolygon).addTo(map);
         catchmentPolyDelimit = L.geoJSON(jsPolygon).addTo(mapDelimit);
         map.fitBounds(catchmentPoly.getBounds());
         map.setView(catchmentPoly.getBounds().getCenter(), zoom);
@@ -979,10 +980,10 @@ function intakeStepFive() {
                 showConfirmButton: false
             });
             var cityId = 143873; //Default Bogota
-            if (localStorage.cityId){
+            if (localStorage.cityId) {
                 cityId = localStorage.cityId;
             }
-            setTimeout(function() { location.href = "/intake/?city="+cityId; }, 1000);
+            setTimeout(function () { location.href = "/intake/?city=" + cityId; }, 1000);
         },
         error: function (xhr, errmsg, err) {
             //console.log(xhr.status + ":" + xhr.responseText);
@@ -1024,17 +1025,17 @@ function delimitIntakeArea() {
 }
 
 function validateIntakeArea() {
-    
+
     var intakePolygonJson = catchmentPoly.toGeoJSON();
     var editablePolygonJson;
-    if (editablepolygon == undefined){
-        if (intakePolygonJson.type == 'FeatureCollection'){
+    if (editablepolygon == undefined) {
+        if (intakePolygonJson.type == 'FeatureCollection') {
             editablePolygonJson = intakePolygonJson.features[0];
-        }else{
-            editablePolygonJson = JSON.parse(JSON.stringify(intakePolygonJson)); 
+        } else {
+            editablePolygonJson = JSON.parse(JSON.stringify(intakePolygonJson));
         }
-        
-    }else{
+
+    } else {
         editablePolygonJson = editablepolygon.toGeoJSON();
     }
     var pointIntakeJson = snapMarker.toGeoJSON();
