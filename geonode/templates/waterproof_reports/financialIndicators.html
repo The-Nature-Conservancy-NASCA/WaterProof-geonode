@@ -946,9 +946,10 @@ $(function () {
         document.getElementById("idTimeMainFinaltial").innerHTML = localStorage.getItem('idTimeMain');
 
         // A.R. Agrega evento llamado mapas geográficos
-        server = 'https://dev.skaphe.com/srv/'; //'/srv/';  
+        //server = 'https://dev.skaphe.com/srv/'; //'/srv/';  
         var urlDetail = "../../reports/getWpcompareMapas/?studyCase=" + localStorage.idStudyCase;
         $.getJSON(urlDetail, function (data) {
+            console.log(data);
             $.each( data, function( key, value ) {
                 usr_folder = value.folder;
                 intake = value.intake;
