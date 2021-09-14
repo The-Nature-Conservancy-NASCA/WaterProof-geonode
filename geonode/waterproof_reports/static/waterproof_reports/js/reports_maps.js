@@ -29,6 +29,8 @@ $(document).ready(function () {
       location.href = `/reports/geographic/?folder=${baseData}&intake=${this.value}&region=${region}&year=${year}&study_case_id=${studyCaseId}&center=${centroid}`;
     }
   }
+
+  rasterStatisticsApi();
     
   let zoom = 9;
   var mapLeft = L.map('map-left').setView(center, zoom);
@@ -83,7 +85,7 @@ $(document).ready(function () {
   let lyrNameCatchment = 'catchment';
   let lyrsModelsResult = [lyrNameAWY, lyrNameSWY, lyrNameSDR, lyrNameNDRN, lyrNameNDRP, lyrNameCarbon];
 
-  let attribution = "Waterproof data © 2021 TNC"
+  let attribution = "Waterproof data © 2021 TNC";
 
   let lyrsNames = [lyrNameLastYear];
   var overlaysLeft = {};
@@ -109,12 +111,19 @@ $(document).ready(function () {
     overlaysResults[lyrName] = createWMSLyr(urlWaterProofLyrsWMS, lyrName).addTo(mapResults);
   });
 
+  lyrsNames = [lyrNameCatchment];
+  lyrsNames.forEach(function (lyrName) {
+    overlaysResults[lyrName] = createWMSLyr(urlWaterProofLyrsWMS, lyrName).addTo(mapResults);
+  });
+
+
   var overlaysAreasRios = {};
   lyrsNames = [lyrNameAreasRios];
   lyrsNames.forEach(function (lyrName) {
     overlaysAreasRios[lyrName] = createWMSLyr(urlWaterProofLyrAreasRiosMS, lyrName).addTo(mapAreasRios);
   });
   createLegend(urlWaterProofLyrAreasRiosMS, lyrNameAreasRios, "#img-legend-areas-rios");
+  
   lyrsNames = [lyrNameCatchment];
   lyrsNames.forEach(function (lyrName) {
     overlaysAreasRios[lyrName] = createWMSLyr(urlWaterProofLyrsWMS, lyrName).addTo(mapAreasRios);
@@ -124,7 +133,7 @@ $(document).ready(function () {
   L.control.layers({}, overlaysLeft,{collapsed:false}).addTo(mapLeft,);
   L.control.layers({}, overlaysRight,{collapsed:false}).addTo(mapRight);
   L.control.layers({}, overlays,{collapsed:false}).addTo(map);
-  L.control.layers({}, overlaysResults,{collapsed:false}).addTo(mapResults);
+  let ctrlLyrsMapResult = L.control.layers({}, overlaysResults,{collapsed:false}).addTo(mapResults);
   L.control.layers({}, overlaysAreasRios,{collapsed:false}).addTo(mapAreasRios);
 
   var defExt = new L.Control.DefaultExtent({ title: gettext('Default extent'), position: 'topleft'}).addTo(mapLeft);
@@ -145,21 +154,22 @@ $(document).ready(function () {
   $("#menu3")[0].append($("#map-areas-rios-container")[0]);
   $('#first_tab').trigger('click');
 
-
-  // $(".leaflet-control-layers-selector").on('click', function(e){
-  //   var t = e.currentTarget; 
-  //   var p = t.parentElement; 
-  //   l = p.children[p.childElementCount-1]; 
-  //   l.style.display= (t.checked ? 'block': 'none');    
-  // });
-
+  let htmlControl = ctrlLyrsMapResult.getContainer();
+  let lyrs = htmlControl.getElementsByClassName("leaflet-control-layers-selector");
+  lyrs.forEach(function (lyr) {
+    console.log(lyr);
+    lyr.checked = false;
+  });
+  console.log(htmlControl);
+  
 
   function createWMSLyr(urlWMS, lyrName) {
     let params = {
       layers: lyrName,
       format: 'image/png',
       transparent: true,
-      attribution: attribution
+      attribution: attribution,
+      opacity: 0.7
     }
     return L.tileLayer.wms(urlWMS, params);
   }
@@ -189,4 +199,53 @@ $(document).ready(function () {
       })
     
   }
+
+  async function rasterStatisticsApi () {
+
+    let serverApi = '/proxy/?url=https://dev.skaphe.com/wf-models/';
+    let amp = "&";
+    if (serverApi.indexOf("proxy") >=0){
+      amp = "%26";
+    }
+    let url = serverApi + `raster_statistics?usr_folder=${baseData}${amp}intake_id=${intake}${amp}region=${region}${amp}year=${year}`;
+    
+    $.ajax({
+      url: url,
+      success: function(result) {
+          rasterResultStatistics = result;
+      }
+    });
+  }
+
+  $(".leaflet-control-layers-selector").on('click', function(e){
+    
+    var t = e.currentTarget; 
+    var p = t.parentElement;
+    let lyrName = p.children[1].innerText.trim();
+    let min = '0,0';
+    let max = '1,0';
+    if (lyrsModelsResult.includes(lyrName)) {
+      if (t.checked) {
+        let lyrs = [lyrNameAWY, lyrNameCarbon, lyrNameSWY, lyrNameNDRN, lyrNameNDRP, lyrNameSDR];
+        let keys = ['awy','carbon', 'swy','ndr_n', 'ndr_p', 'sdr']
+        let k = keys[lyrs.indexOf(lyrName)];
+        min = Math.round(rasterResultStatistics[k][0].min).toFixed(1).replace(".",",");
+        max = Math.round(rasterResultStatistics[k][0].max).toFixed(1).replace(".",",");
+        
+        if (p.childElementCount == 2) {
+          let lgndHtml =  `<div>
+                            <div><img src="/static/lib/img/legend-gray-h.png" style="margin-left: 15px;"></div> 
+                            <div> <span style="margin-left: 15px;">${min}</span> 
+                                <span style="margin-left: 100px;">${max}</span></div>  
+                          </div>
+                          `;
+          var node = document.createElement("div");
+          node.innerHTML = lgndHtml;
+          p.append(node);
+        }
+      }  
+    }
+
+    
+  });
 });
