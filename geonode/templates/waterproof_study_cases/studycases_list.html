@@ -17,7 +17,7 @@
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}study_cases/css/study_cases.css"/>
 
 <script>
-    var intakePolygons = [];
+    var listIntakes = {{ intakes|safe }};  
     SEARCH_CITY_API_URL = '{{ SEARCH_CITY_API_URL }}';
     SEARCH_COUNTRY_API_URL = '{{ SEARCH_COUNTRY_API_URL }}';
 </script>
@@ -211,7 +211,6 @@
 <script src="https://vinceg.github.io/twitter-bootstrap-wizard/jquery.bootstrap.wizard.js"></script>
 <script src="https://vinceg.github.io/twitter-bootstrap-wizard/prettify.js"></script>
 
-<script src="{{ STATIC_URL }}geonode/sample_data/intake_polygon.js"></script>
 <script src="{% static "waterproof/js/waterproof-common.js" %}"></script>
 <script src=" https://cdn.jsdelivr.net/npm/sweetalert2@10 "></script>
 <script type="text/javascript">
@@ -225,6 +224,9 @@
     URL_REFRESH_CITY = "/study_cases/?city=";
     let waterproof = {};
     let showSearchPointsFunction = showSearchPoints; 
-    
+    var map;
+    $(document).ready(function () {
+        drawPolygons(map);
+    });
 </script>
 {% endblock %}

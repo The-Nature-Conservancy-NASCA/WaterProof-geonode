@@ -792,6 +792,7 @@ def intakes(request, city_id):
                 ig['id'] = i.pk
                 if not i.polygon_set.first().geom is None:
                     ig['geom'] = i.polygon_set.first().geom.geojson
+                    ig['name'] = i.name
                 intake_geoms.append(ig)
             
             return render(
