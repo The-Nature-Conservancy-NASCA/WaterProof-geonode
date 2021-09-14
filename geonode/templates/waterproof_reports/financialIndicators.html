@@ -957,7 +957,7 @@ $(function () {
                 let g = JSON.parse(value.center).coordinates;
                 let centroid =g[1] + "," + g[0];
 
-                const urlWaterProofLyrsWMS = server + `?map=/etc/mapserver/mapserver_test.map&SERVICE=WMS&usr_folder=${usr_folder}&intake=${intake}&year=${year}&region=${region}&center=${centroid}`;
+                const urlWaterProofLyrsWMS = `/reports/geographic/?folder=${usr_folder}&intake=${intake}&year=${year}&region=${region}&center=${centroid}`;
 
             });
             document.getElementById("idGeographicIndicators").href =urlWaterProofLyrsWMS;
