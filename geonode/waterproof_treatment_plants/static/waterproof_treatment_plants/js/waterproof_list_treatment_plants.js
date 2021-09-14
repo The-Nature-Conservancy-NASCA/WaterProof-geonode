@@ -219,7 +219,8 @@ $(function () {
     */
     initialize = function () {
 
-        if (localStorage.clonePlant === "false" && 
+        if ((localStorage.clonePlant === undefined || 
+            localStorage.clonePlant === "false") && 
             localStorage.updatePlant === "false" && 
             (localStorage.loadInf == undefined || 
             localStorage.loadInf === "false")){
