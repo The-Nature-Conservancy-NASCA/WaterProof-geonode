@@ -104,7 +104,7 @@ $(function () {
                     formData.append('action', 'create-nbs');
                     $.ajax({
                         type: 'POST',
-                        url: '/waterproof_nbs_ca/create/' + countryId,
+                        url: '/waterproof_nbs_ca/create/',
                         data: formData,
                         cache: false,
                         processData: false,
@@ -142,7 +142,7 @@ $(function () {
                         formData.append('csrfmiddlewaretoken', token);
                         $.ajax({
                             type: 'POST',
-                            url: '/waterproof_nbs_ca/create/' + countryId,
+                            url: '/waterproof_nbs_ca/create/',
                             data: formData,
                             cache: false,
                             processData: false,
@@ -182,7 +182,7 @@ $(function () {
                                 formData.append('csrfmiddlewaretoken', token);
                                 $.ajax({
                                     type: 'POST',
-                                    url: '/waterproof_nbs_ca/create/' + countryId,
+                                    url: '/waterproof_nbs_ca/create/',
                                     data: formData,
                                     cache: false,
                                     processData: false,

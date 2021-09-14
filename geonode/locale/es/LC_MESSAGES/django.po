@@ -42,7 +42,7 @@ msgstr ""
 "Project-Id-Version: GeoNode\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-02-11 20:03-0500\n"
-"PO-Revision-Date: 2021-09-10 10:44-0500\n"
+"PO-Revision-Date: 2021-09-13 11:10-0500\n"
 "Last-Translator: Julien Collaer <julien.collaer@opengeode.be>\n"
 "Language-Team: Spanish (http://www.transifex.com/geonode/geonode/language/es/)\n"
 "Language: es\n"
@@ -9274,3 +9274,11 @@ msgstr "Aquí encontrarás la descripción de un caso de estudio y todos los ele
 #: geonode/templates/index.html
 msgid "Text 5 - Who can use the system?"
 msgstr "WaterProof está orientado principalmente a profesionales encargados del diseño de proyectos de implementación de Soluciones basadas en la Naturaleza. El publico general puede acceder de forma abierta."
+
+#: geonode/templates/menu.html
+msgid "NbS"
+msgstr "SbN"
+
+#: geonode/templates/menu.html
+msgid "This website is funded by the Gordon and Betty Moore Foundation through Grant GBMF7100 to support the work of WaterProof"
+msgstr "Este sitio web está financiado por la Fundación Gordon and Betty Moore a través de la subvención GBMF7100 para apoyar el trabajo de WaterProof"

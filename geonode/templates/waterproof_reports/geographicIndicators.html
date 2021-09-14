@@ -102,7 +102,6 @@
 			</div>
 		</div>
 
-
 		<div style="text-align: center;">
 			<h5>{% trans "Water Intake" %} : 
 				<select class="select-condition" style="width: 800px; text-align: center;" id="idSelectStudyCase"></select>
@@ -114,10 +113,9 @@
 				<li class="nav-item"><a class="radius-button-list nav-link" data-toggle="tab" href="#menu2">{% trans "Physical changes" %}</a></li>
 				<li class="nav-item"><a class="radius-button-list nav-link" data-toggle="tab" href="#menu3">{% trans "NbS portfolio" %}</a></li>
 			</ul>
-			
 				<div class="tab-content" id="myTabContent">
 					<div id="menu1" class="div-style-menu-23 tab-pane fade active in" role="tabpanel">
-						<h3>Menu 1</h3>
+						<h3 id="nameTitleIntake"></h3>
 						<p class="padding-text-desc">{% trans "LULC_text_1" %}</p>
 						<p class="padding-text-desc">{% trans "LULC_text_2" %}</p>
 						<div class="row padding-text-desc">        
@@ -141,12 +139,12 @@
 						</div>						
 					</div>
 					<div id="menu2" class="div-style-menu-23 tab-pane fade" role="tabpanel">
-						<h3>Menu 2</h3>
+						<h3 id="nameTitleIntake"></h3>
 						<p class="padding-text-desc">{% trans "InVEST text 1" %}</p>
 						<p class="padding-text-desc">{% trans "InVEST text 2" %}</p>
 					</div>
 					<div id="menu3" class="div-style-menu-23 tab-pane fade" role="tabpanel">
-						<h3>Menu 3</h3> 
+						<h3 id="nameTitleIntake"></h3> 
 						<p class="padding-text-desc">{% trans "RIOS text 1" %}</p>
 					</div>
 					<div id="map-analysis-result" class="row">
@@ -165,17 +163,18 @@
 					</div>
 				</div>            
 		</div>
+		<img src="" alt="legend" id="generated-img"/>
 </form>
 
 {% endblock %} {% block extra_script %}
-
-
 
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js" type="text/javascript"></script>
 <script src="{% static "lib/js/leaflet.js" %}"></script>
 <script src="{% static "geonode/js/leaflet/leaflet.defaultextent.js" %}"></script>
 <script src=" {{ STATIC_URL }}geonode/js/leaflet/L.Map.Sync.js"></script>
 <script src="{{ STATIC_URL }}waterproof_reports/js/reports_maps.js"></script>
+<script src="{{ STATIC_URL }}geonode/js/waterproof/dom-to-image.min.js"></script>
+
 <script type="text/javascript">
 
 	OSM_BASEMAP_URL = '{{ OSM_BASEMAP_URL }} ';
@@ -198,7 +197,9 @@
 	let server = location.protocol + '//' + location.hostname.replace('apps','dev') + ':82/';
   server = 'https://dev.skaphe.com/srv/'; //'/srv/';  
   const urlWaterProofLyrsWMS = server + `?map=/etc/mapserver/mapserver_test.map&SERVICE=WMS&usr_folder=${baseData}&intake=${intake}&year=${year}&region=${region}`;
-
+	const urlWaterProofLyrAreasRiosMS = server + `?map=/etc/mapserver/${baseData}/WI_${intake}/out/areas_rios.map&SERVICE=WMS`;
+	var mapAreasRios;
+	var rasterResultStatistics = {};
 	$(function () {
 			
 			changeReport = function() {
@@ -222,9 +223,24 @@
 					document.getElementById("idNumberOfDrinkingGeographic").innerHTML = localStorage.getItem('idNumberOfDrinking');
 					document.getElementById("idCurrencyMainGeographic").innerHTML = localStorage.getItem('idCurrencyMain');
 					document.getElementById("idTimeMainGeographic").innerHTML = localStorage.getItem('idTimeMain');
-
 			};
 			initialize();
+
+			generateMap2Img = function (mapId, imgId) {
+				var mapElement = document.getElementById(mapId);
+				//const dataURL = await domtoimage.toPng(mapElement, { width, height })
+				//const blob = await domtoimage.toBlob(mapElement, { width, height })
+				$(".leaflet-control").hide();
+				domtoimage.toPng(mapElement)
+					.then(function (dataUrl) {
+							$('#'+ imgId).attr('src', dataUrl);							
+							$(".leaflet-control").show();
+					})
+					.catch(function (error) {
+							console.error('oops, something went wrong!', error);
+							$(".leaflet-control").show();
+					});
+			};
 	});
     
 </script>

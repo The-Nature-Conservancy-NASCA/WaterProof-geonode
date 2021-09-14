@@ -896,7 +896,8 @@ $(document).ready(function () {
                                 $('#_thumbnail_processing').modal('hide');
                                 $('#smartwizard').smartWizard("next");
                                 $('#autoAdjustHeightF').css("height", "auto");
-                                $("#form").submit();
+                                //$("#form").submit();
+                                location.href = "/study_cases/?city="+localStorage.cityId; 
                             }, "json");
                         }
                     })
@@ -1209,8 +1210,6 @@ $(document).ready(function () {
                         val = 0
                     }
                     if ($('#nbssc-' + id).length <= 0) {
-                        console.log(min)
-                        console.log(nbs)
                         content += '<tr><td>' + name + '</td>'
                         content += '<td><input class="text-number" type="number" id="nbssc-' + id + '" value="' + val + '"> </td></tr > '
                         content += '<input class="hiddennbs" id="minimun-' + id + '" " type="hidden" value="' + min + '">'
@@ -1273,7 +1272,7 @@ $(document).ready(function () {
             content += '<th scope="col" class="small text-center vat text-description-bio">description</th>'
             content += '<th scope="col" class="small text-center vat">lucode</th>'
             $.each(labels, function (key, v) {
-                if (key != 'lucode' && key != 'default' && key != 'lulc_desc' && key != 'description' && key != 'user_id' && key != 'intake_id' && key != 'study_case_id' && key != 'id' && key != 'macro_region' && key != 'kc') {
+                if (key != 'lucode' && key != 'default' && key != 'lulc_desc' && key != 'description' && key != 'user_id' && key != 'intake_id' && key != 'study_case_id' && key != 'id' && key != 'macro_region' && key != 'kc' && key != 'edit') {
                     content += '<th scope="col" class="small text-center vat">' + key + '</th>'
                 }
             });
@@ -1290,7 +1289,7 @@ $(document).ready(function () {
                     if(v){
                         v = Number.parseFloat(v).toFixed(6);
                     }
-                    if (key != 'lucode' && key != 'default' && key != 'lulc_desc' && key != 'description' && key != 'user_id' && key != 'intake_id' && key != 'study_case_id' && key != 'id' && key != 'macro_region' && key != 'kc') {
+                    if (key != 'lucode' && key != 'default' && key != 'lulc_desc' && key != 'description' && key != 'user_id' && key != 'intake_id' && key != 'study_case_id' && key != 'id' && key != 'macro_region' && key != 'kc' && key != 'edit') {
                         content += '<td id="' + key + '_' + id_intake + '_' + bio.id + '"><input class="text-number-bio" step="0.000001" oninput="validity.valid||(value=\'\');" type="number" value="' + v + '"/></td>'
                     }
                 });

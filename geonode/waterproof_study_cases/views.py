@@ -31,6 +31,7 @@ from django_libs.views_mixins import AccessMixin
 
 from .forms import StudyCasesForm
 from .models import StudyCases, Portfolio, ModelParameter
+from ..waterproof_reports.models import zip
 
 import datetime
 import json
@@ -67,7 +68,7 @@ def list(request):
             if (request.user.professional_role == 'ANALYS'):
                 if (city_id != ''):
                     query = Q(city=city_id,added_by=request.user)
-                    query.add(Q(is_public=True), Q.OR)
+                    query.add(Q(city=city_id,is_public=True), Q.OR)
                     studyCases = StudyCases.objects.filter(query).order_by('-edit_date')
                     city = Cities.objects.get(id=city_id)
                 else:
@@ -87,7 +88,14 @@ def list(request):
                     }
                 )
         else:
-            studyCases = StudyCases.objects.filter(is_public=True).order_by('-edit_date')
+            if (city_id != ''):
+                query = Q(city=city_id)
+                query.add(Q(is_public=True), Q.AND)
+                studyCases = StudyCases.objects.filter(query).order_by('-edit_date')
+                city = Cities.objects.get(id=city_id)
+            else:
+                studyCases = StudyCases.objects.filter(is_public=True).order_by('-edit_date')
+                city = Cities.objects.get(id=1)
             return render(
                 request,
                 'waterproof_study_cases/studycases_list.html',
@@ -302,12 +310,14 @@ def report(request, idx):
     if request.method == 'POST':
         return HttpResponseRedirect(reverse('study_cases_list'))
     else:
+        downloadZip = zip.objects.filter(study_case_id__id=idx).first()
         study_case = StudyCases.objects.get(id=idx)
         return render(
             request, 'waterproof_reports/reports_menu.html',
             {
                 "serverApi": settings.WATERPROOF_API_SERVER,
                 'study_case': study_case,
+                'filterzip': downloadZip,
                 'idx': idx
             }
         )
