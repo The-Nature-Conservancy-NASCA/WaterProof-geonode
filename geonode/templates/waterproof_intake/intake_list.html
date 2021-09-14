@@ -16,7 +16,7 @@
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_nbs_ca/css/waterproof_nbs_ca.css"/>
 
 <script>
-    var intakePolygons = [];    
+    var listIntakes = {{ intakes|safe }};  
 </script>
 {% endblock %}
 
@@ -127,10 +127,7 @@
                         {% endif %}
                     </div>
                 </td>
-            </tr>
-            <script>
-                intakePolygons.push({id:'{{intake.id}}',polygon:'{{intake.polygon_set.first.geom}}',city:'{{intake.city.name}}'});
-            </script>
+            </tr>            
             {% endfor %}
         </tbody>
     </table>
@@ -181,6 +178,8 @@
     URL_REFRESH_CITY = "/intake/?city=";
     let waterproof = {};
     let showSearchPointsFunction = null;
+    let lyrIntakes;
+    let map;
 </script>
 <script src="{{ STATIC_URL }}geonode/js/datatables/dataTables.bootstrap.min.js"></script>
 <script src="{% static "lib/js/leaflet.js" %}"></script>
@@ -195,6 +194,11 @@
 <script src="{{ STATIC_URL }}geonode/sample_data/intake_polygon.js "></script>
 <script src="{% static "waterproof/js/waterproof-common.js" %}"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10 "></script>
+<script>
+    $(document).ready(function () {
+        drawPolygons(map);
+    });
+</script>
 
 
 {% endblock %}
