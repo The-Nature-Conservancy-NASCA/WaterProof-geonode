@@ -224,7 +224,9 @@ $(function () {
             localStorage.updatePlant === "false" && 
             (localStorage.loadInf == undefined || 
             localStorage.loadInf === "false")){
-            document.getElementById("titleFormTreatmentPlant").innerHTML = "    "+ gettext("Create") + " " +  gettext("Treatment Plant");
+            var el = document.getElementById("titleFormTreatmentPlant");
+            if (el != undefined)    
+                el.innerHTML = "    "+ gettext("Create") + " " +  gettext("Treatment Plant");
         }
 
         $('#submit').click(function (e) {
