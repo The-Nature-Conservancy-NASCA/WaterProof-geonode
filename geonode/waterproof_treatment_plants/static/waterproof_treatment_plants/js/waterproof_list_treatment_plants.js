@@ -218,6 +218,14 @@ $(function () {
     * @returns 
     */
     initialize = function () {
+
+        if (localStorage.clonePlant === "false" && 
+            localStorage.updatePlant === "false" && 
+            (localStorage.loadInf == undefined || 
+            localStorage.loadInf === "false")){
+            document.getElementById("titleFormTreatmentPlant").innerHTML = "    "+ gettext("Create") + " " +  gettext("Treatment Plant");
+        }
+
         $('#submit').click(function (e) {
             validateAndSavePlant();
         });
@@ -320,13 +328,10 @@ $(function () {
         initMap();
 
         $('#createUrl').attr('href','create/' + userCountryId);
-        
-        if (localStorage.clonePlant === "false" && localStorage.updatePlant === "false" && localStorage.loadInf === "false"){
-            document.getElementById("titleFormTreatmentPlant").innerHTML = "    "+ gettext("Create") + gettext("Treatment Plant");
-        }
+                
         if(localStorage.clonePlant === "true") {
             localStorage.clonePlant = "false";
-            document.getElementById("titleFormTreatmentPlant").innerHTML = "  "+ gettext("Clone") + gettext("Treatment Plant");
+            document.getElementById("titleFormTreatmentPlant").innerHTML = "  "+ gettext("Clone") + " " + gettext("Treatment Plant");
             var urlDetail = "../../treatment_plants/getTreatmentPlant/?plantId=" + localStorage.plantId;
             $.getJSON(urlDetail, function (data) {
                 localStorage.plantId = null;
