@@ -47,7 +47,8 @@
             <div class="icons-menu-header" id="idGeographicIndicators">
                 <img src="/static/geonode/img/indicadores-geograficos.png" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;" title="{% trans "Geographic visualization" %}"/>
                 <br>
-                <a href="../../reports/geographic/">{% trans "Geographic visualization" %}</a>
+                <a href="">{% trans "Geographic visualization" %}</a>
+                <!-- ../../reports/geographic/-->
             </div>
             <div class="icons-menu-header" id="idGeographicIndicators">
                 <img src="/static/geonode/img/reportes-icon.png" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;" title="{% trans "Geographic visualization" %}"/>
@@ -949,7 +950,8 @@ $(function () {
         //server = 'https://dev.skaphe.com/srv/'; //'/srv/';  
         var urlDetail = "../../reports/getWpcompareMapas/?studyCase=" + localStorage.idStudyCase;
         $.getJSON(urlDetail, function (data) {
-            console.log(data);
+            console.log("data aqui si entra");
+            alert('Si entra....');
             $.each( data, function( key, value ) {
                 usr_folder = value.folder;
                 intake = value.intake;
