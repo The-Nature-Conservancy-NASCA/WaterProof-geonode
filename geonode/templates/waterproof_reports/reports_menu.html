@@ -788,11 +788,8 @@ $(function () {
                 let g = JSON.parse(value.center).coordinates;
                 let centroid =g[1] + "," + g[0];
                 console.log (centroid);
-
-                var urlWaterProofLyrsWMS = `/reports/geographic/?folder=${usr_folder}&intake=${intake}&year=${year}&region=${region}&center=${centroid}`;
-
-
             });
+            var urlWaterProofLyrsWMS = `/reports/geographic/?folder=${usr_folder}&intake=${intake}&year=${year}&region=${region}&center=${centroid}`;
             document.getElementById("idGeographicIndicators").href =urlWaterProofLyrsWMS;
 
         })    
