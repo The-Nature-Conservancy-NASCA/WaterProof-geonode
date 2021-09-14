@@ -199,7 +199,7 @@
   const urlWaterProofLyrsWMS = server + `?map=/etc/mapserver/mapserver_test.map&SERVICE=WMS&usr_folder=${baseData}&intake=${intake}&year=${year}&region=${region}`;
 	const urlWaterProofLyrAreasRiosMS = server + `?map=/etc/mapserver/${baseData}/WI_${intake}/out/areas_rios.map&SERVICE=WMS`;
 	var mapAreasRios;
-
+	var rasterResultStatistics = {};
 	$(function () {
 			
 			changeReport = function() {
