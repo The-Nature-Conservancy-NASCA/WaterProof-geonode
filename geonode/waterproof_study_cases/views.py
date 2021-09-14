@@ -67,7 +67,7 @@ def list(request):
             if (request.user.professional_role == 'ANALYS'):
                 if (city_id != ''):
                     query = Q(city=city_id,added_by=request.user)
-                    query.add(Q(is_public=True), Q.OR)
+                    query.add(Q(city=city_id,is_public=True), Q.OR)
                     studyCases = StudyCases.objects.filter(query).order_by('-edit_date')
                     city = Cities.objects.get(id=city_id)
                 else:
@@ -87,7 +87,14 @@ def list(request):
                     }
                 )
         else:
-            studyCases = StudyCases.objects.filter(is_public=True).order_by('-edit_date')
+            if (city_id != ''):
+                query = Q(city=city_id)
+                query.add(Q(is_public=True), Q.AND)
+                studyCases = StudyCases.objects.filter(query).order_by('-edit_date')
+                city = Cities.objects.get(id=city_id)
+            else:
+                studyCases = StudyCases.objects.filter(is_public=True).order_by('-edit_date')
+                city = Cities.objects.get(id=1)
             return render(
                 request,
                 'waterproof_study_cases/studycases_list.html',
