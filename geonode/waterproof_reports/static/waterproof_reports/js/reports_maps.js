@@ -4,7 +4,6 @@
  * *******/
 
 $(document).ready(function () {
-
   var urlDetail = "../../reports/getSelectorStudyCasesId/?studyCase=" + studyCaseId;
   var selectIntake = document.getElementById("idSelectStudyCase");
   $.getJSON(urlDetail, function (data) {
@@ -12,6 +11,7 @@ $(document).ready(function () {
     option.text = gettext("Select an Intake");
     option.value = -1;
     selectIntake.add(option);
+    console.log(selectIntake)
       $.each( data, function( key, value ) {
           var option = document.createElement("option");
           option.text = value.selector;
@@ -22,21 +22,23 @@ $(document).ready(function () {
   });
   
   document.getElementById("idSelectStudyCase").onchange = function() {
+    console.log(this.value);
     if (this.value != -1) {
       let g = JSON.parse(this.selectedOptions[0].getAttribute("data-intake-geom")).coordinates;
       let centroid =g[1] + "," + g[0];
-      location.href = `/reports/compare-maps/?folder=${baseData}&intake=${this.value}&region=${region}&year=${year}&study_case_id=${studyCaseId}&center=${centroid}`;
+      location.href = `/reports/geographic/?folder=${baseData}&intake=${this.value}&region=${region}&year=${year}&study_case_id=${studyCaseId}&center=${centroid}`;
     }
   }
+
+  rasterStatisticsApi();
     
   let zoom = 9;
   var mapLeft = L.map('map-left').setView(center, zoom);
   var mapRight = L.map('map-right').setView(center, zoom);
   var map = L.map('map-down').setView(center, zoom);
   var mapResults = L.map('map-results').setView(center, zoom);
-  var mapAreasRios = L.map('map-areas-rios').setView(center, zoom);
+  mapAreasRios = L.map('map-areas-rios').setView(center, zoom);
 
-  let urlTopoLyr = 'https://opentopomap.org/{z}/{x}/{y}.png';
   let urlOmsLyr = 'https://{s}.tile.osm.org/{z}/{x}/{y}.png';
   let omsAttributions = 'Map tiles by <a href="https://osm.org">OSM<\/a>, ' +
                         '<a href="https://creativecommons.org/licenses/by/3.0">CC BY 3.0<\/a> &mdash; ' +
@@ -80,45 +82,58 @@ $(document).ready(function () {
   let lyrNameNDRP = `NDR_Phosphorus`;
   let lyrNameCarbon = `Carbon_storage_and_sequestration`;
   let lyrNameAreasRios = 'Areas_Rios';
-
+  let lyrNameCatchment = 'catchment';
   let lyrsModelsResult = [lyrNameAWY, lyrNameSWY, lyrNameSDR, lyrNameNDRN, lyrNameNDRP, lyrNameCarbon];
 
-  let attribution = "Waterproof data © 2021 TNC"
+  let attribution = "Waterproof data © 2021 TNC";
 
   let lyrsNames = [lyrNameLastYear];
   var overlaysLeft = {};
   lyrsNames.forEach(function (lyrName) {
-    overlaysLeft[lyrName] = createWMSLyr(lyrName).addTo(mapLeft);
+    overlaysLeft[lyrName] = createWMSLyr(urlWaterProofLyrsWMS, lyrName).addTo(mapLeft);
   });
 
   var overlaysRight = {};
   lyrsNames = [lyrNameYearFuture];
   lyrsNames.forEach(function (lyrName) {
-    overlaysRight[lyrName] = createWMSLyr(lyrName).addTo(mapRight);
-    createLegend(lyrName);
+    overlaysRight[lyrName] = createWMSLyr(urlWaterProofLyrsWMS, lyrName).addTo(mapRight);
+    createLegend(urlWaterProofLyrsWMS, lyrName, "#img-legend-left");
   });
 
   var overlays = {};
   lyrsNames = [lyrNameYear0];
   lyrsNames.forEach(function (lyrName) {
-    overlays[lyrName] = createWMSLyr(lyrName).addTo(map);    
+    overlays[lyrName] = createWMSLyr(urlWaterProofLyrsWMS, lyrName).addTo(map);    
   });
 
   var overlaysResults = {};
   lyrsModelsResult.forEach(function (lyrName) {
-    overlaysResults[lyrName] = createWMSLyr(lyrName).addTo(mapResults);
+    overlaysResults[lyrName] = createWMSLyr(urlWaterProofLyrsWMS, lyrName).addTo(mapResults);
   });
+
+  lyrsNames = [lyrNameCatchment];
+  lyrsNames.forEach(function (lyrName) {
+    overlaysResults[lyrName] = createWMSLyr(urlWaterProofLyrsWMS, lyrName).addTo(mapResults);
+  });
+
 
   var overlaysAreasRios = {};
   lyrsNames = [lyrNameAreasRios];
   lyrsNames.forEach(function (lyrName) {
-    overlaysAreasRios[lyrName] = createWMSLyr(lyrName).addTo(mapAreasRios);
+    overlaysAreasRios[lyrName] = createWMSLyr(urlWaterProofLyrAreasRiosMS, lyrName).addTo(mapAreasRios);
   });
+  createLegend(urlWaterProofLyrAreasRiosMS, lyrNameAreasRios, "#img-legend-areas-rios");
+  
+  lyrsNames = [lyrNameCatchment];
+  lyrsNames.forEach(function (lyrName) {
+    overlaysAreasRios[lyrName] = createWMSLyr(urlWaterProofLyrsWMS, lyrName).addTo(mapAreasRios);
+  });
+  
 
   L.control.layers({}, overlaysLeft,{collapsed:false}).addTo(mapLeft,);
   L.control.layers({}, overlaysRight,{collapsed:false}).addTo(mapRight);
   L.control.layers({}, overlays,{collapsed:false}).addTo(map);
-  L.control.layers({}, overlaysResults,{collapsed:false}).addTo(mapResults);
+  let ctrlLyrsMapResult = L.control.layers({}, overlaysResults,{collapsed:false}).addTo(mapResults);
   L.control.layers({}, overlaysAreasRios,{collapsed:false}).addTo(mapAreasRios);
 
   var defExt = new L.Control.DefaultExtent({ title: gettext('Default extent'), position: 'topleft'}).addTo(mapLeft);
@@ -135,35 +150,32 @@ $(document).ready(function () {
   map.sync(mapLeft);
   
 
-  $(".leaflet-control-layers-selector")[0].parentElement.append($("#legend-left")[0]);
-  $(".leaflet-control-layers-selector")[1].parentElement.append($("#legend-right")[0]);
-  $(".leaflet-control-layers-selector")[2].parentElement.append($("#legend-down")[0]);
   $("#menu2")[0].append($("#map-analysis-result")[0]);
   $("#menu3")[0].append($("#map-areas-rios-container")[0]);
   $('#first_tab').trigger('click');
 
-
-  $(".leaflet-control-layers-selector").on('click', function(e){
-    var t = e.currentTarget; 
-    var p = t.parentElement; 
-    l = p.children[p.childElementCount-1]; 
-    l.style.display= (t.checked ? 'block': 'none');
-    
+  let htmlControl = ctrlLyrsMapResult.getContainer();
+  let lyrs = htmlControl.getElementsByClassName("leaflet-control-layers-selector");
+  lyrs.forEach(function (lyr) {
+    console.log(lyr);
+    lyr.checked = false;
   });
+  console.log(htmlControl);
+  
 
-
-  function createWMSLyr(lyrName) {
+  function createWMSLyr(urlWMS, lyrName) {
     let params = {
       layers: lyrName,
       format: 'image/png',
       transparent: true,
-      attribution: attribution
+      attribution: attribution,
+      opacity: 0.7
     }
-    return L.tileLayer.wms(urlWaterProofLyrsWMS, params);
+    return L.tileLayer.wms(urlWMS, params);
   }
  
   
-  function createLegend(lyrName) {
+  function createLegend(urlWMS ,lyrName, elId) {
     let legendParams = `&request=getlegendgraphic&layer=${lyrName}&format=image%2Fpng&SLD_VERSION=1.1.0&VERSION=1.3.0`;
     const fetchAsBlob = url => fetch(url)
     .then(response => response.blob());
@@ -177,16 +189,63 @@ $(document).ready(function () {
       reader.readAsDataURL(blob);
     });
 
-    fetchAsBlob(urlWaterProofLyrsWMS + legendParams)
+    fetchAsBlob(urlWMS + legendParams)
       .then(convertBlobToBase64)
       .then(base64Data => {
-        $('#img-legend-left').attr('src', base64Data);
-        $('#img-legend-right').attr('src', base64Data);
-        $('#img-legend-down').attr('src', base64Data);
+        $(elId).attr('src', base64Data);
+        //$('#img-legend-right').attr('src', base64Data);
+        //$('#img-legend-down').attr('src', base64Data);
         //$('#legend-row').show();
       })
     
   }
-  
-});
 
+  async function rasterStatisticsApi () {
+
+    let serverApi = '/proxy/?url=https://dev.skaphe.com/wf-models/';
+    let amp = "&";
+    if (serverApi.indexOf("proxy") >=0){
+      amp = "%26";
+    }
+    let url = serverApi + `raster_statistics?usr_folder=${baseData}${amp}intake_id=${intake}${amp}region=${region}${amp}year=${year}`;
+    
+    $.ajax({
+      url: url,
+      success: function(result) {
+          rasterResultStatistics = result;
+      }
+    });
+  }
+
+  $(".leaflet-control-layers-selector").on('click', function(e){
+    
+    var t = e.currentTarget; 
+    var p = t.parentElement;
+    let lyrName = p.children[1].innerText.trim();
+    let min = '0,0';
+    let max = '1,0';
+    if (lyrsModelsResult.includes(lyrName)) {
+      if (t.checked) {
+        let lyrs = [lyrNameAWY, lyrNameCarbon, lyrNameSWY, lyrNameNDRN, lyrNameNDRP, lyrNameSDR];
+        let keys = ['awy','carbon', 'swy','ndr_n', 'ndr_p', 'sdr']
+        let k = keys[lyrs.indexOf(lyrName)];
+        min = Math.round(rasterResultStatistics[k][0].min).toFixed(1).replace(".",",");
+        max = Math.round(rasterResultStatistics[k][0].max).toFixed(1).replace(".",",");
+        
+        if (p.childElementCount == 2) {
+          let lgndHtml =  `<div>
+                            <div><img src="/static/lib/img/legend-gray-h.png" style="margin-left: 15px;"></div> 
+                            <div> <span style="margin-left: 15px;">${min}</span> 
+                                <span style="margin-left: 100px;">${max}</span></div>  
+                          </div>
+                          `;
+          var node = document.createElement("div");
+          node.innerHTML = lgndHtml;
+          p.append(node);
+        }
+      }  
+    }
+
+    
+  });
+});

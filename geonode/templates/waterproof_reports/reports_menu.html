@@ -81,7 +81,7 @@
                     <img src="/static/geonode/img/valor-bruto.png" class="img-roi" />
                     <div class="bootom-roi">
                         <div>{% trans "ROI on nature based solutions opportunity" %}</div>
-                        <div class="buttom-roi" id="idBtnRoi">Adove 1</div>
+                        <div class="buttom-roi-menu" id="idBtnRoi">Adove 1</div>
                     </div>
                 </div>
             </div>
@@ -379,10 +379,7 @@ $(function () {
     }
 
     downloadZip = function(){
-        //console.log(filter)
-        var filter = "{{filterzip}}"
-        console.log("este es el filter"+filter)
-        window.open(filter.link, "zipDownload", "width=120,height=300")
+        window.open("{{filterzip.link}}", "zipDownload", "width=120,height=300")
     }
     
     changeReport = function() {
