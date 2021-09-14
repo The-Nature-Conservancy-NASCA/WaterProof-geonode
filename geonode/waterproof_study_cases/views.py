@@ -303,8 +303,7 @@ def report(request, idx):
     if request.method == 'POST':
         return HttpResponseRedirect(reverse('study_cases_list'))
     else:
-#        downloadZip = zip.objects.filter(study_case_id__id=idx).first()
-        downloadZip = zip.objects.filter(study_case_id__id=idx)
+        downloadZip = zip.objects.filter(study_case_id__id=idx).first()
 
         study_case = StudyCases.objects.get(id=idx)
         return render(

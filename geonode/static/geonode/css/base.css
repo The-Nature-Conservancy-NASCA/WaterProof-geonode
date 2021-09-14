@@ -2351,8 +2351,14 @@ pre code {
     left: 50%;  
     margin-left: -50vw;
     height: 300px;
-    color: #fff;
-    
+    color: #fff;    
+  }
+  .size-video{
+    width: 100%;
+    height: 263px;
+  }
+  .height-modal-content-index{
+    height: 370px;
   }
   .background-take-bot > h1{
   text-align: left;
