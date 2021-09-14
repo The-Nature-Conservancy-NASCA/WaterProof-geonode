@@ -41,7 +41,11 @@ $(function () {
         VPN_TOTAL: 'total',
         STUDYCASE: 'id',
         STUDY_NAME: 'name',
+        STUDY_COUNTRY:'city__country__name',
+        STUDY_REGION:'city__country__region__name',
         STUDY_CITY: 'city__name',
+        STUDY_YEARS:'time_implement'
+
     };
     const AXIS_TABLE = {
         DOM_ID: 'axis_table'
@@ -100,7 +104,10 @@ $(function () {
         fields.push(
             CHART_CATEGORIES.STUDYCASE,
             CHART_CATEGORIES.STUDY_NAME,
-            CHART_CATEGORIES.STUDY_CITY
+            CHART_CATEGORIES.STUDY_COUNTRY,
+            CHART_CATEGORIES.STUDY_REGION,
+            CHART_CATEGORIES.STUDY_CITY,
+            CHART_CATEGORIES.STUDY_YEARS
         );
         var seriesCasesRequest = indicatorsRequest(INDICATORS_API.STUDY_CASE, selectedCases, fields);
         fields = [];
@@ -161,7 +168,8 @@ $(function () {
                         imagePath=static_prefix+'waterproof_study_cases_comparison/images/discount_above2.png';
                     }
                     let li='<li class="splide__slide"><img class="splideImg" src='+imagePath+' height="150px" width="150px">';
-                    li+='<h4 class="slider_title">'+element.name+'</h4><div>'+element.city__name+'</div>';
+                    li+='<h4 class="slider_title">'+element.name+'</h4><div>'+gettext('Country')+':'+element.city__country__name+'</div><div>'+gettext('City')+': '+element.city__name+'</div>';
+                    li+='<div>'+gettext('Region')+': '+element.city__country__region__name+'</div><div>'+gettext('Time frame')+': '+element.time_implement+'</div>';
                     $('#' + SLIDER_UL.DOM_ID).append(li);
                     console.log(element);
                 });
