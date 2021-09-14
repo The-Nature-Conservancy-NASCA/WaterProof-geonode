@@ -36,7 +36,7 @@ $(document).ready(function () {
         }
     }
     waterproof["cityCoords"] = cityCoords;
-    var map = L.map('map', {
+    map = L.map('map', {
         scrollWheelZoom: false,
         layers: [osm],
         zoomControl: false,
