@@ -180,7 +180,8 @@ msgid "NBS_conservation_activities_text"
 msgstr "Select the NbS that you want the system to consider for the analysis:"
 
 msgid "investment_tip"
-msgstr "Enter here the amount of money you want to spent on each NbS per year. If you do not want to pre-determine how much is spent on each NbS, enter the total budget in the Yearly Floating Budget box. You can also enter values of some NbS and enter the remaining budget in the Floating Budget box."
+msgstr "Enter here the amount of money you want to spent on each NbS per year. If you do not want to pre-determine how much is spent on each NbS, enter the total budget in the Yearly Floating Budget box. You can also enter values of some NbS and enter the remaining budget in the Floating Budget box. Please consider that WaterProof will consider the values indicated as investment for each of the basins involved in the analysis. If you establish a budget of 100,000 USD but the analysis involves 2 analysis basins, the system will consider 200,000 USD as the total available investment.
+"
 
 msgid "analysis_time_period"
 msgstr "Analysis time period (years) (10-100)"
@@ -272,8 +273,8 @@ msgstr "City of creation :"
 msgid "You won't be able to revert this!"
 msgstr "The data in this section will be lost"
 
-msgid "Define"
-msgstr "Define"
+msgid "Definition"
+msgstr "Definition"
 
 msgid "Name"
 msgstr "Name"
@@ -460,3 +461,6 @@ msgstr "Report"
 
 msgid "delete"
 msgstr "Delete"
+
+msgid "description_select_type"
+msgstr "WaterProof can consider for ROI analysis the operating and maintenance costs associated with the analysis infrastructure. You can use the costs of a previously created drinking water treatment plant or you can create costs for a custom infrastructure. Select the desired option."
