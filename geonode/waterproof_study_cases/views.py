@@ -54,6 +54,18 @@ def list(request):
                 else:
                     studyCases = StudyCases.objects.all().order_by('-edit_date')
                     city = Cities.objects.get(id=1)
+                intake_geoms = []
+                for sc in studyCases:
+                    intakes = sc.intakes.all()
+                    for intake in intakes:
+                        ig = dict()
+                        ig['study_case_id'] = sc.pk
+                        ig['study_case_name'] = sc.name
+                        ig['intake_id'] = intake.pk
+                        ig['geom'] = intake.polygon_set.first().geom.geojson
+                        ig['intake_name'] = intake.name
+                        intake_geoms.append(ig)
+
                 return render(
                     request,
                     'waterproof_study_cases/studycases_list.html',
@@ -62,6 +74,7 @@ def list(request):
                         'city': city,
                         'userCountry': userCountry,
                         'region': region,
+                        'intakes': json.dumps(intake_geoms)
                     }
                 )
 

@@ -13,16 +13,14 @@
 <!--header-->
 <div class="header-waterproof">
     <div class="row">
-        <div class="col-sm-5">
-            <h1 id="titleFormTreatmentPlant"></h1>
-        </div>
-        <div class="col-sm-1">
-            <h1>
-            <button type="button" data-toggle="modal" data-target="#HelpPTAP" id="HelpModalBtnModal" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
-            </h1>
-        </div>
-        <div class="col-lg-4">
-            <h4>{% trans "Treatment plant creation city:" %} <span id="nameCity"></span> </h4>
+        <div class="col-sm-6">
+            <h3 id="titleFormTreatmentPlant">{% trans "Treatment Plant" %}</h3>
+        </div>        
+        <div class="col-sm-6" style="display: flex;">
+            <h3>
+                <button type="button" data-toggle="modal" data-target="#HelpPTAP" id="HelpModalBtnModal" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
+            </h3>
+            <h3 class="subtitle">{% trans "Treatment plant creation city:" %} <span id="nameCity"></span> </h3>
         </div>
     </div>
     <form data-toggle="validator" role="form" action="">
@@ -235,7 +233,7 @@
         </div>
         <div class="row text-center">
             <div class="col-md-12">
-                <button type="button" id="submit" class="btn btn-primary ">{% trans "Submit" %}</button>
+                <button type="button" id="submit" class="btn btn-primary ">{% trans "Save" %}</button>
             </div>
         </div>
         

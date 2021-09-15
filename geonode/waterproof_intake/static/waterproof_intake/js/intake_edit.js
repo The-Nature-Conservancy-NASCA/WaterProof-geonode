@@ -583,12 +583,21 @@ $(document).ready(function () {
     var images = L.tileLayer("https://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryTopo/MapServer/tile/{z}/{y}/{x}");
     var esriHydroOverlayURL = "https://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/Esri_Hydro_Reference_Overlay/MapServer/tile/{z}/{y}/{x}";
     var hydroLyr = L.tileLayer(esriHydroOverlayURL);
+    var wmsHydroNetworkLyr = L.tileLayer.wms(GEOSERVER_WMS, {
+        layers: HYDRO_NETWORK_LYR,
+        format: 'image/png',
+        transparent: 'true',
+        opacity: 0.35,
+        minZoom: 6,
+    });
+
     var baseLayers = {
         OpenStreetMap: osm,
         Images: images,
         /* Grayscale: gray,   */
     };
     var overlays = {
+        "Hydro Network": wmsHydroNetworkLyr,
         "Hydro (esri)": hydroLyr,
     };
     var c = new L.Control.Coordinates().addTo(map);

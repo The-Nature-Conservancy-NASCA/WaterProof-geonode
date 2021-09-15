@@ -131,15 +131,14 @@ $(function () {
 
     //draw polygons
     drawPolygons = function (map) {
-        //lyrsPolygons.forEach(lyr => map.removeLayer(lyr));
-        //lyrsPolygons = [];
+        
         var bounds;
         let lf = [];
         listIntakes.forEach(intake => {
             if (intake.geom) {
                 let g = JSON.parse(intake.geom);
                 f = {'type' : 'Feature', 
-                    'properties' : { 'id' : intake.id}, 
+                    'properties' : { 'id' : intake.id, 'name' : intake.name}, 
                     'geometry' : g
                 };
                 lf.push(f);
@@ -147,7 +146,22 @@ $(function () {
         });
         
         if (lf.length > 0){
-            lyrIntakes = L.geoJSON(lf).addTo(map);
+            lyrIntakes = L.geoJSON(lf, {
+                onEachFeature: function (feature, layer) {
+                    layer.bindPopup(`<div class="popup-content">
+                                        <div class="leaflet-container">
+                                            <b>Id:</b> ${feature.properties.id}
+                                        </div>
+                                        <div class="popup-body">
+                                            <div class="popup-body-content">
+                                                <div class="popup-body-content-text">
+                                                    <p><b>Name:</b> ${feature.properties.name}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>`);
+                }
+            }).addTo(map);
         }
         map.fitBounds(lyrIntakes.getBounds());
         if (bounds != undefined) {

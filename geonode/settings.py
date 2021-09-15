@@ -112,10 +112,11 @@ DATABASE_URL = os.getenv(
     )
 )
 
-DATABASE_URL='postgresql://geonode:{&Uid&QXZ&6f;|F@dev.skaphe.com:5432/geonode'
+#DATABASE_URL='postgresql://geonode:{&Uid&QXZ&6f;|F@dev.skaphe.com:5432/geonode'
 #DATABASE_URL='postgresql://geonode:G30N0D3@water-proof.org:5432/geonode'
 #DATABASE_URL='postgresql://geonode:geonode@localhost:5432/geonode'
 #DATABASE_URL = 'postgresql://geonode:geonode_data@dev.skaphe.com:5432/geonode'
+
 
 if DATABASE_URL.startswith("spatialite"):
     try:
@@ -2223,14 +2224,13 @@ WATERPROOF_INVEST_API = os.getenv("WATERPROOF_INVEST_API","https://dev.skaphe.co
 WATERPROOF_MODELS_PY3_API = os.getenv("WATERPROOF_MODELS_PY3_API","https://dev.skaphe.com/wf-models/")
 WATERPROOF_MODELS_PY2_API =  os.getenv("WATERPROOF_MODELS_PY2_API","/proxy/?url=https://dev.skaphe.com/wf-rios/")
 SEARCH_CITY_API_URL = '/proxy/?url=https://photon.komoot.io/api/?'
-
 SEARCH_COUNTRY_API_URL = "https://restcountries.eu/rest/v2/alpha/"
 
 OSM_BASEMAP_URL = 'https://{s}.tile.osm.org/{z}/{x}/{y}.png'                   
 IMG_BASEMAP_URL = "https://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryTopo/MapServer/tile/{z}/{y}/{x}"
 HYDRO_BASEMAP_URL = "https://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/Esri_Hydro_Reference_Overlay/MapServer/tile/{z}/{y}/{x}"
 GRAY_BASEMAP_URL = "https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png"
-GEOSERVER_WMS = os.getenv('GEOSERVER_WMS','http://apps.skaphe.com:8080/geoserver/waterproof/wms?')
+GEOSERVER_WMS = os.getenv('GEOSERVER_WMS','https://dev.skaphe.com/geoserver/waterproof/wms?')
 HYDRO_NETWORK_LYR = 'waterproof:world_hydro_network'
 
 #API key for update euro currencys update
