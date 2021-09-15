@@ -33,10 +33,9 @@ def getTreatmentPlantsList(request):
 		user = request.GET['user']
 		city_id = request.GET['city']
 				
-		if user != '-1':			
-			print("FILTER in API PTAP : %s" % user)
+		if user != '-1':					
 			try:
-				headers = Header.objects.filter(plant_city=city_id, user=user)
+				headers = Header.objects.filter(plant_city=city_id)
 				tratamentPlantsList = Csinfra.objects.filter(csinfra_plant__in=headers)
 			except:
 				city_id = ''
