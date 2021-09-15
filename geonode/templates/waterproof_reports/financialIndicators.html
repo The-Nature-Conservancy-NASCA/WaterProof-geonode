@@ -47,7 +47,8 @@
             <div class="icons-menu-header" id="idGeographicIndicators">
                 <img src="/static/geonode/img/indicadores-geograficos.png" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;" title="{% trans "Geographic visualization" %}"/>
                 <br>
-                <a href="../../reports/geographic/">{% trans "Geographic visualization" %}</a>
+                <a href="">{% trans "Geographic visualization" %}</a>
+                <!-- ../../reports/geographic/-->
             </div>
             <div class="icons-menu-header" id="idGeographicIndicators">
                 <img src="/static/geonode/img/reportes-icon.png" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;" title="{% trans "Geographic visualization" %}"/>
@@ -273,10 +274,10 @@
     <div class="list-menu-results" id="idGeographicIndicators">
         <img src="/static/geonode/img/indicadores-geograficos.png" title="{% trans "Geographic visualization" %}"/>
         <br>
-        <a href="../../reports/geographic/">{% trans "Geographic visualization" %}</a>
+        <a href="">{% trans "Geographic visualization" %}</a>
+        <!--a>../../reports/geographic/</a-->
     </div>
 </div>
-
 {% endblock %} {% block extra_script %}
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/highcharts-more.js"></script>
@@ -569,7 +570,7 @@ $(function () {
 
             document.getElementById("idTbodyRoi").innerHTML = htmlCost +  htmlDiscountedCost + htmlBenefits + htmlDiscountedBenefits;
             document.getElementById("idTheadRoi").innerHTML = htmlTitle;
-
+            // Los nombres de las columnas estaban errados por lo cual se ajustan, los datos corresonden al ajuste, es decir estan bien como quedan.
             Highcharts.chart('containerRoi', {
                 chart: {
                     type: 'column'
@@ -585,18 +586,18 @@ $(function () {
                     enabled: false
                 },
                 series: [{
-                    name: 'Total Cost',
+                    name: 'Total benefits',
                     data: totalCost
                 },{
-                    name: 'Total Discounted Cost',
+                    name: 'Total Cost',
                     data: totalDiscountedCost
                 },{
-                    name: 'Total Benefits',
+                    name: 'Total discounted benefits',
                     type: 'spline',
                     dashStyle: 'shortdot',
                     data: totalBenefits
                 },{
-                    name: 'Total Discounted Benefits',
+                    name: 'Total discounted cost',
                     type: 'spline',
                     dashStyle: 'shortdot',
                     data: totalDiscountedBenefits
@@ -944,6 +945,7 @@ $(function () {
         document.getElementById("idNumberOfDrinkingFinaltial").innerHTML = localStorage.getItem('idNumberOfDrinking');
         document.getElementById("idCurrencyMainFinaltial").innerHTML = localStorage.getItem('idCurrencyMain');
         document.getElementById("idTimeMainFinaltial").innerHTML = localStorage.getItem('idTimeMain');
+
     };
     initialize();
 });
