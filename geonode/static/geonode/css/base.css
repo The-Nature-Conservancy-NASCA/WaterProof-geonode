@@ -9070,8 +9070,8 @@ form-inline {
  }
  .colorsubtitle{
   color: #0A8B8E;
- font-weight: lighter;
- font-size: x-large;
+  font-weight: lighter;
+  font-size: x-large;
 }
 
 .com { color: #93a1a1; }
@@ -9384,3 +9384,14 @@ top:50px;
   right: 2px;
 }
 
+.with-support-of{
+  margin-left: 12px;
+}
+
+.popup-body-content-text p{
+  margin: 5px 0 !important;
+}
+
+.subtitle{
+  font-size: 22px;
+}

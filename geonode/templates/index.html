@@ -139,81 +139,50 @@
         <div class="col-md-1"></div>
         <div class="col-md-2">
             <img class="iconsWhatIsWP" src="/static/geonode/img/before_starting.png">
-            <button class="buttonWhatIsWP"
-            type="button"
-            data-toggle="collapse"
-            data-target="#collapseExample1"
-            aria-expanded="false"
-            aria-controls="collapseExample1"
-            data-placement="bottom">
+            <button class="buttonWhatIsWP" data-target="desc-wp-1">
             {% trans "Before starting" %}</button>            
         </div>
         <div class="col-md-2">
             <img class="iconsWhatIsWP" src="/static/geonode/img/what_is_CE.png">
-            <button class="buttonWhatIsWP"
-            type="button"
-            data-toggle="collapse"
-            data-target="#collapseExample2"
-            aria-expanded="false"
-            aria-controls="collapseExample2"
-            data-placement="top">
+            <button class="buttonWhatIsWP" data-target="desc-wp-2">
             {% trans "What is a case study?" %}</button>
         </div>        
         <div class="col-md-2">
             <img class="iconsWhatIsWP" src="/static/geonode/img/Support_data.png">
-            <button class="buttonWhatIsWP"
-            type="button"
-            data-toggle="collapse"
-            data-target="#collapseExample3"
-            aria-expanded="false"
-            aria-controls="collapseExample3"
-            data-placement="bottom">
+            <button class="buttonWhatIsWP" data-target="desc-wp-3">
                 {% trans "Support data" %}</button>
         </div>
         <div class="col-md-2">
             <img class="iconsWhatIsWP" src="/static/geonode/img/see_example.png">
-            <button class="buttonWhatIsWP"
-            type="button"
-            data-toggle="collapse"
-            data-target="#collapseExample4"
-            aria-expanded="false"
-            aria-controls="collapseExample4"
-            data-placement="bottom">
+            <button class="buttonWhatIsWP" data-target="desc-wp-4">
                 {% trans "See an example" %}</button>
         </div>
         <div class="col-md-2">
             <img class="iconsWhatIsWP" src="/static/geonode/img/who_can_use.png">
-            <button class="buttonWhatIsWP"
-            type="button"
-            data-toggle="collapse"
-            data-target="#collapseExample5"
-            aria-expanded="false"
-            aria-controls="collapseExample5"
-            data-placement="bottom">
+            <button class="buttonWhatIsWP" data-target="desc-wp-5">
                 {% trans "Who can use the system?" %}</button>
         </div>
-        <div class="col-md-1"></div>       
+            <div class="col-md-1"></div>       
         </div>           
     </div>
     <!-- Collapsed content -->
     <div class="container">
         <br>
         <br>
-        <br>
-        
-        <div class="collapse" id="collapseExample1">           
+        <br>        
+        <div class="description-WhatIsWP" id="desc-wp-1">           
             <p class="size-left"> {% trans "Text 1 - Before starting" %}
         </div>
-        <div class="collapse" id="collapseExample2">
+        <div class="description-WhatIsWP" id="desc-wp-2">
             <p class="size-left"> {% trans "Text 2 - What is a case study?" %}
         </div>
-        <div class="collapse" id="collapseExample3">
+        <div class="description-WhatIsWP" id="desc-wp-3">
             <p class="size-left"> {% trans "Text 3 - Support data" %}
         </div>
-        <div class="collapse" id="collapseExample4">
+        <div class="description-WhatIsWP" id="desc-wp-4">
             <p class="size-left"> {% trans "Text 4 - See an example" %}
         </div> 
-        <div class="collapse" id="collapseExample5">
+        <div class="description-WhatIsWP" id="desc-wp-5">
             <p class="size-left">  {% trans "Text 5 - Who can use the system?" %}
         </div>
     </div>  
@@ -502,35 +471,40 @@
         </div>
     </div>
 </section>  -->
-<section id="partner_tnc">
-    <div class="row justify-content-md-center" style="height:20%;">
-        <div class="col-md-2 text-left"></div>    
-        <div class="col-md-3 text-left">
-            <div class="text-center">
-            <h3 class="colorLeftInstructionsR">{% trans "Developed by:" %}</h3> 
-            </div>
-            <div class="text-left">
-            <img src="{% static 'geonode/img/LogoTNC2.png' %}" alt="The nature Conservancy" style="max-height: 100px;">
+<section id="partner_tnc" style="padding-bottom:15px;">
+    <div class="row justify-content-md-center">
+        <div class="col-md-6 text-left">
+            <div class="col-md-2 text-left"></div>
+            <div class="col-md-4 text-left">
+                <div class="text-center">
+                    <h3 class="colorLeftInstructionsR">{% trans "Developed by:" %}</h3> 
+                </div>                
             </div>
         </div>
-        
-            <div class="col-md-6 text-left">
-                <div class="text-center">
-                    <h3 class="colorLeftInstructionsR">{% trans "Whith the support of:" %}</h3> 
-                </div>
-            
-            <div class="col-md-3 text-left align-items-center">    
-                <div class="text-left">    
-                    <img src="{% static 'geonode/img/fundacionmoore.png' %}" alt="Moore fundation" style="max-height: 100px;">
-                </div>
-            </div>
-            <div class="col-md-9 text-left align-items-center" style="height:50%">
-                <br>
-                <p>{% trans "This website is funded by the Gordon and Betty Moore Foundation through Grant GBMF7100 to support the work of WaterProof" %}</p>            
-            </div>
-        
+        <div class="col-md-6 text-left">
+            <h3 class="colorLeftInstructionsR with-support-of">{% trans "Whith the support of:" %}</h3>             
         </div>
     </div>
+    <div class="row justify-content-md-center">
+        <div class="col-md-6 text-left">
+            <div class="col-md-2 text-left"></div>
+            <div class="col-md-4 text-left">                
+                <div class="text-left">
+                    <img src="{% static 'geonode/img/LogoTNC2.png' %}" style="width:100%; height:80%;" alt="The Nature Conservancy">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 text-left">
+            <div class="row justify-content-md-center">
+                <div class="col-md-4 text-left align-items-center">    
+                    <img src="{% static 'geonode/img/fundacionmoore.png' %}" style="width:75%; height:100%;" alt="Moore fundation">                
+                </div>
+                <div class="col-md-8 text-left align-items-center">
+                    {% trans "This website is funded by the Gordon and Betty Moore Foundation through Grant GBMF7100 to support the work of WaterProof" %}
+                </div>
+            </div>
+        </div>
+    </div>    
 </section> 
 
 <!--search-city modal-->
@@ -843,5 +817,15 @@ var Cli_Data = {"nn_cookie_ids":[],"cookielist":[]};
             navText: ["<img src='./static/geonode/img/flecha-izq.png'>", "<img src='./static/geonode/img/flecha-der.png'>"]
 
         });
+
+        $(document).ready(function() {
+            $(".description-WhatIsWP").hide();
+            $(".buttonWhatIsWP").on("click", function(el) {
+                $(".description-WhatIsWP").hide();
+                let id = $(this).attr("data-target");
+                $("#" + id).show('slow');                
+            });
+        });
+               
     </script>
 {% endblock extra_script %}

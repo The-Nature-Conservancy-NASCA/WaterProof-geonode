@@ -735,8 +735,7 @@
         }catch(e){
           //console.log("maybe rootwizard is in another page");
         }
-        
-        //initializeStudyCaseForm();        
+            
       })
       
       $('#search').on('submit', (e) => {
@@ -763,6 +762,8 @@
           url="{% url "list-intake" %}?limit={{ CLIENT_RESULTS_LIMIT }}&city=" + cityId;
           window.location.href = url;
         });
+
+        
     </script>
 
     <div class="modal fade" style="width: 100%; height: 100%;" id="_resource_uploading" data-backdrop="static" aria-hidden="true">

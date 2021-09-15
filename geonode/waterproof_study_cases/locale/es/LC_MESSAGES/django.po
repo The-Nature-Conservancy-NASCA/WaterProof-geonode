@@ -209,7 +209,7 @@ msgid "NBS_conservation_activities_text"
 msgstr "Seleccione las SbN que desea considerar en el análisis:"
 
 msgid "investment_tip"
-msgstr "Ingrese aquí la cantidad de dinero que desea haber gastado en cada SbN por año. Si no desea predeterminar cuánto se gasta en cada SbN, ingrese el presupuesto total en el cuadro Presupuesto flotante anual. También puede ingresar valores de algunas SbN e ingresar el presupuesto restante en el cuadro Presupuesto flotante."
+msgstr "Ingrese aquí la cantidad de dinero que desea invertir en cada SbN por año. Si no desea predeterminar cuánto se invierte en cada SbN, ingrese el presupuesto total en el cuadro Presupuesto flotante anual. También puede ingresar valores de algunos SbN e ingresar el presupuesto restante en el cuadro Presupuesto flotante. Tenga en cuenta que WaterProof considerará los valores indicados como inversión para cada una de las cuencas involucradas en el análisis. Si establece un presupuesto de 100.000 USD pero el análisis involucra 2 cuencas de análisis, el sistema considerará 200.000 USD como la inversión total disponible."
 
 msgid "analysis_time_period"
 msgstr "Periodo de tiempo del análisis (10 - 100 años)"
@@ -490,5 +490,11 @@ msgstr "Reportes"
 msgid "delete"
 msgstr "Eliminar"
 
-msgid "Define"
+msgid "Definition"
 msgstr "Definición"
+
+msgid "description_select_type"
+msgstr "WaterProof puede considerar para el análisis de retorno a la inversión, los costos de operacion y mantenimiento asociados a la infraestructura de análisis. Usted puede utilizar los costos de una planta de tratamiento de agua potable previamente creada o puede crear costos para una infraestructura personalizada. Seleccione la opción deseada."
+
+msgid "My Cases"
+msgstr "Mis Casos"
