@@ -29,10 +29,9 @@ def treatmentPlantsList(request):
 
 		url = settings.SITE_HOST_API + 'treatment_plants/getTreatmentPlantsList/?city=%s&user=%s' % (city_id,user)
 		response = []
-		print (url)
+		
 		try:
 			response = requests.get(url,verify=False)
-			print(response.text)
 			response = response.json()
 		except Exception as e:
 			print ("must be anonymous user")
