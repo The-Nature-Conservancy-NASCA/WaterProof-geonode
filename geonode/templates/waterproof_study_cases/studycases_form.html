@@ -16,7 +16,7 @@
             <h1>{% trans "new_study_case" %}</h1>
         </div>
         <div class="col-sm-6">
-            <h4>{% trans "creation_city" %} : <span id="cityLabel"></span> </h4>
+            <h4>{% trans "creation_city" %}: <span id="cityLabel"></span> </h4>
         </div>
     </div>
     <br>
@@ -28,7 +28,7 @@
             <!--panel of navigation-->
             <ul class="nav">
                 <li>
-                    <a class="nav-link" href="#step-1"> {% trans "Define" %} </a>
+                    <a class="nav-link" href="#step-1"> {% trans "Definition" %} </a>
                 </li>
                 <li>
                     <a class="nav-link" href="#step-2"> {% trans "carbon_market" %}</a>
@@ -83,6 +83,9 @@
                     <h4 class="text-primary">
                         {% trans "select_type_study" %}
                     </h4>
+                    <div style="padding-bottom: 10px;">
+                        <span>{% trans "description_select_type" %}</span>
+                    </div>
 
                     <div id="div_id_type" class="form-group" style="border-bottom: none;">
 
@@ -227,11 +230,11 @@
                             <div class="col-md-3">
                                 <select id="cm_select" class="form-control">
                                     {% for currency in currencys %}
-                                    {% if currency.iso3 == 'USA' %}
-                                    <option value='{{currency.currency}}' selected>({{currency.currency}}) - {{currency.name}}</option>
-                                    {% else %}
-                                    <option value='{{currency.currency}}'>({{currency.currency}}) - {{currency.name}}</option>
-                                    {% endif %}
+                                        {% if currency.iso3 == 'USA' %}
+                                        <option value='{{currency.currency}}' selected>({{currency.currency}}) - {{currency.name}}</option>
+                                        {% else %}
+                                        <option value='{{currency.currency}}'>({{currency.currency}}) - {{currency.name}}</option>
+                                        {% endif %}
                                     {% endfor %}
                                 </select>
                             </div>
