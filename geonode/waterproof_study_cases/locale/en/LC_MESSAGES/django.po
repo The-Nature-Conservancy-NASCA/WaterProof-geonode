@@ -81,7 +81,7 @@ msgid "custom_case"
 msgstr "Custom case"
 
 msgid "select_water_intake"
-msgstr "Select the water intakes you want to consider in the ROI analysis. If you haven't created it yet, , please click here to create a new one."
+msgstr "Select the water intakes you want to consider in the ROI analysis. If you haven't created it yet, please click here to create a new one."
 
 msgid "water_source"
 msgstr "Water intake source"
@@ -93,7 +93,7 @@ msgid "add_cost_function"
 msgstr "Add cost function"
 
 msgid "select_treatments_plants"
-msgstr "Select the treatment plants you want to consider in the ROI analysis. If you haven't created it yet, , please click here to create a new one."
+msgstr "Select the treatment plants you want to consider in the ROI analysis. If you haven't created it yet, please click here to create a new one."
 
 msgid "add_plant"
 msgstr "Add DWTP"
