@@ -115,12 +115,12 @@ msgstr ""
 
 #: templates/study_cases/studycases_list.html:88
 msgid "Cases for analysis"
-msgstr "Casos para análisis"
+msgstr "Casos para comparación"
 
 #: templates/study_cases/studycases_list.html:89
 msgid "Select study cases"
 msgstr ""
 
 #: templates/study_cases/studycases_list.html:108
-msgid "Do analysis"
-msgstr ""
+msgid "Compare"
+msgstr "Comparar"
