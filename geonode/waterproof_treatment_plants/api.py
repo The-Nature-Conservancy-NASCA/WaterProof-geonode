@@ -32,7 +32,8 @@ def getTreatmentPlantsList(request):
 		tratamentPlantsList = []
 		try:            
 			city_id = request.GET['city']
-			headers = Header.objects.filter(plant_city=city_id)
+			user = request.GET['user']
+			headers = Header.objects.filter(plant_city=city_id, user=user)
 			tratamentPlantsList = Csinfra.objects.filter(csinfra_plant__in=headers)
 		except:
 			city_id = ''
