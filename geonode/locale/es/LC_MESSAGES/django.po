@@ -9081,7 +9081,7 @@ msgid "Explore how Nature-based Solutions can generate outcomes in your catchmen
 msgstr "Explore cómo las soluciones basadas en la naturaleza pueden generar resultados en su captación."
 
 msgid "Start now"
-msgstr "Empieza ahora"
+msgstr "Empiece ahora"
 
 msgid "About us"
 msgstr "Sobre nosotros"

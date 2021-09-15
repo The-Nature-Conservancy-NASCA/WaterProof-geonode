@@ -42,7 +42,7 @@ msgstr ""
 "Project-Id-Version: GeoNode\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-02-11 20:03-0500\n"
-"PO-Revision-Date: 2021-09-10 11:04-0500\n"
+"PO-Revision-Date: 2021-09-13 17:29-0500\n"
 "Last-Translator: Julien Collaer <julien.collaer@opengeode.be>\n"
 "Language-Team: Spanish (http://www.transifex.com/geonode/geonode/language/es/)\n"
 "Language: es\n"
@@ -296,13 +296,10 @@ msgid "WaterProof will assist you by indicating the steps you must follow to com
 msgstr "WaterProof lo asistirá indicando los pasos que debe seguir para hacer su registro completo: "
 
 msgid "Creation city : "
-msgstr "Ciudad de creación :"
+msgstr "Ciudad de creación:"
 
 msgid "You won't be able to revert this!"
 msgstr "Los datos diligenciados en esta sección se perderán"
-
-msgid "Define"
-msgstr "Definir"
 
 msgid "NBS_conservation_activities"
 msgstr "SbN / Actividades de conservación"

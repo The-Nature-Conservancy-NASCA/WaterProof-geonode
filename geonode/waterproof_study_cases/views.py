@@ -316,6 +316,7 @@ def report(request, idx):
         return HttpResponseRedirect(reverse('study_cases_list'))
     else:
         downloadZip = zip.objects.filter(study_case_id__id=idx).first()
+
         study_case = StudyCases.objects.get(id=idx)
         return render(
             request, 'waterproof_reports/reports_menu.html',

@@ -1033,14 +1033,13 @@ def reportMenu(request):
 
 def getNames(indicators):
     result = []
-    for objectIndicator in indicators:
+    for objectIndicator in indicators:  
         try:
             if objectIndicator.intake.name not in result:
                 result.append(objectIndicator.intake.name)
         except:
-            return result
+            print ("")
     return result
-
 
 def getNameCity(indicators):
     result = []
@@ -1049,23 +1048,22 @@ def getNameCity(indicators):
             if objectIndicatorcity.intake.city.name not in result:
                 result.append(objectIndicatorcity.intake.city.name)
         except:
-            return result
+            print ("")
     return result
-
 
 def physicalIndicators(request, idx):
 
-    indicators = investIndicators.objects.filter(study_case__id=idx)
-    indicatorsNames = getNames(indicators)
-    indicatorsNameCity = getNameCity(indicators)
-    return render(
-        request,
-        'waterproof_reports/physicalIndicators.html',
-        {
-            'Indicators': indicators,
-            'NamesIndicators': indicatorsNames,
-            'NameCityIndicators': indicatorsNameCity
-        })
+                indicators = investIndicators.objects.filter(study_case__id=idx)
+                indicatorsNames = getNames(indicators)
+                indicatorsNameCity = getNameCity(indicators)
+                return render(
+                    request,
+                    'waterproof_reports/physicalIndicators.html',
+                    {
+                        'Indicators': indicators,
+                        'NamesIndicators': indicatorsNames,
+                        'NameCityIndicators': indicatorsNameCity
+                    })
 
 
 def financialIndicators(request):
