@@ -115,7 +115,7 @@ msgstr ""
 
 #: templates/study_cases/studycases_list.html:88
 msgid "Cases for analysis"
-msgstr ""
+msgstr "Cases for comparison"
 
 #: templates/study_cases/studycases_list.html:89
 msgid "Select study cases"
