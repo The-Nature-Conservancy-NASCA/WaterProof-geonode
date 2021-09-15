@@ -1,12 +1,17 @@
-{% extends "menu.html" %} {% load i18n %} {% load decimal_format %}{% load multiply_factor %}{% block title %} {% trans "Waterproof Detail NBS CA" %} {% endblock %}
+{% extends "menu.html" %} 
+{% load i18n %} 
+{% load decimal_format %}
+{% load static from staticfiles %}
+{% load multiply_factor %}
+{% block title %} 
+{% trans "Waterproof Detail NBS CA" %} 
+{% endblock %}
 {% block extra_head %}
-
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_nbs_ca/css/waterproof_nbs_ca.css"/> 
+<!-- <link rel="stylesheet" href="{% static "geonode/css/leaflet/leaflet.defaultextent.css" %}"/> -->
+<link rel="stylesheet" href="{{ STATIC_URL }}lib/css/leaflet.css"/>
 {% endblock %}
 {% block body_outer %} 
-<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_nbs_ca/css/waterproof_nbs_ca.css"> 
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
-    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
-    crossorigin="" />
 
 <div class="header-waterproof">
 
@@ -191,9 +196,8 @@
         var countryId = '{{sbn.country.pk}}';
     </script>
 {% endif %}
-<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
-    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
-    crossorigin=""></script>
+<script src="{% static "lib/js/leaflet.js" %}"></script>
+<script src="{% static "geonode/js/leaflet/leaflet.defaultextent.js" %}"></script>
 <script src="{{ STATIC_URL }}geonode/js/leaflet/leaflet.ajax.min.js"></script>
 <script src="{{ STATIC_URL }}waterproof_nbs_ca/js/waterproof_nbs_ca_list.js"></script>
 <script>

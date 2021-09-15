@@ -7,13 +7,14 @@
 <h1>{% trans "Reports" %}</h1>
 
 {% block extra_head %}
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
-    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
-    crossorigin="" />
+<link rel="stylesheet" href="{{ STATIC_URL }}lib/css/leaflet.css"/>
+<link rel="stylesheet" href="{% static "geonode/css/leaflet/leaflet.defaultextent.css" %}"/>
 <link rel="stylesheet" href="{{ STATIC_URL }}geonode/css/leaflet/Control.Coordinates.css"/>
-<link rel="stylesheet" href="https://photon.komoot.io/static/leaflet.photon/leaflet.photon.css">
-<link rel="stylesheet" href="{{ STATIC_URL }}waterproof_reports/css/reports.css" />
-</link>
+<link rel="stylesheet" href="https://photon.komoot.io/static/leaflet.photon/leaflet.photon.css"/>
+<link rel="stylesheet" href="{{ STATIC_URL }}waterproof_reports/css/reports.css" /></link>
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_nbs_ca/css/dataTables.bootstrap.min.css"/>
+<link href="{% static "geonode/css/sidenav.css" %}" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_nbs_ca/css/waterproof_nbs_ca.css"/>
 
 <script>
     var intakePolygons = [];
@@ -23,14 +24,6 @@
 {% endblock %} 
 
 {% block body_outer %}
-
-<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_nbs_ca/css/dataTables.bootstrap.min.css">
-
-<link href="{% static "geonode/css/sidenav.css" %}" rel="stylesheet" />
-<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_nbs_ca/css/waterproof_nbs_ca.css">
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
-    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
-    crossorigin="" />
 
 <body>
     <div class="report-container">
@@ -88,7 +81,7 @@
                     <img src="/static/geonode/img/valor-bruto.png" class="img-roi" />
                     <div class="bootom-roi">
                         <div>{% trans "ROI on nature based solutions opportunity" %}</div>
-                        <div class="buttom-roi" id="idBtnRoi">Adove 1</div>
+                        <div class="buttom-roi-menu" id="idBtnRoi">Adove 1</div>
                     </div>
                 </div>
             </div>
@@ -338,7 +331,8 @@
 <script type="text/javascript" src="{% url 'javascript-catalog-treatment' %}"></script>
 <script src="{{ STATIC_URL }}geonode/js/datatables/jquery.dataTables.min.js"></script>
 <script src="{{ STATIC_URL }}geonode/js/datatables/dataTables.bootstrap.min.js"></script>
-<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+<script src="{% static "lib/js/leaflet.js" %}"></script>
+<script src="{% static "geonode/js/leaflet/leaflet.defaultextent.js" %}"></script>
 <script src="{{ STATIC_URL }}geonode/js/leaflet/leaflet.ajax.min.js"></script>
 <script src="{{ STATIC_URL }}geonode/js/leaflet/photon/leaflet.photon.js"></script>
 <script src=" {{ STATIC_URL }}geonode/js/leaflet/leaflet-omnivore.min.js "></script>
@@ -348,12 +342,10 @@
     TILELAYER = 'http://{s}.tile.osm.org/{z}/{x}/{y}.png';
     CENTER = [-74.4879, 4.582];
     MAXZOOM = 11;
-
     let waterproof = {};
 
     $(document).ready(function() {
     });
-
     var searchPoints = L.geoJson(null, {
         onEachFeature: function(feature, layer) {
             layer.bindPopup(feature.properties.name);
@@ -387,10 +379,7 @@ $(function () {
     }
 
     downloadZip = function(){
-        //console.log(filter)
-        var filter = "{{filterzip}}"
-        console.log("este es el filter"+filter)
-        window.open(filter.link, "zipDownload", "width=120,height=300")
+        window.open("{{filterzip.link}}", "zipDownload", "width=120,height=300")
     }
     
     changeReport = function() {
@@ -485,7 +474,7 @@ $(function () {
                 photonControlOptions: {
                     resultsHandler: showSearchPoints,
                     selectedResultHandler: selectedResultHandler,
-                    placeholder: 'Search City...',
+                    placeholder: gettext('Search City') + '...',
                     position: 'topleft',
                     url: SEARCH_CITY_API_URL
                 }
@@ -517,13 +506,11 @@ $(function () {
             table.search(cityNameMap).draw();
 
             map.setView(initialCoords, initialZoom);
-
+            
             searchPoints.addTo(map);
 
             var tilelayer = L.tileLayer(TILELAYER, { maxZoom: MAXZOOM, attribution: 'Data \u00a9 <a href="http://www.openstreetmap.org/copyright"> OpenStreetMap Contributors </a> Tiles \u00a9 Komoot' }).addTo(map);
             var images = L.tileLayer(IMAGE_LYR_URL);
-
-
             var hydroLyr = L.tileLayer(HYDRO_LYR_URL);
 
             var baseLayers = {
@@ -535,7 +522,7 @@ $(function () {
                 "Hydro (esri)": hydroLyr,
             };
 
-
+            var defExt = new L.Control.DefaultExtent({ title: gettext('Default extent'), position: 'topright'}).addTo(map);
             var zoomControl = new L.Control.Zoom({ position: 'topright' }).addTo(map);
             L.control.layers(baseLayers, overlays, { position: 'topleft' }).addTo(map);
 
@@ -792,25 +779,4 @@ $(function () {
     
 </script>
 
-<script type=" text/javascript ">
-    API_URL = '/proxy/?url=https://photon.komoot.de/api/?';
-    TILELAYER = 'http://{s}.tile.osm.org/{z}/{x}/{y}.png';
-    CENTER = [-74.4879, 4.582];
-    MAXZOOM = 11;
-
-    let waterproof = {};
-
-    $(document).ready(function() {
-
-
-
-    });
-
-    var searchPoints = L.geoJson(null, {
-        onEachFeature: function(feature, layer) {
-            layer.bindPopup(feature.properties.name);
-        }
-    });
-
-</script>
 {% endblock %}

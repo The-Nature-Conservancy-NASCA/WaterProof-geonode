@@ -74,7 +74,7 @@ def loadCurrency(request):
 
 def loadCurrencyByCountry(request):
     country_id = request.GET.get('country')
-    currency = Countries.objects.filter(id=country_id)
+    currency = Countries.objects.filter(id=country_id)    
     currencies_serialized = serializers.serialize('json', currency)
     return JsonResponse(currencies_serialized, safe=False)
 

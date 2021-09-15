@@ -218,6 +218,17 @@ $(function () {
     * @returns 
     */
     initialize = function () {
+
+        if ((localStorage.clonePlant === undefined || 
+            localStorage.clonePlant === "false") && 
+            localStorage.updatePlant === "false" && 
+            (localStorage.loadInf == undefined || 
+            localStorage.loadInf === "false")){
+            var el = document.getElementById("titleFormTreatmentPlant");
+            if (el != undefined)    
+                el.innerHTML = "    "+ gettext("Create") + " " +  gettext("Treatment Plant");
+        }
+
         $('#submit').click(function (e) {
             validateAndSavePlant();
         });
@@ -320,13 +331,10 @@ $(function () {
         initMap();
 
         $('#createUrl').attr('href','create/' + userCountryId);
-        
-        if (localStorage.clonePlant === "false" && localStorage.updatePlant === "false" && localStorage.loadInf === "false"){
-            document.getElementById("titleFormTreatmentPlant").innerHTML = "    "+ gettext("Create") + gettext("Treatment Plant");
-        }
+                
         if(localStorage.clonePlant === "true") {
             localStorage.clonePlant = "false";
-            document.getElementById("titleFormTreatmentPlant").innerHTML = "  "+ gettext("Clone") + gettext("Treatment Plant");
+            document.getElementById("titleFormTreatmentPlant").innerHTML = "  "+ gettext("Clone") + " " + gettext("Treatment Plant");
             var urlDetail = "../../treatment_plants/getTreatmentPlant/?plantId=" + localStorage.plantId;
             $.getJSON(urlDetail, function (data) {
                 localStorage.plantId = null;
@@ -728,10 +736,14 @@ $(function () {
     viewTree = function(e) {
         $("#mainTree").hide();
         selectedPlantElement = e.getAttribute("plantElement");
-        $(".container-element").removeClass('container-element-selected')
+        $(".container-element").removeClass('container-element-selected');
         $(e.parentElement).addClass('container-element-selected');
         loadArrayTree(selectedPlantElement,  e.getAttribute("nameElement"), e.getAttribute("graphid"));
-        $("#mainTree").show();        
+        $("#mainTree").show();
+        $('html, body').animate({
+            scrollTop: $(".main-tree-content").offset().top
+        }, 900);
+
     };
     /**
     * Load new technology in the tree
@@ -847,7 +859,7 @@ $(function () {
                     $('#id' + plantElement).html($('#id' + plantElement).html() + 
                                     '<div class="title-tree"><div class="point-tree" onclick="viewBranch(\'subprocess' + value.idSubprocess + '\', this)" >-</div>' + 
                                     '<div class="text-tree">' + value.subprocess + '</div>' + 
-                                    '<div class="link-form-2" ' + linkLoadNewTechnology + '</div></div>' + 
+                                    '<div class="link-form-2" style="display:none;"' + linkLoadNewTechnology + '</div></div>' + 
                                     '<div class="margin-main" id="subprocess' + value.idSubprocess + '"></div>');
                     lastSubprocess = value.subprocessAddId;
                     $.each( data, function( keyTech, valueTech ) {
@@ -974,7 +986,8 @@ $(function () {
                                                         listTrFunction.join("") + '</tbody></table>';
                                                         
                                                 if(localStorage.loadFormButton === "true") {
-                                                    tableFunct = tableFunct + '<div class="link-form">' + gettext('Add function') + '</div>';
+                                                    // TODO: Enable Later
+                                                    // tableFunct = tableFunct + '<div class="link-form">' + gettext('Add function') + '</div>';
                                                 } 
                                                 
                                                 $('#technology' + valueTech.idSubprocess).html($('#technology' + valueTech.idSubprocess).html() + tableVar + tableFunct);
@@ -1225,6 +1238,7 @@ $(function () {
                 "Hydro (esri)": hydroLyr,
             };
 
+            var defExt = new L.Control.DefaultExtent({ title: gettext('Default extent'), position: 'topright'}).addTo(map);
             var zoomControl = new L.Control.Zoom({ position: 'topright' }).addTo(map);
             L.control.layers(baseLayers, overlays, { position: 'topleft' }).addTo(map);
 

@@ -1,3 +1,9 @@
+
+/**
+ * Validate Coordinates with API
+ *  
+ * 
+ */
 async function validateCoordinateWithApi(e) {
   const snapPoint = "snapPoint";
   const delineateCatchment = "delineateCatchment";
@@ -48,7 +54,19 @@ async function validateCoordinateWithApi(e) {
         catchmentPolyDelimit = L.geoJSON().addTo(mapDelimit);
       }
 
-      catchmentPoly.addData(resultCatchment.result.geometry.features);
+      if (resultCatchment.result.geometry.features[0].geometry.coordinates[0].length > MAX_NUM_POINTS) {
+        console.log("too many points : " + resultCatchment.result.geometry.features[0].geometry.coordinates[0].length + " ... simplifying");
+        var polygonSimplified = simplifyPolygon(resultCatchment.result.geometry.features[0].geometry.coordinates[0]);
+        if (polygonSimplified.geometry.coordinates[0].length > 0) {
+          catchmentPoly.addData([polygonSimplified]);
+          console.log("new num points in polygon : " + polygonSimplified.geometry.coordinates[0].length);
+        }else{
+          catchmentPoly.addData(resultCatchment.result.geometry.features);
+        }
+      } else {
+        catchmentPoly.addData(resultCatchment.result.geometry.features);
+      }
+      
       catchmentPolyDelimit.addData(resultCatchment.result.geometry.features);
       basinId=resultCatchment.result.basin;
       map.fitBounds(catchmentPoly.getBounds());
@@ -59,3 +77,17 @@ async function validateCoordinateWithApi(e) {
     }
   }
 }
+/**
+ * Simplify a polygon using turf.js
+ * default tolerance is 0.01
+ * 
+ * @param {*} coords 
+ * @returns 
+ */
+function simplifyPolygon(coords) {
+  var geojson = turf.polygon([coords]);
+  var options = {tolerance: simplifyTolerance, highQuality: false};
+  var simplified = turf.simplify(geojson, options);
+  return simplified;
+}
+

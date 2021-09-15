@@ -785,13 +785,24 @@ def intakes(request, city_id):
                 intakes = Intake.objects.filter(city=city_id)
             else:
                 intakes = Intake.objects.all()
+
+            intake_geoms = []
+            for i in intakes:
+                ig = dict()
+                ig['id'] = i.pk
+                if not i.polygon_set.first().geom is None:
+                    ig['geom'] = i.polygon_set.first().geom.geojson
+                    ig['name'] = i.name
+                intake_geoms.append(ig)
+            
             return render(
                 request,
                 'waterproof_intake/intake_list.html',
                 {
                     'intakeList': intakes,
                     'userCountry': userCountry,
-                    'region': region
+                    'region': region,
+                    'intakes': json.dumps(intake_geoms)
                 }
             )
         else:

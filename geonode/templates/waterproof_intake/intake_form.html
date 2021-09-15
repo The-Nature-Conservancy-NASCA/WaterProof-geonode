@@ -1,6 +1,7 @@
 {% extends "menu.html" %} {% load i18n %} {% load static from staticfiles %} {% load bootstrap_tags %} {% block extra_head %}
 <link rel="stylesheet" href="https://unpkg.com/smartwizard@5/dist/css/smart_wizard_all.min.css"/>
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
+<link rel="stylesheet" href="{{ STATIC_URL }}lib/css//leaflet.css"/>
+<link rel="stylesheet" href="{% static "geonode/css/leaflet/leaflet.defaultextent.css" %}"/>
 <link rel="stylesheet" href="{{ STATIC_URL }}geonode/css/leaflet/Control.Coordinates.css" />
 <link rel="stylesheet" href="{{ STATIC_URL }}geonode/css/leaflet/Control.Loader.css" />
 <link rel="stylesheet" href="{{ STATIC_URL }}waterproof_intake/mathquill/mathquill.css" />
@@ -477,9 +478,11 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-md-5">
-                        <div class="panel-group" id="VarCostListGroup" style="max-height: 480px; overflow-y: auto;"></div>
+                    <div class="col-md-12">
+                        {% trans "Use this window to configure your cost function by selecting the variables of your interest: flow, concentration or loads." %}
                     </div>
+                </div>
+                <div class="row">
                     <div class="col-md-7">
                         <div class="form-group">
                             <label class="text-primary">{% trans "Cost function name" %}</label>
@@ -538,25 +541,10 @@
                                     <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="**">&#8731</button>
                                 </div>
                             </div>
-                            <!--div id="mathTrigonometry_tab" class="tab-pane fade in">
-                                <div class="btn-group" role="group">
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="sin( )">sin</button>
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="cos( )">cos</button>
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="tan( )">tan</button>
-                                </div>
-                            </div>
-                            <div id="mathLogical_tab" class="tab-pane fade in">
-                                <div class="btn-group" role="group">
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value=">">></button>
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value=">=">\ge</button>
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="<"><</button>
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="<=">\le</button>
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="!=">\ne</button>
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="and">and</button>
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="or">or</button>
-                                </div>
-                            </div-->
                         </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="panel-group" id="VarCostListGroup" style="max-height: 480px; overflow-y: auto;"></div>
                     </div>
                 </div>
                 <div class="row">
@@ -887,16 +875,16 @@
 {% endblock %} {% block extra_script %}
 <script type="text/javascript" src="{% url 'javascript-catalog-intake' %}"></script>
 <script src="https://unpkg.com/smartwizard@5/dist/js/jquery.smartWizard.min.js" type="text/javascript"></script>
-<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
-    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
-    crossorigin=""></script>
+<script src="{% static "lib/js/leaflet.js" %}"></script>
+<script src="{% static "geonode/js/leaflet/leaflet.defaultextent.js" %}"></script>
 <script src="{{ STATIC_URL }}waterproof_intake/js/jquery.smartWizard.min.js" type="text/javascript"></script>
-<script src="{{ STATIC_URL }}waterproof_intake/js/leaflet.js"></script>
+
 <script src="{{ STATIC_URL }}geonode/js/leaflet/Leaflet.Editable.js"></script>
 <script src="{{ STATIC_URL }}geonode/js/leaflet/Leaflet.Coordinates.js"></script>
 <script src="{{ STATIC_URL }}geonode/js/leaflet/Control.Loader.js"></script>
 <script src="{{ STATIC_URL }}geonode/js/waterproof/waterIntake.js"></script>
 <script src="{{ STATIC_URL }}geonode/js/waterproof/geomFile_validate.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@turf/turf@6/turf.min.js"></script>
 
 <!--ZIP reader library-->
 <script src="{{ STATIC_URL }}geonode/js/jszip/jszip.min.js"></script>
@@ -917,6 +905,7 @@
     GRAY_BASEMAP_URL = '{{ GRAY_BASEMAP_URL }} ';
     GEOSERVER_WMS = '{{ GEOSERVER_WMS }}';
     HYDRO_NETWORK_LYR = '{{ HYDRO_NETWORK_LYR }}';
+    MAX_NUM_POINTS = 500;
     var intakeInterpolationParams = {};
     intakeInterpolationParams.type = '{{ intake.demand_parameters.interpolation_type }}';
     intakeInterpolationParams.yearsNum = '{{intake.demand_parameters.years_number}}';
@@ -935,6 +924,7 @@
     var countryNameStorage = localStorage.country;
     var defaultCurrencyId = '233';
     var defaultCurrentyName = '(USD) - United States';
+    var simplifyTolerance = 0.01;
 </script>
 <script src="{{ STATIC_URL }}geonode/js/leaflet/leaflet-omnivore.min.js"></script>
 <script src="{{ STATIC_URL }}waterproof_intake/js/intake_create.js"></script>
