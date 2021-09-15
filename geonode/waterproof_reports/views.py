@@ -1053,17 +1053,17 @@ def getNameCity(indicators):
 
 def physicalIndicators(request, idx):
 
-                indicators = investIndicators.objects.filter(study_case__id=idx)
-                indicatorsNames = getNames(indicators)
-                indicatorsNameCity = getNameCity(indicators)
-                return render(
-                    request,
-                    'waterproof_reports/physicalIndicators.html',
-                    {
-                        'Indicators': indicators,
-                        'NamesIndicators': indicatorsNames,
-                        'NameCityIndicators': indicatorsNameCity
-                    })
+    indicators = investIndicators.objects.filter(study_case__id=idx)
+    indicatorsNames = getNames(indicators)
+    indicatorsNameCity = getNameCity(indicators)
+    return render(
+        request,
+        'waterproof_reports/physicalIndicators.html',
+        {
+            'Indicators': indicators,
+            'NamesIndicators': indicatorsNames,
+            'NameCityIndicators': indicatorsNameCity
+        })
 
 
 def financialIndicators(request):
@@ -1098,9 +1098,9 @@ def decisionIndicators(request):
 
 def geographicIndicators(request):
 
-    indicators = investIndicators.objects.all()
-    indicatorsNames = getNames(indicators)
-    indicatorsNameCity = getNameCity(indicators)
+    # indicators = investIndicators.objects.all()
+    # indicatorsNames = getNames(indicators)
+    # indicatorsNameCity = getNameCity(indicators)
     base_data = ''
     intake = ''
     region = ''
@@ -1125,9 +1125,9 @@ def geographicIndicators(request):
         request,
         'waterproof_reports/geographicIndicators.html',
         {
-            'Indicators': indicators,
-            'NamesIndicators': indicatorsNames,
-            'NameCityIndicators': indicatorsNameCity,
+            #'Indicators': indicators,
+            #'NamesIndicators': indicatorsNames,
+            #'NameCityIndicators': indicatorsNameCity,
             'base_data': base_data,
             'intake': intake,
             'region': region,

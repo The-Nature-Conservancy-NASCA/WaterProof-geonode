@@ -910,7 +910,7 @@ def intakes(request, city_id):
             request,
             'waterproof_intake/intake_list.html',
             {
-                'intakeList': intakes,
+                'intakes': [],
             }
         )
 

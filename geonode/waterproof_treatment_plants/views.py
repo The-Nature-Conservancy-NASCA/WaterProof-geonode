@@ -20,19 +20,25 @@ def treatmentPlantsList(request):
 	if request.method == 'GET':
 		try:            
 			city_id = request.GET['city']
-			user = request.user;
-
+			user = -1
+			if not request.user.pk is None:
+				user = request.user.pk
 		except:
 			city_id = ''
 
-		print ("user: " + user)
-		url = settings.SITE_HOST_API + 'treatment_plants/getTreatmentPlantsList/?city=%s&user=' % (city_id,user)
-		response = requests.get(url,verify=False)
+		print ("user: %s" % user)
+		url = settings.SITE_HOST_API + 'treatment_plants/getTreatmentPlantsList/?city=%s&user=%s' % (city_id,user)
+		response = []
+		try:
+			response = requests.get(url,verify=False)
+			response = response.json()
+		except:
+			print ("must be anonymous user")
 		return render(
 			request,
 			'waterproof_treatment_plants/treatment_plants_list.html',
 			{
-				'treatmentPlantsList': response.json()
+				'treatmentPlantsList': response
 			}
 		)
 
