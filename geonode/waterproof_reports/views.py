@@ -1038,7 +1038,7 @@ def getNames(indicators):
             if objectIndicator.intake.name not in result:
                 result.append(objectIndicator.intake.name)
         except:
-            print ("")
+            print ("exception in getNames...")
     return result
 
 def getNameCity(indicators):
@@ -1048,7 +1048,7 @@ def getNameCity(indicators):
             if objectIndicatorcity.intake.city.name not in result:
                 result.append(objectIndicatorcity.intake.city.name)
         except:
-            print ("")
+            print ("exception in getNameCity, indicators")
     return result
 
 def physicalIndicators(request, idx):
