@@ -772,6 +772,17 @@ def listIntake(request):
         return intakes(request, city_id)
 
 
+def get_geoms_intakes(intakes):
+    intake_geoms = []
+    for i in intakes:
+        ig = dict()
+        ig['id'] = i.pk
+        if not i.polygon_set.first().geom is None:
+            ig['geom'] = i.polygon_set.first().geom.geojson
+            ig['name'] = i.name
+        intake_geoms.append(ig)
+    return intake_geoms
+
 def intakes(request, city_id):
     #print("intakes")
             
@@ -786,14 +797,7 @@ def intakes(request, city_id):
             else:
                 intakes = Intake.objects.all()
 
-            intake_geoms = []
-            for i in intakes:
-                ig = dict()
-                ig['id'] = i.pk
-                if not i.polygon_set.first().geom is None:
-                    ig['geom'] = i.polygon_set.first().geom.geojson
-                    ig['name'] = i.name
-                intake_geoms.append(ig)
+            intake_geoms = get_geoms_intakes(intakes)
             
             return render(
                 request,
@@ -811,6 +815,8 @@ def intakes(request, city_id):
             else:
                 intakes = Intake.objects.filter(added_by=request.user)
 
+            intake_geoms = get_geoms_intakes(intakes)
+
         if (request.user.professional_role == 'ANALYS'):
             return render(
                 request,
@@ -818,7 +824,8 @@ def intakes(request, city_id):
                 {
                     'intakeList': intakes,
                     'userCountry': userCountry,
-                    'region': region
+                    'region': region,
+                    'intakes': json.dumps(intake_geoms)
                 }
             )
 

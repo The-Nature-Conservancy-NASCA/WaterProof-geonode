@@ -302,16 +302,12 @@
             <li>
               <a href="{% url "about" %}">{% trans "About us" %}</a>
             </li>
-            <!--Models-->
-            <!-- <li>
-              <a href="{% url "models" %}">{% trans "Models" %}</a>
-            </li> -->
-            <!--Take Action-->
-            <!--li>
-              <a href="{% url "take-action" %}">{% trans "Take Action" %}</a>
-            </li-->
+            <!--NbS-->
             <li id="nav_layers">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{% trans "NbS" %}<i class="fa fa-angle-down fa-lg"></i></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" 
+                        aria-haspopup="true" aria-expanded="false">{% trans "NbS" %}
+                        <i class="fa fa-angle-down fa-lg"></i>
+                      </a>
               <ul class="dropdown-menu">
                 <li><a href="{% url "list-nbs" %}?limit={{ CLIENT_RESULTS_LIMIT }}">{% trans "List" %}</a></li>
                 {% if user.is_authenticated and not READ_ONLY_MODE %}
@@ -319,6 +315,13 @@
                 {% endif %}
               </ul>
             </li>
+            {% if user.is_authenticated %}
+            <li>
+              <a href="/study_cases_comparison/my_cases/">{% trans "My Cases" %}</a>
+            </li>
+            {% endif %}
+
+
 
 <!--
 

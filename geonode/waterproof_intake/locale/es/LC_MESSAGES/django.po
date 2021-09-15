@@ -978,4 +978,7 @@ msgstr "Error Guardando captación"
 #: template/intake_list.html:34
 msgid "From this section you can view the water intakes created in the system associated with a city of interest. You can search for intakes of different cities from 'Search city'. The system will show you a list of cities with matches around the world. Select the appropriate option from the list. "
 msgstr ""
-"Desde esta sección puede consultar las captaciones de agua creadas en el sistema asociadas a una ciudad de interés. Puede buscar captaciones de diferentes ciudades desde “Buscar ciudad”. El sistema le mostrará un listado de ciudades con las coincidencias a nivel mundial. Seleccione de la lista la opción que corresponda. También puede crear su propia captación asociada a una ciudad, para ello busque la ciudad a la cual asociará su captación y luego de clic en el botón “Crear nueva captación”."
+"Desde esta sección puede consultar las captaciones de agua creadas en el sistema asociadas a una ciudad de interés. Puede buscar captaciones de diferentes ciudades desde “Buscar ciudad”. El sistema le mostrará un listado de ciudades con las coincidencias a nivel mundial. Seleccione de la lista la opción que corresponda."
+
+msgid "You can also create your own basin associated with a city, to do this search for the city to which you will associate your basin and then click on the 'Create new water intake' button."
+msgstr "También puede crear su propia captación asociada a una ciudad, para ello busque la ciudad a la cual asociará su captación y luego de clic en el botón “Crear nueva captación”."
