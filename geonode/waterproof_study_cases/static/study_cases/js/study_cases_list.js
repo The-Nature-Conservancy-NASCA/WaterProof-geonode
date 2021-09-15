@@ -537,10 +537,7 @@ $(function() {
                                     </div>`);
                 }
             }).addTo(map);
-        }
-        map.fitBounds(lyrIntakes.getBounds());
-        if (bounds != undefined) {
-            map.fitBounds(bounds);
+            map.fitBounds(lyrIntakes.getBounds());
         }
     }
 
