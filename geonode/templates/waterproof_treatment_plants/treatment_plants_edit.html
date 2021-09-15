@@ -14,12 +14,14 @@
 <div class="header-waterproof">
     <div class="row">
         <div class="col-sm-6">
-            <h3 id="titleFormTreatmentPlant">{% trans "Treatment Plant" %}</h3>
+            <h3 >
+                <span id="titleFormTreatmentPlant">{% trans "Treatment Plant" %}</span>                
+                <button type="button" data-toggle="modal" data-target="#HelpPTAP" id="HelpModalBtnModal" 
+                        class="glyphicon glyphicon-question-sign" aria-hidden="true" 
+                        style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
+            </h3>
         </div>        
         <div class="col-sm-6" style="display: flex;">
-            <h3>
-                <button type="button" data-toggle="modal" data-target="#HelpPTAP" id="HelpModalBtnModal" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
-            </h3>
             <h3 class="subtitle">{% trans "Treatment plant creation city:" %} <span id="nameCity"></span> </h3>
         </div>
     </div>

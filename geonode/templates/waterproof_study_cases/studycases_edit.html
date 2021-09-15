@@ -15,7 +15,7 @@
             <h1>{% trans "edit_study_cases" %}</h1>
         </div>
         <div class="col-sm-6">
-            <h4 class="title-city">{% trans "creation_city" %} <span id="cityLabel"></span> </h4>
+            <h4 class="title-city">{% trans "creation_city" %}: <span id="cityLabel"></span> </h4>
         </div>
     </div>
     <br>
@@ -27,7 +27,7 @@
             <!--panel of navigation-->
             <ul class="nav">
                 <li>
-                    <a class="nav-link" href="#step-1"> {% trans "Define" %} </a>
+                    <a class="nav-link" href="#step-1"> {% trans "Definition" %} </a>
                 </li>
                 <li>
                     <a class="nav-link" href="#step-2"> {% trans "carbon_market" %}</a>
@@ -234,8 +234,7 @@
                                     {% else %}
                                     <input type="checkbox" class="custom-control-input" id='cb_check'>
                                     {% endif %}
-                                    <label class="custom-control-label" for="cb_check">{% trans "carbon_market" %}</label>
-                                    <p>{% trans "carbon_market_text" %}</p>
+                                    <label class="custom-control-label" for="cb_check">{% trans "carbon_market" %}</label>                                    
                                 </div>
                                 {% if study_case.benefit_carbon_market %}
                                 <div class="row text-center" id="cm_form">
@@ -250,12 +249,13 @@
                                         </div>
                                         <div class="col-md-3">
                                             <select class="form-control" id="cm_select">
+                                                <option value='-1'>{% trans "Select" %}</option>
                                                 {% for currency in currencys %}
-                                                {% if currency.currency == study_case.cm_currency %}
-                                                <option value='{{currency.currency}}' selected>({{currency.currency}}) - {{currency.name}}</option>
-                                                {% else %}
-                                                <option value='{{currency.currency}}'>({{currency.currency}}) - {{currency.name}}</option>
-                                                {% endif %}
+                                                    {% if currency.currency == study_case.cm_currency %}
+                                                    <option value='{{currency.currency}}' selected>({{currency.currency}}) - {{currency.name}}</option>
+                                                    {% else %}
+                                                    <option value='{{currency.currency}}'>({{currency.currency}}) - {{currency.name}}</option>
+                                                    {% endif %}
                                                 {% endfor %}
                                             </select>
                                         </div>
