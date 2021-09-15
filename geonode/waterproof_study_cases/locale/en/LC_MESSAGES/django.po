@@ -87,7 +87,7 @@ msgid "water_source"
 msgstr "Water intake source"
 
 msgid "add_wi"
-msgstr "Add WI"
+msgstr "Add Water Intake"
 
 msgid "add_cost_function"
 msgstr "Add cost function"
