@@ -425,6 +425,7 @@ height: 100%;
         top: 0px;   
         background-image: url(/static/geonode/img/city_map.png);
         display: table !important;
+        background-size: cover;
     }
 
     #wrapper.toggled #sidebar-wrapper {
@@ -475,6 +476,7 @@ height: 100%;
     #sidebar-wrapper {
         width: 17rem;
         height: 460px;
+        background-size: cover;        
     }
 
     #wrapper.toggled #sidebar-wrapper {
@@ -518,6 +520,7 @@ height: 100%;
         width: 25rem;
         height: 480px;
         z-index: 9999;
+        background-size: cover;
     }
 
     #wrapper.toggled #sidebar-wrapper {
