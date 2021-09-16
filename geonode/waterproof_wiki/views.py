@@ -3,6 +3,7 @@ from django.shortcuts import render, HttpResponse
 from django.shortcuts import redirect, get_object_or_404
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.shortcuts import render 
+from django.db.models import Q
 from .models import Article, Referencies, Links, Category
 
 def consultar_articulo(request, id=0):
@@ -10,17 +11,17 @@ def consultar_articulo(request, id=0):
     try:
         articulos=Article.objects.get(pk=id)
         referencias = None
-        print(f"---{Referencies.objects.filter(article=articulos.pk).exists()}") 
+        #print(f"---{Referencies.objects.filter(article=articulos.pk).exists()}") 
         if Referencies.objects.filter(article=articulos.pk).exists():
             referencias=Referencies.objects.filter(article=articulos.pk)      
         enlaces = None
         enlaces=Links.objects.filter(articulo=articulos.pk)
-        print(f"--------consultar_articulo-----enlaces---{enlaces}")       
+        #print(f"--------consultar_articulo-----enlaces---{enlaces}")       
 
     except Exception as e:
         print("El error es:", e)
         r="Articulo no encontrado"
-        print(f"--------*****")
+        # print(f"--------*****")
     return render(request, 'waterproof_wiki/articulo_detalle.html', {
         'articulo':articulos,
         'referencias':referencias,
@@ -64,7 +65,7 @@ def listar_articulos_random(request):
 def listar_articulos_filtro(request, p_titulo=""):
     q=request.GET.get('p_titulo')
     print(f"____________p_titulo:{q}")
-    articulos=Article.objects.filter(titulo__icontains=q) #titulo__exacts  titulo__iexacts !Esto se llama Looups ! 
+    articulos=Article.objects.filter(Q(titulo__icontains=q) | Q(titulo_en__icontains=q)) #titulo__exacts  titulo__iexacts !Esto se llama Looups ! 
     
     paginator=Paginator(articulos,5)
     idPaginaPaginador=request.GET.get('page')

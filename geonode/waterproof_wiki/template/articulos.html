@@ -1,37 +1,59 @@
-<!-- {% extends 'waterproof_wiki/layout.html'%}
-{%block titulo%}
-<h2></p>Articles:</h2>
+{% extends 'waterproof_wiki/layout.html'%}
+{% load i18n %}
 
+{% block extra_head %}
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_wiki/css/styles.css" />
+{% endblock %}
+
+{% block body_outer %}
+
+{%block titulo%}
+<div class="article">
+    <h1>{% trans "Articles" %}:</h1>
+</div>
 {% endblock %}
 
 {% block content %}
 
-    <form action="buscar" method="GET">
-        <label for="p_titulo">Buscar: </label>
-        <input type="text" name="p_titulo">
-        <input type="submit" value="Buscar">
-    </form>
+<form action="buscar" method="GET" class="search-article">
+    <label for="p_titulo">{% trans "Search" %}: </label>
+    <input type="text" name="p_titulo">
+    <input type="submit" value="{% trans "Search" %}">
+</form>
 
-    <article >
+<article>
     {%for a in articulos %}
-            <div class="data">
-                <h2>{{a.titulo}}:</h2>
-                {{a.resumen|safe|linebreaks}}
-                <a href="{% url 'consultar_articulo' id=a.id %}">Ver más</a>
-            </div>
-    {% endfor%}
-    </article>
-    <br>  
-    <paginacion>
-        <a href="?p_titulo={{ p_titulo }}&page=1">&laquo; First</a>
-        {% for i in articulos.paginator.page_range %}
-            <a href="?p_titulo={{ p_titulo }}&page={{ i }}">{{ i }}</a>
-        {% endfor %}
-        
-        {% if articulos.has_next %}
-        <a href="?p_titulo={{ p_titulo }}&page={{ articulos.paginator.num_pages }}">Last &raquo;</a>
+    <div class="data">
+        {% if request.LANGUAGE_CODE == "es" %}
+        <h2>{{a.titulo}}:</h2>
+        {{a.resumen|safe|linebreaks}}
+        <a href="{% url 'consultar_articulo' id=a.id %}">Ver más</a>
+        {% else %}          
+        <h2>{{a.titulo_en}}:</h2>
+        {{a.resumen_en|safe|linebreaks}}
+        <a href="{% url 'consultar_articulo' id=a.id %}">Show more</a>
         {% endif %}
-       
+        
+    </div>
+    {% endfor%}
+</article>
+<br>
+<div class="text-center">
+    <paginacion>
+        <a href="?p_titulo={{ p_titulo }}&page=1">&laquo; {% trans "First" %}</a>
+        {% for i in articulos.paginator.page_range %}
+        <a href="?p_titulo={{ p_titulo }}&page={{ i }}">{{ i }}</a>
+        {% endfor %}
+    
+        {% if articulos.has_next %}
+        <a href="?p_titulo={{ p_titulo }}&page={{ articulos.paginator.num_pages }}">{% trans "Last" %} &raquo;</a>
+        {% endif %}
+    
     </paginacion>
+</div>
 
-{% endblock%} -->
+
+{% endblock%}
+
+
+{% endblock %}
