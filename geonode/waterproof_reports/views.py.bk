@@ -655,6 +655,12 @@ def pdf(request):
     pdf.cell(0, 6, 'is applied to determine the present value of a future payment.', align='L')
     pdf.ln(6)
 
+
+    
+
+
+
+
     pdf.add_page()
 
     requestJson = requests.get(settings.SITE_HOST_API + 'reports/getSensibilityAnalysisBenefits/?studyCase=' + request.GET['studyCase'],verify=False)
@@ -1332,6 +1338,7 @@ def pdf(request):
         pdf.cell(epw/3, 4, "" , align='C')
         pdf.ln(4)
 
+
     pdf.add_page()
 
     pdf.set_font('Arial', '', 13)
@@ -1495,207 +1502,6 @@ def pdf(request):
         pdf.ln(5)
         pdf.cell(epw, 5, 'indicate areas where people have less access to clean water supplies.', border=0, align='L', fill=0) 
         pdf.ln(7)
-
-    pdf.add_page()
-
-    pdf.set_font('Arial', '', 13)
-    pdf.set_text_color(100, 100, 100)
-    pdf.cell(0, 10, 'Decision indicators', align='L')
-
-    pdf.ln(110)
-    pdf.set_font('Arial', '', 10)
-    pdf.cell(epw/2, 7, 'Identify the elements that will yield the most benefits', align='C')
-    pdf.cell(epw/2, 7, 'This is a disaggregated view of the benefits by elements', align='C')
-
-    pdf.ln(110)
-    pdf.set_font('Arial', '', 10)
-    pdf.cell(epw/2, 5, 'In this graph you can identify the magnitudes of the', align='C')
-    pdf.cell(epw/2, 5, 'Identify the proportion of costs for each of the', align='C')
-    pdf.ln(5)
-    pdf.cell(epw/2, 5, 'costs, in order to help identify where greater', align='C')
-    pdf.cell(epw/2, 5, 'activities of your interest', align='C')
-    pdf.ln(5)
-    pdf.cell(epw/2, 5, 'investments are needed', align='C')
-
-    dataListBenefitsIntake = [];
-    requestJson = requests.get(settings.SITE_HOST_API + 'reports/getWaterproofReportsAnalysisBenefits/?studyCase=' + request.GET['studyCase'],verify=False)
-    data = requestJson.json()
-    for item in data:
-        dataListBenefitsIntake.append({
-            'name': item['elementId'],
-            'y': item['vpnMedBenefit']
-        })
-
-    config = {
-        'chart': {
-            'plotShadow': 0,
-            'type': 'pie'
-        },
-        'colors': ['#008BAB', '#69b7cf', '#3f99b5', '#1d7c99', '#90D3E7', '#5ca8bf', '#448fa6', '#2b768c', '#176075', '#004B56','#47bfaf', '#32ab9b', '#209989', '#128778', '#61D1C2'],
-        'title': {
-            'text': 'Intake Benefits'
-        },
-        'plotOptions': {
-            'pie': {
-                'allowPointSelect': 1,
-                'cursor': 'pointer',
-                'dataLabels': {
-                    'enabled': 0
-                },
-                'showInLegend': 1
-            }
-        },
-        'credits': {
-            'enabled': 0
-        },
-        'series': [{
-            'name': 'Intake Benefits',
-            'colorByPoint': 1,
-            'data': dataListBenefitsIntake
-        }]
-    }
-
-    hc_export.save_as_png(config=config, filename="wrab.png")
-    pdf.image('wrab.png', 10, 40, w=110)
-
-    dataListBenefitsIntake = [];
-    requestJson = requests.get(settings.SITE_HOST_API + 'reports/getReportAnalysisBenefitsFilterSum/?studyCase=' + request.GET['studyCase'],verify=False)
-    data = requestJson.json()
-    for item in data:
-        dataListBenefitsIntake.append({
-            'name': item['typer'],
-            'y': item['vpnMedBenefitr']
-        })
-
-    config = {
-        'chart': {
-            'plotShadow': 0,
-            'type': 'pie'
-        },
-        'colors': ['#008BAB', '#69b7cf', '#3f99b5', '#1d7c99', '#90D3E7', '#5ca8bf', '#448fa6', '#2b768c', '#176075', '#004B56','#47bfaf', '#32ab9b', '#209989', '#128778', '#61D1C2'],
-        'title': {
-            'text': 'Total Benefits'
-        },
-        'plotOptions': {
-            'pie': {
-                'allowPointSelect': 1,
-                'cursor': 'pointer',
-                'dataLabels': {
-                    'enabled': 0
-                },
-                'showInLegend': 1
-            }
-        },
-        'credits': {
-            'enabled': 0
-        },
-        'series': [{
-            'name': 'Intake Benefits',
-            'colorByPoint': 1,
-            'data': dataListBenefitsIntake
-        }]
-    }
-
-    hc_export.save_as_png(config=config, filename="rabfs.png")
-    pdf.image('rabfs.png', 100, 40, w=110)
-
-    dataListBenefitsIntake = [];
-    requestJson = requests.get(settings.SITE_HOST_API + 'reports/getReportCostsAnalysisFilter/?studyCase=' + request.GET['studyCase'],verify=False)
-    data = requestJson.json()
-    for item in data:
-        dataListBenefitsIntake.append({
-            'name': item['typer'],
-            'y': item['sumFilter']
-        })
-
-    config = {
-        'chart': {
-            'plotShadow': 0,
-            'type': 'pie'
-        },
-        'colors': ['#008BAB', '#69b7cf', '#3f99b5', '#1d7c99', '#90D3E7', '#5ca8bf', '#448fa6', '#2b768c', '#176075', '#004B56','#47bfaf', '#32ab9b', '#209989', '#128778', '#61D1C2'],
-        'title': {
-            'text': 'Intake Benefits'
-        },
-        'plotOptions': {
-            'pie': {
-                'allowPointSelect': 1,
-                'cursor': 'pointer',
-                'dataLabels': {
-                    'enabled': 0
-                },
-                'showInLegend': 1
-            }
-        },
-        'credits': {
-            'enabled': 0
-        },
-        'series': [{
-            'name': 'Intake Benefits',
-            'colorByPoint': 1,
-            'data': dataListBenefitsIntake
-        }]
-    }
-
-    hc_export.save_as_png(config=config, filename="rcaf.png")
-    pdf.image('rcaf.png', 10, 150, w=110)
-
-    dataListBenefitsIntake = [];
-    requestJson = requests.get(settings.SITE_HOST_API + 'reports/getReportCostsAnalysisFilterNbs/?studyCase=' + request.GET['studyCase'],verify=False)
-    data = requestJson.json()
-    for item in data:
-        dataListBenefitsIntake.append({
-            'name': item['costIdr'],
-            'y': item['sumFilter']
-        })
-
-    config = {
-        'chart': {
-            'plotShadow': 0,
-            'type': 'pie'
-        },
-        'colors': ['#008BAB', '#69b7cf', '#3f99b5', '#1d7c99', '#90D3E7', '#5ca8bf', '#448fa6', '#2b768c', '#176075', '#004B56','#47bfaf', '#32ab9b', '#209989', '#128778', '#61D1C2'],
-        'title': {
-            'text': 'Total Benefits'
-        },
-        'plotOptions': {
-            'pie': {
-                'allowPointSelect': 1,
-                'cursor': 'pointer',
-                'dataLabels': {
-                    'enabled': 0
-                },
-                'showInLegend': 1
-            }
-        },
-        'credits': {
-            'enabled': 0
-        },
-        'series': [{
-            'name': 'Intake Benefits',
-            'colorByPoint': 1,
-            'data': dataListBenefitsIntake
-        }]
-    }
-
-    hc_export.save_as_png(config=config, filename="rcafn.png")
-    pdf.image('rcafn.png', 100, 150, w=110)
-
-    pdf.add_page()
-
-    pdf.set_font('Arial', '', 13)
-    pdf.set_text_color(179, 179, 179)
-    pdf.cell(0, 10, 'Decision indicators', align='L')
-    pdf.ln(10)
-    pdf.set_font('Arial', '', 11)
-    pdf.set_text_color(100, 100, 100)
-    pdf.cell(0, 10, 'Nature-based Solutions Portfolio', align='L')
-
-
-
-
-
-
 
 
 

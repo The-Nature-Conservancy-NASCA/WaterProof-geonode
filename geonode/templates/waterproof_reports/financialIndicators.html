@@ -487,6 +487,13 @@ $(function () {
         $("#idRegion").html(localStorage.getItem('region'));
         $("#idNameStudyCase").html(localStorage.getItem('studyCasesName'));
 
+        Highcharts.setOptions({
+            lang: {
+                decimalPoint: ',',
+                thousandsSep: '.'
+            }
+        });
+
         var htmlBenefitsFilter = "";
         var urlDetail = "../../reports/getReportAnalysisBenefitsFilter/?studyCase=" + localStorage.idStudyCase;
         $.getJSON(urlDetail, function (data) {
@@ -876,7 +883,11 @@ $(function () {
         var urlDetail = "../../reports/getSensibilityAnalysisReturnOfInvest/?studyCase=" + localStorage.idStudyCase;
         $.getJSON(urlDetail, function (data) {
             $.each( data, function( key, value ) {
-                serieDataRoi.push([parseFloat(value.roiMaximumR), parseFloat(value.roiMinimumR), parseFloat(value.roiMediumR)]);
+                serieDataRoi.push({
+                    name: 'ROI',
+                    data: [parseFloat(value.roiMaximumR), parseFloat(value.roiMinimumR), parseFloat(value.roiMediumR)],
+                    pointPlacement: 'on'
+                });
             });
             Highcharts.chart('containerRoiS', {
                 
@@ -902,11 +913,7 @@ $(function () {
                 credits: {
                     enabled: false
                 },
-                series: [{ 
-                    name: 'ROI',
-                    data: [3.98, 2.77, 3.39],
-                    pointPlacement: 'on'
-                }]
+                series: serieDataRoi
             });
         });
 
