@@ -102,6 +102,7 @@
 			</div>
 		</div>
 
+
 		<div style="text-align: center;">
 			<h5>{% trans "Water Intake" %} : 
 				<select class="select-condition" style="width: 800px; text-align: center;" id="idSelectStudyCase"></select>
@@ -113,9 +114,10 @@
 				<li class="nav-item"><a class="radius-button-list nav-link" data-toggle="tab" href="#menu2">{% trans "Physical changes" %}</a></li>
 				<li class="nav-item"><a class="radius-button-list nav-link" data-toggle="tab" href="#menu3">{% trans "NbS portfolio" %}</a></li>
 			</ul>
+			
 				<div class="tab-content" id="myTabContent">
 					<div id="menu1" class="div-style-menu-23 tab-pane fade active in" role="tabpanel">
-						<h3 id="nameTitleIntake"></h3>
+						<h3>Menu 1</h3>
 						<p class="padding-text-desc">{% trans "LULC_text_1" %}</p>
 						<p class="padding-text-desc">{% trans "LULC_text_2" %}</p>
 						<div class="row padding-text-desc">        
@@ -139,12 +141,12 @@
 						</div>						
 					</div>
 					<div id="menu2" class="div-style-menu-23 tab-pane fade" role="tabpanel">
-						<h3 id="nameTitleIntake"></h3>
+						<h3>Menu 2</h3>
 						<p class="padding-text-desc">{% trans "InVEST text 1" %}</p>
 						<p class="padding-text-desc">{% trans "InVEST text 2" %}</p>
 					</div>
 					<div id="menu3" class="div-style-menu-23 tab-pane fade" role="tabpanel">
-						<h3 id="nameTitleIntake"></h3> 
+						<h3>Menu 3</h3> 
 						<p class="padding-text-desc">{% trans "RIOS text 1" %}</p>
 					</div>
 					<div id="map-analysis-result" class="row">
@@ -153,50 +155,564 @@
 						</div>        
 					</div>
 					<div id="map-areas-rios-container" class="row">
-						<div class="col-md-9 padding-text-desc">
+						<div class="col-md-10 padding-text-desc">
 							<div id="map-areas-rios" class="map__compare"></div>
-						</div>        
-						<div class="col-md-3">
-							<div id="map-areas-rios-legend"></div>
-							<img src="" alt="legend" id="img-legend-areas-rios"/>
 						</div>        
 					</div>
 				</div>            
 		</div>
-		<img src="" alt="legend" id="generated-img"/>
+
+
+
+
+
+
+		<!--panel of navigation-->
+		 <div class="title-inform">
+			<div id="idSectionNbs" class="inform-section">{% trans "NBS Vieber" %}</div>
+		</div> 
+		<!--Steps-->
+		 <div class="margin-report"> 
+			<!--Step 1-->
+			 <div id="step1">
+				<div class="container-page">
+					<div class="container-border">
+						<div id="mapidnbs" style="position: relative;width: 100%;height: 400px;"></div>
+					</div>
+				</div>
+				<div class="table-option">
+					<div class="list-table-option">
+						<div>
+							<div class="title-table-opton">{% trans "Business as usual" %} / {% trans "NBS Scenario" %}</div>
+							<div class="height-option">
+								<div class="option-table-opion"><input type="radio" name="report" onclick="viewReport(1,7,this)"></div>
+								<div>{% trans "Volume of water yield (change in time)" %}</div>
+							</div>
+							<div class="height-option">
+								<div class="option-table-opion"><input type="radio" name="report" onclick="viewReport(2,8,this)"></div>
+								<div>{% trans "Anual volume base flow (change in time)" %}</div>
+							</div>
+							<div class="height-option">
+								<div class="option-table-opion"><input type="radio" name="report" onclick="viewReport(3,9,this)"></div>
+								<div>{% trans "Total sediments (change in time)" %}</div>
+							</div>
+							<div class="height-option">
+								<div class="option-table-opion"><input type="radio" name="report" onclick="viewReport(4,10,this)"></div>
+								<div>{% trans "Nitrogen load (change in time)" %}</div>
+							</div>
+							<div class="height-option">
+								<div class="option-table-opion"><input type="radio" name="report" onclick="viewReport(5,11,this)"></div>
+								<div>{% trans "Phosphorus load (change in time)" %}</div>
+							</div>
+							<div class="height-option">
+								<div class="option-table-opion"><input type="radio" name="report" onclick="viewReport(6,12,this)"></div>
+								<div>{% trans "Carbon storage (change in time)" %}</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="container-graph" id="idGraph1">
+					<div class="title-cont-graph">{% trans "NBS Scenario - AWY (m3)" %}</div>
+					<div>
+						<div class="list-year-cont">
+							<div class="title-year-cont">
+								<div class="td-year-cont">{% trans "Year" %}</div>
+								<div>{% trans "Nitrogen" %}</div>
+							</div>
+							<div id="listNbs1"></div>
+						</div>
+						<div class="graph-year-cont">
+							<div id="containerNbs1"></div>
+						</div>
+					</div>
+				</div>
+				<div class="container-graph" id="idGraph2">
+					<div class="title-cont-graph">{% trans "NBS Scenario - Wsed (Ton)" %}</div>
+					<div>
+						<div class="list-year-cont">
+							<div class="title-year-cont">
+								<div class="td-year-cont">{% trans "Year" %}</div>
+								<div>{% trans "Nitrogen" %}</div>
+							</div>
+							<div id="listNbs2"></div>
+						</div>
+						<div class="graph-year-cont">
+							<div id="containerNbs2"></div>
+						</div>
+					</div>
+				</div>
+				<div class="container-graph" id="idGraph3">
+					<div class="title-cont-graph">{% trans "NBS Scenario - WN (kg)" %}</div>
+					<div>
+						<div class="list-year-cont">
+							<div class="title-year-cont">
+								<div class="td-year-cont">{% trans "Year" %}</div>
+								<div>{% trans "Nitrogen" %}</div>
+							</div>
+							<div id="listNbs3"></div>
+						</div>
+						<div class="graph-year-cont">
+							<div id="containerNbs3"></div>
+						</div>
+					</div>
+				</div>
+				<div class="container-graph" id="idGraph4">
+					<div class="title-cont-graph">{% trans "NBS Scenario - WP (kg)" %}</div>
+					<div>
+						<div class="list-year-cont">
+							<div class="title-year-cont">
+								<div class="td-year-cont">{% trans "Year" %}</div>
+								<div>{% trans "Nitrogen" %}</div>
+							</div>
+							<div id="listNbs4"></div>
+						</div>
+						<div class="graph-year-cont">
+							<div id="containerNbs4"></div>
+						</div>
+					</div>
+				</div>
+				<div class="container-graph" id="idGraph5">
+					<div class="title-cont-graph">{% trans "NBS Scenario - BF (m3)" %}</div>
+					<div>
+						<div class="list-year-cont">
+							<div class="title-year-cont">
+								<div class="td-year-cont">{% trans "Year" %}</div>
+								<div>{% trans "Nitrogen" %}</div>
+							</div>
+							<div id="listNbs5"></div>
+						</div>
+						<div class="graph-year-cont">
+							<div id="containerNbs5"></div>
+						</div>
+					</div>
+				</div>
+				<div class="container-graph" id="idGraph6">
+					<div class="title-cont-graph">{% trans "NBS Scenario - WC (Ton)" %}</div>
+					<div>
+						<div class="list-year-cont">
+							<div class="title-year-cont">
+								<div class="td-year-cont">{% trans "Year" %}</div>
+								<div>{% trans "Nitrogen" %}</div>
+							</div>
+							<div id="listNbs6"></div>
+						</div>
+						<div class="graph-year-cont">
+							<div id="containerNbs6"></div>
+						</div>
+					</div>
+				</div>
+				<div class="container-graph" id="idGraph7">
+					<div class="title-cont-graph">{% trans "Business as usual - AWY (m3)" %}</div>
+					<div>
+						<div class="list-year-cont">
+							<div class="title-year-cont">
+								<div class="td-year-cont">{% trans "Year" %}</div>
+								<div>{% trans "Nitrogen" %}</div>
+							</div>
+							<div id="listNbs7"></div>
+						</div>
+						<div class="graph-year-cont">
+							<div id="containerNbs7"></div>
+						</div>
+					</div>
+				</div>
+				<div class="container-graph" id="idGraph8">
+					<div class="title-cont-graph">{% trans "Business as usual - Wsed (Ton)" %}</div>
+					<div>
+						<div class="list-year-cont">
+							<div class="title-year-cont">
+								<div class="td-year-cont">{% trans "Year" %}</div>
+								<div>{% trans "Nitrogen" %}</div>
+							</div>
+							<div id="listNbs8"></div>
+						</div>
+						<div class="graph-year-cont">
+							<div id="containerNbs8"></div>
+						</div>
+					</div>
+				</div>
+				<div class="container-graph" id="idGraph9">
+					<div class="title-cont-graph">{% trans "Business as usual - WN (kg)" %}</div>
+					<div>
+						<div class="list-year-cont">
+							<div class="title-year-cont">
+								<div class="td-year-cont">{% trans "Year" %}</div>
+								<div>{% trans "Nitrogen" %}</div>
+							</div>
+							<div id="listNbs9"></div>
+						</div>
+						<div class="graph-year-cont">
+							<div id="containerNbs9"></div>
+						</div>
+					</div>
+				</div>
+				<div class="container-graph" id="idGraph10">
+					<div class="title-cont-graph">{% trans "Business as usual - WP (kg)" %}</div>
+					<div>
+						<div class="list-year-cont">
+							<div class="title-year-cont">
+								<div class="td-year-cont">{% trans "Year" %}</div>
+								<div>{% trans "Nitrogen" %}</div>
+							</div>
+							<div id="listNbs10"></div>
+						</div>
+						<div class="graph-year-cont">
+							<div id="containerNbs10"></div>
+						</div>
+					</div>
+				</div>
+				<div class="container-graph" id="idGraph11">
+					<div class="title-cont-graph">{% trans "Business as usual - BF (m3)" %}</div>
+					<div>
+						<div class="list-year-cont">
+							<div class="title-year-cont">
+								<div class="td-year-cont">{% trans "Year" %}</div>
+								<div>{% trans "Nitrogen" %}</div>
+							</div>
+							<div id="listNbs11"></div>
+						</div>
+						<div class="graph-year-cont">
+							<div id="containerNbs11"></div>
+						</div>
+					</div>
+				</div>
+				<div class="container-graph" id="idGraph12">
+					<div class="title-cont-graph">{% trans "Business as usual - WC (Ton)" %}</div>
+					<div>
+						<div class="list-year-cont">
+							<div class="title-year-cont">
+								<div class="td-year-cont">{% trans "Year" %}</div>
+								<div>{% trans "Nitrogen" %}</div>
+							</div>
+							<div id="listNbs12"></div>
+						</div>
+						<div class="graph-year-cont">
+							<div id="containerNbs12"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 </form>
 
 {% endblock %} {% block extra_script %}
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/highcharts-more.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+<script src="https://code.highcharts.com/modules/solid-gauge.js"></script>
 
+<script src="{{ STATIC_URL }}geonode/js/datatables/dataTables.bootstrap.min.js"></script>
+
+<script type="text/javascript" src="{% url 'javascript-catalog-intake' %}"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js" type="text/javascript"></script>
+<script src="https://unpkg.com/smartwizard@5/dist/js/jquery.smartWizard.min.js" type="text/javascript"></script>
+
+<!--ZIP reader library-->
+<script src="{{ STATIC_URL }}geonode/js/jszip/jszip.min.js"></script>
+<!--Shapefile reader library -->
+<script src="{{ STATIC_URL }}geonode/js/shp/shp.min.js"></script>
+<script src="{{ STATIC_URL }}geonode/js/proj4js/proj4.js"></script>
+<script type="text/javascript">
+    var mxBasePath = '{{ STATIC_URL }}geonode/js/mxgraph/src';
+    var mxImageBasePath = '{{ STATIC_URL }}geonode/js/mxgraph/examples/images';
+    var editorUrl = '{{ STATIC_URL }}geonode/js/mxgraph/examples/editors/config/diagrameditor.xml';
+    var serverApi = '{{serverApi}}';
+    var lang = '{{LANGUAGE_CODE}}';
+    OSM_BASEMAP_URL = '{{ OSM_BASEMAP_URL }} ';
+    IMG_BASEMAP_URL = '{{ IMG_BASEMAP_URL }} ';
+    HYDRO_BASEMAP_URL = '{{ HYDRO_BASEMAP_URL }} ';
+    GRAY_BASEMAP_URL = '{{ GRAY_BASEMAP_URL }} ';
+    GEOSERVER_WMS = '{{ GEOSERVER_WMS }}';
+    HYDRO_NETWORK_LYR = '{{ HYDRO_NETWORK_LYR }}';
+</script>
+<script src="{{ STATIC_URL }}geonode/js/mxgraph/mxClient.js"></script>
+<script src="{{ STATIC_URL }}geonode/js/mxgraph/examples/editors/js/app.js"></script>
+<script src="{{ STATIC_URL }}geonode/js/mxgraph/examples/editors/js/app.js"></script>
+<script src="{{ STATIC_URL }}waterproof_intake/mathquill/mathquill.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script>
+    var intakePolygons = [];
+    SEARCH_CITY_API_URL = '{{ SEARCH_CITY_API_URL }}';
+    SEARCH_COUNTRY_API_URL = '{{ SEARCH_COUNTRY_API_URL }}';
+</script>
+
+
+<script>
+    var countriesLayerUrl = '{{ STATIC_URL }}waterproof_nbs_ca/data/countries.geojson';
+    var userCountryId='{{country.id}}';
+    var userCountryCode='{{country.codeCountry}}';
+    var userCountryName='{{country.nameCountry}}';
+</script>
+<script type="text/javascript" src="{% url 'javascript-catalog-treatment' %}"></script>
+<script src="{{ STATIC_URL }}geonode/js/datatables/jquery.dataTables.min.js"></script>
+<script src="{{ STATIC_URL }}geonode/js/datatables/dataTables.bootstrap.min.js"></script>
 <script src="{% static "lib/js/leaflet.js" %}"></script>
 <script src="{% static "geonode/js/leaflet/leaflet.defaultextent.js" %}"></script>
+<script src="{{ STATIC_URL }}geonode/js/leaflet/leaflet.ajax.min.js"></script>
+<script src="{{ STATIC_URL }}geonode/js/leaflet/photon/leaflet.photon.js"></script>
+
+<!-- new scripts -->
+<script src=" {{ STATIC_URL }}geonode/js/leaflet/leaflet-omnivore.min.js "></script>
 <script src=" {{ STATIC_URL }}geonode/js/leaflet/L.Map.Sync.js"></script>
+<script src="https://unpkg.com/geotiff@1.0.0-beta.13/dist-browser/geotiff.js"></script>
+<script src="https://unpkg.com/plotty@0.4.1/dist/plotty.js"></script>
+<script src="https://unpkg.com/leaflet-geotiff-2@0.2.5/dist/leaflet-geotiff.js"></script>
+<script src="https://unpkg.com/leaflet-geotiff-2@0.2.5/dist/leaflet-geotiff-plotty.js"></script>
+<script src="https://unpkg.com/leaflet-geotiff-2@0.2.5/dist/leaflet-geotiff-vector-arrows.js"></script>
+
+<script src="https://jieter.github.io/Leaflet.Sync/L.Map.Sync.js"></script>
 <script src="{{ STATIC_URL }}waterproof_reports/js/reports_maps.js"></script>
-<script src="{{ STATIC_URL }}geonode/js/waterproof/dom-to-image.min.js"></script>
-
-<script type="text/javascript">
-
-	OSM_BASEMAP_URL = '{{ OSM_BASEMAP_URL }} ';
-	IMG_BASEMAP_URL = '{{ IMG_BASEMAP_URL }} ';    
-	GRAY_BASEMAP_URL = '{{ GRAY_BASEMAP_URL }} ';
-	GEOSERVER_WMS = '{{ GEOSERVER_WMS }}';
-	const baseData = '{{ base_data }}';
+<script type=" text/javascript ">
+  
+  const baseData = '{{ base_data }}';
   const intake = '{{ intake }}';
   const region = '{{ region }}';
   const year = '{{ year }}';
-	const studyCaseId = '{{ study_case_id }}';
-	let center = [4, -74];
-  center = [{{ center}}];
-	var serverApi = '{{serverApi}}';
-	var lang = '{{LANGUAGE_CODE}}';	
-	var countriesLayerUrl = '{{ STATIC_URL }}waterproof_nbs_ca/data/countries.geojson';
-	var userCountryId='{{country.id}}';
-	var userCountryCode='{{country.codeCountry}}';
-	var userCountryName='{{country.nameCountry}}';
-	let server = location.protocol + '//' + location.hostname.replace('apps','dev') + ':82/';
+  const studyCaseId = '{{ study_case_id }}';
+  const bbox = '{{ bbox }}';
+  let center = [4, -74];
+  center = '{{ center}}';
+  center = center.split(",");
+
+  let server = location.protocol + '//' + location.hostname.replace('apps','dev') + ':82/';
   server = 'https://dev.skaphe.com/srv/'; //'/srv/';  
   const urlWaterProofLyrsWMS = server + `?map=/etc/mapserver/mapserver_test.map&SERVICE=WMS&usr_folder=${baseData}&intake=${intake}&year=${year}&region=${region}`;
+<<<<<<< HEAD
+</script>
+<!-- end new scripts -->
+
+<script type=" text/javascript ">
+    API_URL = '/proxy/?url=https://photon.komoot.de/api/?';
+    TILELAYER = 'http://{s}.tile.osm.org/{z}/{x}/{y}.png';
+    CENTER = [-74.4879, 4.582];
+    MAXZOOM = 11;
+
+    let waterproof = {};
+
+    $(document).ready(function() {
+    });
+
+    var searchPoints = L.geoJson(null, {
+        onEachFeature: function(feature, layer) {
+            layer.bindPopup(feature.properties.name);
+        }
+    });
+
+</script>
+
+<script type="text/javascript">
+
+$(function () {
+
+    var IMAGE_LYR_URL = "https://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryTopo/MapServer/tile/{z}/{y}/{x}";
+    var HYDRO_LYR_URL = "https://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/Esri_Hydro_Reference_Overlay/MapServer/tile/{z}/{y}/{x}";
+    var MAXZOOM = 11;
+    var TILELAYER = 'http://{s}.tile.osm.org/{z}/{x}/{y}.png';
+    var CENTER = [4.582, -74.4879];
+    var lyrsPolygons = [];
+    var map;
+    var table = $('#example').DataTable();
+    var searchPoints = L.geoJson(null, {
+        onEachFeature: function(feature, layer) {
+            layer.bindPopup(feature.properties.name);
+        }
+    });
+    var dataTotalBenefitsIntake = [];
+    var dataTotalBenefitsIntakeOne = [];
+
+    changeReport = function() {
+        location.href = "../../study_cases/report/" + localStorage.idStudyCase;
+    }
+
+    var localStorageId = localStorage.idStudyCase;
+    $('#Return').append(
+        `
+        <a href="../../study_cases/report/${localStorageId}">{% trans "Return" %}</a>
+            
+        `
+    );
+
+    /**
+    * Search the points of a city and load them in the polygon of the map
+    * @param {String} Object with the identity of the city    
+    * @returns 
+    */
+    showSearchPoints = function(geojson) {
+        searchPoints.clearLayers();
+        let geojsonFilter = geojson.features.filter(feature => feature.properties.type == "city");
+        searchPoints.addData(geojsonFilter);
+        let cityName = geojsonFilter[0].properties.name;
+        drawPolygons(cityName);
+        table.search(cityName.substr(0, 5)).draw();
+    }
+    /**
+    * Load the results of the city on the map 
+    * @param {String} map limit
+    * @returns 
+    */
+    selectedResultHandler = function (feat) {
+
+        waterproof["cityCoords"] = [feat.geometry.coordinates[1], feat.geometry.coordinates[0]];
+        localStorage.setItem('cityCoords', JSON.stringify(waterproof["cityCoords"]));
+
+
+        searchPoints.eachLayer(function(layer) {
+            if (layer.feature.properties.osm_id != feat.properties.osm_id) {
+                layer.remove();
+            }
+        });
+        let country = feat.properties.country;
+        let cityName = feat.properties.name;
+        let countryCode = feat.properties.countrycode.toLowerCase();
+
+        $("#countryLabel").html(country);
+        $("#cityLabel").html(cityName);
+        localStorage.setItem('city', cityName);
+
+        drawPolygons(cityName);
+        table.search(cityName.substr(0, 5)).draw();
+
+        let urlAPI = '{{ SEARCH_COUNTRY_API_URL }}' + countryCode;
+
+        $.get(urlAPI, function(data) {
+            $("#regionLabel").html(data.region);
+            $("#currencyLabel").html(data.currencies[0].name + " - " + data.currencies[0].symbol);
+            $("#listIntakes").show();
+
+            localStorage.setItem('country', country);
+            localStorage.setItem('region', data.region);
+            localStorage.setItem('currency', data.currencies[0].name + " - " + data.currencies[0].symbol);
+        });
+    }
+    viewReport = function(idDiv1, idDiv2, object) {
+    	document.getElementById("idGraph1").style.display = "none";
+        document.getElementById("idGraph2").style.display = "none";
+        document.getElementById("idGraph3").style.display = "none";
+        document.getElementById("idGraph4").style.display = "none";
+        document.getElementById("idGraph5").style.display = "none";
+        document.getElementById("idGraph6").style.display = "none";
+        document.getElementById("idGraph7").style.display = "none";
+        document.getElementById("idGraph8").style.display = "none";
+        document.getElementById("idGraph9").style.display = "none";
+        document.getElementById("idGraph10").style.display = "none";
+        document.getElementById("idGraph11").style.display = "none";
+        document.getElementById("idGraph12").style.display = "none";
+
+    	document.getElementById("idGraph" + idDiv1).style.display = "block";
+        document.getElementById("idGraph" + idDiv2).style.display = "block";
+    }
+    /**
+    * Draw the polygons on the map when selecting the city 
+    * @param {String} city that is registered in the search space    
+    * @returns 
+    */
+    drawPolygons = function(citySearch) {
+        lyrsPolygons.forEach(lyr => map.removeLayer(lyr));
+        lyrsPolygons = [];
+        var bounds;
+        intakePolygons.forEach((feature) => {
+            if (feature.polygon !== 'None' && feature.polygon != '') {
+                let poly = feature.polygon;
+                if (poly.indexOf("SRID") >= 0) {
+                    poly = poly.split(";")[1];
+                }
+                var lyrPoly = omnivore.wkt.parse(poly).addTo(map);
+                lyrsPolygons.push(lyrPoly);
+                if (bounds == undefined) {
+                    bounds = lyrPoly.getBounds();
+                } else {
+                    bounds = bounds.extend(lyrPoly.getBounds());
+                }
+            }
+        });
+        if (bounds != undefined) {
+            map.fitBounds(bounds);
+        }
+    };
+    initMapNbs = function () {
+            map = L.map('mapidnbs', {
+                scrollWheelZoom: false,
+                zoomControl: false,
+                photonControl: true,
+                photonControlOptions: {
+                    resultsHandler: showSearchPoints,
+                    selectedResultHandler: selectedResultHandler,
+                    placeholder: 'Search City...',
+                    position: 'topleft',
+                    url: SEARCH_CITY_API_URL
+                }
+            });
+
+            let initialCoords = CENTER;
+            var cityCoords = localStorage.getItem('cityCoords');
+            var city = localStorage.getItem('city');
+            var initialZoom = 5;
+            var cityNameMap = localStorage.getItem('city').substr(0, 5);
+
+            if (cityCoords == undefined) {
+                cityCoords = initialCoords;
+            } else {
+                initialCoords = JSON.parse(cityCoords);
+                drawPolygons(city);
+                initialZoom = 9;
+                try {
+                    $("#countryLabel").html(localStorage.getItem('country'));
+                    $("#cityLabel").html(localStorage.getItem('city'));
+                    $("#regionLabel").html(localStorage.getItem('region'));
+                    $("#currencyLabel").html(localStorage.getItem('currency'));
+                    $("#listIntakes").show();
+                } catch (e) {
+
+                }
+            }
+
+            table.search(cityNameMap).draw();
+            map.setView(initialCoords, initialZoom);
+            searchPoints.addTo(map);
+            var tilelayer = L.tileLayer(TILELAYER, { maxZoom: MAXZOOM, attribution: 'Data \u00a9 <a href="http://www.openstreetmap.org/copyright"> OpenStreetMap Contributors </a> Tiles \u00a9 Komoot' }).addTo(map);
+            var images = L.tileLayer(IMAGE_LYR_URL);
+            var hydroLyr = L.tileLayer(HYDRO_LYR_URL);
+
+            var baseLayers = {
+                OpenStreetMap: tilelayer,
+                Images: images,
+            };
+
+            var overlays = {
+                "Hydro (esri)": hydroLyr,
+            };
+
+						var defExt = new L.Control.DefaultExtent({ title: gettext('Default extent'), position: 'topright'}).addTo(map);
+            var zoomControl = new L.Control.Zoom({ position: 'topright' }).addTo(map);
+            L.control.layers(baseLayers, overlays, { position: 'topleft' }).addTo(map);
+
+            function onMapClick(e) {
+            }
+            map.on('click', onMapClick);
+    }
+
+    displayList = function(nameObject, nameTitle) {
+        if(document.getElementById(nameObject).style.display === "none") {
+            document.getElementById(nameObject).style.display = "block";
+            document.getElementById(nameTitle).style.borderWidth = "2px";
+        } else {
+            document.getElementById(nameObject).style.display = "none";
+            document.getElementById(nameTitle).style.borderWidth = "0px";
+            changeGraphRoiCost();
+        }
+    };
+
+    initialize = function () {
+
+        Highcharts.setOptions({
+            lang: {
+				decimalPoint: ',',
+                thousandsSep: '.'
+=======
 	const urlWaterProofLyrAreasRiosMS = server + `?map=/etc/mapserver/${baseData}/WI_${intake}/out/areas_rios.map&SERVICE=WMS`;
 	var mapAreasRios;
 	var rasterResultStatistics = {};
@@ -204,44 +720,397 @@
 			
 			changeReport = function() {
 					location.href = "../../study_cases/report/" + localStorage.idStudyCase;
+>>>>>>> e962a62557c8f47b514dfb5db459afb70796f53c
 			}
+		});
 
-			var localStorageId = localStorage.idStudyCase;
-			$('#Return').append(        `
-					<a href="../../study_cases/report/${localStorageId}">{% trans "Return" %}</a>            
-					`
-			);   
-				
-			initialize = function () {
+        $("#idCountri").html(localStorage.getItem('country'));
+        $("#idCity").html(localStorage.getItem('city'));
+        $("#idRegion").html(localStorage.getItem('region'));
+        $("#idNameStudyCase").html(localStorage.getItem('studyCasesName'));
 
-					$("#idCountri").html(localStorage.getItem('country'));
-					$("#idCity").html(localStorage.getItem('city'));
-					$("#idRegion").html(localStorage.getItem('region'));
-					$("#idNameStudyCase").html(localStorage.getItem('studyCasesName'));        
+        var urlDetail = "../../reports/getReportOportunityResultMaps/?studyCase=" + localStorage.idStudyCase;
+        $.getJSON(urlDetail, function (data) {
+            $.each( data, function( key, value ) {
+                var jsonPolygon = JSON.parse(value.polygon);
+                var stringPolygon = "";
+                jsonPolygon.features.forEach((featureCoord) => {
+                    featureCoord.geometry.coordinates.forEach((featureCoordList) => {
+                        var contList = 0;
+                        featureCoordList.forEach((featureCoordListPoint) => {
+                            contList++;
+                            if(contList === featureCoordList.length) {
+                                stringPolygon = stringPolygon + featureCoordListPoint[0] + " " + featureCoordListPoint[1];
+                            } else {
+                                stringPolygon = stringPolygon + featureCoordListPoint[0] + " " + featureCoordListPoint[1] + ",";
+                            }
+                        });
+                    });
+                });
+                intakePolygons.push({polygon: "POLYGON ((" + stringPolygon + "))"});
+            });
+            initMapNbs()
+        });
 
-					document.getElementById("idNumberOfWaterGeographic").innerHTML = localStorage.getItem('idNumberOfWater');
-					document.getElementById("idNumberOfDrinkingGeographic").innerHTML = localStorage.getItem('idNumberOfDrinking');
-					document.getElementById("idCurrencyMainGeographic").innerHTML = localStorage.getItem('idCurrencyMain');
-					document.getElementById("idTimeMainGeographic").innerHTML = localStorage.getItem('idTimeMain');
-			};
-			initialize();
+        document.getElementById("idNumberOfWaterGeographic").innerHTML = localStorage.getItem('idNumberOfWater');
+        document.getElementById("idNumberOfDrinkingGeographic").innerHTML = localStorage.getItem('idNumberOfDrinking');
+        document.getElementById("idCurrencyMainGeographic").innerHTML = localStorage.getItem('idCurrencyMain');
+        document.getElementById("idTimeMainGeographic").innerHTML = localStorage.getItem('idTimeMain');
 
-			generateMap2Img = function (mapId, imgId) {
-				var mapElement = document.getElementById(mapId);
-				//const dataURL = await domtoimage.toPng(mapElement, { width, height })
-				//const blob = await domtoimage.toBlob(mapElement, { width, height })
-				$(".leaflet-control").hide();
-				domtoimage.toPng(mapElement)
-					.then(function (dataUrl) {
-							$('#'+ imgId).attr('src', dataUrl);							
-							$(".leaflet-control").show();
-					})
-					.catch(function (error) {
-							console.error('oops, something went wrong!', error);
-							$(".leaflet-control").show();
-					});
-			};
-	});
+        var dataTotalBenefits = [];
+        var urlDetail = "../../reports/getWaterproofReportsDesagregation/?studyCase=" + localStorage.idStudyCase;
+        $.getJSON(urlDetail, function (data) {
+        	var timeNBS = []
+        	var timeBusiness = []
+        	
+        	var volumeOfWaterYieldChangeInTimeNbs = []
+        	var annualVolumeBaseFlowChangeInTimeNbs = []
+        	var totalSedimentsChangeInTimeNbs = []
+        	var nitrogenLoadChangeInTimeNbs = []
+        	var phosphorusLoadChangeInTimeNbs = []
+        	var carbonStorageChangeInTimeNbs = []
+
+        	var volumeOfWaterYieldChangeInTimeBusiness = []
+        	var annualVolumeBaseFlowChangeInTimeBusiness = []
+        	var totalSedimentsChangeInTimeBusiness = []
+        	var nitrogenLoadChangeInTimeBusiness = []
+        	var phosphorusLoadChangeInTimeBusiness = []
+        	var carbonStorageChangeInTimeBusiness = []
+
+			var volumeOfWaterYieldChangeInTimeNbsHhml = ""
+        	var annualVolumeBaseFlowChangeInTimeNbsHhml = ""
+        	var totalSedimentsChangeInTimeNbsHhml = ""
+        	var nitrogenLoadChangeInTimeNbsHhml = ""
+        	var phosphorusLoadChangeInTimeNbsHhml = ""
+        	var carbonStorageChangeInTimeNbsHhml = ""
+
+        	var volumeOfWaterYieldChangeInTimeBusinessHhml = ""
+        	var annualVolumeBaseFlowChangeInTimeBusinessHhml = ""
+        	var totalSedimentsChangeInTimeBusinessHhml = ""
+        	var nitrogenLoadChangeInTimeBusinessHhml = ""
+        	var phosphorusLoadChangeInTimeBusinessHhml = ""
+        	var carbonStorageChangeInTimeBusinessHhml = ""
+
+            $.each( data, function( key, value ) {
+            	if(value.stageFilter === "NBS Scenario") {
+            		timeNBS.push(value.time);
+        			volumeOfWaterYieldChangeInTimeNbs.push(value.volumeOfWaterYieldChangeInTime);
+					annualVolumeBaseFlowChangeInTimeNbs.push(value.annualVolumeBaseFlowChangeInTime);
+        			totalSedimentsChangeInTimeNbs.push(value.totalSedimentsChangeInTime);
+        			nitrogenLoadChangeInTimeNbs.push(value.nitrogenLoadChangeInTime);
+        			phosphorusLoadChangeInTimeNbs.push(value.phosphorusLoadChangeInTime);
+        			carbonStorageChangeInTimeNbs.push(value.carbonStorageChangeInTime);
+
+					volumeOfWaterYieldChangeInTimeNbsHhml = volumeOfWaterYieldChangeInTimeNbsHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + parseFloat(value.volumeOfWaterYieldChangeInTime).toFixed(2) +'</div></div>';
+        			annualVolumeBaseFlowChangeInTimeNbsHhml = annualVolumeBaseFlowChangeInTimeNbsHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + parseFloat(value.annualVolumeBaseFlowChangeInTime).toFixed(2) +'</div></div>';
+        			totalSedimentsChangeInTimeNbsHhml = totalSedimentsChangeInTimeNbsHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + parseFloat(value.totalSedimentsChangeInTime).toFixed(2) +'</div></div>';
+        			nitrogenLoadChangeInTimeNbsHhml = nitrogenLoadChangeInTimeNbsHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + parseFloat(value.nitrogenLoadChangeInTime).toFixed(2) +'</div></div>';
+        			phosphorusLoadChangeInTimeNbsHhml = phosphorusLoadChangeInTimeNbsHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + parseFloat(value.phosphorusLoadChangeInTime).toFixed(2) +'</div></div>';
+        			carbonStorageChangeInTimeNbsHhml = carbonStorageChangeInTimeNbsHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + parseFloat(value.carbonStorageChangeInTime).toFixed(2) +'</div></div>';
+            	} else  {
+            		timeBusiness.push(value.time);
+        			volumeOfWaterYieldChangeInTimeBusiness.push(value.volumeOfWaterYieldChangeInTime);
+					annualVolumeBaseFlowChangeInTimeBusiness.push(value.annualVolumeBaseFlowChangeInTime);
+        			totalSedimentsChangeInTimeBusiness.push(value.totalSedimentsChangeInTime);
+        			nitrogenLoadChangeInTimeBusiness.push(value.nitrogenLoadChangeInTime);
+        			phosphorusLoadChangeInTimeBusiness.push(value.phosphorusLoadChangeInTime);
+        			carbonStorageChangeInTimeBusiness.push(value.carbonStorageChangeInTime);
+
+        			volumeOfWaterYieldChangeInTimeBusinessHhml = volumeOfWaterYieldChangeInTimeBusinessHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + parseFloat(value.volumeOfWaterYieldChangeInTime).toFixed(2) +'</div></div>';
+        			annualVolumeBaseFlowChangeInTimeBusinessHhml = annualVolumeBaseFlowChangeInTimeBusinessHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + parseFloat(value.annualVolumeBaseFlowChangeInTime).toFixed(2) +'</div></div>';
+        			totalSedimentsChangeInTimeBusinessHhml = totalSedimentsChangeInTimeBusinessHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + parseFloat(value.totalSedimentsChangeInTime).toFixed(2) +'</div></div>';
+        			nitrogenLoadChangeInTimeBusinessHhml = nitrogenLoadChangeInTimeBusinessHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + parseFloat(value.nitrogenLoadChangeInTime).toFixed(2) +'</div></div>';
+        			phosphorusLoadChangeInTimeBusinessHhml = phosphorusLoadChangeInTimeBusinessHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + parseFloat(value.phosphorusLoadChangeInTime).toFixed(2) +'</div></div>';
+        			carbonStorageChangeInTimeBusinessHhml = carbonStorageChangeInTimeBusinessHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + parseFloat(value.carbonStorageChangeInTime).toFixed(2) +'</div></div>';
+            	}
+            });
+
+            setTimeout(function(){
+
+            	document.getElementById("listNbs1").innerHTML = volumeOfWaterYieldChangeInTimeNbsHhml
+            	document.getElementById("listNbs2").innerHTML = annualVolumeBaseFlowChangeInTimeNbsHhml
+            	document.getElementById("listNbs3").innerHTML = totalSedimentsChangeInTimeNbsHhml
+            	document.getElementById("listNbs4").innerHTML = nitrogenLoadChangeInTimeNbsHhml
+            	document.getElementById("listNbs5").innerHTML = phosphorusLoadChangeInTimeNbsHhml
+            	document.getElementById("listNbs6").innerHTML = carbonStorageChangeInTimeNbsHhml
+            	document.getElementById("listNbs7").innerHTML = volumeOfWaterYieldChangeInTimeBusinessHhml
+            	document.getElementById("listNbs8").innerHTML = annualVolumeBaseFlowChangeInTimeBusinessHhml
+            	document.getElementById("listNbs9").innerHTML = totalSedimentsChangeInTimeBusinessHhml
+            	document.getElementById("listNbs10").innerHTML = nitrogenLoadChangeInTimeBusinessHhml
+            	document.getElementById("listNbs11").innerHTML = phosphorusLoadChangeInTimeBusinessHhml
+            	document.getElementById("listNbs12").innerHTML = carbonStorageChangeInTimeBusinessHhml
+
+	            Highcharts.chart('containerNbs1', {
+	                chart: {
+	                    type: 'column'
+	                },
+	                title: {
+	                    text: ''
+	                },
+	                colors: ['#008BAB'],
+	                xAxis: {
+	                    categories: timeNBS
+	                },
+	                credits: {
+	                    enabled: false
+	                },
+	                series: [{
+	                    name: 'AWY (m3)',
+	                    type: 'spline',
+	                    dashStyle: 'shortdot',
+	                    data: volumeOfWaterYieldChangeInTimeNbs
+	                }]
+	            });
+	            Highcharts.chart('containerNbs2', {
+	                chart: {
+	                    type: 'column'
+	                },
+	                title: {
+	                    text: ''
+	                },
+	                colors: ['#008BAB'],
+	                xAxis: {
+	                    categories: timeNBS
+	                },
+	                credits: {
+	                    enabled: false
+	                },
+	                series: [{
+	                    name: 'Wsed (Ton)',
+	                    type: 'spline',
+	                    dashStyle: 'shortdot',
+	                    data: annualVolumeBaseFlowChangeInTimeNbs
+	                }]
+	            });
+	            Highcharts.chart('containerNbs3', {
+	                chart: {
+	                    type: 'column'
+	                },
+	                title: {
+	                    text: ''
+	                },
+	                colors: ['#008BAB'],
+	                xAxis: {
+	                    categories: timeNBS
+	                },
+	                credits: {
+	                    enabled: false
+	                },
+	                series: [{
+	                    name: 'WN (kg)',
+	                    type: 'spline',
+	                    dashStyle: 'shortdot',
+	                    data: totalSedimentsChangeInTimeNbs
+	                }]
+	            });
+	            Highcharts.chart('containerNbs4', {
+	                chart: {
+	                    type: 'column'
+	                },
+	                title: {
+	                    text: ''
+	                },
+	                colors: ['#008BAB'],
+	                xAxis: {
+	                    categories: timeNBS
+	                },
+	                credits: {
+	                    enabled: false
+	                },
+	                series: [{
+	                    name: 'WP (kg)',
+	                    type: 'spline',
+	                    dashStyle: 'shortdot',
+	                    data: nitrogenLoadChangeInTimeNbs
+	                }]
+	            });
+	            Highcharts.chart('containerNbs5', {
+	                chart: {
+	                    type: 'column'
+	                },
+	                title: {
+	                    text: ''
+	                },
+	                colors: ['#008BAB'],
+	                xAxis: {
+	                    categories: timeNBS
+	                },
+	                credits: {
+	                    enabled: false
+	                },
+	                series: [{
+	                    name: 'BF (m3)',
+	                    type: 'spline',
+	                    dashStyle: 'shortdot',
+	                    data: phosphorusLoadChangeInTimeNbs
+	                }]
+	            });
+	            Highcharts.chart('containerNbs6', {
+	                chart: {
+	                    type: 'column'
+	                },
+	                title: {
+	                    text: ''
+	                },
+	                colors: ['#008BAB'],
+	                xAxis: {
+	                    categories: timeNBS
+	                },
+	                credits: {
+	                    enabled: false
+	                },
+	                series: [{
+	                    name: 'WC (Ton)',
+	                    type: 'spline',
+	                    dashStyle: 'shortdot',
+	                    data: carbonStorageChangeInTimeNbs
+	                }]
+	            });
+
+	            Highcharts.chart('containerNbs7', {
+	                chart: {
+	                    type: 'column'
+	                },
+	                title: {
+	                    text: ''
+	                },
+	                colors: ['#008BAB'],
+	                xAxis: {
+	                    categories: timeBusiness
+	                },
+	                credits: {
+	                    enabled: false
+	                },
+	                series: [{
+	                    name: 'AWY (m3)',
+	                    type: 'spline',
+	                    dashStyle: 'shortdot',
+	                    data: volumeOfWaterYieldChangeInTimeBusiness
+	                }]
+	            });
+	            Highcharts.chart('containerNbs8', {
+	                chart: {
+	                    type: 'column'
+	                },
+	                title: {
+	                    text: ''
+	                },
+	                colors: ['#008BAB'],
+	                xAxis: {
+	                    categories: timeBusiness
+	                },
+	                credits: {
+	                    enabled: false
+	                },
+	                series: [{
+	                    name: 'Wsed (Ton)',
+	                    type: 'spline',
+	                    dashStyle: 'shortdot',
+	                    data: annualVolumeBaseFlowChangeInTimeBusiness
+	                }]
+	            });
+	            Highcharts.chart('containerNbs9', {
+	                chart: {
+	                    type: 'column'
+	                },
+	                title: {
+	                    text: ''
+	                },
+	                colors: ['#008BAB'],
+	                xAxis: {
+	                    categories: timeBusiness
+	                },
+	                credits: {
+	                    enabled: false
+	                },
+	                series: [{
+	                    name: 'WN (kg)',
+	                    type: 'spline',
+	                    dashStyle: 'shortdot',
+	                    data: totalSedimentsChangeInTimeBusiness
+	                }]
+	            });
+	            Highcharts.chart('containerNbs10', {
+	                chart: {
+	                    type: 'column'
+	                },
+	                title: {
+	                    text: ''
+	                },
+	                colors: ['#008BAB'],
+	                xAxis: {
+	                    categories: timeBusiness
+	                },
+	                credits: {
+	                    enabled: false
+	                },
+	                series: [{
+	                    name: 'WP (kg)',
+	                    type: 'spline',
+	                    dashStyle: 'shortdot',
+	                    data: nitrogenLoadChangeInTimeBusiness
+	                }]
+	            });
+	            Highcharts.chart('containerNbs11', {
+	                chart: {
+	                    type: 'column'
+	                },
+	                title: {
+	                    text: ''
+	                },
+	                colors: ['#008BAB'],
+	                xAxis: {
+	                    categories: timeBusiness
+	                },
+	                credits: {
+	                    enabled: false
+	                },
+	                series: [{
+	                    name: 'BF (m3)',
+	                    type: 'spline',
+	                    dashStyle: 'shortdot',
+	                    data: phosphorusLoadChangeInTimeBusiness
+	                }]
+	            });
+	            Highcharts.chart('containerNbs12', {
+	                chart: {
+	                    type: 'column'
+	                },
+	                title: {
+	                    text: ''
+	                },
+	                colors: ['#008BAB'],
+	                xAxis: {
+	                    categories: timeBusiness
+	                },
+	                credits: {
+	                    enabled: false
+	                },
+	                series: [{
+	                    name: 'WC (Ton)',
+	                    type: 'spline',
+	                    dashStyle: 'shortdot',
+	                    data: carbonStorageChangeInTimeBusiness
+	                }]
+	            });
+			}, 2000);
+
+
+
+
+        });
+
+    };
+    initialize();
+});
     
+</script>
+
+<script type="text/javascript">
+
+   
+
+
+
 </script>
 {% endblock %}

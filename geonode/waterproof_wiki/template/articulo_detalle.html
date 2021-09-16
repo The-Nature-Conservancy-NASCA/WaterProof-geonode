@@ -20,7 +20,7 @@
     </div>
 
     <div class="referencias">
-        <h3>{% trans Referencies %}</h3>
+        <h3>{% trans "Referencies" %}</h3>
         <div class="data">
             {%for r in referencias %}
             <p> {{r.anno}}. {{r.nombre}}. {{r.publicador}}.
@@ -32,7 +32,7 @@
     </div>
 
     <div class="enlaces">
-        <h3>{% trans Bibliography %}</h3>
+        <h3>{% trans "Bibliography" %}</h3>
         <div class="data">
             {%for e in enlaces %}
                 {% if request.LANGUAGE_CODE == "es" %}
