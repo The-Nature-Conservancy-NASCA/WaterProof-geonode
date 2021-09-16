@@ -3,6 +3,7 @@ from django.shortcuts import render, HttpResponse
 from django.shortcuts import redirect, get_object_or_404
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.shortcuts import render 
+from django.db.models import Q
 from .models import Article, Referencies, Links, Category
 
 def consultar_articulo(request, id=0):
@@ -64,7 +65,7 @@ def listar_articulos_random(request):
 def listar_articulos_filtro(request, p_titulo=""):
     q=request.GET.get('p_titulo')
     print(f"____________p_titulo:{q}")
-    articulos=Article.objects.filter(titulo__icontains=q) #titulo__exacts  titulo__iexacts !Esto se llama Looups ! 
+    articulos=Article.objects.filter(Q(titulo__icontains=q) | Q(titulo_en__icontains=q)) #titulo__exacts  titulo__iexacts !Esto se llama Looups ! 
     
     paginator=Paginator(articulos,5)
     idPaginaPaginador=request.GET.get('page')

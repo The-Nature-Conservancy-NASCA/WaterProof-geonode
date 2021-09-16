@@ -1033,76 +1033,47 @@ def reportMenu(request):
 
 def getNames(indicators):
     result = []
-    for objectIndicator in indicators:
+    for objectIndicator in indicators:  
         try:
             if objectIndicator.intake.name not in result:
                 result.append(objectIndicator.intake.name)
         except:
-            return result
+            print ("exception in getNames...")
     return result
-
-
-def getNameCity(indicators):
-    result = []
-    for objectIndicatorcity in indicators:
-        try:
-            if objectIndicatorcity.intake.city.name not in result:
-                result.append(objectIndicatorcity.intake.city.name)
-        except:
-            return result
-    return result
-
 
 def physicalIndicators(request, idx):
 
-    indicators = investIndicators.objects.filter(study_case__id=idx)
-    indicatorsNames = getNames(indicators)
-    indicatorsNameCity = getNameCity(indicators)
-    return render(
-        request,
-        'waterproof_reports/physicalIndicators.html',
-        {
-            'Indicators': indicators,
-            'NamesIndicators': indicatorsNames,
-            'NameCityIndicators': indicatorsNameCity
-        })
+                indicators = investIndicators.objects.filter(study_case__id=idx)
+                indicatorsNames = getNames(indicators)
+                return render(
+                    request,
+                    'waterproof_reports/physicalIndicators.html',
+                    {
+                        'Indicators': indicators,
+                        'NamesIndicators': indicatorsNames,
+                    })
 
 
 def financialIndicators(request):
-
-    indicators = investIndicators.objects.all()
-    indicatorsNames = getNames(indicators)
-    indicatorsNameCity = getNameCity(indicators)
     return render(
         request,
         'waterproof_reports/financialIndicators.html',
         {
-            'Indicators': indicators,
-            'NamesIndicators': indicatorsNames,
-            'NameCityIndicators': indicatorsNameCity
+            
         })
 
 
 def decisionIndicators(request):
-
-    indicators = investIndicators.objects.all()
-    indicatorsNames = getNames(indicators)
-    indicatorsNameCity = getNameCity(indicators)
     return render(
         request,
         'waterproof_reports/decisionIndicators.html',
         {
-            'Indicators': indicators,
-            'NamesIndicators': indicatorsNames,
-            'NameCityIndicators': indicatorsNameCity
+            
         })
 
 
 def geographicIndicators(request):
 
-    indicators = investIndicators.objects.all()
-    indicatorsNames = getNames(indicators)
-    indicatorsNameCity = getNameCity(indicators)
     base_data = ''
     intake = ''
     region = ''
@@ -1127,9 +1098,6 @@ def geographicIndicators(request):
         request,
         'waterproof_reports/geographicIndicators.html',
         {
-            'Indicators': indicators,
-            'NamesIndicators': indicatorsNames,
-            'NameCityIndicators': indicatorsNameCity,
             'base_data': base_data,
             'intake': intake,
             'region': region,

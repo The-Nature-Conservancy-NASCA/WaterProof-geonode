@@ -18,6 +18,7 @@ from .models import StudyCases, Portfolio, ModelParameter, StudyCases_NBS, Study
 
 import requests
 import datetime
+from django.utils import timezone
 import logging
 import simplejson as json
 
@@ -424,8 +425,9 @@ def save(request):
                         sc.studycase_type = 'PTAP'
                     else:
                         sc.studycase_type = 'CUSTOM'
-                    sc.create_date = datetime.datetime.now()
-                    sc.edit_date = datetime.datetime.now()
+                    now = datetime.datetime.now(tz=timezone.utc)
+                    sc.create_date = now
+                    sc.edit_date = now
                     sc.name = name
                     sc.city = city
                     sc.description = description

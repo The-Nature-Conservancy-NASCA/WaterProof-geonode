@@ -206,9 +206,7 @@
                     <p class="padding-text-desc">{% trans "Oportunity results ind text 1" %}</p>
                     <div class="container-page">
                         <div id="step3-map">
-
                         </div>
-
                         <div class="row">
                             <div class="col-md-12 calculed-roi padding-text-desc-table">
                                 <div class="col-md-12 line-detail">
@@ -437,7 +435,6 @@ $(function () {
     var TILELAYER = 'http://{s}.tile.osm.org/{z}/{x}/{y}.png';
     var CENTER = [4.582, -74.4879];
     var lyrsPolygons = [];
-    var map;
     var table = $('#example').DataTable();
     var searchPoints = L.geoJson(null, {
         onEachFeature: function(feature, layer) {

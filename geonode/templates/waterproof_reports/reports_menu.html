@@ -13,13 +13,11 @@
 <link rel="stylesheet" href="https://photon.komoot.io/static/leaflet.photon/leaflet.photon.css"/>
 <link rel="stylesheet" href="{{ STATIC_URL }}waterproof_reports/css/reports.css" /></link>
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_nbs_ca/css/dataTables.bootstrap.min.css"/>
-<link href="{% static "geonode/css/sidenav.css" %}" rel="stylesheet" />
+<link rel="stylesheet" href="{% static "geonode/css/sidenav.css" %}" />
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_nbs_ca/css/waterproof_nbs_ca.css"/>
 
 <script>
     var intakePolygons = [];
-    SEARCH_CITY_API_URL = '{{ SEARCH_CITY_API_URL }}';
-    SEARCH_COUNTRY_API_URL = '{{ SEARCH_COUNTRY_API_URL }}';
 </script>
 {% endblock %} 
 
@@ -181,29 +179,8 @@
                     </tr>
                 </thead>
                 <tbody id="listFielTable"></tbody>
-            </table>
-
-
-            
-    
-            <!-- <h4 id="countryLabel"></h4>
-            <p><b>{% trans "Selected City" %} :</b> <span id="cityLabel"></span> </p>
-            <p><b>{% trans "Region" %} :</b> <span id="regionLabel"></span> </p>
-            <p><b>{% trans "Currency" %}:</b><span id="currencyLabel"></span></p> -->
-            
+            </table>            
         </div>
-
-
-        <!-- <div class="conainer-report-main-table">
-            <div class="border-table-title-end">
-                <div class="title-table">
-                    <div class="tile-center-title">{% trans "Nature based solution" %}</div>
-                    <div class="tile-center-title">{% trans "Actual spend (USD)" %}</div>
-                    <div class="tile-center-title">{% trans "Intervention área (Hectares)" %}</div>
-                </div>
-                <div class="all-time" id="listFielTable"></div>
-            </div>
-        </div> -->
 
         <div class="page-header">
             <br>
@@ -230,7 +207,8 @@
             <div class="list-menu-results" id="idGeographicIndicators">
                 <img src="/static/geonode/img/indicadores-geograficos.png" title="{% trans "Geographic visualization" %}"/>
                 <br>
-                <a href="../../reports/geographic/">{% trans "Geographic visualization" %}</a>
+                <a id="idGeographicIndicatorsClic" href="">{% trans "Geographic visualization" %}</a>
+                <!-- ../../reports/geographic/-->
             </div>
         </div>
         <div>
@@ -252,15 +230,12 @@
     </div>
 </body>
 
-
 {% block body %}{% endblock body %} {% block sidebar %}{% endblock sidebar %} {% endblock body_outer %} {% block extra_script %}
 <script>
-    var countriesLayerUrl = '{{ STATIC_URL }}waterproof_intake/data/countries.geojson';
     var userCountryId = '{{userCountry.id}}';
     var userCountryCode = '{{userCountry.code}}';
     var userCountryName = '{{userCountry.name}}';
     var intakeList = '{{intakeList}}';
-
     if("{{study_case.id}}" === ""){
         document.getElementById('idFinancialIndicators').style.background = "#ffffff";
         document.getElementById('idFinancialIndicators').style.opacity = "0.4";
@@ -271,11 +246,9 @@
     } else {
         localStorage.idStudyCase = "{{study_case.id}}";
     }
-
     $("#idCountryMain").html(localStorage.getItem('country'));
     $("#idCityMain").html(localStorage.getItem('city'));
     $("#idRegionMain").html(localStorage.getItem('region'));
-
 </script>
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/highcharts-more.js"></script>
@@ -283,12 +256,11 @@
 <script src="https://code.highcharts.com/modules/export-data.js"></script>
 <script src="https://code.highcharts.com/modules/accessibility.js"></script>
 <script src="https://code.highcharts.com/modules/solid-gauge.js"></script>
-
 <script src="{{ STATIC_URL }}geonode/js/datatables/dataTables.bootstrap.min.js"></script>
-
 <script type="text/javascript" src="{% url 'javascript-catalog-intake' %}"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js" type="text/javascript"></script>
 <script src="https://unpkg.com/smartwizard@5/dist/js/jquery.smartWizard.min.js" type="text/javascript"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
 <!--ZIP reader library-->
 <script src="{{ STATIC_URL }}geonode/js/jszip/jszip.min.js"></script>
@@ -296,38 +268,17 @@
 <script src="{{ STATIC_URL }}geonode/js/shp/shp.min.js"></script>
 <script src="{{ STATIC_URL }}geonode/js/proj4js/proj4.js"></script>
 <script type="text/javascript">
-    var mxBasePath = '{{ STATIC_URL }}geonode/js/mxgraph/src';
-    var mxImageBasePath = '{{ STATIC_URL }}geonode/js/mxgraph/examples/images';
-    var editorUrl = '{{ STATIC_URL }}geonode/js/mxgraph/examples/editors/config/diagrameditor.xml';
     var serverApi = '{{serverApi}}';
-    var lang = '{{LANGUAGE_CODE}}';
+    var lang = '{{LANGUAGE_CODE}}';    
     OSM_BASEMAP_URL = '{{ OSM_BASEMAP_URL }} ';
     IMG_BASEMAP_URL = '{{ IMG_BASEMAP_URL }} ';
     HYDRO_BASEMAP_URL = '{{ HYDRO_BASEMAP_URL }} ';
     GRAY_BASEMAP_URL = '{{ GRAY_BASEMAP_URL }} ';
-    GEOSERVER_WMS = '{{ GEOSERVER_WMS }}';
-    HYDRO_NETWORK_LYR = '{{ HYDRO_NETWORK_LYR }}';
-</script>
-<script src="{{ STATIC_URL }}geonode/js/mxgraph/mxClient.js"></script>
-<script src="{{ STATIC_URL }}geonode/js/mxgraph/examples/editors/js/app.js"></script>
-<script src="{{ STATIC_URL }}geonode/js/mxgraph/examples/editors/js/app.js"></script>
-<script src="{{ STATIC_URL }}waterproof_intake/mathquill/mathquill.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-<script>
-    var intakePolygons = [];
+    
     SEARCH_CITY_API_URL = '{{ SEARCH_CITY_API_URL }}';
     SEARCH_COUNTRY_API_URL = '{{ SEARCH_COUNTRY_API_URL }}';
 </script>
 
-
-<script>
-    var countriesLayerUrl = '{{ STATIC_URL }}waterproof_nbs_ca/data/countries.geojson';
-    var userCountryId='{{country.id}}';
-    var userCountryCode='{{country.codeCountry}}';
-    var userCountryName='{{country.nameCountry}}';
-</script>
 <script type="text/javascript" src="{% url 'javascript-catalog-treatment' %}"></script>
 <script src="{{ STATIC_URL }}geonode/js/datatables/jquery.dataTables.min.js"></script>
 <script src="{{ STATIC_URL }}geonode/js/datatables/dataTables.bootstrap.min.js"></script>
@@ -337,446 +288,444 @@
 <script src="{{ STATIC_URL }}geonode/js/leaflet/photon/leaflet.photon.js"></script>
 <script src=" {{ STATIC_URL }}geonode/js/leaflet/leaflet-omnivore.min.js "></script>
 
-<script type=" text/javascript ">
-    API_URL = '/proxy/?url=https://photon.komoot.de/api/?';
-    TILELAYER = 'http://{s}.tile.osm.org/{z}/{x}/{y}.png';
-    CENTER = [-74.4879, 4.582];
-    MAXZOOM = 11;
-    let waterproof = {};
-
-    $(document).ready(function() {
-    });
-    var searchPoints = L.geoJson(null, {
-        onEachFeature: function(feature, layer) {
-            layer.bindPopup(feature.properties.name);
-        }
-    });
-
-</script>
-
 <script type="text/javascript">
 
-$(function () {
+    $(function () {
 
-    var IMAGE_LYR_URL = "https://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryTopo/MapServer/tile/{z}/{y}/{x}";
-    var HYDRO_LYR_URL = "https://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/Esri_Hydro_Reference_Overlay/MapServer/tile/{z}/{y}/{x}";
-    var MAXZOOM = 11;
-    var TILELAYER = 'http://{s}.tile.osm.org/{z}/{x}/{y}.png';
-    var CENTER = [4.582, -74.4879];
-    var lyrsPolygons = [];
-    var map;
-    var table = $('#example').DataTable();
-    var searchPoints = L.geoJson(null, {
-        onEachFeature: function(feature, layer) {
-            layer.bindPopup(feature.properties.name);
-        }
-    });
-    var dataTotalBenefitsIntake = [];
-    var dataTotalBenefitsIntakeOne = [];
-
-    openPDF = function() {
-        window.open("../../reports/pdf/?studyCase=" + localStorage.idStudyCase + "&studyCity=" + localStorage.getItem('city') + "&studyCountry=" + localStorage.getItem('country') + "&studyRegion=" + localStorage.getItem('region'))
-    }
-
-    downloadZip = function(){
-        window.open("{{filterzip.link}}", "zipDownload", "width=120,height=300")
-    }
-    
-    changeReport = function() {
-        location.href = "../../study_cases/report/" + localStorage.idStudyCase;
-    }
-
-    /**
-    * Search the points of a city and load them in the polygon of the map
-    * @param {String} Object with the identity of the city    
-    * @returns 
-    */
-    showSearchPoints = function(geojson) {
-        searchPoints.clearLayers();
-        let geojsonFilter = geojson.features.filter(feature => feature.properties.type == "city");
-        searchPoints.addData(geojsonFilter);
-        let cityName = geojsonFilter[0].properties.name;
-        drawPolygons(cityName);
-        table.search(cityName.substr(0, 5)).draw();
-    }
-    /**
-    * Load the results of the city on the map 
-    * @param {String} map limit
-    * @returns 
-    */
-    selectedResultHandler = function (feat) {
-
-        waterproof["cityCoords"] = [feat.geometry.coordinates[1], feat.geometry.coordinates[0]];
-        localStorage.setItem('cityCoords', JSON.stringify(waterproof["cityCoords"]));
-
-
-        searchPoints.eachLayer(function(layer) {
-            if (layer.feature.properties.osm_id != feat.properties.osm_id) {
-                layer.remove();
+        var IMAGE_LYR_URL = "https://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryTopo/MapServer/tile/{z}/{y}/{x}";
+        var HYDRO_LYR_URL = "https://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/Esri_Hydro_Reference_Overlay/MapServer/tile/{z}/{y}/{x}";
+        var MAXZOOM = 11;
+        var TILELAYER = 'http://{s}.tile.osm.org/{z}/{x}/{y}.png';
+        var CENTER = [4.582, -74.4879];
+        let waterproof = {};
+        var lyrsPolygons = [];
+        var map;        
+        var searchPoints = L.geoJson(null, {
+            onEachFeature: function(feature, layer) {
+                layer.bindPopup(feature.properties.name);
             }
         });
-        let country = feat.properties.country;
-        let cityName = feat.properties.name;
-        let countryCode = feat.properties.countrycode.toLowerCase();
+        var dataTotalBenefitsIntake = [];
+        var dataTotalBenefitsIntakeOne = [];
 
-        $("#countryLabel").html(country);
-        $("#cityLabel").html(cityName);
-        localStorage.setItem('city', cityName);
+        openPDF = function() {
+            window.open("../../reports/pdf/?studyCase=" + localStorage.idStudyCase + "&studyCity=" + localStorage.getItem('city') + "&studyCountry=" + localStorage.getItem('country') + "&studyRegion=" + localStorage.getItem('region'))
+        }
 
-        drawPolygons(cityName);
-        table.search(cityName.substr(0, 5)).draw();
+        downloadZip = function(){
+            //console.log("url de descarga zip"+"{{filterzip.link}}")
+            window.open("{{filterzip.link}}", "zipDownload", "width=120,height=300")
+        }
+        
+        changeReport = function() {
+            location.href = "../../study_cases/report/" + localStorage.idStudyCase;
+        }
 
-        let urlAPI = '{{ SEARCH_COUNTRY_API_URL }}' + countryCode;
+        /**
+        * Search the points of a city and load them in the polygon of the map
+        * @param {String} Object with the identity of the city    
+        * @returns 
+        */
+        showSearchPoints = function(geojson) {
+            searchPoints.clearLayers();
+            let geojsonFilter = geojson.features.filter(feature => feature.properties.type == "city");
+            searchPoints.addData(geojsonFilter);
+            let cityName = geojsonFilter[0].properties.name;
+            drawPolygons(cityName);            
+        }
+        /**
+        * Load the results of the city on the map 
+        * @param {String} map limit
+        * @returns 
+        */
+        selectedResultHandler = function (feat) {
 
-        $.get(urlAPI, function(data) {
-            $("#regionLabel").html(data.region);
-            $("#currencyLabel").html(data.currencies[0].name + " - " + data.currencies[0].symbol);
-            $("#listIntakes").show();
-
-            localStorage.setItem('country', country);
-            localStorage.setItem('region', data.region);
-            localStorage.setItem('currency', data.currencies[0].name + " - " + data.currencies[0].symbol);
-        });
-    }
-    /**
-    * Draw the polygons on the map when selecting the city 
-    * @param {String} city that is registered in the search space    
-    * @returns 
-    */
-    drawPolygons = function(citySearch) {
-        lyrsPolygons.forEach(lyr => map.removeLayer(lyr));
-        lyrsPolygons = [];
-        var bounds;
-        intakePolygons.forEach((feature) => {
-            if (feature.polygon !== 'None' && feature.polygon != '') {
-                let poly = feature.polygon;
-                if (poly.indexOf("SRID") >= 0) {
-                    poly = poly.split(";")[1];
+            waterproof["cityCoords"] = [feat.geometry.coordinates[1], feat.geometry.coordinates[0]];
+            localStorage.setItem('cityCoords', JSON.stringify(waterproof["cityCoords"]));
+            searchPoints.eachLayer(function(layer) {
+                if (layer.feature.properties.osm_id != feat.properties.osm_id) {
+                    layer.remove();
                 }
-                var lyrPoly = omnivore.wkt.parse(poly).addTo(map);
-                lyrsPolygons.push(lyrPoly);
-                if (bounds == undefined) {
-                    bounds = lyrPoly.getBounds();
+            });
+            let country = feat.properties.country;
+            let cityName = feat.properties.name;
+            let countryCode = feat.properties.countrycode.toLowerCase();
+
+            $("#countryLabel").html(country);
+            $("#cityLabel").html(cityName);
+            localStorage.setItem('city', cityName);
+            drawPolygons(cityName);            
+            let urlAPI = '{{ SEARCH_COUNTRY_API_URL }}' + countryCode;
+            $.get(urlAPI, function(data) {
+                $("#regionLabel").html(data.region);
+                $("#currencyLabel").html(data.currencies[0].name + " - " + data.currencies[0].symbol);
+                $("#listIntakes").show();
+
+                localStorage.setItem('country', country);
+                localStorage.setItem('region', data.region);
+                localStorage.setItem('currency', data.currencies[0].name + " - " + data.currencies[0].symbol);
+            });
+        }
+        /**
+        * Draw the polygons on the map when selecting the city 
+        * @param {String} city that is registered in the search space    
+        * @returns 
+        */
+        drawPolygons = function(citySearch) {
+            lyrsPolygons.forEach(lyr => map.removeLayer(lyr));
+            lyrsPolygons = [];
+            var bounds;
+            intakePolygons.forEach((feature) => {
+                if (feature.polygon !== 'None' && feature.polygon != '') {
+                    let poly = feature.polygon;
+                    if (poly.indexOf("SRID") >= 0) {
+                        poly = poly.split(";")[1];
+                    }
+                    var lyrPoly = omnivore.wkt.parse(poly).addTo(map);
+                    lyrsPolygons.push(lyrPoly);
+                    if (bounds == undefined) {
+                        bounds = lyrPoly.getBounds();
+                    } else {
+                        bounds = bounds.extend(lyrPoly.getBounds());
+                    }
+                }
+            });
+            if (bounds != undefined) {
+                map.fitBounds(bounds);
+            }
+        };
+        initMapDecision = function () {
+                map = L.map('mapidcuenca', {
+                    scrollWheelZoom: false,
+                    zoomControl: false,
+                    photonControl: true,
+                    photonControlOptions: {
+                        resultsHandler: showSearchPoints,
+                        selectedResultHandler: selectedResultHandler,
+                        placeholder: gettext('Search City') + '...',
+                        position: 'topleft',
+                        url: SEARCH_CITY_API_URL
+                    }
+                });
+
+                let initialCoords = CENTER;
+                var cityCoords = localStorage.getItem('cityCoords');
+                var city = localStorage.getItem('city');
+                var initialZoom = 5;
+                var cityNameMap = localStorage.getItem('city').substr(0, 5);
+
+                if (cityCoords == undefined) {
+                    cityCoords = initialCoords;
                 } else {
-                    bounds = bounds.extend(lyrPoly.getBounds());
+                    initialCoords = JSON.parse(cityCoords);
+                    drawPolygons(city);
+                    initialZoom = 9;
+                    try {
+                        $("#countryLabel").html(localStorage.getItem('country'));
+                        $("#cityLabel").html(localStorage.getItem('city'));
+                        $("#regionLabel").html(localStorage.getItem('region'));
+                        $("#currencyLabel").html(localStorage.getItem('currency'));
+                        $("#listIntakes").show();
+                    } catch (e) {
+
+                    }
                 }
-            }
-        });
-        if (bounds != undefined) {
-            map.fitBounds(bounds);
+                
+                map.setView(initialCoords, initialZoom);            
+                searchPoints.addTo(map);
+                let attrib = 'Data \u00a9 <a href="http://www.openstreetmap.org/copyright"> OpenStreetMap Contributors </a> Tiles \u00a9 Komoot';
+                var tilelayer = L.tileLayer(OSM_BASEMAP_URL, { maxZoom: MAXZOOM, attribution: attrib }).addTo(map);
+                var images = L.tileLayer(IMAGE_LYR_URL);
+                var hydroLyr = L.tileLayer(HYDRO_LYR_URL);
+
+                var baseLayers = {
+                    OpenStreetMap: tilelayer,
+                    Images: images,
+                };
+
+                var overlays = {
+                    "Hydro (esri)": hydroLyr,
+                };
+
+                var defExt = new L.Control.DefaultExtent({ title: gettext('Default extent'), position: 'topright'}).addTo(map);
+                var zoomControl = new L.Control.Zoom({ position: 'topright' }).addTo(map);
+                L.control.layers(baseLayers, overlays, { position: 'topleft' }).addTo(map);
         }
-    };
-    initMapDecision = function () {
-            map = L.map('mapidcuenca', {
-                scrollWheelZoom: false,
-                zoomControl: false,
-                photonControl: true,
-                photonControlOptions: {
-                    resultsHandler: showSearchPoints,
-                    selectedResultHandler: selectedResultHandler,
-                    placeholder: gettext('Search City') + '...',
-                    position: 'topleft',
-                    url: SEARCH_CITY_API_URL
-                }
-            });
 
-            let initialCoords = CENTER;
-            var cityCoords = localStorage.getItem('cityCoords');
-            var city = localStorage.getItem('city');
-            var initialZoom = 5;
-            var cityNameMap = localStorage.getItem('city').substr(0, 5);
-
-            if (cityCoords == undefined) {
-                cityCoords = initialCoords;
-            } else {
-                initialCoords = JSON.parse(cityCoords);
-                drawPolygons(city);
-                initialZoom = 9;
-                try {
-                    $("#countryLabel").html(localStorage.getItem('country'));
-                    $("#cityLabel").html(localStorage.getItem('city'));
-                    $("#regionLabel").html(localStorage.getItem('region'));
-                    $("#currencyLabel").html(localStorage.getItem('currency'));
-                    $("#listIntakes").show();
-                } catch (e) {
-
-                }
-            }
-
-            table.search(cityNameMap).draw();
-
-            map.setView(initialCoords, initialZoom);
-            
-            searchPoints.addTo(map);
-
-            var tilelayer = L.tileLayer(TILELAYER, { maxZoom: MAXZOOM, attribution: 'Data \u00a9 <a href="http://www.openstreetmap.org/copyright"> OpenStreetMap Contributors </a> Tiles \u00a9 Komoot' }).addTo(map);
-            var images = L.tileLayer(IMAGE_LYR_URL);
-            var hydroLyr = L.tileLayer(HYDRO_LYR_URL);
-
-            var baseLayers = {
-                OpenStreetMap: tilelayer,
-                Images: images,
-            };
-
-            var overlays = {
-                "Hydro (esri)": hydroLyr,
-            };
-
-            var defExt = new L.Control.DefaultExtent({ title: gettext('Default extent'), position: 'topright'}).addTo(map);
-            var zoomControl = new L.Control.Zoom({ position: 'topright' }).addTo(map);
-            L.control.layers(baseLayers, overlays, { position: 'topleft' }).addTo(map);
-
-            function onMapClick(e) {
-            }
-            map.on('click', onMapClick);
-    }
-
-    changeGraphRoiCost = function() {
-        Highcharts.chart('containerRoi', {
-                chart: {
-                    type: 'column'
-                },
-                title: {
-                    text: 'Return of investment'
-                },
-                colors: ['#fe7700', '#ffc400', '#426ac7', '#a5a5a5'],
-                xAxis: {
-                    categories: [1,2,3]
-                },
-                credits: {
-                    enabled: false
-                },
-                series: [{
-                    name: 'Total Cost',
-                    data: [1,2,3]
-                },{
-                    name: 'Total Discounted Benefits',
-                    type: 'spline',
-                    dashStyle: 'shortdot',
-                    data: [1,2,3]
-                }]
-            });
-    };
-
-    displayList = function(nameObject, nameTitle) {
-        if(document.getElementById(nameObject).style.display === "none") {
-            document.getElementById(nameObject).style.display = "block";
-            document.getElementById(nameTitle).style.borderWidth = "2px";
-        } else {
-            document.getElementById(nameObject).style.display = "none";
-            document.getElementById(nameTitle).style.borderWidth = "0px";
-            changeGraphRoiCost();
-        }
-    };
-
-    changePie = function (selectName) {
-        dataTotalBenefitsIntakeOne = [];
-        dataTotalBenefitsIntake.forEach((featureIntake) => {
-            if(featureIntake.type ===  selectName) {
-                dataTotalBenefitsIntakeOne.push({
-                    name: featureIntake.name,
-                    y: featureIntake.y
-                })
-            }
-        });
-
-        Highcharts.chart('containerAbi', {
-            chart: {
-                plotBackgroundColor: null,
-                plotBorderWidth: null,
-                plotShadow: false,
-                type: 'pie'
-            },
-            title: {
-                text: 'Intake Benefits'
-            },
-            plotOptions: {
-                pie: {
-                    allowPointSelect: true,
-                    cursor: 'pointer',
-                    dataLabels: {
+        changeGraphRoiCost = function() {
+            let lblRoI = gettext('Return of investment');
+            let lblTotalCost = gettext('Total cost');
+            let lblTotalDiscountBenefit = gettext('Total discount benefit');
+            Highcharts.chart('containerRoi', {
+                    chart: {
+                        type: 'column'
+                    },
+                    title: {
+                        text: lblRoI
+                    },
+                    colors: ['#fe7700', '#ffc400', '#426ac7', '#a5a5a5'],
+                    xAxis: {
+                        categories: [1,2,3]
+                    },
+                    credits: {
                         enabled: false
                     },
-                    showInLegend: true
+                    series: [{
+                        name: lblTotalCost,
+                        data: [1,2,3]
+                    },{
+                        name: lblTotalDiscountBenefit,
+                        type: 'spline',
+                        dashStyle: 'shortdot',
+                        data: [1,2,3]
+                    }]
+                });
+        };
+
+        displayList = function(nameObject, nameTitle) {
+            if(document.getElementById(nameObject).style.display === "none") {
+                document.getElementById(nameObject).style.display = "block";
+                document.getElementById(nameTitle).style.borderWidth = "2px";
+            } else {
+                document.getElementById(nameObject).style.display = "none";
+                document.getElementById(nameTitle).style.borderWidth = "0px";
+                changeGraphRoiCost();
+            }
+        };
+
+        changePie = function (selectName) {
+            let lblIntakeBenefit = gettext('Intake benefit');
+            dataTotalBenefitsIntakeOne = [];
+            dataTotalBenefitsIntake.forEach((featureIntake) => {
+                if(featureIntake.type ===  selectName) {
+                    dataTotalBenefitsIntakeOne.push({
+                        name: featureIntake.name,
+                        y: featureIntake.y
+                    })
                 }
-            },
-            credits: {
-                enabled: false
-            },
-            series: [{
-                name: 'Intake Benefits',
-                colorByPoint: true,
-                data: dataTotalBenefitsIntakeOne
-            }]
-        });
-    };
-
-    initialize = function () {
-        var dataNetPresentValueSummary = [];
-        var urlDetail = "../../reports/getNetPresentValueSummary/?studyCase=" + localStorage.idStudyCase;
-        var typeMoney = "";
-        $.getJSON(urlDetail, function (data) {
-            $.each( data, function( key, value ) {
-                typeMoney = value.currencyr;
-                dataNetPresentValueSummary.push(parseFloat(value.implementationr));
-                dataNetPresentValueSummary.push(parseFloat(value.maintenancer));
-                dataNetPresentValueSummary.push(parseFloat(value.oportunityr));
-                dataNetPresentValueSummary.push(parseFloat(value.transactionr));
-                dataNetPresentValueSummary.push(parseFloat(value.platformr));
-                dataNetPresentValueSummary.push(parseFloat(value.benefitr));
-                dataNetPresentValueSummary.push(parseFloat(value.totalr));
-
             });
 
-            Highcharts.chart('containerNpv', {
+            Highcharts.chart('containerAbi', {
                 chart: {
-                    type: 'column'
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
+                    type: 'pie'
                 },
                 title: {
-                    text: 'Net present value summary'
+                    text: lblIntakeBenefit
                 },
-                colors: ['#008BAB'],
-                xAxis: {
-                    categories: ['Implementation', 'Maintance', 'Oportunity', 'Transaction', 'Platform', 'Benefit', 'Total']
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: false
+                        },
+                        showInLegend: true
+                    }
                 },
                 credits: {
                     enabled: false
                 },
                 series: [{
-                    name: 'NPV (' + typeMoney + ')',
-                    data: dataNetPresentValueSummary
+                    name: lblIntakeBenefit,
+                    colorByPoint: true,
+                    data: dataTotalBenefitsIntakeOne
                 }]
             });
-        });
-        var urlDetail = "../../reports/getReportAnalisysBenefics/?studyCase=" + localStorage.idStudyCase;
-        $.getJSON(urlDetail, function (data) {
-            $.each( data, function( key, value ) {
-                var objectButton;
-                if(value.nameIndicator.toUpperCase() === "PHYSICAL RISK QUANTITY") {
-                    objectButton = document.getElementById("idButtonPrq");
-                } else if(value.nameIndicator.toUpperCase() === "PHYSICAL RISK ASSOCIATED WITH AMOUNT OF WATER") {
-                    objectButton = document.getElementById("idButtonPrqa");
-                } else if(value.nameIndicator.toUpperCase() === "REGULATORY AND REPUTATIONAL") {
-                    objectButton = document.getElementById("idButtonRar");
-                } else if(value.nameIndicator.toUpperCase() === "OVERALL WATER RISK SCORE") {
-                    objectButton = document.getElementById("idButtonOwr");
-                }
+        };
 
-                if(value.color === "Dark Green") {
-                    objectButton.style.backgroundColor = "#155816";
-                } else if(value.color === "Orange") {
-                    objectButton.style.backgroundColor = "#EC670A";
-                } else {
-                    objectButton.style.backgroundColor = "#af0900";
-                }
-                objectButton.innerHTML = value.description;
+        initialize = function () {
+            var dataNetPresentValueSummary = [];
+            var urlDetail = "../../reports/getNetPresentValueSummary/?studyCase=" + localStorage.idStudyCase;
+            var typeMoney = "";
+            $.getJSON(urlDetail, function (data) {
+                $.each( data, function( key, value ) {
+                    typeMoney = value.currencyr;
+                    dataNetPresentValueSummary.push(parseFloat(value.implementationr));
+                    dataNetPresentValueSummary.push(parseFloat(value.maintenancer));
+                    dataNetPresentValueSummary.push(parseFloat(value.oportunityr));
+                    dataNetPresentValueSummary.push(parseFloat(value.transactionr));
+                    dataNetPresentValueSummary.push(parseFloat(value.platformr));
+                    dataNetPresentValueSummary.push(parseFloat(value.benefitr));
+                    dataNetPresentValueSummary.push(parseFloat(value.totalr));
 
-            });
-        });
-
-        var urlDetail = "../../reports/getReportAnalisysBeneficsB/?studyCase=" + localStorage.idStudyCase;
-        $.getJSON(urlDetail, function (data) {
-            $.each( data, function( key, value ) {
-                document.getElementById("changeInVolumeOfWater").innerHTML = (value.changeInVolumeOfWater.toFixed(2)+"%");
-                document.getElementById("changeInBaseFlow").innerHTML = (value.changeInBaseFlow.toFixed(2)+"%");
-                document.getElementById("changeIntotalSediments").innerHTML = (value.changeIntotalSediments.toFixed(2)+"%");
-                document.getElementById("changeInNitrogenLoad").innerHTML = (value.changeInNitrogenLoad.toFixed(2)+"%");
-                document.getElementById("changeInPhosphorus").innerHTML = (value.changeInPhosphorus.toFixed(2)+"%");
-                document.getElementById("changeInCarbonStorage").innerHTML = (value.changeInCarbonStorage.toFixed(2)+"%");
-                document.getElementById("idCurrencyMain").innerHTML = value.currency;
-                document.getElementById("idTimeMain").innerHTML = value.time;
-                document.getElementById("idRoi").innerHTML = value.roi.toFixed(2);
-                var nameButtom = value.result.split("::");
-                if(nameButtom[1] === "Dark Green") {
-                    document.getElementById("idBtnRoi").style.backgroundColor = "#155816";
-                } else if(nameButtom[1] === "Light Green") {
-                    document.getElementById("idBtnRoi").style.backgroundColor = "#35b137";
-                } else {
-                    document.getElementById("idBtnRoi").style.backgroundColor = "#af0900";
-                }
-                document.getElementById("idBtnRoi").innerHTML = nameButtom[0];
-                localStorage.idCurrencyMain = value.currency;
-                localStorage.idTimeMain = value.time;
-            });
-        });
-
-        var urlDetail = "../../reports/getReportAnalisysBeneficsC/?studyCase=" + localStorage.idStudyCase;
-        $.getJSON(urlDetail, function (data) {
-            var listFielTable = "";
-            $.each( data, function( key, value ) {
-                valueCol2 = value.costPerHectarea.toFixed(2);
-                valuaCol3 = value.recomendedIntervetion.toFixed(2)
-                // listFielTable = listFielTable + '<div><div class="line-marc-table" style="width: 100%;color: #616160;margin-top: 20px;height: 20px;"><div style="width: 100%;text-align: left;margin-left: 10px;">' + value.sbnf + '</div><div class="top-center-line">' + Intl.NumberFormat('es').format(valueCol2) + '</div><div class="line-number-marc-table" style="    position: absolute;right: 0px;width: 30%;color: #616160;font-size: 13px;padding: 0px;top: 0px;">' + Intl.NumberFormat('es').format(valuaCol3) + '</div></div></div>';
-                listFielTable = listFielTable + `
-                    <tr>
-                        <td class="border-table"><span>` + value.sbnf + `</span></td>
-                        <td class="border-table"><span>` + Intl.NumberFormat('es').format(valueCol2) + `</span></td>
-                        <td class="border-table"><span>` + Intl.NumberFormat('es').format(valuaCol3) + `</span></td>
-                    </tr> 
-                `
-            });
-
-            document.getElementById("listFielTable").innerHTML = listFielTable;
-        });
-
-        var urlDetail = "../../reports/getSelectorStudyCasesId/?studyCase=" + localStorage.idStudyCase;
-        $.getJSON(urlDetail, function (data) {
-            var listFielTable = "";
-            $.each( data, function( key, value ) {
-                var option = document.createElement("option");
-                option.text = value.selector;
-                option.value = value.studyCasesId;
-                document.getElementById("idSelectStudyCase").add(option);
-                document.getElementById("idNameStadyCase").innerHTML = value.studyCasesName;
-                localStorage.studyCasesName = value.studyCasesName;
-            });
-        });
-
-        var urlDetail = "../../reports/getStudyCasesIntake/?studyCase=" + localStorage.idStudyCase;
-        $.getJSON(urlDetail, function (data) {
-            var listFielTable = "";
-            $.each( data, function( key, value ) {
-                document.getElementById("idNumberOfWater").innerHTML = value.numberStudyCase;
-                document.getElementById("idNumberOfDrinking").innerHTML = value.numberStudyCase;
-                localStorage.idNumberOfWater = value.numberStudyCase;
-                localStorage.idNumberOfDrinking = value.numberStudyCase;
-            });
-        });
-
-        document.getElementById("idSelectStudyCase").onchange = function() {
-            location.href = "../report/" + this.value;
-        }
-
-        var urlDetail = "../../reports/getReportOportunityResultMaps/?studyCase=" + localStorage.idStudyCase;
-        $.getJSON(urlDetail, function (data) {
-            $.each( data, function( key, value ) {
-                var jsonPolygon = JSON.parse(value.polygon);
-                var stringPolygon = "";
-                jsonPolygon.features.forEach((featureCoord) => {
-                    featureCoord.geometry.coordinates.forEach((featureCoordList) => {
-                        var contList = 0;
-                        featureCoordList.forEach((featureCoordListPoint) => {
-                            contList++;
-                            if(contList === featureCoordList.length) {
-                                stringPolygon = stringPolygon + featureCoordListPoint[0] + " " + featureCoordListPoint[1];
-                            } else {
-                                stringPolygon = stringPolygon + featureCoordListPoint[0] + " " + featureCoordListPoint[1] + ",";
-                            }
-                        });
-                    });
                 });
-                intakePolygons.push({polygon: "POLYGON ((" + stringPolygon + "))"});
+
+                let lblImplementation = gettext('Implementation');
+                let lblMaintenance = gettext('Maintenance');
+                let lblOpportunity = gettext('Opportunity');
+                let lblTransaction = gettext('Transaction');
+                let lblPlatform = gettext('Platform');
+                let lblBenefit = gettext('Benefit');
+                let lblNetPresentValue = gettext('Net Present Value');
+                let categories = [lblImplementation, lblMaintenance, lblOpportunity, lblTransaction, lblPlatform, lblBenefit, 'Total'];
+
+                Highcharts.chart('containerNpv', {
+                    chart: {
+                        type: 'column'
+                    },
+                    title: {
+                        text: lblNetPresentValue
+                    },
+                    colors: ['#008BAB'],
+                    xAxis: {
+                        categories: categories
+                    },
+                    credits: {
+                        enabled: false
+                    },
+                    series: [{
+                        name: 'NPV (' + typeMoney + ')',
+                        data: dataNetPresentValueSummary
+                    }]
+                });
+            });
+            var urlDetail = "../../reports/getReportAnalisysBenefics/?studyCase=" + localStorage.idStudyCase;
+            $.getJSON(urlDetail, function (data) {
+                $.each( data, function( key, value ) {
+                    var objectButton;
+                    if(value.nameIndicator.toUpperCase() === "PHYSICAL RISK QUANTITY") {
+                        objectButton = document.getElementById("idButtonPrq");
+                    } else if(value.nameIndicator.toUpperCase() === "PHYSICAL RISK ASSOCIATED WITH AMOUNT OF WATER") {
+                        objectButton = document.getElementById("idButtonPrqa");
+                    } else if(value.nameIndicator.toUpperCase() === "REGULATORY AND REPUTATIONAL") {
+                        objectButton = document.getElementById("idButtonRar");
+                    } else if(value.nameIndicator.toUpperCase() === "OVERALL WATER RISK SCORE") {
+                        objectButton = document.getElementById("idButtonOwr");
+                    }
+
+                    if(value.color === "Dark Green") {
+                        objectButton.style.backgroundColor = "#155816";
+                    } else if(value.color === "Orange") {
+                        objectButton.style.backgroundColor = "#EC670A";
+                    } else {
+                        objectButton.style.backgroundColor = "#af0900";
+                    }
+                    objectButton.innerHTML = value.description;
+
+                });
             });
 
-            setTimeout(function(){
-                initMapDecision();
-            }, 1000);
+            var urlDetail = "../../reports/getReportAnalisysBeneficsB/?studyCase=" + localStorage.idStudyCase;
+            $.getJSON(urlDetail, function (data) {
+                $.each( data, function( key, value ) {
+                    document.getElementById("changeInVolumeOfWater").innerHTML = (value.changeInVolumeOfWater.toFixed(2)+"%");
+                    document.getElementById("changeInBaseFlow").innerHTML = (value.changeInBaseFlow.toFixed(2)+"%");
+                    document.getElementById("changeIntotalSediments").innerHTML = (value.changeIntotalSediments.toFixed(2)+"%");
+                    document.getElementById("changeInNitrogenLoad").innerHTML = (value.changeInNitrogenLoad.toFixed(2)+"%");
+                    document.getElementById("changeInPhosphorus").innerHTML = (value.changeInPhosphorus.toFixed(2)+"%");
+                    document.getElementById("changeInCarbonStorage").innerHTML = (value.changeInCarbonStorage.toFixed(2)+"%");
+                    document.getElementById("idCurrencyMain").innerHTML = value.currency;
+                    document.getElementById("idTimeMain").innerHTML = value.time;
+                    document.getElementById("idRoi").innerHTML = value.roi.toFixed(2);
+                    var nameButtom = value.result.split("::");
+                    if(nameButtom[1] === "Dark Green") {
+                        document.getElementById("idBtnRoi").style.backgroundColor = "#155816";
+                    } else if(nameButtom[1] === "Light Green") {
+                        document.getElementById("idBtnRoi").style.backgroundColor = "#35b137";
+                    } else {
+                        document.getElementById("idBtnRoi").style.backgroundColor = "#af0900";
+                    }
+                    document.getElementById("idBtnRoi").innerHTML = nameButtom[0];
+                    localStorage.idCurrencyMain = value.currency;
+                    localStorage.idTimeMain = value.time;
+                });
+            });
 
-        });
-    }
-    initialize();
-});
-    
+            var urlDetail = "../../reports/getReportAnalisysBeneficsC/?studyCase=" + localStorage.idStudyCase;
+            $.getJSON(urlDetail, function (data) {
+                var listFielTable = "";
+                $.each( data, function( key, value ) {
+                    valueCol2 = value.costPerHectarea.toFixed(2);
+                    valuaCol3 = value.recomendedIntervetion.toFixed(2)
+                    listFielTable = listFielTable + `
+                        <tr>
+                            <td class="border-table"><span>` + value.sbnf + `</span></td>
+                            <td class="border-table"><span>` + Intl.NumberFormat('es').format(valueCol2) + `</span></td>
+                            <td class="border-table"><span>` + Intl.NumberFormat('es').format(valuaCol3) + `</span></td>
+                        </tr> 
+                    `
+                });
+                document.getElementById("listFielTable").innerHTML = listFielTable;
+            });
+
+            var urlDetail = "../../reports/getSelectorStudyCasesId/?studyCase=" + localStorage.idStudyCase;
+            $.getJSON(urlDetail, function (data) {
+                var listFielTable = "";
+                $.each( data, function( key, value ) {
+                    var option = document.createElement("option");
+                    option.text = value.selector;
+                    option.value = value.studyCasesId;
+                    document.getElementById("idSelectStudyCase").add(option);
+                    document.getElementById("idNameStadyCase").innerHTML = value.studyCasesName;
+                    localStorage.studyCasesName = value.studyCasesName;
+                });
+            });
+
+            var urlDetail = "../../reports/getStudyCasesIntake/?studyCase=" + localStorage.idStudyCase;
+            $.getJSON(urlDetail, function (data) {
+                var listFielTable = "";
+                $.each( data, function( key, value ) {
+                    document.getElementById("idNumberOfWater").innerHTML = value.numberStudyCase;
+                    document.getElementById("idNumberOfDrinking").innerHTML = value.numberStudyCase;
+                    localStorage.idNumberOfWater = value.numberStudyCase;
+                    localStorage.idNumberOfDrinking = value.numberStudyCase;
+                });
+            });
+
+            document.getElementById("idSelectStudyCase").onchange = function() {
+                location.href = "../report/" + this.value;
+            }
+
+            var urlDetail = "../../reports/getReportOportunityResultMaps/?studyCase=" + localStorage.idStudyCase;
+            $.getJSON(urlDetail, function (data) {
+                $.each( data, function( key, value ) {
+                    var jsonPolygon = JSON.parse(value.polygon);
+                    var stringPolygon = "";
+                    jsonPolygon.features.forEach((featureCoord) => {
+                        featureCoord.geometry.coordinates.forEach((featureCoordList) => {
+                            var contList = 0;
+                            featureCoordList.forEach((featureCoordListPoint) => {
+                                contList++;
+                                if(contList === featureCoordList.length) {
+                                    stringPolygon = stringPolygon + featureCoordListPoint[0] + " " + featureCoordListPoint[1];
+                                } else {
+                                    stringPolygon = stringPolygon + featureCoordListPoint[0] + " " + featureCoordListPoint[1] + ",";
+                                }
+                            });
+                            });
+                        });
+                        intakePolygons.push({polygon: "POLYGON ((" + stringPolygon + "))"});
+                    });
+
+                    setTimeout(function(){
+                        initMapDecision();
+                    }, 1000);
+
+            });
+
+            // A.R. Agrega evento llamado mapas geográficos
+            //server = 'https://dev.skaphe.com/srv/'; //'/srv/';  
+            var urlDetail = "../../reports/getWpcompareMapas/?studyCase=" + localStorage.idStudyCase;
+            $.getJSON(urlDetail, function (data) {
+                    $.each( data, function( key, value ) {
+                        usr_folder = value.folder;
+                        intake = value.intake;
+                        year = value.year;
+                        region=value.region;
+                        studyCaseId=value.studycase;
+                        let g = JSON.parse(value.center).coordinates;
+                        let centroid =g[1] + "," + g[0];
+                        centroX = centroid;
+                    });
+                    var urlWaterProofLyrsWMS = `/reports/geographic/?folder=${usr_folder}&intake=${intake}&year=${year}&region=${region}&center=${centroX}&study_case_id=${studyCaseId}`;
+                    //console.log (urlWaterProofLyrsWMS);
+                    document.getElementById("idGeographicIndicatorsClic").href =urlWaterProofLyrsWMS;
+                })    
+        }
+        initialize();
+    });    
 </script>
-
 {% endblock %}

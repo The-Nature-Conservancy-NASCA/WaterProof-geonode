@@ -910,7 +910,7 @@ def intakes(request, city_id):
             request,
             'waterproof_intake/intake_list.html',
             {
-                'intakeList': intakes,
+                'intakes': [],
             }
         )
 
@@ -1036,14 +1036,15 @@ def cloneIntake(request, idx):
             filterElementSystem = ElementSystem.objects.filter(intake=filterIntake.pk)
             filterPolygon = Polygon.objects.get(intake=filterIntake.pk)
             try:
+                now = datetime.datetime.now()
                 newIntake = Intake.objects.create(
                     name=filterIntake.name,
                     description=filterIntake.description,
                     water_source_name=filterIntake.water_source_name,
                     city=filterIntake.city,
-                    xml_graph=filterIntake.xml_graph,
-                    creation_date=filterIntake.creation_date,
-                    updated_date=datetime.datetime.now(),
+                    xml_graph=filterIntake.xml_graph,                    
+                    creation_date=now,
+                    updated_date=now,
                     added_by=filterIntake.added_by
                 )
                 print(filterPolygon)
