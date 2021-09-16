@@ -2,33 +2,47 @@
 
 {% block content %}
 
-        <article class="art-item">
-            <div class="data">
-                <h2>{{articulo.titulo}}:</h2>
-                <h4>{{articulo.created_at}}</h4>
-                {{articulo.contenido|safe|linebreaks}}<br>
-            </div>
-            
-            <div class="referencias">
-                <h3>Referencies</h3>
-                <div class="data">
-                    {%for r in referencias %}
-                    <p> {{r.anno}}. {{r.nombre}}. {{r.publicador}}. 
-                        {% if r.url is not None %}
-                        | <a href="{{r.url}}" target="_blank">{{r.url}}</a></p>
-                        {%endif%}
-                    {%endfor%}
-                </div>
-            </div>
+<article class="art-item">
+    <div class="data">
+        {% if request.LANGUAGE_CODE == "es" %}          
+        <h2>{{articulo.titulo}}:</h2>
+        {% else %}          
+        <h2>{{articulo.titulo_en}}:</h2>
+        {% endif %}
+        
+        <h4>{{articulo.created_at}}</h4>
+        {% if request.LANGUAGE_CODE == "es" %}          
+        {{articulo.contenido|safe|linebreaks}}<br>
+        {% else %}          
+        {{articulo.contenido_en|safe|linebreaks}}<br>
+        {% endif %}
+        
+    </div>
 
-            <div class="enlaces">
-                <h3>Bibliografía</h3>
-                <div class="data">
-                {%for e in enlaces %}
+    <div class="referencias">
+        <h3>{% trans Referencies %}</h3>
+        <div class="data">
+            {%for r in referencias %}
+            <p> {{r.anno}}. {{r.nombre}}. {{r.publicador}}.
+                {% if r.url is not None %}
+                | <a href="{{r.url}}" target="_blank">{{r.url}}</a></p>
+            {%endif%}
+            {%endfor%}
+        </div>
+    </div>
+
+    <div class="enlaces">
+        <h3>{% trans Bibliography %}</h3>
+        <div class="data">
+            {%for e in enlaces %}
+                {% if request.LANGUAGE_CODE == "es" %}
                     <p>{{e.descripcion}} | <a href="{{e.url}}" target="_blank">{{e.url}}</a></p>
-                {%endfor%}
-                </div>
-            </div>
-        </article>
+                {% else %}          
+                    <p>{{e.descripcion_en}} | <a href="{{e.url}}" target="_blank">{{e.url}}</a></p>
+                {% endif %}                
+            {%endfor%}
+        </div>
+    </div>
+</article>
 
 {% endblock%}
