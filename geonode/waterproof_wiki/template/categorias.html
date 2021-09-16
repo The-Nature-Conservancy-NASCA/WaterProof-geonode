@@ -1,14 +1,9 @@
 {% extends 'waterproof_wiki/layout.html'%}
+{% load i18n %}
 
 {%block titulo%}
-    {% if request.LANGUAGE_CODE == "es" %}          
-    <p>Categoria: {{categoria.nombre}}</p>
+    <p>Category: {{categoria.nombre}}</p>
     <p>{{categoria.descripcion}}</p>
-    {% else %}          
-    <p>Category: {{categoria.nombre_en}}</p>
-    <p>{{categoria.descripcion_en}}</p>
-    {% endif %}
-    
 {% endblock %}
 
 {% block content %}

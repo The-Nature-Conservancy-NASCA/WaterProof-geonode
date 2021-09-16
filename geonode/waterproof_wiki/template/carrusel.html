@@ -1,68 +1,80 @@
-{% extends 'layout_random.html'%}
-<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+{% extends 'waterproof_wiki/layout.html'%}
+{% load i18n %}
 
-<!--[if lt IE 9]>
+{% block body_outer %}
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+
+    <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
     <![endif]-->
 
-<!-- Favicons -->
-<link rel="apple-touch-icon-precomposed" sizes="144x144"
-  href="https://owlcarousel2.github.io/OwlCarousel2/assets/ico/apple-touch-icon-144-precomposed.png">
-<link rel="shortcut icon" href="https://owlcarousel2.github.io/OwlCarousel2/assets/ico/favicon.png">
-<link rel="shortcut icon" href="https://owlcarousel2.github.io/OwlCarousel2/demos/favicon.ico">
+    <!-- Favicons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://owlcarousel2.github.io/OwlCarousel2/assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="shortcut icon" href="https://owlcarousel2.github.io/OwlCarousel2/assets/ico/favicon.png">
+    <link rel="shortcut icon" href="https://owlcarousel2.github.io/OwlCarousel2/demos/favicon.ico">
 
-<body>
 
-  {% block content %}
-  <section id="demos">
-    <div class="row">
-      <div class="large-12 columns">
-        <div class="owl-carousel owl-theme owl-loaded owl-drag">
+  <body>
 
+    {% block content %}
+    <section id="demos">
+      {{articulos}}
+      <div class="row">
+        <div class="large-12 columns">
+          <div class="owl-carousel owl-theme owl-loaded owl-drag">
+            
+            
           <div class="owl-stage-outer">
-            <div class="owl-stage" style="transform: translate3d(-2940px, 0px, 0px); transition: all 0.50s ease 0s; ">
-              {%for a in articulos %}
-              <div class="owl-item">
-                <div class="item">
-                  {% if request.LANGUAGE_CODE == "es" %}          
-                    <h4>{{a.titulo}}</h4>
-                  {% else %}          
-                    <h4>{{a.titulo_en}}</h4>
-                  {% endif %}
-                  
-                  <a href="{% url 'consultar_articulo' id=a.id %}"><img src=../media/{{a.imagen}}> </a>
-                  <div class="texto-encima">{{a.metadato_imagen}}</div>
-                </div>
-              </div>
-              {% endfor%}
+			  <div class="owl-stage" style="transform: translate3d(-2940px, 0px, 0px); transition: all 0.50s ease 0s; ">
+        
+        {%for a in articulos %}
+        {{a}}
+				<div class="owl-item" >
+          <div class="item">
+            <h4>{{a.titulo}}</h4>
+            <a href="{% url 'consultar_articulo' id=a.id %}"><img src=/uploaded/{{a.imagen}}> </a>
+            <div class="texto-encima">{{a.metadato_imagen}}</div>
+				  </div>
+         </div>
+        {% endfor%}
+				
+				</div>
+			</div>
+			<div class="owl-dots">
 
-            </div>
-          </div>
-          <div class="owl-dots">
-          </div>
-
+			</div>
+         
           <script>
-            $(document).ready(function () {
+            $(document).ready(function() {
               var owl = $('.owl-carousel');
               owl.owlCarousel({
                 items: 2,
                 loop: true,
                 margin: 10,
-                nav: true,
+				        nav:true,
                 autoplay: true,
                 autoplayTimeout: 4500,
                 autoplayHoverPause: true
               });
-              $('.play').on('click', function () {
+              $('.play').on('click', function() {
                 owl.trigger('play.owl.autoplay', [3000])
               })
-              $('.stop').on('click', function () {
+              $('.stop').on('click', function() {
                 owl.trigger('stop.owl.autoplay')
               })
             })
           </script>
         </div>
       </div>
-  </section>
-  {% endblock%}
+    </section>
+    
+
+    {% endblock%}
+    <div id="titulo" class="data">
+      <h4>
+      <a href="../">Ir a la Wiki</a>
+      </h4>
+  </div>
+
+{% endblock%}
