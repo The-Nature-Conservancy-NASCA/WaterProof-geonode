@@ -106,6 +106,7 @@ def list(request):
                 'waterproof_study_cases/studycases_list.html',
                 {
                     'casesList': studyCases,
+                    'intakes': []
                 }
             )
 

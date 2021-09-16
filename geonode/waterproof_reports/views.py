@@ -1038,7 +1038,7 @@ def getNames(indicators):
             if objectIndicator.intake.name not in result:
                 result.append(objectIndicator.intake.name)
         except:
-            print ("")
+            print ("exception in getNames...")
     return result
 
 def physicalIndicators(request, idx):

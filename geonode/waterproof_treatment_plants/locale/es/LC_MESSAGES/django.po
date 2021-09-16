@@ -499,3 +499,6 @@ msgstr "Ingrese los datos de identificación de la plata de tratamiento, identif
 
 msgid "Create_text_2"
 msgstr "De clic en el siguiente botón para que WaterProof configure los procesos de la planta de tratamiento"
+
+msgid "You must be a registered user to create a new Treatment Plant"
+msgstr "Debe estar registrado para crear una nueva Planta de Tratamiento"

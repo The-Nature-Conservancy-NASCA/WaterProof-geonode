@@ -30,38 +30,39 @@ def getTreatmentPlantsList(request):
 		lastNull = ''
 		lastInstakeName = ''
 		tratamentPlantsList = []
-		try:            
-			city_id = request.GET['city']
-			headers = Header.objects.filter(plant_city=city_id)
-			tratamentPlantsList = Csinfra.objects.filter(csinfra_plant__in=headers)
-		except:
-			city_id = ''
-			tratamentPlantsList = Csinfra.objects.all()	
-
-		for tratamentPlants in tratamentPlantsList:
-			lastPlantIntakeName = ''
+		user = request.GET['user']
+		city_id = request.GET['city']
+				
+		if user != '-1':					
 			try:
-			  lastPlantIntakeName = tratamentPlants.csinfra_elementsystem.intake.name + " " + tratamentPlants.csinfra_elementsystem.name + " " + str(tratamentPlants.csinfra_elementsystem.graphId)
+				headers = Header.objects.filter(plant_city=city_id)
+				tratamentPlantsList = Csinfra.objects.filter(csinfra_plant__in=headers)
 			except:
-			  lastNull = ''
-
-			if lastInstakeName != tratamentPlants.csinfra_plant.plant_name:
-				lastInstakeName = tratamentPlants.csinfra_plant.plant_name
-				datePTAP = tratamentPlants.csinfra_plant.plant_date_create
-				dateFormat = datePTAP.strftime("%Y-%m-%d")
-				objects_list.append({
-					"plantId": tratamentPlants.csinfra_plant.id,
-					"plantUser": tratamentPlants.csinfra_plant.plant_user,
-					"plantDate": dateFormat,
-					"plantName": tratamentPlants.csinfra_plant.plant_name,
-					"plantDescription": tratamentPlants.csinfra_plant.plant_description,
-					"plantSuggest": tratamentPlants.csinfra_plant.plant_suggest,
-					"plantCityId": tratamentPlants.csinfra_plant.plant_city_id,
-					"standardNameSpanish": tratamentPlants.csinfra_plant.plant_city.standard_name_spanish,
-					"plantIntakeName": [lastPlantIntakeName]
-				})
-			else: 
-				objects_list[len(objects_list) - 1]["plantIntakeName"].append (lastPlantIntakeName);
+				city_id = ''
+				tratamentPlantsList = Csinfra.objects.all()	
+			for tratamentPlants in tratamentPlantsList:
+				lastPlantIntakeName = ''
+				try:
+					lastPlantIntakeName = tratamentPlants.csinfra_elementsystem.intake.name + " " + tratamentPlants.csinfra_elementsystem.name + " " + str(tratamentPlants.csinfra_elementsystem.graphId)
+				except:
+					lastNull = ''
+				if lastInstakeName != tratamentPlants.csinfra_plant.plant_name:
+					lastInstakeName = tratamentPlants.csinfra_plant.plant_name
+					datePTAP = tratamentPlants.csinfra_plant.plant_date_create
+					dateFormat = datePTAP.strftime("%Y-%m-%d")
+					objects_list.append({
+						"plantId": tratamentPlants.csinfra_plant.id,
+						"plantUser": tratamentPlants.csinfra_plant.plant_user,
+						"plantDate": dateFormat,
+						"plantName": tratamentPlants.csinfra_plant.plant_name,
+						"plantDescription": tratamentPlants.csinfra_plant.plant_description,
+						"plantSuggest": tratamentPlants.csinfra_plant.plant_suggest,
+						"plantCityId": tratamentPlants.csinfra_plant.plant_city_id,
+						"standardNameSpanish": tratamentPlants.csinfra_plant.plant_city.standard_name_spanish,
+						"plantIntakeName": [lastPlantIntakeName]
+					})
+				else: 
+					objects_list[len(objects_list) - 1]["plantIntakeName"].append (lastPlantIntakeName);
 
 		return JsonResponse(objects_list, safe=False)
 
