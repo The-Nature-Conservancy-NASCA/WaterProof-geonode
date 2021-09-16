@@ -501,20 +501,44 @@ $(function() {
     initialize();
 
     //draw polygons
-    drawPolygons = function() {
-        // TODO: Next line only for test purpose
-        //intakePolygons = polygons;
-
-        lyrsPolygons.forEach(lyr => map.removeLayer(lyr));
-        lyrsPolygons = [];
-
-        intakePolygons.forEach(feature => {
-            let poly = feature.polygon;
-            if (poly.indexOf("SRID") >= 0) {
-                poly = poly.split(";")[1];
-            }
-            lyrsPolygons.push(omnivore.wkt.parse(poly).addTo(map));
+    drawPolygons = function (map) {
+        
+        var bounds;
+        let lf = [];
+        listIntakes.forEach(intake => {
+            if (intake.geom) {
+                let g = JSON.parse(intake.geom);
+                f = {'type' : 'Feature', 
+                    'properties' : { 'id' : intake.study_case_id, 
+                                    'studyCase' : intake.study_case_name,
+                                    'intake' : intake.intake_name,
+                                    'intakeId' : intake.intake_id}, 
+                    'geometry' : g
+                };
+                lf.push(f);
+            }            
         });
+        
+        if (lf.length > 0){
+            lyrIntakes = L.geoJSON(lf, {
+                onEachFeature: function (feature, layer) {
+                    layer.bindPopup(`<div class="popup-content">
+                                        <div class="leaflet-container">
+                                            <b>Id</b>: ${feature.properties.id}
+                                        </div>
+                                        <div class="popup-body">
+                                            <div class="popup-body-content">
+                                                <div class="popup-body-content-text">
+                                                    <p><b>Study Case</b> :${feature.properties.studyCase}</p>
+                                                    <p><b>Intake </b>: ${feature.properties.intake}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>`);
+                }
+            }).addTo(map);
+            map.fitBounds(lyrIntakes.getBounds());
+        }
     }
 
     menu = function() {

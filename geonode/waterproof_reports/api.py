@@ -319,7 +319,7 @@ def getReportAnalysisBenefitsFilter(request):
 				"name":row[2],
 				"subName":row[2],
 				"subCategory":row[3],
-				"subNameCategory":row[2] + row[3],
+				"subNameCategory":str(row[2]) + str(row[3]),
 				"totalBenefits":row[4],
 				"totalBenefitsDiscount":row[5]
 			})
@@ -345,7 +345,7 @@ def getReportCostsAnalysisFilter(request):
 	if request.method == 'GET':
 		con = psycopg2.connect(settings.DATABASE_URL)
 		cur = con.cursor()
-		cur.execute("SELECT typer, SUM(medbenefitr) AS sum_filter FROM __get_report_costs_analysis_filter(" + request.query_params.get('studyCase') + ") GROUP BY  typer ORDER BY typer")
+		cur.execute("SELECT typer, round(cast(SUM(medbenefitr) as numeric),2)::double precision AS sum_filter FROM __get_report_costs_analysis_filter(" + request.query_params.get('studyCase') + ") GROUP BY  typer ORDER BY typer")
 		rows = cur.fetchall()
 		objects_list = []
 		for row in rows:
@@ -403,7 +403,7 @@ def getReportAnalysisBenefitsFilterSum(request):
 	if request.method == 'GET':
 		con = psycopg2.connect(settings.DATABASE_URL)
 		cur = con.cursor()
-		cur.execute("SELECT typer ,SUM(vpn_med_benefitr) AS vpn_med_benefitr FROM __get_report_analysis_benefits_filter(" + request.query_params.get('studyCase') + ") GROUP BY typer")
+		cur.execute("SELECT case when typer='CARBONO' then 'CARBON' else typer end as typer,round(cast(SUM(vpn_med_benefitr) as numeric),2)::double precision AS vpn_med_benefitr FROM __get_report_analysis_benefits_filter(" + request.query_params.get('studyCase') + ") GROUP BY typer")
 
 		rows = cur.fetchall()
 		objects_list = []
@@ -856,7 +856,7 @@ def getWaterproofReportsDesagregation(request):
 	if request.method == 'GET':
 		con = psycopg2.connect(settings.DATABASE_URL)
 		cur = con.cursor()
-		cur.execute("SELECT time,CASE stage WHEN 'NBS' THEN 'NBS Scenario' WHEN 'BAU' THEN 'Business as usual' END AS stage_filter,\"AWY(m3)\" AS volume_of_water_yield_change_in_time,\"BF(m3)\" AS annual_volume_base_flow_change_in_time,\"Wsed(Ton)\" AS total_sediments_change_in_time,\"WN(Kg)\" AS nitrogen_load_change_in_time,\"WP(kg)\" AS phosphorus_load_change_in_time,\"WC(Ton)\" AS carbon_storage_change_in_time FROM public.waterproof_reports_desagregation WHERE study_case_id = '" + request.query_params.get('studyCase') + "'")
+		cur.execute("SELECT time,CASE stage WHEN 'NBS' THEN 'NBS Scenario' WHEN 'BAU' THEN 'Business as usual' END AS stage_filter,\"AWY(m3)\" AS volume_of_water_yield_change_in_time,\"BF(m3)\" AS annual_volume_base_flow_change_in_time,\"Wsed(Ton)\" AS total_sediments_change_in_time,\"WN(Kg)\" AS nitrogen_load_change_in_time,\"WP(kg)\" AS phosphorus_load_change_in_time,\"WC(Ton)\" AS carbon_storage_change_in_time FROM public.waterproof_reports_desagregation WHERE \"time\" !=0 and study_case_id = '" + request.query_params.get('studyCase') + "'")
 		rows = cur.fetchall()
 		objects_list = []
 		for row in rows:
@@ -1016,6 +1016,38 @@ def getObjetivesForPorfoliosPdf(request):
 			})
 		return JsonResponse(objects_list, safe=False)
 
+@api_view(['GET'])
+def getWpcompareMapas(request):
+	"""Returns the rute of folder for result maps
+
+	Find the of results executed path  
+	the minimum characteristics stored in all components
+
+	Parameters:
+	without parameters
+
+	Exceptions:
+	If it does not have data in the minimal relations of the model it does not deliver
+	information about the treatment plant
+	"""
+	if request.method == 'GET':
+		con = psycopg2.connect(settings.DATABASE_URL)
+		cur = con.cursor()
+		cur.execute("SELECT * FROM public.__get_reports_compare_maps('" + request.query_params.get('studyCase') + "')")
+
+		rows = cur.fetchall()
+		objects_list = []
+		for row in rows:
+			objects_list.append({
+				"folder":row[0],
+				"intake":row[4],
+				"region":row[2],
+				"year":row[3],
+				"studycase":row[1],
+				"center":row[5]
+			})
+
+		return JsonResponse(objects_list, safe=False)
 
 
 

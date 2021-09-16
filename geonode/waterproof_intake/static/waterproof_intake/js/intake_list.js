@@ -10,8 +10,8 @@ $(function () {
     var transitionsDropdown = $('#riosTransition');
     var transformations = [];
     var lastClickedLayer;
-    var map;
-    var lyrsPolygons = [];
+    
+    //var lyrsPolygons = [];
     var highlighPolygon = {
         fillColor: "#337ab7",
         color: "#333333",
@@ -103,7 +103,6 @@ $(function () {
         
     };
     
-
     showSearchPointsFunction = function showSearchPointsIntake(geojson) {
         console.log("showSearchPointsIntake");
         searchPoints.clearLayers();
@@ -116,7 +115,6 @@ $(function () {
     }
 
     $('createUrlDisabled').html('<a>{% trans "Debe ser un usuario registrado para realizar esta acción" %}</a>' ); 
-
 
     /** 
      * Get the transformations selected
@@ -132,29 +130,39 @@ $(function () {
     };
 
     //draw polygons
-    drawPolygons = function (citySearch) {
-        lyrsPolygons.forEach(lyr => map.removeLayer(lyr));
-        lyrsPolygons = [];
+    drawPolygons = function (map) {
+        
         var bounds;
-        intakePolygons.forEach((feature) => {
-            if (citySearch.substr(0, 5) == feature.city.substr(0, 5)) {
-                if (feature.polygon !== 'None' && feature.polygon != '') {
-                    let poly = feature.polygon;
-                    if (poly.indexOf("SRID") >= 0) {
-                        poly = poly.split(";")[1];
-                    }
-                    var lyrPoly = omnivore.wkt.parse(poly).addTo(map);
-                    lyrsPolygons.push(lyrPoly);
-                    if (bounds == undefined) {
-                        bounds = lyrPoly.getBounds();
-                    } else {
-                        bounds = bounds.extend(lyrPoly.getBounds());
-                    }
-                }
-            }
+        let lf = [];
+        listIntakes.forEach(intake => {
+            if (intake.geom) {
+                let g = JSON.parse(intake.geom);
+                f = {'type' : 'Feature', 
+                    'properties' : { 'id' : intake.id, 'name' : intake.name}, 
+                    'geometry' : g
+                };
+                lf.push(f);
+            }            
         });
-        if (bounds != undefined) {
-            map.fitBounds(bounds);
+        
+        if (lf.length > 0){
+            lyrIntakes = L.geoJSON(lf, {
+                onEachFeature: function (feature, layer) {
+                    layer.bindPopup(`<div class="popup-content">
+                                        <div class="leaflet-container">
+                                            <b>Id:</b> ${feature.properties.id}
+                                        </div>
+                                        <div class="popup-body">
+                                            <div class="popup-body-content">
+                                                <div class="popup-body-content-text">
+                                                    <p><b>Name:</b> ${feature.properties.name}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>`);
+                }
+            }).addTo(map);
+            map.fitBounds(lyrIntakes.getBounds());
         }
     }
 
@@ -164,6 +172,24 @@ $(function () {
             $("#main").style.marginLeft = "250px";
         });
     }
+
+    table.on('click', 'tr', function () {
+        var data = table.row( this ).data();
+        console.log( 'You clicked on '+data[0]+'\'s row' );
+        listIntakes.filter(intake => intake.id == data[0]).forEach(intake => {
+            if (intake.geom) {
+                let f = JSON.parse(intake.geom);
+                console.log(f);
+                //drawPolygons(f);
+                lyrIntakes.eachLayer(function (layer) {
+                    if (layer.feature.properties.id == intake.id) {
+                        console.log(layer.feature);
+                        map.fitBounds(layer.getBounds());
+                    }
+                });
+            }
+        });
+    } );
 
     // Init 
     initialize();

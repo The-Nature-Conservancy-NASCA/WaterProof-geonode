@@ -540,8 +540,8 @@ $(document).ready(function() {
     };
 
     var overlays = {
-        "Hydro (esri)": hydroLyr,
         "Hydro Network": wmsHydroNetworkLyr,
+        "Hydro (esri)": hydroLyr,        
     };
     L.control.layers(baseLayers, overlays, { position: 'topleft' }).addTo(map);
 

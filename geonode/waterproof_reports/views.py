@@ -5,6 +5,7 @@ import json
 import requests
 import array
 import codecs
+import time
 
 from django.conf import settings
 from django.http import JsonResponse
@@ -19,6 +20,7 @@ from django.http import HttpResponse
 from datetime import date
 
 def pdf(request):
+    
     pdf = FPDF()
     pdf.add_page()
     pdf.image('header-logo.png', 10, 10, w=35)
@@ -198,14 +200,12 @@ def pdf(request):
     lastNameCase = "";
     cellArray = []
     contLine = 0
-    lastLine = 0
     for item in data:
         if item['name'] != lastNameCase:
             if contLine != 0 :
                 cellArray.append(contLine)
                 contLine = 0
             lastNameCase = item['name']
-        lastLine = lastLine + 1
         contLine = contLine + 1
     cellArray.append(contLine)
 
@@ -1078,7 +1078,7 @@ def pdf(request):
     pdf.ln(4)
     pdf.cell(epw/6, 5, '', border=0, align='C', fill=0)
     pdf.cell(((epw/7) * 9)-3, 4, 'organic matter.', border=0, align='L', fill=0)
-    pdf.ln(7)
+    pdf.ln(17)
 
     pdf.image('total-one.png', 20, 20, w=10)
     pdf.image('total-two.png', 20, 36, w=10)
@@ -1086,166 +1086,174 @@ def pdf(request):
     pdf.image('total-four.png', 20, 67, w=10)
     pdf.image('total-five.png', 20, 82, w=10)
 
-    pdf.add_page()
-
     requestJson = requests.get(settings.SITE_HOST_API + 'reports/getSelectorStudyCasesId/?studyCase=' + request.GET['studyCase'],verify=False)
-    data = requestJson.json()
-
-    for item in data:
-        pdf.cell(epw, 10, item['studyCasesName'], align='C')
-
-    pdf.image('picture-one.jpg', 10, 30, w=45)
-    pdf.image('picture-two.jpg', 58, 30, w=45)
-    pdf.image('picture-three.jpg', 106, 30, w=45)
-    pdf.image('picture-four.jpg', 154, 30, w=45)
-
-    pdf.ln(50)
-
-    pdf.set_font('Arial', '', 9)
-    pdf.set_text_color(255, 255, 255)
-    pdf.set_fill_color(0, 138, 173)
-    pdf.set_draw_color(0, 138, 173)
-    pdf.cell(45, 8, 'Physical risk quantity', border=1, align='C', fill=1)
-    pdf.cell(3, 8, '')
-    pdf.cell(45, 8, 'Physical risk quality', border=1, align='C', fill=1)
-    pdf.cell(3, 8, '')
-    pdf.cell(45, 8, 'Regulatory and reputational', border=1, align='C', fill=1)
-    pdf.cell(3, 8, '')
-    pdf.cell(45, 8, 'Overall water risk score', border=1, align='C', fill=1)
-    pdf.ln(8)
-    pdf.set_font('Arial', '', 6)
-    pdf.set_text_color(100, 100, 100)
-    pdf.set_fill_color(255, 255, 255)
-    pdf.cell(45, 30, '', border=1, align='C', fill=1)
-    pdf.cell(3, 30, '')
-    pdf.cell(45, 30, '', border=1, align='C', fill=1)
-    pdf.cell(3, 30, '')
-    pdf.cell(45, 30, '', border=1, align='C', fill=1)
-    pdf.cell(3, 30, '')
-    pdf.cell(45, 30, '', border=1, align='C', fill=1)
-    pdf.ln(0)
-    pdf.cell(45, 4, 'Physical risk quantity measures risk related', align='C')
-    pdf.cell(3, 4, '')
-    pdf.cell(45, 4, 'Physical risk quantity measures risk related', align='C')
-    pdf.cell(3, 4, '')
-    pdf.cell(45, 4, 'Risk regulatory and reputational risk', align='C')
-    pdf.cell(3, 4, '')
-    pdf.cell(45, 4, 'Overall water risk measures all water', align='C')
-    pdf.ln(4)
-    pdf.cell(45, 4, 'to too little or too much water by', align='C')
-    pdf.cell(3, 4, '')
-    pdf.cell(45, 4, 'to water that in unfit for use by aggregating', align='C')
-    pdf.cell(3, 4, '')
-    pdf.cell(45, 4, 'measures risk related to uncertainty in', align='C')
-    pdf.cell(3, 4, '')
-    pdf.cell(45, 4, 'related risk, by aggregating all selected', align='C')
-    pdf.ln(4)
-    pdf.cell(45, 4, 'aggregating all selected indicators from the', align='C')
-    pdf.cell(3, 4, '')
-    pdf.cell(45, 4, 'all selected indicators from the physical risk', align='C')
-    pdf.cell(3, 4, '')
-    pdf.cell(45, 4, 'regulatory chance, as well as conflich with', align='C')
-    pdf.cell(3, 4, '')
-    pdf.cell(45, 4, 'indicators from the physical risjk quantity,', align='C')
-    pdf.ln(4)
-    pdf.cell(45, 4, 'physical risk quantity category', align='C')
-    pdf.cell(3, 4, '')
-    pdf.cell(45, 4, 'quantity category', align='C')
-    pdf.cell(3, 4, '')
-    pdf.cell(45, 4, 're public regarding water issues', align='C')
-    pdf.cell(3, 4, '')
-    pdf.cell(45, 4, 'physical risk quality, and regulatory and', align='C')
-    pdf.ln(4)
-    pdf.cell(45, 4, '', align='C')
-    pdf.cell(3, 4, '')
-    pdf.cell(45, 4, '', align='C')
-    pdf.cell(3, 4, '')
-    pdf.cell(45, 4, '', align='C')
-    pdf.cell(3, 4, '')
-    pdf.cell(45, 4, 'reputational risk categories', align='C')
-    pdf.ln(8)
+    dataCase = requestJson.json()
 
     requestJson = requests.get(settings.SITE_HOST_API + 'reports/getReportAnalisysBenefics/?studyCase=' + request.GET['studyCase'],verify=False)
-    data = requestJson.json()
+    dataBenefit = requestJson.json()
 
-    txtTd1 = ""
-    txtTd2 = ""
-    txtTd3 = ""
-    txtTd4 = ""
-    txtTd1CR = 0
-    txtTd2CR = 0
-    txtTd3CR = 0
-    txtTd4CR = 0
-    txtTd1CG = 0
-    txtTd2CG = 0
-    txtTd3CG = 0
-    txtTd4CG = 0
-    txtTd1CB = 0
-    txtTd2CB = 0
-    txtTd3CB = 0
-    txtTd4CB = 0
-    txtColorR = 175
-    txtColorG = 9
-    txtColorB = 0
+    numerLine = 0;
 
-    for item in data:
+    for itemCase in dataCase:
+        pdf.set_font('Arial', '', 9)
+        pdf.set_text_color(100, 100, 100)
+        pdf.cell(epw, 10, itemCase['selector'], border=0, align='C', fill=0)
+
+        pdf.image('picture-one.jpg', 10, (numerLine * 75) + 115, w=45)
+        pdf.image('picture-two.jpg', 58, (numerLine * 75) + 115, w=45)
+        pdf.image('picture-three.jpg', 106, (numerLine * 75) + 115, w=45)
+        pdf.image('picture-four.jpg', 154, (numerLine * 75) + 115, w=45)
+
+        numerLine = numerLine + 1;
+
+        pdf.ln(40)
+
+        pdf.set_font('Arial', '', 9)
+        pdf.set_text_color(255, 255, 255)
+        pdf.set_fill_color(0, 138, 173)
+        pdf.set_draw_color(0, 138, 173)
+        pdf.cell(45, 8, 'Physical risk quantity', border=1, align='C', fill=1)
+        pdf.cell(3, 8, '')
+        pdf.cell(45, 8, 'Physical risk quality', border=1, align='C', fill=1)
+        pdf.cell(3, 8, '')
+        pdf.cell(45, 8, 'Regulatory and reputational', border=1, align='C', fill=1)
+        pdf.cell(3, 8, '')
+        pdf.cell(45, 8, 'Overall water risk score', border=1, align='C', fill=1)
+        pdf.ln(8)
+        pdf.set_font('Arial', '', 6)
+        pdf.set_text_color(100, 100, 100)
+        pdf.set_fill_color(255, 255, 255)
+        pdf.cell(45, 23, '', border=1, align='C', fill=1)
+        pdf.cell(3, 23, '')
+        pdf.cell(45, 23, '', border=1, align='C', fill=1)
+        pdf.cell(3, 23, '')
+        pdf.cell(45, 23, '', border=1, align='C', fill=1)
+        pdf.cell(3, 23, '')
+        pdf.cell(45, 23, '', border=1, align='C', fill=1)
+        pdf.ln(0)
+        pdf.cell(45, 3, 'Physical risk quantity measures risk related', align='C')
+        pdf.cell(3, 3, '')
+        pdf.cell(45, 3, 'Physical risk quantity measures risk related', align='C')
+        pdf.cell(3, 3, '')
+        pdf.cell(45, 3, 'Risk regulatory and reputational risk', align='C')
+        pdf.cell(3, 3, '')
+        pdf.cell(45, 3, 'Overall water risk measures all water', align='C')
+        pdf.ln(3)
+        pdf.cell(45, 3, 'to too little or too much water by', align='C')
+        pdf.cell(3, 3, '')
+        pdf.cell(45, 3, 'to water that in unfit for use by aggregating', align='C')
+        pdf.cell(3, 3, '')
+        pdf.cell(45, 3, 'measures risk related to uncertainty in', align='C')
+        pdf.cell(3, 3, '')
+        pdf.cell(45, 3, 'related risk, by aggregating all selected', align='C')
+        pdf.ln(3)
+        pdf.cell(45, 3, 'aggregating all selected indicators from the', align='C')
+        pdf.cell(3, 3, '')
+        pdf.cell(45, 3, 'all selected indicators from the physical risk', align='C')
+        pdf.cell(3, 3, '')
+        pdf.cell(45, 3, 'regulatory chance, as well as conflich with', align='C')
+        pdf.cell(3, 3, '')
+        pdf.cell(45, 3, 'indicators from the physical risjk quantity,', align='C')
+        pdf.ln(3)
+        pdf.cell(45, 3, 'physical risk quantity category', align='C')
+        pdf.cell(3, 3, '')
+        pdf.cell(45, 3, 'quantity category', align='C')
+        pdf.cell(3, 3, '')
+        pdf.cell(45, 3, 're public regarding water issues', align='C')
+        pdf.cell(3, 3, '')
+        pdf.cell(45, 3, 'physical risk quality, and regulatory and', align='C')
+        pdf.ln(3)
+        pdf.cell(45, 3, '', align='C')
+        pdf.cell(3, 3, '')
+        pdf.cell(45, 3, '', align='C')
+        pdf.cell(3, 3, '')
+        pdf.cell(45, 3, '', align='C')
+        pdf.cell(3, 3, '')
+        pdf.cell(45, 3, 'reputational risk categories', align='C')
+        pdf.ln(5)
+
+
+        txtTd1 = ""
+        txtTd2 = ""
+        txtTd3 = ""
+        txtTd4 = ""
+        txtTd1CR = 0
+        txtTd2CR = 0
+        txtTd3CR = 0
+        txtTd4CR = 0
+        txtTd1CG = 0
+        txtTd2CG = 0
+        txtTd3CG = 0
+        txtTd4CG = 0
+        txtTd1CB = 0
+        txtTd2CB = 0
+        txtTd3CB = 0
+        txtTd4CB = 0
         txtColorR = 175
         txtColorG = 9
-        txtColorB = 0
+        txtColorB = 0        
 
-        if item['color'].upper() == "DARK GREEN":
-            txtColorR = 21
-            txtColorG = 88
-            txtColorB = 22
+        for itemBenefit in dataBenefit:
+            if itemBenefit['intakeId'] == itemCase['intakeId']:
+                txtColorR = 175
+                txtColorG = 9
+                txtColorB = 0
 
-        if item['color'].upper() == "ORANGE":
-            txtColorR = 236
-            txtColorG = 104
-            txtColorB = 10
+                if itemBenefit['color'].upper() == "DARK GREEN":
+                    txtColorR = 21
+                    txtColorG = 88
+                    txtColorB = 22
 
-        if item['nameIndicator'].upper() == "PHYSICAL RISK QUANTITY":
-            txtTd1 = item['description']
-            txtTd1CR = txtColorR
-            txtTd1CG = txtColorG
-            txtTd1CB = txtColorB
+                if itemBenefit['color'].upper() == "ORANGE":
+                    txtColorR = 236
+                    txtColorG = 104
+                    txtColorB = 10
 
-        if item['nameIndicator'].upper() == "PHYSICAL RISK ASSOCIATED WITH AMOUNT OF WATER":
-            txtTd2 = item['description']
-            txtTd2CR = txtColorR
-            txtTd2CG = txtColorG
-            txtTd2CB = txtColorB
+                if itemBenefit['nameIndicator'].upper() == "PHYSICAL RISK QUANTITY":
+                    txtTd1 = itemBenefit['description']
+                    txtTd1CR = txtColorR
+                    txtTd1CG = txtColorG
+                    txtTd1CB = txtColorB
 
-        if item['nameIndicator'].upper() == "REGULATORY AND REPUTATIONAL":
-            txtTd3 = item['description']
-            txtTd3CR = txtColorR
-            txtTd3CG = txtColorG
-            txtTd3CB = txtColorB
+                if itemBenefit['nameIndicator'].upper() == "PHYSICAL RISK ASSOCIATED WITH AMOUNT OF WATER":
+                    txtTd2 = itemBenefit['description']
+                    txtTd2CR = txtColorR
+                    txtTd2CG = txtColorG
+                    txtTd2CB = txtColorB
 
-        if item['nameIndicator'].upper() == "OVERALL WATER RISK SCORE":
-            txtTd4 = item['description']
-            txtTd4CR = txtColorR
-            txtTd4CG = txtColorG
-            txtTd4CB = txtColorB
+                if itemBenefit['nameIndicator'].upper() == "REGULATORY AND REPUTATIONAL":
+                    txtTd3 = itemBenefit['description']
+                    txtTd3CR = txtColorR
+                    txtTd3CG = txtColorG
+                    txtTd3CB = txtColorB
 
-    pdf.set_font('Arial', '', 9)
-    pdf.set_text_color(255, 255, 255)
-    pdf.set_fill_color(txtTd1CR, txtTd1CG, txtTd1CB)
-    pdf.set_draw_color(txtTd1CR, txtTd1CG, txtTd1CB)
-    pdf.cell(5, 4, '')
-    pdf.cell(35, 4, txtTd1, border=1, align='C', fill=1)
-    pdf.cell(13, 4, '')
-    pdf.set_fill_color(txtTd2CR, txtTd2CG, txtTd2CB)
-    pdf.set_draw_color(txtTd2CR, txtTd2CG, txtTd2CB)
-    pdf.cell(35, 4, txtTd2, border=1, align='C', fill=1)
-    pdf.cell(13, 4, '')
-    pdf.set_fill_color(txtTd3CR, txtTd3CG, txtTd3CB)
-    pdf.set_draw_color(txtTd3CR, txtTd3CG, txtTd3CB)
-    pdf.cell(35, 4, txtTd3, border=1, align='C', fill=1)
-    pdf.cell(13, 4, '')
-    pdf.set_fill_color(txtTd4CR, txtTd4CG, txtTd4CB)
-    pdf.set_draw_color(txtTd4CR, txtTd4CG, txtTd4CB)
-    pdf.cell(35, 4, txtTd4, border=1, align='C', fill=1)
-    pdf.ln(15)
+                if itemBenefit['nameIndicator'].upper() == "OVERALL WATER RISK SCORE":
+                    txtTd4 = itemBenefit['description']
+                    txtTd4CR = txtColorR
+                    txtTd4CG = txtColorG
+                    txtTd4CB = txtColorB
+
+        pdf.set_font('Arial', '', 9)
+        pdf.set_text_color(255, 255, 255)
+        pdf.set_fill_color(txtTd1CR, txtTd1CG, txtTd1CB)
+        pdf.set_draw_color(txtTd1CR, txtTd1CG, txtTd1CB)
+        pdf.cell(5, 4, '')
+        pdf.cell(35, 4, txtTd1, border=1, align='C', fill=1)
+        pdf.cell(13, 4, '')
+        pdf.set_fill_color(txtTd2CR, txtTd2CG, txtTd2CB)
+        pdf.set_draw_color(txtTd2CR, txtTd2CG, txtTd2CB)
+        pdf.cell(35, 4, txtTd2, border=1, align='C', fill=1)
+        pdf.cell(13, 4, '')
+        pdf.set_fill_color(txtTd3CR, txtTd3CG, txtTd3CB)
+        pdf.set_draw_color(txtTd3CR, txtTd3CG, txtTd3CB)
+        pdf.cell(35, 4, txtTd3, border=1, align='C', fill=1)
+        pdf.cell(13, 4, '')
+        pdf.set_fill_color(txtTd4CR, txtTd4CG, txtTd4CB)
+        pdf.set_draw_color(txtTd4CR, txtTd4CG, txtTd4CB)
+        pdf.cell(35, 4, txtTd4, border=1, align='C', fill=1)
+        pdf.ln(10)
+
+    pdf.add_page()
 
     pdf.set_text_color(100, 100, 100)
     pdf.set_fill_color(255, 255, 255)
@@ -1276,12 +1284,12 @@ def pdf(request):
     pdf.cell(1, 6, '')
     pdf.cell(30, 6, 'and sequestration', align='C')
 
-    pdf.image('dashboard-01.png', 13, 140, w=24)
-    pdf.image('dashboard-02.png', 44, 140, w=24)
-    pdf.image('dashboard-03.png', 75, 140, w=24)
-    pdf.image('dashboard-04.png', 106, 140, w=24)
-    pdf.image('dashboard-05.png', 137, 140, w=24)
-    pdf.image('dashboard-06.png', 168, 140, w=24)
+    pdf.image('dashboard-01.png', 13, 50, w=24)
+    pdf.image('dashboard-02.png', 44, 50, w=24)
+    pdf.image('dashboard-03.png', 75, 50, w=24)
+    pdf.image('dashboard-04.png', 106, 50, w=24)
+    pdf.image('dashboard-05.png', 137, 50, w=24)
+    pdf.image('dashboard-06.png', 168, 50, w=24)
 
     pdf.ln(40)
     pdf.set_font('Arial', '', 20)
@@ -1309,10 +1317,9 @@ def pdf(request):
     pdf.cell(epw/3, 8, 'Actual spend', border=1, align='C', fill=1)
     pdf.cell(epw/3, 8, 'Area converted (Ha)', border=1, align='C', fill=1)
     pdf.ln(8)
-    pdf.set_font('Arial', '', 9)
     pdf.set_text_color(100, 100, 100)
     pdf.set_fill_color(255, 255, 255)
-
+    pdf.set_draw_color(0, 138, 173)
 
     requestJson = requests.get(settings.SITE_HOST_API + 'reports/getReportAnalisysBeneficsC/?studyCase=' + request.GET['studyCase'],verify=False)
     data = requestJson.json()
@@ -1331,9 +1338,177 @@ def pdf(request):
         pdf.cell(epw/3, 4, "" , align='C')
         pdf.ln(4)
 
-    response = HttpResponse(pdf.output(dest='S').encode('latin-1'))
+
+    pdf.add_page()
+
+    pdf.set_font('Arial', '', 13)
+    pdf.set_text_color(100, 100, 100)
+
+    pdf.cell(0, 10, 'Physical indicators', align='L')
+    pdf.ln(10)
+
+    requestJson = requests.get(settings.SITE_HOST_API + 'reports/getWpAqueductIndicatorGraph/?studyCase=' + request.GET['studyCase'],verify=False)
+    data = requestJson.json()
+
+    arrayTitle = []
+    lastTitle = ""
+    for item in data:
+        if lastTitle != item['indicator'] : 
+            arrayTitle.append(contLine)
+
+    cellArray = []
+    contLine = 0
+    lastTitle = ""
+    for item in data:
+        if lastTitle != item['indicator'] : 
+            if contLine != 0 :
+                cellArray.append(contLine)
+                contLine = 0
+            lastTitle = item['indicator']
+        lastLine = lastLine + 1
+        contLine = contLine + 1
+    cellArray.append(contLine)
+
+    lastTitle = ""
+    contLine = 0
+
+    for item in data:
+        if lastTitle != item['indicator'] : 
+            if lastTitle == "Future 10 years":
+                pdf.ln(10)
+            if lastTitle == "Future 20 years":
+                pdf.ln(10)
+            if lastTitle == "Physical Risk associated with Amount of Water":
+                pdf.ln(5)
+                pdf.cell(epw, 5, 'Baseline water stress measures the ratio of total water withdrawals to available renewable surface and groundwater supplies. Higher', border=0, align='L', fill=0) 
+                pdf.ln(5)
+                pdf.cell(epw, 5, 'values indicate more competition between users.', border=0, align='L', fill=0) 
+                pdf.ln(7)
+                pdf.cell(epw, 5, 'Baseline water depletion measures the total water consumption of available renewable water supplies. Higher values indicate a greater', border=0, align='L', fill=0) 
+                pdf.ln(5)
+                pdf.cell(epw, 5, 'impact on the local water supply and decreased water availability for downstream users.', border=0, align='L', fill=0) 
+                pdf.ln(7)
+                pdf.cell(epw, 5, 'Interannual variability measures the average between-year variability of available water supply, including both renewable surface and', border=0, align='L', fill=0) 
+                pdf.ln(5)
+                pdf.cell(epw, 5, 'groundwater supplies. Highervalues indicate wider variations in available supply from year to year.', border=0, align='L', fill=0) 
+                pdf.ln(7)
+                pdf.cell(epw, 5, 'Seasonal variability measures the average within-year variability of available water supply, including renewable surface and ground', border=0, align='L', fill=0) 
+                pdf.ln(5)
+                pdf.cell(epw, 5, 'water supplies. Higher valuesindicate wider variations in the supply available within a year.', border=0, align='L', fill=0) 
+                pdf.ln(7)
+                pdf.cell(epw, 5, 'Water table decline measures the average water table decline as the average change for the study period (1990-2014). The result is', border=0, align='L', fill=0) 
+                pdf.ln(5)
+                pdf.cell(epw, 5, 'expressed in centimeters per year (cm / year). Higher values indicate higher levels of unsustainable groundwater.', border=0, align='L', fill=0) 
+                pdf.ln(7)
+                pdf.cell(epw, 5, 'River flood risk measures the percentage of the population expected to be affected by river flooding in an average year, taking into', border=0, align='L', fill=0) 
+                pdf.ln(5)
+                pdf.cell(epw, 5, 'account existing flood protection standards. Higher values indicate that, on average, a greater proportion of the population is', border=0, align='L', fill=0) 
+                pdf.ln(5)
+                pdf.cell(epw, 5, 'expected to be affected by river flooding.', border=0, align='L', fill=0) 
+                pdf.ln(7)
+
+            if lastTitle == "Physical risk quantity":
+                pdf.ln(5)
+                pdf.cell(epw, 5, 'Untreated connected wastewater measures the percentage of domestic wastewater that is connected through a sewer system and is not', border=0, align='L', fill=0) 
+                pdf.ln(5)
+                pdf.cell(epw, 5, 'treated to at least a primary treatment level. Discharging wastewater without adequate treatment could expose water bodies, the', border=0, align='L', fill=0) 
+                pdf.ln(5)
+                pdf.cell(epw, 5, 'general public, and ecosystems to pollutants such as pathogens and nutrients. Higher values indicate higher percentages of point', border=0, align='L', fill=0) 
+                pdf.ln(5)
+                pdf.cell(epw, 5, 'source wastewater discharged without treatment.', border=0, align='L', fill=0) 
+                pdf.ln(7)
+
+            if lastTitle == "Regulatory and reputational":
+                pdf.ln(5)
+                pdf.cell(epw, 5, 'Unimproved / no drinking water reflects the percentage of the population that collects drinking water from an unprotected dug well', border=0, align='L', fill=0) 
+                pdf.ln(5)
+                pdf.cell(epw, 5, 'or spring, or directly from a river, dam, lake, pond, stream, canal or irrigation canal (WHO and UNICEF 2017). Higher values', border=0, align='L', fill=0) 
+                pdf.ln(5)
+                pdf.cell(epw, 5, 'indicate areas where people have less access to clean water supplies.', border=0, align='L', fill=0) 
+                pdf.ln(7)
+
+            pdf.set_font('Arial', '', 10)
+            pdf.set_text_color(255, 255, 255)
+            pdf.set_fill_color(0, 138, 173)
+            pdf.set_draw_color(0, 138, 173)
+            pdf.cell((epw/10) * 4, 10, 'Indicator', border=1, align='C', fill=1)
+            pdf.cell(epw/10, 10, 'Sigla', border=1, align='C', fill=1)
+            pdf.cell((epw/10) * 4, 10, 'Description', border=1, align='C', fill=1)
+            pdf.cell(epw/10, 10, 'Value', border=1, align='C', fill=1)
+            pdf.set_font('Arial', '', 9)
+            pdf.set_text_color(100, 100, 100)
+            pdf.set_fill_color(255, 255, 255)
+            lastTitle = item['indicator']
+            pdf.ln(10)
+            pdf.cell((epw/10) * 4, cellArray[contLine] * 6 ,item['indicator'], border=1, align='L', fill=1)
+            contLine = contLine + 1
+        else :
+            pdf.cell((epw/10) * 4, 6 ,"", border=0, align='L', fill=0)
+        
+        pdf.cell(epw/10, 6, str(item['valueIndicator']), border=1, align='R', fill=1)
+        pdf.cell((epw/10) * 4, 6, str(item['description']), border=1, align='L', fill=1)
+        pdf.cell(epw/10, 6, str(item['valueIndicator']), border=1, align='R', fill=1)
+        pdf.ln(6)
+
+    if lastTitle == "Future 10 years":
+        pdf.ln(10)
+    if lastTitle == "Future 20 years":
+        pdf.ln(10)
+    if lastTitle == "Physical Risk associated with Amount of Water":
+        pdf.ln(5)
+        pdf.cell(epw, 5, 'Baseline water stress measures the ratio of total water withdrawals to available renewable surface and groundwater supplies. Higher', border=0, align='L', fill=0) 
+        pdf.ln(5)
+        pdf.cell(epw, 5, 'values indicate more competition between users.', border=0, align='L', fill=0) 
+        pdf.ln(7)
+        pdf.cell(epw, 5, 'Baseline water depletion measures the total water consumption of available renewable water supplies. Higher values indicate a greater', border=0, align='L', fill=0) 
+        pdf.ln(5)
+        pdf.cell(epw, 5, 'impact on the local water supply and decreased water availability for downstream users.', border=0, align='L', fill=0) 
+        pdf.ln(7)
+        pdf.cell(epw, 5, 'Interannual variability measures the average between-year variability of available water supply, including both renewable surface and', border=0, align='L', fill=0) 
+        pdf.ln(5)
+        pdf.cell(epw, 5, 'groundwater supplies. Highervalues indicate wider variations in available supply from year to year.', border=0, align='L', fill=0) 
+        pdf.ln(7)
+        pdf.cell(epw, 5, 'Seasonal variability measures the average within-year variability of available water supply, including renewable surface and ground', border=0, align='L', fill=0) 
+        pdf.ln(5)
+        pdf.cell(epw, 5, 'water supplies. Higher valuesindicate wider variations in the supply available within a year.', border=0, align='L', fill=0) 
+        pdf.ln(7)
+        pdf.cell(epw, 5, 'Water table decline measures the average water table decline as the average change for the study period (1990-2014). The result is', border=0, align='L', fill=0) 
+        pdf.ln(5)
+        pdf.cell(epw, 5, 'expressed in centimeters per year (cm / year). Higher values indicate higher levels of unsustainable groundwater.', border=0, align='L', fill=0) 
+        pdf.ln(7)
+        pdf.cell(epw, 5, 'River flood risk measures the percentage of the population expected to be affected by river flooding in an average year, taking into', border=0, align='L', fill=0) 
+        pdf.ln(5)
+        pdf.cell(epw, 5, 'account existing flood protection standards. Higher values indicate that, on average, a greater proportion of the population is', border=0, align='L', fill=0) 
+        pdf.ln(5)
+        pdf.cell(epw, 5, 'expected to be affected by river flooding.', border=0, align='L', fill=0) 
+        pdf.ln(7)
+
+    if lastTitle == "Physical risk quantity":
+        pdf.ln(5)
+        pdf.cell(epw, 5, 'Untreated connected wastewater measures the percentage of domestic wastewater that is connected through a sewer system and is not', border=0, align='L', fill=0) 
+        pdf.ln(5)
+        pdf.cell(epw, 5, 'treated to at least a primary treatment level. Discharging wastewater without adequate treatment could expose water bodies, the', border=0, align='L', fill=0) 
+        pdf.ln(5)
+        pdf.cell(epw, 5, 'general public, and ecosystems to pollutants such as pathogens and nutrients. Higher values indicate higher percentages of point', border=0, align='L', fill=0) 
+        pdf.ln(5)
+        pdf.cell(epw, 5, 'source wastewater discharged without treatment.', border=0, align='L', fill=0) 
+        pdf.ln(7)
+
+    if lastTitle == "Regulatory and reputational":
+        pdf.ln(5)
+        pdf.cell(epw, 5, 'Unimproved / no drinking water reflects the percentage of the population that collects drinking water from an unprotected dug well', border=0, align='L', fill=0) 
+        pdf.ln(5)
+        pdf.cell(epw, 5, 'or spring, or directly from a river, dam, lake, pond, stream, canal or irrigation canal (WHO and UNICEF 2017). Higher values', border=0, align='L', fill=0) 
+        pdf.ln(5)
+        pdf.cell(epw, 5, 'indicate areas where people have less access to clean water supplies.', border=0, align='L', fill=0) 
+        pdf.ln(7)
+
+
+
+    response = HttpResponse(pdf.output(dest='S').encode('iso-8859-1'))
     response['Content-Type'] = 'application/pdf'
     return response
+
 
 def dashboard(request):
     return render(request, 'waterproof_reports/dashboard.html', {})
