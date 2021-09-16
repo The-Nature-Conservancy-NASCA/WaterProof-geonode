@@ -12,10 +12,10 @@
 "X-Generator: Poedit 2.4.3\n"
 
 msgid "Referencies"
-msgstr ""
+msgstr "Referencias"
 
 msgid "Bibliography"
-msgstr ""
+msgstr "Bibliografía"
 
 msgid "Go to Wiki"
 msgstr "Ir a Wiki"
