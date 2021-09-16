@@ -1,38 +1,36 @@
-{% load static %} <!--Para cargar archivos en la carpeta--->
+{% load static %}
+<!--Para cargar archivos en la carpeta--->
 
 <!DOCTYPE html>
 <html lang="es">
-    <head>
-           <meta charset="utf-8"> 
-           
-  
-           <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
 
-           <script src="{% static 'js/jquery.min.js' %}"></script>
-           <script src="{% static 'js/owl.carousel.js' %}"></script>
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
 
-           <!--Si no te agarra los estilos.. solo debes reiniciar el servidor--->
-    </head>
-    <body>
-    
-        <div id="titulo">
-            <h4>
-            {% block titulo%} 
-            <a href="../">Ir a la Wiki</a>
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/owl.carousel.js' %}"></script>
+
+    <!--Si no te agarra los estilos.. solo debes reiniciar el servidor--->
+</head>
+
+<body>
+    <div id="titulo">
+        <h4>
+            {% block titulo%}
             {% endblock%}
-            </h4>
-        </div>
-        <div id="content">
-           
-            {% block content%}
-                Por defecto<br>
-            {% endblock%}
-           
-        </div>
-    </body>
+            <a href="../">{% trans Go to wiki%}</a>
+        </h4>
+    </div>
+    <div id="content">
+        {% block content%}
+        {% trans default %}<br>
+        {% endblock%}
+    </div>
+</body>
 
 
-    <script src="{% static 'js/highlight.js' %}"></script>
-    <script src="{% static 'js/app.js' %}"></script>
+<script src="{% static 'js/highlight.js' %}"></script>
+<script src="{% static 'js/app.js' %}"></script>
 
 </html>
