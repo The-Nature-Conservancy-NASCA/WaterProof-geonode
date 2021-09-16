@@ -11,17 +11,17 @@ def consultar_articulo(request, id=0):
     try:
         articulos=Article.objects.get(pk=id)
         referencias = None
-        print(f"---{Referencies.objects.filter(article=articulos.pk).exists()}") 
+        #print(f"---{Referencies.objects.filter(article=articulos.pk).exists()}") 
         if Referencies.objects.filter(article=articulos.pk).exists():
             referencias=Referencies.objects.filter(article=articulos.pk)      
         enlaces = None
         enlaces=Links.objects.filter(articulo=articulos.pk)
-        print(f"--------consultar_articulo-----enlaces---{enlaces}")       
+        #print(f"--------consultar_articulo-----enlaces---{enlaces}")       
 
     except Exception as e:
         print("El error es:", e)
         r="Articulo no encontrado"
-        print(f"--------*****")
+        # print(f"--------*****")
     return render(request, 'waterproof_wiki/articulo_detalle.html', {
         'articulo':articulos,
         'referencias':referencias,
