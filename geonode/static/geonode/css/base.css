@@ -2138,6 +2138,27 @@ pre code {
     padding-top: 50% !important;
   }
 }
+/* .video-responsive {
+	height: 100%;
+	overflow: hidden;
+	padding-bottom: 56.25%;
+	padding-top: 30px;
+	position: relative;
+	}
+.video-responsive iframe, .video-responsive object, .video-responsive embed {
+	height: 100%;
+	left: 0;
+	position: absolute;
+	top: 0;
+	width: 100%;
+	} */
+  .modal-form{
+    display: block; 
+    padding-top: 20%; 
+    /* width: 350px;  */
+    /* margin-left: 40%;  */
+    padding-right: 15px;
+  }
 @media (min-width: 1200px){
 
   .iconsWhatIsWP{
@@ -2389,7 +2410,14 @@ pre code {
     left: 50%;  
     margin-left: -50vw;
     height: 300px;
-    color: #fff;
+    color: #fff;    
+  }
+  .size-video{
+    width: 100%;
+    height: 263px;
+  }
+  .height-modal-content-index{
+    height: 370px;
   }
   .background-take-bot > h1{
   text-align: left;
@@ -9117,8 +9145,8 @@ form-inline {
  }
  .colorsubtitle{
   color: #0A8B8E;
- font-weight: lighter;
- font-size: x-large;
+  font-weight: lighter;
+  font-size: x-large;
 }
 
 .com { color: #93a1a1; }
@@ -9431,3 +9459,14 @@ top:50px;
   right: 2px;
 }
 
+.with-support-of{
+  margin-left: 12px;
+}
+
+.popup-body-content-text p{
+  margin: 5px 0 !important;
+}
+
+.subtitle{
+  font-size: 22px;
+}

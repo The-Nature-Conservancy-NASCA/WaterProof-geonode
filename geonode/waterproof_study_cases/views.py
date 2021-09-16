@@ -31,11 +31,11 @@ from django_libs.views_mixins import AccessMixin
 
 from .forms import StudyCasesForm
 from .models import StudyCases, Portfolio, ModelParameter
+from ..waterproof_reports.models import zip
 
 import datetime
 import json
 logger = logging.getLogger(__name__)
-
 
 def list(request):
     if request.method == 'GET':
@@ -53,6 +53,8 @@ def list(request):
                 else:
                     studyCases = StudyCases.objects.all().order_by('-edit_date')
                     city = Cities.objects.get(id=1)
+                intake_geoms = get_geoms_intakes(studyCases)
+       
                 return render(
                     request,
                     'waterproof_study_cases/studycases_list.html',
@@ -61,13 +63,14 @@ def list(request):
                         'city': city,
                         'userCountry': userCountry,
                         'region': region,
+                        'intakes': json.dumps(intake_geoms)
                     }
                 )
 
             if (request.user.professional_role == 'ANALYS'):
                 if (city_id != ''):
                     query = Q(city=city_id,added_by=request.user)
-                    query.add(Q(is_public=True), Q.OR)
+                    query.add(Q(city=city_id,is_public=True), Q.OR)
                     studyCases = StudyCases.objects.filter(query).order_by('-edit_date')
                     city = Cities.objects.get(id=city_id)
                 else:
@@ -78,21 +81,32 @@ def list(request):
                 
                 userCountry = Countries.objects.get(iso3=request.user.country)
                 region = Regions.objects.get(id=userCountry.region_id)
+                intake_geoms = get_geoms_intakes(studyCases)
+                
                 return render(
                     request,
                     'waterproof_study_cases/studycases_list.html',
                     {
                         'casesList': studyCases,
                         'city': city,
+                        'intakes': json.dumps(intake_geoms)
                     }
                 )
         else:
-            studyCases = StudyCases.objects.filter(is_public=True).order_by('-edit_date')
+            if (city_id != ''):
+                query = Q(city=city_id)
+                query.add(Q(is_public=True), Q.AND)
+                studyCases = StudyCases.objects.filter(query).order_by('-edit_date')
+                city = Cities.objects.get(id=city_id)
+            else:
+                studyCases = StudyCases.objects.filter(is_public=True).order_by('-edit_date')
+                city = Cities.objects.get(id=1)
             return render(
                 request,
                 'waterproof_study_cases/studycases_list.html',
                 {
                     'casesList': studyCases,
+                    'intakes': []
                 }
             )
 
@@ -302,12 +316,29 @@ def report(request, idx):
     if request.method == 'POST':
         return HttpResponseRedirect(reverse('study_cases_list'))
     else:
+        downloadZip = zip.objects.filter(study_case_id__id=idx).first()
+
         study_case = StudyCases.objects.get(id=idx)
         return render(
             request, 'waterproof_reports/reports_menu.html',
             {
                 "serverApi": settings.WATERPROOF_API_SERVER,
                 'study_case': study_case,
+                'filterzip': downloadZip,
                 'idx': idx
             }
         )
+
+def get_geoms_intakes(studyCases):
+    intake_geoms = []
+    for sc in studyCases:
+        intakes = sc.intakes.all()
+        for intake in intakes:
+            ig = dict()
+            ig['study_case_id'] = sc.pk
+            ig['study_case_name'] = sc.name
+            ig['intake_id'] = intake.pk
+            ig['geom'] = intake.polygon_set.first().geom.geojson
+            ig['intake_name'] = intake.name
+            intake_geoms.append(ig)
+    return intake_geoms

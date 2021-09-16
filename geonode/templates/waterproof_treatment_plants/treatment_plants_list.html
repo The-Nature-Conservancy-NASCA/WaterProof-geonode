@@ -22,9 +22,8 @@
 {% endblock %} 
 {% block body_outer %}
 <div class="header-waterproof">
-    <h1>{% trans "Water Treatment" %}</h1>
     <div>
-        <h1>{% trans "Drinking water treatment plants (DWTP)" %}</h1>
+        <h2>{% trans "Drinking water treatment plants (DWTP)" %}</h2>
     </div>
     <div class="row">
         <div class="col-md-4">
@@ -35,8 +34,20 @@
             <p><b>{% trans "Region" %}:</b> <span id="regionLabel"></span> </p>
             <p><b>{% trans "Currency" %}:</b> <span id="currencyLabel"></span></p>
             <div>
-                <a href="create/"  onclick="localStorage.loadFormButton='true'; localStorage.plantId = null;" id="createUrl">{% trans "Create new Treatment Plants" %}</a>
-                <button onclick="window.location.href='create/'" type="button" data-toggle="modal" class="glyphicon glyphicon-plus-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
+                {% if user.is_authenticated and not READ_ONLY_MODE %}
+                <a href="create/"  onclick="localStorage.loadFormButton='true'; localStorage.plantId = null;" 
+                    id="createUrl">{% trans "Create new Treatment Plants" %}</a>
+                <button onclick="window.location.href='create/'" type="button" 
+                        data-toggle="modal" class="glyphicon glyphicon-plus-sign" aria-hidden="true" 
+                        style="outline:none; text-decoration:none; color: #0977ca; cursor: pointer;
+                            border-style: none; background-color:transparent;">
+                </button>
+                {% else %}
+                <a id="createUrlDisabled">{% trans "Create new Treatment Plants" %}</a>
+                <h6>{% trans "You must be a registered user to create a new Treatment Plant" %}</h6>
+                {% endif %}
+                
+                
             </div>
         </div>
         <div class="col-md-8">

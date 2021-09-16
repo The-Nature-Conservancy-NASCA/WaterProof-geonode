@@ -42,7 +42,7 @@ msgstr ""
 "Project-Id-Version: GeoNode\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-02-19 11:28-0500\n"
-"PO-Revision-Date: 2021-09-10 15:41-0500\n"
+"PO-Revision-Date: 2021-09-11 16:24-0500\n"
 "Last-Translator: \n"
 "Language-Team: Spanish (http://www.transifex.com/geonode/geonode/language/es/)\n"
 "Language: es_419\n"
@@ -150,7 +150,7 @@ msgstr "El riesgo general del agua mide todos los riesgos relacionados con el ag
 
 #: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
 msgid " Estimated change in ecosystem services (Business as Usual Scenario Vs Nature-based Solutions Scenario)"
-msgstr " Cambio estimado en servicios ecosistémicos (BaU vs SbN)"
+msgstr " Cambio máximo estimado en servicios ecosistémicos (BaU vs SbN)"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
 msgid "Anual water yield"

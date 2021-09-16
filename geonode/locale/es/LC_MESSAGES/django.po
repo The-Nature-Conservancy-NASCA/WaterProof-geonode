@@ -42,7 +42,7 @@ msgstr ""
 "Project-Id-Version: GeoNode\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-02-11 20:03-0500\n"
-"PO-Revision-Date: 2021-09-10 10:44-0500\n"
+"PO-Revision-Date: 2021-09-14 16:12-0500\n"
 "Last-Translator: Julien Collaer <julien.collaer@opengeode.be>\n"
 "Language-Team: Spanish (http://www.transifex.com/geonode/geonode/language/es/)\n"
 "Language: es\n"
@@ -1425,11 +1425,11 @@ msgstr "Nombre"
 
 #: geonode/frequently/models.py:29
 msgid "Name in spanish"
-msgstr ""
+msgstr "Nombre en español"
 
 #: geonode/frequently/models.py:33
 msgid "Nombre in spanish"
-msgstr ""
+msgstr "Name in spanish"
 
 #: geonode/frequently/models.py:38 geonode/frequently/models.py:110
 msgid "Slug"
@@ -1455,15 +1455,15 @@ msgstr "edición"
 
 #: geonode/frequently/models.py:101 geonode/frequently/models.py:105
 msgid "Question Spanish"
-msgstr ""
+msgstr "Pregunta en español"
 
 #: geonode/frequently/models.py:114
 msgid "Answer"
-msgstr ""
+msgstr "Respuesta"
 
 #: geonode/frequently/models.py:119
 msgid "Answer Spanish"
-msgstr ""
+msgstr "Respuesta en español"
 
 #: geonode/frequently/models.py:125
 #, fuzzy
@@ -1479,7 +1479,7 @@ msgstr "Marcador de última entrega"
 
 #: geonode/frequently/models.py:135
 msgid "Amount of views"
-msgstr ""
+msgstr "Cantidad de vistas"
 
 #: geonode/frequently/models.py:145
 #, fuzzy
@@ -1507,7 +1507,7 @@ msgstr "Enviar"
 
 #: geonode/frequently/models.py:200
 msgid "Related entry"
-msgstr ""
+msgstr "Entrada relacionada"
 
 #: geonode/frequently/models.py:206
 msgid "Remark"
@@ -1527,7 +1527,7 @@ msgstr "Posición"
 
 #: geonode/frequently/models.py:217
 msgid "Negative"
-msgstr ""
+msgstr "Negativo"
 
 #: geonode/frequently/models.py:218
 msgid "Validation mood"
@@ -1539,7 +1539,7 @@ msgstr ""
 
 #: geonode/frequently/templates/frequently/email/new_question_body.txt:3 geonode/templates/frequently/email/new_question_body.txt:3
 msgid "please take a look at the following recently submitted question:"
-msgstr ""
+msgstr "Por favor revise las siguientes preguntas enviadas:"
 
 #: geonode/frequently/templates/frequently/email/new_question_body.txt:5 geonode/templates/frequently/email/new_question_body.txt:5
 msgid "eMail"
@@ -1551,7 +1551,7 @@ msgstr ""
 
 #: geonode/frequently/templates/frequently/email/new_question_body.txt:10 geonode/templates/frequently/email/new_question_body.txt:10
 msgid "Regards!"
-msgstr ""
+msgstr "Saludos!"
 
 #: geonode/frequently/templates/frequently/email/new_question_subject.txt:1 geonode/templates/frequently/email/new_question_subject.txt:1
 #, fuzzy
@@ -1561,7 +1561,7 @@ msgstr "Una nueva capa fue subida"
 
 #: geonode/frequently/templates/frequently/entry_form.html:4 geonode/frequently/templates/frequently/entry_form.html:7 geonode/templates/frequently/entry_form.html:4 geonode/templates/frequently/entry_form.html:7
 msgid "Your question"
-msgstr ""
+msgstr "Su pregunta"
 
 #: geonode/frequently/templates/frequently/entry_form.html:11 geonode/templates/frequently/entry_form.html:11
 #, fuzzy
@@ -1571,11 +1571,11 @@ msgstr "Enviar comentario"
 
 #: geonode/frequently/templates/frequently/entry_form.html:13 geonode/templates/frequently/entry_form.html:13
 msgid "We will send an answer as soon as possible. Thank you for your contribution."
-msgstr ""
+msgstr "Enviaremos una respuesta lo más pronto posible. Gracias por su contribución."
 
 #: geonode/frequently/templates/frequently/entry_list.html:6 geonode/frequently/templates/frequently/plugin.html:2 geonode/templates/frequently/entry_list.html:11 geonode/templates/frequently/plugin.html:2
 msgid "You can't find an answer to your issue? Submit your own! We'll help you out."
-msgstr ""
+msgstr "No puede encontrar una respuesta a su inquietud? Envíe su pregunta! Nosotros le ayudaremos a responderla."
 
 #: geonode/frequently/templates/frequently/partials/answer.html:3 geonode/templates/frequently/partials/answer.html:3
 #, fuzzy
@@ -1591,35 +1591,35 @@ msgstr "Usted no esta autorizado para editar este documento."
 
 #: geonode/frequently/templates/frequently/partials/answer.html:10 geonode/templates/frequently/partials/answer.html:17
 msgid "Hide answer"
-msgstr ""
+msgstr "Ocultar respuesta"
 
 #: geonode/frequently/templates/frequently/partials/feedback.html:10 geonode/templates/frequently/partials/feedback.html:10
 msgid "Appreciate"
-msgstr ""
+msgstr "Util"
 
 #: geonode/frequently/templates/frequently/partials/feedback.html:11 geonode/templates/frequently/partials/feedback.html:11
 msgid "Depreciate"
-msgstr ""
+msgstr "Innecesaria"
 
 #: geonode/frequently/templates/frequently/partials/feedback_form.html:4 geonode/templates/frequently/partials/feedback_form.html:4
 msgid "Thanks for your vote. Please send a small feedback. This will be highly appreciated!"
-msgstr ""
+msgstr "Gracias por su voto. Agradecemos su retroalimentación."
 
 #: geonode/frequently/templates/frequently/partials/feedback_form.html:6 geonode/templates/frequently/partials/feedback_form.html:6
 msgid "Send feedback"
-msgstr ""
+msgstr "Enviar retroalimentación"
 
 #: geonode/frequently/templates/frequently/partials/feedback_form.html:10 geonode/templates/frequently/partials/feedback_form.html:10
 msgid "Thanks for your vote!"
-msgstr ""
+msgstr "Gracias por su voto!"
 
 #: geonode/frequently/templates/frequently/partials/feedback_form.html:13 geonode/templates/frequently/partials/feedback_form.html:13
 msgid "Thanks for your feedback!"
-msgstr ""
+msgstr "Gracias por su retroalimentación!"
 
 #: geonode/frequently/views.py:228
 msgid "Your question has been posted. Our team will review it as soon as possible and get back to you with an answer."
-msgstr ""
+msgstr "Su pregunta ha sido publicada. Nuestro equipo la revisará lo más pronto posible y lo contactará con la respuesta."
 
 #: geonode/geoapps/__init__.py:28
 #, fuzzy
@@ -5293,75 +5293,77 @@ msgstr "Salir"
 
 #: geonode/templates/Private_policy.html:5 geonode/templates/Private_policy.html:12
 msgid "Privacy Policy"
-msgstr ""
+msgstr "Política de privacidad"
 
 #: geonode/templates/Private_policy.html:15
 msgid "The Water-proof's privacy policy."
-msgstr ""
+msgstr "Política de privacidad de WaterProof"
 
 #: geonode/templates/Private_policy.html:20
 msgid "What information we collect: The Nature Conservancy may request and collect from you personally identifiable information at various points on the site. Depending on the information or the services you request, you may be asked to provide your name, email address electronic, entity, country and other similar information. Once you have supplied personal information, you will not be an anonymous user for The Nature Conservancy."
-msgstr ""
+msgstr "Qué información recogemos: The Nature Conservancy puede solicitar y recoger de usted información de identificación personal en diversos puntos del sitio. Según cuál sea la información o los servicios que usted solicite, se le puede pedir que suministre su nombre, dirección de correo electrónico, entidad, país y demás informaciones similares. Una vez que usted haya suministrado información personal, no será un usuario anónimo para The Nature Conservancy."
 
 #: geonode/templates/Private_policy.html:22
 msgid "How The Nature Conservancy Uses Your Information: The Nature Conservancy may use the information provided by you for the following purposes:"
-msgstr ""
+msgstr "Cómo usa su información The Nature Conservancy: The Nature Conservancy puede usar la información proporcionada por usted con los siguientes propósitos:"
 
 #: geonode/templates/Private_policy.html:25
 msgid "Personalize the content and improve the navigability of the Website."
-msgstr ""
+msgstr "Personalizar el contenido y mejorar la navegabilidad del Sitio Web."
 
 #: geonode/templates/Private_policy.html:27
 msgid "Communicate the existence of new projects, website features, special events and services."
-msgstr ""
+msgstr "Comunicarle la existencia de nuevos proyectos, características del sitio web, eventos especiales y servicios."
 
 #: geonode/templates/Private_policy.html:29
 msgid "Carry out surveys to measure your degree of satisfaction with our service."
-msgstr ""
+msgstr "Realizar encuestas para medir su grado de satisfacción con nuestro servicio."
 
 #: geonode/templates/Private_policy.html:31
 msgid "Apply our Terms and Conditions of Use."
-msgstr ""
+msgstr "Aplicar nuestros Términos y Condiciones de Uso."
 
 #: geonode/templates/Private_policy.html:34
 msgid "The Nature Conservancy processes the information you provide on servers located at United States."
-msgstr ""
+msgstr "The Nature Conservancy procesa la información suministrada por usted en servidores ubicados en Estados Unidos."
 
 #: geonode/templates/Private_policy.html:36
 msgid "With whom does The Nature Conservancy share information: Subject to the right that you has to choose otherwise (as explained later in this policy), The Nature The Conservancy may share your name and mailing address (but not your mailing address electronic) with organizations that offer products or services that we consider possible interest to you. The Nature Conservancy may also share information with third parties. provided by you in the following cases: (i) to fulfill your request, for example, to provide information about a project, product or service; (ii) for subcontract one or more of the functions described above; or (iii) to share User information with authorities in response to a court order or official request or when we consider that you have violated our Terms and Conditions of Use."
 msgstr ""
+"Con quién comparte la información The Nature Conservancy: Con sujeción al derecho que usted tiene de optar en contrario (según lo expuesto más adelante en esta política), The Nature Conservancy puede compartir su nombre y dirección postal (aunque no su dirección de correo electrónico) con organizaciones que ofrecen productos o servicios que consideramos de posible interés para usted. The Nature Conservancy también puede compartir con terceros la información suministrada por usted en los siguientes casos: (i) para cumplir con una solicitud suya, por ejemplo, para proporcionar información sobre un proyecto, producto o servicio; (ii) para subcontratar una o más de las funciones precedentemente descritas; o (iii) para compartir información del usuario con las autoridades en respuesta a una orden judicial o una petición oficial o cuando consideremos que usted ha infringido nuestros Términos y "
+"Condiciones de Uso."
 
 #: geonode/templates/Private_policy.html:38
 msgid "When and where The Nature Conservancy collects information on the Website: In addition to the information that you voluntarily provide, The Nature Conservancy also collects the domain names and IP addresses used by people who visit us, as well as statistics on the use of the site, such as the type of browser and the pages visited. These data does not usually allow the personal identification of the user and is used to manage with greater efficiency in the activities of The Nature Conservancy, preparing ourselves to network load requirements, promote our organization and administer the Website."
-msgstr ""
+msgstr "Cuándo y dónde recoge información The Nature Conservancy en el Sitio Web: Además de la información que usted suministre voluntariamente, The Nature Conservancy también recoge los nombres de dominio y direcciones de IP utilizados por las personas que nos visitan, así como estadísticas sobre el uso del sitio, tales como el tipo de navegador y las páginas visitadas. Estos datos no suelen permitir la identificación personal del usuario y se los utiliza para gestionar con mayor eficiencia las actividades de The Nature Conservancy, prepararnos para atender las exigencias de carga de la red, promover nuestra organización y administrar el Sitio Web."
 
 #: geonode/templates/Private_policy.html:40
 msgid "How We Collect Information: In addition to the information collected in the manner described, there is a technology known as & quot; cookies & quot; that can be used to provide you with information customized from a website. A cookie is an element of data that a website can send to your browser, which in turn can - depending on the configuration you own — store it on your system. For example, some pages of the Website use cookies in order to that The Nature Conservancy can better serve you when you re-enter in the. Depending on the type of browser you use, you could configure it to notify you when you receive a cookie, giving you the opportunity to accept or reject it. However, note that the disabling cookies may prevent you from taking advantage of certain elements of our Website."
-msgstr ""
+msgstr "Cómo recogemos información: Además de la información recopilada en la forma descrita, existe una tecnología conocida como \"cookies\" que puede utilizarse para proporcionarle información personalizada desde un sitio web. Una cookie es un elemento de datos que un sitio web puede enviar a su navegador, el que a su vez puede—según cuál sea la configuración que posea—almacenarlo en su sistema. Por ejemplo, algunas páginas del Sitio Web usan cookies a fin de que The Nature Conservancy pueda brindarle un mejor servicio cuando usted vuelve a ingresar en él. Según el tipo de navegador que use, usted podría configurarlo para notificarle cuando recibe una cookie, dándole la oportunidad de aceptarla o rechazarla. No obstante, tenga en cuenta que la desactivación de las cookies puede impedirle aprovechar ciertos elementos de nuestro Sitio Web."
 
 #: geonode/templates/Private_policy.html:42
 msgid "How We Protect Information: The Nature Conservancy seeks to safeguard your information personal to prevent their loss, misuse or alteration. Our servers are protected for reasonable physical and electronic security measures."
-msgstr ""
+msgstr "Cómo protegemos la información: The Nature Conservancy procura resguardar su información personal para evitar su pérdida, uso indebido o alteración. Nuestros servidores están protegidos por medidas razonables de seguridad física y electrónica."
 
 #: geonode/templates/Private_policy.html:44
 msgid "Access by minors: This Website is not directed to children under 13 years of age, and The Nature The Conservancy does not knowingly collect information from these minors. If you are under 13, no provide The Nature Conservancy with any personally identifiable information."
-msgstr ""
+msgstr "Acceso de menores: Este Sitio Web no está dirigido a niños menores de 13 años, y The Nature Conservancy no recoge a sabiendas información de esos menores. Si usted es menor de 13, no suministre a The Nature Conservancy ninguna información que permita su identificación personal."
 
 #: geonode/templates/Private_policy.html:46
 msgid "Option: The Nature Conservancy may share your name and mailing address with organizations that offer products or services that we consider of possible interest to you."
-msgstr ""
+msgstr "Opción: The Nature Conservancy puede compartir su nombre y dirección postal con organizaciones que ofrecen productos o servicios que consideramos de posible interés para usted. "
 
 #: geonode/templates/Private_policy.html:48
 msgid "You have the right to choose not to allow such information sharing. The Nature The Conservancy may also use your personal information to send you surveys or messages from e-mail about the projects, events and services of the entity. You can choose for not receiving email and information from The Nature Conservancy."
-msgstr ""
+msgstr "Usted tiene derecho a optar por no permitir ese uso compartido de información. The Nature Conservancy también puede usar su información personal para enviarle encuestas o mensajes de correo electrónico acerca de los proyectos, eventos y servicios de la entidad. Usted puede optar por no recibir correo electrónico e información de The Nature Conservancy. "
 
 #: geonode/templates/Private_policy.html:50
 msgid "Links: The Website contains links to other third party websites. The Nature Conservancy does not is responsible for the privacy practices of such sites or their content."
-msgstr ""
+msgstr "Enlaces: El Sitio Web contiene enlaces a otros sitios web de terceros. The Nature Conservancy no es responsable de las prácticas de privacidad de tales sitios ni de su contenido."
 
 #: geonode/templates/Private_policy.html:52
 msgid "Email: This privacy policy is applicable to the Website, but not to the information that you send to The Nature Conservancy by email or other means of communication. We may retain your emails or other types of communication that you send us in order to process your inquiries, respond to your orders and improve our services."
-msgstr ""
+msgstr "Correo electrónico: Esta política de privacidad es aplicable al Sitio Web, pero no a la información que usted envíe a The Nature Conservancy por correo electrónico o por otro medio de comunicación. Podemos conservar sus mensajes de correo electrónico u otro tipo de comunicación que nos envíe con el objeto de tramitar sus consultas, responder a sus pedidos y mejorar nuestros servicios."
 
 #: geonode/templates/_actions.html:3
 msgid "Info"
@@ -5895,7 +5897,7 @@ msgstr "Crea una nueva cuenta local"
 
 #: geonode/templates/account/signup.html:34
 msgid "show condititions"
-msgstr ""
+msgstr "Mostrar condiciones"
 
 #: geonode/templates/account/signup_closed.html:5 geonode/templates/account/signup_closed.html:8
 msgid "Sign Up Closed"
@@ -7327,95 +7329,93 @@ msgid "Sign up with"
 msgstr "Registrarse con"
 
 #: geonode/templates/take_action.html:16
-#, fuzzy
-#| msgid "Action"
 msgid "Take Action"
-msgstr "Acción"
+msgstr "Llevarlo a la acción"
 
 #: geonode/templates/take_action.html:19
 msgid "Now that you have a portfolio of nature-based solutions to improve water security in your basins of interest and you know the return on your investment,"
-msgstr ""
+msgstr "Ahora que cuenta con un portafolio de soluciones basadas en la naturaleza para mejorar la seguridad hídrica en sus cuencas de interés y conoce el retorno de su inversión,"
 
 #: geonode/templates/take_action.html:19
 msgid "Take it to action!"
-msgstr ""
+msgstr "¡Llévelo a la acción!"
 
 #: geonode/templates/take_action.html:24
 msgid "Why is it important to do it?"
-msgstr ""
+msgstr "¿Por qué es importante hacerlo?"
 
 #: geonode/templates/take_action.html:29
 #, python-format
-msgid "Watersheds around the world are being transformed and degraded, as we lose terrestrial and freshwater ecosystems at ever higher rates. Likewise, the demand for water is increasing at a rate that is expected to have increased by 30%% by 2050, which, added to the impacts of climate change, pose a greater risk to the health of ecosystems and to security. water."
-msgstr ""
+msgid "Watersheds around the world are being transformed and degraded, as we lose terrestrial and freshwater ecosystems at ever higher rates. Likewise, the demand for water is increasing at a rate that is expected to have increased by 30 by 2050, which, added to the impacts of climate change, pose a greater risk to the health of ecosystems and to security. water."
+msgstr "Las cuencas alrededor del mundo están siendo transformadas y degradadas, mientras perdemos ecosistemas terrestres y de agua dulce a tasas cada vez más elevadas. Así mismo, la demanda de agua aumenta a un ritmo con el que se espera que a 2050 haya incrementado en un 30 porciento, lo que, sumado a los impactos del cambio climático, suponen un mayor riesgo a la salud de los ecosistemas y a la seguridad hídrica. "
 
 #: geonode/templates/take_action.html:32
 msgid "Healthy ecosystems are the foundation for multiple ecosystem services that provide benefits to us as individuals and as a society. Therefore, the deterioration of ecosystems has important consequences on our well-being and exacerbates the challenges we currently face as a society. The degradation of ecosystems, climate change and the increase in water demand are just some of the factors that can increase social conflicts over water use, increase our vulnerability, decrease production and impact our economy."
-msgstr ""
+msgstr "Los ecosistemas sanos son la base para múltiples servicios ecosistémicos que nos proporcionan beneficios como individuos y como sociedad. Por tanto, el deterioro de los ecosistemas tiene consecuencias importantes en nuestro bienestar y exacerba los retos que actualmente enfrentamos como sociedad. La degradación de ecosistemas, el cambio climático y el aumento en la demanda hídrica, son solo algunos de los factores que pueden incrementar los conflictos sociales por uso del agua, aumentar nuestra vulnerabilidad, disminuir la producción e impactar nuestra economía. "
 
 #: geonode/templates/take_action.html:35
 msgid "Nature-based solutions are actions that are based on ecosystems and the services they provide, to respond to various societal challenges such as climate change, food security, disaster risk or water security. It is an umbrella concept that addresses various actions and approaches that seek to address social problems and share the interest of taking advantage of ecosystems, their characteristics or functions, to solve them, while providing benefits for human well-being and biodiversity."
-msgstr ""
+msgstr "Las soluciones basadas en la naturaleza son acciones que se fundamentan en los ecosistemas y los servicios que éstos proveen, para responder a diversos desafíos de la sociedad como el cambio climático, la seguridad alimentaria, el riesgo de desastres o la seguridad hídrica. Es un concepto sombrilla que aborda diversas acciones y enfoques que buscan atender los problemas sociales y comparten el interés de aprovechar los ecosistemas, sus características o funciones, para resolverlos, al mismo tiempo que proporcionan beneficios para el bienestar humano y la biodiversidad."
 
 #: geonode/templates/take_action.html:38
 msgid "The solution to face the challenge of water security in your basins of interest is in your hands. Go ahead and take the next step!"
-msgstr ""
+msgstr "La solución para enfrentar el reto de la seguridad hídrica en tus cuencas de interés está en tus manos. ¡Anímate a dar el siguiente paso!"
 
 #: geonode/templates/take_action.html:41
 msgid "Why is it necessary to do it now?"
-msgstr ""
+msgstr "¿Por qué es necesario hacerlo ahora?"
 
 #: geonode/templates/take_action.html:46
 msgid "People around the world are facing intensifying water security problems, hand in hand with the deterioration of nature. The degradation of watersheds, as a result of poor management of water resources, the transformation of their vegetation cover and poor management and land use practices, generates direct impacts on the health of aquatic ecosystems, which have been transformed from accelerated manner in recent years. These ecosystems present the highest rates of degradation, compared to terrestrial and marine ecosystems. In recent decades, the loss of these ecosystems has intensified around the world and almost one in three freshwater species is threatened."
-msgstr ""
+msgstr "Las personas alrededor del mundo están enfrentando problemas de seguridad hídrica que se intensifican cada vez más, de la mano del deterioro de la naturaleza. La degradación de las cuencas, como consecuencia de un mal manejo del recurso hídrico, de la transformación de su cobertura vegetal y de malas prácticas de manejo y uso del suelo, genera impactos directos sobre la salud de los ecosistemas acuáticos, que se han transformado de manera acelerada en los últimos años. Estos ecosistemas presentan las mayores tasas de degradación, en comparación con ecosistemas terrestres y marinos. En las últimas décadas se ha intensificado la pérdida de estos ecosistemas alrededor del mundo y casi una de cada tres especies de agua dulce se encuentra amenazada. "
 
 #: geonode/templates/take_action.html:49
 msgid "The cost of water treatment in several cities of the planet has increased due to the degradation of the basins, which translates into higher costs for users and a lower quality of the water supply service. "
-msgstr ""
+msgstr "El costo de tratamiento de agua en varias ciudades del planeta ha incrementado debido a la degradación de las cuencas, lo que se traduce en mayores costos derivados a los usuarios y una menor calidad del servicio de provisión de agua."
 
 #: geonode/templates/take_action.html:52
 msgid "We are at a crucial moment to make decisions and take them to action. It is necessary to diversify our actions and accelerate them, to address the challenges we face as a society such as water security. "
-msgstr ""
+msgstr "Nos encontramos en un momento crucial para tomar decisiones y llevarlas a la acción. Es necesario diversificar nuestras acciones y acelerarlas, para abordar los retos que enfrentamos como sociedad como la seguridad hídrica. "
 
 #: geonode/templates/take_action.html:55
 msgid "Because investing in nature brings multiple benefits!"
-msgstr ""
+msgstr "¡Porque invertir en la naturaleza trae múltiples beneficios! "
 
 #: geonode/templates/take_action.html:60
 msgid "By implementing your portfolio of nature-based solutions you are not only improving water security in the basins of interest. It is also helping to solve other social challenges that concern us as a global society. The following are some of them:"
-msgstr ""
+msgstr "Al implementar su portafolio de soluciones basadas en la naturaleza no solo está mejorando la seguridad hídrica en las cuencas de interés. También está contribuyendo a solucionar otros retos sociales que nos preocupan como sociedad global. Los siguientes son algunos de ellos:"
 
 #: geonode/templates/take_action.html:63
 msgid "Addressing climate change:"
-msgstr ""
+msgstr "Abordar el cambio climático:"
 
 #: geonode/templates/take_action.html:63
 msgid "By implementing its portfolio of nature-based solutions, it is helping to mitigate greenhouse gas (GHG) emissions, by avoiding deforestation or land cover transformation, and by improving land use practices. It also promotes carbon sequestration in vegetation and soil, increasing the carbon storage capacity. These actions are also known as "
-msgstr ""
+msgstr " al implementar su portafolio de soluciones basadas en la naturaleza está ayudando a mitigar las emisiones de gases con efecto invernadero (GEI), al evitar la deforestación o la transformación de coberturas y al mejorar prácticas de uso de la tierra. También promueve la captura de carbono en la vegetación y el suelo, aumentando la capacidad de almacenamiento de carbono. Estas acciones se conocen también como"
 
 #: geonode/templates/take_action.html:63
 msgid "natural climate solutions (NCS)."
-msgstr ""
+msgstr "soluciones naturales del clima (natural climate solutions -NCS)."
 
 #: geonode/templates/take_action.html:63
 msgid "On the other hand, by improving the natural state of the basins of interest and also contributing with better productive practices, it is also helping to improve ecosystem resilience and the response capacity of people, which increases the capacity to adapt to climate change. These actions are also known as "
-msgstr ""
+msgstr "De otro lado, al mejorar el estado natural de las cuencas de interés y contribuir también con mejores prácticas productivas, también está contribuyendo a mejorar la resiliencia ecosistémica y la capacidad de respuesta de las personas, lo que aumenta la capacidad de adaptación frente al cambio climático. Estas acciones se conocen también como"
 
 #: geonode/templates/take_action.html:63
 msgid "ecosystem based adaptation (ABE)."
-msgstr ""
+msgstr "adaptación basada en ecosistemas (ecosystem based adaptation -ABE). "
 
 #: geonode/templates/take_action.html:66
 msgid "Confronting the loss of biodiversity:"
-msgstr ""
+msgstr "Enfrentar la pérdida de biodiversidad:"
 
 #: geonode/templates/take_action.html:66
 msgid "improving the natural condition of watersheds through nature-based solutions, with actions of preservation, restoration and better land management practices, brings benefits to biodiversity. Recovering habitats, their connectivity and reducing pressures on basins, creates the conditions for biodiversity to flourish. A healthy territory with healthy terrestrial and freshwater ecosystems provides favorable conditions for multiple ecosystem services. Biodiversity provides benefits for productive systems, such as pest control and the fixation of nutrients in the soil, generates new business opportunities such as nature tourism, and better conditions for human health."
-msgstr ""
+msgstr "mejorar la condición natural de las cuencas por medio de soluciones basadas en la naturaleza, con acciones de preservación, restauración y mejores prácticas de manejo de la tierra, trae beneficios a la biodiversidad. Recuperar los hábitats, su conectividad y reducir las presiones en las cuencas, genera las condiciones para que la biodiversidad prospere. Un territorio sano con ecosistemas terrestres y de agua dulce saludables, proporciona condiciones favorables para múltiples servicios ecosistémicos. La biodiversidad proporciona beneficios para los sistemas productivos, como el control de plagas y la fijación de nutrientes en el suelo, genera nuevas oportunidades de negocio como el turismo de naturaleza, y mejores condiciones para la salud humana. "
 
 #: geonode/templates/take_action.html:69
 msgid "Now that you know the urgency and the critical moment in which we find ourselves, learn how to put into action the portfolio of nature-based solutions to improve water security in your basins."
-msgstr ""
+msgstr "Ahora que conoce la urgencia y el momento crítico en que nos encontramos, conoce cómo llevar a la acción el portafolio de soluciones basadas en la naturaleza para mejorar la seguridad hídrica en tus cuencas."
 
 #: geonode/templates/take_action.html:78
 msgid "Infographic: General Process to Take Action"
@@ -7423,67 +7423,83 @@ msgstr ""
 
 #: geonode/templates/take_action.html:84
 msgid "Do it now!"
-msgstr ""
+msgstr "¡Hazlo ahora!"
 
 #: geonode/templates/take_action.html:89
 msgid "This general process will help you put your portfolio of nature-based solutions into action and improve water security in your watersheds."
-msgstr ""
+msgstr "Este proceso general lo ayudará a llevar a la acción su portafolio de soluciones basadas en la naturaleza y mejorar la seguridad hídrica en tus cuencas."
 
 #: geonode/templates/take_action.html:92
 msgid "Implementing nature-based solutions in your watersheds can seem like a challenge. However, around the world they are done on a daily basis and we have done so for several decades, so we have the experience and knowledge to do it, as well as"
-msgstr ""
+msgstr "Implementar soluciones basadas en la naturaleza en sus cuencas puede parecer un reto. Sin embargo, alrededor del mundo se realizan a diario y lo hemos hecho durante varias décadas, por lo que contamos con la experiencia y el conocimiento para hacerlo, así como"
 
 #: geonode/templates/take_action.html:93
-#, fuzzy
-#| msgid "List of resources affected"
 msgid "useful resources and references."
-msgstr "Lista de recursos afectados"
+msgstr "recursos y referencias útiles."
 
 #: geonode/templates/take_action.html:93
 msgid "You may decide to run this general process independently, but remember that you also have the experience and capabilities of various actors in your region"
-msgstr ""
+msgstr "Usted puede decidir llevar este proceso general de manera independiente, pero recuerde que también cuenta con la experiencia y capacidades de diversos"
 
 #: geonode/templates/take_action.html:93
-#, fuzzy
-#| msgid "Who can download it?"
 msgid "who can help you do it."
-msgstr "Quién puede descargar ésto?"
+msgstr "actores en su región que pueden ayudarlo a hacerlo."
 
 #: geonode/templates/take_action.html:94
 msgid "The general process that we propose here is a basic step by step with some actions that can facilitate the implementation and achieve the best results, learning and adjusting your plans in an adaptive management."
-msgstr ""
+msgstr "El proceso general que le proponemos aquí es un paso a paso básico con algunas acciones que pueden facilitar la implementación y conseguir los mejores resultados, aprendiendo y ajustando sus planes en una gestión adaptativa."
 
 #: geonode/templates/take_action.html:97
 msgid "Get your portfolio of nature-based solutions and know your return on investment."
-msgstr ""
+msgstr "Obtenga su portafolio de soluciones basadas en la naturaleza y conozca su retorno a la inversión."
 
 #: geonode/templates/take_action.html:98
 msgid "Socialize your portfolio with other key stakeholders and entities in your watersheds."
-msgstr ""
+msgstr "Socialice su portafolio con otros actores y entidades clave en sus cuencas."
 
 #: geonode/templates/take_action.html:99
 msgid "Identify opportunities and stakeholders to implement portfolio actions."
-msgstr ""
+msgstr "Identifique las oportunidades y las personas interesadas para implementar las acciones del portafolio."
 
 #: geonode/templates/take_action.html:100
 msgid "Formalize the engagement with stakeholders (if necessary)."
-msgstr ""
+msgstr "Formalice el compromiso con las personas interesadas (si es necesario)."
+
+#: geonode/templates/take_action.html:165
+msgid "Formalize the commitment with stakeholders (if necessary). Once you determine the interest of the landowners in implementing Nature-Based Solutions on their properties, we recommend formalizing your commitment to maintain these actions over time.  "
+msgstr "Formalice el compromiso con las personas interesadas (si es necesario). Una vez determine el interés de los propietarios en implementar soluciones basadas en la naturaleza en sus predios, le recomendamos formalizar su compromiso para mantener estas acciones en el tiempo."
 
 #: geonode/templates/take_action.html:101
 msgid "Implement nature-based solutions."
-msgstr ""
+msgstr "Implemente las soluciones basadas en la naturaleza. "
+
+#: geonode/templates/take_action.html:177
+msgid "Implement Nature-Based Solutions. Now that you have the resources, capabilities, commitments, and partnerships, it's time to implement Nature Based Solutions in your portfolio. You can decide to do it yourself or look for entities or individuals with the expertise and ability to do it. In this step, we recommend using local capacities to strengthen them and generate economic opportunities in the watersheds.   "
+msgstr "Implemente las soluciones basadas en la naturaleza. Ahora que cuenta con los recursos, las capacidades, compromisos y alianzas, es hora de implementar las soluciones basadas en la naturaleza de su portafolio. Puede decidir hacerlo usted mismo o buscar entidades o personas con la experiencia y capacidad para hacerlo. En este paso le recomendamos usar las capacidades locales para fortalecerlas y generar oportunidades económicas en las cuencas."
+
+#: geonode/templates/take_action.html:189
+msgid "Monitor implementation. It is very important to monitor the implementation of Nature-Based Solutions over time and carry out maintenance actions on these, to ensure that the vegetation grows properly and the conditions we expect occur. We also recommend working and maintaining communication with the landowners and communities in the watersheds to strengthen governance and encourage others to participate.   "
+msgstr "Acompañe la implementación. Es muy importante acompañar la implementación de las soluciones basadas en la naturaleza en el tiempo y realizar acciones de mantenimiento de estas, para garantizar que la vegetación crezca adecuadamente y las condiciones que esperamos ocurran. De igual forma, le recomendamos trabajar y mantener comunicación con los propietarios y las comunidades en las cuencas, con el fin de fortalecer la gobernanza y animar a otros a participar."
 
 #: geonode/templates/take_action.html:102
 msgid "Follow the implementation."
-msgstr ""
+msgstr "Acompañe la implementación."
 
 #: geonode/templates/take_action.html:103
 msgid "Track nature-based solutions."
-msgstr ""
+msgstr "Realice seguimiento a las soluciones basadas en la naturaleza."
+
+#: geonode/templates/take_action.html:201
+msgid "Track Nature-Based Solutions. To determine whether the implementation of the portfolio of Nature-Based Solutions has the expected results, it is necessary to do follow-up or monitoring. "
+msgstr "Realice seguimiento a las soluciones basadas en la naturaleza. Para determinar si la implementación del portafolio de soluciones basadas en la naturaleza tiene los resultados esperados, es necesario hacer seguimiento o monitoreo."
 
 #: geonode/templates/take_action.html:104
 msgid "Evaluate, learn and update your portfolio."
-msgstr ""
+msgstr "Evalúe, aprenda y actualice su portafolio."
+
+#: geonode/templates/take_action.html:104
+msgid "Evaluate, learn and update your portfolio. This is the last step of the cycle and seeks to evaluate the experiences, the observed results and learnings, to determine if the expected results are being achieved or if adjustments to the objectives or assumptions should be made. In this step, you may be interested in updating the portfolio of Nature-Based Solutions. "
+msgstr "Evalúe, aprenda y actualice su portafolio. Este es el último paso del ciclo y busca evaluar las experiencias, los resultados observados y los aprendizajes, para determinar si se están consiguiendo los resultados esperados o si se deben realizar ajustes a los objetivos o supuestos. En este paso, puede interesar actualizar el portafolio de soluciones basadas en la naturaleza."
 
 #: geonode/templates/take_action.html:121
 msgid "Step 1, detail:"
@@ -7510,50 +7526,100 @@ msgid "Text that explains the third step of the process to implement the SbN por
 msgstr ""
 
 #: geonode/templates/take_action.html:191
-#, fuzzy
-#| msgid "Who can view it?"
 msgid "Who can help you?"
-msgstr "Quién puede ver ésto?"
+msgstr "¿Quién puede ayudarlo?"
+
+#: geonode/templates/take-action.html:236
+msgid "What do I need to look for?"
+msgstr "¿Qué necesito buscar?"
+
+#: geonode/templates/take-action.html:240
+msgid "Nature-Based Solutions have been implemented around the world for several decades, although this concept is relatively new. Multiple entities and actors have the experience and knowledge to design, implement, maintain and monitor them. Our recommendation is that you seek local allies and partners who have this experience and promote the transfer and capacity building of local communities during the implementation and monitoring of the portfolio."
+msgstr "Las soluciones basadas en la naturaleza se han venido implementando alrededor del mundo por varias décadas, aunque este concepto es relativamente nuevo. Múltiples entidades y actores cuentan con la experiencia y el conocimiento para diseñar, implementar, mantener y hacer seguimiento a ellas. Nuestra recomendación es que busque aliados y socios locales que tengan esta experiencia y promueva la transferencia y el fortalecimiento de capacidades de comunidades locales durante la implementación y el seguimiento del portafolio. "
 
 #: geonode/templates/take_action.html:196
 msgid "Text that explains the capabilities that are required to implement a portfolio and the type of entities you can search for to help the user take action."
 msgstr ""
 
 #: geonode/templates/take_action.html:199
-#, fuzzy
-#| msgid "Responsible Parties"
 msgid "Possible partners:"
-msgstr "Partes responsables"
+msgstr "Algunas ideas para buscar estos socios son:"
 
 #: geonode/templates/take_action.html:202
 msgid "Academy and ONGs"
-msgstr ""
+msgstr "Academia y ONGs"
 
 #: geonode/templates/take_action.html:203
-#, fuzzy
-#| msgid "Confirm"
 msgid "Consulting firms"
-msgstr "Confirmar"
+msgstr "Empresas de consultoría"
 
 #: geonode/templates/take_action.html:204
 msgid "Local communities"
-msgstr ""
+msgstr "Comunidades locales"
 
 #: geonode/templates/take_action.html:205
 msgid "Governance "
-msgstr ""
+msgstr "Gobernantes"
 
 #: geonode/templates/take_action.html:206
 msgid "mechanisms"
-msgstr ""
+msgstr "Mecanismos"
 
 #: geonode/templates/take_action.html:207
 msgid "Local authorities"
-msgstr ""
+msgstr "Autoridades locales"
 
 #: geonode/templates/take_action.html:208
 msgid "Business"
-msgstr ""
+msgstr "Negocios"
+
+#: geonode/templates/take_action.html:269
+msgid "Suggested profiles and capacities for the implementation team:"
+msgstr "Perfiles y capacidades sugeridas para el equipo de implementación:"
+
+#: geonode/templates/take_action.html:272
+msgid "In the following, we will guide you with the type of profiles, technical capabilities, skills and experience, which we suggest the group of people working on the implementation of the portfolio of Nature-Based Solutions should meet. Depending on the context you are in, the area to be intervened and the size of your portfolio, the number of people you need to implement it may be larger or smaller. Remember that this team must ensure  proper implementation of the various solutions considered in the portfolio, the maintenance of the actions and their follow-up. In this sense, we recommend that you choose these teams in the same regional or local context where the portfolio will be implemented. Knowledge of the dynamics of vegetation and local conditions are an essential element for the success of the portfolio"
+msgstr "A continuación, lo guiaremos con el tipo de perfiles, capacidades técnicas, habilidades y experiencia, que sugerimos debe cumplir el grupo de personas que trabaje en la implementación del portafolio de soluciones basadas en la naturaleza. Dependiendo del contexto en el que se encuentra, el área a intervenir y la magnitud de su portafolio, el número de personas que necesita para implementarlo puede ser más grande o pequeño. Recuerde que este equipo debe asegurar una implementación adecuada de las diversas soluciones consideradas en el portafolio, el mantenimiento de las acciones y el seguimiento a las mismas. En este sentido, le recomendamos que escoja estos equipos en el mismo contexto regional o local donde se implementará el portafolio. El conocimiento de las dinámicas de la vegetación y las condiciones locales son un elemento indispensable para el éxito del portafolio."
+
+#: geonode/templates/take_action.html:286
+msgid "<b>Partnership manager:</b> Socializes the portfolio and identifies opportunities with key entities and actors to leverage efforts and resources that facilitate and accelerate the implementation of actions. The impact of good management can bring great benefits. Do not underestimate this potential. "
+msgstr "Gestor de alianzas: socializa el portafolio e identifica oportunidades con entidades y actores clave para apalancar esfuerzos y recursos que faciliten y aceleren la implementación de las acciones. El impacto de una buena gestión puede traer beneficios muy grandes. No subestime este potencial."
+
+#: geonode/templates/take_action.html:298
+msgid "<b>Lawyer:</b> Structures the agreements with owners (public and private) to formalize their commitment to maintain these actions over time. Lawyer: Structures the agreements with owners (public and private) to formalize their commitment to maintain these actions over time.  "
+msgstr "Abogado: estructura los acuerdos con propietarios (públicos y privados) para formalizar su compromiso para mantener estas acciones en el tiempo."
+
+#: geonode/templates/take_action.html:311
+msgid "<b>Extension technician:</b> Identifies and establishes communication with interested landowners to reach agreements with them on the implementation of Nature-Based Solutions in each property (signing of agreements). "
+msgstr "Técnico extensionista: identifica y establece la comunicación con los propietarios interesados para llegar a acuerdos con ellos sobre la implementación de soluciones basadas en la naturaleza en cada predio (firma de acuerdos)."
+
+#: geonode/templates/take_action.html:323
+msgid "<b>Director of the implementing team:</b> Structures the projects to implement the portfolio of Nature-Based Solutions and maintains the actions. He/she must structure the budget (materials, tools, logistics, personnel, travel expenses, equipment and everything necessary for the implementation of the actions and their maintenance), hire and train the staff of the implementation team, and direct and supervise the implementations and maintenance in field. This is one of the most important profiles, this person must have experience implementing actions for the preservation and restoration of natural ecosystems and sustainable management of productive systems as well as the management of personnel in the field, hopefully in the same regional context.  "
+msgstr "Director del equipo implementador: estructura los proyectos para implementar el portafolio de soluciones basadas en la naturaleza y hacerles mantenimiento a las acciones. Debe estructurar el presupuesto (materiales, herramientas, logística, personal, viáticos, equipos y todo lo necesario para la implementación de las acciones y su mantenimiento), contratar y capacitar al personal del equipo implementador, y dirigir y supervisar las implementaciones y el mantenimiento en campo. Este es uno de los perfiles más importantes, esta persona debe tener experiencia implementando acciones de preservación y restauración de ecosistemas naturales y manejo sostenible de sistemas productivos al igual que el manejo de personal en campo, ojalá en el mismo contexto regional."
+
+#: geonode/templates/take_action.html:335
+msgid "<b>Implementing team staff:</b> They implement Nature-Based Solutions. Ideally, they should have experience in implementing these types of actions, but they can be people from local communities or volunteers who are trained to carry out these activities. We recommend that you take advantage of all the opportunities you identify to partner with other implementation partners and promote the strengthening of local communities.  "
+msgstr "Personal del equipo implementador: implementan las soluciones basadas en la naturaleza. Es ideal que tengan experiencia en la implementación de este tipo de acciones, pero pueden ser personas de las comunidades locales o voluntarios que se capacitan para realizar estas actividades. Le recomendamos aprovechar todas las oportunidades que identifique para aliarse con otros socios para la implementación y que promueva el fortalecimiento de las comunidades locales. "
+
+#: geonode/templates/take_action.html:347
+msgid "<b>Director of the monitoring and evaluation team:</b> Structures and develops the monitoring of Nature-Based Solutions in order to quantify progress towards meeting the goals defined for the portfolio. It may be oriented exclusively towards the monitoring of indicators defined in the return on investment analysis or include indicators of biophysical aspects. He / she must structure the budget for supervising, hire and train the monitoring team staff, and direct and supervise these activities in the field. He / she must also define and develop the analyses and generate the evaluation reports.  "
+msgstr "Director del equipo de monitoreo y evaluación: estructura y desarrolla el monitoreo de las soluciones basadas en la naturaleza con el fin de cuantificar los avances hacia el cumplimiento de las metas definidas para el portafolio. Puede orientarse exclusivamente al seguimiento de indicadores definidos en el análisis de retorno a la inversión o incluir indicadores de aspectos biofísicos. Debe estructurar el presupuesto para el monitoreo, contratar y capacitar al personal del equipo de monitoreo, y dirigir y supervisar estas actividades en campo. También debe definir y desarrollar los análisis y generar los reportes de evaluación."
+
+#: geonode/templates/take_action.html:359
+msgid "<b>Monitoring and evaluation team staff:</b> They implement Nature-Based Solutions portfolio monitoring. Ideally, they should have experience in monitoring and some of the activities may be carried out only with qualified personnel, but the monitoring may include activities carried out by people from local communities or trained volunteers. We recommend that you take advantage of all the opportunities you identify to associate with other implementation partners and promote the empowerment of local communities."
+msgstr "Personal del equipo de monitoreo y evaluación: implementan el monitoreo del portafolio de soluciones basadas en la naturaleza. Es ideal que tengan experiencia en monitoreo y algunas de las actividades puede que sean realizadas únicamente con personal cualificado, pero el monitoreo puede incluir actividades que realicen personas de las comunidades locales o voluntarios que se capaciten. Le recomendamos aprovechar todas las oportunidades que identifique para aliarse con otros socios para la implementación y que promueva el fortalecimiento de las comunidades locales."
+
+#: geonode/templates/take_action.html:370
+msgid "Here you can find tools, case study references, trainings, methodologies and other useful resources:"
+msgstr "Aquí puede encontrar herramientas, referencias a casos de estudio, entrenamientos, metodologías y otros recursos útiles:"
+
+#: geonode/templates/take_action.html:223
+msgid "Monitoring and evaluation team"
+msgstr "Equipo de monitoreo y evaluación"
+
+#: geonode/templates/take_action.html:223
+msgid "Here you can find references to platforms, communities of practice and collaborative alliances:"
+msgstr "Aquí encontrará referencias a plataformas, comunidades de práctica y alianzas colaborativas:"
 
 #: geonode/templates/take_action.html:223
 msgid "Helpful resources and references"
@@ -7564,108 +7630,123 @@ msgid "Here you will find some links and references to implementation examples, 
 msgstr ""
 
 #: geonode/templates/terms_of_use.html:5 geonode/templates/terms_of_use.html:12 geonode/templates/terms_of_use_flat.html:5
-#, fuzzy
-#| msgid "The user"
 msgid "Terms of use"
-msgstr "El usuario"
+msgstr "Términos y condiciones de uso"
 
 #: geonode/templates/terms_of_use.html:15 geonode/templates/terms_of_use_flat.html:8
 msgid "PLEASE READ THIS AGREEMENT CAREFULLY; THIS IS A BINDING CONTRACT."
-msgstr ""
+msgstr "POR FAVOR LEA ESTE CONTRATO DETENIDAMENTE; ESTE ES UN CONTRATO VINCULANTE. "
 
 #: geonode/templates/terms_of_use.html:17 geonode/templates/terms_of_use_flat.html:10
 msgid "This website (this 'Website') is a service offered by The Nature Conservancy. This Terms of Use Agreement (the 'Terms of Use' or 'Agreement') describes the terms and conditions applicable to your access and use of this Website and The Nature Conservancy's services. The Nature Conservancy may revise this Agreement at any time by posting the amended Terms of Use on this Website, and you agree that you will be bound by any changes to the Terms of Use. For your convenience, the date of last revision is included at the top of this page. The Nature Conservancy may make changes in the services described on this Website at any time. You understand that The Nature Conservancy may discontinue or restrict your use of this Website for any reason."
-msgstr ""
+msgstr "Este sitio web (el 'Sitio Web') es un servicio otorgado por The Nature Conservancy. Este contrato de términos de uso (los 'Términos de Uso' o el 'Contrato') describe los términos y condiciones en relación con su acceso y uso a este Sitio Web y a los servicios de The Nature Conservancy. The Nature Conservancy puede modificar este Contrato en cualquier tiempo a través de la publicación de los Términos de Uso modificados en este Sitio Web, y usted acepta que estará obligado a cumplir con cualquier cambio a los Términos de Uso. Para su conveniencia, la fecha de la última modificación está incluida en la parte superior de esta página. The Nature Conservancy puede hacer cambios a los servicios descritos en este Sitio Web en cualquier momento. Usted entiende que The Nature Conservancy puede descontinuar o restringir su uso de este Sitio Web por cualquier motivo."
 
 #: geonode/templates/terms_of_use.html:19 geonode/templates/terms_of_use_flat.html:12
 msgid "ABOUT THE INFORMATION ON THIS SITE. The Content (as defined below) available on this Website is intended to be a general information resource and is provided solely on an 'AS IS' and 'AS AVAILABLE' basis. You are encouraged to confirm the information contained herein. You should not construe The Nature Conservancy's publication of the Content on this Website as a warranty or guarantee of the quality or availability of any goods or services."
-msgstr ""
+msgstr "SOBRE LA INFORMACIÓN EN ESTE SITIO. El Contenido (según se define a continuación) disponible en este Sitio Web pretende ser un recurso de información general y se proporciona únicamente 'TAL CUAL' y 'TAL COMO ESTÁ DISPONIBLE'. Le recomendamos que confirme la información contenida en este documento. No debe interpretar la publicación del Contenido por parte de The Nature Conservancy en este Sitio Web como una declaración o una garantía de la calidad o disponibilidad de cualquier producto o servicio."
 
 #: geonode/templates/terms_of_use.html:21 geonode/templates/terms_of_use_flat.html:14
 msgid "ELIGIBILITY. By using this Website, you represent and warrant that (a) all registration and other information you submit, if any, is truthful and accurate; (b) you will maintain the accuracy of any information you provide; (c) you will not submit any personal information if you are under 13 years of age; and (d) your use of this Website does not violate any applicable law or regulation."
-msgstr ""
+msgstr "ELEGIBILIDAD. Al utilizar este Sitio Web, usted declara y garantiza que (a) toda la información de registro y toda otra información que envíe, en caso de hacerlo, es veraz y precisa; (b) mantendrá la exactitud de la información que proporcione; (c) no enviará ninguna información personal si es menor de 13 años de edad; y (d) su uso de este Sitio Web no viola ninguna ley o regulación aplicable."
 
 #: geonode/templates/terms_of_use.html:23 geonode/templates/terms_of_use_flat.html:16
 msgid ""
 "USE OF MATERIALS ON THIS SITE. The content on this Website includes, but is not limited to, text, graphics, images, photographs, illustrations, maps, trademarks, tradenames, service marks, logos, information obtained from The Nature Conservancy’s licensors, and other materials ('Content'). Title to the Content on this Website remains with The Nature Conservancy. The Nature Conservancy invites you to view and use a single copy of the materials obtained from this Website for your personal, non-commercial use. Except as expressly permitted on this Website, you agree not to license, distribute, create derivative works from, transfer, sell or re-sell any information, Content, or services obtained from this Website. No graphics, photographs or other visual elements obtained through this Website may be used, copied, or distributed separate from the accompanying text without the prior express "
 "written consent of the original owner or The Nature Conservancy. You are not permitted to use the materials on this Website except as expressly set forth herein. You may not under any circumstances attempt to deface, shut down or otherwise damage this Website. You may not, without The Nature Conservancy’s written permission, “mirror” any Content contained in this Website or any other server."
 msgstr ""
+"USO DE MATERIALES EN ESTE SITIO. El contenido de este Sitio Web incluye, entre otros, textos, gráficos, imágenes, fotografías, ilustraciones, mapas, marcas registradas, marcas comerciales, marcas de servicio, logotipos, información obtenida de los otorgantes de licencias de The Nature Conservancy y otros materiales (el \"Contenido\"). El Contenido de este Sitio Web permanece bajo propiedad de The Nature Conservancy. The Nature Conservancy lo invita a ver y utilizar una sola copia de los materiales obtenidos de este Sitio Web para su uso personal y no comercial. Excepto por lo expresamente permitido en este Sitio Web, usted acepta no licenciar, distribuir, crear trabajos derivados a partir de, transferir, vender o revender cualquier información, contenido o servicios obtenidos de este Sitio Web. Ningún gráfico, fotografía u otro elemento visual obtenido a través de este Sitio Web puede ser "
+"utilizado, copiado o distribuido en forma separada del texto adjunto sin el previo consentimiento expreso y por escrito del propietario original o de The Nature Conservancy. No se permite utilizar los materiales de este Sitio Web, excepto de acuerdo con lo expresamente establecido en este documento. Bajo ninguna circunstancia puede intentar desfigurar, cerrar o dañar de otra forma este Sitio Web. No puede, sin el permiso por escrito de The Nature Conservancy, \"clonar\" ningún Contenido incluido en este Sitio Web o en cualquier otro servidor."
 
 #: geonode/templates/terms_of_use.html:25 geonode/templates/terms_of_use_flat.html:18
 msgid "LINKS TO THIS SITE AND USE OF MARKS. The Website may contain links to websites operated by other parties. The Nature Conservancy provides these links to other websites as a convenience, and use of these sites is at your own risk. The linked sites are not owned or operated by or under the control of The Nature Conservancy, and The Nature Conservancy is not responsible for the content available on the other sites. Such links do not imply The Nature Conservancy's endorsement of information or material on any other site and The Nature Conservancy disclaims all liability with regard to your access to and use of such linked Websites."
-msgstr ""
+msgstr "ENLACES A ESTE SITIO Y USO DE MARCAS. El Sitio Web puede contener enlaces a sitios web operados por terceros. The Nature Conservancy proporciona estos enlaces a otros sitios web como una conveniencia, y el uso de estos sitios es bajo su propio riesgo. Los sitios vinculados no son propiedad ni están operados por o bajo el control de The Nature Conservancy y The Nature Conservancy no es responsable por el contenido disponible en los otros sitios. Dichos enlaces no implican la aprobación de la información o el material por parte de The Nature Conservancy en ningún otro sitio y usted exime a The Nature Conservancy de toda responsabilidad con respecto al acceso y uso de dichos Sitios Web vinculados."
 
 #: geonode/templates/terms_of_use.html:27 geonode/templates/terms_of_use_flat.html:20
 msgid ""
 "TRADEMARKS. The Nature Conservancy, The Nature Conservancy & Design, The Nature Conservancy Logos, Diversidata, Last Great Places, The Nature Conservancy International, Parks in Peril, Adopt An Acre, Rescue the Reef & Design, Virginia Coast Reserve, America Verde, Wings of the Americas, TNC, tnc.org, Waterproof App and all other names of The Nature Conservancy programs referenced herein are registered or common law trademarks of The Nature Conservancy in the United States. The Nature Conservancy and other trademarks are registered in several other countries, including without limitation Argentina, Australia, Bolivia, Brazil, Chile, Columbia, Costa Rica, Dominican Republic, Ecuador, France, Guatemala, Honduras, Hong Kong, Indonesia, Jamaica, Japan, Mexico, New Zealand, Nicaragua, Panama, Papua New Guinea, Paraguay, Peru, Philippines, Taiwan, and Venezuela. For more information, please "
 "contact The Nature Conservancy Legal Department at 4245 North Fairfax Drive, Arlington Virginia, 22203-1606 USA. Unauthorized use of any Nature Conservancy trademark, service mark or logo may be a violation of federal and state law."
 msgstr ""
+"MARCAS COMERCIALES. The Nature Conservancy, The Nature Conservancy & Design, The Nature Conservancy Logos, Diversidata, Last Great Places, The Nature Conservancy International, Parks in Peril, Adopt An Acre, Rescue the Reef & Design, Virginia Coast Reserve, America Verde, Wings of the Americas, TNC, tnc.org, Waterproof, y todos los demás nombres de los programas de The Nature Conservancy a los que se hace referencia en este documento son marcas registradas de The Nature Conservancy en los Estados Unidos. The Nature Conservancy y otras marcas están registradas en varios países, incluidos, entre otros, Argentina, Australia, Bolivia, Brasil, Chile, Colombia, Costa Rica, República Dominicana, Ecuador, Francia, Guatemala, Honduras, Hong Kong, Indonesia, Jamaica, Japón, México, Nueva Zelanda, Nicaragua, Panamá, Papua Nueva Guinea, Paraguay, Perú, Filipinas, Taiwán y Venezuela. Para obtener más "
+"información, comuníquese con el Departamento Legal de The Nature Conservancy en 4245 North Fairfax Drive, Arlington Virginia, 22203-1606 EE.UU. El uso no autorizado de cualquier marca registrada, marca de servicio o logotipo de Nature Conservancy puede ser una violación de las leyes federales y estatales."
 
 #: geonode/templates/terms_of_use.html:29 geonode/templates/terms_of_use_flat.html:22
 msgid "DISCLAIMERS AND LIMITATION OF LIABILITY. ALL CONTENT ON THE WEBSITE IS PROVIDED TO YOU ON AN 'AS IS' 'AS AVAILABLE' BASIS WITHOUT WARRANTY OF ANY KIND EITHER EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT. THE NATURE CONSERVANCY MAKES NO WARRANTY AS TO THE ACCURACY, COMPLETENESS OR RELIABILITY OF ANY CONTENT AVAILABLE THROUGH THE WEBSITE. YOU ARE RESPONSIBLE FOR VERIFYING ANY INFORMATION BEFORE RELYING ON IT. USE OF THE WEBSITE AND THE CONTENT AVAILABLE ON THE WEBSITE IS AT YOUR SOLE RISK."
 msgstr ""
+"LIBERACIÓN Y LIMITACIÓN DE RESPONSABILIDAD. TODO EL CONTENIDO DEL SITIO WEB SE LE PROPORCIONA DE FORMA \"TAL CUAL\" Y “COMO DISPONIBLE\", SIN GARANTÍA DE NINGÚN TIPO, YA SEA EXPRESA O IMPLÍCITA, INCLUYENDO, PERO NO LIMITADO A LAS GARANTÍAS IMPLÍCITAS DE COMERCIALIZACIÓN, ADECUACIÓN PARA UN PROPÓSITO PARTICULAR Y DE NO INFRACCIÓN. THE NATURE CONSERVANCY NO GARANTIZA LA EXACTITUD, INTEGRIDAD O CONFIABILIDAD DE NINGÚN CONTENIDO DISPONIBLE A TRAVÉS DEL SITIO WEB. LOS DATOS PUBLICADOS SON EL RESULTADO DE LA RECOPILACIÓN DE DIFERENTES PROCESOS. THE NATURE CONSERVANCY NO SE HACE RESPONSABLE POR CUALQUIER ERROR U OMISIÓN EN LOS DATOS PUBLICADOS O DE CUALQUIER RESPONSABILIDAD DERIVADA DE DAÑOS O PÉRDIDAS CAUSADAS POR EL USO DE LA INFORMACIÓN. USTED ES RESPONSABLE DE VERIFICAR CUALQUIER INFORMACIÓN ANTES DE CONFIAR EN ELLA. EL USO DEL SITIO WEB Y EL CONTENIDO DISPONIBLE EN EL SITIO WEB ES BAJO SU "
+"PROPIO RIESGO."
 
 #: geonode/templates/terms_of_use.html:31 geonode/templates/terms_of_use_flat.html:24
 msgid "THE NATURE CONSERVANCY MAKES NO REPRESENTATIONS OR WARRANTIES THAT USE OF THE WEBSITE WILL BE UNINTERRUPTED OR ERROR-FREE. YOU ARE RESPONSIBLE FOR TAKING ALL NECESSARY PRECAUTIONS TO ENSURE THAT ANY CONTENT YOU MAY OBTAIN FROM THE WEBSITE IS FREE OF VIRUSES OR OTHER HARMFUL CODE."
-msgstr ""
+msgstr "THE NATURE CONSERVANCY NO HACE NINGUNA REPRESENTACIÓN Y NO GARANTIZA QUE EL USO DEL SITIO WEB SEA ININTERRUMPIDO O LIBRE DE ERRORES. USTED ES RESPONSABLE DE TOMAR TODAS LAS PRECAUCIONES NECESARIAS PARA ASEGURAR QUE CUALQUIER CONTENIDO QUE PUEDA OBTENER EN EL SITIO WEB ESTÉ LIBRE DE VIRUS U OTROS CÓDIGOS PERJUDICIALES."
 
 #: geonode/templates/terms_of_use.html:33 geonode/templates/terms_of_use_flat.html:26
 msgid "TO THE MAXIMUM EXTENT PERMITTED BY LAW, THE NATURE CONSERVANCY DISCLAIMS ALL LIABILITY, WHETHER BASED IN CONTRACT, TORT (INCLUDING NEGLIGENCE), STRICT LIABILITY OR OTHERWISE, AND FURTHER DISCLAIMS ALL LOSSES, INCLUDING WITHOUT LIMITATION INDIRECT, INCIDENTAL, CONSEQUENTIAL, OR SPECIAL DAMAGES ARISING OUT OF OR IN ANY WAY CONNECTED WITH ACCESS TO OR USE OF THE WEBSITE, EVEN IF THE NATURE CONSERVANCY HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES."
-msgstr ""
+msgstr "EN LA MEDIDA QUE LO PERMITA LA LEY, THE NATURE CONSERVANCY QUEDA LIBERADA DE TODA RESPONSABILIDAD, YA SEA CONTRACTUAL, EXTRA-CONTRACTUAL (INCLUYENDO NEGLIGENCIA), OBJETIVA O CUALQUIER OTRA, Y NO SERA RESPONSABLE DE NINGÚN PERJUICIO, INCLUYENDO SIN LIMITE PERJUICIOS INDIRECTOS, CONSECUENCIALES O ESPECIALES QUE SE ORIGINEN O QUE ESTÉN CONECTADOS DE CUALQUIER FORMA CON EL ACCESO O EL USO DEL SITIO WEB, INCLUSO SI THE NATURE CONSERVANCY HA SIDO NOTIFICADA SOBRE LA POSIBILIDAD DE TALES PERJUICIOS."
 
 #: geonode/templates/terms_of_use.html:35 geonode/templates/terms_of_use_flat.html:28
 msgid "INDEMNITY. You agree to indemnify, defend and hold The Nature Conservancy, its subsidiaries, and affiliates, and their respective officers, agents, partners and employees, harmless from any loss, liability, claim, or demand, including reasonable attorneys' fees, due to or arising out of your use of this Website and/or breach of this Agreement."
-msgstr ""
+msgstr "INDEMNIDAD. Usted acepta indemnizar, defender y mantener a The Nature Conservancy, sus subsidiarias y afiliadas, y sus respectivos funcionarios, agentes, socios y empleados, indemnes de cualquier pérdida, responsabilidad, demanda o exigencia, incluyendo los honorarios razonables de abogados, debidos a o derivados del uso de este Sitio Web y/o el incumplimiento de este Contrato."
 
 #: geonode/templates/terms_of_use.html:37 geonode/templates/terms_of_use_flat.html:30
 msgid ""
 "COPYRIGHT. The Website, including all text, graphics, user interfaces, visual interfaces, photographs, sounds, audio, video, artwork, computer code (including HTML, CSS, XML, and JavaScript), interactive features, programs, software, products, information, and documentation as well as the design, structure, selection, coordination, expression, 'look and feel,' unless otherwise indicated is protected by U.S. and international copyright laws. The Nature Conservancy also owns a copyright in the Content of this Website, and Postings licensed to The Nature Conservancy by you as collective work and/or compilation, and in the selection, coordination, arrangement, and enhancement of the Content or Postings on this Website. Any downloadable or printable programs, information, or materials available through this Website and all copyrights, trade secrets, and know-how related thereto, unless "
 "otherwise indicated, are owned by The Nature Conservancy. Except for your use as authorized above, you may not modify, reproduce or distribute the Content, design or layout of this Website, or individual sections of the Content, design or layout of this Website, without The Nature Conservancy's express prior written permission."
 msgstr ""
+"DERECHOS DE AUTOR. El Sitio Web, incluyendo todo el texto, gráficos, interfaces de usuario, interfaces visuales, fotografías, sonidos, audio, video, ilustraciones, código de computadora (incluidos HTML, CSS, XML y JavaScript), funciones interactivas, programas, software, productos, información y documentación, así como el diseño, la estructura, la selección, la coordinación, la expresión, el \"aspecto y sensación”, a menos que se indique lo contrario, está protegido por las leyes de propiedad intelectual internacionales y de los EE.UU. The Nature Conservancy también posee derechos de autor sobre el Contenido de este Sitio Web y sobre las Publicaciones licenciadas a The Nature Conservancy por usted como trabajo colectivo y/o compilación, y sobre la selección, coordinación, disposición y mejora del Contenido o Publicaciones en este Sitio Web. Cualquier programa, información o material "
+"descargable o imprimible disponible a través de este Sitio Web y todos los derechos de autor, secretos comerciales y conocimientos relacionados con el mismo, a menos que se indique lo contrario, son propiedad de The Nature Conservancy. Excepto por su uso autorizado según lo anterior, no puede modificar, reproducir o distribuir el Contenido, el diseño de este Sitio Web, ni las secciones individuales del Contenido o el diseño de este Sitio web, sin la autorización previa y por escrito de The Nature Conservancy."
 
 #: geonode/templates/terms_of_use.html:39 geonode/templates/terms_of_use_flat.html:32
 msgid ""
 "NOTICE FOR CLAIMS OF COPYRIGHT INFRINGEMENT. If you are a copyright owner or agent thereof and believe that Content posted on this Website by a Nature Conservancy user infringes upon your copyright, please submit notice, pursuant to the Digital Millennium Copyright Act (17 U.S.C. § 512(c)) to our Copyright Agent with the following information: (a) an electronic or physical signature of the person authorized to act on behalf of the owner of the copyright; (b) a description of the copyrighted work that you claim has been infringed; (c) the URL of the location on this Website containing the material that you claim is infringing; (d) your address, telephone number, and email address; (e) a statement by you that you have a good faith belief that the disputed use is not authorized by the copyright owner, its agent, or the law; and (f) a statement by you, made under penalty of perjury, that the "
 "above information in your notice is accurate and that you are the copyright owner or authorized to act on the copyright owner's behalf. Our Copyright Agent can be reached by mail at: The Nature Conservancy, ATTN: COPYRIGHT AGENT, Marketing, Digital Engagement, The Nature Conservancy, 4245 N. Fairfax Drive, Arlington, VA 22203-1606, USA, by phone at 1-703-841-2038, by fax at 1-703-247-3674, or by email at copyright@tnc.org. Please note that attachments cannot be accepted at the email address for security reasons. Accordingly, any notification of infringement submitted electronically with an attachment will not be received or processed."
 msgstr ""
+"AVISO DE DEMANDA POR INFRACCIONES A LOS DERECHOS DE AUTOR. Si usted es propietario o agente del propietario de los derechos de autor y cree que el Contenido publicado en este Sitio Web por un usuario de The Nature Conservancy infringe sus derechos de autor, por favor presente una notificación, de conformidad con la Ley de Derechos de Autor del Milenio Digital (17 U.S.C § 512 (c)) a nuestro Agente de Derechos de Autor con la siguiente información: (a) una firma electrónica o física de la persona autorizada para actuar en nombre del propietario de los derechos de autor; (b) una descripción de la obra con derechos de autor que usted afirma ha sido infringida; (c) la URL de la ubicación en este Sitio Web que contiene el material que usted afirma está infringiendo; (d) su dirección, número de teléfono y dirección de correo electrónico; (e) una declaración suya en la cual declare que cree de "
+"buena fe que el uso en disputa no está autorizado por el propietario de los derechos de autor, su agente o la ley; y (f) una declaración suya, hecha bajo juramento con pena de perjurio, de que la información anterior contenida en su notificación es precisa y que usted es el propietario de los derechos de autor o está autorizado para actuar en nombre del propietario de los derechos de autor. Puede comunicarse con nuestro Agente de Derechos de Autor por correo a: The Nature Conservancy, ATTN: COPYRIGHT AGENT, Marketing, Digital Engagement, The Nature Conservancy, 4245 N. Fairfax Drive, Arlington, VA 22203-1606, EE.UU., por teléfono al 1-703- 841-2038, por fax al 1-703-247-3674, o por correo electrónico a copyright@tnc.org . Tenga en cuenta que los anexos no se pueden aceptar en la dirección de correo electrónico por razones de seguridad. En consecuencia, cualquier notificación de infracción "
+"enviada electrónicamente con un anexo no será recibida o procesada."
 
 #: geonode/templates/terms_of_use.html:41 geonode/templates/terms_of_use_flat.html:34
 msgid "LOCATION. The Website is operated by The Nature Conservancy from its offices in Colombia. The Nature Conservancy makes no representation that the Content of this Website is available or appropriate for use in other locations. Those who choose to access this Website do so on their own initiative and are responsible for compliance with applicable local laws."
-msgstr ""
+msgstr "UBICACIÓN. El Sitio Web es operado por The Nature Conservancy desde sus oficinas en Colombia. The Nature Conservancy no garantiza que el Contenido de este Sitio Web esté disponible o sea adecuado para su uso en otros lugares. Quienes elijan acceder a este Sitio Web lo hacen por iniciativa propia y son responsables de cumplir con las leyes locales aplicables."
 
 #: geonode/templates/terms_of_use.html:43 geonode/templates/terms_of_use_flat.html:36
 msgid "CHILDREN. The Website is not directed toward children under 13 years of age nor does The Nature Conservancy knowingly collect information from children under 13. If you are under 13, please do not submit any personally identifiable information to The Nature Conservancy."
-msgstr ""
+msgstr "NIÑOS. El Sitio Web no está dirigido a niños menores de 13 años y The Nature Conservancy no recopila intencionalmente información de niños menores de 13 años. Si usted tiene menos de 13 años, por favor no envíe información personal identificable a The Nature Conservancy."
 
 #: geonode/templates/terms_of_use.html:45 geonode/templates/terms_of_use_flat.html:38
 msgid "PRIVACY POLICY. By agreeing to these terms, you acknowledge that The Nature Conservancy may collect, use and disclose your information as described in our Privacy Policy."
-msgstr ""
+msgstr "POLÍTICA DE PRIVACIDAD. Al aceptar estos términos, usted reconoce que The Nature Conservancy puede recopilar, usar y divulgar su información en los términos descritos en nuestra Política de Privacidad."
 
 #: geonode/templates/terms_of_use.html:47 geonode/templates/terms_of_use_flat.html:40
 msgid ""
 "USER CONTENT. By submitting a Posting or providing any content on or through this Website, you hereby grant to The Nature Conservancy a worldwide, irrevocable, royalty-free, nonexclusive, limited license to reproduce, use, adapt, modify, publish, translate, publicly perform, publicly display, distribute and create derivative works from such content in any form, and The Nature Conservancy may sublicense all or part of its rights under this license or assign them to third parties. You represent and warrant that: (i) you own the content posted by you on or through this Website or otherwise have the right to grant the license set forth in this section, and (ii) the posting of your content on or through this Website does not violate the privacy rights, publicity rights, copyrights, contract rights or any other rights of any person. The Nature Conservancy may delete any content for any reason, "
 "including content that, in The Nature Conservancy's sole judgment, is offensive, illegal or violate the rights, harm, or threaten the safety of any person. The Nature Conservancy has the right, but does not assume the responsibility, for monitoring this Website for inappropriate content. You are solely responsible for the content of any Postings that you post on or through this Website."
 msgstr ""
+"CONTENIDO DE USUARIO. Al enviar una Publicación o proporcionar cualquier contenido a través de este Sitio Web, usted otorga a The Nature Conservancy una licencia mundial, irrevocable, gratuita, no exclusiva y limitada para reproducir, usar, adaptar, modificar, publicar, traducir, representar públicamente, mostrar públicamente, distribuir y crear trabajos derivados de dicho contenido en cualquier forma y The Nature Conservancy puede otorgar una licencia de todos o parte de sus derechos bajo esta licencia o cederlos a terceros. Usted declara y garantiza que: (i) es propietario del contenido publicado por usted en o a través de este Sitio Web o tiene el derecho de otorgar la licencia establecida en esta sección, y (ii) la publicación de su contenido en este o a través de Sitio Web no viola los derechos de privacidad, derechos de publicidad, derechos de autor, derechos contractuales o "
+"cualquier otro derecho de cualquier persona. The Nature Conservancy puede eliminar cualquier contenido por cualquier motivo, incluido el contenido que, a juicio exclusivo de The Nature Conservancy, es ofensivo, ilegal o viola los derechos, perjudica o amenaza la seguridad de cualquier persona. The Nature Conservancy tiene el derecho, pero no asume la responsabilidad, de monitorear este Sitio Web en busca de contenido inapropiado. Usted es el único responsable del contenido de las Publicaciones que publique en o a través de este Sitio Web."
 
 #: geonode/templates/terms_of_use.html:49 geonode/templates/terms_of_use_flat.html:42
 msgid "SUBMISSIONS. It has been the long-standing policy of The Nature Conservancy not to accept or consider creative ideas, suggestions, or materials, including, but not limited to, notes, drawings, concepts, comments, questions or answers, techniques, know-how, or other information (hereinafter 'Submissions') other than those specifically requested. EThe intent of this policy is to avoid the possibility of future misunderstandings when projects developed by The Nature Conservancy's professional staff might seem to others to be similar to their own creative work. All Submissions, including unsolicited submissions and those made at the request of The Nature Conservancy, will be treated as non-confidential and non-proprietary, and will be subject to the license granted in the preceding paragraph. The Nature Conservancy will not be liable for any use or disclosure of any Submissions."
 msgstr ""
+"PRESENTACIONES. Ha sido una política de larga duración de The Nature Conservancy no aceptar ni considerar ideas creativas, sugerencias o materiales, incluido, pero no limitado, a notas, dibujos, conceptos, comentarios, preguntas o respuestas, técnicas, conocimientos técnicos u otra información (en adelante las \"Presentaciones\") que no sea aquellas solicitadas específicamente. El objetivo de esta política es evitar la posibilidad de futuros malentendidos cuando los proyectos desarrollados por el personal profesional de The Nature Conservancy le puedan parecer a terceros similares a su propio trabajo creativo. Todas las Presentaciones, incluyendo a las que no han sido solicitadas y las realizadas a la solicitud de The Nature Conservancy, se tratarán como no confidenciales y no patentadas, y estarán sujetas a la licencia otorgada en el párrafo anterior. The Nature Conservancy no será "
+"responsable de ningún uso o divulgación de cualquier Presentación."
 
 #: geonode/templates/terms_of_use.html:51 geonode/templates/terms_of_use_flat.html:44
 msgid "PASSWORD. You may be assigned a username and password with which to access restricted areas of this Website. You agree not to use the username or password of another user at any time or to disclose your password to any third party. You agree to notify The Nature Conservancy immediately if you suspect any unauthorized use of your username or access to your password. You are solely responsible for any and all uses of your username and password."
-msgstr ""
+msgstr "CONTRASEÑA. Se le puede asignar un nombre de usuario y una contraseña con la cual accede a áreas restringidas de este Sitio Web. Usted acepta no usar el nombre de usuario o la contraseña de otro usuario en ningún momento ni revelar su contraseña a terceros. Usted acepta notificar a The Nature Conservancy de inmediato si sospecha de un uso no autorizado de su nombre de usuario o contraseña. Usted es el único responsable por cualquier uso que se haga de su nombre de usuario y contraseña."
 
 #: geonode/templates/terms_of_use.html:53 geonode/templates/terms_of_use_flat.html:46
 msgid "EMAIL. Email submissions over the internet may not be secure. Please do not email The Nature Conservancy any personal or confidential information. Please refer to our Privacy Policy for information how The Nature Conservancy uses your information."
-msgstr ""
+msgstr "CORREO ELECTRÓNICO. Los envíos por correo electrónico a través del Internet pueden no ser seguros. No envíe ninguna información personal o confidencial a The Nature Conservancy por correo electrónico. Consulte nuestra Política de Privacidad para obtener información sobre cómo The Nature Conservancy utiliza su información."
 
 #: geonode/templates/terms_of_use.html:55 geonode/templates/terms_of_use_flat.html:48
 msgid "MISCELLANEOUS. If any provision of this Agreement is held to be invalid or unenforceable, such provision shall be struck and the remaining provisions shall be enforced. Headings are for reference purposes only and in no way define, limit, construe or describe the scope or extent of such section. The Nature Conservancy's failure to act with respect to any failure by you or others to comply with these Terms of Use does not waive The Nature Conservancy's right to act with respect to subsequent or similar failures. These Terms of Use set forth the entire understanding and agreement between you and The Nature Conservancy with respect to the subject matter hereof. Any cause of action or claim you may have with respect to this Agreement or this Website must be commenced within six (6) months after the claim or cause of action arises or such claim or cause of action shall be barred."
 msgstr ""
+"MISCELÁNEOS. Si alguna cláusula de este Contrato se considera inválida o inejecutable, dicha cláusula se eliminará y las cláusulas restantes se harán cumplir. Los encabezados son solo referenciales y de ninguna manera definen, limitan, interpretan o describen el alcance de dicha sección. El hecho de que The Nature Conservancy no actúe con respecto a algún incumplimiento por parte de usted u otras personas de estos Términos de Uso no implica una renuncia al derecho de The Nature Conservancy a actuar con respecto a incumplimientos posteriores o similares. Estos Términos de Uso establecen todo el acuerdo entre usted y The Nature Conservancy con respecto al tema que aquí se expone. Cualquier acción o demanda que pueda tener con respecto a este Contrato o este Sitio Web debe iniciarse dentro de los seis (6) meses posteriores a la fecha de la causa de la demanda o de la acción, o dicha demanda o "
+"acción será prohibida."
 
 #: geonode/templates/terms_of_use.html:57 geonode/templates/terms_of_use_flat.html:50
 msgid "VIOLATIONS AND ADDITIONAL POLICIES. The Nature Conservancy reserves the right to seek all remedies available at law and in equity for violations of this Agreement, including without limitation the right to block access from a particular Internet address."
-msgstr ""
+msgstr "VIOLACIONES Y POLÍTICAS ADICIONALES. The Nature Conservancy se reserva el derecho de buscar todos los remedios disponibles con la ley y en equidad para las violaciones de este Contrato, incluyendo, sin limitación, el derecho de bloquear el acceso desde una dirección de Internet en particular."
 
 #: geonode/templates/user_messages/inbox.html:7
 msgid "Message Inbox"
@@ -9000,7 +9081,7 @@ msgid "Explore how Nature-based Solutions can generate outcomes in your catchmen
 msgstr "Explore cómo las soluciones basadas en la naturaleza pueden generar resultados en su captación."
 
 msgid "Start now"
-msgstr "Empieza ahora"
+msgstr "Empiece ahora"
 
 msgid "About us"
 msgstr "Sobre nosotros"
@@ -9274,3 +9355,11 @@ msgstr "Aquí encontrarás la descripción de un caso de estudio y todos los ele
 #: geonode/templates/index.html
 msgid "Text 5 - Who can use the system?"
 msgstr "WaterProof está orientado principalmente a profesionales encargados del diseño de proyectos de implementación de Soluciones basadas en la Naturaleza. El publico general puede acceder de forma abierta."
+
+#: geonode/templates/menu.html
+msgid "NbS"
+msgstr "SbN"
+
+#: geonode/templates/menu.html
+msgid "This website is funded by the Gordon and Betty Moore Foundation through Grant GBMF7100 to support the work of WaterProof"
+msgstr "Este sitio web está financiado por la Fundación Gordon and Betty Moore a través de la subvención GBMF7100 para apoyar el trabajo de WaterProof"

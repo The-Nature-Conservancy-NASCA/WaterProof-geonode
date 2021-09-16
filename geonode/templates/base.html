@@ -571,12 +571,12 @@
 		<div class="col-md-2">
           <ul class="list-unstyled">
             <!-- <li>{% trans "Read More" %}</li> -->
-            <li><a href="{% url "about" %}">{% trans "About Waterproof" %}</a></li>
+            <!-- <li><a href="{% url "about" %}">{% trans "About Waterproof" %}</a></li> -->
 			<li><a href="{% url "frequently_list" %}">{% trans "FAQ" %}</a></li>
             <li><a href="{% url "terms_of_use" %}">{% trans "Terms and conditions" %}</a></li>
 			<li><a href="{% url "privacy-policy" %}">{% trans "Privacy policy" %}</a></li>
-			<li><a href="{% url "collaborators" %}">{% trans "Collaborators" %}</a></li>
-			<li><a href="https://waterfundstoolbox.org/">{% trans "Water funds toolbox" %}</a></li>
+			<!-- <li><a href="{% url "collaborators" %}">{% trans "Collaborators" %}</a></li>
+			<li><a href="https://waterfundstoolbox.org/">{% trans "Water funds toolbox" %}</a></li> -->
             <!-- {% if perms.announcements.can_manage %} -->
             <!-- <li><a href="{% url "announcements_list" %}">{% trans "Announcements" %}</a></li> -->
             <!-- {% endif %} -->
@@ -735,8 +735,7 @@
         }catch(e){
           //console.log("maybe rootwizard is in another page");
         }
-        
-        //initializeStudyCaseForm();        
+            
       })
       
       $('#search').on('submit', (e) => {
@@ -763,6 +762,8 @@
           url="{% url "list-intake" %}?limit={{ CLIENT_RESULTS_LIMIT }}&city=" + cityId;
           window.location.href = url;
         });
+
+        
     </script>
 
     <div class="modal fade" style="width: 100%; height: 100%;" id="_resource_uploading" data-backdrop="static" aria-hidden="true">

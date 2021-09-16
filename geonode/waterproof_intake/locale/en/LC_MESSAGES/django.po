@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Waterproof\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-08-07 15:10-0500\n"
-"PO-Revision-Date: 2021-09-08 10:27-0500\n"
+"PO-Revision-Date: 2021-09-13 17:27-0500\n"
 "Last-Translator: \n"
 "Language-Team: Skaphe\n"
 "Language: en\n"
@@ -19,7 +19,9 @@ msgstr ""
 "X-Generator: Poedit 2.4.3\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
-#: models.py:13 models.py:217 models.py:351 models.py:469 template/intake_clone.html:67 template/intake_edit.html:71 template/intake_form.html:71 template/intake_list.html:55
+#: models.py:13 models.py:217 models.py:351 models.py:469
+#: template/intake_clone.html:67 template/intake_edit.html:71
+#: template/intake_form.html:71 template/intake_list.html:55
 msgid "Name"
 msgstr "Name"
 
@@ -99,7 +101,8 @@ msgstr "%% Water transported"
 msgid "Maximal transported water"
 msgstr "%% Water transported"
 
-#: models.py:114 template/intake_clone.html:200 template/intake_edit.html:193 template/intake_form.html:209 template/intake_list.html:38
+#: models.py:114 template/intake_clone.html:200 template/intake_edit.html:193
+#: template/intake_form.html:209 template/intake_list.html:38
 msgid "Currency"
 msgstr "Currency"
 
@@ -115,11 +118,13 @@ msgstr ""
 msgid "Materials equipment"
 msgstr ""
 
-#: models.py:143 models.py:479 template/intake_clone.html:199 template/intake_edit.html:192 template/intake_form.html:208
+#: models.py:143 models.py:479 template/intake_clone.html:199
+#: template/intake_edit.html:192 template/intake_form.html:208
 msgid "Function"
 msgstr "Function"
 
-#: models.py:148 template/intake_clone.html:197 template/intake_edit.html:191 template/intake_form.html:207
+#: models.py:148 template/intake_clone.html:197 template/intake_edit.html:191
+#: template/intake_form.html:207
 msgid "Function name"
 msgstr "Cost function name"
 
@@ -169,7 +174,9 @@ msgstr ""
 msgid "Manual"
 msgstr "Manually"
 
-#: models.py:222 models.py:474 template/intake_clone.html:78 template/intake_edit.html:82 template/intake_form.html:82 template/intake_list.html:56
+#: models.py:222 models.py:474 template/intake_clone.html:78
+#: template/intake_edit.html:82 template/intake_form.html:82
+#: template/intake_list.html:56
 msgid "Description"
 msgstr "Description"
 
@@ -237,7 +244,8 @@ msgstr ""
 msgid "Delimitation type"
 msgstr "Creation Date"
 
-#: models.py:362 models.py:368 models.py:374 models.py:380 models.py:575 models.py:581 models.py:587 models.py:602
+#: models.py:362 models.py:368 models.py:374 models.py:380 models.py:575
+#: models.py:581 models.py:587 models.py:602
 #, fuzzy
 #| msgid "Extraction Value (l/s)"
 msgid "Extraction value"
@@ -287,7 +295,8 @@ msgstr ""
 msgid "WpRetTon"
 msgstr ""
 
-#: models.py:511 template/intake_clone.html:201 template/intake_edit.html:194 template/intake_form.html:210
+#: models.py:511 template/intake_clone.html:201 template/intake_edit.html:194
+#: template/intake_form.html:210
 msgid "Factor"
 msgstr "Multiplication factor of the total cost"
 
@@ -327,7 +336,11 @@ msgstr "Function"
 msgid "Condition3"
 msgstr "Connections"
 
-#: models.py:563 models.py:596 template/intake_clone.html:295 template/intake_clone.html:332 template/intake_detail_list.html:261 template/intake_detail_list.html:295 template/intake_edit.html:278 template/intake_edit.html:312 template/intake_form.html:299 template/intake_form.html:338
+#: models.py:563 models.py:596 template/intake_clone.html:295
+#: template/intake_clone.html:332 template/intake_detail_list.html:261
+#: template/intake_detail_list.html:295 template/intake_edit.html:278
+#: template/intake_edit.html:312 template/intake_form.html:299
+#: template/intake_form.html:338
 msgid "Year"
 msgstr "Year"
 
@@ -341,7 +354,8 @@ msgstr "Water source name"
 msgid "Clone water intake"
 msgstr "Clone water intake"
 
-#: template/intake_clone.html:19 template/intake_detail_list.html:32 template/intake_edit.html:23 template/intake_form.html:20
+#: template/intake_clone.html:19 template/intake_detail_list.html:32
+#: template/intake_edit.html:23 template/intake_form.html:20
 msgid "Intake creation city"
 msgstr "City of creation"
 
@@ -349,11 +363,14 @@ msgstr "City of creation"
 msgid "Define"
 msgstr "Location"
 
-#: template/intake_clone.html:36 template/intake_clone.html:111 template/intake_edit.html:40 template/intake_edit.html:116
+#: template/intake_clone.html:36 template/intake_clone.html:111
+#: template/intake_edit.html:40 template/intake_edit.html:116
 msgid "Configure parameters"
 msgstr "Infraestructure"
 
-#: template/intake_clone.html:41 template/intake_clone.html:226 template/intake_detail_list.html:200 template/intake_edit.html:45 template/intake_edit.html:218
+#: template/intake_clone.html:41 template/intake_clone.html:226
+#: template/intake_detail_list.html:200 template/intake_edit.html:45
+#: template/intake_edit.html:218
 msgid "Water extraction"
 msgstr "Demand"
 
@@ -361,7 +378,9 @@ msgstr "Demand"
 msgid "Sub area"
 msgstr "NbS area"
 
-#: template/intake_clone.html:60 template/intake_edit.html:64 template/intake_form.html:62 template/intake_form.html:618 template/intake_form.html:651
+#: template/intake_clone.html:60 template/intake_edit.html:64
+#: template/intake_form.html:62 template/intake_form.html:618
+#: template/intake_form.html:651
 msgid "Define water intake"
 msgstr "Define water intake"
 
@@ -373,11 +392,19 @@ msgstr "Please complete the fields to define your water intake"
 msgid "Cloned"
 msgstr "Clone"
 
-#: template/intake_clone.html:88 template/intake_edit.html:93 template/intake_form.html:93 template/intake_list.html:59
+#: template/intake_clone.html:88 template/intake_edit.html:93
+#: template/intake_form.html:93 template/intake_list.html:59
 msgid "Water source name"
 msgstr "Water source name"
 
-#: template/intake_clone.html:104 template/intake_clone.html:351 template/intake_clone.html:378 template/intake_detail_list.html:112 template/intake_detail_list.html:191 template/intake_detail_list.html:312 template/intake_detail_list.html:338 template/intake_edit.html:109 template/intake_edit.html:210 template/intake_edit.html:329 template/intake_edit.html:355 template/intake_form.html:112 template/intake_form.html:223 template/intake_form.html:355 template/intake_form.html:383
+#: template/intake_clone.html:104 template/intake_clone.html:351
+#: template/intake_clone.html:378 template/intake_detail_list.html:112
+#: template/intake_detail_list.html:191 template/intake_detail_list.html:312
+#: template/intake_detail_list.html:338 template/intake_edit.html:109
+#: template/intake_edit.html:210 template/intake_edit.html:329
+#: template/intake_edit.html:355 template/intake_form.html:112
+#: template/intake_form.html:223 template/intake_form.html:355
+#: template/intake_form.html:383
 msgid "Next"
 msgstr "Next"
 
@@ -385,127 +412,165 @@ msgstr "Next"
 msgid "Select the elements that make up your capture system"
 msgstr "Select the elements that make up your capture system"
 
-#: template/intake_clone.html:126 template/intake_edit.html:131 template/intake_form.html:147
+#: template/intake_clone.html:126 template/intake_edit.html:131
+#: template/intake_form.html:147
 msgid "Source"
 msgstr "Source"
 
-#: template/intake_clone.html:153 template/intake_edit.html:154 template/intake_form.html:168
+#: template/intake_clone.html:153 template/intake_edit.html:154
+#: template/intake_form.html:168
 msgid "ID"
 msgstr "ID"
 
-#: template/intake_clone.html:158 template/intake_edit.html:159 template/intake_form.html:173
+#: template/intake_clone.html:158 template/intake_edit.html:159
+#: template/intake_form.html:173
 #, python-format
 msgid "%% Transported water"
 msgstr "%% Water transported"
 
-#: template/intake_clone.html:164 template/intake_edit.html:164 template/intake_form.html:178
+#: template/intake_clone.html:164 template/intake_edit.html:164
+#: template/intake_form.html:178
 #, python-format
 msgid "%% Sediments retained"
 msgstr "%% Sediments retained"
 
-#: template/intake_clone.html:170 template/intake_edit.html:169 template/intake_form.html:183
+#: template/intake_clone.html:170 template/intake_edit.html:169
+#: template/intake_form.html:183
 #, python-format
 msgid "%% Nitrogen retained"
 msgstr "%%  Nitrogen retained"
 
-#: template/intake_clone.html:176 template/intake_edit.html:174 template/intake_form.html:188
+#: template/intake_clone.html:176 template/intake_edit.html:174
+#: template/intake_form.html:188
 #, python-format
 msgid "%% Phosphorus retained"
 msgstr "%% Phosphorus retained"
 
-#: template/intake_clone.html:187 template/intake_edit.html:184 template/intake_form.html:200
+#: template/intake_clone.html:187 template/intake_edit.html:184
+#: template/intake_form.html:200
 msgid "Cost functions "
 msgstr "Cost functions "
 
-#: template/intake_clone.html:202 template/intake_edit.html:195 template/intake_form.html:211 template/intake_list.html:64
+#: template/intake_clone.html:202 template/intake_edit.html:195
+#: template/intake_form.html:211 template/intake_list.html:64
 msgid "Options"
 msgstr "Options"
 
-#: template/intake_clone.html:227 template/intake_detail_list.html:201 template/intake_edit.html:219
+#: template/intake_clone.html:227 template/intake_detail_list.html:201
+#: template/intake_edit.html:219
 msgid "Please enter the annual water extraction"
 msgstr "Please enter the annual water extraction"
 
-#: template/intake_clone.html:233 template/intake_detail_list.html:206 template/intake_edit.html:224 template/intake_form.html:239
+#: template/intake_clone.html:233 template/intake_detail_list.html:206
+#: template/intake_edit.html:224 template/intake_form.html:239
 msgid "Manual edit"
 msgstr "Manual edit"
 
-#: template/intake_clone.html:244 template/intake_detail_list.html:217 template/intake_edit.html:235 template/intake_form.html:250
+#: template/intake_clone.html:244 template/intake_detail_list.html:217
+#: template/intake_edit.html:235 template/intake_form.html:250
 msgid "Data analysis"
 msgstr "Data analysis"
 
-#: template/intake_clone.html:245 template/intake_detail_list.html:218 template/intake_edit.html:236 template/intake_form.html:251
+#: template/intake_clone.html:245 template/intake_detail_list.html:218
+#: template/intake_edit.html:236 template/intake_form.html:251
 msgid "Please select the method you wish to use"
 msgstr "Please select the method you wish to use to autofill the table associated with annual water extraction from the source"
 
-#: template/intake_clone.html:249 template/intake_detail_list.html:222 template/intake_edit.html:240 template/intake_form.html:255
+#: template/intake_clone.html:249 template/intake_detail_list.html:222
+#: template/intake_edit.html:240 template/intake_form.html:255
 msgid "Interpolation method "
 msgstr "Interpolation method "
 
-#: template/intake_clone.html:253 template/intake_detail_list.html:225 template/intake_edit.html:243 template/intake_form.html:259 template/intake_form.html:800
+#: template/intake_clone.html:253 template/intake_detail_list.html:225
+#: template/intake_edit.html:243 template/intake_form.html:259
+#: template/intake_form.html:800
 msgid "Linear interpolation"
 msgstr "Linear interpolation"
 
-#: template/intake_clone.html:254 template/intake_detail_list.html:226 template/intake_edit.html:244 template/intake_form.html:260 template/intake_form.html:801
+#: template/intake_clone.html:254 template/intake_detail_list.html:226
+#: template/intake_edit.html:244 template/intake_form.html:260
+#: template/intake_form.html:801
 msgid "Potential interpolation"
 msgstr "Potential interpolation"
 
-#: template/intake_clone.html:255 template/intake_detail_list.html:227 template/intake_edit.html:245 template/intake_form.html:261 template/intake_form.html:802
+#: template/intake_clone.html:255 template/intake_detail_list.html:227
+#: template/intake_edit.html:245 template/intake_form.html:261
+#: template/intake_form.html:802
 msgid "Exponential interpolation"
 msgstr "Exponential interpolation"
 
-#: template/intake_clone.html:257 template/intake_detail_list.html:228 template/intake_edit.html:246 template/intake_form.html:262
+#: template/intake_clone.html:257 template/intake_detail_list.html:228
+#: template/intake_edit.html:246 template/intake_form.html:262
 msgid "Logistics interpolation"
 msgstr "Logistics interpolation"
 
-#: template/intake_clone.html:261 template/intake_clone.html:315 template/intake_detail_list.html:232 template/intake_detail_list.html:280 template/intake_edit.html:250 template/intake_edit.html:297 template/intake_form.html:318
+#: template/intake_clone.html:261 template/intake_clone.html:315
+#: template/intake_detail_list.html:232 template/intake_detail_list.html:280
+#: template/intake_edit.html:250 template/intake_edit.html:297
+#: template/intake_form.html:318
 msgid "Number of years for time series"
 msgstr "Number of years for time series"
 
-#: template/intake_clone.html:268 template/intake_detail_list.html:239 template/intake_edit.html:256 template/intake_form.html:272
+#: template/intake_clone.html:268 template/intake_detail_list.html:239
+#: template/intake_edit.html:256 template/intake_form.html:272
 msgid "Extraction"
 msgstr "Extraction"
 
-#: template/intake_clone.html:272 template/intake_detail_list.html:243 template/intake_edit.html:260 template/intake_form.html:276
+#: template/intake_clone.html:272 template/intake_detail_list.html:243
+#: template/intake_edit.html:260 template/intake_form.html:276
 msgid "Initial year"
 msgstr "Initial year (l/s)"
 
-#: template/intake_clone.html:278 template/intake_detail_list.html:247 template/intake_edit.html:264 template/intake_form.html:281
+#: template/intake_clone.html:278 template/intake_detail_list.html:247
+#: template/intake_edit.html:264 template/intake_form.html:281
 msgid "Final year"
 msgstr "Final year (l/s)"
 
-#: template/intake_clone.html:290 template/intake_clone.html:327 template/intake_detail_list.html:256 template/intake_detail_list.html:290 template/intake_edit.html:273 template/intake_edit.html:307 template/intake_form.html:294 template/intake_form.html:333
+#: template/intake_clone.html:290 template/intake_clone.html:327
+#: template/intake_detail_list.html:256 template/intake_detail_list.html:290
+#: template/intake_edit.html:273 template/intake_edit.html:307
+#: template/intake_form.html:294 template/intake_form.html:333
 msgid "Results"
 msgstr "Results"
 
-#: template/intake_clone.html:316 template/intake_detail_list.html:281 template/intake_edit.html:298 template/intake_form.html:319
+#: template/intake_clone.html:316 template/intake_detail_list.html:281
+#: template/intake_edit.html:298 template/intake_form.html:319
 msgid "You can edit the table manually"
 msgstr "Enter the number of years for the water extraction and fill out the demand table"
 
-#: template/intake_clone.html:318 template/intake_detail_list.html:283 template/intake_edit.html:300
+#: template/intake_clone.html:318 template/intake_detail_list.html:283
+#: template/intake_edit.html:300
 msgid "Number of years"
 msgstr "Number of years for time series"
 
-#: template/intake_clone.html:359 template/intake_detail_list.html:320 template/intake_edit.html:337 template/intake_form.html:363
+#: template/intake_clone.html:359 template/intake_detail_list.html:320
+#: template/intake_edit.html:337 template/intake_form.html:363
 msgid "External inputs"
 msgstr "External inputs"
 
-#: template/intake_clone.html:360 template/intake_detail_list.html:321 template/intake_edit.html:338 template/intake_form.html:366
+#: template/intake_clone.html:360 template/intake_detail_list.html:321
+#: template/intake_edit.html:338 template/intake_form.html:366
 msgid "External inputs to define"
 msgstr "External inputs to define. For each of these external inputs you have to define Annual Water Volume (m3), Annual Sediment Load (Ton), Annual Nitrogen Load(kg), Annual Phosphorus Load (kg)"
 
-#: template/intake_clone.html:365 template/intake_detail_list.html:326 template/intake_edit.html:343 template/intake_form.html:371
+#: template/intake_clone.html:365 template/intake_detail_list.html:326
+#: template/intake_edit.html:343 template/intake_form.html:371
 msgid "Asignation"
 msgstr "Definition"
 
-#: template/intake_clone.html:367 template/intake_detail_list.html:328 template/intake_edit.html:345 template/intake_form.html:373
+#: template/intake_clone.html:367 template/intake_detail_list.html:328
+#: template/intake_edit.html:345 template/intake_form.html:373
 msgid "Type element for asignation"
 msgstr "Select the external input for definition"
 
-#: template/intake_clone.html:396 template/intake_detail_list.html:356 template/intake_edit.html:373 template/intake_form.html:407 template/intake_form.html:858
+#: template/intake_clone.html:396 template/intake_detail_list.html:356
+#: template/intake_edit.html:373 template/intake_form.html:407
+#: template/intake_form.html:858
 msgid "Intake area delimitation"
 msgstr "NbS implementation area"
 
-#: template/intake_clone.html:398 template/intake_edit.html:375 template/intake_form.html:411
+#: template/intake_clone.html:398 template/intake_edit.html:375
+#: template/intake_form.html:411
 msgid "You can change the area"
 msgstr "For manual delineation, click on the button 'Manually delineate area' and the system will highlight the vertices of the basin. You can reshape the area as needed by moving the vertices highlighted in red."
 
@@ -513,7 +578,8 @@ msgstr "For manual delineation, click on the button 'Manually delineate area' an
 msgid "To move area vertices"
 msgstr "Alternatively, you can upload a spatial file in shp format that contains the polygon where NbS implementation is possible."
 
-#: template/intake_clone.html:404 template/intake_edit.html:380 template/intake_form.html:433
+#: template/intake_clone.html:404 template/intake_edit.html:380
+#: template/intake_form.html:433
 msgid "To load shapefile"
 msgstr "Once defined implementation area, you must validate the process, do clic in the button below"
 
@@ -521,47 +587,61 @@ msgstr "Once defined implementation area, you must validate the process, do clic
 msgid "Help"
 msgstr "Help"
 
-#: template/intake_clone.html:413 template/intake_edit.html:386 template/intake_form.html:432
+#: template/intake_clone.html:413 template/intake_edit.html:386
+#: template/intake_form.html:432
 msgid "Once defined the area"
 msgstr "Once you are satisfied with the defined implementation area, you must validate the process, do clic in by clicking the button below."
 
-#: template/intake_clone.html:427 template/intake_edit.html:398 template/intake_form.html:445
+#: template/intake_clone.html:427 template/intake_edit.html:398
+#: template/intake_form.html:445
 msgid "Save"
 msgstr "Save"
 
-#: template/intake_clone.html:475 template/intake_edit.html:445 template/intake_form.html:492
+#: template/intake_clone.html:475 template/intake_edit.html:445
+#: template/intake_form.html:492
 msgid "Currency for definition of costs"
 msgstr "Currency for definition of costs"
 
-#: template/intake_clone.html:492 template/intake_edit.html:465 template/intake_form.html:504
+#: template/intake_clone.html:492 template/intake_edit.html:465
+#: template/intake_form.html:504
 msgid "Multiplying factor for overrall cost"
 msgstr "Multiplying factor for overrall cost"
 
-#: template/intake_clone.html:646 template/intake_edit.html:551 template/intake_form.html:589
+#: template/intake_clone.html:646 template/intake_edit.html:551
+#: template/intake_form.html:589
 msgid "Geom files help"
 msgstr "Geo files help"
 
-#: template/intake_clone.html:652 template/intake_edit.html:557 template/intake_form.html:595
+#: template/intake_clone.html:652 template/intake_edit.html:557
+#: template/intake_form.html:595
 msgid "Only zip and GeoJSON"
 msgstr "Only zip and GeoJSON"
 
-#: template/intake_clone.html:653 template/intake_edit.html:558 template/intake_form.html:596
+#: template/intake_clone.html:653 template/intake_edit.html:558
+#: template/intake_form.html:596
 msgid "Only EPSG"
 msgstr "Only EPSG"
 
-#: template/intake_clone.html:654 template/intake_edit.html:559 template/intake_form.html:597
+#: template/intake_clone.html:654 template/intake_edit.html:559
+#: template/intake_form.html:597
 msgid "Max upload size"
 msgstr "Max upload size"
 
-#: template/intake_clone.html:660 template/intake_edit.html:535 template/intake_edit.html:565 template/intake_form.html:573 template/intake_form.html:603 template/intake_form.html:635 template/intake_form.html:776 template/intake_form.html:817 template/intake_form.html:842 template/intake_form.html:878
+#: template/intake_clone.html:660 template/intake_edit.html:535
+#: template/intake_edit.html:565 template/intake_form.html:573
+#: template/intake_form.html:603 template/intake_form.html:635
+#: template/intake_form.html:776 template/intake_form.html:817
+#: template/intake_form.html:842 template/intake_form.html:878
 msgid "Close"
 msgstr "Close"
 
-#: template/intake_compare_maps.html:3 template/intake_compare_maps.html:7 template/intake_list.html:3 template/intake_list.html:7
+#: template/intake_compare_maps.html:3 template/intake_compare_maps.html:7
+#: template/intake_list.html:3 template/intake_list.html:7
 msgid "Water Intakes"
 msgstr "Water Intakes"
 
-#: template/intake_confirm_delete.html:1 template/intake_confirm_delete.html:2 template/intake_login_error.html:1 template/intake_login_error.html:2
+#: template/intake_confirm_delete.html:1 template/intake_confirm_delete.html:2
+#: template/intake_login_error.html:1 template/intake_login_error.html:2
 msgid "Waterproof NBS CA"
 msgstr "Waterproof NbS CA"
 
@@ -569,19 +649,29 @@ msgstr "Waterproof NbS CA"
 msgid "Delete intake"
 msgstr "Delete intake"
 
-#: template/intake_detail_list.html:190 template/intake_detail_list.html:311 template/intake_detail_list.html:337 template/intake_detail_list.html:373 template/intake_edit.html:209 template/intake_edit.html:328 template/intake_edit.html:354 template/intake_edit.html:397 template/intake_form.html:222 template/intake_form.html:354 template/intake_form.html:382 template/intake_form.html:444
+#: template/intake_detail_list.html:190 template/intake_detail_list.html:311
+#: template/intake_detail_list.html:337 template/intake_detail_list.html:373
+#: template/intake_edit.html:209 template/intake_edit.html:328
+#: template/intake_edit.html:354 template/intake_edit.html:397
+#: template/intake_form.html:222 template/intake_form.html:354
+#: template/intake_form.html:382 template/intake_form.html:444
 msgid "Previous"
 msgstr "Previous"
 
-#: template/intake_detail_list.html:205 template/intake_edit.html:223 template/intake_form.html:238
+#: template/intake_detail_list.html:205 template/intake_edit.html:223
+#: template/intake_form.html:238
 msgid "Interpolation wizard"
 msgstr "Interpolation wizard"
 
-#: template/intake_detail_list.html:252 template/intake_detail_list.html:286 template/intake_edit.html:269 template/intake_edit.html:303 template/intake_form.html:289 template/intake_form.html:327
+#: template/intake_detail_list.html:252 template/intake_detail_list.html:286
+#: template/intake_edit.html:269 template/intake_edit.html:303
+#: template/intake_form.html:289 template/intake_form.html:327
 msgid "Generate"
 msgstr "Generate"
 
-#: template/intake_detail_list.html:262 template/intake_detail_list.html:296 template/intake_edit.html:279 template/intake_edit.html:313 template/intake_form.html:300 template/intake_form.html:339
+#: template/intake_detail_list.html:262 template/intake_detail_list.html:296
+#: template/intake_edit.html:279 template/intake_edit.html:313
+#: template/intake_form.html:300 template/intake_form.html:339
 msgid "Extraction Value (l/s)"
 msgstr "Extraction value (l/s)"
 

@@ -16,7 +16,7 @@
             <h1>{% trans "Edit study cases" %}</h1>
         </div>
         <div class="col-sm-6">
-            <h4 class="title-city">{% trans "creation_city" %} <span id="cityLabel"></span> </h4>
+            <h4 class="title-city">{% trans "creation_city" %}: <span id="cityLabel"></span> </h4>
         </div>
     </div>
     <br>
@@ -234,8 +234,7 @@
                                     {% else %}
                                     <input type="checkbox" class="custom-control-input" id='cb_check'>
                                     {% endif %}
-                                    <label class="custom-control-label" for="cb_check">{% trans "carbon_market" %}</label>
-                                    <p>{% trans "carbon_market_text" %}</p>
+                                    <label class="custom-control-label" for="cb_check">{% trans "carbon_market" %}</label>                                    
                                 </div>
                                 {% if study_case.benefit_carbon_market %}
                                 <div class="row text-center" id="cm_form">

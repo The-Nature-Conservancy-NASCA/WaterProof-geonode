@@ -81,7 +81,7 @@
                     <img src="/static/geonode/img/valor-bruto.png" class="img-roi" />
                     <div class="bootom-roi">
                         <div>{% trans "ROI on nature based solutions opportunity" %}</div>
-                        <div class="buttom-roi" id="idBtnRoi">Adove 1</div>
+                        <div class="buttom-roi-menu" id="idBtnRoi">Adove 1</div>
                     </div>
                 </div>
             </div>
@@ -230,7 +230,8 @@
             <div class="list-menu-results" id="idGeographicIndicators">
                 <img src="/static/geonode/img/indicadores-geograficos.png" title="{% trans "Geographic visualization" %}"/>
                 <br>
-                <a href="../../reports/geographic/">{% trans "Geographic visualization" %}</a>
+                <a id="idGeographicIndicatorsClic" href="">{% trans "Geographic visualization" %}</a>
+                <!-- ../../reports/geographic/-->
             </div>
         </div>
         <div>
@@ -379,10 +380,8 @@ $(function () {
     }
 
     downloadZip = function(){
-        //console.log(filter)
-        var filter = "{{filterzip}}"
-        console.log("este es el filter"+filter)
-        window.open(filter.link, "zipDownload", "width=120,height=300")
+        console.log("url de descarga zip"+"{{filterzip.link}}")
+        window.open("{{filterzip.link}}", "zipDownload", "width=120,height=300")
     }
     
     changeReport = function() {
@@ -776,6 +775,33 @@ $(function () {
             }, 1000);
 
         });
+
+        // A.R. Agrega evento llamado mapas geográficos
+        //server = 'https://dev.skaphe.com/srv/'; //'/srv/';  
+        var urlDetail = "../../reports/getWpcompareMapas/?studyCase=" + localStorage.idStudyCase;
+        $.getJSON(urlDetail, function (data) {
+            $.each( data, function( key, value ) {
+                usr_folder = value.folder;
+                intake = value.intake;
+                year = value.year;
+                region=value.region;
+                studyCaseId=value.studycase;
+                let g = JSON.parse(value.center).coordinates;
+                let centroid =g[1] + "," + g[0];
+                centroX = centroid;
+            });
+            var urlWaterProofLyrsWMS = `/reports/geographic/?folder=${usr_folder}&intake=${intake}&year=${year}&region=${region}&center=${centroX}&study_case_id=${studyCaseId}`;
+            console.log (urlWaterProofLyrsWMS);
+            document.getElementById("idGeographicIndicatorsClic").href =urlWaterProofLyrsWMS;
+
+        })    
+
+
+
+
+
+
+
     }
     initialize();
 });

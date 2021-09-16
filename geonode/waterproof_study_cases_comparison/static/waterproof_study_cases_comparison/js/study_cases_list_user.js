@@ -3,9 +3,8 @@
  * @author Luis Saltron
  * @version 1.0
  */
-$(function() {
-    console.log("Study cases list :: init");
-    var table = $('#tbl-studycases').DataTable({
+$(function () {
+    var table = $('#studycases').DataTable({
         'dom': 'lrtip'
     });
     var countryDropdown = $('#countryNBS');
@@ -14,6 +13,7 @@ $(function() {
     var transformations = [];
     var lastClickedLayer;
     var map;
+    var analysisCases = [];
     var lyrsPolygons = [];
     var highlighPolygon = {
         fillColor: "#337ab7",
@@ -28,23 +28,23 @@ $(function() {
         weight: 0.2,
         fillOpacity: 0
     };
-    initialize = function() {
+    initialize = function () {
         console.log('init event loaded');
         // Transformations widget change option event
-        $('#menu-toggle').click(function(e) {
+        $('#menu-toggle').click(function (e) {
             e.preventDefault();
             $('#wrapper').toggleClass('toggled');
         });
 
         // show/hide div with checkbuttons 
-        $("#riosTransition").change(function() {
+        $("#riosTransition").change(function () {
             dato = $("#riosTransition").val();
             var data_value = $(`#selectlanduse${dato}`).attr('data-value');
-            $('div[name=selectlanduse]').each(function() {
+            $('div[name=selectlanduse]').each(function () {
                 $('div[name=selectlanduse]').css({
                     "display": "none"
                 });
-                $('div[name=selectlanduse]').find('input[type=checkbox]:checked').each(function(idx, input) {
+                $('div[name=selectlanduse]').find('input[type=checkbox]:checked').each(function (idx, input) {
                     input.checked = false;
                 });
             });
@@ -55,8 +55,7 @@ $(function() {
             }
         });
 
-        viewCurrencys = function(id, currency_sc) {
-            console.log(currency_sc)
+        viewCurrencys = function (id) {
             html = '<div class="row" id="currencys-panel"> <div class="col-md-12 currency-panel">The following exchange rates have been applied for the analysis</div>'
             html += '<div class="custom-control col-md-3 currency-value">Quantity</div>'
             html += '<div class="custom-control col-md-4 currency-value">Currency</div>'
@@ -64,11 +63,11 @@ $(function() {
             $.get("../../study_cases/currencys/", {
                 id: id,
                 currency: ""
-            }, function(data) {
+            }, function (data) {
 
-                $.each(data, function(index, currency) {
+                $.each(data, function (index, currency) {
                     value = Number.parseFloat(currency.value).toFixed(5);
-                    html += '<div class="custom-control col-md-3 currency-value">1 ' + currency_sc + '</div>'
+                    html += '<div class="custom-control col-md-3 currency-value">1</div>'
                     html += '<div class="col-md-4 currency-value"><label class="custom-control-label" for="currency">' + currency.currency + '</label></div>'
                     html += '<div class="custom-control col-md-5 currency-value">' + value + '</div>'
                 });
@@ -79,183 +78,252 @@ $(function() {
 
             })
         };
-
-        $('#tbl-studycases tbody').on('click', '.btn-danger', function (evt) {
-            Swal.fire({
-                title: gettext('Delete study case'),
-                text: gettext("Are you sure?") + gettext("You won't be able to revert this!"),
-                icon: 'warning',
-                showCancelButton: false,
-                showDenyButton: true,
-                confirmButtonColor: '#d33',
-                denyButtonColor: '#3085d6',
-                confirmButtonText: gettext('Yes, delete it!'),
-                denyButtonText: gettext('Cancel')
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    studycaseId = evt.currentTarget.getAttribute('data-id')
-                    /** 
-                     * Get filtered activities by transition id 
-                     * @param {String} url   activities URL 
-                     * @param {Object} data  transition id  
-                     *
-                     * @return {String} activities in HTML option format
-                     */
-                    $.ajax({
-                        url: '/study_cases/delete/' + studycaseId,
-                        type: 'POST',
-                        success: function(result) {
-                            Swal.fire({
-                                icon: 'success',
-                                title: gettext('Great!'),
-                                text: gettext('The study case has been deleted')
-                            })
-                            setTimeout(function() {
-                                location.href = "/study_cases/";
-                            }, 1000);
-                        },
-                        error: function(error) {
-                            Swal.fire({
-                                icon: 'error',
-                                title: gettext('Error!'),
-                                text: gettext('The study case has not been deleted, try again!')
-                            })
-                        }
-                    });
-                } else if (result.isDenied) {
+        /** 
+        * Redirect to do analysis URL
+        * @param {Event} click       Click event
+        */
+        $('#doAnalysis').click(function(){
+            if (analysisCases.length<=0){ //No case selected
+                Swal.fire({
+                    icon: 'error',
+                    title: gettext('Comparison error'),
+                    text: gettext('No case selected')
+                })
+            }
+            else{ //At least one selected
+                setTimeout(function() { 
+                    location.href = "../doAnalysis/"; 
+                }, 100);
+            }
+        });
+        $('#showCities').click(function(){
+            table.search('').draw();
+        });
+        /** 
+        * Add study case from table list to 
+        * analysis case table 
+        * @param {Event} click       Click event
+        * @param {HTML}  ButtonClass class  dropdown
+        */
+        $('#studycases').on('click', '.addCase', function (evt) {
+            let studyCaseId = evt.target.getAttribute('data-id');
+            if (analysisCases.length == 0) {
+                analysisCases.push(studyCaseId);
+                localStorage.setItem('analysisCases', JSON.stringify(analysisCases));
+            }
+            else {
+                var caseExist = analysisCases.filter(caseId => caseId == studyCaseId);
+                if (caseExist.length > 0) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: gettext('Comparison error'),
+                        text: gettext('Case already selected')
+                    })
                     return;
                 }
-            })
+                else {
+                    analysisCases.push(studyCaseId);
+                    localStorage.setItem('analysisCases', JSON.stringify(analysisCases));
+                }
+            }
+            let currentRow = $(this).closest('tr');
+            let studyName = currentRow.find("td:eq(0)").text();
+            let studyDate = currentRow.find("td:eq(2)").text();
+            let studyUser = currentRow.find("td:eq(1)").text();
+            let studyCity = currentRow.find("td:eq(3)").text();
+            let studyPtap = currentRow.find("td:eq(4)").text();
+            let studyIntake = currentRow.find("td:eq(5)").text();
+            let tableAnalysis = $('#analisys_cases');
+            let row = '<tr><td class="small text-center vat">' + studyName + '</td>';
+            row += '<td class="small text-center vat">' + studyUser + '</td>';
+            row += '<td class="small text-center vat">' + studyDate + '</td>';
+            row += '<td class="small text-center vat">' + studyCity + '</td>';
+            row += '<td class="small text-center vat">' + studyPtap + '</td>';
+            row += '<td class="small text-center vat">' + studyIntake + '</td>';
+            row += '<td class="small text-center vat"><a class="btn btn-danger removeCase" data-id="' + studyCaseId + '">';
+            row += '<span class="glyphicon glyphicon-trash" aria-hidden="true" data-id="' + studyCaseId + '"></span></a></td>';
+            tableAnalysis.append(row);
+        });
+        /** 
+        * Remove study case from table list to 
+        * analysis case table 
+        * @param {Event} click       Click event
+        * @param {HTML}  ButtonClass Button class
+        */
+        $('#analisys_cases').on('click', '.removeCase', function (evt) {
+            let studyCaseId = evt.target.getAttribute('data-id');
+            indexToErase = analysisCases.lastIndexOf(studyCaseId);
+            analysisCases.splice(indexToErase, 1);
+            let currentRow = $(this).closest('tr').remove();
+            localStorage.setItem('analysisCases', analysisCases);
         });
         fillTransitionsDropdown(transitionsDropdown);
 
         changeCountryEvent(countryDropdown, currencyDropdown);
         changeFileEvent();
-        
+        initMap();
     };
+    /** 
+     * Initialize map 
+     */
 
-    $('#tbl-studycases tbody').on('click', '.btn-public', function (evt) {
-        Swal.fire({
-            title: gettext('Public study case'),
-            text: gettext("Are you sure?"),
-            icon: 'warning',
-            showCancelButton: false,
-            showDenyButton: true,
-            confirmButtonColor: '#d33',
-            denyButtonColor: '#3085d6',
-            confirmButtonText: gettext('Yes, public it!'),
-            denyButtonText: gettext('Cancel')
-        }).then((result) => {
-            if (result.isConfirmed) {
-                studycaseId = evt.currentTarget.getAttribute('data-id')
-                /** 
-                 * Get filtered activities by transition id 
-                 * @param {String} url   activities URL 
-                 * @param {Object} data  transition id  
-                 *
-                 * @return {String} activities in HTML option format
-                 */
-                $.ajax({
-                    url: '/study_cases/public/' + studycaseId,
-                    type: 'POST',
-                    success: function(result) {
-                        Swal.fire({
-                            icon: 'success',
-                            title: gettext('Great!'),
-                            text: gettext('The study case has been public')
-                        })
-                        setTimeout(function() {
-                            city_id = localStorage.cityId;
-                            location.href = "/study_cases/?city="+city_id;
-                        }, 1000);
-                    },
-                    error: function(error) {
-                        Swal.fire({
-                            icon: 'error',
-                            title: gettext('Error!'),
-                            text: gettext('The study case has not been public, try again!')
-                        })
-                    }
-                });
-            } else if (result.isDenied) {
-                return;
+    TILELAYER = 'https://{s}.tile.osm.org/{z}/{x}/{y}.png';
+    IMAGE_LYR_URL = "https://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryTopo/MapServer/tile/{z}/{y}/{x}";
+    HYDRO_LYR_URL = "https://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/Esri_Hydro_Reference_Overlay/MapServer/tile/{z}/{y}/{x}";
+    CENTER = [4.582, -74.4879];
+    MAXZOOM = 11;
+
+    initMap = function () {
+        //drawPolygons();
+        map = L.map('mapidcuenca', {
+            scrollWheelZoom: false,
+            zoomControl: false,
+            photonControl: true,
+            photonControlOptions: {
+                resultsHandler: showSearchPoints,
+                selectedResultHandler: selectedResultHandler,
+                placeholder: 'Search City...',
+                position: 'topleft',
+                url: SEARCH_CITY_API_URL
             }
-        })
+        });
+        let initialCoords = CENTER;
+        // find in localStorage if cityCoords exist
+        var cityCoords = localStorage.getItem('cityCoords');
+        if (cityCoords == undefined) {
+            cityCoords = initialCoords;
+            table.search('').draw();
+        } else {
+            initialCoords = JSON.parse(cityCoords);
+            table.search(localStorage.getItem('city').substr(0, 5)).draw();
+            try {
+                $("#countryLabel").html(localStorage.getItem('country'));
+                $("#cityLabel").html(localStorage.getItem('city'));
+                $("#regionLabel").html(localStorage.getItem('region'));
+                $("#currencyLabel").html(localStorage.getItem('currency'));
+                $("#listIntakes").show();
+            } catch (e) {
+
+            }
+
+        }
+        waterproof["cityCoords"] = cityCoords;
+        map.setView(initialCoords, 5);
+        searchPoints.addTo(map);
+
+        var tilelayer = L.tileLayer(TILELAYER, {
+            maxZoom: MAXZOOM,
+            attribution: 'Data \u00a9 <a href="http://www.openstreetmap.org/copyright"> OpenStreetMap Contributors </a> Tiles \u00a9 Komoot'
+        }).addTo(map);
+        var images = L.tileLayer(IMAGE_LYR_URL);
+        var hydroLyr = L.tileLayer(HYDRO_LYR_URL);
+
+        var baseLayers = {
+            OpenStreetMap: tilelayer,
+            Images: images,
+            /* Grayscale: gray,   */
+        };
+
+        var overlays = {
+            "Hydro (esri)": hydroLyr,
+        };
+
+        var defExt = new L.Control.DefaultExtent({ title: gettext('Default extent'), position: 'topright'}).addTo(map);
+        var zoomControl = new L.Control.Zoom({
+            position: 'topright'
+        }).addTo(map);
+        L.control.layers(baseLayers, overlays, {
+            position: 'topleft'
+        }).addTo(map);  
+
+        function onMapClick(e) {
+            // c.setCoordinates(e);
+        }
+        map.on('click', onMapClick);
+    }
+
+    var searchPoints = L.geoJson(null, {
+        onEachFeature: function (feature, layer) {
+            layer.bindPopup(feature.properties.name);
+        }
     });
 
-    $('#tbl-studycases tbody').on('click', '.btn-private', function (evt) {    
-        Swal.fire({
-            title: gettext('Private study case'),
-            text: gettext("Are you sure?"),
-            icon: 'warning',
-            showCancelButton: false,
-            showDenyButton: true,
-            confirmButtonColor: '#d33',
-            denyButtonColor: '#3085d6',
-            confirmButtonText: gettext('Yes, private it!'),
-            denyButtonText: gettext('Cancel')
-        }).then((result) => {
-            if (result.isConfirmed) {
-                studycaseId = evt.currentTarget.getAttribute('data-id')
-                /** 
-                 * Get filtered activities by transition id 
-                 * @param {String} url   activities URL 
-                 * @param {Object} data  transition id  
-                 *
-                 * @return {String} activities in HTML option format
-                 */
-                $.ajax({
-                    url: '/study_cases/private/' + studycaseId,
-                    type: 'POST',
-                    success: function(result) {
-                        Swal.fire({
-                            icon: 'success',
-                            title: gettext('Great!'),
-                            text: gettext('The study case has been private')
-                        })
-                        setTimeout(function() {
-                            city_id = localStorage.cityId;
-                            location.href = "/study_cases/?city="+city_id;
-                        }, 1000);
-                    },
-                    error: function(error) {
-                        Swal.fire({
-                            icon: 'error',
-                            title: gettext('Error!'),
-                            text: gettext('The study case has not been private, try again!')
-                        })
-                    }
-                });
-            } else if (result.isDenied) {
-                return;
-            }
-        })
-    });
+    function showSearchPoints(geojson) {
+        console.log(localStorage.getItem('city'))
+        //searchPoints.writeLayers('Bogotá');
+        searchPoints.clearLayers();
+        let geojsonFilter = geojson.features.filter(feature => feature.properties.type == "city");
+        searchPoints.addData(geojsonFilter);
+        //let cityName = null
+        /*if (cityCoords == undefined){
+             cityName = geojsonFilter[0].properties.name;
+        }else{
+            cityName = localStorage.getItem('city')
+        }*/
+        let cityName = geojsonFilter[0].properties.name;
+        console.log(geojsonFilter[0].properties.name)
+        table.search(localStorage.getItem('city').substr(0, 2)).draw();
+        table.search(cityName.substr(0, 5)).draw();
+        drawPolygons();
+    }
 
-    udpateCreateUrl = function(countryId) {
+    function selectedResultHandler(feat) {
+
+        waterproof["cityCoords"] = [feat.geometry.coordinates[1], feat.geometry.coordinates[0]];
+        localStorage.setItem('cityCoords', JSON.stringify(waterproof["cityCoords"]));
+
+
+        searchPoints.eachLayer(function (layer) {
+            if (layer.feature.properties.osm_id != feat.properties.osm_id) {
+                layer.remove();
+            }
+        });
+        let country = feat.properties.country;
+        let cityName = feat.properties.name;
+        let countryCode = feat.properties.countrycode.toLowerCase();
+
+        $("#countryLabel").html(country);
+        $("#cityLabel").html(cityName);
+        localStorage.setItem('city', cityName);
+        let urlAPI = '{{ SEARCH_COUNTRY_API_URL }}' + countryCode;
+
+        $.get(urlAPI, function (data) {
+            //console.log(data);
+            $("#regionLabel").html(data.region);
+            $("#currencyLabel").html(data.currencies[0].name + " - " + data.currencies[0].symbol);
+            $("#listIntakes").show();
+
+            localStorage.setItem('country', country);
+            localStorage.setItem('region', data.region);
+            localStorage.setItem('currency', data.currencies[0].name + " - " + data.currencies[0].symbol);
+        });
+    }
+
+    udpateCreateUrl = function (countryId) {
         $('#createUrl').attr('href', 'create/' + countryId)
     };
     /** 
      * Get the transformations selected
      * @param {Array} transformations transformations selected
      */
-    getTransformationsSelected = function() {
+    getTransformationsSelected = function () {
         var transformations = [];
         // Obtención de valores de los check de la solución
-        $('input[name=itemRT]:checked').each(function() {
+        $('input[name=itemRT]:checked').each(function () {
             transformations.push($(this).val());
         });
         return transformations;
     };
+
     /** 
      * Change currency option based in country selected
      * @param {HTML} countryDropdown    Country dropdown
      * @param {HTML} currencyDropdown   Currency  dropdown
      *
      */
-    changeCountryEvent = function(countryDropdown, currencyDropdown) {
+    changeCountryEvent = function (countryDropdown, currencyDropdown) {
         // Rios transitions dropdown listener
-        countryDropdown.click(function(event, params) {
+        countryDropdown.click(function (event, params) {
             // Get load activities from urls Django parameter
             var country_id = $(this).val();
             var countryName = $(this).find(':selected').text();
@@ -279,7 +347,7 @@ $(function() {
                 data: {
                     'country': country_id
                 },
-                success: function(result) {
+                success: function (result) {
                     result = JSON.parse(result);
                     currencyDropdown.val(result[0].pk);
                     $('#currencyLabel').text('(' + result[0].fields.code + ') - ' + result[0].fields.name);
@@ -296,7 +364,7 @@ $(function() {
                         data: {
                             'country': country_id
                         },
-                        success: function(result) {
+                        success: function (result) {
                             result = JSON.parse(result);
                             $('#regionLabel').text(result[0].fields.name);
 
@@ -306,8 +374,8 @@ $(function() {
             });
         });
     };
-    updateCountryMap = function(countryCode) {
-        map.eachLayer(function(layer) {
+    updateCountryMap = function (countryCode) {
+        map.eachLayer(function (layer) {
             if (layer.feature) {
                 if (layer.feature.id == countryCode) {
                     if (lastClickedLayer) {
@@ -319,10 +387,9 @@ $(function() {
                 }
             }
         });
-
     }
 
-    viewPtap = function(id) {
+    viewPtap = function (id) {
         localStorage.loadInf = "true";
         localStorage.plantId = id;
         window.open('../../treatment_plants/create/', '_blank');
@@ -332,8 +399,8 @@ $(function() {
      * Validate input file on change
      * @param {HTML} dropdown Dropdown selected element
      */
-    changeFileEvent = function() {
-        $('#restrictedArea').change(function(evt) {
+    changeFileEvent = function () {
+        $('#restrictedArea').change(function (evt) {
             var file = evt.currentTarget.files[0];
             var extension = validExtension(file);
             // Validate file's extension
@@ -342,7 +409,7 @@ $(function() {
                 // Validate file's extension
                 if (extension.extension == 'geojson') { //GeoJSON
                     var readerGeoJson = new FileReader();
-                    readerGeoJson.onload = function(evt) {
+                    readerGeoJson.onload = function (evt) {
                         var contents = evt.target.result;
                         geojson = JSON.parse(contents);
                         loadFile(geojson, file.name);
@@ -356,10 +423,10 @@ $(function() {
                         readPrj = false,
                         prj, coord = true;
                     var prjName;
-                    reader.onload = function(evt) {
+                    reader.onload = function (evt) {
                         var contents = evt.target.result;
-                        JSZip.loadAsync(file).then(function(zip) {
-                            zip.forEach(function(relativePath, zipEntry) {
+                        JSZip.loadAsync(file).then(function (zip) {
+                            zip.forEach(function (relativePath, zipEntry) {
                                 filename = zipEntry.name.toLocaleLowerCase();
                                 if (filename.indexOf(".shp") != -1) {
                                     readShp = true;
@@ -377,7 +444,7 @@ $(function() {
                             });
                             // Valid shapefile with minimum files req
                             if (readShp && readDbf && readPrj && readShx) {
-                                zip.file(prjName).async("string").then(function(data) {
+                                zip.file(prjName).async("string").then(function (data) {
                                     prj = data;
                                     // Validar sistema de referencia
                                     if (prj.toLocaleLowerCase().indexOf("gcs_wgs_1984") == -1) {
@@ -389,10 +456,10 @@ $(function() {
                                     }
                                     // Shapefile válido
                                     else {
-                                        shp(contents).then(function(shpToGeojson) {
+                                        shp(contents).then(function (shpToGeojson) {
                                             geojson = shpToGeojson;
                                             //loadShapefile(geojson, file.name);
-                                        }).catch(function(e) {
+                                        }).catch(function (e) {
                                             Swal.fire({
                                                 icon: 'error',
                                                 title: 'Error en shapefile',
@@ -438,9 +505,8 @@ $(function() {
                             }
                         });
                     };
-                    reader.onerror = function(event) {
-                        console.error("File could not be read! Code " + event.target.error.code);
-                        //alert("El archivo no pudo ser cargado: " + event.target.error.code);
+                    reader.onerror = function (event) {
+                        console.error("File could not be read! Code " + event.target.error.code);  
                     };
                     reader.readAsArrayBuffer(file);
                 }
@@ -453,7 +519,7 @@ $(function() {
             }
         });
     };
-    checkEmptyFile = function() {
+    checkEmptyFile = function () {
 
     };
     /** 
@@ -461,12 +527,12 @@ $(function() {
      * @param {HTML} dropdown Dropdown selected element
      *
      */
-    fillTransitionsDropdown = function(dropdown) {
+    fillTransitionsDropdown = function (dropdown) {
         $.ajax({
             url: '/waterproof_nbs_ca/load-transitions',
-            success: function(result) {
+            success: function (result) {
                 result = JSON.parse(result);
-                $.each(result, function(index, transition) {
+                $.each(result, function (index, transition) {
                     dropdown.append($("<option />").val(transition.pk).text(transition.fields.name));
                 });
                 dropdown.val(1).change();
@@ -479,7 +545,7 @@ $(function() {
      *
      * @return {Object} extension Object contain extension and is valid
      */
-    validExtension = function(file) {
+    validExtension = function (file) {
         var fileExtension = {};
         if (file.name.lastIndexOf(".") > 0) {
             var extension = file.name.substring(file.name.lastIndexOf(".") + 1, file.name.length);
@@ -494,55 +560,31 @@ $(function() {
         }
         return fileExtension;
     };
-    loadFile = function(file, name) {
+    loadFile = function (file, name) {
         console.log('Start loading file function!');
     };
     // Init 
     initialize();
 
     //draw polygons
-    drawPolygons = function (map) {
-        
-        var bounds;
-        let lf = [];
-        listIntakes.forEach(intake => {
-            if (intake.geom) {
-                let g = JSON.parse(intake.geom);
-                f = {'type' : 'Feature', 
-                    'properties' : { 'id' : intake.study_case_id, 
-                                    'studyCase' : intake.study_case_name,
-                                    'intake' : intake.intake_name,
-                                    'intakeId' : intake.intake_id}, 
-                    'geometry' : g
-                };
-                lf.push(f);
-            }            
+    drawPolygons = function () {
+        // TODO: Next line only for test purpose
+        //intakePolygons = polygons;
+
+        lyrsPolygons.forEach(lyr => map.removeLayer(lyr));
+        lyrsPolygons = [];
+
+        intakePolygons.forEach(feature => {
+            let poly = feature.polygon;
+            if (poly.indexOf("SRID") >= 0) {
+                poly = poly.split(";")[1];
+            }
+            lyrsPolygons.push(omnivore.wkt.parse(poly).addTo(map));
         });
-        
-        if (lf.length > 0){
-            lyrIntakes = L.geoJSON(lf, {
-                onEachFeature: function (feature, layer) {
-                    layer.bindPopup(`<div class="popup-content">
-                                        <div class="leaflet-container">
-                                            <b>Id</b>: ${feature.properties.id}
-                                        </div>
-                                        <div class="popup-body">
-                                            <div class="popup-body-content">
-                                                <div class="popup-body-content-text">
-                                                    <p><b>Study Case</b> :${feature.properties.studyCase}</p>
-                                                    <p><b>Intake </b>: ${feature.properties.intake}</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>`);
-                }
-            }).addTo(map);
-            map.fitBounds(lyrIntakes.getBounds());
-        }
     }
 
-    menu = function() {
-        $('.topnav a').click(function() {
+    menu = function () {
+        $('.topnav a').click(function () {
             $('#sideNavigation').style.width = "250px";
             $("#main").style.marginLeft = "250px";
         });

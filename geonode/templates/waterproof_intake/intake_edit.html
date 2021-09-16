@@ -387,12 +387,12 @@
                         <!--Map-->
                         <div class="col-md-7">
                             <div class="panel panel-danger">
-                                <div id="mapid" style="width: 100%; height: 400px;"></div>
+                                <div id="mapid" style="width: 100%; height: 500px;"></div>
                             </div>
                         </div>
                         <!--Panel Information Right-->
                         <div class="col-md-5">
-                            <div class="panel panel-default">
+                            <div class="panel panel-default" style="height: 500px;">
                                 <div class="panel-body">
                                     <!--div class="alert alert-info" role="alert">
                                         <button type="button" class="btn btn-link btn-block" data-toggle="modal" data-target="#HelpStep5" id="HelpModalBtnModal_step5" style="outline:none; text-decoration:none;">
@@ -402,28 +402,25 @@
                                     </div-->
                                     <p>{% trans "You can change the area"%}</p>
                                     <p>{% trans "To move area vertices" %}</p>
-                                    <div class="form-group col-md-4">
-                                        <button type="button" class="btn btn-primary" id="btnDelimitArea"> {%trans "Manually area delimit" %}</button>
-                                    </div>
-                                    <div class="col-md-1"><p>{% trans "or" %}</p></div>
-                                    <div class="form-group col-md-4">
-                                        <div class="input-group">
-                                            <span class="input-group-btn">
-                                                <span class="btn btn-default btn-file">
-                                                    {% trans "Select a file" %}
-                                                    <input id="intakeArea" type="file">
+                                    <div class="text-center" style="padding-bottom: 15px;">
+                                        <div class="text-center">
+                                            <button type="button" class="btn btn-primary" id="btnDelimitArea"> {%trans "Manually area delimit" %}</button>
+                                            <p style="padding-left: 5px;padding-right: 5px;">{% trans "or" %}</p>                                        
+                                            <div class="input-group">
+                                                <span class="input-group-btn">
+                                                    <span class="btn btn-default btn-file">
+                                                        {% trans "Select a file" %}
+                                                        <input id="intakeArea" type="file">
+                                                    </span>
                                                 </span>
-                                            </span>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                       
-                                    </div>
+                                    </div>                                    
                                     <br>
-                                    <br>
+                                    
                                     <p>{% trans "Once defined the area" %}</p>
                                     <p>{% trans "To load shapefile" %}</p>
-                                    <div class="form-group col-md-4">
+                                    <div class="text-center">
                                         <button type="button" class="btn btn-primary" id="btnValidateArea"> {% trans "Validate delimit area" %}</button>
                                     </div>
                                 </div>
@@ -467,9 +464,12 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-md-5">
-                        <div class="panel-group" id="VarCostListGroup" style="max-height: 480px; overflow-y: auto;"></div>
+                    <div class="col-md-12">
+                        <p>{% trans "Use this window to configure your cost function by selecting the variables of your interest: flow, concentration or loads." %}</p>
+                        <p>{% trans "Expand the list of items and click to build the function." %}</p>
                     </div>
+                </div>
+                <div class="row">
                     <div class="col-md-7">
                         <div class="form-group">
                             <label class="text-primary">{% trans "Cost function name" %}</label>
@@ -537,25 +537,16 @@
                                     <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="**">&#8731</button>
                                 </div>
                             </div>
-                            <!--div id="mathTrigonometry_tab" class="tab-pane fade in">
-                                <div class="btn-group" role="group">
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="sin( )">sin</button>
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="cos( )">cos</button>
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="tan( )">tan</button>
-                                </div>
-                            </div>
-                            <div id="mathLogical_tab" class="tab-pane fade in">
-                                <div class="btn-group" role="group">
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value=">">></button>
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value=">=">\ge</button>
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="<"><</button>
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="<=">\le</button>
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="!=">\ne</button>
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="and">and</button>
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="or">or</button>
-                                </div>
-                            </div-->
                         </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="panel-group" id="VarCostListGroup" style="max-height: 480px; overflow-y: auto;"></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <p><b>{% trans "Create / Edit function in Python Syntax." %}</b></p>
+                        <p>{% trans "Click on the validate button to check the syntax of the function." %}</p>
                     </div>
                 </div>
                 <div class="row">
@@ -896,6 +887,8 @@
 <script src="{{ STATIC_URL }}geonode/js/leaflet/Control.Loader.js"></script>
 <script src="{{ STATIC_URL }}geonode/js/waterproof/waterIntake.js"></script>
 <script src="{{ STATIC_URL }}geonode/js/waterproof/geomFile_validate.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@turf/turf@6/turf.min.js"></script>
+
 <!--ZIP reader library-->
 <script src="{{ STATIC_URL }}geonode/js/jszip/jszip.min.js"></script>
 <!--Shapefile reader library -->
@@ -915,6 +908,7 @@
     GRAY_BASEMAP_URL = '{{ GRAY_BASEMAP_URL }} ';
     GEOSERVER_WMS = '{{ GEOSERVER_WMS }}';
     HYDRO_NETWORK_LYR = '{{ HYDRO_NETWORK_LYR }}';
+    MAX_NUM_POINTS = 500;
     var intakeInterpolationParams = {};
     intakeInterpolationParams.type = '{{ intake.demand_parameters.interpolation_type }}';
     intakeInterpolationParams.yearsNum = '{{intake.demand_parameters.years_number}}';
@@ -932,6 +926,7 @@
     intakePolygons.push(intakeObject);
     var defaultCurrencyId = '233';
     var defaultCurrentyName = '(USD) - United States';
+    var simplifyTolerance = 0.01;
 </script>
 
 <script src="{{ STATIC_URL }}geonode/js/leaflet/leaflet-omnivore.min.js"></script>

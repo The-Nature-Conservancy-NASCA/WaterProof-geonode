@@ -192,7 +192,7 @@
                                 <p>{% trans "TonCO2eq" %}</p>
                             </div>
                             <div class="col-md-3">
-                                <input id="cm_select" class="form-control" value="{{study_case.cm_currency}}" disabled>
+                                <input id="cm_select" class="form-control" value="({{study_case.cm_currency}}) - {{study_case.cm_currency.name}}" disabled>
                             </div>
                         </div>
                         {% else %}

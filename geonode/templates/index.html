@@ -29,7 +29,7 @@
       {% if not custom_theme.jumbotron_cta_hide %}
       <p><a class="btn btn-default btn-lg"
           href="{{custom_theme.jumbotron_cta_link|default:"https://docs.geonode.org/en/master/usage/index.html"}}"
-          role="button">{{custom_theme.jumbotron_cta_text|default:_("Get Started &raquo;")}}</a></p>
+          role="button">{% trans "Explore investment returns" %} </a></p>
       {% endif %}
   </div>
   <p class="copyright" style="text-align: right; font-size: 15px;">© Foto tomada por Pilar Galindo</p>
@@ -139,81 +139,53 @@
         <div class="col-md-1"></div>
         <div class="col-md-2">
             <img class="iconsWhatIsWP" src="/static/geonode/img/before_starting.png">
-            <button class="buttonWhatIsWP"
-            type="button"
-            data-toggle="collapse"
-            data-target="#collapseExample1"
-            aria-expanded="false"
-            aria-controls="collapseExample1"
-            data-placement="bottom">
+            <button class="buttonWhatIsWP" data-target="desc-wp-1">
             {% trans "Before starting" %}</button>            
         </div>
         <div class="col-md-2">
             <img class="iconsWhatIsWP" src="/static/geonode/img/what_is_CE.png">
-            <button class="buttonWhatIsWP"
-            type="button"
-            data-toggle="collapse"
-            data-target="#collapseExample2"
-            aria-expanded="false"
-            aria-controls="collapseExample2"
-            data-placement="top">
+            <button class="buttonWhatIsWP" data-target="desc-wp-2">
             {% trans "What is a case study?" %}</button>
         </div>        
         <div class="col-md-2">
             <img class="iconsWhatIsWP" src="/static/geonode/img/Support_data.png">
-            <button class="buttonWhatIsWP"
-            type="button"
-            data-toggle="collapse"
-            data-target="#collapseExample3"
-            aria-expanded="false"
-            aria-controls="collapseExample3"
-            data-placement="bottom">
+            <button class="buttonWhatIsWP" data-target="desc-wp-3">
                 {% trans "Support data" %}</button>
         </div>
         <div class="col-md-2">
             <img class="iconsWhatIsWP" src="/static/geonode/img/see_example.png">
-            <button class="buttonWhatIsWP"
-            type="button"
-            data-toggle="collapse"
-            data-target="#collapseExample4"
-            aria-expanded="false"
-            aria-controls="collapseExample4"
-            data-placement="bottom">
+            <button class="buttonWhatIsWP" data-target="desc-wp-4">
                 {% trans "See an example" %}</button>
         </div>
         <div class="col-md-2">
             <img class="iconsWhatIsWP" src="/static/geonode/img/who_can_use.png">
-            <button class="buttonWhatIsWP"
-            type="button"
-            data-toggle="collapse"
-            data-target="#collapseExample5"
-            aria-expanded="false"
-            aria-controls="collapseExample5"
-            data-placement="bottom">
+            <button class="buttonWhatIsWP" data-target="desc-wp-5">
                 {% trans "Who can use the system?" %}</button>
         </div>
-        <div class="col-md-1"></div>       
-      </div>
-       <!-- Collapsed content -->
-       <div class="container">
-            <div class="collapse" id="collapseExample1">
-                {% trans "Text 1 - Before starting" %}
-            </div>
-            <div class="collapse" id="collapseExample2">
-                {% trans "Text 2 - What is a case study?" %}
-            </div>
-            <div class="collapse" id="collapseExample3">
-                {% trans "Text 3 - Support data" %}
-            </div>
-            <div class="collapse" id="collapseExample4">
-                {% trans "Text 4 - See an example" %}
-            </div> 
-            <div class="collapse" id="collapseExample5">
-                {% trans "Text 5 - Who can use the system?" %}
-            </div>
-        </div> 
-      <br>
+            <div class="col-md-1"></div>       
+        </div>           
     </div>
+    <!-- Collapsed content -->
+    <div class="container">
+        <br>
+        <br>
+        <br>        
+        <div class="description-WhatIsWP" id="desc-wp-1">           
+            <p class="size-left"> {% trans "Text 1 - Before starting" %}
+        </div>
+        <div class="description-WhatIsWP" id="desc-wp-2">
+            <p class="size-left"> {% trans "Text 2 - What is a case study?" %}
+        </div>
+        <div class="description-WhatIsWP" id="desc-wp-3">
+            <p class="size-left"> {% trans "Text 3 - Support data" %}
+        </div>
+        <div class="description-WhatIsWP" id="desc-wp-4">
+            <p class="size-left"> {% trans "Text 4 - See an example" %}
+        </div> 
+        <div class="description-WhatIsWP" id="desc-wp-5">
+            <p class="size-left">  {% trans "Text 5 - Who can use the system?" %}
+        </div>
+    </div>  
   </section>
   <br>
   <br>
@@ -233,7 +205,7 @@
           <h3 class="colorLeftInstructionsWh3">{% trans "COMPELLING" %}</h3>
           <p class="colorLeftInstructionsWp size-left">{% trans "Clear analytics to promote stakeholder conversations" %}</p>
           <h3 class="colorLeftInstructionsWh3">{% trans "CUSTOMIZABLE" %}</h3>
-          <p class="colorLeftInstructionsWp size-left">{% trans "Platform offers flexibility to define custom elements & parameters to approximate your local conditions" %}</p>
+          <p id="scroll" class="colorLeftInstructionsWp size-left">{% trans "Platform offers flexibility to define custom elements & parameters to approximate your local conditions" %}</p>
           <h3 class="colorLeftInstructionsWh3">{% trans "FREE" %}</h3>
           <p class="colorLeftInstructionsWp size-left">{% trans "We are committed to equipping local NbS champions with the information" %}</p>
       </div>
@@ -253,11 +225,11 @@
         <div class="col-md-4">
             <div class="center-block text-center">
                 <img class="center-img" src="/static/geonode/img/2.png">
-                <img class="img1 ani_headShake" src="/static/geonode/img/01-ICONO.png">
+                <a type="button" data-toggle="modal" data-target="#search-city" onclick="center(this)" ><img class="img1 ani_headShake" src="/static/geonode/img/01-ICONO.png"></a>
                 <h4 class="ico1-text ">{% trans "Find Your city" %}</h4>
-                <img class="img2 ani_headShake" src="/static/geonode/img/02-ICONO.png">
+                <a type="button" data-toggle="modal" data-target="#NbS" onclick="center(this)"><img class="img2 ani_headShake" src="/static/geonode/img/02-ICONO.png"></a>
                 <h4 class="ico2-text ">{% trans "Select / create your Nbs" %}</h4>
-                <img class="img3 ani_headShake" src="/static/geonode/img/03-ICONO.png">
+                <a type="button" data-toggle="modal" data-target="#intake" onclick="center(this)"><img class="img3 ani_headShake" src="/static/geonode/img/03-ICONO.png"></a>
                 <h4 class="ico3-text ">{% trans "Configure water intakes" %}</h4>
             </div>
         </div>
@@ -269,11 +241,11 @@
         <div class="col-md-4 center-block ">
             <div class="center-block text-center">
                 <img class="center-img " src="/static/geonode/img/3.png">
-                <img class="img4 ani_headShake" src="/static/geonode/img/04-ICONO.png">
+                <a type="button" data-toggle="modal" data-target="#ptap" onclick="center(this)"><img class="img4 ani_headShake" src="/static/geonode/img/04-ICONO.png"></a>
                 <h4 class="ico4-text ">{% trans "Define infrastructure" %} </h4>
-                <img class="img5 ani_headShake" src="/static/geonode/img/05-ICONO.png">
+                <a type="button" data-toggle="modal" data-target="#case-study" onclick="center(this)"><img class="img5 ani_headShake" src="/static/geonode/img/05-ICONO.png"></a>
                 <h4 class="ico5-text ">{% trans "Create a case study" %}</h4>
-                <img class="img6 ani_headShake" src="/static/geonode/img/06-ICONO.png">
+                <a type="button" data-toggle="modal" data-target="#reports" onclick="center(this)"><img class="img6 ani_headShake" src="/static/geonode/img/06-ICONO.png"></a>
                 <h4 class="ico6-text ">{% trans "Analize outputs" %}</h4>
             </div>
         </div>
@@ -367,7 +339,8 @@
                 <div class="size-left">
                     <p>{% trans "Step beyond ROI assessment to learn about tangible steps you can take for advancing your NbS investment vision" %}</p>
                     <br>
-                    <button class="buttonRealize">{% trans "Take action" %}</button>
+                    <button class="buttonRealize" >
+                    <a class= "link-wp-syle" href="/take-action/" target="_self"> <span class="ppwpwiki3">{% trans "Take action" %}</a></span></button>
                     <br>
                 </div>
             </div>
@@ -481,14 +454,14 @@
         <div class="col-md-12 text-center">
             <br>
             <button class="button-viki">
-              <a class= "link-wp-syle" href="/wiki" target="_blank"><span class="ppwpwiki3"> {% trans "Keep reading" %}  </span></a>
+              <a class= "link-wp-syle" href="/wiki" target="_self"><span class="ppwpwiki3"> {% trans "Keep reading" %}  </span></a>
             </button>
             <br>
         </div>
     </div>
   <p class="copyright" style="text-align: right; font-size: 15px;">© Foto tomada por Pilar Galindo</p>
 </section>
-<section id="partner_tnc">
+<!-- <section id="partner_tnc">
     <div class="row justify-content-md-center" style="height:20%;">
         <div class="col-md-6 text-center">
             <img src="{% static 'geonode/img/LogoTNC2.png' %}" alt="The nature Conservancy" style="max-height: 100px;">
@@ -497,7 +470,139 @@
             <img src="{% static 'geonode/img/fundacionmoore.png' %}" alt="Moore fundation" style="max-height: 100px;">
         </div>
     </div>
+</section>  -->
+<section id="partner_tnc" style="padding-bottom:15px;">
+    <div class="row justify-content-md-center">
+        <div class="col-md-6 text-left">
+            <div class="col-md-2 text-left"></div>
+            <div class="col-md-4 text-left">
+                <div class="text-center">
+                    <h3 class="colorLeftInstructionsR">{% trans "Developed by:" %}</h3> 
+                </div>                
+            </div>
+        </div>
+        <div class="col-md-6 text-left">
+            <h3 class="colorLeftInstructionsR with-support-of">{% trans "Whith the support of:" %}</h3>             
+        </div>
+    </div>
+    <div class="row justify-content-md-center">
+        <div class="col-md-6 text-left">
+            <div class="col-md-2 text-left"></div>
+            <div class="col-md-4 text-left">                
+                <div class="text-left">
+                    <img src="{% static 'geonode/img/LogoTNC2.png' %}" style="width:100%; height:80%;" alt="The Nature Conservancy">
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 text-left">
+            <div class="row justify-content-md-center">
+                <div class="col-md-4 text-left align-items-center">    
+                    <img src="{% static 'geonode/img/fundacionmoore.png' %}" style="width:75%; height:100%;" alt="Moore fundation">                
+                </div>
+                <div class="col-md-8 text-left align-items-center">
+                    {% trans "This website is funded by the Gordon and Betty Moore Foundation through Grant GBMF7100 to support the work of WaterProof" %}
+                </div>
+            </div>
+        </div>
+    </div>    
 </section> 
+
+<!--search-city modal-->
+<div class="modal fade modal-form" id="search-city" tabindex="-1" aria-labelledby="HelpModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" style="width: 500px !important;">
+        <div class="modal-content height-modal-content-index">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title text-center" id="HelpModalLabel" style="color:#0C89AA ;">{% trans "Find Your city" %}</h4>
+            </div>
+            <div class="modal-body video-responsive">
+               <iframe class="size-video" src="http://dev.skaphe.com:81/salidas/Media/VIDEO%201%20CAPAS%2007-09-21.mp4" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+<!--NbS modal-->
+<div class="modal fade modal-form" id="NbS" tabindex="-1" aria-labelledby="HelpModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" style="width: 500px !important;">
+        <div class="modal-content height-modal-content-index">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title text-center" id="HelpModalLabel" style="color:#0C89AA ;">{% trans "Select / create your Nbs" %}</h4>
+            </div>
+            <div class="modal-body video-responsive">
+               <iframe class="size-video" src="http://dev.skaphe.com:81/salidas/Media/VIDEO%202%20CAPAS%2007-09-21_1.mp4" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+<!--intake modal-->
+<div class="modal fade modal-form" id="intake" tabindex="-1" aria-labelledby="HelpModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" style="width: 500px !important;">
+        <div class="modal-content height-modal-content-index">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title text-center" id="HelpModalLabel" style="color:#0C89AA ;">{% trans "Configure water intakes" %}</h4>
+            </div>
+            <div class="modal-body video-responsive">
+               <iframe class="size-video" src="http://dev.skaphe.com:81/salidas/Media/VIDEO%204%20CAPAS.mp4" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+<!--ptap modal-->
+<div class="modal fade modal-form" id="ptap" tabindex="-1" aria-labelledby="HelpModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" style="width: 500px !important;">
+        <div class="modal-content height-modal-content-index">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title text-center" id="HelpModalLabel" style="color:#0C89AA ;">{% trans "Define infrastructure" %}</h4>
+            </div>
+            <div class="modal-body video-responsive">
+               <iframe class="size-video" src="http://dev.skaphe.com:81/salidas/Media/VIDEO%205%20CAPAS_2.mp4" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+<!--case-study modal-->
+<div class="modal fade modal-form" id="case-study" tabindex="-1" aria-labelledby="HelpModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" style="width: 500px !important;">
+        <div class="modal-content height-modal-content-index">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title text-center" id="HelpModalLabel" style="color:#0C89AA ;">{% trans "Create a case study" %}</h4>
+            </div>
+            <div class="modal-body video-responsive">
+               <iframe class="size-video" src="http://dev.skaphe.com:81/salidas/Media/VIDEO%203%20CAPAS_1%20(1).mp4" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+<!--reports modal-->
+<div class="modal fade modal-form" id="reports" tabindex="-1" aria-labelledby="HelpModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" style="width: 500px !important;">
+        <div class="modal-content height-modal-content-index">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title text-center" id="HelpModalLabel" style="color:#0C89AA ;">{% trans "Analize outputs" %}</h4>
+            </div>
+            <div class="modal-body video-responsive">
+               <iframe class="size-video" src="http://dev.skaphe.com:81/salidas/Media/VIDEO%206%20CAPAS_1.mp4" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+</div>
       
     
 	<!-- <section> -->
@@ -669,6 +774,11 @@
 <script type="text/javascript">
     FEATURED_URL = '{% url 'api_dispatch_list' api_name='api' resource_name='featured' %}'
     'use strict';
+    center = function(e){
+        $('html, body').animate({
+            scrollTop: $("#scroll").offset().top
+        }, 900);
+    };
     (function(){
       var module = angular.module('featured', []);
       module.run(function($http, $rootScope){
@@ -707,5 +817,15 @@ var Cli_Data = {"nn_cookie_ids":[],"cookielist":[]};
             navText: ["<img src='./static/geonode/img/flecha-izq.png'>", "<img src='./static/geonode/img/flecha-der.png'>"]
 
         });
+
+        $(document).ready(function() {
+            $(".description-WhatIsWP").hide();
+            $(".buttonWhatIsWP").on("click", function(el) {
+                $(".description-WhatIsWP").hide();
+                let id = $(this).attr("data-target");
+                $("#" + id).show('slow');                
+            });
+        });
+               
     </script>
 {% endblock extra_script %}
