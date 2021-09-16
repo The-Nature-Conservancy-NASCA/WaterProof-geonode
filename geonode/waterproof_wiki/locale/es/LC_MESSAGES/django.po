@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-16 16:06-0500\n"
+"POT-Creation-Date: 2021-09-16 16:12-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,10 +18,30 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: template/articulo_detalle.html:23
-msgid "Referencies"
-msgstr ""
-
-#: template/articulo_detalle.html:35
+#: template/articulo_detalle.html:24
 msgid "Bibliography"
-msgstr ""
+msgstr "Bibliografía"
+
+#: template/articulo_detalle.html:36
+msgid "Referencies"
+msgstr "Referencias"
+
+#: template/articulo_detalle.html:45
+msgid "Go to Wiki"
+msgstr "Ir a Wiki"
+
+#: template/articulos.html:12
+msgid "Articles"
+msgstr "Artículos"
+
+#: template/articulos.html:19 template/articulos.html:21
+msgid "Search"
+msgstr "Buscar"
+
+#: template/articulos.html:43
+msgid "First"
+msgstr "Primero"
+
+#: template/articulos.html:49
+msgid "Last"
+msgstr "Último"
