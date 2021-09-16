@@ -42,3 +42,33 @@ msgstr "Error!"
 #: static/waterproof_study_cases_comparison/js/studycases_doAnalysis.js:107
 msgid "Not result for case"
 msgstr "No hay resultados para los casos seleccionados"
+
+msgid "Return of investment"
+msgstr "Retorno de inversión"
+
+msgid "Total discount benefit"
+msgstr "Beneficio de descuento total"
+
+msgid "Intake benefit"
+msgstr "Benefición de la captación"
+
+msgid "Implementation"
+msgstr "Implementación"
+
+msgid "Maintenance"
+msgstr "Mantenimiento"
+
+msgid "Opportunity"
+msgstr "Oportunidad"
+
+msgid "Transaction"
+msgstr "Transacción"
+
+msgid "Platform"
+msgstr "Plataforma"
+
+msgid "Benefit"
+msgstr "Beneficios"
+
+msgid "Net Present Value"
+msgstr "Valor Presente Neto"
