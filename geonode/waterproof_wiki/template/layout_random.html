@@ -5,34 +5,33 @@
 
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="utf-8">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/docs.theme.min.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/owl.carousel.min.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/owl.theme.default.min.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
-    <script src="{% static 'js/jquery.min.js' %}"></script>
-    <script src="{% static 'js/owl.carousel.js' %}"></script>
+    <head>
+           <meta charset="utf-8">           
+           <link rel="stylesheet" type="text/css" href="{% static 'css/docs.theme.min.css' %}">
+           <link rel="stylesheet" type="text/css" href="{% static 'css/owl.carousel.min.css' %}">
+           <link rel="stylesheet" type="text/css" href="{% static 'css/owl.theme.default.min.css' %}">
+           <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+           <script src="{% static 'js/jquery.min.js' %}"></script>
+           <script src="{% static 'js/owl.carousel.js' %}"></script>
 
-    <!--Si no te agarra los estilos.. solo debes reiniciar el servidor--->
-</head>
-<body>
-    <div id="titulo">
-        <h4>
-            {% block titulo%}
+           <!--Si no te agarra los estilos.. solo debes reiniciar el servidor--->
+    </head>
+    <body>    
+        <div id="titulo">
+            <h4>
+            {% block titulo%} 
             <a href="../">{% trans Go to wiki%}</a>
             {% endblock%}
-        </h4>
-    </div>
-    <div id="content">
-        {% block content%}
-        {% trans default %}<br>
-        {% endblock%}
-    </div>
-</body>
+            </h4>
+        </div>
+        <div id="content">           
+            {% block content%}
+            {% trans default %}<br>
+            {% endblock%}           
+        </div>
+    </body>
 
-
-<script src="{% static 'js/highlight.js' %}"></script>
-<script src="{% static 'js/app.js' %}"></script>
-
+    <script src="{% static 'js/highlight.js' %}"></script>
+    <script src="{% static 'js/app.js' %}"></script>
 </html>
+{% endblock%}
