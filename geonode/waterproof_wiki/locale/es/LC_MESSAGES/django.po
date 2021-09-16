@@ -28,3 +28,6 @@ msgstr "Último"
 
 msgid "Show more"
 msgstr "Ver más"
+
+msgid "Articules"
+msgstr "Artículos"
