@@ -4,10 +4,6 @@
 {% load bootstrap_tags %} 
 {% block extra_head %}
 <link rel="stylesheet" href="https://unpkg.com/smartwizard@5/dist/css/smart_wizard_all.min.css" type="text/css" />
-<link rel="stylesheet" href="{{ STATIC_URL }}lib/css//leaflet.css"/>
-<link rel="stylesheet" href="{% static "geonode/css/leaflet/leaflet.defaultextent.css" %}"/>
-<link rel="stylesheet" href="{{ STATIC_URL }}geonode/css/leaflet/Control.Coordinates.css" />
-<link rel="stylesheet" href="{{ STATIC_URL }}geonode/css/leaflet/Control.Loader.css" />
 <link rel="stylesheet" href="{{ STATIC_URL }}waterproof_reports/css/reports.css" />
 
 {% endblock %} {% block body_outer %}
@@ -952,14 +948,4 @@ $(function () {
     
 </script>
 
-<script type="text/javascript">
-
-   
-
-
-
-</script>
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min.js"
-    integrity="sha512-dTu0vJs5ndrd3kPwnYixvOCsvef5SGYW/zSSK4bcjRBcZHzqThq7pt7PmCv55yb8iBvni0TSeIDV8RYKjZL36A=="
-    crossorigin="anonymous"></script>-->
 {% endblock %}

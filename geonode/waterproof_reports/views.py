@@ -1055,44 +1055,32 @@ def physicalIndicators(request, idx):
 
     indicators = investIndicators.objects.filter(study_case__id=idx)
     indicatorsNames = getNames(indicators)
-    indicatorsNameCity = getNameCity(indicators)
+
     return render(
         request,
         'waterproof_reports/physicalIndicators.html',
         {
             'Indicators': indicators,
-            'NamesIndicators': indicatorsNames,
-            'NameCityIndicators': indicatorsNameCity
+            'NamesIndicators': indicatorsNames
         })
 
 
 def financialIndicators(request):
 
-    indicators = investIndicators.objects.all()
-    indicatorsNames = getNames(indicators)
-    indicatorsNameCity = getNameCity(indicators)
+
     return render(
         request,
         'waterproof_reports/financialIndicators.html',
-        {
-            'Indicators': indicators,
-            'NamesIndicators': indicatorsNames,
-            'NameCityIndicators': indicatorsNameCity
+        {  
         })
 
 
 def decisionIndicators(request):
 
-    indicators = investIndicators.objects.all()
-    indicatorsNames = getNames(indicators)
-    indicatorsNameCity = getNameCity(indicators)
     return render(
         request,
-        'waterproof_reports/decisionIndicators.html',
-        {
-            'Indicators': indicators,
-            'NamesIndicators': indicatorsNames,
-            'NameCityIndicators': indicatorsNameCity
+        'waterproof_reports/decisionIndicators.html',{
+
         })
 
 
