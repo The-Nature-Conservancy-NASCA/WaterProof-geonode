@@ -67,7 +67,7 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link radius-button-list nav-link" data-toggle="tab" href="#step2" role="tab" aria-controls="profile" aria-selected="false">
+            <a class="nav-link radius-button-list nav-link" id="initMapStep2" data-toggle="tab" href="#step2" role="tab" aria-controls="profile" aria-selected="false">
                 {% trans "CPhysical and risk indicators" %}
             </a>
         </li>
@@ -128,32 +128,39 @@
             </div>
         </div>
         <div class="tab-pane fade div-style-menu-23" id="step2" role="tabpanel" aria-labelledby="how-tab">
-    
+            <div id="continer-map2">
+            </div>                
+            <br>
+            <div class="title-water">{% trans "Water Intake" %} <span class="name-title-water">"{% trans "Water Intake" %}"</span></div>
+            <div class="margin-select">
+                <select class="select-condition" id="idSelectWaterIntake" onchange="loadGraphIntahe(this.value)">
+                    <option></option>
+                </select>
+            </div>
+            <div id="idListGraph"></div>
 		</div>
         <div class="tab-pane fade div-style-menu-23" id="step3" role="tabpanel" aria-labelledby="contact-tab">
             
+        </div>
+        <div id="map-container2" class="container-border">
+            <div id="mapidphysical" style="position: relative;width: 90% ;height: 400px;"></div>
         </div>
     </div>
 </div>
 
 {% endblock %} {% block extra_script %}
-<script src="{{ STATIC_URL }}lib/Highcharts-9.0.1/code/highcharts.js"></script>
-<script src="{{ STATIC_URL }}lib/Highcharts-9.0.1/code/modules/exporting.js"></script>
-<script src="{{ STATIC_URL }}lib/Highcharts-9.0.1/code/modules/export-data.js"></script>
-<script src="{{ STATIC_URL }}lib/Highcharts-9.0.1/code/modules/accessibility.js"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/highcharts-more.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+<script src="https://code.highcharts.com/modules/solid-gauge.js"></script>
 
-<script src="{{ STATIC_URL }}geonode/js/datatables/jquery.dataTables.min.js"></script>
 <script src="{{ STATIC_URL }}geonode/js/datatables/dataTables.bootstrap.min.js"></script>
 
 <script type="text/javascript" src="{% url 'javascript-catalog-intake' %}"></script>
-<script src="{{ STATIC_URL }}waterproof_intake/js/jquery.smartWizard.min.js" type="text/javascript"></script>
-<script src="{{ STATIC_URL }}geonode/js/leaflet/Leaflet.Editable.js"></script>
-<script src="{{ STATIC_URL }}geonode/js/leaflet/Leaflet.Coordinates.js"></script>
-<script src="{{ STATIC_URL }}geonode/js/leaflet/Control.Loader.js"></script>
-
-<script src="{% static "lib/js/leaflet.js" %}"></script>
-<script src="{% static "geonode/js/leaflet/leaflet.defaultextent.js" %}"></script>
-<script src=" {{ STATIC_URL }}geonode/js/leaflet/L.Map.Sync.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js" type="text/javascript"></script>
+<script src="https://unpkg.com/smartwizard@5/dist/js/jquery.smartWizard.min.js" type="text/javascript"></script>
 
 <!--ZIP reader library-->
 <script src="{{ STATIC_URL }}geonode/js/jszip/jszip.min.js"></script>
@@ -166,7 +173,6 @@
     var editorUrl = '{{ STATIC_URL }}geonode/js/mxgraph/examples/editors/config/diagrameditor.xml';
     var serverApi = '{{serverApi}}';
     var lang = '{{LANGUAGE_CODE}}';
-    let waterproof = {};
     OSM_BASEMAP_URL = '{{ OSM_BASEMAP_URL }} ';
     IMG_BASEMAP_URL = '{{ IMG_BASEMAP_URL }} ';
     HYDRO_BASEMAP_URL = '{{ HYDRO_BASEMAP_URL }} ';
@@ -174,16 +180,63 @@
     GEOSERVER_WMS = '{{ GEOSERVER_WMS }}';
     HYDRO_NETWORK_LYR = '{{ HYDRO_NETWORK_LYR }}';
 </script>
-<script src="{{ STATIC_URL }}waterproof_reports/js/physicalIndicators.js"></script>
 <script src="{{ STATIC_URL }}geonode/js/mxgraph/mxClient.js"></script>
 <script src="{{ STATIC_URL }}geonode/js/mxgraph/examples/editors/js/app.js"></script>
 <script src="{{ STATIC_URL }}geonode/js/mxgraph/examples/editors/js/app.js"></script>
 <script src="{{ STATIC_URL }}waterproof_intake/mathquill/mathquill.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script>
+    var intakePolygons = [];
+    SEARCH_CITY_API_URL = '{{ SEARCH_CITY_API_URL }}';
+    SEARCH_COUNTRY_API_URL = '{{ SEARCH_COUNTRY_API_URL }}';
+</script>
+
+
+<script>
+    var countriesLayerUrl = '{{ STATIC_URL }}waterproof_nbs_ca/data/countries.geojson';
+    var userCountryId='{{country.id}}';
+    var userCountryCode='{{country.codeCountry}}';
+    var userCountryName='{{country.nameCountry}}';
+</script>
+<script type="text/javascript" src="{% url 'javascript-catalog-treatment' %}"></script>
+<script src="{{ STATIC_URL }}geonode/js/datatables/jquery.dataTables.min.js"></script>
+<script src="{{ STATIC_URL }}geonode/js/datatables/dataTables.bootstrap.min.js"></script>
+<script src="{% static "lib/js/leaflet.js" %}"></script>
+<script src="{% static "geonode/js/leaflet/leaflet.defaultextent.js" %}"></script>
+<script src="{{ STATIC_URL }}geonode/js/leaflet/leaflet.ajax.min.js"></script>
+<script src="{{ STATIC_URL }}geonode/js/leaflet/photon/leaflet.photon.js"></script>
+<script src=" {{ STATIC_URL }}geonode/js/leaflet/leaflet-omnivore.min.js "></script>
+
+<script type=" text/javascript ">
+    API_URL = '/proxy/?url=https://photon.komoot.de/api/?';
+    TILELAYER = 'http://{s}.tile.osm.org/{z}/{x}/{y}.png';
+    CENTER = [-74.4879, 4.582];
+    MAXZOOM = 11;
+
+    let waterproof = {};
+
+    $(document).ready(function() {
+    });
+
+    var searchPoints = L.geoJson(null, {
+        onEachFeature: function(feature, layer) {
+            layer.bindPopup(feature.properties.name);
+        }
+    });
+
+</script>
+
 <script type="text/javascript">
 
 var localStorageId = localStorage.idStudyCase;
+
+    $('#continer-map2')[0].append($('#map-container2'));
+    $("#initMapStep2").click(function(e){
+                initMapPhysical();
+            });
+
     $('#Return').append(
         `
         <a href="../../study_cases/report/${localStorageId}">{% trans "Return" %}</a>
@@ -261,6 +314,317 @@ var localStorageId = localStorage.idStudyCase;
 
     }
     selectIntakes.onchange=show;    
+
+    $(function(){
+
+        var IMAGE_LYR_URL = "https://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryTopo/MapServer/tile/{z}/{y}/{x}";
+        var HYDRO_LYR_URL = "https://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/Esri_Hydro_Reference_Overlay/MapServer/tile/{z}/{y}/{x}";
+        var MAXZOOM = 11;
+        var TILELAYER = 'http://{s}.tile.osm.org/{z}/{x}/{y}.png';
+        var CENTER = [4.582, -74.4879];
+        var lyrsPolygons = [];
+        var map;
+        var table = $('#example').DataTable();
+        var searchPoints = L.geoJson(null, {
+            onEachFeature: function(feature, layer) {
+                layer.bindPopup(feature.properties.name);
+            }
+        });
+        var dataTotalBenefitsIntake = [];
+        var dataTotalBenefitsIntakeOne = [];
+
+        loadGraphIntahe = function(valueSelect) {
+            var listObject = document.getElementsByName("listGraphIntake");
+            listObject.forEach((divVisible) => {
+                if(valueSelect !== "") {
+                    divVisible.style.display = "none";
+                    if(divVisible.getAttribute("nameSelect") === valueSelect) {
+                        divVisible.style.display = "block";
+                    }                
+                } else  {
+                    divVisible.style.display = "block";
+                }
+            });
+        }
+
+         /**
+        * Search the points of a city and load them in the polygon of the map
+        * @param {String} Object with the identity of the city    
+        * @returns 
+        */
+        showSearchPoints = function(geojson) {
+            searchPoints.clearLayers();
+            let geojsonFilter = geojson.features.filter(feature => feature.properties.type == "city");
+            searchPoints.addData(geojsonFilter);
+            let cityName = geojsonFilter[0].properties.name;
+            drawPolygons(cityName);
+            table.search(cityName.substr(0, 5)).draw();
+        }
+
+        /**
+        * Draw the polygons on the map when selecting the city 
+        * @param {String} city that is registered in the search space    
+        * @returns 
+        */
+        drawPolygons = function(citySearch) {
+            lyrsPolygons.forEach(lyr => map.removeLayer(lyr));
+            lyrsPolygons = [];
+            var bounds;
+            intakePolygons.forEach((feature) => {
+                if (feature.polygon !== 'None' && feature.polygon != '') {
+                    let poly = feature.polygon;
+                    if (poly.indexOf("SRID") >= 0) {
+                        poly = poly.split(";")[1];
+                    }
+                    var lyrPoly = omnivore.wkt.parse(poly).addTo(map);
+                    lyrsPolygons.push(lyrPoly);
+                    if (bounds == undefined) {
+                        bounds = lyrPoly.getBounds();
+                    } else {
+                        bounds = bounds.extend(lyrPoly.getBounds());
+                    }
+                }
+            });
+            if (bounds != undefined) {
+                map.fitBounds(bounds);
+            }
+        };
+
+        selectedResultHandler = function (feat) {
+            waterproof["cityCoords"] = [feat.geometry.coordinates[1], feat.geometry.coordinates[0]];
+            localStorage.setItem('cityCoords', JSON.stringify(waterproof["cityCoords"]));
+
+
+            searchPoints.eachLayer(function(layer) {
+                if (layer.feature.properties.osm_id != feat.properties.osm_id) {
+                    layer.remove();
+                }
+            });
+            let country = feat.properties.country;
+            let cityName = feat.properties.name;
+            let countryCode = feat.properties.countrycode.toLowerCase();
+
+            $("#countryLabel").html(country);
+            $("#cityLabel").html(cityName);
+            localStorage.setItem('city', cityName);
+
+            drawPolygons(cityName);
+            table.search(cityName.substr(0, 5)).draw();
+
+            let urlAPI = '{{ SEARCH_COUNTRY_API_URL }}' + countryCode;
+
+            $.get(urlAPI, function(data) {
+                $("#regionLabel").html(data.region);
+                $("#currencyLabel").html(data.currencies[0].name + " - " + data.currencies[0].symbol);
+                $("#listIntakes").show();
+
+                localStorage.setItem('country', country);
+                localStorage.setItem('region', data.region);
+                localStorage.setItem('currency', data.currencies[0].name + " - " + data.currencies[0].symbol);
+            });
+        };
+
+        initMapPhysical = function () {
+            map = L.map('mapidphysical', {
+                scrollWheelZoom: false,
+                zoomControl: false,
+                photonControl: true,
+                photonControlOptions: {
+                    resultsHandler: showSearchPoints,
+                    selectedResultHandler: selectedResultHandler,
+                    placeholder: gettext('Search City') + '...',
+                    position: 'topleft',
+                    url: SEARCH_CITY_API_URL
+                }
+            });
+
+            let initialCoords = CENTER;
+            var cityCoords = localStorage.getItem('cityCoords');
+            var city = localStorage.getItem('city');
+            var initialZoom = 5;
+            var cityNameMap = localStorage.getItem('city').substr(0, 5);
+
+            if (cityCoords == undefined) {
+                cityCoords = initialCoords;
+            } else {
+                initialCoords = JSON.parse(cityCoords);
+                drawPolygons(city);
+                initialZoom = 9;
+                try {
+                    $("#countryLabel").html(localStorage.getItem('country'));
+                    $("#cityLabel").html(localStorage.getItem('city'));
+                    $("#regionLabel").html(localStorage.getItem('region'));
+                    $("#currencyLabel").html(localStorage.getItem('currency'));
+                    $("#listIntakes").show();
+                } catch (e) {
+
+                }
+            }
+
+            table.search(cityNameMap).draw();
+
+            map.setView(initialCoords, initialZoom);
+
+            searchPoints.addTo(map);
+
+            var tilelayer = L.tileLayer(TILELAYER, { maxZoom: MAXZOOM, attribution: 'Data \u00a9 <a href="http://www.openstreetmap.org/copyright"> OpenStreetMap Contributors </a> Tiles \u00a9 Komoot' }).addTo(map);
+            var images = L.tileLayer(IMAGE_LYR_URL);
+
+
+            var hydroLyr = L.tileLayer(HYDRO_LYR_URL);
+
+            var baseLayers = {
+                OpenStreetMap: tilelayer,
+                Images: images,
+            };
+
+            var overlays = {
+                "Hydro (esri)": hydroLyr,
+            };
+
+
+            var zoomControl = new L.Control.Zoom({ position: 'topright' }).addTo(map);
+            L.control.layers(baseLayers, overlays, { position: 'topleft' }).addTo(map);
+
+            function onMapClick(e) {
+            }
+            map.on('click', onMapClick);
+        }
+
+        initialize = function () {
+
+            $("#idCountri").html(localStorage.getItem('country'));
+            $("#idCity").html(localStorage.getItem('city'));
+            $("#idRegion").html(localStorage.getItem('region'));
+            $("#idNameStudyCase").html(localStorage.getItem('studyCasesName'));
+
+            var gaugeOptions = {
+                chart: {
+                    type: 'solidgauge'
+                },
+
+                title: null,
+
+                pane: {
+                    center: ['50%', '85%'],
+                    size: '140%',
+                    startAngle: -90,
+                    endAngle: 90,
+                    background: {
+                        backgroundColor:
+                            Highcharts.defaultOptions.legend.backgroundColor || '#EEE',
+                        innerRadius: '60%',
+                        outerRadius: '100%',
+                        shape: 'arc'
+                    }
+                },
+
+                exporting: {
+                    enabled: false
+                },
+
+                tooltip: {
+                    enabled: false
+                },
+
+                yAxis: {
+                    stops: [
+                        [0.1, '#55BF3B'], // green
+                        [0.5, '#DDDF0D'], // yellow
+                        [0.9, '#DF5353'] // red
+                    ],
+                    lineWidth: 0,
+                    tickWidth: 0,
+                    minorTickInterval: null,
+                    tickAmount: 2,
+                    title: {
+                        y: -70
+                    },
+                    labels: {
+                        y: 16
+                    }
+                },
+
+                plotOptions: {
+                    solidgauge: {
+                        dataLabels: {
+                            y: 5,
+                            borderWidth: 0,
+                            useHTML: true
+                        }
+                    }
+                }
+            };
+
+            var urlDetail = "../../reports/getWpAqueductIndicatorGraph/?studyCase=" + localStorage.idStudyCase;
+            $.getJSON(urlDetail, function (data) {
+                var lastGroupImage = "";
+                var titleGraph = "";
+                var numberContainer = 0;
+                $.each( data, function( key, value ) {
+
+                    if(lastGroupImage !== value.indicator) {
+                        if(titleGraph !== "") {
+                            titleGraph = titleGraph + '</div>';
+                        }
+                        titleGraph = titleGraph + '<div name="listGraphIntake" nameSelect="' + value.indicator + '" class="title-water" style="float: left;width: 100%;">' + value.indicator + '</div><div name="listGraphIntake"  nameSelect="' + value.indicator + '" class="container-general-gauge">';
+                        lastGroupImage = value.indicator;
+
+                        var option = document.createElement("option");
+                        option.text = value.indicator;
+                        option.value = value.indicator;
+                        document.getElementById("idSelectWaterIntake").add(option);
+                    }
+                    titleGraph = titleGraph + '<div class="container-gauge"><div id="containerPr' + numberContainer + '"></div></div>';
+                    numberContainer++;
+                });
+                titleGraph = titleGraph + '</div>';
+                document.getElementById("idListGraph").innerHTML = titleGraph;
+
+
+                setTimeout(function(){
+                    var urlDetail = "../../reports/getWpAqueductIndicatorGraph/?studyCase=" + localStorage.idStudyCase;
+                    $.getJSON(urlDetail, function (data) {
+                        var numberContainerG = 0;
+                        $.each( data, function( key, value ) {
+                            var chartSpeed = Highcharts.chart('containerPr' + numberContainerG, Highcharts.merge(gaugeOptions, {
+                                yAxis: {
+                                    min: 0,
+                                    max: 6,
+                                    stops: [
+                                        [0.1, '#90D3E7'],
+                                        [0.3, '#61D1C2'],
+                                        [0.5, '#008BAB'],
+                                        [0.7, '#004B56'],
+                                        [0.9, '#01353D']
+                                    ],
+                                    title: {
+                                        text: value.description
+                                    }
+                                },
+                                credits: {
+                                    enabled: false
+                                },
+                                series: [{
+                                    name: 'Baseline water stress',
+                                    data: [value.valueIndicator],
+                                    dataLabels: {
+                                        format:
+                                            '<div style="text-align:center">' +
+                                            '<span style="font-size:25px">{y}</span><br/>' +
+                                            '</div>'
+                                    }
+                                }]
+                            }));
+                            numberContainerG++;
+                        });
+                    });
+                }, 3000);
+            });
+        };
+    initialize();
+
+    });
     
 </script>
 {% endblock %}
