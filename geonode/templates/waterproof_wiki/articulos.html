@@ -24,7 +24,9 @@
                         {% for item in random_articles %}
                         <div class="card">
                             <div class="img">
-                                <img src="/static/geonode/img/car{{forloop.counter}}.jpg" class="img-card-news" alt=""></div>
+                                <img src="{{SITE_HOST_API}}uploaded/{{item.imagen}}" class="img-card-news" alt="">
+                                <p class="copyright" style="text-align: right; font-size: 15px;">© {{item.metadato_imagen |slice:":50"}}</p>
+                            </div>
                             <div class="content">
                                 <div class="newstitle">{{item.titulo}}</div>
                                 <p>{{item.resumen |slice:":150"}}...</p>
@@ -35,7 +37,9 @@
                         {% for item in random_articles %}
                         <div class="card">
                         <div class="img">
-                            <img src="/static/geonode/img/car{{forloop.counter}}.jpg" class="img-card-news" alt=""></div>
+                            <img src="{{SITE_HOST_API}}uploaded/{{item.imagen}}" class="img-card-news" alt="">
+                            <p class="copyright img-md-wiki">© {{item.metadato_imagen_en|slice:":50"}}</p>
+                        </div>
                         <div class="content">
                             <div class="newstitle">{{item.titulo_en }} </div>
                             <p>{{item.resumen_en |slice:":150"}}...</p>
@@ -92,7 +96,7 @@
     <script type="text/javascript">
         $(".slider").owlCarousel({
             loop: true,
-            autoplay: true,
+            autoplay: false,
             autoplayTimeout: 4000,
             autoplayHoverPause: true,
             items: 2,
