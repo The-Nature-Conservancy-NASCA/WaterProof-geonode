@@ -23,11 +23,8 @@
       <div class="row">
         <div class="large-12 columns">
           <div class="owl-carousel owl-theme owl-loaded owl-drag">
-            
-            
           <div class="owl-stage-outer">
 			  <div class="owl-stage" style="transform: translate3d(-2940px, 0px, 0px); transition: all 0.50s ease 0s; ">
-        
         {%for a in articulos %}
         {{a}}
 				<div class="owl-item" >
@@ -37,14 +34,12 @@
             <div class="texto-encima">{{a.metadato_imagen}}</div>
 				  </div>
          </div>
-        {% endfor%}
-				
+        {% endfor%}				
 				</div>
 			</div>
 			<div class="owl-dots">
 
-			</div>
-         
+			</div>         
           <script>
             $(document).ready(function() {
               var owl = $('.owl-carousel');

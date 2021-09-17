@@ -18,13 +18,8 @@
 {% block content %}
 
     <section class="carrouselcolor" id="news-menu">
-        <div class="container">
-            <div class="text-center">
-                <h2 class="colorHeaderInstrucciones">{% trans "Did you know?" %}</h2>
-                <br>
-            </div>
-            <div class="slider owl-carousel text-center">
-                
+        <div class="container">           
+            <div class="slider owl-carousel text-center">                
                     {% if request.LANGUAGE_CODE == "es" %}
                         {% for item in random_articles %}
                         <div class="card">
