@@ -244,58 +244,6 @@
                         </div> 
                     </div>
                 </div>
-                 <div class="tab-pane fade" id="step4" role="tabpanel" aria-labelledby="contact-tab">
-                    <div style="text-align: center;width: 100%;position: relative;height: 400px;">
-                        <div id="mapidphysical" style="position: relative;width: 100% ;height: 400px;"></div>
-                    </div>                
-                    <br>
-                    <div class="title-water">{% trans "Water Intake" %} <span class="name-title-water">"{% trans "Water Intake" %}"</span></div>
-                    <div class="margin-select">
-                        <select class="select-condition" id="idSelectWaterIntake" onchange="loadGraphIntahe(this.value)">
-                            <option value="">{% trans "All" %}</option>
-                        </select>
-                    </div>
-                    <div id="idListGraph"></div>
-                </div>
-                <div class="tab-pane fade" id="step5" role="tabpanel" aria-labelledby="contact-tab">
-                    <div>
-                        <div class="content-icon-inter">
-                            <div class="center-icon-inter">
-                                <img src="/static/geonode/img/01-conservacion.png" class="img-icon-inter">
-                            </div>
-                        </div>
-                        <div class="margin-detail-title-inter">
-                            <div class="text-detail-title-inter">{% trans "Size recomended intervetion as a percent to total area" %}</div>
-                            <div class="value-detail-title-inter" id="idSizeRecomend"></div>
-                            <div class="line-detail-title-inter"></div>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="cont-filter-inter">
-                            <div class="name-filtar-inter">{% trans "Intervetion" %}</div>
-                            <div>
-                                <select class="select-condition" id="idSelectNameIntake"></select>
-                            </div>    
-                        </div>
-                        <div class="title-inform-title">{% trans "Watershed information" %}</div>
-                        <div>
-                            <div class="total-inform-title">{% trans "Total size:" %}</div>
-                            <div id="idTotalSizeWater"></div>
-                        </div>
-                    </div>
-                    <div style="clear:both;" class="table-responsive">
-                        <table id="idTablePe" class="table table-striped table-bordered table-condensed" style=" width:100%">
-                            <thead>
-                                <tr class="info">
-                                    <th scope="col" class="small text-center vat">{% trans "Green infraestructure activity" %}</th>
-                                    <th scope="col" class="small text-center vat">{% trans "Cost per hectare (USD)" %}</th>
-                                    <th scope="col" class="small text-center vat">{% trans "Recommended intervetion (Hectares)" %}</th>
-                                </tr>
-                            </thead>
-                            <tbody id="idTbodyInterventions"></tbody>
-                        </table>
-                    </div>
-                </div>
                 <div id="map-step-3" class="container-border">
                     <div id="mapiddecision" style="position: relative;width: 100%;height: 400px; margin-left: 2%; margin-top: 2%;"></div>
                 </div>
@@ -1099,71 +1047,6 @@ $(function () {
             });
         });
 
-        var urlDetail = "../../reports/getWpAqueductIndicatorGraph/?studyCase=" + localStorage.idStudyCase;
-        $.getJSON(urlDetail, function (data) {
-            var lastGroupImage = "";
-            var titleGraph = "";
-            var numberContainer = 0;
-            $.each( data, function( key, value ) {
-
-                if(lastGroupImage !== value.indicator) {
-                    if(titleGraph !== "") {
-                        titleGraph = titleGraph + '</div>';
-                    }
-                    titleGraph = titleGraph + '<div name="listGraphIntake" nameSelect="' + value.indicator + '" class="title-water" style="float: left;width: 100%;">' + value.indicator + '</div><div name="listGraphIntake"  nameSelect="' + value.indicator + '" class="container-general-gauge">';
-                    lastGroupImage = value.indicator;
-
-                    var option = document.createElement("option");
-                    option.text = value.indicator;
-                    option.value = value.indicator;
-                    document.getElementById("idSelectWaterIntake").add(option);
-                }
-                titleGraph = titleGraph + '<div class="container-gauge"><div id="containerPr' + numberContainer + '"></div></div>';
-                numberContainer++;
-            });
-            titleGraph = titleGraph + '</div>';
-            document.getElementById("idListGraph").innerHTML = titleGraph;
-
-            setTimeout(function(){
-                var urlDetail = "../../reports/getWpAqueductIndicatorGraph/?studyCase=" + localStorage.idStudyCase;
-                $.getJSON(urlDetail, function (data) {
-                    var numberContainerG = 0;
-                    $.each( data, function( key, value ) {
-                        var chartSpeed = Highcharts.chart('containerPr' + numberContainerG, Highcharts.merge(gaugeOptions, {
-                            yAxis: {
-                                min: 0,
-                                max: 6,
-                                stops: [
-                                    [0.1, '#90D3E7'],
-                                    [0.3, '#61D1C2'],
-                                    [0.5, '#008BAB'],
-                                    [0.7, '#004B56'],
-                                    [0.9, '#01353D']
-                                ],
-                                title: {
-                                    text: value.description
-                                }
-                            },
-                            credits: {
-                                enabled: false
-                            },
-                            series: [{
-                                name: gettext('Baseline water stress'),
-                                data: [value.valueIndicator],
-                                dataLabels: {
-                                    format:
-                                        '<div style="text-align:center">' +
-                                        '<span style="font-size:25px">{y}</span><br/>' +
-                                        '</div>'
-                                }
-                            }]
-                        }));
-                        numberContainerG++;
-                    });
-                });
-            }, 3000);
-        });
-
         var urlDetail = "../../reports/getReportOportunityResultMaps/?studyCase=" + localStorage.idStudyCase;
         $.getJSON(urlDetail, function (data) {
             $.each( data, function( key, value ) {
@@ -1183,67 +1066,6 @@ $(function () {
                     });
                 });
                 intakePolygons.push({polygon: "POLYGON ((" + stringPolygon + "))"});
-            });
-        });
-
-        var urlDetail = "../../reports/getSizeRecomendedIntervention/?studyCase=" + localStorage.idStudyCase;
-        $.getJSON(urlDetail, function (data) {
-            $.each( data, function( key, value ) {
-                document.getElementById("idSizeRecomend").innerHTML = value.sizeRecomendedIntervention + " % ";
-                
-            });
-        });
-
-        var urlDetail = "../../reports/getNameWaterproofIntakeIntake/?studyCase=" + localStorage.idStudyCase;
-        $.getJSON(urlDetail, function (data) {
-            var defaultIntake = true;
-            $.each( data, function( key, value ) {
-                var sel = document.getElementById('idSelectNameIntake');
-                var opt = document.createElement('option');
-                opt.appendChild( document.createTextNode(value.name) );
-                opt.value = value.id; 
-                sel.appendChild(opt);
-                if(defaultIntake){
-                    defaultIntake = false;
-                    lastIntake = value.id;
-                } 
-            });
-        });
-
-        document.getElementById("idSelectNameIntake").onchange =  function() {
-            lastIntake = document.getElementById("idSelectNameIntake").value;
-            document.getElementById("idTbodyInterventions").innerHTML = "";
-            $.each( reportsRiosIpa, function( key, value ) {
-                if(parseInt(value.intakeId) === parseInt(lastIntake)) {
-                    var txtInterventions = '<tr>';
-                    txtInterventions = txtInterventions + '<td class="small text-center vat">' + value.sbn + '</td>';
-                    txtInterventions = txtInterventions + '<td class="small text-center vat">' + value.actualSpent + '</td>';
-                    txtInterventions = txtInterventions + '<td class="small text-center vat">' + value.areaConvertedHa + '</td>';
-                    txtInterventions = txtInterventions + '</tr>';
-                    document.getElementById("idTbodyInterventions").innerHTML = document.getElementById("idTbodyInterventions").innerHTML + txtInterventions;
-                }
-            });
-        }
-
-        var urlDetail = "../../reports/getTotalSizeWaterproofIntakePolygon/?studyCase=" + localStorage.idStudyCase;
-        $.getJSON(urlDetail, function (data) {
-            $.each( data, function( key, value ) {
-                document.getElementById("idTotalSizeWater").innerHTML = value.totalSize;
-            });
-        });
-
-        var urlDetail = "../../reports/getWaterproofReportsRiosIpa/?studyCase=" + localStorage.idStudyCase;
-        $.getJSON(urlDetail, function (data) {
-            reportsRiosIpa = data;
-            $.each( data, function( key, value ) {
-                if(parseInt(value.intakeId) === parseInt(lastIntake)) {
-                    var txtInterventions = '<tr>';
-                    txtInterventions = txtInterventions + '<td class="small text-center vat">' + value.sbn + '</td>';
-                    txtInterventions = txtInterventions + '<td class="small text-center vat">' + value.actualSpent + '</td>';
-                    txtInterventions = txtInterventions + '<td class="small text-center vat">' + value.areaConvertedHa + '</td>';
-                    txtInterventions = txtInterventions + '</tr>';
-                    document.getElementById("idTbodyInterventions").innerHTML = document.getElementById("idTbodyInterventions").innerHTML + txtInterventions;
-                }
             });
         });
     };
