@@ -31,8 +31,8 @@ msgid "Go to Wiki"
 msgstr "Ir a Wiki"
 
 #: template/articulos.html:12
-msgid "Articles"
-msgstr "Artículos"
+msgid "Knowledge bank"
+msgstr "Banco de conocimiento"
 
 #: template/articulos.html:19 template/articulos.html:21
 msgid "Search"
