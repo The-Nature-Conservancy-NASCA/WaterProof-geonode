@@ -4,6 +4,7 @@ from django.shortcuts import redirect, get_object_or_404
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.shortcuts import render 
 from django.db.models import Q
+from django.conf import settings
 from .models import Article, Referencies, Links, Category
 import random
 
@@ -40,7 +41,8 @@ def consultar_categorias(request , categoria_id):
 
 def listar_articulos(request):
     articulos=Article.objects.filter(publico='True')
-    random_articles = random.sample(list(articulos), 4)
+
+    random_articles = random.sample(list(Article.objects.filter(publico='True').exclude(imagen='null')), 5)
     print (random_articles)
 
     paginator=Paginator(articulos,5)
@@ -57,6 +59,7 @@ def listar_articulos(request):
     return render(request, 'waterproof_wiki/articulos.html', {
         'articulos':articulosDePagina,
         'random_articles':random_articles,
+        'SITE_HOST_API' : settings.SITE_HOST_API
     })
 
 def listar_articulos_random(request):
