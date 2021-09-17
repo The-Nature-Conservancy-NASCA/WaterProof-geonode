@@ -43,7 +43,7 @@ def listar_articulos(request):
     articulos=Article.objects.filter(publico='True')
 
     random_articles = random.sample(list(Article.objects.filter(publico='True').exclude(imagen='null')), 5)
-    print (random_articles)
+    #print (random_articles)
 
     paginator=Paginator(articulos,5)
     idPaginaPaginador=request.GET.get('page')
