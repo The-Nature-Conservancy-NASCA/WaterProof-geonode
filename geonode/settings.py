@@ -571,7 +571,8 @@ INSTALLED_APPS = (
     'geonode.waterproof_cms',
 
     # waterproof wiki
-    'geonode.waterproof_wiki'
+    'geonode.waterproof_wiki',
+    'geonode.home'
 
 )
 
@@ -588,6 +589,8 @@ WAGTAIL_APP = (
     'wagtail.admin',
     'wagtail.core',
     'modelcluster',
+    'wagtail.contrib.modeladmin',    
+    'wagtailtrans',
 )
 
 INSTALLED_APPS += WAGTAIL_APP
@@ -820,7 +823,7 @@ MIDDLEWARE = (
     'dj_pagination.middleware.PaginationMiddleware',
     # The setting below makes it possible to serve different languages per
     # user depending on things like headers in HTTP requests.
-    'django.middleware.locale.LocaleMiddleware',
+    #'django.middleware.locale.LocaleMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -828,6 +831,8 @@ MIDDLEWARE = (
     'oauth2_provider.middleware.OAuth2TokenMiddleware',
     'geonode.base.middleware.MaintenanceMiddleware',
     'geonode.base.middleware.ReadOnlyMiddleware',   # a Middleware enabling Read Only mode of Geonode
+    'wagtail.contrib.legacy.sitemiddleware.SiteMiddleware',
+    'wagtailtrans.middleware.TranslationMiddleware',    
     'wagtail.contrib.redirects.middleware.RedirectMiddleware',
 )
 
