@@ -1,5 +1,7 @@
-{% extends 'layout_random.html'%}
+{% extends 'waterproof_wiki/layout.html'%}
+{% load i18n %}
 
+{% block body_outer %}
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 
     <!--[if lt IE 9]>
@@ -17,30 +19,27 @@
 
     {% block content %}
     <section id="demos">
+      {{articulos}}
       <div class="row">
         <div class="large-12 columns">
           <div class="owl-carousel owl-theme owl-loaded owl-drag">
-            
-            
           <div class="owl-stage-outer">
 			  <div class="owl-stage" style="transform: translate3d(-2940px, 0px, 0px); transition: all 0.50s ease 0s; ">
-        
         {%for a in articulos %}
+        {{a}}
 				<div class="owl-item" >
           <div class="item">
             <h4>{{a.titulo}}</h4>
-            <a href="{% url 'consultar_articulo' id=a.id %}"><img src=../media/{{a.imagen}}> </a>
+            <a href="{% url 'consultar_articulo' id=a.id %}"><img src=/uploaded/{{a.imagen}}> </a>
             <div class="texto-encima">{{a.metadato_imagen}}</div>
 				  </div>
          </div>
-        {% endfor%}
-				
+        {% endfor%}				
 				</div>
 			</div>
 			<div class="owl-dots">
 
-			</div>
-         
+			</div>         
           <script>
             $(document).ready(function() {
               var owl = $('.owl-carousel');
@@ -67,4 +66,10 @@
     
 
     {% endblock%}
+    <div id="titulo" class="data">
+      <h4>
+      <a href="../">Ir a la Wiki</a>
+      </h4>
+  </div>
 
+{% endblock%}

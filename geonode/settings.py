@@ -112,7 +112,7 @@ DATABASE_URL = os.getenv(
     )
 )
 
-DATABASE_URL='postgresql://geonode:{&Uid&QXZ&6f;|F@dev.skaphe.com:5432/geonode'
+#DATABASE_URL='postgresql://geonode:{&Uid&QXZ&6f;|F@dev.skaphe.com:5432/geonode'
 #DATABASE_URL='postgresql://geonode:G30N0D3@water-proof.org:5432/geonode'
 #DATABASE_URL='postgresql://geonode:geonode@localhost:5432/geonode'
 #DATABASE_URL = 'postgresql://geonode:geonode_data@dev.skaphe.com:5432/geonode'
@@ -556,8 +556,9 @@ INSTALLED_APPS = (
     # GeoNode
     'geonode',
 
-    # FAQ
+    # FAQ - wiki
     'ckeditor',
+    'ckeditor_uploader',
 
     # Documentation
     'django_extensions',
@@ -2244,3 +2245,5 @@ WAGTAIL_SITE_NAME = 'Waterproof CMS'
 CATALOG_METADATA_TEMPLATE = os.getenv("CATALOG_METADATA_TEMPLATE", "catalogue/full_metadata.xml")
 
 WATERPROOF_SPECIAL_VALUES = ['min', 'E2', 'E3']
+
+CKEDITOR_UPLOAD_PATH="aux_media"

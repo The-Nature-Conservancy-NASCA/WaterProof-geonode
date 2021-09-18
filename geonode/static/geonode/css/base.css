@@ -9329,9 +9329,9 @@ top:50px;
         top: 355px;
     }
 .img-card-news {
-        object-fit: cover;
-        width: 35vw;
-        height: 300px;
+  object-fit: cover;
+  width: 35vw;
+  height: 300px;
 }
     
 .owl-nav>button {
@@ -9345,7 +9345,8 @@ top:50px;
 }
 .carrouselcolor {
   background-color: #F7F7F7;
-    background-size: auto 100%;
+  background-size: auto 100%;
+  padding-top: 20px;
 }
 .newstitle{
 	color: #0A8B8E;
@@ -9486,4 +9487,10 @@ top:50px;
 
 .subtitle{
   font-size: 22px;
+}
+
+.img-md-wiki{
+  margin-top: -30px;
+  margin-right: 5px;
+  text-align: end;
 }
