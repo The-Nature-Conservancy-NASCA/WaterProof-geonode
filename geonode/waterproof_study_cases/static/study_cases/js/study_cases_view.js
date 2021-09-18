@@ -132,7 +132,7 @@ $(document).ready(function() {
     });
 
     $('#step7EndBtn').click(function() {
-        location.href = "/study_cases/";
+        location.href = "/study_cases/?city="+localStorage.cityId; 
     });
 
 

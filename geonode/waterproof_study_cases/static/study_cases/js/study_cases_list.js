@@ -111,7 +111,7 @@ $(function() {
                                 text: gettext('The study case has been deleted')
                             })
                             setTimeout(function() {
-                                location.href = "/study_cases/";
+                                location.href = "/study_cases/?city="+localStorage.cityId; 
                             }, 1000);
                         },
                         error: function(error) {
@@ -166,7 +166,7 @@ $(function() {
                         })
                         setTimeout(function() {
                             city_id = localStorage.cityId;
-                            location.href = "/study_cases/?city="+city_id;
+                            location.href = "/study_cases/?city="+localStorage.cityId; 
                         }, 1000);
                     },
                     error: function(error) {
@@ -215,7 +215,7 @@ $(function() {
                         })
                         setTimeout(function() {
                             city_id = localStorage.cityId;
-                            location.href = "/study_cases/?city="+city_id;
+                            location.href = "/study_cases/?city="+localStorage.cityId; 
                         }, 1000);
                     },
                     error: function(error) {

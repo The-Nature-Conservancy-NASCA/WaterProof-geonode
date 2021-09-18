@@ -13,11 +13,9 @@
     <div class="data">
         {% if request.LANGUAGE_CODE == "es" %}          
         <h2>{{articulo.titulo}}:</h2>
-        <h4>{{articulo.created_at}}</h4>
         {{articulo.contenido|safe|linebreaks}}<br>
         {% else %}
-        <h2>{{articulo.titulo_en}}:</h2>
-        <h4>{{articulo.created_at}}</h4>
+        <h2>{{articulo.titulo_en}}:</h2>        
         {{articulo.contenido_en|safe|linebreaks}}<br>
         {% endif %}
         
@@ -27,7 +25,7 @@
         <h3>{% trans "Bibliography" %}</h3>        
         <div class="data-article">
             {%for r in referencias %}
-            <p> {{r.anno}}. {{r.nombre}}. {{r.publicador}}.
+            <p> {{r.nombre}}. {{r.anno}}. {{r.publicador}}.
                 {% if r.url is not None %}
                 | <a href="{{r.url}}" target="_blank">{{r.url}}</a></p>
             {%endif%}

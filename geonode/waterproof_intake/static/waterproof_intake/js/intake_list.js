@@ -4,7 +4,12 @@
  * @version 1.0
  */
 $(function () {
-    var table = $('#tblIntakes').DataTable({});
+    var table = $('#tblIntakes').DataTable({
+        'columnDefs': [ {
+            'targets': [8,9], /* column index */
+            'orderable': false, /* true or false */
+         }]
+    });
     var countryDropdown = $('#countryNBS');
     var currencyDropdown = $('#currencyCost');
     var transitionsDropdown = $('#riosTransition');
@@ -175,7 +180,7 @@ $(function () {
 
     table.on('click', 'tr', function () {
         var data = table.row( this ).data();
-        console.log( 'You clicked on '+data[0]+'\'s row' );
+        //console.log( 'You clicked on '+data[0]+'\'s row' );
         listIntakes.filter(intake => intake.id == data[0]).forEach(intake => {
             if (intake.geom) {
                 let f = JSON.parse(intake.geom);
