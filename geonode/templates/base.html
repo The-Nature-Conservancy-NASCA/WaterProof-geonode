@@ -57,7 +57,9 @@
       {% else %}
      <!-- <link href="{% static "lib/css/assets.min.css" %}" rel="stylesheet"/>-->
       {% endif %}
-
+      {% if "/pages/" in request.path %}
+      <link rel="stylesheet" type="text/css" href="/static/css/django-translation-flags.min.css">      
+      {% endif%}  
      <!----> <link href="{% static "geonode/css/base.css" %}" rel="stylesheet" />
 
       <link rel='stylesheet' id='cookie-law-info-css'  href="{% static "geonode/css/cookie-law-info/cookie-law-info-public.css" %}" type='text/css' media='all' />
