@@ -542,6 +542,13 @@
     padding-left: 3%;
     padding-right: 3%;
 }
+.background-step1-physical{
+    background-color: #d9edf7;
+    padding: 3%;
+}
+.justify-text-physical{
+    text-align: justify;
+}
 @media (min-width: 360px){
     .report-container{
         margin-left: 0% !important;
@@ -850,6 +857,27 @@
         width: 100%;
         padding-right: 3%;
         height: auto;
+    }
+    /* physical */
+    .div-style-menu-phy{
+        border: 2px solid #1389AA; 
+        padding-bottom: 2%; 
+        width: 100%;
+        height: auto;
+        margin-top: auto;
+    }
+    .left-graph-step1ph{
+        margin-left: auto;
+    }
+    .image-physical-step1{
+        width: 10%;
+        padding-left: 20%;
+    }
+    .text-desc-physical-step1{
+        width: 90%;
+        padding: 3%;
+        padding-left: 3%;
+        text-align: justify;
     }
 }
 .buttom-roi-menu{
@@ -1174,6 +1202,27 @@
         padding-right: 3%;
         height: auto;
     }
+    /* physical */
+    .div-style-menu-phy{
+        border: 2px solid #1389AA; 
+        padding-bottom: 2%; 
+        width: 100%;
+        height: auto;
+        margin-top: auto;
+    }
+    .left-graph-step1ph{
+        margin-left: auto;
+    }
+    .image-physical-step1{
+        width: 10%;
+        padding-left: 35%;
+    }
+    .text-desc-physical-step1{
+        width: 100%;
+        padding: 3%;
+        padding-left: 0%;
+        text-align: justify;
+    }
 }
 @media (min-width: 992px){
     .report-container{
@@ -1487,6 +1536,28 @@
         width: 100%;
         padding-right: 3%;
         height: auto;
+    }
+
+    /* physical */
+    .div-style-menu-phy{
+        border: 2px solid #1389AA; 
+        padding-bottom: 2%; 
+        width: 100%;
+        height: auto;
+        margin-top: 2%;
+    }
+    .left-graph-step1ph{
+        margin-left: 15%;
+    }
+    .image-physical-step1{
+        width: 10%;
+        padding-left: 0;
+    }
+    .text-desc-physical-step1{
+        width: 90%;
+        padding: 3%;
+        padding-left: 35%;
+        text-align: justify;
     }
 }
 @media (min-width: 1200px){
@@ -1852,6 +1923,28 @@
         margin-right: 0px !important; 
         border-top-left-radius: 8px;
         border-top-right-radius: 8px;      
+    }
+
+    /* physical */
+    .div-style-menu-phy{
+        border: 2px solid #1389AA; 
+        margin-bottom: 2%; 
+        width: 100%;
+        height: auto;
+        margin-top: auto;
+    }
+    .left-graph-step1ph{
+        margin-left: auto;
+    }
+    .image-physical-step1{
+        width: 10%;
+        padding-left: 0;
+    }
+    .text-desc-physical-step1{
+        width: 90%;
+        padding: 3%;
+        padding-left: 3%;
+        text-align: justify;
     }
 }
 @media only screen and (max-width: 1200px) {
