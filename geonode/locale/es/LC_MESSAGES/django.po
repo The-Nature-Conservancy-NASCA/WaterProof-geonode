@@ -1747,7 +1747,7 @@ msgstr "Establecer"
 
 #: geonode/geoapps/templates/apps/app_detail.html:152 geonode/geoapps/templates/apps/app_detail.html:154 geonode/monitoring/models.py:359
 msgid "View"
-msgstr "View"
+msgstr "Ver"
 
 #: geonode/geoapps/templates/apps/app_detail.html:163 geonode/maps/templates/maps/map_detail.html:243
 msgid "Specify which users can view or modify this map"
