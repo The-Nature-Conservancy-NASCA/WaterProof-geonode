@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-19 06:05-0500\n"
+"POT-Creation-Date: 2021-09-17 20:06-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -50,77 +50,84 @@ msgstr ""
 msgid "Action"
 msgstr ""
 
-#: templates/study_cases/studycases_list.html:28
+#: templates/study_cases/studycases_list.html:23
+msgid ""
+"In this section you will find case studies with results available to be "
+"compared"
+msgstr "In this section you will find case studies with results available to be compared. The system will offer you a graph of parallel axes that facilitates the simultaneous visualization of the values ​​obtained in the main indicators."
+
+#: templates/study_cases/studycases_list.html:29
 msgid "Selected City"
 msgstr ""
 
-#: templates/study_cases/studycases_list.html:29
+#: templates/study_cases/studycases_list.html:30
 msgid "Region"
 msgstr ""
 
-#: templates/study_cases/studycases_list.html:30
+#: templates/study_cases/studycases_list.html:31
 msgid "Currency"
 msgstr ""
 
-#: templates/study_cases/studycases_list.html:31
+#: templates/study_cases/studycases_list.html:32
 msgid "Show all cities"
 msgstr ""
 
-#: templates/study_cases/studycases_list.html:42
+#: templates/study_cases/studycases_list.html:43
 #: templates/study_cases/studycases_list.html:93
 msgid "Name"
 msgstr ""
 
-#: templates/study_cases/studycases_list.html:43
+#: templates/study_cases/studycases_list.html:44
 #: templates/study_cases/studycases_list.html:94
 msgid "User"
 msgstr ""
 
-#: templates/study_cases/studycases_list.html:44
+#: templates/study_cases/studycases_list.html:45
 #: templates/study_cases/studycases_list.html:95
 msgid "Date"
 msgstr ""
 
-#: templates/study_cases/studycases_list.html:45
+#: templates/study_cases/studycases_list.html:46
 #: templates/study_cases/studycases_list.html:96
 msgid "City"
 msgstr ""
 
-#: templates/study_cases/studycases_list.html:46
+#: templates/study_cases/studycases_list.html:47
 #: templates/study_cases/studycases_list.html:97
 msgid "treatment_plants"
 msgstr ""
 
-#: templates/study_cases/studycases_list.html:47
+#: templates/study_cases/studycases_list.html:48
 #: templates/study_cases/studycases_list.html:98
 msgid "water_intakes"
 msgstr ""
 
-#: templates/study_cases/studycases_list.html:48
+#: templates/study_cases/studycases_list.html:49
 #: templates/study_cases/studycases_list.html:99
 msgid "Actions"
 msgstr ""
 
-#: templates/study_cases/studycases_list.html:65
+#: templates/study_cases/studycases_list.html:66
 msgid "N/A"
 msgstr ""
 
-#: templates/study_cases/studycases_list.html:65
+#: templates/study_cases/studycases_list.html:66
 msgid "Custom case"
 msgstr ""
 
-#: templates/study_cases/studycases_list.html:77
+#: templates/study_cases/studycases_list.html:78
 msgid "Add case for analysis"
 msgstr ""
 
-#: templates/study_cases/studycases_list.html:88
+#: templates/study_cases/studycases_list.html:89
 msgid "Cases for analysis"
 msgstr "Cases for comparison"
-
-#: templates/study_cases/studycases_list.html:89
-msgid "Select study cases"
-msgstr ""
 
 #: templates/study_cases/studycases_list.html:108
 msgid "Compare"
 msgstr "Compare"
+
+#, fuzzy
+#~| msgid "Cases for analysis"
+#~ msgid "Do analysis"
+#~ msgstr "Cases for comparison"

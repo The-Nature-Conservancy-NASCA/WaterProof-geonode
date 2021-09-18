@@ -41,10 +41,13 @@ $(function () {
         VPN_TOTAL: 'total',
         STUDYCASE: 'id',
         STUDY_NAME: 'name',
-        STUDY_COUNTRY:'city__country__name',
-        STUDY_REGION:'city__country__region__name',
+        STUDY_COUNTRY: 'city__country__name',
+        STUDY_REGION: 'city__country__region__name',
         STUDY_CITY: 'city__name',
-        STUDY_YEARS:'time_implement'
+        STUDY_YEARS: 'time_implement',
+        STUDY_INTAKES: 'intakes',
+        STUDY_PTAPS: 'ptaps',
+        STUDY_CURRENCY:'cm_currency'
 
     };
     const AXIS_TABLE = {
@@ -62,7 +65,7 @@ $(function () {
         VPN: '../getVpnIndicators/',
         STUDY_CASE: '../getStudyCaseInfo/'
     };
-    const SLIDER_UL={
+    const SLIDER_UL = {
         DOM_ID: 'splide_ul'
     }
     var chartCategories = [];
@@ -107,7 +110,10 @@ $(function () {
             CHART_CATEGORIES.STUDY_COUNTRY,
             CHART_CATEGORIES.STUDY_REGION,
             CHART_CATEGORIES.STUDY_CITY,
-            CHART_CATEGORIES.STUDY_YEARS
+            CHART_CATEGORIES.STUDY_YEARS,
+            CHART_CATEGORIES.STUDY_INTAKES,
+            CHART_CATEGORIES.STUDY_PTAPS,
+            CHART_CATEGORIES.STUDY_CURRENCY
         );
         var seriesCasesRequest = indicatorsRequest(INDICATORS_API.STUDY_CASE, selectedCases, fields);
         fields = [];
@@ -158,18 +164,32 @@ $(function () {
                     colors.push(color);
                 });
                 seriesCases.forEach(element => {
-                    if (element.roi_discount<1){
-                        imagePath=static_prefix+'waterproof_study_cases_comparison/images/discount_below1.png';
+                    if (element.roi_discount < 1) {
+                        imagePath = static_prefix + 'waterproof_study_cases_comparison/images/discount_below1.png';
                     }
-                    else if(element.roi_discount>=1 && element.roi_discount<=2){
-                        imagePath=static_prefix+'waterproof_study_cases_comparison/images/discount_above1.png';
+                    else if (element.roi_discount >= 1 && element.roi_discount <= 2) {
+                        imagePath = static_prefix + 'waterproof_study_cases_comparison/images/discount_above1.png';
                     }
-                    else if(element.roi_discount>2){
-                        imagePath=static_prefix+'waterproof_study_cases_comparison/images/discount_above2.png';
+                    else if (element.roi_discount > 2) {
+                        imagePath = static_prefix + 'waterproof_study_cases_comparison/images/discount_above2.png';
                     }
-                    let li='<li class="splide__slide"><img class="splideImg" src='+imagePath+' height="150px" width="150px">';
-                    li+='<h4 class="slider_title">'+element.name+'</h4><div>'+gettext('Country')+':'+element.city__country__name+'</div><div>'+gettext('City')+': '+element.city__name+'</div>';
-                    li+='<div>'+gettext('Region')+': '+element.city__country__region__name+'</div><div>'+gettext('Time frame')+': '+element.time_implement+'</div>';
+                    if (element.intakes.length == void (0)) {
+                        var intakeCount = 1;
+                    }
+                    else {
+                        var intakeCount = element.intakes.length;
+                    }
+                    if (element.intakes.ptaps == void (0)) {
+                        var ptapsCount = 1;
+                    }
+                    else {
+                        var ptapsCount = element.ptaps.length;
+                    }
+                    let li = '<li class="splide__slide"><img class="splideImg" src=' + imagePath + ' height="150px" width="150px">';
+                    li += '<h4 class="slider_title">' + element.name + '</h4><div>' + gettext('Country') + ': ' + element.city__country__name + '</div><div>' + gettext('City') + ': ' + element.city__name + '</div>';
+                    li += '<div>' + gettext('Region') + ': ' + element.city__country__region__name + '</div><div>' + gettext('Time frame') + ': ' + element.time_implement + '</div>';
+                    li += '<div>' + gettext('Number of intakes') + ': ' + intakeCount + '</div><div>' + gettext('Number DWTP') + ': ' + ptapsCount + '</div>';
+                    li += '<div>' + gettext('Currency') + ': ' + element.cm_currency + '</div><div>';
                     $('#' + SLIDER_UL.DOM_ID).append(li);
                     console.log(element);
                 });
@@ -177,7 +197,7 @@ $(function () {
                     perPage: 3,
                     breakpoints: {
                         600: {
-                            perPage:3,
+                            perPage: 3,
                         }
                     }
                 }).mount();
