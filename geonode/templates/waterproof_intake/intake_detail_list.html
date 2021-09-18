@@ -29,10 +29,10 @@
 <div class="header-waterproof">
     <div class="row">
         <div class="col-sm-6">
-            <h1>View Water Intake</h1>
+            <h1> {% trans "View" %} {% trans "Water Intake" %}</h1>
         </div>
         <div class="col-sm-6">
-            <h4 class="title-city">{% trans "Intake creation city" %} <span id="cityLabel">{{intake.city.name}}, {{intake.city.country.name}}</span> </h4>
+            <h4 class="title-city">{% trans "Intake creation city" %}: <span id="cityLabel">{{intake.city.name}}, {{intake.city.country.name}}</span> </h4>
         </div>
     </div>
     <!--Begin Form-->
@@ -71,15 +71,12 @@
             <!--Steps-->
             <div class="tab-content" id="autoAdjustHeightF">
                 <!--Step 1-->
-                <div id="step-1" class="tab-pane" role="tabpanel">
-                    <div class="page-header">
-                        <h3>Define Water Intake</h3>
-                    </div>
+                <div id="step-1" class="tab-pane" role="tabpanel">                    
                     <!--Input Name -->
                     <div id="water_intake">
                         <div id="div_id_name" class="form-group  ">
                             <label for="id_name" class="control-label required-field ">
-                                Nombre
+                                {% trans "Name" %}
                             </label>
                             <div class="">
                                 <input type="text" name="name" maxlength="100" class=" form-control" id="id_name"
@@ -90,7 +87,7 @@
                     <!--Input Desc -->
                     <div id="div_id_description" class="form-group  ">
                         <label for="id_description" class="control-label required-field ">
-                            Descripción
+                            {% trans "Description" %}
                         </label>
                         <div class="">
                             <input type="text" name="description" maxlength="1024" class=" form-control" id="id_description"
@@ -100,7 +97,7 @@
                     <!--Input Source Name -->
                     <div id="id_water_source_name" class="form-group  ">
                         <label for="id_description" class="control-label required-field ">
-                            Nombre de la fuente
+                            {% trans "Source name" %}
                         </label>
                         <div class="">
                             <input type="text" name="water_source_name" maxlength="100" id="id_water_source_name"
@@ -123,7 +120,7 @@
                 <!--Step 2-->
                 <div id="step-2" class="tab-pane" role="tabpanel">
                     <div class="page-header">
-                        <h3>Configure Parameters</h3>
+                        <h3>{% trans "Configuration parameters" %}</h3>
                     </div>
                     <!--Toolbar mxgraph-->
                     <div class="row">
@@ -157,31 +154,33 @@
                                     </div>
                                     <!--Water transport-->
                                     <div class="form-group">
-                                        <label>% transported water:</label>
+                                        <label>{% trans "% Transported water" %}:</label>
                                         <input type="number" id="aguaDiagram" min="" max="" class="form-control"
                                             oninput="validateinput(this)" disabled>
                                     </div>
                                     <!--Sediments-->
                                     <div class="form-group">
-                                        <label>% Sediments retained:</label>
+                                        <label>{% trans "% Sediments retained" %}:</label>
                                         <input type="number" id="sedimentosDiagram" min="" max="" class="form-control"
                                             oninput="validateinput(this)" disabled>
                                     </div>
                                     <!--Nitrogen-->
                                     <div class="form-group">
-                                        <label>% Nitrogen retained:</label>
+                                        <label>{% trans "% Nitrogen retained" %}:</label>
                                         <input type="number" id="nitrogenoDiagram" class="form-control"
                                             oninput="validateinput(this)" disabled>
                                     </div>
                                     <!--Phosphorus-->
                                     <div class="form-group">
-                                        <label>% Phosphorus retained:</label>
+                                        <label>{% trans "% Phosphorus retained" %}:</label>
                                         <input type="number" id="fosforoDiagram" class="form-control"
                                             oninput="validateinput(this)" disabled>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
+                    <div class="row">
                         <div class="col-md-12">
                             <h4 class="text-primary">{% trans "Cost functions "%}</h4>
                             <div class="panel panel-info">
@@ -190,14 +189,14 @@
                                 </div>
                             </div>
                         </div>
-                        <br>
-                        <div class="row text-center">
-                            <div class="col-md-12">
-                                <button type="button" class="btn btn-primary" id="step2PrevBtn">{% trans "Previous" %}</button>
-                                <button type="button" class="btn btn-primary" id="step2NextBtn">{% trans "Next" %}</button>
-                            </div>
+                    </div>                    
+                    <div class="row text-center">
+                        <div class="col-md-12">
+                            <button type="button" class="btn btn-primary" id="step2PrevBtn">{% trans "Previous" %}</button>
+                            <button type="button" class="btn btn-primary" id="step2NextBtn">{% trans "Next" %}</button>
                         </div>
                     </div>
+                    
                 </div>
             <!--Step 3-->
             <div id="step-3" class="tab-pane" role="tabpanel">
@@ -360,15 +359,7 @@
                                 <div class="panel-body">
                                     <div class="alert alert-info" role="alert">
                                         <h1 class="text-center">{% trans "Intake area delimitation" %}</h1>
-                                    </div>
-                                    <div class="form-group">
-                                        <button type="button" class="btn btn-primary" id="btnDelimitArea" disabled> Delimit
-                                        subarea</button>
-                                    </div>
-                                    <div class="form-group">
-                                        <button type="button" class="btn btn-primary" id="btnValidateArea" disabled> Validate
-                                        area</button>
-                                    </div>
+                                    </div>                                    
                                 </div>
                             </div>
                         </div>
