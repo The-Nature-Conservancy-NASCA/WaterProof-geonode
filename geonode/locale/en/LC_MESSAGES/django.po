@@ -8560,7 +8560,7 @@ msgstr "Start now looking for your city of analysis"
 
 #: geonode/templates/search_city.html
 msgid "description_search_city"
-msgstr "Zoom in, out or pan on the map to identify your area of interest. Enter the city name in the text box to set the analysis site. A list of options will be displayed. Confirm your selection by clicking on the city of interest in the city list. Click on the button 'Sase studies current list'."
+msgstr "Zoom in, out or pan on the map to identify your area of interest. Enter the city name in the text box to set the analysis site. A list of options will be displayed. Confirm your selection by clicking on the city of interest in the city list. Click on the button 'Case studies current list'."
 
 #: geonode/templates/search_city.html
 msgid "List Study Cases"
