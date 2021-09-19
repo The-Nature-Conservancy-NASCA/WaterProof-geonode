@@ -9,15 +9,8 @@
  */
 
 $(function () {
-    var TILELAYER = 'https://{s}.tile.osm.org/{z}/{x}/{y}.png';
-    var IMAGE_LYR_URL = "https://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryTopo/MapServer/tile/{z}/{y}/{x}";
-    var HYDRO_LYR_URL = "https://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/Esri_Hydro_Reference_Overlay/MapServer/tile/{z}/{y}/{x}";
-    var CENTER = [4.582, -74.4879];
-    var MAXZOOM = 11;
-    var table = $('#example').DataTable();   
-    var lastClickedLayer;
-    var map;
-    var lyrsPolygons = [];
+        
+    var lastClickedLayer; 
     var onlyReadPlant = false;
     var loadInfoTree = false;
     var arrayFunction = [];
@@ -134,11 +127,7 @@ $(function () {
         onOff: false
     }]
     var letterPlant = null;
-    var searchPoints = L.geoJson(null, {
-        onEachFeature: function(feature, layer) {
-            layer.bindPopup(feature.properties.name);
-        }
-    });
+    var searchPoints;
     var selectedPlantElement = null;
     var selectedTechnologyId = -1;
     var button = document.getElementById('btnValidatePyExp');
@@ -219,6 +208,8 @@ $(function () {
     */
     initialize = function () {
 
+        initMap();
+
         if ((localStorage.clonePlant === undefined || 
             localStorage.clonePlant === "false") && 
             localStorage.updatePlant === "false" && 
@@ -245,7 +236,7 @@ $(function () {
                 $('#idTbodyIntake').append('<tr id="child' + this.value + '"><td class="small text-center vat" name="nameListAdd" idIntake="' + $('option:selected', this).attr("value") + '" nameList="' + textNameCsinfra + '"  graphIdlist="' + $('option:selected', this).attr("graphIdlist") + '"  csinfraList="' + $('option:selected', this).attr("csinfra") + '">' + textNameCsinfra + '</td><td class="small text-center vat">' + $('option:selected', this).attr("intake") + '</td><td class="small text-center vat">' + $('option:selected', this).attr("csinfra") + '</td><td aling="center"><a class="btn btn-danger" onclick="deleteOption(' + this.value + ')"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td></tr>');
             } else {
                 Swal.fire({
-                    title: 'Information',
+                    title: gettext('Information'),
                     text: gettext('You cannot add the water source'),
                     icon: 'warning',
                     confirmButtonColor: '#3085d6',
@@ -328,7 +319,7 @@ $(function () {
             let id = e.currentTarget.id.replace("id","");
             changeStatus(id);
         });
-        initMap();
+        
 
         $('#createUrl').attr('href','create/' + userCountryId);
                 
@@ -663,30 +654,42 @@ $(function () {
     * @param {String} city that is registered in the search space    
     * @returns 
     */
-    drawPolygons = function(citySearch) {
-        lyrsPolygons.forEach(lyr => map.removeLayer(lyr));
-        lyrsPolygons = [];
-        var bounds;
-        intakePolygons.forEach((feature) => {
-            if (citySearch.substr(0, 5) == feature.city.substr(0, 5)) {
-                let poly = feature.polygon;
-                if (poly.indexOf("SRID") >= 0) {
-                    poly = poly.split(";")[1];
-                }
-                var lyrPoly = omnivore.wkt.parse(poly).addTo(map);
-                lyrsPolygons.push(lyrPoly);
-                if (bounds == undefined) {
-                    bounds = lyrPoly.getBounds();
-                } else {
-                    bounds = bounds.extend(lyrPoly.getBounds());
-                }
-            }
-
+    drawPolygons = function(map) {
+        let lf = [];
+        treatmentPlants.forEach(tp => {
+            if (tp.geom) {
+                let g = JSON.parse(tp.geom);
+                f = {'type' : 'Feature', 
+                    'properties' : { 'id' : tp.plantId, 
+                                    'plantName' : tp.plantName,
+                                    'intake' : tp.plantIntakeName[0],
+                                    'description' : tp.plantDescription}, 
+                    'geometry' : g
+                };
+                lf.push(f);
+            }            
         });
-        if (bounds != undefined) {
-            map.fitBounds(bounds);
+        
+        if (lf.length > 0){
+            lyrIntakes = L.geoJSON(lf, {
+                onEachFeature: function (feature, layer) {
+                    layer.bindPopup(`<div class="popup-content">
+                                        <div class="leaflet-container">
+                                            <b>Id</b>: ${feature.properties.id}
+                                        </div>
+                                        <div class="popup-body">
+                                            <div class="popup-body-content">
+                                                <div class="popup-body-content-text">
+                                                    <p><b>Plant Name</b> :${feature.properties.plantName}</p>
+                                                    <p><b>Intake </b>: ${feature.properties.intake}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>`);
+                }
+            }).addTo(map);
+            map.fitBounds(lyrIntakes.getBounds());
         }
-
     };
     /**
     * Change the values of the formulas for each of the elements
@@ -1175,7 +1178,7 @@ $(function () {
         let geojsonFilter = geojson.features.filter(feature => feature.properties.type == "city");
         searchPoints.addData(geojsonFilter);
         let cityName = geojsonFilter[0].properties.name;
-        drawPolygons(cityName);
+        //drawPolygons(cityName);
         table.search(cityName.substr(0, 5)).draw();
     }
     /**
@@ -1208,7 +1211,7 @@ $(function () {
                 cityCoords = initialCoords;
             } else {
                 initialCoords = JSON.parse(cityCoords);
-                drawPolygons(city);
+                //drawPolygons(city);
                 initialZoom = 9;
                 try {
                     $("#countryLabel").html(localStorage.getItem('country'));
@@ -1221,10 +1224,9 @@ $(function () {
                 }
             }
 
-            table.search(cityNameMap).draw();            
+            //table.search(cityNameMap).draw();            
             map.setView(initialCoords, initialZoom);
-            searchPoints.addTo(map);
-
+            
             var tilelayer = L.tileLayer(TILELAYER, { maxZoom: MAXZOOM, attribution: 'Data \u00a9 <a href="https://www.openstreetmap.org/copyright"> OpenStreetMap Contributors </a> Tiles \u00a9 Komoot' }).addTo(map);
             var images = L.tileLayer(IMAGE_LYR_URL);
             var hydroLyr = L.tileLayer(HYDRO_LYR_URL);
@@ -1242,25 +1244,37 @@ $(function () {
             var zoomControl = new L.Control.Zoom({ position: 'topright' }).addTo(map);
             L.control.layers(baseLayers, overlays, { position: 'topleft' }).addTo(map);
 
-            function onMapClick(e) {
-            }
-            map.on('click', onMapClick);
+            searchPoints = L.geoJson(null, {
+                onEachFeature: function(feature, layer) {
+                    layer.bindPopup(feature.properties.name);
+                }
+            });
+            searchPoints.addTo(map);
+
         } else {
             document.getElementById("nameCity").innerHTML = localStorage.getItem('city')+", "+localStorage.getItem('country');
             var urlDetail = "../../treatment_plants/getIntakeList/?cityId=" + localStorage.getItem('cityId');
             $.getJSON(urlDetail, function (data) {
-                document.getElementById("idIntakePlant").length = 1;
-                $.each( data, function( key, value ) {
-                    localStorage.setItem('idCityTreatmentPlant', value.cityId);
-                    var option = document.createElement("option");
-                    option.text = value.nameIntake;
-                    option.setAttribute("value", value.id);
-                    option.setAttribute("namelist", value.name);
-                    option.setAttribute("graphIdlist", value.graphId);
-                    option.setAttribute("intake", value.nameIntake);
-                    option.setAttribute("csinfra", value.csinfra);
-                    document.getElementById("idIntakePlant").add(option);
-                });
+                var selectElIntake = document.getElementById("idIntakePlant");
+                selectElIntake.length = 1;
+                if (data.length > 0) {
+                    localStorage.setItem('idCityTreatmentPlant', data[0].cityId);
+                    var listIntakeName = [];
+                    $.each( data, function( key, value ) {                        
+                        // TODO: Review duplicate intakes name
+                        //if (listIntakeName.indexOf(value.nameIntake) == -1) {
+                        //    listIntakeName.push(value.nameIntake);
+                            var option = document.createElement("option");
+                            option.text = value.nameIntake;
+                            option.setAttribute("value", value.id);
+                            option.setAttribute("namelist", value.name);
+                            option.setAttribute("graphIdlist", value.graphId);
+                            option.setAttribute("intake", value.nameIntake);
+                            option.setAttribute("csinfra", value.csinfra);
+                            selectElIntake.add(option);
+                        //}                        
+                    });
+                }                
             });
         }
     };
@@ -1324,7 +1338,7 @@ $(function () {
     deletePlant = function(plantId) {
         var intakeId='{{idx}}';
         Swal.fire({
-            title: "<div style='font-size: 25px;'>Are you sure?</div>",
+            title: "<div style='font-size: 25px;'>" + gettext("Are you sure?") + "</div>",
             text: gettext("You won't be able to revert this!"),
             icon: "warning",
             showCancelButton: true,
@@ -1632,8 +1646,5 @@ $(function () {
         return activateHtml;
     }
    
-    $( document ).ready(function() {
-        initialize();
-    });
     
 });
