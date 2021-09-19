@@ -4,16 +4,12 @@
  * @version 1.0
  */
 $(function() {
-    console.log("Study cases list :: init");
-    var table = $('#tbl-studycases').DataTable({
-        'dom': 'lrtip'
-    });
+    //console.log("Study cases list :: init");    
     var countryDropdown = $('#countryNBS');
     var currencyDropdown = $('#currencyCost');
     var transitionsDropdown = $('#riosTransition');
     var transformations = [];
     var lastClickedLayer;
-    var map;
     var lyrsPolygons = [];
     var highlighPolygon = {
         fillColor: "#337ab7",
@@ -503,7 +499,6 @@ $(function() {
     //draw polygons
     drawPolygons = function (map) {
         
-        var bounds;
         let lf = [];
         listIntakes.forEach(intake => {
             if (intake.geom) {

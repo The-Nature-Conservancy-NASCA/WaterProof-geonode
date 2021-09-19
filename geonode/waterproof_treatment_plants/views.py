@@ -35,7 +35,7 @@ def treatmentPlantsList(request):
 			response = response.json()
 		except Exception as e:
 			print ("must be anonymous user")
-			print (e)
+			# print (e)
 		return render(
 			request,
 			'waterproof_treatment_plants/treatment_plants_list.html',
