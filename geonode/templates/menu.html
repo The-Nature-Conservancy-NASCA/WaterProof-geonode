@@ -317,7 +317,7 @@
             </li>
             {% if user.is_authenticated %}
             <li>
-              <a href="/study_cases_comparison/my_cases/">{% trans "My Cases" %}</a>
+              <a href="/study_cases_comparison/my_cases/">{% trans "My Study Cases" %}</a>
             </li>
             {% endif %}
 
@@ -916,7 +916,7 @@
       $(document).ready(function() {
 
         let user = '{{user}}';
-        console.log("user :: ", user);
+        //console.log("user :: ", user);
         window.autocomplete2 = new Autocomplete({
           form_btn: null,
           form_submit: '#search',
