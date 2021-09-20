@@ -622,7 +622,18 @@ $(document).ready(function () {
                             let description = gettext("run_processing_description");
                             let desc = document.createElement("div");
                             desc.innerHTML = description;
-                            $('#_thumbnail_processing .modal-body').append(desc);
+                            //let footer = document.createElement("div");
+                            // footer.className = "modal-footer";
+                            // let closeBtn = document.createElement("button");
+                            // closeBtn.className = "btn btn-secondary";
+                            // closeBtn.type = "button";
+                            // closeBtn.innerHTML = gettext("close");
+                            // closeBtn.attr("data-dismiss", "modal");
+                            // closeBtn.onclick = function () {
+                            //     $('#_thumbnail_processing').modal('toggle');
+                            // };
+                            $('#_thumbnail_processing .modal-body').prepend(desc);
+
 
                             $("#full-table").find("input").each(function (index, input) {
                                 nbsactivity = {}
