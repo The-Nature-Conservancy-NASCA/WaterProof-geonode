@@ -81,7 +81,7 @@ msgid "custom_case"
 msgstr "Custom case"
 
 msgid "select_water_intake"
-msgstr "Select the water intakes you want to consider in the ROI analysis. If you haven't created it yet, please click here to create a new one."
+msgstr "Select the water intakes you want to consider in the ROI analysis from the list. If it has not been created yet, please click in the following button:"
 
 msgid "water_source"
 msgstr "Water intake source"
@@ -234,7 +234,7 @@ msgid "financial_discount_rates"
 msgstr "Discount rates for ROI Analysis"
 
 msgid "financial_transaction_cost"
-msgstr "Transaction cost per year as a percentage of implementation, maintenance and oportunity costs"
+msgstr "Transaction cost per year as a percentage of implementation, maintenance and opportunity costs"
 
 msgid "study_cases_list_create"
 msgstr "You must be a registered user to create a new Case Study*"
