@@ -346,7 +346,7 @@ $(document).ready(function () {
     });
 
     $('#step4NextBtn').click(function () {
-        biophysical = []
+        biophysical = [];
         $('#biophysical-panel').find('table').each(function (index, table) {
             id = table.id.split('_').pop()
             $('#' + table.id).find('tbody > tr.edit').each(function (index, tr) {
@@ -354,7 +354,7 @@ $(document).ready(function () {
                     intake_id: id
                 }
                 $(" #" + tr.id).find('td').each(function (index, td) {
-                    td_id = td.id
+                    td_id = td.id;
                     if (td_id) {
                         split = td_id.split('_')
                         split.pop();
@@ -372,7 +372,7 @@ $(document).ready(function () {
                         bio[name_td] = val;
                     }
                 });
-                biophysical.push(bio)
+                biophysical.push(bio);
             });
 
         });
@@ -1279,12 +1279,12 @@ $(document).ready(function () {
             content += '</tr></thead><tbody>'
             $.each(data, function (index, bio) {
                 if (bio.edit) {
-                    content += '<tr class="edit" id="' + id_intake + '_' + bio.id + '">'
+                    content += '<tr class="edit" id="' + id_intake + '_' + bio.id + '">';
                 } else {
-                    content += '<tr id="' + id_intake + '_' + bio.id + '">'
+                    content += '<tr id="' + id_intake + '_' + bio.id + '">';
                 }
-                content += '<td id="description_' + id_intake + '_' + bio.id + '" class="text-description-bio">' + bio.description + '</td>'
-                content += '<td id="lucode_' + id_intake + '_' + bio.id + '">' + bio.lucode + '</td>'
+                content += '<td id="description_' + id_intake + '_' + bio.id + '" class="text-description-bio">' + bio.description + '</td>';
+                content += '<td id="lucode_' + id_intake + '_' + bio.id + '">' + bio.lucode + '</td>';
                 $.each(bio, function (key, v) {
                     if(v){
                         v = Number.parseFloat(v).toFixed(6);
