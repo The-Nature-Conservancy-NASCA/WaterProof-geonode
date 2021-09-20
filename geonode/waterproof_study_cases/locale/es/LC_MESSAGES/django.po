@@ -496,5 +496,5 @@ msgstr "Definición"
 msgid "description_select_type"
 msgstr "WaterProof puede considerar para el análisis de retorno a la inversión, los costos de operacion y mantenimiento asociados a la infraestructura de análisis. Usted puede utilizar los costos de una planta de tratamiento de agua potable previamente creada o puede crear costos para una infraestructura personalizada. Seleccione la opción deseada."
 
-msgid "My Cases Studies"
+msgid "My Cases studies"
 msgstr "Mis Casos de estudio"
