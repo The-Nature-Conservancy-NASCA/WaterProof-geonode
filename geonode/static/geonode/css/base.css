@@ -2168,6 +2168,7 @@ pre code {
     /* margin-left: 40%;  */
     padding-right: 15px;
   }
+
 @media (min-width: 1200px){
 
   .iconsWhatIsWP{
@@ -2197,8 +2198,8 @@ pre code {
     height: 600px !important;
     min-height: 100%;
     min-width: 100%;
-    background-repeat: round;
-    background-size:cover;
+    background-size:auto;
+    background-repeat: no-repeat;
   }
   .responsive{
     font-size: 3.4rem !important;
@@ -2807,6 +2808,16 @@ pre code {
   }
   .col-lg-offset-0 {
     margin-left: 0%;
+  }
+}
+@media (min-width: 1600px){
+  .imgbackgroundSystemop{
+    background: url(/static/geonode/img/bgSystemOperating-xl.png) !important;
+    height: 600px !important;
+    min-height: 100%;
+    min-width: 100%;    
+    background-size:cover;
+    background-repeat: no-repeat;
   }
 }
 table {
