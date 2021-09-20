@@ -181,8 +181,9 @@
     margin: 15px;
 }
 .container-general-gauge {
-    height: 250px;
+    height: 1000px;
     margin: 10px;
+    border: 1px solid #1389AA;
 }
 .container-gauge {
     width: 300px;
@@ -353,16 +354,6 @@
     width: 200px;
     height: 164px;
 }
-.margin-detail-title-inter {
-    width: calc(50% - 200px);
-    float: left;
-    background: #cccccc;
-    margin: 100px;
-    padding: 50px;
-    text-align: center;
-    font-size: 14px;
-    padding-bottom: 20px;
-}
 .text-detail-title-inter {
     margin: 10px;
 }
@@ -374,12 +365,6 @@
     background: #6b6b6b;
     height: 2px;
     margin-top: 30px;
-}
-.cont-filter-inter {
-    width: 400px;
-    position: relative;
-    left: 50%;
-    margin-left: -200px;
 }
 .name-filtar-inter {
     font-size: 15px;
@@ -395,8 +380,6 @@
 .total-inform-title {
     font-size: 15px;
     float: left;
-    width: 80px;
-    height: 30px;
 }
 .table-option {
     width: 25%;
@@ -879,6 +862,37 @@
         padding-left: 3%;
         text-align: justify;
     }
+    .adjust-area{
+        height: 1000px;
+    }
+    .table-option-ph{
+        width: 25%;
+        float: left;
+        margin-left: 4%;
+        margin-top: 6%;
+    }
+    .align-step-3-ph{
+        padding-top: 3%;
+        margin-bottom: -7%;
+    }
+    .margin-detail-title-inter {
+        background: #cccccc;
+        padding: 50px;
+        text-align: center;
+        font-size: 14px;
+        margin-bottom: 0;
+        margin-left: 0;
+        margin-right: 0;
+    }
+    .paddign-head-image-ph{
+        padding-left: 8%;
+    }
+    .cont-filter-inter {
+        width: auto;
+        position: relative;
+        left: auto;
+        margin-left: 9%;
+    }
 }
 .buttom-roi-menu{
     background-color: #094609;
@@ -891,6 +905,7 @@
     left: 50%;
     margin-left: -50px;
 }
+
 @media (min-width: 768px){
     .report-container{
         margin-left: 5% !important;
@@ -1222,6 +1237,37 @@
         padding: 3%;
         padding-left: 0%;
         text-align: justify;
+    }
+    .adjust-area{
+        height: 1000px;
+    }
+    .table-option-ph{
+        width: 25%;
+        float: left;
+        margin-left: 4%;
+        margin-top: 6%;
+    }
+    .align-step-3-ph{
+        padding-top: 3%;
+        margin-bottom: -7%;
+    }
+    .margin-detail-title-inter {
+        background: #cccccc;
+        padding: 50px;
+        text-align: center;
+        font-size: 14px;
+        margin-bottom: 10%;
+        margin-left: 0;
+        margin-right: 0;
+    }
+    .paddign-head-image-ph{
+        padding-left: 8%;
+    }
+    .cont-filter-inter {
+        width: 400px;
+        position: relative;
+        left: 50%;
+        margin-left: -200px;
     }
 }
 @media (min-width: 992px){
@@ -1558,6 +1604,37 @@
         padding: 3%;
         padding-left: 35%;
         text-align: justify;
+    }
+    .adjust-area{
+        height: 1000px;
+    }
+    .table-option-ph{
+        width: 25%;
+        float: left;
+        margin-left: 4%;
+        margin-top: 6%;
+    }
+    .align-step-3-ph{
+        padding-top: 3%;
+        margin-bottom: -7%;
+    }
+    .margin-detail-title-inter {
+        background: #cccccc;
+        padding: 50px;
+        text-align: center;
+        font-size: 14px;
+        margin-bottom: 16%;
+        margin-left: 10%;
+        margin-right: -45%;
+    }
+    .paddign-head-image-ph{
+        padding-left: 8%;
+    }
+    .cont-filter-inter {
+        width: 400px;
+        position: relative;
+        left: 50%;
+        margin-left: -200px;
     }
 }
 @media (min-width: 1200px){
@@ -1945,6 +2022,37 @@
         padding: 3%;
         padding-left: 3%;
         text-align: justify;
+    }
+    .adjust-area{
+        height: 1000px;
+    }
+    .table-option-ph{
+        width: 25%;
+        float: left;
+        margin-left: 4%;
+        margin-top: 6%;
+    }
+    .align-step-3-ph{
+        padding-top: 3%;
+        margin-bottom: -7%;
+    }
+    .margin-detail-title-inter {
+        background: #cccccc;
+        padding: 50px;
+        text-align: center;
+        font-size: 14px;
+        margin-bottom: 0;
+        margin-left: 0;
+        margin-right: 0;
+    }
+    .paddign-head-image-ph{
+        padding-left: 8%;
+    }
+    .cont-filter-inter {
+        width: 400px;
+        position: relative;
+        left: 50%;
+        margin-left: -200px;
     }
 }
 @media only screen and (max-width: 1200px) {
