@@ -502,3 +502,12 @@ msgstr "De clic en el siguiente botón para que WaterProof configure los proceso
 
 msgid "You must be a registered user to create a new Treatment Plant"
 msgstr "Debe estar registrado para crear una nueva Planta de Tratamiento"
+
+msgid "Enter name"
+msgstr "Ingresar nombre"
+
+msgid "Enter description"
+msgstr "Ingresar descripción"
+
+msgid "This field is required"
+msgstr "Este campo es requerido"

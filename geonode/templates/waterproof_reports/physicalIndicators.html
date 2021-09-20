@@ -59,7 +59,44 @@
         </div>
     </div>
 </div>
-<div>
+<div id="smartwizard" style="position: relative;">
+    <div class="border-table-title">
+        <div class="title-table" id="idNameStudyCase">{% trans "Study Case" %}</div>
+        <div class="detail-table">
+            <div class="column-left-table">
+                <div class="file-column-left">
+                    <div>{% trans "City:" %}</div>
+                    <div class="value-file-column-left" id="idCity">{% trans "-" %}</div>
+                </div>
+                <div class="file-column-left">
+                    <div>{% trans "Country:" %}</div>
+                    <div class="value-file-column-left" id="idCountri">{% trans "-" %}</div>
+                </div>
+                <div class="file-column-left">
+                    <div>{% trans "Region:" %}</div>
+                    <div class="value-file-column-left" id="idRegion">{% trans "-" %}</div>
+                </div>
+                <div class="file-column-left">
+                    <div>{% trans "Time frame (years):" %}</div>
+                    <div class="value-file-column-left" id="idTimeMainDecision">{% trans "-" %}</div>
+                </div>
+            </div>
+            <div class="column-right-table">
+                <div class="file-column-left">
+                    <div class="title-file-column-right">{% trans "Number of water intakes that are part of the analysis:" %}</div>
+                    <div class="value-file-column-left" id="idNumberOfWaterDecision"></div>
+                </div>
+                <div class="file-column-left">
+                    <div class="title-file-column-right">{% trans "Number of drinking water treatment plants in the system:" %}</div>
+                    <div class="value-file-column-left" id="idNumberOfDrinkingDecision"></div>
+                </div>
+                <div class="file-column-left">
+                    <div class="title-file-column-right">{% trans "Currency:" %}</div>
+                    <div class="value-file-column-left" id="idCurrencyMainDecision">{% trans "-" %}</div>
+                </div>
+            </div>
+        </div>
+    </div>
     <ul class="nav nav-pills padding-nav" id="myTab" role="tablist">
         <li class="nav-item active">
             <a class="nav-item active radius-button-list nav-link active" data-toggle="tab" href="#step1" role="tab" aria-controls="home" aria-selected="true">
@@ -72,80 +109,120 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link radius-button-list nav-link" id="initMapStep3" data-toggle="tab" href="#step3" role="tab" aria-controls="contact" aria-selected="false">
+            <a class="nav-link radius-button-list nav-link" data-toggle="tab" href="#step3" role="tab" aria-controls="contact" aria-selected="false">
                 {% trans "Interventtions results" %}
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link radius-button-list nav-link" data-toggle="tab" href="#step4" role="tab" aria-controls="contact" aria-selected="false">
+            <a class="nav-link radius-button-list nav-link" id="initMapNBS" data-toggle="tab" href="#step4" role="tab" aria-controls="contact" aria-selected="false">
                 {% trans "NBS Vieber" %}
             </a>
         </li>
     </ul>
 
     <div class="tab-content" id="myTabContent">
-        <div class="div-style-menu-23 tab-pane fade active in" id="step1" role="tabpanel" aria-labelledby="overview-tab">
-            <!--Table Element of the water intake system-->
-            <div style=" align-items: center;">
-                <h5>{% trans "Water intake" %}
-                    <select name="select" id="selectIntake">
-                        <option selected disabled>{% trans "Select a Intake" %}</option>
-                        {% for Option in NamesIndicators %}
-                        <option value={{Option}} >{{Option}}</option>
-                        {% endfor %}
-                        </select>
-                </h5>
-            </div>
-            <div style="text-align: center;">
-                <div style="width: 50%; float: left;">
-                    <img src="/static/geonode/img/indicadores-fisicos.png" style="height: 70%; width: 70%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;"/>
+        <div class="tab-pane fade active in" id="step1" role="tabpanel" aria-labelledby="overview-tab">
+            <div class="div-style-menu-phy">
+                <!--Table Element of the water intake system-->
+                <br>
+                <p class="padding-text-desc-table justify-text-physical">{% trans "Invest ind text 1" %}</p>
+                <br>
+                <div class="align-text">
+                    <h5>{% trans "Water intake" %}
+                        <select class="select-condition select-condition-menu" name="select" id="selectIntake">
+                            <option selected disabled>{% trans "Select a Intake" %}</option>
+                            {% for Option in NamesIndicators %}
+                            <option value={{Option}} >{{Option}}</option>
+                            {% endfor %}
+                            </select>
+                    </h5>
                 </div>
-                <div style="width: 50%; float: left;">
-                    <div class="row">
-                        <div class="col-lg-12">
+                <div>
+                    <div class="content-image col-md-4">
+                        <img src="/static/geonode/img/indicadores-fisicos.png" style="height: 70%; width: 70%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black; margin-top: -13%; margin-left: 15%;"/>
+                    </div>
+                    <div class="contain-detail col-md-8">
+                        <div class="first-detail-2">
                             <div id="container"></div>
                         </div>
                     </div>
                 </div>
+                
+                <br>
+                <!--Table-->
+                <div style="clear:both;" class="table-responsive padding-text-desc-table">
+                    <table id="example" class="table table-striped table-bordered table-condensed" style=" width:100%">
+                        <thead>
+                            <tr class="info">
+                                <th scope="col" class="small text-center vat" style="display: none;">{% trans "Indicator" %}</th>
+                                <th scope="col" class="small text-center vat">{% trans "Year" %}</th>
+                                <th scope="col" class="small text-center vat px-5">{% trans "Change in volume of water yield (%)" %}</th>
+                                <th scope="col" class="small text-center vat">{% trans "Change in base flow(%)" %}</th>
+                                <th scope="col" class="small text-center vat">{% trans "Change in total sediments (%)" %}</th>
+                                <th scope="col" class="small text-center vat">{% trans "Change in nitrogen load (%)" %}</th>
+                                <th scope="col" class="small text-center vat">{% trans "Change in phosphorus Load (%)" %}</th>
+                                <th scope="col" class="small text-center vat">{% trans "Change in carbon storage" %}</th>
+                                <th scope="col" class="small text-center vat" style="display: none;">{% trans "Date" %}</th>
+                                <th scope="col" class="small text-center vat" style="display: none;">{% trans "Name" %}</th>
+                            </tr>
+                        </thead>
+                        <tbody id="FilterPhisicalIndicators">
+                        </tbody>
+                    </table>
+                </div>
             </div>
-            
-            <br>
-            <!--Table-->
-            <div style="clear:both;" class="table-responsive">
-                <table id="example" class="table table-striped table-bordered table-condensed" style=" width:100%">
-                    <thead>
-                        <tr class="info">
-                            <th scope="col" class="small text-center vat" style="display: none;">{% trans "Indicator" %}</th>
-                            <th scope="col" class="small text-center vat">{% trans "Year" %}</th>
-                            <th scope="col" class="small text-center vat px-5">{% trans "Change in volume of water yield (%)" %}</th>
-                            <th scope="col" class="small text-center vat">{% trans "Change in base flow(%)" %}</th>
-                            <th scope="col" class="small text-center vat">{% trans "Change in total sediments (%)" %}</th>
-                            <th scope="col" class="small text-center vat">{% trans "Change in nitrogen load (%)" %}</th>
-                            <th scope="col" class="small text-center vat">{% trans "Change in phosphorus Load (%)" %}</th>
-                            <th scope="col" class="small text-center vat">{% trans "Change in carbon storage" %}</th>
-                            <th scope="col" class="small text-center vat" style="display: none;">{% trans "Date" %}</th>
-                            <th scope="col" class="small text-center vat" style="display: none;">{% trans "Name" %}</th>
-                        </tr>
-                    </thead>
-                    <tbody id="FilterPhisicalIndicators">
-                    </tbody>
-                </table>
+            <div class="background-step1-physical col-md-12">
+                <p class="justify-text-physical">{% trans "Invest ind text 2" %}</p>
+                <div class="image-physical-step1 col-md-2">
+                    <img src="/static/geonode/img/physical-01.png" alt="physical-01">
+                </div>
+                <div class="text-desc-physical-step1 col-md-6">
+                    <p>{% trans "Invest ind text 3" %}</p>
+                </div>
+                <div class="image-physical-step1 col-md-2">
+                    <img src="/static/geonode/img/physical-02.png" alt="physical-02">
+                </div>
+                <div class="text-desc-physical-step1 col-md-6">
+                    <p>{% trans "Invest ind text 4" %}</p>
+                </div>
+                <div class="image-physical-step1 col-md-2">
+                    <img src="/static/geonode/img/physical-03.png" alt="physical-03">
+                </div>
+                <div class="text-desc-physical-step1 col-md-6">
+                    <p>{% trans "Invest ind text 5" %}</p>
+                </div>
+                <div class="image-physical-step1 col-md-2">
+                    <img src="/static/geonode/img/physical-04.png" alt="physical-04">
+                </div>
+                <div class="text-desc-physical-step1 col-md-6">
+                    <p>{% trans "Invest ind text 6" %}</p>
+                </div>
+                <div class="image-physical-step1 col-md-2">
+                    <img src="/static/geonode/img/physical-05.png" alt="physical-05">
+                </div>
+                <div class="text-desc-physical-step1 col-md-6">
+                    <p>{% trans "Invest ind text 7" %}</p>
+                </div>
             </div>
         </div>
-        <div class="tab-pane fade div-style-menu-23" id="step2" role="tabpanel" aria-labelledby="how-tab">
-            <div id="continer-map2">
+        <div class="tab-pane fade div-style-menu-phy" id="step2" role="tabpanel" aria-labelledby="how-tab">
+            <br>
+            <p class="padding-text-desc-table justify-text-physical">{% trans "Aqueduct ind text 1" %}</p>
+            <p class="padding-text-desc-table justify-text-physical">{% trans "Aqueduct ind text 2" %}</p>
+            <br>
+            <div class="padding-text-desc-table" id="continer-map2">
             </div>
             <br>
-            <div class="title-water">{% trans "Water Intake" %} <span class="name-title-water">"{% trans "Water Intake" %}"</span></div>
-            <div class="margin-select">
+            <div class="title-water padding-text-desc-table">{% trans "Water Intake" %} <span class="name-title-water">"{% trans "Water Intake" %}"</span></div>
+            <div class="margin-select padding-text-desc-table">
                 <select class="select-condition" id="idSelectWaterIntake" onchange="loadGraphIntahe(this.value)">
                     <option value="">{% trans "All" %}</option>
                 </select>
             </div>
-            <div id="idListGraph"></div>
+            <div class="padding-text-desc-table" id="idListGraph"></div>
 		</div>
-        <div class="tab-pane fade div-style-menu-23" id="step3" role="tabpanel" aria-labelledby="contact-tab">
-            <div>
+        <div class="tab-pane fade div-style-menu-phy" id="step3" role="tabpanel" aria-labelledby="contact-tab">
+            <div class="padding-text-desc-table">
                 <div class="content-icon-inter">
                     <div class="center-icon-inter">
                         <img src="/static/geonode/img/01-conservacion.png" class="img-icon-inter">
@@ -165,12 +242,12 @@
                     </div>    
                 </div>
                 <div class="title-inform-title">{% trans "Watershed information" %}</div>
-                <div>
+                <div class="padding-text-desc-table">
                     <div class="total-inform-title">{% trans "Total size:" %}</div>
                     <div id="idTotalSizeWater"></div>
                 </div>
             </div>
-            <div style="clear:both;" class="table-responsive">
+            <div style="clear:both;" class="table-responsive padding-text-desc-table">
                 <table id="idTablePe" class="table table-striped table-bordered table-condensed" style=" width:100%">
                     <thead>
                         <tr class="info">
@@ -183,227 +260,252 @@
                 </table>
             </div>
         </div>
-        <div class="tab-pane fade div-style-menu-23" id="step4" role="tabpanel" aria-labelledby="contact-tab">
-            <div class="container-page">
-                <div class="container-border">
-                    <div id="mapidnbs" style="position: relative;width: 100%;height: 400px;"></div>
-                </div>
+        <div class="tab-pane fade div-style-menu-phy" id="step4" role="tabpanel" aria-labelledby="contact-tab">
+            <div class="container-page padding-text-desc-table">
+                <br>
+                <div id="step4-map-ph"></div>
             </div>
-            <div class="table-option">
-                <div class="list-table-option">
+                <div class="table-option">
+                    <div class="list-table-option">
+                        <div>
+                            <div class="title-table-opton">{% trans "Business as usual" %} / {% trans "NBS Scenario" %}</div>
+                            <div class="height-option">
+                                <div class="option-table-opion"><input type="radio" name="report" onclick="viewReport(1,7,this)"></div>
+                                <div>{% trans "Volume of water yield (change in time)" %}</div>
+                            </div>
+                            <div class="height-option">
+                                <div class="option-table-opion"><input type="radio" name="report" onclick="viewReport(2,8,this)"></div>
+                                <div>{% trans "Anual volume base flow (change in time)" %}</div>
+                            </div>
+                            <div class="height-option">
+                                <div class="option-table-opion"><input type="radio" name="report" onclick="viewReport(3,9,this)"></div>
+                                <div>{% trans "Total sediments (change in time)" %}</div>
+                            </div>
+                            <div class="height-option">
+                                <div class="option-table-opion"><input type="radio" name="report" onclick="viewReport(4,10,this)"></div>
+                                <div>{% trans "Nitrogen load (change in time)" %}</div>
+                            </div>
+                            <div class="height-option">
+                                <div class="option-table-opion"><input type="radio" name="report" onclick="viewReport(5,11,this)"></div>
+                                <div>{% trans "Phosphorus load (change in time)" %}</div>
+                            </div>
+                            <div class="height-option">
+                                <div class="option-table-opion"><input type="radio" name="report" onclick="viewReport(6,12,this)"></div>
+                                <div>{% trans "Carbon storage (change in time)" %}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="container-graph" id="idGraph1">
+                    <div class="title-cont-graph">{% trans "NBS Scenario - AWY (m3)" %}</div>
                     <div>
-                        <div class="title-table-opton">{% trans "Business as usual" %} / {% trans "NBS Scenario" %}</div>
-                        <div class="height-option">
-                            <div class="option-table-opion"><input type="radio" name="report" onclick="viewReport(1,7,this)"></div>
-                            <div>{% trans "Volume of water yield (change in time)" %}</div>
+                        <div class="list-year-cont">
+                            <div class="title-year-cont">
+                                <div class="td-year-cont">{% trans "Year" %}</div>
+                                <div>{% trans "Nitrogen" %}</div>
+                            </div>
+                            <div id="listNbs1"></div>
                         </div>
-                        <div class="height-option">
-                            <div class="option-table-opion"><input type="radio" name="report" onclick="viewReport(2,8,this)"></div>
-                            <div>{% trans "Anual volume base flow (change in time)" %}</div>
-                        </div>
-                        <div class="height-option">
-                            <div class="option-table-opion"><input type="radio" name="report" onclick="viewReport(3,9,this)"></div>
-                            <div>{% trans "Total sediments (change in time)" %}</div>
-                        </div>
-                        <div class="height-option">
-                            <div class="option-table-opion"><input type="radio" name="report" onclick="viewReport(4,10,this)"></div>
-                            <div>{% trans "Nitrogen load (change in time)" %}</div>
-                        </div>
-                        <div class="height-option">
-                            <div class="option-table-opion"><input type="radio" name="report" onclick="viewReport(5,11,this)"></div>
-                            <div>{% trans "Phosphorus load (change in time)" %}</div>
-                        </div>
-                        <div class="height-option">
-                            <div class="option-table-opion"><input type="radio" name="report" onclick="viewReport(6,12,this)"></div>
-                            <div>{% trans "Carbon storage (change in time)" %}</div>
+                        <div class="graph-year-cont">
+                            <div id="containerNbs1"></div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="container-graph" id="idGraph1">
-                <div class="title-cont-graph">{% trans "NBS Scenario - AWY (m3)" %}</div>
-                <div>
-                    <div class="list-year-cont">
-                        <div class="title-year-cont">
-                            <div class="td-year-cont">{% trans "Year" %}</div>
-                            <div>{% trans "Nitrogen" %}</div>
+                <div class="container-graph" id="idGraph2">
+                    <div class="title-cont-graph">{% trans "NBS Scenario - Wsed (Ton)" %}</div>
+                    <div>
+                        <div class="list-year-cont">
+                            <div class="title-year-cont">
+                                <div class="td-year-cont">{% trans "Year" %}</div>
+                                <div>{% trans "Nitrogen" %}</div>
+                            </div>
+                            <div id="listNbs2"></div>
                         </div>
-                        <div id="listNbs1"></div>
-                    </div>
-                    <div class="graph-year-cont">
-                        <div id="containerNbs1"></div>
+                        <div class="graph-year-cont">
+                            <div id="containerNbs2"></div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="container-graph" id="idGraph2">
-                <div class="title-cont-graph">{% trans "NBS Scenario - Wsed (Ton)" %}</div>
-                <div>
-                    <div class="list-year-cont">
-                        <div class="title-year-cont">
-                            <div class="td-year-cont">{% trans "Year" %}</div>
-                            <div>{% trans "Nitrogen" %}</div>
+                <div class="container-graph" id="idGraph3">
+                    <div class="title-cont-graph">{% trans "NBS Scenario - WN (kg)" %}</div>
+                    <div>
+                        <div class="list-year-cont">
+                            <div class="title-year-cont">
+                                <div class="td-year-cont">{% trans "Year" %}</div>
+                                <div>{% trans "Nitrogen" %}</div>
+                            </div>
+                            <div id="listNbs3"></div>
                         </div>
-                        <div id="listNbs2"></div>
-                    </div>
-                    <div class="graph-year-cont">
-                        <div id="containerNbs2"></div>
+                        <div class="graph-year-cont">
+                            <div id="containerNbs3"></div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="container-graph" id="idGraph3">
-                <div class="title-cont-graph">{% trans "NBS Scenario - WN (kg)" %}</div>
-                <div>
-                    <div class="list-year-cont">
-                        <div class="title-year-cont">
-                            <div class="td-year-cont">{% trans "Year" %}</div>
-                            <div>{% trans "Nitrogen" %}</div>
+                <div class="container-graph" id="idGraph4">
+                    <div class="title-cont-graph">{% trans "NBS Scenario - WP (kg)" %}</div>
+                    <div>
+                        <div class="list-year-cont">
+                            <div class="title-year-cont">
+                                <div class="td-year-cont">{% trans "Year" %}</div>
+                                <div>{% trans "Nitrogen" %}</div>
+                            </div>
+                            <div id="listNbs4"></div>
                         </div>
-                        <div id="listNbs3"></div>
-                    </div>
-                    <div class="graph-year-cont">
-                        <div id="containerNbs3"></div>
+                        <div class="graph-year-cont">
+                            <div id="containerNbs4"></div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="container-graph" id="idGraph4">
-                <div class="title-cont-graph">{% trans "NBS Scenario - WP (kg)" %}</div>
-                <div>
-                    <div class="list-year-cont">
-                        <div class="title-year-cont">
-                            <div class="td-year-cont">{% trans "Year" %}</div>
-                            <div>{% trans "Nitrogen" %}</div>
+                <div class="container-graph" id="idGraph5">
+                    <div class="title-cont-graph">{% trans "NBS Scenario - BF (m3)" %}</div>
+                    <div>
+                        <div class="list-year-cont">
+                            <div class="title-year-cont">
+                                <div class="td-year-cont">{% trans "Year" %}</div>
+                                <div>{% trans "Nitrogen" %}</div>
+                            </div>
+                            <div id="listNbs5"></div>
                         </div>
-                        <div id="listNbs4"></div>
-                    </div>
-                    <div class="graph-year-cont">
-                        <div id="containerNbs4"></div>
+                        <div class="graph-year-cont">
+                            <div id="containerNbs5"></div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="container-graph" id="idGraph5">
-                <div class="title-cont-graph">{% trans "NBS Scenario - BF (m3)" %}</div>
-                <div>
-                    <div class="list-year-cont">
-                        <div class="title-year-cont">
-                            <div class="td-year-cont">{% trans "Year" %}</div>
-                            <div>{% trans "Nitrogen" %}</div>
+                <div class="container-graph" id="idGraph6">
+                    <div class="title-cont-graph">{% trans "NBS Scenario - WC (Ton)" %}</div>
+                    <div>
+                        <div class="list-year-cont">
+                            <div class="title-year-cont">
+                                <div class="td-year-cont">{% trans "Year" %}</div>
+                                <div>{% trans "Nitrogen" %}</div>
+                            </div>
+                            <div id="listNbs6"></div>
                         </div>
-                        <div id="listNbs5"></div>
-                    </div>
-                    <div class="graph-year-cont">
-                        <div id="containerNbs5"></div>
+                        <div class="graph-year-cont">
+                            <div id="containerNbs6"></div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="container-graph" id="idGraph6">
-                <div class="title-cont-graph">{% trans "NBS Scenario - WC (Ton)" %}</div>
-                <div>
-                    <div class="list-year-cont">
-                        <div class="title-year-cont">
-                            <div class="td-year-cont">{% trans "Year" %}</div>
-                            <div>{% trans "Nitrogen" %}</div>
+                <div class="container-graph" id="idGraph7">
+                    <div class="title-cont-graph">{% trans "Business as usual - AWY (m3)" %}</div>
+                    <div>
+                        <div class="list-year-cont">
+                            <div class="title-year-cont">
+                                <div class="td-year-cont">{% trans "Year" %}</div>
+                                <div>{% trans "Nitrogen" %}</div>
+                            </div>
+                            <div id="listNbs7"></div>
                         </div>
-                        <div id="listNbs6"></div>
-                    </div>
-                    <div class="graph-year-cont">
-                        <div id="containerNbs6"></div>
+                        <div class="graph-year-cont">
+                            <div id="containerNbs7"></div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="container-graph" id="idGraph7">
-                <div class="title-cont-graph">{% trans "Business as usual - AWY (m3)" %}</div>
-                <div>
-                    <div class="list-year-cont">
-                        <div class="title-year-cont">
-                            <div class="td-year-cont">{% trans "Year" %}</div>
-                            <div>{% trans "Nitrogen" %}</div>
+                <div class="container-graph" id="idGraph8">
+                    <div class="title-cont-graph">{% trans "Business as usual - Wsed (Ton)" %}</div>
+                    <div>
+                        <div class="list-year-cont">
+                            <div class="title-year-cont">
+                                <div class="td-year-cont">{% trans "Year" %}</div>
+                                <div>{% trans "Nitrogen" %}</div>
+                            </div>
+                            <div id="listNbs8"></div>
                         </div>
-                        <div id="listNbs7"></div>
-                    </div>
-                    <div class="graph-year-cont">
-                        <div id="containerNbs7"></div>
+                        <div class="graph-year-cont">
+                            <div id="containerNbs8"></div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="container-graph" id="idGraph8">
-                <div class="title-cont-graph">{% trans "Business as usual - Wsed (Ton)" %}</div>
-                <div>
-                    <div class="list-year-cont">
-                        <div class="title-year-cont">
-                            <div class="td-year-cont">{% trans "Year" %}</div>
-                            <div>{% trans "Nitrogen" %}</div>
+                <div class="container-graph" id="idGraph9">
+                    <div class="title-cont-graph">{% trans "Business as usual - WN (kg)" %}</div>
+                    <div>
+                        <div class="list-year-cont">
+                            <div class="title-year-cont">
+                                <div class="td-year-cont">{% trans "Year" %}</div>
+                                <div>{% trans "Nitrogen" %}</div>
+                            </div>
+                            <div id="listNbs9"></div>
                         </div>
-                        <div id="listNbs8"></div>
-                    </div>
-                    <div class="graph-year-cont">
-                        <div id="containerNbs8"></div>
+                        <div class="graph-year-cont">
+                            <div id="containerNbs9"></div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="container-graph" id="idGraph9">
-                <div class="title-cont-graph">{% trans "Business as usual - WN (kg)" %}</div>
-                <div>
-                    <div class="list-year-cont">
-                        <div class="title-year-cont">
-                            <div class="td-year-cont">{% trans "Year" %}</div>
-                            <div>{% trans "Nitrogen" %}</div>
+                <div class="container-graph" id="idGraph10">
+                    <div class="title-cont-graph">{% trans "Business as usual - WP (kg)" %}</div>
+                    <div>
+                        <div class="list-year-cont">
+                            <div class="title-year-cont">
+                                <div class="td-year-cont">{% trans "Year" %}</div>
+                                <div>{% trans "Nitrogen" %}</div>
+                            </div>
+                            <div id="listNbs10"></div>
                         </div>
-                        <div id="listNbs9"></div>
-                    </div>
-                    <div class="graph-year-cont">
-                        <div id="containerNbs9"></div>
+                        <div class="graph-year-cont">
+                            <div id="containerNbs10"></div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="container-graph" id="idGraph10">
-                <div class="title-cont-graph">{% trans "Business as usual - WP (kg)" %}</div>
-                <div>
-                    <div class="list-year-cont">
-                        <div class="title-year-cont">
-                            <div class="td-year-cont">{% trans "Year" %}</div>
-                            <div>{% trans "Nitrogen" %}</div>
+                <div class="container-graph" id="idGraph11">
+                    <div class="title-cont-graph">{% trans "Business as usual - BF (m3)" %}</div>
+                    <div>
+                        <div class="list-year-cont">
+                            <div class="title-year-cont">
+                                <div class="td-year-cont">{% trans "Year" %}</div>
+                                <div>{% trans "Nitrogen" %}</div>
+                            </div>
+                            <div id="listNbs11"></div>
                         </div>
-                        <div id="listNbs10"></div>
-                    </div>
-                    <div class="graph-year-cont">
-                        <div id="containerNbs10"></div>
+                        <div class="graph-year-cont">
+                            <div id="containerNbs11"></div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="container-graph" id="idGraph11">
-                <div class="title-cont-graph">{% trans "Business as usual - BF (m3)" %}</div>
-                <div>
-                    <div class="list-year-cont">
-                        <div class="title-year-cont">
-                            <div class="td-year-cont">{% trans "Year" %}</div>
-                            <div>{% trans "Nitrogen" %}</div>
+                <div class="container-graph" id="idGraph12">
+                    <div class="title-cont-graph">{% trans "Business as usual - WC (Ton)" %}</div>
+                    <div>
+                        <div class="list-year-cont">
+                            <div class="title-year-cont">
+                                <div class="td-year-cont">{% trans "Year" %}</div>
+                                <div>{% trans "Nitrogen" %}</div>
+                            </div>
+                            <div id="listNbs12"></div>
                         </div>
-                        <div id="listNbs11"></div>
-                    </div>
-                    <div class="graph-year-cont">
-                        <div id="containerNbs11"></div>
+                        <div class="graph-year-cont">
+                            <div id="containerNbs12"></div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="container-graph" id="idGraph12">
-                <div class="title-cont-graph">{% trans "Business as usual - WC (Ton)" %}</div>
-                <div>
-                    <div class="list-year-cont">
-                        <div class="title-year-cont">
-                            <div class="td-year-cont">{% trans "Year" %}</div>
-                            <div>{% trans "Nitrogen" %}</div>
-                        </div>
-                        <div id="listNbs12"></div>
-                    </div>
-                    <div class="graph-year-cont">
-                        <div id="containerNbs12"></div>
-                    </div>
-                </div>
-            </div>
+        </div>
+        <div id="map-step4-ph" class="container-border">
+            <div id="mapidnbs" style="position: relative;width: 100%;height: 400px;"></div>
         </div>
         <div id="map-container2" class="container-border">
-            <div id="mapidphysical" style="position: relative;width: 90% ;height: 400px;"></div>
+            <div id="mapidphysical" style="position: relative;width: 100%;height: 400px;"></div>
         </div>
+    </div>
+</div>
+<div class="align-text col-md-12 div-padding visible">
+    <div class="list-menu-results" id="idFinancialIndicators">
+        <img src="/static/geonode/img/Indicadores-financieros.png" title="{% trans "Financial indicators" %}"/> 
+        <br> 
+        <a href="../../reports/financial/">{% trans "Financial indicators" %}</a>
+    </div>
+    <div class="list-menu-results">
+        <img src="/static/geonode/img/indicadores-fisicos.png" title="{% trans "Physical indicators" %}"/> 
+        <br>
+        <!--a>{% trans "Physical indicators" %}</a-->
+        <a href="../../reports/physical/{{idx}}">{% trans "Physical indicators" %}</a>
+    </div>
+    <div class="list-menu-results" id="idDecisionIndicators">
+        <img src="/static/geonode/img/indicadores-decision.png" style="opacity: 30%;" title="{% trans "Decision indicators" %}"/>
+        <br>
+        <a>{% trans "Decision indicators" %}</a>
+    </div>
+    <div class="list-menu-results" id="idGeographicIndicators">
+        <img src="/static/geonode/img/indicadores-geograficos.png" title="{% trans "Geographic visualization" %}"/>
+        <br>
+        <a href="../../reports/geographic/">{% trans "Geographic visualization" %}</a>
     </div>
 </div>
 
@@ -490,10 +592,6 @@
 <script type="text/javascript">
 
 var localStorageId = localStorage.idStudyCase;
-
-    $("#initMapStep2").click(function(e){
-                initMapPhysical();
-            });
 
     $("#initMapStep3").click(function(e){
                 initMapPhysical();
@@ -753,7 +851,7 @@ var localStorageId = localStorage.idStudyCase;
             function onMapClick(e) {
             }
             map.on('click', onMapClick);
-            $('#continer-map2')[0].append($('#map-container2'));
+            $('#continer-map2')[0].append($('#map-container2')[0]);
         }
 
         viewReport = function(idDiv1, idDiv2, object) {
@@ -1110,6 +1208,7 @@ var localStorageId = localStorage.idStudyCase;
             function onMapClick(e) {
             }
             map.on('click', onMapClick);
+            $("#step4-map-ph")[0].append($("#map-step4-ph")[0]);
         }
 
         initialize = function () {
@@ -1179,69 +1278,69 @@ var localStorageId = localStorage.idStudyCase;
 
             var urlDetail = "../../reports/getWpAqueductIndicatorGraph/?studyCase=" + localStorage.idStudyCase;
             console.log("Este es el localstorage del selectw"+localStorage.idStudyCase)
-        $.getJSON(urlDetail, function (data) {
-            var lastGroupImage = "";
-            var titleGraph = "";
-            var numberContainer = 0;
-            $.each( data, function( key, value ) {
+            $.getJSON(urlDetail, function (data) {
+                var lastGroupImage = "";
+                var titleGraph = "";
+                var numberContainer = 0;
+                $.each( data, function( key, value ) {
 
-                if(lastGroupImage !== value.indicator) {
-                    if(titleGraph !== "") {
-                        titleGraph = titleGraph + '</div>';
+                    if(lastGroupImage !== value.indicator) {
+                        if(titleGraph !== "") {
+                            titleGraph = titleGraph + '</div>';
+                        }
+                        titleGraph = titleGraph + '<div name="listGraphIntake" nameSelect="' + value.indicator + '" class="title-water" style="float: left;width: 100%;">' + value.indicator + '</div><div name="listGraphIntake"  nameSelect="' + value.indicator + '" class="container-general-gauge">';
+                        lastGroupImage = value.indicator;
+
+                        var option = document.createElement("option");
+                        option.text = value.indicator;
+                        option.value = value.indicator;
+                        document.getElementById("idSelectWaterIntake").add(option);
                     }
-                    titleGraph = titleGraph + '<div name="listGraphIntake" nameSelect="' + value.indicator + '" class="title-water" style="float: left;width: 100%;">' + value.indicator + '</div><div name="listGraphIntake"  nameSelect="' + value.indicator + '" class="container-general-gauge">';
-                    lastGroupImage = value.indicator;
-
-                    var option = document.createElement("option");
-                    option.text = value.indicator;
-                    option.value = value.indicator;
-                    document.getElementById("idSelectWaterIntake").add(option);
-                }
-                titleGraph = titleGraph + '<div class="container-gauge"><div id="containerPr' + numberContainer + '"></div></div>';
-                numberContainer++;
-            });
-            titleGraph = titleGraph + '</div>';
-            document.getElementById("idListGraph").innerHTML = titleGraph;
-
-            setTimeout(function(){
-                var urlDetail = "../../reports/getWpAqueductIndicatorGraph/?studyCase=" + localStorage.idStudyCase;
-                $.getJSON(urlDetail, function (data) {
-                    var numberContainerG = 0;
-                    $.each( data, function( key, value ) {
-                        var chartSpeed = Highcharts.chart('containerPr' + numberContainerG, Highcharts.merge(gaugeOptions, {
-                            yAxis: {
-                                min: 0,
-                                max: 6,
-                                stops: [
-                                    [0.1, '#90D3E7'],
-                                    [0.3, '#61D1C2'],
-                                    [0.5, '#008BAB'],
-                                    [0.7, '#004B56'],
-                                    [0.9, '#01353D']
-                                ],
-                                title: {
-                                    text: value.description
-                                }
-                            },
-                            credits: {
-                                enabled: false
-                            },
-                            series: [{
-                                name: gettext('Baseline water stress'),
-                                data: [value.valueIndicator],
-                                dataLabels: {
-                                    format:
-                                        '<div style="text-align:center">' +
-                                        '<span style="font-size:25px">{y}</span><br/>' +
-                                        '</div>'
-                                }
-                            }]
-                        }));
-                        numberContainerG++;
-                    });
+                    titleGraph = titleGraph + '<div class="container-gauge"><div id="containerPr' + numberContainer + '"></div></div>';
+                    numberContainer++;
                 });
-            }, 3000);
-        });
+                titleGraph = titleGraph + '</div>';
+                document.getElementById("idListGraph").innerHTML = titleGraph;
+
+                setTimeout(function(){
+                    var urlDetail = "../../reports/getWpAqueductIndicatorGraph/?studyCase=" + localStorage.idStudyCase;
+                    $.getJSON(urlDetail, function (data) {
+                        var numberContainerG = 0;
+                        $.each( data, function( key, value ) {
+                            var chartSpeed = Highcharts.chart('containerPr' + numberContainerG, Highcharts.merge(gaugeOptions, {
+                                yAxis: {
+                                    min: 0,
+                                    max: 6,
+                                    stops: [
+                                        [0.1, '#90D3E7'],
+                                        [0.3, '#61D1C2'],
+                                        [0.5, '#008BAB'],
+                                        [0.7, '#004B56'],
+                                        [0.9, '#01353D']
+                                    ],
+                                    title: {
+                                        text: value.description
+                                    }
+                                },
+                                credits: {
+                                    enabled: false
+                                },
+                                series: [{
+                                    name: gettext('Baseline water stress'),
+                                    data: [value.valueIndicator],
+                                    dataLabels: {
+                                        format:
+                                            '<div style="text-align:center">' +
+                                            '<span style="font-size:25px">{y}</span><br/>' +
+                                            '</div>'
+                                    }
+                                }]
+                            }));
+                            numberContainerG++;
+                        });
+                    });
+                }, 3000);
+            });
 
        
 
@@ -1269,6 +1368,19 @@ var localStorageId = localStorage.idStudyCase;
                     } 
                 });
             });
+
+            $("#initMapStep2").click(function(e){
+                initMapPhysical();
+            });
+
+            $("#initMapNBS").click(function(e){
+                initMapNbs();
+            })
+
+            document.getElementById("idNumberOfWaterDecision").innerHTML = localStorage.getItem('idNumberOfWater');
+            document.getElementById("idNumberOfDrinkingDecision").innerHTML = localStorage.getItem('idNumberOfDrinking');
+            document.getElementById("idCurrencyMainDecision").innerHTML = localStorage.getItem('idCurrencyMain');
+            document.getElementById("idTimeMainDecision").innerHTML = localStorage.getItem('idTimeMain');
 
             document.getElementById("idSelectNameIntake").onchange =  function() {
                 lastIntake = document.getElementById("idSelectNameIntake").value;

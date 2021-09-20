@@ -3,9 +3,8 @@
 {% load staticfiles %} 
 {% load bootstrap_tags %} 
 {% block extra_head %}
-<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_nbs_ca/css/bootstrap-duallistbox.min./
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_nbs_ca/css/bootstrap-duallistbox.min.css"/>
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_nbs_ca/css/waterproof_nbs_ca.css"/>
-<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}lib/css/leaflet.css"/>
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_treatment_plants/css/treatment_plants.css"/>
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/mathquill/0.10.1/mathquill.css"/>
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof/css/waterproof-common.css"/>
@@ -29,12 +28,12 @@
         <h4 class="text-primary">{% trans "General information" %}</h4>
         <div class="form-group">
             <label>{% trans "Name" %} <span class="text-danger-wp">(*)</span> </label>
-            <input type="text" class="form-control" id="idNamePlant" data-error="This field is required" placeholder="Enter name" required/>
+            <input type="text" class="form-control" id="idNamePlant" data-error="{% trans "This field is required" %}" placeholder="{% trans "Enter name" %}" required/>
             <div class="help-block with-errors"></div>
         </div>
         <div class="form-group">
             <label>{% trans "Description" %} <span class="text-danger-wp">(*)</span> </label>
-            <textarea id="idDescriptionPlant" class="form-control" placeholder="Enter description" data-error="This field is required"
+            <textarea id="idDescriptionPlant" class="form-control" placeholder="{% trans "Enter description" %}" data-error="{% trans "This field is required" %}"
                 rows="4" required></textarea>
             <div class="help-block with-errors"></div>
         </div>
@@ -43,7 +42,7 @@
             <fieldset>
                 <h4 class="text-primary">{% trans "Water Intake" %} <span class="text-danger-wp">(*)</span> </h4>
                 <p>{% trans "Select from the list water intakes that arrive at your treatment plant and click on the button 'Add water intake'" %}</p>
-                <select  id="idIntakePlant" class="form-control" data-error="This field is required" required>
+                <select  id="idIntakePlant" class="form-control" data-error="{% trans "This field is required" %}" required>
                     <option></option>
                 </select>
                 <br>
@@ -413,25 +412,26 @@
     </div>
 </div>
 
-<script>
-    var userCountryId = '{{userCountry.id}}';
-    var userCountryCode = '{{userCountry.code}}';
-    var userCountryName = '{{userCountry.name}}';
-</script>
+
 {% endblock %} {% block extra_script %}
 <script src="{% url 'javascript-catalog-treatment' %}"></script>
-<script src="{{ STATIC_URL }}geonode/js/jszip/jszip.min.js"></script>
-<script src="{{ STATIC_URL }}geonode/js/shp/shp.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min.js"
     integrity="sha512-dTu0vJs5ndrd3kPwnYixvOCsvef5SGYW/zSSK4bcjRBcZHzqThq7pt7PmCv55yb8iBvni0TSeIDV8RYKjZL36A=="
     crossorigin="anonymous"></script>
-<script src="{% static "lib/js/leaflet.js" %}"></script>
-<script src="{% static "geonode/js/leaflet/leaflet.defaultextent.js" %}"></script>
-<script src="{{ STATIC_URL }}geonode/js/leaflet/leaflet.ajax.min.js"></script>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.min.js"></script>
-<script src="{{ STATIC_URL }}waterproof_treatment_plants/js/waterproof_list_treatment_plants.js"></script>
 <script src="https://unpkg.com/smartwizard@5/dist/js/jquery.smartWizard.min.js"></script>
+<script src="{{ STATIC_URL }}waterproof_treatment_plants/js/waterproof_list_treatment_plants.js"></script>
 <script src="{{ STATIC_URL }}waterproof_intake/mathquill/mathquill.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+<script type="text/javascript">
+    var userCountryId = '{{userCountry.id}}';
+    var userCountryCode = '{{userCountry.code}}';
+    var userCountryName = '{{userCountry.name}}';
+    $(document).ready(function () {        
+        initialize();        
+    });
+</script>
 {% endblock %}
