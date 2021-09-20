@@ -395,3 +395,7 @@ msgstr "A continuación se muestran las tablas biofísicas que se utilizarán en
 
 msgid "InVEST_documentation"
 msgstr "Consulte la documentación de InVEST"
+
+msgid "run_processing_description"
+msgstr "El sistema ha iniciado el análisis de su caso de estudio. Esta tarea se demorará algunos minutos por lo que usted puede cerrar esta ventana y volver más tarde. Además, el sistema le enviará un correo electrónico notificándole cuando los resultados estén disponibles."
+

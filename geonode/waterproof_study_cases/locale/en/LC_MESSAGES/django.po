@@ -234,7 +234,7 @@ msgid "financial_discount_rates"
 msgstr "Discount rates for ROI Analysis"
 
 msgid "financial_transaction_cost"
-msgstr "Transaction cost per year as a percentage of implementation, maintenance and oportunity costs"
+msgstr "Transaction cost per year as a percentage of implementation, maintenance and opportunity costs"
 
 msgid "study_cases_list_create"
 msgstr "You must be a registered user to create a new Case Study*"
