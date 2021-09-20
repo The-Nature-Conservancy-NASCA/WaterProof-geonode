@@ -624,7 +624,7 @@ $(document).ready(function () {
                             let description = gettext("run_processing_description");
                             let desc = document.createElement("div");
                             desc.innerHTML = description;
-                            $('#_thumbnail_processing .modal-body').append(desc);
+                            $('#_thumbnail_processing .modal-body').prepend(desc);
                             
                             $("#full-table").find("input").each(function (index, input) {
                                 nbsactivity = {}
