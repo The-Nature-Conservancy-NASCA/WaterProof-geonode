@@ -1,0 +1,17 @@
+
+{% extends "base.html" %}
+{% load static %} <!--Para cargar archivos en la carpeta--->
+{% load wagtailcore_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"> 
+  </head>
+<body>
+  <div class="article__body">
+      <h2 class="article__title">{{ page.title }}</h2>
+      {{ page.body|richtext }}
+  </div>
+</body>
+</html>

@@ -108,9 +108,9 @@ urlpatterns = [
     url(r'^who-can-help/$',
         TemplateView.as_view(template_name='who-can-help.html'),
         name='who-can-help'),
-    url(r'^system-operating-instructions/$',
-        TemplateView.as_view(template_name='system-operating-instructions.html'),
-        name='system-operating-instructions'),	
+    url(r'^how-does-waterproof-work/$',
+        TemplateView.as_view(template_name='how-does-waterproof-work.html'),
+        name='how-does-waterproof-work'),	
 	url(r'^nbs_active_restoration/$',
         TemplateView.as_view(template_name='nbs_active_restoration.html'),
         name='nbs_active_restoration'),	
@@ -139,7 +139,7 @@ urlpatterns = [
 
 urlpatterns += [
 
-    # path('cms/', include(wagtailadmin_urls)),
+    path('cms/', include(wagtailadmin_urls)),
     path('docs/', include(wagtaildocs_urls)),
     path('pages/', include(wagtail_urls)),
 
@@ -362,9 +362,9 @@ urlpatterns += [
 ]
 
 # waterproof_cms
-urlpatterns += [
-    url(r'^cms/', include('geonode.waterproof_cms.urls'), name='waterproof_cms'),
-]
+# urlpatterns += [
+#     url(r'^cms/', include('geonode.waterproof_cms.urls'), name='waterproof_cms'),
+# ]
 
 # waterproof_wiki
 urlpatterns += [

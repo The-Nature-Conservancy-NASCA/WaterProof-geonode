@@ -8559,8 +8559,8 @@ msgid "Search your city"
 msgstr "Start now looking for your city of analysis"
 
 #: geonode/templates/search_city.html
-msgid "In this section you can consult the case studies configured in the system or start the configuration of a case study"
-msgstr "Drag or zoom the map to the area of ​​your interest and enter the name of the city where you want to start the analysis. Confirm your selection by clicking on the Case study current list button."
+msgid "description_search_city"
+msgstr "Zoom in, out or pan on the map to identify your area of interest. Enter the city name in the text box to set the analysis site. A list of options will be displayed. Confirm your selection by clicking on the city of interest in the city list. Click on the button 'Case studies current list'."
 
 #: geonode/templates/search_city.html
 msgid "List Study Cases"
