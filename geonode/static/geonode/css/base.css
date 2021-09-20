@@ -2048,6 +2048,9 @@ pre code {
   .responsive{
     display: none !important;
   }
+  .size-left {
+    font-size: 14px;
+  }
 }
 @media (min-width: 768px){
   .iconsWhatIsWP{
@@ -2095,6 +2098,9 @@ pre code {
      font-size: 17px !important;
     /* display: none !important; */
   }
+  .size-left {
+    font-size: 16px;
+  }
 }
 @media (min-width: 992px){
   .iconsWhatIsWP{
@@ -2136,6 +2142,9 @@ pre code {
   }
   .menuPadding{
     padding-top: 50% !important;
+  }
+  .size-left {
+    font-size: 18px;
   }
 }
 /* .video-responsive {
@@ -2457,6 +2466,9 @@ pre code {
     padding-left: 10%;
     font-size: 50px;
     color: #FFF;
+  }
+  .size-left {
+    font-size: 18px;
   }
 }
 @media (min-width: 992px) {
@@ -9049,14 +9061,6 @@ form-inline {
   background-repeat: no-repeat;
   background-size:cover;
 }
-.imgbackgroundSystemop{
-  background: url(/static/geonode/img/bgSystemOperating.png);
-  height: 600px;
-  min-height: 100%;
-  min-width: 100%;
-  background-repeat: round;
-  background-size:cover;
-}
 .imgbackgroundWhyUse{
   background: url(/static/geonode/img/Why_use_back.png);
   height: 750px;
@@ -9076,9 +9080,6 @@ form-inline {
 }
 .text-left{
   text-align: left;
-}
-.size-left{
-  font-size: 18px;
 }
 .size-left-buttom{
   font-size: 18px;
