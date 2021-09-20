@@ -316,3 +316,13 @@
 #studycases_wrapper{
     margin-top: 40px;
 }
+
+.btn-add{
+    outline:none; 
+    text-decoration:none; 
+    color: #0977ca; 
+    border-style: none; 
+    background-color:transparent;
+    cursor: pointer;
+    padding-left: 5px;
+}
