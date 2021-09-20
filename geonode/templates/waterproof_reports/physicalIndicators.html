@@ -222,17 +222,18 @@
             <div class="padding-text-desc-table" id="idListGraph"></div>
 		</div>
         <div class="tab-pane fade div-style-menu-phy" id="step3" role="tabpanel" aria-labelledby="contact-tab">
-            <div class="padding-text-desc-table">
-                <div class="content-icon-inter">
-                    <div class="center-icon-inter">
-                        <img src="/static/geonode/img/01-conservacion.png" class="img-icon-inter">
+            <div class="padding-text-desc-table align-step-3-ph col-md-12">
+                <div class="content-image paddign-head-image-ph col-md-4">
+                    <img src="/static/geonode/img/01-conservacion.png" class="img-icon-inter">
+                </div>
+                <div class="contain-detail col-md-8">
+                    <div class="margin-detail-title-inter">
+                        <div class="text-detail-title-inter">{% trans "Size recomended intervetion as a percent to total area" %}</div>
+                        <div class="value-detail-title-inter" id="idSizeRecomend"></div>
+                        <div class="line-detail-title-inter"></div>
                     </div>
                 </div>
-                <div class="margin-detail-title-inter">
-                    <div class="text-detail-title-inter">{% trans "Size recomended intervetion as a percent to total area" %}</div>
-                    <div class="value-detail-title-inter" id="idSizeRecomend"></div>
-                    <div class="line-detail-title-inter"></div>
-                </div>
+                
             </div>
             <div>
                 <div class="cont-filter-inter">
@@ -260,12 +261,12 @@
                 </table>
             </div>
         </div>
-        <div class="tab-pane fade div-style-menu-phy" id="step4" role="tabpanel" aria-labelledby="contact-tab">
+        <div class="tab-pane fade div-style-menu-phy adjust-area" id="step4" role="tabpanel" aria-labelledby="contact-tab">
             <div class="container-page padding-text-desc-table">
                 <br>
                 <div id="step4-map-ph"></div>
             </div>
-                <div class="table-option">
+                <div class="table-option-ph">
                     <div class="list-table-option">
                         <div>
                             <div class="title-table-opton">{% trans "Business as usual" %} / {% trans "NBS Scenario" %}</div>
@@ -1288,7 +1289,7 @@ var localStorageId = localStorage.idStudyCase;
                         if(titleGraph !== "") {
                             titleGraph = titleGraph + '</div>';
                         }
-                        titleGraph = titleGraph + '<div name="listGraphIntake" nameSelect="' + value.indicator + '" class="title-water" style="float: left;width: 100%;">' + value.indicator + '</div><div name="listGraphIntake"  nameSelect="' + value.indicator + '" class="container-general-gauge">';
+                        titleGraph = titleGraph + '<div name="listGraphIntake" nameSelect="' + value.indicator + '" class="title-water">' + value.indicator + '</div><div name="listGraphIntake"  nameSelect="' + value.indicator + '" class="container-general-gauge">';
                         lastGroupImage = value.indicator;
 
                         var option = document.createElement("option");
