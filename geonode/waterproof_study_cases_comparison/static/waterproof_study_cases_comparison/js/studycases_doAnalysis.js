@@ -47,7 +47,7 @@ $(function () {
         STUDY_YEARS: 'time_implement',
         STUDY_INTAKES: 'intakes',
         STUDY_PTAPS: 'ptaps',
-        STUDY_CURRENCY:'cm_currency'
+        STUDY_CURRENCY: 'cm_currency'
 
     };
     const AXIS_TABLE = {
@@ -194,10 +194,10 @@ $(function () {
                     console.log(element);
                 });
                 new Splide('#card-slider', {
-                    perPage: 3,
+                    perPage: 2,
                     breakpoints: {
                         600: {
-                            perPage: 3,
+                            perPage: 2,
                         }
                     }
                 }).mount();
@@ -276,8 +276,20 @@ $(function () {
             'id': filteredChartCat[0][1],
             'name': filteredAxisCat[0][1]
         }
+        var fields = [];
         chartCategories.push(catObject);
-        let fields = [catObject.id];
+        if (catObject.id === CHART_CATEGORIES.VPN_IMP || catObject.id === CHART_CATEGORIES.VPN_MAINT ||
+            catObject.id === CHART_CATEGORIES.VPN_OPORT || catObject.id === CHART_CATEGORIES.VPN_TRANS ||
+            catObject.id === CHART_CATEGORIES.VPN_PLAT || catObject.id === CHART_CATEGORIES.VPN_BENF) {
+            fields.push(
+                CHART_CATEGORIES.VPN_IMP,
+                CHART_CATEGORIES.VPN_MAINT,
+                CHART_CATEGORIES.VPN_OPORT,
+                CHART_CATEGORIES.VPN_PLAT,
+                CHART_CATEGORIES.VPN_TRANS,
+                CHART_CATEGORIES.VPN_BENF
+            );
+        }
         var seriesDataRequest = indicatorsRequest(url, selectedCases, fields);
         var requests = [];
         requests.push(seriesDataRequest);
@@ -288,8 +300,26 @@ $(function () {
             let series = chartConfig.series;
             for (let i = 0; i < series.length; i++) {
                 let seriesData = series[i].data;
-                for (const field in promiseResponse[0][i]) {
-                    seriesData.push(promiseResponse[0][i][field]);
+                // ANY VPN COST SELECTED
+                if (catObject.id === CHART_CATEGORIES.VPN_IMP || catObject.id === CHART_CATEGORIES.VPN_MAINT ||
+                    catObject.id === CHART_CATEGORIES.VPN_OPORT || catObject.id === CHART_CATEGORIES.VPN_TRANS || catObject.id === CHART_CATEGORIES.VPN_PLAT) {
+                    let cosTotal = promiseResponse[0][i][CHART_CATEGORIES.VPN_IMP] + promiseResponse[0][i][CHART_CATEGORIES.VPN_MAINT] +
+                        promiseResponse[0][i][CHART_CATEGORIES.VPN_OPORT] + promiseResponse[0][i][CHART_CATEGORIES.VPN_TRANS] + promiseResponse[0][i][CHART_CATEGORIES.VPN_PLAT];
+                    let cost = promiseResponse[0][i][catObject.id] * 100 / cosTotal;
+                    seriesData.push(cost);
+                }
+                // TOTAL VPN AXIS SELECTED
+                else if (catObject.id === CHART_CATEGORIES.VPN_TOTAL) {
+                    let cosTotal = promiseResponse[0][i][CHART_CATEGORIES.VPN_IMP] + promiseResponse[0][i][CHART_CATEGORIES.VPN_MAINT] +
+                        promiseResponse[0][i][CHART_CATEGORIES.VPN_OPORT] + promiseResponse[0][i][CHART_CATEGORIES.VPN_TRANS] + promiseResponse[0][i][CHART_CATEGORIES.VPN_PLAT];
+                    let cost = promiseResponse[0][i][CHART_CATEGORIES.VPN_BENF] - cosTotal / cosTotal;
+                    seriesData.push(cost);
+                }
+                // REST OF AXIS
+                else {
+                    for (const field in promiseResponse[0][i]) {
+                        seriesData.push(promiseResponse[0][i][field]);
+                    }
                 }
             }
             let axisTable = [chartCategories[chartCategories.length - 1]];
