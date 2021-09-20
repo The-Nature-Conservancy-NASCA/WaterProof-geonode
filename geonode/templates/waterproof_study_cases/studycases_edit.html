@@ -115,7 +115,10 @@
                                         <legend class="margin-bottom-max" style="border-bottom: none;">
                                             <label for="div_id_type" class="control-label required-field " style="font-size: 16px;">{% trans "water_intakes" %}<span class="text-danger-wp" id="ptap-required"></span></label>
                                         </legend>
-                                        <p>{% trans "select_water_intake" %}</p>
+                                        <div style="display: flex;">
+                                            <p>{% trans "select_water_intake" %}</p>
+                                            <span  onclick="window.location.href='/intake/create/'" class="glyphicon glyphicon-plus-sign btn-add"></span>
+                                        </div>                                        
                                         <div class="col-md-9">
                                             <select class="form-control" id="select_custom">
                                                 <option disabled selected value>{% trans "select_option" %}</option>
@@ -157,8 +160,10 @@
                                             <legend class="margin-bottom-max" style="border-bottom: none;">
                                                 <label for="div_id_type" class="control-label required-field " style="font-size: 16px;">{% trans "treatment_plants" %}<span class="text-danger-wp" id="ptap-required"></span></label>
                                             </legend>
-                                            <p>{% trans "select_treatments_plants" %}</p>
-
+                                            <div style="display: flex;">
+                                                <p>{% trans "select_treatments_plants" %}</p>
+                                                <span  onclick="window.location.href='/treatment_plants/create/'" class="glyphicon glyphicon-plus-sign btn-add"></span>
+                                            </div>
                                             <div class="col-md-9">
                                                 <select class="form-control" id="select_ptap">
                                                     <option disabled selected value>{% trans "select_option" %}</option>
@@ -331,7 +336,7 @@
                                     </h3>
                                     <p>{% trans "financial_tip" %}</p>
                                     <div class="row">
-                                        <div class="custom-control custom-select float-right col-md-4">
+                                        <div class="custom-control custom-select float-right col-md-4" style="margin-bottom:15px;">
                                             <label class="custom-control-label" for="financial_currency">{% trans "Currency" %}</label>
                                             <select id="financial_currency" class="custom-control-input">
                                                 {% for currency in currencys %}
@@ -346,12 +351,11 @@
                                     </div>
                                     <div class="row" id="div_financial">
                                         <div class="col-md-6">
-                                            <label class="custom-control-label" for="total_platform">{% trans "platform_cost" %}</label>
+                                            <label class="custom-control-label" for="total_platform"><strong>{% trans "platform_cost" %}</strong></label>
                                         </div>
                                         <div class="custom-control custom-checkbox col-md-4">
                                             <input id="total_platform" class="text-number" type="number" class="custom-control-input" disabled>
                                         </div>
-
                                         <div class="col-md-6">
                                             <label class="custom-control-label platform-label" for="total_personnel">{% trans "personnel_salary_benefits" %}</label>
                                         </div>
@@ -419,7 +423,7 @@
                                             <input class="text-number" id="others" type="number" class="custom-control-input" min="0" step="0.001" oninput="validity.valid||(value='');" value="{{study_case.others|stringformat:'1.2f'}}">
                                         </div>
                                         <div class="col-md-12">
-                                            <p>{% trans "financial_transaction_cost" %}</p>
+                                            <p><strong>{% trans "financial_transaction_cost" %}</strong></p>
                                         </div>
                                         <div class="col-md-6">
                                             <label class="custom-control-label transaction-label" for="transaction">{% trans "transaction_cost" %}</label>
@@ -428,7 +432,7 @@
                                             <input class="text-number" id="transaction" type="number" class="custom-control-input" min="0" step="0" oninput="validity.valid||(value='');" max="100" value="{{study_case.transaction_cost|stringformat:'1.2f'}}">
                                         </div>
                                         <div class="col-md-12">
-                                            <p>{% trans "financial_discount_rates" %}</p>
+                                            <p><strong>{% trans "financial_discount_rates" %}</strong></p>
                                         </div>
                                         <div class="col-md-6">
                                             <label class="custom-control-label discount-label" for="discount">{% trans "discount_rate" %}</label>
