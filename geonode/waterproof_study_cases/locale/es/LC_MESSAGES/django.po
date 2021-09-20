@@ -110,7 +110,7 @@ msgid "custom_case"
 msgstr "Caso personalizado"
 
 msgid "select_water_intake"
-msgstr "Seleccione la captación que usted considere para el análisis ROI. Si aún no ha sido creada, creela haciendo clic aquí."
+msgstr "Seleccione la captación que usted considere para el análisis ROI de la lista. Si aún no ha sido creada, de clic en el siguiente botón:"
 
 msgid "water_source"
 msgstr "Nombre de la fuente de agua"

@@ -115,7 +115,10 @@
                                         <legend class="margin-bottom-max" style="border-bottom: none;">
                                             <label for="div_id_type" class="control-label required-field " style="font-size: 16px;">{% trans "water_intakes" %}<span class="text-danger-wp" id="ptap-required"></span></label>
                                         </legend>
-                                        <p>{% trans "select_water_intake" %}</p>
+                                        <div style="display: flex;">
+                                            <p>{% trans "select_water_intake" %}</p>
+                                            <span  onclick="window.location.href='/intake/create/'" class="glyphicon glyphicon-plus-sign btn-add"></span>
+                                        </div>                                        
                                         <div class="col-md-9">
                                             <select class="form-control" id="select_custom">
                                                 <option disabled selected value>{% trans "select_option" %}</option>
@@ -157,8 +160,10 @@
                                             <legend class="margin-bottom-max" style="border-bottom: none;">
                                                 <label for="div_id_type" class="control-label required-field " style="font-size: 16px;">{% trans "treatment_plants" %}<span class="text-danger-wp" id="ptap-required"></span></label>
                                             </legend>
-                                            <p>{% trans "select_treatments_plants" %}</p>
-
+                                            <div style="display: flex;">
+                                                <p>{% trans "select_treatments_plants" %}</p>
+                                                <span  onclick="window.location.href='/treatment_plants/create/'" class="glyphicon glyphicon-plus-sign btn-add"></span>
+                                            </div>
                                             <div class="col-md-9">
                                                 <select class="form-control" id="select_ptap">
                                                     <option disabled selected value>{% trans "select_option" %}</option>
