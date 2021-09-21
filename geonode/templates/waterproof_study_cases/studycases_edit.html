@@ -254,17 +254,21 @@
                                         </div>
                                         <div class="col-md-3">
                                             <select class="form-control" id="cm_select">
-                                                <option value='-1'>{% trans "Select" %}</option>
+                                                <option value=''>{% trans "Select" %}</option>
                                                 {% for currency in currencys %}
                                                     {% if currency.currency == study_case.cm_currency %}
-                                                        {% if currency.iso3 == 'USA' %}
-                                                        <option value='{{currency.currency}}' selected>({{currency.currency}}) - {{currency.name}}</option>
+                                                        {% if currency.currency == 'USD' %}
+                                                            {% if currency.currency == 'USA' %}
+                                                                <option value='{{currency.currency}}' selected>({{currency.currency}}) - {{currency.name}}</option>
+                                                            {% else %}
+                                                            <option value='{{currency.currency}}'>({{currency.currency}}) - {{currency.name}}</option>
+                                                            {% endif %}
                                                         {% else %}
-                                                        <option value='{{currency.currency}}'>({{currency.currency}}) - {{currency.name}}</option>
+                                                            <option value='{{currency.currency}}' selected>({{currency.currency}}) - {{currency.name}}</option>
                                                         {% endif %}
                                                     {% else %}
                                                         <option value='{{currency.currency}}'>({{currency.currency}}) - {{currency.name}}</option>
-                                                    {% endif %}                                                    
+                                                    {% endif %}
                                                 {% endfor %}
                                             </select>
                                         </div>
@@ -344,19 +348,19 @@
                                             <label class="custom-control-label" for="financial_currency">{% trans "Currency" %}</label>
                                             <select id="financial_currency" class="custom-control-input">
                                                 {% for currency in currencys %}
-                                                {% if currency.currency == study_case.financial_currency %}
-                                                    {% if study_case.financial_currency == 'USD' %}
-                                                        {% if currency.iso3 == 'USA' %}
-                                                        <option value='{{currency.currency}}' selected>({{currency.currency}}) - {{currency.name}}</option>
+                                                    {% if currency.currency == study_case.financial_currency %}
+                                                        {% if currency.currency == 'USD' %}
+                                                            {% if currency.currency == 'USA' %}
+                                                                <option value='{{currency.currency}}' selected>({{currency.currency}}) - {{currency.name}}</option>
+                                                            {% else %}
+                                                            <option value='{{currency.currency}}'>({{currency.currency}}) - {{currency.name}}</option>
+                                                            {% endif %}
                                                         {% else %}
-                                                        <option value='{{currency.currency}}'>({{currency.currency}}) - {{currency.name}}</option>
+                                                            <option value='{{currency.currency}}' selected>({{currency.currency}}) - {{currency.name}}</option>
                                                         {% endif %}
                                                     {% else %}
                                                         <option value='{{currency.currency}}'>({{currency.currency}}) - {{currency.name}}</option>
                                                     {% endif %}
-                                                {% else %}
-                                                <option value='{{currency.currency}}'>({{currency.currency}}) - {{currency.name}}</option>
-                                                {% endif %}
                                                 {% endfor %}
                                             </select>
                                         </div>
@@ -516,11 +520,19 @@
                                             </label>
                                             <select id="analysis_currency" class="form-control">
                                                 {% for currency in currencys %}
-                                                {% if currency.currency == study_case.analysis_currency %}
-                                                <option value='{{currency.currency}}' selected>({{currency.currency}}) - {{currency.name}} </option>
-                                                {% else %}
-                                                <option value='{{currency.currency}}'>({{currency.currency}}) - {{currency.name}}</option>
-                                                {% endif %}
+                                                    {% if currency.currency == study_case.analysis_currency %}
+                                                        {% if currency.currency == 'USD' %}
+                                                            {% if currency.currency == 'USA' %}
+                                                                <option value='{{currency.currency}}' selected>({{currency.currency}}) - {{currency.name}}</option>
+                                                            {% else %}
+                                                            <option value='{{currency.currency}}'>({{currency.currency}}) - {{currency.name}}</option>
+                                                            {% endif %}
+                                                        {% else %}
+                                                            <option value='{{currency.currency}}' selected>({{currency.currency}}) - {{currency.name}}</option>
+                                                        {% endif %}
+                                                    {% else %}
+                                                        <option value='{{currency.currency}}'>({{currency.currency}}) - {{currency.name}}</option>
+                                                    {% endif %}
                                                 {% endfor %}
                                             </select>
                                         </div>
