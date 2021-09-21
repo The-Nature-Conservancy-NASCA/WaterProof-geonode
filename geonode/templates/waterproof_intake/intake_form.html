@@ -13,11 +13,10 @@
 </script>
 <div class="header-waterproof">
     <div class="row">
-        <div class="col-lg-4">
+        <div class="col-lg-5">
             <h1>{% trans "Create water intake" %}</h1>
-        </div>
-        <br>
-        <div class="col-lg-4">
+        </div>        
+        <div class="col-lg-7">
             <h4 class="title-city">{% trans "Intake creation city" %} : <span id="cityLabel"></span></h4>    
         </div>
     </div>
@@ -73,7 +72,7 @@
                             </label>
                         </div>
                         <div class="col-sm-10">
-                            <input type="text" id="intakeName" name="name"  maxlength="100" class="form-control" id="id_name">
+                            <input type="text" id="intakeName" name="name"  maxlength="100" class="form-control" id="id_name" placeholder="{% trans 'Name' %}">
                         </div>                        
                     </div>
                     <!--Input Desc -->
@@ -84,7 +83,7 @@
                             </label>
                         </div>                        
                         <div class="col-sm-10">
-                            <input type="text" id="intakeDesc" name="description"  maxlength="1024" class="form-control" id="id_description">
+                            <input type="text" id="intakeDesc" name="description"  maxlength="1024" class="form-control" id="id_description" placeholder="{% trans 'Description' %}">
                         </div>
                     </div>
                     <!--Input Source Name -->
@@ -95,7 +94,7 @@
                             </label>
                         </div>                        
                         <div class="col-sm-10">
-                            <input type="text" id="waterSource" name="water_source_name"  maxlength="100" id="id_water_source_name" class="form-control">
+                            <input type="text" id="waterSource" name="water_source_name"  maxlength="100" id="id_water_source_name" class="form-control" placeholder="{% trans 'Water source name' %}">
                         </div>
                     </div>
                     <!-- Map -->
