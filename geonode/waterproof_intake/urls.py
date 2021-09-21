@@ -35,5 +35,5 @@ urlpatterns = [
     # validate python expression
     path('validatePyExpression/', api.validatePyExpression, name='validatePyExpression'),
     # View Diagram
-    path('diagram/<int:idx>', views.viewDiagram, name='diagram-intake'),
+    path('ShowDiagram/<int:idx>', views.viewDiagram, name='diagram-intake'),
 ]
