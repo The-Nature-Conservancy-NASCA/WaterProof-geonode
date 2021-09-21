@@ -416,3 +416,9 @@ msgstr "Tasa de cambio"
 
 msgid "Save"
 msgstr "Guardar"
+
+msgid "Cancel"
+msgstr "Cancelar"
+
+msgid "Confirm and run"
+msgstr "Confirmar y ejecutar"
