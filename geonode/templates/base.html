@@ -713,8 +713,10 @@
     {% block extra_script %}{% endblock extra_script %}
     {% if not user.is_authenticated %}
       <script type="text/javascript">
-        $(document).ready(function() {      
-          $("#SigninModal").modal({backdrop: 'static', keyboard: false});
+        $(document).ready(function() {               
+          {% if not "/ShowDiagram/" in request.path %}
+            $("#SigninModal").modal({backdrop: 'static', keyboard: false});
+          {% endif %}
         })
       </script> 
     {% endif %}
