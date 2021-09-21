@@ -393,7 +393,7 @@ function onInit(editor) {
             });
         }
 
-        var selectedCostId = null;
+        var index = null;
 
         //KeyBoard calculator funcion cost
         $('button[name=mathKeyBoard]').click(function() {
@@ -628,16 +628,16 @@ function onInit(editor) {
                 }
 
                 temp.logical = JSON.stringify(temp.logical);
-                if (selectedCostId == 0){
-                    $.extend(funcostdb[selectedCostId].fields, temp);
+                if (index == 0){
+                    $.extend(funcostdb[index].fields, temp);
                 }else{
                     let clonedFunCost = JSON.parse(JSON.stringify(funcostdb[0]));
                     $.extend(clonedFunCost.fields, temp);
-                    funcostdb[selectedCostId] = clonedFunCost;
+                    funcostdb[index] = clonedFunCost;
                 }
                 
                 var pyExp = $('#python-expression').val();
-                funcostdb[selectedCostId].fields.function_value = pyExp; 
+                funcostdb[index].fields.function_value = pyExp; 
             }
             if (typeof(selectedCell.value) == "object"){
                 selectedCell.setAttribute('funcost', JSON.stringify(funcostdb));
@@ -659,17 +659,26 @@ function onInit(editor) {
 
         //Edit funcion cost 
         $(document).on('click', 'a[name=glyphicon-edit]', function() {
-            //mathField.clearSelection();
+            
             clearInputsMath();
             $('#CalculatorModal').modal('show');
-            selectedCostId =  parseInt($(this).attr('idvalue'));
-            $('#costFunctionName').val(funcostdb[selectedCostId].fields.function_name);
-            $('#costFuntionDescription').val(funcostdb[selectedCostId].fields.function_description);
+            index = parseInt($(this).attr('idvalue'));
+            var currencyCost = funcostdb[index].fields.global_multiplier_factorCalculator;
+            var factor = funcostdb[index].fields.global_multiplier_factorCalculator;
+            if (currencyCost == undefined){
+                currencyCost = -1;
+            }
+            if (factor == undefined){
+                factor = localStorage.getItem("factor");
+            }
+            
+            $('#costFunctionName').val(funcostdb[index].fields.function_name);
+            $('#costFuntionDescription').val(funcostdb[index].fields.function_description);
             $('#CalculatorModalLabel').text('Modify Cost - ' + $('#titleCostFunSmall').text());
-            $('#currencyCost').val(funcostdb[selectedCostId].fields.currencyCost);
-            $('#global_multiplier_factorCalculator').val(funcostdb[selectedCostId].fields.global_multiplier_factorCalculator);
+            $('#currencyCost').val(funcostdb[index].fields.currencyCost);
+            $('#global_multiplier_factorCalculator').val();
             setVarCost();
-            let value = funcostdb[selectedCostId].fields.function_value;
+            let value = funcostdb[index].fields.function_value;
             $('#python-expression').val();
             if (value != ""){
                 $('#python-expression').val(value);
