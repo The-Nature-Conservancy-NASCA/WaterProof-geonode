@@ -2035,7 +2035,7 @@ pre code {
     display: none !important;
   }
   .imgbackgroundSystemop{
-    background: url() !important;
+    background: url();
     height: 800px !important;
     min-height: 100%;
     min-width: 100%;
@@ -2077,11 +2077,10 @@ pre code {
     display: none !important;
   }
   .imgbackgroundSystemop{
-    background: url() !important;
+    background: url(/static/geonode/img/bgSystemOperating.png);
     height: 800px !important;
     min-height: 100%;
-    min-width: 100%;
-    background-repeat: round;
+    min-width: 100%;    
     background-size:cover;
   }
   .text-center {
@@ -2126,11 +2125,10 @@ pre code {
     display: table !important;
   }
   .imgbackgroundSystemop{
-    background: url() !important;
+    background: url(/static/geonode/img/bgSystemOperating.png);
     height: 900px !important;
     min-height: 100%;
-    min-width: 100%;
-    background-repeat: round;
+    min-width: 100%;    
     background-size:cover;
   }
   .responsive{
@@ -2194,7 +2192,7 @@ pre code {
     display: table !important;
   }
   .imgbackgroundSystemop{
-    background: url(/static/geonode/img/bgSystemOperating.png) !important;
+    background: url(/static/geonode/img/bgSystemOperating.png);
     height: 600px !important;
     min-height: 100%;
     min-width: 100%;
@@ -2810,9 +2808,9 @@ pre code {
     margin-left: 0%;
   }
 }
-@media (min-width: 1600px){
+@media (min-width: 1400px){
   .imgbackgroundSystemop{
-    background: url(/static/geonode/img/bgSystemOperating-xl.png) !important;
+    background: url(/static/geonode/img/bgSystemOperating-xl.png);
     height: 600px !important;
     min-height: 100%;
     min-width: 100%;    
