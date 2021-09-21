@@ -531,11 +531,16 @@ $(document).ready(function () {
 
         if ($('#period_analysis').val() != '' && $('#period_nbs').val() != '' && valid_edit && valid_period) {
 
-            analysis_currency = $("#analysis_currency option:selected").val()
-            html = '<div class="row" id="currencys-panel"> <div class="col-md-10 currency-panel">Currency for the execution this analisys</div><div class="col-md-2 currency-panel currency-text">' + analysis_currency
-            html += '</div><div class="col-md-12 currency-panel">The following exchange rates will be applied for the analysis.</div>'
-            html += '<div class="custom-control col-md-4 currency-value">Currency</div>'
-            html += '<div class="custom-control col-md-8 currency-value">Exchange</div>'
+            analysis_currency = $("#analysis_currency option:selected").val();
+
+            let lbl_currency = gettext('Currency for the execution this analisys');
+            let lbl_applied_currency = gettext('The following exchange rates will be applied for the analysis');            
+            html = '<div class="row" id="currencys-panel"> <div class="col-md-10 currency-panel">' + lbl_currency + 
+                    '</div><div class="col-md-2 currency-panel currency-text">' + analysis_currency;
+            html += '</div><div class="col-md-12 currency-panel">' + lbl_applied_currency + '.</div>';
+            html += '<div class="custom-control col-md-4 currency-value">'+ gettext('Currency') +'</div>';
+            html += '<div class="custom-control col-md-8 currency-value">'+ gettext('Exchange') +'</div>';
+
             $.get("../../study_cases/currencys/", {
                 id: id_study_case,
                 currency: analysis_currency
@@ -782,11 +787,15 @@ $(document).ready(function () {
             valid_period = false;
         }
         if ($('#period_analysis').val() != '' && $('#period_nbs').val() != '' && valid_edit && valid_period) {
-            analysis_currency = $("#analysis_currency option:selected").val()
-            html = '<div class="row" id="currencys-panel"> <div class="col-md-10 currency-panel">Currency for the execution this analisys</div><div class="col-md-2 currency-panel currency-text">' + analysis_currency
-            html += '</div><div class="col-md-12 currency-panel">The following exchange rates will be applied for the analysis.</div>'
-            html += '<div class="custom-control col-md-4 currency-value">Currency</div>'
-            html += '<div class="custom-control col-md-8 currency-value">Exchange</div>'
+            analysis_currency = $("#analysis_currency option:selected").val();
+            
+            let lbl_currency = gettext('Currency for the execution this analisys');
+            let lbl_applied_currency = gettext('The following exchange rates will be applied for the analysis');            
+            html = '<div class="row" id="currencys-panel"> <div class="col-md-10 currency-panel">' + lbl_currency + 
+                    '</div><div class="col-md-2 currency-panel currency-text">' + analysis_currency;
+            html += '</div><div class="col-md-12 currency-panel">' + lbl_applied_currency + '.</div>';
+            html += '<div class="custom-control col-md-4 currency-value">'+ gettext('Currency') +'</div>';
+            html += '<div class="custom-control col-md-8 currency-value">'+ gettext('Exchange') +'</div>';
             $.get("../../study_cases/currencys/", {
                 id: id_study_case,
                 currency: analysis_currency
@@ -852,63 +861,68 @@ $(document).ready(function () {
                 }
 
                 if (valid_nbs) {
-                Swal.fire({
-                    title: gettext('exchange_rate'),
-                    html: html,
-                    showCancelButton: true,
-                    confirmButtonText: gettext('save'),
-                    preConfirm: () => {
-                        currencys = []
-                        $("#currencys-panel").find("input").each(function (index, input) {
-                            currency = {}
-                            input_id = input.id
-                            if (input_id) {
-                                val = $("#" + input_id).val()
-                                currency['currency'] = input_id;
-                                currency['value'] = val;
-                                currencys.push(currency)
-                            }
-                        });
-                        return currencys
-                    }
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        $('#_thumbnail_processing').modal('toggle');
-                        $("#full-table").find("input").each(function (index, input) {
-                            nbsactivity = {}
-                            input_id = input.id
-                            input_type = input.type
-                            if (input_id && input_type != 'hidden') {
-                                split = input_id.split('-')
-                                nbssc_id = split.pop();
-                                val = $("#" + input_id).val()
-                                nbsactivity['id'] = nbssc_id;
-                                nbsactivity['value'] = val;
-                                nbsactivities.push(nbsactivity)
-                            }
-                        });
-                        $.post("../../study_cases/save/", {
-                            id_study_case: id_study_case,
-                            analysis_type: 'investment scenario',
-                            period_nbs: $('#period_nbs').val(),
-                            period_analysis: $('#period_analysis').val(),
-                            analysis_nbs: $("#analysis_nbs option:selected").val(),
-                            analysis_currency: $("#analysis_currency option:selected").val(),
-                            annual_investment: $('#annual_investment').val(),
-                            rellocated_remainder: $("#rellocated_check").is(':checked'),
-                            nbsactivities: '1' + JSON.stringify(nbsactivities),
-                            currencys: '1' + JSON.stringify(result.value),
-                            run_analysis: false
-                        }, function (data) {
-                            $('#_thumbnail_processing').modal('hide');
-                            $('#smartwizard').smartWizard("next");
-                            $('#autoAdjustHeightF').css("height", "auto");
-                            //$("#form").submit();
-                            location.href = "/study_cases/?city="+localStorage.cityId; 
-                        }, "json");
-                    }
-                })
-            }
+                    Swal.fire({
+                        title: gettext('exchange_rate'),
+                        html: html,
+                        showCancelButton: true,
+                        confirmButtonText: gettext('Save'),
+                        preConfirm: () => {
+                            currencys = []
+                            $("#currencys-panel").find("input").each(function (index, input) {
+                                currency = {}
+                                input_id = input.id
+                                if (input_id) {
+                                    val = $("#" + input_id).val()
+                                    currency['currency'] = input_id;
+                                    currency['value'] = val;
+                                    currencys.push(currency)
+                                }
+                            });
+                            return currencys
+                        }
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            $('#_thumbnail_processing').modal('toggle');
+                            let description = gettext("run_processing_description");
+                            let desc = document.createElement("div");
+                            desc.innerHTML = description;
+                            $('#_thumbnail_processing .modal-body').prepend(desc);
+                            
+                            $("#full-table").find("input").each(function (index, input) {
+                                nbsactivity = {}
+                                input_id = input.id
+                                input_type = input.type
+                                if (input_id && input_type != 'hidden') {
+                                    split = input_id.split('-')
+                                    nbssc_id = split.pop();
+                                    val = $("#" + input_id).val()
+                                    nbsactivity['id'] = nbssc_id;
+                                    nbsactivity['value'] = val;
+                                    nbsactivities.push(nbsactivity)
+                                }
+                            });
+                            $.post("../../study_cases/save/", {
+                                id_study_case: id_study_case,
+                                analysis_type: 'investment scenario',
+                                period_nbs: $('#period_nbs').val(),
+                                period_analysis: $('#period_analysis').val(),
+                                analysis_nbs: $("#analysis_nbs option:selected").val(),
+                                analysis_currency: $("#analysis_currency option:selected").val(),
+                                annual_investment: $('#annual_investment').val(),
+                                rellocated_remainder: $("#rellocated_check").is(':checked'),
+                                nbsactivities: '1' + JSON.stringify(nbsactivities),
+                                currencys: '1' + JSON.stringify(result.value),
+                                run_analysis: false
+                            }, function (data) {
+                                $('#_thumbnail_processing').modal('hide');
+                                $('#smartwizard').smartWizard("next");
+                                $('#autoAdjustHeightF').css("height", "auto");
+                                //$("#form").submit();
+                                location.href = "/study_cases/?city="+localStorage.cityId; 
+                            }, "json");
+                        }
+                    })
+                }
             });
         } else {
             Swal.fire({

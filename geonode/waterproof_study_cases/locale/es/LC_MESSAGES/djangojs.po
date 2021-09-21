@@ -399,3 +399,20 @@ msgstr "Consulte la documentación de InVEST"
 msgid "run_processing_description"
 msgstr "El sistema ha iniciado el análisis de su caso de estudio. Esta tarea se demorará algunos minutos por lo que usted puede cerrar esta ventana y volver más tarde. Además, el sistema le enviará un correo electrónico notificándole cuando los resultados estén disponibles."
 
+msgid "exchange_rate"
+msgstr "Tasa de cambio"
+
+msgid "Currency for the execution this analisys"
+msgstr "Moneda para la ejecución de este análisis"
+
+msgid "The following exchange rates will be applied for the analysis"
+msgstr "Las siguientes tasas de cambio se aplicarán para el análisis"
+
+msgid "Currency"
+msgstr "Moneda"
+
+msgid "Exchange"
+msgstr "Tasa de cambio"
+
+msgid "Save"
+msgstr "Guardar"
