@@ -81,7 +81,7 @@ msgid "custom_case"
 msgstr "Custom case"
 
 msgid "select_water_intake"
-msgstr "Select the water intakes you want to consider in the ROI analysis. If you haven't created it yet, please click here to create a new one."
+msgstr "Select the water intakes you want to consider in the ROI analysis from the list. If it has not been created yet, please click in the following button:"
 
 msgid "water_source"
 msgstr "Water intake source"
@@ -234,7 +234,7 @@ msgid "financial_discount_rates"
 msgstr "Discount rates for ROI Analysis"
 
 msgid "financial_transaction_cost"
-msgstr "Transaction cost per year as a percentage of implementation, maintenance and oportunity costs"
+msgstr "Transaction cost per year as a percentage of implementation, maintenance and opportunity costs"
 
 msgid "study_cases_list_create"
 msgstr "You must be a registered user to create a new Case Study*"
@@ -347,11 +347,11 @@ msgstr "Remember that ROI is an indicator that allows you to know how much money
 msgid "Integrate Analysis Associated with the Carbon Market"
 msgstr "Integrate analysis associated with the carbon market"
 
-msgid "offers you the possibility to integrate in your analysis the possible benefits that you can obtain if you expect to participate in carbon markets. This is done by defining a monetary value per Ton of CO2eq."
-msgstr "offers you the possibility to integrate in your analysis the possible benefits that you can obtain if you expect to participate in carbon markets. This is done by defining a monetary value per Ton of CO2eq."
+msgid "Offers you the possibility to integrate in your analysis the possible benefits that you can obtain if you expect to participate in carbon markets. This is done by defining a monetary value per Ton of CO2eq."
+msgstr "Offers you the possibility to integrate in your analysis the possible benefits that you can obtain if you expect to participate in carbon markets. This is done by defining a monetary value per Ton of CO2eq."
 
-msgid "uses information from the database published in May 2020 by the Institute for Climate Economics (Sébastien Postic | Marion Fetet) to preload USD / TonCO2eq values ​​that vary according to the country where the analysis is being carried out, however, the user can modify these values ​​according to the information they have."
-msgstr "uses information from the database published in May 2020 by the Institute for Climate Economics (Sébastien Postic | Marion Fetet) to preload USD / TonCO2eq values ​​that vary according to the country where the analysis is being carried out, however, the user can modify these values ​​according to the information they have."
+msgid "Uses information from the database published in May 2020 by the Institute for Climate Economics (Sébastien Postic | Marion Fetet) to preload USD / TonCO2eq values ​​that vary according to the country where the analysis is being carried out, however, the user can modify these values ​​according to the information they have."
+msgstr "Uses information from the database published in May 2020 by the Institute for Climate Economics (Sébastien Postic | Marion Fetet) to preload USD / TonCO2eq values ​​that vary according to the country where the analysis is being carried out, however, the user can modify these values ​​according to the information they have."
 
 msgid "WaterProof will define the NBS of your portfolio according to your needs in relation to:"
 msgstr "WaterProof will define the NbS of your portfolio according to your needs in relation to:"

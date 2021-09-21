@@ -44,7 +44,7 @@ from geonode.utils import check_ogc_backend
 from geonode.monitoring import register_url_event
 from geonode.messaging.urls import urlpatterns as msg_urls
 from .people.views import CustomSignupView
-
+from .waterproof_intake.views import viewDiagram
 from wagtail.admin import urls as wagtailadmin_urls
 from wagtail.core import urls as wagtail_urls
 from wagtail.documents import urls as wagtaildocs_urls
@@ -139,6 +139,8 @@ urlpatterns = [
 
 urlpatterns += [
 
+    # View Diagram
+    path('ShowDiagram/<int:idx>', viewDiagram, name='diagram-intake'),
     path('cms/', include(wagtailadmin_urls)),
     path('docs/', include(wagtaildocs_urls)),
     path('pages/', include(wagtail_urls)),

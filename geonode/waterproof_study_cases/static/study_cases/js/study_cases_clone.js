@@ -620,6 +620,11 @@ $(document).ready(function () {
                 }).then((result) => {
                     if (result.isConfirmed) {
                         $('#_thumbnail_processing').modal('toggle');
+                        let description = gettext("run_processing_description");
+                        let desc = document.createElement("div");
+                        desc.innerHTML = description;
+                        $('#_thumbnail_processing .modal-body').prepend(desc);
+
                         $("#full-table").find("input").each(function (index, input) {
                             nbsactivity = {}
                             input_id = input.id

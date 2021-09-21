@@ -9363,3 +9363,9 @@ msgstr "SbN"
 #: geonode/templates/menu.html
 msgid "This website is funded by the Gordon and Betty Moore Foundation through Grant GBMF7100 to support the work of WaterProof"
 msgstr "Este sitio web está financiado por la Fundación Gordon and Betty Moore a través de la subvención GBMF7100 para apoyar el trabajo de WaterProof"
+
+msgid "Use this window to configure your cost function by selecting the variables of your interest: flow, concentration or loads."
+msgstr "Use esta ventana para configurar su función de costo seleccionando las variables de su interés: flujo, concentración o cargas."
+
+msgid "Expand the list of items and click to build the function."
+msgstr "Expanda la lista de elementos y haga clic para construir la función."
