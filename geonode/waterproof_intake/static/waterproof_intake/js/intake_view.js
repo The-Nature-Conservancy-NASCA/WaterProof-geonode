@@ -54,8 +54,8 @@ $(document).ready(function() {
         if ($("#numberYearsInterpolationValue").val() == '' || $("#initialDataExtractionInterpolationValue").val() == '' || $("#finalDataExtractionInterpolationValue").val() == '') {
             Swal.fire({
                 icon: 'warning',
-                title: `Data analysis empty`,
-                text: `Please Generate Data anlisys`
+                title: gettext('Data analysis empty'),
+                text: gettext('Please Generate Data analysis')
             });
             return
         }

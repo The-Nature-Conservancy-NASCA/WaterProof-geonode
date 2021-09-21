@@ -5,7 +5,8 @@ from django.contrib.auth.models import User
 from django.forms import ModelForm, Textarea
 from django.core.validators import RegexValidator
 from django.conf import settings
-
+from ckeditor_uploader.fields import RichTextUploadingField
+from ckeditor.fields import RichTextField
 
 
 class Category(models.Model):
@@ -45,8 +46,8 @@ class Article(models.Model):
     titulo_en = models.CharField(max_length=300, verbose_name="Title")
     resumen= models.TextField()
     resumen_en= models.TextField(verbose_name="Resume (En)")
-    contenido= RichTextField()
-    contenido_en= RichTextField(verbose_name="Content (En)")
+    contenido= RichTextUploadingField()
+    contenido_en= RichTextUploadingField(verbose_name="Content (En)")
     publico= models.BooleanField(verbose_name='¿Publicado?/¿Published?')
     imagen=models.ImageField(default='null',upload_to="articulos") #Dentro de la carpeta media
     metadato_imagen= models.TextField()

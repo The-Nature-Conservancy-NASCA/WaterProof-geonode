@@ -219,19 +219,19 @@ msgid "Invest ind text 2"
 msgstr "Este  reporte  busca  que tomadores  de  decisiones  puedan  evaluar  las  compensaciones  que puede lograrse e identificar las cuencas donde la inversión en capital natural puede mejorar el desarrollo humano y la conservación. Tenga en cuenta en su evaluación:"
 
 msgid "Invest ind text 3"
-msgstr "Change in volume of water yield: ¿los cambios en el paisaje afectan el rendimiento de agua promedio anual aguas? Tenga en cuenta que el modelo ayuda a establecer los cambios en los almacenamientos analizando las entradas al sistema menos las salidas de este."
+msgstr "Cambios en rendimiento hídrico anual: ¿los cambios en el paisaje afectan el rendimiento de agua promedio anual aguas? Tenga en cuenta que el modelo ayuda a establecer los cambios en los almacenamientos analizando las entradas al sistema menos las salidas de este."
 
 msgid "Invest ind text 4"
-msgstr "Change in base Flow: ¿los cambios en el paisaje afectan la escorrentía de la cuenca y la recarga? El valor presentado depende de la conectividad y los componentes de uso y coberturas del suelo, por lo que la recarga se ve influencia por variables como factores de vegetación y factores de conectividad."
+msgstr "Cambios en el rendimiento de agua estacional: ¿los cambios en el paisaje afectan la escorrentía de la cuenca y la recarga? El valor presentado depende de la conectividad y los componentes de uso y coberturas del suelo, por lo que la recarga se ve influencia por variables como factores de vegetación y factores de conectividad."
 
 msgid "Invest ind text 5"
-msgstr "Change in  Total  Sediments:  ¿Ve  modificada la  cantidad  de  sedimentos  que  se escurren  de  una  cuenca?  Cambios  importantes  tendrán  como consecuencia procesos de erosión y afectaciones en la calidad del agua."
+msgstr "Cambios en la exportación de sedimentos: ¿Ve  modificada la  cantidad  de  sedimentos  que  se escurren  de  una  cuenca?  Cambios  importantes  tendrán  como consecuencia procesos de erosión y afectaciones en la calidad del agua."
 
 msgid "Invest ind text 6"
-msgstr "Change  in  Total  Nitrogen - Change  in  Total  Phosphorous:  ¿Observa  cambios importantes  en  la  carga  de  estos  nutrientes? Con este  análisis  puede evaluar el servicio de retención de nutrientes por la vegetación natural. También le permite identificar  posibles costos  de  tratamiento  o  mejorar  la  seguridad  del  agua mediante el acceso a agua potable"
+msgstr "Cambios en la proporción de suministro de nutrientes (Nitrógeno y Fósforo): ¿Observa  cambios importantes  en  la  carga  de  estos  nutrientes? Con este  análisis  puede evaluar el servicio de retención de nutrientes por la vegetación natural. También le permite identificar  posibles costos  de  tratamiento  o  mejorar  la  seguridad  del  agua mediante el acceso a agua potable"
 
 msgid "Invest ind text 7"
-msgstr "Change in Carbon storage: ¿Observa cambios en el almacenamiento de carbono? el almacenamiento de carbono en una parcela de tierra(píxel) depende de cuatro reservas  de  carbono:  biomasa  aérea,  biomasa  subterránea,  suelo  y  materia  orgánica  muerta."
+msgstr "Cambios en el almacenamiento y secuestro de carbono: ¿Observa cambios en el almacenamiento de carbono? el almacenamiento de carbono en una parcela de tierra(píxel) depende de cuatro reservas  de  carbono:  biomasa  aérea,  biomasa  subterránea,  suelo  y  materia  orgánica  muerta."
 
 msgid "Financial ind text 1"
 msgstr "En este reporte se organizan los datos financieros de implementación de las SbNen dos grupos: beneficios y costos. La información se presenta para los años parametrizados en el tiempo de análisis ROI definido por el usuario. "

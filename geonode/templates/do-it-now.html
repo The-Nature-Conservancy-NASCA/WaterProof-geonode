@@ -1,0 +1,152 @@
+{% extends "geonode_base.html" %}
+{% load static from staticfiles %}
+
+{% load i18n %}
+{% block title %} {% trans "Do it now" %} — {{ block.super }} {% endblock %}
+
+{% block body_outer %}
+
+<section>
+	<div class="row"></div>
+	<div class= "background-take-middle" >
+		<h1> {% trans "Do it now!" %} </h1>
+		<p class="align-left-take-action" style="padding-top: 0%;">{% trans "This general process will help you put your portfolio of nature-based solutions into action and improve water security in your watersheds." %}		
+		</p>
+	</div>	
+	<div class="align-normal-take-action col-md-12 offset-md-3 text-justify " style="padding-top: 3%;"  >
+		{% trans "Implementing nature-based solutions in your watersheds can seem like a challenge. However, around the world they are done on a daily basis and we have done so for several decades, so we have the experience and knowledge to do it, as well as" %}
+		<a href= "#step1"> {% trans "useful resources and references." %}</a> {% trans "You may decide to run this general process independently, but remember that you also have the experience and capabilities of various actors in your region" %} <a href= "#step1"> {% trans "who can help you do it." %}</a>
+		{% trans "The general process that we propose here is a basic step by step with some actions that can facilitate the implementation and achieve the best results, learning and adjusting your plans in an adaptive management." %}
+		</p>
+	</div>
+	<div class="row" style="height:30px;">
+	</div>
+</section>
+<section>
+	<section>
+		<div class=" col-md-12 background-steps-take-action " >            
+			<div class="col-md-5  ">
+				<img class="image-steps-take" src= "{% static 'geonode/img/TA01.png' %}">                              
+			</div>
+			<div class= " col-md-6 offset-md-5 font-steps-take-action">
+				<span >
+				{% trans "Get your portfolio of Nature-Based Solutions and know your return on investment. In this step you must obtain a portfolio of Nature-Based Solutions aimed at improving the water security of your basins of interest. You may also be interested in calculating the return on investment of your portfolio and to get an approximation of the possible implementation and maintenance costs. You can obtain the portfolio of Nature-Based Solutions and return on investment using the WaterProof application or you can do it independently if you have the necessary information, tools and skills. " %}
+				</span>					
+			</div>
+		</div>
+		</section>
+	</section>	
+	<section>	 
+	<div class=" col-md-12">    
+		<div class="col-md-5">
+			<img class="image-steps-take" src= "{% static 'geonode/img/TA02.png' %}">                              
+		</div> 
+		<div class= "col-md-6 offset-md-5 font-steps-take-action" >
+			<span >
+			{% trans "Socialize your portfolio with other stakeholders and key entities in your watersheds. By sharing the portfolio of Nature-Based Solutions with other relevant actors and entities in your territory, you can identify opportunities to leverage efforts and resources that facilitate and accelerate the implementation of actions, and collectively achieve greater impact. We encourage you to build alliances and collaborations to articulate other efforts in your watersheds and strengthen governance. " %}
+			</span>					
+		</div>
+	</div>
+	</section>
+	<section>	
+	<div class="col-md-12 background-steps-take-action">
+		<div class="col-md-5">
+			<img class="image-steps-take" src= "{% static 'geonode/img/TA03.png' %}">
+		</div>                              
+		<div class= "col-md-6 offset-md-5 font-steps-take-action">
+			<span >
+			{% trans "Identify opportunities and stakeholders to implement portfolio actions. Nature-Based Solutions are implemented in public or private territories. Therefore, it is necessary to identify the entities and owners of those lands, communicate with them and determine if they have an interest in implementing the portfolio actions on their properties. This is fundamentally a negotiation process where the skills of the people who carry out this communication with the owners can have an impact on the results. " %}
+			</span>	
+		</div>				
+	</div>	
+	</section>
+	<section>	
+	<div class="col-md-12 ">
+		<div class="col-md-5">
+			<img class="image-steps-take" src= "{% static 'geonode/img/TA04.png' %}">
+		</div>                              
+		<div class= "col-md-6 offset-md-5 font-steps-take-action">
+			<span >
+			{% trans "Formalize the commitment with stakeholders (if necessary). Once you determine the interest of the landowners in implementing Nature-Based Solutions on their properties, we recommend formalizing your commitment to maintain these actions over time.  " %}
+			</span>	
+		</div>				
+	</div>	
+	</section>
+	<section>	
+	<div class="col-md-12 background-steps-take-action">
+		<div class="col-md-5">
+			<img class="image-steps-take" src= "{% static 'geonode/img/TA05.png' %}">
+		</div>                              
+		<div class= "col-md-6 offset-md-5 font-steps-take-action">
+			<span >
+			{% trans "Implement Nature-Based Solutions. Now that you have the resources, capabilities, commitments, and partnerships, it's time to implement Nature Based Solutions in your portfolio. You can decide to do it yourself or look for entities or individuals with the expertise and ability to do it. In this step, we recommend using local capacities to strengthen them and generate economic opportunities in the watersheds.   " %}
+			</span>	
+		</div>				
+	</div>	
+	</section>
+	<section>	
+	<div class="col-md-12">
+		<div class="col-md-5">
+			<img class="image-steps-take" src= "{% static 'geonode/img/TA06.png' %}">
+		</div>                              
+		<div class= "col-md-6 offset-md-5 font-steps-take-action">
+			<span>
+			{% trans "Monitor implementation. It is very important to monitor the implementation of Nature-Based Solutions over time and carry out maintenance actions on these, to ensure that the vegetation grows properly and the conditions we expect occur. We also recommend working and maintaining communication with the landowners and communities in the watersheds to strengthen governance and encourage others to participate.   " %}
+			</span>	
+		</div>				
+	</div>	
+	</section>
+	<section>	
+	<div class="col-md-12 background-steps-take-action">
+		<div class="col-md-5">
+			<img class="image-steps-take" src= "{% static 'geonode/img/TA07.png' %}">
+		</div>                              
+		<div class= "col-md-6 offset-md-5 font-steps-take-action">
+			<span >
+			{% trans "Track Nature-Based Solutions. To determine whether the implementation of the portfolio of Nature-Based Solutions has the expected results, it is necessary to do follow-up or monitoring. " %}
+			</span>	
+		</div>				
+	</div>	
+	</section>
+	<section>	
+	<div class="col-md-12">
+		<div class="col-md-5">
+			<img class="image-steps-take" src= "{% static 'geonode/img/TA08.png' %}">
+		</div>                              
+		<div class= "col-md-6 offset-md-5 font-steps-take-action">
+			<span >
+			{% trans "Evaluate, learn and update your portfolio. This is the last step of the cycle and seeks to evaluate the experiences, the observed results and learnings, to determine if the expected results are being achieved or if adjustments to the objectives or assumptions should be made. In this step, you may be interested in updating the portfolio of Nature-Based Solutions. " %}
+			</span>	
+		</div>				
+	</div>
+	</section>	
+	<div class="row"></div>
+	
+</section>
+<!-- buttons -->
+<section>
+	<div class="divCenter col-md-12 size-left-buttom">
+		<div class="col-md-2 "></div>
+		<div class="col-md-2 "></div>
+		<div class="col-md-2 ">
+			<div class="iconsWhatIsWP">
+				<button class="buttonWhatIsWP"
+				type="button"
+				data-placement="top" >
+				<a href="{% url "take-action" %}">{% trans "Go back" %} </a> 
+				</button>
+			</div>
+		</div>
+		<div class="col-md-2 ">
+			<div class="iconsWhatIsWP">
+				<button class="buttonWhatIsWP"
+				type="button"
+				data-placement="top" >
+				<a href="{% url "who-can-help" %}">{% trans "Keep reading" %} </a>
+				</button>
+			</div>
+		</div>  
+	</div>       
+</section>
+<div class="row" style="padding-bottom: 5%;"></div>
+{% endblock %}

@@ -293,7 +293,7 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav toolbar">
-            {% block tabs %}
+             {% block tabs %}
             <!--Home-->
             <li>
               <a href="{% url "home" %}">{% trans "Home" %}</a>
@@ -317,7 +317,7 @@
             </li>
             {% if user.is_authenticated %}
             <li>
-              <a href="/study_cases_comparison/my_cases/">{% trans "My Cases" %}</a>
+              <a href="/study_cases_comparison/my_cases/">{% trans "My Case studies" %}</a>
             </li>
             {% endif %}
 
@@ -420,27 +420,7 @@
               {% block my_extra_right_tab %}
                  {% render_nav_menu 'TOPBAR_MENU' %}
               {% endblock my_extra_right_tab %}
-  
-              <!-- <li>
-                <div class="search">
-                  <form id="search" action="{% url "search" %}" >
-                    <span class="fa fa-search"></span>
-                    <div id="search-container" class="autocomplete-input">
-                      {% if HAYSTACK_SEARCH %}
-                      <input autocomplete="off" id="search_input" type="text" placeholder="{% trans 'Search' %}" name="q">
-                      <input type="hidden" name="abstract__icontains" id="search_abstract_input" placeholder="{% trans 'Search' %}" >
-                      <input type="hidden" name="purpose__icontains" id="search_purpose_input" placeholder="{% trans 'Search' %}" >
-                      <input type="hidden" name="f_method" id="filtering_type" value="or" >
-                      {% else %}
-                      <input autocomplete="off" type="text" name="title__icontains" id="search_input" placeholder="{% trans 'Search' %}" >
-                      <input type="hidden" name="abstract__icontains" id="search_abstract_input" placeholder="{% trans 'Search' %}" >
-                      <input type="hidden" name="purpose__icontains" id="search_purpose_input" placeholder="{% trans 'Search' %}" >
-                      <input type="hidden" name="f_method" id="filtering_type" value="or" >
-                      {% endif %}
-                    </div>
-                  </form>
-                </div>
-              </li> -->
+
               {% if not user.is_authenticated and ACCOUNT_OPEN_SIGNUP and not READ_ONLY_MODE %}
                 <li><a href="{% url "account_signup" %}">{% trans "Register" %}</a></li>
               {% endif %}
@@ -515,37 +495,32 @@
                   <span class="nav-text-title">
                     {% trans "Main menu" %}
                   </span>
-              </a>
-          
+              </a>          
             </li>
-
+             <li class="has-subnav">              
+                  <a href="{% url "list-intake" %}">              
+                    <i class="fa fa-angle-right fa-2x"></i>
+                    <span class="nav-text">
+                      {% trans "Water Intakes" %}
+                    </span>
+                </a>                
+            </li>            
             <li>
                 <a href="{% url "study_cases_list" %}">
                     <i class="fa fa-angle-right fa-2x"></i>
                     <span class="nav-text">
                       {% trans "Study cases" %}
                     </span>
-                </a>
-              
+                </a>              
             </li>
             <li class="has-subnav">
-                <a href="{% url "list-intake" %}">
-                    <i class="fa fa-angle-right fa-2x"></i>
-                    <span class="nav-text">
-                      {% trans "Water Intakes" %}
-                    </span>
-                </a>
-                
-            </li>
-            <li class="has-subnav">
-                <a href="{% url "treatment-plants-list" %}">
-                   <i class="fa fa-angle-right fa-2x"></i>
-                    <span class="nav-text">
-                      {% trans "Treatment plants" %}
-                    </span>
-                </a>
-                
-            </li>
+              <a href="{% url "treatment-plants-list" %}">
+                 <i class="fa fa-angle-right fa-2x"></i>
+                  <span class="nav-text">
+                    {% trans "Treatment plants" %}
+                  </span>
+              </a>                
+          </li> 
         </ul>
       </nav>
     </div>
@@ -587,29 +562,10 @@
                   {% endif %}
                 </ul>
             </li-->
-            <li class="subtitle menuOrder1">
-              <a href="#StudyCase" data-toggle="collapse" aria-expanded="false" class="action">
-                  <img src="/static/geonode/img/01-flecha.png" class="flecha"><h5>1.{% trans "Study cases" %}</h5></a>
-                  <ul class="submenu opacity" id="StudyCase" style="display: none;">
-                  <li><a href="#" class="dropdown-toggle listStudyCases">
-                          <img src="/static/geonode/img/01-flecha.png" class="flecha">
-                          <h6>{% trans "List" %}</h6></a>                
-                        </li>
-                    {% if user.is_authenticated and not READ_ONLY_MODE %}                
-                      <li><a href="{% url "create-study-cases" %}" class="dropdown-toggle">
-                        <img src="/static/geonode/img/01-flecha.png" class="flecha">
-                        <h6>{% trans "Create" %}</h6></a>                
-                      </li>
-                    {% endif %} 
-                      <li><a href="{% url "comparison_list" %}" class="dropdown-toggle">
-                        <img src="/static/geonode/img/01-flecha.png" class="flecha">
-                        <h6>{% trans "Compare" %}</h6></a>                
-                      </li>
-                    </ul>
-            </li>
+            
             <li class="subtitle menuOrder1">
               <a href="#Intake" data-toggle="collapse" aria-expanded="false" class="action">
-                  <img src="/static/geonode/img/01-flecha.png" class="flecha"><h5>2.{% trans "Water Intakes" %}</h5>
+                  <img src="/static/geonode/img/01-flecha.png" class="flecha"><h5>1.{% trans "Water Intakes" %}</h5>
               </a>
               <ul class="submenu opacity" id="Intake" style="display: none;">
                 <li>
@@ -627,7 +583,7 @@
             </li>
             <li class="subtitle menuOrder1">
               <a href="#TPlants" data-toggle="collapse" aria-expanded="false" class="action">
-                  <img src="/static/geonode/img/01-flecha.png" class="flecha"><h5>3.{% trans "Treatment plants" %}</h5></a>
+                  <img src="/static/geonode/img/01-flecha.png" class="flecha"><h5>2.{% trans "Treatment plants" %}</h5></a>
                   <ul class="submenu opacity" id="TPlants" style="display: none;">
                   <li><a href="#" class="dropdown-toggle listTreatmentPlants">
                           <img src="/static/geonode/img/01-flecha.png" class="flecha">
@@ -639,6 +595,26 @@
                         <h6>{% trans "Create" %}</h6></a>                
                       </li>
                     {% endif %}                    
+                    </ul>
+            </li>
+            <li class="subtitle menuOrder1">
+              <a href="#StudyCase" data-toggle="collapse" aria-expanded="false" class="action">
+                  <img src="/static/geonode/img/01-flecha.png" class="flecha"><h5>3.{% trans "Study cases" %}</h5></a>
+                  <ul class="submenu opacity" id="StudyCase" style="display: none;">
+                  <li><a href="#" class="dropdown-toggle listStudyCases">
+                          <img src="/static/geonode/img/01-flecha.png" class="flecha">
+                          <h6>{% trans "List" %}</h6></a>                
+                        </li>
+                    {% if user.is_authenticated and not READ_ONLY_MODE %}                
+                      <li><a href="{% url "create-study-cases" %}" class="dropdown-toggle">
+                        <img src="/static/geonode/img/01-flecha.png" class="flecha">
+                        <h6>{% trans "Create" %}</h6></a>                
+                      </li>
+                    {% endif %} 
+                      <li><a href="{% url "comparison_list" %}" class="dropdown-toggle">
+                        <img src="/static/geonode/img/01-flecha.png" class="flecha">
+                        <h6>{% trans "Compare" %}</h6></a>                
+                      </li>
                     </ul>
             </li>
             <!--li class="subtitle menuOrder1">
@@ -927,7 +903,7 @@
     <script src="{{ STATIC_URL }}waterproof_nbs_ca/js/waterproof_nbs_ca_list.js"></script>
 	
     {% else %}
-    <script src="{% static "lib/js/assets.min.js" %}"></script>
+      <script src="{% static "lib/js/assets.min.js" %}"></script>
     {% endif %}
     <script src="{% static "geonode/js/utils/utils.js" %}"></script>
     <script src="{% static "geonode/js/base/base.js" %}"></script>
@@ -938,6 +914,9 @@
 
       // Autocomplete instance for the search found in the header.
       $(document).ready(function() {
+
+        let user = '{{user}}';
+        //console.log("user :: ", user);
         window.autocomplete2 = new Autocomplete({
           form_btn: null,
           form_submit: '#search',
@@ -984,6 +963,7 @@
           if (cityId == undefined){
             cityId = "";
           }
+          
           url="{% url "list-intake" %}?limit={{ CLIENT_RESULTS_LIMIT }}&city=" + cityId;
           window.location.href = url;
         });

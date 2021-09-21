@@ -532,11 +532,16 @@ $(document).ready(function () {
 
         if ($('#period_analysis').val() != '' && $('#period_nbs').val() != '' && valid_edit && valid_period) {
 
-            analysis_currency = $("#analysis_currency option:selected").val()
-            html = '<div class="row" id="currencys-panel"> <div class="col-md-10 currency-panel">Currency for the execution this analisys</div><div class="col-md-2 currency-panel currency-text">' + analysis_currency
-            html += '</div><div class="col-md-12 currency-panel">The following exchange rates will be applied for the analysis.</div>'
-            html += '<div class="custom-control col-md-4 currency-value">Currency</div>'
-            html += '<div class="custom-control col-md-8 currency-value">Exchange</div>'
+            analysis_currency = $("#analysis_currency option:selected").val();
+       
+            let lbl_currency = gettext('Currency for the execution this analisys');
+            let lbl_applied_currency = gettext('The following exchange rates will be applied for the analysis');            
+            html = '<div class="row" id="currencys-panel"> <div class="col-md-10 currency-panel">' + lbl_currency + 
+                    '</div><div class="col-md-2 currency-panel currency-text">' + analysis_currency;
+            html += '</div><div class="col-md-12 currency-panel">' + lbl_applied_currency + '.</div>';
+            html += '<div class="custom-control col-md-4 currency-value">'+ gettext('Currency') +'</div>';
+            html += '<div class="custom-control col-md-8 currency-value">'+ gettext('Exchange') +'</div>';
+
             $.get("../../study_cases/currencys/", {
                 id: id_study_case,
                 currency: analysis_currency
@@ -603,7 +608,7 @@ $(document).ready(function () {
                         title: gettext('exchange_rate'),
                         html: html,
                         showCancelButton: true,
-                        confirmButtonText: gettext('save'),
+                        confirmButtonText: gettext('Save'),
                         preConfirm: () => {
                             currencys = []
                             $("#currencys-panel").find("input").each(function (index, input) {
@@ -621,6 +626,8 @@ $(document).ready(function () {
                     }).then((result) => {
                         if (result.isConfirmed) {
                             $('#_thumbnail_processing').modal('toggle');
+                            let description = gettext("run_processing_description");
+                            
                             $("#full-table").find("input").each(function (index, input) {
                                 nbsactivity = {}
                                 input_id = input.id
@@ -711,11 +718,16 @@ $(document).ready(function () {
             valid_period = false;
         }
         if ($('#period_analysis').val() != '' && $('#period_nbs').val() != '' && valid_edit && valid_period) {
-            analysis_currency = $("#analysis_currency option:selected").val()
-            html = '<div class="row" id="currencys-panel"> <div class="col-md-10 currency-panel">Currency for the execution this analisys</div><div class="col-md-2 currency-panel currency-text">' + analysis_currency
-            html += '</div><div class="col-md-12 currency-panel">The following exchange rates will be applied for the analysis.</div>'
-            html += '<div class="custom-control col-md-4 currency-value">Currency</div>'
-            html += '<div class="custom-control col-md-8 currency-value">Exchange</div>'
+            analysis_currency = $("#analysis_currency option:selected").val();
+            
+            let lbl_currency = gettext('Currency for the execution this analisys');
+            let lbl_applied_currency = gettext('The following exchange rates will be applied for the analysis');            
+            html = '<div class="row" id="currencys-panel"> <div class="col-md-10 currency-panel">' + lbl_currency + 
+                    '</div><div class="col-md-2 currency-panel currency-text">' + analysis_currency;
+            html += '</div><div class="col-md-12 currency-panel">' + lbl_applied_currency + '.</div>';
+            html += '<div class="custom-control col-md-4 currency-value">'+ gettext('Currency') +'</div>';
+            html += '<div class="custom-control col-md-8 currency-value">'+ gettext('Exchange') +'</div>';
+
             $.get("../../study_cases/currencys/", {
                 id: id_study_case,
                 currency: analysis_currency
@@ -785,7 +797,7 @@ $(document).ready(function () {
                     title: gettext('exchange_rate'),
                     html: html,
                     showCancelButton: true,
-                    confirmButtonText: gettext('save'),
+                    confirmButtonText: gettext('Confirm and run'),
                     preConfirm: () => {
                         currencys = []
                         $("#currencys-panel").find("input").each(function (index, input) {
@@ -803,6 +815,10 @@ $(document).ready(function () {
                 }).then((result) => {
                     if (result.isConfirmed) {
                         $('#_thumbnail_processing').modal('toggle');
+                        let description = gettext("run_processing_description");
+                        let desc = document.createElement("div");
+                        desc.innerHTML = description;
+                        $('#_thumbnail_processing .modal-body').prepend(desc);
                         $("#full-table").find("input").each(function (index, input) {
                             nbsactivity = {}
                             input_id = input.id

@@ -115,7 +115,10 @@
                                         <legend class="margin-bottom-max" style="border-bottom: none;">
                                             <label for="div_id_type" class="control-label required-field " style="font-size: 16px;">{% trans "water_intakes" %}<span class="text-danger-wp" id="ptap-required"></span></label>
                                         </legend>
-                                        <p>{% trans "select_water_intake" %}</p>
+                                        <div style="display: flex;">
+                                            <p>{% trans "select_water_intake" %}</p>
+                                            <span  onclick="window.location.href='/intake/create/'" class="glyphicon glyphicon-plus-sign btn-add"></span>
+                                        </div>                                        
                                         <div class="col-md-9">
                                             <select class="form-control" id="select_custom">
                                                 <option disabled selected value>{% trans "select_option" %}</option>
@@ -157,8 +160,10 @@
                                             <legend class="margin-bottom-max" style="border-bottom: none;">
                                                 <label for="div_id_type" class="control-label required-field " style="font-size: 16px;">{% trans "treatment_plants" %}<span class="text-danger-wp" id="ptap-required"></span></label>
                                             </legend>
-                                            <p>{% trans "select_treatments_plants" %}</p>
-
+                                            <div style="display: flex;">
+                                                <p>{% trans "select_treatments_plants" %}</p>
+                                                <span  onclick="window.location.href='/treatment_plants/create/'" class="glyphicon glyphicon-plus-sign btn-add"></span>
+                                            </div>
                                             <div class="col-md-9">
                                                 <select class="form-control" id="select_ptap">
                                                     <option disabled selected value>{% trans "select_option" %}</option>
@@ -249,12 +254,20 @@
                                         </div>
                                         <div class="col-md-3">
                                             <select class="form-control" id="cm_select">
-                                                <option value='-1'>{% trans "Select" %}</option>
+                                                <option value=''>{% trans "Select" %}</option>
                                                 {% for currency in currencys %}
                                                     {% if currency.currency == study_case.cm_currency %}
-                                                    <option value='{{currency.currency}}' selected>({{currency.currency}}) - {{currency.name}}</option>
+                                                        {% if currency.currency == 'USD' %}
+                                                            {% if currency.currency == 'USA' %}
+                                                                <option value='{{currency.currency}}' selected>({{currency.currency}}) - {{currency.name}}</option>
+                                                            {% else %}
+                                                            <option value='{{currency.currency}}'>({{currency.currency}}) - {{currency.name}}</option>
+                                                            {% endif %}
+                                                        {% else %}
+                                                            <option value='{{currency.currency}}' selected>({{currency.currency}}) - {{currency.name}}</option>
+                                                        {% endif %}
                                                     {% else %}
-                                                    <option value='{{currency.currency}}'>({{currency.currency}}) - {{currency.name}}</option>
+                                                        <option value='{{currency.currency}}'>({{currency.currency}}) - {{currency.name}}</option>
                                                     {% endif %}
                                                 {% endfor %}
                                             </select>
@@ -331,27 +344,34 @@
                                     </h3>
                                     <p>{% trans "financial_tip" %}</p>
                                     <div class="row">
-                                        <div class="custom-control custom-select float-right col-md-4">
+                                        <div class="custom-control custom-select float-right col-md-4" style="margin-bottom:15px;">
                                             <label class="custom-control-label" for="financial_currency">{% trans "Currency" %}</label>
                                             <select id="financial_currency" class="custom-control-input">
                                                 {% for currency in currencys %}
-                                                {% if currency.currency == study_case.financial_currency %}
-                                                <option value='{{currency.currency}}' selected>({{currency.currency}}) - {{currency.name}}</option>
-                                                {% else %}
-                                                <option value='{{currency.currency}}'>({{currency.currency}}) - {{currency.name}}</option>
-                                                {% endif %}
+                                                    {% if currency.currency == study_case.financial_currency %}
+                                                        {% if currency.currency == 'USD' %}
+                                                            {% if currency.currency == 'USA' %}
+                                                                <option value='{{currency.currency}}' selected>({{currency.currency}}) - {{currency.name}}</option>
+                                                            {% else %}
+                                                            <option value='{{currency.currency}}'>({{currency.currency}}) - {{currency.name}}</option>
+                                                            {% endif %}
+                                                        {% else %}
+                                                            <option value='{{currency.currency}}' selected>({{currency.currency}}) - {{currency.name}}</option>
+                                                        {% endif %}
+                                                    {% else %}
+                                                        <option value='{{currency.currency}}'>({{currency.currency}}) - {{currency.name}}</option>
+                                                    {% endif %}
                                                 {% endfor %}
                                             </select>
                                         </div>
                                     </div>
                                     <div class="row" id="div_financial">
                                         <div class="col-md-6">
-                                            <label class="custom-control-label" for="total_platform">{% trans "platform_cost" %}</label>
+                                            <label class="custom-control-label" for="total_platform"><strong>{% trans "platform_cost" %}</strong></label>
                                         </div>
                                         <div class="custom-control custom-checkbox col-md-4">
                                             <input id="total_platform" class="text-number" type="number" class="custom-control-input" disabled>
                                         </div>
-
                                         <div class="col-md-6">
                                             <label class="custom-control-label platform-label" for="total_personnel">{% trans "personnel_salary_benefits" %}</label>
                                         </div>
@@ -419,7 +439,7 @@
                                             <input class="text-number" id="others" type="number" class="custom-control-input" min="0" step="0.001" oninput="validity.valid||(value='');" value="{{study_case.others|stringformat:'1.2f'}}">
                                         </div>
                                         <div class="col-md-12">
-                                            <p>{% trans "financial_transaction_cost" %}</p>
+                                            <p><strong>{% trans "financial_transaction_cost" %}</strong></p>
                                         </div>
                                         <div class="col-md-6">
                                             <label class="custom-control-label transaction-label" for="transaction">{% trans "transaction_cost" %}</label>
@@ -428,7 +448,7 @@
                                             <input class="text-number" id="transaction" type="number" class="custom-control-input" min="0" step="0" oninput="validity.valid||(value='');" max="100" value="{{study_case.transaction_cost|stringformat:'1.2f'}}">
                                         </div>
                                         <div class="col-md-12">
-                                            <p>{% trans "financial_discount_rates" %}</p>
+                                            <p><strong>{% trans "financial_discount_rates" %}</strong></p>
                                         </div>
                                         <div class="col-md-6">
                                             <label class="custom-control-label discount-label" for="discount">{% trans "discount_rate" %}</label>
@@ -500,11 +520,19 @@
                                             </label>
                                             <select id="analysis_currency" class="form-control">
                                                 {% for currency in currencys %}
-                                                {% if currency.currency == study_case.analysis_currency %}
-                                                <option value='{{currency.currency}}' selected>({{currency.currency}}) - {{currency.name}} </option>
-                                                {% else %}
-                                                <option value='{{currency.currency}}'>({{currency.currency}}) - {{currency.name}}</option>
-                                                {% endif %}
+                                                    {% if currency.currency == study_case.analysis_currency %}
+                                                        {% if currency.currency == 'USD' %}
+                                                            {% if currency.currency == 'USA' %}
+                                                                <option value='{{currency.currency}}' selected>({{currency.currency}}) - {{currency.name}}</option>
+                                                            {% else %}
+                                                            <option value='{{currency.currency}}'>({{currency.currency}}) - {{currency.name}}</option>
+                                                            {% endif %}
+                                                        {% else %}
+                                                            <option value='{{currency.currency}}' selected>({{currency.currency}}) - {{currency.name}}</option>
+                                                        {% endif %}
+                                                    {% else %}
+                                                        <option value='{{currency.currency}}'>({{currency.currency}}) - {{currency.name}}</option>
+                                                    {% endif %}
                                                 {% endfor %}
                                             </select>
                                         </div>
@@ -594,6 +622,12 @@
                 <h4 class="modal-title" id="CalculatorModalLabel"></h4>
             </div>
             <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <p>{% trans "Use this window to configure your cost function by selecting the variables of your interest: flow, concentration or loads." %}</p>
+                        <p>{% trans "Expand the list of items and click to build the function." %}</p>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-md-5">
                         <div class="panel-group" id="VarCostListGroup" style="max-height: 480px; overflow-y: auto;"></div>
@@ -720,7 +754,7 @@
                 <div>
                     <br>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="color: white; background-color: #6398C1;">Close</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="color: white; background-color: #6398C1;">{% trans "Close" %}</button>
                     </div>
                 </div>
             </div>
@@ -742,16 +776,15 @@
             <div class="modal-body">
                 <p>
                     <h4>{% trans "WaterProof" %}</h4>
-                    {% trans "offers you the possibility to integrate in your analysis the possible benefits that you can obtain if you expect to participate in carbon markets. This is done by defining a monetary value per Ton of CO2eq." %}
+                    {% trans "Offers you the possibility to integrate in your analysis the possible benefits that you can obtain if you expect to participate in carbon markets. This is done by defining a monetary value per Ton of CO2eq." %}
                 </p>
                 <p>
-                    <h4>{% trans "WaterProof" %}</h4>
-                    {% trans "uses information from the database published in May 2020 by the Institute for Climate Economics (Sébastien Postic | Marion Fetet) to preload USD / TonCO2eq values ​​that vary according to the country where the analysis is being carried out, however, the user can modify these values ​​according to the information they have." %}
+                    {% trans "Uses information from the database published in May 2020 by the Institute for Climate Economics (Sébastien Postic | Marion Fetet) to preload USD / TonCO2eq values ​​that vary according to the country where the analysis is being carried out, however, the user can modify these values ​​according to the information they have." %}
                 </p>
                 <div>
                     <br>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="color: white; background-color: #6398C1;">Close</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="color: white; background-color: #6398C1;">{% trans "Close" %}</button>
                     </div>
                 </div>
             </div>
@@ -767,7 +800,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h3 class="modal-title text-center" id="HelpModalLabel" style="color:#6398C1 ;">{% trans "Definition of the objectives of the NBS" %}
+                <h3 class="modal-title text-center" id="HelpModalLabel" style="color:#6398C1 ;">{% trans "NbS objectives definition" %}
                 </h3>
             </div>
             <div class="modal-body">
@@ -792,7 +825,7 @@
                 <div>
                     <br>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="color: white; background-color: #6398C1;">Close</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="color: white; background-color: #6398C1;">{% trans "Close" %}</button>
                     </div>
                 </div>
             </div>
@@ -819,7 +852,7 @@
                 <div>
                     <br>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="color: white; background-color: #6398C1;">Close</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="color: white; background-color: #6398C1;">{% trans "Close" %}</button>
                     </div>
                 </div>
             </div>
@@ -848,19 +881,15 @@
                 <p>
                     {% trans "In addition, you need to indicate the minimum and maximum values ​​of the sensitivity analysis that will help you make your decisions in case of unexpected changes in your environment. To do this, WaterProof uses the following equation:" %}
                 </p>
-
                 <h3 style="text-align: center;">{% trans "TB/(1+TD)^A" %}</h3>
-
                 <h5>{% trans "Where:" %}</h5>
                 <h5>{% trans "TB  It is the Total of the benefit" %}</h5>
                 <h5>{% trans "TD  Discount rate, brought from financial parameters" %}</h5>
                 <h5>{% trans "A  Index for the current year" %}</h5>
-
-
                 <div>
                     <br>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="color: white; background-color: #6398C1;">Close</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="color: white; background-color: #6398C1;">{% trans "Close" %}</button>
                     </div>
                 </div>
             </div>
@@ -887,7 +916,6 @@
                 <p>
                     {% trans "By default, WaterProof has the following NBS, however you may create new ones that you can link to your analysis. The default NBSs are:" %}
                 </p>
-
                 <li>{% trans "Conservation: refers to actions that seek to conserve current land use coverage by signing conservation agreements, paying forest rangers or fencing off areas." %}</li>
                 <li>{% trans "Passive restoration: when strategic assistance actions are carried out to enable degraded ecosystems that by themselves overcome or eliminate factors that prevented their regeneration." %}</li>
                 <li>{% trans "Active restoration: these activities seek to increase floristic diversity by sowing new species, whose individuals have been obtained from the collection of seeds and propagules, their sowing in the nurseries and subsequent planting in the reserve." %}</li>
@@ -896,7 +924,7 @@
                 <div>
                     <br>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="color: white; background-color: #6398C1;">Close</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="color: white; background-color: #6398C1;">{% trans "Close" %}</button>
                     </div>
                 </div>
             </div>
@@ -923,9 +951,7 @@
                 <p>
                     {% trans "Then, you must indicate the climatic aspects to consider. WaterProof, by default, allows you to consider the conditions of the Climate Change Scenarios or the known historical conditions. This option is available due to the influence of the climate on the sustainability of program activities and possible additional costs that must be incurred in more adverse conditions." %}
                 </p>
-
                 <p>{% trans "Finally, the user can assign financial resources in two ways:" %}</p>
-
                 <li>{% trans "Total portfolio: In which there is no financial limit." %}</li>
                 <li>{% trans "Investment scenario: In which the user has a maximum investment figure" %}</li>
                 <br>
@@ -933,7 +959,7 @@
                 <div>
                     <br>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="color: white; background-color: #6398C1;">Close</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="color: white; background-color: #6398C1;">{% trans "Close" %}</button>
                     </div>
                 </div>
             </div>
@@ -974,11 +1000,7 @@
 <script src="{{ STATIC_URL }}study_cases/js/graphValidations.js"></script>
 <script src="{{ STATIC_URL }}geonode/js/mxgraph/mxClient.js"></script>
 <script src="{{ STATIC_URL }}geonode/js/mxgraph/examples/editors/js/app.js"></script>
-<script src="{{ STATIC_URL }}geonode/js/mxgraph/examples/editors/js/app.js"></script>
 <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 <script src="{{ STATIC_URL }}study_cases/mathquill/mathquill.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min.js"
-integrity="sha512-dTu0vJs5ndrd3kPwnYixvOCsvef5SGYW/zSSK4bcjRBcZHzqThq7pt7PmCv55yb8iBvni0TSeIDV8RYKjZL36A=="
-crossorigin="anonymous"></script>-->
 {% endblock %}

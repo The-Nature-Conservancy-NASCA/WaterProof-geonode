@@ -10,7 +10,7 @@ from geonode.waterproof_parameters.models import Countries, Cities
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import DateTimeField
 import requests
-import psycopg2
+from django.db.models import Q
 import json
 
 
@@ -30,38 +30,40 @@ def getTreatmentPlantsList(request):
 		lastNull = ''
 		lastInstakeName = ''
 		tratamentPlantsList = []
-		try:            
-			city_id = request.GET['city']
-			headers = Header.objects.filter(plant_city=city_id)
-			tratamentPlantsList = Csinfra.objects.filter(csinfra_plant__in=headers)
-		except:
-			city_id = ''
-			tratamentPlantsList = Csinfra.objects.all()	
-
-		for tratamentPlants in tratamentPlantsList:
-			lastPlantIntakeName = ''
+		user = request.GET['user']
+		city_id = request.GET['city']
+				
+		if user != '-1':					
 			try:
-			  lastPlantIntakeName = tratamentPlants.csinfra_elementsystem.intake.name + " " + tratamentPlants.csinfra_elementsystem.name + " " + str(tratamentPlants.csinfra_elementsystem.graphId)
+				headers = Header.objects.filter(plant_city=city_id)
+				tratamentPlantsList = Csinfra.objects.filter(csinfra_plant__in=headers)
 			except:
-			  lastNull = ''
-
-			if lastInstakeName != tratamentPlants.csinfra_plant.plant_name:
-				lastInstakeName = tratamentPlants.csinfra_plant.plant_name
-				datePTAP = tratamentPlants.csinfra_plant.plant_date_create
-				dateFormat = datePTAP.strftime("%Y-%m-%d")
-				objects_list.append({
-					"plantId": tratamentPlants.csinfra_plant.id,
-					"plantUser": tratamentPlants.csinfra_plant.plant_user,
-					"plantDate": dateFormat,
-					"plantName": tratamentPlants.csinfra_plant.plant_name,
-					"plantDescription": tratamentPlants.csinfra_plant.plant_description,
-					"plantSuggest": tratamentPlants.csinfra_plant.plant_suggest,
-					"plantCityId": tratamentPlants.csinfra_plant.plant_city_id,
-					"standardNameSpanish": tratamentPlants.csinfra_plant.plant_city.standard_name_spanish,
-					"plantIntakeName": [lastPlantIntakeName]
-				})
-			else: 
-				objects_list[len(objects_list) - 1]["plantIntakeName"].append (lastPlantIntakeName);
+				city_id = ''
+				tratamentPlantsList = Csinfra.objects.all()	
+			for tratamentPlants in tratamentPlantsList:
+				lastPlantIntakeName = ''
+				try:
+					lastPlantIntakeName = tratamentPlants.csinfra_elementsystem.intake.name + " " + tratamentPlants.csinfra_elementsystem.name + " " + str(tratamentPlants.csinfra_elementsystem.graphId)
+				except:
+					lastNull = ''
+				if lastInstakeName != tratamentPlants.csinfra_plant.plant_name:
+					lastInstakeName = tratamentPlants.csinfra_plant.plant_name
+					datePTAP = tratamentPlants.csinfra_plant.plant_date_create
+					dateFormat = datePTAP.strftime("%Y-%m-%d")
+					objects_list.append({
+						"plantId": tratamentPlants.csinfra_plant.id,
+						"plantUser": tratamentPlants.csinfra_elementsystem.intake.added_by.first_name + " " + tratamentPlants.csinfra_elementsystem.intake.added_by.last_name,
+						"plantDate": dateFormat,
+						"plantName": tratamentPlants.csinfra_plant.plant_name,
+						"plantDescription": tratamentPlants.csinfra_plant.plant_description,
+						"plantSuggest": tratamentPlants.csinfra_plant.plant_suggest,
+						"plantCityId": tratamentPlants.csinfra_plant.plant_city_id,
+						"standardNameSpanish": tratamentPlants.csinfra_plant.plant_city.standard_name_spanish,
+						"plantIntakeName": [lastPlantIntakeName],
+						"geom" : tratamentPlants.csinfra_elementsystem.intake.polygon_set.first().geom.geojson
+					})
+				else: 
+					objects_list[len(objects_list) - 1]["plantIntakeName"].append (lastPlantIntakeName);
 
 		return JsonResponse(objects_list, safe=False)
 
@@ -123,7 +125,8 @@ def getInfoTree(request):
 	"""
 	if request.method == 'GET':
 		if request.user.is_authenticated:
-			for countries in Countries.objects.filter(name=request.query_params.get('country')):
+			country = request.query_params.get('country')
+			for countries in Countries.objects.filter(Q(name=country) | Q(native=country)):
 				countryFactor = countries.global_multiplier_factor
 
 			objects_list = []
@@ -398,3 +401,15 @@ def getTreatmentPlant(request):
 		}
 
 		return JsonResponse(response, safe=False)
+
+def get_geoms_intakes(plants):
+	intake_geoms = []
+	for p in plants:
+		i = p.csinfra_elementsystem.intake
+		ig = dict()
+		ig['id'] = i.id
+		if not i.polygon_set.first().geom is None:
+				ig['geom'] = i.polygon_set.first().geom.geojson
+				ig['name'] = i.name
+		intake_geoms.append(ig)
+	return intake_geoms

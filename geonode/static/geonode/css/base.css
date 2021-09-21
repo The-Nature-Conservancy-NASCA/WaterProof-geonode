@@ -1286,7 +1286,7 @@ h6,
   font-size: 14px;
 }
 p {
-  margin: 0 0 11px;
+  margin: 0 0 5px;
 }
 .lead {
   margin-bottom: 22px;
@@ -2035,7 +2035,7 @@ pre code {
     display: none !important;
   }
   .imgbackgroundSystemop{
-    background: url() !important;
+    background: url();
     height: 800px !important;
     min-height: 100%;
     min-width: 100%;
@@ -2047,6 +2047,9 @@ pre code {
   }
   .responsive{
     display: none !important;
+  }
+  .size-left {
+    font-size: 14px;
   }
 }
 @media (min-width: 768px){
@@ -2074,11 +2077,10 @@ pre code {
     display: none !important;
   }
   .imgbackgroundSystemop{
-    background: url() !important;
+    background: url(/static/geonode/img/bgSystemOperating.png);
     height: 800px !important;
     min-height: 100%;
-    min-width: 100%;
-    background-repeat: round;
+    min-width: 100%;    
     background-size:cover;
   }
   .text-center {
@@ -2094,6 +2096,9 @@ pre code {
    .responsive{
      font-size: 17px !important;
     /* display: none !important; */
+  }
+  .size-left {
+    font-size: 16px;
   }
 }
 @media (min-width: 992px){
@@ -2120,11 +2125,10 @@ pre code {
     display: table !important;
   }
   .imgbackgroundSystemop{
-    background: url() !important;
+    background: url(/static/geonode/img/bgSystemOperating.png);
     height: 900px !important;
     min-height: 100%;
-    min-width: 100%;
-    background-repeat: round;
+    min-width: 100%;    
     background-size:cover;
   }
   .responsive{
@@ -2136,6 +2140,9 @@ pre code {
   }
   .menuPadding{
     padding-top: 50% !important;
+  }
+  .size-left {
+    font-size: 18px;
   }
 }
 /* .video-responsive {
@@ -2159,6 +2166,7 @@ pre code {
     /* margin-left: 40%;  */
     padding-right: 15px;
   }
+
 @media (min-width: 1200px){
 
   .iconsWhatIsWP{
@@ -2184,12 +2192,12 @@ pre code {
     display: table !important;
   }
   .imgbackgroundSystemop{
-    background: url(/static/geonode/img/bgSystemOperating.png) !important;
+    background: url(/static/geonode/img/bgSystemOperating.png);
     height: 600px !important;
     min-height: 100%;
     min-width: 100%;
-    background-repeat: round;
-    background-size:cover;
+    background-size:auto;
+    background-repeat: no-repeat;
   }
   .responsive{
     font-size: 3.4rem !important;
@@ -2202,24 +2210,33 @@ pre code {
     font-size: 18px;
   }
   .align-normal-take-action{
-    padding-left: 20% ;
-    padding-right: 20%;
+    padding-left: 9% ;
+    padding-right: 10%;
     font-size: 18px;
     padding-top: 8%;
+  }
+  .align-normal-instructions{
+    margin: 0 8% 0 8%;
+    font-size: 18px;
+    padding-top: 3%;
+    text-align: justify;
+  }
+  .normal-order{
+    margin-left: 10%;
+    margin-right: 10%;
   }
   .align-complete-take{
     padding-left: 10% ;
     padding-right: 10%;
     font-size: 18px;
-    text-align: justify;
-    
+    text-align: center;
   }
-  .align-left-take-action{
-    padding-left: 8%;
-    padding-right: 40%;
-    padding-top: 3%;
+  .align-complete-take-2{
+    padding-left: 10% ;
+    padding-right: 10%;
     font-size: 18px;
-    text-justify: auto;
+    text-align: center;
+    text-align: justify;
   }
 
   .align-extraright-take-action{
@@ -2231,23 +2248,23 @@ pre code {
   .take-action-middle-tittle{
     color: #0C89AA;
     font-weight:normal !important;
-    padding-left: 5%;
-    padding-right: 3%;
+    padding-left: 10%;
+    padding-right: 10%;
+    text-align: center;
 
   }
   .image-steps-take{
     padding-left: 10%;
     margin-left: 30%;
-    width: 50%;
+    width: 55%;
     max-inline-size: -webkit-fill-available;
-    height: 50% !important;
+    height: 55% !important;
   }
   .image-user-take{
-    padding-left: 10%;
-    margin-left: 30%;
-    width: 40%;
-    max-inline-size: -webkit-fill-available;
-    height: 40% !important;
+    width: 66%;
+  }
+  .margin-images{
+    margin: auto;
   }
   .image-icon-take{
     padding-left: 10%;
@@ -2258,17 +2275,38 @@ pre code {
     padding-bottom: 3%;
   }
   .image-actor-take{
-    padding-left: 10%;
-    width: 80%;
-    max-inline-size: -webkit-fill-available;
-    height: 80% !important;
-    padding-bottom: 3%;
+    width: 75%;
+    margin-left:10%;
   }
   .image-right-take-action{
-    width: 50%;
+    width: 69%;
     height: 40% !important;
     margin-left: 10% !important;
     padding: 0%;
+  }
+  .image-center-take-action{
+    width: 100%;
+    height: 80% !important;
+    padding-top: 5%;
+  }
+  .image-center-take-action2{
+    width: 100%;
+    height: 90% !important;
+  }
+  .image-split-instructions1{
+    width: 65%;
+    height: 70% !important;
+    padding-top: 45%;
+  }
+  .image-split-instructions2{
+    width: 65%;
+    height: 57% !important;
+    padding-top: 25%;
+  }
+  .image-split-instructions3{
+    width: 65%;
+    height: 45% !important;
+    padding-top: 5%;
   }
   .image-left-take-action{
     width: 54%;
@@ -2278,25 +2316,70 @@ pre code {
   }
   .font-image-take-action{
     font-size: 18px;
+    padding: 10px 0;
+    margin:auto;
     text-align: justify;
+  }
+  .font-image-instructions-left{
+    font-size: 16px;
+    text-align: justify;
+    padding-left: 9%; 
+    padding-top: 3%; 
+    padding-right: 3%;  
+  }
+  .font-image-instructions-right{
+    font-size: 16px;
+    text-align: justify;
+    padding-right: 5%;
+    padding-top: 3%;  
+  }
+  .font-number-instructions{
+    font-size: 24px;
+    text-align: justify;
+    color: #0C89AA; 
+     
+  }
+  .font-image-text-instructions{
+    font-size: 18px;
+    text-align: justify;
+  }
+  .font-image-text-instructions > p{ 
+    padding-top: 3.5rem;
+  }
+
+  .border-left-images-setup{
+    border-left: solid 10px;
+    border-left-color: #0C89AA;
+    padding-left: 1rem;
   }
   .font-steps-take-action{
     font-size: 16px;
     text-align: justify;
+    padding-top: 1%;
+    padding-bottom: 1%;
+
   }
   .take-font-size{
     font-size: 18px;
   }
+  .instructions-font-setup{
+    font-size: 18px;
+    padding-right: 3rem;
+    text-align: justify;
+  }
+
   .background-solution{
     background-color: #0C89AA;
     color: #fff;
     font-size: 34px;
     position: absolute;
-    margin-left: -6%;
-    width: 102% !important;
+    width: 100% !important;
   }
   .background-solution > p {
-    padding: 2%;
+    padding-left: 10%;
+    padding-right: 10%;
+    font-weight: lighter;
+    font-size: 30px;
   }
   .background-steps-take-action{
     background-color: #D2E8EF;
@@ -2314,13 +2397,14 @@ pre code {
     font-size: 22px;
   }
   .background-take-header > h2{
-    padding-left: 65%;
+    padding-left: 60%;
     padding-top: 5%;
+    padding-right: 10%;
   }
   .background-take-header > h4{
-    padding-left: 65%;
-    padding-right: 5%;
-    text-justify: auto;
+    padding-left: 60%;
+    padding-right: 12%;
+    text-align: justify;
   }
   .background-take-middle{
     background-image: url(/static/geonode/img/TA_2.jpg);
@@ -2334,13 +2418,13 @@ pre code {
   .background-take-middle > h1{
     text-align: left;
     padding-top: 8%;
-    padding-left: 15%;
+    padding-left: 10%;
     font-size: 50px;
     color: #FFF;
   }
   .background-take-middle > p{
     text-align: left;
-    padding-left: 15%;
+    padding-left: 10%;
     text-justify: auto;
     color: #FFF;
   }
@@ -2362,9 +2446,28 @@ pre code {
   }
   .background-take-bot > h1{
   text-align: left;
-  padding-top: 8%;
-  padding-left: 15%;
+  padding-top: 10%;
+  padding-left: 10%;
   font-size: 50px;
+  }
+  .background-instructions-middle{
+    background-image: url(/static/geonode/img/Header_ins.jpg);
+    width: 100vw;
+    position: relative;
+    left: 50%;  
+    margin-left: -50vw;
+    height: 300px;
+    color: #fff;
+  }
+  .background-instructions-middle > h1{
+    text-align: left;
+    padding-top: 8%;
+    padding-left: 10%;
+    font-size: 50px;
+    color: #FFF;
+  }
+  .size-left {
+    font-size: 18px;
   }
 }
 @media (min-width: 992px) {
@@ -2703,6 +2806,16 @@ pre code {
   }
   .col-lg-offset-0 {
     margin-left: 0%;
+  }
+}
+@media (min-width: 1400px){
+  .imgbackgroundSystemop{
+    background: url(/static/geonode/img/bgSystemOperating-xl.png);
+    height: 600px !important;
+    min-height: 100%;
+    min-width: 100%;    
+    background-size:cover;
+    background-repeat: no-repeat;
   }
 }
 table {
@@ -5542,6 +5655,7 @@ a.thumbnail.active {
 }
 .progress {
   height: 22px;
+  margin-top: 12px;
   margin-bottom: 22px;
   overflow: hidden;
   background-color: #f5f5f5;
@@ -8956,14 +9070,6 @@ form-inline {
   background-repeat: no-repeat;
   background-size:cover;
 }
-.imgbackgroundSystemop{
-  background: url(/static/geonode/img/bgSystemOperating.png);
-  height: 600px;
-  min-height: 100%;
-  min-width: 100%;
-  background-repeat: round;
-  background-size:cover;
-}
 .imgbackgroundWhyUse{
   background: url(/static/geonode/img/Why_use_back.png);
   height: 750px;
@@ -8983,9 +9089,6 @@ form-inline {
 }
 .text-left{
   text-align: left;
-}
-.size-left{
-  font-size: 18px;
 }
 .size-left-buttom{
   font-size: 18px;
@@ -9237,9 +9340,9 @@ top:50px;
         top: 355px;
     }
 .img-card-news {
-        object-fit: cover;
-        width: 35vw;
-        height: 300px;
+  object-fit: cover;
+  width: 35vw;
+  height: 300px;
 }
     
 .owl-nav>button {
@@ -9253,7 +9356,8 @@ top:50px;
 }
 .carrouselcolor {
   background-color: #F7F7F7;
-    background-size: auto 100%;
+  background-size: auto 100%;
+  padding-top: 20px;
 }
 .newstitle{
 	color: #0A8B8E;
@@ -9394,4 +9498,10 @@ top:50px;
 
 .subtitle{
   font-size: 22px;
+}
+
+.img-md-wiki{
+  margin-top: -30px;
+  margin-right: 5px;
+  text-align: end;
 }

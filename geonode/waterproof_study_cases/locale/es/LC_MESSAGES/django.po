@@ -110,7 +110,7 @@ msgid "custom_case"
 msgstr "Caso personalizado"
 
 msgid "select_water_intake"
-msgstr "Seleccione la captación que usted considere para el análisis ROI. Si aún no ha sido creada, creela haciendo clic aquí."
+msgstr "Seleccione la captación que usted considere para el análisis ROI de la lista. Si aún no ha sido creada, de clic en el siguiente botón:"
 
 msgid "water_source"
 msgstr "Nombre de la fuente de agua"
@@ -376,10 +376,10 @@ msgstr "Recuerde que el ROI es un indicador que permite saber cuánto dinero se 
 msgid "Integrate Analysis Associated with the Carbon Market"
 msgstr "Integrar análisis asociados al mercado de carbono"
 
-msgid "offers you the possibility to integrate in your analysis the possible benefits that you can obtain if you expect to participate in carbon markets. This is done by defining a monetary value per Ton of CO2eq."
+msgid "Offers you the possibility to integrate in your analysis the possible benefits that you can obtain if you expect to participate in carbon markets. This is done by defining a monetary value per Ton of CO2eq."
 msgstr "WaterProof le ofrece la posibilidad de integrar en su análisis los posibles beneficios que puede obtener si se espera participar en mercados de carbono. Esto se hace a partir de la definición de un valor monetario por Tonelada de CO2eq."
 
-msgid "uses information from the database published in May 2020 by the Institute for Climate Economics (Sébastien Postic | Marion Fetet) to preload USD / TonCO2eq values ​​that vary according to the country where the analysis is being carried out, however, the user can modify these values ​​according to the information they have."
+msgid "Uses information from the database published in May 2020 by the Institute for Climate Economics (Sébastien Postic | Marion Fetet) to preload USD / TonCO2eq values ​​that vary according to the country where the analysis is being carried out, however, the user can modify these values ​​according to the information they have."
 msgstr "WaterProof utiliza la información de la base de datos publicada en mayo de 2020 por el Institute for Climate Economics (Sébastien Postic | Marion Fetet) para precargar valores de USD/TonCO2eq que varían de acuerdo al país en donde se esté realizando el análisis, sin embargo, el usuario puede realizar la modificación de estos valores de acuerdo a la información que posea."
 
 msgid "WaterProof will define the NBS of your portfolio according to your needs in relation to:"
@@ -496,5 +496,17 @@ msgstr "Definición"
 msgid "description_select_type"
 msgstr "WaterProof puede considerar para el análisis de retorno a la inversión, los costos de operacion y mantenimiento asociados a la infraestructura de análisis. Usted puede utilizar los costos de una planta de tratamiento de agua potable previamente creada o puede crear costos para una infraestructura personalizada. Seleccione la opción deseada."
 
-msgid "My Cases"
-msgstr "Mis Casos"
+msgid "My Case studies"
+msgstr "Mis Casos de estudio"
+
+msgid "NbS objectives definition"
+msgstr "Definición de bbjetivos de las SbN"
+
+msgid "analysis_parameter"
+msgstr "Parámetros de análisis"
+
+msgid "Water intakes are civil works and electromechanical equipment used to obtain water from surface or underground sources (WaterProof version 1.0 is limited to surface sources). A basin is made up of information about its location, polygon of the supplying basin, infrastructure elements, its cost functions and demand data."
+msgstr "Las obras de captación son las obras civiles y equipos electromecánicos que se utilizan para obtener agua de fuentes superficiales o subterráneas (La versión 1.0 de WaterProof está limitada a fuentes superficiales). Una captación está conformada por información sobre su ubicación, polígono de la cuenca abastecedora, elementos de infraestructura, sus funciones de costo y datos de su demanda."
+
+msgid "To create a new basin, WaterProof will help you with the steps you need to follow to complete your registration"
+msgstr "Para crear una nueva captación, WaterProof lo asistirá indicando los pasos que debe seguir para hacer su registro completo"

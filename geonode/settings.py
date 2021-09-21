@@ -112,7 +112,7 @@ DATABASE_URL = os.getenv(
     )
 )
 
-DATABASE_URL='postgresql://geonode:{&Uid&QXZ&6f;|F@dev.skaphe.com:5432/geonode'
+#DATABASE_URL='postgresql://geonode:{&Uid&QXZ&6f;|F@dev.skaphe.com:5432/geonode'
 #DATABASE_URL='postgresql://geonode:G30N0D3@water-proof.org:5432/geonode'
 #DATABASE_URL='postgresql://geonode:geonode@localhost:5432/geonode'
 #DATABASE_URL = 'postgresql://geonode:geonode_data@dev.skaphe.com:5432/geonode'
@@ -556,8 +556,9 @@ INSTALLED_APPS = (
     # GeoNode
     'geonode',
 
-    # FAQ
+    # FAQ - wiki
     'ckeditor',
+    'ckeditor_uploader',
 
     # Documentation
     'django_extensions',
@@ -570,7 +571,8 @@ INSTALLED_APPS = (
     'geonode.waterproof_cms',
 
     # waterproof wiki
-    'geonode.waterproof_wiki'
+    'geonode.waterproof_wiki',
+    'geonode.home'
 
 )
 
@@ -587,6 +589,8 @@ WAGTAIL_APP = (
     'wagtail.admin',
     'wagtail.core',
     'modelcluster',
+    'wagtail.contrib.modeladmin',    
+    'wagtailtrans',
 )
 
 INSTALLED_APPS += WAGTAIL_APP
@@ -819,7 +823,7 @@ MIDDLEWARE = (
     'dj_pagination.middleware.PaginationMiddleware',
     # The setting below makes it possible to serve different languages per
     # user depending on things like headers in HTTP requests.
-    'django.middleware.locale.LocaleMiddleware',
+    #'django.middleware.locale.LocaleMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -827,6 +831,8 @@ MIDDLEWARE = (
     'oauth2_provider.middleware.OAuth2TokenMiddleware',
     'geonode.base.middleware.MaintenanceMiddleware',
     'geonode.base.middleware.ReadOnlyMiddleware',   # a Middleware enabling Read Only mode of Geonode
+    'wagtail.contrib.legacy.sitemiddleware.SiteMiddleware',
+    'wagtailtrans.middleware.TranslationMiddleware',    
     'wagtail.contrib.redirects.middleware.RedirectMiddleware',
 )
 
@@ -2244,3 +2250,5 @@ WAGTAIL_SITE_NAME = 'Waterproof CMS'
 CATALOG_METADATA_TEMPLATE = os.getenv("CATALOG_METADATA_TEMPLATE", "catalogue/full_metadata.xml")
 
 WATERPROOF_SPECIAL_VALUES = ['min', 'E2', 'E3']
+
+CKEDITOR_UPLOAD_PATH="aux_media"

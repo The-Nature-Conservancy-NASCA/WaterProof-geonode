@@ -1,0 +1,167 @@
+{% extends "geonode_base.html" %}
+{% load static from staticfiles %}
+
+{% load i18n %}
+{% block title %} {% trans "Who can help you" %} — {{ block.super }} {% endblock %}
+
+{% block body_outer %}
+<section>
+	<div class= "background-take-bot">
+		<h1> {% trans "Who can help you?" %} </h1>
+	</div>
+	
+	<div class="row">
+		<div class="col-md-5 col-sm-5 text-justify" style="padding-left: 10%; padding-top: 2%;">					
+			<p class= "colorsubtitle" style="padding-top: 10rem; padding-bottom: 3rem;"> {% trans "What do I need to look for?" %} </p>
+			<span >{% trans "Nature-Based Solutions have been implemented around the world for several decades, although this concept is relatively new. Multiple entities and actors have the experience and knowledge to design, implement, maintain and monitor them. Our recommendation is that you seek local allies and partners who have this experience and promote the transfer and capacity building of local communities during the implementation and monitoring of the portfolio." %}
+			</span>
+			<span class="  container " style="font-weight: bold;">
+				{% trans "Possible partners:" %}
+				</span>
+				<ul>
+				<li> {% trans "Academy and ONGs" %} </li>
+				<li> {% trans "Consulting firms" %} </li>
+				<li> {% trans "Local communities" %} </li>
+				<li> {% trans "Governance " %} </li>
+				<li> {% trans "mechanisms" %} </li>
+				<li> {% trans "Local authorities" %} </li>
+				<li> {% trans "Business" %} </li>
+				</ul>
+		</div>
+		<div class="col-md-7 col-sm-7">
+			<img class="image-actor-take" src= "{% static 'geonode/img/TA_actor.png' %}">
+		</div>
+	</div>
+	<div class=" take-action-middle-tittle text-center" >
+		<h2>{% trans "Suggested profiles and capacities for the implementation team:" %}</h2>
+	</div>
+	<div class="align-complete-take-2" style="padding-bottom: 5%;">
+		<span >{% trans "In the following, we will guide you with the type of profiles, technical capabilities, skills and experience, which we suggest the group of people working on the implementation of the portfolio of Nature-Based Solutions should meet. Depending on the context you are in, the area to be intervened and the size of your portfolio, the number of people you need to implement it may be larger or smaller. Remember that this team must ensure  proper implementation of the various solutions considered in the portfolio, the maintenance of the actions and their follow-up. In this sense, we recommend that you choose these teams in the same regional or local context where the portfolio will be implemented. Knowledge of the dynamics of vegetation and local conditions are an essential element for the success of the portfolio" %}
+		</span>
+	</div>
+
+	<div class="row " style="margin: 0 10%;">
+
+		<div class="col-md-2 col-sm-2 col-xs-2">
+			<img class="image-user-take" src= "{% static 'geonode/img/user1.png' %}">
+		</div>                              
+		<div class= "col-md-10 font-image-take-action  " >
+			<span class="text-justify">
+			{% trans "<b>Partnership manager:</b> Socializes the portfolio and identifies opportunities with key entities and actors to leverage efforts and resources that facilitate and accelerate the implementation of actions. The impact of good management can bring great benefits. Do not underestimate this potential. " %}
+			</span>	
+		</div>				
+
+		<div class="col-md-2 col-sm-2 col-xs-2">
+			<img class="image-user-take" src= "{% static 'geonode/img/user2.png' %}">
+		</div>                              
+		<div class= "col-md-10 font-image-take-action ">
+			<span class="text-justify">
+			{% trans "<b>Lawyer:</b> Structures the agreements with owners (public and private) to formalize their commitment to maintain these actions over time. Lawyer: Structures the agreements with owners (public and private) to formalize their commitment to maintain these actions over time.  " %}
+			</span>	
+		</div>
+
+		<div class="col-md-2 col-sm-2 col-xs-2 margin-images">
+			<img class="image-user-take" src= "{% static 'geonode/img/user3.png' %}">
+		</div>                              
+		<div class= "col-md-10 font-image-take-action ">
+			<span class="text-justify">
+			{% trans "<b>Extension technician:</b> Identifies and establishes communication with interested landowners to reach agreements with them on the implementation of Nature-Based Solutions in each property (signing of agreements). " %}
+			</span>	
+		</div>				
+
+		<div class="col-md-2 col-sm-2 col-xs-2 margin-images">
+			<img class="image-user-take" src= "{% static 'geonode/img/user4.png' %}">
+		</div>                              
+		<div class= "col-md-10 font-image-take-action ">
+			<span class="text-justify">
+			{% trans "<b>Director of the implementing team:</b> Structures the projects to implement the portfolio of Nature-Based Solutions and maintains the actions. He/she must structure the budget (materials, tools, logistics, personnel, travel expenses, equipment and everything necessary for the implementation of the actions and their maintenance), hire and train the staff of the implementation team, and direct and supervise the implementations and maintenance in field. This is one of the most important profiles, this person must have experience implementing actions for the preservation and restoration of natural ecosystems and sustainable management of productive systems as well as the management of personnel in the field, hopefully in the same regional context.  " %}
+			</span>	
+		</div>				
+
+		<div class="col-md-2 col-sm-2 col-xs-2 margin-images">
+			<img class="image-user-take" src= "{% static 'geonode/img/user5.png' %}">
+		</div>                              
+		<div class= "col-md-10 font-image-take-action ">
+			<span class="text-justify">
+			{% trans "<b>Implementing team staff:</b> They implement Nature-Based Solutions. Ideally, they should have experience in implementing these types of actions, but they can be people from local communities or volunteers who are trained to carry out these activities. We recommend that you take advantage of all the opportunities you identify to partner with other implementation partners and promote the strengthening of local communities.  " %}
+			</span>	
+		</div>				
+
+		<div class="col-md-2 col-sm-2 col-xs-2 margin-images">
+			<img class="image-user-take" src= "{% static 'geonode/img/user6.png' %}">
+		</div>                              
+		<div class= "col-md-10 font-image-take-action ">
+			<span class="text-justify">
+			{% trans "<b>Director of the monitoring and evaluation team:</b> Structures and develops the monitoring of Nature-Based Solutions in order to quantify progress towards meeting the goals defined for the portfolio. It may be oriented exclusively towards the monitoring of indicators defined in the return on investment analysis or include indicators of biophysical aspects. He / she must structure the budget for supervising, hire and train the monitoring team staff, and direct and supervise these activities in the field. He / she must also define and develop the analyses and generate the evaluation reports.  " %}
+			</span>	
+		</div>				
+
+		<div class="col-md-2 col-sm-2 col-xs-2 margin-images">
+			<img class="image-user-take" src= "{% static 'geonode/img/user7.png' %}">
+		</div>                              
+		<div class= "col-md-10 font-image-take-action  ">
+			<span class=" text-justify">
+			{% trans "<b>Monitoring and evaluation team staff:</b> They implement Nature-Based Solutions portfolio monitoring. Ideally, they should have experience in monitoring and some of the activities may be carried out only with qualified personnel, but the monitoring may include activities carried out by people from local communities or trained volunteers. We recommend that you take advantage of all the opportunities you identify to associate with other implementation partners and promote the empowerment of local communities." %}
+			</span>	
+		</div>				
+
+	</div>
+
+
+	<div class="row">
+		<div class="col-md-12 ">
+			<div class=" take-action-middle-tittle col-md-12 text-center" >
+				<h2>{% trans "Here you can find tools, case study references, trainings, methodologies and other useful resources:" %}</h2>
+			</div>
+			<div class="col-md-12" style="text-align: left;padding-left: 10%;">
+				{% trans "Monitoring and evaluation team: "%}<a href="https://waterfundstoolbox.org/">https://waterfundstoolbox.org/</a> <div class="row"></div>
+				{% trans "Conservation Gateway: "%}<a href=" https://www.conservationgateway.org/ConservationPractices /Freshwater/FinancialSolutions/TypesofFinancialSolutions/WaterFunds/Pages/water-funds.aspx"> https://www.conservationgateway.org/ConservationPractices</a> <div class="row"></div>
+				{% trans "Conservation training: "%}<a href=" https://www.conservationtraining.org/course/index.php?categoryid=2 "> https://www.conservationtraining.org/course/index.php?categoryid=2 </a> <div class="row"></div>
+				<a href="https://www.ipcc.ch/"></a><div class="row"></div>
+				<a href="https://www.un.org/es/climatechange">https://www.ipcc.ch/</a><div class="row"></div>
+				<a href="https://www.undp.org/content/undp/es/home/sustainable-development-goals/goal-13 -climate-action.html">https://www.undp.org/content/undp/es/home/sustainable-development-goals/goal-13-climate-action.html</a><div class="row"></div>
+				<a href="https://actionlac.net/faq/">https://actionlac.net/faq/</a><div class="row"></div>
+				<a href="https://www.nature.org/es-us/que-hacemos/nuestra-vision/perspectivas/guia-practica-accion-climatica/">https://www.nature.org/es-us/que-hacemos/nuestra-vision/perspectivas/guia-practica-accion-climatica/</a><div class="row"></div>
+				<a href="https: //nature4climate.org/">https: //nature4climate.org/</a><div class="row"></div>
+				<a href="https://www.pnas.org/content/114/44/11645 ">https://www.pnas.org/content/114/44/11645</a><div class="row"></div>
+				<a href="https://www.nature.org/en-us/what-we-do/our-insights/perspectives/natural-climate-solutions/">https://www.nature.org/en-us/what-we-do/our-insights/perspectives/natural-climate-solutions/</a><div class="row"></div>
+				<a href="http://naturalclimatesolutions.org/">http://naturalclimatesolutions.org/</a><div class="row"></div>
+				<a href="https://nature4climate.org/about/ Purpose /">https://nature4climate.org/about/Purpose /</a><div class="row"></div>
+				<a href="https://www.cbd.int/">https://www.cbd.int/</a><div class="row"></div>
+			</div>
+			<div class=" take-action-middle-tittle col-md-12 text-center" >
+				<h2>{% trans "Here you can find references to platforms, communities of practice and collaborative alliances:" %}</h2>
+			</div>
+			<div class=" col-md-12" style="text-align: left;padding-left: 10%;">
+				{% trans "WaterFundsToolbox: "%}<a href="https://waterfundstoolbox.org/">https://waterfundstoolbox.org/</a> <div class="row"></div>
+				{% trans "WaterFunds Network: "%}<a href=" https://thenatureconservancy462.sharepoint.com/ sites / Conservation / practices / waterfunds / Pages / ABOUT.aspx"> https://thenatureconservancy462.sharepoint.com/sites/Conservation/practices/waterfunds/Pages/ABOUT.aspx</a> <div class="row"></div>
+				{% trans "Water Funds Colombia: "%}<a href="https://www.nature.org/en-us/about-us/where-we-work/latin-america/colombia/stories-in-colombia/colombia-water/  "> https://www.nature.org/en-us/about-us/where-we-work/latin-america/colombia/stories-in-colombia/colombia-water/ "</a> <div class="row"></div>
+				{% trans "Fondos de Agua LAR: "%}<a href="https: // www. nature.org/en-us/about-us/where-we-work/latin-america/stories-in-latin-america/water-funds-of-south-america/  ">https://www.nature.org/en-us/about-us/where-we-work/latin-america/stories-in-latin-america/water-funds-of-south-america/  </a> <div class="row"></div>
+				{% trans "Latin American Alliance of Water Funds: "%}<a href="https://www.fondosdeagua.org/es/ ">https://www.fondosdeagua.org/es/ </a> <div class="row"></div>
+				{% trans "Water Integrity Network: "%}<a href="https://www.waterintegritynetwork.net/about/   ">https://www.waterintegritynetwork.net/about/   </a> <div class="row"></div>
+
+			</div>
+		</div>
+	</div>
+
+<!-- buttons -->
+
+	<div class="row">
+		<div class="col-md-2" style="margin-left: 30%;">
+			<div class="iconsWhatIsWP">
+				<button class="buttonWhatIsWP" type="button" data-placement="top" >
+				<a href="{% url "do-it-now" %}">{% trans "Go back" %} </a>
+				</button>
+			</div>
+		</div>
+		<div class="col-md-2">
+			<div class="iconsWhatIsWP">
+				<button class="buttonWhatIsWP" type="button" data-placement="top" >
+				<a href="{% url "how-does-waterproof-work" %}">{% trans "Keep reading" %} </a>
+				</button>
+			</div>
+		</div>  
+	</div>      
+</section>
+<div class="row" style="padding-bottom: 5%;"></div>
+{% endblock %}

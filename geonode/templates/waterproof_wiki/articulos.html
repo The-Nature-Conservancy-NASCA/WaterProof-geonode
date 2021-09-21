@@ -2,49 +2,115 @@
 {% load i18n %}
 
 {% block extra_head %}
-    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_wiki/css/styles.css"/>
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_wiki/css/styles.css" />
+<link href="https://cdn.boomcdn.com/libs/owl-carousel/2.3.4/assets/owl.carousel.min.css" rel="stylesheet"/>
+<link href="https://cdn.boomcdn.com/libs/owl-carousel/2.3.4/assets/owl.theme.default.css" rel="stylesheet"/>
 {% endblock %}
 
 {% block body_outer %}
 
-{%block titulo%}
-<div class= "article">
-<h1>{% trans "Articles" %}:</h1>
-</div>
-{% endblock %}
+    {%block titulo%}
+    <div class="article">
+        <h1>{% trans "Knowledge bank" %}:</h1>
+    </div>
+    {% endblock %}
 
 {% block content %}
+    <section class="carrouselcolor" id="news-menu">
+        <div class="container">           
+            <div class="slider owl-carousel text-center">                
+                    {% if request.LANGUAGE_CODE == "es" %}
+                        {% for item in random_articles %}
+                        <div class="card">
+                            <div class="img">
+                                <img src="{{SITE_HOST_API}}uploaded/{{item.imagen}}" class="img-card-news" alt="">
+                                <p class="copyright img-md-wiki">© {{item.metadato_imagen |slice:":50"}}</p>
+                            </div>
+                            <div class="content">
+                                <div class="newstitle">{{item.titulo}}</div>
+                                <p>{{item.resumen |slice:":150"}}...</p>
+                            </div>
+                        </div>
+                        {% endfor%}
+                    {% else %}
+                        {% for item in random_articles %}
+                        <div class="card">
+                        <div class="img">
+                            <img src="{{SITE_HOST_API}}uploaded/{{item.imagen}}" class="img-card-news" alt="">
+                            <p class="copyright img-md-wiki">© {{item.metadato_imagen_en|slice:":50"}}</p>
+                        </div>
+                        <div class="content">
+                            <div class="newstitle">{{item.titulo_en }} </div>
+                            <p>{{item.resumen_en |slice:":150"}}...</p>
+                        </div>
+                        </div>
+                         {% endfor%}
+                    {% endif %}
+            </div>
+        </div>
+    </section>
 
     <form action="buscar" method="GET" class="search-article">
-        <label for="p_titulo">Buscar: </label>
+        <label for="p_titulo">{% trans "Search" %}: </label>
         <input type="text" name="p_titulo">
-        <input type="submit" value="Buscar">
+        <input type="submit" value="{% trans "Search" %}">
     </form>
 
-    <article >
-    {%for a in articulos %}
-            <div class="data">
-                <h2>{{a.titulo}}:</h2>
-                {{a.resumen|safe|linebreaks}}
-                <a href="{% url 'consultar_articulo' id=a.id %}">Ver más</a>
-            </div>
-
-    {% endfor%}
+    <article>
+        {%for a in articulos %}
+        <div class="data">
+            {% if request.LANGUAGE_CODE == "es" %}
+            <h2>{{a.titulo}}:</h2>
+            {{a.resumen|safe|linebreaks}}
+            <a href="{% url 'consultar_articulo' id=a.id %}">Ver más</a>
+            {% else %}          
+            <h2>{{a.titulo_en}}:</h2>
+            {{a.resumen_en|safe|linebreaks}}
+            <a href="{% url 'consultar_articulo' id=a.id %}">Show more</a>
+            {% endif %}
+            
+        </div>
+        {% endfor%}
     </article>
-    <br>  
-    <paginacion>
-        <a href="?p_titulo={{ p_titulo }}&page=1">&laquo; First</a>
-        {% for i in articulos.paginator.page_range %}
+    <br>
+    <div class="text-center">
+        <paginacion>
+            <a href="?p_titulo={{ p_titulo }}&page=1">&laquo; {% trans "First" %}</a>
+            {% for i in articulos.paginator.page_range %}
             <a href="?p_titulo={{ p_titulo }}&page={{ i }}">{{ i }}</a>
-        {% endfor %}
+            {% endfor %}
         
-        {% if articulos.has_next %}
-        <a href="?p_titulo={{ p_titulo }}&page={{ articulos.paginator.num_pages }}">Last &raquo;</a>
-        {% endif %}
-       
-    </paginacion>
-
-{% endblock%}
-
-
+            {% if articulos.has_next %}
+            <a href="?p_titulo={{ p_titulo }}&page={{ articulos.paginator.num_pages }}">{% trans "Last" %} &raquo;</a>
+            {% endif %}
+        
+        </paginacion>
+    </div>
+    {% endblock%}
 {% endblock %}
+
+{% block extra_script %}
+    
+    <script type="text/javascript"src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+    <script type="text/javascript">
+        $(".slider").owlCarousel({
+            loop: true,
+            autoplay: true,
+            autoplayTimeout: 4000,
+            autoplayHoverPause: true,
+            items: 2,
+            margin: 50,
+			nav: true,
+            navText: ["<img src='/static/geonode/img/flecha-izq.png'>", "<img src='/static/geonode/img/flecha-der.png'>"]
+        });
+
+        $(document).ready(function() {
+            $(".description-WhatIsWP").hide();
+            $(".buttonWhatIsWP").on("click", function(el) {
+                $(".description-WhatIsWP").hide();
+                let id = $(this).attr("data-target");
+                $("#" + id).show('slow');                
+            });
+        });               
+    </script>
+{% endblock extra_script %}

@@ -15,7 +15,7 @@
             <h1>{% trans "view_study_cases" %}</h1>
         </div>
         <div class="col-sm-6">
-            <h4 class="title-city">{% trans "creation_city" %} <span id="cityLabel"></span> </h4>
+            <h4 class="title-city">{% trans "creation_city" %}: <span id="cityLabel"></span> </h4>
         </div>
     </div>
     <br>
@@ -194,7 +194,7 @@
                                 <input type="text" name="dws_cm" maxlength="100" class="form-control" id="id_cm" value="{{study_case.cm_value|stringformat:'1.2f'}}" disabled />
                             </div>
                             <div class="col-md-3">
-                                <input id="cm_select" class="form-control" value="{{study_case.cm_currency}}" disabled>
+                                <input id="cm_select" class="form-control" value="{{study_case.cm_currency |default_if_none:'' }} - {{ cm_currency_name}}" disabled>
                             </div>
                             <div class="col-md-3 cm-unit-label">
                                 <p>{% trans "TonCO2eq" %}</p>
@@ -265,13 +265,13 @@
                         <h3> {% trans "Financial parameters" %}</h3>
                         <p></p>
                         <div class="row">
-                            <div class="custom-control float-right col-md-4">
+                            <div class="custom-control float-right col-md-4" style="margin-bottom:15px;">
                                 <div class="row">
                                     <div class="custom-control col-md-3">
                                         <label class="custom-control-label" for="financial_currency">{% trans "Currency" %}</label>
                                     </div>
                                     <div class="custom-control col-md-4">
-                                        <input id="financial_currency" class="form-control" value="{{study_case.financial_currency}}" disabled>
+                                        <input id="financial_currency" class="form-control" value="{{study_case.financial_currency |default_if_none:''}} - {{ fn_currency_name}}" disabled>
                                     </div>
                                 </div>
 
@@ -279,7 +279,7 @@
                         </div>
                         <div class="row ">
                             <div class="col-md-6">
-                                <label class="custom-control-label" for="total_platform">{% trans "platform_cost" %}</label>
+                                <label class="custom-control-label" for="total_platform"><strong>{% trans "platform_cost" %}</strong></label>
                             </div>
                             <div class="custom-control col-md-4">
                                 <input class="text-number" id="total_platform" type="number" class="custom-control-input" disabled>
@@ -352,7 +352,7 @@
                                 <input class="text-number" id="others" type="number" class="custom-control-input" value="{{study_case.others|stringformat:'1.2f'}}" disabled>
                             </div>
                             <div class="col-md-12">
-                                <p>{% trans "financial_transaction_cost" %}</p>
+                                <p><strong>{% trans "transaction_cost" %}</strong></p>
                             </div>
                             <div class="col-md-6">
                                 <label class="custom-control-label transaction-label" for="transaction">{% trans "transaction_cost" %}</label>
@@ -361,7 +361,7 @@
                                 <input class="text-number" id="transaction" type="number" class="custom-control-input" value="{{study_case.transaction_cost|stringformat:'1.2f'}}" disabled>
                             </div>
                             <div class="col-md-12">
-                                <p>{% trans "financial_discount_rates" %}</p>
+                                <p><strong>{% trans "financial_discount_rates" %}</strong></p>
                             </div>
                             <div class="col-md-6">
                                 <label class="custom-control-label discount-label" for="discount">{% trans "discount_rate" %}</label>
@@ -427,7 +427,7 @@
                                 <label for="analysis_currency" class="control-label required-field ">
                                     {% trans "Currency" %}
                                 </label>
-                                <input id="cm_select" class="form-control" value="{{study_case.analysis_currency}}" disabled>
+                                <input id="cm_select" class="form-control" value="{{study_case.analysis_currency |default_if_none:''}} - {{study_case.analisys_currency_name}}" disabled>
                             </div>
                         </div>
                         <div class="col-md-6">

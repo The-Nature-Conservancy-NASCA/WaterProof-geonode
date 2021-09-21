@@ -3,29 +3,31 @@ from django.shortcuts import render, HttpResponse
 from django.shortcuts import redirect, get_object_or_404
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.shortcuts import render 
+from django.db.models import Q
+from django.conf import settings
 from .models import Article, Referencies, Links, Category
+import random
 
 def consultar_articulo(request, id=0):
-    print('--------consultar_articulo--------')
+    #print('--------consultar_articulo--------')
     try:
-        articulos=Article.objects.get(pk=id)
+        articulos=Article.objects.get(pk=id)  
         referencias = None
-        print(f"---{Referencies.objects.filter(article=articulos.pk).exists()}") 
+        #print(f"---{Referencies.objects.filter(article=articulos.pk).exists()}") 
         if Referencies.objects.filter(article=articulos.pk).exists():
             referencias=Referencies.objects.filter(article=articulos.pk)      
         enlaces = None
         enlaces=Links.objects.filter(articulo=articulos.pk)
-        print(f"--------consultar_articulo-----enlaces---{enlaces}")       
+        #print(f"--------consultar_articulo-----enlaces---{enlaces}")       
 
     except Exception as e:
         print("El error es:", e)
         r="Articulo no encontrado"
-        print(f"--------*****")
+        # print(f"--------*****")
     return render(request, 'waterproof_wiki/articulo_detalle.html', {
         'articulo':articulos,
         'referencias':referencias,
-        'enlaces':enlaces, 
-       
+        'enlaces':enlaces      
     })
 
 def consultar_categorias(request , categoria_id):
@@ -39,9 +41,13 @@ def consultar_categorias(request , categoria_id):
 
 def listar_articulos(request):
     articulos=Article.objects.filter(publico='True')
+
+    random_articles = random.sample(list(Article.objects.filter(publico='True').exclude(imagen='null')), 5)
+    #print (random_articles)
+
     paginator=Paginator(articulos,5)
     idPaginaPaginador=request.GET.get('page')
-    print(f"idPaginaPaginador:{idPaginaPaginador}")
+    #print(f"idPaginaPaginador:{idPaginaPaginador}")
     
     try:
         articulosDePagina = paginator.page(idPaginaPaginador)
@@ -51,7 +57,9 @@ def listar_articulos(request):
         articulosDePagina= paginator.page(paginator.num_pages)
     
     return render(request, 'waterproof_wiki/articulos.html', {
-        'articulos':articulosDePagina, 
+        'articulos':articulosDePagina,
+        'random_articles':random_articles,
+        'SITE_HOST_API' : settings.SITE_HOST_API
     })
 
 def listar_articulos_random(request):
@@ -64,7 +72,7 @@ def listar_articulos_random(request):
 def listar_articulos_filtro(request, p_titulo=""):
     q=request.GET.get('p_titulo')
     print(f"____________p_titulo:{q}")
-    articulos=Article.objects.filter(titulo__icontains=q) #titulo__exacts  titulo__iexacts !Esto se llama Looups ! 
+    articulos=Article.objects.filter(Q(titulo__icontains=q) | Q(titulo_en__icontains=q)) #titulo__exacts  titulo__iexacts !Esto se llama Looups ! 
     
     paginator=Paginator(articulos,5)
     idPaginaPaginador=request.GET.get('page')

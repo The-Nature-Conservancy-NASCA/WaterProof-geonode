@@ -34,6 +34,6 @@ urlpatterns = [
     path('validateGeometry/', views.validateGeometry, name='valid-geometry'),
     # validate python expression
     path('validatePyExpression/', api.validatePyExpression, name='validatePyExpression'),
-    # Compare Maps
-    path('compare-maps/', views.compareMaps, name='compare-maps'),
+    # View Diagram
+    path('ShowDiagram/<int:idx>', views.viewDiagram, name='diagram-intake'),
 ]

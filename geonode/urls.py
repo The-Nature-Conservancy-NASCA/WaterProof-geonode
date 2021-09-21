@@ -44,7 +44,7 @@ from geonode.utils import check_ogc_backend
 from geonode.monitoring import register_url_event
 from geonode.messaging.urls import urlpatterns as msg_urls
 from .people.views import CustomSignupView
-
+from .waterproof_intake.views import viewDiagram
 from wagtail.admin import urls as wagtailadmin_urls
 from wagtail.core import urls as wagtail_urls
 from wagtail.documents import urls as wagtaildocs_urls
@@ -101,7 +101,16 @@ urlpatterns = [
         name='collaborators'),
 	url(r'^take-action/$',
         TemplateView.as_view(template_name='take_action.html'),
-        name='take-action'),	
+        name='take-action'),
+    url(r'^do-it-now/$',
+        TemplateView.as_view(template_name='do-it-now.html'),
+        name='do-it-now'),
+    url(r'^who-can-help/$',
+        TemplateView.as_view(template_name='who-can-help.html'),
+        name='who-can-help'),
+    url(r'^how-does-waterproof-work/$',
+        TemplateView.as_view(template_name='how-does-waterproof-work.html'),
+        name='how-does-waterproof-work'),	
 	url(r'^nbs_active_restoration/$',
         TemplateView.as_view(template_name='nbs_active_restoration.html'),
         name='nbs_active_restoration'),	
@@ -130,7 +139,9 @@ urlpatterns = [
 
 urlpatterns += [
 
-    # path('cms/', include(wagtailadmin_urls)),
+    # View Diagram
+    path('ShowDiagram/<int:idx>', viewDiagram, name='diagram-intake'),
+    path('cms/', include(wagtailadmin_urls)),
     path('docs/', include(wagtaildocs_urls)),
     path('pages/', include(wagtail_urls)),
 
@@ -353,9 +364,9 @@ urlpatterns += [
 ]
 
 # waterproof_cms
-urlpatterns += [
-    url(r'^cms/', include('geonode.waterproof_cms.urls'), name='waterproof_cms'),
-]
+# urlpatterns += [
+#     url(r'^cms/', include('geonode.waterproof_cms.urls'), name='waterproof_cms'),
+# ]
 
 # waterproof_wiki
 urlpatterns += [

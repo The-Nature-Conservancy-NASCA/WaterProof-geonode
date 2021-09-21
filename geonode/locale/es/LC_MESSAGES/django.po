@@ -1747,7 +1747,7 @@ msgstr "Establecer"
 
 #: geonode/geoapps/templates/apps/app_detail.html:152 geonode/geoapps/templates/apps/app_detail.html:154 geonode/monitoring/models.py:359
 msgid "View"
-msgstr "View"
+msgstr "Ver"
 
 #: geonode/geoapps/templates/apps/app_detail.html:163 geonode/maps/templates/maps/map_detail.html:243
 msgid "Specify which users can view or modify this map"
@@ -9329,8 +9329,8 @@ msgid "Search your city"
 msgstr "Empieza ahora buscando una ciudad de análisis"
 
 #: geonode/templates/search_city.html
-msgid "In this section you can consult the case studies configured in the system or start the configuration of a case study"
-msgstr "Arrastre o haga zoom el mapa al área de su interés e ingrese el nombre de la ciudad donde desea iniciar el análisis. Confirme su selección haciendo clic en el botón de Lista actual de casos de estudio."
+msgid "description_search_city"
+msgstr "Realice un acercamiento, alejamento o paneo en el mapa para identificar su área de interés. Ingrese el nombre de la ciudad en la caja de texto para establecer el sitio del análisis. Una lista de opciones se desplegará. Confirme su selección haciendo clic en la ciudad de interés de lista  de ciudades. De clic en el botón 'Lista actual de casos de estudio'."
 
 #: geonode/templates/search_city.html
 msgid "List Study Cases"
@@ -9363,3 +9363,9 @@ msgstr "SbN"
 #: geonode/templates/menu.html
 msgid "This website is funded by the Gordon and Betty Moore Foundation through Grant GBMF7100 to support the work of WaterProof"
 msgstr "Este sitio web está financiado por la Fundación Gordon and Betty Moore a través de la subvención GBMF7100 para apoyar el trabajo de WaterProof"
+
+msgid "Use this window to configure your cost function by selecting the variables of your interest: flow, concentration or loads."
+msgstr "Use esta ventana para configurar su función de costo seleccionando las variables de su interés: flujo, concentración o cargas."
+
+msgid "Expand the list of items and click to build the function."
+msgstr "Expanda la lista de elementos y haga clic para construir la función."
