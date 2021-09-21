@@ -231,19 +231,19 @@ $(document).ready(function() {
             city_id: city_id,
             process: "View"
         }, function(data) {
-            content = ''
-            values = false
+            content = '';
+            values = false;
             $.each(data, function(index, nbs) {
                 var name = nbs.name;
-                var def = nbs.default
-                var value = nbs.value
+                var def = nbs.default;
+                var value = nbs.value;
 
                 if (value) {
                     values = true
                 }
                 if (def) {
                     content += '<tr><td>' + name + '</td>'
-                    content += '<td>' + value + '</td></tr>'
+                    content += '<td>' +( (value == null) ? "" : value) + '</td></tr>'
                 }
             });
             if (values) {

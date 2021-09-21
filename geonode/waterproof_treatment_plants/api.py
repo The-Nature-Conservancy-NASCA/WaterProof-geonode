@@ -10,7 +10,7 @@ from geonode.waterproof_parameters.models import Countries, Cities
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import DateTimeField
 import requests
-import psycopg2
+from django.db.models import Q
 import json
 
 
@@ -125,7 +125,8 @@ def getInfoTree(request):
 	"""
 	if request.method == 'GET':
 		if request.user.is_authenticated:
-			for countries in Countries.objects.filter(name=request.query_params.get('country')):
+			country = request.query_params.get('country')
+			for countries in Countries.objects.filter(Q(name=country) | Q(native=country)):
 				countryFactor = countries.global_multiplier_factor
 
 			objects_list = []
