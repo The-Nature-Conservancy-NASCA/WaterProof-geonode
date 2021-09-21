@@ -1180,6 +1180,39 @@ def deleteIntake(request, idx):
             response.status_code = 200
             return response
 
+def viewDiagram(request, idx):
+    if request.method == 'GET':
+        filterIntake = Intake.objects.get(id=idx)
+        filterExternal = ElementSystem.objects.filter(intake=filterIntake.pk, is_external=True)
+        extInputs = []
+
+        for element in filterExternal:
+            filterExtraction = ValuesTime.objects.filter(element=element.pk)
+            extractionElements = []
+            for extraction in filterExtraction:
+                extractionObject = {
+                    'year': extraction.year,
+                    'waterVol': extraction.water_volume,
+                    'sediment': extraction.sediment,
+                    'nitrogen': extraction.nitrogen,
+                    'phosphorus': extraction.phosphorus
+                }
+                extractionElements.append(extractionObject)
+            external = {
+                'name': element.name,
+                'xmlId': element.graphId,
+                'waterExtraction': extractionElements
+            }
+            
+            extInputs.append(external)
+        intakeExtInputs = json.dumps(extInputs)
+        return render(
+            request, 'waterproof_intake/intake_diagram.html',
+            {
+                'intake': filterIntake,                
+                'externalInputs': intakeExtInputs,                
+            }
+        )
 
 """"""""""""""""""""""
 Execute Invest API

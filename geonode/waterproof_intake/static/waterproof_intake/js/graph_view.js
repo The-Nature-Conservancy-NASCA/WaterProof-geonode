@@ -152,7 +152,7 @@ function onInit(editor) {
     var graphNode = editor.graph.container;
 
     //esto va para edit :v
-    xmlDoc = mxUtils.parseXml(xmlGraph)
+    xmlDoc = mxUtils.parseXml(xmlGraph);
     var dec = new mxCodec(xmlDoc);
     dec.decode(xmlDoc.documentElement, editor.graph.getModel());
 
