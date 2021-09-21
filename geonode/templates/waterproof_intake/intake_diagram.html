@@ -145,18 +145,6 @@
         }
     });
 
-    //Load data from figure to html
-    editor.graph.addListener(mxEvent.CLICK, function(sender, evt) {
-        selectedCell = evt.getProperty('cell');
-        // Clear Inputs
-        if (selectedCell != undefined) clearDataHtmlView(selectedCell, evt);
-        if (selectedCell != undefined) { 
-          addDataView(selectedCell, MQ); 
-        } else { 
-          clearDataHtmlView(selectedCell, evt);
-         }
-    });
-
     function clearDataHtmlView() {
       $('#aguaDiagram').prop('disabled', true);
       $('#sedimentosDiagram').prop('disabled', true);
