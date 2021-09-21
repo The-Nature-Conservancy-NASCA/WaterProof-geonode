@@ -155,7 +155,7 @@ def edit(request, idx):
             listPTAPStudy = study_case.ptaps.all()
             scenarios = Climate_value.objects.all()
             
-            currencys = Countries.objects.values('currency','name').exclude(currency__exact='').order_by('currency')
+            currencys = Countries.objects.values('currency','name', 'iso3').exclude(currency__exact='').order_by('currency')
             for portfolio in listPortfolios:
                 defaultValue = False
                 for portfolioStudy in listPortfoliosStudy:

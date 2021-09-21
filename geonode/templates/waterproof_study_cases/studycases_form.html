@@ -564,9 +564,12 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-md-5">
-                        <div class="panel-group" id="VarCostListGroup" style="max-height: 480px; overflow-y: auto;"></div>
+                    <div class="col-md-12">
+                        <p>{% trans "Use this window to configure your cost function by selecting the variables of your interest: flow, concentration or loads." %}</p>
+                        <p>{% trans "Expand the list of items and click to build the function." %}</p>
                     </div>
+                </div>
+                <div class="row">                    
                     <div class="col-md-7">
                         <div class="form-group">
                             <label class="text-primary">Cost function name</label>
@@ -645,6 +648,9 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-md-5">
+                        <div class="panel-group" id="VarCostListGroup" style="max-height: 480px; overflow-y: auto;"></div>
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12">
@@ -714,8 +720,7 @@
                     {% trans "offers you the possibility to integrate in your analysis the possible benefits that you can obtain if you expect to participate in carbon markets. This is done by defining a monetary value per Ton of CO2eq." %}
                 </p>
                 <p>
-                    <h4>{% trans "WaterProof" %}</h4>
-                    {% trans "uses information from the database published in May 2020 by the Institute for Climate Economics (Sébastien Postic | Marion Fetet) to preload USD / TonCO2eq values ​​that vary according to the country where the analysis is being carried out, however, the user can modify these values ​​according to the information they have." %}
+                    {% trans "Uses information from the database published in May 2020 by the Institute for Climate Economics (Sébastien Postic | Marion Fetet) to preload USD / TonCO2eq values ​​that vary according to the country where the analysis is being carried out, however, the user can modify these values ​​according to the information they have." %}
                 </p>
                 <div>
                     <br>
@@ -944,11 +949,8 @@
 <script src="{{ STATIC_URL }}study_cases/js/graphValidations.js"></script>
 <script src="{{ STATIC_URL }}geonode/js/mxgraph/mxClient.js"></script>
 <script src="{{ STATIC_URL }}geonode/js/mxgraph/examples/editors/js/app.js"></script>
-<script src="{{ STATIC_URL }}geonode/js/mxgraph/examples/editors/js/app.js"></script>
 <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 <script src="{{ STATIC_URL }}study_cases/mathquill/mathquill.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min.js"
-integrity="sha512-dTu0vJs5ndrd3kPwnYixvOCsvef5SGYW/zSSK4bcjRBcZHzqThq7pt7PmCv55yb8iBvni0TSeIDV8RYKjZL36A=="
-crossorigin="anonymous"></script>-->
+
 {% endblock %}

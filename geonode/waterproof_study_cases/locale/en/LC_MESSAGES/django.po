@@ -347,11 +347,11 @@ msgstr "Remember that ROI is an indicator that allows you to know how much money
 msgid "Integrate Analysis Associated with the Carbon Market"
 msgstr "Integrate analysis associated with the carbon market"
 
-msgid "offers you the possibility to integrate in your analysis the possible benefits that you can obtain if you expect to participate in carbon markets. This is done by defining a monetary value per Ton of CO2eq."
-msgstr "offers you the possibility to integrate in your analysis the possible benefits that you can obtain if you expect to participate in carbon markets. This is done by defining a monetary value per Ton of CO2eq."
+msgid "Offers you the possibility to integrate in your analysis the possible benefits that you can obtain if you expect to participate in carbon markets. This is done by defining a monetary value per Ton of CO2eq."
+msgstr "Offers you the possibility to integrate in your analysis the possible benefits that you can obtain if you expect to participate in carbon markets. This is done by defining a monetary value per Ton of CO2eq."
 
-msgid "uses information from the database published in May 2020 by the Institute for Climate Economics (Sébastien Postic | Marion Fetet) to preload USD / TonCO2eq values ​​that vary according to the country where the analysis is being carried out, however, the user can modify these values ​​according to the information they have."
-msgstr "uses information from the database published in May 2020 by the Institute for Climate Economics (Sébastien Postic | Marion Fetet) to preload USD / TonCO2eq values ​​that vary according to the country where the analysis is being carried out, however, the user can modify these values ​​according to the information they have."
+msgid "Uses information from the database published in May 2020 by the Institute for Climate Economics (Sébastien Postic | Marion Fetet) to preload USD / TonCO2eq values ​​that vary according to the country where the analysis is being carried out, however, the user can modify these values ​​according to the information they have."
+msgstr "Uses information from the database published in May 2020 by the Institute for Climate Economics (Sébastien Postic | Marion Fetet) to preload USD / TonCO2eq values ​​that vary according to the country where the analysis is being carried out, however, the user can modify these values ​​according to the information they have."
 
 msgid "WaterProof will define the NBS of your portfolio according to your needs in relation to:"
 msgstr "WaterProof will define the NbS of your portfolio according to your needs in relation to:"

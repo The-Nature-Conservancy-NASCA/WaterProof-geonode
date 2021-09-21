@@ -1447,6 +1447,9 @@ $(function () {
         $('#costFunctionName').val(costFunction.name);
         if (costFunction.name != "") {            
             $('#currencyCost').val(costFunction.currency);
+            if (costFunction.currency == "USD") {
+                $('#currencyCost option').filter((i,l) => {return l.hasAttribute("data-country")} ).prop("selected",true);
+            }
             $('#factorCost').val(costFunction.factor);
         }        
         if (costFunction.expression != "") {
