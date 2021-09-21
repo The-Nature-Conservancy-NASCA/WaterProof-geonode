@@ -170,6 +170,12 @@
     font-size: 25px;
     font-weight: bold;
 }
+.weight-title-table-ph{
+    font-weight: bold;
+}
+.padding-td-step2-ph{
+    padding-left: 1%;
+}
 .title-water {
     font-size: 15px;
     font-weight: bold;
@@ -2093,6 +2099,12 @@
         float: left;
         margin-top: 20px;
         margin-left: 3%;
+    }
+    .content-table-bootom-step2{
+        padding-bottom: 45%;
+    }
+    .content-table-bootom-step1{
+        padding-bottom: 57%;
     }
 }
 @media only screen and (max-width: 1200px) {
