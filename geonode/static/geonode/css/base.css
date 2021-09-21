@@ -2048,6 +2048,20 @@ pre code {
   .responsive{
     display: none !important;
   }
+  .image-center-take-action2{
+    width: 80%;
+  }
+  .show-cel{
+    display: block;
+  }
+  .show-pc{
+    display: none;
+  }
+  .image-split-instructions2,.image-split-instructions1,.image-split-instructions3{
+    width: 65%;
+    height: 57% !important;
+    padding-top: 25%;
+  }
 }
 @media (min-width: 768px){
   .iconsWhatIsWP{
@@ -2285,6 +2299,12 @@ pre code {
     width: 100%;
     height: 90% !important;
   }
+  .show-cel{
+    display: none;
+  }
+  .show-pc{
+    display: block;
+  }
   .image-split-instructions1{
     width: 65%;
     height: 70% !important;
@@ -2459,7 +2479,7 @@ pre code {
     color: #FFF;
   }
 }
-@media (min-width: 992px) {
+@media (min-width: 992px) and (max-width:1200px) {
   .col-md-1,
   .col-md-2,
   .col-md-3,
@@ -2627,6 +2647,7 @@ pre code {
   .col-md-offset-0 {
     margin-left: 0%;
   }
+
 }
 @media (min-width: 1200px) {
   .col-lg-1,
@@ -9020,6 +9041,16 @@ form-inline {
   bottom: 10%;
   width: 95%;
   height: 55%;
+}
+.buttonTakeAction{
+  border-radius: 60px;
+  border: 1px solid #0C89AA;
+  background-color: transparent;
+  color: #0C89AA;
+  width: 160px;
+  margin-top: 5%;
+  padding: 10px 0px;
+
 }
 .buttonRealize{
   border: 1px solid #0C89AA;
