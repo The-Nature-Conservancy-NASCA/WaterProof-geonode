@@ -64,7 +64,7 @@ $(document).ready(function () {
             Swal.fire({
                 icon: 'warning',
                 title: gettext('Search City'),
-                text: gettext('Please Search a City in the Map.')
+                text: gettext('Please Search a city in the map.')
             });
             return;
             cityId = "";

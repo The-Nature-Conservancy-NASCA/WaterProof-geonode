@@ -2035,7 +2035,7 @@ pre code {
     display: none !important;
   }
   .imgbackgroundSystemop{
-    background: url() !important;
+    background: url();
     height: 800px !important;
     min-height: 100%;
     min-width: 100%;
@@ -2088,11 +2088,10 @@ pre code {
     display: none !important;
   }
   .imgbackgroundSystemop{
-    background: url() !important;
+    background: url(/static/geonode/img/bgSystemOperating.png);
     height: 800px !important;
     min-height: 100%;
-    min-width: 100%;
-    background-repeat: round;
+    min-width: 100%;    
     background-size:cover;
   }
   .text-center {
@@ -2108,6 +2107,9 @@ pre code {
    .responsive{
      font-size: 17px !important;
     /* display: none !important; */
+  }
+  .size-left {
+    font-size: 16px;
   }
 }
 @media (min-width: 992px){
@@ -2134,11 +2136,10 @@ pre code {
     display: table !important;
   }
   .imgbackgroundSystemop{
-    background: url() !important;
+    background: url(/static/geonode/img/bgSystemOperating.png);
     height: 900px !important;
     min-height: 100%;
-    min-width: 100%;
-    background-repeat: round;
+    min-width: 100%;    
     background-size:cover;
   }
   .responsive{
@@ -2150,6 +2151,9 @@ pre code {
   }
   .menuPadding{
     padding-top: 50% !important;
+  }
+  .size-left {
+    font-size: 18px;
   }
 }
 /* .video-responsive {
@@ -2173,6 +2177,7 @@ pre code {
     /* margin-left: 40%;  */
     padding-right: 15px;
   }
+
 @media (min-width: 1200px){
 
   .iconsWhatIsWP{
@@ -2198,12 +2203,12 @@ pre code {
     display: table !important;
   }
   .imgbackgroundSystemop{
-    background: url(/static/geonode/img/bgSystemOperating.png) !important;
+    background: url(/static/geonode/img/bgSystemOperating.png);
     height: 600px !important;
     min-height: 100%;
     min-width: 100%;
-    background-repeat: round;
-    background-size:cover;
+    background-size:auto;
+    background-repeat: no-repeat;
   }
   .responsive{
     font-size: 3.4rem !important;
@@ -2477,6 +2482,9 @@ pre code {
     padding-left: 10%;
     font-size: 50px;
     color: #FFF;
+  }
+  .size-left {
+    font-size: 18px;
   }
 }
 @media (min-width: 992px) and (max-width:1200px) {
@@ -2816,6 +2824,16 @@ pre code {
   }
   .col-lg-offset-0 {
     margin-left: 0%;
+  }
+}
+@media (min-width: 1400px){
+  .imgbackgroundSystemop{
+    background: url(/static/geonode/img/bgSystemOperating-xl.png);
+    height: 600px !important;
+    min-height: 100%;
+    min-width: 100%;    
+    background-size:cover;
+    background-repeat: no-repeat;
   }
 }
 table {
@@ -5655,6 +5673,7 @@ a.thumbnail.active {
 }
 .progress {
   height: 22px;
+  margin-top: 12px;
   margin-bottom: 22px;
   overflow: hidden;
   background-color: #f5f5f5;
@@ -9079,14 +9098,6 @@ form-inline {
   background-repeat: no-repeat;
   background-size:cover;
 }
-.imgbackgroundSystemop{
-  background: url(/static/geonode/img/bgSystemOperating.png);
-  height: 600px;
-  min-height: 100%;
-  min-width: 100%;
-  background-repeat: round;
-  background-size:cover;
-}
 .imgbackgroundWhyUse{
   background: url(/static/geonode/img/Why_use_back.png);
   height: 750px;
@@ -9106,9 +9117,6 @@ form-inline {
 }
 .text-left{
   text-align: left;
-}
-.size-left{
-  font-size: 18px;
 }
 .size-left-buttom{
   font-size: 18px;

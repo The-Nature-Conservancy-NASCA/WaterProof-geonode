@@ -960,12 +960,12 @@ msgid "Creating a new water intake"
 msgstr "Creando una nueva captación"
 
 #: template/intake_list.html:128
-msgid "Water intakes are civil works and electromechanical equipment used to obtain water from surface or underground sources (WaterProof version 1.0 is limited to surface sources). A basin is made up of information about its location, polygon of the supplying basin, infrastructure elements, its cost functions and data about its demand."
-msgstr "Las obras de captación son las obras civiles y equipos electromecánicos que se utilizan para obtener agua de fuentes superficiales o subterráneas (La versión 1.0 de Waterproof está limitada a fuentes superficiales). Una captación está conformada por información sobre su ubicación, polígono de la cuenca abastecedora, elementos de infraestructura, sus funciones de costo y datos de su demanda."
+msgid "Water intakes are civil works and electromechanical equipment used to obtain water from surface or underground sources (WaterProof version 1.0 is limited to surface sources). A basin is made up of information about its location, polygon of the supplying basin, infrastructure elements, its cost functions and demand data."
+msgstr "Las captaciones son obras civiles y equipos electromecánicos que se utilizan para obtener agua de fuentes superficiales o subterráneas (La versión 1.0 de Waterproof está limitada a fuentes superficiales). Una captación está conformada por información sobre su ubicación, polígono de la cuenca abastecedora, elementos de infraestructura, sus funciones de costo y datos de su demanda."
 
 #: template/intake_list.html:131
-msgid "To create a new watershed, WaterProof will help you with the steps you need to follow to complete your registration: "
-msgstr "Para crear una nueva captación, Waterproof lo asistirá indicando los pasos que debe seguir para hacer su registro completo: "
+msgid "To create a new basin, WaterProof will help you with the steps you need to follow to complete your registration:"
+msgstr "Para crear una nueva captación, Waterproof lo asistirá indicando los pasos que debe seguir para hacer su registro completo:"
 
 #: template/intake_login_error.html:10
 msgid "Permission denied"
@@ -982,3 +982,15 @@ msgstr ""
 
 msgid "You can also create your own basin associated with a city, to do this search for the city to which you will associate your basin and then click on the 'Create new water intake' button."
 msgstr "También puede crear su propia captación asociada a una ciudad, para ello busque la ciudad a la cual asociará su captación y luego de clic en el botón “Crear nueva captación”."
+
+msgid "Configure"
+msgstr "Configurar"
+
+msgid "parameters"
+msgstr "parámetros"
+
+msgid "Configuration parameters"
+msgstr "Configuración de parámetros"
+
+msgid "View"
+msgstr "Ver"

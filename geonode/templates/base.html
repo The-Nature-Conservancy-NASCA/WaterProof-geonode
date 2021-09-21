@@ -22,6 +22,8 @@
 {% load account socialaccount %}
 {% load base_tags %}
 {% load flags %}
+{% load wagtailcore_tags %}
+{% load wagtailtrans_tags %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -55,13 +57,15 @@
       {% else %}
      <!-- <link href="{% static "lib/css/assets.min.css" %}" rel="stylesheet"/>-->
       {% endif %}
-
+      {% if "/pages/" in request.path %}
+      <link rel="stylesheet" type="text/css" href="/static/css/django-translation-flags.min.css">      
+      {% endif%}  
      <!----> <link href="{% static "geonode/css/base.css" %}" rel="stylesheet" />
 
       <link rel='stylesheet' id='cookie-law-info-css'  href="{% static "geonode/css/cookie-law-info/cookie-law-info-public.css" %}" type='text/css' media='all' />
       <link rel='stylesheet' id='cookie-law-info-gdpr-css'  href="{% static "geonode/css/cookie-law-info/cookie-law-info-gdpr.css" %}" type='text/css' media='all' />
 	    <link href="https://cdn.boomcdn.com/libs/owl-carousel/2.3.4/assets/owl.carousel.min.css" rel="stylesheet"/>
-	  <link href="https://cdn.boomcdn.com/libs/owl-carousel/2.3.4/assets/owl.theme.default.css" rel="stylesheet"/>
+	    <link href="https://cdn.boomcdn.com/libs/owl-carousel/2.3.4/assets/owl.theme.default.css" rel="stylesheet"/>
 	  
       <!--<style type="text/css">[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}</style>-->
       <style type="text/css">
@@ -281,10 +285,8 @@
     <!-- Navbar -->
     {% block header %}
   <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-    <div class="nav-container">
-        <div class="col-md-4"></div>
-        <div class="col-md-8"></div>
-        <div class="navbar-header">
+    <div class="nav-container">        
+      <div class="navbar-header">
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
           <i class="fa fa-navicon fa-lg"></i>
         </button>
@@ -334,10 +336,7 @@
             </ul>
           </li>
           {% endif %}
-
-          -->
-
-          
+          -->          
           <!--
           <li id="nav_maps">
               {% if user.is_authenticated %}
@@ -353,7 +352,6 @@
               {% endif %}
           </li>
           -->
-
           {% if GEONODE_APPS_ENABLE and GEONODE_APPS_NAV_MENU_ENABLE and user.is_authenticated %}
           <li id="nav_maps">
             {% if user.is_authenticated %}
@@ -470,12 +468,21 @@
               </li>
           {% else %}
           <li><a href="#" data-toggle="modal" data-target="#SigninModal" role="button" >{% trans "Sign in" %} </a></li>
-              {% endif %}
-          <li>
-            <div>
-              {% languages 'square' %}
-            </div>            
-          </li>
+          {% endif %}
+          
+          {% if "/pages/" in request.path %}
+            {% get_translations page homepage_fallback=False include_self=True as translations %}
+            {% for language, page in translations.items %}
+            <li>
+                <a href="{{ page.full_url }}">
+                    <span class="flag-icon flag-icon-{{ language.code}} flag-icon-square"></span>
+                </a>
+            </li>
+            {% endfor %}
+          {% else %}
+            {% languages 'square' %}
+          {% endif%}
+          
         </ul>
       </div> <!--/.nav-collapse -->
     </div>

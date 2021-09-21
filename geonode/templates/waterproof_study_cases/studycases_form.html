@@ -309,7 +309,7 @@
                         </h3>
                         <p>{% trans "financial_tip" %}</p>
                         <div class="row">
-                            <div class="custom-control custom-select float-right col-md-4">
+                            <div class="custom-control custom-select float-right col-md-4" style="margin-bottom:15px;">
                                 <label class="custom-control-label" for="financial_currency">{% trans "Currency" %}</label>
                                 <select id="financial_currency" class="form-control">
                                     {% for currency in currencys %}
@@ -324,7 +324,7 @@
                         </div>
                         <div class="row" id="div_financial">
                             <div class="col-md-6">
-                                <label class="custom-control-label" for="total_platform">{% trans "platform_cost" %}</label>
+                                <label class="custom-control-label" for="total_platform"><strong>{% trans "platform_cost" %}</strong></label>
                             </div>
                             <div class="custom-control custom-checkbox col-md-4">
                                 <input id="total_platform" class="text-number" type="number" class="custom-control-input" disabled>
@@ -397,7 +397,7 @@
                                 <input id="others" class="text-number" type="number" class="custom-control-input" value="0" min="0" step="0.001" oninput="validity.valid||(value='');">
                             </div>
                             <div class="col-md-12">
-                                <p>{% trans "financial_transaction_cost" %}</p>
+                                <p><strong>{% trans "financial_transaction_cost" %}</strong></p>
                             </div>
                             <div class="col-md-6">
                                 <label class="custom-control-label transaction-label" for="transaction">{% trans "transaction_cost" %}</label>
@@ -406,7 +406,7 @@
                                 <input id="transaction" class="text-number" type="number" class="custom-control-input" min="0" step="0" oninput="validity.valid||(value='');" max="100">
                             </div>
                             <div class="col-md-12">
-                                <p>{% trans "financial_discount_rates" %}</p>
+                                <p><strong>{% trans "financial_discount_rates" %}</strong></p>
                             </div>
                             <div class="col-md-6">
                                 <label class="custom-control-label discount-label" for="discount">{% trans "discount_rate" %}</label>

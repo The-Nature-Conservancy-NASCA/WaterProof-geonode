@@ -110,7 +110,7 @@ msgid "custom_case"
 msgstr "Caso personalizado"
 
 msgid "select_water_intake"
-msgstr "Seleccione la captación que usted considere para el análisis ROI. Si aún no ha sido creada, creela haciendo clic aquí."
+msgstr "Seleccione la captación que usted considere para el análisis ROI de la lista. Si aún no ha sido creada, de clic en el siguiente botón:"
 
 msgid "water_source"
 msgstr "Nombre de la fuente de agua"
@@ -496,5 +496,5 @@ msgstr "Definición"
 msgid "description_select_type"
 msgstr "WaterProof puede considerar para el análisis de retorno a la inversión, los costos de operacion y mantenimiento asociados a la infraestructura de análisis. Usted puede utilizar los costos de una planta de tratamiento de agua potable previamente creada o puede crear costos para una infraestructura personalizada. Seleccione la opción deseada."
 
-msgid "My Cases"
-msgstr "Mis Casos"
+msgid "My Case studies"
+msgstr "Mis Casos de estudio"

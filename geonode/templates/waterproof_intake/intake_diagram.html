@@ -1,0 +1,260 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load static from staticfiles %}
+{% load bootstrap_tags %}
+{% block extra_head %}
+<link rel="stylesheet" href="{{ STATIC_URL }}waterproof_intake/mathquill/mathquill.css" />
+<link rel="stylesheet" href="{{ STATIC_URL }}waterproof_intake/css/intake.css" />
+<style type="text/css">
+  .header-waterproof {
+    padding-left: 2rem;
+    padding-bottom: 2px;
+  }
+</style>
+<script>
+  MathJax = {
+      loader: {
+          load: ['input/asciimath']
+      },
+      asciimath: {
+          delimiters: [
+              ["'math'", "'math'"]
+          ]
+      }
+  };
+</script>
+{% endblock %}
+{% block body_outer %}
+<!--header-->
+<input type="hidden" id="xmlGraph" name="xmlGraph" value="{{intake.xml_graph}}" disabled>
+<div class="header-waterproof">
+    <div class="row">
+        <div class="col-sm-6">
+            <h1> {% trans "Water Intake" %}</h1>
+        </div>        
+    </div>
+    <div class="tab-content" id="autoAdjustHeightF">        
+        <div id="diagram">
+            <!--Toolbar mxgraph-->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-info" style="display: none;">
+                        <div class="panel-body text-center" id="toolbar" disabled></div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <!--Graph-->
+                <div class="col-md-8">
+                    <textarea id="xml" style="height:600px;width:100%;display:none;border-style:none;"></textarea>
+                    <div class="panel panel-info">
+                        <div class="panel-body" id="graph" tabindex="-1"
+                            style="height:700px;width:100%;overflow:hidden;cursor:default; outline:none;"></div>
+                    </div>
+                </div>
+                <!--Panel Information Right-->
+                <div class="col-md-4">
+                    <div class="panel panel-info">
+                        <div class="panel-body">
+                            <!--Figure Name-->
+                            <div class="alert alert-info" role="alert">
+                                <h1 class="text-center" id="titleDiagram"></h1>
+                            </div>
+                            <!--ID Item-->
+                            <div class="form-group">
+                                <label>ID:</label>
+                                <input type="number" id="idDiagram" min="" max="" class="form-control" disabled>
+                            </div>
+                            <!--Water transport-->
+                            <div class="form-group">
+                                <label>{% trans "% Transported water" %}:</label>
+                                <input type="number" id="aguaDiagram" min="" max="" class="form-control"
+                                    oninput="validateinput(this)" disabled>
+                            </div>
+                            <!--Sediments-->
+                            <div class="form-group">
+                                <label>{% trans "% Sediments retained" %}:</label>
+                                <input type="number" id="sedimentosDiagram" min="" max="" class="form-control"
+                                    oninput="validateinput(this)" disabled>
+                            </div>
+                            <!--Nitrogen-->
+                            <div class="form-group">
+                                <label>{% trans "% Nitrogen retained" %}:</label>
+                                <input type="number" id="nitrogenoDiagram" class="form-control"
+                                    oninput="validateinput(this)" disabled>
+                            </div>
+                            <!--Phosphorus-->
+                            <div class="form-group">
+                                <label>{% trans "% Phosphorus retained" %}:</label>
+                                <input type="number" id="fosforoDiagram" class="form-control"
+                                    oninput="validateinput(this)" disabled>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <h4 class="text-primary">{% trans "Cost functions "%}</h4>
+                    <div class="panel panel-info">
+                        <div class="panel-body">
+                            <div id="funcostgenerate"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>                    
+        </div>                 
+    </div>
+</div>
+
+{% endblock %}
+{% block extra_script %}
+<script type="text/javascript">
+  var mxBasePath = '{{ STATIC_URL }}geonode/js/mxgraph/src';
+  var mxImageBasePath = '{{ STATIC_URL }}geonode/js/mxgraph/examples/images';
+  var editorUrl = '{{ STATIC_URL }}geonode/js/mxgraph/examples/editors/config/diagrameditor.xml';
+  var xmlGraph;
+</script>
+<script src="{{ STATIC_URL }}geonode/js/waterproof/waterIntake.js"></script>
+<script src="{{ STATIC_URL }}waterproof_intake/js/graph_view.js"></script>
+<script src="{{ STATIC_URL }}geonode/js/mxgraph/mxClient.js"></script>
+<script src="{{ STATIC_URL }}geonode/js/mxgraph/examples/editors/js/app.js"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script src="{{ STATIC_URL }}waterproof_intake/mathquill/mathquill.min.js"></script>
+<script type="text/javascript">
+    var intakeInterpolationParams = {};
+    intakeInterpolationParams.type = '{{ intake.demand_parameters.interpolation_type }}';
+    intakeInterpolationParams.yearsNum = '{{intake.demand_parameters.years_number}}';
+    intakeInterpolationParams.initialExtract = '{{intake.demand_parameters.initial_extraction}}';
+    intakeInterpolationParams.endingExtract = '{{intake.demand_parameters.ending_extraction}}';
+    var xmlGraph = $('#xmlGraph').val();
+    var intakeExternalInputs = JSON.parse('{{externalInputs|safe}}');
+
+    createEditor(editorUrl);
+
+    var MQ = MathQuill.getInterface(2);
+    var CostSelected = null;
+    var mathFieldSpan = document.getElementById('math-field');
+    var latexSpan = document.getElementById('latex');
+    var mathField = MQ.MathField(mathFieldSpan, {
+        spaceBehavesLikeTab: true,
+        handlers: {
+            edit: function() {
+                latexSpan.textContent = mathField.latex();
+            }
+        }
+    });
+
+    //Load data from figure to html
+    editor.graph.addListener(mxEvent.CLICK, function(sender, evt) {
+        selectedCell = evt.getProperty('cell');
+        // Clear Inputs
+        if (selectedCell != undefined) clearDataHtmlView(selectedCell, evt);
+        if (selectedCell != undefined) { 
+          addDataView(selectedCell, MQ); 
+        } else { 
+          clearDataHtmlView(selectedCell, evt);
+         }
+    });
+
+    function clearDataHtmlView() {
+      $('#aguaDiagram').prop('disabled', true);
+      $('#sedimentosDiagram').prop('disabled', true);
+      $('#nitrogenoDiagram').prop('disabled', true);
+      $('#fosforoDiagram').prop('disabled', true);
+      $('#idDiagram').val('');
+      $('#titleDiagram').empty();
+      $('#aguaDiagram').val('');
+      $('#titleCostFunSmall').empty();
+      $('#sedimentosDiagram').val('');
+      $('#nitrogenoDiagram').val('');
+      $('#fosforoDiagram').val('');
+      $('#funcostgenerate tr').remove();
+      $('#funcostgenerate div').remove();
+      $('#funcostgenerate').empty();
+    }
+
+    function addDataView(element, MQ) {
+      //add data in HTML for connectors
+      if (typeof(element.value) == "string" && element.value.length > 0) {
+          let obj = JSON.parse(element.value);
+          let dbfields = obj.resultdb;
+          label = connectionsType[obj.connectorType].name;
+          $('#titleDiagram').text(connectionsType[obj.connectorType].name);
+          $('#titleCostFunSmall').attr("valueid", element.id);
+          $('#titleCostFunSmall').text(`ID: ${element.id} - ${connectionsType[obj.connectorType].name}`);
+          $('#idDiagram').val(element.id);
+          addData2HTMLView(dbfields)
+          funcostdb = obj.funcost;
+          for (let index = 0; index < funcostdb.length; index++) {
+              funcostView(funcostdb[index].fields.function_value, funcostdb[index].fields.function_name, index, MQ);
+          }
+      } else {
+          $('#titleDiagram').text(element.getAttribute('name'));
+          $('#titleCostFunSmall').attr("valueid", element.id);
+          $('#titleCostFunSmall').text(`ID: ${element.id} - ${element.getAttribute('name')}`);
+          $('#idDiagram').val(element.id);
+          if (element.getAttribute('resultdb') == undefined && element.getAttribute('funcost') == undefined) return;
+          resultdb = JSON.parse(element.getAttribute('resultdb'));
+          if (element.getAttribute('name') == 'River') {
+              return addData2HTMLView(resultdb);
+          }
+          if (element.getAttribute('funcost') == undefined) return addData2HTMLView(resultdb);
+          funcostdb = JSON.parse(element.getAttribute('funcost'));
+          if (resultdb.length == 0 && funcostdb.length == 0) return;
+          $('#titleDiagram').text(resultdb[0].fields.categorys);
+          addData2HTMLView(resultdb);
+          for (let index = 0; index < funcostdb.length; index++) {
+              funcostView(funcostdb[index].fields.function_value, funcostdb[index].fields.function_name, index, MQ);
+          }
+      }
+    }
+
+    function addData2HTMLView(resultdb) {
+      var show = true;
+      $('#aguaDiagram').prop('disabled', show);
+      $('#sedimentosDiagram').prop('disabled', show);
+      $('#nitrogenoDiagram').prop('disabled', show);
+      $('#fosforoDiagram').prop('disabled', show);
+      $('#funcostgenerate div').remove();
+      $('#funcostgenerate').empty();
+      // Add Value to Panel Information Right on HTML
+      $('#aguaDiagram').val(resultdb[0].fields.predefined_transp_water_perc);
+      $('#sedimentosDiagram').val(resultdb[0].fields.predefined_sediment_perc);
+      $('#nitrogenoDiagram').val(resultdb[0].fields.predefined_nitrogen_perc);
+      $('#fosforoDiagram').val(resultdb[0].fields.predefined_phosphorus_perc);
+      // Add Validator 
+      $('#aguaDiagram').attr('min', resultdb[0].fields.minimal_transp_water_perc);
+      $('#aguaDiagram').attr('max', resultdb[0].fields.maximal_transp_water_perc);
+      $('#sedimentosDiagram').attr('min', resultdb[0].fields.minimal_sediment_perc);
+      $('#sedimentosDiagram').attr('max', resultdb[0].fields.maximal_sediment_perc);
+      $('#nitrogenoDiagram').attr('min', resultdb[0].fields.minimal_nitrogen_perc);
+      $('#nitrogenoDiagram').attr('max', resultdb[0].fields.maximal_nitrogen_perc);
+      $('#fosforoDiagram').attr('min', resultdb[0].fields.minimal_phosphorus_perc);
+      $('#fosforoDiagram').attr('max', resultdb[0].fields.maximal_phosphorus_perc);
+    }
+
+    function funcostView(ecuation_db, ecuation_name, index, MQ) {
+        $('#funcostgenerate').append(
+            `<div class="alert alert-info" role="alert" idvalue="fun_${index}" style="margin-bottom: 12px">
+            <h4>${ecuation_name}</h4>
+            <p name="render_ecuation">${ ecuation_db }</p>
+        </div>
+        `);
+        $('p[name=render_ecuation]').each(function() {
+            MQ.StaticMath(this);
+        });
+    }
+
+    function funcost(ecuation_db) {
+      $('#funcostgenerate').append(
+          `<div class="form-group">
+              <div class="input-group">
+                  <input type="text" class="form-control" value="${ ecuation_db }" disabled>                  
+              </div>
+          </div>`);
+    }
+
+</script>
+
+{% endblock %}
