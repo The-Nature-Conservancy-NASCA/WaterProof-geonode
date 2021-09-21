@@ -78,9 +78,8 @@
 }
 
 .title-city {
-    position: absolute;
-    right: 26%;
-    top: 5%;
+    right: 1px;
+    top: 1px;
 }
 
 .modal-dialog {
