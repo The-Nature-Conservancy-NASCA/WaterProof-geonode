@@ -187,9 +187,8 @@
     margin: 15px;
 }
 .container-general-gauge {
-    height: 1000px;
+    height: 580px;
     margin: 10px;
-    border: 1px solid #1389AA;
 }
 .container-gauge {
     width: 300px;
