@@ -677,3 +677,7 @@ msgstr "Interactúe con el listado de capas para visualizar el resultado de su i
 #: geonode/waterproof_reports/templates/waterproof_reports/compare_maps
 msgid "RIOS text 1"
 msgstr "En este mapa se visualiza la ubicación espacial del portafolio de implementación sugerida por el modelo RIOS, cada color de pixel representa cada una de las SbN configuradas para el análisis."
+
+#: geonode/waterproof_reports/templates/waterproof_reports/reports_menu
+msgid "discount rate"
+msgstr "tasa de descuento"

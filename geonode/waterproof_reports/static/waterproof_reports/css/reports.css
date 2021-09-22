@@ -1,3 +1,10 @@
+.align-text-table{
+    text-align: left;
+}
+
+.align-text-table-right{
+    text-align: right;
+}
 
 .container-step-3{
     border-style: solid;

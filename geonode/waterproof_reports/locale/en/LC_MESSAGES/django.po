@@ -642,3 +642,7 @@ msgstr "Interact with the list of layers to visualize the result of your interes
 #: geonode/waterproof_reports/templates/waterproof_reports/compare_maps
 msgid "RIOS text 1"
 msgstr "This map shows the spatial location of the implementation portfolio suggested by the RIOS model, each pixel color represents each of the NbS configured for the analysis."
+
+#: geonode/waterproof_reports/templates/waterproof_reports/reports_menu
+msgid "discount rate"
+msgstr "discount rate"
