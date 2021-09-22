@@ -144,8 +144,8 @@ $(function () {
     loadUpdatePtap = function () {        
         setTimeout(function(){
             if($('#idTbodyIntake').html().trim() === "") {
-                $('#idIntakePlant').focusin()
-                $('#idIntakePlant').focusout()
+                $('#idIntakePlant').focusin();
+                $('#idIntakePlant').focusout();
                 $("[name=disableElement]").each(function( index, element ) {
                     element.style.display = "block";
                     var idr =  element.getAttribute("idr");
@@ -229,13 +229,23 @@ $(function () {
         $('#idIntakePlant').change(function (e) {
             var validCsinfra = true;
             var textNameCsinfra = $('option:selected', this).attr("namelist");
+            if (textNameCsinfra === undefined) {
+                return;
+            }
             $("[name=nameListAdd]").each(function( index, element ) {
                 if(element.getAttribute("nameList") === textNameCsinfra) {
                     validCsinfra = false;
                 }
             });
             if(validCsinfra) {
-                $('#idTbodyIntake').append('<tr id="child' + this.value + '"><td class="small text-center vat" name="nameListAdd" idIntake="' + $('option:selected', this).attr("value") + '" nameList="' + textNameCsinfra + '"  graphIdlist="' + $('option:selected', this).attr("graphIdlist") + '"  csinfraList="' + $('option:selected', this).attr("csinfra") + '">' + textNameCsinfra + '</td><td class="small text-center vat">' + $('option:selected', this).attr("intake") + '</td><td class="small text-center vat">' + $('option:selected', this).attr("csinfra") + '</td><td aling="center"><a class="btn btn-danger" onclick="deleteOption(' + this.value + ')"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td></tr>');
+                $('#idTbodyIntake').append('<tr id="child' + this.value + '"><td class="small text-center vat" name="nameListAdd" idIntake="' + 
+                $('option:selected', this).attr("value") + '" nameList="' + textNameCsinfra + '"  graphIdlist="' + $('option:selected', this).attr("graphIdlist") + 
+                '"  csinfraList="' + $('option:selected', this).attr("csinfra") + '">' + textNameCsinfra + '</td><td class="small text-center vat">' + 
+                $('option:selected', this).attr("intake") + '</td><td class="small text-center vat">' + $('option:selected', this).attr("csinfra") +
+                 '</td><td aling="center"><a class="btn btn-danger" onclick="deleteOption(' + this.value + 
+                 ')"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td></tr>');
+                 
+                $('#idIntakePlant').removeAttr('required');                
             } else {
                 Swal.fire({
                     title: gettext('Information'),
@@ -352,6 +362,9 @@ $(function () {
                                         '<td aling="center"><a class="btn btn-danger" onclick="deleteOption(' + value.csinfraId + ')">' + 
                                         '<span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td></tr>');
                 });
+                if (data.csinfra.length > 0) {
+                    $('#idIntakePlant').removeAttr('required');
+                }
 
                 $.each( data.element, function( key, value ) {
                     if(value.elementOnOff) {
@@ -415,6 +428,9 @@ $(function () {
                                         '<td aling="center"><a class="btn btn-danger" onclick="deleteOption(' + value.csinfraId + ')">' + 
                                         '<span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td></tr>');
                 });
+                if (data.csinfra.length > 0) {
+                    $('#idIntakePlant').removeAttr('required');
+                }
 
                 $.each( data.element, function( key, value ) {
                     if(value.elementOnOff) {
@@ -475,9 +491,12 @@ $(function () {
                         '<td class="small text-center vat" name="nameListAdd" idIntake="' + value.csinfraElementsystemId + 
                         '" nameList="' + value.csinfraName + '"  graphIdlist="' + value.csinfraGraphId + 
                         '" csinfraList="' + value.csinfraCode + '">' + value.csinfraName + '</td>' + 
-                        '<td class="small text-center vat">' + value.csinfraName + ' - ' + value.csinfraCode + ' - ' + value.csinfraGraphId + '</td>' + 
-                        '<td class="small text-center vat">' + value.csinfraCode + '</td><td aling="center"></td></tr>');
+                        '<td class="small text-center vat">' + value.csinfraName + ' - ' + value.csinfraCode + ' - ' + value.csinfraGraphId + '</td>' +
+                        '<td class="small text-center vat">' + value.csinfraCode + '</td><td aling="center"></td></tr>');                    
                 });
+                if (data.csinfra.length > 0) {
+                    $('#idIntakePlant').removeAttr('required');
+                }
 
                 $.each( data.element, function( key, value ) {
                     if(value.elementOnOff) {
@@ -638,6 +657,13 @@ $(function () {
     */
     deleteOption = function(e) {
         $("#child" + e).remove();
+        if ($("#idTbodyIntake tr").length == 0) {
+            $('#idIntakePlant').prop('required',true);
+            $('#idIntakePlant').val("");
+            $('#idIntakePlant').focusin();
+            $('#idIntakePlant').focusout();
+        }
+        
     };
     /**
     * Enable the formula tree after selecting the graph element
@@ -957,7 +983,7 @@ $(function () {
                                             } else {
                                                 loadHtml = true;
                                                 // TODO :: Review load mare that one function
-                                                activateHtml = htmlCheckBox(valueCostFunction,graphid,valueTech.idSubprocess,"",valueTech.default);
+                                                activateHtml = htmlCheckBox(valueCostFunction,graphid,valueTech.idSubprocess,"",valueCostFunction.default);
                                                 listTrFunction.push(addFunctionCostRow(activateHtml, valueCostFunction, buttonsHtml, graphid,''));
                                             }
 
@@ -1140,7 +1166,7 @@ $(function () {
         $("#cityLabel").html(cityName);
         localStorage.setItem('city', cityName);
 
-        drawPolygons(cityName);
+       //drawPolygons(cityName);
         table.search(cityName.substr(0, 5)).draw();
 
         let urlAPI = SEARCH_COUNTRY_API_URL + countryCode;
@@ -1255,7 +1281,7 @@ $(function () {
             var urlDetail = "../../treatment_plants/getIntakeList/?cityId=" + localStorage.getItem('cityId');
             $.getJSON(urlDetail, function (data) {
                 var selectElIntake = document.getElementById("idIntakePlant");
-                selectElIntake.length = 1;
+                //selectElIntake.length = 1;
                 if (data.length > 0) {
                     localStorage.setItem('idCityTreatmentPlant', data[0].cityId);
                     var listIntakeName = [];
