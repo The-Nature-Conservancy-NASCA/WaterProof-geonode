@@ -511,6 +511,11 @@
     border-color: black;
 }
 
+.align-div{
+    padding: 15px;
+}
+
+
 .align-text{
     text-align: center;
 }
