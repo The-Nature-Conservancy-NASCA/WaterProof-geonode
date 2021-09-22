@@ -13,7 +13,7 @@
 <link rel="stylesheet" href="https://photon.komoot.io/static/leaflet.photon/leaflet.photon.css"/>
 <link rel="stylesheet" href="{{ STATIC_URL }}waterproof_reports/css/reports.css" /></link>
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_nbs_ca/css/dataTables.bootstrap.min.css"/>
-<link rel="stylesheet" href="{% static "geonode/css/sidenav.css" %}" />
+<link href="{% static "geonode/css/sidenav.css" %}" rel="stylesheet" />
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_nbs_ca/css/waterproof_nbs_ca.css"/>
 
 <script>
@@ -232,6 +232,15 @@
             </div>
         </div>
     </div>
+    <img id="resultado" style="visibility:hidden">
+    <form id="TheForm" method="post" action="../../reports/pdf/" target="TheWindow">
+        {% csrf_token %}
+        <input type="hidden" name="studyCase" id="studyCase"/>
+        <input type="hidden" name="studyCity" id="studyCity"/>
+        <input type="hidden" name="studyCountry" id="studyCountry"/>
+        <input type="hidden" name="studyRegion" id="studyRegion"/>
+        <input type="hidden" name="mapSendImage" id="mapSendImage"/>
+    </form>
 </body>
 
 {% block body %}{% endblock body %} {% block sidebar %}{% endblock sidebar %} {% endblock body_outer %} {% block extra_script %}
@@ -313,9 +322,18 @@
         var dataTotalBenefitsIntakeOne = [];
 
         openPDF = function() {
-            window.open("../../reports/pdf/?studyCase=" + localStorage.idStudyCase + "&studyCity=" + localStorage.getItem('city') + "&studyCountry=" + localStorage.getItem('country') + "&studyRegion=" + localStorage.getItem('region'))
+      
+            generateMap2Img('mapidcuenca','resultado')
+      
+            document.getElementById('studyCase').value = localStorage.idStudyCase;
+            document.getElementById('studyCity').value = localStorage.getItem('city');
+            document.getElementById('studyCountry').value = localStorage.getItem('country');
+            document.getElementById('studyRegion').value = localStorage.getItem('region');
+      
+            window.open('', 'TheWindow');
+            document.getElementById('TheForm').submit();
         }
-
+      
         downloadZip = function(){
             //console.log("url de descarga zip"+"{{filterzip.link}}")
             window.open("{{filterzip.link}}", "zipDownload", "width=120,height=300")
