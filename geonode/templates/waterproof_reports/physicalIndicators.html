@@ -94,6 +94,10 @@
                     <div class="title-file-column-right">{% trans "Currency:" %}</div>
                     <div class="value-file-column-left" id="idCurrencyMainDecision">{% trans "-" %}</div>
                 </div>
+                <div class="file-column-left">
+                    <div class="title-file-column-right">{% trans "discount rate:" %}</div>
+                    <div class="value-file-column-left" id="discountRateDecision">{% trans "-" %}</div>
+                </div>
             </div>
         </div>
     </div>
@@ -1031,7 +1035,7 @@ var localStorageId = localStorage.idStudyCase;
             document.getElementById("idNumberOfDrinkingDecision").innerHTML = localStorage.getItem('idNumberOfDrinking');
             document.getElementById("idCurrencyMainDecision").innerHTML = localStorage.getItem('idCurrencyMain');
             document.getElementById("idTimeMainDecision").innerHTML = localStorage.getItem('idTimeMain');
-
+            document.getElementById("discountRateDecision").innerHTML = localStorage.getItem('transactionCost');
 
             var gaugeOptions = {
                 chart: {

@@ -543,7 +543,8 @@ def getReportAnalisysBeneficsB(request):
 				"time":row[6],
 				"currency":row[7],
 				"roi":row[8],
-				"result":row[9]
+				"result":row[9],
+				"transactionCost":row[9]
 			})
 
 		return JsonResponse(objects_list, safe=False)
