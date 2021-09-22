@@ -65,6 +65,10 @@
                             <div class="title-file-column-right">{% trans "Currency:" %}</div>
                             <div class="value-file-column-left" id="idCurrencyMain">{% trans "-" %}</div>
                         </div>
+                        <div class="file-column-left">
+                            <div class="title-file-column-right">{% trans "discount rate:" %}</div>
+                            <div class="value-file-column-left" id="discountRate">{% trans "-" %}</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -611,15 +615,17 @@
             var urlDetail = "../../reports/getReportAnalisysBeneficsB/?studyCase=" + localStorage.idStudyCase;
             $.getJSON(urlDetail, function (data) {
                 $.each( data, function( key, value ) {
-                    document.getElementById("changeInVolumeOfWater").innerHTML = (value.changeInVolumeOfWater.toFixed(2)+"%");
-                    document.getElementById("changeInBaseFlow").innerHTML = (value.changeInBaseFlow.toFixed(2)+"%");
-                    document.getElementById("changeIntotalSediments").innerHTML = (value.changeIntotalSediments.toFixed(2)+"%");
-                    document.getElementById("changeInNitrogenLoad").innerHTML = (value.changeInNitrogenLoad.toFixed(2)+"%");
-                    document.getElementById("changeInPhosphorus").innerHTML = (value.changeInPhosphorus.toFixed(2)+"%");
-                    document.getElementById("changeInCarbonStorage").innerHTML = (value.changeInCarbonStorage.toFixed(2)+"%");
+                    document.getElementById("changeInVolumeOfWater").innerHTML = (Intl.NumberFormat('es').format(value.changeInVolumeOfWater.toFixed(2))+"%");
+                    document.getElementById("changeInBaseFlow").innerHTML = (Intl.NumberFormat('es').format(value.changeInBaseFlow.toFixed(2))+"%");
+                    document.getElementById("changeIntotalSediments").innerHTML = (Intl.NumberFormat('es').format(value.changeIntotalSediments.toFixed(2))+"%");
+                    document.getElementById("changeInNitrogenLoad").innerHTML = (Intl.NumberFormat('es').format(value.changeInNitrogenLoad.toFixed(2))+"%");
+                    document.getElementById("changeInPhosphorus").innerHTML = (Intl.NumberFormat('es').format(value.changeInPhosphorus.toFixed(2))+"%");
+                    document.getElementById("changeInCarbonStorage").innerHTML = (Intl.NumberFormat('es').format(value.changeInCarbonStorage.toFixed(2))+"%");
                     document.getElementById("idCurrencyMain").innerHTML = value.currency;
                     document.getElementById("idTimeMain").innerHTML = value.time;
                     document.getElementById("idRoi").innerHTML = value.roi.toFixed(2);
+                    document.getElementById("discountRate").innerHTML = value.transactionCost;
+
                     var nameButtom = value.result.split("::");
                     if(nameButtom[1] === "Dark Green") {
                         document.getElementById("idBtnRoi").style.backgroundColor = "#155816";
@@ -631,6 +637,7 @@
                     document.getElementById("idBtnRoi").innerHTML = nameButtom[0];
                     localStorage.idCurrencyMain = value.currency;
                     localStorage.idTimeMain = value.time;
+                    localStorage.transactionCost = value.transactionCost;
                 });
             });
 
@@ -642,9 +649,9 @@
                     valuaCol3 = value.recomendedIntervetion.toFixed(2)
                     listFielTable = listFielTable + `
                         <tr>
-                            <td class="border-table"><span>` + value.sbnf + `</span></td>
-                            <td class="border-table"><span>` + Intl.NumberFormat('es').format(valueCol2) + `</span></td>
-                            <td class="border-table"><span>` + Intl.NumberFormat('es').format(valuaCol3) + `</span></td>
+                            <td class="border-table align-text-table"><span>` + value.sbnf + `</span></td>
+                            <td class="border-table align-text-table-right"><span>` + Intl.NumberFormat('es').format(valueCol2) + `</span></td>
+                            <td class="border-table align-text-table-right"><span>` + Intl.NumberFormat('es').format(valuaCol3) + `</span></td>
                         </tr> 
                     `
                 });
@@ -723,6 +730,7 @@
                     var urlWaterProofLyrsWMS = `/reports/geographic/?folder=${usr_folder}&intake=${intake}&year=${year}&region=${region}&center=${centroX}&study_case_id=${studyCaseId}`;
                     //console.log (urlWaterProofLyrsWMS);
                     document.getElementById("idGeographicIndicatorsClic").href =urlWaterProofLyrsWMS;
+                    
                 })    
         }
         initialize();
