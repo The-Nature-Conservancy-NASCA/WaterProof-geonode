@@ -143,12 +143,12 @@ class CustomUserCreationForm2(SignupForm):
     first_name = forms.CharField(label=_("FirstName"),
                                widget=forms.TextInput(
                                    attrs={'placeholder':
-                                          _('Firstname')}))
+                                          _('FirstName')}))
     
     last_name = forms.CharField(label=_("LastName"),
                                widget=forms.TextInput(
                                    attrs={'placeholder':
-                                          _('Lastname')}))
+                                          _('LastName')}))
 
     professional_role = forms.ChoiceField(label=_("ProfessionalRole"), choices=PROFESSIONAL_ROLES)
 
