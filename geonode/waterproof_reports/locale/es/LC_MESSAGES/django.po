@@ -681,3 +681,15 @@ msgstr "En este mapa se visualiza la ubicación espacial del portafolio de imple
 #: geonode/waterproof_reports/templates/waterproof_reports/reports_menu
 msgid "discount rate"
 msgstr "tasa de descuento"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/geographicIndicators
+msgid "LULC_text_3"
+msgstr "Usos y Coberturas de la Tierra - Escenario Soluciones Basadas en Naturaleza."
+
+#: geonode/waterproof_reports/templates/waterproof_reports/geographicIndicators
+msgid "LULC_text_4"
+msgstr "Usos y Coberturas de la Tierra - Escenario Futuro Tradicional."
+
+#: geonode/waterproof_reports/templates/waterproof_reports/geographicIndicators
+msgid "LULC_text_5"
+msgstr "Usos y Coberturas de la Tierra - Escenario Actual."
