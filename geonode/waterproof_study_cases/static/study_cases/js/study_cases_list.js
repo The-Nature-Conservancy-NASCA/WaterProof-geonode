@@ -179,7 +179,7 @@ $(function() {
         })
     });
 
-    $('#tbl-studycases tbody').on('click', '.btn-private', function (evt) {    
+    $('#tbl-studycases tbody').on('click', '.btn-private', function (evt) {
         Swal.fire({
             title: gettext('Private study case'),
             text: gettext("Are you sure?"),

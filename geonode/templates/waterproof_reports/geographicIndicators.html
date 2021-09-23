@@ -98,6 +98,10 @@
 						<div class="title-file-column-right">{% trans "currency:" %}</div>
 						<div class="value-file-column-left" id="idCurrencyMainGeographic">{% trans "-" %}</div>
 					</div>
+					<div class="file-column-left">
+						<div class="title-file-column-right">{% trans "discount rate:" %}</div>
+						<div class="value-file-column-left" id="discountRateGeographic">{% trans "-" %}</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -118,17 +122,21 @@
 						<h3 id="nameTitleIntake"></h3>
 						<p class="padding-text-desc">{% trans "LULC_text_1" %}</p>
 						<p class="padding-text-desc">{% trans "LULC_text_2" %}</p>
+						<br>
 						<div class="row padding-text-desc">        
 							<div class="col-md-6">
+								<p>{% trans "LULC_text_3" %}</p>
 								<div id="map-left" class="map__compare"></div>
 							</div>
 							<div class="col-md-6">
+								<p>{% trans "LULC_text_4" %}</p>
 								<div id="map-right" class="map__compare"></div>
 							</div>
 						</div>
 						<div>-----</div>
 						<div id="map-3" class="row padding-text-desc">
 							<div class="col-md-6">
+								<p>{% trans "LULC_text_5" %}</p>
 								<div id="map-down" class="map__compare"></div>
 							</div>
 							<div class="col-md-6">
@@ -223,7 +231,8 @@
 					document.getElementById("idNumberOfDrinkingGeographic").innerHTML = localStorage.getItem('idNumberOfDrinking');
 					document.getElementById("idCurrencyMainGeographic").innerHTML = localStorage.getItem('idCurrencyMain');
 					document.getElementById("idTimeMainGeographic").innerHTML = localStorage.getItem('idTimeMain');
-			};
+					document.getElementById("discountRateGeographic").innerHTML = localStorage.getItem('transactionCost');
+				};
 			initialize();
 
 			generateMap2Img = function (mapId, imgId) {

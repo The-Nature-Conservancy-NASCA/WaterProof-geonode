@@ -234,7 +234,7 @@
                                         <option value='{{currency.currency}}' selected>({{currency.currency}}) - {{currency.name}}</option>
                                         {% else %}
                                         <option value='{{currency.currency}}'>({{currency.currency}}) - {{currency.name}}</option>
-                                        {% endif %}
+                                        {% endif %}                                        
                                     {% endfor %}
                                 </select>
                             </div>
@@ -716,8 +716,7 @@
             </div>
             <div class="modal-body">
                 <p>
-                    <h4>{% trans "WaterProof" %}</h4>
-                    {% trans "offers you the possibility to integrate in your analysis the possible benefits that you can obtain if you expect to participate in carbon markets. This is done by defining a monetary value per Ton of CO2eq." %}
+                    {% trans "Offers you the possibility to integrate in your analysis the possible benefits that you can obtain if you expect to participate in carbon markets. This is done by defining a monetary value per Ton of CO2eq." %}
                 </p>
                 <p>
                     {% trans "Uses information from the database published in May 2020 by the Institute for Climate Economics (Sébastien Postic | Marion Fetet) to preload USD / TonCO2eq values ​​that vary according to the country where the analysis is being carried out, however, the user can modify these values ​​according to the information they have." %}

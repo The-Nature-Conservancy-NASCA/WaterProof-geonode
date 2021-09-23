@@ -194,7 +194,7 @@
                                 <input type="text" name="dws_cm" maxlength="100" class="form-control" id="id_cm" value="{{study_case.cm_value|stringformat:'1.2f'}}" disabled />
                             </div>
                             <div class="col-md-3">
-                                <input id="cm_select" class="form-control" value="{{study_case.cm_currency}}" disabled>
+                                <input id="cm_select" class="form-control" value="{{study_case.cm_currency |default_if_none:'' }} - {{ cm_currency_name}}" disabled>
                             </div>
                             <div class="col-md-3 cm-unit-label">
                                 <p>{% trans "TonCO2eq" %}</p>
@@ -270,8 +270,8 @@
                                     <div class="custom-control col-md-3">
                                         <label class="custom-control-label" for="financial_currency">{% trans "Currency" %}</label>
                                     </div>
-                                    <div class="custom-control col-md-4">
-                                        <input id="financial_currency" class="form-control" value="{{study_case.financial_currency}}" disabled>
+                                    <div class="custom-control col-md-9">
+                                        <input id="financial_currency" class="form-control" value="{{study_case.financial_currency |default_if_none:''}} - {{ fn_currency_name}}" disabled>
                                     </div>
                                 </div>
 
@@ -427,7 +427,7 @@
                                 <label for="analysis_currency" class="control-label required-field ">
                                     {% trans "Currency" %}
                                 </label>
-                                <input id="cm_select" class="form-control" value="{{study_case.analysis_currency}}" disabled>
+                                <input id="cm_select" class="form-control" value="{{study_case.analysis_currency |default_if_none:''}} - {{study_case.analisys_currency_name}}" disabled>
                             </div>
                         </div>
                         <div class="col-md-6">

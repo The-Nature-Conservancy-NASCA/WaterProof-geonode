@@ -1,3 +1,10 @@
+.align-text-table{
+    text-align: left;
+}
+
+.align-text-table-right{
+    text-align: right;
+}
 
 .container-step-3{
     border-style: solid;
@@ -170,6 +177,12 @@
     font-size: 25px;
     font-weight: bold;
 }
+.weight-title-table-ph{
+    font-weight: bold;
+}
+.padding-td-step2-ph{
+    padding-left: 1%;
+}
 .title-water {
     font-size: 15px;
     font-weight: bold;
@@ -181,9 +194,8 @@
     margin: 15px;
 }
 .container-general-gauge {
-    height: 1000px;
+    height: 580px;
     margin: 10px;
-    border: 1px solid #1389AA;
 }
 .container-gauge {
     width: 300px;
@@ -498,6 +510,11 @@
     background-size: 100% auto; 
     border-color: black;
 }
+
+.align-div{
+    padding: 15px;
+}
+
 
 .align-text{
     text-align: center;
@@ -2093,6 +2110,12 @@
         float: left;
         margin-top: 20px;
         margin-left: 3%;
+    }
+    .content-table-bootom-step2{
+        padding-bottom: 45%;
+    }
+    .content-table-bootom-step1{
+        padding-bottom: 57%;
     }
 }
 @media only screen and (max-width: 1200px) {
