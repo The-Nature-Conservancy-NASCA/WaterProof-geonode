@@ -2487,7 +2487,7 @@ pre code {
     font-size: 18px;
   }
 }
-@media (min-width: 992px) and (max-width:1200px) {
+@media (min-width: 992px){
   .col-md-1,
   .col-md-2,
   .col-md-3,
