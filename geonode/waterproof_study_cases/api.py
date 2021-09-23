@@ -209,10 +209,10 @@ def getNBS(request):
             scnbs_list = StudyCases_NBS.objects.filter(studycase=sc)
             if(process == 'Clone'):
                 nbs_user = WaterproofNbsCa.objects.filter(added_by=request.user, country=filtercity.country).exclude(added_by__professional_role='ADMIN').values(
-                    "id", "name" ,"unit_implementation_cost", "unit_maintenance_cost","periodicity_maitenance","unit_oportunity_cost", "currency__currency")
+                    "id", "name" ,"unit_implementation_cost", "unit_maintenance_cost","periodicity_maitenance","unit_oportunity_cost", "currency__currency","country__global_multiplier_factor")
             else:
                 nbs_user = WaterproofNbsCa.objects.filter(added_by=sc.added_by, country=filtercity.country).exclude(added_by__professional_role='ADMIN').values(
-                    "id", "name","unit_implementation_cost", "unit_maintenance_cost","periodicity_maitenance","unit_oportunity_cost", "currency__currency")
+                    "id", "name","unit_implementation_cost", "unit_maintenance_cost","periodicity_maitenance","unit_oportunity_cost", "currency__currency", "country__global_multiplier_factor")
             nbs_list = chain(nbs_admin, nbs_user)
             for n in nbs_list:
                 defaultValue = False

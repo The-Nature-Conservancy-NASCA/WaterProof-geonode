@@ -646,3 +646,15 @@ msgstr "This map shows the spatial location of the implementation portfolio sugg
 #: geonode/waterproof_reports/templates/waterproof_reports/reports_menu
 msgid "discount rate"
 msgstr "discount rate"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/geographicIndicators
+msgid "LULC_text_3"
+msgstr "Land Use Land Cover - Nature based Solutions Scenario."
+
+#: geonode/waterproof_reports/templates/waterproof_reports/geographicIndicators
+msgid "LULC_text_4"
+msgstr "Land Use Land Cover - Business a Usual Scenario."
+
+#: geonode/waterproof_reports/templates/waterproof_reports/geographicIndicators
+msgid "LULC_text_5"
+msgstr "Land Use Land Cover - Current Scenario."
