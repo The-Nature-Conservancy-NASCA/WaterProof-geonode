@@ -510,3 +510,6 @@ msgstr "Las obras de captación son las obras civiles y equipos electromecánico
 
 msgid "To create a new basin, WaterProof will help you with the steps you need to follow to complete your registration"
 msgstr "Para crear una nueva captación, WaterProof lo asistirá indicando los pasos que debe seguir para hacer su registro completo"
+
+msgid "Study cases help 4 text 1"
+msgstr "Esta es una sección para usuarios avanzados en donde podrá verificar los valores biofísicos que se usarán en los modelos InVEST. WaterProof utiliza el paquete de modelación InVEST con los modelos Annual Water Yield, Seasonal Water Yield, Sediment Delivery Ratio, Nutrient Delivery Ratio y Carbon Storage and Sequestration. Si el usuario tiene un mayor conocimiento sobre las características biofísicas para los modelos, puede modificar la tabla."

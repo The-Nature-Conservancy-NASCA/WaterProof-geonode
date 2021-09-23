@@ -463,3 +463,6 @@ msgstr "Delete"
 
 msgid "description_select_type"
 msgstr "WaterProof can consider for ROI analysis the operating and maintenance costs associated with the analysis infrastructure. You can use the costs of a previously created drinking water treatment plant or you can create costs for a custom infrastructure. Select the desired option."
+
+msgid "Study cases help 4 text 1"
+msgstr "This is a section for advanced users where you can verify the biophysical values ​​that will be used in the InVEST models. WaterProof uses the InVEST modeling package with the Annual Water Yield, Seasonal Water Yield, Sediment Delivery Ratio, Nutrient Delivery Ratio, and Carbon Storage and Sequestration models. If the user has more knowledge about the biophysical characteristics for the models, they can modify the table."
