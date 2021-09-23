@@ -4496,13 +4496,13 @@ msgstr "Otro"
 
 #: geonode/people/forms.py:160 geonode/people/models.py:132
 msgid "Use Analysis"
-msgstr ""
+msgstr "Uso de Análisis"
 
 #: geonode/people/forms.py:162 geonode/people/forms.py:165 geonode/people/models.py:138
 #, fuzzy
 #| msgid "Other Settings"
 msgid "Other Analysis"
-msgstr "Otros ajustes"
+msgstr "Otros tipo de analista"
 
 #: geonode/people/forms.py:167 geonode/people/forms.py:170 geonode/people/templates/people/profile_detail.html:76 geonode/templates/metadata_detail.html:144 geonode/templates/metadata_detail.html:286 geonode/templates/metadata_detail.html:367
 msgid "Organization"
@@ -4574,13 +4574,13 @@ msgstr "Otro"
 
 #: geonode/people/models.py:127
 msgid "UseAnalysis"
-msgstr ""
+msgstr "Analista"
 
 #: geonode/people/models.py:140
 #, fuzzy
 #| msgid "Manage Connections"
 msgid "Agree Conditions"
-msgstr "Administar Conexiones"
+msgstr "Aceptar condiciones"
 
 #: geonode/people/templates/people/_profile_about_item.html:17 geonode/templates/_permissions_form.html:311
 msgid "No Group"
@@ -9369,3 +9369,9 @@ msgstr "Use esta ventana para configurar su función de costo seleccionando las 
 
 msgid "Expand the list of items and click to build the function."
 msgstr "Expanda la lista de elementos y haga clic para construir la función."
+
+msgid "description-sign-up"
+msgstr "A través de su registro como usuario WaterProof, podrá acceder a un conjunto de servicios para realizar un análisis indicativo, a nivel de prefactibilidad, del ROI (retorno de la inversión) en la implementación de Soluciones basadas en la naturaleza de acuerdo con la normativa ambiental de las cuencas de abastecimiento de interés. Por favor ingrese su información de contacto, indicando su rol profesional e interés en el uso del análisis, defina su contraseña de inicio de sesión y revise los términos de condiciones de la herramienta. Al final, haga clic en el botón 'Registrarse'."
+
+msgid "Create a new account. To access the case study creation functionalities in WaterProof, it is necessary to have login credentials. Then enter your contact details and review the Terms and Conditions."
+msgstr "Crear una nueva cuenta. Para acceder a las funciones de creación de casos de estudio en WaterProof, es necesario tener las credenciales de inicio de sesión. Ingrese sus datos de contacto y revise los términos y condiciones."
