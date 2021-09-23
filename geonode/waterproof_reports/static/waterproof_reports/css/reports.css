@@ -1,3 +1,10 @@
+.align-text-table{
+    text-align: left;
+}
+
+.align-text-table-right{
+    text-align: right;
+}
 
 .container-step-3{
     border-style: solid;
@@ -187,9 +194,8 @@
     margin: 15px;
 }
 .container-general-gauge {
-    height: 1000px;
+    height: 580px;
     margin: 10px;
-    border: 1px solid #1389AA;
 }
 .container-gauge {
     width: 300px;
@@ -504,6 +510,11 @@
     background-size: 100% auto; 
     border-color: black;
 }
+
+.align-div{
+    padding: 15px;
+}
+
 
 .align-text{
     text-align: center;

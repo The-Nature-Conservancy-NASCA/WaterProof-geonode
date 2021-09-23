@@ -48,9 +48,9 @@
             <a href="../../reports/decision/">{% trans "Decision indicators" %}</a>
         </div>
         <div class="icons-menu-header" id="idGeographicIndicators">
-            <img src="/static/geonode/img/indicadores-geograficos.png" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black; opacity: 30%;" title="{% trans "Geographic visualization" %}"/>
+            <img src="/static/geonode/img/indicadores-geograficos.png" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;" title="{% trans "Geographic visualization" %}"/>
             <br>
-            <a>{% trans "Geographic visualization" %}</a>
+            <a href="../../reports/geographic/">{% trans "Geographic visualization" %}</a>
         </div>
         <div class="icons-menu-header" id="idGeographicIndicators">
             <img src="/static/geonode/img/reportes-icon.png" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;" title="{% trans "Geographic visualization" %}"/>
@@ -93,6 +93,10 @@
                 <div class="file-column-left">
                     <div class="title-file-column-right">{% trans "Currency:" %}</div>
                     <div class="value-file-column-left" id="idCurrencyMainDecision">{% trans "-" %}</div>
+                </div>
+                <div class="file-column-left">
+                    <div class="title-file-column-right">{% trans "discount rate:" %}</div>
+                    <div class="value-file-column-left" id="discountRateDecision">{% trans "-" %}</div>
                 </div>
             </div>
         </div>
@@ -223,7 +227,7 @@
             
             <div class="background-step1-physical col-md-12">
                 <p class="weight-title-table-ph">{% trans "Physical risk quantity" %}</p>
-                <table>
+                <table class="col-md-12">
                     <tr>
                         <td class="glyphicon glyphicon-chevron-right"></td>
                         <td class="padding-td-step2-ph"><p>{% trans "Aqueduct ind text 3" %}</p></td>
@@ -251,7 +255,7 @@
                 </table>
                 <br>
                 <p class="weight-title-table-ph">{% trans "Regulatory and reputational" %}</p>
-                <table>
+                <table class="col-md-12">
                     <tr>
                         <td class="glyphicon glyphicon-chevron-right"></td>
                         <td class="padding-td-step2-ph"><p>{% trans "Aqueduct ind text 9" %}</p></td>
@@ -259,7 +263,7 @@
                 </table>
                 <br>
                 <p class="weight-title-table-ph">{% trans "Physical risk quality" %}</p>
-                <table>
+                <table class="col-md-12">
                     <tr>
                         <td class="glyphicon glyphicon-chevron-right"></td>
                         <td class="padding-td-step2-ph"><p>{% trans "Aqueduct ind text 10" %}</p></td>
@@ -541,15 +545,15 @@
         <a href="../../reports/financial/">{% trans "Financial indicators" %}</a>
     </div>
     <div class="list-menu-results">
-        <img src="/static/geonode/img/indicadores-fisicos.png" title="{% trans "Physical indicators" %}"/> 
+        <img src="/static/geonode/img/indicadores-fisicos.png" style="opacity: 30%;" title="{% trans "Physical indicators" %}"/> 
         <br>
-        <!--a>{% trans "Physical indicators" %}</a-->
-        <a href="../../reports/physical/{{idx}}">{% trans "Physical indicators" %}</a>
+        <a>{% trans "Physical indicators" %}</a>
+        <!-- <a href="../../reports/physical/{{idx}}">{% trans "Physical indicators" %}</a> -->
     </div>
     <div class="list-menu-results" id="idDecisionIndicators">
-        <img src="/static/geonode/img/indicadores-decision.png" style="opacity: 30%;" title="{% trans "Decision indicators" %}"/>
+        <img src="/static/geonode/img/indicadores-decision.png" title="{% trans "Decision indicators" %}"/>
         <br>
-        <a>{% trans "Decision indicators" %}</a>
+        <a href="../../reports/decision/">{% trans "Decision indicators" %}</a>
     </div>
     <div class="list-menu-results" id="idGeographicIndicators">
         <img src="/static/geonode/img/indicadores-geograficos.png" title="{% trans "Geographic visualization" %}"/>
@@ -1031,7 +1035,7 @@ var localStorageId = localStorage.idStudyCase;
             document.getElementById("idNumberOfDrinkingDecision").innerHTML = localStorage.getItem('idNumberOfDrinking');
             document.getElementById("idCurrencyMainDecision").innerHTML = localStorage.getItem('idCurrencyMain');
             document.getElementById("idTimeMainDecision").innerHTML = localStorage.getItem('idTimeMain');
-
+            document.getElementById("discountRateDecision").innerHTML = localStorage.getItem('transactionCost');
 
             var gaugeOptions = {
                 chart: {
@@ -1103,7 +1107,7 @@ var localStorageId = localStorage.idStudyCase;
                         if(titleGraph !== "") {
                             titleGraph = titleGraph + '</div>';
                         }
-                        titleGraph = titleGraph + '<div name="listGraphIntake" nameSelect="' + value.indicator + '" class="title-water">' + value.indicator + '</div><div name="listGraphIntake"  nameSelect="' + value.indicator + '" class="container-general-gauge">';
+                        titleGraph = titleGraph + '<div name="listGraphIntake" nameSelect="' + value.indicator + '" class="title-water col-md-12">' + value.indicator + '</div><div name="listGraphIntake"  nameSelect="' + value.indicator + '" class="container-general-gauge">';
                         lastGroupImage = value.indicator;
 
                         var option = document.createElement("option");
@@ -1111,7 +1115,7 @@ var localStorageId = localStorage.idStudyCase;
                         option.value = value.indicator;
                         document.getElementById("idSelectWaterIntake").add(option);
                     }
-                    titleGraph = titleGraph + '<div class="container-gauge"><div id="containerPr' + numberContainer + '"></div></div>';
+                    titleGraph = titleGraph + '<div class="container-gauge col-md-3"><div id="containerPr' + numberContainer + '"></div></div>';
                     numberContainer++;
                 });
                 titleGraph = titleGraph + '</div>';

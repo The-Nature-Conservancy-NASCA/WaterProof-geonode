@@ -88,6 +88,10 @@
                         <div class="title-file-column-right">{% trans "Currency:" %}</div>
                         <div class="value-file-column-left" id="idCurrencyMainFinaltial">{% trans "-" %}</div>
                     </div>
+                    <div class="file-column-left">
+                        <div class="title-file-column-right">{% trans "discount rate:" %}</div>
+                        <div class="value-file-column-left" id="discountRateFinaltial">{% trans "-" %}</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -948,7 +952,7 @@ $(function () {
         document.getElementById("idNumberOfDrinkingFinaltial").innerHTML = localStorage.getItem('idNumberOfDrinking');
         document.getElementById("idCurrencyMainFinaltial").innerHTML = localStorage.getItem('idCurrencyMain');
         document.getElementById("idTimeMainFinaltial").innerHTML = localStorage.getItem('idTimeMain');
-
+        document.getElementById("discountRateFinaltial").innerHTML = localStorage.getItem('transactionCost');
     };
     initialize();
 });

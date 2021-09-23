@@ -817,7 +817,7 @@
          });
  
          //Add value entered in aguaDiagram in the field resultdb
-         $('#aguaDiagram').change(function() {
+         $('#aguaDiagram').on('input',function() {
              if (typeof(selectedCell.value) == "string" && selectedCell.value.length > 0) {
                  var obj = JSON.parse(selectedCell.value);
                  let dbfields = obj.resultdb;
