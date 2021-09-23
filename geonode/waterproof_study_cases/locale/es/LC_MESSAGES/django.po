@@ -268,7 +268,7 @@ msgstr "Costos de transacción anuales como porcentaje de los costos de implemen
 msgid "study_cases_list_create"
 msgstr "Usted debe ser un usuario registrado para crear un caso de estudio*"
 
-msgid "Creating a new water intake"
+msgid "Creating a new case study"
 msgstr "Creando un nuevo caso de estudio"
 
 msgid "study_cases_list_tip"

@@ -239,7 +239,7 @@ msgstr "Transaction cost per year as a percentage of implementation, maintenance
 msgid "study_cases_list_create"
 msgstr "You must be a registered user to create a new Case Study*"
 
-msgid "Creating a new water intake"
+msgid "Creating a new case study"
 msgstr "Creating a new case study"
 
 msgid "study_cases_list_tip"

@@ -511,3 +511,6 @@ msgstr "Ingresar descripción"
 
 msgid "This field is required"
 msgstr "Este campo es requerido"
+
+msgid "Please, complete the form"
+msgstr "Por favor, complete el formulario"
