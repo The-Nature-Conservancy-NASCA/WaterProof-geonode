@@ -177,10 +177,10 @@ msgid "sensitivity_maximun_discount"
 msgstr "Sensitivity analysis - Maximun discount rate (%)"
 
 msgid "NBS_conservation_activities_text"
-msgstr "Select the NbS that you want the system to consider for the analysis:"
+msgstr "Select the NbS that you want to consider for the analysis”:"
 
 msgid "investment_tip"
-msgstr "Enter here the amount of money you want to spent on each NbS per year. If you do not want to pre-determine how much is spent on each NbS, enter the total budget in the Yearly Floating Budget box. You can also enter values of some NbS and enter the remaining budget in the Floating Budget box. Please take into account that WaterProof will consider the values indicated as investment for each of the basins involved in the analysis. If you establish a budget of 100,000 USD but the analysis involves 2 analysis basins, the system will consider 200,000 USD as the total available investment."
+msgstr "Enter here the amount of money you want to spent on each NbS per year. If you do not want to pre-determine how much is spent on each NbS, enter the total budget in the Yearly Floating Budget box. You can also enter values of some NbS and enter the remaining budget in the Floating Budget box. Please take into account that WaterProof will consider the values indicated as investment for each of the basins involved in the analysis. If you establish a budget of 100,000 USD but the analysis involves 2 basins, the system will consider 200,000 USD as the total available investment."
 
 msgid "analysis_time_period"
 msgstr "Analysis time period (years) (10-100)"
@@ -252,7 +252,7 @@ msgid "carbon_market_tip"
 msgstr "WaterProof may consider benefits associated with the Carbon market, click the checkbox to include it in the analysis."
 
 msgid "biophysical_tip"
-msgstr "In this step you will find the biophysical parameters required for the execution of the models. If you want to see or edit these parameters, click on Advanced options, otherwise Click on next and the system will use the default values."
+msgstr "In this step you will find the biophysical parameters required for the execution of the models. If you want to see or edit these parameters, click on Advanced options, otherwise click on next and the system will use the default values."
 
 msgid "financial_tip"
 msgstr "In this section, the system offers you pre-loaded costs required for the implementation of the NbS. Confirm or edit values ​​according to your local situation:"

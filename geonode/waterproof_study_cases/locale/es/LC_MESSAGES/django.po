@@ -206,7 +206,7 @@ msgid "sensitivity_maximun_discount"
 msgstr "Tasa de descuento máxima para el analisis de sensibilidad (%)"
 
 msgid "NBS_conservation_activities_text"
-msgstr "Seleccione las SbN que desea considerar en el análisis:"
+msgstr "Seleccione las SbN que usted quiere considerar en el análisis:"
 
 msgid "investment_tip"
 msgstr "Ingrese aquí la cantidad de dinero que desea invertir en cada SbN por año. Si no desea predeterminar cuánto se invierte en cada SbN, ingrese el presupuesto total en el cuadro Presupuesto flotante anual. También puede ingresar valores de algunos SbN e ingresar el presupuesto restante en el cuadro Presupuesto flotante. Tenga en cuenta que WaterProof considerará los valores indicados como inversión para cada una de las cuencas involucradas en el análisis. Si establece un presupuesto de 100.000 USD pero el análisis involucra 2 cuencas de análisis, el sistema considerará 200.000 USD como la inversión total disponible."
@@ -284,7 +284,7 @@ msgid "biophysical_tip"
 msgstr "En este paso encontrará los parámetros biofísicos necesarios para la ejecución de los modelos. Si desea verlos o editarlos, haga clic en opciones avanzadas, de lo contrario haga clic en siguiente y el sistema utilizará los valores predeterminados."
 
 msgid "financial_tip"
-msgstr "En esta sección el sistema le ofrece precargados los costos requeridos para la implementación de las SbN. Confirme o edites los valores de acuerdo con su realidad:"
+msgstr "En esta sección el sistema le ofrece precargados los costos requeridos para la implementación de las SbN. Confirme o edite los valores de acuerdo con su realidad:"
 
 msgid "study_case_tip"
 msgstr "Ingrese los datos con los que identificará su caso de estudio. Observe que además del nombre y una descripción, debe indicar las plantas de tratamiento y captaciones que derivan costos."
