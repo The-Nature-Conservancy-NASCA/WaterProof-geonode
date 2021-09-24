@@ -77,6 +77,8 @@ $(function() {
         };
 
         $('#tbl-studycases tbody').on('click', '.btn-danger', function (evt) {
+            var userId = "{{casesList.user}}"
+            console.log(evt.currentTarget.getAttribute('data-id')+"este es el console de borrar"+userId+"<==")
             Swal.fire({
                 title: gettext('Delete study case'),
                 text: gettext("Are you sure?") + gettext("You won't be able to revert this!"),
@@ -542,5 +544,23 @@ $(function() {
             $("#main").style.marginLeft = "250px";
         });
     }
+
+    async function deleteDirAPIStudyCase(e) {
+        //userid
+        //idcasestudy
+        //datecreate
+        const deleteDir = "deleteDir";
+        let center =  waterproof.cityCoords == undefined ? map.getCenter(): waterproof.cityCoords;
+        let amp = "&";
+        if (serverApi.indexOf("proxy") >=0){
+          amp = "%26";
+        }
+        let url = serverApi + deleteDir + "?x=" + center[1] + amp + "y=" + center[0];
+        let response = await fetch(url);
+        
+        let result = await response.json();
+        if (result.status) {
+        }
+      }
 
 });
