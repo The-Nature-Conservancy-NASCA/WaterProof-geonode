@@ -390,20 +390,21 @@ $(function () {
                 
                 $.each( data.function, function( key, value ) {
                     let costFunction = {
-                        "graphId": value.functionGraphId,
-                        "technology": value.functionTechnology,
-                        "name": value.functionName,
-                        "expression": value.functionValue,
-                        "currency": value.functionCurrency,
-                        "factor": value.functionFactor,
-                        "description": "",
-                        "idSubprocess":  value.functionIdSubProcess,
-                        "sediments": value.functionSedimentsRetained,
-                        "nitrogen": value.functionNitrogenRetained,
-                        "phosphorus": value.functionPhosphorusRetained,
-                        "id": value.functionId
+                        graphid: value.functionGraphId,
+                        technology: value.functionTechnology,
+                        nameFunction: value.functionName,
+                        functionValue: value.functionValue,
+                        currency: value.functionCurrency,
+                        factor: value.functionFactor,
+                        description: "",
+                        idSubprocess:  value.functionIdSubProcess,
+                        sedimentsRetained: value.functionSedimentsRetained,
+                        nitrogenRetained: value.functionNitrogenRetained,
+                        phosphorusRetained: value.functionPhosphorusRetained,
+                        id: value.functionId
                     }
-                    addFunction2Array(costFunction);                    
+                    addFunction2Array(costFunction);
+                    plant.functions[costFunction.technology + "-" + costFunction.name] = costFunction;
                     //plant.functions[costFunction.technology + "-" + costFunction.name] = costFunction;
 
                     // arrayFunction.push({
@@ -1175,9 +1176,7 @@ $(function () {
                 });
             }
         });
-        validateAndAddFunction2Array();
-        
-
+        validateAndAddFunction2Array();        
         // setTimeout(function(){
         //     for (var funVar = 0; funVar < arrayFunction.length; funVar++) {
         //         if (document.getElementById("id" + arrayFunction[funVar].idSubprocess) !== null) {
@@ -1185,9 +1184,7 @@ $(function () {
         //         }
         //     }
         // },1500);
-
     }
-
 
     /**
     * Change the state of the element in the graph
@@ -1787,7 +1784,7 @@ $(function () {
     }
 
     $('#saveAndValideCost').click(function() {
-        
+        $('#_thumbnail_processing').modal('show');
         let graphId = $('#mainTree .title-tree')[0].getAttribute('graphId');
         let fnName = $("#costFunctionName").val();
         let expression = $("#python-expression").val();
