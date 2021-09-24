@@ -164,6 +164,60 @@ def getInfoTree(request):
 				order_register = sorted(objects_list, key=lambda tree : tree['technologyAddId'])
 			return JsonResponse(order_register, safe=False)
 
+@api_view(['GET'])
+def getInfoTreeMany(request):
+	"""Returns the tree information
+	Search the information stored in the system of functions and variables
+	of the tree for each of the elements
+	Parameters:
+	plantElement - name of the element in the plant
+	Exceptions:
+	always returns the basic information of each element
+	"""
+	if request.method == 'GET':
+		if request.user.is_authenticated:
+			country = request.query_params.get('country')
+			elements = request.query_params.get('elements')
+			country_row = Countries.objects.filter(Q(name=country) | Q(native=country)).first()
+			countryFactor = country_row.global_multiplier_factor
+
+			objects_list = []
+			lastNull = ''
+			objects_list = []
+
+			list_elements = elements.split(',')
+			for process in CostFunctionsProcess.objects.filter(process_efficiencies__normalized_category__in=list_elements):
+				try:					
+					objects_list.append({
+						"idSubprocess": process.id,
+						"subprocess": process.sub_process,
+						"subprocessAddId": process.sub_process,
+						"technology": process.process_efficiencies.categorys,
+						"technologyAddId": str(process.process_efficiencies.id) + process.process_efficiencies.categorys,
+						"costFunction": process.function_name,
+						"function": process.function_value,
+						"default": process.default_function,
+						"transportedWater": process.process_efficiencies.predefined_transp_water_perc,
+						"sedimentsRetained": process.process_efficiencies.predefined_sediment_perc,
+						"nitrogenRetained": process.process_efficiencies.predefined_nitrogen_perc,
+						"phosphorusRetained": process.process_efficiencies.predefined_phosphorus_perc,
+						"minimalTransportedWater": process.process_efficiencies.minimal_transp_water_perc,
+						"minimalSedimentsRetained": process.process_efficiencies.minimal_sediment_perc,
+						"minimalNitrogenRetained": process.process_efficiencies.minimal_nitrogen_perc,
+						"minimalPhosphorusRetained": process.process_efficiencies.minimal_phoshorus_perc,
+						"maximalTransportedWater": process.process_efficiencies.maximal_transp_water_perc,
+						"maximalSedimentsRetained": process.process_efficiencies.maximal_sediment_perc,
+						"maximalNitrogenRetained": process.process_efficiencies.maximal_nitrogen_perc,
+						"maximalPhosphorusRetained": process.process_efficiencies.maximal_phosphorus_perc,
+						"currency": process.currency,
+						"factor": countryFactor,
+						"normalizedCategory" : process.process_efficiencies.normalized_category
+					})
+				except:
+					lastNull = ''
+				order_register = sorted(objects_list, key=lambda tree : tree['technologyAddId'])
+			return JsonResponse(order_register, safe=False)
+
 @api_view(['PUT','DELETE'])
 def setHeaderPlant(request):
 	"""Create / Update the treatment plant
