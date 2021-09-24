@@ -1833,7 +1833,7 @@ $(function () {
                         'function="' + valueCostFunction.function + '" ' + 
                         'currency="' + valueCostFunction.currency + '" ' + 
                         'factor="' + valueCostFunction.factor + '" ' +
-                        'checked' + checked + ' ' +
+                        'checked=' + checked.toString() + ' ' +
                         (checked ? 'style="border-color: ' + checkHexColor + ' ;" ' : '') +
                         'class="change-state-tree" id="id' + valueCostFunction.idSubprocess + 
                                 (subid != "" ? "-" + subid : "") + '"></div></div>';
