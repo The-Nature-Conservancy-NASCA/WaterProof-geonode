@@ -577,6 +577,7 @@ $(function () {
     */
     validateAndSavePlant = function () {
         console.log("validateAndSavePlant");
+        $('#_thumbnail_processing').modal('show');
         var saveForm = true;
         if($('#idNamePlant').val() === "" || $('#idNamePlant').val() === null) {
             $('#idNamePlant').focusin();
