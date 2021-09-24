@@ -247,7 +247,7 @@
                     <div class="page-header">
                         <h3> {% trans "modelling_parameters" %}</h3>
                         <p>{% trans "tables_text" %}</p>
-                        <p>{% trans "InVEST_documentation" %}</p>
+                        <p><a href=https://storage.googleapis.com/releases.naturalcapitalproject.org/invest-userguide/latest/index.html >{% trans "InVEST_documentation" %}</a></p>
                         <div class="row biophysical-panel panel-hide" id="biophysical-panel">
 
                         </div>
@@ -270,7 +270,7 @@
                                     <div class="custom-control col-md-3">
                                         <label class="custom-control-label" for="financial_currency">{% trans "Currency" %}</label>
                                     </div>
-                                    <div class="custom-control col-md-4">
+                                    <div class="custom-control col-md-9">
                                         <input id="financial_currency" class="form-control" value="{{study_case.financial_currency |default_if_none:''}} - {{ fn_currency_name}}" disabled>
                                     </div>
                                 </div>

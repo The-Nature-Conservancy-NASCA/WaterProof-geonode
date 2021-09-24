@@ -93,7 +93,7 @@
         </div>
         <div class="title-report font-title">{% trans "Summary of risks in the basins" %}</div>
         <div class="help-report border-report">{% trans "Select the basin of your interest from the drop-down list to know a summary of its risks (The risk results have been estimated using the Acueduct - WRI database)" %}</div>
-        <div class="align-text">
+        <div class="align-div">
             <h5>{% trans "Water Intake" %} : 
             <select class="select-condition select-condition-menu"
             id="idSelectStudyCase"></select>
@@ -547,7 +547,7 @@
             $.getJSON(urlDetail, function (data) {
                 $.each( data, function( key, value ) {
                     typeMoney = value.currencyr;
-                    dataNetPresentValueSummary.push(parseFloat(value.implementationr));
+                    dataNetPresentValueSummary.push(Intl.NumberFormat('es').format(parseFloat(value.implementationr)));
                     dataNetPresentValueSummary.push(parseFloat(value.maintenancer));
                     dataNetPresentValueSummary.push(parseFloat(value.oportunityr));
                     dataNetPresentValueSummary.push(parseFloat(value.transactionr));
@@ -623,8 +623,8 @@
                     document.getElementById("changeInCarbonStorage").innerHTML = (Intl.NumberFormat('es').format(value.changeInCarbonStorage.toFixed(2))+"%");
                     document.getElementById("idCurrencyMain").innerHTML = value.currency;
                     document.getElementById("idTimeMain").innerHTML = value.time;
-                    document.getElementById("idRoi").innerHTML = value.roi.toFixed(2);
-                    document.getElementById("discountRate").innerHTML = value.transactionCost;
+                    document.getElementById("idRoi").innerHTML = (Intl.NumberFormat('es').format(value.roi.toFixed(2)));
+                    document.getElementById("discountRate").innerHTML = (Intl.NumberFormat('es').format(value.transactionCost));
 
                     var nameButtom = value.result.split("::");
                     if(nameButtom[1] === "Dark Green") {

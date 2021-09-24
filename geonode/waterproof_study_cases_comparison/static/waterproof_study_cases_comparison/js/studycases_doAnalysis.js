@@ -158,9 +158,15 @@ $(function () {
                 });
                 chartConfig.series = serie;
                 fillAxisTable(chartCategories);
-                let colors = [];
+                var colors = [];
                 serie.forEach(element => {
-                    let color = random_rgba();
+                    var exist=true;
+                    while (exist){
+                        var color = random_rgba();
+                        let filter=colors.filter(col=>col==color);
+                        if (filter.length===0)
+                            exist=false
+                    }
                     colors.push(color);
                 });
                 seriesCases.forEach(element => {
@@ -368,8 +374,10 @@ $(function () {
     * @returns {String} The rgba color 
     */
     function random_rgba() {
-        var o = Math.round, r = Math.random, s = 255;
-        return 'rgba(' + o(r() * s) + ',' + o(r() * s) + ',' + o(r() * s) + ',' + r().toFixed(1) + ')';
+        var color1 = Math.floor(Math.random() * 255) + 1;
+        var color2 = Math.floor(Math.random() * 255) + 1;
+        var color3 = Math.floor(Math.random() * 255) + 1;
+        return 'rgb('+ color1+ ',' +  color2+',' + color3 +')';;
     }
     /*
     * Set a indicators promise request
@@ -409,7 +417,7 @@ $(function () {
                 }
             },
             title: {
-                text: gettext('Study case comparison')
+                text: null
             },
             plotOptions: {
                 series: {
@@ -471,13 +479,31 @@ $(function () {
             },
             xAxis: {
                 categories: chartConfig.categories,
-                offset: 2
+                offset: 2,
             },
             yAxis: [{
-                tooltipValueFormat: '{value} %'
+                tooltipValueFormat: '{value} %',
+                lineColor: '#ff9900'
             },
             {
                 tooltipValueFormat: '{value} %',
+                lineColor: '#ff9900'
+            },
+            {
+                tooltipValueFormat: '{value} %',
+                lineColor: '#ff9900'
+            },
+            {
+                tooltipValueFormat: '{value} %',
+                lineColor: '#ff9900'
+            },
+            {
+                tooltipValueFormat: '{value} %',
+                lineColor: '#ff9900'
+            },
+            {
+                tooltipValueFormat: '{value} %',
+                lineColor: '#ff9900'
             }],
             colors: chartConfig.colors,
             series: chartConfig.series
