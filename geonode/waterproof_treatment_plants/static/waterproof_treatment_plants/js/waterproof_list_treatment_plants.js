@@ -261,12 +261,13 @@ $(function () {
         });
 
         $('#idSendIntake').click(function (e) {
+            $('#_thumbnail_processing').modal('show');
             deactivePlantGraph();
             setTimeout(function(){
                 arrayFunction = [];
                 if($('#idTbodyIntake').html().trim() === "") {
-                    $('#idIntakePlant').focusin()
-                    $('#idIntakePlant').focusout()
+                    $('#idIntakePlant').focusin();
+                    $('#idIntakePlant').focusout();
                     $("[name=disableElement]").each(function( index, element ) {
                         element.style.display = "block";
                         var idr =  element.getAttribute("idr");
@@ -339,7 +340,7 @@ $(function () {
 
             $(".link-form").hide();
             $("#" + divContainerVar.parentElement.id + " .link-form").show();
-            changeStatus(id);
+            changeStatus(id,e.currentTarget);
         });               
                 
         if(localStorage.clonePlant === "true") {
@@ -597,7 +598,6 @@ $(function () {
             ptapFunctions.push(plant.functions[k]);
         }
         
-
         if(saveForm) {
             var arrayCsinfra = [];
             $("[name=nameListAdd]").each(function( index, element ) {
@@ -672,6 +672,8 @@ $(function () {
     * @returns 
     */
     activePlantGraph = function(ptapType) {
+        
+        var listElements = {};
         $("[name=disableElement]").each(function( index, element ) {
             if(element.getAttribute("model").indexOf(ptapType) < 0) {
                 element.style.display = "block";
@@ -690,9 +692,39 @@ $(function () {
                 $('#' + idr ).css("background-color", "#ffffff");
                 $('#' + idr ).css("border-color", checkHexColor);
 
+                listElements[element.getAttribute("plantElement")] =  {'name': element.getAttribute("name"), 'graphId': element.getAttribute("graphId")};
                 //loadArrayTree(element.getAttribute("plantElement"), element.getAttribute("nameElement"), element.getAttribute("graphId"));
             }
         });
+        
+        var elements = Object.keys(listElements).join(',');
+        if (elements.length > 0) {
+            var country = localStorage.getItem('country');
+            var urlDetail = "../../treatment_plants/getInfoTreeMany/?elements=" + elements + "&country=" + country;
+            $.getJSON(urlDetail, function(data) {
+                Object.keys(listElements).forEach(function(element) {
+                    //var name = listElements[element].name;
+                    let fns = data.filter(f => f.default);
+                    fns.forEach(f =>{
+                        var graphid = listElements[f.normalizedCategory].graphId;
+                        plant.functions[f.technology + "-" + f.costFunction] = {
+                            graphid: graphid,
+                            technology: f.technology,
+                            nameFunction: f.costFunction,
+                            functionValue: f.function,
+                            currency: f.currency,
+                            factor: f.factor,
+                            idSubprocess: f.idSubprocess,
+                            sedimentsRetained: f.sedimentsRetained,
+                            nitrogenRetained: f.nitrogenRetained,
+                            phosphorusRetained: f.phosphorusRetained,
+                            id: f.id
+                        };
+                    });                    
+                });
+                $('#_thumbnail_processing').modal('hide');
+            });
+        }
     };
     /**
     * Deletes the intakes selected for the calculation of the Ptap
@@ -826,6 +858,7 @@ $(function () {
     */
     viewTree = function(e) {
         console.log("viewTree", e);
+        $('#_thumbnail_processing').modal('show');
         $("#mainTree").hide();
         selectedPlantElement = e.getAttribute("plantElement");
         $(".container-element").removeClass('container-element-selected');
@@ -936,25 +969,25 @@ $(function () {
             var urlDetail = "../../treatment_plants/getInfoTree/?plantElement=" + plantElement + 
                             "&country=" + localStorage.getItem('country');
             $.getJSON(urlDetail, function(data) {
-                dataPlantElements = data;
-                plant.elements[plantElement] = {default: dataPlantElements, custom: {}};
-                let fn = dataPlantElements.filter(p => p.default);
-                fn.forEach(f => {
-                    plant.functions[f.technology + "-" + f.costFunction] = {
-                        graphid: graphid,
-                        technology: f.technology,
-                        nameFunction: f.costFunction,
-                        functionValue: f.function,
-                        currency: f.currency,
-                        factor: f.factor,
-                        idSubprocess: f.idSubprocess,
-                        sedimentsRetained: f.sedimentsRetained,
-                        nitrogenRetained: f.nitrogenRetained,
-                        phosphorusRetained: f.phosphorusRetained,
-                        id: f.id
-                    };
-                });
+                plant.elements[plantElement] = {default: data, custom: {}};
+                // let fn = data.filter(p => p.default);
+                // fn.forEach(f => {
+                //     plant.functions[f.technology + "-" + f.costFunction] = {
+                //         graphid: graphid,
+                //         technology: f.technology,
+                //         nameFunction: f.costFunction,
+                //         functionValue: f.function,
+                //         currency: f.currency,
+                //         factor: f.factor,
+                //         idSubprocess: f.idSubprocess,
+                //         sedimentsRetained: f.sedimentsRetained,
+                //         nitrogenRetained: f.nitrogenRetained,
+                //         phosphorusRetained: f.phosphorusRetained,
+                //         id: f.id
+                //     };
+                // });
                 fillTree(data, plantElement, nameElement, graphid);
+                $('#_thumbnail_processing').modal('hide');
             });
         }        
     };
@@ -1158,10 +1191,10 @@ $(function () {
 
     /**
     * Change the state of the element in the graph
-    * @param {String} element object
+    * @param {Object} element object
     * @returns 
     */
-    changeStatus = function(i) {
+    changeStatus = function(i, element) {
         console.log("changeStatus", i);        
         if(!onlyReadPlant) {
             var e = document.getElementById("id" + i);
@@ -1207,6 +1240,32 @@ $(function () {
             }
             validateAndAddFunction2Array();
         }
+
+        if (element.attributes.checked.value === "true") {
+            element.attributes.checked.value = "false";
+
+        }else{
+            let attrs = element.attributes;
+            let sediments = inputs[1].value;
+            let nitrogen = inputs[2].value;
+            let phosphorus = inputs[3].value;
+            attrs.checked.value = "true";
+            plant.functions[attrs.technology.value + "-" + f.nameFunction.value] = {
+                graphid: attrs.graphid.value,
+                technology: attrs.technology.value,
+                nameFunction: attrs.namefunction.value,
+                functionValue: attrs.functionValue.value,
+                currency: attrs.currency.value,
+                factor: attrs.factor.value,
+                idSubprocess: attrs.idsubprocess.value,
+                sedimentsRetained: sediments,
+                nitrogenRetained: nitrogen,
+                phosphorusRetained: phosphorus,
+                id: f.id
+            };
+
+        }
+
     };
 
     /**
