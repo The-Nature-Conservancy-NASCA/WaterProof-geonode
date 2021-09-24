@@ -107,7 +107,7 @@ def pdf(request):
     changeInPhosphorus = "-"
     changeInCarbonStorage = "-"
 
-requestJson = requests.get(settings.SITE_HOST_API + 'reports/getReportAnalisysBeneficsB/?studyCase=' + request.POST['studyCase'],verify=False)
+    requestJson = requests.get(settings.SITE_HOST_API + 'reports/getReportAnalisysBeneficsB/?studyCase=' + request.POST['studyCase'],verify=False)
     data = requestJson.json()
     for item in data:
         currencyCase = item['currency']
@@ -119,7 +119,7 @@ requestJson = requests.get(settings.SITE_HOST_API + 'reports/getReportAnalisysBe
         changeInPhosphorus = str(round(float(item['changeInPhosphorus']),2))
         changeInCarbonStorage = str(round(float(item['changeInCarbonStorage']),2))
 
-pdf.set_text_color(57, 137, 169)
+    pdf.set_text_color(57, 137, 169)
     pdf.set_font('Arial', '', 13)
     pdf.cell(0, 10, 'This case study is based on:')
     pdf.ln(10)
@@ -160,27 +160,24 @@ pdf.set_text_color(57, 137, 169)
     pdf.set_text_color(100, 100, 100)
     pdf.set_fill_color(255, 255, 255)
     
-    requestJson = requests.get(settings.SITE_HOST_API +
-                               'reports/getCaracteristicsCsIntakePdf/?studyCase=' +
-                               request.POST['studyCase'],verify=False)
-        
-                               data = requestJson.json()
-                               lastItenName = ""
-                               
-                               cellArray = []
-                               contLine = 0
-                               lastLine = 0
-                               for item in data:
-                                   if item['name'] != lastItenName:
-                                       if contLine != 0 :
-                                           cellArray.append(contLine)
-                                               contLine = 0
-                                                   lastItenName = item['name']
-                                                       lastLine = lastLine + 1
-                                                           contLine = contLine + 1
-                                                       cellArray.append(contLine)
+    requestJson = requests.get(settings.SITE_HOST_API + 'reports/getCaracteristicsCsIntakePdf/?studyCase=' + request.POST['studyCase'],verify=False)        
+    data = requestJson.json()
+    lastItenName = ""
+    
+    cellArray = []
+    contLine = 0
+    lastLine = 0
+    for item in data:
+        if item['name'] != lastItenName:
+            if contLine != 0 :
+                cellArray.append(contLine)
+                contLine = 0
+                lastItenName = item['name']
+                lastLine = lastLine + 1
+                contLine = contLine + 1
+                cellArray.append(contLine)
 
-lastItenName = ""
+    lastItenName = ""
     contLine = 0
     for item in data:
         pdf.ln(6)
@@ -202,7 +199,7 @@ lastItenName = ""
     pdf.cell(0, 10, 'Caracteristics case study (Drinking water systems)', align='L', fill=1)
     pdf.ln(10)
 
-pdf.set_font('Arial', '', 10)
+    pdf.set_font('Arial', '', 10)
     pdf.set_text_color(255, 255, 255)
     pdf.set_fill_color(0, 138, 173)
     pdf.set_draw_color(0, 138, 173)
@@ -227,7 +224,7 @@ pdf.set_font('Arial', '', 10)
         contLine = contLine + 1
     cellArray.append(contLine)
 
-lastItenName = ""
+    lastItenName = ""
     contLine = 0
     for item in data:
         pdf.ln(6)
@@ -248,7 +245,7 @@ lastItenName = ""
     pdf.cell(0, 10, 'Nature Based Solutions Conservation Activities', align='L')
     pdf.ln(10)
 
-pdf.set_font('Arial', '', 9)
+    pdf.set_font('Arial', '', 9)
     pdf.set_text_color(255, 255, 255)
     pdf.set_fill_color(0, 138, 173)
     pdf.set_draw_color(0, 138, 173)
@@ -305,7 +302,7 @@ pdf.set_font('Arial', '', 9)
     requestJson = requests.get(settings.SITE_HOST_API + 'reports/getFinancialAnalysisPdfRunAnalisisPdf/?studyCase=' + request.POST['studyCase'],verify=False)
     data = requestJson.json()
 
-platformCost = ""
+    platformCost = ""
     discountRate = ""
     discountRateMinimum = ""
     discountRateMaximum = ""
@@ -323,7 +320,7 @@ platformCost = ""
         fullScenario = item['fullScenario']
 
 
-requestJson = requests.get(settings.SITE_HOST_API + 'reports/getObjetivesForPorfoliosPdf/?studyCase=' + request.POST['studyCase'],verify=False)
+    requestJson = requests.get(settings.SITE_HOST_API + 'reports/getObjetivesForPorfoliosPdf/?studyCase=' + request.POST['studyCase'],verify=False)
     data = requestJson.json()
     
     varText1 = ""
@@ -343,7 +340,7 @@ requestJson = requests.get(settings.SITE_HOST_API + 'reports/getObjetivesForPorf
         if cont == 4:
             varText4 = item['name']
 
-pdf.add_page()
+    pdf.add_page()
     pdf.set_font('Arial', '', 13)
     pdf.set_text_color(57, 137, 169)
     pdf.ln(5)
@@ -406,61 +403,59 @@ pdf.add_page()
     pdf.cell(0, 10, 'Comparative graph of costs and benefits for the analysis period', align='L')
     pdf.ln(10)
     
-    requestJson = requests.get(settings.SITE_HOST_API +
-                               'reports/getReportCostsAnalysisRoi/?studyCase=' +
-                               request.POST['studyCase'],verify=False)
-                               data = requestJson.json()
-                               
-                               categories = []
-                               totalCost = []
-                               totalDiscountedCost = []
-                               totalBenefits = []
-                               totalDiscountedBenefits = []
-                               
-                               for item in data:
-                                   categories.append(item['record'])
-                                       totalCost.append(item['totalCost'])
-                                           totalDiscountedCost.append(item['totalDiscountedCost'])
-                                               totalBenefits.append(item['totalBenefits'])
-                                                   totalDiscountedBenefits.append(item['totalDiscountedBenefits'])
+    requestJson = requests.get(settings.SITE_HOST_API + 'reports/getReportCostsAnalysisRoi/?studyCase=' + request.POST['studyCase'],verify=False)
+    data = requestJson.json()
+    
+    categories = []
+    totalCost = []
+    totalDiscountedCost = []
+    totalBenefits = []
+    totalDiscountedBenefits = []
+    
+    for item in data:
+        categories.append(item['record'])
+        totalCost.append(item['totalCost'])
+        totalDiscountedCost.append(item['totalDiscountedCost'])
+        totalBenefits.append(item['totalBenefits'])
+        totalDiscountedBenefits.append(item['totalDiscountedBenefits'])
 
-config = {
-    'chart': {
-        'type': 'column'
-        },
-        'title': {
-            'text': 'Cost and benefits chart'
-    },
-        'colors': ['#008BAB', '#90D3E7', '#004B56', '#61D1C2'],
-        'xAxis': {
-            'categories': categories
-},
-    'credits': {
-        'enabled': 0
-        },
-        'series': [{
-                   'name': 'Total Cost',
-                   'data': totalCost
-                   },{
-                   'name': 'Total Discounted Cost',
-                   'data': totalDiscountedCost
-                   },{
-                   'name': 'Total Benefits',
-                   'type': 'spline',
-                   'dashStyle': 'shortdot',
-                   'data': totalBenefits
-                   },{
-                   'name': 'Total Discounted Benefits',
-                   'type': 'spline',
-                   'dashStyle': 'shortdot',
-                   'data': totalDiscountedBenefits
-                   }]
-    }
+    config = {
+        'chart': {
+            'type': 'column'
+            },
+            'title': {
+                'text': 'Cost and benefits chart'
+            },
+            'colors': ['#008BAB', '#90D3E7', '#004B56', '#61D1C2'],
+            'xAxis': {
+                'categories': categories
+            },
+        'credits': {
+            'enabled': 0
+            },
+            'series': [{
+                    'name': 'Total Cost',
+                    'data': totalCost
+                    },{
+                    'name': 'Total Discounted Cost',
+                    'data': totalDiscountedCost
+                    },{
+                    'name': 'Total Benefits',
+                    'type': 'spline',
+                    'dashStyle': 'shortdot',
+                    'data': totalBenefits
+                    },{
+                    'name': 'Total Discounted Benefits',
+                    'type': 'spline',
+                    'dashStyle': 'shortdot',
+                    'data': totalDiscountedBenefits
+                    }]
+        }
 
     hc_export.save_as_png(config=config, filename="imgpdf/igocab.png")
 
 
-pdf.image('imgpdf/igocab.png', 20, 140, w=160)
+    pdf.image('imgpdf/igocab.png', 20, 140, w=160)
     
     pdf.ln(120)
     pdf.set_font('Arial', '', 13)
@@ -507,7 +502,7 @@ pdf.image('imgpdf/igocab.png', 20, 140, w=160)
     pdf.ln(6)
     pdf.add_page()
 
-requestJson = requests.get(settings.SITE_HOST_API + 'reports/getCostAndBenefit/?studyCase=' + request.POST['studyCase'],verify=False)
+    requestJson = requests.get(settings.SITE_HOST_API + 'reports/getCostAndBenefit/?studyCase=' + request.POST['studyCase'],verify=False)
     data = requestJson.json()
     
     dataCost = []
@@ -543,7 +538,7 @@ requestJson = requests.get(settings.SITE_HOST_API + 'reports/getCostAndBenefit/?
                    'name': 'Benefits',
                    'data': dataBenefit
                    }]
-}
+    }
     
     hc_export.save_as_png(config=config, filename="imgpdf/cab.png")
     pdf.image('imgpdf/cab.png', 20, 30, w=160)
@@ -615,7 +610,7 @@ requestJson = requests.get(settings.SITE_HOST_API + 'reports/getCostAndBenefit/?
                    'name': 'NPV (' + typeMoney + ')',
                    'data': dataNetPresentValueSummary
                    }]
-}
+    }
     
     hc_export.save_as_png(config=config, filename="imgpdf/npvs.png")
     pdf.image('imgpdf/npvs.png', 20, 30, w=160)
@@ -695,7 +690,7 @@ requestJson = requests.get(settings.SITE_HOST_API + 'reports/getCostAndBenefit/?
             'title': {
                 'text': 'Total descounted benefits'
         }
-},
+    },
     'xAxis': {
         'title': {
             'text': 'Time in years descoyunted benefits'
@@ -719,7 +714,7 @@ requestJson = requests.get(settings.SITE_HOST_API + 'reports/getCostAndBenefit/?
                    'enabled': 0
                    }
                    }]
-}
+    }
     
     hc_export.save_as_png(config=config, filename="imgpdf/satdb.png")
     pdf.image('imgpdf/satdb.png', 20, 30, w=160)
@@ -751,7 +746,7 @@ requestJson = requests.get(settings.SITE_HOST_API + 'reports/getCostAndBenefit/?
     
     pdf.add_page()
 
-requestJson = requests.get(settings.SITE_HOST_API + 'reports/getSensibilityAnalysisCost/?studyCase=' + request.POST['studyCase'],verify=False)
+    requestJson = requests.get(settings.SITE_HOST_API + 'reports/getSensibilityAnalysisCost/?studyCase=' + request.POST['studyCase'],verify=False)
     data = requestJson.json()
     
     dataSensibilityAnalysisCostTime = []
@@ -772,7 +767,7 @@ requestJson = requests.get(settings.SITE_HOST_API + 'reports/getSensibilityAnaly
             'title': {
                 'text': 'Total descounted costs'
         }
-},
+    },
     'xAxis': {
         'title': {
             'text': 'Time in years descounted benefits'
@@ -796,7 +791,7 @@ requestJson = requests.get(settings.SITE_HOST_API + 'reports/getSensibilityAnaly
                    'enabled': 0
                    }
                    }]
-}
+    }
     
     hc_export.save_as_png(config=config, filename="imgpdf/satdc.png")
     pdf.image('imgpdf/satdc.png', 20, 30, w=160)
@@ -828,7 +823,7 @@ requestJson = requests.get(settings.SITE_HOST_API + 'reports/getSensibilityAnaly
     
     pdf.add_page()
 
-requestJson = requests.get(settings.SITE_HOST_API + 'reports/getReportOportunityResultIndicators/?studyCase=' + request.POST['studyCase'],verify=False)
+    requestJson = requests.get(settings.SITE_HOST_API + 'reports/getReportOportunityResultIndicators/?studyCase=' + request.POST['studyCase'],verify=False)
     data = requestJson.json()
     valueRoi = ""
     idTotalTreatmentCostSavings = ""
@@ -868,7 +863,7 @@ requestJson = requests.get(settings.SITE_HOST_API + 'reports/getReportOportunity
         if item['description'] == "TotalAreaInterventionSize(Hec)":
             idTotalAreaInvestmentSize = str(round(float(item['value']),2))
 
-pdf.set_font('Arial', '', 13)
+    pdf.set_font('Arial', '', 13)
     pdf.set_text_color(100, 100, 100)
     pdf.set_fill_color(255, 255, 255)
     pdf.cell(epw, 10, 'Return on investment calculation', align='C')
@@ -1007,17 +1002,17 @@ pdf.set_font('Arial', '', 13)
     pdf.set_font('Arial', '', 10)
     pdf.ln(8)
 
-config = {
-    'chart': {
-        'type': 'column'
+    config = {
+        'chart': {
+            'type': 'column'
+            },
+            'title': {
+                'text': ''
         },
-        'title': {
-            'text': ''
+            'colors': ['#008BAB'],
+            'xAxis': {
+                'categories': ['Carbon storage', 'Phosphorus load', 'Nitrogen load', 'Total sediments', 'Base flow', 'Volumen of water yield']
     },
-        'colors': ['#008BAB'],
-        'xAxis': {
-            'categories': ['Carbon storage', 'Phosphorus load', 'Nitrogen load', 'Total sediments', 'Base flow', 'Volumen of water yield']
-},
     'credits': {
         'enabled': 0
         },
@@ -1035,7 +1030,7 @@ config = {
     pdf.image('imgpdf/total-four.png', 10, 218, w=10)
     pdf.image('imgpdf/total-five.png', 10, 233, w=10)
 
-pdf.add_page()
+    pdf.add_page()
     
     pdf.set_fill_color(231, 244, 244)
     pdf.cell(epw, 90, '', border=1, align='C', fill=1)
@@ -1264,7 +1259,7 @@ pdf.add_page()
         pdf.cell(35, 4, txtTd4, border=1, align='C', fill=1)
     pdf.ln(10)
 
-pdf.add_page()
+    pdf.add_page()
     
     pdf.set_text_color(100, 100, 100)
     pdf.set_fill_color(255, 255, 255)
@@ -1362,7 +1357,7 @@ pdf.add_page()
     
     pdf.add_page()
 
-pdf.set_font('Arial', '', 13)
+    pdf.set_font('Arial', '', 13)
     pdf.set_text_color(100, 100, 100)
     
     pdf.cell(0, 10, 'Physical indicators', align='L')
@@ -1379,7 +1374,7 @@ pdf.set_font('Arial', '', 13)
         if lastIntake != item['intake'] or lastTitle != item['indicator'] :
             arrayTitle.append(contLine)
 
-cellArray = []
+    cellArray = []
     contLine = 0
     lastTitle = ""
     for item in data:
@@ -1390,7 +1385,7 @@ cellArray = []
             lastTitle = item['indicator']
             lastIntake = item['intake']
         contLine = contLine + 1
-cellArray.append(contLine)
+    cellArray.append(contLine)
     
     lastTitle = ""
     lastIntake = ""
@@ -1470,51 +1465,51 @@ cellArray.append(contLine)
             lastTitle = item['indicator']
             pdf.ln(6)
             pdf.cell((epw/10) * 4, cellArray[contLine] * 6 ,item['indicator'], border=1, align='L', fill=1)
-        contLine = contLine + 1
-        else :
+            contLine = contLine + 1
+        else:
             pdf.cell((epw/10) * 4, 6 ,"", border=0, align='L', fill=0)
 
-pdf.cell(epw/10, 6, str(item['sigla']), border=1, align='L', fill=1)
+    pdf.cell(epw/10, 6, str(item['sigla']), border=1, align='L', fill=1)
     pdf.cell((epw/10) * 4, 6, str(item['description']), border=1, align='L', fill=1)
-        pdf.cell(epw/10, 6, str(item['valueIndicator']), border=1, align='R', fill=1)
-        pdf.ln(6)
+    pdf.cell(epw/10, 6, str(item['valueIndicator']), border=1, align='R', fill=1)
+    pdf.ln(6)
     
     
     if lastTitle == "Future 10 years":
         pdf.ln(10)
-if lastTitle == "Future 20 years":
-    pdf.ln(10)
-    if lastTitle == "Physical Risk associated with Amount of Water":
-        pdf.ln(5)
-        pdf.cell(epw, 5, 'Baseline water stress measures the ratio of total water withdrawals to available renewable surface and groundwater supplies. Higher', border=0, align='L', fill=0)
-        pdf.ln(5)
-        pdf.cell(epw, 5, 'values indicate more competition between users.', border=0, align='L', fill=0)
-        pdf.ln(7)
-        pdf.cell(epw, 5, 'Baseline water depletion measures the total water consumption of available renewable water supplies. Higher values indicate a greater', border=0, align='L', fill=0)
-        pdf.ln(5)
-        pdf.cell(epw, 5, 'impact on the local water supply and decreased water availability for downstream users.', border=0, align='L', fill=0)
-        pdf.ln(7)
-        pdf.cell(epw, 5, 'Interannual variability measures the average between-year variability of available water supply, including both renewable surface and', border=0, align='L', fill=0)
-        pdf.ln(5)
-        pdf.cell(epw, 5, 'groundwater supplies. Highervalues indicate wider variations in available supply from year to year.', border=0, align='L', fill=0)
-        pdf.ln(7)
-        pdf.cell(epw, 5, 'Seasonal variability measures the average within-year variability of available water supply, including renewable surface and ground', border=0, align='L', fill=0)
-        pdf.ln(5)
-        pdf.cell(epw, 5, 'water supplies. Higher valuesindicate wider variations in the supply available within a year.', border=0, align='L', fill=0)
-        pdf.ln(7)
-        pdf.cell(epw, 5, 'Water table decline measures the average water table decline as the average change for the study period (1990-2014). The result is', border=0, align='L', fill=0)
-        pdf.ln(5)
-        pdf.cell(epw, 5, 'expressed in centimeters per year (cm / year). Higher values indicate higher levels of unsustainable groundwater.', border=0, align='L', fill=0)
-        pdf.ln(7)
-        pdf.cell(epw, 5, 'River flood risk measures the percentage of the population expected to be affected by river flooding in an average year, taking into', border=0, align='L', fill=0)
-        pdf.ln(5)
-        pdf.cell(epw, 5, 'account existing flood protection standards. Higher values indicate that, on average, a greater proportion of the population is', border=0, align='L', fill=0)
-        pdf.ln(5)
-        pdf.cell(epw, 5, 'expected to be affected by river flooding.', border=0, align='L', fill=0)
-        pdf.ln(7)
+    if lastTitle == "Future 20 years":
+        pdf.ln(10)
+        if lastTitle == "Physical Risk associated with Amount of Water":
+            pdf.ln(5)
+            pdf.cell(epw, 5, 'Baseline water stress measures the ratio of total water withdrawals to available renewable surface and groundwater supplies. Higher', border=0, align='L', fill=0)
+            pdf.ln(5)
+            pdf.cell(epw, 5, 'values indicate more competition between users.', border=0, align='L', fill=0)
+            pdf.ln(7)
+            pdf.cell(epw, 5, 'Baseline water depletion measures the total water consumption of available renewable water supplies. Higher values indicate a greater', border=0, align='L', fill=0)
+            pdf.ln(5)
+            pdf.cell(epw, 5, 'impact on the local water supply and decreased water availability for downstream users.', border=0, align='L', fill=0)
+            pdf.ln(7)
+            pdf.cell(epw, 5, 'Interannual variability measures the average between-year variability of available water supply, including both renewable surface and', border=0, align='L', fill=0)
+            pdf.ln(5)
+            pdf.cell(epw, 5, 'groundwater supplies. Highervalues indicate wider variations in available supply from year to year.', border=0, align='L', fill=0)
+            pdf.ln(7)
+            pdf.cell(epw, 5, 'Seasonal variability measures the average within-year variability of available water supply, including renewable surface and ground', border=0, align='L', fill=0)
+            pdf.ln(5)
+            pdf.cell(epw, 5, 'water supplies. Higher valuesindicate wider variations in the supply available within a year.', border=0, align='L', fill=0)
+            pdf.ln(7)
+            pdf.cell(epw, 5, 'Water table decline measures the average water table decline as the average change for the study period (1990-2014). The result is', border=0, align='L', fill=0)
+            pdf.ln(5)
+            pdf.cell(epw, 5, 'expressed in centimeters per year (cm / year). Higher values indicate higher levels of unsustainable groundwater.', border=0, align='L', fill=0)
+            pdf.ln(7)
+            pdf.cell(epw, 5, 'River flood risk measures the percentage of the population expected to be affected by river flooding in an average year, taking into', border=0, align='L', fill=0)
+            pdf.ln(5)
+            pdf.cell(epw, 5, 'account existing flood protection standards. Higher values indicate that, on average, a greater proportion of the population is', border=0, align='L', fill=0)
+            pdf.ln(5)
+            pdf.cell(epw, 5, 'expected to be affected by river flooding.', border=0, align='L', fill=0)
+            pdf.ln(7)
 
-if lastTitle == "Physical risk quantity":
-    pdf.ln(5)
+    if lastTitle == "Physical risk quantity":
+        pdf.ln(5)
         pdf.cell(epw, 5, 'Untreated connected wastewater measures the percentage of domestic wastewater that is connected through a sewer system and is not', border=0, align='L', fill=0)
         pdf.ln(5)
         pdf.cell(epw, 5, 'treated to at least a primary treatment level. Discharging wastewater without adequate treatment could expose water bodies, the', border=0, align='L', fill=0)
@@ -1533,7 +1528,7 @@ if lastTitle == "Physical risk quantity":
         pdf.cell(epw, 5, 'indicate areas where people have less access to clean water supplies.', border=0, align='L', fill=0)
         pdf.ln(7)
 
-pdf.add_page()
+    pdf.add_page()
     
     pdf.set_font('Arial', '', 13)
     pdf.set_text_color(100, 100, 100)
@@ -1550,7 +1545,7 @@ pdf.add_page()
                                            'y': item['vpnMedBenefit']
                                            })
 
-config = {
+    config = {
     'chart': {
         'plotShadow': 0,
             'type': 'pie'
@@ -1575,7 +1570,7 @@ config = {
                    'colorByPoint': 1,
                    'data': dataListBenefitsIntakeA
                    }]
-}
+    }
     
     hc_export.save_as_png(config=config, filename="imgpdf/wrab.png")
     pdf.image('imgpdf/wrab.png', 10, 40, w=90)
@@ -1595,12 +1590,12 @@ config = {
     pdf.ln(30)
     dataListBenefitsIntakeB = [];
 
-for item in data:
-    if item['typeId'] != 'PTAP' :
-        dataListBenefitsIntakeB.append({
-                                       'name': item['elementId'],
-                                       'y': item['vpnMedBenefit']
-                                       })
+    for item in data:
+        if item['typeId'] != 'PTAP' :
+            dataListBenefitsIntakeB.append({
+                                        'name': item['elementId'],
+                                        'y': item['vpnMedBenefit']
+                                        })
     
     pdf.set_font('Arial', '', 9)
     for item in dataListBenefitsIntakeB :
@@ -1613,7 +1608,7 @@ for item in data:
     pdf.set_font('Arial', '', 10)
     pdf.cell(epw/2, 5, 'Identify the elements that will yield the most benefits', align='C')
 
-config = {
+    config = {
     'chart': {
         'plotShadow': 0,
             'type': 'pie'
@@ -1634,7 +1629,7 @@ config = {
         },
         'credits': {
             'enabled': 0
-},
+    },
     'series': [{
                'name': 'Intake Benefits',
                'colorByPoint': 1,
@@ -1642,23 +1637,22 @@ config = {
                }]
                }
                
-               hc_export.save_as_png(config=config, filename="imgpdf/wrabi.png")
-               pdf.image('imgpdf/wrabi.png', 10, 150, w=90)
-               
-               pdf.add_page()
-               
-               
-               
-               dataListBenefitsIntakeC = [];
-               requestJson = requests.get(settings.SITE_HOST_API + 'reports/getReportAnalysisBenefitsFilterSum/?studyCase=' + request.POST['studyCase'],verify=False)
-               data = requestJson.json()
-               for item in data:
-                   dataListBenefitsIntakeC.append({
-                                                  'name': item['typer'],
-                                                  'y': item['vpnMedBenefitr']
-                                                  })
+    hc_export.save_as_png(config=config, filename="imgpdf/wrabi.png")
+    pdf.image('imgpdf/wrabi.png', 10, 150, w=90)
+    
+    pdf.add_page()
+    
+    
+    dataListBenefitsIntakeC = [];
+    requestJson = requests.get(settings.SITE_HOST_API + 'reports/getReportAnalysisBenefitsFilterSum/?studyCase=' + request.POST['studyCase'],verify=False)
+    data = requestJson.json()
+    for item in data:
+        dataListBenefitsIntakeC.append({
+                                        'name': item['typer'],
+                                        'y': item['vpnMedBenefitr']
+                                        })
 
-pdf.ln(50)
+    pdf.ln(50)
     
     pdf.set_font('Arial', '', 9)
     for item in dataListBenefitsIntakeC :
@@ -1672,7 +1666,7 @@ pdf.ln(50)
     pdf.cell(epw/2, 7, 'This is a disaggregated view of the benefits by elements', align='C')
 
 
-config = {
+    config = {
     'chart': {
         'plotShadow': 0,
             'type': 'pie'
@@ -1693,7 +1687,7 @@ config = {
         },
         'credits': {
             'enabled': 0
-},
+    },
     'series': [{
                'name': 'Intake Benefits',
                'colorByPoint': 1,
@@ -1701,21 +1695,21 @@ config = {
                }]
                }
                
-               hc_export.save_as_png(config=config, filename="imgpdf/rabfs.png")
-               pdf.image('imgpdf/rabfs.png', 10, 40, w=90)
-               
-               
-               
-               dataListBenefitsIntakeD = [];
-               requestJson = requests.get(settings.SITE_HOST_API + 'reports/getReportCostsAnalysisFilter/?studyCase=' + request.POST['studyCase'],verify=False)
-               data = requestJson.json()
-               for item in data:
-                   dataListBenefitsIntakeD.append({
-                                                  'name': item['typer'],
-                                                  'y': item['sumFilter']
-                                                  })
+    hc_export.save_as_png(config=config, filename="imgpdf/rabfs.png")
+    pdf.image('imgpdf/rabfs.png', 10, 40, w=90)
+    
+    
+    
+    dataListBenefitsIntakeD = [];
+    requestJson = requests.get(settings.SITE_HOST_API + 'reports/getReportCostsAnalysisFilter/?studyCase=' + request.POST['studyCase'],verify=False)
+    data = requestJson.json()
+    for item in data:
+        dataListBenefitsIntakeD.append({
+                                        'name': item['typer'],
+                                        'y': item['sumFilter']
+                                        })
 
-pdf.ln(40)
+    pdf.ln(40)
     pdf.set_font('Arial', '', 9)
     for item in dataListBenefitsIntakeD :
         pdf.cell(epw/2, 6, '')
@@ -1723,7 +1717,7 @@ pdf.ln(40)
         pdf.cell(epw/6, 6, format(float(item['y']),'0,.2f'),border=1, align='R', fill=1)
         pdf.ln(6)
 
-pdf.ln(40)
+    pdf.ln(40)
     pdf.set_font('Arial', '', 10)
     pdf.cell(epw/2, 5, 'In this graph you can identify the magnitudes of the', align='C')
     pdf.ln(5)
@@ -1752,7 +1746,7 @@ pdf.ln(40)
         },
         'credits': {
             'enabled': 0
-},
+    },
     'series': [{
                'name': 'Intake Benefits',
                'colorByPoint': 1,
@@ -1760,22 +1754,22 @@ pdf.ln(40)
                }]
                }
                
-               hc_export.save_as_png(config=config, filename="imgpdf/rcafh.png")
-               pdf.image('imgpdf/rcafh.png', 10, 150, w=90)
-               
-               pdf.add_page()
-               
-               
-               dataListBenefitsIntakeE = [];
-               requestJson = requests.get(settings.SITE_HOST_API + 'reports/getReportCostsAnalysisFilterNbs/?studyCase=' + request.POST['studyCase'],verify=False)
-               data = requestJson.json()
-               for item in data:
-                   dataListBenefitsIntakeE.append({
-                                                  'name': item['costIdr'],
-                                                  'y': item['sumFilter']
-                                                  })
+    hc_export.save_as_png(config=config, filename="imgpdf/rcafh.png")
+    pdf.image('imgpdf/rcafh.png', 10, 150, w=90)
+    
+    pdf.add_page()
+    
+    
+    dataListBenefitsIntakeE = [];
+    requestJson = requests.get(settings.SITE_HOST_API + 'reports/getReportCostsAnalysisFilterNbs/?studyCase=' + request.POST['studyCase'],verify=False)
+    data = requestJson.json()
+    for item in data:
+        dataListBenefitsIntakeE.append({
+                                        'name': item['costIdr'],
+                                        'y': item['sumFilter']
+                                        })
 
-pdf.ln(50)
+    pdf.ln(50)
     
     pdf.set_font('Arial', '', 9)
     for item in dataListBenefitsIntakeE :
@@ -1790,7 +1784,7 @@ pdf.ln(50)
     pdf.ln(5)
     pdf.cell(epw/2, 5, 'activities of your interest', align='C')
     
-configE = {
+    configE = {
     'chart': {
         'plotShadow': 0,
             'type': 'pie'
@@ -1811,7 +1805,7 @@ configE = {
         },
         'credits': {
             'enabled': 0
-},
+    },
     'series': [{
                'name': 'Intake Benefits',
                'colorByPoint': 1,
@@ -1819,34 +1813,34 @@ configE = {
                }]
                }
                
-               hc_export.save_as_png(config=configE, filename="imgpdf/rcafn.png")
-               ###pdf.image('imgpdf/rcafn.png', 10, 40, w=90)
-               
-               pdf.add_page()
-               
-               pdf.set_font('Arial', '', 13)
-               pdf.set_text_color(179, 179, 179)
-               pdf.cell(0, 10, 'Geographic resources', align='L')
-               pdf.ln(10)
-               pdf.set_font('Arial', '', 11)
-               pdf.set_text_color(100, 100, 100)
-               pdf.cell(0, 10, 'The analysis run includes geographic outputs that you can consult at the following link', align='L')
-               heightIcon = 0;
-               for itemCase in dataCase:
-                   pdf.ln(20)
-                       pdf.set_text_color(100, 100, 100)
-                           pdf.cell(epw, 10, itemCase['selector'], border=0, align='L', fill=0)
-                               pdf.image('imgpdf/mapas-pdf.png', 20, 50 + heightIcon, w=30)
-                                   pdf.ln(50)
-                                       pdf.set_text_color(179, 179, 179)
-                                           pdf.cell(0, 6, 'http://apps.skaphe.com:8000/reports/compare-maps/?folder=1000_469_2021-8-27&amp', align='L', link = "http://apps.skaphe.com:8000/reports/compare-maps/?folder=1000_469_2021-8-27&amp;intake=481&amp;region=SA_1&amp;year=3&amp;study_case_id=469&amp;center=1.94,-76.4")
-                                               pdf.ln(6)
-                                                   pdf.cell(0, 6, ';intake=481&amp;region=SA_1&amp;year=3&amp;study_case_id=469&amp;center=1.94,', align='L', link = "http://apps.skaphe.com:8000/reports/compare-maps/?folder=1000_469_2021-8-27&amp;intake=481&amp;region=SA_1&amp;year=3&amp;study_case_id=469&amp;center=1.94,-76.4")
-                                                       pdf.ln(6)
-                                                           pdf.cell(0, 6, '-76.4', align='L', link = "http://apps.skaphe.com:8000/reports/compare-maps/?folder=1000_469_2021-8-27&amp;intake=481&amp;region=SA_1&amp;year=3&amp;study_case_id=469&amp;center=1.94,-76.4")
-                                                               heightIcon = heightIcon + 80;
+    hc_export.save_as_png(config=configE, filename="imgpdf/rcafn.png")
+    ###pdf.image('imgpdf/rcafn.png', 10, 40, w=90)
+    
+    pdf.add_page()
+    
+    pdf.set_font('Arial', '', 13)
+    pdf.set_text_color(179, 179, 179)
+    pdf.cell(0, 10, 'Geographic resources', align='L')
+    pdf.ln(10)
+    pdf.set_font('Arial', '', 11)
+    pdf.set_text_color(100, 100, 100)
+    pdf.cell(0, 10, 'The analysis run includes geographic outputs that you can consult at the following link', align='L')
+    heightIcon = 0;
+    for itemCase in dataCase:
+        pdf.ln(20)
+        pdf.set_text_color(100, 100, 100)
+        pdf.cell(epw, 10, itemCase['selector'], border=0, align='L', fill=0)
+        pdf.image('imgpdf/mapas-pdf.png', 20, 50 + heightIcon, w=30)
+        pdf.ln(50)
+        pdf.set_text_color(179, 179, 179)
+        pdf.cell(0, 6, 'http://apps.skaphe.com:8000/reports/compare-maps/?folder=1000_469_2021-8-27&amp', align='L', link = "http://apps.skaphe.com:8000/reports/compare-maps/?folder=1000_469_2021-8-27&amp;intake=481&amp;region=SA_1&amp;year=3&amp;study_case_id=469&amp;center=1.94,-76.4")
+        pdf.ln(6)
+        pdf.cell(0, 6, ';intake=481&amp;region=SA_1&amp;year=3&amp;study_case_id=469&amp;center=1.94,', align='L', link = "http://apps.skaphe.com:8000/reports/compare-maps/?folder=1000_469_2021-8-27&amp;intake=481&amp;region=SA_1&amp;year=3&amp;study_case_id=469&amp;center=1.94,-76.4")
+        pdf.ln(6)
+        pdf.cell(0, 6, '-76.4', align='L', link = "http://apps.skaphe.com:8000/reports/compare-maps/?folder=1000_469_2021-8-27&amp;intake=481&amp;region=SA_1&amp;year=3&amp;study_case_id=469&amp;center=1.94,-76.4")
+        heightIcon = heightIcon + 80;
                                                            
-response = HttpResponse(pdf.output(dest='S').encode('iso-8859-1'))
+    response = HttpResponse(pdf.output(dest='S').encode('iso-8859-1'))
     response['Content-Type'] = 'application/pdf'
     return response
 
