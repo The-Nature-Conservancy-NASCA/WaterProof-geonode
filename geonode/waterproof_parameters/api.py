@@ -26,7 +26,7 @@ def getClosetsCities(request):
 @api_view(['GET'])
 def getCountryByIso2(request):
     code = request.GET['code'].upper()
-    country = Countries.objects.filter(iso2=code).values_list('name','region','currency','currency_symbol', 'iso3')
+    country = Countries.objects.filter(iso2=code).values_list('name','region__name','currency','currency_symbol', 'iso3')
     #serialized = serializers.serialize('json', country)  
     lcountry = list(country)[0]
     result = {'country': lcountry[0], 
