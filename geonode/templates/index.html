@@ -471,40 +471,34 @@
         </div>
     </div>
 </section>  -->
-<section id="partner_tnc" style="padding-bottom:15px;">
-    <div class="row justify-content-md-center">
-        <div class="col-md-6 text-left">
-            <div class="col-md-2 text-left"></div>
-            <div class="col-md-4 text-left">
+<section id="partner_tnc" style="padding-left:1.5em;">
+    <div class="container">
+        <div class="row">            
+            <div class="col-md-4 text-left">                
                 <div class="text-center">
                     <h3 class="colorLeftInstructionsR">{% trans "Developed by:" %}</h3> 
-                </div>                
-            </div>
-        </div>
-        <div class="col-md-6 text-left">
-            <h3 class="colorLeftInstructionsR with-support-of">{% trans "Whith the support of:" %}</h3>             
-        </div>
-    </div>
-    <div class="row justify-content-md-center">
-        <div class="col-md-6 text-left">
-            <div class="col-md-2 text-left"></div>
-            <div class="col-md-4 text-left">                
-                <div class="text-left">
-                    <img src="{% static 'geonode/img/LogoTNC2.png' %}" style="width:100%; height:80%;" alt="The Nature Conservancy">
+                </div>
+                <div style="display: flex;">
+                    <div class="text-left">
+                        <img src="{% static 'geonode/img/logo-tnc.png' %}" alt="The Nature Conservancy">
+                    </div>
+                </div>
+            </div>            
+            <div class="col-md-6 col-md-offset-2 text-left">
+                <h3 class="colorLeftInstructionsR with-support-of">{% trans "Whith the support of:" %}</h3>
+                <div style="display: flex;">
+                    <div class="row">
+                        <div class="col-md-4 text-left">    
+                            <img src="{% static 'geonode/img/moore-foundation.png' %}" alt="Moore fundation">                
+                        </div>
+                        <div class="col-md-7 col-md-offset-1 text-left">
+                            {% trans "This website is funded by the Gordon and Betty Moore Foundation through Grant GBMF7100 to support the work of WaterProof" %}
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-6 text-left">
-            <div class="row justify-content-md-center">
-                <div class="col-md-4 text-left align-items-center">    
-                    <img src="{% static 'geonode/img/fundacionmoore.png' %}" style="width:75%; height:100%;" alt="Moore fundation">                
-                </div>
-                <div class="col-md-8 text-left align-items-center">
-                    {% trans "This website is funded by the Gordon and Betty Moore Foundation through Grant GBMF7100 to support the work of WaterProof" %}
-                </div>
-            </div>
-        </div>
-    </div>    
+        </div>        
+    </div> 
 </section> 
 
 <!--search-city modal-->

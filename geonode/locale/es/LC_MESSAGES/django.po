@@ -4485,8 +4485,8 @@ msgstr "Nombre de la Capa"
 #: geonode/people/forms.py:153 geonode/people/models.py:114
 #, fuzzy
 #| msgid "Profile"
-msgid "ProfessionalRole"
-msgstr "Perfil"
+msgid "Professional Role"
+msgstr "Rol Profesional"
 
 #: geonode/people/forms.py:155 geonode/people/forms.py:158 geonode/people/models.py:125
 #, fuzzy
@@ -4496,7 +4496,7 @@ msgstr "Otro"
 
 #: geonode/people/forms.py:160 geonode/people/models.py:132
 msgid "Use Analysis"
-msgstr "Uso de Análisis"
+msgstr "Propósito de análisis"
 
 #: geonode/people/forms.py:162 geonode/people/forms.py:165 geonode/people/models.py:138
 #, fuzzy
@@ -4519,8 +4519,8 @@ msgstr "Ciudad"
 #: geonode/people/forms.py:179
 #, fuzzy
 #| msgid "edition"
-msgid "AgreeConditions"
-msgstr "edición"
+msgid "Agree Terms and Conditions"
+msgstr "Términos y condiciones"
 
 #: geonode/people/models.py:68
 msgid "Organization Name"
@@ -5896,7 +5896,7 @@ msgid "Create a new local account"
 msgstr "Crea una nueva cuenta local"
 
 #: geonode/templates/account/signup.html:34
-msgid "show condititions"
+msgid "Show condititions"
 msgstr "Mostrar condiciones"
 
 #: geonode/templates/account/signup_closed.html:5 geonode/templates/account/signup_closed.html:8
@@ -9375,3 +9375,31 @@ msgstr "A través de su registro como usuario WaterProof, podrá acceder a un co
 
 msgid "Create a new account. To access the case study creation functionalities in WaterProof, it is necessary to have login credentials. Then enter your contact details and review the Terms and Conditions."
 msgstr "Crear una nueva cuenta. Para acceder a las funciones de creación de casos de estudio en WaterProof, es necesario tener las credenciales de inicio de sesión. Ingrese sus datos de contacto y revise los términos y condiciones."
+
+msgid "Developed by:"
+msgstr "Desarrollado por:"
+
+msgid "Whith the support of:"
+msgstr "Con el apoyo de:"
+
+msgid "Corporate partner"
+msgstr "Socio corporativo"
+
+msgid "Academic"
+msgstr "Académico"
+
+msgid "Service company administrator"
+msgstr "Administrador de empresa de servicios"
+
+msgid "Manager that carries out monitoring and control"
+msgstr "Administrador que lleva a cabo monitoreo y control"
+
+msgid "Citizen"
+msgstr "Ciudadano"
+
+msgid "Representative of an economic sector"
+msgstr "Representante de un sector económico"
+
+msgid "Business"
+msgstr "Negocios"
+

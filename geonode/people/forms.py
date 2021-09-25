@@ -137,20 +137,31 @@ class ProfileForm(forms.ModelForm):
 
 class CustomUserCreationForm2(SignupForm):
 
+    PROFESSIONAL_ROLES_ = (('ANALYS','Analyst'),
+                    ('COPART','Corporate partner'),
+                    ('ACDMC','Academic'),
+                    ('SCADM','Service company administrator'),
+                    ('MCOMC','Manager that carries out monitoring and control'),
+                    ('CITIZN','Citizen'),
+                    ('REPECS','Representative of an economic sector'),
+                    ('OTHER', _('Other')))
+
     def __init__(self, *args, **kwargs):
         super(CustomUserCreationForm2, self).__init__(*args, **kwargs)
+        #selected_choices = ('ADMIN','Administrator')
+        #self.fields['professional_role'].PROFESSIONAL_ROLES = ({(k, v) for k, v in PROFESSIONAL_ROLES if k not in selected_choices})
 
-    first_name = forms.CharField(label=_("FirstName"),
+    first_name = forms.CharField(label=_("First Name"),
                                widget=forms.TextInput(
                                    attrs={'placeholder':
-                                          _('FirstName')}))
+                                          _('First Name')}))
     
-    last_name = forms.CharField(label=_("LastName"),
+    last_name = forms.CharField(label=_("Last Name"),
                                widget=forms.TextInput(
                                    attrs={'placeholder':
-                                          _('LastName')}))
+                                          _('Last Name')}))
 
-    professional_role = forms.ChoiceField(label=_("ProfessionalRole"), choices=PROFESSIONAL_ROLES)
+    professional_role = forms.ChoiceField(label=_("Professional Role"), choices=PROFESSIONAL_ROLES_)
 
     other_role = forms.CharField(label=_("Other Role"),
                                widget=forms.TextInput(
@@ -176,7 +187,7 @@ class CustomUserCreationForm2(SignupForm):
                                    attrs={'placeholder':_('City'),
                                    'autocomplete':'off'}))
 
-    agree_conditions = forms.BooleanField(label=_('AgreeConditions'))
+    agree_conditions = forms.BooleanField(label=_('Agree Terms and Conditions'))
 
     field_order = [
         "email",
@@ -206,4 +217,6 @@ class CustomUserCreationForm2(SignupForm):
         # TODO: Move into adapter `save_user` ?
         setup_user_email(request, user, [])
         return user
+
+    
 
