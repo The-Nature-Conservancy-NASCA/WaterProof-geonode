@@ -436,7 +436,7 @@ msgid "error_period_analysis"
 msgstr "Please check period value must be greater than 10 and less than 100"
 
 msgid "error_fields"
-msgstr "Please full every fields"
+msgstr "Please complete all required information"
 
 msgid "question_revert"
 msgstr "You won't be able to revert this!"
