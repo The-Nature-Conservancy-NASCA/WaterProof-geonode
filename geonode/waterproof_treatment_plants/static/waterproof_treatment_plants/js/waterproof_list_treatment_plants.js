@@ -136,7 +136,13 @@ $(function () {
     var addNewCost = gettext('Add new cost');
     var editCost = gettext('Edit cost');
     var checkHexColor = "#039edc";
+    var basePathURL = "../../treatment_plants/";
     var whiteColor = "#ffffff";
+
+    if (location.pathname.indexOf("update") > -1) {
+        localStorage.plantId = location.pathname.split("/")[3];
+        localStorage.updatePlant = "true";
+    }
         
     var plant = {'elements' : {}, 'functions' : {}};
     /**
@@ -163,7 +169,7 @@ $(function () {
                 });
 
                 $.ajax({
-                    url: "../../treatment_plants/getTypePtap/",
+                    url: basePathURL + "getTypePtap/",
                     method: 'POST',
                     contentType: 'application/json; charset=utf-8',
                     dataType: 'json',
@@ -182,6 +188,11 @@ $(function () {
                                 ptapWp: result.result.wp,
                                 ptapWs: result.result.ws
                             })
+                            letterPlant = result.result.ptap_type;
+                            activePlantGraph(letterPlant);
+                            setTimeout(function(){
+                                $("#idBackgroundGraph").hide();
+                            },1000);
                         } else {
                             Swal.fire({
                                 title: 'Error',
@@ -281,7 +292,7 @@ $(function () {
                         arrayCsinfra.push(element.getAttribute("idIntake"))
                     });
                     $.ajax({
-                        url: "../../treatment_plants/getTypePtap/",
+                        url: basePathURL + "getTypePtap/",
                         method: 'POST',
                         contentType: 'application/json; charset=utf-8',
                         dataType: 'json',
@@ -302,7 +313,7 @@ $(function () {
                                 activePlantGraph(letterPlant);
                                 setTimeout(function(){
                                     $("#idBackgroundGraph").hide();
-                                },3000);
+                                },1000);
                             } else {
                                 Swal.fire({
                                     title: 'Error',
@@ -342,186 +353,106 @@ $(function () {
         });               
                 
         if(localStorage.clonePlant === "true") {
-            localStorage.clonePlant = "false";
-            document.getElementById("titleFormTreatmentPlant").innerHTML = "  "+ gettext("Clone") + " " + gettext("Treatment Plant");
-            var urlDetail = "../../treatment_plants/getTreatmentPlant/?plantId=" + localStorage.plantId;
-            $.getJSON(urlDetail, function (data) {
-                localStorage.plantId = null;
-                $.each( data.plant, function( key, value ) {
-                    document.getElementById("idNamePlant").value = value.plantName + " " + gettext("Cloned");                  
-                    document.getElementById("idDescriptionPlant").value = value.plantDescription;
-                    letterPlant = value.plantSuggest;
-                });
-
-                $.each( data.csinfra, function( key, value ) {
-                    $('#idTbodyIntake').append('<tr id="child' + value.csinfraId + '">' + 
-                                        '<td class="small text-center vat" name="nameListAdd" idIntake="' + value.csinfraElementsystemId + 
-                                        '" nameList="' + value.csinfraName + '"  graphIdlist="' + value.csinfraGraphId + 
-                                        '" csinfraList="' + value.csinfraCode + '">' + value.csinfraName + '</td>' + 
-                                        '<td class="small text-center vat">' + value.csinfraName + '</td>' + 
-                                        '<td class="small text-center vat">' + value.csinfraCode + '</td>' + 
-                                        '<td aling="center"><a class="btn btn-danger" onclick="deleteOption(' + value.csinfraId + ')">' + 
-                                        '<span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td></tr>');
-                });
-                if (data.csinfra.length > 0) {
-                    $('#idIntakePlant').removeAttr('required');
-                }
-
-                $.each( data.element, function( key, value ) {
-                    if(value.elementOnOff) {
-                        $("[name=disableElement]").each(function( index, element ) {
-                            if(parseInt(element.getAttribute("graphid")) === value.elementGraphId) {
-                                var idr =  element.getAttribute("idr");
-                                for (var indexArray = 0; indexArray < arrayPlant.length; indexArray++) {
-                                    if(arrayPlant[indexArray].graphId === parseInt(element.getAttribute("graphId"))) {
-                                        arrayPlant[indexArray].onOff = true;
-                                    }
-                                }
-                                element.style.display = "none";
-                                var idr =  element.getAttribute("idr");
-                                $('#' + idr ).css("background-color", whiteColor);
-                                $('#' + idr ).css("border-color", checkHexColor);
-                            }
-                        });
-                    }
-                });
-                
-                $.each( data.function, function( key, value ) {
-                    let costFunction = {
-                        graphid: value.functionGraphId,
-                        technology: value.functionTechnology,
-                        nameFunction: value.functionName,
-                        functionValue: value.functionValue,
-                        currency: value.functionCurrency,
-                        factor: value.functionFactor,
-                        description: "",
-                        idSubprocess:  value.functionIdSubProcess,
-                        sedimentsRetained: value.functionSedimentsRetained,
-                        nitrogenRetained: value.functionNitrogenRetained,
-                        phosphorusRetained: value.functionPhosphorusRetained,
-                        id: value.functionId
-                    }
-                    addFunction2Array(costFunction);
-                    plant.functions[costFunction.technology + "-" + costFunction.name] = costFunction;   
-                });
-
-                loadUpdatePtap();
-                arrayLoadingFunction = data.function;
-                document.getElementById("idBackgroundGraph").style.display = "none";
-                loadInfoTree = true;
-            });
+            loadPlant(localStorage.clonePlantId, "clone");            
         }
         if(localStorage.updatePlant === "true") {
-            document.getElementById("titleFormTreatmentPlant").innerHTML = "  "+ gettext("Update") + " " + gettext("Treatment Plant");
-            localStorage.updatePlant = "false";
-            var urlDetail = "../../treatment_plants/getTreatmentPlant/?plantId=" + localStorage.plantId;
-            $.getJSON(urlDetail, function (data) {
-                $.each( data.plant, function( key, value ) {
-                    document.getElementById("idNamePlant").value = value.plantName;                    
-                    document.getElementById("idDescriptionPlant").value = value.plantDescription;
-                    letterPlant = value.plantSuggest;
-                });
-                $.each( data.csinfra, function( key, value ) {
-                    $('#idTbodyIntake').append('<tr id="child' + value.csinfraId + '">' + 
-                                    '<td class="small text-center vat" name="nameListAdd" idIntake="' + value.csinfraElementsystemId + 
-                                        '" nameList="' + value.csinfraName + '"  graphIdlist="' + value.csinfraGraphId + 
-                                        '" csinfraList="' + value.csinfraCode + '">' + value.csinfraName + '</td>' + 
-                                        '<td class="small text-center vat">' + value.csinfraName + '</td>' + 
-                                        '<td class="small text-center vat">' + value.csinfraCode + '</td>' + 
-                                        '<td aling="center"><a class="btn btn-danger" onclick="deleteOption(' + value.csinfraId + ')">' + 
-                                        '<span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td></tr>');
-                });
-                if (data.csinfra.length > 0) {
-                    $('#idIntakePlant').removeAttr('required');
-                }
-                $.each( data.element, function( key, value ) {
-                    if(value.elementOnOff) {
-                        $("[name=disableElement]").each(function( index, element ) {
-                            if(parseInt(element.getAttribute("graphid")) === value.elementGraphId) {
-                                var idr =  element.getAttribute("idr");
-                                for (var indexArray = 0; indexArray < arrayPlant.length; indexArray++) {
-                                    if(arrayPlant[indexArray].graphId === parseInt(element.getAttribute("graphId"))) {
-                                        arrayPlant[indexArray].onOff = true;
-                                    }
-                                }
-                                element.style.display = "none";
-                                var idr =  element.getAttribute("idr");
-                                $('#' + idr ).css("background-color", whiteColor);
-                                $('#' + idr ).css("border-color", checkHexColor);
-                            }
-                        });
-                    }
-                });
-
-                $.each( data.function, function( key, value ) {
-                    let costFunction = {
-                        graphid: value.functionGraphId,
-                        technology: value.functionTechnology,
-                        nameFunction: value.functionName,
-                        functionValue: value.functionValue,
-                        currency: value.functionCurrency,
-                        factor: value.functionFactor,
-                        description: "",
-                        idSubprocess:  value.functionIdSubProcess,
-                        sedimentsRetained: value.functionSedimentsRetained,
-                        nitrogenRetained: value.functionNitrogenRetained,
-                        phosphorusRetained: value.functionPhosphorusRetained,
-                        id: value.functionId
-                    }
-
-                    addFunction2Array(costFunction);
-                });
-
-                loadUpdatePtap();
-                arrayLoadingFunction = data.function; 
-                document.getElementById("idBackgroundGraph").style.display = "none";
-                loadInfoTree = true;
-            });
+            loadPlant(localStorage.clonePlantId, "update");
         }
         if(localStorage.loadInf === "true") {
-            document.getElementById("titleFormTreatmentPlant").innerHTML = "  "+ gettext("View") + gettext("Treatment Plant");
-            localStorage.loadInf = "false";
-            var urlDetail = "../../treatment_plants/getTreatmentPlant/?plantId=" + localStorage.plantId;
-            $.getJSON(urlDetail, function (data) {
-                localStorage.plantId = null;
-                
-                $.each( data.plant, function( key, value ) {
-                    document.getElementById("idNamePlant").value = value.plantName;                    
-                    document.getElementById("idDescriptionPlant").value = value.plantDescription;
-                    letterPlant = value.plantSuggest;
-                });
+            loadPlant(localStorage.clonePlantId, "view");            
+        }        
+    };
 
-                $.each( data.csinfra, function( key, value ) {
-                    $('#idTbodyIntake').append('<tr id="child' + value.csinfraId + '">' + 
-                        '<td class="small text-center vat" name="nameListAdd" idIntake="' + value.csinfraElementsystemId + 
-                        '" nameList="' + value.csinfraName + '"  graphIdlist="' + value.csinfraGraphId + 
-                        '" csinfraList="' + value.csinfraCode + '">' + value.csinfraName + '</td>' + 
-                        '<td class="small text-center vat">' + value.csinfraName + ' - ' + value.csinfraCode + ' - ' + value.csinfraGraphId + '</td>' +
-                        '<td class="small text-center vat">' + value.csinfraCode + '</td><td aling="center"></td></tr>');                    
-                });
-                if (data.csinfra.length > 0) {
-                    $('#idIntakePlant').removeAttr('required');
+    loadPlant = function(plantId, typeAction) {
+        let tileAction = "";
+        let plantNameSuffix = "";
+        switch (typeAction) {
+            case "update":
+                tileAction = gettext("Update");
+                localStorage.updatePlant = "false";
+                break;
+            case "clone":
+                tileAction = gettext("Clone");
+                plantNameSuffix = gettext("Clone");
+                localStorage.clonePlant = "false";
+                break;
+            case "view":
+                tileAction = gettext("View");
+                localStorage.loadInf = "false";
+                break;
+            default:
+                break;
+        }
+        
+        document.getElementById("titleFormTreatmentPlant").innerHTML = tileAction + " " + gettext("Treatment Plant");        
+        var urlDetail = basePathURL + "getTreatmentPlant/?plantId=" + localStorage.plantId;
+        $.getJSON(urlDetail, function (data) {
+            if (typeAction === "clone" || typeAction === "view") {
+                localStorage.plantId = null;                
+            }            
+            $.each( data.plant, function( key, value ) {
+                document.getElementById("idNamePlant").value = value.plantName + " " + plantNameSuffix;
+                document.getElementById("idDescriptionPlant").value = value.plantDescription;
+                letterPlant = value.plantSuggest;
+            });
+            $.each( data.csinfra, function( key, value ) {
+                let htmlTbl = '<td class="small text-center vat">' + value.csinfraCode + '</td>' + 
+                                '<td aling="center"><a class="btn btn-danger" onclick="deleteOption(' + value.csinfraId + ')">' + 
+                                '<span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td></tr>';
+                if (typeAction === "view"){
+                    htmlTbl = '<td class="small text-center vat">' + value.csinfraName + ' - ' + value.csinfraCode + ' - ' + value.csinfraGraphId + '</td>' +
+                            '<td class="small text-center vat">' + value.csinfraCode + '</td><td aling="center"></td></tr>';
                 }
-
-                $.each( data.element, function( key, value ) {
-                    if(value.elementOnOff) {
-                        $("[name=disableElement]").each(function( index, element ) {
-                            if(parseInt(element.getAttribute("graphid")) === value.elementGraphId) {
-                                var idr =  element.getAttribute("idr");
-                                for (var indexArray = 0; indexArray < arrayPlant.length; indexArray++) {
-                                    if(arrayPlant[indexArray].graphId === parseInt(element.getAttribute("graphId"))) {
-                                        arrayPlant[indexArray].onOff = true;
-                                    }
+                $('#idTbodyIntake').append('<tr id="child' + value.csinfraId + '">' + 
+                                    '<td class="small text-center vat" name="nameListAdd" idIntake="' + value.csinfraElementsystemId + 
+                                    '" nameList="' + value.csinfraName + '"  graphIdlist="' + value.csinfraGraphId + 
+                                    '" csinfraList="' + value.csinfraCode + '">' + value.csinfraName + '</td>' + 
+                                    '<td class="small text-center vat">' + value.csinfraName + '</td>' + htmlTbl);
+            });
+            if (data.csinfra.length > 0) {
+                $('#idIntakePlant').removeAttr('required');
+            }
+            $.each( data.element, function( key, value ) {
+                if(value.elementOnOff) {
+                    $("[name=disableElement]").each(function( index, element ) {
+                        if(parseInt(element.getAttribute("graphid")) === value.elementGraphId) {
+                            var idr =  element.getAttribute("idr");
+                            for (var indexArray = 0; indexArray < arrayPlant.length; indexArray++) {
+                                if(arrayPlant[indexArray].graphId === parseInt(element.getAttribute("graphId"))) {
+                                    arrayPlant[indexArray].onOff = true;
                                 }
-                                element.style.display = "none";
-                                var idr =  element.getAttribute("idr");
-                                $('#' + idr ).css("background-color", whiteColor);
-                                $('#' + idr ).css("border-color", checkHexColor);
                             }
-                        });
-                    }
-                });
+                            element.style.display = "none";
+                            var idr =  element.getAttribute("idr");
+                            $('#' + idr ).css("background-color", whiteColor);
+                            $('#' + idr ).css("border-color", checkHexColor);
+                        }
+                    });
+                }
+            });
 
+            $.each( data.function, function( key, value ) {
+                let costFunction = {
+                    graphid: value.functionGraphId,
+                    technology: value.functionTechnology,
+                    nameFunction: value.functionName,
+                    functionValue: value.functionValue,
+                    currency: value.functionCurrency,
+                    factor: value.functionFactor,
+                    description: "",
+                    idSubprocess:  value.functionIdSubProcess,
+                    sedimentsRetained: value.functionSedimentsRetained,
+                    nitrogenRetained: value.functionNitrogenRetained,
+                    phosphorusRetained: value.functionPhosphorusRetained,
+                    id: value.functionId
+                }
+                addFunction2Array(costFunction);
+                plant.functions[costFunction.technology + "-" + costFunction.nameFunction] = costFunction;
+            });
+            loadUpdatePtap();
+            arrayLoadingFunction = data.function;
+
+            if (typeAction === "view"){
                 arrayLoadingFunction = data.function;
                 document.getElementById("idNamePlant").readOnly = true;
                 document.getElementById("idDescriptionPlant").readOnly = true;
@@ -530,9 +461,12 @@ $(function () {
                 document.getElementById("idBackgroundGraph").style.display = "none";
                 document.getElementById("submit").style.display = "none";                
                 onlyReadPlant = true;
-            });
-        }        
-    };
+            } else {                
+                document.getElementById("idBackgroundGraph").style.display = "none";
+                loadInfoTree = true;
+            }
+        });
+    }
 
     /**
     * validate And Save Treatment Plant
@@ -575,7 +509,7 @@ $(function () {
                 })
             });
             if(arrayPtap.length > 0) {
-                var urlDetail = "../../treatment_plants/setHeaderPlant/";
+                var urlDetail = basePathURL + "setHeaderPlant/";
                 $.ajax({
                     url: urlDetail,
                     method: 'PUT',
@@ -594,7 +528,7 @@ $(function () {
                             "csinfra" : arrayCsinfra
                         }
                     }),success: function(result) {
-                        window.location.href ="../../treatment_plants/?limit=5&city=" + localStorage.getItem('cityId');
+                        window.location.href = basePathURL + "?limit=5&city=" + localStorage.getItem('cityId');
                         localStorage.plantId = null;
                     },error: function (err) {
                         Swal.fire({
@@ -666,12 +600,14 @@ $(function () {
         var elements = Object.keys(listElements).join(',');
         if (elements.length > 0) {
             var country = localStorage.getItem('country');
-            var urlDetail = "../../treatment_plants/getInfoTreeMany/?elements=" + elements + "&country=" + country;
+            var urlDetail = basePathURL + "getInfoTreeMany/?elements=" + elements + "&country=" + country;
             $.getJSON(urlDetail, function(data) {
                 Object.keys(listElements).forEach(function(element) {
-                    //var name = listElements[element].name;
-                    let fns = data.filter(f => f.default);
-                    fns.forEach(f =>{
+                    //var name = listElements[element].name;                    
+                    let functionsByElement = data.filter(f => (f.normalizedCategory === element))
+                    plant.elements[element] = {default: functionsByElement, custom: {}};
+                    let defaultFunctions = data.filter(f => f.default);
+                    defaultFunctions.forEach(f =>{
                         var graphid = listElements[f.normalizedCategory].graphId;
                         plant.functions[f.technology + "-" + f.costFunction] = {
                             graphid: graphid,
@@ -901,9 +837,10 @@ $(function () {
         if (plant.elements.hasOwnProperty(plantElement)) {
             console.log("fill from dictionary");
             fillTree(plant.elements[plantElement]['default'], plantElement, nameElement, graphid);
+            $('#_thumbnail_processing').modal('hide');
         }else{
             console.log("fill from url");
-            var urlDetail = "../../treatment_plants/getInfoTree/?plantElement=" + plantElement + 
+            var urlDetail = basePathURL + "getInfoTree/?plantElement=" + plantElement + 
                             "&country=" + localStorage.getItem('country');
             $.getJSON(urlDetail, function(data) {
                 plant.elements[plantElement] = {default: data, custom: {}};
@@ -1146,24 +1083,28 @@ $(function () {
 
         if (element.attributes.checked.value === "true") {
             element.attributes.checked.value = "false";
+            let attrs = element.attributes;
+            delete plant.functions[attrs.technology.value + "-" + attrs.namefunction.value];
         }else{
             let attrs = element.attributes;
+            let divContainerVar = $(element).parents().get(5).children[0];
+            let inputs = divContainerVar.getElementsByTagName("input");
             let sediments = inputs[1].value;
             let nitrogen = inputs[2].value;
             let phosphorus = inputs[3].value;
             attrs.checked.value = "true";
-            plant.functions[attrs.technology.value + "-" + f.nameFunction.value] = {
+            plant.functions[attrs.technology.value + "-" + attrs.namefunction.value] = {
                 graphid: attrs.graphid.value,
                 technology: attrs.technology.value,
                 nameFunction: attrs.namefunction.value,
-                functionValue: attrs.functionValue.value,
+                functionValue: attrs.function.value,
                 currency: attrs.currency.value,
                 factor: attrs.factor.value,
                 idSubprocess: attrs.idsubprocess.value,
                 sedimentsRetained: sediments,
                 nitrogenRetained: nitrogen,
                 phosphorusRetained: phosphorus,
-                id: f.id
+                id: attrs.id.value
             };
         }
     };
@@ -1174,6 +1115,7 @@ $(function () {
     * 
     */
     validateAndAddFunction2Array = function() {
+        console.log("validateAndAddFunction2Array");
         $("[name=listFunction]").each(function( index, element ) {
             if(element.style.borderColor === "rgb(3, 158, 220)") {
                 var addFunctionToArray = true;
@@ -1345,7 +1287,7 @@ $(function () {
 
         } else {
             document.getElementById("nameCity").innerHTML = localStorage.getItem('city')+", "+localStorage.getItem('country');
-            var urlDetail = "../../treatment_plants/getIntakeList/?cityId=" + localStorage.getItem('cityId');
+            var urlDetail = basePathURL + "getIntakeList/?cityId=" + localStorage.getItem('cityId');
             $.getJSON(urlDetail, function (data) {
                 var selectElIntake = document.getElementById("idIntakePlant");
                 //selectElIntake.length = 1;
@@ -1398,7 +1340,7 @@ $(function () {
         localStorage.loadFormButton = "false";
         localStorage.loadInf = "true";
         localStorage.plantId = plantId;
-        window.location.href ="../../treatment_plants/create/" + userCountryId;
+        window.location.href = basePathURL + "view/" + plantId;
     };
     /**
     * Load the page to update a treatment plant
@@ -1409,7 +1351,7 @@ $(function () {
         localStorage.loadFormButton = "true";
         localStorage.updatePlant = "true";
         localStorage.plantId = plantId;
-        window.location.href ="../../treatment_plants/create/" + userCountryId;
+        window.location.href = basePathURL + "update/" + plantId;
     };
     /**
     * Load the page to clone a treatment plant
@@ -1420,7 +1362,7 @@ $(function () {
         localStorage.loadFormButton = "true";
         localStorage.clonePlant = "true";
         localStorage.plantId = plantId;
-        window.location.href ="../../treatment_plants/create/" + userCountryId;
+        window.location.href = basePathURL + "clone/" + plantId;
     };
     /**
     * Load the page to delete a treatment plant
@@ -1439,7 +1381,7 @@ $(function () {
             confirmButtonText: gettext('Yes, delete it!')
         }).then((result) => {
             if (result.isConfirmed) {
-                var urlDetail = "../../treatment_plants/setHeaderPlant/";
+                var urlDetail = basePathURL + "setHeaderPlant/";
                 $.ajax({
                     url: urlDetail,
                     method: 'DELETE',
@@ -1448,7 +1390,7 @@ $(function () {
                     data: JSON.stringify({
                         "plantId" : plantId
                     }),success: function(result) {
-                        window.location.href ="../../treatment_plants/?limit=5&city=" + localStorage.getItem('cityId');
+                        window.location.href =basePathURL + "?limit=5&city=" + localStorage.getItem('cityId');
                         localStorage.plantId = null;
                     },error: function (err) {
                         Swal.fire({
@@ -1734,7 +1676,6 @@ $(function () {
         if (subProcessMaster !== null) {
             attrSubprocessMaster ='subProcessMaster="' + subProcessMaster + '" ';
         }
-        //onclick="changeStatus(' + valueCostFunction.idSubprocess + ')"
         let activateHtml = '<div class="point-check"' + '>' +
                         '<div name="listFunction"  graphid="' + graphid + '" ' + attrSubprocessMaster + 
                         'technology="' + valueCostFunction.technology + '" ' + 
