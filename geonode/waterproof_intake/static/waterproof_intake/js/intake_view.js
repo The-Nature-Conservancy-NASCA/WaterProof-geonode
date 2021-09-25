@@ -436,8 +436,8 @@ $(document).ready(function() {
                     } else {
                         Swal.fire({
                             icon: 'warning',
-                            title: `Field empty`,
-                            text: `Please full every fields`
+                            title: gettext('Field empty'),
+                            text: gettext('Please complete all required information')
                         });
                         return;
                     }

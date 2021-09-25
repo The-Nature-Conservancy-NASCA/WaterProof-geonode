@@ -422,3 +422,6 @@ msgstr "Cancelar"
 
 msgid "Confirm and run"
 msgstr "Confirmar y ejecutar"
+
+msgid "Please complete all required information"
+msgstr "Por favor complete toda la información requerida"

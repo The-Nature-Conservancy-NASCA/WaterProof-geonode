@@ -80,7 +80,7 @@ def loadCurrencyByCountry(request):
 
 
 def loadAllCurrencies(request):
-    currencies = Countries.objects.all()
+    currencies = currencies = Countries.objects.all().exclude(currency='').order_by('currency')
     currencies_serialized = serializers.serialize('json', currencies)
     return JsonResponse(currencies_serialized, safe=False)
 
@@ -100,7 +100,7 @@ def loadCountryByCode(request):
 
 
 def loadAllCountries(request):
-    countries = Countries.objects.all()
+    countries = Countries.objects.all().exclude(currency='').order_by('name')
     countries_serialized = serializers.serialize('json', countries)
     return JsonResponse(countries_serialized, safe=False)
 

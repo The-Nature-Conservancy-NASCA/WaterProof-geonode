@@ -93,16 +93,13 @@ msgid "add_cost_function"
 msgstr "Add cost function"
 
 msgid "select_treatments_plants"
-msgstr "Select the treatment plants you want to consider in the ROI analysis. If you haven't created it yet, please click here to create a new one."
+msgstr "Select the treatment plants you want to consider in the ROI analysis. If you haven't created it yet, please click in the following button:"
 
 msgid "add_plant"
 msgstr "Add DWTP"
 
 msgid "carbon_market_benefits"
 msgstr "Carbon Market Benefits"
-
-msgid "carbon_market_text"
-msgstr "‘If you wish, WaterProof can consider benefits related to the carbon market.To include these benefits in the analysis, click the following checkbox"
 
 msgid "CO2_country"
 msgstr "CO2 Eq for "

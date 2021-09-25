@@ -9398,5 +9398,3 @@ msgstr "Representante de un sector económico"
 
 msgid "Analyst"
 msgstr "Analista"
-
-
