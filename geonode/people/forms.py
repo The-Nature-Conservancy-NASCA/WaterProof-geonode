@@ -137,7 +137,7 @@ class ProfileForm(forms.ModelForm):
 
 class CustomUserCreationForm2(SignupForm):
 
-    PROFESSIONAL_ROLES_ = (('ANALYS','Analyst'),
+    PROFESSIONAL_ROLES_ = (('ANALYS',_('Analyst')),
                     ('COPART',  _('Corporate partner')),
                     ('ACDMC',   _('Academic')),
                     ('SCADM',   _('Service company administrator')),
