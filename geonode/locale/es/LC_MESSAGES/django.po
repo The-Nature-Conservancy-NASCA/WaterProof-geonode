@@ -4483,8 +4483,6 @@ msgid "Lastname"
 msgstr "Nombre de la Capa"
 
 #: geonode/people/forms.py:153 geonode/people/models.py:114
-#, fuzzy
-#| msgid "Profile"
 msgid "Professional Role"
 msgstr "Rol Profesional"
 
@@ -4517,8 +4515,6 @@ msgid "City"
 msgstr "Ciudad"
 
 #: geonode/people/forms.py:179
-#, fuzzy
-#| msgid "edition"
 msgid "Agree Terms and Conditions"
 msgstr "Términos y condiciones"
 
@@ -9399,4 +9395,8 @@ msgstr "Ciudadano"
 
 msgid "Representative of an economic sector"
 msgstr "Representante de un sector económico"
+
+msgid "Analyst"
+msgstr "Analista"
+
 
