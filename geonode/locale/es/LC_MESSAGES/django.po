@@ -9374,7 +9374,7 @@ msgid "description-sign-up"
 msgstr "A través de su registro como usuario WaterProof, podrá acceder a un conjunto de servicios para realizar un análisis indicativo, a nivel de prefactibilidad, del ROI (retorno de la inversión) en la implementación de Soluciones basadas en la naturaleza de acuerdo con la normativa ambiental de las cuencas de abastecimiento de interés. Por favor ingrese su información de contacto, indicando su rol profesional e interés en el uso del análisis, defina su contraseña de inicio de sesión y revise los términos de condiciones de la herramienta. Al final, haga clic en el botón 'Registrarse'."
 
 msgid "Create a new account. To access the case study creation functionalities in WaterProof, it is necessary to have login credentials. Then enter your contact details and review the Terms and Conditions."
-msgstr "Crear una nueva cuenta. Para acceder a las funciones de creación de casos de estudio en WaterProof, es necesario tener las credenciales de inicio de sesión. Ingrese sus datos de contacto y revise los términos y condiciones."
+msgstr "Cree una nueva cuenta para acceder a las funcionalidades de creación de casos de estudio en WaterProof. Ingrese sus datos de contacto y revise los Términos y condiciones."
 
 msgid "Developed by:"
 msgstr "Desarrollado por:"
@@ -9399,7 +9399,4 @@ msgstr "Ciudadano"
 
 msgid "Representative of an economic sector"
 msgstr "Representante de un sector económico"
-
-msgid "Business"
-msgstr "Negocios"
 
