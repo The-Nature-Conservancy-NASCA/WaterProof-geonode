@@ -233,7 +233,7 @@ $(function () {
         var baseLayers = {
             OpenStreetMap: osm,
             Images: images,
-            Grayscale: grayLyr,
+            /* Grayscale: grayLyr, */
         };
 
         map = L.map('mapid', {
