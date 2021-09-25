@@ -4431,7 +4431,7 @@ msgstr "Other"
 
 #: geonode/people/models.py:127
 msgid "UseAnalysis"
-msgstr "Use Analysis"
+msgstr "Purpose of your analisys"
 
 #: geonode/people/models.py:134
 #, fuzzy
@@ -5874,8 +5874,8 @@ msgid "Create a new local account"
 msgstr "Create a new local account"
 
 #: geonode/templates/account/signup.html:34
-msgid "show condititions"
-msgstr ""
+msgid "Show condititions"
+msgstr "Show condititions"
 
 #: geonode/templates/account/signup_closed.html:5 geonode/templates/account/signup_closed.html:8
 msgid "Sign Up Closed"

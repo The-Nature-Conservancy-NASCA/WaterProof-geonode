@@ -2062,6 +2062,26 @@ pre code {
     height: 57% !important;
     padding-top: 25%;
   }
+  .image-about-models{
+    width: 50% !important;
+    padding-top: 5%;
+    margin-right: 0%;
+    text-align: center;
+    margin-left: 25%;
+    margin-bottom: 5%;
+  }
+  image-about-NbS{
+    padding-top: 0%;
+  }
+  .image-about-NbS-2{
+    padding-top: 0%;
+  }
+  .image-about-NbS-3{
+    padding-top: 0%;
+  }
+  .image-about-us-2{
+    padding-top: 0%;
+  }
 }
 @media (min-width: 768px){
   .iconsWhatIsWP{
@@ -2096,6 +2116,26 @@ pre code {
   }
   .text-center {
     text-align: center;
+  }
+  .image-about-models{
+    width: 30% !important;
+    padding-top: 5%;
+    margin-right: 0%;
+    text-align: center;
+    margin-left: 35%;
+    margin-bottom: 5%;
+  }
+  .image-about-NbS{
+    padding-top: 0%;
+  }
+  .image-about-NbS-2{
+    padding-top: 0%;
+  }
+  .image-about-NbS-3{
+    padding-top: 0%;
+  }
+  .image-about-us-2{
+    padding-top: 0%;
   }
   /* .button-viki{
     background-color: #0C89AAAD;
@@ -2154,6 +2194,26 @@ pre code {
   }
   .size-left {
     font-size: 18px;
+  }
+  .image-about-models{
+    width: 20% !important;
+    padding-top: 5%;
+    margin-right: 10%;
+    text-align: center;
+    margin-left: auto;
+    margin-bottom: auto;
+  }
+  .image-about-NbS{
+    padding-top: 27%;
+  }
+  .image-about-NbS-2{
+    padding-top: 23%;
+  }
+  .image-about-NbS-3{
+    padding-top: 7%;
+  }
+  .image-about-us-2{
+    padding-top: 18%;
   }
 }
 /* .video-responsive {
@@ -2485,6 +2545,26 @@ pre code {
   }
   .size-left {
     font-size: 18px;
+  }
+  .image-about-models{
+    width: 20% !important;
+    padding-top: 5%;
+    margin-right: 10%;
+    text-align: center;
+    margin-left: auto;
+    margin-bottom: auto;
+  }
+  .image-about-NbS{
+    padding-top: 20%;
+  }
+  .image-about-NbS-2{
+    padding-top: 14%;
+  }
+  .image-about-NbS-3{
+    padding-top: 4%;
+  }
+  .image-about-us-2{
+    padding-top: 9%;
   }
 }
 @media (min-width: 992px){

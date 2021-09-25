@@ -110,6 +110,15 @@ def list(request):
                 }
             )
 
+def delete(request):
+    studyCases = StudyCases.objects.all()
+    return render (
+        request, 'waterproof_study_cases/static/study_cases/js/study_cases_list.js',
+        {
+            'casesList': studyCases
+        }
+    )
+
 
 def create(request):
     # POST submit FORM

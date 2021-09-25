@@ -507,7 +507,7 @@ $(document).ready(function() {
     var baseLayers = {
         OpenStreetMap: osm,
         Images: images,
-        Grayscale: gray,
+        /* Grayscale: gray, */
     };
 
     var overlays = {
