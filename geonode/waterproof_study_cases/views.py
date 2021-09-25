@@ -110,6 +110,43 @@ def list(request):
                 }
             )
 
+def myCases(request):
+    if request.method == 'GET':
+        try:            
+            city_id = request.GET['city']
+        except:
+            city_id = ''
+        if request.user.is_authenticated:
+            userCountry = Countries.objects.get(iso3=request.user.country)
+            region = Regions.objects.get(id=userCountry.region_id)
+            studyCases = StudyCases.objects.filter(added_by=request.user).order_by('-edit_date')
+            return render(
+                request,
+                'waterproof_study_cases/studycases_my_cases.html',
+                {
+                    'casesList': studyCases,
+                    'userCountry': userCountry,
+                    'region': region,
+                }
+            )
+        else:
+            if (city_id != ''):
+                query = Q(city=city_id)
+                query.add(Q(is_public=True), Q.AND)
+                studyCases = StudyCases.objects.filter(query).order_by('-edit_date')
+                city = Cities.objects.get(id=city_id)
+            else:
+                studyCases = StudyCases.objects.filter(is_public=True).order_by('-edit_date')
+                city = Cities.objects.get(id=1)
+            return render(
+                request,
+                'waterproof_study_cases/studycases_my_cases.html',
+                {
+                    'casesList': studyCases,
+                    'intakes': []
+                }
+            )
+     
 def delete(request):
     studyCases = StudyCases.objects.all()
     return render (
