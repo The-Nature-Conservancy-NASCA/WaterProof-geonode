@@ -144,7 +144,7 @@ def createIntake(request):
         form = forms.IntakeForm(request.POST)
     else:
         form = forms.IntakeForm()
-        currencies = Countries.objects.all()
+        currencies = Countries.objects.values('currency', 'name', 'iso3').distinct().exclude(currency='').order_by('currency').all()
     return render(request, 'waterproof_intake/intake_form.html', context={
         "form": form, 
         "serverApi": settings.WATERPROOF_API_SERVER,
@@ -948,7 +948,7 @@ def editIntake(request, idx):
             intakeExtInputs = json.dumps(extInputs)
             # city = Cities.objects.all()
             # form = forms.IntakeForm()
-            currencies = Countries.objects.all().order_by('name')
+            currencies = Countries.objects.values('currency', 'name', 'iso3').distinct().exclude(currency='').order_by('currency')
             return render(
                 request, 'waterproof_intake/intake_edit.html',
                 {
@@ -968,7 +968,7 @@ def editIntake(request, idx):
 
 def viewIntake(request, idx):
     if request.method == 'GET':
-        countries = Countries.objects.all()
+        countries = Countries.objects.values('currency', 'name', 'iso3').distinct().exclude(currency='').order_by('currency')
         filterIntake = Intake.objects.get(id=idx)
         filterExternal = ElementSystem.objects.filter(intake=filterIntake.pk, is_external=True)
         extInputs = []
@@ -1032,8 +1032,8 @@ def cloneIntake(request, idx):
     else:
         filterIntake = Intake.objects.get(id=idx)
         if request.method == 'GET':
-            currencies = Countries.objects.all()
-            countries = Countries.objects.all()            
+            currencies = Countries.objects.values('currency', 'name', 'iso3').distinct().exclude(currency='').order_by('currency')
+            countries = currencies
             filterElementSystem = ElementSystem.objects.filter(intake=filterIntake.pk)
             filterPolygon = Polygon.objects.get(intake=filterIntake.pk)
             try:

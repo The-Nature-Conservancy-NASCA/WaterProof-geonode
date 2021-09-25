@@ -130,7 +130,7 @@ def create(request):
         else:
             portfolios = Portfolio.objects.all()
             models = ModelParameter.objects.all()
-            currencys = Countries.objects.values('currency', 'name', 'iso3').distinct().order_by('currency')
+            currencys = Countries.objects.values('currency', 'name', 'iso3').distinct().exclude(currency='').order_by('currency')
             scenarios = Climate_value.objects.all()
             return render(request,
                           'waterproof_study_cases/studycases_form.html',
@@ -232,7 +232,8 @@ def clone(request, idx):
             portfolios = []
             intakes = []
             ptaps = []
-            currencys = Countries.objects.values('currency', 'name').distinct().order_by('currency')
+            cm_currency = study_case.cm_currency
+            currencys = Countries.objects.values('currency', 'name', 'iso3').distinct().exclude(currency='').order_by('currency')
             listPortfoliosStudy = study_case.portfolios.all()
             listIntakesStudy = study_case.intakes.all()
             listPTAPStudy = study_case.ptaps.all()
@@ -284,6 +285,7 @@ def clone(request, idx):
                     'currencys': currencys,
                     'scenarios': scenarios,
                     'costFunctions' : functions,
+                    'cm_currency': cm_currency,
                     'id_user' : request.user.id
                 }
             )
@@ -311,9 +313,7 @@ def view(request, idx):
         print ("study_case.cm_currency : %s" % study_case.cm_currency)
         if (not study_case.cm_currency is None and study_case.cm_currency != '-1'):
             if (study_case.cm_currency == 'USD'):
-                print ("study_case.cm_currency == 'USD'")
-                cm_currency_name = Countries.objects.filter(iso3='USA').first().name
-                print ("cm_currency_name : %s" % cm_currency_name)
+                cm_currency_name = Countries.objects.filter(iso3='USA').first().name                
             else:
                 cm_currency_name = Countries.objects.filter(currency=study_case.cm_currency).first().name
 
