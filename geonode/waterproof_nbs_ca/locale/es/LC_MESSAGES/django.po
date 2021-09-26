@@ -339,10 +339,6 @@ msgstr "Detalle Waterproof SbN"
 msgid "Detail sbn"
 msgstr "Ver SbN"
 
-#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_detail_list.html:82
-msgid "Country"
-msgstr "País"
-
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_detail_list.html:90
 msgid "Multiplying factor for overrall cost"
 msgstr "Factor de multiplicación del costo total"

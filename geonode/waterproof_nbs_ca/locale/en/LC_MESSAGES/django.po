@@ -304,10 +304,6 @@ msgstr "NbS Detail"
 msgid "Detail sbn"
 msgstr "NbS Detail"
 
-#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_detail_list.html:82
-msgid "Country"
-msgstr "Country"
-
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_detail_list.html:90
 msgid "Multiplying factor for overrall cost"
 msgstr "Multiplying factor for overrall cost"
