@@ -43,6 +43,7 @@
 
 .table>tbody>tr>td {
     vertical-align: middle;
+    font-weight: normal;
 }
 
 .table>tbody>tr>th {

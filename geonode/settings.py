@@ -190,6 +190,8 @@ SITE_ID = int(os.getenv('SITE_ID', '1'))
 USE_TZ = True
 USE_I18N = ast.literal_eval(os.getenv('USE_I18N', 'True'))
 USE_L10N = ast.literal_eval(os.getenv('USE_I18N', 'True'))
+#USE_L10N = False
+DECIMAL_SEPARATOR = ','
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html

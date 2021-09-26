@@ -7751,12 +7751,6 @@ msgstr "Extent"
 msgid "Sub area"
 msgstr "You are "
 
-#: geonode/templates/waterproof_intake/intake_clone.html:58 geonode/templates/waterproof_intake/intake_edit.html:58 geonode/templates/waterproof_intake/intake_form.html:58
-#, fuzzy
-#| msgid "Create a new layer"
-msgid "Define water intake"
-msgstr "Create a new layer"
-
 #: geonode/templates/waterproof_intake/intake_clone.html:59 geonode/templates/waterproof_intake/intake_edit.html:59 geonode/templates/waterproof_intake/intake_form.html:59
 msgid "Please complete the fields to define your Water Intake"
 msgstr ""
@@ -7842,7 +7836,7 @@ msgid "Please select the method you wish to use"
 msgstr "Please select the avatars that you would like to delete."
 
 #: geonode/templates/waterproof_intake/intake_clone.html:217 geonode/templates/waterproof_intake/intake_demand.html:79 geonode/templates/waterproof_intake/intake_detail_list.html:207 geonode/templates/waterproof_intake/intake_edit.html:217 geonode/templates/waterproof_intake/intake_form.html:214
-msgid "Interpolation method "
+msgid "Interpolation method"
 msgstr ""
 
 #: geonode/templates/waterproof_intake/intake_clone.html:220 geonode/templates/waterproof_intake/intake_demand.html:82 geonode/templates/waterproof_intake/intake_detail_list.html:210 geonode/templates/waterproof_intake/intake_edit.html:220 geonode/templates/waterproof_intake/intake_form.html:217
