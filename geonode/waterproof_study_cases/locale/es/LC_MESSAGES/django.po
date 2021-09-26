@@ -655,3 +655,6 @@ msgstr ""
 "(el sistema muestra la totalidad de casos que usted ha creado sin importar su localización) " 
 "y el único filtro aplicado es el de su usuario como creador de los casos de estudio para"
 "facilitar su administración de acuerdo con sus preferencias."
+
+msgid "My Cases of Study"
+msgstr "Mis Casos de Estudio"
