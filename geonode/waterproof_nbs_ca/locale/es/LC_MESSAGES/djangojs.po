@@ -100,7 +100,7 @@ msgstr "Costo de mantenimiento (%s/ha) "
 #: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca_edit.js:469
 #, javascript-format
 msgid "Oportunity cost (%s/ha) "
-msgstr "Costos de oportunidad (%s/ha) "
+msgstr "Costo de oportunidad (%s/ha) "
 
 #: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca.js:404
 #: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca_clone.js:281

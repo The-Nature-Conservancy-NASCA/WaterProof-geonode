@@ -4,16 +4,7 @@
  * @version 1.0
  */
 $(function () {
-    var table = $('#tblNbs').DataTable({
-        'dom': 'lrtip',
-        'columnDefs': [
-            {
-                "targets": [4],
-                "visible": false
-            }
-        ]
-    }
-    );
+    
     var search;
     var countryDropdown = $('#countryNBS');
     var currencyDropdown = $('#currencyCost');
@@ -63,7 +54,7 @@ $(function () {
         $('#tblNbs tbody').on('click', '.btn-danger', function (evt) {
             Swal.fire({
                 title: gettext('Delete NBS'),
-                text: gettext("Are you sure?") + gettext("You won't be able to revert this!"),
+                text: gettext("Are you sure? ") + " " gettext("You won't be able to revert this!"),
                 icon: 'warning',
                 showCancelButton: false,
                 showDenyButton: true,
@@ -305,7 +296,7 @@ $(function () {
         //map.on('click', onMapClick);
     }
     setMultiplicationFactor = function (row, index, factor) {
-        if (row[4] === 'ADMIN') {
+        //if (row[4] === 'ADMIN') {
             // Implementation cost 
             // oldImplCost = search2.cell({ row: index, column: 7 }).data();
             // search.cell({ row: index, column: 7 }).data((parseFloat(oldImplCost) * parseFloat(factor)).toFixed(2));
@@ -313,7 +304,7 @@ $(function () {
             // search.cell({ row: index, column: 8 }).data((parseFloat(oldMaintCost) * parseFloat(factor)).toFixed(2));
             // oldOportCost = search2.cell({ row: index, column: 9 }).data();
             // search.cell({ row: index, column: 9 }).data((parseFloat(oldOportCost) * parseFloat(factor)).toFixed(2));
-        }
+        //}
     }
     updateGeographicLabels = function (countryCode) {
         $.ajax({
@@ -324,36 +315,36 @@ $(function () {
             success: function (result) {
                 result = JSON.parse(result);
                 $('#countryLabel').text(result[0].fields.name);
-                search = table.search('(ADMIN|' + result[0].fields.name + ')', true, true);
-                let filteredData = search.rows({ search: 'applied' }).data();
-                let filterIndexes = search.rows({ search: 'applied' }).indexes();
-                let multiplicatorFactor = parseFloat(result[0].fields.global_multiplier_factor);
-                for (let index = 0; index < filteredData.length; index++) {
-                    if (filteredData[index][4] === 'ADMIN') {
-                        if (result[0].fields.iso3 === 'USA') {
-                            let oldImplCost = parseFloat(table.cell({ row: filterIndexes[index], column: 7 }).data());
-                            let oldMaintCost = parseFloat(table.cell({ row: filterIndexes[index], column: 8 }).data());
-                            let oldOportCost = parseFloat(table.cell({ row: filterIndexes[index], column: 9 }).data());
-                            $(table.cell({ row: filterIndexes[index], column: 7 }).node()).html(oldImplCost.toFixed(2));
-                            $(table.cell({ row: filterIndexes[index], column: 8 }).node()).html(oldMaintCost.toFixed(2));
-                            $(table.cell({ row: filterIndexes[index], column: 9 }).node()).html(oldOportCost.toFixed(2));
-                            $(table.cell({ row: filterIndexes[index], column: 5 }).node()).html(result[0].fields.name);
-                        }
-                        else {
-                            let oldImplCost = parseFloat(filteredData[index][7]);
-                            let newImplCost = ((oldImplCost * multiplicatorFactor) + oldImplCost).toFixed(2);
-                            let oldMaintCost = parseFloat(table.cell({ row: filterIndexes[index], column: 8 }).data());
-                            let newMaintConst = ((oldMaintCost * multiplicatorFactor) + oldMaintCost).toFixed(2);
-                            let oldOportCost = parseFloat(table.cell({ row: filterIndexes[index], column: 9 }).data());
-                            let newOportCost = ((oldOportCost * multiplicatorFactor) + oldOportCost).toFixed(2);
-                            $(table.cell({ row: filterIndexes[index], column: 7 }).node()).html(newImplCost);
-                            $(table.cell({ row: filterIndexes[index], column: 8 }).node()).html(newMaintConst);
-                            $(table.cell({ row: filterIndexes[index], column: 9 }).node()).html(newOportCost);
-                            $(table.cell({ row: filterIndexes[index], column: 5 }).node()).html(result[0].fields.name);
-                        }
-                    }
-                }
-                search.draw();
+                // search = table.search('(ADMIN|' + result[0].fields.name + ')', true, true);
+                // let filteredData = search.rows({ search: 'applied' }).data();
+                // let filterIndexes = search.rows({ search: 'applied' }).indexes();
+                // let multiplicatorFactor = parseFloat(result[0].fields.global_multiplier_factor);
+                // for (let index = 0; index < filteredData.length; index++) {
+                //     if (filteredData[index][4] === 'ADMIN') {
+                //         if (result[0].fields.iso3 === 'USA') {
+                //             let oldImplCost = parseFloat(table.cell({ row: filterIndexes[index], column: 7 }).data());
+                //             let oldMaintCost = parseFloat(table.cell({ row: filterIndexes[index], column: 8 }).data());
+                //             let oldOportCost = parseFloat(table.cell({ row: filterIndexes[index], column: 9 }).data());
+                //             $(table.cell({ row: filterIndexes[index], column: 7 }).node()).html(oldImplCost.toFixed(2));
+                //             $(table.cell({ row: filterIndexes[index], column: 8 }).node()).html(oldMaintCost.toFixed(2));
+                //             $(table.cell({ row: filterIndexes[index], column: 9 }).node()).html(oldOportCost.toFixed(2));
+                //             $(table.cell({ row: filterIndexes[index], column: 5 }).node()).html(result[0].fields.name);
+                //         }
+                //         else {
+                //             let oldImplCost = parseFloat(filteredData[index][7]);
+                //             let newImplCost = ((oldImplCost * multiplicatorFactor) + oldImplCost).toFixed(2);
+                //             let oldMaintCost = parseFloat(table.cell({ row: filterIndexes[index], column: 8 }).data());
+                //             let newMaintConst = ((oldMaintCost * multiplicatorFactor) + oldMaintCost).toFixed(2);
+                //             let oldOportCost = parseFloat(table.cell({ row: filterIndexes[index], column: 9 }).data());
+                //             let newOportCost = ((oldOportCost * multiplicatorFactor) + oldOportCost).toFixed(2);
+                //             $(table.cell({ row: filterIndexes[index], column: 7 }).node()).html(newImplCost);
+                //             $(table.cell({ row: filterIndexes[index], column: 8 }).node()).html(newMaintConst);
+                //             $(table.cell({ row: filterIndexes[index], column: 9 }).node()).html(newOportCost);
+                //             $(table.cell({ row: filterIndexes[index], column: 5 }).node()).html(result[0].fields.name);
+                //         }
+                //     }
+                // }
+                // search.draw();
                 let countryId = result[0].pk;
                 $.ajax({
                     url: '/parameters/load-regionByCountry/',
@@ -362,6 +353,7 @@ $(function () {
                     },
                     success: function (result) {
                         result = JSON.parse(result);
+                        $('#regionLabel').text("");
                         if (result.length > 0) {
                             $('#regionLabel').text(result[0].fields.name);
                         }
