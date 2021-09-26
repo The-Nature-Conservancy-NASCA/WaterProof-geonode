@@ -30,7 +30,7 @@
     
     <div class="row">
         <div class="col-md-4">
-            <p style="text-align: justify;">{% trans "In this section you can select the Nature-Based Solutions available in the system, understood as the actions that may be part of the portfolios when running your analysis. You can also create your own Nature-Based Solutions by clicking on 'Create new NBS' " %}</p>
+            <p style="text-align: justify;">{% trans "The system offers you a default list of Nature based Solutions (NbS) by country, with standard information on their implementation and maintenance costs, time required to obtain benefits and the possible transformations that are expected through its implementation." %}</p>
             <br>
             <h4 id="countryLabel"></h4>
             <p><b>{% trans "Region:" %}</b> <span id="regionLabel"></span> </p>
@@ -60,9 +60,8 @@
                 <th scope="col" class="small text-center vat">{% trans "Name" %}</th>
                 <th scope="col" class="small text-center vat px-5" style="width:'10px';">{% trans "Description" %}</th>
                 <th scope="col" class="small text-center vat">{% trans "User" %}</th>                
-                <th scope="col" class="small text-center vat">{% trans "Role" %}</th>                
                 <th scope="col" class="small text-center vat">{% trans "Country" %}</th>
-                <th scope="col" class="small text-center vat" style="font-size: 11px;font-weight: bold;">{% trans "Percentage of benefit associated with interventions at time t=0" %}</th>
+                <th scope="col" class="small text-center vat">{% trans "Percentage of benefit associated with interventions at time t=0" %}</th>
                 <th scope="col" class="small text-center vat">{% trans "Implementation cost (currency/ha)" %}</th>
                 <th scope="col" class="small text-center vat">{% trans "Maintenace cost (currency/ha)" %}</th>
                 <th scope="col" class="small text-center vat">{% trans "Oportunity cost (currency/ha)" %}</th>
@@ -78,7 +77,6 @@
                 <td class="small text-center vat justify-text">{{sbn.name}}</td>
                 <td class="small text-center vat truncate justify-text" style="width:'10px';" >{{sbn.description}}</td>
                 <td class="small text-center vat">{{sbn.added_by.first_name}} {{sbn.added_by.last_name}}</td>
-                <td class="small text-center vat">{{sbn.added_by.professional_role}}</td>
                 <td class="small text-center vat">{{sbn.country}}</td>
                 <td class="small text-center vat justify-number">{{sbn.profit_pct_time_inter_assoc}}%</td>
                 <!-- Validate user type for multiplying country factor -->
@@ -145,7 +143,7 @@
                 </div>
                 <div class="modal-body">
                     <li>
-                        {%  trans "The system offers you a default list of Solutions based on Nature (NBS) by country, with standard information on their implementation and maintenance costs, known times about the time required to obtain benefits and the possible transformations that are possible through of its implementation."  %}
+                        {%  trans "The system offers you a default list of Nature based Solutions (NbS) by country, with standard information on their implementation and maintenance costs, time required to obtain benefits and the possible transformations that are expected through its implementation."  %}
                     </li>
                     <li>
                         {% trans "Use the icon" %} <img src="/static/geonode/img/see_more.png"/> {% trans "to see the information in the system." %}
@@ -172,8 +170,22 @@
     HYDRO_BASEMAP_URL =  '{{ HYDRO_BASEMAP_URL }} ';
     GRAY_BASEMAP_URL = '{{ GRAY_BASEMAP_URL }} ';
     MAXZOOM = 11;
+    $(document).ready(function () {
+        var table = $('#tblNbs').DataTable({
+            'searching': false,
+            'columnDefs': [{
+                "targets": [11],
+                'orderable': false,
+            }],
+            {% if request.LANGUAGE_CODE == "es" %}
+            'language': {
+                url: '{{ STATIC_URL }}geonode/js/datatables/es_es.json'
+            }
+            {% endif %}
+        });
+
+    });
 </script>
-<script src="{{ STATIC_URL }}geonode/js/datatables/jquery.dataTables.min.js"></script>
 <script src="{{ STATIC_URL }}geonode/js/datatables/dataTables.bootstrap.min.js"></script>
 <script src="{% static "lib/js/leaflet.js" %}"></script>
 <script src="{% static "geonode/js/leaflet/leaflet.defaultextent.js" %}"></script>

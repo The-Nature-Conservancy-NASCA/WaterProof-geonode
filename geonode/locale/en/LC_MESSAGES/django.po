@@ -6455,12 +6455,6 @@ msgstr ""
 msgid "Consult Compare. download and share the results"
 msgstr ""
 
-#: geonode/templates/index.html:233
-#, fuzzy
-#| msgid "Spatial Resolution"
-msgid "Nature-based solutions"
-msgstr "Spatial Resolution"
-
 #: geonode/templates/index.html:234
 msgid "We work to meet this ambitious goal"
 msgstr ""
