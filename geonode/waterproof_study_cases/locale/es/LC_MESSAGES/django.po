@@ -642,3 +642,16 @@ msgstr "Definición de caso de estudio"
 
 msgid "Type of infrastructure analyzed in the case study"
 msgstr "Tipo de infraestructura analizada en el caso de estudio"
+
+msgid "My cases tip"
+msgstr ""
+"En esta sección usted puede consultar todos los casos de estudio que ha creado en WaterProof. " 
+"Las opciones le permiten ver el caso de estudio, editarlo, clonarlo, eliminarlo, "
+"ver resultados y compartirlo al público."
+
+msgid "My cases note"
+msgstr ""
+"Note que el listado de casos de estudio que aparece a continuación no está filtrado por ciudad " 
+"(el sistema muestra la totalidad de casos que usted ha creado sin importar su localización) " 
+"y el único filtro aplicado es el de su usuario como creador de los casos de estudio para"
+"facilitar su administración de acuerdo con sus preferencias."
