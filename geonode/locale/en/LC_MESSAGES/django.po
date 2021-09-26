@@ -4431,7 +4431,7 @@ msgstr "Other"
 
 #: geonode/people/models.py:127
 msgid "UseAnalysis"
-msgstr ""
+msgstr "Purpose of your analisys"
 
 #: geonode/people/models.py:134
 #, fuzzy
@@ -4443,7 +4443,7 @@ msgstr "Other constraints"
 #, fuzzy
 #| msgid "Manage Connections"
 msgid "Agree Conditions"
-msgstr "Manage Connections"
+msgstr "Agree Conditions"
 
 #: geonode/people/templates/people/_profile_about_item.html:17 geonode/templates/_permissions_form.html:311
 msgid "No Group"
@@ -5874,8 +5874,8 @@ msgid "Create a new local account"
 msgstr "Create a new local account"
 
 #: geonode/templates/account/signup.html:34
-msgid "show condititions"
-msgstr ""
+msgid "Show condititions"
+msgstr "Show condititions"
 
 #: geonode/templates/account/signup_closed.html:5 geonode/templates/account/signup_closed.html:8
 msgid "Sign Up Closed"
@@ -6454,12 +6454,6 @@ msgstr ""
 #: geonode/templates/index.html:157 geonode/templates/index.html:225
 msgid "Consult Compare. download and share the results"
 msgstr ""
-
-#: geonode/templates/index.html:233
-#, fuzzy
-#| msgid "Spatial Resolution"
-msgid "Nature-based solutions"
-msgstr "Spatial Resolution"
 
 #: geonode/templates/index.html:234
 msgid "We work to meet this ambitious goal"
@@ -8645,6 +8639,9 @@ msgstr "By implementing your portfolio of nature-based solutions you are not onl
 #: geonode/templates/take-action.html
 msgid "Addressing climate change:"
 msgstr "Addressing climate change:"
+
+msgid "description-sign-up"
+msgstr "Through your registration as a WaterProof user, you will be able to access a set of services to perform an indicative analysis, at the pre-feasibility level, of the ROI return on investment in the implementation of Nature-Based Solutions in accordance with the environmental situation of the supply basins of interest. Please enter your contact information, indicating your professional role and interest in the use of the analysis, define your login password and review the terms of conditions of the tool. At the end, click on the 'Sign Up' button."
 
 #~ msgid "Open Data:"
 #~ msgstr "Open Data:"

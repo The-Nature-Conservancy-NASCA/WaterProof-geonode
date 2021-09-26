@@ -14,7 +14,7 @@ $(document).ready(function () {
     var baseLayers = {
         OpenStreetMap: osm,
         Images: images,
-        Grayscale: grayLyr,
+        /* Grayscale: grayLyr, */
     };
     
     let initialCoords = CENTER;

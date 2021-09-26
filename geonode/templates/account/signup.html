@@ -7,42 +7,46 @@
 {% block title %}{% trans "Sign up" %}{% endblock %}
 
 {% block body_outer %}
-    <div class="page-header">
-        <h2>{% trans "Sign up" %}
-         <button type="button" data-toggle="modal" data-target="#HelpModal" id="HelpModalBtnModal" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; padding: 0.001cm; border-style: none; background-color:transparent;"></button>
-        </h2>
-    </div>
-    <div class="row">
-      {% get_providers as socialaccount_providers %}
-      {% if socialaccount_providers %}
-          <p>{% blocktrans with site.name as site_name %}Sign up with one
-              of your existing third party accounts{% endblocktrans %}</p>
-          {% include "socialaccount/snippets/provider_list.html" with process="signup" %}
-          {% include "socialaccount/snippets/login_extra.html" %}
-          <hr>
-      {% endif %}
-    </div>
-    {% if account_geonode_local_signup %}
-        <div class="row">
-          <p>{% trans "Create a new local account" %}</p>
-          <h6>{% trans "Create a new account. To access the case study creation functionalities in WaterProof, it is necessary to have login credentials. Then enter your contact details and review the Terms and Conditions." %}</h6>
-          <form id="signup_form" method="post" action="{% url "account_signup" %}" autocapitalize="off" {% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
-              <fieldset>
-                  {% csrf_token %}
-                  {{ form|as_bootstrap }}
-                  {% if redirect_field_value %}
-                      <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-                  {% endif %}
-                  <div style="padding-bottom: 10px;">
-                    <button type="button" id="btnTerms" class="btn btn-info" data-toggle="modal" data-target="#myModal">{% trans "show condititions" %}</button>                     
-                  </div>
-                  <div class="form-actions">
-                      <button type="submit" class="btn btn-primary">{% trans "Sign up" %}</button>
-                  </div>
-              </fieldset>
-          </form>
+    <div class="container">
+        <div class="page-header">
+            <h2>{% trans "Sign up" %}
+            <button type="button" data-toggle="modal" data-target="#HelpModal" id="HelpModalBtnModal" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; padding: 0.001cm; border-style: none; background-color:transparent;"></button>
+            </h2>
         </div>
-    {% endif %}
+        <div class="row">
+        {% get_providers as socialaccount_providers %}
+        {% if socialaccount_providers %}
+            <p>{% blocktrans with site.name as site_name %}Sign up with one
+                of your existing third party accounts{% endblocktrans %}</p>
+            {% include "socialaccount/snippets/provider_list.html" with process="signup" %}
+            {% include "socialaccount/snippets/login_extra.html" %}
+            <hr>
+        {% endif %}
+        </div>
+        {% if account_geonode_local_signup %}
+            <div class="row">                
+                <div col-md-4 col-md-offset-2>
+                    <p>{% trans "Create a new local account" %}</p>
+                    <h6>{% trans "Create a new account. To access the case study creation functionalities in WaterProof, it is necessary to have login credentials. Then enter your contact details and review the Terms and Conditions." %}</h6>
+                    <form id="signup_form" method="post" action="{% url "account_signup" %}" autocapitalize="off" {% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
+                        <fieldset>
+                            {% csrf_token %}
+                            {{ form|as_bootstrap }}
+                            {% if redirect_field_value %}
+                                <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+                            {% endif %}
+                            <div style="padding-bottom: 10px;">
+                                <button type="button" id="btnTerms" class="btn btn-info" data-toggle="modal" data-target="#myModal">{% trans "Show condititions" %}</button>                     
+                            </div>
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-primary">{% trans "Sign up" %}</button>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>            
+            </div>
+        {% endif %}
+    </div>
 
     <!-- Modal -->
     <div class="modal fade" id="myModal" role="dialog">
@@ -52,7 +56,7 @@
             <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Conditions</h4>
+                <h4 class="modal-title">{% trans "Conditions" %} </h4>
             </div>
             <div class="modal-body">
                 <div id="content_terms"></div>
@@ -76,14 +80,9 @@
                 <h3 class="modal-title text-center" id="HelpModalLabel" style="color:#6398C1 ;">{%  trans "Welcome to WaterProof" %}</h3>
             </div>
             <div class="modal-body">
-                <li>
-                    {%  trans "Through your registration as a WaterProof user, you will be able to access a set of services to perform an indicative analysis, at the pre-feasibility level, of the ROI return on investment in the implementation of Nature-Based Solutions in accordance with the environmental situation of the supply basins of interest. Please enter your contact information, indicating your professional role and interest in the use of the analysis, define your login password and review the terms of conditions of the tool. At the end, click on the 'Register' button."  %}
-                </li>
                 <div>
-                    <div class="form-actions">
-                        <button style="margin: 10px auto 10px; display: block;" type="submit" class="btn btn-primary">{% trans "Sign up" %}</button>
-                    </div>
-                <br>
+                    {%  trans "description-sign-up"  %}
+                </div>                
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal" style="color: white; background-color: #6398C1;">Close</button>
                 </div>

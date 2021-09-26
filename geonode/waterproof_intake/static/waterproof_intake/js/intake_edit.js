@@ -649,14 +649,14 @@ $(document).ready(function () {
                     }]
                 };
             }
-            if (jsPolygon.features[0].geometry.coordinates[0].length > MAX_NUM_POINTS) {
-                console.log("too many points : " + jsPolygon.features[0].geometry.coordinates[0].length + " ... simplifying");
-                var polygonSimplified = simplifyPolygon(jsPolygon.features[0].geometry.coordinates[0]);
-                if (polygonSimplified.geometry.coordinates[0].length > 0) {
-                    jsPolygon = polygonSimplified;
-                    console.log("new num points in polygon : " + polygonSimplified.geometry.coordinates[0].length);
-                }
-            }
+            // if (jsPolygon.features[0].geometry.coordinates[0].length > MAX_NUM_POINTS) {
+            //     console.log("too many points : " + jsPolygon.features[0].geometry.coordinates[0].length + " ... simplifying");
+            //     var polygonSimplified = simplifyPolygon(jsPolygon.features[0].geometry.coordinates[0]);
+            //     if (polygonSimplified.geometry.coordinates[0].length > 0) {
+            //         jsPolygon = polygonSimplified;
+            //         console.log("new num points in polygon : " + polygonSimplified.geometry.coordinates[0].length);
+            //     }
+            // }
         } catch (err) {
             console.log(err);
         }

@@ -93,16 +93,13 @@ msgid "add_cost_function"
 msgstr "Add cost function"
 
 msgid "select_treatments_plants"
-msgstr "Select the treatment plants you want to consider in the ROI analysis. If you haven't created it yet, please click here to create a new one."
+msgstr "Select the treatment plants you want to consider in the ROI analysis. If you haven't created it yet, please click in the following button:"
 
 msgid "add_plant"
 msgstr "Add DWTP"
 
 msgid "carbon_market_benefits"
 msgstr "Carbon Market Benefits"
-
-msgid "carbon_market_text"
-msgstr "‘If you wish, WaterProof can consider benefits related to the carbon market.To include these benefits in the analysis, click the following checkbox"
 
 msgid "CO2_country"
 msgstr "CO2 Eq for "
@@ -177,10 +174,10 @@ msgid "sensitivity_maximun_discount"
 msgstr "Sensitivity analysis - Maximun discount rate (%)"
 
 msgid "NBS_conservation_activities_text"
-msgstr "Select the NbS that you want the system to consider for the analysis:"
+msgstr "Select the NbS that you want to consider for the analysis”:"
 
 msgid "investment_tip"
-msgstr "Enter here the amount of money you want to spent on each NbS per year. If you do not want to pre-determine how much is spent on each NbS, enter the total budget in the Yearly Floating Budget box. You can also enter values of some NbS and enter the remaining budget in the Floating Budget box. Please consider that WaterProof will consider the values indicated as investment for each of the basins involved in the analysis. If you establish a budget of 100,000 USD but the analysis involves 2 analysis basins, the system will consider 200,000 USD as the total available investment."
+msgstr "Enter here the amount of money you want to spent on each NbS per year. If you do not want to pre-determine how much is spent on each NbS, enter the total budget in the Yearly Floating Budget box. You can also enter values of some NbS and enter the remaining budget in the Floating Budget box. Please take into account that WaterProof will consider the values indicated as investment for each of the basins involved in the analysis. If you establish a budget of 100,000 USD but the analysis involves 2 basins, the system will consider 200,000 USD as the total available investment."
 
 msgid "analysis_time_period"
 msgstr "Analysis time period (years) (10-100)"
@@ -239,7 +236,7 @@ msgstr "Transaction cost per year as a percentage of implementation, maintenance
 msgid "study_cases_list_create"
 msgstr "You must be a registered user to create a new Case Study*"
 
-msgid "Creating a new water intake"
+msgid "Creating a new case study"
 msgstr "Creating a new case study"
 
 msgid "study_cases_list_tip"
@@ -252,7 +249,7 @@ msgid "carbon_market_tip"
 msgstr "WaterProof may consider benefits associated with the Carbon market, click the checkbox to include it in the analysis."
 
 msgid "biophysical_tip"
-msgstr "In this step you will find the biophysical parameters required for the execution of the models. If you want to see or edit these parameters, click on Advanced options, otherwise Click on next and the system will use the default values."
+msgstr "In this step you will find the biophysical parameters required for the execution of the models. If you want to see or edit these parameters, click on Advanced options, otherwise click on next and the system will use the default values."
 
 msgid "financial_tip"
 msgstr "In this section, the system offers you pre-loaded costs required for the implementation of the NbS. Confirm or edit values ​​according to your local situation:"
@@ -348,7 +345,7 @@ msgid "Integrate Analysis Associated with the Carbon Market"
 msgstr "Integrate analysis associated with the carbon market"
 
 msgid "Offers you the possibility to integrate in your analysis the possible benefits that you can obtain if you expect to participate in carbon markets. This is done by defining a monetary value per Ton of CO2eq."
-msgstr "Offers you the possibility to integrate in your analysis the possible benefits that you can obtain if you expect to participate in carbon markets. This is done by defining a monetary value per Ton of CO2eq."
+msgstr "Waterproof offers you the possibility to integrate in your analysis the possible benefits that you can obtain if you expect to participate in carbon markets. This is done by defining a monetary value per Ton of CO2eq."
 
 msgid "Uses information from the database published in May 2020 by the Institute for Climate Economics (Sébastien Postic | Marion Fetet) to preload USD / TonCO2eq values ​​that vary according to the country where the analysis is being carried out, however, the user can modify these values ​​according to the information they have."
 msgstr "Uses information from the database published in May 2020 by the Institute for Climate Economics (Sébastien Postic | Marion Fetet) to preload USD / TonCO2eq values ​​that vary according to the country where the analysis is being carried out, however, the user can modify these values ​​according to the information they have."
@@ -463,3 +460,148 @@ msgstr "Delete"
 
 msgid "description_select_type"
 msgstr "WaterProof can consider for ROI analysis the operating and maintenance costs associated with the analysis infrastructure. You can use the costs of a previously created drinking water treatment plant or you can create costs for a custom infrastructure. Select the desired option."
+
+msgid "Study cases help 4 text 1"
+msgstr "This is a section for advanced users where you can verify the biophysical values ​​that will be used in the InVEST models. WaterProof uses the InVEST modeling package with the Annual Water Yield, Seasonal Water Yield, Sediment Delivery Ratio, Nutrient Delivery Ratio, and Carbon Storage and Sequestration models. If the user has more knowledge about the biophysical characteristics for the models, they can modify the table."
+
+msgid "Study cases help 4 text 1.1"
+msgstr "A brief description of the values ​​in the biophysical table can be found below:"
+
+msgid "Study cases help 4 text 2"
+msgstr "Unique identifier for each land use class (eg 1 for forest, 3 for grassland, etc.). Each value in the LULC file must have a corresponding Lucode value in the biophysical table."
+
+msgid "Study cases help 4 text 3"
+msgstr "Maximum root depth for vegetated land use classes, given in millimeters."
+
+msgid "Study cases help 4 text 4"
+msgstr "Cover-management for each land use class according to the USLE. This parameter varies between zero and one."
+
+msgid "Study cases help 4 text 5"
+msgstr "Practice factor for each land use class according to USLE. This parameter varies between zero and one."
+
+msgid "Study cases help 4 text 6"
+msgstr "Nitrogen load for each land use class, expressed as units of kilograms per hectare per year."
+
+msgid "Study cases help 4 text 7"
+msgstr "Maximum nitrogen retention efficiency for each land use class. This parameter varies between zero and one."
+
+msgid "Study cases help 4 text 8"
+msgstr "Load for each land use class, expressed as units of kilograms per hectare per year."
+
+msgid "Study cases help 4 text 9"
+msgstr "Maximum phosphorus retention efficiency for each land use class. This parameter varies between zero and one."
+
+msgid "Study cases help 4 text 10"
+msgstr "Distance after which a patch of a particular type of land use class is assumed to retain nitrogen at its maximum capacity, expressed in meters."
+
+msgid "Study cases help 4 text 11"
+msgstr "Distance after which a patch of a particular type of land use class is assumed to retain phosphorus at its maximum capacity, expressed in meters."
+
+msgid "Study cases help 4 text 12"
+msgstr "Proportion of dissolved nitrogen over the total amount of nitrogen. This parameter varies between zero and one."
+
+msgid "Study cases help 4 text 13"
+msgstr "Curve number (CN) values ​​for hydrological soil type A. This parameter does not allow values ​​of zero."
+
+msgid "Study cases help 4 text 14"
+msgstr "Curve number (CN) values ​​for hydrological soil type B. This parameter does not allow values ​​of zero."
+
+msgid "Study cases help 4 text 15"
+msgstr "Curve number (CN) values ​​for hydrological soil type C. This parameter does not allow values ​​of zero."
+
+msgid "Study cases help 4 text 16"
+msgstr "Curve number (CN) values ​​for hydrological soil type D. This parameter does not allow values ​​of zero."
+
+msgid "Study cases help 4 text 17"
+msgstr "Evapotranspiration coefficient of the plant for the month of January for each land use class."
+
+msgid "Study cases help 4 text 18"
+msgstr "Evapotranspiration coefficient of the plant for the month of February for each land use class."
+
+msgid "Study cases help 4 text 19"
+msgstr "Evapotranspiration coefficient of the plant for the month of March for each land use class."
+
+msgid "Study cases help 4 text 20"
+msgstr "Evapotranspiration coefficient of the plant for the month of April for each class of land use."
+
+msgid "Study cases help 4 text 21"
+msgstr "Evapotranspiration coefficient of the plant for the month of May for each land use class."
+
+msgid "Study cases help 4 text 22"
+msgstr "Evapotranspiration coefficient of the plant for the month of June for each land use class"
+
+msgid "Study cases help 4 text 23"
+msgstr "Evapotranspiration coefficient of the plant for the month of July for each land use class."
+
+msgid "Study cases help 4 text 23 2"
+msgstr "Evapotranspiration coefficient of the plant for the month of August for each land use class."
+
+msgid "Study cases help 4 text 24"
+msgstr "Evapotranspiration coefficient of the plant for the month of September for each land use class."
+
+msgid "Study cases help 4 text 25"
+msgstr "Evapotranspiration coefficient of the plant for the month of October for each land use class."
+
+msgid "Study cases help 4 text 26"
+msgstr "Evapotranspiration coefficient of the plant for the month of November for each land use class."
+
+msgid "Study cases help 4 text 27"
+msgstr "Evapotranspiration coefficient of the plant for the month of December for each land use class."
+
+msgid "Study cases help 4 text 28"
+msgstr "Carbon density inbiomass [megagrams / hectare]"
+
+msgid "Study cases help 4 text 29"
+msgstr "Carbon density in underground biomass [megagrams / hectare]"
+
+msgid "Study cases help 4 text 30"
+msgstr "Carbon density in soil [megagrams / hectare]"
+
+msgid "Study cases help 4 text 31"
+msgstr "Carbon density in dead matter [megagrams / hectare]"
+
+msgid "Study cases help 4 text 32"
+msgstr "Ability of each land use class to serve as a source of erosion. This parameter varies between zero and one."
+
+msgid "Study cases help 4 text 33"
+msgstr "Sediment retention efficiency for each land use class. This parameter varies between zero and one."
+
+msgid "Study cases help 4 text 34"
+msgstr "Roughness for each land use class. This parameter is comparable toparameter standard n Manning'sfor surface flow"
+
+msgid "Study cases help 4 text 35"
+msgstr "Fraction of the area covered by vegetation for each land use class. This parameter ranges from zero (no coverage) to one (100% coverage)."
+
+msgid "Study cases help 4 text 36"
+msgstr "Retention efficiency of each land use class. This parameter varies between zero and one."
+
+msgid "Study cases help 4 text 37"
+msgstr "Ability of each land use class to serve as a source of phosphorus. This parameter varies between zero and one."
+
+msgid "Study cases help 4 text 38"
+msgstr "Nitrogen retention efficiency of each land use class. This parameter varies between zero and one."
+
+msgid "Study cases help 4 text 39"
+msgstr "Ability of each land use class to serve as a source of nitrogen. This parameter varies between zero and one"
+
+msgid "Study cases help 4 text 40"
+msgstr "This parameter specifies whether land use class is native (not converted) or not. A value of 0 indicates a converted class and 1 an unconverted class."
+
+msgid "Study cases help 4 text 41"
+msgstr "This parameter indicates which ETR equation to use. It takes values ​​of 0 or 1 that. Values ​​should be 1 for vegetated soil, except wetlands, and 0 for all other land uses, including wetlands, urban, water bodies, etc."
+
+msgid "My cases tip"
+msgstr ""
+"In this section you can consult all the case studies that you have created in WaterProof. " 
+"Options allow you to view the case study, edit it, clone it, delete it, view results, "
+"and share it to the public."
+
+msgid "My cases note"
+msgstr ""
+"Note that the list of case studies that appears below is not filtered by city " 
+"(the system shows all the cases that you have created regardless of their location) " 
+"and the only filter applied is that of your user as creator of the cases studies to "
+"facilitate its administration according to your preferences."
+
+msgid "My Cases of Study"
+msgstr "My Cases of Study"
