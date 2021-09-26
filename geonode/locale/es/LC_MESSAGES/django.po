@@ -6473,7 +6473,7 @@ msgstr ""
 
 #: geonode/templates/index.html:233
 msgid "Nature-based solutions"
-msgstr Soluciones basadas en la naturaleza""
+msgstr "Soluciones basadas en la naturaleza"
 
 #: geonode/templates/index.html:234
 msgid "We work to meet this ambitious goal"
