@@ -602,3 +602,6 @@ msgstr ""
 "(the system shows all the cases that you have created regardless of their location) " 
 "and the only filter applied is that of your user as creator of the cases studies to "
 "facilitate its administration according to your preferences."
+
+msgid "My Cases of Study"
+msgstr "My Cases of Study"

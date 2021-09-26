@@ -440,11 +440,11 @@ msgstr "Análisis de datos"
 
 #: template/intake_clone.html:245 template/intake_detail_list.html:218 template/intake_edit.html:236 template/intake_form.html:251
 msgid "Please select the method you wish to use"
-msgstr "Por favor seleccione el método que desea usar para lelenar la tabla asociadad con la extracción anual de agua de la fuente"
+msgstr "Por favor seleccione el método que desea usar para diligenciar la tabla asociadad con la extracción anual de agua de la fuente"
 
 #: template/intake_clone.html:249 template/intake_detail_list.html:222 template/intake_edit.html:240 template/intake_form.html:255
-msgid "Interpolation method "
-msgstr "Método de interpolación "
+msgid "Interpolation method"
+msgstr "Método de interpolación"
 
 #: template/intake_clone.html:253 template/intake_detail_list.html:225 template/intake_edit.html:243 template/intake_form.html:259 template/intake_form.html:800
 msgid "Linear interpolation"
@@ -461,6 +461,9 @@ msgstr "Interpolación exponencial"
 #: template/intake_clone.html:257 template/intake_detail_list.html:228 template/intake_edit.html:246 template/intake_form.html:262
 msgid "Logistics interpolation"
 msgstr "Interpolación logística"
+
+msgid "Manual interpolation"
+msgstr "Interpolación manual"
 
 #: template/intake_clone.html:261 template/intake_clone.html:315 template/intake_detail_list.html:232 template/intake_detail_list.html:280 template/intake_edit.html:250 template/intake_edit.html:297 template/intake_form.html:318
 msgid "Number of years for time series"
@@ -910,11 +913,6 @@ msgstr "Se aceptan archivos únicamente en formato comprimido.zip cuya estructur
 msgid "Water Intake"
 msgstr "Captación"
 
-#: template/intake_list.html:31
-msgid "From this section you can consult the water intakes created in the system associated with a city of interest. You can search for intakes of different cities from 'Search city'. The system will show you a list of cities with matches around the world. Select the appropriate option from the list. You can also create your own basin associated with a city, to do this search for the city to which you will associate your basin and then click on the 'Create new water intake' button."
-msgstr ""
-"Desde esta sección puede consultar las captaciones de agua creadas en el sistema asociadas a una ciudad de interés. Puede buscar captaciones de diferentes ciudades desde “Buscar ciudad”. El sistema le mostrará un listado de ciudades con las coincidencias a nivel mundial. Seleccione de la lista la opción que corresponda. También puede crear su propia captación asociada a una ciudad, para ello busque la ciudad a la cual asociará su captación y luego de clic en el botón “Crear nueva captación”."
-
 #: template/intake_list.html:36
 msgid "Selected City"
 msgstr "Ciudad seleccionada"
@@ -980,8 +978,8 @@ msgid "From this section you can view the water intakes created in the system as
 msgstr ""
 "Desde esta sección puede consultar las captaciones de agua creadas en el sistema asociadas a una ciudad de interés. Puede buscar captaciones de diferentes ciudades desde “Buscar ciudad”. El sistema le mostrará un listado de ciudades con las coincidencias a nivel mundial. Seleccione de la lista la opción que corresponda."
 
-msgid "You can also create your own basin associated with a city, to do this search for the city to which you will associate your basin and then click on the 'Create new water intake' button."
-msgstr "También puede crear su propia captación asociada a una ciudad, para ello busque la ciudad a la cual asociará su captación y luego de clic en el botón “Crear nueva captación”."
+msgid "You can delineate a basin associated with a city, to do this, search for the city to which you will associate your basin and then click on the 'Create new water intake' button."
+msgstr "Puede delinear una cuenca asociada a una ciudad, para esto, busque la ciudad a la que asociará su cuenca y luego haga clic en el botón 'Crear nueva toma de agua'."
 
 msgid "Configure"
 msgstr "Configurar"
@@ -994,3 +992,6 @@ msgstr "Configuración de parámetros"
 
 msgid "View"
 msgstr "Ver"
+
+msgid "Water Intake Demand"
+msgstr "Demanda de captación de agua"
