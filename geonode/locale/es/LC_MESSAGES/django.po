@@ -6473,7 +6473,7 @@ msgstr ""
 
 #: geonode/templates/index.html:233
 msgid "Nature-based solutions"
-msgstr Soluciones basadas en la naturaleza""
+msgstr "Soluciones basadas en la naturaleza"
 
 #: geonode/templates/index.html:234
 msgid "We work to meet this ambitious goal"
@@ -7882,7 +7882,7 @@ msgstr "Usted está "
 
 #: geonode/templates/waterproof_intake/intake_clone.html:58 geonode/templates/waterproof_intake/intake_edit.html:58 geonode/templates/waterproof_intake/intake_form.html:58
 msgid "Define water intake"
-msgstr ""
+msgstr "Definir la captación"
 
 #: geonode/templates/waterproof_intake/intake_clone.html:59 geonode/templates/waterproof_intake/intake_edit.html:59 geonode/templates/waterproof_intake/intake_form.html:59
 msgid "Please complete the fields to define your Water Intake"
@@ -7967,10 +7967,10 @@ msgstr "Calidad de Dato"
 #, fuzzy
 #| msgid "Please select the avatars that you would like to delete."
 msgid "Please select the method you wish to use"
-msgstr "Seleccione los avatares que le gustaría eliminar."
+msgstr "Seleccione el método que desea utilizar"
 
 #: geonode/templates/waterproof_intake/intake_clone.html:217 geonode/templates/waterproof_intake/intake_demand.html:79 geonode/templates/waterproof_intake/intake_detail_list.html:207 geonode/templates/waterproof_intake/intake_edit.html:217 geonode/templates/waterproof_intake/intake_form.html:214
-msgid "Interpolation method "
+msgid "Interpolation method"
 msgstr ""
 
 #: geonode/templates/waterproof_intake/intake_clone.html:220 geonode/templates/waterproof_intake/intake_demand.html:82 geonode/templates/waterproof_intake/intake_detail_list.html:210 geonode/templates/waterproof_intake/intake_edit.html:220 geonode/templates/waterproof_intake/intake_form.html:217
@@ -8023,11 +8023,11 @@ msgstr "Reanudar"
 
 #: geonode/templates/waterproof_intake/intake_clone.html:255 geonode/templates/waterproof_intake/intake_clone.html:289 geonode/templates/waterproof_intake/intake_demand.html:117 geonode/templates/waterproof_intake/intake_demand.html:150 geonode/templates/waterproof_intake/intake_detail_list.html:245 geonode/templates/waterproof_intake/intake_detail_list.html:278 geonode/templates/waterproof_intake/intake_edit.html:255 geonode/templates/waterproof_intake/intake_edit.html:289 geonode/templates/waterproof_intake/intake_form.html:252 geonode/templates/waterproof_intake/intake_form.html:286
 msgid "Year"
-msgstr ""
+msgstr "Año"
 
 #: geonode/templates/waterproof_intake/intake_clone.html:256 geonode/templates/waterproof_intake/intake_clone.html:290 geonode/templates/waterproof_intake/intake_demand.html:118 geonode/templates/waterproof_intake/intake_demand.html:151 geonode/templates/waterproof_intake/intake_detail_list.html:246 geonode/templates/waterproof_intake/intake_detail_list.html:279 geonode/templates/waterproof_intake/intake_edit.html:256 geonode/templates/waterproof_intake/intake_edit.html:290 geonode/templates/waterproof_intake/intake_form.html:253 geonode/templates/waterproof_intake/intake_form.html:287
 msgid "Extraction Value (l/s)"
-msgstr ""
+msgstr "Valor de extracción (l/s)"
 
 #: geonode/templates/waterproof_intake/intake_clone.html:275 geonode/templates/waterproof_intake/intake_demand.html:137 geonode/templates/waterproof_intake/intake_detail_list.html:265 geonode/templates/waterproof_intake/intake_edit.html:275 geonode/templates/waterproof_intake/intake_form.html:272
 #, fuzzy
@@ -8037,7 +8037,7 @@ msgstr "Puede usar el formulario de ingreso en"
 
 #: geonode/templates/waterproof_intake/intake_clone.html:277 geonode/templates/waterproof_intake/intake_demand.html:139 geonode/templates/waterproof_intake/intake_detail_list.html:267 geonode/templates/waterproof_intake/intake_edit.html:277 geonode/templates/waterproof_intake/intake_form.html:274
 msgid "Number of years"
-msgstr ""
+msgstr "Número de años"
 
 #: geonode/templates/waterproof_intake/intake_clone.html:314 geonode/templates/waterproof_intake/intake_demand.html:169 geonode/templates/waterproof_intake/intake_detail_list.html:297 geonode/templates/waterproof_intake/intake_edit.html:314 geonode/templates/waterproof_intake/intake_form.html:311
 #, fuzzy
@@ -8047,7 +8047,7 @@ msgstr "Recurso Externo"
 
 #: geonode/templates/waterproof_intake/intake_clone.html:315 geonode/templates/waterproof_intake/intake_demand.html:170 geonode/templates/waterproof_intake/intake_detail_list.html:298 geonode/templates/waterproof_intake/intake_edit.html:315 geonode/templates/waterproof_intake/intake_form.html:312
 msgid "External inputs to define"
-msgstr ""
+msgstr "Entradas externas para definir"
 
 #: geonode/templates/waterproof_intake/intake_clone.html:320 geonode/templates/waterproof_intake/intake_demand.html:175 geonode/templates/waterproof_intake/intake_detail_list.html:303 geonode/templates/waterproof_intake/intake_edit.html:320 geonode/templates/waterproof_intake/intake_form.html:317
 #, fuzzy
