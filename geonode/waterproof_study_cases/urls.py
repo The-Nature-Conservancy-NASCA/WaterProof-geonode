@@ -14,6 +14,8 @@ urlpatterns = [
     url(r'^jsi18n/$', JavaScriptCatalog.as_view(), js_info_dict, name='javascript-catalog-study-cases'),
     # Default view, list all views
     path('', views.list, name='study_cases_list'),
+    # My cases view
+    path('my_cases/', views.myCases, name='study_cases_my_cases'),
     # Create Study Cases
     path('create/', views.create, name='create-study-cases'),
     # Edit Study Cases
