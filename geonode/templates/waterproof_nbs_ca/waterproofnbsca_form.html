@@ -17,7 +17,7 @@
     </div>    
     <div class="row">
         <div class="col-md-4">
-            <p style="text-align: justify;">{% trans "Through this form you can create a custom NbS. Select the country for which you want to be considered and fill in your identification data, costs and the transitions obtained with its implementation." %}</p>
+            <p style="text-align: justify;">{% trans "Through this form you can create a custom NbS. Select the country to which the NbS will be associated and fill in the identification information, costs and the transitions obtained with its implementation." %}</p>
             <h4 class="country-label" id="countryLabel">{{country.name}}</h4>
             <p><b>{% trans "Region:" %}</b> <span id="regionLabel">{{region.name}}</span> </p>
             <p><b>{% trans "Currency:" %} </b><span id="currencyLabel">({{currency.code}}) - {{currency.name}}</span></p>            
@@ -48,7 +48,7 @@
         <div class="form-group">
             <div class="row">
                 <div class="col-md-6">
-                    <label>{% trans "Country" %} <span class="text-danger-wp">(*)</span> </label>
+                    <label>{% trans "Reference Country" %} <span class="text-danger-wp">(*)</span> </label>
                     <select id="countryNBS" class="form-control" {{countryEnable}} data-error='{% trans "Field is required" %}' required>
                         {% for country in countries %}
                             <option value="{{country.pk}}" data-value="{{country.iso3}}">{{country.name}}</option>
@@ -99,19 +99,19 @@
             <div class="row">
                 <div class="col-md-4">
                     <label id="implementCostLabel">{% trans "Implementation cost (US$/ha)" %} <span class="text-danger-wp">(*)</span> </label>
-                    <input id="implementCost"  type="text" onInput="return checkPercentage(event,value)" 
+                    <input id="implementCost"  type="text" onInput="return checkDecimalFormat(event,value)" 
                     class="form-control" data-error='{% trans "Field is required" %}' required>
                     <div class="help-block with-errors"></div>
                 </div>
                 <div class="col-md-4">
                     <label id="maintenanceCostLabel">{% trans "Maintenace cost (US$/ha)" %} <span class="text-danger-wp">(*)</span> </label>
-                    <input id="maintenanceCost"  type="text" onInput="return checkPercentage(event,value)" 
+                    <input id="maintenanceCost"  type="text" onInput="return checkDecimalFormat(event,value)" 
                     class="form-control" data-error='{% trans "Field is required" %}' required>
                     <div class="help-block with-errors"></div>
                 </div>
                 <div class="col-md-4">
                     <label id="oportunityCostLabel">{% trans "Oportunity cost (US$/ha)" %} <span class="text-danger-wp">(*)</span> </label>
-                    <input id="oportunityCost" type="text" onInput="return checkPercentage(event,value)"  class="form-control" data-error='{% trans "Field is required" %}' required>
+                    <input id="oportunityCost" type="text" onInput="return checkDecimalFormat(event,value)"  class="form-control" data-error='{% trans "Field is required" %}' required>
                     <div class="help-block with-errors"></div>
                 </div>
             </div>
@@ -308,6 +308,7 @@
 <script>
     var token = '{{ csrf_token }}';
     var countriesLayerUrl = '{{ STATIC_URL }}waterproof_nbs_ca/data/countries.geojson';
+    OSM_BASEMAP_URL = "{{ OSM_BASEMAP_URL }} ";
 </script>
 {% if user.professional_role == 'ADMIN' %}
     <script>

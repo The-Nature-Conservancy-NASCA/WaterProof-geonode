@@ -87,8 +87,8 @@
             {% if user.professional_role != 'ADMIN' %}
                 {% if sbn.added_by.professional_role == 'ADMIN' %}
                     <div class="col-md-6">
-                        <label>{% trans "Country for definition of costs" %}</label>
-                        <select id="currenciesComapreSelect" class="form-control" required>
+                        <label>{% trans "Country" %}</label>
+                        <select id="currenciesComapreSelect" class="form-control" disabled required>
                             {% for country in countries %}
                             <option value="{{country.global_multiplier_factor}}" {% if country.pk == userCountry.pk %} selected{% endif %}>{{ country.name}}</option>
                             {%  endfor %}

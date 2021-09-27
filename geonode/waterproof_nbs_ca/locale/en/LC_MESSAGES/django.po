@@ -226,7 +226,7 @@ msgstr "Transition"
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_edit.html:135
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_form.html:125
 msgid "LAND USE / LAND COVER WHERE THE ACTIVITY CAN BE IMPLEMENTED"
-msgstr "Land use / Land cover where the activiy can be implemented"
+msgstr "Land use / Land cover where the activity can be implemented"
 
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_clone.html:152
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_detail_list.html:152
@@ -303,10 +303,6 @@ msgstr "NbS Detail"
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_detail_list.html:23
 msgid "Detail sbn"
 msgstr "NbS Detail"
-
-#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_detail_list.html:82
-msgid "Country for definition of costs"
-msgstr "Country"
 
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_detail_list.html:90
 msgid "Multiplying factor for overrall cost"
@@ -391,10 +387,6 @@ msgstr "Select from the drop-down list the transition according to the possibili
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_form.html:182
 msgid "If there are areas with restrictions for the implementation of the NbS, attach them to the form through a geographic file by clicking on the following button."
 msgstr "If there are areas with restrictions for the implementation of the NbS, attach them to the form through a geographic file by clicking on the following button."
-
-#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_form.html:19
-msgid "Through this form you can create a custom NbS. Select the country for which you want to be considered and fill in your identification data, costs and the transitions obtained with its implementation."
-msgstr "Through this form you can create a custom NbS. Select the country for which you want to be considered and fill in your identification data, costs and the transitions obtained with its implementation."
 
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_form.html:19
 msgid "edit"

@@ -20,4 +20,7 @@ urlpatterns = [
 	path('getTreatmentPlant/', api.getTreatmentPlant, name='treatment-find_plant'),
 	path('setHeaderPlant/', api.setHeaderPlant, name='treatment-set-header'),
 	path('create/', views.newTreatmentPlants, name='create-treatment-plants'),
+	path('update/<int:idx>', views.updateTreatmentPlants, name='edit-treatment-plants'),
+	path('clone/<int:idx>', views.cloneTreatmentPlants, name='clone-treatment-plants'),
+	path('view/<int:idx>', views.viewTreatmentPlants, name='view-treatment-plants'),
 ]

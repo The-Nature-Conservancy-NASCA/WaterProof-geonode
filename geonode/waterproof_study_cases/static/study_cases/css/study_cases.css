@@ -69,7 +69,11 @@
         height: 100%;
     }
 }
-
+#cases{
+    width: auto!;
+    height: 380px;
+    padding-bottom: 80px;
+}
 .modal-dialog {
     display: inline-block;
     text-align: left;

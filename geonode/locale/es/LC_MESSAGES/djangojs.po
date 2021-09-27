@@ -915,8 +915,8 @@ msgstr "Extensión predeterminada"
 #~ msgid "Downloading..."
 #~ msgstr "Descargando..."
 
-#~ msgid "Please wait"
-#~ msgstr "Por favor, espere"
+msgid "Please wait"
+msgstr "Por favor, espere"
 
 #~ msgid "Available %s"
 #~ msgstr "Available %s"

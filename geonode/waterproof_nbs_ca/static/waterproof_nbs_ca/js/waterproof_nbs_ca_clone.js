@@ -367,16 +367,13 @@ $(function () {
    * Initialize map 
    */
     initMap = function () {
-        map = L.map('mapid').setView([51.505, -0.09], 13);
+        let center = [4.0, -74.6];
+        map = L.map('mapid').setView(center, 7);
 
         // Basemap layer
-        L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
-            maxZoom: 18,
-            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, ' +
-                'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-            id: 'mapbox/streets-v11',
-            tileSize: 512,
-            zoomOffset: -1
+        L.tileLayer(OSM_BASEMAP_URL, {
+            maxZoom: 20,
+            attribution: 'Data \u00a9 <a href="http://www.openstreetmap.org/copyright"> OpenStreetMap Contributors </a> Tiles \u00a9 Komoot'
         }).addTo(map);
         // Countries layer
         let countries = new L.GeoJSON.AJAX(countriesLayerUrl,

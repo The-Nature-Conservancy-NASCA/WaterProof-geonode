@@ -1,8 +1,6 @@
 {% extends "menu.html" %} {% load i18n %} {% block title %}{% trans "Waterproof NBS CA" %}{% load decimal_format %}{% load multiply_factor %}{% endblock %} {% block main %}
 <h1>{% trans "Waterproof NBS CA" %}</h1>
 
-
-
 {% endblock %} {% block body_outer %}
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_nbs_ca/css/dataTables.bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_nbs_ca/css/waterproof_nbs_ca.css">
@@ -26,7 +24,6 @@
     </div>
 </div>
 <div class="page-header">
-
     
     {% if user.is_authenticated and not READ_ONLY_MODE %}
     <a href="create/" id="createUrl">{% trans "Create a new NBS" %}</a>

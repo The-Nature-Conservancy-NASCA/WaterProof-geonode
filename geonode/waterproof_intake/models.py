@@ -175,8 +175,6 @@ class CostFunctionsProcess(models.Model):
 
     process_efficiencies = models.ForeignKey(ProcessEfficiencies, on_delete=models.CASCADE, null=True)
 
-
-
 class DemandParameters(models.Model):
 
     interpolation_type = models.CharField(
@@ -185,13 +183,13 @@ class DemandParameters(models.Model):
     )
 
     initial_extraction = models.DecimalField(
-        decimal_places=4,
+        decimal_places=2,
         max_digits=14,
         verbose_name=_('Initial extraction')
     )
 
     ending_extraction = models.DecimalField(
-        decimal_places=4,
+        decimal_places=2,
         max_digits=14,
         verbose_name=_('Ending extraction')
     )

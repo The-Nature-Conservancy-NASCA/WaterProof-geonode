@@ -137,27 +137,43 @@ class ProfileForm(forms.ModelForm):
 
 class CustomUserCreationForm2(SignupForm):
 
+    PROFESSIONAL_ROLES_ = (('ANALYS',_('Analyst')),
+                    ('COPART',  _('Corporate partner')),
+                    ('ACDMC',   _('Academic')),
+                    ('SCADM',   _('Service company administrator')),
+                    ('MCOMC',   _('Manager that carries out monitoring and control')),
+                    ('CITIZN',  _('Citizen')),
+                    ('REPECS',  _('Representative of an economic sector')),
+                    ('OTHER',   _('Other')))
+
+    USE_ANALYSIS_ = (('ACDMC',  _('Academic')),
+                    ('GNRL',    _('General')),
+                    ('BSNSS',   _('Business')),
+                    ('OTHER',   _('Other')))
+
     def __init__(self, *args, **kwargs):
         super(CustomUserCreationForm2, self).__init__(*args, **kwargs)
+        #selected_choices = ('ADMIN','Administrator')
+        #self.fields['professional_role'].PROFESSIONAL_ROLES = ({(k, v) for k, v in PROFESSIONAL_ROLES if k not in selected_choices})
 
-    first_name = forms.CharField(label=_("FirstName"),
+    first_name = forms.CharField(label=_("First Name"),
                                widget=forms.TextInput(
                                    attrs={'placeholder':
-                                          _('FirstName')}))
+                                          _('First Name')}))
     
-    last_name = forms.CharField(label=_("LastName"),
+    last_name = forms.CharField(label=_("Last Name"),
                                widget=forms.TextInput(
                                    attrs={'placeholder':
-                                          _('LastName')}))
+                                          _('Last Name')}))
 
-    professional_role = forms.ChoiceField(label=_("ProfessionalRole"), choices=PROFESSIONAL_ROLES)
+    professional_role = forms.ChoiceField(label=_("Professional Role"), choices=PROFESSIONAL_ROLES_)
 
     other_role = forms.CharField(label=_("Other Role"),
                                widget=forms.TextInput(
                                    attrs={'placeholder':
                                           _('Other Role')}))
     
-    use_analysis = forms.ChoiceField(label=_("Use Analysis"), choices=USE_ANALYSIS)
+    use_analysis = forms.ChoiceField(label=_("Use Analysis"), choices=USE_ANALYSIS_)
 
     other_analysis = forms.CharField(label=_("Other Analysis"),
                                widget=forms.TextInput(
@@ -176,7 +192,7 @@ class CustomUserCreationForm2(SignupForm):
                                    attrs={'placeholder':_('City'),
                                    'autocomplete':'off'}))
 
-    agree_conditions = forms.BooleanField(label=_('AgreeConditions'))
+    agree_conditions = forms.BooleanField(label=_('Agree Terms and Conditions'))
 
     field_order = [
         "email",
@@ -206,4 +222,6 @@ class CustomUserCreationForm2(SignupForm):
         # TODO: Move into adapter `save_user` ?
         setup_user_email(request, user, [])
         return user
+
+    
 
