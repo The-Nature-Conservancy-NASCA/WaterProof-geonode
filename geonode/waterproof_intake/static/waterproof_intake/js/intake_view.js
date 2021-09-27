@@ -308,7 +308,7 @@ $(document).ready(function() {
                         Swal.fire({
                             icon: 'warning',
                             title: gettext('Data analysis empty'),
-                            text: gettext('Please Generate Data analysis')
+                            text: gettext('Please complete all required information')
                         });
                         return;
                     } else {
@@ -326,7 +326,7 @@ $(document).ready(function() {
                     Swal.fire({
                         icon: 'warning',
                         title: `Data analysis empty`,
-                        text: `Please Generate Data anlisys`
+                        text: gettext('Please complete all required information')
                     });
                     return;
                 }
@@ -337,7 +337,7 @@ $(document).ready(function() {
             Swal.fire({
                 icon: 'warning',
                 title: gettext('Data analysis empty'),
-                text: gettext('Please Generate Data analysis')
+                text: gettext('Please complete all required information')
             });
             return;
         }
@@ -492,8 +492,7 @@ $(document).ready(function() {
     }
     function initializeMap(){
         let initialCoords = [4.5, -74.4];
-        let zoom = 5;
-        let urlOSM = 'https://{s}.tile.osm.org/{z}/{x}/{y}.png';
+        let zoom = 5;        
         let attr = '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors';
         // find in localStorage if cityCoords exist
         var cityCoords = localStorage.getItem('cityCoords');
@@ -505,16 +504,16 @@ $(document).ready(function() {
 
         map = L.map('map', {}).setView(initialCoords, zoom);
         mapDelimit = L.map('mapid', { editable: true }).setView(initialCoords, zoom);
-        var osm = L.tileLayer(urlOSM, {
+        var osm = L.tileLayer(OSM_BASEMAP_URL, {
             attribution: attr,
         });
-        var osmid = L.tileLayer(urlOSM, {
+        var osmid = L.tileLayer(OSM_BASEMAP_URL, {
             attribution: attr,
         });
         map.addLayer(osm);
             
-        var images = L.tileLayer("https://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryTopo/MapServer/tile/{z}/{y}/{x}");
-        var esriHydroOverlayURL = "https://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/Esri_Hydro_Reference_Overlay/MapServer/tile/{z}/{y}/{x}";
+        var images = L.tileLayer(IMG_BASEMAP_URL);
+        var esriHydroOverlayURL = HYDRO_BASEMAP_URL;
         var hydroLyr = L.tileLayer(esriHydroOverlayURL);
         var baseLayers = {
             OpenStreetMap: osm,
@@ -545,23 +544,24 @@ $(document).ready(function() {
                     coordinates.push(geom[1]);
                     coordinates.push(geom[0]);
                     copyCoordinates.push(coordinates);
-                })
-                let ll = new L.LatLng(feature.point.geometry.coordinates[1], feature.point.geometry.coordinates[0]);
-                snapMarker = L.marker(null, {});
-                snapMarkerMapDelimit = L.marker(null, {});
-                snapMarker.setLatLng(ll);
-                snapMarkerMapDelimit.setLatLng(ll);
-                snapMarker.addTo(map);
-                snapMarkerMapDelimit.addTo(mapDelimit);
-                catchmentPoly = L.geoJSON(JSON.parse(feature.polygon)).addTo(map);
-                catchmentPolyDelimit = L.geoJSON(JSON.parse(feature.polygon)).addTo(mapDelimit);
-                map.fitBounds(catchmentPoly.getBounds());
-                zoom = 9;
-                map.setView(catchmentPoly.getBounds().getCenter(), zoom);
-                mapDelimit.setView(catchmentPoly.getBounds().getCenter(), zoom);
-                editablepolygon = L.polygon(copyCoordinates, { color: 'red' });
-                editablepolygon.addTo(mapDelimit);    
-            }        
+                })               
+            }
+            
+            let ll = new L.LatLng(feature.point.geometry.coordinates[1], feature.point.geometry.coordinates[0]);
+            snapMarker = L.marker(null, {});
+            snapMarkerMapDelimit = L.marker(null, {});
+            snapMarker.setLatLng(ll);
+            snapMarkerMapDelimit.setLatLng(ll);
+            snapMarker.addTo(map);
+            snapMarkerMapDelimit.addTo(mapDelimit);
+            catchmentPoly = L.geoJSON(JSON.parse(feature.polygon)).addTo(map);
+            catchmentPolyDelimit = L.geoJSON(JSON.parse(feature.polygon)).addTo(mapDelimit);
+            map.fitBounds(catchmentPoly.getBounds());
+            //zoom = 9;
+            map.setView(catchmentPoly.getBounds().getCenter(), zoom);
+            mapDelimit.setView(catchmentPoly.getBounds().getCenter(), zoom);
+            editablepolygon = L.polygon(copyCoordinates, { color: 'red' });
+            editablepolygon.addTo(mapDelimit);    
         });
 
         if (!mapLoader) {

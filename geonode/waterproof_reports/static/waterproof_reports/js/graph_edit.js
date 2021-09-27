@@ -732,7 +732,7 @@
              clearInputsMath();
              $('#costFunctionName').val('');
              $('#costFuntionDescription').val('');
-             $('#CalculatorModalLabel').text('New Function Cost - ' + $('#titleCostFunSmall').text())
+             $('#CalculatorModalLabel').text(gettext('New Function cost'));
              for (const index of graphData) {
                  var costlabel = "";
                  for (const iterator of JSON.parse(index.varcost)) {

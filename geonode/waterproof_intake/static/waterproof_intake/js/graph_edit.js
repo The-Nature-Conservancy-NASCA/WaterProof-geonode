@@ -674,7 +674,7 @@ function onInit(editor) {
             
             $('#costFunctionName').val(funcostdb[index].fields.function_name);
             $('#costFuntionDescription').val(funcostdb[index].fields.function_description);
-            $('#CalculatorModalLabel').text('Modify Cost - ' + $('#titleCostFunSmall').text());
+            $('#CalculatorModalLabel').text(gettext('Modify Cost function'));
             $('#currencyCost').val(funcostdb[index].fields.currencyCost);
             $('#global_multiplier_factorCalculator').val();
             setVarCost();
@@ -764,7 +764,7 @@ function onInit(editor) {
             typesetInput('');
             $('#costFunctionName').val('');
             $('#costFuntionDescription').val('');
-            $('#CalculatorModalLabel').text('New Function Cost - ' + $('#titleCostFunSmall').text())
+            $('#CalculatorModalLabel').text(gettext('New Function cost'));
             for (const index of graphData) {
                 var costlabel = "";
                 for (const iterator of JSON.parse(index.varcost)) {

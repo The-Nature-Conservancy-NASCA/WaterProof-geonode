@@ -425,3 +425,9 @@ msgstr "Confirmar y ejecutar"
 
 msgid "Please complete all required information"
 msgstr "Por favor complete toda la información requerida"
+
+msgid "Modify Cost function"
+msgstr "Modificar función de costo"
+
+msgid "New Cost function"
+msgstr "Nueva función de costo"

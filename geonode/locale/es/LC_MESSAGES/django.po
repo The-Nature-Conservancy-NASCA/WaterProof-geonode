@@ -4494,7 +4494,7 @@ msgstr "Otro"
 
 #: geonode/people/forms.py:160 geonode/people/models.py:132
 msgid "Use Analysis"
-msgstr "Propósito de análisis"
+msgstr "Propósito del análisis"
 
 #: geonode/people/forms.py:162 geonode/people/forms.py:165 geonode/people/models.py:138
 #, fuzzy

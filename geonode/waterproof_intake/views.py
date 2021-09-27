@@ -1045,7 +1045,7 @@ def viewIntakeDemand(request, idx):
             interpolation = ""
         else:
             demand = DemandParameters.objects.get(id=intake.demand_parameters.pk)
-            years = WaterExtraction.objects.filter(demand=intake.demand_parameters.pk)
+            years = WaterExtraction.objects.filter(demand=intake.demand_parameters.pk).order_by('year')
             interpolation = interpolations[intake.demand_parameters.interpolation_type]
             initial_extraction = '{0:.2f}'.format(demand.initial_extraction).replace('.', ',')
             final_extraction = '{0:.2f}'.format(demand.ending_extraction).replace('.', ',')
