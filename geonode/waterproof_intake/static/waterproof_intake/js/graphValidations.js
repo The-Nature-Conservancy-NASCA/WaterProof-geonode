@@ -95,8 +95,7 @@ function updateStyleLine(graph, cell, type) {
                     if (type.style == 'PIPELINE' || type.style == 'CHANNEL' || type.style == 'CONNECTION' ){
                         resultDbObj[0].fields.predefined_transp_water_perc = '';
                         enableBtnValidateCount++;
-                        validateTransportedWater('');
-                        //$('#aguaDiagram').val(''); 
+                        validateTransportedWater('');                        
                     }
                     
                     let valueObj = {
@@ -121,7 +120,6 @@ function updateStyleLine(graph, cell, type) {
                             $('#titleCostFunSmall').attr("valueid", label);
                             $('#titleCostFunSmall').text(`ID: ${cell.id} - ${connectionsType[obj.connectorType].name}`);
                             
-
                             addData2HTML(dbfields, cell)
                         } catch (e) {
                             label = "";
@@ -161,33 +159,28 @@ function funcost(index) {
     }
     $('#funcostgenerate').append(
         `
-    <tr idvalue="fun_${index}">
-        <td aling="center">${funcostdb[index].fields.function_name}</td>
-        <td class="small text-center vat" style="width: 160px">
-        <a class="btn btn-info" idvalue="${index}" name="fun_display_btn">fx</a>
-        <div id="fun_display_${index}" style="position: absolute; left: 50%; width: auto; display: none;">
-        <div class="alert alert-info mb-0" style="position: relative; left: -50%; bottom: -10px;" role="alert">
-        <p name="render_ecuation" style="font-size: 1.8rem; width:100%;">${funcostdb[index].fields.function_value}</p>
-         </div>
-        </div>
-        </td>
-        <td class="small text-center vat">${currencyCostName}</td>
-        <td class="small text-center vat">${factor}</td>
-        <td class="small text-center vat" style="width: 85px">
-            <div class="btn-group btn-group-table" role="group">
-                <a class="btn btn-info" name="glyphicon-edit" idvalue="${index}"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
-                <a class="btn btn-danger" name="glyphicon-trash" idvalue="${index}"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
-            </div>
-        </td>
-
-    </tr>
-    `
-    );
-    console.log(funcostdb[index].fields.function_value)
-
-    $('p[name=render_ecuation]').each(function() {
-        //MQ.StaticMath(this);
-    });
+        <tr idvalue="fun_${index}">
+            <td aling="center">${funcostdb[index].fields.function_name}</td>
+            <td class="small text-center vat" style="width: 160px">
+                <a class="btn btn-info" idvalue="${index}" name="fun_display_btn" trigger="click" data-toggle="tooltip" data-placement="bottom" title="${funcostdb[index].fields.function_value}">fx</a>
+                <div id="fun_display_${index}" style="position: absolute; left: 50%; width: auto; display: none;">
+                    <div class="alert alert-info mb-0" style="position: relative; left: -50%; bottom: -10px;" role="alert">
+                        <p name="render_ecuation" style="font-size: 1.8rem; width:100%;">${funcostdb[index].fields.function_value}</p>
+                    </div>
+                </div>
+            </td>
+            <td class="small text-center vat">${currencyCostName}</td>
+            <td class="small text-center vat">${factor}</td>
+            <td class="small text-center vat" style="width: 85px">
+                <div class="btn-group btn-group-table" role="group">
+                    <a class="btn btn-info" name="glyphicon-edit" idvalue="${index}"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
+                    <a class="btn btn-danger" name="glyphicon-trash" idvalue="${index}"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+                </div>
+            </td>
+        </tr>
+        `
+        );
+    //console.log(funcostdb[index].fields.function_value)
 }
 
 function addData(element) {
@@ -208,7 +201,7 @@ function addData(element) {
         funcostdb = obj.funcost;
         for (let index = 0; index < funcostdb.length; index++) {
             funcost(index);
-        }
+        }        
     } else {
         $('#titleDiagram').text(element.getAttribute('name'));
         $('#titleCostFunSmall').attr("valueid", element.id);
@@ -226,10 +219,9 @@ function addData(element) {
         addData2HTML(resultdb, element);
         for (let index = 0; index < funcostdb.length; index++) {
             funcost(index);
-
         }
     }
-
+    $('[data-toggle="tooltip"]').tooltip();
 }
 
 function addData2HTML(resultdb, cell) {
@@ -247,7 +239,7 @@ function addData2HTML(resultdb, cell) {
     $('#funcostgenerate').empty();
     // Add Value to Panel Information Right on HTML
     $('#aguaDiagram').val(resultdb[0].fields.predefined_transp_water_perc); 
-    
+
     $('#sedimentosDiagram').val(resultdb[0].fields.predefined_sediment_perc);
     $('#nitrogenoDiagram').val(resultdb[0].fields.predefined_nitrogen_perc);
     $('#fosforoDiagram').val(resultdb[0].fields.predefined_phosphorus_perc);

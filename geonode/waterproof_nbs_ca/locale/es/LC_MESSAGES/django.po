@@ -412,7 +412,7 @@ msgid "Field empty"
 msgstr "Campo vacío"
 
 #: geonode/waterproof_nbs_ca/views.py:623
-msgid "Through this form you can create a custom SbN. Select the country to which the NBS will be associated and fill in the identification information, costs and the transitions obtained with its implementation."
+msgid "Through this form you can create a custom NbS. Select the country to which the NbS will be associated and fill in the identification information, costs and the transitions obtained with its implementation."
 msgstr "A través de este formulario usted puede crear una SbN personalizada. Seleccione el país al cual se asociará la SbN y diligencie la información de identificación, costos y las transiciones obtenidas con su implementación."
 
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_list.html:23
