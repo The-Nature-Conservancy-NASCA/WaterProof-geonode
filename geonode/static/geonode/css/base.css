@@ -9443,9 +9443,9 @@ top:50px;
 
     .ico6-text{
         position: absolute;
-        max-width: 255px;
-        right: -96px;
+        width: 100%;
         top: 355px;
+        left: 41%;
     }
 .img-card-news {
   object-fit: cover;
