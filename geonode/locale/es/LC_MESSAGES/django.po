@@ -8043,7 +8043,7 @@ msgstr "Número de años"
 #, fuzzy
 #| msgid "External Resource"
 msgid "External inputs"
-msgstr "Recurso Externo"
+msgstr "Entradas externas"
 
 #: geonode/templates/waterproof_intake/intake_clone.html:315 geonode/templates/waterproof_intake/intake_demand.html:170 geonode/templates/waterproof_intake/intake_detail_list.html:298 geonode/templates/waterproof_intake/intake_edit.html:315 geonode/templates/waterproof_intake/intake_form.html:312
 msgid "External inputs to define"
@@ -9398,3 +9398,6 @@ msgstr "Representante de un sector económico"
 
 msgid "Analyst"
 msgstr "Analista"
+
+msgid "External input"
+msgstr "Entrada externa"

@@ -1572,7 +1572,7 @@ function funcost(index) {
     var currencyCostName = funcostdb[index].function.currencyCostName != undefined ? funcostdb[index].function.currencyCostName : funcostdb[index].function.currency;
     var factor = funcostdb[index].function.factor;
     if (currencyCostName == undefined) {
-        currencyCostName = "";
+        currencyCostName = localStorage.getItem("currency");
     }
     if (factor == undefined) {
         factor = localStorage.getItem("factor");

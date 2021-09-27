@@ -295,7 +295,7 @@ $(function () {
 
             localStorage.setItem('country', country);
             localStorage.setItem('region', data.region);
-            localStorage.setItem('currency', data.currencies[0].name + " - " + data.currencies[0].symbol);
+            localStorage.setItem('currency', data.currencies[0].name);
         });
     }
 
