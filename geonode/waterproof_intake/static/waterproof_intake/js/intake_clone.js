@@ -418,7 +418,7 @@ $(document).ready(function () {
                     Swal.fire({
                         icon: 'warning',
                         title: `Data analysis empty`,
-                        text: `Please Generate Data anlisys`
+                        text: `Please Generate Data analysis`
                     });
                     return;
                 }

@@ -686,8 +686,8 @@ msgid "Load Default Diagram"
 msgstr "Cargar Diagrama predeterminado"
 
 #: template/intake_form.html:203
-msgid "The elements of the collection system have associated operating costs, you can modify them, discard them or add new costs"
-msgstr "Los elementos del sistema de captación tienen asociados costos operacionales, usted puede modificarlos, descartarlos o agregar nuevos costos"
+msgid "The infrastructure elements of the water intake system have associated operating and maintenance costs. You can modify them, discard them or add new costs."
+msgstr "Los elementos de infraestructura del sistema de captación tienen asociados costos de operación y mantenimiento. Usted puede modificarlos, descartarlos o agregar nuevos costos."
 
 #: template/intake_form.html:231
 msgid "Water demand"
@@ -702,7 +702,7 @@ msgid "Number of years for time series  (10-100) Year"
 msgstr "Numero de años para la serie de tiempo  (10-100) años"
 
 #: template/intake_form.html:289 template/intake_form.html:326
-msgid "Clic the following button to calculate the wather extraction in each year"
+msgid "Clic the following button to calculate the water extraction in each year"
 msgstr "De clic en el siguiente botón para calcular la extracción de agua para cada año"
 
 #: template/intake_form.html:321
@@ -974,9 +974,8 @@ msgid "Error saving intake"
 msgstr "Error Guardando captación"
 
 #: template/intake_list.html:34
-msgid "From this section you can view the water intakes created in the system associated with a city of interest. You can search for intakes of different cities from 'Search city'. The system will show you a list of cities with matches around the world. Select the appropriate option from the list. "
-msgstr ""
-"Desde esta sección puede consultar las captaciones de agua creadas en el sistema asociadas a una ciudad de interés. Puede buscar captaciones de diferentes ciudades desde “Buscar ciudad”. El sistema le mostrará un listado de ciudades con las coincidencias a nivel mundial. Seleccione de la lista la opción que corresponda."
+msgid "From this section you can view the water intakes created in the system associated with a city of interest. You can search for intakes of different cities from 'Search city'. The system will show you a list of cities with matches around the world. Select the appropriate option from the list."
+msgstr "Desde esta sección puede consultar las captaciones de agua creadas en el sistema asociadas a una ciudad de interés. Puede buscar captaciones de diferentes ciudades desde “Buscar ciudad”. El sistema le mostrará un listado de ciudades con las coincidencias a nivel mundial. Seleccione de la lista la opción que corresponda."
 
 msgid "You can delineate a basin associated with a city, to do this, search for the city to which you will associate your basin and then click on the 'Create new water intake' button."
 msgstr "Puede delinear una cuenca asociada a una ciudad, para esto, busque la ciudad a la que asociará su cuenca y luego haga clic en el botón 'Crear nueva toma de agua'."
