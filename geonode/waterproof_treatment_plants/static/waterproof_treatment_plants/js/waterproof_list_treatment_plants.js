@@ -1191,7 +1191,7 @@ $(function () {
             
             localStorage.setItem('country', country);
             localStorage.setItem('region', data.region);
-            localStorage.setItem('currency', data.currencies[0].name + " - " + data.currencies[0].symbol);
+            localStorage.setItem('currency', data.currencies[0].name);
         });
 
         urlAPI = location.protocol + "//" + location.host + "/parameters/getClosetsCities/?x=" + feat.geometry.coordinates[0] + "&y=" + feat.geometry.coordinates[1];

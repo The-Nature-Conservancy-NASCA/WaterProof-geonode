@@ -424,15 +424,6 @@
             loadDefaultXmlDiagram(editor);
         });
  
-        /* $("#currencyCost").on("change", function() {
-            $.ajax({
-                url: `/parameters/load-currency/?currency=${$('#currencyCost').val()}`,
-                success: function(result) {
-                    $('#global_multiplier_factorCalculator').val(JSON.parse(result)[0].fields.global_multiplier_factor);
-                }
-            });
-         });
-         */
          //load data when add an object in a diagram
         editor.graph.addListener(mxEvent.ADD_CELLS, function(sender, evt) {
             var selectedCell = evt.getProperty("cells");
@@ -715,11 +706,6 @@
              })
          });
  
-        $(document).on('click', 'a[name=fun_display_btn]', function() {
-            var idx = $(this).attr('idvalue');
-            $(`#fun_display_${idx}`).toggle();
-        });
- 
          function setVarCost() {
              banderaFunctionCost = false;
              $('#VarCostListGroup div').remove();
@@ -848,7 +834,7 @@
                              Swal.fire({
                                  icon: 'warning',
                                  title: gettext('Field empty'),
-                                 text: gettext('Please fill every fields')
+                                 text: gettext('Please complete all required information')
                              });
                              return;
                          } else {

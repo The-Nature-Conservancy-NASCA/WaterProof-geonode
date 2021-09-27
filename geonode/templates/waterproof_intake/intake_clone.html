@@ -477,20 +477,20 @@
                             <div class="col-xs-6">
                                 <label class="text-primary">{% trans "Currency for definition of costs" %} </label>
                                 <select id="currencyCost" class="form-control" required>
-
                                     {% for currency in currencies %}
-                                
-                                        {% if currency.name == intake.city.country.name %}
-                                            <option value="{{currency.pk}}" selected>({{currency.currency}}) - {{currency.name}} </option>
-                                        {% endif %}
-                                        <!--option selected="true" value="{{currency.pk}}" selected>({{currency.currency}}) - {{intake.city.country}}</option-->
                                         {% if currency.iso3 == 'USA'%}
-                                            <option value="{{currency.pk}}" data-country="{{currency.iso3}}">({{currency.currency}}) - {{currency.name}}</option>
+                                            {% if currency.currency == intake.city.country.currency %}                                                
+                                                <option value="{{currency.currency}}" data-country="{{currency.iso3}}" selected>({{currency.currency}}) - {{currency.name}}</option>
+                                            {% else %}
+                                                <option value="{{currency.currency}}" data-country="{{currency.iso3}}">({{currency.currency}}) - {{currency.name}}</option>
+                                            {% endif %}                                            
                                         {% else %}
-                                            <option value="{{currency.pk}}">({{currency.currency}}) - {{currency.name}}</option>
+                                            {% if currency.currency == intake.city.country.currency %}
+                                                <option value="{{currency.currency}}" attr="{{currency.currency}}" selected>({{currency.currency}}) - {{currency.name}} </option>
+                                            {% else %}
+                                                <option value="{{currency.currency}}">({{currency.currency}}) - {{currency.name}}</option>
+                                            {% endif %}
                                         {% endif %}
-                                        
-                                        
                                     {% endfor %}
                                 </select>
                             </div>

@@ -152,26 +152,25 @@ function funcost(index) {
     var currencyCostName = funcostdb[index].fields.currencyCostName != undefined ? funcostdb[index].fields.currencyCostName : funcostdb[index].fields.currency; 
     var factor = funcostdb[index].fields.global_multiplier_factorCalculator;
     if (currencyCostName == undefined){
-        currencyCostName = "";        
+        currencyCostName = localStorage.getItem("currency");
     }
     if (factor == undefined){
         factor = localStorage.getItem("factor");
     }
+    let tdClass = "small text-center vat";
+    let templateTooltip = '<div class="tooltip" role="tooltip"><div class="arrow"></div><div class="tooltip-inner btn btn-info"></div></div>';
+    let aProps = `class="btn btn-info"html=true trigger="click" data-toggle="tooltip" data-placement="top" template='${templateTooltip}'`;
+    
     $('#funcostgenerate').append(
         `
         <tr idvalue="fun_${index}">
             <td aling="center">${funcostdb[index].fields.function_name}</td>
-            <td class="small text-center vat" style="width: 160px">
-                <a class="btn btn-info" idvalue="${index}" name="fun_display_btn" trigger="click" data-toggle="tooltip" data-placement="bottom" title="${funcostdb[index].fields.function_value}">fx</a>
-                <div id="fun_display_${index}" style="position: absolute; left: 50%; width: auto; display: none;">
-                    <div class="alert alert-info mb-0" style="position: relative; left: -50%; bottom: -10px;" role="alert">
-                        <p name="render_ecuation" style="font-size: 1.8rem; width:100%;">${funcostdb[index].fields.function_value}</p>
-                    </div>
-                </div>
+            <td class="${tdClass}" style="width: 160px">
+                <a id="fn${index}" ${aProps} title="${funcostdb[index].fields.function_value}">fx</a>                
             </td>
-            <td class="small text-center vat">${currencyCostName}</td>
-            <td class="small text-center vat">${factor}</td>
-            <td class="small text-center vat" style="width: 85px">
+            <td class="${tdClass}">${currencyCostName}</td>
+            <td class="${tdClass}">${factor}</td>
+            <td class="${tdClass}" style="width: 85px">
                 <div class="btn-group btn-group-table" role="group">
                     <a class="btn btn-info" name="glyphicon-edit" idvalue="${index}"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
                     <a class="btn btn-danger" name="glyphicon-trash" idvalue="${index}"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
