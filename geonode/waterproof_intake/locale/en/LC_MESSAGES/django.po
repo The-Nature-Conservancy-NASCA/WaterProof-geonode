@@ -766,8 +766,8 @@ msgid "Number of years for time series  (10-100) Year"
 msgstr "Number of years for time series  (10-100) Year"
 
 #: template/intake_form.html:289 template/intake_form.html:326
-msgid "Clic the following button to calculate the wather extraction in each year"
-msgstr "Click here to calculate the wather extraction in each year"
+msgid "Clic the following button to calculate the water extraction in each year"
+msgstr "Click here to calculate the water extraction in each year"
 
 #: template/intake_form.html:321
 msgid "Number of years  (10-100) Year"
@@ -1028,10 +1028,6 @@ msgstr "Select the elements that make up your capture system and click on the dr
 #: template/intake_list.html:34
 msgid "From this section you can view the water intakes created in the system associated with a city of interest. You can search for intakes of different cities from 'Search city'. The system will show you a list of cities with matches around the world. Select the appropriate option from the list. "
 msgstr "From this section you can view the water intakes created in the system associated with a city of interest. You can search for intakes of different cities from 'Search city'. The system will show you a list of cities with matches around the world. Select the appropriate option from the list. "
-
-#: template/intake_form.html:195
-msgid "The elements of the collection system have associated operating costs, you can modify them, discard them or add new costs"
-msgstr "The elements of the collection system have associated operating costs, you can modify them, discard them or add new costs"
 
 #: template/intake_form.html:460
 msgid "Cost function name"

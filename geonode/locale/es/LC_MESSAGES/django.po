@@ -4494,7 +4494,7 @@ msgstr "Otro"
 
 #: geonode/people/forms.py:160 geonode/people/models.py:132
 msgid "Use Analysis"
-msgstr "Propósito de análisis"
+msgstr "Propósito del análisis"
 
 #: geonode/people/forms.py:162 geonode/people/forms.py:165 geonode/people/models.py:138
 #, fuzzy
@@ -8999,7 +8999,7 @@ msgid "FAST"
 msgstr "Rápido"
 
 msgid "Rapidly develop a pre-feasibility understanding for how NbS can generate water security outcomes"
-msgstr "Desarrollar rápidamente un entendimiento de prefactibilidad sobre cómo las SbN pueden generar resultados de seguridad hídrica."
+msgstr "Desarrolle rápidamente un entendimiento de prefactibilidad sobre cómo las SbN pueden generar resultados de seguridad hídrica."
 
 msgid "COMPELLING"
 msgstr "Confiable"
@@ -9017,7 +9017,7 @@ msgid "FREE"
 msgstr "Libre"
 
 msgid "We are committed to equipping local NbS champions with the information"
-msgstr "Estamos comprometidos con fortalecer con la información líderes locales en SbN"
+msgstr "Estamos comprometidos con fortalecer líderes locales con información sobre SbN"
 
 msgid "How does WaterProof work?"
 msgstr "¿Cómo funciona WaterProof?"
@@ -9056,10 +9056,10 @@ msgid "Knowledge bank"
 msgstr "Banco de conocimiento"
 
 msgid "Check here the conceptual elements that Waterproof uses to propose"
-msgstr "Consulta aquí los elementos conceptuales que utiliza WaterProof"
+msgstr "Consulte aquí los elementos conceptuales que utiliza WaterProof"
 
 msgid "Nature based Solutions and calculate the return on your investment"
-msgstr "para proponer Soluciones Naturales y calcula el retorno de tu inversión"
+msgstr "para proponer Soluciones basadas en laNaturaleza y calcular el retorno de tu inversión"
 
 msgid "FAQ"
 msgstr "Preguntas frecuentes"
@@ -9074,7 +9074,7 @@ msgid "Begin your Nature based Solutions journey"
 msgstr "Comience su ruta de implementación de soluciones basadas en la naturaleza"
 
 msgid "Explore how Nature-based Solutions can generate outcomes in your catchment."
-msgstr "Explore cómo las soluciones basadas en la naturaleza pueden generar resultados en su captación."
+msgstr "Explore cómo las soluciones basadas en la naturaleza pueden generar resultados en su cuenca."
 
 msgid "Start now"
 msgstr "Empiece ahora"

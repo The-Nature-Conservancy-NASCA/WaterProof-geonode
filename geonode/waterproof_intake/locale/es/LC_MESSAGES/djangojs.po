@@ -471,3 +471,13 @@ msgstr "Nitrógeno (Kg)"
 #: static/waterproof_intake/js/intake_list.js:96
 msgid "Phosphorus (Kg)"
 msgstr "Fósforo (Kg)"
+
+msgid "Modify Cost function"
+msgstr "Modificar función de costo"
+
+msgid "New Cost function"
+msgstr "Nueva función de costo"
+
+msgid "Saving"
+msgstr "Guardando"
+
