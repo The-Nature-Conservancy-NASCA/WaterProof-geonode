@@ -116,6 +116,7 @@
                                             <label for="div_id_type" class="control-label required-field " style="font-size: 16px;">{% trans "water_intakes" %}<span class="text-danger-wp" id="ptap-required"></span></label>
                                         </legend>
                                         <p>{% trans "select_water_intake" %}</p>
+                                        <span  onclick="window.location.href='/intake/create/'" class="glyphicon glyphicon-plus-sign btn-add"></span>
                                         <div class="col-md-9">
                                             <select class="form-control" id="select_custom">
                                                 <option disabled selected value>{% trans "select_option" %}</option>
@@ -158,7 +159,7 @@
                                                 <label for="div_id_type" class="control-label required-field " style="font-size: 16px;">{% trans "treatment_plants" %}<span class="text-danger-wp" id="ptap-required"></span></label>
                                             </legend>
                                             <p>{% trans "select_treatments_plants" %}</p>
-
+                                            <span  onclick="window.location.href='/treatment_plants/create/'" class="glyphicon glyphicon-plus-sign btn-add"></span>
                                             <div class="col-md-9">
                                                 <select class="form-control" id="select_ptap">
                                                     <option disabled selected value>{% trans "select_option" %}</option>
@@ -319,7 +320,7 @@
                                     <button type="button" class="btn btn-primary" id="btn-advanced_option">{% trans "advanced_options" %}</button>
                                     <br>
                                     <p style="margin-top: 20px;" id="txtGuide1"></p>
-                                    <p id="txtGuide2"></p>
+                                    <a id="txtGuide2" href="https://storage.googleapis.com/releases.naturalcapitalproject.org/invest-userguide/latest/index.html"></a>
                                     <div class="row biophysical-panel panel-hide" id="biophysical-panel">
 
                                     </div>
