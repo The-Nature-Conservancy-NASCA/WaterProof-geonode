@@ -469,7 +469,7 @@ $(function () {
                 document.getElementById("idIntakePlant").style.display = "none";
                 document.getElementById("idSendIntake").style.display = "none";
                 document.getElementById("idBackgroundGraph").style.display = "none";
-                document.getElementById("submit").style.display = "none";                
+                document.getElementById("submit").style.display = "none";
                 onlyReadPlant = true;
             } else {                
                 document.getElementById("idBackgroundGraph").style.display = "none";
