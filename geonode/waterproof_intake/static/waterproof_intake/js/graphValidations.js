@@ -157,12 +157,10 @@ function funcost(index) {
     if (factor == undefined){
         factor = localStorage.getItem("factor");
     }
-    let tdClass = "small text-center vat";
-    let templateTooltip = '<div class="tooltip" role="tooltip"><div class="arrow"></div><div class="tooltip-inner btn btn-info"></div></div>';
-    let aProps = `class="btn btn-info"html=true trigger="click" data-toggle="tooltip" data-placement="top" template='${templateTooltip}'`;
+    let tdClass = "small text-center vat";    
+    let aProps = `class="btn btn-info"html=true trigger="click" data-toggle="tooltip" data-placement="top"`;
     
-    $('#funcostgenerate').append(
-        `
+    $('#funcostgenerate').append(`
         <tr idvalue="fun_${index}">
             <td aling="center">${funcostdb[index].fields.function_name}</td>
             <td class="${tdClass}" style="width: 160px">
@@ -339,29 +337,33 @@ $(document).on('click', '#helpgraph', function() {
 var validateinput = function(e) {
     let minRange = e.getAttribute('min');
     let maxRange = e.getAttribute('max');
+
+    if (minRange == 0 && maxRange == 0) {
+        e.value = 0;
+        return false;
+    }
+
     var t = e.value;
     if (e.id == "aguaDiagram"){
         validateTransportedWater(t);
     }
     e.value = (t.indexOf(".") >= 0) ? (t.substr(0, t.indexOf(".")) + t.substr(t.indexOf("."), 3)) : t;
-    if (parseFloat(e.value) < parseFloat(e.getAttribute('min')) || (e.value.length == 0)) {
-        let texttitle = gettext("The value must be between %s and %s");
-        let transtitle = interpolate(texttitle, [minRange, maxRange]);
-        let text = gettext(`The minimun value is %s please use the arrows`)
+    let texttitle = gettext("The value must be between %s and %s");
+    let transtitle = interpolate(texttitle, [minRange, maxRange]);
+    if (parseFloat(e.value) < parseFloat(minRange) || (e.value.length == 0)) {        
+        let text = gettext(`The minimum value is %s please use the arrows`)
         let transtext = interpolate(text, [maxRange]);
-        e.value = e.getAttribute('min');
+        e.value = minRange;
         Swal.fire({
             icon: 'warning',
             title: transtitle,
             text: transtext
         });
     }
-    if (parseFloat(e.value) > parseFloat(e.getAttribute('max'))) {
-        let texttitle = gettext("The value must be between %s and %s");
-        let transtitle = interpolate(texttitle, [minRange, maxRange]);
+    if (parseFloat(e.value) > parseFloat(maxRange)) {        
         let text = gettext(`The maximum value is %s please use the arrows`)
         let transtext = interpolate(text, [maxRange]);
-        e.value = e.getAttribute('max');
+        e.value = maxRange;
         Swal.fire({
             icon: 'warning',
             title: transtitle,

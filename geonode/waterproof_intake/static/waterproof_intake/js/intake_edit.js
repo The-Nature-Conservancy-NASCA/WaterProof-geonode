@@ -67,10 +67,10 @@ $(document).ready(function () {
         generateWaterExtraction();
     });
     setInterpolationParams();
-    setTimeout(() => {
-        loadExternalDataOnInit();
-        loadExternalInput();
-    }, 1000);    
+    // setTimeout(() => {
+    //     loadExternalDataOnInit();
+    //     loadExternalInput();
+    // }, 1000);    
 
     function loadExternalDataOnInit() {
         for (let id = 0; id < graphData.length; id++) {
@@ -289,6 +289,27 @@ $(document).ready(function () {
         }
     });
 
+    $('#step4PrevBtn').click(function () {
+        $('#smartwizard').smartWizard("prev");
+    });
+
+    $('#step5PrevBtn').click(function () {
+        $('#smartwizard').smartWizard("prev");
+    });
+
+    $('#submit').click(function (event) {
+        if (!validGeometry) {
+            event.preventDefault();
+            Swal.fire({
+                icon: 'error',
+                title: gettext('Geometry error'),
+                text: gettext('You must validate the basin geometry')
+            })
+        } else {
+            intakeStepFive();
+        }
+    });
+
     function loadExternalInput() {
         if (graphData.length == 0) {
             return;
@@ -322,6 +343,8 @@ $(document).ready(function () {
                                     <tbody>${rows}</tbody>
                             </table>    
                     `);
+                    $('#externalSelect').val(extractionData.id);
+                    $(`#table_${$('#externalSelect').val()}`).css('display', 'block');
                 }else{
                     numberYearsInterpolationValue = Number($("#numberYearsInterpolationValue").val());
                     externalInput(numberYearsInterpolationValue);
@@ -330,27 +353,6 @@ $(document).ready(function () {
             }
         }
     }
-
-    $('#step4PrevBtn').click(function () {
-        $('#smartwizard').smartWizard("prev");
-    });
-
-    $('#step5PrevBtn').click(function () {
-        $('#smartwizard').smartWizard("prev");
-    });
-
-    $('#submit').click(function (event) {
-        if (!validGeometry) {
-            event.preventDefault();
-            Swal.fire({
-                icon: 'error',
-                title: gettext('Geometry error'),
-                text: gettext('You must validate the basin geometry')
-            })
-        } else {
-            intakeStepFive();
-        }
-    });
 
     // Change Option Manual Tab
     $('#btnManualTab').click(function () {
@@ -417,8 +419,7 @@ $(document).ready(function () {
     });
 
     let initialCoords = [4.5, -74.4];
-    let zoom = 5;
-    let urlOSM = 'https://{s}.tile.osm.org/{z}/{x}/{y}.png';
+    let zoom = 5;    
     let attr = '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors';
     var cityCoords = localStorage.getItem('cityCoords');
     if (cityCoords == undefined) {
@@ -430,16 +431,15 @@ $(document).ready(function () {
 
     map = L.map('map', {}).setView(initialCoords, zoom);
     mapDelimit = L.map('mapid', { editable: true }).setView(initialCoords, zoom);
-    var osm = L.tileLayer(urlOSM, {
+    var osm = L.tileLayer(OSM_BASEMAP_URL, {
         attribution: attr,
     });
-    var osmid = L.tileLayer(urlOSM, {
+    var osmid = L.tileLayer(OSM_BASEMAP_URL, {
         attribution: attr,
     });
     map.addLayer(osm);
-    var images = L.tileLayer("https://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryTopo/MapServer/tile/{z}/{y}/{x}");
-    var esriHydroOverlayURL = "https://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/Esri_Hydro_Reference_Overlay/MapServer/tile/{z}/{y}/{x}";
-    var hydroLyr = L.tileLayer(esriHydroOverlayURL);
+    var images = L.tileLayer(IMG_BASEMAP_URL);
+    var hydroLyr = L.tileLayer(HYDRO_BASEMAP_URL);
     var wmsHydroNetworkLyr = L.tileLayer.wms(GEOSERVER_WMS, {
         layers: HYDRO_NETWORK_LYR,
         format: 'image/png',
@@ -568,6 +568,18 @@ $(document).ready(function () {
         }
     });
     observer2.observe(menu1Tab, { attributes: true });
+
+    function updateTooltips() {
+        let mxImgsBtn = $("#toolbar .mxToolbarMode");
+        mxImgsBtn.forEach( b => {
+            $(b).attr("data-toggle", "tooltip");
+            $(b).attr("data-placement", "bottom");
+            $(b).attr("title", gettext($b.attr("title"))) ;
+        });
+
+
+        $('[data-toggle="tooltip"]').tooltip();
+    }
 
 });
 
