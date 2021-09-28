@@ -246,8 +246,7 @@
                 <div id="step-4" class="tab-pane" role="tabpanel">
                     <div class="page-header">
                         <h3> {% trans "modelling_parameters" %}</h3>
-                        <p>{% trans "tables_text" %}</p>
-                        <p><a href=https://storage.googleapis.com/releases.naturalcapitalproject.org/invest-userguide/latest/index.html >{% trans "InVEST_documentation" %}</a></p>
+                        <a id="txtGuide2" href="{{ invest_doc }}" target="_blank">{% trans "InVEST_documentation" %}</a>
                         <div class="row biophysical-panel panel-hide" id="biophysical-panel">
 
                         </div>
@@ -410,8 +409,7 @@
                     <div class="page-header">
                         <h3> {% trans "analysis_parameter" %}
                             <button type="button" data-toggle="modal" data-target="#HelpStep7" id="HelpModalBtnModal_step3" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
-                        </h3>
-                        <p>{% trans "analysis_tip" %}</p>
+                        </h3>                        
                     </div>
                     <div class="row">
                         <div class="col-md-6">
@@ -455,8 +453,7 @@
                         <div class="col-md-12">
                             <label class="control-label required-field ">
                                 {% trans "investment_scenario" %}
-                            </label>
-                            <p>{% trans "investment_tip" %}</p>
+                            </label>                            
                         </div>
                         <div class="col-md-12">
                             <div class="col-md-6">
@@ -485,16 +482,6 @@
 
                         </div>
                     </div>
-                    <div id="div_rellocated_check" class="form-group">
-                        <div class="custom-control custom-checkbox">
-                            {% if study_case.rellocated_remainder %}
-                            <input type="checkbox" class="custom-control-input" id='rellocated_check' checked disabled>
-                            {% else %}
-                            <input type="checkbox" class="custom-control-input" id='rellocated_check' disabled>
-                            {% endif %}
-                            <label class="custom-control-label" for="rellocated_check">{% trans "rellocated_remainder" %}</label>
-                        </div>
-                    </div>
                     <div class="row text-center">
                         <div class="col-md-12">
                             <button type="button" class="btn btn-primary" id="step7PreviousBtn">{% trans "Previous" %}</button>
@@ -502,7 +489,6 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </form>

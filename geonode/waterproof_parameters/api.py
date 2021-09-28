@@ -20,8 +20,6 @@ def getClosetsCities(request):
     cur.execute(query)
     rows = cur.fetchall()
     return JsonResponse(rows, safe=False)
-		
-
 
 @api_view(['GET'])
 def getCountryByIso2(request):
