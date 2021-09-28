@@ -26,14 +26,26 @@ def getClosetsCities(request):
 @api_view(['GET'])
 def getCountryByIso2(request):
     code = request.GET['code'].upper()
+    
     country = Countries.objects.filter(iso2=code).values_list('name','region__name','currency','currency_symbol', 'iso3')
-    #serialized = serializers.serialize('json', country)  
-    lcountry = list(country)[0]
-    result = {'country': lcountry[0], 
-            'region': lcountry[1], 
-            'currencies': [{'name': lcountry[2], 'symbol': lcountry[3]}],            
-            'alpha3Code': lcountry[4]
-        }
+    c = Countries.objects.filter(iso2=code).first()
+    region = c.subregion
+    if (hasattr(c, 'region')):
+        region = c.region.name
+    print ("%s - %s - %s" % (c.name, region, c.currency))
+    #serialized = serializers.serialize('json', country)
+    try:
+        result = {'country': c.name, 
+                'region': region, 
+                'currencies': [{'name': c.currency, 'symbol': c.currency_symbol}],
+                'alpha3Code': c.iso3
+            }
+    except:
+        result = {'country': code, 
+                'region': '', 
+                'currencies': [{'name': '', 'symbol': ''}],            
+                'alpha3Code': code
+            }
 
 
     #return HttpResponse(result, content_type='application/json')

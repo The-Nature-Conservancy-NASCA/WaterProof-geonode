@@ -110,7 +110,7 @@ msgid "custom_case"
 msgstr "Caso personalizado"
 
 msgid "select_water_intake"
-msgstr "Seleccione la captación que usted considere para el análisis ROI de la lista. Si aún no ha sido creada, de clic en el siguiente botón:"
+msgstr "Seleccione de la lista las captaciones que usted considere para el análisis ROI. Si aún no ha sido creada, de clic en el siguiente botón:"
 
 msgid "water_source"
 msgstr "Nombre de la fuente de agua"
@@ -122,16 +122,13 @@ msgid "add_cost_function"
 msgstr "Agregar función de costo"
 
 msgid "select_treatments_plants"
-msgstr "Seleccione la planta de tratamiento que usted considere para el análisis ROI. Si aún no ha sido creada, creela haciendo clic aquí."
+msgstr "Seleccione de la lista las plantas de tratamiento que usted considere para el análisis ROI. Si aún no ha sido creada, de clic en el siguiente botón:"
 
 msgid "add_plant"
 msgstr "Agregar PTAP"
 
 msgid "carbon_market_benefits"
 msgstr "Beneficios mercado de carbono"
-
-msgid "carbon_market_text"
-msgstr "WaterProof puede considerar beneficios asociados a mercado de Carbono, de clic en el checkbox para incluirlo en el análisis."
 
 msgid "CO2_country"
 msgstr "CO2 Eq para "
@@ -639,3 +636,25 @@ msgstr "Este parámetro especifica si clase de uso de la tierra es nativa (no co
 
 msgid "Study cases help 4 text 41"
 msgstr "Este parámetro indica que ecuación de ETR que se debe usar. Toma valores de 0 ó 1 que. Los valores deben ser 1para suelo con vegetación, excepto humedales, y 0 para todos los demás usos de la tierra, incluidos los humedales, urbano, cuerpos de agua, etc."
+
+msgid "Study case definition"
+msgstr "Definición de caso de estudio"
+
+msgid "Type of infrastructure analyzed in the case study"
+msgstr "Tipo de infraestructura analizada en el caso de estudio"
+
+msgid "My cases tip"
+msgstr ""
+"En esta sección usted puede consultar todos los casos de estudio que ha creado en WaterProof. " 
+"Las opciones le permiten ver el caso de estudio, editarlo, clonarlo, eliminarlo, "
+"ver resultados y compartirlo al público."
+
+msgid "My cases note"
+msgstr ""
+"Note que el listado de casos de estudio que aparece a continuación no está filtrado por ciudad " 
+"(el sistema muestra la totalidad de casos que usted ha creado sin importar su localización) " 
+"y el único filtro aplicado es el de su usuario como creador de los casos de estudio para"
+"facilitar su administración de acuerdo con sus preferencias."
+
+msgid "My Cases of Study"
+msgstr "Mis Casos de Estudio"

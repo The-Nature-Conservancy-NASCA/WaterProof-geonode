@@ -239,7 +239,7 @@
         <input type="hidden" name="studyCity" id="studyCity"/>
         <input type="hidden" name="studyCountry" id="studyCountry"/>
         <input type="hidden" name="studyRegion" id="studyRegion"/>
-        <input type="hidden" name="mapSendImage" id="mapSendImage"/>
+        <input type="hidden " name="mapSendImage" id="mapSendImage"/>
     </form>
 </body>
 
@@ -299,7 +299,9 @@
 <script src="{% static "geonode/js/leaflet/leaflet.defaultextent.js" %}"></script>
 <script src="{{ STATIC_URL }}geonode/js/leaflet/leaflet.ajax.min.js"></script>
 <script src="{{ STATIC_URL }}geonode/js/leaflet/photon/leaflet.photon.js"></script>
-<script src=" {{ STATIC_URL }}geonode/js/leaflet/leaflet-omnivore.min.js "></script>
+<script src="{{ STATIC_URL }}geonode/js/leaflet/leaflet-omnivore.min.js "></script>
+<script src="{{ STATIC_URL }}geonode/js/waterproof/dom-to-image.min.js"></script>
+
 
 <script type="text/javascript">
 
@@ -320,18 +322,19 @@
         });
         var dataTotalBenefitsIntake = [];
         var dataTotalBenefitsIntakeOne = [];
+        var waterIntakeGraph = [];
+        var analisysBenefics = [];
 
-        openPDF = function() {
-      
+        openPDF = function() {      
             generateMap2Img('mapidcuenca','resultado')
-      
-            document.getElementById('studyCase').value = localStorage.idStudyCase;
-            document.getElementById('studyCity').value = localStorage.getItem('city');
-            document.getElementById('studyCountry').value = localStorage.getItem('country');
-            document.getElementById('studyRegion').value = localStorage.getItem('region');
-      
-            window.open('', 'TheWindow');
-            document.getElementById('TheForm').submit();
+            setTimeout(function(){
+                document.getElementById('studyCase').value = localStorage.idStudyCase;
+                document.getElementById('studyCity').value = localStorage.getItem('city');
+                document.getElementById('studyCountry').value = localStorage.getItem('country');
+                document.getElementById('studyRegion').value = localStorage.getItem('region');
+                window.open('', 'TheWindow');
+                document.getElementById('TheForm').submit();
+            }, 4000);
         }
       
         downloadZip = function(){
@@ -416,6 +419,20 @@
                 map.fitBounds(bounds);
             }
         };
+
+        generateMap2Img = function (mapId, imgId) {
+            var mapElement = document.getElementById(mapId);
+            $(".leaflet-control").hide();
+            domtoimage.toPng(mapElement).then(function (dataUrl) {
+                $('#'+ imgId).attr('src', dataUrl);
+                $(".leaflet-control").show();
+                document.getElementById("mapSendImage").value = dataUrl;
+            }).catch(function (error) {
+                console.error('oops, something went wrong!', error);
+                $(".leaflet-control").show();
+            });
+        };
+
         initMapDecision = function () {
                 map = L.map('mapidcuenca', {
                     scrollWheelZoom: false,
@@ -679,15 +696,69 @@
             var urlDetail = "../../reports/getSelectorStudyCasesId/?studyCase=" + localStorage.idStudyCase;
             $.getJSON(urlDetail, function (data) {
                 var listFielTable = "";
+                var contLastSelector = true;
                 $.each( data, function( key, value ) {
                     var option = document.createElement("option");
+                    var firstIntake = value.intakeId;
                     option.text = value.selector;
-                    option.value = value.studyCasesId;
+                    option.value = value.intakeId;
                     document.getElementById("idSelectStudyCase").add(option);
                     document.getElementById("idNameStadyCase").innerHTML = value.studyCasesName;
                     localStorage.studyCasesName = value.studyCasesName;
+                    if (contLastSelector) {
+                        contLastSelector = false;
+                        var urlDetail = "../../reports/getReportAnalisysBenefics/?studyCase=" + localStorage.idStudyCase;
+                        $.getJSON(urlDetail, function (data) {
+                            waterIntakeGraph = data;
+                            $.each( data, function( key, value ) {
+                                if(value.intakeId === firstIntake){
+                                    var objectButton;
+                                    if(value.nameIndicator.toUpperCase() === "PHYSICAL RISK QUANTITY") {
+                                        objectButton = document.getElementById("idButtonPrq");
+                                    } else if(value.nameIndicator.toUpperCase() === "PHYSICAL RISK ASSOCIATED WITH AMOUNT OF WATER") {
+                                        objectButton = document.getElementById("idButtonPrqa");
+                                    } else if(value.nameIndicator.toUpperCase() === "REGULATORY AND REPUTATIONAL") {
+                                        objectButton = document.getElementById("idButtonRar");
+                                    } else if(value.nameIndicator.toUpperCase() === "OVERALL WATER RISK SCORE") {
+                                        objectButton = document.getElementById("idButtonOwr");
+                                    }
+
+                                    if(value.color === "Dark Green") {
+                                        objectButton.style.backgroundColor = "#155816";
+                                    } else if(value.color === "Orange") {
+                                        objectButton.style.backgroundColor = "#EC670A";
+                                    } else {
+                                        objectButton.style.backgroundColor = "#af0900";
+                                    }
+                                    objectButton.innerHTML = value.description;
+                                }
+                            });
+                        });
+
+                        var urlDetail = "../../reports/getReportAnalisysBeneficsC/?studyCase=" + localStorage.idStudyCase;
+                        $.getJSON(urlDetail, function (data) {
+                            analisysBenefics = data;
+                            var listFielTable = "";
+                            $.each( data, function( key, value ) {
+                                if(parseInt(value.intakeId) === parseInt(firstIntake)){
+                                    valueCol2 = value.costPerHectarea.toFixed(2);
+                                    valuaCol3 = value.recomendedIntervetion.toFixed(2)
+                                    listFielTable = listFielTable + `
+                                        <tr>
+                                            <td class="border-table"><span>` + value.sbnf + `</span></td>
+                                            <td class="border-table"><span>` + Intl.NumberFormat('es').format(valueCol2) + `</span></td>
+                                            <td class="border-table"><span>` + Intl.NumberFormat('es').format(valuaCol3) + `</span></td>
+                                        </tr> 
+                                    `
+                                }
+                            });
+
+                            document.getElementById("listFielTable").innerHTML = listFielTable;
+                        });
+                    }
                 });
             });
+
 
             var urlDetail = "../../reports/getStudyCasesIntake/?studyCase=" + localStorage.idStudyCase;
             $.getJSON(urlDetail, function (data) {
@@ -701,9 +772,49 @@
             });
 
             document.getElementById("idSelectStudyCase").onchange = function() {
-                location.href = "../report/" + this.value;
-            }
+                document.getElementById("idButtonPrq").innerHTML = "---";
+                document.getElementById("idButtonPrqa").innerHTML = "---";
+                document.getElementById("idButtonRar").innerHTML = "---";
+                document.getElementById("idButtonOwr").innerHTML = "---";
+                $.each( waterIntakeGraph, function( key, value ) {
+                    if(parseInt(value.intakeId) === parseInt(document.getElementById("idSelectStudyCase").value)){
+                        var objectButton;
+                        if(value.nameIndicator.toUpperCase() === "PHYSICAL RISK QUANTITY") {
+                            objectButton = document.getElementById("idButtonPrq");
+                        } else if(value.nameIndicator.toUpperCase() === "PHYSICAL RISK ASSOCIATED WITH AMOUNT OF WATER") {
+                            objectButton = document.getElementById("idButtonPrqa");
+                        } else if(value.nameIndicator.toUpperCase() === "REGULATORY AND REPUTATIONAL") {
+                            objectButton = document.getElementById("idButtonRar");
+                        } else if(value.nameIndicator.toUpperCase() === "OVERALL WATER RISK SCORE") {
+                            objectButton = document.getElementById("idButtonOwr");
+                        }
 
+                        if(value.color === "Dark Green") {
+                            objectButton.style.backgroundColor = "#155816";
+                        } else if(value.color === "Orange") {
+                            objectButton.style.backgroundColor = "#EC670A";
+                        } else {
+                            objectButton.style.backgroundColor = "#af0900";
+                        }
+                        objectButton.innerHTML = value.description;
+                    }
+                });
+
+                var listFielTable = "";
+                $.each( analisysBenefics, function( key, value ) {
+                    if(parseInt(value.intakeId) === parseInt(document.getElementById("idSelectStudyCase").value)){
+                        valueCol2 = value.costPerHectarea.toFixed(2);
+                        valuaCol3 = value.recomendedIntervetion.toFixed(2)
+                        listFielTable = listFielTable + `
+                            <tr>
+                                <td class="border-table"><span>` + value.sbnf + `</span></td>
+                                <td class="border-table"><span>` + Intl.NumberFormat('es').format(valueCol2) + `</span></td>
+                                <td class="border-table"><span>` + Intl.NumberFormat('es').format(valuaCol3) + `</span></td>
+                            </tr> 
+                        `
+                    }
+                });
+            }
             var urlDetail = "../../reports/getReportOportunityResultMaps/?studyCase=" + localStorage.idStudyCase;
             $.getJSON(urlDetail, function (data) {
                 $.each( data, function( key, value ) {

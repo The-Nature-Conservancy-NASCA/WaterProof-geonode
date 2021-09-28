@@ -1849,7 +1849,7 @@ def dashboard(request):
     return render(request, 'waterproof_reports/dashboard.html', {})
 
 def pivot_data(request):
-    dataset = Countries.objects.all()
+    dataset = Countries.objects.all().exclude(currency='').order_by('currency')
     data = serializers.serialize('json', dataset)
     return JsonResponse(data, safe=False)
 

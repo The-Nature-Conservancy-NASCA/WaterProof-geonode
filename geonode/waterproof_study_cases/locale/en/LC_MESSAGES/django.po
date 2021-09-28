@@ -93,16 +93,13 @@ msgid "add_cost_function"
 msgstr "Add cost function"
 
 msgid "select_treatments_plants"
-msgstr "Select the treatment plants you want to consider in the ROI analysis. If you haven't created it yet, please click here to create a new one."
+msgstr "Select the treatment plants you want to consider in the ROI analysis. If you haven't created it yet, please click in the following button:"
 
 msgid "add_plant"
 msgstr "Add DWTP"
 
 msgid "carbon_market_benefits"
 msgstr "Carbon Market Benefits"
-
-msgid "carbon_market_text"
-msgstr "‘If you wish, WaterProof can consider benefits related to the carbon market.To include these benefits in the analysis, click the following checkbox"
 
 msgid "CO2_country"
 msgstr "CO2 Eq for "
@@ -177,7 +174,7 @@ msgid "sensitivity_maximun_discount"
 msgstr "Sensitivity analysis - Maximun discount rate (%)"
 
 msgid "NBS_conservation_activities_text"
-msgstr "Select the NbS that you want to consider for the analysis”:"
+msgstr "Select the NbS that you want to consider for the analysis:"
 
 msgid "investment_tip"
 msgstr "Enter here the amount of money you want to spent on each NbS per year. If you do not want to pre-determine how much is spent on each NbS, enter the total budget in the Yearly Floating Budget box. You can also enter values of some NbS and enter the remaining budget in the Floating Budget box. Please take into account that WaterProof will consider the values indicated as investment for each of the basins involved in the analysis. If you establish a budget of 100,000 USD but the analysis involves 2 basins, the system will consider 200,000 USD as the total available investment."
@@ -592,3 +589,19 @@ msgstr "This parameter specifies whether land use class is native (not converted
 
 msgid "Study cases help 4 text 41"
 msgstr "This parameter indicates which ETR equation to use. It takes values ​​of 0 or 1 that. Values ​​should be 1 for vegetated soil, except wetlands, and 0 for all other land uses, including wetlands, urban, water bodies, etc."
+
+msgid "My cases tip"
+msgstr ""
+"In this section you can consult all the case studies that you have created in WaterProof. " 
+"Options allow you to view the case study, edit it, clone it, delete it, view results, "
+"and share it to the public."
+
+msgid "My cases note"
+msgstr ""
+"Note that the list of case studies that appears below is not filtered by city " 
+"(the system shows all the cases that you have created regardless of their location) " 
+"and the only filter applied is that of your user as creator of the cases studies to "
+"facilitate its administration according to your preferences."
+
+msgid "My Cases of Study"
+msgstr "My Cases of Study"

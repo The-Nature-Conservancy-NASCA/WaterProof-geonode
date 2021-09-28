@@ -264,7 +264,7 @@
                     </a>
                 </div>
                 <div class="media-body">
-                    <h4>{% trans "Choose or create a new NBS" %}</h4>
+                    <h4>{% trans "Find Your city" %}</h4>
                 </div>
             </div>
             <div class="media">
@@ -274,7 +274,7 @@
                     </a>
                 </div>
                 <div class="media-body">
-                    <h4>{% trans "Define and configure your Water Intakes" %}</h4>
+                    <h4>{% trans "Select / create your Nbs" %}</h4>
                 </div>
             </div>
             <div class="media">
@@ -284,7 +284,7 @@
                     </a>
                 </div>
                 <div class="media-body">
-                    <h4>{% trans "Locate your city" %}</h4>
+                    <h4>{% trans "Configure water intakes" %}</h4>
                 </div>
             </div>
             <div class="media">
@@ -294,7 +294,7 @@
                     </a>
                 </div>
                 <div class="media-body">
-                    <h4>{% trans "Configure your treatment plants or customized infrastructure" %}</h4>
+                    <h4>{% trans "Define infrastructure" %}</h4>
                 </div>
             </div>
             <div class="media">
@@ -304,7 +304,7 @@
                     </a>
                 </div>
                 <div class="media-body">
-                    <h4>{% trans "Define costs and create your case study" %}</h4>
+                    <h4>{% trans "Create a case study" %}</h4>
                 </div>
             </div>
             <div class="media">
@@ -314,7 +314,7 @@
                     </a>
                 </div>
                 <div class="media-body">
-                    <h4>{% trans "Consult, compare, download and share the results" %}</h4>
+                    <h4>{% trans "Analize outputs" %}</h4>
                 </div>
             </div>
         </div>
@@ -471,40 +471,34 @@
         </div>
     </div>
 </section>  -->
-<section id="partner_tnc" style="padding-bottom:15px;">
-    <div class="row justify-content-md-center">
-        <div class="col-md-6 text-left">
-            <div class="col-md-2 text-left"></div>
-            <div class="col-md-4 text-left">
+<section id="partner_tnc" style="padding-left:1.5em;">
+    <div class="container">
+        <div class="row">            
+            <div class="col-md-4 text-left">                
                 <div class="text-center">
                     <h3 class="colorLeftInstructionsR">{% trans "Developed by:" %}</h3> 
-                </div>                
-            </div>
-        </div>
-        <div class="col-md-6 text-left">
-            <h3 class="colorLeftInstructionsR with-support-of">{% trans "Whith the support of:" %}</h3>             
-        </div>
-    </div>
-    <div class="row justify-content-md-center">
-        <div class="col-md-6 text-left">
-            <div class="col-md-2 text-left"></div>
-            <div class="col-md-4 text-left">                
-                <div class="text-left">
-                    <img src="{% static 'geonode/img/LogoTNC2.png' %}" style="width:100%; height:80%;" alt="The Nature Conservancy">
+                </div>
+                <div style="display: flex;">
+                    <div class="text-left">
+                        <img src="{% static 'geonode/img/logo-tnc.png' %}" alt="The Nature Conservancy">
+                    </div>
+                </div>
+            </div>            
+            <div class="col-md-6 col-md-offset-2 text-left">
+                <h3 class="colorLeftInstructionsR with-support-of">{% trans "Whith the support of:" %}</h3>
+                <div style="display: flex;">
+                    <div class="row">
+                        <div class="col-md-4 text-left">    
+                            <img src="{% static 'geonode/img/moore-foundation.png' %}" alt="Moore fundation">                
+                        </div>
+                        <div class="col-md-7 col-md-offset-1 text-left">
+                            {% trans "This website is funded by the Gordon and Betty Moore Foundation through Grant GBMF7100 to support the work of WaterProof" %}
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-6 text-left">
-            <div class="row justify-content-md-center">
-                <div class="col-md-4 text-left align-items-center">    
-                    <img src="{% static 'geonode/img/fundacionmoore.png' %}" style="width:75%; height:100%;" alt="Moore fundation">                
-                </div>
-                <div class="col-md-8 text-left align-items-center">
-                    {% trans "This website is funded by the Gordon and Betty Moore Foundation through Grant GBMF7100 to support the work of WaterProof" %}
-                </div>
-            </div>
-        </div>
-    </div>    
+        </div>        
+    </div> 
 </section> 
 
 <!--search-city modal-->
@@ -518,7 +512,7 @@
                 <h4 class="modal-title text-center" id="HelpModalLabel" style="color:#0C89AA ;">{% trans "Find Your city" %}</h4>
             </div>
             <div class="modal-body video-responsive">
-                <video width="470" height="260" controls>
+                <video width="470" height="260" controls autoplay>
                     <source src="https://dev.skaphe.com/outputs/Media/video-1-capas-07-09-21.mp4" type="video/mp4">                    
                     Your browser does not support the video tag.
                 </video>
@@ -537,7 +531,7 @@
                 <h4 class="modal-title text-center" id="HelpModalLabel" style="color:#0C89AA ;">{% trans "Select / create your Nbs" %}</h4>
             </div>
             <div class="modal-body video-responsive">
-                <video width="470" height="260" controls>
+                <video width="470" height="260" controls autoplay>
                     <source src="https://dev.skaphe.com/outputs/Media/video-2-capas-07-09-21_1.mp4" type="video/mp4">                    
                     Your browser does not support the video tag.
                 </video>               
@@ -556,7 +550,7 @@
                 <h4 class="modal-title text-center" id="HelpModalLabel" style="color:#0C89AA ;">{% trans "Configure water intakes" %}</h4>
             </div>
             <div class="modal-body video-responsive">
-                <video width="470" height="260" controls>
+                <video width="470" height="260" controls autoplay>
                     <source src="https://dev.skaphe.com/outputs/Media/video-4-capas.mp4" type="video/mp4">                    
                     Your browser does not support the video tag.
                 </video>                
@@ -575,7 +569,7 @@
                 <h4 class="modal-title text-center" id="HelpModalLabel" style="color:#0C89AA ;">{% trans "Define infrastructure" %}</h4>
             </div>
             <div class="modal-body video-responsive">
-                <video width="470" height="260" controls>
+                <video width="470" height="260" controls autoplay>
                     <source src="https://dev.skaphe.com/outputs/Media/video-5-capas_2.mp4" type="video/mp4">                    
                     Your browser does not support the video tag.
                 </video>
@@ -594,7 +588,7 @@
                 <h4 class="modal-title text-center" id="HelpModalLabel" style="color:#0C89AA ;">{% trans "Create a case study" %}</h4>
             </div>
             <div class="modal-body video-responsive">
-                <video width="470" height="260" controls>
+                <video width="470" height="260" controls autoplay>
                     <source src="https://dev.skaphe.com/outputs/Media/video-3-capas_1.mp4" type="video/mp4">                    
                     Your browser does not support the video tag.
                 </video>               
@@ -613,7 +607,7 @@
                 <h4 class="modal-title text-center" id="HelpModalLabel" style="color:#0C89AA ;">{% trans "Analize outputs" %}</h4>
             </div>
             <div class="modal-body video-responsive">
-                <video width="470" height="260" controls>
+                <video width="470" height="260" controls autoplay>
                     <source src="https://dev.skaphe.com/outputs/Media/video-6-capas_1.mp4" type="video/mp4">                    
                     Your browser does not support the video tag.
                 </video>              

@@ -116,6 +116,7 @@
                                             <label for="div_id_type" class="control-label required-field " style="font-size: 16px;">{% trans "water_intakes" %}<span class="text-danger-wp" id="ptap-required"></span></label>
                                         </legend>
                                         <p>{% trans "select_water_intake" %}</p>
+                                        <span  onclick="window.location.href='/intake/create/'" class="glyphicon glyphicon-plus-sign btn-add"></span>
                                         <div class="col-md-9">
                                             <select class="form-control" id="select_custom">
                                                 <option disabled selected value>{% trans "select_option" %}</option>
@@ -158,7 +159,7 @@
                                                 <label for="div_id_type" class="control-label required-field " style="font-size: 16px;">{% trans "treatment_plants" %}<span class="text-danger-wp" id="ptap-required"></span></label>
                                             </legend>
                                             <p>{% trans "select_treatments_plants" %}</p>
-
+                                            <span  onclick="window.location.href='/treatment_plants/create/'" class="glyphicon glyphicon-plus-sign btn-add"></span>
                                             <div class="col-md-9">
                                                 <select class="form-control" id="select_ptap">
                                                     <option disabled selected value>{% trans "select_option" %}</option>
@@ -249,17 +250,21 @@
                                         </div>
                                         <div class="col-md-3">
                                             <select class="form-control" id="cm_select">
-                                                <option value='-1'>{% trans "Select" %}</option>
+                                                <option value='-1'>{% trans "Select" %} </option>
                                                 {% for currency in currencys %}
-                                                    {% if currency.currency == study_case.cm_currency %}
-                                                        {% if currency.iso3 == 'USA' %}
-                                                        <option value='{{currency.currency}}' selected>({{currency.currency}}) - {{currency.name}}</option>
+                                                    {% if currency.currency == cm_currency %}
+                                                        {% if currency.currency == 'USD' %}
+                                                            {% if currency.iso3 == 'USA' %}
+                                                                <option value='{{currency.currency}}' selected>({{currency.currency}}) - {{currency.name}}</option>
+                                                            {% else %}
+                                                            <option value='{{currency.currency}}'>({{currency.currency}}) - {{currency.name}}</option>
+                                                            {% endif %}
                                                         {% else %}
-                                                        <option value='{{currency.currency}}'>({{currency.currency}}) - {{currency.name}}</option>
+                                                            <option value='{{currency.currency}}' selected>({{currency.currency}}) - {{currency.name}}</option>
                                                         {% endif %}
                                                     {% else %}
                                                         <option value='{{currency.currency}}'>({{currency.currency}}) - {{currency.name}}</option>
-                                                    {% endif %}                                                    
+                                                    {% endif %}
                                                 {% endfor %}
                                             </select>
                                         </div>
@@ -315,7 +320,7 @@
                                     <button type="button" class="btn btn-primary" id="btn-advanced_option">{% trans "advanced_options" %}</button>
                                     <br>
                                     <p style="margin-top: 20px;" id="txtGuide1"></p>
-                                    <p id="txtGuide2"></p>
+                                    <a id="txtGuide2" href="https://storage.googleapis.com/releases.naturalcapitalproject.org/invest-userguide/latest/index.html"></a>
                                     <div class="row biophysical-panel panel-hide" id="biophysical-panel">
 
                                     </div>
@@ -654,7 +659,7 @@
                                     <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="pi">π</button>
                                     <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="e">e</button>
                                     <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="ln">ln</button>
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="log">\log</button>
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="log">log</button>
                                     <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="_">a_b</button>
                                     <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="%">mod</button>
                                     <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="**">&#8731</button>
@@ -822,50 +827,51 @@
                         {% trans "Study cases help 4 text 1.1" %} 
                     </p>
                     <ul>
-                        <li><b>"lucode: "</b>{% trans "Study cases help 4 text 2" %}  </li>
-                        <li><b>"root_depth: "</b>{% trans "Study cases help 4 text 3" %}  </li>
-                        <li><b>"usle_c: "</b>{% trans "Study cases help 4 text 4" %}  </li>
-                        <li><b>" usle_p: "</b>{% trans "Study cases help 4 text 5" %}  </li>
-                        <li><b>"load_n: "</b>{% trans "Study cases help 4 text 6" %}  </li>
-                        <li><b>"eff_n:"</b>{% trans "Study cases help 4 text 7" %}  </li>
-                        <li><b>"load_p: "</b>{% trans "Study cases help 4 text 8" %}  </li>
-                        <li><b>"eff_p: "</b>{% trans "Study cases help 4 text 9" %}  </li>
-                        <li><b>"crit_len_n: "</b>{% trans "Study cases help 4 text 10" %}  </li>
-                        <li><b>"crit_len_p: "</b>{% trans "Study cases help 4 text 11" %}  </li>
+                        <li><b>lucode: </b>{% trans "Study cases help 4 text 2" %}  </li>
+                        <li><b>root_depth:</b>{% trans "Study cases help 4 text 3" %}  </li>
+                        <li><b>usle_c: </b>{% trans "Study cases help 4 text 4" %}  </li>
+                        <li><b> usle_p: </b>{% trans "Study cases help 4 text 5" %}  </li>
+                        <li><b>load_n: </b>{% trans "Study cases help 4 text 6" %}  </li>
+                        <li><b>eff_n:</b>{% trans "Study cases help 4 text 7" %}  </li>
+                        <li><b>load_p: </b>{% trans "Study cases help 4 text 8" %}  </li>
+                        <li><b>eff_p: </b>{% trans "Study cases help 4 text 9" %}  </li>
+                        <li><b>crit_len_n: </b>{% trans "Study cases help 4 text 10" %}  </li>
+                        <li><b>crit_len_p: </b>{% trans "Study cases help 4 text 11" %}  </li>
 
-                        <li><b>"proportion_subsurface_n: "</b>{% trans "Study cases help 4 text 12" %}  </li>
-                        <li><b>"cn_a: "</b>{% trans "Study cases help 4 text 13" %}  </li>
-                        <li><b>"cn_b: "</b>{% trans "Study cases help 4 text 14" %}  </li>
-                        <li><b>"cn_c: "</b>{% trans "Study cases help 4 text 15" %}  </li>
-                        <li><b>"cn_d: "</b>{% trans "Study cases help 4 text 16" %}  </li>
-                        <li><b>"kc_1: "</b>{% trans "Study cases help 4 text 17" %}  </li>
-                        <li><b>"kc_2: "</b>{% trans "Study cases help 4 text 18" %}  </li>
-                        <li><b>"kc_3: "</b>{% trans "Study cases help 4 text 19" %}  </li>
-                        <li><b>"kc_4: "</b>{% trans "Study cases help 4 text 20" %}  </li>
-                        <li><b>"kc_5: "</b>{% trans "Study cases help 4 text 21" %}  </li>
+                        <li><b>proportion_subsurface_n: </b>{% trans "Study cases help 4 text 12" %}  </li>
+                        <li><b>cn_a: </b>{% trans "Study cases help 4 text 13" %}  </li>
+                        <li><b>cn_b: </b>{% trans "Study cases help 4 text 14" %}  </li>
+                        <li><b>cn_c: </b>{% trans "Study cases help 4 text 15" %}  </li>
+                        <li><b>cn_d: </b>{% trans "Study cases help 4 text 16" %}  </li>
+                        <li><b>kc_1: </b>{% trans "Study cases help 4 text 17" %}  </li>
+                        <li><b>kc_2: </b>{% trans "Study cases help 4 text 18" %}  </li>
+                        <li><b>kc_3: </b>{% trans "Study cases help 4 text 19" %}  </li>
+                        <li><b>kc_4: </b>{% trans "Study cases help 4 text 20" %}  </li>
+                        <li><b>kc_5: </b>{% trans "Study cases help 4 text 21" %}  </li>
 
-                        <li><b>"kc_6: "</b>{% trans "Study cases help 4 text 22" %}  </li>
-                        <li><b>"kc_7: "</b>{% trans "Study cases help 4 text 23" %}  </li>
-                        <li><b>"kc_8: "</b>{% trans "Study cases help 4 text 23 2" %}  </li>
-                        <li><b>"kc_9: "</b>{% trans "Study cases help 4 text 24" %}  </li>
-                        <li><b>"kc_10: "</b>{% trans "Study cases help 4 text 25" %}  </li>
-                        <li><b>"kc_11: "</b>{% trans "Study cases help 4 text 26" %}  </li>
-                        <li><b>"kc_12: "</b>{% trans "Study cases help 4 text 27" %}  </li>
-                        <li><b>"c_above: "</b>{% trans "Study cases help 4 text 28" %}  </li>
-                        <li><b>"c_below: "</b>{% trans "Study cases help 4 text 29" %}  </li>
-                        <li><b>"c_soil: "</b>{% trans "Study cases help 4 text 30" %}  </li>
+                        <li><b>kc_6: </b>{% trans "Study cases help 4 text 22" %}  </li>
+                        <li><b>kc_7: </b>{% trans "Study cases help 4 text 23" %}  </li>
+                        <li><b>kc_8: </b>{% trans "Study cases help 4 text 23 2" %}  </li>
+                        <li><b>kc_9: </b>{% trans "Study cases help 4 text 24" %}  </li>
+                        <li><b>kc_10: </b>{% trans "Study cases help 4 text 25" %}  </li>
+                        <li><b>kc_11: </b>{% trans "Study cases help 4 text 26" %}  </li>
+                        <li><b>kc_12: </b>{% trans "Study cases help 4 text 27" %}  </li>
+                        <li><b>c_above: </b>{% trans "Study cases help 4 text 28" %}  </li>
+                        <li><b>c_below: </b>{% trans "Study cases help 4 text 29" %}  </li>
+                        <li><b>c_soil: </b>{% trans "Study cases help 4 text 30" %}  </li>
 
-                        <li><b>"c_dead: "</b>{% trans "Study cases help 4 text 31" %}  </li>
-                        <li><b>"sed_exp: "</b>{% trans "Study cases help 4 text 32" %}  </li>
-                        <li><b>"sed_ret: "</b>{% trans "Study cases help 4 text 33" %}  </li>
-                        <li><b>"rough_rank: "</b>{% trans "Study cases help 4 text 34" %}  </li>
-                        <li><b>"cover_rank: "</b>{% trans "Study cases help 4 text 35" %}  </li>
-                        <li><b>"p_ret: "</b>{% trans "Study cases help 4 text 36" %}  </li>
-                        <li><b>"p_exp: "</b>{% trans "Study cases help 4 text 37" %}  </li>
-                        <li><b>"n_ret: "</b>{% trans "Study cases help 4 text 38" %}  </li>
-                        <li><b>"n_exp: "</b>{% trans "Study cases help 4 text 39" %}  </li>
-                        <li><b>"native_veg: "</b>{% trans "Study cases help 4 text 40" %}  </li>
-                        <li><b>"lulc_veg: "</b>{% trans "Study cases help 4 text 41" %}  </li>
+                        <li><b>c_dead: </b>{% trans "Study cases help 4 text 31" %}  </li>
+                        <li><b>sed_exp: </b>{% trans "Study cases help 4 text 32" %}  </li>
+                        <li><b>sed_ret: </b>{% trans "Study cases help 4 text 33" %}  </li>
+                        <li><b>rough_rank: </b>{% trans "Study cases help 4 text 34" %}  </li>
+                        <li><b>cover_rank: </b>{% trans "Study cases help 4 text 35" %}  </li>
+                        <li><b>p_ret: </b>{% trans "Study cases help 4 text 36" %}  </li>
+                        <li><b>p_exp: </b>{% trans "Study cases help 4 text 37" %}  </li>
+                        <li><b>n_ret: </b>{% trans "Study cases help 4 text 38" %}  </li>
+                        <li><b>n_exp: </b>{% trans "Study cases help 4 text 39" %}  </li>
+                        <li><b>native_veg: </b>{% trans "Study cases help 4 text 40" %}  </li>
+                        <li><b>lulc_veg: </b>{% trans "Study cases help 4 text 41" %}  </li>
+                        
                         
                     </ul>
                 </div>

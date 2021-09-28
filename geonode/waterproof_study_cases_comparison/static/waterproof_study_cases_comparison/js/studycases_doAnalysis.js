@@ -160,12 +160,12 @@ $(function () {
                 fillAxisTable(chartCategories);
                 var colors = [];
                 serie.forEach(element => {
-                    var exist=true;
-                    while (exist){
+                    var exist = true;
+                    while (exist) {
                         var color = random_rgba();
-                        let filter=colors.filter(col=>col==color);
-                        if (filter.length===0)
-                            exist=false
+                        let filter = colors.filter(col => col == color);
+                        if (filter.length === 0)
+                            exist = false
                     }
                     colors.push(color);
                 });
@@ -207,6 +207,14 @@ $(function () {
                         }
                     }
                 }).mount();
+                var tooltip = [];
+                for (let index = 0; index < chartCategories.length; index++) {
+                    let tooltipValue = {
+                        'lineColor': '#ff9900'
+                    }
+                    tooltip.push(tooltipValue);
+                }
+                chartConfig.tooltipValue = tooltip;
                 chartConfig.colors = colors;
                 drawChart(chartConfig);
             }
@@ -284,17 +292,51 @@ $(function () {
         }
         var fields = [];
         chartCategories.push(catObject);
-        if (catObject.id === CHART_CATEGORIES.VPN_IMP || catObject.id === CHART_CATEGORIES.VPN_MAINT ||
-            catObject.id === CHART_CATEGORIES.VPN_OPORT || catObject.id === CHART_CATEGORIES.VPN_TRANS ||
-            catObject.id === CHART_CATEGORIES.VPN_PLAT || catObject.id === CHART_CATEGORIES.VPN_BENF) {
-            fields.push(
-                CHART_CATEGORIES.VPN_IMP,
-                CHART_CATEGORIES.VPN_MAINT,
-                CHART_CATEGORIES.VPN_OPORT,
-                CHART_CATEGORIES.VPN_PLAT,
-                CHART_CATEGORIES.VPN_TRANS,
-                CHART_CATEGORIES.VPN_BENF
-            );
+        switch (catObject.id) {
+            //AWY 
+            case CHART_CATEGORIES.AWY:
+                fields.push(CHART_CATEGORIES.AWY);
+                break;
+            //BF_M3
+            case CHART_CATEGORIES.BF_M3:
+                fields.push(CHART_CATEGORIES.BF_M3);
+                break;
+            //WSED_TON
+            case CHART_CATEGORIES.WSED_TON:
+                fields.push(CHART_CATEGORIES.WSED_TON);
+                break;
+            //WN_KG
+            case CHART_CATEGORIES.WN_KG:
+                fields.push(CHART_CATEGORIES.WN_KG);
+                break;
+            //WP_KG
+            case CHART_CATEGORIES.WP_KG:
+                fields.push(CHART_CATEGORIES.WC_TON);
+                break;
+            //RWD
+            case CHART_CATEGORIES.RWD:
+                fields.push(CHART_CATEGORIES.RWD);
+                break;
+            //RME
+            case CHART_CATEGORIES.RME:
+                fields.push(CHART_CATEGORIES.RME);
+                break;
+            // VPN 
+            case CHART_CATEGORIES.VPN_IMP: case CHART_CATEGORIES.VPN_MAINT:
+            case CHART_CATEGORIES.VPN_OPORT: case CHART_CATEGORIES.VPN_TRANS:
+            case CHART_CATEGORIES.VPN_PLAT: case CHART_CATEGORIES.VPN_BENF:
+                fields.push(
+                    CHART_CATEGORIES.VPN_IMP,
+                    CHART_CATEGORIES.VPN_MAINT,
+                    CHART_CATEGORIES.VPN_OPORT,
+                    CHART_CATEGORIES.VPN_PLAT,
+                    CHART_CATEGORIES.VPN_TRANS,
+                    CHART_CATEGORIES.VPN_BENF
+                );
+                break;
+
+            default:
+                break;
         }
         var seriesDataRequest = indicatorsRequest(url, selectedCases, fields);
         var requests = [];
@@ -328,6 +370,14 @@ $(function () {
                     }
                 }
             }
+            var tooltip = [];
+            for (let index = 0; index < chartCategories.length; index++) {
+                let tooltipValue = {
+                    'lineColor': '#ff9900'
+                }
+                tooltip.push(tooltipValue);
+            }
+            chartConfig.tooltipValue = tooltip;
             let axisTable = [chartCategories[chartCategories.length - 1]];
             fillAxisTable(axisTable);
             drawChart(chartConfig);
@@ -339,18 +389,26 @@ $(function () {
     * @param {HTML}  ButtonClass Button class
     */
     $('#' + AXIS_TABLE.DOM_ID).on('click', '.removeAxis', function (evt) {
-        let axis = evt.target.getAttribute('data-id');
-        let axisIndex = chartCategories.map(function (e) { return e.id; }).indexOf(axis);
-        //Remove Axis values from chart series
-        chartConfig.series.forEach(function (element, index) {
-            console.log(element);
-            let newSerie = element.data.slice(0, axisIndex);
-            element.data = newSerie;
-        });
-        let currentRow = $(this).closest('tr').remove();
-        chartCategories = chartCategories.slice(0, axisIndex);
-        drawChart(chartConfig);
-
+        if (chartCategories.length > 2) {
+            let axis = evt.target.getAttribute('data-id');
+            let axisIndex = chartCategories.map(function (e) { return e.id; }).indexOf(axis);
+            //Remove Axis values from chart series
+            chartConfig.series.forEach(function (element, index) {
+                console.log(element);
+                element.data.splice(axisIndex, axisIndex);
+            });
+            let currentRow = $(this).closest('tr').remove();
+            chartCategories.splice(axisIndex, axisIndex);
+            chartConfig.categories.splice(axisIndex, axisIndex);
+            drawChart(chartConfig);
+        }
+        else {
+            Swal.fire({
+                icon: 'error',
+                title: gettext('Error!'),
+                text: gettext('Minimum two axes are required for the graph')
+            })
+        }
     });
     /*
     * Render axis selected in table
@@ -377,7 +435,7 @@ $(function () {
         var color1 = Math.floor(Math.random() * 255) + 1;
         var color2 = Math.floor(Math.random() * 255) + 1;
         var color3 = Math.floor(Math.random() * 255) + 1;
-        return 'rgb('+ color1+ ',' +  color2+',' + color3 +')';;
+        return 'rgb(' + color1 + ',' + color2 + ',' + color3 + ')';;
     }
     /*
     * Set a indicators promise request
@@ -481,30 +539,10 @@ $(function () {
                 categories: chartConfig.categories,
                 offset: 2,
             },
-            yAxis: [{
-                tooltipValueFormat: '{value} %',
-                lineColor: '#ff9900'
+            yAxis: chartConfig.tooltipValue,
+            tooltip: {
+                valueDecimals: 2,
             },
-            {
-                tooltipValueFormat: '{value} %',
-                lineColor: '#ff9900'
-            },
-            {
-                tooltipValueFormat: '{value} %',
-                lineColor: '#ff9900'
-            },
-            {
-                tooltipValueFormat: '{value} %',
-                lineColor: '#ff9900'
-            },
-            {
-                tooltipValueFormat: '{value} %',
-                lineColor: '#ff9900'
-            },
-            {
-                tooltipValueFormat: '{value} %',
-                lineColor: '#ff9900'
-            }],
             colors: chartConfig.colors,
             series: chartConfig.series
         });

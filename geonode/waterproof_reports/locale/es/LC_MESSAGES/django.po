@@ -376,11 +376,11 @@ msgstr "Sobre 1"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/decisionIndicators.html:142
 msgid "Total estimated investment"
-msgstr "Inversión total estimada"
+msgstr "Total beneficios descontados"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/decisionIndicators.html:142
 msgid "Total treatment cost savings"
-msgstr "Ahorro total en costos de tratamiento "
+msgstr "Total costos descontados"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/decisionIndicators.html:142
 msgid "Total area investment size (Ha)"

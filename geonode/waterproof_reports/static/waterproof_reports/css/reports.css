@@ -2062,7 +2062,7 @@
         padding-left: 0;
     }
     .text-desc-physical-step1{
-        width: 90%;
+        width: 84%;
         padding: 3%;
         padding-left: 3%;
         text-align: justify;
@@ -2101,7 +2101,7 @@
     .container-graph {
         display: none;
         border-style: solid;
-        width: 30%;
+        width: 60%;
         margin: 10px;
         height: 500px;
         border-width: 1px;

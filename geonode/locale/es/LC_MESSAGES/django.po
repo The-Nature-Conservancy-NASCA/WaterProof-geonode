@@ -4483,10 +4483,8 @@ msgid "Lastname"
 msgstr "Nombre de la Capa"
 
 #: geonode/people/forms.py:153 geonode/people/models.py:114
-#, fuzzy
-#| msgid "Profile"
-msgid "ProfessionalRole"
-msgstr "Perfil"
+msgid "Professional Role"
+msgstr "Rol Profesional"
 
 #: geonode/people/forms.py:155 geonode/people/forms.py:158 geonode/people/models.py:125
 #, fuzzy
@@ -4496,7 +4494,7 @@ msgstr "Otro"
 
 #: geonode/people/forms.py:160 geonode/people/models.py:132
 msgid "Use Analysis"
-msgstr "Uso de Análisis"
+msgstr "Propósito del análisis"
 
 #: geonode/people/forms.py:162 geonode/people/forms.py:165 geonode/people/models.py:138
 #, fuzzy
@@ -4517,10 +4515,8 @@ msgid "City"
 msgstr "Ciudad"
 
 #: geonode/people/forms.py:179
-#, fuzzy
-#| msgid "edition"
-msgid "AgreeConditions"
-msgstr "edición"
+msgid "Agree Terms and Conditions"
+msgstr "Términos y condiciones"
 
 #: geonode/people/models.py:68
 msgid "Organization Name"
@@ -5896,7 +5892,7 @@ msgid "Create a new local account"
 msgstr "Crea una nueva cuenta local"
 
 #: geonode/templates/account/signup.html:34
-msgid "show condititions"
+msgid "Show condititions"
 msgstr "Mostrar condiciones"
 
 #: geonode/templates/account/signup_closed.html:5 geonode/templates/account/signup_closed.html:8
@@ -6477,7 +6473,7 @@ msgstr ""
 
 #: geonode/templates/index.html:233
 msgid "Nature-based solutions"
-msgstr ""
+msgstr "Soluciones basadas en la naturaleza"
 
 #: geonode/templates/index.html:234
 msgid "We work to meet this ambitious goal"
@@ -7886,7 +7882,7 @@ msgstr "Usted está "
 
 #: geonode/templates/waterproof_intake/intake_clone.html:58 geonode/templates/waterproof_intake/intake_edit.html:58 geonode/templates/waterproof_intake/intake_form.html:58
 msgid "Define water intake"
-msgstr ""
+msgstr "Definir la captación"
 
 #: geonode/templates/waterproof_intake/intake_clone.html:59 geonode/templates/waterproof_intake/intake_edit.html:59 geonode/templates/waterproof_intake/intake_form.html:59
 msgid "Please complete the fields to define your Water Intake"
@@ -7971,10 +7967,10 @@ msgstr "Calidad de Dato"
 #, fuzzy
 #| msgid "Please select the avatars that you would like to delete."
 msgid "Please select the method you wish to use"
-msgstr "Seleccione los avatares que le gustaría eliminar."
+msgstr "Seleccione el método que desea utilizar"
 
 #: geonode/templates/waterproof_intake/intake_clone.html:217 geonode/templates/waterproof_intake/intake_demand.html:79 geonode/templates/waterproof_intake/intake_detail_list.html:207 geonode/templates/waterproof_intake/intake_edit.html:217 geonode/templates/waterproof_intake/intake_form.html:214
-msgid "Interpolation method "
+msgid "Interpolation method"
 msgstr ""
 
 #: geonode/templates/waterproof_intake/intake_clone.html:220 geonode/templates/waterproof_intake/intake_demand.html:82 geonode/templates/waterproof_intake/intake_detail_list.html:210 geonode/templates/waterproof_intake/intake_edit.html:220 geonode/templates/waterproof_intake/intake_form.html:217
@@ -8027,11 +8023,11 @@ msgstr "Reanudar"
 
 #: geonode/templates/waterproof_intake/intake_clone.html:255 geonode/templates/waterproof_intake/intake_clone.html:289 geonode/templates/waterproof_intake/intake_demand.html:117 geonode/templates/waterproof_intake/intake_demand.html:150 geonode/templates/waterproof_intake/intake_detail_list.html:245 geonode/templates/waterproof_intake/intake_detail_list.html:278 geonode/templates/waterproof_intake/intake_edit.html:255 geonode/templates/waterproof_intake/intake_edit.html:289 geonode/templates/waterproof_intake/intake_form.html:252 geonode/templates/waterproof_intake/intake_form.html:286
 msgid "Year"
-msgstr ""
+msgstr "Año"
 
 #: geonode/templates/waterproof_intake/intake_clone.html:256 geonode/templates/waterproof_intake/intake_clone.html:290 geonode/templates/waterproof_intake/intake_demand.html:118 geonode/templates/waterproof_intake/intake_demand.html:151 geonode/templates/waterproof_intake/intake_detail_list.html:246 geonode/templates/waterproof_intake/intake_detail_list.html:279 geonode/templates/waterproof_intake/intake_edit.html:256 geonode/templates/waterproof_intake/intake_edit.html:290 geonode/templates/waterproof_intake/intake_form.html:253 geonode/templates/waterproof_intake/intake_form.html:287
 msgid "Extraction Value (l/s)"
-msgstr ""
+msgstr "Valor de extracción (l/s)"
 
 #: geonode/templates/waterproof_intake/intake_clone.html:275 geonode/templates/waterproof_intake/intake_demand.html:137 geonode/templates/waterproof_intake/intake_detail_list.html:265 geonode/templates/waterproof_intake/intake_edit.html:275 geonode/templates/waterproof_intake/intake_form.html:272
 #, fuzzy
@@ -8041,7 +8037,7 @@ msgstr "Puede usar el formulario de ingreso en"
 
 #: geonode/templates/waterproof_intake/intake_clone.html:277 geonode/templates/waterproof_intake/intake_demand.html:139 geonode/templates/waterproof_intake/intake_detail_list.html:267 geonode/templates/waterproof_intake/intake_edit.html:277 geonode/templates/waterproof_intake/intake_form.html:274
 msgid "Number of years"
-msgstr ""
+msgstr "Número de años"
 
 #: geonode/templates/waterproof_intake/intake_clone.html:314 geonode/templates/waterproof_intake/intake_demand.html:169 geonode/templates/waterproof_intake/intake_detail_list.html:297 geonode/templates/waterproof_intake/intake_edit.html:314 geonode/templates/waterproof_intake/intake_form.html:311
 #, fuzzy
@@ -8051,7 +8047,7 @@ msgstr "Recurso Externo"
 
 #: geonode/templates/waterproof_intake/intake_clone.html:315 geonode/templates/waterproof_intake/intake_demand.html:170 geonode/templates/waterproof_intake/intake_detail_list.html:298 geonode/templates/waterproof_intake/intake_edit.html:315 geonode/templates/waterproof_intake/intake_form.html:312
 msgid "External inputs to define"
-msgstr ""
+msgstr "Entradas externas para definir"
 
 #: geonode/templates/waterproof_intake/intake_clone.html:320 geonode/templates/waterproof_intake/intake_demand.html:175 geonode/templates/waterproof_intake/intake_detail_list.html:303 geonode/templates/waterproof_intake/intake_edit.html:320 geonode/templates/waterproof_intake/intake_form.html:317
 #, fuzzy
@@ -9003,7 +8999,7 @@ msgid "FAST"
 msgstr "Rápido"
 
 msgid "Rapidly develop a pre-feasibility understanding for how NbS can generate water security outcomes"
-msgstr "Desarrollar rápidamente un entendimiento de prefactibilidad sobre cómo las SbN pueden generar resultados de seguridad hídrica."
+msgstr "Desarrolle rápidamente un entendimiento de prefactibilidad sobre cómo las SbN pueden generar resultados de seguridad hídrica."
 
 msgid "COMPELLING"
 msgstr "Confiable"
@@ -9021,7 +9017,7 @@ msgid "FREE"
 msgstr "Libre"
 
 msgid "We are committed to equipping local NbS champions with the information"
-msgstr "Estamos comprometidos con fortalecer con la información líderes locales en SbN"
+msgstr "Estamos comprometidos con fortalecer líderes locales con información sobre SbN"
 
 msgid "How does WaterProof work?"
 msgstr "¿Cómo funciona WaterProof?"
@@ -9060,10 +9056,10 @@ msgid "Knowledge bank"
 msgstr "Banco de conocimiento"
 
 msgid "Check here the conceptual elements that Waterproof uses to propose"
-msgstr "Consulta aquí los elementos conceptuales que utiliza WaterProof"
+msgstr "Consulte aquí los elementos conceptuales que utiliza WaterProof"
 
 msgid "Nature based Solutions and calculate the return on your investment"
-msgstr "para proponer Soluciones Naturales y calcula el retorno de tu inversión"
+msgstr "para proponer Soluciones basadas en laNaturaleza y calcular el retorno de tu inversión"
 
 msgid "FAQ"
 msgstr "Preguntas frecuentes"
@@ -9078,7 +9074,7 @@ msgid "Begin your Nature based Solutions journey"
 msgstr "Comience su ruta de implementación de soluciones basadas en la naturaleza"
 
 msgid "Explore how Nature-based Solutions can generate outcomes in your catchment."
-msgstr "Explore cómo las soluciones basadas en la naturaleza pueden generar resultados en su captación."
+msgstr "Explore cómo las soluciones basadas en la naturaleza pueden generar resultados en su cuenca."
 
 msgid "Start now"
 msgstr "Empiece ahora"
@@ -9374,4 +9370,31 @@ msgid "description-sign-up"
 msgstr "A través de su registro como usuario WaterProof, podrá acceder a un conjunto de servicios para realizar un análisis indicativo, a nivel de prefactibilidad, del ROI (retorno de la inversión) en la implementación de Soluciones basadas en la naturaleza de acuerdo con la normativa ambiental de las cuencas de abastecimiento de interés. Por favor ingrese su información de contacto, indicando su rol profesional e interés en el uso del análisis, defina su contraseña de inicio de sesión y revise los términos de condiciones de la herramienta. Al final, haga clic en el botón 'Registrarse'."
 
 msgid "Create a new account. To access the case study creation functionalities in WaterProof, it is necessary to have login credentials. Then enter your contact details and review the Terms and Conditions."
-msgstr "Crear una nueva cuenta. Para acceder a las funciones de creación de casos de estudio en WaterProof, es necesario tener las credenciales de inicio de sesión. Ingrese sus datos de contacto y revise los términos y condiciones."
+msgstr "Cree una nueva cuenta para acceder a las funcionalidades de creación de casos de estudio en WaterProof. Ingrese sus datos de contacto y revise los Términos y condiciones."
+
+msgid "Developed by:"
+msgstr "Desarrollado por:"
+
+msgid "Whith the support of:"
+msgstr "Con el apoyo de:"
+
+msgid "Corporate partner"
+msgstr "Socio corporativo"
+
+msgid "Academic"
+msgstr "Académico"
+
+msgid "Service company administrator"
+msgstr "Administrador de empresa de servicios"
+
+msgid "Manager that carries out monitoring and control"
+msgstr "Administrador que lleva a cabo monitoreo y control"
+
+msgid "Citizen"
+msgstr "Ciudadano"
+
+msgid "Representative of an economic sector"
+msgstr "Representante de un sector económico"
+
+msgid "Analyst"
+msgstr "Analista"

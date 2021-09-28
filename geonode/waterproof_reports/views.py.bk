@@ -1846,7 +1846,7 @@ def pdf(request):
         pdf.cell(0, 6, '-76.4', align='L', link = "http://apps.skaphe.com:8000/reports/compare-maps/?folder=1000_469_2021-8-27&amp;intake=481&amp;region=SA_1&amp;year=3&amp;study_case_id=469&amp;center=1.94,-76.4")
         heightIcon = heightIcon + 80;
 
-    response = HttpResponse(pdf.output(dest='S').encode('iso-8859-1'))
+    response = HttpResponse(pdf.output('reports.pdf','F'))
     response['Content-Type'] = 'application/pdf'
     return response
 

@@ -52,134 +52,18 @@ const interpolationType = {
 }
 
 var mapLoader;
+var banderaInpolation = 0;
 $(document).ready(function () {
-
-    var banderaInpolation = 0;
+    
     $("#intakeWECB").click(function () {
-        if ($('#numberYearsInterpolationValue').val() < 10 || $('#numberYearsInterpolationValue').val() > 100) {
-            Swal.fire({
-                icon: 'warning',
-                title: gettext('field_problem'),
-                text: gettext('Error number of years for time series  (10-100) Year'),
-            });
-            valid_period = false;
-            return;
-        }
-
-        if ($("#numberYearsInterpolationValue").val() == '' || $("#initialDataExtractionInterpolationValue").val() == '' || $("#finalDataExtractionInterpolationValue").val() == '') {
-            Swal.fire({
-                icon: 'warning',
-                title: gettext('Data analysis empty'),
-                text: gettext('Please Generate Data analysis')
-            });
-            return;
-        }
-        banderaInpolation += 1;
-        banderaExternal += 1;
-        $('#intakeECTAG tr').remove();
-        $('#IntakeTDLE table').remove();
-        $('#externalSelect option').remove();
-        $('#intakeECTAG').empty();
-        $('#IntakeTDLE').empty();
-        $('#externalSelect').empty();
-        $('#autoAdjustHeightF').css("height", "auto");
-        typeProcessInterpolation = Number($("#typeProcessInterpolation").val());
-        numberYearsInterpolationValue = Number($("#numberYearsInterpolationValue").val());
-        initialDataExtractionInterpolationValue = parseFloat($("#initialDataExtractionInterpolationValue").val());
-        finalDataExtractionInterpolationValue = parseFloat($("#finalDataExtractionInterpolationValue").val());
-
-        // Linear interpolation
-        if (typeProcessInterpolation == 1) {
-            waterExtractionValue = [];
-            waterExtractionData.typeInterpolation = interpolationType.LINEAR;
-            m = (finalDataExtractionInterpolationValue - initialDataExtractionInterpolationValue) / (numberYearsInterpolationValue - 0)
-            b = (-1 * m * 0) + initialDataExtractionInterpolationValue;
-
-            for (let index = 0; index <= numberYearsInterpolationValue; index++) {
-                var yearData = {};
-                yearData.year = index + 1;
-                yearData.value = ((m * index) + b).toFixed(2);
-                waterExtractionValue.push(yearData);
-                $('#intakeECTAG').append(`<tr>
-                <th class="text-center" scope="row">${index}</th>
-                <td class="text-center"><input type="text" class="form-control justify-number" value="${((m * index) + b).toFixed(2)}" disabled></td>
-              </tr>`);
-            }
-        }
-
-        // Potencial interpolation
-        if (typeProcessInterpolation == 2) {
-            waterExtractionValue = [];
-            waterExtractionData.typeInterpolation = interpolationType.POTENTIAL;
-            m = (Math.log(finalDataExtractionInterpolationValue) - Math.log(initialDataExtractionInterpolationValue)) / ((Math.log(numberYearsInterpolationValue + 1) - Math.log(1)));
-            b = Math.exp((-1 * m * Math.log(1)) + Math.log(initialDataExtractionInterpolationValue));
-
-            for (let index = 1; index <= numberYearsInterpolationValue + 1; index++) {
-                var yearData = {};
-                yearData.year = index;
-                yearData.value = (b * (Math.pow(index, m))).toFixed(2);
-                waterExtractionValue.push(yearData);
-                $('#intakeECTAG').append(`<tr>
-                <th class="text-center" scope="row">${index - 1}</th>
-                <td class="text-center"><input type="text" class="form-control justify-number" value="${(b * (Math.pow(index, m))).toFixed(2)}" disabled></td>
-              </tr>`);
-            }
-        }
-
-        // Exponential interpolation
-        if (typeProcessInterpolation == 3) {
-            waterExtractionValue = [];
-            waterExtractionData.typeInterpolation = interpolationType.EXPONENTIAL;
-            m = (Math.log(finalDataExtractionInterpolationValue) - Math.log(initialDataExtractionInterpolationValue)) / (numberYearsInterpolationValue - 0)
-            b = Math.exp((-1 * m * 0) + Math.log(initialDataExtractionInterpolationValue));
-
-            for (let index = 0; index <= numberYearsInterpolationValue; index++) {
-                var yearData = {};
-                yearData.year = index + 1;
-                yearData.value = (b * (Math.exp(m * index))).toFixed(2);
-                waterExtractionValue.push(yearData);
-                $('#intakeECTAG').append(`<tr>
-                <th class="text-center" scope="row">${index}</th>
-                <td class="text-center"><input type="text" class="form-control justify-number" value="${(b * (Math.exp(m * index))).toFixed(2)}" disabled></td>
-              </tr>`);
-            }
-
-        }
-
-        // Interpolación Logistica
-        if (typeProcessInterpolation == 4) {
-            waterExtractionValue = [];
-            waterExtractionData.typeInterpolation = interpolationType.LOGISTICS;
-            r = (-Math.log(0.000000001) / initialDataExtractionInterpolationValue);
-
-            for (let index = 0; index <= numberYearsInterpolationValue; index++) {
-                var yearData = {};
-                yearData.year = index + 1;
-                yearData.value = ((finalDataExtractionInterpolationValue) / (1 + ((finalDataExtractionInterpolationValue / initialDataExtractionInterpolationValue) - 1) * Math.exp(-r * index))).toFixed(2);
-                waterExtractionValue.push(yearData);
-                $('#intakeECTAG').append(`<tr>
-                <th class="text-center" scope="row">${index}</th>
-                <td class="text-center"><input type="text" class="form-control justify-number" value="${((finalDataExtractionInterpolationValue) / (1 + ((finalDataExtractionInterpolationValue / initialDataExtractionInterpolationValue) - 1) * Math.exp(-r * index))).toFixed(2)}" disabled></td>
-              </tr>`);
-            }
-        }
-
-        if (banderaExternal != 1) {
-            externalInput(numberYearsInterpolationValue);
-        }
-        // Set object data for later persistence
-        waterExtractionData.yearCount = numberYearsInterpolationValue;
-        waterExtractionData.initialValue = initialDataExtractionInterpolationValue;
-        waterExtractionData.finalValue = finalDataExtractionInterpolationValue;
-        waterExtractionData.yearValues = waterExtractionValue;
-        $('#waterExtraction').val(JSON.stringify(waterExtractionData));
+        generateWaterExtraction();
 
     });
     setInterpolationParams();
     setTimeout(() => {
         loadExternalDataOnInit();
         loadExternalInput();
-    }, 1000);
+    }, 1000);    
 
     function loadExternalDataOnInit() {
         for (let id = 0; id < graphData.length; id++) {
@@ -202,46 +86,7 @@ $(document).ready(function () {
             }
         }
         $('#graphElements').val(JSON.stringify(graphData));
-    }
-    // Generate table external Input
-    function externalInput(numYear) {
-        var rows = "";
-        var numberExternal = 0;
-        $('#externalSelect').append(`<option value="null" selected>Choose here</option>`);
-        for (let p = 0; p < graphData.length; p++) {
-            if (graphData[p].external == 'true') {
-                numberExternal += 1
-                $('#externalSelect').append(`
-                            <option value="${graphData[p].id}">${graphData[p].id} - External Input</option>
-                    `);
-                rows = "";
-                for (let index = 0; index <= numYear; index++) {
-                    rows += (`<tr>
-                                <th class="text-center" scope="col" name="year_${graphData[p].id}" year_value="${index + 1}">${index + 1}</th>
-                                <td class="text-center" scope="col"><input type="number" class="form-control justify-number" name="waterVolume_${index + 1}_${graphData[p].id}"></td>
-                                <td class="text-center" scope="col"><input type="number" class="form-control justify-number" name="sediment_${index + 1}_${graphData[p].id}"></td>
-                                <td class="text-center" scope="col"><input type="number" class="form-control justify-number" name="nitrogen_${index + 1}_${graphData[p].id}" ></td>
-                                <td class="text-center" scope="col"><input type="number" class="form-control justify-number" name="phosphorus_${index + 1}_${graphData[p].id}"></td>
-                            </tr>`);
-                }
-                $('#IntakeTDLE').append(`
-                        <table class="table" id="table_${graphData[p].id}" style="display: none">
-                            <thead>
-                                <tr>
-                                    <th class="text-center" scope="col">Year</th>
-                                    <th class="text-center" scope="col">Water Volume (m3)</th>
-                                    <th class="text-center" scope="col">Sediment (Ton)</th>
-                                    <th class="text-center" scope="col">Nitrogen (Kg)</th>
-                                    <th class="text-center" scope="col">Phosphorus (Kg)</th>
-                                </tr>
-                            </thead>
-                            <tbody>${rows}</tbody>
-                        </table>    
-                `);
-            }
-        }
-        $('#ExternalNumbersInputs').html(numberExternal)
-    }
+    }    
 
     $('#externalSelect').change(function () {
         for (let t = 0; t < graphData.length; t++) {
@@ -340,7 +185,6 @@ $(document).ready(function () {
         }
     });
 
-
     //Validated of steps
     $('#step1NextBtn').click(function () {
         if ($('#id_name').val() != '' && $('#id_description').val() != '' && $('#id_water_source_name').val() != '' && catchmentPoly != undefined) {
@@ -391,7 +235,7 @@ $(document).ready(function () {
 
     $('#step3NextBtn').click(function () {
         console.log("execute clic of generate button");
-        $("#intakeWECB").click();
+        generateWaterExtraction();
         if ($('#intakeECTAG')[0].childNodes.length > 1 || $('#intakeWEMI')[0].childNodes.length > 1) {
             if (waterExtractionData.typeInterpolation == interpolationType.MANUAL) {
                 waterExtractionValue = [];
@@ -418,7 +262,7 @@ $(document).ready(function () {
                     Swal.fire({
                         icon: 'warning',
                         title: `Data analysis empty`,
-                        text: `Please Generate Data anlisys`
+                        text: `Please Generate Data analysis`
                     });
                     return;
                 }
@@ -497,7 +341,7 @@ $(document).ready(function () {
 
     // Change Option Manual Tab
     $('#btnManualTab').click(function () {
-        if ($('#initialDataExtractionInterpolationValue').val() != '' || $('#finalDataExtractionInterpolationValue').val() != '' || $('#numberYearsInterpolationValue').val() != '') {
+        if (initialExtraction.val() != '' || finalExtraction.val() != '' || $('#numberYearsInterpolationValue').val() != '') {
             Swal.fire({
                 title: gettext('Are you sure?'),
                 text: gettext("You won't be able to revert this!"),
@@ -518,8 +362,8 @@ $(document).ready(function () {
                     $('#externalSelect').empty();
                     waterExtractionData = {};
                     $('#waterExtraction').val(JSON.stringify(waterExtractionData));
-                    $('#initialDataExtractionInterpolationValue').val('');
-                    $('#finalDataExtractionInterpolationValue').val('');
+                    initialExtraction.val('');
+                    finalExtraction.val('');
                     $('#numberYearsInterpolationValue').val('');
                 } else if (result.isDenied) {
                     $('[href="#automatic"]').tab('show');
@@ -649,14 +493,14 @@ $(document).ready(function () {
                     }]
                 };
             }
-            if (jsPolygon.features[0].geometry.coordinates[0].length > MAX_NUM_POINTS) {
-                console.log("too many points : " + jsPolygon.features[0].geometry.coordinates[0].length + " ... simplifying");
-                var polygonSimplified = simplifyPolygon(jsPolygon.features[0].geometry.coordinates[0]);
-                if (polygonSimplified.geometry.coordinates[0].length > 0) {
-                    jsPolygon = polygonSimplified;
-                    console.log("new num points in polygon : " + polygonSimplified.geometry.coordinates[0].length);
-                }
-            }
+            // if (jsPolygon.features[0].geometry.coordinates[0].length > MAX_NUM_POINTS) {
+            //     console.log("too many points : " + jsPolygon.features[0].geometry.coordinates[0].length + " ... simplifying");
+            //     var polygonSimplified = simplifyPolygon(jsPolygon.features[0].geometry.coordinates[0]);
+            //     if (polygonSimplified.geometry.coordinates[0].length > 0) {
+            //         jsPolygon = polygonSimplified;
+            //         console.log("new num points in polygon : " + polygonSimplified.geometry.coordinates[0].length);
+            //     }
+            // }
         } catch (err) {
             console.log(err);
         }
@@ -714,7 +558,165 @@ $(document).ready(function () {
 
 });
 
-// window.onbeforeunload = function () { return mxResources.get('changesLost'); };
+function generateWaterExtraction(){
+    if ($('#numberYearsInterpolationValue').val() < 10 || $('#numberYearsInterpolationValue').val() > 100) {
+        Swal.fire({
+            icon: 'warning',
+            title: gettext('field_problem'),
+            text: gettext('Error number of years for time series  (10-100) Year'),
+        });
+        valid_period = false;
+        return;
+    }
+
+    if ($("#numberYearsInterpolationValue").val() == '' || $("#initialDataExtractionInterpolationValue").val() == '' || $("#finalDataExtractionInterpolationValue").val() == '') {
+        Swal.fire({
+            icon: 'warning',
+            title: gettext('Data analysis empty'),
+            text: gettext('Please Generate Data analysis')
+        });
+        return;
+    }
+    banderaInpolation += 1;
+    banderaExternal += 1;
+    $('#intakeECTAG tr').remove();
+    $('#IntakeTDLE table').remove();
+    $('#externalSelect option').remove();
+    $('#intakeECTAG').empty();
+    $('#IntakeTDLE').empty();
+    $('#externalSelect').empty();
+    $('#autoAdjustHeightF').css("height", "auto");
+    typeProcessInterpolation = Number($("#typeProcessInterpolation").val());
+    numberYearsInterpolationValue = Number($("#numberYearsInterpolationValue").val());
+    initialDataExtractionInterpolationValue = parseFloat($("#initialDataExtractionInterpolationValue").val());
+    finalDataExtractionInterpolationValue = parseFloat($("#finalDataExtractionInterpolationValue").val());
+
+    // Linear interpolation
+    if (typeProcessInterpolation == 1) {
+        waterExtractionValue = [];
+        waterExtractionData.typeInterpolation = interpolationType.LINEAR;
+        m = (finalDataExtractionInterpolationValue - initialDataExtractionInterpolationValue) / (numberYearsInterpolationValue - 0)
+        b = (-1 * m * 0) + initialDataExtractionInterpolationValue;
+
+        for (let index = 0; index <= numberYearsInterpolationValue; index++) {
+            var yearData = {};
+            yearData.year = index + 1;
+            yearData.value = ((m * index) + b).toFixed(2);
+            waterExtractionValue.push(yearData);
+            $('#intakeECTAG').append(`<tr>
+                <th class="text-center" scope="row">${index}</th>
+                <td class="text-center"><input type="number" class="form-control justify-number" value="${((m * index) + b).toFixed(2)}" disabled></td>
+            </tr>`);
+        }
+    }
+
+    // Potencial interpolation
+    if (typeProcessInterpolation == 2) {
+        waterExtractionValue = [];
+        waterExtractionData.typeInterpolation = interpolationType.POTENTIAL;
+        m = (Math.log(finalDataExtractionInterpolationValue) - Math.log(initialDataExtractionInterpolationValue)) / ((Math.log(numberYearsInterpolationValue + 1) - Math.log(1)));
+        b = Math.exp((-1 * m * Math.log(1)) + Math.log(initialDataExtractionInterpolationValue));
+
+        for (let index = 1; index <= numberYearsInterpolationValue + 1; index++) {
+            var yearData = {};
+            yearData.year = index;
+            yearData.value = (b * (Math.pow(index, m))).toFixed(2);
+            waterExtractionValue.push(yearData);
+            $('#intakeECTAG').append(`<tr>
+            <th class="text-center" scope="row">${index - 1}</th>
+            <td class="text-center"><input type="text" class="form-control justify-number" value="${(b * (Math.pow(index, m))).toFixed(2)}" disabled></td>
+          </tr>`);
+        }
+    }
+
+    // Exponential interpolation
+    if (typeProcessInterpolation == 3) {
+        waterExtractionValue = [];
+        waterExtractionData.typeInterpolation = interpolationType.EXPONENTIAL;
+        m = (Math.log(finalDataExtractionInterpolationValue) - Math.log(initialDataExtractionInterpolationValue)) / (numberYearsInterpolationValue - 0)
+        b = Math.exp((-1 * m * 0) + Math.log(initialDataExtractionInterpolationValue));
+
+        for (let index = 0; index <= numberYearsInterpolationValue; index++) {
+            var yearData = {};
+            yearData.year = index + 1;
+            yearData.value = (b * (Math.exp(m * index))).toFixed(2);
+            waterExtractionValue.push(yearData);
+            $('#intakeECTAG').append(`<tr>
+            <th class="text-center" scope="row">${index}</th>
+            <td class="text-center"><input type="text" class="form-control justify-number" value="${(b * (Math.exp(m * index))).toFixed(2)}" disabled></td>
+          </tr>`);
+        }
+
+    }
+
+    // Interpolación Logistica
+    if (typeProcessInterpolation == 4) {
+        waterExtractionValue = [];
+        waterExtractionData.typeInterpolation = interpolationType.LOGISTICS;
+        r = (-Math.log(0.000000001) / initialDataExtractionInterpolationValue);
+
+        for (let index = 0; index <= numberYearsInterpolationValue; index++) {
+            var yearData = {};
+            yearData.year = index + 1;
+            yearData.value = ((finalDataExtractionInterpolationValue) / (1 + ((finalDataExtractionInterpolationValue / initialDataExtractionInterpolationValue) - 1) * Math.exp(-r * index))).toFixed(2);
+            waterExtractionValue.push(yearData);
+            $('#intakeECTAG').append(`<tr>
+            <th class="text-center" scope="row">${index}</th>
+            <td class="text-center"><input type="text" class="form-control justify-number" value="${((finalDataExtractionInterpolationValue) / (1 + ((finalDataExtractionInterpolationValue / initialDataExtractionInterpolationValue) - 1) * Math.exp(-r * index))).toFixed(2)}" disabled></td>
+          </tr>`);
+        }
+    }
+
+    if (banderaExternal != 1) {
+        externalInput(numberYearsInterpolationValue);
+    }
+    // Set object data for later persistence
+    waterExtractionData.yearCount = numberYearsInterpolationValue;
+    waterExtractionData.initialValue = initialDataExtractionInterpolationValue;
+    waterExtractionData.finalValue = finalDataExtractionInterpolationValue;
+    waterExtractionData.yearValues = waterExtractionValue;
+    $('#waterExtraction').val(JSON.stringify(waterExtractionData));
+}
+
+// Generate table external Input
+function externalInput(numYear) {
+    var rows = "";
+    var numberExternal = 0;
+    $('#externalSelect').append(`<option value="null" selected>Choose here</option>`);
+    for (let p = 0; p < graphData.length; p++) {
+        if (graphData[p].external == 'true') {
+            numberExternal += 1
+            $('#externalSelect').append(`
+                        <option value="${graphData[p].id}">${graphData[p].id} - External Input</option>
+                `);
+            rows = "";
+            for (let index = 0; index <= numYear; index++) {
+                rows += (`<tr>
+                            <th class="text-center" scope="col" name="year_${graphData[p].id}" year_value="${index + 1}">${index + 1}</th>
+                            <td class="text-center" scope="col"><input type="number" class="form-control justify-number" name="waterVolume_${index + 1}_${graphData[p].id}"></td>
+                            <td class="text-center" scope="col"><input type="number" class="form-control justify-number" name="sediment_${index + 1}_${graphData[p].id}"></td>
+                            <td class="text-center" scope="col"><input type="number" class="form-control justify-number" name="nitrogen_${index + 1}_${graphData[p].id}" ></td>
+                            <td class="text-center" scope="col"><input type="number" class="form-control justify-number" name="phosphorus_${index + 1}_${graphData[p].id}"></td>
+                        </tr>`);
+            }
+            $('#IntakeTDLE').append(`
+                    <table class="table" id="table_${graphData[p].id}" style="display: none">
+                        <thead>
+                            <tr>
+                                <th class="text-center" scope="col">Year</th>
+                                <th class="text-center" scope="col">Water Volume (m3)</th>
+                                <th class="text-center" scope="col">Sediment (Ton)</th>
+                                <th class="text-center" scope="col">Nitrogen (Kg)</th>
+                                <th class="text-center" scope="col">Phosphorus (Kg)</th>
+                            </tr>
+                        </thead>
+                        <tbody>${rows}</tbody>
+                    </table>    
+            `);
+        }
+    }
+    $('#ExternalNumbersInputs').html(numberExternal)
+}
 
 /*Set values for interpolation
 parameters*/
@@ -723,50 +725,29 @@ function setInterpolationParams() {
         // LINEAR INTERPOLATION
         case interpolationType.LINEAR:
             // Method interpolation select
-            interpMethodInput.val(1);
-            // Years number for time series
-            numYearsInput.val(intakeInterpolationParams.yearsNum);
-            // Initial extraction value
-            initialExtraction.val(intakeInterpolationParams.initialExtract);
-            // Final extraction value
-            finalExtraction.val(intakeInterpolationParams.endingExtract);
-            $("#intakeWECB").click();
+            interpMethodInput.val(1);            
             break;
         // POTENTIAL INTERPOLATION
         case interpolationType.POTENTIAL:
-            interpMethodInput.val(2);
-            // Years number for time series
-            numYearsInput.val(intakeInterpolationParams.yearsNum);
-            // Initial extraction value
-            initialExtraction.val(intakeInterpolationParams.initialExtract);
-            // Final extraction value
-            finalExtraction.val(intakeInterpolationParams.endingExtract);
-            $("#intakeWECB").click();
+            interpMethodInput.val(2);            
             break;
         // EXPONENTIAL INTERPOLATION
         case interpolationType.EXPONENTIAL:
-            interpMethodInput.val(3);
-            // Years number for time series
-            numYearsInput.val(intakeInterpolationParams.yearsNum);
-            // Initial extraction value
-            initialExtraction.val(intakeInterpolationParams.initialExtract);
-            // Final extraction value
-            finalExtraction.val(intakeInterpolationParams.endingExtract);
-            $("#intakeWECB").click();
+            interpMethodInput.val(3);            
             break;
 
         // LOGISTICS INTERPLATION
         case interpolationType.LOGISTICS:
             interpMethodInput.val(4);
-            // Years number for time series
-            numYearsInput.val(intakeInterpolationParams.yearsNum);
-            // Initial extraction value
-            initialExtraction.val(intakeInterpolationParams.initialExtract);
-            // Final extraction value
-            finalExtraction.val(intakeInterpolationParams.endingExtract);
-            $("#intakeWECB").click();
             break;
     }
+    // Years number for time series
+    numYearsInput.val(intakeInterpolationParams.yearsNum);
+    // Initial extraction value
+    initialExtraction.val(intakeInterpolationParams.initialExtract.toFixed(2));
+    // Final extraction value
+    finalExtraction.val(intakeInterpolationParams.endingExtract.toFixed(2));
+    generateWaterExtraction();
 }
 /** 
  * Intake step one creation
@@ -971,6 +952,9 @@ function intakeStepFive() {
     formData.append('isFile', $('#isFile').val());
     //console.log(formData);
     $('#_thumbnail_processing').modal('toggle');
+    $('#_thumbnail_processing .modal-header h1')[0].innerText=gettext('The water intake is being saved');
+    $('#_thumbnail_processing .progress div')[0].innerText=gettext('Please wait');
+    
     $.ajax({
         type: 'POST',
         url: '/intake/create/',
