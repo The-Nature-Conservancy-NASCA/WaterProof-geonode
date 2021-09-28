@@ -516,3 +516,6 @@ msgstr "Entrada externa"
 
 msgid "Break pressure chamber"
 msgstr "Cámara de quiebre"
+
+msgid "Draw Basin"
+msgstr "Dibujar cuenca"
