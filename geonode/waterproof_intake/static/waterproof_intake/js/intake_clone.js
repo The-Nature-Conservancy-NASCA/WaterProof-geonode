@@ -950,6 +950,8 @@ function intakeStepFive() {
     formData.append('isFile', $('#isFile').val());
     //console.log(formData);
     $('#_thumbnail_processing').modal('toggle');
+    $('#_thumbnail_processing .modal-header h1')[0].innerText=gettext('The water intake is being saved');
+    $('#_thumbnail_processing .progress div')[0].innerText=gettext('Please wait');
     $.ajax({
         type: 'POST',
         url: '/intake/create/',

@@ -581,7 +581,7 @@ msgstr "Alternatively, you can upload a spatial file in shp format that contains
 #: template/intake_clone.html:404 template/intake_edit.html:380
 #: template/intake_form.html:433
 msgid "To load shapefile"
-msgstr "Once defined implementation area, you must validate the process, do clic in the button below"
+msgstr "Once defined implementation area, you must validate the process, doing click in the button below"
 
 #: template/intake_clone.html:410 template/intake_edit.html:383
 msgid "Help"
@@ -590,7 +590,7 @@ msgstr "Help"
 #: template/intake_clone.html:413 template/intake_edit.html:386
 #: template/intake_form.html:432
 msgid "Once defined the area"
-msgstr "Once you are satisfied with the defined implementation area, you must validate the process, do clic in by clicking the button below."
+msgstr "Once you are satisfied with the defined implementation area, you must validate the process, doing click in by clicking the button below."
 
 #: template/intake_clone.html:427 template/intake_edit.html:398
 #: template/intake_form.html:445

@@ -207,7 +207,7 @@ msgstr "El valor debe estar entre %s y %s"
 
 #: static/waterproof_intake/js/graphValidations.js:357
 #, javascript-format
-msgid "The minimun value is %s please use the arrows"
+msgid "The minimum value is %s please use the arrows"
 msgstr "El valor mínimo es %s por favor, use las flechas"
 
 #: static/waterproof_intake/js/graphValidations.js:369
@@ -481,3 +481,29 @@ msgstr "Nueva función de costo"
 msgid "Saving"
 msgstr "Guardando"
 
+msgid "Damming"
+msgstr "Embalse"
+
+msgid "Pumping"
+msgstr "Bomba"
+
+msgid "Water reservoir"
+msgstr "Reservorio de agua"
+
+msgid "Bottom Intake"
+msgstr "Captación de fondo"
+
+msgid "Side Intake"
+msgstr "Captación lateral"
+
+msgid "Floating Intake"
+msgstr "Captación flotante"
+
+msgid "Desander"
+msgstr "Desarenador"
+
+msgid "Case Study Infrastructure"
+msgstr "Infraestructura de estudio de caso"
+
+msgid "External Input"
+msgstr "Entrada externa"
