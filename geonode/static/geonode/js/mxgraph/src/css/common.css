@@ -119,7 +119,7 @@ img.mxToolbarMode {
     margin-right: 4px;
     margin-bottom: 4px;
     border-width: 0px;
-    height: 79px;
+    height: 65px;
     cursor: pointer;
 }
 
@@ -137,10 +137,12 @@ img.mxToolbarModeSelected {
     margin-right: 4px;
     margin-bottom: 4px;
     border-width: 0px;
-    height: 79px;
+    height: 70px;
     border-style: inset;
-    background-color: #e6e1e1;
+    background-color: #41b5df;
     cursor: pointer;
+    border-radius: 50%;
+    padding: 2px;
 }
 
 div.mxTooltip {

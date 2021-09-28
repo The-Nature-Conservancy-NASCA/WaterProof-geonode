@@ -481,6 +481,9 @@ msgstr "Nueva función de costo"
 msgid "Saving"
 msgstr "Guardando"
 
+msgid "Reservoir"
+msgstr "Embalse"
+
 msgid "Damming"
 msgstr "Embalse"
 
@@ -490,13 +493,16 @@ msgstr "Bomba"
 msgid "Water reservoir"
 msgstr "Reservorio de agua"
 
+msgid "Raw Water reservoir"
+msgstr "Reservorio de agua"
+
 msgid "Bottom Intake"
 msgstr "Captación de fondo"
 
-msgid "Side Intake"
+msgid "Side intake"
 msgstr "Captación lateral"
 
-msgid "Floating Intake"
+msgid "Floating intake"
 msgstr "Captación flotante"
 
 msgid "Desander"
@@ -505,5 +511,8 @@ msgstr "Desarenador"
 msgid "Case Study Infrastructure"
 msgstr "Infraestructura de estudio de caso"
 
-msgid "External Input"
+msgid "External input"
 msgstr "Entrada externa"
+
+msgid "Break pressure chamber"
+msgstr "Cámara de quiebre"

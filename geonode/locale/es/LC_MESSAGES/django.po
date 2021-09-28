@@ -8322,15 +8322,11 @@ msgstr ""
 msgid "Water Intake"
 msgstr ""
 
-#: geonode/templates/waterproof_treatment_plants/treatment_plants_edit.html:41
-msgid "Select from the list water intakes that arrive at your treatment plant and click on the button 'Add water intake'"
-msgstr ""
-
 #: geonode/templates/waterproof_treatment_plants/treatment_plants_edit.html:50
 #, fuzzy
 #| msgid "Add Attribute"
 msgid "Add water intake"
-msgstr "Agregar Atributo"
+msgstr "Agregar captación"
 
 #: geonode/templates/waterproof_treatment_plants/treatment_plants_edit.html:56
 #, fuzzy
@@ -8999,7 +8995,7 @@ msgid "FAST"
 msgstr "Rápido"
 
 msgid "Rapidly develop a pre-feasibility understanding for how NbS can generate water security outcomes"
-msgstr "Desarrolle rápidamente un entendimiento de prefactibilidad sobre cómo las SbN pueden generar resultados de seguridad hídrica."
+msgstr "Desarrollar rápidamente un entendimiento de prefactibilidad sobre cómo las SbN pueden generar resultados de seguridad hídrica."
 
 msgid "COMPELLING"
 msgstr "Confiable"
@@ -9017,7 +9013,7 @@ msgid "FREE"
 msgstr "Libre"
 
 msgid "We are committed to equipping local NbS champions with the information"
-msgstr "Estamos comprometidos con fortalecer líderes locales con información sobre SbN"
+msgstr "Estamos comprometidos con fortalecer con la información líderes locales en SbN"
 
 msgid "How does WaterProof work?"
 msgstr "¿Cómo funciona WaterProof?"
@@ -9059,7 +9055,7 @@ msgid "Check here the conceptual elements that Waterproof uses to propose"
 msgstr "Consulte aquí los elementos conceptuales que utiliza WaterProof"
 
 msgid "Nature based Solutions and calculate the return on your investment"
-msgstr "para proponer Soluciones basadas en laNaturaleza y calcular el retorno de tu inversión"
+msgstr "para proponer Soluciones basadas en la Naturaleza y calcular el retorno de tu inversión"
 
 msgid "FAQ"
 msgstr "Preguntas frecuentes"
@@ -9074,7 +9070,7 @@ msgid "Begin your Nature based Solutions journey"
 msgstr "Comience su ruta de implementación de soluciones basadas en la naturaleza"
 
 msgid "Explore how Nature-based Solutions can generate outcomes in your catchment."
-msgstr "Explore cómo las soluciones basadas en la naturaleza pueden generar resultados en su cuenca."
+msgstr "Explore cómo las soluciones basadas en la naturaleza pueden generar resultados en su captación."
 
 msgid "Start now"
 msgstr "Empiece ahora"
@@ -9400,4 +9396,4 @@ msgid "Analyst"
 msgstr "Analista"
 
 msgid "External input"
-msgstr "Entrada externa"
+msgstr "External input"
