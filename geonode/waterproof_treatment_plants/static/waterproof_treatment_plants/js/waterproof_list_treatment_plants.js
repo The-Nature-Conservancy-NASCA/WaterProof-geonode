@@ -235,9 +235,19 @@ $(function () {
             if (el != undefined)    
                 el.innerHTML = "    "+ gettext("Create") + " " +  gettext("Treatment Plant");
         }
+        
+        if (localStorage.loadInf === "true") {
+
+        }
 
         $('#submit').click(function (e) {
-            validateAndSavePlant();
+            if (localStorage.loadInf === "true") {
+                location.href = "/treatment_plants/?city=" + localStorage.getItem('cityId');
+
+            } else {
+                validateAndSavePlant();
+            }
+            
         });
 
         $('#idIntakePlant').change(function (e) {
@@ -378,7 +388,7 @@ $(function () {
                 break;
             case "view":
                 tileAction = gettext("View");
-                localStorage.loadInf = "false";
+                //localStorage.loadInf = "false";
                 break;
             default:
                 break;
@@ -388,7 +398,7 @@ $(function () {
         var urlDetail = basePathURL + "getTreatmentPlant/?plantId=" + localStorage.plantId;
         $.getJSON(urlDetail, function (data) {
             if (typeAction === "clone" || typeAction === "view") {
-                localStorage.plantId = null;                
+                //localStorage.plantId = null;                
             }            
             $.each( data.plant, function( key, value ) {
                 document.getElementById("idNamePlant").value = value.plantName + " " + plantNameSuffix;

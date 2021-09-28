@@ -2253,3 +2253,5 @@ CATALOG_METADATA_TEMPLATE = os.getenv("CATALOG_METADATA_TEMPLATE", "catalogue/fu
 WATERPROOF_SPECIAL_VALUES = ['min', 'E2', 'E3']
 
 CKEDITOR_UPLOAD_PATH="aux_media"
+
+WATERPROOF_INVEST_DOC = "https://storage.googleapis.com/releases.naturalcapitalproject.org/invest-userguide/latest/index.html"

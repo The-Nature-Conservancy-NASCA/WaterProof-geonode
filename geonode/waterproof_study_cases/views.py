@@ -179,7 +179,8 @@ def create(request):
                               'currencys': currencys,
                               'scenarios': scenarios,
                               'costFunctions' : [],
-                              'id_user' : request.user.id
+                              'id_user' : request.user.id,
+                              'invest_doc': settings.WATERPROOF_INVEST_DOC,
                           }
                           )
 
@@ -251,7 +252,8 @@ def edit(request, idx):
                     'currencys': currencys,
                     'scenarios': scenarios,
                     'costFunctions' : functions,
-                    'id_user' : request.user.id
+                    'id_user' : request.user.id,
+                    'invest_doc': settings.WATERPROOF_INVEST_DOC,
                 }
             )
 
@@ -323,7 +325,8 @@ def clone(request, idx):
                     'scenarios': scenarios,
                     'costFunctions' : functions,
                     'cm_currency': cm_currency,
-                    'id_user' : request.user.id
+                    'id_user' : request.user.id,
+                    'invest_doc': settings.WATERPROOF_INVEST_DOC,
                 }
             )
 
@@ -383,6 +386,7 @@ def view(request, idx):
                 'analisys_currency_name': currency_name,
                 'cm_currency_name' : cm_currency_name,
                 'fn_currency_name' : fn_currency_name,
+                'invest_doc': settings.WATERPROOF_INVEST_DOC,
             }
         )
 

@@ -100,7 +100,7 @@ class investIndicators(models.Model):
 
 class zip(models.Model):
     study_case_id = models.ForeignKey(StudyCases, on_delete=models.CASCADE)
-    link = models.CharField(max_length=200, blank=False)
+    link = models.CharField(max_length=200, null = True, blank=False)
     link_log = models.CharField(max_length=250, null = True, blank=True)
 
 class resultRoi(models.Model):
