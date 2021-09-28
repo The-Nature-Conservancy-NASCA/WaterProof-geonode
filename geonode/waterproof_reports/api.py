@@ -543,8 +543,7 @@ def getReportAnalisysBeneficsB(request):
 				"time":row[6],
 				"currency":row[7],
 				"roi":row[8],
-				"result":row[9],
-				"transactionCost":row[10]
+				"result":row[9]
 			})
 
 		return JsonResponse(objects_list, safe=False)
@@ -566,7 +565,7 @@ def getReportAnalisysBeneficsC(request):
 	if request.method == 'GET':
 		con = psycopg2.connect(settings.DATABASE_URL)
 		cur = con.cursor()
-		cur.execute("SELECT * FROM __get_report_analisys_beneficsC(" + request.query_params.get('studyCase') + ")")
+		cur.execute("SELECT * FROM __get_report_analisys_beneficsC(" + request.query_params.get('studyCase') + ") ORDER BY intake_idf")
 
 		rows = cur.fetchall()
 		objects_list = []
@@ -575,7 +574,8 @@ def getReportAnalisysBeneficsC(request):
 				"sbnf":row[0],
 				"costPerHectarea":row[1],
 				"recomendedIntervetion":row[2],
-				"intakeId":row[3]
+				"intakeId":row[3],
+				"name":row[4]
 			})
 
 		return JsonResponse(objects_list, safe=False)
@@ -692,15 +692,18 @@ def getWpAqueductIndicatorGraph(request):
 	if request.method == 'GET':
 		con = psycopg2.connect(settings.DATABASE_URL)
 		cur = con.cursor()
-		cur.execute("SELECT * FROM public.__get_wp_aqueduct_indicator_graph('" + request.query_params.get('studyCase') + "') ORDER BY 2")
+		cur.execute("SELECT * FROM public.__get_wp_aqueduct_indicator_graph('" + request.query_params.get('studyCase') + "') ORDER BY indicatorr, inteker ")
 
 		rows = cur.fetchall()
 		objects_list = []
 		for row in rows:
 			objects_list.append({
 				"indicator":row[1],
+				"sigla":row[2],
 				"valueIndicator":row[3],
-				"description":row[4]
+				"description":row[4],
+				"intake":row[5],
+				"name":row[6]
 			})
 
 		return JsonResponse(objects_list, safe=False)
@@ -857,7 +860,7 @@ def getWaterproofReportsDesagregation(request):
 	if request.method == 'GET':
 		con = psycopg2.connect(settings.DATABASE_URL)
 		cur = con.cursor()
-		cur.execute("SELECT time,CASE stage WHEN 'NBS' THEN 'NBS Scenario' WHEN 'BAU' THEN 'Business as usual' END AS stage_filter,\"AWY(m3)\" AS volume_of_water_yield_change_in_time,\"BF(m3)\" AS annual_volume_base_flow_change_in_time,\"Wsed(Ton)\" AS total_sediments_change_in_time,\"WN(Kg)\" AS nitrogen_load_change_in_time,\"WP(kg)\" AS phosphorus_load_change_in_time,\"WC(Ton)\" AS carbon_storage_change_in_time FROM public.waterproof_reports_desagregation WHERE \"time\" !=0 and study_case_id = '" + request.query_params.get('studyCase') + "'")
+		cur.execute("SELECT * FROM __get_report_temporalProjection('" + request.query_params.get('studyCase') + "')")
 		rows = cur.fetchall()
 		objects_list = []
 		for row in rows:
@@ -869,7 +872,9 @@ def getWaterproofReportsDesagregation(request):
 				"totalSedimentsChangeInTime":row[4],
 				"nitrogenLoadChangeInTime":row[5],
 				"phosphorusLoadChangeInTime":row[6],
-				"carbonStorageChangeInTime":row[7]
+				"carbonStorageChangeInTime":row[7],
+				"stage":row[8],
+				"intakeId":row[9]
 			})
 		return JsonResponse(objects_list, safe=False)
 
@@ -896,6 +901,7 @@ def getCaracteristicsCsIntakePdf(request):
 		for row in rows:
 			objects_list.append({
 				"name":row[0],
+				"intakeId":row[2],
 				"description":row[1]
 			})
 		return JsonResponse(objects_list, safe=False)
@@ -917,12 +923,13 @@ def getCaracteristicsPtapDetailPdf(request):
 	if request.method == 'GET':
 		con = psycopg2.connect(settings.DATABASE_URL)
 		cur = con.cursor()
-		cur.execute("SELECT DISTINCT * FROM __get_caracteristics_ptap_detail_pdf('" + request.query_params.get('studyCase') + "')")
+		cur.execute("SELECT DISTINCT * FROM __get_caracteristics_ptap_detail_pdf('" + request.query_params.get('studyCase') + "') ORDER BY 1")
 		rows = cur.fetchall()
 		objects_list = []
 		for row in rows:
 			objects_list.append({
 				"name":row[0],
+				"plantId":row[3],
 				"description":row[1]
 			})
 		return JsonResponse(objects_list, safe=False)
@@ -1049,7 +1056,3 @@ def getWpcompareMapas(request):
 			})
 
 		return JsonResponse(objects_list, safe=False)
-
-
-
-

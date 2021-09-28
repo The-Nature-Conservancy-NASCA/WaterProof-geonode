@@ -217,12 +217,25 @@
             <div class="padding-text-desc-table" id="continer-map2">
             </div>
             <br>
-            <div class="title-water padding-text-desc-table">{% trans "Water Intake" %} <span class="name-title-water">"{% trans "Water Intake" %}"</span></div>
-            <div class="margin-select padding-text-desc-table">
-                <select class="select-condition" id="idSelectWaterIntake" onchange="loadGraphIntahe(this.value)">
-                    <option value="">{% trans "All" %}</option>
-                </select>
+            <div>
+                <div style="float: left;margin-right: 15px;margin-bottom: 15px;">
+                    <div class="title-water padding-text-desc-table">{% trans "Water Intake" %} <span class="name-title-water">"{% trans "Water Intake" %}"</span></div>
+                    <div class="margin-select padding-text-desc-table">
+                        <select class="select-condition" id="idSelectWaterIntake" onchange="loadGraphIntake(this.value)">
+                            <option value="">{% trans "All" %}</option>
+                        </select>
+                    </div>                    
+                </div>
+                <div>
+                    <div class="title-water padding-text-desc-table">...</div>
+                    <div class="margin-select padding-text-desc-table">
+                        <select class="select-condition" id="idSelectIntake" onchange="loadIntake(this.value)">
+                            <option value="">{% trans "All" %}</option>
+                        </select>
+                    </div>                    
+                </div>        
             </div>
+
             <div class="padding-text-desc-table" id="idListGraph"></div>
             
             <div class="background-step1-physical col-md-12">
@@ -314,10 +327,16 @@
             </div>
         </div>
         <div class="tab-pane fade div-style-menu-phy adjust-area" id="step4" role="tabpanel" aria-labelledby="contact-tab">
-            <div class="container-page padding-text-desc-table">
-                <br>
-                <div id="step4-map-ph"></div>
-            </div>
+                <div class="container-page padding-text-desc-table">
+                    <br>
+                    <div id="step4-map-ph"></div>
+                </div>
+                <div style="margin: 30px;">
+                    <div>{% trans "Water intake" %}</div>
+                    <select class="select-condition" id="idSelectIntakeGraph" onchange="loadIntakeGraph(this.value)">
+                        <option value="0">{% trans "All" %}</option>
+                    </select>
+                </div>
                 <div class="table-option-ph">
                     <div class="list-table-option">
                         <div>
@@ -436,96 +455,6 @@
                         </div>
                         <div class="graph-year-cont">
                             <div id="containerNbs6"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="container-graph" id="idGraph7">
-                    <div class="title-cont-graph">{% trans "Business as usual - AWY (m3)" %}</div>
-                    <div>
-                        <div class="list-year-cont">
-                            <div class="title-year-cont">
-                                <div class="td-year-cont">{% trans "Year" %}</div>
-                                <div>{% trans "Nitrogen" %}</div>
-                            </div>
-                            <div id="listNbs7"></div>
-                        </div>
-                        <div class="graph-year-cont">
-                            <div id="containerNbs7"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="container-graph" id="idGraph8">
-                    <div class="title-cont-graph">{% trans "Business as usual - Wsed (Ton)" %}</div>
-                    <div>
-                        <div class="list-year-cont">
-                            <div class="title-year-cont">
-                                <div class="td-year-cont">{% trans "Year" %}</div>
-                                <div>{% trans "Nitrogen" %}</div>
-                            </div>
-                            <div id="listNbs8"></div>
-                        </div>
-                        <div class="graph-year-cont">
-                            <div id="containerNbs8"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="container-graph" id="idGraph9">
-                    <div class="title-cont-graph">{% trans "Business as usual - WN (kg)" %}</div>
-                    <div>
-                        <div class="list-year-cont">
-                            <div class="title-year-cont">
-                                <div class="td-year-cont">{% trans "Year" %}</div>
-                                <div>{% trans "Nitrogen" %}</div>
-                            </div>
-                            <div id="listNbs9"></div>
-                        </div>
-                        <div class="graph-year-cont">
-                            <div id="containerNbs9"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="container-graph" id="idGraph10">
-                    <div class="title-cont-graph">{% trans "Business as usual - WP (kg)" %}</div>
-                    <div>
-                        <div class="list-year-cont">
-                            <div class="title-year-cont">
-                                <div class="td-year-cont">{% trans "Year" %}</div>
-                                <div>{% trans "Nitrogen" %}</div>
-                            </div>
-                            <div id="listNbs10"></div>
-                        </div>
-                        <div class="graph-year-cont">
-                            <div id="containerNbs10"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="container-graph" id="idGraph11">
-                    <div class="title-cont-graph">{% trans "Business as usual - BF (m3)" %}</div>
-                    <div>
-                        <div class="list-year-cont">
-                            <div class="title-year-cont">
-                                <div class="td-year-cont">{% trans "Year" %}</div>
-                                <div>{% trans "Nitrogen" %}</div>
-                            </div>
-                            <div id="listNbs11"></div>
-                        </div>
-                        <div class="graph-year-cont">
-                            <div id="containerNbs11"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="container-graph" id="idGraph12">
-                    <div class="title-cont-graph">{% trans "Business as usual - WC (Ton)" %}</div>
-                    <div>
-                        <div class="list-year-cont">
-                            <div class="title-year-cont">
-                                <div class="td-year-cont">{% trans "Year" %}</div>
-                                <div>{% trans "Nitrogen" %}</div>
-                            </div>
-                            <div id="listNbs12"></div>
-                        </div>
-                        <div class="graph-year-cont">
-                            <div id="containerNbs12"></div>
                         </div>
                     </div>
                 </div>
@@ -746,12 +675,28 @@ var localStorageId = localStorage.idStudyCase;
         var dataTotalBenefitsIntake = [];
         var dataTotalBenefitsIntakeOne = [];
 
-        loadGraphIntahe = function(valueSelect) {
+        var dataGraph = []
+
+        loadGraphIntake = function(valueSelect) {
             var listObject = document.getElementsByName("listGraphIntake");
             listObject.forEach((divVisible) => {
                 if(valueSelect !== "") {
                     divVisible.style.display = "none";
                     if(divVisible.getAttribute("nameSelect") === valueSelect) {
+                        divVisible.style.display = "block";
+                    }                
+                } else  {
+                    divVisible.style.display = "block";
+                }
+            });
+        }
+
+        loadIntake = function(valueSelect) {
+            listObjectInt = document.getElementsByName("graphIntake");
+            listObjectInt.forEach((divVisible) => {
+                if(valueSelect !== "") {
+                    divVisible.style.display = "none";
+                    if(parseInt(divVisible.getAttribute("intakeSelect")) === parseInt(valueSelect)) {
                         divVisible.style.display = "block";
                     }                
                 } else  {
@@ -918,15 +863,8 @@ var localStorageId = localStorage.idStudyCase;
             document.getElementById("idGraph4").style.display = "none";
             document.getElementById("idGraph5").style.display = "none";
             document.getElementById("idGraph6").style.display = "none";
-            document.getElementById("idGraph7").style.display = "none";
-            document.getElementById("idGraph8").style.display = "none";
-            document.getElementById("idGraph9").style.display = "none";
-            document.getElementById("idGraph10").style.display = "none";
-            document.getElementById("idGraph11").style.display = "none";
-            document.getElementById("idGraph12").style.display = "none";
 
             document.getElementById("idGraph" + idDiv1).style.display = "block";
-            document.getElementById("idGraph" + idDiv2).style.display = "block";
         }
 
         initMapNbs = function () {
@@ -1001,6 +939,414 @@ var localStorageId = localStorage.idStudyCase;
         $("#initMapNBS").click(function(e){
                 initMapNbs();
             });
+
+        loadIntakeGraph =  function(intakeId) {
+            var data = dataGraph;
+
+                var timeNBS = []
+                var timeBusiness = []
+                
+                var volumeOfWaterYieldChangeInTimeNbs = []
+                var annualVolumeBaseFlowChangeInTimeNbs = []
+                var totalSedimentsChangeInTimeNbs = []
+                var nitrogenLoadChangeInTimeNbs = []
+                var phosphorusLoadChangeInTimeNbs = []
+                var carbonStorageChangeInTimeNbs = []
+
+                var volumeOfWaterYieldChangeInTimeBusiness = []
+                var annualVolumeBaseFlowChangeInTimeBusiness = []
+                var totalSedimentsChangeInTimeBusiness = []
+                var nitrogenLoadChangeInTimeBusiness = []
+                var phosphorusLoadChangeInTimeBusiness = []
+                var carbonStorageChangeInTimeBusiness = []
+
+                var volumeOfWaterYieldChangeInTimeNbsHhml = ""
+                var annualVolumeBaseFlowChangeInTimeNbsHhml = ""
+                var totalSedimentsChangeInTimeNbsHhml = ""
+                var nitrogenLoadChangeInTimeNbsHhml = ""
+                var phosphorusLoadChangeInTimeNbsHhml = ""
+                var carbonStorageChangeInTimeNbsHhml = ""
+
+                var volumeOfWaterYieldChangeInTimeBusinessHhml = ""
+                var annualVolumeBaseFlowChangeInTimeBusinessHhml = ""
+                var totalSedimentsChangeInTimeBusinessHhml = ""
+                var nitrogenLoadChangeInTimeBusinessHhml = ""
+                var phosphorusLoadChangeInTimeBusinessHhml = ""
+                var carbonStorageChangeInTimeBusinessHhml = ""
+
+                var lastIntakeGraph
+            $.each( data, function( key, value ) {
+
+                if(parseInt(value.intakeId) === parseInt(intakeId)) {
+                    if(lastIntakeGraph !== value.intakeId) {
+                        var saveOption = true;
+                        for (var i = 0; i < document.getElementById("idSelectIntakeGraph").length; i++) {
+                            var opt = document.getElementById("idSelectIntakeGraph")[i];
+                            if(parseInt(opt.value) === parseInt(value.intakeId)){
+                                saveOption = false;
+                            }
+                        }
+
+                        if(saveOption) {
+                            var option = document.createElement("option");
+                            option.text = value.intakeId;
+                            option.value = value.intakeId;
+                            document.getElementById("idSelectIntakeGraph").add(option);
+                            lastIntakeGraph = value.intakeId;
+                        }
+                    }
+                    
+                    if(value.stageFilter === "NBS Scenario") {
+                        timeNBS.push(value.time);
+
+                        volumeOfWaterYieldChangeInTimeNbs.push(value.volumeOfWaterYieldChangeInTime);
+                        annualVolumeBaseFlowChangeInTimeNbs.push(value.annualVolumeBaseFlowChangeInTime);
+                        totalSedimentsChangeInTimeNbs.push(value.totalSedimentsChangeInTime);
+                        nitrogenLoadChangeInTimeNbs.push(value.nitrogenLoadChangeInTime);
+                        phosphorusLoadChangeInTimeNbs.push(value.phosphorusLoadChangeInTime);
+                        carbonStorageChangeInTimeNbs.push(value.carbonStorageChangeInTime);
+
+                        volumeOfWaterYieldChangeInTimeNbsHhml = volumeOfWaterYieldChangeInTimeNbsHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + parseFloat(value.volumeOfWaterYieldChangeInTime).toFixed(2) +'</div></div>';
+                        annualVolumeBaseFlowChangeInTimeNbsHhml = annualVolumeBaseFlowChangeInTimeNbsHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + parseFloat(value.annualVolumeBaseFlowChangeInTime).toFixed(2) +'</div></div>';
+                        totalSedimentsChangeInTimeNbsHhml = totalSedimentsChangeInTimeNbsHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + parseFloat(value.totalSedimentsChangeInTime).toFixed(2) +'</div></div>';
+                        nitrogenLoadChangeInTimeNbsHhml = nitrogenLoadChangeInTimeNbsHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + parseFloat(value.nitrogenLoadChangeInTime).toFixed(2) +'</div></div>';
+                        phosphorusLoadChangeInTimeNbsHhml = phosphorusLoadChangeInTimeNbsHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + parseFloat(value.phosphorusLoadChangeInTime).toFixed(2) +'</div></div>';
+                        carbonStorageChangeInTimeNbsHhml = carbonStorageChangeInTimeNbsHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + parseFloat(value.carbonStorageChangeInTime).toFixed(2) +'</div></div>';
+                    } else  {
+
+                        timeBusiness.push(value.time);
+
+                        volumeOfWaterYieldChangeInTimeBusiness.push(value.volumeOfWaterYieldChangeInTime);
+                        annualVolumeBaseFlowChangeInTimeBusiness.push(value.annualVolumeBaseFlowChangeInTime);
+                        totalSedimentsChangeInTimeBusiness.push(value.totalSedimentsChangeInTime);
+                        nitrogenLoadChangeInTimeBusiness.push(value.nitrogenLoadChangeInTime);
+                        phosphorusLoadChangeInTimeBusiness.push(value.phosphorusLoadChangeInTime);
+                        carbonStorageChangeInTimeBusiness.push(value.carbonStorageChangeInTime);
+
+                        volumeOfWaterYieldChangeInTimeBusinessHhml = volumeOfWaterYieldChangeInTimeBusinessHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + parseFloat(value.volumeOfWaterYieldChangeInTime).toFixed(2) +'</div></div>';
+                        annualVolumeBaseFlowChangeInTimeBusinessHhml = annualVolumeBaseFlowChangeInTimeBusinessHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + parseFloat(value.annualVolumeBaseFlowChangeInTime).toFixed(2) +'</div></div>';
+                        totalSedimentsChangeInTimeBusinessHhml = totalSedimentsChangeInTimeBusinessHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + parseFloat(value.totalSedimentsChangeInTime).toFixed(2) +'</div></div>';
+                        nitrogenLoadChangeInTimeBusinessHhml = nitrogenLoadChangeInTimeBusinessHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + parseFloat(value.nitrogenLoadChangeInTime).toFixed(2) +'</div></div>';
+                        phosphorusLoadChangeInTimeBusinessHhml = phosphorusLoadChangeInTimeBusinessHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + parseFloat(value.phosphorusLoadChangeInTime).toFixed(2) +'</div></div>';
+                        carbonStorageChangeInTimeBusinessHhml = carbonStorageChangeInTimeBusinessHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + parseFloat(value.carbonStorageChangeInTime).toFixed(2) +'</div></div>';
+                    }
+                }
+
+                if(0 === parseInt(intakeId)) {
+                    if(lastIntakeGraph !== value.intakeId) {
+                        var saveOption = true;
+                        for (var i = 0; i < document.getElementById("idSelectIntakeGraph").length; i++) {
+                            var opt = document.getElementById("idSelectIntakeGraph")[i];
+                            if(parseInt(opt.value) === parseInt(value.intakeId)){
+                                saveOption = false;
+                            }
+                        }
+
+                        if(saveOption) {
+                            var option = document.createElement("option");
+                            option.text = value.intakeId;
+                            option.value = value.intakeId;
+                            document.getElementById("idSelectIntakeGraph").add(option);
+                            lastIntakeGraph = value.intakeId;
+                        }
+                    }
+                    
+                    if(value.stageFilter === "NBS Scenario") {
+                        timeNBS.push(value.time);
+
+                        volumeOfWaterYieldChangeInTimeNbs.push(value.volumeOfWaterYieldChangeInTime);
+                        annualVolumeBaseFlowChangeInTimeNbs.push(value.annualVolumeBaseFlowChangeInTime);
+                        totalSedimentsChangeInTimeNbs.push(value.totalSedimentsChangeInTime);
+                        nitrogenLoadChangeInTimeNbs.push(value.nitrogenLoadChangeInTime);
+                        phosphorusLoadChangeInTimeNbs.push(value.phosphorusLoadChangeInTime);
+                        carbonStorageChangeInTimeNbs.push(value.carbonStorageChangeInTime);
+
+                        volumeOfWaterYieldChangeInTimeNbsHhml = volumeOfWaterYieldChangeInTimeNbsHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + parseFloat(value.volumeOfWaterYieldChangeInTime).toFixed(2) +'</div></div>';
+                        annualVolumeBaseFlowChangeInTimeNbsHhml = annualVolumeBaseFlowChangeInTimeNbsHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + parseFloat(value.annualVolumeBaseFlowChangeInTime).toFixed(2) +'</div></div>';
+                        totalSedimentsChangeInTimeNbsHhml = totalSedimentsChangeInTimeNbsHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + parseFloat(value.totalSedimentsChangeInTime).toFixed(2) +'</div></div>';
+                        nitrogenLoadChangeInTimeNbsHhml = nitrogenLoadChangeInTimeNbsHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + parseFloat(value.nitrogenLoadChangeInTime).toFixed(2) +'</div></div>';
+                        phosphorusLoadChangeInTimeNbsHhml = phosphorusLoadChangeInTimeNbsHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + parseFloat(value.phosphorusLoadChangeInTime).toFixed(2) +'</div></div>';
+                        carbonStorageChangeInTimeNbsHhml = carbonStorageChangeInTimeNbsHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + parseFloat(value.carbonStorageChangeInTime).toFixed(2) +'</div></div>';
+                    } else  {
+
+                        timeBusiness.push(value.time);
+
+                        volumeOfWaterYieldChangeInTimeBusiness.push(value.volumeOfWaterYieldChangeInTime);
+                        annualVolumeBaseFlowChangeInTimeBusiness.push(value.annualVolumeBaseFlowChangeInTime);
+                        totalSedimentsChangeInTimeBusiness.push(value.totalSedimentsChangeInTime);
+                        nitrogenLoadChangeInTimeBusiness.push(value.nitrogenLoadChangeInTime);
+                        phosphorusLoadChangeInTimeBusiness.push(value.phosphorusLoadChangeInTime);
+                        carbonStorageChangeInTimeBusiness.push(value.carbonStorageChangeInTime);
+
+                        volumeOfWaterYieldChangeInTimeBusinessHhml = volumeOfWaterYieldChangeInTimeBusinessHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + parseFloat(value.volumeOfWaterYieldChangeInTime).toFixed(2) +'</div></div>';
+                        annualVolumeBaseFlowChangeInTimeBusinessHhml = annualVolumeBaseFlowChangeInTimeBusinessHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + parseFloat(value.annualVolumeBaseFlowChangeInTime).toFixed(2) +'</div></div>';
+                        totalSedimentsChangeInTimeBusinessHhml = totalSedimentsChangeInTimeBusinessHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + parseFloat(value.totalSedimentsChangeInTime).toFixed(2) +'</div></div>';
+                        nitrogenLoadChangeInTimeBusinessHhml = nitrogenLoadChangeInTimeBusinessHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + parseFloat(value.nitrogenLoadChangeInTime).toFixed(2) +'</div></div>';
+                        phosphorusLoadChangeInTimeBusinessHhml = phosphorusLoadChangeInTimeBusinessHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + parseFloat(value.phosphorusLoadChangeInTime).toFixed(2) +'</div></div>';
+                        carbonStorageChangeInTimeBusinessHhml = carbonStorageChangeInTimeBusinessHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + parseFloat(value.carbonStorageChangeInTime).toFixed(2) +'</div></div>';
+                    }
+                }
+            });
+
+                setTimeout(function(){
+                    document.getElementById("listNbs1").innerHTML = volumeOfWaterYieldChangeInTimeBusinessHhml
+                    document.getElementById("listNbs2").innerHTML = annualVolumeBaseFlowChangeInTimeBusinessHhml
+                    document.getElementById("listNbs3").innerHTML = totalSedimentsChangeInTimeBusinessHhml
+                    document.getElementById("listNbs4").innerHTML = nitrogenLoadChangeInTimeBusinessHhml
+                    document.getElementById("listNbs5").innerHTML = phosphorusLoadChangeInTimeBusinessHhml
+                    document.getElementById("listNbs6").innerHTML = carbonStorageChangeInTimeBusinessHhml
+
+                    Highcharts.chart('containerNbs1', {
+                        chart: {
+                            type: 'column'
+                        },
+                        title: {
+                            text: ''
+                        },
+                        colors: ['#008BAB'],
+                        xAxis: {
+                            categories: timeNBS
+                        },
+                        credits: {
+                            enabled: false
+                        },
+                        series: [{
+                            name: 'NBS - AWY (m3)',
+                            type: 'spline',
+                            dashStyle: 'shortdot',
+                            data: volumeOfWaterYieldChangeInTimeNbs
+                        },{
+                            name: 'BaU - AWY (m3) 1',
+                            type: 'spline',
+                            dashStyle: 'shortdot',
+                            data: volumeOfWaterYieldChangeInTimeBusiness
+                        }]
+                    });
+                    Highcharts.chart('containerNbs2', {
+                        chart: {
+                            type: 'column'
+                        },
+                        title: {
+                            text: ''
+                        },
+                        colors: ['#008BAB'],
+                        xAxis: {
+                            categories: timeNBS
+                        },
+                        credits: {
+                            enabled: false
+                        },
+                        series: [{
+                            name: 'NBS - Wsed (Ton)',
+                            type: 'spline',
+                            dashStyle: 'shortdot',
+                            data: annualVolumeBaseFlowChangeInTimeNbs
+                        },{
+                            name: 'BaU - Wsed (Ton)',
+                            type: 'spline',
+                            dashStyle: 'shortdot',
+                            data: annualVolumeBaseFlowChangeInTimeBusiness
+                        }]
+                    });
+                    Highcharts.chart('containerNbs3', {
+                        chart: {
+                            type: 'column'
+                        },
+                        title: {
+                            text: ''
+                        },
+                        colors: ['#008BAB'],
+                        xAxis: {
+                            categories: timeNBS
+                        },
+                        credits: {
+                            enabled: false
+                        },
+                        series: [{
+                            name: 'NBS - WN (kg)',
+                            type: 'spline',
+                            dashStyle: 'shortdot',
+                            data: totalSedimentsChangeInTimeNbs
+                        },{
+                            name: 'BaU - WN (kg)',
+                            type: 'spline',
+                            dashStyle: 'shortdot',
+                            data: totalSedimentsChangeInTimeBusiness
+                        }]
+                    });
+                    Highcharts.chart('containerNbs4', {
+                        chart: {
+                            type: 'column'
+                        },
+                        title: {
+                            text: ''
+                        },
+                        colors: ['#008BAB'],
+                        xAxis: {
+                            categories: timeNBS
+                        },
+                        credits: {
+                            enabled: false
+                        },
+                        series: [{
+                            name: 'NBS - WP (kg)',
+                            type: 'spline',
+                            dashStyle: 'shortdot',
+                            data: nitrogenLoadChangeInTimeNbs
+                        },{
+                            name: 'BaU - WP (kg)',
+                            type: 'spline',
+                            dashStyle: 'shortdot',
+                            data: nitrogenLoadChangeInTimeBusiness
+                        }]
+                    });
+                    Highcharts.chart('containerNbs5', {
+                        chart: {
+                            type: 'column'
+                        },
+                        title: {
+                            text: ''
+                        },
+                        colors: ['#008BAB'],
+                        xAxis: {
+                            categories: timeNBS
+                        },
+                        credits: {
+                            enabled: false
+                        },
+                        series: [{
+                            name: 'NBS - BF (m3)',
+                            type: 'spline',
+                            dashStyle: 'shortdot',
+                            data: phosphorusLoadChangeInTimeNbs
+                        },{
+                            name: 'BaU - BF (m3)',
+                            type: 'spline',
+                            dashStyle: 'shortdot',
+                            data: phosphorusLoadChangeInTimeBusiness
+                        }]
+                    });
+                    Highcharts.chart('containerNbs6', {
+                        chart: {
+                            type: 'column'
+                        },
+                        title: {
+                            text: ''
+                        },
+                        colors: ['#008BAB'],
+                        xAxis: {
+                            categories: timeNBS
+                        },
+                        credits: {
+                            enabled: false
+                        },
+                        series: [{
+                            name: 'NBS - WC (Ton)',
+                            type: 'spline',
+                            dashStyle: 'shortdot',
+                            data: carbonStorageChangeInTimeNbs
+                        },{
+                            name: 'BaU - WC (Ton)',
+                            type: 'spline',
+                            dashStyle: 'shortdot',
+                            data: carbonStorageChangeInTimeBusiness
+                        }]
+                    });
+
+                    Highcharts.chart('containerNbs7', {
+                        chart: {
+                            type: 'column'
+                        },
+                        title: {
+                            text: ''
+                        },
+                        colors: ['#008BAB'],
+                        xAxis: {
+                            categories: timeBusiness
+                        },
+                        credits: {
+                            enabled: false
+                        }
+                    });
+
+                    Highcharts.chart('containerNbs8', {
+                        chart: {
+                            type: 'column'
+                        },
+                        title: {
+                            text: ''
+                        },
+                        colors: ['#008BAB'],
+                        xAxis: {
+                            categories: timeBusiness
+                        },
+                        credits: {
+                            enabled: false
+                        }
+                    });
+                    Highcharts.chart('containerNbs9', {
+                        chart: {
+                            type: 'column'
+                        },
+                        title: {
+                            text: ''
+                        },
+                        colors: ['#008BAB'],
+                        xAxis: {
+                            categories: timeBusiness
+                        },
+                        credits: {
+                            enabled: false
+                        }
+                    });
+                    Highcharts.chart('containerNbs10', {
+                        chart: {
+                            type: 'column'
+                        },
+                        title: {
+                            text: ''
+                        },
+                        colors: ['#008BAB'],
+                        xAxis: {
+                            categories: timeBusiness
+                        },
+                        credits: {
+                            enabled: false
+                        }
+                    });
+                    Highcharts.chart('containerNbs11', {
+                        chart: {
+                            type: 'column'
+                        },
+                        title: {
+                            text: ''
+                        },
+                        colors: ['#008BAB'],
+                        xAxis: {
+                            categories: timeBusiness
+                        },
+                        credits: {
+                            enabled: false
+                        }
+                    });
+                    Highcharts.chart('containerNbs12', {
+                        chart: {
+                            type: 'column'
+                        },
+                        title: {
+                            text: ''
+                        },
+                        colors: ['#008BAB'],
+                        xAxis: {
+                            categories: timeBusiness
+                        },
+                        credits: {
+                            enabled: false
+                        }
+                    });
+                }, 2000);
+        }
+
         initialize = function () {
 
             $("#idCountri").html(localStorage.getItem('country'));
@@ -1099,6 +1445,7 @@ var localStorageId = localStorage.idStudyCase;
             console.log("Este es el localstorage del selectw"+localStorage.idStudyCase)
             $.getJSON(urlDetail, function (data) {
                 var lastGroupImage = "";
+                var lastGroupIntake = "";
                 var titleGraph = "";
                 var numberContainer = 0;
                 $.each( data, function( key, value ) {
@@ -1107,7 +1454,7 @@ var localStorageId = localStorage.idStudyCase;
                         if(titleGraph !== "") {
                             titleGraph = titleGraph + '</div>';
                         }
-                        titleGraph = titleGraph + '<div name="listGraphIntake" nameSelect="' + value.indicator + '" class="title-water col-md-12">' + value.indicator + '</div><div name="listGraphIntake"  nameSelect="' + value.indicator + '" class="container-general-gauge">';
+                        titleGraph = titleGraph + '<div name="listGraphIntake" intakeSelect="' + value.intake + '" nameSelect="' + value.indicator + '" class="title-water col-md-12">' + value.indicator + '</div><div name="listGraphIntake" intakeSelect="' + value.intake + '" nameSelect="' + value.indicator + '" class="container-general-gauge">';
                         lastGroupImage = value.indicator;
 
                         var option = document.createElement("option");
@@ -1115,9 +1462,27 @@ var localStorageId = localStorage.idStudyCase;
                         option.value = value.indicator;
                         document.getElementById("idSelectWaterIntake").add(option);
                     }
-                    titleGraph = titleGraph + '<div class="container-gauge col-md-3"><div id="containerPr' + numberContainer + '"></div></div>';
+                    if(lastGroupIntake !== value.name) {
+                        var saveOption = true;
+                        for (var i = 0; i < document.getElementById("idSelectIntake").length; i++) {
+                            var opt = document.getElementById("idSelectIntake")[i];
+                            if(parseInt(opt.value) === parseInt(value.intake)){
+                                saveOption = false;
+                            }
+                        }
+
+                        if(saveOption) {
+                            var option = document.createElement("option");
+                            option.text = value.name;
+                            option.value = value.intake;
+                            document.getElementById("idSelectIntake").add(option);
+                            lastGroupIntake = value.name;
+                        }
+                    }
+                    titleGraph = titleGraph + '<div class="container-gauge col-md-3"  name="graphIntake" intakeSelect="' + value.intake + '" ><div id="containerPr' + numberContainer + '"></div></div>';
                     numberContainer++;
                 });
+
                 titleGraph = titleGraph + '</div>';
                 document.getElementById("idListGraph").innerHTML = titleGraph;
 
@@ -1184,7 +1549,7 @@ var localStorageId = localStorage.idStudyCase;
                     if(defaultIntake){
                         defaultIntake = false;
                         lastIntake = value.id;
-                    } 
+                    }
                 });
             });
 
@@ -1228,6 +1593,7 @@ var localStorageId = localStorage.idStudyCase;
             var dataTotalBenefits = [];
             var urlDetail = "../../reports/getWaterproofReportsDesagregation/?studyCase=" + localStorage.idStudyCase;
             $.getJSON(urlDetail, function (data) {
+                dataGraph = data;
                 var timeNBS = []
                 var timeBusiness = []
                 
@@ -1259,9 +1625,31 @@ var localStorageId = localStorage.idStudyCase;
                 var phosphorusLoadChangeInTimeBusinessHhml = ""
                 var carbonStorageChangeInTimeBusinessHhml = ""
 
+                var lastIntakeGraph
                 $.each( data, function( key, value ) {
+
+                    
+                    if(lastIntakeGraph !== value.intakeId) {
+                        var saveOption = true;
+                        for (var i = 0; i < document.getElementById("idSelectIntakeGraph").length; i++) {
+                            var opt = document.getElementById("idSelectIntakeGraph")[i];
+                            if(parseInt(opt.value) === parseInt(value.intakeId)){
+                                saveOption = false;
+                            }
+                        }
+
+                        if(saveOption) {
+                            var option = document.createElement("option");
+                            option.text = value.intakeId;
+                            option.value = value.intakeId;
+                            document.getElementById("idSelectIntakeGraph").add(option);
+                            lastIntakeGraph = value.intakeId;
+                        }
+                    }
+                    
                     if(value.stageFilter === "NBS Scenario") {
                         timeNBS.push(value.time);
+
                         volumeOfWaterYieldChangeInTimeNbs.push(value.volumeOfWaterYieldChangeInTime);
                         annualVolumeBaseFlowChangeInTimeNbs.push(value.annualVolumeBaseFlowChangeInTime);
                         totalSedimentsChangeInTimeNbs.push(value.totalSedimentsChangeInTime);
@@ -1276,7 +1664,9 @@ var localStorageId = localStorage.idStudyCase;
                         phosphorusLoadChangeInTimeNbsHhml = phosphorusLoadChangeInTimeNbsHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + parseFloat(value.phosphorusLoadChangeInTime).toFixed(2) +'</div></div>';
                         carbonStorageChangeInTimeNbsHhml = carbonStorageChangeInTimeNbsHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + parseFloat(value.carbonStorageChangeInTime).toFixed(2) +'</div></div>';
                     } else  {
+
                         timeBusiness.push(value.time);
+
                         volumeOfWaterYieldChangeInTimeBusiness.push(value.volumeOfWaterYieldChangeInTime);
                         annualVolumeBaseFlowChangeInTimeBusiness.push(value.annualVolumeBaseFlowChangeInTime);
                         totalSedimentsChangeInTimeBusiness.push(value.totalSedimentsChangeInTime);
@@ -1294,19 +1684,12 @@ var localStorageId = localStorage.idStudyCase;
                 });
 
                 setTimeout(function(){
-
-                    document.getElementById("listNbs1").innerHTML = volumeOfWaterYieldChangeInTimeNbsHhml
-                    document.getElementById("listNbs2").innerHTML = annualVolumeBaseFlowChangeInTimeNbsHhml
-                    document.getElementById("listNbs3").innerHTML = totalSedimentsChangeInTimeNbsHhml
-                    document.getElementById("listNbs4").innerHTML = nitrogenLoadChangeInTimeNbsHhml
-                    document.getElementById("listNbs5").innerHTML = phosphorusLoadChangeInTimeNbsHhml
-                    document.getElementById("listNbs6").innerHTML = carbonStorageChangeInTimeNbsHhml
-                    document.getElementById("listNbs7").innerHTML = volumeOfWaterYieldChangeInTimeBusinessHhml
-                    document.getElementById("listNbs8").innerHTML = annualVolumeBaseFlowChangeInTimeBusinessHhml
-                    document.getElementById("listNbs9").innerHTML = totalSedimentsChangeInTimeBusinessHhml
-                    document.getElementById("listNbs10").innerHTML = nitrogenLoadChangeInTimeBusinessHhml
-                    document.getElementById("listNbs11").innerHTML = phosphorusLoadChangeInTimeBusinessHhml
-                    document.getElementById("listNbs12").innerHTML = carbonStorageChangeInTimeBusinessHhml
+                    document.getElementById("listNbs1").innerHTML = volumeOfWaterYieldChangeInTimeBusinessHhml
+                    document.getElementById("listNbs2").innerHTML = annualVolumeBaseFlowChangeInTimeBusinessHhml
+                    document.getElementById("listNbs3").innerHTML = totalSedimentsChangeInTimeBusinessHhml
+                    document.getElementById("listNbs4").innerHTML = nitrogenLoadChangeInTimeBusinessHhml
+                    document.getElementById("listNbs5").innerHTML = phosphorusLoadChangeInTimeBusinessHhml
+                    document.getElementById("listNbs6").innerHTML = carbonStorageChangeInTimeBusinessHhml
 
                     Highcharts.chart('containerNbs1', {
                         chart: {
@@ -1323,10 +1706,15 @@ var localStorageId = localStorage.idStudyCase;
                             enabled: false
                         },
                         series: [{
-                            name: 'AWY (m3)',
+                            name: 'NBS - AWY (m3)',
                             type: 'spline',
                             dashStyle: 'shortdot',
                             data: volumeOfWaterYieldChangeInTimeNbs
+                        },{
+                            name: 'BaU - AWY (m3) 1',
+                            type: 'spline',
+                            dashStyle: 'shortdot',
+                            data: volumeOfWaterYieldChangeInTimeBusiness
                         }]
                     });
                     Highcharts.chart('containerNbs2', {
@@ -1344,10 +1732,15 @@ var localStorageId = localStorage.idStudyCase;
                             enabled: false
                         },
                         series: [{
-                            name: 'Wsed (Ton)',
+                            name: 'NBS - Wsed (Ton)',
                             type: 'spline',
                             dashStyle: 'shortdot',
                             data: annualVolumeBaseFlowChangeInTimeNbs
+                        },{
+                            name: 'BaU - Wsed (Ton)',
+                            type: 'spline',
+                            dashStyle: 'shortdot',
+                            data: annualVolumeBaseFlowChangeInTimeBusiness
                         }]
                     });
                     Highcharts.chart('containerNbs3', {
@@ -1365,10 +1758,15 @@ var localStorageId = localStorage.idStudyCase;
                             enabled: false
                         },
                         series: [{
-                            name: 'WN (kg)',
+                            name: 'NBS - WN (kg)',
                             type: 'spline',
                             dashStyle: 'shortdot',
                             data: totalSedimentsChangeInTimeNbs
+                        },{
+                            name: 'BaU - WN (kg)',
+                            type: 'spline',
+                            dashStyle: 'shortdot',
+                            data: totalSedimentsChangeInTimeBusiness
                         }]
                     });
                     Highcharts.chart('containerNbs4', {
@@ -1386,10 +1784,15 @@ var localStorageId = localStorage.idStudyCase;
                             enabled: false
                         },
                         series: [{
-                            name: 'WP (kg)',
+                            name: 'NBS - WP (kg)',
                             type: 'spline',
                             dashStyle: 'shortdot',
                             data: nitrogenLoadChangeInTimeNbs
+                        },{
+                            name: 'BaU - WP (kg)',
+                            type: 'spline',
+                            dashStyle: 'shortdot',
+                            data: nitrogenLoadChangeInTimeBusiness
                         }]
                     });
                     Highcharts.chart('containerNbs5', {
@@ -1407,10 +1810,15 @@ var localStorageId = localStorage.idStudyCase;
                             enabled: false
                         },
                         series: [{
-                            name: 'BF (m3)',
+                            name: 'NBS - BF (m3)',
                             type: 'spline',
                             dashStyle: 'shortdot',
                             data: phosphorusLoadChangeInTimeNbs
+                        },{
+                            name: 'BaU - BF (m3)',
+                            type: 'spline',
+                            dashStyle: 'shortdot',
+                            data: phosphorusLoadChangeInTimeBusiness
                         }]
                     });
                     Highcharts.chart('containerNbs6', {
@@ -1428,10 +1836,15 @@ var localStorageId = localStorage.idStudyCase;
                             enabled: false
                         },
                         series: [{
-                            name: 'WC (Ton)',
+                            name: 'NBS - WC (Ton)',
                             type: 'spline',
                             dashStyle: 'shortdot',
                             data: carbonStorageChangeInTimeNbs
+                        },{
+                            name: 'BaU - WC (Ton)',
+                            type: 'spline',
+                            dashStyle: 'shortdot',
+                            data: carbonStorageChangeInTimeBusiness
                         }]
                     });
 
@@ -1448,14 +1861,9 @@ var localStorageId = localStorage.idStudyCase;
                         },
                         credits: {
                             enabled: false
-                        },
-                        series: [{
-                            name: 'AWY (m3)',
-                            type: 'spline',
-                            dashStyle: 'shortdot',
-                            data: volumeOfWaterYieldChangeInTimeBusiness
-                        }]
+                        }
                     });
+
                     Highcharts.chart('containerNbs8', {
                         chart: {
                             type: 'column'
@@ -1469,13 +1877,7 @@ var localStorageId = localStorage.idStudyCase;
                         },
                         credits: {
                             enabled: false
-                        },
-                        series: [{
-                            name: 'Wsed (Ton)',
-                            type: 'spline',
-                            dashStyle: 'shortdot',
-                            data: annualVolumeBaseFlowChangeInTimeBusiness
-                        }]
+                        }
                     });
                     Highcharts.chart('containerNbs9', {
                         chart: {
@@ -1490,13 +1892,7 @@ var localStorageId = localStorage.idStudyCase;
                         },
                         credits: {
                             enabled: false
-                        },
-                        series: [{
-                            name: 'WN (kg)',
-                            type: 'spline',
-                            dashStyle: 'shortdot',
-                            data: totalSedimentsChangeInTimeBusiness
-                        }]
+                        }
                     });
                     Highcharts.chart('containerNbs10', {
                         chart: {
@@ -1511,13 +1907,7 @@ var localStorageId = localStorage.idStudyCase;
                         },
                         credits: {
                             enabled: false
-                        },
-                        series: [{
-                            name: 'WP (kg)',
-                            type: 'spline',
-                            dashStyle: 'shortdot',
-                            data: nitrogenLoadChangeInTimeBusiness
-                        }]
+                        }
                     });
                     Highcharts.chart('containerNbs11', {
                         chart: {
@@ -1532,13 +1922,7 @@ var localStorageId = localStorage.idStudyCase;
                         },
                         credits: {
                             enabled: false
-                        },
-                        series: [{
-                            name: 'BF (m3)',
-                            type: 'spline',
-                            dashStyle: 'shortdot',
-                            data: phosphorusLoadChangeInTimeBusiness
-                        }]
+                        }
                     });
                     Highcharts.chart('containerNbs12', {
                         chart: {
@@ -1553,13 +1937,7 @@ var localStorageId = localStorage.idStudyCase;
                         },
                         credits: {
                             enabled: false
-                        },
-                        series: [{
-                            name: 'WC (Ton)',
-                            type: 'spline',
-                            dashStyle: 'shortdot',
-                            data: carbonStorageChangeInTimeBusiness
-                        }]
+                        }
                     });
                 }, 2000);
             });
