@@ -400,6 +400,38 @@ msgstr "Moneda"
 msgid "Options"
 msgstr "Opciones"
 
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_form.html
+msgid "create-nbs-help-1"
+msgstr "Usted puede crear una Solución basada en la naturaleza ingresando su nombre, descripción, datos sobre sus costos de implementación y mantenimiento, entre otros. Sin embargo, debe prestar especial atención en la sección Transiciones de Cobertura / uso del suelo, pues allí se configuran los cambios cobertura que WaterProof tendrá en cuenta para la generación de portafolios de SbN, modelación y análisis de retorno de inversión."
+
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_form.html
+msgid "create-nbs-help-2"
+msgstr "Una vez seleccione la transición de su interés, debe indicar los cambios en las coberturas que espera lograr:"
+
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_form.html
+msgid "create-nbs-help-3"
+msgstr "Por último, puede adjuntar un shapefile en donde usted indique áreas en donde se evite la implementación de la SbN creada:"
+
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_form.html
+msgid "create-nbs-help-4"
+msgstr "Tenga en cuenta que el shapefile debe tener 2 atributos los cuales son obligatorios para que RiOS pueda interpretar la información:"
+
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_form.html
+msgid "create-nbs-help-5"
+msgstr "activity_n: Este campo debe contener el nombre exacto de la actividad que se ha definido en el sistema (esto hace referencia al archivo csv de parámetros que entra a RIOS y que el sistema arma de acuerdo a lo seleccionado por el usuario)."
+
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_form.html
+msgid "create-nbs-help-6"
+msgstr "Action: Este campo es de tipo texto y solo admite dos opciones: 1) prevent si se quiere restringir una actividad en esa área o 2) prefer si se quiere dar prioridad en esa área a la actividad."
+
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_form.html
+msgid "create-nbs-help-7"
+msgstr "El sistema verificará que el polígono se encuentre dentro del área de la cuenca y que cumpla con el estándar de coordenadas. EPSG 3857 (standard mundial de coordenadas planas) o el EPSG 4326 (standard mundial en coordenadas geográficas)"
+
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_form.html
+msgid "create-nbs-help-8"
+msgstr "Se aceptan archivos únicamente en formato comprimido.zip cuya estructura requerida debe contener al menos: 1 archivo .shp, 1 archivo .dbf, 1 archivo .prj y 1 archivo .shx"
+
 #: geonode/waterproof_nbs_ca/views.py:69 geonode/waterproof_nbs_ca/views.py:403
 #: geonode/waterproof_nbs_ca/views.py:550
 msgid "Duplicated nbs"
