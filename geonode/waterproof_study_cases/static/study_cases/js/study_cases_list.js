@@ -77,7 +77,7 @@ $(function() {
         };
 
         $('#tbl-studycases tbody').on('click', '.btn-danger', function (evt) {
-            var userId = "{{casesList.user}}"
+            var userId = "{{casesList}}"
             console.log(evt.currentTarget.getAttribute('data-id')+"este es el console de borrar"+userId+"<==")
             Swal.fire({
                 title: gettext('Delete study case'),

@@ -62,7 +62,7 @@ $(document).ready(function() {
             Swal.fire({
                 icon: 'warning',
                 title: gettext('Data analysis empty'),
-                text: gettext('Please Generate Data analysis')
+                text: gettext('Please complete all required information')
             });
             return
         }
@@ -166,12 +166,15 @@ $(document).ready(function() {
     function externalInput(numYear) {
         var rows = "";
         var numberExternal = 0;
-        $('#externalSelect').append(`<option value="null" selected>Choose here</option>`);
+        let headTbl = headTblExternalInput();
+        let lblSelectOption = gettext('Select an option');
+        let lblExternalInput = gettext('External Input');
+        $('#externalSelect').append(`<option value="null" selected>${lblSelectOption}</option>`);        
         for (let p = 0; p < graphData.length; p++) {
             if (graphData[p].external == 'true') {
                 numberExternal += 1
                 $('#externalSelect').append(`
-                            <option value="${graphData[p].id}">${graphData[p].id} - External Input</option>
+                            <option value="${graphData[p].id}">${graphData[p].id} - ${lblExternalInput}</option>
                     `);
                 rows = "";
                 for (let index = 0; index <= numYear; index++) {
@@ -185,29 +188,19 @@ $(document).ready(function() {
                 }
                 $('#IntakeTDLE').append(`
                         <table class="table" id="table_${graphData[p].id}" style="display: none">
-                            <thead>
-                                <tr>
-                                    <th class="text-center" scope="col">Year</th>
-                                    <th class="text-center" scope="col">Water Volume (m3)</th>
-                                    <th class="text-center" scope="col">Sediment (Ton)</th>
-                                    <th class="text-center" scope="col">Nitrogen (Kg)</th>
-                                    <th class="text-center" scope="col">Phosphorus (Kg)</th>
-                                </tr>
-                            </thead>
+                            ${headTbl}
                             <tbody>${rows}</tbody>
-                        </table>    
-                `);
+                        </table>`);
             }
         }
-        $('#ExternalNumbersInputs').html(numberExternal)
+        $('#ExternalNumbersInputs').html(numberExternal);
     }
     
     function loadExternalInput() {
-
+        let headTbl = headTblExternalInput();
+        let lblSelectOption = gettext('Select an option');
         for (const extractionData of intakeExternalInputs) {
-            $('#externalSelect').append(`
-                <option value="${extractionData.xmlId}">${extractionData.xmlId} - External Input</option>
-            `);
+            $('#externalSelect').append(`<option value="${extractionData.xmlId}">${extractionData.xmlId} - ${lblExternalInput}</option>`);
             rows = "";
             for (let index = 0; index < extractionData.waterExtraction.length; index++) {
                 rows += (`<tr>
@@ -220,18 +213,10 @@ $(document).ready(function() {
 
             }
             $('#IntakeTDLE').append(`
-                  <table class="table" id="table_${extractionData.xmlId}" style="display: none;">
-                      <thead>
-                          <tr>
-                              <th class="text-center" scope="col">Year</th>
-                              <th class="text-center" scope="col">Water Volume (m3)</th>
-                              <th class="text-center" scope="col">Sediment (Ton)</th>
-                              <th class="text-center" scope="col">Nitrogen (Kg)</th>
-                              <th class="text-center" scope="col">Phosphorus (Kg)</th>
-                          </tr>
-                      </thead>
-                      <tbody>${rows}</tbody>
-                  </table>    
+                    <table class="table" id="table_${extractionData.xmlId}" style="display: none;">
+                        ${headTbl}
+                        <tbody>${rows}</tbody>
+                    </table>    
           `);
         }
 
@@ -244,26 +229,24 @@ $(document).ready(function() {
         });
     }
 
+    function headTblExternalInput(){
+        let lblYear = gettext('Year');
+        let lblWaterVolume = gettext('Water Volume');
+        let lblSediment = gettext('Sediment');
+        let lblNitrogen = gettext('Nitrogen');
+        let lblPhosphorus = gettext('Phosphorus');
+        return`<thead>
+                <tr>
+                    <th class="text-center" scope="col">${lblYear}</th>
+                    <th class="text-center" scope="col">${lblWaterVolume} (m3)</th>
+                    <th class="text-center" scope="col">${lblSediment} (Ton)</th>
+                    <th class="text-center" scope="col">${lblNitrogen} (Kg)</th>
+                    <th class="text-center" scope="col">${lblPhosphorus} (Kg)</th>
+                </tr>
+            </thead>`;
+    }
+
     function setInterpolationParams() {
-        // switch (intakeInterpolationParams.type) {
-        //     // LINEAR INTERPOLATION
-        //     case interpolationType.LINEAR:
-        //         // Method interpolation select
-        //         interpMethodInput.val(1);                
-        //         break;
-        //         // POTENTIAL INTERPOLATION
-        //     case interpolationType.POTENTIAL:
-        //         interpMethodInput.val(2);                
-        //         break;
-        //         // EXPONENTIAL INTERPOLATION
-        //     case interpolationType.EXPONENTIAL:
-        //         interpMethodInput.val(3);                
-        //         break;    
-        //         // LOGISTICS INTERPLATION
-        //     case interpolationType.LOGISTICS:
-        //         interpMethodInput.val(4);                
-        //         break;
-        // }
 
         // Years number for time series
         numYearsInput.val(intakeInterpolationParams.yearsNum);
@@ -320,7 +303,7 @@ $(document).ready(function() {
                 });
                 waterExtractionData.yearValues = waterExtractionValue;
                 $('#waterExtraction').val(JSON.stringify(waterExtractionData));
-                if (waterExtractionData.yearCount == waterExtractionData.yearValues.length) {
+                if (waterExtractionData.yearCount == waterExtractionData.yearValues.length-1) {
                     $('#smartwizard').smartWizard("next");
                 } else {
                     Swal.fire({

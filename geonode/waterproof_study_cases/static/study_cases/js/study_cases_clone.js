@@ -1528,7 +1528,7 @@ $(document).on('click', 'a[name=glyphicon-edit]', function () {
     $('#costFunctionName').val(funcostdb[selectedCostId].function.name);
     $('#costFuntionDescription').val(funcostdb[selectedCostId].function.description);
     $('#CalculatorModalLabel').text('Modify Cost - ' + $('#titleCostFunSmall').text());
-    $('#currencyCost').val(funcostdb[selectedCostId].function.currencyCost);
+    //$('#currencyCost').val(funcostdb[selectedCostId].function.currencyCost);
     $('#global_multiplier_factorCalculator').val(funcostdb[selectedCostId].function.factor);
     setVarCost();
     let value = funcostdb[selectedCostId].function.value;
@@ -1608,7 +1608,7 @@ function funcost(index) {
     var currencyCostName = funcostdb[index].function.currencyCostName != undefined ? funcostdb[index].function.currencyCostName : funcostdb[index].function.currency;
     var factor = funcostdb[index].function.factor;
     if (currencyCostName == undefined) {
-        currencyCostName = "";
+        currencyCostName = localStorage.getItem("currency");
     }
     if (factor == undefined) {
         factor = localStorage.getItem("factor");

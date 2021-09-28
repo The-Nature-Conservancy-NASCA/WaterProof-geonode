@@ -8512,7 +8512,7 @@ msgid "Begin your Nature based Solutions journey"
 msgstr "Begin your Nature based Solutions journey"
 
 msgid "Explore how Nature-based Solutions can generate outcomes in your catchment."
-msgstr "Explore how Nature based Solutions can generate outcomes in your catchment."
+msgstr "Explore how Nature based Solutions can generate outcomes in your basin."
 
 msgid "Start now"
 msgstr "Start now"

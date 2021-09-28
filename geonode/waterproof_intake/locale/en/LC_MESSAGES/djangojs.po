@@ -201,7 +201,7 @@ msgstr ""
 
 #: static/waterproof_intake/js/graphValidations.js:357
 #, javascript-format
-msgid "The minimun value is %s please use the arrows"
+msgid "The minimum value is %s please use the arrows"
 msgstr ""
 
 #: static/waterproof_intake/js/graphValidations.js:369
