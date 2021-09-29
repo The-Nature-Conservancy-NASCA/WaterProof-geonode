@@ -1869,8 +1869,8 @@ def getNames(indicators):
     result = []
     for objectIndicator in indicators:  
         try:
-            if objectIndicator.intake.name not in result:
-                result.append(objectIndicator.intake.name)
+            if objectIndicator.intake not in result:
+                result.append(objectIndicator.intake)
         except:
             print ("")
     return result
