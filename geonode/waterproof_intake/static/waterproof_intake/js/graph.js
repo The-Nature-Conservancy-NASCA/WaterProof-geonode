@@ -641,22 +641,36 @@
  
          //Edit funcion cost 
          $(document).on('click', 'a[name=glyphicon-edit]', function() {
-            //mathField.clearSelection();
+            
             clearInputsMath();
             $('#CalculatorModal').modal('show');
-            selectedCostId = parseInt($(this).attr('idvalue'));
-            $('#costFunctionName').val(funcostdb[selectedCostId].fields.function_name);
-            $('#costFuntionDescription').val(funcostdb[selectedCostId].fields.function_description);
-            $('#CalculatorModalLabel').text('Modify Cost - ' + $('#titleCostFunSmall').text());
-            $('#currencyCost').val(funcostdb[selectedCostId].fields.currencyCost);
-            $('#global_multiplier_factorCalculator').val(funcostdb[selectedCostId].fields.global_multiplier_factorCalculator);
-            setVarCost();
-            let value = funcostdb[selectedCostId].fields.function_value;
-            console.log("valor de value es: "+value)
-            if (value == ""){
-                $('#python-expression').val();
+            let index = parseInt($(this).attr('idvalue'));
+            let fieldsFunction = funcostdb[index].fields;
+            var currency = fieldsFunction.currencyCostName;
+            if (currency == undefined || currency == '') {
+                currency = fieldsFunction.currency;
+                if (currency != undefined && currency != '') {
+                    $('#currencyCost').val(currency);
+                    if (currency == 'USD') {
+                        $("#currencyCost option").filter((i,l) => ( l.getAttribute('data-country') == 'USA'))[0].selected = true;
+                    }
+                }
             }
-            else{
+
+            var factor = fieldsFunction.global_multiplier_factorCalculator;            
+            if (factor == undefined){
+                factor = localStorage.getItem("factor");
+            }
+
+            $('#costFunctionName').val(ieldsFunction.function_name);
+            $('#costFuntionDescription').val(fieldsFunction.function_description);
+            $('#CalculatorModalLabel').text(gettext('Modify Cost function'));            
+            $('#global_multiplier_factorCalculator').val(factor);
+            setVarCost();
+            
+            let value = fieldsFunction.function_value;            
+            $('#python-expression').val();
+            if (value != ""){
                 $('#python-expression').val(value);
             }
             validatePyExpression();
