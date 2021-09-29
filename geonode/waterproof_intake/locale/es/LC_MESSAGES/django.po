@@ -994,3 +994,6 @@ msgstr "Ver"
 
 msgid "Water Intake Demand"
 msgstr "Demanda de captación de agua"
+
+msgid "Draw Basin"
+msgstr "Dibujar cuenca"
