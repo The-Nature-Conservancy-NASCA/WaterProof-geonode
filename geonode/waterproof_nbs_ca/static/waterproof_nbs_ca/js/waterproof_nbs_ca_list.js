@@ -54,7 +54,7 @@ $(function () {
         $('#tblNbs tbody').on('click', '.btn-danger', function (evt) {
             Swal.fire({
                 title: gettext('Delete NBS'),
-                text: gettext("Are you sure? ") + " " + gettext("You won't be able to revert this!"),
+                text: gettext("Are you sure?") + " " + gettext("You won't be able to revert this!"),
                 icon: 'warning',
                 showCancelButton: false,
                 showDenyButton: true,
