@@ -2129,6 +2129,10 @@
     .content-table-bootom-step1{
         padding-bottom: 57%;
     }
+    .image-size-left{
+        width: 70%;
+        margin: 15%;
+    }
 }
 @media only screen and (max-width: 1200px) {
     
