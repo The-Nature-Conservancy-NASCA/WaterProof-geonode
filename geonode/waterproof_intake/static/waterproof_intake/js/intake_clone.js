@@ -108,7 +108,7 @@ $(document).ready(function () {
                 waterExtractionValue.push(yearData);
                 $('#intakeECTAG').append(`<tr>
                 <th class="text-center" scope="row">${index}</th>
-                <td class="text-center"><input type="text" class="form-control justify-number" value="${((m * index) + b).toFixed(2)}" disabled></td>
+                <td class="text-center"><input type="text" class="form-control justify-number" value="${yearData.value.replace(".",",")}" disabled></td>
               </tr>`);
             }
         }
@@ -126,7 +126,7 @@ $(document).ready(function () {
                 waterExtractionValue.push(yearData);
                 $('#intakeECTAG').append(`<tr>
                 <th class="text-center" scope="row">${index - 1}</th>
-                <td class="text-center"><input type="text" class="form-control justify-number" value="${(b * (Math.pow(index, m))).toFixed(2)}" disabled></td>
+                <td class="text-center"><input type="text" class="form-control justify-number" value="${yearData.value.replace(".",",")}" disabled></td>
               </tr>`);
             }
         }
@@ -143,7 +143,7 @@ $(document).ready(function () {
                 waterExtractionValue.push(yearData);
                 $('#intakeECTAG').append(`<tr>
                 <th class="text-center" scope="row">${index}</th>
-                <td class="text-center"><input type="text" class="form-control justify-number" value="${(b * (Math.exp(m * index))).toFixed(2)}" disabled></td>
+                <td class="text-center"><input type="text" class="form-control justify-number" value="${yearData.value.replace(".",",")}" disabled></td>
               </tr>`);
             }
 
@@ -160,7 +160,7 @@ $(document).ready(function () {
                 waterExtractionValue.push(yearData);
                 $('#intakeECTAG').append(`<tr>
                 <th class="text-center" scope="row">${index}</th>
-                <td class="text-center"><input type="text" class="form-control justify-number" value="${((finalDataExtractionInterpolationValue) / (1 + ((finalDataExtractionInterpolationValue / initialDataExtractionInterpolationValue) - 1) * Math.exp(-r * index))).toFixed(2)}" disabled></td>
+                <td class="text-center"><input type="text" class="form-control justify-number" value="${yearData.value.replace(".",",")}" disabled></td>
               </tr>`);
             }
         }
@@ -569,9 +569,9 @@ $(document).ready(function () {
     });
 
     let initialCoords = [4.5, -74.4];
-    let zoom = 5;
-    let urlOSM = 'https://{s}.tile.osm.org/{z}/{x}/{y}.png';
+    let zoom = 5;    
     let attr = '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors';
+    
     var cityCoords = localStorage.getItem('cityCoords');
     if (cityCoords == undefined) {
         cityCoords = initialCoords;
@@ -582,15 +582,15 @@ $(document).ready(function () {
 
     map = L.map('map', {}).setView(initialCoords, zoom);
     mapDelimit = L.map('mapid', { editable: true }).setView(initialCoords, zoom);
-    var osm = L.tileLayer(urlOSM, {
+    var osm = L.tileLayer(OSM_BASEMAP_URL, {
         attribution: attr,
     });
-    var osmid = L.tileLayer(urlOSM, {
+    var osmid = L.tileLayer(OSM_BASEMAP_URL, {
         attribution: attr,
     });
     map.addLayer(osm);
-    var images = L.tileLayer("https://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryTopo/MapServer/tile/{z}/{y}/{x}");
-    var esriHydroOverlayURL = "https://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/Esri_Hydro_Reference_Overlay/MapServer/tile/{z}/{y}/{x}";
+    var images = L.tileLayer(IMG_BASEMAP_URL);
+    var esriHydroOverlayURL = HYDRO_BASEMAP_URL;
     var hydroLyr = L.tileLayer(esriHydroOverlayURL);
     var baseLayers = {
         OpenStreetMap: osm,
@@ -681,12 +681,12 @@ $(document).ready(function () {
     $("#validateBtn").on("click", function () {
         Swal.fire({
             title: gettext('Basin point delimitation'),
-            text: gettext('The point coordinates will be ajusted'),
+            text: gettext('The point coordinates will be shifted'),
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: gettext('Yes, ajust!'),
+            confirmButtonText: gettext('Yes, shift!'),
             cancelButtonText: gettext('Cancel'),
         }).then((result) => {
             if (result.isConfirmed) {
@@ -733,7 +733,6 @@ function setInterpolationParams() {
         case interpolationType.EXPONENTIAL:
             interpMethodInput.val(3);            
             break;
-
         // LOGISTICS INTERPLATION
         case interpolationType.LOGISTICS:
             interpMethodInput.val(4);           
@@ -742,9 +741,9 @@ function setInterpolationParams() {
      // Years number for time series
      numYearsInput.val(intakeInterpolationParams.yearsNum);
      // Initial extraction value
-     initialExtraction.val(intakeInterpolationParams.initialExtract);
+     initialExtraction.val(intakeInterpolationParams.initialExtract.toFixed(2));
      // Final extraction value
-     finalExtraction.val(intakeInterpolationParams.endingExtract);
+     finalExtraction.val(intakeInterpolationParams.endingExtract.toFixed(2));
      $("#intakeWECB").click();
 }
 /** 

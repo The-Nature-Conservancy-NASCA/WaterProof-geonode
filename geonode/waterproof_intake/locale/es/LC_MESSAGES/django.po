@@ -695,7 +695,7 @@ msgstr "Demanda de agua"
 
 #: template/intake_form.html:234
 msgid "Please indicate the demand (extraction) from your catchment. You can use the interpolation tool of the system or enter it manually."
-msgstr "Por favor seleccione el método que desea usar para llenar la tabla asociada con la extracción anual de agua de la fuente y de clic en el botón generar para obtener la serie de datos."
+msgstr "Por favor seleccione el método que desea usar para llenar la tabla asociada con la extracción anual de agua de la fuente y de clic en el botón 'Generar' para obtener la serie de datos."
 
 #: template/intake_form.html:266
 msgid "Number of years for time series  (10-100) Year"
@@ -978,7 +978,7 @@ msgid "From this section you can view the water intakes created in the system as
 msgstr "Desde esta sección puede consultar las captaciones de agua creadas en el sistema asociadas a una ciudad de interés. Puede buscar captaciones de diferentes ciudades desde “Buscar ciudad”. El sistema le mostrará un listado de ciudades con las coincidencias a nivel mundial. Seleccione de la lista la opción que corresponda."
 
 msgid "You can delineate a basin associated with a city, to do this, search for the city to which you will associate your basin and then click on the 'Create new water intake' button."
-msgstr "Puede delinear una cuenca asociada a una ciudad, para esto, busque la ciudad a la que asociará su cuenca y luego haga clic en el botón 'Crear nueva toma de agua'."
+msgstr "Puede delinear una cuenca asociada a una ciudad, para esto, busque la ciudad a la que asociará su cuenca y luego haga clic en el botón 'Crear captación'."
 
 msgid "Configure"
 msgstr "Configurar"

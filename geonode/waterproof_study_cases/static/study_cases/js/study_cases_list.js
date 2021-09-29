@@ -53,7 +53,7 @@ $(function() {
 
         viewCurrencys = function(id, currency_sc) {
             console.log(currency_sc);
-            let lblInfo = gettext('The following exchange rates have been applied for the analysis');
+            let lblInfo = gettext('The following exchange rates has been applied for the analysis');
             let quantity = gettext('Quantity');
             let currency = gettext('Currency');
             let exchange = gettext('Exchange');

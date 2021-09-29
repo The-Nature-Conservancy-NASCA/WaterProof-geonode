@@ -203,7 +203,7 @@
                                 <button type="button" class="btn btn-primary btn-add-cost" data-toggle="modal" data-target="#CalculatorModal" id="ModalAddCostBtn">{% trans "Add Cost" %}</button>
                             </h4>
                             <p>{% trans "The infrastructure elements of the water intake system have associated operating and maintenance costs. You can modify them, discard them or add new costs." %}</p>
-                            <table class="table table-striped table-bordered table-condensed" style="width:100%; margin-bottom: 100px">
+                            <table class="table table-striped table-bordered table-condensed" style="width:100%; margin-bottom:10px;">
                                 <thead>
                                     <tr class="info">
                                         <th scope="col" class="small text-center vat">{% trans "Function name" %}</th>
@@ -213,8 +213,7 @@
                                         <th scope="col" class="small text-center vat">{% trans "Options" %}</th>
                                     </tr>
                                 </thead>
-                                <tbody id="funcostgenerate">                                
-                                </tbody>
+                                <tbody id="funcostgenerate"></tbody>
                             </table>
                         </div>
                     </div>
@@ -498,15 +497,15 @@
                                     {% for currency in currencies %}
                                     {% if currency.iso3 == 'USA'%}
                                         {% if currency.currency == intake.city.country.currency %}                                                
-                                            <option value="{{currency.currency}}" data-country="{{currency.iso3}}" selected>({{currency.currency}}) - {{currency.name}}</option>
+                                            <option value="{{currency.pk}}" data-country="{{currency.iso3}}" selected>({{currency.currency}}) - {{currency.name}}</option>
                                         {% else %}
-                                            <option value="{{currency.currency}}" data-country="{{currency.iso3}}">({{currency.currency}}) - {{currency.name}}</option>
+                                            <option value="{{currency.pk}}" data-country="{{currency.iso3}}">({{currency.currency}}) - {{currency.name}}</option>
                                         {% endif %}                                            
                                     {% else %}
                                         {% if currency.currency == intake.city.country.currency %}
-                                            <option value="{{currency.currency}}" attr="{{currency.currency}}" selected>({{currency.currency}}) - {{currency.name}} </option>
+                                            <option value="{{currency.pk}}" attr="{{currency.currency}}" selected>({{currency.currency}}) - {{currency.name}} </option>
                                         {% else %}
-                                            <option value="{{currency.currency}}">({{currency.currency}}) - {{currency.name}}</option>
+                                            <option value="{{currency.pk}}">({{currency.currency}}) - {{currency.name}}</option>
                                         {% endif %}
                                     {% endif %}
                                 {% endfor %}
@@ -803,11 +802,11 @@
                 <p>
                     {% trans "If you select the interpolation method, you must enter the number of years for which you want to estimate demand and the expected minimum and maximum demand flow (extraction) values ​​(unit in l / s):" %}
                 </p>
-                <img style="margin: 10px auto 10px; display: block; width: 90%;" src="/static/geonode/img/step3-1.png"></img>
+                <img style="margin: 10px auto 10px; display: block; width: 70%;" src="/static/geonode/img/step3-1.png"></img>
                 <p>
                     {% trans "If you know your water demand (withdrawal) data from year to year, you can enter it manually. For this, just enter the number of years for which you have information and WaterProof will generate a table in which you can enter the data (units in l / s):" %}
                 </p>
-                <img style="margin: 10px auto 10px; display: block; width: 90%;" src="/static/geonode/img/step3-2.png"></img>
+                <img style="margin: 10px auto 10px; display: block; width: 60%;" src="/static/geonode/img/step3-2.png"></img>
                 <div>
                     <br>
                     <div class="modal-footer">

@@ -590,12 +590,12 @@ $(document).ready(function() {
 function prevalidateAdjustCoordinates() {
     Swal.fire({
         title: gettext('Basin point delimitation'),
-        text: gettext('The point coordinates will be ajusted'),
+        text: gettext('The point coordinates will be shifted'),
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: gettext('Yes, ajust!'),
+        confirmButtonText: gettext('Yes, shift!'),
         cancelButtonText: gettext('Cancel'),
     }).then((result) => {
         if (result.isConfirmed) {

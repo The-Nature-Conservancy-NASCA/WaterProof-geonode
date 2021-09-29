@@ -336,14 +336,14 @@ msgstr "Delimitación del punto de la cuenca"
 #: static/waterproof_intake/js/intake_clone.js:610
 #: static/waterproof_intake/js/intake_create.js:555
 #: static/waterproof_intake/js/intake_edit.js:609
-msgid "The point coordinates will be ajusted"
+msgid "The point coordinates will be shifted"
 msgstr "Las coordenadas del punto serán ajustadas a la cuenca más cercana"
 
 #: static/waterproof_intake/js/intake_clone.js:615
 #: static/waterproof_intake/js/intake_create.js:560
 #: static/waterproof_intake/js/intake_edit.js:614
-msgid "Yes, ajust!"
-msgstr "Si, ajustar!"
+msgid "Yes, shift!"
+msgstr "Si, Mover!"
 
 #: static/waterproof_intake/js/intake_clone.js:745
 #: static/waterproof_intake/js/intake_create.js:646

@@ -162,16 +162,13 @@
         </div>
         </div>
     <ul class="list-group">
-
         {% for transformation in sbn.rios_transformations.all %}
         <li class="list-group-item">
             <span class="badge">{{ transformation.name }}</span> {{ transformation.activity.name }}
         </li>
         {% endfor %}
-
     </ul>
 </div>
-
 
 {% endblock body_outer %} {% block extra_script %}
 <script>
