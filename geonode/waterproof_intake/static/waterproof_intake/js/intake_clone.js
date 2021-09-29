@@ -712,6 +712,18 @@ $(document).ready(function () {
     });
     observer2.observe(menu1Tab, { attributes: true });
 
+    updateTooltips();
+
+    function updateTooltips() {
+        let mxImgsBtn = $("#toolbar .mxToolbarMode");
+        mxImgsBtn.each( (i,b) => {
+            $(b).attr("data-toggle", "tooltip");
+            $(b).attr("data-placement", "bottom");
+            $(b).attr("title", gettext($(b).attr("title"))) ;
+        });
+        $('[data-toggle="tooltip"]').tooltip();
+    }
+
 });
 
 // window.onbeforeunload = function () { return mxResources.get('changesLost'); };

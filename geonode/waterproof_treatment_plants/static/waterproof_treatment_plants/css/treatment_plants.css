@@ -581,12 +581,6 @@ textarea {
     border-radius: 0.5em;
     border-color: #aaa;
 }
-.table-bordered {
-    border: 0px solid #fff !important;
-}
-.table-bordered > thead > tr > th, .table-bordered > tbody > tr > th, .table-bordered > tfoot > tr > th, .table-bordered > thead > tr > td, .table-bordered > tbody > tr > td, .table-bordered > tfoot > tr > td {
-    border: 0px solid #fff !important;
-}
 .swal2-content {
     font-size: 20px !important;
 }
@@ -629,7 +623,6 @@ textarea {
 .table-center-item{
     display: block;
     text-align:center;
-    vertical-align: middle;
 }
 
 .align-text-table{
@@ -676,4 +669,8 @@ textarea {
 
 form label {
     margin-right: 1.1em !important;
+}
+
+.vat {
+    vertical-align: middle !important;
 }

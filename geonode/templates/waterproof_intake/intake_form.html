@@ -396,49 +396,42 @@
                         <!--Map-->
                         <div class="col-md-7">
                             <div class="panel panel-danger">
-                                <div id="mapid" style="width: 100%; height: 400px;"></div>
+                                <div id="mapid" style="width: 100%; height: 500px;"></div>
                             </div>
                         </div>
                         <!--Panel Information Right-->
                         <div class="col-md-5">
-                            <div class="panel panel-default">
+                            <div class="panel panel-default" style="height: 500px;">
                                 <div class="panel-body">
-                                    <!--div class="alert alert-info" role="alert">
-                                        <button type="button" class="btn btn-link btn-block" data-toggle="modal" data-target="#HelpStep5" id="HelpModalBtnModal_step5" style="outline:none; text-decoration:none;">
-                                    <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>{% trans "Intake area delimitation" %}</button>
-                                        </button>
-    
-                                    </div-->
+                                    <div class="alert-info" role="alert">
+                                        <h3 class="text-center">{% trans "Intake area delimitation" %}</h3>
+                                    </div>
                                     <p>{% trans "You can change the area"%}</p>
                                     <p>{% trans "To move area vertices" %}</p>
-                                    <div class="form-group col-md-4">
-                                        <button type="button" class="btn btn-primary" id="btnDelimitArea"> {%trans "Manually area delimit" %}</button>
-                                    </div>
-                                    <div class="col-md-1"><p>{% trans "or" %}</p></div>
-                                    <div class="form-group col-md-4">
-                                        <div class="input-group">
-                                            <span class="input-group-btn">
-                                                <span class="btn btn-default btn-file">
-                                                    {% trans "Select a file" %}
-                                                    <input id="intakeArea" type="file">
+                                    <div class="text-center" style="padding-bottom: 15px;">
+                                        <div class="text-center">
+                                            <button type="button" class="btn btn-primary" id="btnDelimitArea"> {%trans "Manually area delimit" %}</button>
+                                            <p style="padding-left: 5px;padding-right: 5px;">{% trans "or" %}</p>                                        
+                                            <div class="input-group">
+                                                <span class="input-group-btn">
+                                                    <span class="btn btn-default btn-file">
+                                                        {% trans "Select a file" %}
+                                                        <input id="intakeArea" type="file">
+                                                    </span>
                                                 </span>
-                                            </span>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
-                                       
-                                    </div>
-                                    <br>
-                                    <br>
+                                    <br>                                  
                                     <p>{% trans "Once defined the area" %}</p>
                                     <p>{% trans "To load shapefile" %}</p>
-                                    <div class="form-group col-md-4">
+                                    <div class="text-center">
                                         <button type="button" class="btn btn-primary" id="btnValidateArea"> {% trans "Validate delimit area" %}</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div>                    
                     <br>
                     <div class="row text-center">
                         <div class="col-md-12 form-group">
@@ -520,8 +513,6 @@
                         <ul class="nav nav-tabs">
                             <li class="active"><a href="#mathBasic_tab" data-toggle="tab">{% trans "Basic" %}</a></li>
                             <li><a href="#mathAdvanced_tab" data-toggle="tab" >{% trans "Advanced" %}</a></li>
-                            <!--li><a href="#mathTrigonometry_tab" data-toggle="tab" >Trigonometry</a></li>
-                            <li><a href="#mathLogical_tab" data-toggle="tab" >Logical</a></li-->
                         </ul>
                         <div class="tab-content">
                             <div id="mathBasic_tab" class="tab-pane fade in active">
@@ -942,6 +933,4 @@
 <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 <script src="{{ STATIC_URL }}waterproof_intake/mathquill/mathquill.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-
-
 {% endblock %}

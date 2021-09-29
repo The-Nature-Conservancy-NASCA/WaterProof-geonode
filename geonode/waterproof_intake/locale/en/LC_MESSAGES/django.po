@@ -574,10 +574,6 @@ msgstr "NbS implementation area"
 msgid "You can change the area"
 msgstr "For manual delineation, click on the button 'Manually delineate area' and the system will highlight the vertices of the basin. You can reshape the area as needed by moving the vertices highlighted in red."
 
-#: template/intake_clone.html:399 template/intake_form.html:412
-msgid "To move area vertices"
-msgstr "Alternatively, you can upload a spatial file in shp format that contains the polygon where NbS implementation is possible."
-
 #: template/intake_clone.html:404 template/intake_edit.html:380
 #: template/intake_form.html:433
 msgid "To load shapefile"
@@ -696,7 +692,7 @@ msgid "Add Cost"
 msgstr "Add new cost"
 
 #: template/intake_edit.html:376
-msgid "To  move area vertices"
+msgid "To move area vertices"
 msgstr "Choose between \"Delimit NbS implementation area\" or uploading a \"geographic file\""
 
 #: template/intake_edit.html:378 template/intake_form.html:414

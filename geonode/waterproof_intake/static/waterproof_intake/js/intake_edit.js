@@ -578,11 +578,8 @@ $(document).ready(function () {
             $(b).attr("data-placement", "bottom");
             $(b).attr("title", gettext($(b).attr("title"))) ;
         });
-
-
         $('[data-toggle="tooltip"]').tooltip();
     }
-
 });
 
 function generateWaterExtraction(){

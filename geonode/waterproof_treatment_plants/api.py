@@ -45,7 +45,7 @@ def getTreatmentPlantsList(request):
 				csinfra = plant.csinfra_plant
 				element = plant.csinfra_elementsystem
 				try:
-					lastPlantIntakeName = ("%:%s::%s") % (element.intake.id, element.intake.name, element.name, element.graphId)
+					lastPlantIntakeName = ("%s:%s::%s") % (element.intake.name, element.name, element.graphId)
 				except:
 					lastNull = ''
 				
