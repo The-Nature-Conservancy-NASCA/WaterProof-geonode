@@ -408,6 +408,9 @@ msgstr "Moneda para la ejecución de este análisis"
 msgid "The following exchange rates will be applied for the analysis"
 msgstr "Las siguientes tasas de cambio se aplicarán para el análisis"
 
+msgid "The following exchange rates has been applied for the analysis"
+msgstr "Las siguientes tasas de cambio has sido aplicadas para el análisis"
+
 msgid "Currency"
 msgstr "Moneda"
 
@@ -431,3 +434,6 @@ msgstr "Modificar función de costo"
 
 msgid "New Cost function"
 msgstr "Nueva función de costo"
+
+msgid "Quantity"
+msgstr "Cantidad"

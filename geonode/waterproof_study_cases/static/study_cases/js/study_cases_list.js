@@ -52,27 +52,30 @@ $(function() {
         });
 
         viewCurrencys = function(id, currency_sc) {
-            console.log(currency_sc)
-            html = '<div class="row" id="currencys-panel"> <div class="col-md-12 currency-panel">The following exchange rates have been applied for the analysis</div>'
-            html += '<div class="custom-control col-md-3 currency-value">Quantity</div>'
-            html += '<div class="custom-control col-md-4 currency-value">Currency</div>'
-            html += '<div class="custom-control col-md-5 currency-value">Exchange</div>'
+            console.log(currency_sc);
+            let lblInfo = gettext('The following exchange rates have been applied for the analysis');
+            let quantity = gettext('Quantity');
+            let currency = gettext('Currency');
+            let exchange = gettext('Exchange');
+
+            html = `<div class="row" id="currencys-panel"> <div class="col-md-12 currency-panel">${lblInfo}</div>
+                    <div class="custom-control col-md-3 currency-value">${quantity}</div>
+                    <div class="custom-control col-md-4 currency-value">${currency}</div>
+                    <div class="custom-control col-md-5 currency-value">${exchange}</div>`;
             $.get("../../study_cases/currencys/", {
                 id: id,
                 currency: ""
             }, function(data) {
-
                 $.each(data, function(index, currency) {
-                    value = Number.parseFloat(currency.value).toFixed(5);
+                    value = parseFloat(currency.value).toFixed(2).replace(".",",");
                     html += '<div class="custom-control col-md-3 currency-value">1 ' + currency_sc + '</div>'
                     html += '<div class="col-md-4 currency-value"><label class="custom-control-label" for="currency">' + currency.currency + '</label></div>'
                     html += '<div class="custom-control col-md-5 currency-value">' + value + '</div>'
                 });
                 Swal.fire({
-                    title: 'Exchange rate',
+                    title: gettext('exchange_rate'),
                     html: html
                 })
-
             })
         };
 
