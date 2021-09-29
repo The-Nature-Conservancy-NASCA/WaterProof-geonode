@@ -1872,7 +1872,7 @@ def getNames(indicators):
             if objectIndicator.intake.name not in result:
                 result.append(objectIndicator.intake.name)
         except:
-            return result
+            print ("")
     return result
 
 def getNameCity(indicators):
@@ -1882,7 +1882,7 @@ def getNameCity(indicators):
             if objectIndicatorcity.intake.city.name not in result:
                 result.append(objectIndicatorcity.intake.city.name)
         except:
-            return result
+            print ("")
     return result
 
 
@@ -1902,40 +1902,24 @@ def physicalIndicators(request, idx):
 
 
 def financialIndicators(request):
-
-    indicators = investIndicators.objects.all()
-    indicatorsNames = getNames(indicators)
-    indicatorsNameCity = getNameCity(indicators)
     return render(
         request,
         'waterproof_reports/financialIndicators.html',
         {
-            'Indicators': indicators,
-            'NamesIndicators': indicatorsNames,
-            'NameCityIndicators': indicatorsNameCity
+    
         })
 
 
 def decisionIndicators(request):
-
-    indicators = investIndicators.objects.all()
-    indicatorsNames = getNames(indicators)
-    indicatorsNameCity = getNameCity(indicators)
     return render(
         request,
         'waterproof_reports/decisionIndicators.html',
         {
-            'Indicators': indicators,
-            'NamesIndicators': indicatorsNames,
-            'NameCityIndicators': indicatorsNameCity
+
         })
 
 
 def geographicIndicators(request):
-
-    indicators = investIndicators.objects.all()
-    indicatorsNames = getNames(indicators)
-    indicatorsNameCity = getNameCity(indicators)
     base_data = ''
     intake = ''
     region = ''
@@ -1960,9 +1944,6 @@ def geographicIndicators(request):
         request,
         'waterproof_reports/geographicIndicators.html',
         {
-            'Indicators': indicators,
-            'NamesIndicators': indicatorsNames,
-            'NameCityIndicators': indicatorsNameCity,
             'base_data': base_data,
             'intake': intake,
             'region': region,
