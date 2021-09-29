@@ -239,3 +239,24 @@ msgstr "Modificar función de costo"
 
 msgid "New Cost function"
 msgstr "Nueva función de costo"
+
+msgid "Technology"
+msgstr "Tecnología"
+
+msgid "Process"
+msgstr "Proceso"
+
+msgid "Subprocess"
+msgstr "Subproceso"
+
+msgid "Coagulant"
+msgstr "Coagulante"
+
+msgid "Liquid Aluminum Sulfate"
+msgstr "Liquido de Aluminio Sulfato"
+
+msgid "Granulated Aluminum Sulfate"
+msgstr "Granulado de Aluminio Sulfato"
+
+msgid "Ferric chloride"
+msgstr "Cloruro de Hierro"
