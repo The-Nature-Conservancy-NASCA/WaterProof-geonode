@@ -870,6 +870,9 @@
     .adjust-area{
         height: 1000px;
     }
+    .adjust-area-step-4-ph{
+        height: 1200px;
+    }
     .table-option-ph{
         width: 95%;
         float: left;
@@ -1259,6 +1262,9 @@
     .adjust-area{
         height: 1000px;
     }
+    .adjust-area-step-4-ph{
+        height: 1200px;
+    }
     .table-option-ph{
         width: 70%;
         float: left;
@@ -1638,6 +1644,9 @@
     }
     .adjust-area{
         height: 1000px;
+    }
+    .adjust-area-step-4-ph{
+        height: 1200px;
     }
     .table-option-ph{
         width: 70%;
@@ -2069,6 +2078,9 @@
     }
     .adjust-area{
         height: 1000px;
+    }
+    .adjust-area-step-4-ph{
+        height: 1200px;
     }
     .table-option-ph{
         width: 25%;
