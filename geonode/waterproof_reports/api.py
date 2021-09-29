@@ -874,7 +874,8 @@ def getWaterproofReportsDesagregation(request):
 				"phosphorusLoadChangeInTime":row[6],
 				"carbonStorageChangeInTime":row[7],
 				"stage":row[8],
-				"intakeId":row[9]
+				"intakeId":row[9],
+				"name":row[10]
 			})
 		return JsonResponse(objects_list, safe=False)
 

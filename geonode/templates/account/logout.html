@@ -7,17 +7,23 @@
 {% block body %}
 <div class="container">
   <div class="row text-center">
-    <div class="col-md-12">
-       <form method="POST" action="{% url "account_logout" %}" class="form-horizontal">
-        <h2 class="page-title">{% trans "Log out" %}</h2>
-        <fieldset>
-          {% csrf_token %}
-          <p>{% trans "Are you sure you want to log out?" %}</p>
-          <div class="form-actions">
-            <button type="submit" onclick="localStorage.clear();" class="btn btn-primary">{% trans "Log out" %}</button>
-          </div>
-        </fieldset>
-      </form>
+    <div class="col-md-4">
+
+    </div>
+    <div class="offset-md-8 col-md-8">
+      <div>
+        <form method="POST" action="{% url "account_logout" %}" class="form-horizontal">
+          <h2 class="page-title">{% trans "Log out" %}</h2>
+          <fieldset>
+            {% csrf_token %}
+            <p>{% trans "Are you sure you want to log out?" %}</p>
+            <div class="form-actions">
+              <button type="submit" onclick="localStorage.clear();" class="btn btn-primary">{% trans "Log out" %}</button>
+            </div>
+          </fieldset>
+        </form>
+      </div>
+      
     </div>
   </div>
 </div>
