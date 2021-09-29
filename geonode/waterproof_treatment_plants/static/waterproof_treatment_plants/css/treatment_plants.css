@@ -361,15 +361,19 @@ textarea {
     background-image: url(../img/desinfeccion-azul.png);
 }
 .main-point {
-    width: 25px;
     height: 25px;
-    background: #039edc;
+    width: 25px;
+    border-width: 2px;
+    border-color: #039edc;
+    border-style: solid;
     border-radius: 50%;
+    font-size: 22px;
+    line-height: 20px;
+    background: #039edc;
+    color: #fff;
     float: left;
     cursor: pointer;
-    padding-left: 7px;
-    padding-top: 1px;
-    color: #ffffff;
+    padding-left: 8px;
 }
 .text-point-main {
     height: 25px;
@@ -379,8 +383,8 @@ textarea {
     padding-top: 3px;
 }
 .margin-main {
-    margin-left: 50px;
-    margin-top: 20px;
+    margin-left: 35px;
+    margin-top: 12px;
 }
 .title-tree {
     width: 100%;
@@ -391,7 +395,7 @@ textarea {
     width: 100%;;
     margin: 5px;
 }
-.point-tree {
+.point-tree2 {
     height: 25px;
     width: 25px;
     border-width: 2px;
@@ -404,13 +408,27 @@ textarea {
     float: left;
     cursor: pointer;
 }
+.point-tree{
+    height:25px;
+    width:25px;    
+    border-width: 2px;
+    border-color:#039edc;
+    border-radius:25px;
+    border-style: solid;
+    font-size:22px;    
+    line-height:22px;
+    text-align:center;    
+    color:#039edc;
+    float: left;
+    cursor: pointer;
+}
 .text-tree {
     height: 25px;
     margin-left: 50px;
     font-size: 16px;
     padding-top: 3px;
     float: left;
-    width: 300px;
+    width: 450px;
 }
 .detail-tree {
     height: 25px;
@@ -523,7 +541,7 @@ textarea {
 }
 
 .overflow-form:hover {
-    background-color: #ddd;
+    background-color: rgb(245, 245, 240);
 }
 
 .form-popup {
@@ -545,7 +563,7 @@ textarea {
     right: 6px;
     font-weight: bold;
     color: #9e2323;
-    cursor: pointer;
+    cursor: pointer;    
 }
 .open-popup-form {
     width: 33px;
@@ -558,6 +576,7 @@ textarea {
     color: #ffffff;
     font-family: cursive;
     padding: 4px;
+    margin: 0 auto;
     cursor: pointer;
 }
 .link-form {
@@ -673,4 +692,11 @@ form label {
 
 .vat {
     vertical-align: middle !important;
+}
+.tooltip-inner {
+    border-style: solid;
+    border-width: thin;
+    color: #31708f !important;
+    background-color: #d9edf7 !important;
+    max-width: 450px !important;
 }

@@ -41,11 +41,11 @@
         <div class="form-group">
             <fieldset>
                 <h4 class="text-primary">{% trans "Water Intake" %} <span class="text-danger-wp">(*)</span> </h4>
-                <p>{% trans "Select the water intakes that supply the drinking water treatment plant and click on the button 'Add water intake'" %}</p>
+                <p>{% trans "Select the water intakes that supply the drinking water treatment plant. The selected intake will be automatic added to the table."%}</p>
                 <select  id="idIntakePlant" class="form-control" data-error="{% trans "This field is required" %}" required>
                     <option value="">{% trans "Select an option" %}</option>
                 </select>
-                <br>
+                <div class="help-block with-errors"></div>
                 <table class="table table-striped table-bordered table-condensed" style="width:100%">
                     <thead>
                         <tr class="info">
@@ -57,12 +57,17 @@
                     </thead>
                     <tbody id="idTbodyIntake">
                     </tbody>
-                </table>
-                <div class="help-block with-errors"></div>
-                <button type="button" class="btn btn-primary" id="idSendIntake">{% trans "Confirm water intakes sources" %}</button>
+                </table>                
+                <div class="row row-no-gutters">
+                    <div class="col-sm-3">                        
+                        <p>{% trans "To enable the diagram, click in the next button"%}:</p>
+                    </div>
+                    <div class="col-sm-3">
+                        <button type="button" class="btn btn-primary" id="idSendIntake">{% trans "Confirm water intakes sources" %}</button>
+                    </div>                    
+                </div>
             </fieldset>
         </div>
-
         <div class="form-group">
             <fieldset>
                 <h4 class="text-primary">{% trans "Treatment unit process diagram" %} <span class="text-danger-wp">(*)</span> </h4>
@@ -220,7 +225,6 @@
                 </div>
             </fieldset>
         </div>
-        <br>
         <div>
             <h4 class="text-primary">{% trans "Processes, technologies and cost functions" %} <span class="text-danger-wp">(*)</span> </h4>
             <p>{% trans "Define the processes that are part of your treatment plant and use the checkbox to enable or disable cost functions. You can also edit, delete or add cost functions." %}.</p>

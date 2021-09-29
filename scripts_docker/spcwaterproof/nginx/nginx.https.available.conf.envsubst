@@ -9,7 +9,7 @@ ssl_session_timeout 10m;
 server {
     listen              $HTTPS_PORT ssl;
     server_name         $HTTPS_HOST;
-    keepalive_timeout   70;
+    keepalive_timeout   0;
 
     ssl_certificate     /certificate_symlink/fullchain.pem;
     ssl_certificate_key /certificate_symlink/privkey.pem;
