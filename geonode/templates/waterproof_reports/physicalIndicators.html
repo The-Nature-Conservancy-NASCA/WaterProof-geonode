@@ -283,7 +283,7 @@
                     </tr>
                 </table>
             </div>
-		</div>
+        </div>
         <div class="tab-pane fade div-style-menu-phy" id="step3" role="tabpanel" aria-labelledby="contact-tab">
             <div class="padding-text-desc-table align-step-3-ph col-md-12">
                 <br>
@@ -780,7 +780,7 @@ var localStorageId = localStorage.idStudyCase;
 
                 localStorage.setItem('country', country);
                 localStorage.setItem('region', data.region);
-                localStorage.setItem('currency', data.currencies[0].name);
+                localStorage.setItem('currency', data.currencies[0].name + " - " + data.currencies[0].symbol);
             });
         };
 
@@ -989,7 +989,7 @@ var localStorageId = localStorage.idStudyCase;
 
                         if(saveOption) {
                             var option = document.createElement("option");
-                            option.text = value.intakeId;
+                            option.text = value.name;
                             option.value = value.intakeId;
                             document.getElementById("idSelectIntakeGraph").add(option);
                             lastIntakeGraph = value.intakeId;
@@ -1006,12 +1006,12 @@ var localStorageId = localStorage.idStudyCase;
                         phosphorusLoadChangeInTimeNbs.push(value.phosphorusLoadChangeInTime);
                         carbonStorageChangeInTimeNbs.push(value.carbonStorageChangeInTime);
 
-                        volumeOfWaterYieldChangeInTimeNbsHhml = volumeOfWaterYieldChangeInTimeNbsHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + parseFloat(value.volumeOfWaterYieldChangeInTime).toFixed(2) +'</div></div>';
-                        annualVolumeBaseFlowChangeInTimeNbsHhml = annualVolumeBaseFlowChangeInTimeNbsHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + parseFloat(value.annualVolumeBaseFlowChangeInTime).toFixed(2) +'</div></div>';
-                        totalSedimentsChangeInTimeNbsHhml = totalSedimentsChangeInTimeNbsHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + parseFloat(value.totalSedimentsChangeInTime).toFixed(2) +'</div></div>';
-                        nitrogenLoadChangeInTimeNbsHhml = nitrogenLoadChangeInTimeNbsHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + parseFloat(value.nitrogenLoadChangeInTime).toFixed(2) +'</div></div>';
-                        phosphorusLoadChangeInTimeNbsHhml = phosphorusLoadChangeInTimeNbsHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + parseFloat(value.phosphorusLoadChangeInTime).toFixed(2) +'</div></div>';
-                        carbonStorageChangeInTimeNbsHhml = carbonStorageChangeInTimeNbsHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + parseFloat(value.carbonStorageChangeInTime).toFixed(2) +'</div></div>';
+                        volumeOfWaterYieldChangeInTimeNbsHhml = volumeOfWaterYieldChangeInTimeNbsHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + Intl.NumberFormat('es').format(parseFloat(value.volumeOfWaterYieldChangeInTime).toFixed(2)) +' (' + value.stage + ')</div></div>';
+                        annualVolumeBaseFlowChangeInTimeNbsHhml = annualVolumeBaseFlowChangeInTimeNbsHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + Intl.NumberFormat('es').format(parseFloat(value.annualVolumeBaseFlowChangeInTime).toFixed(2)) +' (' + value.stage + ')</div></div>';
+                        totalSedimentsChangeInTimeNbsHhml = totalSedimentsChangeInTimeNbsHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + Intl.NumberFormat('es').format(parseFloat(value.totalSedimentsChangeInTime).toFixed(2)) +' (' + value.stage + ')</div></div>';
+                        nitrogenLoadChangeInTimeNbsHhml = nitrogenLoadChangeInTimeNbsHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + Intl.NumberFormat('es').format(parseFloat(value.nitrogenLoadChangeInTime).toFixed(2)) +' (' + value.stage + ')</div></div>';
+                        phosphorusLoadChangeInTimeNbsHhml = phosphorusLoadChangeInTimeNbsHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + Intl.NumberFormat('es').format(parseFloat(value.phosphorusLoadChangeInTime).toFixed(2)) +' (' + value.stage + ')</div></div>';
+                        carbonStorageChangeInTimeNbsHhml = carbonStorageChangeInTimeNbsHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + Intl.NumberFormat('es').format(parseFloat(value.carbonStorageChangeInTime).toFixed(2)) +' (' + value.stage + ')</div></div>';
                     } else  {
 
                         timeBusiness.push(value.time);
@@ -1023,12 +1023,12 @@ var localStorageId = localStorage.idStudyCase;
                         phosphorusLoadChangeInTimeBusiness.push(value.phosphorusLoadChangeInTime);
                         carbonStorageChangeInTimeBusiness.push(value.carbonStorageChangeInTime);
 
-                        volumeOfWaterYieldChangeInTimeBusinessHhml = volumeOfWaterYieldChangeInTimeBusinessHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + parseFloat(value.volumeOfWaterYieldChangeInTime).toFixed(2) +'</div></div>';
-                        annualVolumeBaseFlowChangeInTimeBusinessHhml = annualVolumeBaseFlowChangeInTimeBusinessHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + parseFloat(value.annualVolumeBaseFlowChangeInTime).toFixed(2) +'</div></div>';
-                        totalSedimentsChangeInTimeBusinessHhml = totalSedimentsChangeInTimeBusinessHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + parseFloat(value.totalSedimentsChangeInTime).toFixed(2) +'</div></div>';
-                        nitrogenLoadChangeInTimeBusinessHhml = nitrogenLoadChangeInTimeBusinessHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + parseFloat(value.nitrogenLoadChangeInTime).toFixed(2) +'</div></div>';
-                        phosphorusLoadChangeInTimeBusinessHhml = phosphorusLoadChangeInTimeBusinessHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + parseFloat(value.phosphorusLoadChangeInTime).toFixed(2) +'</div></div>';
-                        carbonStorageChangeInTimeBusinessHhml = carbonStorageChangeInTimeBusinessHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + parseFloat(value.carbonStorageChangeInTime).toFixed(2) +'</div></div>';
+                        volumeOfWaterYieldChangeInTimeBusinessHhml = volumeOfWaterYieldChangeInTimeBusinessHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + Intl.NumberFormat('es').format(parseFloat(value.volumeOfWaterYieldChangeInTime).toFixed(2)) +' (' + value.stage + ')</div></div>';
+                        annualVolumeBaseFlowChangeInTimeBusinessHhml = annualVolumeBaseFlowChangeInTimeBusinessHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + Intl.NumberFormat('es').format(parseFloat(value.annualVolumeBaseFlowChangeInTime).toFixed(2)) +' (' + value.stage + ')</div></div>';
+                        totalSedimentsChangeInTimeBusinessHhml = totalSedimentsChangeInTimeBusinessHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + Intl.NumberFormat('es').format(parseFloat(value.totalSedimentsChangeInTime).toFixed(2)) +' (' + value.stage + ')</div></div>';
+                        nitrogenLoadChangeInTimeBusinessHhml = nitrogenLoadChangeInTimeBusinessHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + Intl.NumberFormat('es').format(parseFloat(value.nitrogenLoadChangeInTime).toFixed(2)) +' (' + value.stage + ')</div></div>';
+                        phosphorusLoadChangeInTimeBusinessHhml = phosphorusLoadChangeInTimeBusinessHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + Intl.NumberFormat('es').format(parseFloat(value.phosphorusLoadChangeInTime).toFixed(2)) +' (' + value.stage + ')</div></div>';
+                        carbonStorageChangeInTimeBusinessHhml = carbonStorageChangeInTimeBusinessHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + Intl.NumberFormat('es').format(parseFloat(value.carbonStorageChangeInTime).toFixed(2)) +' (' + value.stage + ')</div></div>';
                     }
                 }
 
@@ -1044,7 +1044,7 @@ var localStorageId = localStorage.idStudyCase;
 
                         if(saveOption) {
                             var option = document.createElement("option");
-                            option.text = value.intakeId;
+                            option.text = value.name;
                             option.value = value.intakeId;
                             document.getElementById("idSelectIntakeGraph").add(option);
                             lastIntakeGraph = value.intakeId;
@@ -1061,12 +1061,12 @@ var localStorageId = localStorage.idStudyCase;
                         phosphorusLoadChangeInTimeNbs.push(value.phosphorusLoadChangeInTime);
                         carbonStorageChangeInTimeNbs.push(value.carbonStorageChangeInTime);
 
-                        volumeOfWaterYieldChangeInTimeNbsHhml = volumeOfWaterYieldChangeInTimeNbsHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + parseFloat(value.volumeOfWaterYieldChangeInTime).toFixed(2) +'</div></div>';
-                        annualVolumeBaseFlowChangeInTimeNbsHhml = annualVolumeBaseFlowChangeInTimeNbsHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + parseFloat(value.annualVolumeBaseFlowChangeInTime).toFixed(2) +'</div></div>';
-                        totalSedimentsChangeInTimeNbsHhml = totalSedimentsChangeInTimeNbsHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + parseFloat(value.totalSedimentsChangeInTime).toFixed(2) +'</div></div>';
-                        nitrogenLoadChangeInTimeNbsHhml = nitrogenLoadChangeInTimeNbsHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + parseFloat(value.nitrogenLoadChangeInTime).toFixed(2) +'</div></div>';
-                        phosphorusLoadChangeInTimeNbsHhml = phosphorusLoadChangeInTimeNbsHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + parseFloat(value.phosphorusLoadChangeInTime).toFixed(2) +'</div></div>';
-                        carbonStorageChangeInTimeNbsHhml = carbonStorageChangeInTimeNbsHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + parseFloat(value.carbonStorageChangeInTime).toFixed(2) +'</div></div>';
+                        volumeOfWaterYieldChangeInTimeNbsHhml = volumeOfWaterYieldChangeInTimeNbsHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + Intl.NumberFormat('es').format(parseFloat(value.volumeOfWaterYieldChangeInTime).toFixed(2)) +' (' + value.stage + ')</div></div>';
+                        annualVolumeBaseFlowChangeInTimeNbsHhml = annualVolumeBaseFlowChangeInTimeNbsHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + Intl.NumberFormat('es').format(parseFloat(value.annualVolumeBaseFlowChangeInTime).toFixed(2)) +' (' + value.stage + ')</div></div>';
+                        totalSedimentsChangeInTimeNbsHhml = totalSedimentsChangeInTimeNbsHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + Intl.NumberFormat('es').format(parseFloat(value.totalSedimentsChangeInTime).toFixed(2)) +' (' + value.stage + ')</div></div>';
+                        nitrogenLoadChangeInTimeNbsHhml = nitrogenLoadChangeInTimeNbsHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + Intl.NumberFormat('es').format(parseFloat(value.nitrogenLoadChangeInTime).toFixed(2)) +' (' + value.stage + ')</div></div>';
+                        phosphorusLoadChangeInTimeNbsHhml = phosphorusLoadChangeInTimeNbsHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + Intl.NumberFormat('es').format(parseFloat(value.phosphorusLoadChangeInTime).toFixed(2)) +' (' + value.stage + ')</div></div>';
+                        carbonStorageChangeInTimeNbsHhml = carbonStorageChangeInTimeNbsHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + Intl.NumberFormat('es').format(parseFloat(value.carbonStorageChangeInTime).toFixed(2)) +' (' + value.stage + ')</div></div>';
                     } else  {
 
                         timeBusiness.push(value.time);
@@ -1078,23 +1078,23 @@ var localStorageId = localStorage.idStudyCase;
                         phosphorusLoadChangeInTimeBusiness.push(value.phosphorusLoadChangeInTime);
                         carbonStorageChangeInTimeBusiness.push(value.carbonStorageChangeInTime);
 
-                        volumeOfWaterYieldChangeInTimeBusinessHhml = volumeOfWaterYieldChangeInTimeBusinessHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + parseFloat(value.volumeOfWaterYieldChangeInTime).toFixed(2) +'</div></div>';
-                        annualVolumeBaseFlowChangeInTimeBusinessHhml = annualVolumeBaseFlowChangeInTimeBusinessHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + parseFloat(value.annualVolumeBaseFlowChangeInTime).toFixed(2) +'</div></div>';
-                        totalSedimentsChangeInTimeBusinessHhml = totalSedimentsChangeInTimeBusinessHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + parseFloat(value.totalSedimentsChangeInTime).toFixed(2) +'</div></div>';
-                        nitrogenLoadChangeInTimeBusinessHhml = nitrogenLoadChangeInTimeBusinessHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + parseFloat(value.nitrogenLoadChangeInTime).toFixed(2) +'</div></div>';
-                        phosphorusLoadChangeInTimeBusinessHhml = phosphorusLoadChangeInTimeBusinessHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + parseFloat(value.phosphorusLoadChangeInTime).toFixed(2) +'</div></div>';
-                        carbonStorageChangeInTimeBusinessHhml = carbonStorageChangeInTimeBusinessHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + parseFloat(value.carbonStorageChangeInTime).toFixed(2) +'</div></div>';
+                        volumeOfWaterYieldChangeInTimeBusinessHhml = volumeOfWaterYieldChangeInTimeBusinessHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + Intl.NumberFormat('es').format(parseFloat(value.volumeOfWaterYieldChangeInTime).toFixed(2)) +' (' + value.stage + ')</div></div>';
+                        annualVolumeBaseFlowChangeInTimeBusinessHhml = annualVolumeBaseFlowChangeInTimeBusinessHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + Intl.NumberFormat('es').format(parseFloat(value.annualVolumeBaseFlowChangeInTime).toFixed(2)) +' (' + value.stage + ')</div></div>';
+                        totalSedimentsChangeInTimeBusinessHhml = totalSedimentsChangeInTimeBusinessHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + Intl.NumberFormat('es').format(parseFloat(value.totalSedimentsChangeInTime).toFixed(2)) +' (' + value.stage + ')</div></div>';
+                        nitrogenLoadChangeInTimeBusinessHhml = nitrogenLoadChangeInTimeBusinessHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + Intl.NumberFormat('es').format(parseFloat(value.nitrogenLoadChangeInTime).toFixed(2)) +' (' + value.stage + ')</div></div>';
+                        phosphorusLoadChangeInTimeBusinessHhml = phosphorusLoadChangeInTimeBusinessHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + Intl.NumberFormat('es').format(parseFloat(value.phosphorusLoadChangeInTime).toFixed(2)) +' (' + value.stage + ')</div></div>';
+                        carbonStorageChangeInTimeBusinessHhml = carbonStorageChangeInTimeBusinessHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + Intl.NumberFormat('es').format(parseFloat(value.carbonStorageChangeInTime).toFixed(2)) +' (' + value.stage + ')</div></div>';
                     }
                 }
             });
 
                 setTimeout(function(){
-                    document.getElementById("listNbs1").innerHTML = volumeOfWaterYieldChangeInTimeBusinessHhml
-                    document.getElementById("listNbs2").innerHTML = annualVolumeBaseFlowChangeInTimeBusinessHhml
-                    document.getElementById("listNbs3").innerHTML = totalSedimentsChangeInTimeBusinessHhml
-                    document.getElementById("listNbs4").innerHTML = nitrogenLoadChangeInTimeBusinessHhml
-                    document.getElementById("listNbs5").innerHTML = phosphorusLoadChangeInTimeBusinessHhml
-                    document.getElementById("listNbs6").innerHTML = carbonStorageChangeInTimeBusinessHhml
+                    document.getElementById("listNbs1").innerHTML = volumeOfWaterYieldChangeInTimeBusinessHhml + volumeOfWaterYieldChangeInTimeNbsHhml;
+                    document.getElementById("listNbs2").innerHTML = annualVolumeBaseFlowChangeInTimeBusinessHhml + annualVolumeBaseFlowChangeInTimeNbsHhml;
+                    document.getElementById("listNbs3").innerHTML = totalSedimentsChangeInTimeBusinessHhml + totalSedimentsChangeInTimeNbsHhml;
+                    document.getElementById("listNbs4").innerHTML = nitrogenLoadChangeInTimeBusinessHhml + nitrogenLoadChangeInTimeNbsHhml;
+                    document.getElementById("listNbs5").innerHTML = phosphorusLoadChangeInTimeBusinessHhml + phosphorusLoadChangeInTimeNbsHhml
+                    document.getElementById("listNbs6").innerHTML = carbonStorageChangeInTimeBusinessHhml + carbonStorageChangeInTimeNbsHhml
 
                     Highcharts.chart('containerNbs1', {
                         chart: {
@@ -1103,7 +1103,7 @@ var localStorageId = localStorage.idStudyCase;
                         title: {
                             text: ''
                         },
-                        colors: ['#008BAB'],
+                        colors: ['#008BAB', '#1FAB00'],
                         xAxis: {
                             categories: timeNBS
                         },
@@ -1129,7 +1129,7 @@ var localStorageId = localStorage.idStudyCase;
                         title: {
                             text: ''
                         },
-                        colors: ['#008BAB'],
+                        colors: ['#008BAB', '#1FAB00'],
                         xAxis: {
                             categories: timeNBS
                         },
@@ -1155,7 +1155,7 @@ var localStorageId = localStorage.idStudyCase;
                         title: {
                             text: ''
                         },
-                        colors: ['#008BAB'],
+                        colors: ['#008BAB', '#1FAB00'],
                         xAxis: {
                             categories: timeNBS
                         },
@@ -1181,7 +1181,7 @@ var localStorageId = localStorage.idStudyCase;
                         title: {
                             text: ''
                         },
-                        colors: ['#008BAB'],
+                        colors: ['#008BAB', '#1FAB00'],
                         xAxis: {
                             categories: timeNBS
                         },
@@ -1207,7 +1207,7 @@ var localStorageId = localStorage.idStudyCase;
                         title: {
                             text: ''
                         },
-                        colors: ['#008BAB'],
+                        colors: ['#008BAB', '#1FAB00'],
                         xAxis: {
                             categories: timeNBS
                         },
@@ -1233,7 +1233,7 @@ var localStorageId = localStorage.idStudyCase;
                         title: {
                             text: ''
                         },
-                        colors: ['#008BAB'],
+                        colors: ['#008BAB', '#1FAB00'],
                         xAxis: {
                             categories: timeNBS
                         },
@@ -1640,7 +1640,7 @@ var localStorageId = localStorage.idStudyCase;
 
                         if(saveOption) {
                             var option = document.createElement("option");
-                            option.text = value.intakeId;
+                            option.text = value.name;
                             option.value = value.intakeId;
                             document.getElementById("idSelectIntakeGraph").add(option);
                             lastIntakeGraph = value.intakeId;
@@ -1657,12 +1657,12 @@ var localStorageId = localStorage.idStudyCase;
                         phosphorusLoadChangeInTimeNbs.push(value.phosphorusLoadChangeInTime);
                         carbonStorageChangeInTimeNbs.push(value.carbonStorageChangeInTime);
 
-                        volumeOfWaterYieldChangeInTimeNbsHhml = volumeOfWaterYieldChangeInTimeNbsHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + parseFloat(value.volumeOfWaterYieldChangeInTime).toFixed(2) +'</div></div>';
-                        annualVolumeBaseFlowChangeInTimeNbsHhml = annualVolumeBaseFlowChangeInTimeNbsHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + parseFloat(value.annualVolumeBaseFlowChangeInTime).toFixed(2) +'</div></div>';
-                        totalSedimentsChangeInTimeNbsHhml = totalSedimentsChangeInTimeNbsHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + parseFloat(value.totalSedimentsChangeInTime).toFixed(2) +'</div></div>';
-                        nitrogenLoadChangeInTimeNbsHhml = nitrogenLoadChangeInTimeNbsHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + parseFloat(value.nitrogenLoadChangeInTime).toFixed(2) +'</div></div>';
-                        phosphorusLoadChangeInTimeNbsHhml = phosphorusLoadChangeInTimeNbsHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + parseFloat(value.phosphorusLoadChangeInTime).toFixed(2) +'</div></div>';
-                        carbonStorageChangeInTimeNbsHhml = carbonStorageChangeInTimeNbsHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + parseFloat(value.carbonStorageChangeInTime).toFixed(2) +'</div></div>';
+                        volumeOfWaterYieldChangeInTimeNbsHhml = volumeOfWaterYieldChangeInTimeNbsHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + Intl.NumberFormat('es').format(parseFloat(value.volumeOfWaterYieldChangeInTime).toFixed(2)) +' (' + value.stage + ')</div></div>';
+                        annualVolumeBaseFlowChangeInTimeNbsHhml = annualVolumeBaseFlowChangeInTimeNbsHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + Intl.NumberFormat('es').format(parseFloat(value.annualVolumeBaseFlowChangeInTime).toFixed(2)) +' (' + value.stage + ')</div></div>';
+                        totalSedimentsChangeInTimeNbsHhml = totalSedimentsChangeInTimeNbsHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + Intl.NumberFormat('es').format(parseFloat(value.totalSedimentsChangeInTime).toFixed(2)) +'</div></div>';
+                        nitrogenLoadChangeInTimeNbsHhml = nitrogenLoadChangeInTimeNbsHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + Intl.NumberFormat('es').format(parseFloat(value.nitrogenLoadChangeInTime).toFixed(2)) +' (' + value.stage + ')</div></div>';
+                        phosphorusLoadChangeInTimeNbsHhml = phosphorusLoadChangeInTimeNbsHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + Intl.NumberFormat('es').format(parseFloat(value.phosphorusLoadChangeInTime).toFixed(2)) +' (' + value.stage + ')</div></div>';
+                        carbonStorageChangeInTimeNbsHhml = carbonStorageChangeInTimeNbsHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + Intl.NumberFormat('es').format(parseFloat(value.carbonStorageChangeInTime).toFixed(2)) +' (' + value.stage + ')</div></div>';
                     } else  {
 
                         timeBusiness.push(value.time);
@@ -1674,22 +1674,22 @@ var localStorageId = localStorage.idStudyCase;
                         phosphorusLoadChangeInTimeBusiness.push(value.phosphorusLoadChangeInTime);
                         carbonStorageChangeInTimeBusiness.push(value.carbonStorageChangeInTime);
 
-                        volumeOfWaterYieldChangeInTimeBusinessHhml = volumeOfWaterYieldChangeInTimeBusinessHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + parseFloat(value.volumeOfWaterYieldChangeInTime).toFixed(2) +'</div></div>';
-                        annualVolumeBaseFlowChangeInTimeBusinessHhml = annualVolumeBaseFlowChangeInTimeBusinessHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + parseFloat(value.annualVolumeBaseFlowChangeInTime).toFixed(2) +'</div></div>';
-                        totalSedimentsChangeInTimeBusinessHhml = totalSedimentsChangeInTimeBusinessHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + parseFloat(value.totalSedimentsChangeInTime).toFixed(2) +'</div></div>';
-                        nitrogenLoadChangeInTimeBusinessHhml = nitrogenLoadChangeInTimeBusinessHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + parseFloat(value.nitrogenLoadChangeInTime).toFixed(2) +'</div></div>';
-                        phosphorusLoadChangeInTimeBusinessHhml = phosphorusLoadChangeInTimeBusinessHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + parseFloat(value.phosphorusLoadChangeInTime).toFixed(2) +'</div></div>';
-                        carbonStorageChangeInTimeBusinessHhml = carbonStorageChangeInTimeBusinessHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + parseFloat(value.carbonStorageChangeInTime).toFixed(2) +'</div></div>';
+                        volumeOfWaterYieldChangeInTimeBusinessHhml = volumeOfWaterYieldChangeInTimeBusinessHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + Intl.NumberFormat('es').format(parseFloat(value.volumeOfWaterYieldChangeInTime).toFixed(2)) +' (' + value.stage + ')</div></div>';
+                        annualVolumeBaseFlowChangeInTimeBusinessHhml = annualVolumeBaseFlowChangeInTimeBusinessHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + Intl.NumberFormat('es').format(parseFloat(value.annualVolumeBaseFlowChangeInTime).toFixed(2)) +' (' + value.stage + ')</div></div>';
+                        totalSedimentsChangeInTimeBusinessHhml = totalSedimentsChangeInTimeBusinessHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + Intl.NumberFormat('es').format(parseFloat(value.totalSedimentsChangeInTime).toFixed(2)) +' (' + value.stage + ')</div></div>';
+                        nitrogenLoadChangeInTimeBusinessHhml = nitrogenLoadChangeInTimeBusinessHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + Intl.NumberFormat('es').format(parseFloat(value.nitrogenLoadChangeInTime).toFixed(2)) +' (' + value.stage + ')</div></div>';
+                        phosphorusLoadChangeInTimeBusinessHhml = phosphorusLoadChangeInTimeBusinessHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + Intl.NumberFormat('es').format(parseFloat(value.phosphorusLoadChangeInTime).toFixed(2)) +' (' + value.stage + ')</div></div>';
+                        carbonStorageChangeInTimeBusinessHhml = carbonStorageChangeInTimeBusinessHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + Intl.NumberFormat('es').format(parseFloat(value.carbonStorageChangeInTime).toFixed(2)) +' (' + value.stage + ')</div></div>';
                     }
                 });
 
                 setTimeout(function(){
-                    document.getElementById("listNbs1").innerHTML = volumeOfWaterYieldChangeInTimeBusinessHhml
-                    document.getElementById("listNbs2").innerHTML = annualVolumeBaseFlowChangeInTimeBusinessHhml
-                    document.getElementById("listNbs3").innerHTML = totalSedimentsChangeInTimeBusinessHhml
-                    document.getElementById("listNbs4").innerHTML = nitrogenLoadChangeInTimeBusinessHhml
-                    document.getElementById("listNbs5").innerHTML = phosphorusLoadChangeInTimeBusinessHhml
-                    document.getElementById("listNbs6").innerHTML = carbonStorageChangeInTimeBusinessHhml
+                    document.getElementById("listNbs1").innerHTML = volumeOfWaterYieldChangeInTimeBusinessHhml + volumeOfWaterYieldChangeInTimeNbsHhml;
+                    document.getElementById("listNbs2").innerHTML = annualVolumeBaseFlowChangeInTimeBusinessHhml + annualVolumeBaseFlowChangeInTimeNbsHhml;
+                    document.getElementById("listNbs3").innerHTML = totalSedimentsChangeInTimeBusinessHhml + totalSedimentsChangeInTimeNbsHhml;
+                    document.getElementById("listNbs4").innerHTML = nitrogenLoadChangeInTimeBusinessHhml + nitrogenLoadChangeInTimeNbsHhml;
+                    document.getElementById("listNbs5").innerHTML = phosphorusLoadChangeInTimeBusinessHhml + phosphorusLoadChangeInTimeNbsHhml
+                    document.getElementById("listNbs6").innerHTML = carbonStorageChangeInTimeBusinessHhml + carbonStorageChangeInTimeNbsHhml
 
                     Highcharts.chart('containerNbs1', {
                         chart: {
@@ -1698,7 +1698,7 @@ var localStorageId = localStorage.idStudyCase;
                         title: {
                             text: ''
                         },
-                        colors: ['#008BAB'],
+                        colors: ['#008BAB', '#1FAB00'],
                         xAxis: {
                             categories: timeNBS
                         },
@@ -1724,7 +1724,7 @@ var localStorageId = localStorage.idStudyCase;
                         title: {
                             text: ''
                         },
-                        colors: ['#008BAB'],
+                        colors: ['#008BAB', '#1FAB00'],
                         xAxis: {
                             categories: timeNBS
                         },
@@ -1750,7 +1750,7 @@ var localStorageId = localStorage.idStudyCase;
                         title: {
                             text: ''
                         },
-                        colors: ['#008BAB'],
+                        colors: ['#008BAB', '#1FAB00'],
                         xAxis: {
                             categories: timeNBS
                         },
@@ -1776,7 +1776,7 @@ var localStorageId = localStorage.idStudyCase;
                         title: {
                             text: ''
                         },
-                        colors: ['#008BAB'],
+                        colors: ['#008BAB', '#1FAB00'],
                         xAxis: {
                             categories: timeNBS
                         },
@@ -1802,7 +1802,7 @@ var localStorageId = localStorage.idStudyCase;
                         title: {
                             text: ''
                         },
-                        colors: ['#008BAB'],
+                        colors: ['#008BAB', '#1FAB00'],
                         xAxis: {
                             categories: timeNBS
                         },
@@ -1828,7 +1828,7 @@ var localStorageId = localStorage.idStudyCase;
                         title: {
                             text: ''
                         },
-                        colors: ['#008BAB'],
+                        colors: ['#008BAB', '#1FAB00'],
                         xAxis: {
                             categories: timeNBS
                         },

@@ -425,10 +425,10 @@
     height: 30px;
 }
 .list-year-cont {
-    width: 20%;
+    width: 25%;
     border-right-style: solid;
     border-width: 1px;
-    height: 469px;
+    height: 569px;
     border-color: #1389A9;
     float: left;
 }
@@ -449,7 +449,7 @@
     float: left;
 }
 .graph-year-cont {
-    width: 80%;
+    width: 75%;
     position: relative;
     float: left;
 }
@@ -903,7 +903,7 @@
         border-style: solid;
         width: 94%;
         margin: 10px;
-        height: 500px;
+        height: 600px;
         border-width: 1px;
         border-color: #1389A9;
         font-size: 12px;
@@ -1292,7 +1292,7 @@
         border-style: solid;
         width: 94%;
         margin: 10px;
-        height: 500px;
+        height: 600px;
         border-width: 1px;
         border-color: #1389A9;
         font-size: 12px;
@@ -1672,7 +1672,7 @@
         border-style: solid;
         width: 94%;
         margin: 10px;
-        height: 500px;
+        height: 600px;
         border-width: 1px;
         border-color: #1389A9;
         font-size: 12px;
@@ -2103,7 +2103,7 @@
         border-style: solid;
         width: 60%;
         margin: 10px;
-        height: 500px;
+        height: 600px;
         border-width: 1px;
         border-color: #1389A9;
         font-size: 12px;

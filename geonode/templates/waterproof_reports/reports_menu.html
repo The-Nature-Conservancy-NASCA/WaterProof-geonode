@@ -388,7 +388,7 @@
 
                 localStorage.setItem('country', country);
                 localStorage.setItem('region', data.region);
-                localStorage.setItem('currency', data.currencies[0].name);
+                localStorage.setItem('currency', data.currencies[0].name + " - " + data.currencies[0].symbol);
             });
         }
         /**
@@ -776,6 +776,7 @@
                 document.getElementById("idButtonPrqa").innerHTML = "---";
                 document.getElementById("idButtonRar").innerHTML = "---";
                 document.getElementById("idButtonOwr").innerHTML = "---";
+
                 $.each( waterIntakeGraph, function( key, value ) {
                     if(parseInt(value.intakeId) === parseInt(document.getElementById("idSelectStudyCase").value)){
                         var objectButton;
@@ -814,6 +815,7 @@
                         `
                     }
                 });
+                document.getElementById("listFielTable").innerHTML = listFielTable;
             }
             var urlDetail = "../../reports/getReportOportunityResultMaps/?studyCase=" + localStorage.idStudyCase;
             $.getJSON(urlDetail, function (data) {
