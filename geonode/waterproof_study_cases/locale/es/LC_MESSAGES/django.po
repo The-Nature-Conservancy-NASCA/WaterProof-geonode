@@ -452,7 +452,7 @@ msgid "Run the analysis"
 msgstr "Ejecutar análisis"
 
 msgid "This is the last step in the configuration of your case study in which the user defines the time in which they want the analysis of the benefits to be projected, as well as the time that they estimate to carry out theNBS  implementation actions."
-msgstr "Este es el ultimo paso en la configuración de su caso de estudio en el que el usuario define el tiempo en el que desea que se proyecte el análisis de los beneficios en la implementación de sus SbN, así como el tiempo que estima adelantar las acciones de implementación. "
+msgstr "Este es el último paso en la configuración de su caso de estudio en el que el usuario define el tiempo en el que desea que se proyecte el análisis de los beneficios en la implementación de sus SbN, así como el tiempo que estima adelantar las acciones de implementación. "
 
 msgid "Then, you must indicate the climatic aspects to consider. WaterProof, by default, allows you to consider the conditions of the Climate Change Scenarios or the known historical conditions. This option is available due to the influence of the climate on the sustainability of program activities and possible additional costs that must be incurred in more adverse conditions."
 msgstr "Seguidamente deberá indicar los aspectos climáticos a considerar. WaterProof por defecto, le permite considerar las condiciones de los Escenarios de cambio climático o las condiciones históricas conocidas. Esto debido a la influencia del clima en la sostenibilidad de sus actividades y posibles costos adicionales que se deben incurrir en condiciones más adversas."
@@ -497,7 +497,7 @@ msgid "My Case studies"
 msgstr "Mis Casos de estudio"
 
 msgid "NbS objectives definition"
-msgstr "Definición de bbjetivos de las SbN"
+msgstr "Definición de objetivos de las SbN"
 
 msgid "analysis_parameter"
 msgstr "Parámetros de análisis"

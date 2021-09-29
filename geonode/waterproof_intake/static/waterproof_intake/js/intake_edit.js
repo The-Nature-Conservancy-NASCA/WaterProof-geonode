@@ -538,7 +538,7 @@ $(document).ready(function () {
     $("#validateBtn").on("click", function () {
         Swal.fire({
             title: gettext('Basin point delimitation'),
-            text: gettext('The point coordinates will be ajusted'),
+            text: gettext('The point coordinates will be shifted'),
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
