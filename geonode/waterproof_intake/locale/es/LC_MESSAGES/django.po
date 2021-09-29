@@ -613,10 +613,6 @@ msgstr "Validar gráfico"
 msgid "Add Cost"
 msgstr "Añadir nuevo costo"
 
-#: template/intake_edit.html:376
-msgid "To  move area vertices"
-msgstr "1. Choose between \"Delimit NbS implementation area\" or uploading a \"geographic file\""
-
 #: template/intake_edit.html:378 template/intake_form.html:414
 msgid "Manually area delimit"
 msgstr "Delimitación manual"
@@ -707,11 +703,11 @@ msgstr "De clic en el siguiente botón para calcular la extracción de agua para
 
 #: template/intake_form.html:321
 msgid "Number of years  (10-100) Year"
-msgstr "Número de años  (10-100) años"
+msgstr "Número de años (10-100) años"
 
 #: template/intake_form.html:389
 msgid "NbS implementation area"
-msgstr "Área de implementación de la NbS"
+msgstr "Área de implementación de la SbN"
 
 #: template/intake_form.html:392
 msgid "You can delimit the area within the basin in which the implementation of Nature Based Solutions (NBS) will be considered. By default, the system will consider that the NBS can be implemented in the entire basin area. However, by clicking on the 'Delimit NBS implementation area' button the system will highlight the vertices of the basin so that you can define the area in which WaterProof will consider that NBS can be implemented."
@@ -899,7 +895,7 @@ msgstr "Para delimitar elárea dentro de la cuenca en la cual es posible impleme
 
 #: template/intake_form.html:866
 msgid "When you have finished making your changes, click on the 'Validate area' button."
-msgstr "Al terminar de hacer sus cambios, de clic en el botón Validar area."
+msgstr "Al terminar de hacer sus cambios, de clic en el botón 'Validar área delimitada'."
 
 #: template/intake_form.html:870
 msgid "The system also offers you the option to upload a spatial file for loading shapefile containing the polygon where the NBS implementation is possible. The system will verify that the polygon is within the basin area and that it complies with the EPSG 3857 (world standard of flat coordinates) or the EPSG 4326 (world standard in geographic coordinates)."
