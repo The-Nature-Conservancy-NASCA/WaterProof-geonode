@@ -136,7 +136,7 @@
                         <select class="select-condition select-condition-menu" name="select" id="selectIntake">
                             <!-- <option selected disabled>{% trans "Select a Intake" %}</option> -->
                             {% for Option in NamesIndicators %}
-                            <option value={{Option}} >{{Option}}</option>
+                            <option value={{Option.id}} >{{Option.name}}</option>
                             {% endfor %}
                             </select>
                     </h5>
@@ -155,10 +155,10 @@
                 <br>
                 <!--Table-->
                 <div style="clear:both;" class="table-responsive padding-text-desc-table">
-                    <table id="step-1-ph" class="table table-striped table-bordered table-condensed" style=" width:100%">
+                    <table data-page-length='100' id="step-1-ph" class="table table-striped table-bordered table-condensed" style=" width:100%">
                         <thead>
                             <tr class="info">
-                                <th scope="col" class="small text-center vat">{% trans "Indicator" %}</th>
+                                <th scope="col" class="small text-center vat" style="display: none;">{% trans "Indicator" %}</th>
                                 <th scope="col" class="small text-center vat">{% trans "Year" %}</th>
                                 <th scope="col" class="small text-center vat px-5">{% trans "Change in volume of water yield (%)" %}</th>
                                 <th scope="col" class="small text-center vat">{% trans "Change in base flow(%)" %}</th>
@@ -168,6 +168,7 @@
                                 <th scope="col" class="small text-center vat">{% trans "Change in carbon storage" %}</th>
                                 <th scope="col" class="small text-center vat" style="display: none;">{% trans "Date" %}</th>
                                 <th scope="col" class="small text-center vat" style="display: none;">{% trans "Name" %}</th>
+                                <th scope="col" class="small text-center vat" style="display: none;">{% trans "intake_id" %}</th>
                             </tr>
                         </thead>
                         <tbody id="FilterPhisicalIndicators">
@@ -590,7 +591,7 @@ var localStorageId = localStorage.idStudyCase;
         `
         {% for investIndicators in Indicators %}
             <tr id="filas">
-                <td class="small text-center vat" >{{investIndicators.intake.name}}</td>
+                <td class="small text-center vat" style="display: none;">{{investIndicators.intake.name}}</td>
                 <td class="small text-center vat" id="valor">{{investIndicators.time}}</td>
                 <td class="small text-center vat truncate" id="valor1">{{investIndicators.awy}}</td>
                 <td class="small text-center vat" id="valor2">{{investIndicators.bf_m3}}</td>
@@ -601,6 +602,7 @@ var localStorageId = localStorage.idStudyCase;
                 <td class="small text-center vat" id="valor6">{{investIndicators.wc_ton}}</td>
                 <td class="small text-center vat" style="display: none;">{{investIndicators.date}}</td>
                 <td class="small text-center vat" style="display: none;">{{investIndicators.intake.city.name}}</td>
+                <td class="small text-center vat" style="display: none;">{{investIndicators.intake.id}}</td>
             </tr>
         {% endfor %}
         `
@@ -621,9 +623,9 @@ var localStorageId = localStorage.idStudyCase;
     function show(){
         var selectIntakes = document.getElementById("selectIntake");
         // a=document.querySelectorAll('#valor1').innerHTML
-        let intakeSelected = selectIntakes.options[selectIntakes.selectedIndex].text;
-        table.search("Cali Intake I - 29092021").draw();
-        console.log("esta vuelta no sirve pa chimbas"+intakeSelected)
+        // let intakeSelected = selectIntakes.options[selectIntakes.selectedIndex].text;
+        table.search(selectIntakes.value).draw();
+        console.log("esta vuelta no sirve pa chimbas"+selectIntakes.value)
 
         var value_awy = document.getElementById("valor1").innerText;
         var value_bf_m3 = document.getElementById("valor2").innerText;
