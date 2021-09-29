@@ -538,7 +538,7 @@ $(document).ready(function () {
     $("#validateBtn").on("click", function () {
         Swal.fire({
             title: gettext('Basin point delimitation'),
-            text: gettext('The point coordinates will be ajusted'),
+            text: gettext('The point coordinates will be shifted to the nearest water source'),
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
@@ -578,11 +578,8 @@ $(document).ready(function () {
             $(b).attr("data-placement", "bottom");
             $(b).attr("title", gettext($(b).attr("title"))) ;
         });
-
-
         $('[data-toggle="tooltip"]').tooltip();
     }
-
 });
 
 function generateWaterExtraction(){

@@ -36,14 +36,14 @@ def pdf(request):
     img = Image.open(image_data)
     t = time.time()
     img.save('imgpdf/map-send-image.png', "PNG")
-    
+
     pdf = PDF()
     pdf.add_page()
     pdf.alias_nb_pages()
     pdf.image('imgpdf/header-logo.png', 10, 5, w=35)
     pdf.image('imgpdf/header-pdf.png', 120, 0, w=90)
     pdf.image('imgpdf/map-send-image.png', 10, 125, w=200)
-    
+
     pdf.set_font('Arial', 'B', 20)
     pdf.set_text_color(57, 137, 169)
     pdf.ln(15)
@@ -51,7 +51,7 @@ def pdf(request):
     pdf.set_font('Arial', '', 11)
     pdf.set_text_color(179, 179, 179)
     pdf.ln(8)
-    
+
     today = date.today()
     pdf.cell(0, 0, today.strftime("%d %B, %Y"))
     pdf.ln(8)
@@ -74,10 +74,10 @@ def pdf(request):
     pdf.ln(4)
     pdf.cell(0, 0, 'completeness, timeliness of the fata, as well as the handling that user gives to the information generated')
     pdf.ln(4)
-    
-    
+
+
     epw = pdf.w - 2*pdf.l_margin
-    
+
     pdf.set_font('Arial', '', 10)
     pdf.set_text_color(250, 250, 250)
     pdf.set_fill_color(0, 138, 173)
@@ -88,8 +88,8 @@ def pdf(request):
     data = requestJson.json()
     for item in data:
         studyCaseName = item['studyCasesName']
-    
-    
+        
+
     numerOfWater = "-"
     numerOfDwtp = "-"
     requestJson = requests.get(settings.SITE_HOST_API + 'reports/getStudyCasesIntake/?studyCase=' + request.POST['studyCase'],verify=False)
@@ -97,7 +97,7 @@ def pdf(request):
     for item in data:
         numerOfWater = item['numberStudyCase']
         numerOfDwtp = item['numberStudyCase']
-    
+
     currencyCase = "-"
     timeCase = "-"
     changeInVolumeOfWater = "-"
@@ -143,9 +143,9 @@ def pdf(request):
     pdf.cell(epw/2, 5,"Currency:   " + currencyCase)
     pdf.ln(5)
     pdf.cell(epw/2, 5,"Time frame (years):   " + str(timeCase))
-    
+
     pdf.ln(55)
-    
+
     pdf.set_font('Arial', '', 13)
     pdf.set_text_color(100, 100, 100)
     pdf.cell(0, 10, 'Water intakes that are part of the analysis')
@@ -154,16 +154,19 @@ def pdf(request):
     pdf.set_text_color(255, 255, 255)
     pdf.set_fill_color(0, 138, 173)
     pdf.set_draw_color(0, 138, 173)
-    
+
     pdf.cell(epw/2, 8,"Water Intake", border=1, align='C', fill=1)
     pdf.cell(epw/2, 8,"System caracteristics", border=1, align='C', fill=1)
     pdf.set_text_color(100, 100, 100)
     pdf.set_fill_color(255, 255, 255)
-    
-    requestJson = requests.get(settings.SITE_HOST_API + 'reports/getCaracteristicsCsIntakePdf/?studyCase=' + request.POST['studyCase'],verify=False)        
+
+    requestJson = requests.get(settings.SITE_HOST_API + 
+                'reports/getCaracteristicsCsIntakePdf/?studyCase=' + 
+                request.POST['studyCase'],verify=False)
+
     data = requestJson.json()
     lastItenName = ""
-    
+
     cellArray = []
     contLine = 0
     lastLine = 0
@@ -172,10 +175,10 @@ def pdf(request):
             if contLine != 0 :
                 cellArray.append(contLine)
                 contLine = 0
-                lastItenName = item['name']
-                lastLine = lastLine + 1
-                contLine = contLine + 1
-                cellArray.append(contLine)
+            lastItenName = item['name']
+        lastLine = lastLine + 1
+        contLine = contLine + 1
+    cellArray.append(contLine)
 
     lastItenName = ""
     contLine = 0
@@ -188,11 +191,11 @@ def pdf(request):
             contLine = contLine + 1
         else:
             pdf.cell(epw/2, 6,"", border=0, align='L', fill=0)
-        
+
         pdf.set_text_color(100, 100, 100)
         pdf.cell(epw/2, 6,item['description'], border=1, align='L', fill=1)
 
-
+    
     pdf.add_page()
     pdf.set_font('Arial', '', 13)
     pdf.set_text_color(100, 100, 100)
@@ -203,14 +206,14 @@ def pdf(request):
     pdf.set_text_color(255, 255, 255)
     pdf.set_fill_color(0, 138, 173)
     pdf.set_draw_color(0, 138, 173)
-    
+
     pdf.cell(epw/2, 8,"Drinking water Tratament plant", border=1, align='C', fill=1)
     pdf.cell(epw/2, 8,"Nombre intake", border=1, align='C', fill=1)
     pdf.set_text_color(100, 100, 100)
     pdf.set_fill_color(255, 255, 255)
-    
+
     requestJson = requests.get(settings.SITE_HOST_API + 'reports/getCaracteristicsPtapDetailPdf/?studyCase=' + request.POST['studyCase'],verify=False)
-    
+
     data = requestJson.json()
     lastNameCase = "";
     cellArray = []
@@ -225,7 +228,7 @@ def pdf(request):
     cellArray.append(contLine)
 
     lastItenName = ""
-    contLine = 0
+    contLine = 0    
     for item in data:
         pdf.ln(6)
         if lastNameCase != item['name']:
@@ -233,9 +236,9 @@ def pdf(request):
             pdf.cell(epw/2, cellArray[contLine] * 6,item['name'] + ', to see click here', border=1, align='L', fill=1, link='../../treatment_plants/create/?loadUrlInf=load&plantId=' + str(item['plantId']))
             lastNameCase = item['name']
             contLine = contLine + 1
-        else:
+        else: 
             pdf.cell(epw/2, 6,"", border=0, align='L', fill=0)
-        
+
         pdf.set_text_color(100, 100, 100)
         pdf.cell(epw/2, 6,item['description'], border=1, align='L', fill=1)
 
@@ -249,7 +252,7 @@ def pdf(request):
     pdf.set_text_color(255, 255, 255)
     pdf.set_fill_color(0, 138, 173)
     pdf.set_draw_color(0, 138, 173)
-    
+
     pdf.cell(epw/4, 10,"Name", border=1, align='C', fill=1)
     pdf.cell(epw/4, 5,"Percentage of benefit associated", border=1, align='C', fill=1)
     pdf.cell(epw/10, 10,"Benefit", border=1, align='C', fill=1)
@@ -270,7 +273,7 @@ def pdf(request):
     pdf.set_fill_color(255, 255, 255)
     
     requestJson = requests.get(settings.SITE_HOST_API + 'reports/getconservationActivitiesPdf/?studyCase=' + request.POST['studyCase'],verify=False)
-    
+
     data = requestJson.json()
     for item in data:
         pdf.cell(epw/4, 20,"", border=1, fill=1)
@@ -309,7 +312,7 @@ def pdf(request):
     fullPorfolio = ""
     fullRoi = ""
     fullScenario = ""
-    
+
     for item in data:
         platformCost = item['platformCost']
         discountRate = item['discountRate']
@@ -322,12 +325,12 @@ def pdf(request):
 
     requestJson = requests.get(settings.SITE_HOST_API + 'reports/getObjetivesForPorfoliosPdf/?studyCase=' + request.POST['studyCase'],verify=False)
     data = requestJson.json()
-    
+
     varText1 = ""
     varText2 = ""
     varText3 = ""
     varText4 = ""
-    
+
     cont = 0
     for item in data:
         cont = cont + 1
@@ -372,8 +375,8 @@ def pdf(request):
     pdf.cell(epw/9, 8,format(float(discountRateMaximum),'0,.2f'), align='R')
     pdf.cell(epw/9, 15, '', align='C')
     pdf.cell(epw/9, 8,varText4)
-    pdf.ln(8)
-    
+    pdf.ln(8)   
+
     pdf.set_font('Arial', '', 13)
     pdf.ln(5)
     pdf.cell(0, 15, 'Analysis parameters', align='C')
@@ -397,21 +400,23 @@ def pdf(request):
     pdf.cell(epw/5, 8,fullScenario, align='R')
     pdf.cell(epw/5, 8,"")
     pdf.ln(20)
-    
+
     pdf.set_font('Arial', '', 13)
     pdf.set_text_color(100, 100, 100)
     pdf.cell(0, 10, 'Comparative graph of costs and benefits for the analysis period', align='L')
     pdf.ln(10)
-    
-    requestJson = requests.get(settings.SITE_HOST_API + 'reports/getReportCostsAnalysisRoi/?studyCase=' + request.POST['studyCase'],verify=False)
+
+    requestJson = requests.get(settings.SITE_HOST_API + 
+                'reports/getReportCostsAnalysisRoi/?studyCase=' + 
+                request.POST['studyCase'],verify=False)
     data = requestJson.json()
-    
+
     categories = []
     totalCost = []
     totalDiscountedCost = []
     totalBenefits = []
     totalDiscountedBenefits = []
-    
+
     for item in data:
         categories.append(item['record'])
         totalCost.append(item['totalCost'])
@@ -422,48 +427,48 @@ def pdf(request):
     config = {
         'chart': {
             'type': 'column'
-            },
-            'title': {
-                'text': 'Cost and benefits chart'
-            },
-            'colors': ['#008BAB', '#90D3E7', '#004B56', '#61D1C2'],
-            'xAxis': {
-                'categories': categories
-            },
+        },
+        'title': {
+            'text': 'Cost and benefits chart'
+        },
+        'colors': ['#008BAB', '#90D3E7', '#004B56', '#61D1C2'],
+        'xAxis': {
+            'categories': categories
+        },
         'credits': {
             'enabled': 0
-            },
-            'series': [{
-                    'name': 'Total Cost',
-                    'data': totalCost
-                    },{
-                    'name': 'Total Discounted Cost',
-                    'data': totalDiscountedCost
-                    },{
-                    'name': 'Total Benefits',
-                    'type': 'spline',
-                    'dashStyle': 'shortdot',
-                    'data': totalBenefits
-                    },{
-                    'name': 'Total Discounted Benefits',
-                    'type': 'spline',
-                    'dashStyle': 'shortdot',
-                    'data': totalDiscountedBenefits
-                    }]
-        }
+        },
+        'series': [{
+            'name': 'Total Cost',
+            'data': totalCost
+        },{
+            'name': 'Total Discounted Cost',
+            'data': totalDiscountedCost
+        },{
+            'name': 'Total Benefits',
+            'type': 'spline',
+            'dashStyle': 'shortdot',
+            'data': totalBenefits
+        },{
+            'name': 'Total Discounted Benefits',
+            'type': 'spline',
+            'dashStyle': 'shortdot',
+            'data': totalDiscountedBenefits
+        }]
+    }
 
     hc_export.save_as_png(config=config, filename="imgpdf/igocab.png")
 
 
     pdf.image('imgpdf/igocab.png', 20, 140, w=160)
-    
+
     pdf.ln(120)
     pdf.set_font('Arial', '', 13)
     pdf.set_text_color(100, 100, 100)
     pdf.cell(0, 10, 'This chart has been built with the data from the following table:', align='L')
     pdf.ln(10)
     pdf.add_page()
-    
+
     pdf.set_font('Arial', '', 10)
     pdf.set_text_color(255, 255, 255)
     pdf.set_fill_color(0, 138, 173)
@@ -477,7 +482,7 @@ def pdf(request):
     pdf.set_font('Arial', '', 9)
     pdf.set_text_color(100, 100, 100)
     pdf.set_fill_color(255, 255, 255)
-    
+
     contTitle = 1;
     for item in data:
         pdf.cell(epw/5, 4, format(float(contTitle),'0,.2f'), border=1, align='R', fill=1)
@@ -504,13 +509,13 @@ def pdf(request):
 
     requestJson = requests.get(settings.SITE_HOST_API + 'reports/getCostAndBenefit/?studyCase=' + request.POST['studyCase'],verify=False)
     data = requestJson.json()
-    
+
     dataCost = []
     dataBenefit = []
-    
+
     itemCostr = 0
     itemBenefift = 0
-    
+
     for item in data:
         dataCost.append(item['costr']);
         itemCostr = item['costr']
@@ -532,17 +537,17 @@ def pdf(request):
             'enabled': 0
         },
         'series': [{
-                   'name': 'Cost',
-                   'data': dataCost
-                   },{
-                   'name': 'Benefits',
-                   'data': dataBenefit
-                   }]
+            'name': 'Cost',
+            'data': dataCost
+        },{
+            'name': 'Benefits',
+            'data': dataBenefit
+        }]
     }
-    
+
     hc_export.save_as_png(config=config, filename="imgpdf/cab.png")
     pdf.image('imgpdf/cab.png', 20, 30, w=160)
-    
+
     pdf.ln(140)
     pdf.set_font('Arial', '', 13)
     pdf.set_text_color(100, 100, 100)
@@ -558,12 +563,12 @@ def pdf(request):
     pdf.cell(epw/4, 8, 'Benefits', border=1, align='L', fill=1)
     pdf.cell(epw/4, 8, format(float(itemBenefift),'0,.2f'), border=1, align='R', fill=1)
     pdf.cell(epw/4, 8, '', border=0, align='C', fill=0)
-    
+
     pdf.add_page()
-    
+
     requestJson = requests.get(settings.SITE_HOST_API + 'reports/getNetPresentValueSummary/?studyCase=' + request.POST['studyCase'],verify=False)
     data = requestJson.json()
-    
+
     dataNetPresentValueSummary = []
     typeMoney = ''
     valimplementationr = ""
@@ -573,7 +578,7 @@ def pdf(request):
     valplatformr = ""
     valbenefitr = ""
     valtotalr = ""
-    
+
     for item in data:
         typeMoney = item['currencyr']
         dataNetPresentValueSummary.append(round(item['implementationr'],2));
@@ -583,7 +588,7 @@ def pdf(request):
         dataNetPresentValueSummary.append(round(item['platformr'],2));
         dataNetPresentValueSummary.append(round(item['benefitr'],2));
         dataNetPresentValueSummary.append(round(item['totalr'],2));
-        
+
         valimplementationr = round(item['implementationr'],2)
         valmaintenancer = round(item['maintenancer'],2)
         valoportunityr = round(item['oportunityr'],2)
@@ -607,11 +612,11 @@ def pdf(request):
             'enabled': 0
         },
         'series': [{
-                   'name': 'NPV (' + typeMoney + ')',
-                   'data': dataNetPresentValueSummary
-                   }]
+            'name': 'NPV (' + typeMoney + ')',
+            'data': dataNetPresentValueSummary
+        }]
     }
-    
+
     hc_export.save_as_png(config=config, filename="imgpdf/npvs.png")
     pdf.image('imgpdf/npvs.png', 20, 30, w=160)
     pdf.ln(130)
@@ -621,7 +626,7 @@ def pdf(request):
     pdf.ln(6)
     pdf.cell(0, 6, 'difference between costs and benefits', align='L')
     pdf.ln(12)
-    
+
     pdf.set_font('Arial', '', 11)
     pdf.set_text_color(255, 255, 255)
     pdf.set_fill_color(0, 138, 173)
@@ -666,15 +671,15 @@ def pdf(request):
     pdf.ln(6)
     pdf.cell(0, 6, 'is applied to determine the present value of a future payment.', align='L')
     pdf.ln(6)
-    
+
     pdf.add_page()
-    
+
     requestJson = requests.get(settings.SITE_HOST_API + 'reports/getSensibilityAnalysisBenefits/?studyCase=' + request.POST['studyCase'],verify=False)
     data = requestJson.json()
-    
+
     dataSensibilityAnalysisBenefitsTime = []
     dataSensibilityAnalysisBenefitsRange = []
-    
+
     for item in data:
         dataSensibilityAnalysisBenefitsTime.append([item['timer'], float(item['totalMedBenefitR'])]);
         dataSensibilityAnalysisBenefitsRange.append([item['timer'], float(item['totalMinBenefitR']), float(item['totalMaxBenefittR'])]);
@@ -689,36 +694,36 @@ def pdf(request):
         'yAxis': {
             'title': {
                 'text': 'Total descounted benefits'
-        }
-    },
-    'xAxis': {
-        'title': {
-            'text': 'Time in years descoyunted benefits'
-        }
+            }
+        },
+        'xAxis': {
+            'title': {
+                'text': 'Time in years descoyunted benefits'
+            }
         },
         'colors': ['#008BAB'],
         'series': [{
-                   'name': 'TDB',
-                   'color': "#4c99d8",
-                   'data': dataSensibilityAnalysisBenefitsTime
-                   }, {
-                   'name': 'Range',
-                   'data': dataSensibilityAnalysisBenefitsRange,
-                   'type': 'arearange',
-                   'lineWidth': 0,
-                   'linkedTo': ':previous',
-                   'color': "#90D3E7",
-                   'fillOpacity': 0.3,
-                   'zIndex': 0,
-                   'marker': {
-                   'enabled': 0
-                   }
-                   }]
+            'name': 'TDB',
+            'color': "#4c99d8",
+            'data': dataSensibilityAnalysisBenefitsTime
+        }, {
+            'name': 'Range',
+            'data': dataSensibilityAnalysisBenefitsRange,
+            'type': 'arearange',
+            'lineWidth': 0,
+            'linkedTo': ':previous',
+            'color': "#90D3E7",
+            'fillOpacity': 0.3,
+            'zIndex': 0,
+            'marker': {
+                'enabled': 0
+            }
+        }]
     }
-    
+
     hc_export.save_as_png(config=config, filename="imgpdf/satdb.png")
     pdf.image('imgpdf/satdb.png', 20, 30, w=160)
-    
+
     pdf.ln(130)
     pdf.set_font('Arial', '', 11)
     pdf.set_text_color(100, 100, 100)
@@ -736,22 +741,22 @@ def pdf(request):
     pdf.set_font('Arial', '', 9)
     pdf.set_text_color(100, 100, 100)
     pdf.set_fill_color(255, 255, 255)
-    
+
     for item in data:
         pdf.cell(epw/4, 3.5, format(float(item['timer']),'0,.2f') , border=1, align='R', fill=1)
         pdf.cell(epw/4, 3.5, format(float(item['totalMinBenefitR']),'0,.2f') , border=1, align='R', fill=1)
         pdf.cell(epw/4, 3.5, format(float(item['totalMedBenefitR']),'0,.2f') , border=1, align='R', fill=1)
         pdf.cell(epw/4, 3.5, format(float(item['totalMaxBenefittR']),'0,.2f') , border=1, align='R', fill=1)
-        pdf.ln(3.5)
-    
+        pdf.ln(3.5)    
+
     pdf.add_page()
 
     requestJson = requests.get(settings.SITE_HOST_API + 'reports/getSensibilityAnalysisCost/?studyCase=' + request.POST['studyCase'],verify=False)
     data = requestJson.json()
-    
+
     dataSensibilityAnalysisCostTime = []
     dataSensibilityAnalysisCostRange = []
-    
+
     for item in data:
         dataSensibilityAnalysisCostTime.append([item['timer'], float(item['totalMedCostR'])]);
         dataSensibilityAnalysisCostRange.append([item['timer'], float(item['totalMinCostR']), float(item['totalMaxCostR'])]);
@@ -766,36 +771,36 @@ def pdf(request):
         'yAxis': {
             'title': {
                 'text': 'Total descounted costs'
-        }
-    },
-    'xAxis': {
-        'title': {
-            'text': 'Time in years descounted benefits'
-        }
+            }
+        },
+        'xAxis': {
+            'title': {
+                'text': 'Time in years descounted benefits'
+            }
         },
         'colors': ['#008BAB'],
         'series': [{
-                   'name': 'TDC',
-                   'color': "#4c99d8",
-                   'data': dataSensibilityAnalysisCostTime
-                   }, {
-                   'name': 'Range',
-                   'data': dataSensibilityAnalysisCostRange,
-                   'type': 'arearange',
-                   'lineWidth': 0,
-                   'linkedTo': ':previous',
-                   'color': "#90D3E7",
-                   'fillOpacity': 0.3,
-                   'zIndex': 0,
-                   'marker': {
-                   'enabled': 0
-                   }
-                   }]
+            'name': 'TDC',
+            'color': "#4c99d8",
+            'data': dataSensibilityAnalysisCostTime
+        }, {
+            'name': 'Range',
+            'data': dataSensibilityAnalysisCostRange,
+            'type': 'arearange',
+            'lineWidth': 0,
+            'linkedTo': ':previous',
+            'color': "#90D3E7",
+            'fillOpacity': 0.3,
+            'zIndex': 0,
+            'marker': {
+                'enabled': 0
+            }
+        }]
     }
-    
+
     hc_export.save_as_png(config=config, filename="imgpdf/satdc.png")
     pdf.image('imgpdf/satdc.png', 20, 30, w=160)
-    
+
     pdf.ln(130)
     pdf.set_font('Arial', '', 11)
     pdf.set_text_color(100, 100, 100)
@@ -813,14 +818,14 @@ def pdf(request):
     pdf.set_font('Arial', '', 9)
     pdf.set_text_color(100, 100, 100)
     pdf.set_fill_color(255, 255, 255)
-    
+
     for item in data:
         pdf.cell(epw/4, 4, format(float(item['timer']),'0,.2f') , border=1, align='R', fill=1)
         pdf.cell(epw/4, 4, format(float(item['totalMinCostR']),'0,.2f') , border=1, align='R', fill=1)
         pdf.cell(epw/4, 4, format(float(item['totalMedCostR']),'0,.2f') , border=1, align='R', fill=1)
         pdf.cell(epw/4, 4, format(float(item['totalMaxCostR']),'0,.2f') , border=1, align='R', fill=1)
-        pdf.ln(4)
-    
+        pdf.ln(4)    
+
     pdf.add_page()
 
     requestJson = requests.get(settings.SITE_HOST_API + 'reports/getReportOportunityResultIndicators/?studyCase=' + request.POST['studyCase'],verify=False)
@@ -834,7 +839,7 @@ def pdf(request):
     backgroundColorG = 0
     backgroundColorB = 0
     nameBackgroundColor = ""
-    
+
     for item in data:
         if item['description'] != "TotalTreatmentCostSavings" and item['description'] !="TimeFrame" and item['description'] != "TotalEstimatedInvestment" and item['description'] !="TotalAreaInterventionSize(Hec)":
             valueRoi = str(round(float(item['value']),2))
@@ -853,7 +858,7 @@ def pdf(request):
                     backgroundColorG = 9
                     backgroundColorB = 0
             nameBackgroundColor = nameButtom[0];
-        
+
         if item['description'] == "TotalTreatmentCostSavings":
             idTotalTreatmentCostSavings = str(round(float(item['value']),2))
         if item['description'] == "TimeFrame":
@@ -908,15 +913,15 @@ def pdf(request):
     pdf.set_font('Arial', '', 15)
     pdf.cell(epw, 10, format(float(idTimeFrame),'0,.2f'), align='C')
     pdf.ln(10)
-    
+
     pdf.set_font('Arial', '', 10)
     pdf.cell(epw, 10, 'Estimated change in ecosustem services by basin', align='C')
     pdf.ln(10)
-    
+
     requestJson = requests.get(settings.SITE_HOST_API + 'reports/getTotalBenefitsForMilion/?studyCase=' + request.POST['studyCase'],verify=False)
     data = requestJson.json()
     dataEfficiency = []
-    
+
     for item in data:
         dataEfficiency.append(float(item['carbonStorage']));
         dataEfficiency.append(float(item['phosphorousLoad']));
@@ -924,7 +929,7 @@ def pdf(request):
         dataEfficiency.append(float(item['totalSediments']));
         dataEfficiency.append(float(item['baseFlow']));
         dataEfficiency.append(float(item['waterYear']));
-        
+
         carbonStorageTable = float(item['carbonStorage']);
         phosphorousLoadTable = float(item['phosphorousLoad']);
         nitrogenLoadTable = float(item['nitrogenLoad']);
@@ -1005,21 +1010,21 @@ def pdf(request):
     config = {
         'chart': {
             'type': 'column'
-            },
-            'title': {
-                'text': ''
         },
-            'colors': ['#008BAB'],
-            'xAxis': {
-                'categories': ['Carbon storage', 'Phosphorus load', 'Nitrogen load', 'Total sediments', 'Base flow', 'Volumen of water yield']
-    },
-    'credits': {
-        'enabled': 0
+        'title': {
+            'text': ''
+        },
+        'colors': ['#008BAB'],
+        'xAxis': {
+            'categories': ['Carbon storage', 'Phosphorus load', 'Nitrogen load', 'Total sediments', 'Base flow', 'Volumen of water yield']
+        },
+        'credits': {
+            'enabled': 0
         },
         'series': [{
-                   'name': 'PE',
-                   'data': dataEfficiency
-                   }]
+            'name': 'PE',
+            'data': dataEfficiency
+        }]
     }
 
     hc_export.save_as_png(config=config, filename="imgpdf/ecesb.png")
@@ -1031,7 +1036,7 @@ def pdf(request):
     pdf.image('imgpdf/total-five.png', 10, 233, w=10)
 
     pdf.add_page()
-    
+
     pdf.set_fill_color(231, 244, 244)
     pdf.cell(epw, 90, '', border=1, align='C', fill=1)
     pdf.ln(7)
@@ -1085,35 +1090,35 @@ def pdf(request):
     pdf.cell(epw/6, 5, '', border=0, align='C', fill=0)
     pdf.cell(((epw/7) * 9)-3, 4, 'organic matter.', border=0, align='L', fill=0)
     pdf.ln(17)
-    
+
     pdf.image('imgpdf/total-one.png', 20, 20, w=10)
     pdf.image('imgpdf/total-two.png', 20, 36, w=10)
     pdf.image('imgpdf/total-three.png', 20, 50, w=10)
     pdf.image('imgpdf/total-four.png', 20, 67, w=10)
     pdf.image('imgpdf/total-five.png', 20, 82, w=10)
-    
+
     requestJson = requests.get(settings.SITE_HOST_API + 'reports/getSelectorStudyCasesId/?studyCase=' + request.POST['studyCase'],verify=False)
     dataCase = requestJson.json()
-    
+
     requestJson = requests.get(settings.SITE_HOST_API + 'reports/getReportAnalisysBenefics/?studyCase=' + request.POST['studyCase'],verify=False)
     dataBenefit = requestJson.json()
-    
+
     numerLine = 0;
-    
+
     for itemCase in dataCase:
         pdf.set_font('Arial', '', 9)
         pdf.set_text_color(100, 100, 100)
         pdf.cell(epw, 10, itemCase['selector'], border=0, align='C', fill=0)
-        
+
         pdf.image('imgpdf/picture-one.jpg', 10, (numerLine * 75) + 115, w=45)
         pdf.image('imgpdf/picture-two.jpg', 58, (numerLine * 75) + 115, w=45)
         pdf.image('imgpdf/picture-three.jpg', 106, (numerLine * 75) + 115, w=45)
         pdf.image('imgpdf/picture-four.jpg', 154, (numerLine * 75) + 115, w=45)
-        
+
         numerLine = numerLine + 1;
-        
+
         pdf.ln(40)
-        
+
         pdf.set_font('Arial', '', 9)
         pdf.set_text_color(255, 255, 255)
         pdf.set_fill_color(0, 138, 173)
@@ -1177,8 +1182,8 @@ def pdf(request):
         pdf.cell(3, 3, '')
         pdf.cell(45, 3, 'reputational risk categories', align='C')
         pdf.ln(5)
-        
-        
+
+
         txtTd1 = ""
         txtTd2 = ""
         txtTd3 = ""
@@ -1197,48 +1202,48 @@ def pdf(request):
         txtTd4CB = 0
         txtColorR = 175
         txtColorG = 9
-        txtColorB = 0
-        
+        txtColorB = 0        
+
         for itemBenefit in dataBenefit:
             if itemBenefit['intakeId'] == itemCase['intakeId']:
                 txtColorR = 175
                 txtColorG = 9
                 txtColorB = 0
-                
+
                 if itemBenefit['color'].upper() == "DARK GREEN":
                     txtColorR = 21
                     txtColorG = 88
                     txtColorB = 22
-                
+
                 if itemBenefit['color'].upper() == "ORANGE":
                     txtColorR = 236
                     txtColorG = 104
                     txtColorB = 10
-                
+
                 if itemBenefit['nameIndicator'].upper() == "PHYSICAL RISK QUANTITY":
                     txtTd1 = itemBenefit['description']
                     txtTd1CR = txtColorR
                     txtTd1CG = txtColorG
                     txtTd1CB = txtColorB
-                
+
                 if itemBenefit['nameIndicator'].upper() == "PHYSICAL RISK ASSOCIATED WITH AMOUNT OF WATER":
                     txtTd2 = itemBenefit['description']
                     txtTd2CR = txtColorR
                     txtTd2CG = txtColorG
                     txtTd2CB = txtColorB
-                
+
                 if itemBenefit['nameIndicator'].upper() == "REGULATORY AND REPUTATIONAL":
                     txtTd3 = itemBenefit['description']
                     txtTd3CR = txtColorR
                     txtTd3CG = txtColorG
                     txtTd3CB = txtColorB
-                
+
                 if itemBenefit['nameIndicator'].upper() == "OVERALL WATER RISK SCORE":
                     txtTd4 = itemBenefit['description']
                     txtTd4CR = txtColorR
                     txtTd4CG = txtColorG
                     txtTd4CB = txtColorB
-    
+
         pdf.set_font('Arial', '', 9)
         pdf.set_text_color(255, 255, 255)
         pdf.set_fill_color(txtTd1CR, txtTd1CG, txtTd1CB)
@@ -1257,10 +1262,10 @@ def pdf(request):
         pdf.set_fill_color(txtTd4CR, txtTd4CG, txtTd4CB)
         pdf.set_draw_color(txtTd4CR, txtTd4CG, txtTd4CB)
         pdf.cell(35, 4, txtTd4, border=1, align='C', fill=1)
-    pdf.ln(10)
+        pdf.ln(10)
 
     pdf.add_page()
-    
+
     pdf.set_text_color(100, 100, 100)
     pdf.set_fill_color(255, 255, 255)
     pdf.set_draw_color(255, 255, 255)
@@ -1289,14 +1294,14 @@ def pdf(request):
     pdf.cell(30, 6, 'ratio - phosphorus', align='C')
     pdf.cell(1, 6, '')
     pdf.cell(30, 6, 'and sequestration', align='C')
-    
+
     pdf.image('imgpdf/dashboard-01.png', 13, 50, w=24)
     pdf.image('imgpdf/dashboard-02.png', 44, 50, w=24)
     pdf.image('imgpdf/dashboard-03.png', 75, 50, w=24)
     pdf.image('imgpdf/dashboard-04.png', 106, 50, w=24)
     pdf.image('imgpdf/dashboard-05.png', 137, 50, w=24)
     pdf.image('imgpdf/dashboard-06.png', 168, 50, w=24)
-    
+
     pdf.ln(40)
     pdf.set_font('Arial', '', 20)
     pdf.cell(30, 6, changeInVolumeOfWater, align='C')
@@ -1310,21 +1315,21 @@ def pdf(request):
     pdf.cell(30, 6, changeInPhosphorus, align='C')
     pdf.cell(1, 6, '')
     pdf.cell(30, 6, changeInCarbonStorage, align='C')
-    
-    
-    
+
+
+
     requestJson = requests.get(settings.SITE_HOST_API + 'reports/getReportAnalisysBeneficsC/?studyCase=' + request.POST['studyCase'],verify=False)
     data = requestJson.json()
-    
+
     pdf.set_font('Arial', '', 11)
     pdf.ln(10)
     pdf.cell(epw, 10, 'Intervention and budget summary', align='C')
     pdf.ln(15)
-    
+
     contLine = 0
-    lastTitle = ""
+    lastTitle = ""    
     for item in data:
-        if lastTitle != item['intakeId'] :
+        if lastTitle != item['intakeId'] : 
             pdf.set_font('Arial', '', 11)
             pdf.ln(10)
             pdf.cell(epw, 6, str(item['name']), align='C')
@@ -1341,7 +1346,7 @@ def pdf(request):
             pdf.set_fill_color(255, 255, 255)
             pdf.set_draw_color(0, 138, 173)
             lastTitle = item['intakeId']
-        
+
         pdf.cell(epw/3, 8, "" , border=1, align='L', fill=1)
         pdf.cell(epw/3, 8, "" , border=1, align='R', fill=1)
         pdf.cell(epw/3, 8, "" , border=1, align='R', fill=1)
@@ -1354,31 +1359,31 @@ def pdf(request):
         pdf.cell(epw/3, 4, "" , align='R')
         pdf.cell(epw/3, 4, "" , align='R')
         pdf.ln(4)
-    
+
     pdf.add_page()
 
     pdf.set_font('Arial', '', 13)
     pdf.set_text_color(100, 100, 100)
-    
+
     pdf.cell(0, 10, 'Physical indicators', align='L')
     pdf.ln(10)
-    
+
     requestJson = requests.get(settings.SITE_HOST_API + 'reports/getWpAqueductIndicatorGraph/?studyCase=' + request.POST['studyCase'],verify=False)
     data = requestJson.json()
-    
+
     arrayTitle = []
     lastTitle = ""
     lastIntake = ""
-    
+
     for item in data:
-        if lastIntake != item['intake'] or lastTitle != item['indicator'] :
+        if lastIntake != item['intake'] or lastTitle != item['indicator'] : 
             arrayTitle.append(contLine)
 
     cellArray = []
     contLine = 0
     lastTitle = ""
     for item in data:
-        if lastIntake != item['intake'] or lastTitle != item['indicator'] :
+        if lastIntake != item['intake'] or lastTitle != item['indicator'] : 
             if contLine != 0 :
                 cellArray.append(contLine)
                 contLine = 0
@@ -1386,64 +1391,64 @@ def pdf(request):
             lastIntake = item['intake']
         contLine = contLine + 1
     cellArray.append(contLine)
-    
+
     lastTitle = ""
     lastIntake = ""
     contLine = 0
-    
+
     for item in data:
-        if lastIntake != item['intake'] or lastTitle != item['indicator'] :
+        if lastIntake != item['intake'] or lastTitle != item['indicator'] : 
             if lastTitle == "Future 10 years":
                 pdf.ln(10)
             if lastTitle == "Future 20 years":
                 pdf.ln(10)
             if lastTitle == "Physical Risk associated with Amount of Water":
                 pdf.ln(5)
-                pdf.cell(epw, 5, 'Baseline water stress measures the ratio of total water withdrawals to available renewable surface and groundwater supplies. Higher', border=0, align='L', fill=0)
+                pdf.cell(epw, 5, 'Baseline water stress measures the ratio of total water withdrawals to available renewable surface and groundwater supplies. Higher', border=0, align='L', fill=0) 
                 pdf.ln(5)
-                pdf.cell(epw, 5, 'values indicate more competition between users.', border=0, align='L', fill=0)
+                pdf.cell(epw, 5, 'values indicate more competition between users.', border=0, align='L', fill=0) 
                 pdf.ln(7)
-                pdf.cell(epw, 5, 'Baseline water depletion measures the total water consumption of available renewable water supplies. Higher values indicate a greater', border=0, align='L', fill=0)
+                pdf.cell(epw, 5, 'Baseline water depletion measures the total water consumption of available renewable water supplies. Higher values indicate a greater', border=0, align='L', fill=0) 
                 pdf.ln(5)
-                pdf.cell(epw, 5, 'impact on the local water supply and decreased water availability for downstream users.', border=0, align='L', fill=0)
+                pdf.cell(epw, 5, 'impact on the local water supply and decreased water availability for downstream users.', border=0, align='L', fill=0) 
                 pdf.ln(7)
-                pdf.cell(epw, 5, 'Interannual variability measures the average between-year variability of available water supply, including both renewable surface and', border=0, align='L', fill=0)
+                pdf.cell(epw, 5, 'Interannual variability measures the average between-year variability of available water supply, including both renewable surface and', border=0, align='L', fill=0) 
                 pdf.ln(5)
-                pdf.cell(epw, 5, 'groundwater supplies. Highervalues indicate wider variations in available supply from year to year.', border=0, align='L', fill=0)
+                pdf.cell(epw, 5, 'groundwater supplies. Highervalues indicate wider variations in available supply from year to year.', border=0, align='L', fill=0) 
                 pdf.ln(7)
-                pdf.cell(epw, 5, 'Seasonal variability measures the average within-year variability of available water supply, including renewable surface and ground', border=0, align='L', fill=0)
+                pdf.cell(epw, 5, 'Seasonal variability measures the average within-year variability of available water supply, including renewable surface and ground', border=0, align='L', fill=0) 
                 pdf.ln(5)
-                pdf.cell(epw, 5, 'water supplies. Higher valuesindicate wider variations in the supply available within a year.', border=0, align='L', fill=0)
+                pdf.cell(epw, 5, 'water supplies. Higher valuesindicate wider variations in the supply available within a year.', border=0, align='L', fill=0) 
                 pdf.ln(7)
-                pdf.cell(epw, 5, 'Water table decline measures the average water table decline as the average change for the study period (1990-2014). The result is', border=0, align='L', fill=0)
+                pdf.cell(epw, 5, 'Water table decline measures the average water table decline as the average change for the study period (1990-2014). The result is', border=0, align='L', fill=0) 
                 pdf.ln(5)
-                pdf.cell(epw, 5, 'expressed in centimeters per year (cm / year). Higher values indicate higher levels of unsustainable groundwater.', border=0, align='L', fill=0)
+                pdf.cell(epw, 5, 'expressed in centimeters per year (cm / year). Higher values indicate higher levels of unsustainable groundwater.', border=0, align='L', fill=0) 
                 pdf.ln(7)
-                pdf.cell(epw, 5, 'River flood risk measures the percentage of the population expected to be affected by river flooding in an average year, taking into', border=0, align='L', fill=0)
+                pdf.cell(epw, 5, 'River flood risk measures the percentage of the population expected to be affected by river flooding in an average year, taking into', border=0, align='L', fill=0) 
                 pdf.ln(5)
-                pdf.cell(epw, 5, 'account existing flood protection standards. Higher values indicate that, on average, a greater proportion of the population is', border=0, align='L', fill=0)
+                pdf.cell(epw, 5, 'account existing flood protection standards. Higher values indicate that, on average, a greater proportion of the population is', border=0, align='L', fill=0) 
                 pdf.ln(5)
-                pdf.cell(epw, 5, 'expected to be affected by river flooding.', border=0, align='L', fill=0)
+                pdf.cell(epw, 5, 'expected to be affected by river flooding.', border=0, align='L', fill=0) 
                 pdf.ln(7)
-            
+
             if lastTitle == "Physical risk quantity":
                 pdf.ln(5)
-                pdf.cell(epw, 5, 'Untreated connected wastewater measures the percentage of domestic wastewater that is connected through a sewer system and is not', border=0, align='L', fill=0)
+                pdf.cell(epw, 5, 'Untreated connected wastewater measures the percentage of domestic wastewater that is connected through a sewer system and is not', border=0, align='L', fill=0) 
                 pdf.ln(5)
-                pdf.cell(epw, 5, 'treated to at least a primary treatment level. Discharging wastewater without adequate treatment could expose water bodies, the', border=0, align='L', fill=0)
+                pdf.cell(epw, 5, 'treated to at least a primary treatment level. Discharging wastewater without adequate treatment could expose water bodies, the', border=0, align='L', fill=0) 
                 pdf.ln(5)
-                pdf.cell(epw, 5, 'general public, and ecosystems to pollutants such as pathogens and nutrients. Higher values indicate higher percentages of point', border=0, align='L', fill=0)
+                pdf.cell(epw, 5, 'general public, and ecosystems to pollutants such as pathogens and nutrients. Higher values indicate higher percentages of point', border=0, align='L', fill=0) 
                 pdf.ln(5)
-                pdf.cell(epw, 5, 'source wastewater discharged without treatment.', border=0, align='L', fill=0)
+                pdf.cell(epw, 5, 'source wastewater discharged without treatment.', border=0, align='L', fill=0) 
                 pdf.ln(7)
-            
+
             if lastTitle == "Regulatory and reputational":
                 pdf.ln(5)
-                pdf.cell(epw, 5, 'Unimproved / no drinking water reflects the percentage of the population that collects drinking water from an unprotected dug well', border=0, align='L', fill=0)
+                pdf.cell(epw, 5, 'Unimproved / no drinking water reflects the percentage of the population that collects drinking water from an unprotected dug well', border=0, align='L', fill=0) 
                 pdf.ln(5)
-                pdf.cell(epw, 5, 'or spring, or directly from a river, dam, lake, pond, stream, canal or irrigation canal (WHO and UNICEF 2017). Higher values', border=0, align='L', fill=0)
+                pdf.cell(epw, 5, 'or spring, or directly from a river, dam, lake, pond, stream, canal or irrigation canal (WHO and UNICEF 2017). Higher values', border=0, align='L', fill=0) 
                 pdf.ln(5)
-                pdf.cell(epw, 5, 'indicate areas where people have less access to clean water supplies.', border=0, align='L', fill=0)
+                pdf.cell(epw, 5, 'indicate areas where people have less access to clean water supplies.', border=0, align='L', fill=0) 
                 pdf.ln(7)
 
             pdf.set_font('Arial', '', 10)
@@ -1461,99 +1466,99 @@ def pdf(request):
             pdf.set_text_color(100, 100, 100)
             pdf.set_fill_color(255, 255, 255)
 
-            lastIntake = item['intake']
+            lastIntake = item['intake'] 
             lastTitle = item['indicator']
             pdf.ln(6)
             pdf.cell((epw/10) * 4, cellArray[contLine] * 6 ,item['indicator'], border=1, align='L', fill=1)
             contLine = contLine + 1
-        else:
+        else :
             pdf.cell((epw/10) * 4, 6 ,"", border=0, align='L', fill=0)
+        
+        pdf.cell(epw/10, 6, str(item['sigla']), border=1, align='L', fill=1)
+        pdf.cell((epw/10) * 4, 6, str(item['description']), border=1, align='L', fill=1)
+        pdf.cell(epw/10, 6, str(item['valueIndicator']), border=1, align='R', fill=1)
+        pdf.ln(6)
 
-    pdf.cell(epw/10, 6, str(item['sigla']), border=1, align='L', fill=1)
-    pdf.cell((epw/10) * 4, 6, str(item['description']), border=1, align='L', fill=1)
-    pdf.cell(epw/10, 6, str(item['valueIndicator']), border=1, align='R', fill=1)
-    pdf.ln(6)
-    
-    
+
     if lastTitle == "Future 10 years":
         pdf.ln(10)
     if lastTitle == "Future 20 years":
         pdf.ln(10)
-        if lastTitle == "Physical Risk associated with Amount of Water":
-            pdf.ln(5)
-            pdf.cell(epw, 5, 'Baseline water stress measures the ratio of total water withdrawals to available renewable surface and groundwater supplies. Higher', border=0, align='L', fill=0)
-            pdf.ln(5)
-            pdf.cell(epw, 5, 'values indicate more competition between users.', border=0, align='L', fill=0)
-            pdf.ln(7)
-            pdf.cell(epw, 5, 'Baseline water depletion measures the total water consumption of available renewable water supplies. Higher values indicate a greater', border=0, align='L', fill=0)
-            pdf.ln(5)
-            pdf.cell(epw, 5, 'impact on the local water supply and decreased water availability for downstream users.', border=0, align='L', fill=0)
-            pdf.ln(7)
-            pdf.cell(epw, 5, 'Interannual variability measures the average between-year variability of available water supply, including both renewable surface and', border=0, align='L', fill=0)
-            pdf.ln(5)
-            pdf.cell(epw, 5, 'groundwater supplies. Highervalues indicate wider variations in available supply from year to year.', border=0, align='L', fill=0)
-            pdf.ln(7)
-            pdf.cell(epw, 5, 'Seasonal variability measures the average within-year variability of available water supply, including renewable surface and ground', border=0, align='L', fill=0)
-            pdf.ln(5)
-            pdf.cell(epw, 5, 'water supplies. Higher valuesindicate wider variations in the supply available within a year.', border=0, align='L', fill=0)
-            pdf.ln(7)
-            pdf.cell(epw, 5, 'Water table decline measures the average water table decline as the average change for the study period (1990-2014). The result is', border=0, align='L', fill=0)
-            pdf.ln(5)
-            pdf.cell(epw, 5, 'expressed in centimeters per year (cm / year). Higher values indicate higher levels of unsustainable groundwater.', border=0, align='L', fill=0)
-            pdf.ln(7)
-            pdf.cell(epw, 5, 'River flood risk measures the percentage of the population expected to be affected by river flooding in an average year, taking into', border=0, align='L', fill=0)
-            pdf.ln(5)
-            pdf.cell(epw, 5, 'account existing flood protection standards. Higher values indicate that, on average, a greater proportion of the population is', border=0, align='L', fill=0)
-            pdf.ln(5)
-            pdf.cell(epw, 5, 'expected to be affected by river flooding.', border=0, align='L', fill=0)
-            pdf.ln(7)
+    if lastTitle == "Physical Risk associated with Amount of Water":
+        pdf.ln(5)
+        pdf.cell(epw, 5, 'Baseline water stress measures the ratio of total water withdrawals to available renewable surface and groundwater supplies. Higher', border=0, align='L', fill=0) 
+        pdf.ln(5)
+        pdf.cell(epw, 5, 'values indicate more competition between users.', border=0, align='L', fill=0) 
+        pdf.ln(7)
+        pdf.cell(epw, 5, 'Baseline water depletion measures the total water consumption of available renewable water supplies. Higher values indicate a greater', border=0, align='L', fill=0) 
+        pdf.ln(5)
+        pdf.cell(epw, 5, 'impact on the local water supply and decreased water availability for downstream users.', border=0, align='L', fill=0) 
+        pdf.ln(7)
+        pdf.cell(epw, 5, 'Interannual variability measures the average between-year variability of available water supply, including both renewable surface and', border=0, align='L', fill=0) 
+        pdf.ln(5)
+        pdf.cell(epw, 5, 'groundwater supplies. Highervalues indicate wider variations in available supply from year to year.', border=0, align='L', fill=0) 
+        pdf.ln(7)
+        pdf.cell(epw, 5, 'Seasonal variability measures the average within-year variability of available water supply, including renewable surface and ground', border=0, align='L', fill=0) 
+        pdf.ln(5)
+        pdf.cell(epw, 5, 'water supplies. Higher valuesindicate wider variations in the supply available within a year.', border=0, align='L', fill=0) 
+        pdf.ln(7)
+        pdf.cell(epw, 5, 'Water table decline measures the average water table decline as the average change for the study period (1990-2014). The result is', border=0, align='L', fill=0) 
+        pdf.ln(5)
+        pdf.cell(epw, 5, 'expressed in centimeters per year (cm / year). Higher values indicate higher levels of unsustainable groundwater.', border=0, align='L', fill=0) 
+        pdf.ln(7)
+        pdf.cell(epw, 5, 'River flood risk measures the percentage of the population expected to be affected by river flooding in an average year, taking into', border=0, align='L', fill=0) 
+        pdf.ln(5)
+        pdf.cell(epw, 5, 'account existing flood protection standards. Higher values indicate that, on average, a greater proportion of the population is', border=0, align='L', fill=0) 
+        pdf.ln(5)
+        pdf.cell(epw, 5, 'expected to be affected by river flooding.', border=0, align='L', fill=0) 
+        pdf.ln(7)
 
     if lastTitle == "Physical risk quantity":
         pdf.ln(5)
-        pdf.cell(epw, 5, 'Untreated connected wastewater measures the percentage of domestic wastewater that is connected through a sewer system and is not', border=0, align='L', fill=0)
+        pdf.cell(epw, 5, 'Untreated connected wastewater measures the percentage of domestic wastewater that is connected through a sewer system and is not', border=0, align='L', fill=0) 
         pdf.ln(5)
-        pdf.cell(epw, 5, 'treated to at least a primary treatment level. Discharging wastewater without adequate treatment could expose water bodies, the', border=0, align='L', fill=0)
+        pdf.cell(epw, 5, 'treated to at least a primary treatment level. Discharging wastewater without adequate treatment could expose water bodies, the', border=0, align='L', fill=0) 
         pdf.ln(5)
-        pdf.cell(epw, 5, 'general public, and ecosystems to pollutants such as pathogens and nutrients. Higher values indicate higher percentages of point', border=0, align='L', fill=0)
+        pdf.cell(epw, 5, 'general public, and ecosystems to pollutants such as pathogens and nutrients. Higher values indicate higher percentages of point', border=0, align='L', fill=0) 
         pdf.ln(5)
-        pdf.cell(epw, 5, 'source wastewater discharged without treatment.', border=0, align='L', fill=0)
+        pdf.cell(epw, 5, 'source wastewater discharged without treatment.', border=0, align='L', fill=0) 
         pdf.ln(7)
-    
+
     if lastTitle == "Regulatory and reputational":
         pdf.ln(5)
-        pdf.cell(epw, 5, 'Unimproved / no drinking water reflects the percentage of the population that collects drinking water from an unprotected dug well', border=0, align='L', fill=0)
+        pdf.cell(epw, 5, 'Unimproved / no drinking water reflects the percentage of the population that collects drinking water from an unprotected dug well', border=0, align='L', fill=0) 
         pdf.ln(5)
-        pdf.cell(epw, 5, 'or spring, or directly from a river, dam, lake, pond, stream, canal or irrigation canal (WHO and UNICEF 2017). Higher values', border=0, align='L', fill=0)
+        pdf.cell(epw, 5, 'or spring, or directly from a river, dam, lake, pond, stream, canal or irrigation canal (WHO and UNICEF 2017). Higher values', border=0, align='L', fill=0) 
         pdf.ln(5)
-        pdf.cell(epw, 5, 'indicate areas where people have less access to clean water supplies.', border=0, align='L', fill=0)
+        pdf.cell(epw, 5, 'indicate areas where people have less access to clean water supplies.', border=0, align='L', fill=0) 
         pdf.ln(7)
 
     pdf.add_page()
-    
+
     pdf.set_font('Arial', '', 13)
     pdf.set_text_color(100, 100, 100)
     pdf.cell(0, 10, 'Decision indicators', align='L')
-    
-    
+
+
     dataListBenefitsIntakeA = [];
     requestJson = requests.get(settings.SITE_HOST_API + 'reports/getWaterproofReportsAnalysisBenefits/?studyCase=' + request.POST['studyCase'],verify=False)
     data = requestJson.json()
     for item in data:
-        if item['typeId'] == 'PTAP' :
+        if item['typeId'] == 'PTAP' : 
             dataListBenefitsIntakeA.append({
-                                           'name': item['elementId'],
-                                           'y': item['vpnMedBenefit']
-                                           })
+                'name': item['elementId'],
+                'y': item['vpnMedBenefit']
+            })
 
     config = {
-    'chart': {
-        'plotShadow': 0,
+        'chart': {
+            'plotShadow': 0,
             'type': 'pie'
         },
         'colors': ['#008BAB', '#69b7cf', '#3f99b5', '#1d7c99', '#90D3E7', '#5ca8bf', '#448fa6', '#2b768c', '#176075', '#004B56','#47bfaf', '#32ab9b', '#209989', '#128778', '#61D1C2'],
         'title': {
             'text': 'Intake Benefits ptap'
-    },
+        },
         'plotOptions': {
             'pie': {
                 'allowPointSelect': 1,
@@ -1562,20 +1567,20 @@ def pdf(request):
                     'enabled': 0
                 },
                 'showInLegend': 1
-        }
+            }
         },
         'credits': {'enabled': 0},
         'series': [{
-                   'name': 'Intake Benefits',
-                   'colorByPoint': 1,
-                   'data': dataListBenefitsIntakeA
-                   }]
+            'name': 'Intake Benefits',
+            'colorByPoint': 1,
+            'data': dataListBenefitsIntakeA
+        }]
     }
-    
+
     hc_export.save_as_png(config=config, filename="imgpdf/wrab.png")
     pdf.image('imgpdf/wrab.png', 10, 40, w=90)
     pdf.ln(40)
-    
+
     pdf.set_font('Arial', '', 9)
     for item in dataListBenefitsIntakeA :
         pdf.cell(epw/2, 6, '')
@@ -1591,32 +1596,32 @@ def pdf(request):
     dataListBenefitsIntakeB = [];
 
     for item in data:
-        if item['typeId'] != 'PTAP' :
+        if item['typeId'] != 'PTAP' : 
             dataListBenefitsIntakeB.append({
-                                        'name': item['elementId'],
-                                        'y': item['vpnMedBenefit']
-                                        })
-    
+                'name': item['elementId'],
+                'y': item['vpnMedBenefit']
+            })
+
     pdf.set_font('Arial', '', 9)
     for item in dataListBenefitsIntakeB :
         pdf.cell(epw/2, 6, '')
         pdf.cell((epw/6) * 2, 6, item['name'],border=1, align='L', fill=1)
         pdf.cell(epw/6, 6, format(float(item['y']),'0,.2f'),border=1, align='R', fill=1)
         pdf.ln(6)
-    
+
     pdf.ln(60)
     pdf.set_font('Arial', '', 10)
     pdf.cell(epw/2, 5, 'Identify the elements that will yield the most benefits', align='C')
 
     config = {
-    'chart': {
-        'plotShadow': 0,
+        'chart': {
+            'plotShadow': 0,
             'type': 'pie'
         },
         'colors': ['#008BAB', '#69b7cf', '#3f99b5', '#1d7c99', '#90D3E7', '#5ca8bf', '#448fa6', '#2b768c', '#176075', '#004B56','#47bfaf', '#32ab9b', '#209989', '#128778', '#61D1C2'],
         'title': {
             'text': 'Intake Benefits intake'
-    },
+        },
         'plotOptions': {
             'pie': {
                 'allowPointSelect': 1,
@@ -1625,35 +1630,36 @@ def pdf(request):
                     'enabled': 0
                 },
                 'showInLegend': 1
-        }
+            }
         },
         'credits': {
             'enabled': 0
-    },
-    'series': [{
-               'name': 'Intake Benefits',
-               'colorByPoint': 1,
-               'data': dataListBenefitsIntakeB
-               }]
-               }
-               
+        },
+        'series': [{
+            'name': 'Intake Benefits',
+            'colorByPoint': 1,
+            'data': dataListBenefitsIntakeB
+        }]
+    }
+
     hc_export.save_as_png(config=config, filename="imgpdf/wrabi.png")
     pdf.image('imgpdf/wrabi.png', 10, 150, w=90)
-    
+
     pdf.add_page()
-    
-    
+
+
+
     dataListBenefitsIntakeC = [];
     requestJson = requests.get(settings.SITE_HOST_API + 'reports/getReportAnalysisBenefitsFilterSum/?studyCase=' + request.POST['studyCase'],verify=False)
     data = requestJson.json()
     for item in data:
         dataListBenefitsIntakeC.append({
-                                        'name': item['typer'],
-                                        'y': item['vpnMedBenefitr']
-                                        })
+            'name': item['typer'],
+            'y': item['vpnMedBenefitr']
+        })
 
     pdf.ln(50)
-    
+
     pdf.set_font('Arial', '', 9)
     for item in dataListBenefitsIntakeC :
         pdf.cell(epw/2, 6, '')
@@ -1667,14 +1673,14 @@ def pdf(request):
 
 
     config = {
-    'chart': {
-        'plotShadow': 0,
+        'chart': {
+            'plotShadow': 0,
             'type': 'pie'
         },
         'colors': ['#008BAB', '#69b7cf', '#3f99b5', '#1d7c99', '#90D3E7', '#5ca8bf', '#448fa6', '#2b768c', '#176075', '#004B56','#47bfaf', '#32ab9b', '#209989', '#128778', '#61D1C2'],
         'title': {
             'text': 'Total Benefits'
-    },
+        },
         'plotOptions': {
             'pie': {
                 'allowPointSelect': 1,
@@ -1683,33 +1689,33 @@ def pdf(request):
                     'enabled': 0
                 },
                 'showInLegend': 1
-        }
+            }
         },
         'credits': {
             'enabled': 0
-    },
-    'series': [{
-               'name': 'Intake Benefits',
-               'colorByPoint': 1,
-               'data': dataListBenefitsIntakeC
-               }]
-               }
-               
+        },
+        'series': [{
+            'name': 'Intake Benefits',
+            'colorByPoint': 1,
+            'data': dataListBenefitsIntakeC
+        }]
+    }
+
     hc_export.save_as_png(config=config, filename="imgpdf/rabfs.png")
     pdf.image('imgpdf/rabfs.png', 10, 40, w=90)
+
     
-    
-    
+
     dataListBenefitsIntakeD = [];
     requestJson = requests.get(settings.SITE_HOST_API + 'reports/getReportCostsAnalysisFilter/?studyCase=' + request.POST['studyCase'],verify=False)
     data = requestJson.json()
     for item in data:
         dataListBenefitsIntakeD.append({
-                                        'name': item['typer'],
-                                        'y': item['sumFilter']
-                                        })
+            'name': item['typer'],
+            'y': item['sumFilter']
+        })
 
-    pdf.ln(40)
+    pdf.ln(40)        
     pdf.set_font('Arial', '', 9)
     for item in dataListBenefitsIntakeD :
         pdf.cell(epw/2, 6, '')
@@ -1724,7 +1730,7 @@ def pdf(request):
     pdf.cell(epw/2, 5, 'costs, in order to help identify where greater', align='C')
     pdf.ln(5)
     pdf.cell(epw/2, 5, 'investments are needed', align='C')
-    
+
     config = {
         'chart': {
             'plotShadow': 0,
@@ -1742,57 +1748,57 @@ def pdf(request):
                     'enabled': 0
                 },
                 'showInLegend': 1
-        }
+            }
         },
         'credits': {
             'enabled': 0
-    },
-    'series': [{
-               'name': 'Intake Benefits',
-               'colorByPoint': 1,
-               'data': dataListBenefitsIntakeD
-               }]
-               }
-               
+        },
+        'series': [{
+            'name': 'Intake Benefits',
+            'colorByPoint': 1,
+            'data': dataListBenefitsIntakeD
+        }]
+    }
+
     hc_export.save_as_png(config=config, filename="imgpdf/rcafh.png")
     pdf.image('imgpdf/rcafh.png', 10, 150, w=90)
-    
+
     pdf.add_page()
-    
-    
+
+
     dataListBenefitsIntakeE = [];
     requestJson = requests.get(settings.SITE_HOST_API + 'reports/getReportCostsAnalysisFilterNbs/?studyCase=' + request.POST['studyCase'],verify=False)
     data = requestJson.json()
     for item in data:
         dataListBenefitsIntakeE.append({
-                                        'name': item['costIdr'],
-                                        'y': item['sumFilter']
-                                        })
+            'name': item['costIdr'],
+            'y': item['sumFilter']
+        })
 
     pdf.ln(50)
-    
+
     pdf.set_font('Arial', '', 9)
     for item in dataListBenefitsIntakeE :
         pdf.cell(epw/2, 6, '')
         pdf.cell((epw/6) * 2, 6, item['name'],border=1, align='L', fill=1)
         pdf.cell(epw/6, 6, format(float(item['y']),'0,.2f'),border=1, align='R', fill=1)
         pdf.ln(6)
-    
+
     pdf.ln(60)
     pdf.set_font('Arial', '', 10)
     pdf.cell(epw/2, 5, 'Identify the proportion of costs for each of the', align='C')
     pdf.ln(5)
     pdf.cell(epw/2, 5, 'activities of your interest', align='C')
-    
+
     configE = {
-    'chart': {
-        'plotShadow': 0,
+        'chart': {
+            'plotShadow': 0,
             'type': 'pie'
         },
         'colors': ['#008BAB', '#69b7cf', '#3f99b5', '#1d7c99', '#90D3E7', '#5ca8bf', '#448fa6', '#2b768c', '#176075', '#004B56','#47bfaf', '#32ab9b', '#209989', '#128778', '#61D1C2'],
         'title': {
             'text': 'Total Benefits'
-    },
+        },
         'plotOptions': {
             'pie': {
                 'allowPointSelect': 1,
@@ -1801,23 +1807,23 @@ def pdf(request):
                     'enabled': 0
                 },
                 'showInLegend': 1
-        }
+            }
         },
         'credits': {
             'enabled': 0
-    },
-    'series': [{
-               'name': 'Intake Benefits',
-               'colorByPoint': 1,
-               'data': dataListBenefitsIntakeE
-               }]
-               }
-               
+        },
+        'series': [{
+            'name': 'Intake Benefits',
+            'colorByPoint': 1,
+            'data': dataListBenefitsIntakeE
+        }]
+    }
+
     hc_export.save_as_png(config=configE, filename="imgpdf/rcafn.png")
     ###pdf.image('imgpdf/rcafn.png', 10, 40, w=90)
-    
+
     pdf.add_page()
-    
+
     pdf.set_font('Arial', '', 13)
     pdf.set_text_color(179, 179, 179)
     pdf.cell(0, 10, 'Geographic resources', align='L')
@@ -1839,7 +1845,7 @@ def pdf(request):
         pdf.ln(6)
         pdf.cell(0, 6, '-76.4', align='L', link = "http://apps.skaphe.com:8000/reports/compare-maps/?folder=1000_469_2021-8-27&amp;intake=481&amp;region=SA_1&amp;year=3&amp;study_case_id=469&amp;center=1.94,-76.4")
         heightIcon = heightIcon + 80;
-                                                           
+
     response = HttpResponse(pdf.output(dest='S').encode('iso-8859-1'))
     response['Content-Type'] = 'application/pdf'
     return response
@@ -1849,7 +1855,7 @@ def dashboard(request):
     return render(request, 'waterproof_reports/dashboard.html', {})
 
 def pivot_data(request):
-    dataset = Countries.objects.all().exclude(currency='').order_by('currency')
+    dataset = Countries.objects.all()
     data = serializers.serialize('json', dataset)
     return JsonResponse(data, safe=False)
 
@@ -1866,7 +1872,7 @@ def getNames(indicators):
             if objectIndicator.intake.name not in result:
                 result.append(objectIndicator.intake.name)
         except:
-            print ("")
+            return result
     return result
 
 def getNameCity(indicators):
@@ -1876,45 +1882,60 @@ def getNameCity(indicators):
             if objectIndicatorcity.intake.city.name not in result:
                 result.append(objectIndicatorcity.intake.city.name)
         except:
-            print ("")
+            return result
     return result
 
 
 def physicalIndicators(request, idx):
 
-                indicators = investIndicators.objects.filter(study_case__id=idx)
-                indicatorsNames = getNames(indicators)
-                indicatorsNameCity = getNameCity(indicators)
-                return render(
-                    request,
-                    'waterproof_reports/physicalIndicators.html',
-                    {
-                        'Indicators': indicators,
-                        'NamesIndicators': indicatorsNames,
-                        'NameCityIndicators': indicatorsNameCity
-                    })
+    indicators = investIndicators.objects.filter(study_case__id=idx)
+    indicatorsNames = getNames(indicators)
+    indicatorsNameCity = getNameCity(indicators)
+    return render(
+        request,
+        'waterproof_reports/physicalIndicators.html',
+        {
+            'Indicators': indicators,
+            'NamesIndicators': indicatorsNames,
+            'NameCityIndicators': indicatorsNameCity
+        })
 
 
 def financialIndicators(request):
 
+    indicators = investIndicators.objects.all()
+    indicatorsNames = getNames(indicators)
+    indicatorsNameCity = getNameCity(indicators)
     return render(
         request,
         'waterproof_reports/financialIndicators.html',
         {
+            'Indicators': indicators,
+            'NamesIndicators': indicatorsNames,
+            'NameCityIndicators': indicatorsNameCity
         })
 
 
 def decisionIndicators(request):
 
+    indicators = investIndicators.objects.all()
+    indicatorsNames = getNames(indicators)
+    indicatorsNameCity = getNameCity(indicators)
     return render(
         request,
         'waterproof_reports/decisionIndicators.html',
         {
+            'Indicators': indicators,
+            'NamesIndicators': indicatorsNames,
+            'NameCityIndicators': indicatorsNameCity
         })
 
 
 def geographicIndicators(request):
 
+    indicators = investIndicators.objects.all()
+    indicatorsNames = getNames(indicators)
+    indicatorsNameCity = getNameCity(indicators)
     base_data = ''
     intake = ''
     region = ''
@@ -1939,6 +1960,9 @@ def geographicIndicators(request):
         request,
         'waterproof_reports/geographicIndicators.html',
         {
+            'Indicators': indicators,
+            'NamesIndicators': indicatorsNames,
+            'NameCityIndicators': indicatorsNameCity,
             'base_data': base_data,
             'intake': intake,
             'region': region,

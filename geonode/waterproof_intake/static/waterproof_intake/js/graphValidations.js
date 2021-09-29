@@ -149,13 +149,15 @@ function clearDataHtml() {
 }
 
 function funcost(index) {
-    var currencyCostName = funcostdb[index].fields.currencyCostName != undefined ? funcostdb[index].fields.currencyCostName : funcostdb[index].fields.currency; 
-    var factor = funcostdb[index].fields.global_multiplier_factorCalculator;
-    if (currencyCostName == undefined){
-        currencyCostName = localStorage.getItem("currency");
+    var currencyCostName = funcostdb[index].fields.currencyCostName;
+    if (currencyCostName == undefined || currencyCostName == '') {
+        currencyCostName = funcostdb[index].fields.currency;
     }
+
+    var factor = funcostdb[index].fields.global_multiplier_factorCalculator;
+    
     if (factor == undefined){
-        factor = localStorage.getItem("factor");
+        factor =  parseFloat(localStorage.getItem("factor")).toFixed(2);
     }
     let tdClass = "small text-center vat";    
     let aProps = `class="btn btn-info"html=true trigger="click" data-toggle="tooltip" data-placement="top"`;

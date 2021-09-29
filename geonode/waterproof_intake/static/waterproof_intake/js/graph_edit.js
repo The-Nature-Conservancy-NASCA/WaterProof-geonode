@@ -652,23 +652,31 @@ function onInit(editor) {
             
             clearInputsMath();
             $('#CalculatorModal').modal('show');
-            index = parseInt($(this).attr('idvalue'));
-            var currencyCost = funcostdb[index].fields.global_multiplier_factorCalculator;
-            var factor = funcostdb[index].fields.global_multiplier_factorCalculator;
-            if (currencyCost == undefined){
-                currencyCost = -1;
+            let index = parseInt($(this).attr('idvalue'));
+            let fieldsFunction = funcostdb[index].fields;
+            var currency = fieldsFunction.currencyCostName;
+            if (currency == undefined || currency == '') {
+                currency = fieldsFunction.currency;
+                if (currency != undefined && currency != '') {
+                    $('#currencyCost').val(currency);
+                    if (currency == 'USD') {
+                        $("#currencyCost option").filter((i,l) => ( l.getAttribute('data-country') == 'USA'))[0].selected = true;
+                    }
+                }
             }
+
+            var factor = fieldsFunction.global_multiplier_factorCalculator;            
             if (factor == undefined){
                 factor = localStorage.getItem("factor");
             }
             
-            $('#costFunctionName').val(funcostdb[index].fields.function_name);
-            $('#costFuntionDescription').val(funcostdb[index].fields.function_description);
-            $('#CalculatorModalLabel').text(gettext('Modify Cost function'));
-            //$('#currencyCost').val(funcostdb[index].fields.currencyCost);
+            $('#costFunctionName').val(fieldsFunction.function_name);
+            $('#costFuntionDescription').val(fieldsFunction.function_description);
+            $('#CalculatorModalLabel').text(gettext('Modify Cost function'));            
             $('#global_multiplier_factorCalculator').val(factor);
             setVarCost();
-            let value = funcostdb[index].fields.function_value;
+            
+            let value = fieldsFunction.function_value;
             $('#python-expression').val();
             if (value != ""){
                 $('#python-expression').val(value);
