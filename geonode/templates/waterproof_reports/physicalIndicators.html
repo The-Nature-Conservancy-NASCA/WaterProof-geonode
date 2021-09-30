@@ -28,7 +28,7 @@
 <!--Begin Form-->
 <div class="smart-wizard-financial">
     <div class="help-in-report header-desc-fin">
-        {% trans "This report summarizes the Maps Reports... Lorep Ipsum ..." %}
+        {% trans "This report summarizes the Phisical Indicators" %}
     </div>
     <div class="align-menu-header">
         <div class="icons-menu-header">
@@ -136,7 +136,9 @@
                         <select class="select-condition select-condition-menu" name="select" id="selectIntake">
                             <!-- <option selected disabled>{% trans "Select a Intake" %}</option> -->
                             {% for Option in NamesIndicators %}
+                            <!-- {% if Option.id != 580 %} -->
                             <option value={{Option.id}} >{{Option.name}}</option>
+                            <!-- {% endif %} -->
                             {% endfor %}
                             </select>
                     </h5>
@@ -328,11 +330,13 @@
             </div>
         </div>
         <div class="tab-pane fade div-style-menu-phy adjust-area-step-4-ph" id="step4" role="tabpanel" aria-labelledby="contact-tab">
+                <br>
+                <p class="padding-text-desc-table justify-text-physical">{% trans "text-step4-ph" %}</p>
                 <div class="container-page padding-text-desc-table">
                     <br>
                     <div id="step4-map-ph"></div>
                 </div>
-                <div style="margin: 30px;">
+                <div style="margin: 30px; margin-left: 3%;">
                     <div>{% trans "Water intake" %}</div>
                     <select class="select-condition" id="idSelectIntakeGraph" onchange="loadIntakeGraph(this.value)">
                         <option value="0">{% trans "All" %}</option>
@@ -341,30 +345,30 @@
                 <div class="table-option-ph">
                     <div class="list-table-option">
                         <div>
-                            <div class="title-table-opton">{% trans "Business as usual" %} / {% trans "NBS Scenario" %}</div>
+                            <div class="title-table-opton">{% trans "Business as usual" %} vs {% trans "NBS Scenario" %}</div>
                             <div class="height-option">
                                 <div class="option-table-opion"><input type="radio" name="report" onclick="viewReport(1,7,this)"></div>
-                                <div>{% trans "Volume of water yield (change in time)" %}</div>
+                                <div class="text-first-detail">{% trans "Volume of water yield (change in time)" %}</div>
                             </div>
                             <div class="height-option">
                                 <div class="option-table-opion"><input type="radio" name="report" onclick="viewReport(2,8,this)"></div>
-                                <div>{% trans "Anual volume base flow (change in time)" %}</div>
+                                <div class="text-first-detail">{% trans "Anual volume base flow (change in time)" %}</div>
                             </div>
                             <div class="height-option">
                                 <div class="option-table-opion"><input type="radio" name="report" onclick="viewReport(3,9,this)"></div>
-                                <div>{% trans "Total sediments (change in time)" %}</div>
+                                <div class="text-first-detail">{% trans "Total sediments (change in time)" %}</div>
                             </div>
                             <div class="height-option">
                                 <div class="option-table-opion"><input type="radio" name="report" onclick="viewReport(4,10,this)"></div>
-                                <div>{% trans "Nitrogen load (change in time)" %}</div>
+                                <div class="text-first-detail">{% trans "Nitrogen load (change in time)" %}</div>
                             </div>
                             <div class="height-option">
                                 <div class="option-table-opion"><input type="radio" name="report" onclick="viewReport(5,11,this)"></div>
-                                <div>{% trans "Phosphorus load (change in time)" %}</div>
+                                <div class="text-first-detail">{% trans "Phosphorus load (change in time)" %}</div>
                             </div>
                             <div class="height-option">
                                 <div class="option-table-opion"><input type="radio" name="report" onclick="viewReport(6,12,this)"></div>
-                                <div>{% trans "Carbon storage (change in time)" %}</div>
+                                <div class="text-first-detail">{% trans "Carbon storage (change in time)" %}</div>
                             </div>
                         </div>
                     </div>
@@ -375,9 +379,9 @@
                         <div class="list-year-cont">
                             <div class="title-year-cont">
                                 <div class="td-year-cont">{% trans "Year" %}</div>
-                                <div>{% trans "Nitrogen" %}</div>
+                                <div class="align-text-table-right">{% trans "Volume of water yield (change in time)" %}</div>
                             </div>
-                            <div id="listNbs1"></div>
+                            <div class="align-text-table-right" id="listNbs1"></div>
                         </div>
                         <div class="graph-year-cont">
                             <div id="containerNbs1"></div>
@@ -390,9 +394,9 @@
                         <div class="list-year-cont">
                             <div class="title-year-cont">
                                 <div class="td-year-cont">{% trans "Year" %}</div>
-                                <div>{% trans "Nitrogen" %}</div>
+                                <div class="align-text-table-right">{% trans "Anual volume base flow (change in time)" %}</div>
                             </div>
-                            <div id="listNbs2"></div>
+                            <div class="align-text-table-right" id="listNbs2"></div>
                         </div>
                         <div class="graph-year-cont">
                             <div id="containerNbs2"></div>
@@ -405,9 +409,9 @@
                         <div class="list-year-cont">
                             <div class="title-year-cont">
                                 <div class="td-year-cont">{% trans "Year" %}</div>
-                                <div>{% trans "Nitrogen" %}</div>
+                                <div class="align-text-table-right">{% trans "Total sediments (change in time)" %}</div>
                             </div>
-                            <div id="listNbs3"></div>
+                            <div class="align-text-table-right" id="listNbs3"></div>
                         </div>
                         <div class="graph-year-cont">
                             <div id="containerNbs3"></div>
@@ -420,9 +424,9 @@
                         <div class="list-year-cont">
                             <div class="title-year-cont">
                                 <div class="td-year-cont">{% trans "Year" %}</div>
-                                <div>{% trans "Nitrogen" %}</div>
+                                <div class="align-text-table-right">{% trans "Nitrogen load (change in time)" %}</div>
                             </div>
-                            <div id="listNbs4"></div>
+                            <div class="align-text-table-right" id="listNbs4"></div>
                         </div>
                         <div class="graph-year-cont">
                             <div id="containerNbs4"></div>
@@ -435,9 +439,9 @@
                         <div class="list-year-cont">
                             <div class="title-year-cont">
                                 <div class="td-year-cont">{% trans "Year" %}</div>
-                                <div>{% trans "Nitrogen" %}</div>
+                                <div class="align-text-table-right">{% trans "Phosphorus load (change in time)" %}</div>
                             </div>
-                            <div id="listNbs5"></div>
+                            <div class="align-text-table-right" id="listNbs5"></div>
                         </div>
                         <div class="graph-year-cont">
                             <div id="containerNbs5"></div>
@@ -450,9 +454,9 @@
                         <div class="list-year-cont">
                             <div class="title-year-cont">
                                 <div class="td-year-cont">{% trans "Year" %}</div>
-                                <div>{% trans "Nitrogen" %}</div>
+                                <div class="align-text-table-right">{% trans "Carbon storage (change in time)" %}</div>
                             </div>
-                            <div id="listNbs6"></div>
+                            <div class="align-text-table-right" id="listNbs6"></div>
                         </div>
                         <div class="graph-year-cont">
                             <div id="containerNbs6"></div>
@@ -1385,6 +1389,9 @@ var localStorageId = localStorage.idStudyCase;
             document.getElementById("idTimeMainDecision").innerHTML = localStorage.getItem('idTimeMain');
             document.getElementById("discountRateDecision").innerHTML = localStorage.getItem('transactionCost');
             show();
+            loadIntakeGraph(this.value);
+            console.log(loadIntakeGraph(this.value)+"<====")
+            viewReport(1,7,this);
 
             var gaugeOptions = {
                 chart: {
