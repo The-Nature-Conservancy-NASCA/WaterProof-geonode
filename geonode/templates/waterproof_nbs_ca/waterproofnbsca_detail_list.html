@@ -55,7 +55,7 @@
                 <label>{% trans "Currency for definition of costs" %}</label>
                 <select class="form-control" disabled required>
                     {% for cur in currencies %}
-                    <option value="{{cur.pk}}" {% if cur.pk == sbn.currency.pk %} selected{% endif %}>{{ cur.name}}</option>
+                    <option value="{{cur.pk}}" {% if cur.pk == sbn.currency.pk %} selected{% endif %}>( {{cur.iso3}}) - {{ cur.name}} </option>
                     {%  endfor %}
                     </select>
             </div>
