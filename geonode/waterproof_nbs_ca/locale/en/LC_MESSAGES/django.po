@@ -440,6 +440,8 @@ msgstr "Report"
 msgid "delete"
 msgstr "Delete"
 
+msgid "Reference country"
+msgstr "Reference country"
 #~ msgid "Percentaje of benefit"
 #~ msgstr "Percentage of benefits"
 

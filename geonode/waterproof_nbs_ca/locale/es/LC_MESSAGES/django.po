@@ -493,3 +493,7 @@ msgstr "Utilice el icono"
 
 msgid "to see the information in the system."
 msgstr "para ver la información en el sistema."
+
+msgid "Reference country"
+msgstr "País de referencia"
+
