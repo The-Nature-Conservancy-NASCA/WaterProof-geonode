@@ -602,11 +602,7 @@
                          'currencyCost': $('#currencyCost').val(),
                          'logical': [{
                              'condition_1': "", /* mathFieldlog1.latex(), */
-                             'ecuation_1': "", /* mathFieldE1.latex(), */
-                             'condition_2': "", /* mathFieldlog2.latex(), */
-                             'ecuation_2': "", /* mathFieldE2.latex(), */
-                             'condition_3': "", /* mathFieldlog3.latex(), */
-                             'ecuation_3': "", /* mathFieldE3.latex() */
+                             'ecuation_1': "", /* mathFieldE1.latex(), */                             
                          }],
                      }
                  });
@@ -621,11 +617,7 @@
                      'currencyCost': $('#currencyCost').val(),
                      'logical': [{
                          'condition_1': "", /* mathFieldlog1.latex(), */
-                         'ecuation_1': "", /* mathFieldE1.latex(), */
-                         'condition_2': "", /* mathFieldlog2.latex(), */
-                         'ecuation_2': "", /* mathFieldE2.latex(), */
-                         'condition_3': "", /* mathFieldlog3.latex(), */
-                         'ecuation_3': "", /* mathFieldE3.latex() */
+                         'ecuation_1': "", /* mathFieldE1.latex(), */                        
                      }],
                  }
  
@@ -732,7 +724,7 @@
              clearInputsMath();
              $('#costFunctionName').val('');
              $('#costFuntionDescription').val('');
-             $('#CalculatorModalLabel').text('New Function Cost - ' + $('#titleCostFunSmall').text())
+             $('#CalculatorModalLabel').text(gettext('New Function cost'));
              for (const index of graphData) {
                  var costlabel = "";
                  for (const iterator of JSON.parse(index.varcost)) {
@@ -858,7 +850,7 @@
                              Swal.fire({
                                  icon: 'warning',
                                  title: gettext('Field empty'),
-                                 text: gettext('Please fill every fields')
+                                 text: gettext('Please complete all required information')
                              });
                              return;
                          } else {

@@ -488,7 +488,7 @@ $(document).ready(function () {
     $('#step7RunBtn').click(function () {
         var valid_edit = true;
         var valid_period = true;
-        nbsactivities = []
+        nbsactivities = [];
         var valid_edit = true;
         var min = undefined;
         $("#full-table").find("input").each(function () {
@@ -512,7 +512,7 @@ $(document).ready(function () {
                 text: gettext('error_period_analysis'),
             });
             valid_period = false;
-            return
+            return;
         }
         if ($('#period_analysis').val() != '' && $('#period_nbs').val() != '') {
             if (parseInt($('#period_analysis').val()) < parseInt($('#period_nbs').val())) {
@@ -522,7 +522,7 @@ $(document).ready(function () {
                     text: gettext('error_period_nbs'),
                 });
                 valid_period = false;
-                return
+                return;
             }
         } else {
             valid_period = false;
@@ -539,6 +539,7 @@ $(document).ready(function () {
             html += '</div><div class="col-md-12 currency-panel">' + lbl_applied_currency + '.</div>';
             html += '<div class="custom-control col-md-4 currency-value">'+ gettext('Currency') +'</div>';
             html += '<div class="custom-control col-md-8 currency-value">'+ gettext('Exchange') +'</div>';
+
             $.get("../../study_cases/currencys/", {
                 id: id_study_case,
                 currency: analysis_currency
@@ -626,30 +627,19 @@ $(document).ready(function () {
                             let description = gettext("run_processing_description");
                             let desc = document.createElement("div");
                             desc.innerHTML = description;
-                            //let footer = document.createElement("div");
-                            // footer.className = "modal-footer";
-                            // let closeBtn = document.createElement("button");
-                            // closeBtn.className = "btn btn-secondary";
-                            // closeBtn.type = "button";
-                            // closeBtn.innerHTML = gettext("close");
-                            // closeBtn.attr("data-dismiss", "modal");
-                            // closeBtn.onclick = function () {
-                            //     $('#_thumbnail_processing').modal('toggle');
-                            // };
                             $('#_thumbnail_processing .modal-body').prepend(desc);
 
-
                             $("#full-table").find("input").each(function (index, input) {
-                                nbsactivity = {}
-                                input_id = input.id
-                                input_type = input.type
+                                nbsactivity = {};
+                                input_id = input.id;
+                                input_type = input.type;
                                 if (input_id && input_type != 'hidden') {
                                     split = input_id.split('-')
                                     nbssc_id = split.pop();
-                                    val = $("#" + input_id).val()
+                                    val = $("#" + input_id).val();
                                     nbsactivity['id'] = nbssc_id;
                                     nbsactivity['value'] = val;
-                                    nbsactivities.push(nbsactivity)
+                                    nbsactivities.push(nbsactivity);
                                 }
                             });
                             $.post("../../study_cases/save/", {
@@ -685,7 +675,8 @@ $(document).ready(function () {
                                                 icon: 'error',
                                                 title: gettext('error_api'),
                                                 text: gettext('error_model_api'),
-                                            });  
+                                            }); 
+                                            location.href = "/study_cases/?city="+localStorage.cityId;  
                                         }
                                     },
                                     error : function(xhr, status) {
@@ -705,7 +696,6 @@ $(document).ready(function () {
                             let urlQueryAnalisysResult = servermodelApi+"queryStudyCaseAnalisysResult?id_case="+id_study_case;
                             let validationInterval = setInterval(queryAnalisysResult, 30000);
                             let iteration = 1;
-
                             function queryAnalisysResult(){
                                 console.log("queryAnalisysResult, iteracion: " + iteration);
                                 if (iteration < 3) {
@@ -735,8 +725,7 @@ $(document).ready(function () {
                                         location.href = "/study_cases/?city="+localStorage.cityId; 
                                     }
                                 });
-                            }    
-
+                            }
                         }
                     })
                 }
@@ -750,7 +739,6 @@ $(document).ready(function () {
             });
             return;
         }
-
     });
 
     $('#step7EndBtn').click(function () {
@@ -1531,7 +1519,7 @@ $(document).on('click', 'a[name=glyphicon-edit]', function () {
     selectedCostId = parseInt($(this).attr('idvalue'));
     $('#costFunctionName').val(funcostdb[selectedCostId].function.name);
     $('#costFuntionDescription').val(funcostdb[selectedCostId].function.description);    
-    $('#currencyCost').val(funcostdb[selectedCostId].function.currencyCost);
+    //$('#currencyCost').val(funcostdb[selectedCostId].function.currencyCost);
     $('#global_multiplier_factorCalculator').val(funcostdb[selectedCostId].function.factor);
     $('#CalculatorModalLabel').text('Modify Cost - ' + $('#titleCostFunSmall').text());
     setVarCost();
@@ -1612,7 +1600,7 @@ function funcost(index) {
     var currencyCostName = funcostdb[index].function.currencyCostName != undefined ? funcostdb[index].function.currencyCostName : funcostdb[index].function.currency;
     var factor = funcostdb[index].function.factor;
     if (currencyCostName == undefined) {
-        currencyCostName = "";
+        currencyCostName = localStorage.getItem("currency");
     }
     if (factor == undefined) {
         factor = localStorage.getItem("factor");

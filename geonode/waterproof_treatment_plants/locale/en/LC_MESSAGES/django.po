@@ -217,10 +217,6 @@ msgstr "Description"
 msgid "Water Intake"
 msgstr "Water Intake"
 
-#: templates/treatment_plants_edit.html:45
-msgid "Select from the list water intakes that connect to your treatment plant and click on the button 'Add water intake'"
-msgstr "Select from the list those water intakes that arrive at your treatment plant and click on the button 'Confirm water intakes'"
-
 #: templates/treatment_plants_edit.html:54
 msgid "Water intake sources"
 msgstr "Water intake sources"
@@ -292,10 +288,6 @@ msgstr "Disinfection"
 #: templates/treatment_plants_edit.html:226
 msgid "Processes, technologies and cost functions"
 msgstr "Processes, technologies and cost functions"
-
-#: templates/treatment_plants_edit.html:227
-msgid "Please confirm or edit the diagram according to your reality"
-msgstr "Click on the processes that are part of your treatment plant and use the checkbox to enable or disable them. For each process confirm or edit the cost functions accordingly:"
 
 #: templates/treatment_plants_edit.html:232
 #, fuzzy
@@ -474,9 +466,6 @@ msgstr "Report"
 
 msgid "delete"
 msgstr "Delete"
-
-msgid "Select from the list water intakes that arrive at your treatment plant and click on the button 'Add water intake'"
-msgstr "Select from the list water intakes that arrive at your treatment plant and click on the button 'Add water intake'"
 
 msgid "WaterProof presents below the suggested components or processes for treating the water quality of the selected catchments. Click on the processes that are part of your treatment plant and use the checkbox to enable or disable them."
 msgstr "WaterProof presents below the suggested components or processes for treating the water quality of the selected catchments. Click on the processes that are part of your treatment plant and use the checkbox to enable or disable them."

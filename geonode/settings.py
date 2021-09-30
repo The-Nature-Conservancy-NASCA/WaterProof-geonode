@@ -112,7 +112,7 @@ DATABASE_URL = os.getenv(
     )
 )
 
-DATABASE_URL='postgresql://geonode:{&Uid&QXZ&6f;|F@dev.skaphe.com:5432/geonode'
+#DATABASE_URL='postgresql://geonode:{&Uid&QXZ&6f;|F@dev.skaphe.com:5432/geonode'
 #DATABASE_URL='postgresql://geonode:G30N0D3@water-proof.org:5432/geonode'
 #DATABASE_URL='postgresql://geonode:geonode@localhost:5432/geonode'
 #DATABASE_URL = 'postgresql://geonode:geonode_data@dev.skaphe.com:5432/geonode'
@@ -190,6 +190,8 @@ SITE_ID = int(os.getenv('SITE_ID', '1'))
 USE_TZ = True
 USE_I18N = ast.literal_eval(os.getenv('USE_I18N', 'True'))
 USE_L10N = ast.literal_eval(os.getenv('USE_I18N', 'True'))
+#USE_L10N = False
+DECIMAL_SEPARATOR = ','
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
@@ -2251,3 +2253,5 @@ CATALOG_METADATA_TEMPLATE = os.getenv("CATALOG_METADATA_TEMPLATE", "catalogue/fu
 WATERPROOF_SPECIAL_VALUES = ['min', 'E2', 'E3']
 
 CKEDITOR_UPLOAD_PATH="aux_media"
+
+WATERPROOF_INVEST_DOC = "https://storage.googleapis.com/releases.naturalcapitalproject.org/invest-userguide/latest/index.html"

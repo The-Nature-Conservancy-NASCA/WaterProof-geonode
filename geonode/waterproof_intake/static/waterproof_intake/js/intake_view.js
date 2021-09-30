@@ -44,18 +44,25 @@ const interpolationType = {
     LINEAR: 'LINEAR',
     POTENTIAL: 'POTENTIAL',
     EXPONENTIAL: 'EXPONENTIAL',
-    LOGISTICS: 'LOGISTICS'
+    LOGISTICS: 'LOGISTICS',
+    MANUAL: 'MANUAL'
 }
 
 var mapLoader;
 $(document).ready(function() {
     // Interpolation with Wizard
     $("#intakeWECB").click(function() {
-        if ($("#numberYearsInterpolationValue").val() == '' || $("#initialDataExtractionInterpolationValue").val() == '' || $("#finalDataExtractionInterpolationValue").val() == '') {
+        //generateInterpolationResult();
+    });
+
+    function generateInterpolationResult(){
+        if ($("#numberYearsInterpolationValue").val() == '' || 
+            $("#initialDataExtractionInterpolationValue").val() == '' || 
+            $("#finalDataExtractionInterpolationValue").val() == '') {
             Swal.fire({
                 icon: 'warning',
                 title: gettext('Data analysis empty'),
-                text: gettext('Please Generate Data analysis')
+                text: gettext('Please complete all required information')
             });
             return
         }
@@ -154,18 +161,20 @@ $(document).ready(function() {
         waterExtractionData.finalValue = finalDataExtractionInterpolationValue;
         waterExtractionData.yearValues = waterExtractionValue;
         $('#waterExtraction').val(JSON.stringify(waterExtractionData));
-
-    });
+    }
 
     function externalInput(numYear) {
         var rows = "";
         var numberExternal = 0;
-        $('#externalSelect').append(`<option value="null" selected>Choose here</option>`);
+        let headTbl = headTblExternalInput();
+        let lblSelectOption = gettext('Select an option');
+        let lblExternalInput = gettext('External Input');
+        $('#externalSelect').append(`<option value="null" selected>${lblSelectOption}</option>`);        
         for (let p = 0; p < graphData.length; p++) {
             if (graphData[p].external == 'true') {
                 numberExternal += 1
                 $('#externalSelect').append(`
-                            <option value="${graphData[p].id}">${graphData[p].id} - External Input</option>
+                            <option value="${graphData[p].id}">${graphData[p].id} - ${lblExternalInput}</option>
                     `);
                 rows = "";
                 for (let index = 0; index <= numYear; index++) {
@@ -179,29 +188,19 @@ $(document).ready(function() {
                 }
                 $('#IntakeTDLE').append(`
                         <table class="table" id="table_${graphData[p].id}" style="display: none">
-                            <thead>
-                                <tr>
-                                    <th class="text-center" scope="col">Year</th>
-                                    <th class="text-center" scope="col">Water Volume (m3)</th>
-                                    <th class="text-center" scope="col">Sediment (Ton)</th>
-                                    <th class="text-center" scope="col">Nitrogen (Kg)</th>
-                                    <th class="text-center" scope="col">Phosphorus (Kg)</th>
-                                </tr>
-                            </thead>
+                            ${headTbl}
                             <tbody>${rows}</tbody>
-                        </table>    
-                `);
+                        </table>`);
             }
         }
-        $('#ExternalNumbersInputs').html(numberExternal)
+        $('#ExternalNumbersInputs').html(numberExternal);
     }
     
     function loadExternalInput() {
-
+        let headTbl = headTblExternalInput();
+        let lblSelectOption = gettext('Select an option');
         for (const extractionData of intakeExternalInputs) {
-            $('#externalSelect').append(`
-                <option value="${extractionData.xmlId}">${extractionData.xmlId} - External Input</option>
-            `);
+            $('#externalSelect').append(`<option value="${extractionData.xmlId}">${extractionData.xmlId} - ${lblExternalInput}</option>`);
             rows = "";
             for (let index = 0; index < extractionData.waterExtraction.length; index++) {
                 rows += (`<tr>
@@ -214,18 +213,10 @@ $(document).ready(function() {
 
             }
             $('#IntakeTDLE').append(`
-                  <table class="table" id="table_${extractionData.xmlId}" style="display: none;">
-                      <thead>
-                          <tr>
-                              <th class="text-center" scope="col">Year</th>
-                              <th class="text-center" scope="col">Water Volume (m3)</th>
-                              <th class="text-center" scope="col">Sediment (Ton)</th>
-                              <th class="text-center" scope="col">Nitrogen (Kg)</th>
-                              <th class="text-center" scope="col">Phosphorus (Kg)</th>
-                          </tr>
-                      </thead>
-                      <tbody>${rows}</tbody>
-                  </table>    
+                    <table class="table" id="table_${extractionData.xmlId}" style="display: none;">
+                        ${headTbl}
+                        <tbody>${rows}</tbody>
+                    </table>    
           `);
         }
 
@@ -236,67 +227,38 @@ $(document).ready(function() {
         $('#step5PrevBtn').click(function() {
             $('#smartwizard').smartWizard("prev");
         });
-        
+    }
 
-
+    function headTblExternalInput(){
+        let lblYear = gettext('Year');
+        let lblWaterVolume = gettext('Water Volume');
+        let lblSediment = gettext('Sediment');
+        let lblNitrogen = gettext('Nitrogen');
+        let lblPhosphorus = gettext('Phosphorus');
+        return`<thead>
+                <tr>
+                    <th class="text-center" scope="col">${lblYear}</th>
+                    <th class="text-center" scope="col">${lblWaterVolume} (m3)</th>
+                    <th class="text-center" scope="col">${lblSediment} (Ton)</th>
+                    <th class="text-center" scope="col">${lblNitrogen} (Kg)</th>
+                    <th class="text-center" scope="col">${lblPhosphorus} (Kg)</th>
+                </tr>
+            </thead>`;
     }
 
     function setInterpolationParams() {
-        switch (intakeInterpolationParams.type) {
-            // LINEAR INTERPOLATION
-            case interpolationType.LINEAR:
-                // Method interpolation select
-                interpMethodInput.val(1);
-                // Years number for time series
-                numYearsInput.val(intakeInterpolationParams.yearsNum);
-                // Initial extraction value
-                initialExtraction.val(intakeInterpolationParams.initialExtract);
-                // Final extraction value
-                finalExtraction.val(intakeInterpolationParams.endingExtract);
-                $("#intakeWECB").click();
-                break;
-                // POTENTIAL INTERPOLATION
-            case interpolationType.POTENTIAL:
-                interpMethodInput.val(2);
-                // Years number for time series
-                numYearsInput.val(intakeInterpolationParams.yearsNum);
-                // Initial extraction value
-                initialExtraction.val(intakeInterpolationParams.initialExtract);
-                // Final extraction value
-                finalExtraction.val(intakeInterpolationParams.endingExtract);
-                $("#intakeWECB").click();
-                break;
-                // EXPONENTIAL INTERPOLATION
-            case interpolationType.EXPONENTIAL:
-                interpMethodInput.val(3);
-                // Years number for time series
-                numYearsInput.val(intakeInterpolationParams.yearsNum);
-                // Initial extraction value
-                initialExtraction.val(intakeInterpolationParams.initialExtract);
-                // Final extraction value
-                finalExtraction.val(intakeInterpolationParams.endingExtract);
-                $("#intakeWECB").click();
-                break;
-    
-                // LOGISTICS INTERPLATION
-            case interpolationType.LOGISTICS:
-                interpMethodInput.val(4);
-                // Years number for time series
-                numYearsInput.val(intakeInterpolationParams.yearsNum);
-                // Initial extraction value
-                initialExtraction.val(intakeInterpolationParams.initialExtract);
-                // Final extraction value
-                finalExtraction.val(intakeInterpolationParams.endingExtract);
-                $("#intakeWECB").click();
-                break;
-        }
+
+        // Years number for time series
+        numYearsInput.val(intakeInterpolationParams.yearsNum);
+        // Initial extraction value
+        initialExtraction.val(intakeInterpolationParams.initialExtract.toFixed(2));
+        // Final extraction value
+        finalExtraction.val(intakeInterpolationParams.endingExtract.toFixed(2));
+        //generateInterpolationResult();
     }
 
     setInterpolationParams();
-    setTimeout(() => {
-        loadExternalInput();
-    }, 1000);
-
+    
     $('#step1NextBtn').click(function() {
         $('#smartwizard').smartWizard("next");
     });
@@ -316,8 +278,6 @@ $(document).ready(function() {
             $('#smartwizard').smartWizard("next");
     });
 
-
-
     $('#step3PrevBtn').click(function() {
         $('#smartwizard').smartWizard("prev");
     });
@@ -331,7 +291,7 @@ $(document).ready(function() {
                         Swal.fire({
                             icon: 'warning',
                             title: gettext('Data analysis empty'),
-                            text: gettext('Please Generate Data analysis')
+                            text: gettext('Please complete all required information')
                         });
                         return;
                     } else {
@@ -343,13 +303,13 @@ $(document).ready(function() {
                 });
                 waterExtractionData.yearValues = waterExtractionValue;
                 $('#waterExtraction').val(JSON.stringify(waterExtractionData));
-                if (waterExtractionData.yearCount == waterExtractionData.yearValues.length) {
+                if (waterExtractionData.yearCount == waterExtractionData.yearValues.length-1) {
                     $('#smartwizard').smartWizard("next");
                 } else {
                     Swal.fire({
                         icon: 'warning',
                         title: `Data analysis empty`,
-                        text: `Please Generate Data anlisys`
+                        text: gettext('Please complete all required information')
                     });
                     return;
                 }
@@ -360,7 +320,7 @@ $(document).ready(function() {
             Swal.fire({
                 icon: 'warning',
                 title: gettext('Data analysis empty'),
-                text: gettext('Please Generate Data analysis')
+                text: gettext('Please complete all required information')
             });
             return;
         }
@@ -370,16 +330,16 @@ $(document).ready(function() {
     $('#btnManualTab').click(function() {
         if ($('#initialDataExtractionInterpolationValue').val() != '' || $('#finalDataExtractionInterpolationValue').val() != '' || $('#numberYearsInterpolationValue').val() != '') {
             {
-                    $('#intakeECTAG tr');
-                    $('#IntakeTDLE table');
-                    $('#externalSelect option');
-                    $('#intakeECTAG');
-                    $('#IntakeTDLE');
-                    $('#externalSelect');
-                    $('#waterExtraction');
-                    $('#initialDataExtractionInterpolationValue');
-                    $('#finalDataExtractionInterpolationValue');
-                    $('#numberYearsInterpolationValue');
+                $('#intakeECTAG tr');
+                $('#IntakeTDLE table');
+                $('#externalSelect option');
+                $('#intakeECTAG');
+                $('#IntakeTDLE');
+                $('#externalSelect');
+                $('#waterExtraction');
+                $('#initialDataExtractionInterpolationValue');
+                $('#finalDataExtractionInterpolationValue');
+                $('#numberYearsInterpolationValue');
             }
         }
     });
@@ -460,105 +420,116 @@ $(document).ready(function() {
     });
 
     // Automatic height on clic next btn wizard
-    $('#smartwizard').smartWizard("next").click(function() {
-        $('#autoAdjustHeightF').css("height", "auto");
-        mapDelimit.invalidateSize();
-        map.invalidateSize();
-    });
-
-    $('#smartwizard').smartWizard({
-        selected: 0,
-        theme: 'dots',
-        enableURLhash: false,
-        autoAdjustHeight: true,
-        transition: {
-            animation: 'slide-horizontal', // Effect on navigation, none/fade/slide-horizontal/slide-vertical/slide-swing
-        },
-        toolbarSettings: {
-            showNextButton: false,
-            showPreviousButton: false,
-        },
-        keyboardSettings: {
-            keyNavigation: false
-        }
-    });
-    $("#smartwizard").on("showStep", function(e, anchorObject, stepIndex, stepDirection) {
-        if (stepIndex == 4) {
-            if (catchmentPoly) {
+    if ($('#smartwizard')[0] != undefined) {
+        $('#smartwizard').smartWizard("next").click(function() {
+            $('#autoAdjustHeightF').css("height", "auto");
+            if (mapDelimit != null) {            
                 mapDelimit.invalidateSize();
-                mapDelimit.fitBounds(catchmentPoly.getBounds());
-            } else {
-                mapDelimit.invalidateSize();
-                $('#autoAdjustHeightF').css("height", "auto");
-            }
-        }
-        if (stepIndex == 0) {
-            if (catchmentPoly) {
                 map.invalidateSize();
-                map.fitBounds(catchmentPoly.getBounds());
-            } else {
-                map.invalidateSize();
-                $('#autoAdjustHeightF').css("height", "auto");
             }
-        }
-    });
+        });
 
-    let initialCoords = [4.5, -74.4];
-    let zoom = 5;
-    let urlOSM = 'https://{s}.tile.osm.org/{z}/{x}/{y}.png';
-    let attr = '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors';
-    // find in localStorage if cityCoords exist
-    var cityCoords = localStorage.getItem('cityCoords');
-    if (cityCoords == undefined) {
-        cityCoords = initialCoords;
-    } else {
-        initialCoords = JSON.parse(cityCoords);
+        $('#smartwizard').smartWizard({
+            selected: 0,
+            theme: 'dots',
+            enableURLhash: false,
+            autoAdjustHeight: true,
+            transition: {
+                animation: 'slide-horizontal', // Effect on navigation, none/fade/slide-horizontal/slide-vertical/slide-swing
+            },
+            toolbarSettings: {
+                showNextButton: false,
+                showPreviousButton: false,
+            },
+            keyboardSettings: {
+                keyNavigation: false
+            }
+        });
+        $("#smartwizard").on("showStep", function(e, anchorObject, stepIndex, stepDirection) {
+            if (stepIndex == 4) {
+                if (catchmentPoly) {
+                    mapDelimit.invalidateSize();
+                    mapDelimit.fitBounds(catchmentPoly.getBounds());
+                } else {
+                    mapDelimit.invalidateSize();
+                    $('#autoAdjustHeightF').css("height", "auto");
+                }
+            }
+            if (stepIndex == 0) {
+                if (catchmentPoly) {
+                    map.invalidateSize();
+                    map.fitBounds(catchmentPoly.getBounds());
+                } else {
+                    if (map != undefined) {
+                        map.invalidateSize();
+                    }
+                    $('#autoAdjustHeightF').css("height", "auto");
+                }
+            }
+        });
     }
 
-    map = L.map('map', {}).setView(initialCoords, zoom);
-    mapDelimit = L.map('mapid', { editable: true }).setView(initialCoords, zoom);
-    var osm = L.tileLayer(urlOSM, {
-        attribution: attr,
-    });
-    var osmid = L.tileLayer(urlOSM, {
-        attribution: attr,
-    });
-    map.addLayer(osm);
-    
-    
-    var images = L.tileLayer("https://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryTopo/MapServer/tile/{z}/{y}/{x}");
-    var esriHydroOverlayURL = "https://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/Esri_Hydro_Reference_Overlay/MapServer/tile/{z}/{y}/{x}";
-    var hydroLyr = L.tileLayer(esriHydroOverlayURL);
-    var baseLayers = {
-        OpenStreetMap: osm,
-        Images: images,
-        /* Grayscale: gray,   */
-    };
-    var overlays = {
-        "Hydro (esri)": hydroLyr,
-    };
-    L.control.layers(baseLayers, overlays, { position: 'topleft' }).addTo(map);
-    mapDelimit.addLayer(osmid);
-    
-    intakePolygons.forEach(feature => {
-        let poly = feature.polygon;
-        let point = feature.point;
-        let delimitPolygon = feature.delimitArea;
-        if (feature.delimitArea != "None") {
-            if (delimitPolygon.indexOf("SRID") >= 0) {
-                delimitPolygon = delimitPolygon.split(";")[1];
+    if (location.pathname.indexOf("viewDemand") == -1){
+        loadExternalInput();
+        initializeMap();
+    }
+    function initializeMap(){
+        let initialCoords = [4.5, -74.4];
+        let zoom = 5;        
+        let attr = '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors';
+        // find in localStorage if cityCoords exist
+        var cityCoords = localStorage.getItem('cityCoords');
+        if (cityCoords == undefined) {
+            cityCoords = initialCoords;
+        } else {
+            initialCoords = JSON.parse(cityCoords);
+        }
+
+        map = L.map('map', {}).setView(initialCoords, zoom);
+        mapDelimit = L.map('mapid', { editable: true }).setView(initialCoords, zoom);
+        var osm = L.tileLayer(OSM_BASEMAP_URL, {
+            attribution: attr,
+        });
+        var osmid = L.tileLayer(OSM_BASEMAP_URL, {
+            attribution: attr,
+        });
+        map.addLayer(osm);
+            
+        var images = L.tileLayer(IMG_BASEMAP_URL);
+        var esriHydroOverlayURL = HYDRO_BASEMAP_URL;
+        var hydroLyr = L.tileLayer(esriHydroOverlayURL);
+        var baseLayers = {
+            OpenStreetMap: osm,
+            Images: images,
+            /* Grayscale: gray,   */
+        };
+        var overlays = {
+            "Hydro (esri)": hydroLyr,
+        };
+        L.control.layers(baseLayers, overlays, { position: 'topleft' }).addTo(map);
+        mapDelimit.addLayer(osmid);
+        
+        intakePolygons.forEach(feature => {
+            let poly = feature.polygon;
+            let point = feature.point;
+            let delimitPolygon = feature.delimitArea;
+            if (feature.delimitArea != "None") {
+                if (delimitPolygon.indexOf("SRID") >= 0) {
+                    delimitPolygon = delimitPolygon.split(";")[1];
+                }
+        
+                let delimitLayerTransformed = omnivore.wkt.parse(delimitPolygon);
+                let delimitLayerKeys = Object.keys(delimitLayerTransformed._layers);
+                let keyNameDelimitPol = delimitLayerKeys[0];
+                let delimitPolyCoord = delimitLayerTransformed._layers[keyNameDelimitPol].feature.geometry.coordinates[0];
+                delimitPolyCoord.forEach(function(geom) {
+                    var coordinates = [];
+                    coordinates.push(geom[1]);
+                    coordinates.push(geom[0]);
+                    copyCoordinates.push(coordinates);
+                })               
             }
-    
-            let delimitLayerTransformed = omnivore.wkt.parse(delimitPolygon);
-            let delimitLayerKeys = Object.keys(delimitLayerTransformed._layers);
-            let keyNameDelimitPol = delimitLayerKeys[0];
-            let delimitPolyCoord = delimitLayerTransformed._layers[keyNameDelimitPol].feature.geometry.coordinates[0];
-            delimitPolyCoord.forEach(function(geom) {
-                var coordinates = [];
-                coordinates.push(geom[1]);
-                coordinates.push(geom[0]);
-                copyCoordinates.push(coordinates);
-            })
+            
             let ll = new L.LatLng(feature.point.geometry.coordinates[1], feature.point.geometry.coordinates[0]);
             snapMarker = L.marker(null, {});
             snapMarkerMapDelimit = L.marker(null, {});
@@ -569,34 +540,32 @@ $(document).ready(function() {
             catchmentPoly = L.geoJSON(JSON.parse(feature.polygon)).addTo(map);
             catchmentPolyDelimit = L.geoJSON(JSON.parse(feature.polygon)).addTo(mapDelimit);
             map.fitBounds(catchmentPoly.getBounds());
-            zoom = 9;
+            //zoom = 9;
             map.setView(catchmentPoly.getBounds().getCenter(), zoom);
             mapDelimit.setView(catchmentPoly.getBounds().getCenter(), zoom);
             editablepolygon = L.polygon(copyCoordinates, { color: 'red' });
             editablepolygon.addTo(mapDelimit);    
-        }        
-    });
+        });
 
-    if (!mapLoader) {
-        mapLoader = L.control.loader().addTo(map);
-    }
-
-    var defExt = new L.Control.DefaultExtent({ title: gettext('Default extent'), position: 'topright'}).addTo(map);
-    defExt = new L.Control.DefaultExtent({ title: gettext('Default extent'), position: 'topright'}).addTo(mapDelimit);
-
-    mapLoader.hide();
-    createEditor(editorUrl);
-
-    var menu1Tab = document.getElementById('mapid');
-    var observer2 = new MutationObserver(function() {
-        if (menu1Tab.style.display != 'none') {
-            mapDelimit.invalidateSize();
+        if (!mapLoader) {
+            mapLoader = L.control.loader().addTo(map);
         }
-    });
-    observer2.observe(menu1Tab, { attributes: true });
 
+        var defExt = new L.Control.DefaultExtent({ title: gettext('Default extent'), position: 'topright'}).addTo(map);
+        defExt = new L.Control.DefaultExtent({ title: gettext('Default extent'), position: 'topright'}).addTo(mapDelimit);
+
+        mapLoader.hide();
+        createEditor(editorUrl);
+        var menu1Tab = document.getElementById('mapid');
+        var observer2 = new MutationObserver(function() {
+            if (menu1Tab.style.display != 'none') {
+                mapDelimit.invalidateSize();
+            }
+        });
+        observer2.observe(menu1Tab, { attributes: true });
+
+    }
 });
-
 
 //draw polygons
 drawPolygons = function() {

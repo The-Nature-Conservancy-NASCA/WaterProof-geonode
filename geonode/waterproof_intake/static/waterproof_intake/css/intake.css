@@ -29,6 +29,10 @@
     align-items: center;
 }
 
+.width-im-help-1{
+    width: 14px;
+}
+
 .text-danger-wp {
     color: rgb(255, 0, 0) !important;
 }
@@ -43,6 +47,7 @@
 
 .table>tbody>tr>td {
     vertical-align: middle;
+    font-weight: normal;
 }
 
 .table>tbody>tr>th {
@@ -238,3 +243,11 @@ textarea {
 .justify-text{
     text-align: left;
 }
+.tooltip-inner {
+    border-style: solid;
+    border-width: thin;
+    color: #31708f !important;
+    background-color: #d9edf7 !important;
+    max-width: 450px !important;
+}
+  

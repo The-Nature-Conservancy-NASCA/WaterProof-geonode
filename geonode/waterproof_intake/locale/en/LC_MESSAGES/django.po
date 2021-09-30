@@ -478,8 +478,8 @@ msgstr "Please select the method you wish to use to autofill the table associate
 
 #: template/intake_clone.html:249 template/intake_detail_list.html:222
 #: template/intake_edit.html:240 template/intake_form.html:255
-msgid "Interpolation method "
-msgstr "Interpolation method "
+msgid "Interpolation method"
+msgstr "Interpolation method"
 
 #: template/intake_clone.html:253 template/intake_detail_list.html:225
 #: template/intake_edit.html:243 template/intake_form.html:259
@@ -574,14 +574,10 @@ msgstr "NbS implementation area"
 msgid "You can change the area"
 msgstr "For manual delineation, click on the button 'Manually delineate area' and the system will highlight the vertices of the basin. You can reshape the area as needed by moving the vertices highlighted in red."
 
-#: template/intake_clone.html:399 template/intake_form.html:412
-msgid "To move area vertices"
-msgstr "Alternatively, you can upload a spatial file in shp format that contains the polygon where NbS implementation is possible."
-
 #: template/intake_clone.html:404 template/intake_edit.html:380
 #: template/intake_form.html:433
 msgid "To load shapefile"
-msgstr "Once defined implementation area, you must validate the process, do clic in the button below"
+msgstr "Once defined implementation area, you must validate the process, doing click in the button below"
 
 #: template/intake_clone.html:410 template/intake_edit.html:383
 msgid "Help"
@@ -590,7 +586,7 @@ msgstr "Help"
 #: template/intake_clone.html:413 template/intake_edit.html:386
 #: template/intake_form.html:432
 msgid "Once defined the area"
-msgstr "Once you are satisfied with the defined implementation area, you must validate the process, do clic in by clicking the button below."
+msgstr "Once you are satisfied with the defined implementation area, you must validate the process, doing click in by clicking the button below."
 
 #: template/intake_clone.html:427 template/intake_edit.html:398
 #: template/intake_form.html:445
@@ -696,7 +692,7 @@ msgid "Add Cost"
 msgstr "Add new cost"
 
 #: template/intake_edit.html:376
-msgid "To  move area vertices"
+msgid "To move area vertices"
 msgstr "Choose between \"Delimit NbS implementation area\" or uploading a \"geographic file\""
 
 #: template/intake_edit.html:378 template/intake_form.html:414
@@ -766,8 +762,8 @@ msgid "Number of years for time series  (10-100) Year"
 msgstr "Number of years for time series  (10-100) Year"
 
 #: template/intake_form.html:289 template/intake_form.html:326
-msgid "Clic the following button to calculate the wather extraction in each year"
-msgstr "Click here to calculate the wather extraction in each year"
+msgid "Clic the following button to calculate the water extraction in each year"
+msgstr "Click here to calculate the water extraction in each year"
 
 #: template/intake_form.html:321
 msgid "Number of years  (10-100) Year"
@@ -953,10 +949,6 @@ msgstr "Files are accepted only in compressed .zip format whose required structu
 msgid "Water Intake"
 msgstr "Water Intake"
 
-#: template/intake_list.html:31
-msgid "From this section you can consult the water intakes created in the system associated with a city of interest. You can search for intakes of different cities from 'Search city'. The system will show you a list of cities with matches around the world. Select the appropriate option from the list. You can also create your own basin associated with a city, to do this search for the city to which you will associate your basin and then click on the 'Create new water intake' button."
-msgstr "From this section you can consult the water intakes created in the system associated with a city of interest. You can search for intakes of different cities from 'Search city'. The system will show you a list of cities with matches around the world. Select the appropriate option from the list. You can also create your own basin associated with a city, to do this search for the city to which you will associate your basin and then click on the 'Create new water intake' button."
-
 #: template/intake_list.html:36
 msgid "Selected City"
 msgstr "Selected City"
@@ -1032,14 +1024,6 @@ msgstr "Select the elements that make up your capture system and click on the dr
 #: template/intake_list.html:34
 msgid "From this section you can view the water intakes created in the system associated with a city of interest. You can search for intakes of different cities from 'Search city'. The system will show you a list of cities with matches around the world. Select the appropriate option from the list. "
 msgstr "From this section you can view the water intakes created in the system associated with a city of interest. You can search for intakes of different cities from 'Search city'. The system will show you a list of cities with matches around the world. Select the appropriate option from the list. "
-
-#: template/intake_list.html:35
-msgid "You can also create your own basin associated with a city. To do so, search for the city with which you will associate your basin and then click on the 'Create new water intake' button."
-msgstr "You can also create your own basin associated with a city. To do so, search for the city with which you will associate your basin and then click on the 'Create new water intake' button."
-
-#: template/intake_form.html:195
-msgid "The elements of the collection system have associated operating costs, you can modify them, discard them or add new costs"
-msgstr "The elements of the collection system have associated operating costs, you can modify them, discard them or add new costs"
 
 #: template/intake_form.html:460
 msgid "Cost function name"

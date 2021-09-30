@@ -95,8 +95,7 @@ function updateStyleLine(graph, cell, type) {
                     if (type.style == 'PIPELINE' || type.style == 'CHANNEL' || type.style == 'CONNECTION' ){
                         resultDbObj[0].fields.predefined_transp_water_perc = '';
                         enableBtnValidateCount++;
-                        validateTransportedWater('');
-                        //$('#aguaDiagram').val(''); 
+                        validateTransportedWater('');                        
                     }
                     
                     let valueObj = {
@@ -121,7 +120,6 @@ function updateStyleLine(graph, cell, type) {
                             $('#titleCostFunSmall').attr("valueid", label);
                             $('#titleCostFunSmall').text(`ID: ${cell.id} - ${connectionsType[obj.connectorType].name}`);
                             
-
                             addData2HTML(dbfields, cell)
                         } catch (e) {
                             label = "";
@@ -151,43 +149,37 @@ function clearDataHtml() {
 }
 
 function funcost(index) {
-    var currencyCostName = funcostdb[index].fields.currencyCostName != undefined ? funcostdb[index].fields.currencyCostName : funcostdb[index].fields.currency; 
+    var currencyCostName = funcostdb[index].fields.currencyCostName;
+    if (currencyCostName == undefined || currencyCostName == '') {
+        currencyCostName = funcostdb[index].fields.currency;
+    }
+
     var factor = funcostdb[index].fields.global_multiplier_factorCalculator;
-    if (currencyCostName == undefined){
-        currencyCostName = "";        
-    }
+    
     if (factor == undefined){
-        factor = localStorage.getItem("factor");
+        factor =  parseFloat(localStorage.getItem("factor")).toFixed(2);
     }
-    $('#funcostgenerate').append(
+    let tdClass = "small text-center vat";    
+    let aProps = `class="btn btn-info"html=true trigger="click" data-toggle="tooltip" data-placement="top"`;
+    
+    $('#funcostgenerate').append(`
+        <tr idvalue="fun_${index}">
+            <td aling="center">${funcostdb[index].fields.function_name}</td>
+            <td class="${tdClass}" style="width: 160px">
+                <a id="fn${index}" ${aProps} title="${funcostdb[index].fields.function_value}">fx</a>                
+            </td>
+            <td class="${tdClass}">${currencyCostName}</td>
+            <td class="${tdClass}">${factor}</td>
+            <td class="${tdClass}" style="width: 85px">
+                <div class="btn-group btn-group-table" role="group">
+                    <a class="btn btn-info" name="glyphicon-edit" idvalue="${index}"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
+                    <a class="btn btn-danger" name="glyphicon-trash" idvalue="${index}"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+                </div>
+            </td>
+        </tr>
         `
-    <tr idvalue="fun_${index}">
-        <td aling="center">${funcostdb[index].fields.function_name}</td>
-        <td class="small text-center vat" style="width: 160px">
-        <a class="btn btn-info" idvalue="${index}" name="fun_display_btn">fx</a>
-        <div id="fun_display_${index}" style="position: absolute; left: 50%; width: auto; display: none;">
-        <div class="alert alert-info mb-0" style="position: relative; left: -50%; bottom: -10px;" role="alert">
-        <p name="render_ecuation" style="font-size: 1.8rem; width:100%;">${funcostdb[index].fields.function_value}</p>
-         </div>
-        </div>
-        </td>
-        <td class="small text-center vat">${currencyCostName}</td>
-        <td class="small text-center vat">${factor}</td>
-        <td class="small text-center vat" style="width: 85px">
-            <div class="btn-group btn-group-table" role="group">
-                <a class="btn btn-info" name="glyphicon-edit" idvalue="${index}"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
-                <a class="btn btn-danger" name="glyphicon-trash" idvalue="${index}"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
-            </div>
-        </td>
-
-    </tr>
-    `
-    );
-    console.log(funcostdb[index].fields.function_value)
-
-    $('p[name=render_ecuation]').each(function() {
-        //MQ.StaticMath(this);
-    });
+        );
+    //console.log(funcostdb[index].fields.function_value)
 }
 
 function addData(element) {
@@ -208,7 +200,7 @@ function addData(element) {
         funcostdb = obj.funcost;
         for (let index = 0; index < funcostdb.length; index++) {
             funcost(index);
-        }
+        }        
     } else {
         $('#titleDiagram').text(element.getAttribute('name'));
         $('#titleCostFunSmall').attr("valueid", element.id);
@@ -226,10 +218,9 @@ function addData(element) {
         addData2HTML(resultdb, element);
         for (let index = 0; index < funcostdb.length; index++) {
             funcost(index);
-
         }
     }
-
+    $('[data-toggle="tooltip"]').tooltip();
 }
 
 function addData2HTML(resultdb, cell) {
@@ -247,7 +238,7 @@ function addData2HTML(resultdb, cell) {
     $('#funcostgenerate').empty();
     // Add Value to Panel Information Right on HTML
     $('#aguaDiagram').val(resultdb[0].fields.predefined_transp_water_perc); 
-    
+
     $('#sedimentosDiagram').val(resultdb[0].fields.predefined_sediment_perc);
     $('#nitrogenoDiagram').val(resultdb[0].fields.predefined_nitrogen_perc);
     $('#fosforoDiagram').val(resultdb[0].fields.predefined_phosphorus_perc);
@@ -348,29 +339,33 @@ $(document).on('click', '#helpgraph', function() {
 var validateinput = function(e) {
     let minRange = e.getAttribute('min');
     let maxRange = e.getAttribute('max');
+
+    if (minRange == 0 && maxRange == 0) {
+        e.value = 0;
+        return false;
+    }
+
     var t = e.value;
     if (e.id == "aguaDiagram"){
         validateTransportedWater(t);
     }
     e.value = (t.indexOf(".") >= 0) ? (t.substr(0, t.indexOf(".")) + t.substr(t.indexOf("."), 3)) : t;
-    if (parseFloat(e.value) < parseFloat(e.getAttribute('min')) || (e.value.length == 0)) {
-        let texttitle = gettext("The value must be between %s and %s");
-        let transtitle = interpolate(texttitle, [minRange, maxRange]);
-        let text = gettext(`The minimun value is %s please use the arrows`)
+    let texttitle = gettext("The value must be between %s and %s");
+    let transtitle = interpolate(texttitle, [minRange, maxRange]);
+    if (parseFloat(e.value) < parseFloat(minRange) || (e.value.length == 0)) {        
+        let text = gettext(`The minimum value is %s please use the arrows`)
         let transtext = interpolate(text, [maxRange]);
-        e.value = e.getAttribute('min');
+        e.value = minRange;
         Swal.fire({
             icon: 'warning',
             title: transtitle,
             text: transtext
         });
     }
-    if (parseFloat(e.value) > parseFloat(e.getAttribute('max'))) {
-        let texttitle = gettext("The value must be between %s and %s");
-        let transtitle = interpolate(texttitle, [minRange, maxRange]);
+    if (parseFloat(e.value) > parseFloat(maxRange)) {        
         let text = gettext(`The maximum value is %s please use the arrows`)
         let transtext = interpolate(text, [maxRange]);
-        e.value = e.getAttribute('max');
+        e.value = maxRange;
         Swal.fire({
             icon: 'warning',
             title: transtitle,

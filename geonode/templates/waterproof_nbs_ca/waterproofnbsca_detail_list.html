@@ -44,7 +44,7 @@
     <div class="form-group">
         <div class="row">
             <div class="col-md-6">
-                <label>{% trans "Country" %}</label>
+                <label>{% trans "Reference country" %}</label>
                 <select class="form-control" disabled required>
                     {% for country in countries %}
                     <option value="{{country.pk}}" {% if country.pk == sbn.country.pk %} selected{% endif %}>{{ country.name}}</option>
@@ -55,7 +55,7 @@
                 <label>{% trans "Currency for definition of costs" %}</label>
                 <select class="form-control" disabled required>
                     {% for cur in currencies %}
-                    <option value="{{cur.pk}}" {% if cur.pk == sbn.currency.pk %} selected{% endif %}>{{ cur.name}}</option>
+                    <option value="{{cur.pk}}" {% if cur.pk == sbn.currency.pk %} selected{% endif %}>( {{cur.iso3}}) - {{ cur.name}} </option>
                     {%  endfor %}
                     </select>
             </div>
@@ -136,15 +136,15 @@
                             <div class="panel-body">
                                 <div class="form-group">
                                     <label>{% trans "Implementation cost (US$/ha)" %} ({{sbn.country.currency}}/ha)</label>
-                                    <input type="text"  value="{{sbn.unit_implementation_cost|multiplyFactor:userCountry.global_multiplier_factor|decimalFormat:2}}" class="form-control" id="a_unit_implementation_cost" required disabled>
+                                    <input type="text"  value="{{sbn.unit_implementation_cost|multiplyFactor:userCountry.global_multiplier_factor|floatformat:2}}" class="form-control" id="a_unit_implementation_cost" required disabled>
                                 </div>
                                 <div class="form-group">
                                     <label>{% trans "Maintenace cost (US$/ha)" %} ({{sbn.country.currency}}/ha)</label>
-                                    <input type="text" value="{{sbn.unit_maintenance_cost|multiplyFactor:userCountry.global_multiplier_factor|decimalFormat:2}}" class="form-control" id="a_unit_maintenance_cost" required disabled>
+                                    <input type="text" value="{{sbn.unit_maintenance_cost|multiplyFactor:userCountry.global_multiplier_factor|floatformat:2}}" class="form-control" id="a_unit_maintenance_cost" required disabled>
                                 </div>
                                 <div class="form-group">
                                     <label>{% trans "Oportunity cost (US$/ha)" %} ({{sbn.country.currency}}/ha)</label>
-                                    <input id="a_unit_oportunity_cost" value="{{sbn.unit_oportunity_cost|multiplyFactor:userCountry.global_multiplier_factor|decimalFormat:2}}" type="text" class="form-control" required disabled>
+                                    <input id="a_unit_oportunity_cost" value="{{sbn.unit_oportunity_cost|multiplyFactor:userCountry.global_multiplier_factor|floatformat:2}}" type="text" class="form-control" required disabled>
                                 </div>
                             </div>
                         </div>
@@ -162,16 +162,13 @@
         </div>
         </div>
     <ul class="list-group">
-
         {% for transformation in sbn.rios_transformations.all %}
         <li class="list-group-item">
             <span class="badge">{{ transformation.name }}</span> {{ transformation.activity.name }}
         </li>
         {% endfor %}
-
     </ul>
 </div>
-
 
 {% endblock body_outer %} {% block extra_script %}
 <script>

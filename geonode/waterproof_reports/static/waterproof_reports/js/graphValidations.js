@@ -293,7 +293,7 @@ var validateinput = function(e) {
     if (parseFloat(e.value) < parseFloat(e.getAttribute('min'))) {
         let texttitle = gettext("The value must be between %s and %s");
         let transtitle = interpolate(texttitle, [minRange, maxRange]);
-        let text = gettext(`The minimun value is %s please use the arrows`)
+        let text = gettext(`The minimum value is %s please use the arrows`)
         let transtext = interpolate(text, [maxRange]);
         e.value = e.getAttribute('min');
         Swal.fire({

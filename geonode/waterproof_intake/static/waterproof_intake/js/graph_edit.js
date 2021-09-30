@@ -421,15 +421,6 @@ function onInit(editor) {
             console.log("clearInputsMath");
         }
 
-        /* $("#currencyCost").on("change", function() {
-            $.ajax({
-                url: `/parameters/load-currency/?currency=${$('#currencyCost').val()}`,
-                success: function(result) {
-                    $('#global_multiplier_factorCalculator').val(JSON.parse(result)[0].fields.global_multiplier_factor);
-                }
-            });
-        }); */
-
         editor.graph.addListener(mxEvent.CELLS_REMOVED, (sender, evt) => {
                 bandera = true;
             })
@@ -649,8 +640,7 @@ function onInit(editor) {
             
             $('#funcostgenerate tr').remove();
             $('#funcostgenerate').empty();
-            for (let index = 0; index < funcostdb.length; index++) {
-                // funcostdb[index].fields.function_value, funcostdb[index].fields.function_name,
+            for (let index = 0; index < funcostdb.length; index++) {                
                 funcost( index);
             }
             $('#CalculatorModal').modal('hide');
@@ -662,23 +652,31 @@ function onInit(editor) {
             
             clearInputsMath();
             $('#CalculatorModal').modal('show');
-            index = parseInt($(this).attr('idvalue'));
-            var currencyCost = funcostdb[index].fields.global_multiplier_factorCalculator;
-            var factor = funcostdb[index].fields.global_multiplier_factorCalculator;
-            if (currencyCost == undefined){
-                currencyCost = -1;
+            let index = parseInt($(this).attr('idvalue'));
+            let fieldsFunction = funcostdb[index].fields;
+            var currency = fieldsFunction.currencyCostName;
+            if (currency == undefined || currency == '') {
+                currency = fieldsFunction.currency;
+                if (currency != undefined && currency != '') {
+                    $('#currencyCost').val(currency);
+                    if (currency == 'USD') {
+                        $("#currencyCost option").filter((i,l) => ( l.getAttribute('data-country') == 'USA'))[0].selected = true;
+                    }
+                }
             }
+
+            var factor = fieldsFunction.global_multiplier_factorCalculator;            
             if (factor == undefined){
                 factor = localStorage.getItem("factor");
             }
             
-            $('#costFunctionName').val(funcostdb[index].fields.function_name);
-            $('#costFuntionDescription').val(funcostdb[index].fields.function_description);
-            $('#CalculatorModalLabel').text('Modify Cost - ' + $('#titleCostFunSmall').text());
-            $('#currencyCost').val(funcostdb[index].fields.currencyCost);
-            $('#global_multiplier_factorCalculator').val();
+            $('#costFunctionName').val(fieldsFunction.function_name);
+            $('#costFuntionDescription').val(fieldsFunction.function_description);
+            $('#CalculatorModalLabel').text(gettext('Modify Cost function'));            
+            $('#global_multiplier_factorCalculator').val(factor);
             setVarCost();
-            let value = funcostdb[index].fields.function_value;
+            
+            let value = fieldsFunction.function_value;
             $('#python-expression').val();
             if (value != ""){
                 $('#python-expression').val(value);
@@ -729,11 +727,6 @@ function onInit(editor) {
             })
         });
 
-        $(document).on('click', 'a[name=fun_display_btn]', function() {
-            var idx = $(this).attr('idvalue');
-            $(`#fun_display_${idx}`).toggle();
-        });
-
         function setVarCost() {
             banderaFunctionCost = false;
             $('#VarCostListGroup div').remove();
@@ -764,7 +757,7 @@ function onInit(editor) {
             typesetInput('');
             $('#costFunctionName').val('');
             $('#costFuntionDescription').val('');
-            $('#CalculatorModalLabel').text('New Function Cost - ' + $('#titleCostFunSmall').text())
+            $('#CalculatorModalLabel').text(gettext('New Function cost'));
             for (const index of graphData) {
                 var costlabel = "";
                 for (const iterator of JSON.parse(index.varcost)) {
@@ -885,7 +878,7 @@ function onInit(editor) {
                             Swal.fire({
                                 icon: 'warning',
                                 title: gettext('Field empty'),
-                                text: gettext('Please fill every fields')
+                                text: gettext('Please complete all required information')
                             });
                             return;
                         } else {

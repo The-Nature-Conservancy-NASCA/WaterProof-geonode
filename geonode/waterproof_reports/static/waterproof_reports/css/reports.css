@@ -425,10 +425,10 @@
     height: 30px;
 }
 .list-year-cont {
-    width: 20%;
+    width: 25%;
     border-right-style: solid;
     border-width: 1px;
-    height: 469px;
+    height: 569px;
     border-color: #1389A9;
     float: left;
 }
@@ -449,7 +449,7 @@
     float: left;
 }
 .graph-year-cont {
-    width: 80%;
+    width: 75%;
     position: relative;
     float: left;
 }
@@ -870,6 +870,9 @@
     .adjust-area{
         height: 1000px;
     }
+    .adjust-area-step-4-ph{
+        height: 1200px;
+    }
     .table-option-ph{
         width: 95%;
         float: left;
@@ -903,7 +906,7 @@
         border-style: solid;
         width: 94%;
         margin: 10px;
-        height: 500px;
+        height: 600px;
         border-width: 1px;
         border-color: #1389A9;
         font-size: 12px;
@@ -1259,6 +1262,9 @@
     .adjust-area{
         height: 1000px;
     }
+    .adjust-area-step-4-ph{
+        height: 1200px;
+    }
     .table-option-ph{
         width: 70%;
         float: left;
@@ -1292,7 +1298,7 @@
         border-style: solid;
         width: 94%;
         margin: 10px;
-        height: 500px;
+        height: 600px;
         border-width: 1px;
         border-color: #1389A9;
         font-size: 12px;
@@ -1639,6 +1645,9 @@
     .adjust-area{
         height: 1000px;
     }
+    .adjust-area-step-4-ph{
+        height: 1200px;
+    }
     .table-option-ph{
         width: 70%;
         float: left;
@@ -1672,7 +1681,7 @@
         border-style: solid;
         width: 94%;
         margin: 10px;
-        height: 500px;
+        height: 600px;
         border-width: 1px;
         border-color: #1389A9;
         font-size: 12px;
@@ -2062,13 +2071,16 @@
         padding-left: 0;
     }
     .text-desc-physical-step1{
-        width: 90%;
+        width: 84%;
         padding: 3%;
         padding-left: 3%;
         text-align: justify;
     }
     .adjust-area{
         height: 1000px;
+    }
+    .adjust-area-step-4-ph{
+        height: 1200px;
     }
     .table-option-ph{
         width: 25%;
@@ -2101,9 +2113,9 @@
     .container-graph {
         display: none;
         border-style: solid;
-        width: 30%;
+        width: 60%;
         margin: 10px;
-        height: 500px;
+        height: 600px;
         border-width: 1px;
         border-color: #1389A9;
         font-size: 12px;
@@ -2116,6 +2128,10 @@
     }
     .content-table-bootom-step1{
         padding-bottom: 57%;
+    }
+    .image-size-left{
+        width: 70%;
+        margin: 15%;
     }
 }
 @media only screen and (max-width: 1200px) {

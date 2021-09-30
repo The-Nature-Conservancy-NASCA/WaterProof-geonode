@@ -261,13 +261,14 @@ $(document).ready(function() {
     function externalInput(numYear) {
         var rows = "";
         var numberExternal = 0;
-        $('#externalSelect').append(`<option value="null" selected>Choose here</option>`);
+        let headTbl = headTblExternalInput();
+        let lblSelectOption = gettext('Select an option');
+        let lblExternalInput = gettext('External Input');
+        $('#externalSelect').append(`<option value="null" selected>${lblSelectOption}</option>`);        
         for (let p = 0; p < graphData.length; p++) {
             if (graphData[p].external == 'true') {
                 numberExternal += 1
-                $('#externalSelect').append(`
-                            <option value="${graphData[p].id}">${graphData[p].id} - External Input</option>
-                    `);
+                $('#externalSelect').append(`<option value="${graphData[p].id}">${graphData[p].id} - ${lblExternalInput}</option>`);
                 rows = "";
                 for (let index = 0; index <= numYear; index++) {
                     rows += (`<tr>
@@ -280,21 +281,29 @@ $(document).ready(function() {
                 }
                 $('#IntakeTDLE').append(`
                         <table class="table" id="table_${graphData[p].id}" style="display: none">
-                            <thead>
-                                <tr>
-                                    <th class="text-center" scope="col">Year</th>
-                                    <th class="text-center" scope="col">Water Volume (m3)</th>
-                                    <th class="text-center" scope="col">Sediment (Ton)</th>
-                                    <th class="text-center" scope="col">Nitrogen (Kg)</th>
-                                    <th class="text-center" scope="col">Phosphorus (Kg)</th>
-                                </tr>
-                            </thead>
+                            ${headTbl}
                             <tbody>${rows}</tbody>
-                        </table>    
-                `);
+                        </table>`);
             }
         }
-        $('#ExternalNumbersInputs').html(numberExternal)
+        $('#ExternalNumbersInputs').html(numberExternal);
+    }
+
+    function headTblExternalInput(){
+        let lblYear = gettext('Year');
+        let lblWaterVolume = gettext('Water Volume');
+        let lblSediment = gettext('Sediment');
+        let lblNitrogen = gettext('Nitrogen');
+        let lblPhosphorus = gettext('Phosphorus');
+        return`<thead>
+                <tr>
+                    <th class="text-center" scope="col">${lblYear}</th>
+                    <th class="text-center" scope="col">${lblWaterVolume} (m3)</th>
+                    <th class="text-center" scope="col">${lblSediment} (Ton)</th>
+                    <th class="text-center" scope="col">${lblNitrogen} (Kg)</th>
+                    <th class="text-center" scope="col">${lblPhosphorus} (Kg)</th>
+                </tr>
+            </thead>`;
     }
 
     $('#smartwizard').smartWizard("next").click(function() {
@@ -361,7 +370,7 @@ $(document).ready(function() {
             Swal.fire({
                 icon: 'warning',
                 title: gettext('Field empty'),
-                text: gettext('Please fill every fields')
+                text: gettext('Please complete all required information')
             });
             return;
         }
@@ -549,12 +558,12 @@ $(document).ready(function() {
 function prevalidateAdjustCoordinates() {
     Swal.fire({
         title: gettext('Basin point delimitation'),
-        text: gettext('The point coordinates will be ajusted'),
+        text: gettext('The point coordinates will be adjusted to the nearest water source'),
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: gettext('Yes, ajust!'),
+        confirmButtonText: gettext('Yes, adjust!'),
         cancelButtonText: gettext('Cancel'),
     }).then((result) => {
         if (result.isConfirmed) {

@@ -17,7 +17,7 @@
     </div>    
     <div class="row">
         <div class="col-md-4">
-            <p style="text-align: justify;">{% trans "Through this form you can create a custom SbN. Select the country to which the NBS will be associated and fill in the identification information, costs and the transitions obtained with its implementation." %}</p>
+            <p style="text-align: justify;">{% trans "Through this form you can create a custom NbS. Select the country to which the NbS will be associated and fill in the identification information, costs and the transitions obtained with its implementation." %}</p>
             <h4 class="country-label" id="countryLabel">{{country.name}}</h4>
             <p><b>{% trans "Region:" %}</b> <span id="regionLabel">{{region.name}}</span> </p>
             <p><b>{% trans "Currency:" %} </b><span id="currencyLabel">({{currency.code}}) - {{currency.name}}</span></p>            
@@ -263,36 +263,36 @@
             </div>
             <div class="modal-body">
                 <p>
-                    {%  trans "You can create a Nature-based Solution by entering your name, description, data about your implementation and maintenance costs, among others. However, you should pay special attention in the Coverage / land use transitions section, as the coverage changes that WaterProof will take into account for the generation of NBS portfolios, modeling and analysis of return on investment are configured there."  %}
+                    {%  trans "create-nbs-help-1" %}
                 </p>
                 <img style="margin: 10px auto 10px; display: block; width: 100%; height: 100%;" src="/static/geonode/img/CreateSBN_1.png"></img>
                 <p>
-                    {% trans "Once you select the transition of your interest, you must indicate the changes in the coverage that you hope to achieve:" %} 
+                    {%  trans "create-nbs-help-2" %}
                 </p>
                 <img style="margin: 10px auto 10px; display: block; width: 100%; height: 100%;" src="/static/geonode/img/CreateSBN_2.png"></img>
                 <p>
-                    {% trans "Finally, you can attach a shapefile where you indicate areas where the implementation of the created NbS is avoided:" %} 
+                    {%  trans "create-nbs-help-3" %}
                 </p>
                 <img style="margin: 10px auto 10px; display: block; width: 100%; height: 100%;" src="/static/geonode/img/CreateSBN_3.png"></img>
                 <p>
-                    {% trans "Note that the shapefile must have 2 attributes which are required for RiOS to interpret the information:" %} 
+                    {%  trans "create-nbs-help-4" %}
                     <li>
-                        {% trans "activity_n: This field must contain the exact name of the activity that has been defined in the system (this refers to the csv file of parameters that enters RIOS and that the system arms according to what is selected by the user)." %} 
+                        {%  trans "create-nbs-help-5" %}
                     </li>
                     <li>
-                        {% trans "Action: This field is of type text and only admits two options: 1) prevent if you want to restrict an activity in that area or 2) prefer if you want to give priority to the activity in that area." %} 
+                        {%  trans "create-nbs-help-6" %}
                     </li>
                 </p>
                 <p>
-                    {% trans "The system will verify that the polygon is within the watershed area and that it meets the coordinate standard. EPSG 3857 (world standard for flat coordinates) or EPSG 4326 (world standard for geographic coordinates)." %} 
+                    {%  trans "create-nbs-help-7" %}
                 </p>
                 <p>
-                    {% trans "Files are accepted only in compressed .zip format whose required structure must contain at least: 1 .shp file, 1 .dbf file, 1 .prj file and 1 .shx file." %} 
+                    {%  trans "create-nbs-help-8" %}
                 </p>
                 <div>
                 <br>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal" style="color: white; background-color: #6398C1;">Close</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" style="color: white; background-color: #6398C1;">{% trans "Close" %}</button>
                 </div>
                 </div>
             </div>

@@ -4,6 +4,7 @@ Views for the ``Waterproof intake`` application.
 """
 
 import logging
+from typing import final
 
 from django.conf import settings
 from django.urls import reverse
@@ -24,6 +25,12 @@ from django.contrib.gis.gdal import OGRGeometry
 import datetime
 import requests
 logger = logging.getLogger(__name__)
+
+interpolations = {'LINEAR': _('Linear interpolation'), 
+            'POTENTIAL': _('Potential interpolation'), 
+            'EXPONENTIAL': _('Exponential interpolation'),
+            'LOGISTIC': _('Logistic interpolation'),
+            'MANUAL': _('Manual interpolation')}
 
 """
 Create Waterproof intake
@@ -972,6 +979,9 @@ def viewIntake(request, idx):
         filterIntake = Intake.objects.get(id=idx)
         filterExternal = ElementSystem.objects.filter(intake=filterIntake.pk, is_external=True)
         extInputs = []
+        extraction_result = []
+        initial_extraction = 0
+        final_extraction = 0
 
         for element in filterExternal:
             filterExtraction = ValuesTime.objects.filter(element=element.pk)
@@ -994,7 +1004,19 @@ def viewIntake(request, idx):
             extInputs.append(external)
         intakeExtInputs = json.dumps(extInputs)
         city = Cities.objects.all()
-        form = forms.IntakeForm()
+        demand = {}
+        years = {}
+        interpolation = ""
+        if (not filterIntake.demand_parameters is None):
+            demand = DemandParameters.objects.get(id=filterIntake.demand_parameters.pk)
+            years = WaterExtraction.objects.filter(demand=filterIntake.demand_parameters.pk)
+            interpolation = interpolations[filterIntake.demand_parameters.interpolation_type]
+            initial_extraction = '{0:.2f}'.format(demand.initial_extraction).replace('.', ',')
+            final_extraction = '{0:.2f}'.format(demand.ending_extraction).replace('.', ',')
+
+            for y in years:
+                extraction_result.append([y.year, '{0:.2f}'.format(y.value).replace('.', ',')])
+        
         return render(
             request, 'waterproof_intake/intake_detail_list.html',
             {
@@ -1002,26 +1024,44 @@ def viewIntake(request, idx):
                 'countries': countries,
                 'city': city,
                 'externalInputs': intakeExtInputs,
-                "serverApi": settings.WATERPROOF_API_SERVER
+                "serverApi": settings.WATERPROOF_API_SERVER,'interpolation': interpolation,
+                'extraction_result': extraction_result,
+                'initial_extraction': initial_extraction,
+                'final_extraction': final_extraction,
             }
         )
 
 
 def viewIntakeDemand(request, idx):
     if request.method == 'GET':
-        filterIntake = Intake.objects.get(id=idx)
-        filterExternal = ElementSystem.objects.filter(intake=filterIntake.pk, is_external=True)
-        intakeDemand = DemandParameters.objects.get(id=filterIntake.demand_parameters.pk)
-        yearsDemand = WaterExtraction.objects.filter(demand=filterIntake.demand_parameters.pk)
-        for year in yearsDemand:
-            print(year.value)
+        intake = Intake.objects.get(id=idx)
+       
+        extraction_result = []
+        initial_extraction = 0
+        final_extraction = 0
+        if (intake.demand_parameters is None):
+            demand = {}
+            years = {}
+            interpolation = ""
+        else:
+            demand = DemandParameters.objects.get(id=intake.demand_parameters.pk)
+            years = WaterExtraction.objects.filter(demand=intake.demand_parameters.pk).order_by('year')
+            interpolation = interpolations[intake.demand_parameters.interpolation_type]
+            initial_extraction = '{0:.2f}'.format(demand.initial_extraction).replace('.', ',')
+            final_extraction = '{0:.2f}'.format(demand.ending_extraction).replace('.', ',')
 
+            for y in years:
+                extraction_result.append([y.year, '{0:.2f}'.format(y.value).replace('.', ',')])
+        
         return render(
             request, 'waterproof_intake/intake_demand.html',
             {
-                'intake': filterIntake,
-                'demand': intakeDemand,
-                'yeardDemand': yearsDemand
+                'intake': intake,
+                'demand': demand,
+                'interpolation': interpolation,
+                'extraction_result': extraction_result,
+                'initial_extraction': initial_extraction,
+                'final_extraction': final_extraction,
             }
         )
 

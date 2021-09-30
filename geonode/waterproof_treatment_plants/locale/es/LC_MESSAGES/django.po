@@ -248,11 +248,9 @@ msgstr "Descripción"
 msgid "Water Intake"
 msgstr "Captación"
 
-#: templates/treatment_plants_edit.html:45
-msgid "Select from the list water intakes that arrive at your treatment plant and click on the button 'Add water intake'"
-msgstr ""
-"Seleccione de la lista las captaciones que entregan el agua a esta planta de tratamiento, de clic en el botón 'Confirmar fuentes de agua'  para que WaterProof configure los procesos de la planta de "
-"tratamiento"
+#: geonode/templates/waterproof_treatment_plants/treatment_plants_edit.html:41
+msgid "Select the water intakes that supply the drinking water treatment plant. The selected intake will be automatic added to the table."
+msgstr "Seleccione las captaciones que suplen la planta de tratamiento de agua potable. La captación seleccionada se adicionará automáticamente a la tabla."
 
 #: templates/treatment_plants_edit.html:54
 msgid "Water intake sources"
@@ -269,6 +267,9 @@ msgstr "Opciones"
 #: templates/treatment_plants_edit.html:63
 msgid "Confirm water intakes sources"
 msgstr "Confirmar fuentes de agua"
+
+msgid "To enable the diagram, click in the next button"
+msgstr "Para habilitar el diagrama, haga clic en el siguiente botón"
 
 #: templates/treatment_plants_edit.html:69
 msgid "Treatment unit process diagram"
@@ -337,8 +338,8 @@ msgid "Processes, technologies and cost functions"
 msgstr "Procesos, tecnologías y funciones de costo"
 
 #: templates/treatment_plants_edit.html:227
-msgid "Please confirm or edit the diagram according to your reality"
-msgstr "De clic sobre los procesos que hacen parte de su planta de tratamiento y use el checkbox para habilitar o deshabilitarlos. Por cada proceso confirme o edite las funciones de costo como corresponda:"
+msgid "Define the processes that are part of your treatment plant and use the checkbox to enable or disable cost functions. You can also edit, delete or add cost functions."
+msgstr "Defina los procesos que forman parte de su planta de tratamiento y utilice la casilla de verificación para habilitar o deshabilitar las funciones de costos. También puede editar, eliminar o agregar funciones de costos."
 
 #: templates/treatment_plants_edit.html:232
 msgid "Treatment Plant"
@@ -514,3 +515,6 @@ msgstr "Este campo es requerido"
 
 msgid "Please, complete the form"
 msgstr "Por favor, complete el formulario"
+
+msgid "In this section you can create a Drinking Water Treatment Plant according to the quality of the water from your source."
+msgstr "En esta sección puede crear una Planta de Tratamiento de agua de acuerdo con la calidad del agua de su fuente."

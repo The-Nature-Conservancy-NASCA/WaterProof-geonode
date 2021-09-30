@@ -45,9 +45,7 @@
                 {% else %}
                 <a id="createUrlDisabled">{% trans "Create new Treatment Plants" %}</a>
                 <h6>{% trans "You must be a registered user to create a new Treatment Plant" %}</h6>
-                {% endif %}
-                
-                
+                {% endif %}  
             </div>
         </div>
         <div class="col-md-8">
@@ -73,8 +71,8 @@
             {% for treatmentPlants in treatmentPlantsList %}
             <tr>
                 <td class="small text-center vat">{{treatmentPlants.plantId}}</td>
-                <td class="small text-center vat align-text-table">{{treatmentPlants.plantName}}</td>
-                <td class="small text-center vat align-text-table">{{treatmentPlants.plantDescription}}</td>
+                <td class="small text-center vat">{{treatmentPlants.plantName}}</td>
+                <td class="small text-center vat">{{treatmentPlants.plantDescription}}</td>
                 <td class="small text-center vat">{{treatmentPlants.plantUser}}</td>
                 <td id="date" class="small text-center vat">{{treatmentPlants.plantDate}}</td>
                 <td class="small text-center vat">{{treatmentPlants.standardNameSpanish}}</td>
@@ -133,6 +131,9 @@
     SEARCH_COUNTRY_API_URL = '{{ SEARCH_COUNTRY_API_URL }}';
     var table;
     var map;
+    localStorage.clonePlant = 'false';
+    localStorage.updatePlant = 'false';
+    localStorage.loadInf = 'false';
     $(document).ready(function () {
         
         initialize();

@@ -201,7 +201,7 @@ msgstr ""
 
 #: static/waterproof_intake/js/graphValidations.js:357
 #, javascript-format
-msgid "The minimun value is %s please use the arrows"
+msgid "The minimum value is %s please use the arrows"
 msgstr ""
 
 #: static/waterproof_intake/js/graphValidations.js:369
@@ -329,17 +329,10 @@ msgstr "Cancel"
 msgid "Basin point delimitation"
 msgstr "Basin point delimitation"
 
-#: static/waterproof_intake/js/intake_clone.js:610
-#: static/waterproof_intake/js/intake_create.js:555
-#: static/waterproof_intake/js/intake_edit.js:609
-msgid "The point coordinates will be ajusted"
-msgstr ""
-"The water intake cordenates will be adjuste to the nearest water source"
-
 #: static/waterproof_intake/js/intake_clone.js:615
 #: static/waterproof_intake/js/intake_create.js:560
 #: static/waterproof_intake/js/intake_edit.js:614
-msgid "Yes, ajust!"
+msgid "Yes, adjust!"
 msgstr "Yes, adjust!"
 
 #: static/waterproof_intake/js/intake_clone.js:745

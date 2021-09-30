@@ -424,15 +424,6 @@
             loadDefaultXmlDiagram(editor);
         });
  
-        /* $("#currencyCost").on("change", function() {
-            $.ajax({
-                url: `/parameters/load-currency/?currency=${$('#currencyCost').val()}`,
-                success: function(result) {
-                    $('#global_multiplier_factorCalculator').val(JSON.parse(result)[0].fields.global_multiplier_factor);
-                }
-            });
-         });
-         */
          //load data when add an object in a diagram
         editor.graph.addListener(mxEvent.ADD_CELLS, function(sender, evt) {
             var selectedCell = evt.getProperty("cells");
@@ -650,22 +641,36 @@
  
          //Edit funcion cost 
          $(document).on('click', 'a[name=glyphicon-edit]', function() {
-            //mathField.clearSelection();
+            
             clearInputsMath();
             $('#CalculatorModal').modal('show');
-            selectedCostId = parseInt($(this).attr('idvalue'));
-            $('#costFunctionName').val(funcostdb[selectedCostId].fields.function_name);
-            $('#costFuntionDescription').val(funcostdb[selectedCostId].fields.function_description);
-            $('#CalculatorModalLabel').text('Modify Cost - ' + $('#titleCostFunSmall').text());
-            $('#currencyCost').val(funcostdb[selectedCostId].fields.currencyCost);
-            $('#global_multiplier_factorCalculator').val(funcostdb[selectedCostId].fields.global_multiplier_factorCalculator);
-            setVarCost();
-            let value = funcostdb[selectedCostId].fields.function_value;
-            console.log("valor de value es: "+value)
-            if (value == ""){
-                $('#python-expression').val();
+            let index = parseInt($(this).attr('idvalue'));
+            let fieldsFunction = funcostdb[index].fields;
+            var currency = fieldsFunction.currencyCostName;
+            if (currency == undefined || currency == '') {
+                currency = fieldsFunction.currency;
+                if (currency != undefined && currency != '') {
+                    $('#currencyCost').val(currency);
+                    if (currency == 'USD') {
+                        $("#currencyCost option").filter((i,l) => ( l.getAttribute('data-country') == 'USA'))[0].selected = true;
+                    }
+                }
             }
-            else{
+
+            var factor = fieldsFunction.global_multiplier_factorCalculator;            
+            if (factor == undefined){
+                factor = localStorage.getItem("factor");
+            }
+
+            $('#costFunctionName').val(ieldsFunction.function_name);
+            $('#costFuntionDescription').val(fieldsFunction.function_description);
+            $('#CalculatorModalLabel').text(gettext('Modify Cost function'));            
+            $('#global_multiplier_factorCalculator').val(factor);
+            setVarCost();
+            
+            let value = fieldsFunction.function_value;            
+            $('#python-expression').val();
+            if (value != ""){
                 $('#python-expression').val(value);
             }
             validatePyExpression();
@@ -715,11 +720,6 @@
              })
          });
  
-        $(document).on('click', 'a[name=fun_display_btn]', function() {
-            var idx = $(this).attr('idvalue');
-            $(`#fun_display_${idx}`).toggle();
-        });
- 
          function setVarCost() {
              banderaFunctionCost = false;
              $('#VarCostListGroup div').remove();
@@ -752,7 +752,8 @@
             typesetInput('');
             $('#costFunctionName').val('');
             $('#costFuntionDescription').val('');
-            $('#CalculatorModalLabel').text('New Function Cost - ' + $('#titleCostFunSmall').text())
+            $('#CalculatorModalLabel').text(gettext('New Function cost'));
+            
             for (const index of graphData) {
                 var costlabel = "";
                 for (const iterator of JSON.parse(index.varcost)) {
@@ -847,7 +848,7 @@
                              Swal.fire({
                                  icon: 'warning',
                                  title: gettext('Field empty'),
-                                 text: gettext('Please fill every fields')
+                                 text: gettext('Please complete all required information')
                              });
                              return;
                          } else {
