@@ -420,18 +420,39 @@
             }
         };
 
+        // generateMap2Img = function (mapId, imgId) {
+        //     var mapElement = document.getElementById(mapId);
+        //     $(".leaflet-control").hide();
+        //     domtoimage.toPng(mapElement).then(function (dataUrl) {
+        //         $('#'+ imgId).attr('src', dataUrl);
+        //         $(".leaflet-control").show();
+        //         document.getElementById("mapSendImage").value = dataUrl;
+        //     }).catch(function (error) {
+        //         console.error('oops, something went wrong!', error);
+        //         $(".leaflet-control").show();
+        //     });
+        // };
         generateMap2Img = function (mapId, imgId) {
-            var mapElement = document.getElementById(mapId);
-            $(".leaflet-control").hide();
-            domtoimage.toPng(mapElement).then(function (dataUrl) {
-                $('#'+ imgId).attr('src', dataUrl);
-                $(".leaflet-control").show();
-                document.getElementById("mapSendImage").value = dataUrl;
-            }).catch(function (error) {
-                console.error('oops, something went wrong!', error);
-                $(".leaflet-control").show();
-            });
-        };
+				var mapElement = document.getElementById(mapId);
+				//const dataURL = await domtoimage.toPng(mapElement, { width, height })
+				//const blob = await domtoimage.toBlob(mapElement, { width, height })
+				$(".leaflet-control").hide();
+				domtoimage.toPng(mapElement)
+					.then(function (dataUrl) {
+							$('#'+ imgId).attr('src', dataUrl);							
+							$(".leaflet-control").show();
+                            document.getElementById("mapSendImage").value = dataUrl;
+                    })
+                    .catch(function (error) {
+							console.error('oops, something went wrong!', error);
+							$(".leaflet-control").show();
+					});
+			};
+
+
+
+
+
 
         initMapDecision = function () {
                 map = L.map('mapidcuenca', {
