@@ -128,11 +128,11 @@
                             <div class="col-md-6">
                                 <select class="select-condition" id="idListSelectIntake" onchange="changePie(this.value)"></select>
                                 <div id="containerAbi"></div>
-                                <p>{% trans "Benefits and cost ind text 4" %}</p>
+                                <p class="align-text">{% trans "Benefits and cost ind text 4" %}</p>
                             </div>
                             <div class="col-md-6">
                                 <div id="containerAbt"></div>
-                                <p>{% trans "Benefits and cost ind text 5" %}</p>
+                                <p class="align-text">{% trans "Benefits and cost ind text 5" %}</p>
                             </div>
                         </div>
                     </div>                
@@ -145,11 +145,11 @@
                             <!--Graph-->
                             <div class="col-md-6">
                                 <div id="containerAct"></div>
-                                <p>{% trans "Benefits and cost ind text 2" %}</p>
+                                <p class="align-text">{% trans "Benefits and cost ind text 2" %}</p>
                             </div>
                             <div class="col-md-6">
                                 <div id="containerAca"></div>
-                                <p>{% trans "Benefits and cost ind text 3" %}</p>
+                                <p class="align-text">{% trans "Benefits and cost ind text 3" %}</p>
                             </div>
                         </div>
                     </div> 
@@ -628,48 +628,6 @@ $(function () {
         }
     };
 
-    changePie = function (selectName) {
-        dataTotalBenefitsIntakeOne = [];
-        dataTotalBenefitsIntake.forEach((featureIntake) => {
-            if(featureIntake.type ===  selectName) {
-                dataTotalBenefitsIntakeOne.push({
-                    name: featureIntake.name,
-                    y: featureIntake.y
-                })
-            }
-        });
-
-        Highcharts.chart('containerAbi', {
-            chart: {
-                plotBackgroundColor: null,
-                plotBorderWidth: null,
-                plotShadow: false,
-                type: 'pie'
-            },
-            title: {
-                text: 'Intake Benefits'
-            },
-            plotOptions: {
-                pie: {
-                    allowPointSelect: true,
-                    cursor: 'pointer',
-                    dataLabels: {
-                        enabled: false
-                    },
-                    showInLegend: true
-                }
-            },
-            credits: {
-                enabled: false
-            },
-            series: [{
-                name: 'Intake Benefits',
-                colorByPoint: true,
-                data: dataTotalBenefitsIntakeOne
-            }]
-        });
-    };
-
     initialize = function () {
 
         $("#idCountri").html(localStorage.getItem('country'));
@@ -837,6 +795,48 @@ $(function () {
                 }]
             });
         });
+
+        changePie = function (selectName) {
+            dataTotalBenefitsIntakeOne = [];
+            dataTotalBenefitsIntake.forEach((featureIntake) => {
+                if(featureIntake.type ===  selectName) {
+                    dataTotalBenefitsIntakeOne.push({
+                        name: featureIntake.name,
+                        y: featureIntake.y
+                    })
+                }
+            });
+
+            Highcharts.chart('containerAbi', {
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
+                    type: 'pie'
+                },
+                title: {
+                    text: 'DWTP Benefits'
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: false
+                        },
+                        showInLegend: true
+                    }
+                },
+                credits: {
+                    enabled: false
+                },
+                series: [{
+                    name: 'DWTP Benefits',
+                    colorByPoint: true,
+                    data: dataTotalBenefitsIntakeOne
+                }]
+            });
+        };
 
         var dataTotalBenefits = [];
         var urlDetail = "../../reports/getReportAnalysisBenefitsFilterSum/?studyCase=" + localStorage.idStudyCase;
