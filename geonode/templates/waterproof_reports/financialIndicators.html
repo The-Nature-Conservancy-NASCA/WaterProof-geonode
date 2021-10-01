@@ -846,6 +846,10 @@ $(function () {
         var urlDetail = "../../reports/getSensibilityAnalysisCostVsBenefit/?studyCase=" + localStorage.idStudyCase;
         $.getJSON(urlDetail, function (data) {
             $.each( data, function( key, value ) {
+                varMinA = 'Minimun discount rate: ' + Intl.NumberFormat().format(value.porcen_discount_rate_minimumR) + '%';
+                varMaxA = 'Maximun discount rate: ' + Intl.NumberFormat().format(value.porcen_discount_rate_maximumR)  + '%';
+                VarMedA = 'Discount rate: ' + Intl.NumberFormat().format(value.porcen_discount_rateR)  + '%'; 
+
                 serieCvB.push({ 
                     name: value.titleR,
                     data: [Math.round(value.totalMinimumR), Math.round(value.totalMediumR), Math.round(value.totalMaximumR)],
@@ -863,7 +867,7 @@ $(function () {
                     // x: -80
                 },
                 xAxis: {
-                    categories: ['Minimun discount rate', 'Maximun discount rate', 'Discount rate'],
+                    categories: [varMinA, varMaxA, VarMedA],
                     tickmarkPlacement: 'on',
                     lineWidth: 0
                 },
@@ -880,19 +884,16 @@ $(function () {
         });
 
         var serieDataRoi = []
-//        new Intl.NumberFormat().format(number)
         var urlDetail = "../../reports/getSensibilityAnalysisReturnOfInvest/?studyCase=" + localStorage.idStudyCase;
         $.getJSON(urlDetail, function (data) {
             $.each( data, function( key, value ) {
                 varMin = 'Minimun discount rate: ' + value.porcentDiscountRaterMinimumR + '%';
                 varMax = 'Maximun discount rate: ' + value.porcentDiscountRaterMaximumR  + '%';
                 VarMed = 'Discount rate: ' + value.porcentDiscountRater  + '%'; 
-                varRoiMax = Intl.NumberFormat().format(value.roiMaximumR);
 
                 serieDataRoi.push({
                     name: 'ROI',
-                    data: [varRoiMax, value.roiMinimumR, parseFloat(value.roiMediumR)],
-//                    data: [value.roiMaximumR, value.roiMinimumR, value.roiMediumR],
+                    data: [parseFloat(varRoiMax), parseFloat(value.roiMinimumR), parseFloat(value.roiMediumR)],
                     pointPlacement: 'on'
                 });
             });
@@ -908,7 +909,6 @@ $(function () {
                     // x: -80
                 },
                 xAxis: {
-//                    categories: ['Minimun discount rate: ' + value.porcentDiscountRaterMinimumR, 'Maximun discount rate: ' + value.porcentDiscountRaterMaximumR, 'Discount rate: ' + porcentDiscountRater ],
                     categories: [varMin, varMax, varMax],
                     tickmarkPlacement: 'on',
                     lineWidth: 0

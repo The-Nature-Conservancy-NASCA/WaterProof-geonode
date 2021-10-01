@@ -96,6 +96,10 @@ def getSensibilityAnalysisCostVsBenefit(request):
 				"totalMediumR":row[1],
 				"totalMaximumR":row[2],
 				"titleR":row[3],
+				"porcen_discount_rateR":row[4],
+				"porcen_discount_rate_minimumR":row[5],
+				"porcen_discount_rate_maximumR":row[6],
+
 			})
 
 		return JsonResponse(objects_list, safe=False)
