@@ -76,8 +76,8 @@ def createNbs(request):
                         response.status_code = 400
                         return response
                     except WaterproofNbsCa.DoesNotExist:
-                        country = Countries.objects.get(id=countryNBS)
-                        currency = Countries.objects.get(id=currencyCost)
+                        country = Countries.objects.get(iso3=countryNBS)
+                        currency = Countries.objects.get(iso3=currencyCost)
                         if (extensionFile):
                             # Validate if file is geojson or shapefile
                             if (extensionFile == 'zip'):  # Zip shapefile

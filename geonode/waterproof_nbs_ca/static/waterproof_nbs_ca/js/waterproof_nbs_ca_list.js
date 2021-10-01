@@ -290,6 +290,7 @@ $(function () {
             }
             layerClicked.setStyle(highlighPolygon);
             let countryCode = feature.sourceTarget.feature.id;
+            localStorage.countryCode=countryCode;
             updateGeographicLabels(countryCode);
             lastClickedLayer = feature.target;
         }
@@ -346,6 +347,7 @@ $(function () {
                 // }
                 // search.draw();
                 let countryId = result[0].pk;
+                let countryIso=result[0].fields.iso3;
                 $.ajax({
                     url: '/parameters/load-regionByCountry/',
                     data: {
@@ -362,7 +364,7 @@ $(function () {
                 $.ajax({
                     url: '/parameters/load-currencyByCountry/',
                     data: {
-                        'country': countryId
+                        'country': countryIso
                     },
                     success: function (result) {
                         result = JSON.parse(result);

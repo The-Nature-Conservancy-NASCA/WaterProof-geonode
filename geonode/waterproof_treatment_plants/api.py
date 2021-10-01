@@ -1,18 +1,34 @@
 from django.http import HttpResponse
 from django.http.response import JsonResponse
+
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
 from rest_framework.decorators import api_view
 from django.conf import settings
 from django.contrib.auth.models import User
 from random import randrange, choice
+
+from rest_framework.views import APIView
+from rest_framework.response import Response
 from geonode.waterproof_treatment_plants.models import Header, Csinfra, Element, Function, Ptap
-from geonode.waterproof_intake.models import ElementSystem, Intake, ProcessEfficiencies, CostFunctionsProcess
-from geonode.waterproof_parameters.models import Countries, Cities
+from geonode.waterproof_intake.models import ElementSystem, ProcessEfficiencies, CostFunctionsProcess
+from geonode.waterproof_parameters.models import Countries
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import DateTimeField
 import requests
 from django.db.models import Q
 import json
 
+class Process(APIView):
+
+	@method_decorator(cache_page(60*60*2))
+	def get(self, request, format=None):
+		process = ProcessEfficiencies.objects.values('categorys','normalized_category').filter(name='PTAP').exclude(normalized_category='')
+		list_process = []
+		for p in process:
+			list_process.append(p)
+		
+		return Response(list_process)
 
 @api_view(['GET'])
 def getTreatmentPlantsList(request):
@@ -213,12 +229,14 @@ def getInfoTreeMany(request):
 						"maximalPhosphorusRetained": process.process_efficiencies.maximal_phosphorus_perc,
 						"currency": process.currency,
 						"factor": countryFactor,
-						"normalizedCategory" : process.process_efficiencies.normalized_category
+						"normalizedCategory" : process.process_efficiencies.normalized_category,
+						"greaterCaudal": process.greater_than_caudal,
+						"caudal": process.caudal,
 					})
 				except:
 					lastNull = ''
-				order_register = sorted(objects_list, key=lambda tree : tree['technologyAddId'])
-			return JsonResponse(order_register, safe=False)
+				objs = sorted(objects_list, key=lambda tree : tree['technologyAddId'])
+			return JsonResponse(objs, safe=False)
 
 @api_view(['PUT','DELETE'])
 def setHeaderPlant(request):
@@ -446,7 +464,7 @@ def getTreatmentPlant(request):
 				"functionNitrogenRetained": function.function_nitrogen_retained,
 				"functionPhosphorusRetained": function.function_phosphorus_retained,
 				"functionTechnology": function.function_technology,
-				"functionGraphId" : function.function_graph_id,
+				"functionGraphId" : function.function_graph_id
 			})
 
 		response = {
@@ -469,3 +487,5 @@ def get_geoms_intakes(plants):
 				ig['name'] = i.name
 		intake_geoms.append(ig)
 	return intake_geoms
+
+

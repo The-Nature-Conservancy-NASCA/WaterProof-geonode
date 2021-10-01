@@ -214,7 +214,7 @@ msgid "VPN ind text 3"
 msgstr "We invite you to compare several case studies to evaluate which of them gives you the best NPV and therefore the highest performance."
 
 msgid "Sensitivity ind text 1"
-msgstr "This report shows the calculation of the economic benefit of the savings (in operation and maintenance costs) obtained by the NBS, year after year. Using the discount rate indicated by the user, the costs and benefits are brought to present value."
+msgstr "This section presents the sensitivity analysis of benefits and discounted costs using the minimum and maximum discount rates defined for the analysis. The continues line represents the result with the nominal discount rate."
 
 msgid "Sensitivity ind text 2"
 msgstr "Compare the benefits and costs obtained in the event of changes in the environment that affect the discount rate."
@@ -244,7 +244,7 @@ msgid "Portfolio efficiency ind text 1"
 msgstr "This section shows the efficiency of the portfolio, expressed as a physical variation of the parameters (in percentage) in relation to the amount of the investment."
 
 msgid "Oportunity results ind text 1"
-msgstr "Here you will find the overallinvestment and savings values that willresult from the implementation of the selected NbS in your case study:"
+msgstr "Here you will find the overall investment and savings values that willresult from the implementation of the selected NbS in your case study:"
 
 msgid "Aqueduct ind text 1"
 msgstr "In this section we leverage the the Aqueduct tool to analyze water quality and quantity risks for thecase studyareas so that you identify areas that require more attention."
@@ -414,31 +414,31 @@ msgstr "Temporal projection"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/geographicIndicators.html:99
 msgid "Business as usual"
-msgstr "Business as usual"
+msgstr "Business as usual scenario"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/geographicIndicators.html:102
 msgid "Volume of water yield (change in time)"
-msgstr "Volume of water yield (change in time)"
+msgstr "Annual Water Yield (m3)"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/geographicIndicators.html:106
 msgid "Anual volume base flow (change in time)"
-msgstr "Anual volume base flow (change in time)"
+msgstr "Annual Volumen of Base Flow (m3)"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/geographicIndicators.html:110
 msgid "Total sediments (change in time)"
-msgstr "Total sediments (change in time)"
+msgstr "Annual Total Sediment Load (Ton)"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/geographicIndicators.html:114
 msgid "Nitrogen load (change in time)"
-msgstr "Nitrogen load (change in time)"
+msgstr "Annual Nitrogen Load (Kg)"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/geographicIndicators.html:118
 msgid "Phosphorus load (change in time)"
-msgstr "Phosphorus load (change in time)"
+msgstr "Annual Phosphorus Load (Kg)"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/geographicIndicators.html:122
 msgid "Carbon storage (change in time)"
-msgstr "Carbon storage (change in time)"
+msgstr "Carbon (Ton)"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/geographicIndicators.html:126
 msgid "NBS Scenario"
@@ -658,3 +658,11 @@ msgstr "Land Use Land Cover - Business a Usual Scenario."
 #: geonode/waterproof_reports/templates/waterproof_reports/geographicIndicators
 msgid "LULC_text_5"
 msgstr "Land Use Land Cover - Current Scenario."
+
+#: geonode/waterproof_reports/templates/waterproof_reports/physicalIndicators
+msgid "This report summarizes the Phisical Indicators"
+msgstr "This set of reports synthesizes the change in the physical parameters experienced by the study basins when implementing a Nature-based Solution as part of the analysis."
+
+#: geonode/waterproof_reports/templates/waterproof_reports/physicalIndicators
+msgid "text-step4-ph"
+msgstr "This section presents the behavior of ecosystem services for the period of analysis. You will be able to visualize how these variables behave in the Business as Usual Scenarios - BaU versus the Nature-based solutions scenario - SbN over time."

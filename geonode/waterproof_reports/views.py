@@ -905,7 +905,7 @@ def pdf(request):
     pdf.cell(epw, 10, 'Total area investment size', align='C')
     pdf.ln(5)
     pdf.set_font('Arial', '', 15)
-    pdf.cell(epw, 10, format(float(idTotalAreaInvestmentSize),'0,.2f'), align='C')
+    pdf.cell(epw, 10, format(idTotalAreaInvestmentSize,'0,.2f'), align='C')
     pdf.ln(7)
     pdf.set_font('Arial', '', 10)
     pdf.cell(epw, 10, 'Time frame (Years)', align='C')

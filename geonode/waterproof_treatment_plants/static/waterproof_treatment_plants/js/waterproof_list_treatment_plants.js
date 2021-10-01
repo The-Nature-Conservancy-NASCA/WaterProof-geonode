@@ -21,6 +21,9 @@ $(function () {
         weight: 0.2,
         fillOpacity: 0.7
     };
+
+    var categories = JSON.parse('[{"categorys":"Ferric chloride","normalized_category":"DOSIFICACION"},{"categorys":"Polymer","normalized_category":"DOSIFICACION"},{"categorys":"Single bed slow filtration","normalized_category":"FILTRACION"},{"categorys":"Rapid single bed filtration","normalized_category":"FILTRACION"},{"categorys":"Rapid mixed bed filtration","normalized_category":"FILTRACION"},{"categorys":"Rapid single bed filtration","normalized_category":"FILTRACION"},{"categorys":"Hydraulic mixing","normalized_category":"MEZCLARAPIDA"},{"categorys":"Hydraulic flocculation","normalized_category":"MEZCLALENTA"},{"categorys":"Mechanical flocculation","normalized_category":"MEZCLALENTA"},{"categorys":"Inverse osmosis","normalized_category":"FILTRACIONPORMEMBRANANIVEL4"},{"categorys":"Nanofiltration","normalized_category":"FILTRACIONPORMEMBRANANIVEL3"},{"categorys":"Granulated Aluminum Sulfate","normalized_category":"DOSIFICACION"},{"categorys":"Quick mix","normalized_category":"MEZCLARAPIDA"},{"categorys":"Mantenimiento edificaciones","normalized_category":"MANTENIMIENTOEDIFICACIONES"},{"categorys":"Intercambio iónico","normalized_category":"INTERCAMBIOIONICO"},{"categorys":"Sludge pumping","normalized_category":"TRATAMIENTODELODOS"},{"categorys":"Sludge thickener","normalized_category":"TRATAMIENTODELODOS"},{"categorys":"Drying beds","normalized_category":"TRATAMIENTODELODOS"},{"categorys":"Filter press","normalized_category":"TRATAMIENTODELODOS"},{"categorys":"Liquid Aluminum Sulfate","normalized_category":"DOSIFICACION"},{"categorys":"Rapid mixed bed filtration","normalized_category":"FILTRACION"},{"categorys":"Single bed slow filtration","normalized_category":"FILTRACION"},{"categorys":"Conventional settler","normalized_category":"SEDIMENTACION"},{"categorys":"High Rate Settler","normalized_category":"SEDIMENTACION"},{"categorys":"Sludge blanket decanter","normalized_category":"SEDIMENTACION"},{"categorys":"Chlorine gas","normalized_category":"DESINFECCION"},{"categorys":"Chlorine in situ","normalized_category":"DESINFECCION"},{"categorys":"Ultrafiltration","normalized_category":"FILTRACIONPORMEMBRANANIVEL2"},{"categorys":"Microfiltration","normalized_category":"FILTRACIONPORMEMBRANANIVEL1"}]');
+
     var ptapArray = [{
             idElement: 1,
             nameElement: null,
@@ -74,19 +77,19 @@ $(function () {
     };
     var arrayPlant = [{
         graphId: 1,
-        normalizeCategory: gettext('PTAP Input'),
+        normalizeCategory: 'PTAP Input',
         onOff: false
     }, {
         graphId: 2,
-        normalizeCategory: gettext('MEZCLARAPIDA'),
+        normalizeCategory: 'MEZCLARAPIDA',
         onOff: false
     }, {
         graphId: 3,
-        normalizeCategory: gettext('MEZCLALENTA'),
+        normalizeCategory: 'MEZCLALENTA',
         onOff: false
     }, {
         graphId: 4,
-        normalizeCategory: gettext('SEDIMENTACION'),
+        normalizeCategory: 'SEDIMENTACION',
         onOff: false
     }, {
         graphId: 5,
@@ -94,27 +97,27 @@ $(function () {
         onOff: false
     }, {
         graphId: 6,
-        normalizeCategory: gettext('FILTRACIONPORMEMBRANANIVEL1'),
+        normalizeCategory: 'FILTRACIONPORMEMBRANANIVEL1',
         onOff: false
     }, {
         graphId: 7,
-        normalizeCategory: gettext('FILTRACIONPORMEMBRANANIVEL2'),
+        normalizeCategory: 'FILTRACIONPORMEMBRANANIVEL2',
         onOff: false
     }, {
         graphId: 8,
-        normalizeCategory: gettext('FILTRACIONPORMEMBRANANIVEL3'),
+        normalizeCategory: 'FILTRACIONPORMEMBRANANIVEL3',
         onOff: false
     }, {
         graphId: 9,
-        normalizeCategory: gettext('FILTRACIONPORMEMBRANANIVEL4'),
+        normalizeCategory: 'FILTRACIONPORMEMBRANANIVEL4',
         onOff: false
     }, {
         graphId: 10,
-        normalizeCategory: gettext('INTERCAMBIOIONICO'),
+        normalizeCategory: 'INTERCAMBIOIONICO',
         onOff: false
     }, {
         graphId: 11,
-        normalizeCategory: gettext('DESINFECCION'),
+        normalizeCategory: 'DESINFECCION',
         onOff: false
     }, {
         graphId: 12,
@@ -122,7 +125,7 @@ $(function () {
         onOff: false
     }, {
         graphId: 13,
-        normalizeCategory: gettext('TRATAMIENTODELODOS'),
+        normalizeCategory: 'TRATAMIENTODELODOS',
         onOff: false
     }]
     var letterPlant = null;
@@ -138,11 +141,13 @@ $(function () {
     var checkHexColor = "#039edc";
     var basePathURL = "../../treatment_plants/";
     var whiteColor = "#ffffff";
+    var actionType = "";
     const HYPHEN = "-";
 
     if (location.pathname.indexOf("update") > -1) {
         localStorage.plantId = location.pathname.split("/")[3];
         localStorage.updatePlant = "true";
+        actionType = "update";
     }
         
     var plant = {'elements' : {}, 'functions' : {}};
@@ -151,7 +156,7 @@ $(function () {
     * @param 
     * @returns 
     */
-    loadUpdatePtap = function () {        
+    loadUpdatePtap = function (activePlant) {
         setTimeout(function(){
             if($('#idTbodyIntake').html().trim() === "") {
                 $('#idIntakePlant').focusin();
@@ -181,16 +186,18 @@ $(function () {
                             localStorage.setItem('csInfra', result);
                             arrayPtap.push({
                                 ptapType: result.result.ptap_type,
-                                ptapAwy: result.result.awy,
-                                ptapCn: result.result.cn,
-                                ptapCp: result.result.cp,
-                                ptapCs: result.result.cs,
-                                ptapWn: result.result.wn,
-                                ptapWp: result.result.wp,
-                                ptapWs: result.result.ws
+                                awy: result.result.awy,
+                                cn: result.result.cn,
+                                cp: result.result.cp,
+                                cs: result.result.cs,
+                                wn: result.result.wn,
+                                wp: result.result.wp,
+                                ws: result.result.ws
                             })
                             letterPlant = result.result.ptap_type;
-                            activePlantGraph(letterPlant);
+                            if (activePlant){
+                                activePlantGraph(letterPlant);
+                            }                            
                             setTimeout(function(){
                                 $("#idBackgroundGraph").hide();
                             },1000);
@@ -238,7 +245,6 @@ $(function () {
         }
         
         if (localStorage.loadInf === "true") {
-
         }
 
         $('#submit').click(function (e) {
@@ -312,13 +318,13 @@ $(function () {
                                 localStorage.setItem('csInfra', result);
                                 arrayPtap.push({
                                     ptapType: result.result.ptap_type,
-                                    ptapAwy: result.result.awy,
-                                    ptapCn: result.result.cn,
-                                    ptapCp: result.result.cp,
-                                    ptapCs: result.result.cs,
-                                    ptapWn: result.result.wn,
-                                    ptapWp: result.result.wp,
-                                    ptapWs: result.result.ws
+                                    awy: result.result.awy,
+                                    cn: result.result.cn,
+                                    cp: result.result.cp,
+                                    cs: result.result.cs,
+                                    wn: result.result.wn,
+                                    wp: result.result.wp,
+                                    ws: result.result.ws
                                 })
                                 letterPlant = result.result.ptap_type;
                                 activePlantGraph(letterPlant);
@@ -367,7 +373,8 @@ $(function () {
             loadPlant(localStorage.clonePlantId, "clone");            
         }
         if(localStorage.updatePlant === "true") {
-            loadPlant(localStorage.clonePlantId, "update");
+            actionType = "update";
+            loadPlant(localStorage.clonePlantId, actionType);
         }
         if(localStorage.loadInf === "true") {
             loadPlant(localStorage.clonePlantId, "view");            
@@ -431,6 +438,7 @@ $(function () {
                             for (var indexArray = 0; indexArray < arrayPlant.length; indexArray++) {
                                 if(arrayPlant[indexArray].graphId === parseInt(element.getAttribute("graphId"))) {
                                     arrayPlant[indexArray].onOff = true;
+                                    plant.elements[element.getAttribute("plantelement")] = {}; //just add element
                                 }
                             }
                             element.style.display = "none";
@@ -455,12 +463,14 @@ $(function () {
                     sedimentsRetained: value.functionSedimentsRetained,
                     nitrogenRetained: value.functionNitrogenRetained,
                     phosphorusRetained: value.functionPhosphorusRetained,
-                    id: value.functionId
+                    id: value.functionId,
+                    greaterCaudal: value.greaterCaudal,
+                    caudal: value.caudal,
                 }
                 addFunction2Array(costFunction);
                 plant.functions[costFunction.technology + HYPHEN + costFunction.nameFunction] = costFunction;
             });
-            loadUpdatePtap();
+            loadUpdatePtap(true);
             arrayLoadingFunction = data.function;
 
             if (typeAction === "view"){
@@ -586,26 +596,31 @@ $(function () {
         
         var listElements = {};
         $("[name=disableElement]").each(function( index, element ) {
-            if(element.getAttribute("model").indexOf(ptapType) < 0) {
-                element.style.display = "block";
-                var idr =  element.getAttribute("idr");
-                $('#' + idr ).css("background-color", whiteColor);
-                $('#' + idr ).css("border-color", whiteColor);
-            } else {
-                var idr =  element.getAttribute("idr");
-                for (var indexArray = 0; indexArray < arrayPlant.length; indexArray++) {
-                    if(arrayPlant[indexArray].graphId === parseInt(element.getAttribute("graphId"))) {
-                        arrayPlant[indexArray].onOff = true;
-                    }
-                }
-                element.style.display = "none";
-                var idr =  element.getAttribute("idr");
-                $('#' + idr ).css("background-color", "#ffffff");
-                $('#' + idr ).css("border-color", checkHexColor);
+            var idr =  element.getAttribute("idr");
+            var idrElem = $('#' + idr );
+            var attrModel = element.getAttribute("model");
+            var modelInTypePtap = attrModel.indexOf(ptapType) >= 0;
 
-                listElements[element.getAttribute("plantElement")] =  {'name': element.getAttribute("name"), 'graphId': element.getAttribute("graphId")};
-                //loadArrayTree(element.getAttribute("plantElement"), element.getAttribute("nameElement"), element.getAttribute("graphId"));
+            if (actionType != "update") {
+                element.style.display = "block";
+                idrElem.css("background-color", whiteColor);
+                idrElem.css("border-color", whiteColor);
+                
+                if(modelInTypePtap) {
+                    for (var indexArray = 0; indexArray < arrayPlant.length; indexArray++) {
+                        if(arrayPlant[indexArray].graphId === parseInt(element.getAttribute("graphId"))) {
+                            arrayPlant[indexArray].onOff = true;
+                        }
+                    }
+                    element.style.display = "none";                
+                    //idrElem.css("background-color", whiteColor);
+                    idrElem.css("border-color", checkHexColor);                    
+                }
             }
+            if(modelInTypePtap) {
+                listElements[element.getAttribute("plantElement")] = {'name': element.getAttribute("name"), 
+                                                                    'graphId': element.getAttribute("graphId")};
+            }            
         });
         
         var elements = Object.keys(listElements).join(',');
@@ -613,30 +628,33 @@ $(function () {
             var country = localStorage.getItem('country');
             var urlDetail = basePathURL + "getInfoTreeMany/?elements=" + elements + "&country=" + country;
             $.getJSON(urlDetail, function(data) {
+                let awy = parseFloat(arrayPtap[0].awy) / (24*365*3600);
                 Object.keys(listElements).forEach(function(element) {
                     //var name = listElements[element].name;                    
-                    let functionsByElement = data.filter(f => (f.normalizedCategory === element))
+                    let functionsByElement = data.filter(f => (f.normalizedCategory === element));
                     plant.elements[element] = {default: functionsByElement, custom: {}};
                     // Validate if plan.functions have previous data
-                    if (Object.keys(plant.functions).length == 0) {
+                    if (Object.keys(plant.functions).length == 0) {                        
                         let defaultFunctions = data.filter(f => f.default);
                         defaultFunctions.forEach(f =>{
-                            var graphid = listElements[f.normalizedCategory].graphId;
-                            plant.functions[f.technology + HYPHEN + f.costFunction] = {
-                                graphid: graphid,
-                                technology: f.technology,
-                                nameFunction: f.costFunction,
-                                functionValue: f.function,
-                                currency: f.currency,
-                                factor: f.factor,
-                                idSubprocess: f.idSubprocess,
-                                sedimentsRetained: f.sedimentsRetained,
-                                nitrogenRetained: f.nitrogenRetained,
-                                phosphorusRetained: f.phosphorusRetained,
-                                id: f.id
-                            };
+                            var graphid = listElements[f.normalizedCategory].graphId;  
+                            addFnToPlantObj(f, graphid);
                         });
-                    }                    
+                        // filter by caudal
+                        defaultFunctions = data.filter(f => (f.greaterCaudal != undefined && f.caudal != undefined));
+                        defaultFunctions.forEach(f =>{
+                            var graphid = listElements[f.normalizedCategory].graphId;                            
+                            if (f.greaterCaudal){ // if value is true operator is >= else 
+                                f.default = f.caudal >= awy;
+                            }else{
+                                f.default = f.caudal < awy;
+                            }
+                            if (f.default){
+                                addFnToPlantObj(f, graphid);
+                            }
+                        });
+                        
+                    }              
                 });
                 $('#_thumbnail_processing').modal('hide');
             });
@@ -753,7 +771,7 @@ $(function () {
         loadArrayTree(selectedPlantElement,  e.getAttribute("nameElement"), e.getAttribute("graphid"));
         $("#mainTree").show();
         $('html, body').animate({
-            scrollTop: $(".main-tree-content").offset().top
+            scrollTop: $("#black2").offset().top
         }, 600);
 
     };
@@ -820,24 +838,7 @@ $(function () {
         '</div>';
         node.innerHTML = textNewForm;
         document.getElementById(divParent).insertBefore(node, document.getElementById(divParent).childNodes[0]);
-    };
-    /**
-    * Receive the call back with the formula attribute
-    * @param
-    * @returns 
-    */
-    callBackFormula = function() {
-        ptapArray
-    };
-    /**
-    * Call form with the formula inforation
-    * @param
-    * @returns 
-    */
-    callFormFormula = function() {
-        //ptapArray
-        //showModalCalculator(true, graphId, "");
-    };
+    };    
     /**
     * Load the tree variables
     * @param {String} graph element
@@ -850,14 +851,42 @@ $(function () {
                 
         if (plant.elements.hasOwnProperty(plantElement)) {
             console.log("fill from dictionary");
-            fillTree(plant.elements[plantElement]['default'], plantElement, nameElement, graphid);
+            let plantFn = plant.elements[plantElement]['default'];
+            if (plantFn == undefined) {
+                plantFn = []
+                let catFilter = categories.filter(c => (c.normalized_category == plantElement));
+                catFilter.forEach(c => {
+                    let k = Object.keys(plant.functions);
+                    k.forEach(l => {
+                        let f = plant.functions[l];
+                        let categoryFn = l.split("-")[0];
+                        if (categoryFn == c.categorys) {
+                            let fId = f.technology + HYPHEN + f.nameFunction;
+                            plantFn.push(plant.functions[fId]);
+                        }
+                    });
+                });
+            }
+            fillTree(plantFn, plantElement, nameElement, graphid);
             $('#_thumbnail_processing').modal('hide');
         }else{
             console.log("fill from url");
             var urlDetail = basePathURL + "getInfoTree/?plantElement=" + plantElement + 
                             "&country=" + localStorage.getItem('country');
             $.getJSON(urlDetail, function(data) {
+                let awy = parseFloat(arrayPtap[0].awy) / (24*365*3600);
                 plant.elements[plantElement] = {default: data, custom: {}};
+                let defaultFunctions = data.filter(f => f.default);
+                defaultFunctions.forEach(f =>{
+                    if (f.greaterCaudal != undefined && f.caudal != undefined && !f.default){
+                        if (f.greaterCaudal){ // if value is true operator is >= else 
+                            f.default = f.greaterCaudal >= awy;
+                        }else{
+                            f.default = f.greaterCaudal < awy;
+                        }
+                    }
+                    addFnToPlantObj(f, graphid);                    
+                });                
                 fillTree(data, plantElement, nameElement, graphid);
                 $('#_thumbnail_processing').modal('hide');
             });
@@ -873,19 +902,18 @@ $(function () {
         var lastTreeBranch = [];
         var dictTreeBranch = {};
         var readOnlyTextTree = onlyReadPlant ? "readonly" : "";        
-        var lastSubprocess = "";
+        var lastSubprocess = "";        
         let lblTechnology = gettext("Technology");
-        let lblProcess = gettext("Process");
         let lblSubprocess = gettext("Subprocess");
         nameElement = nameElement === null ? "N/A" : nameElement;
         
         $('#mainTree').html(`<div class="title-tree" graphId='${graphid}'>
                             <div class="point-tree" onclick="viewBranch('id${plantElement}', this)" >-</div>
-                            <div class="text-tree">${gettext(nameElement)} - (${lblTechnology}) </div><div class="detail-tree"></div></div> 
+                            <div class="text-tree">${gettext(nameElement)} </div><div class="detail-tree"></div></div> 
                             <div class="margin-main" id="id${plantElement}"></div>`);
         $.each( data, function( key, value ) {
             if(value.subprocessAddId !== lastSubprocess) {
-                if(value.subprocess === null) {
+                if(value.subprocess == undefined) {
                     value.subprocess = "N/A";
                 }
                 var linkLoadNewTechnology = ">";
@@ -893,7 +921,7 @@ $(function () {
                     linkLoadNewTechnology = 'onclick="loadNewTechnology(\'subprocess' + value.idSubprocess + '\')">' + gettext('Add new Technology');
                 }
                 var h = `<div class="title-tree"><div class="point-tree" onclick="viewBranch('subprocess${value.idSubprocess}', this)" >-</div>
-                <div class="text-tree">${gettext(value.subprocess)} - (${lblProcess})</div>
+                <div class="text-tree">${lblSubprocess}: ${gettext(value.subprocess)}</div>
                 <div class="link-form-2" style="display:none;"${linkLoadNewTechnology}</div></div>
                 <div class="margin-main" id="subprocess${value.idSubprocess}"></div>`;                
                 $('#id' + plantElement).html($('#id' + plantElement).html() + h);
@@ -909,7 +937,7 @@ $(function () {
                             }
                             var ht = `<div class="title-tree" id="contentTechnology${techId}"> 
                                     <div class="point-tree" onclick="viewBranch('technology${techId}', this)">-</div>
-                                    <div class="text-tree">${gettext(valueTech.technology)} - (${lblSubprocess})</div></div>
+                                    <div class="text-tree">${lblTechnology}: ${gettext(valueTech.technology)}</div></div>
                                     <div class="margin-main overflow-form" id="technology${techId}"></div>`;
                             let htmlSubprocess = $('#subprocess' + value.idSubprocess).html() + ht;
                             $('#subprocess' + value.idSubprocess).html(htmlSubprocess);
@@ -959,7 +987,7 @@ $(function () {
                                             //defaultFn = valueTech.default && fnFilterByTech.length == 0;
                                             // last validation, discard function in arrayFuntion with same graphId
                                             let f = arrayFunction.filter (f => f.graphid == graphid);
-                                            defaultFn = valueCostFunction.default;
+                                            defaultFn = valueCostFunction.default;                                            
                                             defaultFn = plant.functions.hasOwnProperty(fnId);
                                             activateHtml = htmlCheckBox(valueCostFunction, graphid, null,(listTrFunction.length==0 ? "" : listTrFunction.length),defaultFn);
                                             listTrFunction.push(addFunctionCostRow(activateHtml, valueCostFunction, buttonsHtml, graphid,(listTrFunction.length==0 ? "" : listTrFunction.length)));
@@ -1060,37 +1088,30 @@ $(function () {
     */
     changeStatus = function(i, element) {
         console.log("changeStatus", i);
-        let attrs = element.attributes;     
-        let technology = attrs.technology.value;
-        let fnName = attrs.namefunction.value;
-        let idFnPlant = technology + HYPHEN + fnName;
+        let attrs = element.attributes;   
+        let isElement = attrs.technology == undefined;  //  true if the element is a function
+
+        let technology;
+        let fnName;
+        let idFnPlant;
+        if (!isElement) {
+            technology = attrs.technology.value;
+            fnName = attrs.namefunction.value;
+            idFnPlant = technology + HYPHEN + fnName;
+        }
         var e = document.getElementById("id" + i);
+        let isChecked = e.style.borderColor === checkHexColor || e.style.borderColor === "rgb(3, 158, 220)";
+        let styleDisplay = "block";
+        let styleBorderColor = whiteColor;
+        
         if(!onlyReadPlant) {            
-            if(e.style.borderColor === checkHexColor || e.style.borderColor === "rgb(3, 158, 220)") {
-                e.style.borderColor = whiteColor;
-                if (document.getElementById(e.id + "1d") !== null) {
-                    document.getElementById(e.id + "1d").style.display = "block";
-                    for (var indexArray = 0; indexArray < arrayPlant.length; indexArray++) {
-                        if(arrayPlant[indexArray].graphId === parseInt(document.getElementById("black" + i).getAttribute("graphId"))) {
-                            arrayPlant[indexArray].onOff = false;
-                        }
-                    }
-                }
-            } else {
-                e.style.borderColor = checkHexColor;
-                if (document.getElementById(e.id + "1d") !== null) {
-                    document.getElementById(e.id + "1d").style.display = "none";
-                    for (var indexArray = 0; indexArray < arrayPlant.length; indexArray++) {
-                        if(arrayPlant[indexArray].graphId === parseInt(document.getElementById("black" + i).getAttribute("graphId"))) {
-                            arrayPlant[indexArray].onOff = true;
-                        }
-                    }
-                }
-                $("[name=listFunction]").each(function( index, elem ) {                    
-                    let isCustomFunction = e.id.indexOf(elem.id) !== -1 || elem.id.indexOf(e.id) !== -1;
-                    if(elem.id !== e.id && elem.attributes.technology.value !== e.attributes.technology.value /* && !isCustomFunction */) {
-                        //if(element.getAttribute("subProcessMaster") === document.getElementById("id" + i).getAttribute("subProcessMaster")){
-                            // uncheck the other elements
+            if(!isChecked) {
+                styleDisplay = "none";
+                styleBorderColor = checkHexColor;
+                if (!isElement) {
+                    $("[name=listFunction]").each(function( index, elem ) {                    
+                        let isCustomFunction = e.id.indexOf(elem.id) !== -1 || elem.id.indexOf(e.id) !== -1;
+                        if(elem.id !== e.id && elem.attributes.technology.value !== e.attributes.technology.value) {                        
                             elem.style.borderColor = whiteColor;
                             let attr = elem.attributes;
                             delete plant.functions[attr.technology.value + HYPHEN + attr.namefunction.value];
@@ -1102,40 +1123,84 @@ $(function () {
                                         arrayPlant[indexArray].onOff = false;
                                     }
                                 }
-                            }
-                        //}
-                    }
-                });
+                            }                        
+                        }
+                    });
+                }                
             }
+            e.style.borderColor = styleBorderColor;
+            if (isElement){                
+                if (document.getElementById(e.id + "1d") !== null) {
+                    document.getElementById(e.id + "1d").style.display = styleDisplay;
+                    let ptapElement = document.getElementById("black" + i);
+                    let graphId = ptapElement.getAttribute("graphId");
+                    let plantElement = ptapElement.getAttribute("plantElement");
+                    
+                    let filterPlant = arrayPlant.filter ( p => p.graphId == graphId);
+                    if (filterPlant.length > 0) {
+                        filterPlant[0].onOff = !isChecked;
+                        if (isChecked){ //remove
+                            if (plant.elements.hasOwnProperty(plantElement)) {
+                                let pe = plant.elements[plantElement];
+                                if (pe.default != undefined && pe.default.length > 0) {
+                                    pe.default.forEach(e => {
+                                        let fnId = e.technology + HYPHEN + (e.nameFunction==undefined?e.costFunction:e.nameFunction);
+                                        delete plant.functions[fnId];
+                                    });
+                                }else{
+                                    let catFilter = categories.filter(c => (c.normalized_category == plantElement));
+                                    catFilter.forEach(c => {
+                                        let k = Object.keys(plant.functions);
+                                        k.forEach(l => {
+                                            let f = plant.functions[l];
+                                            let categoryFn = l.split("-")[0];
+                                            if (categoryFn == c.categorys) {
+                                                let fId = f.technology + HYPHEN + (e.nameFunction==undefined?e.costFunction:e.nameFunction);
+                                                delete plant.functions[fId];
+                                            }
+                                        });
+                                    });
+                                }
+                                delete plant.elements[plantElement];
+                            }
+                        }else{
+                            let el = $("#black"+i)
+                            viewTree(el[0]);
+                        }
+                    }
+                }
+            }            
             validateAndAddFunction2Array();
         }
         
-        if (element.attributes.checked.value === "true") {
-            element.attributes.checked.value = "false";            
-            delete plant.functions[idFnPlant];
-            console.log("delete plant.functions[idFnPlant]", idFnPlant);
-        }else{
-            let divContainerVar = $(element).parents().get(5).children[0];
-            let inputs = divContainerVar.getElementsByTagName("input");
-            let sediments = inputs[1].value;
-            let nitrogen = inputs[2].value;
-            let phosphorus = inputs[3].value;
-            attrs.checked.value = "true";
-            plant.functions[idFnPlant] = {
-                graphid: attrs.graphid.value,
-                technology: attrs.technology.value,
-                nameFunction: attrs.namefunction.value,
-                functionValue: attrs.function.value,
-                currency: attrs.currency.value,
-                factor: attrs.factor.value,
-                idSubprocess: attrs.idsubprocess.value,
-                sedimentsRetained: sediments,
-                nitrogenRetained: nitrogen,
-                phosphorusRetained: phosphorus,
-                id: attrs.id.value
-            };
-            console.log("adding plant.functions: ", idFnPlant);
-        }
+        if (!isElement){
+            if (element.attributes.checked.value === "true") {
+                element.attributes.checked.value = "false";            
+                delete plant.functions[idFnPlant];
+                console.log("delete plant.functions[idFnPlant]", idFnPlant);
+            }else{
+                let divContainerVar = $(element).parents().get(5).children[0];
+                let inputs = divContainerVar.getElementsByTagName("input");
+                let sediments = inputs[1].value;
+                let nitrogen = inputs[2].value;
+                let phosphorus = inputs[3].value;
+                attrs.checked.value = "true";
+                plant.functions[idFnPlant] = {
+                    graphid: attrs.graphid.value,
+                    technology: attrs.technology.value,
+                    nameFunction: attrs.namefunction.value,
+                    functionValue: attrs.function.value,
+                    currency: attrs.currency.value,
+                    factor: attrs.factor.value,
+                    idSubprocess: attrs.idsubprocess.value,
+                    sedimentsRetained: sediments,
+                    nitrogenRetained: nitrogen,
+                    phosphorusRetained: phosphorus,
+                    id: attrs.id.value
+                };
+                console.log("adding plant.functions: ", idFnPlant);
+            }
+        }        
     };
 
     /**
@@ -1681,14 +1746,14 @@ $(function () {
     }
 
     addFunction2Array = function(f) {        
-        var nf = {graphid: f.graphId,
+        var nf = {graphid: (f.graphId ? f.graphId : f.graphid),
             technology: f.technology,
-            nameFunction: f.name,
-            functionValue: f.expression,
+            nameFunction: (f.name ? f.name : f.nameFunction),
+            functionValue: (f.expression ? f.expression : f.functionValue),
             currency: f.currency,
             factor: f.factor,
             idSubprocess: f.idSubprocess,
-            sedimentsRetained: f.sediments,
+            sedimentsRetained: (f.sediments ? f.sediment : f.sedimentsRetained),
             nitrogenRetained: f.nitrogen,
             phosphorusRetained: f.phosphorus,
             id: f.id};
@@ -1714,5 +1779,24 @@ $(function () {
                         'class="change-state-tree" id="id' + valueCostFunction.idSubprocess + 
                                 (subid != "" ? HYPHEN + subid : "") + '"></div></div>';
         return activateHtml;
-    }      
+    }
+    
+    addFnToPlantObj = function(f, graphid) {
+        
+        plant.functions[f.technology + HYPHEN + f.costFunction] = {
+            graphid: graphid,
+            technology: f.technology,
+            nameFunction: f.costFunction,
+            functionValue: f.function,
+            currency: f.currency,
+            factor: f.factor,
+            idSubprocess: f.idSubprocess,
+            sedimentsRetained: f.sedimentsRetained,
+            nitrogenRetained: f.nitrogenRetained,
+            phosphorusRetained: f.phosphorusRetained,
+            id: f.id,
+            greaterCaudal: f.greaterCaudal,
+            caudal: f.caudal,
+        };
+    }
 });

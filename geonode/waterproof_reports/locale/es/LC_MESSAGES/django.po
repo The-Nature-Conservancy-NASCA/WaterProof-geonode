@@ -249,7 +249,7 @@ msgid "VPN ind text 3"
 msgstr "Lo invitamos a comparar varios casos de estudio para evaluar cuál de ellos le proporciona mejor VPN y por tanto el mayor rendimiento."
 
 msgid "Sensitivity ind text 1"
-msgstr "Este reporte muestra elcálculo del beneficio a nivel económico de los ahorros (en los costos de operación y mantenimiento de la infraestructura), que se logran obtener por las SbN, año a año. Utilizando la tasa de descuento indicada por el usuario, se trae a valor presente los costos y los beneficios."
+msgstr "En esta sección se presenta el análisis de sensibilidad de beneficios y costos descontados utilizando las tasa de descuento mínima y máxima definidas para el análisis. La línea continua representa el resultado con la tasa de descuento nominal."
 
 msgid "Sensitivity ind text 2"
 msgstr "Compare los beneficios y costos obtenidos en caso de presentarse cambios en el entorno que afecten la tasa de descuento."
@@ -449,31 +449,31 @@ msgstr "Proyección temporal"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/geographicIndicators.html:99
 msgid "Business as usual"
-msgstr "Business as usual"
+msgstr "Escenario de desarrollo tradicional"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/geographicIndicators.html:102
 msgid "Volume of water yield (change in time)"
-msgstr "Rendimiento hídrico anual (cambio en el tiempo)"
+msgstr "Rendimiento anual de agua (m3)"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/geographicIndicators.html:106
 msgid "Anual volume base flow (change in time)"
-msgstr "Rendimiento de agua estacional (cambio en el tiempo)"
+msgstr "Volumen anual de flujo base (m3)"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/geographicIndicators.html:110
 msgid "Total sediments (change in time)"
-msgstr "Sedimentos totales (cambio en el tiempo)"
+msgstr "Carga total anual de sedimentos (Ton)"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/geographicIndicators.html:114
 msgid "Nitrogen load (change in time)"
-msgstr "Carga de nitrógeno (cambio en el tiempo)"
+msgstr "Carga anual de nitrógeno (kg)"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/geographicIndicators.html:118
 msgid "Phosphorus load (change in time)"
-msgstr "Carga de nitrógeno (cambio en el tiempo)"
+msgstr "Carga anual de fósforo (kg)"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/geographicIndicators.html:122
 msgid "Carbon storage (change in time)"
-msgstr "Almacenamiento de carbono (cambio en el tiempo)"
+msgstr "Carbono (Ton)"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/geographicIndicators.html:126
 msgid "NBS Scenario"
@@ -693,3 +693,11 @@ msgstr "Usos y Coberturas de la Tierra - Escenario Futuro Tradicional."
 #: geonode/waterproof_reports/templates/waterproof_reports/geographicIndicators
 msgid "LULC_text_5"
 msgstr "Usos y Coberturas de la Tierra - Escenario Actual."
+
+#: geonode/waterproof_reports/templates/waterproof_reports/physicalIndicators
+msgid "This report summarizes the Phisical Indicators"
+msgstr "Este conjunto de reportes sintetiza el cambio de los parámetros físicos que experimentan las cuencas de estudio al implementar una Solución basada en Naturaleza como parte del análisis."
+
+#: geonode/waterproof_reports/templates/waterproof_reports/physicalIndicators
+msgid "text-step4-ph"
+msgstr "Esta sección presenta el comportamiento de los servicios ecosistémicos para el periodo de análisis. Usted podrá visualizar cómo se comportan estas variables en los escenarios de desarrollo tradicional - BaU versus el escenario de implementación de soluciones basadas en la naturaleza - SbN a través del tiempo."
