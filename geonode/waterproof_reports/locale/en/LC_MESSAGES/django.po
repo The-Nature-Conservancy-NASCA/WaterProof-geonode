@@ -214,7 +214,7 @@ msgid "VPN ind text 3"
 msgstr "We invite you to compare several case studies to evaluate which of them gives you the best NPV and therefore the highest performance."
 
 msgid "Sensitivity ind text 1"
-msgstr "This report shows the calculation of the economic benefit of the savings (in operation and maintenance costs) obtained by the NBS, year after year. Using the discount rate indicated by the user, the costs and benefits are brought to present value."
+msgstr "This section presents the sensitivity analysis of benefits and discounted costs using the minimum and maximum discount rates defined for the analysis. The continues line represents the result with the nominal discount rate."
 
 msgid "Sensitivity ind text 2"
 msgstr "Compare the benefits and costs obtained in the event of changes in the environment that affect the discount rate."
@@ -244,7 +244,7 @@ msgid "Portfolio efficiency ind text 1"
 msgstr "This section shows the efficiency of the portfolio, expressed as a physical variation of the parameters (in percentage) in relation to the amount of the investment."
 
 msgid "Oportunity results ind text 1"
-msgstr "Here you will find the overallinvestment and savings values that willresult from the implementation of the selected NbS in your case study:"
+msgstr "Here you will find the overall investment and savings values that willresult from the implementation of the selected NbS in your case study:"
 
 msgid "Aqueduct ind text 1"
 msgstr "In this section we leverage the the Aqueduct tool to analyze water quality and quantity risks for thecase studyareas so that you identify areas that require more attention."

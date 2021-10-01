@@ -337,9 +337,12 @@
                     <div id="step4-map-ph"></div>
                 </div>
                 <div style="margin: 30px; margin-left: 3%;">
+                    <br>
+                    <p>Seleccione la cuenca para la cuál desea ver el gráfico comparativo de los diferentes servicios.</p>
+                    <p>Select the basin for which you want to see the comparative graph of the different services.</p>
                     <div>{% trans "Water intake" %}</div>
                     <select class="select-condition" id="idSelectIntakeGraph" onchange="loadIntakeGraph(this.value)">
-                        <option value="0">{% trans "All" %}</option>
+                        <!-- <option value="0">{% trans "All" %}</option> -->
                     </select>
                 </div>
                 <div class="table-option-ph">
@@ -1390,7 +1393,7 @@ var localStorageId = localStorage.idStudyCase;
             document.getElementById("discountRateDecision").innerHTML = localStorage.getItem('transactionCost');
             show();
             loadIntakeGraph(this.value);
-            console.log(loadIntakeGraph(this.value)+"<====")
+            console.log(document.getElementById("idSelectIntakeGraph")[0]+"<====")
             viewReport(1,7,this);
 
             var gaugeOptions = {
