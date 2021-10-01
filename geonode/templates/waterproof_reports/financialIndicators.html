@@ -885,8 +885,8 @@ $(function () {
             $.each( data, function( key, value ) {
                 serieDataRoi.push({
                     name: 'ROI',
-//                    data: [parseFloat(value.roiMaximumR), parseFloat(value.roiMinimumR), parseFloat(value.roiMediumR)],
-                    data: [value.roiMaximumR, value.roiMinimumR, value.roiMediumR],
+                    data: [parseFloat(value.roiMaximumR), parseFloat(value.roiMinimumR), parseFloat(value.roiMediumR)],
+//                    data: [value.roiMaximumR, value.roiMinimumR, value.roiMediumR],
                     pointPlacement: 'on'
                 });
             });
