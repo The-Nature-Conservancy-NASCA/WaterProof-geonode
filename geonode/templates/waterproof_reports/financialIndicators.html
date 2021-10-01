@@ -887,13 +887,13 @@ $(function () {
         var urlDetail = "../../reports/getSensibilityAnalysisReturnOfInvest/?studyCase=" + localStorage.idStudyCase;
         $.getJSON(urlDetail, function (data) {
             $.each( data, function( key, value ) {
-                varMin = 'Minimun discount rate: ' + value.porcentDiscountRaterMinimumR + '%';
-                varMax = 'Maximun discount rate: ' + value.porcentDiscountRaterMaximumR  + '%';
-                VarMed = 'Discount rate: ' + value.porcentDiscountRater  + '%'; 
+                varMin = 'Minimun discount rate: ' + Intl.NumberFormat().format(value.porcentDiscountRaterMinimumR) + '%';
+                varMax = 'Maximun discount rate: ' + Intl.NumberFormat().format(value.porcentDiscountRaterMaximumR)  + '%';
+                VarMed = 'Discount rate: ' + Intl.NumberFormat().format(value.porcentDiscountRater)  + '%'; 
 
                 serieDataRoi.push({
                     name: 'ROI',
-                    data: [parseFloat(varRoiMax), parseFloat(value.roiMinimumR), parseFloat(value.roiMediumR)],
+                    data: [parseFloat(value.roiMaximumR), parseFloat(value.roiMinimumR), parseFloat(value.roiMediumR)],
                     pointPlacement: 'on'
                 });
             });
@@ -909,7 +909,7 @@ $(function () {
                     // x: -80
                 },
                 xAxis: {
-                    categories: [varMin, varMax, varMax],
+                    categories: [varMin, varMax, VarMed],
                     tickmarkPlacement: 'on',
                     lineWidth: 0
                 },
