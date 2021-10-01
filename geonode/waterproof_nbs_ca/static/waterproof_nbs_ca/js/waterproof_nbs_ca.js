@@ -252,10 +252,9 @@ $(function () {
                 },
                 success: function (result) {
                     result = JSON.parse(result);
-                    countryId = result[0].pk;
+                    countryId = result[0].fields.iso3;
                     updateGeographicLabels(countryCode);
                     $('#countryNBS option[value=' + countryId + ']').attr('selected', true).trigger('click', { mapClick });
-
                 }
             });
             // Preload selected country form list view
@@ -370,7 +369,7 @@ $(function () {
                 },
                 success: function (result) {
                     result = JSON.parse(result);
-                    currencyDropdown.val(result[0].pk);
+                    currencyDropdown.val(result[0].fields.iso3);
                     $('#currencyLabel').text('(' + result[0].fields.currency + ') - ' + result[0].fields.name);
                     $('#countryLabel').text(countryName);
                     let currencyCode = result[0].fields.currency;

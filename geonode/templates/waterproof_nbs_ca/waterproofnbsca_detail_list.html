@@ -47,7 +47,7 @@
                 <label>{% trans "Reference country" %}</label>
                 <select class="form-control" disabled required>
                     {% for country in countries %}
-                    <option value="{{country.pk}}" {% if country.pk == sbn.country.pk %} selected{% endif %}>{{ country.name}}</option>
+                    <option value="{{country.iso3}}"{% if country.iso3 == sbn.country.iso3 %} selected{% endif %}>{{ country.name}}</option>
                     {%  endfor %}
                     </select>
             </div>
@@ -55,7 +55,7 @@
                 <label>{% trans "Currency for definition of costs" %}</label>
                 <select class="form-control" disabled required>
                     {% for cur in currencies %}
-                    <option value="{{cur.pk}}" {% if cur.pk == sbn.currency.pk %} selected{% endif %}>( {{cur.iso3}}) - {{ cur.name}} </option>
+                    <option value="{{currency.iso3}}" {% if cur.iso3 == sbn.currency.iso3 %} selected{% endif %}>({{cur.currency}}) - {{ cur.name}} </option>
                     {%  endfor %}
                     </select>
             </div>
@@ -90,7 +90,7 @@
                         <label>{% trans "Country" %}</label>
                         <select id="currenciesComapreSelect" class="form-control" disabled required>
                             {% for country in countries %}
-                            <option value="{{country.global_multiplier_factor}}" {% if country.pk == userCountry.pk %} selected{% endif %}>{{ country.name}}</option>
+                            <option value="{{country.iso3}}" data-value="{{country.global_multiplier_factor}}" {% if country.pk == userCountry.pk %} selected{% endif %}>{{ country.name}}</option>
                             {%  endfor %}
                         </select>
                     </div>
@@ -184,13 +184,15 @@
 </script>
 {% if user.professional_role == 'ADMIN' %}
     <script>
-         var countryId = '{{sbn.country.pk}}';
+         var countryId = localStorage.countryCode;
+         var userCountryCode=localStorage.countryCode;
          var disableMap=true;
     </script>
 {% else %}
     <script>
         var disableMap=false;
-        var countryId = '{{sbn.country.pk}}';
+        var userCountryCode=localStorage.countryCode;
+        var countryId = localStorage.countryCode;
     </script>
 {% endif %}
 <script src="{% static "lib/js/leaflet.js" %}"></script>
@@ -199,6 +201,7 @@
 <script src="{{ STATIC_URL }}waterproof_nbs_ca/js/waterproof_nbs_ca_list.js"></script>
 <script>
     $(document).ready(function() {
+        $("#currenciesComapreSelect").val(localStorage.countryCode);
         $("#currenciesComapreSelect").change(function() {
             var optionSelected = $(this).find("option:selected");
             var ValueSelected = optionSelected.val();
