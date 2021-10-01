@@ -888,10 +888,10 @@ $(function () {
                 varMax = 'Maximun discount rate: ' + value.porcentDiscountRaterMaximumR  + '%';
                 VarMed = 'Discount rate: ' + value.porcentDiscountRater  + '%'; 
                 varRoiMax = Intl.NumberFormat().format(value.roiMaximumR);
-                
+
                 serieDataRoi.push({
                     name: 'ROI',
-                    data: [varRoiMax, parseFloat(value.roiMinimumR), parseFloat(value.roiMediumR)],
+                    data: [varRoiMax, value.roiMinimumR, parseFloat(value.roiMediumR)],
 //                    data: [value.roiMaximumR, value.roiMinimumR, value.roiMediumR],
                     pointPlacement: 'on'
                 });
