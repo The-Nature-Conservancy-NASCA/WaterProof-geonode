@@ -1144,7 +1144,7 @@ $(function () {
                                 let pe = plant.elements[plantElement];
                                 if (pe.default != undefined && pe.default.length > 0) {
                                     pe.default.forEach(e => {
-                                        let fnId = e.technology + HYPHEN + e.nameFunction;
+                                        let fnId = e.technology + HYPHEN + (e.nameFunction==undefined?e.costFunction:e.nameFunction);
                                         delete plant.functions[fnId];
                                     });
                                 }else{
@@ -1155,7 +1155,7 @@ $(function () {
                                             let f = plant.functions[l];
                                             let categoryFn = l.split("-")[0];
                                             if (categoryFn == c.categorys) {
-                                                let fId = f.technology + HYPHEN + f.nameFunction;
+                                                let fId = f.technology + HYPHEN + (e.nameFunction==undefined?e.costFunction:e.nameFunction);
                                                 delete plant.functions[fId];
                                             }
                                         });
