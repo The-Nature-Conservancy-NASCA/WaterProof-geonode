@@ -268,7 +268,7 @@ msgstr "Opciones"
 msgid "Confirm water intakes sources"
 msgstr "Confirmar fuentes de agua"
 
-msgid "To enable the diagram, click in the next button"
+msgid "To enable the diagram, click in the following button"
 msgstr "Para habilitar el diagrama, haga clic en el siguiente botón"
 
 #: templates/treatment_plants_edit.html:69

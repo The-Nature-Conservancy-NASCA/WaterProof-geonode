@@ -951,6 +951,7 @@ $(function () {
                             var customTechnologyId = "";
                             var listCustomFunctionsId = [];
                             let checked=false;
+                            let enableAddFn = false;
                             let filterCostFunction;
                             
                             $.each( data, function( keyCostFunction, valueCostFunction) {
@@ -958,9 +959,7 @@ $(function () {
                                 if(valueTech.technologyAddId === valueCostFunction.technologyAddId) {                                        
                                     if(lastTreeBranch.indexOf(valueCostFunction.technology) === -1){
                                         lastTreeBranch.push(valueCostFunction.technology);
-                                    } else {    
-                                        // loadHtml = false;
-                                        // oneFunctionInTech = false;
+                                    } else {                                            
                                     }                                            
                                     if(onlyReadPlant) {
                                         loadHtml = false;
@@ -977,15 +976,12 @@ $(function () {
                                                 loadHtml = true;
                                             }
                                         });
-                                    } else if (loadInfoTree) {
-                                        //listTrFunction = [];
+                                    } else if (loadInfoTree) {                                        
                                         buttonsHtml = true;
                                         let defaultFn = false;                                                
                                         let fnFilterByTech =  arrayLoadingFunction.filter(f => (f.functionTechnology === valueCostFunction.technology));
-                                        //let fnFilterByTechAndExp =  arrayLoadingFunction.filter(f => (f.functionTechnology === valueTech.technology /* && f.functionName === valueCostFunction.costFunction */));
-                                        if(fnFilterByTech.length == 0) {
-                                            //defaultFn = valueTech.default && fnFilterByTech.length == 0;
-                                            // last validation, discard function in arrayFuntion with same graphId
+                                        
+                                        if(fnFilterByTech.length == 0) {                                            
                                             let f = arrayFunction.filter (f => f.graphid == graphid);
                                             defaultFn = valueCostFunction.default;                                            
                                             defaultFn = plant.functions.hasOwnProperty(fnId);
@@ -1005,9 +1001,8 @@ $(function () {
                                                 idSubprocess : f.functionIdSubProcess,
                                                 technology : f.functionTechnology,
                                             };
-                                            checked = true;
-                                            
                                             checked = plant.functions.hasOwnProperty(fnId);
+                                            enableAddFn = enableAddFn || checked;
                                             activateHtml = htmlCheckBox(filterCostFunction, graphid, f.functionIdSubProcess,(listTrFunction.length==0 ? "" : listTrFunction.length),checked);
                                             valueTech.idSubprocess = f.functionIdSubProcess;
                                             valueTech.technology = f.functionTechnology;
@@ -1022,9 +1017,9 @@ $(function () {
                                         
                                     } else {
                                         loadHtml = true;
-                                        // TODO :: Review load mare that one function                                        
-                                        checked = valueCostFunction.default;
+                                        // TODO :: Review load more that one function
                                         checked = plant.functions.hasOwnProperty(fnId);
+                                        enableAddFn = enableAddFn || checked;
                                         activateHtml = htmlCheckBox(valueCostFunction,graphid, techId, "", checked);
                                         listTrFunction.push(addFunctionCostRow(activateHtml, valueCostFunction, buttonsHtml, graphid,''));
                                     }
@@ -1051,8 +1046,7 @@ $(function () {
                                         
                                     } else {
                                         //document.getElementById('contentTechnology' + valueTech.idSubprocess).style.display = "none";
-                                    }
-                                    //}
+                                    }                                    
                                 }
                             });
 
@@ -1067,9 +1061,9 @@ $(function () {
                                                 
                             if(localStorage.loadFormButton === "true") {
                                 // TODO: Enable Later
-                                let display = (checked ? 'block' : 'none');
+                                let display = (enableAddFn ? 'block' : 'none');
                                 let style = `style='display:${display}' `;
-                                tableFunct = tableFunct + '<div class="link-form" ' + style + '>' + gettext('Add function') + '</div>';
+                                tableFunct = tableFunct + `<div class="link-form" ${style}> + ${gettext('Add function')} + </div>`;
                             }                            
                             $('#technology' + idTechnology).html($('#technology' + idTechnology).html() + tableVar + tableFunct);                                                           
                         }
