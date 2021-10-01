@@ -616,7 +616,7 @@ $(function () {
             return true;
         }
         else {
-            event.target.value = "1";
+            event.target.value = "";
         }
     }
     checkPercentage = function (event, value) {
