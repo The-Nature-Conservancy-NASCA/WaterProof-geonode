@@ -885,7 +885,8 @@ $(function () {
             $.each( data, function( key, value ) {
                 serieDataRoi.push({
                     name: 'ROI',
-                    data: [parseFloat(value.roiMaximumR), parseFloat(value.roiMinimumR), parseFloat(value.roiMediumR)],
+//                    data: [parseFloat(value.roiMaximumR), parseFloat(value.roiMinimumR), parseFloat(value.roiMediumR)],
+                    data: [value.roiMaximumR, value.roiMinimumR, value.roiMediumR],
                     pointPlacement: 'on'
                 });
             });
@@ -901,7 +902,7 @@ $(function () {
                     // x: -80
                 },
                 xAxis: {
-                    categories: ['Minimun discount rate', 'Maximun discount rate', 'Discount rate'],
+                    categories: ['Minimun discount rate: ' + value.porcentDiscountRaterMinimumR, 'Maximun discount rate: ' + value.porcentDiscountRaterMaximumR, 'Discount rate: ' + porcentDiscountRater ],
                     tickmarkPlacement: 'on',
                     lineWidth: 0
                 },
