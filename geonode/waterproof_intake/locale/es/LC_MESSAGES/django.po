@@ -515,7 +515,7 @@ msgstr "Área de implementación para SbN"
 
 #: template/intake_clone.html:398 template/intake_edit.html:375 template/intake_form.html:411
 msgid "You can change the area"
-msgstr "Usted debe definir el área de implementación de la SbN"
+msgstr "Alternativamente, puede cargar un archivo zip con datos espaciales SHP (en coordenadas EPSG 3857 o EPSG 4326) que delimite el polígono donde es posible la implementación de SbN."
 
 #: template/intake_clone.html:399 template/intake_form.html:412
 msgid "To move area vertices"
@@ -531,7 +531,7 @@ msgstr "Ayuda"
 
 #: template/intake_clone.html:413 template/intake_edit.html:386 template/intake_form.html:432
 msgid "Once defined the area"
-msgstr "Waterproof tomará por defecto el polígono de la cuenca como el área de implementación para SbN, usted puede remodelar esta área moviendo los vértices resaltados en rojo"
+msgstr "Una vez definida el área de implementación, debe validar el proceso haciendo clic en el botón de abajo"
 
 #: template/intake_clone.html:427 template/intake_edit.html:398 template/intake_form.html:445
 msgid "Save"

@@ -675,7 +675,7 @@ $(function () {
             return true;
         }
         else {
-            event.target.value = "1";
+            event.target.value = "";
         }
     }
     checkDecimalFormat = function (event, value) {

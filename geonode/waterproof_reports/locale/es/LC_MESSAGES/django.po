@@ -249,7 +249,7 @@ msgid "VPN ind text 3"
 msgstr "Lo invitamos a comparar varios casos de estudio para evaluar cuál de ellos le proporciona mejor VPN y por tanto el mayor rendimiento."
 
 msgid "Sensitivity ind text 1"
-msgstr "Este reporte muestra elcálculo del beneficio a nivel económico de los ahorros (en los costos de operación y mantenimiento de la infraestructura), que se logran obtener por las SbN, año a año. Utilizando la tasa de descuento indicada por el usuario, se trae a valor presente los costos y los beneficios."
+msgstr "En esta sección se presenta el análisis de sensibilidad de beneficios y costos descontados utilizando las tasa de descuento mínima y máxima definidas para el análisis. La línea continua representa el resultado con la tasa de descuento nominal."
 
 msgid "Sensitivity ind text 2"
 msgstr "Compare los beneficios y costos obtenidos en caso de presentarse cambios en el entorno que afecten la tasa de descuento."
