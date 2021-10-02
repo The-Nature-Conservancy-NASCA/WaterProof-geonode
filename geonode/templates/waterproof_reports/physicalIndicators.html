@@ -1589,6 +1589,7 @@ var localStorageId = localStorage.idStudyCase;
             });
 
             var urlDetail = "../../reports/getWaterproofReportsRiosIpa/?studyCase=" + localStorage.idStudyCase;
+            lastIntake = document.getElementById("idSelectNameIntake").value;
             $.getJSON(urlDetail, function (data) {
                 reportsRiosIpa = data;
                 $.each( data, function( key, value ) {
