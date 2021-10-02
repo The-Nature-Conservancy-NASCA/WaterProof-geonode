@@ -756,7 +756,7 @@ def getSizeRecomendedIntervention(request):
 	if request.method == 'GET':
 		con = psycopg2.connect(settings.DATABASE_URL)
 		cur = con.cursor()
-		cur.execute("SELECT SUM(ip.area)/SUM(ai.area_converted_ha) as size_recomended_intervention FROM  public.waterproof_intake_polygon ip INNER JOIN (SELECT study_case_id,intake_id,area_converted_ha FROM public.waterproof_reports_rios_ipa WHERE year=9999 and study_case_id =  '" + request.query_params.get('studyCase') + "' AND sbn = 'Total') as ai on (ip.intake_id=ai.intake_id)")
+		cur.execute("select porcentajeIpler from __get_size_recomended_intervention(" + request.query_params.get('studyCase') + ")")
 		rows = cur.fetchall()
 		objects_list = []
 		for row in rows:
