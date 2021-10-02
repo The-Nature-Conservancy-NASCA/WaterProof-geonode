@@ -111,7 +111,7 @@ class CostFunctionsProcess(models.Model):
 
     currency = models.CharField(
         max_length=255,
-        verbose_name=_('Currency'),
+        verbose_name=_('Currency_'),
         null=True,
     )
 
@@ -171,6 +171,18 @@ class CostFunctionsProcess(models.Model):
     default_function = models.BooleanField(
         verbose_name=_('Default Function'), 
         default=False
+    )
+
+    greater_than_caudal = models.BooleanField(
+        verbose_name=_('Caudal Greater'),
+        null= True,
+        default=False
+    )
+
+    caudal = models.DecimalField(
+        decimal_places=1,
+        max_digits=4,
+        verbose_name=_('Caudal')
     )
 
     process_efficiencies = models.ForeignKey(ProcessEfficiencies, on_delete=models.CASCADE, null=True)
