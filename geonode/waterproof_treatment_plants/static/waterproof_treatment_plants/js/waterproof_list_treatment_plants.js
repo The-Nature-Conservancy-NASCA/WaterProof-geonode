@@ -23,52 +23,7 @@ $(function () {
     };
 
     var categories = JSON.parse('[{"categorys":"Ferric chloride","normalized_category":"DOSIFICACION"},{"categorys":"Polymer","normalized_category":"DOSIFICACION"},{"categorys":"Single bed slow filtration","normalized_category":"FILTRACION"},{"categorys":"Rapid single bed filtration","normalized_category":"FILTRACION"},{"categorys":"Rapid mixed bed filtration","normalized_category":"FILTRACION"},{"categorys":"Rapid single bed filtration","normalized_category":"FILTRACION"},{"categorys":"Hydraulic mixing","normalized_category":"MEZCLARAPIDA"},{"categorys":"Hydraulic flocculation","normalized_category":"MEZCLALENTA"},{"categorys":"Mechanical flocculation","normalized_category":"MEZCLALENTA"},{"categorys":"Inverse osmosis","normalized_category":"FILTRACIONPORMEMBRANANIVEL4"},{"categorys":"Nanofiltration","normalized_category":"FILTRACIONPORMEMBRANANIVEL3"},{"categorys":"Granulated Aluminum Sulfate","normalized_category":"DOSIFICACION"},{"categorys":"Quick mix","normalized_category":"MEZCLARAPIDA"},{"categorys":"Mantenimiento edificaciones","normalized_category":"MANTENIMIENTOEDIFICACIONES"},{"categorys":"Intercambio iónico","normalized_category":"INTERCAMBIOIONICO"},{"categorys":"Sludge pumping","normalized_category":"TRATAMIENTODELODOS"},{"categorys":"Sludge thickener","normalized_category":"TRATAMIENTODELODOS"},{"categorys":"Drying beds","normalized_category":"TRATAMIENTODELODOS"},{"categorys":"Filter press","normalized_category":"TRATAMIENTODELODOS"},{"categorys":"Liquid Aluminum Sulfate","normalized_category":"DOSIFICACION"},{"categorys":"Rapid mixed bed filtration","normalized_category":"FILTRACION"},{"categorys":"Single bed slow filtration","normalized_category":"FILTRACION"},{"categorys":"Conventional settler","normalized_category":"SEDIMENTACION"},{"categorys":"High Rate Settler","normalized_category":"SEDIMENTACION"},{"categorys":"Sludge blanket decanter","normalized_category":"SEDIMENTACION"},{"categorys":"Chlorine gas","normalized_category":"DESINFECCION"},{"categorys":"Chlorine in situ","normalized_category":"DESINFECCION"},{"categorys":"Ultrafiltration","normalized_category":"FILTRACIONPORMEMBRANANIVEL2"},{"categorys":"Microfiltration","normalized_category":"FILTRACIONPORMEMBRANANIVEL1"}]');
-
-    var ptapArray = [{
-            idElement: 1,
-            nameElement: null,
-            element: ['Q1','Csed1','CN1','CP1','WSed1','WN1','WP1']
-        },{
-            idElement: 2,
-            nameElement: null,
-            element: ['Q2','Csed2','CN2','CP2','WSed2','WN2','WP2','WsedRet2','WNRet2','WPRet2']
-        },{
-            idElement: 3,
-            nameElement: null,
-            element: ['Q3','Csed3','CN3','CP3','WSed3','WN3','WP3','WsedRet3','WNRet3','WPRet3']
-        },{
-            idElement: 4,
-            nameElement: null,
-            element: ['Q4','Csed4','CN4','CP4','WSed4','WN4','WP4','WsedRet4','WNRet4','WPRet4']
-        },{
-            idElement: 5,
-            nameElement: null,
-            element: ['Q5','Csed5','CN5','CP5','WSed5','WN5','WP5','WsedRet5','WNRet5','WPRet5']
-        },{
-            idElement: 6,
-            nameElement: null,
-            element: ['Q6','Csed6','CN6','CP6','WSed6','WN6','WP6','WsedRet6','WNRet6','WPRet6']
-        },{
-            idElement: 7,
-            nameElement: null,
-            element: ['Q7','Csed7','CN7','CP7','WSed7','WN7','WP7','WsedRet7','WNRet7','WPRet7']
-        },{
-            idElement: 8,
-            nameElement: null,
-            element: ['Q8','Csed8','CN8','CP8','WSed8','WN8','WP8','WsedRet8','WNRet8','WPRet8']
-        },{
-            idElement: 9,
-            nameElement: null,
-            element: ['Q9','Csed9','CN9','CP9','WSed9','WN9','WP9','WsedRet9','WNRet9','WPRet9']
-        },{
-            idElement: 10,
-            nameElement: null,
-            element: ['Q10','Csed10','CN10','CP10','WSed10','WN10','WP10','WsedRet10','WNRet10','WPRet10']
-        },{
-            idElement: 11,
-            nameElement: null,
-            element: ['Q11','Csed11','CN11','CP11','WSed11','WN11','WP11','WsedRet11','WNRet11','WPRet11']
-        }]
+    
     var defaultStyle = {
         fillColor: "#337ab7",
         color: "#333333",
@@ -132,6 +87,7 @@ $(function () {
     var searchPoints;
     var selectedPlantElement = null;
     var selectedTechnologyId = -1;
+    var selectedFunction4Edit = null;
     var button = document.getElementById('btnValidatePyExp');
     var output = document.getElementById('MathPreview');
     var addFunction = false;
@@ -751,9 +707,11 @@ $(function () {
         let val = Number.parseFloat(inputElement.value);
         if(val < Number.parseFloat(inputElement.getAttribute("min"))) {
             inputElement.value = inputElement.getAttribute("min");
+            val = inputElement.value;
         }
         if(val > Number.parseFloat(inputElement.getAttribute("max"))) {
             inputElement.value = inputElement.getAttribute("max");
+            val = inputElement.value;
         }
 
         // get function to change the value of the element
@@ -974,12 +932,12 @@ $(function () {
                             let sediments = nitrogen = phosphorus = 0;
                             
                             $.each( data, function( keyCostFunction, valueCostFunction) {
-                                var fnId = valueCostFunction.technology + HYPHEN + valueCostFunction.costFunction;                                
-                                if(valueTech.technologyAddId === valueCostFunction.technologyAddId) {                                        
+                                var fnId = valueCostFunction.technology + HYPHEN + (valueCostFunction.costFunction==undefined?valueCostFunction.nameFunction:valueCostFunction.costFunction);
+                                if(valueTech.technologyAddId === valueCostFunction.technologyAddId) {
                                     if(lastTreeBranch.indexOf(valueCostFunction.technology) === -1){
                                         lastTreeBranch.push(valueTech.technology);
                                         listTrFunctionCustom = [];
-                                    }                                          
+                                    }
                                     if(onlyReadPlant) {
                                         loadHtml = false;
                                         $.each( arrayLoadingFunction, function( keyLoading, valueLoading ) {
@@ -1529,41 +1487,37 @@ $(function () {
 
     //Edit funcion cost 
     $(document).on('click', '.btn-function-cost', function() {
-
         let graphId = this.getAttribute('graphId');
         addFunction = false;
-        let elCheck = this.parentElement.parentElement.children[0].children[0].children[0];
-        let fn = elCheck.getAttribute("function");
-        let fnName = this.parentElement.parentElement.children[1].innerText;
-        let currency = elCheck.getAttribute("currency");
-        let factor = elCheck.getAttribute("factor");
+        //let elCheck = this.parentElement.parentElement.children[0].children[0].children[0];
+        let elCheck = $($(this).parents()[1]).find("[name=listFunction]")[0];
         let costFunction = {
-            "expression": fn,
-            "name": fnName,
-            "currency": currency,
-            "factor": factor
+            "expression": elCheck.getAttribute("function"),
+            "name": elCheck.getAttribute("namefunction"),
+            "currency": elCheck.getAttribute("currency"),
+            "factor": elCheck.getAttribute("factor"),
+            "technology" : elCheck.getAttribute("technology"),
         };
+        selectedFunction4Edit = elCheck;
         showModalCalculator(addFunction,graphId,costFunction); 
     });
 
     //add function cost row
-    addFunctionCostRow = function(activateHtml,valueCostFunction,buttonsHtml,graphid, subid) {
+    addFunctionCostRow = function(activateHtml,costFn,buttonsHtml,graphid, subid) {
         let htmlBtn = '';
         if (buttonsHtml){
             htmlBtn = '<a class="btn btn-info btn-function-cost" graphid=' + graphid + 
                         ' data-toggle="modal" data-target="#CalculatorModal">' + 
                         '<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>';                                                
         }
-        
-        let popupId =  valueCostFunction.idSubprocess + (subid != "" ? '-' + subid : ''); 
         let tdClass = 'class="small text-center vat"';
-        let exp = valueCostFunction.function.replaceAll('else', 'else <br>');
+        let exp = (costFn.function==undefined?costFn.functionValue:costFn.function).replaceAll('else', 'else <br>');
         let tooltipAttr = ` data-toggle='tooltip' data-placement='top' title='${exp}' `;
         let rowFn = `<tr><td>${activateHtml}</td>
-                        <td ${tdClass}>${valueCostFunction.costFunction}</td>
+                        <td ${tdClass}>${(costFn.costFunction==undefined?costFn.nameFunction:costFn.costFunction)}</td>
                         <td ${tdClass}><div class="text-center"><div class="open-popup-form" ${tooltipAttr}>fx</div></div></td>
-                        <td ${tdClass}>${valueCostFunction.currency}</td>
-                        <td ${tdClass}>${valueCostFunction.factor}</td>
+                        <td ${tdClass}>${costFn.currency}</td>
+                        <td ${tdClass}>${costFn.factor}</td>
                         <td aling="center">${htmlBtn}</td></tr>`;
         return rowFn;
     }
@@ -1708,6 +1662,8 @@ $(function () {
         let graphId = $('#mainTree .title-tree')[0].getAttribute('graphId');
         let fnName = $("#costFunctionName").val();
         let expression = $("#python-expression").val();
+        let currency = $("#currencyCost").val();
+        let factor = $("#factorCost").val();
 
         if (fnName == "" || expression == "") {
             alert(gettext("Please, complete the form"));
@@ -1718,7 +1674,20 @@ $(function () {
             let trNewFunction = addNewFunction(selectedTechnologyId, graphId);
             $(`#technology${selectedTechnologyId} table tbody`).append (trNewFunction);
         }else{
-            
+            let fnId = selectedFunction4Edit.getAttribute('technology') + HYPHEN + selectedFunction4Edit.getAttribute('namefunction');
+            selectedFunction4Edit.setAttribute('namefunction', fnName);
+            selectedFunction4Edit.setAttribute('function', expression);
+            selectedFunction4Edit.setAttribute('currency', currency);
+            selectedFunction4Edit.setAttribute('factor', $("#factorCost").val());
+            let trElem = $(selectedFunction4Edit).parents().get(2);
+            $(trElem).find('.open-popup-form')[0].setAttribute('data-original-title', expression);
+            plant.functions[fnId].functionValue = expression;
+            plant.functions[fnId].nameFunction = fnName;
+            plant.functions[fnId].currency = currency;
+            plant.functions[fnId].factor = factor;
+            trElem.children[1].innerText = fnName;
+            trElem.children[3].innerText = currency
+            trElem.children[4].innerText = factor;
         }
         $('#CalculatorModal').modal('hide');
         $('#_thumbnail_processing').modal('hide');
