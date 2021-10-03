@@ -604,4 +604,4 @@ msgstr ""
 "facilitate its administration according to your preferences."
 
 msgid "My Cases of Study"
-msgstr "My Cases of Study"
+msgstr "My Case Studies"
