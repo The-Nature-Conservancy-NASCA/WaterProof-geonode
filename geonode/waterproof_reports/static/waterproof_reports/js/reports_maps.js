@@ -82,7 +82,7 @@ $(document).ready(function () {
   let lyrNameNDRP = `NDR_Phosphorus`;
   let lyrNameCarbon = `Carbon_storage_and_sequestration`;
   let lyrNameAreasRios = 'Areas_Rios';
-  let lyrNameCatchment = 'catchment';
+  let lyrNameCatchment = 'Catchment';
   let lyrsModelsResult = [lyrNameAWY, lyrNameSWY, lyrNameSDR, lyrNameNDRN, lyrNameNDRP, lyrNameCarbon];
 
   let attribution = "Waterproof data © 2021 TNC";
@@ -154,11 +154,17 @@ $(document).ready(function () {
   $("#menu3")[0].append($("#map-areas-rios-container")[0]);
   $('#first_tab').trigger('click');
 
-  let htmlControl = ctrlLyrsMapResult.getContainer();
+  // Show all layers hidden by default, only Catchment are visible
+  let htmlControl = ctrlLyrsMapResult.getContainer();  
   let lyrs = htmlControl.getElementsByClassName("leaflet-control-layers-selector");
   lyrs.forEach(function (lyr) {
-    console.log(lyr);
-    lyr.checked = false;
+    let lbl = lyr.labels[0]
+    if (lbl != null) {
+      let txt = lbl.getElementsByTagName("span")[0].innerText.trim().toUpperCase();      
+      if (txt  != "CATCHMENT") {
+        lyr.click();
+      }
+    }
   });
   console.log(htmlControl);
   
