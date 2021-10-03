@@ -59,7 +59,8 @@
                 <th scope="col" class="small text-center vat">{% trans "Id" %}</th>
                 <th scope="col" class="small text-center vat">{% trans "Name" %}</th>
                 <th scope="col" class="small text-center vat px-5" style="width:'10px';">{% trans "Description" %}</th>
-                <th scope="col" class="small text-center vat">{% trans "User" %}</th>                
+                <th scope="col" class="small text-center vat">{% trans "User" %}</th> 
+                <th scope="col" class="small text-center vat">{% trans "Role" %}</th>                
                 <th scope="col" class="small text-center vat">{% trans "Country" %}</th>
                 <th scope="col" class="small text-center vat">{% trans "Percentage of benefit associated with interventions at time t=0" %}</th>
                 <th scope="col" class="small text-center vat">{% trans "Implementation cost (currency/ha)" %}</th>
@@ -77,6 +78,7 @@
                 <td class="small text-center vat justify-text">{{sbn.name}}</td>
                 <td class="small text-center vat truncate justify-text" style="width:'10px';" >{{sbn.description}}</td>
                 <td class="small text-center vat">{{sbn.added_by.first_name}} {{sbn.added_by.last_name}}</td>
+                <td class="small text-center vat">{{sbn.added_by.professional_role}}</td>
                 <td class="small text-center vat">{{sbn.country}}</td>
                 <td class="small text-center vat justify-number">{{sbn.profit_pct_time_inter_assoc}}%</td>
                 <!-- Validate user type for multiplying country factor -->
@@ -160,36 +162,42 @@
     </div>
 
 {% block body %}{% endblock body %} {% block sidebar %}{% endblock sidebar %} {% endblock body_outer %} {% block extra_script %}
+
+<script src="{{ STATIC_URL }}geonode/js/datatables/dataTables.bootstrap.min.js"></script>
+<script src="{% static "lib/js/leaflet.js" %}"></script>
+<script src="{{ STATIC_URL }}geonode/js/leaflet/leaflet.defaultextent.js"></script>
+<script src="{{ STATIC_URL }}geonode/js/leaflet/leaflet.ajax.min.js"></script>
+<script src="{{ STATIC_URL }}waterproof_nbs_ca/js/waterproof_nbs_ca_list.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <script>
     var countriesLayerUrl = '{{ STATIC_URL }}waterproof_nbs_ca/data/countries.geojson';
     var userCountryId = '{{userCountry.id}}';
     var userCountryCode = localStorage.countryCode;
     var userCountryName = '{{userCountry.name}}';
+    {% if request.LANGUAGE_CODE == "es" %}
+        var urlJson='{{ STATIC_URL }}geonode/js/datatables/es_es.json';
+    {% else %}
+        var urlJson='{{ STATIC_URL }}geonode/js/datatables/en_gb.json';
+    {% endif %}
     OSM_BASEMAP_URL = '{{ OSM_BASEMAP_URL }} ';
     IMG_BASEMAP_URL =  '{{ IMG_BASEMAP_URL }} ';
     HYDRO_BASEMAP_URL =  '{{ HYDRO_BASEMAP_URL }} ';
     GRAY_BASEMAP_URL = '{{ GRAY_BASEMAP_URL }} ';
     MAXZOOM = 11;
     $(document).ready(function () {
-        var table = $('#tblNbs').DataTable({
-            'searching': false,
-            'columnDefs': [{
-                "targets": [11],
-                'orderable': false,
-            }],
-            {% if request.LANGUAGE_CODE == "es" %}
-            'language': {
-                url: '{{ STATIC_URL }}geonode/js/datatables/es_es.json'
-            }
-            {% endif %}
-        });
+        // var table = $('#tblNbs').DataTable({
+        //     'searching': false,
+        //     'columnDefs': [{
+        //         "targets": [11],
+        //         'orderable': false,
+        //     }],
+        //     {% if request.LANGUAGE_CODE == "es" %}
+        //     'language': {
+        //         url: '{{ STATIC_URL }}geonode/js/datatables/es_es.json'
+        //     }
+        //     {% endif %}
+        // });
 
     });
 </script>
-<script src="{{ STATIC_URL }}geonode/js/datatables/dataTables.bootstrap.min.js"></script>
-<script src="{% static "lib/js/leaflet.js" %}"></script>
-<script src="{% static "geonode/js/leaflet/leaflet.defaultextent.js" %}"></script>
-<script src="{{ STATIC_URL }}geonode/js/leaflet/leaflet.ajax.min.js"></script>
-<script src="{{ STATIC_URL }}waterproof_nbs_ca/js/waterproof_nbs_ca_list.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 {% endblock %}
