@@ -23,7 +23,7 @@
     <div class="row">
         <div class="col-md-4">
             <h4 class="country-label" id="countryLabel">{{country.name}}</h4>
-            <p><b>{% trans "Region:" %}</b> <span id="regionLabel">{{region.name}}</span> </p>
+            <p><b>{% trans "Region:" %}</b> <span id="regionLabel">{{country_region.name}}</span> </p>
             <p><b>{% trans "Currency:" %} </b><span id="currencyLabel">({{currency.code}}) - {{currency.name}}</span></p>
         </div>
         <div class="col-md-8">
@@ -49,10 +49,10 @@
                     <label>{% trans "Country" %} <span class="text-danger-wp">(*)</span> </label>
                     <select id="countryNBS" {{countryEnable}} class="form-control" data-error="This field is required" required>
                         {% for country in countries %}
-                        {% if nbs.country.pk == country.pk %}
-                            <option value="{{country.pk}}" data-value="{{country.iso3}}" selected>{{country.name}}</option>
+                        {% if nbs.country.iso3 == country.iso3 %}
+                            <option value="{{country.iso3}}" data-value="{{country.iso3}}" selected>{{country.name}}</option>
                         {% else %}
-                            <option value="{{country.pk}}" data-value="{{country.iso3}}">{{country.name}}</option>
+                            <option value="{{country.iso3}}" data-value="{{country.iso3}}">{{country.name}}</option>
                         {% endif %}
                         {% endfor %}
                     </select>
@@ -62,10 +62,10 @@
                     <label>{% trans "Currency for definition of costs" %} <span class="text-danger-wp">(*)</span> </label>
                     <select id="currencyCost" {{countryEnable}} class="form-control" data-error="This field is required" required>
                         {% for currency in currencies %}
-                        {% if nbs.currency.pk == currency.pk%}
-                        <option value="{{currency.pk}}" selected>({{currency.currency}})  - {{currency.name}}</option>
+                        {% if nbs.currency.iso3 == currency.iso3 %}
+                        <option value="{{currency.iso3}}" selected>({{currency.currency}}) - {{currency.name}}</option>
                         {% else %}
-                        <option value="{{currency.pk}}">({{currency.currency}}) - {{currency.name}}</option>
+                        <option value="{{currency.iso3}}">({{currency.currency}}) - {{currency.name}}</option>
                         {% endif %}
                         {% endfor %}
                     </select>
@@ -103,19 +103,19 @@
             <div class="row">
                 <div class="col-md-4">
                     <label id="implementCostLabel">{% trans "Implementation cost (US$/ha)" %} <span class="text-danger-wp">(*)</span> </label>
-                    <input id="implementCost" value="{{ nbs.unit_implementation_cost|decimalFormat:2}}" type="text" onInput="return checkDecimalFormat(event,value)" 
+                    <input id="implementCost" value="{{ nbs.unit_implementation_cost|decimalFormat:2}}" type="text" onfocusout="return afterCheckDecimal(event,value)" onInput="return checkDecimalFormat(event,value)" 
                     class="form-control" data-error='{% trans "Field is required" %}' required>
                     <div class="help-block with-errors"></div>
                 </div>
                 <div class="col-md-4">
                     <label id="maintenanceCostLabel">{% trans "Maintenace cost (US$/ha)" %} <span class="text-danger-wp">(*)</span> </label>
-                    <input id="maintenanceCost" value="{{ nbs.unit_maintenance_cost| decimalFormat:2 }}" type="text" onInput="return checkDecimalFormat(event,value)" 
+                    <input id="maintenanceCost" value="{{ nbs.unit_maintenance_cost| decimalFormat:2 }}" type="text" onfocusout="return afterCheckDecimal(event,value)" onInput="return checkDecimalFormat(event,value)" 
                     class="form-control" data-error='{% trans "Field is required" %}' required>
                     <div class="help-block with-errors"></div>
                 </div>
                 <div class="col-md-4">
                     <label id="oportunityCostLabel">{% trans "Oportunity cost (US$/ha)" %} <span class="text-danger-wp">(*)</span> </label>
-                    <input id="oportunityCost" value="{{ nbs.unit_oportunity_cost|decimalFormat:2 }}" type="text" onInput="return checkDecimalFormat(event,value)"  class="form-control" data-error='{% trans "Field is required" %}' required>
+                    <input id="oportunityCost" value="{{ nbs.unit_oportunity_cost|decimalFormat:2 }}" type="text" onfocusout="return afterCheckDecimal(event,value)" onInput="return checkDecimalFormat(event,value)"  class="form-control" data-error='{% trans "Field is required" %}' required>
                     <div class="help-block with-errors"></div>
                 </div>
             </div>
@@ -313,8 +313,9 @@
 </script>
 {% if user.professional_role == 'ADMIN' %}
     <script>
-         var countryId = '{{usaCountry.id}}';
+         var countryId = '{{usaCountry.iso3}}';
          var disableMap=true;
+         var countryCode = '{{usaCountry.iso3}}';
     </script>
 {% else %}
     <script>
