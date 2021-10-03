@@ -106,7 +106,7 @@ def loadAllCountries(request):
 
 def loadRegionByCountry(request):
     countryId = request.GET.get('country')
-    country = Countries.objects.get(id=countryId)
+    country = Countries.objects.get(iso3=countryId)
     regionId = country.region_id
     region = Regions.objects.filter(id=regionId)
     region_serialized = serializers.serialize('json', region)

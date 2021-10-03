@@ -202,8 +202,8 @@
         var countryId = localStorage.countryCode;
     </script>
 {% endif %}
-<script src="{% static "lib/js/leaflet.js" %}"></script>
-<script src="{% static "geonode/js/leaflet/leaflet.defaultextent.js" %}"></script>
+<script src="{{{ STATIC_URL }}lib/js/leaflet.js"></script>
+<script src="{{{ STATIC_URL }}geonode/js/leaflet/leaflet.defaultextent.js"></script>
 <script src="{{ STATIC_URL }}geonode/js/leaflet/leaflet.ajax.min.js"></script>
 <script src="{{ STATIC_URL }}waterproof_nbs_ca/js/waterproof_nbs_ca_list.js"></script>
 <script>
