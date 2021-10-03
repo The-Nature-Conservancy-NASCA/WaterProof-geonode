@@ -21,6 +21,7 @@ $(function () {
         weight: 0.2,
         fillOpacity: 0.7
     };
+    let lblTechnology = gettext("Technology");
 
     var categories = JSON.parse('[{"categorys":"Ferric chloride","normalized_category":"DOSIFICACION"},{"categorys":"Polymer","normalized_category":"DOSIFICACION"},{"categorys":"Single bed slow filtration","normalized_category":"FILTRACION"},{"categorys":"Rapid single bed filtration","normalized_category":"FILTRACION"},{"categorys":"Rapid mixed bed filtration","normalized_category":"FILTRACION"},{"categorys":"Rapid single bed filtration","normalized_category":"FILTRACION"},{"categorys":"Hydraulic mixing","normalized_category":"MEZCLARAPIDA"},{"categorys":"Hydraulic flocculation","normalized_category":"MEZCLALENTA"},{"categorys":"Mechanical flocculation","normalized_category":"MEZCLALENTA"},{"categorys":"Inverse osmosis","normalized_category":"FILTRACIONPORMEMBRANANIVEL4"},{"categorys":"Nanofiltration","normalized_category":"FILTRACIONPORMEMBRANANIVEL3"},{"categorys":"Granulated Aluminum Sulfate","normalized_category":"DOSIFICACION"},{"categorys":"Quick mix","normalized_category":"MEZCLARAPIDA"},{"categorys":"Mantenimiento edificaciones","normalized_category":"MANTENIMIENTOEDIFICACIONES"},{"categorys":"Intercambio iónico","normalized_category":"INTERCAMBIOIONICO"},{"categorys":"Sludge pumping","normalized_category":"TRATAMIENTODELODOS"},{"categorys":"Sludge thickener","normalized_category":"TRATAMIENTODELODOS"},{"categorys":"Drying beds","normalized_category":"TRATAMIENTODELODOS"},{"categorys":"Filter press","normalized_category":"TRATAMIENTODELODOS"},{"categorys":"Liquid Aluminum Sulfate","normalized_category":"DOSIFICACION"},{"categorys":"Rapid mixed bed filtration","normalized_category":"FILTRACION"},{"categorys":"Single bed slow filtration","normalized_category":"FILTRACION"},{"categorys":"Conventional settler","normalized_category":"SEDIMENTACION"},{"categorys":"High Rate Settler","normalized_category":"SEDIMENTACION"},{"categorys":"Sludge blanket decanter","normalized_category":"SEDIMENTACION"},{"categorys":"Chlorine gas","normalized_category":"DESINFECCION"},{"categorys":"Chlorine in situ","normalized_category":"DESINFECCION"},{"categorys":"Ultrafiltration","normalized_category":"FILTRACIONPORMEMBRANANIVEL2"},{"categorys":"Microfiltration","normalized_category":"FILTRACIONPORMEMBRANANIVEL1"}]');
     
@@ -714,14 +715,6 @@ $(function () {
             val = inputElement.value;
         }
 
-        // get function to change the value of the element
-        // let f = arrayFunction.filter (f => f.idSubprocess == i);
-        // let n = inputElement.id.replace("id","").replace(i,"")
-        // n = n[0].toLowerCase() + n.substr(1,n.length);
-        // f.forEach(function(fn) {
-        //     fn[n] = val;
-        // });
-
         let parent = $(inputElement).parents().get(4);
         $(parent).find('[name=listFunction]').each(function (i,e){
             let fnName = e.attributes.technology.value + "-" + e.attributes.namefunction.value;
@@ -755,6 +748,17 @@ $(function () {
         }, 600);
 
     };
+
+    function createInput(label, value, readonly, min, max, step, placeholder) {
+        let val = (value == null ? "" : `value=${value}`);
+        let readonlyVal = (readonly == null ? "" : `readonly="${readonly}"`);
+        let minVal = (min == null ? "" : `min=${min}`);
+        let maxVal = (max == null ? "" : `max=${max}`);
+        let stepVal = (step == null ? "" : `step=${step}`);
+        let placeholderVal = (placeholder == null ? "" : `placeholder='${placeholder}'`);
+        return `<div class="input-var"><div class="form-group"><label>${label}</label><input class="form-control" ${val} ${readonlyVal} ${minVal} ${maxVal} ${stepVal} ${placeholderVal}><div class="help-block with-errors"></div></div></div>`;
+    }
+
     /**
     * Load new technology in the tree
     * @param {String} div the parent object for inject the HTML form
@@ -762,63 +766,38 @@ $(function () {
     */
     loadNewTechnology = function(divParent) {
         var node = document.createElement("div");
-        var textNewForm = ''+
-        '<div class="title-tree" id="contentTechnology26"><div class="point-tree" onclick="viewBranch(\'technology26\', this)">-</div>' + 
-        '<div class="text-tree"><input type="text" class="form-control" placeholder="' + gettext('Enter name technology') + '"></div></div>'+
-        '<div class="margin-main overflow-form" id="technology26">'+
-        '    <div class="container-var" id="idContainerVar">'+
-        '        <div>'+
-        '            <div class="input-var">'+
-        '                <div class="form-group">'+
-        '                    <label>% ' + gettext('Transported Water') + '</label>'+
-        '                    <input class="form-control" value="100" readonly="">'+
-        '                    <div class="help-block with-errors"></div>'+
-        '                </div>'+
-        '            </div>'+
-        '            <div class="input-var">'+
-        '                <div class="form-group">'+
-        '                    <label>% ' + gettext('Sediments Retained') + '</label>'+
-        '                    <input type="number" class="form-control" placeholder="' + gettext('Enter Sediments retained') + '">'+
-        '                    <div class="help-block with-errors"></div>'+
-        '                </div>'+
-        '            </div>'+
-        '        </div>'+
-        '        <div>'+
-        '            <div class="input-var">'+
-        '                <div class="form-group">'+
-        '                    <label>% ' + gettext('Nitrogen Retained') + '</label>'+
-        '                    <input type="number" class="form-control" placeholder="' + gettext('Enter nitrogen retained') + '">'+
-        '                    <div class="help-block with-errors"></div>'+
-        '                </div>'+
-        '            </div>'+
-        '            <div class="input-var">'+
-        '                <div class="form-group">'+
-        '                    <label>% ' + gettext('Phosphorus Retained') + '</label>'+
-        '                    <input type="number" class="form-control" placeholder="' + gettext('Enter phosphorus retained') + '">'+
-        '                    <div class="help-block with-errors"></div>'+
-        '                </div>'+
-        '            </div>'+
-        '        </div>'+
-        '    </div>'+
-        '    <table class="table table-striped table-bordered table-condensed" style="width:100%">'+
-        '        <thead>'+
-        '            <tr class="info">'+
-        '                <th scope="col" class="small text-center vat">' + gettext('Activate') + '</th>'+
-        '                <th scope="col" class="small text-center vat">' + gettext('Function name') + '</th>'+
-        '                <th scope="col" class="small text-center vat">' + gettext('Function') + '</th>'+
-        '                <th scope="col" class="small text-center vat">' + gettext('Currency') + '</th>'+
-        '                <th scope="col" class="small text-center vat">' + gettext('Factor') + '</th>'+
-        '                <th scope="col" class="small text-center vat">' + gettext('Options') + '</th>'+
-        '            </tr>'+
-        '        </thead>'+
-        '        <tbody>'+
-        '        </tbody>'+
-        '    </table>'+
-        '   <div class="link-form">' + gettext('Add function') + '</div>'+
-        '</div>';
+        var idNewTech = "new-tech-" + Date.now();
+        var tableFunct = `<table class="table table-striped table-bordered table-condensed" style="width:100%">
+            ${addTitleFnRow([_('Activate'), _('Function name'), _('Function'), _('Currency'), _('Factor'), _('Options')])} <tbody></tbody></table>`;
+        var textNewForm = `<div class="title-tree" id="contentTechnology${idNewTech}"><div class="point-tree" onclick="viewBranch('technology${idNewTech}}', this)">-</div> 
+        <div class="text-tree"><div style="display:flex;"><label>${lblTechnology}:</label>
+        <input type="text" id="${idNewTech}" class="form-control new-tech-input" style="position:relative;top:-6px; value=${idNewTech}" onkeydown="keyupNewTech(this)" 
+        placeholder="${_('Enter name technology')}"></div></div></div><div class="margin-main overflow-form" id="technology${idNewTech}">
+        <div class="container-var" id="idContainerVar${idNewTech}"><div>
+        ${createInput('% '+_('Transported Water'), 100, "", null, null, null, null)}
+        ${createInput('% '+_('Sediments Retained'), null, null, null, null, null, _('Enter sediments retained'))}  
+        </div><div>${createInput('% '+ _('Nitrogen Retained'), null, null, null, null, null, _('Enter nitrogen retained'))}
+        ${createInput('% '+_('Phosphorus Retained'), null, null, null, null, null, _('Enter phosphorus retained'))}
+        </div></div>${tableFunct}<div class="link-form">${_('Add function')}</div></div>`;
+        
         node.innerHTML = textNewForm;
         document.getElementById(divParent).insertBefore(node, document.getElementById(divParent).childNodes[0]);
-    };    
+    };
+
+    keyupNewTech = function (e) {
+        //console.log("new-tech-input", e);
+        let id = e.id;
+        let link = $($(e).parents().get(3)).find(".link-form")[0];
+        if (e.value.trim().length > 2) {
+            link.style.display = "block";         
+        }else{
+            link.style.display = "none";
+        }
+
+
+    };
+       
+
     /**
     * Load the tree variables
     * @param {String} graph element
@@ -882,7 +861,6 @@ $(function () {
         var lastTreeBranch = [];
         var readOnlyTextTree = onlyReadPlant ? "readonly" : "";        
         var lastSubprocess = "";        
-        let lblTechnology = gettext("Technology");
         let lblSubprocess = gettext("Subprocess");
         nameElement = nameElement === null ? "N/A" : nameElement;
         
@@ -898,11 +876,11 @@ $(function () {
                 var listTrFunctionCustom = [];
                 var linkLoadNewTechnology = ">";
                 if(localStorage.loadFormButton === "true") {
-                    linkLoadNewTechnology = 'onclick="loadNewTechnology(\'subprocess' + value.idSubprocess + '\')">' + gettext('Add new Technology');
+                    linkLoadNewTechnology = 'onclick="loadNewTechnology(\'subprocess' + value.idSubprocess + '\')">' + gettext('Add new technology');
                 }
                 var h = `<div class="title-tree"><div class="point-tree" onclick="viewBranch('subprocess${value.idSubprocess}', this)" >-</div>
                 <div class="text-tree">${lblSubprocess}: ${gettext(value.subprocess)}</div>
-                <div class="link-form-2" style="display:none;"${linkLoadNewTechnology}</div></div>
+                <div class="link-form-2" style="display:block;"${linkLoadNewTechnology}</div></div>
                 <div class="margin-main" id="subprocess${value.idSubprocess}"></div>`;                
                 $('#id' + plantElement).html($('#id' + plantElement).html() + h);
                                 
@@ -1008,22 +986,22 @@ $(function () {
                                     if(loadHtml) {
                                         let v = (filterCostFunction != undefined ? filterCostFunction : valueCostFunction);
                                         tableVar = '<div class="container-var" id="idContainerVar' + techId + '">' + 
-                                                        '  <div><div class="input-var"><div class="form-group">' + 
-                                                        '    <label>% ' + gettext('Transported Water') + '</label><input class="form-control" value="100" readonly>' + 
-                                                        '      <div class="help-block with-errors"></div></div></div>' + 
-                                                        '  <div class="input-var"> <div class="form-group">' + 
-                                                        '    <label>% ' + gettext('Sediments Retained') + '</label>' + 
-                                                        '      <input min="' + v.minimalSedimentsRetained + '" max="' + v.maximalSedimentsRetained + '" ' + readOnlyTextTree + 
-                                                        ' value="' + sediments + '" step="0.1" type="number" class="form-control" onblur="changeRetained(' + techId + ', this)" id="idSedimentsRetained' +techId + 
-                                                        '" placeholder="' + gettext('Enter Sediments retained') + '"' + (checked ? '' : 'disabled') + '><div class="help-block with-errors"></div></div></div></div>' + 
-                                                        '  <div><div class="input-var"><div class="form-group">' + 
-                                                        '    <label>% ' + gettext('Nitrogen Retained') + '</label><input min="' + v.minimalNitrogenRetained + '" max="' + v.maximalNitrogenRetained + '" ' + readOnlyTextTree + 
-                                                        ' value="' + nitrogen + '" step="0.1" type="number" class="form-control" onblur="changeRetained(' + techId + ', this)" id="idNitrogenRetained' + techId + 
-                                                        '" placeholder="' + gettext('Enter nitrogen retained') + '"' + (checked ? '' : 'disabled') + '><div class="help-block with-errors"> </div></div></div>' + 
-                                                        '  <div class="input-var"><div class="form-group">' +
-                                                        '    <label>% ' + gettext('Phosphorus Retained') + '</label><input min="' + v.minimalPhosphorusRetained + '" max="' + v.maximalPhosphorusRetained + '"  ' + readOnlyTextTree + 
-                                                        ' value="' + phosphorus + '" step="0.1" type="number" class="form-control" onblur="changeRetained(' + techId + ', this)" id="idPhosphorusRetained' + techId + 
-                                                        '" placeholder="' + gettext('Enter phosphorus retained') + '"' + (checked ? '' : 'disabled') + '><div class="help-block with-errors"></div></div></div></div></div>';
+                                                '  <div><div class="input-var"><div class="form-group">' + 
+                                                '    <label>% ' + gettext('Transported Water') + '</label><input class="form-control" value="100" readonly>' + 
+                                                '      <div class="help-block with-errors"></div></div></div>' + 
+                                                '  <div class="input-var"> <div class="form-group">' + 
+                                                '    <label>% ' + gettext('Sediments Retained') + '</label>' + 
+                                                '      <input min="' + v.minimalSedimentsRetained + '" max="' + v.maximalSedimentsRetained + '" ' + readOnlyTextTree + 
+                                                ' value="' + sediments + '" step="0.1" type="number" class="form-control" onblur="changeRetained(' + techId + ', this)" id="idSedimentsRetained' +techId + 
+                                                '" placeholder="' + gettext('Enter sediments retained') + '"' + (checked ? '' : 'disabled') + '><div class="help-block with-errors"></div></div></div></div>' + 
+                                                '  <div><div class="input-var"><div class="form-group">' + 
+                                                '    <label>% ' + gettext('Nitrogen Retained') + '</label><input min="' + v.minimalNitrogenRetained + '" max="' + v.maximalNitrogenRetained + '" ' + readOnlyTextTree + 
+                                                ' value="' + nitrogen + '" step="0.1" type="number" class="form-control" onblur="changeRetained(' + techId + ', this)" id="idNitrogenRetained' + techId + 
+                                                '" placeholder="' + gettext('Enter nitrogen retained') + '"' + (checked ? '' : 'disabled') + '><div class="help-block with-errors"> </div></div></div>' + 
+                                                '  <div class="input-var"><div class="form-group">' +
+                                                '    <label>% ' + gettext('Phosphorus Retained') + '</label><input min="' + v.minimalPhosphorusRetained + '" max="' + v.maximalPhosphorusRetained + '"  ' + readOnlyTextTree + 
+                                                ' value="' + phosphorus + '" step="0.1" type="number" class="form-control" onblur="changeRetained(' + techId + ', this)" id="idPhosphorusRetained' + techId + 
+                                                '" placeholder="' + gettext('Enter phosphorus retained') + '"' + (checked ? '' : 'disabled') + '><div class="help-block with-errors"></div></div></div></div></div>';
                                         
                                     } else {
                                         //document.getElementById('contentTechnology' + valueTech.idSubprocess).style.display = "none";
@@ -1693,15 +1671,20 @@ $(function () {
         $('#_thumbnail_processing').modal('hide');
     });
 
-    addNewFunction = function(tecnologyId, graphId){
+    addNewFunction = function(techId, graphId){
         let fnName = $('#costFunctionName').val();
         let description = $('#costFuntionDescription').val();
         let factor = $('#factorCost').val();
         let currency = $('#currencyCost option:selected').val();        
         let pyExp = $('#python-expression').val();
-        let technology = $("#contentTechnology" + tecnologyId + " .text-tree").html();
-        technology = technology.split(":")[1].trim();
-        let inputs = $("#technology" + tecnologyId)[0].getElementsByTagName("input");
+        let technology="";
+        if (techId.indexOf("new-tech") == -1) {
+            technology = $("#contentTechnology" + techId + " .text-tree").html();
+            technology = technology.split(":")[1].trim();
+        } else {
+            technology = $("#" + techId).val();
+        }        
+        let inputs = $("#technology" + techId)[0].getElementsByTagName("input");
         let sediments = inputs[1].value;
         let nitrogen = inputs[2].value;
         let phosphorus = inputs[3].value;
@@ -1741,10 +1724,10 @@ $(function () {
             factor: factor,
             currency: currency,            
             function: pyExp,
-            idSubprocess: tecnologyId,
+            idSubprocess: techId,
             technology: technology
         }
-        let subid = $("#technology" + tecnologyId + " table tbody tr").length; //num of rows in table
+        let subid = $("#technology" + techId + " table tbody tr").length; //num of rows in table
         let activateHtml = htmlCheckBox(costFn4Html, graphId, null, subid, true);        
         let tdRowFn = addFunctionCostRow(activateHtml,costFn4Html,true,graphId,subid);
         return tdRowFn;
@@ -1807,4 +1790,8 @@ $(function () {
             caudal: f.caudal,
         };
     }
+
+    _ = function(text) {
+        return gettext(text);
+    };
 });
