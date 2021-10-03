@@ -231,8 +231,8 @@ $(function () {
             maxZoom: 20,
             attribution: 'Data \u00a9 <a href="http://www.openstreetmap.org/copyright"> OpenStreetMap Contributors </a> Tiles \u00a9 Komoot'
         }).addTo(map);
-        var defExt = new L.Control.DefaultExtent({ title: gettext('Default extent'), position: 'topright'}).addTo(map);
-        
+        var defExt = new L.Control.DefaultExtent({ title: gettext('Default extent'), position: 'topright' }).addTo(map);
+
         // Countries layer
         let countries = new L.GeoJSON.AJAX(countriesLayerUrl,
             {
@@ -569,11 +569,11 @@ $(function () {
     };
     checkPercentage = function (event, value) {
         commaNum = null;
-        let regexp = /^(?=.*[0-9])([0-9]{0,12}(?:,[0-9]{1,2})?)$/gm;
+        let regexp = /^\d+(\.\d{1,2})?$/;
         valid = regexp.test(value);
         // Validate string
         if (valid) {
-            let splitedValue = value.split(",");
+            let splitedValue = value.split(".");
             let intNumber = parseInt(splitedValue[0]);
             if (intNumber >= 0 && intNumber <= 100)
                 return true;
@@ -610,7 +610,7 @@ $(function () {
     }
     checkDecimalFormat = function (event, value) {
         commaNum = null;
-        let regexp = /^(?=.*[1-9])([0-9]{0,12}(?:,[0-9]{1,2})?)$/gm;
+        let regexp = /^\d+(\,\d{1,2})?$/;
         valid = regexp.test(value);
         // Validate string
         if (valid) {
@@ -622,9 +622,9 @@ $(function () {
             //Remove especial symbols included letters
             value = value.replace(/[^0-9\,]/g, "");
             if (value.match(/,/g) !== null) {
-                commaNum = (value.match(/,/g)).length;
-                if (commaNum == 1) {
-                    let result = value.substring(0, value.indexOf(","));
+                commaNum = event.target.value.indexOf('.');
+                if (commaNum > 0) {
+                    let result = value.substring(0, value.indexOf("."));
                     if (result == "") {
                         event.target.value = "";
                         return false;
@@ -636,6 +636,19 @@ $(function () {
                 value = value.replace(/^,|,$/g, '');
             }
             event.target.value = value;
+        }
+    }
+    afterCheckDecimal = function (event, value) {
+        let regexp = /^\d+(\,\d{1,2})?$/;
+        valid = regexp.test(value);
+        if (valid) {
+            return true;
+        }
+        else {
+            event.target.value = "";
+            let test=gettext('Wrong decimal format');
+            event.target.placeholder=test;
+            event.target.focus();
         }
     }
     checkDecimalFormatZero = function (event, value) {
@@ -727,7 +740,9 @@ $(function () {
                 event.target.value = "";
         }
     };
-
+    getIntPositions = function (num) {
+        return parseFloat(num.toString().split(".")[0]);
+    }
     // Init 
     initialize();
 });
