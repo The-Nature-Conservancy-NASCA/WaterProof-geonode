@@ -1657,7 +1657,12 @@ $(function () {
         let factor = $("#factorCost").val();
 
         if (fnName == "" || expression == "") {
-            alert(_("Please, complete the form"));
+            Swal.fire({
+                title: _("Please, complete the form"),
+                text: _("Please, complete the form"),
+                icon: 'warning',
+                confirmButtonText: _("Ok")                
+            });
             return;
         }
 
