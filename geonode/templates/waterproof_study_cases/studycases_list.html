@@ -158,6 +158,7 @@
                     <div class="btn-group btn-group-table" role="group">
                         {% if studyCases.is_public%}
                         <a class="btn btn-warning btn-private" data-id="{{studyCases.pk}}" title='{% trans "Private" %}'><span class="glyphicon glyphicon-lock" aria-hidden="true"></span></a>
+                        <a class="btn btn-info" href="report/{{studyCases.pk}}" title='{% trans "report" %}'><span class="glyphicon glyphicon-object-align-bottom" aria-hidden="true"></span></a>
                         {% else %}
                         <a class="btn btn-primary btn-public" data-id="{{studyCases.pk}}" title='{% trans "Public" %}'><span class="glyphicon glyphicon-lock" aria-hidden="true"></span></a>
                         {% endif %}
