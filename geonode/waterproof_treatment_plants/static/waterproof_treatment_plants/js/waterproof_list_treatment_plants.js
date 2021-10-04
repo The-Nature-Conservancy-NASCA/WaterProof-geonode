@@ -772,8 +772,8 @@ $(function () {
                             let fId = f.technology + HYPHEN + f.nameFunction;
                             plantFn.push(plant.functions[fId]);
                         }else{
-                            if (plant.functions[k].graphid == graphid) {
-                                functionsByCustomTech[k] = plant.functions[k];
+                            if (plant.functions[l].graphid == graphid) {
+                                functionsByCustomTech[l] = plant.functions[l];
                             }
                         }                        
                     });
