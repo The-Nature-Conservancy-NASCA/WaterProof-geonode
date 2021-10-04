@@ -607,7 +607,7 @@ $(document).ready(function () {
                         title: gettext('exchange_rate'),
                         html: html,
                         showCancelButton: true,
-                        confirmButtonText: gettext('save'),
+                        confirmButtonText: gettext('Save'),
                         preConfirm: () => {
                             currencys = []
                             $("#currencys-panel").find("input").each(function (index, input) {
