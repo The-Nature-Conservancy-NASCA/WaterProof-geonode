@@ -9,30 +9,15 @@
 
 $(function () {
         
-    const HYPHEN = "-";
-    var lastClickedLayer; 
+    const HYPHEN = "-";    
     var onlyReadPlant = false;
     var loadInfoTree = false;
     var arrayFunction = [];
     var arrayPtap = [];
     var arrayLoadingFunction = [];
-    var functionsByCustomTech = {};
-    var highlighPolygon = {
-        fillColor: "#337ab7",
-        color: "#333333",
-        weight: 0.2,
-        fillOpacity: 0.7
-    };
+    var functionsByCustomTech = {};    
     let lblTechnology = _("Technology");
-
     var categories = JSON.parse('[{"categorys":"Ferric chloride","normalized_category":"DOSIFICACION"},{"categorys":"Polymer","normalized_category":"DOSIFICACION"},{"categorys":"Single bed slow filtration","normalized_category":"FILTRACION"},{"categorys":"Rapid single bed filtration","normalized_category":"FILTRACION"},{"categorys":"Rapid mixed bed filtration","normalized_category":"FILTRACION"},{"categorys":"Rapid single bed filtration","normalized_category":"FILTRACION"},{"categorys":"Hydraulic mixing","normalized_category":"MEZCLARAPIDA"},{"categorys":"Hydraulic flocculation","normalized_category":"MEZCLALENTA"},{"categorys":"Mechanical flocculation","normalized_category":"MEZCLALENTA"},{"categorys":"Inverse osmosis","normalized_category":"FILTRACIONPORMEMBRANANIVEL4"},{"categorys":"Nanofiltration","normalized_category":"FILTRACIONPORMEMBRANANIVEL3"},{"categorys":"Granulated Aluminum Sulfate","normalized_category":"DOSIFICACION"},{"categorys":"Quick mix","normalized_category":"MEZCLARAPIDA"},{"categorys":"Mantenimiento edificaciones","normalized_category":"MANTENIMIENTOEDIFICACIONES"},{"categorys":"Intercambio iónico","normalized_category":"INTERCAMBIOIONICO"},{"categorys":"Sludge pumping","normalized_category":"TRATAMIENTODELODOS"},{"categorys":"Sludge thickener","normalized_category":"TRATAMIENTODELODOS"},{"categorys":"Drying beds","normalized_category":"TRATAMIENTODELODOS"},{"categorys":"Filter press","normalized_category":"TRATAMIENTODELODOS"},{"categorys":"Liquid Aluminum Sulfate","normalized_category":"DOSIFICACION"},{"categorys":"Rapid mixed bed filtration","normalized_category":"FILTRACION"},{"categorys":"Single bed slow filtration","normalized_category":"FILTRACION"},{"categorys":"Conventional settler","normalized_category":"SEDIMENTACION"},{"categorys":"High Rate Settler","normalized_category":"SEDIMENTACION"},{"categorys":"Sludge blanket decanter","normalized_category":"SEDIMENTACION"},{"categorys":"Chlorine gas","normalized_category":"DESINFECCION"},{"categorys":"Chlorine in situ","normalized_category":"DESINFECCION"},{"categorys":"Ultrafiltration","normalized_category":"FILTRACIONPORMEMBRANANIVEL2"},{"categorys":"Microfiltration","normalized_category":"FILTRACIONPORMEMBRANANIVEL1"}]');
-    
-    var defaultStyle = {
-        fillColor: "#337ab7",
-        color: "#333333",
-        weight: 0.2,
-        fillOpacity: 0
-    };
     var arrayPlant = [{
         graphId: 1,
         normalizeCategory: 'PTAP Input',
@@ -100,8 +85,7 @@ $(function () {
     var checkHexColor = "#039edc";
     var basePathURL = "../../treatment_plants/";
     var whiteColor = "#ffffff";
-    var actionType = "";
-    
+    var actionType = "";    
     var tableFunctionTpl = '<table class="table table-striped table-bordered table-condensed" style="width:100%">' +
                 addTitleFnRow([_('Activate'), _('Function name'), _('Function'), _('Currency'), _('Factor'), _('Options')]) + 
                 '<tbody></tbody></table>';
@@ -771,20 +755,21 @@ $(function () {
     */
     loadNewTechnology = function(parentId) {
         var node = document.createElement("div");
+        node.classList.add("mark");
         var idNewTech = "new-tech-" + Date.now();
         var textNewForm = `<div class="title-tree" id="contentTechnology${idNewTech}">
-        <div class="point-tree" onclick="viewBranch('technology${idNewTech}}', this)">-</div> 
+        <div class="point-tree" onclick="viewBranch('technology${idNewTech}', this)">-</div> 
         <div class="text-tree"><div style="display:flex;"><label>${lblTechnology}:</label>
         <input type="text" id="${idNewTech}" class="form-control new-tech-input" 
         style="position:relative;top:-6px; value=${idNewTech}" onkeydown="keyupNewTech(this)" 
         placeholder="${_('Enter name technology')}"></div></div></div>
         <div class="margin-main overflow-form" id="technology${idNewTech}">
         <div class="container-var" id="idContainerVar${idNewTech}"><div>
-        ${createInput('% '+ lbl.transportedWater, 100, "", null, null, null, null, false)}
-        ${createInput('% '+ lbl.sediments, null, null, null, null, null, lbl.placeholderSediments, true)}  
+        ${createInput('% '+ lbl.transportedWater, 100, "", null, null, null, null, false, null, null, 'number')}
+        ${createInput('% '+ lbl.sediments, null, null, null, null, null, lbl.placeholderSediments, true, null, null, 'number')}  
         </div><div>
-        ${createInput('% '+ lbl.nitrogen, null, null, null, null, null, lbl.placeholderNitrogen, true)}
-        ${createInput('% '+ lbl.phosphorus, null, null, null, null, null, lbl.placeholderPhosphorus, true)}
+        ${createInput('% '+ lbl.nitrogen, null, null, null, null, null, lbl.placeholderNitrogen, true, null, null, 'number')}
+        ${createInput('% '+ lbl.phosphorus, null, null, null, null, null, lbl.placeholderPhosphorus, true, null, null, 'number')}
         </div></div>${tableFunctionTpl}<div class="link-form">${_('Add function')}</div></div>`;
         
         node.innerHTML = textNewForm;
@@ -888,8 +873,10 @@ $(function () {
                             <div class="point-tree" onclick="viewBranch('id${plantElement}', this)" >-</div>
                             <div class="text-tree">${_(nameElement)} </div><div class="detail-tree"></div></div> 
                             <div class="margin-main" id="id${plantElement}"></div>`);
+        let fnTechParent;;
         $.each( data, function( key, value) {
             if(value.subprocessAddId !== lastSubprocess) {
+                fnTechParent = value;
                 if(value.subprocess == undefined) {
                     value.subprocess = "N/A";
                 }
@@ -914,7 +901,7 @@ $(function () {
                             }
                             var ht = `<div class="title-tree" id="contentTechnology${techId}"> 
                                     <div class="point-tree" onclick="viewBranch('technology${techId}', this)">-</div>
-                                    <div class="text-tree">${lblTechnology}: ${_(valueTech.technology)}</div></div>
+                                    <div class="text-tree"><label>${lblTechnology}:</label> ${_(valueTech.technology)}</div></div>
                                     <div class="margin-main overflow-form" id="technology${techId}"></div>`;
                             let htmlSubprocess = $('#subprocess' + value.idSubprocess).html() + ht;
                             $('#subprocess' + value.idSubprocess).html(htmlSubprocess);
@@ -1008,8 +995,7 @@ $(function () {
                                             </div><div>
                                             ${createInput('% ' + lbl.nitrogen, nitrogen, (onlyReadPlant?'':null), v.minimalNitrogenRetained, v.maximalNitrogenRetained, '0.1', lbl.placeholderNitrogen, checked,'idNitrogenRetained'+techId,onBlurFn,'number')}
                                             ${createInput('% ' + lbl.phosphorus, phosphorus, (onlyReadPlant?'':null), v.minimalPhosphorusRetained, v.maximalPhosphorusRetained, '0.1', lbl.placeholderPhosphorus, checked,'idPhosphorusRetained'+techId,onBlurFn,'number')}
-                                            </div></div>`;
-                                        console.log(tableVar);                                        
+                                            </div></div>`;                                        
                                     } else {
                                         //document.getElementById('contentTechnology' + valueTech.idSubprocess).style.display = "none";
                                     }                                    
@@ -1032,6 +1018,40 @@ $(function () {
                 });
             }
         });
+
+        //createInput(label, value, readonly, min, max, step, placeholder, enabled, id, events, type)
+        let keysCustomFns = Object.keys(functionsByCustomTech);
+        if (keysCustomFns.length > 0) {
+            listTrFunction = [];
+            let customFn = functionsByCustomTech[keysCustomFns[0]];
+            let techName = customFn.technology;
+            let sediments = customFn.sedimentsRetained;
+            let nitrogen = customFn.nitrogenRetained;
+            let phosphorus = customFn.phosphorusRetained;
+            keysCustomFns.forEach(key => {
+                customFn = functionsByCustomTech[key];
+                let graphid = customFn.graphid;                
+                let activateHtml = htmlCheckBox(customFn, graphid, customFn.idSubProcess, "", true);
+                let strHtmlCustomfn = addFunctionCostRow(activateHtml, customFn, true, graphid,"");
+                listTrFunction.push(strHtmlCustomfn);
+            });
+            var idNewTech = "new-tech-" + Date.now();
+            let onBlurFn = `onblur="changeRetained('${idNewTech}', this)"`;
+            var tableFunct = tableFunctionTpl.replace("<tbody>", "<tbody>" + listTrFunction.join(""));
+            var htmlTech = `<div class="title-tree" id="contentTechnology${idNewTech}">
+                <div class="point-tree" onclick="viewBranch('technology${idNewTech}', this)">-</div> 
+                <div class="text-tree"><div style="display:flex;"><label>${lblTechnology}:</label> ${techName}
+                </div></div></div>
+                <div class="margin-main overflow-form" id="technology${idNewTech}">
+                <div class="container-var" id="idContainerVar${idNewTech}"><div>
+                ${createInput('% '+ lbl.transportedWater, 100, "", null, null, null, null, false)}
+                ${createInput('% '+ lbl.sediments, sediments, null, null, null, null, lbl.placeholderSediments, true,'idSedimentsRetained'+idNewTech,onBlurFn,'number')}  
+                </div><div>
+                ${createInput('% '+ lbl.nitrogen, nitrogen, null, null, null, null, lbl.placeholderNitrogen, true,'idNitrogenRetained'+idNewTech,onBlurFn,'number')}
+                ${createInput('% '+ lbl.phosphorus, phosphorus, null, null, null, null, lbl.placeholderPhosphorus, true,'idPhosphorusRetained'+idNewTech,onBlurFn,'number')}
+                </div></div>${tableFunct}<div class="link-form">${_('Add function')}</div></div>`;            
+            $('#subprocess' + fnTechParent.idSubprocess).html($('#subprocess' + fnTechParent.idSubprocess).html() + htmlTech);
+        }
         validateAndAddFunction2Array();
         $('[data-toggle="tooltip"]').tooltip();
     }
@@ -1159,8 +1179,7 @@ $(function () {
     };
 
     /**
-    *  Validate and add funtion in arrayFunction
-    * 
+    *  Validate and add funtion in arrayFunction    
     * 
     */
     validateAndAddFunction2Array = function() {
@@ -1360,25 +1379,7 @@ $(function () {
             });
         }
     };
-    /**
-    * Update the country layer in map
-    * @param {String} country code
-    * @returns 
-    */
-    updateCountryMap = function (countryCode) {
-        map.eachLayer(function (layer) {
-            if (layer.feature) {
-                if (layer.feature.id == countryCode) {
-                    if (lastClickedLayer) {
-                        lastClickedLayer.setStyle(defaultStyle);
-                    }
-                    layer.setStyle(highlighPolygon);
-                    map.fitBounds(layer.getBounds());
-                    lastClickedLayer = layer;
-                }
-            }
-        });
-    };
+  
     /**
     * Load the page to see a treatment plant
     * @param {String} plant code    
@@ -1668,7 +1669,14 @@ $(function () {
 
         if (flagNewFunction){            
             let trNewFunction = addNewFunction(selectedTechnologyId, graphId);
+            var triggerClick = ($(`#technology${selectedTechnologyId} table tbody`).length == 1);
             $(`#technology${selectedTechnologyId} table tbody`).append (trNewFunction);
+            if (triggerClick) {
+                a = "id" + selectedTechnologyId.substr(selectedTechnologyId.length-8);
+                $(`#${a}`).trigger('click');
+                $(`#${a}`).trigger('click');
+            }
+
         }else{
             let fnId = selectedFunction4Edit.getAttribute('technology') + HYPHEN + selectedFunction4Edit.getAttribute('namefunction');
             selectedFunction4Edit.setAttribute('namefunction', fnName);
@@ -1697,8 +1705,7 @@ $(function () {
         let pyExp = $('#python-expression').val();
         let technology="";
         if (techId.indexOf("new-tech") == -1) {
-            technology = $("#contentTechnology" + techId + " .text-tree").html();
-            technology = technology.split(":")[1].trim();
+            technology = $("#contentTechnology" + techId + " .text-tree")[0].lastChild.textContent.trim();            
         } else {
             technology = $("#" + techId).val();
         }        
@@ -1719,6 +1726,8 @@ $(function () {
             return;
         }
 
+        let idSubprocess = (techId.length >= 8 ? techId.substring(techId.length-8) : techId);
+
         let costFunction = {
             "graphId": graphId,
             "technology": technology,
@@ -1727,7 +1736,7 @@ $(function () {
             "currency": currency,
             "factor": factor,
             "description": description,
-            "idSubprocess": -1, /*tecnologyId,*/
+            "idSubprocess": idSubprocess, /*tecnologyId,*/
             "sediments": sediments,
             "nitrogen": nitrogen,
             "phosphorus": phosphorus,
@@ -1742,7 +1751,7 @@ $(function () {
             factor: factor,
             currency: currency,            
             function: pyExp,
-            idSubprocess: techId,
+            idSubprocess: idSubprocess,
             technology: technology
         }
         let subid = $("#technology" + techId + " table tbody tr").length; //num of rows in table
@@ -1759,7 +1768,7 @@ $(function () {
             currency: f.currency,
             factor: f.factor,
             idSubprocess: f.idSubprocess,
-            sedimentsRetained: (f.sediments ? f.sediment : f.sedimentsRetained),
+            sedimentsRetained: (f.sediments ? f.sediments : f.sedimentsRetained),
             nitrogenRetained: f.nitrogen,
             phosphorusRetained: f.phosphorus,
             id: f.id,
