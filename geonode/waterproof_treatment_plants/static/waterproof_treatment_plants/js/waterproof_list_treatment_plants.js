@@ -1788,8 +1788,8 @@ $(function () {
                         '<div name="listFunction"  graphid="' + graphid + '" ' + attrSubprocessMaster + 
                         'technology="' + valueCostFunction.technology + '" ' + 
                         'idSubprocess="' + valueCostFunction.idSubprocess + '" ' + 
-                        'nameFunction="' + valueCostFunction.costFunction + '" ' + 
-                        'function="' + valueCostFunction.function + '" ' + 
+                        'nameFunction="' + (valueCostFunction.costFunction?valueCostFunction.costFunction:valueCostFunction.nameFunction) + '" ' + 
+                        'function="' + (valueCostFunction.function?valueCostFunction.function:valueCostFunction.functionValue) + '" ' + 
                         'currency="' + valueCostFunction.currency + '" ' + 
                         'factor="' + valueCostFunction.factor + '" ' +
                         'checked=' + checked.toString() + ' ' +
