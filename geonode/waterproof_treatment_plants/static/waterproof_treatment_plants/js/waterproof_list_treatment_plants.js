@@ -159,23 +159,11 @@ $(function () {
                                 $("#idBackgroundGraph").hide();
                             },1000);
                         } else {
-                            Swal.fire({
-                                title: 'Error',
-                                text: result.error[0],
-                                icon: 'error',
-                                confirmButtonColor: '#3085d6',
-                                cancelButtonColor: '#d33',
-                            })
+                            showMessageModal('Error',result.error[0],'error');                            
                         }
                         toggleProcessingModal('hide');
                     },error: function (err) {
-                        Swal.fire({
-                            title: 'Error',
-                            text: _("Error calculating the suggested plant"),
-                            icon: 'error',
-                            confirmButtonColor: '#3085d6',
-                            cancelButtonColor: '#d33',
-                        })
+                        showMessageModal('Error',_("Error calculating the suggested plant"),'error');
                     }
                 });
             }
@@ -234,15 +222,9 @@ $(function () {
                  '</td><td aling="center"><a class="btn btn-danger" onclick="deleteOption(' + this.value + 
                  ')"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td></tr>');
                  
-                $('#idIntakePlant').removeAttr('required');                
+                $('#idIntakePlant').removeAttr('required');
             } else {
-                Swal.fire({
-                    title: _('Information'),
-                    text: _('You cannot add the water source'),
-                    icon: 'warning',
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                })
+                showMessageModal(_('Information'),_("'You cannot add the water source"),'warning');
             }
         });
 
@@ -290,22 +272,10 @@ $(function () {
                                     $("#idBackgroundGraph").hide();
                                 },1000);
                             } else {
-                                Swal.fire({
-                                    title: 'Error',
-                                    text: result.detail /*.error[0]*/,
-                                    icon: 'error',
-                                    confirmButtonColor: '#3085d6',
-                                    cancelButtonColor: '#d33',
-                                })
+                                showMessageModal('Error',result.detail,'error');                                
                             }
                         },error: function (err) {
-                            Swal.fire({
-                                title: 'Error',
-                                text: _("Error calculating the suggested plant"),
-                                icon: 'error',
-                                confirmButtonColor: '#3085d6',
-                                cancelButtonColor: '#d33',
-                            })
+                            showMessageModal('Error',_("Error calculating the suggested plant"),'error');                            
                         }
                     });
                 }
@@ -515,24 +485,14 @@ $(function () {
                         window.location.href = basePathURL + "?limit=5&city=" + localStorage.getItem('cityId');
                         localStorage.plantId = null;
                     },error: function (err) {
-                        Swal.fire({
-                            title: 'Error',
-                            text: _('Error calculating the treatment plant'),
-                            icon: 'error',
-                            confirmButtonColor: '#3085d6',
-                            cancelButtonColor: '#d33',
-                        })
+                        showMessageModal('Error',_("Error calculating the treatment plant"),'error');                        
                     }
                 });
             } else {
-                Swal.fire({
-                    title: 'Error',
-                    text: _('It does not have a record in the type of treatment plant'),
-                    icon: 'error',
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                })
+                showMessageModal('Error',_("It does not have a record in the type of treatment plant"),'error');                
             }
+        }else{
+            showMessageModal(_('Information'),_("'Please, complete the form"),'warning');
         }
     }
 
@@ -1442,13 +1402,7 @@ $(function () {
                         window.location.href =basePathURL + "?limit=5&city=" + localStorage.getItem('cityId');
                         localStorage.plantId = null;
                     },error: function (err) {
-                        Swal.fire({
-                            title: 'Error',
-                            text: _('Error deleting the treatment plant, it must already be used in a case study'),
-                            icon: 'error',
-                            confirmButtonColor: '#3085d6',
-                            cancelButtonColor: '#d33',
-                        })
+                        showMessageModal('Error',_('Error deleting the treatment plant, it must already be used in a case study'),'error');
                     }
                 });
             }
@@ -1643,7 +1597,7 @@ $(function () {
         MathJax.typesetPromise([output]).catch(function (err) {
             output.innerHTML = '';
             output.appendChild(document.createTextNode(err.message));
-            console.error(err);
+            //console.error(err);
         }).then(function () {
             button.disabled = false;
         });
@@ -1658,12 +1612,7 @@ $(function () {
         let factor = $("#factorCost").val();
 
         if (fnName == "" || expression == "") {
-            Swal.fire({
-                title: _("Please, complete the form"),
-                text: _("Please, complete the form"),
-                icon: 'warning',
-                confirmButtonText: _("Ok")                
-            });
+            showMessageModal(_('Information'),_("'Please, complete the form"),'warning');            
             return;
         }
 
@@ -1717,12 +1666,7 @@ $(function () {
         let fnNameId = technology + HYPHEN + fnName;
         let fns = Object.keys(plant.functions).filter(f => f.toUpperCase() == fnNameId.toUpperCase());
         if (fns.length > 0) {
-            Swal.fire({
-                title: _("Function name already exists"),
-                text: _("Please, change the function name"),
-                icon: 'warning',
-                confirmButtonText: _("Ok")                
-            });
+            showMessageModal(_('Information'),_("Please, change the function name"),'warning');
             return;
         }
 
@@ -1792,8 +1736,7 @@ $(function () {
                         'function="' + (valueCostFunction.function?valueCostFunction.function:valueCostFunction.functionValue) + '" ' + 
                         'currency="' + valueCostFunction.currency + '" ' + 
                         'factor="' + valueCostFunction.factor + '" ' +
-                        'checked=' + checked.toString() + ' ' +
-                        (checked ? 'style="border-color: ' + checkHexColor + ' ;" ' : '') +
+                        'checked=' + checked.toString() + ' ' + (checked ? 'style="border-color: ' + checkHexColor + ' ;" ' : '') +
                         'class="change-state-tree" id="id' + valueCostFunction.idSubprocess + 
                                 (subid != "" ? HYPHEN + subid : "") + '"></div></div>';
         return activateHtml;
@@ -1824,4 +1767,16 @@ $(function () {
     toggleProcessingModal = function(showOrHide) {
         $('#_thumbnail_processing').modal(showOrHide);
     }
+
+    showMessageModal = function(title, message, icon ) {
+        Swal.fire({
+            title: title,
+            text: message,
+            icon: icon,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+        })
+        toggleProcessingModal('hide');
+    };
+        
 });
