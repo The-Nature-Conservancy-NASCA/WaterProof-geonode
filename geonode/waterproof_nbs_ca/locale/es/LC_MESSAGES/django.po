@@ -493,3 +493,16 @@ msgstr "Utilice el icono"
 
 msgid "to see the information in the system."
 msgstr "para ver la información en el sistema."
+
+msgid "Reference country"
+msgstr "País de referencia"
+
+msgid "If you want the NbS not to be implemented"
+msgstr ""
+"Si usted desea que la SbN no se implemente en la cobertura "
+"de la columna izquierda, no seleccione ninguna cobertura "
+"transformada en la columna"
+
+msgid "Wrong decimal format"
+msgstr "Formato incorrecto, intente así: 1,00"
+

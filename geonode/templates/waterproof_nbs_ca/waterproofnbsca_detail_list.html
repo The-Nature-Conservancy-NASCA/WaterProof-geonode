@@ -6,10 +6,12 @@
 {% block title %} 
 {% trans "Waterproof Detail NBS CA" %} 
 {% endblock %}
+{% load humanize %}
 {% block extra_head %}
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_nbs_ca/css/waterproof_nbs_ca.css"/> 
 <!-- <link rel="stylesheet" href="{% static "geonode/css/leaflet/leaflet.defaultextent.css" %}"/> -->
 <link rel="stylesheet" href="{{ STATIC_URL }}lib/css/leaflet.css"/>
+<link rel="stylesheet" href="{% static "geonode/css/leaflet/leaflet.defaultextent.css" %}"/>
 {% endblock %}
 {% block body_outer %} 
 
@@ -26,8 +28,7 @@
             <p><b>{% trans "Currency:" %} </b><span id="currencyLabel">({{currency.currency}}) - {{currency.name}}</span></p>
         </div>
         <div class="col-md-8">
-            <div id="mapid" style="width: 700px; height: 200px;"></div>
-
+            <div id="mapid" style="width: 700px; height: 250px;"></div>
         </div>
     </div>
 
@@ -44,10 +45,10 @@
     <div class="form-group">
         <div class="row">
             <div class="col-md-6">
-                <label>{% trans "Country" %}</label>
+                <label>{% trans "Reference country" %}</label>
                 <select class="form-control" disabled required>
                     {% for country in countries %}
-                    <option value="{{country.pk}}" {% if country.pk == sbn.country.pk %} selected{% endif %}>{{ country.name}}</option>
+                    <option value="{{country.iso3}}"{% if country.iso3 == sbn.country.iso3 %} selected{% endif %}>{{ country.name}}</option>
                     {%  endfor %}
                     </select>
             </div>
@@ -55,7 +56,7 @@
                 <label>{% trans "Currency for definition of costs" %}</label>
                 <select class="form-control" disabled required>
                     {% for cur in currencies %}
-                    <option value="{{cur.pk}}" {% if cur.pk == sbn.currency.pk %} selected{% endif %}>{{ cur.name}}</option>
+                    <option value="{{currency.iso3}}" {% if cur.iso3 == sbn.currency.iso3 %} selected{% endif %}>({{cur.currency}}) - {{ cur.name}} </option>
                     {%  endfor %}
                     </select>
             </div>
@@ -65,11 +66,11 @@
         <div class="row">
             <div class="col-md-6">
                 <label>{% trans "Time required to generate maximun benefit (yr)" %}</label>
-                <input value="{{sbn.max_benefit_req_time}}" type="text" disabled class="form-control" required>
+                <input value="{{sbn.max_benefit_req_time| floatformat:"0"}}" type="text" disabled class="form-control" required>
             </div>
             <div class="col-md-6">
                 <label>{% trans "Percentage of benefit associated with interventions at time t=0" %}</label>
-                <input value="{{sbn.profit_pct_time_inter_assoc}}" type="text" disabled class="form-control" required>
+                <input value="{{sbn.profit_pct_time_inter_assoc|decimalFormat:2}}" type="text" disabled class="form-control" required>
             </div>
         </div>
     </div>
@@ -90,7 +91,7 @@
                         <label>{% trans "Country" %}</label>
                         <select id="currenciesComapreSelect" class="form-control" disabled required>
                             {% for country in countries %}
-                            <option value="{{country.global_multiplier_factor}}" {% if country.pk == userCountry.pk %} selected{% endif %}>{{ country.name}}</option>
+                            <option value="{{country.iso3}}" data-value="{{country.global_multiplier_factor}}" {% if country.pk == userCountry.pk %} selected{% endif %}>{{ country.name}}</option>
                             {%  endfor %}
                         </select>
                     </div>
@@ -112,16 +113,16 @@
                     <div class="panel-body">
                         <div class="form-group">
                             <label>{% trans "Implementation cost (US$/ha)" %} ({{sbn.country.currency}}/ha) </label>
-                            <input value="{{ sbn.unit_implementation_cost|floatformat:2 }}" id="b_unit_implementation_cost" type="text" class="form-control" disabled required>
+                            <input value="{{ sbn.unit_implementation_cost|decimalFormat:2 }}" id="b_unit_implementation_cost" type="text" class="form-control" disabled required>
                             
                         </div>
                         <div class="form-group">
                             <label>{% trans "Maintenace cost (US$/ha)" %} ({{sbn.country.currency}}/ha)</label>
-                            <input value="{{ sbn.unit_maintenance_cost|floatformat:2 }}" id="b_unit_maintenance_cost" type="text" class="form-control" disabled required>
+                            <input value="{{ sbn.unit_maintenance_cost|decimalFormat:2 }}" id="b_unit_maintenance_cost" type="text" class="form-control" disabled required>
                         </div>
                         <div class="form-group">
                             <label>{% trans "Oportunity cost (US$/ha)" %} ({{sbn.country.currency}}/ha)</label>
-                            <input value="{{ sbn.unit_oportunity_cost|floatformat:2 }}" id="b_unit_oportunity_cost" type="text" class="form-control" disabled required>
+                            <input value="{{ sbn.unit_oportunity_cost|decimalFormat:2 }}" id="b_unit_oportunity_cost" type="text" class="form-control" disabled required>
                         </div>
                     </div>
                 </div>
@@ -161,13 +162,20 @@
             <h4 class="text-primary text-right">{% trans "LAND USE / LAND COVER TRANSFORMED" %}</h4>
         </div>
         </div>
-    <ul class="list-group">
         {% for transformation in sbn.rios_transformations.all %}
-        <li class="list-group-item">
-            <span class="badge">{{ transformation.name }}</span> {{ transformation.activity.name }}
-        </li>
+        <div class="transitions-border col-md-12">
+            <ul class="list-group">
+           
+            <li class="transitions-li col-md-6" style="text-align: right;">
+                <span>{{ transformation.activity.name }}</span>
+            </li>
+            <li class="transitions-li col-md-6">
+                <span>{{ transformation.name }}</span>
+            </li>
+            
+            </ul>
+        </div>
         {% endfor %}
-    </ul>
 </div>
 
 {% endblock body_outer %} {% block extra_script %}
@@ -181,24 +189,32 @@
     HYDRO_BASEMAP_URL =  '{{ HYDRO_BASEMAP_URL }} ';
     GRAY_BASEMAP_URL = '{{ GRAY_BASEMAP_URL }} ';
     MAXZOOM = 11;
+    {% if request.LANGUAGE_CODE == "es" %}
+        var urlJson='{{ STATIC_URL }}geonode/js/datatables/es_es.json';
+    {% else %}
+        var urlJson='{{ STATIC_URL }}geonode/js/datatables/en_gb.json';
+    {% endif %}
 </script>
 {% if user.professional_role == 'ADMIN' %}
     <script>
-         var countryId = '{{sbn.country.pk}}';
+         var countryId = localStorage.countryCode;
+         var userCountryCode=localStorage.countryCode;
          var disableMap=true;
     </script>
 {% else %}
     <script>
         var disableMap=false;
-        var countryId = '{{sbn.country.pk}}';
+        var userCountryCode=localStorage.countryCode;
+        var countryId = localStorage.countryCode;
     </script>
 {% endif %}
-<script src="{% static "lib/js/leaflet.js" %}"></script>
-<script src="{% static "geonode/js/leaflet/leaflet.defaultextent.js" %}"></script>
+<script src="{{ STATIC_URL }}lib/js/leaflet.js"></script>
+<script src="{{ STATIC_URL }}geonode/js/leaflet/leaflet.defaultextent.js"></script>
 <script src="{{ STATIC_URL }}geonode/js/leaflet/leaflet.ajax.min.js"></script>
 <script src="{{ STATIC_URL }}waterproof_nbs_ca/js/waterproof_nbs_ca_list.js"></script>
 <script>
     $(document).ready(function() {
+        $("#currenciesComapreSelect").val(localStorage.countryCode);
         $("#currenciesComapreSelect").change(function() {
             var optionSelected = $(this).find("option:selected");
             var ValueSelected = optionSelected.val();

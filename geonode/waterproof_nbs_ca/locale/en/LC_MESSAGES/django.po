@@ -318,7 +318,7 @@ msgstr "Base cost"
 
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_edit.html:22
 msgid "Edit Nature based solution (NBS)"
-msgstr "Edite NbS"
+msgstr "Edit NbS"
 
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_edit.html:171
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_form.html:155
@@ -440,6 +440,17 @@ msgstr "Report"
 msgid "delete"
 msgstr "Delete"
 
+msgid "Reference country"
+msgstr "Reference country"
+
+msgid "If you want the NbS not to be implemented"
+msgstr ""
+"If you want the NbS not to be implemented in the land "
+"cover in the left column, do not select any transformed "
+"land cover in the right column"
+
+msgid "Wrong decimal format"
+msgstr "Wrong format, try like this: 1,00"
 #~ msgid "Percentaje of benefit"
 #~ msgstr "Percentage of benefits"
 

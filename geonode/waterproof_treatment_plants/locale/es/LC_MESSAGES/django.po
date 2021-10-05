@@ -249,8 +249,8 @@ msgid "Water Intake"
 msgstr "Captación"
 
 #: geonode/templates/waterproof_treatment_plants/treatment_plants_edit.html:41
-msgid "Select the water intakes that supply the drinking water treatment plant and click on the button 'Add water intake'"
-msgstr "Seleccione las captaciones que suplen la planta de tratamiento de agua potable y haga clic en el botón 'Agregar captación'"
+msgid "Select the water intakes that supply the drinking water treatment plant. The selected intake will be automatic added to the table."
+msgstr "Seleccione las captaciones que suplen la planta de tratamiento de agua potable. La captación seleccionada se adicionará automáticamente a la tabla."
 
 #: templates/treatment_plants_edit.html:54
 msgid "Water intake sources"
@@ -267,6 +267,9 @@ msgstr "Opciones"
 #: templates/treatment_plants_edit.html:63
 msgid "Confirm water intakes sources"
 msgstr "Confirmar fuentes de agua"
+
+msgid "To enable the diagram, click in the following button"
+msgstr "Para habilitar el diagrama, haga clic en el siguiente botón"
 
 #: templates/treatment_plants_edit.html:69
 msgid "Treatment unit process diagram"

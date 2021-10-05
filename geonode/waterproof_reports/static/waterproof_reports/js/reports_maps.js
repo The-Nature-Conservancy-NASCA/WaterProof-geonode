@@ -82,7 +82,7 @@ $(document).ready(function () {
   let lyrNameNDRP = `NDR_Phosphorus`;
   let lyrNameCarbon = `Carbon_storage_and_sequestration`;
   let lyrNameAreasRios = 'Areas_Rios';
-  let lyrNameCatchment = 'catchment';
+  let lyrNameCatchment = 'Catchment';
   let lyrsModelsResult = [lyrNameAWY, lyrNameSWY, lyrNameSDR, lyrNameNDRN, lyrNameNDRP, lyrNameCarbon];
 
   let attribution = "Waterproof data © 2021 TNC";
@@ -116,7 +116,6 @@ $(document).ready(function () {
     overlaysResults[lyrName] = createWMSLyr(urlWaterProofLyrsWMS, lyrName).addTo(mapResults);
   });
 
-
   var overlaysAreasRios = {};
   lyrsNames = [lyrNameAreasRios];
   lyrsNames.forEach(function (lyrName) {
@@ -129,7 +128,6 @@ $(document).ready(function () {
     overlaysAreasRios[lyrName] = createWMSLyr(urlWaterProofLyrsWMS, lyrName).addTo(mapAreasRios);
   });
   
-
   L.control.layers({}, overlaysLeft,{collapsed:false}).addTo(mapLeft,);
   L.control.layers({}, overlaysRight,{collapsed:false}).addTo(mapRight);
   L.control.layers({}, overlays,{collapsed:false}).addTo(map);
@@ -149,20 +147,23 @@ $(document).ready(function () {
   map.sync(mapRight);
   map.sync(mapLeft);
   
-
   $("#menu2")[0].append($("#map-analysis-result")[0]);
   $("#menu3")[0].append($("#map-areas-rios-container")[0]);
   $('#first_tab').trigger('click');
 
-  let htmlControl = ctrlLyrsMapResult.getContainer();
+  // Show all layers hidden by default, only Catchment are visible
+  let htmlControl = ctrlLyrsMapResult.getContainer();  
   let lyrs = htmlControl.getElementsByClassName("leaflet-control-layers-selector");
   lyrs.forEach(function (lyr) {
-    console.log(lyr);
-    lyr.checked = false;
+    let lbl = lyr.labels[0]
+    if (lbl != null) {
+      let txt = lbl.getElementsByTagName("span")[0].innerText.trim();
+      if (txt  != lyrNameCatchment) {
+        lyr.click();
+      }
+    }
   });
-  console.log(htmlControl);
-  
-
+    
   function createWMSLyr(urlWMS, lyrName) {
     let params = {
       layers: lyrName,
@@ -173,8 +174,7 @@ $(document).ready(function () {
     }
     return L.tileLayer.wms(urlWMS, params);
   }
- 
-  
+   
   function createLegend(urlWMS ,lyrName, elId) {
     let legendParams = `&request=getlegendgraphic&layer=${lyrName}&format=image%2Fpng&SLD_VERSION=1.1.0&VERSION=1.3.0`;
     const fetchAsBlob = url => fetch(url)
@@ -193,15 +193,11 @@ $(document).ready(function () {
       .then(convertBlobToBase64)
       .then(base64Data => {
         $(elId).attr('src', base64Data);
-        //$('#img-legend-right').attr('src', base64Data);
-        //$('#img-legend-down').attr('src', base64Data);
-        //$('#legend-row').show();
-      })
-    
+      })    
   }
 
   async function rasterStatisticsApi () {
-
+    // TODO - change serverApi URL to use the new API
     let serverApi = '/proxy/?url=https://dev.skaphe.com/wf-models/';
     let amp = "&";
     if (serverApi.indexOf("proxy") >=0){
@@ -217,8 +213,7 @@ $(document).ready(function () {
     });
   }
 
-  $(".leaflet-control-layers-selector").on('click', function(e){
-    
+  $(".leaflet-control-layers-selector").on('click', function(e){    
     var t = e.currentTarget; 
     var p = t.parentElement;
     let lyrName = p.children[1].innerText.trim();
@@ -244,8 +239,6 @@ $(document).ready(function () {
           p.append(node);
         }
       }  
-    }
-
-    
+    }    
   });
 });

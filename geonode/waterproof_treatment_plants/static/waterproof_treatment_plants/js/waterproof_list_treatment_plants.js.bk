@@ -9,101 +9,139 @@
 
 $(function () {
         
-    const HYPHEN = "-";    
+    var lastClickedLayer; 
     var onlyReadPlant = false;
     var loadInfoTree = false;
     var arrayFunction = [];
     var arrayPtap = [];
     var arrayLoadingFunction = [];
-    var functionsByCustomTech = {};    
-    let lblTechnology = _("Technology");
-    var categories = JSON.parse('[{"categorys":"Ferric chloride","normalized_category":"DOSIFICACION"},{"categorys":"Polymer","normalized_category":"DOSIFICACION"},{"categorys":"Single bed slow filtration","normalized_category":"FILTRACION"},{"categorys":"Rapid single bed filtration","normalized_category":"FILTRACION"},{"categorys":"Rapid mixed bed filtration","normalized_category":"FILTRACION"},{"categorys":"Rapid single bed filtration","normalized_category":"FILTRACION"},{"categorys":"Hydraulic mixing","normalized_category":"MEZCLARAPIDA"},{"categorys":"Hydraulic flocculation","normalized_category":"MEZCLALENTA"},{"categorys":"Mechanical flocculation","normalized_category":"MEZCLALENTA"},{"categorys":"Inverse osmosis","normalized_category":"FILTRACIONPORMEMBRANANIVEL4"},{"categorys":"Nanofiltration","normalized_category":"FILTRACIONPORMEMBRANANIVEL3"},{"categorys":"Granulated Aluminum Sulfate","normalized_category":"DOSIFICACION"},{"categorys":"Quick mix","normalized_category":"MEZCLARAPIDA"},{"categorys":"Mantenimiento edificaciones","normalized_category":"MANTENIMIENTOEDIFICACIONES"},{"categorys":"Intercambio iónico","normalized_category":"INTERCAMBIOIONICO"},{"categorys":"Sludge pumping","normalized_category":"TRATAMIENTODELODOS"},{"categorys":"Sludge thickener","normalized_category":"TRATAMIENTODELODOS"},{"categorys":"Drying beds","normalized_category":"TRATAMIENTODELODOS"},{"categorys":"Filter press","normalized_category":"TRATAMIENTODELODOS"},{"categorys":"Liquid Aluminum Sulfate","normalized_category":"DOSIFICACION"},{"categorys":"Rapid mixed bed filtration","normalized_category":"FILTRACION"},{"categorys":"Single bed slow filtration","normalized_category":"FILTRACION"},{"categorys":"Conventional settler","normalized_category":"SEDIMENTACION"},{"categorys":"High Rate Settler","normalized_category":"SEDIMENTACION"},{"categorys":"Sludge blanket decanter","normalized_category":"SEDIMENTACION"},{"categorys":"Chlorine gas","normalized_category":"DESINFECCION"},{"categorys":"Chlorine in situ","normalized_category":"DESINFECCION"},{"categorys":"Ultrafiltration","normalized_category":"FILTRACIONPORMEMBRANANIVEL2"},{"categorys":"Microfiltration","normalized_category":"FILTRACIONPORMEMBRANANIVEL1"}]');
+    var highlighPolygon = {
+        fillColor: "#337ab7",
+        color: "#333333",
+        weight: 0.2,
+        fillOpacity: 0.7
+    };
+    var ptapArray = [{
+            idElement: 1,
+            nameElement: null,
+            element: ['Q1','Csed1','CN1','CP1','WSed1','WN1','WP1']
+        },{
+            idElement: 2,
+            nameElement: null,
+            element: ['Q2','Csed2','CN2','CP2','WSed2','WN2','WP2','WsedRet2','WNRet2','WPRet2']
+        },{
+            idElement: 3,
+            nameElement: null,
+            element: ['Q3','Csed3','CN3','CP3','WSed3','WN3','WP3','WsedRet3','WNRet3','WPRet3']
+        },{
+            idElement: 4,
+            nameElement: null,
+            element: ['Q4','Csed4','CN4','CP4','WSed4','WN4','WP4','WsedRet4','WNRet4','WPRet4']
+        },{
+            idElement: 5,
+            nameElement: null,
+            element: ['Q5','Csed5','CN5','CP5','WSed5','WN5','WP5','WsedRet5','WNRet5','WPRet5']
+        },{
+            idElement: 6,
+            nameElement: null,
+            element: ['Q6','Csed6','CN6','CP6','WSed6','WN6','WP6','WsedRet6','WNRet6','WPRet6']
+        },{
+            idElement: 7,
+            nameElement: null,
+            element: ['Q7','Csed7','CN7','CP7','WSed7','WN7','WP7','WsedRet7','WNRet7','WPRet7']
+        },{
+            idElement: 8,
+            nameElement: null,
+            element: ['Q8','Csed8','CN8','CP8','WSed8','WN8','WP8','WsedRet8','WNRet8','WPRet8']
+        },{
+            idElement: 9,
+            nameElement: null,
+            element: ['Q9','Csed9','CN9','CP9','WSed9','WN9','WP9','WsedRet9','WNRet9','WPRet9']
+        },{
+            idElement: 10,
+            nameElement: null,
+            element: ['Q10','Csed10','CN10','CP10','WSed10','WN10','WP10','WsedRet10','WNRet10','WPRet10']
+        },{
+            idElement: 11,
+            nameElement: null,
+            element: ['Q11','Csed11','CN11','CP11','WSed11','WN11','WP11','WsedRet11','WNRet11','WPRet11']
+        }]
+    var defaultStyle = {
+        fillColor: "#337ab7",
+        color: "#333333",
+        weight: 0.2,
+        fillOpacity: 0
+    };
     var arrayPlant = [{
         graphId: 1,
-        normalizeCategory: 'PTAP Input',
+        normalizeCategory: gettext('PTAP Input'),
         onOff: false
     }, {
         graphId: 2,
-        normalizeCategory: 'MEZCLARAPIDA',
+        normalizeCategory: gettext('MEZCLARAPIDA'),
         onOff: false
     }, {
         graphId: 3,
-        normalizeCategory: 'MEZCLALENTA',
+        normalizeCategory: gettext('MEZCLALENTA'),
         onOff: false
     }, {
         graphId: 4,
-        normalizeCategory: 'SEDIMENTACION',
+        normalizeCategory: gettext('SEDIMENTACION'),
         onOff: false
     }, {
         graphId: 5,
-        normalizeCategory: _('FILTRACION'),
+        normalizeCategory: gettext('FILTRACION'),
         onOff: false
     }, {
         graphId: 6,
-        normalizeCategory: 'FILTRACIONPORMEMBRANANIVEL1',
+        normalizeCategory: gettext('FILTRACIONPORMEMBRANANIVEL1'),
         onOff: false
     }, {
         graphId: 7,
-        normalizeCategory: 'FILTRACIONPORMEMBRANANIVEL2',
+        normalizeCategory: gettext('FILTRACIONPORMEMBRANANIVEL2'),
         onOff: false
     }, {
         graphId: 8,
-        normalizeCategory: 'FILTRACIONPORMEMBRANANIVEL3',
+        normalizeCategory: gettext('FILTRACIONPORMEMBRANANIVEL3'),
         onOff: false
     }, {
         graphId: 9,
-        normalizeCategory: 'FILTRACIONPORMEMBRANANIVEL4',
+        normalizeCategory: gettext('FILTRACIONPORMEMBRANANIVEL4'),
         onOff: false
     }, {
         graphId: 10,
-        normalizeCategory: 'INTERCAMBIOIONICO',
+        normalizeCategory: gettext('INTERCAMBIOIONICO'),
         onOff: false
     }, {
         graphId: 11,
-        normalizeCategory: 'DESINFECCION',
+        normalizeCategory: gettext('DESINFECCION'),
         onOff: false
     }, {
         graphId: 12,
-        normalizeCategory: _('DOSIFICACION'),
+        normalizeCategory: gettext('DOSIFICACION'),
         onOff: false
     }, {
         graphId: 13,
-        normalizeCategory: 'TRATAMIENTODELODOS',
+        normalizeCategory: gettext('TRATAMIENTODELODOS'),
         onOff: false
     }]
     var letterPlant = null;
     var searchPoints;
     var selectedPlantElement = null;
     var selectedTechnologyId = -1;
-    var selectedFunction4Edit = null;
     var button = document.getElementById('btnValidatePyExp');
     var output = document.getElementById('MathPreview');
     var addFunction = false;
     var flagNewFunction = false;
-    var addNewCost = _('Add new cost');
-    var editCost = _('Edit cost');
+    var addNewCost = gettext('Add new cost');
+    var editCost = gettext('Edit cost');
     var checkHexColor = "#039edc";
     var basePathURL = "../../treatment_plants/";
     var whiteColor = "#ffffff";
-    var actionType = "";    
-    var tableFunctionTpl = '<table class="table table-striped table-bordered table-condensed" style="width:100%">' +
-                addTitleFnRow([_('Activate'), _('Function name'), _('Function'), _('Currency'), _('Factor'), _('Options')]) + 
-                '<tbody></tbody></table>';
-    
-    var lbl = {
-        transportedWater : _('Transported Water'),
-        sediments : _('Sediments Retained'),
-        nitrogen : _('Nitrogen Retained'),
-        phosphorus : _('Phosphorus Retained'),
-        placeholderSediments : _('Enter sediments retainer'),
-        placeholderNitrogen : _('Enter nitrogen retainer'),
-        placeholderPhosphorus : _('Enter phosphorus retainer'),
-    }
 
     if (location.pathname.indexOf("update") > -1) {
         localStorage.plantId = location.pathname.split("/")[3];
         localStorage.updatePlant = "true";
-        actionType = "update";
     }
         
     var plant = {'elements' : {}, 'functions' : {}};
@@ -112,7 +150,7 @@ $(function () {
     * @param 
     * @returns 
     */
-    loadUpdatePtap = function (activePlant) {
+    loadUpdatePtap = function () {        
         setTimeout(function(){
             if($('#idTbodyIntake').html().trim() === "") {
                 $('#idIntakePlant').focusin();
@@ -125,7 +163,6 @@ $(function () {
                 });
                 document.getElementById("idBackgroundGraph").style.display = "block";
             } else  {
-                toggleProcessingModal('show');
                 var arrayCsinfra = [];
                 $("[name=nameListAdd]").each(function( index, element ) {
                     arrayCsinfra.push(element.getAttribute("idIntake"))
@@ -143,27 +180,36 @@ $(function () {
                             localStorage.setItem('csInfra', result);
                             arrayPtap.push({
                                 ptapType: result.result.ptap_type,
-                                awy: result.result.awy,
-                                cn: result.result.cn,
-                                cp: result.result.cp,
-                                cs: result.result.cs,
-                                wn: result.result.wn,
-                                wp: result.result.wp,
-                                ws: result.result.ws
+                                ptapAwy: result.result.awy,
+                                ptapCn: result.result.cn,
+                                ptapCp: result.result.cp,
+                                ptapCs: result.result.cs,
+                                ptapWn: result.result.wn,
+                                ptapWp: result.result.wp,
+                                ptapWs: result.result.ws
                             })
                             letterPlant = result.result.ptap_type;
-                            if (activePlant){
-                                activePlantGraph(letterPlant);
-                            }                            
+                            activePlantGraph(letterPlant);
                             setTimeout(function(){
                                 $("#idBackgroundGraph").hide();
                             },1000);
                         } else {
-                            showMessageModal('Error',result.error[0],'error');                            
+                            Swal.fire({
+                                title: 'Error',
+                                text: result.error[0],
+                                icon: 'error',
+                                confirmButtonColor: '#3085d6',
+                                cancelButtonColor: '#d33',
+                            })
                         }
-                        toggleProcessingModal('hide');
                     },error: function (err) {
-                        showMessageModal('Error',_("Error calculating the suggested plant"),'error');
+                        Swal.fire({
+                            title: 'Error',
+                            text: gettext("Error calculating the suggested plant"),
+                            icon: 'error',
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
+                        })
                     }
                 });
             }
@@ -187,10 +233,11 @@ $(function () {
             localStorage.loadInf === "false")){
             var el = document.getElementById("titleFormTreatmentPlant");
             if (el != undefined)    
-                el.innerHTML = "    "+ _("Create") + " " +  _("Treatment Plant");
+                el.innerHTML = "    "+ gettext("Create") + " " +  gettext("Treatment Plant");
         }
         
         if (localStorage.loadInf === "true") {
+
         }
 
         $('#submit').click(function (e) {
@@ -222,14 +269,20 @@ $(function () {
                  '</td><td aling="center"><a class="btn btn-danger" onclick="deleteOption(' + this.value + 
                  ')"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td></tr>');
                  
-                $('#idIntakePlant').removeAttr('required');
+                $('#idIntakePlant').removeAttr('required');                
             } else {
-                showMessageModal(_('Information'),_("'You cannot add the water source"),'warning');
+                Swal.fire({
+                    title: gettext('Information'),
+                    text: gettext('You cannot add the water source'),
+                    icon: 'warning',
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                })
             }
         });
 
         $('#idSendIntake').click(function (e) {
-            toggleProcessingModal('show');
+            $('#_thumbnail_processing').modal('show');
             deactivePlantGraph();
             setTimeout(function(){
                 arrayFunction = [];
@@ -258,13 +311,13 @@ $(function () {
                                 localStorage.setItem('csInfra', result);
                                 arrayPtap.push({
                                     ptapType: result.result.ptap_type,
-                                    awy: result.result.awy,
-                                    cn: result.result.cn,
-                                    cp: result.result.cp,
-                                    cs: result.result.cs,
-                                    wn: result.result.wn,
-                                    wp: result.result.wp,
-                                    ws: result.result.ws
+                                    ptapAwy: result.result.awy,
+                                    ptapCn: result.result.cn,
+                                    ptapCp: result.result.cp,
+                                    ptapCs: result.result.cs,
+                                    ptapWn: result.result.wn,
+                                    ptapWp: result.result.wp,
+                                    ptapWs: result.result.ws
                                 })
                                 letterPlant = result.result.ptap_type;
                                 activePlantGraph(letterPlant);
@@ -272,10 +325,22 @@ $(function () {
                                     $("#idBackgroundGraph").hide();
                                 },1000);
                             } else {
-                                showMessageModal('Error',result.detail,'error');                                
+                                Swal.fire({
+                                    title: 'Error',
+                                    text: result.detail /*.error[0]*/,
+                                    icon: 'error',
+                                    confirmButtonColor: '#3085d6',
+                                    cancelButtonColor: '#d33',
+                                })
                             }
                         },error: function (err) {
-                            showMessageModal('Error',_("Error calculating the suggested plant"),'error');                            
+                            Swal.fire({
+                                title: 'Error',
+                                text: gettext("Error calculating the suggested plant"),
+                                icon: 'error',
+                                confirmButtonColor: '#3085d6',
+                                cancelButtonColor: '#d33',
+                            })
                         }
                     });
                 }
@@ -295,56 +360,55 @@ $(function () {
             $(".link-form").hide();
             $("#" + divContainerVar.parentElement.id + " .link-form").show();
             changeStatus(id,e.currentTarget);
-        });               
+        });
+
+        const urlParams = new URLSearchParams(window.location.search);
+        var loadUrlInf = urlParams.get('loadUrlInf');
+        if(loadUrlInf === "load") {
+            localStorage.loadInf = "true"
+            localStorage.clonePlantId = urlParams.get('plantId')
+        }
                 
-        
         if(localStorage.clonePlant === "true") {
-            actionType = "clone";            
-        }else if(localStorage.updatePlant === "true") {
-            actionType = "update";            
-        }else if(localStorage.loadInf === "true") {
-            actionType = "view";
+            loadPlant(localStorage.clonePlantId, "clone");            
         }
-        if(actionType.length > 0) {
-            loadPlant(localStorage.clonePlantId, actionType);
+        if(localStorage.updatePlant === "true") {
+            loadPlant(localStorage.clonePlantId, "update");
         }
-        
-        if ($("#currencyCost")[0] != undefined && localStorage.currency != undefined){
-            $("#currencyCost").val(localStorage.currency);
-            $("#factorCost").val('1.0'); //localStorage.factor
+        if(localStorage.loadInf === "true") {
+            loadPlant(localStorage.clonePlantId, "view");            
         }
     };
 
     loadPlant = function(plantId, typeAction) {
-        console.log("loadPlant", plantId, typeAction);
         let tileAction = "";
         let plantNameSuffix = "";
         switch (typeAction) {
             case "update":
-                tileAction = _("Update");
+                tileAction = gettext("Update");
                 localStorage.updatePlant = "false";
                 break;
             case "clone":
-                plantNameSuffix = _("Clone");
-                tileAction = plantNameSuffix;                
+                tileAction = gettext("Clone");
+                plantNameSuffix = gettext("Clone");
                 localStorage.clonePlant = "false";
                 break;
             case "view":
-                tileAction = _("View");
+                tileAction = gettext("View");
                 //localStorage.loadInf = "false";
                 break;
             default:
                 break;
         }
         
-        document.getElementById("titleFormTreatmentPlant").innerHTML = tileAction + " " + _("Treatment Plant");        
+        document.getElementById("titleFormTreatmentPlant").innerHTML = tileAction + " " + gettext("Treatment Plant");        
         var urlDetail = basePathURL + "getTreatmentPlant/?plantId=" + localStorage.plantId;
         $.getJSON(urlDetail, function (data) {
             if (typeAction === "clone" || typeAction === "view") {
-                localStorage.plantId = null;                
+                //localStorage.plantId = null;                
             }            
             $.each( data.plant, function( key, value ) {
-                document.getElementById("idNamePlant").value = `${value.plantName}-${plantNameSuffix}`;
+                document.getElementById("idNamePlant").value = value.plantName + " " + plantNameSuffix;
                 document.getElementById("idDescriptionPlant").value = value.plantDescription;
                 letterPlant = value.plantSuggest;
             });
@@ -373,7 +437,6 @@ $(function () {
                             for (var indexArray = 0; indexArray < arrayPlant.length; indexArray++) {
                                 if(arrayPlant[indexArray].graphId === parseInt(element.getAttribute("graphId"))) {
                                     arrayPlant[indexArray].onOff = true;
-                                    plant.elements[element.getAttribute("plantelement")] = {}; //just add element
                                 }
                             }
                             element.style.display = "none";
@@ -398,17 +461,16 @@ $(function () {
                     sedimentsRetained: value.functionSedimentsRetained,
                     nitrogenRetained: value.functionNitrogenRetained,
                     phosphorusRetained: value.functionPhosphorusRetained,
-                    id: value.functionId,
-                    greaterCaudal: value.greaterCaudal,
-                    caudal: value.caudal,
+                    id: value.functionId
                 }
                 addFunction2Array(costFunction);
-                plant.functions[costFunction.technology + HYPHEN + costFunction.nameFunction] = costFunction;
+                plant.functions[costFunction.technology + "-" + costFunction.nameFunction] = costFunction;
             });
-            loadUpdatePtap(true);
+            loadUpdatePtap();
             arrayLoadingFunction = data.function;
 
-            if (typeAction === "view"){                
+            if (typeAction === "view"){
+                arrayLoadingFunction = data.function;
                 document.getElementById("idNamePlant").readOnly = true;
                 document.getElementById("idDescriptionPlant").readOnly = true;
                 document.getElementById("idIntakePlant").style.display = "none";
@@ -430,7 +492,7 @@ $(function () {
     */
     validateAndSavePlant = function () {
         console.log("validateAndSavePlant");
-        toggleProcessingModal('show', _("Saving") + "...",_('Please wait'));
+        $('#_thumbnail_processing').modal('show');
         var saveForm = true;
         if($('#idNamePlant').val() === "" || $('#idNamePlant').val() === null) {
             $('#idNamePlant').focusin();
@@ -486,14 +548,24 @@ $(function () {
                         window.location.href = basePathURL + "?limit=5&city=" + localStorage.getItem('cityId');
                         localStorage.plantId = null;
                     },error: function (err) {
-                        showMessageModal('Error',_("Error calculating the treatment plant"),'error');                        
+                        Swal.fire({
+                            title: 'Error',
+                            text: gettext('Error calculating the treatment plant'),
+                            icon: 'error',
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
+                        })
                     }
                 });
             } else {
-                showMessageModal('Error',_("It does not have a record in the type of treatment plant"),'error');                
+                Swal.fire({
+                    title: 'Error',
+                    text: gettext('It does not have a record in the type of treatment plant'),
+                    icon: 'error',
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                })
             }
-        }else{
-            showMessageModal(_('Information'),_("'Please, complete the form"),'warning');
         }
     }
 
@@ -517,35 +589,29 @@ $(function () {
     * @returns 
     */
     activePlantGraph = function(ptapType) {
-        console.log("activePlantGraph");
-        toggleProcessingModal('show');
+        
         var listElements = {};
         $("[name=disableElement]").each(function( index, element ) {
-            var idr =  element.getAttribute("idr");
-            var idrElem = $('#' + idr );
-            var attrModel = element.getAttribute("model");
-            var modelInTypePtap = attrModel.indexOf(ptapType) >= 0;
-
-            if (actionType != "update" && actionType != "clone") {
+            if(element.getAttribute("model").indexOf(ptapType) < 0) {
                 element.style.display = "block";
-                idrElem.css("background-color", whiteColor);
-                idrElem.css("border-color", whiteColor);
-                
-                if(modelInTypePtap) {
-                    for (var indexArray = 0; indexArray < arrayPlant.length; indexArray++) {
-                        if(arrayPlant[indexArray].graphId === parseInt(element.getAttribute("graphId"))) {
-                            arrayPlant[indexArray].onOff = true;
-                        }
+                var idr =  element.getAttribute("idr");
+                $('#' + idr ).css("background-color", whiteColor);
+                $('#' + idr ).css("border-color", whiteColor);
+            } else {
+                var idr =  element.getAttribute("idr");
+                for (var indexArray = 0; indexArray < arrayPlant.length; indexArray++) {
+                    if(arrayPlant[indexArray].graphId === parseInt(element.getAttribute("graphId"))) {
+                        arrayPlant[indexArray].onOff = true;
                     }
-                    element.style.display = "none";                
-                    //idrElem.css("background-color", whiteColor);
-                    idrElem.css("border-color", checkHexColor);                    
                 }
+                element.style.display = "none";
+                var idr =  element.getAttribute("idr");
+                $('#' + idr ).css("background-color", "#ffffff");
+                $('#' + idr ).css("border-color", checkHexColor);
+
+                listElements[element.getAttribute("plantElement")] =  {'name': element.getAttribute("name"), 'graphId': element.getAttribute("graphId")};
+                //loadArrayTree(element.getAttribute("plantElement"), element.getAttribute("nameElement"), element.getAttribute("graphId"));
             }
-            if(modelInTypePtap) {
-                listElements[element.getAttribute("plantElement")] = {'name': element.getAttribute("name"), 
-                                                                    'graphId': element.getAttribute("graphId")};
-            }            
         });
         
         var elements = Object.keys(listElements).join(',');
@@ -553,35 +619,29 @@ $(function () {
             var country = localStorage.getItem('country');
             var urlDetail = basePathURL + "getInfoTreeMany/?elements=" + elements + "&country=" + country;
             $.getJSON(urlDetail, function(data) {
-                let awy = parseFloat(arrayPtap[0].awy) / (24*365*3600);
                 Object.keys(listElements).forEach(function(element) {
                     //var name = listElements[element].name;                    
-                    let functionsByElement = data.filter(f => (f.normalizedCategory === element));
+                    let functionsByElement = data.filter(f => (f.normalizedCategory === element))
                     plant.elements[element] = {default: functionsByElement, custom: {}};
-                    // Validate if plan.functions have previous data
-                    if (Object.keys(plant.functions).length == 0) {                        
-                        let defaultFunctions = data.filter(f => f.default);
-                        defaultFunctions.forEach(f =>{
-                            var graphid = listElements[f.normalizedCategory].graphId;  
-                            addFnToPlantObj(f, graphid);
-                        });
-                        // filter by caudal
-                        defaultFunctions = data.filter(f => (f.greaterCaudal != undefined && f.caudal != undefined));
-                        defaultFunctions.forEach(f =>{
-                            var graphid = listElements[f.normalizedCategory].graphId;                            
-                            if (f.greaterCaudal){ // if value is true operator is >= else 
-                                f.default = f.caudal >= awy;
-                            }else{
-                                f.default = f.caudal < awy;
-                            }
-                            if (f.default){
-                                addFnToPlantObj(f, graphid);
-                            }
-                        });
-                        
-                    }              
+                    let defaultFunctions = data.filter(f => f.default);
+                    defaultFunctions.forEach(f =>{
+                        var graphid = listElements[f.normalizedCategory].graphId;
+                        plant.functions[f.technology + "-" + f.costFunction] = {
+                            graphid: graphid,
+                            technology: f.technology,
+                            nameFunction: f.costFunction,
+                            functionValue: f.function,
+                            currency: f.currency,
+                            factor: f.factor,
+                            idSubprocess: f.idSubprocess,
+                            sedimentsRetained: f.sedimentsRetained,
+                            nitrogenRetained: f.nitrogenRetained,
+                            phosphorusRetained: f.phosphorusRetained,
+                            id: f.id
+                        };
+                    });                    
                 });
-                toggleProcessingModal('hide');
+                $('#_thumbnail_processing').modal('hide');
             });
         }
     };
@@ -609,7 +669,7 @@ $(function () {
         if (document.getElementById(e) !== null) {
             if (document.getElementById(e).style.display === "none") {
                 document.getElementById(e).style.display = "block";
-                object.innerHTML = HYPHEN;
+                object.innerHTML = "-";
             } else {
                 document.getElementById(e).style.display = "none";
                 object.innerHTML = "+";
@@ -664,30 +724,22 @@ $(function () {
     * @param {String} value to limit the possible values that can be assigned to the formula    
     * @returns 
     */
-    changeRetained =  function(i, inputElement) {
-        let val = Number.parseFloat(inputElement.value);
-        if(val < Number.parseFloat(inputElement.getAttribute("min"))) {
-            inputElement.value = inputElement.getAttribute("min");
-            val = inputElement.value;
+    changeRetained =  function(i, validInput) {
+        let val = Number.parseFloat(validInput.value);
+        if(val < Number.parseFloat(validInput.getAttribute("min"))) {
+            validInput.value = validInput.getAttribute("min");
         }
-        if(val > Number.parseFloat(inputElement.getAttribute("max"))) {
-            inputElement.value = inputElement.getAttribute("max");
-            val = inputElement.value;
+        if(val > Number.parseFloat(validInput.getAttribute("max"))) {
+            validInput.value = validInput.getAttribute("max");
         }
 
-        let parent = $(inputElement).parents().get(4);
-        $(parent).find('[name=listFunction]').each(function (i,e){
-            let fnName = e.attributes.technology.value + "-" + e.attributes.namefunction.value;
-            let retentions = {'Sediments': 'sedimentsRetained',
-                                'Nitrogen': 'nitrogenRetained',
-                                'Phosphorus': 'phosphorusRetained'}
-            for (k in retentions){
-                if (inputElement.id.indexOf(k) > -1 && plant.functions[fnName] != undefined){                    
-                    plant.functions[fnName][retentions[k]] = val;
-                }
-            }            
+        // get function to change the value of the element
+        let f = arrayFunction.filter (f => f.idSubprocess == i);
+        let n = validInput.id.replace("id","").replace(i,"")
+        n = n[0].toLowerCase() + n.substr(1,n.length);
+        f.forEach(function(fn) {
+            fn[n] = val;
         });
-
     };
     /**
     * Load the tree with the formulas when selecting an element
@@ -696,59 +748,99 @@ $(function () {
     */
     viewTree = function(e) {
         console.log("viewTree", e);
-        //toggleProcessingModal('show');
+        $('#_thumbnail_processing').modal('show');
         $("#mainTree").hide();
         selectedPlantElement = e.getAttribute("plantElement");
         $(".container-element").removeClass('container-element-selected');
         $(e.parentElement).addClass('container-element-selected');
+        loadArrayTree(selectedPlantElement,  e.getAttribute("nameElement"), e.getAttribute("graphid"));
         $("#mainTree").show();
-        loadArrayTree(selectedPlantElement,  e.getAttribute("nameElement"), e.getAttribute("graphid"));        
         $('html, body').animate({
-            scrollTop: $("#black2").offset().top
+            scrollTop: $(".main-tree-content").offset().top
         }, 600);
-        //toggleProcessingModal('hide');
-    };
 
+    };
     /**
     * Load new technology in the tree
     * @param {String} div the parent object for inject the HTML form
     * @returns 
     */
-    loadNewTechnology = function(parentId) {
+    loadNewTechnology = function(divParent) {
         var node = document.createElement("div");
-        node.classList.add("mark");
-        var idNewTech = "new-tech-" + Date.now();
-        var textNewForm = `<div class="title-tree" id="contentTechnology${idNewTech}">
-        <div class="point-tree" onclick="viewBranch('technology${idNewTech}', this)">-</div> 
-        <div class="text-tree"><div style="display:flex;"><label>${lblTechnology}:</label>
-        <input type="text" id="${idNewTech}" class="form-control new-tech-input" 
-        style="position:relative;top:-6px; value=${idNewTech}" onkeydown="keyupNewTech(this)" 
-        placeholder="${_('Enter name technology')}"></div></div></div>
-        <div class="margin-main overflow-form" id="technology${idNewTech}">
-        <div class="container-var" id="idContainerVar${idNewTech}"><div>
-        ${createInput('% '+ lbl.transportedWater, 100, "", null, null, null, null, false, null, null, 'number')}
-        ${createInput('% '+ lbl.sediments, null, null, null, null, null, lbl.placeholderSediments, true, null, null, 'number')}  
-        </div><div>
-        ${createInput('% '+ lbl.nitrogen, null, null, null, null, null, lbl.placeholderNitrogen, true, null, null, 'number')}
-        ${createInput('% '+ lbl.phosphorus, null, null, null, null, null, lbl.placeholderPhosphorus, true, null, null, 'number')}
-        </div></div>${tableFunctionTpl}<div class="link-form">${_('Add function')}</div></div>`;
-        
+        var textNewForm = ''+
+        '<div class="title-tree" id="contentTechnology26"><div class="point-tree" onclick="viewBranch(\'technology26\', this)">-</div>' + 
+        '<div class="text-tree"><input type="text" class="form-control" placeholder="' + gettext('Enter name technology') + '"></div></div>'+
+        '<div class="margin-main overflow-form" id="technology26">'+
+        '    <div class="container-var" id="idContainerVar">'+
+        '        <div>'+
+        '            <div class="input-var">'+
+        '                <div class="form-group">'+
+        '                    <label>% ' + gettext('Transported Water') + '</label>'+
+        '                    <input class="form-control" value="100" readonly="">'+
+        '                    <div class="help-block with-errors"></div>'+
+        '                </div>'+
+        '            </div>'+
+        '            <div class="input-var">'+
+        '                <div class="form-group">'+
+        '                    <label>% ' + gettext('Sediments Retained') + '</label>'+
+        '                    <input type="number" class="form-control" placeholder="' + gettext('Enter Sediments retained') + '">'+
+        '                    <div class="help-block with-errors"></div>'+
+        '                </div>'+
+        '            </div>'+
+        '        </div>'+
+        '        <div>'+
+        '            <div class="input-var">'+
+        '                <div class="form-group">'+
+        '                    <label>% ' + gettext('Nitrogen Retained') + '</label>'+
+        '                    <input type="number" class="form-control" placeholder="' + gettext('Enter nitrogen retained') + '">'+
+        '                    <div class="help-block with-errors"></div>'+
+        '                </div>'+
+        '            </div>'+
+        '            <div class="input-var">'+
+        '                <div class="form-group">'+
+        '                    <label>% ' + gettext('Phosphorus Retained') + '</label>'+
+        '                    <input type="number" class="form-control" placeholder="' + gettext('Enter phosphorus retained') + '">'+
+        '                    <div class="help-block with-errors"></div>'+
+        '                </div>'+
+        '            </div>'+
+        '        </div>'+
+        '    </div>'+
+        '    <table class="table table-striped table-bordered table-condensed" style="width:100%">'+
+        '        <thead>'+
+        '            <tr class="info">'+
+        '                <th scope="col" class="small text-center vat">' + gettext('Activate') + '</th>'+
+        '                <th scope="col" class="small text-center vat">' + gettext('Function name') + '</th>'+
+        '                <th scope="col" class="small text-center vat">' + gettext('Function') + '</th>'+
+        '                <th scope="col" class="small text-center vat">' + gettext('Currency') + '</th>'+
+        '                <th scope="col" class="small text-center vat">' + gettext('Factor') + '</th>'+
+        '                <th scope="col" class="small text-center vat">' + gettext('Options') + '</th>'+
+        '            </tr>'+
+        '        </thead>'+
+        '        <tbody>'+
+        '        </tbody>'+
+        '    </table>'+
+        '   <div class="link-form">' + gettext('Add function') + '</div>'+
+        '</div>';
         node.innerHTML = textNewForm;
-        let elParent = document.getElementById(parentId);
-        elParent.insertBefore(node, elParent.childNodes[0]);
+        document.getElementById(divParent).insertBefore(node, document.getElementById(divParent).childNodes[0]);
     };
-
-    keyupNewTech = function (e) {
-        //console.log("new-tech-input", e);
-        let id = e.id;
-        let link = $($(e).parents().get(3)).find(".link-form")[0];
-        if (e.value.trim().length > 2) {
-            link.style.display = "block";         
-        }else{
-            link.style.display = "none";
-        }
-    };       
-
+    /**
+    * Receive the call back with the formula attribute
+    * @param
+    * @returns 
+    */
+    callBackFormula = function() {
+        ptapArray
+    };
+    /**
+    * Call form with the formula inforation
+    * @param
+    * @returns 
+    */
+    callFormFormula = function() {
+        //ptapArray
+        //showModalCalculator(true, graphId, "");
+    };
     /**
     * Load the tree variables
     * @param {String} graph element
@@ -758,63 +850,19 @@ $(function () {
     */
     loadArrayTree = function(plantElement, nameElement, graphid) {
         console.log("loadArrayTree", plantElement, nameElement, graphid);
-        functionsByCustomTech = {};
+                
         if (plant.elements.hasOwnProperty(plantElement)) {
             console.log("fill from dictionary");
-            let plantFn = plant.elements[plantElement]['default'];
-            if (plantFn == undefined) {
-                plantFn = [];
-                let catFilter = categories.filter(c => (c.normalized_category == plantElement));
-                catFilter.forEach(c => {
-                    let k = Object.keys(plant.functions);
-                    k.forEach(l => {
-                        let f = plant.functions[l];
-                        let categoryFn = l.split(HYPHEN)[0];
-                        if (categoryFn == c.categorys) {
-                            let fId = f.technology + HYPHEN + f.nameFunction;
-                            plantFn.push(plant.functions[fId]);
-                        }else{
-                            if (plant.functions[l].graphid == graphid) {
-                                functionsByCustomTech[l] = plant.functions[l];
-                            }
-                        }                        
-                    });
-                });
-            }else{
-                let listCategories = [];
-                categories.filter(c => (c.normalized_category == plantElement)).forEach(c => {
-                    listCategories.push(c.categorys);
-                });
-                for (k in plant.functions){
-                    let categoryFn = k.split(HYPHEN)[0];
-                    if (listCategories.indexOf(categoryFn) == -1) {
-                        if (plant.functions[k].graphid == graphid) {
-                            functionsByCustomTech[k] = plant.functions[k];
-                        }
-                    }
-                }
-            }
-            fillTree(plantFn, plantElement, nameElement, graphid);            
+            fillTree(plant.elements[plantElement]['default'], plantElement, nameElement, graphid);
+            $('#_thumbnail_processing').modal('hide');
         }else{
             console.log("fill from url");
             var urlDetail = basePathURL + "getInfoTree/?plantElement=" + plantElement + 
                             "&country=" + localStorage.getItem('country');
             $.getJSON(urlDetail, function(data) {
-                let awy = parseFloat(arrayPtap[0].awy) / (24*365*3600);
                 plant.elements[plantElement] = {default: data, custom: {}};
-                let defaultFunctions = data.filter(f => f.default);
-                defaultFunctions.forEach(f =>{
-                    if (f.greaterCaudal != undefined && f.caudal != undefined && !f.default){
-                        if (f.greaterCaudal){ // if value is true operator is >= else 
-                            f.default = f.greaterCaudal >= awy;
-                        }else{
-                            f.default = f.greaterCaudal < awy;
-                        }
-                    }
-                    addFnToPlantObj(f, graphid);                    
-                });                
                 fillTree(data, plantElement, nameElement, graphid);
-                toggleProcessingModal('hide');
+                $('#_thumbnail_processing').modal('hide');
             });
         }        
     };
@@ -826,69 +874,70 @@ $(function () {
     fillTree = function(data, plantElement, nameElement, graphid) {
         console.log("fillTree", data);
         var lastTreeBranch = [];
+        var dictTreeBranch = {};
         var readOnlyTextTree = onlyReadPlant ? "readonly" : "";        
-        var lastSubprocess = "";        
-        let lblSubprocess = _("Subprocess");
+        var lastSubprocess = "";
         nameElement = nameElement === null ? "N/A" : nameElement;
         
-        $('#mainTree').html(`<div class="title-tree" graphId='${graphid}'>
-                            <div class="point-tree" onclick="viewBranch('id${plantElement}', this)" >-</div>
-                            <div class="text-tree">${_(nameElement)} </div><div class="detail-tree"></div></div> 
-                            <div class="margin-main" id="id${plantElement}"></div>`);
-        let fnTechParent;;
-        $.each( data, function( key, value) {
+        $('#mainTree').html('<div class="title-tree" graphId=' + graphid + '>' + 
+                            '<div class="point-tree" onclick="viewBranch(\'id' + plantElement + '\', this)" >-</div>' + 
+                            '<div class="text-tree">' + nameElement +'</div><div class="detail-tree"></div></div>' + 
+                            '<div class="margin-main" id="id' + plantElement + '"></div>');
+        $.each( data, function( key, value ) {
             if(value.subprocessAddId !== lastSubprocess) {
-                fnTechParent = value;
-                if(value.subprocess == undefined) {
+                if(value.subprocess === null) {
                     value.subprocess = "N/A";
                 }
-                var listTrFunctionCustom = [];
                 var linkLoadNewTechnology = ">";
-                if(localStorage.loadFormButton === "true") {                    
-                    linkLoadNewTechnology = `onclick="loadNewTechnology('subprocess${value.idSubprocess}')">${_('Add new technology')}`;
-                }
-                var h = `<div class="title-tree"><div class="point-tree" onclick="viewBranch('subprocess${value.idSubprocess}', this)" >-</div>
-                <div class="text-tree">${lblSubprocess}: ${_(value.subprocess)}</div>
-                <div class="link-form-2" style="display:block;"${linkLoadNewTechnology}</div></div>
-                <div class="margin-main" id="subprocess${value.idSubprocess}"></div>`;                
-                $('#id' + plantElement).html($('#id' + plantElement).html() + h);
-                                
+                if(localStorage.loadFormButton === "true") {
+                    linkLoadNewTechnology = 'onclick="loadNewTechnology(\'subprocess' + value.idSubprocess + '\')">' + gettext('Add new Technology');
+                } 
+                $('#id' + plantElement).html($('#id' + plantElement).html() + 
+                                '<div class="title-tree"><div class="point-tree" onclick="viewBranch(\'subprocess' + value.idSubprocess + '\', this)" >-</div>' + 
+                                '<div class="text-tree">' + value.subprocess + '</div>' + 
+                                '<div class="link-form-2" style="display:none;"' + linkLoadNewTechnology + '</div></div>' + 
+                                '<div class="margin-main" id="subprocess' + value.idSubprocess + '"></div>');
                 lastSubprocess = value.subprocessAddId;
                 $.each( data, function( keyTech, valueTech) {
                     if(value.subprocessAddId === valueTech.subprocessAddId) {
+                        //if(dictTreeBranch[valueTech.idTechnology] === undefined) {
                         if(lastTreeBranch.indexOf(valueTech.technology) === -1){
+
                             let techId = valueTech.idSubprocess;
                             if(valueTech.technology === null) {
                                 valueTech.technology = "N/A";
                             }
-                            var ht = `<div class="title-tree" id="contentTechnology${techId}"> 
-                                    <div class="point-tree" onclick="viewBranch('technology${techId}', this)">-</div>
-                                    <div class="text-tree"><label>${lblTechnology}:</label> ${_(valueTech.technology)}</div></div>
-                                    <div class="margin-main overflow-form" id="technology${techId}"></div>`;
-                            let htmlSubprocess = $('#subprocess' + value.idSubprocess).html() + ht;
+                            let htmlSubprocess = $('#subprocess' + value.idSubprocess).html() + '<div class="title-tree" id="contentTechnology' + techId + '">' + 
+                                                '<div class="point-tree" onclick="viewBranch(\'technology' + techId + '\', this)">-</div>' + 
+                                                '<div class="text-tree">' + valueTech.technology + '</div></div>' + 
+                                                '<div class="margin-main overflow-form" id="technology' + techId + '"></div>';
                             $('#subprocess' + value.idSubprocess).html(htmlSubprocess);
+
                             var loadHtml = true;
+                            var oneFunctionInTech = true;
                             var tableVar = "";
                             var buttonsHtml = true;
                             var activateHtml = "";
                             var listTrFunction = [];
-                            var listCustomFunctionsId = {};
+                            var listTrFunctionCustom = [];
+                            var customTechnologyId = "";
+                            var listCustomFunctionsId = [];
                             let checked=false;
-                            let enableAddFn = false;
                             let filterCostFunction;
-                            let sediments = nitrogen = phosphorus = 0;
                             
                             $.each( data, function( keyCostFunction, valueCostFunction) {
-                                var fnId = valueCostFunction.technology + HYPHEN + (valueCostFunction.costFunction==undefined?valueCostFunction.nameFunction:valueCostFunction.costFunction);
-                                if(valueTech.technologyAddId === valueCostFunction.technologyAddId) {
+                                if(valueTech.technologyAddId === valueCostFunction.technologyAddId) {                                        
                                     if(lastTreeBranch.indexOf(valueCostFunction.technology) === -1){
-                                        lastTreeBranch.push(valueTech.technology);
-                                        listTrFunctionCustom = [];
-                                    }
+                                        lastTreeBranch.push(valueCostFunction.technology);
+                                    } else {    
+                                        // loadHtml = false;
+                                        // oneFunctionInTech = false;
+                                    }                                            
                                     if(onlyReadPlant) {
                                         loadHtml = false;
                                         $.each( arrayLoadingFunction, function( keyLoading, valueLoading ) {
-                                            if(valueTech.technology === valueLoading.functionTechnology) {                                                        
+                                            if(valueTech.technology === valueLoading.functionTechnology /*&&
+                                                valueCostFunction.costFunction === valueLoading.functionName*/) {                                                        
                                                 valueCostFunction.sedimentsRetained = valueLoading.functionSedimentsRetained;
                                                 valueCostFunction.nitrogenRetained = valueLoading.functionNitrogenRetained;
                                                 valueCostFunction.phosphorusRetained = valueLoading.functionPhosphorusRetained;
@@ -899,123 +948,102 @@ $(function () {
                                                 loadHtml = true;
                                             }
                                         });
-                                    } else if (loadInfoTree) {                                        
+                                    } else if (loadInfoTree) {
+                                        //listTrFunction = [];
                                         buttonsHtml = true;
-                                        let fnFilterByTech = arrayLoadingFunction.filter(f => (f.functionTechnology === valueCostFunction.technology));
-                                        if(fnFilterByTech.length == 0) {                                            
-                                            activateHtml = htmlCheckBox(valueCostFunction, graphid, null,(listTrFunction.length==0 ? "" : listTrFunction.length),plant.functions.hasOwnProperty(fnId));
+                                        let defaultFn = false;                                                
+                                        let fnFilterByTech =  arrayLoadingFunction.filter(f => (f.functionTechnology === valueCostFunction.technology));
+                                        //let fnFilterByTechAndExp =  arrayLoadingFunction.filter(f => (f.functionTechnology === valueTech.technology /* && f.functionName === valueCostFunction.costFunction */));
+                                        if(fnFilterByTech.length == 0) {
+                                            //defaultFn = valueTech.default && fnFilterByTech.length == 0;
+                                            // last validation, discard function in arrayFuntion with same graphId
+                                            let f = arrayFunction.filter (f => f.graphid == graphid);
+                                            defaultFn = valueCostFunction.default;
+                                            activateHtml = htmlCheckBox(valueCostFunction, graphid, null,(listTrFunction.length==0 ? "" : listTrFunction.length),defaultFn);
                                             listTrFunction.push(addFunctionCostRow(activateHtml, valueCostFunction, buttonsHtml, graphid,(listTrFunction.length==0 ? "" : listTrFunction.length)));
-                                        }else {                                            
-                                            // add all default fn even including unchecked
-                                            activateHtml = htmlCheckBox(valueCostFunction, graphid, valueCostFunction.idSubProcess,"",false);
-                                            let strHtmlCustomfn = addFunctionCostRow(activateHtml, valueCostFunction, buttonsHtml, graphid,(listTrFunction.length==0 ? "" : listTrFunction.length));
-                                            listTrFunctionCustom[fnId] = strHtmlCustomfn;          
-                                            /******************************************/
-                                            fnFilterByTech.forEach(f => {
-                                                filterFn = {...valueCostFunction,
-                                                    sedimentsRetained: f.functionSedimentsRetained,
-                                                    nitrogenRetained: f.functionNitrogenRetained,
-                                                    phosphorusRetained: f.functionPhosphorusRetained,
-                                                    costFunction: f.functionName,
-                                                    function: f.functionValue,
-                                                    currency: f.functionCurrency,
-                                                    factor: f.functionFactor,
-                                                    idSubprocess : f.functionIdSubProcess,
-                                                    technology : f.functionTechnology,
-                                                };
-                                                nitrogen = f.functionNitrogenRetained;
-                                                phosphorus = f.functionPhosphorusRetained;
-                                                sediments = f.functionSedimentsRetained;
-                                                let customFnName = f.functionTechnology + HYPHEN + f.functionName;
-                                                checked = plant.functions.hasOwnProperty(customFnName);
-                                                enableAddFn = enableAddFn || checked;
-                                                activateHtml = htmlCheckBox(filterFn, graphid, f.functionIdSubProcess,(listTrFunction.length==0 ? "" : listTrFunction.length),checked);                                             
-                                                let strHtmlCustomfn = addFunctionCostRow(activateHtml, filterFn, buttonsHtml, graphid,(listTrFunction.length==0 ? "" : listTrFunction.length));
-                                                if (!listCustomFunctionsId.hasOwnProperty(customFnName)) {
-                                                    listTrFunctionCustom[customFnName] = strHtmlCustomfn;
-                                                }else{
-                                                    htmlCustomFn = $(strHtmlCustomfn);
-                                                    if (htmlCustomFn.find('[name=listFunction]')[0].attributes.checked.value == "true") {
-                                                        listTrFunctionCustom[customFnName] = strHtmlCustomfn;
-                                                    }
-                                                }
-                                            });
-                                        }                                        
+                                        }
+
+                                        fnFilterByTech.forEach(f => {
+                                            filterCostFunction = {...valueCostFunction,
+                                                sedimentsRetained: f.functionSedimentsRetained,
+                                                nitrogenRetained: f.functionNitrogenRetained,
+                                                phosphorusRetained: f.functionPhosphorusRetained,
+                                                costFunction: f.functionName,
+                                                function: f.functionValue,
+                                                currency: f.functionCurrency,
+                                                factor: f.functionFactor,
+                                                idSubprocess : f.functionIdSubProcess,
+                                                technology : f.functionTechnology,
+                                            };
+                                            checked = true;
+                                            activateHtml = htmlCheckBox(filterCostFunction, graphid, f.functionIdSubProcess,(listTrFunction.length==0 ? "" : listTrFunction.length),checked);
+                                            valueTech.idSubprocess = f.functionIdSubProcess;
+                                            valueTech.technology = f.functionTechnology;
+                                            if (listTrFunctionCustom.length == 0) {
+                                                customTechnologyId = techId; //f.functionIdSubProcess;                                                    
+                                            }
+                                            if (listCustomFunctionsId.indexOf(f.functionIdSubProcess) == -1) {
+                                                listTrFunctionCustom.push(addFunctionCostRow(activateHtml, filterCostFunction, buttonsHtml, graphid,(listTrFunction.length==0 ? "" : listTrFunction.length)));
+                                                listCustomFunctionsId.push(f.functionIdSubProcess);
+                                            }
+                                        });                                                
+                                        
                                     } else {
                                         loadHtml = true;
-                                        checked = plant.functions.hasOwnProperty(fnId);
-                                        enableAddFn = enableAddFn || checked;
-                                        activateHtml = htmlCheckBox(valueCostFunction,graphid, techId, "", checked);
+                                        // TODO :: Review load mare that one function
+                                        activateHtml = htmlCheckBox(valueCostFunction,graphid, techId, "", valueCostFunction.default);
                                         listTrFunction.push(addFunctionCostRow(activateHtml, valueCostFunction, buttonsHtml, graphid,''));
                                     }
-                                    if(loadHtml) {
-                                        let v = (filterCostFunction != undefined ? filterCostFunction : valueCostFunction);                                        
-                                        let onBlurFn = `onblur="changeRetained('${techId}', this)"`;
-                                        tableVar = `<div class="container-var" id="idContainerVar${techId}"><div>
-                                            ${createInput('% ' + lbl.transportedWater  , 100, "", null, null, null, null, !checked, null, null)}
-                                            ${createInput('% ' + lbl.sediments, sediments, (onlyReadPlant?'':null), v.minimalSedimentsRetained, v.maximalSedimentsRetained, '0.1', lbl.placeholderSediments, checked,'idSedimentsRetained'+techId,onBlurFn,'number')}  
-                                            </div><div>
-                                            ${createInput('% ' + lbl.nitrogen, nitrogen, (onlyReadPlant?'':null), v.minimalNitrogenRetained, v.maximalNitrogenRetained, '0.1', lbl.placeholderNitrogen, checked,'idNitrogenRetained'+techId,onBlurFn,'number')}
-                                            ${createInput('% ' + lbl.phosphorus, phosphorus, (onlyReadPlant?'':null), v.minimalPhosphorusRetained, v.maximalPhosphorusRetained, '0.1', lbl.placeholderPhosphorus, checked,'idPhosphorusRetained'+techId,onBlurFn,'number')}
-                                            </div></div>`;                                        
+
+                                    if(loadHtml /* && oneFunctionInTech */  ) {
+                                        let v = (filterCostFunction != undefined ? filterCostFunction : valueCostFunction);
+                                        tableVar = '<div class="container-var" id="idContainerVar' + techId + '">' + 
+                                                        '  <div><div class="input-var"><div class="form-group">' + 
+                                                        '    <label>% ' + gettext('Transported Water') + '</label><input class="form-control" value="100" readonly>' + 
+                                                        '      <div class="help-block with-errors"></div></div></div>' + 
+                                                        '  <div class="input-var"> <div class="form-group">' + 
+                                                        '    <label>% ' + gettext('Sediments Retained') + '</label>' + 
+                                                        '      <input min="' + v.minimalSedimentsRetained + '" max="' + v.maximalSedimentsRetained + '" ' + readOnlyTextTree + 
+                                                        ' value="' + v.sedimentsRetained + '" step="0.1" type="number" class="form-control" onblur="changeRetained(' + v.idSubprocess + ', this)" id="idSedimentsRetained' + v.idSubprocess + 
+                                                        '" placeholder="' + gettext('Enter Sediments retained') + '"' + (checked ? '' : 'disabled') + '><div class="help-block with-errors"></div></div></div></div>' + 
+                                                        '  <div><div class="input-var"><div class="form-group">' + 
+                                                        '    <label>% ' + gettext('Nitrogen Retained') + '</label><input min="' + v.minimalNitrogenRetained + '" max="' + v.maximalNitrogenRetained + '" ' + readOnlyTextTree + 
+                                                        ' value="' + v.nitrogenRetained + '" step="0.1" type="number" class="form-control" onblur="changeRetained(' + v.idSubprocess + ', this)" id="idNitrogenRetained' + v.idSubprocess + 
+                                                        '" placeholder="' + gettext('Enter nitrogen retained') + '"' + (checked ? '' : 'disabled') + '><div class="help-block with-errors"> </div></div></div>' + 
+                                                        '  <div class="input-var"><div class="form-group">' +
+                                                        '    <label>% ' + gettext('Phosphorus Retained') + '</label><input min="' + v.minimalPhosphorusRetained + '" max="' + v.maximalPhosphorusRetained + '"  ' + readOnlyTextTree + 
+                                                        ' value="' + v.phosphorusRetained + '" step="0.1" type="number" class="form-control" onblur="changeRetained(' + v.idSubprocess + ', this)" id="idPhosphorusRetained' + v.idSubprocess + 
+                                                        '" placeholder="' + gettext('Enter phosphorus retained') + '"' + (checked ? '' : 'disabled') + '><div class="help-block with-errors"></div></div></div></div></div>';
+                                        
                                     } else {
                                         //document.getElementById('contentTechnology' + valueTech.idSubprocess).style.display = "none";
-                                    }                                    
+                                    }
+                                    //}
                                 }
                             });
-                            if (Object.keys(listTrFunctionCustom).length > 0) {
+
+                            let idTechnology = techId;
+                            if (listTrFunctionCustom.length > 0) {
                                 listTrFunction = listTrFunctionCustom;
-                                for (k in listTrFunctionCustom){
-                                    listTrFunction.push(listTrFunctionCustom[k]);
-                                }
+                                idTechnology = customTechnologyId;
                             }
-                            var tableFunct = tableFunctionTpl.replace("<tbody>", "<tbody>" + listTrFunction.join(""));
+                            var tableFunct = '<table class="table table-striped table-bordered table-condensed" style="width:100%">' +
+                                                addTitleFnRow([gettext('Activate'), gettext('Function name'), gettext('Function'), gettext('Currency'), gettext('Factor'), gettext('Options')]) + '<tbody>' +
+                                                listTrFunction.join("") + '</tbody></table>';
+                                                
                             if(localStorage.loadFormButton === "true") {
-                                let style = `style='display:${(enableAddFn ? 'block' : 'none')}' `;
-                                tableFunct += `<div class="link-form" ${style}> ${_('Add function')} </div>`;
-                            }
-                            $('#technology' + techId).html($('#technology' + techId).html() + tableVar + tableFunct);                                                           
+                                // TODO: Enable Later
+                                let display = (checked ? 'block' : 'none');
+                                let style = `style='display:${display}' `;
+                                tableFunct = tableFunct + '<div class="link-form" ' + style + '>' + gettext('Add function') + '</div>';
+                            }                            
+                            $('#technology' + idTechnology).html($('#technology' + idTechnology).html() + tableVar + tableFunct);                                                           
                         }
                     }
                 });
             }
         });
-
-        //createInput(label, value, readonly, min, max, step, placeholder, enabled, id, events, type)
-        let keysCustomFns = Object.keys(functionsByCustomTech);
-        if (keysCustomFns.length > 0) {
-            listTrFunction = [];
-            let customFn = functionsByCustomTech[keysCustomFns[0]];
-            let techName = customFn.technology;
-            let sediments = customFn.sedimentsRetained;
-            let nitrogen = customFn.nitrogenRetained;
-            let phosphorus = customFn.phosphorusRetained;
-            keysCustomFns.forEach(key => {
-                customFn = functionsByCustomTech[key];
-                let graphid = customFn.graphid;                
-                let activateHtml = htmlCheckBox(customFn, graphid, customFn.idSubProcess, "", true);
-                let strHtmlCustomfn = addFunctionCostRow(activateHtml, customFn, true, graphid,"");
-                listTrFunction.push(strHtmlCustomfn);
-            });
-            var idNewTech = "new-tech-" + Date.now();
-            let onBlurFn = `onblur="changeRetained('${idNewTech}', this)"`;
-            var tableFunct = tableFunctionTpl.replace("<tbody>", "<tbody>" + listTrFunction.join(""));
-            var htmlTech = `<div class="title-tree" id="contentTechnology${idNewTech}">
-                <div class="point-tree" onclick="viewBranch('technology${idNewTech}', this)">-</div> 
-                <div class="text-tree"><div style="display:flex;"><label>${lblTechnology}:</label> ${techName}
-                </div></div></div>
-                <div class="margin-main overflow-form" id="technology${idNewTech}">
-                <div class="container-var" id="idContainerVar${idNewTech}"><div>
-                ${createInput('% '+ lbl.transportedWater, 100, "", null, null, null, null, false)}
-                ${createInput('% '+ lbl.sediments, sediments, null, null, null, null, lbl.placeholderSediments, true,'idSedimentsRetained'+idNewTech,onBlurFn,'number')}  
-                </div><div>
-                ${createInput('% '+ lbl.nitrogen, nitrogen, null, null, null, null, lbl.placeholderNitrogen, true,'idNitrogenRetained'+idNewTech,onBlurFn,'number')}
-                ${createInput('% '+ lbl.phosphorus, phosphorus, null, null, null, null, lbl.placeholderPhosphorus, true,'idPhosphorusRetained'+idNewTech,onBlurFn,'number')}
-                </div></div>${tableFunct}<div class="link-form">${_('Add function')}</div></div>`;            
-            $('#subprocess' + fnTechParent.idSubprocess).html($('#subprocess' + fnTechParent.idSubprocess).html() + htmlTech);
-        }
         validateAndAddFunction2Array();
-        $('[data-toggle="tooltip"]').tooltip();
     }
 
     /**
@@ -1024,124 +1052,83 @@ $(function () {
     * @returns 
     */
     changeStatus = function(i, element) {
-        console.log("changeStatus", i);
-        let attrs = element.attributes;   
-        let isElement = attrs.technology == undefined;  //  true if the element is a function
+        console.log("changeStatus", i);        
+        if(!onlyReadPlant) {
+            var e = document.getElementById("id" + i);
+            if(e.style.borderColor === checkHexColor || e.style.borderColor === "rgb(3, 158, 220)") {
+                e.style.borderColor = whiteColor;
+                if (document.getElementById(e.id + "1d") !== null) {
+                    document.getElementById(e.id + "1d").style.display = "block";
+                    for (var indexArray = 0; indexArray < arrayPlant.length; indexArray++) {
+                        if(arrayPlant[indexArray].graphId === parseInt(document.getElementById("black" + i).getAttribute("graphId"))) {
+                            arrayPlant[indexArray].onOff = false;
+                        }
+                    }
+                }
+            } else {
+                e.style.borderColor = checkHexColor;
+                if (document.getElementById(e.id + "1d") !== null) {
+                    document.getElementById(e.id + "1d").style.display = "none";
+                    for (var indexArray = 0; indexArray < arrayPlant.length; indexArray++) {
+                        if(arrayPlant[indexArray].graphId === parseInt(document.getElementById("black" + i).getAttribute("graphId"))) {
+                            arrayPlant[indexArray].onOff = true;
+                        }
+                    }
+                }
+                $("[name=listFunction]").each(function( index, element ) {
+                    let selectedElement = document.getElementById("id" + i);
+                    let isCustomFunction = selectedElement.id.indexOf(element.id) !== -1 || element.id.indexOf(selectedElement.id) !== -1;
 
-        let technology;
-        let fnName;
-        let idFnPlant;
-        if (!isElement) {
-            technology = attrs.technology.value;
-            fnName = attrs.namefunction.value;
-            idFnPlant = technology + HYPHEN + fnName;
-        }
-        var e = document.getElementById("id" + i);
-        let isChecked = e.style.borderColor === checkHexColor || e.style.borderColor === "rgb(3, 158, 220)";
-        let styleDisplay = "block";
-        let styleBorderColor = whiteColor;
-        
-        if(!onlyReadPlant) {            
-            if(!isChecked) {
-                styleDisplay = "none";
-                styleBorderColor = checkHexColor;
-                if (!isElement) {
-                    $("[name=listFunction]").each(function( index, elem ) {                    
-                        let isCustomFunction = e.id.indexOf(elem.id) !== -1 || elem.id.indexOf(e.id) !== -1;
-                        if(elem.id !== e.id && elem.attributes.technology.value !== e.attributes.technology.value) {                        
-                            elem.style.borderColor = whiteColor;
-                            let attr = elem.attributes;
-                            delete plant.functions[attr.technology.value + HYPHEN + attr.namefunction.value];
-                            console.log("delete plant.functions[idFnPlant]", attr.technology.value + HYPHEN + attr.namefunction.value);
-                            if (document.getElementById(elem.id + "1d") !== null) {
-                                document.getElementById(elem.id + "1d").style.display = "block";
+                    if(element.id !== selectedElement.id && 
+                        element.attributes.technology.nodeValue !== selectedElement.attributes.technology.nodeValue /* && !isCustomFunction */) {
+                        //if(element.getAttribute("subProcessMaster") === document.getElementById("id" + i).getAttribute("subProcessMaster")){
+                            element.style.borderColor = whiteColor;
+                            if (document.getElementById(element.id + "1d") !== null) {
+                                document.getElementById(element.id + "1d").style.display = "block";
                                 for (var indexArray = 0; indexArray < arrayPlant.length; indexArray++) {
                                     if(arrayPlant[indexArray].graphId === parseInt(document.getElementById("black" + i).getAttribute("graphId"))) {
                                         arrayPlant[indexArray].onOff = false;
                                     }
                                 }
-                            }                        
-                        }
-                    });
-                }                
-            }
-            e.style.borderColor = styleBorderColor;
-            if (isElement){                
-                if (document.getElementById(e.id + "1d") !== null) {
-                    document.getElementById(e.id + "1d").style.display = styleDisplay;
-                    let ptapElement = document.getElementById("black" + i);
-                    let graphId = ptapElement.getAttribute("graphId");
-                    let plantElement = ptapElement.getAttribute("plantElement");
-                    
-                    let filterPlant = arrayPlant.filter ( p => p.graphId == graphId);
-                    if (filterPlant.length > 0) {
-                        filterPlant[0].onOff = !isChecked;
-                        if (isChecked){ //remove
-                            if (plant.elements.hasOwnProperty(plantElement)) {
-                                let pe = plant.elements[plantElement];
-                                if (pe.default != undefined && pe.default.length > 0) {
-                                    pe.default.forEach(e => {
-                                        let fnId = e.technology + HYPHEN + (e.nameFunction==undefined?e.costFunction:e.nameFunction);
-                                        delete plant.functions[fnId];
-                                    });
-                                }else{
-                                    let catFilter = categories.filter(c => (c.normalized_category == plantElement));
-                                    catFilter.forEach(c => {
-                                        let k = Object.keys(plant.functions);
-                                        k.forEach(l => {
-                                            let f = plant.functions[l];
-                                            let categoryFn = l.split("-")[0];
-                                            if (categoryFn == c.categorys) {
-                                                let fId = f.technology + HYPHEN + (e.nameFunction==undefined?e.costFunction:e.nameFunction);
-                                                delete plant.functions[fId];
-                                            }
-                                        });
-                                    });
-                                }
-                                delete plant.elements[plantElement];
                             }
-                        }else{
-                            let el = $("#black"+i)
-                            viewTree(el[0]);
-                        }
+                        //}
                     }
-                }
-            }            
+                });
+            }
             validateAndAddFunction2Array();
         }
-        
-        if (!isElement){
-            if (element.attributes.checked.value === "true") {
-                element.attributes.checked.value = "false";            
-                delete plant.functions[idFnPlant];
-                console.log("delete plant.functions[idFnPlant]", idFnPlant);
-            }else{
-                let divContainerVar = $(element).parents().get(5).children[0];
-                let inputs = divContainerVar.getElementsByTagName("input");
-                let sediments = inputs[1].value;
-                let nitrogen = inputs[2].value;
-                let phosphorus = inputs[3].value;
-                attrs.checked.value = "true";
-                plant.functions[idFnPlant] = {
-                    graphid: attrs.graphid.value,
-                    technology: attrs.technology.value,
-                    nameFunction: attrs.namefunction.value,
-                    functionValue: attrs.function.value,
-                    currency: attrs.currency.value,
-                    factor: attrs.factor.value,
-                    idSubprocess: attrs.idsubprocess.value,
-                    sedimentsRetained: sediments,
-                    nitrogenRetained: nitrogen,
-                    phosphorusRetained: phosphorus,
-                    id: attrs.id.value
-                };
-                console.log("adding plant.functions: ", idFnPlant);
-            }
-        }        
+
+        if (element.attributes.checked.value === "true") {
+            element.attributes.checked.value = "false";
+            let attrs = element.attributes;
+            delete plant.functions[attrs.technology.value + "-" + attrs.namefunction.value];
+        }else{
+            let attrs = element.attributes;
+            let divContainerVar = $(element).parents().get(5).children[0];
+            let inputs = divContainerVar.getElementsByTagName("input");
+            let sediments = inputs[1].value;
+            let nitrogen = inputs[2].value;
+            let phosphorus = inputs[3].value;
+            attrs.checked.value = "true";
+            plant.functions[attrs.technology.value + "-" + attrs.namefunction.value] = {
+                graphid: attrs.graphid.value,
+                technology: attrs.technology.value,
+                nameFunction: attrs.namefunction.value,
+                functionValue: attrs.function.value,
+                currency: attrs.currency.value,
+                factor: attrs.factor.value,
+                idSubprocess: attrs.idsubprocess.value,
+                sedimentsRetained: sediments,
+                nitrogenRetained: nitrogen,
+                phosphorusRetained: phosphorus,
+                id: attrs.id.value
+            };
+        }
     };
 
     /**
-    *  Validate and add funtion in arrayFunction    
+    *  Validate and add funtion in arrayFunction
+    * 
     * 
     */
     validateAndAddFunction2Array = function() {
@@ -1198,6 +1185,7 @@ $(function () {
     * @returns 
     */
     selectedResultHandler = function (feat) {
+
         localStorage.setItem('cityCoords', JSON.stringify([feat.geometry.coordinates[1], feat.geometry.coordinates[0]]));
         searchPoints.eachLayer(function(layer) {
             if (layer.feature.properties.osm_id != feat.properties.osm_id) {
@@ -1262,7 +1250,7 @@ $(function () {
                 photonControlOptions: {
                     resultsHandler: showSearchPoints,
                     selectedResultHandler: selectedResultHandler,
-                    placeholder: _('Search City...'),
+                    placeholder: gettext('Search City...'),
                     position: 'topleft',
                     url: SEARCH_CITY_API_URL
                 }
@@ -1303,7 +1291,7 @@ $(function () {
                 "Hydro (esri)": hydroLyr,
             };
 
-            var defExt = new L.Control.DefaultExtent({ title: _('Default extent'), position: 'topright'}).addTo(map);
+            var defExt = new L.Control.DefaultExtent({ title: gettext('Default extent'), position: 'topright'}).addTo(map);
             var zoomControl = new L.Control.Zoom({ position: 'topright' }).addTo(map);
             L.control.layers(baseLayers, overlays, { position: 'topleft' }).addTo(map);
 
@@ -1341,7 +1329,25 @@ $(function () {
             });
         }
     };
-  
+    /**
+    * Update the country layer in map
+    * @param {String} country code
+    * @returns 
+    */
+    updateCountryMap = function (countryCode) {
+        map.eachLayer(function (layer) {
+            if (layer.feature) {
+                if (layer.feature.id == countryCode) {
+                    if (lastClickedLayer) {
+                        lastClickedLayer.setStyle(defaultStyle);
+                    }
+                    layer.setStyle(highlighPolygon);
+                    map.fitBounds(layer.getBounds());
+                    lastClickedLayer = layer;
+                }
+            }
+        });
+    };
     /**
     * Load the page to see a treatment plant
     * @param {String} plant code    
@@ -1383,13 +1389,13 @@ $(function () {
     deletePlant = function(plantId) {
         var intakeId='{{idx}}';
         Swal.fire({
-            title: "<div style='font-size: 25px;'>" + _("Are you sure?") + "</div>",
-            text: _("You won't be able to revert this!"),
+            title: "<div style='font-size: 25px;'>" + gettext("Are you sure?") + "</div>",
+            text: gettext("You won't be able to revert this!"),
             icon: "warning",
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: _('Yes, delete it!')
+            confirmButtonText: gettext('Yes, delete it!')
         }).then((result) => {
             if (result.isConfirmed) {
                 var urlDetail = basePathURL + "setHeaderPlant/";
@@ -1404,7 +1410,13 @@ $(function () {
                         window.location.href =basePathURL + "?limit=5&city=" + localStorage.getItem('cityId');
                         localStorage.plantId = null;
                     },error: function (err) {
-                        showMessageModal('Error',_('Error deleting the treatment plant, it must already be used in a case study'),'error');
+                        Swal.fire({
+                            title: 'Error',
+                            text: gettext('Error deleting the treatment plant, it must already be used in a case study'),
+                            icon: 'error',
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
+                        })
                     }
                 });
             }
@@ -1422,43 +1434,49 @@ $(function () {
 
     //Edit funcion cost 
     $(document).on('click', '.btn-function-cost', function() {
+
         let graphId = this.getAttribute('graphId');
         addFunction = false;
-        //let elCheck = this.parentElement.parentElement.children[0].children[0].children[0];
-        let elCheck = $($(this).parents()[1]).find("[name=listFunction]")[0];
+        let elCheck = this.parentElement.parentElement.children[0].children[0].children[0];
+        let fn = elCheck.getAttribute("function");
+        let fnName = this.parentElement.parentElement.children[1].innerText;
+        let currency = elCheck.getAttribute("currency");
+        let factor = elCheck.getAttribute("factor");
         let costFunction = {
-            "expression": elCheck.getAttribute("function"),
-            "name": elCheck.getAttribute("namefunction"),
-            "currency": elCheck.getAttribute("currency"),
-            "factor": elCheck.getAttribute("factor"),
-            "technology" : elCheck.getAttribute("technology"),
+            "expression": fn,
+            "name": fnName,
+            "currency": currency,
+            "factor": factor
         };
-        selectedFunction4Edit = elCheck;
         showModalCalculator(addFunction,graphId,costFunction); 
     });
 
     //add function cost row
-    addFunctionCostRow = function(activateHtml,costFn,buttonsHtml,graphid, subid) {
+    addFunctionCostRow = function(activateHtml,valueCostFunction,buttonsHtml,graphid, subid) {
         let htmlBtn = '';
         if (buttonsHtml){
             htmlBtn = '<a class="btn btn-info btn-function-cost" graphid=' + graphid + 
                         ' data-toggle="modal" data-target="#CalculatorModal">' + 
                         '<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>';                                                
         }
+        
+        let popupId =  valueCostFunction.idSubprocess + (subid != "" ? '-' + subid : ''); 
         let tdClass = 'class="small text-center vat"';
-        let exp = (costFn.function==undefined?costFn.functionValue:costFn.function).replaceAll('else', 'else <br>');
-        let tooltipAttr = ` data-toggle='tooltip' data-placement='top' title='${exp}' `;
-        let rowFn = `<tr><td>${activateHtml}</td>
-                        <td ${tdClass}>${(costFn.costFunction==undefined?costFn.nameFunction:costFn.costFunction)}</td>
-                        <td ${tdClass}><div class="text-center"><div class="open-popup-form" ${tooltipAttr}>fx</div></div></td>
-                        <td ${tdClass}>${costFn.currency}</td>
-                        <td ${tdClass}>${costFn.factor}</td>
-                        <td aling="center">${htmlBtn}</td></tr>`;
+        let exp = valueCostFunction.function.replaceAll('else', 'else <br>');
+        let rowFn = '<tr><td aling="center">' + activateHtml + '</td>' + 
+                '<td ' + tdClass + '>' + valueCostFunction.costFunction + '</td>' + 
+                '<td ' + tdClass + '><div class="open-popup-form" ' + 'onclick="$(\'#popupForm' + popupId + '\').show();">fx</div>' + 
+                '<div id="popupForm' + popupId + '" class="form-popup"> ' + 
+                '<div class="close-form-popup" onclick="$(\'#popupForm' + popupId + '\').hide()">X</div> ' + 
+                '<div>' + exp + '</div></div></td>' + 
+                '<td ' + tdClass + '>' + valueCostFunction.currency + '</td>' + 
+                '<td ' + tdClass + '>' + valueCostFunction.factor + '</td>' + 
+                '<td aling="center">' + htmlBtn + '</td></tr>';
         return rowFn;
     }
 
     // add titles to the table function
-    function addTitleFnRow(titles){
+    addTitleFnRow = function(titles){
         let rowTitleFn = '';
         titles.forEach(function(title, index) {
             rowTitleFn += '<th scope="col" class="small text-center vat">' + title + '</th>';
@@ -1490,8 +1508,9 @@ $(function () {
 
     function setVarCost(element, graphid) {
 
-        $('#CalculatorModalLabel').text(_('Edit cost'));
-        $('#VarCostListGroup div').remove();        
+        $('#CalculatorModalLabel').text(gettext('Edit cost'));
+        $('#VarCostListGroup div').remove();
+        
         var costVars = ['Q', 'CSed', 'CN', 'CP', 'WSed', 'WN', 'WP', 'WSedRet', 'WNRet', 'WPRet'];    
         
         arrayPlant.forEach(function(plantElement, index) {
@@ -1513,24 +1532,10 @@ $(function () {
                             <a data-toggle="collapse" data-parent="#VarCostListGroup" href="#VarCostListGroup_${plantElement.graphId}">${plantElement.normalizeCategory} </a>                        
                         </div>
                         <div id="VarCostListGroup_${plantElement.graphId}" class="panel-collapse var-cost-panel collapse">${costlabel}</div>
-                    </div>`);
+                    </div>
+                `);
             }              
         });        
-    }
-
-    function createInput(label, value, readonly, min, max, step, placeholder, enabled, id, events, type) {
-        let idEl = id ? `id="${id}"` : "";
-        let typeEl = type ? `type="${type}"` : "";
-        let eventsEl = events ? `${events}` : "";
-        let val = (value == null ? "" : `value="${value}"`);
-        let readonlyVal = (readonly == null ? "" : `readonly="${readonly}"`);
-        let minVal = (min == null ? "" : `min="${min}"`);
-        let maxVal = (max == null ? "" : `max="${max}"`);
-        let stepVal = (step == null ? "" : `step="${step}"`);
-        let placeholderVal = (placeholder == null ? "" : `placeholder='${placeholder}'`);
-        return `<div class="input-var"><div class="form-group"><label>${label}</label>
-        <input class="form-control" ${typeEl} ${idEl} ${val} ${readonlyVal} ${minVal} ${maxVal} ${stepVal} ${placeholderVal} ${eventsEl} ${enabled?'':'disabled'}></input>
-        <div class="help-block with-errors"></div></div></div>`;
     }
 
     $('#btnValidatePyExp').click(function () {
@@ -1599,133 +1604,91 @@ $(function () {
         MathJax.typesetPromise([output]).catch(function (err) {
             output.innerHTML = '';
             output.appendChild(document.createTextNode(err.message));
-            //console.error(err);
+            console.error(err);
         }).then(function () {
             button.disabled = false;
         });
     }
 
     $('#saveAndValideCost').click(function() {
-        toggleProcessingModal('show');
+        $('#_thumbnail_processing').modal('show');
         let graphId = $('#mainTree .title-tree')[0].getAttribute('graphId');
         let fnName = $("#costFunctionName").val();
         let expression = $("#python-expression").val();
-        let currency = $("#currencyCost").val();
-        let factor = $("#factorCost").val();
 
         if (fnName == "" || expression == "") {
-            showMessageModal(_('Information'),_("'Please, complete the form"),'warning');            
+            alert(gettext("Please, complete the form"));
             return;
         }
 
         if (flagNewFunction){            
+            let tbody = $("#technology" + selectedTechnologyId + " table tbody");
             let trNewFunction = addNewFunction(selectedTechnologyId, graphId);
-            var triggerClick = ($(`#technology${selectedTechnologyId} table tbody`).length == 1);
-            $(`#technology${selectedTechnologyId} table tbody`).append (trNewFunction);
-            if (triggerClick) {
-                a = "id" + selectedTechnologyId.substr(selectedTechnologyId.length-8);
-                $(`#${a}`).trigger('click');
-                $(`#${a}`).trigger('click');
-            }
-
+            tbody.append (trNewFunction);
         }else{
-            let fnId = selectedFunction4Edit.getAttribute('technology') + HYPHEN + selectedFunction4Edit.getAttribute('namefunction');
-            selectedFunction4Edit.setAttribute('namefunction', fnName);
-            selectedFunction4Edit.setAttribute('function', expression);
-            selectedFunction4Edit.setAttribute('currency', currency);
-            selectedFunction4Edit.setAttribute('factor', $("#factorCost").val());
-            let trElem = $(selectedFunction4Edit).parents().get(2);
-            $(trElem).find('.open-popup-form')[0].setAttribute('data-original-title', expression);
-            plant.functions[fnId].functionValue = expression;
-            plant.functions[fnId].nameFunction = fnName;
-            plant.functions[fnId].currency = currency;
-            plant.functions[fnId].factor = factor;
-            trElem.children[1].innerText = fnName;
-            trElem.children[3].innerText = currency
-            trElem.children[4].innerText = factor;
+            
         }
         $('#CalculatorModal').modal('hide');
-        toggleProcessingModal('hide');
     });
 
-    addNewFunction = function(techId, graphId){
-        let fnName = $('#costFunctionName').val();
+    addNewFunction = function(tecnologyId, graphId){
+        let costFunctionName = $('#costFunctionName').val();
         let description = $('#costFuntionDescription').val();
         let factor = $('#factorCost').val();
-        let currency = $('#currencyCost option:selected').val();        
+        let currencyCost = $('#currencyCost option:selected').val();        
         let pyExp = $('#python-expression').val();
-        let technology="";
-        if (techId.indexOf("new-tech") == -1) {
-            technology = $("#contentTechnology" + techId + " .text-tree")[0].lastChild.textContent.trim();            
-        } else {
-            technology = $("#" + techId).val();
-        }        
-        let inputs = $("#technology" + techId)[0].getElementsByTagName("input");
-        let sediments = inputs[1].value;
-        let nitrogen = inputs[2].value;
-        let phosphorus = inputs[3].value;
-
-        let fnNameId = technology + HYPHEN + fnName;
-        let fns = Object.keys(plant.functions).filter(f => f.toUpperCase() == fnNameId.toUpperCase());
-        if (fns.length > 0) {
-            showMessageModal(_('Information'),_("Please, change the function name"),'warning');
-            return;
-        }
-
-        let idSubprocess = (techId.length >= 8 ? techId.substring(techId.length-8) : techId);
+        //let idSubprocess =  $('#mainTree .margin-main .margin-main')[0].id.replace("subprocess","");
+        let technology = $("#contentTechnology" + tecnologyId + " .text-tree").html();
 
         let costFunction = {
             "graphId": graphId,
             "technology": technology,
-            "name": fnName,
+            "name": costFunctionName,
             "expression": pyExp,
-            "currency": currency,
+            "currency": currencyCost,
             "factor": factor,
             "description": description,
-            "idSubprocess": idSubprocess, /*tecnologyId,*/
-            "sediments": sediments,
-            "nitrogen": nitrogen,
-            "phosphorus": phosphorus,
+            "idSubprocess": tecnologyId,
+            "sediments": document.getElementById("idSedimentsRetained" + tecnologyId).value,
+            "nitrogen": document.getElementById("idNitrogenRetained" + tecnologyId).value,
+            "phosphorus": document.getElementById("idPhosphorusRetained" + tecnologyId).value,
             id: -1
         }
-        let newFn = addFunction2Array(costFunction);
-        plant.functions[fnNameId] = newFn; // add new function to the plant
-        console.log("Add new Fn to plant");
-        let costFn4Html = {
-            costFunction: fnName,
+        addFunction2Array(costFunction);
+
+        let valueCostFunction = {
+            costFunction: costFunctionName,
             description: description,
             factor: factor,
-            currency: currency,            
+            currency: currencyCost,            
             function: pyExp,
-            idSubprocess: idSubprocess,
+            idSubprocess: tecnologyId,
             technology: technology
         }
-        let subid = $("#technology" + techId + " table tbody tr").length; //num of rows in table
-        let activateHtml = htmlCheckBox(costFn4Html, graphId, null, subid, true);        
-        let tdRowFn = addFunctionCostRow(activateHtml,costFn4Html,true,graphId,subid);
+        let subid = $("#technology" + tecnologyId + " table tbody tr").length; //num of rows in table
+        let activateHtml = htmlCheckBox(valueCostFunction, graphId, null, subid, true);        
+        let tdRowFn = addFunctionCostRow(activateHtml,valueCostFunction,true,graphId,subid);
         return tdRowFn;
     }
 
-    addFunction2Array = function(f) {        
-        var nf = {graphid: (f.graphId ? f.graphId : f.graphid),
-            technology: f.technology,
-            nameFunction: (f.name ? f.name : f.nameFunction),
-            functionValue: (f.expression ? f.expression : f.functionValue),
-            currency: f.currency,
-            factor: f.factor,
-            idSubprocess: f.idSubprocess,
-            sedimentsRetained: (f.sediments ? f.sediments : f.sedimentsRetained),
-            nitrogenRetained: f.nitrogen,
-            phosphorusRetained: f.phosphorus,
-            id: f.id,
-            greaterCaudal: f.greaterCaudal,
-            caudal: f.caudal,};
-        arrayFunction.push(nf);
-        return nf;;
+    addFunction2Array = function(costFunction) {        
+        arrayFunction.push({
+            graphid: costFunction.graphId,
+            technology: costFunction.technology,
+            nameFunction: costFunction.name,
+            functionValue: costFunction.expression,
+            currency: costFunction.currency,
+            factor: costFunction.factor,
+            idSubprocess: costFunction.idSubprocess,
+            sedimentsRetained: costFunction.sediments,
+            nitrogenRetained: costFunction.nitrogen,
+            phosphorusRetained: costFunction.phosphorus,
+            id: costFunction.id
+        })
     }
 
     htmlCheckBox = function(valueCostFunction, graphid, subProcessMaster, subid, checked) {
-        //console.log("htmlCheckBox", subid, checked);
+        console.log("htmlCheckBox", subid, checked);
         let attrSubprocessMaster = "";
         if (subProcessMaster !== null) {
             attrSubprocessMaster ='subProcessMaster="' + subProcessMaster + '" ';
@@ -1734,59 +1697,14 @@ $(function () {
                         '<div name="listFunction"  graphid="' + graphid + '" ' + attrSubprocessMaster + 
                         'technology="' + valueCostFunction.technology + '" ' + 
                         'idSubprocess="' + valueCostFunction.idSubprocess + '" ' + 
-                        'nameFunction="' + (valueCostFunction.costFunction?valueCostFunction.costFunction:valueCostFunction.nameFunction) + '" ' + 
-                        'function="' + (valueCostFunction.function?valueCostFunction.function:valueCostFunction.functionValue) + '" ' + 
+                        'nameFunction="' + valueCostFunction.costFunction + '" ' + 
+                        'function="' + valueCostFunction.function + '" ' + 
                         'currency="' + valueCostFunction.currency + '" ' + 
                         'factor="' + valueCostFunction.factor + '" ' +
-                        'checked=' + checked.toString() + ' ' + (checked ? 'style="border-color: ' + checkHexColor + ' ;" ' : '') +
+                        'checked=' + checked.toString() + ' ' +
+                        (checked ? 'style="border-color: ' + checkHexColor + ' ;" ' : '') +
                         'class="change-state-tree" id="id' + valueCostFunction.idSubprocess + 
-                                (subid != "" ? HYPHEN + subid : "") + '"></div></div>';
+                                (subid != "" ? "-" + subid : "") + '"></div></div>';
         return activateHtml;
-    }
-    
-    addFnToPlantObj = function(f, graphid) {        
-        plant.functions[f.technology + HYPHEN + f.costFunction] = {
-            graphid: graphid,
-            technology: f.technology,
-            nameFunction: f.costFunction,
-            functionValue: f.function,
-            currency: f.currency,
-            factor: f.factor,
-            idSubprocess: f.idSubprocess,
-            sedimentsRetained: f.sedimentsRetained,
-            nitrogenRetained: f.nitrogenRetained,
-            phosphorusRetained: f.phosphorusRetained,
-            id: f.id,
-            greaterCaudal: f.greaterCaudal,
-            caudal: f.caudal,
-        };
-    }
-
-    toggleProcessingModal = function(showOrHide, title, message) {
-        $('#_thumbnail_processing').modal(showOrHide);
-        if (showOrHide == 'show') {
-            if (title){
-                $('#_thumbnail_processing .modal-header h1')[0].innerText=title;
-            }
-            if (message){
-                $('#_thumbnail_processing .progress div')[0].innerText=message;
-            }
-        }        
-    }
-
-    showMessageModal = function(title, message, icon ) {
-        Swal.fire({
-            title: title,
-            text: message,
-            icon: icon,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-        })
-        toggleProcessingModal('hide');
-    };
-
-    _ = function(text) {
-        return gettext(text);
-    };
-        
+    }      
 });

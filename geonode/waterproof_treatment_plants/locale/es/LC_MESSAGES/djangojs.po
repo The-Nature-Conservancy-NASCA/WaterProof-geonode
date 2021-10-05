@@ -158,7 +158,7 @@ msgstr "Sedimentos retenidos"
 
 #: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:748
 #: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:916
-msgid "Enter Sediments retained"
+msgid "Enter sediments retained"
 msgstr "Ingresar sedimentos retenidos"
 
 #: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:756
@@ -239,3 +239,30 @@ msgstr "Modificar función de costo"
 
 msgid "New Cost function"
 msgstr "Nueva función de costo"
+
+msgid "Technology"
+msgstr "Tecnología"
+
+msgid "Process"
+msgstr "Proceso"
+
+msgid "Subprocess"
+msgstr "Subproceso"
+
+msgid "Coagulant"
+msgstr "Coagulante"
+
+msgid "Liquid Aluminum Sulfate"
+msgstr "Liquido de Aluminio Sulfato"
+
+msgid "Granulated Aluminum Sulfate"
+msgstr "Granulado de Aluminio Sulfato"
+
+msgid "Ferric chloride"
+msgstr "Cloruro de Hierro"
+
+msgid "Add new technology"
+msgstr "Adicionar nueva tecnología"
+
+msgid "Saving Plant"
+msgstr "Guardando Planta"

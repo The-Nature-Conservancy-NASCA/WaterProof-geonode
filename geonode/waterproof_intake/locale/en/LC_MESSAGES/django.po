@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Waterproof\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-08-07 15:10-0500\n"
-"PO-Revision-Date: 2021-09-13 17:27-0500\n"
+"PO-Revision-Date: 2021-10-01 22:00-0500\n"
 "Last-Translator: \n"
 "Language-Team: Skaphe\n"
 "Language: en\n"
@@ -572,21 +572,16 @@ msgstr "NbS implementation area"
 #: template/intake_clone.html:398 template/intake_edit.html:375
 #: template/intake_form.html:411
 msgid "You can change the area"
-msgstr "For manual delineation, click on the button 'Manually delineate area' and the system will highlight the vertices of the basin. You can reshape the area as needed by moving the vertices highlighted in red."
+msgstr "Alternatively, you can upload a zip file with SHP spatial data that delimits the polygon where NbS implementation is possible."
 
 #: template/intake_clone.html:404 template/intake_edit.html:380
 #: template/intake_form.html:433
 msgid "To load shapefile"
-msgstr "Once defined implementation area, you must validate the process, doing click in the button below"
+msgstr "Once the implementation area is defined, you must validate the process by clicking the button below"
 
 #: template/intake_clone.html:410 template/intake_edit.html:383
 msgid "Help"
 msgstr "Help"
-
-#: template/intake_clone.html:413 template/intake_edit.html:386
-#: template/intake_form.html:432
-msgid "Once defined the area"
-msgstr "Once you are satisfied with the defined implementation area, you must validate the process, doing click in by clicking the button below."
 
 #: template/intake_clone.html:427 template/intake_edit.html:398
 #: template/intake_form.html:445

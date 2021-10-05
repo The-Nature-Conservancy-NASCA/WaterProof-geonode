@@ -607,7 +607,7 @@ $(document).ready(function () {
                         title: gettext('exchange_rate'),
                         html: html,
                         showCancelButton: true,
-                        confirmButtonText: gettext('save'),
+                        confirmButtonText: gettext('Confirm and run'),
                         preConfirm: () => {
                             currencys = []
                             $("#currencys-panel").find("input").each(function (index, input) {
@@ -694,39 +694,39 @@ $(document).ready(function () {
                                 })
                             }, "json");
 
-                            let urlQueryAnalisysResult = servermodelApi+"queryStudyCaseAnalisysResult?id_case="+id_study_case;
-                            let validationInterval = setInterval(queryAnalisysResult, 30000);
-                            let iteration = 1;
-                            function queryAnalisysResult(){
-                                console.log("queryAnalisysResult, iteracion: " + iteration);
-                                if (iteration < 3) {
-                                    console.log("iteration after 10 minutes, the process does´nt query yet");
-                                    iteration++;
-                                    return;
-                                }else if (iteration == 18){
-                                    console.log("iteration: " + iteration + ", waiting for the process to finish");
-                                    clearInterval(validationInterval);
-                                    location.href = "/study_cases/?city="+localStorage.cityId; 
-                                }
-                                $.ajax({
-                                    url : urlQueryAnalisysResult,
-                                    type : 'GET',
-                                    dataType : 'json',
-                                    success : function(json) {                                    
-                                        if (json.status[0]) {
-                                            $('#_thumbnail_processing').modal('hide');
-                                            console.log("finish interval execution");
-                                            clearInterval(validationInterval);
-                                            location.href = "/study_cases/?city="+localStorage.cityId; 
-                                        }
-                                        iteration++;                                        
-                                    },
-                                    error : function(xhr, status) {
-                                        $('#_thumbnail_processing').modal('hide');
-                                        location.href = "/study_cases/?city="+localStorage.cityId;                
-                                    }
-                                });
-                            }
+                            // let urlQueryAnalisysResult = servermodelApi+"queryStudyCaseAnalisysResult?id_case="+id_study_case;
+                            // let validationInterval = setInterval(queryAnalisysResult, 30000);
+                            // let iteration = 1;
+                            // function queryAnalisysResult(){
+                            //     console.log("queryAnalisysResult, iteracion: " + iteration);
+                            //     if (iteration < 3) {
+                            //         console.log("iteration after 10 minutes, the process does´nt query yet");
+                            //         iteration++;
+                            //         return;
+                            //     }else if (iteration == 18){
+                            //         console.log("iteration: " + iteration + ", waiting for the process to finish");
+                            //         clearInterval(validationInterval);
+                            //         location.href = "/study_cases/?city="+localStorage.cityId; 
+                            //     }
+                            //     $.ajax({
+                            //         url : urlQueryAnalisysResult,
+                            //         type : 'GET',
+                            //         dataType : 'json',
+                            //         success : function(json) {                                    
+                            //             if (json.status[0]) {
+                            //                 $('#_thumbnail_processing').modal('hide');
+                            //                 console.log("finish interval execution");
+                            //                 clearInterval(validationInterval);
+                            //                 location.href = "/study_cases/?city="+localStorage.cityId; 
+                            //             }
+                            //             iteration++;                                        
+                            //         },
+                            //         error : function(xhr, status) {
+                            //             $('#_thumbnail_processing').modal('hide');
+                            //             location.href = "/study_cases/?city="+localStorage.cityId;                
+                            //         }
+                            //     });
+                            // }
                         }
                     })
                 }

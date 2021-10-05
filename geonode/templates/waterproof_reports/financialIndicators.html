@@ -846,6 +846,10 @@ $(function () {
         var urlDetail = "../../reports/getSensibilityAnalysisCostVsBenefit/?studyCase=" + localStorage.idStudyCase;
         $.getJSON(urlDetail, function (data) {
             $.each( data, function( key, value ) {
+                varMinA = 'Minimun discount rate: ' + Intl.NumberFormat().format(value.porcen_discount_rate_minimumR) + '%';
+                varMaxA = 'Maximun discount rate: ' + Intl.NumberFormat().format(value.porcen_discount_rate_maximumR)  + '%';
+                VarMedA = 'Discount rate: ' + Intl.NumberFormat().format(value.porcen_discount_rateR)  + '%'; 
+
                 serieCvB.push({ 
                     name: value.titleR,
                     data: [Math.round(value.totalMinimumR), Math.round(value.totalMediumR), Math.round(value.totalMaximumR)],
@@ -863,7 +867,7 @@ $(function () {
                     // x: -80
                 },
                 xAxis: {
-                    categories: ['Minimun discount rate', 'Maximun discount rate', 'Discount rate'],
+                    categories: [varMinA, varMaxA, VarMedA],
                     tickmarkPlacement: 'on',
                     lineWidth: 0
                 },
@@ -883,6 +887,10 @@ $(function () {
         var urlDetail = "../../reports/getSensibilityAnalysisReturnOfInvest/?studyCase=" + localStorage.idStudyCase;
         $.getJSON(urlDetail, function (data) {
             $.each( data, function( key, value ) {
+                varMin = 'Minimun discount rate: ' + Intl.NumberFormat().format(value.porcentDiscountRaterMinimumR) + '%';
+                varMax = 'Maximun discount rate: ' + Intl.NumberFormat().format(value.porcentDiscountRaterMaximumR)  + '%';
+                VarMed = 'Discount rate: ' + Intl.NumberFormat().format(value.porcentDiscountRater)  + '%'; 
+
                 serieDataRoi.push({
                     name: 'ROI',
                     data: [parseFloat(value.roiMaximumR), parseFloat(value.roiMinimumR), parseFloat(value.roiMediumR)],
@@ -901,7 +909,7 @@ $(function () {
                     // x: -80
                 },
                 xAxis: {
-                    categories: ['Minimun discount rate', 'Maximun discount rate', 'Discount rate'],
+                    categories: [varMin, varMax, VarMed],
                     tickmarkPlacement: 'on',
                     lineWidth: 0
                 },

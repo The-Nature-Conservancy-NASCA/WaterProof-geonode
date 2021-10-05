@@ -464,7 +464,7 @@ $(function () {
                 },
                 success: function (result) {
                     result = JSON.parse(result);
-                    currencyDropdown.val(result[0].pk);
+                    currencyDropdown.val(result[0].fields.iso3);
                     $('#currencyLabel').text('(' + result[0].fields.currency + ') - ' + result[0].fields.name);
                     $('#countryLabel').text(countryName);
                     let currencyCode = result[0].fields.currency;
@@ -616,7 +616,7 @@ $(function () {
             return true;
         }
         else {
-            event.target.value = "1";
+            event.target.value = "";
         }
     }
     checkPercentage = function (event, value) {
@@ -660,12 +660,48 @@ $(function () {
                 event.target.value = "";
         }
     }
-    checkDecimalFormat = function (event, value) {
+   checkDecimalFormat = function (event, value) {
         commaNum = null;
-        let regexp = /^(?=.*[1-9])([0-9]{0,12}(?:,[0-9]{1,2})?)$/gm;
+        let regexp = /^\d+(\,\d{1,2})?$/;
         valid = regexp.test(value);
         // Validate string
-
+        if (valid) {
+            return true;
+        }
+        else {
+            //Remove extra decimals
+            value = value.replace(/^(\d+,?\d{0,2})\d*$/, "$1");
+            //Remove especial symbols included letters
+            value = value.replace(/[^0-9\,]/g, "");
+            if (value.match(/,/g) !== null) {
+                commaNum = event.target.value.indexOf('.');
+                if (commaNum > 0) {
+                    let result = value.substring(0, value.indexOf("."));
+                    if (result == "") {
+                        event.target.value = "";
+                        return false;
+                    }
+                }
+            }
+            if (commaNum !== null && commaNum > 1) {
+                // Remove comma at start or end
+                value = value.replace(/^,|,$/g, '');
+            }
+            event.target.value = value;
+        }
+    }
+    afterCheckDecimal = function (event, value) {
+        let regexp = /^\d+(\,\d{1,2})?$/;
+        valid = regexp.test(value);
+        if (valid) {
+            return true;
+        }
+        else {
+            event.target.value = "";
+            let test=gettext('Wrong decimal format');
+            event.target.placeholder=test;
+            event.target.focus();
+        }
     }
     $('#benefitTimePorc').focusout(function (event) {
         let value = parseFloat(event.target.value.replace(",", "."));

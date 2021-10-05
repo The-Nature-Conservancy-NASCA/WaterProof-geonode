@@ -432,6 +432,14 @@
     border-color: #1389A9;
     float: left;
 }
+.list-year-cont-1 {
+    width: 25%;
+    border-right-style: solid;
+    border-width: 1px;
+    height: 569px;
+    border-color: #1389A9;
+    float: left;
+}
 .title-year-cont {
     background-color: #1389A9;
     padding: 5px;
@@ -449,7 +457,7 @@
     float: left;
 }
 .graph-year-cont {
-    width: 75%;
+    width: 100%;
     position: relative;
     float: left;
 }
@@ -526,16 +534,16 @@
 .modal-body-li{
     position:relative;
 }
-.padding-text-desc-table{
-    padding-left: 3%;
-    padding-right: 3%;
-}
 .background-step1-physical{
     background-color: #d9edf7;
     padding: 3%;
 }
 .justify-text-physical{
     text-align: justify;
+}
+.padding-table-step-4-ph{
+    padding-bottom: 3%;
+    padding-top: 2%;
 }
 @media (min-width: 360px){
     .report-container{
@@ -685,13 +693,13 @@
         width: 16%;
     }
     .div-style-menu {
-        border: 2px solid #1389AA; 
+        /* border: 2px solid #1389AA;  */
         padding-bottom: 2%; 
         width: 100%;
         margin-bottom: 2%;
     }
     .div-style-menu-2{
-        border: 2px solid #1389AA; 
+        /* border: 2px solid #1389AA;  */
         padding-bottom: 2%; 
         width: 100%;
         padding-right: 3%;
@@ -840,7 +848,7 @@
         margin-left: 27%;
     }
     .div-style-menu-23{
-        border: 2px solid #1389AA; 
+        /* border: 2px solid #1389AA;  */
         padding-bottom: 2%; 
         width: 100%;
         padding-right: 3%;
@@ -848,7 +856,7 @@
     }
     /* physical */
     .div-style-menu-phy{
-        border: 2px solid #1389AA; 
+        /* border: 2px solid #1389AA;  */
         padding-bottom: 2%; 
         width: 100%;
         height: auto;
@@ -869,6 +877,9 @@
     }
     .adjust-area{
         height: 1000px;
+    }
+    .adjust-area-step-4-ph{
+        height: 1200px;
     }
     .table-option-ph{
         width: 95%;
@@ -903,7 +914,7 @@
         border-style: solid;
         width: 94%;
         margin: 10px;
-        height: 600px;
+        height: auto;
         border-width: 1px;
         border-color: #1389A9;
         font-size: 12px;
@@ -1075,13 +1086,13 @@
         width: 16%;
     }
     .div-style-menu {
-        border: 2px solid #1389AA; 
+        /* border: 2px solid #1389AA;  */
         padding-bottom: 2%; 
         width: 100%;
         margin-bottom: 2%;
     }
     .div-style-menu-2{
-        border: 2px solid #1389AA; 
+        /* border: 2px solid #1389AA;  */
         padding-bottom: 2%; 
         width: 100%;
         padding-right: 3%;
@@ -1229,7 +1240,7 @@
         margin-left: 35%;
     }
     .div-style-menu-23{
-        border: 2px solid #1389AA; 
+        /* border: 2px solid #1389AA;  */
         padding-bottom: 2%; 
         width: 100%;
         padding-right: 3%;
@@ -1237,7 +1248,7 @@
     }
     /* physical */
     .div-style-menu-phy{
-        border: 2px solid #1389AA; 
+        /* border: 2px solid #1389AA;  */
         padding-bottom: 2%; 
         width: 100%;
         height: auto;
@@ -1258,6 +1269,9 @@
     }
     .adjust-area{
         height: 1000px;
+    }
+    .adjust-area-step-4-ph{
+        height: 1200px;
     }
     .table-option-ph{
         width: 70%;
@@ -1292,7 +1306,7 @@
         border-style: solid;
         width: 94%;
         margin: 10px;
-        height: 600px;
+        height: auto;
         border-width: 1px;
         border-color: #1389A9;
         font-size: 12px;
@@ -1453,13 +1467,13 @@
         width: 16%;
     }
     .div-style-menu {
-        border: 2px solid #1389AA; 
+        /* border: 2px solid #1389AA;  */
         padding-bottom: 2%; 
         width: 100%;
         margin-bottom: 2%;
     }
     .div-style-menu-2{
-        border: 2px solid #1389AA; 
+        /* border: 2px solid #1389AA;  */
         padding-bottom: 2%; 
         width: 100%;
         padding-right: 3%;
@@ -1608,7 +1622,7 @@
         margin-left: 35%;
     }
     .div-style-menu-23{
-        border: 2px solid #1389AA; 
+        /* border: 2px solid #1389AA;  */
         padding-bottom: 2%; 
         width: 100%;
         padding-right: 3%;
@@ -1617,7 +1631,7 @@
 
     /* physical */
     .div-style-menu-phy{
-        border: 2px solid #1389AA; 
+        /* border: 2px solid #1389AA;  */
         padding-bottom: 2%; 
         width: 100%;
         height: auto;
@@ -1638,6 +1652,9 @@
     }
     .adjust-area{
         height: 1000px;
+    }
+    .adjust-area-step-4-ph{
+        height: 1200px;
     }
     .table-option-ph{
         width: 70%;
@@ -1672,7 +1689,7 @@
         border-style: solid;
         width: 94%;
         margin: 10px;
-        height: 600px;
+        height: auto;
         border-width: 1px;
         border-color: #1389A9;
         font-size: 12px;
@@ -1829,13 +1846,13 @@
         width: 16%;
     }
     .div-style-menu {
-        border: 2px solid #1389AA; 
+        /* border: 2px solid #1389AA;  */
         padding-bottom: 2%; 
         width: 100%;
         margin-bottom: 2%;
     }
     .div-style-menu-2{
-        border: 2px solid #1389AA; 
+        /* border: 2px solid #1389AA;  */
         margin-bottom: 2%; 
         width: 100%;
         padding-right: 3%;
@@ -1985,7 +2002,7 @@
         margin-left: 45%;
     }
     .div-style-menu-23{
-        border: 2px solid #1389AA; 
+        /* border: 2px solid #1389AA;  */
         margin-bottom: 2%; 
         width: 100%;
         padding-right: 3%;
@@ -2048,7 +2065,7 @@
 
     /* physical */
     .div-style-menu-phy{
-        border: 2px solid #1389AA; 
+        /* border: 2px solid #1389AA;  */
         margin-bottom: 2%; 
         width: 100%;
         height: auto;
@@ -2070,11 +2087,14 @@
     .adjust-area{
         height: 1000px;
     }
+    .adjust-area-step-4-ph{
+        height: 1200px;
+    }
     .table-option-ph{
         width: 25%;
         float: left;
-        margin-left: 4%;
-        margin-top: 6%;
+        margin-left: 1.8%;
+        margin-top: -2%;
     }
     .align-step-3-ph{
         padding-top: 3%;
@@ -2101,14 +2121,14 @@
     .container-graph {
         display: none;
         border-style: solid;
-        width: 60%;
+        width: 67%;
         margin: 10px;
-        height: 600px;
+        height: auto;
         border-width: 1px;
         border-color: #1389A9;
         font-size: 12px;
         float: left;
-        margin-top: 20px;
+        margin-top: -1%;
         margin-left: 3%;
     }
     .content-table-bootom-step2{
@@ -2116,6 +2136,13 @@
     }
     .content-table-bootom-step1{
         padding-bottom: 57%;
+    }
+    .image-size-left{
+        width: 70%;
+        margin: 15%;
+    }
+    .table-step-4-ph{
+        width: 100%;
     }
 }
 @media only screen and (max-width: 1200px) {
