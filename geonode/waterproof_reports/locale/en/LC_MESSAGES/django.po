@@ -666,3 +666,7 @@ msgstr "This set of reports synthesizes the change in the physical parameters ex
 #: geonode/waterproof_reports/templates/waterproof_reports/physicalIndicators
 msgid "text-step4-ph"
 msgstr "This section presents the behavior of ecosystem services for the period of analysis. You will be able to visualize how these variables behave in the Business as Usual Scenarios - BaU versus the Nature-based solutions scenario - SbN over time."
+
+#: geonode/waterproof_reports/templates/waterproof_reports/physicalIndicators
+msgid "text-step4-ph-2"
+msgstr "Select the basin for which you want to see the comparative graph of the different services."

@@ -129,7 +129,7 @@
             <div class="div-style-menu-phy content-table-bootom-step1">
                 <!--Table Element of the water intake system-->
                 <br>
-                <p class="padding-text-desc-table justify-text-physical">{% trans "Invest ind text 1" %}</p>
+                <p class=" justify-text-physical">{% trans "Invest ind text 1" %}</p>
                 <br>
                 <div class="align-text">
                     <h5>{% trans "Water intake" %}
@@ -156,7 +156,7 @@
                 
                 <br>
                 <!--Table-->
-                <div style="clear:both;" class="table-responsive padding-text-desc-table">
+                <div style="clear:both;" class="table-responsive ">
                     <table data-page-length='100' id="step-1-ph" class="table table-striped table-bordered table-condensed" style=" width:100%">
                         <thead>
                             <tr class="info">
@@ -214,24 +214,24 @@
         </div>
         <div class="tab-pane fade div-style-menu-phy content-table-bootom-step2" id="step2" role="tabpanel" aria-labelledby="how-tab">
             <br>
-            <p class="padding-text-desc-table justify-text-physical">{% trans "Aqueduct ind text 1" %}</p>
-            <p class="padding-text-desc-table justify-text-physical">{% trans "Aqueduct ind text 2" %}</p>
+            <p class=" justify-text-physical">{% trans "Aqueduct ind text 1" %}</p>
+            <p class=" justify-text-physical">{% trans "Aqueduct ind text 2" %}</p>
             <br>
-            <div class="padding-text-desc-table" id="continer-map2">
+            <div id="continer-map2">
             </div>
             <br>
             <div>
                 <div style="float: left;margin-right: 15px;margin-bottom: 15px;">
-                    <div class="title-water padding-text-desc-table">{% trans "Water Intake" %} <span class="name-title-water">"{% trans "Water Intake" %}"</span></div>
-                    <div class="margin-select padding-text-desc-table">
+                    <div class="title-water ">{% trans "Water Intake" %} <span class="name-title-water">"{% trans "Water Intake" %}"</span></div>
+                    <div class="margin-select ">
                         <select class="select-condition" id="idSelectWaterIntake" onchange="loadGraphIntake(this.value)">
                             <option value="">{% trans "All" %}</option>
                         </select>
                     </div>                    
                 </div>
                 <div>
-                    <div class="title-water padding-text-desc-table">...</div>
-                    <div class="margin-select padding-text-desc-table">
+                    <div class="title-water ">...</div>
+                    <div class="margin-select ">
                         <select class="select-condition" id="idSelectIntake" onchange="loadIntake(this.value)">
                             <option value="">{% trans "All" %}</option>
                         </select>
@@ -239,7 +239,7 @@
                 </div>        
             </div>
 
-            <div class="padding-text-desc-table" id="idListGraph"></div>
+            <div id="idListGraph"></div>
             
             <div class="background-step1-physical col-md-12">
                 <p class="weight-title-table-ph">{% trans "Physical risk quantity" %}</p>
@@ -288,9 +288,9 @@
             </div>
         </div>
         <div class="tab-pane fade div-style-menu-phy" id="step3" role="tabpanel" aria-labelledby="contact-tab">
-            <div class="padding-text-desc-table align-step-3-ph col-md-12">
+            <div class=" align-step-3-ph col-md-12">
                 <br>
-                <p class="padding-text-desc-table justify-text-physical">{% trans "Interventions text 1" %}</p>
+                <p class=" justify-text-physical">{% trans "Interventions text 1" %}</p>
                 <div class="content-image paddign-head-image-ph col-md-4">
                     <img src="/static/geonode/img/01-conservacion.png" class="img-icon-inter">
                 </div>
@@ -311,12 +311,12 @@
                     </div>    
                 </div>
                 <div class="title-inform-title">{% trans "Watershed information" %}</div>
-                <div class="padding-text-desc-table">
+                <div>
                     <div class="total-inform-title">{% trans "Total size:" %}</div>
                     <div id="idTotalSizeWater"></div>
                 </div>
             </div>
-            <div style="clear:both;" class="table-responsive padding-text-desc-table">
+            <div style="clear:both;" class="table-responsive ">
                 <table id="idTablePe" class="table table-striped table-bordered table-condensed" style=" width:100%">
                     <thead>
                         <tr class="info">
@@ -331,15 +331,14 @@
         </div>
         <div class="tab-pane fade div-style-menu-phy adjust-area-step-4-ph" id="step4" role="tabpanel" aria-labelledby="contact-tab">
                 <br>
-                <p class="padding-text-desc-table justify-text-physical">{% trans "text-step4-ph" %}</p>
-                <div class="container-page padding-text-desc-table">
+                <p class=" justify-text-physical">{% trans "text-step4-ph" %}</p>
+                <div class="container-page ">
                     <br>
                     <div id="step4-map-ph"></div>
                 </div>
                 <div style="margin: 30px; margin-left: 3%;">
                     <br>
-                    <p>Seleccione la cuenca para la cuál desea ver el gráfico comparativo de los diferentes servicios.</p>
-                    <p>Select the basin for which you want to see the comparative graph of the different services.</p>
+                    <p>{% trans "text-step4-ph-2" %}</p>
                     <div>{% trans "Water intake" %}</div>
                     <select class="select-condition" id="idSelectIntakeGraph" onchange="loadIntakeGraph(this.value)">
                         <!-- <option value="0">{% trans "All" %}</option> -->
@@ -378,91 +377,218 @@
                 </div>
                 <div class="container-graph" id="idGraph1">
                     <div class="title-cont-graph">{% trans "NBS Scenario - AWY (m3)" %}</div>
-                    <div>
-                        <div class="list-year-cont">
-                            <div class="title-year-cont">
-                                <div class="td-year-cont">{% trans "Year" %}</div>
-                                <div class="align-text-table-right">{% trans "Volume of water yield (change in time)" %}</div>
-                            </div>
-                            <div class="align-text-table-right" id="listNbs1"></div>
+                    <div class="graph-year-cont">
+                        <div id="containerNbs1"></div>
+                    </div>
+                    <div class="col-md-12 padding-table-step-4-ph">
+                        <div class="col-md-6">
+                            <table class="table-step-4-ph table-striped table-bordered table-condensed">
+                                <thead>
+                                    <tr>
+                                        <th colspan="2" class="align-text">{% trans "BAU" %}</th>
+                                    </tr>
+                                    <tr>
+                                        <th class="align-text-table-right">{% trans "Year" %}</th>
+                                        <th class="align-text-table-right">{% trans "Volume of water yield (change in time)" %}</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="align-text-table-right" id="listNbs1"></tbody>
+                            </table>
                         </div>
-                        <div class="graph-year-cont">
-                            <div id="containerNbs1"></div>
+                        <div class="col-md-6">
+                            <table class="table-step-4-ph table-striped table-bordered table-condensed">
+                                <thead>
+                                    <tr>
+                                        <th colspan="2" class="align-text">{% trans "NBS" %}</th>
+                                    </tr>
+                                    <tr>
+                                        <th class="align-text-table-right">{% trans "Year" %}</th>
+                                        <th class="align-text-table-right">{% trans "Volume of water yield (change in time)" %}</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="align-text-table-right" id="listNbs1-1"></tbody>
+                            </table>
                         </div>
+                        
                     </div>
                 </div>
                 <div class="container-graph" id="idGraph2">
                     <div class="title-cont-graph">{% trans "NBS Scenario - Wsed (Ton)" %}</div>
-                    <div>
-                        <div class="list-year-cont">
-                            <div class="title-year-cont">
-                                <div class="td-year-cont">{% trans "Year" %}</div>
-                                <div class="align-text-table-right">{% trans "Anual volume base flow (change in time)" %}</div>
-                            </div>
-                            <div class="align-text-table-right" id="listNbs2"></div>
+                    <div class="graph-year-cont">
+                        <div id="containerNbs2"></div>
+                    </div>
+                    <div class="col-md-12 padding-table-step-4-ph">
+                        <div class="col-md-6">
+                            <table class="table-step-4-ph table-striped table-bordered table-condensed">
+                                <thead>
+                                    <tr>
+                                        <th colspan="2" class="align-text">{% trans "BAU" %}</th>
+                                    </tr>
+                                    <tr>
+                                        <th class="align-text-table-right">{% trans "Year" %}</th>
+                                        <th class="align-text-table-right">{% trans "Volume of water yield (change in time)" %}</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="align-text-table-right" id="listNbs2"></tbody>
+                            </table>
                         </div>
-                        <div class="graph-year-cont">
-                            <div id="containerNbs2"></div>
+                        <div class="col-md-6">
+                            <table class="table-step-4-ph table-striped table-bordered table-condensed">
+                                <thead>
+                                    <tr>
+                                        <th colspan="2" class="align-text">{% trans "NBS" %}</th>
+                                    </tr>
+                                    <tr>
+                                        <th class="align-text-table-right">{% trans "Year" %}</th>
+                                        <th class="align-text-table-right">{% trans "Volume of water yield (change in time)" %}</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="align-text-table-right" id="listNbs2-1"></tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
                 <div class="container-graph" id="idGraph3">
                     <div class="title-cont-graph">{% trans "NBS Scenario - WN (kg)" %}</div>
-                    <div>
-                        <div class="list-year-cont">
-                            <div class="title-year-cont">
-                                <div class="td-year-cont">{% trans "Year" %}</div>
-                                <div class="align-text-table-right">{% trans "Total sediments (change in time)" %}</div>
-                            </div>
-                            <div class="align-text-table-right" id="listNbs3"></div>
+                    <div class="graph-year-cont">
+                        <div id="containerNbs3"></div>
+                    </div>
+                    <div class="col-md-12 padding-table-step-4-ph">
+                        <div class="col-md-6">
+                            <table class="table-step-4-ph table-striped table-bordered table-condensed">
+                                <thead>
+                                    <tr>
+                                        <th colspan="2" class="align-text">{% trans "BAU" %}</th>
+                                    </tr>
+                                    <tr>
+                                        <th class="align-text-table-right">{% trans "Year" %}</th>
+                                        <th class="align-text-table-right">{% trans "Volume of water yield (change in time)" %}</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="align-text-table-right" id="listNbs3"></tbody>
+                            </table>
                         </div>
-                        <div class="graph-year-cont">
-                            <div id="containerNbs3"></div>
+                        <div class="col-md-6">
+                            <table class="table-step-4-ph table-striped table-bordered table-condensed">
+                                <thead>
+                                    <tr>
+                                        <th colspan="2" class="align-text">{% trans "NBS" %}</th>
+                                    </tr>
+                                    <tr>
+                                        <th class="align-text-table-right">{% trans "Year" %}</th>
+                                        <th class="align-text-table-right">{% trans "Volume of water yield (change in time)" %}</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="align-text-table-right" id="listNbs3-1"></tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
                 <div class="container-graph" id="idGraph4">
                     <div class="title-cont-graph">{% trans "NBS Scenario - WP (kg)" %}</div>
-                    <div>
-                        <div class="list-year-cont">
-                            <div class="title-year-cont">
-                                <div class="td-year-cont">{% trans "Year" %}</div>
-                                <div class="align-text-table-right">{% trans "Nitrogen load (change in time)" %}</div>
-                            </div>
-                            <div class="align-text-table-right" id="listNbs4"></div>
+                    <div class="graph-year-cont">
+                        <div id="containerNbs4"></div>
+                    </div>
+                    <div class="col-md-12 padding-table-step-4-ph">
+                        <div class="col-md-6">
+                            <table class="table-step-4-ph table-striped table-bordered table-condensed">
+                                <thead>
+                                    <tr>
+                                        <th colspan="2" class="align-text">{% trans "BAU" %}</th>
+                                    </tr>
+                                    <tr>
+                                        <th class="align-text-table-right">{% trans "Year" %}</th>
+                                        <th class="align-text-table-right">{% trans "Volume of water yield (change in time)" %}</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="align-text-table-right" id="listNbs4"></tbody>
+                            </table>
                         </div>
-                        <div class="graph-year-cont">
-                            <div id="containerNbs4"></div>
+                        <div class="col-md-6">
+                            <table class="table-step-4-ph table-striped table-bordered table-condensed">
+                                <thead>
+                                    <tr>
+                                        <th colspan="2" class="align-text">{% trans "NBS" %}</th>
+                                    </tr>
+                                    <tr>
+                                        <th class="align-text-table-right">{% trans "Year" %}</th>
+                                        <th class="align-text-table-right">{% trans "Volume of water yield (change in time)" %}</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="align-text-table-right" id="listNbs4-1"></tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
                 <div class="container-graph" id="idGraph5">
                     <div class="title-cont-graph">{% trans "NBS Scenario - BF (m3)" %}</div>
-                    <div>
-                        <div class="list-year-cont">
-                            <div class="title-year-cont">
-                                <div class="td-year-cont">{% trans "Year" %}</div>
-                                <div class="align-text-table-right">{% trans "Phosphorus load (change in time)" %}</div>
-                            </div>
-                            <div class="align-text-table-right" id="listNbs5"></div>
+                    <div class="graph-year-cont">
+                        <div id="containerNbs5"></div>
+                    </div>
+                    <div class="col-md-12 padding-table-step-4-ph">
+                        <div class="col-md-6">
+                            <table class="table-step-4-ph table-striped table-bordered table-condensed">
+                                <thead>
+                                    <tr>
+                                        <th colspan="2" class="align-text">{% trans "BAU" %}</th>
+                                    </tr>
+                                    <tr>
+                                        <th class="align-text-table-right">{% trans "Year" %}</th>
+                                        <th class="align-text-table-right">{% trans "Volume of water yield (change in time)" %}</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="align-text-table-right" id="listNbs5"></tbody>
+                            </table>
                         </div>
-                        <div class="graph-year-cont">
-                            <div id="containerNbs5"></div>
+                        <div class="col-md-6">
+                            <table class="table-step-4-ph table-striped table-bordered table-condensed">
+                                <thead>
+                                    <tr>
+                                        <th colspan="2" class="align-text">{% trans "NBS" %}</th>
+                                    </tr>
+                                    <tr>
+                                        <th class="align-text-table-right">{% trans "Year" %}</th>
+                                        <th class="align-text-table-right">{% trans "Volume of water yield (change in time)" %}</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="align-text-table-right" id="listNbs5-1"></tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
                 <div class="container-graph" id="idGraph6">
                     <div class="title-cont-graph">{% trans "NBS Scenario - WC (Ton)" %}</div>
-                    <div>
-                        <div class="list-year-cont">
-                            <div class="title-year-cont">
-                                <div class="td-year-cont">{% trans "Year" %}</div>
-                                <div class="align-text-table-right">{% trans "Carbon storage (change in time)" %}</div>
-                            </div>
-                            <div class="align-text-table-right" id="listNbs6"></div>
+                    <div class="graph-year-cont">
+                        <div id="containerNbs6"></div>
+                    </div>
+                    <div class="col-md-12 padding-table-step-4-ph">
+                        <div class="col-md-6">
+                            <table class="table-step-4-ph table-striped table-bordered table-condensed">
+                                <thead>
+                                    <tr>
+                                        <th colspan="2" class="align-text">{% trans "BAU" %}</th>
+                                    </tr>
+                                    <tr>
+                                        <th class="align-text-table-right">{% trans "Year" %}</th>
+                                        <th class="align-text-table-right">{% trans "Volume of water yield (change in time)" %}</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="align-text-table-right" id="listNbs6"></tbody>
+                            </table>
                         </div>
-                        <div class="graph-year-cont">
-                            <div id="containerNbs6"></div>
+                        <div class="col-md-6">
+                            <table class="table-step-4-ph table-striped table-bordered table-condensed">
+                                <thead>
+                                    <tr>
+                                        <th colspan="2" class="align-text">{% trans "NBS" %}</th>
+                                    </tr>
+                                    <tr>
+                                        <th class="align-text-table-right">{% trans "Year" %}</th>
+                                        <th class="align-text-table-right">{% trans "Volume of water yield (change in time)" %}</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="align-text-table-right" id="listNbs6-1"></tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -632,7 +758,6 @@ var localStorageId = localStorage.idStudyCase;
         // a=document.querySelectorAll('#valor1').innerHTML
         // let intakeSelected = selectIntakes.options[selectIntakes.selectedIndex].text;
         table.search(selectIntakes.value).draw();
-        console.log("esta vuelta no sirve pa chimbas"+selectIntakes.value)
 
         var value_awy = document.getElementById("valor1").innerText;
         var value_bf_m3 = document.getElementById("valor2").innerText;
@@ -1015,12 +1140,12 @@ var localStorageId = localStorage.idStudyCase;
                         phosphorusLoadChangeInTimeNbs.push(value.phosphorusLoadChangeInTime);
                         carbonStorageChangeInTimeNbs.push(value.carbonStorageChangeInTime);
 
-                        volumeOfWaterYieldChangeInTimeNbsHhml = volumeOfWaterYieldChangeInTimeNbsHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + Intl.NumberFormat('es').format(parseFloat(value.volumeOfWaterYieldChangeInTime).toFixed(2)) +' (' + value.stage + ')</div></div>';
-                        annualVolumeBaseFlowChangeInTimeNbsHhml = annualVolumeBaseFlowChangeInTimeNbsHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + Intl.NumberFormat('es').format(parseFloat(value.annualVolumeBaseFlowChangeInTime).toFixed(2)) +' (' + value.stage + ')</div></div>';
-                        totalSedimentsChangeInTimeNbsHhml = totalSedimentsChangeInTimeNbsHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + Intl.NumberFormat('es').format(parseFloat(value.totalSedimentsChangeInTime).toFixed(2)) +' (' + value.stage + ')</div></div>';
-                        nitrogenLoadChangeInTimeNbsHhml = nitrogenLoadChangeInTimeNbsHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + Intl.NumberFormat('es').format(parseFloat(value.nitrogenLoadChangeInTime).toFixed(2)) +' (' + value.stage + ')</div></div>';
-                        phosphorusLoadChangeInTimeNbsHhml = phosphorusLoadChangeInTimeNbsHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + Intl.NumberFormat('es').format(parseFloat(value.phosphorusLoadChangeInTime).toFixed(2)) +' (' + value.stage + ')</div></div>';
-                        carbonStorageChangeInTimeNbsHhml = carbonStorageChangeInTimeNbsHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + Intl.NumberFormat('es').format(parseFloat(value.carbonStorageChangeInTime).toFixed(2)) +' (' + value.stage + ')</div></div>';
+                        volumeOfWaterYieldChangeInTimeNbsHhml = volumeOfWaterYieldChangeInTimeNbsHhml + '<tr><td>' + value.time + '</td><td>' + Intl.NumberFormat('es').format(parseFloat(value.volumeOfWaterYieldChangeInTime).toFixed(2))+'</td></tr>';
+                        annualVolumeBaseFlowChangeInTimeNbsHhml = annualVolumeBaseFlowChangeInTimeNbsHhml + '<tr><td>' + value.time + '</td><td>' + Intl.NumberFormat('es').format(parseFloat(value.annualVolumeBaseFlowChangeInTime).toFixed(2)) +'</td></tr>';
+                        totalSedimentsChangeInTimeNbsHhml = totalSedimentsChangeInTimeNbsHhml + '<tr><td>' + value.time + '</td><td>' + Intl.NumberFormat('es').format(parseFloat(value.totalSedimentsChangeInTime).toFixed(2)) +'</td></tr>';
+                        nitrogenLoadChangeInTimeNbsHhml = nitrogenLoadChangeInTimeNbsHhml + '<tr><td>' + value.time + '</td><td>' + Intl.NumberFormat('es').format(parseFloat(value.nitrogenLoadChangeInTime).toFixed(2)) +'</td></tr>';
+                        phosphorusLoadChangeInTimeNbsHhml = phosphorusLoadChangeInTimeNbsHhml + '<tr><td>' + value.time + '</td><td>' + Intl.NumberFormat('es').format(parseFloat(value.phosphorusLoadChangeInTime).toFixed(2)) +'</td></tr>';
+                        carbonStorageChangeInTimeNbsHhml = carbonStorageChangeInTimeNbsHhml + '<tr><td>' + value.time + '</td><td>' + Intl.NumberFormat('es').format(parseFloat(value.carbonStorageChangeInTime).toFixed(2)) +'</td></tr>';
                     } else  {
 
                         timeBusiness.push(value.time);
@@ -1032,12 +1157,12 @@ var localStorageId = localStorage.idStudyCase;
                         phosphorusLoadChangeInTimeBusiness.push(value.phosphorusLoadChangeInTime);
                         carbonStorageChangeInTimeBusiness.push(value.carbonStorageChangeInTime);
 
-                        volumeOfWaterYieldChangeInTimeBusinessHhml = volumeOfWaterYieldChangeInTimeBusinessHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + Intl.NumberFormat('es').format(parseFloat(value.volumeOfWaterYieldChangeInTime).toFixed(2)) +' (' + value.stage + ')</div></div>';
-                        annualVolumeBaseFlowChangeInTimeBusinessHhml = annualVolumeBaseFlowChangeInTimeBusinessHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + Intl.NumberFormat('es').format(parseFloat(value.annualVolumeBaseFlowChangeInTime).toFixed(2)) +' (' + value.stage + ')</div></div>';
-                        totalSedimentsChangeInTimeBusinessHhml = totalSedimentsChangeInTimeBusinessHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + Intl.NumberFormat('es').format(parseFloat(value.totalSedimentsChangeInTime).toFixed(2)) +' (' + value.stage + ')</div></div>';
-                        nitrogenLoadChangeInTimeBusinessHhml = nitrogenLoadChangeInTimeBusinessHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + Intl.NumberFormat('es').format(parseFloat(value.nitrogenLoadChangeInTime).toFixed(2)) +' (' + value.stage + ')</div></div>';
-                        phosphorusLoadChangeInTimeBusinessHhml = phosphorusLoadChangeInTimeBusinessHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + Intl.NumberFormat('es').format(parseFloat(value.phosphorusLoadChangeInTime).toFixed(2)) +' (' + value.stage + ')</div></div>';
-                        carbonStorageChangeInTimeBusinessHhml = carbonStorageChangeInTimeBusinessHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + Intl.NumberFormat('es').format(parseFloat(value.carbonStorageChangeInTime).toFixed(2)) +' (' + value.stage + ')</div></div>';
+                        volumeOfWaterYieldChangeInTimeBusinessHhml = volumeOfWaterYieldChangeInTimeBusinessHhml + '<tr><td>' + value.time + '</td><td>' + Intl.NumberFormat('es').format(parseFloat(value.volumeOfWaterYieldChangeInTime).toFixed(2)) +'</td></tr>';
+                        annualVolumeBaseFlowChangeInTimeBusinessHhml = annualVolumeBaseFlowChangeInTimeBusinessHhml + '<tr><td>' + value.time + '</td><td>' + Intl.NumberFormat('es').format(parseFloat(value.annualVolumeBaseFlowChangeInTime).toFixed(2)) +'</td></tr>';
+                        totalSedimentsChangeInTimeBusinessHhml = totalSedimentsChangeInTimeBusinessHhml + '<tr><td>' + value.time + '</td><td>' + Intl.NumberFormat('es').format(parseFloat(value.totalSedimentsChangeInTime).toFixed(2)) +'</td></tr>';
+                        nitrogenLoadChangeInTimeBusinessHhml = nitrogenLoadChangeInTimeBusinessHhml + '<tr><td>' + value.time + '</td><td>' + Intl.NumberFormat('es').format(parseFloat(value.nitrogenLoadChangeInTime).toFixed(2)) +'</td></tr>';
+                        phosphorusLoadChangeInTimeBusinessHhml = phosphorusLoadChangeInTimeBusinessHhml + '<tr><td>' + value.time + '</td><td>' + Intl.NumberFormat('es').format(parseFloat(value.phosphorusLoadChangeInTime).toFixed(2)) +'</td></tr>';
+                        carbonStorageChangeInTimeBusinessHhml = carbonStorageChangeInTimeBusinessHhml + '<tr><td>' + value.time + '</td><td>' + Intl.NumberFormat('es').format(parseFloat(value.carbonStorageChangeInTime).toFixed(2)) +'</td></tr>';
                     }
                 }
 
@@ -1070,12 +1195,12 @@ var localStorageId = localStorage.idStudyCase;
                         phosphorusLoadChangeInTimeNbs.push(value.phosphorusLoadChangeInTime);
                         carbonStorageChangeInTimeNbs.push(value.carbonStorageChangeInTime);
 
-                        volumeOfWaterYieldChangeInTimeNbsHhml = volumeOfWaterYieldChangeInTimeNbsHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + Intl.NumberFormat('es').format(parseFloat(value.volumeOfWaterYieldChangeInTime).toFixed(2)) +' (' + value.stage + ')</div></div>';
-                        annualVolumeBaseFlowChangeInTimeNbsHhml = annualVolumeBaseFlowChangeInTimeNbsHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + Intl.NumberFormat('es').format(parseFloat(value.annualVolumeBaseFlowChangeInTime).toFixed(2)) +' (' + value.stage + ')</div></div>';
-                        totalSedimentsChangeInTimeNbsHhml = totalSedimentsChangeInTimeNbsHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + Intl.NumberFormat('es').format(parseFloat(value.totalSedimentsChangeInTime).toFixed(2)) +' (' + value.stage + ')</div></div>';
-                        nitrogenLoadChangeInTimeNbsHhml = nitrogenLoadChangeInTimeNbsHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + Intl.NumberFormat('es').format(parseFloat(value.nitrogenLoadChangeInTime).toFixed(2)) +' (' + value.stage + ')</div></div>';
-                        phosphorusLoadChangeInTimeNbsHhml = phosphorusLoadChangeInTimeNbsHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + Intl.NumberFormat('es').format(parseFloat(value.phosphorusLoadChangeInTime).toFixed(2)) +' (' + value.stage + ')</div></div>';
-                        carbonStorageChangeInTimeNbsHhml = carbonStorageChangeInTimeNbsHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + Intl.NumberFormat('es').format(parseFloat(value.carbonStorageChangeInTime).toFixed(2)) +' (' + value.stage + ')</div></div>';
+                        volumeOfWaterYieldChangeInTimeNbsHhml = volumeOfWaterYieldChangeInTimeNbsHhml + '<tr><td>' + value.time + '</td><td>' + Intl.NumberFormat('es').format(parseFloat(value.volumeOfWaterYieldChangeInTime).toFixed(2)) +'</td></tr>';
+                        annualVolumeBaseFlowChangeInTimeNbsHhml = annualVolumeBaseFlowChangeInTimeNbsHhml + '<tr><td>' + value.time + '</td><td>' + Intl.NumberFormat('es').format(parseFloat(value.annualVolumeBaseFlowChangeInTime).toFixed(2)) +'</td></tr>';
+                        totalSedimentsChangeInTimeNbsHhml = totalSedimentsChangeInTimeNbsHhml + '<tr><td>' + value.time + '</td><td>' + Intl.NumberFormat('es').format(parseFloat(value.totalSedimentsChangeInTime).toFixed(2)) +'</td></tr>';
+                        nitrogenLoadChangeInTimeNbsHhml = nitrogenLoadChangeInTimeNbsHhml + '<tr><td>' + value.time + '</td><td>' + Intl.NumberFormat('es').format(parseFloat(value.nitrogenLoadChangeInTime).toFixed(2)) +'</td></tr>';
+                        phosphorusLoadChangeInTimeNbsHhml = phosphorusLoadChangeInTimeNbsHhml + '<tr><td>' + value.time + '</td><td>' + Intl.NumberFormat('es').format(parseFloat(value.phosphorusLoadChangeInTime).toFixed(2)) +'</td></tr>';
+                        carbonStorageChangeInTimeNbsHhml = carbonStorageChangeInTimeNbsHhml + '<tr><td>' + value.time + '</td><td>' + Intl.NumberFormat('es').format(parseFloat(value.carbonStorageChangeInTime).toFixed(2)) +'</td></tr>';
                     } else  {
 
                         timeBusiness.push(value.time);
@@ -1087,23 +1212,29 @@ var localStorageId = localStorage.idStudyCase;
                         phosphorusLoadChangeInTimeBusiness.push(value.phosphorusLoadChangeInTime);
                         carbonStorageChangeInTimeBusiness.push(value.carbonStorageChangeInTime);
 
-                        volumeOfWaterYieldChangeInTimeBusinessHhml = volumeOfWaterYieldChangeInTimeBusinessHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + Intl.NumberFormat('es').format(parseFloat(value.volumeOfWaterYieldChangeInTime).toFixed(2)) +' (' + value.stage + ')</div></div>';
-                        annualVolumeBaseFlowChangeInTimeBusinessHhml = annualVolumeBaseFlowChangeInTimeBusinessHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + Intl.NumberFormat('es').format(parseFloat(value.annualVolumeBaseFlowChangeInTime).toFixed(2)) +' (' + value.stage + ')</div></div>';
-                        totalSedimentsChangeInTimeBusinessHhml = totalSedimentsChangeInTimeBusinessHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + Intl.NumberFormat('es').format(parseFloat(value.totalSedimentsChangeInTime).toFixed(2)) +' (' + value.stage + ')</div></div>';
-                        nitrogenLoadChangeInTimeBusinessHhml = nitrogenLoadChangeInTimeBusinessHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + Intl.NumberFormat('es').format(parseFloat(value.nitrogenLoadChangeInTime).toFixed(2)) +' (' + value.stage + ')</div></div>';
-                        phosphorusLoadChangeInTimeBusinessHhml = phosphorusLoadChangeInTimeBusinessHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + Intl.NumberFormat('es').format(parseFloat(value.phosphorusLoadChangeInTime).toFixed(2)) +' (' + value.stage + ')</div></div>';
-                        carbonStorageChangeInTimeBusinessHhml = carbonStorageChangeInTimeBusinessHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + Intl.NumberFormat('es').format(parseFloat(value.carbonStorageChangeInTime).toFixed(2)) +' (' + value.stage + ')</div></div>';
+                        volumeOfWaterYieldChangeInTimeBusinessHhml = volumeOfWaterYieldChangeInTimeBusinessHhml + '<tr><td>' + value.time + '</td><td>' + Intl.NumberFormat('es').format(parseFloat(value.volumeOfWaterYieldChangeInTime).toFixed(2)) +'</td></tr>';
+                        annualVolumeBaseFlowChangeInTimeBusinessHhml = annualVolumeBaseFlowChangeInTimeBusinessHhml + '<tr><td>' + value.time + '</td><td>' + Intl.NumberFormat('es').format(parseFloat(value.annualVolumeBaseFlowChangeInTime).toFixed(2)) +'</td></tr>';
+                        totalSedimentsChangeInTimeBusinessHhml = totalSedimentsChangeInTimeBusinessHhml + '<tr><td>' + value.time + '</td><td>' + Intl.NumberFormat('es').format(parseFloat(value.totalSedimentsChangeInTime).toFixed(2)) +'</td></tr>';
+                        nitrogenLoadChangeInTimeBusinessHhml = nitrogenLoadChangeInTimeBusinessHhml + '<tr><td>' + value.time + '</td><td>' + Intl.NumberFormat('es').format(parseFloat(value.nitrogenLoadChangeInTime).toFixed(2)) +'</td></tr>';
+                        phosphorusLoadChangeInTimeBusinessHhml = phosphorusLoadChangeInTimeBusinessHhml + '<tr><td>' + value.time + '</td><td>' + Intl.NumberFormat('es').format(parseFloat(value.phosphorusLoadChangeInTime).toFixed(2)) +'</td></tr>';
+                        carbonStorageChangeInTimeBusinessHhml = carbonStorageChangeInTimeBusinessHhml + '<tr><td>' + value.time + '</td><td>' + Intl.NumberFormat('es').format(parseFloat(value.carbonStorageChangeInTime).toFixed(2)) +'</td></tr>';
                     }
                 }
             });
 
                 setTimeout(function(){
-                    document.getElementById("listNbs1").innerHTML = volumeOfWaterYieldChangeInTimeBusinessHhml + volumeOfWaterYieldChangeInTimeNbsHhml;
-                    document.getElementById("listNbs2").innerHTML = annualVolumeBaseFlowChangeInTimeBusinessHhml + annualVolumeBaseFlowChangeInTimeNbsHhml;
-                    document.getElementById("listNbs3").innerHTML = totalSedimentsChangeInTimeBusinessHhml + totalSedimentsChangeInTimeNbsHhml;
-                    document.getElementById("listNbs4").innerHTML = nitrogenLoadChangeInTimeBusinessHhml + nitrogenLoadChangeInTimeNbsHhml;
-                    document.getElementById("listNbs5").innerHTML = phosphorusLoadChangeInTimeBusinessHhml + phosphorusLoadChangeInTimeNbsHhml
-                    document.getElementById("listNbs6").innerHTML = carbonStorageChangeInTimeBusinessHhml + carbonStorageChangeInTimeNbsHhml
+                    document.getElementById("listNbs1").innerHTML = volumeOfWaterYieldChangeInTimeBusinessHhml;
+                    document.getElementById("listNbs1-1").innerHTML = volumeOfWaterYieldChangeInTimeNbsHhml;
+                    document.getElementById("listNbs2").innerHTML = annualVolumeBaseFlowChangeInTimeBusinessHhml;
+                    document.getElementById("listNbs2-1").innerHTML = annualVolumeBaseFlowChangeInTimeNbsHhml;
+                    document.getElementById("listNbs3").innerHTML = totalSedimentsChangeInTimeBusinessHhml;
+                    document.getElementById("listNbs3-1").innerHTML = totalSedimentsChangeInTimeNbsHhml;
+                    document.getElementById("listNbs4").innerHTML = nitrogenLoadChangeInTimeBusinessHhml;
+                    document.getElementById("listNbs4-1").innerHTML = nitrogenLoadChangeInTimeNbsHhml;
+                    document.getElementById("listNbs5").innerHTML = phosphorusLoadChangeInTimeBusinessHhml;
+                    document.getElementById("listNbs5-1").innerHTML = phosphorusLoadChangeInTimeNbsHhml;
+                    document.getElementById("listNbs6").innerHTML = carbonStorageChangeInTimeBusinessHhml;
+                    document.getElementById("listNbs6-1").innerHTML = carbonStorageChangeInTimeNbsHhml;
 
                     Highcharts.chart('containerNbs1', {
                         chart: {
@@ -1393,7 +1524,7 @@ var localStorageId = localStorage.idStudyCase;
             document.getElementById("discountRateDecision").innerHTML = localStorage.getItem('transactionCost');
             show();
             loadIntakeGraph(this.value);
-            console.log(document.getElementById("idSelectIntakeGraph")[0]+"<====")
+            console.log(document.getElementById("idSelectIntakeGraph").value+"<====")
             viewReport(1,7,this);
 
             var gaugeOptions = {
@@ -1658,6 +1789,7 @@ var localStorageId = localStorage.idStudyCase;
                             option.value = value.intakeId;
                             document.getElementById("idSelectIntakeGraph").add(option);
                             lastIntakeGraph = value.intakeId;
+                            console.log(document.getElementById("idSelectIntakeGraph").value)
                         }
                     }
                     
@@ -1671,12 +1803,12 @@ var localStorageId = localStorage.idStudyCase;
                         phosphorusLoadChangeInTimeNbs.push(value.phosphorusLoadChangeInTime);
                         carbonStorageChangeInTimeNbs.push(value.carbonStorageChangeInTime);
 
-                        volumeOfWaterYieldChangeInTimeNbsHhml = volumeOfWaterYieldChangeInTimeNbsHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + Intl.NumberFormat('es').format(parseFloat(value.volumeOfWaterYieldChangeInTime).toFixed(2)) +' (' + value.stage + ')</div></div>';
-                        annualVolumeBaseFlowChangeInTimeNbsHhml = annualVolumeBaseFlowChangeInTimeNbsHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + Intl.NumberFormat('es').format(parseFloat(value.annualVolumeBaseFlowChangeInTime).toFixed(2)) +' (' + value.stage + ')</div></div>';
-                        totalSedimentsChangeInTimeNbsHhml = totalSedimentsChangeInTimeNbsHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + Intl.NumberFormat('es').format(parseFloat(value.totalSedimentsChangeInTime).toFixed(2)) +'</div></div>';
-                        nitrogenLoadChangeInTimeNbsHhml = nitrogenLoadChangeInTimeNbsHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + Intl.NumberFormat('es').format(parseFloat(value.nitrogenLoadChangeInTime).toFixed(2)) +' (' + value.stage + ')</div></div>';
-                        phosphorusLoadChangeInTimeNbsHhml = phosphorusLoadChangeInTimeNbsHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + Intl.NumberFormat('es').format(parseFloat(value.phosphorusLoadChangeInTime).toFixed(2)) +' (' + value.stage + ')</div></div>';
-                        carbonStorageChangeInTimeNbsHhml = carbonStorageChangeInTimeNbsHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + Intl.NumberFormat('es').format(parseFloat(value.carbonStorageChangeInTime).toFixed(2)) +' (' + value.stage + ')</div></div>';
+                        volumeOfWaterYieldChangeInTimeNbsHhml = volumeOfWaterYieldChangeInTimeNbsHhml + '<tr><td>' + value.time + '</td><td>' + Intl.NumberFormat('es').format(parseFloat(value.volumeOfWaterYieldChangeInTime).toFixed(2)) +'</td></tr>';
+                        annualVolumeBaseFlowChangeInTimeNbsHhml = annualVolumeBaseFlowChangeInTimeNbsHhml + '<tr><td>' + value.time + '</td><td>' + Intl.NumberFormat('es').format(parseFloat(value.annualVolumeBaseFlowChangeInTime).toFixed(2)) +'</td></tr>';
+                        totalSedimentsChangeInTimeNbsHhml = totalSedimentsChangeInTimeNbsHhml + '<tr><td>' + value.time + '</td><td>' + Intl.NumberFormat('es').format(parseFloat(value.totalSedimentsChangeInTime).toFixed(2)) +'</td></tr>';
+                        nitrogenLoadChangeInTimeNbsHhml = nitrogenLoadChangeInTimeNbsHhml + '<tr><td>' + value.time + '</td><td>' + Intl.NumberFormat('es').format(parseFloat(value.nitrogenLoadChangeInTime).toFixed(2)) +'</td></tr>';
+                        phosphorusLoadChangeInTimeNbsHhml = phosphorusLoadChangeInTimeNbsHhml + '<tr><td>' + value.time + '</td><td>' + Intl.NumberFormat('es').format(parseFloat(value.phosphorusLoadChangeInTime).toFixed(2)) +'</td></tr>';
+                        carbonStorageChangeInTimeNbsHhml = carbonStorageChangeInTimeNbsHhml + '<tr><td>' + value.time + '</td><td>' + Intl.NumberFormat('es').format(parseFloat(value.carbonStorageChangeInTime).toFixed(2)) +'</td></tr>';
                     } else  {
 
                         timeBusiness.push(value.time);
@@ -1688,22 +1820,28 @@ var localStorageId = localStorage.idStudyCase;
                         phosphorusLoadChangeInTimeBusiness.push(value.phosphorusLoadChangeInTime);
                         carbonStorageChangeInTimeBusiness.push(value.carbonStorageChangeInTime);
 
-                        volumeOfWaterYieldChangeInTimeBusinessHhml = volumeOfWaterYieldChangeInTimeBusinessHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + Intl.NumberFormat('es').format(parseFloat(value.volumeOfWaterYieldChangeInTime).toFixed(2)) +' (' + value.stage + ')</div></div>';
-                        annualVolumeBaseFlowChangeInTimeBusinessHhml = annualVolumeBaseFlowChangeInTimeBusinessHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + Intl.NumberFormat('es').format(parseFloat(value.annualVolumeBaseFlowChangeInTime).toFixed(2)) +' (' + value.stage + ')</div></div>';
-                        totalSedimentsChangeInTimeBusinessHhml = totalSedimentsChangeInTimeBusinessHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + Intl.NumberFormat('es').format(parseFloat(value.totalSedimentsChangeInTime).toFixed(2)) +' (' + value.stage + ')</div></div>';
-                        nitrogenLoadChangeInTimeBusinessHhml = nitrogenLoadChangeInTimeBusinessHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + Intl.NumberFormat('es').format(parseFloat(value.nitrogenLoadChangeInTime).toFixed(2)) +' (' + value.stage + ')</div></div>';
-                        phosphorusLoadChangeInTimeBusinessHhml = phosphorusLoadChangeInTimeBusinessHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + Intl.NumberFormat('es').format(parseFloat(value.phosphorusLoadChangeInTime).toFixed(2)) +' (' + value.stage + ')</div></div>';
-                        carbonStorageChangeInTimeBusinessHhml = carbonStorageChangeInTimeBusinessHhml + '<div class="field-year-cont"><div class="field-num-year">' + value.time + '</div><div>' + Intl.NumberFormat('es').format(parseFloat(value.carbonStorageChangeInTime).toFixed(2)) +' (' + value.stage + ')</div></div>';
+                        volumeOfWaterYieldChangeInTimeBusinessHhml = volumeOfWaterYieldChangeInTimeBusinessHhml + '<tr><td>' + value.time + '</td><td>' + Intl.NumberFormat('es').format(parseFloat(value.volumeOfWaterYieldChangeInTime).toFixed(2)) +'</td></tr>';
+                        annualVolumeBaseFlowChangeInTimeBusinessHhml = annualVolumeBaseFlowChangeInTimeBusinessHhml + '<tr><td>' + value.time + '</td><td>' + Intl.NumberFormat('es').format(parseFloat(value.annualVolumeBaseFlowChangeInTime).toFixed(2)) +'</td></tr>';
+                        totalSedimentsChangeInTimeBusinessHhml = totalSedimentsChangeInTimeBusinessHhml + '<tr><td>' + value.time + '</td><td>' + Intl.NumberFormat('es').format(parseFloat(value.totalSedimentsChangeInTime).toFixed(2)) +'</td></tr>';
+                        nitrogenLoadChangeInTimeBusinessHhml = nitrogenLoadChangeInTimeBusinessHhml + '<tr><td>' + value.time + '</td><td>' + Intl.NumberFormat('es').format(parseFloat(value.nitrogenLoadChangeInTime).toFixed(2)) +'</td></tr>';
+                        phosphorusLoadChangeInTimeBusinessHhml = phosphorusLoadChangeInTimeBusinessHhml + '<tr><td>' + value.time + '</td><td>' + Intl.NumberFormat('es').format(parseFloat(value.phosphorusLoadChangeInTime).toFixed(2)) +'</td></tr>';
+                        carbonStorageChangeInTimeBusinessHhml = carbonStorageChangeInTimeBusinessHhml + '<tr><td>' + value.time + '</td><td>' + Intl.NumberFormat('es').format(parseFloat(value.carbonStorageChangeInTime).toFixed(2)) +'</td></tr>';
                     }
                 });
 
                 setTimeout(function(){
-                    document.getElementById("listNbs1").innerHTML = volumeOfWaterYieldChangeInTimeBusinessHhml + volumeOfWaterYieldChangeInTimeNbsHhml;
-                    document.getElementById("listNbs2").innerHTML = annualVolumeBaseFlowChangeInTimeBusinessHhml + annualVolumeBaseFlowChangeInTimeNbsHhml;
-                    document.getElementById("listNbs3").innerHTML = totalSedimentsChangeInTimeBusinessHhml + totalSedimentsChangeInTimeNbsHhml;
-                    document.getElementById("listNbs4").innerHTML = nitrogenLoadChangeInTimeBusinessHhml + nitrogenLoadChangeInTimeNbsHhml;
-                    document.getElementById("listNbs5").innerHTML = phosphorusLoadChangeInTimeBusinessHhml + phosphorusLoadChangeInTimeNbsHhml
-                    document.getElementById("listNbs6").innerHTML = carbonStorageChangeInTimeBusinessHhml + carbonStorageChangeInTimeNbsHhml
+                    document.getElementById("listNbs1").innerHTML = volumeOfWaterYieldChangeInTimeBusinessHhml;
+                    document.getElementById("listNbs1-1").innerHTML = volumeOfWaterYieldChangeInTimeNbsHhml;
+                    document.getElementById("listNbs2").innerHTML = annualVolumeBaseFlowChangeInTimeBusinessHhml;
+                    document.getElementById("listNbs2-1").innerHTML = annualVolumeBaseFlowChangeInTimeNbsHhml;
+                    document.getElementById("listNbs3").innerHTML = totalSedimentsChangeInTimeBusinessHhml;
+                    document.getElementById("listNbs3-1").innerHTML = totalSedimentsChangeInTimeNbsHhml;
+                    document.getElementById("listNbs4").innerHTML = nitrogenLoadChangeInTimeBusinessHhml;
+                    document.getElementById("listNbs4-1").innerHTML = nitrogenLoadChangeInTimeNbsHhml;
+                    document.getElementById("listNbs5").innerHTML = phosphorusLoadChangeInTimeBusinessHhml;
+                    document.getElementById("listNbs5-1").innerHTML = phosphorusLoadChangeInTimeNbsHhml;
+                    document.getElementById("listNbs6").innerHTML = carbonStorageChangeInTimeBusinessHhml;
+                    document.getElementById("listNbs6-1").innerHTML = carbonStorageChangeInTimeNbsHhml;
 
                     Highcharts.chart('containerNbs1', {
                         chart: {
