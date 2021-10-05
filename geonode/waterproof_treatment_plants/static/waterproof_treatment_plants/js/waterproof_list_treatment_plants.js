@@ -325,8 +325,8 @@ $(function () {
                 localStorage.updatePlant = "false";
                 break;
             case "clone":
-                plantNameSuffix = _("Clone");
-                tileAction = plantNameSuffix;                
+                plantNameSuffix = HYPHEN+_("Clone");
+                tileAction = _("Clone");                
                 localStorage.clonePlant = "false";
                 break;
             case "view":
@@ -344,7 +344,7 @@ $(function () {
                 localStorage.plantId = null;                
             }            
             $.each( data.plant, function( key, value ) {
-                document.getElementById("idNamePlant").value = `${value.plantName}-${plantNameSuffix}`;
+                document.getElementById("idNamePlant").value = `${value.plantName}${plantNameSuffix}`;
                 document.getElementById("idDescriptionPlant").value = value.plantDescription;
                 letterPlant = value.plantSuggest;
             });
