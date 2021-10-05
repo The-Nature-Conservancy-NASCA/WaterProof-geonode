@@ -556,6 +556,9 @@ msgstr "Por favor, busque una ciudad en el mapa."
 msgid "Default extent"
 msgstr "Extensión predeterminada"
 
+msgid "Saving"
+msgstr "Guardando"
+
 #, fuzzy
 #~| msgid "Now"
 #~ msgid "No"
