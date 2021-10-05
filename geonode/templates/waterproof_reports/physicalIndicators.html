@@ -1635,16 +1635,22 @@ var localStorageId = localStorage.idStudyCase;
                     $.getJSON(urlDetail, function (data) {
                         var numberContainerG = 0;
                         $.each( data, function( key, value ) {
+                            var tituloS = value.valueGraT;
+/*
+                            var gaugeOptions = {
+                                tooltip: {
+                                        enabled: false
+                                    }
+                            };
+*/
                             var chartSpeed = Highcharts.chart('containerPr' + numberContainerG, Highcharts.merge(gaugeOptions, {
                                 yAxis: {
                                     min: 0,
-                                    max: 6,
+                                    max: 5,
                                     stops: [
-                                        [0.1, '#90D3E7'],
-                                        [0.3, '#61D1C2'],
-                                        [0.5, '#008BAB'],
-                                        [0.7, '#004B56'],
-                                        [0.9, '#01353D']
+                                        [0.1, '#55BF3B'], // green
+                                        [0.5, '#DDDF0D'], // yellow
+                                        [0.9, '#DF5353'] // red
                                     ],
                                     title: {
                                         text: value.description
@@ -1659,10 +1665,9 @@ var localStorageId = localStorage.idStudyCase;
                                     dataLabels: {
                                         format:
                                             '<div style="text-align:center">' +
-                                            '<span style="font-size:25px">{y}</span><br/>' +
+                                            '<span style="font-size:14px">' + tituloS + '</span><br/>' +
                                             '</div>'
-                                    }
-                                }]
+                                    }                                }]
                             }));
                             numberContainerG++;
                         });
