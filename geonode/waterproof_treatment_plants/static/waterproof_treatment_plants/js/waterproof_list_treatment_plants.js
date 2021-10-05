@@ -316,6 +316,7 @@ $(function () {
     };
 
     loadPlant = function(plantId, typeAction) {
+        console.log("loadPlant", plantId, typeAction);
         let tileAction = "";
         let plantNameSuffix = "";
         switch (typeAction) {
@@ -324,8 +325,8 @@ $(function () {
                 localStorage.updatePlant = "false";
                 break;
             case "clone":
-                tileAction = _("Clone");
                 plantNameSuffix = _("Clone");
+                tileAction = plantNameSuffix;                
                 localStorage.clonePlant = "false";
                 break;
             case "view":
@@ -340,10 +341,10 @@ $(function () {
         var urlDetail = basePathURL + "getTreatmentPlant/?plantId=" + localStorage.plantId;
         $.getJSON(urlDetail, function (data) {
             if (typeAction === "clone" || typeAction === "view") {
-                //localStorage.plantId = null;                
+                localStorage.plantId = null;                
             }            
             $.each( data.plant, function( key, value ) {
-                document.getElementById("idNamePlant").value = value.plantName + " " + plantNameSuffix;
+                document.getElementById("idNamePlant").value = `${value.plantName}-${plantNameSuffix}`;
                 document.getElementById("idDescriptionPlant").value = value.plantDescription;
                 letterPlant = value.plantSuggest;
             });
@@ -429,7 +430,7 @@ $(function () {
     */
     validateAndSavePlant = function () {
         console.log("validateAndSavePlant");
-        toggleProcessingModal('show');
+        toggleProcessingModal('show', _("Saving") + "...",_('Please wait'));
         var saveForm = true;
         if($('#idNamePlant').val() === "" || $('#idNamePlant').val() === null) {
             $('#idNamePlant').focusin();
@@ -516,7 +517,7 @@ $(function () {
     * @returns 
     */
     activePlantGraph = function(ptapType) {
-        
+        console.log("activePlantGraph");
         toggleProcessingModal('show');
         var listElements = {};
         $("[name=disableElement]").each(function( index, element ) {
@@ -525,7 +526,7 @@ $(function () {
             var attrModel = element.getAttribute("model");
             var modelInTypePtap = attrModel.indexOf(ptapType) >= 0;
 
-            if (actionType != "update") {
+            if (actionType != "update" && actionType != "clone") {
                 element.style.display = "block";
                 idrElem.css("background-color", whiteColor);
                 idrElem.css("border-color", whiteColor);
@@ -756,7 +757,8 @@ $(function () {
     * @returns 
     */
     loadArrayTree = function(plantElement, nameElement, graphid) {
-        console.log("loadArrayTree", plantElement, nameElement, graphid);                
+        console.log("loadArrayTree", plantElement, nameElement, graphid);
+        functionsByCustomTech = {};
         if (plant.elements.hasOwnProperty(plantElement)) {
             console.log("fill from dictionary");
             let plantFn = plant.elements[plantElement]['default'];
@@ -1760,12 +1762,16 @@ $(function () {
         };
     }
 
-    _ = function(text) {
-        return gettext(text);
-    };
-
-    toggleProcessingModal = function(showOrHide) {
+    toggleProcessingModal = function(showOrHide, title, message) {
         $('#_thumbnail_processing').modal(showOrHide);
+        if (showOrHide == 'show') {
+            if (title){
+                $('#_thumbnail_processing .modal-header h1')[0].innerText=title;
+            }
+            if (message){
+                $('#_thumbnail_processing .progress div')[0].innerText=message;
+            }
+        }        
     }
 
     showMessageModal = function(title, message, icon ) {
@@ -1777,6 +1783,10 @@ $(function () {
             cancelButtonColor: '#d33',
         })
         toggleProcessingModal('hide');
+    };
+
+    _ = function(text) {
+        return gettext(text);
     };
         
 });

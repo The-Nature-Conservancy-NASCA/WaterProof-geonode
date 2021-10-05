@@ -263,3 +263,6 @@ msgstr "Cloruro de Hierro"
 
 msgid "Add new technology"
 msgstr "Adicionar nueva tecnología"
+
+msgid "Saving Plant"
+msgstr "Guardando Planta"
