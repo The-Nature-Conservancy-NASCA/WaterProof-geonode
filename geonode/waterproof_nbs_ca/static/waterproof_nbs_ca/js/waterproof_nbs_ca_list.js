@@ -349,11 +349,11 @@ $(function () {
                         }
                         else {
                             let oldImplCost = parseFloat(filteredData[index][7]);
-                            let newImplCost = ((oldImplCost * multiplicatorFactor) + oldImplCost).toFixed(2);
+                            let newImplCost = ((oldImplCost * multiplicatorFactor)).toFixed(2);
                             let oldMaintCost = parseFloat(table.cell({ row: filterIndexes[index], column: 8 }).data());
-                            let newMaintConst = ((oldMaintCost * multiplicatorFactor) + oldMaintCost).toFixed(2);
+                            let newMaintConst = ((oldMaintCost * multiplicatorFactor)).toFixed(2);
                             let oldOportCost = parseFloat(table.cell({ row: filterIndexes[index], column: 9 }).data());
-                            let newOportCost = ((oldOportCost * multiplicatorFactor) + oldOportCost).toFixed(2);
+                            let newOportCost = ((oldOportCost * multiplicatorFactor)).toFixed(2);
                             $(table.cell({ row: filterIndexes[index], column: 7 }).node()).html(newImplCost);
                             $(table.cell({ row: filterIndexes[index], column: 8 }).node()).html(newMaintConst);
                             $(table.cell({ row: filterIndexes[index], column: 9 }).node()).html(newOportCost);
