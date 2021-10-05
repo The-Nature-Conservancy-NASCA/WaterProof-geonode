@@ -364,6 +364,7 @@ $(function () {
                 search.draw();
                 let countryId = result[0].pk;
                 let countryIso=result[0].fields.iso3;
+                console.log(countryIso)
                 $.ajax({
                     url: '/parameters/load-regionByCountry/',
                     data: {
