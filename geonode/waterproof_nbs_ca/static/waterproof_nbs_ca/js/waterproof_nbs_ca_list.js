@@ -337,6 +337,8 @@ $(function () {
                 let filterIndexes = search.rows({ search: 'applied' }).indexes();
                 let multiplicatorFactor = parseFloat(result[0].fields.global_multiplier_factor);
                 for (let index = 0; index < filteredData.length; index++) {
+                    console.log(filteredData[index]);
+                    console.log(result);
                     if (filteredData[index][4] === 'ADMIN') {
                         if (result[0].fields.iso3 === 'USA') {
                             let oldImplCost = parseFloat(table.cell({ row: filterIndexes[index], column: 7 }).data());
@@ -364,7 +366,7 @@ $(function () {
                 search.draw();
                 let countryId = result[0].pk;
                 let countryIso=result[0].fields.iso3;
-                console.log(countryIso)
+                console.log(countryIso);
                 $.ajax({
                     url: '/parameters/load-regionByCountry/',
                     data: {
