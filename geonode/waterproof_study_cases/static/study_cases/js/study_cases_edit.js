@@ -127,7 +127,7 @@ $(document).ready(function () {
     $('#btn-full').click(function () {
         if ($("#full-table").hasClass("panel-hide")) {
             $("#full-table").removeClass("panel-hide");
-            nbsactivities = $("#full-table").find("input"):
+            nbsactivities = $("#full-table").find("input");
             nbsactivities.each(function () {
                 total = 50
                 if (total) {
