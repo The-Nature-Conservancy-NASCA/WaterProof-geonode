@@ -364,11 +364,14 @@ $(document).ready(function () {
                         name_td = split.join("_");
                         val = undefined;
                         try{
+                            // Just parseFloat when is input element
                             $('#' + td_id).find("input").each(function () {
+                                console.log("td.id :: ", td.id , $(this).val());
                                 val = parseFloat($(this).val());
                             });
-                            if (!val) {
-                                val = parseFloat($('#' + td.id).text());
+                            if (val == undefined) {
+                                console.log("td.id :: ", td.id , $('#' + td.id).text())
+                                val = $('#' + td.id).text();
                             }
                         }catch(e){
                             // do something or nothing
