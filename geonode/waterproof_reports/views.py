@@ -6,7 +6,6 @@ import requests
 import array
 import codecs
 import re, time, base64
-import locale
 
 from django.conf import settings
 from django.http import JsonResponse
@@ -24,10 +23,6 @@ from PIL import Image
 from io import BytesIO
 
 
-
-
-
-
 class PDF(FPDF):
     def footer(self):
         self.set_y(-15)
@@ -35,7 +30,6 @@ class PDF(FPDF):
         self.cell(0, 10, 'Page ' + str(self.page_no()) + '/{nb}', 0, 0, 'C')
 
 def pdf(request):
-    locale.setlocale(locale.LC_ALL, 'en_US')
     base64_data = re.sub('^data:image/.+;base64,', '', request.POST['mapSendImage'])
     byte_data = base64.b64decode(base64_data)
     image_data = BytesIO(byte_data)
@@ -118,12 +112,12 @@ def pdf(request):
     for item in data:
         currencyCase = item['currency']
         timeCase = item['time']
-        changeInVolumeOfWater = locale.format('%10.2f', float(item['changeInVolumeOfWater']), grouping=True)
-        changeInBaseFlow = locale.format('%10.2f', float(item['changeInBaseFlow']), grouping=True)
-        changeIntotalSediments = locale.format('%10.2f', float(item['changeIntotalSediments']), grouping=True)
-        changeInNitrogenLoad = locale.format('%10.2f', float(item['changeInNitrogenLoad']), grouping=True)
-        changeInPhosphorus = locale.format('%10.2f', float(item['changeInPhosphorus']), grouping=True)
-        changeInCarbonStorage = locale.format('%10.2f', float(item['changeInCarbonStorage']), grouping=True)
+        changeInVolumeOfWater = str(round(float(item['changeInVolumeOfWater']),2))
+        changeInBaseFlow = str(round(float(item['changeInBaseFlow']),2))
+        changeIntotalSediments = str(round(float(item['changeIntotalSediments']),2))
+        changeInNitrogenLoad = str(round(float(item['changeInNitrogenLoad']),2))
+        changeInPhosphorus = str(round(float(item['changeInPhosphorus']),2))
+        changeInCarbonStorage = str(round(float(item['changeInCarbonStorage']),2))
 
     pdf.set_text_color(57, 137, 169)
     pdf.set_font('Arial', '', 13)
@@ -293,10 +287,10 @@ def pdf(request):
         pdf.cell(epw/4, 5,str(item['name'])[0:30], align='L')
         pdf.cell(epw/4, 5,str(item['description'])[0:30], align='L')
         pdf.cell(epw/10, 20,str(item['benefit']), align='R')
-        pdf.cell(epw/10, 20,locale.format('%10.2f', float(item['implementation']), grouping=True), align='R')
-        pdf.cell(epw/10, 20,locale.format('%10.2f', float(item['maintenance']), grouping=True), align='R')
-        pdf.cell(epw/10, 20,locale.format('%10.2f', float(item['periodicity']), grouping=True), align='R')
-        pdf.cell(epw/10, 20,locale.format('%10.2f', float(item['oportunity']), grouping=True), align='R')
+        pdf.cell(epw/10, 20,format(float(item['implementation']),'0,.2f'), align='R')
+        pdf.cell(epw/10, 20,format(float(item['maintenance']),'0,.2f'), align='R')
+        pdf.cell(epw/10, 20,format(float(item['periodicity']),'0,.2f'), align='R')
+        pdf.cell(epw/10, 20,format(float(item['oportunity']),'0,.2f'), align='R')
         pdf.ln(5)
         pdf.cell(epw/4, 5,str(item['name'])[30:60], align='L')
         pdf.cell(epw/4, 5,str(item['description'])[30:60], align='L')
@@ -363,22 +357,22 @@ def pdf(request):
     pdf.ln(15)
     pdf.set_font('Arial', '', 9)
     pdf.cell((epw/9) * 3, 8,"Platform cost year 1 (US$/yr)")
-    pdf.cell(epw/9, 8,locale.format('%10.2f', float(platformCost), grouping=True), align='R')
+    pdf.cell(epw/9, 8,format(float(platformCost),'0,.2f'), align='R')
     pdf.cell(epw/9, 15, '', align='C')
     pdf.cell((epw/9) * 4, 8,varText1)
     pdf.ln(8)
     pdf.cell((epw/9) * 3, 8,"Discount rate (%)")
-    pdf.cell(epw/9, 8,locale.format('%10.2f', float(discountRate), grouping=True), align='R')
+    pdf.cell(epw/9, 8,format(float(discountRate),'0,.2f'), align='R')
     pdf.cell(epw/9, 15, '', align='C')
     pdf.cell(epw/9, 8,varText2)
     pdf.ln(8)
     pdf.cell((epw/9) * 3, 8,"Sensivity analysis - Minimum discount rate (%)")
-    pdf.cell(epw/9, 8,locale.format('%10.2f', float(discountRateMinimum), grouping=True), align='R')
+    pdf.cell(epw/9, 8,format(float(discountRateMinimum),'0,.2f'), align='R')
     pdf.cell(epw/9, 15, '', align='C')
     pdf.cell(epw/9, 8,varText3)
     pdf.ln(8)
     pdf.cell((epw/9) * 3, 8,"Sensivity analysis - Maximum discount rate (%)")
-    pdf.cell(epw/9, 8,locale.format('%10.2f', float(discountRateMaximum), grouping=True), align='R')
+    pdf.cell(epw/9, 8,format(float(discountRateMaximum),'0,.2f'), align='R')
     pdf.cell(epw/9, 15, '', align='C')
     pdf.cell(epw/9, 8,varText4)
     pdf.ln(8)   
@@ -491,11 +485,11 @@ def pdf(request):
 
     contTitle = 1;
     for item in data:
-        pdf.cell(epw/5, 4, locale.format('%10.2f', float(contTitle), grouping=True), border=1, align='R', fill=1)
-        pdf.cell(epw/5, 4, locale.format('%10.2f', float(item['totalCost']), grouping=True), border=1, align='R', fill=1)
-        pdf.cell(epw/5, 4, locale.format('%10.2f', float(item['totalDiscountedCost']), grouping=True), border=1, align='R', fill=1)
-        pdf.cell(epw/5, 4, locale.format('%10.2f', float(item['totalBenefits']), grouping=True), border=1, align='R', fill=1)
-        pdf.cell(epw/5, 4, locale.format('%10.2f', float(item['totalDiscountedBenefits']), grouping=True), border=1, align='R', fill=1)
+        pdf.cell(epw/5, 4, format(float(contTitle),'0,.2f'), border=1, align='R', fill=1)
+        pdf.cell(epw/5, 4, format(float(item['totalCost']),'0,.2f') , border=1, align='R', fill=1)
+        pdf.cell(epw/5, 4, format(float(item['totalDiscountedCost']),'0,.2f') , border=1, align='R', fill=1)
+        pdf.cell(epw/5, 4, format(float(item['totalBenefits']),'0,.2f') , border=1, align='R', fill=1)
+        pdf.cell(epw/5, 4, format(float(item['totalDiscountedBenefits']),'0,.2f') , border=1, align='R', fill=1)
         contTitle = contTitle + 1
         pdf.ln(4)
 
@@ -562,12 +556,12 @@ def pdf(request):
     pdf.ln(10)
     pdf.cell(epw/4, 8, '', border=0, align='C', fill=0)
     pdf.cell(epw/4, 8, 'Cost', border=1, align='L', fill=1)
-    pdf.cell(epw/4, 8, locale.format('%10.2f', float(itemCostr), grouping=True), border=1, align='R', fill=1)
+    pdf.cell(epw/4, 8, format(float(itemCostr),'0,.2f'), border=1, align='R', fill=1)
     pdf.cell(epw/4, 8, '', border=0, align='C', fill=0)
     pdf.ln(8)
     pdf.cell(epw/4, 8, '', border=0, align='C', fill=0)
     pdf.cell(epw/4, 8, 'Benefits', border=1, align='L', fill=1)
-    pdf.cell(epw/4, 8, locale.format('%10.2f', float(itemBenefift), grouping=True), border=1, align='R', fill=1)
+    pdf.cell(epw/4, 8, format(float(itemBenefift),'0,.2f'), border=1, align='R', fill=1)
     pdf.cell(epw/4, 8, '', border=0, align='C', fill=0)
 
     pdf.add_page()
@@ -643,29 +637,29 @@ def pdf(request):
     pdf.set_text_color(100, 100, 100)
     pdf.set_fill_color(255, 255, 255)
     pdf.cell((epw/4) * 3, 6, 'Implementation cost: cost requiere to implement the activities including materials, supplies and labor', border=1, align='L', fill=1)
-    pdf.cell(epw/4, 6, locale.format('%10.2f', float(valimplementationr), grouping=True), border=1, align='R', fill=1)
+    pdf.cell(epw/4, 6, format(float(valimplementationr),'0,.2f'), border=1, align='R', fill=1)
     pdf.ln(6)
     pdf.cell((epw/4) * 3, 6, 'Maintance cost: costo to manintain NBS', border=1, align='L', fill=1)
-    pdf.cell(epw/4, 6, locale.format('%10.2f', float(valmaintenancer), grouping=True), border=1, align='R', fill=1)
+    pdf.cell(epw/4, 6, format(float(valmaintenancer),'0,.2f'), border=1, align='R', fill=1)
     pdf.ln(6)
     pdf.cell((epw/4) * 3, 6, 'Oportunity cost: foregone benefits that would have been derived from and option another than NBS', border=1, align='L', fill=1)
-    pdf.cell(epw/4, 6, locale.format('%10.2f', float(valoportunityr), grouping=True), border=1, align='R', fill=1)
+    pdf.cell(epw/4, 6, format(float(valoportunityr),'0,.2f'), border=1, align='R', fill=1)
     pdf.ln(6)
     pdf.cell((epw/4) * 3, 6, 'Transaction cost: refers to administrative expenses', border=1, align='L', fill=1)
-    pdf.cell(epw/4, 6, locale.format('%10.2f', float(valtransactionr), grouping=True), border=1, align='R', fill=1)
+    pdf.cell(epw/4, 6, format(float(valtransactionr),'0,.2f'), border=1, align='R', fill=1)
     pdf.ln(6)
     pdf.cell((epw/4) * 3, 12, '', border=1, align='L', fill=1)
     pdf.ln(0)
     pdf.cell((epw/4) * 3, 6, 'Platform cost: these are fored expenses for the conservation program, shich include staff, office,', border=0, align='L', fill=0)
-    pdf.cell(epw/4, 12, locale.format('%10.2f', float(valplatformr), grouping=True), border=1, align='R', fill=1)
+    pdf.cell(epw/4, 12, format(float(valplatformr),'0,.2f'), border=1, align='R', fill=1)
     pdf.ln(6)
     pdf.cell((epw/4) * 3, 6, 'equipment, vehicles, among others.', border=0, align='L', fill=0)
     pdf.ln(6)
     pdf.cell((epw/4) * 3, 6, 'Benefit', border=1, align='L', fill=1)
-    pdf.cell(epw/4, 6, locale.format('%10.2f', float(valbenefitr), grouping=True), border=1, align='R', fill=1)
+    pdf.cell(epw/4, 6, format(float(valbenefitr),'0,.2f'), border=1, align='R', fill=1)
     pdf.ln(6)
     pdf.cell((epw/4) * 3, 6, 'Total', border=1, align='L', fill=1)
-    pdf.cell(epw/4, 6, locale.format('%10.2f', float(valtotalr), grouping=True), border=1, align='R', fill=1)
+    pdf.cell(epw/4, 6, format(float(valtotalr),'0,.2f'), border=1, align='R', fill=1)
     pdf.ln(15)
     pdf.set_font('Arial', '', 13)
     pdf.cell(0, 10, 'Sensitivity analysis', align='L')
@@ -749,10 +743,10 @@ def pdf(request):
     pdf.set_fill_color(255, 255, 255)
 
     for item in data:
-        pdf.cell(epw/4, 3.5, locale.format('%10.2f', float(item['timer']), grouping=True), border=1, align='R', fill=1)
-        pdf.cell(epw/4, 3.5, locale.format('%10.2f', float(item['totalMinBenefitR']), grouping=True), border=1, align='R', fill=1)
-        pdf.cell(epw/4, 3.5, locale.format('%10.2f', float(item['totalMedBenefitR']), grouping=True), border=1, align='R', fill=1)
-        pdf.cell(epw/4, 3.5, locale.format('%10.2f', float(item['totalMaxBenefittR']), grouping=True), border=1, align='R', fill=1)
+        pdf.cell(epw/4, 3.5, format(float(item['timer']),'0,.2f') , border=1, align='R', fill=1)
+        pdf.cell(epw/4, 3.5, format(float(item['totalMinBenefitR']),'0,.2f') , border=1, align='R', fill=1)
+        pdf.cell(epw/4, 3.5, format(float(item['totalMedBenefitR']),'0,.2f') , border=1, align='R', fill=1)
+        pdf.cell(epw/4, 3.5, format(float(item['totalMaxBenefittR']),'0,.2f') , border=1, align='R', fill=1)
         pdf.ln(3.5)    
 
     pdf.add_page()
@@ -826,17 +820,17 @@ def pdf(request):
     pdf.set_fill_color(255, 255, 255)
 
     for item in data:
-        pdf.cell(epw/4, 4, locale.format('%10.2f', float(item['timer']), grouping=True), border=1, align='R', fill=1)
-        pdf.cell(epw/4, 4, locale.format('%10.2f', float(item['totalMinCostR']), grouping=True), border=1, align='R', fill=1)
-        pdf.cell(epw/4, 4, locale.format('%10.2f', float(item['totalMedCostR']), grouping=True), border=1, align='R', fill=1)
-        pdf.cell(epw/4, 4, locale.format('%10.2f', float(item['totalMaxCostR']), grouping=True), border=1, align='R', fill=1)
+        pdf.cell(epw/4, 4, format(float(item['timer']),'0,.2f') , border=1, align='R', fill=1)
+        pdf.cell(epw/4, 4, format(float(item['totalMinCostR']),'0,.2f') , border=1, align='R', fill=1)
+        pdf.cell(epw/4, 4, format(float(item['totalMedCostR']),'0,.2f') , border=1, align='R', fill=1)
+        pdf.cell(epw/4, 4, format(float(item['totalMaxCostR']),'0,.2f') , border=1, align='R', fill=1)
         pdf.ln(4)    
 
     pdf.add_page()
 
     requestJson = requests.get(settings.SITE_HOST_API + 'reports/getReportOportunityResultIndicators/?studyCase=' + request.POST['studyCase'],verify=False)
     data = requestJson.json()
-    valueRoi = ""
+    valueRoi = 0
     idTotalTreatmentCostSavings = 0
     idTimeFrame = 0
     idTotalEstimatedInvestment = 0
@@ -848,7 +842,7 @@ def pdf(request):
 
     for item in data:
         if item['description'] != "TotalTreatmentCostSavings" and item['description'] !="TimeFrame" and item['description'] != "TotalEstimatedInvestment" and item['description'] !="TotalAreaInterventionSize(Hec)":
-            valueRoi = locale.format('%10.2f', float(item['value']), grouping=True)
+            valueRoi = str(round(float(item['value']),2))
             nameButtom = item['description'].split("::");
             if nameButtom[1] == "Dark Green":
                 backgroundColorR = 21
@@ -866,13 +860,13 @@ def pdf(request):
             nameBackgroundColor = nameButtom[0];
 
         if item['description'] == "TotalTreatmentCostSavings":
-            idTotalTreatmentCostSavings = item['value']
+            idTotalTreatmentCostSavings = str(round(float(item['value']),2))
         if item['description'] == "TimeFrame":
-            idTimeFrame = item['value']
+            idTimeFrame = str(round(float(item['value']),2))
         if item['description'] == "TotalEstimatedInvestment":
-            idTotalEstimatedInvestment = item['value']
+            idTotalEstimatedInvestment = str(round(float(item['value']),2))
         if item['description'] == "TotalAreaInterventionSize(Hec)":
-            idTotalAreaInvestmentSize = item['value']
+            idTotalAreaInvestmentSize = str(round(float(item['value']),2))
 
     pdf.set_font('Arial', '', 13)
     pdf.set_text_color(100, 100, 100)
@@ -883,7 +877,7 @@ def pdf(request):
     pdf.cell(epw, 7, 'Canculated ROI', align='C')
     pdf.ln(5)
     pdf.set_font('Arial', '', 15)
-    pdf.cell(epw, 10, valueRoi, align='C')
+    pdf.cell(epw, 10, format(float(valueRoi),'0,.2f') , align='C')
     pdf.image('imgpdf/valor-bruto.png', 85, 33, w=35)
     pdf.set_font('Arial', '', 10)
     pdf.ln(40)
@@ -899,24 +893,25 @@ def pdf(request):
     pdf.cell(epw, 10, 'Total estimated investment', align='C')
     pdf.ln(5)
     pdf.set_font('Arial', '', 15)
-    pdf.cell(epw, 10, locale.format('%.2f', idTotalEstimatedInvestment, grouping=True), align='C')
+    pdf.cell(epw, 10, format(float(idTotalEstimatedInvestment),'0,.2f'), align='C')
     pdf.ln(7)
     pdf.set_font('Arial', '', 10)
     pdf.cell(epw, 10, 'Total treatment cost savings', align='C')
     pdf.ln(5)
     pdf.set_font('Arial', '', 15)
-    pdf.cell(epw, 10, locale.format('%.2f', float(idTotalTreatmentCostSavings), grouping=True), align='C')
+    pdf.cell(epw, 10, format(float(idTotalTreatmentCostSavings),'0,.2f'), align='C')
     pdf.ln(7)
     pdf.set_font('Arial', '', 10)
     pdf.cell(epw, 10, 'Total area investment size', align='C')
     pdf.ln(5)
     pdf.set_font('Arial', '', 15)
-    pdf.cell(epw, 10, locale.format('%.2f', float(idTotalAreaInvestmentSize), grouping=True), align='C')
+    pdf.cell(epw, 10, format(float(idTotalAreaInvestmentSize),'0,.2f'), align='C')
     pdf.ln(7)
     pdf.set_font('Arial', '', 10)
+    pdf.cell(epw, 10, 'Time frame (Years)', align='C')
     pdf.ln(5)
     pdf.set_font('Arial', '', 15)
-    pdf.cell(epw, 10, locale.format('%.2f', float(idTimeFrame), grouping=True), align='C')
+    pdf.cell(epw, 10, format(float(idTimeFrame),'0,.2f'), align='C')
     pdf.ln(10)
 
     pdf.set_font('Arial', '', 10)
@@ -935,12 +930,12 @@ def pdf(request):
         dataEfficiency.append(float(item['baseFlow']));
         dataEfficiency.append(float(item['waterYear']));
 
-        carbonStorageTable = locale.format('%10.2f', float(item['carbonStorage']), grouping=True)
-        phosphorousLoadTable = locale.format('%10.2f', float(item['phosphorousLoad']), grouping=True)
-        nitrogenLoadTable = locale.format('%10.2f', float(item['nitrogenLoad']), grouping=True)
-        totalSediments = locale.format('%10.2f', float(item['totalSediments']), grouping=True)
-        baseFlow = locale.format('%10.2f', float(item['baseFlow']), grouping=True)
-        waterYear = locale.format('%10.2f', float(item['waterYear']), grouping=True)
+        carbonStorageTable = float(item['carbonStorage']);
+        phosphorousLoadTable = float(item['phosphorousLoad']);
+        nitrogenLoadTable = float(item['nitrogenLoad']);
+        totalSediments = float(item['totalSediments']);
+        baseFlow = float(item['baseFlow']);
+        waterYear = float(item['waterYear']);
 
     pdf.set_font('Arial', '', 10)
     pdf.set_text_color(255, 255, 255)
@@ -1357,8 +1352,8 @@ def pdf(request):
         pdf.cell(epw/3, 8, "" , border=1, align='R', fill=1)
         pdf.ln(0)
         pdf.cell(epw/3, 4, str(item['sbnf'])[0:30] , align='L')
-        pdf.cell(epw/3, 4, locale.format('%10.2f', float(item['costPerHectarea']), grouping=True), align='R')
-        pdf.cell(epw/3, 4, locale.format('%10.2f', float(item['recomendedIntervetion']), grouping=True), align='R')
+        pdf.cell(epw/3, 4, format(float(item['costPerHectarea']),'0,.2f') , align='R')
+        pdf.cell(epw/3, 4, format(float(item['recomendedIntervetion']),'0,.2f') , align='R')
         pdf.ln(4)
         pdf.cell(epw/3, 4, str(item['sbnf'])[30:60] , align='L')
         pdf.cell(epw/3, 4, "" , align='R')
@@ -1590,7 +1585,7 @@ def pdf(request):
     for item in dataListBenefitsIntakeA :
         pdf.cell(epw/2, 6, '')
         pdf.cell((epw/6) * 2, 6, item['name'],border=1, align='L', fill=1)
-        pdf.cell(epw/6, 6, locale.format('%10.2f', float(item['y']), grouping=True), border=1, align='R', fill=1)
+        pdf.cell(epw/6, 6, format(float(item['y']),'0,.2f'),border=1, align='R', fill=1)
         pdf.ln(6)
 
 
@@ -1611,7 +1606,7 @@ def pdf(request):
     for item in dataListBenefitsIntakeB :
         pdf.cell(epw/2, 6, '')
         pdf.cell((epw/6) * 2, 6, item['name'],border=1, align='L', fill=1)
-        pdf.cell(epw/6, 6, locale.format('%10.2f', float(item['y']), grouping=True), border=1, align='R', fill=1)
+        pdf.cell(epw/6, 6, format(float(item['y']),'0,.2f'),border=1, align='R', fill=1)
         pdf.ln(6)
 
     pdf.ln(60)
@@ -1669,7 +1664,7 @@ def pdf(request):
     for item in dataListBenefitsIntakeC :
         pdf.cell(epw/2, 6, '')
         pdf.cell((epw/6) * 2, 6, item['name'],border=1, align='L', fill=1)
-        pdf.cell(epw/6, 6, locale.format('%10.2f', float(item['y']), grouping=True), border=1, align='R', fill=1)
+        pdf.cell(epw/6, 6, format(float(item['y']),'0,.2f'),border=1, align='R', fill=1)
         pdf.ln(6)
 
     pdf.ln(40)
@@ -1725,7 +1720,7 @@ def pdf(request):
     for item in dataListBenefitsIntakeD :
         pdf.cell(epw/2, 6, '')
         pdf.cell((epw/6) * 2, 6, item['name'],border=1, align='L', fill=1)
-        pdf.cell(epw/6, 6, locale.format('%10.2f', float(item['y']), grouping=True), border=1, align='R', fill=1)
+        pdf.cell(epw/6, 6, format(float(item['y']),'0,.2f'),border=1, align='R', fill=1)
         pdf.ln(6)
 
     pdf.ln(40)
@@ -1786,7 +1781,7 @@ def pdf(request):
     for item in dataListBenefitsIntakeE :
         pdf.cell(epw/2, 6, '')
         pdf.cell((epw/6) * 2, 6, item['name'],border=1, align='L', fill=1)
-        pdf.cell(epw/6, 6, locale.format('%10.2f', float(item['y']), grouping=True), border=1, align='R', fill=1)
+        pdf.cell(epw/6, 6, format(float(item['y']),'0,.2f'),border=1, align='R', fill=1)
         pdf.ln(6)
 
     pdf.ln(60)

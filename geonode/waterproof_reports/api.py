@@ -707,7 +707,8 @@ def getWpAqueductIndicatorGraph(request):
 				"valueIndicator":row[3],
 				"description":row[4],
 				"intake":row[5],
-				"name":row[6]
+				"name":row[6],
+				"valueGraT":row[7]
 			})
 
 		return JsonResponse(objects_list, safe=False)

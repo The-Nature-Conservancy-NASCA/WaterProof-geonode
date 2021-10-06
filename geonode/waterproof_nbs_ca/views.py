@@ -18,6 +18,7 @@ from django.views.generic import CreateView, DetailView, ListView, UpdateView, D
 from django_libs.views_mixins import AccessMixin
 from django.shortcuts import render
 from .forms import WaterproofNbsCaForm
+from django.db.models import Q
 from .models import WaterproofNbsCa
 from geonode.waterproof_parameters.models import Regions, Countries, Cities
 from .models import RiosActivity, RiosTransition,RiosTransformation, ActivityShapefile
@@ -195,7 +196,9 @@ def listNbs(request):
                 )
 
             if (request.user.professional_role == 'ANALYS'):
-                nbs = WaterproofNbsCa.objects.all()
+                query = Q(added_by=request.user)
+                query.add(Q(added_by__professional_role='ADMIN'), Q.OR)
+                nbs = WaterproofNbsCa.objects.filter(query)
                 userCountry = Countries.objects.get(iso3=request.user.country)
                 region = Regions.objects.get(id=userCountry.region_id)
                 currency = Countries.objects.get(id=userCountry.id)
@@ -507,9 +510,8 @@ def cloneNbs(request, idx):
         return render(request, 'waterproof_nbs_ca/waterproofnbsca_login_error.html')
     else:
         if request.method == 'GET':
-            currencies = currencies = Countries.objects.values('currency', 'name', 'iso3').distinct().exclude(currency='').order_by('currency')
+            currencies = Countries.objects.values('currency', 'name', 'iso3').distinct().exclude(currency='').order_by('currency')
             countries = currencies
-            
             usaCountry = Countries.objects.get(iso3='USA')
             userCountry = Countries.objects.get(iso3=request.user.country)
             filterNbs = WaterproofNbsCa.objects.get(id=idx)

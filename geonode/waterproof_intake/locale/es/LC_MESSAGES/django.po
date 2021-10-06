@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Waterproof_valpha\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-08-07 14:59-0500\n"
-"PO-Revision-Date: 2021-10-01 22:02-0500\n"
+"PO-Revision-Date: 2021-10-04 16:10-0500\n"
 "Last-Translator: \n"
 "Language-Team: SKaphe\n"
 "Language: es\n"
@@ -695,7 +695,7 @@ msgstr "Numero de años para la serie de tiempo  (10-100) años"
 
 #: template/intake_form.html:289 template/intake_form.html:326
 msgid "Clic the following button to calculate the water extraction in each year"
-msgstr "De clic en el siguiente botón para calcular la extracción de agua para cada año"
+msgstr "De clic en el siguiente botón para poder ingresar manualmente la demanda por cada año"
 
 #: template/intake_form.html:321
 msgid "Number of years  (10-100) Year"
