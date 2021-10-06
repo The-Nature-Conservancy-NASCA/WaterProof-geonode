@@ -50,7 +50,7 @@
         <div class="icons-menu-header" id="idGeographicIndicators">
             <img src="/static/geonode/img/indicadores-geograficos.png" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;" title="{% trans "Geographic visualization" %}"/>
             <br>
-            <a href="../../reports/geographic/">{% trans "Geographic visualization" %}</a>
+            <a id="idGeographicIndicatorsClic" href="">{% trans "Geographic visualization" %}</a>
         </div>
         <div class="icons-menu-header" id="idGeographicIndicators">
             <img src="/static/geonode/img/reportes-icon.png" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;" title="{% trans "Geographic visualization" %}"/>
@@ -621,7 +621,7 @@
     <div class="list-menu-results" id="idGeographicIndicators">
         <img src="/static/geonode/img/indicadores-geograficos.png" title="{% trans "Geographic visualization" %}"/>
         <br>
-        <a href="../../reports/geographic/">{% trans "Geographic visualization" %}</a>
+        <a id="idGeographicIndicatorsClic" href="">{% trans "Geographic visualization" %}</a>
     </div>
 </div>
 
@@ -2093,6 +2093,23 @@ var localStorageId = localStorage.idStudyCase;
                     });
                 }, 2000);
             });
+            var urlDetail = "../../reports/getWpcompareMapas/?studyCase=" + localStorage.idStudyCase;
+            $.getJSON(urlDetail, function (data) {
+                    $.each( data, function( key, value ) {
+                        usr_folder = value.folder;
+                        intake = value.intake;
+                        year = value.year;
+                        region=value.region;
+                        studyCaseId=value.studycase;
+                        let g = JSON.parse(value.center).coordinates;
+                        let centroid =g[1] + "," + g[0];
+                        centroX = centroid;
+                    });
+                    var urlWaterProofLyrsWMS = `/reports/geographic/?folder=${usr_folder}&intake=${intake}&year=${year}&region=${region}&center=${centroX}&study_case_id=${studyCaseId}`;
+                    //console.log (urlWaterProofLyrsWMS);
+                    document.getElementById("idGeographicIndicatorsClic").href =urlWaterProofLyrsWMS;
+                    
+                });
         };
         initialize();
 
