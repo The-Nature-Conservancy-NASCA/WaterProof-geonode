@@ -34,10 +34,9 @@
                 <a href="../../reports/financial/">{% trans "Financial indicators" %}</a>
             </div>
             <div class="icons-menu-header" id="idFinancialIndicators">
-                <img src="/static/geonode/img/indicadores-fisicos.png" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black; opacity: 30%;" title="{% trans "Physical indicators" %}"/> 
+                <img src="/static/geonode/img/indicadores-fisicos.png" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;" title="{% trans "Physical indicators" %}"/> 
                 <br> 
-                <a>{% trans "Physical indicators" %}</a>
-                <!--<a href="../../reports/physical/">{% trans "Physical indicators" %}</a>-->
+                <a id="urlPhysical" href="">{% trans "Physical indicators" %}</a>
             </div>
             <div class="icons-menu-header" id="idDecisionIndicators">
                 <img src="/static/geonode/img/indicadores-decision.png" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black; opacity: 30%;" title="{% trans "Decision indicators" %}"/>
@@ -47,7 +46,7 @@
             <div class="icons-menu-header" id="idGeographicIndicators">
                 <img src="/static/geonode/img/indicadores-geograficos.png" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;" title="{% trans "Geographic visualization" %}"/>
                 <br>
-                <a href="../../reports/geographic/">{% trans "Geographic visualization" %}</a>
+                <a id="idGeographicIndicatorsClic" href="">{% trans "Geographic visualization" %}</a>
             </div>
             <div class="icons-menu-header" id="idGeographicIndicators">
                 <img src="/static/geonode/img/reportes-icon.png" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;" title="{% trans "Geographic visualization" %}"/>
@@ -1044,6 +1043,26 @@ $(function () {
                 intakePolygons.push({polygon: "POLYGON ((" + stringPolygon + "))"});
             });
         });
+
+        var urlDetail = "../../reports/getWpcompareMapas/?studyCase=" + localStorage.idStudyCase;
+            $.getJSON(urlDetail, function (data) {
+                    $.each( data, function( key, value ) {
+                        usr_folder = value.folder;
+                        intake = value.intake;
+                        year = value.year;
+                        region=value.region;
+                        studyCaseId=value.studycase;
+                        let g = JSON.parse(value.center).coordinates;
+                        let centroid =g[1] + "," + g[0];
+                        centroX = centroid;
+                    });
+                    var urlWaterProofLyrsWMS = `/reports/geographic/?folder=${usr_folder}&intake=${intake}&year=${year}&region=${region}&center=${centroX}&study_case_id=${studyCaseId}`;
+                    //console.log (urlWaterProofLyrsWMS);
+                    document.getElementById("idGeographicIndicatorsClic").href =urlWaterProofLyrsWMS;
+                    
+                });
+        let urlPhysicalIndicators = "../../reports/physical/"+localStorage.idStudyCase;
+        document.getElementById("urlPhysical").href = urlPhysicalIndicators;
     };
     initialize();
 });
