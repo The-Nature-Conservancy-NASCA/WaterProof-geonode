@@ -701,3 +701,7 @@ msgstr "Este conjunto de reportes sintetiza el cambio de los parámetros físico
 #: geonode/waterproof_reports/templates/waterproof_reports/physicalIndicators
 msgid "text-step4-ph"
 msgstr "Esta sección presenta el comportamiento de los servicios ecosistémicos para el periodo de análisis. Usted podrá visualizar cómo se comportan estas variables en los escenarios de desarrollo tradicional - BaU versus el escenario de implementación de soluciones basadas en la naturaleza - SbN a través del tiempo."
+
+#: geonode/waterproof_reports/templates/waterproof_reports/physicalIndicators
+msgid "text-step4-ph-2"
+msgstr "Seleccione la cuenca para la cuál desea ver el gráfico comparativo de los diferentes servicios."

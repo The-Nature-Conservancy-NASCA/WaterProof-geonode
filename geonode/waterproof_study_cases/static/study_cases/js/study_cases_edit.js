@@ -127,7 +127,7 @@ $(document).ready(function () {
     $('#btn-full').click(function () {
         if ($("#full-table").hasClass("panel-hide")) {
             $("#full-table").removeClass("panel-hide");
-            nbsactivities = $("#full-table").find("input")
+            nbsactivities = $("#full-table").find("input"):
             nbsactivities.each(function () {
                 total = 50
                 if (total) {
@@ -150,7 +150,7 @@ $(document).ready(function () {
             $("#full-table").removeClass("panel-hide");
             autoAdjustHeight();
             $('#column_investment').text("Investment");
-            nbsactivities = $("#full-table").find("input")
+            nbsactivities = $("#full-table").find("input");
             nbsactivities.each(function () {
                 total = $('#annual_investment').val() / 2
                 if (total) {
@@ -356,25 +356,28 @@ $(document).ready(function () {
                 $(" #" + tr.id).find('td').each(function (index, td) {
                     td_id = td.id;
                     if (td_id) {
-                        split = td_id.split('_')
+                        split = td_id.split('_');
                         split.pop();
                         name_td = split.join("_");
-                        split = name_td.split('_')
+                        split = name_td.split('_');
                         split.pop();
                         name_td = split.join("_");
-                        val = undefined
-                        $('#' + td_id).find("input").each(function () {
-                            val = $(this).val();
-                        });
-                        if (!val) {
-                            val = $('#' + td.id).text();
-                        }
+                        val = undefined;
+                        try{
+                            $('#' + td_id).find("input").each(function () {
+                                val = parseFloat($(this).val());
+                            });
+                            if (!val) {
+                                val = parseFloat($('#' + td.id).text());
+                            }
+                        }catch(e){
+                            // do something or nothing
+                        }                        
                         bio[name_td] = val;
                     }
                 });
                 biophysical.push(bio);
             });
-
         });
 
         $.post("../../study_cases/savebio/", {
@@ -529,9 +532,7 @@ $(document).ready(function () {
         }
 
         if ($('#period_analysis').val() != '' && $('#period_nbs').val() != '' && valid_edit && valid_period) {
-
             analysis_currency = $("#analysis_currency option:selected").val();
-
             let lbl_currency = gettext('Currency for the execution this analisys');
             let lbl_applied_currency = gettext('The following exchange rates will be applied for the analysis');            
             html = '<div class="row" id="currencys-panel"> <div class="col-md-10 currency-panel">' + lbl_currency + 
@@ -564,10 +565,10 @@ $(document).ready(function () {
                 $("#full-table").find("input").each(function (index, input) {
                     input_id = input.id
                     if ($("#" + input_id).hasClass("hiddennbs")) {
-                        split = input_id.split('-')
+                        split = input_id.split('-');
                         nbssc_id = split.pop();
                         nbs_min = parseFloat($("#" + input_id).val());
-                        nbs_min /= conversion
+                        nbs_min /=  ;
                         if (minimun) {
                             if (minimun > nbs_min) {
                                 minimun = nbs_min;
@@ -576,14 +577,14 @@ $(document).ready(function () {
                             minimun = nbs_min;
                         }
                         if (nbs_value < nbs_min && nbs_value > 0) {
-                            valid_nbs = false
+                            valid_nbs = false;
                             $('#nbssc-' + nbssc_id).css('border-color', 'red');
                             Swal.fire({
                                 icon: 'warning',
                                 title: gettext('field_problem'),
-                                text: gettext('error_minimun_nbs') + nbs_min,
+                                text: gettext('error_minimun_nbs') + nbs_min.toFixed(2),
                             });
-                            return false
+                            return false;
                         }
                     } else {
                         nbs_value = parseFloat($("#" + input_id).val());
@@ -815,12 +816,12 @@ $(document).ready(function () {
                 minimun = 0;
                 valid_nbs = true
                 $("#full-table").find("input").each(function (index, input) {
-                    input_id = input.id
+                    input_id = input.id;
                     if ($("#" + input_id).hasClass("hiddennbs")) {
-                        split = input_id.split('-')
+                        split = input_id.split('-');
                         nbssc_id = split.pop();
                         nbs_min = parseFloat($("#" + input_id).val());
-                        nbs_min /= conversion
+                        nbs_min /= conversion;
                         if (minimun) {
                             if (minimun > nbs_min) {
                                 minimun = nbs_min;
@@ -829,19 +830,19 @@ $(document).ready(function () {
                             minimun = nbs_min;
                         }
                         if (nbs_value < nbs_min && nbs_value > 0) {
-                            valid_nbs = false
+                            valid_nbs = false;
                             $('#nbssc-' + nbssc_id).css('border-color', 'red');
                             Swal.fire({
                                 icon: 'warning',
                                 title: gettext('field_problem'),
                                 text: gettext('error_minimun_nbs') + nbs_min,
                             });
-                            return false
+                            return false;
                         }
                     } else {
                         nbs_value = parseFloat($("#" + input_id).val());
                         if (nbs_value > 0)
-                            valid_investment = false
+                            valid_investment = false;
                         $("#" + input_id).css('border-color', '#eeeeee');
                     }
                 });

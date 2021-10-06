@@ -41,10 +41,9 @@
 				<a href="../../reports/financial/">{% trans "Financial indicators" %}</a>
 			</div>
 			<div class="icons-menu-header" id="idFinancialIndicators">
-				<img src="/static/geonode/img/indicadores-fisicos.png" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black; opacity: 30%;" title="{% trans "Physical indicators" %}"/> 
-				<br> 
-				<a>{% trans "Physical indicators" %}</a>
-				<!--<a href="../../reports/physical/">{% trans "Physical indicators" %}</a>-->
+				<img src="/static/geonode/img/indicadores-fisicos.png" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;" title="{% trans "Physical indicators" %}"/> 
+                <br> 
+                <a id="urlPhysical" href="">{% trans "Physical indicators" %}</a>
 			</div>
 			<div class="icons-menu-header" id="idDecisionIndicators">
 				<img src="/static/geonode/img/indicadores-decision.png" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;" title="{% trans "Decision indicators" %}"/>
@@ -232,6 +231,8 @@
 					document.getElementById("idCurrencyMainGeographic").innerHTML = localStorage.getItem('idCurrencyMain');
 					document.getElementById("idTimeMainGeographic").innerHTML = localStorage.getItem('idTimeMain');
 					document.getElementById("discountRateGeographic").innerHTML = localStorage.getItem('transactionCost');
+					let urlPhysicalIndicators = "../../reports/physical/"+localStorage.idStudyCase;
+        			document.getElementById("urlPhysical").href = urlPhysicalIndicators;
 				};
 			initialize();
 

@@ -830,11 +830,11 @@ def pdf(request):
 
     requestJson = requests.get(settings.SITE_HOST_API + 'reports/getReportOportunityResultIndicators/?studyCase=' + request.POST['studyCase'],verify=False)
     data = requestJson.json()
-    valueRoi = ""
-    idTotalTreatmentCostSavings = ""
-    idTimeFrame = ""
-    idTotalEstimatedInvestment = ""
-    idTotalAreaInvestmentSize = ""
+    valueRoi = 0
+    idTotalTreatmentCostSavings = 0
+    idTimeFrame = 0
+    idTotalEstimatedInvestment = 0
+    idTotalAreaInvestmentSize = 0
     backgroundColorR = 0
     backgroundColorG = 0
     backgroundColorB = 0
@@ -904,8 +904,8 @@ def pdf(request):
     pdf.set_font('Arial', '', 10)
     pdf.cell(epw, 10, 'Total area investment size', align='C')
     pdf.ln(5)
-#    pdf.set_font('Arial', '', 15)
-#    pdf.cell(epw, 10, format(float(idTotalAreaInvestmentSize),'0,.2f'), align='C')
+    pdf.set_font('Arial', '', 15)
+    pdf.cell(epw, 10, format(float(idTotalAreaInvestmentSize),'0,.2f'), align='C')
     pdf.ln(7)
     pdf.set_font('Arial', '', 10)
     pdf.cell(epw, 10, 'Time frame (Years)', align='C')
@@ -1869,10 +1869,10 @@ def getNames(indicators):
     result = []
     for objectIndicator in indicators:  
         try:
-            if objectIndicator.intake not in result:
-                result.append(objectIndicator.intake)
+            if objectIndicator.intake.name not in result:
+                result.append(objectIndicator.intake.name)
         except:
-            print ("")
+            return result
     return result
 
 def getNameCity(indicators):
@@ -1882,7 +1882,7 @@ def getNameCity(indicators):
             if objectIndicatorcity.intake.city.name not in result:
                 result.append(objectIndicatorcity.intake.city.name)
         except:
-            print ("")
+            return result
     return result
 
 
@@ -1902,24 +1902,40 @@ def physicalIndicators(request, idx):
 
 
 def financialIndicators(request):
+
+    indicators = investIndicators.objects.all()
+    indicatorsNames = getNames(indicators)
+    indicatorsNameCity = getNameCity(indicators)
     return render(
         request,
         'waterproof_reports/financialIndicators.html',
         {
-    
+            'Indicators': indicators,
+            'NamesIndicators': indicatorsNames,
+            'NameCityIndicators': indicatorsNameCity
         })
 
 
 def decisionIndicators(request):
+
+    indicators = investIndicators.objects.all()
+    indicatorsNames = getNames(indicators)
+    indicatorsNameCity = getNameCity(indicators)
     return render(
         request,
         'waterproof_reports/decisionIndicators.html',
         {
-
+            'Indicators': indicators,
+            'NamesIndicators': indicatorsNames,
+            'NameCityIndicators': indicatorsNameCity
         })
 
 
 def geographicIndicators(request):
+
+    indicators = investIndicators.objects.all()
+    indicatorsNames = getNames(indicators)
+    indicatorsNameCity = getNameCity(indicators)
     base_data = ''
     intake = ''
     region = ''
@@ -1944,6 +1960,9 @@ def geographicIndicators(request):
         request,
         'waterproof_reports/geographicIndicators.html',
         {
+            'Indicators': indicators,
+            'NamesIndicators': indicatorsNames,
+            'NameCityIndicators': indicatorsNameCity,
             'base_data': base_data,
             'intake': intake,
             'region': region,

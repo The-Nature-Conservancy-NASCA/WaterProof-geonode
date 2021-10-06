@@ -65,11 +65,11 @@
                     <label>{% trans "Currency for definition of costs" %} <span class="text-danger-wp">(*)</span> </label>
                     <select id="currencyCost" {{countryEnable}} class="form-control" data-error="This field is required" required>
                         {% for currency in currencies %}
-                        {% if nbs.currency.iso3 == currency.iso3 %}
-                        <option value="{{currency.iso3}}" data-country="{{currency.iso3}}" selected>({{currency.currency}}) - {{currency.name}}</option>
-                        {% else %}
-                        <option value="{{currency.iso3}}" data-country="{{currency.iso3}}">({{currency.currency}}) - {{currency.name}}</option>
-                        {% endif %}
+                            {% if nbs.currency.iso3 == currency.iso3 %}
+                            <option value="{{currency.iso3}}" selected>({{currency.currency}}) - {{currency.name}}</option>
+                            {% else %}
+                            <option value="{{currency.iso3}}">({{currency.currency}}) - {{currency.name}}</option>
+                            {% endif %}
                         {% endfor %}
                     </select>
                     <div class="help-block with-errors"></div>
