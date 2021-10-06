@@ -73,7 +73,7 @@ $(function () {
 
         // Populate countries options
         // Populate currencies options
-        fillCurrencyDropdown(currencyDropdown);
+        //fillCurrencyDropdown(currencyDropdown);
         fillTransitionsDropdown(transitionsDropdown);
         // Change transition dropdown event listener
         changeTransitionEvent(transitionsDropdown, activitiesDropdown);
