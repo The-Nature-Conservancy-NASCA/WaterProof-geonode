@@ -568,7 +568,7 @@ $(document).ready(function () {
                         split = input_id.split('-');
                         nbssc_id = split.pop();
                         nbs_min = parseFloat($("#" + input_id).val());
-                        nbs_min /=  ;
+                        nbs_min /=  conversion;
                         if (minimun) {
                             if (minimun > nbs_min) {
                                 minimun = nbs_min;
