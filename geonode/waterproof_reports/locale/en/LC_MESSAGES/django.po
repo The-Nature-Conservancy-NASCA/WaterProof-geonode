@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Waterproof Vbeta\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-02-19 11:27-0500\n"
-"PO-Revision-Date: 2021-09-11 16:24-0500\n"
+"PO-Revision-Date: 2021-10-06 17:08-0500\n"
 "Last-Translator: Julien Collaer <julien.collaer@opengeode.be>\n"
 "Language-Team: Skaphe\n"
 "Language: en\n"
@@ -670,3 +670,7 @@ msgstr "This section presents the behavior of ecosystem services for the period 
 #: geonode/waterproof_reports/templates/waterproof_reports/physicalIndicators
 msgid "text-step4-ph-2"
 msgstr "Select the basin for which you want to see the comparative graph of the different services."
+
+#: geonode/waterproof_reports/templates/waterproof_reports/physicalIndicators
+msgid "discount rate:"
+msgstr "Discount rate:"
