@@ -432,6 +432,14 @@
     border-color: #1389A9;
     float: left;
 }
+.list-year-cont-1 {
+    width: 25%;
+    border-right-style: solid;
+    border-width: 1px;
+    height: 569px;
+    border-color: #1389A9;
+    float: left;
+}
 .title-year-cont {
     background-color: #1389A9;
     padding: 5px;
@@ -449,7 +457,7 @@
     float: left;
 }
 .graph-year-cont {
-    width: 75%;
+    width: 100%;
     position: relative;
     float: left;
 }
@@ -526,16 +534,16 @@
 .modal-body-li{
     position:relative;
 }
-.padding-text-desc-table{
-    padding-left: 3%;
-    padding-right: 3%;
-}
 .background-step1-physical{
     background-color: #d9edf7;
     padding: 3%;
 }
 .justify-text-physical{
     text-align: justify;
+}
+.padding-table-step-4-ph{
+    padding-bottom: 3%;
+    padding-top: 2%;
 }
 @media (min-width: 360px){
     .report-container{
@@ -906,7 +914,7 @@
         border-style: solid;
         width: 94%;
         margin: 10px;
-        height: 600px;
+        height: auto;
         border-width: 1px;
         border-color: #1389A9;
         font-size: 12px;
@@ -1298,7 +1306,7 @@
         border-style: solid;
         width: 94%;
         margin: 10px;
-        height: 600px;
+        height: auto;
         border-width: 1px;
         border-color: #1389A9;
         font-size: 12px;
@@ -1681,7 +1689,7 @@
         border-style: solid;
         width: 94%;
         margin: 10px;
-        height: 600px;
+        height: auto;
         border-width: 1px;
         border-color: #1389A9;
         font-size: 12px;
@@ -2115,7 +2123,7 @@
         border-style: solid;
         width: 67%;
         margin: 10px;
-        height: 600px;
+        height: auto;
         border-width: 1px;
         border-color: #1389A9;
         font-size: 12px;
@@ -2132,6 +2140,9 @@
     .image-size-left{
         width: 70%;
         margin: 15%;
+    }
+    .table-step-4-ph{
+        width: 100%;
     }
 }
 @media only screen and (max-width: 1200px) {

@@ -337,6 +337,8 @@ $(function () {
                 let filterIndexes = search.rows({ search: 'applied' }).indexes();
                 let multiplicatorFactor = parseFloat(result[0].fields.global_multiplier_factor);
                 for (let index = 0; index < filteredData.length; index++) {
+                    console.log(filteredData[index]);
+                    console.log(result);
                     if (filteredData[index][4] === 'ADMIN') {
                         if (result[0].fields.iso3 === 'USA') {
                             let oldImplCost = parseFloat(table.cell({ row: filterIndexes[index], column: 7 }).data());
@@ -349,11 +351,11 @@ $(function () {
                         }
                         else {
                             let oldImplCost = parseFloat(filteredData[index][7]);
-                            let newImplCost = ((oldImplCost * multiplicatorFactor) + oldImplCost).toFixed(2);
+                            let newImplCost = ((oldImplCost * multiplicatorFactor)).toFixed(2);
                             let oldMaintCost = parseFloat(table.cell({ row: filterIndexes[index], column: 8 }).data());
-                            let newMaintConst = ((oldMaintCost * multiplicatorFactor) + oldMaintCost).toFixed(2);
+                            let newMaintConst = ((oldMaintCost * multiplicatorFactor)).toFixed(2);
                             let oldOportCost = parseFloat(table.cell({ row: filterIndexes[index], column: 9 }).data());
-                            let newOportCost = ((oldOportCost * multiplicatorFactor) + oldOportCost).toFixed(2);
+                            let newOportCost = ((oldOportCost * multiplicatorFactor)).toFixed(2);
                             $(table.cell({ row: filterIndexes[index], column: 7 }).node()).html(newImplCost);
                             $(table.cell({ row: filterIndexes[index], column: 8 }).node()).html(newMaintConst);
                             $(table.cell({ row: filterIndexes[index], column: 9 }).node()).html(newOportCost);
@@ -364,6 +366,7 @@ $(function () {
                 search.draw();
                 let countryId = result[0].pk;
                 let countryIso=result[0].fields.iso3;
+                console.log(countryIso);
                 $.ajax({
                     url: '/parameters/load-regionByCountry/',
                     data: {

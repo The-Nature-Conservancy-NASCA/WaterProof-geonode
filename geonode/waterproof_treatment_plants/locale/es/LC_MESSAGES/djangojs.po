@@ -158,7 +158,7 @@ msgstr "Sedimentos retenidos"
 
 #: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:748
 #: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:916
-msgid "Enter Sediments retained"
+msgid "Enter sediments retained"
 msgstr "Ingresar sedimentos retenidos"
 
 #: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:756
@@ -260,3 +260,9 @@ msgstr "Granulado de Aluminio Sulfato"
 
 msgid "Ferric chloride"
 msgstr "Cloruro de Hierro"
+
+msgid "Add new technology"
+msgstr "Adicionar nueva tecnología"
+
+msgid "Saving Plant"
+msgstr "Guardando Planta"
