@@ -579,10 +579,10 @@
             var dataNetPresentValueSummary = [];
             var urlDetail = "../../reports/getNetPresentValueSummary/?studyCase=" + localStorage.idStudyCase;
             var typeMoney = "";
-            var implementationf = Intl.NumberFormat('es').format(parseFloat(value.implementationr));
-            console.log(implementationf);
             $.getJSON(urlDetail, function (data) {
                 $.each( data, function( key, value ) {
+                    var implementationf = Intl.NumberFormat('es').format(parseFloat(value.implementationr));
+                    console.log(implementationf);
                     typeMoney = value.currencyr;
                     dataNetPresentValueSummary.push(implementationf);
                     dataNetPresentValueSummary.push(parseFloat(value.maintenancer));
