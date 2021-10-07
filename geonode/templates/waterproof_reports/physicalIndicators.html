@@ -1639,8 +1639,8 @@ var localStorageId = localStorage.idStudyCase;
                             var tituloS = value.valueGraT;
                             var chartSpeed = Highcharts.chart('containerPr' + numberContainerG, Highcharts.merge(gaugeOptions, {
                                 yAxis: {
-                                    min: "",
-                                    max: "",
+                                    min: 0,
+                                    max: 4,
                                     stops: [
                                         [0.1, '#55BF3B'], // green
                                         [0.5, '#DDDF0D'], // yellow
