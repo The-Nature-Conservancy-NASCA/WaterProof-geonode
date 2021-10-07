@@ -1637,17 +1637,10 @@ var localStorageId = localStorage.idStudyCase;
                         var numberContainerG = 0;
                         $.each( data, function( key, value ) {
                             var tituloS = value.valueGraT;
-/*
-                            var gaugeOptions = {
-                                tooltip: {
-                                        enabled: false
-                                    }
-                            };
-*/
                             var chartSpeed = Highcharts.chart('containerPr' + numberContainerG, Highcharts.merge(gaugeOptions, {
                                 yAxis: {
-                                    min: 0,
-                                    max: 5,
+//                                    min: 0,
+//                                    max: 5,
                                     stops: [
                                         [0.1, '#55BF3B'], // green
                                         [0.5, '#DDDF0D'], // yellow
