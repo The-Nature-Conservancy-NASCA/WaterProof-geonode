@@ -388,6 +388,7 @@ $(function () {
                     success: function (result) {
                         result = JSON.parse(result);
                         $('#currencyLabel').text('(' + result[0].fields.currency + ') - ' + result[0].fields.name);
+                        $("#countryNBS").val(localStorage.countryCode);
                     }
                 });
             }
