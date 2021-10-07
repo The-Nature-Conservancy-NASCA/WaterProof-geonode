@@ -221,7 +221,7 @@
                     </div>
                 </div>
                 <div id="map-step-3" class="container-border">
-                    <div id="mapiddecision" style="position: relative;width: 100%;height: 400px; margin-left: 2%; margin-top: 2%;"></div>
+                    <div id="mapiddecision" style="position: relative;width: 100%;height: 400px; margin-top: 2%;"></div>
                 </div>
             </div>
 
@@ -521,6 +521,7 @@ $(function () {
             map.on('click', onMapClick);
             $("#step3-map")[0].append($("#map-step-3")[0]);
     }
+    initMapDecision();
 
     initMapPhysical = function () {
             map = L.map('mapidphysical', {
@@ -795,6 +796,8 @@ $(function () {
             });
         });
 
+        // let DWPTBenefits = document.gettext("DWTP Benefits")
+
         changePie = function (selectName) {
             dataTotalBenefitsIntakeOne = [];
             dataTotalBenefitsIntake.forEach((featureIntake) => {
@@ -1006,7 +1009,7 @@ $(function () {
         });
 
         $('#mapInit').click(function(e){
-            initMapDecision();
+            // initMapDecision();
         });
 
         document.getElementById("idNumberOfWaterDecision").innerHTML = localStorage.getItem('idNumberOfWater');

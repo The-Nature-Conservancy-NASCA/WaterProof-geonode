@@ -331,7 +331,7 @@ $(function() {
     viewPtap = function(id) {
         localStorage.loadInf = "true";
         localStorage.plantId = id;
-        window.open('../../treatment_plants/create/', '_blank');
+        window.open('../../treatment_plants/view/' + id, '_blank');
     };
 
     /** 
