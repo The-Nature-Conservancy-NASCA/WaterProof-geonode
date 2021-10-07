@@ -127,7 +127,7 @@ $(document).ready(function () {
     $('#btn-full').click(function () {
         if ($("#full-table").hasClass("panel-hide")) {
             $("#full-table").removeClass("panel-hide");
-            nbsactivities = $("#full-table").find("input")
+            nbsactivities = $("#full-table").find("input");
             nbsactivities.each(function () {
                 total = 50
                 if (total) {
@@ -354,27 +354,31 @@ $(document).ready(function () {
                     intake_id: id
                 }
                 $(" #" + tr.id).find('td').each(function (index, td) {
-                    td_id = td.id
+                    td_id = td.id;
                     if (td_id) {
-                        split = td_id.split('_')
+                        split = td_id.split('_');
                         split.pop();
                         name_td = split.join("_");
-                        split = name_td.split('_')
+                        split = name_td.split('_');
                         split.pop();
                         name_td = split.join("_");
-                        val = undefined
-                        $('#' + td_id).find("input").each(function () {
-                            val = $(this).val();
-                        });
-                        if (!val) {
-                            val = $('#' + td.id).text();
-                        }
+                        val = undefined;
+                        try{
+                            // Just parseFloat when is input element
+                            $('#' + td_id).find("input").each(function () {
+                                val = parseFloat($(this).val());
+                            });
+                            if (val == undefined) {
+                                val = $('#' + td.id).text();
+                            }
+                        }catch(e){
+                            // do something or nothing
+                        }                        
                         bio[name_td] = val;
                     }
                 });
-                biophysical.push(bio)
+                biophysical.push(bio);
             });
-
         });
 
         $.post("../../study_cases/savebio/", {

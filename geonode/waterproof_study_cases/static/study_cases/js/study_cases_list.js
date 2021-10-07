@@ -112,8 +112,13 @@ $(function() {
                                 text: gettext('The study case has been deleted')
                             })
                             setTimeout(function() {
-                                location.href = "/study_cases/?city="+localStorage.cityId; 
-                            }, 1000);
+                                if (location.pathname.indexOf("my_cases") >= 0){
+                                    location.href = "/study_cases/my_cases/"; 
+                                }else{
+                                    location.href = "/study_cases/?city="+localStorage.cityId; 
+                                }
+                                
+                            }, 500);
                         },
                         error: function(error) {
                             Swal.fire({
