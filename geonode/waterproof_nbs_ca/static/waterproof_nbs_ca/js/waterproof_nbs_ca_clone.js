@@ -383,13 +383,41 @@ $(function () {
             }
         );
         countries.addTo(map);
-        var defExt = new L.Control.DefaultExtent({ title: gettext('Default extent'), position: 'topright'}).addTo(map);
+        var defExt = new L.Control.DefaultExtent({ title: gettext('Default extent'), position: 'topright' }).addTo(map);
 
         // When countries layer is loaded fire dropdown event change
         countries.on("data:loaded", function () {
             let mapClick = false;
             // Preload selected country form list view
             $('#countryNBS option[value=' + countryId + ']').attr('selected', true).trigger('click', { mapClick });
+            if (!disableMap) {
+                countryDropdown.val(localStorage.countryCode);
+                countryDropdown.trigger('click');
+                $.ajax({
+                    url: '/parameters/load-currencyByCountry/',
+                    data: {
+                        'country': localStorage.countryCode
+                    },
+                    success: function (result) {
+                        result = JSON.parse(result);
+                        var implementation = parseFloat($('#implementCost').val().replace(/,/g, '.'));
+                        var maintenance = parseFloat($('#maintenanceCost').val().replace(/,/g, '.'));
+                        var oportunity = parseFloat($('#oportunityCost').val().replace(/,/g, '.'));
+                        var implementCost = implementation * result[0].fields.global_multiplier_factor;
+                        implementCost = implementCost.toString();
+                        implementCost = implementCost.slice(0, (implementCost.indexOf(".")) + 3).replace(".", ",");
+                        var maintenanceCost = maintenance * result[0].fields.global_multiplier_factor;
+                        maintenanceCost = maintenanceCost.toString();
+                        maintenanceCost = maintenanceCost.slice(0, (maintenanceCost.indexOf(".")) + 3).replace(".", ",");
+                        var oportunityCost = oportunity * result[0].fields.global_multiplier_factor;
+                        oportunityCost = oportunityCost.toString();
+                        oportunityCost = oportunityCost.slice(0, (oportunityCost.indexOf(".")) + 3).replace(".", ",");
+                        $('#implementCost').val(implementCost);
+                        $('#maintenanceCost').val(maintenanceCost);
+                        $('#oportunityCost').val(oportunityCost);
+                    }
+                });
+            }
 
         });
 
@@ -716,8 +744,8 @@ $(function () {
         }
         else {
             event.target.value = "";
-            let test=gettext('Wrong decimal format');
-            event.target.placeholder=test;
+            let test = gettext('Wrong decimal format');
+            event.target.placeholder = test;
             event.target.focus();
         }
     };
