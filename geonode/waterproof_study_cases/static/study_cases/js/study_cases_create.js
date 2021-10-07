@@ -127,7 +127,7 @@ $(document).ready(function () {
     $('#btn-full').click(function () {
         if ($("#full-table").hasClass("panel-hide")) {
             $("#full-table").removeClass("panel-hide");
-            nbsactivities = $("#full-table").find("input")
+            nbsactivities = $("#full-table").find("input");
             nbsactivities.each(function () {
                 total = 50
                 if (total) {
@@ -366,13 +366,14 @@ $(document).ready(function () {
                         name_td = split.join("_");
                         val = undefined;
                         try{
+                            // Just parseFloat when is input element
                             $('#' + td_id).find("input").each(function () {
                                 val = parseFloat($(this).val());
                             });
-                            if (!val) {
-                                val = parseFloat($('#' + td.id).text());
+                            if (val == undefined) {
+                                val = $('#' + td.id).text();
                             }
-                        }catch (e){
+                        }catch(e){
                             // do something or nothing
                         }                        
                         bio[name_td] = val;
