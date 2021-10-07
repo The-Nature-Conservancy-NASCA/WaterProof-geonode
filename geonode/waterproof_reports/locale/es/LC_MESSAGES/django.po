@@ -42,7 +42,7 @@ msgstr ""
 "Project-Id-Version: GeoNode\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-02-19 11:28-0500\n"
-"PO-Revision-Date: 2021-10-06 17:08-0500\n"
+"PO-Revision-Date: 2021-10-06 18:59-0500\n"
 "Last-Translator: \n"
 "Language-Team: Spanish (http://www.transifex.com/geonode/geonode/language/es/)\n"
 "Language: es_419\n"
@@ -190,7 +190,7 @@ msgstr "Gasto real"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
 msgid "Intervention área (Hectares)"
-msgstr "Área convertida"
+msgstr "Área convertida (Ha)"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
 msgid "Explore detailed results of this case study"
