@@ -41,10 +41,9 @@
 				<a href="../../reports/financial/">{% trans "Financial indicators" %}</a>
 			</div>
 			<div class="icons-menu-header" id="idFinancialIndicators">
-				<img src="/static/geonode/img/indicadores-fisicos.png" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black; opacity: 30%;" title="{% trans "Physical indicators" %}"/> 
-				<br> 
-				<a>{% trans "Physical indicators" %}</a>
-				<!--<a href="../../reports/physical/">{% trans "Physical indicators" %}</a>-->
+				<img src="/static/geonode/img/indicadores-fisicos.png" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;" title="{% trans "Physical indicators" %}"/> 
+                <br> 
+                <a id="urlPhysical" href="">{% trans "Physical indicators" %}</a>
 			</div>
 			<div class="icons-menu-header" id="idDecisionIndicators">
 				<img src="/static/geonode/img/indicadores-decision.png" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;" title="{% trans "Decision indicators" %}"/>
@@ -106,7 +105,7 @@
 			</div>
 		</div>
 
-		<div style="text-align: center;">
+		<div>
 			<h5>{% trans "Water Intake" %} : 
 				<select class="select-condition" style="width: 800px; text-align: center;" id="idSelectStudyCase"></select>
 			</h5>
@@ -156,7 +155,7 @@
 						<p class="padding-text-desc">{% trans "RIOS text 1" %}</p>
 					</div>
 					<div id="map-analysis-result" class="row">
-						<div class="col-md-10 padding-text-desc">
+						<div class="col-md-12 padding-text-desc">
 							<div id="map-results" class="map__compare"></div>
 						</div>        
 					</div>
@@ -232,6 +231,8 @@
 					document.getElementById("idCurrencyMainGeographic").innerHTML = localStorage.getItem('idCurrencyMain');
 					document.getElementById("idTimeMainGeographic").innerHTML = localStorage.getItem('idTimeMain');
 					document.getElementById("discountRateGeographic").innerHTML = localStorage.getItem('transactionCost');
+					let urlPhysicalIndicators = "../../reports/physical/"+localStorage.idStudyCase;
+        			document.getElementById("urlPhysical").href = urlPhysicalIndicators;
 				};
 			initialize();
 

@@ -97,7 +97,7 @@
                     </div>
                     <div class="col-md-6">
                         <label>{% trans "Multiplying factor for overrall cost" %}</label>
-                        <input disabled id="multiplyCurrencies" type="text" value="{{userCountry.global_multiplier_factor}}"class="form-control" required>
+                        <input disabled id="multiplyCurrencies" type="text" value="" class="form-control" required>
                     </div>
                 {% endif %}
             {% endif %}
@@ -137,15 +137,15 @@
                             <div class="panel-body">
                                 <div class="form-group">
                                     <label>{% trans "Implementation cost (US$/ha)" %} ({{sbn.country.currency}}/ha)</label>
-                                    <input type="text"  value="{{sbn.unit_implementation_cost|multiplyFactor:userCountry.global_multiplier_factor|decimalFormat:2}}" class="form-control" id="a_unit_implementation_cost" required disabled>
+                                    <input type="text"  value="{{sbn.unit_implementation_cost|decimalFormat:2}}" class="form-control" id="a_unit_implementation_cost" required disabled>
                                 </div>
                                 <div class="form-group">
                                     <label>{% trans "Maintenace cost (US$/ha)" %} ({{sbn.country.currency}}/ha)</label>
-                                    <input type="text" value="{{sbn.unit_maintenance_cost|multiplyFactor:userCountry.global_multiplier_factor|decimalFormat:2}}" class="form-control" id="a_unit_maintenance_cost" required disabled>
+                                    <input type="text" value="{{sbn.unit_maintenance_cost|decimalFormat:2}}" class="form-control" id="a_unit_maintenance_cost" required disabled>
                                 </div>
                                 <div class="form-group">
                                     <label>{% trans "Oportunity cost (US$/ha)" %} ({{sbn.country.currency}}/ha)</label>
-                                    <input id="a_unit_oportunity_cost" value="{{sbn.unit_oportunity_cost|multiplyFactor:userCountry.global_multiplier_factor|decimalFormat:2}}" type="text" class="form-control" required disabled>
+                                    <input id="a_unit_oportunity_cost" value="{{sbn.unit_oportunity_cost|decimalFormat:2}}" type="text" class="form-control" required disabled>
                                 </div>
                             </div>
                         </div>
@@ -214,7 +214,32 @@
 <script src="{{ STATIC_URL }}waterproof_nbs_ca/js/waterproof_nbs_ca_list.js"></script>
 <script>
     $(document).ready(function() {
-        $("#currenciesComapreSelect").val(localStorage.countryCode);
+        $.ajax({
+            url: '/parameters/load-currencyByCountry/',
+            data: {
+                'country': localStorage.countryCode
+            },
+            success: function (result) {
+                $("#currenciesComapreSelect").val(localStorage.countryCode);
+                result = JSON.parse(result);
+                $('#multiplyCurrencies').val(result[0].fields.global_multiplier_factor.replace('.',','));
+                var implementation = parseFloat($('#b_unit_implementation_cost').val().replace(/,/g, '.'));
+                var maintenance = parseFloat($('#b_unit_maintenance_cost').val().replace(/,/g, '.'));
+                var oportunity = parseFloat($('#b_unit_oportunity_cost').val().replace(/,/g, '.'));
+                var implementCost=implementation * result[0].fields.global_multiplier_factor;
+                implementCost=implementCost.toString();
+                implementCost=implementCost.slice(0, (implementCost.indexOf("."))+3).replace(".",",");
+                var maintenanceCost=maintenance * result[0].fields.global_multiplier_factor;
+                maintenanceCost=maintenanceCost.toString();
+                maintenanceCost=maintenanceCost.slice(0, (maintenanceCost.indexOf("."))+3).replace(".",",");
+                var oportunityCost=oportunity * result[0].fields.global_multiplier_factor;
+                oportunityCost=oportunityCost.toString();
+                oportunityCost=oportunityCost.slice(0, (oportunityCost.indexOf("."))+3).replace(".",",");
+                $('#a_unit_implementation_cost').val(implementCost);
+                $('#a_unit_maintenance_cost').val(maintenanceCost);
+                $('#a_unit_oportunity_cost').val(oportunityCost);
+            }
+        });
         $("#currenciesComapreSelect").change(function() {
             var optionSelected = $(this).find("option:selected");
             var ValueSelected = optionSelected.val();

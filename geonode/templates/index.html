@@ -180,7 +180,7 @@
             <p class="size-left"> {% trans "Text 3 - Support data" %}
         </div>
         <div class="description-WhatIsWP" id="desc-wp-4">
-            <p class="size-left"> {% trans "Text 4 - See an example" %}
+            <p class="size-left" style="color: black;"> <a href="/pages/{{request.LANGUAGE_CODE}}/example-of-the-construction-of-a-case-study/">{% trans "Here" %}</a> {% trans "Text 4 - See an example" %} </p>
         </div> 
         <div class="description-WhatIsWP" id="desc-wp-5">
             <p class="size-left">  {% trans "Text 5 - Who can use the system?" %}
@@ -235,7 +235,7 @@
         </div>
         <div class="col-md-4 center-block">
             <div class="center-block text-center">
-                <a href="{% url "how-does-waterproof-work" %}"> <img class="center-img principal_img ani_flip" src="/static/geonode/img/1.png"> </a>
+                <a href="/pages/{{request.LANGUAGE_CODE}}/how-wp-work/ " target="_self"> <img class="center-img principal_img ani_flip" src="/static/geonode/img/1.png"> </a>
             </div>
         </div>
         <div class="col-md-4 center-block ">
@@ -340,7 +340,7 @@
                     <p>{% trans "Step beyond ROI assessment to learn about tangible steps you can take for advancing your NbS investment vision" %}</p>
                     <br>
                     <button class="buttonRealize" >
-                    <a class= "link-wp-syle" href="/take-action/" target="_self"> <span class="ppwpwiki3">{% trans "Take action" %}</a></span></button>
+                    <a class= "link-wp-syle" href="/pages/{{request.LANGUAGE_CODE}}/take-action/" target="_self"> <span class="ppwpwiki3">{% trans "Take action" %}</a></span></button>
                     <br>
                 </div>
             </div>

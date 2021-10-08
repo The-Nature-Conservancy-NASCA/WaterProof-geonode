@@ -582,7 +582,7 @@
             $.getJSON(urlDetail, function (data) {
                 $.each( data, function( key, value ) {
                     typeMoney = value.currencyr;
-                    dataNetPresentValueSummary.push(Intl.NumberFormat('es').format(parseFloat(value.implementationr)));
+                    dataNetPresentValueSummary.push(parseFloat(value.implementationr));
                     dataNetPresentValueSummary.push(parseFloat(value.maintenancer));
                     dataNetPresentValueSummary.push(parseFloat(value.oportunityr));
                     dataNetPresentValueSummary.push(parseFloat(value.transactionr));
@@ -659,7 +659,7 @@
                     document.getElementById("idCurrencyMain").innerHTML = value.currency;
                     document.getElementById("idTimeMain").innerHTML = value.time;
                     document.getElementById("idRoi").innerHTML = (Intl.NumberFormat('es').format(value.roi.toFixed(2)));
-                    document.getElementById("discountRate").innerHTML = (Intl.NumberFormat('es').format(value.transactionCost));
+                    document.getElementById("discountRate").innerHTML = (value.transactionCost);
 
                     var nameButtom = value.result.split("::");
                     if(nameButtom[1] === "Dark Green") {
@@ -854,11 +854,12 @@
                         year = value.year;
                         region=value.region;
                         studyCaseId=value.studycase;
+                        nameIntake=value.nameIntake;
                         let g = JSON.parse(value.center).coordinates;
                         let centroid =g[1] + "," + g[0];
                         centroX = centroid;
                     });
-                    var urlWaterProofLyrsWMS = `/reports/geographic/?folder=${usr_folder}&intake=${intake}&year=${year}&region=${region}&center=${centroX}&study_case_id=${studyCaseId}`;
+                    var urlWaterProofLyrsWMS = `/reports/geographic/?folder=${usr_folder}&intake=${intake}&year=${year}&region=${region}&center=${centroX}&study_case_id=${studyCaseId}&name=${nameIntake}`;
                     //console.log (urlWaterProofLyrsWMS);
                     document.getElementById("idGeographicIndicatorsClic").href =urlWaterProofLyrsWMS;
                     

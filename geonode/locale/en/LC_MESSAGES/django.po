@@ -8564,7 +8564,11 @@ msgstr "The tool uses global biophysical data, land use and climate change scena
 
 #: geonode/templates/index.html
 msgid "Text 4 - See an example"
-msgstr "Here you will find the description of a case study and all the elements that make it up. We hope that it serves as a guide to build your case study."
+msgstr "you will find the description of a case study and all the elements that make it up. We hope that it serves as a guide to build your case study."
+
+#: geonode/templates/index.html
+msgid "Here"
+msgstr "Here"
 
 #: geonode/templates/index.html
 msgid "Text 5 - Who can use the system?"

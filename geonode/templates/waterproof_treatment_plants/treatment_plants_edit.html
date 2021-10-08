@@ -41,7 +41,9 @@
         <div class="form-group">
             <fieldset>
                 <h4 class="text-primary">{% trans "Water Intake" %} <span class="text-danger-wp">(*)</span> </h4>
-                <p>{% trans "Select the water intakes that supply the drinking water treatment plant. The selected intake will be automatic added to the table."%}</p>
+                {% if mode != 'view' %}
+                    <p>{% trans "Select the water intakes that supply the drinking water treatment plant. The selected intake will be automatic added to the table."%}</p>
+                {% endif %}
                 <select  id="idIntakePlant" class="form-control" data-error="{% trans "This field is required" %}" required>
                     <option value="">{% trans "Select an option" %}</option>
                 </select>
@@ -57,21 +59,25 @@
                     </thead>
                     <tbody id="idTbodyIntake">
                     </tbody>
-                </table>                
+                </table>
+                {% if mode != 'view' %}
                 <div class="row row-no-gutters">
-                    <div class="col-sm-3">                        
+                    <div class="col-sm-3">
                         <p>{% trans "To enable the diagram, click in the following button"%}:</p>
                     </div>
                     <div class="col-sm-3">
                         <button type="button" class="btn btn-primary" id="idSendIntake">{% trans "Confirm water intakes sources" %}</button>
-                    </div>                    
+                    </div>
                 </div>
+                {% endif %}
             </fieldset>
         </div>
         <div class="form-group">
             <fieldset>
                 <h4 class="text-primary">{% trans "Treatment unit process diagram" %} <span class="text-danger-wp">(*)</span> </h4>
+                {% if mode != 'view' %}
                 <p>{% trans "WaterProof presents below the suggested components or processes for treating the water quality of the selected catchments. Click on the processes that are part of your treatment plant and use the checkbox to enable or disable them." %}</p>
+                {% endif %}
                 <div class="container-graph">
                     <div class="container-config">
                         <div class="div-scroll">
@@ -227,7 +233,9 @@
         </div>
         <div>
             <h4 class="text-primary">{% trans "Processes, technologies and cost functions" %} <span class="text-danger-wp">(*)</span> </h4>
+            {% if mode != 'view' %}
             <p>{% trans "Define the processes that are part of your treatment plant and use the checkbox to enable or disable cost functions. You can also edit, delete or add cost functions." %}.</p>
+            {% endif %}
         </div>
         <div class="main-tree-content">
             <div>

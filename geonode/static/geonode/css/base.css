@@ -2008,6 +2008,12 @@ pre code {
   .col-sm-offset-0 {
     margin-left: 0%;
   }
+  .take-action-middle-tittle{
+    color: #0C89AA;
+    font-weight:normal !important;
+    text-align: center;
+    padding-bottom: 2%;
+  }
 }
 
 @media (min-width: 360px){
@@ -2057,10 +2063,15 @@ pre code {
   .show-pc{
     display: none;
   }
+  .show-pc2{
+    display: none;
+  }
+  .show-pc3{
+    display: none;
+  }
   .image-split-instructions2,.image-split-instructions1,.image-split-instructions3{
-    width: 65%;
-    height: 57% !important;
-    padding-top: 25%;
+    width: 50%;
+    padding-top: 5%;
   }
   .image-about-models{
     width: 50% !important;
@@ -2081,6 +2092,161 @@ pre code {
   }
   .image-about-us-2{
     padding-top: 0%;
+  }
+  .border-left-images-setup{
+    border-left: solid 10px;
+    border-left-color: #0C89AA;
+    padding-left: 1rem;
+  }
+  .font-number-instructions{
+    font-size: 18px;
+    text-align: justify;
+    color: #0C89AA; 
+     
+  }
+  .image-icon-take{
+    width: 30%;
+    padding-bottom: 3%;
+  }
+  .image-right-take-action{
+    width: 80%;
+    margin-left: 10% !important;
+    padding-top: 3%;
+  }
+  .image-left-take-action{
+    width: 74%;
+    height: 60% !important;
+    margin-left: 15% !important;
+    padding-top: 3%;
+  }
+  .background-solution{
+    background-color: #0C89AA;
+    color: #fff;
+    font-size: 30px;
+    padding-top: 2%;
+
+  }
+  .background-solution > p {
+    padding-left: 10%;
+    padding-right: 10%;
+    font-weight: lighter;
+    font-size: 24px;
+  }
+  .take-action-middle-tittle{
+    color: #0C89AA;
+    font-weight:normal !important;
+    text-align: center;
+    padding-bottom: 2%;
+  }
+  .image-actor-take{
+    padding-top: 20%;
+    width: 75%;
+    margin-left:10%;
+  }
+  .image-user-take{
+    width: 70%;
+  }
+  .instructions-font-setup{
+    text-align: justify;
+  }
+  .font-image-take-action{
+    padding: 10px 0;
+    margin:auto;
+    text-align: justify;
+  }
+  .align-complete-take-2{
+    text-align: center;
+    text-align: justify;
+  }
+  .image-steps-take{
+    max-inline-size: -webkit-fill-available;
+    display: none;
+  }
+  .font-steps-take-action{
+    text-align: justify;
+    padding-top: 3%;
+    padding-bottom: 1%;
+  }
+  .background-take-header{
+    background-image: url(/static/geonode/img/TA_1.jpg);
+    width: 100vw;
+    position: relative;
+    left: 50%;  
+    margin-left: -50vw;
+    height: 300px;
+    color: #fff;
+    font-size: 22px;
+  }
+  .background-take-header > h2{
+    padding-left: 20%;
+    padding-top: 5%;
+    padding-right: 10%;
+  }
+  .background-take-header > h4{
+    padding-left: 20%;
+    padding-right: 25%;
+    text-align: justify;
+  }
+  .background-take-bot{
+    background-image: url(/static/geonode/img/TA_3.jpg);
+    width: 100vw;
+    position: relative;
+    left: 50%;  
+    margin-left: -50vw;
+    height: 250px;
+    color: #fff;    
+  }
+  .background-take-bot > h1{
+    text-align: left;
+    padding-top: 20%;
+    padding-left: 10%;
+    font-size: 40px;
+  }
+  .background-instructions-middle{
+    background-image: url(/static/geonode/img/Header_ins.jpg);
+    width: 100vw;
+    position: relative;
+    left: 50%;  
+    margin-left: -50vw;
+    height: 250px;
+    color: #fff;
+  }
+  .background-instructions-middle > h1{
+    text-align: left;
+    padding-top: 8%;
+    padding-left: 10%;
+    font-size: 50px;
+    color: #FFF;
+  }
+  .background-take-middle{
+    background-image: url(/static/geonode/img/TA_2.jpg);
+    width: 100vw;
+    position: relative;
+    left: 50%;  
+    margin-left: -50vw;
+    height: 250px;
+    color: #fff;
+  }
+  .background-take-middle > h1{
+    text-align: left;
+    padding-top: 8%;
+    padding-left: 10%;
+    font-size: 50px;
+    color: #FFF;
+  }
+  .background-take-middle > p{
+    text-align: left;
+    padding-left: 10%;
+    text-justify: auto;
+    color: #FFF;
+  }
+  .background-take-middle > b{
+    text-align: left;
+    text-justify: auto;
+    color: #FFF;
+  }
+  .text-justify {
+    text-align: justify;
   }
 }
 @media (min-width: 768px){
@@ -2151,6 +2317,181 @@ pre code {
   .size-left {
     font-size: 16px;
   }
+  .border-left-images-setup{
+    border-left: solid 10px;
+    border-left-color: #0C89AA;
+    padding-left: 1rem;
+    
+  }
+  .font-number-instructions{
+    font-size: 18px;
+    text-align: justify;
+    color: #0C89AA; 
+  }
+  .buttonTakeAction{
+    border-radius: 60px;
+    border: 1px solid #0C89AA;
+    background-color: transparent;
+    color: #0C89AA;
+    width: 160px;
+    margin-top: 8rem !important;  
+    padding: 10px 0px;
+  }
+  .image-icon-take{
+    width: 25%;
+    padding-bottom: 3%;
+  }
+  .image-right-take-action{
+    width: 50%;
+    margin-left: 25% !important;
+  }
+  .image-left-take-action{
+    width: 50%;
+    margin-left: 25% !important;
+  }
+  .background-solution{
+    background-color: #0C89AA;
+    color: #fff;
+    font-size: 34px;
+    padding-top: 2%;
+
+  }
+  .background-solution > p {
+    padding-left: 10%;
+    padding-right: 10%;
+    font-weight: lighter;
+    font-size: 30px;
+  }
+  .take-action-middle-tittle{
+    color: #0C89AA;
+    font-weight:normal !important;
+    text-align: center;
+    padding-bottom: 2%;
+  }
+  .image-actor-take{
+    padding-top: 20%;
+    width: 75%;
+    margin-left:10%;
+  }
+  .image-user-take{
+    width: 70%;
+  }
+  .show-pc2{
+    display: none;
+  }
+  .show-pc3{
+    display: block;
+  }
+  .image-split-instructions2,.image-split-instructions1,.image-split-instructions3{
+    width: 60%;
+    padding-top: 5%;
+  }
+  .instructions-font-setup{
+
+    text-align: justify;
+  }
+  .font-image-take-action{
+    font-size: 18px;
+    padding: 10px 0;
+    margin:auto;
+    text-align: justify;
+  }
+  .align-complete-take-2{
+    font-size: 18px;
+    text-align: center;
+    text-align: justify;
+  }
+  .image-steps-take{
+    max-inline-size: -webkit-fill-available;
+    display: none;
+  }
+  .font-steps-take-action{
+    font-size: 16px;
+    text-align: justify;
+    padding-top: 3%;
+    padding-bottom: 1%;
+  }
+  .background-take-header{
+    background-image: url(/static/geonode/img/TA_1.jpg);
+    width: 100vw;
+    position: relative;
+    left: 50%;  
+    margin-left: -50vw;
+    height: 300px;
+    color: #fff;
+    font-size: 22px;
+  }
+  .background-take-header > h2{
+    padding-left: 50%;
+    padding-top: 5%;
+    padding-right: 10%;
+  }
+  .background-take-header > h4{
+    padding-left: 50%;
+    padding-right: 12%;
+    text-align: justify;
+  }
+  .background-take-bot{
+    background-image: url(/static/geonode/img/TA_3.jpg);
+    width: 100vw;
+    position: relative;
+    left: 50%;  
+    margin-left: -50vw;
+    height: 280px;
+    color: #fff;    
+  }
+  .background-take-bot > h1{
+    text-align: left;
+    padding-top: 10%;
+    padding-left: 10%;
+    font-size: 50px;
+  }
+  .background-instructions-middle{
+    background-image: url(/static/geonode/img/Header_ins.jpg);
+    width: 100vw;
+    position: relative;
+    left: 50%;  
+    margin-left: -50vw;
+    height: 280px;
+    color: #fff;
+  }
+  .background-instructions-middle > h1{
+    text-align: left;
+    padding-top: 8%;
+    padding-left: 10%;
+    font-size: 50px;
+    color: #FFF;
+  }
+  .background-take-middle{
+    background-image: url(/static/geonode/img/TA_2.jpg);
+    width: 100vw;
+    position: relative;
+    left: 50%;  
+    margin-left: -50vw;
+    height: 280px;
+    color: #fff;
+  }
+  .background-take-middle > h1{
+    text-align: left;
+    padding-top: 8%;
+    padding-left: 10%;
+    font-size: 50px;
+    color: #FFF;
+  }
+  .background-take-middle > p{
+    text-align: left;
+    padding-left: 10%;
+    text-justify: auto;
+    color: #FFF;
+  }
+  .background-take-middle > b{
+    text-align: left;
+    text-justify: auto;
+    color: #FFF;
+  }
+  .text-justify {
+    text-align: justify;
+  }
 }
 @media (min-width: 992px){
   .iconsWhatIsWP{
@@ -2215,6 +2556,190 @@ pre code {
   .image-about-us-2{
     padding-top: 18%;
   }
+  .show-pc{
+    display: block;
+  }
+  .image-center-take-action2{
+    width: 100%;
+    height: 80% !important;
+    padding-top: 5%;
+  }
+  .font-image-text-instructions{
+    font-size: 14px;
+    text-align: justify;
+  }
+  .font-number-instructions{
+    font-size: 18px;
+    text-align: justify;
+    color: #0C89AA; 
+     
+  }
+  .font-image-text-instructions > p{
+    padding-bottom: 5%;
+    padding-top: 10%;
+  }
+  .border-left-images-setup{
+    border-left: solid 10px;
+    border-left-color: #0C89AA;
+    padding-left: 1rem;
+  }
+  .image-icon-take{
+    width: 50%;
+  }
+  .image-right-take-action{
+    width: 80%;
+    margin-left: 10% !important;
+    padding-top: 3%;
+  }
+  .image-left-take-action{
+    width: 85%;
+    margin-left: 15% !important;
+    padding-top: 15%;
+  }
+  .background-solution{
+    background-color: #0C89AA;
+    color: #fff;
+    font-size: 34px;
+    padding-top: 2%;
+
+  }
+  .background-solution > p {
+    padding-left: 10%;
+    padding-right: 10%;
+    font-weight: lighter;
+    font-size: 30px;
+  }
+  .image-actor-take{
+    padding-top: 20%;
+    width: 70%;
+    margin-left:10%;
+  }
+  .take-action-middle-tittle{
+    color: #0C89AA;
+    font-weight:normal !important;
+    text-align: center;
+    padding-bottom: 2%;
+  }
+  .image-user-take{
+    width: 70%;
+  }
+  .show-pc2{
+    display: block;
+  }
+  .show-pc3{
+    display: block;
+  }
+  .instructions-font-setup{
+    font-size: 18px;
+    padding-right: 2rem;
+    text-align: justify;
+  }
+  .font-image-take-action{
+    font-size: 18px;
+    padding: 10px 0;
+    margin:auto;
+    text-align: justify;
+  }
+  .align-complete-take-2{
+    font-size: 18px;
+    text-align: center;
+    text-align: justify;
+  }
+  .image-steps-take{
+    display: block;
+  }
+  .font-steps-take-action{
+    font-size: 16px;
+    text-align: justify;
+    padding-bottom: 1%;
+  }
+  .background-steps-take-action{
+    background-color: #D2E8EF;
+    position: relative;
+    width: 100% !important;
+  }
+  .background-take-header{
+    background-image: url(/static/geonode/img/TA_1.jpg);
+    width: 100vw;
+    position: relative;
+    left: 50%;  
+    margin-left: -50vw;
+    height: 300px;
+    color: #fff;
+    font-size: 22px;
+  }
+  .background-take-header > h2{
+    padding-left: 60%;
+    padding-top: 5%;
+    padding-right: 10%;
+  }
+  .background-take-header > h4{
+    padding-left: 60%;
+    padding-right: 12%;
+    text-align: justify;
+  }
+  .background-take-bot{
+    background-image: url(/static/geonode/img/TA_3.jpg);
+    width: 100vw;
+    position: relative;
+    left: 50%;  
+    margin-left: -50vw;
+    height: 300px;
+    color: #fff;    
+  }
+  .background-take-bot > h1{
+    text-align: left;
+    padding-top: 10%;
+    padding-left: 10%;
+    font-size: 50px;
+  }
+  .background-instructions-middle{
+    background-image: url(/static/geonode/img/Header_ins.jpg);
+    width: 100vw;
+    position: relative;
+    left: 50%;  
+    margin-left: -50vw;
+    height: 300px;
+    color: #fff;
+  }
+  .background-instructions-middle > h1{
+    text-align: left;
+    padding-top: 8%;
+    padding-left: 10%;
+    font-size: 50px;
+    color: #FFF;
+  }
+  .background-take-middle{
+    background-image: url(/static/geonode/img/TA_2.jpg);
+    width: 100vw;
+    position: relative;
+    left: 50%;  
+    margin-left: -50vw;
+    height: 300px;
+    color: #fff;
+  }
+  .background-take-middle > h1{
+    text-align: left;
+    padding-top: 8%;
+    padding-left: 10%;
+    font-size: 50px;
+    color: #FFF;
+  }
+  .background-take-middle > p{
+    text-align: left;
+    padding-left: 10%;
+    text-justify: auto;
+    color: #FFF;
+  }
+  .background-take-middle > b{
+    text-align: left;
+    padding-left: 1%;
+    text-justify: auto;
+    color: #FFF;
+  }
+  .text-justify {
+    text-align: justify;
+  }
 }
 /* .video-responsive {
 	height: 100%;
@@ -2237,6 +2762,7 @@ pre code {
     /* margin-left: 40%;  */
     padding-right: 15px;
   }
+  
 
 @media (min-width: 1200px){
 
@@ -2281,8 +2807,6 @@ pre code {
     font-size: 18px;
   }
   .align-normal-take-action{
-    padding-left: 9% ;
-    padding-right: 10%;
     font-size: 18px;
     padding-top: 8%;
   }
@@ -2303,8 +2827,6 @@ pre code {
     text-align: center;
   }
   .align-complete-take-2{
-    padding-left: 10% ;
-    padding-right: 10%;
     font-size: 18px;
     text-align: center;
     text-align: justify;
@@ -2319,41 +2841,41 @@ pre code {
   .take-action-middle-tittle{
     color: #0C89AA;
     font-weight:normal !important;
-    padding-left: 10%;
-    padding-right: 10%;
     text-align: center;
-
+    padding-bottom: 2%;
+  }
+  .take-action-middle-tittle2{
+    color: #0C89AA;
+    font-weight:normal !important;
+    text-align: center;
+    padding-bottom: 2%;
+    padding-left: 25% ;
   }
   .image-steps-take{
-    padding-left: 10%;
-    margin-left: 30%;
-    width: 55%;
     max-inline-size: -webkit-fill-available;
-    height: 55% !important;
+    display: block;
   }
   .image-user-take{
-    width: 66%;
+    width: 70%;
   }
   .margin-images{
     margin: auto;
   }
   .image-icon-take{
-    padding-left: 10%;
-    margin-left: 30%;
     width: 40%;
     max-inline-size: -webkit-fill-available;
     height: 40% !important;
     padding-bottom: 3%;
   }
   .image-actor-take{
-    width: 75%;
+    padding-top: 20%;
+    width: 60%;
     margin-left:10%;
   }
   .image-right-take-action{
-    width: 69%;
-    height: 40% !important;
+    width: 70%;
     margin-left: 10% !important;
-    padding: 0%;
+    padding-top: 3%;
   }
   .image-center-take-action{
     width: 100%;
@@ -2361,8 +2883,9 @@ pre code {
     padding-top: 5%;
   }
   .image-center-take-action2{
-    width: 100%;
-    height: 90% !important;
+    width: 105%;
+    height: 85% !important;
+    padding-top: 3%;
   }
   .show-cel{
     display: none;
@@ -2370,26 +2893,29 @@ pre code {
   .show-pc{
     display: block;
   }
+  .show-pc2{
+    display: block;
+  }
+  .show-pc3{
+    display: block;
+  }
   .image-split-instructions1{
-    width: 65%;
-    height: 70% !important;
+    height: 65% !important;
     padding-top: 45%;
   }
   .image-split-instructions2{
-    width: 65%;
-    height: 57% !important;
+    height: 53% !important;
     padding-top: 25%;
   }
   .image-split-instructions3{
-    width: 65%;
-    height: 45% !important;
+    height: 40% !important;
     padding-top: 5%;
   }
   .image-left-take-action{
-    width: 54%;
+    width: 74%;
     height: 60% !important;
     margin-left: 15% !important;
-    padding: 0%;
+    padding-top: 3%;
   }
   .font-image-take-action{
     font-size: 18px;
@@ -2422,6 +2948,7 @@ pre code {
   }
   .font-image-text-instructions > p{ 
     padding-top: 3.5rem;
+    padding-bottom: 0%;
   }
 
   .border-left-images-setup{
@@ -2432,7 +2959,7 @@ pre code {
   .font-steps-take-action{
     font-size: 16px;
     text-align: justify;
-    padding-top: 1%;
+    padding-top: 3%;
     padding-bottom: 1%;
 
   }
@@ -2449,8 +2976,8 @@ pre code {
     background-color: #0C89AA;
     color: #fff;
     font-size: 34px;
-    position: absolute;
-    width: 100% !important;
+    padding-top: 2%;
+
   }
   .background-solution > p {
     padding-left: 10%;
@@ -2505,6 +3032,12 @@ pre code {
     text-justify: auto;
     color: #FFF;
   }
+  .background-take-middle > b{
+    text-align: left;
+    padding-left: 10%;
+    text-justify: auto;
+    color: #FFF;
+  }
   .background-take-bot{
     background-image: url(/static/geonode/img/TA_3.jpg);
     width: 100vw;
@@ -2514,18 +3047,18 @@ pre code {
     height: 300px;
     color: #fff;    
   }
+  .background-take-bot > h1{
+    text-align: left;
+    padding-top: 10%;
+    padding-left: 10%;
+    font-size: 50px;
+  }
   .size-video{
     width: 100%;
     height: 263px;
   }
   .height-modal-content-index{
     height: 370px;
-  }
-  .background-take-bot > h1{
-  text-align: left;
-  padding-top: 10%;
-  padding-left: 10%;
-  font-size: 50px;
   }
   .background-instructions-middle{
     background-image: url(/static/geonode/img/Header_ins.jpg);
@@ -9612,4 +10145,8 @@ top:50px;
   margin-top: -30px;
   margin-right: 5px;
   text-align: end;
+}
+
+.article__title{
+  display:none;
 }

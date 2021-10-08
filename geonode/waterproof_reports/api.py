@@ -547,7 +547,8 @@ def getReportAnalisysBeneficsB(request):
 				"time":row[6],
 				"currency":row[7],
 				"roi":row[8],
-				"result":row[9]
+				"result":row[9],
+				"transactionCost":row[10]
 			})
 
 		return JsonResponse(objects_list, safe=False)
@@ -707,7 +708,8 @@ def getWpAqueductIndicatorGraph(request):
 				"valueIndicator":row[3],
 				"description":row[4],
 				"intake":row[5],
-				"name":row[6]
+				"name":row[6],
+				"valueGraT":row[7]
 			})
 
 		return JsonResponse(objects_list, safe=False)
@@ -1057,7 +1059,8 @@ def getWpcompareMapas(request):
 				"region":row[2],
 				"year":row[3],
 				"studycase":row[1],
-				"center":row[5]
+				"center":row[5],
+				"nameIntake":row[6]
 			})
 
 		return JsonResponse(objects_list, safe=False)
