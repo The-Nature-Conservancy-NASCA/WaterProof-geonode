@@ -854,11 +854,12 @@
                         year = value.year;
                         region=value.region;
                         studyCaseId=value.studycase;
+                        nameIntake=value.nameIntake;
                         let g = JSON.parse(value.center).coordinates;
                         let centroid =g[1] + "," + g[0];
                         centroX = centroid;
                     });
-                    var urlWaterProofLyrsWMS = `/reports/geographic/?folder=${usr_folder}&intake=${intake}&year=${year}&region=${region}&center=${centroX}&study_case_id=${studyCaseId}`;
+                    var urlWaterProofLyrsWMS = `/reports/geographic/?folder=${usr_folder}&intake=${intake}&year=${year}&region=${region}&center=${centroX}&study_case_id=${studyCaseId}&name=${nameIntake}`;
                     //console.log (urlWaterProofLyrsWMS);
                     document.getElementById("idGeographicIndicatorsClic").href =urlWaterProofLyrsWMS;
                     
