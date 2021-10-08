@@ -413,10 +413,10 @@ $(function () {
                 document.getElementById("idNamePlant").readOnly = true;
                 document.getElementById("idDescriptionPlant").readOnly = true;
                 document.getElementById("idIntakePlant").style.display = "none";
-                document.getElementById("idSendIntake").style.display = "none";
                 document.getElementById("idBackgroundGraph").style.display = "none";
                 document.getElementById("submit").style.display = "none";
                 onlyReadPlant = true;
+                loadInfoTree = true;
             } else {                
                 document.getElementById("idBackgroundGraph").style.display = "none";
                 loadInfoTree = true;
@@ -886,21 +886,7 @@ $(function () {
                                         lastTreeBranch.push(valueTech.technology);
                                         listTrFunctionCustom = [];
                                     }
-                                    if(onlyReadPlant) {
-                                        loadHtml = false;
-                                        $.each( arrayLoadingFunction, function( keyLoading, valueLoading ) {
-                                            if(valueTech.technology === valueLoading.functionTechnology) {                                                        
-                                                valueCostFunction.sedimentsRetained = valueLoading.functionSedimentsRetained;
-                                                valueCostFunction.nitrogenRetained = valueLoading.functionNitrogenRetained;
-                                                valueCostFunction.phosphorusRetained = valueLoading.functionPhosphorusRetained;
-                                                valueCostFunction.costFunction = valueLoading.functionName;
-                                                valueCostFunction.function = valueLoading.functionValue;
-                                                valueCostFunction.currency = valueLoading.functionCurrency;
-                                                valueCostFunction.factor = valueLoading.functionFactor;
-                                                loadHtml = true;
-                                            }
-                                        });
-                                    } else if (loadInfoTree) {                                        
+                                    if (loadInfoTree) {                                        
                                         buttonsHtml = true;
                                         let fnFilterByTech = arrayLoadingFunction.filter(f => (f.functionTechnology === valueCostFunction.technology));
                                         if(fnFilterByTech.length == 0) {                                            
@@ -959,9 +945,7 @@ $(function () {
                                             ${createInput('% ' + lbl.nitrogen, nitrogen, (onlyReadPlant?'':null), v.minimalNitrogenRetained, v.maximalNitrogenRetained, '0.1', lbl.placeholderNitrogen, checked,'idNitrogenRetained'+techId,onBlurFn,'number')}
                                             ${createInput('% ' + lbl.phosphorus, phosphorus, (onlyReadPlant?'':null), v.minimalPhosphorusRetained, v.maximalPhosphorusRetained, '0.1', lbl.placeholderPhosphorus, checked,'idPhosphorusRetained'+techId,onBlurFn,'number')}
                                             </div></div>`;                                        
-                                    } else {
-                                        //document.getElementById('contentTechnology' + valueTech.idSubprocess).style.display = "none";
-                                    }                                    
+                                    }                                     
                                 }
                             });
                             if (Object.keys(listTrFunctionCustom).length > 0) {
@@ -1017,6 +1001,9 @@ $(function () {
         }
         validateAndAddFunction2Array();
         $('[data-toggle="tooltip"]').tooltip();
+        if (onlyReadPlant){
+            $('.btn-function-cost').prop('disabled', true);
+        }
     }
 
     /**
