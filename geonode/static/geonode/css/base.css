@@ -10146,3 +10146,7 @@ top:50px;
   margin-right: 5px;
   text-align: end;
 }
+
+.article__title{
+  display:none;
+}
