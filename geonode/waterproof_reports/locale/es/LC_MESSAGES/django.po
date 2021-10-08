@@ -110,7 +110,12 @@ msgstr "Resumen de riesgos en la cuenca"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
 msgid "Select the basin of your interest from the drop-down list to know a summary of its risks (The risk results have been estimated using the Acueduct - WRI database)"
-msgstr "Seleccione la captación de su interés de la lista desplegable para conocer el resumen de sus riesgos (Los riesgos han sido estumados usando la base de datos WRI - Aqueduct)"
+msgstr "Seleccione la captación de su interés de la lista desplegable para conocer el resumen de sus riesgos (Los riesgos han sido estumados usando"
+
+
+#: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
+msgid "the Acueduct - WRI database"
+msgstr "la base de datos WRI - Aqueduct"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
 msgid "Water Intake"
