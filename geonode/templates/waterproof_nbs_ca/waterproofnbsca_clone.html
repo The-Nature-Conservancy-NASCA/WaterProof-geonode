@@ -107,19 +107,19 @@
                 {% if user.professional_role == 'ANALYS' and nbs.added_by.professional_role == 'ADMIN' %}
                     <div class="col-md-4">
                         <label id="implementCostLabel">{% trans "Implementation cost (US$/ha)" %} <span class="text-danger-wp">(*)</span> </label>
-                        <input id="implementCost" value="{{ nbs.unit_implementation_cost|multiplyFactor:userCountry.global_multiplier_factor|decimalFormat:2 }}" type="text" onfocusout="return afterCheckDecimal(event,value)" onInput="return checkDecimalFormat(event,value)" 
+                        <input id="implementCost" value="{{ nbs.unit_implementation_cost|decimalFormat:2 }}" type="text" onfocusout="return afterCheckDecimal(event,value)" onInput="return checkDecimalFormat(event,value)" 
                         class="form-control" data-error='{% trans "Field is required" %}' required>
                         <div class="help-block with-errors"></div>
                     </div>
                     <div class="col-md-4">
                         <label id="maintenanceCostLabel">{% trans "Maintenace cost (US$/ha)" %} <span class="text-danger-wp">(*)</span> </label>
-                        <input id="maintenanceCost" value="{{ nbs.unit_maintenance_cost|multiplyFactor:userCountry.global_multiplier_factor|decimalFormat:2 }}" type="text" onfocusout="return afterCheckDecimal(event,value)" onInput="return checkDecimalFormat(event,value)" 
+                        <input id="maintenanceCost" value="{{ nbs.unit_maintenance_cost|decimalFormat:2 }}" type="text" onfocusout="return afterCheckDecimal(event,value)" onInput="return checkDecimalFormat(event,value)" 
                         class="form-control" data-error='{% trans "Field is required" %}' required>
                         <div class="help-block with-errors"></div>
                     </div>
                     <div class="col-md-4">
                         <label id="oportunityCostLabel">{% trans "Oportunity cost (US$/ha)" %} <span class="text-danger-wp">(*)</span> </label>
-                        <input id="oportunityCost" value="{{ nbs.unit_oportunity_cost|multiplyFactor:userCountry.global_multiplier_factor|decimalFormat:2 }}" type="text"  onfocusout="return afterCheckDecimal(event,value)" onInput="return checkDecimalFormat(event,value)"  class="form-control" data-error='{% trans "Field is required" %}' required>
+                        <input id="oportunityCost" value="{{ nbs.unit_oportunity_cost|decimalFormat:2 }}" type="text"  onfocusout="return afterCheckDecimal(event,value)" onInput="return checkDecimalFormat(event,value)"  class="form-control" data-error='{% trans "Field is required" %}' required>
                         <div class="help-block with-errors"></div>
                     </div>
                 {% else %}
@@ -351,6 +351,8 @@
     </script>
 {% elif user.professional_role == 'ANALYS' and nbs.added_by.professional_role == 'ADMIN' %}
     <script>
+        var disableMap=false;
+        var countryId = '{{country.id}}';
         var globalBaseCost=true;
     </script>
 {% else %}

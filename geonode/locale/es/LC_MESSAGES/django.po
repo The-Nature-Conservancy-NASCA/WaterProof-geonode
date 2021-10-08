@@ -9342,7 +9342,11 @@ msgstr "La herramienta usa datos globales biofisicos, de uso del suelo y escenar
 
 #: geonode/templates/index.html
 msgid "Text 4 - See an example"
-msgstr "Aquí encontrarás la descripción de un caso de estudio y todos los elementos que lo conforman. Esperamos que te sirve de guia para cosntruir tu caso de estudio."
+msgstr "encontrarás la descripción de un caso de estudio y todos los elementos que lo conforman. Esperamos que te sirve de guia para cosntruir tu caso de estudio."
+
+#: geonode/templates/index.html
+msgid "Here"
+msgstr "Aquí"
 
 #: geonode/templates/index.html
 msgid "Text 5 - Who can use the system?"

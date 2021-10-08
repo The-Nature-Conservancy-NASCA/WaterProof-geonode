@@ -604,8 +604,8 @@
 </div>
 <div class="align-text col-md-12 div-padding visible">
     <div class="list-menu-results" id="idFinancialIndicators">
-        <img src="/static/geonode/img/Indicadores-financieros.png" title="{% trans "Financial indicators" %}"/> 
-        <br> 
+        <img src="/static/geonode/img/Indicadores-financieros.png" title="{% trans "Financial indicators" %}"/>
+        <br>
         <a href="../../reports/financial/">{% trans "Financial indicators" %}</a>
     </div>
     <div class="list-menu-results">
@@ -1637,17 +1637,10 @@ var localStorageId = localStorage.idStudyCase;
                         var numberContainerG = 0;
                         $.each( data, function( key, value ) {
                             var tituloS = value.valueGraT;
-/*
-                            var gaugeOptions = {
-                                tooltip: {
-                                        enabled: false
-                                    }
-                            };
-*/
                             var chartSpeed = Highcharts.chart('containerPr' + numberContainerG, Highcharts.merge(gaugeOptions, {
                                 yAxis: {
                                     min: 0,
-                                    max: 5,
+                                    max: 4,
                                     stops: [
                                         [0.1, '#55BF3B'], // green
                                         [0.5, '#DDDF0D'], // yellow
