@@ -76,6 +76,7 @@ $(function () {
     var selectedPlantElement = null;
     var selectedTechnologyId = -1;
     var selectedFunction4Edit = null;
+    var selectedSubprocess = null;
     var button = document.getElementById('btnValidatePyExp');
     var output = document.getElementById('MathPreview');
     var addFunction = false;
@@ -903,12 +904,12 @@ $(function () {
                                         buttonsHtml = true;
                                         let fnFilterByTech = arrayLoadingFunction.filter(f => (f.functionTechnology === valueCostFunction.technology));
                                         if(fnFilterByTech.length == 0) {                                            
-                                            activateHtml = htmlCheckBox(valueCostFunction, graphid, null,(listTrFunction.length==0 ? "" : listTrFunction.length),plant.functions.hasOwnProperty(fnId));
+                                            activateHtml = htmlCheckBox(valueCostFunction, graphid, null,(listTrFunction.length==0 ? "" : listTrFunction.length),plant.functions.hasOwnProperty(fnId),value.subprocess);
                                             listTrFunction.push(addFunctionCostRow(activateHtml, valueCostFunction, buttonsHtml, graphid,(listTrFunction.length==0 ? "" : listTrFunction.length)));
                                         }else {                                            
                                             // add all default fn even including unchecked
                                             activateHtml = htmlCheckBox(valueCostFunction, graphid, valueCostFunction.idSubProcess,"",false);
-                                            let strHtmlCustomfn = addFunctionCostRow(activateHtml, valueCostFunction, buttonsHtml, graphid,(listTrFunction.length==0 ? "" : listTrFunction.length));
+                                            let strHtmlCustomfn = addFunctionCostRow(activateHtml, valueCostFunction, buttonsHtml, graphid,(listTrFunction.length==0 ? "" : listTrFunction.length),value.subprocess);
                                             listTrFunctionCustom[fnId] = strHtmlCustomfn;          
                                             /******************************************/
                                             fnFilterByTech.forEach(f => {
@@ -929,7 +930,7 @@ $(function () {
                                                 let customFnName = f.functionTechnology + HYPHEN + f.functionName;
                                                 checked = plant.functions.hasOwnProperty(customFnName);
                                                 enableAddFn = enableAddFn || checked;
-                                                activateHtml = htmlCheckBox(filterFn, graphid, f.functionIdSubProcess,(listTrFunction.length==0 ? "" : listTrFunction.length),checked);                                             
+                                                activateHtml = htmlCheckBox(filterFn, graphid, f.functionIdSubProcess,(listTrFunction.length==0 ? "" : listTrFunction.length),checked,value.subprocess);                                             
                                                 let strHtmlCustomfn = addFunctionCostRow(activateHtml, filterFn, buttonsHtml, graphid,(listTrFunction.length==0 ? "" : listTrFunction.length));
                                                 if (!listCustomFunctionsId.hasOwnProperty(customFnName)) {
                                                     listTrFunctionCustom[customFnName] = strHtmlCustomfn;
@@ -945,7 +946,7 @@ $(function () {
                                         loadHtml = true;
                                         checked = plant.functions.hasOwnProperty(fnId);
                                         enableAddFn = enableAddFn || checked;
-                                        activateHtml = htmlCheckBox(valueCostFunction,graphid, techId, "", checked);
+                                        activateHtml = htmlCheckBox(valueCostFunction,graphid, techId, "", checked,value.subprocess);
                                         listTrFunction.push(addFunctionCostRow(activateHtml, valueCostFunction, buttonsHtml, graphid,''));
                                     }
                                     if(loadHtml) {
@@ -972,7 +973,7 @@ $(function () {
                             var tableFunct = tableFunctionTpl.replace("<tbody>", "<tbody>" + listTrFunction.join(""));
                             if(localStorage.loadFormButton === "true") {
                                 let style = `style='display:${(enableAddFn ? 'block' : 'none')}' `;
-                                tableFunct += `<div class="link-form" ${style}> ${_('Add function')} </div>`;
+                                tableFunct += `<div class="link-form" ${style} subprocess="${value.subprocess}"> ${_('Add function')} </div>`;
                             }
                             $('#technology' + techId).html($('#technology' + techId).html() + tableVar + tableFunct);                                                           
                         }
@@ -993,7 +994,7 @@ $(function () {
             keysCustomFns.forEach(key => {
                 customFn = functionsByCustomTech[key];
                 let graphid = customFn.graphid;                
-                let activateHtml = htmlCheckBox(customFn, graphid, customFn.idSubProcess, "", true);
+                let activateHtml = htmlCheckBox(customFn, graphid, customFn.idSubProcess, "", true,value.subprocess);
                 let strHtmlCustomfn = addFunctionCostRow(activateHtml, customFn, true, graphid,"");
                 listTrFunction.push(strHtmlCustomfn);
             });
@@ -1048,19 +1049,26 @@ $(function () {
                 if (!isElement) {
                     $("[name=listFunction]").each(function( index, elem ) {                    
                         let isCustomFunction = e.id.indexOf(elem.id) !== -1 || elem.id.indexOf(e.id) !== -1;
-                        if(elem.id !== e.id && elem.attributes.technology.value !== e.attributes.technology.value) {                        
-                            elem.style.borderColor = whiteColor;
-                            let attr = elem.attributes;
-                            delete plant.functions[attr.technology.value + HYPHEN + attr.namefunction.value];
-                            console.log("delete plant.functions[idFnPlant]", attr.technology.value + HYPHEN + attr.namefunction.value);
-                            if (document.getElementById(elem.id + "1d") !== null) {
-                                document.getElementById(elem.id + "1d").style.display = "block";
-                                for (var indexArray = 0; indexArray < arrayPlant.length; indexArray++) {
-                                    if(arrayPlant[indexArray].graphId === parseInt(document.getElementById("black" + i).getAttribute("graphId"))) {
-                                        arrayPlant[indexArray].onOff = false;
+                        if(elem.id !== e.id && elem.attributes.technology.value !== e.attributes.technology.value) {  
+                            if (selectedPlantElement == "TRATAMIENTODELODOS"){
+                                console.log(selectedPlantElement);
+                                if (elem.attributes.subprocess.value != e.attributes.subprocess.value){
+                                    console.log(elem.attributes.subprocess.value, e.attributes.subprocess.value);
+                                }
+                            }else{
+                                elem.style.borderColor = whiteColor;
+                                let attr = elem.attributes;
+                                delete plant.functions[attr.technology.value + HYPHEN + attr.namefunction.value];
+                                console.log("delete plant.functions[idFnPlant]", attr.technology.value + HYPHEN + attr.namefunction.value);
+                                if (document.getElementById(elem.id + "1d") !== null) {
+                                    document.getElementById(elem.id + "1d").style.display = "block";
+                                    for (var indexArray = 0; indexArray < arrayPlant.length; indexArray++) {
+                                        if(arrayPlant[indexArray].graphId === parseInt(document.getElementById("black" + i).getAttribute("graphId"))) {
+                                            arrayPlant[indexArray].onOff = false;
+                                        }
                                     }
                                 }
-                            }                        
+                            }                            
                         }
                     });
                 }                
@@ -1417,6 +1425,7 @@ $(function () {
         var graphId = $('#mainTree .title-tree')[0].getAttribute('graphId');
         addFunction = true;
         selectedTechnologyId = this.parentElement.id.replace("technology","");
+        selectedSubprocess = this.getAttribute('subprocess');
         showModalCalculator(addFunction, graphId, {'expression': '', 'name':''});
     });
 
@@ -1619,7 +1628,7 @@ $(function () {
         }
 
         if (flagNewFunction){            
-            let trNewFunction = addNewFunction(selectedTechnologyId, graphId);
+            let trNewFunction = addNewFunction(selectedTechnologyId, graphId, selectedSubprocess);
             var triggerClick = ($(`#technology${selectedTechnologyId} table tbody`).length == 1);
             $(`#technology${selectedTechnologyId} table tbody`).append (trNewFunction);
             if (triggerClick) {
@@ -1648,7 +1657,7 @@ $(function () {
         toggleProcessingModal('hide');
     });
 
-    addNewFunction = function(techId, graphId){
+    addNewFunction = function(techId, graphId, subprocess){
         let fnName = $('#costFunctionName').val();
         let description = $('#costFuntionDescription').val();
         let factor = $('#factorCost').val();
@@ -1701,7 +1710,7 @@ $(function () {
             technology: technology
         }
         let subid = $("#technology" + techId + " table tbody tr").length; //num of rows in table
-        let activateHtml = htmlCheckBox(costFn4Html, graphId, null, subid, true);        
+        let activateHtml = htmlCheckBox(costFn4Html, graphId, null, subid, true, subprocess);        
         let tdRowFn = addFunctionCostRow(activateHtml,costFn4Html,true,graphId,subid);
         return tdRowFn;
     }
@@ -1724,7 +1733,7 @@ $(function () {
         return nf;;
     }
 
-    htmlCheckBox = function(valueCostFunction, graphid, subProcessMaster, subid, checked) {
+    htmlCheckBox = function(valueCostFunction, graphid, subProcessMaster, subid, checked, subprocess) {
         //console.log("htmlCheckBox", subid, checked);
         let attrSubprocessMaster = "";
         if (subProcessMaster !== null) {
@@ -1738,6 +1747,7 @@ $(function () {
                         'function="' + (valueCostFunction.function?valueCostFunction.function:valueCostFunction.functionValue) + '" ' + 
                         'currency="' + valueCostFunction.currency + '" ' + 
                         'factor="' + valueCostFunction.factor + '" ' +
+                        'subprocess="' + subprocess + '" ' +                        
                         'checked=' + checked.toString() + ' ' + (checked ? 'style="border-color: ' + checkHexColor + ' ;" ' : '') +
                         'class="change-state-tree" id="id' + valueCostFunction.idSubprocess + 
                                 (subid != "" ? HYPHEN + subid : "") + '"></div></div>';
