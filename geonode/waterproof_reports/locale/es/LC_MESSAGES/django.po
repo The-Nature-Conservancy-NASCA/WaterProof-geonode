@@ -42,7 +42,7 @@ msgstr ""
 "Project-Id-Version: GeoNode\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-02-19 11:28-0500\n"
-"PO-Revision-Date: 2021-09-11 16:24-0500\n"
+"PO-Revision-Date: 2021-10-06 18:59-0500\n"
 "Last-Translator: \n"
 "Language-Team: Spanish (http://www.transifex.com/geonode/geonode/language/es/)\n"
 "Language: es_419\n"
@@ -190,7 +190,7 @@ msgstr "Gasto real"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
 msgid "Intervention área (Hectares)"
-msgstr "Área convertida"
+msgstr "Área convertida (Ha)"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
 msgid "Explore detailed results of this case study"
@@ -705,3 +705,7 @@ msgstr "Esta sección presenta el comportamiento de los servicios ecosistémicos
 #: geonode/waterproof_reports/templates/waterproof_reports/physicalIndicators
 msgid "text-step4-ph-2"
 msgstr "Seleccione la cuenca para la cuál desea ver el gráfico comparativo de los diferentes servicios."
+
+#: geonode/waterproof_reports/templates/waterproof_reports/physicalIndicators
+msgid "discount rate:"
+msgstr "Tasa de descuento:"

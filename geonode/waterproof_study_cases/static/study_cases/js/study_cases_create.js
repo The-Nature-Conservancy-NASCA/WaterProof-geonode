@@ -127,7 +127,7 @@ $(document).ready(function () {
     $('#btn-full').click(function () {
         if ($("#full-table").hasClass("panel-hide")) {
             $("#full-table").removeClass("panel-hide");
-            nbsactivities = $("#full-table").find("input")
+            nbsactivities = $("#full-table").find("input");
             nbsactivities.each(function () {
                 total = 50
                 if (total) {
@@ -364,19 +364,23 @@ $(document).ready(function () {
                         split = name_td.split('_')
                         split.pop();
                         name_td = split.join("_");
-                        val = undefined
-                        $('#' + td_id).find("input").each(function () {
-                            val = $(this).val();
-                        });
-                        if (!val) {
-                            val = $('#' + td.id).text();
-                        }
+                        val = undefined;
+                        try{
+                            // Just parseFloat when is input element
+                            $('#' + td_id).find("input").each(function () {
+                                val = parseFloat($(this).val());
+                            });
+                            if (val == undefined) {
+                                val = $('#' + td.id).text();
+                            }
+                        }catch(e){
+                            // do something or nothing
+                        }                        
                         bio[name_td] = val;
                     }
                 });
-                biophysical.push(bio)
+                biophysical.push(bio);
             });
-
         });
 
         $.post("../../study_cases/savebio/", {
@@ -490,7 +494,7 @@ $(document).ready(function () {
     $('#step7EndBtn').click(function () {
         var valid_edit = true;
         var valid_period = true;
-        nbsactivities = []
+        nbsactivities = [];
         var valid_edit = true;
         var min = undefined;
         $("#full-table").find("input").each(function () {
@@ -531,9 +535,7 @@ $(document).ready(function () {
         }
 
         if ($('#period_analysis').val() != '' && $('#period_nbs').val() != '' && valid_edit && valid_period) {
-
-            analysis_currency = $("#analysis_currency option:selected").val();
-       
+            analysis_currency = $("#analysis_currency option:selected").val();       
             let lbl_currency = gettext('Currency for the execution this analisys');
             let lbl_applied_currency = gettext('The following exchange rates will be applied for the analysis');            
             html = '<div class="row" id="currencys-panel"> <div class="col-md-10 currency-panel">' + lbl_currency + 
@@ -566,10 +568,10 @@ $(document).ready(function () {
                 $("#full-table").find("input").each(function (index, input) {
                     input_id = input.id
                     if ($("#" + input_id).hasClass("hiddennbs")) {
-                        split = input_id.split('-')
+                        split = input_id.split('-');
                         nbssc_id = split.pop();
                         nbs_min = parseFloat($("#" + input_id).val());
-                        nbs_min /= conversion
+                        nbs_min /= conversion;
                         if (minimun) {
                             if (minimun > nbs_min) {
                                 minimun = nbs_min;
@@ -578,12 +580,12 @@ $(document).ready(function () {
                             minimun = nbs_min;
                         }
                         if (nbs_value < nbs_min && nbs_value > 0) {
-                            valid_nbs = false
+                            valid_nbs = false;
                             $('#nbssc-' + nbssc_id).css('border-color', 'red');
                             Swal.fire({
                                 icon: 'warning',
                                 title: gettext('field_problem'),
-                                text: gettext('error_minimun_nbs') + nbs_min,
+                                text: gettext('error_minimun_nbs') + nbs_min.toFixed(2),
                             });
                             return false
                         }
@@ -610,7 +612,7 @@ $(document).ready(function () {
                         showCancelButton: true,
                         confirmButtonText: gettext('Confirm and run'),
                         preConfirm: () => {
-                            currencys = []
+                            currencys = [];
                             $("#currencys-panel").find("input").each(function (index, input) {
                                 currency = {}
                                 input_id = input.id
@@ -621,7 +623,7 @@ $(document).ready(function () {
                                     currencys.push(currency)
                                 }
                             });
-                            return currencys
+                            return currencys;
                         }
                     }).then((result) => {
                         if (result.isConfirmed) {
@@ -718,8 +720,7 @@ $(document).ready(function () {
             valid_period = false;
         }
         if ($('#period_analysis').val() != '' && $('#period_nbs').val() != '' && valid_edit && valid_period) {
-            analysis_currency = $("#analysis_currency option:selected").val();
-            
+            analysis_currency = $("#analysis_currency option:selected").val();           
             let lbl_currency = gettext('Currency for the execution this analisys');
             let lbl_applied_currency = gettext('The following exchange rates will be applied for the analysis');            
             html = '<div class="row" id="currencys-panel"> <div class="col-md-10 currency-panel">' + lbl_currency + 
@@ -755,7 +756,7 @@ $(document).ready(function () {
                         split = input_id.split('-')
                         nbssc_id = split.pop();
                         nbs_min = parseFloat($("#" + input_id).val());
-                        nbs_min /= conversion
+                        nbs_min /= conversion;
                         if (minimun) {
                             if (minimun > nbs_min) {
                                 minimun = nbs_min;
@@ -855,7 +856,6 @@ $(document).ready(function () {
                                             run_analysis: 'true'
                                         }, function (data) {                                        
                                             autoAdjustHeight();
-                                            //$("#form").submit();
                                             location.href = "/study_cases/?city="+localStorage.cityId; 
                                         }, "json");
                                     }else{                                        
@@ -1183,20 +1183,20 @@ $(document).ready(function () {
             min = 0.0;
             $.each(data, function (index, nbs) {
                 var name = nbs.name;
-                var id = nbs.id_nbssc
-                var def = nbs.default
+                var id = nbs.id_nbssc;
+                var def = nbs.default;
                 var val = nbs.value;
                 var min = (parseFloat(nbs.unit_implementation_cost) + parseFloat(nbs.unit_maintenance_cost) /parseFloat(nbs.periodicity_maitenance) + parseFloat(nbs.unit_oportunity_cost)) * 10;
                 if (nbs.country__global_multiplier_factor){
-                    min *= parseFloat(nbs.country__global_multiplier_factor)
+                    min *= parseFloat(nbs.country__global_multiplier_factor);
                 }
                 if (def) {
                     if (!val) {
-                        val = 0
+                        val = 0;
                     }
                     if ($('#nbssc-' + id).length <= 0) {
-                        console.log(min)
-                        console.log(nbs)
+                        console.log(min);
+                        console.log(nbs);
                         content += '<tr><td>' + name + '</td>'
                         content += '<td><input class="text-number" type="number" id="nbssc-' + id + '" value="' + val + '"> </td></tr > '
                         content += '<input class="hiddennbs" id="minimun-' + id + '" " type="hidden" value="' + min + '">'
@@ -1211,33 +1211,39 @@ $(document).ready(function () {
 
 
     function loadBiophysicals() {
-        promises = []
+        var promises = [];
+        var listIntakes = [];
         if (ptaps.length > 0) {
             $.each(ptaps, function (index, id_ptap) {
                 promise = $.get("../../study_cases/intakebyptap/" + id_ptap);
-                promises.push(promise)
-
+                promises.push(promise);
             });
-
         }
         if (intakes.length > 0) {
             $.each(intakes, function (index, id_intake) {
                 promise = $.get("../../study_cases/intakebyid/" + id_intake);
-                promises.push(promise)
+                promises.push(promise);
             });
         }
         Promise.all(promises).then(values => {
-            promisesIntake = []
+            promisesIntake = [];
             $.each(values, function (i, data) {
                 $.each(data, function (j, intake) {
-                    if (intake.csinfra_elementsystem__intake__id)
-                        promise = loadBiophysical(intake.csinfra_elementsystem__intake__id, intake.csinfra_elementsystem__intake__name);
-                    else
-                        promise = loadBiophysical(intake.id, intake.name)
-                    promisesIntake.push(promise)
+                    if (intake.csinfra_elementsystem__intake__id){
+                        if (listIntakes.indexOf(intake.csinfra_elementsystem__intake__id) == -1) {
+                            promise = loadBiophysical(intake.csinfra_elementsystem__intake__id, intake.csinfra_elementsystem__intake__name);
+                            listIntakes.push(intake.csinfra_elementsystem__intake__id);
+                            promisesIntake.push(promise);
+                        }
+                    }else{ 
+                        if (listIntakes.indexOf(intake.id) == -1) {
+                            promise = loadBiophysical(intake.id, intake.name);
+                            listIntakes.push(intake.id);
+                            promisesIntake.push(promise);
+                        }
+                    }
                 });
             });
-
             Promise.all(promisesIntake).then(valuesIntake => {
                 $.each(valuesIntake, function (i, content) {
                     $("#biophysical-panel").append(content);
