@@ -198,7 +198,8 @@ $(document).ready(function () {
 
   async function rasterStatisticsApi () {
     // TODO - change serverApi URL to use the new API
-    let serverApi = '/proxy/?url=https://dev.skaphe.com/wf-models/';
+    let serverApi =  location.protocol + '//' + location.hostname + '/wf-models/';
+    //let serverApi = '/proxy/?url=https://dev.skaphe.com/wf-models/';
     let amp = "&";
     if (serverApi.indexOf("proxy") >=0){
       amp = "%26";
