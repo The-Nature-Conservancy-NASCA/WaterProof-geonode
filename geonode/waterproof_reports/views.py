@@ -508,7 +508,7 @@ def pdf(request):
     pdf.set_text_color(100, 100, 100)
     pdf.cell(0, 10, 'Comparative chart of costs and benefits:', align='L')
     pdf.ln(10)
-    pdf.set_font('Arial', '', 10)
+    pdf.set_font('Arial', '', 9)
     pdf.cell(0, 6, 'This graph allows you to compare your investment in the implementation and maintenance of', align='L')
     pdf.ln(6)
     pdf.cell(0, 6, 'the selected NbS, with respect to the economic benefits, which are obtained from the savings', align='L')
@@ -556,7 +556,7 @@ def pdf(request):
     }
 
     hc_export.save_as_png(config=config, filename="imgpdf/cab.png")
-    pdf.image('imgpdf/cab.png', 35, 30, w=100, h=60, type='png')
+    pdf.image('imgpdf/cab.png', 35, 50, w=100, h=60, type='png')
 
     pdf.ln(10)
     pdf.set_font('Arial', '', 13)
