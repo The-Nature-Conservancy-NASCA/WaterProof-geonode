@@ -513,7 +513,7 @@ def pdf(request):
     pdf.cell(0, 6, 'the selected NbS, with respect to the economic benefits, which are obtained from the savings', align='L')
     pdf.ln(6)
     pdf.cell(0, 6, 'in the maintenance of the water intakes systems and casa study infrastructure', align='L')
-    pdf.ln(10)
+    pdf.ln(60)
 #    pdf.add_page()
 
     requestJson = requests.get(settings.SITE_HOST_API + 'reports/getCostAndBenefit/?studyCase=' + request.POST['studyCase'],verify=False)
