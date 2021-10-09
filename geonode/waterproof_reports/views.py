@@ -384,7 +384,7 @@ def pdf(request):
     pdf.set_text_color(57, 137, 169)
     pdf.ln(5)
     pdf.cell(0, 15, 'Analysis parameters', align='C')
-    pdf.line(50,45,100,45)
+    pdf.line(60,45,100,145)
     pdf.ln(15)
     pdf.set_font('Arial', '', 9)
     pdf.set_text_color(100, 100, 100)
