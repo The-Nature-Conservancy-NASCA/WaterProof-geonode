@@ -345,8 +345,7 @@ def pdf(request):
         if cont == 4:
             varText4 = item['name']
 
-#    pdf.add_page()
-    pdf.ln(10)
+    pdf.add_page()
     pdf.set_font('Arial', '', 13)
     pdf.set_text_color(57, 137, 169)
     pdf.ln(5)
