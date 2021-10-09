@@ -347,7 +347,8 @@ def pdf(request):
     pdf.set_font('Arial', '', 13)
     pdf.set_text_color(57, 137, 169)
     pdf.ln(5)
-    pdf.cell(0, 15, 'Financial parameters', align='L', border=1)
+    pdf.cell(0, 15, 'Financial parameters', align='L')
+    pdf.line(20,45,150,45)
     pdf.set_font('Arial', '', 12)
     pdf.set_text_color(57, 137, 169)
     pdf.ln(15)
@@ -619,7 +620,7 @@ def pdf(request):
     }
 
     hc_export.save_as_png(config=config, filename="imgpdf/npvs.png")
-    pdf.image('imgpdf/npvs.png', 20, 70, w=120)
+    pdf.image('imgpdf/npvs.png', 20, 120, w=120)
 
     pdf.add_page()
 
