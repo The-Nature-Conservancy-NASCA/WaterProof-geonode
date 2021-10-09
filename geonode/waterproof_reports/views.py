@@ -348,8 +348,8 @@ def pdf(request):
     pdf.set_text_color(57, 137, 169)
     pdf.ln(5)
     pdf.cell(0, 10, 'Financial parameters', align='L')
-    pdf.line(10,45,100,45)
-    pdf.line(120,42,180,42)
+    pdf.line(10,42,100,42) # 2da y 3ra Posición mueven la linea de arriba a abajo // 1ra y la 4ta pinta la linea de izquierda a derecha
+    pdf.line(100,42,180,42)
     pdf.set_font('Arial', '', 12)
     pdf.set_text_color(57, 137, 169)
     pdf.ln(15)
