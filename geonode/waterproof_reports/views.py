@@ -123,7 +123,7 @@ def pdf(request):
     pdf.set_font('Arial', '', 13)
     pdf.cell(0, 10, 'This case study is based on:')
     pdf.ln(10)
-    pdf.set_font('Arial', '', 11)
+    pdf.set_font('Arial', '', 10)
     pdf.set_text_color(255, 255, 255)
     pdf.cell(epw, 8,studyCaseName, border=1, align='C', fill=1)
     title = 0
@@ -344,7 +344,8 @@ def pdf(request):
         if cont == 4:
             varText4 = item['name']
 
-    pdf.add_page()
+#    pdf.add_page()
+    pdf.ln(10)
     pdf.set_font('Arial', '', 13)
     pdf.set_text_color(57, 137, 169)
     pdf.ln(5)
@@ -469,9 +470,10 @@ def pdf(request):
 
     pdf.image('imgpdf/igocab.png', 20, 140, w=160)
 
-    pdf.ln(120)
-    pdf.add_page()
-
+#    pdf.ln(120)
+#    pdf.add_page()
+    pdf.ln(10)
+ 
     pdf.set_font('Arial', '', 13)
     pdf.set_text_color(100, 100, 100)
     pdf.cell(0, 10, 'This chart has been built with the data from the following table:', align='L')
