@@ -549,7 +549,7 @@ def pdf(request):
     }
 
     hc_export.save_as_png(config=config, filename="imgpdf/cab.png")
-    pdf.image('imgpdf/cab.png', 20, 30, w=160)
+    pdf.image('imgpdf/cab.png', 20, 30, w=120)
 
     pdf.ln(140)
     pdf.set_font('Arial', '', 13)
