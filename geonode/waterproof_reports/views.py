@@ -619,7 +619,7 @@ def pdf(request):
     }
 
     hc_export.save_as_png(config=config, filename="imgpdf/npvs.png")
-    pdf.image('imgpdf/npvs.png', 20, 30, w=160)
+    pdf.image('imgpdf/npvs.png', 20, 70, w=120)
 
     pdf.add_page()
 
