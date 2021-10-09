@@ -468,11 +468,11 @@ def pdf(request):
     hc_export.save_as_png(config=config, filename="imgpdf/igocab.png")
 
 
-    pdf.image('imgpdf/igocab.png', 20, 140, w=160,h=50,type='png')
+    pdf.image('imgpdf/igocab.png', 20, 140, w=160,h=90,type='png')
 
 #    pdf.ln(120)
 #    pdf.add_page()
-    pdf.ln(120)
+    pdf.ln(90)
  
     pdf.set_font('Arial', '', 13)
     pdf.set_text_color(100, 100, 100)
