@@ -468,7 +468,7 @@ def pdf(request):
     hc_export.save_as_png(config=config, filename="imgpdf/igocab.png")
 
 
-    pdf.image('imgpdf/igocab.png', 20, 140, w=160)
+    pdf.image('imgpdf/igocab.png', 20, 140, w=160,h=0,type='png')
 
 #    pdf.ln(120)
 #    pdf.add_page()
