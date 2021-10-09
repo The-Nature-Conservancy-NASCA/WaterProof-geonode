@@ -567,8 +567,6 @@ def pdf(request):
     pdf.cell(epw/4, 8, format(float(itemBenefift),'0,.2f'), border=1, align='R', fill=1)
     pdf.cell(epw/4, 8, '', border=0, align='C', fill=0)
 
-    pdf.add_page()
-
     requestJson = requests.get(settings.SITE_HOST_API + 'reports/getNetPresentValueSummary/?studyCase=' + request.POST['studyCase'],verify=False)
     data = requestJson.json()
 
@@ -622,6 +620,9 @@ def pdf(request):
 
     hc_export.save_as_png(config=config, filename="imgpdf/npvs.png")
     pdf.image('imgpdf/npvs.png', 20, 30, w=160)
+
+    pdf.add_page()
+
     pdf.ln(130)
     pdf.set_font('Arial', '', 11)
     pdf.set_text_color(100, 100, 100)
