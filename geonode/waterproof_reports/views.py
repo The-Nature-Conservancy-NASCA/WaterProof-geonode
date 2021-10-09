@@ -349,7 +349,7 @@ def pdf(request):
     pdf.ln(5)
     pdf.cell(0, 10, 'Financial parameters', align='L')
     pdf.line(10,45,100,45)
-    pdf.line(220,45,100,45)
+    pdf.line(220,42,60,42)
     pdf.set_font('Arial', '', 12)
     pdf.set_text_color(57, 137, 169)
     pdf.ln(15)
@@ -626,7 +626,7 @@ def pdf(request):
 
     pdf.add_page()
 
-    pdf.ln(60)
+    pdf.ln(30)
     pdf.set_font('Arial', '', 11)
     pdf.set_text_color(100, 100, 100)
     pdf.cell(0, 6, 'In the graph you can see i) each type of cost NPV, ii) benefits NPV and iii) total NPV which is the ', align='L')
