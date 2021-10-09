@@ -549,9 +549,9 @@ def pdf(request):
     }
 
     hc_export.save_as_png(config=config, filename="imgpdf/cab.png")
-    pdf.image('imgpdf/cab.png', 20, 30, w=120)
+    pdf.image('imgpdf/cab.png', 35, 30, w=120)
 
-    pdf.ln(140)
+    pdf.ln(100)
     pdf.set_font('Arial', '', 13)
     pdf.set_text_color(100, 100, 100)
     pdf.cell(0, 10, 'Comparative chart of costs and benefits:', align='L')
