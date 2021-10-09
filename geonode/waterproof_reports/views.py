@@ -146,7 +146,7 @@ def pdf(request):
 
     pdf.ln(55)
 
-    pdf.set_font('Arial', '', 13)
+    pdf.set_font('Arial', '', 11)
     pdf.set_text_color(100, 100, 100)
     pdf.cell(0, 10, 'Water intakes that are part of the analysis')
     pdf.ln(10)
@@ -198,7 +198,7 @@ def pdf(request):
     
  #   pdf.add_page()
     pdf.ln(10)
-    pdf.set_font('Arial', '', 13)
+    pdf.set_font('Arial', '', 11)
     pdf.set_text_color(100, 100, 100)
     pdf.cell(0, 10, 'Drinking water Treatment Plants', align='L', fill=1)
     pdf.ln(10)
@@ -245,7 +245,7 @@ def pdf(request):
 
 #    pdf.add_page()
     pdf.ln(10)
-    pdf.set_font('Arial', '', 13)
+    pdf.set_font('Arial', '', 11)
     pdf.set_text_color(100, 100, 100)
     pdf.cell(0, 10, 'Nature Based Solutions Conservation Activities', align='L')
     pdf.ln(10)
@@ -352,7 +352,7 @@ def pdf(request):
     pdf.cell(0, 10, 'Financial parameters', align='L')
     pdf.line(10,42,100,42) # 2da y 3ra Posición mueven la linea de arriba a abajo // 1ra y la 4ta pinta la linea de izquierda a derecha
     pdf.line(100,42,180,42)
-    pdf.set_font('Arial', '', 13)
+    pdf.set_font('Arial', '', 11)
     pdf.set_text_color(57, 137, 169)
     pdf.ln(15)
     pdf.cell((epw/9) * 4, 15, 'Financial parameters', align='C')
@@ -409,10 +409,10 @@ def pdf(request):
     pdf.cell(epw/5, 8,"")
     pdf.ln(20)
 
-    pdf.set_font('Arial', '', 13)
+    pdf.set_font('Arial', '', 11)
     pdf.set_text_color(100, 100, 100)
     pdf.cell(0, 10, 'Comparative graph of costs and benefits for the analysis period', align='L')
-    pdf.ln(15)
+    pdf.ln(17)
 
     requestJson = requests.get(settings.SITE_HOST_API + 
                 'reports/getReportCostsAnalysisRoi/?studyCase=' + 
@@ -474,7 +474,7 @@ def pdf(request):
 #    pdf.add_page()
     pdf.ln(90)
  
-    pdf.set_font('Arial', '', 13)
+    pdf.set_font('Arial', '', 10)
     pdf.set_text_color(100, 100, 100)
     pdf.cell(0, 10, 'This chart has been built with the data from the following table:', align='L')
     pdf.ln(10)
@@ -503,18 +503,18 @@ def pdf(request):
         pdf.ln(4)
 
     pdf.ln(10)
-    pdf.set_font('Arial', '', 13)
+    pdf.set_font('Arial', '', 11)
     pdf.set_text_color(100, 100, 100)
     pdf.cell(0, 10, 'Comparative chart of costs and benefits:', align='L')
     pdf.ln(10)
-    pdf.set_font('Arial', '', 11)
+    pdf.set_font('Arial', '', 10)
     pdf.cell(0, 6, 'This graph allows you to compare your investment in the implementation and maintenance of', align='L')
     pdf.ln(6)
     pdf.cell(0, 6, 'the selected NbS, with respect to the economic benefits, which are obtained from the savings', align='L')
     pdf.ln(6)
     pdf.cell(0, 6, 'in the maintenance of the water intakes systems and casa study infrastructure', align='L')
-    pdf.ln(6)
-    pdf.add_page()
+    pdf.ln(10)
+#    pdf.add_page()
 
     requestJson = requests.get(settings.SITE_HOST_API + 'reports/getCostAndBenefit/?studyCase=' + request.POST['studyCase'],verify=False)
     data = requestJson.json()
@@ -555,9 +555,9 @@ def pdf(request):
     }
 
     hc_export.save_as_png(config=config, filename="imgpdf/cab.png")
-    pdf.image('imgpdf/cab.png', 35, 30, w=120)
+    pdf.image('imgpdf/cab.png', 35, 30, w=120, h=90, type='png')
 
-    pdf.ln(100)
+ #   pdf.ln(100)
     pdf.set_font('Arial', '', 13)
     pdf.set_text_color(100, 100, 100)
     pdf.cell(0, 10, 'Comparative chart of costs and benefits:', align='L')
