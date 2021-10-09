@@ -26,7 +26,7 @@ from io import BytesIO
 class PDF(FPDF):
     def footer(self):
         self.set_y(-15)
-        self.set_font('Arial', 'I', 8)
+        self.set_font('Arial', 'I', 10)
         self.cell(0, 10, 'Page ' + str(self.page_no()) + '/{nb}', 0, 0, 'C')
 
 def pdf(request):
@@ -123,7 +123,7 @@ def pdf(request):
     pdf.set_font('Arial', '', 13)
     pdf.cell(0, 10, 'This case study is based on:')
     pdf.ln(10)
-    pdf.set_font('Arial', '', 10)
+    pdf.set_font('Arial', '', 11)
     pdf.set_text_color(255, 255, 255)
     pdf.cell(epw, 8,studyCaseName, border=1, align='C', fill=1)
     title = 0
@@ -196,7 +196,7 @@ def pdf(request):
         pdf.cell(epw/2, 6,item['description'], border=1, align='L', fill=1)
 
     
-    pdf.add_page()
+ #   pdf.add_page()
     pdf.set_font('Arial', '', 13)
     pdf.set_text_color(100, 100, 100)
     pdf.cell(0, 10, 'Drinking water Treatment Plants', align='L', fill=1)
@@ -350,7 +350,7 @@ def pdf(request):
     pdf.cell(0, 10, 'Financial parameters', align='L')
     pdf.line(10,42,100,42) # 2da y 3ra Posición mueven la linea de arriba a abajo // 1ra y la 4ta pinta la linea de izquierda a derecha
     pdf.line(100,42,180,42)
-    pdf.set_font('Arial', '', 12)
+    pdf.set_font('Arial', '', 13)
     pdf.set_text_color(57, 137, 169)
     pdf.ln(15)
     pdf.cell((epw/9) * 4, 15, 'Financial parameters', align='C')
@@ -1370,7 +1370,7 @@ def pdf(request):
     pdf.add_page()
 
     pdf.set_font('Arial', '', 13)
-    pdf.set_text_color(100, 100, 100)
+    pdf.set_text_color(57, 137, 169)
 
     pdf.cell(0, 10, 'Physical indicators', align='L')
     pdf.ln(10)
@@ -1543,7 +1543,7 @@ def pdf(request):
     pdf.add_page()
 
     pdf.set_font('Arial', '', 13)
-    pdf.set_text_color(100, 100, 100)
+    pdf.set_text_color(57, 137, 169)
     pdf.cell(0, 10, 'Decision indicators', align='L')
 
 
@@ -1832,7 +1832,7 @@ def pdf(request):
     pdf.add_page()
 
     pdf.set_font('Arial', '', 13)
-    pdf.set_text_color(179, 179, 179)
+    pdf.set_text_color(57, 137, 169)
     pdf.cell(0, 10, 'Geographic resources', align='L')
     pdf.ln(10)
     pdf.set_font('Arial', '', 11)
