@@ -502,6 +502,7 @@ def pdf(request):
         contTitle = contTitle + 1
         pdf.ln(4)
 
+    pdf.add_page()
     pdf.ln(10)
     pdf.set_font('Arial', '', 11)
     pdf.set_text_color(100, 100, 100)
@@ -555,6 +556,7 @@ def pdf(request):
     }
 
     hc_export.save_as_png(config=config, filename="imgpdf/cab.png")
+    pdf.image('imgpdf/cab.png', 35, 30, w=100, h=60, type='png')
 
     pdf.ln(10)
     pdf.set_font('Arial', '', 13)
@@ -571,10 +573,6 @@ def pdf(request):
     pdf.cell(epw/4, 8, 'Benefits', border=1, align='L', fill=1)
     pdf.cell(epw/4, 8, format(float(itemBenefift),'0,.2f'), border=1, align='R', fill=1)
     pdf.cell(epw/4, 8, '', border=0, align='C', fill=0)
-
-    pdf.add_page()
-    pdf.ln(10)
-    pdf.image('imgpdf/cab.png', 35, 30, w=100, h=60, type='png')
 
 
     requestJson = requests.get(settings.SITE_HOST_API + 'reports/getNetPresentValueSummary/?studyCase=' + request.POST['studyCase'],verify=False)
