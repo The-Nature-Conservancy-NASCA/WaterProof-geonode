@@ -472,7 +472,7 @@ def pdf(request):
 
 #    pdf.ln(120)
 #    pdf.add_page()
-    pdf.ln(90)
+    pdf.ln(120)
  
     pdf.set_font('Arial', '', 10)
     pdf.set_text_color(100, 100, 100)
