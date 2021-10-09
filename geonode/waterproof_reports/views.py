@@ -349,7 +349,7 @@ def pdf(request):
     pdf.ln(5)
     pdf.cell(0, 10, 'Financial parameters', align='L')
     pdf.line(10,45,100,45)
-    pdf.line(200,42,30,42)
+    pdf.line(200,42,20,42)
     pdf.set_font('Arial', '', 12)
     pdf.set_text_color(57, 137, 169)
     pdf.ln(15)
