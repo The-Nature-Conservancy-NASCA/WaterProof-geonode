@@ -556,13 +556,13 @@ def pdf(request):
     }
 
     hc_export.save_as_png(config=config, filename="imgpdf/cab.png")
-    pdf.image('imgpdf/cab.png', 35, 50, w=100, h=60, type='png')
+    pdf.image('imgpdf/cab.png', 45, 50, w=100, h=60, type='png')
 
     pdf.ln(10)
-    pdf.set_font('Arial', '', 13)
-    pdf.set_text_color(100, 100, 100)
-    pdf.cell(0, 10, 'Comparative chart of costs and benefits:', align='L')
     pdf.set_font('Arial', '', 11)
+    pdf.set_text_color(100, 100, 100)
+    pdf.cell(0, 10, 'This chart has been built with the data from the following table:', align='L')
+    pdf.set_font('Arial', '', 10)
     pdf.ln(10)
     pdf.cell(epw/4, 8, '', border=0, align='C', fill=0)
     pdf.cell(epw/4, 8, 'Cost', border=1, align='L', fill=1)
@@ -626,8 +626,13 @@ def pdf(request):
         }]
     }
 
+    pdf.ln(10)
+    pdf.set_font('Arial', '', 11)
+    pdf.set_text_color(100, 100, 100)
+    pdf.cell(0, 10, 'Net present value', align='L')
+
     hc_export.save_as_png(config=config, filename="imgpdf/npvs.png")
-    pdf.image('imgpdf/npvs.png', 35, 170, w=120)
+    pdf.image('imgpdf/npvs.png', 35, 170, w=120,h=70, type='png')
 
     pdf.add_page()
 
