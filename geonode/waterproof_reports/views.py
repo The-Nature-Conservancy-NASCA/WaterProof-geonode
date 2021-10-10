@@ -626,7 +626,7 @@ def pdf(request):
         }]
     }
 
-    pdf.ln(30)
+    pdf.ln(20)
     pdf.set_font('Arial', '', 11)
     pdf.set_text_color(100, 100, 100)
     pdf.cell(0, 10, 'Net present value', align='L')
@@ -639,7 +639,7 @@ def pdf(request):
     pdf.ln(10)
 
     hc_export.save_as_png(config=config, filename="imgpdf/npvs.png")
-    pdf.image('imgpdf/npvs.png', 35, 185, w=120,h=80, type='png')
+    pdf.image('imgpdf/npvs.png', 35, 195, w=120,h=80, type='png')
 
     pdf.add_page()
 #    pdf.ln(10)
