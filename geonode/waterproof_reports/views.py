@@ -514,7 +514,7 @@ def pdf(request):
     pdf.cell(0, 6, 'to the economic benefits which are obtained from the savings in the maintenance of the water intakes systems and case', align='L')
     pdf.ln(6)
     pdf.cell(0, 6, 'study infrastructure', align='L')
-    pdf.ln(60)
+    pdf.ln(80)
 #    pdf.add_page()
 
     requestJson = requests.get(settings.SITE_HOST_API + 'reports/getCostAndBenefit/?studyCase=' + request.POST['studyCase'],verify=False)
@@ -556,7 +556,7 @@ def pdf(request):
     }
 
     hc_export.save_as_png(config=config, filename="imgpdf/cab.png")
-    pdf.image('imgpdf/cab.png', 45, 70, w=100, h=60, type='png')
+    pdf.image('imgpdf/cab.png', 45, 85, w=100, h=60, type='png')
 
     pdf.ln(10)
     pdf.set_font('Arial', '', 11)
