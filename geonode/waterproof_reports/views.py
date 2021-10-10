@@ -626,28 +626,26 @@ def pdf(request):
         }]
     }
 
-    pdf.ln(10)
+    pdf.ln(30)
     pdf.set_font('Arial', '', 11)
     pdf.set_text_color(100, 100, 100)
     pdf.cell(0, 10, 'Net present value', align='L')
 
     hc_export.save_as_png(config=config, filename="imgpdf/npvs.png")
-    pdf.image('imgpdf/npvs.png', 35, 170, w=120,h=70, type='png')
 
-    pdf.add_page()
-
-    pdf.ln(30)
-    pdf.set_font('Arial', '', 11)
+    pdf.set_font('Arial', '', 10)
     pdf.set_text_color(100, 100, 100)
     pdf.cell(0, 6, 'In the graph you can see i) each type of cost NPV, ii) benefits NPV and iii) total NPV which is the ', align='L')
     pdf.ln(6)
     pdf.cell(0, 6, 'difference between costs and benefits', align='L')
-    pdf.ln(12)
+    pdf.ln(10)
+    pdf.image('imgpdf/npvs.png', 35, 170, w=120,h=80, type='png')
 
+    pdf.add_page()
+#    pdf.ln(10)
     pdf.set_font('Arial', '', 11)
-    pdf.set_text_color(255, 255, 255)
-    pdf.set_fill_color(0, 138, 173)
-    pdf.set_draw_color(0, 138, 173)
+    pdf.set_text_color(100, 100, 100)
+    pdf.cell(0, 10, 'This chart has been built with the data from the following table:', align='L')
     pdf.cell(epw, 10, 'Net present value sumary', border=1, align='C', fill=1)
     pdf.ln(10)
     pdf.set_font('Arial', '', 9)
@@ -657,7 +655,7 @@ def pdf(request):
     pdf.cell(epw/4, 6, format(float(valimplementationr),'0,.2f'), border=1, align='R', fill=1)
     pdf.ln(6)
     pdf.cell((epw/4) * 3, 6, 'Maintance cost: costo to manintain NBS', border=1, align='L', fill=1)
-    pdf.cell(epw/4, 6, format(float(valmaintenancer),'0,.2f'), border=1, align='R', fill=1)
+    pdf.cell(epw/4, 6, format(float(valmaintenancer),'0.,2f'), border=1, align='R', fill=1)
     pdf.ln(6)
     pdf.cell((epw/4) * 3, 6, 'Oportunity cost: foregone benefits that would have been derived from and option another than NBS', border=1, align='L', fill=1)
     pdf.cell(epw/4, 6, format(float(valoportunityr),'0,.2f'), border=1, align='R', fill=1)
