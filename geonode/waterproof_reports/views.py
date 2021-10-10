@@ -630,15 +630,15 @@ def pdf(request):
     pdf.set_font('Arial', '', 11)
     pdf.set_text_color(100, 100, 100)
     pdf.cell(0, 10, 'Net present value', align='L')
-
-    hc_export.save_as_png(config=config, filename="imgpdf/npvs.png")
-
+    pdf.ln(10)
     pdf.set_font('Arial', '', 10)
     pdf.set_text_color(100, 100, 100)
     pdf.cell(0, 6, 'In the graph you can see i) each type of cost NPV, ii) benefits NPV and iii) total NPV which is the ', align='L')
     pdf.ln(6)
     pdf.cell(0, 6, 'difference between costs and benefits', align='L')
     pdf.ln(10)
+
+    hc_export.save_as_png(config=config, filename="imgpdf/npvs.png")
     pdf.image('imgpdf/npvs.png', 35, 170, w=120,h=80, type='png')
 
     pdf.add_page()
