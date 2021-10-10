@@ -658,7 +658,7 @@ def pdf(request):
     pdf.cell(epw/4, 6, format(float(valmaintenancer),'0.,2f'), border=1, align='R', fill=1)
     pdf.ln(6)
     pdf.cell((epw/4) * 3, 6, 'Oportunity cost: foregone benefits that would have been derived from and option another than NBS', border=1, align='L', fill=1)
-    pdf.cell(epw/4, 6, format(float(valoportunityr),'0,.2f'), border=1, align='R', fill=1)
+    pdf.cell(epw/4, 6, float(valoportunityr), border=1, align='R', fill=1)
     pdf.ln(6)
     pdf.cell((epw/4) * 3, 6, 'Transaction cost: refers to administrative expenses', border=1, align='L', fill=1)
     pdf.cell(epw/4, 6, format(float(valtransactionr),'0,.2f'), border=1, align='R', fill=1)
