@@ -684,16 +684,17 @@ def pdf(request):
     pdf.ln(15)
     pdf.set_font('Arial', '', 13)
     pdf.cell(0, 10, 'Sensitivity analysis', align='L')
+    pdf.set_text_color(57, 137, 169)
     pdf.ln(10)
-    pdf.set_font('Arial', '', 11)
-    pdf.cell(0, 6, 'Next, a simple sensitivity analysis is presented through the variation of the discount rate under', align='L')
+    pdf.set_font('Arial', '', 10)
+    pdf.set_text_color(100, 100, 100)    
+    pdf.cell(0, 6, 'Next, a simple sensibility analysis is presented through the variation of the discount rate under the defined', align='L')
     pdf.ln(6)
-    pdf.cell(0, 6, 'the defined lower and upper limits. Remember that the discount rate is the cost of capital that', align='L')
+    pdf.cell(0, 6, 'lower and upper limits. Remember that the discount rate is the cost of capital that is applied to determine ', align='L')
     pdf.ln(6)
-    pdf.cell(0, 6, 'is applied to determine the present value of a future payment.', align='L')
-    pdf.ln(6)
+    pdf.cell(0, 6, 'the present value of a future payment.', align='L')
+    pdf.ln(10)
 
-    pdf.add_page()
 
     requestJson = requests.get(settings.SITE_HOST_API + 'reports/getSensibilityAnalysisBenefits/?studyCase=' + request.POST['studyCase'],verify=False)
     data = requestJson.json()
@@ -743,9 +744,9 @@ def pdf(request):
     }
 
     hc_export.save_as_png(config=config, filename="imgpdf/satdb.png")
-    pdf.image('imgpdf/satdb.png', 20, 30, w=160)
-
-    pdf.ln(130)
+    pdf.image('imgpdf/satdb.png', 30, 170, w=160, h=80, type='PNG')
+    pdf.add_page()
+    pdf.ln(10)
     pdf.set_font('Arial', '', 11)
     pdf.set_text_color(100, 100, 100)
     pdf.cell(0, 6, 'This graph is constructed with the data from the following table:', align='L')
