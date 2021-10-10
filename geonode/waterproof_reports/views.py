@@ -556,7 +556,7 @@ def pdf(request):
     }
 
     hc_export.save_as_png(config=config, filename="imgpdf/cab.png")
-    pdf.image('imgpdf/cab.png', 45, 85, w=100, h=60, type='png')
+    pdf.image('imgpdf/cab.png', 45, 65, w=100, h=60, type='png')
 
     pdf.ln(10)
     pdf.set_font('Arial', '', 11)
@@ -639,7 +639,7 @@ def pdf(request):
     pdf.ln(10)
 
     hc_export.save_as_png(config=config, filename="imgpdf/npvs.png")
-    pdf.image('imgpdf/npvs.png', 35, 170, w=120,h=80, type='png')
+    pdf.image('imgpdf/npvs.png', 35, 185, w=120,h=80, type='png')
 
     pdf.add_page()
 #    pdf.ln(10)
