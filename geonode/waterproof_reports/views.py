@@ -642,10 +642,12 @@ def pdf(request):
     pdf.image('imgpdf/npvs.png', 35, 195, w=120,h=80, type='png')
 
     pdf.add_page()
+
     pdf.ln(10)
     pdf.set_font('Arial', '', 11)
     pdf.set_text_color(100, 100, 100)
     pdf.cell(0, 10, 'This chart has been built with the data from the following table:', align='L')
+    pdf.ln(10)
     pdf.set_font('Arial', '', 11)
     pdf.set_text_color(255, 255, 255)
     pdf.set_fill_color(0, 138, 173)
