@@ -1498,7 +1498,7 @@ def pdf(request):
         
         pdf.cell(epw/10, 6, str(item['sigla']), border=1, align='L', fill=1)
         pdf.cell((epw/10) * 4, 6, str(item['description']), border=1, align='L', fill=1)
-        pdf.cell(epw/10, 6, str(item['valueGraT']), border=1, align='R', fill=1)
+        pdf.cell(epw/10 * 2, 6, str(item['valueGraT']), border=1, align='R', fill=1)
         pdf.ln(6)
 
 
