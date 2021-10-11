@@ -26,7 +26,7 @@ from io import BytesIO
 class PDF(FPDF):
     def footer(self):
         self.set_y(-15)
-        self.set_font('Arial', 'I', 8)
+        self.set_font('Arial', 'I', 10)
         self.cell(0, 10, 'Page ' + str(self.page_no()) + '/{nb}', 0, 0, 'C')
 
 def pdf(request):
@@ -146,7 +146,7 @@ def pdf(request):
 
     pdf.ln(55)
 
-    pdf.set_font('Arial', '', 13)
+    pdf.set_font('Arial', '', 11)
     pdf.set_text_color(100, 100, 100)
     pdf.cell(0, 10, 'Water intakes that are part of the analysis')
     pdf.ln(10)
@@ -196,8 +196,9 @@ def pdf(request):
         pdf.cell(epw/2, 6,item['description'], border=1, align='L', fill=1)
 
     
-    pdf.add_page()
-    pdf.set_font('Arial', '', 13)
+ #   pdf.add_page()
+    pdf.ln(10)
+    pdf.set_font('Arial', '', 11)
     pdf.set_text_color(100, 100, 100)
     pdf.cell(0, 10, 'Drinking water Treatment Plants', align='L', fill=1)
     pdf.ln(10)
@@ -242,8 +243,9 @@ def pdf(request):
         pdf.set_text_color(100, 100, 100)
         pdf.cell(epw/2, 6,item['description'], border=1, align='L', fill=1)
 
-    pdf.add_page()
-    pdf.set_font('Arial', '', 13)
+#    pdf.add_page()
+    pdf.ln(10)
+    pdf.set_font('Arial', '', 11)
     pdf.set_text_color(100, 100, 100)
     pdf.cell(0, 10, 'Nature Based Solutions Conservation Activities', align='L')
     pdf.ln(10)
@@ -350,7 +352,7 @@ def pdf(request):
     pdf.cell(0, 10, 'Financial parameters', align='L')
     pdf.line(10,42,100,42) # 2da y 3ra Posición mueven la linea de arriba a abajo // 1ra y la 4ta pinta la linea de izquierda a derecha
     pdf.line(100,42,180,42)
-    pdf.set_font('Arial', '', 12)
+    pdf.set_font('Arial', '', 11)
     pdf.set_text_color(57, 137, 169)
     pdf.ln(15)
     pdf.cell((epw/9) * 4, 15, 'Financial parameters', align='C')
@@ -407,10 +409,10 @@ def pdf(request):
     pdf.cell(epw/5, 8,"")
     pdf.ln(20)
 
-    pdf.set_font('Arial', '', 13)
+    pdf.set_font('Arial', '', 11)
     pdf.set_text_color(100, 100, 100)
     pdf.cell(0, 10, 'Comparative graph of costs and benefits for the analysis period', align='L')
-    pdf.ln(15)
+    pdf.ln(17)
 
     requestJson = requests.get(settings.SITE_HOST_API + 
                 'reports/getReportCostsAnalysisRoi/?studyCase=' + 
@@ -466,12 +468,13 @@ def pdf(request):
     hc_export.save_as_png(config=config, filename="imgpdf/igocab.png")
 
 
-    pdf.image('imgpdf/igocab.png', 20, 140, w=160)
+    pdf.image('imgpdf/igocab.png', 20, 140, w=160,h=90,type='png')
 
+#    pdf.ln(120)
+#    pdf.add_page()
     pdf.ln(120)
-    pdf.add_page()
-
-    pdf.set_font('Arial', '', 13)
+ 
+    pdf.set_font('Arial', '', 10)
     pdf.set_text_color(100, 100, 100)
     pdf.cell(0, 10, 'This chart has been built with the data from the following table:', align='L')
     pdf.ln(10)
@@ -499,19 +502,20 @@ def pdf(request):
         contTitle = contTitle + 1
         pdf.ln(4)
 
+    pdf.add_page()
     pdf.ln(10)
-    pdf.set_font('Arial', '', 13)
+    pdf.set_font('Arial', '', 11)
     pdf.set_text_color(100, 100, 100)
     pdf.cell(0, 10, 'Comparative chart of costs and benefits:', align='L')
     pdf.ln(10)
-    pdf.set_font('Arial', '', 11)
-    pdf.cell(0, 6, 'This graph allows you to compare your investment in the implementation and maintenance of', align='L')
+    pdf.set_font('Arial', '', 9)
+    pdf.cell(0, 6, 'This graph allows you to compare your investment in the implementation and maintenance of the selected NbS, with respect,', align='L')
     pdf.ln(6)
-    pdf.cell(0, 6, 'the selected NbS, with respect to the economic benefits, which are obtained from the savings', align='L')
+    pdf.cell(0, 6, 'to the economic benefits which are obtained from the savings in the maintenance of the water intakes systems and case', align='L')
     pdf.ln(6)
-    pdf.cell(0, 6, 'in the maintenance of the water intakes systems and casa study infrastructure', align='L')
-    pdf.ln(6)
-    pdf.add_page()
+    pdf.cell(0, 6, 'study infrastructure', align='L')
+    pdf.ln(80)
+#    pdf.add_page()
 
     requestJson = requests.get(settings.SITE_HOST_API + 'reports/getCostAndBenefit/?studyCase=' + request.POST['studyCase'],verify=False)
     data = requestJson.json()
@@ -552,13 +556,13 @@ def pdf(request):
     }
 
     hc_export.save_as_png(config=config, filename="imgpdf/cab.png")
-    pdf.image('imgpdf/cab.png', 35, 30, w=120)
+    pdf.image('imgpdf/cab.png', 45, 65, w=100, h=60, type='png')
 
-    pdf.ln(100)
-    pdf.set_font('Arial', '', 13)
+    pdf.ln(10)
+    pdf.set_font('Arial', '', 10)
     pdf.set_text_color(100, 100, 100)
-    pdf.cell(0, 10, 'Comparative chart of costs and benefits:', align='L')
-    pdf.set_font('Arial', '', 11)
+    pdf.cell(0, 10, 'This chart has been built with the data from the following table:', align='L')
+    pdf.set_font('Arial', '', 10)
     pdf.ln(10)
     pdf.cell(epw/4, 8, '', border=0, align='C', fill=0)
     pdf.cell(epw/4, 8, 'Cost', border=1, align='L', fill=1)
@@ -569,6 +573,7 @@ def pdf(request):
     pdf.cell(epw/4, 8, 'Benefits', border=1, align='L', fill=1)
     pdf.cell(epw/4, 8, format(float(itemBenefift),'0,.2f'), border=1, align='R', fill=1)
     pdf.cell(epw/4, 8, '', border=0, align='C', fill=0)
+
 
     requestJson = requests.get(settings.SITE_HOST_API + 'reports/getNetPresentValueSummary/?studyCase=' + request.POST['studyCase'],verify=False)
     data = requestJson.json()
@@ -621,19 +626,28 @@ def pdf(request):
         }]
     }
 
-    hc_export.save_as_png(config=config, filename="imgpdf/npvs.png")
-    pdf.image('imgpdf/npvs.png', 35, 170, w=120)
-
-    pdf.add_page()
-
-    pdf.ln(30)
+    pdf.ln(20)
     pdf.set_font('Arial', '', 11)
+    pdf.set_text_color(100, 100, 100)
+    pdf.cell(0, 10, 'Net present value', align='L')
+    pdf.ln(10)
+    pdf.set_font('Arial', '', 10)
     pdf.set_text_color(100, 100, 100)
     pdf.cell(0, 6, 'In the graph you can see i) each type of cost NPV, ii) benefits NPV and iii) total NPV which is the ', align='L')
     pdf.ln(6)
     pdf.cell(0, 6, 'difference between costs and benefits', align='L')
-    pdf.ln(12)
+    pdf.ln(10)
 
+    hc_export.save_as_png(config=config, filename="imgpdf/npvs.png")
+    pdf.image('imgpdf/npvs.png', 35, 195, w=120,h=80, type='png')
+
+    pdf.add_page()
+
+    pdf.ln(10)
+    pdf.set_font('Arial', '', 10)
+    pdf.set_text_color(100, 100, 100)
+    pdf.cell(0, 10, 'This chart has been built with the data from the following table:', align='L')
+    pdf.ln(10)
     pdf.set_font('Arial', '', 11)
     pdf.set_text_color(255, 255, 255)
     pdf.set_fill_color(0, 138, 173)
@@ -670,16 +684,17 @@ def pdf(request):
     pdf.ln(15)
     pdf.set_font('Arial', '', 13)
     pdf.cell(0, 10, 'Sensitivity analysis', align='L')
+    pdf.set_text_color(57, 137, 169)
     pdf.ln(10)
-    pdf.set_font('Arial', '', 11)
-    pdf.cell(0, 6, 'Next, a simple sensitivity analysis is presented through the variation of the discount rate under', align='L')
+    pdf.set_font('Arial', '', 10)
+    pdf.set_text_color(100, 100, 100)    
+    pdf.cell(0, 6, 'Next, a simple sensibility analysis is presented through the variation of the discount rate under the defined', align='L')
     pdf.ln(6)
-    pdf.cell(0, 6, 'the defined lower and upper limits. Remember that the discount rate is the cost of capital that', align='L')
+    pdf.cell(0, 6, 'lower and upper limits. Remember that the discount rate is the cost of capital that is applied to determine ', align='L')
     pdf.ln(6)
-    pdf.cell(0, 6, 'is applied to determine the present value of a future payment.', align='L')
-    pdf.ln(6)
+    pdf.cell(0, 6, 'the present value of a future payment.', align='L')
+    pdf.ln(10)
 
-    pdf.add_page()
 
     requestJson = requests.get(settings.SITE_HOST_API + 'reports/getSensibilityAnalysisBenefits/?studyCase=' + request.POST['studyCase'],verify=False)
     data = requestJson.json()
@@ -729,10 +744,10 @@ def pdf(request):
     }
 
     hc_export.save_as_png(config=config, filename="imgpdf/satdb.png")
-    pdf.image('imgpdf/satdb.png', 20, 30, w=160)
-
-    pdf.ln(130)
-    pdf.set_font('Arial', '', 11)
+    pdf.image('imgpdf/satdb.png', 30, 150, w=160, h=80, type='PNG')
+    pdf.add_page()
+    pdf.ln(10)
+    pdf.set_font('Arial', '', 10)
     pdf.set_text_color(100, 100, 100)
     pdf.cell(0, 6, 'This graph is constructed with the data from the following table:', align='L')
     pdf.ln(6)
@@ -755,8 +770,6 @@ def pdf(request):
         pdf.cell(epw/4, 3.5, format(float(item['totalMedBenefitR']),'0,.2f') , border=1, align='R', fill=1)
         pdf.cell(epw/4, 3.5, format(float(item['totalMaxBenefittR']),'0,.2f') , border=1, align='R', fill=1)
         pdf.ln(3.5)    
-
-    pdf.add_page()
 
     requestJson = requests.get(settings.SITE_HOST_API + 'reports/getSensibilityAnalysisCost/?studyCase=' + request.POST['studyCase'],verify=False)
     data = requestJson.json()
@@ -806,10 +819,10 @@ def pdf(request):
     }
 
     hc_export.save_as_png(config=config, filename="imgpdf/satdc.png")
-    pdf.image('imgpdf/satdc.png', 20, 30, w=160)
-
-    pdf.ln(130)
-    pdf.set_font('Arial', '', 11)
+    pdf.image('imgpdf/satdc.png', 30, 150, w=160, h=0, type='PNG')
+    pdf.add_page()
+    pdf.ln(10)
+    pdf.set_font('Arial', '', 10)
     pdf.set_text_color(100, 100, 100)
     pdf.cell(0, 6, 'This graph is constructed with the data from the following table:', align='L')
     pdf.ln(6)
@@ -876,9 +889,9 @@ def pdf(request):
             idTotalAreaInvestmentSize = str(round(float(item['value']),2))
 
     pdf.set_font('Arial', '', 13)
-    pdf.set_text_color(100, 100, 100)
+    pdf.set_text_color(57, 137, 169)
     pdf.set_fill_color(255, 255, 255)
-    pdf.cell(epw, 10, 'Return on investment calculation', align='C')
+    pdf.cell(epw, 10, 'Return on investment calculation', align='L')
     pdf.ln(10)
     pdf.set_font('Arial', '', 10)
     pdf.cell(epw, 7, 'Canculated ROI', align='C')
@@ -922,7 +935,7 @@ def pdf(request):
     pdf.ln(10)
 
     pdf.set_font('Arial', '', 10)
-    pdf.cell(epw, 10, 'Estimated change in ecosustem services by basin', align='C')
+    pdf.cell(epw, 10, 'Estimated change in ecosustem services by basin', align='L')
     pdf.ln(10)
 
     requestJson = requests.get(settings.SITE_HOST_API + 'reports/getTotalBenefitsForMilion/?studyCase=' + request.POST['studyCase'],verify=False)
@@ -1047,9 +1060,9 @@ def pdf(request):
     pdf.set_fill_color(231, 244, 244)
     pdf.cell(epw, 90, '', border=1, align='C', fill=1)
     pdf.ln(7)
-    pdf.set_fill_color(255, 255, 255)
+#    pdf.set_fill_color(255, 255, 255)
     pdf.cell(epw/7, 5, '', border=0, align='C', fill=0)
-    pdf.cell(((epw/7) * 6)-3, 75, '', border=1, align='C', fill=1)
+#    pdf.cell(((epw/7) * 6)-3, 75, '', border=1, align='C', fill=1)
     pdf.ln(0)
     pdf.set_font('Arial', '', 8)
     pdf.cell(epw/6, 5, '', border=0, align='C', fill=0)
@@ -1328,16 +1341,18 @@ def pdf(request):
     requestJson = requests.get(settings.SITE_HOST_API + 'reports/getReportAnalisysBeneficsC/?studyCase=' + request.POST['studyCase'],verify=False)
     data = requestJson.json()
 
-    pdf.set_font('Arial', '', 11)
+    pdf.set_font('Arial', '', 13)
+    pdf.set_text_color(57, 137, 169)
     pdf.ln(10)
-    pdf.cell(epw, 10, 'Intervention and budget summary', align='C')
+    pdf.cell(epw, 10, 'Intervention and budget summary', align='L')
     pdf.ln(15)
+    pdf.set_text_color(100, 100, 100)
 
     contLine = 0
     lastTitle = ""    
     for item in data:
         if lastTitle != item['intakeId'] : 
-            pdf.set_font('Arial', '', 11)
+            pdf.set_font('Arial', '', 10)
             pdf.ln(10)
             pdf.cell(epw, 6, str(item['name']), align='C')
             pdf.ln(6)
@@ -1370,7 +1385,7 @@ def pdf(request):
     pdf.add_page()
 
     pdf.set_font('Arial', '', 13)
-    pdf.set_text_color(100, 100, 100)
+    pdf.set_text_color(57, 137, 169)
 
     pdf.cell(0, 10, 'Physical indicators', align='L')
     pdf.ln(10)
@@ -1467,8 +1482,8 @@ def pdf(request):
             pdf.set_draw_color(0, 138, 173)
             pdf.cell((epw/10) * 4, 6, 'Indicator', border=1, align='C', fill=1)
             pdf.cell(epw/10, 6, 'Sigla', border=1, align='C', fill=1)
-            pdf.cell((epw/10) * 4, 6, 'Description', border=1, align='C', fill=1)
-            pdf.cell(epw/10, 6, 'Value', border=1, align='C', fill=1)
+            pdf.cell((epw/10) * 3, 6, 'Description', border=1, align='C', fill=1)
+            pdf.cell(epw/10 * 2, 6, 'Value', border=1, align='C', fill=1)
             pdf.set_font('Arial', '', 9)
             pdf.set_text_color(100, 100, 100)
             pdf.set_fill_color(255, 255, 255)
@@ -1482,8 +1497,8 @@ def pdf(request):
             pdf.cell((epw/10) * 4, 6 ,"", border=0, align='L', fill=0)
         
         pdf.cell(epw/10, 6, str(item['sigla']), border=1, align='L', fill=1)
-        pdf.cell((epw/10) * 4, 6, str(item['description']), border=1, align='L', fill=1)
-        pdf.cell(epw/10, 6, str(item['valueIndicator']), border=1, align='R', fill=1)
+        pdf.cell((epw/10) * 3, 6, str(item['description']), border=1, align='L', fill=1)
+        pdf.cell(epw/10 * 2, 6, str(item['valueGraT']), border=1, align='R', fill=1)
         pdf.ln(6)
 
 
@@ -1543,7 +1558,7 @@ def pdf(request):
     pdf.add_page()
 
     pdf.set_font('Arial', '', 13)
-    pdf.set_text_color(100, 100, 100)
+    pdf.set_text_color(57, 137, 169)
     pdf.cell(0, 10, 'Decision indicators', align='L')
 
 
@@ -1832,7 +1847,7 @@ def pdf(request):
     pdf.add_page()
 
     pdf.set_font('Arial', '', 13)
-    pdf.set_text_color(179, 179, 179)
+    pdf.set_text_color(57, 137, 169)
     pdf.cell(0, 10, 'Geographic resources', align='L')
     pdf.ln(10)
     pdf.set_font('Arial', '', 11)
