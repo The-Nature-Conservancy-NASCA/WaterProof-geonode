@@ -1482,8 +1482,8 @@ def pdf(request):
             pdf.set_draw_color(0, 138, 173)
             pdf.cell((epw/10) * 4, 6, 'Indicator', border=1, align='C', fill=1)
             pdf.cell(epw/10, 6, 'Sigla', border=1, align='C', fill=1)
-            pdf.cell((epw/10) * 4, 6, 'Description', border=1, align='C', fill=1)
-            pdf.cell(epw/10, 6, 'Value', border=1, align='C', fill=1)
+            pdf.cell((epw/10) * 3, 6, 'Description', border=1, align='C', fill=1)
+            pdf.cell(epw/10 * 2, 6, 'Value', border=1, align='C', fill=1)
             pdf.set_font('Arial', '', 9)
             pdf.set_text_color(100, 100, 100)
             pdf.set_fill_color(255, 255, 255)
@@ -1497,7 +1497,7 @@ def pdf(request):
             pdf.cell((epw/10) * 4, 6 ,"", border=0, align='L', fill=0)
         
         pdf.cell(epw/10, 6, str(item['sigla']), border=1, align='L', fill=1)
-        pdf.cell((epw/10) * 4, 6, str(item['description']), border=1, align='L', fill=1)
+        pdf.cell((epw/10) * 3, 6, str(item['description']), border=1, align='L', fill=1)
         pdf.cell(epw/10 * 2, 6, str(item['valueGraT']), border=1, align='R', fill=1)
         pdf.ln(6)
 
