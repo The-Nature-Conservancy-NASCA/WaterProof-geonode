@@ -559,7 +559,7 @@ def pdf(request):
     pdf.image('imgpdf/cab.png', 45, 65, w=100, h=60, type='png')
 
     pdf.ln(10)
-    pdf.set_font('Arial', '', 11)
+    pdf.set_font('Arial', '', 10)
     pdf.set_text_color(100, 100, 100)
     pdf.cell(0, 10, 'This chart has been built with the data from the following table:', align='L')
     pdf.set_font('Arial', '', 10)
@@ -644,7 +644,7 @@ def pdf(request):
     pdf.add_page()
 
     pdf.ln(10)
-    pdf.set_font('Arial', '', 11)
+    pdf.set_font('Arial', '', 10)
     pdf.set_text_color(100, 100, 100)
     pdf.cell(0, 10, 'This chart has been built with the data from the following table:', align='L')
     pdf.ln(10)
@@ -744,17 +744,17 @@ def pdf(request):
     }
 
     hc_export.save_as_png(config=config, filename="imgpdf/satdb.png")
-    pdf.image('imgpdf/satdb.png', 30, 170, w=160, h=80, type='PNG')
+    pdf.image('imgpdf/satdb.png', 30, 150, w=160, h=80, type='PNG')
     pdf.add_page()
     pdf.ln(10)
-    pdf.set_font('Arial', '', 11)
+    pdf.set_font('Arial', '', 10)
     pdf.set_text_color(100, 100, 100)
     pdf.cell(0, 6, 'This graph is constructed with the data from the following table:', align='L')
     pdf.ln(6)
     pdf.set_font('Arial', '', 10)
     pdf.set_text_color(255, 255, 255)
-#    pdf.set_fill_color(0, 138, 173)
-#    pdf.set_draw_color(0, 138, 173)
+    pdf.set_fill_color(0, 138, 173)
+    pdf.set_draw_color(0, 138, 173)
     pdf.cell(epw/4, 8, 'Total discounted benefit', border=1, align='C', fill=1)
     pdf.cell(epw/4, 8, 'Discounted benefit minimum', border=1, align='C', fill=1)
     pdf.cell(epw/4, 8, 'Discounted benefit medium', border=1, align='C', fill=1)
@@ -770,8 +770,6 @@ def pdf(request):
         pdf.cell(epw/4, 3.5, format(float(item['totalMedBenefitR']),'0,.2f') , border=1, align='R', fill=1)
         pdf.cell(epw/4, 3.5, format(float(item['totalMaxBenefittR']),'0,.2f') , border=1, align='R', fill=1)
         pdf.ln(3.5)    
-
-    pdf.add_page()
 
     requestJson = requests.get(settings.SITE_HOST_API + 'reports/getSensibilityAnalysisCost/?studyCase=' + request.POST['studyCase'],verify=False)
     data = requestJson.json()
@@ -821,10 +819,10 @@ def pdf(request):
     }
 
     hc_export.save_as_png(config=config, filename="imgpdf/satdc.png")
-    pdf.image('imgpdf/satdc.png', 20, 30, w=160)
-
-    pdf.ln(130)
-    pdf.set_font('Arial', '', 11)
+    pdf.image('imgpdf/satdc.png', 30, 150, w=160, h=0, type='PNG')
+    pdf.add_page()
+    pdf.ln(10)
+    pdf.set_font('Arial', '', 10)
     pdf.set_text_color(100, 100, 100)
     pdf.cell(0, 6, 'This graph is constructed with the data from the following table:', align='L')
     pdf.ln(6)
@@ -891,9 +889,9 @@ def pdf(request):
             idTotalAreaInvestmentSize = str(round(float(item['value']),2))
 
     pdf.set_font('Arial', '', 13)
-    pdf.set_text_color(100, 100, 100)
+    pdf.set_text_color(57, 137, 169)
     pdf.set_fill_color(255, 255, 255)
-    pdf.cell(epw, 10, 'Return on investment calculation', align='C')
+    pdf.cell(epw, 10, 'Return on investment calculation', align='L')
     pdf.ln(10)
     pdf.set_font('Arial', '', 10)
     pdf.cell(epw, 7, 'Canculated ROI', align='C')
@@ -937,7 +935,7 @@ def pdf(request):
     pdf.ln(10)
 
     pdf.set_font('Arial', '', 10)
-    pdf.cell(epw, 10, 'Estimated change in ecosustem services by basin', align='C')
+    pdf.cell(epw, 10, 'Estimated change in ecosustem services by basin', align='L')
     pdf.ln(10)
 
     requestJson = requests.get(settings.SITE_HOST_API + 'reports/getTotalBenefitsForMilion/?studyCase=' + request.POST['studyCase'],verify=False)
@@ -1062,7 +1060,7 @@ def pdf(request):
     pdf.set_fill_color(231, 244, 244)
     pdf.cell(epw, 90, '', border=1, align='C', fill=1)
     pdf.ln(7)
-    pdf.set_fill_color(255, 255, 255)
+#    pdf.set_fill_color(255, 255, 255)
     pdf.cell(epw/7, 5, '', border=0, align='C', fill=0)
     pdf.cell(((epw/7) * 6)-3, 75, '', border=1, align='C', fill=1)
     pdf.ln(0)
