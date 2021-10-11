@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Waterproof\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-08-07 15:10-0500\n"
-"PO-Revision-Date: 2021-10-01 22:00-0500\n"
+"PO-Revision-Date: 2021-10-11 18:13-0500\n"
 "Last-Translator: \n"
 "Language-Team: Skaphe\n"
 "Language: en\n"
@@ -742,7 +742,7 @@ msgstr "Water intake infrastructure setup"
 
 #: template/intake_form.html:137
 msgid "Load Default Diagram"
-msgstr ""
+msgstr "Load default diagram"
 
 #: template/intake_form.html:231
 msgid "Water demand"

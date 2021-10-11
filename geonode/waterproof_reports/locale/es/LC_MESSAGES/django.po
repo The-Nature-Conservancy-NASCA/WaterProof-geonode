@@ -42,7 +42,7 @@ msgstr ""
 "Project-Id-Version: GeoNode\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-02-19 11:28-0500\n"
-"PO-Revision-Date: 2021-10-06 18:59-0500\n"
+"PO-Revision-Date: 2021-10-11 18:13-0500\n"
 "Last-Translator: \n"
 "Language-Team: Spanish (http://www.transifex.com/geonode/geonode/language/es/)\n"
 "Language: es_419\n"
@@ -213,7 +213,7 @@ msgid "Geographic visualization"
 msgstr "Visualización geográfica"
 
 msgid "Invest ind text 1"
-msgstr "Este reporte le permite obtener una visión integrada de las variaciones que pueden ser causadasen cada cuenca por la implementación de las SbN seleccionadas:"
+msgstr "Este informe le permite obtener una vista integrada de los resultados que pueden ser causados ​​en cada cuenca por la implementación de las SbN seleccionadas."
 
 msgid "Invest ind text 2"
 msgstr "Este  reporte  busca  que tomadores  de  decisiones  puedan  evaluar  las  compensaciones  que puede lograrse e identificar las cuencas donde la inversión en capital natural puede mejorar el desarrollo humano y la conservación. Tenga en cuenta en su evaluación:"
@@ -708,4 +708,4 @@ msgstr "Seleccione la cuenca para la cuál desea ver el gráfico comparativo de 
 
 #: geonode/waterproof_reports/templates/waterproof_reports/physicalIndicators
 msgid "discount rate:"
-msgstr "Tasa de descuento:"
+msgstr "Tasa de descuento (%):"

@@ -42,7 +42,7 @@ msgstr ""
 "Project-Id-Version: GeoNode\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-02-11 20:03-0500\n"
-"PO-Revision-Date: 2021-10-04 14:18-0500\n"
+"PO-Revision-Date: 2021-10-11 18:14-0500\n"
 "Last-Translator: Julien Collaer <julien.collaer@opengeode.be>\n"
 "Language-Team: Spanish (http://www.transifex.com/geonode/geonode/language/es/)\n"
 "Language: es\n"
@@ -5334,8 +5334,8 @@ msgid "When and where The Nature Conservancy collects information on the Website
 msgstr "Cuándo y dónde recoge información The Nature Conservancy en el Sitio Web: Además de la información que usted suministre voluntariamente, The Nature Conservancy también recoge los nombres de dominio y direcciones de IP utilizados por las personas que nos visitan, así como estadísticas sobre el uso del sitio, tales como el tipo de navegador y las páginas visitadas. Estos datos no suelen permitir la identificación personal del usuario y se los utiliza para gestionar con mayor eficiencia las actividades de The Nature Conservancy, prepararnos para atender las exigencias de carga de la red, promover nuestra organización y administrar el Sitio Web."
 
 #: geonode/templates/Private_policy.html:40
-msgid "How We Collect Information: In addition to the information collected in the manner described, there is a technology known as & quot; cookies & quot; that can be used to provide you with information customized from a website. A cookie is an element of data that a website can send to your browser, which in turn can - depending on the configuration you own — store it on your system. For example, some pages of the Website use cookies in order to that The Nature Conservancy can better serve you when you re-enter in the. Depending on the type of browser you use, you could configure it to notify you when you receive a cookie, giving you the opportunity to accept or reject it. However, note that the disabling cookies may prevent you from taking advantage of certain elements of our Website."
-msgstr "Cómo recogemos información: Además de la información recopilada en la forma descrita, existe una tecnología conocida como \"cookies\" que puede utilizarse para proporcionarle información personalizada desde un sitio web. Una cookie es un elemento de datos que un sitio web puede enviar a su navegador, el que a su vez puede—según cuál sea la configuración que posea—almacenarlo en su sistema. Por ejemplo, algunas páginas del Sitio Web usan cookies a fin de que The Nature Conservancy pueda brindarle un mejor servicio cuando usted vuelve a ingresar en él. Según el tipo de navegador que use, usted podría configurarlo para notificarle cuando recibe una cookie, dándole la oportunidad de aceptarla o rechazarla. No obstante, tenga en cuenta que la desactivación de las cookies puede impedirle aprovechar ciertos elementos de nuestro Sitio Web."
+msgid "How We Collect Information: In addition to the information collected in the manner described, there is a technology known as & quot; cookies & quot; that can be used to provide you with information customized from a website. A cookie is an element of data that a website can send to your browser, which in turn can - depending on the   configuration you own — store it on your system. For example, some pages of the Website use cookies in order to that The Nature Conservancy can better serve you when you re-enter in the. Depending on the type of browser you use, you could configure it to notify you when you receive a cookie, giving you the opportunity to accept or reject it. However, note that the disabling cookies may prevent you from taking advantage of certain elements of our Website."
+msgstr "Cómo recogemos información: Además de la información recopilada en la forma descrita, existe una tecnología conocida como 'cookies' que puede utilizarse para proporcionarle información personalizada desde un sitio web. Una cookie es un elemento de datos que un sitio web puede enviar a su navegador, el que a su vez puede—según cuál sea la configuración que posea—almacenarlo en su sistema. Por ejemplo, algunas páginas del Sitio Web usan cookies a fin de que The Nature Conservancy pueda brindarle un mejor servicio cuando usted vuelve a ingresar en él. Según el tipo de navegador que use, usted podría configurarlo para notificarle cuando recibe una cookie, dándole la oportunidad de aceptarla o rechazarla. No obstante, tenga en cuenta que la desactivación de las cookies puede impedirle aprovechar ciertos elementos de nuestro Sitio Web."
 
 #: geonode/templates/Private_policy.html:42
 msgid "How We Protect Information: The Nature Conservancy seeks to safeguard your information personal to prevent their loss, misuse or alteration. Our servers are protected for reasonable physical and electronic security measures."
@@ -9070,7 +9070,7 @@ msgid "Begin your Nature based Solutions journey"
 msgstr "Comience su ruta de implementación de soluciones basadas en la naturaleza"
 
 msgid "Explore how Nature-based Solutions can generate outcomes in your catchment."
-msgstr "Explore cómo las soluciones basadas en la naturaleza pueden generar resultados en su captación."
+msgstr "Explore cómo las soluciones basadas en la naturaleza pueden generar resultados en su cuenca."
 
 msgid "Start now"
 msgstr "Empiece ahora"
@@ -9401,3 +9401,7 @@ msgstr "Analista"
 
 msgid "External input"
 msgstr "External input"
+
+#: geonode/templates/Private_policy.html
+msgid "The Nature Conservancy takes your privacy very seriously. This notice describes the policy of The Nature Conservancy's privacy in relation to the website water-proof.org (collectively, the website). By visiting the Website, you automatically accept the policies described in this Privacy Policy. If you do not agree with this Privacy Policy, you are not allowed to use the Website. The Nature Conservancy may modify this privacy policy occasionally unilaterally and without prior notice. Any modification will be communicated by this medium, so you should make sure to check periodically for any changes. The fact that you continue to use this Website after it has been published any modification will imply your acceptance of such modifications."
+msgstr "The Nature Conservancy toma su privacidad muy en serio. En este aviso se describe la política de privacidad de The Nature Conservancy en relación con el sitio web water-proof.org (en conjunto, el 'Sitio Web'). Al visitar el Sitio Web, usted automáticamente acepta las políticas descritas en esta Política de Privacidad. Si no está de acuerdo con esta Política de Privacidad, no le está permitido usar el Sitio Web. The Nature Conservancy puede modificar esta política de privacidad ocasionalmente en forma unilateral y sin aviso previo. Toda modificación se comunicará por este medio, de modo que usted debe asegurarse de comprobar periódicamente si se han efectuado cambios. El hecho de que usted continúe usando este Sitio Web después de haberse publicado alguna modificación implicará su aceptación de tales modificaciones."
