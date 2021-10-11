@@ -310,6 +310,17 @@
     border-bottom: transparent;
 }
 
+.imgaqueduct{
+    width: 10%;
+}
+
+.container-aqueduct{
+    border-top: 1px solid #6b6b6b;
+    border-bottom: 1px solid #6b6b6b;
+    box-shadow: 0px 0px 7px #6b6b6b;
+    margin-top: 30%;
+}
+
 .page-headerTxt{
     margin-top: 2% ;
 }
@@ -322,6 +333,9 @@
     font-size: 20pt;
     color: #1389AA;
     font-weight: bold;
+    padding: 15px;
+}
+.padding-report-menu{
     padding: 15px;
 }
 .help-report {
