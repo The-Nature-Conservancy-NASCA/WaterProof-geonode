@@ -1062,7 +1062,7 @@ def pdf(request):
     pdf.ln(7)
 #    pdf.set_fill_color(255, 255, 255)
     pdf.cell(epw/7, 5, '', border=0, align='C', fill=0)
-    pdf.cell(((epw/7) * 6)-3, 75, '', border=1, align='C', fill=1)
+#    pdf.cell(((epw/7) * 6)-3, 75, '', border=1, align='C', fill=1)
     pdf.ln(0)
     pdf.set_font('Arial', '', 8)
     pdf.cell(epw/6, 5, '', border=0, align='C', fill=0)
@@ -1341,16 +1341,18 @@ def pdf(request):
     requestJson = requests.get(settings.SITE_HOST_API + 'reports/getReportAnalisysBeneficsC/?studyCase=' + request.POST['studyCase'],verify=False)
     data = requestJson.json()
 
-    pdf.set_font('Arial', '', 11)
+    pdf.set_font('Arial', '', 13)
+    pdf.set_text_color(57, 137, 169)
     pdf.ln(10)
-    pdf.cell(epw, 10, 'Intervention and budget summary', align='C')
+    pdf.cell(epw, 10, 'Intervention and budget summary', align='L')
     pdf.ln(15)
+    pdf.set_text_color(100, 100, 100)
 
     contLine = 0
     lastTitle = ""    
     for item in data:
         if lastTitle != item['intakeId'] : 
-            pdf.set_font('Arial', '', 11)
+            pdf.set_font('Arial', '', 10)
             pdf.ln(10)
             pdf.cell(epw, 6, str(item['name']), align='C')
             pdf.ln(6)
@@ -1496,7 +1498,7 @@ def pdf(request):
         
         pdf.cell(epw/10, 6, str(item['sigla']), border=1, align='L', fill=1)
         pdf.cell((epw/10) * 4, 6, str(item['description']), border=1, align='L', fill=1)
-        pdf.cell(epw/10, 6, str(item['valueIndicator']), border=1, align='R', fill=1)
+        pdf.cell(epw/10, 6, str(item['valueGraT']), border=1, align='R', fill=1)
         pdf.ln(6)
 
 
