@@ -1942,6 +1942,7 @@ def decisionIndicators(request):
 
 
 def geographicIndicators(request):
+    
     base_data = ''
     intake = ''
     region = ''
@@ -1955,6 +1956,8 @@ def geographicIndicators(request):
             year = request.GET['year']
             study_case_id = request.GET['study_case_id']
             center = request.GET['center']
+            indicators = investIndicators.objects.filter(intake__id=intake)
+            indicatorsNames = getNames(indicators)
         except:
             base_data = 'mapserver'
             intake = ''
@@ -1962,6 +1965,8 @@ def geographicIndicators(request):
             year = ''
             study_case_id = ''
             center = ''
+            indicators = ''
+            indicatorsNames = ''
     return render(
         request,
         'waterproof_reports/geographicIndicators.html',
@@ -1971,7 +1976,9 @@ def geographicIndicators(request):
             'region': region,
             'year': year,
             'study_case_id': study_case_id,
-            'center': center
+            'center': center,
+            'indicators': indicators,
+            'NamesIndicators': indicatorsNames,
         })
 
 # def compareMaps(request):
