@@ -713,3 +713,6 @@ msgstr "Seleccione la cuenca para la cuál desea ver el gráfico comparativo de 
 #: geonode/waterproof_reports/templates/waterproof_reports/physicalIndicators
 msgid "discount rate:"
 msgstr "Tasa de descuento (%):"
+
+msgid "Total Benefits"
+msgstr "Beneficio total"

@@ -674,7 +674,7 @@ msgid "Select the elements that make up your capture system and click on the dra
 msgstr "Seleccione los elementos que conforman su sistema de captación y de clic en el área de dibujo para agregarlos; al terminar, de clic en el botón para validar el gráfico."
 
 #: template/intake_form.html:137
-msgid "Load Default Diagram"
+msgid "Load default diagram"
 msgstr "Cargar diagrama predeterminado"
 
 #: template/intake_form.html:203

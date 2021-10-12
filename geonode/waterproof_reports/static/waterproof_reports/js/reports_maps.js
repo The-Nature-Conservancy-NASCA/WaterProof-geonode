@@ -81,7 +81,7 @@ $(document).ready(function () {
   let lyrNameNDRN = `NDR_Nitrogen`;
   let lyrNameNDRP = `NDR_Phosphorus`;
   let lyrNameCarbon = `Carbon_storage_and_sequestration`;
-  let lyrNameAreasRios = 'Areas_Rios';
+  let lyrNameAreasRios = 'NbS portfolio';
   let lyrNameCatchment = 'Catchment';
   let lyrsModelsResult = [lyrNameAWY, lyrNameSWY, lyrNameSDR, lyrNameNDRN, lyrNameNDRP, lyrNameCarbon];
 

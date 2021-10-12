@@ -741,8 +741,8 @@ msgid "Water intake infrastructure setup"
 msgstr "Water intake infrastructure setup"
 
 #: template/intake_form.html:137
-msgid "Load Default Diagram"
-msgstr "Load default diagram"
+msgid "Load default diagram"
+msgstr ""
 
 #: template/intake_form.html:231
 msgid "Water demand"
