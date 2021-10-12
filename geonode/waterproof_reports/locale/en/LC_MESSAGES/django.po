@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Waterproof Vbeta\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-02-19 11:27-0500\n"
-"PO-Revision-Date: 2021-10-06 17:08-0500\n"
+"PO-Revision-Date: 2021-10-11 18:20-0500\n"
 "Last-Translator: Julien Collaer <julien.collaer@opengeode.be>\n"
 "Language-Team: Skaphe\n"
 "Language: en\n"
@@ -127,7 +127,7 @@ msgstr "Anual water yield"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
 msgid "Seasonal water yield"
-msgstr "Seasonal water yield"
+msgstr "Base flow"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
 msgid "Sediment delivery ratio"
@@ -182,13 +182,13 @@ msgid "Geographic visualization"
 msgstr "Geographic visualization"
 
 msgid "Invest ind text 1"
-msgstr "This report allows you to obtain an integrated view of the outcomes that maybe caused in each basin by the implementation of the selected NBS:"
+msgstr "This report allows you to obtain an integrated view of the outcomes that may be caused in each basin by the implementation of the selected NbS:"
 
 msgid "Invest ind text 2"
 msgstr "This report aims to enable decision-makers to assess the trade-offs that can be achieved and to identify water basins where investment in natural capital can enhance human development and conservation. Please note in your evaluation:"
 
 msgid "Invest ind text 3"
-msgstr "Change in volume of water yield: Do changes in the landscape affect the annual average  water  yield?  Note  that  the  model  helps  to  establish  changes  in  the storages by analyzing the inputs to the system minus the outputs from the system."
+msgstr "Change in volume of base: Do changes in the landscape affect the annual average  water  yield?  Note  that  the  model  helps  to  establish  changes  in  the storages by analyzing the inputs to the system minus the outputs from the system."
 
 msgid "Invest ind text 4"
 msgstr "Change in base flow: Do landscape changes affect basin runoff and recharge? The value  presented  depends  on  the  connectivity  and land  use  and  land  cover components,  so that the  recharge  is  influenced  by  variables  such  as  vegetation cover and connectivity."
@@ -677,7 +677,7 @@ msgstr "Select the basin for which you want to see the comparative graph of the 
 
 #: geonode/waterproof_reports/templates/waterproof_reports/physicalIndicators
 msgid "discount rate:"
-msgstr "Discount rate:"
+msgstr "Discount rate (%):"
 
 msgid "Total Benefits"
 msgstr "Total benefits"

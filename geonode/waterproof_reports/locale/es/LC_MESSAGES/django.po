@@ -42,7 +42,7 @@ msgstr ""
 "Project-Id-Version: GeoNode\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-02-19 11:28-0500\n"
-"PO-Revision-Date: 2021-10-06 18:59-0500\n"
+"PO-Revision-Date: 2021-10-11 18:21-0500\n"
 "Last-Translator: \n"
 "Language-Team: Spanish (http://www.transifex.com/geonode/geonode/language/es/)\n"
 "Language: es_419\n"
@@ -111,7 +111,6 @@ msgstr "Resumen de riesgos en la cuenca"
 #: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
 msgid "Select the basin of your interest from the drop-down list to know a summary of its risks (The risk results have been estimated using the Acueduct - WRI database)"
 msgstr "Seleccione la captación de su interés de la lista desplegable para conocer el resumen de sus riesgos (Los riesgos han sido estumados usando"
-
 
 #: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
 msgid "the Acueduct - WRI database"
@@ -218,7 +217,7 @@ msgid "Geographic visualization"
 msgstr "Visualización geográfica"
 
 msgid "Invest ind text 1"
-msgstr "Este reporte le permite obtener una visión integrada de las variaciones que pueden ser causadasen cada cuenca por la implementación de las SbN seleccionadas:"
+msgstr "Este informe le permite obtener una vista integrada de los resultados que pueden ser causados ​​en cada cuenca por la implementación de las SbN seleccionadas."
 
 msgid "Invest ind text 2"
 msgstr "Este  reporte  busca  que tomadores  de  decisiones  puedan  evaluar  las  compensaciones  que puede lograrse e identificar las cuencas donde la inversión en capital natural puede mejorar el desarrollo humano y la conservación. Tenga en cuenta en su evaluación:"
@@ -713,7 +712,7 @@ msgstr "Seleccione la cuenca para la cuál desea ver el gráfico comparativo de 
 
 #: geonode/waterproof_reports/templates/waterproof_reports/physicalIndicators
 msgid "discount rate:"
-msgstr "Tasa de descuento:"
+msgstr "Tasa de descuento (%):"
 
 msgid "Total Benefits"
 msgstr "Beneficio total"
