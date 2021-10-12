@@ -892,7 +892,7 @@ $(document).ready(function () {
                                 if (input_id && input_type != 'hidden') {
                                     split = input_id.split('-')
                                     nbssc_id = split.pop();
-                                    val = $("#" + input_id).val()
+                                    val = $("#" + input_id).val();
                                     nbsactivity['id'] = nbssc_id;
                                     nbsactivity['value'] = val;
                                     nbsactivities.push(nbsactivity)
