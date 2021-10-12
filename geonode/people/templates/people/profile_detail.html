@@ -100,7 +100,7 @@
       </tr>
     </tbody>
   </table>
-  {% if USE_GEOSERVER and DISPLAY_WMS_LINKS %}
+  <!-- {% if USE_GEOSERVER and DISPLAY_WMS_LINKS %}
   <p>
       {% if request.user.is_authenticated and access_token %}
         <a href="{% url 'capabilities_user' profile.username %}?access_token={{access_token}}">
@@ -108,25 +108,25 @@
         <a href="{% url 'capabilities_user' profile.username %}">
       {% endif %}
       <i class="fa fa-map"></i> {% trans 'User layers WMS GetCapabilities document' %}</a></p>
-  {% endif %}
+  {% endif %} -->
 </div>
 
 <div class="col-xs-12 col-md-3">
-  <ul class="list-group">
+  <!-- <ul class="list-group">
       <li class="list-group-item"><a href="{% url "message_create" profile.pk %}"><i class="fa fa-paper-plane-o"></i> {% trans "Message User" %}</a></li>
-    </ul>
+    </ul> -->
   {% if user == profile %}
     <ul class="list-group">
       {% if not READ_ONLY_MODE %}
         <li class="list-group-item"><a href="{% url "profile_edit" user.username %}"><i class="fa fa-edit"></i> {% trans "Edit profile" %}</a></li>
       {% endif %}
-      <li class="list-group-item"><a href="{% url "socialaccount_connections" %}"><i class="fa fa-sign-in"></i> {% trans "Connected social accounts" %}</a></li>
-      <li class="list-group-item"><a href="{% url "account_email" %}"><i class="fa fa-envelope-o"></i> {% trans "Associated e-mails" %}</a></li>
+      <!-- <li class="list-group-item"><a href="{% url "socialaccount_connections" %}"><i class="fa fa-sign-in"></i> {% trans "Connected social accounts" %}</a></li>
+      <li class="list-group-item"><a href="{% url "account_email" %}"><i class="fa fa-envelope-o"></i> {% trans "Associated e-mails" %}</a></li> -->
       {% if not READ_ONLY_MODE %}
         <li class="list-group-item"><a href="{% url "account_change_password" %}"><i class="fa fa-lock"></i> {% trans "Set/Change password" %}</a></li>
       {% endif %}
     </ul>
-    <ul class="list-group">
+    <!-- <ul class="list-group">
       {% if not READ_ONLY_MODE %}
         <li class="list-group-item"><a href="{% url "layer_upload" %}"><i class="fa fa-cloud-upload"></i> {% trans "Upload new layers" %}</a></li>
         {% if USE_GEOSERVER and CREATE_LAYER %}
@@ -156,7 +156,7 @@
           <li class="list-group-item"><a href="{% url "proxy" %}?url={{ OGC_SERVER.default.LOCATION }}"><i class="fa fa-gears"></i> {% trans "GeoServer" %}</a></li>
           <li class="list-group-item"><a href="{% url "admin:index" %}"><i class="fa fa-cog"></i> {% trans "Admin" %}</a></li>
       {% endif %}
-    </ul>
+    </ul> -->
   {% else %}
     {% if user.is_superuser and not READ_ONLY_MODE %}
     <ul class="list-group">
@@ -169,21 +169,21 @@
   {% endif %}
 </div>
 
-<div class="col-xs-12 col-md-9">
+<!-- <div class="col-xs-12 col-md-9">
   <h4>{% trans "Resources" %}</h4>
   <div class="col-md-12">
     {% include "people/_profile_filters.html" %}
-  </div>
+  </div> -->
   <!-- <div class="col-md-12">
     {% include "search/_sort_filters.html" %}
   </div> -->
-  <div class=" col-xs-12 col-md-12">
+  <!-- <div class=" col-xs-12 col-md-12">
     {% include 'base/_resourcebase_snippet.html' %}
   </div>
   <div class="col-md-12">
     {% include 'search/_pagination.html' %}
   </div>
-</div>
+</div> -->
 
 {% endblock %}
 

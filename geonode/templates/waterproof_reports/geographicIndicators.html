@@ -106,7 +106,7 @@
 		</div>
 
 		<div>
-			<h5>{% trans "Water Intake" %} : 
+			<h5>{% trans "Water Intake" %}: 
 				<select class="select-condition" style="width: 800px; text-align: center;" id="idSelectStudyCase"></select>
 			</h5>
 		</div>
@@ -119,6 +119,9 @@
 				<div class="tab-content" id="myTabContent">
 					<div id="menu1" class="div-style-menu-23 tab-pane fade active in" role="tabpanel">
 						<h3 id="nameTitleIntake"></h3>
+						{% for name in NamesIndicators %}
+						<h5>{% trans "Water Intake" %}: {{name.name}} </h5>
+						{% endfor %}
 						<p class="padding-text-desc">{% trans "LULC_text_1" %}</p>
 						<p class="padding-text-desc">{% trans "LULC_text_2" %}</p>
 						<br>
@@ -147,11 +150,17 @@
 					</div>
 					<div id="menu2" class="div-style-menu-23 tab-pane fade" role="tabpanel">
 						<h3 id="nameTitleIntake"></h3>
+						{% for name in NamesIndicators %}
+						<h5>{% trans "Water Intake" %}: {{name.name}} </h5>
+						{% endfor %}
 						<p class="padding-text-desc">{% trans "InVEST text 1" %}</p>
 						<p class="padding-text-desc">{% trans "InVEST text 2" %}</p>
 					</div>
 					<div id="menu3" class="div-style-menu-23 tab-pane fade" role="tabpanel">
 						<h3 id="nameTitleIntake"></h3> 
+						{% for name in NamesIndicators %}
+						<h5>{% trans "Water Intake" %}: {{name.name}} </h5>
+						{% endfor %}
 						<p class="padding-text-desc">{% trans "RIOS text 1" %}</p>
 					</div>
 					<div id="map-analysis-result" class="row">
