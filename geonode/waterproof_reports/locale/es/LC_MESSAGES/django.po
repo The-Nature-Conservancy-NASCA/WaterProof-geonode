@@ -347,27 +347,27 @@ msgid "Result of interventions"
 msgstr "Resultados de las intervenciones"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/decisionIndicators.html:142
-msgid "Change in volume of water yield (%)"
+msgid "Change in volume of water yield"
 msgstr "Cambio en el rendimiento hídrico anual (%)"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/decisionIndicators.html:142
-msgid "Change in base flow (%)"
+msgid "Change in base flow"
 msgstr "Cambio en el flujo base (%)"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/decisionIndicators.html:142
-msgid "Change in total sediments (%)"
+msgid "Change in total sediments"
 msgstr "Cambio en los sedimentos totales (%)"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/decisionIndicators.html:142
-msgid "Change in nitrogen load (%)"
+msgid "Change in nitrogen load"
 msgstr "Cambio en la carga de sedimentos (%)"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/decisionIndicators.html:142
-msgid "Change in phosphorus load (%)"
+msgid "Change in phosphorus load"
 msgstr "Cambio en la carga de nitrógeno (%)"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/decisionIndicators.html:142
-msgid "Change in carbon storage (%)"
+msgid "Change in carbon storage"
 msgstr "Cambio en el almacenamiento de carbono"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/decisionIndicators.html:142
@@ -572,7 +572,7 @@ msgid "Change in phosphorus Load (%)"
 msgstr "Cambio en la carga de fósforo (%)"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/physicalIndicators.html:78
-msgid "Change in carbon storage"
+msgid "Change in carbon storage (%)"
 msgstr "Cambio en el almacenamiento de carbono (%)"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/physicalIndicators.html:80
