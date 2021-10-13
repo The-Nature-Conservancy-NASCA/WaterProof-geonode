@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-09-22 20:04-0500\n"
-"PO-Revision-Date: 2021-10-12 18:26-0500\n"
+"PO-Revision-Date: 2021-10-13 15:34-0500\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -199,7 +199,7 @@ msgstr "Cambio en el rendimiento de agua estacional"
 
 #: templates/study_cases/studycases_doAnalysis.html:9
 msgid "Change in Total Sediments"
-msgstr "Cambio wn la relación de entrega de sedimentos"
+msgstr "Cambio en la relación de entrega de sedimentos"
 
 #: templates/study_cases/studycases_doAnalysis.html:9
 msgid "Change in Nitrogen Load"
