@@ -191,13 +191,17 @@ $(function () {
                     else {
                         var ptapsCount = element.ptaps.length;
                     }
-                    let li = '<li class="splide__slide"><img class="splideImg" src=' + imagePath + ' height="150px" width="150px">';
-                    li += '<h4 class="slider_title">' + element.name + '</h4><div>' + gettext('Country') + ': ' + element.city__country__name + '</div><div>' + gettext('City') + ': ' + element.city__name + '</div>';
-                    li += '<div>' + gettext('Region') + ': ' + element.city__country__region__name + '</div><div>' + gettext('Time frame') + ': ' + element.time_implement + '</div>';
-                    li += '<div>' + gettext('Number of intakes') + ': ' + intakeCount + '</div><div>' + gettext('Number DWTP') + ': ' + ptapsCount + '</div>';
-                    li += '<div>' + gettext('Currency') + ': ' + element.cm_currency + '</div><div>';
+                    let li = `<li class="splide__slide"><img class="splideImg" src=${imagePath} height="150px" width="150px">
+                            <h4 class="slider_title">${element.name}</h4><div>
+                            <div>${gettext('Country')}: ${element.city__country__name} </div>
+                            <div>${gettext('City')}: ${element.city__name}</div>
+                            <div>${gettext('Region')}: ${element.city__country__region__name}</div>
+                            <div>${gettext('Time frame')}: ${element.time_implement}</div>
+                            <div>${gettext('Number of intakes')}: ${intakeCount}</div>
+                            <div>${gettext('Number DWTP')}: ${ptapsCount}</div>
+                            <div>${gettext('Currency')}: ${element.cm_currency}</div></div></li>`;
                     $('#' + SLIDER_UL.DOM_ID).append(li);
-                    console.log(element);
+                    //console.log(element);
                 });
                 new Splide('#card-slider', {
                     perPage: 2,
@@ -207,6 +211,7 @@ $(function () {
                         }
                     }
                 }).mount();
+                //return;
                 var tooltip = [];
                 for (let index = 0; index < chartCategories.length; index++) {
                     let tooltipValue = {

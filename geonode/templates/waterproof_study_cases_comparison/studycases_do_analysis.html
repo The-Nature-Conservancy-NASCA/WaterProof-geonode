@@ -1,8 +1,7 @@
-{% extends "menu.html" %} {% load i18n %} {% block title %}{% trans "Cases Study" %}{% endblock %} {% load i18n %} {% load static from staticfiles %} {% load bootstrap_tags %}{% load static %}
+{% extends "menu.html" %} {% load i18n %} {% block title %}{% trans "Cases Study" %}{% endblock %} {% load bootstrap_tags %}{% load static %}
 <h1>{% trans "Cases Study" %}</h1>
 
 {% block extra_head %}
-<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_nbs_ca/css/dataTables.bootstrap.min.css"/>
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_study_cases_comparison/css/study_cases.css"/>
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_study_cases_comparison/css/parallel_chart.css"/>
 <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_study_cases_comparison/css/splide.min.css"/>
@@ -18,7 +17,7 @@
             <p style="text-align: justify;">{% trans "In this section you can compare the main indicators" %}</p>
             <br>
             <div class="panel" id="panel-ptap">
-                <div class="col-md-12">
+                <div class="col-md-12 text-center">
                     <div id="card-slider" class="splide">
                         <div class="splide__track">
                             <ul id="splide_ul" class="splide__list">
@@ -71,7 +70,7 @@
     </div>
 </div>
 {% block body %}{% endblock body %} {% block sidebar %}{% endblock sidebar %} {% endblock body_outer %} {% block extra_script %}
-<script src="{{ STATIC_URL }}geonode/js/datatables/jquery.dataTables.min.js"></script>
+
 <script src="{{ STATIC_URL }}geonode/js/datatables/dataTables.bootstrap.min.js"></script>
 <!-- Highcharts -->
 <script src="https://code.highcharts.com/highcharts.js"></script>
