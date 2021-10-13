@@ -756,7 +756,7 @@ msgstr "Please indicate the expected demand (extraction) from your catchment. Yo
 msgid "Number of years for time series  (10-100) Year"
 msgstr "Number of years for time series  (10-100) Year"
 
-#: template/intake_form.html:289 template/intake_form.html:326
+#: template/intake_form.html:290 template/intake_form.html:327
 msgid "Clic the following button to calculate the water extraction in each year"
 msgstr "Click here to calculate the water extraction in each year"
 
@@ -1059,3 +1059,7 @@ msgstr "Report"
 #: template/intake_form.html:381
 msgid "delete"
 msgstr "Delete"
+
+#: template/intake_edit.html
+msgid "Clic the button text generate"
+msgstr "Click here to calculate the water extraction in each year"

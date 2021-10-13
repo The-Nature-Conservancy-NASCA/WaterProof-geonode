@@ -145,7 +145,7 @@
                 </div>
                 <div>
                     <div class="content-image col-md-4">
-                        <img src="/static/geonode/img/indicadores-fisicos.png" style="height: 70%; width: 70%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black; margin-top: -13%; margin-left: 15%;"/>
+                        <img src="/static/geonode/img/indicadores-fisicos.png" style="height: 70%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black; margin-top: -13%; margin-left: 15%;"/>
                     </div>
                     <div class="contain-detail col-md-8">
                         <div class="first-detail-2">
@@ -223,12 +223,12 @@
             <div>
                 <div style="float: left;margin-right: 15px;margin-bottom: 15px;">
                     <!-- <div class="title-water ">{% trans "Water Intake" %} <span class="name-title-water">"{% trans "Water Intake" %}"</span></div> -->
-                    <br>
+                    <div class="title-water " style="padding-left: 4%;">{% trans "Aqueduct indicator" %}:</div>
                     <div class="margin-select ">
                         <select class="select-condition" id="idSelectWaterIntake" onchange="loadGraphIntake(this.value)">
                             <option value="">{% trans "All" %}</option>
                         </select>
-                    </div>                    
+                    </div>
                 </div>
                 <div>
                     <div class="title-water ">{% trans "Water Intake" %}:</div>
@@ -349,8 +349,9 @@
                     <div class="list-table-option">
                         <div>
                             <div class="title-table-opton">{% trans "Business as usual" %} vs {% trans "NBS Scenario" %}</div>
+                            <br>
                             <div class="height-option">
-                                <div class="option-table-opion"><input type="radio" name="report" onclick="viewReport(1,7,this)"></div>
+                                <div class="option-table-opion"><input type="radio" name="report" onclick="viewReport(1,7,this)" checked></div>
                                 <div class="text-first-detail">{% trans "Volume of water yield (change in time)" %}</div>
                             </div>
                             <div class="height-option">
@@ -829,6 +830,7 @@ var localStorageId = localStorage.idStudyCase;
         }
 
         loadIntake = function(valueSelect) {
+            console.log(valueSelect)
             listObjectInt = document.getElementsByName("graphIntake");
             listObjectInt.forEach((divVisible) => {
                 if(valueSelect !== "") {
@@ -929,7 +931,7 @@ var localStorageId = localStorage.idStudyCase;
                 photonControlOptions: {
                     resultsHandler: showSearchPoints,
                     selectedResultHandler: selectedResultHandler,
-                    placeholder: gettext('Search City') + '...',
+                    placeholder: 'Search City...',
                     position: 'topleft',
                     url: SEARCH_CITY_API_URL
                 }
@@ -989,7 +991,6 @@ var localStorageId = localStorage.idStudyCase;
             $('#continer-map2')[0].append($('#map-container2')[0]);
 
         }
-        initMapPhysical();
 
         $("#initMapStep2").click(function(e){
             });
@@ -1076,6 +1077,7 @@ var localStorageId = localStorage.idStudyCase;
         }
 
         loadIntakeGraph =  function(intakeId) {
+            console.log(intakeId)
             var data = dataGraph;
 
                 var timeNBS = []
@@ -1515,7 +1517,8 @@ var localStorageId = localStorage.idStudyCase;
                     });
                     intakePolygons.push({polygon: "POLYGON ((" + stringPolygon + "))"});
                 });
-                initMapNbs()
+                initMapNbs();
+                initMapPhysical();
             });
 
             document.getElementById("idNumberOfWaterDecision").innerHTML = localStorage.getItem('idNumberOfWater');
@@ -1711,12 +1714,12 @@ var localStorageId = localStorage.idStudyCase;
                 });
             }
 
-            var urlDetail = "../../reports/getTotalSizeWaterproofIntakePolygon/?studyCase=" + localStorage.idStudyCase;
-            $.getJSON(urlDetail, function (data) {
-                $.each( data, function( key, value ) {
-                    document.getElementById("idTotalSizeWater").innerHTML = value.totalSize;
-                });
-            });
+            // var urlDetail = "../../reports/getTotalSizeWaterproofIntakePolygon/?studyCase=" + localStorage.idStudyCase;
+            // $.getJSON(urlDetail, function (data) {
+            //     $.each( data, function( key, value ) {
+            //         document.getElementById("idTotalSizeWater").innerHTML = value.totalSize;
+            //     });
+            // });
 
             var urlDetail = "../../reports/getWaterproofReportsRiosIpa/?studyCase=" + localStorage.idStudyCase;
             lastIntake = document.getElementById("idSelectNameIntake").value;

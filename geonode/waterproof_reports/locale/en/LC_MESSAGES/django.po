@@ -681,3 +681,6 @@ msgstr "Discount rate (%):"
 
 msgid "Total Benefits"
 msgstr "Total benefits"
+
+msgid "Aqueduct indicator"
+msgstr "Aqueduct indicator"

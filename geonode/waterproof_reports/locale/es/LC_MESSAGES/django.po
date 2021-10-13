@@ -716,3 +716,6 @@ msgstr "Tasa de descuento (%):"
 
 msgid "Total Benefits"
 msgstr "Beneficio total"
+
+msgid "Aqueduct indicator"
+msgstr "Indicadores Aqueduct"

@@ -989,3 +989,7 @@ msgstr "Demanda de captación de agua"
 
 msgid "Draw Basin"
 msgstr "Dibujar cuenca"
+
+#: template/intake_edit.html
+msgid "Clic the button text generate"
+msgstr "De clic en el siguiente botón para poder ingresar manualmente la demanda por cada año"

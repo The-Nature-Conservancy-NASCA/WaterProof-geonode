@@ -19,24 +19,7 @@
     border-color: #1389AA;
     margin-bottom: 3%;
 }
-.column-left-table {
-    width: calc(50% - 10px);
-    border-right-style: solid;
-    border-width: 2px;
-    border-color: #1389AA;
-    font-size: 13px;
-    height: 80px;
-    margin: 10px;
-    color: #0D385B;
-}
-.column-right-table {
-    position: absolute;
-    top: 0px;
-    right: 0px;
-    width: 50%;
-    font-size: 14px;
-    color: #0D385B;
-}
+
 .file-column-left {
 	position: relative;
 }
@@ -554,6 +537,24 @@
     padding-top: 2%;
 }
 @media (min-width: 360px){
+    .column-left-table {
+        width: calc(50% - 10px);
+        border-right-style: solid;
+        border-width: 2px;
+        border-color: #1389AA;
+        font-size: 12px;
+        height: 80px;
+        margin: 10px;
+        color: #0D385B;
+    }
+    .column-right-table {
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        width: 50%;
+        font-size: 12px;
+        color: #0D385B;
+    }
     .report-container{
         margin-left: 0% !important;
     }
@@ -566,7 +567,7 @@
         background-color: #1389AA !important;
         font-size: 15px !important;
         padding: 10px !important;
-        height: 10% !important;
+        height: 25% !important;
     }
     .border-table-title{
         border-style: solid !important;
@@ -576,6 +577,7 @@
         margin-bottom: 30px !important;
         width: 100% !important;
         padding-bottom: 20% !important;
+        height: 200px;
     }
     .select-condition-menu {
         width: 90% !important; 
@@ -962,7 +964,25 @@
         background-color: #1389AA !important;
         font-size: 15px !important;
         padding: 10px !important;
-        height: 10% !important;
+        height: 25% !important;
+    }
+    .column-left-table {
+        width: calc(50% - 10px);
+        border-right-style: solid;
+        border-width: 2px;
+        border-color: #1389AA;
+        font-size: 13px;
+        height: 80px;
+        margin: 10px;
+        color: #0D385B;
+    }
+    .column-right-table {
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        width: 50%;
+        font-size: 14px;
+        color: #0D385B;
     }
     .border-table-title{
         border-style: solid !important;
@@ -972,6 +992,7 @@
         margin-bottom: 30px !important;
         width: 100% !important;
         padding-bottom: 0% !important;
+        height: 170px;
     }
     .select-condition-menu {
         width: 90% !important; 
@@ -1348,7 +1369,25 @@
         background-color: #1389AA !important;
         font-size: 15px !important;
         padding: 10px !important;
-        height: 10% !important;
+        height: 25% !important;
+    }
+    .column-left-table {
+        width: calc(50% - 10px);
+        border-right-style: solid;
+        border-width: 2px;
+        border-color: #1389AA;
+        font-size: 13px;
+        height: 80px;
+        margin: 10px;
+        color: #0D385B;
+    }
+    .column-right-table {
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        width: 50%;
+        font-size: 14px;
+        color: #0D385B;
     }
     .border-table-title{
         border-style: solid !important;
@@ -1358,6 +1397,7 @@
         margin-bottom: 30px !important;
         width: 100% !important;
         padding-bottom: 0% !important;
+        height: 180px;
     }
     .select-condition-menu {
         width: 90% !important; 
@@ -1742,9 +1782,27 @@
         width: 800px !important; 
         text-align: center !important;
     }
+    .column-left-table {
+        width: calc(50% - 10px);
+        border-right-style: solid;
+        border-width: 2px;
+        border-color: #1389AA;
+        font-size: 13px;
+        height: 80px;
+        margin: 10px;
+        color: #0D385B;
+    }
+    .column-right-table {
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        width: 50%;
+        font-size: 14px;
+        color: #0D385B;
+    }
     .select-condition {
         font-size: 15px !important;
-        width: 300px !important;
+        width: 390px !important;
         border-style: solid !important;
         background: #ffffff !important;
         padding-left: 35px !important;
@@ -1853,6 +1911,7 @@
         border-style: solid; 
         margin-bottom: 10px; 
         border-color: #1389AA;
+        min-height: 125px;
     }
     .header-desc-fin {
         border-color: transparent;
@@ -2101,7 +2160,7 @@
         margin-left: auto;
     }
     .image-physical-step1{
-        width: 10%;
+        width: 9%;
         padding-left: 0;
     }
     .text-desc-physical-step1{
