@@ -343,13 +343,21 @@
                                         <div class="custom-control custom-select float-right col-md-4" style="margin-bottom:15px;">
                                             <label class="custom-control-label" for="financial_currency">{% trans "Currency" %}</label>
                                             <select id="financial_currency" class="custom-control-input">
-                                                {% for currency in currencys %}
-                                                {% if currency.currency == study_case.financial_currency %}
-                                                <option value='{{currency.currency}}' selected>({{currency.currency}}) - {{currency.name}}</option>
+                                            {% for currency in currencys %}
+                                            {% if currency.currency == study_case.financial_currency %}
+                                                {% if currency.currency == 'USD' %}
+                                                    {% if currency.iso3 == 'USA' %}
+                                                        <option value='{{currency.currency}}' selected>({{currency.currency}}) - {{currency.name}}</option>
+                                                    {% else %}
+                                                    <option value='{{currency.currency}}'>({{currency.currency}}) - {{currency.name}}</option>
+                                                    {% endif %}
                                                 {% else %}
-                                                <option value='{{currency.currency}}'>({{currency.currency}}) - {{currency.name}}</option>
+                                                    <option value='{{currency.currency}}' selected>({{currency.currency}}) - {{currency.name}}</option>
                                                 {% endif %}
-                                                {% endfor %}
+                                            {% else %}
+                                                <option value='{{currency.currency}}'>({{currency.currency}}) - {{currency.name}}</option>
+                                            {% endif %}
+                                            {% endfor %}
                                             </select>
                                         </div>
                                     </div>
@@ -510,9 +518,17 @@
                                             <select id="analysis_currency" class="form-control">
                                                 {% for currency in currencys %}
                                                 {% if currency.currency == study_case.analysis_currency %}
-                                                <option value='{{currency.currency}}' selected>({{currency.currency}}) - {{currency.name}} </option>
+                                                    {% if currency.currency == 'USD' %}
+                                                        {% if currency.iso3 == 'USA' %}
+                                                            <option value='{{currency.currency}}' selected>({{currency.currency}}) - {{currency.name}}</option>
+                                                        {% else %}
+                                                        <option value='{{currency.currency}}'>({{currency.currency}}) - {{currency.name}}</option>
+                                                        {% endif %}
+                                                    {% else %}
+                                                        <option value='{{currency.currency}}' selected>({{currency.currency}}) - {{currency.name}}</option>
+                                                    {% endif %}
                                                 {% else %}
-                                                <option value='{{currency.currency}}'>({{currency.currency}}) - {{currency.name}}</option>
+                                                    <option value='{{currency.currency}}'>({{currency.currency}}) - {{currency.name}}</option>
                                                 {% endif %}
                                                 {% endfor %}
                                             </select>
