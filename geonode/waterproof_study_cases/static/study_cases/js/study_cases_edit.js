@@ -467,8 +467,8 @@ $(document).ready(function () {
     $('#step6NextBtn').click(function () {
         nbs = [];
         $('#nbs-ul input:checked').each(function () {
-            id = $(this).attr("id").replace('nbs-', '')
-            nbs.push(id)
+            id = $(this).attr("id").replace('nbs-', '');
+            nbs.push(id);
         })
         if (nbs.length > 0) {
             $.post("../../study_cases/save/", {
@@ -1227,7 +1227,7 @@ $(document).ready(function () {
                 }
                 if (def) {
                     if (!val) {
-                        val = 0
+                        val = 0;
                     }
                     if ($('#nbssc-' + id).length <= 0) {
                         content += '<tr><td>' + name + '</td>'
@@ -1236,7 +1236,8 @@ $(document).ready(function () {
                     }
                 }
             });
-            $("#full-table").find('tbody').append(content);
+            $("#full-table").find('tbody').empty().append(content);
+            //$("#full-table").find('tbody').append(content);
             $('#smartwizard').smartWizard("next");
             $('#autoAdjustHeightF').css("height", "auto");
         });
@@ -1372,6 +1373,7 @@ $(document).ready(function () {
     });
 
     function typeInTextarea(newText, el) {
+        if (newText == undefined) return;
         const [start, end] = [el.selectionStart, el.selectionEnd];
         el.setRangeText(newText, start, end, 'select');
         el.focus();
