@@ -1204,7 +1204,8 @@ $(document).ready(function () {
                     }
                 }
             });
-            $("#full-table").find('tbody').append(content);
+            $("#full-table").find('tbody').empty().append(content);
+            //$("#full-table").find('tbody').append(content);
             $('#smartwizard').smartWizard("next");
             $('#autoAdjustHeightF').css("height", "auto");
         });
@@ -1341,6 +1342,7 @@ $(document).ready(function () {
     });
 
     function typeInTextarea(newText, el) {
+        if (newText == undefined) return;
         const [start, end] = [el.selectionStart, el.selectionEnd];
         el.setRangeText(newText, start, end, 'select');
         el.focus();
