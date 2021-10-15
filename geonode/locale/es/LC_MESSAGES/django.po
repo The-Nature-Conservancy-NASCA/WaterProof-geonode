@@ -42,7 +42,7 @@ msgstr ""
 "Project-Id-Version: GeoNode\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-02-11 20:03-0500\n"
-"PO-Revision-Date: 2021-10-11 18:14-0500\n"
+"PO-Revision-Date: 2021-10-15 09:21-0500\n"
 "Last-Translator: Julien Collaer <julien.collaer@opengeode.be>\n"
 "Language-Team: Spanish (http://www.transifex.com/geonode/geonode/language/es/)\n"
 "Language: es\n"
@@ -9339,6 +9339,18 @@ msgstr "Es la forma como se relacionan: costos de operación y mantenimiento de 
 #: geonode/templates/index.html
 msgid "Text 3 - Support data"
 msgstr "La herramienta usa datos globales biofisicos, de uso del suelo y escenarios de cambio climático , que han sido organizados como entradas los modelos InVEST y RIOS."
+
+#: geonode/templates/index.html
+msgid "The tool uses"
+msgstr "La herramienta usa "
+
+#: geonode/templates/index.html
+msgid "Text 3 - Support data1"
+msgstr "datos globales biofisicos, de uso del suelo y escenarios de cambio climático, "
+
+#: geonode/templates/index.html
+msgid "Text 3 - Support data2"
+msgstr "que han sido organizados como entradas los modelos InVEST y RIOS."
 
 #: geonode/templates/index.html
 msgid "Text 4 - See an example"
