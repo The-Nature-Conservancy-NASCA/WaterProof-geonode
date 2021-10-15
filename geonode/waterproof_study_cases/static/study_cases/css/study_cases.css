@@ -330,3 +330,9 @@
     cursor: pointer;
     padding-left: 5px;
 }
+
+.disabled {
+    pointer-events: none;
+    cursor: default;
+    opacity: 0.6;
+}
