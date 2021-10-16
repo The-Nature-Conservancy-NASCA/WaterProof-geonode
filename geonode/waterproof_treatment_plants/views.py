@@ -53,23 +53,24 @@ def newTreatmentPlants(request):
 			'waterproof_treatment_plants/treatment_plants_edit.html',
 			context = {
 				'currencies': currencies,
-				'mode': 'new'
+				'mode': 'new',
+				'plantId': '',
 			}
 		)
 
 def updateTreatmentPlants(request, idx):
 	print("updateTreatmentPlants")
-	return manageTreatmentPlants(request, mode="edit");
+	return manageTreatmentPlants(request, "edit", idx)
 
 def cloneTreatmentPlants(request, idx):
 	print("cloneTreatmentPlants")
-	return manageTreatmentPlants(request, mode="clone");
+	return manageTreatmentPlants(request, "clone", idx)
 
 def viewTreatmentPlants(request, idx):
 	print("viewTreatmentPlants")
-	return manageTreatmentPlants(request, mode="view");
+	return manageTreatmentPlants(request, "view", idx)
 
-def manageTreatmentPlants(request, mode):
+def manageTreatmentPlants(request, mode, plantId):
 	if request.method == 'GET':
 		currencies = Countries.objects.values('currency', 'name', 'iso3').distinct().exclude(currency='').order_by('currency')
 		return render(
@@ -77,6 +78,7 @@ def manageTreatmentPlants(request, mode):
 			'waterproof_treatment_plants/treatment_plants_edit.html',
 			context = {
 				'currencies': currencies,
-				'mode': mode
+				'mode': mode,
+				'plantId': plantId,
 			}
 		)

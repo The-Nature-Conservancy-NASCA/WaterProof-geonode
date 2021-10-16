@@ -191,7 +191,22 @@ $(function () {
                 el.innerHTML = "    "+ _("Create") + " " +  _("Treatment Plant");
         }
         
-        if (localStorage.loadInf === "true") {
+        if(localStorage.clonePlant === "true") {
+            actionType = "clone";
+            plantId = localStorage.clonePlantId;
+        }else if(localStorage.updatePlant === "true") {
+            actionType = "update";
+            plantId = localStorage.clonePlantId;
+        }else if(localStorage.loadInf === "true") {
+            actionType = "view";
+        }
+        if(actionType.length > 0) {
+            loadPlant(plantId, actionType);
+        }
+        
+        if ($("#currencyCost")[0] != undefined && localStorage.currency != undefined){
+            $("#currencyCost").val(localStorage.currency);
+            $("#factorCost").val('1.0'); //localStorage.factor
         }
 
         $('#submit').click(function (e) {
@@ -296,30 +311,14 @@ $(function () {
             $(".link-form").hide();
             $("#" + divContainerVar.parentElement.id + " .link-form").show();
             changeStatus(id,e.currentTarget);
-        });               
-                
-        
-        if(localStorage.clonePlant === "true") {
-            actionType = "clone";            
-        }else if(localStorage.updatePlant === "true") {
-            actionType = "update";            
-        }else if(localStorage.loadInf === "true") {
-            actionType = "view";
-        }
-        if(actionType.length > 0) {
-            loadPlant(localStorage.clonePlantId, actionType);
-        }
-        
-        if ($("#currencyCost")[0] != undefined && localStorage.currency != undefined){
-            $("#currencyCost").val(localStorage.currency);
-            $("#factorCost").val('1.0'); //localStorage.factor
-        }
+        });
     };
 
     loadPlant = function(plantId, typeAction) {
         console.log("loadPlant", plantId, typeAction);
         let tileAction = "";
         let plantNameSuffix = "";
+        localStorage.plantId = plantId;
         switch (typeAction) {
             case "update":
                 tileAction = _("Update");
@@ -339,7 +338,7 @@ $(function () {
         }
         
         document.getElementById("titleFormTreatmentPlant").innerHTML = tileAction + " " + _("Treatment Plant");        
-        var urlDetail = basePathURL + "getTreatmentPlant/?plantId=" + localStorage.plantId;
+        var urlDetail = basePathURL + "getTreatmentPlant/?plantId=" + plantId;
         $.getJSON(urlDetail, function (data) {
             if (typeAction === "clone" || typeAction === "view") {
                 localStorage.plantId = null;                
@@ -350,18 +349,15 @@ $(function () {
                 letterPlant = value.plantSuggest;
             });
             $.each( data.csinfra, function( key, value ) {
-                let htmlTbl = '<td class="small text-center vat">' + value.csinfraCode + '</td>' + 
-                                '<td aling="center"><a class="btn btn-danger" onclick="deleteOption(' + value.csinfraId + ')">' + 
-                                '<span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td></tr>';
+                let htmlTbl = `<td class="small text-center vat">${value.csinfraCode}</td> 
+                        <td aling="center"><a class="btn btn-danger" onclick="deleteOption('${value.csinfraId}')">
+                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td></tr>`;
                 if (typeAction === "view"){
-                    htmlTbl = '<td class="small text-center vat">' + value.csinfraName + ' - ' + value.csinfraCode + ' - ' + value.csinfraGraphId + '</td>' +
-                            '<td class="small text-center vat">' + value.csinfraCode + '</td><td aling="center"></td></tr>';
+                    htmlTbl = `<td class="small text-center vat">${value.csinfraName} - ${value.csinfraCode} - ${value.csinfraGraphId}</td>
+                            <td class="small text-center vat">${value.csinfraCode }</td></tr>`;
                 }
-                $('#idTbodyIntake').append('<tr id="child' + value.csinfraId + '">' + 
-                                    '<td class="small text-center vat" name="nameListAdd" idIntake="' + value.csinfraElementsystemId + 
-                                    '" nameList="' + value.csinfraName + '"  graphIdlist="' + value.csinfraGraphId + 
-                                    '" csinfraList="' + value.csinfraCode + '">' + value.csinfraName + '</td>' + 
-                                    '<td class="small text-center vat">' + value.csinfraName + '</td>' + htmlTbl);
+                $('#idTbodyIntake').append(`<tr id="child${value.csinfraId}"> 
+                        <td class="small text-center vat" name="nameListAdd" idIntake="${value.csinfraElementsystemId}"  nameList="${value.csinfraName}" graphIdlist="${value.csinfraGraphId}" csinfraList="${value.csinfraCode }">${value.csinfraName}</td><td class="small text-center vat">${value.csinfraName}</td>${htmlTbl}`);
             });
             if (data.csinfra.length > 0) {
                 $('#idIntakePlant').removeAttr('required');
@@ -409,17 +405,14 @@ $(function () {
             loadUpdatePtap(true);
             arrayLoadingFunction = data.function;
 
+            loadInfoTree = true;
+            document.getElementById("idBackgroundGraph").style.display = "none";
             if (typeAction === "view"){                
                 document.getElementById("idNamePlant").readOnly = true;
                 document.getElementById("idDescriptionPlant").readOnly = true;
-                document.getElementById("idIntakePlant").style.display = "none";
-                document.getElementById("idBackgroundGraph").style.display = "none";
+                document.getElementById("idIntakePlant").style.display = "none";                
                 document.getElementById("submit").style.display = "none";
                 onlyReadPlant = true;
-                loadInfoTree = true;
-            } else {                
-                document.getElementById("idBackgroundGraph").style.display = "none";
-                loadInfoTree = true;
             }
         });
     }
@@ -539,7 +532,6 @@ $(function () {
                         }
                     }
                     element.style.display = "none";                
-                    //idrElem.css("background-color", whiteColor);
                     idrElem.css("border-color", checkHexColor);                    
                 }
             }
@@ -556,7 +548,6 @@ $(function () {
             $.getJSON(urlDetail, function(data) {
                 let awy = parseFloat(arrayPtap[0].awy) / (24*365*3600);
                 Object.keys(listElements).forEach(function(element) {
-                    //var name = listElements[element].name;                    
                     let functionsByElement = data.filter(f => (f.normalizedCategory === element));
                     plant.elements[element] = {default: functionsByElement, custom: {}};
                     // Validate if plan.functions have previous data
@@ -578,8 +569,7 @@ $(function () {
                             if (f.default){
                                 addFnToPlantObj(f, graphid);
                             }
-                        });
-                        
+                        });                        
                     }              
                 });
                 toggleProcessingModal('hide');
@@ -680,8 +670,8 @@ $(function () {
         $(parent).find('[name=listFunction]').each(function (i,e){
             let fnName = e.attributes.technology.value + "-" + e.attributes.namefunction.value;
             let retentions = {'Sediments': 'sedimentsRetained',
-                                'Nitrogen': 'nitrogenRetained',
-                                'Phosphorus': 'phosphorusRetained'}
+                            'Nitrogen': 'nitrogenRetained',
+                            'Phosphorus': 'phosphorusRetained'}
             for (k in retentions){
                 if (inputElement.id.indexOf(k) > -1 && plant.functions[fnName] != undefined){                    
                     plant.functions[fnName][retentions[k]] = val;
@@ -697,7 +687,6 @@ $(function () {
     */
     viewTree = function(e) {
         console.log("viewTree", e);
-        //toggleProcessingModal('show');
         $("#mainTree").hide();
         selectedPlantElement = e.getAttribute("plantElement");
         $(".container-element").removeClass('container-element-selected');
@@ -706,8 +695,7 @@ $(function () {
         loadArrayTree(selectedPlantElement,  e.getAttribute("nameElement"), e.getAttribute("graphid"));        
         $('html, body').animate({
             scrollTop: $("#black2").offset().top
-        }, 600);
-        //toggleProcessingModal('hide');
+        }, 600);        
     };
 
     /**
@@ -720,13 +708,13 @@ $(function () {
         node.classList.add("mark");
         var idNewTech = "new-tech-" + Date.now();
         var textNewForm = `<div class="title-tree" id="contentTechnology${idNewTech}">
-        <div class="point-tree" onclick="viewBranch('technology${idNewTech}', this)">-</div> 
-        <div class="text-tree"><div style="display:flex;"><label>${lblTechnology}:</label>
-        <input type="text" id="${idNewTech}" class="form-control new-tech-input" 
-        style="position:relative;top:-6px; value=${idNewTech}" onkeydown="keyupNewTech(this)" 
-        placeholder="${_('Enter name technology')}"></div></div></div>
-        <div class="margin-main overflow-form" id="technology${idNewTech}">
-        <div class="container-var" id="idContainerVar${idNewTech}"><div>
+            <div class="point-tree" onclick="viewBranch('technology${idNewTech}', this)">-</div> 
+            <div class="text-tree"><div style="display:flex;"><label>${lblTechnology}:</label>
+            <input type="text" id="${idNewTech}" class="form-control new-tech-input" 
+            style="position:relative;top:-6px; value=${idNewTech}" onkeydown="keyupNewTech(this)" 
+            placeholder="${_('Enter name technology')}"></div></div></div>
+            <div class="margin-main overflow-form" id="technology${idNewTech}">
+            <div class="container-var" id="idContainerVar${idNewTech}"><div>
         ${createInput('% '+ lbl.transportedWater, 100, "", null, null, null, null, false, null, null, 'number')}
         ${createInput('% '+ lbl.sediments, null, null, null, null, null, lbl.placeholderSediments, true, null, null, 'number')}  
         </div><div>
@@ -740,8 +728,6 @@ $(function () {
     };
 
     keyupNewTech = function (e) {
-        //console.log("new-tech-input", e);
-        let id = e.id;
         let link = $($(e).parents().get(3)).find(".link-form")[0];
         if (e.value.trim().length > 2) {
             link.style.display = "block";         
@@ -966,7 +952,6 @@ $(function () {
             }
         });
 
-        //createInput(label, value, readonly, min, max, step, placeholder, enabled, id, events, type)
         let keysCustomFns = Object.keys(functionsByCustomTech);
         if (keysCustomFns.length > 0) {
             listTrFunction = [];
@@ -1015,7 +1000,6 @@ $(function () {
         console.log("changeStatus", i);
         let attrs = element.attributes;   
         let isElement = attrs.technology == undefined;  //  true if the element is a function
-
         let technology;
         let fnName;
         let idFnPlant;
@@ -1298,7 +1282,7 @@ $(function () {
                 "Hydro (esri)": hydroLyr,
             };
 
-            var defExt = new L.Control.DefaultExtent({ title: _('Default extent'), position: 'topright'}).addTo(map);
+            L.Control.DefaultExtent({ title: _('Default extent'), position: 'topright'}).addTo(map);
             var zoomControl = new L.Control.Zoom({ position: 'topright' }).addTo(map);
             L.control.layers(baseLayers, overlays, { position: 'topleft' }).addTo(map);
 
@@ -1308,7 +1292,6 @@ $(function () {
                 }
             });
             searchPoints.addTo(map);
-
         } else {
             document.getElementById("nameCity").innerHTML = localStorage.getItem('city')+", "+localStorage.getItem('country');
             var urlDetail = basePathURL + "getIntakeList/?cityId=" + localStorage.getItem('cityId');
@@ -1479,17 +1462,14 @@ $(function () {
             validatePyExpression();
         }else{
             typesetInput("");
-        }
-        
+        }        
         $("#saveAndValideCost").text(flagNewFunction ? addNewCost : editCost);        
     }
 
     function setVarCost(element, graphid) {
-
         $('#CalculatorModalLabel').text(_('Edit cost'));
         $('#VarCostListGroup div').remove();        
-        var costVars = ['Q', 'CSed', 'CN', 'CP', 'WSed', 'WN', 'WP', 'WSedRet', 'WNRet', 'WPRet'];    
-        
+        var costVars = ['Q', 'CSed', 'CN', 'CP', 'WSed', 'WN', 'WP', 'WSedRet', 'WNRet', 'WPRet'];        
         arrayPlant.forEach(function(plantElement, index) {
             if (plantElement.onOff || plantElement.graphId == 1){
                 var costlabel = "";
@@ -1577,7 +1557,6 @@ $(function () {
         let symbols = [40,41,42,43,45,60,61,62,106,107,109,111];
         if (charCode != 46 && charCode > 31 && (charCode < 48 || charCode > 57))
             return (symbols.indexOf(charCode) >= 0);
-
         return true;
     })
 
@@ -1623,7 +1602,6 @@ $(function () {
                 $(`#${a}`).trigger('click');
                 $(`#${a}`).trigger('click');
             }
-
         }else{
             let fnId = selectedFunction4Edit.getAttribute('technology') + HYPHEN + selectedFunction4Edit.getAttribute('namefunction');
             selectedFunction4Edit.setAttribute('namefunction', fnName);
@@ -1784,6 +1762,5 @@ $(function () {
 
     _ = function(text) {
         return gettext(text);
-    };
-        
+    };        
 });
