@@ -57,8 +57,7 @@
                             <th scope="col" class="small text-center vat">{% trans "Options" %}</th>
                         </tr>
                     </thead>
-                    <tbody id="idTbodyIntake">
-                    </tbody>
+                    <tbody id="idTbodyIntake"></tbody>
                 </table>
                 {% if mode != 'view' %}
                 <div class="row row-no-gutters">
@@ -361,10 +360,8 @@
                                     <label class="text-primary">{% trans "Currency for definition of costs" %} *</label>
                                     <select id="currencyCost" class="form-control" required>
                                         {% for currency in currencies %}                                        
-                                            {% if currency.iso3 == 'USA'%}
-                                                <option value="{{currency.currency}}" data-country="{{currency.iso3}}">({{currency.currency}}) - {{currency.name}}</option>
-                                            {% else %}
-                                                <option value="{{currency.currency}}">({{currency.currency}}) - {{currency.name}}</option>
+                                            {% if currency.iso3 == 'USA'%}<option value="{{currency.currency}}" data-country="{{currency.iso3}}">({{currency.currency}}) - {{currency.name}}</option>
+                                            {% else %}<option value="{{currency.currency}}">({{currency.currency}}) - {{currency.name}}</option>
                                             {% endif %}
                                         {% endfor %}
                                     </select>
@@ -430,7 +427,6 @@
     </div>
 </div>
 
-
 {% endblock %} {% block extra_script %}
 <script src="{% url 'javascript-catalog-treatment' %}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min.js"
@@ -447,6 +443,10 @@
     var userCountryId = '{{userCountry.id}}';
     var userCountryCode = '{{userCountry.code}}';
     var userCountryName = '{{userCountry.name}}';
+    {% if mode == 'view' %}
+    var plantId = '{{plantId}}';
+    localStorage.loadInf = "true";
+    {% endif %}    
     $(document).ready(function () {        
         initialize();        
     });
