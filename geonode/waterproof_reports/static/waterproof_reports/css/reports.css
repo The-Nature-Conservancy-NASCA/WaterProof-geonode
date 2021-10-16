@@ -2274,7 +2274,7 @@
     }
     .visible{
         padding-bottom: 0% !important;
-        display: table;
+        display: none;
     }
     .container-aqueduct {
         border-top: 1px solid #6b6b6b;
