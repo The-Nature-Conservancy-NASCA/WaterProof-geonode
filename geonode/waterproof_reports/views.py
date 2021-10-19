@@ -31,11 +31,12 @@ class PDF(FPDF):
 
 def pdf(request):
     base64_data = re.sub('^data:image/.+;base64,', '', request.POST['mapSendImage'])
-    byte_data = base64.b64decode(base64_data)
-    image_data = BytesIO(byte_data)
-    img = Image.open(image_data)
-    t = time.time()
-    img.save('imgpdf/map-send-image.png', "PNG")
+    if base64_data != "data:,":
+        byte_data = base64.b64decode(base64_data)
+        image_data = BytesIO(byte_data)
+        img = Image.open(image_data)
+        t = time.time()
+        img.save('imgpdf/map-send-image.png', "PNG")
 
     pdf = PDF()
     pdf.add_page()
