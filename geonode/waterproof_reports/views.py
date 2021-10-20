@@ -31,11 +31,12 @@ class PDF(FPDF):
 
 def pdf(request):
     base64_data = re.sub('^data:image/.+;base64,', '', request.POST['mapSendImage'])
-    byte_data = base64.b64decode(base64_data)
-    image_data = BytesIO(byte_data)
-    img = Image.open(image_data)
-    t = time.time()
-    img.save('imgpdf/map-send-image.png', "PNG")
+    if base64_data != "data:,":
+        byte_data = base64.b64decode(base64_data)
+        image_data = BytesIO(byte_data)
+        img = Image.open(image_data)
+        t = time.time()
+        img.save('imgpdf/map-send-image.png', "PNG")
 
     pdf = PDF()
     pdf.add_page()
@@ -186,7 +187,7 @@ def pdf(request):
         pdf.ln(6)
         if item['name'] != lastItenName:
             pdf.set_text_color(57, 137, 169)
-            pdf.cell(epw/2, cellArray[contLine] * 6 ,item['name'] + ', to see click here', border=1, align='L', fill=1, link='../../intake/showDiagram/' + str(item['intakeId']))
+            pdf.cell(epw/2, cellArray[contLine] * 6 ,item['name'] + ', to see click here', border=1, align='L', fill=1, link='../../intake/ShowDiagram/' + str(item['intakeId']))
             lastItenName = item['name']
             contLine = contLine + 1
         else:
@@ -229,12 +230,13 @@ def pdf(request):
     cellArray.append(contLine)
 
     lastItenName = ""
+    lastNameCase = "";
     contLine = 0    
     for item in data:
         pdf.ln(6)
         if lastNameCase != item['name']:
             pdf.set_text_color(57, 137, 169)
-            pdf.cell(epw/2, cellArray[contLine] * 6,item['name'] + ', to see click here', border=1, align='L', fill=1, link='../../treatment_plants/create/?loadUrlInf=load&plantId=' + str(item['plantId']))
+            pdf.cell(epw/2, cellArray[contLine] * 6,item['name'] + ', to see click here', border=1, align='L', fill=1, link='../../treatment_plants/view/' + str(item['plantId']))
             lastNameCase = item['name']
             contLine = contLine + 1
         else: 
@@ -1854,18 +1856,23 @@ def pdf(request):
     pdf.set_text_color(100, 100, 100)
     pdf.cell(0, 10, 'The analysis run includes geographic outputs that you can consult at the following link', align='L')
     heightIcon = 0;
-    for itemCase in dataCase:
+
+    requestJson = requests.get(settings.SITE_HOST_API + 'reports/getWpcompareMapas/?studyCase=' + request.POST['studyCase'],verify=False)
+    data = requestJson.json()
+    for item in data:
         pdf.ln(20)
+        center = json.loads(str(item['center']))
+        centerxy = str(center['coordinates'])[1: len(str(center['coordinates'])) - 1].split()
         pdf.set_text_color(100, 100, 100)
-        pdf.cell(epw, 10, itemCase['selector'], border=0, align='L', fill=0)
+        pdf.cell(epw, 10, item['nameIntake'], border=0, align='L', fill=0)
         pdf.image('imgpdf/mapas-pdf.png', 20, 50 + heightIcon, w=30)
         pdf.ln(50)
         pdf.set_text_color(179, 179, 179)
-        pdf.cell(0, 6, 'http://apps.skaphe.com:8000/reports/compare-maps/?folder=1000_469_2021-8-27&amp', align='L', link = "http://apps.skaphe.com:8000/reports/compare-maps/?folder=1000_469_2021-8-27&amp;intake=481&amp;region=SA_1&amp;year=3&amp;study_case_id=469&amp;center=1.94,-76.4")
+        pdf.cell(0, 6, 'http://apps.skaphe.com:8000/reports/geographic/?folder=' + str(item['folder']) + '&amp', align='L', link = 'http://apps.skaphe.com:8000/reports/geographic/?folder=' + str(item['folder']) + '&amp;intake=' + str(item['intake']) + '&amp;region=' + str(item['region']) + '&amp;year=' + str(item['year']) + '&amp;study_case_id=' + str(item['studycase']) + '&amp;center=' + centerxy[1] + "," + centerxy[0])
         pdf.ln(6)
-        pdf.cell(0, 6, ';intake=481&amp;region=SA_1&amp;year=3&amp;study_case_id=469&amp;center=1.94,', align='L', link = "http://apps.skaphe.com:8000/reports/compare-maps/?folder=1000_469_2021-8-27&amp;intake=481&amp;region=SA_1&amp;year=3&amp;study_case_id=469&amp;center=1.94,-76.4")
+        pdf.cell(0, 6, ';intake=' + str(item['intake']) + '&amp;region=' + str(item['region']) + '&amp;year=' + str(item['year']) + '&amp;study_case_id=' + str(item['studycase']) + '&amp;center=', align='L', link = 'http://apps.skaphe.com:8000/reports/geographic/?folder=' + str(item['folder']) + '&amp;intake=' + str(item['intake']) + '&amp;region=' + str(item['region']) + '&amp;year=' + str(item['year']) + '&amp;study_case_id=' + str(item['studycase']) + '&amp;center=' + centerxy[1] + "," + centerxy[0])
         pdf.ln(6)
-        pdf.cell(0, 6, '-76.4', align='L', link = "http://apps.skaphe.com:8000/reports/compare-maps/?folder=1000_469_2021-8-27&amp;intake=481&amp;region=SA_1&amp;year=3&amp;study_case_id=469&amp;center=1.94,-76.4")
+        pdf.cell(0, 6, centerxy[1] + "," + centerxy[0], align='L', link = 'http://apps.skaphe.com:8000/reports/geographic/?folder=' + str(item['folder']) + '&intake=' + str(item['intake']) + '&region=' + str(item['region']) + '&year=' + str(item['year']) + '&study_case_id=' + str(item['studycase']) + '&center=' + centerxy[1] + "," + centerxy[0])
         heightIcon = heightIcon + 80;
 
     response = HttpResponse(pdf.output(dest='S').encode('iso-8859-1'))
