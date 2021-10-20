@@ -106,7 +106,7 @@
 		</div>
 
 		<div>
-			<h5>{% trans "Water Intake" %} : 
+			<h5>{% trans "Water Intake" %}: 
 				<select class="select-condition" style="width: 800px; text-align: center;" id="idSelectStudyCase"></select>
 			</h5>
 		</div>
@@ -119,6 +119,9 @@
 				<div class="tab-content" id="myTabContent">
 					<div id="menu1" class="div-style-menu-23 tab-pane fade active in" role="tabpanel">
 						<h3 id="nameTitleIntake"></h3>
+						{% for name in NamesIndicators %}
+						<h5>{% trans "Water Intake" %}: {{name.name}} </h5>
+						{% endfor %}
 						<p class="padding-text-desc">{% trans "LULC_text_1" %}</p>
 						<p class="padding-text-desc">{% trans "LULC_text_2" %}</p>
 						<br>
@@ -147,11 +150,17 @@
 					</div>
 					<div id="menu2" class="div-style-menu-23 tab-pane fade" role="tabpanel">
 						<h3 id="nameTitleIntake"></h3>
+						{% for name in NamesIndicators %}
+						<h5>{% trans "Water Intake" %}: {{name.name}} </h5>
+						{% endfor %}
 						<p class="padding-text-desc">{% trans "InVEST text 1" %}</p>
 						<p class="padding-text-desc">{% trans "InVEST text 2" %}</p>
 					</div>
 					<div id="menu3" class="div-style-menu-23 tab-pane fade" role="tabpanel">
 						<h3 id="nameTitleIntake"></h3> 
+						{% for name in NamesIndicators %}
+						<h5>{% trans "Water Intake" %}: {{name.name}} </h5>
+						{% endfor %}
 						<p class="padding-text-desc">{% trans "RIOS text 1" %}</p>
 					</div>
 					<div id="map-analysis-result" class="row">
@@ -171,6 +180,30 @@
 				</div>            
 		</div>
 		<img src="" alt="legend" id="generated-img"/>
+
+		<div class="align-text col-md-12 div-padding visible">
+			<div class="list-menu-results" id="idFinancialIndicators">
+				<img src="/static/geonode/img/Indicadores-financieros.png" title="{% trans "Financial indicators" %}"/> 
+				<br> 
+				<a href="../../reports/financial/">{% trans "Financial indicators" %}</a>
+			</div>
+			<div class="list-menu-results">
+				<img src="/static/geonode/img/indicadores-fisicos.png" title="{% trans "Physical indicators" %}"/> 
+				<br>
+				<!--a>{% trans "Physical indicators" %}</a-->
+				<a id="urlPhysical" href="">{% trans "Physical indicators" %}</a>
+			</div>
+			<div class="list-menu-results" id="idDecisionIndicators">
+				<img src="/static/geonode/img/indicadores-decision.png" title="{% trans "Decision indicators" %}"/>
+				<br>
+				<a href="../../reports/decision/">{% trans "Decision indicators" %}</a>
+			</div>
+			<div class="list-menu-results" id="idGeographicIndicators">
+				<img src="/static/geonode/img/indicadores-geograficos.png" style="opacity: 30%;" title="{% trans "Geographic visualization" %}"/>
+				<br>
+				<a>{% trans "Geographic visualization" %}</a>
+			</div>
+		</div>
 </form>
 
 {% endblock %} {% block extra_script %}
@@ -201,8 +234,8 @@
 	var userCountryId='{{country.id}}';
 	var userCountryCode='{{country.codeCountry}}';
 	var userCountryName='{{country.nameCountry}}';
-	let server = location.protocol + '//' + location.hostname.replace('apps','dev') + ':82/';
-  server = 'https://dev.skaphe.com/srv/'; //'/srv/';  
+	let server = location.protocol + '//' + location.hostname.replace('apps','dev') + '/srv/';
+  //server = 'https://dev.skaphe.com/srv/'; //'/srv/';  
   const urlWaterProofLyrsWMS = server + `?map=/etc/mapserver/mapserver_test.map&SERVICE=WMS&usr_folder=${baseData}&intake=${intake}&year=${year}&region=${region}`;
 	const urlWaterProofLyrAreasRiosMS = server + `?map=/etc/mapserver/${baseData}/WI_${intake}/out/areas_rios.map&SERVICE=WMS`;
 	var mapAreasRios;

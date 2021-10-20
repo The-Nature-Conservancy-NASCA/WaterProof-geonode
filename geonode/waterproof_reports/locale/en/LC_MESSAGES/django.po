@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Waterproof Vbeta\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-02-19 11:27-0500\n"
-"PO-Revision-Date: 2021-10-06 17:08-0500\n"
+"PO-Revision-Date: 2021-10-12 09:40-0500\n"
 "Last-Translator: Julien Collaer <julien.collaer@opengeode.be>\n"
 "Language-Team: Skaphe\n"
 "Language: en\n"
@@ -75,7 +75,11 @@ msgstr "Summary of risks in the basins"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
 msgid "Select the basin of your interest from the drop-down list to know a summary of its risks (The risk results have been estimated using the Acueduct - WRI database)"
-msgstr "Select your intake of interest from the drop-down list to view a summary of risks (The risk results have been estimated using the Aqueduct database compiled by WRI)"
+msgstr "Select your intake of interest from the drop-down list to view a summary of risks (The risk results have been estimated using"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
+msgid "the Acueduct - WRI database"
+msgstr "the Aqueduct database compiled by WRI"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
 msgid "Water Intake"
@@ -123,7 +127,7 @@ msgstr "Anual water yield"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
 msgid "Seasonal water yield"
-msgstr "Seasonal water yield"
+msgstr "Base flow"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
 msgid "Sediment delivery ratio"
@@ -178,13 +182,13 @@ msgid "Geographic visualization"
 msgstr "Geographic visualization"
 
 msgid "Invest ind text 1"
-msgstr "This report allows you to obtain an integrated view of the outcomes that maybe caused in each basin by the implementation of the selected NBS:"
+msgstr "This report allows you to obtain an integrated view of the outcomes that may be caused in each basin by the implementation of the selected NbS:"
 
 msgid "Invest ind text 2"
 msgstr "This report aims to enable decision-makers to assess the trade-offs that can be achieved and to identify water basins where investment in natural capital can enhance human development and conservation. Please note in your evaluation:"
 
 msgid "Invest ind text 3"
-msgstr "Change in volume of water yield: Do changes in the landscape affect the annual average  water  yield?  Note  that  the  model  helps  to  establish  changes  in  the storages by analyzing the inputs to the system minus the outputs from the system."
+msgstr "Change in volume of base: Do changes in the landscape affect the annual average  water  yield?  Note  that  the  model  helps  to  establish  changes  in  the storages by analyzing the inputs to the system minus the outputs from the system."
 
 msgid "Invest ind text 4"
 msgstr "Change in base flow: Do landscape changes affect basin runoff and recharge? The value  presented  depends  on  the  connectivity  and land  use  and  land  cover components,  so that the  recharge  is  influenced  by  variables  such  as  vegetation cover and connectivity."
@@ -309,27 +313,27 @@ msgid "Result of interventions"
 msgstr "Result of interventions"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/decisionIndicators.html:142
-msgid "Change in volume of water yield (%)"
+msgid "Change in volume of water yield"
 msgstr "Change in volume of water yield (%)"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/decisionIndicators.html:142
-msgid "Change in base flow (%)"
+msgid "Change in base flow"
 msgstr "Change in base flow (%)"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/decisionIndicators.html:142
-msgid "Change in total sediments (%)"
+msgid "Change in total sediments"
 msgstr "Change in total sediments (%)"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/decisionIndicators.html:142
-msgid "Change in nitrogen load (%)"
+msgid "Change in nitrogen load"
 msgstr "Change in nitrogen load (%)"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/decisionIndicators.html:142
-msgid "Change in phosphorus load (%)"
+msgid "Change in phosphorus load"
 msgstr "Change in phosphorus load (%)"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/decisionIndicators.html:142
-msgid "Change in carbon storage (%)"
+msgid "Change in carbon storage"
 msgstr "Change in carbon storage (%)"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/decisionIndicators.html:142
@@ -533,7 +537,7 @@ msgid "Change in phosphorus Load (%)"
 msgstr "Change in phosphorus load (%)"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/physicalIndicators.html:78
-msgid "Change in carbon storage"
+msgid "Change in carbon storage (%)"
 msgstr "Change in carbon storage (%)"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/physicalIndicators.html:80
@@ -673,4 +677,10 @@ msgstr "Select the basin for which you want to see the comparative graph of the 
 
 #: geonode/waterproof_reports/templates/waterproof_reports/physicalIndicators
 msgid "discount rate:"
-msgstr "Discount rate:"
+msgstr "Discount rate (%):"
+
+msgid "Total Benefits"
+msgstr "Total benefits"
+
+msgid "Aqueduct indicator"
+msgstr "Aqueduct indicator"

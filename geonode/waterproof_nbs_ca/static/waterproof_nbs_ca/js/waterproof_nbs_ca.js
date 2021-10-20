@@ -67,7 +67,7 @@ $(function () {
     submitFormEvent = function () {
         console.log('submit event loaded');
         var formData = new FormData();
-        $('#form').validator().on('submit', function (e) {
+        $('#form').on('submit', function (e) {
             if (e.isDefaultPrevented()) {
                 // handle the invalid form...
             } else {

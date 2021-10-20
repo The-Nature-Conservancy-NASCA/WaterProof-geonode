@@ -491,192 +491,6 @@ $(document).ready(function () {
         $('#smartwizard').smartWizard("prev");
     });
 
-    $('#step7EndBtn').click(function () {
-        var valid_edit = true;
-        var valid_period = true;
-        nbsactivities = [];
-        var valid_edit = true;
-        var min = undefined;
-        $("#full-table").find("input").each(function () {
-            var $this = $(this);
-            if ($this.val().length <= 0) {
-                valid_edit = false;
-                return false;
-            }
-        });
-        if (!valid_edit) {
-            Swal.fire({
-                icon: 'warning',
-                title: gettext('field_empty'),
-                text: gettext('error_table'),
-            });
-        }
-        if ($('#period_analysis').val() < 10 || $('#period_analysis').val() > 100) {
-            Swal.fire({
-                icon: 'warning',
-                title: gettext('field_problem'),
-                text: gettext('error_period_analysis'),
-            });
-            valid_period = false;
-            return
-        }
-        if ($('#period_analysis').val() != '' && $('#period_nbs').val() != '') {
-            if (parseInt($('#period_analysis').val()) < parseInt($('#period_nbs').val())) {
-                Swal.fire({
-                    icon: 'warning',
-                    title: gettext('field_problem'),
-                    text: gettext('error_period_nbs'),
-                });
-                valid_period = false;
-                return
-            }
-        } else {
-            valid_period = false;
-        }
-
-        if ($('#period_analysis').val() != '' && $('#period_nbs').val() != '' && valid_edit && valid_period) {
-            analysis_currency = $("#analysis_currency option:selected").val();       
-            let lbl_currency = gettext('Currency for the execution this analisys');
-            let lbl_applied_currency = gettext('The following exchange rates will be applied for the analysis');            
-            html = '<div class="row" id="currencys-panel"> <div class="col-md-10 currency-panel">' + lbl_currency + 
-                    '</div><div class="col-md-2 currency-panel currency-text">' + analysis_currency;
-            html += '</div><div class="col-md-12 currency-panel">' + lbl_applied_currency + '.</div>';
-            html += '<div class="custom-control col-md-4 currency-value">'+ gettext('Currency') +'</div>';
-            html += '<div class="custom-control col-md-8 currency-value">'+ gettext('Exchange') +'</div>';
-
-            $.get("../../study_cases/currencys/", {
-                id: id_study_case,
-                currency: analysis_currency
-            }, function (data) {
-                valid_investment = true;
-                conversion = 1;
-                $.each(data, function (index, currency) {
-                    value = Number.parseFloat(currency.value).toFixed(5);
-                    if (currency.currency == 'USD') {
-                        conversion = value;
-                    }
-                    if (currency.currency != analysis_currency) {
-                        value = Number.parseFloat(currency.value).toFixed(5);
-                        html += '<div class="col-md-4 currency-value"><label class="custom-control-label" for="currency">' + currency.currency + '</label></div>'
-                        html += '<div class="custom-control col-md-8 currency-value"><input id="' + currency.currency + '" class="text-number" type="number" class="custom-control-input" value="' + value + '"></div>'
-                    }
-                });
-                nbs_value = 0;
-                nbs_min = 0;
-                minimun = 0;
-                valid_nbs = true
-                $("#full-table").find("input").each(function (index, input) {
-                    input_id = input.id
-                    if ($("#" + input_id).hasClass("hiddennbs")) {
-                        split = input_id.split('-');
-                        nbssc_id = split.pop();
-                        nbs_min = parseFloat($("#" + input_id).val());
-                        nbs_min /= conversion;
-                        if (minimun) {
-                            if (minimun > nbs_min) {
-                                minimun = nbs_min;
-                            }
-                        } else {
-                            minimun = nbs_min;
-                        }
-                        if (nbs_value < nbs_min && nbs_value > 0) {
-                            valid_nbs = false;
-                            $('#nbssc-' + nbssc_id).css('border-color', 'red');
-                            Swal.fire({
-                                icon: 'warning',
-                                title: gettext('field_problem'),
-                                text: gettext('error_minimun_nbs') + nbs_min.toFixed(2),
-                            });
-                            return false
-                        }
-                    } else {
-                        nbs_value = parseFloat($("#" + input_id).val());
-                        if (nbs_value > 0)
-                            valid_investment = false
-                        $("#" + input_id).css('border-color', '#eeeeee');
-                    }
-                });
-                if (valid_investment && $('#annual_investment').val() < minimun) {
-                    valid_nbs = false;
-                    Swal.fire({
-                        icon: 'warning',
-                        title: gettext('field_problem'),
-                        text: gettext('error_annual_investment') + minimun,
-                    });
-                    return false
-                }
-                if (valid_nbs) {
-                    Swal.fire({
-                        title: gettext('exchange_rate'),
-                        html: html,
-                        showCancelButton: true,
-                        confirmButtonText: gettext('Confirm and run'),
-                        preConfirm: () => {
-                            currencys = [];
-                            $("#currencys-panel").find("input").each(function (index, input) {
-                                currency = {}
-                                input_id = input.id
-                                if (input_id) {
-                                    val = $("#" + input_id).val()
-                                    currency['currency'] = input_id;
-                                    currency['value'] = val;
-                                    currencys.push(currency)
-                                }
-                            });
-                            return currencys;
-                        }
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            $('#_thumbnail_processing').modal('toggle');
-                            let description = gettext("run_processing_description");
-                            
-                            $("#full-table").find("input").each(function (index, input) {
-                                nbsactivity = {}
-                                input_id = input.id
-                                input_type = input.type
-                                if (input_id && input_type != 'hidden') {
-                                    split = input_id.split('-')
-                                    nbssc_id = split.pop();
-                                    val = $("#" + input_id).val()
-                                    nbsactivity['id'] = nbssc_id;
-                                    nbsactivity['value'] = val;
-                                    nbsactivities.push(nbsactivity)
-                                }
-                            });
-                            $.post("../../study_cases/save/", {
-                                id_study_case: id_study_case,
-                                analysis_type: 'investment scenario',
-                                period_nbs: $('#period_nbs').val(),
-                                period_analysis: $('#period_analysis').val(),
-                                analysis_nbs: $("#analysis_nbs option:selected").val(),
-                                analysis_currency: $("#analysis_currency option:selected").val(),
-                                annual_investment: $('#annual_investment').val(),
-                                rellocated_remainder: $("#rellocated_check").is(':checked'),
-                                nbsactivities: '1' + JSON.stringify(nbsactivities),
-                                currencys: '1' + JSON.stringify(result.value),
-                            }, function (data) {
-                                $('#_thumbnail_processing').modal('hide');
-                                $('#smartwizard').smartWizard("next");
-                                $('#autoAdjustHeightF').css("height", "auto");
-                                //$("#form").submit();
-                                location.href = "/study_cases/?city="+localStorage.cityId; 
-                            }, "json");
-                        }
-                    })
-                }
-            });
-
-        } else {
-            Swal.fire({
-                icon: 'warning',
-                title: gettext('field_empty'),
-                text: gettext('error_fields')
-            });
-            return;
-        }
-
-    });
-
     $('#step7RunBtn').click(function () {
         var valid_edit = true;
         var valid_period = true;
@@ -845,81 +659,268 @@ $(document).ready(function () {
                             nbsactivities: '1' + JSON.stringify(nbsactivities),
                             currencys: '1' + JSON.stringify(result.value),
                         }, function (data) {
-                            $.ajax({
-                                url : servermodelApi+"preprocRIOS?id_case="+id_study_case+"%26id_usuario="+id_user,
-                                type : 'GET',
-                                dataType : 'json',
-                                success : function(json) {
-                                    if(json.status == 'success'){
-                                        $.post("../../study_cases/run/", {
-                                            id_study_case: id_study_case,
-                                            run_analysis: 'true'
-                                        }, function (data) {                                        
-                                            autoAdjustHeight();
-                                            location.href = "/study_cases/?city="+localStorage.cityId; 
-                                        }, "json");
-                                    }else{                                        
-                                        Swal.fire({
-                                            icon: 'error',
-                                            title: gettext('error_api'),
-                                            text: gettext('error_model_api'),
-                                        });
-                                        location.href = "/study_cases/?city="+localStorage.cityId; 
-                                    }
-                                    $('#_thumbnail_processing').modal('hide');
-                                },
-                                error : function(xhr, status) {
-                                    if (xhr.status != 504) {
-                                        $('#_thumbnail_processing').modal('hide');
-                                        Swal.fire({
-                                            icon: 'error',
-                                            title: gettext('error_api'),
-                                            text: gettext('error_model_api'),
-                                        });
-                                        location.href = "/study_cases/?city="+localStorage.cityId;
-                                    }
-                                }
-                            });
-                            let urlQueryAnalisysResult = servermodelApi+"queryStudyCaseAnalisysResult?id_case="+id_study_case;
-                            let validationInterval = setInterval(queryAnalisysResult, 30000);
-                            let iteration = 1;
-
-                            function queryAnalisysResult(){
-                                console.log("queryAnalisysResult, iteracion: " + iteration);
-                                if (iteration < 3) {
-                                    console.log("iteration after 10 minutes, the process does´nt query yet");
-                                    iteration++;
-                                    return;
-                                }else if (iteration == 18){
-                                    console.log("iteration: " + iteration + ", waiting for the process to finish");
-                                    clearInterval(validationInterval);
-                                    location.href = "/study_cases/?city="+localStorage.cityId; 
-                                }
-                                $.ajax({
-                                    url : urlQueryAnalisysResult,
-                                    type : 'GET',
-                                    dataType : 'json',
-                                    success : function(json) {                                    
-                                        if (json.status[0]) {
-                                            $('#_thumbnail_processing').modal('hide');
-                                            console.log("finish interval execution");
-                                            clearInterval(validationInterval);
-                                            location.href = "/study_cases/?city="+localStorage.cityId; 
-                                        }
-                                        iteration++;                                       
-                                    },
-                                    error : function(xhr, status) {
-                                        $('#_thumbnail_processing').modal('hide');
-                                        location.href = "/study_cases/?city="+localStorage.cityId;                
-                                    }
-                                });
-                            }                              
-
+                            preprocRiosProcess(id_study_case);
                         }, "json");
                     }
                 })
             }
             });
+        } else {
+            Swal.fire({
+                icon: 'warning',
+                title: gettext('field_empty'),
+                text: gettext('error_fields')
+            });
+            return;
+        }
+    });
+
+    function preprocRiosProcess(id_study_case){
+        $.ajax({
+            url : servermodelApi+"preproc_rios_task?id_case="+id_study_case+"%26id_usuario="+id_user,
+            type : 'GET',
+            dataType : 'json',
+            success : function(json) {
+                let taskId = json.task_id;
+                if(json.task_status == 'PENDING'){                                            
+                    let urlQueryAnalisysResult = servermodelApi + "tasks?id="+taskId;
+                    let validationInterval = setInterval(queryAnalisysResult, 30 * 1000);
+                    let iteration = 1;
+                    function queryAnalisysResult(){
+                        console.log("queryAnalisysResult, iteracion: " + iteration);
+                        if (iteration < 4) {
+                            console.log("iteration befor 2 minutes, the process does'nt query yet");
+                            iteration++;
+                            return;
+                        }else if (iteration >= 15){
+                            console.log("iteration: " + iteration + ", return to list. process not finish yet...");
+                            clearInterval(validationInterval);
+                            location.href = "/study_cases/?city="+localStorage.cityId; 
+                        }
+                        $.ajax({
+                            url : urlQueryAnalisysResult,
+                            type : 'GET',
+                            dataType : 'json',
+                            success : function(json) {                                    
+                                if (json.task_status == 'SUCCESS') {
+                                    $.post("../../study_cases/run/", {
+                                        id_study_case: id_study_case,
+                                        run_analysis: 'true'
+                                    }, function (data) {
+                                        $('#_thumbnail_processing').modal('hide');
+                                        autoAdjustHeight();                                            
+                                        location.href = "/study_cases/?city="+localStorage.cityId; 
+                                    }, "json");
+                                    console.log("finish interval execution");
+                                    location.href = "/study_cases/?city="+localStorage.cityId; 
+                                    clearInterval(validationInterval);
+                                }
+                                iteration++;                                        
+                            },
+                            error : function(xhr, status) {
+                                location.href = "/study_cases/?city="+localStorage.cityId; 
+                            }
+                        });
+                    }
+                }else{
+                    $('#_thumbnail_processing').modal('hide');
+                    Swal.fire({
+                        icon: 'error',
+                        title: gettext('error_api'),
+                        text: gettext('error_model_api'),
+                    }); 
+                    location.href = "/study_cases/?city="+localStorage.cityId;  
+                }
+            },
+            error : function(xhr, status) {
+                if (xhr.status != 504) {
+                    $('#_thumbnail_processing').modal('hide');
+                    Swal.fire({
+                        icon: 'error',
+                        title: gettext('error_api'),
+                        text: gettext('error_model_api'),
+                    });
+                    location.href = "/study_cases/?city="+localStorage.cityId;
+                }
+            }
+        })
+    }
+
+    $('#step7EndBtn').click(function () {
+        var valid_edit = true;
+        var valid_period = true;
+        nbsactivities = [];
+        var valid_edit = true;
+        var min = undefined;
+        $("#full-table").find("input").each(function () {
+            var $this = $(this);
+            if ($this.val().length <= 0) {
+                valid_edit = false;
+                return false;
+            }
+        });
+        if (!valid_edit) {
+            Swal.fire({
+                icon: 'warning',
+                title: gettext('field_empty'),
+                text: gettext('error_table'),
+            });
+        }
+        if ($('#period_analysis').val() < 10 || $('#period_analysis').val() > 100) {
+            Swal.fire({
+                icon: 'warning',
+                title: gettext('field_problem'),
+                text: gettext('error_period_analysis'),
+            });
+            valid_period = false;
+            return
+        }
+        if ($('#period_analysis').val() != '' && $('#period_nbs').val() != '') {
+            if (parseInt($('#period_analysis').val()) < parseInt($('#period_nbs').val())) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: gettext('field_problem'),
+                    text: gettext('error_period_nbs'),
+                });
+                valid_period = false;
+                return
+            }
+        } else {
+            valid_period = false;
+        }
+
+        if ($('#period_analysis').val() != '' && $('#period_nbs').val() != '' && valid_edit && valid_period) {
+            analysis_currency = $("#analysis_currency option:selected").val();       
+            let lbl_currency = gettext('Currency for the execution this analisys');
+            let lbl_applied_currency = gettext('The following exchange rates will be applied for the analysis');            
+            html = '<div class="row" id="currencys-panel"> <div class="col-md-10 currency-panel">' + lbl_currency + 
+                    '</div><div class="col-md-2 currency-panel currency-text">' + analysis_currency;
+            html += '</div><div class="col-md-12 currency-panel">' + lbl_applied_currency + '.</div>';
+            html += '<div class="custom-control col-md-4 currency-value">'+ gettext('Currency') +'</div>';
+            html += '<div class="custom-control col-md-8 currency-value">'+ gettext('Exchange') +'</div>';
+
+            $.get("../../study_cases/currencys/", {
+                id: id_study_case,
+                currency: analysis_currency
+            }, function (data) {
+                valid_investment = true;
+                conversion = 1;
+                $.each(data, function (index, currency) {
+                    value = Number.parseFloat(currency.value).toFixed(5);
+                    if (currency.currency == 'USD') {
+                        conversion = value;
+                    }
+                    if (currency.currency != analysis_currency) {
+                        value = Number.parseFloat(currency.value).toFixed(5);
+                        html += '<div class="col-md-4 currency-value"><label class="custom-control-label" for="currency">' + currency.currency + '</label></div>'
+                        html += '<div class="custom-control col-md-8 currency-value"><input id="' + currency.currency + '" class="text-number" type="number" class="custom-control-input" value="' + value + '"></div>'
+                    }
+                });
+                nbs_value = 0;
+                nbs_min = 0;
+                minimun = 0;
+                valid_nbs = true
+                $("#full-table").find("input").each(function (index, input) {
+                    input_id = input.id
+                    if ($("#" + input_id).hasClass("hiddennbs")) {
+                        split = input_id.split('-');
+                        nbssc_id = split.pop();
+                        nbs_min = parseFloat($("#" + input_id).val());
+                        nbs_min /= conversion;
+                        if (minimun) {
+                            if (minimun > nbs_min) {
+                                minimun = nbs_min;
+                            }
+                        } else {
+                            minimun = nbs_min;
+                        }
+                        if (nbs_value < nbs_min && nbs_value > 0) {
+                            valid_nbs = false;
+                            $('#nbssc-' + nbssc_id).css('border-color', 'red');
+                            Swal.fire({
+                                icon: 'warning',
+                                title: gettext('field_problem'),
+                                text: gettext('error_minimun_nbs') + nbs_min.toFixed(2),
+                            });
+                            return false
+                        }
+                    } else {
+                        nbs_value = parseFloat($("#" + input_id).val());
+                        if (nbs_value > 0)
+                            valid_investment = false
+                        $("#" + input_id).css('border-color', '#eeeeee');
+                    }
+                });
+                if (valid_investment && $('#annual_investment').val() < minimun) {
+                    valid_nbs = false;
+                    Swal.fire({
+                        icon: 'warning',
+                        title: gettext('field_problem'),
+                        text: gettext('error_annual_investment') + minimun,
+                    });
+                    return false
+                }
+                if (valid_nbs) {
+                    Swal.fire({
+                        title: gettext('exchange_rate'),
+                        html: html,
+                        showCancelButton: true,
+                        confirmButtonText: gettext('Confirm and run'),
+                        preConfirm: () => {
+                            currencys = [];
+                            $("#currencys-panel").find("input").each(function (index, input) {
+                                currency = {}
+                                input_id = input.id
+                                if (input_id) {
+                                    val = $("#" + input_id).val()
+                                    currency['currency'] = input_id;
+                                    currency['value'] = val;
+                                    currencys.push(currency)
+                                }
+                            });
+                            return currencys;
+                        }
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            $('#_thumbnail_processing').modal('toggle');
+                            let description = gettext("run_processing_description");
+                            
+                            $("#full-table").find("input").each(function (index, input) {
+                                nbsactivity = {}
+                                input_id = input.id
+                                input_type = input.type
+                                if (input_id && input_type != 'hidden') {
+                                    split = input_id.split('-')
+                                    nbssc_id = split.pop();
+                                    val = $("#" + input_id).val();
+                                    nbsactivity['id'] = nbssc_id;
+                                    nbsactivity['value'] = val;
+                                    nbsactivities.push(nbsactivity)
+                                }
+                            });
+                            $.post("../../study_cases/save/", {
+                                id_study_case: id_study_case,
+                                analysis_type: 'investment scenario',
+                                period_nbs: $('#period_nbs').val(),
+                                period_analysis: $('#period_analysis').val(),
+                                analysis_nbs: $("#analysis_nbs option:selected").val(),
+                                analysis_currency: $("#analysis_currency option:selected").val(),
+                                annual_investment: $('#annual_investment').val(),
+                                rellocated_remainder: $("#rellocated_check").is(':checked'),
+                                nbsactivities: '1' + JSON.stringify(nbsactivities),
+                                currencys: '1' + JSON.stringify(result.value),
+                            }, function (data) {
+                                $('#_thumbnail_processing').modal('hide');
+                                $('#smartwizard').smartWizard("next");
+                                $('#autoAdjustHeightF').css("height", "auto");
+                                //$("#form").submit();
+                                location.href = "/study_cases/?city="+localStorage.cityId; 
+                            }, "json");
+                        }
+                    })
+                }
+            });
+
         } else {
             Swal.fire({
                 icon: 'warning',
@@ -1203,7 +1204,8 @@ $(document).ready(function () {
                     }
                 }
             });
-            $("#full-table").find('tbody').append(content);
+            $("#full-table").find('tbody').empty().append(content);
+            //$("#full-table").find('tbody').append(content);
             $('#smartwizard').smartWizard("next");
             $('#autoAdjustHeightF').css("height", "auto");
         });
@@ -1340,6 +1342,7 @@ $(document).ready(function () {
     });
 
     function typeInTextarea(newText, el) {
+        if (newText == undefined) return;
         const [start, end] = [el.selectionStart, el.selectionEnd];
         el.setRangeText(newText, start, end, 'select');
         el.focus();

@@ -1,6 +1,7 @@
 {% extends "menu.html" %} 
 {% load i18n %} 
 {% load static from staticfiles %} 
+{% load i18n %} 
 {% load bootstrap_tags %} 
 {% block extra_head %}
 <link href="https://unpkg.com/smartwizard@5/dist/css/smart_wizard_all.min.css" rel="stylesheet" type="text/css" />
@@ -190,11 +191,12 @@
                     <br>
                     <p class="padding-text-desc">{% trans "Oportunity results ind text 1" %}</p>
                     <div class="container-page">
-                        <div id="step3-map">
-                        </div>
+                        <!-- <div id="step3-map">
+                        </div> -->
                         <div class="row">
                             <div class="col-md-12 calculed-roi">
-                                <div class="col-md-12 line-detail">
+                                <br>
+                                <div class="col-md-12">
                                     <div class="name-roi">{% trans "Calculated ROI:" %} <div class="value-roi" id="idRoi"></div></div>
                                         <img class="col-md-12 aria-img" src="/static/geonode/img/valor-bruto.png"/>
                                         <div class=" col-md-12 bootom-roi">
@@ -220,9 +222,9 @@
                         </div>
                     </div>
                 </div>
-                <div id="map-step-3" class="container-border">
+                <!-- <div id="map-step-3" class="container-border">
                     <div id="mapiddecision" style="position: relative;width: 100%;height: 400px; margin-top: 2%;"></div>
-                </div>
+                </div> -->
             </div>
 
         </div>
@@ -237,7 +239,7 @@
         <img src="/static/geonode/img/indicadores-fisicos.png" title="{% trans "Physical indicators" %}"/> 
         <br>
         <!--a>{% trans "Physical indicators" %}</a-->
-        <a href="../../reports/physical/{{idx}}">{% trans "Physical indicators" %}</a>
+        <a id="urlPhysical" href="">{% trans "Physical indicators" %}</a>
     </div>
     <div class="list-menu-results" id="idDecisionIndicators">
         <img src="/static/geonode/img/indicadores-decision.png" style="opacity: 30%;" title="{% trans "Decision indicators" %}"/>
@@ -247,7 +249,7 @@
     <div class="list-menu-results" id="idGeographicIndicators">
         <img src="/static/geonode/img/indicadores-geograficos.png" title="{% trans "Geographic visualization" %}"/>
         <br>
-        <a href="../../reports/geographic/">{% trans "Geographic visualization" %}</a>
+        <a id="idGeographicIndicatorsClic" href="">{% trans "Geographic visualization" %}</a>
     </div>
 </div>
 
@@ -459,69 +461,69 @@ $(function () {
             map.fitBounds(bounds);
         }
     };
-    initMapDecision = function () {
-            map = L.map('mapiddecision', {
-                scrollWheelZoom: false,
-                zoomControl: false,
-                photonControl: true,
-                photonControlOptions: {
-                    resultsHandler: showSearchPoints,
-                    selectedResultHandler: selectedResultHandler,
-                    placeholder: gettext('Search City') + '...',
-                    position: 'topleft',
-                    url: SEARCH_CITY_API_URL
-                }
-            });
+    // initMapDecision = function () {
+    //         map = L.map('mapiddecision', {
+    //             scrollWheelZoom: false,
+    //             zoomControl: false,
+    //             photonControl: true,
+    //             photonControlOptions: {
+    //                 resultsHandler: showSearchPoints,
+    //                 selectedResultHandler: selectedResultHandler,
+    //                 placeholder: gettext('Search City') + '...',
+    //                 position: 'topleft',
+    //                 url: SEARCH_CITY_API_URL
+    //             }
+    //         });
 
-            let initialCoords = CENTER;
-            var cityCoords = localStorage.getItem('cityCoords');
-            var city = localStorage.getItem('city');
-            var initialZoom = 5;
-            var cityNameMap = localStorage.getItem('city').substr(0, 5);
+    //         let initialCoords = CENTER;
+    //         var cityCoords = localStorage.getItem('cityCoords');
+    //         var city = localStorage.getItem('city');
+    //         var initialZoom = 5;
+    //         var cityNameMap = localStorage.getItem('city').substr(0, 5);
 
-            if (cityCoords == undefined) {
-                cityCoords = initialCoords;
-            } else {
-                initialCoords = JSON.parse(cityCoords);
-                drawPolygons(city);
-                initialZoom = 9;
-                try {
-                    $("#countryLabel").html(localStorage.getItem('country'));
-                    $("#cityLabel").html(localStorage.getItem('city'));
-                    $("#regionLabel").html(localStorage.getItem('region'));
-                    $("#currencyLabel").html(localStorage.getItem('currency'));
-                    $("#listIntakes").show();
-                } catch (e) {
+    //         if (cityCoords == undefined) {
+    //             cityCoords = initialCoords;
+    //         } else {
+    //             initialCoords = JSON.parse(cityCoords);
+    //             drawPolygons(city);
+    //             initialZoom = 9;
+    //             try {
+    //                 $("#countryLabel").html(localStorage.getItem('country'));
+    //                 $("#cityLabel").html(localStorage.getItem('city'));
+    //                 $("#regionLabel").html(localStorage.getItem('region'));
+    //                 $("#currencyLabel").html(localStorage.getItem('currency'));
+    //                 $("#listIntakes").show();
+    //             } catch (e) {
 
-                }
-            }
+    //             }
+    //         }
 
-            table.search(cityNameMap).draw();
-            map.setView(initialCoords, initialZoom);
-            searchPoints.addTo(map);
-            var tilelayer = L.tileLayer(TILELAYER, { maxZoom: MAXZOOM, attribution: 'Data \u00a9 <a href="http://www.openstreetmap.org/copyright"> OpenStreetMap Contributors </a> Tiles \u00a9 Komoot' }).addTo(map);
-            var images = L.tileLayer(IMAGE_LYR_URL);
-            var hydroLyr = L.tileLayer(HYDRO_LYR_URL);
+    //         table.search(cityNameMap).draw();
+    //         map.setView(initialCoords, initialZoom);
+    //         searchPoints.addTo(map);
+    //         var tilelayer = L.tileLayer(TILELAYER, { maxZoom: MAXZOOM, attribution: 'Data \u00a9 <a href="http://www.openstreetmap.org/copyright"> OpenStreetMap Contributors </a> Tiles \u00a9 Komoot' }).addTo(map);
+    //         var images = L.tileLayer(IMAGE_LYR_URL);
+    //         var hydroLyr = L.tileLayer(HYDRO_LYR_URL);
 
-            var baseLayers = {
-                OpenStreetMap: tilelayer,
-                Images: images,
-            };
+    //         var baseLayers = {
+    //             OpenStreetMap: tilelayer,
+    //             Images: images,
+    //         };
 
-            var overlays = {
-                "Hydro (esri)": hydroLyr,
-            };
+    //         var overlays = {
+    //             "Hydro (esri)": hydroLyr,
+    //         };
 
-            var defExt = new L.Control.DefaultExtent({ title: gettext('Default extent'), position: 'topright'}).addTo(map);
-            var zoomControl = new L.Control.Zoom({ position: 'topright' }).addTo(map);
-            L.control.layers(baseLayers, overlays, { position: 'topleft' }).addTo(map);
+    //         var defExt = new L.Control.DefaultExtent({ title: gettext('Default extent'), position: 'topright'}).addTo(map);
+    //         var zoomControl = new L.Control.Zoom({ position: 'topright' }).addTo(map);
+    //         L.control.layers(baseLayers, overlays, { position: 'topleft' }).addTo(map);
 
-            function onMapClick(e) {
-            }
-            map.on('click', onMapClick);
-            $("#step3-map")[0].append($("#map-step-3")[0]);
-    }
-    initMapDecision();
+    //         function onMapClick(e) {
+    //         }
+    //         map.on('click', onMapClick);
+    //         // $("#step3-map")[0].append($("#map-step-3")[0]);
+    // }
+    // initMapDecision();
 
     initMapPhysical = function () {
             map = L.map('mapidphysical', {
@@ -735,6 +737,7 @@ $(function () {
         var dataListBenefitsIntake = [];
         var firstListIntage = "";
         var urlDetail = "../../reports/getWaterproofReportsAnalysisBenefits/?studyCase=" + localStorage.idStudyCase;
+        let titleGraphIntake = `<p> {% trans "Intake Benefits" %} </p>`;
         $.getJSON(urlDetail, function (data) {
 
             $.each( data, function( key, value ) {
@@ -773,7 +776,8 @@ $(function () {
                 },
                 colors: ['#008BAB', '#90D3E7', '#004B56', '#61D1C2'],
                 title: {
-                    text: 'Intake Benefits'
+                    useHTML: true,
+                    text: 'DWTP Benefits'
                 },
                 plotOptions: {
                     pie: {
@@ -789,7 +793,7 @@ $(function () {
                     enabled: false
                 },
                 series: [{
-                    name: 'Intake Benefits',
+                    name: 'DWTP Benefits',
                     colorByPoint: true,
                     data: dataTotalBenefitsIntakeOne
                 }]
@@ -817,7 +821,8 @@ $(function () {
                     type: 'pie'
                 },
                 title: {
-                    text: 'DWTP Benefits'
+                    useHTML: true,
+                    text: titleGraphIntake
                 },
                 plotOptions: {
                     pie: {
@@ -833,7 +838,7 @@ $(function () {
                     enabled: false
                 },
                 series: [{
-                    name: 'DWTP Benefits',
+                    name: 'Intake Benefits',
                     colorByPoint: true,
                     data: dataTotalBenefitsIntakeOne
                 }]
@@ -842,6 +847,8 @@ $(function () {
 
         var dataTotalBenefits = [];
         var urlDetail = "../../reports/getReportAnalysisBenefitsFilterSum/?studyCase=" + localStorage.idStudyCase;
+        // let totalBenefit = gettext('Total Benefits');
+        let titleGraphTotalBenefits = `<p> {% trans "Total Benefits" %} </p>`;
         $.getJSON(urlDetail, function (data) {
             $.each( data, function( key, value ) {
                 dataTotalBenefits.push({
@@ -858,8 +865,9 @@ $(function () {
                     type: 'pie'
                 },
                 colors: ['#008BAB', '#90D3E7', '#004B56', '#61D1C2'],
-                title: {
-                    text: 'Total Benefits'
+                title:  {
+                    useHTML: true,
+                    text: titleGraphTotalBenefits
                 },
                 plotOptions: {
                     pie: {
@@ -875,7 +883,7 @@ $(function () {
                     enabled: false
                 },
                 series: [{
-                    name: 'Total Benefits',
+                    name: titleGraphTotalBenefits,
                     colorByPoint: true,
                     data: dataTotalBenefits
                 }]

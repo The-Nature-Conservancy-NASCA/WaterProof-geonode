@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Waterproof VBeta\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-02-11 20:03-0500\n"
-"PO-Revision-Date: 2021-09-14 14:10-0500\n"
+"PO-Revision-Date: 2021-10-15 09:21-0500\n"
 "Last-Translator: Julien Collaer <julien.collaer@opengeode.be>\n"
 "Language-Team: English Skaphe\n"
 "Language: en\n"
@@ -8560,6 +8560,18 @@ msgstr "It is the way that are related: operation and maintenance costs of a cat
 
 #: geonode/templates/index.html
 msgid "Text 3 - Support data"
+msgstr "The tool uses global biophysical data, land use and climate change scenarios, which have been organized as inputs in the InVEST and RIOS models."
+
+#: geonode/templates/index.html
+msgid "The tool uses"
+msgstr "The tool uses "
+
+#: geonode/templates/index.html
+msgid "Text 3 - Support data1"
+msgstr "global biophysical data, land use and climate change scenarios, "
+
+#: geonode/templates/index.html
+msgid "Text 3 - Support data2"
 msgstr "The tool uses global biophysical data, land use and climate change scenarios, which have been organized as inputs in the InVEST and RIOS models."
 
 #: geonode/templates/index.html

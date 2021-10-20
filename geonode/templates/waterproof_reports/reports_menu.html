@@ -91,102 +91,109 @@
                 <div id="containerNpv"></div>
             </div>
         </div>
-        <div class="title-report font-title">{% trans "Summary of risks in the basins" %}</div>
-        <div class="help-report border-report">{% trans "Select the basin of your interest from the drop-down list to know a summary of its risks (The risk results have been estimated using the Acueduct - WRI database)" %}</div>
-        <div class="align-div">
-            <h5>{% trans "Water Intake" %} : 
-            <select class="select-condition select-condition-menu"
-            id="idSelectStudyCase"></select>
-        </h5>
-        </div>
-        <div class="margin-risk col-md-12">
-            <div class="marc-report col-md-3">
-                <div class="risk-list">
-                    <img src="/static/geonode/img/picture-one.jpg">
-                </div>
-                <div class="title-marc">{% trans "Physical risk quantity qan_def" %}</div>
-                <div class="detail-border-marc">{% trans "Physical risk quantity measures risk related to too little or too much water by aggregating all selected indicators from the physical risk quantity category" %}</div>
-                <div class="button-marc" id="idButtonPrq"></div>
+        <div class="container-aqueduct">
+            <div class="align-div">
+                <h5>{% trans "Water Intake" %} : 
+                <select class="select-condition select-condition-menu"
+                id="idSelectStudyCase"></select>
+            </h5>
             </div>
-            <div class="marc-report col-md-3">
-                <div class="risk-list">
-                    <img src="/static/geonode/img/picture-two.jpg">
-                </div>
-                <div class="title-marc">{% trans "Physical risk quantity qal_def" %}</div>
-                <div class="detail-border-marc">{% trans "Physical risk quantity measures risk related to water that in unfit for use by aggregating all selected indicators from the physical risk quantity category" %}</div>
-                <div class="button-marc" id="idButtonPrqa"></div>
+            <div class="title-report font-title">{% trans "Summary of risks in the basins" %}
+                <a href="https://www.wri.org/aqueduct" target="_blank">
+                    <img class="imgaqueduct" src="/static/geonode/img/aqueduct-logo.png" alt="aqueduct-logo">
+                </a>
             </div>
-            <div class="marc-report col-md-3">
-                <div class="risk-list">
-                    <img src="/static/geonode/img/picture-three.jpg">
+            <div class="help-report border-report">{% trans "Select the basin of your interest from the drop-down list to know a summary of its risks (The risk results have been estimated using the Acueduct - WRI database)" %} <a href="https://www.wri.org/aqueduct" target="_blank"> {% trans "the Acueduct - WRI database" %})</a></div>
+            
+            <div class="margin-risk col-md-12">
+                <div class="marc-report col-md-3">
+                    <div class="risk-list">
+                        <img src="/static/geonode/img/picture-one.jpg">
+                    </div>
+                    <div class="title-marc">{% trans "Physical risk quantity qan_def" %}</div>
+                    <div class="detail-border-marc">{% trans "Physical risk quantity measures risk related to too little or too much water by aggregating all selected indicators from the physical risk quantity category" %}</div>
+                    <div class="button-marc" id="idButtonPrq"></div>
                 </div>
-                <div class="title-marc">{% trans "Regulatory and reputational rrr_def" %}</div>
-                <div class="detail-border-marc">{% trans "Risk regulatory and reputational risk measures risk related to uncertainty in regulatory chance, as well as conflich with re public regarding water issues" %}</div>
-                <div class="button-marc" id="idButtonRar"></div>
-            </div>
-            <div class="marc-report col-md-3">
-                <div class="risk-list">
-                    <img src="/static/geonode/img/picture-four.jpg">
+                <div class="marc-report col-md-3">
+                    <div class="risk-list">
+                        <img src="/static/geonode/img/picture-two.jpg">
+                    </div>
+                    <div class="title-marc">{% trans "Physical risk quantity qal_def" %}</div>
+                    <div class="detail-border-marc">{% trans "Physical risk quantity measures risk related to water that in unfit for use by aggregating all selected indicators from the physical risk quantity category" %}</div>
+                    <div class="button-marc" id="idButtonPrqa"></div>
                 </div>
-                <div class="title-marc">{% trans "Overall water risk score tot_def" %}</div>
-                <div class="detail-border-marc">{% trans "Overall water risk measures all water related risk, by aggregating all selected indicators from the physical risjk quantity, physical risk quality, and regulatory and reputational risk categories" %}</div>
-                <div class="button-marc" id="idButtonOwr"></div>
-            </div>
-        </div>
-        <div class="marc-table">
-            <div class="estimated-change">
-                <div class="title-report font-title">{% trans " Estimated change in ecosystem services (Business as Usual Scenario Vs Nature-based Solutions Scenario)" %}</div>
-                <div class="estimated-change-list">
-                    <div class="line-marc-table-icons">
-                        <div><h8>{% trans "Anual water yield" %}</h8></div>
-                        <div><img src="/static/geonode/img/dashboard-01.png" class="icon-dashboard"></div>
-                        <div class="line-number-marc-table" id="changeInVolumeOfWater"></div>
+                <div class="marc-report col-md-3">
+                    <div class="risk-list">
+                        <img src="/static/geonode/img/picture-three.jpg">
                     </div>
-                    <div class="line-marc-table-icons">
-                        <div>{% trans "Seasonal water yield" %}</div>
-                        <div><img src="/static/geonode/img/dashboard-02.png" class="icon-dashboard"></div>
-                        <div class="line-number-marc-table" id="changeInBaseFlow"></div>
+                    <div class="title-marc">{% trans "Regulatory and reputational rrr_def" %}</div>
+                    <div class="detail-border-marc">{% trans "Risk regulatory and reputational risk measures risk related to uncertainty in regulatory chance, as well as conflich with re public regarding water issues" %}</div>
+                    <div class="button-marc" id="idButtonRar"></div>
+                </div>
+                <div class="marc-report col-md-3">
+                    <div class="risk-list">
+                        <img src="/static/geonode/img/picture-four.jpg">
                     </div>
-                    <div class="line-marc-table-icons">
-                        <div>{% trans "Sediment delivery ratio" %}</div>
-                        <div><img src="/static/geonode/img/dashboard-03.png" class="icon-dashboard"></div>
-                        <div class="line-number-marc-table" id="changeIntotalSediments"></div>
-                    </div>
-                    <div class="line-marc-table-icons">
-                        <div>{% trans "Nutrient delivery ratio - nitrogen" %}</div>
-                        <div><img src="/static/geonode/img/dashboard-04.png" class="icon-dashboard"></div>
-                        <div class="line-number-marc-table" id="changeInNitrogenLoad"></div>
-                    </div>
-                    <div class="line-marc-table-icons">
-                        <div>{% trans "Nutrient delivery ratio - phosphorus" %}</div>
-                        <div><img src="/static/geonode/img/dashboard-05.png" class="icon-dashboard"></div>
-                        <div class="line-number-marc-table" id="changeInPhosphorus"></div>
-                    </div>
-                    <div class="line-marc-table-icons">
-                        <div>{% trans "Carbon storage and sequestration" %}</div>
-                        <div><img src="/static/geonode/img/dashboard-06.png" class="icon-dashboard"></div>
-                        <div class="line-number-marc-table" id="changeInCarbonStorage"></div>
-                    </div>
+                    <div class="title-marc">{% trans "Overall water risk score tot_def" %}</div>
+                    <div class="detail-border-marc">{% trans "Overall water risk measures all water related risk, by aggregating all selected indicators from the physical risjk quantity, physical risk quality, and regulatory and reputational risk categories" %}</div>
+                    <div class="button-marc" id="idButtonOwr"></div>
                 </div>
             </div>
-        </div>
-        <div class="title-report font-title">{% trans "Intervention and budget summary" %}</div>
-
-
-        <div class="table-responsive">
-            <table class="table table-striped table-bordered table-condensed" style="width:98%; text-align: center;">
-                <thead class="tableStyleColor">
-                    <tr>
-                        <th class="align-text">{% trans "Nature based solution" %}</th>
-                        <th class="align-text">{% trans "Actual spend (USD)" %}</th>
-                        <th class="align-text">{% trans "Intervention área (Hectares)" %}</th>
-                    </tr>
-                </thead>
-                <tbody id="listFielTable"></tbody>
-            </table>            
+    
+            <div class="title-report font-title">{% trans "Intervention and budget summary" %}</div>
+    
+    
+            <div class="table-responsive padding-report-menu">
+                <table class="table table-striped table-bordered table-condensed" style="width:98%; text-align: center;">
+                    <thead class="tableStyleColor">
+                        <tr>
+                            <th class="align-text">{% trans "Nature based solution" %}</th>
+                            <th class="align-text">{% trans "Actual spend (USD)" %}</th>
+                            <th class="align-text">{% trans "Intervention área (Hectares)" %}</th>
+                        </tr>
+                    </thead>
+                    <tbody id="listFielTable"></tbody>
+                </table>            
+            </div>
         </div>
 
-        <div class="page-header">
+        <div class="estimated-change">
+            <div class="title-report font-title">{% trans " Estimated change in ecosystem services (Business as Usual Scenario Vs Nature-based Solutions Scenario)" %}</div>
+            <div class="estimated-change-list">
+                <div class="line-marc-table-icons">
+                    <div><h8>{% trans "Anual water yield" %}</h8></div>
+                    <div><img src="/static/geonode/img/dashboard-01.png" class="icon-dashboard"></div>
+                    <div class="line-number-marc-table" id="changeInVolumeOfWater"></div>
+                </div>
+                <div class="line-marc-table-icons">
+                    <div>{% trans "Seasonal water yield" %}</div>
+                    <div><img src="/static/geonode/img/dashboard-02.png" class="icon-dashboard"></div>
+                    <div class="line-number-marc-table" id="changeInBaseFlow"></div>
+                </div>
+                <div class="line-marc-table-icons">
+                    <div>{% trans "Sediment delivery ratio" %}</div>
+                    <div><img src="/static/geonode/img/dashboard-03.png" class="icon-dashboard"></div>
+                    <div class="line-number-marc-table" id="changeIntotalSediments"></div>
+                </div>
+                <div class="line-marc-table-icons">
+                    <div>{% trans "Nutrient delivery ratio - nitrogen" %}</div>
+                    <div><img src="/static/geonode/img/dashboard-04.png" class="icon-dashboard"></div>
+                    <div class="line-number-marc-table" id="changeInNitrogenLoad"></div>
+                </div>
+                <div class="line-marc-table-icons">
+                    <div>{% trans "Nutrient delivery ratio - phosphorus" %}</div>
+                    <div><img src="/static/geonode/img/dashboard-05.png" class="icon-dashboard"></div>
+                    <div class="line-number-marc-table" id="changeInPhosphorus"></div>
+                </div>
+                <div class="line-marc-table-icons">
+                    <div>{% trans "Carbon storage and sequestration" %}</div>
+                    <div><img src="/static/geonode/img/dashboard-06.png" class="icon-dashboard"></div>
+                    <div class="line-number-marc-table" id="changeInCarbonStorage"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="page-header padding-report-menu">
             <br>
             <h5 textColor="red" class="explore-results-title">{% trans "Explore detailed results of this case study" %}</h5>
         </div>
@@ -215,10 +222,10 @@
                 <!-- ../../reports/geographic/-->
             </div>
         </div>
-        <div>
-            <h5 textColor="red" class="download-title">{% trans "If you want to download the results of this analysis from the following icons" %}</h5>
+        <div style="display: block;">
+            <h5 textColor="red" class="download-title padding-report-menu">{% trans "If you want to download the results of this analysis from the following icons" %}</h5>
         </div>
-        <div class="report-download">
+        <div class="report-download" style="display: block;">
             <div class="col-md-5"></div>
             <div class="col-md-1 report-download-pdf" onclick="openPDF()">
                 <img src="/static/geonode/img/documents.png"/>
@@ -338,8 +345,7 @@
         }
       
         downloadZip = function(){
-            //console.log("url de descarga zip"+"{{filterzip.link}}")
-            window.open("{{filterzip.link}}", "zipDownload", "width=120,height=300")
+            window.location.href = "{{filterzip.link}}";
         }
         
         changeReport = function() {

@@ -192,7 +192,7 @@
                         </div>
                 </div>
                 <div class="tab-pane fade" id="step4" role="tabpanel" aria-labelledby="contact-tab">
-                    <div class=" div-style-menu container-step-3 col-md-12">
+                    <div class=" div-style-menu col-md-12">
                         <br>
                         <div class="col-md-12">
                             <p>{% trans "Sensitivity ind text 1" %}</p>
@@ -233,7 +233,6 @@
                                 </div>
                                 <div style="font-size: 15px;">{% trans "Sensitivity ind text 3" %}</div>
                             </div>
-                            <br>
                                     
                             <div class="col-md-6">
                                 <!--Graph-->
@@ -263,7 +262,7 @@
         <img src="/static/geonode/img/indicadores-fisicos.png" title="{% trans "Physical indicators" %}"/> 
         <br>
         <!--a>{% trans "Physical indicators" %}</a-->
-        <a href="../../reports/physical/{{idx}}">{% trans "Physical indicators" %}</a>
+        <a id="urlPhysical" href="">{% trans "Physical indicators" %}</a>
     </div>
     <div class="list-menu-results" id="idDecisionIndicators">
         <img src="/static/geonode/img/indicadores-decision.png" title="{% trans "Decision indicators" %}"/>
@@ -273,7 +272,7 @@
     <div class="list-menu-results" id="idGeographicIndicators">
         <img src="/static/geonode/img/indicadores-geograficos.png" title="{% trans "Geographic visualization" %}"/>
         <br>
-        <a href="">{% trans "Geographic visualization" %}</a>
+        <a id="idGeographicIndicatorsClic" href="">{% trans "Geographic visualization" %}</a>
         <!--a>../../reports/geographic/</a-->
     </div>
 </div>
@@ -736,12 +735,12 @@ $(function () {
                 },
                 yAxis: {
                     title: {
-                        text: 'Total descounted benefits'
+                        text: 'Total discounted benefits'
                     }
                 },
                 xAxis: {
                     title: {
-                        text: 'Time in years descoyunted benefits'
+                        text: 'Time in years discounted benefits'
                     }
                 },
                 colors: ['#008BAB'],
@@ -808,12 +807,12 @@ $(function () {
                 },
                 yAxis: {
                     title: {
-                        text: 'Total descounted costs'
+                        text: 'Total discounted costs'
                     }
                 },
                 xAxis: {
                     title: {
-                        text: 'Time in years descounted benefits'
+                        text: 'Time in years discounted benefits'
                     }
                 },
                 colors: ['#008BAB'],

@@ -6,21 +6,21 @@
 $(function () {
     // INDICATORS RESULT CATEGORIES
     const AXIS_CATEGORIES = {
-        AWY: 'Change in Volume of Water Yield (%)',
-        BF_M3: 'Change in Base Flow (%)',
-        WN_KG: 'Change in Nitrogen Load (%)',
-        WP_KG: 'Change in Phosphorus Load (%)',
-        WSED_TON: 'Change in Total Sediments (%)',
-        WC_TON: 'Change in Carbon Storage (%)',
-        RWD: 'ROI Benefic/Cost (Total)',
-        RME: 'ROI Benefit/Cost (Discounted)',
-        VPN_IMP: 'Cost Implementation NPV',
-        VPN_MAINT: 'Cost Maintenance NPV',
-        VPN_OPORT: 'Cost Oportunity NPV',
-        VPN_TRANS: 'Cost Transaction NPV',
-        VPN_PLAT: 'Cost Platform NPV',
-        VPN_BENF: 'Benefits NPV',
-        VPN_TOTAL: 'Total NPV'
+        AWY: gettext('Change in Volume of Water Yield (%)'),
+        BF_M3: gettext('Change in Base Flow (%)'),
+        WN_KG: gettext('Change in Nitrogen Load (%)'),
+        WP_KG: gettext('Change in Phosphorus Load (%)'),
+        WSED_TON: gettext('Change in Total Sediments (%)'),
+        WC_TON: gettext('Change in Carbon Storage (%)'),
+        RWD: gettext('ROI Benefic/Cost (Total)'),
+        RME: gettext('ROI Benefit/Cost (Discounted)'),
+        VPN_IMP: gettext('Cost Implementation NPV'),
+        VPN_MAINT: gettext('Cost Maintenance NPV'),
+        VPN_OPORT: gettext('Cost Oportunity NPV'),
+        VPN_TRANS: gettext('Cost Transaction NPV'),
+        VPN_PLAT: gettext('Cost Platform NPV'),
+        VPN_BENF: gettext('Benefits NPV'),
+        VPN_TOTAL: gettext('Total NPV')
     };
     //INDICATORS BD FIELDS
     const CHART_CATEGORIES = {
@@ -78,8 +78,8 @@ $(function () {
     //Validate if there selected cases
     if (casesSelected.length <= 0) {
         Swal.fire({
-            title: "Wow!",
-            text: "Message!",
+            title: gettext("Wow!"),
+            text: gettext("Message!"),
             type: "success"
         }).then(function () {
             window.location = "../";
@@ -191,13 +191,17 @@ $(function () {
                     else {
                         var ptapsCount = element.ptaps.length;
                     }
-                    let li = '<li class="splide__slide"><img class="splideImg" src=' + imagePath + ' height="150px" width="150px">';
-                    li += '<h4 class="slider_title">' + element.name + '</h4><div>' + gettext('Country') + ': ' + element.city__country__name + '</div><div>' + gettext('City') + ': ' + element.city__name + '</div>';
-                    li += '<div>' + gettext('Region') + ': ' + element.city__country__region__name + '</div><div>' + gettext('Time frame') + ': ' + element.time_implement + '</div>';
-                    li += '<div>' + gettext('Number of intakes') + ': ' + intakeCount + '</div><div>' + gettext('Number DWTP') + ': ' + ptapsCount + '</div>';
-                    li += '<div>' + gettext('Currency') + ': ' + element.cm_currency + '</div><div>';
+                    let li = `<li class="splide__slide"><img class="splideImg" src=${imagePath} height="150px" width="150px">
+                            <h4 class="slider_title">${element.name}</h4><div>
+                            <div>${gettext('Country')}: ${element.city__country__name} </div>
+                            <div>${gettext('City')}: ${element.city__name}</div>
+                            <div>${gettext('Region')}: ${element.city__country__region__name}</div>
+                            <div>${gettext('Time frame')}: ${element.time_implement}</div>
+                            <div>${gettext('Number of intakes')}: ${intakeCount}</div>
+                            <div>${gettext('Number DWTP')}: ${ptapsCount}</div>
+                            <div>${gettext('Currency')}: ${element.cm_currency}</div></div></li>`;
                     $('#' + SLIDER_UL.DOM_ID).append(li);
-                    console.log(element);
+                    //console.log(element);
                 });
                 new Splide('#card-slider', {
                     perPage: 2,
@@ -207,6 +211,7 @@ $(function () {
                         }
                     }
                 }).mount();
+                //return;
                 var tooltip = [];
                 for (let index = 0; index < chartCategories.length; index++) {
                     let tooltipValue = {

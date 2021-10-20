@@ -76,6 +76,7 @@ $(function () {
     var selectedPlantElement = null;
     var selectedTechnologyId = -1;
     var selectedFunction4Edit = null;
+    var selectedSubprocess = null;
     var button = document.getElementById('btnValidatePyExp');
     var output = document.getElementById('MathPreview');
     var addFunction = false;
@@ -190,7 +191,22 @@ $(function () {
                 el.innerHTML = "    "+ _("Create") + " " +  _("Treatment Plant");
         }
         
-        if (localStorage.loadInf === "true") {
+        if(localStorage.clonePlant === "true") {
+            actionType = "clone";
+            plantId = localStorage.clonePlantId;
+        }else if(localStorage.updatePlant === "true") {
+            actionType = "update";
+            plantId = localStorage.clonePlantId;
+        }else if(localStorage.loadInf === "true") {
+            actionType = "view";
+        }
+        if(actionType.length > 0) {
+            loadPlant(plantId, actionType);
+        }
+        
+        if ($("#currencyCost")[0] != undefined && localStorage.currency != undefined){
+            $("#currencyCost").val(localStorage.currency);
+            $("#factorCost").val('1.0'); //localStorage.factor
         }
 
         $('#submit').click(function (e) {
@@ -295,30 +311,14 @@ $(function () {
             $(".link-form").hide();
             $("#" + divContainerVar.parentElement.id + " .link-form").show();
             changeStatus(id,e.currentTarget);
-        });               
-                
-        
-        if(localStorage.clonePlant === "true") {
-            actionType = "clone";            
-        }else if(localStorage.updatePlant === "true") {
-            actionType = "update";            
-        }else if(localStorage.loadInf === "true") {
-            actionType = "view";
-        }
-        if(actionType.length > 0) {
-            loadPlant(localStorage.clonePlantId, actionType);
-        }
-        
-        if ($("#currencyCost")[0] != undefined && localStorage.currency != undefined){
-            $("#currencyCost").val(localStorage.currency);
-            $("#factorCost").val('1.0'); //localStorage.factor
-        }
+        });
     };
 
     loadPlant = function(plantId, typeAction) {
         console.log("loadPlant", plantId, typeAction);
         let tileAction = "";
         let plantNameSuffix = "";
+        localStorage.plantId = plantId;
         switch (typeAction) {
             case "update":
                 tileAction = _("Update");
@@ -338,7 +338,7 @@ $(function () {
         }
         
         document.getElementById("titleFormTreatmentPlant").innerHTML = tileAction + " " + _("Treatment Plant");        
-        var urlDetail = basePathURL + "getTreatmentPlant/?plantId=" + localStorage.plantId;
+        var urlDetail = basePathURL + "getTreatmentPlant/?plantId=" + plantId;
         $.getJSON(urlDetail, function (data) {
             if (typeAction === "clone" || typeAction === "view") {
                 localStorage.plantId = null;                
@@ -349,18 +349,15 @@ $(function () {
                 letterPlant = value.plantSuggest;
             });
             $.each( data.csinfra, function( key, value ) {
-                let htmlTbl = '<td class="small text-center vat">' + value.csinfraCode + '</td>' + 
-                                '<td aling="center"><a class="btn btn-danger" onclick="deleteOption(' + value.csinfraId + ')">' + 
-                                '<span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td></tr>';
+                let htmlTbl = `<td class="small text-center vat">${value.csinfraCode}</td> 
+                        <td aling="center"><a class="btn btn-danger" onclick="deleteOption('${value.csinfraId}')">
+                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td></tr>`;
                 if (typeAction === "view"){
-                    htmlTbl = '<td class="small text-center vat">' + value.csinfraName + ' - ' + value.csinfraCode + ' - ' + value.csinfraGraphId + '</td>' +
-                            '<td class="small text-center vat">' + value.csinfraCode + '</td><td aling="center"></td></tr>';
+                    htmlTbl = `<td class="small text-center vat">${value.csinfraName} - ${value.csinfraCode} - ${value.csinfraGraphId}</td>
+                            <td class="small text-center vat">${value.csinfraCode }</td></tr>`;
                 }
-                $('#idTbodyIntake').append('<tr id="child' + value.csinfraId + '">' + 
-                                    '<td class="small text-center vat" name="nameListAdd" idIntake="' + value.csinfraElementsystemId + 
-                                    '" nameList="' + value.csinfraName + '"  graphIdlist="' + value.csinfraGraphId + 
-                                    '" csinfraList="' + value.csinfraCode + '">' + value.csinfraName + '</td>' + 
-                                    '<td class="small text-center vat">' + value.csinfraName + '</td>' + htmlTbl);
+                $('#idTbodyIntake').append(`<tr id="child${value.csinfraId}"> 
+                        <td class="small text-center vat" name="nameListAdd" idIntake="${value.csinfraElementsystemId}"  nameList="${value.csinfraName}" graphIdlist="${value.csinfraGraphId}" csinfraList="${value.csinfraCode }">${value.csinfraName}</td><td class="small text-center vat">${value.csinfraName}</td>${htmlTbl}`);
             });
             if (data.csinfra.length > 0) {
                 $('#idIntakePlant').removeAttr('required');
@@ -408,17 +405,14 @@ $(function () {
             loadUpdatePtap(true);
             arrayLoadingFunction = data.function;
 
+            loadInfoTree = true;
+            document.getElementById("idBackgroundGraph").style.display = "none";
             if (typeAction === "view"){                
                 document.getElementById("idNamePlant").readOnly = true;
                 document.getElementById("idDescriptionPlant").readOnly = true;
-                document.getElementById("idIntakePlant").style.display = "none";
-                document.getElementById("idSendIntake").style.display = "none";
-                document.getElementById("idBackgroundGraph").style.display = "none";
+                document.getElementById("idIntakePlant").style.display = "none";                
                 document.getElementById("submit").style.display = "none";
                 onlyReadPlant = true;
-            } else {                
-                document.getElementById("idBackgroundGraph").style.display = "none";
-                loadInfoTree = true;
             }
         });
     }
@@ -538,7 +532,6 @@ $(function () {
                         }
                     }
                     element.style.display = "none";                
-                    //idrElem.css("background-color", whiteColor);
                     idrElem.css("border-color", checkHexColor);                    
                 }
             }
@@ -555,7 +548,6 @@ $(function () {
             $.getJSON(urlDetail, function(data) {
                 let awy = parseFloat(arrayPtap[0].awy) / (24*365*3600);
                 Object.keys(listElements).forEach(function(element) {
-                    //var name = listElements[element].name;                    
                     let functionsByElement = data.filter(f => (f.normalizedCategory === element));
                     plant.elements[element] = {default: functionsByElement, custom: {}};
                     // Validate if plan.functions have previous data
@@ -577,8 +569,7 @@ $(function () {
                             if (f.default){
                                 addFnToPlantObj(f, graphid);
                             }
-                        });
-                        
+                        });                        
                     }              
                 });
                 toggleProcessingModal('hide');
@@ -679,8 +670,8 @@ $(function () {
         $(parent).find('[name=listFunction]').each(function (i,e){
             let fnName = e.attributes.technology.value + "-" + e.attributes.namefunction.value;
             let retentions = {'Sediments': 'sedimentsRetained',
-                                'Nitrogen': 'nitrogenRetained',
-                                'Phosphorus': 'phosphorusRetained'}
+                            'Nitrogen': 'nitrogenRetained',
+                            'Phosphorus': 'phosphorusRetained'}
             for (k in retentions){
                 if (inputElement.id.indexOf(k) > -1 && plant.functions[fnName] != undefined){                    
                     plant.functions[fnName][retentions[k]] = val;
@@ -696,7 +687,6 @@ $(function () {
     */
     viewTree = function(e) {
         console.log("viewTree", e);
-        //toggleProcessingModal('show');
         $("#mainTree").hide();
         selectedPlantElement = e.getAttribute("plantElement");
         $(".container-element").removeClass('container-element-selected');
@@ -705,8 +695,7 @@ $(function () {
         loadArrayTree(selectedPlantElement,  e.getAttribute("nameElement"), e.getAttribute("graphid"));        
         $('html, body').animate({
             scrollTop: $("#black2").offset().top
-        }, 600);
-        //toggleProcessingModal('hide');
+        }, 600);        
     };
 
     /**
@@ -719,13 +708,13 @@ $(function () {
         node.classList.add("mark");
         var idNewTech = "new-tech-" + Date.now();
         var textNewForm = `<div class="title-tree" id="contentTechnology${idNewTech}">
-        <div class="point-tree" onclick="viewBranch('technology${idNewTech}', this)">-</div> 
-        <div class="text-tree"><div style="display:flex;"><label>${lblTechnology}:</label>
-        <input type="text" id="${idNewTech}" class="form-control new-tech-input" 
-        style="position:relative;top:-6px; value=${idNewTech}" onkeydown="keyupNewTech(this)" 
-        placeholder="${_('Enter name technology')}"></div></div></div>
-        <div class="margin-main overflow-form" id="technology${idNewTech}">
-        <div class="container-var" id="idContainerVar${idNewTech}"><div>
+            <div class="point-tree" onclick="viewBranch('technology${idNewTech}', this)">-</div> 
+            <div class="text-tree"><div style="display:flex;"><label>${lblTechnology}:</label>
+            <input type="text" id="${idNewTech}" class="form-control new-tech-input" 
+            style="position:relative;top:-6px; value=${idNewTech}" onkeydown="keyupNewTech(this)" 
+            placeholder="${_('Enter name technology')}"></div></div></div>
+            <div class="margin-main overflow-form" id="technology${idNewTech}">
+            <div class="container-var" id="idContainerVar${idNewTech}"><div>
         ${createInput('% '+ lbl.transportedWater, 100, "", null, null, null, null, false, null, null, 'number')}
         ${createInput('% '+ lbl.sediments, null, null, null, null, null, lbl.placeholderSediments, true, null, null, 'number')}  
         </div><div>
@@ -739,8 +728,6 @@ $(function () {
     };
 
     keyupNewTech = function (e) {
-        //console.log("new-tech-input", e);
-        let id = e.id;
         let link = $($(e).parents().get(3)).find(".link-form")[0];
         if (e.value.trim().length > 2) {
             link.style.display = "block";         
@@ -885,30 +872,16 @@ $(function () {
                                         lastTreeBranch.push(valueTech.technology);
                                         listTrFunctionCustom = [];
                                     }
-                                    if(onlyReadPlant) {
-                                        loadHtml = false;
-                                        $.each( arrayLoadingFunction, function( keyLoading, valueLoading ) {
-                                            if(valueTech.technology === valueLoading.functionTechnology) {                                                        
-                                                valueCostFunction.sedimentsRetained = valueLoading.functionSedimentsRetained;
-                                                valueCostFunction.nitrogenRetained = valueLoading.functionNitrogenRetained;
-                                                valueCostFunction.phosphorusRetained = valueLoading.functionPhosphorusRetained;
-                                                valueCostFunction.costFunction = valueLoading.functionName;
-                                                valueCostFunction.function = valueLoading.functionValue;
-                                                valueCostFunction.currency = valueLoading.functionCurrency;
-                                                valueCostFunction.factor = valueLoading.functionFactor;
-                                                loadHtml = true;
-                                            }
-                                        });
-                                    } else if (loadInfoTree) {                                        
+                                    if (loadInfoTree) {                                        
                                         buttonsHtml = true;
                                         let fnFilterByTech = arrayLoadingFunction.filter(f => (f.functionTechnology === valueCostFunction.technology));
                                         if(fnFilterByTech.length == 0) {                                            
-                                            activateHtml = htmlCheckBox(valueCostFunction, graphid, null,(listTrFunction.length==0 ? "" : listTrFunction.length),plant.functions.hasOwnProperty(fnId));
+                                            activateHtml = htmlCheckBox(valueCostFunction, graphid, null,(listTrFunction.length==0 ? "" : listTrFunction.length),plant.functions.hasOwnProperty(fnId),value.subprocess);
                                             listTrFunction.push(addFunctionCostRow(activateHtml, valueCostFunction, buttonsHtml, graphid,(listTrFunction.length==0 ? "" : listTrFunction.length)));
                                         }else {                                            
                                             // add all default fn even including unchecked
                                             activateHtml = htmlCheckBox(valueCostFunction, graphid, valueCostFunction.idSubProcess,"",false);
-                                            let strHtmlCustomfn = addFunctionCostRow(activateHtml, valueCostFunction, buttonsHtml, graphid,(listTrFunction.length==0 ? "" : listTrFunction.length));
+                                            let strHtmlCustomfn = addFunctionCostRow(activateHtml, valueCostFunction, buttonsHtml, graphid,(listTrFunction.length==0 ? "" : listTrFunction.length),value.subprocess);
                                             listTrFunctionCustom[fnId] = strHtmlCustomfn;          
                                             /******************************************/
                                             fnFilterByTech.forEach(f => {
@@ -929,7 +902,7 @@ $(function () {
                                                 let customFnName = f.functionTechnology + HYPHEN + f.functionName;
                                                 checked = plant.functions.hasOwnProperty(customFnName);
                                                 enableAddFn = enableAddFn || checked;
-                                                activateHtml = htmlCheckBox(filterFn, graphid, f.functionIdSubProcess,(listTrFunction.length==0 ? "" : listTrFunction.length),checked);                                             
+                                                activateHtml = htmlCheckBox(filterFn, graphid, f.functionIdSubProcess,(listTrFunction.length==0 ? "" : listTrFunction.length),checked,value.subprocess);                                             
                                                 let strHtmlCustomfn = addFunctionCostRow(activateHtml, filterFn, buttonsHtml, graphid,(listTrFunction.length==0 ? "" : listTrFunction.length));
                                                 if (!listCustomFunctionsId.hasOwnProperty(customFnName)) {
                                                     listTrFunctionCustom[customFnName] = strHtmlCustomfn;
@@ -945,7 +918,7 @@ $(function () {
                                         loadHtml = true;
                                         checked = plant.functions.hasOwnProperty(fnId);
                                         enableAddFn = enableAddFn || checked;
-                                        activateHtml = htmlCheckBox(valueCostFunction,graphid, techId, "", checked);
+                                        activateHtml = htmlCheckBox(valueCostFunction,graphid, techId, "", checked,value.subprocess);
                                         listTrFunction.push(addFunctionCostRow(activateHtml, valueCostFunction, buttonsHtml, graphid,''));
                                     }
                                     if(loadHtml) {
@@ -958,9 +931,7 @@ $(function () {
                                             ${createInput('% ' + lbl.nitrogen, nitrogen, (onlyReadPlant?'':null), v.minimalNitrogenRetained, v.maximalNitrogenRetained, '0.1', lbl.placeholderNitrogen, checked,'idNitrogenRetained'+techId,onBlurFn,'number')}
                                             ${createInput('% ' + lbl.phosphorus, phosphorus, (onlyReadPlant?'':null), v.minimalPhosphorusRetained, v.maximalPhosphorusRetained, '0.1', lbl.placeholderPhosphorus, checked,'idPhosphorusRetained'+techId,onBlurFn,'number')}
                                             </div></div>`;                                        
-                                    } else {
-                                        //document.getElementById('contentTechnology' + valueTech.idSubprocess).style.display = "none";
-                                    }                                    
+                                    }                                     
                                 }
                             });
                             if (Object.keys(listTrFunctionCustom).length > 0) {
@@ -972,7 +943,7 @@ $(function () {
                             var tableFunct = tableFunctionTpl.replace("<tbody>", "<tbody>" + listTrFunction.join(""));
                             if(localStorage.loadFormButton === "true") {
                                 let style = `style='display:${(enableAddFn ? 'block' : 'none')}' `;
-                                tableFunct += `<div class="link-form" ${style}> ${_('Add function')} </div>`;
+                                tableFunct += `<div class="link-form" ${style} subprocess="${value.subprocess}"> ${_('Add function')} </div>`;
                             }
                             $('#technology' + techId).html($('#technology' + techId).html() + tableVar + tableFunct);                                                           
                         }
@@ -981,7 +952,6 @@ $(function () {
             }
         });
 
-        //createInput(label, value, readonly, min, max, step, placeholder, enabled, id, events, type)
         let keysCustomFns = Object.keys(functionsByCustomTech);
         if (keysCustomFns.length > 0) {
             listTrFunction = [];
@@ -993,7 +963,7 @@ $(function () {
             keysCustomFns.forEach(key => {
                 customFn = functionsByCustomTech[key];
                 let graphid = customFn.graphid;                
-                let activateHtml = htmlCheckBox(customFn, graphid, customFn.idSubProcess, "", true);
+                let activateHtml = htmlCheckBox(customFn, graphid, customFn.idSubProcess, "", true,value.subprocess);
                 let strHtmlCustomfn = addFunctionCostRow(activateHtml, customFn, true, graphid,"");
                 listTrFunction.push(strHtmlCustomfn);
             });
@@ -1016,6 +986,9 @@ $(function () {
         }
         validateAndAddFunction2Array();
         $('[data-toggle="tooltip"]').tooltip();
+        if (onlyReadPlant){
+            $('.btn-function-cost').prop('disabled', true);
+        }
     }
 
     /**
@@ -1027,7 +1000,6 @@ $(function () {
         console.log("changeStatus", i);
         let attrs = element.attributes;   
         let isElement = attrs.technology == undefined;  //  true if the element is a function
-
         let technology;
         let fnName;
         let idFnPlant;
@@ -1048,19 +1020,26 @@ $(function () {
                 if (!isElement) {
                     $("[name=listFunction]").each(function( index, elem ) {                    
                         let isCustomFunction = e.id.indexOf(elem.id) !== -1 || elem.id.indexOf(e.id) !== -1;
-                        if(elem.id !== e.id && elem.attributes.technology.value !== e.attributes.technology.value) {                        
-                            elem.style.borderColor = whiteColor;
-                            let attr = elem.attributes;
-                            delete plant.functions[attr.technology.value + HYPHEN + attr.namefunction.value];
-                            console.log("delete plant.functions[idFnPlant]", attr.technology.value + HYPHEN + attr.namefunction.value);
-                            if (document.getElementById(elem.id + "1d") !== null) {
-                                document.getElementById(elem.id + "1d").style.display = "block";
-                                for (var indexArray = 0; indexArray < arrayPlant.length; indexArray++) {
-                                    if(arrayPlant[indexArray].graphId === parseInt(document.getElementById("black" + i).getAttribute("graphId"))) {
-                                        arrayPlant[indexArray].onOff = false;
+                        if(elem.id !== e.id && elem.attributes.technology.value !== e.attributes.technology.value) {  
+                            if (selectedPlantElement == "TRATAMIENTODELODOS"){
+                                console.log(selectedPlantElement);
+                                if (elem.attributes.subprocess.value != e.attributes.subprocess.value){
+                                    console.log(elem.attributes.subprocess.value, e.attributes.subprocess.value);
+                                }
+                            }else{
+                                elem.style.borderColor = whiteColor;
+                                let attr = elem.attributes;
+                                delete plant.functions[attr.technology.value + HYPHEN + attr.namefunction.value];
+                                console.log("delete plant.functions[idFnPlant]", attr.technology.value + HYPHEN + attr.namefunction.value);
+                                if (document.getElementById(elem.id + "1d") !== null) {
+                                    document.getElementById(elem.id + "1d").style.display = "block";
+                                    for (var indexArray = 0; indexArray < arrayPlant.length; indexArray++) {
+                                        if(arrayPlant[indexArray].graphId === parseInt(document.getElementById("black" + i).getAttribute("graphId"))) {
+                                            arrayPlant[indexArray].onOff = false;
+                                        }
                                     }
                                 }
-                            }                        
+                            }                            
                         }
                     });
                 }                
@@ -1303,7 +1282,7 @@ $(function () {
                 "Hydro (esri)": hydroLyr,
             };
 
-            var defExt = new L.Control.DefaultExtent({ title: _('Default extent'), position: 'topright'}).addTo(map);
+            L.Control.DefaultExtent({ title: _('Default extent'), position: 'topright'}).addTo(map);
             var zoomControl = new L.Control.Zoom({ position: 'topright' }).addTo(map);
             L.control.layers(baseLayers, overlays, { position: 'topleft' }).addTo(map);
 
@@ -1313,7 +1292,6 @@ $(function () {
                 }
             });
             searchPoints.addTo(map);
-
         } else {
             document.getElementById("nameCity").innerHTML = localStorage.getItem('city')+", "+localStorage.getItem('country');
             var urlDetail = basePathURL + "getIntakeList/?cityId=" + localStorage.getItem('cityId');
@@ -1417,6 +1395,7 @@ $(function () {
         var graphId = $('#mainTree .title-tree')[0].getAttribute('graphId');
         addFunction = true;
         selectedTechnologyId = this.parentElement.id.replace("technology","");
+        selectedSubprocess = this.getAttribute('subprocess');
         showModalCalculator(addFunction, graphId, {'expression': '', 'name':''});
     });
 
@@ -1483,17 +1462,14 @@ $(function () {
             validatePyExpression();
         }else{
             typesetInput("");
-        }
-        
+        }        
         $("#saveAndValideCost").text(flagNewFunction ? addNewCost : editCost);        
     }
 
     function setVarCost(element, graphid) {
-
         $('#CalculatorModalLabel').text(_('Edit cost'));
         $('#VarCostListGroup div').remove();        
-        var costVars = ['Q', 'CSed', 'CN', 'CP', 'WSed', 'WN', 'WP', 'WSedRet', 'WNRet', 'WPRet'];    
-        
+        var costVars = ['Q', 'CSed', 'CN', 'CP', 'WSed', 'WN', 'WP', 'WSedRet', 'WNRet', 'WPRet'];        
         arrayPlant.forEach(function(plantElement, index) {
             if (plantElement.onOff || plantElement.graphId == 1){
                 var costlabel = "";
@@ -1581,7 +1557,6 @@ $(function () {
         let symbols = [40,41,42,43,45,60,61,62,106,107,109,111];
         if (charCode != 46 && charCode > 31 && (charCode < 48 || charCode > 57))
             return (symbols.indexOf(charCode) >= 0);
-
         return true;
     })
 
@@ -1619,7 +1594,7 @@ $(function () {
         }
 
         if (flagNewFunction){            
-            let trNewFunction = addNewFunction(selectedTechnologyId, graphId);
+            let trNewFunction = addNewFunction(selectedTechnologyId, graphId, selectedSubprocess);
             var triggerClick = ($(`#technology${selectedTechnologyId} table tbody`).length == 1);
             $(`#technology${selectedTechnologyId} table tbody`).append (trNewFunction);
             if (triggerClick) {
@@ -1627,7 +1602,6 @@ $(function () {
                 $(`#${a}`).trigger('click');
                 $(`#${a}`).trigger('click');
             }
-
         }else{
             let fnId = selectedFunction4Edit.getAttribute('technology') + HYPHEN + selectedFunction4Edit.getAttribute('namefunction');
             selectedFunction4Edit.setAttribute('namefunction', fnName);
@@ -1648,7 +1622,7 @@ $(function () {
         toggleProcessingModal('hide');
     });
 
-    addNewFunction = function(techId, graphId){
+    addNewFunction = function(techId, graphId, subprocess){
         let fnName = $('#costFunctionName').val();
         let description = $('#costFuntionDescription').val();
         let factor = $('#factorCost').val();
@@ -1701,7 +1675,7 @@ $(function () {
             technology: technology
         }
         let subid = $("#technology" + techId + " table tbody tr").length; //num of rows in table
-        let activateHtml = htmlCheckBox(costFn4Html, graphId, null, subid, true);        
+        let activateHtml = htmlCheckBox(costFn4Html, graphId, null, subid, true, subprocess);        
         let tdRowFn = addFunctionCostRow(activateHtml,costFn4Html,true,graphId,subid);
         return tdRowFn;
     }
@@ -1724,7 +1698,7 @@ $(function () {
         return nf;;
     }
 
-    htmlCheckBox = function(valueCostFunction, graphid, subProcessMaster, subid, checked) {
+    htmlCheckBox = function(valueCostFunction, graphid, subProcessMaster, subid, checked, subprocess) {
         //console.log("htmlCheckBox", subid, checked);
         let attrSubprocessMaster = "";
         if (subProcessMaster !== null) {
@@ -1738,6 +1712,7 @@ $(function () {
                         'function="' + (valueCostFunction.function?valueCostFunction.function:valueCostFunction.functionValue) + '" ' + 
                         'currency="' + valueCostFunction.currency + '" ' + 
                         'factor="' + valueCostFunction.factor + '" ' +
+                        'subprocess="' + subprocess + '" ' +                        
                         'checked=' + checked.toString() + ' ' + (checked ? 'style="border-color: ' + checkHexColor + ' ;" ' : '') +
                         'class="change-state-tree" id="id' + valueCostFunction.idSubprocess + 
                                 (subid != "" ? HYPHEN + subid : "") + '"></div></div>';
@@ -1787,6 +1762,5 @@ $(function () {
 
     _ = function(text) {
         return gettext(text);
-    };
-        
+    };        
 });

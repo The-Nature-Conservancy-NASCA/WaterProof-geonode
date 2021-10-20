@@ -81,7 +81,7 @@ $(document).ready(function () {
   let lyrNameNDRN = `NDR_Nitrogen`;
   let lyrNameNDRP = `NDR_Phosphorus`;
   let lyrNameCarbon = `Carbon_storage_and_sequestration`;
-  let lyrNameAreasRios = 'Areas_Rios';
+  let lyrNameAreasRios = 'NbS_portfolio';
   let lyrNameCatchment = 'Catchment';
   let lyrsModelsResult = [lyrNameAWY, lyrNameSWY, lyrNameSDR, lyrNameNDRN, lyrNameNDRP, lyrNameCarbon];
 
@@ -198,7 +198,8 @@ $(document).ready(function () {
 
   async function rasterStatisticsApi () {
     // TODO - change serverApi URL to use the new API
-    let serverApi = '/proxy/?url=https://dev.skaphe.com/wf-models/';
+    let serverApi =  location.protocol + '//' + location.hostname + '/wf-models/';
+    //let serverApi = '/proxy/?url=https://dev.skaphe.com/wf-models/';
     let amp = "&";
     if (serverApi.indexOf("proxy") >=0){
       amp = "%26";
