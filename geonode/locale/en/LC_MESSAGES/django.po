@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Waterproof VBeta\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-02-11 20:03-0500\n"
-"PO-Revision-Date: 2021-10-15 09:21-0500\n"
+"PO-Revision-Date: 2021-10-20 10:09-0500\n"
 "Last-Translator: Julien Collaer <julien.collaer@opengeode.be>\n"
 "Language-Team: English Skaphe\n"
 "Language: en\n"
@@ -8572,7 +8572,7 @@ msgstr "global biophysical data, land use and climate change scenarios, "
 
 #: geonode/templates/index.html
 msgid "Text 3 - Support data2"
-msgstr "The tool uses global biophysical data, land use and climate change scenarios, which have been organized as inputs in the InVEST and RIOS models."
+msgstr " which have been organized as inputs in the InVEST and RIOS models."
 
 #: geonode/templates/index.html
 msgid "Text 4 - See an example"
