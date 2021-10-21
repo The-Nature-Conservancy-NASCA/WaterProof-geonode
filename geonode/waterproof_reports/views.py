@@ -1567,8 +1567,10 @@ def pdf(request):
     dataListBenefitsIntakeA = [];
     requestJson = requests.get(settings.SITE_HOST_API + 'reports/getWaterproofReportsAnalysisBenefits/?studyCase=' + request.POST['studyCase'],verify=False)
     data = requestJson.json()
+    lastRegister = 0
     for item in data:
         if item['typeId'] == 'PTAP' : 
+            lastRegister = 1
             dataListBenefitsIntakeA.append({
                 'name': item['elementId'],
                 'y': item['vpnMedBenefit']
@@ -1606,6 +1608,13 @@ def pdf(request):
     pdf.ln(40)
 
     pdf.set_font('Arial', '', 9)
+    if lastRegister == 0 : 
+        pdf.ln(6)
+        pdf.ln(6)
+        pdf.ln(6)
+        pdf.ln(6)
+        pdf.ln(6)
+
     for item in dataListBenefitsIntakeA :
         pdf.cell(epw/2, 6, '')
         pdf.cell((epw/6) * 2, 6, item['name'],border=1, align='L', fill=1)
