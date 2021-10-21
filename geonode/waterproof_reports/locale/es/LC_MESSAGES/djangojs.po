@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-07-19 05:53-0500\n"
-"PO-Revision-Date: 2021-10-12 09:40-0500\n"
+"PO-Revision-Date: 2021-10-21 11:25-0500\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -20,3 +20,81 @@ msgstr ""
 
 msgid "Total Benefits"
 msgstr "Beneficio total"
+
+msgid "Return of investment"
+msgstr "Retorno de la inversión"
+
+msgid "Total Cost"
+msgstr "Costo total"
+
+msgid "Total Discounted Benefits"
+msgstr "Beneficios totales descontados"
+
+msgid "Costs per Activity"
+msgstr "Costo por actividad"
+
+msgid "Portfolio Efficiency"
+msgstr "Eficiencia del portafolio"
+
+msgid "Indicator"
+msgstr "Indicador"
+
+msgid "Change in carbon storage (%)"
+msgstr "Cambio en el almacenamiento de carbono (%)"
+
+msgid "Change in phosphorus load (%)"
+msgstr "Cambio en la carga de fósforo (%)"
+
+msgid "Change in nitrogen load (%)"
+msgstr "Cambio en la carga de nitrógeno (%)"
+
+msgid "Change in total sediments (%)"
+msgstr "Cambio en los sedimentos totales (%)"
+
+msgid "Change in base flow (%)"
+msgstr "Cambio en el flujo base (%)"
+
+msgid "Change in volume of water yield (%)"
+msgstr "Cambio en el rendimiento hídrico anual (%)"
+
+msgid "Carbon storage"
+msgstr "Almacenamiento de carbono"
+
+msgid "Phosphorus load"
+msgstr "Carga de fósforo"
+
+msgid "Nitrogen load"
+msgstr "Carga de nitrógeno"
+
+msgid "Total sediments"
+msgstr "Sedimentos totales"
+
+msgid "Base flow"
+msgstr "Flujo base"
+
+msgid "Volumen of water yield"
+msgstr "Rendimiento hídrico anual"
+
+msgid "Cost and benefits"
+msgstr "Costos y beneficios"
+
+msgid "Total benefits"
+msgstr "Beneficios totales"
+
+msgid "Total discounted benefits"
+msgstr "Beneficios totales descontados"
+
+msgid "Cost and Benefits"
+msgstr "Costos y beneficios"
+
+msgid "Total discounted cost"
+msgstr "Costos totales descontados"
+
+msgid "Cost"
+msgstr "Costo"
+
+msgid "Benefits"
+msgstr "Beneficio"
+
+msgid "Net present value summary"
+msgstr "Resumen valor presente neto"
