@@ -411,6 +411,10 @@ def pdf(request):
     pdf.cell(epw/5, 8,"")
     pdf.ln(20)
 
+    pdf.image('imgpdf/28.png', 18, 30, w=12)
+    pdf.image('imgpdf/39.png', 130, 30, w=12)
+    pdf.image('imgpdf/40.png', 72, 83, w=12)
+
     pdf.set_font('Arial', '', 11)
     pdf.set_text_color(100, 100, 100)
     pdf.cell(0, 10, 'Comparative graph of costs and benefits for the analysis period', align='L')
