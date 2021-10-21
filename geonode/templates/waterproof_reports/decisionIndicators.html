@@ -598,7 +598,7 @@ $(function () {
                     type: 'column'
                 },
                 title: {
-                    text: 'Return of investment'
+                    text: gettext('Return of investment')
                 },
                 colors: ['#fe7700', '#ffc400', '#426ac7', '#a5a5a5'],
                 xAxis: {
@@ -608,10 +608,10 @@ $(function () {
                     enabled: false
                 },
                 series: [{
-                    name: 'Total Cost',
+                    name: gettext('Total Cost'),
                     data: [1,2,3]
                 },{
-                    name: 'Total Discounted Benefits',
+                    name: gettext('Total Discounted Benefits'),
                     type: 'spline',
                     dashStyle: 'shortdot',
                     data: [1,2,3]
@@ -909,7 +909,7 @@ $(function () {
                     type: 'pie'
                 },
                 title: {
-                    text: 'Costs per Activity'
+                    text: gettext('Costs per Activity')
                 },
                 colors: ['#008BAB', '#90D3E7', '#004B56', '#61D1C2'],
                 plotOptions: {
@@ -926,7 +926,7 @@ $(function () {
                     enabled: false
                 },
                 series: [{
-                    name: 'Costs per Activity',
+                    name: gettext('Costs per Activity'),
                     colorByPoint: true,
                     data: dataCostActivity
                 }]
@@ -951,7 +951,7 @@ $(function () {
                     type: 'pie'
                 },
                 title: {
-                    text: 'Total Costs'
+                    text: gettext('Total Costs')
                 },
                 colors: ['#008BAB', '#90D3E7', '#004B56', '#61D1C2'],
                 plotOptions: {
@@ -968,7 +968,7 @@ $(function () {
                     enabled: false
                 },
                 series: [{
-                    name: 'Total Costs',
+                    name: gettext('Total Costs'),
                     colorByPoint: true,
                     data: dataTotalCost
                 }]
@@ -1002,10 +1002,10 @@ $(function () {
                 },
                 colors: ['#008BAB'],
                 title: {
-                    text: 'Portfolio Efficiency'
+                    text: gettext('Portfolio Efficiency')
                 },
                 xAxis: {
-                    categories: ['Carbon storage', 'Phosphorus load', 'Nitrogen load', 'Total sediments', 'Base flow', 'Volumen of water yield']
+                    categories: [gettext('Carbon storage'), gettext('Phosphorus load'), gettext('Nitrogen load'), gettext('Total sediments'), gettext('Base flow'), gettext('Volumen of water yield')]
                 },
                 credits: {
                     enabled: false
