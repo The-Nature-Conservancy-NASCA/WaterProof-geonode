@@ -748,6 +748,8 @@ $(function () {
                     var opt = document.createElement('option');
                     opt.appendChild( document.createTextNode(value.typeId) );
                     opt.value = value.typeId; 
+            console.log("name opt"+opt.name);
+
                     sel.appendChild(opt); 
                 }
 
@@ -757,7 +759,6 @@ $(function () {
                     y: value.vpnMedBenefit
                 })
             });
-
             dataTotalBenefitsIntake.forEach((featureIntake) => {
                 if(featureIntake.type ===  dataListBenefitsIntake[0]) {
                     dataTotalBenefitsIntakeOne.push({

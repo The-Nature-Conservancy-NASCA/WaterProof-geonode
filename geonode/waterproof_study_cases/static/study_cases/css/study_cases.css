@@ -203,18 +203,39 @@
 .currency-text {
     font-weight: 800;
 }
+@media (min-width: 360px) {
+    .header-waterproof {
+        padding-left: 6rem;
+        padding-bottom: 1rem;
+        margin-top: auto;
+    }
+    #map {
+        width: 271px !important;
+        border: 2px solid;
+    }
+}
 
 @media (min-width: 768px) {
     .header-waterproof {
-        padding-left: 16rem;
+        padding-left: 6rem;
         padding-bottom: 1rem;
+        margin-top: auto;
+    }
+    #map {
+        width: 680px !important;
+        border: 2px solid;
     }
 }
 
 @media (min-width: 992px) {
     .header-waterproof {
-        padding-left: 24rem;
+        padding-left: 14rem;
         padding-bottom: 1rem;
+        margin-top: -80rem;
+    }
+    #map {
+        width: auto !important;
+        border: 2px solid;
     }
 }
 
@@ -222,6 +243,11 @@
     .header-waterproof {
         padding-left: 28rem;
         padding-bottom: 3rem;
+        margin-top: auto;
+    }
+    #map {
+        width: auto !important;
+        border: 2px solid;
     }
 }
 
@@ -303,10 +329,11 @@
     margin-bottom: 2px;
 }
 
-.header-waterproof {
+/* .header-waterproof {
     padding-left: 28rem;
     padding-bottom: 2px;
-}
+    margin-top: auto;
+} */
 
 .justify-number {
     text-align: right;

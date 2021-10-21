@@ -609,20 +609,33 @@ textarea {
 .swal2-styled.swal2-cancel {
     font-size: 15px !important;
 }
-@media (min-width: 768px) {
+@media (min-width: 360px) {
     .header-waterproof{
-        padding-left: 16rem;
+        padding-left: 6rem;
         padding-bottom: 1rem;
+        margin-top: auto;
     }
     #mapid{
-        width: 580px !important;
+        width: 271px !important;
         border: 2px solid; 
+    }
+}
+@media (min-width: 768px) {
+    .header-waterproof{
+        padding-left: 6rem;
+        padding-bottom: 1rem;
+        margin-top: auto;
+    }
+    #mapid{
+        width: 680px !important;
+        border: 2px solid;
     }
 }
 @media (min-width: 992px) {
     .header-waterproof{
-        padding-left: 24rem;
+        padding-left: 14rem;
         padding-bottom: 1rem;
+        margin-top: -80rem;
     }
     #mapid{
         width: auto !important;
@@ -633,6 +646,7 @@ textarea {
     .header-waterproof{
         padding-left: 28rem;
         padding-bottom: 3rem;
+        margin-top: auto;
     }
     #mapid{
         width: auto !important;

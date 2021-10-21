@@ -226,11 +226,6 @@ textarea {
     margin-bottom: 2px;
 }
 
-.header-waterproof{
-    padding-left: 28rem;
-    padding-bottom: 2px;
-}
-
 .justify-number{
     text-align: right;
 }
@@ -250,4 +245,52 @@ textarea {
     background-color: #d9edf7 !important;
     max-width: 450px !important;
 }
-  
+@media (min-width: 360) {
+    .header-waterproof{
+        padding-left: 6rem;
+        padding-bottom: 1rem;
+        margin-top: auto;
+    }
+    #map {
+        width: 271px !important;
+        border: 2px solid;
+    }
+}
+
+@media (min-width: 768px) {
+    .header-waterproof{
+        padding-left: 6rem;
+        padding-bottom: 1rem;
+        margin-top: auto;
+    }
+    #map {
+        width: 680px !important;
+        border: 2px solid;
+    }
+}
+
+@media (min-width: 992px) {
+    .header-waterproof{
+        padding-left: 15rem;
+        padding-bottom: 1rem;
+        margin-top: -80rem;
+    }
+    #map {
+        width: auto !important;
+        border: 2px solid;
+    }
+    
+}
+
+@media (min-width: 1200px) {
+    .header-waterproof{
+        padding-left: 28rem;
+        padding-bottom: 2px;
+        margin-top: auto;
+    }
+    #map {
+        width: auto !important;
+        border: 2px solid;
+    }
+    
+}
