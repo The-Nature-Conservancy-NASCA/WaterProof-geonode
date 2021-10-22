@@ -135,27 +135,6 @@
     float: right;
 }
 
-.platform-label {
-    padding-left: 50px;
-}
-
-.personnel-label {
-    padding-left: 90px;
-}
-
-.transaction-label {
-    padding-left: 90px;
-}
-
-.discount-label {
-    padding-left: 90px;
-}
-
-.text-number {
-    text-align: right;
-    width: 40% !important;
-}
-
 .text-number-full {
     text-align: right;
 }
@@ -177,12 +156,6 @@
     position: absolute;
     right: 26%;
     top: 8.3%;
-}
-
-.title-city {
-    position: absolute;
-    right: 26%;
-    top: 6.6%;
 }
 
 .biophysical-panel {
@@ -213,6 +186,31 @@
         width: 271px !important;
         border: 2px solid;
     }
+    .title-city {
+        position: relative;
+        right: auto;
+        top: 6.6%;
+    }
+    .custom-control-label {
+        font-weight: 100;
+        width: 100%;
+    }
+    .text-number {
+        text-align: right;
+        width: 100% !important;
+    }
+    .personnel-label {
+        padding-left: 0px;
+    }
+    .platform-label {
+        padding-left: 0px;
+    }
+    .transaction-label {
+        padding-left: 0px;
+    }
+    .discount-label {
+        padding-left: 0px;
+    }
 }
 
 @media (min-width: 768px) {
@@ -224,6 +222,31 @@
     #map {
         width: 680px !important;
         border: 2px solid;
+    }
+    .title-city {
+        position: absolute;
+        right: 26%;
+        top: 6.6%;
+    }
+    .custom-control-label {
+        font-weight: 100;
+        width: auto;
+    }
+    .text-number {
+        text-align: right;
+        width: 40% !important;
+    }
+    .personnel-label {
+        padding-left: 0px;
+    }
+    .platform-label {
+        padding-left: 0px;
+    }
+    .transaction-label {
+        padding-left: 0px;
+    }
+    .discount-label {
+        padding-left: 0px;
     }
 }
 
@@ -237,6 +260,31 @@
         width: auto !important;
         border: 2px solid;
     }
+    .title-city {
+        position: absolute;
+        right: 26%;
+        top: 6.6%;
+    }
+    .custom-control-label {
+        font-weight: 100;
+        width: auto;
+    }
+    .text-number {
+        text-align: right;
+        width: 40% !important;
+    }
+    .personnel-label {
+        padding-left: 90px;
+    }
+    .platform-label {
+        padding-left: 50px;
+    }
+    .transaction-label {
+        padding-left: 90px;
+    }
+    .discount-label {
+        padding-left: 90px;
+    }
 }
 
 @media (min-width: 1200px) {
@@ -248,6 +296,31 @@
     #map {
         width: auto !important;
         border: 2px solid;
+    }
+    .title-city {
+        position: absolute;
+        right: 26%;
+        top: 6.6%;
+    }
+    .custom-control-label {
+        font-weight: 100;
+        width: auto;
+    }
+    .text-number {
+        text-align: right;
+        width: 40% !important;
+    }
+    .personnel-label {
+        padding-left: 90px;
+    }
+    .platform-label {
+        padding-left: 50px;
+    }
+    .transaction-label {
+        padding-left: 90px;
+    }
+    .discount-label {
+        padding-left: 90px;
     }
 }
 
@@ -271,10 +344,6 @@
 
 .margin-bottom-max{
     margin-bottom: 0%;
-}
-
-.custom-control-label {
-    font-weight: 100;
 }
 
 .cm-unit-label {
