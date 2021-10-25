@@ -211,6 +211,12 @@
     .discount-label {
         padding-left: 0px;
     }
+    .width-reponsive{
+        width: auto;
+    }
+    .width-title{
+        width: 100%;
+    }
 }
 
 @media (min-width: 768px) {
@@ -234,7 +240,7 @@
     }
     .text-number {
         text-align: right;
-        width: 40% !important;
+        width: 100% !important;
     }
     .personnel-label {
         padding-left: 0px;
@@ -247,6 +253,12 @@
     }
     .discount-label {
         padding-left: 0px;
+    }
+    .width-reponsive{
+        width: 100%;
+    }
+    .width-title{
+        width: 100%;
     }
 }
 
@@ -285,6 +297,12 @@
     .discount-label {
         padding-left: 90px;
     }
+    .width-reponsive{
+        width: 50%;
+    }
+    .width-title{
+        width: 100%;
+    }
 }
 
 @media (min-width: 1200px) {
@@ -321,6 +339,12 @@
     }
     .discount-label {
         padding-left: 90px;
+    }
+    .width-reponsive{
+        width: 50%;
+    }
+    .width-title{
+        width: 100%;
     }
 }
 

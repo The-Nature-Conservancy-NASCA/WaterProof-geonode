@@ -126,26 +126,28 @@
                                             <button type="button" class="btn btn-primary" id="add_wi">{% trans "Add" %}</button>
                                         </div>
                                     </div>
-                                    <table id="custom_table" class="table table-striped table-bordered table-condensed" style="width:100%">
-                                        <thead>
-                                            <tr class="info">
-                                                <th scope="col" class="small text-center vat">{% trans "Name" %}</th>
-                                                <th scope="col" class="small text-center vat">{% trans "Description" %}</th>
-                                                <th scope="col" class="small text-center vat">{% trans "water_source" %}</th>
-                                                <th scope="col" class="small text-center vat">{% trans "Options" %}</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {% for intake in study_case.intakes.all %}
-                                            <tr id='custom-{{intake.id}}'>
-                                                <td>{{intake.name}}</td>
-                                                <td>{{intake.description}}</td>
-                                                <td>{{intake.water_source_name}}</td>
-                                                <td><a class='btn btn-danger'><span class='glyphicon glyphicon-trash' aria-hidden='true'></span></a></td>
-                                            </tr>
-                                            {% endfor %}
-                                        </tbody>
-                                    </table>
+                                    <div class="table-responsive">
+                                        <table id="custom_table" class="table table-striped table-bordered table-condensed" style="width:100%">
+                                            <thead>
+                                                <tr class="info">
+                                                    <th scope="col" class="small text-center vat">{% trans "Name" %}</th>
+                                                    <th scope="col" class="small text-center vat">{% trans "Description" %}</th>
+                                                    <th scope="col" class="small text-center vat">{% trans "water_source" %}</th>
+                                                    <th scope="col" class="small text-center vat">{% trans "Options" %}</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for intake in study_case.intakes.all %}
+                                                <tr id='custom-{{intake.id}}'>
+                                                    <td>{{intake.name}}</td>
+                                                    <td>{{intake.description}}</td>
+                                                    <td>{{intake.water_source_name}}</td>
+                                                    <td><a class='btn btn-danger'><span class='glyphicon glyphicon-trash' aria-hidden='true'></span></a></td>
+                                                </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                             {% if study_case.studycase_type == 'PTAP' %}
@@ -169,24 +171,26 @@
                                                 <button type="button" class="btn btn-primary" id="add_ptap">{% trans "Add" %}</button>
                                             </div>
                                         </div>
-                                        <table id="ptap_table" class="table table-striped table-bordered table-condensed" style="width:100%">
-                                            <thead>
-                                                <tr class="info">
-                                                    <th scope="col" class="small text-center vat">{% trans "Name" %}</th>
-                                                    <th scope="col" class="small text-center vat">{% trans "Description" %}</th>
-                                                    <th scope="col" class="small text-center vat">{% trans "Options" %}</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                {% for ptap in study_case.ptaps.all %}
-                                                <tr id='ptap-{{ptap.id}}'>
-                                                    <td>{{ptap.plant_name}}</td>
-                                                    <td>{{ptap.plant_description}}</td>
-                                                    <td><a class='btn btn-danger'><span class='glyphicon glyphicon-trash' aria-hidden='true'></span></a></td>
-                                                </tr>
-                                                {% endfor %}
-                                            </tbody>
-                                        </table>
+                                        <div class="table-responsive">
+                                            <table id="ptap_table" class="table table-striped table-bordered table-condensed" style="width:100%">
+                                                <thead>
+                                                    <tr class="info">
+                                                        <th scope="col" class="small text-center vat">{% trans "Name" %}</th>
+                                                        <th scope="col" class="small text-center vat">{% trans "Description" %}</th>
+                                                        <th scope="col" class="small text-center vat">{% trans "Options" %}</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {% for ptap in study_case.ptaps.all %}
+                                                    <tr id='ptap-{{ptap.id}}'>
+                                                        <td>{{ptap.plant_name}}</td>
+                                                        <td>{{ptap.plant_description}}</td>
+                                                        <td><a class='btn btn-danger'><span class='glyphicon glyphicon-trash' aria-hidden='true'></span></a></td>
+                                                    </tr>
+                                                    {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
                                 {% if study_case.studycase_type == 'PTAP' %}
@@ -200,18 +204,20 @@
                                                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#CalculatorModal" id="ModalAddCostBtn">{% trans "add_cost_function" %}</button>
                                                 </div>
                                             </div>
-                                            <table id="cost_table" class="table table-striped table-bordered table-condensed panel-hide" style="width:100%">
-                                                <thead>
-                                                    <tr class="info">
-                                                        <th scope="col" class="small text-center vat">{% trans "Function name" %}</th>
-                                                        <th scope="col" class="small text-center vat">{% trans "Function" %}</th>
-                                                        <th scope="col" class="small text-center vat">{% trans "Currency" %}</th>
-                                                        <th scope="col" class="small text-center vat">{% trans "Factor" %}</th>
-                                                        <th scope="col" class="small text-center vat">{% trans "Options" %}</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody id="funcostgenerate"></tbody>
-                                            </table>
+                                            <div class="table-responsive">
+                                                <table id="cost_table" class="table table-striped table-bordered table-condensed panel-hide" style="width:100%">
+                                                    <thead>
+                                                        <tr class="info">
+                                                            <th scope="col" class="small text-center vat">{% trans "Function name" %}</th>
+                                                            <th scope="col" class="small text-center vat">{% trans "Function" %}</th>
+                                                            <th scope="col" class="small text-center vat">{% trans "Currency" %}</th>
+                                                            <th scope="col" class="small text-center vat">{% trans "Factor" %}</th>
+                                                            <th scope="col" class="small text-center vat">{% trans "Options" %}</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody id="funcostgenerate"></tbody>
+                                                </table>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -365,104 +371,104 @@
                                         <div class="col-md-6">
                                             <label class="custom-control-label" for="total_platform"><strong>{% trans "platform_cost" %}</strong></label>
                                         </div>
-                                        <div class="custom-control custom-checkbox col-md-4">
+                                        <div class="custom-control custom-checkbox col-md-4 width-reponsive">
                                             <input class="text-number" id="total_platform" type="number" class="custom-control-input" disabled>
                                         </div>
 
                                         <div class="col-md-6">
                                             <label class="custom-control-label platform-label" for="total_personnel">{% trans "personnel_salary_benefits" %}</label>
                                         </div>
-                                        <div class="custom-control custom-checkbox col-md-4">
+                                        <div class="custom-control custom-checkbox col-md-4 width-reponsive">
                                             <input class="text-number" id="total_personnel" type="number" class="custom-control-input" disabled>
                                         </div>
                                         <div class="col-md-6">
                                             <label class="custom-control-label personnel-label" for="director">{% trans "program_director" %}</label>
                                         </div>
-                                        <div class="custom-control custom-checkbox col-md-4">
+                                        <div class="custom-control custom-checkbox col-md-4 width-reponsive">
                                             <input class="text-number" id="director" type="number" max="9999999999999999" class="custom-control-input" value="{{study_case.program_Director|stringformat:'1.2f'}}">
                                         </div>
                                         <div class="col-md-6">
                                             <label class="custom-control-label personnel-label" for="evaluation"> {%trans "monitoring_manager" %}</label>
                                         </div>
-                                        <div class="custom-control custom-checkbox col-md-4">
+                                        <div class="custom-control custom-checkbox col-md-4 width-reponsive">
                                             <input class="text-number" id="evaluation" type="number" class="custom-control-input" value="{{study_case.monitoring_Manager|stringformat:'1.2f'}}">
                                         </div>
                                         <div class="col-md-6">
                                             <label class="custom-control-label personnel-label" for="finance">{% trans "finance_administrator" %}</label>
                                         </div>
-                                        <div class="custom-control custom-checkbox col-md-4">
+                                        <div class="custom-control custom-checkbox col-md-4 width-reponsive">
                                             <input class="text-number" id="finance" type="number" class="custom-control-input" value="{{study_case.finance_Manager|stringformat:'1.2f'}}">
                                         </div>
                                         <div class="col-md-6">
                                             <label class="custom-control-label personnel-label" for="implementation">{% trans "implementation_manager" %}</label>
                                         </div>
-                                        <div class="custom-control custom-checkbox col-md-4">
+                                        <div class="custom-control custom-checkbox col-md-4 width-reponsive">
                                             <input class="text-number" id="implementation" type="number" class="custom-control-input" value="{{study_case.implementation_Manager|stringformat:'1.2f'}}">
                                         </div>
                                         <div class="col-md-6">
                                             <label class="custom-control-label platform-label" for="office">{% trans "office_costs" %}</label>
                                         </div>
-                                        <div class="custom-control custom-checkbox col-md-4">
+                                        <div class="custom-control custom-checkbox col-md-4 width-reponsive">
                                             <input class="text-number" id="office" type="number" class="custom-control-input" value="{{study_case.office_Costs|stringformat:'1.2f'}}">
                                         </div>
                                         <div class="col-md-6">
                                             <label class="custom-control-label platform-label" for="travel">{% trans "Travel" %}</label>
                                         </div>
-                                        <div class="custom-control custom-checkbox col-md-4">
+                                        <div class="custom-control custom-checkbox col-md-4 width-reponsive">
                                             <input class="text-number" id="travel" type="number" class="custom-control-input" value="{{study_case.travel|stringformat:'1.2f'}}">
                                         </div>
                                         <div class="col-md-6">
                                             <label class="custom-control-label platform-label" for="equipment">{% trans "Equipment" %}</label>
                                         </div>
-                                        <div class="custom-control custom-checkbox col-md-4">
+                                        <div class="custom-control custom-checkbox col-md-4 width-reponsive">
                                             <input class="text-number" id="equipment" type="number" class="custom-control-input" value="{{study_case.equipment_Purchased|stringformat:'1.2f'}}">
                                         </div>
                                         <div class="col-md-6">
                                             <label class="custom-control-label platform-label" for="contracts">{% trans "Contracts" %}</label>
                                         </div>
-                                        <div class="custom-control custom-checkbox col-md-4">
+                                        <div class="custom-control custom-checkbox col-md-4 width-reponsive">
                                             <input class="text-number" id="contracts" type="number" class="custom-control-input" value="{{study_case.contracts|stringformat:'1.2f'}}">
                                         </div>
                                         <div class="col-md-6">
                                             <label class="custom-control-label platform-label" for="overhead">{% trans "Overhead" %}</label>
                                         </div>
-                                        <div class="custom-control custom-checkbox col-md-4">
+                                        <div class="custom-control custom-checkbox col-md-4 width-reponsive">
                                             <input class="text-number" id="overhead" type="number" class="custom-control-input" value="{{study_case.overhead|stringformat:'1.2f'}}">
                                         </div>
                                         <div class="col-md-6">
                                             <label class="custom-control-label platform-label" for="others">{% trans "Others" %}</label>
                                         </div>
-                                        <div class="custom-control custom-checkbox col-md-4">
+                                        <div class="custom-control custom-checkbox col-md-4 width-reponsive">
                                             <input class="text-number" id="others" type="number" class="custom-control-input" value="{{study_case.others|stringformat:'1.2f'}}">
                                         </div>
-                                        <div class="col-md-12">
+                                        <div class="col-md-12 width-title">
                                             <p><strong>{% trans "financial_transaction_cost" %}</strong></p>
                                         </div>
                                         <div class="col-md-6">
                                             <label class="custom-control-label transaction-label" for="transaction">{% trans "transaction_cost" %}</label>
                                         </div>
-                                        <div class="custom-control custom-checkbox col-md-4">
+                                        <div class="custom-control custom-checkbox col-md-4 width-reponsive">
                                             <input class="text-number" id="transaction" type="number" class="custom-control-input" value="{{study_case.transaction_cost|stringformat:'1.2f'}}">
                                         </div>
-                                        <div class="col-md-12">
+                                        <div class="col-md-12 width-title">
                                             <p><strong>{% trans "financial_discount_rates" %}</strong></p>
                                         </div>
                                         <div class="col-md-6">
                                             <label class="custom-control-label discount-label" for="discount">{% trans "discount_rate" %}</label>
                                         </div>
-                                        <div class="custom-control custom-checkbox col-md-4">
+                                        <div class="custom-control custom-checkbox col-md-4 width-reponsive">
                                             <input class="text-number" id="discount" type="number" class="custom-control-input" value="{{study_case.discount_rate|stringformat:'1.2f'}}">
                                         </div>
                                         <div class="col-md-6">
                                             <label class="custom-control-label discount-label" for="minimum">{% trans "sensitivity_minimun_discount" %}</label>
                                         </div>
-                                        <div class="custom-control custom-checkbox col-md-4">
+                                        <div class="custom-control custom-checkbox col-md-4 width-reponsive">
                                             <input class="text-number" id="minimum" type="number" class="custom-control-input" value="{{study_case.discount_rate_minimunm|stringformat:'1.2f'}}">
                                         </div>
                                         <div class="col-md-6">
                                             <label class="custom-control-label discount-label" for="maximum">{% trans "sensitivity_maximun_discount" %}</label>
                                         </div>
-                                        <div class="custom-control custom-checkbox col-md-4">
+                                        <div class="custom-control custom-checkbox col-md-4 width-reponsive">
                                             <input class="text-number" id="maximum" type="number" class="custom-control-input" value="{{study_case.discount_rate_maximum|stringformat:'1.2f'}}">
                                         </div>
                                     </div>
@@ -556,22 +562,26 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-md-12">
+                                    <div class="col-md-12 width-title">
                                         <label class="control-label required-field ">
                                             {% trans "investment_scenario" %}
                                         </label>
                                         <p>{% trans "investment_tip" %}</p>
                                     </div>
+                                    <div class="col-md-12 width-title">
                                         <div class="col-md-6">
+                                            <div id="div_annual_investment" class="form-group">
                                                 <label class="control-label required-field" for="annual_investment">{% trans "annual_investment" %}</label>
                                                 <input id="annual_investment" type="number" class="text-number-full form-control" value="{{study_case.annual_investment|stringformat:'1.2f'}}">
+                                            </div>
                                         </div>
-                                    <div class="col-md-12">
+                                    </div>   
+                                    <div class="col-md-12 width-title">
                                         <label class="control-label required-field ">
                                             {% trans "investment_table" %}
                                         </label>
                                     </div>
-                                    <div class="col-md-12">
+                                    <div class="col-md-12 width-title table-responsive">
                                         <table id="full-table" class="table table-striped table-bordered table-condensed">
                                             <thead>
                                                 <tr class="info">
