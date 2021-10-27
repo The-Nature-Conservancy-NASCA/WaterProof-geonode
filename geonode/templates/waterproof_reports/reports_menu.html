@@ -246,6 +246,7 @@
         <input type="hidden" name="studyCity" id="studyCity"/>
         <input type="hidden" name="studyCountry" id="studyCountry"/>
         <input type="hidden" name="studyRegion" id="studyRegion"/>
+        <input type="hidden" name="discountRateData" id="discountRateData"/>
         <input type="hidden" name="mapSendImage" id="mapSendImage"/>
     </form>
 </body>
@@ -339,6 +340,7 @@
                 document.getElementById('studyCity').value = localStorage.getItem('city');
                 document.getElementById('studyCountry').value = localStorage.getItem('country');
                 document.getElementById('studyRegion').value = localStorage.getItem('region');
+                document.getElementById('discountRateData').value = document.getElementById("discountRate").innerHTML;
                 window.open('', 'TheWindow');
                 document.getElementById('TheForm').submit();
             }, 4000);
