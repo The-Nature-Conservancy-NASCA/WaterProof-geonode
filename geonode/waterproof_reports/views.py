@@ -262,7 +262,7 @@ def pdf(request):
     pdf.cell(epw/4, 10,"Name", border=1, align='C', fill=1)
     pdf.cell(epw/4, 5,"Percentage of benefit associated", border=1, align='C', fill=1)
     pdf.cell(epw/10, 10,"Benefit", border=1, align='C', fill=1)
-    pdf.cell(epw/10, 5,"Implementation", border=1, align='C', fill=1)
+    pdf.cell(epw/10, 5,"Implementa-", border=1, align='C', fill=1)
     pdf.cell(epw/10, 5,"Matenance", border=1, align='C', fill=1)
     pdf.cell(epw/10, 5,"Periodicity", border=1, align='C', fill=1)
     pdf.cell(epw/10, 5,"Opportunity", border=1, align='C', fill=1)
@@ -282,30 +282,30 @@ def pdf(request):
 
     data = requestJson.json()
     for item in data:
-        pdf.cell(epw/4, 20,"", border=1, fill=1)
-        pdf.cell(epw/4, 20,"", border=1, fill=1)
+        pdf.cell(epw/3, 20,"", border=1, fill=1)
+        pdf.cell(epw/5, 20,"", border=1, fill=1)
         pdf.cell(epw/10, 20,"", border=1, fill=1)
         pdf.cell(epw/10, 20,"", border=1, fill=1)
         pdf.cell(epw/10, 20,"", border=1, fill=1)
         pdf.cell(epw/10, 20,"", border=1, fill=1)
         pdf.cell(epw/10, 20,"", border=1, fill=1)
         pdf.ln(0)
-        pdf.cell(epw/4, 5,str(item['name'])[0:30], align='L')
-        pdf.cell(epw/4, 5,str(item['description'])[0:30], align='L')
-        pdf.cell(epw/10, 20,str(item['benefit']), align='R')
+        pdf.cell(epw/3, 5,str(item['name'])[0:30], align='L')
+        pdf.cell(epw/5, 5,str(item['description'])[0:30], align='L')
+        pdf.cell(epw/10, 20,str(int(item['benefit'])), align='R')
         pdf.cell(epw/10, 20,format(float(item['implementation']),'0,.2f'), align='R')
         pdf.cell(epw/10, 20,format(float(item['maintenance']),'0,.2f'), align='R')
         pdf.cell(epw/10, 20,format(float(item['periodicity']),'0,.2f'), align='R')
         pdf.cell(epw/10, 20,format(float(item['oportunity']),'0,.2f'), align='R')
         pdf.ln(5)
-        pdf.cell(epw/4, 5,str(item['name'])[30:60], align='L')
-        pdf.cell(epw/4, 5,str(item['description'])[30:60], align='L')
+        pdf.cell(epw/3, 5,str(item['name'])[30:60], align='L')
+        pdf.cell(epw/5, 5,str(item['description'])[30:60], align='L')
         pdf.ln(5)
-        pdf.cell(epw/4, 5,str(item['name'])[60:90], align='L')
-        pdf.cell(epw/4, 5,str(item['description'])[60:90], align='L')
+        pdf.cell(epw/3, 5,str(item['name'])[60:90], align='L')
+        pdf.cell(epw/5, 5,str(item['description'])[60:90], align='L')
         pdf.ln(5)
-        pdf.cell(epw/4, 5,str(item['name'])[90:120], align='L')
-        pdf.cell(epw/4, 5,str(item['description'])[90:120], align='L')
+        pdf.cell(epw/3, 5,str(item['name'])[90:120], align='L')
+        pdf.cell(epw/5, 5,str(item['description'])[90:120], align='L')
         pdf.ln(5)
 
     requestJson = requests.get(settings.SITE_HOST_API + 'reports/getFinancialAnalysisPdfRunAnalisisPdf/?studyCase=' + request.POST['studyCase'],verify=False)
@@ -477,9 +477,6 @@ def pdf(request):
 
 
     pdf.image('imgpdf/igocab.png', 20, 140, w=160,h=90,type='png')
-
-#    pdf.ln(120)
-#    pdf.add_page()
     pdf.ln(120)
  
     pdf.set_font('Arial', '', 10)
@@ -523,14 +520,12 @@ def pdf(request):
     pdf.ln(6)
     pdf.cell(0, 6, 'study infrastructure', align='L')
     pdf.ln(80)
-#    pdf.add_page()
 
     requestJson = requests.get(settings.SITE_HOST_API + 'reports/getCostAndBenefit/?studyCase=' + request.POST['studyCase'],verify=False)
     data = requestJson.json()
 
     dataCost = []
     dataBenefit = []
-
     itemCostr = 0
     itemBenefift = 0
 
@@ -581,7 +576,6 @@ def pdf(request):
     pdf.cell(epw/4, 8, 'Benefits', border=1, align='L', fill=1)
     pdf.cell(epw/4, 8, format(float(itemBenefift),'0,.2f'), border=1, align='R', fill=1)
     pdf.cell(epw/4, 8, '', border=0, align='C', fill=0)
-
 
     requestJson = requests.get(settings.SITE_HOST_API + 'reports/getNetPresentValueSummary/?studyCase=' + request.POST['studyCase'],verify=False)
     data = requestJson.json()
@@ -1344,8 +1338,6 @@ def pdf(request):
     pdf.cell(1, 6, '')
     pdf.cell(30, 6, changeInCarbonStorage, align='C')
 
-
-
     requestJson = requests.get(settings.SITE_HOST_API + 'reports/getReportAnalisysBeneficsC/?studyCase=' + request.POST['studyCase'],verify=False)
     data = requestJson.json()
 
@@ -1400,7 +1392,6 @@ def pdf(request):
 
     requestJson = requests.get(settings.SITE_HOST_API + 'reports/getWpAqueductIndicatorGraph/?studyCase=' + request.POST['studyCase'],verify=False)
     data = requestJson.json()
-
     arrayTitle = []
     lastTitle = ""
     lastIntake = ""
@@ -1489,7 +1480,6 @@ def pdf(request):
             pdf.set_fill_color(0, 138, 173)
             pdf.set_draw_color(0, 138, 173)
             pdf.cell((epw/10) * 4, 6, 'Indicator', border=1, align='C', fill=1)
-#            pdf.cell(epw/10, 6, 'Sigla', border=1, align='C', fill=1)
             pdf.cell((epw/10) * 4, 6, 'Description', border=1, align='C', fill=1)
             pdf.cell(epw/10 * 2, 6, 'Value', border=1, align='C', fill=1)
             pdf.set_font('Arial', '', 9)
@@ -1503,8 +1493,7 @@ def pdf(request):
             contLine = contLine + 1
         else :
             pdf.cell((epw/10) * 4, 6 ,"", border=0, align='L', fill=0)
-        
-#        pdf.cell(epw/10, 6, str(item['sigla']), border=1, align='L', fill=1)
+
         pdf.cell((epw/10) * 4, 6, str(item['description']), border=1, align='L', fill=1)
         pdf.cell(epw/10 * 2, 6, str(item['valueGraT']), border=1, align='R', fill=1)
         pdf.ln(6)
