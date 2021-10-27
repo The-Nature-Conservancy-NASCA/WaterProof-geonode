@@ -48,17 +48,19 @@
                     <option value="">{% trans "Select an option" %}</option>
                 </select>
                 <div class="help-block with-errors"></div>
-                <table class="table table-striped table-bordered table-condensed" style="width:100%">
-                    <thead>
-                        <tr class="info">
-                            <th scope="col" class="small text-center vat">{% trans "Name" %}</th>
-                            <th scope="col" class="small text-center vat">{% trans "Water intake sources" %}</th>
-                            <th scope="col" class="small text-center vat">{% trans "Infraestructure associated with the DWTP" %}</th>
-                            <th scope="col" class="small text-center vat">{% trans "Options" %}</th>
-                        </tr>
-                    </thead>
-                    <tbody id="idTbodyIntake"></tbody>
-                </table>
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered table-condensed" style="width:100%">
+                        <thead>
+                            <tr class="info">
+                                <th scope="col" class="small text-center vat">{% trans "Name" %}</th>
+                                <th scope="col" class="small text-center vat">{% trans "Water intake sources" %}</th>
+                                <th scope="col" class="small text-center vat">{% trans "Infraestructure associated with the DWTP" %}</th>
+                                <th scope="col" class="small text-center vat">{% trans "Options" %}</th>
+                            </tr>
+                        </thead>
+                        <tbody id="idTbodyIntake"></tbody>
+                    </table>
+                </div>
                 {% if mode != 'view' %}
                 <div class="row row-no-gutters">
                     <div class="col-sm-3">
@@ -236,12 +238,12 @@
             <p>{% trans "Define the processes that are part of your treatment plant and use the checkbox to enable or disable cost functions. You can also edit, delete or add cost functions." %}.</p>
             {% endif %}
         </div>
-        <div class="main-tree-content">
+        <div class="main-tree-content col-md-12">
             <div>
                 <div class="main-point" onclick="viewBranch('mainTree', this)">-</div>
                 <div class="text-point-main" id="branch1">{% trans "Treatment Plant" %}</div>
             </div>
-            <div class="margin-main" id="mainTree" style="display: none;"></div>
+            <div class="margin-main col-md-12" id="mainTree" style="display: none;"></div>
         </div>
         <div class="row text-center">
             <div class="col-md-12">

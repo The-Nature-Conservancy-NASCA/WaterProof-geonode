@@ -42,7 +42,7 @@ msgstr ""
 "Project-Id-Version: GeoNode\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-02-19 11:28-0500\n"
-"PO-Revision-Date: 2021-10-12 09:40-0500\n"
+"PO-Revision-Date: 2021-10-21 11:23-0500\n"
 "Last-Translator: \n"
 "Language-Team: Spanish (http://www.transifex.com/geonode/geonode/language/es/)\n"
 "Language: es_419\n"
@@ -280,7 +280,7 @@ msgid "Benefits and cost ind text 5"
 msgstr "Esta es una vista desagregada de los beneficios por elementos"
 
 msgid "Portfolio efficiency ind text 1"
-msgstr "En esta sección podrá observar la eficiencia del portafolio,expresadacomo variación física de los parámetros (en porcentaje) con relación al monto de la inversión."
+msgstr "En esta sección podrá observar la eficiencia del portafolio, expresada como variación física de los parámetros (en porcentaje) con relación al monto de la inversión."
 
 msgid "Oportunity results ind text 1"
 msgstr "Aquí encuentra los valores globales de inversión y de ahorros que se darán por la implementación de las SbN seleccionadas en su caso de estudio:"
@@ -360,7 +360,7 @@ msgstr "Cambio en los sedimentos totales (%)"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/decisionIndicators.html:142
 msgid "Change in nitrogen load"
-msgstr "Cambio en la carga de sedimentos (%)"
+msgstr "Cambio en la carga de nitrógeno (%)"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/decisionIndicators.html:142
 msgid "Change in phosphorus load"
@@ -656,7 +656,7 @@ msgstr "In this section you can..."
 
 #: geonode/waterproof_reports/templates/waterproof_reports/compare_maps
 msgid "This report summarizes the Maps Reports... Lorep Ipsum ..."
-msgstr "This report allow you to observe the results of the analysis specialized in a map"
+msgstr "Este informe permite observar los resultados del análisis especializado en un mapa"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/compare_maps
 msgid "Map Reports"
@@ -719,3 +719,12 @@ msgstr "Beneficio total"
 
 msgid "Aqueduct indicator"
 msgstr "Indicadores Aqueduct"
+
+msgid "Physical risk quantity"
+msgstr "Riesgo físico de cantidad"
+
+msgid "Regulatory and reputational"
+msgstr "Regulatorio y reputacional"
+
+msgid "Physical risk quality"
+msgstr "Riesgo físico de calidad"

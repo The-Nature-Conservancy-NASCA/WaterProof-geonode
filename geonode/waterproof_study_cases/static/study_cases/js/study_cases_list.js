@@ -80,8 +80,9 @@ $(function() {
         };
 
         $('#tbl-studycases tbody').on('click', '.btn-danger', function (evt) {
-            var userId = "{{casesList}}"
-            console.log(evt.currentTarget.getAttribute('data-id')+"este es el console de borrar"+userId+"<==")
+            let dataId = evt.currentTarget.getAttribute('data-id');
+            let dateCreate = evt.currentTarget.getAttribute('date-create');
+            let userId = evt.currentTarget.getAttribute('user-id');
             Swal.fire({
                 title: gettext('Delete study case'),
                 text: gettext("Are you sure?") + gettext("You won't be able to revert this!"),
