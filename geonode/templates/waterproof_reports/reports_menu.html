@@ -425,6 +425,9 @@
             });
             if (bounds != undefined) {
                 map.fitBounds(bounds);
+                return true;                
+            }else{
+                return false;
             }
         };
 
@@ -442,61 +445,63 @@
         };
 
         initMapDecision = function () {
-                map = L.map('mapidcuenca', {
-                    scrollWheelZoom: false,
-                    zoomControl: false,
-                    photonControl: true,
-                    photonControlOptions: {
-                        resultsHandler: showSearchPoints,
-                        selectedResultHandler: selectedResultHandler,
-                        placeholder: gettext('Search City') + '...',
-                        position: 'topleft',
-                        url: SEARCH_CITY_API_URL
-                    }
-                });
+            map = L.map('mapidcuenca', {
+                scrollWheelZoom: false,
+                zoomControl: false,
+                photonControl: true,
+                photonControlOptions: {
+                    resultsHandler: showSearchPoints,
+                    selectedResultHandler: selectedResultHandler,
+                    placeholder: gettext('Search City') + '...',
+                    position: 'topleft',
+                    url: SEARCH_CITY_API_URL
+                }
+            });
 
-                let initialCoords = CENTER;
-                var cityCoords = localStorage.getItem('cityCoords');
-                var city = localStorage.getItem('city');
-                var initialZoom = 5;
-                var cityNameMap = localStorage.getItem('city').substr(0, 5);
+            let initialCoords = CENTER;
+            var cityCoords = localStorage.getItem('cityCoords');
+            var city = localStorage.getItem('city');
+            var initialZoom = 5;
+            var cityNameMap = localStorage.getItem('city').substr(0, 5);
 
-                if (cityCoords == undefined) {
-                    cityCoords = initialCoords;
-                } else {
-                    initialCoords = JSON.parse(cityCoords);
-                    drawPolygons(city);
+            if (cityCoords == undefined) {
+                cityCoords = initialCoords;
+            } else {
+                initialCoords = JSON.parse(cityCoords);
+                if (!drawPolygons(city)){
                     initialZoom = 9;
-                    try {
-                        $("#countryLabel").html(localStorage.getItem('country'));
-                        $("#cityLabel").html(localStorage.getItem('city'));
-                        $("#regionLabel").html(localStorage.getItem('region'));
-                        $("#currencyLabel").html(localStorage.getItem('currency'));
-                        $("#listIntakes").show();
-                    } catch (e) {
-
-                    }
+                    map.setView(initialCoords, initialZoom);            
                 }
                 
-                map.setView(initialCoords, initialZoom);            
-                searchPoints.addTo(map);
-                let attrib = 'Data \u00a9 <a href="http://www.openstreetmap.org/copyright"> OpenStreetMap Contributors </a> Tiles \u00a9 Komoot';
-                var tilelayer = L.tileLayer(OSM_BASEMAP_URL, { maxZoom: MAXZOOM, attribution: attrib }).addTo(map);
-                var images = L.tileLayer(IMAGE_LYR_URL);
-                var hydroLyr = L.tileLayer(HYDRO_LYR_URL);
+                try {
+                    $("#countryLabel").html(localStorage.getItem('country'));
+                    $("#cityLabel").html(localStorage.getItem('city'));
+                    $("#regionLabel").html(localStorage.getItem('region'));
+                    $("#currencyLabel").html(localStorage.getItem('currency'));
+                    $("#listIntakes").show();
+                } catch (e) {
+                    console.log(e);
+                }
+            }
+                            
+            searchPoints.addTo(map);
+            let attrib = 'Data \u00a9 <a href="http://www.openstreetmap.org/copyright"> OpenStreetMap Contributors </a> Tiles \u00a9 Komoot';
+            var tilelayer = L.tileLayer(OSM_BASEMAP_URL, { maxZoom: MAXZOOM, attribution: attrib }).addTo(map);
+            var images = L.tileLayer(IMAGE_LYR_URL);
+            var hydroLyr = L.tileLayer(HYDRO_LYR_URL);
 
-                var baseLayers = {
-                    OpenStreetMap: tilelayer,
-                    Images: images,
-                };
+            var baseLayers = {
+                OpenStreetMap: tilelayer,
+                Images: images,
+            };
 
-                var overlays = {
-                    "Hydro (esri)": hydroLyr,
-                };
+            var overlays = {
+                "Hydro (esri)": hydroLyr,
+            };
 
-                var defExt = new L.Control.DefaultExtent({ title: gettext('Default extent'), position: 'topright'}).addTo(map);
-                var zoomControl = new L.Control.Zoom({ position: 'topright' }).addTo(map);
-                L.control.layers(baseLayers, overlays, { position: 'topleft' }).addTo(map);
+            var defExt = new L.Control.DefaultExtent({ title: gettext('Default extent'), position: 'topright'}).addTo(map);
+            var zoomControl = new L.Control.Zoom({ position: 'topright' }).addTo(map);
+            L.control.layers(baseLayers, overlays, { position: 'topleft' }).addTo(map);
         }
 
         changeGraphRoiCost = function() {
