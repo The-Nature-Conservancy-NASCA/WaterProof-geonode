@@ -6,7 +6,7 @@ import requests
 import array
 import codecs
 import re, time, base64
-
+import math
 from django.conf import settings
 from django.http import JsonResponse
 from django.shortcuts import render
@@ -39,6 +39,8 @@ def pdf(request):
         img.save('imgpdf/map-send-image.png', "PNG")
 
     pdf = PDF()
+
+    # PAGE 1 -- INTRO
     pdf.add_page()
     pdf.alias_nb_pages()
     pdf.image('imgpdf/header-logo.png', 10, 5, w=35)
@@ -248,10 +250,12 @@ def pdf(request):
         pdf.cell(epw/2, 6,item['description'], border=1, align='L', fill=1)
 
 #    pdf.add_page()
+
+    # Nature based Solutions Conservation activities
     pdf.ln(10)
     pdf.set_font('Arial', '', 11)
     pdf.set_text_color(100, 100, 100)
-    pdf.cell(0, 10, 'Nature Based Solutions Conservation Activities', align='L')
+    pdf.cell(0, 10, 'Nature based Solutions Conservation activities', align='L')
     pdf.ln(10)
 
     pdf.set_font('Arial', '', 9)
@@ -259,16 +263,16 @@ def pdf(request):
     pdf.set_fill_color(0, 138, 173)
     pdf.set_draw_color(0, 138, 173)
 
-    pdf.cell(epw/4, 10,"Name", border=1, align='C', fill=1)
-    pdf.cell(epw/4, 5,"Percentage of benefit associated", border=1, align='C', fill=1)
+    pdf.cell(epw/3, 10,"Name", border=1, align='C', fill=1)
+    pdf.cell(epw/9, 5,"Benefit %", border=1, align='C', fill=1)
     pdf.cell(epw/10, 10,"Benefit", border=1, align='C', fill=1)
     pdf.cell(epw/10, 5,"Implementa-", border=1, align='C', fill=1)
     pdf.cell(epw/10, 5,"Matenance", border=1, align='C', fill=1)
     pdf.cell(epw/10, 5,"Periodicity", border=1, align='C', fill=1)
     pdf.cell(epw/10, 5,"Opportunity", border=1, align='C', fill=1)
     pdf.ln(4)
-    pdf.cell(epw/4, 5,"")
-    pdf.cell(epw/4, 5,"with interventions at time t=0", border=1, align='C', fill=1)
+    pdf.cell(epw/3, 5,"")
+    pdf.cell(epw/9, 5,"at time t=0", border=1, align='C', fill=1)
     pdf.cell(epw/10, 5,"")
     pdf.cell(epw/10, 5,"tion cost", border=1, align='C', fill=1)
     pdf.cell(epw/10, 5,"cost", border=1, align='C', fill=1)
@@ -282,32 +286,38 @@ def pdf(request):
 
     data = requestJson.json()
     for item in data:
-        pdf.cell(epw/3, 20,"", border=1, fill=1)
-        pdf.cell(epw/5, 20,"", border=1, fill=1)
-        pdf.cell(epw/10, 20,"", border=1, fill=1)
-        pdf.cell(epw/10, 20,"", border=1, fill=1)
-        pdf.cell(epw/10, 20,"", border=1, fill=1)
-        pdf.cell(epw/10, 20,"", border=1, fill=1)
-        pdf.cell(epw/10, 20,"", border=1, fill=1)
+        length_line = 45
+        description = item['description'].split(".")[0] + "."
+        lines_description = math.ceil(len(description) / length_line)
+        pdf.cell(epw/3, 30,"", border=1, fill=1)
+        pdf.cell(epw/9, 30,"", border=1, fill=1)
+        pdf.cell(epw/10, 30,"", border=1, fill=1)
+        pdf.cell(epw/10, 30,"", border=1, fill=1)
+        pdf.cell(epw/10, 30,"", border=1, fill=1)
+        pdf.cell(epw/10, 30,"", border=1, fill=1)
+        pdf.cell(epw/10, 30,"", border=1, fill=1)
         pdf.ln(0)
-        pdf.cell(epw/3, 5,str(item['name'])[0:30], align='L')
-        pdf.cell(epw/5, 5,str(item['description'])[0:30], align='L')
-        pdf.cell(epw/10, 20,str(int(item['benefit'])), align='R')
+        pdf.set_font('Arial', 'B', 9)
+        pdf.cell(epw/3, 5,item['name'], align='L')
+        pdf.set_font('Arial', '', 9)
+        pdf.cell(epw/9, 20,str(item['profit_pct_time']), align='R')
+        pdf.cell(epw/10, 20,str(item['benefit']).replace(".000",""), align='R')
         pdf.cell(epw/10, 20,format(float(item['implementation']),'0,.2f'), align='R')
         pdf.cell(epw/10, 20,format(float(item['maintenance']),'0,.2f'), align='R')
         pdf.cell(epw/10, 20,format(float(item['periodicity']),'0,.2f'), align='R')
         pdf.cell(epw/10, 20,format(float(item['oportunity']),'0,.2f'), align='R')
         pdf.ln(5)
-        pdf.cell(epw/3, 5,str(item['name'])[30:60], align='L')
-        pdf.cell(epw/5, 5,str(item['description'])[30:60], align='L')
-        pdf.ln(5)
-        pdf.cell(epw/3, 5,str(item['name'])[60:90], align='L')
-        pdf.cell(epw/5, 5,str(item['description'])[60:90], align='L')
-        pdf.ln(5)
-        pdf.cell(epw/3, 5,str(item['name'])[90:120], align='L')
-        pdf.cell(epw/5, 5,str(item['description'])[90:120], align='L')
-        pdf.ln(5)
-
+        pdf.set_font('Arial', '', 8)
+        i = 0
+        j = length_line
+        for x in range(lines_description):
+            pdf.cell(epw/4, 5,description[i:j], align='L')
+            pdf.cell(epw/4, 5,"", align='L')
+            pdf.ln(5)
+            i = j
+            j = j + length_line      
+        pdf.set_font('Arial', '', 9)
+    
     requestJson = requests.get(settings.SITE_HOST_API + 'reports/getFinancialAnalysisPdfRunAnalisisPdf/?studyCase=' + request.POST['studyCase'],verify=False)
     data = requestJson.json()
 
@@ -349,6 +359,7 @@ def pdf(request):
         if cont == 4:
             varText4 = item['name']
 
+    # PAGE (3)- Financial parameters  
     pdf.add_page()
     pdf.set_font('Arial', '', 13)
     pdf.set_text_color(57, 137, 169)
@@ -361,7 +372,7 @@ def pdf(request):
     pdf.ln(15)
     pdf.cell((epw/9) * 4, 15, 'Financial parameters', align='C')
     pdf.cell(epw/9, 15, '', align='C')
-    pdf.cell((epw/9) * 4, 15, 'Porfolio objetives', align='C')
+    pdf.cell((epw/9) * 4, 15, 'Porfolio objectives', align='C')
     pdf.ln(15)
     pdf.set_font('Arial', '', 9)
     pdf.set_text_color(100, 100, 100)
@@ -395,7 +406,7 @@ def pdf(request):
     pdf.set_font('Arial', '', 9)
     pdf.set_text_color(100, 100, 100)
     pdf.cell(epw/5, 8,"")
-    pdf.cell(epw/5, 8,"Implementation time  of Nature-Based solution (yr)")
+    pdf.cell(epw/5, 8,"Implementation time of Nature based Solution (yr)")
     pdf.cell(epw/5, 8,"")
     pdf.cell(epw/5, 8,fullPorfolio, align='R')
     pdf.cell(epw/5, 8,"")
@@ -407,11 +418,11 @@ def pdf(request):
     pdf.cell(epw/5, 8,"")
     pdf.ln(8)
     pdf.cell(epw/5, 8,"")
-    pdf.cell(epw/5, 8,"Climate selection for baseline and NBS scenario analysis")
+    pdf.cell(epw/5, 8,"Climate selection for baseline and NbS scenario analysis")
     pdf.cell(epw/5, 8,"")
     pdf.cell(epw/5, 8,fullScenario, align='R')
     pdf.cell(epw/5, 8,"")
-    pdf.ln(20)
+    pdf.ln(17)
 
     pdf.image('imgpdf/28.png', 18, 30, w=12)
     pdf.image('imgpdf/39.png', 130, 30, w=12)
@@ -477,6 +488,8 @@ def pdf(request):
 
 
     pdf.image('imgpdf/igocab.png', 20, 140, w=160,h=90,type='png')
+
+    # PAGE (4) - TABLE
     pdf.ln(120)
  
     pdf.set_font('Arial', '', 10)
@@ -497,7 +510,7 @@ def pdf(request):
     pdf.set_text_color(100, 100, 100)
     pdf.set_fill_color(255, 255, 255)
 
-    contTitle = 1;
+    contTitle = 1
     for item in data:
         pdf.cell(epw/5, 4, format(float(contTitle),'0,.2f'), border=1, align='R', fill=1)
         pdf.cell(epw/5, 4, format(float(item['totalCost']),'0,.2f') , border=1, align='R', fill=1)
@@ -507,6 +520,7 @@ def pdf(request):
         contTitle = contTitle + 1
         pdf.ln(4)
 
+    # PAGE (5) - Comparative chart of costs
     pdf.add_page()
     pdf.ln(10)
     pdf.set_font('Arial', '', 11)
@@ -645,6 +659,8 @@ def pdf(request):
 
     pdf.add_page()
 
+    # page (6) - Data Table
+
     pdf.ln(10)
     pdf.set_font('Arial', '', 10)
     pdf.set_text_color(100, 100, 100)
@@ -659,13 +675,13 @@ def pdf(request):
     pdf.set_font('Arial', '', 9)
     pdf.set_text_color(100, 100, 100)
     pdf.set_fill_color(255, 255, 255)
-    pdf.cell((epw/4) * 3, 6, 'Implementation cost: cost requiere to implement the activities including materials, supplies and labor', border=1, align='L', fill=1)
+    pdf.cell((epw/4) * 3, 6, 'Implementation cost: cost requires to implement the activities including materials, supplies and labor', border=1, align='L', fill=1)
     pdf.cell(epw/4, 6, format(float(valimplementationr),'0,.2f'), border=1, align='R', fill=1)
     pdf.ln(6)
-    pdf.cell((epw/4) * 3, 6, 'Maintance cost: costo to manintain NBS', border=1, align='L', fill=1)
+    pdf.cell((epw/4) * 3, 6, 'Maintance cost: cost to maintain NbS', border=1, align='L', fill=1)
     pdf.cell(epw/4, 6, format(float(valmaintenancer),'0,.2f'), border=1, align='R', fill=1)
     pdf.ln(6)
-    pdf.cell((epw/4) * 3, 6, 'Oportunity cost: foregone benefits that would have been derived from and option another than NBS', border=1, align='L', fill=1)
+    pdf.cell((epw/4) * 3, 6, 'Oportunity cost: foregone benefits that would have been derived from and option another than NbS', border=1, align='L', fill=1)
     pdf.cell(epw/4, 6, format(float(valoportunityr),'0,.2f'), border=1, align='R', fill=1)
     pdf.ln(6)
     pdf.cell((epw/4) * 3, 6, 'Transaction cost: refers to administrative expenses', border=1, align='L', fill=1)
@@ -673,7 +689,7 @@ def pdf(request):
     pdf.ln(6)
     pdf.cell((epw/4) * 3, 12, '', border=1, align='L', fill=1)
     pdf.ln(0)
-    pdf.cell((epw/4) * 3, 6, 'Platform cost: these are fored expenses for the conservation program, shich include staff, office,', border=0, align='L', fill=0)
+    pdf.cell((epw/4) * 3, 6, 'Platform cost: these are fored expenses for the conservation program, which include staff, office,', border=0, align='L', fill=0)
     pdf.cell(epw/4, 12, format(float(valplatformr),'0,.2f'), border=1, align='R', fill=1)
     pdf.ln(6)
     pdf.cell((epw/4) * 3, 6, 'equipment, vehicles, among others.', border=0, align='L', fill=0)
@@ -710,19 +726,19 @@ def pdf(request):
 
     config = {
         'title': {
-            'text': 'Sensibility analysis - total discounted benefit (TDB)'
+            'text': 'Sensibility analysis - total discounted benefits (TDB)'
         },
         'credits': {
             'enabled': 0
         },
         'yAxis': {
             'title': {
-                'text': 'Total descounted benefits'
+                'text': 'Total discounted benefits'
             }
         },
         'xAxis': {
             'title': {
-                'text': 'Time in years descoyunted benefits'
+                'text': 'Time in years discounted benefits'
             }
         },
         'colors': ['#008BAB'],
@@ -748,16 +764,18 @@ def pdf(request):
     hc_export.save_as_png(config=config, filename="imgpdf/satdb.png")
     pdf.image('imgpdf/satdb.png', 30, 150, w=160, h=80, type='PNG')
     pdf.add_page()
+
+    # PAGE (7) - Data Table
     pdf.ln(10)
     pdf.set_font('Arial', '', 10)
     pdf.set_text_color(100, 100, 100)
-    pdf.cell(0, 6, 'This graph is constructed with the data from the following table:', align='L')
+    pdf.cell(0, 6, 'This graph has been built with the data from the following table:', align='L')
     pdf.ln(6)
     pdf.set_font('Arial', '', 10)
     pdf.set_text_color(255, 255, 255)
     pdf.set_fill_color(0, 138, 173)
     pdf.set_draw_color(0, 138, 173)
-    pdf.cell(epw/4, 8, 'Total discounted benefit', border=1, align='C', fill=1)
+    pdf.cell(epw/4, 8, 'Time Period', border=1, align='C', fill=1)
     pdf.cell(epw/4, 8, 'Discounted benefit minimum', border=1, align='C', fill=1)
     pdf.cell(epw/4, 8, 'Discounted benefit medium', border=1, align='C', fill=1)
     pdf.cell(epw/4, 8, 'Discounted benefit maximum', border=1, align='C', fill=1)
@@ -765,9 +783,9 @@ def pdf(request):
     pdf.set_font('Arial', '', 9)
     pdf.set_text_color(100, 100, 100)
     pdf.set_fill_color(255, 255, 255)
-
+# Total discounted benefits
     for item in data:
-        pdf.cell(epw/4, 3.5, format(float(item['timer']),'0,.2f') , border=1, align='R', fill=1)
+        pdf.cell(epw/4, 3.5, format(item['timer']) , border=1, align='R', fill=1)
         pdf.cell(epw/4, 3.5, format(float(item['totalMinBenefitR']),'0,.2f') , border=1, align='R', fill=1)
         pdf.cell(epw/4, 3.5, format(float(item['totalMedBenefitR']),'0,.2f') , border=1, align='R', fill=1)
         pdf.cell(epw/4, 3.5, format(float(item['totalMaxBenefittR']),'0,.2f') , border=1, align='R', fill=1)
@@ -781,7 +799,7 @@ def pdf(request):
 
     for item in data:
         dataSensibilityAnalysisCostTime.append([item['timer'], float(item['totalMedCostR'])]);
-        dataSensibilityAnalysisCostRange.append([item['timer'], float(item['totalMinCostR']), float(item['totalMaxCostR'])]);
+        dataSensibilityAnalysisCostRange.append([item['timer'], float(item['totalMinCostR']), float(item['totalMaxCostR'])])
 
     config = {
         'title': {
@@ -792,12 +810,12 @@ def pdf(request):
         },
         'yAxis': {
             'title': {
-                'text': 'Total descounted costs'
+                'text': 'Total discounted costs'
             }
         },
         'xAxis': {
             'title': {
-                'text': 'Time in years descounted benefits'
+                'text': 'Time in years discounted benefits'
             }
         },
         'colors': ['#008BAB'],
@@ -822,17 +840,19 @@ def pdf(request):
 
     hc_export.save_as_png(config=config, filename="imgpdf/satdc.png")
     pdf.image('imgpdf/satdc.png', 30, 150, w=160, h=0, type='PNG')
+
+    # PAGE (8) - Data Table 
     pdf.add_page()
     pdf.ln(10)
     pdf.set_font('Arial', '', 10)
     pdf.set_text_color(100, 100, 100)
-    pdf.cell(0, 6, 'This graph is constructed with the data from the following table:', align='L')
+    pdf.cell(0, 6, 'This graph has been built with the data from the following table:', align='L')
     pdf.ln(6)
     pdf.set_font('Arial', '', 10)
     pdf.set_text_color(255, 255, 255)
     pdf.set_fill_color(0, 138, 173)
     pdf.set_draw_color(0, 138, 173)
-    pdf.cell(epw/4, 8, 'Total discounted cost', border=1, align='C', fill=1)
+    pdf.cell(epw/4, 8, 'Time period', border=1, align='C', fill=1)
     pdf.cell(epw/4, 8, 'Discounted cost minimum', border=1, align='C', fill=1)
     pdf.cell(epw/4, 8, 'Discounted cost medium', border=1, align='C', fill=1)
     pdf.cell(epw/4, 8, 'Discounted cost maximum', border=1, align='C', fill=1)
@@ -842,102 +862,23 @@ def pdf(request):
     pdf.set_fill_color(255, 255, 255)
 
     for item in data:
-        pdf.cell(epw/4, 4, format(float(item['timer']),'0,.2f') , border=1, align='R', fill=1)
+        pdf.cell(epw/4, 4, format(item['timer']) , border=1, align='R', fill=1)
         pdf.cell(epw/4, 4, format(float(item['totalMinCostR']),'0,.2f') , border=1, align='R', fill=1)
         pdf.cell(epw/4, 4, format(float(item['totalMedCostR']),'0,.2f') , border=1, align='R', fill=1)
         pdf.cell(epw/4, 4, format(float(item['totalMaxCostR']),'0,.2f') , border=1, align='R', fill=1)
         pdf.ln(4)    
 
+    # PAGE 9 - Physical Indicator
     pdf.add_page()
-
-    requestJson = requests.get(settings.SITE_HOST_API + 'reports/getReportOportunityResultIndicators/?studyCase=' + request.POST['studyCase'],verify=False)
-    data = requestJson.json()
-    valueRoi = 0
-    idTotalTreatmentCostSavings = 0
-    idTimeFrame = 0
-    idTotalEstimatedInvestment = 0
-    idTotalAreaInvestmentSize = 0
-    backgroundColorR = 0
-    backgroundColorG = 0
-    backgroundColorB = 0
-    nameBackgroundColor = ""
-
-    for item in data:
-        if item['description'] != "TotalTreatmentCostSavings" and item['description'] !="TimeFrame" and item['description'] != "TotalEstimatedInvestment" and item['description'] !="TotalAreaInterventionSize(Hec)":
-            valueRoi = str(round(float(item['value']),2))
-            nameButtom = item['description'].split("::");
-            if nameButtom[1] == "Dark Green":
-                backgroundColorR = 21
-                backgroundColorG = 88
-                backgroundColorB = 22
-            else:
-                if nameButtom[1] == "Light Green":
-                    backgroundColorR = 53
-                    backgroundColorG = 177
-                    backgroundColorB = 55
-                else:
-                    backgroundColorR = 175
-                    backgroundColorG = 9
-                    backgroundColorB = 0
-            nameBackgroundColor = nameButtom[0];
-
-        if item['description'] == "TotalTreatmentCostSavings":
-            idTotalTreatmentCostSavings = str(round(float(item['value']),2))
-        if item['description'] == "TimeFrame":
-            idTimeFrame = str(round(float(item['value']),2))
-        if item['description'] == "TotalEstimatedInvestment":
-            idTotalEstimatedInvestment = str(round(float(item['value']),2))
-        if item['description'] == "TotalAreaInterventionSize(Hec)":
-            idTotalAreaInvestmentSize = str(round(float(item['value']),2))
-
+    
     pdf.set_font('Arial', '', 13)
     pdf.set_text_color(57, 137, 169)
     pdf.set_fill_color(255, 255, 255)
-    pdf.cell(epw, 10, 'Return on investment calculation', align='L')
-    pdf.ln(10)
-    pdf.set_font('Arial', '', 10)
-    pdf.cell(epw, 7, 'Canculated ROI', align='C')
-    pdf.ln(5)
-    pdf.set_font('Arial', '', 15)
-    pdf.cell(epw, 10, format(float(valueRoi),'0,.2f') , align='C')
-    pdf.image('imgpdf/valor-bruto.png', 85, 33, w=35)
-    pdf.set_font('Arial', '', 10)
-    pdf.ln(40)
-    pdf.cell(epw, 10, 'ROI on nature based solutions opportunity', align='C')
-    pdf.ln(10)
-    pdf.set_text_color(255, 255, 255)
-    pdf.set_fill_color(backgroundColorR, backgroundColorG, backgroundColorB)
-    pdf.cell((epw/5)*2, 10, "",  border=0, align='C', fill=0)
-    pdf.cell(epw/5, 10, nameBackgroundColor,  border=1, align='C', fill=1)
-    pdf.ln(10)
-    pdf.set_text_color(100, 100, 100)
-    pdf.set_fill_color(255, 255, 255)
-    pdf.cell(epw, 10, 'Total estimated investment', align='C')
-    pdf.ln(5)
-    pdf.set_font('Arial', '', 15)
-    pdf.cell(epw, 10, format(float(idTotalEstimatedInvestment),'0,.2f'), align='C')
-    pdf.ln(7)
-    pdf.set_font('Arial', '', 10)
-    pdf.cell(epw, 10, 'Total treatment cost savings', align='C')
-    pdf.ln(5)
-    pdf.set_font('Arial', '', 15)
-    pdf.cell(epw, 10, format(float(idTotalTreatmentCostSavings),'0,.2f'), align='C')
-    pdf.ln(7)
-    pdf.set_font('Arial', '', 10)
-    pdf.cell(epw, 10, 'Total area investment size', align='C')
-    pdf.ln(5)
-    pdf.set_font('Arial', '', 15)
-    pdf.cell(epw, 10, format(float(idTotalAreaInvestmentSize),'0,.2f'), align='C')
-    pdf.ln(7)
-    pdf.set_font('Arial', '', 10)
-    pdf.cell(epw, 10, 'Time frame (Years)', align='C')
-    pdf.ln(5)
-    pdf.set_font('Arial', '', 15)
-    pdf.cell(epw, 10, format(float(idTimeFrame),'0,.2f'), align='C')
+    pdf.cell(epw, 10, 'Physical Indicator', align='L')    
     pdf.ln(10)
 
     pdf.set_font('Arial', '', 10)
-    pdf.cell(epw, 10, 'Estimated change in ecosustem services by basin', align='L')
+    pdf.cell(epw, 10, 'Estimated change in ecosystem services by basin', align='L')
     pdf.ln(10)
 
     requestJson = requests.get(settings.SITE_HOST_API + 'reports/getTotalBenefitsForMilion/?studyCase=' + request.POST['studyCase'],verify=False)
@@ -945,19 +886,19 @@ def pdf(request):
     dataEfficiency = []
 
     for item in data:
-        dataEfficiency.append(float(item['carbonStorage']));
-        dataEfficiency.append(float(item['phosphorousLoad']));
-        dataEfficiency.append(float(item['nitrogenLoad']));
-        dataEfficiency.append(float(item['totalSediments']));
-        dataEfficiency.append(float(item['baseFlow']));
-        dataEfficiency.append(float(item['waterYear']));
+        dataEfficiency.append(float(item['carbonStorage']))
+        dataEfficiency.append(float(item['phosphorousLoad']))
+        dataEfficiency.append(float(item['nitrogenLoad']))
+        dataEfficiency.append(float(item['totalSediments']))
+        dataEfficiency.append(float(item['baseFlow']))
+        dataEfficiency.append(float(item['waterYear']))
 
-        carbonStorageTable = float(item['carbonStorage']);
-        phosphorousLoadTable = float(item['phosphorousLoad']);
-        nitrogenLoadTable = float(item['nitrogenLoad']);
-        totalSediments = float(item['totalSediments']);
-        baseFlow = float(item['baseFlow']);
-        waterYear = float(item['waterYear']);
+        carbonStorageTable = float(item['carbonStorage'])
+        phosphorousLoadTable = float(item['phosphorousLoad'])
+        nitrogenLoadTable = float(item['nitrogenLoad'])
+        totalSediments = float(item['totalSediments'])
+        baseFlow = float(item['baseFlow'])
+        waterYear = float(item['waterYear'])
 
     pdf.set_font('Arial', '', 10)
     pdf.set_text_color(255, 255, 255)
@@ -1050,21 +991,19 @@ def pdf(request):
     }
 
     hc_export.save_as_png(config=config, filename="imgpdf/ecesb.png")
-    pdf.image('imgpdf/ecesb.png', 70, 160, w=120)
-    pdf.image('imgpdf/total-one.png', 10, 171, w=10)
-    pdf.image('imgpdf/total-two.png', 10, 187, w=10)
-    pdf.image('imgpdf/total-three.png', 10, 201, w=10)
-    pdf.image('imgpdf/total-four.png', 10, 218, w=10)
-    pdf.image('imgpdf/total-five.png', 10, 233, w=10)
+    pdf.image('imgpdf/ecesb.png', 70, 45, w=120)
+    pdf.image('imgpdf/total-one.png', 10, 56, w=10)
+    pdf.image('imgpdf/total-two.png', 10, 70, w=10)
+    pdf.image('imgpdf/total-three.png', 10, 83, w=10)
+    pdf.image('imgpdf/total-four.png', 10, 97, w=10)
+    pdf.image('imgpdf/total-five.png', 10, 110, w=10)
 
     pdf.add_page()
 
     pdf.set_fill_color(231, 244, 244)
     pdf.cell(epw, 90, '', border=1, align='C', fill=1)
     pdf.ln(7)
-#    pdf.set_fill_color(255, 255, 255)
     pdf.cell(epw/7, 5, '', border=0, align='C', fill=0)
-#    pdf.cell(((epw/7) * 6)-3, 75, '', border=1, align='C', fill=1)
     pdf.ln(0)
     pdf.set_font('Arial', '', 8)
     pdf.cell(epw/6, 5, '', border=0, align='C', fill=0)
@@ -1119,26 +1058,81 @@ def pdf(request):
     pdf.image('imgpdf/total-four.png', 20, 67, w=10)
     pdf.image('imgpdf/total-five.png', 20, 82, w=10)
 
+    pdf.set_text_color(100, 100, 100)
+    pdf.set_fill_color(255, 255, 255)
+    pdf.set_draw_color(255, 255, 255)
+    pdf.set_font('Arial', '', 11)
+    pdf.cell(epw, 10, 'Estimated maximun change in ecosystem services', align='L')
+    pdf.ln(5)
+    pdf.cell(epw, 10, '(Business as Usual Scenario Vs Nature based Solutions Scenario)', align='L')
+    pdf.set_font('Arial', '', 9)
+    pdf.ln(20)
+    pdf.cell(30, 6, 'Anual water yield', align='C')
+    pdf.cell(1, 6, '')
+    pdf.cell(30, 6, 'Base flow ', align='C')
+    pdf.cell(1, 6, '')
+    pdf.cell(30, 6, 'Sediment delivery ', align='C')
+    pdf.cell(1, 6, '')
+    pdf.cell(30, 6, 'Nutrient delivery ', align='C')
+    pdf.cell(1, 6, '')
+    pdf.cell(30, 6, 'Nutrient delivery', align='C')
+    pdf.cell(1, 6, '')
+    pdf.cell(30, 6, 'Carbon storage ', align='C')
+    pdf.ln(6)
+    pdf.cell(30, 6, '', align='C')
+    pdf.cell(1, 6, '')
+    pdf.cell(30, 6, '', align='C')
+    pdf.cell(1, 6, '')
+    pdf.cell(30, 6, 'ratio', align='C')
+    pdf.cell(1, 6, '')
+    pdf.cell(30, 6, 'ratio - nitrogen', align='C')
+    pdf.cell(1, 6, '')
+    pdf.cell(30, 6, 'ratio - phosphorus', align='C')
+    pdf.cell(1, 6, '')
+    pdf.cell(30, 6, 'and sequestration', align='C')
+
+    pdf.image('imgpdf/dashboard-01.png', 13, 140, w=24)
+    pdf.image('imgpdf/dashboard-02.png', 44, 140, w=24)
+    pdf.image('imgpdf/dashboard-03.png', 75, 140, w=24)
+    pdf.image('imgpdf/dashboard-04.png', 106, 140, w=24)
+    pdf.image('imgpdf/dashboard-05.png', 137, 140, w=24)
+    pdf.image('imgpdf/dashboard-06.png', 168, 140, w=24)
+
+    pdf.ln(37)
+    pdf.set_font('Arial', '', 20)
+    pdf.cell(30, 4, changeInVolumeOfWater + " %", align='C')
+    pdf.cell(1, 4, '')
+    pdf.cell(30, 4, changeInBaseFlow + " %", align='C')
+    pdf.cell(1, 4, '')
+    pdf.cell(30, 4, changeIntotalSediments + " %" , align='C')
+    pdf.cell(1, 4, '')
+    pdf.cell(30, 4, changeInNitrogenLoad + " %", align='C')
+    pdf.cell(1, 4, '')
+    pdf.cell(30, 4, changeInPhosphorus + " %", align='C')
+    pdf.cell(1, 4, '')
+    pdf.cell(30, 4, changeInCarbonStorage + " %", align='C')
+
+    pdf.ln(15)
+    pdf.set_font('Arial', '', 11)
+    pdf.cell(epw, 10, 'General Aqueduct indicators', align='L')
+
     requestJson = requests.get(settings.SITE_HOST_API + 'reports/getSelectorStudyCasesId/?studyCase=' + request.POST['studyCase'],verify=False)
     dataCase = requestJson.json()
-
     requestJson = requests.get(settings.SITE_HOST_API + 'reports/getReportAnalisysBenefics/?studyCase=' + request.POST['studyCase'],verify=False)
     dataBenefit = requestJson.json()
-
-    numerLine = 0;
+    numerLine = 0
 
     for itemCase in dataCase:
         pdf.set_font('Arial', '', 9)
         pdf.set_text_color(100, 100, 100)
         pdf.cell(epw, 10, itemCase['selector'], border=0, align='C', fill=0)
 
-        pdf.image('imgpdf/picture-one.jpg', 10, (numerLine * 75) + 115, w=45)
-        pdf.image('imgpdf/picture-two.jpg', 58, (numerLine * 75) + 115, w=45)
-        pdf.image('imgpdf/picture-three.jpg', 106, (numerLine * 75) + 115, w=45)
-        pdf.image('imgpdf/picture-four.jpg', 154, (numerLine * 75) + 115, w=45)
+        pdf.image('imgpdf/picture-one.jpg', 10, (numerLine * 75) + 198, w=45)
+        pdf.image('imgpdf/picture-two.jpg', 58, (numerLine * 75) + 198, w=45)
+        pdf.image('imgpdf/picture-three.jpg', 106, (numerLine * 75) + 198, w=45)
+        pdf.image('imgpdf/picture-four.jpg', 154, (numerLine * 75) + 198, w=45)
 
-        numerLine = numerLine + 1;
-
+        numerLine = numerLine + 1
         pdf.ln(40)
 
         pdf.set_font('Arial', '', 9)
@@ -1288,55 +1282,97 @@ def pdf(request):
 
     pdf.add_page()
 
+    requestJson = requests.get(settings.SITE_HOST_API + 'reports/getReportOportunityResultIndicators/?studyCase=' + request.POST['studyCase'],verify=False)
+    data = requestJson.json()
+    valueRoi = 0
+    idTotalTreatmentCostSavings = 0
+    idTimeFrame = 0
+    idTotalEstimatedInvestment = 0
+    idTotalAreaInvestmentSize = 0
+    backgroundColorR = 0
+    backgroundColorG = 0
+    backgroundColorB = 0
+    nameBackgroundColor = ""
+
+    for item in data:
+        if item['description'] != "TotalTreatmentCostSavings" and item['description'] !="TimeFrame" and item['description'] != "TotalEstimatedInvestment" and item['description'] !="TotalAreaInterventionSize(Hec)":
+            valueRoi = str(round(float(item['value']),2))
+            nameButtom = item['description'].split("::");
+            if nameButtom[1] == "Dark Green":
+                backgroundColorR = 21
+                backgroundColorG = 88
+                backgroundColorB = 22
+            else:
+                if nameButtom[1] == "Light Green":
+                    backgroundColorR = 53
+                    backgroundColorG = 177
+                    backgroundColorB = 55
+                else:
+                    backgroundColorR = 175
+                    backgroundColorG = 9
+                    backgroundColorB = 0
+            nameBackgroundColor = nameButtom[0];
+
+        if item['description'] == "TotalTreatmentCostSavings":
+            idTotalTreatmentCostSavings = str(round(float(item['value']),2))
+        if item['description'] == "TimeFrame":
+            idTimeFrame = str(round(float(item['value']),2))
+        if item['description'] == "TotalEstimatedInvestment":
+            idTotalEstimatedInvestment = str(round(float(item['value']),2))
+        if item['description'] == "TotalAreaInterventionSize(Ha)":
+            idTotalAreaInvestmentSize = str(round(float(item['value']),2))
+            
+
+    pdf.set_font('Arial', '', 13)
+    pdf.set_text_color(57, 137, 169)
+    pdf.set_fill_color(255, 255, 255)
+    pdf.cell(epw, 10, 'Return on investment calculation', align='L')
+    pdf.ln(10)
+    pdf.set_font('Arial', '', 10)
+    pdf.cell(epw, 7, 'Calculated ROI', align='C')
+    pdf.ln(5)
+    pdf.set_font('Arial', '', 15)
+    pdf.cell(epw, 10, format(float(valueRoi),'0,.2f') , align='C')
+    pdf.image('imgpdf/valor-bruto.png', 85, 33, w=35)
+    pdf.set_font('Arial', '', 10)
+    pdf.ln(40)
+    pdf.cell(epw, 10, 'ROI due on implementation of Nature based Solutions', align='C')
+    pdf.ln(10)
+    pdf.set_text_color(255, 255, 255)
+    pdf.set_fill_color(backgroundColorR, backgroundColorG, backgroundColorB)
+    pdf.cell((epw/5)*2, 10, "",  border=0, align='C', fill=0)
+    pdf.cell(epw/5, 10, nameBackgroundColor,  border=1, align='C', fill=1)
+    pdf.ln(10)
     pdf.set_text_color(100, 100, 100)
     pdf.set_fill_color(255, 255, 255)
-    pdf.set_draw_color(255, 255, 255)
-    pdf.cell(epw, 10, 'Estimated change in ecosystem services (BaU vs NbS)', align='C')
-    pdf.ln(20)
-    pdf.cell(30, 6, 'Anual water yield', align='C')
-    pdf.cell(1, 6, '')
-    pdf.cell(30, 6, 'Seasonal water ', align='C')
-    pdf.cell(1, 6, '')
-    pdf.cell(30, 6, 'Sediment delivery ', align='C')
-    pdf.cell(1, 6, '')
-    pdf.cell(30, 6, 'Nutrient delivery ', align='C')
-    pdf.cell(1, 6, '')
-    pdf.cell(30, 6, 'Nutrient delivery', align='C')
-    pdf.cell(1, 6, '')
-    pdf.cell(30, 6, 'Carbon storage ', align='C')
-    pdf.ln(6)
-    pdf.cell(30, 6, '', align='C')
-    pdf.cell(1, 6, '')
-    pdf.cell(30, 6, 'yield', align='C')
-    pdf.cell(1, 6, '')
-    pdf.cell(30, 6, 'ratio', align='C')
-    pdf.cell(1, 6, '')
-    pdf.cell(30, 6, 'ratio - nitrogen', align='C')
-    pdf.cell(1, 6, '')
-    pdf.cell(30, 6, 'ratio - phosphorus', align='C')
-    pdf.cell(1, 6, '')
-    pdf.cell(30, 6, 'and sequestration', align='C')
+    pdf.cell(epw, 10, 'Total discounted investment', align='C')
+    pdf.ln(5)
+    pdf.set_font('Arial', '', 15)
+    pdf.cell(epw, 10, format(float(idTotalEstimatedInvestment),'0,.2f'), align='C')
+    pdf.ln(7)
+    pdf.set_font('Arial', '', 10)
+    pdf.cell(epw, 10, 'Total discounted cost', align='C')
+    pdf.ln(5)
+    pdf.set_font('Arial', '', 15)
+    pdf.cell(epw, 10, format(float(idTotalTreatmentCostSavings),'0,.2f'), align='C')
+    pdf.ln(7)
+    pdf.set_font('Arial', '', 10)
+    pdf.cell(epw, 10, 'Total area investment size (Ha)', align='C')
+    pdf.ln(5)
+    pdf.set_font('Arial', '', 15)
+    pdf.cell(epw, 10, format(float(idTotalAreaInvestmentSize),'0,.2f'), align='C')
+    pdf.ln(7)
+    pdf.set_font('Arial', '', 10)
+    pdf.cell(epw, 10, 'Time frame (Years)', align='C')
+    pdf.ln(5)
+    pdf.set_font('Arial', '', 15)
+    pdf.cell(epw, 10, format(float(idTimeFrame),'0,.2f'), align='C')
+    pdf.ln(10)
+   
 
-    pdf.image('imgpdf/dashboard-01.png', 13, 50, w=24)
-    pdf.image('imgpdf/dashboard-02.png', 44, 50, w=24)
-    pdf.image('imgpdf/dashboard-03.png', 75, 50, w=24)
-    pdf.image('imgpdf/dashboard-04.png', 106, 50, w=24)
-    pdf.image('imgpdf/dashboard-05.png', 137, 50, w=24)
-    pdf.image('imgpdf/dashboard-06.png', 168, 50, w=24)
+    pdf.add_page()
 
-    pdf.ln(40)
-    pdf.set_font('Arial', '', 20)
-    pdf.cell(30, 6, changeInVolumeOfWater, align='C')
-    pdf.cell(1, 6, '')
-    pdf.cell(30, 6, changeInBaseFlow, align='C')
-    pdf.cell(1, 6, '')
-    pdf.cell(30, 6, changeIntotalSediments, align='C')
-    pdf.cell(1, 6, '')
-    pdf.cell(30, 6, changeInNitrogenLoad, align='C')
-    pdf.cell(1, 6, '')
-    pdf.cell(30, 6, changeInPhosphorus, align='C')
-    pdf.cell(1, 6, '')
-    pdf.cell(30, 6, changeInCarbonStorage, align='C')
+    
 
     requestJson = requests.get(settings.SITE_HOST_API + 'reports/getReportAnalisysBeneficsC/?studyCase=' + request.POST['studyCase'],verify=False)
     data = requestJson.json()
@@ -1373,22 +1409,25 @@ def pdf(request):
         pdf.cell(epw/3, 8, "" , border=1, align='R', fill=1)
         pdf.cell(epw/3, 8, "" , border=1, align='R', fill=1)
         pdf.ln(0)
-        pdf.cell(epw/3, 4, str(item['sbnf'])[0:30] , align='L')
+        pdf.cell(epw/3, 4, str(item['sbnf'])[0:36] , align='L')
         pdf.cell(epw/3, 4, format(float(item['costPerHectarea']),'0,.2f') , align='R')
         pdf.cell(epw/3, 4, format(float(item['recomendedIntervetion']),'0,.2f') , align='R')
         pdf.ln(4)
-        pdf.cell(epw/3, 4, str(item['sbnf'])[30:60] , align='L')
+        pdf.cell(epw/3, 4, str(item['sbnf'])[36:72] , align='L')
         pdf.cell(epw/3, 4, "" , align='R')
         pdf.cell(epw/3, 4, "" , align='R')
         pdf.ln(4)
 
-    pdf.add_page()
+    #pdf.add_page()
 
     pdf.set_font('Arial', '', 13)
     pdf.set_text_color(57, 137, 169)
 
     pdf.cell(0, 10, 'Physical indicators', align='L')
     pdf.ln(10)
+
+    pdf.set_text_color(100,100,100)
+
 
     requestJson = requests.get(settings.SITE_HOST_API + 'reports/getWpAqueductIndicatorGraph/?studyCase=' + request.POST['studyCase'],verify=False)
     data = requestJson.json()
@@ -1439,7 +1478,7 @@ def pdf(request):
                 pdf.ln(7)
                 pdf.cell(epw, 5, 'Seasonal variability measures the average within-year variability of available water supply, including renewable surface and ground', border=0, align='L', fill=0) 
                 pdf.ln(5)
-                pdf.cell(epw, 5, 'water supplies. Higher valuesindicate wider variations in the supply available within a year.', border=0, align='L', fill=0) 
+                pdf.cell(epw, 5, 'water supplies. Higher values indicate wider variations in the supply available within a year.', border=0, align='L', fill=0) 
                 pdf.ln(7)
                 pdf.cell(epw, 5, 'Water table decline measures the average water table decline as the average change for the study period (1990-2014). The result is', border=0, align='L', fill=0) 
                 pdf.ln(5)
