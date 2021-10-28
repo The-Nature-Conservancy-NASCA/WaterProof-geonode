@@ -9742,6 +9742,9 @@ form-inline {
 .menuOrder1{
   padding-left: 5% !important;
 }
+.menuOrder1 ul li::marker{
+  color: transparent;
+}
 .menuPadding{
   padding-top: 35% !important;
 }
