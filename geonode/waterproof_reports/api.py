@@ -969,7 +969,8 @@ def getconservationActivitiesPdf(request):
 				"implementation":row[3],
 				"maintenance":row[4],
 				"periodicity":row[5],
-				"oportunity":row[6]
+				"oportunity":row[6],
+				"profit_pct_time": row[7]
 			})
 		return JsonResponse(objects_list, safe=False)
 
