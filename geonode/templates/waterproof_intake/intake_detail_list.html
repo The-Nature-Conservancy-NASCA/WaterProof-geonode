@@ -132,7 +132,7 @@
                     </div>
                     <div class="row">
                         <!--Graph-->
-                        <div class="col-md-8">
+                        <div class="col-md-8 position-graph">
                             <textarea id="xml" style="height:600px;width:100%;display:none;border-style:none;"></textarea>
                             <div class="panel panel-info">
                                 <div class="panel-body" id="graph" tabindex="-1"
@@ -140,7 +140,7 @@
                             </div>
                         </div>
                         <!--Panel Information Right-->
-                        <div class="col-md-4">
+                        <div class="col-md-4 position-table">
                             <div class="panel panel-info">
                                 <div class="panel-body">
                                     <!--Figure Name-->
@@ -210,7 +210,7 @@
                         <div class="form-group">
                             <div class="row">
                                 <!--Data analysis Insert-->
-                                <div class="col-md-8">
+                                <div class="col-md-8 position-graph">
                                     <h5 class="text-primary">{% trans "Data analysis" %}</h5>
                                     <div class="form-group">
                                         <div class="row">
@@ -243,7 +243,7 @@
                                     <button type="button" class="btn btn-primary" id="intakeWECB" style="display: none;">{% trans "Generate" %}</button>
                                 </div>
                                 <!--Data analysis Results-->
-                                <div class="col-md-4">
+                                <div class="col-md-4 position-table">
                                     <h5 class="text-primary">{% trans "Results" %}</h5>
                                     <div style="max-height: 400px; overflow-y: auto;">
                                         <table class="table">
@@ -305,14 +305,14 @@
                 <div id="step-5" class="tab-pane" role="tabpanel">
                     <div class="row">
                         <!--Map-->
-                        <div class="col-md-8">
+                        <div class="col-md-7 width-graph-5">
                             <div class="panel panel-danger">
                                 <div id="mapid" style="width: 100%; height: 400px;"></div>
                             </div>
                         </div>
                         <!--Panel Information Right-->
-                        <div class="col-md-4">
-                            <div class="panel panel-default">
+                        <div class="col-md-5 width-info-5">
+                            <div class="panel panel-default" style="height: auto;">
                                 <div class="panel-body">
                                     <div class="alert alert-info" role="alert">
                                         <h1 class="text-center">{% trans "Intake area delimitation" %}</h1>
