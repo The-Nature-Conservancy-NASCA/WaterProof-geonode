@@ -593,8 +593,11 @@ textarea {
         margin-top: auto;
     }
     #mapid{
-        width: 271px !important;
+        width: auto;
         border: 2px solid; 
+    }
+    .width-map{
+        width: 100%;
     }
     .overflow-form {
         overflow-y: hidden;
@@ -629,8 +632,11 @@ textarea {
         margin-top: auto;
     }
     #mapid{
-        width: 680px !important;
+        width: auto;
         border: 2px solid;
+    }
+    .width-map{
+        width: 100%;
     }
     .overflow-form {
         overflow-y: hidden;
@@ -665,8 +671,11 @@ textarea {
         margin-top: -80rem;
     }
     #mapid{
-        width: auto !important;
+        width: auto;
         border: 2px solid; 
+    }
+    .width-map{
+        width: 66.6%;
     }
     .overflow-form {
         overflow-y: hidden;
@@ -701,9 +710,12 @@ textarea {
         margin-top: auto;
     }
     #mapid{
-        width: auto !important;
+        width: auto;
         border: 2px solid; 
-   } 
+    }
+    .width-map{
+        width: 66.6%;
+    } 
     .overflow-form {
         overflow-y: hidden;
         overflow-x: hidden;

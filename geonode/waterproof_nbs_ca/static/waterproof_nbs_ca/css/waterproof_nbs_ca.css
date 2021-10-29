@@ -128,7 +128,13 @@ input:checked+.slider:before {
 .borde {
     border: 1px black solid;
 }
-
+#mapid {
+    width: 350px;
+    height: 400px;
+    border: 1px solid;
+    border-radius: 0.5em;
+    border-color: #aaa;
+}
 @media (min-width: 360px) {
     .header-waterproof {
         padding-left: 6rem;
@@ -136,8 +142,11 @@ input:checked+.slider:before {
         margin-top: auto;
     }
     #mapid {
-        width: 271px !important;
+        width: auto;
         border: 2px solid;
+    }
+    .width-map{
+        width: 100%;
     }
 }
 
@@ -148,8 +157,11 @@ input:checked+.slider:before {
         margin-top: auto;
     }
     #mapid {
-        width: 680px !important;
+        width: auto;
         border: 2px solid;
+    }
+    .width-map{
+        width: 100%;
     }
 }
 
@@ -160,8 +172,11 @@ input:checked+.slider:before {
         margin-top: -80rem;
     }
     #mapid {
-        width: auto !important;
+        width: auto;
         border: 2px solid;
+    }
+    .width-map{
+        width: 66.6%;
     }
 }
 
@@ -172,17 +187,12 @@ input:checked+.slider:before {
         margin-top: auto;
     }
     #mapid {
-        width: auto !important;
+        width: auto;
         border: 2px solid;
     }
-}
-
-#mapid {
-    width: 350px;
-    height: 400px;
-    border: 1px solid;
-    border-radius: 0.5em;
-    border-color: #aaa;
+    .width-map{
+        width: 66.6%;
+    }
 }
 
 .justify-number {

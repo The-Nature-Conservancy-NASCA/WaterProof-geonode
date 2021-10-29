@@ -245,15 +245,27 @@ textarea {
     background-color: #d9edf7 !important;
     max-width: 450px !important;
 }
-@media (min-width: 360) {
+@media (min-width: 360px) {
     .header-waterproof{
         padding-left: 6rem;
         padding-bottom: 1rem;
         margin-top: auto;
     }
     #map {
-        width: 271px !important;
+        width: 100%;
         border: 2px solid;
+    }
+    .position-graph{
+        width: 100%;
+    }
+    .position-table{
+        width: 100%;
+    }
+    .width-graph-5{
+        width: 100%;
+    }
+    .width-info-5{
+        width: 100%;
     }
 }
 
@@ -264,8 +276,20 @@ textarea {
         margin-top: auto;
     }
     #map {
-        width: 680px !important;
+        width: 100%;
         border: 2px solid;
+    }
+    .position-graph{
+        width: 100%;
+    }
+    .position-table{
+        width: 100%;
+    }
+    .width-graph-5{
+        width: 100%;
+    }
+    .width-info-5{
+        width: 100%;
     }
 }
 
@@ -276,10 +300,21 @@ textarea {
         margin-top: -80rem;
     }
     #map {
-        width: auto !important;
+        width: 100%;
         border: 2px solid;
     }
-    
+    .position-graph{
+        width: 100%;
+    }
+    .position-table{
+        width: 100%;
+    }
+    .width-graph-5{
+        width: 100%;
+    }
+    .width-info-5{
+        width: 100%;
+    }
 }
 
 @media (min-width: 1200px) {
@@ -289,8 +324,19 @@ textarea {
         margin-top: auto;
     }
     #map {
-        width: auto !important;
+        width: 100%;
         border: 2px solid;
     }
-    
+    .position-graph{
+        width: 66.6%;
+    }
+    .position-table{
+        width: 33.3%;
+    }
+    .width-graph-5{
+        width: 58.3%;
+    }
+    .width-info-5{
+        width: 41.6%;
+    }
 }

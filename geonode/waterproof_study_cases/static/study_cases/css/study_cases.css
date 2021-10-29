@@ -183,8 +183,11 @@
         margin-top: auto;
     }
     #map {
-        width: 271px !important;
+        width: auto;
         border: 2px solid;
+    }
+    .width-map{
+        width: 100%;
     }
     .title-city {
         position: relative;
@@ -226,8 +229,11 @@
         margin-top: auto;
     }
     #map {
-        width: 680px !important;
+        width: auto;
         border: 2px solid;
+    }
+    .width-map{
+        width: 100%;
     }
     .title-city {
         position: absolute;
@@ -269,8 +275,11 @@
         margin-top: -80rem;
     }
     #map {
-        width: auto !important;
+        width: auto;
         border: 2px solid;
+    }
+    .width-map{
+        width: 66.6%;
     }
     .title-city {
         position: absolute;
@@ -312,8 +321,11 @@
         margin-top: auto;
     }
     #map {
-        width: auto !important;
+        width: auto;
         border: 2px solid;
+    }
+    .width-map{
+        width: 66.6%;
     }
     .title-city {
         position: absolute;
