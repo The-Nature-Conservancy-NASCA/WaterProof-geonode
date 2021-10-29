@@ -135,27 +135,6 @@
     float: right;
 }
 
-.platform-label {
-    padding-left: 50px;
-}
-
-.personnel-label {
-    padding-left: 90px;
-}
-
-.transaction-label {
-    padding-left: 90px;
-}
-
-.discount-label {
-    padding-left: 90px;
-}
-
-.text-number {
-    text-align: right;
-    width: 40% !important;
-}
-
 .text-number-full {
     text-align: right;
 }
@@ -179,12 +158,6 @@
     top: 8.3%;
 }
 
-.title-city {
-    position: absolute;
-    right: 26%;
-    top: 6.6%;
-}
-
 .biophysical-panel {
     height: 60vh;
     overflow: scroll;
@@ -203,18 +176,141 @@
 .currency-text {
     font-weight: 800;
 }
+@media (min-width: 360px) {
+    .header-waterproof {
+        padding-left: 6rem;
+        padding-bottom: 1rem;
+        margin-top: auto;
+    }
+    #map {
+        width: auto;
+        border: 2px solid;
+    }
+    .width-map{
+        width: 100%;
+    }
+    .title-city {
+        position: relative;
+        right: auto;
+        top: 6.6%;
+    }
+    .custom-control-label {
+        font-weight: 100;
+        width: 100%;
+    }
+    .text-number {
+        text-align: right;
+        width: 100% !important;
+    }
+    .personnel-label {
+        padding-left: 0px;
+    }
+    .platform-label {
+        padding-left: 0px;
+    }
+    .transaction-label {
+        padding-left: 0px;
+    }
+    .discount-label {
+        padding-left: 0px;
+    }
+    .width-reponsive{
+        width: auto;
+    }
+    .width-title{
+        width: 100%;
+    }
+}
 
 @media (min-width: 768px) {
     .header-waterproof {
-        padding-left: 16rem;
+        padding-left: 6rem;
         padding-bottom: 1rem;
+        margin-top: auto;
+    }
+    #map {
+        width: auto;
+        border: 2px solid;
+    }
+    .width-map{
+        width: 100%;
+    }
+    .title-city {
+        position: absolute;
+        right: 26%;
+        top: 6.6%;
+    }
+    .custom-control-label {
+        font-weight: 100;
+        width: auto;
+    }
+    .text-number {
+        text-align: right;
+        width: 100% !important;
+    }
+    .personnel-label {
+        padding-left: 0px;
+    }
+    .platform-label {
+        padding-left: 0px;
+    }
+    .transaction-label {
+        padding-left: 0px;
+    }
+    .discount-label {
+        padding-left: 0px;
+    }
+    .width-reponsive{
+        width: 100%;
+    }
+    .width-title{
+        width: 100%;
     }
 }
 
 @media (min-width: 992px) {
     .header-waterproof {
-        padding-left: 24rem;
+        padding-left: 14rem;
         padding-bottom: 1rem;
+        margin-top: -80rem;
+    }
+    #map {
+        width: auto;
+        border: 2px solid;
+    }
+    .width-map{
+        width: 66.6%;
+    }
+    .title-city {
+        position: absolute;
+        right: 26%;
+        top: 6.6%;
+    }
+    .custom-control-label {
+        font-weight: 100;
+        width: auto;
+    }
+    .text-number {
+        text-align: right;
+        width: 40% !important;
+    }
+    .personnel-label {
+        padding-left: 90px;
+    }
+    .platform-label {
+        padding-left: 50px;
+    }
+    .transaction-label {
+        padding-left: 90px;
+    }
+    .discount-label {
+        padding-left: 90px;
+    }
+    .width-reponsive{
+        width: 50%;
+    }
+    .width-title{
+        width: 100%;
     }
 }
 
@@ -222,6 +318,45 @@
     .header-waterproof {
         padding-left: 28rem;
         padding-bottom: 3rem;
+        margin-top: auto;
+    }
+    #map {
+        width: auto;
+        border: 2px solid;
+    }
+    .width-map{
+        width: 66.6%;
+    }
+    .title-city {
+        position: absolute;
+        right: 26%;
+        top: 6.6%;
+    }
+    .custom-control-label {
+        font-weight: 100;
+        width: auto;
+    }
+    .text-number {
+        text-align: right;
+        width: 40% !important;
+    }
+    .personnel-label {
+        padding-left: 90px;
+    }
+    .platform-label {
+        padding-left: 50px;
+    }
+    .transaction-label {
+        padding-left: 90px;
+    }
+    .discount-label {
+        padding-left: 90px;
+    }
+    .width-reponsive{
+        width: 50%;
+    }
+    .width-title{
+        width: 100%;
     }
 }
 
@@ -245,10 +380,6 @@
 
 .margin-bottom-max{
     margin-bottom: 0%;
-}
-
-.custom-control-label {
-    font-weight: 100;
 }
 
 .cm-unit-label {
@@ -303,10 +434,11 @@
     margin-bottom: 2px;
 }
 
-.header-waterproof {
+/* .header-waterproof {
     padding-left: 28rem;
     padding-bottom: 2px;
-}
+    margin-top: auto;
+} */
 
 .justify-number {
     text-align: right;

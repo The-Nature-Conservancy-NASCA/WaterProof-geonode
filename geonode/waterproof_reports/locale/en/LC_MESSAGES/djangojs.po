@@ -24,7 +24,7 @@ msgstr ""
 "Project-Id-Version: Waterproof Valpha\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-07-21 14:47-0500\n"
-"PO-Revision-Date: 2021-10-12 09:40-0500\n"
+"PO-Revision-Date: 2021-10-21 11:23-0500\n"
 "Last-Translator: Julien Collaer <julien.collaer@opengeode.be>\n"
 "Language-Team: Skaphe\n"
 "Language: en\n"
@@ -36,3 +36,78 @@ msgstr ""
 
 msgid "Total Benefits"
 msgstr "Total benefits"
+
+msgid "Return of investment"
+msgstr "Return of investment"
+
+msgid "Total Discounted Benefits"
+msgstr "Total Discounted Benefits"
+
+msgid "Costs per Activity"
+msgstr "Costs per Activity"
+
+msgid "Portfolio Efficiency"
+msgstr "Portfolio Efficiency"
+
+msgid "Indicator"
+msgstr "Indicator"
+
+msgid "Change in carbon storage (%)"
+msgstr "Change in carbon storage (%)"
+
+msgid "Change in phosphorus load (%)"
+msgstr "Change in phosphorus load (%)"
+
+msgid "Change in nitrogen load (%)"
+msgstr "Change in nitrogen load (%)"
+
+msgid "Change in total sediments (%)"
+msgstr "Change in total sediments (%)"
+
+msgid "Change in base flow (%)"
+msgstr "Change in base flow (%)"
+
+msgid "Carbon storage"
+msgstr "Carbon storage"
+
+msgid "Phosphorus load"
+msgstr "Phosphorus load"
+
+msgid "Nitrogen load"
+msgstr "Nitrogen load"
+
+msgid "Total sediments"
+msgstr "Total sediments"
+
+msgid "Base flow"
+msgstr "Base flow"
+
+msgid "Volumen of water yield"
+msgstr "Volumen of water yield"
+
+msgid "Cost and benefits"
+msgstr "Cost and benefits"
+
+msgid "Total Cost"
+msgstr "Total Cost"
+
+msgid "Total benefits"
+msgstr "Total benefits"
+
+msgid "Total discounted benefits"
+msgstr "Total discounted benefits"
+
+msgid "Cost and Benefits"
+msgstr "Cost and Benefits"
+
+msgid "Total discounted cost"
+msgstr "Total discounted cost"
+
+msgid "Cost"
+msgstr "Cost"
+
+msgid "Benefits"
+msgstr "Benefits"
+
+msgid "Net present value summary"
+msgstr "Net present value summary"

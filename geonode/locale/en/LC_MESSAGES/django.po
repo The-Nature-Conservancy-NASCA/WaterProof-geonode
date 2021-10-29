@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Waterproof VBeta\n"
+"Project-Id-Version: Waterproof V1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-02-11 20:03-0500\n"
-"PO-Revision-Date: 2021-10-15 09:21-0500\n"
+"PO-Revision-Date: 2021-10-28 19:12-0500\n"
 "Last-Translator: Julien Collaer <julien.collaer@opengeode.be>\n"
 "Language-Team: English Skaphe\n"
 "Language: en\n"
@@ -8361,7 +8361,7 @@ msgid "What is WaterProof?"
 msgstr "What is WaterProof?"
 
 msgid "This platform will provide a rapid and indicative NbS investment portfolio and associated ROI. The tool is intended to engage actors interested in exploring solutions to local water challenges and prioritization of locations for possible NbS water security programs (such as Water Funds)."
-msgstr "This platform will provide a rapid and indicative NbS investment portfolio and associated ROI. The tool is intended to engage actors interested in exploring solutions to local water challenges and prioritization of locations for possible NbS water security programs (such as Water Funds)."
+msgstr "WaterProof provides a rapid and indicative NbS investment portfolio and associated ROI. The tool is intended to engage stakeholders interested in exploring solutions to local water challenges and prioritization of locations for possible NbS water security programs (such as Water Funds)."
 
 msgid "Before starting"
 msgstr "Before starting"
@@ -8508,7 +8508,7 @@ msgid "Begin your Nature based Solutions journey"
 msgstr "Begin your Nature based Solutions journey"
 
 msgid "Explore how Nature-based Solutions can generate outcomes in your catchment."
-msgstr "Explore how Nature based Solutions can generate outcomes in your basin."
+msgstr "Explore how Nature based Solutions can generate outcomes in your basin"
 
 msgid "Start now"
 msgstr "Start now"
@@ -8534,6 +8534,12 @@ msgstr "Compare"
 msgid "Treatment plants"
 msgstr "Treatment plants"
 
+msgid "Use this window to configure your cost function by selecting the variables of your interest: flow, concentration or loads."
+msgstr "Use this form to configure your cost function by selecting the variables of your interest: flow, concentration or loads."
+
+msgid "Expand the list of items and click to build the function."
+msgstr "Expand the list of infraestructure and click to build the function."
+
 #: geonode/templates/index.html
 msgid "Explore investment returns"
 msgstr "Start now"
@@ -8552,11 +8558,11 @@ msgstr "Case studies current list"
 
 #: geonode/templates/index.html
 msgid "Text 1 - Before starting"
-msgstr "You must understand that the information requirements to make an analysis: environmental objectives, catchments, treatment plants and Budget."
+msgstr "You must be clear about the location of the analysis, infrastructure, budget and objectives of the NbS portfolio"
 
 #: geonode/templates/index.html
 msgid "Text 2 - What is a case study?"
-msgstr "It is the way that are related: operation and maintenance costs of a catchment system, with the possible benefits of NbS"
+msgstr "It is the way to relate operation and maintenance cost of infrastructure with possible benefits of NbS"
 
 #: geonode/templates/index.html
 msgid "Text 3 - Support data"
@@ -8564,19 +8570,19 @@ msgstr "The tool uses global biophysical data, land use and climate change scena
 
 #: geonode/templates/index.html
 msgid "The tool uses"
-msgstr "The tool uses "
+msgstr "WaterProof uses "
 
 #: geonode/templates/index.html
 msgid "Text 3 - Support data1"
-msgstr "global biophysical data, land use and climate change scenarios, "
+msgstr "global data for biophysical characterization, land use / land cover, and climate change scenarios, "
 
 #: geonode/templates/index.html
 msgid "Text 3 - Support data2"
-msgstr "The tool uses global biophysical data, land use and climate change scenarios, which have been organized as inputs in the InVEST and RIOS models."
+msgstr " which have been configured as inputs to the InVEST and RiOS models"
 
 #: geonode/templates/index.html
 msgid "Text 4 - See an example"
-msgstr "you will find the description of a case study and all the elements that make it up. We hope that it serves as a guide to build your case study."
+msgstr "you will find a complete example of a case study with the description of all the elements and steps developed for its configuration. We hope that it serves as a guide to build your own case study"
 
 #: geonode/templates/index.html
 msgid "Here"

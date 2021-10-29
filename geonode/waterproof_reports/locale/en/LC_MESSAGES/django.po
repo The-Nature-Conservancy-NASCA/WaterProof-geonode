@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Waterproof Vbeta\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-02-19 11:27-0500\n"
-"PO-Revision-Date: 2021-10-12 09:40-0500\n"
+"PO-Revision-Date: 2021-10-21 11:22-0500\n"
 "Last-Translator: Julien Collaer <julien.collaer@opengeode.be>\n"
 "Language-Team: Skaphe\n"
 "Language: en\n"
@@ -248,7 +248,7 @@ msgid "Portfolio efficiency ind text 1"
 msgstr "This section shows the efficiency of the portfolio, expressed as a physical variation of the parameters (in percentage) in relation to the amount of the investment."
 
 msgid "Oportunity results ind text 1"
-msgstr "Here you will find the overall investment and savings values that willresult from the implementation of the selected NbS in your case study:"
+msgstr "Here you will find the overall investment and savings values that will result from the implementation of the selected NbS in your case study:"
 
 msgid "Aqueduct ind text 1"
 msgstr "In this section we leverage the the Aqueduct tool to analyze water quality and quantity risks for thecase studyareas so that you identify areas that require more attention."
@@ -684,3 +684,12 @@ msgstr "Total benefits"
 
 msgid "Aqueduct indicator"
 msgstr "Aqueduct indicator"
+
+msgid "Physical risk quantity"
+msgstr "Physical risk quantity"
+
+msgid "Regulatory and reputational"
+msgstr "Regulatory and reputational"
+
+msgid "Physical risk quality"
+msgstr "Physical risk quality"

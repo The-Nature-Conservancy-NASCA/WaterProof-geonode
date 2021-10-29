@@ -87,9 +87,9 @@ $(function () {
     var basePathURL = "../../treatment_plants/";
     var whiteColor = "#ffffff";
     var actionType = "";    
-    var tableFunctionTpl = '<table class="table table-striped table-bordered table-condensed" style="width:100%">' +
+    var tableFunctionTpl = '<div class="table-responsive col-md-12"><table class="table table-striped table-bordered table-condensed" style="width:100%">' +
                 addTitleFnRow([_('Activate'), _('Function name'), _('Function'), _('Currency'), _('Factor'), _('Options')]) + 
-                '<tbody></tbody></table>';
+                '<tbody></tbody></table></div>';
     
     var lbl = {
         transportedWater : _('Transported Water'),
@@ -707,13 +707,13 @@ $(function () {
         var node = document.createElement("div");
         node.classList.add("mark");
         var idNewTech = "new-tech-" + Date.now();
-        var textNewForm = `<div class="title-tree" id="contentTechnology${idNewTech}">
+        var textNewForm = `<div class="title-tree col-md-12" id="contentTechnology${idNewTech}">
             <div class="point-tree" onclick="viewBranch('technology${idNewTech}', this)">-</div> 
             <div class="text-tree"><div style="display:flex;"><label>${lblTechnology}:</label>
             <input type="text" id="${idNewTech}" class="form-control new-tech-input" 
             style="position:relative;top:-6px; value=${idNewTech}" onkeydown="keyupNewTech(this)" 
             placeholder="${_('Enter name technology')}"></div></div></div>
-            <div class="margin-main overflow-form" id="technology${idNewTech}">
+            <div class="margin-main overflow-form col-md-12" id="technology${idNewTech}">
             <div class="container-var" id="idContainerVar${idNewTech}"><div>
         ${createInput('% '+ lbl.transportedWater, 100, "", null, null, null, null, false, null, null, 'number')}
         ${createInput('% '+ lbl.sediments, null, null, null, null, null, lbl.placeholderSediments, true, null, null, 'number')}  
@@ -818,7 +818,7 @@ $(function () {
         let lblSubprocess = _("Subprocess");
         nameElement = nameElement === null ? "N/A" : nameElement;
         
-        $('#mainTree').html(`<div class="title-tree" graphId='${graphid}'>
+        $('#mainTree').html(`<div class="title-tree col-md-12" graphId='${graphid}'>
                             <div class="point-tree" onclick="viewBranch('id${plantElement}', this)" >-</div>
                             <div class="text-tree">${_(nameElement)} </div><div class="detail-tree"></div></div> 
                             <div class="margin-main" id="id${plantElement}"></div>`);
@@ -834,7 +834,7 @@ $(function () {
                 if(localStorage.loadFormButton === "true") {                    
                     linkLoadNewTechnology = `onclick="loadNewTechnology('subprocess${value.idSubprocess}')">${_('Add new technology')}`;
                 }
-                var h = `<div class="title-tree"><div class="point-tree" onclick="viewBranch('subprocess${value.idSubprocess}', this)" >-</div>
+                var h = `<div class="title-tree col-md-12"><div class="point-tree" onclick="viewBranch('subprocess${value.idSubprocess}', this)" >-</div>
                 <div class="text-tree">${lblSubprocess}: ${_(value.subprocess)}</div>
                 <div class="link-form-2" style="display:block;"${linkLoadNewTechnology}</div></div>
                 <div class="margin-main" id="subprocess${value.idSubprocess}"></div>`;                
@@ -848,10 +848,10 @@ $(function () {
                             if(valueTech.technology === null) {
                                 valueTech.technology = "N/A";
                             }
-                            var ht = `<div class="title-tree" id="contentTechnology${techId}"> 
+                            var ht = `<div class="title-tree col-md-12" id="contentTechnology${techId}"> 
                                     <div class="point-tree" onclick="viewBranch('technology${techId}', this)">-</div>
                                     <div class="text-tree"><label>${lblTechnology}:</label> ${_(valueTech.technology)}</div></div>
-                                    <div class="margin-main overflow-form" id="technology${techId}"></div>`;
+                                    <div class="margin-main overflow-form col-md-12" id="technology${techId}"></div>`;
                             let htmlSubprocess = $('#subprocess' + value.idSubprocess).html() + ht;
                             $('#subprocess' + value.idSubprocess).html(htmlSubprocess);
                             var loadHtml = true;
@@ -970,11 +970,11 @@ $(function () {
             var idNewTech = "new-tech-" + Date.now();
             let onBlurFn = `onblur="changeRetained('${idNewTech}', this)"`;
             var tableFunct = tableFunctionTpl.replace("<tbody>", "<tbody>" + listTrFunction.join(""));
-            var htmlTech = `<div class="title-tree" id="contentTechnology${idNewTech}">
+            var htmlTech = `<div class="title-tree col-md-12" id="contentTechnology${idNewTech}">
                 <div class="point-tree" onclick="viewBranch('technology${idNewTech}', this)">-</div> 
                 <div class="text-tree"><div style="display:flex;"><label>${lblTechnology}:</label> ${techName}
                 </div></div></div>
-                <div class="margin-main overflow-form" id="technology${idNewTech}">
+                <div class="margin-main overflow-form col-md-12" id="technology${idNewTech}">
                 <div class="container-var" id="idContainerVar${idNewTech}"><div>
                 ${createInput('% '+ lbl.transportedWater, 100, "", null, null, null, null, false)}
                 ${createInput('% '+ lbl.sediments, sediments, null, null, null, null, lbl.placeholderSediments, true,'idSedimentsRetained'+idNewTech,onBlurFn,'number')}  

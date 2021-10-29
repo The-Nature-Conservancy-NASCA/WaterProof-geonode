@@ -542,8 +542,8 @@ $(function () {
 
         var htmlCost = '<tr><td class="small text-center vat" >Total cost</td>';
         var htmlDiscountedCost = '<tr><td class="small text-center vat" >Total discounted cost</td>';
-        var htmlBenefits= '<tr><td class="small text-center vat" >total benefits</td>';
-        var htmlDiscountedBenefits = '<tr><td class="small text-center vat" >total discounted benefits</td>';
+        var htmlBenefits= '<tr><td class="small text-center vat" >Total benefits</td>';
+        var htmlDiscountedBenefits = '<tr><td class="small text-center vat" >Total discounted benefits</td>';
         var htmlTitle = '<tr class="info"><th scope="col" class="small text-center vat">{% trans "Time Period" %}</th>';
         var contTitle = 1;
 
@@ -581,7 +581,7 @@ $(function () {
                     type: 'column'
                 },
                 title: {
-                    text: 'Cost and benefits'
+                    text: gettext('Cost and benefits')
                 },
                 colors: ['#008BAB', '#90D3E7', '#004B56', '#61D1C2'],
                 xAxis: {
@@ -591,18 +591,18 @@ $(function () {
                     enabled: false
                 },
                 series: [{
-                    name: 'Total benefits',
+                    name: gettext('Total benefits'),
                     data: totalCost
                 },{
-                    name: 'Total Cost',
+                    name: gettext('Total Cost'),
                     data: totalDiscountedCost
                 },{
-                    name: 'Total discounted benefits',
+                    name: gettext('Total discounted benefits'),
                     type: 'spline',
                     dashStyle: 'shortdot',
                     data: totalBenefits
                 },{
-                    name: 'Total discounted cost',
+                    name: gettext('Total discounted cost'),
                     type: 'spline',
                     dashStyle: 'shortdot',
                     data: totalDiscountedBenefits
@@ -624,7 +624,7 @@ $(function () {
                     type: 'column'
                 },
                 title: {
-                    text: 'Cost and Benefits'
+                    text: gettext('Cost and Benefits')
                 },
                 colors: ['#008BAB', '#90D3E7'],
                 xAxis: {
@@ -634,10 +634,10 @@ $(function () {
                     enabled: false
                 },
                 series: [{
-                    name: 'Cost',
+                    name: gettext('Cost'),
                     data: dataCost
                 },{
-                    name: 'Benefits',
+                    name: gettext('Benefits'),
                     data: dataBenefit
                 }]
             });
@@ -680,7 +680,7 @@ $(function () {
                 },
                 colors: ['#008BAB'],
                 title: {
-                    text: 'Net present value summary'
+                    text: gettext('Net present value summary')
                 },
                 xAxis: {
                     categories: ['Implementation', 'Maintance', 'Oportunity', 'Transaction', 'Platform', 'Benefit', 'Total']
