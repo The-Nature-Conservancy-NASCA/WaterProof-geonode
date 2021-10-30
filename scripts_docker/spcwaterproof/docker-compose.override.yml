@@ -1,6 +1,5 @@
 version: '3.4'
 
-
 # Common Django template for Geonode, Celery services below
 x-common-django:
   &default-common-django
@@ -26,8 +25,8 @@ services:
       - ./_volume_static:/spcwaterproof-static/
       - ./_volume_media:/spcwaterproof-media/
       - ./_volume_certificates:/spcwaterproof-certificates/
-      - /Users/edwin/data/global_datasets/:/spcwaterproof-inputs/
-      - /Users/edwin/data/outputs/:/spcwaterproof-outputs/
+      - /data/global_datasets/:/spcwaterproof-inputs/
+      - /data/outputs/:/spcwaterproof-outputs/
 
   geoserver:
     image: waterproof/spcwaterproof:geoserver-3.2
