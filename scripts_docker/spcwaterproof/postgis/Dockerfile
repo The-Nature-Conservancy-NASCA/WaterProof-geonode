@@ -1,5 +1,4 @@
-FROM postgis/postgis:14-3.1-alpine
-#FROM tobi312/rpi-postgresql-postgis
+FROM mdillon/postgis:11-alpine
 LABEL PostGIS for Waterproof
 
 COPY ./initdb-geonode.sh /docker-entrypoint-initdb.d/geonode.sh
