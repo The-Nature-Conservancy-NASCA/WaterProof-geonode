@@ -159,6 +159,14 @@ services:
       - rabbitmq:/var/lib/rabbitmq
     restart: on-failure
 
+  # Mapserver service. This is needed by geonode
+  mapserver:
+    image: camptocamp/mapserver:master
+    volumes:
+      - /Users/edwin/geonode/workspace/models/data/outputs:/etc/mapserver
+    ports:
+      - "82:80"
+
 volumes:
   static:
   media:
@@ -167,4 +175,5 @@ volumes:
   certificates:
   pgdumps:
   rabbitmq:
+  mapserver:
 
