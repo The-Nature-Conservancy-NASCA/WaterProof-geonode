@@ -42,7 +42,7 @@ EOSQL
 if [ -n "$GEONODE_DATABASE" ]; then
 	echo "Geonode database creation requested: $GEONODE_DATABASE"
 	create_geonode_user_and_database $GEONODE_DATABASE
-    update_database_with_postgis $GEONODE_DATABASE
+  update_database_with_postgis $GEONODE_DATABASE
 	echo "Geonode database created"
 fi
 
