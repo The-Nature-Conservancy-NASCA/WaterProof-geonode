@@ -9,6 +9,7 @@ function create_geonode_user_and_database() {
 		ALTER USER $db with encrypted password '$GEONODE_DATABASE_PASSWORD';
 	    CREATE DATABASE $db;
 	    GRANT ALL PRIVILEGES ON DATABASE $db TO $db;
+		ALTER USER $db WITH SUPERUSER;
 EOSQL
 }
 
@@ -42,7 +43,9 @@ EOSQL
 if [ -n "$GEONODE_DATABASE" ]; then
 	echo "Geonode database creation requested: $GEONODE_DATABASE"
 	create_geonode_user_and_database $GEONODE_DATABASE
-  update_database_with_postgis $GEONODE_DATABASE
+    update_database_with_postgis $GEONODE_DATABASE
+	echo "pg_restore -d $GEONODE_DATABASE -U $GEONODE_DATABASE $GEONODE_DATABASE.dmp"
+	pg_restore -d $GEONODE_DATABASE -U $GEONODE_DATABASE $GEONODE_DATABASE.dmp
 	echo "Geonode database created"
 fi
 
