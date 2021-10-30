@@ -163,7 +163,7 @@ services:
   mapserver:
     image: camptocamp/mapserver:master
     volumes:
-      - /Users/edwin/geonode/workspace/models/data/outputs:/etc/mapserver
+      - /data/outputs:/etc/mapserver
     ports:
       - "82:80"
 
