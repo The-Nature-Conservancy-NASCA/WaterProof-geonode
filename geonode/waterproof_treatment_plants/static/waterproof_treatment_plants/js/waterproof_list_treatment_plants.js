@@ -1237,14 +1237,15 @@ $(function () {
             map = L.map('mapid', {
                 scrollWheelZoom: false,
                 zoomControl: false,
-                photonControl: true,
+                photonControl: true,                              
                 photonControlOptions: {
                     resultsHandler: showSearchPoints,
                     selectedResultHandler: selectedResultHandler,
                     placeholder: _('Search City...'),
                     position: 'topleft',
                     url: SEARCH_CITY_API_URL
-                }
+                },
+                /* defaultExtentControl: true */
             });
 
             let initialCoords = CENTER;
@@ -1281,10 +1282,10 @@ $(function () {
             var overlays = {
                 "Hydro (esri)": hydroLyr,
             };
-
-            L.Control.DefaultExtent({ title: _('Default extent'), position: 'topright'}).addTo(map);
-            var zoomControl = new L.Control.Zoom({ position: 'topright' }).addTo(map);
             L.control.layers(baseLayers, overlays, { position: 'topleft' }).addTo(map);
+            var zoomControl = new L.Control.Zoom({ position: 'topright' }).addTo(map);
+            //var defaultExtent = L.Control.DefaultExtent({ title: _('Default extent'), position: 'topright'}).addTo(map);
+            
 
             searchPoints = L.geoJson(null, {
                 onEachFeature: function(feature, layer) {

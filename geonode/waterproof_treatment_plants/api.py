@@ -48,10 +48,10 @@ def getTreatmentPlantsList(request):
 		tratamentPlantsList = []
 		user = request.GET['user']
 		city_id = request.GET['city']
-				
+		print("getTreatmentPlantsList, user: %s" % user)
 		if user != '-1':					
 			try:
-				headers = Header.objects.filter(plant_city=city_id)
+				headers = Header.objects.filter(plant_city=city_id, plant_user=user)
 				tratamentPlantsList = Csinfra.objects.filter(csinfra_plant__in=headers)
 			except:
 				city_id = ''

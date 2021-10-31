@@ -22,12 +22,13 @@ def treatmentPlantsList(request):
 		try:            
 			city_id = request.GET['city']
 			
-			if not request.user.pk is None:
-				user = request.user.pk
+			if not request.user.username is None:
+				user = request.user.username
 		except:
 			city_id = ''
 
 		url = settings.SITE_HOST_API + 'treatment_plants/getTreatmentPlantsList/?city=%s&user=%s' % (city_id,user)
+		print (url)
 		response = []
 		
 		try:
