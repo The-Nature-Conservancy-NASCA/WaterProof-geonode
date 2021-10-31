@@ -223,9 +223,11 @@
                                     <option value=''>{% trans "Select" %}</option>
                                     {% for c in currencys %}
                                         {% if c.currency == study_case.cm_currency %}                                        
-                                            <option value='{{c.currency}}' {% if c.currency == 'USD' %} {% if c.iso3 == 'USA' %} selected {% endif %}{% else %} selected {% endif %}>
-                                                ({{c.currency}}) - {{c.name}}
-                                            </option>
+                                        <option value='{{c.currency}}' {% if c.currency == 'USD' %} {% if c.iso3 == 'USA' %} selected {% endif %}{% else %} selected {% endif %}>
+                                            ({{c.currency}}) - {{c.name}}
+                                        </option>
+                                        {% else %}
+                                        <option value='{{c.currency}}'>({{c.currency}}) - {{c.name}}</option>
                                         {% endif %}
                                     {% endfor %}
                                 </select>
@@ -304,9 +306,13 @@
                                 <select id="financial_currency" class="custom-control-input">
                                 {% for c in currencys %}
                                     {% if c.currency == study_case.financial_currency %}                                        
-                                        <option value='{{c.currency}}' {% if c.currency == 'USD' %} {% if c.iso3 == 'USA' %} selected {% endif %}{% else %} selected {% endif %}>
-                                            ({{c.currency}}) - {{c.name}}
-                                        </option>
+                                    <option value='{{c.currency}}' {% if c.currency == 'USD' %} {% if c.iso3 == 'USA' %} selected {% endif %}{% else %} selected {% endif %}>
+                                        ({{c.currency}}) - {{c.name}}
+                                    </option>
+                                    {% else %}
+                                    <option value='{{c.currency}}'>
+                                        ({{c.currency}}) - {{c.name}}
+                                    </option>
                                     {% endif %}
                                 {% endfor %}
                                 </select>
@@ -465,12 +471,14 @@
                                 <label for="analysis_currency" class="control-label required-field ">
                                     {% trans "Currency" %}
                                 </label>
-                                <select id="analysis_currency" class="form-control">
+                                <select id="analysis_currency" class="form-control" onchange='$(".lbl-currency-budget").html($("#analysis_currency").val())'>
                                     {% for c in currencys %}
                                         {% if c.currency == study_case.analysis_currency %}                                        
-                                            <option value='{{c.currency}}' {% if c.currency == 'USD' %} {% if c.iso3 == 'USA' %} selected {% endif %}{% else %} selected {% endif %}>
-                                                ({{c.currency}}) - {{c.name}}
-                                            </option>
+                                        <option value='{{c.currency}}' {% if c.currency == 'USD' %} {% if c.iso3 == 'USA' %} selected {% endif %}{% else %} selected {% endif %}>
+                                            ({{c.currency}}) - {{c.name}}
+                                        </option>
+                                        {% else %}
+                                        <option value='{{c.currency}}'>({{c.currency}}) - {{c.name}}</option>
                                         {% endif %}
                                     {% endfor %}
                                 </select>
@@ -506,8 +514,16 @@
                             <div class="col-md-6">
                                 <div id="div_annual_investment" class="form-group">
                                     <label class="control-label required-field" for="annual_investment">{% trans "annual_investment" %}</label>
-                                    <input id="annual_investment" type="number" class="text-number-full form-control" value="{{study_case.annual_investment|stringformat:'1.2f'}}">
-                        
+                                    <div style="display: flex;">
+                                        <input id="annual_investment" type="number" class="text-number-full form-control" value="{{study_case.annual_investment|stringformat:'1.2f'}}">
+                                        <div class="lbl-currency-budget" style="padding-left: 15px;">
+                                            {% if study_case.analysis_currency != None%}
+                                            {{study_case.analysis_currency}}
+                                            {% else %}
+                                            {% with currencys|first as c %} {{c.currency}} {% endwith %}
+                                            {% endif %}
+                                        </div>
+                                    </div>                                    
                                 </div>
                             </div>
                         </div> 
