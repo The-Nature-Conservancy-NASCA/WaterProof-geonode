@@ -13,6 +13,7 @@ from rest_framework.response import Response
 from geonode.waterproof_treatment_plants.models import Header, Csinfra, Element, Function, Ptap
 from geonode.waterproof_intake.models import ElementSystem, ProcessEfficiencies, CostFunctionsProcess
 from geonode.waterproof_parameters.models import Countries
+from geonode.waterproof_study_cases.models import StudyCases
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import DateTimeField
 import requests
@@ -48,10 +49,14 @@ def getTreatmentPlantsList(request):
 		tratamentPlantsList = []
 		user = request.GET['user']
 		city_id = request.GET['city']
-		print("getTreatmentPlantsList, user: %s" % user)
-		if user != '-1':					
-			try:
-				headers = Header.objects.filter(plant_city=city_id, plant_user=user)
+		
+		if user != '-1':
+			print ("getTreatmentPlantsList, user: %s" % user)
+			headers = Header.objects.filter(plant_city=city_id, plant_user=user)
+		else:
+			print("getTreatmentPlantsList (without user), city: %s" % city_id)
+			headers = Header.objects.filter(plant_city=city_id)
+			try:				
 				tratamentPlantsList = Csinfra.objects.filter(csinfra_plant__in=headers)
 			except:
 				city_id = ''
@@ -475,6 +480,17 @@ def getTreatmentPlant(request):
 		}
 
 		return JsonResponse(response, safe=False)
+
+
+@api_view(['GET'])
+def getCountStudyCasesByPlant(request, id):
+    if request.method == 'GET':
+        #print("getCountStudyCasesByPlant :: id: %s" % id)
+        plants = StudyCases.objects.filter(ptaps=id)        
+        #print ("plants: %s" % plants)
+        count = len(plants)
+        #print ("count: %s" % count)
+        return JsonResponse({"count":count}, safe=False)
 
 def get_geoms_intakes(plants):
 	intake_geoms = []

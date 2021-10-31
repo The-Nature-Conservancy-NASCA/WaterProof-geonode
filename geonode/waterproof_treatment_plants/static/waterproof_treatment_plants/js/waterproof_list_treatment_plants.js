@@ -1359,35 +1359,51 @@ $(function () {
     * @param {String} plant code    
     * @returns 
     */
-    deletePlant = function(plantId) {
-        var intakeId='{{idx}}';
-        Swal.fire({
-            title: "<div style='font-size: 25px;'>" + _("Are you sure?") + "</div>",
-            text: _("You won't be able to revert this!"),
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: _('Yes, delete it!')
-        }).then((result) => {
-            if (result.isConfirmed) {
-                var urlDetail = basePathURL + "setHeaderPlant/";
-                $.ajax({
-                    url: urlDetail,
-                    method: 'DELETE',
-                    contentType: 'application/json; charset=utf-8',
-                    dataType: 'json',
-                    data: JSON.stringify({
-                        "plantId" : plantId
-                    }),success: function(result) {
-                        window.location.href =basePathURL + "?limit=5&city=" + localStorage.getItem('cityId');
-                        localStorage.plantId = null;
-                    },error: function (err) {
-                        showMessageModal('Error',_('Error deleting the treatment plant, it must already be used in a case study'),'error');
-                    }
+    deletePlant = function(plantId,element) {
+        
+        var urlCountPlants = "getCountStudyCasesByPlant/" + plantId;
+        var promise = $.ajax({
+            url: urlCountPlants,
+            type: 'GET',
+            dataType: 'json'
+        });
+        promise.done(function (data) {
+            console.log(this);
+            if (data.count > 0) {
+                element.classList.add("disabled");
+                Swal.fire({
+                    text: _("This treatment plant is in use by some study cases ans can't be deleted."),
                 });
+            } else {
+                Swal.fire({
+                    title: "<div style='font-size: 25px;'>" + _("Are you sure?") + "</div>",
+                    text: _("You won't be able to revert this!"),
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: _('Yes, delete it!')
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        var urlDetail = basePathURL + "setHeaderPlant/";
+                        $.ajax({
+                            url: urlDetail,
+                            method: 'DELETE',
+                            contentType: 'application/json; charset=utf-8',
+                            dataType: 'json',
+                            data: JSON.stringify({
+                                "plantId" : plantId
+                            }),success: function(result) {
+                                window.location.href =basePathURL + "?limit=5&city=" + localStorage.getItem('cityId');
+                                localStorage.plantId = null;
+                            },error: function (err) {
+                                showMessageModal('Error',_('Error deleting the treatment plant, it must already be used in a case study'),'error');
+                            }
+                        });
+                    }
+                })
             }
-        })
+        });
     };
 
     // add function cost

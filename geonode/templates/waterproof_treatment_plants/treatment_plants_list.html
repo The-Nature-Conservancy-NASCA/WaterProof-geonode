@@ -95,7 +95,7 @@
                     <div class="btn-group btn-group-table" role="group">
                         <a class="btn btn-warning" onclick="clonePlant('{{treatmentPlants.plantId}}')" title='{% trans "clone" %}'>
                             <span class="glyphicon glyphicon-copy" aria-hidden="true"></span></a>
-                        <a class="btn btn-danger" onclick="deletePlant('{{treatmentPlants.plantId}}')" title='{% trans "delete" %}'>
+                        <a class="btn btn-danger" onclick="deletePlant({{treatmentPlants.plantId}},this)" title='{% trans "delete" %}'>
                             <span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
                     </div>
                 </td>
