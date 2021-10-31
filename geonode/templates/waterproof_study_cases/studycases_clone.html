@@ -486,11 +486,11 @@
                                     <h3> {% trans "NBS_conservation_activities" %}
                                         <button type="button" data-toggle="modal" data-target="#HelpStep6" id="HelpModalBtnModal_step3" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
                                     </h3>
-                                    <p>{% trans "NBS_conservation_activities_text" %}</p>
-
-                                    <ul class="list-group list-group-flush" id="nbs-ul">
-
-                                    </ul>
+                                    <div style="display: flex;">
+                                        <p>{% trans "NBS_conservation_activities_text" %}</p>
+                                        <span onclick="window.location.href='/waterproof_nbs_ca/create/'" class="glyphicon glyphicon-plus-sign btn-add"></span>
+                                    </div>
+                                    <ul class="list-group list-group-flush" id="nbs-ul"></ul>
                                 </div>
                                 <div class="row text-center">
                                     <div class="col-md-12">
