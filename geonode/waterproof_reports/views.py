@@ -1922,8 +1922,8 @@ def pdf(request):
         heightIcon = heightIcon + 80;
 
 #    response = HttpResponse(pdf.output(dest='S').encode('iso-8859-1'))
-    StudyCaseNum = 'Case_study_' + request.POST['studyCase']+'.pdf';
-    response = HttpResponse(pdf.output('S',StudyCaseNum).encode('iso-8859-1'))
+    StudyCaseNum = '/Case_study_' + request.POST['studyCase']+'.pdf';
+    response = HttpResponse(pdf.output('S',StudyCaseNum,'r').encode('iso-8859-1'))
 
     response['Content-Type'] = 'application/pdf'
     return response
