@@ -60,7 +60,9 @@
                 <th scope="col" class="small text-center vat">{% trans "ID" %}</th>
                 <th scope="col" class="small text-center vat">{% trans "Name" %}</th>
                 <th scope="col" class="small text-center vat">{% trans "Description" %}</th>
+                {% if user.is_authenticated and user.professional_role == 'ADMIN'%}
                 <th scope="col" class="small text-center vat">{% trans "User" %}</th>
+                {% endif %}                
                 <th scope="col" class="small text-center vat">{% trans "Creation Date" %}</th>
                 <th scope="col" class="small text-center vat">{% trans "City" %}</th>
                 <th scope="col" class="small text-center vat">{% trans "Catchment" %}</th>
@@ -73,7 +75,9 @@
                 <td class="small text-center vat">{{treatmentPlants.plantId}}</td>
                 <td class="small text-center vat">{{treatmentPlants.plantName}}</td>
                 <td class="small text-center vat">{{treatmentPlants.plantDescription}}</td>
+                {% if user.is_authenticated and user.professional_role == 'ADMIN'%}
                 <td class="small text-center vat">{{treatmentPlants.plantUser}}</td>
+                {% endif %}
                 <td id="date" class="small text-center vat">{{treatmentPlants.plantDate}}</td>
                 <td class="small text-center vat">{{treatmentPlants.standardNameSpanish}}</td>
                 <td class="small text-center vat">
@@ -82,18 +86,22 @@
                     {% endfor %}
                 </td>
                 <td class="small text-center vat items-align-center">
-                    <div class="table-center-item" role="group">
+                    <div class="btn-group btn-group-table" role="group">
                         <a class="btn btn-primary" onclick="viewInformationPlant('{{treatmentPlants.plantId}}')" title='{% trans "View" %}'>
                             <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
+                        {% if user.is_authenticated %}
                         <a class="btn btn-info" onclick="updatePlant('{{treatmentPlants.plantId}}')" title='{% trans "edit" %}'>
                             <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
+                            {% endif %}
                     </div>
-                    <div class="table-center-item" role="group">                    
+                    {% if user.is_authenticated %}
+                    <div class="btn-group btn-group-table" role="group">
                         <a class="btn btn-warning" onclick="clonePlant('{{treatmentPlants.plantId}}')" title='{% trans "clone" %}'>
                             <span class="glyphicon glyphicon-copy" aria-hidden="true"></span></a>
-                        <a class="btn btn-danger" onclick="deletePlant('{{treatmentPlants.plantId}}')" title='{% trans "delete" %}'>
+                        <a class="btn btn-danger" onclick="deletePlant({{treatmentPlants.plantId}},this)" title='{% trans "delete" %}'>
                             <span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
                     </div>
+                    {% endif %}
                 </td>
             </tr>
             {% endfor %}
@@ -134,11 +142,9 @@
     localStorage.clonePlant = 'false';
     localStorage.updatePlant = 'false';
     localStorage.loadInf = 'false';
-    $(document).ready(function () {
-        
+    $(document).ready(function () {        
         initialize();
         drawPolygons(map);
-
         table = $('#tbl-plants').DataTable({
         'searching': false,
         'columnDefs': [ {            

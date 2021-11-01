@@ -19,15 +19,18 @@ def treatmentPlantsList(request):
 	"""
 	if request.method == 'GET':
 		user = -1
+		city_id = ''
 		try:            
 			city_id = request.GET['city']
-			
-			if not request.user.pk is None:
-				user = request.user.pk
+
+			if request.user.is_authenticated and request.user.professional_role != 'ADMIN':
+				user = request.user.username
 		except:
-			city_id = ''
+			print ("error!!")
+			
 
 		url = settings.SITE_HOST_API + 'treatment_plants/getTreatmentPlantsList/?city=%s&user=%s' % (city_id,user)
+		#print (url)
 		response = []
 		
 		try:

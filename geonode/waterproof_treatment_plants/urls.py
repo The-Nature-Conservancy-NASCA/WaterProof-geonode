@@ -24,4 +24,5 @@ urlpatterns = [
 	path('clone/<int:idx>', views.cloneTreatmentPlants, name='clone-treatment-plants'),
 	path('view/<int:idx>', views.viewTreatmentPlants, name='view-treatment-plants'),
 	path('process/', api.Process.as_view(), name='process'),
+	path('getCountStudyCasesByPlant/<int:id>/', api.getCountStudyCasesByPlant, name='countStudyCasesbyPlant'),
 ]

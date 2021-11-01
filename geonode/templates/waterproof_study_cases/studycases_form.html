@@ -77,18 +77,14 @@
                         </label>
                         <textarea rows="3" class="form-control" name="description" id="description"></textarea>
                     </div>
-
                     <!--Input Desc -->
-
                     <h4 class="text-primary">
                         {% trans "select_type_study" %}
                     </h4>
                     <div style="padding-bottom: 10px;">
                         <span>{% trans "description_select_type" %}</span>
                     </div>
-
                     <div id="div_id_type" class="form-group" style="border-bottom: none;">
-
                         <div class="form-check panel-hide" id="div-ptaps">
                             <input class="form-check-input" type="radio" name="type" id="ptap" value="1">
                             <label class="form-check-label" style="font-weight: normal;" for="ptap">
@@ -110,18 +106,19 @@
                             </button>
                         </div>
                     </div>
-
                     <div class="row">
                         <div class="col-md-12">
                             <div class="panel-hide" id="panel-custom">
                                 <div class="col-md-12">
                                     <div class="row form-group">
                                         <legend class="margin-bottom-max" style="border-bottom: none;">
-                                            <label for="div_id_type" class="control-label required-field " style="font-size: 16px;">{% trans "water_intakes" %}<span class="text-danger-wp" id="ptap-required"></span></label>
+                                            <label for="div_id_type" class="control-label required-field " style="font-size: 16px;">{% trans "water_intakes" %}
+                                                <span class="text-danger-wp" id="ptap-required"></span>
+                                            </label>
                                         </legend>
                                         <div style="display: flex;">
                                             <p>{% trans "select_water_intake" %}</p>
-                                            <span  onclick="window.location.href='/intake/create/'" class="glyphicon glyphicon-plus-sign btn-add"></span>
+                                            <span onclick="window.location.href='/intake/create/'" class="glyphicon glyphicon-plus-sign btn-add"></span>
                                         </div>
                                         <div class="col-md-9">
                                             <select class="form-control" id="select_custom">
@@ -182,7 +179,6 @@
                                             <p>{% trans "select_treatments_plants" %}</p>
                                             <span  onclick="window.location.href='/treatment_plants/create/'" class="glyphicon glyphicon-plus-sign btn-add"></span>
                                         </div>
-
                                         <div class="col-md-9">
                                             <select class="form-control" id="select_ptap">
                                                 <option disabled selected value>{% trans "select_option" %} </option>
@@ -199,16 +195,13 @@
                                                     <th scope="col" class="small text-center vat">{% trans "Name" %}</th>
                                                     <th scope="col" class="small text-center vat">{% trans "Description" %}</th>
                                                     <th scope="col" class="small text-center vat">{% trans "Options" %}</th>
-                                                </tr>
-    
+                                                </tr>    
                                             </thead>
-                                            <tbody>
-                                            </tbody>
+                                            <tbody></tbody>
                                         </table>
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                     <div class="row text-center">
@@ -299,8 +292,7 @@
                         <br>
                             <p style="margin-top: 20px;" id="txtGuide1"></p>
                             <a id="txtGuide2" href="{{ invest_doc }}" target="_blank">{% trans "InVEST_documentation" %}</a>
-                        <div class="row biophysical-panel panel-hide" id="biophysical-panel">
-                        </div>
+                        <div class="row biophysical-panel panel-hide" id="biophysical-panel"></div>
                     </div>
                     <div class="row text-center">
                         <div class="col-md-12">
@@ -337,7 +329,6 @@
                             <div class="custom-control custom-checkbox col-md-4 width-reponsive">
                                 <input id="total_platform" class="text-number" type="number" class="custom-control-input" disabled>
                             </div>
-
                             <div class="col-md-6">
                                 <label class="custom-control-label platform-label" for="total_personnel">{% trans "personnel_salary_benefits" %}</label>
                             </div>
@@ -449,11 +440,11 @@
                         <h3> {% trans "NBS_conservation_activities" %}
                             <button type="button" data-toggle="modal" data-target="#HelpStep6" id="HelpModalBtnModal_step3" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
                         </h3>
-                        <p>{% trans "NBS_conservation_activities_text" %}</p>
-
-                        <ul class="list-group list-group-flush" id="nbs-ul">
-
-                        </ul>
+                        <div style="display: flex;">
+                            <p>{% trans "NBS_conservation_activities_text" %}</p>
+                            <span onclick="window.location.href='/waterproof_nbs_ca/create/'" class="glyphicon glyphicon-plus-sign btn-add"></span>
+                        </div>
+                        <ul class="list-group list-group-flush" id="nbs-ul"></ul>
                     </div>
                     <div class="row text-center">
                         <div class="col-md-12">
@@ -624,40 +615,23 @@
                                     <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="-">&#8722;</button>
                                     <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="*">&#215</button>
                                     <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="/">a/b</button>
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="^">a^b</button>
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="**">a^b</button>
                                     <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="sqrt">&#8730</button>
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="min()">min</button>
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="max()">max</button>
                                 </div>
                             </div>
-
                             <div id="mathAdvanced_tab" class="tab-pane fade in">
                                 <div class="btn-group" role="group">
                                     <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="pi">π</button>
                                     <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="e">e</button>
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="ln">ln</button>
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="log">log</button>
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="log()">ln</button>
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="log10()">log</button>
                                     <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="_">a_b</button>
                                     <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="%">mod</button>
                                     <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="**">&#8731</button>
                                 </div>
-                            </div>
-                            <div id="mathTrigonometry_tab" class="tab-pane fade in">
-                                <div class="btn-group" role="group">
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="sin( )">sin</button>
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="cos( )">cos</button>
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="tan( )">tan</button>
-                                </div>
-                            </div>
-                            <div id="mathLogical_tab" class="tab-pane fade in">
-                                <div class="btn-group" role="group">
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value=">">></button>
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value=">=">\ge</button>
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="<"><</button>
-                                            <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="<=">\le</button>
-                                            <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="!=">\ne</button>
-                                            <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="and">and</button>
-                                            <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="or">or</button>
-                                </div>
-                            </div>
+                            </div>                            
                         </div>
                     </div>
                     <div class="col-md-5">
@@ -885,15 +859,11 @@
                 <p>
                     {% trans "In addition, you need to indicate the minimum and maximum values ​​of the sensitivity analysis that will help you make your decisions in case of unexpected changes in your environment. To do this, WaterProof uses the following equation:" %}
                 </p>
-
                 <h3 style="text-align: center;">{% trans "TB/(1+TD)^A" %}</h3>
-
                 <h5>{% trans "Where:" %}</h5>
                 <h5>{% trans "TB  It is the Total of the benefit" %}</h5>
                 <h5>{% trans "TD  Discount rate, brought from financial parameters" %}</h5>
                 <h5>{% trans "A  Index for the current year" %}</h5>
-
-
                 <div>
                     <br>
                     <div class="modal-footer">
@@ -1015,5 +985,4 @@
 <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 <script src="{{ STATIC_URL }}study_cases/mathquill/mathquill.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-
 {% endblock %}

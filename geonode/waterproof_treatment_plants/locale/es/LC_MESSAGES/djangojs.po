@@ -266,3 +266,6 @@ msgstr "Adicionar nueva tecnología"
 
 msgid "Saving Plant"
 msgstr "Guardando Planta"
+
+msgid "This treatment plant is in use by some study cases and can't be deleted."
+msgstr "Esta planta de tratamiento está siendo usada por algunos casos de uso y no puede ser eliminada."

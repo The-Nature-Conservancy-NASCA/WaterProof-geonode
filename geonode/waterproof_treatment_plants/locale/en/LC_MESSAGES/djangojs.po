@@ -232,3 +232,6 @@ msgstr "Error"
 
 msgid "The intake has not been deleted, try again!"
 msgstr "The intake has not been deleted, try again!"
+
+msgid "This treatment plant is in use by some study cases and can't be deleted."
+msgstr "This treatment plant is in use by some study cases and can't be deleted."
