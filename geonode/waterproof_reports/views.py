@@ -1923,7 +1923,7 @@ def pdf(request):
 
 #    response = HttpResponse(pdf.output(dest='S').encode('iso-8859-1'))
     StudyCaseNum = 'Case_study_' + request.POST['studyCase']+'.pdf';
-    response = HttpResponse(pdf.output(StudyCaseNum,'F').encode('iso-8859-1'))
+    response = HttpResponse(pdf.output(StudyCaseNum,'S').encode('iso-8859-1'))
 
     response['Content-Type'] = 'application/pdf'
     return response
