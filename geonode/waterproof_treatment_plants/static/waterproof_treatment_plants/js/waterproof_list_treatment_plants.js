@@ -16,7 +16,7 @@ $(function () {
     var arrayPtap = [];
     var arrayLoadingFunction = [];
     var functionsByCustomTech = {};    
-    let lblTechnology = _("Technology");
+    let lblTechnology = "Technology";
     var categories = JSON.parse('[{"categorys":"Ferric chloride","normalized_category":"DOSIFICACION"},{"categorys":"Polymer","normalized_category":"DOSIFICACION"},{"categorys":"Single bed slow filtration","normalized_category":"FILTRACION"},{"categorys":"Rapid single bed filtration","normalized_category":"FILTRACION"},{"categorys":"Rapid mixed bed filtration","normalized_category":"FILTRACION"},{"categorys":"Rapid single bed filtration","normalized_category":"FILTRACION"},{"categorys":"Hydraulic mixing","normalized_category":"MEZCLARAPIDA"},{"categorys":"Hydraulic flocculation","normalized_category":"MEZCLALENTA"},{"categorys":"Mechanical flocculation","normalized_category":"MEZCLALENTA"},{"categorys":"Inverse osmosis","normalized_category":"FILTRACIONPORMEMBRANANIVEL4"},{"categorys":"Nanofiltration","normalized_category":"FILTRACIONPORMEMBRANANIVEL3"},{"categorys":"Granulated Aluminum Sulfate","normalized_category":"DOSIFICACION"},{"categorys":"Quick mix","normalized_category":"MEZCLARAPIDA"},{"categorys":"Mantenimiento edificaciones","normalized_category":"MANTENIMIENTOEDIFICACIONES"},{"categorys":"Intercambio iónico","normalized_category":"INTERCAMBIOIONICO"},{"categorys":"Sludge pumping","normalized_category":"TRATAMIENTODELODOS"},{"categorys":"Sludge thickener","normalized_category":"TRATAMIENTODELODOS"},{"categorys":"Drying beds","normalized_category":"TRATAMIENTODELODOS"},{"categorys":"Filter press","normalized_category":"TRATAMIENTODELODOS"},{"categorys":"Liquid Aluminum Sulfate","normalized_category":"DOSIFICACION"},{"categorys":"Rapid mixed bed filtration","normalized_category":"FILTRACION"},{"categorys":"Single bed slow filtration","normalized_category":"FILTRACION"},{"categorys":"Conventional settler","normalized_category":"SEDIMENTACION"},{"categorys":"High Rate Settler","normalized_category":"SEDIMENTACION"},{"categorys":"Sludge blanket decanter","normalized_category":"SEDIMENTACION"},{"categorys":"Chlorine gas","normalized_category":"DESINFECCION"},{"categorys":"Chlorine in situ","normalized_category":"DESINFECCION"},{"categorys":"Ultrafiltration","normalized_category":"FILTRACIONPORMEMBRANANIVEL2"},{"categorys":"Microfiltration","normalized_category":"FILTRACIONPORMEMBRANANIVEL1"}]');
     var arrayPlant = [{
         graphId: 1,
@@ -81,8 +81,8 @@ $(function () {
     var output = document.getElementById('MathPreview');
     var addFunction = false;
     var flagNewFunction = false;
-    var addNewCost = _('Add new cost');
-    var editCost = _('Edit cost');
+    var addNewCost = 'Add new cost';
+    var editCost = 'Edit cost';
     var checkHexColor = "#039edc";
     var basePathURL = "../../treatment_plants/";
     var whiteColor = "#ffffff";
@@ -91,15 +91,7 @@ $(function () {
                 addTitleFnRow([_('Activate'), _('Function name'), _('Function'), _('Currency'), _('Factor'), _('Options')]) + 
                 '<tbody></tbody></table></div>';
     
-    var lbl = {
-        transportedWater : _('Transported Water'),
-        sediments : _('Sediments Retained'),
-        nitrogen : _('Nitrogen Retained'),
-        phosphorus : _('Phosphorus Retained'),
-        placeholderSediments : _('Enter sediments retainer'),
-        placeholderNitrogen : _('Enter nitrogen retainer'),
-        placeholderPhosphorus : _('Enter phosphorus retainer'),
-    }
+    var lbl = {};
 
     if (location.pathname.indexOf("update") > -1) {
         localStorage.plantId = location.pathname.split("/")[3];
@@ -176,8 +168,7 @@ $(function () {
     * @returns 
     */
     initialize = function () {
-
-        $('#CalculatorModalLabel').text(addNewCost);
+        
         $('#createUrl').attr('href','create/' + userCountryId);
         initMap();
 
@@ -196,7 +187,7 @@ $(function () {
             plantId = localStorage.clonePlantId;
         }else if(localStorage.updatePlant === "true") {
             actionType = "update";
-            plantId = localStorage.clonePlantId;
+            plantId = localStorage.plantId;
         }else if(localStorage.loadInf === "true") {
             actionType = "view";
         }
@@ -304,7 +295,7 @@ $(function () {
             $(".main-tree-content input").prop( "disabled", true );
             let id = e.currentTarget.id.replace("id","");
             
-            let divContainerVar = $(e.currentTarget).parents().get(5).children[0];
+            let divContainerVar = $(e.currentTarget).parents().get(6).children[0];
             let techId = divContainerVar.id;
             $("#" + techId +  " input").prop( "disabled", false );
 
@@ -312,6 +303,21 @@ $(function () {
             $("#" + divContainerVar.parentElement.id + " .link-form").show();
             changeStatus(id,e.currentTarget);
         });
+
+        lbl = {
+            transportedWater : _('Transported Water'),
+            sediments : _('Sediments Retained'),
+            nitrogen : _('Nitrogen Retained'),
+            phosphorus : _('Phosphorus Retained'),
+            placeholderSediments : _('Enter sediments retainer'),
+            placeholderNitrogen : _('Enter nitrogen retainer'),
+            placeholderPhosphorus : _('Enter phosphorus retainer'),
+        }
+
+        addNewCost = _('Add new cost');
+        editCost = _('Edit cost');
+        lblTechnology = _("Technology");
+        $('#CalculatorModalLabel').text(addNewCost);
     };
 
     loadPlant = function(plantId, typeAction) {
@@ -699,17 +705,17 @@ $(function () {
     };
 
     /**
-    * Load new technology in the tree
+    * Add new technology in the tree
     * @param {String} div the parent object for inject the HTML form
     * @returns 
     */
-    loadNewTechnology = function(parentId) {
+    addNewTechnology = function(parentId) {
         var node = document.createElement("div");
         node.classList.add("mark");
         var idNewTech = "new-tech-" + Date.now();
         var textNewForm = `<div class="title-tree col-md-12" id="contentTechnology${idNewTech}">
             <div class="point-tree" onclick="viewBranch('technology${idNewTech}', this)">-</div> 
-            <div class="text-tree"><div style="display:flex;"><label>${lblTechnology}:</label>
+            <div class="text-tree"><div style="display:flex;"><label technology='${idNewTech}'>${lblTechnology}:</label>
             <input type="text" id="${idNewTech}" class="form-control new-tech-input" 
             style="position:relative;top:-6px; value=${idNewTech}" onkeydown="keyupNewTech(this)" 
             placeholder="${_('Enter name technology')}"></div></div></div>
@@ -724,7 +730,10 @@ $(function () {
         
         node.innerHTML = textNewForm;
         let elParent = document.getElementById(parentId);
-        elParent.insertBefore(node, elParent.childNodes[0]);
+        elParent.appendChild(node);
+        $('html, body').animate({
+            scrollTop: $("#" + idNewTech).offset().top
+        }, 900);
     };
 
     keyupNewTech = function (e) {
@@ -830,13 +839,13 @@ $(function () {
                     value.subprocess = "N/A";
                 }
                 var listTrFunctionCustom = [];
-                var linkLoadNewTechnology = ">";
+                var linkaddNewTechnology = ">";
                 if(localStorage.loadFormButton === "true") {                    
-                    linkLoadNewTechnology = `onclick="loadNewTechnology('subprocess${value.idSubprocess}')">${_('Add new technology')}`;
+                    linkaddNewTechnology = `onclick="addNewTechnology('subprocess${value.idSubprocess}')">${_('Add new technology')}`;
                 }
                 var h = `<div class="title-tree col-md-12"><div class="point-tree" onclick="viewBranch('subprocess${value.idSubprocess}', this)" >-</div>
                 <div class="text-tree">${lblSubprocess}: ${_(value.subprocess)}</div>
-                <div class="link-form-2" style="display:block;"${linkLoadNewTechnology}</div></div>
+                <div class="link-form-2" style="display:block;"${linkaddNewTechnology}</div></div>
                 <div class="margin-main" id="subprocess${value.idSubprocess}"></div>`;                
                 $('#id' + plantElement).html($('#id' + plantElement).html() + h);
                                 
@@ -850,8 +859,8 @@ $(function () {
                             }
                             var ht = `<div class="title-tree col-md-12" id="contentTechnology${techId}"> 
                                     <div class="point-tree" onclick="viewBranch('technology${techId}', this)">-</div>
-                                    <div class="text-tree"><label>${lblTechnology}:</label> ${_(valueTech.technology)}</div></div>
-                                    <div class="margin-main overflow-form col-md-12" id="technology${techId}"></div>`;
+                                    <div class="text-tree"><label technology='${valueTech.technology}'>${lblTechnology}:</label> 
+                                    ${_(valueTech.technology)}</div></div><div class="margin-main overflow-form col-md-12" id="technology${techId}"></div>`;
                             let htmlSubprocess = $('#subprocess' + value.idSubprocess).html() + ht;
                             $('#subprocess' + value.idSubprocess).html(htmlSubprocess);
                             var loadHtml = true;
@@ -963,7 +972,7 @@ $(function () {
             keysCustomFns.forEach(key => {
                 customFn = functionsByCustomTech[key];
                 let graphid = customFn.graphid;                
-                let activateHtml = htmlCheckBox(customFn, graphid, customFn.idSubProcess, "", true,value.subprocess);
+                let activateHtml = htmlCheckBox(customFn, graphid, customFn.idSubProcess, "", true,null);
                 let strHtmlCustomfn = addFunctionCostRow(activateHtml, customFn, true, graphid,"");
                 listTrFunction.push(strHtmlCustomfn);
             });
@@ -972,9 +981,8 @@ $(function () {
             var tableFunct = tableFunctionTpl.replace("<tbody>", "<tbody>" + listTrFunction.join(""));
             var htmlTech = `<div class="title-tree col-md-12" id="contentTechnology${idNewTech}">
                 <div class="point-tree" onclick="viewBranch('technology${idNewTech}', this)">-</div> 
-                <div class="text-tree"><div style="display:flex;"><label>${lblTechnology}:</label> ${techName}
-                </div></div></div>
-                <div class="margin-main overflow-form col-md-12" id="technology${idNewTech}">
+                <div class="text-tree"><div style="display:flex;"><label technology='${techName}'>${lblTechnology}:</label> ${techName}
+                </div></div></div><div class="margin-main overflow-form col-md-12" id="technology${idNewTech}">
                 <div class="container-var" id="idContainerVar${idNewTech}"><div>
                 ${createInput('% '+ lbl.transportedWater, 100, "", null, null, null, null, false)}
                 ${createInput('% '+ lbl.sediments, sediments, null, null, null, null, lbl.placeholderSediments, true,'idSedimentsRetained'+idNewTech,onBlurFn,'number')}  
@@ -1095,7 +1103,7 @@ $(function () {
                 delete plant.functions[idFnPlant];
                 console.log("delete plant.functions[idFnPlant]", idFnPlant);
             }else{
-                let divContainerVar = $(element).parents().get(5).children[0];
+                let divContainerVar = $(element).parents().get(6).children[0];
                 let inputs = divContainerVar.getElementsByTagName("input");
                 let sediments = inputs[1].value;
                 let nitrogen = inputs[2].value;
@@ -1138,7 +1146,7 @@ $(function () {
                 if(addFunctionToArray) {
                     let elId = element.getAttribute("idSubprocess");
                     let elIdMaster = element.getAttribute("subprocessmaster");
-                    let divContainerVar = $(element).parents().get(5).children[0];
+                    let divContainerVar = $(element).parents().get(6).children[0];
                     let inputs = divContainerVar.getElementsByTagName("input");
                     let sediments = inputs[1].value;
                     let nitrogen = inputs[2].value;
@@ -1445,11 +1453,9 @@ $(function () {
         let exp = (costFn.function==undefined?costFn.functionValue:costFn.function).replaceAll('else', 'else <br>');
         let tooltipAttr = ` data-toggle='tooltip' data-placement='top' title='${exp}' `;
         let rowFn = `<tr><td>${activateHtml}</td>
-                        <td ${tdClass}>${(costFn.costFunction==undefined?costFn.nameFunction:costFn.costFunction)}</td>
-                        <td ${tdClass}><div class="text-center"><div class="open-popup-form" ${tooltipAttr}>fx</div></div></td>
-                        <td ${tdClass}>${costFn.currency}</td>
-                        <td ${tdClass}>${costFn.factor}</td>
-                        <td aling="center">${htmlBtn}</td></tr>`;
+        <td ${tdClass}>${(costFn.costFunction==undefined?costFn.nameFunction:costFn.costFunction)}</td>
+        <td ${tdClass}><div class="text-center"><div class="open-popup-form" ${tooltipAttr}>fx</div></div></td><td ${tdClass}>${costFn.currency}</td>
+        <td ${tdClass}>${costFn.factor}</td><td aling="center">${htmlBtn}</td></tr>`;
         return rowFn;
     }
 
@@ -1479,8 +1485,11 @@ $(function () {
             validatePyExpression();
         }else{
             typesetInput("");
-        }        
-        $("#saveAndValideCost").text(flagNewFunction ? addNewCost : editCost);        
+        }
+        
+        let lblNewOrEdit = flagNewFunction ? addNewCost + " " + _('Function') : editCost;
+        $("#saveAndValideCost").text(lblNewOrEdit);
+        $('#CalculatorModalLabel').text(lblNewOrEdit);
     }
 
     function setVarCost(element, graphid) {
@@ -1597,7 +1606,7 @@ $(function () {
         });
     }
 
-    $('#saveAndValideCost').click(function() {
+    $('#saveAndValideCost').click(function(e) {
         toggleProcessingModal('show');
         let graphId = $('#mainTree .title-tree')[0].getAttribute('graphId');
         let fnName = $("#costFunctionName").val();
@@ -1612,7 +1621,7 @@ $(function () {
 
         if (flagNewFunction){            
             let trNewFunction = addNewFunction(selectedTechnologyId, graphId, selectedSubprocess);
-            var triggerClick = ($(`#technology${selectedTechnologyId} table tbody`).length == 1);
+            var triggerClick = ($(`#technology${selectedTechnologyId} table tbody`)[0].children.length == 0);
             $(`#technology${selectedTechnologyId} table tbody`).append (trNewFunction);
             if (triggerClick) {
                 a = "id" + selectedTechnologyId.substr(selectedTechnologyId.length-8);
@@ -1637,6 +1646,7 @@ $(function () {
         }
         $('#CalculatorModal').modal('hide');
         toggleProcessingModal('hide');
+        e.stopPropagation();
     });
 
     addNewFunction = function(techId, graphId, subprocess){
@@ -1647,7 +1657,7 @@ $(function () {
         let pyExp = $('#python-expression').val();
         let technology="";
         if (techId.indexOf("new-tech") == -1) {
-            technology = $("#contentTechnology" + techId + " .text-tree")[0].lastChild.textContent.trim();            
+            technology = $("#contentTechnology" + techId + " .text-tree label")[0].getAttribute('technology');
         } else {
             technology = $("#" + techId).val();
         }        
@@ -1716,7 +1726,7 @@ $(function () {
     }
 
     htmlCheckBox = function(valueCostFunction, graphid, subProcessMaster, subid, checked, subprocess) {
-        //console.log("htmlCheckBox", subid, checked);
+        // console.log("htmlCheckBox", subid, checked);
         let attrSubprocessMaster = "";
         if (subProcessMaster !== null) {
             attrSubprocessMaster ='subProcessMaster="' + subProcessMaster + '" ';
@@ -1730,7 +1740,7 @@ $(function () {
                         'currency="' + valueCostFunction.currency + '" ' + 
                         'factor="' + valueCostFunction.factor + '" ' +
                         'subprocess="' + subprocess + '" ' +                        
-                        'checked=' + checked.toString() + ' ' + (checked ? 'style="border-color: ' + checkHexColor + ' ;" ' : '') +
+                        'checked="' + checked.toString() + '" ' + (checked ? 'style="border-color:' + checkHexColor + ';" ' : '') +
                         'class="change-state-tree" id="id' + valueCostFunction.idSubprocess + 
                                 (subid != "" ? HYPHEN + subid : "") + '"></div></div>';
         return activateHtml;

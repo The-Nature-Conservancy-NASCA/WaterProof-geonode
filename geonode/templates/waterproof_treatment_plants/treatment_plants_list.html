@@ -77,7 +77,7 @@
                 <td class="small text-center vat">{{treatmentPlants.plantDescription}}</td>
                 {% if user.is_authenticated and user.professional_role == 'ADMIN'%}
                 <td class="small text-center vat">{{treatmentPlants.plantUser}}</td>
-                {% endif %}                 
+                {% endif %}
                 <td id="date" class="small text-center vat">{{treatmentPlants.plantDate}}</td>
                 <td class="small text-center vat">{{treatmentPlants.standardNameSpanish}}</td>
                 <td class="small text-center vat">
@@ -89,15 +89,19 @@
                     <div class="btn-group btn-group-table" role="group">
                         <a class="btn btn-primary" onclick="viewInformationPlant('{{treatmentPlants.plantId}}')" title='{% trans "View" %}'>
                             <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
+                        {% if user.is_authenticated %}
                         <a class="btn btn-info" onclick="updatePlant('{{treatmentPlants.plantId}}')" title='{% trans "edit" %}'>
                             <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
+                            {% endif %}
                     </div>
+                    {% if user.is_authenticated %}
                     <div class="btn-group btn-group-table" role="group">
                         <a class="btn btn-warning" onclick="clonePlant('{{treatmentPlants.plantId}}')" title='{% trans "clone" %}'>
                             <span class="glyphicon glyphicon-copy" aria-hidden="true"></span></a>
                         <a class="btn btn-danger" onclick="deletePlant({{treatmentPlants.plantId}},this)" title='{% trans "delete" %}'>
                             <span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
                     </div>
+                    {% endif %}
                 </td>
             </tr>
             {% endfor %}
