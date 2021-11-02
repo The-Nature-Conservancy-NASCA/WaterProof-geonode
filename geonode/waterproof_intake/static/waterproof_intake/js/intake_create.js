@@ -244,7 +244,6 @@ $(document).ready(function() {
         $(`#table_${$('#externalSelect').val()}`).css('display', 'block');
     });
 
-
     // Automatic height on clic next btn wizard
     $('#smartwizard').smartWizard("next").click(function() {
         $('#autoAdjustHeightF').css("height", "auto");
@@ -259,7 +258,7 @@ $(document).ready(function() {
             Swal.fire({
                 icon: 'warning',
                 title: gettext('field_problem'),
-                text: gettext('Error number of years  (10-100) Year'),
+                text: gettext('Error number of years (10-100) Year'),
             });
             valid_period = false;
             return;
