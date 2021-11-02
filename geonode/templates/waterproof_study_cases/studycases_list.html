@@ -101,7 +101,7 @@
                     <a class="currency-link" onclick='viewCurrencys({{studyCases.id}},"{{studyCases.analysis_currency}}")'>{{studyCases.analysis_currency}}</a>
                 </td>                
                 <td class="small text-center vat"> <!-- EXECUTION STATUS -->
-                    <i class="glyphicon glyphicon-play-circle fa-lg {% if studyCases.is_run_analysis%} text-danger" title='{% trans "Completed" %}' {% else %} text-success" title='{% trans "In Progress" %}' {% endif %}></i>                    
+                    <i class="glyphicon fa-lg {% if studyCases.is_run_analysis%} glyphicon-stop text-danger" title='{% trans "In Progress" %}' {% else %} glyphicon-play-circle text-success" title='{% trans "Completed" %}' {% endif %}></i>                    
                 </td>               
                 <td> <!-- OPTIONS -->
                     <div class="btn-group btn-group-table" role="group">
