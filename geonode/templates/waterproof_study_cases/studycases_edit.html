@@ -494,11 +494,11 @@
                             <div id="div_analysis_nbs" class="form-group">
                                 <label class="control-label required-field" for="analysis_nbs">{% trans "climate_baseline_nbs" %}</label>
                                 <select id="analysis_nbs" class="form-control">
-                                    {% for scenario in scenarios %}                                    
+                                    {% for scenario in scenarios %}
                                     <option value='{{scenario.id}}' {% if scenario.name == study_case.climate_scenario.name %} selected {% endif %}>
                                         {{scenario.name}}
                                     </option>
-                                    {% endfor %}                                    
+                                    {% endfor %}
                                 </select>
                             </div>
                         </div>
@@ -523,7 +523,7 @@
                                             {% with currencys|first as c %} {{c.currency}} {% endwith %}
                                             {% endif %}
                                         </div>
-                                    </div>                                    
+                                    </div>
                                 </div>
                             </div>
                         </div> 
@@ -543,7 +543,6 @@
                                 <tbody>
                                 </tbody>
                             </table>
-
                         </div>
                     </div>
                     <div id="div_rellocated_check" class="form-group">

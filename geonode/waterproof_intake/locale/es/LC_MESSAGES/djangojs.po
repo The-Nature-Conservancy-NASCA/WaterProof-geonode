@@ -519,3 +519,6 @@ msgstr "Cámara de quiebre"
 
 msgid "Draw Basin"
 msgstr "Dibujar cuenca"
+
+msgid "Error number of years (10-100) Year"
+msgstr "Error en número de años (10-100)"
