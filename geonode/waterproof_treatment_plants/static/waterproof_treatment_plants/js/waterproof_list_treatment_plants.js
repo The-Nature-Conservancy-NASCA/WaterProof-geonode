@@ -87,9 +87,7 @@ $(function () {
     var basePathURL = "../../treatment_plants/";
     var whiteColor = "#ffffff";
     var actionType = "";    
-    var tableFunctionTpl = '<div class="table-responsive col-md-12"><table class="table table-striped table-bordered table-condensed" style="width:100%">' +
-                addTitleFnRow([_('Activate'), _('Function name'), _('Function'), _('Currency'), _('Factor'), _('Options')]) + 
-                '<tbody></tbody></table></div>';
+    var tableFunctionTpl = "";
     
     var lbl = {};
 
@@ -317,6 +315,10 @@ $(function () {
         addNewCost = _('Add new cost');
         editCost = _('Edit cost');
         lblTechnology = _("Technology");
+        tableFunctionTpl = `<div class="table-responsive col-md-12" style="overflow:visible;">
+                        <table class="table table-striped table-bordered table-condensed" style="width:100%">
+                        ${addTitleFnRow([_('Activate'), _('Function name'), _('Function'), _('Currency'), _('Factor'), _('Options')])}  
+                        <tbody></tbody></table></div>`;
         $('#CalculatorModalLabel').text(addNewCost);
     };
 
@@ -993,7 +995,7 @@ $(function () {
             $('#subprocess' + fnTechParent.idSubprocess).html($('#subprocess' + fnTechParent.idSubprocess).html() + htmlTech);
         }
         validateAndAddFunction2Array();
-        $('[data-toggle="tooltip"]').tooltip();
+        $('[data-toggle="tooltip"]').tooltip({trigger:'hover',placement:'auto'});
         if (onlyReadPlant){
             $('.btn-function-cost').prop('disabled', true);
         }
@@ -1450,10 +1452,11 @@ $(function () {
                         '<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>';                                                
         }
         let tdClass = 'class="small text-center vat"';
+        let fnName = _(costFn.costFunction==undefined?costFn.nameFunction:costFn.costFunction);
         let exp = (costFn.function==undefined?costFn.functionValue:costFn.function).replaceAll('else', 'else <br>');
-        let tooltipAttr = ` data-toggle='tooltip' data-placement='top' title='${exp}' `;
+        let tooltipAttr = ` data-toggle='tooltip' title='${exp}' `;
         let rowFn = `<tr><td>${activateHtml}</td>
-        <td ${tdClass}>${(costFn.costFunction==undefined?costFn.nameFunction:costFn.costFunction)}</td>
+        <td ${tdClass}>${fnName}</td>
         <td ${tdClass}><div class="text-center"><div class="open-popup-form" ${tooltipAttr}>fx</div></div></td><td ${tdClass}>${costFn.currency}</td>
         <td ${tdClass}>${costFn.factor}</td><td aling="center">${htmlBtn}</td></tr>`;
         return rowFn;

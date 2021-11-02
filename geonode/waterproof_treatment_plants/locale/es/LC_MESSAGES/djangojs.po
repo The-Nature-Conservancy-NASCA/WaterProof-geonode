@@ -253,10 +253,10 @@ msgid "Coagulant"
 msgstr "Coagulante"
 
 msgid "Liquid Aluminum Sulfate"
-msgstr "Liquido de Aluminio Sulfato"
+msgstr "Sulfato de Aluminio Líquido"
 
 msgid "Granulated Aluminum Sulfate"
-msgstr "Granulado de Aluminio Sulfato"
+msgstr "Sulfato de Aluminio Granulado"
 
 msgid "Ferric chloride"
 msgstr "Cloruro de Hierro"
@@ -269,3 +269,81 @@ msgstr "Guardando Planta"
 
 msgid "This treatment plant is in use by some study cases and can't be deleted."
 msgstr "Esta planta de tratamiento está siendo usada por algunos casos de uso y no puede ser eliminada."
+
+msgid "Hydraulic mixing"
+msgstr "Mezcla hidráulica"
+
+msgid "Polymer"
+msgstr "Polímero"
+ 
+msgid "Single bed slow filtration"
+msgstr "Filtro rápido de cama simple"
+ 
+msgid "Rapid single bed filtration"
+msgstr "Filtro rápido de cama simple" 
+ 
+msgid "Rapid mixed bed filtration"
+msgstr "Filtro rápido de cama mezclada" 
+ 
+msgid "Hydraulic flocculation"
+msgstr "Floculación hidráulica"
+ 
+msgid "Mechanical flocculation"
+msgstr "Floculación mecánica" 
+
+msgid "Inverse osmosis"
+msgstr "Ósmosis inversa" 
+ 
+msgid "Nanofiltration"
+msgstr "Nanofiltración" 
+  
+msgid "Quick mix"
+msgstr "Mezcla rápida" 
+ 
+msgid "Mantenimiento edificaciones"
+msgstr "Mantenimiento edificaciones" 
+ 
+msgid "Intercambio iónico"
+msgstr "Intercambio iónico" 
+ 
+msgid "Sludge pumping"
+msgstr "Bomba de lodo" 
+ 
+msgid "Sludge thickener"
+msgstr "Espesante de lodo"
+ 
+msgid "Drying beds"
+msgstr "Camas de secado"
+ 
+msgid "Filter press"
+msgstr "Filtro de presión"
+   
+msgid "Conventional settler"
+msgstr "Settler Convencional "
+ 
+msgid "High Rate Settler"
+msgstr "Settler de alta velocidad"
+ 
+msgid "Sludge blanket decanter"
+msgstr "Manta de lodo"
+
+msgid "Chlorine gas"
+msgstr "Gas clorhídrico"
+ 
+msgid "Chlorine in situ"
+msgstr "Clorhídrico en sitio"
+ 
+msgid "Ultrafiltration"
+msgstr "Ultrafiltración"
+ 
+msgid "Microfiltration"
+msgstr "Microfiltración"
+
+msgid "Annual operation and maintenance costs"
+msgstr "Costos de operación y mantenimiento anuales"
+
+msgid "Annual operation and maintenance costs - Polymer"
+msgstr "Costos de operación y mantenimiento anuales - Polímero"
+
+msgid "Water-air washing"
+msgstr "Lavado de agua-aire"
