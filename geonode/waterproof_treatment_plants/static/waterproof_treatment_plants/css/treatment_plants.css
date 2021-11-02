@@ -561,6 +561,8 @@ textarea {
     text-decoration: underline;
     cursor: pointer;
     font-size: 15px;
+    position: absolute;
+    bottom: 1px;
 }
 
 .link-form-2 {
@@ -801,5 +803,13 @@ form label {
     border-width: thin;
     color: #31708f !important;
     background-color: #d9edf7 !important;
-    max-width: 450px !important;
+    max-width: 500px !important;
+}
+
+.preview {
+    border: 1 pxsolid black;
+    background-color: white;
+    margin-bottom: 1em;
+    padding: 3px 5px;
+    line-height: calc(1em + 1vmin);
 }
