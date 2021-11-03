@@ -1646,10 +1646,10 @@ def pdf(request):
         pdf.image('imgpdf/wrab.png', 10, 40, w=90)
         pdf.ln(40)
     else:
-        pdf.image('imgpdf/nodatadef.png', 10, 40, w=90)
+        pdf.image('imgpdf/nodatadef.png', 10, 40, w=60)
         pdf.set_font('Arial', '', 10)
         pdf.set_text_color(100, 100, 100)
-        pdf.cell(0, 6, '* there is no data for this graph', align='L')
+        pdf.cell(0, 50, '* there is no data for this graph', align='L')
         pdf.ln(40)
 
 
