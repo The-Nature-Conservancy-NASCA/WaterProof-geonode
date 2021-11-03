@@ -283,7 +283,6 @@ def pdf(request):
     pdf.set_fill_color(255, 255, 255)
     pdf.set_font('Arial', '', 11)
     pdf.set_text_color(100, 100, 100)
-    pdf.cell(0, 10, '* Time requiered to obtain maximum benefit (year).', align='L')
 
     requestJson = requests.get(settings.SITE_HOST_API + 'reports/getconservationActivitiesPdf/?studyCase=' + request.POST['studyCase'],verify=False)
 
@@ -320,6 +319,7 @@ def pdf(request):
             i = j
             j = j + length_line      
         pdf.set_font('Arial', '', 9)
+    pdf.cell(0, 10, '* Time requiered to obtain maximum benefit (year).', align='L')
     
     requestJson = requests.get(settings.SITE_HOST_API + 'reports/getFinancialAnalysisPdfRunAnalisisPdf/?studyCase=' + request.POST['studyCase'],verify=False)
     data = requestJson.json()
@@ -1322,7 +1322,7 @@ def pdf(request):
             idTimeFrame = str(round(float(item['value']),2))
         if item['description'] == "TotalEstimatedInvestment":
             idTotalEstimatedInvestment = str(round(float(item['value']),2))
-        if item['description'] == "TotalAreaInterventionSize(Ha)":
+        if item['description'] == "TotalAreaInterventionSize(Hec)":
             idTotalAreaInvestmentSize = str(round(float(item['value']),2))
             
 
