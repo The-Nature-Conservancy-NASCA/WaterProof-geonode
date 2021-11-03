@@ -19,6 +19,7 @@
  var banderaFunctionCost = false;
  var enableBtnValidateCount = 0;  // count the number of default inconsistences in diagram. if (0) enabled else disabled
  var costVars = ['WSedRet','WPRet','WNRet','WSed','WP','WN','CSed','CP','CN','Q'];
+ var transportedWaterConnectors = {};
 
  // Program starts here. The document.onLoad executes the
  // createEditor function with a given configuration.
@@ -380,7 +381,7 @@
             MathJax.typesetPromise([output]).catch(function (err) {
               output.innerHTML = '';
               output.appendChild(document.createTextNode(err.message));
-              console.error(err);
+              //console.error(err);
             }).then(function () {
               button.disabled = false;
             });
@@ -485,9 +486,13 @@
 
         //Load data from figure to html
         editor.graph.addListener(mxEvent.CLICK, function(sender, evt) {
-        selectedCell = evt.getProperty('cell');
-        // Clear Inputs
-        if (selectedCell != undefined) { addData(selectedCell); } else { clearDataHtml(); }
+            selectedCell = evt.getProperty('cell');
+            // Clear Inputs
+            if (selectedCell != undefined) { 
+                addData(selectedCell); 
+            } else { 
+                clearDataHtml(); 
+            }
         });
  
         //Button for valide graph
@@ -574,7 +579,7 @@
 
         $('#python-expression').on('keypress',function(evt) {
             var charCode = (evt.which) ? evt.which : evt.keyCode;
-            let symbols = [40,41,42,43,45,60,61,62,106,107,109,111];
+            let symbols = [40,41,42,43,44,45,46,47,60,61,62,91,92,93,101,123,125];
             if (charCode != 46 && charCode > 31 && (charCode < 48 || charCode > 57))
                 return (symbols.indexOf(charCode) >= 0);
 
@@ -819,18 +824,18 @@
  
          //Add value entered in aguaDiagram in the field resultdb
          $('#aguaDiagram').on('input',function() {
-             if (typeof(selectedCell.value) == "string" && selectedCell.value.length > 0) {
-                 var obj = JSON.parse(selectedCell.value);
-                 let dbfields = obj.resultdb;
-                 dbfields[0].fields.predefined_transp_water_perc = $('#aguaDiagram').val();
-                 obj.resultdb = dbfields;
- 
-                 selectedCell.setValue(JSON.stringify(obj));
-             } else {
-                 resultdb[0].fields.predefined_transp_water_perc = $('#aguaDiagram').val();
-                 selectedCell.setAttribute('resultdb', JSON.stringify(resultdb));
-             }
-             validationTransportedWater(editor, selectedCell);
+            // if (typeof(selectedCell.value) == "string" && selectedCell.value.length > 0) {
+            //     var obj = JSON.parse(selectedCell.value);
+            //     let dbfields = obj.resultdb;
+            //     dbfields[0].fields.predefined_transp_water_perc = $('#aguaDiagram').val();
+            //     obj.resultdb = dbfields;
+
+            //     selectedCell.setValue(JSON.stringify(obj));
+            // } else {
+            //     resultdb[0].fields.predefined_transp_water_perc = $('#aguaDiagram').val();
+            //     selectedCell.setAttribute('resultdb', JSON.stringify(resultdb));
+            // }
+            validationTransportedWaterSum(editor, selectedCell);
          });
  
          // Save External Input Data
@@ -902,7 +907,7 @@
                 if (result){
                     is_valid = result.valid;
                     latex = result.latex
-                    console.log(result.latex);
+                    //console.log(result.latex);
                     typesetInput(result.latex);
                     if (is_valid){
                         $("#python-expression").removeClass("invalid_expression");
@@ -944,7 +949,7 @@
                 xmlDoc = mxUtils.parseXml(xmlText);
                 var dec = new mxCodec(xmlDoc);
                 dec.decode(xmlDoc.documentElement, editor.graph.getModel());
-                //console.log(xmlText);
+                
             },
             error: function (e) {
                 alert("An error occurred while processing XML file");

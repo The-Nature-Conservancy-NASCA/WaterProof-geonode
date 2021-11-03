@@ -281,7 +281,10 @@ def pdf(request):
     pdf.ln(4)
     pdf.set_text_color(100, 100, 100)
     pdf.set_fill_color(255, 255, 255)
-    
+    pdf.set_font('Arial', '', 11)
+    pdf.set_text_color(100, 100, 100)
+    pdf.cell(0, 10, '* Time requiered to obtain maximum benefit (year).', align='L')
+
     requestJson = requests.get(settings.SITE_HOST_API + 'reports/getconservationActivitiesPdf/?studyCase=' + request.POST['studyCase'],verify=False)
 
     data = requestJson.json()
@@ -1918,7 +1921,10 @@ def pdf(request):
         pdf.cell(0, 6, centerxy[1] + "," + centerxy[0], align='L', link = 'http://apps.skaphe.com:8000/reports/geographic/?folder=' + str(item['folder']) + '&intake=' + str(item['intake']) + '&region=' + str(item['region']) + '&year=' + str(item['year']) + '&study_case_id=' + str(item['studycase']) + '&center=' + centerxy[1] + "," + centerxy[0])
         heightIcon = heightIcon + 80;
 
-    response = HttpResponse(pdf.output(dest='S').encode('iso-8859-1'))
+#    response = HttpResponse(pdf.output(dest='S').encode('iso-8859-1'))
+    StudyCaseNum = 'Case_study_' + request.POST['studyCase']+'.pdf';
+    response = HttpResponse(pdf.output(StudyCaseNum,'S').encode('iso-8859-1'))
+
     response['Content-Type'] = 'application/pdf'
     return response
 

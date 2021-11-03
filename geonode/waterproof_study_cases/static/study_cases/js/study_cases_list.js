@@ -555,9 +555,7 @@ $(function() {
     }
 
     async function deleteDirAPIStudyCase(e) {
-        //userid
-        //idcasestudy
-        //datecreate
+
         const deleteDir = "deleteDir";
         let center =  waterproof.cityCoords == undefined ? map.getCenter(): waterproof.cityCoords;
         let amp = "&";
