@@ -319,7 +319,7 @@ def pdf(request):
             i = j
             j = j + length_line      
         pdf.set_font('Arial', '', 9)
-    pdf.ln(10)
+    pdf.ln(15)
     pdf.cell(0, 10, '* Time requiered to obtain maximum benefit (year).', align='L')
     
     requestJson = requests.get(settings.SITE_HOST_API + 'reports/getFinancialAnalysisPdfRunAnalisisPdf/?studyCase=' + request.POST['studyCase'],verify=False)
