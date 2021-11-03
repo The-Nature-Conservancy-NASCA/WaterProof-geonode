@@ -113,7 +113,7 @@
                     <br>
                     <div class="row text-center">
                         <div class="col-md-12">
-                            <button type="button" class="btn btn-primary" id="step1NextBtn">{% trans "Next" %}</button>
+                            <button type="button" value="next" class="btn btn-primary" id="step1NextBtn">{% trans "Next" %}</button>
                         </div>
                     </div>
                 </div>
@@ -192,8 +192,8 @@
                     </div>                    
                     <div class="row text-center">
                         <div class="col-md-12">
-                            <button type="button" class="btn btn-primary" id="step2PrevBtn">{% trans "Previous" %}</button>
-                            <button type="button" class="btn btn-primary" id="step2NextBtn">{% trans "Next" %}</button>
+                            <button type="button" value="previous" class="btn btn-primary" id="step2PrevBtn">{% trans "Previous" %}</button>
+                            <button type="button" value="next" class="btn btn-primary" id="step2NextBtn">{% trans "Next" %}</button>
                         </div>
                     </div>
                     
@@ -240,7 +240,7 @@
                                         </div>
                                     </div>
                                     {% endif %}
-                                    <button type="button" class="btn btn-primary" id="intakeWECB" style="display: none;">{% trans "Generate" %}</button>
+                                    <button type="button" value="generate" class="btn btn-primary" id="intakeWECB" style="display: none;">{% trans "Generate" %}</button>
                                 </div>
                                 <!--Data analysis Results-->
                                 <div class="col-md-4 position-table">
@@ -270,8 +270,8 @@
                     
                     <div class="row text-center">
                         <div class="col-md-12">
-                            <button type="button" class="btn btn-primary" id="step3PrevBtn">{%trans "Previous" %}</button>
-                            <button type="button" class="btn btn-primary" id="step3NextBtn">{% trans "Next" %}</button>
+                            <button type="button" value="previous" class="btn btn-primary" id="step3PrevBtn">{%trans "Previous" %}</button>
+                            <button type="button" value="next" class="btn btn-primary" id="step3NextBtn">{% trans "Next" %}</button>
                         </div>
                     </div>
                 </div>
@@ -296,8 +296,8 @@
                     <br>
                         <div class="row text-center">
                             <div class="col-md-12">
-                                <button type="button" class="btn btn-primary" id="step4PrevBtn">{% trans "Previous" %}</button>
-                                <button type="button" class="btn btn-primary" id="step4NextBtn">{% trans "Next" %}</button>
+                                <button type="button" value="previous" class="btn btn-primary" id="step4PrevBtn">{% trans "Previous" %}</button>
+                                <button type="button" value="next" class="btn btn-primary" id="step4NextBtn">{% trans "Next" %}</button>
                             </div>
                         </div>
                 </div>
@@ -324,7 +324,7 @@
                     <br>
                     <div class="row text-center">
                         <div class="col-md-12 form-group">
-                            <button type="button" class="btn btn-primary" id="step5PrevBtn">{% trans "Previous" %}</button>
+                            <button type="button" value="previous" class="btn btn-primary" id="step5PrevBtn">{% trans "Previous" %}</button>
                             <a type="button" class="btn btn-primary" 
                                 href="{% url "list-intake" %}?city={{ intake.city.id }}&limit={{ CLIENT_RESULTS_LIMIT }}" >
                                 {% trans "Exit" %}
