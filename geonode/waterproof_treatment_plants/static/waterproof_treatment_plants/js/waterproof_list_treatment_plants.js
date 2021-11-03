@@ -1382,7 +1382,7 @@ $(function () {
             if (data.count > 0) {
                 element.classList.add("disabled");
                 Swal.fire({
-                    text: _("This treatment plant is in use by some study cases ans can't be deleted."),
+                    text: _("This treatment plant is in use by some study cases and can't be deleted."),
                 });
             } else {
                 Swal.fire({

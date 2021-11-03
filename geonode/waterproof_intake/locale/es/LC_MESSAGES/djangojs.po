@@ -522,3 +522,6 @@ msgstr "Dibujar cuenca"
 
 msgid "Error number of years (10-100) Year"
 msgstr "Error en número de años (10-100)"
+
+msgid "This intake is in use by other elements and can't be deleted."
+msgstr "Esta captación está en uso por otros elementos y no puede ser borrada."

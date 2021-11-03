@@ -36,4 +36,5 @@ urlpatterns = [
     path('validatePyExpression/', api.validatePyExpression, name='validatePyExpression'),
     # View Diagram
     path('ShowDiagram/<int:idx>', views.viewDiagram, name='diagram-intake'),
+    path('intakeUsedByPlantsAndStudyCases/', api.intakeUsedByPlantsAndStudyCases, name='intakeUsedByPlantsAndStudyCases'),
 ]
