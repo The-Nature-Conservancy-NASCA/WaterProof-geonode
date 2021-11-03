@@ -37,7 +37,7 @@
                 {% if user.is_authenticated and not READ_ONLY_MODE %}
                 <a href="create/"  onclick="localStorage.loadFormButton='true'; localStorage.plantId = null;" 
                     id="createUrl">{% trans "Create new Treatment Plants" %}</a>
-                <button onclick="window.location.href='create/'" type="button" 
+                <button onclick="window.location.href='create/'" type="button" value="icon plus create tratment plants"
                         data-toggle="modal" class="glyphicon glyphicon-plus-sign" aria-hidden="true" 
                         style="outline:none; text-decoration:none; color: #0977ca; cursor: pointer;
                             border-style: none; background-color:transparent;">

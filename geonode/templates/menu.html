@@ -579,17 +579,17 @@
             
             <li class="subtitle menuOrder1">
               <a href="#Intake" data-toggle="collapse" aria-expanded="false" class="action">
-                  <img src="/static/geonode/img/01-flecha.png" class="flecha"><h5>1.{% trans "Water Intakes" %}</h5>
+                  <img src="/static/geonode/img/01-flecha.png" class="flecha" alt="arrow left"><h5>1.{% trans "Water Intakes" %}</h5>
               </a>
               <ul class="submenu opacity" id="Intake" style="display: none;">
                 <li>
                   <a href="#" class="dropdown-toggle listIntakes">
-                    <img src="/static/geonode/img/01-flecha.png" class="flecha"><h6>{% trans "List" %}</h6>
+                    <img src="/static/geonode/img/01-flecha.png" class="flecha" alt="arrow left"><h6>{% trans "List" %}</h6>
                   </a>
                 </li>
                 {% if user.is_authenticated and not READ_ONLY_MODE %}
                 <li><a href="{% url "create-intake" %}" class="dropdown-toggle">
-                  <img src="/static/geonode/img/01-flecha.png" class="flecha">
+                  <img src="/static/geonode/img/01-flecha.png" class="flecha" alt="arrow left">
                   <h6>{% trans "Create" %}</h6></a>                
                 </li>
                 {% endif %}    
@@ -597,15 +597,15 @@
             </li>
             <li class="subtitle menuOrder1">
               <a href="#TPlants" data-toggle="collapse" aria-expanded="false" class="action">
-                  <img src="/static/geonode/img/01-flecha.png" class="flecha"><h5>2.{% trans "Treatment plants" %}</h5></a>
+                  <img src="/static/geonode/img/01-flecha.png" class="flecha" alt="arrow left"><h5>2.{% trans "Treatment plants" %}</h5></a>
                   <ul class="submenu opacity" id="TPlants" style="display: none;">
                   <li><a href="#" class="dropdown-toggle listTreatmentPlants">
-                          <img src="/static/geonode/img/01-flecha.png" class="flecha">
+                          <img src="/static/geonode/img/01-flecha.png" class="flecha" alt="arrow left">
                           <h6>{% trans "List" %}</h6></a>                
                         </li>
                     {% if user.is_authenticated and not READ_ONLY_MODE %}                
                       <li><a href="{% url "create-treatment-plants" %}" onclick="localStorage.plantId = null;" class="dropdown-toggle">
-                        <img src="/static/geonode/img/01-flecha.png" class="flecha">
+                        <img src="/static/geonode/img/01-flecha.png" class="flecha" alt="arrow left">
                         <h6>{% trans "Create" %}</h6></a>                
                       </li>
                     {% endif %}                    
@@ -613,20 +613,20 @@
             </li>
             <li class="subtitle menuOrder1">
               <a href="#StudyCase" data-toggle="collapse" aria-expanded="false" class="action">
-                  <img src="/static/geonode/img/01-flecha.png" class="flecha"><h5>3.{% trans "Study cases" %}</h5></a>
+                  <img src="/static/geonode/img/01-flecha.png" class="flecha" alt="arrow left"><h5>3.{% trans "Study cases" %}</h5></a>
                   <ul class="submenu opacity" id="StudyCase" style="display: none;">
                   <li><a href="#" class="dropdown-toggle listStudyCases">
-                          <img src="/static/geonode/img/01-flecha.png" class="flecha">
+                          <img src="/static/geonode/img/01-flecha.png" class="flecha" alt="arrow left">
                           <h6>{% trans "List" %}</h6></a>                
                         </li>
                     {% if user.is_authenticated and not READ_ONLY_MODE %}                
                       <li><a href="{% url "create-study-cases" %}" class="dropdown-toggle">
-                        <img src="/static/geonode/img/01-flecha.png" class="flecha">
+                        <img src="/static/geonode/img/01-flecha.png" class="flecha" alt="arrow left">
                         <h6>{% trans "Create" %}</h6></a>                
                       </li>
                     {% endif %} 
                       <li><a href="{% url "comparison_list" %}" class="dropdown-toggle">
-                        <img src="/static/geonode/img/01-flecha.png" class="flecha">
+                        <img src="/static/geonode/img/01-flecha.png" class="flecha" alt="arrow left">
                         <h6>{% trans "Compare" %}</h6></a>                
                       </li>
                     </ul>

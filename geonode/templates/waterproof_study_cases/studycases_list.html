@@ -25,7 +25,7 @@
 <div class="header-waterproof">
     <div>
         <h1>{% trans "study_cases" %}
-            <button type="button" data-toggle="modal" data-target="#HelpList" id="HelpModalBtnModal" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
+            <button type="button" data-toggle="modal" data-target="#HelpList" value="HelpModalBtnModal" id="HelpModalBtnModal" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
         </h1>
     </div>
     <div class="row">
@@ -42,7 +42,7 @@
                 <button onclick="window.location.href='create/'" type="button" data-toggle="modal" class="glyphicon glyphicon-plus-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
                 {% else %}
                 <a id="createUrlDisabled">{% trans "new_study_case" %}</a>
-                <button type="button" data-toggle="modal" class="glyphicon glyphicon-plus-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #6e6f70; border-style: none; background-color:transparent;"></button>
+                <button type="button" value="icon plus create study cases" data-toggle="modal" class="glyphicon glyphicon-plus-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #6e6f70; border-style: none; background-color:transparent;"></button>
                 <h6>{% trans "study_cases_list_create" %}</h6>
                 {% endif %}
 
