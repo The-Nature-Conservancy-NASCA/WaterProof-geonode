@@ -1651,9 +1651,9 @@ def pdf(request):
         pdf.set_text_color(100, 100, 100)
         pdf.cell(0, 7,'Intake Benefits ptap', align='L')
         pdf.image('imgpdf/nodatadef.png', 20, 40, w=60)
-        pdf.ln(25)
+        pdf.ln(30)
         pdf.cell(0, 50, '* there is no data for this graph', align='L')
-        pdf.ln(10)
+        pdf.ln(5)
 
 
     pdf.set_font('Arial', '', 9)
@@ -1662,7 +1662,7 @@ def pdf(request):
         pdf.ln(6)
         pdf.ln(6)
         pdf.ln(6)
-        pdf.ln(6)
+ #       pdf.ln(6)
 
     for item in dataListBenefitsIntakeA :
         pdf.cell(epw/2, 6, '')
