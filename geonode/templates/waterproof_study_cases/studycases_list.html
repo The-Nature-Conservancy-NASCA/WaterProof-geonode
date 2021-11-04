@@ -39,7 +39,7 @@
             <div>
                 {% if user.is_authenticated and not READ_ONLY_MODE %}
                 <a href="create/" id="createUrl" textColor="red" style="outline-color: dimgrey;">{% trans "new_study_case" %}</a>
-                <button onclick="window.location.href='create/'" type="button" data-toggle="modal" class="glyphicon glyphicon-plus-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
+                <button onclick="window.location.href='create/'" type="button" value="create study case" data-toggle="modal" class="glyphicon glyphicon-plus-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
                 {% else %}
                 <a id="createUrlDisabled">{% trans "new_study_case" %}</a>
                 <button type="button" value="icon plus create study cases" data-toggle="modal" class="glyphicon glyphicon-plus-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #6e6f70; border-style: none; background-color:transparent;"></button>
@@ -160,7 +160,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" value="close" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <h3 class="modal-title text-center" id="HelpModalLabel" style="color:#6398C1 ;">{% trans "Creating a new case study" %}</h3>
@@ -172,11 +172,11 @@
                 <p>
                     {%  trans "WaterProof will assist you by indicating the steps you must follow to complete your registration: "  %}
                 </p>
-                <img style="margin: 10px auto 10px; display: block; width: 100%; height: 100%;" src="/static/geonode/img/case_List.png"></img>
+                <img style="margin: 10px auto 10px; display: block; width: 100%; height: 100%;" src="/static/geonode/img/case_List.png" alt="help study cases list"></img>
                 <div>
                     <br>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="color: white; background-color: #6398C1;">{% trans "Close" %}</button>
+                        <button type="button" value="close" class="btn btn-secondary" data-dismiss="modal" style="color: white; background-color: #6398C1;">{% trans "Close" %}</button>
                     </div>
                 </div>
             </div>
