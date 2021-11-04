@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Waterproof_valpha\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-08-07 14:59-0500\n"
-"PO-Revision-Date: 2021-10-11 18:13-0500\n"
+"PO-Revision-Date: 2021-11-03 17:12-0500\n"
 "Last-Translator: \n"
 "Language-Team: SKaphe\n"
 "Language: es\n"
@@ -666,7 +666,7 @@ msgstr "Configuración de la infraestructura del sistema de captación"
 #: template/intake_form.html:122
 msgid "In this section you can build your water intake infrastructure and define operating cost functions. Note that in the drawing panel shows the river from which the water comes and that a series of icons representing the elements that can be part of your catchment system are provided."
 msgstr ""
-"En esta sección usted puede construir la infraestructura de su captación y definir las funciones de costos de operación.  Observe  que  en  el  panel  de  dibujo  se  encuentra  representado  el  río  del  que  proviene  el agua y que se ofrece una serie de iconos que representan los elementos que pueden hacer parte de su sistema de captación. Haga clic sobre el elemento que quiere incorporar en su esquemay luego clic en el tablero gráfico para incluir el elemento deseado. Posteriormente "
+"En esta sección usted puede construir la infraestructura de su captación y definir las funciones de costos de operación.  Observe  que  en  el  panel  de  dibujo  se  encuentra  representado  el  río  del  que  proviene  el agua y que se ofrece una serie de iconos que representan los elementos que pueden hacer parte de su sistema de captación. Haga clic sobre el elemento que quiere incorporar en su esquema y luego clic en el tablero gráfico para incluir el elemento deseado. Posteriormente "
 "establezca las conexiones entre los elementos para definir su topología."
 
 #: template/intake_form.html:124
@@ -707,7 +707,7 @@ msgstr "Área de implementación de la SbN"
 
 #: template/intake_form.html:392
 msgid "You can delimit the area within the basin in which the implementation of Nature Based Solutions (NBS) will be considered. By default, the system will consider that the NBS can be implemented in the entire basin area. However, by clicking on the 'Delimit NBS implementation area' button the system will highlight the vertices of the basin so that you can define the area in which WaterProof will consider that NBS can be implemented."
-msgstr "Usted puede delimitar el área dentro de la cuenca en la cual se considerará la implementación de las Soluciones Basadas en Naturaleza (SbN). Por defecto, el sistema considerará que las SbN pueden implementarse en toda el área de la cuenca. Sin embargo, dando clic en el botón “Delimitar área de implementación de SbN” el sistema resaltará los vertices de la cuenca para que pueda delimitar el área en la cual WaterProof considerará que es posible implementar las SbN."
+msgstr "Usted puede delimitar el área dentro de la cuenca en la cual se considerará la implementación de las Soluciones Basadas en Naturaleza (SbN). Por defecto, el sistema considerará que las SbN pueden implementarse en toda el área de la cuenca. Sin embargo, dando clic en el botón “Delimitación manual” el sistema resaltará los vertices de la cuenca para que pueda delimitar el área en la cual WaterProof considerará que es posible implementar las SbN."
 
 #: template/intake_form.html:393
 msgid "WaterProof also allows you to upload a spatial file in shp format that contains the polygon where NBS implementations are possible. When finished, click on 'Validate area'"
@@ -747,7 +747,7 @@ msgstr "Este es el primer paso en la creación de una captación. Además de ind
 
 #: template/intake_form.html:623
 msgid "on the map to define the water intake location or you can directly enter latitude and longitude coordinates)."
-msgstr "en el mapa para definir la ubicación de la captación o puede ingresar directamente las coordenadas latitud y longitud)."
+msgstr "en el mapa permite definir la ubicación de la captación o puede ingresar directamente las coordenadas latitud y longitud."
 
 #: template/intake_form.html:626
 msgid "With this information the system will calculate the polygon of the basin to be used by the InVest and ROIS models in the portfolio definition and ROI calculation:"
