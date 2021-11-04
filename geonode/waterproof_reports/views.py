@@ -1650,8 +1650,8 @@ def pdf(request):
         pdf.set_font('Arial', '', 10)
         pdf.set_text_color(100, 100, 100)
         pdf.cell(0, 7,'Intake Benefits ptap', align='L')
-        pdf.image('imgpdf/nodatadef.png', 20, 40, w=60)
-        pdf.ln(30)
+        pdf.image('imgpdf/nodatadef.png', 20, 40, w=70)
+        pdf.ln(35)
         pdf.cell(0, 50, '* there is no data for this graph', align='L')
         pdf.ln(5)
 
@@ -1661,7 +1661,7 @@ def pdf(request):
         pdf.ln(6)
         pdf.ln(6)
         pdf.ln(6)
-        pdf.ln(6)
+ #       pdf.ln(6)
  #       pdf.ln(6)
 
     for item in dataListBenefitsIntakeA :
@@ -1724,8 +1724,20 @@ def pdf(request):
         }]
     }
 
-    hc_export.save_as_png(config=config, filename="imgpdf/wrabi.png")
-    pdf.image('imgpdf/wrabi.png', 10, 150, w=90)
+
+    if len(dataListBenefitsIntakeA)>0:
+        hc_export.save_as_png(config=config, filename="imgpdf/wrabi.png")
+        pdf.image('imgpdf/wrabi.png', 10, 120, w=90)
+        pdf.ln(40)
+    else:
+        pdf.ln(10)
+        pdf.set_font('Arial', '', 10)
+        pdf.set_text_color(100, 100, 100)
+        pdf.cell(0, 7,'Intake Benefits intake', align='L')
+        pdf.image('imgpdf/nodatadef.png', 20, 110, w=70)
+        pdf.ln(35)
+        pdf.cell(0, 150, '* there is no data for this graph', align='L')
+        pdf.ln(5)
 
     pdf.add_page()
 
