@@ -1938,11 +1938,15 @@ def pdf(request):
         pdf.image('imgpdf/mapas-pdf.png', 20, 50 + heightIcon, w=30)
         pdf.ln(50)
         pdf.set_text_color(179, 179, 179)
-        pdf.cell(0, 6, 'http://apps.skaphe.com:8000/reports/geographic/?folder=' + str(item['folder']) + '&amp', align='L', link = 'http://apps.skaphe.com:8000/reports/geographic/?folder=' + str(item['folder']) + '&amp;intake=' + str(item['intake']) + '&amp;region=' + str(item['region']) + '&amp;year=' + str(item['year']) + '&amp;study_case_id=' + str(item['studycase']) + '&amp;center=' + centerxy[1] + "," + centerxy[0])
+        urlgeografico = "'" + settings.SITE_HOST_API + "/reports/geographic/?folder='" 
+#        pdf.cell(0, 6, 'http://apps.skaphe.com:8000/reports/geographic/?folder=' + str(item['folder']) + '&amp', align='L', link = 'http://apps.skaphe.com:8000/reports/geographic/?folder=' + str(item['folder']) + '&amp;intake=' + str(item['intake']) + '&amp;region=' + str(item['region']) + '&amp;year=' + str(item['year']) + '&amp;study_case_id=' + str(item['studycase']) + '&amp;center=' + centerxy[1] + "," + centerxy[0])
+        pdf.cell(0, 6, str(urlgeografico) + str(item['folder']) + '&amp', align='L', link = str(urlgeografico) + str(item['folder']) + '&amp;intake=' + str(item['intake']) + '&amp;region=' + str(item['region']) + '&amp;year=' + str(item['year']) + '&amp;study_case_id=' + str(item['studycase']) + '&amp;center=' + centerxy[1] + "," + centerxy[0])
         pdf.ln(6)
         pdf.cell(0, 6, ';intake=' + str(item['intake']) + '&amp;region=' + str(item['region']) + '&amp;year=' + str(item['year']) + '&amp;study_case_id=' + str(item['studycase']) + '&amp;center=', align='L', link = 'http://apps.skaphe.com:8000/reports/geographic/?folder=' + str(item['folder']) + '&amp;intake=' + str(item['intake']) + '&amp;region=' + str(item['region']) + '&amp;year=' + str(item['year']) + '&amp;study_case_id=' + str(item['studycase']) + '&amp;center=' + centerxy[1] + "," + centerxy[0])
         pdf.ln(6)
-        pdf.cell(0, 6, centerxy[1] + "," + centerxy[0], align='L', link = 'http://apps.skaphe.com:8000/reports/geographic/?folder=' + str(item['folder']) + '&intake=' + str(item['intake']) + '&region=' + str(item['region']) + '&year=' + str(item['year']) + '&study_case_id=' + str(item['studycase']) + '&center=' + centerxy[1] + "," + centerxy[0])
+#        pdf.cell(0, 6, centerxy[1] + "," + centerxy[0], align='L', link = 'http://apps.skaphe.com:8000/reports/geographic/?folder=' + str(item['folder']) + '&intake=' + str(item['intake']) + '&region=' + str(item['region']) + '&year=' + str(item['year']) + '&study_case_id=' + str(item['studycase']) + '&center=' + centerxy[1] + "," + centerxy[0])
+        pdf.cell(0, 6, centerxy[1] + "," + centerxy[0], align='L', link = str(urlgeografico) + str(item['folder']) + '&intake=' + str(item['intake']) + '&region=' + str(item['region']) + '&year=' + str(item['year']) + '&study_case_id=' + str(item['studycase']) + '&center=' + centerxy[1] + "," + centerxy[0])
+
         heightIcon = heightIcon + 80;
 
 #    response = HttpResponse(pdf.output(dest='S').encode('iso-8859-1'))
