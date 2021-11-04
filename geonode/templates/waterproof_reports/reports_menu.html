@@ -80,7 +80,7 @@
                 <div>
                     <div class="name-roi">{% trans "Calculated ROI:" %} <div class="value-roi" id="idRoi"></div></div>
                 
-                    <img src="/static/geonode/img/valor-bruto.png" class="img-roi" />
+                    <img src="/static/geonode/img/valor-bruto.png" alt="value" class="img-roi" />
                     <div class="bootom-roi">
                         <div>{% trans "ROI on nature based solutions opportunity" %}</div>
                         <div class="buttom-roi-menu" id="idBtnRoi">Adove 1</div>
@@ -108,7 +108,7 @@
             <div class="margin-risk col-md-12">
                 <div class="marc-report col-md-3">
                     <div class="risk-list">
-                        <img src="/static/geonode/img/picture-one.jpg">
+                        <img src="/static/geonode/img/picture-one.jpg" alt="picture one">
                     </div>
                     <div class="title-marc">{% trans "Physical risk quantity qan_def" %}</div>
                     <div class="detail-border-marc">{% trans "Physical risk quantity measures risk related to too little or too much water by aggregating all selected indicators from the physical risk quantity category" %}</div>
@@ -116,7 +116,7 @@
                 </div>
                 <div class="marc-report col-md-3">
                     <div class="risk-list">
-                        <img src="/static/geonode/img/picture-two.jpg">
+                        <img src="/static/geonode/img/picture-two.jpg" alt="picture two">
                     </div>
                     <div class="title-marc">{% trans "Physical risk quantity qal_def" %}</div>
                     <div class="detail-border-marc">{% trans "Physical risk quantity measures risk related to water that in unfit for use by aggregating all selected indicators from the physical risk quantity category" %}</div>
@@ -124,7 +124,7 @@
                 </div>
                 <div class="marc-report col-md-3">
                     <div class="risk-list">
-                        <img src="/static/geonode/img/picture-three.jpg">
+                        <img src="/static/geonode/img/picture-three.jpg" alt="picture three">
                     </div>
                     <div class="title-marc">{% trans "Regulatory and reputational rrr_def" %}</div>
                     <div class="detail-border-marc">{% trans "Risk regulatory and reputational risk measures risk related to uncertainty in regulatory chance, as well as conflich with re public regarding water issues" %}</div>
@@ -132,7 +132,7 @@
                 </div>
                 <div class="marc-report col-md-3">
                     <div class="risk-list">
-                        <img src="/static/geonode/img/picture-four.jpg">
+                        <img src="/static/geonode/img/picture-four.jpg" alt="picture four">
                     </div>
                     <div class="title-marc">{% trans "Overall water risk score tot_def" %}</div>
                     <div class="detail-border-marc">{% trans "Overall water risk measures all water related risk, by aggregating all selected indicators from the physical risjk quantity, physical risk quality, and regulatory and reputational risk categories" %}</div>
@@ -162,32 +162,32 @@
             <div class="estimated-change-list">
                 <div class="line-marc-table-icons">
                     <div><h8>{% trans "Anual water yield" %}</h8></div>
-                    <div><img src="/static/geonode/img/dashboard-01.png" class="icon-dashboard"></div>
+                    <div><img src="/static/geonode/img/dashboard-01.png" alt="dashboard-01" class="icon-dashboard"></div>
                     <div class="line-number-marc-table" id="changeInVolumeOfWater"></div>
                 </div>
                 <div class="line-marc-table-icons">
                     <div>{% trans "Seasonal water yield" %}</div>
-                    <div><img src="/static/geonode/img/dashboard-02.png" class="icon-dashboard"></div>
+                    <div><img src="/static/geonode/img/dashboard-02.png" alt="dashboard-02" class="icon-dashboard"></div>
                     <div class="line-number-marc-table" id="changeInBaseFlow"></div>
                 </div>
                 <div class="line-marc-table-icons">
                     <div>{% trans "Sediment delivery ratio" %}</div>
-                    <div><img src="/static/geonode/img/dashboard-03.png" class="icon-dashboard"></div>
+                    <div><img src="/static/geonode/img/dashboard-03.png" alt="dashboard-03" class="icon-dashboard"></div>
                     <div class="line-number-marc-table" id="changeIntotalSediments"></div>
                 </div>
                 <div class="line-marc-table-icons">
                     <div>{% trans "Nutrient delivery ratio - nitrogen" %}</div>
-                    <div><img src="/static/geonode/img/dashboard-04.png" class="icon-dashboard"></div>
+                    <div><img src="/static/geonode/img/dashboard-04.png" alt="dashboard-04" class="icon-dashboard"></div>
                     <div class="line-number-marc-table" id="changeInNitrogenLoad"></div>
                 </div>
                 <div class="line-marc-table-icons">
                     <div>{% trans "Nutrient delivery ratio - phosphorus" %}</div>
-                    <div><img src="/static/geonode/img/dashboard-05.png" class="icon-dashboard"></div>
+                    <div><img src="/static/geonode/img/dashboard-05.png" alt="dashboard-05" class="icon-dashboard"></div>
                     <div class="line-number-marc-table" id="changeInPhosphorus"></div>
                 </div>
                 <div class="line-marc-table-icons">
                     <div>{% trans "Carbon storage and sequestration" %}</div>
-                    <div><img src="/static/geonode/img/dashboard-06.png" class="icon-dashboard"></div>
+                    <div><img src="/static/geonode/img/dashboard-06.png" alt="dashboard-06" class="icon-dashboard"></div>
                     <div class="line-number-marc-table" id="changeInCarbonStorage"></div>
                 </div>
             </div>
@@ -200,23 +200,23 @@
 
         <div class="align-text col-md-12 div-padding">
             <div class="list-menu-results" id="idFinancialIndicators">
-                <img src="/static/geonode/img/Indicadores-financieros.png" title="{% trans "Financial indicators" %}"/> 
+                <img src="/static/geonode/img/Indicadores-financieros.png" alt="financial indicators" title="{% trans "Financial indicators" %}"/> 
                 <br> 
                 <a href="../../reports/financial/">{% trans "Financial indicators" %}</a>
             </div>
             <div class="list-menu-results">
-                <img src="/static/geonode/img/indicadores-fisicos.png" title="{% trans "Physical indicators" %}"/> 
+                <img src="/static/geonode/img/indicadores-fisicos.png" alt="physical indicators" title="{% trans "Physical indicators" %}"/> 
                 <br>
                 <!--a>{% trans "Physical indicators" %}</a-->
                 <a href="../../reports/physical/{{idx}}">{% trans "Physical indicators" %}</a>
             </div>
             <div class="list-menu-results" id="idDecisionIndicators">
-                <img src="/static/geonode/img/indicadores-decision.png" title="{% trans "Decision indicators" %}"/>
+                <img src="/static/geonode/img/indicadores-decision.png" alt="decision indicators" title="{% trans "Decision indicators" %}"/>
                 <br>
                 <a href="../../reports/decision/">{% trans "Decision indicators" %}</a>
             </div>
             <div class="list-menu-results" id="idGeographicIndicators">
-                <img src="/static/geonode/img/indicadores-geograficos.png" title="{% trans "Geographic visualization" %}"/>
+                <img src="/static/geonode/img/indicadores-geograficos.png" alt="geographic indicators" title="{% trans "Geographic visualization" %}"/>
                 <br>
                 <a id="idGeographicIndicatorsClic" href="">{% trans "Geographic visualization" %}</a>
                 <!-- ../../reports/geographic/-->
@@ -228,18 +228,18 @@
         <div class="report-download" style="display: block;">
             <div class="col-md-5"></div>
             <div class="col-md-1 report-download-pdf" onclick="openPDF()">
-                <img src="/static/geonode/img/documents.png"/>
+                <img src="/static/geonode/img/documents.png" alt="documents"/>
                 <br>
                 PDF
             </div>
             <div class="col-md-1 report-download-zip" onclick="downloadZip()">
-                <img src="/static/geonode/img/descarga.png"/>
+                <img src="/static/geonode/img/descarga.png" alt="download"/>
                 <br>
                 ZIP
             </div>
         </div>
     </div>
-    <img id="resultado" style="visibility:hidden">
+    <img id="resultado" style="visibility:hidden" alt="result">
     <form id="TheForm" method="post" action="../../reports/pdf/" target="TheWindow">
         {% csrf_token %}
         <input type="hidden" name="studyCase" id="studyCase"/>

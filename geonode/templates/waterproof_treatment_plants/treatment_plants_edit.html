@@ -67,7 +67,7 @@
                         <p>{% trans "To enable the diagram, click in the following button"%}:</p>
                     </div>
                     <div class="col-sm-3">
-                        <button type="button" class="btn btn-primary" id="idSendIntake">{% trans "Confirm water intakes sources" %}</button>
+                        <button type="button" value="confirm" class="btn btn-primary" id="idSendIntake">{% trans "Confirm water intakes sources" %}</button>
                     </div>
                 </div>
                 {% endif %}
@@ -247,7 +247,7 @@
         </div>
         <div class="row text-center">
             <div class="col-md-12">
-                <button type="button" id="submit" class="btn btn-primary ">{% trans "Save" %}</button>
+                <button type="button" value="save" id="submit" class="btn btn-primary ">{% trans "Save" %}</button>
             </div>
         </div>
         
@@ -258,7 +258,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" value="close" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <h3 class="modal-title text-center" id="HelpModalLabel" style="color:#6398C1 ;">{% trans "Creation of treatment plants" %}
@@ -270,49 +270,49 @@
                 </p>
                 <table style="border: 1px solid black;">
                     <tr style="border: 1px solid black;">
-                        <td style="border: 1px solid black;"><img style="margin: 10px auto 10px; display: block;" src="/static/geonode/img/Dosage.png"></img>
+                        <td style="border: 1px solid black;"><img style="margin: 10px auto 10px; display: block;" src="/static/geonode/img/Dosage.png" alt="Dosage"></img>
                         </td>
                         <td>{% trans "Represents the process in which coagulant is applied to the water to promote the increase in  particle size forming floc, to promote settling of particles." %}</td>
                     </tr>
                     <tr style="border: 1px solid black;">
-                        <td style="border: 1px solid black;"><img style="margin: 10px auto 10px; display: block;" src="/static/geonode/img/rapid.png"></img>
+                        <td style="border: 1px solid black;"><img style="margin: 10px auto 10px; display: block;" src="/static/geonode/img/rapid.png" alt="rapid"></img>
                         </td>
                         <td>{% trans "Process in which the coagulant is dispersed uniformly and quickly through turbulence formed by hydraulic or mechanical means." %}</td>
                     </tr>
                     <tr style="border: 1px solid black;">
-                        <td style="border: 1px solid black;"><img style="margin: 10px auto 10px; display: block;" src="/static/geonode/img/slow.png"></img>
+                        <td style="border: 1px solid black;"><img style="margin: 10px auto 10px; display: block;" src="/static/geonode/img/slow.png" alt="slow"></img>
                         </td>
                         <td>{% trans "Process that relies on channels or structures where the turbulence necessary for floc formation is produced." %}</td>
                     </tr>
                     <tr style="border: 1px solid black;">
-                        <td style="border: 1px solid black;"><img style="margin: 10px auto 10px; display: block;" src="/static/geonode/img/sedimentation.png"></img>
+                        <td style="border: 1px solid black;"><img style="margin: 10px auto 10px; display: block;" src="/static/geonode/img/sedimentation.png" alt="sedimentation"></img>
                         </td>
                         <td>{% trans "Process in which the floc already formed separates from the water thanks to the low flow velocity and the floc's own weight, allowing it to fall to the bottom of the tank forming a sludge that must be removed for proper management." %}</td>
                     </tr>
                     <tr style="border: 1px solid black;">
-                        <td style="border: 1px solid black;"><img style="margin: 10px auto 10px; display: block;" src="/static/geonode/img/filtration.png"></img>
+                        <td style="border: 1px solid black;"><img style="margin: 10px auto 10px; display: block;" src="/static/geonode/img/filtration.png" alt="filtration"></img>
                         </td>
                         <td>{% trans "Process in which water is passed through a bed (mainly sand, sand and anthracite) so that particles and certain microorganisms are filtered out and retained within the bed." %}</td>
                     </tr>
                     <tr>
-                        <td style="border: 1px solid black;"><img style="margin: 10px auto 10px; display: block;" src="/static/geonode/img/membrane1.png"></img>
+                        <td style="border: 1px solid black;"><img style="margin: 10px auto 10px; display: block;" src="/static/geonode/img/membrane1.png" alt="membrane1"></img>
                         </td>
                         <td rowspan="4">{% trans "A process in which membranes are used to remove all particles, molecules and microorganisms larger than their pore size. The main classification of advanced filtration establishes four categories: microfiltration, ultrafiltration, nanofiltration and reverse osmosis. The differences in each are the minimum pore sizes, being 100 nanometers (nm) for microfiltration, 10 nm for ultrafiltration, 1 nm for nanofiltration and smaller sizes for reverse osmosis." %}</td>
                     </tr>
                     <tr>
-                        <td style="border: 1px solid black;"><img style="margin: 10px auto 10px; display: block;" src="/static/geonode/img/membrane2.png"></img>
+                        <td style="border: 1px solid black;"><img style="margin: 10px auto 10px; display: block;" src="/static/geonode/img/membrane2.png" alt="membrane2"></img>
                         </td>
                     </tr>
                     <tr>
-                        <td style="border: 1px solid black;"><img style="margin: 10px auto 10px; display: block;" src="/static/geonode/img/membrane3.png"></img>
+                        <td style="border: 1px solid black;"><img style="margin: 10px auto 10px; display: block;" src="/static/geonode/img/membrane3.png" alt="membrane3"></img>
                         </td>
                     </tr>
                     <tr>
-                        <td style="border: 1px solid black;"><img style="margin: 10px auto 10px; display: block;" src="/static/geonode/img/membrane4.png"></img>
+                        <td style="border: 1px solid black;"><img style="margin: 10px auto 10px; display: block;" src="/static/geonode/img/membrane4.png" alt="membrane4"></img>
                         </td>
                     </tr>
                     <tr style="border: 1px solid black;">
-                        <td style="border: 1px solid black;"><img style="margin: 10px auto 10px; display: block;" src="/static/geonode/img/desinfection.png"></img>
+                        <td style="border: 1px solid black;"><img style="margin: 10px auto 10px; display: block;" src="/static/geonode/img/desinfection.png" alt="desinfection"></img>
                         </td>
                         <td>{% trans "A chemical process in which unwanted dissolved ions in water and effluents –  such as nitrate, fluorine, sulfate, and arsenic - are exchanged for other ions with a similar charge. This is done by means of a polymer capable of exchanging ions for other ions in a solution that passes through them. These synthetic gel spheres are called 'Ion Exchange Resins'. Process in which reagents, usually chlorine and ammonia, are added to form chloramines, eliminating any microorganisms that may have survived the previous processes and guaranteeing water quality throughout its journey through the distribution network. The final disposal of sludge from the flocculation and filtration processes is carried out by pumping, thickeners, drying beds or belt filters." %}</td>
                     </tr>
@@ -321,7 +321,7 @@
                 <div>
                     <br>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="color: white; background-color: #6398C1;">{% trans "Close" %}</button>
+                        <button type="button" value="close" class="btn btn-secondary" data-dismiss="modal" style="color: white; background-color: #6398C1;">{% trans "Close" %}</button>
                     </div>
                 </div>
             </div>
@@ -335,7 +335,7 @@
         <form id="form-modal" data-toggle="validator" role="form" action="">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <button type="button" value="close" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                     <h4 class="modal-title" id="CalculatorModalLabel"></h4>
@@ -414,15 +414,15 @@
                             <div id="mathNatural" class="tab-pane fade in active">
                                 <textarea id="python-expression" class="python-expression" autocapitalize="off" autocomplete="off"
                                         autocorrect="off" spellcheck="false" x-palm-disable-ste-all="true"></textarea>
-                                <button type="button" id="btnValidatePyExp">{% trans "Validate" %} </button>
+                                <button type="button" value="validate" id="btnValidatePyExp">{% trans "Validate" %} </button>
                                 <div id="MathPreview" class="preview"></div>
                             </div>                            
                         </div>
                     </div>
                     <br>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">{% trans "Close" %}</button>
-                        <button type="button" class="btn btn-primary" id="saveAndValideCost">{% trans "Add cost" %}</button>
+                        <button type="button" value="close" class="btn btn-secondary" data-dismiss="modal">{% trans "Close" %}</button>
+                        <button type="button" value="add cost" class="btn btn-primary" id="saveAndValideCost">{% trans "Add cost" %}</button>
                     </div>
                 </div>
             </div>
