@@ -55,7 +55,7 @@
                 <div id="step-1" class="tab-pane" role="tabpanel">
                     <div class="page-header" style="border-bottom: none;">
                         <h3>{% trans "define_study_case" %}
-                            <button type="button" data-toggle="modal" data-target="#HelpStep1" id="HelpModalBtnModal_step1" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
+                            <button type="button" value="help modal button step 1" data-toggle="modal" data-target="#HelpStep1" id="HelpModalBtnModal_step1" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
                         </h3>
                         <p>{% trans "study_case_tip" %}</p>
                     </div>
@@ -77,18 +77,14 @@
                         </label>
                         <textarea rows="3" class="form-control" name="description" id="description"></textarea>
                     </div>
-
                     <!--Input Desc -->
-
                     <h4 class="text-primary">
                         {% trans "select_type_study" %}
                     </h4>
                     <div style="padding-bottom: 10px;">
                         <span>{% trans "description_select_type" %}</span>
                     </div>
-
                     <div id="div_id_type" class="form-group" style="border-bottom: none;">
-
                         <div class="form-check panel-hide" id="div-ptaps">
                             <input class="form-check-input" type="radio" name="type" id="ptap" value="1">
                             <label class="form-check-label" style="font-weight: normal;" for="ptap">
@@ -105,23 +101,24 @@
                             </label>
                         </div>
                         <div class="alert alert-danger text-center panel-hide" role="alert" id="div-emptyintakes">
-                            <button type="button" class="btn btn-link btn-block" style="outline:none; text-decoration:none;" onclick="window.location.href='/intake/?limit=5'">
+                            <button type="button" value="intake" class="btn btn-link btn-block" style="outline:none; text-decoration:none;" onclick="window.location.href='/intake/?limit=5'">
                                 <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> {% trans "no_water_intakes" %} </button>
                             </button>
                         </div>
                     </div>
-
                     <div class="row">
                         <div class="col-md-12">
                             <div class="panel-hide" id="panel-custom">
                                 <div class="col-md-12">
                                     <div class="row form-group">
                                         <legend class="margin-bottom-max" style="border-bottom: none;">
-                                            <label for="div_id_type" class="control-label required-field " style="font-size: 16px;">{% trans "water_intakes" %}<span class="text-danger-wp" id="ptap-required"></span></label>
+                                            <label for="div_id_type" class="control-label required-field " style="font-size: 16px;">{% trans "water_intakes" %}
+                                                <span class="text-danger-wp" id="ptap-required"></span>
+                                            </label>
                                         </legend>
                                         <div style="display: flex;">
                                             <p>{% trans "select_water_intake" %}</p>
-                                            <span  onclick="window.location.href='/intake/create/'" class="glyphicon glyphicon-plus-sign btn-add"></span>
+                                            <span onclick="window.location.href='/intake/create/'" class="glyphicon glyphicon-plus-sign btn-add"></span>
                                         </div>
                                         <div class="col-md-9">
                                             <select class="form-control" id="select_custom">
@@ -129,7 +126,7 @@
                                             </select>
                                         </div>
                                         <div class="col-md-2">
-                                            <button type="button" class="btn btn-primary" id="add_wi">{% trans "Add" %}</button>
+                                            <button type="button" value="add" class="btn btn-primary" id="add_wi">{% trans "Add" %}</button>
                                         </div>
                                     </div>
                                     <div class="table-responsive">
@@ -152,7 +149,7 @@
                                 <div class="col-md-12">
                                     <div class="row form-group">
                                         <div class="col-md-2">
-                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#CalculatorModal" id="ModalAddCostBtn">{% trans "Add cost function" %}</button>
+                                            <button type="button" value="add cost function" class="btn btn-primary" data-toggle="modal" data-target="#CalculatorModal" id="ModalAddCostBtn">{% trans "Add cost function" %}</button>
                                         </div>
                                     </div>
                                     <div class="table-responsive">
@@ -182,14 +179,13 @@
                                             <p>{% trans "select_treatments_plants" %}</p>
                                             <span  onclick="window.location.href='/treatment_plants/create/'" class="glyphicon glyphicon-plus-sign btn-add"></span>
                                         </div>
-
                                         <div class="col-md-9">
                                             <select class="form-control" id="select_ptap">
                                                 <option disabled selected value>{% trans "select_option" %} </option>
                                             </select>
                                         </div>
                                         <div class="col-md-2">
-                                            <button type="button" class="btn btn-primary" id="add_ptap">{% trans "Add" %}</button>
+                                            <button type="button" value="add" class="btn btn-primary" id="add_ptap">{% trans "Add" %}</button>
                                         </div>
                                     </div>
                                     <div class="table-responsive">
@@ -199,21 +195,18 @@
                                                     <th scope="col" class="small text-center vat">{% trans "Name" %}</th>
                                                     <th scope="col" class="small text-center vat">{% trans "Description" %}</th>
                                                     <th scope="col" class="small text-center vat">{% trans "Options" %}</th>
-                                                </tr>
-    
+                                                </tr>    
                                             </thead>
-                                            <tbody>
-                                            </tbody>
+                                            <tbody></tbody>
                                         </table>
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                     <div class="row text-center">
                         <div class="col-md-12">
-                            <button type="button" class="btn btn-primary" id="step1NextBtn">{% trans "Next" %}</button>
+                            <button type="button" value="next" class="btn btn-primary" id="step1NextBtn">{% trans "Next" %}</button>
                         </div>
                     </div>
                 </div>
@@ -221,7 +214,7 @@
                 <div id="step-2" class="tab-pane" role="tabpanel">
                     <div class="page-header">
                         <h3>{% trans "carbon_market_title" %}
-                            <button type="button" data-toggle="modal" data-target="#HelpStep2" id="HelpModalBtnModal_step2" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
+                            <button type="button" value="help modal button step 2" data-toggle="modal" data-target="#HelpStep2" id="HelpModalBtnModal_step2" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
                         </h3>
                             <p>{% trans "carbon_market_tip" %}</p>
                         <div class="custom-control custom-checkbox">
@@ -253,8 +246,8 @@
                     </div>
                     <div class="row text-center">
                         <div class="col-md-12">
-                            <button type="button" class="btn btn-primary" id="step2PreviousBtn">{% trans "Previous" %}</button>
-                            <button type="button" class="btn btn-primary" id="step2NextBtn">{% trans "Next" %}</button>
+                            <button type="button" value="previous" class="btn btn-primary" id="step2PreviousBtn">{% trans "Previous" %}</button>
+                            <button type="button" value="next" class="btn btn-primary" id="step2NextBtn">{% trans "Next" %}</button>
                         </div>
                     </div>
                 </div>
@@ -262,7 +255,7 @@
                 <div id="step-3" class="tab-pane" role="tabpanel">
                     <div class="page-header">
                         <h3>{% trans "portfolios" %}
-                            <button type="button" data-toggle="modal" data-target="#HelpStep3" id="HelpModalBtnModal_step3" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
+                            <button type="button" value="help modal button step 3" data-toggle="modal" data-target="#HelpStep3" id="HelpModalBtnModal_step3" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
                         </h3>
                         <p>{% trans "portfolios_text" %}</p>
                         <ul class="list-group list-group-flush" id="portfolios-ul">
@@ -283,8 +276,8 @@
                     </div>
                     <div class="row text-center">
                         <div class="col-md-12">
-                            <button type="button" class="btn btn-primary" id="step3PreviousBtn">{% trans "Previous" %}</button>
-                            <button type="button" class="btn btn-primary" id="step3NextBtn">{% trans "Next" %}</button>
+                            <button type="button" value="previous" class="btn btn-primary" id="step3PreviousBtn">{% trans "Previous" %}</button>
+                            <button type="button" value="next" class="btn btn-primary" id="step3NextBtn">{% trans "Next" %}</button>
                         </div>
                     </div>
                 </div>
@@ -292,20 +285,19 @@
                 <div id="step-4" class="tab-pane" role="tabpanel">
                     <div class="page-header">
                         <h3> {% trans "modelling_parameters" %}
-                            <button type="button" data-toggle="modal" data-target="#HelpStep4" id="HelpModalBtnModal_step3" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
+                            <button type="button" value="help modal button step 4" data-toggle="modal" data-target="#HelpStep4" id="HelpModalBtnModal_step3" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
                         </h3>
                         <p>{% trans "biophysical_tip" %}</p>
-                        <button type="button" class="btn btn-primary" id="btn-advanced_option">{% trans "advanced_options" %}</button>
+                        <button type="button" value="advanced option" class="btn btn-primary" id="btn-advanced_option">{% trans "advanced_options" %}</button>
                         <br>
                             <p style="margin-top: 20px;" id="txtGuide1"></p>
                             <a id="txtGuide2" href="{{ invest_doc }}" target="_blank">{% trans "InVEST_documentation" %}</a>
-                        <div class="row biophysical-panel panel-hide" id="biophysical-panel">
-                        </div>
+                        <div class="row biophysical-panel panel-hide" id="biophysical-panel"></div>
                     </div>
                     <div class="row text-center">
                         <div class="col-md-12">
-                            <button type="button" class="btn btn-primary" id="step4PreviousBtn">{% trans "Previous" %}</button>
-                            <button type="button" class="btn btn-primary" id="step4NextBtn">{% trans "Next" %}</button>
+                            <button type="button" value="previous" class="btn btn-primary" id="step4PreviousBtn">{% trans "Previous" %}</button>
+                            <button type="button" value="next" class="btn btn-primary" id="step4NextBtn">{% trans "Next" %}</button>
                         </div>
                     </div>
                 </div>
@@ -313,7 +305,7 @@
                 <div id="step-5" class="tab-pane" role="tabpanel">
                     <div class="page-header">
                         <h3> {% trans "Financial parameters" %}
-                            <button type="button" data-toggle="modal" data-target="#HelpStep5" id="HelpModalBtnModal_step5" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
+                            <button type="button" value="help modal button step 5" data-toggle="modal" data-target="#HelpStep5" id="HelpModalBtnModal_step5" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
                         </h3>
                         <p>{% trans "financial_tip" %}</p>
                         <div class="row">
@@ -337,7 +329,6 @@
                             <div class="custom-control custom-checkbox col-md-4 width-reponsive">
                                 <input id="total_platform" class="text-number" type="number" class="custom-control-input" disabled>
                             </div>
-
                             <div class="col-md-6">
                                 <label class="custom-control-label platform-label" for="total_personnel">{% trans "personnel_salary_benefits" %}</label>
                             </div>
@@ -438,8 +429,8 @@
                     </div>
                     <div class="row text-center">
                         <div class="col-md-12">
-                            <button type="button" class="btn btn-primary" id="step5PreviousBtn">{% trans "Previous" %}</button>
-                            <button type="button" class="btn btn-primary" id="step5NextBtn">{% trans "Next" %}</button>
+                            <button type="button" value="previous" class="btn btn-primary" id="step5PreviousBtn">{% trans "Previous" %}</button>
+                            <button type="button" value="next" class="btn btn-primary" id="step5NextBtn">{% trans "Next" %}</button>
                         </div>
                     </div>
                 </div>
@@ -447,18 +438,18 @@
                 <div id="step-6" class="tab-pane" role="tabpanel">
                     <div class="page-header">
                         <h3> {% trans "NBS_conservation_activities" %}
-                            <button type="button" data-toggle="modal" data-target="#HelpStep6" id="HelpModalBtnModal_step3" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
+                            <button type="button" value="help modal button step 6" data-toggle="modal" data-target="#HelpStep6" id="HelpModalBtnModal_step3" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
                         </h3>
-                        <p>{% trans "NBS_conservation_activities_text" %}</p>
-
-                        <ul class="list-group list-group-flush" id="nbs-ul">
-
-                        </ul>
+                        <div style="display: flex;">
+                            <p>{% trans "NBS_conservation_activities_text" %}</p>
+                            <span onclick="window.location.href='/waterproof_nbs_ca/create/'" class="glyphicon glyphicon-plus-sign btn-add"></span>
+                        </div>
+                        <ul class="list-group list-group-flush" id="nbs-ul"></ul>
                     </div>
                     <div class="row text-center">
                         <div class="col-md-12">
-                            <button type="button" class="btn btn-primary" id="step6PreviousBtn">{% trans "Previous" %}</button>
-                            <button type="button" class="btn btn-primary" id="step6NextBtn">{% trans "Next" %}</button>
+                            <button type="button" value="previous" class="btn btn-primary" id="step6PreviousBtn">{% trans "Previous" %}</button>
+                            <button type="button" value="next" class="btn btn-primary" id="step6NextBtn">{% trans "Next" %}</button>
                         </div>
                     </div>
                 </div>
@@ -466,7 +457,7 @@
                 <div id="step-7" class="tab-pane" role="tabpanel">
                     <div class="page-header">
                         <h3> {% trans "analysis_parameter" %}
-                            <button type="button" data-toggle="modal" data-target="#HelpStep7" id="HelpModalBtnModal_step3" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
+                            <button type="button" value="help modal button step 7" data-toggle="modal" data-target="#HelpStep7" id="HelpModalBtnModal_step3" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
                         </h3>
                     </div>
                     <div class="row">
@@ -483,7 +474,7 @@
                                 <label for="analysis_currency" class="control-label required-field ">
                                     {% trans "Currency" %}
                                 </label>
-                                <select id="analysis_currency" class="form-control">
+                                <select id="analysis_currency" class="form-control" onchange='$(".lbl-currency-budget").html($("#analysis_currency").val())'>
                                     {% for currency in currencys %}
                                     {% if currency.iso3 == 'USA' %}
                                     <option value='{{currency.currency}}' selected>({{currency.currency}}) - {{currency.name}}</option>
@@ -522,7 +513,16 @@
                             <div class="col-md-6">
                                 <div id="div_annual_investment" class="form-group">
                                     <label class="control-label required-field" for="annual_investment">{% trans "annual_investment" %}</label>
-                                    <input id="annual_investment" type="number" class="text-number-full form-control" value="0">
+                                    <div style="display: flex;">
+                                        <input id="annual_investment" type="number" class="text-number-full form-control" value="{{study_case.annual_investment|stringformat:'1.2f'}}">
+                                        <div class="lbl-currency-budget" style="padding-left: 15px;">
+                                            {% if study_case.analysis_currency != None%}
+                                            {{study_case.analysis_currency}}
+                                            {% else %}
+                                            {% with currencys|first as c %} {{c.currency}} {% endwith %}
+                                            {% endif %}
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -553,9 +553,9 @@
                     </div>
                     <div class="row text-center">
                         <div class="col-md-12">
-                            <button type="button" class="btn btn-primary" id="step7PreviousBtn">{% trans "Previous" %}</button>
-                            <button type="button" class="btn btn-primary" id="step7EndBtn">{% trans "Save" %}</button>
-                            <button type="button" class="btn btn-primary" id="step7RunBtn">{% trans "run_analysis" %}</button>
+                            <button type="button" value="previous" class="btn btn-primary" id="step7PreviousBtn">{% trans "Previous" %}</button>
+                            <button type="button" value="save" class="btn btn-primary" id="step7EndBtn">{% trans "Save" %}</button>
+                            <button type="button" value="run analysis" class="btn btn-primary" id="step7RunBtn">{% trans "run_analysis" %}</button>
                         </div>
                     </div>
                 </div>
@@ -569,7 +569,7 @@
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" value="close" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <h4 class="modal-title" id="CalculatorModalLabel"></h4>
@@ -609,12 +609,10 @@
                                 <input type="text" value="1.00" id="global_multiplier_factorCalculator" class="form-control">
                             </div>
                         </div>
-                        <h5 class="text-primary keyboard-title">Syntax keyboard</h5>
+                        <h5 class="text-primary keyboard-title">{% trans "Syntax keyboard" %}</h5>
                         <ul class="nav nav-tabs">
-                            <li class="active"><a href="#mathBasic_tab" data-toggle="tab">Basic</a></li>
-                            <li><a href="#mathAdvanced_tab" data-toggle="tab">Advanced</a></li>
-                            <li><a href="#mathTrigonometry_tab" data-toggle="tab">Trigonometry</a></li>
-                            <li><a href="#mathLogical_tab" data-toggle="tab">Logical</a></li>
+                            <li class="active"><a href="#mathBasic_tab" data-toggle="tab">{% trans "Basic" %}</a></li>
+                            <li><a href="#mathAdvanced_tab" data-toggle="tab">{% trans "Advanced" %}</a></li>
                         </ul>
                         <div class="tab-content">
                             <div id="mathBasic_tab" class="tab-pane fade in active">
@@ -624,40 +622,24 @@
                                     <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="-">&#8722;</button>
                                     <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="*">&#215</button>
                                     <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="/">a/b</button>
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="^">a^b</button>
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="**">a^b</button>
                                     <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="sqrt">&#8730</button>
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="min()">min</button>
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="max()">max</button>
                                 </div>
                             </div>
-
                             <div id="mathAdvanced_tab" class="tab-pane fade in">
                                 <div class="btn-group" role="group">
                                     <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="pi">π</button>
                                     <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="e">e</button>
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="ln">ln</button>
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="log">log</button>
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="_">a_b</button>
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="log()">ln</button>
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="log10()">log</button>
                                     <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="%">mod</button>
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="**">&#8731</button>
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value=">">&#62;</button>
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="<">&#60;</button>
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="(expression) if (conditional) else (other_case)">if</button>
                                 </div>
-                            </div>
-                            <div id="mathTrigonometry_tab" class="tab-pane fade in">
-                                <div class="btn-group" role="group">
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="sin( )">sin</button>
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="cos( )">cos</button>
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="tan( )">tan</button>
-                                </div>
-                            </div>
-                            <div id="mathLogical_tab" class="tab-pane fade in">
-                                <div class="btn-group" role="group">
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value=">">></button>
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value=">=">\ge</button>
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="<"><</button>
-                                            <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="<=">\le</button>
-                                            <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="!=">\ne</button>
-                                            <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="and">and</button>
-                                            <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="or">or</button>
-                                </div>
-                            </div>
+                            </div>                            
                         </div>
                     </div>
                     <div class="col-md-5">
@@ -668,7 +650,7 @@
                     <div class="col-md-12">
                         <div id="mathNatural" class="tab-pane fade in active">
                             <textarea id="python-expression" class="python-expression" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false" x-palm-disable-ste-all="true"></textarea>
-                            <button id="btnValidatePyExp">{% trans "Validate" %} </button>
+                            <button value="validate" id="btnValidatePyExp">{% trans "Validate" %} </button>
                             <div id="MathPreview" class="preview"></div>
                         </div>
                         <div id="mathLogical" class="tab-pane fade"></div>
@@ -676,8 +658,8 @@
                 </div>
                 <br>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{% trans "Close" %}</button>
-                    <button type="button" class="btn btn-primary" id="saveAndValideCost">{% trans "Add cost" %}</button>
+                    <button type="button" value="close" class="btn btn-secondary" data-dismiss="modal">{% trans "Close" %}</button>
+                    <button type="button" value="add cost" class="btn btn-primary" id="saveAndValideCost">{% trans "Add cost" %}</button>
                 </div>
             </div>
         </div>
@@ -688,7 +670,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" value="close" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <h3 class="modal-title text-center" id="HelpModalLabel" style="color:#6398C1 ;">{% trans "Creation of study cases" %}
@@ -707,7 +689,7 @@
                 <div>
                     <br>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="color: white; background-color: #6398C1;">{% trans "Close" %}</button>
+                        <button type="button" value="close" class="btn btn-secondary" data-dismiss="modal" style="color: white; background-color: #6398C1;">{% trans "Close" %}</button>
                     </div>
                 </div>
             </div>
@@ -720,7 +702,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" value="close" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <h3 class="modal-title text-center" id="HelpModalLabel" style="color:#6398C1 ;">{% trans "Integrate Analysis Associated with the Carbon Market" %}
@@ -736,7 +718,7 @@
                 <div>
                     <br>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="color: white; background-color: #6398C1;">{% trans "Close" %}</button>
+                        <button type="button" value="close" class="btn btn-secondary" data-dismiss="modal" style="color: white; background-color: #6398C1;">{% trans "Close" %}</button>
                     </div>
                 </div>
             </div>
@@ -749,7 +731,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" value="close" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <h3 class="modal-title text-center" id="HelpModalLabel" style="color:#6398C1 ;">{% trans "Definition of the objectives of the NBS" %}
@@ -777,7 +759,7 @@
                 <div>
                     <br>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="color: white; background-color: #6398C1;">{% trans "Close" %}</button>
+                        <button type="button" value="close" class="btn btn-secondary" data-dismiss="modal" style="color: white; background-color: #6398C1;">{% trans "Close" %}</button>
                     </div>
                 </div>
             </div>
@@ -790,7 +772,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" value="close" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <h3 class="modal-title text-center" id="HelpModalLabel" style="color:#6398C1 ;">{% trans "Adjustment of Biophysical Parameters" %}
@@ -856,7 +838,7 @@
                 <div>
                     <br>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="color: white; background-color: #6398C1;">{% trans "Close" %}</button>
+                        <button type="button" value="close" class="btn btn-secondary" data-dismiss="modal" style="color: white; background-color: #6398C1;">{% trans "Close" %}</button>
                     </div>
                 </div>
             </div>
@@ -869,7 +851,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" value="close" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <h3 class="modal-title text-center" id="HelpModalLabel" style="color:#6398C1 ;">{% trans "Definition of Financial Parameters" %}
@@ -885,19 +867,15 @@
                 <p>
                     {% trans "In addition, you need to indicate the minimum and maximum values ​​of the sensitivity analysis that will help you make your decisions in case of unexpected changes in your environment. To do this, WaterProof uses the following equation:" %}
                 </p>
-
                 <h3 style="text-align: center;">{% trans "TB/(1+TD)^A" %}</h3>
-
                 <h5>{% trans "Where:" %}</h5>
                 <h5>{% trans "TB  It is the Total of the benefit" %}</h5>
                 <h5>{% trans "TD  Discount rate, brought from financial parameters" %}</h5>
                 <h5>{% trans "A  Index for the current year" %}</h5>
-
-
                 <div>
                     <br>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="color: white; background-color: #6398C1;">{% trans "Close" %}</button>
+                        <button type="button" value="close" class="btn btn-secondary" data-dismiss="modal" style="color: white; background-color: #6398C1;">{% trans "Close" %}</button>
                     </div>
                 </div>
             </div>
@@ -910,7 +888,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" value="close" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <h3 class="modal-title text-center" id="HelpModalLabel" style="color:#6398C1 ;">{% trans "Definition of NBS Activities" %}
@@ -933,7 +911,7 @@
                 <div>
                     <br>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="color: white; background-color: #6398C1;">{% trans "Close" %}</button>
+                        <button type="button" value="close" class="btn btn-secondary" data-dismiss="modal" style="color: white; background-color: #6398C1;">{% trans "Close" %}</button>
                     </div>
                 </div>
             </div>
@@ -946,7 +924,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" value="close" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <h3 class="modal-title text-center" id="HelpModalLabel" style="color:#6398C1 ;">{% trans "Run the analysis" %}
@@ -956,7 +934,7 @@
                 <p>
                     {% trans "This is the last step in the configuration of your case study in which the user defines the time in which they want the analysis of the benefits to be projected, as well as the time that they estimate to carry out theNBS  implementation actions." %}
                 </p>
-                <img style="margin: 10px auto 10px; display: block; width: 70%; height: 100%;" src="/static/geonode/img/Step7Help.png"></img>
+                <img style="margin: 10px auto 10px; display: block; width: 70%; height: 100%;" src="/static/geonode/img/Step7Help.png" alt="help step 7"></img>
                 <p>
                     {% trans "Then, you must indicate the climatic aspects to consider. WaterProof, by default, allows you to consider the conditions of the Climate Change Scenarios or the known historical conditions. This option is available due to the influence of the climate on the sustainability of program activities and possible additional costs that must be incurred in more adverse conditions." %}
                 </p>
@@ -970,7 +948,7 @@
                 <div>
                     <br>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="color: white; background-color: #6398C1;">{% trans "Close" %}</button>
+                        <button type="button" value="close" class="btn btn-secondary" data-dismiss="modal" style="color: white; background-color: #6398C1;">{% trans "Close" %}</button>
                     </div>
                 </div>
             </div>
@@ -1015,5 +993,4 @@
 <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 <script src="{{ STATIC_URL }}study_cases/mathquill/mathquill.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-
 {% endblock %}

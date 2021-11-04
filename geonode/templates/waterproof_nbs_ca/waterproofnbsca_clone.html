@@ -17,7 +17,7 @@
 <div class="header-waterproof">
     <div class="page-header">
         <h1>{% trans "Clone Nature based solution (NBS)" %}
-            <button type="button" data-toggle="modal" data-target="#HelpClone" id="HelpModalBtnModal" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button> 
+            <button type="button" value="help modal button clone" data-toggle="modal" data-target="#HelpClone" id="HelpModalBtnModal" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button> 
         </h1>
         {% if user.professional_role == 'ADMIN' %}
             <h3>{% trans "Global USA based" %}</h3>
@@ -212,7 +212,7 @@
                     <table class="table">
                         <tr>
                             <td class="col-md-4"></td>
-                            <td class="col-md-8"><button id="clear_options" type="button" class="btn btn-primary ">{% trans "Clear options" %}</button></td>
+                            <td class="col-md-8"><button id="clear_options" type="button" value="clear options" class="btn btn-primary ">{% trans "Clear options" %}</button></td>
                         </tr>
                     </table>
                 </div>
@@ -230,9 +230,8 @@
                     <div class="col-md-12">
                         <label>{% trans "Restricted areas" %}</label>
                         <p>{% trans "If there are areas with restrictions for the implementation of the NbS, attach them to the form through a geographic file by clicking on the following button." %}</p>
-                        <button type="button" class="btn btn-link" data-toggle="modal" data-target="#HelpModal" id="HelpModalBtnModal" style="outline:none; text-decoration:none;">
-                            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> {% trans "Help"
-                            %}</button>
+                        <button type="button" value="help" class="btn btn-link" data-toggle="modal" data-target="#HelpModal" id="HelpModalBtnModal" style="outline:none; text-decoration:none;">
+                            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> {% trans "Help"%}</button>
                         </button>
                     </div>
                     <input id="restrictedArea" type="file">
@@ -244,7 +243,7 @@
         <input type="hidden" value="{{nbs.pk}}" id="sbnId">
         <div class="row text-center">
             <div class="col-md-12">
-                <button type="submit" id="submit" class="btn btn-primary ">{% trans "Save" %}</button>
+                <button type="submit" value="save" id="submit" class="btn btn-primary ">{% trans "Save" %}</button>
             </div>
         </div>
     </form>
@@ -254,7 +253,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" value="close" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <h3 class="modal-title text-center" id="HelpModalLabel">{% trans "Geom files help" %}</h3>
@@ -271,7 +270,7 @@
                 </div>
                 <br>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{% trans "Close" %}</button>
+                    <button type="button" value="close" class="btn btn-secondary" data-dismiss="modal">{% trans "Close" %}</button>
                 </div>
             </div>
         </div>
@@ -282,7 +281,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" value="close" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <h3 class="modal-title text-center" id="HelpModalLabel" style="color:#6398C1 ;">{% trans "Clone Nature based solution (NBS)" %}</h3>
@@ -318,7 +317,7 @@
                 <div>
                 <br>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal" style="color: white; background-color: #6398C1;">{% trans "Close" %}</button>
+                    <button type="button" value="close" class="btn btn-secondary" data-dismiss="modal" style="color: white; background-color: #6398C1;">{% trans "Close" %}</button>
                 </div>
                 </div>
             </div>

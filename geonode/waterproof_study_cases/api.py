@@ -37,7 +37,12 @@ def getIntakeByID(request, id_intake):
 @api_view(['GET'])
 def getIntakeByCity(request, id_city):
     if request.method == 'GET':
-        filterIntakeCity = Intake.objects.filter(city__id=id_city, is_complete=True).values(
+        if request.user.is_authenticated:
+            # print("getIntakeByCity :: Authenticated user: %s"%request.user)
+            filterIntakeCity = Intake.objects.filter(city__id=id_city, is_complete=True, added_by=request.user).values(
+            "id", "name", "water_source_name")
+        else:
+            filterIntakeCity = Intake.objects.filter(city__id=id_city, is_complete=True).values(
             "id", "name", "water_source_name")
         data = list(filterIntakeCity)
         return JsonResponse(data, safe=False)
@@ -55,8 +60,11 @@ def getIntakeByPtap(request, id):
 @api_view(['GET'])
 def getPtapByCity(request, id_city):
     if request.method == 'GET':
-        filterptap = Header.objects.filter(plant_city__id=id_city).values(
-            "id", "plant_name")
+        if request.user.is_authenticated:
+            #print("getPtapByCity :: Authenticated user: %s"  %request.user.username)
+            filterptap = Header.objects.filter(plant_city__id=id_city,plant_user=request.user.username).values("id", "plant_name")
+        else:
+            filterptap = Header.objects.filter(plant_city__id=id_city).values("id", "plant_name")
         data = list(filterptap)
         return JsonResponse(data, safe=False)
 

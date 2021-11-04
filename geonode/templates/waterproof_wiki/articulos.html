@@ -23,7 +23,7 @@
                         {% for item in random_articles %}
                         <div class="card">
                             <div class="img">
-                                <img src="{{SITE_HOST_API}}uploaded/{{item.imagen}}" class="img-card-news" alt="">
+                                <img src="{{SITE_HOST_API}}uploaded/{{item.imagen}}" class="img-card-news" alt="wiki 1">
                                 <p class="copyright img-md-wiki">© {{item.metadato_imagen |slice:":50"}}</p>
                             </div>
                             <div class="content">
@@ -36,7 +36,7 @@
                         {% for item in random_articles %}
                         <div class="card">
                         <div class="img">
-                            <img src="{{SITE_HOST_API}}uploaded/{{item.imagen}}" class="img-card-news" alt="">
+                            <img src="{{SITE_HOST_API}}uploaded/{{item.imagen}}" class="img-card-news" alt="wiki 2">
                             <p class="copyright img-md-wiki">© {{item.metadato_imagen_en|slice:":50"}}</p>
                         </div>
                         <div class="content">
@@ -101,7 +101,7 @@
             items: 2,
             margin: 50,
 			nav: true,
-            navText: ["<img src='/static/geonode/img/flecha-izq.png'>", "<img src='/static/geonode/img/flecha-der.png'>"]
+            navText: ["<img src='/static/geonode/img/flecha-izq.png' alt='flecha-izq'>", "<img src='/static/geonode/img/flecha-der.png' alt='flecha-der'>"]
         });
 
         $(document).ready(function() {

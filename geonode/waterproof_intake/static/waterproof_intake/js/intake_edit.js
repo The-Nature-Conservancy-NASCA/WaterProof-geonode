@@ -116,7 +116,7 @@ $(document).ready(function () {
             Swal.fire({
                 icon: 'warning',
                 title: gettext('field_problem'),
-                text: gettext('Error number of years  (10-100) Year'),
+                text: gettext('Error number of years (10-100) Year'),
             });
             valid_period = false;
             return;

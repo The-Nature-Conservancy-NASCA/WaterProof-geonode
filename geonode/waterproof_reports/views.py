@@ -281,7 +281,9 @@ def pdf(request):
     pdf.ln(4)
     pdf.set_text_color(100, 100, 100)
     pdf.set_fill_color(255, 255, 255)
-    
+    pdf.set_font('Arial', '', 11)
+    pdf.set_text_color(100, 100, 100)
+
     requestJson = requests.get(settings.SITE_HOST_API + 'reports/getconservationActivitiesPdf/?studyCase=' + request.POST['studyCase'],verify=False)
 
     data = requestJson.json()
@@ -317,6 +319,8 @@ def pdf(request):
             i = j
             j = j + length_line      
         pdf.set_font('Arial', '', 9)
+    pdf.ln(15)
+    pdf.cell(0, 10, '* Time requiered to obtain maximum benefit (year).', align='L')
     
     requestJson = requests.get(settings.SITE_HOST_API + 'reports/getFinancialAnalysisPdfRunAnalisisPdf/?studyCase=' + request.POST['studyCase'],verify=False)
     data = requestJson.json()
@@ -1319,7 +1323,7 @@ def pdf(request):
             idTimeFrame = str(round(float(item['value']),2))
         if item['description'] == "TotalEstimatedInvestment":
             idTotalEstimatedInvestment = str(round(float(item['value']),2))
-        if item['description'] == "TotalAreaInterventionSize(Ha)":
+        if item['description'] == "TotalAreaInterventionSize(Hec)":
             idTotalAreaInvestmentSize = str(round(float(item['value']),2))
             
 
@@ -1637,17 +1641,28 @@ def pdf(request):
         }]
     }
 
-    hc_export.save_as_png(config=config, filename="imgpdf/wrab.png")
-    pdf.image('imgpdf/wrab.png', 10, 40, w=90)
-    pdf.ln(40)
+    if len(dataListBenefitsIntakeA)>0:
+        hc_export.save_as_png(config=config, filename="imgpdf/wrab.png")
+        pdf.image('imgpdf/wrab.png', 10, 40, w=90)
+        pdf.ln(40)
+    else:
+        pdf.ln(10)
+        pdf.set_font('Arial', '', 10)
+        pdf.set_text_color(100, 100, 100)
+        pdf.cell(0, 7,'Intake Benefits ptap', align='L')
+        pdf.image('imgpdf/nodatadef.png', 20, 40, w=70)
+        pdf.ln(35)
+        pdf.cell(0, 50, '* there is no data for this graph', align='L')
+        pdf.ln(5)
+
 
     pdf.set_font('Arial', '', 9)
     if lastRegister == 0 : 
         pdf.ln(6)
         pdf.ln(6)
         pdf.ln(6)
-        pdf.ln(6)
-        pdf.ln(6)
+ #       pdf.ln(6)
+ #       pdf.ln(6)
 
     for item in dataListBenefitsIntakeA :
         pdf.cell(epw/2, 6, '')
@@ -1709,8 +1724,20 @@ def pdf(request):
         }]
     }
 
-    hc_export.save_as_png(config=config, filename="imgpdf/wrabi.png")
-    pdf.image('imgpdf/wrabi.png', 10, 150, w=90)
+
+    if len(dataListBenefitsIntakeB)>0:
+        hc_export.save_as_png(config=config, filename="imgpdf/wrabi.png")
+        pdf.image('imgpdf/wrabi.png', 10, 120, w=90)
+        pdf.ln(40)
+    else:
+        pdf.ln(10)
+        pdf.set_font('Arial', '', 10)
+        pdf.set_text_color(100, 100, 100)
+        pdf.cell(0, 7,'Intake Benefits intake', align='L')
+        pdf.image('imgpdf/nodatadef.png', 20, 110, w=70)
+        pdf.ln(35)
+        pdf.cell(0, 110, '* there is no data for this graph', align='L')
+        pdf.ln(5)
 
     pdf.add_page()
 
@@ -1887,7 +1914,7 @@ def pdf(request):
     }
 
     hc_export.save_as_png(config=configE, filename="imgpdf/rcafn.png")
-    ###pdf.image('imgpdf/rcafn.png', 10, 40, w=90)
+    pdf.image('imgpdf/rcafn.png', 10, 40, w=90)
 
     pdf.add_page()
 
@@ -1911,14 +1938,21 @@ def pdf(request):
         pdf.image('imgpdf/mapas-pdf.png', 20, 50 + heightIcon, w=30)
         pdf.ln(50)
         pdf.set_text_color(179, 179, 179)
-        pdf.cell(0, 6, 'http://apps.skaphe.com:8000/reports/geographic/?folder=' + str(item['folder']) + '&amp', align='L', link = 'http://apps.skaphe.com:8000/reports/geographic/?folder=' + str(item['folder']) + '&amp;intake=' + str(item['intake']) + '&amp;region=' + str(item['region']) + '&amp;year=' + str(item['year']) + '&amp;study_case_id=' + str(item['studycase']) + '&amp;center=' + centerxy[1] + "," + centerxy[0])
+        urlgeografico = settings.SITE_HOST_API + "/reports/geographic/?folder=" 
+#        pdf.cell(0, 6, 'http://apps.skaphe.com:8000/reports/geographic/?folder=' + str(item['folder']) + '&amp', align='L', link = 'http://apps.skaphe.com:8000/reports/geographic/?folder=' + str(item['folder']) + '&amp;intake=' + str(item['intake']) + '&amp;region=' + str(item['region']) + '&amp;year=' + str(item['year']) + '&amp;study_case_id=' + str(item['studycase']) + '&amp;center=' + centerxy[1] + "," + centerxy[0])
+        pdf.cell(0, 6, str(urlgeografico) + str(item['folder']) + '&amp', align='L', link = str(urlgeografico) + str(item['folder']) + '&amp;intake=' + str(item['intake']) + '&amp;region=' + str(item['region']) + '&amp;year=' + str(item['year']) + '&amp;study_case_id=' + str(item['studycase']) + '&amp;center=' + centerxy[1] + "," + centerxy[0])
         pdf.ln(6)
         pdf.cell(0, 6, ';intake=' + str(item['intake']) + '&amp;region=' + str(item['region']) + '&amp;year=' + str(item['year']) + '&amp;study_case_id=' + str(item['studycase']) + '&amp;center=', align='L', link = 'http://apps.skaphe.com:8000/reports/geographic/?folder=' + str(item['folder']) + '&amp;intake=' + str(item['intake']) + '&amp;region=' + str(item['region']) + '&amp;year=' + str(item['year']) + '&amp;study_case_id=' + str(item['studycase']) + '&amp;center=' + centerxy[1] + "," + centerxy[0])
         pdf.ln(6)
-        pdf.cell(0, 6, centerxy[1] + "," + centerxy[0], align='L', link = 'http://apps.skaphe.com:8000/reports/geographic/?folder=' + str(item['folder']) + '&intake=' + str(item['intake']) + '&region=' + str(item['region']) + '&year=' + str(item['year']) + '&study_case_id=' + str(item['studycase']) + '&center=' + centerxy[1] + "," + centerxy[0])
+#        pdf.cell(0, 6, centerxy[1] + "," + centerxy[0], align='L', link = 'http://apps.skaphe.com:8000/reports/geographic/?folder=' + str(item['folder']) + '&intake=' + str(item['intake']) + '&region=' + str(item['region']) + '&year=' + str(item['year']) + '&study_case_id=' + str(item['studycase']) + '&center=' + centerxy[1] + "," + centerxy[0])
+        pdf.cell(0, 6, centerxy[1] + "," + centerxy[0], align='L', link = str(urlgeografico) + str(item['folder']) + '&intake=' + str(item['intake']) + '&region=' + str(item['region']) + '&year=' + str(item['year']) + '&study_case_id=' + str(item['studycase']) + '&center=' + centerxy[1] + "," + centerxy[0])
+
         heightIcon = heightIcon + 80;
 
-    response = HttpResponse(pdf.output(dest='S').encode('iso-8859-1'))
+#    response = HttpResponse(pdf.output(dest='S').encode('iso-8859-1'))
+    StudyCaseNum = 'Case_study_' + request.POST['studyCase']+'.pdf';
+    response = HttpResponse(pdf.output(StudyCaseNum,'S').encode('iso-8859-1'))
+
     response['Content-Type'] = 'application/pdf'
     return response
 
