@@ -132,11 +132,17 @@
                                 <div class="panel-body text-center" id="toolbar"></div>
                             </div>
                         </div>
-                        <div class="col-md-4 position-table">
-                            <div class="panel panel-info">                                
-                                <div class="panel-body text-center" id="loadXml">
-                                    <img src="/static/geonode/img/load-default-diagram.png" alt="load" id="loadImg">
-                                    <a href="#">{% trans "Load default diagram" %}</a>                                    
+                        <div class="col-md-4 position-table" >
+                            <div class="panel panel-info text-center" id="loadXml">
+                                <div class="row">
+                                    <div class="col-md-12 text-center">
+                                        <img src="/static/geonode/img/load-default-diagram.png" style="cursor: pointer;" alt="load" id="loadImg">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 text-center">
+                                        <a href="#">{% trans "Load default diagram" %}</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -154,11 +160,6 @@
                         </div>
                         <!--Panel Information Right-->
                         <div class="col-md-4 position-table">
-                            <!--div class="alert alert-info text-center" role="alert">
-                                <button type="button" class="btn btn-link btn-block" data-toggle="modal" data-target="#HelpStep2" id="HelpModalBtnModal_step2" style="outline:none; text-decoration:none;">
-                                    <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span> {% trans "How to use the graph" %}</button>
-                                </button>
-                            </div-->
                             <div class="panel panel-info">
                                 <div class="panel-body">
                                     <!--Figure Name-->
@@ -192,9 +193,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <button type="button" class="btn btn-primary btn-block" id="saveGraph">{% trans "Validate graph" %}</button>
-
-    
+                            <button type="button" class="btn btn-primary btn-block" id="saveGraph">{% trans "Validate graph" %}</button>    
                         </div>
                     </div>
                     <div class="row" id="hideCostFuntion" style="display: none">
@@ -526,8 +525,7 @@
                                     <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="min()">min</button>
                                     <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="max()">max</button>
                                 </div>
-                            </div>
-                            
+                            </div>                            
                             <div id="mathAdvanced_tab" class="tab-pane fade in">
                                 <div class="btn-group" role="group">
                                     <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="pi">π</button>
@@ -537,6 +535,7 @@
                                     <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="%">mod</button>
                                     <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value=">">&#62;</button>
                                     <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="<">&#60;</button>
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="(expression) if (conditional) else (other_case)">if</button>
                                 </div>
                             </div>
                         </div>

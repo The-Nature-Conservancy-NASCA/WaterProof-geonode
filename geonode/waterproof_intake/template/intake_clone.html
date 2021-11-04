@@ -492,30 +492,21 @@
                             <input type="text" value="1.00" id="global_multiplier_factorCalculator"
                                 class="form-control">
                         </div>
-                        <h5 class="text-primary">Syntax keyboard</h5>
+                        <h5 class="text-primary keyboard-title">{% trans "Syntax keyboard" %}</h5>
                         <ul class="nav nav-tabs">
-                            <li class="active"><a href="#mathBasic_tab" data-toggle="tab">Basic</a></li>
-                            <li><a href="#mathAdvanced_tab" data-toggle="tab">Advanced</a></li>
-                            <li><a href="#mathTrigonometry_tab" data-toggle="tab">Trigonometry</a></li>
-                            <li><a href="#mathLogical_tab" data-toggle="tab">Logical</a></li>
+                            <li class="active"><a href="#mathBasic_tab" data-toggle="tab">{% trans "Basic" %}</a></li>
+                            <li><a href="#mathAdvanced_tab" data-toggle="tab">{% trans "Advanced" %}</a></li>
                         </ul>
                         <div class="tab-content">
                             <div id="mathBasic_tab" class="tab-pane fade in active">
                                 <div class="btn-group" role="group">
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard"
-                                        value="=">&#61</button>
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard"
-                                        value="+">&#43</button>
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard"
-                                        value="-">&#8722;</button>
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard"
-                                        value="*">&#215</button>
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard"
-                                        value="/">\frac{a}{b}</button>
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard"
-                                        value="**">a^b</button>
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard"
-                                        value="\sqrt">&#8730</button>
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="=">&#61</button>
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="+">&#43</button>
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="-">&#8722;</button>
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="*">&#215</button>
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="/">\frac{a}{b}</button>
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="**">a^b</button>
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="\sqrt">&#8730</button>
                                     <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="min()">min</button>
                                     <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="max()">max</button>
                                 </div>
@@ -529,6 +520,7 @@
                                     <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="%">mod</button>
                                     <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value=">">&#62;</button>
                                     <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="<">&#60;</button>
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="(expression) if (conditional) else (other_case)">if</button>
                                 </div>
                             </div>                            
                         </div>

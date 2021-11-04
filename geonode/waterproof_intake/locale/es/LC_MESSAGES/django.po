@@ -666,7 +666,7 @@ msgstr "Configuración de la infraestructura del sistema de captación"
 #: template/intake_form.html:122
 msgid "In this section you can build your water intake infrastructure and define operating cost functions. Note that in the drawing panel shows the river from which the water comes and that a series of icons representing the elements that can be part of your catchment system are provided."
 msgstr ""
-"En esta sección usted puede construir la infraestructura de su captación y definir las funciones de costos de operación.  Observe  que  en  el  panel  de  dibujo  se  encuentra  representado  el  río  del  que  proviene  el agua y que se ofrece una serie de iconos que representan los elementos que pueden hacer parte de su sistema de captación. Haga clic sobre el elemento que quiere incorporar en su esquemay luego clic en el tablero gráfico para incluir el elemento deseado. Posteriormente "
+"En esta sección usted puede construir la infraestructura de su captación y definir las funciones de costos de operación.  Observe  que  en  el  panel  de  dibujo  se  encuentra  representado  el  río  del  que  proviene  el agua y que se ofrece una serie de iconos que representan los elementos que pueden hacer parte de su sistema de captación. Haga clic sobre el elemento que quiere incorporar en su esquema y luego clic en el tablero gráfico para incluir el elemento deseado. Posteriormente "
 "establezca las conexiones entre los elementos para definir su topología."
 
 #: template/intake_form.html:124
