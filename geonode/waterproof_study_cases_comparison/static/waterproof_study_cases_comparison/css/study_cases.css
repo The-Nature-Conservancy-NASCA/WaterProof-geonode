@@ -168,18 +168,75 @@
 .currency-text {
     font-weight: 800;
 }
+@media (min-width: 360px) {
+    .header-waterproof {
+        padding-left: 6rem;
+        padding-bottom: 1rem;
+        margin-top: auto;
+    }
+    #mapidcuenca{
+        width: auto;
+        border: 2px solid;
+    }
+    .width-map{
+        width: 100%;
+    }
+    .panel-analisys{
+        width: 100%;
+        margin-bottom: 22px;
+        background-color: #fff;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+    }
+}
 
 @media (min-width: 768px) {
     .header-waterproof {
-        padding-left: 16rem;
+        padding-left: 6rem;
         padding-bottom: 1rem;
+        margin-top: auto;
+    }
+    #mapidcuenca{
+        width: auto;
+        border: 2px solid;
+    }
+    .width-map{
+        width: 100%;
+    }
+    .panel-analisys{
+        width: 100%;
+        margin-bottom: 22px;
+        background-color: #fff;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
     }
 }
 
 @media (min-width: 992px) {
     .header-waterproof {
-        padding-left: 24rem;
+        padding-left: 14rem;
         padding-bottom: 1rem;
+        margin-top: -80rem;
+    }
+    #mapidcuenca{
+        width: auto;
+        border: 2px solid;
+    }
+    .width-map{
+        width: 66.6%;
+    }
+    .panel-analisys{
+        width: 100%;
+        margin-bottom: 22px;
+        background-color: #fff;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
     }
 }
 
@@ -187,5 +244,22 @@
     .header-waterproof {
         padding-left: 28rem;
         padding-bottom: 3rem;
+        margin-top: auto;
+    }
+    #mapidcuenca{
+        width: auto;
+        border: 2px solid;
+    }
+    .width-map{
+        width: 66.6%;
+    }
+    .panel-analisys{
+        width: 100%;
+        margin-bottom: 22px;
+        background-color: #fff;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
     }
 }
