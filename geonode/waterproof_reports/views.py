@@ -1648,8 +1648,8 @@ def pdf(request):
     else:
         pdf.set_font('Arial', '', 10)
         pdf.set_text_color(100, 100, 100)
-        pdf.cell(10, 10, 'Intake Benefits ptap', align='L')
-        pdf.image('imgpdf/nodatadef.png', 10, 40, w=60)
+        pdf.cell(10, 20, 'Intake Benefits ptap', align='L')
+        pdf.image('imgpdf/nodatadef.png', 20, 40, w=60)
         pdf.cell(0, 50, '* there is no data for this graph', align='L')
         pdf.ln(40)
 
