@@ -283,7 +283,6 @@ def pdf(request):
     pdf.set_fill_color(255, 255, 255)
     pdf.set_font('Arial', '', 11)
     pdf.set_text_color(100, 100, 100)
-    pdf.cell(0, 10, '* Time requiered to obtain maximum benefit (year).', align='L')
 
     requestJson = requests.get(settings.SITE_HOST_API + 'reports/getconservationActivitiesPdf/?studyCase=' + request.POST['studyCase'],verify=False)
 
@@ -320,6 +319,8 @@ def pdf(request):
             i = j
             j = j + length_line      
         pdf.set_font('Arial', '', 9)
+    pdf.ln(15)
+    pdf.cell(0, 10, '* Time requiered to obtain maximum benefit (year).', align='L')
     
     requestJson = requests.get(settings.SITE_HOST_API + 'reports/getFinancialAnalysisPdfRunAnalisisPdf/?studyCase=' + request.POST['studyCase'],verify=False)
     data = requestJson.json()
@@ -1322,7 +1323,7 @@ def pdf(request):
             idTimeFrame = str(round(float(item['value']),2))
         if item['description'] == "TotalEstimatedInvestment":
             idTotalEstimatedInvestment = str(round(float(item['value']),2))
-        if item['description'] == "TotalAreaInterventionSize(Ha)":
+        if item['description'] == "TotalAreaInterventionSize(Hec)":
             idTotalAreaInvestmentSize = str(round(float(item['value']),2))
             
 
@@ -1640,9 +1641,17 @@ def pdf(request):
         }]
     }
 
-    hc_export.save_as_png(config=config, filename="imgpdf/wrab.png")
-    pdf.image('imgpdf/wrab.png', 10, 40, w=90)
-    pdf.ln(40)
+    if len(dataListBenefitsIntakeA)>0:
+        hc_export.save_as_png(config=config, filename="imgpdf/wrab.png")
+        pdf.image('imgpdf/wrab.png', 10, 40, w=90)
+        pdf.ln(40)
+    else:
+        pdf.image('imgpdf/nodatadef.png', 10, 40, w=60)
+        pdf.set_font('Arial', '', 10)
+        pdf.set_text_color(100, 100, 100)
+        pdf.cell(0, 50, '* there is no data for this graph', align='L')
+        pdf.ln(40)
+
 
     pdf.set_font('Arial', '', 9)
     if lastRegister == 0 : 
