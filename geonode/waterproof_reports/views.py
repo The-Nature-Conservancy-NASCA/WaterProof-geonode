@@ -1914,7 +1914,7 @@ def pdf(request):
     }
 
     hc_export.save_as_png(config=configE, filename="imgpdf/rcafn.png")
-    ###pdf.image('imgpdf/rcafn.png', 10, 40, w=90)
+    pdf.image('imgpdf/rcafn.png', 10, 40, w=90)
 
     pdf.add_page()
 
