@@ -55,7 +55,7 @@
                 <div id="step-1" class="tab-pane" role="tabpanel">
                     <div class="page-header" style="border-bottom: none;">
                         <h3>{% trans "define_study_case" %}
-                            <button type="button" data-toggle="modal" data-target="#HelpStep1" id="HelpModalBtnModal_step1" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
+                            <button type="button" value="help modal button step 1" data-toggle="modal" data-target="#HelpStep1" id="HelpModalBtnModal_step1" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
                         </h3>
                         <p>{% trans "study_case_tip" %}</p>
                     </div>
@@ -101,7 +101,7 @@
                             </label>
                         </div>
                         <div class="alert alert-danger text-center panel-hide" role="alert" id="div-emptyintakes">
-                            <button type="button" class="btn btn-link btn-block" style="outline:none; text-decoration:none;" onclick="window.location.href='/intake/?limit=5'">
+                            <button type="button" value="intake" class="btn btn-link btn-block" style="outline:none; text-decoration:none;" onclick="window.location.href='/intake/?limit=5'">
                                 <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> {% trans "no_water_intakes" %} </button>
                             </button>
                         </div>
@@ -126,7 +126,7 @@
                                             </select>
                                         </div>
                                         <div class="col-md-2">
-                                            <button type="button" class="btn btn-primary" id="add_wi">{% trans "Add" %}</button>
+                                            <button type="button" value="add" class="btn btn-primary" id="add_wi">{% trans "Add" %}</button>
                                         </div>
                                     </div>
                                     <div class="table-responsive">
@@ -149,7 +149,7 @@
                                 <div class="col-md-12">
                                     <div class="row form-group">
                                         <div class="col-md-2">
-                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#CalculatorModal" id="ModalAddCostBtn">{% trans "Add cost function" %}</button>
+                                            <button type="button" value="add cost function" class="btn btn-primary" data-toggle="modal" data-target="#CalculatorModal" id="ModalAddCostBtn">{% trans "Add cost function" %}</button>
                                         </div>
                                     </div>
                                     <div class="table-responsive">
@@ -185,7 +185,7 @@
                                             </select>
                                         </div>
                                         <div class="col-md-2">
-                                            <button type="button" class="btn btn-primary" id="add_ptap">{% trans "Add" %}</button>
+                                            <button type="button" value="add" class="btn btn-primary" id="add_ptap">{% trans "Add" %}</button>
                                         </div>
                                     </div>
                                     <div class="table-responsive">
@@ -206,7 +206,7 @@
                     </div>
                     <div class="row text-center">
                         <div class="col-md-12">
-                            <button type="button" class="btn btn-primary" id="step1NextBtn">{% trans "Next" %}</button>
+                            <button type="button" value="next" class="btn btn-primary" id="step1NextBtn">{% trans "Next" %}</button>
                         </div>
                     </div>
                 </div>
@@ -214,7 +214,7 @@
                 <div id="step-2" class="tab-pane" role="tabpanel">
                     <div class="page-header">
                         <h3>{% trans "carbon_market_title" %}
-                            <button type="button" data-toggle="modal" data-target="#HelpStep2" id="HelpModalBtnModal_step2" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
+                            <button type="button" value="help modal button step 2" data-toggle="modal" data-target="#HelpStep2" id="HelpModalBtnModal_step2" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
                         </h3>
                             <p>{% trans "carbon_market_tip" %}</p>
                         <div class="custom-control custom-checkbox">
@@ -246,8 +246,8 @@
                     </div>
                     <div class="row text-center">
                         <div class="col-md-12">
-                            <button type="button" class="btn btn-primary" id="step2PreviousBtn">{% trans "Previous" %}</button>
-                            <button type="button" class="btn btn-primary" id="step2NextBtn">{% trans "Next" %}</button>
+                            <button type="button" value="previous" class="btn btn-primary" id="step2PreviousBtn">{% trans "Previous" %}</button>
+                            <button type="button" value="next" class="btn btn-primary" id="step2NextBtn">{% trans "Next" %}</button>
                         </div>
                     </div>
                 </div>
@@ -255,7 +255,7 @@
                 <div id="step-3" class="tab-pane" role="tabpanel">
                     <div class="page-header">
                         <h3>{% trans "portfolios" %}
-                            <button type="button" data-toggle="modal" data-target="#HelpStep3" id="HelpModalBtnModal_step3" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
+                            <button type="button" value="help modal button step 3" data-toggle="modal" data-target="#HelpStep3" id="HelpModalBtnModal_step3" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
                         </h3>
                         <p>{% trans "portfolios_text" %}</p>
                         <ul class="list-group list-group-flush" id="portfolios-ul">
@@ -276,8 +276,8 @@
                     </div>
                     <div class="row text-center">
                         <div class="col-md-12">
-                            <button type="button" class="btn btn-primary" id="step3PreviousBtn">{% trans "Previous" %}</button>
-                            <button type="button" class="btn btn-primary" id="step3NextBtn">{% trans "Next" %}</button>
+                            <button type="button" value="previous" class="btn btn-primary" id="step3PreviousBtn">{% trans "Previous" %}</button>
+                            <button type="button" value="next" class="btn btn-primary" id="step3NextBtn">{% trans "Next" %}</button>
                         </div>
                     </div>
                 </div>
@@ -285,10 +285,10 @@
                 <div id="step-4" class="tab-pane" role="tabpanel">
                     <div class="page-header">
                         <h3> {% trans "modelling_parameters" %}
-                            <button type="button" data-toggle="modal" data-target="#HelpStep4" id="HelpModalBtnModal_step3" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
+                            <button type="button" value="help modal button step 4" data-toggle="modal" data-target="#HelpStep4" id="HelpModalBtnModal_step3" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
                         </h3>
                         <p>{% trans "biophysical_tip" %}</p>
-                        <button type="button" class="btn btn-primary" id="btn-advanced_option">{% trans "advanced_options" %}</button>
+                        <button type="button" value="advanced option" class="btn btn-primary" id="btn-advanced_option">{% trans "advanced_options" %}</button>
                         <br>
                             <p style="margin-top: 20px;" id="txtGuide1"></p>
                             <a id="txtGuide2" href="{{ invest_doc }}" target="_blank">{% trans "InVEST_documentation" %}</a>
@@ -296,8 +296,8 @@
                     </div>
                     <div class="row text-center">
                         <div class="col-md-12">
-                            <button type="button" class="btn btn-primary" id="step4PreviousBtn">{% trans "Previous" %}</button>
-                            <button type="button" class="btn btn-primary" id="step4NextBtn">{% trans "Next" %}</button>
+                            <button type="button" value="previous" class="btn btn-primary" id="step4PreviousBtn">{% trans "Previous" %}</button>
+                            <button type="button" value="next" class="btn btn-primary" id="step4NextBtn">{% trans "Next" %}</button>
                         </div>
                     </div>
                 </div>
@@ -305,7 +305,7 @@
                 <div id="step-5" class="tab-pane" role="tabpanel">
                     <div class="page-header">
                         <h3> {% trans "Financial parameters" %}
-                            <button type="button" data-toggle="modal" data-target="#HelpStep5" id="HelpModalBtnModal_step5" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
+                            <button type="button" value="help modal button step 5" data-toggle="modal" data-target="#HelpStep5" id="HelpModalBtnModal_step5" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
                         </h3>
                         <p>{% trans "financial_tip" %}</p>
                         <div class="row">
@@ -429,8 +429,8 @@
                     </div>
                     <div class="row text-center">
                         <div class="col-md-12">
-                            <button type="button" class="btn btn-primary" id="step5PreviousBtn">{% trans "Previous" %}</button>
-                            <button type="button" class="btn btn-primary" id="step5NextBtn">{% trans "Next" %}</button>
+                            <button type="button" value="previous" class="btn btn-primary" id="step5PreviousBtn">{% trans "Previous" %}</button>
+                            <button type="button" value="next" class="btn btn-primary" id="step5NextBtn">{% trans "Next" %}</button>
                         </div>
                     </div>
                 </div>
@@ -438,7 +438,7 @@
                 <div id="step-6" class="tab-pane" role="tabpanel">
                     <div class="page-header">
                         <h3> {% trans "NBS_conservation_activities" %}
-                            <button type="button" data-toggle="modal" data-target="#HelpStep6" id="HelpModalBtnModal_step3" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
+                            <button type="button" value="help modal button step 6" data-toggle="modal" data-target="#HelpStep6" id="HelpModalBtnModal_step3" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
                         </h3>
                         <div style="display: flex;">
                             <p>{% trans "NBS_conservation_activities_text" %}</p>
@@ -448,8 +448,8 @@
                     </div>
                     <div class="row text-center">
                         <div class="col-md-12">
-                            <button type="button" class="btn btn-primary" id="step6PreviousBtn">{% trans "Previous" %}</button>
-                            <button type="button" class="btn btn-primary" id="step6NextBtn">{% trans "Next" %}</button>
+                            <button type="button" value="previous" class="btn btn-primary" id="step6PreviousBtn">{% trans "Previous" %}</button>
+                            <button type="button" value="next" class="btn btn-primary" id="step6NextBtn">{% trans "Next" %}</button>
                         </div>
                     </div>
                 </div>
@@ -457,7 +457,7 @@
                 <div id="step-7" class="tab-pane" role="tabpanel">
                     <div class="page-header">
                         <h3> {% trans "analysis_parameter" %}
-                            <button type="button" data-toggle="modal" data-target="#HelpStep7" id="HelpModalBtnModal_step3" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
+                            <button type="button" value="help modal button step 7" data-toggle="modal" data-target="#HelpStep7" id="HelpModalBtnModal_step3" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
                         </h3>
                     </div>
                     <div class="row">
@@ -553,9 +553,9 @@
                     </div>
                     <div class="row text-center">
                         <div class="col-md-12">
-                            <button type="button" class="btn btn-primary" id="step7PreviousBtn">{% trans "Previous" %}</button>
-                            <button type="button" class="btn btn-primary" id="step7EndBtn">{% trans "Save" %}</button>
-                            <button type="button" class="btn btn-primary" id="step7RunBtn">{% trans "run_analysis" %}</button>
+                            <button type="button" value="previous" class="btn btn-primary" id="step7PreviousBtn">{% trans "Previous" %}</button>
+                            <button type="button" value="save" class="btn btn-primary" id="step7EndBtn">{% trans "Save" %}</button>
+                            <button type="button" value="run analysis" class="btn btn-primary" id="step7RunBtn">{% trans "run_analysis" %}</button>
                         </div>
                     </div>
                 </div>
@@ -569,7 +569,7 @@
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" value="close" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <h4 class="modal-title" id="CalculatorModalLabel"></h4>
@@ -651,7 +651,7 @@
                     <div class="col-md-12">
                         <div id="mathNatural" class="tab-pane fade in active">
                             <textarea id="python-expression" class="python-expression" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false" x-palm-disable-ste-all="true"></textarea>
-                            <button id="btnValidatePyExp">{% trans "Validate" %} </button>
+                            <button value="validate" id="btnValidatePyExp">{% trans "Validate" %} </button>
                             <div id="MathPreview" class="preview"></div>
                         </div>
                         <div id="mathLogical" class="tab-pane fade"></div>
@@ -659,8 +659,8 @@
                 </div>
                 <br>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{% trans "Close" %}</button>
-                    <button type="button" class="btn btn-primary" id="saveAndValideCost">{% trans "Add cost" %}</button>
+                    <button type="button" value="close" class="btn btn-secondary" data-dismiss="modal">{% trans "Close" %}</button>
+                    <button type="button" value="add cost" class="btn btn-primary" id="saveAndValideCost">{% trans "Add cost" %}</button>
                 </div>
             </div>
         </div>
@@ -671,7 +671,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" value="close" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <h3 class="modal-title text-center" id="HelpModalLabel" style="color:#6398C1 ;">{% trans "Creation of study cases" %}
@@ -690,7 +690,7 @@
                 <div>
                     <br>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="color: white; background-color: #6398C1;">{% trans "Close" %}</button>
+                        <button type="button" value="close" class="btn btn-secondary" data-dismiss="modal" style="color: white; background-color: #6398C1;">{% trans "Close" %}</button>
                     </div>
                 </div>
             </div>
@@ -703,7 +703,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" value="close" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <h3 class="modal-title text-center" id="HelpModalLabel" style="color:#6398C1 ;">{% trans "Integrate Analysis Associated with the Carbon Market" %}
@@ -719,7 +719,7 @@
                 <div>
                     <br>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="color: white; background-color: #6398C1;">{% trans "Close" %}</button>
+                        <button type="button" value="close" class="btn btn-secondary" data-dismiss="modal" style="color: white; background-color: #6398C1;">{% trans "Close" %}</button>
                     </div>
                 </div>
             </div>
@@ -732,7 +732,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" value="close" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <h3 class="modal-title text-center" id="HelpModalLabel" style="color:#6398C1 ;">{% trans "Definition of the objectives of the NBS" %}
@@ -760,7 +760,7 @@
                 <div>
                     <br>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="color: white; background-color: #6398C1;">{% trans "Close" %}</button>
+                        <button type="button" value="close" class="btn btn-secondary" data-dismiss="modal" style="color: white; background-color: #6398C1;">{% trans "Close" %}</button>
                     </div>
                 </div>
             </div>
@@ -773,7 +773,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" value="close" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <h3 class="modal-title text-center" id="HelpModalLabel" style="color:#6398C1 ;">{% trans "Adjustment of Biophysical Parameters" %}
@@ -839,7 +839,7 @@
                 <div>
                     <br>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="color: white; background-color: #6398C1;">{% trans "Close" %}</button>
+                        <button type="button" value="close" class="btn btn-secondary" data-dismiss="modal" style="color: white; background-color: #6398C1;">{% trans "Close" %}</button>
                     </div>
                 </div>
             </div>
@@ -852,7 +852,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" value="close" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <h3 class="modal-title text-center" id="HelpModalLabel" style="color:#6398C1 ;">{% trans "Definition of Financial Parameters" %}
@@ -876,7 +876,7 @@
                 <div>
                     <br>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="color: white; background-color: #6398C1;">{% trans "Close" %}</button>
+                        <button type="button" value="close" class="btn btn-secondary" data-dismiss="modal" style="color: white; background-color: #6398C1;">{% trans "Close" %}</button>
                     </div>
                 </div>
             </div>
@@ -889,7 +889,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" value="close" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <h3 class="modal-title text-center" id="HelpModalLabel" style="color:#6398C1 ;">{% trans "Definition of NBS Activities" %}
@@ -912,7 +912,7 @@
                 <div>
                     <br>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="color: white; background-color: #6398C1;">{% trans "Close" %}</button>
+                        <button type="button" value="close" class="btn btn-secondary" data-dismiss="modal" style="color: white; background-color: #6398C1;">{% trans "Close" %}</button>
                     </div>
                 </div>
             </div>
@@ -925,7 +925,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" value="close" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <h3 class="modal-title text-center" id="HelpModalLabel" style="color:#6398C1 ;">{% trans "Run the analysis" %}
@@ -935,7 +935,7 @@
                 <p>
                     {% trans "This is the last step in the configuration of your case study in which the user defines the time in which they want the analysis of the benefits to be projected, as well as the time that they estimate to carry out theNBS  implementation actions." %}
                 </p>
-                <img style="margin: 10px auto 10px; display: block; width: 70%; height: 100%;" src="/static/geonode/img/Step7Help.png"></img>
+                <img style="margin: 10px auto 10px; display: block; width: 70%; height: 100%;" src="/static/geonode/img/Step7Help.png" alt="help step 7"></img>
                 <p>
                     {% trans "Then, you must indicate the climatic aspects to consider. WaterProof, by default, allows you to consider the conditions of the Climate Change Scenarios or the known historical conditions. This option is available due to the influence of the climate on the sustainability of program activities and possible additional costs that must be incurred in more adverse conditions." %}
                 </p>
@@ -949,7 +949,7 @@
                 <div>
                     <br>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="color: white; background-color: #6398C1;">{% trans "Close" %}</button>
+                        <button type="button" value="close" class="btn btn-secondary" data-dismiss="modal" style="color: white; background-color: #6398C1;">{% trans "Close" %}</button>
                     </div>
                 </div>
             </div>
