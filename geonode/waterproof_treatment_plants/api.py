@@ -104,7 +104,12 @@ def getIntakeList(request):
 	if request.method == 'GET':
 		objects_list = []
 		city_id = request.query_params.get('cityId')
-		elements = ElementSystem.objects.filter(normalized_category='CSINFRA').filter(intake__city__id=city_id).order_by('intake__name')
+		elements = []
+		if request.user.is_authenticated:
+			# print("getIntakeList, user: %s, city: %s" % (request.user.id, city_id))
+			elements = ElementSystem.objects.filter(normalized_category='CSINFRA').filter(intake__city__id=city_id, intake__added_by=request.user).order_by('intake__name')
+		else:
+			elements = ElementSystem.objects.filter(normalized_category='CSINFRA').filter(intake__city__id=city_id).order_by('intake__name')
 		for elementSystem in elements:
 			intake_name = elementSystem.intake.name
 			objects_list.append({

@@ -73,14 +73,14 @@
             {% for treatmentPlants in treatmentPlantsList %}
             <tr>
                 <td class="small text-center vat">{{treatmentPlants.plantId}}</td>
-                <td class="small text-center vat">{{treatmentPlants.plantName}}</td>
-                <td class="small text-center vat">{{treatmentPlants.plantDescription}}</td>
+                <td class="small vat align-text-left">{{treatmentPlants.plantName}}</td>
+                <td class="small vat align-text-left">{{treatmentPlants.plantDescription}}</td>
                 {% if user.is_authenticated and user.professional_role == 'ADMIN'%}
-                <td class="small text-center vat">{{treatmentPlants.plantUser}}</td>
+                <td class="small vat align-text-left">{{treatmentPlants.plantUser}}</td>
                 {% endif %}
-                <td id="date" class="small text-center vat">{{treatmentPlants.plantDate}}</td>
-                <td class="small text-center vat">{{treatmentPlants.standardNameSpanish}}</td>
-                <td class="small text-center vat">
+                <td id="date" class="small vat align-text-left">{{treatmentPlants.plantDate}}</td>
+                <td class="small vat align-text-left">{{treatmentPlants.standardNameSpanish}}</td>
+                <td class="small vat align-text-left">
                     {% for intake in treatmentPlants.plantIntakeName %}
                         {{intake}}<br>
                     {% endfor %}
