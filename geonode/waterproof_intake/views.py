@@ -1276,7 +1276,7 @@ def execInvest(request, args):
     url = settings.WATERPROOF_INVEST_API+'execInvest'
     print("URL = %s" % url)
     print(args)
-    r = request.get(url, params=args)
+    r = request.get(url, params=args, verify=False)
     if r.status_code == 200:
         print("Resultado correcto Exec Invest:::")
         print(r.text)
@@ -1297,7 +1297,7 @@ catchment:  Int Intake id
 
 def execWb(request, args):
     url = settings.WATERPROOF_INVEST_API+'wb'
-    r = request.get(url, params=args)
+    r = request.get(url, params=args, verify=False)
     if r.status_code == 200:
         print("Resultado correcto WB:::")
         print(r.text)
