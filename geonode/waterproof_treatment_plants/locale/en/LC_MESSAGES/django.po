@@ -469,7 +469,7 @@ msgstr "Define the processes that are part of your treatment plant and use the c
 
 #: templates/treatment_plants_list.html:122
 msgid "Creating a DWTP"
-msgstr "Creating a WDTP"
+msgstr "Creating a DWTP"
 
 #: templates/treatment_plants_list.html:126
 msgid "Paragraph modal create DWTP 1"
