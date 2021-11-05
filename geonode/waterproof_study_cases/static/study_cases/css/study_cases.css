@@ -221,6 +221,9 @@
     .width-title{
         width: 100%;
     }
+    .display-true{
+        display: none;
+    }
 }
 
 @media (min-width: 768px) {
@@ -266,6 +269,9 @@
     }
     .width-title{
         width: 100%;
+    }
+    .display-true{
+        display: none;
     }
 }
 
@@ -313,6 +319,9 @@
     .width-title{
         width: 100%;
     }
+    .display-true{
+        display: table;
+    }
 }
 
 @media (min-width: 1200px) {
@@ -358,6 +367,9 @@
     }
     .width-title{
         width: 100%;
+    }
+    .display-true{
+        display: table;
     }
 }
 
