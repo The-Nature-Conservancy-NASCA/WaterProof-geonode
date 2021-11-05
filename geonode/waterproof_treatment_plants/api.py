@@ -85,7 +85,7 @@ def getTreatmentPlantsList(request):
 				"plantCityId": csinfra.plant_city_id,
 				"standardNameSpanish": csinfra.plant_city.standard_name_spanish,
 				"plantIntakeName": [lastPlantIntakeName],
-				"geom" : element.intake.polygon_set.first().geom.geojson
+				"geom" : element.intake.polygon_set.first().geom.geojson #json.loads(element.intake.polygon_set.first().geomIntake)['features'][0]['geometry'] # geom.geojson 
 			})
 				
 
@@ -505,7 +505,7 @@ def get_geoms_intakes(plants):
 		ig = dict()
 		ig['id'] = i.id
 		if not i.polygon_set.first().geom is None:
-				ig['geom'] = i.polygon_set.first().geom.geojson
+				ig['geom'] = json.loads(i.polygon_set.first().geomIntake)['features'][0]['geometry'] # geom.geojson
 				ig['name'] = i.name
 		intake_geoms.append(ig)
 	return intake_geoms
