@@ -416,7 +416,7 @@ def get_geoms_intakes(studyCases):
             ig['study_case_id'] = sc.pk
             ig['study_case_name'] = sc.name
             ig['intake_id'] = intake.pk
-            ig['geom'] = intake.polygon_set.first().geom.geojson
+            ig['geom'] = json.loads(intake.polygon_set.first().geomIntake)['features'][0]['geometry'] # geom.geojson
             ig['intake_name'] = intake.name
             intake_geoms.append(ig)
     return intake_geoms

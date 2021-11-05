@@ -34,7 +34,7 @@
             <p><b>{% trans "Currency" %}:</b><span id="currencyLabel">({{currency.code}}) - {{currency.name}}</span></p>
             <p><b>{% trans "Show all cities" %}:</b><a class="btn btn-primary" id="showCities"><span class="glyphicon glyphicon-filter" aria-hidden="true"></span></a></p>
         </div>
-        <div class="col-md-8">
+        <div class="col-md-8 width-map">
             <div id="mapidcuenca"></div>
         </div>
     </div>
@@ -90,21 +90,23 @@
 <div class="col-md-12">
     <div class="row form-group">
         <legend><label>{% trans "Cases for analysis" %} <span class="text-danger-wp" id="ptap-required"></span> </label></legend>
-       <table id="analisys_cases" class="table table-striped table-bordered table-condensed" style="width:100%">
-            <thead>
-                <tr class="info">
-                    <th scope="col" class="small text-center vat">{% trans "Name" %}</th>
-                    <th scope="col" class="small text-center vat">{% trans "User" %}</th>
-                    <th scope="col" class="small text-center vat">{% trans "Date" %}</th>
-                    <th scope="col" class="small text-center vat">{% trans "City" %}</th>
-                    <th scope="col" class="small text-center vat">{% trans "treatment_plants" %}</th>
-                    <th scope="col" class="small text-center vat">{% trans "water_intakes" %}</th>
-                    <th scope="col" class="small text-center vat">{% trans "Actions" %}</th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
+        <div class="table-responsive" style="width: 100%;">
+            <table id="analisys_cases" class="table table-striped table-bordered table-condensed" style="width:100%">
+                <thead>
+                    <tr class="info">
+                        <th scope="col" class="small text-center vat">{% trans "Name" %}</th>
+                        <th scope="col" class="small text-center vat">{% trans "User" %}</th>
+                        <th scope="col" class="small text-center vat">{% trans "Date" %}</th>
+                        <th scope="col" class="small text-center vat">{% trans "City" %}</th>
+                        <th scope="col" class="small text-center vat">{% trans "treatment_plants" %}</th>
+                        <th scope="col" class="small text-center vat">{% trans "water_intakes" %}</th>
+                        <th scope="col" class="small text-center vat">{% trans "Actions" %}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 <div class="col-md-12 text-center">

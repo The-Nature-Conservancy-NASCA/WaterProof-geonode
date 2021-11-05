@@ -1,12 +1,12 @@
 import pandas as pd
-import matplotlib
 import highchartexport as hc_export
 import json
 import requests
-import array
-import codecs
 import re, time, base64
 import math
+import os
+import tempfile
+
 from django.conf import settings
 from django.http import JsonResponse
 from django.shortcuts import render
@@ -16,8 +16,8 @@ from .models import investIndicators, zip
 from geonode.waterproof_study_cases.models import StudyCases
 from pylab import title, figure, xlabel, ylabel, xticks, bar, legend, axis, savefig
 from fpdf import FPDF
-from django.http import HttpResponse
-from datetime import date
+from django.http import HttpResponse, FileResponse
+from datetime import date, datetime
 from django.template import RequestContext
 from PIL import Image
 from io import BytesIO
@@ -78,9 +78,7 @@ def pdf(request):
     pdf.cell(0, 0, 'completeness, timeliness of the data, as well as the handling that user gives to the information generated.')
     pdf.ln(4)
 
-
     epw = pdf.w - 2*pdf.l_margin
-
     pdf.set_font('Arial', '', 10)
     pdf.set_text_color(250, 250, 250)
     pdf.set_fill_color(0, 138, 173)
@@ -90,8 +88,7 @@ def pdf(request):
     requestJson = requests.get(settings.SITE_HOST_API + 'reports/getSelectorStudyCasesId/?studyCase=' + request.POST['studyCase'],verify=False)
     data = requestJson.json()
     for item in data:
-        studyCaseName = item['studyCasesName']
-        
+        studyCaseName = item['studyCasesName']        
 
     numerOfWater = "-"
     numerOfDwtp = "-"
@@ -148,7 +145,6 @@ def pdf(request):
     pdf.cell(epw/2, 5,"Time frame (years):   " + str(timeCase))
     pdf.cell(epw/2, 5,"Discount rate (%):   " + request.POST['discountRateData'])
        
-
     pdf.ln(55)
 
     pdf.set_font('Arial', '', 11)
@@ -234,7 +230,7 @@ def pdf(request):
     cellArray.append(contLine)
 
     lastItenName = ""
-    lastNameCase = "";
+    lastNameCase = ""
     contLine = 0    
     for item in data:
         pdf.ln(6)
@@ -350,8 +346,8 @@ def pdf(request):
     varText2 = ""
     varText3 = ""
     varText4 = ""
-
     cont = 0
+
     for item in data:
         cont = cont + 1
         if cont == 1:
@@ -362,7 +358,7 @@ def pdf(request):
             varText3 = item['name']
         if cont == 4:
             varText4 = item['name']
-
+    
     # PAGE (3)- Financial parameters  
     pdf.add_page()
     pdf.set_font('Arial', '', 13)
@@ -1164,7 +1160,7 @@ def pdf(request):
         pdf.ln(0)
         pdf.cell(45, 3, 'Physical risk quantity measures risk related', align='C')
         pdf.cell(3, 3, '')
-        pdf.cell(45, 3, 'Physical risk quantity measures risk related', align='C')
+        pdf.cell(45, 3, 'Physical risk quality measures risk related', align='C')
         pdf.cell(3, 3, '')
         pdf.cell(45, 3, 'Risk regulatory and reputational risk', align='C')
         pdf.cell(3, 3, '')
@@ -1373,10 +1369,7 @@ def pdf(request):
     pdf.cell(epw, 10, format(float(idTimeFrame),'0,.2f'), align='C')
     pdf.ln(10)
    
-
-    pdf.add_page()
-
-    
+    pdf.add_page()  
 
     requestJson = requests.get(settings.SITE_HOST_API + 'reports/getReportAnalisysBeneficsC/?studyCase=' + request.POST['studyCase'],verify=False)
     data = requestJson.json()
@@ -1426,12 +1419,9 @@ def pdf(request):
 
     pdf.set_font('Arial', '', 13)
     pdf.set_text_color(57, 137, 169)
-
     pdf.cell(0, 10, 'Physical indicators', align='L')
     pdf.ln(10)
-
     pdf.set_text_color(100,100,100)
-
 
     requestJson = requests.get(settings.SITE_HOST_API + 'reports/getWpAqueductIndicatorGraph/?studyCase=' + request.POST['studyCase'],verify=False)
     data = requestJson.json()
@@ -1601,7 +1591,6 @@ def pdf(request):
     pdf.set_text_color(57, 137, 169)
     pdf.cell(0, 10, 'Decision indicators', align='L')
 
-
     dataListBenefitsIntakeA = [];
     requestJson = requests.get(settings.SITE_HOST_API + 'reports/getWaterproofReportsAnalysisBenefits/?studyCase=' + request.POST['studyCase'],verify=False)
     data = requestJson.json()
@@ -1741,8 +1730,6 @@ def pdf(request):
 
     pdf.add_page()
 
-
-
     dataListBenefitsIntakeC = [];
     requestJson = requests.get(settings.SITE_HOST_API + 'reports/getReportAnalysisBenefitsFilterSum/?studyCase=' + request.POST['studyCase'],verify=False)
     data = requestJson.json()
@@ -1797,8 +1784,6 @@ def pdf(request):
 
     hc_export.save_as_png(config=config, filename="imgpdf/rabfs.png")
     pdf.image('imgpdf/rabfs.png', 10, 40, w=90)
-
-    
 
     dataListBenefitsIntakeD = []
     requestJson = requests.get(settings.SITE_HOST_API + 'reports/getReportCostsAnalysisFilter/?studyCase=' + request.POST['studyCase'],verify=False)
@@ -1858,7 +1843,6 @@ def pdf(request):
     pdf.image('imgpdf/rcafh.png', 10, 150, w=90)
 
     pdf.add_page()
-
 
     dataListBenefitsIntakeE = [];
     requestJson = requests.get(settings.SITE_HOST_API + 'reports/getReportCostsAnalysisFilterNbs/?studyCase=' + request.POST['studyCase'],verify=False)
@@ -1955,6 +1939,17 @@ def pdf(request):
 
     response['Content-Type'] = 'application/pdf'
     return response
+
+    tmp_dir =  tempfile.gettempdir() # prints the current temporary directory
+    id = datetime.now().strftime("%d-%m-%Y-%H%M%S")
+    file_name = "waterproof_report_%s.pdf" % id
+    path_file = os.path.join(tmp_dir, file_name)
+    output = pdf.output(dest='F',name=path_file).encode('latin-1')
+    response = HttpResponse(content=output)
+    response['Content-Type'] = 'application/pdf'
+    response['Content-Disposition'] = 'inline;filename='+path_file
+    print (response)
+    return FileResponse(open(path_file, 'rb'), content_type='application/pdf')
 
 
 def dashboard(request):

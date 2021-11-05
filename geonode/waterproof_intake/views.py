@@ -786,7 +786,7 @@ def get_geoms_intakes(intakes):
         ig = dict()
         ig['id'] = i.pk
         if not i.polygon_set.first().geom is None:
-            ig['geom'] = i.polygon_set.first().geom.geojson
+            ig['geom'] = json.loads(i.polygon_set.first().geomIntake)['features'][0]['geometry'] # geom.geojson
             ig['name'] = i.name
         intake_geoms.append(ig)
     return intake_geoms

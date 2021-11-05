@@ -151,10 +151,10 @@ $(function () {
         let lf = [];
         listIntakes.forEach(intake => {
             if (intake.geom) {
-                let g = JSON.parse(intake.geom);
+                //let g = JSON.parse(intake.geom);
                 f = {'type' : 'Feature', 
                     'properties' : { 'id' : intake.id, 'name' : intake.name}, 
-                    'geometry' : g
+                    'geometry' : intake.geom
                 };
                 lf.push(f);
             }            

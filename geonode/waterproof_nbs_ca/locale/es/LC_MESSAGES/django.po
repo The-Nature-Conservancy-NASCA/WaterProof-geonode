@@ -506,3 +506,5 @@ msgstr ""
 msgid "Wrong decimal format"
 msgstr "Formato incorrecto, intente así: 1,00"
 
+msgid "Clear options"
+msgstr "Limpiar opciones"
