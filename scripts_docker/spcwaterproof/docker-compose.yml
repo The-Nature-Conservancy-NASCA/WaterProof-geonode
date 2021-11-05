@@ -177,3 +177,6 @@ volumes:
   rabbitmq:
   mapserver:
 
+networks:
+  geonode:
+    driver: bridge
