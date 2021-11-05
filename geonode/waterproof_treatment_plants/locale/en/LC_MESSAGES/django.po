@@ -466,3 +466,19 @@ msgstr "Click on the following button for WaterProof to configure the treatment 
 
 msgid "Define the processes that are part of your treatment plant and use the checkbox to enable or disable cost functions. You can also edit, delete or add cost functions."
 msgstr "Define the processes that are part of your treatment plant and use the checkbox to enable or disable cost functions. You can also edit, delete or add cost functions."
+
+#: templates/treatment_plants_list.html:122
+msgid "Creating a DWTP"
+msgstr "Creating a WDTP"
+
+#: templates/treatment_plants_list.html:126
+msgid "Paragraph modal create DWTP 1"
+msgstr "Water treatment is the set of physical and chemical or biological operations whose purpose is the elimination or reduction of pollution or undesirable characteristics present in the water; The purpose of these operations is to obtain waters with the appropriate characteristics for human, animal consumption or for agricultural applications."
+
+#: templates/treatment_plants_list.html:129
+msgid "Paragraph modal create DWTP 2"
+msgstr "In WaterProof to create a new Treatment Plant you must have previously created the catchment (s) from which the water comes. With this, the system will validate the quality of the water in your area and will make a recommendation for treatment processes."
+
+#: templates/treatment_plants_list.html:129
+msgid "Paragraph modal create DWTP 3"
+msgstr "You will be able to explore water treatment technologies and their cost functions by clicking on the boxes to see the details."
