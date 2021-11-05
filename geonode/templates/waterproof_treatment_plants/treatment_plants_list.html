@@ -23,7 +23,9 @@
 {% block body_outer %}
 <div class="header-waterproof">
     <div>
-        <h2>{% trans "Drinking water treatment plants (DWTP)" %}</h2>
+        <h2>{% trans "Drinking water treatment plants (DWTP)" %}
+            <button type="button" data-toggle="modal" data-target="#HelpList" value="HelpModalBtnModal" id="HelpModalBtnModal" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
+        </h2>
     </div>
     <div class="row">
         <div class="col-md-4">
@@ -107,6 +109,38 @@
             {% endfor %}
         </tbody>
     </table>
+</div>
+
+<!--Help tratment plants list-->
+<div class="modal fade" id="HelpList" tabindex="-1" aria-labelledby="HelpModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" value="close" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h3 class="modal-title text-center" id="HelpModalLabel" style="color:#6398C1 ;">{% trans "Creating a DWTP" %}</h3>
+            </div>
+            <div class="modal-body">
+                <p>
+                    {%  trans "Paragraph modal create DWTP 1"  %}
+                </p>
+                <p>
+                    {%  trans "Paragraph modal create DWTP 2"  %}
+                </p>
+                <p>
+                    {%  trans "Paragraph modal create DWTP 3"  %}
+                </p>
+                <img style="margin: 10px auto 10px; display: block; width: 100%; height: 100%;" src="/static/geonode/img/PTAP.png" alt="help tratment plants"></img>
+                <div>
+                    <br>
+                    <div class="modal-footer">
+                        <button type="button" value="close" class="btn btn-secondary" data-dismiss="modal" style="color: white; background-color: #6398C1;">{% trans "Close" %}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 {% block body %}
