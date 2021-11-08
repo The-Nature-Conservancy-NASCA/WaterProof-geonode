@@ -115,16 +115,12 @@
                         <a class="btn btn-danger" user-id="{{studyCases.added_by.id}}" date-create="{{studyCases.create_date | date:'Y-m-d'}}" data-id="{{studyCases.pk}}" title='{% trans "delete" %}'><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
                     </div>
                     <div class="btn-group btn-group-table" role="group">
-                        <a class="btn btn-info {% if studyCases.is_run_analysis == False %}disabled{% endif %}" href="report/{{studyCases.pk}}" title='{% trans "report" %}'><span class="glyphicon glyphicon-object-align-bottom" aria-hidden="true"></span></a>
-                        <a class="btn btn-warning btn-private" data-id="{{studyCases.pk}}" {% if studyCases.is_public %} title='{% trans "Private" %}' {% else %} title='{% trans "Public" %}' {% endif %}>
+                        <a class="btn btn-info {% if studyCases.is_run_analysis == False %}disabled{% endif %}" href="report/{{studyCases.pk}}" title='{% trans "report" %}'>
+                            <span class="glyphicon glyphicon-object-align-bottom" aria-hidden="true"></span>
+                        </a>                        
+                        <a data-id="{{studyCases.pk}}" class="btn {% if studyCases.is_public%} btn-warning btn-private" title='{% trans "Private" %}' {% else %} btn-primary btn-public" title='{% trans "Public" %}' {% endif %}>
                             <span class="glyphicon glyphicon-lock" aria-hidden="true"></span>
                         </a>                        
-                    </div>
-                        {% if studyCases.is_public%}
-                        <a class="btn btn-warning btn-private" data-id="{{studyCases.pk}}" title='{% trans "Private" %}'><span class="glyphicon glyphicon-lock" aria-hidden="true"></span></a>
-                        {% else %}
-                        <a class="btn btn-primary btn-public" data-id="{{studyCases.pk}}" title='{% trans "Public" %}'><span class="glyphicon glyphicon-lock" aria-hidden="true"></span></a>
-                        {% endif %}
                     </div>
                         {% endif %}
                         {% if user.professional_role == 'ANALYS' or user.professional_role == 'COPART' or user.professional_role == 'ACDMC' or user.professional_role == 'SCADM' or user.professional_role == 'MCOMC' or user.professional_role == 'CITIZN' or user.professional_role == 'REPECS' or user.professional_role == 'OTHER' %}
@@ -141,7 +137,9 @@
                         <a class="btn btn-warning btn-private" data-id="{{studyCases.pk}}" {% if studyCases.is_public%} title='{% trans "Private" %}' {% else %}  title='{% trans "Public" %}' {% endif %}>
                             <span class="glyphicon glyphicon-lock" aria-hidden="true"></span>
                         </a>                        
-                        <a class="btn btn-info {% if studyCases.is_run_analysis == False %}disabled{% endif %}" href="report/{{studyCases.pk}}" title='{% trans "report" %}'><span class="glyphicon glyphicon-object-align-bottom" aria-hidden="true"></span></a>
+                        <a class="btn btn-info {% if studyCases.is_run_analysis == False %}disabled{% endif %}" href="report/{{studyCases.pk}}" title='{% trans "report" %}'>
+                            <span class="glyphicon glyphicon-object-align-bottom" aria-hidden="true"></span>
+                        </a>
                     </div>
                     {% else %}
                         <a class="btn btn-warning display-true" href="clone/{{studyCases.pk}}" title='{% trans "clone" %}'><span class="glyphicon glyphicon-copy" aria-hidden="true"></span></a>
