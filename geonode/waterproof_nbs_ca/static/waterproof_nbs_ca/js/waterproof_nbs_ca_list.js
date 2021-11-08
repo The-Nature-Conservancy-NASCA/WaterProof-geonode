@@ -116,6 +116,15 @@ $(function () {
         submitFormEvent();
         changeCountryEvent(countryDropdown, currencyDropdown);
         changeFileEvent();
+        if (localStorage.getItem("cityId") == null) {
+            localStorage.setItem("cityId", "128587");
+            localStorage.setItem("country", "United States");
+            localStorage.setItem("currency", "USD");
+            localStorage.setItem("countryCode", "USA");
+            localStorage.setItem("factor", "1.00");
+            localStorage.setItem("city", "Washington");
+            localStorage.setItem("cityCoords", "[38.8949924,-77.0365581]");
+        }
         initMap();
     };
     submitFormEvent = function () {
@@ -225,6 +234,7 @@ $(function () {
     */
     initMap = function () {
         CENTER = [4.582, -74.4879];
+        var zoom = 5;
         // Basemap layer
         var osm = L.tileLayer(OSM_BASEMAP_URL, {
             maxZoom: MAXZOOM,
@@ -260,12 +270,19 @@ $(function () {
         };
 
         let initialCoords = CENTER;
+        if (localStorage.getItem('cityCoords') != null){
+            initialCoords = JSON.parse(localStorage.getItem('cityCoords'));
+            zoom = 3;
+        }
 
 
         // When countries layer is loaded fire dropdown event change
         countries.on("data:loaded", function (evt) {
             let mapClick = false;
             // Preload selected country form list view
+            if (userCountryCode == undefined) {
+                userCountryCode = localStorage.getItem('countryCode');
+            }
             let center = updateCountryMap(userCountryCode, evt.target);
             $.ajax({
                 url: '/parameters/load-countryByCode/',
@@ -287,7 +304,7 @@ $(function () {
             if (center != undefined) {
                 initialCoords = center;
             }
-            map.setView(initialCoords, 5);
+            map.setView(initialCoords, zoom);
             L.control.layers(baseLayers, overlays, { position: 'topleft' }).addTo(map);
             var defExt = new L.Control.DefaultExtent({ title: gettext('Default extent'), position: 'topright' }).addTo(map);
         });
@@ -337,8 +354,8 @@ $(function () {
                 let filterIndexes = search.rows({ search: 'applied' }).indexes();
                 let multiplicatorFactor = parseFloat(result[0].fields.global_multiplier_factor);
                 for (let index = 0; index < filteredData.length; index++) {
-                    console.log(filteredData[index]);
-                    console.log(result);
+                    //console.log(filteredData[index]);
+                    //console.log(result);
                     if (filteredData[index][4] === 'ADMIN') {
                         if (result[0].fields.iso3 === 'USA') {
                             let oldImplCost = parseFloat(table.cell({ row: filterIndexes[index], column: 7 }).data());

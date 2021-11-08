@@ -34,7 +34,7 @@
             <br>
             <h4 id="countryLabel"></h4>
             <p><b>{% trans "Region:" %}</b> <span id="regionLabel"></span> </p>
-            <p><b>{% trans "Currency:" %}</b><span id="currencyLabel"> ({{currency.currency}}) - {{currency.name}}</span></p>
+            <p><b>{% trans "Currency:" %}</b><span id="currencyLabel"></span></p>
             <div class="display-true">    
                 {% if user.is_authenticated and not READ_ONLY_MODE %}
                 <a href="create/" id="createUrl">{% trans "Create a new NBS" %}

@@ -85,25 +85,33 @@ $(document).ready(function () {
   let lyrNameCatchment = 'Catchment';
   let lyrsModelsResult = [lyrNameAWY, lyrNameSWY, lyrNameSDR, lyrNameNDRN, lyrNameNDRP, lyrNameCarbon];
 
+  let lyrsLabels = {
+    LULC_YEAR_0 : 'LULC Current Scenario',
+    LULC_LAST_YEAR : 'LULC NbS Scenario',
+    LULC_FUTURE : 'LULC BaU Scenario',
+    Catchment : 'Catchment',
+    NbS_portfolio : 'NbS Portfolio',
+  }
+
   let attribution = "Waterproof data © 2021 TNC";
 
   let lyrsNames = [lyrNameLastYear];
   var overlaysLeft = {};
   lyrsNames.forEach(function (lyrName) {
-    overlaysLeft[lyrName] = createWMSLyr(urlWaterProofLyrsWMS, lyrName).addTo(mapLeft);
+    overlaysLeft[lyrsLabels[lyrName]] = createWMSLyr(urlWaterProofLyrsWMS, lyrName).addTo(mapLeft);
   });
 
   var overlaysRight = {};
   lyrsNames = [lyrNameYearFuture];
   lyrsNames.forEach(function (lyrName) {
-    overlaysRight[lyrName] = createWMSLyr(urlWaterProofLyrsWMS, lyrName).addTo(mapRight);
+    overlaysRight[lyrsLabels[lyrName]] = createWMSLyr(urlWaterProofLyrsWMS, lyrName).addTo(mapRight);
     createLegend(urlWaterProofLyrsWMS, lyrName, "#img-legend-left");
   });
 
   var overlays = {};
   lyrsNames = [lyrNameYear0];
   lyrsNames.forEach(function (lyrName) {
-    overlays[lyrName] = createWMSLyr(urlWaterProofLyrsWMS, lyrName).addTo(map);    
+    overlays[lyrsLabels[lyrName]] = createWMSLyr(urlWaterProofLyrsWMS, lyrName).addTo(map);    
   });
 
   var overlaysResults = {};
@@ -113,19 +121,19 @@ $(document).ready(function () {
 
   lyrsNames = [lyrNameCatchment];
   lyrsNames.forEach(function (lyrName) {
-    overlaysResults[lyrName] = createWMSLyr(urlWaterProofLyrsWMS, lyrName).addTo(mapResults);
+    overlaysResults[lyrsLabels[lyrName]] = createWMSLyr(urlWaterProofLyrsWMS, lyrName).addTo(mapResults);
   });
 
   var overlaysAreasRios = {};
   lyrsNames = [lyrNameAreasRios];
   lyrsNames.forEach(function (lyrName) {
-    overlaysAreasRios[lyrName] = createWMSLyr(urlWaterProofLyrAreasRiosMS, lyrName).addTo(mapAreasRios);
+    overlaysAreasRios[lyrsLabels[lyrName]] = createWMSLyr(urlWaterProofLyrAreasRiosMS, lyrName).addTo(mapAreasRios);
   });
   createLegend(urlWaterProofLyrAreasRiosMS, lyrNameAreasRios, "#img-legend-areas-rios");
   
   lyrsNames = [lyrNameCatchment];
   lyrsNames.forEach(function (lyrName) {
-    overlaysAreasRios[lyrName] = createWMSLyr(urlWaterProofLyrsWMS, lyrName).addTo(mapAreasRios);
+    overlaysAreasRios[lyrsLabels[lyrName]] = createWMSLyr(urlWaterProofLyrsWMS, lyrName).addTo(mapAreasRios);
   });
   
   L.control.layers({}, overlaysLeft,{collapsed:false}).addTo(mapLeft,);
