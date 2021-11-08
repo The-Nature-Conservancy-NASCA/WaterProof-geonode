@@ -993,3 +993,9 @@ msgstr "Dibujar cuenca"
 #: template/intake_edit.html
 msgid "Clic the button text generate"
 msgstr "De clic en el siguiente botón para poder ingresar manualmente la demanda por cada año"
+
+msgid "Create / Edit function in Python Syntax."
+msgstr "Crear / Editar función en sintaxis de Python."
+
+msgid "Click on the validate button to check the syntax of the function."
+msgstr "Haga clic en el botón Validar para comprobar la sintaxis de la función."

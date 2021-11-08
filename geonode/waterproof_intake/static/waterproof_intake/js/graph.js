@@ -667,9 +667,10 @@
                 factor = localStorage.getItem("factor");
             }
 
-            $('#costFunctionName').val(ieldsFunction.function_name);
+            $('#costFunctionName').val(fieldsFunction.function_name);
             $('#costFuntionDescription').val(fieldsFunction.function_description);
-            $('#CalculatorModalLabel').text(gettext('Modify Cost function'));            
+            $('#CalculatorModalLabel').text(gettext('Edit Cost function'));  
+            $("#saveAndValideCost").text(gettext('Edit'));          
             $('#global_multiplier_factorCalculator').val(factor);
             setVarCost();
             
@@ -757,7 +758,8 @@
             typesetInput('');
             $('#costFunctionName').val('');
             $('#costFuntionDescription').val('');
-            $('#CalculatorModalLabel').text(gettext('New Function cost'));
+            $('#CalculatorModalLabel').text(gettext('New Cost function'));
+            $("#saveAndValideCost").text(gettext('New Cost function'));
             
             for (const index of graphData) {
                 var costlabel = "";

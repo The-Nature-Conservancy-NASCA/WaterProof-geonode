@@ -429,11 +429,14 @@ msgstr "Confirmar y ejecutar"
 msgid "Please complete all required information"
 msgstr "Por favor complete toda la información requerida"
 
-msgid "Modify Cost function"
-msgstr "Modificar función de costo"
+msgid "Edit Cost function"
+msgstr "Editar función de costo"
 
 msgid "New Cost function"
 msgstr "Nueva función de costo"
 
 msgid "Quantity"
 msgstr "Cantidad"
+
+msgid "Annual Operation and Maintenance Cost"
+msgstr "Costo anual de operación y mantenimiento"

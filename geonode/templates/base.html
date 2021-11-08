@@ -317,6 +317,24 @@
           <li>
             <a href="/pages/{{request.LANGUAGE_CODE}}/take_action_ini/">{% trans "Take action" %}</a>
           </li>
+          <!--NbS-->
+          {% if user.is_authenticated %}
+          <li id="nav_layers">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" 
+              aria-haspopup="true" aria-expanded="false">{% trans "NbS" %}
+              <i class="fa fa-angle-down fa-lg"></i>
+            </a>
+            <ul class="dropdown-menu">
+              <li><a href="{% url "list-nbs" %}?limit={{ CLIENT_RESULTS_LIMIT }}">{% trans "List" %}</a></li>
+              {% if not READ_ONLY_MODE %}
+              <li><a href="/waterproof_nbs_ca/create/" id="nbs-createUrl" >{% trans "Create" %}</a></li>
+              {% endif %}
+            </ul>
+          </li>          
+          <li>
+            <a href="/study_cases/my_cases/">{% trans "My Case studies" %}</a>
+          </li>
+          {% endif %}
           <!--Models-->
           <!-- <li>
             <a href="{% url "models" %}">{% trans "Models" %}</a>

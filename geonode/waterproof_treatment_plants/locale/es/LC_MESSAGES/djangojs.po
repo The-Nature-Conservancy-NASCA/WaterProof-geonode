@@ -234,8 +234,8 @@ msgstr "Problemas eliminando la planta, puede estar siendo usada en algún caso 
 msgid "The intake has not been deleted, try again!"
 msgstr "La captacion no ha sido eliminada, intente nuevamente"
 
-msgid "Modify Cost function"
-msgstr "Modificar función de costo"
+msgid "Edit Cost function"
+msgstr "Editar función de costo"
 
 msgid "New Cost function"
 msgstr "Nueva función de costo"
