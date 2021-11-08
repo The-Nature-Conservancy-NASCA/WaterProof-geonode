@@ -695,7 +695,7 @@ $(document).ready(function () {
                         }else if (iteration >= 15){
                             console.log("iteration: " + iteration + ", return to list. process not finish yet...");
                             clearInterval(validationInterval);
-                            location.href = "/study_cases/?city="+localStorage.cityId; 
+                            locationHref();
                         }
                         $.ajax({
                             url : urlQueryAnalisysResult,
@@ -709,16 +709,16 @@ $(document).ready(function () {
                                     }, function (data) {
                                         $('#_thumbnail_processing').modal('hide');
                                         autoAdjustHeight();                                            
-                                        location.href = "/study_cases/?city="+localStorage.cityId; 
+                                        locationHref();
                                     }, "json");
                                     console.log("finish interval execution");
-                                    location.href = "/study_cases/?city="+localStorage.cityId; 
+                                    locationHref();
                                     clearInterval(validationInterval);
                                 }
                                 iteration++;                                        
                             },
                             error : function(xhr, status) {
-                                location.href = "/study_cases/?city="+localStorage.cityId; 
+                                locationHref();
                             }
                         });
                     }
@@ -729,7 +729,7 @@ $(document).ready(function () {
                         title: gettext('error_api'),
                         text: gettext('error_model_api'),
                     }); 
-                    location.href = "/study_cases/?city="+localStorage.cityId;  
+                    locationHref(); 
                 }
             },
             error : function(xhr, status) {
@@ -914,7 +914,7 @@ $(document).ready(function () {
                                 $('#smartwizard').smartWizard("next");
                                 $('#autoAdjustHeightF').css("height", "auto");
                                 //$("#form").submit();
-                                location.href = "/study_cases/?city="+localStorage.cityId; 
+                                locationHref();
                             }, "json");
                         }
                     })
@@ -1612,6 +1612,14 @@ function funcost(index) {
 //add function set autoAdjustHeight
 function autoAdjustHeight() {
     $('#autoAdjustHeightF').css("height", "auto");
+}
+
+function locationHref(){
+    if (localStorage.getItem('returnTo') != null) {
+        window.location.href = "/study_cases/" + localStorage.getItem('returnTo');
+    }else{
+        location.href = "/study_cases/?city="+localStorage.cityId; 
+    }    
 }
 
 $(document).on('click', 'a[name=fun_display_btn]', function () {
