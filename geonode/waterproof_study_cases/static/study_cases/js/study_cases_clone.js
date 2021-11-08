@@ -487,6 +487,7 @@ $(document).ready(function () {
     });
 
     $('#step7PreviousBtn').click(function () {
+        $("#full-table").find('tbody').empty();
         $('#smartwizard').smartWizard("prev");
     });
 
