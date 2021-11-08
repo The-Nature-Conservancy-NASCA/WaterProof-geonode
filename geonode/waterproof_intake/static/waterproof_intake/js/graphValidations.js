@@ -165,7 +165,7 @@ function funcost(index) {
     
     $('#funcostgenerate').append(`
         <tr idvalue="fun_${index}">
-            <td aling="center">${funcostdb[index].fields.function_name}</td>
+            <td aling="center">${gettext(funcostdb[index].fields.function_name)}</td>
             <td class="${tdClass}" style="width: 160px">
                 <a id="fn${index}" ${aProps} title="${funcostdb[index].fields.function_value}">fx</a>                
             </td>
@@ -542,7 +542,7 @@ function addDataView(element, MQ) {
 function funcostView(ecuation_db, ecuation_name, index, MQ) {
     $('#funcostgenerate').append(
         `<div class="alert alert-info" role="alert" idvalue="fun_${index}" style="margin-bottom: 12px">
-        <h4>${ecuation_name}</h4>
+        <h4>${gettext(ecuation_name)}</h4>
         <p name="render_ecuation">${ ecuation_db }</p>
     </div>
     `);
