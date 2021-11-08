@@ -71,16 +71,16 @@ $(document).ready(function () {
     maxZoom: 16
   }).addTo(mapAreasRios);
 
-  let lyrNameYear0 = `LULC_YEAR_0`;
-  let lyrNameLastYear = `LULC_LAST_YEAR`;
-  let lyrNameYearFuture = `LULC_FUTURE`;
+  let lyrNameYear0 = 'LULC_YEAR_0';
+  let lyrNameLastYear = 'LULC_LAST_YEAR';
+  let lyrNameYearFuture = 'LULC_FUTURE';
 
-  let lyrNameAWY = `Annual_Water_Yield`;
-  let lyrNameSWY = `Seasonal_Water_Yield`;
-  let lyrNameSDR = `Sediment_Delivery_Ratio`;
-  let lyrNameNDRN = `NDR_Nitrogen`;
-  let lyrNameNDRP = `NDR_Phosphorus`;
-  let lyrNameCarbon = `Carbon_storage_and_sequestration`;
+  let lyrNameAWY = 'Annual_Water_Yield';
+  let lyrNameSWY = 'Seasonal_Water_Yield';
+  let lyrNameSDR = 'Sediment_Delivery_Ratio';
+  let lyrNameNDRN = 'NDR_Nitrogen';
+  let lyrNameNDRP = 'NDR_Phosphorus';
+  let lyrNameCarbon = 'Carbon_storage_and_sequestration';
   let lyrNameAreasRios = 'NbS_portfolio';
   let lyrNameCatchment = 'Catchment';
   let lyrsModelsResult = [lyrNameAWY, lyrNameSWY, lyrNameSDR, lyrNameNDRN, lyrNameNDRP, lyrNameCarbon];
