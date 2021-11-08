@@ -472,8 +472,8 @@ msgstr "Nitrógeno (Kg)"
 msgid "Phosphorus (Kg)"
 msgstr "Fósforo (Kg)"
 
-msgid "Modify Cost function"
-msgstr "Modificar función de costo"
+msgid "Edit Cost function"
+msgstr "Editar función de costo"
 
 msgid "New Cost function"
 msgstr "Nueva función de costo"
@@ -525,3 +525,12 @@ msgstr "Error en número de años (10-100)"
 
 msgid "This intake is in use by other elements and can't be deleted."
 msgstr "Esta captación está en uso por otros elementos y no puede ser borrada."
+
+msgid "Annual Operation and Maintenance Cost"
+msgstr "Costo anual de operación y mantenimiento"
+
+msgid "Undefined name"
+msgstr "Nombre no definido"
+
+msgid "Edit"
+msgstr "Editar"

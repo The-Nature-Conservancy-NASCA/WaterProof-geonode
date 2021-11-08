@@ -461,10 +461,9 @@ function onInit(editor) {
         });
 
         function funcost(ecuation_db) {
-
             $('#funcostgenerate').append(
                 `<div class="form-group">
-                <label>Annual Operation and Maintenance Cost</label>
+                <label>${gettext("Annual Operation and Maintenance Cost")}</label>
                 <div class="input-group">
                     <input type="text" class="form-control" value="${ ecuation_db }" disabled>
                     <span class="input-group-addon edit-group-btn"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></span>

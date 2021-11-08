@@ -1340,7 +1340,7 @@ $(document).ready(function () {
     });
 
     function setVarCost() {
-        $('#CalculatorModalLabel').text('Modify Cost ');
+        $('#CalculatorModalLabel').text('Edit Cost function');
         $('#VarCostListGroup div').remove();
         let listIntakes = [];
         $('#custom_table').find('tbody > tr').each(function (index, tr) {
@@ -1539,8 +1539,7 @@ $(document).on('click', 'a[name=glyphicon-edit]', function () {
     selectedCostId = parseInt($(this).attr('idvalue'));
     $('#costFunctionName').val(funcostdb[selectedCostId].function.name);
     $('#costFuntionDescription').val(funcostdb[selectedCostId].function.description);
-    $('#CalculatorModalLabel').text('Modify Cost - ' + $('#titleCostFunSmall').text());
-    //$('#currencyCost').val(funcostdb[selectedCostId].function.currencyCost);
+    $('#CalculatorModalLabel').text(gettext('Edit Cost function'));
     $('#global_multiplier_factorCalculator').val(funcostdb[selectedCostId].function.factor);
     setVarCost();
     let value = funcostdb[selectedCostId].function.value;
@@ -1582,8 +1581,7 @@ $(document).on('click', 'a[name=glyphicon-trash]', function () {
 });
 
 function setVarCost() {
-
-    $('#CalculatorModalLabel').text('Modify Cost ');
+    $('#CalculatorModalLabel').text(gettext('Edit Cost function'));
     $('#VarCostListGroup div').remove();
     let listIntakes = [];
     $('#custom_table').find('tbody > tr').each(function (index, tr) {
