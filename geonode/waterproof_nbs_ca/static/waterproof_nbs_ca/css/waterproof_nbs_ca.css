@@ -148,6 +148,9 @@ input:checked+.slider:before {
     .width-map{
         width: 100%;
     }
+    .display-true{
+        display: none;
+    }
 }
 
 @media (min-width: 768px) {
@@ -162,6 +165,9 @@ input:checked+.slider:before {
     }
     .width-map{
         width: 100%;
+    }
+    .display-true{
+        display: none;
     }
 }
 
@@ -178,6 +184,9 @@ input:checked+.slider:before {
     .width-map{
         width: 66.6%;
     }
+    .display-true{
+        display: table;
+    }
 }
 
 @media (min-width: 1200px) {
@@ -192,6 +201,9 @@ input:checked+.slider:before {
     }
     .width-map{
         width: 66.6%;
+    }
+    .display-true{
+        display: table;
     }
 }
 

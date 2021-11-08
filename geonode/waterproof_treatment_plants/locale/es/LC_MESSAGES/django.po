@@ -496,3 +496,19 @@ msgstr "Por favor, complete el formulario"
 
 msgid "In this section you can create a Drinking Water Treatment Plant according to the quality of the water from your source."
 msgstr "En esta sección puede crear una Planta de Tratamiento de agua de acuerdo con la calidad del agua de su fuente."
+
+#: templates/treatment_plants_list.html:122
+msgid "Creating a DWTP"
+msgstr "Crear una PTAP"
+
+#: templates/treatment_plants_list.html:126
+msgid "Paragraph modal create DWTP 1"
+msgstr "El tratamiento de agua es el conjunto de operaciones de tipo físico y químico o biológico cuya finalidad es la eliminación o reducción de la contaminación o las características no deseables presentes en el agua; La finalidad de estas operaciones es obtener unas aguas con las características adecuadas para el consumo humano, animal o para aplicaciones agropecuarias."
+
+#: templates/treatment_plants_list.html:129
+msgid "Paragraph modal create DWTP 2"
+msgstr "En WaterProof para crear una nueva Planta de tratamiento debe haber creado previamente la(s) captación de la que proviene el agua. Con ello, el sistema validará la calidad del agua en su zona y realizará una recomendación de procesos de tratamiento."
+
+#: templates/treatment_plants_list.html:129
+msgid "Paragraph modal create DWTP 3"
+msgstr "Usted podrá explorar las tecnologías de tratamiento de agua y sus funciones de costo dando clic sobre los recuadros para ver sus detalles."
