@@ -5,6 +5,9 @@ textarea {
     text-align: center;
     font-weight: bold;
 }
+.align-text-center{
+    text-align: center;
+}
 .center-button {
     width: 150px;
     left: 50%;

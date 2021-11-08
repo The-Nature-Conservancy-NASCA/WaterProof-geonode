@@ -80,9 +80,9 @@
                 {% if user.is_authenticated and user.professional_role == 'ADMIN'%}
                 <td class="small vat align-text-left">{{treatmentPlants.plantUser}}</td>
                 {% endif %}
-                <td id="date" class="small vat align-text-left">{{treatmentPlants.plantDate}}</td>
-                <td class="small vat align-text-left">{{treatmentPlants.standardNameSpanish}}</td>
-                <td class="small vat align-text-left">
+                <td id="date" class="small vat align-text-center">{{treatmentPlants.plantDate}}</td>
+                <td class="small vat align-text-center">{{treatmentPlants.standardNameSpanish}}</td>
+                <td class="small vat align-text-center">
                     {% for intake in treatmentPlants.plantIntakeName %}
                         {{intake}}<br>
                     {% endfor %}
