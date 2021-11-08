@@ -667,7 +667,7 @@
                 factor = localStorage.getItem("factor");
             }
 
-            $('#costFunctionName').val(ieldsFunction.function_name);
+            $('#costFunctionName').val(fieldsFunction.function_name);
             $('#costFuntionDescription').val(fieldsFunction.function_description);
             $('#CalculatorModalLabel').text(gettext('Edit Cost function'));  
             $("#saveAndValideCost").text(gettext('Edit'));          
