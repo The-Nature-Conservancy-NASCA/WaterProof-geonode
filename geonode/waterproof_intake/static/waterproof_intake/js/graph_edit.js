@@ -672,7 +672,8 @@ function onInit(editor) {
             
             $('#costFunctionName').val(fieldsFunction.function_name);
             $('#costFuntionDescription').val(fieldsFunction.function_description);
-            $('#CalculatorModalLabel').text(gettext('Modify Cost function'));            
+            $('#CalculatorModalLabel').text(gettext('Edit Cost function'));
+            $("#saveAndValideCost").text(gettext('Edit'));
             $('#global_multiplier_factorCalculator').val(factor);
             setVarCost();
             
@@ -757,7 +758,8 @@ function onInit(editor) {
             typesetInput('');
             $('#costFunctionName').val('');
             $('#costFuntionDescription').val('');
-            $('#CalculatorModalLabel').text(gettext('New Function cost'));
+            $('#CalculatorModalLabel').text(gettext('New Cost function'));
+            $("#saveAndValideCost").text(gettext('New Cost function'));
             for (const index of graphData) {
                 var costlabel = "";
                 for (const iterator of JSON.parse(index.varcost)) {
@@ -776,9 +778,8 @@ function onInit(editor) {
                 </div>
                 `);
             }
-            $('#python-expression').val('');
-            //$('#MathPreview').val('');
-            validatePyExpression();
+            $('#python-expression').val('');            
+            //validatePyExpression();
         });
 
         //Add value entered in sediments in the field resultdb
