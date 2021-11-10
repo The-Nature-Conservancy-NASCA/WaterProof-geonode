@@ -85,7 +85,7 @@ def getTreatmentPlantsList(request):
 				"plantCityId": csinfra.plant_city_id,
 				"standardNameSpanish": csinfra.plant_city.standard_name_spanish,
 				"plantIntakeName": [lastPlantIntakeName],
-				"geom" : element.intake.polygon_set.first().geom.geojson
+				"geom" : element.intake.polygon_set.first().geom.geojson #json.loads(element.intake.polygon_set.first().geomIntake)['features'][0]['geometry'] # geom.geojson 
 			})
 				
 
@@ -104,7 +104,12 @@ def getIntakeList(request):
 	if request.method == 'GET':
 		objects_list = []
 		city_id = request.query_params.get('cityId')
-		elements = ElementSystem.objects.filter(normalized_category='CSINFRA').filter(intake__city__id=city_id).order_by('intake__name')
+		elements = []
+		if request.user.is_authenticated:
+			# print("getIntakeList, user: %s, city: %s" % (request.user.id, city_id))
+			elements = ElementSystem.objects.filter(normalized_category='CSINFRA').filter(intake__city__id=city_id, intake__added_by=request.user).order_by('intake__name')
+		else:
+			elements = ElementSystem.objects.filter(normalized_category='CSINFRA').filter(intake__city__id=city_id).order_by('intake__name')
 		for elementSystem in elements:
 			intake_name = elementSystem.intake.name
 			objects_list.append({
@@ -133,7 +138,7 @@ def getTypePtap(request):
 		if request.user.is_authenticated:
 			url = settings.WATERPROOF_INVEST_API + 'ptapSelection'
 			
-			x = requests.post( url, json = request.data)
+			x = requests.post( url, json = request.data, verify=False)
 			return JsonResponse(json.loads(x.text), safe=False)
 
 
@@ -500,7 +505,7 @@ def get_geoms_intakes(plants):
 		ig = dict()
 		ig['id'] = i.id
 		if not i.polygon_set.first().geom is None:
-				ig['geom'] = i.polygon_set.first().geom.geojson
+				ig['geom'] = json.loads(i.polygon_set.first().geomIntake)['features'][0]['geometry'] # geom.geojson
 				ig['name'] = i.name
 		intake_geoms.append(ig)
 	return intake_geoms

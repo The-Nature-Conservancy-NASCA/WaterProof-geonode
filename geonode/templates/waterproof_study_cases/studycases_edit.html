@@ -610,12 +610,10 @@
                                 <input type="text" value="1.00" id="global_multiplier_factorCalculator" class="form-control">
                             </div>
                         </div>
-                        <h5 class="text-primary keyboard-title">Syntax keyboard</h5>
+                        <h5 class="text-primary keyboard-title">{% trans "Syntax keyboard" %}</h5>
                         <ul class="nav nav-tabs">
-                            <li class="active"><a href="#mathBasic_tab" data-toggle="tab">Basic</a></li>
-                            <li><a href="#mathAdvanced_tab" data-toggle="tab">Advanced</a></li>
-                            <li><a href="#mathTrigonometry_tab" data-toggle="tab">Trigonometry</a></li>
-                            <li><a href="#mathLogical_tab" data-toggle="tab">Logical</a></li>
+                            <li class="active"><a href="#mathBasic_tab" data-toggle="tab">{% trans "Basic" %}</a></li>
+                            <li><a href="#mathAdvanced_tab" data-toggle="tab">{% trans "Advanced" %}</a></li>
                         </ul>
                         <div class="tab-content">
                             <div id="mathBasic_tab" class="tab-pane fade in active">
@@ -640,6 +638,7 @@
                                     <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="%">mod</button>
                                     <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value=">">&#62;</button>
                                     <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="<">&#60;</button>
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="(expression) if (conditional) else (other_case)">if</button>
                                 </div>
                             </div>                            
                         </div>

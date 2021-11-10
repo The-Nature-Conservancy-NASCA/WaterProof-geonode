@@ -579,7 +579,7 @@
 
         $('#python-expression').on('keypress',function(evt) {
             var charCode = (evt.which) ? evt.which : evt.keyCode;
-            let symbols = [40,41,42,43,44,45,46,47,60,61,62,91,92,93,101,123,125];
+            let symbols = [32,40,41,42,43,44,45,46,47,60,61,62,91,92,93,101,123,125];
             if (charCode != 46 && charCode > 31 && (charCode < 48 || charCode > 57))
                 return (symbols.indexOf(charCode) >= 0);
 
@@ -667,9 +667,10 @@
                 factor = localStorage.getItem("factor");
             }
 
-            $('#costFunctionName').val(ieldsFunction.function_name);
+            $('#costFunctionName').val(fieldsFunction.function_name);
             $('#costFuntionDescription').val(fieldsFunction.function_description);
-            $('#CalculatorModalLabel').text(gettext('Modify Cost function'));            
+            $('#CalculatorModalLabel').text(gettext('Edit Cost function'));  
+            $("#saveAndValideCost").text(gettext('Edit'));          
             $('#global_multiplier_factorCalculator').val(factor);
             setVarCost();
             
@@ -757,7 +758,8 @@
             typesetInput('');
             $('#costFunctionName').val('');
             $('#costFuntionDescription').val('');
-            $('#CalculatorModalLabel').text(gettext('New Function cost'));
+            $('#CalculatorModalLabel').text(gettext('New Cost function'));
+            $("#saveAndValideCost").text(gettext('New Cost function'));
             
             for (const index of graphData) {
                 var costlabel = "";

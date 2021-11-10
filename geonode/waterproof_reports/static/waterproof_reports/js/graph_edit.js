@@ -582,7 +582,7 @@
  
          $('#python-expression').on('keypress',function(evt) {
              var charCode = (evt.which) ? evt.which : evt.keyCode;
-             let symbols = [40,41,42,43,44,45,46,47,60,61,62,91,92,93,101,123,125];
+             let symbols = [32,40,41,42,43,44,45,46,47,60,61,62,91,92,93,101,123,125];
              if (charCode != 46 && charCode > 31 && (charCode < 48 || charCode > 57))
                  return (symbols.indexOf(charCode) >= 0);
  

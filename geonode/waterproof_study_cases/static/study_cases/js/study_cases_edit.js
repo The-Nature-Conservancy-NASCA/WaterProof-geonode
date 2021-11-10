@@ -488,6 +488,7 @@ $(document).ready(function () {
     });
 
     $('#step7PreviousBtn').click(function () {
+        $("#full-table").find('tbody').empty();
         $('#smartwizard').smartWizard("prev");
     });
 
@@ -695,7 +696,7 @@ $(document).ready(function () {
                         }else if (iteration >= 15){
                             console.log("iteration: " + iteration + ", return to list. process not finish yet...");
                             clearInterval(validationInterval);
-                            location.href = "/study_cases/?city="+localStorage.cityId; 
+                            locationHref();
                         }
                         $.ajax({
                             url : urlQueryAnalisysResult,
@@ -709,16 +710,16 @@ $(document).ready(function () {
                                     }, function (data) {
                                         $('#_thumbnail_processing').modal('hide');
                                         autoAdjustHeight();                                            
-                                        location.href = "/study_cases/?city="+localStorage.cityId; 
+                                        locationHref();
                                     }, "json");
                                     console.log("finish interval execution");
-                                    location.href = "/study_cases/?city="+localStorage.cityId; 
+                                    locationHref();
                                     clearInterval(validationInterval);
                                 }
                                 iteration++;                                        
                             },
                             error : function(xhr, status) {
-                                location.href = "/study_cases/?city="+localStorage.cityId; 
+                                locationHref();
                             }
                         });
                     }
@@ -729,7 +730,7 @@ $(document).ready(function () {
                         title: gettext('error_api'),
                         text: gettext('error_model_api'),
                     }); 
-                    location.href = "/study_cases/?city="+localStorage.cityId;  
+                    locationHref();
                 }
             },
             error : function(xhr, status) {
@@ -740,7 +741,7 @@ $(document).ready(function () {
                         title: gettext('error_api'),
                         text: gettext('error_model_api'),
                     });
-                    location.href = "/study_cases/?city="+localStorage.cityId;
+                    locationHref();
                 }
             }
         })
@@ -918,7 +919,7 @@ $(document).ready(function () {
                                 $('#smartwizard').smartWizard("next");
                                 $('#autoAdjustHeightF').css("height", "auto");
                                 //$("#form").submit();
-                                location.href = "/study_cases/?city="+localStorage.cityId; 
+                                locationHref();
                             }, "json");
                         }
                     })
@@ -1333,7 +1334,7 @@ $(document).ready(function () {
     });
 
     function setVarCost() {
-        $('#CalculatorModalLabel').text('Modify Cost ');
+        $('#CalculatorModalLabel').text(gettext('Edit Cost function'));
         $('#VarCostListGroup div').remove();
         let listIntakes = [];
         $('#custom_table').find('tbody > tr').each(function (index, tr) {
@@ -1384,7 +1385,7 @@ $(document).ready(function () {
 
     $('#python-expression').on('keypress', function (evt) {
         var charCode = (evt.which) ? evt.which : evt.keyCode;
-        let symbols = [40,41,42,43,44,45,46,47,60,61,62,91,92,93,101,123,125];
+        let symbols = [32,40,41,42,43,44,45,46,47,60,61,62,91,92,93,101,123,125];
         if (charCode != 46 && charCode > 31 && (charCode < 48 || charCode > 57))
             return (symbols.indexOf(charCode) >= 0);
 
@@ -1533,7 +1534,7 @@ $(document).on('click', 'a[name=glyphicon-edit]', function () {
     $('#costFuntionDescription').val(funcostdb[selectedCostId].function.description);    
     //$('#currencyCost').val(funcostdb[selectedCostId].function.currencyCost);
     $('#global_multiplier_factorCalculator').val(funcostdb[selectedCostId].function.factor);
-    $('#CalculatorModalLabel').text('Modify Cost - ' + $('#titleCostFunSmall').text());
+    $('#CalculatorModalLabel').text(gettext('Edit Cost function'));
     setVarCost();
     let value = funcostdb[selectedCostId].function.value;
     $('#python-expression').val();
@@ -1575,7 +1576,7 @@ $(document).on('click', 'a[name=glyphicon-trash]', function () {
 
 function setVarCost() {
 
-    $('#CalculatorModalLabel').text('Modify Cost ');
+    $('#CalculatorModalLabel').text(gettext('Edit Cost function'));
     $('#VarCostListGroup div').remove();
     let listIntakes = [];
     $('#custom_table').find('tbody > tr').each(function (index, tr) {
@@ -1643,6 +1644,14 @@ function funcost(index) {
 //add function set autoAdjustHeight
 function autoAdjustHeight() {
     $('#autoAdjustHeightF').css("height", "auto");
+}
+
+function locationHref(){
+    if (localStorage.getItem('returnTo') != null) {
+        window.location.href = "/study_cases/" + localStorage.getItem('returnTo');
+    }else{
+        location.href = "/study_cases/?city="+localStorage.cityId; 
+    }    
 }
 
 $(document).on('click', 'a[name=fun_display_btn]', function () {

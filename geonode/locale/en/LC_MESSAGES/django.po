@@ -8360,8 +8360,11 @@ msgstr "Permission - denied"
 msgid "What is WaterProof?"
 msgstr "What is WaterProof?"
 
-msgid "This platform will provide a rapid and indicative NbS investment portfolio and associated ROI. The tool is intended to engage actors interested in exploring solutions to local water challenges and prioritization of locations for possible NbS water security programs (such as Water Funds)."
-msgstr "WaterProof provides a rapid and indicative NbS investment portfolio and associated ROI. The tool is intended to engage stakeholders interested in exploring solutions to local water challenges and prioritization of locations for possible NbS water security programs (such as Water Funds)."
+msgid "This platform will provide a rapid and indicative NbS investment portfolio and associated ROI. The tool is intended to engage actors interested in exploring solutions to local water challenges and prioritization of locations for possible NbS water security programs (such as"
+msgstr "WaterProof provides a rapid and indicative NbS investment portfolio and associated ROI. The tool is intended to engage stakeholders interested in exploring solutions to local water challenges and prioritization of locations for possible NbS water security programs (such as"
+
+msgid "Water Funds"
+msgstr "Water Funds"
 
 msgid "Before starting"
 msgstr "Before starting"

@@ -15,9 +15,11 @@ WORKDIR /
 # then we replace it with the geonode build
 # TODO : this is a bit dirty..... can't we stat from vanilla Geoserver ?
 # TODO : merge into on step
-RUN echo "Download geoserver for geonode" && \
-    wget https://downloads.sourceforge.net/project/geoserver/GeoServer/$version/geoserver-$version-bin.zip && \
-    wget https://www.dropbox.com/s/a0m1ugxtso8xtyf/geoserver-$branch.war?dl=1 -O geoserver-$branch.war --no-check-certificate && \
+# wget https://downloads.sourceforge.net/project/geoserver/GeoServer/$version/geoserver-$version-bin.zip && \
+# wget https://www.dropbox.com/s/a0m1ugxtso8xtyf/geoserver-$branch.war?dl=1 -O geoserver-$branch.war --no-check-certificate && \
+RUN echo "Download geoserver for geonode" && \    
+    wget https://dev.skaphe.com/inputs/geoserver/geoserver-$branch-bin.zip && \
+    wget https://dev.skaphe.com/inputs/geoserver/geoserver-$branch.war && \
     mkdir -p geoserver-$version && \
     unzip geoserver-$version-bin.zip -d geoserver-$version && \
     mv geoserver-$version geoserver && \
@@ -36,7 +38,8 @@ RUN for plugin in $plugins; do \
     done
 
 # Download initial data dir
-RUN wget https://www.dropbox.com/s/sebw3h90mtvnzwe/data-$branch.zip?dl=1 -O data-$branch.zip --no-check-certificate && \
+# wget https://www.dropbox.com/s/sebw3h90mtvnzwe/data-$branch.zip?dl=1 -O data-$branch.zip --no-check-certificate && \
+RUN wget https://dev.skaphe.com/inputs/geoserver/data-$branch.zip && \
 unzip /data-$branch.zip
 
 

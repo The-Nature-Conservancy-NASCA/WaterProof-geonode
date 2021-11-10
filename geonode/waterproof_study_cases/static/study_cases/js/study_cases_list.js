@@ -83,6 +83,7 @@ $(function() {
             let dataId = evt.currentTarget.getAttribute('data-id');
             let dateCreate = evt.currentTarget.getAttribute('date-create');
             let userId = evt.currentTarget.getAttribute('user-id');
+            console.log(userId+'_'+dataId+'_'+dateCreate); // validar que si lo envio bien
             Swal.fire({
                 title: gettext('Delete study case'),
                 text: gettext("Are you sure?") + gettext("You won't be able to revert this!"),
@@ -120,6 +121,22 @@ $(function() {
                                 }
                                 
                             }, 500);
+                         //borrar directorios de salida
+                        $.ajax({
+                            url : serverApi+"/wf-models/delete?study_case_id="+dataId+"&user_id="+userId+"&date="+dateCreate,
+                            type : 'GET',
+                            dataType : 'json',
+                            success : function(json) {
+                                console.log('works')
+                                    },
+                                    error: function(error) {
+                                        Swal.fire({
+                                            icon: 'error',
+                                            title: gettext('Error!'),
+                                            text: gettext('The file has not been deleted from DB!')
+                                        })
+                                    }
+                                }); 
                         },
                         error: function(error) {
                             Swal.fire({
@@ -513,13 +530,13 @@ $(function() {
         let lf = [];
         listIntakes.forEach(intake => {
             if (intake.geom) {
-                let g = JSON.parse(intake.geom);
+                //let g = JSON.parse(intake.geom);
                 f = {'type' : 'Feature', 
                     'properties' : { 'id' : intake.study_case_id, 
                                     'studyCase' : intake.study_case_name,
                                     'intake' : intake.intake_name,
                                     'intakeId' : intake.intake_id}, 
-                    'geometry' : g
+                    'geometry' : intake.geom
                 };
                 lf.push(f);
             }            
@@ -568,6 +585,5 @@ $(function() {
         let result = await response.json();
         if (result.status) {
         }
-      }
-
+    }
 });

@@ -59,8 +59,8 @@ connection.close()
 
 print("-----------------------------------------------------")
 print("2. Running the migrations")
-call_command('makemigrations')
-call_command('migrate', '--noinput')
+#call_command('makemigrations')
+#call_command('migrate', '--noinput')
 
 
 #########################################################
@@ -134,9 +134,9 @@ else:
 print("-----------------------------------------------------")
 print("5. Loading fixtures")
 print("5.1 Initial Data")
-call_command('loaddata', 'initial_data')
+#call_command('loaddata', 'initial_data')
 print("5.2 Themes")
-call_command('loaddata', 'geonode_themes')
+#call_command('loaddata', 'geonode_themes')
 print("5.2 Intake Cost Functions Process")
 # call_command('loaddata', 'waterproof_intake_costfunctionsprocess')
 

@@ -786,7 +786,7 @@ def get_geoms_intakes(intakes):
         ig = dict()
         ig['id'] = i.pk
         if not i.polygon_set.first().geom is None:
-            ig['geom'] = i.polygon_set.first().geom.geojson
+            ig['geom'] = json.loads(i.polygon_set.first().geomIntake)['features'][0]['geometry'] # geom.geojson
             ig['name'] = i.name
         intake_geoms.append(ig)
     return intake_geoms
@@ -1276,7 +1276,7 @@ def execInvest(request, args):
     url = settings.WATERPROOF_INVEST_API+'execInvest'
     print("URL = %s" % url)
     print(args)
-    r = request.get(url, params=args)
+    r = request.get(url, params=args, verify=False)
     if r.status_code == 200:
         print("Resultado correcto Exec Invest:::")
         print(r.text)
@@ -1297,7 +1297,7 @@ catchment:  Int Intake id
 
 def execWb(request, args):
     url = settings.WATERPROOF_INVEST_API+'wb'
-    r = request.get(url, params=args)
+    r = request.get(url, params=args, verify=False)
     if r.status_code == 200:
         print("Resultado correcto WB:::")
         print(r.text)

@@ -5,6 +5,9 @@ textarea {
     text-align: center;
     font-weight: bold;
 }
+.align-text-center{
+    text-align: center;
+}
 .center-button {
     width: 150px;
     left: 50%;
@@ -626,6 +629,9 @@ textarea {
         width: 200px;
         margin-bottom: 12%;
     }
+    .display-true{
+        display: none;
+    }
 }
 @media (min-width: 768px) {
     .header-waterproof{
@@ -664,6 +670,9 @@ textarea {
         float: left;
         width: 500px;
         margin-bottom: 0%;
+    }
+    .display-true{
+        display: none;
     }
 }
 @media (min-width: 992px) {
@@ -704,6 +713,9 @@ textarea {
         width: 500px;
         margin-bottom: 0%;
     }
+    .display-true{
+        display: table;
+    }
 }
 @media (min-width: 1200px) {
     .header-waterproof{
@@ -742,6 +754,9 @@ textarea {
         float: left;
         width: 500px;
         margin-bottom: 0%;
+    }
+    .display-true{
+        display: table;
     }
 }
 .table-center-item{
