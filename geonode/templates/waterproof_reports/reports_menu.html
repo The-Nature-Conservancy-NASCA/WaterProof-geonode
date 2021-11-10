@@ -80,7 +80,7 @@
                 <div>
                     <div class="name-roi">{% trans "Calculated ROI:" %} <div class="value-roi" id="idRoi"></div></div>
                 
-                    <img src="/static/geonode/img/valor-bruto.png" class="img-roi" />
+                    <img src="/static/geonode/img/valor-bruto.png" alt="value" class="img-roi" />
                     <div class="bootom-roi">
                         <div>{% trans "ROI on nature based solutions opportunity" %}</div>
                         <div class="buttom-roi-menu" id="idBtnRoi">Adove 1</div>
@@ -94,8 +94,7 @@
         <div class="container-aqueduct">
             <div class="align-div">
                 <h5>{% trans "Water Intake" %} : 
-                <select class="select-condition select-condition-menu"
-                id="idSelectStudyCase"></select>
+                <select class="select-condition" id="idSelectStudyCase"></select>
             </h5>
             </div>
             <div class="title-report font-title">{% trans "Summary of risks in the basins" %}
@@ -108,7 +107,7 @@
             <div class="margin-risk col-md-12">
                 <div class="marc-report col-md-3">
                     <div class="risk-list">
-                        <img src="/static/geonode/img/picture-one.jpg">
+                        <img src="/static/geonode/img/picture-one.jpg" alt="picture one">
                     </div>
                     <div class="title-marc">{% trans "Physical risk quantity qan_def" %}</div>
                     <div class="detail-border-marc">{% trans "Physical risk quantity measures risk related to too little or too much water by aggregating all selected indicators from the physical risk quantity category" %}</div>
@@ -116,7 +115,7 @@
                 </div>
                 <div class="marc-report col-md-3">
                     <div class="risk-list">
-                        <img src="/static/geonode/img/picture-two.jpg">
+                        <img src="/static/geonode/img/picture-two.jpg" alt="picture two">
                     </div>
                     <div class="title-marc">{% trans "Physical risk quantity qal_def" %}</div>
                     <div class="detail-border-marc">{% trans "Physical risk quantity measures risk related to water that in unfit for use by aggregating all selected indicators from the physical risk quantity category" %}</div>
@@ -124,7 +123,7 @@
                 </div>
                 <div class="marc-report col-md-3">
                     <div class="risk-list">
-                        <img src="/static/geonode/img/picture-three.jpg">
+                        <img src="/static/geonode/img/picture-three.jpg" alt="picture three">
                     </div>
                     <div class="title-marc">{% trans "Regulatory and reputational rrr_def" %}</div>
                     <div class="detail-border-marc">{% trans "Risk regulatory and reputational risk measures risk related to uncertainty in regulatory chance, as well as conflich with re public regarding water issues" %}</div>
@@ -132,7 +131,7 @@
                 </div>
                 <div class="marc-report col-md-3">
                     <div class="risk-list">
-                        <img src="/static/geonode/img/picture-four.jpg">
+                        <img src="/static/geonode/img/picture-four.jpg" alt="picture four">
                     </div>
                     <div class="title-marc">{% trans "Overall water risk score tot_def" %}</div>
                     <div class="detail-border-marc">{% trans "Overall water risk measures all water related risk, by aggregating all selected indicators from the physical risjk quantity, physical risk quality, and regulatory and reputational risk categories" %}</div>
@@ -162,32 +161,32 @@
             <div class="estimated-change-list">
                 <div class="line-marc-table-icons">
                     <div><h8>{% trans "Anual water yield" %}</h8></div>
-                    <div><img src="/static/geonode/img/dashboard-01.png" class="icon-dashboard"></div>
+                    <div><img src="/static/geonode/img/dashboard-01.png" alt="dashboard-01" class="icon-dashboard"></div>
                     <div class="line-number-marc-table" id="changeInVolumeOfWater"></div>
                 </div>
                 <div class="line-marc-table-icons">
                     <div>{% trans "Seasonal water yield" %}</div>
-                    <div><img src="/static/geonode/img/dashboard-02.png" class="icon-dashboard"></div>
+                    <div><img src="/static/geonode/img/dashboard-02.png" alt="dashboard-02" class="icon-dashboard"></div>
                     <div class="line-number-marc-table" id="changeInBaseFlow"></div>
                 </div>
                 <div class="line-marc-table-icons">
                     <div>{% trans "Sediment delivery ratio" %}</div>
-                    <div><img src="/static/geonode/img/dashboard-03.png" class="icon-dashboard"></div>
+                    <div><img src="/static/geonode/img/dashboard-03.png" alt="dashboard-03" class="icon-dashboard"></div>
                     <div class="line-number-marc-table" id="changeIntotalSediments"></div>
                 </div>
                 <div class="line-marc-table-icons">
                     <div>{% trans "Nutrient delivery ratio - nitrogen" %}</div>
-                    <div><img src="/static/geonode/img/dashboard-04.png" class="icon-dashboard"></div>
+                    <div><img src="/static/geonode/img/dashboard-04.png" alt="dashboard-04" class="icon-dashboard"></div>
                     <div class="line-number-marc-table" id="changeInNitrogenLoad"></div>
                 </div>
                 <div class="line-marc-table-icons">
                     <div>{% trans "Nutrient delivery ratio - phosphorus" %}</div>
-                    <div><img src="/static/geonode/img/dashboard-05.png" class="icon-dashboard"></div>
+                    <div><img src="/static/geonode/img/dashboard-05.png" alt="dashboard-05" class="icon-dashboard"></div>
                     <div class="line-number-marc-table" id="changeInPhosphorus"></div>
                 </div>
                 <div class="line-marc-table-icons">
                     <div>{% trans "Carbon storage and sequestration" %}</div>
-                    <div><img src="/static/geonode/img/dashboard-06.png" class="icon-dashboard"></div>
+                    <div><img src="/static/geonode/img/dashboard-06.png" alt="dashboard-06" class="icon-dashboard"></div>
                     <div class="line-number-marc-table" id="changeInCarbonStorage"></div>
                 </div>
             </div>
@@ -200,23 +199,23 @@
 
         <div class="align-text col-md-12 div-padding">
             <div class="list-menu-results" id="idFinancialIndicators">
-                <img src="/static/geonode/img/Indicadores-financieros.png" title="{% trans "Financial indicators" %}"/> 
+                <a href="../../reports/financial/"><img src="/static/geonode/img/Indicadores-financieros.png" alt="financial indicators" title="{% trans "Financial indicators" %}"/></a> 
                 <br> 
                 <a href="../../reports/financial/">{% trans "Financial indicators" %}</a>
             </div>
             <div class="list-menu-results">
-                <img src="/static/geonode/img/indicadores-fisicos.png" title="{% trans "Physical indicators" %}"/> 
+                <a href="../../reports/physical/{{idx}}"><img src="/static/geonode/img/indicadores-fisicos.png" alt="physical indicators" title="{% trans "Physical indicators" %}"/></a>
                 <br>
                 <!--a>{% trans "Physical indicators" %}</a-->
                 <a href="../../reports/physical/{{idx}}">{% trans "Physical indicators" %}</a>
             </div>
             <div class="list-menu-results" id="idDecisionIndicators">
-                <img src="/static/geonode/img/indicadores-decision.png" title="{% trans "Decision indicators" %}"/>
+                <a href="../../reports/decision/"><img src="/static/geonode/img/indicadores-decision.png" alt="decision indicators" title="{% trans "Decision indicators" %}"/></a>
                 <br>
                 <a href="../../reports/decision/">{% trans "Decision indicators" %}</a>
             </div>
             <div class="list-menu-results" id="idGeographicIndicators">
-                <img src="/static/geonode/img/indicadores-geograficos.png" title="{% trans "Geographic visualization" %}"/>
+                <a id="idGeographicIndicatorsClic" href=""><img src="/static/geonode/img/indicadores-geograficos.png" alt="geographic indicators" title="{% trans "Geographic visualization" %}"/></a>
                 <br>
                 <a id="idGeographicIndicatorsClic" href="">{% trans "Geographic visualization" %}</a>
                 <!-- ../../reports/geographic/-->
@@ -228,24 +227,25 @@
         <div class="report-download" style="display: block;">
             <div class="col-md-5"></div>
             <div class="col-md-1 report-download-pdf" onclick="openPDF()">
-                <img src="/static/geonode/img/documents.png"/>
+                <img src="/static/geonode/img/documents.png" alt="documents"/>
                 <br>
                 PDF
             </div>
             <div class="col-md-1 report-download-zip" onclick="downloadZip()">
-                <img src="/static/geonode/img/descarga.png"/>
+                <img src="/static/geonode/img/descarga.png" alt="download"/>
                 <br>
                 ZIP
             </div>
         </div>
     </div>
-    <img id="resultado" style="visibility:hidden">
+    <img id="resultado" style="visibility:hidden" alt="result">
     <form id="TheForm" method="post" action="../../reports/pdf/" target="TheWindow">
         {% csrf_token %}
         <input type="hidden" name="studyCase" id="studyCase"/>
         <input type="hidden" name="studyCity" id="studyCity"/>
         <input type="hidden" name="studyCountry" id="studyCountry"/>
         <input type="hidden" name="studyRegion" id="studyRegion"/>
+        <input type="hidden" name="discountRateData" id="discountRateData"/>
         <input type="hidden" name="mapSendImage" id="mapSendImage"/>
     </form>
 </body>
@@ -333,12 +333,13 @@
         var analisysBenefics = [];
 
         openPDF = function() {      
-            generateMap2Img('mapidcuenca','resultado')
+            generateMap2Img('mapidcuenca','resultado');
             setTimeout(function(){
                 document.getElementById('studyCase').value = localStorage.idStudyCase;
                 document.getElementById('studyCity').value = localStorage.getItem('city');
                 document.getElementById('studyCountry').value = localStorage.getItem('country');
                 document.getElementById('studyRegion').value = localStorage.getItem('region');
+                document.getElementById('discountRateData').value = document.getElementById("discountRate").innerHTML;
                 window.open('', 'TheWindow');
                 document.getElementById('TheForm').submit();
             }, 4000);
@@ -423,6 +424,9 @@
             });
             if (bounds != undefined) {
                 map.fitBounds(bounds);
+                return true;                
+            }else{
+                return false;
             }
         };
 
@@ -440,61 +444,63 @@
         };
 
         initMapDecision = function () {
-                map = L.map('mapidcuenca', {
-                    scrollWheelZoom: false,
-                    zoomControl: false,
-                    photonControl: true,
-                    photonControlOptions: {
-                        resultsHandler: showSearchPoints,
-                        selectedResultHandler: selectedResultHandler,
-                        placeholder: gettext('Search City') + '...',
-                        position: 'topleft',
-                        url: SEARCH_CITY_API_URL
-                    }
-                });
+            map = L.map('mapidcuenca', {
+                scrollWheelZoom: false,
+                zoomControl: false,
+                photonControl: true,
+                photonControlOptions: {
+                    resultsHandler: showSearchPoints,
+                    selectedResultHandler: selectedResultHandler,
+                    placeholder: gettext('Search City') + '...',
+                    position: 'topleft',
+                    url: SEARCH_CITY_API_URL
+                }
+            });
 
-                let initialCoords = CENTER;
-                var cityCoords = localStorage.getItem('cityCoords');
-                var city = localStorage.getItem('city');
-                var initialZoom = 5;
-                var cityNameMap = localStorage.getItem('city').substr(0, 5);
+            let initialCoords = CENTER;
+            var cityCoords = localStorage.getItem('cityCoords');
+            var city = localStorage.getItem('city');
+            var initialZoom = 5;
+            var cityNameMap = localStorage.getItem('city').substr(0, 5);
 
-                if (cityCoords == undefined) {
-                    cityCoords = initialCoords;
-                } else {
-                    initialCoords = JSON.parse(cityCoords);
-                    drawPolygons(city);
+            if (cityCoords == undefined) {
+                cityCoords = initialCoords;
+            } else {
+                initialCoords = JSON.parse(cityCoords);
+                if (!drawPolygons(city)){
                     initialZoom = 9;
-                    try {
-                        $("#countryLabel").html(localStorage.getItem('country'));
-                        $("#cityLabel").html(localStorage.getItem('city'));
-                        $("#regionLabel").html(localStorage.getItem('region'));
-                        $("#currencyLabel").html(localStorage.getItem('currency'));
-                        $("#listIntakes").show();
-                    } catch (e) {
-
-                    }
+                    map.setView(initialCoords, initialZoom);            
                 }
                 
-                map.setView(initialCoords, initialZoom);            
-                searchPoints.addTo(map);
-                let attrib = 'Data \u00a9 <a href="http://www.openstreetmap.org/copyright"> OpenStreetMap Contributors </a> Tiles \u00a9 Komoot';
-                var tilelayer = L.tileLayer(OSM_BASEMAP_URL, { maxZoom: MAXZOOM, attribution: attrib }).addTo(map);
-                var images = L.tileLayer(IMAGE_LYR_URL);
-                var hydroLyr = L.tileLayer(HYDRO_LYR_URL);
+                try {
+                    $("#countryLabel").html(localStorage.getItem('country'));
+                    $("#cityLabel").html(localStorage.getItem('city'));
+                    $("#regionLabel").html(localStorage.getItem('region'));
+                    $("#currencyLabel").html(localStorage.getItem('currency'));
+                    $("#listIntakes").show();
+                } catch (e) {
+                    console.log(e);
+                }
+            }
+                            
+            searchPoints.addTo(map);
+            let attrib = 'Data \u00a9 <a href="http://www.openstreetmap.org/copyright"> OpenStreetMap Contributors </a> Tiles \u00a9 Komoot';
+            var tilelayer = L.tileLayer(OSM_BASEMAP_URL, { maxZoom: MAXZOOM, attribution: attrib }).addTo(map);
+            var images = L.tileLayer(IMAGE_LYR_URL);
+            var hydroLyr = L.tileLayer(HYDRO_LYR_URL);
 
-                var baseLayers = {
-                    OpenStreetMap: tilelayer,
-                    Images: images,
-                };
+            var baseLayers = {
+                OpenStreetMap: tilelayer,
+                Images: images,
+            };
 
-                var overlays = {
-                    "Hydro (esri)": hydroLyr,
-                };
+            var overlays = {
+                "Hydro (esri)": hydroLyr,
+            };
 
-                var defExt = new L.Control.DefaultExtent({ title: gettext('Default extent'), position: 'topright'}).addTo(map);
-                var zoomControl = new L.Control.Zoom({ position: 'topright' }).addTo(map);
-                L.control.layers(baseLayers, overlays, { position: 'topleft' }).addTo(map);
+            var defExt = new L.Control.DefaultExtent({ title: gettext('Default extent'), position: 'topright'}).addTo(map);
+            var zoomControl = new L.Control.Zoom({ position: 'topright' }).addTo(map);
+            L.control.layers(baseLayers, overlays, { position: 'topleft' }).addTo(map);
         }
 
         changeGraphRoiCost = function() {

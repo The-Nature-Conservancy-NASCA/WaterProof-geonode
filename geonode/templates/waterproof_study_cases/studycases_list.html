@@ -25,7 +25,7 @@
 <div class="header-waterproof">
     <div>
         <h1>{% trans "study_cases" %}
-            <button type="button" data-toggle="modal" data-target="#HelpList" id="HelpModalBtnModal" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
+            <button type="button" data-toggle="modal" data-target="#HelpList" value="HelpModalBtnModal" id="HelpModalBtnModal" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
         </h1>
     </div>
     <div class="row">
@@ -36,19 +36,19 @@
             <p><b>{% trans "Selected City" %}:</b> <span id="cityLabel">{{city}}</span></p>
             <p><b>{% trans "Region" %}:</b> <span id="regionLabel">{{region.name}}</span></p>
             <p><b>{% trans "Currency" %}:</b>  <span id="currencyLabel">({{currency.code}}) - {{currency.name}}</span></p>
-            <div>
+            <div class="display-true">
                 {% if user.is_authenticated and not READ_ONLY_MODE %}
                 <a href="create/" id="createUrl" textColor="red" style="outline-color: dimgrey;">{% trans "new_study_case" %}</a>
-                <button onclick="window.location.href='create/'" type="button" data-toggle="modal" class="glyphicon glyphicon-plus-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
+                <button onclick="window.location.href='create/'" type="button" value="create study case" data-toggle="modal" class="glyphicon glyphicon-plus-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
                 {% else %}
                 <a id="createUrlDisabled">{% trans "new_study_case" %}</a>
-                <button type="button" data-toggle="modal" class="glyphicon glyphicon-plus-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #6e6f70; border-style: none; background-color:transparent;"></button>
+                <button type="button" value="icon plus create study cases" data-toggle="modal" class="glyphicon glyphicon-plus-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #6e6f70; border-style: none; background-color:transparent;"></button>
                 <h6>{% trans "study_cases_list_create" %}</h6>
                 {% endif %}
 
             </div>
         </div>
-        <div class="col-md-8">
+        <div class="col-md-8 width-map">
             <div id="map"></div>
         </div>
     </div>
@@ -63,7 +63,7 @@
                 <th scope="col" class="small text-center vat">{% trans "ID" %}</th>
                 <th scope="col" class="small text-center vat">{% trans "Public" %}</th>
                 <th scope="col" class="small text-center vat">{% trans "Name" %}</th>
-                <th scope="col" class="small text-center vat px-5">{% trans "Description" %}</th>
+                <th scope="col" class="small text-center vat">{% trans "Description" %}</th>
                 <th scope="col" class="small text-center vat">{% trans "Status" %}</th>
                 <th scope="col" class="small text-center vat">{% trans "User" %}</th>
                 <th scope="col" class="small text-center vat">{% trans "Date" %}</th>
@@ -79,97 +79,88 @@
             {% for studyCases in casesList %}
             
             <tr>
-                <td class="small text-center vat">{{studyCases.id}}</td>
-                {% if studyCases.is_public%}
-                <td class="small text-center vat">
-                    <i class="glyphicon glyphicon-globe fa-lg text-success" title='{% trans "Public" %}'></i>
-                    <span style="display:none">t</span>
-                </td>
-                {% else %}
-                <td class="small text-center vat">
-                    <i class="glyphicon glyphicon-lock fa-lg text-danger" title='{% trans "Private" %}'></i>
-                    <span style="display:none">f</span>
-                </td>
-                {% endif %}
-                <td class="small text-center vat align-text-left">{{studyCases.name}}</td>
-                <td class="small text-center vat truncate align-text-left">{{studyCases.description}}</td>
-                {% if studyCases.is_complete%}
-                <td class="small text-center vat"><i class="glyphicon glyphicon-ok-circle fa-lg text-success" title='{% trans "Completed" %}'></i></td>
-                {% else %}
-                <td class="small text-center vat"><i class="glyphicon glyphicon-hourglass fa-lg text-warning" title='{% trans "In Progress" %}'></i></td>
-                {% endif %}
-                <td class="small text-center vat">{{studyCases.added_by.first_name }} {{studyCases.added_by.last_name}}</td>
-                <td class="small text-center vat">{{studyCases.create_date | date:"d-m-Y"}}</td>
-                <td class="small text-center vat">{{studyCases.city}}</td>
-                <td class="small text-center vat">
+                <td class="small text-center vat">{{studyCases.id}}</td> <!-- ID -->                
+                <td class="small text-center vat"> <!-- PUBLIC -->
+                    <i class="glyphicon fa-lg {% if studyCases.is_public%} glyphicon-globe text-success" title='{% trans "Public" %}' {% else %} glyphicon-lock text-danger" title='{% trans "Private" %}'{% endif %}></i>
+                </td>                                
+                <td class="small text-center vat align-text-left">{{studyCases.name}}</td> <!-- NAME -->  
+                <td class="small text-center vat truncate align-text-left">{{studyCases.description}}</td> <!-- DESCRIPTION -->                
+                <td class="small text-center vat"> <!-- STATUS -->
+                    <i class="glyphicon glyphicon-ok-circle fa-lg {% if studyCases.is_complete%} text-success" title='{% trans "Completed" %}' {% else %} text-warning" title='{% trans "In Progress" %}' {% endif %}></i>
+                <td class="small text-center vat">{{studyCases.added_by.first_name }} {{studyCases.added_by.last_name}}</td> <!-- USER -->  
+                <td class="small text-center vat">{{studyCases.create_date | date:"d-m-Y"}}</td> <!-- DATE -->  
+                <td class="small text-center vat">{{studyCases.city}}</td> <!-- CITY -->
+                <td class="small text-center vat"> <!-- TREATMENT PLANTS -->
                     {% if studyCases.studycase_type == "PTAP" %}
-                    {% for ptap in studyCases.ptaps.all %}
-                    <a onclick='viewPtap({{ptap.id}})' class="ptap-link">- {{ptap.plant_name}} </a><br>
-                    {% endfor %}</td>
-                {% else %}
-                {% trans "N/A" %}<br>{% trans "Custom case" %}
-                {% endif %}
-
-                <td class="small text-center vat">{% for intake in studyCases.intakes.all %}
-                    <a href="../intake/view/{{intake.id}}" target="_blank">- {{intake.name}} </a> <br>
-                    {% endfor %}</td>
-                <td class="small text-center vat"><a class="currency-link" onclick='viewCurrencys({{studyCases.id}},"{{studyCases.analysis_currency}}")'>{{studyCases.analysis_currency}}</a></td>
-                {% if studyCases.is_run_analysis%}
-                <td class="small text-center vat">
-                    <i class="glyphicon glyphicon-play-circle fa-lg text-success" title='{% trans "Completed" %}'></i>
-                    <span style="display:none">t</span>
+                    {% for ptap in studyCases.ptaps.all %}<a onclick='viewPtap({{ptap.id}})' class="ptap-link">{{ptap.plant_name}} </a><br>{% endfor %}
+                    {% else %}{% trans "N/A" %}<br>{% trans "Custom case" %}{% endif %}
                 </td>
-                {% else %}
-                <td class="small text-center vat">
-                    <i class="glyphicon glyphicon-stop fa-lg text-danger" title='{% trans "In Progress" %}'></i>
-                    <span style="display:none">f</span>
+                <td class="small text-center vat">  <!-- WATER INTAKES-->
+                    {% for intake in studyCases.intakes.all %} <a href="/intake/view/{{intake.id}}" target="_blank">{{intake.name}} </a> <br>{% endfor %}
                 </td>
-                {% endif %}
-                <td>
+                <td class="small text-center vat"> <!-- CURRENCY -->
+                    <a class="currency-link" onclick='viewCurrencys({{studyCases.id}},"{{studyCases.analysis_currency}}")'>{{studyCases.analysis_currency}}</a>
+                </td>                
+                <td class="small text-center vat"> <!-- EXECUTION STATUS -->
+                    <i class="glyphicon fa-lg {% if studyCases.is_run_analysis%} glyphicon-play-circle text-success" title='{% trans "Completed" %}' {% else %} glyphicon-stop text-danger" title='{% trans "In Progress" %}' {% endif %}></i>                    
+                </td>               
+                <td> <!-- OPTIONS -->
                     <div class="btn-group btn-group-table" role="group">
                         <a class="btn btn-primary" href="view/{{studyCases.pk}}" title='{% trans "View" %}'><span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
                         {% if user.is_authenticated %}
                         {% if user.professional_role == 'ADMIN' %}
-                        <a class="btn btn-info {% if studyCases.is_run_analysis%}disabled{% endif %}" href="edit/{{studyCases.pk}}" title='{% trans "edit" %}'><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
+                        <a class="btn btn-info {% if studyCases.is_run_analysis%}disabled{% endif %} display-true" href="edit/{{studyCases.pk}}" title='{% trans "edit" %}'><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
                     </div>
                     <div class="btn-group btn-group-table" role="group">
-                        <a class="btn btn-warning" href="clone/{{studyCases.pk}}" title='{% trans "clone" %}'><span class="glyphicon glyphicon-copy" aria-hidden="true"></span></a>
+                        <a class="btn btn-warning display-true" href="clone/{{studyCases.pk}}" title='{% trans "clone" %}'><span class="glyphicon glyphicon-copy" aria-hidden="true"></span></a>
                         <a class="btn btn-danger" user-id="{{studyCases.added_by.id}}" date-create="{{studyCases.create_date | date:'Y-m-d'}}" data-id="{{studyCases.pk}}" title='{% trans "delete" %}'><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
                     </div>
                     <div class="btn-group btn-group-table" role="group">
-                        <a class="btn btn-info" href="report/{{studyCases.pk}}" title='{% trans "report" %}'><span class="glyphicon glyphicon-object-align-bottom" aria-hidden="true"></span></a>
-                        {% if studyCases.is_public%}
-                        <a class="btn btn-warning btn-private" data-id="{{studyCases.pk}}" title='{% trans "Private" %}'><span class="glyphicon glyphicon-lock" aria-hidden="true"></span></a>
-                        {% else %}
-                        <a class="btn btn-primary btn-public" data-id="{{studyCases.pk}}" title='{% trans "Public" %}'><span class="glyphicon glyphicon-lock" aria-hidden="true"></span></a>
-                        {% endif %}
+                        <a class="btn btn-info {% if studyCases.is_run_analysis == False %}disabled{% endif %}" href="report/{{studyCases.pk}}" title='{% trans "report" %}'>
+                            <span class="glyphicon glyphicon-object-align-bottom" aria-hidden="true"></span>
+                        </a>                        
+                        <a data-id="{{studyCases.pk}}" class="btn {% if studyCases.is_public%} btn-warning btn-private" title='{% trans "Private" %}' {% else %} btn-primary btn-public" title='{% trans "Public" %}' {% endif %}>
+                            <span class="glyphicon glyphicon-lock" aria-hidden="true"></span>
+                        </a>                        
                     </div>
                         {% endif %}
                         {% if user.professional_role == 'ANALYS' or user.professional_role == 'COPART' or user.professional_role == 'ACDMC' or user.professional_role == 'SCADM' or user.professional_role == 'MCOMC' or user.professional_role == 'CITIZN' or user.professional_role == 'REPECS' or user.professional_role == 'OTHER' %}
                         {% if studyCases.added_by.pk == user.pk %}
-                        <a class="btn btn-info {% if studyCases.is_run_analysis%}disabled{% endif %}" href="edit/{{studyCases.pk}}" title='{% trans "edit" %}'>
+                        <a class="btn btn-info {% if studyCases.is_run_analysis%}disabled1{% endif %} display-true" href="edit/{{studyCases.pk}}" title='{% trans "edit" %}'>
                             <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                         </a>
                     </div>
                     <div class="btn-group btn-group-table" role="group">
-                        <a class="btn btn-warning" href="clone/{{studyCases.pk}}" title='{% trans "clone" %}'><span class="glyphicon glyphicon-copy" aria-hidden="true"></span></a>
+                        <a class="btn btn-warning display-true" href="clone/{{studyCases.pk}}" title='{% trans "clone" %}'><span class="glyphicon glyphicon-copy" aria-hidden="true"></span></a>
                         <a class="btn btn-danger" data-id="{{studyCases.pk}}" title='{% trans "delete" %}'><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
                     </div>
                     <div class="btn-group btn-group-table" role="group">
-                        {% if studyCases.is_public%}
-                        <a class="btn btn-warning btn-private" data-id="{{studyCases.pk}}" title='{% trans "Private" %}'><span class="glyphicon glyphicon-lock" aria-hidden="true"></span></a>
-                        {% else %}
-                        <a class="btn btn-primary btn-public" data-id="{{studyCases.pk}}" title='{% trans "Public" %}'><span class="glyphicon glyphicon-lock" aria-hidden="true"></span></a>
-                        {% endif %}
-                        <a class="btn btn-info" href="report/{{studyCases.pk}}" title='{% trans "report" %}'><span class="glyphicon glyphicon-object-align-bottom" aria-hidden="true"></span></a>
+                        <a class="btn btn-warning btn-private" data-id="{{studyCases.pk}}" {% if studyCases.is_public%} title='{% trans "Private" %}' {% else %}  title='{% trans "Public" %}' {% endif %}>
+                            <span class="glyphicon glyphicon-lock" aria-hidden="true"></span>
+                        </a>                        
+                        <a class="btn btn-info {% if studyCases.is_run_analysis == False %}disabled{% endif %}" href="report/{{studyCases.pk}}" title='{% trans "report" %}'>
+                            <span class="glyphicon glyphicon-object-align-bottom" aria-hidden="true"></span>
+                        </a>
                     </div>
                     {% else %}
-                        <a class="btn btn-warning" href="clone/{{studyCases.pk}}" title='{% trans "clone" %}'><span class="glyphicon glyphicon-copy" aria-hidden="true"></span></a>
-                        <a class="btn btn-info" href="report/{{studyCases.pk}}" title='{% trans "report" %}'><span class="glyphicon glyphicon-object-align-bottom" aria-hidden="true"></span></a>
-                    </div>                    
-                        {% endif %}
-                        {% endif %}
-                        {% endif %}                   
+                        <a class="btn btn-info {% if studyCases.is_run_analysis%}disabled{% endif %} display-true" href="#">
+                            <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                        </a>
+                    </div>
+                    <div class="btn-group btn-group-table" role="group">
+                        <a class="btn btn-warning display-true" href="clone/{{studyCases.pk}}" title='{% trans "clone" %}'><span class="glyphicon glyphicon-copy" aria-hidden="true"></span></a>
+                        <a class="btn btn-info" href="report/{{studyCases.pk}}" title='{% trans "report" %}'>
+                            <span class="glyphicon glyphicon-object-align-bottom" aria-hidden="true"></span>
+                        </a>
+                    </div>
+                    {% endif %}
+                    {% endif %}
+                    {% else %}
+                        <a class="btn btn-info {% if studyCases.is_run_analysis == False %}disabled{% endif %}" href="report/{{studyCases.pk}}" title='{% trans "report" %}'>
+                            <span class="glyphicon glyphicon-object-align-bottom" aria-hidden="true"></span>
+                        </a>
+                    </div>
+                    {% endif %}                   
                 </td>
             </tr>
             {% endfor %}
@@ -182,7 +173,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" value="close" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <h3 class="modal-title text-center" id="HelpModalLabel" style="color:#6398C1 ;">{% trans "Creating a new case study" %}</h3>
@@ -194,11 +185,11 @@
                 <p>
                     {%  trans "WaterProof will assist you by indicating the steps you must follow to complete your registration: "  %}
                 </p>
-                <img style="margin: 10px auto 10px; display: block; width: 100%; height: 100%;" src="/static/geonode/img/case_List.png"></img>
+                <img style="margin: 10px auto 10px; display: block; width: 100%; height: 100%;" src="/static/geonode/img/case_List.png" alt="help study cases list"></img>
                 <div>
                     <br>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="color: white; background-color: #6398C1;">{% trans "Close" %}</button>
+                        <button type="button" value="close" class="btn btn-secondary" data-dismiss="modal" style="color: white; background-color: #6398C1;">{% trans "Close" %}</button>
                     </div>
                 </div>
             </div>

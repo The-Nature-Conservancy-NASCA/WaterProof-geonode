@@ -207,7 +207,7 @@ $(function () {
                     perPage: 2,
                     breakpoints: {
                         600: {
-                            perPage: 2,
+                            perPage: 1,
                         }
                     }
                 }).mount();

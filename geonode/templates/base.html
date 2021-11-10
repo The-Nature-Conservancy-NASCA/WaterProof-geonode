@@ -297,7 +297,7 @@
   <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="nav-container">        
       <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+        <button value="icon home base" type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
           <i class="fa fa-navicon fa-lg"></i>
         </button>
         <a class="navbar-brand" href="{% url "home" %}">GeoNode</a>
@@ -317,6 +317,24 @@
           <li>
             <a href="/pages/{{request.LANGUAGE_CODE}}/take_action_ini/">{% trans "Take action" %}</a>
           </li>
+          <!--NbS-->
+          {% if user.is_authenticated %}
+          <li id="nav_layers">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" 
+              aria-haspopup="true" aria-expanded="false">{% trans "NbS" %}
+              <i class="fa fa-angle-down fa-lg"></i>
+            </a>
+            <ul class="dropdown-menu">
+              <li><a href="{% url "list-nbs" %}?limit={{ CLIENT_RESULTS_LIMIT }}">{% trans "List" %}</a></li>
+              {% if not READ_ONLY_MODE %}
+              <li><a href="/waterproof_nbs_ca/create/" id="nbs-createUrl" >{% trans "Create" %}</a></li>
+              {% endif %}
+            </ul>
+          </li>          
+          <li>
+            <a href="/study_cases/my_cases/">{% trans "My Case studies" %}</a>
+          </li>
+          {% endif %}
           <!--Models-->
           <!-- <li>
             <a href="{% url "models" %}">{% trans "Models" %}</a>
@@ -663,7 +681,7 @@
             <h4 class="modal-title" id="myModalLabel">{% trans "Sign in" %}</h4>
           </div>          
           <div class="center">
-            <img class="img-underconstruction" src="{% static 'geonode/img/under-construction.png' %}">              
+            <img class="img-underconstruction" src="{% static 'geonode/img/under-construction.png' %}" alt="image login">         
           </div>          
           <form class="form-signin" role="form" action="{% url "account_login" %}?next={{ request.path }}" method="post">
             <div class="modal-body">

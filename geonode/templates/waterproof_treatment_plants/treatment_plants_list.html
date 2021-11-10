@@ -23,7 +23,9 @@
 {% block body_outer %}
 <div class="header-waterproof">
     <div>
-        <h2>{% trans "Drinking water treatment plants (DWTP)" %}</h2>
+        <h2>{% trans "Drinking water treatment plants (DWTP)" %}
+            <button type="button" data-toggle="modal" data-target="#HelpList" value="HelpModalBtnModal" id="HelpModalBtnModal" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
+        </h2>
     </div>
     <div class="row">
         <div class="col-md-4">
@@ -33,11 +35,11 @@
             <p><b>{% trans "Selected City" %}:</b> <span id="cityLabel"></span> </p>
             <p><b>{% trans "Region" %}:</b> <span id="regionLabel"></span> </p>
             <p><b>{% trans "Currency" %}:</b> <span id="currencyLabel"></span></p>
-            <div>
+            <div class="display-true">
                 {% if user.is_authenticated and not READ_ONLY_MODE %}
                 <a href="create/"  onclick="localStorage.loadFormButton='true'; localStorage.plantId = null;" 
                     id="createUrl">{% trans "Create new Treatment Plants" %}</a>
-                <button onclick="window.location.href='create/'" type="button" 
+                <button onclick="window.location.href='create/'" type="button" value="icon plus create tratment plants"
                         data-toggle="modal" class="glyphicon glyphicon-plus-sign" aria-hidden="true" 
                         style="outline:none; text-decoration:none; color: #0977ca; cursor: pointer;
                             border-style: none; background-color:transparent;">
@@ -48,7 +50,7 @@
                 {% endif %}  
             </div>
         </div>
-        <div class="col-md-8">
+        <div class="col-md-8 width-map">
             <div id="mapid"></div>
         </div>
     </div>
@@ -60,7 +62,9 @@
                 <th scope="col" class="small text-center vat">{% trans "ID" %}</th>
                 <th scope="col" class="small text-center vat">{% trans "Name" %}</th>
                 <th scope="col" class="small text-center vat">{% trans "Description" %}</th>
+                {% if user.is_authenticated and user.professional_role == 'ADMIN'%}
                 <th scope="col" class="small text-center vat">{% trans "User" %}</th>
+                {% endif %}                
                 <th scope="col" class="small text-center vat">{% trans "Creation Date" %}</th>
                 <th scope="col" class="small text-center vat">{% trans "City" %}</th>
                 <th scope="col" class="small text-center vat">{% trans "Catchment" %}</th>
@@ -71,34 +75,72 @@
             {% for treatmentPlants in treatmentPlantsList %}
             <tr>
                 <td class="small text-center vat">{{treatmentPlants.plantId}}</td>
-                <td class="small text-center vat">{{treatmentPlants.plantName}}</td>
-                <td class="small text-center vat">{{treatmentPlants.plantDescription}}</td>
-                <td class="small text-center vat">{{treatmentPlants.plantUser}}</td>
-                <td id="date" class="small text-center vat">{{treatmentPlants.plantDate}}</td>
-                <td class="small text-center vat">{{treatmentPlants.standardNameSpanish}}</td>
-                <td class="small text-center vat">
+                <td class="small vat align-text-left">{{treatmentPlants.plantName}}</td>
+                <td class="small vat align-text-left">{{treatmentPlants.plantDescription}}</td>
+                {% if user.is_authenticated and user.professional_role == 'ADMIN'%}
+                <td class="small vat align-text-left">{{treatmentPlants.plantUser}}</td>
+                {% endif %}
+                <td id="date" class="small vat align-text-center">{{treatmentPlants.plantDate}}</td>
+                <td class="small vat align-text-center">{{treatmentPlants.standardNameSpanish}}</td>
+                <td class="small vat align-text-center">
                     {% for intake in treatmentPlants.plantIntakeName %}
                         {{intake}}<br>
                     {% endfor %}
                 </td>
                 <td class="small text-center vat items-align-center">
-                    <div class="table-center-item" role="group">
+                    <div class="btn-group btn-group-table" role="group">
                         <a class="btn btn-primary" onclick="viewInformationPlant('{{treatmentPlants.plantId}}')" title='{% trans "View" %}'>
                             <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
-                        <a class="btn btn-info" onclick="updatePlant('{{treatmentPlants.plantId}}')" title='{% trans "edit" %}'>
+                        {% if user.is_authenticated %}
+                        <a class="btn btn-info display-true" onclick="updatePlant('{{treatmentPlants.plantId}}')" title='{% trans "edit" %}'>
                             <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
+                            {% endif %}
                     </div>
-                    <div class="table-center-item" role="group">                    
-                        <a class="btn btn-warning" onclick="clonePlant('{{treatmentPlants.plantId}}')" title='{% trans "clone" %}'>
+                    {% if user.is_authenticated %}
+                    <div class="btn-group btn-group-table" role="group">
+                        <a class="btn btn-warning display-true" onclick="clonePlant('{{treatmentPlants.plantId}}')" title='{% trans "clone" %}'>
                             <span class="glyphicon glyphicon-copy" aria-hidden="true"></span></a>
-                        <a class="btn btn-danger" onclick="deletePlant('{{treatmentPlants.plantId}}')" title='{% trans "delete" %}'>
+                        <a class="btn btn-danger" onclick="deletePlant({{treatmentPlants.plantId}},this)" title='{% trans "delete" %}'>
                             <span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
                     </div>
+                    {% endif %}
                 </td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
+</div>
+
+<!--Help tratment plants list-->
+<div class="modal fade" id="HelpList" tabindex="-1" aria-labelledby="HelpModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" value="close" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h3 class="modal-title text-center" id="HelpModalLabel" style="color:#6398C1 ;">{% trans "Creating a DWTP" %}</h3>
+            </div>
+            <div class="modal-body">
+                <p>
+                    {%  trans "Paragraph modal create DWTP 1"  %}
+                </p>
+                <p>
+                    {%  trans "Paragraph modal create DWTP 2"  %}
+                </p>
+                <p>
+                    {%  trans "Paragraph modal create DWTP 3"  %}
+                </p>
+                <img style="margin: 10px auto 10px; display: block; width: 100%; height: 100%;" src="/static/geonode/img/PTAP.png" alt="help tratment plants"></img>
+                <div>
+                    <br>
+                    <div class="modal-footer">
+                        <button type="button" value="close" class="btn btn-secondary" data-dismiss="modal" style="color: white; background-color: #6398C1;">{% trans "Close" %}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 {% block body %}
@@ -134,11 +176,9 @@
     localStorage.clonePlant = 'false';
     localStorage.updatePlant = 'false';
     localStorage.loadInf = 'false';
-    $(document).ready(function () {
-        
+    $(document).ready(function () {        
         initialize();
         drawPolygons(map);
-
         table = $('#tbl-plants').DataTable({
         'searching': false,
         'columnDefs': [ {            

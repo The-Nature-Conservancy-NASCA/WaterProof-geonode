@@ -73,6 +73,7 @@
     width: auto!;
     height: 380px;
     padding-bottom: 80px;
+    text-align: center;
 }
 .modal-dialog {
     display: inline-block;
@@ -183,8 +184,11 @@
         margin-top: auto;
     }
     #map {
-        width: 271px !important;
+        width: auto;
         border: 2px solid;
+    }
+    .width-map{
+        width: 100%;
     }
     .title-city {
         position: relative;
@@ -217,6 +221,9 @@
     .width-title{
         width: 100%;
     }
+    .display-true{
+        display: none;
+    }
 }
 
 @media (min-width: 768px) {
@@ -226,8 +233,11 @@
         margin-top: auto;
     }
     #map {
-        width: 680px !important;
+        width: auto;
         border: 2px solid;
+    }
+    .width-map{
+        width: 100%;
     }
     .title-city {
         position: absolute;
@@ -260,6 +270,9 @@
     .width-title{
         width: 100%;
     }
+    .display-true{
+        display: none;
+    }
 }
 
 @media (min-width: 992px) {
@@ -269,8 +282,11 @@
         margin-top: -80rem;
     }
     #map {
-        width: auto !important;
+        width: auto;
         border: 2px solid;
+    }
+    .width-map{
+        width: 66.6%;
     }
     .title-city {
         position: absolute;
@@ -302,6 +318,9 @@
     }
     .width-title{
         width: 100%;
+    }
+    .display-true{
+        display: table;
     }
 }
 
@@ -312,8 +331,11 @@
         margin-top: auto;
     }
     #map {
-        width: auto !important;
+        width: auto;
         border: 2px solid;
+    }
+    .width-map{
+        width: 66.6%;
     }
     .title-city {
         position: absolute;
@@ -345,6 +367,9 @@
     }
     .width-title{
         width: 100%;
+    }
+    .display-true{
+        display: table;
     }
 }
 

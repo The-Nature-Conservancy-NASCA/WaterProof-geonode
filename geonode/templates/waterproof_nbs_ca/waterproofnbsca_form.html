@@ -12,7 +12,7 @@
 <div class="header-waterproof">
     <div>
         <h1>{% trans "Create Nature based solution (NBS)" %}
-            <button type="button" data-toggle="modal" data-target="#HelpCreate" id="HelpModalBtnModal" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button> 
+            <button type="button" value="help modal button create" data-toggle="modal" data-target="#HelpCreate" id="HelpModalBtnModal" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button> 
         </h1>        
     </div>    
     <div class="row">
@@ -110,7 +110,7 @@
                 </div>
                 <div class="col-md-4">
                     <label id="oportunityCostLabel">{% trans "Oportunity cost (US$/ha)" %} <span class="text-danger-wp">(*)</span> </label>
-                    <input id="oportunityCost" type="text" onfocusout="return afterCheckDecimal(event,value)" onInput="return checkDecimalFormat(event,value)"  class="form-control" data-error='{% trans "Field is required" %}' required>
+                    <input id="oportunityCost" type="text" onfocusout="return afterCheckDecimal(event,value)" onInput="return checkDecimalFormat(event,value)" class="form-control" data-error='{% trans "Field is required" %}' required>
                     <div class="help-block with-errors"></div>
                 </div>
             </div>
@@ -129,8 +129,7 @@
         <div class="form-group">
             <div class="row">
                 {% for tran in transitions %}
-                <div class="col-md-12" id="selectlanduse{{tran.pk}}" name="selectlanduse" data-value="{{tran.pk}}"
-                    style="display: none;">
+                <div class="col-md-12" id="selectlanduse{{tran.pk}}" name="selectlanduse" data-value="{{tran.pk}}" style="display: none;">
                     <p>{% trans "If you want the NbS not to be implemented" %}</p>
                     <table class="table">
                         <thead>
@@ -139,7 +138,7 @@
                                     <h5>{% trans "LAND USE / LAND COVER WHERE THE ACTIVITY CAN BE IMPLEMENTED" %}</h5>
                                 </th>
                                 <th>
-                                    <h5>{% trans "LAND USE / LAND COVER TRANSFORMED" %}</h5>
+                                    <h5>{% trans "LAND USE / LAND COVER TRANSFORMED" %} <span class="text-danger-wp">(*)</span></h5>
                                 </th>
                             </tr>
                             
@@ -155,13 +154,8 @@
                                     {% for riost in riosTransformation %} 
                                         {% if riosa.pk == riost.activity_id %}
                                         <div class="checkbox">
-                                            {% if forloop.first %}
                                             <label><input data-value="itemRT" name="{{riosa.name}}_{{itemRT}}" type="radio"
-                                                    id="itemRT{{riost.pk}}" value="{{ riost.pk }}" checked> {{riost.name}}</label>
-                                            {% else %}
-                                            <label><input data-value="itemRT" name="{{riosa.name}}_{{itemRT}}" type="radio"
-                                                id="itemRT{{riost.pk}}" value="{{ riost.pk }}" > {{riost.name}}</label>
-                                            {% endif %}
+                                                id="itemRT{{riost.pk}}" value="{{ riost.pk }}" {% if forloop.first %} checked {% endif %} required> {{riost.name}}</label>                                            
                                         </div>
                                         {% endif %} 
                                     {% endfor %}
@@ -173,11 +167,10 @@
                     </table>
                 </div>
                 {% endfor %}
-                <div class="col-md-12">
+                <div class="col-md-12 text-center">
                     <table class="table">
                         <tr>
-                            <td class="col-md-4"></td>
-                            <td class="col-md-8"><button id="clear_options" type="button" class="btn btn-primary ">{% trans "Clear options" %}</button></td>
+                            <td class="col-md-12"><button id="clear_options" type="button" value="clear options" class="btn btn-primary ">{% trans "Clear options" %}</button></td>
                         </tr>
                     </table>
                 </div>
@@ -188,26 +181,22 @@
                 <div>
                     <div class="col-md-12">
                         <label>{% trans "Restricted areas" %} </label>
-                        <p>{% trans "If there are areas with restrictions for the implementation of the NbS, attach them to the form through a geographic file by clicking on the following button." %}</p>
-                        
+                        <p>{% trans "If there are areas with restrictions for the implementation of the NbS, attach them to the form through a geographic file by clicking on the following button." %}</p>                        
                     </div>
                     <div class="col-md-2">
                         <span class="input-group-btn">
-                          <span class="btn btn-default btn-file">
-                            {% trans "Select a file" %}
+                            <span class="btn btn-default btn-file">
+                                {% trans "Select a file" %}
                             <input id="restrictedArea" type="file">
-                        </span>
+                            </span>
                         </span>
                     </div>
                         <div class="col-md-2">
-                            <button type="button" class="btn btn-link" data-toggle="modal" data-target="#HelpModal" id="HelpModalBtnModal" style="outline:none; text-decoration:none;">
+                            <button type="button" value="help" class="btn btn-link" data-toggle="modal" data-target="#HelpModal" id="HelpModalBtnModal" style="outline:none; text-decoration:none;">
                                 <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> {% trans "Help" %}</button>
                             </button>
                         </div>
-                       
-                    
-    
-    
+                                   
                     <div class="help-block with-errors"></div>
                 </div>
             </div>
@@ -215,8 +204,8 @@
         <br>
         <div class="row text-center">
             <div class="col-md-12">
-        <button id="submit" type="submit" class="btn btn-primary ">{% trans "Save" %}</button>
-        </div>
+                <button id="submit" type="submit" value="save" class="btn btn-primary ">{% trans "Save" %}</button>
+            </div>
         </div>
     
     </form>
@@ -228,7 +217,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" value="close" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <h3 class="modal-title text-center" id="HelpModalLabel">{% trans "Geom files help" %}</h3>
@@ -245,7 +234,7 @@
                 </div>
                 <br>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{% trans "Close" %}</button>
+                    <button type="button" value="close" class="btn btn-secondary" data-dismiss="modal">{% trans "Close" %}</button>
                 </div>
             </div>
         </div>
@@ -256,7 +245,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" value="close" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <h3 class="modal-title text-center" id="HelpModalLabel" style="color:#6398C1 ;">{% trans "Create Nature based solution (NBS)" %}</h3>
@@ -292,7 +281,7 @@
                 <div>
                 <br>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal" style="color: white; background-color: #6398C1;">{% trans "Close" %}</button>
+                    <button type="button" value="close" class="btn btn-secondary" data-dismiss="modal" style="color: white; background-color: #6398C1;">{% trans "Close" %}</button>
                 </div>
                 </div>
             </div>

@@ -5,6 +5,9 @@ textarea {
     text-align: center;
     font-weight: bold;
 }
+.align-text-center{
+    text-align: center;
+}
 .center-button {
     width: 150px;
     left: 50%;
@@ -561,6 +564,8 @@ textarea {
     text-decoration: underline;
     cursor: pointer;
     font-size: 15px;
+    position: absolute;
+    bottom: 1px;
 }
 
 .link-form-2 {
@@ -593,8 +598,11 @@ textarea {
         margin-top: auto;
     }
     #mapid{
-        width: 271px !important;
+        width: auto;
         border: 2px solid; 
+    }
+    .width-map{
+        width: 100%;
     }
     .overflow-form {
         overflow-y: hidden;
@@ -621,6 +629,9 @@ textarea {
         width: 200px;
         margin-bottom: 12%;
     }
+    .display-true{
+        display: none;
+    }
 }
 @media (min-width: 768px) {
     .header-waterproof{
@@ -629,8 +640,11 @@ textarea {
         margin-top: auto;
     }
     #mapid{
-        width: 680px !important;
+        width: auto;
         border: 2px solid;
+    }
+    .width-map{
+        width: 100%;
     }
     .overflow-form {
         overflow-y: hidden;
@@ -656,6 +670,9 @@ textarea {
         float: left;
         width: 500px;
         margin-bottom: 0%;
+    }
+    .display-true{
+        display: none;
     }
 }
 @media (min-width: 992px) {
@@ -665,8 +682,11 @@ textarea {
         margin-top: -80rem;
     }
     #mapid{
-        width: auto !important;
+        width: auto;
         border: 2px solid; 
+    }
+    .width-map{
+        width: 66.6%;
     }
     .overflow-form {
         overflow-y: hidden;
@@ -693,6 +713,9 @@ textarea {
         width: 500px;
         margin-bottom: 0%;
     }
+    .display-true{
+        display: table;
+    }
 }
 @media (min-width: 1200px) {
     .header-waterproof{
@@ -701,9 +724,12 @@ textarea {
         margin-top: auto;
     }
     #mapid{
-        width: auto !important;
+        width: auto;
         border: 2px solid; 
-   } 
+    }
+    .width-map{
+        width: 66.6%;
+    } 
     .overflow-form {
         overflow-y: hidden;
         overflow-x: hidden;
@@ -728,6 +754,9 @@ textarea {
         float: left;
         width: 500px;
         margin-bottom: 0%;
+    }
+    .display-true{
+        display: table;
     }
 }
 .table-center-item{
@@ -789,5 +818,13 @@ form label {
     border-width: thin;
     color: #31708f !important;
     background-color: #d9edf7 !important;
-    max-width: 450px !important;
+    max-width: 500px !important;
+}
+
+.preview {
+    border: 1 pxsolid black;
+    background-color: white;
+    margin-bottom: 1em;
+    padding: 3px 5px;
+    line-height: calc(1em + 1vmin);
 }

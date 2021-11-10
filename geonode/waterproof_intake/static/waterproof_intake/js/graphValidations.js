@@ -54,7 +54,7 @@ function createPopupMenu(graph, menu, cell, evt) {
     }
 };
 
-function updateStyleLine(graph, cell, type) {
+function updateStyleLine(graph, cell, type) {    
     $.ajax({
         url: `/intake/loadProcess/${type.style}`,
 
@@ -91,11 +91,13 @@ function updateStyleLine(graph, cell, type) {
                     })
 
                     let resultDbObj = JSON.parse(result);
-// A.R. 31/08/2021                    
                     if (type.style == 'PIPELINE' || type.style == 'CHANNEL' || type.style == 'CONNECTION' ){
                         resultDbObj[0].fields.predefined_transp_water_perc = '';
-                        enableBtnValidateCount++;
-                        validateTransportedWater('');                        
+                        //enableBtnValidateCount++;
+                        if (!transportedWaterConnectors.hasOwnProperty(cell.id)) {
+                            transportedWaterConnectors[cell.id] = {"style" : type.style, "id" : cell.id, "transportedWater" : null};                        
+                            validateTransportedWater('');
+                        }                        
                     }
                     
                     let valueObj = {
@@ -154,8 +156,7 @@ function funcost(index) {
         currencyCostName = funcostdb[index].fields.currency;
     }
 
-    var factor = funcostdb[index].fields.global_multiplier_factorCalculator;
-    
+    var factor = funcostdb[index].fields.global_multiplier_factorCalculator;    
     if (factor == undefined){
         factor =  parseFloat(localStorage.getItem("factor")).toFixed(2);
     }
@@ -164,7 +165,7 @@ function funcost(index) {
     
     $('#funcostgenerate').append(`
         <tr idvalue="fun_${index}">
-            <td aling="center">${funcostdb[index].fields.function_name}</td>
+            <td aling="center">${gettext(funcostdb[index].fields.function_name)}</td>
             <td class="${tdClass}" style="width: 160px">
                 <a id="fn${index}" ${aProps} title="${funcostdb[index].fields.function_value}">fx</a>                
             </td>
@@ -179,10 +180,10 @@ function funcost(index) {
         </tr>
         `
         );
-    //console.log(funcostdb[index].fields.function_value)
 }
 
 function addData(element) {
+    
     //add data in HTML for connectors
     if (typeof(element.value) == "string" && element.value.length > 0) {
         let obj = JSON.parse(element.value);
@@ -192,9 +193,9 @@ function addData(element) {
         $('#titleCostFunSmall').attr("valueid", element.id);
         $('#titleCostFunSmall').text(`ID: ${element.id} - ${connectionsType[obj.connectorType].name}`);
         $('#idDiagram').val(element.id);
- //A.R 31082021
+
         if (element.style == 'PIPELINE' || element.style == 'CHANNEL' || element.style == 'CONNECTION'){
-            validateTransportedWater(dbfields[0].fields.predefined_transp_water_perc);            
+             validateTransportedWater(dbfields[0].fields.predefined_transp_water_perc);            
         }
         addData2HTML(dbfields, element);        
         funcostdb = obj.funcost;
@@ -220,7 +221,6 @@ function addData(element) {
             funcost(index);
         }
     }
-    $('[data-toggle="tooltip"]').tooltip();
 }
 
 function addData2HTML(resultdb, cell) {
@@ -238,7 +238,6 @@ function addData2HTML(resultdb, cell) {
     $('#funcostgenerate').empty();
     // Add Value to Panel Information Right on HTML
     $('#aguaDiagram').val(resultdb[0].fields.predefined_transp_water_perc); 
-
     $('#sedimentosDiagram').val(resultdb[0].fields.predefined_sediment_perc);
     $('#nitrogenoDiagram').val(resultdb[0].fields.predefined_nitrogen_perc);
     $('#fosforoDiagram').val(resultdb[0].fields.predefined_phosphorus_perc);
@@ -273,20 +272,25 @@ function deleteWithValidations(editor) {
             if (vertexIsEC) {
                 mxUtils.alert(msg);
             } else {
-                editor.graph.removeCells(cells2Remove);
+                cells2Remove.forEach((c) => {
+                    if (transportedWaterConnectors.hasOwnProperty(c.id)){
+                        delete transportedWaterConnectors[c.id];
+                    }
+                })
+                editor.graph.removeCells(cells2Remove);                
             }
-
         } else {
             mxUtils.alert(gettext(`The River can't be Removed`));
         }
     }
 }
 
-function validationTransportedWater(editor, cell) {
+function validationTransportedWaterSum(editor, cell) {
+    
     var enc = new mxCodec();
     var node = enc.encode(editor.graph.getModel());
     var connectors = [];
-    var total = new Number();
+    var total = 0;
     //Select all dom called mxCell
     node.querySelectorAll('mxCell').forEach(function(node) {
         //Validates if a cell is a connector
@@ -337,6 +341,7 @@ $(document).on('click', '#helpgraph', function() {
 });
 
 var validateinput = function(e) {
+    
     let minRange = e.getAttribute('min');
     let maxRange = e.getAttribute('max');
 
@@ -347,20 +352,38 @@ var validateinput = function(e) {
 
     var t = e.value;
     if (e.id == "aguaDiagram"){
+        if (typeof(selectedCell.value) == "string" && selectedCell.value.length > 0) {
+            var obj = JSON.parse(selectedCell.value);
+            let dbfields = obj.resultdb;
+            dbfields[0].fields.predefined_transp_water_perc = $('#aguaDiagram').val();
+            obj.resultdb = dbfields;
+            selectedCell.setValue(JSON.stringify(obj));
+            if (transportedWaterConnectors.hasOwnProperty(selectedCell.id)){
+                transportedWaterConnectors[selectedCell.id].transportedWater = $('#aguaDiagram').val();
+            }
+        } else {
+            resultdb[0].fields.predefined_transp_water_perc = $('#aguaDiagram').val();
+            selectedCell.setAttribute('resultdb', JSON.stringify(resultdb));
+        }        
         validateTransportedWater(t);
+        //validationTransportedWaterSum(editor, selectedCell);
     }
     e.value = (t.indexOf(".") >= 0) ? (t.substr(0, t.indexOf(".")) + t.substr(t.indexOf("."), 3)) : t;
     let texttitle = gettext("The value must be between %s and %s");
     let transtitle = interpolate(texttitle, [minRange, maxRange]);
     if (parseFloat(e.value) < parseFloat(minRange) || (e.value.length == 0)) {        
         let text = gettext(`The minimum value is %s please use the arrows`)
-        let transtext = interpolate(text, [maxRange]);
+        let transtext = interpolate(text, [minRange]);
         e.value = minRange;
         Swal.fire({
             icon: 'warning',
             title: transtitle,
             text: transtext
         });
+        if (transportedWaterConnectors.hasOwnProperty(selectedCell.id)){
+            transportedWaterConnectors[selectedCell.id].transportedWater = minRange;
+            validateTransportedWater(minRange);
+        }        
     }
     if (parseFloat(e.value) > parseFloat(maxRange)) {        
         let text = gettext(`The maximum value is %s please use the arrows`)
@@ -371,6 +394,10 @@ var validateinput = function(e) {
             title: transtitle,
             text: transtext
         });
+        if (transportedWaterConnectors.hasOwnProperty(selectedCell.id)){
+            transportedWaterConnectors[selectedCell.id].transportedWater = maxRange;
+            validateTransportedWater(maxRange);
+        }
     }
 }
 
@@ -449,7 +476,6 @@ function validationInputTransportedWater(graphic) {
 }
 
 function mensajeAlert(fin) {
-
     const texttitle = gettext("Element %s - %s is disconnect");
     const transtext = interpolate(texttitle, [fin.id, fin.getAttribute('name')]);
     Swal.fire({
@@ -460,7 +486,6 @@ function mensajeAlert(fin) {
 }
 
 function validations(validate, editor) {
-
     if (validationsCsinfraExternal(validate) || 
         validationsNodeAlone(editor) || 
         validationInputTransportedWater(editor)) {
@@ -475,7 +500,6 @@ function validations(validate, editor) {
         }
     }
 }
-
 
 // View Intake
 
@@ -518,7 +542,7 @@ function addDataView(element, MQ) {
 function funcostView(ecuation_db, ecuation_name, index, MQ) {
     $('#funcostgenerate').append(
         `<div class="alert alert-info" role="alert" idvalue="fun_${index}" style="margin-bottom: 12px">
-        <h4>${ecuation_name}</h4>
+        <h4>${gettext(ecuation_name)}</h4>
         <p name="render_ecuation">${ ecuation_db }</p>
     </div>
     `);
@@ -580,20 +604,26 @@ function deleteWithValidationsView(editor) {
 }
 
 function validateTransportedWater(value){
-    console.log("validateTransportedWater, value: " + value + " :: enableBtnValidateCount :: " + enableBtnValidateCount);
+    
+    let keys = Object.keys(transportedWaterConnectors);
+    $('#saveGraph').prop('disabled', true);
+    if (keys.length == 0) return;
+    let validation = true;
+    keys.forEach(key => {
+        let element = transportedWaterConnectors[key];
+        if (element.transportedWater == null || element.transportedWater == "" ) {
+            validation = false;       
+        }
+    });
+    if (validation) {
+        $('#saveGraph').prop('disabled', false);
+    }
+    
     if (value.length == 0){
-        $('#aguaDiagram').addClass('alert-danger');
-        enableBtnValidateCount++;
-        $('#saveGraph').prop('disabled', true);
+        $('#aguaDiagram').addClass('alert-danger');        
         return false;
     }else{
-        $('#aguaDiagram').removeClass('alert-danger');
-        if (enableBtnValidateCount >= 0){
-            enableBtnValidateCount--;
-        }        
-        if (enableBtnValidateCount <= 0){
-            $('#saveGraph').prop('disabled', false);
-        }        
+        $('#aguaDiagram').removeClass('alert-danger');             
         return true;
     }
 }

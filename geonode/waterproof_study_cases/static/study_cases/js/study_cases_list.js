@@ -530,13 +530,13 @@ $(function() {
         let lf = [];
         listIntakes.forEach(intake => {
             if (intake.geom) {
-                let g = JSON.parse(intake.geom);
+                //let g = JSON.parse(intake.geom);
                 f = {'type' : 'Feature', 
                     'properties' : { 'id' : intake.study_case_id, 
                                     'studyCase' : intake.study_case_name,
                                     'intake' : intake.intake_name,
                                     'intakeId' : intake.intake_id}, 
-                    'geometry' : g
+                    'geometry' : intake.geom
                 };
                 lf.push(f);
             }            
@@ -572,9 +572,7 @@ $(function() {
     }
 
     async function deleteDirAPIStudyCase(e) {
-        //userid
-        //idcasestudy
-        //datecreate
+
         const deleteDir = "deleteDir";
         let center =  waterproof.cityCoords == undefined ? map.getCenter(): waterproof.cityCoords;
         let amp = "&";

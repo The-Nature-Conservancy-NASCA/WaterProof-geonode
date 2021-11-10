@@ -9710,6 +9710,7 @@ form-inline {
   min-width: 100%;
   background-repeat: no-repeat;
   background-size:cover;
+  padding-top: 170px;
 }
 .imgbackgroundWhyUse{
   background: url(/static/geonode/img/Why_use_back.png);
@@ -9741,6 +9742,9 @@ form-inline {
 }
 .menuOrder1{
   padding-left: 5% !important;
+}
+.menuOrder1 ul li::marker{
+  color: transparent;
 }
 .menuPadding{
   padding-top: 35% !important;
@@ -10067,26 +10071,6 @@ top:50px;
   border-color: gray;
   left: -6px;
 }
-
-@media (min-width: 768px) {
-  #map{
-      width: 100% !important;
-      border: 2px solid;        
-  } 
-}
-@media (min-width: 992px) {
-  #map{
-      width: auto !important;
-      border: 2px solid;        
-  } 
-}
-@media (min-width: 1200px) {
-  #map{
-      width: auto !important;
-      border: 2px solid;        
-  } 
-}
-
 #map { 
   width: 380px; 
   height: 380px; 
@@ -10094,6 +10078,90 @@ top:50px;
   border: 2px solid;
   border-radius: 0.5em;
   border-color: #aaa;
+}
+@media (min-width: 360px) {
+  #map{
+      width: auto;
+      border: 2px solid;        
+  } 
+  .width-map{
+    width: 100%;
+  }
+  .imgbackgroundwiki{
+    background: url(/static/geonode/img/04-FOTO.jpg);
+    height: 600px;
+    min-height: 100%;
+    min-width: 100%;
+    background-repeat: no-repeat;
+    background-size:cover;
+    padding-top: 76px;
+  }
+  .margin-button-keep{
+    margin-left: 16%;
+  }
+}
+@media (min-width: 768px) {
+  #map{
+      width: 100%;
+      border: 2px solid;        
+  } 
+  .width-map{
+    width: 100%;
+  }
+  .imgbackgroundwiki{
+    background: url(/static/geonode/img/04-FOTO.jpg);
+    height: 600px;
+    min-height: 100%;
+    min-width: 100%;
+    background-repeat: no-repeat;
+    background-size:cover;
+    padding-top: 100px;
+  }
+  .margin-button-keep{
+    margin-left: 34%;
+  }
+}
+@media (min-width: 992px) {
+  #map{
+      width: auto;
+      border: 2px solid;        
+  } 
+  .width-map{
+    width: 66.6%;
+  }
+  .imgbackgroundwiki{
+    background: url(/static/geonode/img/04-FOTO.jpg);
+    height: 600px;
+    min-height: 100%;
+    min-width: 100%;
+    background-repeat: no-repeat;
+    background-size:cover;
+    padding-top: 170px;
+  }
+  .margin-button-keep{
+    margin-left: inherit;
+  }
+}
+@media (min-width: 1200px) {
+  #map{
+      width: auto;
+      border: 2px solid;        
+  } 
+  .width-map{
+    width: 66.6%;
+  }
+  .imgbackgroundwiki{
+    background: url(/static/geonode/img/04-FOTO.jpg);
+    height: 600px;
+    min-height: 100%;
+    min-width: 100%;
+    background-repeat: no-repeat;
+    background-size:cover;
+    padding-top: 170px;
+  }
+  .margin-button-keep{
+    margin-left: inherit;
+  }
 }
 
 #analysisOptions{

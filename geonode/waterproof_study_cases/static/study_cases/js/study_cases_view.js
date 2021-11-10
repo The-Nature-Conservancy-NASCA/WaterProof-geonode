@@ -15,8 +15,6 @@ var urlParams = (function(url) {
     return result;
 })(window.location.href);
 
-
-
 var mxLanguage = urlParams['lang'];
 var map;
 var basinId;
@@ -124,15 +122,20 @@ $(document).ready(function() {
     });
 
     $('#step6NextBtn').click(function() {
-        loadNBSActivities()
+        loadNBSActivities();
     });
 
     $('#step7PreviousBtn').click(function() {
+        $("#full-table").find('tbody').empty();
         $('#smartwizard').smartWizard("prev");
     });
 
     $('#step7EndBtn').click(function() {
-        location.href = "/study_cases/?city="+localStorage.cityId; 
+        if (localStorage.getItem('returnTo') != null) {
+            window.location.href = "/study_cases/" + localStorage.getItem('returnTo');
+        }else{
+            location.href = "/study_cases/?city="+localStorage.cityId; 
+        }        
     });
 
 
@@ -219,10 +222,8 @@ $(document).ready(function() {
                 $("#nbs-ul").append(content);
             });
             autoAdjustHeight();
-
         });
     }
-
 
     function loadNBSActivities() {
         var city_id = localStorage.cityId
@@ -274,7 +275,6 @@ $(document).ready(function() {
                     loadBiophysical(intake.id, intake.name)
                 });
             });
-
         }
     }
 
@@ -316,9 +316,6 @@ $(document).ready(function() {
         });
     }
 
-
-
-
     $('#smartwizard').smartWizard({
         selected: 0,
         theme: 'dots',
@@ -339,7 +336,6 @@ $(document).ready(function() {
             showPreviousButton: false,
         }
     });
-
 
     $('#autoAdjustHeightF').css("height", "auto");
 });

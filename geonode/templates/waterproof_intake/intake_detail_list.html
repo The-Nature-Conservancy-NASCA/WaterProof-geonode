@@ -113,7 +113,7 @@
                     <br>
                     <div class="row text-center">
                         <div class="col-md-12">
-                            <button type="button" class="btn btn-primary" id="step1NextBtn">{% trans "Next" %}</button>
+                            <button type="button" value="next" class="btn btn-primary" id="step1NextBtn">{% trans "Next" %}</button>
                         </div>
                     </div>
                 </div>
@@ -132,7 +132,7 @@
                     </div>
                     <div class="row">
                         <!--Graph-->
-                        <div class="col-md-8">
+                        <div class="col-md-8 position-graph">
                             <textarea id="xml" style="height:600px;width:100%;display:none;border-style:none;"></textarea>
                             <div class="panel panel-info">
                                 <div class="panel-body" id="graph" tabindex="-1"
@@ -140,7 +140,7 @@
                             </div>
                         </div>
                         <!--Panel Information Right-->
-                        <div class="col-md-4">
+                        <div class="col-md-4 position-table">
                             <div class="panel panel-info">
                                 <div class="panel-body">
                                     <!--Figure Name-->
@@ -192,8 +192,8 @@
                     </div>                    
                     <div class="row text-center">
                         <div class="col-md-12">
-                            <button type="button" class="btn btn-primary" id="step2PrevBtn">{% trans "Previous" %}</button>
-                            <button type="button" class="btn btn-primary" id="step2NextBtn">{% trans "Next" %}</button>
+                            <button type="button" value="previous" class="btn btn-primary" id="step2PrevBtn">{% trans "Previous" %}</button>
+                            <button type="button" value="next" class="btn btn-primary" id="step2NextBtn">{% trans "Next" %}</button>
                         </div>
                     </div>
                     
@@ -210,7 +210,7 @@
                         <div class="form-group">
                             <div class="row">
                                 <!--Data analysis Insert-->
-                                <div class="col-md-8">
+                                <div class="col-md-8 position-graph">
                                     <h5 class="text-primary">{% trans "Data analysis" %}</h5>
                                     <div class="form-group">
                                         <div class="row">
@@ -240,10 +240,10 @@
                                         </div>
                                     </div>
                                     {% endif %}
-                                    <button type="button" class="btn btn-primary" id="intakeWECB" style="display: none;">{% trans "Generate" %}</button>
+                                    <button type="button" value="generate" class="btn btn-primary" id="intakeWECB" style="display: none;">{% trans "Generate" %}</button>
                                 </div>
                                 <!--Data analysis Results-->
-                                <div class="col-md-4">
+                                <div class="col-md-4 position-table">
                                     <h5 class="text-primary">{% trans "Results" %}</h5>
                                     <div style="max-height: 400px; overflow-y: auto;">
                                         <table class="table">
@@ -270,8 +270,8 @@
                     
                     <div class="row text-center">
                         <div class="col-md-12">
-                            <button type="button" class="btn btn-primary" id="step3PrevBtn">{%trans "Previous" %}</button>
-                            <button type="button" class="btn btn-primary" id="step3NextBtn">{% trans "Next" %}</button>
+                            <button type="button" value="previous" class="btn btn-primary" id="step3PrevBtn">{%trans "Previous" %}</button>
+                            <button type="button" value="next" class="btn btn-primary" id="step3NextBtn">{% trans "Next" %}</button>
                         </div>
                     </div>
                 </div>
@@ -296,8 +296,8 @@
                     <br>
                         <div class="row text-center">
                             <div class="col-md-12">
-                                <button type="button" class="btn btn-primary" id="step4PrevBtn">{% trans "Previous" %}</button>
-                                <button type="button" class="btn btn-primary" id="step4NextBtn">{% trans "Next" %}</button>
+                                <button type="button" value="previous" class="btn btn-primary" id="step4PrevBtn">{% trans "Previous" %}</button>
+                                <button type="button" value="next" class="btn btn-primary" id="step4NextBtn">{% trans "Next" %}</button>
                             </div>
                         </div>
                 </div>
@@ -305,14 +305,14 @@
                 <div id="step-5" class="tab-pane" role="tabpanel">
                     <div class="row">
                         <!--Map-->
-                        <div class="col-md-8">
+                        <div class="col-md-7 width-graph-5">
                             <div class="panel panel-danger">
                                 <div id="mapid" style="width: 100%; height: 400px;"></div>
                             </div>
                         </div>
                         <!--Panel Information Right-->
-                        <div class="col-md-4">
-                            <div class="panel panel-default">
+                        <div class="col-md-5 width-info-5">
+                            <div class="panel panel-default" style="height: auto;">
                                 <div class="panel-body">
                                     <div class="alert alert-info" role="alert">
                                         <h1 class="text-center">{% trans "Intake area delimitation" %}</h1>
@@ -324,7 +324,7 @@
                     <br>
                     <div class="row text-center">
                         <div class="col-md-12 form-group">
-                            <button type="button" class="btn btn-primary" id="step5PrevBtn">{% trans "Previous" %}</button>
+                            <button type="button" value="previous" class="btn btn-primary" id="step5PrevBtn">{% trans "Previous" %}</button>
                             <a type="button" class="btn btn-primary" 
                                 href="{% url "list-intake" %}?city={{ intake.city.id }}&limit={{ CLIENT_RESULTS_LIMIT }}" >
                                 {% trans "Exit" %}

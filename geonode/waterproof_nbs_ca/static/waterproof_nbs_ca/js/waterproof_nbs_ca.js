@@ -37,18 +37,19 @@ $(function () {
             dato = $("#riosTransition").val();
             var data_value = $(`#selectlanduse${dato}`).attr('data-value');
             $('div[name=selectlanduse]').each(function () {
-                $('div[name=selectlanduse]').css({
-                    "display": "none"
-                });
+                $('div[name=selectlanduse]').hide();
                 $('div[name=selectlanduse]').find('input[type=radio]:checked').each(function (idx, input) {
                     input.checked = false;
                 });
+                $('div[name=selectlanduse]').find('input[type=radio]').each(function (idx, input) {
+                    $(input).removeAttr('required');
+                });
             });
             if (dato == data_value) {
-                $(`#selectlanduse${dato}`).css({
-                    "display": "block"
-                })
-
+                $(`#selectlanduse${dato}`).show();
+                $(`#selectlanduse${dato}`).find('input[type=radio]').each(function (idx, input) {
+                    $(input).prop('required',true);
+                });
             }
         });
         $("#clear_options").click(function () {
@@ -315,7 +316,9 @@ $(function () {
                     },
                     success: function (result) {
                         result = JSON.parse(result);
-                        $('#currencyLabel').text('(' + result[0].fields.currency + ') - ' + result[0].fields.name);
+                        if (result.length > 0){                            
+                            $('#currencyLabel').text('(' + result[0].fields.currency + ') - ' + result[0].fields.name);
+                        }                        
                     }
                 });
             }

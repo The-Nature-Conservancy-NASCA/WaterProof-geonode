@@ -13,6 +13,7 @@ from rest_framework.response import Response
 from geonode.waterproof_treatment_plants.models import Header, Csinfra, Element, Function, Ptap
 from geonode.waterproof_intake.models import ElementSystem, ProcessEfficiencies, CostFunctionsProcess
 from geonode.waterproof_parameters.models import Countries
+from geonode.waterproof_study_cases.models import StudyCases
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import DateTimeField
 import requests
@@ -48,39 +49,44 @@ def getTreatmentPlantsList(request):
 		tratamentPlantsList = []
 		user = request.GET['user']
 		city_id = request.GET['city']
-				
-		if user != '-1':					
+		
+		if user != '-1':
+			#print ("getTreatmentPlantsList, user: %s, city: %s" % (user, city_id))
+			headers = Header.objects.filter(plant_city=city_id, plant_user=user)
+			#print ("headers: %s" % headers)
+		else:
+			#print("getTreatmentPlantsList (without user), city: %s" % city_id)
+			headers = Header.objects.filter(plant_city=city_id)
+		try:				
+			tratamentPlantsList = Csinfra.objects.filter(csinfra_plant__in=headers)
+		except:
+			city_id = ''
+			tratamentPlantsList = Csinfra.objects.all()	
+		for plant in tratamentPlantsList:
+			lastPlantIntakeName = ''
+			csinfra = plant.csinfra_plant
+			element = plant.csinfra_elementsystem
 			try:
-				headers = Header.objects.filter(plant_city=city_id)
-				tratamentPlantsList = Csinfra.objects.filter(csinfra_plant__in=headers)
+				lastPlantIntakeName = ("%s:%s::%s") % (element.intake.name, element.name, element.graphId)
 			except:
-				city_id = ''
-				tratamentPlantsList = Csinfra.objects.all()	
-			for plant in tratamentPlantsList:
-				lastPlantIntakeName = ''
-				csinfra = plant.csinfra_plant
-				element = plant.csinfra_elementsystem
-				try:
-					lastPlantIntakeName = ("%s:%s::%s") % (element.intake.name, element.name, element.graphId)
-				except:
-					lastNull = ''
-				
-				# lastInstakeName = csinfra.plant_name
-				datePTAP = csinfra.plant_date_create
-				dateFormat = datePTAP.strftime("%Y-%m-%d")
-				#print(csinfra.id)
-				objects_list.append({
-					"plantId": csinfra.id,
-					"plantUser": element.intake.added_by.first_name + " " + element.intake.added_by.last_name,
-					"plantDate": dateFormat,
-					"plantName": csinfra.plant_name,
-					"plantDescription": csinfra.plant_description,
-					"plantSuggest": csinfra.plant_suggest,
-					"plantCityId": csinfra.plant_city_id,
-					"standardNameSpanish": csinfra.plant_city.standard_name_spanish,
-					"plantIntakeName": [lastPlantIntakeName],
-					"geom" : element.intake.polygon_set.first().geom.geojson
-				})
+				lastNull = ''
+			
+			# lastInstakeName = csinfra.plant_name
+			datePTAP = csinfra.plant_date_create
+			dateFormat = datePTAP.strftime("%Y-%m-%d")
+			#print(csinfra.id)
+			objects_list.append({
+				"plantId": csinfra.id,
+				"plantUser": element.intake.added_by.first_name + " " + element.intake.added_by.last_name,
+				"plantDate": dateFormat,
+				"plantName": csinfra.plant_name,
+				"plantDescription": csinfra.plant_description,
+				"plantSuggest": csinfra.plant_suggest,
+				"plantCityId": csinfra.plant_city_id,
+				"standardNameSpanish": csinfra.plant_city.standard_name_spanish,
+				"plantIntakeName": [lastPlantIntakeName],
+				"geom" : element.intake.polygon_set.first().geom.geojson #json.loads(element.intake.polygon_set.first().geomIntake)['features'][0]['geometry'] # geom.geojson 
+			})
 				
 
 		return JsonResponse(objects_list, safe=False)
@@ -98,7 +104,12 @@ def getIntakeList(request):
 	if request.method == 'GET':
 		objects_list = []
 		city_id = request.query_params.get('cityId')
-		elements = ElementSystem.objects.filter(normalized_category='CSINFRA').filter(intake__city__id=city_id).order_by('intake__name')
+		elements = []
+		if request.user.is_authenticated:
+			# print("getIntakeList, user: %s, city: %s" % (request.user.id, city_id))
+			elements = ElementSystem.objects.filter(normalized_category='CSINFRA').filter(intake__city__id=city_id, intake__added_by=request.user).order_by('intake__name')
+		else:
+			elements = ElementSystem.objects.filter(normalized_category='CSINFRA').filter(intake__city__id=city_id).order_by('intake__name')
 		for elementSystem in elements:
 			intake_name = elementSystem.intake.name
 			objects_list.append({
@@ -127,7 +138,7 @@ def getTypePtap(request):
 		if request.user.is_authenticated:
 			url = settings.WATERPROOF_INVEST_API + 'ptapSelection'
 			
-			x = requests.post( url, json = request.data)
+			x = requests.post( url, json = request.data, verify=False)
 			return JsonResponse(json.loads(x.text), safe=False)
 
 
@@ -476,6 +487,17 @@ def getTreatmentPlant(request):
 
 		return JsonResponse(response, safe=False)
 
+
+@api_view(['GET'])
+def getCountStudyCasesByPlant(request, id):
+    if request.method == 'GET':
+        #print("getCountStudyCasesByPlant :: id: %s" % id)
+        plants = StudyCases.objects.filter(ptaps=id)        
+        #print ("plants: %s" % plants)
+        count = len(plants)
+        #print ("count: %s" % count)
+        return JsonResponse({"count":count}, safe=False)
+
 def get_geoms_intakes(plants):
 	intake_geoms = []
 	for p in plants:
@@ -483,7 +505,7 @@ def get_geoms_intakes(plants):
 		ig = dict()
 		ig['id'] = i.id
 		if not i.polygon_set.first().geom is None:
-				ig['geom'] = i.polygon_set.first().geom.geojson
+				ig['geom'] = json.loads(i.polygon_set.first().geomIntake)['features'][0]['geometry'] # geom.geojson
 				ig['name'] = i.name
 		intake_geoms.append(ig)
 	return intake_geoms

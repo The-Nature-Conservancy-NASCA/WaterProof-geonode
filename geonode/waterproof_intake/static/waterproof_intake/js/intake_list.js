@@ -52,55 +52,70 @@ $(function () {
         });
         
         $('#tblIntakes tbody').on('click', '.btn-danger', function (evt) {
-            Swal.fire({
-                title: gettext('Delete intake'),
-                text: gettext("Are you sure?") + gettext("You won't be able to revert this!"),
-                icon: 'warning',
-                showCancelButton: false,
-                showDenyButton: true,
-                confirmButtonColor: '#d33',
-                denyButtonColor: '#3085d6',
-                confirmButtonText: gettext('Yes, delete it!'),
-                denyButtonText: gettext('Cancel')
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    intakeId = evt.currentTarget.getAttribute('data-id');
-                    /** 
-                     * Get filtered activities by transition id 
-                     * @param {String} url   activities URL 
-                     * @param {Object} data  transition id  
-                     *
-                     * @return {String} activities in HTML option format
-                     */
-                    $.ajax({
-                        url: '/intake/delete/' + intakeId,
-                        type: 'POST',
-                        success: function (result) {
-                            Swal.fire({
-                                icon: 'success',
-                                title: gettext('Great!'),
-                                text: gettext('The intake has been deleted')
-                            })
-                            var cityId = 143873; //Default Bogota
-                            if (localStorage.cityId){
-                                cityId = localStorage.cityId;
-                            }
-                            setTimeout(function () { location.href = "/intake/?city="+cityId; }, 1000);
-                        },
-                        error: function (error) {
-                            Swal.fire({
-                                icon: 'error',
-                                title: gettext('Error!'),
-                                text: gettext('The intake has not been deleted, try again!')
-                            })
-                        }
+            intakeId = evt.currentTarget.getAttribute('data-id');
+            var urlCountIntakes = "intakeUsedByPlantsAndStudyCases/?id=" + intakeId;
+            var promise = $.ajax({
+                url: urlCountIntakes,
+                type: 'GET',
+                dataType: 'json'
+            });
+            promise.done(function (data) {
+                console.log(this);
+                if (data.count > 0) {
+                    evt.currentTarget.classList.add("disabled");
+                    Swal.fire({
+                        text: gettext("This intake is in use by other elements and can't be deleted."),
                     });
-                } else if (result.isDenied) {
-                    return;
+                } else{
+                    Swal.fire({
+                        title: gettext('Delete intake'),
+                        text: gettext("Are you sure?") + gettext("You won't be able to revert this!"),
+                        icon: 'warning',
+                        showCancelButton: false,
+                        showDenyButton: true,
+                        confirmButtonColor: '#d33',
+                        denyButtonColor: '#3085d6',
+                        confirmButtonText: gettext('Yes, delete it!'),
+                        denyButtonText: gettext('Cancel')
+                    }).then((result) => {
+                        if (result.isConfirmed) {                            
+                            /** 
+                             * Get filtered activities by transition id 
+                             * @param {String} url   activities URL 
+                             * @param {Object} data  transition id  
+                             *
+                             * @return {String} activities in HTML option format
+                             */
+                            $.ajax({
+                                url: '/intake/delete/' + intakeId,
+                                type: 'POST',
+                                success: function (result) {
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: gettext('Great!'),
+                                        text: gettext('The intake has been deleted')
+                                    })
+                                    var cityId = 143873; //Default Bogota
+                                    if (localStorage.cityId){
+                                        cityId = localStorage.cityId;
+                                    }
+                                    setTimeout(function () { location.href = "/intake/?city="+cityId; }, 1000);
+                                },
+                                error: function (error) {
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: gettext('Error!'),
+                                        text: gettext('The intake has not been deleted, try again!')
+                                    })
+                                }
+                            });
+                        } else if (result.isDenied) {
+                            return;
+                        }
+                    })
                 }
-            })
-        });
-        
+            });            
+        });        
     };
     
     showSearchPointsFunction = function showSearchPointsIntake(geojson) {
@@ -136,10 +151,10 @@ $(function () {
         let lf = [];
         listIntakes.forEach(intake => {
             if (intake.geom) {
-                let g = JSON.parse(intake.geom);
+                //let g = JSON.parse(intake.geom);
                 f = {'type' : 'Feature', 
                     'properties' : { 'id' : intake.id, 'name' : intake.name}, 
-                    'geometry' : g
+                    'geometry' : intake.geom
                 };
                 lf.push(f);
             }            
