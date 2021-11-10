@@ -77,6 +77,7 @@
         </thead>
         <tbody>
             {% for studyCases in casesList %}
+            
             <tr>
                 <td class="small text-center vat">{{studyCases.id}}</td>
                 {% if studyCases.is_public%}
@@ -172,6 +173,7 @@
                 </td>
             </tr>
             {% endfor %}
+            <a class="btn btn-danger" id="btntestdelete" user-id="1000" date-create="2021-7-26" data-id="366" title='{% trans "delete" %}'><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
         </tbody>
     </table>
 </div>
@@ -237,6 +239,7 @@
     let showSearchPointsFunction = showSearchPoints; 
     var map;
     var table;
+    var serverApi = "{{serverApi}}";
     $(document).ready(function () {
         drawPolygons(map);
         var table = $('#tbl-studycases').DataTable({
