@@ -272,7 +272,7 @@
     <div class="list-menu-results" id="idGeographicIndicators">
         <a id="idGeographicIndicatorsClic" href=""><img src="/static/geonode/img/indicadores-geograficos.png" alt="geographic indicators" title="{% trans "Geographic visualization" %}"/></a>
         <br>
-        <a id="idGeographicIndicatorsClic" href="">{% trans "Geographic visualization" %}</a>
+        <a id="idGeographicIndicatorsClic">{% trans "Geographic visualization" %}</a>
         <!--a>../../reports/geographic/</a-->
     </div>
 </div>
@@ -768,7 +768,7 @@ $(function () {
         var dataSensibilityAnalysisCostRange = [];
         var urlDetail = "../../reports/getSensibilityAnalysisCost/?studyCase=" + localStorage.idStudyCase;
         $.getJSON(urlDetail, function (data) {
-//#endregion            var txtFileCost = '<tr><td class="small text-center vat" >Discounted Cost</td>';
+                //#endregion            var txtFileCost = '<tr><td class="small text-center vat" >Discounted Cost</td>';
             var txtFileCostMinCost = '<tr><td class="small text-center vat" style="text-align: left;">Discounted cost minimum</td>';
             var txtFileCostMedCost = '<tr><td class="small text-center vat" style="text-align: left;">Discounted cost medium</td>';
             var txtFileCostMaxCost = '<tr><td class="small text-center vat" style="text-align: left;">Discounted cost maximum</td>';
@@ -959,7 +959,7 @@ $(function () {
         document.getElementById("idCurrencyMainFinaltial").innerHTML = localStorage.getItem('idCurrencyMain');
         document.getElementById("idTimeMainFinaltial").innerHTML = localStorage.getItem('idTimeMain');
         document.getElementById("discountRateFinaltial").innerHTML = localStorage.getItem('transactionCost');
-
+        
         var urlDetail = "../../reports/getWpcompareMapas/?studyCase=" + localStorage.idStudyCase;
             $.getJSON(urlDetail, function (data) {
                     $.each( data, function( key, value ) {
@@ -973,7 +973,7 @@ $(function () {
                         centroX = centroid;
                     });
                     var urlWaterProofLyrsWMS = `/reports/geographic/?folder=${usr_folder}&intake=${intake}&year=${year}&region=${region}&center=${centroX}&study_case_id=${studyCaseId}`;
-                    //console.log (urlWaterProofLyrsWMS);
+                    console.log (urlWaterProofLyrsWMS);
                     document.getElementById("idGeographicIndicatorsClic").href =urlWaterProofLyrsWMS;
                     
                 });
