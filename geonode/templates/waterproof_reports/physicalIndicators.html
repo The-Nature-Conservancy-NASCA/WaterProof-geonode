@@ -378,7 +378,7 @@
                     </div>
                 </div>
                 <div class="container-graph" id="idGraph1">
-                    <div class="title-cont-graph">{% trans "NBS Scenario - AWY (m3)" %}</div>
+                    <div class="title-cont-graph">{% trans "Volume of water yield (change in time)" %}</div>
                     <div class="graph-year-cont">
                         <div id="containerNbs1"></div>
                     </div>
@@ -415,7 +415,7 @@
                     </div>
                 </div>
                 <div class="container-graph" id="idGraph2">
-                    <div class="title-cont-graph">{% trans "NBS Scenario - Wsed (Ton)" %}</div>
+                    <div class="title-cont-graph">{% trans "Anual volume base flow (change in time)" %}</div>
                     <div class="graph-year-cont">
                         <div id="containerNbs2"></div>
                     </div>
@@ -451,7 +451,7 @@
                     </div>
                 </div>
                 <div class="container-graph" id="idGraph3">
-                    <div class="title-cont-graph">{% trans "NBS Scenario - WN (kg)" %}</div>
+                    <div class="title-cont-graph">{% trans "Total sediments (change in time)" %}</div>
                     <div class="graph-year-cont">
                         <div id="containerNbs3"></div>
                     </div>
@@ -487,7 +487,7 @@
                     </div>
                 </div>
                 <div class="container-graph" id="idGraph4">
-                    <div class="title-cont-graph">{% trans "NBS Scenario - WP (kg)" %}</div>
+                    <div class="title-cont-graph">{% trans "Nitrogen load (change in time)" %}</div>
                     <div class="graph-year-cont">
                         <div id="containerNbs4"></div>
                     </div>
@@ -523,7 +523,7 @@
                     </div>
                 </div>
                 <div class="container-graph" id="idGraph5">
-                    <div class="title-cont-graph">{% trans "NBS Scenario - BF (m3)" %}</div>
+                    <div class="title-cont-graph">{% trans "Phosphorus load (change in time)" %}</div>
                     <div class="graph-year-cont">
                         <div id="containerNbs5"></div>
                     </div>
@@ -559,7 +559,7 @@
                     </div>
                 </div>
                 <div class="container-graph" id="idGraph6">
-                    <div class="title-cont-graph">{% trans "NBS Scenario - WC (Ton)" %}</div>
+                    <div class="title-cont-graph">{% trans "Carbon storage (change in time)" %}</div>
                     <div class="graph-year-cont">
                         <div id="containerNbs6"></div>
                     </div>
@@ -1254,7 +1254,7 @@ var localStorageId = localStorage.idStudyCase;
                             enabled: false
                         },
                         series: [{
-                            name: 'NBS - AWY (m3)',
+                            name: 'NbS - AWY (m3)',
                             type: 'spline',
                             dashStyle: 'shortdot',
                             data: volumeOfWaterYieldChangeInTimeNbs
@@ -1280,12 +1280,12 @@ var localStorageId = localStorage.idStudyCase;
                             enabled: false
                         },
                         series: [{
-                            name: 'NBS - Wsed (Ton)',
+                            name: 'NbS - BF (m3)',
                             type: 'spline',
                             dashStyle: 'shortdot',
                             data: annualVolumeBaseFlowChangeInTimeNbs
                         },{
-                            name: 'BaU - Wsed (Ton)',
+                            name: 'BaU - BF (m3)',
                             type: 'spline',
                             dashStyle: 'shortdot',
                             data: annualVolumeBaseFlowChangeInTimeBusiness
@@ -1306,12 +1306,12 @@ var localStorageId = localStorage.idStudyCase;
                             enabled: false
                         },
                         series: [{
-                            name: 'NBS - WN (kg)',
+                            name: 'NbS - WSed (Ton)',
                             type: 'spline',
                             dashStyle: 'shortdot',
                             data: totalSedimentsChangeInTimeNbs
                         },{
-                            name: 'BaU - WN (kg)',
+                            name: 'BaU - WSed (Ton)',
                             type: 'spline',
                             dashStyle: 'shortdot',
                             data: totalSedimentsChangeInTimeBusiness
@@ -1332,12 +1332,12 @@ var localStorageId = localStorage.idStudyCase;
                             enabled: false
                         },
                         series: [{
-                            name: 'NBS - WP (kg)',
+                            name: 'NbS - WN (Kg)',
                             type: 'spline',
                             dashStyle: 'shortdot',
                             data: nitrogenLoadChangeInTimeNbs
                         },{
-                            name: 'BaU - WP (kg)',
+                            name: 'BaU - WN (Kg)',
                             type: 'spline',
                             dashStyle: 'shortdot',
                             data: nitrogenLoadChangeInTimeBusiness
@@ -1358,12 +1358,12 @@ var localStorageId = localStorage.idStudyCase;
                             enabled: false
                         },
                         series: [{
-                            name: 'NBS - BF (m3)',
+                            name: 'NbS - WP (Kg)',
                             type: 'spline',
                             dashStyle: 'shortdot',
                             data: phosphorusLoadChangeInTimeNbs
                         },{
-                            name: 'BaU - BF (m3)',
+                            name: 'BaU - WP (Kg)',
                             type: 'spline',
                             dashStyle: 'shortdot',
                             data: phosphorusLoadChangeInTimeBusiness
