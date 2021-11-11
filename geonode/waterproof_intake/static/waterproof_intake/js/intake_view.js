@@ -54,7 +54,6 @@ $(document).ready(function() {
     $("#intakeWECB").click(function() {
         //generateInterpolationResult();
     });
-
     function generateInterpolationResult(){
         if ($("#numberYearsInterpolationValue").val() == '' || 
             $("#initialDataExtractionInterpolationValue").val() == '' || 
@@ -260,6 +259,12 @@ $(document).ready(function() {
     setInterpolationParams();
     
     $('#step1NextBtn').click(function() {
+        $('#smartwizard').smartWizard("stepState", [3], "hide");
+        for (const item of graphData) {
+            if (item.external != null && item.external != 'false') {
+                $('#smartwizard').smartWizard("stepState", [3], "show");
+            }
+        }
         $('#smartwizard').smartWizard("next");
     });
 

@@ -224,6 +224,9 @@
     .display-true{
         display: none;
     }
+    .padding-investment{
+        padding: 0;
+    }
 }
 
 @media (min-width: 768px) {
@@ -272,6 +275,9 @@
     }
     .display-true{
         display: none;
+    }
+    .padding-investment{
+        padding: 0;
     }
 }
 
@@ -322,6 +328,9 @@
     .display-true{
         display: table;
     }
+    .padding-investment{
+        padding: 0;
+    }
 }
 
 @media (min-width: 1200px) {
@@ -370,6 +379,9 @@
     }
     .display-true{
         display: table;
+    }
+    .padding-investment{
+        padding: 0;
     }
 }
 
