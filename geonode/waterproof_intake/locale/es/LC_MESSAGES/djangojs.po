@@ -27,10 +27,9 @@ msgstr ""
 "Project-Id-Version: GeoNode\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-07-21 14:49-0500\n"
-"PO-Revision-Date: 2021-07-28 13:05-0500\n"
+"PO-Revision-Date: 2021-11-10 14:30-0500\n"
 "Last-Translator: Julien Collaer <julien.collaer@opengeode.be>\n"
-"Language-Team: Spanish (http://www.transifex.com/geonode/geonode/language/"
-"es/)\n"
+"Language-Team: Spanish (http://www.transifex.com/geonode/geonode/language/es/)\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -69,8 +68,8 @@ msgstr ""
 #: static/waterproof_intake/js/graph_edit.js:143
 #: static/waterproof_intake/js/graph_view.js:141
 msgid ""
-"The side intake element can only receive connection from the river, "
-"reservoir and water reservoir"
+"The side intake element can only receive connection from the river, reservoir "
+"and water reservoir"
 msgstr ""
 "El elemento de bocatoma lateral solo puede recibir una conexión del río y "
 "reservorio de agua"
@@ -179,8 +178,8 @@ msgid ""
 "Selected element is connected with Extraction connection element. Can't be "
 "deleted!"
 msgstr ""
-"El elemento seleccionado está conectado con un elemento de conexión "
-"extracción, no puede ser eliminado!"
+"El elemento seleccionado está conectado con un elemento de conexión extracción, "
+"no puede ser eliminado!"
 
 #: static/waterproof_intake/js/graphValidations.js:287
 msgid "The River can't be Removed"
@@ -188,16 +187,15 @@ msgstr "El río no puede ser removido"
 
 #: static/waterproof_intake/js/graphValidations.js:326
 msgid ""
-"The sum of % of transported water from the Outgoing connectors of %s cannot "
-"be greater than %s %"
+"The sum of % of transported water from the Outgoing connectors of %s cannot be "
+"greater than %s %"
 msgstr ""
-"La sumatoria del % de agua transportada desde el elemento seleccionado no "
-"puede ser mayo a 100%"
+"La sumatoria del % de agua transportada desde el elemento seleccionado no puede "
+"ser mayo a 100%"
 
 #: static/waterproof_intake/js/graphValidations.js:328
 msgid "The sum of % of water transported from the connectors is %s %"
-msgstr ""
-"La sumatoria de porcentaje de agua transportada desde los conectores es"
+msgstr "La sumatoria de porcentaje de agua transportada desde los conectores es"
 
 #: static/waterproof_intake/js/graphValidations.js:355
 #: static/waterproof_intake/js/graphValidations.js:367
@@ -433,8 +431,7 @@ msgstr "Error en extensión de archivo"
 #: static/waterproof_intake/js/intake_create.js:1000
 #: static/waterproof_intake/js/intake_edit.js:1100
 msgid "Not supported file extension"
-msgstr ""
-"Extensión no soportada, el archivo debe ser .geojson o un .zip shapefile"
+msgstr "Extensión no soportada, el archivo debe ser .geojson o un .zip shapefile"
 
 #: static/waterproof_intake/js/intake_list.js:59
 msgid "Delete intake"
@@ -534,3 +531,9 @@ msgstr "Nombre no definido"
 
 msgid "Edit"
 msgstr "Editar"
+
+msgid "Algae Removal"
+msgstr "Remoción de algas"
+
+msgid "Dredge"
+msgstr "Dragado"
