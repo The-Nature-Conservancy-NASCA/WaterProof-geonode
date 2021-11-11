@@ -215,7 +215,7 @@
                 <a href="../../reports/decision/">{% trans "Decision indicators" %}</a>
             </div>
             <div class="list-menu-results" id="idGeographicIndicators">
-                <a id="idGeographicIndicatorsClic" href="" onclick="urlGeographic()"><img src="/static/geonode/img/indicadores-geograficos.png" alt="geographic indicators" title="{% trans "Geographic visualization" %}"/></a>
+                <a id="idGeographicIndicatorsClic" href=""><img src="/static/geonode/img/indicadores-geograficos.png" alt="geographic indicators" title="{% trans "Geographic visualization" %}"/></a>
                 <br>
                 <a id="idGeographicIndicatorsClic" href="">{% trans "Geographic visualization" %}</a>
                 <!-- ../../reports/geographic/-->
@@ -857,27 +857,26 @@
             });
 
             // A.R. Agrega evento llamado mapas geográficos
-            //server = 'https://dev.skaphe.com/srv/'; //'/srv/';  
-            urlGeographic = function(){
-                var urlDetail = "../../reports/getWpcompareMapas/?studyCase=" + localStorage.idStudyCase;
-                $.getJSON(urlDetail, function (data) {
-                        $.each( data, function( key, value ) {
-                            usr_folder = value.folder;
-                            intake = value.intake;
-                            year = value.year;
-                            region=value.region;
-                            studyCaseId=value.studycase;
-                            nameIntake=value.nameIntake;
-                            let g = JSON.parse(value.center).coordinates;
-                            let centroid =g[1] + "," + g[0];
-                            centroX = centroid;
-                        });
-                        var urlWaterProofLyrsWMS = `/reports/geographic/?folder=${usr_folder}&intake=${intake}&year=${year}&region=${region}&center=${centroX}&study_case_id=${studyCaseId}&name=${nameIntake}`;
-                        console.log (urlWaterProofLyrsWMS);
-                        document.getElementById("idGeographicIndicatorsClic").href =urlWaterProofLyrsWMS;
-                        
-                    })
-            }    
+            //server = 'https://dev.skaphe.com/srv/'; //'/srv/';
+            var urlDetail = "../../reports/getWpcompareMapas/?studyCase=" + localStorage.idStudyCase;
+            $.getJSON(urlDetail, function (data) {
+                    $.each( data, function( key, value ) {
+                        usr_folder = value.folder;
+                        intake = value.intake;
+                        year = value.year;
+                        region=value.region;
+                        studyCaseId=value.studycase;
+                        nameIntake=value.nameIntake;
+                        let g = JSON.parse(value.center).coordinates;
+                        let centroid =g[1] + "," + g[0];
+                        centroX = centroid;
+                    });
+                    var urlWaterProofLyrsWMS = "/reports/geographic/?folder="+usr_folder+"&intake="+intake+"&year="+year+"&region="+region+"&center="+centroX+"&study_case_id="+studyCaseId+"&name="+nameIntake;
+                    // var urlWaterProofLyrsWMS = `/reports/geographic/?folder=${usr_folder}&intake=${intake}&year=${year}&region=${region}&center=${centroX}&study_case_id=${studyCaseId}&name=${nameIntake}`;
+                    console.log (urlWaterProofLyrsWMS);
+                    document.getElementById('idGeographicIndicatorsClic').setAttribute('href', urlWaterProofLyrsWMS)
+                    
+                }) 
         }
         initialize();
     });    
