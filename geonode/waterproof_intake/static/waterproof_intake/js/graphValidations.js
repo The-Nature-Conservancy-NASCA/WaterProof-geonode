@@ -248,7 +248,7 @@ function addData2HTML(resultdb, cell) {
     $('#sedimentosDiagram').attr('max', resultdb[0].fields.maximal_sediment_perc);
     $('#nitrogenoDiagram').attr('min', resultdb[0].fields.minimal_nitrogen_perc);
     $('#nitrogenoDiagram').attr('max', resultdb[0].fields.maximal_nitrogen_perc);
-    $('#fosforoDiagram').attr('min', resultdb[0].fields.minimal_phosphorus_perc);
+    $('#fosforoDiagram').attr('min', resultdb[0].fields.minimal_phoshorus_perc);
     $('#fosforoDiagram').attr('max', resultdb[0].fields.maximal_phosphorus_perc);
 }
 
@@ -343,6 +343,7 @@ $(document).on('click', '#helpgraph', function() {
 var validateinput = function(e) {
     
     let minRange = e.getAttribute('min');
+    console.log(minRange+e.getAttribute('max'));
     let maxRange = e.getAttribute('max');
 
     if (minRange == 0 && maxRange == 0) {
@@ -589,7 +590,7 @@ function addData2HTMLView(resultdb) {
     $('#sedimentosDiagram').attr('max', resultdb[0].fields.maximal_sediment_perc);
     $('#nitrogenoDiagram').attr('min', resultdb[0].fields.minimal_nitrogen_perc);
     $('#nitrogenoDiagram').attr('max', resultdb[0].fields.maximal_nitrogen_perc);
-    $('#fosforoDiagram').attr('min', resultdb[0].fields.minimal_phosphorus_perc);
+    $('#fosforoDiagram').attr('min', resultdb[0].fields.minimal_phoshorus_perc);
     $('#fosforoDiagram').attr('max', resultdb[0].fields.maximal_phosphorus_perc);
 }
 
