@@ -540,10 +540,10 @@ $(function () {
             document.getElementById("listCheckCost").innerHTML = htmlCostFilter;
         });
 
-        var htmlCost = '<tr><td class="small text-center vat" >Total cost</td>';
-        var htmlDiscountedCost = '<tr><td class="small text-center vat" >Total discounted cost</td>';
-        var htmlBenefits= '<tr><td class="small text-center vat" >Total benefits</td>';
-        var htmlDiscountedBenefits = '<tr><td class="small text-center vat" >Total discounted benefits</td>';
+        var htmlCost = '<tr><td class="small text-center vat" style="text-align: left;" >Total cost</td>';
+        var htmlDiscountedCost = '<tr><td class="small text-center vat" style="text-align: left;" >Total discounted cost</td>';
+        var htmlBenefits= '<tr><td class="small text-center vat" style="text-align: left;" >Total benefits</td>';
+        var htmlDiscountedBenefits = '<tr><td class="small text-center vat" style="text-align: left;" >Total discounted benefits</td>';
         var htmlTitle = '<tr class="info"><th scope="col" class="small text-center vat">{% trans "Time Period" %}</th>';
         var contTitle = 1;
 
@@ -557,13 +557,13 @@ $(function () {
                 totalBenefits.push(parseFloat(value.totalBenefits.toFixed(2)));
                 totalDiscountedBenefits.push(parseFloat(value.totalDiscountedBenefits.toFixed(2)));
                 valHtmlCost = value.totalCost.toFixed(2);
-                htmlCost = htmlCost + '<td class="small text-center vat" id="valor2">' + Intl.NumberFormat('es').format(valHtmlCost) + '</td>';
+                htmlCost = htmlCost + '<td class="small text-center vat" style="text-align: right;" id="valor2">' + Intl.NumberFormat('es').format(valHtmlCost) + '</td>';
                 valhtmlDiscountedCost = value.totalDiscountedCost.toFixed(2);
-                htmlDiscountedCost = htmlDiscountedCost + '<td class="small text-center vat" id="valor3">' + Intl.NumberFormat('es').format(valhtmlDiscountedCost) + '</td>';
+                htmlDiscountedCost = htmlDiscountedCost + '<td class="small text-center vat" style="text-align: right;" id="valor3">' + Intl.NumberFormat('es').format(valhtmlDiscountedCost) + '</td>';
                 valhtmlBenefits = value.totalBenefits.toFixed(2);
-                htmlBenefits = htmlBenefits + '<td class="small text-center vat" id="valor3">' + Intl.NumberFormat('es').format(valhtmlBenefits) + '</td>';
+                htmlBenefits = htmlBenefits + '<td class="small text-center vat" style="text-align: right;" id="valor3">' + Intl.NumberFormat('es').format(valhtmlBenefits) + '</td>';
                 valhtmlDiscountedBenefits = value.totalDiscountedBenefits.toFixed(2);
-                htmlDiscountedBenefits = htmlDiscountedBenefits + '<td class="small text-center vat" id="valor3">' + Intl.NumberFormat('es').format(valhtmlDiscountedBenefits) + '</td>';
+                htmlDiscountedBenefits = htmlDiscountedBenefits + '<td class="small text-center vat" style="text-align: right;" id="valor3">' + Intl.NumberFormat('es').format(valhtmlDiscountedBenefits) + '</td>';
                 htmlTitle = htmlTitle + '<th scope="col" class="small text-center vat">{% trans "' + contTitle + '" %}</th>'; 
                 contTitle ++;
             });
