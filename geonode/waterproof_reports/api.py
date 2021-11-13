@@ -604,7 +604,7 @@ def getSelectorStudyCasesId(request):
 		con = psycopg2.connect(settings.DATABASE_URL)
 		cur = con.cursor()
 
-		cur.execute("select * from public.__get_wp_report_ppalselect('" + study_case_id + "'")
+		cur.execute("select * from public.__get_wp_report_ppalselect('" + study_case_id + "')")
 
 		rows = cur.fetchall()
 		objects_list = []
