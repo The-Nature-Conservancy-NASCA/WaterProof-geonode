@@ -604,11 +604,7 @@ def getSelectorStudyCasesId(request):
 		con = psycopg2.connect(settings.DATABASE_URL)
 		cur = con.cursor()
 
-		cur.execute("SELECT ii.name AS selector, ii.id AS intakeid, st_asgeojson(st_centroid(g.geom),2) as center, " + 
-							" si.studycases_id, sc.name  FROM public.waterproof_study_cases_studycases " + 
-							"SC INNER JOIN public.waterproof_study_cases_studycases_intakes SI ON (sc.id=si.studycases_id) INNER JOIN " + 
-							"public.waterproof_intake_intake II ON (si.intake_id=ii.id) LEFT JOIN public.waterproof_intake_polygon g on " + 
-							"(ii.id = g.id) WHERE sc.id = '" + study_case_id + "'")
+		cur.execute("select * from public.__get_wp_report_ppalselect('" + study_case_id + "'")
 
 		rows = cur.fetchall()
 		objects_list = []
