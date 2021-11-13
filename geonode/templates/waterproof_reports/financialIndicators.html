@@ -592,20 +592,20 @@ $(function () {
                 },
                 series: [{
                     name: gettext('Total benefits'),
-                    data: totalCost
+                    data: totalBenefits
                 },{
                     name: gettext('Total Cost'),
-                    data: totalDiscountedCost
+                    data: totalCost
                 },{
                     name: gettext('Total discounted benefits'),
                     type: 'spline',
                     dashStyle: 'shortdot',
-                    data: totalBenefits
+                    data: totalDiscountedBenefits
                 },{
                     name: gettext('Total discounted cost'),
                     type: 'spline',
                     dashStyle: 'shortdot',
-                    data: totalDiscountedBenefits
+                    data: totalDiscountedCost
                 }]
             });
         });
