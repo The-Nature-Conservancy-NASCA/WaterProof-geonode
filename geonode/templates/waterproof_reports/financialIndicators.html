@@ -272,7 +272,7 @@
     <div class="list-menu-results" id="idGeographicIndicators">
         <a id="idGeographicIndicatorsClic" href=""><img src="/static/geonode/img/indicadores-geograficos.png" alt="geographic indicators" title="{% trans "Geographic visualization" %}"/></a>
         <br>
-        <a id="idGeographicIndicatorsClic" href="">{% trans "Geographic visualization" %}</a>
+        <a id="idGeographicIndicatorsClic">{% trans "Geographic visualization" %}</a>
         <!--a>../../reports/geographic/</a-->
     </div>
 </div>
@@ -540,10 +540,10 @@ $(function () {
             document.getElementById("listCheckCost").innerHTML = htmlCostFilter;
         });
 
-        var htmlCost = '<tr><td class="small text-center vat" >Total cost</td>';
-        var htmlDiscountedCost = '<tr><td class="small text-center vat" >Total discounted cost</td>';
-        var htmlBenefits= '<tr><td class="small text-center vat" >Total benefits</td>';
-        var htmlDiscountedBenefits = '<tr><td class="small text-center vat" >Total discounted benefits</td>';
+        var htmlCost = '<tr><td class="small text-center vat" style="text-align: left;" >Total cost</td>';
+        var htmlDiscountedCost = '<tr><td class="small text-center vat" style="text-align: left;" >Total discounted cost</td>';
+        var htmlBenefits= '<tr><td class="small text-center vat" style="text-align: left;" >Total benefits</td>';
+        var htmlDiscountedBenefits = '<tr><td class="small text-center vat" style="text-align: left;" >Total discounted benefits</td>';
         var htmlTitle = '<tr class="info"><th scope="col" class="small text-center vat">{% trans "Time Period" %}</th>';
         var contTitle = 1;
 
@@ -557,13 +557,13 @@ $(function () {
                 totalBenefits.push(parseFloat(value.totalBenefits.toFixed(2)));
                 totalDiscountedBenefits.push(parseFloat(value.totalDiscountedBenefits.toFixed(2)));
                 valHtmlCost = value.totalCost.toFixed(2);
-                htmlCost = htmlCost + '<td class="small text-center vat" id="valor2">' + Intl.NumberFormat('es').format(valHtmlCost) + '</td>';
+                htmlCost = htmlCost + '<td class="small text-center vat" style="text-align: right;" id="valor2">' + Intl.NumberFormat('es').format(valHtmlCost) + '</td>';
                 valhtmlDiscountedCost = value.totalDiscountedCost.toFixed(2);
-                htmlDiscountedCost = htmlDiscountedCost + '<td class="small text-center vat" id="valor3">' + Intl.NumberFormat('es').format(valhtmlDiscountedCost) + '</td>';
+                htmlDiscountedCost = htmlDiscountedCost + '<td class="small text-center vat" style="text-align: right;" id="valor3">' + Intl.NumberFormat('es').format(valhtmlDiscountedCost) + '</td>';
                 valhtmlBenefits = value.totalBenefits.toFixed(2);
-                htmlBenefits = htmlBenefits + '<td class="small text-center vat" id="valor3">' + Intl.NumberFormat('es').format(valhtmlBenefits) + '</td>';
+                htmlBenefits = htmlBenefits + '<td class="small text-center vat" style="text-align: right;" id="valor3">' + Intl.NumberFormat('es').format(valhtmlBenefits) + '</td>';
                 valhtmlDiscountedBenefits = value.totalDiscountedBenefits.toFixed(2);
-                htmlDiscountedBenefits = htmlDiscountedBenefits + '<td class="small text-center vat" id="valor3">' + Intl.NumberFormat('es').format(valhtmlDiscountedBenefits) + '</td>';
+                htmlDiscountedBenefits = htmlDiscountedBenefits + '<td class="small text-center vat" style="text-align: right;" id="valor3">' + Intl.NumberFormat('es').format(valhtmlDiscountedBenefits) + '</td>';
                 htmlTitle = htmlTitle + '<th scope="col" class="small text-center vat">{% trans "' + contTitle + '" %}</th>'; 
                 contTitle ++;
             });
@@ -592,20 +592,20 @@ $(function () {
                 },
                 series: [{
                     name: gettext('Total benefits'),
-                    data: totalCost
+                    data: totalBenefits
                 },{
                     name: gettext('Total Cost'),
-                    data: totalDiscountedCost
+                    data: totalCost
                 },{
                     name: gettext('Total discounted benefits'),
                     type: 'spline',
                     dashStyle: 'shortdot',
-                    data: totalBenefits
+                    data: totalDiscountedBenefits
                 },{
                     name: gettext('Total discounted cost'),
                     type: 'spline',
                     dashStyle: 'shortdot',
-                    data: totalDiscountedBenefits
+                    data: totalDiscountedCost
                 }]
             });
         });
@@ -768,7 +768,7 @@ $(function () {
         var dataSensibilityAnalysisCostRange = [];
         var urlDetail = "../../reports/getSensibilityAnalysisCost/?studyCase=" + localStorage.idStudyCase;
         $.getJSON(urlDetail, function (data) {
-//#endregion            var txtFileCost = '<tr><td class="small text-center vat" >Discounted Cost</td>';
+                //#endregion            var txtFileCost = '<tr><td class="small text-center vat" >Discounted Cost</td>';
             var txtFileCostMinCost = '<tr><td class="small text-center vat" style="text-align: left;">Discounted cost minimum</td>';
             var txtFileCostMedCost = '<tr><td class="small text-center vat" style="text-align: left;">Discounted cost medium</td>';
             var txtFileCostMaxCost = '<tr><td class="small text-center vat" style="text-align: left;">Discounted cost maximum</td>';
@@ -959,7 +959,7 @@ $(function () {
         document.getElementById("idCurrencyMainFinaltial").innerHTML = localStorage.getItem('idCurrencyMain');
         document.getElementById("idTimeMainFinaltial").innerHTML = localStorage.getItem('idTimeMain');
         document.getElementById("discountRateFinaltial").innerHTML = localStorage.getItem('transactionCost');
-
+        
         var urlDetail = "../../reports/getWpcompareMapas/?studyCase=" + localStorage.idStudyCase;
             $.getJSON(urlDetail, function (data) {
                     $.each( data, function( key, value ) {
@@ -973,7 +973,7 @@ $(function () {
                         centroX = centroid;
                     });
                     var urlWaterProofLyrsWMS = `/reports/geographic/?folder=${usr_folder}&intake=${intake}&year=${year}&region=${region}&center=${centroX}&study_case_id=${studyCaseId}`;
-                    //console.log (urlWaterProofLyrsWMS);
+                    console.log (urlWaterProofLyrsWMS);
                     document.getElementById("idGeographicIndicatorsClic").href =urlWaterProofLyrsWMS;
                     
                 });

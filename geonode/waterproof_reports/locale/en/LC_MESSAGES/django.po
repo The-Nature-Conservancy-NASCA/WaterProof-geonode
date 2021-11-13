@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Waterproof Vbeta\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-02-19 11:27-0500\n"
-"PO-Revision-Date: 2021-10-21 11:22-0500\n"
+"PO-Revision-Date: 2021-11-11 15:57-0500\n"
 "Last-Translator: Julien Collaer <julien.collaer@opengeode.be>\n"
 "Language-Team: Skaphe\n"
 "Language: en\n"
@@ -426,7 +426,7 @@ msgstr "Annual Water Yield (m3)"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/geographicIndicators.html:106
 msgid "Anual volume base flow (change in time)"
-msgstr "Annual Volumen of Base Flow (m3)"
+msgstr "Annual Volume of Base Flow (m3)"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/geographicIndicators.html:110
 msgid "Total sediments (change in time)"

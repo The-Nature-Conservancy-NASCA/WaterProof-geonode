@@ -256,10 +256,10 @@ def getReportCostsAnalysisRoi(request):
 				"record":row[0],
 				"money":row[1],
 				"date":row[2],
-				"totalCost":row[3],
-				"totalDiscountedCost":row[4],
-				"totalBenefits":row[5],
-				"totalDiscountedBenefits":row[6]
+				"totalCost":row[4],
+				"totalDiscountedCost":row[6],
+				"totalBenefits":row[3],
+				"totalDiscountedBenefits":row[5]
 			})
 
 		return JsonResponse(objects_list, safe=False)
