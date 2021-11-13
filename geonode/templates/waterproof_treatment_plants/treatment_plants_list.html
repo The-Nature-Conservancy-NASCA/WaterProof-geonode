@@ -64,7 +64,7 @@
                 <th scope="col" class="small text-center vat">{% trans "Description" %}</th>
                 {% if user.is_authenticated and user.professional_role == 'ADMIN'%}
                 <th scope="col" class="small text-center vat">{% trans "User" %}</th>
-                {% endif %}                
+                {% endif %}
                 <th scope="col" class="small text-center vat">{% trans "Creation Date" %}</th>
                 <th scope="col" class="small text-center vat">{% trans "City" %}</th>
                 <th scope="col" class="small text-center vat">{% trans "Catchment" %}</th>
@@ -176,13 +176,14 @@
     localStorage.clonePlant = 'false';
     localStorage.updatePlant = 'false';
     localStorage.loadInf = 'false';
+    let colIdx = {% if user.is_authenticated and user.professional_role == 'ADMIN'%} 7; {% else %} 6; {% endif %}
     $(document).ready(function () {        
         initialize();
         drawPolygons(map);
         table = $('#tbl-plants').DataTable({
         'searching': false,
         'columnDefs': [ {            
-            'targets': [7], /* column index */
+            'targets': [colIdx], /* column index */
             'orderable': false, /* true or false */
          }],
          {% if request.LANGUAGE_CODE == "es" %}

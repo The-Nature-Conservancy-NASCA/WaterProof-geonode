@@ -43,10 +43,10 @@ def getTreatmentPlantsList(request):
 	information about the treatment plant
 	"""
 	if request.method == 'GET':
-		objects_list = []
+		obj_plant_list = []
 		lastNull = ''
 		lastInstakeName = ''
-		tratamentPlantsList = []
+		plantList = []
 		user = request.GET['user']
 		city_id = request.GET['city']
 		
@@ -58,11 +58,13 @@ def getTreatmentPlantsList(request):
 			#print("getTreatmentPlantsList (without user), city: %s" % city_id)
 			headers = Header.objects.filter(plant_city=city_id)
 		try:				
-			tratamentPlantsList = Csinfra.objects.filter(csinfra_plant__in=headers)
+			plantList = Csinfra.objects.filter(csinfra_plant__in=headers)
 		except:
 			city_id = ''
-			tratamentPlantsList = Csinfra.objects.all()	
-		for plant in tratamentPlantsList:
+			plantList = Csinfra.objects.all()
+
+		dict_plants = {}
+		for plant in plantList:
 			lastPlantIntakeName = ''
 			csinfra = plant.csinfra_plant
 			element = plant.csinfra_elementsystem
@@ -75,7 +77,7 @@ def getTreatmentPlantsList(request):
 			datePTAP = csinfra.plant_date_create
 			dateFormat = datePTAP.strftime("%Y-%m-%d")
 			#print(csinfra.id)
-			objects_list.append({
+			obj_plant = {
 				"plantId": csinfra.id,
 				"plantUser": element.intake.added_by.first_name + " " + element.intake.added_by.last_name,
 				"plantDate": dateFormat,
@@ -86,10 +88,16 @@ def getTreatmentPlantsList(request):
 				"standardNameSpanish": csinfra.plant_city.standard_name_spanish,
 				"plantIntakeName": [lastPlantIntakeName],
 				"geom" : element.intake.polygon_set.first().geom.geojson #json.loads(element.intake.polygon_set.first().geomIntake)['features'][0]['geometry'] # geom.geojson 
-			})
-				
+			}
+			if (not csinfra.id in dict_plants):
+				dict_plants[csinfra.id] = obj_plant
+			else:
+				dict_plants[csinfra.id]['plantIntakeName'].append(lastPlantIntakeName)				
+					
+		for k in dict_plants:
+			obj_plant_list.append(dict_plants[k])
 
-		return JsonResponse(objects_list, safe=False)
+		return JsonResponse(obj_plant_list, safe=False)
 
 @api_view(['GET'])
 def getIntakeList(request):
