@@ -474,7 +474,7 @@
                                 <label for="analysis_currency" class="control-label required-field ">
                                     {% trans "Currency" %}
                                 </label>
-                                <select id="analysis_currency" class="form-control" onchange='$(".lbl-currency-budget").html($("#analysis_currency").val())'>
+                                <select id="analysis_currency" class="form-control" onchange='$(".lbl-currency-budget").html("(" + $("#analysis_currency").val()+ ")")'>
                                     {% for currency in currencys %}
                                     {% if currency.iso3 == 'USA' %}
                                     <option value='{{currency.currency}}' selected>({{currency.currency}}) - {{currency.name}}</option>
@@ -512,17 +512,13 @@
                         <div class="col-md-12 width-title">
                             <div class="col-md-6 padding-investment">
                                 <div id="div_annual_investment" class="form-group">
-                                    <label class="control-label required-field" for="annual_investment">{% trans "annual_investment" %}</label>
                                     <div style="display: flex;">
-                                        <input id="annual_investment" type="number" class="text-number-full form-control" value="{{study_case.annual_investment|stringformat:'1.2f'}}">
+                                        <label class="control-label required-field" for="annual_investment">{% trans "annual_investment" %}</label>
                                         <div class="lbl-currency-budget" style="padding-left: 15px;">
-                                            {% if study_case.analysis_currency != None%}
-                                            {{study_case.analysis_currency}}
-                                            {% else %}
-                                            {% with currencys|first as c %} {{c.currency}} {% endwith %}
-                                            {% endif %}
+                                            {% if study_case.analysis_currency != None%} ({{study_case.analysis_currency}}) {% endif %}
                                         </div>
                                     </div>
+                                    <input id="annual_investment" type="number" class="text-number-full form-control" value="{{study_case.annual_investment|stringformat:'1.2f'}}">                                    
                                 </div>
                             </div>
                         </div>
@@ -536,7 +532,14 @@
                                 <thead>
                                     <tr class="info">
                                         <th scope="col" class="small text-center vat">{% trans "Activity" %}</th>
-                                        <th scope="col" id="column_investment" class="small text-center vat">{% trans "Investment" %}</th>
+                                        <th scope="col" id="column_investment" class="small text-center vat">
+                                            <div style="display: flex;">
+                                                {% trans "Investment" %}
+                                                <div class="lbl-currency-budget" style="padding-left: 15px;">
+                                                    {% if study_case.analysis_currency != None%} ({{study_case.analysis_currency}}) {% endif %}
+                                                </div>
+                                            </div>
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody>

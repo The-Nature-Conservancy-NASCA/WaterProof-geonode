@@ -66,11 +66,7 @@ $(document).ready(function () {
     $("#intakeWECB").click(function () {
         generateWaterExtraction();
     });
-    setInterpolationParams();
-    // setTimeout(() => {
-    //     loadExternalDataOnInit();
-    //     loadExternalInput();
-    // }, 1000);    
+    setInterpolationParams();   
 
     function loadExternalDataOnInit() {
         for (let id = 0; id < graphData.length; id++) {
@@ -583,6 +579,12 @@ $(document).ready(function () {
 });
 
 function generateWaterExtraction(){
+
+    if (intakeInterpolationParams.type == "MANUAL") {
+        waterExtractionData.typeInterpolation = interpolationType.MANUAL;
+        $("#intakeNIYMI").val(intakeInterpolationParams.yearsNum);        
+        return;
+    }
     if ($('#numberYearsInterpolationValue').val() < 10 || $('#numberYearsInterpolationValue').val() > 100) {
         Swal.fire({
             icon: 'warning',
@@ -592,7 +594,6 @@ function generateWaterExtraction(){
         valid_period = false;
         return;
     }
-
     if ($("#numberYearsInterpolationValue").val() == '' || $("#initialDataExtractionInterpolationValue").val() == '' || $("#finalDataExtractionInterpolationValue").val() == '') {
         Swal.fire({
             icon: 'warning',
@@ -768,6 +769,10 @@ function setInterpolationParams() {
         // LOGISTICS INTERPLATION
         case interpolationType.LOGISTICS:
             interpMethodInput.val(4);
+            break;
+        
+        case interpolationType.MANUAL:
+            waterExtractionData.yearCount = intakeInterpolationParams.yearsNum;
             break;
     }
     // Years number for time series

@@ -223,13 +223,17 @@
                     </div>
                     <!--navigation-->
                     <ul class="nav nav-tabs" id="minitabsInportalion">
-                        <li class="active"><a data-toggle="tab" href="#automatic" id="btnAutomaticTab">{% trans "Interpolation wizard" %}</a></li>
-                        <li><a data-toggle="tab" href="#manual" id="btnManualTab" >{% trans "Manual edit" %}</a></li>
+                        <li {%if intake.demand_parameters.interpolation_type != 'MANUAL' %} class="active" {% endif %} >
+                            <a data-toggle="tab" href="#automatic" id="btnAutomaticTab">{% trans "Interpolation wizard" %}</a>
+                        </li>
+                        <li {%if intake.demand_parameters.interpolation_type == 'MANUAL' %} class="active" {% endif %}>
+                            <a data-toggle="tab" href="#manual" id="btnManualTab" >{% trans "Manual edit" %}</a>
+                        </li>
                     </ul>
                     <!--contents tabs manual and automatic-->
                     <div class="tab-content">
                         <!--tab automatic-->
-                        <div class="tab-pane fade in active" id="automatic">
+                        <div class="tab-pane fade {%if intake.demand_parameters.interpolation_type != 'MANUAL' %} in active {% endif %}" id="automatic">
                             <br>
                             <div class="form-group">
                                 <div class="row">
@@ -286,8 +290,7 @@
                                                         <th class="text-center" scope="col">{% trans "Extraction Value (l/s)" %}</th>
                                                     </tr>
                                                 </thead>
-                                                <tbody id="intakeECTAG">
-                                                </tbody>
+                                                <tbody id="intakeECTAG"></tbody>
                                             </table>
                                         </div>
                                     </div>
@@ -295,7 +298,7 @@
                             </div>
                         </div>
                         <!--tab manual-->
-                        <div class="tab-pane fade" id="manual">
+                        <div class="tab-pane fade {%if intake.demand_parameters.interpolation_type == 'MANUAL' %} in active {% endif %}"" id="manual">
                             <br>
                             <div class="form-group">
                                 <div class="row">
@@ -323,6 +326,14 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody id="intakeWEMI">
+                                                {% for y in extraction_result %}
+                                                    <tr>
+                                                        <th class="text-center" scope="row">{{y.0}}</th>
+                                                        <td class="text-center">
+                                                            <input name="manualInputData" yearValue="{{y.0}}" value={{y.1}} type="number" class="form-control justify-number">
+                                                        </td>                                                        
+                                                    </tr>
+                                                {% endfor %}
                                                 </tbody>
                                             </table>
                                         </div> 
