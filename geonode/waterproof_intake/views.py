@@ -932,6 +932,9 @@ def editIntake(request, idx):
         if request.method == 'GET':
             filterExternal = ElementSystem.objects.filter(intake=filterIntake.pk, is_external=True)
             extInputs = []
+            extraction_result = []
+            initial_extraction = 0
+            final_extraction = 0
 
             for element in filterExternal:
                 filterExtraction = ValuesTime.objects.filter(element=element.pk)
@@ -953,8 +956,18 @@ def editIntake(request, idx):
                 # external['waterExtraction'] = extractionElements
                 extInputs.append(external)
             intakeExtInputs = json.dumps(extInputs)
-            # city = Cities.objects.all()
-            # form = forms.IntakeForm()
+            demand = {}
+            years = {}
+            interpolation = ""
+            if (not filterIntake.demand_parameters is None):
+                demand = DemandParameters.objects.get(id=filterIntake.demand_parameters.pk)
+                years = WaterExtraction.objects.filter(demand=filterIntake.demand_parameters.pk).order_by('year')
+                interpolation = interpolations[filterIntake.demand_parameters.interpolation_type]
+                initial_extraction = '{0:.2f}'.format(demand.initial_extraction).replace('.', ',')
+                final_extraction = '{0:.2f}'.format(demand.ending_extraction).replace('.', ',')
+                for y in years:
+                    extraction_result.append([y.year, '{0:.2f}'.format(y.value).replace(',', '.')])
+                print (extraction_result)
             currencies = Countries.objects.values('currency', 'name', 'iso3').distinct().exclude(currency='').order_by('currency')
             return render(
                 request, 'waterproof_intake/intake_edit.html',
@@ -963,7 +976,11 @@ def editIntake(request, idx):
                     'city': filterIntake.city,
                     'externalInputs': intakeExtInputs,
                     "serverApi": settings.WATERPROOF_API_SERVER,
+                    'interpolation': interpolation,
                     'currencies': currencies,
+                    'extraction_result': extraction_result,
+                    'initial_extraction': initial_extraction,
+                    'final_extraction': final_extraction,
                 }
             )        
             
@@ -1024,7 +1041,8 @@ def viewIntake(request, idx):
                 'countries': countries,
                 'city': city,
                 'externalInputs': intakeExtInputs,
-                "serverApi": settings.WATERPROOF_API_SERVER,'interpolation': interpolation,
+                "serverApi": settings.WATERPROOF_API_SERVER,
+                'interpolation': interpolation,
                 'extraction_result': extraction_result,
                 'initial_extraction': initial_extraction,
                 'final_extraction': final_extraction,
