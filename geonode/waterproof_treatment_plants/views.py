@@ -36,6 +36,7 @@ def treatmentPlantsList(request):
 		try:
 			response = requests.get(url,verify=False)
 			response = response.json()
+			
 		except Exception as e:
 			print ("must be anonymous user")
 			# print (e)

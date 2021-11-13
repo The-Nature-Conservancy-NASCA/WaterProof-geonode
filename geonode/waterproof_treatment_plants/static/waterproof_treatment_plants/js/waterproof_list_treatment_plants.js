@@ -1493,6 +1493,10 @@ $(function () {
         let lblNewOrEdit = flagNewFunction ? addNewCost + " " + _('Function') : editCost;
         $("#saveAndValideCost").text(lblNewOrEdit);
         $('#CalculatorModalLabel').text(lblNewOrEdit);
+        if (flagNewFunction && localStorage.getItem('factor') != undefined) {
+            $('#factorCost').val(localStorage.getItem('factor'));
+        }
+        $('#factorCost').attr('graphId',graphId);
     }
 
     function setVarCost(element, graphid) {

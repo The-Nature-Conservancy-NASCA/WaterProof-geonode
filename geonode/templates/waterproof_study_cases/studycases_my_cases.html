@@ -85,7 +85,7 @@
                 {% endif %}
 
                 <td class="small text-center vat">{% for intake in studyCases.intakes.all %}
-                    <a href="../intake/view/{{intake.id}}" target="_blank">- {{intake.name}} </a> <br>
+                    <a href="../../intake/view/{{intake.id}}" target="_blank">- {{intake.name}} </a> <br>
                     {% endfor %}</td>
                 <td class="small text-center vat"><a class="currency-link" onclick='viewCurrencys({{studyCases.id}},"{{studyCases.analysis_currency}}")'>{{studyCases.analysis_currency}}</a></td>
                 {% if studyCases.is_run_analysis%}

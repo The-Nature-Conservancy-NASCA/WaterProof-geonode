@@ -17,8 +17,8 @@ var funcostdb = [];
 var bandera = true;
 var banderaValideGraph = 0;
 var enableBtnValidateCount = 0;  // count the number of default inconsistences in diagram. if (0) enabled else disabled
-
 var costVars = ['WSedRet','WPRet','WNRet','WSed','WP','WN','CSed','CP','CN','Q'];
+var transportedWaterConnectors = {};
 
 // Program starts here. The document.onLoad executes the
 // createEditor function with a given configuration.
