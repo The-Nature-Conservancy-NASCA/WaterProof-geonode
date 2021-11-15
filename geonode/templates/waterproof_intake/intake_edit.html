@@ -23,7 +23,7 @@
         </div>
     </div>    
     <!--Begin Form-->
-    <form id="form" method="POST" action="">
+    <form id="form">
         {% csrf_token %}
         <!--Start smartwizard-->
         <div id="smartwizard">
@@ -428,7 +428,7 @@
                     <div class="row text-center">
                         <div class="col-md-8">
                             <button type="button" value="previous" class="btn btn-primary" id="step5PrevBtn">{% trans "Previous" %}</button>
-                            <input type="submit" id="submit" class="btn btn-primary" value="{% trans 'Save' %}"></input>
+                            <input type="button" id="submit" class="btn btn-primary" value="{% trans 'Save' %}"></input>
                         </div>
                     </div>
                 </div>

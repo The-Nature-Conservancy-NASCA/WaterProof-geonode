@@ -167,8 +167,6 @@ Attributes
 ----------
 request: Request
 """
-
-
 def createStepOne(request):
     print("createStepOne")
     if not request.user.is_authenticated:
@@ -253,8 +251,6 @@ def createStepOne(request):
                     'message': e
                 }
                 return response
-
-
 """
 Intake creation data
 Step two wizard
@@ -264,8 +260,6 @@ Attributes
 
 request: Request
 """
-
-
 def createStepTwo(request):
     print("createStepTwo")
     if not request.user.is_authenticated:
@@ -504,8 +498,6 @@ Attributes
 
 request: Request
 """
-
-
 def createStepThree(request):
     if not request.user.is_authenticated:
         return render(request, 'waterproof_nbs_ca/waterproofnbsca_login_error.html')
@@ -608,8 +600,6 @@ Attributes
 
 request: Request
 """
-
-
 def createStepFour(request):
     if not request.user.is_authenticated:
         return render(request, 'waterproof_nbs_ca/waterproofnbsca_login_error.html')
@@ -691,8 +681,6 @@ Attributes
 
 request: Request
 """
-
-
 def createStepFive(request):
     if not request.user.is_authenticated:
         return render(request, 'waterproof_nbs_ca/waterproofnbsca_login_error.html')
@@ -924,7 +912,7 @@ def intakes(request, city_id):
 
 
 def editIntake(request, idx):
-    print("editIntake. request.method = %s" % request.method)
+    #print("editIntake. request.method = %s" % request.method)
     if not request.user.is_authenticated:
         return render(request, 'waterproof_intake/intake_login_error.html')
     else:
@@ -976,15 +964,15 @@ def editIntake(request, idx):
                     'city': filterIntake.city,
                     'externalInputs': intakeExtInputs,
                     "serverApi": settings.WATERPROOF_API_SERVER,
-                    'interpolation': interpolation,
                     'currencies': currencies,
+                    'interpolation': interpolation,
                     'extraction_result': extraction_result,
                     'initial_extraction': initial_extraction,
                     'final_extraction': final_extraction,
                 }
             )        
             
-        print("redirect with parameters, city =  %s" % filterIntake.city.pk)
+        # print("redirect with parameters, city =  %s" % filterIntake.city.pk)
         # response = redirect('/intake', city=filterIntake.city.pk)
         # return response
         return intakes(request, filterIntake.city.pk)
@@ -1085,6 +1073,7 @@ def viewIntakeDemand(request, idx):
 
 
 def cloneIntake(request, idx):
+
     if not request.user.is_authenticated:
         return render(request, 'waterproof_intake/intake_login_error.html')
     else:
@@ -1106,7 +1095,7 @@ def cloneIntake(request, idx):
                     updated_date=now,
                     added_by=filterIntake.added_by
                 )
-                print(filterPolygon)
+                # print(filterPolygon)
                 newPolygon = Polygon.objects.create(
                     area=filterPolygon.area,
                     geom=filterPolygon.geom,
@@ -1176,10 +1165,14 @@ def cloneIntake(request, idx):
                 newIntake.save()
             except Exception as e:
                 print(e)
-            print("Intake pk:::")
-            print(newIntake.pk)
+            print("Intake pk::: %s", newIntake.pk)
+            
             filterExternal = ElementSystem.objects.filter(intake=newIntake.pk, is_external=True)
             extInputs = []
+            extraction_result = []
+            initial_extraction = 0
+            final_extraction = 0
+
             for element in filterExternal:
                 filterExtraction = ValuesTime.objects.filter(element=element.pk)
                 extractionElements = []
@@ -1200,16 +1193,33 @@ def cloneIntake(request, idx):
                 # external['waterExtraction'] = extractionElements
                 extInputs.append(external)
             intakeExtInputs = json.dumps(extInputs)
+            demand = {}
+            years = {}
+            interpolation = ""
+            if (not filterIntake.demand_parameters is None):
+                demand = DemandParameters.objects.get(id=filterIntake.demand_parameters.pk)
+                years = WaterExtraction.objects.filter(demand=filterIntake.demand_parameters.pk).order_by('year')
+                interpolation = interpolations[filterIntake.demand_parameters.interpolation_type]
+                initial_extraction = '{0:.2f}'.format(demand.initial_extraction).replace('.', ',')
+                final_extraction = '{0:.2f}'.format(demand.ending_extraction).replace('.', ',')
+                for y in years:
+                    extraction_result.append([y.year, '{0:.2f}'.format(y.value).replace(',', '.')])
+                print (extraction_result)
+
             form = forms.IntakeForm()
             return render(
                 request, 'waterproof_intake/intake_clone.html',
                 {
-                    'currencies': currencies,
                     'intake': newIntake,
-                    'countries': countries,
                     'city': filterIntake.city,
                     'externalInputs': intakeExtInputs,
-                    "serverApi": settings.WATERPROOF_API_SERVER
+                    "serverApi": settings.WATERPROOF_API_SERVER,
+                    'currencies': currencies,
+                    'countries': countries,
+                    'interpolation': interpolation,
+                    'extraction_result': extraction_result,
+                    'initial_extraction': initial_extraction,
+                    'final_extraction': final_extraction
                 }
             )
         else:
