@@ -1383,6 +1383,7 @@ $(function () {
         localStorage.loadFormButton = "true";
         localStorage.clonePlant = "true";
         localStorage.plantId = plantId;
+        localStorage.clonePlantId = plantId;
         window.location.href = basePathURL + "clone/" + plantId;
     };
     /**
