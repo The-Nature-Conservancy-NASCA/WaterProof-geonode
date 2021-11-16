@@ -1,11 +1,13 @@
-FROM openjdk:8-jre-alpine
+#FROM openjdk:8-jre-alpine
+FROM eclipse-temurin:8u312-b07-jdk-focal
 
 ARG version=2.17.4
 ARG branch=2.17.4
 ARG plugins=
 
 # Install dependencies
-RUN apk add --no-cache ca-certificates openssl curl postgresql-client fontconfig ttf-ubuntu-font-family
+# RUN apk add --no-cache ca-certificates openssl curl postgresql-client fontconfig ttf-ubuntu-font-family
+RUN apt-get update && apt-get install -y wget unzip ca-certificates openssl curl postgresql-client-12 fontconfig ttf-ubuntu-font-family
 RUN update-ca-certificates
 
 WORKDIR /
