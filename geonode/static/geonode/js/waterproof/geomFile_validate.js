@@ -174,6 +174,7 @@ function validateShapeFile(zip) {
  */
 function validateGeoJson(geojson) {
     isValid = false;
+    let msg_error_geojs = gettext('GeoJSON file error');
     let validGeojson = {};
     validGeojson.coord = false;
     validGeojson.struct = false;
@@ -224,21 +225,21 @@ function validateGeoJson(geojson) {
     else if (!validGeojson.typeGeom) {
         Swal.fire({
             icon: 'error',
-            title: gettext('GeoJSON file error'),
+            title :msg_error_geojs,
             text: gettext('Geometry must be polygon')
         })
     }
     else if (!validGeojson.struct) {
         Swal.fire({
             icon: 'error',
-            title: gettext('GeoJSON file error'),
+            title: msg_error_geojs,
             text: gettext('Bad geojson structure')
         })
     }
     else {
         Swal.fire({
             icon: 'error',
-            title: gettext('GeoJSON file error'),
+            title: msg_error_geojs,
             text: gettext('Coordinates out of WSG84')
         })
     }
@@ -319,4 +320,35 @@ function validFileSize(file) {
         })
         return false;
     }
+}
+
+// #############################################################################
+// Validate just one geometry and need to be Polygon geometry
+// #############################################################################
+function validateGeometryAndCount(geojson) {
+    let validGeometry = false;
+    let validCount = false;
+    let msgText = gettext('Waterproof only allows one NbS implementation polygon per basin. Please check the file or load another file and try again.');
+    validCount = (geojson.features && geojson.features.length == 1) 
+    if (!validCount) {
+        let msgTitle = gettext('The supplied geographic file has more than one geometry.');
+        Swal.fire({
+            icon: 'error',
+            title: msgTitle,
+            text: msgText
+        });
+        return false;
+    }
+
+    validGeometry = (geojson.features && geojson.features[0].geometry.type == 'Polygon');
+    if (!validGeometry) {
+        let msgTitle = gettext('The supplied geographic file does not have polygon type geometry (Can´t be Multipolygon).');
+        Swal.fire({
+            icon: 'error',
+            title: msgTitle,
+            text: msgText
+        });
+        return false;
+    }
+    return true;
 }

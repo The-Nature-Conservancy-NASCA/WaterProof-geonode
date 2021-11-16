@@ -52,9 +52,7 @@ const interpolationType = {
 }
 
 var mapLoader;
-var banderaInpolation = 0;
-$(document).ready(function () {
-    
+$(document).ready(function () {    
     // disable enter key in form
     $(document).keypress(
         function(event){
@@ -602,7 +600,7 @@ function generateWaterExtraction(){
         });
         return;
     }
-    banderaInpolation += 1;
+    
     banderaExternal += 1;
     $('#intakeECTAG tr').remove();
     $('#IntakeTDLE table').remove();
@@ -667,7 +665,6 @@ function generateWaterExtraction(){
             <td class="text-center"><input type="text" class="form-control justify-number" value="${(b * (Math.exp(m * index))).toFixed(2)}" disabled></td>
           </tr>`);
         }
-
     }
 
     // Interpolación Logistica
@@ -748,8 +745,7 @@ function headTblExternalInput(){
         </thead>`;
 }
 
-/*Set values for interpolation
-parameters*/
+/*Set values for interpolation parameters*/
 function setInterpolationParams() {
     switch (intakeInterpolationParams.type) {
         // LINEAR INTERPOLATION
@@ -765,7 +761,6 @@ function setInterpolationParams() {
         case interpolationType.EXPONENTIAL:
             interpMethodInput.val(3);            
             break;
-
         // LOGISTICS INTERPLATION
         case interpolationType.LOGISTICS:
             interpMethodInput.val(4);
@@ -780,8 +775,7 @@ function setInterpolationParams() {
     // Initial extraction value
     initialExtraction.val(intakeInterpolationParams.initialExtract.toFixed(2));
     // Final extraction value
-    finalExtraction.val(intakeInterpolationParams.endingExtract.toFixed(2));
-    //generateWaterExtraction();
+    finalExtraction.val(intakeInterpolationParams.endingExtract.toFixed(2));    
 }
 /** 
  * Intake step one creation
@@ -988,7 +982,10 @@ function intakeStepFive() {
     $('#_thumbnail_processing').modal('toggle');
     $('#_thumbnail_processing .modal-header h1')[0].innerText=gettext('The water intake is being saved');
     $('#_thumbnail_processing .progress div')[0].innerText=gettext('Please wait');
-    
+    var cityId = 143873; //Default Bogota
+    if (localStorage.cityId) {
+        cityId = localStorage.cityId;
+    }
     $.ajax({
         type: 'POST',
         url: '/intake/create/',
@@ -1006,11 +1003,7 @@ function intakeStepFive() {
                 allowOutsideClick: true,
                 showConfirmButton: false
             });
-            var cityId = 143873; //Default Bogota
-            if (localStorage.cityId) {
-                cityId = localStorage.cityId;
-            }
-            setTimeout(function () { location.href = "/intake/?city=" + cityId; }, 1000);
+            location.href = "/intake/?city=" + cityId;  //Redirect to intake list
         },
         error: function (xhr, errmsg, err) {
             // console.log(xhr.status + ":" + xhr.responseText);
@@ -1022,9 +1015,11 @@ function intakeStepFive() {
                 text: response.message,
             })
             return false;
-        }
+        }        
     });
-
+    setTimeout(function () { 
+        location.href = "/intake/?city=" + cityId; 
+    }, 5000);
 }
 /** 
  * Delimit manually the intake polygon
@@ -1140,8 +1135,7 @@ function changeFileEvent() {
                     var contents = evt.target.result;
                     try {
                         geojson = JSON.parse(contents);
-                        validGeojson = validateGeoJson(geojson);
-                        if (validGeojson) {
+                        if (validateGeoJson(geojson) && validateGeometryAndCount(geojs)) {
                             delimitationFileType = delimitationFileEnum.GEOJSON;
                             addEditablePolygonMap();
                         } else {
@@ -1172,10 +1166,15 @@ function changeFileEvent() {
                         shapeValidation.then(function (resultFile) {
                             //is valid shapefile
                             if (resultFile.valid) {
-                                shp(contents).then(function (shpToGeojson) {
-                                    geojson = shpToGeojson;
-                                    delimitationFileType = delimitationFileEnum.SHP;
-                                    addEditablePolygonMap();
+                                shp(contents).then(function (geojs) {
+                                    if (validateGeometryAndCount(geojs)){
+                                        geojson = geojs;
+                                        delimitationFileType = delimitationFileEnum.SHP;
+                                        addEditablePolygonMap();
+                                    }else {
+                                        $('#intakeArea').val('');
+                                        return;
+                                    }                               
                                 });
                             } else {
                                 $('#intakeArea').val('');
@@ -1189,7 +1188,7 @@ function changeFileEvent() {
                             title: gettext('Shapefile error'),
                             text: gettext("There's been an error reading the shapefile"),
                         })
-                        console.log("Ocurrió error convirtiendo el shapefile " + e);
+                        console.log("Error converting shapefile " + e);
                         $('#intakeArea').val('');
                     });
                 };

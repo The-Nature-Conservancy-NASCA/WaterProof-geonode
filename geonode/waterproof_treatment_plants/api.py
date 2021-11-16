@@ -145,7 +145,7 @@ def getTypePtap(request):
 	if request.method == 'POST':
 		if request.user.is_authenticated:
 			url = settings.WATERPROOF_INVEST_API + 'ptapSelection'
-			
+			print ("getTypePtap :: url: %s" % url)
 			x = requests.post( url, json = request.data, verify=False)
 			return JsonResponse(json.loads(x.text), safe=False)
 
@@ -169,31 +169,31 @@ def getInfoTree(request):
 			objects_list = []
 			lastNull = ''
 			objects_list = []
-			for costFunctionsProcess in CostFunctionsProcess.objects.all():
+			for process in CostFunctionsProcess.objects.all():
 				try:
-					if costFunctionsProcess.process_efficiencies.normalized_category == request.query_params.get('plantElement'):
+					if process.process_efficiencies.normalized_category == request.query_params.get('plantElement'):
 						objects_list.append({
-							"idSubprocess": costFunctionsProcess.id,
-							"subprocess": costFunctionsProcess.sub_process,
-							"subprocessAddId": costFunctionsProcess.sub_process,
-							"technology": costFunctionsProcess.process_efficiencies.categorys,
-							"technologyAddId": str(costFunctionsProcess.process_efficiencies.id) + costFunctionsProcess.process_efficiencies.categorys,
-							"costFunction": costFunctionsProcess.function_name,
-							"function": costFunctionsProcess.function_value,
-							"default": costFunctionsProcess.default_function,
-							"transportedWater": costFunctionsProcess.process_efficiencies.predefined_transp_water_perc,
-							"sedimentsRetained": costFunctionsProcess.process_efficiencies.predefined_sediment_perc,
-							"nitrogenRetained": costFunctionsProcess.process_efficiencies.predefined_nitrogen_perc,
-							"phosphorusRetained": costFunctionsProcess.process_efficiencies.predefined_phosphorus_perc,
-							"minimalTransportedWater": costFunctionsProcess.process_efficiencies.minimal_transp_water_perc,
-							"minimalSedimentsRetained": costFunctionsProcess.process_efficiencies.minimal_sediment_perc,
-							"minimalNitrogenRetained": costFunctionsProcess.process_efficiencies.minimal_nitrogen_perc,
-							"minimalPhosphorusRetained": costFunctionsProcess.process_efficiencies.minimal_phoshorus_perc,
-							"maximalTransportedWater": costFunctionsProcess.process_efficiencies.maximal_transp_water_perc,
-							"maximalSedimentsRetained": costFunctionsProcess.process_efficiencies.maximal_sediment_perc,
-							"maximalNitrogenRetained": costFunctionsProcess.process_efficiencies.maximal_nitrogen_perc,
-							"maximalPhosphorusRetained": costFunctionsProcess.process_efficiencies.maximal_phosphorus_perc,
-							"currency": costFunctionsProcess.currency,
+							"idSubprocess": process.id,
+							"subprocess": process.sub_process,
+							"subprocessAddId": process.sub_process,
+							"technology": process.process_efficiencies.categorys,
+							"technologyAddId": str(process.process_efficiencies.id) + process.process_efficiencies.categorys,
+							"costFunction": process.function_name,
+							"function": process.function_value,
+							"default": process.default_function,
+							"transportedWater": process.process_efficiencies.predefined_transp_water_perc,
+							"sedimentsRetained": process.process_efficiencies.predefined_sediment_perc,
+							"nitrogenRetained": process.process_efficiencies.predefined_nitrogen_perc,
+							"phosphorusRetained": process.process_efficiencies.predefined_phosphorus_perc,
+							"minimalTransportedWater": process.process_efficiencies.minimal_transp_water_perc,
+							"minimalSedimentsRetained": process.process_efficiencies.minimal_sediment_perc,
+							"minimalNitrogenRetained": process.process_efficiencies.minimal_nitrogen_perc,
+							"minimalPhosphorusRetained": process.process_efficiencies.minimal_phoshorus_perc,
+							"maximalTransportedWater": process.process_efficiencies.maximal_transp_water_perc,
+							"maximalSedimentsRetained": process.process_efficiencies.maximal_sediment_perc,
+							"maximalNitrogenRetained": process.process_efficiencies.maximal_nitrogen_perc,
+							"maximalPhosphorusRetained": process.process_efficiencies.maximal_phosphorus_perc,							
+							"currency": process.currency,
 							"factor": countryFactor
 						})
 				except:
