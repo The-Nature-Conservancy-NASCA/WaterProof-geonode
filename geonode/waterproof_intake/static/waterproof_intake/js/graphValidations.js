@@ -366,14 +366,13 @@ var validateinput = function(e) {
             resultdb[0].fields.predefined_transp_water_perc = $('#aguaDiagram').val();
             selectedCell.setAttribute('resultdb', JSON.stringify(resultdb));
         }        
-        validateTransportedWater(t);
-        //validationTransportedWaterSum(editor, selectedCell);
+        validateTransportedWater(t);        
     }
     e.value = (t.indexOf(".") >= 0) ? (t.substr(0, t.indexOf(".")) + t.substr(t.indexOf("."), 3)) : t;
     let texttitle = gettext("The value must be between %s and %s");
     let transtitle = interpolate(texttitle, [minRange, maxRange]);
     if (parseFloat(e.value) < parseFloat(minRange) || (e.value.length == 0)) {        
-        let text = gettext(`The minimum value is %s please use the arrows`)
+        let text = gettext(`The minimum value is %s please use the arrows`);
         let transtext = interpolate(text, [minRange]);
         e.value = minRange;
         Swal.fire({

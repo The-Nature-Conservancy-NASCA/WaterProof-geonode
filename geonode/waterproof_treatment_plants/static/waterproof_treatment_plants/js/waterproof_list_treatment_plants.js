@@ -665,13 +665,33 @@ $(function () {
     */
     changeRetained =  function(i, inputElement) {
         let val = Number.parseFloat(inputElement.value);
-        if(val < Number.parseFloat(inputElement.getAttribute("min"))) {
-            inputElement.value = inputElement.getAttribute("min");
+        let min = inputElement.getAttribute("min");
+        let max = inputElement.getAttribute("max");
+        let showMsg = false;
+
+        let msgRange = gettext("The value must be between %s and %s");
+        let msg = "";
+        msgRange = interpolate(msgRange, [min, max]);
+        if(val < Number.parseFloat(min)) {            
+            msg = gettext(`The minimum value is %s please use the arrows`);
+            msg = interpolate(msg, [min]);        
+            inputElement.value = min;
             val = inputElement.value;
+            showMsg = true;
         }
-        if(val > Number.parseFloat(inputElement.getAttribute("max"))) {
-            inputElement.value = inputElement.getAttribute("max");
+        if(val > Number.parseFloat(max)) {
+            msg = gettext(`The maximum value is %s please use the arrows`);
+            msg = interpolate(msg, [max]);
+            inputElement.value = max;
             val = inputElement.value;
+            showMsg = true;
+        }
+        if (showMsg) {
+            Swal.fire({
+                icon: 'warning',
+                title: msgRange,
+                text: msg
+            });
         }
 
         let parent = $(inputElement).parents().get(4);
@@ -729,7 +749,7 @@ $(function () {
         ${createInput('% '+ lbl.nitrogen, null, null, null, null, null, lbl.placeholderNitrogen, true, null, null, 'number')}
         ${createInput('% '+ lbl.phosphorus, null, null, null, null, null, lbl.placeholderPhosphorus, true, null, null, 'number')}
         </div></div>${tableFunctionTpl}<div class="link-form">${_('Add function')}</div></div>`;
-        
+                
         node.innerHTML = textNewForm;
         let elParent = document.getElementById(parentId);
         elParent.appendChild(node);
@@ -935,12 +955,13 @@ $(function () {
                                     if(loadHtml) {
                                         let v = (filterCostFunction != undefined ? filterCostFunction : valueCostFunction);                                        
                                         let onBlurFn = `onblur="changeRetained('${techId}', this)"`;
+                                        // createInput (label, value, readonly, min, max, step, placeholder, enabled, id, events, type)
                                         tableVar = `<div class="container-var" id="idContainerVar${techId}"><div>
-                                            ${createInput('% ' + lbl.transportedWater  , 100, "", null, null, null, null, !checked, null, null)}
-                                            ${createInput('% ' + lbl.sediments, sediments, (onlyReadPlant?'':null), v.minimalSedimentsRetained, v.maximalSedimentsRetained, '0.1', lbl.placeholderSediments, checked,'idSedimentsRetained'+techId,onBlurFn,'number')}  
+                                            ${createInput('% ' + lbl.transportedWater , 100, "", null, null, null, null, !checked, null, null)}
+                                            ${createInput('% ' + lbl.sediments, sediments, (onlyReadPlant?'':null), v.minimalSedimentsRetained, v.maximalSedimentsRetained, '0.1', lbl.placeholderSediments, checked,'idSedimentsRetained'+techId,onBlurFn,'number', v.sedimentsRetained)}  
                                             </div><div>
-                                            ${createInput('% ' + lbl.nitrogen, nitrogen, (onlyReadPlant?'':null), v.minimalNitrogenRetained, v.maximalNitrogenRetained, '0.1', lbl.placeholderNitrogen, checked,'idNitrogenRetained'+techId,onBlurFn,'number')}
-                                            ${createInput('% ' + lbl.phosphorus, phosphorus, (onlyReadPlant?'':null), v.minimalPhosphorusRetained, v.maximalPhosphorusRetained, '0.1', lbl.placeholderPhosphorus, checked,'idPhosphorusRetained'+techId,onBlurFn,'number')}
+                                            ${createInput('% ' + lbl.nitrogen, nitrogen, (onlyReadPlant?'':null), v.minimalNitrogenRetained, v.maximalNitrogenRetained, '0.1', lbl.placeholderNitrogen, checked,'idNitrogenRetained'+techId,onBlurFn,'number', v.nitrogenRetained)}
+                                            ${createInput('% ' + lbl.phosphorus, phosphorus, (onlyReadPlant?'':null), v.minimalPhosphorusRetained, v.maximalPhosphorusRetained, '0.1', lbl.placeholderPhosphorus, checked,'idPhosphorusRetained'+techId,onBlurFn,'number', v.phosphorusRetained)}
                                             </div></div>`;                                        
                                     }                                     
                                 }
@@ -986,11 +1007,11 @@ $(function () {
                 <div class="text-tree"><div style="display:flex;"><label technology='${techName}'>${lblTechnology}:</label> ${techName}
                 </div></div></div><div class="margin-main overflow-form col-md-12" id="technology${idNewTech}">
                 <div class="container-var" id="idContainerVar${idNewTech}"><div>
-                ${createInput('% '+ lbl.transportedWater, 100, "", null, null, null, null, false)}
-                ${createInput('% '+ lbl.sediments, sediments, null, null, null, null, lbl.placeholderSediments, true,'idSedimentsRetained'+idNewTech,onBlurFn,'number')}  
+                ${createInput('% '+ lbl.transportedWater, 100, "", null, null, null, null, false, null)}
+                ${createInput('% '+ lbl.sediments, sediments, null, null, null, null, lbl.placeholderSediments, true,'idSedimentsRetained'+idNewTech,onBlurFn,'number', null)}
                 </div><div>
-                ${createInput('% '+ lbl.nitrogen, nitrogen, null, null, null, null, lbl.placeholderNitrogen, true,'idNitrogenRetained'+idNewTech,onBlurFn,'number')}
-                ${createInput('% '+ lbl.phosphorus, phosphorus, null, null, null, null, lbl.placeholderPhosphorus, true,'idPhosphorusRetained'+idNewTech,onBlurFn,'number')}
+                ${createInput('% '+ lbl.nitrogen, nitrogen, null, null, null, null, lbl.placeholderNitrogen, true,'idNitrogenRetained'+idNewTech,onBlurFn,'number', null)}
+                ${createInput('% '+ lbl.phosphorus, phosphorus, null, null, null, null, lbl.placeholderPhosphorus, true,'idPhosphorusRetained'+idNewTech,onBlurFn,'number', null)}
                 </div></div>${tableFunct}<div class="link-form">${_('Add function')}</div></div>`;            
             $('#subprocess' + fnTechParent.idSubprocess).html($('#subprocess' + fnTechParent.idSubprocess).html() + htmlTech);
         }
@@ -1527,18 +1548,20 @@ $(function () {
         });        
     }
 
-    function createInput(label, value, readonly, min, max, step, placeholder, enabled, id, events, type) {
+    function createInput(label, value, readonly, min, max, step, placeholder, enabled, id, events, type, defaultVal) {
         let idEl = id ? `id="${id}"` : "";
         let typeEl = type ? `type="${type}"` : "";
         let eventsEl = events ? `${events}` : "";
+        value = (defaultVal != undefined && defaultVal != "") ? defaultVal : value;
         let val = (value == null ? "" : `value="${value}"`);
         let readonlyVal = (readonly == null ? "" : `readonly="${readonly}"`);
         let minVal = (min == null ? "" : `min="${min}"`);
         let maxVal = (max == null ? "" : `max="${max}"`);
+        let defVal = (defaultVal == null ? "" : `default="${defaultVal}"`);
         let stepVal = (step == null ? "" : `step="${step}"`);
         let placeholderVal = (placeholder == null ? "" : `placeholder='${placeholder}'`);
         return `<div class="input-var"><div class="form-group"><label>${label}</label>
-        <input class="form-control" ${typeEl} ${idEl} ${val} ${readonlyVal} ${minVal} ${maxVal} ${stepVal} ${placeholderVal} ${eventsEl} ${enabled?'':'disabled'}></input>
+        <input class="form-control" ${typeEl} ${idEl} ${val} ${readonlyVal} ${minVal} ${maxVal} ${defVal} ${stepVal} ${placeholderVal} ${eventsEl} ${enabled?'':'disabled'}></input>
         <div class="help-block with-errors"></div></div></div>`;
     }
 
