@@ -537,3 +537,12 @@ msgstr "Remoción de algas"
 
 msgid "Dredge"
 msgstr "Dragado"
+
+msgid "Waterproof only allows one NbS implementation polygon per basin. Please check the file or load another file and try again."
+msgstr "Waterproof solo permite un polígono de implementación de SbN por cuenca. Por favor, compruebe el archivo o cargue otro e intente nuevamente."
+
+msgid "The supplied geographic file has more than one geometry."
+msgstr "El archivo geográfico contiene más de una geometría."
+
+msgid "The supplied geographic file does not have polygon type geometry (Can´t be Multipolygon)."
+msgstr "El archivo geográfico no tiene geometría de tipo polígono (No puede ser multipolígono)."
