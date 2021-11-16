@@ -738,12 +738,12 @@ def createStepFive(request):
                 'basin': basinId,
                 'models': ['sdr','awy','ndr'],                
                 'case': '-1', 
-                'catchment': existingIntake.pk,
+                'catchment': [existingIntake.pk],
             }
             argsWb = {
                 'id_intake': existingIntake.pk
             }
-            execInvest(requests, argsInvest)
+            execInvestPost(requests, argsInvest)
             execWb(requests, argsWb)
             response = {
                 'status': True,
@@ -1312,6 +1312,21 @@ def execInvest(request, args):
         print("Error ejecutando Invest:::")
         print(r.text)
 
+def execInvestPost(request, args):
+    print("execInvestPost ::")
+    
+    url = settings.WATERPROOF_INVEST_API+'task-exec-invest'
+    print("URL = %s" % url)
+    print(args)
+    jsonObject = json.dumps(args)
+    r = request.post(url, data=jsonObject, verify=False)
+    if r.status_code == 200:
+        print("Resultado correcto Exec Invest:::")
+        print(r.text)
+    else:
+        print("Error ejecutando Invest:::")
+        print(r.text)
+
 
 """"""""""""""""""""""
 Execute Water Balance API
@@ -1324,7 +1339,10 @@ catchment:  Int Intake id
 
 
 def execWb(request, args):
+    print ("execWb :: init")
     url = settings.WATERPROOF_INVEST_API+'wb'
+    print ("URL = %s" % url)
+    print (args)
     r = request.get(url, params=args, verify=False)
     if r.status_code == 200:
         print("Resultado correcto WB:::")

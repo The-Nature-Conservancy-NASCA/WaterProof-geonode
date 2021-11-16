@@ -1019,7 +1019,7 @@ function intakeStepFive() {
     });
     setTimeout(function () { 
         location.href = "/intake/?city=" + cityId; 
-    }, 1000);
+    }, 5000);
 }
 /** 
  * Delimit manually the intake polygon
