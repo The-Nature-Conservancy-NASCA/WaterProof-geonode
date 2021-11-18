@@ -26,6 +26,7 @@
     </div>
     <form data-toggle="validator" role="form" action="">
         <h4 class="text-primary">{% trans "General information" %}</h4>
+        <p>{% trans "information description" %}</p>
         <div class="form-group">
             <label>{% trans "Name" %} <span class="text-danger-wp">(*)</span> </label>
             <input type="text" class="form-control" id="idNamePlant" data-error="{% trans "This field is required" %}" placeholder="{% trans "Enter name" %}" required/>
@@ -409,6 +410,7 @@
                             </div>
                         </div>
                         <div class="col-md-5">
+                            <label class="text-primary">{% trans "Infrastructure" %}</label>
                             <div class="panel-group" id="VarCostListGroup" style="max-height: 370px; overflow-y: auto;"></div>
                         </div>
                     </div>

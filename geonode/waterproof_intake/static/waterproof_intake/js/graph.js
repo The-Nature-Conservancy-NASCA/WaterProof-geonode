@@ -650,6 +650,7 @@
             clearInputsMath();
             $('#CalculatorModal').modal('show');
             let index = parseInt($(this).attr('idvalue'));
+            selectedCostId = index;
             let fieldsFunction = funcostdb[index].fields;
             var currency = fieldsFunction.currencyCostName;
             if (currency == undefined || currency == '') {

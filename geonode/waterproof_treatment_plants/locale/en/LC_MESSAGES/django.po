@@ -482,3 +482,7 @@ msgstr "In WaterProof to create a new Treatment Plant you must have previously c
 #: templates/treatment_plants_list.html:129
 msgid "Paragraph modal create DWTP 3"
 msgstr "You will be able to explore water treatment technologies and their cost functions by clicking on the boxes to see the details."
+
+#: templates/treatment_plants_edit.html:29
+msgid "information description"
+msgstr "In this section you can create a Drinking Water Treatment Plant according to the quality of the water from your source."
