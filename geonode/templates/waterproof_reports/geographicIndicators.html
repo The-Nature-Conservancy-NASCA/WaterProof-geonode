@@ -175,7 +175,25 @@
 						<div class="col-md-3">
 							<div id="map-areas-rios-legend"></div>
 							<img src="" alt="legend" id="img-legend-areas-rios"/>
-						</div>        
+						</div>    
+						<div class="col-md-12">
+							<div>
+								<h5 textColor="red" class="download-title-geographic">{% trans "If you want to download the results of this analysis from the following icons" %}</h5>
+							</div>
+							<div class="report-download" style="display: block;">
+								<div class="col-md-5"></div>
+								<div class="col-md-1 report-download-pdf" onclick="openPDF()">
+									<img src="/static/geonode/img/documents.png" alt="documents"/>
+									<br>
+									PDF
+								</div>
+								<div class="col-md-1 report-download-zip" onclick="downloadZip()">
+									<img src="/static/geonode/img/descarga.png" alt="download"/>
+									<br>
+									ZIP
+								</div>
+							</div>
+						</div>    
 					</div>
 				</div>            
 		</div>
@@ -241,49 +259,65 @@
 	var mapAreasRios;
 
 	$(function () {
+		openPDF = function() {      
+			generateMap2Img('mapidcuenca','resultado');
+			setTimeout(function(){
+				document.getElementById('studyCase').value = localStorage.idStudyCase;
+				document.getElementById('studyCity').value = localStorage.getItem('city');
+				document.getElementById('studyCountry').value = localStorage.getItem('country');
+				document.getElementById('studyRegion').value = localStorage.getItem('region');
+				document.getElementById('discountRateData').value = document.getElementById("discountRate").innerHTML;
+				window.open('', 'TheWindow');
+				document.getElementById('TheForm').submit();
+			}, 4000);
+		}
+
+		downloadZip = function(){
+			window.location.href = "{{filterzip.link}}";
+		}
+		
+		changeReport = function() {
+				location.href = "../../study_cases/report/" + localStorage.idStudyCase;
+		}
+
+		var localStorageId = localStorage.idStudyCase;
+		$('#Return').append(        `
+				<a href="../../study_cases/report/${localStorageId}">{% trans "Return" %}</a>            
+				`
+		);   
 			
-			changeReport = function() {
-					location.href = "../../study_cases/report/" + localStorage.idStudyCase;
-			}
+		initialize = function () {
 
-			var localStorageId = localStorage.idStudyCase;
-			$('#Return').append(        `
-					<a href="../../study_cases/report/${localStorageId}">{% trans "Return" %}</a>            
-					`
-			);   
-				
-			initialize = function () {
+				$("#idCountri").html(localStorage.getItem('country'));
+				$("#idCity").html(localStorage.getItem('city'));
+				$("#idRegion").html(localStorage.getItem('region'));
+				$("#idNameStudyCase").html(localStorage.getItem('studyCasesName'));        
 
-					$("#idCountri").html(localStorage.getItem('country'));
-					$("#idCity").html(localStorage.getItem('city'));
-					$("#idRegion").html(localStorage.getItem('region'));
-					$("#idNameStudyCase").html(localStorage.getItem('studyCasesName'));        
-
-					document.getElementById("idNumberOfWaterGeographic").innerHTML = localStorage.getItem('idNumberOfWater');
-					document.getElementById("idNumberOfDrinkingGeographic").innerHTML = localStorage.getItem('idNumberOfDrinking');
-					document.getElementById("idCurrencyMainGeographic").innerHTML = localStorage.getItem('idCurrencyMain');
-					document.getElementById("idTimeMainGeographic").innerHTML = localStorage.getItem('idTimeMain');
-					document.getElementById("discountRateGeographic").innerHTML = localStorage.getItem('transactionCost');
-					let urlPhysicalIndicators = "../../reports/physical/"+localStorage.idStudyCase;
-        			document.getElementById("urlPhysical").href = urlPhysicalIndicators;
-				};
-			initialize();
-
-			generateMap2Img = function (mapId, imgId) {
-				var mapElement = document.getElementById(mapId);
-				//const dataURL = await domtoimage.toPng(mapElement, { width, height })
-				//const blob = await domtoimage.toBlob(mapElement, { width, height })
-				$(".leaflet-control").hide();
-				domtoimage.toPng(mapElement)
-					.then(function (dataUrl) {
-							$('#'+ imgId).attr('src', dataUrl);							
-							$(".leaflet-control").show();
-					})
-					.catch(function (error) {
-							console.error('oops, something went wrong!', error);
-							$(".leaflet-control").show();
-					});
+				document.getElementById("idNumberOfWaterGeographic").innerHTML = localStorage.getItem('idNumberOfWater');
+				document.getElementById("idNumberOfDrinkingGeographic").innerHTML = localStorage.getItem('idNumberOfDrinking');
+				document.getElementById("idCurrencyMainGeographic").innerHTML = localStorage.getItem('idCurrencyMain');
+				document.getElementById("idTimeMainGeographic").innerHTML = localStorage.getItem('idTimeMain');
+				document.getElementById("discountRateGeographic").innerHTML = localStorage.getItem('transactionCost');
+				let urlPhysicalIndicators = "../../reports/physical/"+localStorage.idStudyCase;
+				document.getElementById("urlPhysical").href = urlPhysicalIndicators;
 			};
+		initialize();
+
+		generateMap2Img = function (mapId, imgId) {
+			var mapElement = document.getElementById(mapId);
+			//const dataURL = await domtoimage.toPng(mapElement, { width, height })
+			//const blob = await domtoimage.toBlob(mapElement, { width, height })
+			$(".leaflet-control").hide();
+			domtoimage.toPng(mapElement)
+				.then(function (dataUrl) {
+						$('#'+ imgId).attr('src', dataUrl);							
+						$(".leaflet-control").show();
+				})
+				.catch(function (error) {
+						console.error('oops, something went wrong!', error);
+						$(".leaflet-control").show();
+				});
+		};
 	});
     
 </script>
