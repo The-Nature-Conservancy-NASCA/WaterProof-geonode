@@ -1934,22 +1934,25 @@ def pdf(request):
 
         heightIcon = heightIcon + 80
 
-    # study_case_name = 'Case_study_' + request.POST['studyCase']+'.pdf'
-    # pdf_output = pdf.output(study_case_name,'S')
-    # if (pdf_output is None):
-    #     pdf_output = pdf.output(dest='S')
+    study_case_filename = 'report_study_case_' + request.POST['studyCase']+'.pdf'
+    print ("creating pdf report : " + study_case_filename)
+    # pdf_output = pdf.output(study_case_filename,'S')
+    pdf_output = pdf.output()
+    if (pdf_output is None):
+        pdf_output = pdf.output(dest='S')
 
-    # if (pdf_output is not None):
-    #     try:
-    #         pdf_output.encode('iso-8859-1')
-    #     except:
-    #         print("Error, can't apply encode, generate without encode")
-    # else:
-    #     print('Error, pdf_output is None')
-    # response = HttpResponse(pdf_output)
+    if (pdf_output is not None):
+        try:
+            pdf_output.encode('iso-8859-1')
+        except:
+            print("Error, can't apply encode, generate without encode")
+    else:
+        print('Error, pdf_output is None')
+    response = HttpResponse(pdf_output)
 
-    response = HttpResponse(pdf.output(dest='S').encode('iso-8859-1'))
+    #response = HttpResponse(pdf.output(dest='S').encode('iso-8859-1'))
     response['Content-Type'] = 'application/pdf'
+    response['Content-Disposition'] = "attachment; filename='waterproof_report.pdf'"
     return response
 
     tmp_dir =  tempfile.gettempdir() # prints the current temporary directory
