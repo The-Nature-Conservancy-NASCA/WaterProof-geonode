@@ -1135,8 +1135,7 @@ function changeFileEvent() {
                     var contents = evt.target.result;
                     try {
                         geojson = JSON.parse(contents);
-                        validGeojson = validateGeoJson(geojson);
-                        if (validGeojson) {
+                        if (validateGeoJson(geojson) && validateGeometryAndCount(geojs)) {
                             delimitationFileType = delimitationFileEnum.GEOJSON;
                             addEditablePolygonMap();
                         } else {
@@ -1167,10 +1166,15 @@ function changeFileEvent() {
                         shapeValidation.then(function (resultFile) {
                             //is valid shapefile
                             if (resultFile.valid) {
-                                shp(contents).then(function (shpToGeojson) {
-                                    geojson = shpToGeojson;
-                                    delimitationFileType = delimitationFileEnum.SHP;
-                                    addEditablePolygonMap();
+                                shp(contents).then(function (geojs) {
+                                    if (validateGeometryAndCount(geojs)){
+                                        geojson = geojs;
+                                        delimitationFileType = delimitationFileEnum.SHP;
+                                        addEditablePolygonMap();
+                                    }else {
+                                        $('#intakeArea').val('');
+                                        return;
+                                    }                               
                                 });
                             } else {
                                 $('#intakeArea').val('');
@@ -1184,7 +1188,7 @@ function changeFileEvent() {
                             title: gettext('Shapefile error'),
                             text: gettext("There's been an error reading the shapefile"),
                         })
-                        console.log("Ocurrió error convirtiendo el shapefile " + e);
+                        console.log("Error converting shapefile " + e);
                         $('#intakeArea').val('');
                     });
                 };
