@@ -512,3 +512,7 @@ msgstr "En WaterProof para crear una nueva Planta de tratamiento debe haber crea
 #: templates/treatment_plants_list.html:129
 msgid "Paragraph modal create DWTP 3"
 msgstr "Usted podrá explorar las tecnologías de tratamiento de agua y sus funciones de costo dando clic sobre los recuadros para ver sus detalles."
+
+#: templates/treatment_plants_edit.html:29
+msgid "information description"
+msgstr "En esta sección usted puede crear una Planta de tratamiento de agua de acuerdo con la calidad del agua de su fuente."

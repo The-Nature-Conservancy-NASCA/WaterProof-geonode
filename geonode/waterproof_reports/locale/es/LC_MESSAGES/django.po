@@ -728,3 +728,6 @@ msgstr "Regulatorio y reputacional"
 
 msgid "Physical risk quality"
 msgstr "Riesgo físico de calidad"
+
+msgid "description graph physical indicators"
+msgstr "La gráfica de barras muestra el resultado del último año de análisis."

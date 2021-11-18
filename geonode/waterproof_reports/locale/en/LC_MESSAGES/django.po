@@ -693,3 +693,6 @@ msgstr "Regulatory and reputational"
 
 msgid "Physical risk quality"
 msgstr "Physical risk quality"
+
+msgid "description graph physical indicators"
+msgstr "The bar graph shows the result for the last year."

@@ -220,6 +220,7 @@ $(function () {
                 }
             });
             if(validCsinfra) {
+                console.log($('option:selected', this).attr("intake"))
                 $('#idTbodyIntake').append('<tr id="child' + this.value + '"><td class="small text-center vat" name="nameListAdd" idIntake="' + 
                 $('option:selected', this).attr("value") + '" nameList="' + textNameCsinfra + '"  graphIdlist="' + $('option:selected', this).attr("graphIdlist") + 
                 '"  csinfraList="' + $('option:selected', this).attr("csinfra") + '">' + textNameCsinfra + '</td><td class="small text-center vat">' + 
@@ -357,6 +358,7 @@ $(function () {
                 letterPlant = value.plantSuggest;
             });
             $.each( data.csinfra, function( key, value ) {
+                console.log(value.csinfraName)
                 let htmlTbl = `<td class="small text-center vat">${value.csinfraCode}</td> 
                         <td aling="center"><a class="btn btn-danger" onclick="deleteOption('${value.csinfraId}')">
                         <span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td></tr>`;
@@ -742,13 +744,14 @@ $(function () {
             style="position:relative;top:-6px; value=${idNewTech}" onkeydown="keyupNewTech(this)" 
             placeholder="${_('Enter name technology')}"></div></div></div>
             <div class="margin-main overflow-form col-md-12" id="technology${idNewTech}">
+            ${tableFunctionTpl}
             <div class="container-var" id="idContainerVar${idNewTech}"><div>
         ${createInput('% '+ lbl.transportedWater, 100, "", null, null, null, null, false, null, null, 'number')}
         ${createInput('% '+ lbl.sediments, null, null, null, null, null, lbl.placeholderSediments, true, null, null, 'number')}  
         </div><div>
         ${createInput('% '+ lbl.nitrogen, null, null, null, null, null, lbl.placeholderNitrogen, true, null, null, 'number')}
         ${createInput('% '+ lbl.phosphorus, null, null, null, null, null, lbl.placeholderPhosphorus, true, null, null, 'number')}
-        </div></div>${tableFunctionTpl}<div class="link-form">${_('Add function')}</div></div>`;
+        </div></div><div class="link-form">${_('Add function')}</div></div>`;
                 
         node.innerHTML = textNewForm;
         let elParent = document.getElementById(parentId);
@@ -977,7 +980,7 @@ $(function () {
                                 let style = `style='display:${(enableAddFn ? 'block' : 'none')}' `;
                                 tableFunct += `<div class="link-form" ${style} subprocess="${value.subprocess}"> ${_('Add function')} </div>`;
                             }
-                            $('#technology' + techId).html($('#technology' + techId).html() + tableVar + tableFunct);                                                           
+                            $('#technology' + techId).html($('#technology' + techId).html() + tableFunct + tableVar);                                                           
                         }
                     }
                 });
@@ -1006,13 +1009,14 @@ $(function () {
                 <div class="point-tree" onclick="viewBranch('technology${idNewTech}', this)">-</div> 
                 <div class="text-tree"><div style="display:flex;"><label technology='${techName}'>${lblTechnology}:</label> ${techName}
                 </div></div></div><div class="margin-main overflow-form col-md-12" id="technology${idNewTech}">
+                ${tableFunct}
                 <div class="container-var" id="idContainerVar${idNewTech}"><div>
                 ${createInput('% '+ lbl.transportedWater, 100, "", null, null, null, null, false, null)}
                 ${createInput('% '+ lbl.sediments, sediments, null, null, null, null, lbl.placeholderSediments, true,'idSedimentsRetained'+idNewTech,onBlurFn,'number', null)}
                 </div><div>
                 ${createInput('% '+ lbl.nitrogen, nitrogen, null, null, null, null, lbl.placeholderNitrogen, true,'idNitrogenRetained'+idNewTech,onBlurFn,'number', null)}
                 ${createInput('% '+ lbl.phosphorus, phosphorus, null, null, null, null, lbl.placeholderPhosphorus, true,'idPhosphorusRetained'+idNewTech,onBlurFn,'number', null)}
-                </div></div>${tableFunct}<div class="link-form">${_('Add function')}</div></div>`;            
+                </div></div><div class="link-form">${_('Add function')}</div></div>`;            
             $('#subprocess' + fnTechParent.idSubprocess).html($('#subprocess' + fnTechParent.idSubprocess).html() + htmlTech);
         }
         validateAndAddFunction2Array();
