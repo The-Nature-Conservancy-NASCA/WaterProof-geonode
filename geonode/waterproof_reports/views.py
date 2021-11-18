@@ -1932,12 +1932,20 @@ def pdf(request):
 #        pdf.cell(0, 6, centerxy[1] + "," + centerxy[0], align='L', link = 'http://apps.skaphe.com:8000/reports/geographic/?folder=' + str(item['folder']) + '&intake=' + str(item['intake']) + '&region=' + str(item['region']) + '&year=' + str(item['year']) + '&study_case_id=' + str(item['studycase']) + '&center=' + centerxy[1] + "," + centerxy[0])
         pdf.cell(0, 6, centerxy[1] + "," + centerxy[0], align='L', link = str(urlgeografico) + str(item['folder']) + '&intake=' + str(item['intake']) + '&region=' + str(item['region']) + '&year=' + str(item['year']) + '&study_case_id=' + str(item['studycase']) + '&center=' + centerxy[1] + "," + centerxy[0])
 
-        heightIcon = heightIcon + 80;
+        heightIcon = heightIcon + 80
 
 #    response = HttpResponse(pdf.output(dest='S').encode('iso-8859-1'))
-    StudyCaseNum = 'Case_study_' + request.POST['studyCase']+'.pdf';
-    response = HttpResponse(pdf.output(StudyCaseNum,'S').encode('iso-8859-1'))
+    study_case_name = 'Case_study_' + request.POST['studyCase']+'.pdf'
+    pdf_output = pdf.output(study_case_name,'S')
+    if (pdf_output is None):
+        pdf_output = pdf.output(dest='S')
 
+    if (pdf_output is not None):
+        pdf_output.encode('iso-8859-1')
+    else:
+        print('Error, pdf_output is None')
+
+    response = HttpResponse(pdf_output)
     response['Content-Type'] = 'application/pdf'
     return response
 
