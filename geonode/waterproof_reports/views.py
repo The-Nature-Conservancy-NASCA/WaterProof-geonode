@@ -1941,7 +1941,10 @@ def pdf(request):
         pdf_output = pdf.output(dest='S')
 
     if (pdf_output is not None):
-        pdf_output.encode('iso-8859-1')
+        try:
+            pdf_output.encode('iso-8859-1')
+        except:
+            print("Error, can't apply encode, generete without encode")
     else:
         print('Error, pdf_output is None')
 
