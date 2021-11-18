@@ -780,7 +780,9 @@ def getNameWaterproofIntakeIntake(request):
 	if request.method == 'GET':
 		con = psycopg2.connect(settings.DATABASE_URL)
 		cur = con.cursor()
-		cur.execute("SELECT ii.name, ii.id FROM public.waterproof_intake_intake ii INNER JOIN public.waterproof_study_cases_studycases_intakes si ON (ii.id=si.intake_id) WHERE si.studycases_id =  '" + request.query_params.get('studyCase') + "'")
+#		cur.execute("SELECT ii.name, ii.id FROM public.waterproof_intake_intake ii INNER JOIN public.waterproof_study_cases_studycases_intakes si ON (ii.id=si.intake_id) WHERE si.studycases_id =  '" + request.query_params.get('studyCase') + "'")
+		cur.execute("SELECT distinct ii.name, ii.id FROM public.waterproof_intake_intake ii INNER JOIN public.waterproof_reports_rios_ipa si ON (ii.id=si.intake_id) WHERE si.study_case_id= '" + request.query_params.get('studyCase') + "'")
+
 		rows = cur.fetchall()
 		objects_list = []
 		for row in rows:
