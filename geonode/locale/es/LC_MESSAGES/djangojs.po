@@ -547,6 +547,18 @@ msgstr "El atributo 'action' requerido no se encuentra en el archivo .dbf"
 msgid "Dbf activity field missing"
 msgstr "El atributo 'actitivy_n' requerido no se encuentra en el archivo .dbf"
 
+msgid "Search City"
+msgstr "Buscar Ciudad"
+
+msgid "Please Search a city in the map."
+msgstr "Por favor, busque una ciudad en el mapa."
+
+msgid "Default extent"
+msgstr "Extensión predeterminada"
+
+msgid "Saving"
+msgstr "Guardando"
+
 #, fuzzy
 #~| msgid "Now"
 #~ msgid "No"
@@ -906,8 +918,8 @@ msgstr "El atributo 'actitivy_n' requerido no se encuentra en el archivo .dbf"
 #~ msgid "Downloading..."
 #~ msgstr "Descargando..."
 
-#~ msgid "Please wait"
-#~ msgstr "Por favor, espere"
+msgid "Please wait"
+msgstr "Por favor, espere"
 
 #~ msgid "Available %s"
 #~ msgstr "Available %s"

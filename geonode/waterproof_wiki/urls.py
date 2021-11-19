@@ -15,8 +15,9 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from django.conf import settings
+from django.conf.urls.static import static
 
 from . import views #Se debe indicar en donde están las vistas
 
@@ -28,11 +29,10 @@ urlpatterns = [
     path('articulos-random/', views.listar_articulos_random, name="listar_articulos_random"),
     path('consultar-articulo/<int:id>', views.consultar_articulo, name="consultar_articulo"),
     path('categoria/<int:categoria_id>', views.consultar_categorias, name="consultar_categorias"),
-
+    path('ckeditor', include('ckeditor_uploader.urls')),
     url(r'^buscar', views.listar_articulos_filtro, name="listar_articulos_filtro"),
 
-
-]
+]+static (settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 #Configuracion para mostrar imagenes que se hayn subido
 if settings.DEBUG:

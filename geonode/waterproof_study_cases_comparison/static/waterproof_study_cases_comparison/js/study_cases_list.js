@@ -167,17 +167,14 @@ $(function () {
      * Initialize map 
      */
 
-    TILELAYER = 'http://{s}.tile.osm.org/{z}/{x}/{y}.png';
+    TILELAYER = 'https://{s}.tile.osm.org/{z}/{x}/{y}.png';
     IMAGE_LYR_URL = "https://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryTopo/MapServer/tile/{z}/{y}/{x}";
     HYDRO_LYR_URL = "https://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/Esri_Hydro_Reference_Overlay/MapServer/tile/{z}/{y}/{x}";
     CENTER = [4.582, -74.4879];
     MAXZOOM = 11;
 
     initMap = function () {
-
-        //drawPolygons();        
-
-
+        //drawPolygons();
         map = L.map('mapidcuenca', {
             scrollWheelZoom: false,
             zoomControl: false,
@@ -211,9 +208,7 @@ $(function () {
 
         }
         waterproof["cityCoords"] = cityCoords;
-
         map.setView(initialCoords, 5);
-
         searchPoints.addTo(map);
 
         var tilelayer = L.tileLayer(TILELAYER, {
@@ -221,8 +216,6 @@ $(function () {
             attribution: 'Data \u00a9 <a href="http://www.openstreetmap.org/copyright"> OpenStreetMap Contributors </a> Tiles \u00a9 Komoot'
         }).addTo(map);
         var images = L.tileLayer(IMAGE_LYR_URL);
-
-
         var hydroLyr = L.tileLayer(HYDRO_LYR_URL);
 
         var baseLayers = {
@@ -235,17 +228,13 @@ $(function () {
             "Hydro (esri)": hydroLyr,
         };
 
-
+        var defExt = new L.Control.DefaultExtent({ title: gettext('Default extent'), position: 'topright'}).addTo(map);
         var zoomControl = new L.Control.Zoom({
             position: 'topright'
         }).addTo(map);
         L.control.layers(baseLayers, overlays, {
             position: 'topleft'
-        }).addTo(map);
-
-        //var c = new L.Control.Coordinates();        
-        //c.addTo(map);
-
+        }).addTo(map);  
 
         function onMapClick(e) {
             // c.setCoordinates(e);
@@ -296,7 +285,6 @@ $(function () {
         $("#countryLabel").html(country);
         $("#cityLabel").html(cityName);
         localStorage.setItem('city', cityName);
-
         let urlAPI = '{{ SEARCH_COUNTRY_API_URL }}' + countryCode;
 
         $.get(urlAPI, function (data) {
@@ -307,7 +295,7 @@ $(function () {
 
             localStorage.setItem('country', country);
             localStorage.setItem('region', data.region);
-            localStorage.setItem('currency', data.currencies[0].name + " - " + data.currencies[0].symbol);
+            localStorage.setItem('currency', data.currencies[0].name);
         });
     }
 
@@ -399,16 +387,13 @@ $(function () {
                 }
             }
         });
-
     }
-
 
     viewPtap = function (id) {
         localStorage.loadInf = "true";
         localStorage.plantId = id;
         window.open('../../treatment_plants/create/', '_blank');
     };
-
 
     /** 
      * Validate input file on change
@@ -521,8 +506,7 @@ $(function () {
                         });
                     };
                     reader.onerror = function (event) {
-                        console.error("File could not be read! Code " + event.target.error.code);
-                        //alert("El archivo no pudo ser cargado: " + event.target.error.code);
+                        console.error("File could not be read! Code " + event.target.error.code);  
                     };
                     reader.readAsArrayBuffer(file);
                 }

@@ -42,7 +42,7 @@ msgstr ""
 "Project-Id-Version: GeoNode\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-02-11 20:03-0500\n"
-"PO-Revision-Date: 2021-08-09 14:46-0500\n"
+"PO-Revision-Date: 2021-11-10 15:59-0500\n"
 "Last-Translator: Julien Collaer <julien.collaer@opengeode.be>\n"
 "Language-Team: Spanish (http://www.transifex.com/geonode/geonode/language/es/)\n"
 "Language: es\n"
@@ -95,7 +95,10 @@ msgid "define_study_case_text"
 msgstr "Por favor complete los campos para definir su caso de estudio"
 
 msgid "select_type_study"
-msgstr "Seleccione el tipo de caso de estudio a crear"
+msgstr "Seleccione el tipo de infraestructura a analizar en el caso de estudio"
+
+msgid "define_type_study_text"
+msgstr "WaterProof puede considerar para el análisis de retorno a la inversión, los costos de operacion y mantenimiento asociados a la infraestructura de análisis. Usted puede utilizar los costos de una planta de tratamiento de agua potable previamente creada o puede crear costos para una infraestructura personalizada. Seleccione la opción deseada."
 
 msgid "no_treatment_plants"
 msgstr "No existen plantas de tratamiento en la ciudad seleccionada"
@@ -107,7 +110,7 @@ msgid "custom_case"
 msgstr "Caso personalizado"
 
 msgid "select_water_intake"
-msgstr "Seleccione la captación que usted considere para el análisis ROI"
+msgstr "Seleccione de la lista las captaciones que usted considere para el análisis ROI. Si aún no ha sido creada, de clic en el siguiente botón:"
 
 msgid "water_source"
 msgstr "Nombre de la fuente de agua"
@@ -119,16 +122,13 @@ msgid "add_cost_function"
 msgstr "Agregar función de costo"
 
 msgid "select_treatments_plants"
-msgstr "Seleccione la planta de tratamiento que usted considere para el análisis ROI"
+msgstr "Seleccione de la lista las plantas de tratamiento que usted considere para el análisis ROI. Si aún no ha sido creada, de clic en el siguiente botón:"
 
 msgid "add_plant"
 msgstr "Agregar PTAP"
 
 msgid "carbon_market_benefits"
 msgstr "Beneficios mercado de carbono"
-
-msgid "carbon_market_text"
-msgstr "WaterProof puede considerar beneficios asociados a mercado de Carbono, de clic en el checkbox para incluirlo en el análisis."
 
 msgid "CO2_country"
 msgstr "CO2 Eq para "
@@ -203,10 +203,10 @@ msgid "sensitivity_maximun_discount"
 msgstr "Tasa de descuento máxima para el analisis de sensibilidad (%)"
 
 msgid "NBS_conservation_activities_text"
-msgstr "Seleccione las SbN que desea considerar en el análisis:"
+msgstr "Seleccione las SbN que desea considerar para el análisis. Usted puede consultar, editar o crear nuevas SbN haciendo click en el siguiente botón"
 
 msgid "investment_tip"
-msgstr "Ingrese aquí la cantidad de dinero que desea haber gastado en cada SbN por año. Si no desea predeterminar cuánto se gasta en cada SbN, ingrese el presupuesto total en el cuadro Presupuesto flotante anual. También puede ingresar valores de algunas SbN e ingresar el presupuesto restante en el cuadro Presupuesto flotante."
+msgstr "Ingrese aquí la cantidad de dinero que desea invertir en cada SbN por año. Si no desea predeterminar cuánto se invierte en cada SbN, ingrese el presupuesto total en el cuadro Presupuesto flotante anual. También puede ingresar valores de algunos SbN e ingresar el presupuesto restante en el cuadro Presupuesto flotante. Tenga en cuenta que WaterProof considerará los valores indicados como inversión para cada una de las cuencas involucradas en el análisis. Si establece un presupuesto de 100.000 USD pero el análisis involucra 2 cuencas de análisis, el sistema considerará 200.000 USD como la inversión total disponible."
 
 msgid "analysis_time_period"
 msgstr "Periodo de tiempo del análisis (10 - 100 años)"
@@ -260,12 +260,12 @@ msgid "financial_discount_rates"
 msgstr "Tasas de descuento para el análisis ROI"
 
 msgid "financial_transaction_cost"
-msgstr "Costos de transacción anuales como porcentaje de los costos de implementación, mantenimiento y oportunidad de las NbS"
+msgstr "Costos de transacción anuales como porcentaje de los costos de implementación, mantenimiento y oportunidad de las SbN"
 
 msgid "study_cases_list_create"
 msgstr "Usted debe ser un usuario registrado para crear un caso de estudio*"
 
-msgid "Creating a new water intake"
+msgid "Creating a new case study"
 msgstr "Creando un nuevo caso de estudio"
 
 msgid "study_cases_list_tip"
@@ -281,7 +281,7 @@ msgid "biophysical_tip"
 msgstr "En este paso encontrará los parámetros biofísicos necesarios para la ejecución de los modelos. Si desea verlos o editarlos, haga clic en opciones avanzadas, de lo contrario haga clic en siguiente y el sistema utilizará los valores predeterminados."
 
 msgid "financial_tip"
-msgstr "En esta sección el sistema le ofrece precargados los costos requeridos para la implementación de las SbN. Confirme o edites los valores de acuerdo con su realidad:"
+msgstr "En esta sección el sistema le ofrece precargados los costos requeridos para la implementación de las SbN. Confirme o edite los valores de acuerdo con su realidad:"
 
 msgid "study_case_tip"
 msgstr "Ingrese los datos con los que identificará su caso de estudio. Observe que además del nombre y una descripción, debe indicar las plantas de tratamiento y captaciones que derivan costos."
@@ -293,13 +293,10 @@ msgid "WaterProof will assist you by indicating the steps you must follow to com
 msgstr "WaterProof lo asistirá indicando los pasos que debe seguir para hacer su registro completo: "
 
 msgid "Creation city : "
-msgstr "Ciudad de creación :"
+msgstr "Ciudad de creación:"
 
 msgid "You won't be able to revert this!"
 msgstr "Los datos diligenciados en esta sección se perderán"
-
-msgid "Define"
-msgstr "Definir"
 
 msgid "NBS_conservation_activities"
 msgstr "SbN / Actividades de conservación"
@@ -376,10 +373,10 @@ msgstr "Recuerde que el ROI es un indicador que permite saber cuánto dinero se 
 msgid "Integrate Analysis Associated with the Carbon Market"
 msgstr "Integrar análisis asociados al mercado de carbono"
 
-msgid "offers you the possibility to integrate in your analysis the possible benefits that you can obtain if you expect to participate in carbon markets. This is done by defining a monetary value per Ton of CO2eq."
+msgid "Offers you the possibility to integrate in your analysis the possible benefits that you can obtain if you expect to participate in carbon markets. This is done by defining a monetary value per Ton of CO2eq."
 msgstr "WaterProof le ofrece la posibilidad de integrar en su análisis los posibles beneficios que puede obtener si se espera participar en mercados de carbono. Esto se hace a partir de la definición de un valor monetario por Tonelada de CO2eq."
 
-msgid "uses information from the database published in May 2020 by the Institute for Climate Economics (Sébastien Postic | Marion Fetet) to preload USD / TonCO2eq values ​​that vary according to the country where the analysis is being carried out, however, the user can modify these values ​​according to the information they have."
+msgid "Uses information from the database published in May 2020 by the Institute for Climate Economics (Sébastien Postic | Marion Fetet) to preload USD / TonCO2eq values ​​that vary according to the country where the analysis is being carried out, however, the user can modify these values ​​according to the information they have."
 msgstr "WaterProof utiliza la información de la base de datos publicada en mayo de 2020 por el Institute for Climate Economics (Sébastien Postic | Marion Fetet) para precargar valores de USD/TonCO2eq que varían de acuerdo al país en donde se esté realizando el análisis, sin embargo, el usuario puede realizar la modificación de estos valores de acuerdo a la información que posea."
 
 msgid "WaterProof will define the NBS of your portfolio according to your needs in relation to:"
@@ -455,7 +452,7 @@ msgid "Run the analysis"
 msgstr "Ejecutar análisis"
 
 msgid "This is the last step in the configuration of your case study in which the user defines the time in which they want the analysis of the benefits to be projected, as well as the time that they estimate to carry out theNBS  implementation actions."
-msgstr "Este es el ultimo paso en la configuración de su caso de estudio en el que el usuario define el tiempo en el que desea que se proyecte el análisis de los beneficios en la implementación de sus SbN, así como el tiempo que estima adelantar las acciones de implementación. "
+msgstr "Este es el último paso en la configuración de su caso de estudio en el que el usuario define el tiempo en el que desea que se proyecte el análisis de los beneficios en la implementación de sus SbN, así como el tiempo que estima adelantar las acciones de implementación. "
 
 msgid "Then, you must indicate the climatic aspects to consider. WaterProof, by default, allows you to consider the conditions of the Climate Change Scenarios or the known historical conditions. This option is available due to the influence of the climate on the sustainability of program activities and possible additional costs that must be incurred in more adverse conditions."
 msgstr "Seguidamente deberá indicar los aspectos climáticos a considerar. WaterProof por defecto, le permite considerar las condiciones de los Escenarios de cambio climático o las condiciones históricas conocidas. Esto debido a la influencia del clima en la sostenibilidad de sus actividades y posibles costos adicionales que se deben incurrir en condiciones más adversas."
@@ -489,3 +486,168 @@ msgstr "Reportes"
 
 msgid "delete"
 msgstr "Eliminar"
+
+msgid "Definition"
+msgstr "Definición"
+
+msgid "description_select_type"
+msgstr "WaterProof puede considerar para el análisis de retorno a la inversión, los costos de operacion y mantenimiento asociados a la infraestructura de análisis. Usted puede utilizar los costos de una planta de tratamiento de agua potable previamente creada o puede crear costos para una infraestructura personalizada. Seleccione la opción deseada."
+
+msgid "My Case studies"
+msgstr "Mis Casos de estudio"
+
+msgid "NbS objectives definition"
+msgstr "Definición de objetivos de las SbN"
+
+msgid "analysis_parameter"
+msgstr "Parámetros de análisis"
+
+msgid "Water intakes are civil works and electromechanical equipment used to obtain water from surface or underground sources (WaterProof version 1.0 is limited to surface sources). A basin is made up of information about its location, polygon of the supplying basin, infrastructure elements, its cost functions and demand data."
+msgstr "Las obras de captación son las obras civiles y equipos electromecánicos que se utilizan para obtener agua de fuentes superficiales o subterráneas (La versión 1.0 de WaterProof está limitada a fuentes superficiales). Una captación está conformada por información sobre su ubicación, polígono de la cuenca abastecedora, elementos de infraestructura, sus funciones de costo y datos de su demanda."
+
+msgid "To create a new basin, WaterProof will help you with the steps you need to follow to complete your registration"
+msgstr "Para crear una nueva captación, WaterProof lo asistirá indicando los pasos que debe seguir para hacer su registro completo"
+
+msgid "Study cases help 4 text 1"
+msgstr "Esta es una sección para usuarios avanzados en donde podrá verificar los valores biofísicos que se usarán en los modelos InVEST. WaterProof utiliza el paquete de modelación InVEST con los modelos Annual Water Yield, Seasonal Water Yield, Sediment Delivery Ratio, Nutrient Delivery Ratio y Carbon Storage and Sequestration. Si el usuario tiene un mayor conocimiento sobre las características biofísicas para los modelos, puede modificar la tabla."
+
+msgid "Study cases help 4 text 1.1"
+msgstr "Una breve descripción de los valores de la tabla biofísica puede consultarse a continuación: "
+
+msgid "Study cases help 4 text 2"
+msgstr "Identificador único para cada clase de uso de la tierra (por ejemplo, 1 para bosque, 3 para pastizales, etc.). Cada valor en el archivo LULC debe tener un valor Lucode correspondiente en la tabla biofísica."
+
+msgid "Study cases help 4 text 3"
+msgstr "Profundidad máxima de la raíz para clases de uso de suelo con vegetación, dada en milímetros."
+
+msgid "Study cases help 4 text 4"
+msgstr "Factor de cobertura de para cada clase de uso de la tierra de acuerdo con la USLE. Este parámetro varía entre cero y uno."
+
+msgid "Study cases help 4 text 5"
+msgstr "Factor de práctica de soporte para cada clase de uso de la tierra de acuerdo con USLE. Este parámetro varía entre cero y uno."
+
+msgid "Study cases help 4 text 6"
+msgstr "Carga de nitrógeno para cada clase de uso de la tierra, expresada como unidades de kilogramos por hectárea por año."
+
+msgid "Study cases help 4 text 7"
+msgstr "Eficiencia de retención máxima de nitrógeno para cada clase de uso de la tierra. Este parámetro varía entre cero y uno."
+
+msgid "Study cases help 4 text 8"
+msgstr "Carga de fosforo para cada clase de uso de la tierra, expresada como unidades de kilogramos por hectárea por año."
+
+msgid "Study cases help 4 text 9"
+msgstr "Eficiencia de retención máxima de fosforo para cada clase de uso de la tierra. Este parámetro varía entre cero y uno."
+
+msgid "Study cases help 4 text 10"
+msgstr "Distancia después de la cual se supone que un parche de un tipo particular de clase de uso de la tierra retiene nitrógeno en su capacidad máxima, expresada en metros."
+
+msgid "Study cases help 4 text 11"
+msgstr "Distancia después de la cual se supone que un parche de un tipo particular de clase de uso de la tierra retiene fósforo en su capacidad máxima, expresada en metros."
+
+msgid "Study cases help 4 text 12"
+msgstr "Proporción de nitrógeno disueltos sobre la cantidad total de nitrógeno. Este parámetro varía entre cero y uno."
+
+msgid "Study cases help 4 text 13"
+msgstr "Valores de número de curva entera (CN) para tipo de suelo hidrológico A. Este parámetro no admite valores de cero."
+
+msgid "Study cases help 4 text 14"
+msgstr "Valores de número de curva entera (CN) para tipo de suelo hidrológico B. Este parámetro no admite valores de cero."
+
+msgid "Study cases help 4 text 15"
+msgstr "Valores de número de curva entera (CN) para tipo de suelo hidrológico C. Este parámetro no admite valores de cero."
+
+msgid "Study cases help 4 text 16"
+msgstr "Valores de número de curva entera (CN) para tipo de suelo hidrológico D. Este parámetro no admite valores de cero."
+
+msgid "Study cases help 4 text 17"
+msgstr "Coeficiente de evapotranspiración de la planta del mes de enero para cada clase de uso de la tierra."
+
+msgid "Study cases help 4 text 18"
+msgstr "Coeficiente de evapotranspiración de la planta del mes de febrero para cada clase de uso de la tierra."
+
+msgid "Study cases help 4 text 19"
+msgstr "Coeficiente de evapotranspiración de la planta del mes de marzo para cada clase de uso de la tierra."
+
+msgid "Study cases help 4 text 20"
+msgstr "Coeficiente de evapotranspiración de la planta del mes de abril para cada clase de uso de la tierra."
+
+msgid "Study cases help 4 text 21"
+msgstr "Coeficiente de evapotranspiración de la planta del mes de mayo para cada clase de uso de la tierra."
+
+msgid "Study cases help 4 text 22"
+msgstr "Coeficiente de evapotranspiración de la planta del mes de junio para cada clase de uso de la tierra."
+
+msgid "Study cases help 4 text 23"
+msgstr "Coeficiente de evapotranspiración de la planta del mes de julio para cada clase de uso de la tierra."
+
+msgid "Study cases help 4 text 23 2"
+msgstr "Coeficiente de evapotranspiración de la planta del mes de agosto para cada clase de uso de la tierra."
+
+msgid "Study cases help 4 text 24"
+msgstr "Coeficiente de evapotranspiración de la planta del mes de septiembre para cada clase de uso de la tierra."
+
+msgid "Study cases help 4 text 25"
+msgstr "Coeficiente de evapotranspiración de la planta del mes de octubre para cada clase de uso de la tierra."
+
+msgid "Study cases help 4 text 26"
+msgstr "Coeficiente de evapotranspiración de la planta del mes de noviembre para cada clase de uso de la tierra."
+
+msgid "Study cases help 4 text 27"
+msgstr "Coeficiente de evapotranspiración de la planta del mes de diciembre para cada clase de uso de la tierra."
+
+msgid "Study cases help 4 text 28"
+msgstr "Densidad de carbono en la biomasa aérea [megagramos / hectárea]"
+
+msgid "Study cases help 4 text 29"
+msgstr "Densidad de carbono en biomasa subterránea [megagramos / hectárea]"
+
+msgid "Study cases help 4 text 30"
+msgstr "Densidad de carbono en el suelo [megagramos / hectárea]"
+
+msgid "Study cases help 4 text 31"
+msgstr "Densidad de carbono en la materia muerta [megagramos / hectárea]"
+
+msgid "Study cases help 4 text 32"
+msgstr "Habilidad de cada clase de uso de la tierra para servir como una fuente de erosión. Este parámetro varía entre cero y uno."
+
+msgid "Study cases help 4 text 33"
+msgstr "Eficiencia de retención de sedimento de cada clase de uso de la tierra. Este parámetro varía entre cero y uno."
+
+msgid "Study cases help 4 text 34"
+msgstr "Rugosidad de la superficie de cada clase de uso de la tierra. Este parámetro es homologable al parámetro normalizado n de Manning para caudal superficial"
+
+msgid "Study cases help 4 text 35"
+msgstr "Fracción de la superficie cubierta por vegetación de cada clase de uso de la tierra. Este parámetro varía entre cero (sin cobertura) y uno (cobertura del 100%)."
+
+msgid "Study cases help 4 text 36"
+msgstr "Eficiencia de retención de fosforo de cada clase de uso de la tierra. Este parámetro varía entre cero y uno."
+
+msgid "Study cases help 4 text 37"
+msgstr "Habilidad de cada clase de uso de la tierra para servir como una fuente de fosforo. Este parámetro varía entre cero y uno."
+
+msgid "Study cases help 4 text 38"
+msgstr "Eficiencia de retención de nitrógeno de cada clase de uso de la tierra. Este parámetro varía entre cero y uno"
+
+msgid "Study cases help 4 text 39"
+msgstr "Habilidad de cada clase de uso de la tierra para servir como una fuente de nitrógeno. Este parámetro varía entre cero y uno "
+
+msgid "Study cases help 4 text 40"
+msgstr "Este parámetro especifica si clase de uso de la tierra es nativa (no convertida) o no. Un valor de 0 indica una clase convertida y 1 una clase no convertida."
+
+msgid "Study cases help 4 text 41"
+msgstr "Este parámetro indica que ecuación de ETR que se debe usar. Toma valores de 0 ó 1 que. Los valores deben ser 1para suelo con vegetación, excepto humedales, y 0 para todos los demás usos de la tierra, incluidos los humedales, urbano, cuerpos de agua, etc."
+
+msgid "Study case definition"
+msgstr "Definición de caso de estudio"
+
+msgid "Type of infrastructure analyzed in the case study"
+msgstr "Tipo de infraestructura analizada en el caso de estudio"
+
+msgid "My cases tip"
+msgstr "En esta sección usted puede consultar todos los casos de estudio que ha creado en WaterProof. Las opciones le permiten ver el caso de estudio, editarlo, clonarlo, eliminarlo, ver resultados y compartirlo al público."
+
+msgid "My cases note"
+msgstr "Note que el listado de casos de estudio que aparece a continuación no está filtrado por ciudad (el sistema muestra la totalidad de casos que usted ha creado sin importar su localización) y el único filtro aplicado es el de su usuario como creador de los casos de estudio para facilitar su administración de acuerdo con sus preferencias."
+
+msgid "My Cases of Study"
+msgstr "Mis Casos de Estudio"

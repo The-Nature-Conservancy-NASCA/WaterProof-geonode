@@ -4,14 +4,14 @@
  * @version 1.0
  */
 $(function () {
-    var table = $('#tblIntakes').DataTable({});
+    
     var countryDropdown = $('#countryNBS');
     var currencyDropdown = $('#currencyCost');
     var transitionsDropdown = $('#riosTransition');
     var transformations = [];
     var lastClickedLayer;
-    var map;
-    var lyrsPolygons = [];
+    
+    //var lyrsPolygons = [];
     var highlighPolygon = {
         fillColor: "#337ab7",
         color: "#333333",
@@ -52,58 +52,72 @@ $(function () {
         });
         
         $('#tblIntakes tbody').on('click', '.btn-danger', function (evt) {
-            Swal.fire({
-                title: gettext('Delete intake'),
-                text: gettext("Are you sure?") + gettext("You won't be able to revert this!"),
-                icon: 'warning',
-                showCancelButton: false,
-                showDenyButton: true,
-                confirmButtonColor: '#d33',
-                denyButtonColor: '#3085d6',
-                confirmButtonText: gettext('Yes, delete it!'),
-                denyButtonText: gettext('Cancel')
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    intakeId = evt.currentTarget.getAttribute('data-id');
-                    /** 
-                     * Get filtered activities by transition id 
-                     * @param {String} url   activities URL 
-                     * @param {Object} data  transition id  
-                     *
-                     * @return {String} activities in HTML option format
-                     */
-                    $.ajax({
-                        url: '/intake/delete/' + intakeId,
-                        type: 'POST',
-                        success: function (result) {
-                            Swal.fire({
-                                icon: 'success',
-                                title: gettext('Great!'),
-                                text: gettext('The intake has been deleted')
-                            })
-                            var cityId = 143873; //Default Bogota
-                            if (localStorage.cityId){
-                                cityId = localStorage.cityId;
-                            }
-                            setTimeout(function () { location.href = "/intake/?city="+cityId; }, 1000);
-                        },
-                        error: function (error) {
-                            Swal.fire({
-                                icon: 'error',
-                                title: gettext('Error!'),
-                                text: gettext('The intake has not been deleted, try again!')
-                            })
-                        }
+            intakeId = evt.currentTarget.getAttribute('data-id');
+            var urlCountIntakes = "intakeUsedByPlantsAndStudyCases/?id=" + intakeId;
+            var promise = $.ajax({
+                url: urlCountIntakes,
+                type: 'GET',
+                dataType: 'json'
+            });
+            promise.done(function (data) {
+                console.log(this);
+                if (data.count > 0) {
+                    evt.currentTarget.classList.add("disabled");
+                    Swal.fire({
+                        text: gettext("This intake is in use by other elements and can't be deleted."),
                     });
-                } else if (result.isDenied) {
-                    return;
+                } else{
+                    Swal.fire({
+                        title: gettext('Delete intake'),
+                        text: gettext("Are you sure?") + gettext("You won't be able to revert this!"),
+                        icon: 'warning',
+                        showCancelButton: false,
+                        showDenyButton: true,
+                        confirmButtonColor: '#d33',
+                        denyButtonColor: '#3085d6',
+                        confirmButtonText: gettext('Yes, delete it!'),
+                        denyButtonText: gettext('Cancel')
+                    }).then((result) => {
+                        if (result.isConfirmed) {                            
+                            /** 
+                             * Get filtered activities by transition id 
+                             * @param {String} url   activities URL 
+                             * @param {Object} data  transition id  
+                             *
+                             * @return {String} activities in HTML option format
+                             */
+                            $.ajax({
+                                url: '/intake/delete/' + intakeId,
+                                type: 'POST',
+                                success: function (result) {
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: gettext('Great!'),
+                                        text: gettext('The intake has been deleted')
+                                    })
+                                    var cityId = 143873; //Default Bogota
+                                    if (localStorage.cityId){
+                                        cityId = localStorage.cityId;
+                                    }
+                                    setTimeout(function () { location.href = "/intake/?city="+cityId; }, 1000);
+                                },
+                                error: function (error) {
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: gettext('Error!'),
+                                        text: gettext('The intake has not been deleted, try again!')
+                                    })
+                                }
+                            });
+                        } else if (result.isDenied) {
+                            return;
+                        }
+                    })
                 }
-            })
-        });
-        
+            });            
+        });        
     };
     
-
     showSearchPointsFunction = function showSearchPointsIntake(geojson) {
         console.log("showSearchPointsIntake");
         searchPoints.clearLayers();
@@ -116,7 +130,6 @@ $(function () {
     }
 
     $('createUrlDisabled').html('<a>{% trans "Debe ser un usuario registrado para realizar esta acción" %}</a>' ); 
-
 
     /** 
      * Get the transformations selected
@@ -132,29 +145,39 @@ $(function () {
     };
 
     //draw polygons
-    drawPolygons = function (citySearch) {
-        lyrsPolygons.forEach(lyr => map.removeLayer(lyr));
-        lyrsPolygons = [];
+    drawPolygons = function (map) {
+        
         var bounds;
-        intakePolygons.forEach((feature) => {
-            if (citySearch.substr(0, 5) == feature.city.substr(0, 5)) {
-                if (feature.polygon !== 'None' && feature.polygon != '') {
-                    let poly = feature.polygon;
-                    if (poly.indexOf("SRID") >= 0) {
-                        poly = poly.split(";")[1];
-                    }
-                    var lyrPoly = omnivore.wkt.parse(poly).addTo(map);
-                    lyrsPolygons.push(lyrPoly);
-                    if (bounds == undefined) {
-                        bounds = lyrPoly.getBounds();
-                    } else {
-                        bounds = bounds.extend(lyrPoly.getBounds());
-                    }
-                }
-            }
+        let lf = [];
+        listIntakes.forEach(intake => {
+            if (intake.geom) {
+                //let g = JSON.parse(intake.geom);
+                f = {'type' : 'Feature', 
+                    'properties' : { 'id' : intake.id, 'name' : intake.name}, 
+                    'geometry' : intake.geom
+                };
+                lf.push(f);
+            }            
         });
-        if (bounds != undefined) {
-            map.fitBounds(bounds);
+        
+        if (lf.length > 0){
+            lyrIntakes = L.geoJSON(lf, {
+                onEachFeature: function (feature, layer) {
+                    layer.bindPopup(`<div class="popup-content">
+                                        <div class="leaflet-container">
+                                            <b>Id:</b> ${feature.properties.id}
+                                        </div>
+                                        <div class="popup-body">
+                                            <div class="popup-body-content">
+                                                <div class="popup-body-content-text">
+                                                    <p><b>Name:</b> ${feature.properties.name}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>`);
+                }
+            }).addTo(map);
+            map.fitBounds(lyrIntakes.getBounds());
         }
     }
 

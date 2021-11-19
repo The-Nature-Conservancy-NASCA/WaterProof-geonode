@@ -261,13 +261,14 @@ $(document).ready(function() {
     function externalInput(numYear) {
         var rows = "";
         var numberExternal = 0;
-        $('#externalSelect').append(`<option value="null" selected>Choose here</option>`);
+        let headTbl = headTblExternalInput();
+        let lblSelectOption = gettext('Select an option');
+        let lblExternalInput = gettext('External Input');
+        $('#externalSelect').append(`<option value="null" selected>${lblSelectOption}</option>`);        
         for (let p = 0; p < graphData.length; p++) {
             if (graphData[p].external == 'true') {
                 numberExternal += 1
-                $('#externalSelect').append(`
-                            <option value="${graphData[p].id}">${graphData[p].id} - External Input</option>
-                    `);
+                $('#externalSelect').append(`<option value="${graphData[p].id}">${graphData[p].id} - ${lblExternalInput}</option>`);
                 rows = "";
                 for (let index = 0; index <= numYear; index++) {
                     rows += (`<tr>
@@ -280,21 +281,29 @@ $(document).ready(function() {
                 }
                 $('#IntakeTDLE').append(`
                         <table class="table" id="table_${graphData[p].id}" style="display: none">
-                            <thead>
-                                <tr>
-                                    <th class="text-center" scope="col">Year</th>
-                                    <th class="text-center" scope="col">Water Volume (m3)</th>
-                                    <th class="text-center" scope="col">Sediment (Ton)</th>
-                                    <th class="text-center" scope="col">Nitrogen (Kg)</th>
-                                    <th class="text-center" scope="col">Phosphorus (Kg)</th>
-                                </tr>
-                            </thead>
+                            ${headTbl}
                             <tbody>${rows}</tbody>
-                        </table>    
-                `);
+                        </table>`);
             }
         }
-        $('#ExternalNumbersInputs').html(numberExternal)
+        $('#ExternalNumbersInputs').html(numberExternal);
+    }
+
+    function headTblExternalInput(){
+        let lblYear = gettext('Year');
+        let lblWaterVolume = gettext('Water Volume');
+        let lblSediment = gettext('Sediment');
+        let lblNitrogen = gettext('Nitrogen');
+        let lblPhosphorus = gettext('Phosphorus');
+        return`<thead>
+                <tr>
+                    <th class="text-center" scope="col">${lblYear}</th>
+                    <th class="text-center" scope="col">${lblWaterVolume} (m3)</th>
+                    <th class="text-center" scope="col">${lblSediment} (Ton)</th>
+                    <th class="text-center" scope="col">${lblNitrogen} (Kg)</th>
+                    <th class="text-center" scope="col">${lblPhosphorus} (Kg)</th>
+                </tr>
+            </thead>`;
     }
 
     $('#smartwizard').smartWizard("next").click(function() {
@@ -361,7 +370,7 @@ $(document).ready(function() {
             Swal.fire({
                 icon: 'warning',
                 title: gettext('Field empty'),
-                text: gettext('Please fill every fields')
+                text: gettext('Please complete all required information')
             });
             return;
         }
@@ -474,17 +483,20 @@ $(document).ready(function() {
 
     map = L.map('map', {}).setView(initialCoords, 8);
     mapDelimit = L.map('mapid', { editable: true }).setView(initialCoords, 5);
-    var osm = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
+    let attr = '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors';
+    var osm = L.tileLayer(OSM_BASEMAP_URL, {
+        attribution: attr,
     });
     var osmid = L.tileLayer(OSM_BASEMAP_URL, {
-        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors',
+        attribution: attr,
     });
     map.addLayer(osm);
 
     var c = new L.Control.Coordinates({
         actionAfterDragEnd: prevalidateAdjustCoordinates
     }).addTo(map);
+    var defExt = new L.Control.DefaultExtent({ title: gettext('Default extent'), position: 'topright'}).addTo(map);
+
 
     var images = L.tileLayer(IMG_BASEMAP_URL);
     var gray = L.tileLayer(GRAY_BASEMAP_URL, {
@@ -504,7 +516,7 @@ $(document).ready(function() {
     var baseLayers = {
         OpenStreetMap: osm,
         Images: images,
-        Grayscale: gray,
+        /* Grayscale: gray, */
     };
 
     var overlays = {
@@ -513,10 +525,8 @@ $(document).ready(function() {
     };
     L.control.layers(baseLayers, overlays, { position: 'topleft' }).addTo(map);
 
-
     mapDelimit.addLayer(osmid);
-
-
+    var defExtD = new L.Control.DefaultExtent({ title: gettext('Default extent'), position: 'topright'}).addTo(mapDelimit);
 
     $("#validateBtn").on("click", prevalidateAdjustCoordinates);
     $('#btnDelimitArea').on("click", delimitIntakeArea)
@@ -526,7 +536,6 @@ $(document).ready(function() {
     }
 
     mapLoader.hide();
-
     createEditor(editorUrl);
 
     var menu1Tab = document.getElementById('mapid');
@@ -549,12 +558,12 @@ $(document).ready(function() {
 function prevalidateAdjustCoordinates() {
     Swal.fire({
         title: gettext('Basin point delimitation'),
-        text: gettext('The point coordinates will be ajusted'),
+        text: gettext('The point coordinates will be adjusted to the nearest water source'),
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: gettext('Yes, ajust!'),
+        confirmButtonText: gettext('Yes, adjust!'),
         cancelButtonText: gettext('Cancel'),
     }).then((result) => {
         if (result.isConfirmed) {

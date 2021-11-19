@@ -17,8 +17,8 @@ var funcostdb = [];
 var bandera = true;
 var banderaValideGraph = 0;
 var enableBtnValidateCount = 0;  // count the number of default inconsistences in diagram. if (0) enabled else disabled
-
 var costVars = ['WSedRet','WPRet','WNRet','WSed','WP','WN','CSed','CP','CN','Q'];
+var transportedWaterConnectors = {};
 
 // Program starts here. The document.onLoad executes the
 // createEditor function with a given configuration.
@@ -393,7 +393,7 @@ function onInit(editor) {
             });
         }
 
-        var selectedCostId = null;
+        var index = null;
 
         //KeyBoard calculator funcion cost
         $('button[name=mathKeyBoard]').click(function() {
@@ -420,15 +420,6 @@ function onInit(editor) {
         function clearInputsMath() {
             console.log("clearInputsMath");
         }
-
-        /* $("#currencyCost").on("change", function() {
-            $.ajax({
-                url: `/parameters/load-currency/?currency=${$('#currencyCost').val()}`,
-                success: function(result) {
-                    $('#global_multiplier_factorCalculator').val(JSON.parse(result)[0].fields.global_multiplier_factor);
-                }
-            });
-        }); */
 
         editor.graph.addListener(mxEvent.CELLS_REMOVED, (sender, evt) => {
                 bandera = true;
@@ -577,7 +568,7 @@ function onInit(editor) {
 
         $('#python-expression').on('keypress',function(evt) {
             var charCode = (evt.which) ? evt.which : evt.keyCode;
-            let symbols = [40,41,42,43,45,60,61,62,106,107,109,111];
+            let symbols = [32,40,41,42,43,44,45,46,47,60,61,62,91,92,93,101,123,125];
             if (charCode != 46 && charCode > 31 && (charCode < 48 || charCode > 57))
                 return (symbols.indexOf(charCode) >= 0);
 
@@ -628,16 +619,16 @@ function onInit(editor) {
                 }
 
                 temp.logical = JSON.stringify(temp.logical);
-                if (selectedCostId == 0){
-                    $.extend(funcostdb[selectedCostId].fields, temp);
+                if (index == 0){
+                    $.extend(funcostdb[index].fields, temp);
                 }else{
                     let clonedFunCost = JSON.parse(JSON.stringify(funcostdb[0]));
                     $.extend(clonedFunCost.fields, temp);
-                    funcostdb[selectedCostId] = clonedFunCost;
+                    funcostdb[index] = clonedFunCost;
                 }
                 
                 var pyExp = $('#python-expression').val();
-                funcostdb[selectedCostId].fields.function_value = pyExp; 
+                funcostdb[index].fields.function_value = pyExp; 
             }
             if (typeof(selectedCell.value) == "object"){
                 selectedCell.setAttribute('funcost', JSON.stringify(funcostdb));
@@ -649,8 +640,7 @@ function onInit(editor) {
             
             $('#funcostgenerate tr').remove();
             $('#funcostgenerate').empty();
-            for (let index = 0; index < funcostdb.length; index++) {
-                // funcostdb[index].fields.function_value, funcostdb[index].fields.function_name,
+            for (let index = 0; index < funcostdb.length; index++) {                
                 funcost( index);
             }
             $('#CalculatorModal').modal('hide');
@@ -659,17 +649,35 @@ function onInit(editor) {
 
         //Edit funcion cost 
         $(document).on('click', 'a[name=glyphicon-edit]', function() {
-            //mathField.clearSelection();
+            
             clearInputsMath();
             $('#CalculatorModal').modal('show');
-            selectedCostId =  parseInt($(this).attr('idvalue'));
-            $('#costFunctionName').val(funcostdb[selectedCostId].fields.function_name);
-            $('#costFuntionDescription').val(funcostdb[selectedCostId].fields.function_description);
-            $('#CalculatorModalLabel').text('Modify Cost - ' + $('#titleCostFunSmall').text());
-            $('#currencyCost').val(funcostdb[selectedCostId].fields.currencyCost);
-            $('#global_multiplier_factorCalculator').val(funcostdb[selectedCostId].fields.global_multiplier_factorCalculator);
+            index = parseInt($(this).attr('idvalue'));
+            let fieldsFunction = funcostdb[index].fields;
+            var currency = fieldsFunction.currencyCostName;
+            if (currency == undefined || currency == '') {
+                currency = fieldsFunction.currency;
+                if (currency != undefined && currency != '') {
+                    $('#currencyCost').val(currency);
+                    if (currency == 'USD') {
+                        $("#currencyCost option").filter((i,l) => ( l.getAttribute('data-country') == 'USA'))[0].selected = true;
+                    }
+                }
+            }
+
+            var factor = fieldsFunction.global_multiplier_factorCalculator;            
+            if (factor == undefined){
+                factor = localStorage.getItem("factor");
+            }
+            
+            $('#costFunctionName').val(fieldsFunction.function_name);
+            $('#costFuntionDescription').val(fieldsFunction.function_description);
+            $('#CalculatorModalLabel').text(gettext('Edit Cost function'));
+            $("#saveAndValideCost").text(gettext('Edit'));
+            $('#global_multiplier_factorCalculator').val(factor);
             setVarCost();
-            let value = funcostdb[selectedCostId].fields.function_value;
+            
+            let value = fieldsFunction.function_value;
             $('#python-expression').val();
             if (value != ""){
                 $('#python-expression').val(value);
@@ -720,11 +728,6 @@ function onInit(editor) {
             })
         });
 
-        $(document).on('click', 'a[name=fun_display_btn]', function() {
-            var idx = $(this).attr('idvalue');
-            $(`#fun_display_${idx}`).toggle();
-        });
-
         function setVarCost() {
             banderaFunctionCost = false;
             $('#VarCostListGroup div').remove();
@@ -750,13 +753,13 @@ function onInit(editor) {
         $('#ModalAddCostBtn').click(function() {
             banderaFunctionCost = true;
             $('#VarCostListGroup div').remove();
-            $('#VarCostListGroup').empty();
-            console.log("este es agregar")
+            $('#VarCostListGroup').empty();            
             clearInputsMath();
             typesetInput('');
             $('#costFunctionName').val('');
             $('#costFuntionDescription').val('');
-            $('#CalculatorModalLabel').text('New Function Cost - ' + $('#titleCostFunSmall').text())
+            $('#CalculatorModalLabel').text(gettext('New Cost function'));
+            $("#saveAndValideCost").text(gettext('New Cost function'));
             for (const index of graphData) {
                 var costlabel = "";
                 for (const iterator of JSON.parse(index.varcost)) {
@@ -775,9 +778,8 @@ function onInit(editor) {
                 </div>
                 `);
             }
-            $('#python-expression').val('');
-            //$('#MathPreview').val('');
-            validatePyExpression();
+            $('#python-expression').val('');            
+            //validatePyExpression();
         });
 
         //Add value entered in sediments in the field resultdb
@@ -823,7 +825,7 @@ function onInit(editor) {
         });
 
         //Add value entered in aguaDiagram in the field resultdb
-        $('#aguaDiagram').change(function() {
+        $('#aguaDiagram').on('input',function() {
             if (typeof(selectedCell.value) == "string" && selectedCell.value.length > 0) {
                 var obj = JSON.parse(selectedCell.value);
                 let dbfields = obj.resultdb;
@@ -877,7 +879,7 @@ function onInit(editor) {
                             Swal.fire({
                                 icon: 'warning',
                                 title: gettext('Field empty'),
-                                text: gettext('Please fill every fields')
+                                text: gettext('Please complete all required information')
                             });
                             return;
                         } else {

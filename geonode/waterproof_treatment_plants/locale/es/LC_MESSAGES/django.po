@@ -41,8 +41,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GeoNode\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-07-21 14:36-0500\n"
-"PO-Revision-Date: 2021-08-02 16:37-0500\n"
+"POT-Creation-Date: 2021-08-23 23:16-0500\n"
+"PO-Revision-Date: 2021-10-11 18:11-0500\n"
 "Last-Translator: Julien Collaer <julien.collaer@opengeode.be>\n"
 "Language-Team: Spanish (http://www.transifex.com/geonode/geonode/language/es/)\n"
 "Language: es\n"
@@ -100,7 +100,7 @@ msgstr "Factor multiplicador global"
 msgid "Sub Process"
 msgstr "Sub proceso"
 
-#: models.py:24 models.py:54 models.py:61
+#: models.py:24 models.py:54 models.py:61 templates/treatment_plants_list.html:53
 msgid "User"
 msgstr "Usuario"
 
@@ -142,7 +142,7 @@ msgstr "Id del gráfico"
 
 #: models.py:37
 msgid "On off Element"
-msgstr "Apago y encendido del elemento"
+msgstr "Activar/Desactivar Elemento"
 
 #: models.py:38
 msgid "Q L Element"
@@ -228,222 +228,291 @@ msgstr "Wp ptap"
 msgid "Ws ptap"
 msgstr "Ws ptap"
 
-#: treatment_plants_edit:26
+#: templates/treatment_plants_edit.html:25
 msgid "Treatment plant creation city:"
 msgstr "Ciudad de creación:"
 
-#: treatment_plants_edit:30
+#: templates/treatment_plants_edit.html:29
 msgid "General information"
 msgstr "Información general"
 
-#: treatment_plants_edit:32 treatment_plants_edit:54 treatment_plants_list:54
+#: templates/treatment_plants_edit.html:31 templates/treatment_plants_edit.html:53 templates/treatment_plants_list.html:51
 msgid "Name"
 msgstr "Nombre"
 
-#: treatment_plants_edit:37
-msgid "Description "
-msgstr "Descripción "
-
-#: treatment_plants_edit:45
-msgid "Water Intake"
-msgstr "Captación"
-
-#: treatment_plants_edit:46
-msgid "Select from the list water intakes that arrive at your treatment plant and click on the button 'Add water intake'"
-msgstr "Seleccione de la lista las captaciones que entregan el agua a esta planta de tratamiento, de clic en el botón 'Confirmar fuentes de agua'  para que WaterProof configure los procesos de la planta de tratamiento"
-
-#: treatment_plants_edit:55
-msgid "Water intake sources"
-msgstr "Fuentes de captación de agua"
-
-#: treatment_plants_edit:56
-msgid "Infraestructure associated with the DWTP"
-msgstr "Infraestructura asociada a la PTAP"
-
-#: treatment_plants_edit:57
-msgid "Options"
-msgstr "Opciones"
-
-#: treatment_plants_edit:64
-msgid "Confirm water intakes sources"
-msgstr "Confirmar fuentes de agua"
-
-#: treatment_plants_edit:70
-msgid "Treatment unit process diagram"
-msgstr "Diagrama de procesos unitarios de tratamiento"
-
-#: treatment_plants_edit:71
-msgid "WaterProof presents below the suggested components or processes for treating the water quality of the selected catchments. Click on the processes that are part of your treatment plant and use the checkbox to enable or disable them."
-msgstr "WaterProof presenta a continuación los componentes o procesos sugeridos para el tratamiento de la calidad del agua de las captaciones seleccionadas. De clic sobre los procesos que hacen parte de su planta de tratamiento y use el checkbox para habilitar o deshabilitarlos."
-
-#: treatment_plants_edit:155
-msgid "Dosificación"
-msgstr "Dosificación"
-
-#: treatment_plants_edit:161
-msgid "Mezcla lenta"
-msgstr "Mezcla lenta"
-
-#: treatment_plants_edit:167
-msgid "Sedimentación"
-msgstr "Sedimentación"
-
-#: treatment_plants_edit:173
-msgid "Filtración"
-msgstr "Filtración"
-
-#: treatment_plants_edit:180
-msgid "Filtración por membranas tamaño de particula retenida 0.01 μm"
-msgstr "Filtración por membranas tamaño de particula retenida 0.01 μm"
-
-#: treatment_plants_edit:186
-msgid "Filtración por membranas tamaño de particula retenida 0.1 μm"
-msgstr "Filtración por membranas tamaño de particula retenida 0.1 μm"
-
-#: treatment_plants_edit:192
-msgid "Filtración por membranas tamaño de particula retenida 0.001 μm"
-msgstr "Filtración por membranas tamaño de particula retenida 0.001 μm"
-
-#: treatment_plants_edit:198
-msgid "Filtración por membranas tamaño de particula retenida 0.0001 μm"
-msgstr "Filtración por membranas tamaño de particula retenida 0.0001 μm"
-
-#: treatment_plants_edit:203
-msgid "Tratamiento de lodos"
-msgstr "Tratamiento de lodos"
-
-#: treatment_plants_edit:209
-msgid "Intercambio iónico"
-msgstr "Intercambio iónico"
-
-#: treatment_plants_edit:215
-msgid "Desinfección"
-msgstr "Desinfección"
-
-#: treatment_plants_edit:227
-msgid "Processes, technologies and cost functions"
-msgstr "Procesos, tecnologías y funciones de costo"
-
-#: treatment_plants_edit:70
-msgid "submit "
-msgstr "Guardar "
-
-#: treatment_plants_edit:247
-msgid "Creation of treatment plants"
-msgstr "Creación de plantas de tratamiento"
-
-#: treatment_plants_edit:252
-msgid "Treatment plants are a key element in ROI analysis setup. Once there are water  intakes that deliver the water to the treatment plants, a set of processes is responsible for eliminating coarse solids, resulting in a reduction of the pollutant load in the water, seeking to make it suitable for human consumption, or meet the requirements of current legislation. WaterProof offers  default cost functions forthe following processes:"
-msgstr "Las plantas de tratamiento son un elemento clave en la configuración de análisis de retorno de inversión. Una vez se cuenta con captaciones de agua que entregan el agua a las plantas de tratamiento, un conjunto de procesos se encarga de eliminar sólidos gruesos, resultando en una reducción de la carga contaminante en el agua buscando que sea apta para el consumo humano, o cumplir con los requisitos exigidos por la legislación vigente. Waterproof le ofrece por defecto las funciones de costo de los siguientes procesos:"
-
-#: treatment_plants_edit:258
-msgid "Represents the process in which coagulant is applied to the water to promote the increase in  particle size forming floc, to promote settling of particles."
-msgstr "Representa el proceso en el que se aplica coagulante en el agua para propiciar aumento de tamaño de partículas formando floc, para que de esta manera puedan sedimentarse."
-
-#: treatment_plants_edit:263
-msgid "Process in which the coagulant is dispersed uniformly and quickly through turbulence formed by hydraulic or mechanical means."
-msgstr "Proceso en el que por medio de la turbulencia formada por medios hidráulicos o mecánicos se dispersa el coagulante de forma uniforme y rápida."
-
-#: treatment_plants_edit:268
-msgid "Process that relies on channels or structures where the turbulence necessary for floc formation is produced."
-msgstr "Proceso que se apoya en canales o estructuras en donde se produce la turbulencia necesaria para la formación del floc."
-
-#: treatment_plants_edit:273
-msgid "Process in which the floc already formed separates from the water thanks to the low flow velocity and the floc's own weight, allowing it to fall to the bottom of the tank forming a sludge that must be removed for proper management."
-msgstr "Proceso en el que el floc ya formado se separa del agua gracias a la baja velocidad del flujo y al peso propio del floc permitiéndole caer al fondo del tanque formando un lodo que debe ser removido para su debida gestión."
-
-#: treatment_plants_edit:278
-msgid "Process in which water is passed through a bed (mainly sand, sand and anthracite) so that particles and certain microorganisms are filtered out and retained within the bed."
-msgstr "Proceso en el que se hace pasar el agua a través un lecho(arena, arena y antracita principalmente) con el fin de que las partículas y ciertos microrganismos sean retenidos dentro del lecho."
-
-#: treatment_plants_edit:283
-msgid "A process in which membranes are used to remove all particles, molecules and microorganisms larger than their pore size. The main classification of advanced filtration establishes four categories: microfiltration, ultrafiltration, nanofiltration and reverse osmosis. The differences in each are the minimum pore sizes, being 100 nanometers (nm) for microfiltration, 10 nm for ultrafiltration, 1 nm for nanofiltration and smaller sizes for reverse osmosis."
-msgstr "Proceso en el que a través de membranas se retiran todas las partículas, moléculas y microorganismos que tengan un tamaño mayor a sus poros. La principal clasificación de la filtración avanzada establece cuatro categorías: Microfiltración, ultrafiltración, nanofiltración y ósmosis inversa. Las diferencias de cada una son los tamaños mínimos de poro, siendo de 100 nanómetros (nm) para la microfiltración, 10 nm para la ultrafiltración, 1 nm para la nanofiltración y tamaños menores para la ósmosis inversa."
-
-#: treatment_plants_edit:300
-msgid "A chemical process in which unwanted dissolved ions in water and effluents –  such as nitrate, fluorine, sulfate, and arsenic - are exchanged for other ions with a similar charge. This is done by means of a polymer capable of exchanging ions for other ions in a solution that passes through them. These synthetic gel spheres are called 'Ion Exchange Resins'. Process in which reagents, usually chlorine and ammonia, are added to form chloramines, eliminating any microorganisms that may have survived the previous processes and guaranteeing water quality throughout its journey through the distribution network. The final disposal of sludge from the flocculation and filtration processes is carried out by pumping, thickeners, drying beds or belt filters."
-msgstr "Proceso químico en el que los iones disueltos no deseados en el agua y los efluentes –como nitrato, flúor, sulfato y arsénico –se intercambian por otros iones con una carga similar. Se realiza mediante un polímero capaz de intercambiar iones por otros, en una solución que pasa a través de ellos. A estas esferas de gel sintéticas se les llama “Resinas de intercambio iónico”."
-
-#: treatment_plants_list:29
-msgid "Drinking water treatment plants (DWTP)"
-msgstr "Plantas de tratamiento de agua potable (PTAP)"
-
-#: treatment_plants_list:33
-msgid "In this section you can view and create the Treatment Plants that WaterProof uses in the Case Studies for ROI analysis. Indicate on the map the city for which you want to consult or create the treatment plant."
-msgstr "En esta sección puede consultar y crear las Plantas de tratamiento que Waterproof emplea en los Casos de estudio para los análisis de retorno de inversión. Indique en el mapa la ciudad parala cual desea consultar o crear la planta de tratamiento."
-
-#: treatment_plants_list:36
-msgid "Selected City"
-msgstr "Ciudad seleccionada"
-
-#: treatment_plants_list:37
-msgid "Region"
-msgstr "Región"
-
-#: treatment_plants_list:38
-msgid "Currency"
-msgstr "Moneda"
-
-#: treatment_plants_list:40
-msgid "Create new Treatment Plants"
-msgstr "Crear una nueva PTAP"
-
-#: treatment_plants_list:55
-msgid "ID"
-msgstr "ID"
-
-#: treatment_plants_list:56
-msgid "User "
-msgstr "Usuario "
-
-#: treatment_plants_list:57
+#: templates/treatment_plants_edit.html:36 templates/treatment_plants_list.html:52
 msgid "Description"
 msgstr "Descripción"
 
-#: treatment_plants_list:58
-msgid "City"
-msgstr "Ciudad"
-
-#: treatment_plants_list:59
-msgid "Catchment"
+#: templates/treatment_plants_edit.html:44
+msgid "Water Intake"
 msgstr "Captación"
 
-#: treatment_plants_list:60
-msgid "Water intakes"
+#: geonode/templates/waterproof_treatment_plants/treatment_plants_edit.html:41
+msgid "Select the water intakes that supply the drinking water treatment plant. The selected intake will be automatic added to the table."
+msgstr "Seleccione las captaciones que suplen la planta de tratamiento de agua potable. La captación seleccionada se adicionará automáticamente a la tabla."
+
+#: templates/treatment_plants_edit.html:54
+msgid "Water intake sources"
+msgstr "Fuentes de captación de agua"
+
+#: templates/treatment_plants_edit.html:55
+msgid "Infraestructure associated with the DWTP"
+msgstr "Infraestructura asociada a la PTAP"
+
+#: templates/treatment_plants_edit.html:56 templates/treatment_plants_list.html:57
+msgid "Options"
 msgstr "Opciones"
 
-#: treatment_plants_edit:60
-msgid "Please confirm or edit the diagram according to your reality"
-msgstr "Observe que por cada proceso el sistema le permitirá definir las funciones de costo. Por cada proceso confirme o edite las funciones de costo como corresponda"
+#: templates/treatment_plants_edit.html:63
+msgid "Confirm water intakes sources"
+msgstr "Confirmar fuentes de agua"
 
-#: treatment_plants_edit:60
+msgid "To enable the diagram, click in the following button"
+msgstr "Para habilitar el diagrama, haga clic en el siguiente botón"
+
+#: templates/treatment_plants_edit.html:69
+msgid "Treatment unit process diagram"
+msgstr "Diagrama de procesos unitarios de tratamiento"
+
+#: templates/treatment_plants_edit.html:70
+msgid "WaterProof presents below the suggested components or processes for treating the water quality of the selected catchments. Click on the processes that are part of your treatment plant and use the checkbox to enable or disable them."
+msgstr "Basado en características de la calidad del agua de las cuencas que suplen la planta de tratamiento y la normatividad de los países, WaterProof le indica a continuación los procesos de tratamiento de agua sugeridos en su planta. Usted puede modificar la selección de los procesos unitarios y personalizarla de acuerdo con su condición real. Haga clic en los procesos que forman parte de su planta de tratamiento para explorar tecnologías y funciones de costo y utilice la casilla de verificación para habilitar o deshabilitar procesos unitarios."
+
+#: templates/treatment_plants_edit.html:148
+msgid "Mezcla rápida"
+msgstr "Mezcla rápida"
+
+#: templates/treatment_plants_edit.html:148
+msgid "Quick mixing"
+msgstr "Mezcla rápida"
+
+#: templates/treatment_plants_edit.html:148
+msgid "Technology:"
+msgstr "Tecnología:"
+
+#: templates/treatment_plants_edit.html:154
+msgid "Dosificación"
+msgstr "Dosificación"
+
+#: templates/treatment_plants_edit.html:160
+msgid "Mezcla lenta"
+msgstr "Mezcla lenta"
+
+#: templates/treatment_plants_edit.html:166
+msgid "Sedimentación"
+msgstr "Sedimentación"
+
+#: templates/treatment_plants_edit.html:172
+msgid "Filtración"
+msgstr "Filtración"
+
+#: templates/treatment_plants_edit.html:179
+msgid "Filtración por membranas tamaño de particula retenida 0.01 μm"
+msgstr "Filtración por membranas tamaño de particula retenida 0.01 μm"
+
+#: templates/treatment_plants_edit.html:185
+msgid "Filtración por membranas tamaño de particula retenida 0.1 μm"
+msgstr "Filtración por membranas tamaño de particula retenida 0.1 μm"
+
+#: templates/treatment_plants_edit.html:191
+msgid "Filtración por membranas tamaño de particula retenida 0.001 μm"
+msgstr "Filtración por membranas tamaño de particula retenida 0.001 μm"
+
+#: templates/treatment_plants_edit.html:197
+msgid "Filtración por membranas tamaño de particula retenida 0.0001 μm"
+msgstr "Filtración por membranas tamaño de particula retenida 0.0001 μm"
+
+#: templates/treatment_plants_edit.html:202
+msgid "Tratamiento de lodos"
+msgstr "Tratamiento de lodos"
+
+#: templates/treatment_plants_edit.html:208
+msgid "Intercambio iónico"
+msgstr "Intercambio iónico"
+
+#: templates/treatment_plants_edit.html:214
+msgid "Desinfección"
+msgstr "Desinfección"
+
+#: templates/treatment_plants_edit.html:226
+msgid "Processes, technologies and cost functions"
+msgstr "Procesos, tecnologías y funciones de costo"
+
+#: templates/treatment_plants_edit.html:227
+msgid "Define the processes that are part of your treatment plant and use the checkbox to enable or disable cost functions. You can also edit, delete or add cost functions."
+msgstr "Defina los procesos que forman parte de su planta de tratamiento y utilice la casilla de verificación para habilitar o deshabilitar las funciones de costos. También puede editar, eliminar o agregar funciones de costos."
+
+#: templates/treatment_plants_edit.html:232
 msgid "Treatment Plant"
 msgstr "Planta de tratamiento"
 
-#: treatment_plants_edit:60
+#: templates/treatment_plants_edit.html:238
 msgid "Submit"
 msgstr "Guardar"
 
-#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:15
-msgid "Treatment plant creation city :"
-msgstr "City of creation :"
+#: templates/treatment_plants_edit.html:252
+msgid "Creation of treatment plants"
+msgstr "Creación de plantas de tratamiento"
 
-#: treatment_plants_edit:60
-msgid "edit"
-msgstr "Editar"
+#: templates/treatment_plants_edit.html:257
+msgid "Treatment plants are a key element in ROI analysis setup. Once there are water  intakes that deliver the water to the treatment plants, a set of processes is responsible for eliminating coarse solids, resulting in a reduction of the pollutant load in the water, seeking to make it suitable for human consumption, or meet the requirements of current legislation. WaterProof offers  default cost functions forthe following processes:"
+msgstr "Las plantas de tratamiento son un elemento clave en la configuración de análisis de retorno de inversión. Una vez se cuenta con captaciones de agua que entregan el agua a las plantas de tratamiento, un conjunto de procesos se encarga de eliminar sólidos gruesos, resultando en una reducción de la carga contaminante en el agua buscando que sea apta para el consumo humano, o cumplir con los requisitos exigidos por la legislación vigente. Waterproof le ofrece por defecto las funciones de costo de los siguientes procesos:"
 
-#: treatment_plants_edit:60
-msgid "view"
-msgstr "Ver"
+#: templates/treatment_plants_edit.html:263
+msgid "Represents the process in which coagulant is applied to the water to promote the increase in  particle size forming floc, to promote settling of particles."
+msgstr "Representa el proceso en el que se aplica coagulante en el agua para propiciar aumento de tamaño de partículas formando floc, para que de esta manera puedan sedimentarse."
 
-#: treatment_plants_edit:60
-msgid "clone"
-msgstr "Clonar"
+#: templates/treatment_plants_edit.html:268
+msgid "Process in which the coagulant is dispersed uniformly and quickly through turbulence formed by hydraulic or mechanical means."
+msgstr "Proceso en el que por medio de la turbulencia formada por medios hidráulicos o mecánicos se dispersa el coagulante de forma uniforme y rápida."
 
-#: treatment_plants_edit:60
-msgid "report"
-msgstr "Reportes"
+#: templates/treatment_plants_edit.html:273
+msgid "Process that relies on channels or structures where the turbulence necessary for floc formation is produced."
+msgstr "Proceso que se apoya en canales o estructuras en donde se produce la turbulencia necesaria para la formación del floc."
 
-#: treatment_plants_edit:60
-msgid "delete"
-msgstr "Eliminar"
+#: templates/treatment_plants_edit.html:278
+msgid "Process in which the floc already formed separates from the water thanks to the low flow velocity and the floc's own weight, allowing it to fall to the bottom of the tank forming a sludge that must be removed for proper management."
+msgstr "Proceso en el que el floc ya formado se separa del agua gracias a la baja velocidad del flujo y al peso propio del floc permitiéndole caer al fondo del tanque formando un lodo que debe ser removido para su debida gestión."
+
+#: templates/treatment_plants_edit.html:283
+msgid "Process in which water is passed through a bed (mainly sand, sand and anthracite) so that particles and certain microorganisms are filtered out and retained within the bed."
+msgstr "Proceso en el que se hace pasar el agua a través un lecho(arena, arena y antracita principalmente) con el fin de que las partículas y ciertos microrganismos sean retenidos dentro del lecho."
+
+#: templates/treatment_plants_edit.html:288
+msgid "A process in which membranes are used to remove all particles, molecules and microorganisms larger than their pore size. The main classification of advanced filtration establishes four categories: microfiltration, ultrafiltration, nanofiltration and reverse osmosis. The differences in each are the minimum pore sizes, being 100 nanometers (nm) for microfiltration, 10 nm for ultrafiltration, 1 nm for nanofiltration and smaller sizes for reverse osmosis."
+msgstr "Proceso en el que a través de membranas se retiran todas las partículas, moléculas y microorganismos que tengan un tamaño mayor a sus poros. La principal clasificación de la filtración avanzada establece cuatro categorías: Microfiltración, ultrafiltración, nanofiltración y ósmosis inversa. Las diferencias de cada una son los tamaños mínimos de poro, siendo de 100 nanómetros (nm) para la microfiltración, 10 nm para la ultrafiltración, 1 nm para la nanofiltración y tamaños menores para la ósmosis inversa."
+
+#: templates/treatment_plants_edit.html:305
+msgid ""
+"A chemical process in which unwanted dissolved ions in water and effluents –  such as nitrate, fluorine, sulfate, and arsenic - are exchanged for other ions with a similar charge. This is done by means of a polymer capable of exchanging ions for other ions in a solution that passes through them. These synthetic gel spheres are called 'Ion Exchange Resins'. Process in which reagents, usually chlorine and ammonia, are added to form chloramines, eliminating any microorganisms that may have survived the previous processes and guaranteeing water "
+"quality throughout its journey through the distribution network. The final disposal of sludge from the flocculation and filtration processes is carried out by pumping, thickeners, drying beds or belt filters."
+msgstr "Proceso químico en el que los iones disueltos no deseados en el agua y los efluentes –como nitrato, flúor, sulfato y arsénico –se intercambian por otros iones con una carga similar. Se realiza mediante un polímero capaz de intercambiar iones por otros, en una solución que pasa a través de ellos. A estas esferas de gel sintéticas se les llama “Resinas de intercambio iónico”."
+
+#: templates/treatment_plants_edit.html:312 templates/treatment_plants_edit.html:407
+msgid "Close"
+msgstr "Cerrar"
+
+#: templates/treatment_plants_edit.html:338
+msgid "Cost function name"
+msgstr "Nombre función de costo"
+
+#: templates/treatment_plants_edit.html:342
+msgid "Cost function description"
+msgstr "Descripción  función de costo"
+
+#: templates/treatment_plants_edit.html:347
+msgid "Currency for definition of costs"
+msgstr "Moneda para la definición de costos"
+
+#: templates/treatment_plants_edit.html:359
+msgid "Multiplying factor for overrall cost"
+msgstr "Factor multiplicador"
+
+#: templates/treatment_plants_edit.html:363
+msgid "Syntax keyboard"
+msgstr "Sintaxis"
+
+#: templates/treatment_plants_edit.html:365
+msgid "Basic"
+msgstr "Básico"
+
+#: templates/treatment_plants_edit.html:366
+msgid "Advanced"
+msgstr "Avanzado"
+
+#: templates/treatment_plants_edit.html:399
+msgid "Validate"
+msgstr "Validar"
+
+#: templates/treatment_plants_edit.html:408
+msgid "Add cost"
+msgstr "Adicionar Costo"
+
+#: templates/treatment_plants_list.html:6 templates/treatment_plants_list.html:24
+msgid "Water Treatment"
+msgstr "Tratamiento de Agua"
+
+#: templates/treatment_plants_list.html:26
+msgid "Drinking water treatment plants (DWTP)"
+msgstr "Plantas de tratamiento de agua potable (PTAP)"
+
+#: templates/treatment_plants_list.html:30
+msgid "In this section you can view and create the Treatment Plants that WaterProof uses in the Case Studies for ROI analysis. Indicate on the map the city for which you want to consult or create the treatment plant."
+msgstr "En esta sección puede consultar y crear las Plantas de tratamiento que Waterproof emplea en los Casos de estudio para los análisis de retorno de inversión. Indique en el mapa la ciudad para la cual desea consultar o crear la planta de tratamiento."
+
+#: templates/treatment_plants_list.html:33
+msgid "Selected City"
+msgstr "Ciudad seleccionada"
+
+#: templates/treatment_plants_list.html:34
+msgid "Region"
+msgstr "Región"
+
+#: templates/treatment_plants_list.html:35
+msgid "Currency"
+msgstr "Moneda"
+
+#: templates/treatment_plants_list.html:37
+msgid "Create new Treatment Plants"
+msgstr "Crear una nueva PTAP"
+
+#: templates/treatment_plants_list.html:50
+msgid "ID"
+msgstr "ID"
+
+#: templates/treatment_plants_list.html:54
+msgid "Creation Date"
+msgstr "Fecha creación"
+
+#: templates/treatment_plants_list.html:55
+msgid "City"
+msgstr "Ciudad"
+
+#: templates/treatment_plants_list.html:56
+msgid "Catchment"
+msgstr "Captación"
+
+msgid "Create_text_1"
+msgstr "Ingrese los datos de identificación de la plata de tratamiento, identifique las captaciones de las que proviene el agua y de los componentes que la conforman para hacer su tratamiento."
+
+msgid "Create_text_2"
+msgstr "De clic en el siguiente botón para que WaterProof configure los procesos de la planta de tratamiento"
+
+msgid "You must be a registered user to create a new Treatment Plant"
+msgstr "Debe estar registrado para crear una nueva Planta de Tratamiento"
+
+msgid "Enter name"
+msgstr "Ingresar nombre"
+
+msgid "Enter description"
+msgstr "Ingresar descripción"
+
+msgid "This field is required"
+msgstr "Este campo es requerido"
+
+msgid "Please, complete the form"
+msgstr "Por favor, complete el formulario"
+
+msgid "In this section you can create a Drinking Water Treatment Plant according to the quality of the water from your source."
+msgstr "En esta sección puede crear una Planta de Tratamiento de agua de acuerdo con la calidad del agua de su fuente."
+
+#: templates/treatment_plants_list.html:122
+msgid "Creating a DWTP"
+msgstr "Crear una PTAP"
+
+#: templates/treatment_plants_list.html:126
+msgid "Paragraph modal create DWTP 1"
+msgstr "El tratamiento de agua es el conjunto de operaciones de tipo físico y químico o biológico cuya finalidad es la eliminación o reducción de la contaminación o las características no deseables presentes en el agua; La finalidad de estas operaciones es obtener unas aguas con las características adecuadas para el consumo humano, animal o para aplicaciones agropecuarias."
+
+#: templates/treatment_plants_list.html:129
+msgid "Paragraph modal create DWTP 2"
+msgstr "En WaterProof para crear una nueva Planta de tratamiento debe haber creado previamente la(s) captación de la que proviene el agua. Con ello, el sistema validará la calidad del agua en su zona y realizará una recomendación de procesos de tratamiento."
+
+#: templates/treatment_plants_list.html:129
+msgid "Paragraph modal create DWTP 3"
+msgstr "Usted podrá explorar las tecnologías de tratamiento de agua y sus funciones de costo dando clic sobre los recuadros para ver sus detalles."
+
+#: templates/treatment_plants_edit.html:29
+msgid "information description"
+msgstr "En esta sección usted puede crear una Planta de tratamiento de agua de acuerdo con la calidad del agua de su fuente."

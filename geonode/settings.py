@@ -190,6 +190,8 @@ SITE_ID = int(os.getenv('SITE_ID', '1'))
 USE_TZ = True
 USE_I18N = ast.literal_eval(os.getenv('USE_I18N', 'True'))
 USE_L10N = ast.literal_eval(os.getenv('USE_I18N', 'True'))
+#USE_L10N = False
+DECIMAL_SEPARATOR = ','
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
@@ -555,8 +557,9 @@ INSTALLED_APPS = (
     # GeoNode
     'geonode',
 
-    # FAQ
+    # FAQ - wiki
     'ckeditor',
+    'ckeditor_uploader',
 
     # Documentation
     'django_extensions',
@@ -569,7 +572,8 @@ INSTALLED_APPS = (
     'geonode.waterproof_cms',
 
     # waterproof wiki
-    'geonode.waterproof_wiki'
+    'geonode.waterproof_wiki',
+    'geonode.home'
 
 )
 
@@ -586,6 +590,8 @@ WAGTAIL_APP = (
     'wagtail.admin',
     'wagtail.core',
     'modelcluster',
+    'wagtail.contrib.modeladmin',    
+    'wagtailtrans',
 )
 
 INSTALLED_APPS += WAGTAIL_APP
@@ -818,7 +824,7 @@ MIDDLEWARE = (
     'dj_pagination.middleware.PaginationMiddleware',
     # The setting below makes it possible to serve different languages per
     # user depending on things like headers in HTTP requests.
-    'django.middleware.locale.LocaleMiddleware',
+    #'django.middleware.locale.LocaleMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -826,6 +832,8 @@ MIDDLEWARE = (
     'oauth2_provider.middleware.OAuth2TokenMiddleware',
     'geonode.base.middleware.MaintenanceMiddleware',
     'geonode.base.middleware.ReadOnlyMiddleware',   # a Middleware enabling Read Only mode of Geonode
+    'wagtail.contrib.legacy.sitemiddleware.SiteMiddleware',
+    'wagtailtrans.middleware.TranslationMiddleware',    
     'wagtail.contrib.redirects.middleware.RedirectMiddleware',
 )
 
@@ -2218,19 +2226,18 @@ WATERPROOF_STUDY_CASES_ALLOW_ANONYMOUS = True
 
 WATERPROOF_NBS_CA_ALLOW_ANONYMOUS = True
 
-WATERPROOF_API_SERVER =  os.getenv("WATERPROOF_API_SERVER", "/proxy/?url=http://dev.skaphe.com:8000/")
-WATERPROOF_INVEST_API = os.getenv("WATERPROOF_INVEST_API","http://dev.skaphe.com:8000/")
-WATERPROOF_MODELS_PY3_API = os.getenv("WATERPROOF_MODELS_PY3_API","http://dev.skaphe.com:8000/")
-WATERPROOF_MODELS_PY2_API =  os.getenv("WATERPROOF_MODELS_PY2_API","/proxy/?url=http://dev.skaphe.com:5050/")
+WATERPROOF_API_SERVER =  os.getenv("WATERPROOF_API_SERVER", "/proxy/?url=https://dev.skaphe.com/wf-models/")
+WATERPROOF_INVEST_API = os.getenv("WATERPROOF_INVEST_API","https://dev.skaphe.com/wf-models/")
+WATERPROOF_MODELS_PY3_API = os.getenv("WATERPROOF_MODELS_PY3_API","https://dev.skaphe.com/wf-models/")
+WATERPROOF_MODELS_PY2_API =  os.getenv("WATERPROOF_MODELS_PY2_API","/proxy/?url=https://dev.skaphe.com/wf-rios/")
 SEARCH_CITY_API_URL = '/proxy/?url=https://photon.komoot.io/api/?'
-
-SEARCH_COUNTRY_API_URL = "https://restcountries.eu/rest/v2/alpha/"
+SEARCH_COUNTRY_API_URL = '/parameters/country-by-iso2/?code='  #"https://restcountries.eu/rest/v2/alpha/"
 
 OSM_BASEMAP_URL = 'https://{s}.tile.osm.org/{z}/{x}/{y}.png'                   
 IMG_BASEMAP_URL = "https://basemap.nationalmap.gov/arcgis/rest/services/USGSImageryTopo/MapServer/tile/{z}/{y}/{x}"
 HYDRO_BASEMAP_URL = "https://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/Esri_Hydro_Reference_Overlay/MapServer/tile/{z}/{y}/{x}"
 GRAY_BASEMAP_URL = "https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png"
-GEOSERVER_WMS = os.getenv('GEOSERVER_WMS','http://apps.skaphe.com:8080/geoserver/waterproof/wms?')
+GEOSERVER_WMS = os.getenv('GEOSERVER_WMS','https://dev.skaphe.com/geoserver/waterproof/wms?')
 HYDRO_NETWORK_LYR = 'waterproof:world_hydro_network'
 
 #API key for update euro currencys update
@@ -2244,3 +2251,7 @@ WAGTAIL_SITE_NAME = 'Waterproof CMS'
 CATALOG_METADATA_TEMPLATE = os.getenv("CATALOG_METADATA_TEMPLATE", "catalogue/full_metadata.xml")
 
 WATERPROOF_SPECIAL_VALUES = ['min', 'E2', 'E3']
+
+CKEDITOR_UPLOAD_PATH="aux_media"
+
+WATERPROOF_INVEST_DOC = "https://storage.googleapis.com/releases.naturalcapitalproject.org/invest-userguide/latest/index.html"

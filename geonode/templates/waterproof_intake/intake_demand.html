@@ -1,269 +1,111 @@
 {% extends "menu.html" %}
 {% load i18n %}
 {% load static from staticfiles %}
+{% load decimal_format %}
 {% load bootstrap_tags %}
 {% block extra_head %}
-<link href="https://unpkg.com/smartwizard@5/dist/css/smart_wizard_all.min.css" rel="stylesheet" type="text/css" />
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
-    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
-    crossorigin="" />
-<link rel="stylesheet" href="{{ STATIC_URL }}geonode/css/leaflet/Control.Coordinates.css">
-<link rel="stylesheet" href="{{ STATIC_URL }}geonode/css/leaflet/Control.Loader.css" />
-<link rel="stylesheet" href="{{ STATIC_URL }}waterproof_intake/mathquill/mathquill.css" />
+
 <link rel="stylesheet" href="{{ STATIC_URL }}waterproof_intake/css/intake.css" />
-<script>
-    MathJax = {
-        loader: {
-            load: ['input/asciimath']
-        },
-        asciimath: {
-            delimiters: [
-                ["'math'", "'math'"]
-            ]
-        }
-    };
-</script>
 {% endblock %}
 {% block body_outer %}
 <!--header-->
 <div class="header-waterproof">
     <div class="row">
         <div class="col-sm-6">
-            <h1>Demand Water Intake</h1>
+            <h1>{% trans "Water Intake Demand" %}</h1>
         </div>
         <div class="col-sm-6">
-            <h4 class="title-city">{% trans "Intake creation city" %} <span id="cityLabel">{{intake.city.name}}</span> </h4>
+            <h4 class="title-city">{% trans "Intake creation city" %}: <span id="cityLabel">{{intake.city.name}}, {{intake.city.country.name}}</span>
+            </h4>
         </div>
     </div>
     <!--Begin Form-->
     <form id="form" method="POST" action="">
         {% csrf_token %}
-        <!--Start smartwizard-->
-        <div id="smartwizard">
-            <!--panel of navigation-->
-            <ul class="nav">
-                <li>
-                    <a class="nav-link" href="#step-3">
-                        {% trans "Demand" %}
-                    </a>
-                </li>
-                <li>
-                    <a class="nav-link" href="#step-4">
-                        {% trans "External input" %}
-                    </a>
-                </li>
-            </ul>
-            <!--Steps-->
-            <div class="tab-content" id="autoAdjustHeightF">
-                
-                <!--Step 3-->
-                <div id="step-3" class="tab-pane" role="tabpanel">
-                <!--Header-->
-                <div class="page-header">
-                    <h3>{% trans "Water extraction"%}</h3>
-                    <p>{% trans "Please enter the annual water extraction" %} </p>
-                </div>
-                <!--navigation-->
-                <ul class="nav nav-tabs" id="minitabsInportalion">
-                    <li class="active"><a data-toggle="tab" href="#automatic" id="btnAutomaticTab">{% trans "Interpolation wizard" %}</a></li>
-                    <li><a data-toggle="tab" href="#manual" id="btnManualTab" >{% trans "Manual edit" %}</a></li>
-                </ul>
-                <!--contents tabs manual and automatic-->
-                <div class="tab-content">
-                    <!--tab automatic-->
-                    <div class="tab-pane fade in active" id="automatic">
-                        <br>
-                        <div class="form-group">
-                            <div class="row">
-                                <!--Data analysis Insert-->
-                                <div class="col-md-8">
-                                    <h5 class="text-primary">{% trans "Data analysis" %}</h5>
-                                    <p>{% trans "Please select the method you wish to use" %} </p>
-                                    <div class="form-group">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label >{% trans "Interpolation method " %} <span class="text-danger-wp" disabled>(*)</span>
-                                            </label>
-                                                <select class="form-control" id="typeProcessInterpolation" disabled>
-                                                <option value="1">{% trans "Linear interpolation" %}</option>
-                                                <option value="2">{% trans "Potential interpolation" %}</option>
-                                                <option Value="3">{% trans "Exponential interpolation" %}</option>
-                                                <option Value="4">{% trans "Logistics interpolation" %}</option>
-                                            </select>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <label>{% trans "Number of years for time series" %} <span
-                                                    class="text-danger-wp">(*)</span> </label>
-                                                <input type="text" class="form-control" id="numberYearsInterpolationValue" disabled>
-                                            </div>
+        <div id="step-3" class="tab-pane" role="tabpanel">
+            <!--Header-->
+            <div>
+                <h3>{% trans "Water extraction"%}</h3>                        
+            </div>
+            <!--contents tabs manual and automatic-->
+            <div class="tab-content">
+                <!--tab automatic-->
+                <div class="tab-pane fade in active" id="automatic">
+                    <div class="form-group">
+                        <div class="row">
+                            <!--Data analysis Insert-->
+                            <div class="col-md-8">
+                                <h5 class="text-primary">{% trans "Data analysis" %}</h5>                                        
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label>{% trans "Interpolation method" %} </label>
+                                            <input type="text" class="form-control" id="typeProcessInterpolation" value='{{interpolation}}' disabled >
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label>{% trans "Number of years for time series" %} </label>
+                                            <input type="text" class="form-control"value='{{intake.demand_parameters.years_number}}' disabled>
                                         </div>
                                     </div>
-                                    <h5 class="text-primary">{% trans "Extraction" %}</h5>
-                                    <div class="form-group">
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <label>{% trans "Initial year" %}<span class="text-danger-wp">(*)</span> </label>
-                                                <input type="text" class="form-control" id="initialDataExtractionInterpolationValue" disabled>
-                                            </div>
-                                            <div class="col-md-6" id="finalColumnExtraction">
-                                                <label>{% trans "Final year" %}<span class="text-danger-wp">(*)</span> </label>
-                                                <input type="text" class="form-control" id="finalDataExtractionInterpolationValue" disabled>
-                                            </div>
+                                </div>
+                                {%if intake.demand_parameters.interpolation_type != 'MANUAL'%}
+                                <h5 class="text-primary">{% trans "Extraction" %}</h5>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label>{% trans "Initial year" %} </label>
+                                            <input type="text" class="form-control" value='{{initial_extraction}}' disabled>
+                                        </div>
+                                        <div class="col-md-6" id="finalColumnExtraction">
+                                            <label>{% trans "Final year" %} </label>
+                                            <input type="text" class="form-control" value='{{final_extraction}}' disabled>
                                         </div>
                                     </div>
-                                    <button type="button" class="btn btn-primary" id="intakeWECB" style="display: none;">{% trans "Generate" %}</button>
                                 </div>
-                                <!--Data analysis Results-->
-                                <div class="col-md-4">
-                                    <h5 class="text-primary">{% trans "Results" %}</h5>
-                                    <div style="max-height: 400px; overflow-y: auto;">
-                                        <table class="table">
-                                            <thead>
-                                                <tr>
-                                                    <th class="text-center" scope="col">{% trans "Year" %}</th>
-                                                    <th class="text-center" scope="col">{% trans "Extraction Value (l/s)" %}</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody id="intakeECTAG">
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
+                                {%endif%}
                             </div>
-                        </div>
-                    </div>
-                    <!--tab manual-->
-                    <div class="tab-pane fade" id="manual">
-                        <br>
-                        <div class="form-group">
-                            <div class="row">
-                                <!--Input number of years-->
-                                <div class="col-md-6">
-                                    <h5 class="text-primary">{% trans "Number of years for time series" %}</h5>
-                                    <p>{% trans "You can edit the table manually" %}</p>
-                                    <div class="form-group">
-                                        <label>{% trans "Number of years" %} <span class="text-danger-wp">(*)</span> </label>
-                                        <input type="text" class="form-control" id="intakeNIYMI" disabled>
-                                    </div>
-                                    <button type="button" class="btn btn-primary" id="intakeNIBYMI" style="display: none;">{% trans "Generate" %}</button>
-                                </div>
-                                <!--Results-->
-                                <div class="col-md-6">
-                                    <h5 class="text-primary">{% trans "Results" %}</h5>
-                                    <div style="max-height: 400px; overflow-y: auto;">
-                                        <table class="table" >
-                                            <thead>
-                                                <tr>
-                                                    <th class="text-center" scope="col">{% trans "Year" %}</th>
-                                                    <th class="text-center" scope="col">{% trans "Extraction Value (l/s)" %}</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody id="intakeWEMI">
-                                            </tbody>
-                                        </table>
-                                    </div> 
+                            <!--Data analysis Results-->
+                            <div class="col-md-4">
+                                <h5 class="text-primary">{% trans "Results" %}</h5>
+                                <div style="max-height: 400px; overflow-y: auto;">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center" scope="col">{% trans "Year" %}</th>
+                                                <th class="text-center" scope="col">{% trans "Extraction Value (l/s)" %}</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="intakeECTAG">
+                                            {% for y in extraction_result %}
+                                            <tr >
+                                                <td class="small text-center " >{{y.0}}</th>
+                                                <td class="small text-center " >{{y.1}}</th>
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <br>
-                <div class="row text-center">
-                    <div class="col-md-12">
-                        <button type="button" class="btn btn-primary" id="step3NextBtn">{% trans "Next" %}</button>
-                        <a type="button" class="btn btn-primary" href="{% url "list-intake" %}?limit={{ CLIENT_RESULTS_LIMIT }}">{% trans "Exit" %}</a>
-                    </div>
+            </div>
+            <br>
+            <div class="row text-center">
+                <div class="col-md-12">                    
+                    <a type="button" class="btn btn-primary" 
+                        href="{% url "list-intake" %}?city={{ intake.city.id }}&limit={{ CLIENT_RESULTS_LIMIT }}" >
+                        {% trans "Exit" %}
+                    </a>
                 </div>
             </div>
-            <!--Step 4-->
-            <div id="step-4" class="tab-pane" role="tabpanel">
-                <!--Header-->
-                <div class="page-header">
-                    <h3>{% trans "External inputs" %}</h3>
-                    <p> <span id="ExternalNumbersInputs"></span> {% trans "External inputs to define" %}
-                    </p>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <h4 class="text-primary">{% trans "Asignation" %}</h4>
-                        <div class="form-group">
-                            <label>{% trans "Type element for asignation" %}</label>
-                            <select class="form-control" id="externalSelect" disabled></select>
-                        </div>
-                        <div id="IntakeTDLE"></div>
-                    </div>
-                </div>
-                <br>
-                    <div class="row text-center">
-                        <div class="col-md-12">
-                            <a type="button" class="btn btn-primary" href="{% url "list-intake" %}?limit={{ CLIENT_RESULTS_LIMIT }}">{% trans "Exit" %}</a>
-                        </div>
-                    </div>
-            </div>
-            </div>
-
-            <!--Inputs hidden for save data-->
-            <input type="hidden" id="xmlGraph" name="xmlGraph" value="{{intake.xml_graph}}" disabled>
-            <input type="hidden" id="graphConnections" name="graphConnections" disabled>
-            <input type="hidden" id="isFile" name="isFile" disabled>
-            <input type="hidden" id="typeDelimit" name="typeDelimit" disabled>
-            <input type="hidden" id="waterExtraction" name="waterExtraction" value="" disabled>
-            <input type="hidden" id="delimitArea" name="delimitArea" value="" disabled>
-            <input type="hidden" id="pointIntake" name="pointIntake" value="" disabled>
-            <input type="hidden" id="intakeAreaPolygon" name="intakeAreaPolygon" value="" disabled>
-            <input type="hidden" id="graphElements" name="graphElements" value="" disabled>
-            <input type="hidden" id="basinId" name="basinId" value="" disabled>
+        </div>        
     </form>
 </div>
 
 {% endblock %}
 {% block extra_script %}
-<script src="https://unpkg.com/smartwizard@5/dist/js/jquery.smartWizard.min.js" type="text/javascript"></script>
-<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
-    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
-    crossorigin=""></script>
-<script src="{{ STATIC_URL }}geonode/js/leaflet/Leaflet.Editable.js"></script>
-<script src="{{ STATIC_URL }}geonode/js/leaflet/Leaflet.Coordinates.js"></script>
-<script src="{{ STATIC_URL }}geonode/js/leaflet/Control.Loader.js"></script>
 <script src="{{ STATIC_URL }}geonode/js/waterproof/waterIntake.js"></script>
 
-<!--ZIP reader library-->
-<script src="{{ STATIC_URL }}geonode/js/jszip/jszip.min.js"></script>
-<!--Shapefile reader library -->
-<script src="{{ STATIC_URL }}geonode/js/shp/shp.min.js"></script>
-<script type="text/javascript">
-    var intakePolygons=[];
-    var mxBasePath = '{{ STATIC_URL }}geonode/js/mxgraph/src';
-    var mxImageBasePath = '{{ STATIC_URL }}geonode/js/mxgraph/examples/images';
-    var editorUrl = '{{ STATIC_URL }}geonode/js/mxgraph/examples/editors/config/diagrameditor.xml';
-    var serverApi = '{{serverApi}}';
-    var intakeInterpolationParams = {};
-    intakeInterpolationParams.type = '{{ intake.demand_parameters.interpolation_type }}';
-    intakeInterpolationParams.yearsNum = '{{intake.demand_parameters.years_number}}';
-    intakeInterpolationParams.initialExtract = '{{intake.demand_parameters.initial_extraction}}';
-    intakeInterpolationParams.endingExtract = '{{intake.demand_parameters.ending_extraction}}';
-    var xmlGraph = $('#xmlGraph').val();
-    var intakeExternalInputs = JSON.parse('{{externalInputs|safe}}');
-    var intakeObject = {};
-    intakeObject.id = '{{intake.id}}'
-    intakeObject.polygon = '{{intake.polygon_set.first.geomIntake|safe}}';
-    intakeObject.point=JSON.parse('{{intake.polygon_set.first.geomPoint|safe}}');
-    intakeObject.delimitArea='{{intake.polygon_set.first.geom}}';
-    intakePolygons.push(intakeObject);
-</script>
 
-<script src="{{ STATIC_URL }}geonode/js/leaflet/leaflet-omnivore.min.js"></script>
-<script src="{{ STATIC_URL }}waterproof_intake/js/intake_view.js"></script>
-<script src="{{ STATIC_URL }}waterproof_intake/js/graph_view.js"></script>
-<script src="{{ STATIC_URL }}waterproof_intake/js/graphValidations.js"></script>
-<script src="{{ STATIC_URL }}geonode/js/mxgraph/mxClient.js"></script>
-<script src="{{ STATIC_URL }}geonode/js/mxgraph/examples/editors/js/app.js"></script>
-<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-<script src="{{ STATIC_URL }}geonode/js/mxgraph/examples/editors/js/app.js"></script>
-<script src="{{ STATIC_URL }}waterproof_intake/mathquill/mathquill.min.js"></script>
-<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min.js"
-    integrity="sha512-dTu0vJs5ndrd3kPwnYixvOCsvef5SGYW/zSSK4bcjRBcZHzqThq7pt7PmCv55yb8iBvni0TSeIDV8RYKjZL36A=="
-    crossorigin="anonymous"></script>-->
 {% endblock %}

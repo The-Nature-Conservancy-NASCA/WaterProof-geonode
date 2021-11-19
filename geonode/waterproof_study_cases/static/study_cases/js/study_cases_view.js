@@ -15,8 +15,6 @@ var urlParams = (function(url) {
     return result;
 })(window.location.href);
 
-
-
 var mxLanguage = urlParams['lang'];
 var map;
 var basinId;
@@ -124,15 +122,20 @@ $(document).ready(function() {
     });
 
     $('#step6NextBtn').click(function() {
-        loadNBSActivities()
+        loadNBSActivities();
     });
 
     $('#step7PreviousBtn').click(function() {
+        $("#full-table").find('tbody').empty();
         $('#smartwizard').smartWizard("prev");
     });
 
     $('#step7EndBtn').click(function() {
-        location.href = "/study_cases/";
+        if (localStorage.getItem('returnTo') != null) {
+            window.location.href = "/study_cases/" + localStorage.getItem('returnTo');
+        }else{
+            location.href = "/study_cases/?city="+localStorage.cityId; 
+        }        
     });
 
 
@@ -219,10 +222,8 @@ $(document).ready(function() {
                 $("#nbs-ul").append(content);
             });
             autoAdjustHeight();
-
         });
     }
-
 
     function loadNBSActivities() {
         var city_id = localStorage.cityId
@@ -231,19 +232,19 @@ $(document).ready(function() {
             city_id: city_id,
             process: "View"
         }, function(data) {
-            content = ''
-            values = false
+            content = '';
+            values = false;
             $.each(data, function(index, nbs) {
                 var name = nbs.name;
-                var def = nbs.default
-                var value = nbs.value
+                var def = nbs.default;
+                var value = nbs.value;
 
                 if (value) {
                     values = true
                 }
                 if (def) {
                     content += '<tr><td>' + name + '</td>'
-                    content += '<td>' + value + '</td></tr>'
+                    content += '<td>' +( (value == null) ? "" : value) + '</td></tr>'
                 }
             });
             if (values) {
@@ -274,7 +275,6 @@ $(document).ready(function() {
                     loadBiophysical(intake.id, intake.name)
                 });
             });
-
         }
     }
 
@@ -287,19 +287,22 @@ $(document).ready(function() {
             labels = data[0]
             content = '<div class="col-md-12"><legend><label>Intake ' + name + '</span> </label></legend>'
             content += '<table id="bio_table_' + id_intake + '" class="table table-striped table-bordered table-condensed" style="width:100%"><thead><tr class="info">'
-            content += '<th scope="col" class="small text-center vat px-5">description</th>'
+            content += '<th scope="col" class="small text-center vat text-description-bio">description</th>'
             content += '<th scope="col" class="small text-center vat">lucode</th>'
             $.each(labels, function(key, v) {
                 if (key != 'lucode' && key != 'default' && key != 'lulc_desc' && key != 'description' && key != 'user_id' && key != 'intake_id' && key != 'study_case_id' && key != 'id' && key != 'macro_region' && key != 'kc') {
-                    content += '<th scope="col" class="small text-center vat px-1">' + key + '</th>'
+                    content += '<th scope="col" class="small text-center vat">' + key + '</th>'
                 }
             });
             content += '</tr></thead><tbody>'
             $.each(data, function(index, bio) {
-                content += '<tr id="id_' + bio.id + '">'
-                content += '<td id="description_' + bio.id + '">' + bio.description + '</td>'
-                content += '<td id="lucode_' + bio.id + '">' + bio.lucode + '</td>'
+                content += '<tr id="id_' + bio.id + '">';
+                content += '<td id="description_' + id_intake + '_' + bio.id + '" class="text-description-bio">' + bio.description + '</td>';
+                content += '<td id="lucode_' + bio.id + '">' + bio.lucode + '</td>';
                 $.each(bio, function(key, v) {
+                    if(v){
+                        v = Number.parseFloat(v).toFixed(6);
+                    }
                     if (key != 'lucode' && key != 'default' && key != 'lulc_desc' && key != 'description' && key != 'user_id' && key != 'intake_id' && key != 'study_case_id' && key != 'id' && key != 'macro_region' && key != 'kc') {
                         content += '<td id="' + key + '_' + bio.id + '">' + v + '</td>'
                     }
@@ -312,9 +315,6 @@ $(document).ready(function() {
 
         });
     }
-
-
-
 
     $('#smartwizard').smartWizard({
         selected: 0,
@@ -337,11 +337,13 @@ $(document).ready(function() {
         }
     });
 
-
     $('#autoAdjustHeightF').css("height", "auto");
 });
 
-
+//add function set autoAdjustHeight
+function autoAdjustHeight() {
+    $('#autoAdjustHeightF').css("height", "auto");
+}
 
 window.onbeforeunload = function() {
     return mxResources.get('changesLost');

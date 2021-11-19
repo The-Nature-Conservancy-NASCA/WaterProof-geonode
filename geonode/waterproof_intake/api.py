@@ -4,6 +4,7 @@ from rest_framework.decorators import api_view
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
+from django.db import connection
 import requests
 import json
 import re
@@ -89,3 +90,24 @@ def python2latex(exp):
     #ltx = ltx.replace("$$","")
     print (ltx)
     return ltx
+
+@api_view(['GET'])
+def intakeUsedByPlantsAndStudyCases(request):
+    cursor = connection.cursor()
+    id_intake = request.GET['id']
+    sql = "select count(*) from public.waterproof_treatment_plants_csinfra c " + \
+        "join public.waterproof_intake_elementsystem e on " + \
+        "e.id = c.csinfra_elementsystem_id and e.intake_id = %s" % id_intake
+    cursor.execute(sql)
+    row = cursor.fetchone()    
+    count = row[0]
+    # cursor.close()
+    if (count == 0):
+        print ("No plants searching in study cases ...")
+        sql = "select count(*) from waterproof_study_cases_studycases_intakes where intake_id = %s" % id_intake
+        cursor.execute(sql)
+        row = cursor.fetchone()    
+        count = row[0]
+        print ("count: %s" % count)
+        cursor.close()
+    return JsonResponse({'count': count}, safe=False)

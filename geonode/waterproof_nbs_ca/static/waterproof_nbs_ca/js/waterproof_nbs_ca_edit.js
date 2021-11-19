@@ -86,7 +86,7 @@ $(function () {
         console.log('submit event loaded');
         var formData = new FormData();
         var uploadNewArea = false;
-        $('#form').validator().on('submit', function (e) {
+        $('#form').on('submit', function (e) {
             if (e.isDefaultPrevented()) {
                 // handle the invalid form...
             } else {
@@ -365,16 +365,13 @@ $(function () {
      * Initialize map 
      */
     initMap = function () {
-        map = L.map('mapid').setView([51.505, -0.09], 13);
+        let center = [4.0, -74.6];
+        map = L.map('mapid').setView(center, 7);
 
         // Basemap layer
-        L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
-            maxZoom: 18,
-            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, ' +
-                'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-            id: 'mapbox/streets-v11',
-            tileSize: 512,
-            zoomOffset: -1
+        L.tileLayer(OSM_BASEMAP_URL, {
+            maxZoom: 20,
+            attribution: 'Data \u00a9 <a href="http://www.openstreetmap.org/copyright"> OpenStreetMap Contributors </a> Tiles \u00a9 Komoot'
         }).addTo(map);
         // Countries layer
         let countries = new L.GeoJSON.AJAX(countriesLayerUrl,
@@ -384,6 +381,7 @@ $(function () {
             }
         );
         countries.addTo(map);
+        var defExt = new L.Control.DefaultExtent({ title: gettext('Default extent'), position: 'topright'}).addTo(map);
 
         // When countries layer is loaded fire dropdown event change
         countries.on("data:loaded", function () {
@@ -466,9 +464,9 @@ $(function () {
                 },
                 success: function (result) {
                     result = JSON.parse(result);
-                    currencyDropdown.val(result[0].pk);
+                    currencyDropdown.val(result[0].fields.iso3);
                     $('#currencyLabel').text('(' + result[0].fields.currency + ') - ' + result[0].fields.name);
-                    $('#countryLabel').text(countryName);                    
+                    $('#countryLabel').text(countryName);
                     let currencyCode = result[0].fields.currency;
                     let impCostText = gettext("Implementation cost (%s/ha) ");
                     let impCostTrans = interpolate(impCostText, [currencyCode]);
@@ -610,6 +608,17 @@ $(function () {
     fillTransitionsDropdown = function (dropdown) {
         dropdown.change();
     };
+    // Only integers excluding 0
+    checkTimeBenefit = function (event, value) {
+        let regexp = /^[1-9]+[0-9]*$/;
+        valid = regexp.test(value);
+        if (valid) {
+            return true;
+        }
+        else {
+            event.target.value = "";
+        }
+    }
     checkPercentage = function (event, value) {
         commaNum = null;
         let regexp = /^(?=.*[0-9])([0-9]{0,12}(?:,[0-9]{1,2})?)$/gm;
@@ -651,9 +660,9 @@ $(function () {
                 event.target.value = "";
         }
     }
-    checkDecimalFormat = function (event, value) {
+   checkDecimalFormat = function (event, value) {
         commaNum = null;
-        let regexp = /^(?=.*[1-9])([0-9]{0,12}(?:,[0-9]{1,2})?)$/gm;
+        let regexp = /^\d+(\,\d{1,2})?$/;
         valid = regexp.test(value);
         // Validate string
         if (valid) {
@@ -665,9 +674,9 @@ $(function () {
             //Remove especial symbols included letters
             value = value.replace(/[^0-9\,]/g, "");
             if (value.match(/,/g) !== null) {
-                commaNum = (value.match(/,/g)).length;
-                if (commaNum == 1) {
-                    let result = value.substring(0, value.indexOf(","));
+                commaNum = event.target.value.indexOf('.');
+                if (commaNum > 0) {
+                    let result = value.substring(0, value.indexOf("."));
                     if (result == "") {
                         event.target.value = "";
                         return false;
@@ -681,6 +690,26 @@ $(function () {
             event.target.value = value;
         }
     }
+    afterCheckDecimal = function (event, value) {
+        let regexp = /^\d+(\,\d{1,2})?$/;
+        valid = regexp.test(value);
+        if (valid) {
+            return true;
+        }
+        else {
+            event.target.value = "";
+            let test=gettext('Wrong decimal format');
+            event.target.placeholder=test;
+            event.target.focus();
+        }
+    }
+    $('#benefitTimePorc').focusout(function (event) {
+        let value = parseFloat(event.target.value.replace(",", "."));
+        if (value <= 0) {
+            this.value = "";
+            this.focus();
+        }
+    });
     checkDecimalFormatZero = function (event, value) {
         commaNum = null;
         let regexp = /^(?=.*[1-9])([0-9]{0,12}(?:,[0-9]{1,2})?)$/gm;

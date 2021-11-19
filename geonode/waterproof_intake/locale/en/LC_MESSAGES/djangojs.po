@@ -24,7 +24,7 @@ msgstr ""
 "Project-Id-Version: Waterproof Valpha\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-07-21 14:47-0500\n"
-"PO-Revision-Date: 2021-08-02 10:24-0500\n"
+"PO-Revision-Date: 2021-11-10 14:28-0500\n"
 "Last-Translator: Julien Collaer <julien.collaer@opengeode.be>\n"
 "Language-Team: Skaphe\n"
 "Language: en\n"
@@ -201,7 +201,7 @@ msgstr ""
 
 #: static/waterproof_intake/js/graphValidations.js:357
 #, javascript-format
-msgid "The minimun value is %s please use the arrows"
+msgid "The minimum value is %s please use the arrows"
 msgstr ""
 
 #: static/waterproof_intake/js/graphValidations.js:369
@@ -329,17 +329,10 @@ msgstr "Cancel"
 msgid "Basin point delimitation"
 msgstr "Basin point delimitation"
 
-#: static/waterproof_intake/js/intake_clone.js:610
-#: static/waterproof_intake/js/intake_create.js:555
-#: static/waterproof_intake/js/intake_edit.js:609
-msgid "The point coordinates will be ajusted"
-msgstr ""
-"The water intake cordenates will be adjuste to the nearest water source"
-
 #: static/waterproof_intake/js/intake_clone.js:615
 #: static/waterproof_intake/js/intake_create.js:560
 #: static/waterproof_intake/js/intake_edit.js:614
-msgid "Yes, ajust!"
+msgid "Yes, adjust!"
 msgstr "Yes, adjust!"
 
 #: static/waterproof_intake/js/intake_clone.js:745
@@ -394,7 +387,7 @@ msgstr "Great!"
 #: static/waterproof_intake/js/intake_create.js:899
 #: static/waterproof_intake/js/intake_edit.js:999
 msgid "Is a valid polygon inside basin's geometries"
-msgstr "Is a valid polygon inside basin's geometries"
+msgstr "It is a valid polygon inside basin's geometries"
 
 #: static/waterproof_intake/js/intake_clone.js:1047
 #: static/waterproof_intake/js/intake_create.js:948
@@ -467,3 +460,7 @@ msgstr "Nitrogen (Kg)"
 #: static/waterproof_intake/js/intake_list.js:96
 msgid "Phosphorus (Kg)"
 msgstr "Phosphorus (Kg)"
+
+#: static/waterproof_intake/js/intake_list.js:96
+msgid "Retiro de buchon"
+msgstr "Water hyacinth remotion"

@@ -102,9 +102,11 @@
                         <h4 class="text-primary">{% trans "Water intake location" %}</h4>
                     </div>
                     <div id="map">
-                        <div id="analysisOptions">
-                            <button type="button" class="btn btn-default" id="validateBtn">Draw Basin</button>
-                        </div>
+                        <div class="row text-center">
+                            <div id="analysisOptions" class="col-md-12 div-draw-basin">
+                                <button type="button" disabled class="btn btn-default" id="validateBtn">{% trans "Draw Basin" %}</button>
+                            </div>
+                        </div> 
                     </div>
                     <br>
                     <div class="row text-center">
@@ -134,7 +136,7 @@
                             <div class="panel panel-info">                                
                                 <div class="panel-body text-center" id="loadXml">
                                     <img src="/static/geonode/img/load-default-diagram.png" alt="load" id="loadImg">
-                                    <a href="#">{% trans "Load Default Diagram" %}</a>                                    
+                                    <a href="#">{% trans "Load default diagram" %}</a>                                    
                                 </div>
                             </div>
                         </div>
@@ -201,7 +203,7 @@
                                 <button type="button" class="btn btn-primary btn-add-cost" data-toggle="modal" data-target="#CalculatorModal" id="ModalAddCostBtn">{% trans "Add Cost" %}</button>
                             </h4>
                             <p>{% trans "The elements of the collection system have associated operating costs, you can modify them, discard them or add new costs" %}</p>
-                            <table class="table table-striped table-bordered table-condensed" style="width:100%; margin-bottom: 100px">
+                            <table class="table table-striped table-bordered table-condensed" style="width:100%; margin-bottom:10px;">
                                 <thead>
                                     <tr class="info">
                                         <th scope="col" class="small text-center vat">{% trans "Function name" %}</th>
@@ -211,8 +213,7 @@
                                         <th scope="col" class="small text-center vat">{% trans "Options" %}</th>
                                     </tr>
                                 </thead>
-                                <tbody id="funcostgenerate">                                
-                                </tbody>
+                                <tbody id="funcostgenerate"></tbody>
                             </table>
                         </div>
                     </div>
@@ -252,7 +253,7 @@
                                         <div class="form-group">
                                             <div class="row">
                                                 <div class="col-md-6">
-                                                    <label>{% trans "Interpolation method " %} <span
+                                                    <label>{% trans "Interpolation method" %} <span
                                                             class="text-danger-wp">(*)</span>
                                                     </label>
                                                     <select class="form-control" id="typeProcessInterpolation">
@@ -286,7 +287,7 @@
                                         </div>
                                         <br>
                                         <div>
-                                            <p>{% trans "Clic the following button to calculate the wather extraction in each year" %} &nbsp; <button type="button" class="btn btn-primary" id="intakeWECB">{% trans "Generate" %}</button></p>
+                                            <p>{% trans "Clic the button text generate" %} &nbsp; <button type="button" class="btn btn-primary" id="intakeWECB">{% trans "Generate" %}</button></p>
                                         </div>
                                     </div>
                                     <!--Data analysis Results-->
@@ -323,7 +324,7 @@
                                             <input type="number"  min="1" step="0" oninput="validity.valid||(value='');" max="100" class="form-control justify-number" id="intakeNIYMI">
                                         </div>
                                         <div>
-                                            <p>{% trans "Clic the following button to calculate the wather extraction in each year" %} &nbsp;
+                                            <p>{% trans "Clic the button text generate" %} &nbsp;
                                             <button type="button" class="btn btn-primary" id="intakeNIBYMI">{% trans "Generate" %}</button>
                                             </p>
                                         </div>
@@ -410,28 +411,24 @@
                                     </div-->
                                     <p>{% trans "You can change the area"%}</p>
                                     <p>{% trans "To move area vertices" %}</p>
-                                    <div class="form-group col-md-4">
-                                        <button type="button" class="btn btn-primary" id="btnDelimitArea"> {%trans "Manually area delimit" %}</button>
-                                    </div>
-                                    <div class="col-md-1"><p>{% trans "or" %}</p></div>
-                                    <div class="form-group col-md-4">
-                                        <div class="input-group">
-                                            <span class="input-group-btn">
-                                                <span class="btn btn-default btn-file">
-                                                    {% trans "Select a file" %}
-                                                    <input id="intakeArea" type="file">
+                                    <div class="text-center" style="padding-bottom: 15px;">
+                                        <div class="text-center">
+                                            <button type="button" class="btn btn-primary" id="btnDelimitArea"> {%trans "Manually area delimit" %}</button>
+                                            <p style="padding-left: 5px;padding-right: 5px;">{% trans "or" %}</p>                                        
+                                            <div class="input-group">
+                                                <span class="input-group-btn">
+                                                    <span class="btn btn-default btn-file">
+                                                        {% trans "Select a file" %}
+                                                        <input id="intakeArea" type="file">
+                                                    </span>
                                                 </span>
-                                            </span>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
-                                       
-                                    </div>
-                                    <br>
                                     <br>
                                     <p>{% trans "Once defined the area" %}</p>
                                     <p>{% trans "To load shapefile" %}</p>
-                                    <div class="form-group col-md-4">
+                                    <div class="text-center">
                                         <button type="button" class="btn btn-primary" id="btnValidateArea"> {% trans "Validate delimit area" %}</button>
                                     </div>
                                 </div>
@@ -509,8 +506,6 @@
                         <ul class="nav nav-tabs">
                             <li class="active"><a href="#mathBasic_tab" data-toggle="tab">{% trans "Basic" %}</a></li>
                             <li><a href="#mathAdvanced_tab" data-toggle="tab" >{% trans "Advanced" %}</a></li>
-                            <!--li><a href="#mathTrigonometry_tab" data-toggle="tab" >Trigonometry</a></li>
-                            <li><a href="#mathLogical_tab" data-toggle="tab" >Logical</a></li-->
                         </ul>
                         <div class="tab-content">
                             <div id="mathBasic_tab" class="tab-pane fade in active">
@@ -520,40 +515,24 @@
                                     <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="-">&#8722;</button>
                                     <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="*">&#215</button>
                                     <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="/">a/b</button>
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="^">a^b</button>
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="sqrt">&#8730</button>     
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="**">a^b</button>
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="sqrt">&#8730</button>
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="min()">min</button>
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="max()">max</button>
                                 </div>
-                            </div>
-                            
+                            </div>                            
                             <div id="mathAdvanced_tab" class="tab-pane fade in">
                                 <div class="btn-group" role="group">
                                     <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="pi">π</button>
                                     <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="e">e</button>
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="ln">ln</button>
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="log">\log</button>
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="_">a_b</button>
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="log()">ln</button>
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="log10()">log</button>
                                     <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="%">mod</button>
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="**">&#8731</button>
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value=">">&#62;</button>
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="<">&#60;</button>
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="(expression) if (conditional) else (other_case)">if</button>
                                 </div>
                             </div>
-                            <!--div id="mathTrigonometry_tab" class="tab-pane fade in">
-                                <div class="btn-group" role="group">
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="sin( )">sin</button>
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="cos( )">cos</button>
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="tan( )">tan</button>
-                                </div>
-                            </div>
-                            <div id="mathLogical_tab" class="tab-pane fade in">
-                                <div class="btn-group" role="group">
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value=">">></button>
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value=">=">\ge</button>
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="<"><</button>
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="<=">\le</button>
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="!=">\ne</button>
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="and">and</button>
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="or">or</button>
-                                </div>
-                            </div-->
                         </div>
                     </div>
                 </div>
@@ -806,11 +785,11 @@
                 <p>
                     {% trans "If you select the interpolation method, you must enter the number of years for which you want to estimate demand and the expected minimum and maximum demand flow (extraction) values ​​(unit in l / s):" %}
                 </p>
-                <img style="margin: 10px auto 10px; display: block; width: 90%;" src="/static/geonode/img/step3-1.png"></img>
+                <img style="margin: 10px auto 10px; display: block; width: 70%;" src="/static/geonode/img/step3-1.png"></img>
                 <p>
                     {% trans "If you know your water demand (withdrawal) data from year to year, you can enter it manually. For this, just enter the number of years for which you have information and WaterProof will generate a table in which you can enter the data (units in l / s):" %}
                 </p>
-                <img style="margin: 10px auto 10px; display: block; width: 90%;" src="/static/geonode/img/step3-2.png"></img>
+                <img style="margin: 10px auto 10px; display: block; width: 60%;" src="/static/geonode/img/step3-2.png"></img>
                 <div>
                     <br>
                     <div class="modal-footer">
@@ -944,6 +923,4 @@
 <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 <script src="{{ STATIC_URL }}waterproof_intake/mathquill/mathquill.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-
-
 {% endblock %}

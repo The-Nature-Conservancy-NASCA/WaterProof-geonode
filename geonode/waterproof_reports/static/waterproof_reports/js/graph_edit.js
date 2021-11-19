@@ -582,7 +582,7 @@
  
          $('#python-expression').on('keypress',function(evt) {
              var charCode = (evt.which) ? evt.which : evt.keyCode;
-             let symbols = [40,41,42,43,45,60,61,62,106,107,109,111];
+             let symbols = [32,40,41,42,43,44,45,46,47,60,61,62,91,92,93,101,123,125];
              if (charCode != 46 && charCode > 31 && (charCode < 48 || charCode > 57))
                  return (symbols.indexOf(charCode) >= 0);
  
@@ -602,11 +602,7 @@
                          'currencyCost': $('#currencyCost').val(),
                          'logical': [{
                              'condition_1': "", /* mathFieldlog1.latex(), */
-                             'ecuation_1': "", /* mathFieldE1.latex(), */
-                             'condition_2': "", /* mathFieldlog2.latex(), */
-                             'ecuation_2': "", /* mathFieldE2.latex(), */
-                             'condition_3': "", /* mathFieldlog3.latex(), */
-                             'ecuation_3': "", /* mathFieldE3.latex() */
+                             'ecuation_1': "", /* mathFieldE1.latex(), */                             
                          }],
                      }
                  });
@@ -621,11 +617,7 @@
                      'currencyCost': $('#currencyCost').val(),
                      'logical': [{
                          'condition_1': "", /* mathFieldlog1.latex(), */
-                         'ecuation_1': "", /* mathFieldE1.latex(), */
-                         'condition_2': "", /* mathFieldlog2.latex(), */
-                         'ecuation_2': "", /* mathFieldE2.latex(), */
-                         'condition_3': "", /* mathFieldlog3.latex(), */
-                         'ecuation_3': "", /* mathFieldE3.latex() */
+                         'ecuation_1': "", /* mathFieldE1.latex(), */                        
                      }],
                  }
  
@@ -732,7 +724,7 @@
              clearInputsMath();
              $('#costFunctionName').val('');
              $('#costFuntionDescription').val('');
-             $('#CalculatorModalLabel').text('New Function Cost - ' + $('#titleCostFunSmall').text())
+             $('#CalculatorModalLabel').text(gettext('New Function cost'));
              for (const index of graphData) {
                  var costlabel = "";
                  for (const iterator of JSON.parse(index.varcost)) {
@@ -858,7 +850,7 @@
                              Swal.fire({
                                  icon: 'warning',
                                  title: gettext('Field empty'),
-                                 text: gettext('Please fill every fields')
+                                 text: gettext('Please complete all required information')
                              });
                              return;
                          } else {

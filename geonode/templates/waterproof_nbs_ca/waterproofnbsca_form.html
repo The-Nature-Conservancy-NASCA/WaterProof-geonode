@@ -1,22 +1,23 @@
-{% extends "menu.html" %} {% load i18n %} {% load bootstrap_tags %} 
+{% extends "menu.html" %} 
+{% load i18n %} 
+{% load bootstrap_tags %} 
+{% load static from staticfiles %}
 {% block extra_head %}
-
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_nbs_ca/css/waterproof_nbs_ca.css"/>
+<link rel="stylesheet" href="{{ STATIC_URL }}lib/css/leaflet.css"/>
+<link rel="stylesheet" href="{% static "geonode/css/leaflet/leaflet.defaultextent.css" %}"/>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 {% endblock %}
 {% block body_outer %}
-<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_nbs_ca/css/waterproof_nbs_ca.css">
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
-    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
-    crossorigin="" />
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <div class="header-waterproof">
     <div>
         <h1>{% trans "Create Nature based solution (NBS)" %}
-            <button type="button" data-toggle="modal" data-target="#HelpCreate" id="HelpModalBtnModal" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button> 
+            <button type="button" value="help modal button create" data-toggle="modal" data-target="#HelpCreate" id="HelpModalBtnModal" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button> 
         </h1>        
     </div>    
     <div class="row">
         <div class="col-md-4">
-            <p style="text-align: justify;">{% trans "Through this form you can create a custom NbS. Select the country for which you want to be considered and fill in your identification data, costs and the transitions obtained with its implementation." %}</p>
+            <p style="text-align: justify;">{% trans "Through this form you can create a custom NbS. Select the country to which the NbS will be associated and fill in the identification information, costs and the transitions obtained with its implementation." %}</p>
             <h4 class="country-label" id="countryLabel">{{country.name}}</h4>
             <p><b>{% trans "Region:" %}</b> <span id="regionLabel">{{region.name}}</span> </p>
             <p><b>{% trans "Currency:" %} </b><span id="currencyLabel">({{currency.code}}) - {{currency.name}}</span></p>            
@@ -34,9 +35,8 @@
         <h4 class="text-primary">{% trans "General Settings" %}</h4>
         <div class="form-group">
             <label>{% trans "Name" %} <span class="text-danger-wp">(*)</span> </label>
-            <input type="text" class="form-control" id="nameNBS" data-error='{% trans "Field is required" %}'
-                placeholder="Enter title" required>
-            <div class="help-block with-errors"></div>
+            <input type="text" class="form-control" id="nameNBS" data-error='{% trans "Field is required" %}'required>
+            <sp class="help-block with-errors"></sp>
         </div>
         <div class="form-group">
             <label>{% trans "Description" %} <span class="text-danger-wp">(*)</span> </label>
@@ -47,10 +47,10 @@
         <div class="form-group">
             <div class="row">
                 <div class="col-md-6">
-                    <label>{% trans "Country" %} <span class="text-danger-wp">(*)</span> </label>
+                    <label>{% trans "Reference Country" %} <span class="text-danger-wp">(*)</span> </label>
                     <select id="countryNBS" class="form-control" {{countryEnable}} data-error='{% trans "Field is required" %}' required>
                         {% for country in countries %}
-                            <option value="{{country.pk}}" data-value="{{country.iso3}}">{{country.name}}</option>
+                            <option value="{{country.iso3}}" data-value="{{country.iso3}}">{{country.name}}</option>
                         {% endfor %}
                     </select>
                     <div class="help-block with-errors"></div>
@@ -59,7 +59,7 @@
                     <label>{% trans "Currency for definition of costs" %} <span class="text-danger-wp">(*)</span> </label>
                     <select id="currencyCost" class="form-control" {{countryEnable}} data-error='{% trans "Field is required" %}' required>
                         {% for currency in currencies %}
-                            <option value="{{currency.pk}}">({{currency.currency}}) - {{currency.name}}</option>
+                            <option value="{{currency.iso3}}">({{currency.currency}}) - {{currency.name}}</option>
                         {% endfor %}
                     </select>
                     <div class="help-block with-errors"></div>
@@ -70,14 +70,14 @@
             <div class="row">
                 <div class="col-md-6">
                     <label>{% trans "Time required to generate maximun benefit (yr)" %} <span class="text-danger-wp">(*)</span> </label>
-                    <input id="maxBenefitTime"  onInput="return checkTime(event,value)"
+                    <input id="maxBenefitTime"  onInput="return checkTimeBenefit(event,value)"
                     type="text"  class="form-control" data-error='{% trans "Field is required" %}' required>
                     <div class="help-block with-errors"></div>
                 </div>
                 <div class="col-md-6">
                     <label>{% trans "Percentage of benefit associated with interventions at time t=0" %} <span
                             class="text-danger-wp">(*)</span> </label>
-                    <input id="benefitTimePorc" type="text"  onInput="return checkPercentage(event,value)" 
+                    <input id="benefitTimePorc" type="text" onInput="return checkPercentage(event,value)" 
                     class="form-control" data-error='{% trans "Field is required" %}' required>
                     <div class="help-block with-errors"></div>
                 </div>
@@ -87,7 +87,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <label>{% trans "Periodicity of maintenance (yr)" %} <span class="text-danger-wp">(*)</span> </label>
-                    <input id="maintenancePeriod"  onInput="return checkTime(event,value)"
+                    <input id="maintenancePeriod"  onInput="return checkTimeBenefit(event,value)"
                     type="text" class="form-control" data-error='{% trans "Field is required" %}' required>
                     <div class="help-block with-errors"></div>
                 </div>
@@ -98,19 +98,19 @@
             <div class="row">
                 <div class="col-md-4">
                     <label id="implementCostLabel">{% trans "Implementation cost (US$/ha)" %} <span class="text-danger-wp">(*)</span> </label>
-                    <input id="implementCost"  type="text" onInput="return checkDecimalFormatZero(event,value)" 
+                    <input id="implementCost"  type="text" onfocusout="return afterCheckDecimal(event,value)" onInput="return checkDecimalFormat(event,value)" 
                     class="form-control" data-error='{% trans "Field is required" %}' required>
                     <div class="help-block with-errors"></div>
                 </div>
                 <div class="col-md-4">
                     <label id="maintenanceCostLabel">{% trans "Maintenace cost (US$/ha)" %} <span class="text-danger-wp">(*)</span> </label>
-                    <input id="maintenanceCost"  type="text" onInput="return checkDecimalFormat(event,value)" 
+                    <input id="maintenanceCost"  type="text" onfocusout="return afterCheckDecimal(event,value)" onInput="return checkDecimalFormat(event,value)" 
                     class="form-control" data-error='{% trans "Field is required" %}' required>
                     <div class="help-block with-errors"></div>
                 </div>
                 <div class="col-md-4">
                     <label id="oportunityCostLabel">{% trans "Oportunity cost (US$/ha)" %} <span class="text-danger-wp">(*)</span> </label>
-                    <input id="oportunityCost" type="text" onInput="return checkDecimalFormat(event,value)"  class="form-control" data-error='{% trans "Field is required" %}' required>
+                    <input id="oportunityCost" type="text" onfocusout="return afterCheckDecimal(event,value)" onInput="return checkDecimalFormat(event,value)" class="form-control" data-error='{% trans "Field is required" %}' required>
                     <div class="help-block with-errors"></div>
                 </div>
             </div>
@@ -129,8 +129,8 @@
         <div class="form-group">
             <div class="row">
                 {% for tran in transitions %}
-                <div class="col-md-12" id="selectlanduse{{tran.pk}}" name="selectlanduse" data-value="{{tran.pk}}"
-                    style="display: none;">
+                <div class="col-md-12" id="selectlanduse{{tran.pk}}" name="selectlanduse" data-value="{{tran.pk}}" style="display: none;">
+                    <p>{% trans "If you want the NbS not to be implemented" %}</p>
                     <table class="table">
                         <thead>
                             <tr>
@@ -138,7 +138,7 @@
                                     <h5>{% trans "LAND USE / LAND COVER WHERE THE ACTIVITY CAN BE IMPLEMENTED" %}</h5>
                                 </th>
                                 <th>
-                                    <h5>{% trans "LAND USE / LAND COVER TRANSFORMED" %}</h5>
+                                    <h5>{% trans "LAND USE / LAND COVER TRANSFORMED" %} <span class="text-danger-wp">(*)</span></h5>
                                 </th>
                             </tr>
                             
@@ -154,13 +154,8 @@
                                     {% for riost in riosTransformation %} 
                                         {% if riosa.pk == riost.activity_id %}
                                         <div class="checkbox">
-                                            {% if forloop.first %}
                                             <label><input data-value="itemRT" name="{{riosa.name}}_{{itemRT}}" type="radio"
-                                                    id="itemRT{{riost.pk}}" value="{{ riost.pk }}" checked> {{riost.name}}</label>
-                                            {% else %}
-                                            <label><input data-value="itemRT" name="{{riosa.name}}_{{itemRT}}" type="radio"
-                                                id="itemRT{{riost.pk}}" value="{{ riost.pk }}" > {{riost.name}}</label>
-                                            {% endif %}
+                                                id="itemRT{{riost.pk}}" value="{{ riost.pk }}" {% if forloop.first %} checked {% endif %} required> {{riost.name}}</label>                                            
                                         </div>
                                         {% endif %} 
                                     {% endfor %}
@@ -172,11 +167,10 @@
                     </table>
                 </div>
                 {% endfor %}
-                <div class="col-md-12">
+                <div class="col-md-12 text-center">
                     <table class="table">
                         <tr>
-                            <td class="col-md-4"></td>
-                            <td class="col-md-8"><button id="clear_options" type="button" class="btn btn-primary ">{% trans "Clear options" %}</button></td>
+                            <td class="col-md-12"><button id="clear_options" type="button" value="clear options" class="btn btn-primary ">{% trans "Clear options" %}</button></td>
                         </tr>
                     </table>
                 </div>
@@ -187,26 +181,22 @@
                 <div>
                     <div class="col-md-12">
                         <label>{% trans "Restricted areas" %} </label>
-                        <p>{% trans "If there are areas with restrictions for the implementation of the NbS, attach them to the form through a geographic file by clicking on the following button." %}</p>
-                        
+                        <p>{% trans "If there are areas with restrictions for the implementation of the NbS, attach them to the form through a geographic file by clicking on the following button." %}</p>                        
                     </div>
                     <div class="col-md-2">
                         <span class="input-group-btn">
-                          <span class="btn btn-default btn-file">
-                            {% trans "Select a file" %}
+                            <span class="btn btn-default btn-file">
+                                {% trans "Select a file" %}
                             <input id="restrictedArea" type="file">
-                        </span>
+                            </span>
                         </span>
                     </div>
                         <div class="col-md-2">
-                            <button type="button" class="btn btn-link" data-toggle="modal" data-target="#HelpModal" id="HelpModalBtnModal" style="outline:none; text-decoration:none;">
+                            <button type="button" value="help" class="btn btn-link" data-toggle="modal" data-target="#HelpModal" id="HelpModalBtnModal" style="outline:none; text-decoration:none;">
                                 <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> {% trans "Help" %}</button>
                             </button>
                         </div>
-                       
-                    
-    
-    
+                                   
                     <div class="help-block with-errors"></div>
                 </div>
             </div>
@@ -214,8 +204,8 @@
         <br>
         <div class="row text-center">
             <div class="col-md-12">
-        <button id="submit" type="submit" class="btn btn-primary ">{% trans "Save" %}</button>
-        </div>
+                <button id="submit" type="submit" value="save" class="btn btn-primary ">{% trans "Save" %}</button>
+            </div>
         </div>
     
     </form>
@@ -227,7 +217,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" value="close" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <h3 class="modal-title text-center" id="HelpModalLabel">{% trans "Geom files help" %}</h3>
@@ -244,7 +234,7 @@
                 </div>
                 <br>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{% trans "Close" %}</button>
+                    <button type="button" value="close" class="btn btn-secondary" data-dismiss="modal">{% trans "Close" %}</button>
                 </div>
             </div>
         </div>
@@ -255,43 +245,43 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" value="close" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <h3 class="modal-title text-center" id="HelpModalLabel" style="color:#6398C1 ;">{% trans "Create Nature based solution (NBS)" %}</h3>
             </div>
             <div class="modal-body">
                 <p>
-                    {%  trans "You can create a Nature-based Solution by entering your name, description, data about your implementation and maintenance costs, among others. However, you should pay special attention in the Coverage / land use transitions section, as the coverage changes that WaterProof will take into account for the generation of NBS portfolios, modeling and analysis of return on investment are configured there."  %}
+                    {%  trans "create-nbs-help-1" %}
                 </p>
                 <img style="margin: 10px auto 10px; display: block; width: 100%; height: 100%;" src="/static/geonode/img/CreateSBN_1.png"></img>
                 <p>
-                    {% trans "Once you select the transition of your interest, you must indicate the changes in the coverage that you hope to achieve:" %} 
+                    {%  trans "create-nbs-help-2" %}
                 </p>
                 <img style="margin: 10px auto 10px; display: block; width: 100%; height: 100%;" src="/static/geonode/img/CreateSBN_2.png"></img>
                 <p>
-                    {% trans "Finally, you can attach a shapefile where you indicate areas where the implementation of the created NbS is avoided:" %} 
+                    {%  trans "create-nbs-help-3" %}
                 </p>
                 <img style="margin: 10px auto 10px; display: block; width: 100%; height: 100%;" src="/static/geonode/img/CreateSBN_3.png"></img>
                 <p>
-                    {% trans "Note that the shapefile must have 2 attributes which are required for RiOS to interpret the information:" %} 
+                    {%  trans "create-nbs-help-4" %}
                     <li>
-                        {% trans "activity_n: This field must contain the exact name of the activity that has been defined in the system (this refers to the csv file of parameters that enters RIOS and that the system arms according to what is selected by the user)." %} 
+                        {%  trans "create-nbs-help-5" %}
                     </li>
                     <li>
-                        {% trans "Action: This field is of type text and only admits two options: 1) prevent if you want to restrict an activity in that area or 2) prefer if you want to give priority to the activity in that area." %} 
+                        {%  trans "create-nbs-help-6" %}
                     </li>
                 </p>
                 <p>
-                    {% trans "The system will verify that the polygon is within the watershed area and that it meets the coordinate standard. EPSG 3857 (world standard for flat coordinates) or EPSG 4326 (world standard for geographic coordinates)." %} 
+                    {%  trans "create-nbs-help-7" %}
                 </p>
                 <p>
-                    {% trans "Files are accepted only in compressed .zip format whose required structure must contain at least: 1 .shp file, 1 .dbf file, 1 .prj file and 1 .shx file." %} 
+                    {%  trans "create-nbs-help-8" %}
                 </p>
                 <div>
                 <br>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal" style="color: white; background-color: #6398C1;">Close</button>
+                    <button type="button" value="close" class="btn btn-secondary" data-dismiss="modal" style="color: white; background-color: #6398C1;">{% trans "Close" %}</button>
                 </div>
                 </div>
             </div>
@@ -307,12 +297,13 @@
 <script>
     var token = '{{ csrf_token }}';
     var countriesLayerUrl = '{{ STATIC_URL }}waterproof_nbs_ca/data/countries.geojson';
+    OSM_BASEMAP_URL = "{{ OSM_BASEMAP_URL }} ";
 </script>
 {% if user.professional_role == 'ADMIN' %}
     <script>
-         var countryId = '{{usaCountry.id}}';
+         var countryId = '{{usaCountry.iso3}}';
          var disableMap=true;
-         var countryCode = localStorage.countryCode;
+         var countryCode = '{{usaCountry.iso3}}';
     </script>
 {% else %}
     <script>
@@ -321,13 +312,9 @@
         var countryCode = localStorage.countryCode;
     </script>
 {% endif %}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min.js"
-    integrity="sha512-dTu0vJs5ndrd3kPwnYixvOCsvef5SGYW/zSSK4bcjRBcZHzqThq7pt7PmCv55yb8iBvni0TSeIDV8RYKjZL36A=="
-    crossorigin="anonymous"></script>
-<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
-    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
-    crossorigin=""></script>
-<script src="{{ STATIC_URL }}geonode/js/leaflet/leaflet.ajax.min.js"></script>
 
+<script src="{{ STATIC_URL }}lib/js/leaflet.js"></script>
+<script src="{{ STATIC_URL }}geonode/js/leaflet/leaflet.defaultextent.js"></script>
+<script src="{{ STATIC_URL }}geonode/js/leaflet/leaflet.ajax.min.js"></script>
 <script src="{{ STATIC_URL }}waterproof_nbs_ca/js/waterproof_nbs_ca.js"></script>
 {% endblock %}

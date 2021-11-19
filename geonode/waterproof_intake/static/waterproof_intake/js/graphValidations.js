@@ -54,7 +54,7 @@ function createPopupMenu(graph, menu, cell, evt) {
     }
 };
 
-function updateStyleLine(graph, cell, type) {
+function updateStyleLine(graph, cell, type) {    
     $.ajax({
         url: `/intake/loadProcess/${type.style}`,
 
@@ -91,12 +91,13 @@ function updateStyleLine(graph, cell, type) {
                     })
 
                     let resultDbObj = JSON.parse(result);
-// A.R. 31/08/2021                    
                     if (type.style == 'PIPELINE' || type.style == 'CHANNEL' || type.style == 'CONNECTION' ){
                         resultDbObj[0].fields.predefined_transp_water_perc = '';
-                        enableBtnValidateCount++;
-                        validateTransportedWater('');
-                        //$('#aguaDiagram').val(''); 
+                        //enableBtnValidateCount++;
+                        if (!transportedWaterConnectors.hasOwnProperty(cell.id)) {
+                            transportedWaterConnectors[cell.id] = {"style" : type.style, "id" : cell.id, "transportedWater" : null};                        
+                            validateTransportedWater('');
+                        }                        
                     }
                     
                     let valueObj = {
@@ -121,7 +122,6 @@ function updateStyleLine(graph, cell, type) {
                             $('#titleCostFunSmall').attr("valueid", label);
                             $('#titleCostFunSmall').text(`ID: ${cell.id} - ${connectionsType[obj.connectorType].name}`);
                             
-
                             addData2HTML(dbfields, cell)
                         } catch (e) {
                             label = "";
@@ -151,46 +151,39 @@ function clearDataHtml() {
 }
 
 function funcost(index) {
-    var currencyCostName = funcostdb[index].fields.currencyCostName != undefined ? funcostdb[index].fields.currencyCostName : funcostdb[index].fields.currency; 
-    var factor = funcostdb[index].fields.global_multiplier_factorCalculator;
-    if (currencyCostName == undefined){
-        currencyCostName = "";        
+    var currencyCostName = funcostdb[index].fields.currencyCostName;
+    if (currencyCostName == undefined || currencyCostName == '') {
+        currencyCostName = funcostdb[index].fields.currency;
     }
+
+    var factor = funcostdb[index].fields.global_multiplier_factorCalculator;    
     if (factor == undefined){
-        factor = localStorage.getItem("factor");
+        factor =  parseFloat(localStorage.getItem("factor")).toFixed(2);
     }
-    $('#funcostgenerate').append(
+    let tdClass = "small text-center vat";    
+    let aProps = `class="btn btn-info"html=true trigger="click" data-toggle="tooltip" data-placement="top"`;
+    
+    $('#funcostgenerate').append(`
+        <tr idvalue="fun_${index}">
+            <td aling="center">${gettext(funcostdb[index].fields.function_name)}</td>
+            <td class="${tdClass}" style="width: 160px">
+                <a id="fn${index}" ${aProps} title="${funcostdb[index].fields.function_value}">fx</a>                
+            </td>
+            <td class="${tdClass}">${currencyCostName}</td>
+            <td class="${tdClass}">${factor}</td>
+            <td class="${tdClass}" style="width: 85px">
+                <div class="btn-group btn-group-table" role="group">
+                    <a class="btn btn-info" name="glyphicon-edit" idvalue="${index}"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
+                    <a class="btn btn-danger" name="glyphicon-trash" idvalue="${index}"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+                </div>
+            </td>
+        </tr>
         `
-    <tr idvalue="fun_${index}">
-        <td aling="center">${funcostdb[index].fields.function_name}</td>
-        <td class="small text-center vat" style="width: 160px">
-        <a class="btn btn-info" idvalue="${index}" name="fun_display_btn">fx</a>
-        <div id="fun_display_${index}" style="position: absolute; left: 50%; width: auto; display: none;">
-        <div class="alert alert-info mb-0" style="position: relative; left: -50%; bottom: -10px;" role="alert">
-        <p name="render_ecuation" style="font-size: 1.8rem; width:100%;">${funcostdb[index].fields.function_value}</p>
-         </div>
-        </div>
-        </td>
-        <td class="small text-center vat">${currencyCostName}</td>
-        <td class="small text-center vat">${factor}</td>
-        <td class="small text-center vat" style="width: 85px">
-            <div class="btn-group btn-group-table" role="group">
-                <a class="btn btn-info" name="glyphicon-edit" idvalue="${index}"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
-                <a class="btn btn-danger" name="glyphicon-trash" idvalue="${index}"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
-            </div>
-        </td>
-
-    </tr>
-    `
-    );
-    console.log(funcostdb[index].fields.function_value)
-
-    $('p[name=render_ecuation]').each(function() {
-        //MQ.StaticMath(this);
-    });
+        );
 }
 
 function addData(element) {
+    
     //add data in HTML for connectors
     if (typeof(element.value) == "string" && element.value.length > 0) {
         let obj = JSON.parse(element.value);
@@ -200,15 +193,15 @@ function addData(element) {
         $('#titleCostFunSmall').attr("valueid", element.id);
         $('#titleCostFunSmall').text(`ID: ${element.id} - ${connectionsType[obj.connectorType].name}`);
         $('#idDiagram').val(element.id);
- //A.R 31082021
+
         if (element.style == 'PIPELINE' || element.style == 'CHANNEL' || element.style == 'CONNECTION'){
-            validateTransportedWater(dbfields[0].fields.predefined_transp_water_perc);            
+             validateTransportedWater(dbfields[0].fields.predefined_transp_water_perc);            
         }
         addData2HTML(dbfields, element);        
         funcostdb = obj.funcost;
         for (let index = 0; index < funcostdb.length; index++) {
             funcost(index);
-        }
+        }        
     } else {
         $('#titleDiagram').text(element.getAttribute('name'));
         $('#titleCostFunSmall').attr("valueid", element.id);
@@ -226,10 +219,8 @@ function addData(element) {
         addData2HTML(resultdb, element);
         for (let index = 0; index < funcostdb.length; index++) {
             funcost(index);
-
         }
     }
-
 }
 
 function addData2HTML(resultdb, cell) {
@@ -247,7 +238,6 @@ function addData2HTML(resultdb, cell) {
     $('#funcostgenerate').empty();
     // Add Value to Panel Information Right on HTML
     $('#aguaDiagram').val(resultdb[0].fields.predefined_transp_water_perc); 
-    
     $('#sedimentosDiagram').val(resultdb[0].fields.predefined_sediment_perc);
     $('#nitrogenoDiagram').val(resultdb[0].fields.predefined_nitrogen_perc);
     $('#fosforoDiagram').val(resultdb[0].fields.predefined_phosphorus_perc);
@@ -258,7 +248,7 @@ function addData2HTML(resultdb, cell) {
     $('#sedimentosDiagram').attr('max', resultdb[0].fields.maximal_sediment_perc);
     $('#nitrogenoDiagram').attr('min', resultdb[0].fields.minimal_nitrogen_perc);
     $('#nitrogenoDiagram').attr('max', resultdb[0].fields.maximal_nitrogen_perc);
-    $('#fosforoDiagram').attr('min', resultdb[0].fields.minimal_phosphorus_perc);
+    $('#fosforoDiagram').attr('min', resultdb[0].fields.minimal_phoshorus_perc);
     $('#fosforoDiagram').attr('max', resultdb[0].fields.maximal_phosphorus_perc);
 }
 
@@ -282,20 +272,25 @@ function deleteWithValidations(editor) {
             if (vertexIsEC) {
                 mxUtils.alert(msg);
             } else {
-                editor.graph.removeCells(cells2Remove);
+                cells2Remove.forEach((c) => {
+                    if (transportedWaterConnectors.hasOwnProperty(c.id)){
+                        delete transportedWaterConnectors[c.id];
+                    }
+                })
+                editor.graph.removeCells(cells2Remove);                
             }
-
         } else {
             mxUtils.alert(gettext(`The River can't be Removed`));
         }
     }
 }
 
-function validationTransportedWater(editor, cell) {
+function validationTransportedWaterSum(editor, cell) {
+    
     var enc = new mxCodec();
     var node = enc.encode(editor.graph.getModel());
     var connectors = [];
-    var total = new Number();
+    var total = 0;
     //Select all dom called mxCell
     node.querySelectorAll('mxCell').forEach(function(node) {
         //Validates if a cell is a connector
@@ -346,36 +341,63 @@ $(document).on('click', '#helpgraph', function() {
 });
 
 var validateinput = function(e) {
+    
     let minRange = e.getAttribute('min');
+    console.log(minRange+e.getAttribute('max'));
     let maxRange = e.getAttribute('max');
+
+    if (minRange == 0 && maxRange == 0) {
+        e.value = 0;
+        return false;
+    }
+
     var t = e.value;
     if (e.id == "aguaDiagram"){
-        validateTransportedWater(t);
+        if (typeof(selectedCell.value) == "string" && selectedCell.value.length > 0) {
+            var obj = JSON.parse(selectedCell.value);
+            let dbfields = obj.resultdb;
+            dbfields[0].fields.predefined_transp_water_perc = $('#aguaDiagram').val();
+            obj.resultdb = dbfields;
+            selectedCell.setValue(JSON.stringify(obj));
+            if (transportedWaterConnectors.hasOwnProperty(selectedCell.id)){
+                transportedWaterConnectors[selectedCell.id].transportedWater = $('#aguaDiagram').val();
+            }
+        } else {
+            resultdb[0].fields.predefined_transp_water_perc = $('#aguaDiagram').val();
+            selectedCell.setAttribute('resultdb', JSON.stringify(resultdb));
+        }        
+        validateTransportedWater(t);        
     }
     e.value = (t.indexOf(".") >= 0) ? (t.substr(0, t.indexOf(".")) + t.substr(t.indexOf("."), 3)) : t;
-    if (parseFloat(e.value) < parseFloat(e.getAttribute('min')) || (e.value.length == 0)) {
-        let texttitle = gettext("The value must be between %s and %s");
-        let transtitle = interpolate(texttitle, [minRange, maxRange]);
-        let text = gettext(`The minimun value is %s please use the arrows`)
-        let transtext = interpolate(text, [maxRange]);
-        e.value = e.getAttribute('min');
+    let texttitle = gettext("The value must be between %s and %s");
+    let transtitle = interpolate(texttitle, [minRange, maxRange]);
+    if (parseFloat(e.value) < parseFloat(minRange) || (e.value.length == 0)) {        
+        let text = gettext(`The minimum value is %s please use the arrows`);
+        let transtext = interpolate(text, [minRange]);
+        e.value = minRange;
         Swal.fire({
             icon: 'warning',
             title: transtitle,
             text: transtext
         });
+        if (transportedWaterConnectors.hasOwnProperty(selectedCell.id)){
+            transportedWaterConnectors[selectedCell.id].transportedWater = minRange;
+            validateTransportedWater(minRange);
+        }        
     }
-    if (parseFloat(e.value) > parseFloat(e.getAttribute('max'))) {
-        let texttitle = gettext("The value must be between %s and %s");
-        let transtitle = interpolate(texttitle, [minRange, maxRange]);
+    if (parseFloat(e.value) > parseFloat(maxRange)) {        
         let text = gettext(`The maximum value is %s please use the arrows`)
         let transtext = interpolate(text, [maxRange]);
-        e.value = e.getAttribute('max');
+        e.value = maxRange;
         Swal.fire({
             icon: 'warning',
             title: transtitle,
             text: transtext
         });
+        if (transportedWaterConnectors.hasOwnProperty(selectedCell.id)){
+            transportedWaterConnectors[selectedCell.id].transportedWater = maxRange;
+            validateTransportedWater(maxRange);
+        }
     }
 }
 
@@ -454,7 +476,6 @@ function validationInputTransportedWater(graphic) {
 }
 
 function mensajeAlert(fin) {
-
     const texttitle = gettext("Element %s - %s is disconnect");
     const transtext = interpolate(texttitle, [fin.id, fin.getAttribute('name')]);
     Swal.fire({
@@ -465,7 +486,6 @@ function mensajeAlert(fin) {
 }
 
 function validations(validate, editor) {
-
     if (validationsCsinfraExternal(validate) || 
         validationsNodeAlone(editor) || 
         validationInputTransportedWater(editor)) {
@@ -480,7 +500,6 @@ function validations(validate, editor) {
         }
     }
 }
-
 
 // View Intake
 
@@ -523,7 +542,7 @@ function addDataView(element, MQ) {
 function funcostView(ecuation_db, ecuation_name, index, MQ) {
     $('#funcostgenerate').append(
         `<div class="alert alert-info" role="alert" idvalue="fun_${index}" style="margin-bottom: 12px">
-        <h4>${ecuation_name}</h4>
+        <h4>${gettext(ecuation_name)}</h4>
         <p name="render_ecuation">${ ecuation_db }</p>
     </div>
     `);
@@ -570,7 +589,7 @@ function addData2HTMLView(resultdb) {
     $('#sedimentosDiagram').attr('max', resultdb[0].fields.maximal_sediment_perc);
     $('#nitrogenoDiagram').attr('min', resultdb[0].fields.minimal_nitrogen_perc);
     $('#nitrogenoDiagram').attr('max', resultdb[0].fields.maximal_nitrogen_perc);
-    $('#fosforoDiagram').attr('min', resultdb[0].fields.minimal_phosphorus_perc);
+    $('#fosforoDiagram').attr('min', resultdb[0].fields.minimal_phoshorus_perc);
     $('#fosforoDiagram').attr('max', resultdb[0].fields.maximal_phosphorus_perc);
 }
 
@@ -585,20 +604,26 @@ function deleteWithValidationsView(editor) {
 }
 
 function validateTransportedWater(value){
-    console.log("validateTransportedWater, value: " + value + " :: enableBtnValidateCount :: " + enableBtnValidateCount);
+    
+    let keys = Object.keys(transportedWaterConnectors);
+    $('#saveGraph').prop('disabled', true);
+    if (keys.length == 0) return;
+    let validation = true;
+    keys.forEach(key => {
+        let element = transportedWaterConnectors[key];
+        if (element.transportedWater == null || element.transportedWater == "" ) {
+            validation = false;       
+        }
+    });
+    if (validation) {
+        $('#saveGraph').prop('disabled', false);
+    }
+    
     if (value.length == 0){
-        $('#aguaDiagram').addClass('alert-danger');
-        enableBtnValidateCount++;
-        $('#saveGraph').prop('disabled', true);
+        $('#aguaDiagram').addClass('alert-danger');        
         return false;
     }else{
-        $('#aguaDiagram').removeClass('alert-danger');
-        if (enableBtnValidateCount >= 0){
-            enableBtnValidateCount--;
-        }        
-        if (enableBtnValidateCount <= 0){
-            $('#saveGraph').prop('disabled', false);
-        }        
+        $('#aguaDiagram').removeClass('alert-danger');             
         return true;
     }
 }

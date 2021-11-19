@@ -96,6 +96,10 @@ def getSensibilityAnalysisCostVsBenefit(request):
 				"totalMediumR":row[1],
 				"totalMaximumR":row[2],
 				"titleR":row[3],
+				"porcen_discount_rateR":row[4],
+				"porcen_discount_rate_minimumR":row[5],
+				"porcen_discount_rate_maximumR":row[6],
+
 			})
 
 		return JsonResponse(objects_list, safe=False)
@@ -252,10 +256,10 @@ def getReportCostsAnalysisRoi(request):
 				"record":row[0],
 				"money":row[1],
 				"date":row[2],
-				"totalCost":row[3],
-				"totalDiscountedCost":row[4],
-				"totalBenefits":row[5],
-				"totalDiscountedBenefits":row[6]
+				"totalCost":row[4],
+				"totalDiscountedCost":row[6],
+				"totalBenefits":row[3],
+				"totalDiscountedBenefits":row[5]
 			})
 
 		return JsonResponse(objects_list, safe=False)
@@ -319,7 +323,7 @@ def getReportAnalysisBenefitsFilter(request):
 				"name":row[2],
 				"subName":row[2],
 				"subCategory":row[3],
-				"subNameCategory":row[2] + row[3],
+				"subNameCategory":str(row[2]) + str(row[3]),
 				"totalBenefits":row[4],
 				"totalBenefitsDiscount":row[5]
 			})
@@ -345,7 +349,7 @@ def getReportCostsAnalysisFilter(request):
 	if request.method == 'GET':
 		con = psycopg2.connect(settings.DATABASE_URL)
 		cur = con.cursor()
-		cur.execute("SELECT typer, SUM(medbenefitr) AS sum_filter FROM __get_report_costs_analysis_filter(" + request.query_params.get('studyCase') + ") GROUP BY  typer ORDER BY typer")
+		cur.execute("SELECT typer, round(cast(SUM(medbenefitr) as numeric),2)::double precision AS sum_filter FROM __get_report_costs_analysis_filter(" + request.query_params.get('studyCase') + ") GROUP BY  typer ORDER BY typer")
 		rows = cur.fetchall()
 		objects_list = []
 		for row in rows:
@@ -403,7 +407,7 @@ def getReportAnalysisBenefitsFilterSum(request):
 	if request.method == 'GET':
 		con = psycopg2.connect(settings.DATABASE_URL)
 		cur = con.cursor()
-		cur.execute("SELECT typer ,SUM(vpn_med_benefitr) AS vpn_med_benefitr FROM __get_report_analysis_benefits_filter(" + request.query_params.get('studyCase') + ") GROUP BY typer")
+		cur.execute("SELECT case when typer='CARBONO' then 'CARBON' else typer end as typer,round(cast(SUM(vpn_med_benefitr) as numeric),2)::double precision AS vpn_med_benefitr FROM __get_report_analysis_benefits_filter(" + request.query_params.get('studyCase') + ") GROUP BY typer")
 
 		rows = cur.fetchall()
 		objects_list = []
@@ -505,7 +509,8 @@ def getReportAnalisysBenefics(request):
 				"nameIndicator":row[0],
 				"value":row[1],
 				"color":row[2],
-				"description":row[3]
+				"description":row[3],
+				"intakeId":row[4]
 			})
 
 		return JsonResponse(objects_list, safe=False)
@@ -542,7 +547,8 @@ def getReportAnalisysBeneficsB(request):
 				"time":row[6],
 				"currency":row[7],
 				"roi":row[8],
-				"result":row[9]
+				"result":row[9],
+				"transactionCost":row[10]
 			})
 
 		return JsonResponse(objects_list, safe=False)
@@ -564,7 +570,7 @@ def getReportAnalisysBeneficsC(request):
 	if request.method == 'GET':
 		con = psycopg2.connect(settings.DATABASE_URL)
 		cur = con.cursor()
-		cur.execute("SELECT * FROM __get_report_analisys_beneficsC(" + request.query_params.get('studyCase') + ")")
+		cur.execute("SELECT * FROM __get_report_analisys_beneficsC(" + request.query_params.get('studyCase') + ") ORDER BY intake_idf")
 
 		rows = cur.fetchall()
 		objects_list = []
@@ -572,7 +578,9 @@ def getReportAnalisysBeneficsC(request):
 			objects_list.append({
 				"sbnf":row[0],
 				"costPerHectarea":row[1],
-				"recomendedIntervetion":row[2]
+				"recomendedIntervetion":row[2],
+				"intakeId":row[3],
+				"name":row[4]
 			})
 
 		return JsonResponse(objects_list, safe=False)
@@ -592,17 +600,21 @@ def getSelectorStudyCasesId(request):
 	information about the treatment plant
 	"""
 	if request.method == 'GET':
+		study_case_id = request.query_params.get('studyCase')
 		con = psycopg2.connect(settings.DATABASE_URL)
 		cur = con.cursor()
-		cur.execute("SELECT ii.name AS selector, si.studycases_id, sc.name  FROM public.waterproof_study_cases_studycases SC INNER JOIN public.waterproof_study_cases_studycases_intakes SI ON (sc.id=si.studycases_id) INNER JOIN public.waterproof_intake_intake II ON (si.intake_id=ii.id) WHERE sc.id = '" + request.query_params.get('studyCase') + "'")
+
+		cur.execute("select * from public.__get_wp_report_ppalselect('" + study_case_id + "')")
 
 		rows = cur.fetchall()
 		objects_list = []
 		for row in rows:
 			objects_list.append({
 				"selector":row[0],
-				"studyCasesId":row[1],
-				"studyCasesName":row[2]
+				"intakeId":row[1],				
+				"center" : row[2],
+				"studyCasesId":row[3],
+				"studyCasesName":row[4],				
 			})
 
 		return JsonResponse(objects_list, safe=False)
@@ -681,15 +693,19 @@ def getWpAqueductIndicatorGraph(request):
 	if request.method == 'GET':
 		con = psycopg2.connect(settings.DATABASE_URL)
 		cur = con.cursor()
-		cur.execute("SELECT * FROM public.__get_wp_aqueduct_indicator_graph('" + request.query_params.get('studyCase') + "') ORDER BY 2")
+		cur.execute("SELECT * FROM public.__get_wp_aqueduct_indicator_graph('" + request.query_params.get('studyCase') + "') ORDER BY indicatorr, inteker ")
 
 		rows = cur.fetchall()
 		objects_list = []
 		for row in rows:
 			objects_list.append({
 				"indicator":row[1],
+				"sigla":row[2],
 				"valueIndicator":row[3],
-				"description":row[4]
+				"description":row[4],
+				"intake":row[5],
+				"name":row[6],
+				"valueGraT":row[7]
 			})
 
 		return JsonResponse(objects_list, safe=False)
@@ -738,7 +754,7 @@ def getSizeRecomendedIntervention(request):
 	if request.method == 'GET':
 		con = psycopg2.connect(settings.DATABASE_URL)
 		cur = con.cursor()
-		cur.execute("SELECT SUM(ip.area)/SUM(ai.area_converted_ha) as size_recomended_intervention FROM  public.waterproof_intake_polygon ip INNER JOIN (SELECT study_case_id,intake_id,area_converted_ha FROM public.waterproof_reports_rios_ipa WHERE year=9999 and study_case_id =  '" + request.query_params.get('studyCase') + "' AND sbn = 'Total') as ai on (ip.intake_id=ai.intake_id)")
+		cur.execute("select porcentajeIpler from __get_size_recomended_intervention(" + request.query_params.get('studyCase') + ")")
 		rows = cur.fetchall()
 		objects_list = []
 		for row in rows:
@@ -764,12 +780,15 @@ def getNameWaterproofIntakeIntake(request):
 	if request.method == 'GET':
 		con = psycopg2.connect(settings.DATABASE_URL)
 		cur = con.cursor()
-		cur.execute("SELECT ii.name FROM public.waterproof_intake_intake ii INNER JOIN public.waterproof_study_cases_studycases_intakes si ON (ii.id=si.intake_id) WHERE si.studycases_id =  '" + request.query_params.get('studyCase') + "'")
+#		cur.execute("SELECT ii.name, ii.id FROM public.waterproof_intake_intake ii INNER JOIN public.waterproof_study_cases_studycases_intakes si ON (ii.id=si.intake_id) WHERE si.studycases_id =  '" + request.query_params.get('studyCase') + "'")
+		cur.execute("SELECT distinct ii.name, ii.id FROM public.waterproof_intake_intake ii INNER JOIN public.waterproof_reports_rios_ipa si ON (ii.id=si.intake_id) WHERE si.study_case_id= '" + request.query_params.get('studyCase') + "'")
+
 		rows = cur.fetchall()
 		objects_list = []
 		for row in rows:
 			objects_list.append({
 				"name":row[0],
+				"id":row[1]
 			})
 		return JsonResponse(objects_list, safe=False)
 
@@ -816,14 +835,15 @@ def getWaterproofReportsRiosIpa(request):
 	if request.method == 'GET':
 		con = psycopg2.connect(settings.DATABASE_URL)
 		cur = con.cursor()
-		cur.execute("SELECT sbnf AS sbn, costperhectaref AS actual_spent, recommendedinterventionf AS area_converted_ha FROM __get_report_analisys_beneficsc('" + request.query_params.get('studyCase') + "')")
+		cur.execute("SELECT sbnf AS sbn, costperhectaref AS actual_spent, recommendedinterventionf AS area_converted_ha, intake_idf FROM __get_report_analisys_beneficsc('" + request.query_params.get('studyCase') + "')")
 		rows = cur.fetchall()
 		objects_list = []
 		for row in rows:
 			objects_list.append({
 				"sbn":row[0],
 				"actualSpent":row[1],
-				"areaConvertedHa":row[2]
+				"areaConvertedHa":row[2],
+				"intakeId":row[3]
 			})
 		return JsonResponse(objects_list, safe=False)
 
@@ -844,7 +864,7 @@ def getWaterproofReportsDesagregation(request):
 	if request.method == 'GET':
 		con = psycopg2.connect(settings.DATABASE_URL)
 		cur = con.cursor()
-		cur.execute("SELECT time,CASE stage WHEN 'NBS' THEN 'NBS Scenario' WHEN 'BAU' THEN 'Business as usual' END AS stage_filter,\"AWY(m3)\" AS volume_of_water_yield_change_in_time,\"BF(m3)\" AS annual_volume_base_flow_change_in_time,\"Wsed(Ton)\" AS total_sediments_change_in_time,\"WN(Kg)\" AS nitrogen_load_change_in_time,\"WP(kg)\" AS phosphorus_load_change_in_time,\"WC(Ton)\" AS carbon_storage_change_in_time FROM public.waterproof_reports_desagregation WHERE study_case_id = '" + request.query_params.get('studyCase') + "'")
+		cur.execute("SELECT * FROM __get_report_temporalProjection('" + request.query_params.get('studyCase') + "')")
 		rows = cur.fetchall()
 		objects_list = []
 		for row in rows:
@@ -856,7 +876,10 @@ def getWaterproofReportsDesagregation(request):
 				"totalSedimentsChangeInTime":row[4],
 				"nitrogenLoadChangeInTime":row[5],
 				"phosphorusLoadChangeInTime":row[6],
-				"carbonStorageChangeInTime":row[7]
+				"carbonStorageChangeInTime":row[7],
+				"stage":row[8],
+				"intakeId":row[9],
+				"name":row[10]
 			})
 		return JsonResponse(objects_list, safe=False)
 
@@ -883,6 +906,7 @@ def getCaracteristicsCsIntakePdf(request):
 		for row in rows:
 			objects_list.append({
 				"name":row[0],
+				"intakeId":row[2],
 				"description":row[1]
 			})
 		return JsonResponse(objects_list, safe=False)
@@ -904,12 +928,13 @@ def getCaracteristicsPtapDetailPdf(request):
 	if request.method == 'GET':
 		con = psycopg2.connect(settings.DATABASE_URL)
 		cur = con.cursor()
-		cur.execute("SELECT * FROM __get_caracteristics_ptap_detail_pdf('" + request.query_params.get('studyCase') + "')")
+		cur.execute("SELECT DISTINCT * FROM __get_caracteristics_ptap_detail_pdf('" + request.query_params.get('studyCase') + "') ORDER BY 1")
 		rows = cur.fetchall()
 		objects_list = []
 		for row in rows:
 			objects_list.append({
 				"name":row[0],
+				"plantId":row[3],
 				"description":row[1]
 			})
 		return JsonResponse(objects_list, safe=False)
@@ -942,7 +967,8 @@ def getconservationActivitiesPdf(request):
 				"implementation":row[3],
 				"maintenance":row[4],
 				"periodicity":row[5],
-				"oportunity":row[6]
+				"oportunity":row[6],
+				"profit_pct_time": row[7]
 			})
 		return JsonResponse(objects_list, safe=False)
 
@@ -1004,7 +1030,36 @@ def getObjetivesForPorfoliosPdf(request):
 			})
 		return JsonResponse(objects_list, safe=False)
 
+@api_view(['GET'])
+def getWpcompareMapas(request):
+	"""Returns the rute of folder for result maps
 
+	Find the of results executed path  
+	the minimum characteristics stored in all components
 
+	Parameters:
+	without parameters
 
+	Exceptions:
+	If it does not have data in the minimal relations of the model it does not deliver
+	information about the treatment plant
+	"""
+	if request.method == 'GET':
+		con = psycopg2.connect(settings.DATABASE_URL)
+		cur = con.cursor()
+		cur.execute("SELECT * FROM public.__get_reports_compare_maps('" + request.query_params.get('studyCase') + "')")
 
+		rows = cur.fetchall()
+		objects_list = []
+		for row in rows:
+			objects_list.append({
+				"folder":row[0],
+				"intake":row[4],
+				"region":row[2],
+				"year":row[3],
+				"studycase":row[1],
+				"center":row[5],
+				"nameIntake":row[6]
+			})
+
+		return JsonResponse(objects_list, safe=False)

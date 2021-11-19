@@ -4,16 +4,12 @@
  * @version 1.0
  */
 $(function() {
-    console.log("Study cases list :: init");
-    var table = $('#tbl-studycases').DataTable({
-        'dom': 'lrtip'
-    });
+    //console.log("Study cases list :: init");    
     var countryDropdown = $('#countryNBS');
     var currencyDropdown = $('#currencyCost');
     var transitionsDropdown = $('#riosTransition');
     var transformations = [];
     var lastClickedLayer;
-    var map;
     var lyrsPolygons = [];
     var highlighPolygon = {
         fillColor: "#337ab7",
@@ -56,31 +52,38 @@ $(function() {
         });
 
         viewCurrencys = function(id, currency_sc) {
-            console.log(currency_sc)
-            html = '<div class="row" id="currencys-panel"> <div class="col-md-12 currency-panel">The following exchange rates have been applied for the analysis</div>'
-            html += '<div class="custom-control col-md-3 currency-value">Quantity</div>'
-            html += '<div class="custom-control col-md-4 currency-value">Currency</div>'
-            html += '<div class="custom-control col-md-5 currency-value">Exchange</div>'
+            console.log(currency_sc);
+            let lblInfo = gettext('The following exchange rates has been applied for the analysis');
+            let quantity = gettext('Quantity');
+            let currency = gettext('Currency');
+            let exchange = gettext('Exchange');
+
+            html = `<div class="row" id="currencys-panel"> <div class="col-md-12 currency-panel">${lblInfo}</div>
+                    <div class="custom-control col-md-3 currency-value">${quantity}</div>
+                    <div class="custom-control col-md-4 currency-value">${currency}</div>
+                    <div class="custom-control col-md-5 currency-value">${exchange}</div>`;
             $.get("../../study_cases/currencys/", {
                 id: id,
                 currency: ""
             }, function(data) {
-
                 $.each(data, function(index, currency) {
-                    value = Number.parseFloat(currency.value).toFixed(5);
+                    value = parseFloat(currency.value).toFixed(2).replace(".",",");
                     html += '<div class="custom-control col-md-3 currency-value">1 ' + currency_sc + '</div>'
                     html += '<div class="col-md-4 currency-value"><label class="custom-control-label" for="currency">' + currency.currency + '</label></div>'
                     html += '<div class="custom-control col-md-5 currency-value">' + value + '</div>'
                 });
                 Swal.fire({
-                    title: 'Exchange rate',
+                    title: gettext('exchange_rate'),
                     html: html
                 })
-
             })
         };
 
         $('#tbl-studycases tbody').on('click', '.btn-danger', function (evt) {
+            let dataId = evt.currentTarget.getAttribute('data-id');
+            let dateCreate = evt.currentTarget.getAttribute('date-create');
+            let userId = evt.currentTarget.getAttribute('user-id');
+            console.log(userId+'_'+dataId+'_'+dateCreate); // validar que si lo envio bien
             Swal.fire({
                 title: gettext('Delete study case'),
                 text: gettext("Are you sure?") + gettext("You won't be able to revert this!"),
@@ -111,8 +114,29 @@ $(function() {
                                 text: gettext('The study case has been deleted')
                             })
                             setTimeout(function() {
-                                location.href = "/study_cases/";
-                            }, 1000);
+                                if (location.pathname.indexOf("my_cases") >= 0){
+                                    location.href = "/study_cases/my_cases/"; 
+                                }else{
+                                    location.href = "/study_cases/?city="+localStorage.cityId; 
+                                }
+                                
+                            }, 500);
+                         //borrar directorios de salida
+                        $.ajax({
+                            url : serverApi+"/wf-models/delete?study_case_id="+dataId+"&user_id="+userId+"&date="+dateCreate,
+                            type : 'GET',
+                            dataType : 'json',
+                            success : function(json) {
+                                console.log('works')
+                                    },
+                                    error: function(error) {
+                                        Swal.fire({
+                                            icon: 'error',
+                                            title: gettext('Error!'),
+                                            text: gettext('The file has not been deleted from DB!')
+                                        })
+                                    }
+                                }); 
                         },
                         error: function(error) {
                             Swal.fire({
@@ -166,7 +190,7 @@ $(function() {
                         })
                         setTimeout(function() {
                             city_id = localStorage.cityId;
-                            location.href = "/study_cases/?city="+city_id;
+                            location.href = "/study_cases/?city="+localStorage.cityId; 
                         }, 1000);
                     },
                     error: function(error) {
@@ -183,7 +207,7 @@ $(function() {
         })
     });
 
-    $('#tbl-studycases tbody').on('click', '.btn-private', function (evt) {    
+    $('#tbl-studycases tbody').on('click', '.btn-private', function (evt) {
         Swal.fire({
             title: gettext('Private study case'),
             text: gettext("Are you sure?"),
@@ -215,7 +239,7 @@ $(function() {
                         })
                         setTimeout(function() {
                             city_id = localStorage.cityId;
-                            location.href = "/study_cases/?city="+city_id;
+                            location.href = "/study_cases/?city="+localStorage.cityId; 
                         }, 1000);
                     },
                     error: function(error) {
@@ -325,7 +349,7 @@ $(function() {
     viewPtap = function(id) {
         localStorage.loadInf = "true";
         localStorage.plantId = id;
-        window.open('../../treatment_plants/create/', '_blank');
+        window.open('../../treatment_plants/view/' + id, '_blank');
     };
 
     /** 
@@ -501,20 +525,43 @@ $(function() {
     initialize();
 
     //draw polygons
-    drawPolygons = function() {
-        // TODO: Next line only for test purpose
-        //intakePolygons = polygons;
-
-        lyrsPolygons.forEach(lyr => map.removeLayer(lyr));
-        lyrsPolygons = [];
-
-        intakePolygons.forEach(feature => {
-            let poly = feature.polygon;
-            if (poly.indexOf("SRID") >= 0) {
-                poly = poly.split(";")[1];
-            }
-            lyrsPolygons.push(omnivore.wkt.parse(poly).addTo(map));
+    drawPolygons = function (map) {
+        
+        let lf = [];
+        listIntakes.forEach(intake => {
+            if (intake.geom) {
+                //let g = JSON.parse(intake.geom);
+                f = {'type' : 'Feature', 
+                    'properties' : { 'id' : intake.study_case_id, 
+                                    'studyCase' : intake.study_case_name,
+                                    'intake' : intake.intake_name,
+                                    'intakeId' : intake.intake_id}, 
+                    'geometry' : intake.geom
+                };
+                lf.push(f);
+            }            
         });
+        
+        if (lf.length > 0){
+            lyrIntakes = L.geoJSON(lf, {
+                onEachFeature: function (feature, layer) {
+                    layer.bindPopup(`<div class="popup-content">
+                                        <div class="leaflet-container">
+                                            <b>Id</b>: ${feature.properties.id}
+                                        </div>
+                                        <div class="popup-body">
+                                            <div class="popup-body-content">
+                                                <div class="popup-body-content-text">
+                                                    <p><b>Study Case</b> :${feature.properties.studyCase}</p>
+                                                    <p><b>Intake </b>: ${feature.properties.intake}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>`);
+                }
+            }).addTo(map);
+            map.fitBounds(lyrIntakes.getBounds());
+        }
     }
 
     menu = function() {
@@ -524,4 +571,19 @@ $(function() {
         });
     }
 
+    async function deleteDirAPIStudyCase(e) {
+
+        const deleteDir = "deleteDir";
+        let center =  waterproof.cityCoords == undefined ? map.getCenter(): waterproof.cityCoords;
+        let amp = "&";
+        if (serverApi.indexOf("proxy") >=0){
+          amp = "%26";
+        }
+        let url = serverApi + deleteDir + "?x=" + center[1] + amp + "y=" + center[0];
+        let response = await fetch(url);
+        
+        let result = await response.json();
+        if (result.status) {
+        }
+    }
 });

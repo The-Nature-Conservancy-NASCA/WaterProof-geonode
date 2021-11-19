@@ -6,21 +6,21 @@
 $(function () {
     // INDICATORS RESULT CATEGORIES
     const AXIS_CATEGORIES = {
-        AWY: 'Change in Volume of Water Yield (%)',
-        BF_M3: 'Change in Base Flow (%)',
-        WN_KG: 'Change in Nitrogen Load (%)',
-        WP_KG: 'Change in Phosphorus Load (%)',
-        WSED_TON: 'Change in Total Sediments (%)',
-        WC_TON: 'Change in Carbon Storage (%)',
-        RWD: 'ROI Benefic/Cost (Total)',
-        RME: 'ROI Benefit/Cost (Discounted)',
-        VPN_IMP: 'Cost Implementation NPV',
-        VPN_MAINT: 'Cost Maintenance NPV',
-        VPN_OPORT: 'Cost Oportunity NPV',
-        VPN_TRANS: 'Cost Transaction NPV',
-        VPN_PLAT: 'Cost Platform NPV',
-        VPN_BENF: 'Benefits NPV',
-        VPN_TOTAL: 'Total NPV'
+        AWY: gettext('Change in Volume of Water Yield (%)'),
+        BF_M3: gettext('Change in Base Flow (%)'),
+        WN_KG: gettext('Change in Nitrogen Load (%)'),
+        WP_KG: gettext('Change in Phosphorus Load (%)'),
+        WSED_TON: gettext('Change in Total Sediments (%)'),
+        WC_TON: gettext('Change in Carbon Storage (%)'),
+        RWD: gettext('ROI Benefic/Cost (Total)'),
+        RME: gettext('ROI Benefit/Cost (Discounted)'),
+        VPN_IMP: gettext('Cost Implementation NPV'),
+        VPN_MAINT: gettext('Cost Maintenance NPV'),
+        VPN_OPORT: gettext('Cost Oportunity NPV'),
+        VPN_TRANS: gettext('Cost Transaction NPV'),
+        VPN_PLAT: gettext('Cost Platform NPV'),
+        VPN_BENF: gettext('Benefits NPV'),
+        VPN_TOTAL: gettext('Total NPV')
     };
     //INDICATORS BD FIELDS
     const CHART_CATEGORIES = {
@@ -41,7 +41,14 @@ $(function () {
         VPN_TOTAL: 'total',
         STUDYCASE: 'id',
         STUDY_NAME: 'name',
-        STUDY_CITY: 'city__name'
+        STUDY_COUNTRY: 'city__country__name',
+        STUDY_REGION: 'city__country__region__name',
+        STUDY_CITY: 'city__name',
+        STUDY_YEARS: 'time_implement',
+        STUDY_INTAKES: 'intakes',
+        STUDY_PTAPS: 'ptaps',
+        STUDY_CURRENCY: 'cm_currency'
+
     };
     const AXIS_TABLE = {
         DOM_ID: 'axis_table'
@@ -58,7 +65,7 @@ $(function () {
         VPN: '../getVpnIndicators/',
         STUDY_CASE: '../getStudyCaseInfo/'
     };
-    const SLIDER_UL={
+    const SLIDER_UL = {
         DOM_ID: 'splide_ul'
     }
     var chartCategories = [];
@@ -71,8 +78,8 @@ $(function () {
     //Validate if there selected cases
     if (casesSelected.length <= 0) {
         Swal.fire({
-            title: "Wow!",
-            text: "Message!",
+            title: gettext("Wow!"),
+            text: gettext("Message!"),
             type: "success"
         }).then(function () {
             window.location = "../";
@@ -82,8 +89,6 @@ $(function () {
     /* DEFAULT REQUEST
     /******************/
     else { //there are cases selected
-        
-       
         selectedCases = JSON.parse(localStorage.analysisCases);
         fields = [];
         fields.push(
@@ -102,7 +107,13 @@ $(function () {
         fields.push(
             CHART_CATEGORIES.STUDYCASE,
             CHART_CATEGORIES.STUDY_NAME,
-            CHART_CATEGORIES.STUDY_CITY
+            CHART_CATEGORIES.STUDY_COUNTRY,
+            CHART_CATEGORIES.STUDY_REGION,
+            CHART_CATEGORIES.STUDY_CITY,
+            CHART_CATEGORIES.STUDY_YEARS,
+            CHART_CATEGORIES.STUDY_INTAKES,
+            CHART_CATEGORIES.STUDY_PTAPS,
+            CHART_CATEGORIES.STUDY_CURRENCY
         );
         var seriesCasesRequest = indicatorsRequest(INDICATORS_API.STUDY_CASE, selectedCases, fields);
         fields = [];
@@ -147,25 +158,68 @@ $(function () {
                 });
                 chartConfig.series = serie;
                 fillAxisTable(chartCategories);
-                let colors = [];
+                var colors = [];
                 serie.forEach(element => {
-                    let color = random_rgba();
+                    var exist = true;
+                    while (exist) {
+                        var color = random_rgba();
+                        let filter = colors.filter(col => col == color);
+                        if (filter.length === 0)
+                            exist = false
+                    }
                     colors.push(color);
                 });
                 seriesCases.forEach(element => {
-                    let li='<li class="splide__slide"><img class="splideImg" src="'+static_prefix+'waterproof_study_cases_comparison/images/study_case.jpg"  height="150px" width="150px">';
-                    li+='<h4>'+element.name+'</h4><div>'+element.city__name+'</div>';
+                    if (element.roi_discount < 1) {
+                        imagePath = static_prefix + 'waterproof_study_cases_comparison/images/discount_below1.png';
+                    }
+                    else if (element.roi_discount >= 1 && element.roi_discount <= 2) {
+                        imagePath = static_prefix + 'waterproof_study_cases_comparison/images/discount_above1.png';
+                    }
+                    else if (element.roi_discount > 2) {
+                        imagePath = static_prefix + 'waterproof_study_cases_comparison/images/discount_above2.png';
+                    }
+                    if (element.intakes.length == void (0)) {
+                        var intakeCount = 1;
+                    }
+                    else {
+                        var intakeCount = element.intakes.length;
+                    }
+                    if (element.intakes.ptaps == void (0)) {
+                        var ptapsCount = 1;
+                    }
+                    else {
+                        var ptapsCount = element.ptaps.length;
+                    }
+                    let li = `<li class="splide__slide"><img class="splideImg" src=${imagePath} height="150px" width="150px">
+                            <h4 class="slider_title">${element.name}</h4><div>
+                            <div>${gettext('Country')}: ${element.city__country__name} </div>
+                            <div>${gettext('City')}: ${element.city__name}</div>
+                            <div>${gettext('Region')}: ${element.city__country__region__name}</div>
+                            <div>${gettext('Time frame')}: ${element.time_implement}</div>
+                            <div>${gettext('Number of intakes')}: ${intakeCount}</div>
+                            <div>${gettext('Number DWTP')}: ${ptapsCount}</div>
+                            <div>${gettext('Currency')}: ${element.cm_currency}</div></div></li>`;
                     $('#' + SLIDER_UL.DOM_ID).append(li);
-                    console.log(element);
+                    //console.log(element);
                 });
                 new Splide('#card-slider', {
-                    perPage: 3,
+                    perPage: 2,
                     breakpoints: {
                         600: {
-                            perPage:3,
+                            perPage: 1,
                         }
                     }
                 }).mount();
+                //return;
+                var tooltip = [];
+                for (let index = 0; index < chartCategories.length; index++) {
+                    let tooltipValue = {
+                        'lineColor': '#ff9900'
+                    }
+                    tooltip.push(tooltipValue);
+                }
+                chartConfig.tooltipValue = tooltip;
                 chartConfig.colors = colors;
                 drawChart(chartConfig);
             }
@@ -241,8 +295,54 @@ $(function () {
             'id': filteredChartCat[0][1],
             'name': filteredAxisCat[0][1]
         }
+        var fields = [];
         chartCategories.push(catObject);
-        let fields = [catObject.id];
+        switch (catObject.id) {
+            //AWY 
+            case CHART_CATEGORIES.AWY:
+                fields.push(CHART_CATEGORIES.AWY);
+                break;
+            //BF_M3
+            case CHART_CATEGORIES.BF_M3:
+                fields.push(CHART_CATEGORIES.BF_M3);
+                break;
+            //WSED_TON
+            case CHART_CATEGORIES.WSED_TON:
+                fields.push(CHART_CATEGORIES.WSED_TON);
+                break;
+            //WN_KG
+            case CHART_CATEGORIES.WN_KG:
+                fields.push(CHART_CATEGORIES.WN_KG);
+                break;
+            //WP_KG
+            case CHART_CATEGORIES.WP_KG:
+                fields.push(CHART_CATEGORIES.WC_TON);
+                break;
+            //RWD
+            case CHART_CATEGORIES.RWD:
+                fields.push(CHART_CATEGORIES.RWD);
+                break;
+            //RME
+            case CHART_CATEGORIES.RME:
+                fields.push(CHART_CATEGORIES.RME);
+                break;
+            // VPN 
+            case CHART_CATEGORIES.VPN_IMP: case CHART_CATEGORIES.VPN_MAINT:
+            case CHART_CATEGORIES.VPN_OPORT: case CHART_CATEGORIES.VPN_TRANS:
+            case CHART_CATEGORIES.VPN_PLAT: case CHART_CATEGORIES.VPN_BENF:
+                fields.push(
+                    CHART_CATEGORIES.VPN_IMP,
+                    CHART_CATEGORIES.VPN_MAINT,
+                    CHART_CATEGORIES.VPN_OPORT,
+                    CHART_CATEGORIES.VPN_PLAT,
+                    CHART_CATEGORIES.VPN_TRANS,
+                    CHART_CATEGORIES.VPN_BENF
+                );
+                break;
+
+            default:
+                break;
+        }
         var seriesDataRequest = indicatorsRequest(url, selectedCases, fields);
         var requests = [];
         requests.push(seriesDataRequest);
@@ -253,10 +353,36 @@ $(function () {
             let series = chartConfig.series;
             for (let i = 0; i < series.length; i++) {
                 let seriesData = series[i].data;
-                for (const field in promiseResponse[0][i]) {
-                    seriesData.push(promiseResponse[0][i][field]);
+                // ANY VPN COST SELECTED
+                if (catObject.id === CHART_CATEGORIES.VPN_IMP || catObject.id === CHART_CATEGORIES.VPN_MAINT ||
+                    catObject.id === CHART_CATEGORIES.VPN_OPORT || catObject.id === CHART_CATEGORIES.VPN_TRANS || catObject.id === CHART_CATEGORIES.VPN_PLAT) {
+                    let cosTotal = promiseResponse[0][i][CHART_CATEGORIES.VPN_IMP] + promiseResponse[0][i][CHART_CATEGORIES.VPN_MAINT] +
+                        promiseResponse[0][i][CHART_CATEGORIES.VPN_OPORT] + promiseResponse[0][i][CHART_CATEGORIES.VPN_TRANS] + promiseResponse[0][i][CHART_CATEGORIES.VPN_PLAT];
+                    let cost = promiseResponse[0][i][catObject.id] * 100 / cosTotal;
+                    seriesData.push(cost);
+                }
+                // TOTAL VPN AXIS SELECTED
+                else if (catObject.id === CHART_CATEGORIES.VPN_TOTAL) {
+                    let cosTotal = promiseResponse[0][i][CHART_CATEGORIES.VPN_IMP] + promiseResponse[0][i][CHART_CATEGORIES.VPN_MAINT] +
+                        promiseResponse[0][i][CHART_CATEGORIES.VPN_OPORT] + promiseResponse[0][i][CHART_CATEGORIES.VPN_TRANS] + promiseResponse[0][i][CHART_CATEGORIES.VPN_PLAT];
+                    let cost = promiseResponse[0][i][CHART_CATEGORIES.VPN_BENF] - cosTotal / cosTotal;
+                    seriesData.push(cost);
+                }
+                // REST OF AXIS
+                else {
+                    for (const field in promiseResponse[0][i]) {
+                        seriesData.push(promiseResponse[0][i][field]);
+                    }
                 }
             }
+            var tooltip = [];
+            for (let index = 0; index < chartCategories.length; index++) {
+                let tooltipValue = {
+                    'lineColor': '#ff9900'
+                }
+                tooltip.push(tooltipValue);
+            }
+            chartConfig.tooltipValue = tooltip;
             let axisTable = [chartCategories[chartCategories.length - 1]];
             fillAxisTable(axisTable);
             drawChart(chartConfig);
@@ -268,18 +394,26 @@ $(function () {
     * @param {HTML}  ButtonClass Button class
     */
     $('#' + AXIS_TABLE.DOM_ID).on('click', '.removeAxis', function (evt) {
-        let axis = evt.target.getAttribute('data-id');
-        let axisIndex = chartCategories.map(function (e) { return e.id; }).indexOf(axis);
-        //Remove Axis values from chart series
-        chartConfig.series.forEach(function (element, index) {
-            console.log(element);
-            let newSerie = element.data.slice(0, axisIndex);
-            element.data = newSerie;
-        });
-        let currentRow = $(this).closest('tr').remove();
-        chartCategories = chartCategories.slice(0, axisIndex);
-        drawChart(chartConfig);
-
+        if (chartCategories.length > 2) {
+            let axis = evt.target.getAttribute('data-id');
+            let axisIndex = chartCategories.map(function (e) { return e.id; }).indexOf(axis);
+            //Remove Axis values from chart series
+            chartConfig.series.forEach(function (element, index) {
+                console.log(element);
+                element.data.splice(axisIndex, axisIndex);
+            });
+            let currentRow = $(this).closest('tr').remove();
+            chartCategories.splice(axisIndex, axisIndex);
+            chartConfig.categories.splice(axisIndex, axisIndex);
+            drawChart(chartConfig);
+        }
+        else {
+            Swal.fire({
+                icon: 'error',
+                title: gettext('Error!'),
+                text: gettext('Minimum two axes are required for the graph')
+            })
+        }
     });
     /*
     * Render axis selected in table
@@ -303,8 +437,10 @@ $(function () {
     * @returns {String} The rgba color 
     */
     function random_rgba() {
-        var o = Math.round, r = Math.random, s = 255;
-        return 'rgba(' + o(r() * s) + ',' + o(r() * s) + ',' + o(r() * s) + ',' + r().toFixed(1) + ')';
+        var color1 = Math.floor(Math.random() * 255) + 1;
+        var color2 = Math.floor(Math.random() * 255) + 1;
+        var color3 = Math.floor(Math.random() * 255) + 1;
+        return 'rgb(' + color1 + ',' + color2 + ',' + color3 + ')';;
     }
     /*
     * Set a indicators promise request
@@ -344,7 +480,7 @@ $(function () {
                 }
             },
             title: {
-                text: gettext('Study case comparison')
+                text: null
             },
             plotOptions: {
                 series: {
@@ -406,14 +542,12 @@ $(function () {
             },
             xAxis: {
                 categories: chartConfig.categories,
-                offset: 2
+                offset: 2,
             },
-            yAxis: [{
-                tooltipValueFormat: '{value} %'
+            yAxis: chartConfig.tooltipValue,
+            tooltip: {
+                valueDecimals: 2,
             },
-            {
-                tooltipValueFormat: '{value} %',
-            }],
             colors: chartConfig.colors,
             series: chartConfig.series
         });

@@ -22,6 +22,7 @@ urlpatterns = [
     path('loadCityById/', views.loadCityById, name='loadCityById'),
     path('verciudad/', views.verCiudad, name='verciudad'),
 
-    path('getClosetsCities/', api.getClosetsCities, name='getClosetsCities')
+    path('getClosetsCities/', api.getClosetsCities, name='getClosetsCities'),
+    path('country-by-iso2/', api.getCountryByIso2, name='country-by-iso2'),
 
 ]

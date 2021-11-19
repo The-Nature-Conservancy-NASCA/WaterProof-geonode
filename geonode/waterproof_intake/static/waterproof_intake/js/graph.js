@@ -19,6 +19,7 @@
  var banderaFunctionCost = false;
  var enableBtnValidateCount = 0;  // count the number of default inconsistences in diagram. if (0) enabled else disabled
  var costVars = ['WSedRet','WPRet','WNRet','WSed','WP','WN','CSed','CP','CN','Q'];
+ var transportedWaterConnectors = {};
 
  // Program starts here. The document.onLoad executes the
  // createEditor function with a given configuration.
@@ -380,7 +381,7 @@
             MathJax.typesetPromise([output]).catch(function (err) {
               output.innerHTML = '';
               output.appendChild(document.createTextNode(err.message));
-              console.error(err);
+              //console.error(err);
             }).then(function () {
               button.disabled = false;
             });
@@ -424,15 +425,6 @@
             loadDefaultXmlDiagram(editor);
         });
  
-        /* $("#currencyCost").on("change", function() {
-            $.ajax({
-                url: `/parameters/load-currency/?currency=${$('#currencyCost').val()}`,
-                success: function(result) {
-                    $('#global_multiplier_factorCalculator').val(JSON.parse(result)[0].fields.global_multiplier_factor);
-                }
-            });
-         });
-         */
          //load data when add an object in a diagram
         editor.graph.addListener(mxEvent.ADD_CELLS, function(sender, evt) {
             var selectedCell = evt.getProperty("cells");
@@ -494,9 +486,13 @@
 
         //Load data from figure to html
         editor.graph.addListener(mxEvent.CLICK, function(sender, evt) {
-        selectedCell = evt.getProperty('cell');
-        // Clear Inputs
-        if (selectedCell != undefined) { addData(selectedCell); } else { clearDataHtml(); }
+            selectedCell = evt.getProperty('cell');
+            // Clear Inputs
+            if (selectedCell != undefined) { 
+                addData(selectedCell); 
+            } else { 
+                clearDataHtml(); 
+            }
         });
  
         //Button for valide graph
@@ -583,7 +579,7 @@
 
         $('#python-expression').on('keypress',function(evt) {
             var charCode = (evt.which) ? evt.which : evt.keyCode;
-            let symbols = [40,41,42,43,45,60,61,62,106,107,109,111];
+            let symbols = [32,40,41,42,43,44,45,46,47,60,61,62,91,92,93,101,123,125];
             if (charCode != 46 && charCode > 31 && (charCode < 48 || charCode > 57))
                 return (symbols.indexOf(charCode) >= 0);
 
@@ -650,22 +646,38 @@
  
          //Edit funcion cost 
          $(document).on('click', 'a[name=glyphicon-edit]', function() {
-            //mathField.clearSelection();
+            
             clearInputsMath();
             $('#CalculatorModal').modal('show');
-            selectedCostId = parseInt($(this).attr('idvalue'));
-            $('#costFunctionName').val(funcostdb[selectedCostId].fields.function_name);
-            $('#costFuntionDescription').val(funcostdb[selectedCostId].fields.function_description);
-            $('#CalculatorModalLabel').text('Modify Cost - ' + $('#titleCostFunSmall').text());
-            $('#currencyCost').val(funcostdb[selectedCostId].fields.currencyCost);
-            $('#global_multiplier_factorCalculator').val(funcostdb[selectedCostId].fields.global_multiplier_factorCalculator);
-            setVarCost();
-            let value = funcostdb[selectedCostId].fields.function_value;
-            console.log("valor de value es: "+value)
-            if (value == ""){
-                $('#python-expression').val();
+            let index = parseInt($(this).attr('idvalue'));
+            selectedCostId = index;
+            let fieldsFunction = funcostdb[index].fields;
+            var currency = fieldsFunction.currencyCostName;
+            if (currency == undefined || currency == '') {
+                currency = fieldsFunction.currency;
+                if (currency != undefined && currency != '') {
+                    $('#currencyCost').val(currency);
+                    if (currency == 'USD') {
+                        $("#currencyCost option").filter((i,l) => ( l.getAttribute('data-country') == 'USA'))[0].selected = true;
+                    }
+                }
             }
-            else{
+
+            var factor = fieldsFunction.global_multiplier_factorCalculator;            
+            if (factor == undefined){
+                factor = localStorage.getItem("factor");
+            }
+
+            $('#costFunctionName').val(fieldsFunction.function_name);
+            $('#costFuntionDescription').val(fieldsFunction.function_description);
+            $('#CalculatorModalLabel').text(gettext('Edit Cost function'));  
+            $("#saveAndValideCost").text(gettext('Edit'));          
+            $('#global_multiplier_factorCalculator').val(factor);
+            setVarCost();
+            
+            let value = fieldsFunction.function_value;            
+            $('#python-expression').val();
+            if (value != ""){
                 $('#python-expression').val(value);
             }
             validatePyExpression();
@@ -715,11 +727,6 @@
              })
          });
  
-        $(document).on('click', 'a[name=fun_display_btn]', function() {
-            var idx = $(this).attr('idvalue');
-            $(`#fun_display_${idx}`).toggle();
-        });
- 
          function setVarCost() {
              banderaFunctionCost = false;
              $('#VarCostListGroup div').remove();
@@ -752,7 +759,9 @@
             typesetInput('');
             $('#costFunctionName').val('');
             $('#costFuntionDescription').val('');
-            $('#CalculatorModalLabel').text('New Function Cost - ' + $('#titleCostFunSmall').text())
+            $('#CalculatorModalLabel').text(gettext('New Cost function'));
+            $("#saveAndValideCost").text(gettext('New Cost function'));
+            
             for (const index of graphData) {
                 var costlabel = "";
                 for (const iterator of JSON.parse(index.varcost)) {
@@ -817,19 +826,19 @@
          });
  
          //Add value entered in aguaDiagram in the field resultdb
-         $('#aguaDiagram').change(function() {
-             if (typeof(selectedCell.value) == "string" && selectedCell.value.length > 0) {
-                 var obj = JSON.parse(selectedCell.value);
-                 let dbfields = obj.resultdb;
-                 dbfields[0].fields.predefined_transp_water_perc = $('#aguaDiagram').val();
-                 obj.resultdb = dbfields;
- 
-                 selectedCell.setValue(JSON.stringify(obj));
-             } else {
-                 resultdb[0].fields.predefined_transp_water_perc = $('#aguaDiagram').val();
-                 selectedCell.setAttribute('resultdb', JSON.stringify(resultdb));
-             }
-             validationTransportedWater(editor, selectedCell);
+         $('#aguaDiagram').on('input',function() {
+            // if (typeof(selectedCell.value) == "string" && selectedCell.value.length > 0) {
+            //     var obj = JSON.parse(selectedCell.value);
+            //     let dbfields = obj.resultdb;
+            //     dbfields[0].fields.predefined_transp_water_perc = $('#aguaDiagram').val();
+            //     obj.resultdb = dbfields;
+
+            //     selectedCell.setValue(JSON.stringify(obj));
+            // } else {
+            //     resultdb[0].fields.predefined_transp_water_perc = $('#aguaDiagram').val();
+            //     selectedCell.setAttribute('resultdb', JSON.stringify(resultdb));
+            // }
+            validationTransportedWaterSum(editor, selectedCell);
          });
  
          // Save External Input Data
@@ -847,7 +856,7 @@
                              Swal.fire({
                                  icon: 'warning',
                                  title: gettext('Field empty'),
-                                 text: gettext('Please fill every fields')
+                                 text: gettext('Please complete all required information')
                              });
                              return;
                          } else {
@@ -901,7 +910,7 @@
                 if (result){
                     is_valid = result.valid;
                     latex = result.latex
-                    console.log(result.latex);
+                    //console.log(result.latex);
                     typesetInput(result.latex);
                     if (is_valid){
                         $("#python-expression").removeClass("invalid_expression");
@@ -943,7 +952,7 @@
                 xmlDoc = mxUtils.parseXml(xmlText);
                 var dec = new mxCodec(xmlDoc);
                 dec.decode(xmlDoc.documentElement, editor.graph.getModel());
-                //console.log(xmlText);
+                
             },
             error: function (e) {
                 alert("An error occurred while processing XML file");

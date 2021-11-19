@@ -2,10 +2,12 @@
 <h1>{% trans "Cases Study" %}</h1>
 
 {% block extra_head %}
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
-<link rel="stylesheet" href="http://xguaita.github.io/Leaflet.MapCenterCoord/dist/L.Control.MapCenterCoord.min.css" />
-<link rel="stylesheet" href="https://photon.komoot.io/static/leaflet.photon/leaflet.photon.css">
-</link>
+<link rel="stylesheet" href="{{ STATIC_URL }}lib/css/leaflet.css"/>
+<link rel="stylesheet" href="{% static "geonode/css/leaflet/leaflet.defaultextent.css" %}"/>
+<link rel="stylesheet" href="https://xguaita.github.io/Leaflet.MapCenterCoord/dist/L.Control.MapCenterCoord.min.css" />
+<link rel="stylesheet" href="https://photon.komoot.io/static/leaflet.photon/leaflet.photon.css"/>
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_nbs_ca/css/dataTables.bootstrap.min.css"/>
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_study_cases_comparison/css/study_cases.css"/>
 
 <script>
     var intakePolygons = [];
@@ -14,15 +16,17 @@
 </script>
 
 {% endblock %} {% block body_outer %}
-<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_nbs_ca/css/dataTables.bootstrap.min.css">
-<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_study_cases_comparison/css/study_cases.css">
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin="" />
+
 <div class="header-waterproof">
     <div>
         <h1>{% trans "Case studies comparison" %}</h1>
     </div>
     <div class="row">
         <div class="col-md-4">
+            <p style="text-align: justify;">{% trans "In this section you will find case studies with results available to be compared" %}</p>
+            <p style="text-align: justify;">{% trans "Do click in button" %} 
+            <a class="btn btn-success"><span class="glyphicon glyphicon-plus-sign" aria-hidden="true" ></span></a> {% trans "to add the case studies of your interest" %} 
+            </p>
             <br>
             <h4 id="countryLabel"></h4>
             <p><b>{% trans "Selected City" %} :</b> <span id="cityLabel">{{city}}</span></p>
@@ -86,8 +90,7 @@
 <div class="col-md-12">
     <div class="row form-group">
         <legend><label>{% trans "Cases for analysis" %} <span class="text-danger-wp" id="ptap-required"></span> </label></legend>
-        <p>{% trans "Select study cases" %}</p>
-        <table id="analisys_cases" class="table table-striped table-bordered table-condensed" style="width:100%">
+       <table id="analisys_cases" class="table table-striped table-bordered table-condensed" style="width:100%">
             <thead>
                 <tr class="info">
                     <th scope="col" class="small text-center vat">{% trans "Name" %}</th>
@@ -104,8 +107,8 @@
         </table>
     </div>
 </div>
-<div class="col-md-4">
-    <button type="button" class="btn btn-primary" id="doAnalysis">{% trans "Do analysis" %}</button>
+<div class="col-md-12 text-center">
+    <button type="button" class="btn btn-primary" id="doAnalysis">{% trans "Compare" %}</button>
 </div>
 {% block body %}{% endblock body %} {% block sidebar %}{% endblock sidebar %} {% endblock body_outer %} {% block extra_script %}
 <script>
@@ -117,27 +120,25 @@
 <script type="text/javascript" src="{% url 'javascript-catalog-case-comparison' %}"></script>
 <script src="{{ STATIC_URL }}geonode/js/datatables/jquery.dataTables.min.js"></script>
 <script src="{{ STATIC_URL }}geonode/js/datatables/dataTables.bootstrap.min.js"></script>
-<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+<script src="{% static "lib/js/leaflet.js" %}"></script>
+<script src="{% static "geonode/js/leaflet/leaflet.defaultextent.js" %}"></script>
 <script src="{{ STATIC_URL }}geonode/js/leaflet/leaflet.ajax.min.js"></script>
 <script src="{{ STATIC_URL }}waterproof_study_cases_comparison/js/study_cases_list.js"></script>
 <script src="https://vinceg.github.io/twitter-bootstrap-wizard/jquery.bootstrap.wizard.js"></script>
 <script src="https://vinceg.github.io/twitter-bootstrap-wizard/prettify.js"></script>
-<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
 <script src="{{ STATIC_URL }}geonode/js/leaflet/photon/leaflet.photon.js"></script>
 <script src="{{ STATIC_URL }}geonode/js/leaflet/Leaflet.Coordinates.js " %}"></script>
 <script src="{{ STATIC_URL }}geonode/js/leaflet/leaflet-omnivore.min.js"></script>
 <script src=" https://cdn.jsdelivr.net/npm/sweetalert2@10 "></script>
 <script type="text/javascript">
     API_URL = '/proxy/?url=https://photon.komoot.de/api/?';
-    TILELAYER = 'http://{s}.tile.osm.org/{z}/{x}/{y}.png';
+    TILELAYER = 'https://{s}.tile.osm.org/{z}/{x}/{y}.png';
     CENTER = [-74.4879, 4.582];
     MAXZOOM = 11;
 
     let waterproof = {};
 
     $(document).ready(function() {
-
-
 
     });
 

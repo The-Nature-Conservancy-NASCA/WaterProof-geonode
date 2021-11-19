@@ -69,7 +69,12 @@
         height: 100%;
     }
 }
-
+#cases{
+    width: auto!;
+    height: 380px;
+    padding-bottom: 80px;
+    text-align: center;
+}
 .modal-dialog {
     display: inline-block;
     text-align: left;
@@ -131,29 +136,17 @@
     float: right;
 }
 
-.platform-label {
-    padding-left: 50px;
-}
-
-.personnel-label {
-    padding-left: 90px;
-}
-
-.transaction-label {
-    padding-left: 90px;
-}
-
-.discount-label {
-    padding-left: 90px;
-}
-
-.text-number {
-    text-align: right;
-    width: 40% !important;
-}
-
 .text-number-full {
     text-align: right;
+}
+
+.text-description-bio {
+    min-width: 300px;
+}
+
+.text-number-bio {
+    text-align: right;
+    width: 120px;
 }
 
 .custom-checkbox .custom-control-input:disabled~.custom-control-label {
@@ -164,12 +157,6 @@
     position: absolute;
     right: 26%;
     top: 8.3%;
-}
-
-.title-city {
-    position: absolute;
-    right: 26%;
-    top: 6.6%;
 }
 
 .biophysical-panel {
@@ -190,18 +177,159 @@
 .currency-text {
     font-weight: 800;
 }
+@media (min-width: 360px) {
+    .header-waterproof {
+        padding-left: 6rem;
+        padding-bottom: 1rem;
+        margin-top: auto;
+    }
+    #map {
+        width: auto;
+        border: 2px solid;
+    }
+    .width-map{
+        width: 100%;
+    }
+    .title-city {
+        position: relative;
+        right: auto;
+        top: 6.6%;
+    }
+    .custom-control-label {
+        font-weight: 100;
+        width: 100%;
+    }
+    .text-number {
+        text-align: right;
+        width: 100% !important;
+    }
+    .personnel-label {
+        padding-left: 0px;
+    }
+    .platform-label {
+        padding-left: 0px;
+    }
+    .transaction-label {
+        padding-left: 0px;
+    }
+    .discount-label {
+        padding-left: 0px;
+    }
+    .width-reponsive{
+        width: auto;
+    }
+    .width-title{
+        width: 100%;
+    }
+    .display-true{
+        display: none;
+    }
+    .padding-investment{
+        padding: 0;
+    }
+}
 
 @media (min-width: 768px) {
     .header-waterproof {
-        padding-left: 16rem;
+        padding-left: 6rem;
         padding-bottom: 1rem;
+        margin-top: auto;
+    }
+    #map {
+        width: auto;
+        border: 2px solid;
+    }
+    .width-map{
+        width: 100%;
+    }
+    .title-city {
+        position: absolute;
+        right: 26%;
+        top: 6.6%;
+    }
+    .custom-control-label {
+        font-weight: 100;
+        width: auto;
+    }
+    .text-number {
+        text-align: right;
+        width: 100% !important;
+    }
+    .personnel-label {
+        padding-left: 0px;
+    }
+    .platform-label {
+        padding-left: 0px;
+    }
+    .transaction-label {
+        padding-left: 0px;
+    }
+    .discount-label {
+        padding-left: 0px;
+    }
+    .width-reponsive{
+        width: 100%;
+    }
+    .width-title{
+        width: 100%;
+    }
+    .display-true{
+        display: none;
+    }
+    .padding-investment{
+        padding: 0;
     }
 }
 
 @media (min-width: 992px) {
     .header-waterproof {
-        padding-left: 24rem;
+        padding-left: 14rem;
         padding-bottom: 1rem;
+        margin-top: -80rem;
+    }
+    #map {
+        width: auto;
+        border: 2px solid;
+    }
+    .width-map{
+        width: 66.6%;
+    }
+    .title-city {
+        position: absolute;
+        right: 26%;
+        top: 6.6%;
+    }
+    .custom-control-label {
+        font-weight: 100;
+        width: auto;
+    }
+    .text-number {
+        text-align: right;
+        width: 40% !important;
+    }
+    .personnel-label {
+        padding-left: 90px;
+    }
+    .platform-label {
+        padding-left: 50px;
+    }
+    .transaction-label {
+        padding-left: 90px;
+    }
+    .discount-label {
+        padding-left: 90px;
+    }
+    .width-reponsive{
+        width: 50%;
+    }
+    .width-title{
+        width: 100%;
+    }
+    .display-true{
+        display: table;
+    }
+    .padding-investment{
+        padding: 0;
     }
 }
 
@@ -209,11 +337,60 @@
     .header-waterproof {
         padding-left: 28rem;
         padding-bottom: 3rem;
+        margin-top: auto;
+    }
+    #map {
+        width: auto;
+        border: 2px solid;
+    }
+    .width-map{
+        width: 66.6%;
+    }
+    .title-city {
+        position: absolute;
+        right: 26%;
+        top: 6.6%;
+    }
+    .custom-control-label {
+        font-weight: 100;
+        width: auto;
+    }
+    .text-number {
+        text-align: right;
+        width: 40% !important;
+    }
+    .personnel-label {
+        padding-left: 90px;
+    }
+    .platform-label {
+        padding-left: 50px;
+    }
+    .transaction-label {
+        padding-left: 90px;
+    }
+    .discount-label {
+        padding-left: 90px;
+    }
+    .width-reponsive{
+        width: 50%;
+    }
+    .width-title{
+        width: 100%;
+    }
+    .display-true{
+        display: table;
+    }
+    .padding-investment{
+        padding: 0;
     }
 }
 
 .ptap-link {
     cursor: pointer;
+}
+
+.divCenter{
+    text-align: center;
 }
 
 .currency-link {
@@ -228,10 +405,6 @@
 
 .margin-bottom-max{
     margin-bottom: 0%;
-}
-
-.custom-control-label {
-    font-weight: 100;
 }
 
 .cm-unit-label {
@@ -286,10 +459,11 @@
     margin-bottom: 2px;
 }
 
-.header-waterproof {
+/* .header-waterproof {
     padding-left: 28rem;
     padding-bottom: 2px;
-}
+    margin-top: auto;
+} */
 
 .justify-number {
     text-align: right;
@@ -302,4 +476,20 @@
 
 #studycases_wrapper{
     margin-top: 40px;
+}
+
+.btn-add{
+    outline:none; 
+    text-decoration:none; 
+    color: #0977ca; 
+    border-style: none; 
+    background-color:transparent;
+    cursor: pointer;
+    padding-left: 5px;
+}
+
+.disabled {
+    pointer-events: none;
+    cursor: default;
+    opacity: 0.6;
 }

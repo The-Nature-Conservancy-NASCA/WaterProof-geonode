@@ -266,6 +266,16 @@
       }
     </script>
 
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src=https://www.googletagmanager.com/gtag/js?id=G-ZE999FNF7Y></script>
+    
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-ZE999FNF7Y');
+    </script>
+     
     <!-- RTL styles -->
     {% get_current_language_bidi as LANGUAGE_BIDI %}
     {% if LANGUAGE_BIDI %}
@@ -293,7 +303,7 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav toolbar">
-            {% block tabs %}
+             {% block tabs %}
             <!--Home-->
             <li>
               <a href="{% url "home" %}">{% trans "Home" %}</a>
@@ -302,16 +312,16 @@
             <li>
               <a href="{% url "about" %}">{% trans "About us" %}</a>
             </li>
-            <!--Models-->
+            <!-- Take Action -->
             <li>
-              <a href="{% url "models" %}">{% trans "Models" %}</a>
+              <a href="/pages/{{request.LANGUAGE_CODE}}/take_action_ini/">{% trans "Take action" %}</a>
             </li>
-            <!--Take Action-->
-            <!--li>
-              <a href="{% url "take-action" %}">{% trans "Take Action" %}</a>
-            </li-->
+            <!--NbS-->
             <li id="nav_layers">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{% trans "NbS" %}<i class="fa fa-angle-down fa-lg"></i></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" 
+                        aria-haspopup="true" aria-expanded="false">{% trans "NbS" %}
+                        <i class="fa fa-angle-down fa-lg"></i>
+                      </a>
               <ul class="dropdown-menu">
                 <li><a href="{% url "list-nbs" %}?limit={{ CLIENT_RESULTS_LIMIT }}">{% trans "List" %}</a></li>
                 {% if user.is_authenticated and not READ_ONLY_MODE %}
@@ -319,6 +329,13 @@
                 {% endif %}
               </ul>
             </li>
+            {% if user.is_authenticated %}
+            <li>
+              <a href="/study_cases/my_cases/">{% trans "My Case studies" %}</a>
+            </li>
+            {% endif %}
+
+
 
 <!--
 
@@ -417,27 +434,7 @@
               {% block my_extra_right_tab %}
                  {% render_nav_menu 'TOPBAR_MENU' %}
               {% endblock my_extra_right_tab %}
-  
-              <li>
-                <div class="search">
-                  <form id="search" action="{% url "search" %}" >
-                    <span class="fa fa-search"></span>
-                    <div id="search-container" class="autocomplete-input">
-                      {% if HAYSTACK_SEARCH %}
-                      <input autocomplete="off" id="search_input" type="text" placeholder="{% trans 'Search' %}" name="q">
-                      <input type="hidden" name="abstract__icontains" id="search_abstract_input" placeholder="{% trans 'Search' %}" >
-                      <input type="hidden" name="purpose__icontains" id="search_purpose_input" placeholder="{% trans 'Search' %}" >
-                      <input type="hidden" name="f_method" id="filtering_type" value="or" >
-                      {% else %}
-                      <input autocomplete="off" type="text" name="title__icontains" id="search_input" placeholder="{% trans 'Search' %}" >
-                      <input type="hidden" name="abstract__icontains" id="search_abstract_input" placeholder="{% trans 'Search' %}" >
-                      <input type="hidden" name="purpose__icontains" id="search_purpose_input" placeholder="{% trans 'Search' %}" >
-                      <input type="hidden" name="f_method" id="filtering_type" value="or" >
-                      {% endif %}
-                    </div>
-                  </form>
-                </div>
-              </li>
+
               {% if not user.is_authenticated and ACCOUNT_OPEN_SIGNUP and not READ_ONLY_MODE %}
                 <li><a href="{% url "account_signup" %}">{% trans "Register" %}</a></li>
               {% endif %}
@@ -491,7 +488,6 @@
         </div> <!--/.nav-collapse -->
       </div>
     </nav>
-
     {% endblock header %}
     <!-- End of Navbar -->
 
@@ -501,13 +497,68 @@
       <p>{% trans "Please use a <strong>modern browser</strong> like Mozilla Firefox, Google Chrome or Safari." %}</p>
     </div>
 
+    <!-- menu lateral responsive -->
+    <div class="area"></div>
+    <div class="menuResponsive">
+      <nav class="main-menu">
+        <ul>
+
+            <li>
+              <a href="#">
+                  <i class="fa fa-style fa-chevron-right fa-2x"></i>
+                  <span class="nav-text-title">
+                    {% trans "Main menu" %}
+                  </span>
+              </a>          
+            </li>
+             <li class="has-subnav">              
+                  <a href="{% url "list-intake" %}">              
+                    <i class="fa fa-style fa-angle-right fa-2x"></i>
+                    <span class="nav-text">
+                      {% trans "Water Intakes" %}
+                    </span>
+                </a>                
+            </li>            
+            <li>
+                <a href="{% url "study_cases_list" %}">
+                    <i class="fa fa-style fa-angle-right fa-2x"></i>
+                    <span class="nav-text">
+                      {% trans "Study cases" %}
+                    </span>
+                </a>              
+            </li>
+            <li class="has-subnav">
+              <a href="{% url "treatment-plants-list" %}">
+                 <i class="fa fa-style fa-angle-right fa-2x"></i>
+                  <span class="nav-text">
+                    {% trans "Treatment plants" %}
+                  </span>
+              </a>                
+          </li> 
+        </ul>
+      </nav>
+    </div>
+
   <div id="wrap" style="position: relative;" >
     {% block middle %}
       {% block sidenav %}
       <nav id="sidebar-wrapper" class="side">
         <div class="p-4 pt-5 element.style">
-          <h4 class="titleMenu">{% trans "Main menu" %}</h4>
-          <p class="titleMenu">{% trans "Use this menu to configure the inputs for a case study" %}</p>
+          <div class="titleMenuT col-md-12">
+            <div class="col-md-1" style="padding-left: 0%;">
+              <h1 class="glyphicon glyphicon-chevron-right responsive"></h1>
+            </div>
+            <div class="col-mnd-10 responsive">
+              <div class="col-md-1"></div>
+              <div class="col-md-11">
+                <h1 class="responsive">{% trans "Main menu" %}</h1>
+              </div>
+            </div>
+          </div>
+        
+            <p class="titleMenu responsivep">{% trans "Use this menu to configure the inputs for a case study" %}</p>
+          
+          <br>
             <ul class="sidebar-nav menuPadding">
               <!--li class="subtitle">
                 <a href="#SBN" data-toggle="collapse" aria-expanded="false" class="action">
@@ -525,60 +576,65 @@
                   {% endif %}
                 </ul>
             </li-->
-            <li class="subtitle">
-              <a href="#StudyCase" data-toggle="collapse" aria-expanded="false" class="action">
-                  <img src="/static/geonode/img/01-flecha.png" class="flecha"><h5>{% trans "Study cases" %}</h5></a>
-                  <ul class="submenu opacity" id="StudyCase" style="display: none;">
-                  <li><a href="#" class="dropdown-toggle listStudyCases">
-                          <img src="/static/geonode/img/01-flecha.png" class="flecha">
-                          <h6>{% trans "List" %}</h6></a>                
-                        </li>
-                    {% if user.is_authenticated and not READ_ONLY_MODE %}                
-                      <li><a href="{% url "create-study-cases" %}" class="dropdown-toggle">
-                        <img src="/static/geonode/img/01-flecha.png" class="flecha">
-                        <h6>{% trans "Create" %}</h6></a>                
-                      </li>
-                    {% endif %} 
-                      <li><a href="{% url "comparison_list" %}" class="dropdown-toggle">
-                        <img src="/static/geonode/img/01-flecha.png" class="flecha">
-                        <h6>{% trans "Compare" %}</h6></a>                
-                      </li>
-                    </ul>
-            </li>
-            <li class="subtitle menuOrder">
+            
+            <li class="subtitle menuOrder1">
               <a href="#Intake" data-toggle="collapse" aria-expanded="false" class="action">
-                  <img src="/static/geonode/img/01-flecha.png" class="flecha"><h5>1.{% trans "Water Intakes" %}</h5>
+                  <img src="/static/geonode/img/01-flecha.png" class="flecha" alt="arrow left"><h5>1.{% trans "Water Intakes" %}</h5>
               </a>
               <ul class="submenu opacity" id="Intake" style="display: none;">
                 <li>
                   <a href="#" class="dropdown-toggle listIntakes">
-                    <img src="/static/geonode/img/01-flecha.png" class="flecha"><h6>{% trans "List" %}</h6>
+                    <img src="/static/geonode/img/01-flecha.png" class="flecha" alt="arrow left"><h6>{% trans "List" %}</h6>
                   </a>
                 </li>
                 {% if user.is_authenticated and not READ_ONLY_MODE %}
                 <li><a href="{% url "create-intake" %}" class="dropdown-toggle">
-                  <img src="/static/geonode/img/01-flecha.png" class="flecha">
+                  <img src="/static/geonode/img/01-flecha.png" class="flecha" alt="arrow left">
                   <h6>{% trans "Create" %}</h6></a>                
                 </li>
                 {% endif %}    
               </ul>
             </li>
-            <li class="subtitle menuOrder">
+            <li class="subtitle menuOrder1">
               <a href="#TPlants" data-toggle="collapse" aria-expanded="false" class="action">
-                  <img src="/static/geonode/img/01-flecha.png" class="flecha"><h5>2.{% trans "Treatment plants" %}</h5></a>
+                  <img src="/static/geonode/img/01-flecha.png" class="flecha" alt="arrow left"><h5>2.{% trans "Treatment plants" %}</h5></a>
                   <ul class="submenu opacity" id="TPlants" style="display: none;">
                   <li><a href="#" class="dropdown-toggle listTreatmentPlants">
-                          <img src="/static/geonode/img/01-flecha.png" class="flecha">
+                          <img src="/static/geonode/img/01-flecha.png" class="flecha" alt="arrow left">
                           <h6>{% trans "List" %}</h6></a>                
                         </li>
                     {% if user.is_authenticated and not READ_ONLY_MODE %}                
                       <li><a href="{% url "create-treatment-plants" %}" onclick="localStorage.plantId = null;" class="dropdown-toggle">
-                        <img src="/static/geonode/img/01-flecha.png" class="flecha">
+                        <img src="/static/geonode/img/01-flecha.png" class="flecha" alt="arrow left">
                         <h6>{% trans "Create" %}</h6></a>                
                       </li>
                     {% endif %}                    
                     </ul>
             </li>
+            <li class="subtitle menuOrder1">
+              <a href="#StudyCase" data-toggle="collapse" aria-expanded="false" class="action">
+                  <img src="/static/geonode/img/01-flecha.png" class="flecha" alt="arrow left"><h5>3.{% trans "Study cases" %}</h5></a>
+                  <ul class="submenu opacity" id="StudyCase" style="display: none;">
+                  <li><a href="#" class="dropdown-toggle listStudyCases">
+                          <img src="/static/geonode/img/01-flecha.png" class="flecha" alt="arrow left">
+                          <h6>{% trans "List" %}</h6></a>                
+                        </li>
+                    {% if user.is_authenticated and not READ_ONLY_MODE %}                
+                      <li><a href="{% url "create-study-cases" %}" class="dropdown-toggle">
+                        <img src="/static/geonode/img/01-flecha.png" class="flecha" alt="arrow left">
+                        <h6>{% trans "Create" %}</h6></a>                
+                      </li>
+                    {% endif %} 
+                      <li><a href="{% url "comparison_list" %}" class="dropdown-toggle">
+                        <img src="/static/geonode/img/01-flecha.png" class="flecha" alt="arrow left">
+                        <h6>{% trans "Compare" %}</h6></a>                
+                      </li>
+                    </ul>
+            </li>
+            <!--li class="subtitle menuOrder1">
+              <a href="#StudyCase" data-toggle="collapse" aria-expanded="false" class="action">
+                  <img src="/static/geonode/img/01-flecha.png" class="flecha"><h5>{% trans "Help" %}</h5></a>
+            </li-->
             
             <!--li>
               <a href="#Reports" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
@@ -621,6 +677,63 @@
     {% endblock extra_mainbody %}
 
   </div>
+
+  <!-- <div class="menuResponsive" style="padding-top: 20%;">
+    <nav class="navbar navbar-inverse navbar-fixed-left" role="navigation">
+      <div class="nav-container">
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav toolbar">
+            <li>
+              <a href="{% url "study_cases_list" %}">{% trans "Study cases" %}</a>
+            </li>
+            <li>
+              <a href="{% url "list-intake" %}">{% trans "Water Intakes" %}</a>
+            </li>
+            <li>
+              <a href="{% url "treatment-plants-list" %}">{% trans "Treatment plants" %}</a>
+            </li>  
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </div> -->
+  <!--menu lateral responsive-->
+<!-- <div class="menuResponsive">
+  <div class="navbar navbar-inverse navbar-fixed-left">
+    <ul class="nav navbar-nav">
+      <li>
+        <a href="{% url "study_cases_list" %}">{% trans "Study cases" %}</a>
+      </li>
+      <li>
+        <a href="{% url "list-intake" %}">{% trans "Water Intakes" %}</a>
+      </li>
+      <li>
+        <a href="{% url "treatment-plants-list" %}">{% trans "Treatment plants" %}</a>
+      </li> 
+     
+    </ul>
+  </div>
+</div> -->
+  
+  
+
+  <!-- <div class="menuResponsive">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">    
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="{% url "study_cases_list" %}">{% trans "Study cases" %}</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="{% url "list-intake" %}">{% trans "Water Intakes" %}</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="{% url "treatment-plants-list" %}">{% trans "Treatment plants" %}</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </div> -->
 
   {% block monitoring %}
   {% endblock %}
@@ -679,12 +792,12 @@
 		<div class="col-md-2">
           <ul class="list-unstyled">
             <!-- <li>{% trans "Read More" %}</li> -->
-            <li><a href="{% url "about" %}">{% trans "About Waterproof" %}</a></li>
+            <!-- <li><a href="{% url "about" %}">{% trans "About Waterproof" %}</a></li> -->
 			<li><a href="{% url "frequently_list" %}">{% trans "FAQ" %}</a></li>
             <li><a href="{% url "terms_of_use" %}">{% trans "Terms and conditions" %}</a></li>
 			<li><a href="{% url "privacy-policy" %}">{% trans "Privacy policy" %}</a></li>
-			<li><a href="{% url "collaborators" %}">{% trans "Collaborators" %}</a></li>
-			<li><a href="https://waterfundstoolbox.org/">{% trans "Water funds toolbox" %}</a></li>
+			<!-- <li><a href="{% url "collaborators" %}">{% trans "Collaborators" %}</a></li>
+			<li><a href="https://waterfundstoolbox.org/">{% trans "Water funds toolbox" %}</a></li> -->
             <!-- {% if perms.announcements.can_manage %} -->
             <!-- <li><a href="{% url "announcements_list" %}">{% trans "Announcements" %}</a></li> -->
             <!-- {% endif %} -->
@@ -744,7 +857,10 @@
       <div class="modal-dialog modal-sm">
         <div class="modal-content">
           <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">{% trans "Close" %}</span></button>
+            <button type="button" class="close" data-dismiss="modal" onclick="$('#SigninModal').modal('hide');">
+                <span aria-hidden="true">&times;</span>
+                <span class="sr-only">{% trans "Close" %}</span>
+            </button>
             <h4 class="modal-title" id="myModalLabel">{% trans "Sign in" %}</h4>
           </div>
           <form class="form-signin" role="form" action="{% url "account_login" %}?next={{ request.path }}" method="post">
@@ -797,9 +913,7 @@
     <script src="{% static "lib/js/bootstrap-datetimepicker.js" %}"></script>
     <script src="{% static "lib/js/json2.js" %}"></script>
     <script src="{% static "lib/js/waypoints.js" %}"></script>
-    <script src="{% static "lib/js/underscore.js" %}"></script>
-    <script src="{{ STATIC_URL }}waterproof_nbs_ca/js/waterproof_nbs_ca_list.js"></script>
-	
+    <script src="{% static "lib/js/underscore.js" %}"></script>    
     {% else %}
     <script src="{% static "lib/js/assets.min.js" %}"></script>
     {% endif %}
@@ -812,6 +926,9 @@
 
       // Autocomplete instance for the search found in the header.
       $(document).ready(function() {
+
+        let user = '{{user}}';
+        //console.log("user :: ", user);
         window.autocomplete2 = new Autocomplete({
           form_btn: null,
           form_submit: '#search',
@@ -858,6 +975,7 @@
           if (cityId == undefined){
             cityId = "";
           }
+          
           url="{% url "list-intake" %}?limit={{ CLIENT_RESULTS_LIMIT }}&city=" + cityId;
           window.location.href = url;
         });

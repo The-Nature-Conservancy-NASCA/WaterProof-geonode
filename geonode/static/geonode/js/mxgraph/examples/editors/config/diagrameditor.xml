@@ -19,7 +19,7 @@
 			</Connector>
 		</add>
 		<add as="embalse">
-			<Symbol name="Damming" label="Damming" externalData="false" >
+			<Symbol name="Damming" label="Reservoir" externalData="false" >
 				<mxCell vertex="1" style="embalse" dbreference="EMBALSE" funcionreference="E">      
 					<mxGeometry as="geometry" width="60" height="92"/>
 				</mxCell>

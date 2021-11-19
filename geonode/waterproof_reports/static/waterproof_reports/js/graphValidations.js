@@ -198,7 +198,7 @@ function addData2HTML(resultdb, cell) {
     $('#sedimentosDiagram').attr('max', resultdb[0].fields.maximal_sediment_perc);
     $('#nitrogenoDiagram').attr('min', resultdb[0].fields.minimal_nitrogen_perc);
     $('#nitrogenoDiagram').attr('max', resultdb[0].fields.maximal_nitrogen_perc);
-    $('#fosforoDiagram').attr('min', resultdb[0].fields.minimal_phosphorus_perc);
+    $('#fosforoDiagram').attr('min', resultdb[0].fields.minimal_phoshorus_perc);
     $('#fosforoDiagram').attr('max', resultdb[0].fields.maximal_phosphorus_perc);
 }
 
@@ -293,7 +293,7 @@ var validateinput = function(e) {
     if (parseFloat(e.value) < parseFloat(e.getAttribute('min'))) {
         let texttitle = gettext("The value must be between %s and %s");
         let transtitle = interpolate(texttitle, [minRange, maxRange]);
-        let text = gettext(`The minimun value is %s please use the arrows`)
+        let text = gettext(`The minimum value is %s please use the arrows`)
         let transtext = interpolate(text, [maxRange]);
         e.value = e.getAttribute('min');
         Swal.fire({

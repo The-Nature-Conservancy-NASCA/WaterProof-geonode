@@ -4,10 +4,8 @@
  * @version 1.0
  */
 $(function () {
-    var table = $('#tblNbs').DataTable({
-        'dom': 'lrtip'
-    }
-    );
+    
+    var search;
     var countryDropdown = $('#countryNBS');
     var currencyDropdown = $('#currencyCost');
     var transitionsDropdown = $('#riosTransition');
@@ -27,6 +25,22 @@ $(function () {
         weight: 0.2,
         fillOpacity: 0
     };
+    var table = $('#tblNbs').DataTable({
+        'searching': false,
+        'columnDefs': [{
+            "targets": [12],
+            'orderable': false,
+        },
+        {
+            "targets": [4],
+            "visible": false,   
+        }],
+        'language': {
+            url: urlJson
+        }
+    });
+
+
     initialize = function () {
         console.log('init event loaded');
         // Transformations widget change option event
@@ -56,7 +70,7 @@ $(function () {
         $('#tblNbs tbody').on('click', '.btn-danger', function (evt) {
             Swal.fire({
                 title: gettext('Delete NBS'),
-                text: gettext("Are you sure?") + gettext("You won't be able to revert this!"),
+                text: gettext("Are you sure?") + " " + gettext("You won't be able to revert this!"),
                 icon: 'warning',
                 showCancelButton: false,
                 showDenyButton: true,
@@ -102,6 +116,15 @@ $(function () {
         submitFormEvent();
         changeCountryEvent(countryDropdown, currencyDropdown);
         changeFileEvent();
+        if (localStorage.getItem("cityId") == null) {
+            localStorage.setItem("cityId", "128587");
+            localStorage.setItem("country", "United States");
+            localStorage.setItem("currency", "USD");
+            localStorage.setItem("countryCode", "USA");
+            localStorage.setItem("factor", "1.00");
+            localStorage.setItem("city", "Washington");
+            localStorage.setItem("cityCoords", "[38.8949924,-77.0365581]");
+        }
         initMap();
     };
     submitFormEvent = function () {
@@ -210,24 +233,24 @@ $(function () {
     * Initialize map 
     */
     initMap = function () {
-        //map = L.map('mapid').setView([51.505, -0.09], 13);
         CENTER = [4.582, -74.4879];
+        var zoom = 5;
         // Basemap layer
         var osm = L.tileLayer(OSM_BASEMAP_URL, {
             maxZoom: MAXZOOM,
-            attribution: 'Data \u00a9 <a href="http://www.openstreetmap.org/copyright"> OpenStreetMap Contributors </a> Tiles \u00a9 Komoot'
+            attribution: 'Data \u00a9 <a href="https://www.openstreetmap.org/copyright"> OpenStreetMap Contributors </a> Tiles \u00a9 Komoot'
         });
         var images = L.tileLayer(IMG_BASEMAP_URL);
         //var hydroLyr = L.tileLayer(HYDRO_BASEMAP_URL);
         var grayLyr = L.tileLayer(GRAY_BASEMAP_URL, {
             maxZoom: 20,
-            attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
+            attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="https://openstreetmap.org">OpenStreetMap</a> contributors'
         });
 
         var baseLayers = {
             OpenStreetMap: osm,
             Images: images,
-            Grayscale: grayLyr,
+            /* Grayscale: grayLyr, */
         };
 
         map = L.map('mapid', {
@@ -247,14 +270,20 @@ $(function () {
         };
 
         let initialCoords = CENTER;
-        map.setView(initialCoords, 5);
-        L.control.layers(baseLayers, overlays, { position: 'topleft' }).addTo(map);
+        if (localStorage.getItem('cityCoords') != null){
+            initialCoords = JSON.parse(localStorage.getItem('cityCoords'));
+            zoom = 3;
+        }
+
 
         // When countries layer is loaded fire dropdown event change
         countries.on("data:loaded", function (evt) {
             let mapClick = false;
             // Preload selected country form list view
-            updateCountryMap(userCountryCode, evt.target);
+            if (userCountryCode == undefined) {
+                userCountryCode = localStorage.getItem('countryCode');
+            }
+            let center = updateCountryMap(userCountryCode, evt.target);
             $.ajax({
                 url: '/parameters/load-countryByCode/',
                 data: {
@@ -262,7 +291,7 @@ $(function () {
                 },
                 success: function (result) {
                     result = JSON.parse(result);
-                    console.log(result);
+                    //console.log(result);
                     userCountryName = result[0].fields.name;
                     userCountryId = result[0].pk;
                     // Filter datables with country name
@@ -272,6 +301,12 @@ $(function () {
                     updateGeographicLabels(userCountryCode);
                 }
             });
+            if (center != undefined) {
+                initialCoords = center;
+            }
+            map.setView(initialCoords, zoom);
+            L.control.layers(baseLayers, overlays, { position: 'topleft' }).addTo(map);
+            var defExt = new L.Control.DefaultExtent({ title: gettext('Default extent'), position: 'topright' }).addTo(map);
         });
 
         function onEachFeature(feature, layer) {
@@ -282,52 +317,28 @@ $(function () {
 
         function updateDropdownCountry(feature) {
             let mapClick = true;
-
             let layerClicked = feature.target;
             if (lastClickedLayer) {
                 lastClickedLayer.setStyle(defaultStyle);
             }
             layerClicked.setStyle(highlighPolygon);
             let countryCode = feature.sourceTarget.feature.id;
+            localStorage.countryCode=countryCode;
             updateGeographicLabels(countryCode);
-            // $.ajax({
-            //     url: '/parameters/load-countryByCode/',
-            //     data: {
-            //         'code': countryCode
-            //     },
-            //     success: function (result) {
-            //         result = JSON.parse(result);
-            //         $('#countryLabel').text(result[0].fields.name);
-            //         table.search(result[0].fields.name).draw();
-            //         let countryId = result[0].pk;
-            //         udpateCreateUrl(countryId);
-            //         //
-            //         $.ajax({
-            //             url: '/parameters/load-regionByCountry/',
-            //             data: {
-            //                 'country': countryId
-            //             },
-            //             success: function (result) {
-            //                 result = JSON.parse(result);
-            //                 $('#regionLabel').text(result[0].fields.name);
-
-            //             }
-            //         });
-            //         $.ajax({
-            //             url: '/parameters/load-currencyByCountry/',
-            //             data: {
-            //                 'country': countryId
-            //             },
-            //             success: function (result) {
-            //                 result = JSON.parse(result);
-            //                 $('#currencyLabel').text('(' + result[0].fields.currency + ') - ' + result[0].fields.name);
-            //             }
-            //         });
-            //     }
-            // });
             lastClickedLayer = feature.target;
         }
         //map.on('click', onMapClick);
+    }
+    setMultiplicationFactor = function (row, index, factor) {
+        //if (row[4] === 'ADMIN') {
+            // Implementation cost 
+            // oldImplCost = search2.cell({ row: index, column: 7 }).data();
+            // search.cell({ row: index, column: 7 }).data((parseFloat(oldImplCost) * parseFloat(factor)).toFixed(2));
+            // oldMaintCost = search2.cell({ row: index, column: 8 }).data();
+            // search.cell({ row: index, column: 8 }).data((parseFloat(oldMaintCost) * parseFloat(factor)).toFixed(2));
+            // oldOportCost = search2.cell({ row: index, column: 9 }).data();
+            // search.cell({ row: index, column: 9 }).data((parseFloat(oldOportCost) * parseFloat(factor)).toFixed(2));
+        //}
     }
     updateGeographicLabels = function (countryCode) {
         $.ajax({
@@ -338,29 +349,63 @@ $(function () {
             success: function (result) {
                 result = JSON.parse(result);
                 $('#countryLabel').text(result[0].fields.name);
-                table.search(result[0].fields.name).draw();
+                search = table.search('(ADMIN|' + result[0].fields.name + ')', true, true);
+                let filteredData = search.rows({ search: 'applied' }).data();
+                let filterIndexes = search.rows({ search: 'applied' }).indexes();
+                let multiplicatorFactor = parseFloat(result[0].fields.global_multiplier_factor);
+                for (let index = 0; index < filteredData.length; index++) {
+                    //console.log(filteredData[index]);
+                    //console.log(result);
+                    if (filteredData[index][4] === 'ADMIN') {
+                        if (result[0].fields.iso3 === 'USA') {
+                            let oldImplCost = parseFloat(table.cell({ row: filterIndexes[index], column: 7 }).data());
+                            let oldMaintCost = parseFloat(table.cell({ row: filterIndexes[index], column: 8 }).data());
+                            let oldOportCost = parseFloat(table.cell({ row: filterIndexes[index], column: 9 }).data());
+                            $(table.cell({ row: filterIndexes[index], column: 7 }).node()).html(oldImplCost.toFixed(2));
+                            $(table.cell({ row: filterIndexes[index], column: 8 }).node()).html(oldMaintCost.toFixed(2));
+                            $(table.cell({ row: filterIndexes[index], column: 9 }).node()).html(oldOportCost.toFixed(2));
+                            $(table.cell({ row: filterIndexes[index], column: 5 }).node()).html(result[0].fields.name);
+                        }
+                        else {
+                            let oldImplCost = parseFloat(filteredData[index][7]);
+                            let newImplCost = ((oldImplCost * multiplicatorFactor)).toFixed(2);
+                            let oldMaintCost = parseFloat(table.cell({ row: filterIndexes[index], column: 8 }).data());
+                            let newMaintConst = ((oldMaintCost * multiplicatorFactor)).toFixed(2);
+                            let oldOportCost = parseFloat(table.cell({ row: filterIndexes[index], column: 9 }).data());
+                            let newOportCost = ((oldOportCost * multiplicatorFactor)).toFixed(2);
+                            $(table.cell({ row: filterIndexes[index], column: 7 }).node()).html(newImplCost);
+                            $(table.cell({ row: filterIndexes[index], column: 8 }).node()).html(newMaintConst);
+                            $(table.cell({ row: filterIndexes[index], column: 9 }).node()).html(newOportCost);
+                            $(table.cell({ row: filterIndexes[index], column: 5 }).node()).html(result[0].fields.name);
+                        }
+                    }
+                }
+                search.draw();
                 let countryId = result[0].pk;
-                //udpateCreateUrl(countryId);
-                //
+                let countryIso=result[0].fields.iso3;
+                console.log(countryIso);
                 $.ajax({
                     url: '/parameters/load-regionByCountry/',
                     data: {
-                        'country': countryId
+                        'country': countryIso
                     },
                     success: function (result) {
                         result = JSON.parse(result);
-                        $('#regionLabel').text(result[0].fields.name);
-
+                        $('#regionLabel').text("");
+                        if (result.length > 0) {
+                            $('#regionLabel').text(result[0].fields.name);
+                        }
                     }
                 });
                 $.ajax({
                     url: '/parameters/load-currencyByCountry/',
                     data: {
-                        'country': countryId
+                        'country': countryIso
                     },
                     success: function (result) {
                         result = JSON.parse(result);
                         $('#currencyLabel').text('(' + result[0].fields.currency + ') - ' + result[0].fields.name);
+                        $("#countryNBS").val(localStorage.countryCode);
                     }
                 });
             }
@@ -443,6 +488,7 @@ $(function () {
         });
     };
     updateCountryMap = function (countryCode, lyr) {
+        let center;
         lyr.eachLayer(function (layer) {
             if (layer.feature.id == countryCode) {
                 if (lastClickedLayer) {
@@ -450,15 +496,17 @@ $(function () {
                 }
                 layer.setStyle(highlighPolygon);
                 map.fitBounds(layer.getBounds());
+                center = layer.getBounds().getCenter();
                 lastClickedLayer = layer;
             }
         });
-
+        return center;
     }
     /** 
      * Validate input file on change
      * @param {HTML} dropdown Dropdown selected element
      */
+
     changeFileEvent = function () {
         $('#restrictedArea').change(function (evt) {
             var file = evt.currentTarget.files[0];

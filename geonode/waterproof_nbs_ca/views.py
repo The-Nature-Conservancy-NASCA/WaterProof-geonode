@@ -18,6 +18,7 @@ from django.views.generic import CreateView, DetailView, ListView, UpdateView, D
 from django_libs.views_mixins import AccessMixin
 from django.shortcuts import render
 from .forms import WaterproofNbsCaForm
+from django.db.models import Q
 from .models import WaterproofNbsCa
 from geonode.waterproof_parameters.models import Regions, Countries, Cities
 from .models import RiosActivity, RiosTransition,RiosTransformation, ActivityShapefile
@@ -76,8 +77,8 @@ def createNbs(request):
                         response.status_code = 400
                         return response
                     except WaterproofNbsCa.DoesNotExist:
-                        country = Countries.objects.get(id=countryNBS)
-                        currency = Countries.objects.get(id=currencyCost)
+                        country = Countries.objects.get(iso3=countryNBS)
+                        currency = Countries.objects.get(iso3=currencyCost)
                         if (extensionFile):
                             # Validate if file is geojson or shapefile
                             if (extensionFile == 'zip'):  # Zip shapefile
@@ -150,8 +151,8 @@ def createNbs(request):
         else:  # GET METHOD
             nbs = WaterproofNbsCa.objects.all()
             usaCountry = Countries.objects.get(iso3='USA')
-            countries = Countries.objects.all()
-            currencies = Countries.objects.all()
+            currencies = Countries.objects.values('currency', 'name', 'iso3').distinct().exclude(currency='').order_by('currency')
+            countries = currencies            
             transitions = RiosTransition.objects.all()
             riosActivity = RiosActivity.objects.all()
             riosTransformation = RiosTransformation.objects.all()
@@ -195,7 +196,9 @@ def listNbs(request):
                 )
 
             if (request.user.professional_role == 'ANALYS'):
-                nbs = WaterproofNbsCa.objects.all()
+                query = Q(added_by=request.user)
+                query.add(Q(added_by__professional_role='ADMIN'), Q.OR)
+                nbs = WaterproofNbsCa.objects.filter(query)
                 userCountry = Countries.objects.get(iso3=request.user.country)
                 region = Regions.objects.get(id=userCountry.region_id)
                 currency = Countries.objects.get(id=userCountry.id)
@@ -342,9 +345,9 @@ def editNbs(request, idx):
     if not request.user.is_authenticated:
         return render(request, 'waterproof_nbs_ca/waterproofnbsca_login_error.html')
     else:
-        if request.method == 'GET':
-            countries = Countries.objects.all()
-            currencies = Countries.objects.all()
+        if request.method == 'GET':            
+            currencies = currencies = Countries.objects.values('currency', 'name', 'iso3').distinct().exclude(currency='').order_by('currency')
+            countries = currencies
             usaCountry = Countries.objects.get(iso3='USA')
             filterNbs = WaterproofNbsCa.objects.get(id=idx)
             country = Countries.objects.get(id=filterNbs.country_id)
@@ -418,8 +421,8 @@ def editNbs(request, idx):
                     except WaterproofNbsCa.DoesNotExist:
                         duplicatedNbs = False
                     if (not duplicatedNbs):
-                        country = Countries.objects.get(id=countryNBS)
-                        currency = Countries.objects.get(id=currencyCost)
+                        country = Countries.objects.get(iso3=countryNBS)
+                        currency = Countries.objects.get(iso3=currencyCost)
                         nbs = WaterproofNbsCa.objects.get(id=idx)
                         if(nbs.activity_shapefile != None):
                             shapefile = ActivityShapefile.objects.get(id=nbs.activity_shapefile.id)
@@ -507,8 +510,8 @@ def cloneNbs(request, idx):
         return render(request, 'waterproof_nbs_ca/waterproofnbsca_login_error.html')
     else:
         if request.method == 'GET':
-            countries = Countries.objects.all()
-            currencies = Countries.objects.all()
+            currencies = Countries.objects.values('currency', 'name', 'iso3').distinct().exclude(currency='').order_by('currency')
+            countries = currencies
             usaCountry = Countries.objects.get(iso3='USA')
             userCountry = Countries.objects.get(iso3=request.user.country)
             filterNbs = WaterproofNbsCa.objects.get(id=idx)
@@ -611,8 +614,8 @@ def cloneNbs(request, idx):
                             else:
                                 shapefile = None
 
-                        country = Countries.objects.get(id=countryNBS)
-                        currency = Countries.objects.get(id=currencyCost)
+                        country = Countries.objects.get(iso3=countryNBS)
+                        currency = Countries.objects.get(iso3=currencyCost)
                         nbs = WaterproofNbsCa(
                             country=country,
                             currency=currency,
@@ -661,11 +664,11 @@ def viewNbs(request, idx):
     filterNbs = WaterproofNbsCa.objects.filter(id=idx)
     nbs = WaterproofNbsCa.objects.get(id=idx)
     country = Countries.objects.get(id=nbs.country_id)
-    countries = Countries.objects.all()
+    currencies = currencies = Countries.objects.values('currency', 'name', 'iso3').distinct().exclude(currency='').order_by('currency')
+    countries = currencies
     userCountry = Countries.objects.get(iso3=request.user.country)
     region = Regions.objects.get(id=nbs.country.region_id)
-    currency = Countries.objects.get(id=country.id)
-    currencies = Countries.objects.filter()
+    currency = Countries.objects.get(id=country.id)    
     transitions = RiosTransition.objects.all()
     riosTransition = RiosActivity.objects.filter(transition_id=2)
     return render(request, 'waterproof_nbs_ca/waterproofnbsca_detail_list.html',
