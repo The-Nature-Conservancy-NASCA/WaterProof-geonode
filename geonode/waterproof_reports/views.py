@@ -1,3 +1,4 @@
+from sys import path
 import pandas as pd
 import highchartexport as hc_export
 import json
@@ -32,6 +33,7 @@ class PDF(FPDF):
 
 def pdf(request):
     base64_data = re.sub('^data:image/.+;base64,', '', request.POST['mapSendImage'])
+    study_case_id = request.POST['studyCase']
     if base64_data != "data:,":
         byte_data = base64.b64decode(base64_data)
         image_data = BytesIO(byte_data)
@@ -86,14 +88,14 @@ def pdf(request):
     pdf.set_draw_color(0, 138, 173)
     
     studyCaseName = "-"
-    requestJson = requests.get(settings.SITE_HOST_API + 'reports/getSelectorStudyCasesId/?studyCase=' + request.POST['studyCase'],verify=False)
+    requestJson = requests.get(settings.SITE_HOST_API + 'reports/getSelectorStudyCasesId/?studyCase=' + study_case_id,verify=False)
     data = requestJson.json()
     for item in data:
         studyCaseName = item['studyCasesName']        
 
     numerOfWater = "-"
     numerOfDwtp = "-"
-    requestJson = requests.get(settings.SITE_HOST_API + 'reports/getStudyCasesIntake/?studyCase=' + request.POST['studyCase'],verify=False)
+    requestJson = requests.get(settings.SITE_HOST_API + 'reports/getStudyCasesIntake/?studyCase=' + study_case_id,verify=False)
     data = requestJson.json()
     for item in data:
         numerOfWater = item['numberStudyCase']
@@ -108,7 +110,7 @@ def pdf(request):
     changeInPhosphorus = "-"
     changeInCarbonStorage = "-"
 
-    requestJson = requests.get(settings.SITE_HOST_API + 'reports/getReportAnalisysBeneficsB/?studyCase=' + request.POST['studyCase'],verify=False)
+    requestJson = requests.get(settings.SITE_HOST_API + 'reports/getReportAnalisysBeneficsB/?studyCase=' + study_case_id,verify=False)
     data = requestJson.json()
     for item in data:
         currencyCase = item['currency']
@@ -164,7 +166,7 @@ def pdf(request):
 
     requestJson = requests.get(settings.SITE_HOST_API + 
                 'reports/getCaracteristicsCsIntakePdf/?studyCase=' + 
-                request.POST['studyCase'],verify=False)
+                study_case_id,verify=False)
 
     data = requestJson.json()
     lastItenName = ""
@@ -215,7 +217,7 @@ def pdf(request):
     pdf.set_text_color(100, 100, 100)
     pdf.set_fill_color(255, 255, 255)
 
-    requestJson = requests.get(settings.SITE_HOST_API + 'reports/getCaracteristicsPtapDetailPdf/?studyCase=' + request.POST['studyCase'],verify=False)
+    requestJson = requests.get(settings.SITE_HOST_API + 'reports/getCaracteristicsPtapDetailPdf/?studyCase=' + study_case_id,verify=False)
 
     data = requestJson.json()
     lastNameCase = "";
@@ -281,7 +283,7 @@ def pdf(request):
     pdf.set_font('Arial', '', 11)
     pdf.set_text_color(100, 100, 100)
 
-    requestJson = requests.get(settings.SITE_HOST_API + 'reports/getconservationActivitiesPdf/?studyCase=' + request.POST['studyCase'],verify=False)
+    requestJson = requests.get(settings.SITE_HOST_API + 'reports/getconservationActivitiesPdf/?studyCase=' + study_case_id,verify=False)
 
     data = requestJson.json()
     for item in data:
@@ -319,7 +321,7 @@ def pdf(request):
     pdf.ln(15)
     pdf.cell(0, 10, '* Time requiered to obtain maximum benefit (year).', align='L')
     
-    requestJson = requests.get(settings.SITE_HOST_API + 'reports/getFinancialAnalysisPdfRunAnalisisPdf/?studyCase=' + request.POST['studyCase'],verify=False)
+    requestJson = requests.get(settings.SITE_HOST_API + 'reports/getFinancialAnalysisPdfRunAnalisisPdf/?studyCase=' + study_case_id,verify=False)
     data = requestJson.json()
 
     platformCost = ""
@@ -340,7 +342,7 @@ def pdf(request):
         fullScenario = item['fullScenario']
 
 
-    requestJson = requests.get(settings.SITE_HOST_API + 'reports/getObjetivesForPorfoliosPdf/?studyCase=' + request.POST['studyCase'],verify=False)
+    requestJson = requests.get(settings.SITE_HOST_API + 'reports/getObjetivesForPorfoliosPdf/?studyCase=' + study_case_id,verify=False)
     data = requestJson.json()
 
     varText1 = ""
@@ -436,7 +438,7 @@ def pdf(request):
 
     requestJson = requests.get(settings.SITE_HOST_API + 
                 'reports/getReportCostsAnalysisRoi/?studyCase=' + 
-                request.POST['studyCase'],verify=False)
+                study_case_id,verify=False)
     data = requestJson.json()
 
     categories = []
@@ -536,7 +538,7 @@ def pdf(request):
     pdf.cell(0, 6, 'study infrastructure', align='L')
     pdf.ln(80)
 
-    requestJson = requests.get(settings.SITE_HOST_API + 'reports/getCostAndBenefit/?studyCase=' + request.POST['studyCase'],verify=False)
+    requestJson = requests.get(settings.SITE_HOST_API + 'reports/getCostAndBenefit/?studyCase=' + study_case_id,verify=False)
     data = requestJson.json()
 
     dataCost = []
@@ -592,7 +594,7 @@ def pdf(request):
     pdf.cell(epw/4, 8, format(float(itemBenefift),'0,.2f'), border=1, align='R', fill=1)
     pdf.cell(epw/4, 8, '', border=0, align='C', fill=0)
 
-    requestJson = requests.get(settings.SITE_HOST_API + 'reports/getNetPresentValueSummary/?studyCase=' + request.POST['studyCase'],verify=False)
+    requestJson = requests.get(settings.SITE_HOST_API + 'reports/getNetPresentValueSummary/?studyCase=' + study_case_id,verify=False)
     data = requestJson.json()
 
     dataNetPresentValueSummary = []
@@ -715,7 +717,7 @@ def pdf(request):
     pdf.ln(10)
 
 
-    requestJson = requests.get(settings.SITE_HOST_API + 'reports/getSensibilityAnalysisBenefits/?studyCase=' + request.POST['studyCase'],verify=False)
+    requestJson = requests.get(settings.SITE_HOST_API + 'reports/getSensibilityAnalysisBenefits/?studyCase=' + study_case_id,verify=False)
     data = requestJson.json()
 
     dataSensibilityAnalysisBenefitsTime = []
@@ -792,7 +794,7 @@ def pdf(request):
         pdf.cell(epw/4, 3.5, format(float(item['totalMaxBenefittR']),'0,.2f') , border=1, align='R', fill=1)
         pdf.ln(3.5)    
 
-    requestJson = requests.get(settings.SITE_HOST_API + 'reports/getSensibilityAnalysisCost/?studyCase=' + request.POST['studyCase'],verify=False)
+    requestJson = requests.get(settings.SITE_HOST_API + 'reports/getSensibilityAnalysisCost/?studyCase=' + study_case_id,verify=False)
     data = requestJson.json()
 
     dataSensibilityAnalysisCostTime = []
@@ -882,7 +884,7 @@ def pdf(request):
     pdf.cell(epw, 10, 'Estimated change in ecosystem services by basin', align='L')
     pdf.ln(10)
 
-    requestJson = requests.get(settings.SITE_HOST_API + 'reports/getTotalBenefitsForMilion/?studyCase=' + request.POST['studyCase'],verify=False)
+    requestJson = requests.get(settings.SITE_HOST_API + 'reports/getTotalBenefitsForMilion/?studyCase=' + study_case_id,verify=False)
     data = requestJson.json()
     dataEfficiency = []
 
@@ -1117,9 +1119,9 @@ def pdf(request):
     pdf.set_font('Arial', '', 11)
     pdf.cell(epw, 10, 'General Aqueduct indicators', align='L')
 
-    requestJson = requests.get(settings.SITE_HOST_API + 'reports/getSelectorStudyCasesId/?studyCase=' + request.POST['studyCase'],verify=False)
+    requestJson = requests.get(settings.SITE_HOST_API + 'reports/getSelectorStudyCasesId/?studyCase=' + study_case_id,verify=False)
     dataCase = requestJson.json()
-    requestJson = requests.get(settings.SITE_HOST_API + 'reports/getReportAnalisysBenefics/?studyCase=' + request.POST['studyCase'],verify=False)
+    requestJson = requests.get(settings.SITE_HOST_API + 'reports/getReportAnalisysBenefics/?studyCase=' + study_case_id,verify=False)
     dataBenefit = requestJson.json()
     numerLine = 0
 
@@ -1283,7 +1285,7 @@ def pdf(request):
 
     pdf.add_page()
 
-    requestJson = requests.get(settings.SITE_HOST_API + 'reports/getReportOportunityResultIndicators/?studyCase=' + request.POST['studyCase'],verify=False)
+    requestJson = requests.get(settings.SITE_HOST_API + 'reports/getReportOportunityResultIndicators/?studyCase=' + study_case_id,verify=False)
     data = requestJson.json()
     valueRoi = 0
     idTotalTreatmentCostSavings = 0
@@ -1372,7 +1374,7 @@ def pdf(request):
    
     pdf.add_page()  
 
-    requestJson = requests.get(settings.SITE_HOST_API + 'reports/getReportAnalisysBeneficsC/?studyCase=' + request.POST['studyCase'],verify=False)
+    requestJson = requests.get(settings.SITE_HOST_API + 'reports/getReportAnalisysBeneficsC/?studyCase=' + study_case_id,verify=False)
     data = requestJson.json()
 
     pdf.set_font('Arial', '', 13)
@@ -1424,7 +1426,7 @@ def pdf(request):
     pdf.ln(10)
     pdf.set_text_color(100,100,100)
 
-    requestJson = requests.get(settings.SITE_HOST_API + 'reports/getWpAqueductIndicatorGraph/?studyCase=' + request.POST['studyCase'],verify=False)
+    requestJson = requests.get(settings.SITE_HOST_API + 'reports/getWpAqueductIndicatorGraph/?studyCase=' + study_case_id,verify=False)
     data = requestJson.json()
     arrayTitle = []
     lastTitle = ""
@@ -1593,7 +1595,7 @@ def pdf(request):
     pdf.cell(0, 10, 'Decision indicators', align='L')
 
     dataListBenefitsIntakeA = [];
-    requestJson = requests.get(settings.SITE_HOST_API + 'reports/getWaterproofReportsAnalysisBenefits/?studyCase=' + request.POST['studyCase'],verify=False)
+    requestJson = requests.get(settings.SITE_HOST_API + 'reports/getWaterproofReportsAnalysisBenefits/?studyCase=' + study_case_id,verify=False)
     data = requestJson.json()
     lastRegister = 0
     for item in data:
@@ -1732,7 +1734,7 @@ def pdf(request):
     pdf.add_page()
 
     dataListBenefitsIntakeC = [];
-    requestJson = requests.get(settings.SITE_HOST_API + 'reports/getReportAnalysisBenefitsFilterSum/?studyCase=' + request.POST['studyCase'],verify=False)
+    requestJson = requests.get(settings.SITE_HOST_API + 'reports/getReportAnalysisBenefitsFilterSum/?studyCase=' + study_case_id,verify=False)
     data = requestJson.json()
     for item in data:
         dataListBenefitsIntakeC.append({
@@ -1787,7 +1789,7 @@ def pdf(request):
     pdf.image('imgpdf/rabfs.png', 10, 40, w=90)
 
     dataListBenefitsIntakeD = []
-    requestJson = requests.get(settings.SITE_HOST_API + 'reports/getReportCostsAnalysisFilter/?studyCase=' + request.POST['studyCase'],verify=False)
+    requestJson = requests.get(settings.SITE_HOST_API + 'reports/getReportCostsAnalysisFilter/?studyCase=' + study_case_id,verify=False)
     data = requestJson.json()
     for item in data:
         dataListBenefitsIntakeD.append({
@@ -1846,7 +1848,7 @@ def pdf(request):
     pdf.add_page()
 
     dataListBenefitsIntakeE = [];
-    requestJson = requests.get(settings.SITE_HOST_API + 'reports/getReportCostsAnalysisFilterNbs/?studyCase=' + request.POST['studyCase'],verify=False)
+    requestJson = requests.get(settings.SITE_HOST_API + 'reports/getReportCostsAnalysisFilterNbs/?studyCase=' + study_case_id,verify=False)
     data = requestJson.json()
     for item in data:
         dataListBenefitsIntakeE.append({
@@ -1912,7 +1914,7 @@ def pdf(request):
     pdf.cell(0, 10, 'The analysis run includes geographic outputs that you can consult at the following link', align='L')
     heightIcon = 0;
 
-    requestJson = requests.get(settings.SITE_HOST_API + 'reports/getWpcompareMapas/?studyCase=' + request.POST['studyCase'],verify=False)
+    requestJson = requests.get(settings.SITE_HOST_API + 'reports/getWpcompareMapas/?studyCase=' + study_case_id,verify=False)
     data = requestJson.json()
      
     for item in data:
@@ -1935,7 +1937,17 @@ def pdf(request):
 
         heightIcon = heightIcon + 80
 
-    study_case_filename = 'imgpdf/report_study_case_' + request.POST['studyCase']+'.pdf'
+    base_path_output = settings.MEDIA_ROOT + '/tmp/'
+    if (not os.path.isdir(base_path_output)):
+        os.mkdir(base_path_output)
+    report_filename = '/report_study_case_' + study_case_id + '.pdf'
+    study_case_filename = base_path_output + '/' + report_filename
+    if (os.path.isfile(study_case_filename)):
+        try:
+            os.remove(study_case_filename)
+        except OSError:
+            print ("Error: %s - %s." % (OSError.errno, OSError.strerror))
+
     print ("creating pdf report : " + study_case_filename)
     pdf_output = pdf.output(study_case_filename,'S')
     # pdf_output = pdf.output()
@@ -1950,14 +1962,13 @@ def pdf(request):
             print("Error, can't apply encode, generate without encode")
     else:
         print('Error, pdf_output is None')
-    
-
-    #response = HttpResponse(pdf.output(dest='S').encode('iso-8859-1'))
-    print ("binascii.a2b_qp ...")
-    response = HttpResponse(binascii.a2b_qp(pdf_output))
-    response['Content-Type'] = 'application/pdf'
-    response['Content-Disposition'] = "attachment; filename=waterproof_report.pdf"
-    return response
+        
+    #response = HttpResponse(binascii.a2b_qp(pdf_output))
+    with open(study_case_filename, 'rb') as fh:
+        response = HttpResponse(fh.read(), content_type="application/pdf")
+        response['Content-Disposition'] = 'inline; filename=' + report_filename
+        return response
+    fh.close()
 
     tmp_dir =  tempfile.gettempdir() # prints the current temporary directory
     id = datetime.now().strftime("%d-%m-%Y-%H%M%S")
