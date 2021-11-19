@@ -6,6 +6,7 @@ import re, time, base64
 import math
 import os
 import tempfile
+import binascii
 
 from django.conf import settings
 from django.http import JsonResponse
@@ -1948,11 +1949,13 @@ def pdf(request):
             print("Error, can't apply encode, generate without encode")
     else:
         print('Error, pdf_output is None')
-    response = HttpResponse(pdf_output)
+    
 
     #response = HttpResponse(pdf.output(dest='S').encode('iso-8859-1'))
+    print ("binascii.a2b_qp ...")
+    response = HttpResponse(binascii.a2b_qp(pdf_output))
     response['Content-Type'] = 'application/pdf'
-    response['Content-Disposition'] = "attachment; filename='waterproof_report.pdf'"
+    response['Content-Disposition'] = "attachment; filename=waterproof_report.pdf"
     return response
 
     tmp_dir =  tempfile.gettempdir() # prints the current temporary directory
