@@ -1935,7 +1935,7 @@ def pdf(request):
 
         heightIcon = heightIcon + 80
 
-    study_case_filename = '/imgpdf/report_study_case_' + request.POST['studyCase']+'.pdf'
+    study_case_filename = 'imgpdf/report_study_case_' + request.POST['studyCase']+'.pdf'
     print ("creating pdf report : " + study_case_filename)
     pdf_output = pdf.output(study_case_filename,'S')
     # pdf_output = pdf.output()
