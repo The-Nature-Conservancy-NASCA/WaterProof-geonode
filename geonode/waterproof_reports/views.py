@@ -1940,8 +1940,8 @@ def pdf(request):
     base_path_output = settings.MEDIA_ROOT + '/tmp/'
     if (not os.path.isdir(base_path_output)):
         os.mkdir(base_path_output)
-    report_filename = '/report_study_case_' + study_case_id + '.pdf'
-    study_case_filename = base_path_output + '/' + report_filename
+    report_filename = 'report_study_case_' + study_case_id + '.pdf'
+    study_case_filename = base_path_output + report_filename
     if (os.path.isfile(study_case_filename)):
         try:
             os.remove(study_case_filename)
@@ -1966,7 +1966,7 @@ def pdf(request):
     #response = HttpResponse(binascii.a2b_qp(pdf_output))
     with open(study_case_filename, 'rb') as fh:
         response = HttpResponse(fh.read(), content_type="application/pdf")
-        response['Content-Disposition'] = 'inline; filename=' + report_filename
+        response['Content-Disposition'] = 'attachment; filename=' + report_filename
         return response
     fh.close()
 
