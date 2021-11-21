@@ -286,18 +286,14 @@
 <script src="https://code.highcharts.com/modules/export-data.js"></script>
 <script src="https://code.highcharts.com/modules/accessibility.js"></script>
 <script src="https://code.highcharts.com/modules/solid-gauge.js"></script>
-
 <script type="text/javascript" src="{% url 'javascript-catalog-intake' %}"></script>
 <script type="text/javascript" src="{% url 'javascript-catalog-treatment' %}"></script>
-
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-
 <script src="{{ STATIC_URL }}geonode/js/datatables/dataTables.bootstrap.min.js"></script>
 <script src="{% static "lib/js/leaflet.js" %}"></script>
 <script src="{% static "geonode/js/leaflet/leaflet.defaultextent.js" %}"></script>
-<script src="{% static "geonode/js/leaflet/leaflet.BigImage.js" %}"></script>
 <script src="{{ STATIC_URL }}geonode/js/leaflet/leaflet-omnivore.min.js "></script>
-<script src="{{ STATIC_URL }}geonode/js/waterproof/dom-to-image.js"></script>
+<script src="{{ STATIC_URL }}geonode/js/waterproof/dom-to-image.min.js"></script>
 
 <script type="text/javascript">
 
@@ -392,7 +388,7 @@
 
             setTimeout(function(){ 
                 domtoimage.toPng(mapElement,optsDom2Img).then(function (dataUrl) {
-                    // $('#'+ imgId).attr('src', dataUrl);
+                    $('#'+ imgId).attr('src', dataUrl);
                     $(".leaflet-control").show();
                     document.getElementById("mapSendImage").value = dataUrl;
                     document.getElementById(mapId).style.setProperty("width", "");
@@ -458,7 +454,7 @@
             var defExt = new L.Control.DefaultExtent({ title: gettext('Default extent'), position: 'topright'}).addTo(map);
             var zoomControl = new L.Control.Zoom({ position: 'topright' }).addTo(map);
             L.control.layers(baseLayers, overlays, { position: 'topleft' }).addTo(map);
-            printBtn =  L.control.bigImage().addTo(map);
+            //printBtn =  L.control.bigImage().addTo(map);
         }
 
         changeGraphRoiCost = function() {

@@ -119,7 +119,7 @@ def pdf(request):
     changeInPhosphorus = "-"
     changeInCarbonStorage = "-"
 
-    print ('getStudyCasesIntake/?studyCase=' + study_case_id)
+    print ('getReportAnalisysBeneficsB/?studyCase=' + study_case_id)
     requestJson = requests.get(url_api + 'getReportAnalisysBeneficsB/?studyCase=' + study_case_id, verify=False)
     data = requestJson.json()
     for item in data:
@@ -1988,11 +1988,11 @@ def pdf(request):
 
 
     ####################################################
-    base_path_output = settings.MEDIA_ROOT + '/tmp/'
+    base_path_output = os.path.join(settings.MEDIA_ROOT , 'tmp')
     if (not os.path.isdir(base_path_output)):
         os.mkdir(base_path_output)
     report_filename = 'report_study_case_' + study_case_id + '.pdf'
-    study_case_filename = base_path_output + report_filename
+    study_case_filename = os.path.join(base_path_output, report_filename)
     if (os.path.isfile(study_case_filename)):
         try:
             os.remove(study_case_filename)
@@ -2001,16 +2001,16 @@ def pdf(request):
 
     print("creating pdf report : " + study_case_filename)
     pdf_output = pdf.output(study_case_filename, 'S')
-    if (pdf_output is None):
-        pdf_output = pdf.output()
+    # if (pdf_output is None):
+    #     pdf_output = pdf.output()
 
-    if (pdf_output is not None):
-        try:
-            pdf_output.encode('iso-8859-1')
-        except:
-            print("Error, can't apply encode, generate without encode")
-    else:
-        print('Error, pdf_output is None')
+    # if (pdf_output is not None):
+    #     try:
+    #         pdf_output.encode('iso-8859-1')
+    #     except:
+    #         print("Error, can't apply encode, generate without encode")
+    # else:
+    #     print('Error, pdf_output is None')
 
     with open(study_case_filename, 'rb') as fh:
         response = HttpResponse(fh.read(), content_type="application/pdf")
