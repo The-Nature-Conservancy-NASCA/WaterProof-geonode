@@ -7,7 +7,7 @@
  
  */
 
-$(function () {
+ $(function () {
         
     const HYPHEN = "-";    
     var onlyReadPlant = false;
