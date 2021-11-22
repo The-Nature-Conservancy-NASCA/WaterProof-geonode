@@ -7,10 +7,10 @@
 # Yeismer Espejo. <yespejo@gmail.com>, 2021
 msgid ""
 msgstr ""
-"Project-Id-Version: Waterproof Valpha\n"
+"Project-Id-Version: Waterproof V1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-08-23 23:16-0500\n"
-"PO-Revision-Date: 2021-09-10 18:59-0500\n"
+"PO-Revision-Date: 2021-11-22 14:58-0500\n"
 "Last-Translator: Julien Collaer <julien.collaer@opengeode.be>\n"
 "Language-Team: English Skaphe\n"
 "Language: en\n"
@@ -42,19 +42,19 @@ msgstr "Filtration"
 
 #: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:105
 msgid "FILTRACIONPORMEMBRANANIVEL1"
-msgstr "Membrane filtration retained particle size 0.1 μm"
+msgstr "Membrane filtration retained particle size 0.1μm"
 
 #: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:109
 msgid "FILTRACIONPORMEMBRANANIVEL2"
-msgstr "Membrane filtration retained particle size 0.01 μm"
+msgstr "Membrane filtration retained particle size 0.01μm"
 
 #: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:113
 msgid "FILTRACIONPORMEMBRANANIVEL3"
-msgstr "Membrane filtration retained particle size 0.001 μm"
+msgstr "Membrane filtration retained particle size 0.001μm"
 
 #: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:117
 msgid "FILTRACIONPORMEMBRANANIVEL4"
-msgstr "Retained particle size membrane filtration 0.0001 μm"
+msgstr "Retained particle size membrane filtration 0.0001μm"
 
 #: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:121
 msgid "INTERCAMBIOIONICO"
