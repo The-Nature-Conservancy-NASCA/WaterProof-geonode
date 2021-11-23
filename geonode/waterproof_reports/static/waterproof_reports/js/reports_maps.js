@@ -4,6 +4,19 @@
  * *******/
 
 $(document).ready(function () {
+  openPDF = function() {      
+    generateMap2Img('resultado');
+    setTimeout(function(){
+      document.getElementById('studyCase').value = localStorage.idStudyCase;
+      document.getElementById('studyCity').value = localStorage.getItem('city');
+      document.getElementById('studyCountry').value = localStorage.getItem('country');
+      document.getElementById('studyRegion').value = localStorage.getItem('region');
+      document.getElementById('discountRateData').value = document.getElementById("discountRate").innerHTML;
+      window.open('', 'TheWindow');
+      document.getElementById('TheForm').submit();
+    }, 4000);
+  } 
+
   var urlDetail = "../../reports/getSelectorStudyCasesId/?studyCase=" + studyCaseId;
   var selectIntake = document.getElementById("idSelectStudyCase");
   $.getJSON(urlDetail, function (data) {
