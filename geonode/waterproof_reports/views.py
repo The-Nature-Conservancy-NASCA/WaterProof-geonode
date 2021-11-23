@@ -202,7 +202,7 @@ def pdf(request):
         if item['name'] != lastItenName:
             pdf.set_text_color(57, 137, 169)
             pdf.cell(epw/2, cellArray[contLine] * 6, item['name'] + ', to see click here', border=1,
-                     align='L', fill=1, link='../../intake/ShowDiagram/' + str(item['intakeId']))
+                     align='L', fill=1, link= settings.SITE_HOST_API + 'intake/ShowDiagram/' + str(item['intakeId']))
             lastItenName = item['name']
             contLine = contLine + 1
         else:
@@ -255,7 +255,7 @@ def pdf(request):
         if lastNameCase != item['name']:
             pdf.set_text_color(57, 137, 169)
             pdf.cell(epw/2, cellArray[contLine] * 6, item['name'] + ', to see click here', border=1,
-                     align='L', fill=1, link='../../treatment_plants/view/' + str(item['plantId']))
+                     align='L', fill=1, link= settings.SITE_HOST_API + 'treatment_plants/view/' + str(item['plantId']))
             lastNameCase = item['name']
             contLine = contLine + 1
         else:
@@ -1160,16 +1160,22 @@ def pdf(request):
     requestJson = requests.get(url_api + 'getReportAnalisysBenefics/?studyCase=' + study_case_id, verify=False)
     dataBenefit = requestJson.json()
     numerLine = 0
-
+    initial_v_offset = 198
+    add_page_for_study_case = False
     for itemCase in dataCase:
+        print ("add_page_for_study_case : %s" % add_page_for_study_case)
+        if add_page_for_study_case:
+            pdf.add_page()
+            initial_v_offset = -53            
+
         pdf.set_font('Arial', '', 9)
         pdf.set_text_color(100, 100, 100)
         pdf.cell(epw, 10, itemCase['selector'], border=0, align='C', fill=0)
 
-        pdf.image('imgpdf/picture-one.jpg', 10, (numerLine * 75) + 198, w=45)
-        pdf.image('imgpdf/picture-two.jpg', 58, (numerLine * 75) + 198, w=45)
-        pdf.image('imgpdf/picture-three.jpg', 106, (numerLine * 75) + 198, w=45)
-        pdf.image('imgpdf/picture-four.jpg', 154, (numerLine * 75) + 198, w=45)
+        pdf.image('imgpdf/picture-one.jpg', 10, (numerLine * 75) + initial_v_offset, w=45)
+        pdf.image('imgpdf/picture-two.jpg', 58, (numerLine * 75) + initial_v_offset, w=45)
+        pdf.image('imgpdf/picture-three.jpg', 106, (numerLine * 75) + initial_v_offset, w=45)
+        pdf.image('imgpdf/picture-four.jpg', 154, (numerLine * 75) + initial_v_offset, w=45)
 
         numerLine = numerLine + 1
         pdf.ln(40)
@@ -1317,6 +1323,7 @@ def pdf(request):
         pdf.set_draw_color(txtTd4CR, txtTd4CG, txtTd4CB)
         pdf.cell(35, 4, txtTd4, border=1, align='C', fill=1)
         pdf.ln(10)
+        add_page_for_study_case = True
 
     pdf.add_page() # page x of 17
 
@@ -1636,6 +1643,13 @@ def pdf(request):
     pdf.set_font('Arial', '', 13)
     pdf.set_text_color(57, 137, 169)
     pdf.cell(0, 10, 'Decision indicators', align='L')
+    
+    pdf.ln(10)
+    pdf.set_font('Arial', '', 11)
+    pdf.set_text_color(100, 100, 100)        
+    pdf.cell(0, 7, 'Incidence of benefits and cost', align='L')
+    pdf.ln(10)
+    pdf.cell(0, 7, 'Drinking water treatment plant', align='L')
 
     dataListBenefitsIntakeA = []
     print ('getWaterproofReportsAnalysisBenefits/?studyCase=' + study_case_id)
@@ -1679,13 +1693,13 @@ def pdf(request):
 
     if len(dataListBenefitsIntakeA) > 0:
         hc_export.save_as_png(config=config, filename="imgpdf/wrab.png")
-        pdf.image('imgpdf/wrab.png', 10, 40, w=90)
+        pdf.image('imgpdf/wrab.png', 10, 60, w=90)
         pdf.ln(40)
     else:
         pdf.ln(10)
         pdf.set_font('Arial', '', 10)
         pdf.set_text_color(100, 100, 100)
-        pdf.image('imgpdf/nodatadef.png', 20, 18, w=70)
+        pdf.image('imgpdf/nodatadef.png', 20, 38, w=70)
         pdf.cell(0, 7, 'Intake Benefits Treatment Plant', align='L')
         pdf.ln(35)
         pdf.cell(0, 50, '* there is no data for this graph', align='L')
@@ -1706,7 +1720,12 @@ def pdf(request):
     pdf.ln(20)
     pdf.set_font('Arial', '', 10)
     pdf.cell(epw/2, 7, 'Identify the elements that will yield the most benefits', align='C')
-    pdf.ln(30)
+    pdf.ln(15)
+
+    pdf.set_font('Arial', '', 11)
+    pdf.set_text_color(100, 100, 100)
+    pdf.cell(0, 7, 'Intake Benefits', align='L')
+
     dataListBenefitsIntakeB = []
 
     for item in data:
@@ -1723,10 +1742,11 @@ def pdf(request):
         pdf.cell(epw/6, 6, format(float(item['y']), '0,.2f'), border=1, align='R', fill=1)
         pdf.ln(6)
 
-    pdf.ln(60)
+    pdf.ln(20)
     pdf.set_font('Arial', '', 10)
     pdf.cell(epw/2, 5, 'Identify the elements that will yield the most benefits', align='C')
 
+    # Intake Benefits intake
     config = {
         'chart': {
             'plotShadow': 0,
@@ -1758,20 +1778,21 @@ def pdf(request):
 
     if len(dataListBenefitsIntakeB) > 0:
         hc_export.save_as_png(config=config, filename="imgpdf/wrabi.png")
-        pdf.image('imgpdf/wrabi.png', 10, 120, w=90)
+        pdf.image('imgpdf/wrabi.png', 10, 145, w=90)
         pdf.ln(40)
     else:
         pdf.ln(10)
         pdf.set_font('Arial', '', 10)
         pdf.set_text_color(100, 100, 100)
         pdf.cell(0, 7, 'Intake Benefits intake', align='L')
-        pdf.image('imgpdf/nodatadef.png', 20, 110, w=70)
+        pdf.image('imgpdf/nodatadef.png', 20, 135, w=70)
         pdf.ln(35)
         pdf.cell(0, 110, '* there is no data for this graph', align='L')
         pdf.ln(5)
 
     pdf.add_page()
 
+    # Total Benefits for the analysis
     dataListBenefitsIntakeC = []
     print('getReportAnalysisBenefitsFilterSum/?studyCase=' + study_case_id)
     requestJson = requests.get(url_api + 'getReportAnalysisBenefitsFilterSum/?studyCase=' + study_case_id, verify=False)
@@ -1782,8 +1803,12 @@ def pdf(request):
             'y': item['vpnMedBenefitr']
         })
 
-    pdf.ln(50)
+    pdf.ln(30)
 
+    pdf.set_font('Arial', '', 11)
+    pdf.set_text_color(100, 100, 100)        
+    pdf.cell(0, 7, 'Total benefits for the analysis', align='L')
+    pdf.ln(25)
     pdf.set_font('Arial', '', 9)
     for item in dataListBenefitsIntakeC:
         pdf.cell(epw/2, 6, '')
@@ -1825,8 +1850,10 @@ def pdf(request):
     }
 
     hc_export.save_as_png(config=config, filename="imgpdf/rabfs.png")
-    pdf.image('imgpdf/rabfs.png', 10, 40, w=90)
+    pdf.image('imgpdf/rabfs.png', 10, 60, w=90)
 
+
+    # Total cost for the analysis
     dataListBenefitsIntakeD = []
     
     print('getReportCostsAnalysisFilter/?studyCase=' + study_case_id)
@@ -1839,7 +1866,12 @@ def pdf(request):
             'y': item['sumFilter']
         })
 
-    pdf.ln(40)
+    pdf.ln(30)
+
+    pdf.set_font('Arial', '', 11)
+    pdf.set_text_color(100, 100, 100)        
+    pdf.cell(0, 7, 'Total cost for the analysis', align='L')
+    pdf.ln(20)
     pdf.set_font('Arial', '', 9)
     for item in dataListBenefitsIntakeD:
         pdf.cell(epw/2, 6, '')
@@ -1885,7 +1917,7 @@ def pdf(request):
     }
 
     hc_export.save_as_png(config=config, filename="imgpdf/rcafh.png")
-    pdf.image('imgpdf/rcafh.png', 10, 150, w=90)
+    pdf.image('imgpdf/rcafh.png', 10, 165, w=90)
 
     pdf.add_page()
 
@@ -1899,8 +1931,12 @@ def pdf(request):
             'y': item['sumFilter']
         })
 
-    pdf.ln(50)
+    pdf.ln(25)
 
+    pdf.set_font('Arial', '', 11)
+    pdf.set_text_color(100, 100, 100)        
+    pdf.cell(0, 7, 'Cost per activity for the analysis', align='L')
+    pdf.ln(30)
     pdf.set_font('Arial', '', 9)
     for item in dataListBenefitsIntakeE:
         pdf.cell(epw/2, 6, '')
@@ -1944,7 +1980,7 @@ def pdf(request):
     }
 
     hc_export.save_as_png(config=configE, filename="imgpdf/rcafn.png")
-    pdf.image('imgpdf/rcafn.png', 10, 40, w=90)
+    pdf.image('imgpdf/rcafn.png', 10, 60, w=90)
 
 
     pdf.add_page()
@@ -1971,7 +2007,7 @@ def pdf(request):
         pdf.image('imgpdf/mapas-pdf.png', 20, 50 + heightIcon, w=30)
         pdf.ln(50)
         pdf.set_text_color(179, 179, 179)
-        urlgeografico = url_api + "/reports/geographic/?folder="
+        urlgeografico = url_api + "geographic/?folder="
 #        pdf.cell(0, 6, 'http://apps.skaphe.com:8000/reports/geographic/?folder=' + str(item['folder']) + '&amp', align='L', link = 'http://apps.skaphe.com:8000/reports/geographic/?folder=' + str(item['folder']) + '&amp;intake=' + str(item['intake']) + '&amp;region=' + str(item['region']) + '&amp;year=' + str(item['year']) + '&amp;study_case_id=' + str(item['studycase']) + '&amp;center=' + centerxy[1] + "," + centerxy[0])
         pdf.cell(0, 6, str(urlgeografico) + str(item['folder']) + '&amp', align='L', link=str(urlgeografico) + str(item['folder']) + '&amp;intake=' + str(item['intake']) + '&amp;region=' + str(
             item['region']) + '&amp;year=' + str(item['year']) + '&amp;study_case_id=' + str(item['studycase']) + '&amp;center=' + centerxy[1] + "," + centerxy[0])
