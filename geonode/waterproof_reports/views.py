@@ -278,9 +278,9 @@ def pdf(request):
 
     pdf.cell(epw/2.58, 10, "Name", border=1, align='C', fill=1)
     pdf.cell(epw/9, 5, "Benefit %", border=1, align='C', fill=1)
-    pdf.cell(epw/10, 10, "Benefit", border=1, align='C', fill=1)
+    pdf.cell(epw/10, 10, "Benefit*", border=1, align='C', fill=1)
     pdf.cell(epw/10, 5, "Implementa-", border=1, align='C', fill=1)
-    pdf.cell(epw/10, 5, "Matenance", border=1, align='C', fill=1)
+    pdf.cell(epw/10, 5, "Maintenance", border=1, align='C', fill=1)
     pdf.cell(epw/10, 5, "Periodicity", border=1, align='C', fill=1)
     pdf.cell(epw/10, 5, "Opportunity", border=1, align='C', fill=1)
     pdf.ln(4)
@@ -334,7 +334,7 @@ def pdf(request):
             j = j + length_line
         pdf.set_font('Arial', '', 9)
     pdf.ln(15)
-    pdf.cell(0, 10, '* Time requiered to obtain maximum benefit (year).', align='L')
+    pdf.cell(0, 10, '* Time required to obtain maximum benefit (year).', align='L')
 
     print ('getFinancialAnalysisPdfRunAnalisisPdf/?studyCase=' + study_case_id)
     requestJson = requests.get(url_api + 'getFinancialAnalysisPdfRunAnalisisPdf/?studyCase=' + study_case_id, verify=False)
