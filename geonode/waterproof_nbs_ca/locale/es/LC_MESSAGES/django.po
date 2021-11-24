@@ -42,7 +42,7 @@ msgstr ""
 "Project-Id-Version: GeoNode\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-02-19 11:28-0500\n"
-"PO-Revision-Date: 2021-11-24 14:27-0500\n"
+"PO-Revision-Date: 2021-11-24 14:33-0500\n"
 "Last-Translator: \n"
 "Language-Team: Spanish (http://www.transifex.com/geonode/geonode/language/es/)\n"
 "Language: es_419\n"
@@ -435,7 +435,7 @@ msgstr "Se aceptan archivos únicamente en formato comprimido.zip cuya estructur
 #: geonode/waterproof_nbs_ca/views.py:69 geonode/waterproof_nbs_ca/views.py:403
 #: geonode/waterproof_nbs_ca/views.py:550
 msgid "Duplicated nbs"
-msgstr "NbS duplicada"
+msgstr "SbN duplicada"
 
 #: geonode/waterproof_nbs_ca/views.py:131
 #: geonode/waterproof_nbs_ca/views.py:479
@@ -483,7 +483,7 @@ msgid "Reference Country"
 msgstr "País de referencia"
 
 msgid "The system offers you a default list of Nature based Solutions (NbS) by country, with standard information on their implementation and maintenance costs, time required to obtain benefits and the possible transformations that are expected through its implementation."
-msgstr "El sistema le ofrece un listado predeterminado de Soluciones basadas en la naturaleza (NbS) por país, con información estándar sobre sus costos de implementación mantenimiento, el tiempo requerido para obtener beneficios y las posibles transformaciones que se esperan a través de su implementación."
+msgstr "El sistema le ofrece un listado predeterminado de Soluciones basadas en la naturaleza (SbN) por país, con información estándar sobre sus costos de implementación mantenimiento, el tiempo requerido para obtener beneficios y las posibles transformaciones que se esperan a través de su implementación."
 
 msgid "Nature-based solutions"
 msgstr "Soluciones basadas en la naturaleza"
