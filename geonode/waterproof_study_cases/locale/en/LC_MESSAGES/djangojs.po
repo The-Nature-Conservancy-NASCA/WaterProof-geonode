@@ -21,10 +21,10 @@
 # Translators:
 msgid ""
 msgstr ""
-"Project-Id-Version: Waterproof Valpha\n"
+"Project-Id-Version: Waterproof V1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-11-28 18:12+0000\n"
-"PO-Revision-Date: 2021-08-09 18:36-0500\n"
+"PO-Revision-Date: 2021-11-25 11:29-0500\n"
 "Last-Translator: Julien Collaer <julien.collaer@opengeode.be>\n"
 "Language-Team: English Skaphe\n"
 "Language: en\n"
@@ -160,12 +160,8 @@ msgid "Unexpected error!"
 msgstr "Unexpected error!"
 
 #: geonode/static/geonode/js/upload/LayerInfo.js:299
-msgid ""
-" - 400 Bad Request. Server cannot or will not process the request due to something that is perceived to be a client error (e.g., malformed request syntax, invalid request "
-"message framing, or deceptive request routing)."
-msgstr ""
-" - 400 Bad Request. Server cannot or will not process the request due to something that is perceived to be a client error (e.g., malformed request syntax, invalid request "
-"message framing, or deceptive request routing)."
+msgid " - 400 Bad Request. Server cannot or will not process the request due to something that is perceived to be a client error (e.g., malformed request syntax, invalid request message framing, or deceptive request routing)."
+msgstr " - 400 Bad Request. Server cannot or will not process the request due to something that is perceived to be a client error (e.g., malformed request syntax, invalid request message framing, or deceptive request routing)."
 
 #: geonode/static/geonode/js/upload/LayerInfo.js:302
 msgid " - 401 Unauthorized. Request was not sent with the proper authentication credentials."
@@ -184,12 +180,8 @@ msgid " - 405 Method Not Allowed. Origin server is aware of the requested resour
 msgstr " - 405 Method Not Allowed. Origin server is aware of the requested resource, but the request method used is not supported."
 
 #: geonode/static/geonode/js/upload/LayerInfo.js:314
-msgid ""
-" - 406 Not Acceptable. Resource is not available at the origin that adheres to negotiation headers that were  set prior (e.g. via 'Accept-Charset' and 'Accept-Language' "
-"headers)."
-msgstr ""
-" - 406 Not Acceptable. Resource is not available at the origin that adheres to negotiation headers that were  set prior (e.g. via 'Accept-Charset' and 'Accept-Language' "
-"headers)."
+msgid " - 406 Not Acceptable. Resource is not available at the origin that adheres to negotiation headers that were  set prior (e.g. via 'Accept-Charset' and 'Accept-Language' headers)."
+msgstr " - 406 Not Acceptable. Resource is not available at the origin that adheres to negotiation headers that were  set prior (e.g. via 'Accept-Charset' and 'Accept-Language' headers)."
 
 #: geonode/static/geonode/js/upload/LayerInfo.js:317
 msgid " - 407 Authentication Required. The client did not send the required authentication with the request."
@@ -200,12 +192,8 @@ msgid " - 408 Request Timeout. The origin server did not receive the complete re
 msgstr " - 408 Request Timeout. The origin server did not receive the complete request in what it considers a reasonable time."
 
 #: geonode/static/geonode/js/upload/LayerInfo.js:323
-msgid ""
-" - 409 Conflict. The request did not complete because of a conflict with the current state of the resource. Typically happens on a PUT request where multiple clients are "
-"attempting to edit the same resource."
-msgstr ""
-" - 409 Conflict. The request did not complete because of a conflict with the current state of the resource. Typically happens on a PUT request where multiple clients are "
-"attempting to edit the same resource."
+msgid " - 409 Conflict. The request did not complete because of a conflict with the current state of the resource. Typically happens on a PUT request where multiple clients are attempting to edit the same resource."
+msgstr " - 409 Conflict. The request did not complete because of a conflict with the current state of the resource. Typically happens on a PUT request where multiple clients are attempting to edit the same resource."
 
 #: geonode/static/geonode/js/upload/LayerInfo.js:326
 msgid " - 410 Gone. The resource requested is permanently missing at the origin."
@@ -220,28 +208,16 @@ msgid " - 412 Precondition Failed. Server denies the request because the resourc
 msgstr " - 412 Precondition Failed. Server denies the request because the resource failed to meet the conditions specified by the client."
 
 #: geonode/static/geonode/js/upload/LayerInfo.js:335
-msgid ""
-" - 413 Payload Too Large. Refusal from the server to process the request because the payload sent from the client is larger than the server wished to accept. Server has the "
-"optional to close the connection."
-msgstr ""
-" - 413 Payload Too Large. Refusal from the server to process the request because the payload sent from the client is larger than the server wished to accept. Server has the "
-"optional to close the connection."
+msgid " - 413 Payload Too Large. Refusal from the server to process the request because the payload sent from the client is larger than the server wished to accept. Server has the optional to close the connection."
+msgstr " - 413 Payload Too Large. Refusal from the server to process the request because the payload sent from the client is larger than the server wished to accept. Server has the optional to close the connection."
 
 #: geonode/static/geonode/js/upload/LayerInfo.js:338
-msgid ""
-" - 414 URI Too Long. Refusal from the server that the URI was too long to be processed. For example, if a client is attempting a GET request with an unusually long URI "
-"after a POST, this could be seen as a security risk and a 414 gets generated."
-msgstr ""
-" - 414 URI Too Long. Refusal from the server that the URI was too long to be processed. For example, if a client is attempting a GET request with an unusually long URI "
-"after a POST, this could be seen as a security risk and a 414 gets generated."
+msgid " - 414 URI Too Long. Refusal from the server that the URI was too long to be processed. For example, if a client is attempting a GET request with an unusually long URI after a POST, this could be seen as a security risk and a 414 gets generated."
+msgstr " - 414 URI Too Long. Refusal from the server that the URI was too long to be processed. For example, if a client is attempting a GET request with an unusually long URI after a POST, this could be seen as a security risk and a 414 gets generated."
 
 #: geonode/static/geonode/js/upload/LayerInfo.js:341
-msgid ""
-" - 415 Unsupported Media Type. Refusal from the server to process the format of the current payload. One way to identify and fix this issue would be to look at the 'Content-"
-"Type' or 'Content-Encoding' headers sent in the client’s request."
-msgstr ""
-" - 415 Unsupported Media Type. Refusal from the server to process the format of the current payload. One way to identify and fix this issue would be to look at the 'Content-"
-"Type' or 'Content-Encoding' headers sent in the client’s request."
+msgid " - 415 Unsupported Media Type. Refusal from the server to process the format of the current payload. One way to identify and fix this issue would be to look at the 'Content-Type' or 'Content-Encoding' headers sent in the client’s request."
+msgstr " - 415 Unsupported Media Type. Refusal from the server to process the format of the current payload. One way to identify and fix this issue would be to look at the 'Content-Type' or 'Content-Encoding' headers sent in the client’s request."
 
 #: geonode/static/geonode/js/upload/LayerInfo.js:344
 msgid " - 417 Expectation Failed. Failure of server to meet the requirements specified in the 'Expect' header of the client’s request."
@@ -252,52 +228,32 @@ msgid " - 429 Too Many Requests. Client has sent too many requests in the specif
 msgstr " - 429 Too Many Requests. Client has sent too many requests in the specified amount of time according to the server."
 
 #: geonode/static/geonode/js/upload/LayerInfo.js:350
-msgid ""
-" - 499 Client Close Request. Nginx specific response code to indicate when the connection has been closed by the client while the server is still processing its request, "
-"making server unable to send a status code back."
-msgstr ""
-" - 499 Client Close Request. Nginx specific response code to indicate when the connection has been closed by the client while the server is still processing its request, "
-"making server unable to send a status code back."
+msgid " - 499 Client Close Request. Nginx specific response code to indicate when the connection has been closed by the client while the server is still processing its request, making server unable to send a status code back."
+msgstr " - 499 Client Close Request. Nginx specific response code to indicate when the connection has been closed by the client while the server is still processing its request, making server unable to send a status code back."
 
 #: geonode/static/geonode/js/upload/LayerInfo.js:353
-msgid ""
-" - 500 Internal Server Error. This error indicates that the server has encountered an unexpected condition. This often occurs when an application request cannot be "
-"fulfilled due to the application being configured incorrectly on the server."
-msgstr ""
-" - 500 Internal Server Error. This error indicates that the server has encountered an unexpected condition. This often occurs when an application request cannot be "
-"fulfilled due to the application being configured incorrectly on the server."
+msgid " - 500 Internal Server Error. This error indicates that the server has encountered an unexpected condition. This often occurs when an application request cannot be fulfilled due to the application being configured incorrectly on the server."
+msgstr " - 500 Internal Server Error. This error indicates that the server has encountered an unexpected condition. This often occurs when an application request cannot be fulfilled due to the application being configured incorrectly on the server."
 
 #: geonode/static/geonode/js/upload/LayerInfo.js:356
-msgid ""
-" - 501 Not Implemented. This error indicates that the HTTP method sent by the client is not supported by the server. This is most often caused by the server being out of "
-"date. It is a very rare error and generally requires that the web server be updated."
-msgstr ""
-" - 501 Not Implemented. This error indicates that the HTTP method sent by the client is not supported by the server. This is most often caused by the server being out of "
-"date. It is a very rare error and generally requires that the web server be updated."
+msgid " - 501 Not Implemented. This error indicates that the HTTP method sent by the client is not supported by the server. This is most often caused by the server being out of date. It is a very rare error and generally requires that the web server be updated."
+msgstr " - 501 Not Implemented. This error indicates that the HTTP method sent by the client is not supported by the server. This is most often caused by the server being out of date. It is a very rare error and generally requires that the web server be updated."
 
 #: geonode/static/geonode/js/upload/LayerInfo.js:359
 msgid " - 502 Bad Gateway. This error is usually due to improperly configured proxy servers. The first step in resolving the issue is to clear the client's cache."
 msgstr " - 502 Bad Gateway. This error is usually due to improperly configured proxy servers. The first step in resolving the issue is to clear the client's cache."
 
 #: geonode/static/geonode/js/upload/LayerInfo.js:362
-msgid ""
-" - 503 Service Unavailable. This error occurs when the server is unable to handle requests due to a temporary overload or due to the server being temporarily closed for "
-"maintenance. The error indicates that the server will only temporarily be down."
-msgstr ""
-" - 503 Service Unavailable. This error occurs when the server is unable to handle requests due to a temporary overload or due to the server being temporarily closed for "
-"maintenance. The error indicates that the server will only temporarily be down."
+msgid " - 503 Service Unavailable. This error occurs when the server is unable to handle requests due to a temporary overload or due to the server being temporarily closed for maintenance. The error indicates that the server will only temporarily be down."
+msgstr " - 503 Service Unavailable. This error occurs when the server is unable to handle requests due to a temporary overload or due to the server being temporarily closed for maintenance. The error indicates that the server will only temporarily be down."
 
 #: geonode/static/geonode/js/upload/LayerInfo.js:365
 msgid " - 504 Gateway Timeout. GeoNode lost the connection with GeoServer or DB due to a connection timeout. Consider using the management commands to import data!"
 msgstr " - 504 Gateway Timeout. GeoNode lost the connection with GeoServer or DB due to a connection timeout. Consider using the management commands to import data!"
 
 #: geonode/static/geonode/js/upload/LayerInfo.js:368
-msgid ""
-" - 505 HTTP Version Not Supported. This error occurs when the server refuses to support the HTTP protocol that has been specified by the client computer. This can be caused "
-"by the protocol not being specified properly by the client computer; for example, if an invalid version number has been specified."
-msgstr ""
-" - 505 HTTP Version Not Supported. This error occurs when the server refuses to support the HTTP protocol that has been specified by the client computer. This can be caused "
-"by the protocol not being specified properly by the client computer; for example, if an invalid version number has been specified."
+msgid " - 505 HTTP Version Not Supported. This error occurs when the server refuses to support the HTTP protocol that has been specified by the client computer. This can be caused by the protocol not being specified properly by the client computer; for example, if an invalid version number has been specified."
+msgstr " - 505 HTTP Version Not Supported. This error occurs when the server refuses to support the HTTP protocol that has been specified by the client computer. This can be caused by the protocol not being specified properly by the client computer; for example, if an invalid version number has been specified."
 
 #: geonode/static/geonode/js/upload/LayerInfo.js:371
 msgid " - 506 Variant Also Negotiates. This error indicates that the server is not properly configured. Contact the system administrator to resolve this issue."
@@ -305,29 +261,19 @@ msgstr " - 506 Variant Also Negotiates. This error indicates that the server is 
 
 #: geonode/static/geonode/js/upload/LayerInfo.js:374
 msgid ""
-" - 507 Insufficient Storage. This error indicates that the server is out of free memory. This is most likely to occur when an application that is being requested cannot "
-"allocate the necessary system resources to run. To resolve the issue, the server's hard disk may need to be cleaned of any unnecessary documents to free up more hard disk "
-"space, its memory may need to be expanded, or it may simply need to be restarted. Contact the system administrator for more information regarding this error message."
+" - 507 Insufficient Storage. This error indicates that the server is out of free memory. This is most likely to occur when an application that is being requested cannot allocate the necessary system resources to run. To resolve the issue, the server's hard disk may need to be cleaned of any unnecessary "
+"documents to free up more hard disk space, its memory may need to be expanded, or it may simply need to be restarted. Contact the system administrator for more information regarding this error message."
 msgstr ""
-" - 507 Insufficient Storage. This error indicates that the server is out of free memory. This is most likely to occur when an application that is being requested cannot "
-"allocate the necessary system resources to run. To resolve the issue, the server's hard disk may need to be cleaned of any unnecessary documents to free up more hard disk "
-"space, its memory may need to be expanded, or it may simply need to be restarted. Contact the system administrator for more information regarding this error message."
+" - 507 Insufficient Storage. This error indicates that the server is out of free memory. This is most likely to occur when an application that is being requested cannot allocate the necessary system resources to run. To resolve the issue, the server's hard disk may need to be cleaned of any unnecessary "
+"documents to free up more hard disk space, its memory may need to be expanded, or it may simply need to be restarted. Contact the system administrator for more information regarding this error message."
 
 #: geonode/static/geonode/js/upload/LayerInfo.js:377
-msgid ""
-" - 509 Bandwidth Limit Exceeded. This error occurs when the bandwidth limit imposed by the system administrator has been reached. The only fix for this issue is to wait "
-"until the limit is reset in the following cycle. Consult the system administrator for information about acquiring more bandwidth."
-msgstr ""
-" - 509 Bandwidth Limit Exceeded. This error occurs when the bandwidth limit imposed by the system administrator has been reached. The only fix for this issue is to wait "
-"until the limit is reset in the following cycle. Consult the system administrator for information about acquiring more bandwidth."
+msgid " - 509 Bandwidth Limit Exceeded. This error occurs when the bandwidth limit imposed by the system administrator has been reached. The only fix for this issue is to wait until the limit is reset in the following cycle. Consult the system administrator for information about acquiring more bandwidth."
+msgstr " - 509 Bandwidth Limit Exceeded. This error occurs when the bandwidth limit imposed by the system administrator has been reached. The only fix for this issue is to wait until the limit is reset in the following cycle. Consult the system administrator for information about acquiring more bandwidth."
 
 #: geonode/static/geonode/js/upload/LayerInfo.js:380
-msgid ""
-" - 510 Not Extended. This error occurs when an extension attached to the HTTP request is not supported by the web server. To resolve the issue, you may need to update the "
-"server."
-msgstr ""
-" - 510 Not Extended. This error occurs when an extension attached to the HTTP request is not supported by the web server. To resolve the issue, you may need to update the "
-"server."
+msgid " - 510 Not Extended. This error occurs when an extension attached to the HTTP request is not supported by the web server. To resolve the issue, you may need to update the server."
+msgstr " - 510 Not Extended. This error occurs when an extension attached to the HTTP request is not supported by the web server. To resolve the issue, you may need to update the server."
 
 #: geonode/static/geonode/js/upload/LayerInfo.js:383
 #| msgid " - 403 Forbidden. This is generally related to permission rules on your server. Contact the system administrator for more information regarding this error message."
@@ -390,8 +336,7 @@ msgstr "Performing GeoServer Config Step"
 msgid "<br>Please check your network connection. In case of Layer Upload make sure GeoServer is running and accepting connections."
 msgstr "<br>Please check your network connection. In case of Layer Upload make sure GeoServer is running and accepting connections."
 
-#: geonode/static/geonode/js/upload/LayerInfo.js:700 geonode/static/geonode/js/upload/LayerInfo.js:703 geonode/static/geonode/js/upload/LayerInfo.js:710
-#: geonode/static/geonode/js/upload/LayerInfo.js:713
+#: geonode/static/geonode/js/upload/LayerInfo.js:700 geonode/static/geonode/js/upload/LayerInfo.js:703 geonode/static/geonode/js/upload/LayerInfo.js:710 geonode/static/geonode/js/upload/LayerInfo.js:713
 msgid "<br>"
 msgstr "<br>"
 
@@ -499,4 +444,133 @@ msgid "root_depth"
 msgstr "root_depth (mm)"
 
 msgid "load_n"
-msgstr "load_n Kg/(Ha*year)"
+msgstr "load_n kg/(ha*year)"
+
+msgid "description"
+msgstr "Description"
+
+msgid "lucode"
+msgstr "lucode (dimensionless)"
+
+msgid "usle_c"
+msgstr "usle_c (dimensionless)"
+
+msgid "usle_p"
+msgstr "usle_p (dimensionless)"
+
+msgid "eff_n"
+msgstr "eff_n (dimensionless)"
+
+msgid "load_p"
+msgstr "load_p kg/(ha*year)"
+
+msgid "eff_p"
+msgstr "eff_p (dimensionless)"
+
+msgid "crit_len_n"
+msgstr "crit_len_n (m)"
+
+msgid "ccrit_len_p"
+msgstr "crit_len_p (m)"
+
+msgid "proportion_subsurface_n"
+msgstr "proportion_subsurface_n (dimensionless)"
+
+msgid "cn_a"
+msgstr "cn_a (dimensionless)"
+
+msgid "cn_b"
+msgstr "cn_b (dimensionless)"
+
+msgid "cn_c"
+msgstr "cn_c (dimensionless)"
+
+msgid "cn_d"
+msgstr "cn_d (dimensionless)"
+
+msgid "kc_1"
+msgstr "kc_1 (dimensionless)"
+
+msgid "kc_2"
+msgstr "kc_2 (dimensionless)"
+
+msgid "kc_3"
+msgstr "kc_3 (dimensionless)"
+
+msgid "kc_4"
+msgstr "kc_4 (dimensionless)"
+
+msgid "kc_5"
+msgstr "kc_5 (dimensionless)"
+
+msgid "kc_6"
+msgstr "kc_6 (dimensionless)"
+
+msgid "kc_7"
+msgstr "kc_7 (dimensionless)"
+
+msgid "kc_8"
+msgstr "kc_8 (dimensionless)"
+
+msgid "kc_9"
+msgstr "kc_9 (dimensionless)"
+
+msgid "kc_10"
+msgstr "kc_10 (dimensionless)"
+
+msgid "kc_11"
+msgstr "kc_11 (dimensionless)"
+
+msgid "kc_12"
+msgstr "kc_12 (dimensionless)"
+
+msgid "c_above"
+msgstr "c_above (Mg/ha)"
+
+msgid "c_below"
+msgstr "c_below (Mg/ha)"
+
+msgid "c_soil"
+msgstr "c_soil (Mg/ha)"
+
+msgid "c_dead"
+msgstr "c_dead (Mg/ha)"
+
+msgid "sed_exp"
+msgstr "sed_exp (dimensionless)"
+
+msgid "sed_ret"
+msgstr "sed_ret (dimensionless)"
+
+msgid "rough_rank"
+msgstr "rough_rank (s/m^(1/3))"
+
+msgid "cover_rank"
+msgstr "cover_rank (dimensionless)"
+
+msgid "p_ret"
+msgstr "p_ret (dimensionless)"
+
+msgid "p_exp"
+msgstr "p_exp (g/(ha*year)"
+
+msgid "n_ret"
+msgstr "n_ret (dimensionless)"
+
+msgid "n_exp"
+msgstr "n_exp (g/(ha*year)"
+
+msgid "native_veg"
+msgstr "native_veg (dimensionless)"
+
+msgid "lulc_veg"
+msgstr "lulc_veg (dimensionless)"
+
+msgid "edit"
+msgstr "Edit"
+
+msgid "Alert_time_demand_title"
+msgstr "The demand series of the water intakes involved in the case study have been defined in a different time from that indicated for the ROI analysis."
+
+msgid "Alert_time_demand"
+msgstr "If the demand series is defined in less time than the ROI analysis, WaterProof will extend the series until the year of analysis repeating the demand value of the last year. If the demand series is defined in a time greater than the ROI analysis, WaterProof will cut the series until the year of analysis."

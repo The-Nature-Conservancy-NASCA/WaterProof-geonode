@@ -42,7 +42,7 @@ msgstr ""
 "Project-Id-Version: GeoNode\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-02-19 11:28-0500\n"
-"PO-Revision-Date: 2021-11-24 14:33-0500\n"
+"PO-Revision-Date: 2021-11-25 11:28-0500\n"
 "Last-Translator: \n"
 "Language-Team: Spanish (http://www.transifex.com/geonode/geonode/language/es/)\n"
 "Language: es_419\n"
@@ -296,19 +296,19 @@ msgstr "Ayuda cargando archivos geográficos"
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_clone.html:212
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_edit.html:197
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_form.html:182
-msgid "Only zip and GeoJSON1"
+msgid "Only zip and GeoJSON_1"
 msgstr "Solo extensiones .zip y .geojson son admitidas. Los .zip deben ser de tipo ESRI shapefiles"
 
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_clone.html:213
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_edit.html:198
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_form.html:183
-msgid "Only EPSG1"
+msgid "Only EPSG_1"
 msgstr "Solo los sistemas de referencia EPSG 3857 y EPSG 4326 están soportados. Para un GeoJSON, solo se admite EPSG 4326"
 
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_clone.html:214
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_edit.html:199
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_form.html:184
-msgid "Max upload size1"
+msgid "Max upload size_1"
 msgstr "El peso máximo del archivo admitido es 10MB"
 
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_clone.html:220
@@ -507,17 +507,17 @@ msgid "Clear options"
 msgstr "Limpiar opciones"
 
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_form.html:240
-msgid "Only zip and GeoJSON"
+msgid "Only zip and GeoJSON1"
 msgstr "Alternativamente, puede cargar un archivo zip con datos espaciales SHP (en coordenadas EPSG 3857 o EPSG 4326) que delimite el polígono que definen las áreas en que ya sea se prefiere o se previene una SbN. Para la configuración, se deben cumplir los siguientes criterios:"
 
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_form.html:241
-msgid "Only EPSG"
+msgid "Only EPSG1"
 msgstr ""
 "Filas: Cada fila es un polígono que define un área donde se debe preferir o prevenir una actividad particular. \n"
 "Columnas: Las columnas deben crearse así:"
 
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_form.html:242
-msgid "Max upload size"
+msgid "Max upload size1"
 msgstr ""
 "- activity_n (nombre de actividad): Valor textual que especifica qué una SbN se prefiere o se previene en este polígono Debe coincidir con el nombre textual de las SbN que ha definido previamente en el sistema. \n"
 "- action: Valor textual que especifica si una SbN está siendo preferida o prevenida en este polígono. Los valores válidos son ‘prefer’ y ‘prevent’."
