@@ -494,3 +494,9 @@ msgstr "Please see the InVEST documentation"
 
 msgid "run_processing_description"
 msgstr "The system has started the analysis of your case study. This task will take a few minutes so you can close this window and come back later. In addition, the system will send you an email notifying you when the results are available."
+
+msgid "root_depth"
+msgstr "root_depth (mm)"
+
+msgid "load_n"
+msgstr "load_n Kg/(Ha*year)"

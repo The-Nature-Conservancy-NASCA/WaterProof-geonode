@@ -546,8 +546,8 @@ $(document).ready(function () {
             }
         })
     });
-    $('#btnDelimitArea').on("click", delimitIntakeArea)
-    $('#btnValidateArea').on("click", validateIntakeArea)
+    $('#btnDelimitArea').on("click", delimitIntakeArea);
+    $('#btnValidateArea').on("click", validateIntakeArea);
     if (!mapLoader) {
         mapLoader = L.control.loader().addTo(map);
     }
