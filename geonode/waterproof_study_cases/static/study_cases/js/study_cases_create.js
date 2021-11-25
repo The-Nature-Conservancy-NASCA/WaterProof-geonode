@@ -1269,7 +1269,7 @@ $(document).ready(function () {
             content += '<th scope="col" class="small text-center vat">lucode</th>'
             $.each(labels, function (key, v) {
                 if (key != 'lucode' && key != 'default' && key != 'lulc_desc' && key != 'description' && key != 'user_id' && key != 'intake_id' && key != 'study_case_id' && key != 'id' && key != 'macro_region' && key != 'kc' && key != 'edit') {
-                    content += '<th scope="col" class="small text-center vat">' + key + '</th>'
+                    content += '<th scope="col" class="small text-center vat">' + gettext(key) + '</th>'
                 }
             });
             content += '</tr></thead><tbody>'

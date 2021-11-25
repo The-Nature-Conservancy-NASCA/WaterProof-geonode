@@ -84,7 +84,7 @@
                 <td class="small vat align-text-center">{{treatmentPlants.standardNameSpanish}}</td>
                 <td class="small vat align-text-center">
                     {% for intake in treatmentPlants.plantIntakeName %}
-                        {{intake}}<br>
+                    <a href="/intake/view/{{intake.id}}" target="_blank">{{intake.name}} </a> <br>                        
                     {% endfor %}
                 </td>
                 <td class="small text-center vat items-align-center">

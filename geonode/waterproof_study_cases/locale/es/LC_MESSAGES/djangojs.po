@@ -440,3 +440,9 @@ msgstr "Cantidad"
 
 msgid "Annual Operation and Maintenance Cost"
 msgstr "Costo anual de operación y mantenimiento"
+
+msgid "root_depth"
+msgstr "root_depth (mm)"
+
+msgid "load_n"
+msgstr "load_n Kg/(Ha*año)"
