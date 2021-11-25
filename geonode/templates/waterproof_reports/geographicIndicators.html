@@ -187,15 +187,20 @@
 									<br>
 									PDF
 								</div>
-								<div class="col-md-1 report-download-zip" onclick="downloadZip()">
-									<img src="/static/geonode/img/descarga.png" alt="download"/>
-									<br>
-									ZIP
-								</div>
 							</div>
 						</div>    
 					</div>
-				</div>            
+				</div>         
+				<img id="resultado" style="visibility:hidden" alt="result">
+				<form id="TheForm" method="post" action="../../reports/pdf/" target="TheWindow">
+					{% csrf_token %}
+					<input type="hidden" name="studyCase" id="studyCase"/>
+					<input type="hidden" name="studyCity" id="studyCity"/>
+					<input type="hidden" name="studyCountry" id="studyCountry"/>
+					<input type="hidden" name="studyRegion" id="studyRegion"/>
+					<input type="hidden" name="discountRateData" id="discountRateData"/>
+					<input type="hidden" name="mapSendImage" id="mapSendImage"/>
+				</form>   
 		</div>
 		<img src="" alt="legend" id="generated-img"/>
 
@@ -258,24 +263,7 @@
 	const urlWaterProofLyrAreasRiosMS = server + `?map=/etc/mapserver/${baseData}/WI_${intake}/out/areas_rios.map&SERVICE=WMS`;
 	var mapAreasRios;
 
-	$(function () {
-		openPDF = function() {      
-			generateMap2Img('mapidcuenca','resultado');
-			setTimeout(function(){
-				document.getElementById('studyCase').value = localStorage.idStudyCase;
-				document.getElementById('studyCity').value = localStorage.getItem('city');
-				document.getElementById('studyCountry').value = localStorage.getItem('country');
-				document.getElementById('studyRegion').value = localStorage.getItem('region');
-				document.getElementById('discountRateData').value = document.getElementById("discountRate").innerHTML;
-				window.open('', 'TheWindow');
-				document.getElementById('TheForm').submit();
-			}, 4000);
-		}
-
-		downloadZip = function(){
-			window.location.href = "{{filterzip.link}}";
-		}
-		
+	$(function () {		
 		changeReport = function() {
 				location.href = "../../study_cases/report/" + localStorage.idStudyCase;
 		}

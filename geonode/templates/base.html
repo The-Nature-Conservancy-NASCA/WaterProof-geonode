@@ -612,8 +612,8 @@
             <!-- <li>{% trans "Read More" %}</li> -->
             <!-- <li><a href="{% url "about" %}">{% trans "About Waterproof" %}</a></li> -->
 			<li><a href="{% url "frequently_list" %}">{% trans "FAQ" %}</a></li>
-            <li><a href="{% url "terms_of_use" %}">{% trans "Terms and conditions" %}</a></li>
-			<li><a href="{% url "privacy-policy" %}">{% trans "Privacy policy" %}</a></li>
+      <li><a href="/pages/{{request.LANGUAGE_CODE}}/terms-of-use/">{% trans "Terms and conditions" %}</a></li>
+			<li><a href="/pages/{{request.LANGUAGE_CODE}}/privacy-policy/">{% trans "Privacy policy" %}</a></li>
 			<!-- <li><a href="{% url "collaborators" %}">{% trans "Collaborators" %}</a></li>
 			<li><a href="https://waterfundstoolbox.org/">{% trans "Water funds toolbox" %}</a></li> -->
             <!-- {% if perms.announcements.can_manage %} -->
