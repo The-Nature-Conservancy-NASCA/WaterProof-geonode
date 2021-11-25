@@ -156,15 +156,15 @@ class CustomUserCreationForm2(SignupForm):
         #selected_choices = ('ADMIN','Administrator')
         #self.fields['professional_role'].PROFESSIONAL_ROLES = ({(k, v) for k, v in PROFESSIONAL_ROLES if k not in selected_choices})
 
-    first_name = forms.CharField(label=_("First Name"),
+    first_name = forms.CharField(label=_("Nickname"),
                                widget=forms.TextInput(
                                    attrs={'placeholder':
-                                          _('First Name')}))
+                                          _('Nickname')}))
     
-    last_name = forms.CharField(label=_("Last Name"),
+    last_name = forms.CharField(label=_("Your Initial"),
                                widget=forms.TextInput(
                                    attrs={'placeholder':
-                                          _('Last Name')}))
+                                          _('Your Initial')}))
 
     professional_role = forms.ChoiceField(label=_("Professional Role"), choices=PROFESSIONAL_ROLES_)
 

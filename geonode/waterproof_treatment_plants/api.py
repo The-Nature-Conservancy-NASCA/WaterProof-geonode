@@ -65,11 +65,11 @@ def getTreatmentPlantsList(request):
 
 		dict_plants = {}
 		for plant in plantList:
-			lastPlantIntakeName = ''
+			plantIntakes = {}
 			csinfra = plant.csinfra_plant
 			element = plant.csinfra_elementsystem
 			try:
-				lastPlantIntakeName = ("%s:%s::%s") % (element.intake.name, element.name, element.graphId)
+				plantIntakes = {"name":("%s:%s::%s") % (element.intake.name, element.name, element.graphId), "id":element.intake.id}
 			except:
 				lastNull = ''
 			
@@ -86,13 +86,13 @@ def getTreatmentPlantsList(request):
 				"plantSuggest": csinfra.plant_suggest,
 				"plantCityId": csinfra.plant_city_id,
 				"standardNameSpanish": csinfra.plant_city.standard_name_spanish,
-				"plantIntakeName": [lastPlantIntakeName],
+				"plantIntakeName": [plantIntakes],
 				"geom" : element.intake.polygon_set.first().geom.geojson #json.loads(element.intake.polygon_set.first().geomIntake)['features'][0]['geometry'] # geom.geojson 
 			}
 			if (not csinfra.id in dict_plants):
 				dict_plants[csinfra.id] = obj_plant
 			else:
-				dict_plants[csinfra.id]['plantIntakeName'].append(lastPlantIntakeName)				
+				dict_plants[csinfra.id]['plantIntakeName'].append(plantIntakes)				
 					
 		for k in dict_plants:
 			obj_plant_list.append(dict_plants[k])

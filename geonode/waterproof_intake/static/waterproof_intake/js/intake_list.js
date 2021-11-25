@@ -132,7 +132,7 @@ $(function () {
                         text: gettext("This intake is in use by other elements and can't be deleted."),
                     });
                 } else{
-                    evt.currentTarget.classList.add("");
+                    return;
                 }
             });            
         });          

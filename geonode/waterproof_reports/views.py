@@ -1390,7 +1390,7 @@ def pdf(request):
     pdf.ln(10)
     pdf.set_text_color(100, 100, 100)
     pdf.set_fill_color(255, 255, 255)
-    pdf.cell(epw, 10, 'Total discounted investment', align='C')
+    pdf.cell(epw, 10, 'Total discounted benefits', align='C')
     pdf.ln(5)
     pdf.set_font('Arial', '', 15)
     pdf.cell(epw, 10, format(float(idTotalEstimatedInvestment), '0,.2f'), align='C')

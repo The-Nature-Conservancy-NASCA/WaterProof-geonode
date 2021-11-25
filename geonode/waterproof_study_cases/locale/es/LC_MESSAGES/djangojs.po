@@ -27,7 +27,7 @@ msgstr ""
 "Project-Id-Version: GeoNode\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-11-28 18:12+0000\n"
-"PO-Revision-Date: 2021-08-09 12:19-0500\n"
+"PO-Revision-Date: 2021-11-25 11:29-0500\n"
 "Last-Translator: Julien Collaer <julien.collaer@opengeode.be>\n"
 "Language-Team: Spanish (http://www.transifex.com/geonode/geonode/language/es/)\n"
 "Language: es\n"
@@ -241,8 +241,7 @@ msgid " - 500 Internal Server Error. This error indicates that the server has en
 msgstr ""
 
 #: geonode/static/geonode/js/upload/LayerInfo.js:356
-msgid ""
-" - 501 Not Implemented. This error indicates that the HTTP method sent by the client is not supported by the server. This is most often caused by the server being out of date. It is a very rare error and generally requires that the web server be updated."
+msgid " - 501 Not Implemented. This error indicates that the HTTP method sent by the client is not supported by the server. This is most often caused by the server being out of date. It is a very rare error and generally requires that the web server be updated."
 msgstr ""
 
 #: geonode/static/geonode/js/upload/LayerInfo.js:359
@@ -258,9 +257,7 @@ msgid " - 504 Gateway Timeout. GeoNode lost the connection with GeoServer or DB 
 msgstr ""
 
 #: geonode/static/geonode/js/upload/LayerInfo.js:368
-msgid ""
-" - 505 HTTP Version Not Supported. This error occurs when the server refuses to support the HTTP protocol that has been specified by the client computer. This can be caused by the protocol not being specified properly by the client computer; for "
-"example, if an invalid version number has been specified."
+msgid " - 505 HTTP Version Not Supported. This error occurs when the server refuses to support the HTTP protocol that has been specified by the client computer. This can be caused by the protocol not being specified properly by the client computer; for example, if an invalid version number has been specified."
 msgstr ""
 
 #: geonode/static/geonode/js/upload/LayerInfo.js:371
@@ -269,14 +266,12 @@ msgstr ""
 
 #: geonode/static/geonode/js/upload/LayerInfo.js:374
 msgid ""
-" - 507 Insufficient Storage. This error indicates that the server is out of free memory. This is most likely to occur when an application that is being requested cannot allocate the necessary system resources to run. To resolve the issue, the server's "
-"hard disk may need to be cleaned of any unnecessary documents to free up more hard disk space, its memory may need to be expanded, or it may simply need to be restarted. Contact the system administrator for more information regarding this error message."
+" - 507 Insufficient Storage. This error indicates that the server is out of free memory. This is most likely to occur when an application that is being requested cannot allocate the necessary system resources to run. To resolve the issue, the server's hard disk may need to be cleaned of any unnecessary documents "
+"to free up more hard disk space, its memory may need to be expanded, or it may simply need to be restarted. Contact the system administrator for more information regarding this error message."
 msgstr ""
 
 #: geonode/static/geonode/js/upload/LayerInfo.js:377
-msgid ""
-" - 509 Bandwidth Limit Exceeded. This error occurs when the bandwidth limit imposed by the system administrator has been reached. The only fix for this issue is to wait until the limit is reset in the following cycle. Consult the system administrator "
-"for information about acquiring more bandwidth."
+msgid " - 509 Bandwidth Limit Exceeded. This error occurs when the bandwidth limit imposed by the system administrator has been reached. The only fix for this issue is to wait until the limit is reset in the following cycle. Consult the system administrator for information about acquiring more bandwidth."
 msgstr ""
 
 #: geonode/static/geonode/js/upload/LayerInfo.js:380
@@ -440,3 +435,138 @@ msgstr "Cantidad"
 
 msgid "Annual Operation and Maintenance Cost"
 msgstr "Costo anual de operación y mantenimiento"
+
+msgid "root_depth"
+msgstr "root_depth (mm)"
+
+msgid "load_n"
+msgstr "load_n kg/(ha*año)"
+
+msgid "description"
+msgstr "Descripción"
+
+msgid "lucode"
+msgstr "lucode (adimensional)"
+
+msgid "usle_c"
+msgstr "usle_c (adimensional)"
+
+msgid "usle_p"
+msgstr "usle_p (adimensional)"
+
+msgid "eff_n"
+msgstr "eff_n (adimensional)"
+
+msgid "load_p"
+msgstr "load_p kg/(ha*año)"
+
+msgid "eff_p"
+msgstr "eff_p (adimensional)"
+
+msgid "crit_len_n"
+msgstr "crit_len_n (m)"
+
+msgid "ccrit_len_p"
+msgstr "crit_len_p (m)"
+
+msgid "proportion_subsurface_n"
+msgstr "proportion_subsurface_n (adimensional)"
+
+msgid "cn_a"
+msgstr "cn_a (adimensional)"
+
+msgid "cn_b"
+msgstr "cn_b (adimensional)"
+
+msgid "cn_c"
+msgstr "cn_c (adimensional)"
+
+msgid "cn_d"
+msgstr "cn_d (adimensional)"
+
+msgid "kc_1"
+msgstr "kc_1 (adimensional)"
+
+msgid "kc_2"
+msgstr "kc_2 (adimensional)"
+
+msgid "kc_3"
+msgstr "kc_3 (adimensional)"
+
+msgid "kc_4"
+msgstr "kc_4 (adimensional)"
+
+msgid "kc_5"
+msgstr "kc_5 (adimensional)"
+
+msgid "kc_6"
+msgstr "kc_6 (adimensional)"
+
+msgid "kc_7"
+msgstr "kc_7 (adimensional)"
+
+msgid "kc_8"
+msgstr "kc_8 (adimensional)"
+
+msgid "kc_9"
+msgstr "kc_9 (adimensional)"
+
+msgid "kc_10"
+msgstr "kc_10 (adimensional)"
+
+msgid "kc_11"
+msgstr "kc_11 (adimensional)"
+
+msgid "kc_12"
+msgstr "kc_12 (adimensional)"
+
+msgid "c_above"
+msgstr "c_above (Mg/ha)"
+
+msgid "c_below"
+msgstr "c_below (Mg/ha)"
+
+msgid "c_soil"
+msgstr "c_soil (Mg/ha)"
+
+msgid "c_dead"
+msgstr "c_dead (Mg/ha)"
+
+msgid "sed_exp"
+msgstr "sed_exp (adimensional)"
+
+msgid "sed_ret"
+msgstr "sed_ret (adimensional)"
+
+msgid "rough_rank"
+msgstr "rough_rank (s/m^(1/3))"
+
+msgid "cover_rank"
+msgstr "cover_rank (adimensional)"
+
+msgid "p_ret"
+msgstr "p_ret (adimensional)"
+
+msgid "p_exp"
+msgstr "p_exp (g/(ha*año)"
+
+msgid "n_ret"
+msgstr "n_ret (adimensional)"
+
+msgid "n_exp"
+msgstr "n_exp (g/(ha*year)"
+
+msgid "native_veg"
+msgstr "native_veg (adimensional)"
+
+msgid "lulc_veg"
+msgstr "lulc_veg (adimensional)"
+
+msgid "edit"
+msgstr "Editado"
+
+msgid "Alert_time_demand_title"
+msgstr "La serie de demanda de las captaciones de agua involucradas en el caso de estudio han sido definidas en un tiempo diferente al indicado para el análisis ROI."
+
+msgid "Alert_time_demand"
+msgstr "Si la serie de demanda está definida en un tiempo menor al del análisis ROI, WaterProof extenderá la serie hasta el año de análisis repitiendo el valor de demanda del último año. Si la serie de demanda está definida en un tiempo mayor al del análisis ROI, WaterProof cortará la serie hasta el año de análisis."
