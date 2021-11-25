@@ -42,7 +42,7 @@ msgstr ""
 "Project-Id-Version: GeoNode\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-02-11 20:03-0500\n"
-"PO-Revision-Date: 2021-11-03 17:02-0500\n"
+"PO-Revision-Date: 2021-11-25 12:23-0500\n"
 "Last-Translator: Julien Collaer <julien.collaer@opengeode.be>\n"
 "Language-Team: Spanish (http://www.transifex.com/geonode/geonode/language/es/)\n"
 "Language: es\n"
@@ -9413,6 +9413,12 @@ msgstr "Analista"
 
 msgid "External input"
 msgstr "External input"
+
+msgid "Nickname"
+msgstr "Alias"
+
+msgid "Your initial"
+msgstr "Sus iniciales"
 
 #: geonode/templates/Private_policy.html
 msgid "The Nature Conservancy takes your privacy very seriously. This notice describes the policy of The Nature Conservancy's privacy in relation to the website water-proof.org (collectively, the website). By visiting the Website, you automatically accept the policies described in this Privacy Policy. If you do not agree with this Privacy Policy, you are not allowed to use the Website. The Nature Conservancy may modify this privacy policy occasionally unilaterally and without prior notice. Any modification will be communicated by this medium, so you should make sure to check periodically for any changes. The fact that you continue to use this Website after it has been published any modification will imply your acceptance of such modifications."
