@@ -537,9 +537,7 @@ $(document).ready(function () {
                     icon: 'warning',
                     title: gettext('field_problem'),
                     text: gettext('Alert_time_demand'),
-                });
-                valid_period = false;
-                return;
+                });                
             }
         }
         
@@ -827,8 +825,6 @@ $(document).ready(function () {
                     title: gettext('field_problem'),
                     text: gettext('Alert_time_demand'),
                 });
-                valid_period = false;
-                return;
             }
         }
 
