@@ -27,7 +27,7 @@ msgstr ""
 "Project-Id-Version: GeoNode\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-08-23 23:16-0500\n"
-"PO-Revision-Date: 2021-11-25 11:59-0500\n"
+"PO-Revision-Date: 2021-11-25 15:04-0500\n"
 "Last-Translator: Julien Collaer <julien.collaer@opengeode.be>\n"
 "Language-Team: Spanish (http://www.transifex.com/geonode/geonode/language/es/)\n"
 "Language: es\n"
@@ -313,6 +313,9 @@ msgstr "Espesante de lodo"
 
 msgid "Drying beds"
 msgstr "Camas de secado"
+
+msgid "Sludge drying"
+msgstr "Secado de lodos"
 
 msgid "Filter press"
 msgstr "Filtro de presión"
