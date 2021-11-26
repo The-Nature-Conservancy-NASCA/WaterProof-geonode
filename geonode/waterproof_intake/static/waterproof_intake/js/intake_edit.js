@@ -405,6 +405,7 @@ $(document).ready(function () {
                     waterExtractionData = {};
                     $('#waterExtraction').val(JSON.stringify(waterExtractionData));
                     $('#intakeNIYMI').val('');
+                    intakeInterpolationParams.type = interpolationType.LINEAR;
                 } else if (result.isDenied) {
                     $('[href="#manual"]').tab('show');
                 }

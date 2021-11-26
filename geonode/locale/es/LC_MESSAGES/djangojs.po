@@ -27,7 +27,7 @@ msgstr ""
 "Project-Id-Version: GeoNode\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-02-11 16:19-0500\n"
-"PO-Revision-Date: 2020-05-19 18:03-0600\n"
+"PO-Revision-Date: 2021-11-25 14:58-0500\n"
 "Last-Translator: Julien Collaer <julien.collaer@opengeode.be>\n"
 "Language-Team: Spanish (http://www.transifex.com/geonode/geonode/language/"
 "es/)\n"
@@ -36,7 +36,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.3.1\n"
+"X-Generator: Poedit 2.4.3\n"
 
 #: geonode/monitoring/static/monitoring/bundle.js:173
 msgid "STORE_UPDATED"
@@ -559,6 +559,9 @@ msgstr "Extensión predeterminada"
 msgid "Saving"
 msgstr "Guardando"
 
+msgid "Please wait"
+msgstr "Por favor, espere"
+
 #, fuzzy
 #~| msgid "Now"
 #~ msgid "No"
@@ -917,9 +920,6 @@ msgstr "Guardando"
 
 #~ msgid "Downloading..."
 #~ msgstr "Descargando..."
-
-msgid "Please wait"
-msgstr "Por favor, espere"
 
 #~ msgid "Available %s"
 #~ msgstr "Available %s"

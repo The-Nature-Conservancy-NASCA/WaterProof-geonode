@@ -143,11 +143,11 @@ def getTypePtap(request):
 	information is returned to the user without making any changes
 	"""
 	if request.method == 'POST':
-		if request.user.is_authenticated:
-			url = settings.WATERPROOF_INVEST_API + 'ptapSelection'
-			print ("getTypePtap :: url: %s" % url)
-			x = requests.post( url, json = request.data, verify=False)
-			return JsonResponse(json.loads(x.text), safe=False)
+		
+		url = settings.WATERPROOF_INVEST_API + 'ptapSelection'
+		print ("getTypePtap :: url: %s" % url)
+		x = requests.post( url, json = request.data, verify=False)
+		return JsonResponse(json.loads(x.text), safe=False)
 
 
 @api_view(['GET'])
