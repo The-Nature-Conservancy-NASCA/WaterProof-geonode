@@ -2027,7 +2027,7 @@ def pdf(request):
     base_path_output = os.path.join(settings.MEDIA_ROOT , 'tmp')
     if (not os.path.isdir(base_path_output)):
         os.mkdir(base_path_output)
-    report_filename = 'report_study_case_' + study_case_id + '.pdf'
+    report_filename = 'report_case_study_' + study_case_id + '.pdf'
     study_case_filename = os.path.join(base_path_output, report_filename)
     if (os.path.isfile(study_case_filename)):
         try:
