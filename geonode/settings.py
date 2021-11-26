@@ -2250,7 +2250,7 @@ WAGTAIL_SITE_NAME = 'Waterproof CMS'
 # }
 CATALOG_METADATA_TEMPLATE = os.getenv("CATALOG_METADATA_TEMPLATE", "catalogue/full_metadata.xml")
 
-WATERPROOF_SPECIAL_VALUES = ['min', 'E2', 'E3']
+WATERPROOF_SPECIAL_VALUES = ['min', 'E2', 'E3', 'max']
 
 CKEDITOR_UPLOAD_PATH="aux_media"
 
