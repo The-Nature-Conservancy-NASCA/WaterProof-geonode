@@ -499,7 +499,7 @@
                 </ul>
               </li>
           {% else %}
-          <li><a href="#" data-toggle="modal" data-target="#SigninModal" role="button" >{% trans "Sign in" %} </a></li>
+          <li><a href="/account/login/">{% trans "Sign in" %} </a></li>
           {% endif %}
           
           {% if "/pages/" in request.path %}
@@ -531,7 +531,7 @@
 
   <div id="wrap">
     {% block middle %}
-    <div class="container-wp">
+    <div class="container">
       {% include "_status_message.html" %}
       {% include "_announcements.html" %}
       {% include "_messages.html" %}
@@ -666,56 +666,7 @@
     </section>
   {% endif %}
 
-  {% endblock footer %}
-
-    <!-- Modal must stay outside the navbar -->
-    {% if not user.is_authenticated %}
-    <div class="modal fade" id="SigninModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-sm">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" onclick="$('#SigninModal').modal('hide');">
-              <span aria-hidden="true">&times;</span
-                ><span class="sr-only">{% trans "Close" %}</span>
-              </button>
-            <h4 class="modal-title" id="myModalLabel">{% trans "Sign in" %}</h4>
-          </div>          
-          <div class="center">
-            <img class="img-underconstruction" src="{% static 'geonode/img/under-construction.png' %}" alt="image login">         
-          </div>          
-          <form class="form-signin" role="form" action="{% url "account_login" %}?next={{ request.path }}" method="post">
-            <div class="modal-body">
-              {% csrf_token %}
-              {% get_providers as socialaccount_providers %}
-              {% if socialaccount_providers %}
-                  {% include "socialaccount/snippets/provider_list.html" with process="login" %}
-                  {% include "socialaccount/snippets/login_extra.html" %}
-                <hr>
-              {% endif %}
-              <div class="form-group">
-                <label for="id_username" class="sr-only">{% trans "Username" %}:</label>
-                <input id="id_username" class="form-control" name="login" placeholder="{% trans "Username" %}" type="text" />
-              </div>
-              <div class="form-group">
-                <label for="id_password" class="sr-only">{% trans "Password" %}:</label>
-                <input id="id_password" class="form-control" name="password" placeholder="{% trans "Password" %}" type="password" autocomplete="off" />
-              </div>
-              <label class="checkbox">
-                <input type="checkbox" /> {% trans "Remember Me" %}
-              </label>
-              <p>
-                <a href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
-              </p>
-            </div>
-            <div class="modal-footer">
-              <button type="submit" class="btn btn-primary btn-block">{% trans "Sign in" %}</button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>       
-    {% endif %}
-    <!-- End of Modal -->
+  {% endblock footer %}    
 
     {% if DEBUG_STATIC %}
     <script src="{% static "lib/js/jquery.js" %}"></script>
@@ -743,15 +694,7 @@
     <script type="text/javascript" src="{% url "javascript-catalog" %}"></script>
     
     {% block extra_script %}{% endblock extra_script %}
-    {% if not user.is_authenticated %}
-      <script type="text/javascript">
-        $(document).ready(function() {               
-          {% if not "/ShowDiagram/" in request.path %}
-            $("#SigninModal").modal({backdrop: 'static', keyboard: false});
-          {% endif %}
-        })
-      </script> 
-    {% endif %}
+    
     <script type="text/javascript">
       // Autocomplete instance for the search found in the header.
       $(document).ready(function() {
