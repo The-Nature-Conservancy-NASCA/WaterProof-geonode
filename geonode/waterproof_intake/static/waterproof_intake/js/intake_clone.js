@@ -405,6 +405,7 @@ $(document).ready(function () {
                     waterExtractionData = {};
                     $('#waterExtraction').val(JSON.stringify(waterExtractionData));
                     $('#intakeNIYMI').val('');
+                    intakeInterpolationParams.type = interpolationType.LINEAR;
                 } else if (result.isDenied) {
                     $('[href="#manual"]').tab('show');
                 }
@@ -546,8 +547,8 @@ $(document).ready(function () {
             }
         })
     });
-    $('#btnDelimitArea').on("click", delimitIntakeArea)
-    $('#btnValidateArea').on("click", validateIntakeArea)
+    $('#btnDelimitArea').on("click", delimitIntakeArea);
+    $('#btnValidateArea').on("click", validateIntakeArea);
     if (!mapLoader) {
         mapLoader = L.control.loader().addTo(map);
     }

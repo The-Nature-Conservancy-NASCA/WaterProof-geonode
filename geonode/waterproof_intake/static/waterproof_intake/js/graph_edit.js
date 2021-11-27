@@ -652,7 +652,7 @@ function onInit(editor) {
             
             clearInputsMath();
             $('#CalculatorModal').modal('show');
-            let index = parseInt($(this).attr('idvalue'));
+            index = parseInt($(this).attr('idvalue'));
             let fieldsFunction = funcostdb[index].fields;
             var currency = fieldsFunction.currencyCostName;
             if (currency == undefined || currency == '') {

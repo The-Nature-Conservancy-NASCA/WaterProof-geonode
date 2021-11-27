@@ -29,7 +29,7 @@ logger = logging.getLogger(__name__)
 def getIntakeByID(request, id_intake):
     if request.method == 'GET':
         filterIntake = Intake.objects.filter(id=id_intake).values(
-            "id", "name", "description", "water_source_name")
+            "id", "name", "description", "water_source_name", "demand_parameters__years_number")
         data = list(filterIntake)
         return JsonResponse(data, safe=False)
 
@@ -39,20 +39,19 @@ def getIntakeByCity(request, id_city):
     if request.method == 'GET':
         if request.user.is_authenticated:
             # print("getIntakeByCity :: Authenticated user: %s"%request.user)
-            filterIntakeCity = Intake.objects.filter(city__id=id_city, is_complete=True, added_by=request.user).values(
+            intakes = Intake.objects.filter(city__id=id_city, is_complete=True, added_by=request.user).values(
             "id", "name", "water_source_name")
         else:
-            filterIntakeCity = Intake.objects.filter(city__id=id_city, is_complete=True).values(
-            "id", "name", "water_source_name")
-        data = list(filterIntakeCity)
-        return JsonResponse(data, safe=False)
-
+            intakes = Intake.objects.filter(city__id=id_city, is_complete=True).values("id", "name", "water_source_name")
+        return JsonResponse(list(intakes), safe=False)
 
 @api_view(['GET'])
 def getIntakeByPtap(request, id):
     if request.method == 'GET':
         filterIntakePtap = Csinfra.objects.filter(csinfra_plant__id=id).values(
-            "csinfra_elementsystem__intake__id", "csinfra_elementsystem__intake__name", "csinfra_elementsystem__intake__water_source_name").order_by('csinfra_elementsystem__intake__name')
+            "csinfra_elementsystem__intake__id", "csinfra_elementsystem__intake__name", 
+            "csinfra_elementsystem__intake__water_source_name", 
+            "csinfra_elementsystem__intake__demand_parameters__years_number").order_by('csinfra_elementsystem__intake__name')
         data = list(filterIntakePtap)
         return JsonResponse(data, safe=False)
 

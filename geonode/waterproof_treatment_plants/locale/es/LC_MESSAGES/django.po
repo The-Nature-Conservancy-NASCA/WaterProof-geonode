@@ -42,7 +42,7 @@ msgstr ""
 "Project-Id-Version: GeoNode\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-08-23 23:16-0500\n"
-"PO-Revision-Date: 2021-10-11 18:11-0500\n"
+"PO-Revision-Date: 2021-11-22 14:58-0500\n"
 "Last-Translator: Julien Collaer <julien.collaer@opengeode.be>\n"
 "Language-Team: Spanish (http://www.transifex.com/geonode/geonode/language/es/)\n"
 "Language: es\n"
@@ -309,19 +309,19 @@ msgstr "Filtración"
 
 #: templates/treatment_plants_edit.html:179
 msgid "Filtración por membranas tamaño de particula retenida 0.01 μm"
-msgstr "Filtración por membranas tamaño de particula retenida 0.01 μm"
+msgstr "Filtración por membranas tamaño de particula retenida 0.01μm"
 
 #: templates/treatment_plants_edit.html:185
 msgid "Filtración por membranas tamaño de particula retenida 0.1 μm"
-msgstr "Filtración por membranas tamaño de particula retenida 0.1 μm"
+msgstr "Filtración por membranas tamaño de particula retenida 0.1μm"
 
 #: templates/treatment_plants_edit.html:191
 msgid "Filtración por membranas tamaño de particula retenida 0.001 μm"
-msgstr "Filtración por membranas tamaño de particula retenida 0.001 μm"
+msgstr "Filtración por membranas tamaño de particula retenida 0.001μm"
 
 #: templates/treatment_plants_edit.html:197
 msgid "Filtración por membranas tamaño de particula retenida 0.0001 μm"
-msgstr "Filtración por membranas tamaño de particula retenida 0.0001 μm"
+msgstr "Filtración por membranas tamaño de particula retenida 0.0001μm"
 
 #: templates/treatment_plants_edit.html:202
 msgid "Tratamiento de lodos"

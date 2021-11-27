@@ -27,10 +27,9 @@ msgstr ""
 "Project-Id-Version: GeoNode\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-08-23 23:16-0500\n"
-"PO-Revision-Date: 2021-07-29 12:38-0500\n"
+"PO-Revision-Date: 2021-11-26 14:35-0500\n"
 "Last-Translator: Julien Collaer <julien.collaer@opengeode.be>\n"
-"Language-Team: Spanish (http://www.transifex.com/geonode/geonode/language/"
-"es/)\n"
+"Language-Team: Spanish (http://www.transifex.com/geonode/geonode/language/es/)\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -232,7 +231,7 @@ msgid "Error deleting the treatment plant, it must already be used in a case stu
 msgstr "Problemas eliminando la planta, puede estar siendo usada en algún caso de uso"
 
 msgid "The intake has not been deleted, try again!"
-msgstr "La captacion no ha sido eliminada, intente nuevamente"
+msgstr "La captación no ha sido eliminada, intente nuevamente"
 
 msgid "Edit Cost function"
 msgstr "Editar función de costo"
@@ -275,67 +274,70 @@ msgstr "Mezcla hidráulica"
 
 msgid "Polymer"
 msgstr "Polímero"
- 
+
 msgid "Single bed slow filtration"
-msgstr "Filtro rápido de cama simple"
- 
+msgstr "Filtro lento de cama simple"
+
 msgid "Rapid single bed filtration"
-msgstr "Filtro rápido de cama simple" 
- 
+msgstr "Filtro rápido de cama simple"
+
 msgid "Rapid mixed bed filtration"
-msgstr "Filtro rápido de cama mezclada" 
- 
+msgstr "Filtro rápido de cama mezclada"
+
 msgid "Hydraulic flocculation"
 msgstr "Floculación hidráulica"
- 
+
 msgid "Mechanical flocculation"
-msgstr "Floculación mecánica" 
+msgstr "Floculación mecánica"
 
 msgid "Inverse osmosis"
-msgstr "Ósmosis inversa" 
- 
+msgstr "Ósmosis inversa"
+
 msgid "Nanofiltration"
-msgstr "Nanofiltración" 
-  
+msgstr "Nanofiltración"
+
 msgid "Quick mix"
-msgstr "Mezcla rápida" 
- 
+msgstr "Mezcla rápida"
+
 msgid "Mantenimiento edificaciones"
-msgstr "Mantenimiento edificaciones" 
- 
+msgstr "Mantenimiento edificaciones"
+
 msgid "Intercambio iónico"
-msgstr "Intercambio iónico" 
- 
+msgstr "Intercambio iónico"
+
 msgid "Sludge pumping"
-msgstr "Bomba de lodo" 
- 
+msgstr "Bomba de lodo"
+
 msgid "Sludge thickener"
 msgstr "Espesante de lodo"
- 
+
 msgid "Drying beds"
 msgstr "Camas de secado"
- 
+
+msgid "Sludge drying"
+msgstr "Secado de lodos"
+
 msgid "Filter press"
 msgstr "Filtro de presión"
-   
+
 msgid "Conventional settler"
 msgstr "Settler Convencional "
- 
+
 msgid "High Rate Settler"
 msgstr "Settler de alta velocidad"
- 
+
 msgid "Sludge blanket decanter"
 msgstr "Manta de lodo"
 
 msgid "Chlorine gas"
 msgstr "Gas clorhídrico"
- 
+
 msgid "Chlorine in situ"
 msgstr "Clorhídrico en sitio"
- 
+
 msgid "Ultrafiltration"
 msgstr "Ultrafiltración"
- 
+
 msgid "Microfiltration"
 msgstr "Microfiltración"
 
@@ -347,3 +349,6 @@ msgstr "Costos de operación y mantenimiento anuales - Polímero"
 
 msgid "Water-air washing"
 msgstr "Lavado de agua-aire"
+
+msgid "Pump washing"
+msgstr "Lavado de bombas"
