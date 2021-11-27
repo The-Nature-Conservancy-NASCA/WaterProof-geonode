@@ -47,6 +47,7 @@ urlpatterns = [
     path('getFinancialAnalysisPdfRunAnalisisPdf/', api.getFinancialAnalysisPdfRunAnalisisPdf, name='get_financial_analysis_pdf_run_analisis_pdf'),
     path('getObjetivesForPorfoliosPdf/', api.getObjetivesForPorfoliosPdf, name='get_objetives_for_porfolios_pdf'),
     path('getWpcompareMapas/', api.getWpcompareMapas, name='get_Wp_compare_Mapas'),
+    path('getStudyCaseInfo/', api.getStudyCaseInfo, name='getStudyCaseInfo'),
 
 
        # Compare Maps

@@ -63,7 +63,7 @@
                     </div>
                     <div class="file-column-left">
                         <div>{% trans "Country:" %}</div>
-                        <div class="value-file-column-left" id="idCountri">{% trans "-" %}</div>
+                        <div class="value-file-column-left" id="idCountry">{% trans "-" %}</div>
                     </div>
                     <div class="file-column-left">
                         <div>{% trans "Region:" %}</div>
@@ -480,7 +480,7 @@ $(function () {
 
     initialize = function () {
 
-        $("#idCountri").html(localStorage.getItem('country'));
+        $("#idCountry").html(localStorage.getItem('country'));
         $("#idCity").html(localStorage.getItem('city'));
         $("#idRegion").html(localStorage.getItem('region'));
         $("#idNameStudyCase").html(localStorage.getItem('studyCasesName'));
