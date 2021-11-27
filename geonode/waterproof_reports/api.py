@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from random import randrange, choice
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import DateTimeField
+from geonode.waterproof_study_cases.models import StudyCases
 import requests
 import psycopg2
 import json
@@ -1063,3 +1064,16 @@ def getWpcompareMapas(request):
 			})
 
 		return JsonResponse(objects_list, safe=False)
+
+
+@api_view(['GET'])
+def getStudyCaseInfo(request):
+	study_case_id = request.query_params.get('studyCase')
+	study_case = StudyCases.objects.get(id=study_case_id)
+	name = study_case.name
+	city_name = study_case.city.name
+	country_name = study_case.city.country.name
+	region_name = study_case.city.country.region.name
+
+	return JsonResponse({"name": name, "city": city_name, "country": country_name, "region": region_name})
+	
