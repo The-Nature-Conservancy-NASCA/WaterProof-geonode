@@ -27,7 +27,7 @@ msgstr ""
 "Project-Id-Version: GeoNode\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-11-28 18:12+0000\n"
-"PO-Revision-Date: 2021-11-26 11:19-0500\n"
+"PO-Revision-Date: 2021-11-27 10:38-0500\n"
 "Last-Translator: Julien Collaer <julien.collaer@opengeode.be>\n"
 "Language-Team: Spanish (http://www.transifex.com/geonode/geonode/language/es/)\n"
 "Language: es\n"
@@ -374,7 +374,7 @@ msgstr ""
 "Por favor, comprobar si hay errores en el formulario!"
 
 msgid "CO2_country"
-msgstr "CO2 Eq for "
+msgstr "CO2 Eq para "
 
 msgid "biophysical_tables"
 msgstr "Tablas biofisicas"
@@ -570,3 +570,57 @@ msgstr "La serie de demanda de las captaciones de agua involucradas en el caso d
 
 msgid "Alert_time_demand"
 msgstr "Si la serie de demanda está definida en un tiempo menor al del análisis ROI, WaterProof extenderá la serie hasta el año de análisis repitiendo el valor de demanda del último año. Si la serie de demanda está definida en un tiempo mayor al del análisis ROI, WaterProof cortará la serie hasta el año de análisis."
+
+msgid "portfolios intro"
+msgstr "Información sobre los portafolios"
+
+msgid "portfolios objectives"
+msgstr "Objetivos del portafolio"
+
+msgid "error_period_analysis"
+msgstr "Verifique que el periodo de análisis sea mayor a 10 y menor que 100"
+
+msgid "error_fields"
+msgstr "Por favor, complete toda la información requerida"
+
+msgid "question_revert"
+msgstr "¡No podrá revertir esto!"
+
+msgid "response_delete"
+msgstr "Si, eliminarlo"
+
+msgid "error_name"
+msgstr "Por favor, cambie el nombre"
+
+msgid "error_minimum"
+msgstr "Por favor, verifique el valor mínimo"
+
+msgid "error_discount"
+msgstr "Por favor, verifique el valor de la tasa de descuento"
+
+msgid "are_you_sure"
+msgstr "¿Está seguro?"
+
+msgid "study_case_exist"
+msgstr "Caso de estudio existente"
+
+msgid "field_empty"
+msgstr "Campo vacío"
+
+msgid "minimum_value"
+msgstr "Valor mínimo"
+
+msgid "discount_value"
+msgstr "Valor de descuento"
+
+msgid "field_problem"
+msgstr "Problema con el campo"
+
+msgid "error_period_nbs"
+msgstr "El valor del tiempo de implementación de la Solución basada en Naturaleza (año) debe ser menor al tiempo del periodo de análisis"
+
+msgid "error_minimun_nbs"
+msgstr "El valor del escenario de inversión no cumple con los parámetros mínimos de presupuesto para la actividad seleccionada. Por favor, revise y ajuste el valor de la inversión"
+
+msgid "error_annual_investment"
+msgstr "El valor del escenario de inversión no cumple con los parámetros mínimos de presupuesto para la actividad seleccionada. Por favor, revise y ajuste el valor de la inversión"
