@@ -32,24 +32,48 @@ $(function () {
             $('#wrapper').toggleClass('toggled');
         });
 
-        // show/hide div with checkbuttons 
+        // // show/hide div with checkbuttons 
+        // $("#riosTransition").change(function () {
+        //     dato = $("#riosTransition").val();
+        //     var data_value = $(`#selectlanduse${dato}`).attr('data-value');
+        //     $('div[name=selectlanduse]').each(function () {
+        //         $('div[name=selectlanduse]').hide();
+        //         $('div[name=selectlanduse]').find('input[type=radio]:checked').each(function (idx, input) {
+        //             input.checked = false;
+        //         });
+        //         $('div[name=selectlanduse]').find('input[type=radio]').each(function (idx, input) {
+        //             $(input).removeAttr('required');
+        //         });
+        //     });
+        //     if (dato == data_value) {
+        //         $(`#selectlanduse${dato}`).show();
+        //         $(`#selectlanduse${dato}`).find('input[type=radio]').each(function (idx, input) {
+        //             $(input).prop('required',true);
+        //         });
+        //     }
+        // });
+        // $("#clear_options").click(function () {
+        //     $('div[name=selectlanduse]').find('input[type=radio]:checked').each(function (idx, input) {
+        //         input.checked = false;
+        //     });
+        // });
+
         $("#riosTransition").change(function () {
             dato = $("#riosTransition").val();
             var data_value = $(`#selectlanduse${dato}`).attr('data-value');
             $('div[name=selectlanduse]').each(function () {
-                $('div[name=selectlanduse]').hide();
+                $('div[name=selectlanduse]').css({
+                    "display": "none"
+                });
                 $('div[name=selectlanduse]').find('input[type=radio]:checked').each(function (idx, input) {
                     input.checked = false;
                 });
-                $('div[name=selectlanduse]').find('input[type=radio]').each(function (idx, input) {
-                    $(input).removeAttr('required');
-                });
             });
             if (dato == data_value) {
-                $(`#selectlanduse${dato}`).show();
-                $(`#selectlanduse${dato}`).find('input[type=radio]').each(function (idx, input) {
-                    $(input).prop('required',true);
-                });
+                $(`#selectlanduse${dato}`).css({
+                    "display": "block"
+                })
+
             }
         });
         $("#clear_options").click(function () {
