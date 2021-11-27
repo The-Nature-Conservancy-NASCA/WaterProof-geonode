@@ -2009,8 +2009,7 @@ def pdf(request):
         pdf.set_text_color(100, 100, 100)
         pdf.cell(epw, 10, item['nameIntake'], border=0, align='L', fill=0)
         pdf.image('imgpdf/mapas-pdf.png', 20, 50 + heightIcon, w=30)
-        
-        pdf.set_text_color(30, 30, 180)
+                
         geo_url = url_api + "geographic/?folder="
         folder = item['folder']
         intake = item['intake']
@@ -2027,15 +2026,12 @@ def pdf(request):
         pdf.ln(5)
         pdf.cell(45, 5, "")
         pdf.cell(105, 5, msg_geo_line_3, link=geo_link)  
+        pdf.set_text_color(30, 30, 180)
         pdf.set_font(style="B")
         pdf.cell(0, 5, msg_geo_line_4, link=geo_link)      
         
-        
-
         heightIcon = heightIcon + 80
         pdf.set_text_color(100,100,100)
-
-
 
     ####################################################
     base_path_output = os.path.join(settings.MEDIA_ROOT , 'tmp')
