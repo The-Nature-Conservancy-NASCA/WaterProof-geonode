@@ -112,7 +112,7 @@
                             <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span></a>
                     {% if user.is_authenticated %}
                     {% if user.professional_role == 'ADMIN' %}
-                        <a class="btn btn-info display-true" data-id="{{intake.pk}}" href="/intake/edit/{{intake.pk}}" title='{% trans "edit" %}'>
+                        <a class="btn btn-info display-true" id="editIntakeid" onclick="editRef()" data-id="{{intake.pk}}" title='{% trans "edit" %}'>
                             <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
                     </div>
                     <div class="btn-group btn-group-table" role="group">
@@ -124,7 +124,7 @@
                     {% endif %}
                     {% if user.professional_role == 'ANALYS' or user.professional_role == 'COPART' or user.professional_role == 'ACDMC' or user.professional_role == 'SCADM' or user.professional_role == 'MCOMC' or user.professional_role == 'CITIZN' or user.professional_role == 'REPECS' or user.professional_role == 'OTHER' %}
                         {% if intake.added_by.pk == user.pk %}                        
-                        <a class="btn btn-info display-true" data-id="{{intake.pk}}" href="/intake/edit/{{intake.pk}}" title='{% trans "edit" %}'>
+                        <a class="btn btn-info display-true" id="editIntakeid" onclick="editRef()" data-id="{{intake.pk}}" title='{% trans "edit" %}'>
                             <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>                                                                
                     </div>
                     <div class="btn-group btn-group-table" role="group">
@@ -210,6 +210,48 @@
 <script src="{% static "waterproof/js/waterproof-common.js" %}"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10 "></script>
 <script>
+    $(function () {
+        $('#tblIntakes tbody').on('click', '.btn-info', function (evt) {
+            intakeId = evt.currentTarget.getAttribute('data-id');
+            var urlCountIntakes = "intakeUsedByPlantsAndStudyCases/?id=" + intakeId;
+            var promise = $.ajax({
+                url: urlCountIntakes,
+                type: 'GET',
+                dataType: 'json'
+            });
+            promise.done(function (data) {
+                console.log(this);
+                if (data.count > 0) {
+                    evt.currentTarget.classList.add("disabled");
+                    Swal.fire({
+                        text: gettext("This intake is in use by other elements and can't be deleted."),
+                    }).then(function(){
+                        window.location = "#"
+                    });
+                    editRef = function(){
+                        window.location.href = "#";
+                    }
+                } else{
+                    // evt.currentTarget.classList.href("google.com");
+                    // $('#editIntakeid').append(`
+                    //     <a href="/intake/edit/{{intake.pk}}"></a>
+                    //     `)
+                    editRef = function(){
+                        window.location.href = "/intake/edit/"+intakeId;
+                    }
+                    
+                    // evt.currentTarget.classList.add("disabled");
+                    // const btnEdit = document.getElementById('editIntakeid');
+                    // console.log(btnEdit+"<==== este es linea 132")
+                    // btnEdit.disabled = true;
+                    // Swal.fire({
+                    //     text: gettext("Ok! no problem"),
+                    // });
+                }
+            });            
+        });
+    });
+
     $(document).ready(function () {
         drawPolygons(map);
 
