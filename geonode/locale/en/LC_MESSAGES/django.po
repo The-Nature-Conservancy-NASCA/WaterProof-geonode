@@ -4359,7 +4359,7 @@ msgstr "Purpose of your analysis"
 #, fuzzy
 #| msgid "Other constraints"
 msgid "Other Analysis"
-msgstr "Other constraints"
+msgstr "Another type of analyst"
 
 #: geonode/people/forms.py:167 geonode/people/forms.py:170 geonode/people/templates/people/profile_detail.html:76 geonode/templates/metadata_detail.html:144 geonode/templates/metadata_detail.html:286 geonode/templates/metadata_detail.html:367
 msgid "Organization"
@@ -4376,8 +4376,8 @@ msgstr "City"
 #: geonode/people/forms.py:179
 #, fuzzy
 #| msgid "edition"
-msgid "AgreeConditions"
-msgstr "edition"
+msgid "Agree Conditions"
+msgstr "Agree Conditions"
 
 #: geonode/people/models.py:68
 msgid "Organization Name"
@@ -4429,21 +4429,11 @@ msgstr ""
 msgid "OtherRole"
 msgstr "Other"
 
-#: geonode/people/models.py:127
-msgid "UseAnalysis"
-msgstr "Purpose of your analisys"
-
 #: geonode/people/models.py:134
 #, fuzzy
 #| msgid "Other constraints"
 msgid "Other Analisis"
 msgstr "Other constraints"
-
-#: geonode/people/models.py:140
-#, fuzzy
-#| msgid "Manage Connections"
-msgid "Agree Conditions"
-msgstr "Agree Conditions"
 
 #: geonode/people/templates/people/_profile_about_item.html:17 geonode/templates/_permissions_form.html:311
 msgid "No Group"
