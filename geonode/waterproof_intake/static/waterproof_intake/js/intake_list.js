@@ -115,7 +115,32 @@ $(function () {
                     })
                 }
             });            
-        });          
+        });    
+        
+        $('#tblIntakes tbody').on('click', '.btn-info', function (evt) {
+            let intakeId = evt.currentTarget.getAttribute('data-id');
+            var urlCountIntakes = "intakeUsedByPlantsAndStudyCases/?id=" + intakeId;
+            var promise = $.ajax({
+                url: urlCountIntakes,
+                type: 'GET',
+                dataType: 'json'
+            });
+            promise.done(function (data) {
+                console.log(this);
+                if (data.count <= 0){
+                    window.location.href = "/intake/edit/"+intakeId;
+                }
+                
+                else{
+                    evt.currentTarget.classList.add("disabled");
+                    Swal.fire({
+                        text: gettext("This intake is in use by other elements and can't be deleted."),
+                    })
+                    window.location.href = "#";
+                }
+                
+            });            
+        });
     };
     
     showSearchPointsFunction = function showSearchPointsIntake(geojson) {
