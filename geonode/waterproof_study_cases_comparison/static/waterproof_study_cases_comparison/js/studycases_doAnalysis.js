@@ -47,7 +47,8 @@ $(function () {
         STUDY_YEARS: 'time_implement',
         STUDY_INTAKES: 'intakes',
         STUDY_PTAPS: 'ptaps',
-        STUDY_CURRENCY: 'cm_currency'
+        STUDY_CURRENCY: 'cm_currency',
+        ANALYSYS_CURRENCY: 'analysis_currency',
 
     };
     const AXIS_TABLE = {
@@ -113,7 +114,8 @@ $(function () {
             CHART_CATEGORIES.STUDY_YEARS,
             CHART_CATEGORIES.STUDY_INTAKES,
             CHART_CATEGORIES.STUDY_PTAPS,
-            CHART_CATEGORIES.STUDY_CURRENCY
+            CHART_CATEGORIES.STUDY_CURRENCY,
+            CHART_CATEGORIES.ANALYSYS_CURRENCY
         );
         var seriesCasesRequest = indicatorsRequest(INDICATORS_API.STUDY_CASE, selectedCases, fields);
         fields = [];
@@ -199,7 +201,7 @@ $(function () {
                             <div>${gettext('Time frame')}: ${element.time_implement}</div>
                             <div>${gettext('Number of intakes')}: ${intakeCount}</div>
                             <div>${gettext('Number DWTP')}: ${ptapsCount}</div>
-                            <div>${gettext('Currency')}: ${element.cm_currency}</div></div></li>`;
+                            <div>${gettext('Currency')}: ${element.analysis_currency}</div></div></li>`;
                     $('#' + SLIDER_UL.DOM_ID).append(li);
                     //console.log(element);
                 });

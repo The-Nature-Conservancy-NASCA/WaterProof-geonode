@@ -64,6 +64,9 @@ class ProfileUserManager(UserManager):
 class Profile(AbstractUser):
     """Fully featured Geonode user"""
 
+    first_name = models.CharField(_('Nickname'), max_length=30, blank=True)
+    last_name = models.CharField(_('Your Initial'), max_length=150, blank=True)
+
     organization = models.CharField(
         _('Organization Name'),
         max_length=255,
@@ -124,7 +127,7 @@ class Profile(AbstractUser):
         null=True,
         help_text=_('Other Role'))
     use_analysis = models.CharField(
-        _('UseAnalysis'),
+        _('Use Analysis'),
         choices=USE_ANALYSIS,
         max_length=8,
         blank=True,
