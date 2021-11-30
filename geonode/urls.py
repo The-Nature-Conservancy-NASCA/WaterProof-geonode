@@ -61,7 +61,7 @@ sitemaps = {
     "map": MapSitemap
 }
 
-admin.site.site_header="WaterProof"
+admin.site.site_header="water-proof.org"
 admin.site.site_title="WaterProof Administration Panel"
 admin.site.index_title="WaterProof Administration Panel"
 

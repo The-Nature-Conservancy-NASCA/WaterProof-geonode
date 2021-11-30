@@ -18,5 +18,6 @@ urlpatterns = [
     path('getInvestIndicators/', api.getInvestIndicators, name='getInvestIndicators'),
     path('getRoiIndicators/', api.getRoiIndicators, name='getRoiIndicators'),
     path('getVpnIndicators/', api.getVpnIndicators, name='getVpnIndicators'),
-    path('getStudyCaseInfo/', api.getStudyCaseInfo, name='getStudyCaseInfo')
+    path('getStudyCaseInfo/', api.getStudyCaseInfo, name='getStudyCaseInfo'),
+    path('getInvestIndicatorsRaw/', api.getInvestIndicatorsRaw, name='getInvestIndicatorsRaw')
 ]
