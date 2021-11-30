@@ -73,7 +73,7 @@ def getInvestIndicatorsRaw(request):
 
     table_name = "public.waterproof_reports_investindicators"
     study_cases = ",".join(cases)
-    sql = "select study_case_id, %s from %s where study_case_id in (%s) and intake_id = -1 group by (study_case_id)" % (fields_sentence, table_name, study_cases)
+    sql = "select %s from %s where study_case_id in (%s) and intake_id = -1 group by (study_case_id)" % (fields_sentence, table_name, study_cases)
     # print (sql)
     cursor.execute(sql)
     result = dictfetchall(cursor)
