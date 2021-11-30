@@ -176,7 +176,7 @@
 							<div id="map-areas-rios-legend"></div>
 							<img src="" alt="legend" id="img-legend-areas-rios"/>
 						</div>    
-						<!-- <div class="col-md-12">
+						<div class="col-md-12">
 							<div>
 								<h5 textColor="red" class="download-title-geographic">{% trans "If you want to download the results of this analysis from the following icons" %}</h5>
 							</div>
@@ -188,19 +188,19 @@
 									PDF
 								</div>
 							</div>
-						</div>     -->
+						</div>    
+						<img id="resultado" style="visibility:hidden" alt="result">
+						<form id="TheForm" method="post" action="../../reports/pdf/" target="TheWindow">
+							{% csrf_token %}
+							<input type="hidden" name="studyCase" id="studyCase"/>
+							<input type="hidden" name="studyCity" id="studyCity"/>
+							<input type="hidden" name="studyCountry" id="studyCountry"/>
+							<input type="hidden" name="studyRegion" id="studyRegion"/>
+							<input type="hidden" name="discountRateData" id="discountRateData"/>
+							<input type="hidden" name="mapSendImage" id="mapSendImage"/>
+						</form> 
 					</div>
-				</div>         
-				<img id="resultado" style="visibility:hidden" alt="result">
-				<form id="TheForm" method="post" action="../../reports/pdf/" target="TheWindow">
-					{% csrf_token %}
-					<input type="hidden" name="studyCase" id="studyCase"/>
-					<input type="hidden" name="studyCity" id="studyCity"/>
-					<input type="hidden" name="studyCountry" id="studyCountry"/>
-					<input type="hidden" name="studyRegion" id="studyRegion"/>
-					<input type="hidden" name="discountRateData" id="discountRateData"/>
-					<input type="hidden" name="mapSendImage" id="mapSendImage"/>
-				</form>   
+				</div>           
 		</div>
 		<img style="display: none;" src="" alt="legend" id="generated-img"/>
 
