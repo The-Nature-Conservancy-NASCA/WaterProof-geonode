@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Waterproof V1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-02-11 20:03-0500\n"
-"PO-Revision-Date: 2021-10-28 19:12-0500\n"
+"PO-Revision-Date: 2021-11-30 12:25-0500\n"
 "Last-Translator: Julien Collaer <julien.collaer@opengeode.be>\n"
 "Language-Team: English Skaphe\n"
 "Language: en\n"
@@ -8657,6 +8657,12 @@ msgstr "Addressing climate change:"
 
 msgid "description-sign-up"
 msgstr "Through your registration as a WaterProof user, you will be able to access a set of services to perform an indicative analysis, at the pre-feasibility level, of the ROI return on investment in the implementation of Nature-Based Solutions in accordance with the environmental situation of the supply basins of interest. Please enter your contact information, indicating your professional role and interest in the use of the analysis, define your login password and review the terms of conditions of the tool. At the end, click on the 'Sign Up' button."
+
+msgid "Your Initial"
+msgstr "Your initials"
+
+msgid "Create a new account. To access the case study creation functionalities in WaterProof, it is necessary to have login credentials. Then enter your contact details and review the Terms and Conditions."
+msgstr "To access the case study creation functionalities in WaterProof, it is necessary to have login credentials. Enter the following information and review the Terms and Conditions."
 
 #~ msgid "Open Data:"
 #~ msgstr "Open Data:"
