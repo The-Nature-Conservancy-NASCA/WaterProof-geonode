@@ -530,7 +530,7 @@
             var attrModel = element.getAttribute("model");
             var modelInTypePtap = attrModel.indexOf(ptapType) >= 0;
 
-            if (actionType != "update" && actionType != "clone") {
+            if (actionType != "update" && actionType != "clone" && actionType != "view") {
                 element.style.display = "block";
                 idrElem.css("background-color", whiteColor);
                 idrElem.css("border-color", whiteColor);

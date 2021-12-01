@@ -218,10 +218,9 @@
                 <a href="../../reports/decision/">{% trans "Decision indicators" %}</a>
             </div>
             <div class="list-menu-results" id="idGeographicIndicators">
-                <a id="idIconGeographicIndicator" href="">
-                    <img src="/static/geonode/img/indicadores-geograficos.png" alt="geographic indicators" title="{% trans "Geographic visualization" %}"/></a>
+                <a id="idGeographicIndicatorsClicImg" href=""><img src="/static/geonode/img/indicadores-geograficos.png" alt="geographic indicators" title="{% trans "Geographic visualization" %}"/></a>
                 <br>
-                <a id="idIconGeographicIndicatorLbl" href="">{% trans "Geographic visualization" %}</a>
+                <a id="idGeographicIndicatorsClicDesc" href="">{% trans "Geographic visualization" %}</a>
                 <!-- ../../reports/geographic/-->
             </div>
         </div>
@@ -826,8 +825,9 @@
                     var urlWaterProofLyrsWMS = "/reports/geographic/?folder="+usr_folder+"&intake="+intake+"&year="+year+"&region="+region+"&center="+centroX+"&study_case_id="+studyCaseId+"&name="+nameIntake;
                     // var urlWaterProofLyrsWMS = `/reports/geographic/?folder=${usr_folder}&intake=${intake}&year=${year}&region=${region}&center=${centroX}&study_case_id=${studyCaseId}&name=${nameIntake}`;
                     console.log (urlWaterProofLyrsWMS);
-                    document.getElementById('idIconGeographicIndicator').setAttribute('href', urlWaterProofLyrsWMS);
-                    document.getElementById('idIconGeographicIndicatorLbl').setAttribute('href', urlWaterProofLyrsWMS);
+                    document.getElementById('idGeographicIndicatorsClicImg').setAttribute('href', urlWaterProofLyrsWMS);
+                    document.getElementById('idGeographicIndicatorsClicDesc').setAttribute('href', urlWaterProofLyrsWMS);
+                    
                 }) 
         }
         initialize();

@@ -21,10 +21,10 @@
 # Translators:
 msgid ""
 msgstr ""
-"Project-Id-Version: Waterproof Valpha\n"
+"Project-Id-Version: Waterproof V1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-07-21 14:47-0500\n"
-"PO-Revision-Date: 2021-11-10 14:28-0500\n"
+"PO-Revision-Date: 2021-12-01 15:06-0500\n"
 "Last-Translator: Julien Collaer <julien.collaer@opengeode.be>\n"
 "Language-Team: Skaphe\n"
 "Language: en\n"
@@ -49,8 +49,7 @@ msgstr ""
 #: static/waterproof_intake/js/graph_view.js:135
 msgid ""
 "The water intake element can only receive connection from the river element"
-msgstr ""
-"The water intake element can only receive connection from the river element"
+msgstr "The water intake element can only connect to the river element"
 
 #: static/waterproof_intake/js/graph.js:176
 #: static/waterproof_intake/js/graph_edit.js:140
@@ -59,8 +58,8 @@ msgid ""
 "The floating intake element can only receive connection from the river, "
 "reservoir and water reservoir"
 msgstr ""
-"The floating intake element can only receive connection from the river, "
-"reservoir and water reservoir"
+"The floating intake element can only connect to the river, reservoir and "
+"water reservoir"
 
 #: static/waterproof_intake/js/graph.js:179
 #: static/waterproof_intake/js/graph_edit.js:143
@@ -69,8 +68,8 @@ msgid ""
 "The side intake element can only receive connection from the river, "
 "reservoir and water reservoir"
 msgstr ""
-"The side intake element can only receive connection from the river, "
-"reservoir and water reservoir"
+"The side intake element can only connect to the river, reservoir and water "
+"reservoir"
 
 #: static/waterproof_intake/js/graph.js:181
 #: static/waterproof_intake/js/graph_edit.js:145
@@ -91,24 +90,24 @@ msgstr "No element can be connected to the External input"
 #: static/waterproof_intake/js/graph.js:200
 #: static/waterproof_intake/js/graph_edit.js:207
 msgid "External Input only have 1 target"
-msgstr "External Input only have 1 target"
+msgstr "External Input only has 1 target"
 
 #: static/waterproof_intake/js/graph.js:201
 #: static/waterproof_intake/js/graph.js:207
 #: static/waterproof_intake/js/graph_edit.js:208
 #: static/waterproof_intake/js/graph_edit.js:214
 msgid "Source Must Connect to Target"
-msgstr "Source Must Connect to Target"
+msgstr "Source must connect to Target"
 
 #: static/waterproof_intake/js/graph.js:206
 #: static/waterproof_intake/js/graph_edit.js:213
 msgid "River only have 1 target"
-msgstr "River only have 1 target"
+msgstr "River only has 1 target"
 
 #: static/waterproof_intake/js/graph.js:212
 #: static/waterproof_intake/js/graph_edit.js:219
 msgid "From element CSINFRA can't connect to other element"
-msgstr "From element CSINFRA can't connect to other element"
+msgstr "Element CSINFRA can't connect to other element"
 
 #: static/waterproof_intake/js/graph.js:213
 #: static/waterproof_intake/js/graph_edit.js:220
@@ -137,7 +136,7 @@ msgstr "Are you sure?"
 #: static/waterproof_intake/js/intake_edit.js:509
 #: static/waterproof_intake/js/intake_list.js:60
 msgid "You won't be able to revert this!"
-msgstr "You won't be able to revert this!"
+msgstr "You won't be able to reverse this!"
 
 #: static/waterproof_intake/js/graph.js:679
 #: static/waterproof_intake/js/graph_edit.js:689
@@ -181,7 +180,7 @@ msgstr ""
 
 #: static/waterproof_intake/js/graphValidations.js:287
 msgid "The River can't be Removed"
-msgstr ""
+msgstr "The River can't be removed"
 
 #: static/waterproof_intake/js/graphValidations.js:326
 msgid ""
@@ -212,7 +211,7 @@ msgstr ""
 #: static/waterproof_intake/js/graphValidations.js:391
 #, javascript-format
 msgid "No exist %s %s in a diagram"
-msgstr ""
+msgstr "%s %s does not exist in the diagram"
 
 #: static/waterproof_intake/js/graphValidations.js:396
 #, fuzzy
@@ -222,7 +221,7 @@ msgstr ".shp required file is missing"
 
 #: static/waterproof_intake/js/graphValidations.js:433
 msgid "Exist a connector whitout defined type"
-msgstr ""
+msgstr "A connector exists without defined type"
 
 #: static/waterproof_intake/js/graphValidations.js:440
 msgid "Element %s - %s has a % transported water invalid"
@@ -327,7 +326,7 @@ msgstr "Cancel"
 #: static/waterproof_intake/js/intake_create.js:554
 #: static/waterproof_intake/js/intake_edit.js:608
 msgid "Basin point delimitation"
-msgstr "Basin point delimitation"
+msgstr "Basin point delineation"
 
 #: static/waterproof_intake/js/intake_clone.js:615
 #: static/waterproof_intake/js/intake_create.js:560
@@ -339,7 +338,7 @@ msgstr "Yes, adjust!"
 #: static/waterproof_intake/js/intake_create.js:646
 #: static/waterproof_intake/js/intake_edit.js:744
 msgid "Nbs saving error"
-msgstr ""
+msgstr "NbS saving error"
 
 #: static/waterproof_intake/js/intake_clone.js:788
 #: static/waterproof_intake/js/intake_clone.js:829
@@ -387,7 +386,7 @@ msgstr "Great!"
 #: static/waterproof_intake/js/intake_create.js:899
 #: static/waterproof_intake/js/intake_edit.js:999
 msgid "Is a valid polygon inside basin's geometries"
-msgstr "It is a valid polygon inside basin's geometries"
+msgstr "It is a valid polygon inside the basin's boundaries"
 
 #: static/waterproof_intake/js/intake_clone.js:1047
 #: static/waterproof_intake/js/intake_create.js:948
