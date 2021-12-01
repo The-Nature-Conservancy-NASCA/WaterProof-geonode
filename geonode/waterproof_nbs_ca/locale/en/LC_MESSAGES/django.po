@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Waterproof V1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-02-19 11:27-0500\n"
-"PO-Revision-Date: 2021-11-25 11:28-0500\n"
+"PO-Revision-Date: 2021-12-01 15:07-0500\n"
 "Last-Translator: Julien Collaer <julien.collaer@opengeode.be>\n"
 "Language-Team: Skaphe\n"
 "Language: en\n"
@@ -81,7 +81,7 @@ msgstr "Maintenance costs (Currency/ha)"
 
 #: geonode/waterproof_nbs_ca/models.py:204
 msgid "Periodicity of maintenance (year)"
-msgstr "Periodicity of maintenance (year)"
+msgstr "Maintenance cost periodicity (year)"
 
 #: geonode/waterproof_nbs_ca/models.py:210
 msgid "Unit oportunity costs (US $/ha)"
@@ -135,14 +135,14 @@ msgstr "Country"
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_edit.html:54
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_form.html:52
 msgid "Currency for definition of costs"
-msgstr "Currency for cost definition"
+msgstr "Currency used to define costs"
 
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_clone.html:70
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_detail_list.html:59
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_edit.html:71
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_form.html:69
 msgid "Time required to generate maximun benefit (yr)"
-msgstr "Time required to obtain  maximun benefit (years)"
+msgstr "Time required to obtain  maximum benefits (years)"
 
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_clone.html:72
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_clone.html:78
@@ -179,7 +179,7 @@ msgstr "Field is required"
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_form.html:86
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_list.html:39
 msgid "Periodicity of maintenance (yr)"
-msgstr "Periodicity of maintenance (years)"
+msgstr "Maintenance periodicity (years)"
 
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_clone.html:92
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_detail_list.html:76
@@ -204,7 +204,7 @@ msgstr "Implementation cost"
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_edit.html:105
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_form.html:103
 msgid "Maintenace cost (US$/ha)"
-msgstr "Maintenace cost"
+msgstr "Maintenance cost"
 
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_clone.html:109
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_clone.html:127
@@ -213,7 +213,7 @@ msgstr "Maintenace cost"
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_edit.html:111
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_form.html:109
 msgid "Oportunity cost (US$/ha)"
-msgstr "Oportunity cost"
+msgstr "Opportunity cost"
 
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_clone.html:134
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_edit.html:117
@@ -262,7 +262,7 @@ msgstr "What geographic files can upload?"
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_edit.html:197
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_form.html:182
 msgid "Only .zip and .geojson are admited. The .zip must be a ESRI shapefile type"
-msgstr "Only .zip and .geojson are admited. The .zip must be a ESRI shapefile type"
+msgstr "Only .zip and .geojson are admitted. The .zip must be a ESRI shapefile type"
 
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_clone.html:213
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_edit.html:198
@@ -306,7 +306,7 @@ msgstr "NbS Detail"
 
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_detail_list.html:90
 msgid "Multiplying factor for overrall cost"
-msgstr "Multiplying factor for overrall cost"
+msgstr "Multiplication factor for overrall cost"
 
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_detail_list.html:102
 msgid "Reference cost"
@@ -367,7 +367,7 @@ msgstr "Options"
 
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_form.html
 msgid "create-nbs-help-1"
-msgstr "You can create a Nature-Based Solution by entering the name, description, implementation and maintenance costs, and other information. However, you should pay special attention to the Coverage / Land Use Transitions section, as this is where you configure the coverage changes that WaterProof will take into account for NBS portfolio generation, modeling and ROI analysis."
+msgstr "You can create a Nature based Solution option by entering the name, description, implementation and maintenance costs, and other information. Please pay special attention to the Coverage / Land Use Transitions section, as this is where you configure the coverage changes that WaterProof will take into account for NBS portfolio generation, modeling and ROI analysis."
 
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_form.html
 msgid "create-nbs-help-2"
@@ -375,7 +375,7 @@ msgstr "Once you select the transition of your interest, you must indicate the c
 
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_form.html
 msgid "create-nbs-help-3"
-msgstr "Finally, you can attach a shapefile where you indicate areas where the implementation of the created NBS is avoided:"
+msgstr "Finally, you can attach a shapefile if there are areas where NbS implementation should be avoided:"
 
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_form.html
 msgid "create-nbs-help-4"
@@ -410,11 +410,11 @@ msgstr "Field empty"
 
 #: geonode/waterproof_nbs_ca/views.py:623
 msgid "In this section you can consult the nature-based solutions available in the system, understood as the actions that may be part of the portfolios offered by the system when it executes its analyzes. You can also create your own nature-based solutions by clicking on 'Create new SNB' "
-msgstr "From this section you can consult the nature-based solutions available in the system, understood as the actions that may be part of the portfolios offered by the system when it executes its analyzes. You can also create your own nature-based solutions by clicking on 'Create new SNB' "
+msgstr "In this section you can reference the default NbS and develop new options by clicking 'Create new SNB' "
 
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_form.html:119
 msgid "Select from the drop-down list the transition according to the possibilities of the Resource Investment Optimization System (RIOS) software"
-msgstr "Select from the drop-down list the transition according to the possibilities of the Resource Investment Optimization System (RIOS) software"
+msgstr "Select the preferred RIOS land use transition category per the drop-down list"
 
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_form.html:182
 msgid "If there are areas with restrictions for the implementation of the NbS, attach them to the form through a geographic file by clicking on the following button."

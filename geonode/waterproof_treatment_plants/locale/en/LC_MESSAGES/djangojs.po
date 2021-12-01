@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: Waterproof V1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-08-23 23:16-0500\n"
-"PO-Revision-Date: 2021-11-22 14:58-0500\n"
+"PO-Revision-Date: 2021-12-01 15:11-0500\n"
 "Last-Translator: Julien Collaer <julien.collaer@opengeode.be>\n"
 "Language-Team: English Skaphe\n"
 "Language: en\n"
@@ -54,7 +54,7 @@ msgstr "Membrane filtration retained particle size 0.001μm"
 
 #: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:117
 msgid "FILTRACIONPORMEMBRANANIVEL4"
-msgstr "Retained particle size membrane filtration 0.0001μm"
+msgstr "Membrane filtration retained particle size 0.0001μm"
 
 #: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:121
 msgid "INTERCAMBIOIONICO"
@@ -91,7 +91,7 @@ msgstr "Error calculating the treatment plant"
 
 #: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:285
 msgid "It does not have a record in the type of treatment plant"
-msgstr "It does not have a record in the type of treatment plan"
+msgstr "There is no a record for this type of treatment plan"
 
 #: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:307
 msgid "You cannot add the water source"
@@ -106,7 +106,7 @@ msgstr "Create"
 #: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:459
 #: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:519
 msgid "Treatment Plant"
-msgstr "Treatment Plant"
+msgstr "Treatment plant"
 
 #: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:398
 msgid "Clone"
@@ -131,22 +131,22 @@ msgstr "Enter name technology"
 #: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:740
 #: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:908
 msgid "Transported Water"
-msgstr "Transported Water"
+msgstr "Transported water"
 
 #: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:747
 #: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:911
 msgid "Sediments Retained"
-msgstr "Sediments Retained"
+msgstr "Sediments retained"
 
 #: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:748
 #: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:916
 msgid "Enter Sediments retained"
-msgstr "Enter Sediments retained"
+msgstr "Enter sediments retained"
 
 #: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:756
 #: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:918
 msgid "Nitrogen Retained"
-msgstr "Nitrogen Retained"
+msgstr "Nitrogen retained"
 
 #: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:757
 #: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:923
@@ -155,7 +155,7 @@ msgstr "Enter nitrogen retained"
 
 #: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:763
 msgid "Phosphorus Retained"
-msgstr "Phosphorus Retained"
+msgstr "Phosphorus retained"
 
 #: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:764
 #: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:930
@@ -199,11 +199,11 @@ msgstr "Add function"
 
 #: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:1123
 msgid "Search City..."
-msgstr "Search City..."
+msgstr "Search city..."
 
 #: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:1255
 msgid "You won't be able to revert this!"
-msgstr "You won't be able to revert this!"
+msgstr "You won't be able to reverse this!"
 
 #: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:1260
 msgid "Yes, delete it!"
@@ -213,7 +213,7 @@ msgstr "Yes, delete it!"
 #, fuzzy
 #| msgid "Trouble deleting treatment plant, must be in use in one study case"
 msgid "Error deleting the treatment plant, it must already be used in a case study"
-msgstr "Error deleting the treatment plant, it must already be used in a study case"
+msgstr "Error deleting the treatment plant, it must already be used in a case study"
 
 msgid "Treatment plant creation city :"
 msgstr "City of creation:"
@@ -234,4 +234,4 @@ msgid "The intake has not been deleted, try again!"
 msgstr "The intake has not been deleted, try again!"
 
 msgid "This treatment plant is in use by some study cases and can't be deleted."
-msgstr "This treatment plant is in use by some study cases and can't be deleted."
+msgstr "This treatment plant is in use by some case study and can't be deleted."

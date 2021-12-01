@@ -5,10 +5,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Waterproof v1\n"
+"Project-Id-Version: Waterproof V1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-08-07 15:10-0500\n"
-"PO-Revision-Date: 2021-11-29 12:45-0500\n"
+"PO-Revision-Date: 2021-12-01 15:06-0500\n"
 "Last-Translator: \n"
 "Language-Team: Skaphe\n"
 "Language: en\n"
@@ -35,7 +35,7 @@ msgstr ""
 
 #: models.py:28 models.py:120
 msgid "Categorys"
-msgstr ""
+msgstr "Categories"
 
 #: models.py:33 models.py:356
 msgid "Normalized category"
@@ -55,7 +55,7 @@ msgstr ""
 
 #: models.py:54
 msgid "Maximal sediment"
-msgstr ""
+msgstr "Maximum sediment"
 
 #: models.py:59
 msgid "Minimal nitrogen"
@@ -65,11 +65,11 @@ msgstr ""
 #, fuzzy
 #| msgid "Once defined the area"
 msgid "Predefined nitrogen"
-msgstr "Waterproof will take by default the basin polygon as the implementation area for NbS, you can reshape this area moving the vertices highlited in red"
+msgstr "Waterproof will take by default the basin polygon as the implementation area for NbS, you can reshape this area moving the vertices highlighted in red"
 
 #: models.py:70
 msgid "Maximal nitrogen"
-msgstr ""
+msgstr "Maximum nitrogen"
 
 #: models.py:75
 msgid "Minimal phosphorus"
@@ -81,7 +81,7 @@ msgstr ""
 
 #: models.py:86
 msgid "Maximal phosphorus"
-msgstr ""
+msgstr "Maximum phosphorus"
 
 #: models.py:91
 #, fuzzy
@@ -551,7 +551,7 @@ msgstr "External inputs"
 #: template/intake_clone.html:360 template/intake_detail_list.html:321
 #: template/intake_edit.html:338 template/intake_form.html:366
 msgid "External inputs to define"
-msgstr "External inputs to define. For each of these external inputs you have to define Annual Water Volume (m3), Annual Sediment Load (Ton), Annual Nitrogen Load(kg), Annual Phosphorus Load (kg)"
+msgstr "External inputs to define. For each of these external inputs you have to define Annual Water Volume (m3), Annual Sediment Load (Ton), Annual Nitrogen Load (kg), and Annual Phosphorus Load (kg)"
 
 #: template/intake_clone.html:365 template/intake_detail_list.html:326
 #: template/intake_edit.html:343 template/intake_form.html:371
@@ -696,7 +696,7 @@ msgstr "Manually delineate area"
 
 #: template/intake_edit.html:388 template/intake_form.html:435
 msgid "Validate delimit area"
-msgstr "Validate area"
+msgstr "Validate delineated area"
 
 #: template/intake_edit.html:527 template/intake_form.html:565
 msgid "Validate"
@@ -758,7 +758,7 @@ msgstr "Number of years for time series  (10-100) Year"
 
 #: template/intake_form.html:290 template/intake_form.html:327
 msgid "Clic the following button to calculate the water extraction in each year"
-msgstr "Click here to calculate the water extraction in each year"
+msgstr "Click here to calculate the water extraction for each year"
 
 #: template/intake_form.html:321
 msgid "Number of years  (10-100) Year"
@@ -770,7 +770,7 @@ msgstr "NbS implementation area"
 
 #: template/intake_form.html:392
 msgid "You can delimit the area within the basin in which the implementation of Nature Based Solutions (NBS) will be considered. By default, the system will consider that the NBS can be implemented in the entire basin area. However, by clicking on the 'Delimit NBS implementation area' button the system will highlight the vertices of the basin so that you can define the area in which WaterProof will consider that NBS can be implemented."
-msgstr "You can deliniate the area within the basin in which the implementation of Nature Based Solutions (NBS) will be considered. By default, the system will consider the entire basin area for NbS implementation."
+msgstr "You can define the area within the basin in which the implementation of Nature based Solutions (NbS) will be considered. By default, the system will consider the entire basin area for NbS implementation."
 
 #: template/intake_form.html:393
 msgid "WaterProof also allows you to upload a spatial file in shp format that contains the polygon where NBS implementations are possible. When finished, click on 'Validate area'"
@@ -830,7 +830,7 @@ msgstr "It represents a lateral intake in which the water collection is located 
 
 #: template/intake_form.html:705
 msgid "Represents a floating intake that is installed on top of a floating surface (slab), anchored to the bottom of the water body, and that allows to capture water."
-msgstr "Represents a floating intake that is installed on top of a floating surface (slab), anchored to the bottom of the body of water, and that allows to capture water."
+msgstr "Represents a floating intake that is installed on top of a floating surface (slab) and anchored to the bottom of the body of water."
 
 #: template/intake_form.html:710
 msgid "Represents a sand trap that, by reducing the speed of the water, makes large particles fall under their own weight to the bottom of the sand trap to be removed."
@@ -846,7 +846,7 @@ msgstr "Represents the case study infrastructure where water treatment is carrie
 
 #: template/intake_form.html:725
 msgid "Represents external inputs to the system in charge of making water contributions through hydraulic works of an emitting river basin to meet water requirements."
-msgstr "Represents external inputs to the system in charge of making water contributions through hydraulic works of an emitting river basin to meet water requirements."
+msgstr "Represents external inputs to the system in charge of making water contributions through hydraulic works of a river basin to meet water requirements."
 
 #: template/intake_form.html:731
 msgid "Note that you must make the connections by clicking between the source element and the destination element. Right-click to indicate the type of connection:"
@@ -898,7 +898,7 @@ msgstr "For each item confirm or edit the operation and maintenance cost functio
 
 #: template/intake_form.html:792
 msgid "Definition of demand (extraction) of water in the water intake"
-msgstr "Definition of demand (extraction) of water in the water intake"
+msgstr "Definition of demand (extraction) of water at the water intake"
 
 #: template/intake_form.html:797
 msgid "The system offers you several alternatives to define the demand (extraction) of water from your catchment:"
@@ -926,7 +926,7 @@ msgstr "The system offers you a selection list with each of the external inputs 
 
 #: template/intake_form.html:863
 msgid "To delimit the area within the basin in which it is possible to implement your Nature-Based Solutions, click on the 'Delimit NBS implementation area' button. The system will show you the polygon highlighted in red with vertices that you can move. The system will validate that your polygon is not outside the watershed."
-msgstr "To delimit the area within the basin in which it is possible to implement your Nature-Based Solutions, click on the 'Delimit NBS implementation area' button. The system will show you the polygon highlighted in red with vertices that you can move. The system will validate that your polygon is not outside the watershed."
+msgstr "To delimit the area within the basin in which it is possible to implement your Nature based Solutions, click on the 'Delineate NbS implementation area' button. The system will show you the polygon highlighted in red with vertices that you can move. The system will validate that your polygon is not outside the watershed."
 
 #: template/intake_form.html:866
 msgid "When you have finished making your changes, click on the 'Validate area' button."
@@ -1010,7 +1010,7 @@ msgstr "NbS area"
 
 #: template/intake_form.html:122
 msgid "In this section you can build your water intake infrastructure and define operating cost functions. Note that in the drawing panel shows the river from which the water comes and that a series of icons representing the elements that can be part of your catchment system are provided."
-msgstr "In this section you can build your water intake infrastructure and  define operating cost functions. Note that in the drawing panel shows the river from which the water comes and that a series of icons representing the elements that can be part of your catchment system are provided. Click on the element that you want to incorporate into your scheme and then click on the graphic panel to include the desired element. Then establish the connections between the elements to define their topology."
+msgstr "In this section you can build your water intake infrastructure and define operating cost functions. Note that the drawing panel shows the river from which the water comes and a series of icons representing the elements that can be part of your catchment system are provided. Click on the element that you want to incorporate into your scheme and then click on the graphic panel to include the desired element. Then establish the connections between the elements to define their topology."
 
 #: template/intake_form.html:126
 msgid "Select the elements that make up your capture system and click on the drawing area to add them; when finished, click validate graph."
@@ -1018,7 +1018,7 @@ msgstr "Select the elements that make up your capture system and click on the dr
 
 #: template/intake_list.html:34
 msgid "From this section you can view the water intakes created in the system associated with a city of interest. You can search for intakes of different cities from 'Search city'. The system will show you a list of cities with matches around the world. Select the appropriate option from the list. "
-msgstr "From this section you can view the water intakes created in the system associated with a city of interest. You can search for intakes of different cities from 'Search city'. The system will show you a list of cities with matches around the world. Select the appropriate option from the list. "
+msgstr "From this section you can view the water intakes created in the system associated with a city of interest. You can search for intakes of different cities from 'Search city'. The system will show you a list of cities with matches from around the world. Select the appropriate option from the list. "
 
 #: template/intake_form.html:460
 msgid "Cost function name"
@@ -1066,6 +1066,3 @@ msgstr "Click here to calculate the water extraction in each year"
 
 msgid "Retiro de buchon"
 msgstr "Water hyacinth remotion"
-
-msgid "Manual interpolation"
-msgstr "Manual"
