@@ -125,9 +125,30 @@
             $("#signup-button").on ("click", function(){
                 console.log("signup-button... workaroung using js...");
                 setTimeout(function(){
-                    window.location.href = "/account/login/";
-                },8000);
-            })
+                    var login ="/account/login/";
+                    var confirmUrl = "account/confirm-email/";
+                    var user = $("#id_login").val();
+                    var pwd = $("#id_password").val();
+
+                    var form = new FormData();
+                    form.append("id_login", user);
+                    form.append("id_password", pwd);
+
+                    var settings = {
+                    "url": login,
+                    "method": "POST",
+                    "timeout": 0,                
+                    "processData": false,
+                    "mimeType": "multipart/form-data",
+                    "contentType": false,
+                    "data": form
+                    };
+
+                    $.ajax(settings).done(function (response) {
+                        window.location.href = confirmUrl;
+                    });                    
+                },3000);                
+            })           
 
         });
     </script>
