@@ -10000,9 +10000,11 @@ top:50px;
     filter: drop-shadow(5px 5px 5px #222);
 }
 .carrouselcolor {
-  background-color: #F7F7F7;
   background-size: auto 100%;
   padding-top: 20px;
+}
+.carrouselcolor>.container {
+  background-color: #F7F7F7;  
 }
 .newstitle{
 	color: #0A8B8E;
