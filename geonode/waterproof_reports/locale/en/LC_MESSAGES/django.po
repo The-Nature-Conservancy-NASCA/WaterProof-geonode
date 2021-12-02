@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Waterproof V1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-02-19 11:27-0500\n"
-"PO-Revision-Date: 2021-12-01 15:08-0500\n"
+"PO-Revision-Date: 2021-12-02 16:12-0500\n"
 "Last-Translator: Julien Collaer <julien.collaer@opengeode.be>\n"
 "Language-Team: Skaphe\n"
 "Language: en\n"
@@ -75,7 +75,7 @@ msgstr "Water risk summary"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
 msgid "Select the basin of your interest from the drop-down list to know a summary of its risks (The risk results have been estimated using the Acueduct - WRI database)"
-msgstr "Select your intake of interest in the drop-down list; results draw from"
+msgstr "Below is a summary of the risks associated with the selected water intake (results draw from"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
 msgid "the Acueduct - WRI database"
