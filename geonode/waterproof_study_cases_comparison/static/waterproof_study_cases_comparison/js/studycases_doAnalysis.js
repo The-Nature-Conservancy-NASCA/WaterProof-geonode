@@ -49,7 +49,6 @@ $(function () {
         STUDY_PTAPS: 'ptaps',
         STUDY_CURRENCY: 'cm_currency',
         ANALYSYS_CURRENCY: 'analysis_currency',
-
     };
     const AXIS_TABLE = {
         DOM_ID: 'axis_table'
@@ -64,7 +63,8 @@ $(function () {
         INVEST: '../getInvestIndicators/',
         ROI: '../getRoiIndicators/',
         VPN: '../getVpnIndicators/',
-        STUDY_CASE: '../getStudyCaseInfo/'
+        STUDY_CASE: '../getStudyCaseInfo/',
+        INVEST_RAW: '../getInvestIndicatorsRaw/',
     };
     const SLIDER_UL = {
         DOM_ID: 'splide_ul'
@@ -103,7 +103,7 @@ $(function () {
         /* DEFAULT REQUEST AT LOAD PAGE
         /******************************/
         // Get invest indicator for selected cases
-        var seriesInvestRequest = indicatorsRequest(INDICATORS_API.INVEST, selectedCases, fields);
+        var seriesInvestRequest = indicatorsRequest(INDICATORS_API.INVEST_RAW, selectedCases, fields);
         fields = [];
         fields.push(
             CHART_CATEGORIES.STUDYCASE,
@@ -270,21 +270,22 @@ $(function () {
             return
         }
         var axisName = axis_select[0].value;
+        var url = "";
         switch (axisName) {
             //Invest
             case CHART_CATEGORIES.AWY: case CHART_CATEGORIES.BF_M3: case CHART_CATEGORIES.WN_KG:
             case CHART_CATEGORIES.WP_KG: case CHART_CATEGORIES.WSED_TON: case CHART_CATEGORIES.WC_TON:
-                var url = INDICATORS_API.INVEST;
+                url = INDICATORS_API.INVEST_RAW;
                 break;
             //ROI
             case CHART_CATEGORIES.RWD: case CHART_CATEGORIES.RME:
-                var url = INDICATORS_API.ROI;
+                url = INDICATORS_API.ROI;
                 break;
             //VPN
             case CHART_CATEGORIES.VPN_IMP: case CHART_CATEGORIES.VPN_MAINT: case CHART_CATEGORIES.VPN_OPORT:
             case CHART_CATEGORIES.VPN_PLAT: case CHART_CATEGORIES.VPN_TRANS: case CHART_CATEGORIES.VPN_TOTAL:
             case CHART_CATEGORIES.VPN_BENF:
-                var url = INDICATORS_API.VPN;
+                url = INDICATORS_API.VPN;
                 break;
             default:
                 break;
