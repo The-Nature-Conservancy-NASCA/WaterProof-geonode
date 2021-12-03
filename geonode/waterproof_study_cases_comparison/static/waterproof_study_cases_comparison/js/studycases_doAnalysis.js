@@ -91,6 +91,7 @@ $(function () {
     /******************/
     else { //there are cases selected
         selectedCases = JSON.parse(localStorage.analysisCases);
+        var casesIdOrdered = selectedCases.sort((a,b) => b - a);
         fields = [];
         fields.push(
             CHART_CATEGORIES.AWY,
@@ -103,7 +104,7 @@ $(function () {
         /* DEFAULT REQUEST AT LOAD PAGE
         /******************************/
         // Get invest indicator for selected cases
-        var seriesInvestRequest = indicatorsRequest(INDICATORS_API.INVEST_RAW, selectedCases, fields);
+        var seriesInvestRequest = indicatorsRequest(INDICATORS_API.INVEST_RAW, casesIdOrdered, fields);
         fields = [];
         fields.push(
             CHART_CATEGORIES.STUDYCASE,
@@ -117,12 +118,12 @@ $(function () {
             CHART_CATEGORIES.STUDY_CURRENCY,
             CHART_CATEGORIES.ANALYSYS_CURRENCY
         );
-        var seriesCasesRequest = indicatorsRequest(INDICATORS_API.STUDY_CASE, selectedCases, fields);
+        var seriesCasesRequest = indicatorsRequest(INDICATORS_API.STUDY_CASE, casesIdOrdered, fields);
         fields = [];
         fields.push(
             CHART_CATEGORIES.RWD
         )
-        var seriesRoiRequest = indicatorsRequest(INDICATORS_API.ROI, selectedCases, fields);
+        var seriesRoiRequest = indicatorsRequest(INDICATORS_API.ROI, casesIdOrdered, fields);
         var requests = [];
         requests.push(seriesInvestRequest, seriesRoiRequest, seriesCasesRequest);
         Promise.all(requests).then(promiseResponse => {
