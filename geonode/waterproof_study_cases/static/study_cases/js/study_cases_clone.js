@@ -28,7 +28,7 @@ var validPolygon;
 var isFile;
 var delimitationFileType;
 var xmlGraph;
-var id_study_case = '';
+var id_study_case = window.location.href.substring(window.location.href.lastIndexOf('/') + 1);
 var waterExtractionData = {};
 var waterExtractionValue;
 var intakes = [];
@@ -446,7 +446,6 @@ $(document).ready(function () {
                 total_platform: $('#total_platform').val(),
                 financial_currency: $("#financial_currency option:selected").val()
             }, function (data) {
-                loadNBS();
                 $('#smartwizard').smartWizard("next");
                 autoAdjustHeight();
             }, "json");
@@ -1226,7 +1225,7 @@ $(document).ready(function () {
     }
 
     function loadNBS() {
-        var city_id = localStorage.cityId
+        var city_id = localStorage.cityId;
         $.post("../../study_cases/nbs/", {
             id_study_case: id_study_case,
             city_id: city_id,
@@ -1235,8 +1234,8 @@ $(document).ready(function () {
             content = ''
             $.each(data, function (index, nbs) {
                 var name = nbs.name;
-                var id = nbs.id
-                var def = nbs.default
+                var id = nbs.id;
+                var def = nbs.default;
                 content = '<li class="list-group-item"><div class="custom-control custom-checkbox">'
                 if (def) {
                     content += '<input type="checkbox" class="custom-control-input" id="nbs-' + id + '" checked>'
