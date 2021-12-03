@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Waterproof V1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-02-19 11:27-0500\n"
-"PO-Revision-Date: 2021-12-02 16:12-0500\n"
+"PO-Revision-Date: 2021-12-03 12:46-0500\n"
 "Last-Translator: Julien Collaer <julien.collaer@opengeode.be>\n"
 "Language-Team: Skaphe\n"
 "Language: en\n"
@@ -386,7 +386,7 @@ msgstr "Recommended intervetion (Ha)"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/financialIndicators.html:206
 msgid "This report summarizes the proportions in investment and benefits that will be achieved by the implementation of the SbN:"
-msgstr "This report summarizes the proportions in investment and benefits that will be achieved by the implementation of the SbN:"
+msgstr "This report summarizes the proportions in investment and benefits that will be achieved by the implementation of the NbS:"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/financialIndicators.html:83
 msgid "Return of investment (ROI)"
@@ -669,7 +669,7 @@ msgstr "This set of reports synthesizes the change in the physical parameters ex
 
 #: geonode/waterproof_reports/templates/waterproof_reports/physicalIndicators
 msgid "text-step4-ph"
-msgstr "This section presents the behavior of ecosystem services for the period of analysis. You will be able to visualize how these variables behave in the Business as Usual Scenarios - BaU versus the Nature-based solutions scenario - SbN over time."
+msgstr "This section presents the behavior of ecosystem services for the period of analysis. You will be able to visualize how these variables behave in the Business as Usual Scenarios - BaU versus the Nature-based solutions scenario - NbS over time."
 
 #: geonode/waterproof_reports/templates/waterproof_reports/physicalIndicators
 msgid "text-step4-ph-2"
