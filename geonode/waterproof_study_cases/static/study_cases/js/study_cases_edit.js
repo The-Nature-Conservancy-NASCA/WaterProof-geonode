@@ -401,7 +401,7 @@ $(document).ready(function () {
     $('#step5NextBtn').click(function () {
         var valid = true;
         $("#div_financial").find("input").each(function () {
-            var $this = $(this);
+            var $this = $(this).toFixed(4);
             if ($this.val().length <= 0) {
                 valid = false;
                 return false;
@@ -416,7 +416,7 @@ $(document).ready(function () {
             valid = false
             return;
         }
-        if (($('#discount').val() < $('#minimum').val()) || ($('#discount').val() > $('#maximum').val())) {
+        if (($('#discount').val().toFixed(4) < $('#minimum').val()) || ($('#discount').val().toFixed(4) > $('#maximum').val())) {
             Swal.fire({
                 icon: 'warning',
                 title: gettext('discount_value'),
@@ -1028,7 +1028,7 @@ $(document).ready(function () {
                 if (!$("#overhead").val())
                     $("#overhead").val(financialParameters.Overhead_USD_YEAR);
                 if (!$("#discount").val())
-                    $('#discount').val(financialParameters.drt_discount_rate_medium);
+                    $('#discount').val(financialParameters.drt_discount_rate_medium).toFixed(4);
                 if (!$("#minimum").val())
                     $('#minimum').val(financialParameters.drt_discount_rate_lower_limit);
                 if (!$("#maximum").val())

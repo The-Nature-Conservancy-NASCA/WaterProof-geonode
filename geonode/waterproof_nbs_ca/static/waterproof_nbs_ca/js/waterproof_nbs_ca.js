@@ -65,6 +65,7 @@ $(function () {
                 $(".check").prop('required',true);
             }
         });
+        
         fillTransitionsDropdown(transitionsDropdown);
         submitFormEvent();
         changeCountryEvent(countryDropdown, currencyDropdown);

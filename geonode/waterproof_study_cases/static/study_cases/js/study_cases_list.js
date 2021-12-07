@@ -67,7 +67,7 @@ $(function() {
                 currency: ""
             }, function(data) {
                 $.each(data, function(index, currency) {
-                    value = parseFloat(currency.value).toFixed(2).replace(".",",");
+                    value = parseFloat(currency.value).toFixed(4).replace(".",",");
                     html += '<div class="custom-control col-md-3 currency-value">1 ' + currency_sc + '</div>'
                     html += '<div class="col-md-4 currency-value"><label class="custom-control-label" for="currency">' + currency.currency + '</label></div>'
                     html += '<div class="custom-control col-md-5 currency-value">' + value + '</div>'
