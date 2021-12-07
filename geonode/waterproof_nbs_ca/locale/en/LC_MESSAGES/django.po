@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Waterproof V1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-02-19 11:27-0500\n"
-"PO-Revision-Date: 2021-12-01 15:07-0500\n"
+"PO-Revision-Date: 2021-12-02 11:00-0500\n"
 "Last-Translator: Julien Collaer <julien.collaer@opengeode.be>\n"
 "Language-Team: Skaphe\n"
 "Language: en\n"
@@ -85,7 +85,7 @@ msgstr "Maintenance cost periodicity (year)"
 
 #: geonode/waterproof_nbs_ca/models.py:210
 msgid "Unit oportunity costs (US $/ha)"
-msgstr "Oportunity costs (Currency/ha)"
+msgstr "Opportunity costs (Currency/ha)"
 
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_clone.html:11
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_detail_list.html:13
@@ -351,7 +351,7 @@ msgstr "Implementation cost (currency/ha)"
 
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_list.html:37
 msgid "Maintenace cost (currency/ha)"
-msgstr "Maintenace cost (currency/ha)"
+msgstr "Maintenance cost (currency/ha)"
 
 #: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_list.html:38
 msgid "Oportunity cost (currency/ha)"
