@@ -409,7 +409,7 @@
                                 <label class="custom-control-label discount-label" for="discount">{% trans "discount_rate" %}</label>
                             </div>
                             <div class="custom-control custom-checkbox col-md-4 width-reponsive">
-                                <input class="text-number" id="discount" type="number" class="custom-control-input" min="0.0000" step="0" oninput="validity.valid||(value='');" max="100" value="{{study_case.discount_rate|stringformat:'1.2f'}}">
+                                <input class="text-number" id="discount" type="number" class="custom-control-input" min="0" step="0.01" oninput="validity.valid||(value='');" max="100" value="{{study_case.discount_rate|stringformat:'1.2f'}}">
                             </div>
                             <div class="col-md-6">
                                 <label class="custom-control-label discount-label" for="minimum">{% trans "sensitivity_minimun_discount" %}</label>
