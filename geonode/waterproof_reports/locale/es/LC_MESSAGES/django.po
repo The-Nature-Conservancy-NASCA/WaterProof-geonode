@@ -42,7 +42,7 @@ msgstr ""
 "Project-Id-Version: GeoNode\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-02-19 11:28-0500\n"
-"PO-Revision-Date: 2021-12-02 16:12-0500\n"
+"PO-Revision-Date: 2021-12-03 12:46-0500\n"
 "Last-Translator: \n"
 "Language-Team: Spanish (http://www.transifex.com/geonode/geonode/language/es/)\n"
 "Language: es_419\n"
@@ -497,7 +497,7 @@ msgstr "Nitrógeno"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/geographicIndicators.html:160
 msgid "NBS Scenario - WN (kg)"
-msgstr "NbS Scenario - WN (kg)"
+msgstr "Escenaro SbN - WN (kg)"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/geographicIndicators.html:200
 msgid "NBS Scenario - WP (kg)"
