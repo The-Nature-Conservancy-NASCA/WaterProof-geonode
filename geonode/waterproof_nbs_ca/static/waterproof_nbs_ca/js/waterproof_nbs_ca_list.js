@@ -379,6 +379,29 @@ $(function () {
                             $(table.cell({ row: filterIndexes[index], column: 5 }).node()).html(result[0].fields.name);
                         }
                     }
+                    if (filteredData[index][4] === 'ANALYS') {
+                        if (result[0].fields.iso3 === 'USA') {
+                            let oldImplCost = parseFloat(table.cell({ row: filterIndexes[index], column: 7 }).data());
+                            let oldMaintCost = parseFloat(table.cell({ row: filterIndexes[index], column: 8 }).data());
+                            let oldOportCost = parseFloat(table.cell({ row: filterIndexes[index], column: 9 }).data());
+                            $(table.cell({ row: filterIndexes[index], column: 7 }).node()).html(oldImplCost.toFixed(2));
+                            $(table.cell({ row: filterIndexes[index], column: 8 }).node()).html(oldMaintCost.toFixed(2));
+                            $(table.cell({ row: filterIndexes[index], column: 9 }).node()).html(oldOportCost.toFixed(2));
+                            $(table.cell({ row: filterIndexes[index], column: 5 }).node()).html(result[0].fields.name);
+                        }
+                        else {
+                            let oldImplCost = parseFloat(filteredData[index][7]);
+                            let newImplCost = ((oldImplCost * multiplicatorFactor)).toFixed(2);
+                            let oldMaintCost = parseFloat(table.cell({ row: filterIndexes[index], column: 8 }).data());
+                            let newMaintConst = ((oldMaintCost * multiplicatorFactor)).toFixed(2);
+                            let oldOportCost = parseFloat(table.cell({ row: filterIndexes[index], column: 9 }).data());
+                            let newOportCost = ((oldOportCost * multiplicatorFactor)).toFixed(2);
+                            $(table.cell({ row: filterIndexes[index], column: 7 }).node()).html(newImplCost);
+                            $(table.cell({ row: filterIndexes[index], column: 8 }).node()).html(newMaintConst);
+                            $(table.cell({ row: filterIndexes[index], column: 9 }).node()).html(newOportCost);
+                            $(table.cell({ row: filterIndexes[index], column: 5 }).node()).html(result[0].fields.name);
+                        }
+                    }
                 }
                 search.draw();
                 let countryId = result[0].pk;
@@ -465,6 +488,28 @@ $(function () {
                     currencyDropdown.val(result[0].pk);
                     $('#currencyLabel').text('(' + result[0].fields.currency + ') - ' + result[0].fields.name);
                     $('#countryLabel').text(countryName);
+                    $('#countryfilterAdmin').append(
+                        function(evt){
+                            let filterlist = evt.currentTarget.getAttribute('sbncountry');
+                            `
+                                {% if ${filterlist}  == ${countryName} %}
+                                    <p>${filterlist}</p>
+                                {% endif %}
+                            `
+                        }
+                        
+                    )
+                    $('#countryfilterAnalist').append(
+                        function(evt){
+                            let filterlist = evt.currentTarget.getAttribute('sbncountry');
+                            `
+                                {% if ${filterlist}  == ${countryName} %}
+                                    <p>${filterlist}</p>
+                                {% endif %}
+                            `
+                        }
+                        
+                    )
                     /** 
                      * Get filtered activities by transition id 
                      * @param {String} url   activities URL 

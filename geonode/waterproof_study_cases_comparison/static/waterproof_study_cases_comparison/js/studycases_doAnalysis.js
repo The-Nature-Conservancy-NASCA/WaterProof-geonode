@@ -429,10 +429,16 @@ $(function () {
     function fillAxisTable(axis_selected) {
         let axis_table = $('#' + AXIS_TABLE.DOM_ID);
         axis_selected.forEach(axis => {
-            let row = `<tr><td class="small text-center vat">${axis.name}</td>`;
-            row += `<td class="small text-center vat"><a class="btn btn-danger removeAxis" data-id="${axis.id}">`;
-            row += `<span class="glyphicon glyphicon-trash" aria-hidden="true" data-id="${axis.id}"></span></a></td></tr>`;
-            axis_table.append(row);
+            if(axis.name == "ROI Beneficio/Costo (Total)" || axis.name == "ROI Benefit/Cost (Total)"){
+                let row = `<tr><td class="small text-center vat">${axis.name}</td>`;
+                axis_table.append(row);
+            }else{
+                let row = `<tr><td class="small text-center vat">${axis.name}</td>`;
+                row += `<td class="small text-center vat"><a class="btn btn-danger removeAxis" data-id="${axis.id}">`;
+                row += `<span class="glyphicon glyphicon-trash" aria-hidden="true" data-id="${axis.id}"></span></a></td></tr>`;
+                axis_table.append(row);
+            }
+            
         });
     }
     /*
