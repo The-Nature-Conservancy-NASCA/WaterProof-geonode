@@ -28,7 +28,7 @@ var validPolygon;
 var isFile;
 var delimitationFileType;
 var xmlGraph;
-var id_study_case = window.location.href.substring(window.location.href.lastIndexOf('/') + 1);
+var id_study_case = '';
 var waterExtractionData = {};
 var waterExtractionValue;
 var intakes = [];
