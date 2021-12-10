@@ -367,7 +367,7 @@
                             <td class="small text-center vat">${value.csinfraCode }</td></tr>`;
                 }
                 $('#idTbodyIntake').append(`<tr id="child${value.csinfraId}"> 
-                        <td class="small text-center vat" name="nameListAdd" idIntake="${value.csinfraElementsystemId}"  nameList="${value.csinfraName}" graphIdlist="${value.csinfraGraphId}" csinfraList="${value.csinfraCode }">${value.csinfraName}</td><td class="small text-center vat">${value.csinfraName}</td>${htmlTbl}`);
+                        <td class="small text-center vat" name="nameListAdd" idIntake="${value.csinfraElementsystemId}"  nameList="${value.csinfraName}" graphIdlist="${value.csinfraGraphId}" csinfraList="${value.csinfraCode }">${value.csinfraName}</td><td class="small text-center vat">${value.csinfraSourceName}</td>${htmlTbl}`);
             });
             if (data.csinfra.length > 0) {
                 $('#idIntakePlant').removeAttr('required');
