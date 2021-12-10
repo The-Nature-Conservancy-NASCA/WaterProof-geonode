@@ -229,7 +229,7 @@
         </div>
         <div class="report-download" style="display: block;">
             <div class="col-md-5"></div>
-            <div class="col-md-1 report-download-pdf" onclick="openPDF()">
+            <div class="col-md-1 report-download-pdf" onclick="generatePDF()">
                 <img src="/static/geonode/img/documents.png" alt="documents"/>
                 <br>
                 PDF
@@ -313,18 +313,14 @@
         var waterIntakeGraph = [];
         var analisysBenefics = [];
 
-        openPDF = function() {      
-            generateMap2Img('mapidcuenca','resultado');            
+        generatePDF = function() {      
+            
             document.getElementById('studyCase').value = localStorage.idStudyCase;
             document.getElementById('studyCity').value = localStorage.getItem('city');
             document.getElementById('studyCountry').value = localStorage.getItem('country');
             document.getElementById('studyRegion').value = localStorage.getItem('region');
             document.getElementById('discountRateData').value = document.getElementById("discountRate").innerHTML;
-                
-            setTimeout(function(){
-                window.open('', 'TheWindow');
-                document.getElementById('TheForm').submit();
-            }, 2000);
+            leafletMap2ImgAndExport('mapidcuenca','resultado');            
         }
       
         downloadZip = function(){
@@ -367,7 +363,8 @@
             }
         };
 
-        generateMap2Img = function (mapId, imgId) {
+        leafletMap2ImgAndExport = function (mapId, imgId) {
+            console.log("leafletMap2ImgAndExport");
             var mapElement = document.getElementById(mapId);
             $(".leaflet-control").hide();
             rect = mapElement.getBoundingClientRect();
@@ -397,6 +394,10 @@
                         map.invalidateSize()
                     }, 400);
                     map.fitBounds(bounds);
+                    setTimeout(function(){
+                        window.open('', 'TheWindow');
+                        document.getElementById('TheForm').submit();
+                    }, 1000);
                 }).catch(function (error) {
                     console.error('oops, something went wrong!', error);
                     $(".leaflet-control").show();
@@ -717,13 +718,11 @@
                                     `
                                 }
                             });
-
                             document.getElementById("listFielTable").innerHTML = listFielTable;
                         });
                     }
                 });
             });
-
 
             var urlDetail = "../../reports/getStudyCasesIntake/?studyCase=" + localStorage.idStudyCase;
             $.getJSON(urlDetail, function (data) {
@@ -806,7 +805,6 @@
                     setTimeout(function(){
                         initMapDecision();
                     }, 1000);
-
             });
 
             // A.R. Agrega evento llamado mapas geográficos

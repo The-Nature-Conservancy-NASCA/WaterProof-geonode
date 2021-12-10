@@ -2029,8 +2029,8 @@ def pdf(request):
         pdf.set_text_color(30, 30, 180)
         pdf.set_font(style="B")
         pdf.cell(0, 5, msg_geo_line_4, link=geo_link)      
-        
-        heightIcon = heightIcon + 80
+        pdf.set_font(style="")
+        heightIcon = heightIcon + 50
         pdf.set_text_color(100,100,100)
 
     ####################################################

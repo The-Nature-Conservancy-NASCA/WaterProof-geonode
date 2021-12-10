@@ -28,7 +28,7 @@ var validPolygon;
 var isFile;
 var delimitationFileType;
 var xmlGraph;
-var id_study_case = window.location.href.substring(window.location.href.lastIndexOf('/') + 1);
+var id_study_case = '';
 var waterExtractionData = {};
 var waterExtractionValue;
 var intakes = [];
@@ -446,6 +446,7 @@ $(document).ready(function () {
                 total_platform: $('#total_platform').val(),
                 financial_currency: $("#financial_currency option:selected").val()
             }, function (data) {
+                loadNBS();
                 $('#smartwizard').smartWizard("next");
                 autoAdjustHeight();
             }, "json");
