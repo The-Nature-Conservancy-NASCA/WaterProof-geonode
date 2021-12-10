@@ -446,6 +446,7 @@ $(document).ready(function () {
                 total_platform: $('#total_platform').val(),
                 financial_currency: $("#financial_currency option:selected").val()
             }, function (data) {
+                loadNBS();
                 $('#smartwizard').smartWizard("next");
                 autoAdjustHeight();
             }, "json");
