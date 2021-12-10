@@ -456,6 +456,7 @@ def getTreatmentPlant(request):
 			objectCsinfra.append({
 				"csinfraId": csinfra.id,
 				"csinfraName": csinfra.csinfra_elementsystem.intake.name,
+				"csinfraSourceName": csinfra.csinfra_elementsystem.intake.water_source_name,
 				"csinfraGraphId": csinfra.csinfra_elementsystem.graphId,
 				"csinfraCode": csinfra.csinfra_elementsystem.name,
 				"csinfraElementsystemId": csinfra.csinfra_elementsystem.id
