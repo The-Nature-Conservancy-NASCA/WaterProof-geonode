@@ -112,8 +112,7 @@
                                 <div class="col-md-12">
                                     <div class="row form-group">
                                         <legend class="margin-bottom-max" style="border-bottom: none;">
-                                            <label for="div_id_type" class="control-label required-field " style="font-size: 16px;">{% trans "water_intakes" %}
-                                                <span class="text-danger-wp" id="ptap-required"></span>
+                                            <label for="div_id_type" class="control-label required-field " style="font-size: 16px;">{% trans "water_intakes" %}                                                
                                             </label>
                                         </legend>
                                         <div style="display: flex;">
@@ -173,7 +172,8 @@
                                 <div class="col-md-12">
                                     <div class="row form-group">
                                         <legend class="margin-bottom-max" style="border-bottom: none;">
-                                            <label for="div_id_type" class="control-label required-field " style="font-size: 16px;">{% trans "treatment_plants" %}<span class="text-danger-wp" id="ptap-required"></span></label>
+                                            <label for="div_id_type" class="control-label required-field " style="font-size: 16px;">{% trans "treatment_plants" %}
+                                                <span class="text-danger-wp" id="ptap-required">*</span></label>
                                         </legend>
                                         <div style="display: flex;">
                                             <p>{% trans "select_treatments_plants" %}</p>
@@ -411,7 +411,7 @@
                                 <label class="custom-control-label discount-label" for="discount">{% trans "discount_rate" %}</label>
                             </div>
                             <div class="custom-control custom-checkbox col-md-4 width-reponsive">
-                                <input id="discount" class="text-number" type="number" class="custom-control-input" min="0" step="0" oninput="validity.valid||(value='');" max="100">
+                                <input id="discount" class="text-number" type="number" class="custom-control-input" min="0" step="0.01" oninput="validity.valid||(value='');" max="100">
                             </div>
                             <div class="col-md-6">
                                 <label class="custom-control-label discount-label" for="minimum">{% trans "sensitivity_minimun_discount" %}</label>
@@ -626,7 +626,7 @@
                                     <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="*">&#215</button>
                                     <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="/">a/b</button>
                                     <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="**">a^b</button>
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="sqrt">&#8730</button>
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="sqrt()">&#8730</button>
                                     <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="min()">min</button>
                                     <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="max()">max</button>
                                 </div>

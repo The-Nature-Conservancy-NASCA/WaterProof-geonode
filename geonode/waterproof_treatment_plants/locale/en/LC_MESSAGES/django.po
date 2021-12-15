@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: Waterproof v1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-08-23 23:16-0500\n"
-"PO-Revision-Date: 2021-11-12 15:29-0500\n"
+"PO-Revision-Date: 2021-12-01 15:11-0500\n"
 "Last-Translator: Julien Collaer <julien.collaer@opengeode.be>\n"
 "Language-Team: Skaphe\n"
 "Language: en\n"
@@ -259,19 +259,19 @@ msgstr "Filtration"
 
 #: templates/treatment_plants_edit.html:179
 msgid "Filtración por membranas tamaño de particula retenida 0.01 μm"
-msgstr "Membrane filtration retained particle size 0.01 μm"
+msgstr "Membrane filtration retained particle size 0.01μm"
 
 #: templates/treatment_plants_edit.html:185
 msgid "Filtración por membranas tamaño de particula retenida 0.1 μm"
-msgstr "Membrane filtration retained particle size 0.1 μm"
+msgstr "Membrane filtration retained particle size 0.1μm"
 
 #: templates/treatment_plants_edit.html:191
 msgid "Filtración por membranas tamaño de particula retenida 0.001 μm"
-msgstr "Membrane filtration retained particle size 0.001 μm"
+msgstr "Membrane filtration retained particle size 0.001μm"
 
 #: templates/treatment_plants_edit.html:197
 msgid "Filtración por membranas tamaño de particula retenida 0.0001 μm"
-msgstr "Membrane filtration retained particle size 0.0001 μm"
+msgstr "Membrane filtration retained particle size 0.0001μm"
 
 #: templates/treatment_plants_edit.html:202
 msgid "Tratamiento de lodos"
@@ -305,7 +305,7 @@ msgstr "Creation of treatment plants"
 
 #: templates/treatment_plants_edit.html:257
 msgid "Treatment plants are a key element in ROI analysis setup. Once there are water  intakes that deliver the water to the treatment plants, a set of processes is responsible for eliminating coarse solids, resulting in a reduction of the pollutant load in the water, seeking to make it suitable for human consumption, or meet the requirements of current legislation. WaterProof offers  default cost functions forthe following processes:"
-msgstr "Treatment plants are a key element in ROI analysis setup. Once there are water  intakes that deliver the water to the treatment plants, a set of processes is responsible for eliminating coarse solids, resulting in a reduction of the pollutant load in the water, seeking to make it suitable for human consumption, or meet the requirements of current legislation. WaterProof offers  default cost functions for the following processes:"
+msgstr "Treatment plants are a key element in the ROI analysis setup. Once there are water  intakes that deliver the water to the treatment plants, a set of processes is responsible for eliminating coarse solids, resulting in a reduction of the pollutant load in the water, seeking to make it suitable for human consumption, or to meet the requirements of current legislation. WaterProof offers  default cost functions for the following processes:"
 
 #: templates/treatment_plants_edit.html:263
 msgid "Represents the process in which coagulant is applied to the water to promote the increase in  particle size forming floc, to promote settling of particles."
@@ -325,7 +325,7 @@ msgstr "Process in which the floc already formed separates from the water thanks
 
 #: templates/treatment_plants_edit.html:283
 msgid "Process in which water is passed through a bed (mainly sand, sand and anthracite) so that particles and certain microorganisms are filtered out and retained within the bed."
-msgstr "Process in which water is passed through a bed (mainly sand, sand and anthracite) so that particles and certain microorganisms are filtered out and retained within the bed."
+msgstr "Process in which water is passed through a bed (usually sand, or sand and anthracite) so that particles and certain microorganisms are filtered out and retained within the bed."
 
 #: templates/treatment_plants_edit.html:288
 msgid "A process in which membranes are used to remove all particles, molecules and microorganisms larger than their pore size. The main classification of advanced filtration establishes four categories: microfiltration, ultrafiltration, nanofiltration and reverse osmosis. The differences in each are the minimum pore sizes, being 100 nanometers (nm) for microfiltration, 10 nm for ultrafiltration, 1 nm for nanofiltration and smaller sizes for reverse osmosis."
@@ -336,8 +336,8 @@ msgid ""
 "A chemical process in which unwanted dissolved ions in water and effluents –  such as nitrate, fluorine, sulfate, and arsenic - are exchanged for other ions with a similar charge. This is done by means of a polymer capable of exchanging ions for other ions in a solution that passes through them. These synthetic gel spheres are called 'Ion Exchange Resins'. Process in which reagents, usually chlorine and ammonia, are added to form chloramines, eliminating any microorganisms "
 "that may have survived the previous processes and guaranteeing water quality throughout its journey through the distribution network. The final disposal of sludge from the flocculation and filtration processes is carried out by pumping, thickeners, drying beds or belt filters."
 msgstr ""
-"A chemical process in which unwanted dissolved ions in water and effluents –  such as nitrate, fluorine, sulfate, and arsenic - are exchanged for other ions with a similar charge. This is done by means of a polymer capable of exchanging ions for other ions in a solution that passes through them. These synthetic gel spheres are called 'Ion Exchange Resins'. Process in which reagents, usually chlorine and ammonia, are added to form chloramines, eliminating any microorganisms "
-"that may have survived the previous processes and guaranteeing water quality throughout its journey through the distribution network. The final disposal of sludge from the flocculation and filtration processes is carried out by pumping, thickeners, drying beds or belt filters."
+"A chemical process in which unwanted dissolved ions in water and effluents –  such as nitrate, fluorine, sulfate, and arsenic - are exchanged for other ions with a similar charge. This is done by means of a polymer capable of exchanging ions in a solution that passes through them. These synthetic gel spheres are called 'Ion Exchange Resins'. Process in which reagents, usually chlorine and ammonia, are added to form chloramines, eliminating any microorganisms that may have "
+"survived the previous processes and guaranteeing water quality throughout the journey through the distribution network. The final disposal of sludge from the flocculation and filtration processes is carried out by pumping, thickeners, drying beds or belt filters."
 
 #: templates/treatment_plants_edit.html:312 templates/treatment_plants_edit.html:407
 msgid "Close"
@@ -438,7 +438,7 @@ msgid "Water intakes"
 msgstr "Water intakes"
 
 msgid "Treatment plant creation city :"
-msgstr "City of creation :"
+msgstr "City of creation:"
 
 msgid "edit"
 msgstr "Edit"
@@ -456,10 +456,10 @@ msgid "delete"
 msgstr "Delete"
 
 msgid "WaterProof presents below the suggested components or processes for treating the water quality of the selected catchments. Click on the processes that are part of your treatment plant and use the checkbox to enable or disable them."
-msgstr "Based on the characteristics of the water quality of the basins that supply the treatment plant and the regulations of the countries, WaterProof indicates the suggested water treatment processes in your plant below. You can modify the unit process selection and customize it according to your actual condition. Click on the processes that are part of your treatment plant to explore technologies and cost functions and use the checkbox to enable or disable unit processes."
+msgstr "Based on the characteristics of the water quality of the basins that supply the treatment plant and local regulations, WaterProof indicates the suggested water treatment processes in your plant below. You can modify the unit process selection and customize it according to your actual condition. Click on the processes that are part of your treatment plant to explore technologies and cost functions and use the checkbox to enable or disable unit processes."
 
 msgid "Create_text_1"
-msgstr "Enter the identification data of the treatment plant, identify the catchments from which the water comes and the components that make it up to carry out its treatment."
+msgstr "Enter the identification data of the treatment plant, identify the catchments from which the water comes and the components for treatment."
 
 msgid "Create_text_2"
 msgstr "Click on the following button for WaterProof to configure the treatment plan"
@@ -482,3 +482,7 @@ msgstr "In WaterProof to create a new Treatment Plant you must have previously c
 #: templates/treatment_plants_list.html:129
 msgid "Paragraph modal create DWTP 3"
 msgstr "You will be able to explore water treatment technologies and their cost functions by clicking on the boxes to see the details."
+
+#: templates/treatment_plants_edit.html:29
+msgid "information description"
+msgstr "In this section you can create a Drinking Water Treatment Plant according to the quality of the water from your source."

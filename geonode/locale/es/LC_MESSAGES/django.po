@@ -42,7 +42,7 @@ msgstr ""
 "Project-Id-Version: GeoNode\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-02-11 20:03-0500\n"
-"PO-Revision-Date: 2021-11-03 17:02-0500\n"
+"PO-Revision-Date: 2021-11-30 13:41-0500\n"
 "Last-Translator: Julien Collaer <julien.collaer@opengeode.be>\n"
 "Language-Team: Spanish (http://www.transifex.com/geonode/geonode/language/es/)\n"
 "Language: es\n"
@@ -4500,7 +4500,7 @@ msgstr "Propósito del análisis"
 #, fuzzy
 #| msgid "Other Settings"
 msgid "Other Analysis"
-msgstr "Otros tipo de analista"
+msgstr "Otro tipo de analista"
 
 #: geonode/people/forms.py:167 geonode/people/forms.py:170 geonode/people/templates/people/profile_detail.html:76 geonode/templates/metadata_detail.html:144 geonode/templates/metadata_detail.html:286 geonode/templates/metadata_detail.html:367
 msgid "Organization"
@@ -4560,17 +4560,13 @@ msgstr "Zona horaria"
 
 #: geonode/people/models.py:119
 msgid "Professional or Academic user role"
-msgstr ""
+msgstr "Rol académico o profesional"
 
 #: geonode/people/models.py:121
 #, fuzzy
 #| msgid "Other"
 msgid "OtherRole"
 msgstr "Otro"
-
-#: geonode/people/models.py:127
-msgid "UseAnalysis"
-msgstr "Analista"
 
 #: geonode/people/models.py:140
 #, fuzzy
@@ -9382,7 +9378,7 @@ msgid "description-sign-up"
 msgstr "A través de su registro como usuario WaterProof, podrá acceder a un conjunto de servicios para realizar un análisis indicativo, a nivel de prefactibilidad, del ROI (retorno de la inversión) en la implementación de Soluciones basadas en la naturaleza de acuerdo con la normativa ambiental de las cuencas de abastecimiento de interés. Por favor ingrese su información de contacto, indicando su rol profesional e interés en el uso del análisis, defina su contraseña de inicio de sesión y revise los términos de condiciones de la herramienta. Al final, haga clic en el botón 'Registrarse'."
 
 msgid "Create a new account. To access the case study creation functionalities in WaterProof, it is necessary to have login credentials. Then enter your contact details and review the Terms and Conditions."
-msgstr "Cree una nueva cuenta para acceder a las funcionalidades de creación de casos de estudio en WaterProof. Ingrese sus datos de contacto y revise los Términos y condiciones."
+msgstr "Para acceder a las funcionalidades de creación de casos de estudio en WaterProof ingrese la siguiente información y revise los Términos y condiciones."
 
 msgid "Developed by:"
 msgstr "Desarrollado por:"
@@ -9414,6 +9410,15 @@ msgstr "Analista"
 msgid "External input"
 msgstr "External input"
 
+msgid "Nickname"
+msgstr "Alias"
+
+msgid "Your Initial"
+msgstr "Sus iniciales"
+
 #: geonode/templates/Private_policy.html
 msgid "The Nature Conservancy takes your privacy very seriously. This notice describes the policy of The Nature Conservancy's privacy in relation to the website water-proof.org (collectively, the website). By visiting the Website, you automatically accept the policies described in this Privacy Policy. If you do not agree with this Privacy Policy, you are not allowed to use the Website. The Nature Conservancy may modify this privacy policy occasionally unilaterally and without prior notice. Any modification will be communicated by this medium, so you should make sure to check periodically for any changes. The fact that you continue to use this Website after it has been published any modification will imply your acceptance of such modifications."
 msgstr "The Nature Conservancy toma su privacidad muy en serio. En este aviso se describe la política de privacidad de The Nature Conservancy en relación con el sitio web water-proof.org (en conjunto, el 'Sitio Web'). Al visitar el Sitio Web, usted automáticamente acepta las políticas descritas en esta Política de Privacidad. Si no está de acuerdo con esta Política de Privacidad, no le está permitido usar el Sitio Web. The Nature Conservancy puede modificar esta política de privacidad ocasionalmente en forma unilateral y sin aviso previo. Toda modificación se comunicará por este medio, de modo que usted debe asegurarse de comprobar periódicamente si se han efectuado cambios. El hecho de que usted continúe usando este Sitio Web después de haberse publicado alguna modificación implicará su aceptación de tales modificaciones."
+
+msgid "ProfessionalRole"
+msgstr "Rol Profesional"

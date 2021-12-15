@@ -40,6 +40,20 @@ from allauth.account.utils import (
 
 from captcha.fields import ReCaptchaField
 
+PROFESSIONAL_ROLES_ = (('ANALYS',_('Analyst')),
+                    ('COPART',  _('Corporate partner')),
+                    ('ACDMC',   _('Academic')),
+                    ('SCADM',   _('Service company administrator')),
+                    ('MCOMC',   _('Manager that carries out monitoring and control')),
+                    ('CITIZN',  _('Citizen')),
+                    ('REPECS',  _('Representative of an economic sector')),
+                    ('OTHER',   _('Other')))
+
+USE_ANALYSIS_ = (('ACDMC',  _('Academic')),
+                ('GNRL',    _('General')),
+                ('BSNSS',   _('Business')),
+                ('OTHER',   _('Other')))
+
 # Ported in from django-registration
 attrs_dict = {'class': 'required'}
 
@@ -104,6 +118,21 @@ class ProfileForm(forms.ModelForm):
         required=False,
         help_text=_("A space or comma-separated list of keywords"))
 
+    other_analysis = forms.CharField(label=_("Other Analysis"),
+                               widget=forms.TextInput(
+                                   attrs={'placeholder':
+                                          _('Other Analysis')}))
+    agree_conditions = forms.BooleanField(label=_('Agree Terms and Conditions'))
+
+    professional_role = forms.ChoiceField(label=_("Professional Role"), choices=PROFESSIONAL_ROLES_)
+
+    other_role = forms.CharField(label=_("Other Role"),
+                               widget=forms.TextInput(
+                                   attrs={'placeholder':
+                                          _('Other Role')}))
+    
+    use_analysis = forms.ChoiceField(label=_("Use Analysis"), choices=USE_ANALYSIS_)
+
     class Meta:
         model = get_user_model()
         exclude = (
@@ -137,34 +166,22 @@ class ProfileForm(forms.ModelForm):
 
 class CustomUserCreationForm2(SignupForm):
 
-    PROFESSIONAL_ROLES_ = (('ANALYS',_('Analyst')),
-                    ('COPART',  _('Corporate partner')),
-                    ('ACDMC',   _('Academic')),
-                    ('SCADM',   _('Service company administrator')),
-                    ('MCOMC',   _('Manager that carries out monitoring and control')),
-                    ('CITIZN',  _('Citizen')),
-                    ('REPECS',  _('Representative of an economic sector')),
-                    ('OTHER',   _('Other')))
-
-    USE_ANALYSIS_ = (('ACDMC',  _('Academic')),
-                    ('GNRL',    _('General')),
-                    ('BSNSS',   _('Business')),
-                    ('OTHER',   _('Other')))
+    
 
     def __init__(self, *args, **kwargs):
         super(CustomUserCreationForm2, self).__init__(*args, **kwargs)
         #selected_choices = ('ADMIN','Administrator')
         #self.fields['professional_role'].PROFESSIONAL_ROLES = ({(k, v) for k, v in PROFESSIONAL_ROLES if k not in selected_choices})
 
-    first_name = forms.CharField(label=_("First Name"),
+    first_name = forms.CharField(label=_("Nickname"),
                                widget=forms.TextInput(
                                    attrs={'placeholder':
-                                          _('First Name')}))
+                                          _('Nickname')}))
     
-    last_name = forms.CharField(label=_("Last Name"),
+    last_name = forms.CharField(label=_("Your Initial"),
                                widget=forms.TextInput(
                                    attrs={'placeholder':
-                                          _('Last Name')}))
+                                          _('Your Initial')}))
 
     professional_role = forms.ChoiceField(label=_("Professional Role"), choices=PROFESSIONAL_ROLES_)
 
@@ -222,6 +239,4 @@ class CustomUserCreationForm2(SignupForm):
         # TODO: Move into adapter `save_user` ?
         setup_user_email(request, user, [])
         return user
-
-    
 

@@ -48,9 +48,9 @@
             <a href="../../reports/decision/">{% trans "Decision indicators" %}</a>
         </div>
         <div class="icons-menu-header" id="idGeographicIndicators">
-            <a id="idGeographicIndicatorsClic" href=""><img src="/static/geonode/img/indicadores-geograficos.png" alt="geographic indicators" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;" title="{% trans "Geographic visualization" %}"/></a>
+            <a id="idGeographicIndicatorsClicImgH" href=""><img src="/static/geonode/img/indicadores-geograficos.png" alt="geographic indicators" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;" title="{% trans "Geographic visualization" %}"/></a>
             <br>
-            <a id="idGeographicIndicatorsClic" href="">{% trans "Geographic visualization" %}</a>
+            <a id="idGeographicIndicatorsClicDescH" href="">{% trans "Geographic visualization" %}</a>
         </div>
         <div class="icons-menu-header" id="idGeographicIndicators">
             <a id="Return" href=""><img src="/static/geonode/img/reportes-icon.png" alt="menu" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;" title="{% trans "Geographic visualization" %}"/></a>
@@ -70,7 +70,7 @@
                 </div>
                 <div class="file-column-left">
                     <div>{% trans "Country:" %}</div>
-                    <div class="value-file-column-left" id="idCountri">{% trans "-" %}</div>
+                    <div class="value-file-column-left" id="idCountry">{% trans "-" %}</div>
                 </div>
                 <div class="file-column-left">
                     <div>{% trans "Region:" %}</div>
@@ -148,6 +148,7 @@
                         <img src="/static/geonode/img/indicadores-fisicos.png" alt="physical indicators" style="height: 70%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black; margin-top: -13%; margin-left: 15%;"/>
                     </div>
                     <div class="contain-detail col-md-8">
+                        <p>{% trans "description graph physical indicators" %}</p>
                         <div class="first-detail-2">
                             <div id="container"></div>
                         </div>
@@ -621,9 +622,9 @@
         <a href="../../reports/decision/">{% trans "Decision indicators" %}</a>
     </div>
     <div class="list-menu-results" id="idGeographicIndicators">
-        <a id="idGeographicIndicatorsClic" href=""><img src="/static/geonode/img/indicadores-geograficos.png" alt="geographic indicators" title="{% trans "Geographic visualization" %}"/></a>
+        <a id="idGeographicIndicatorsClicImgF" href=""><img src="/static/geonode/img/indicadores-geograficos.png" alt="geographic indicators" title="{% trans "Geographic visualization" %}"/></a>
         <br>
-        <a id="idGeographicIndicatorsClic" href="">{% trans "Geographic visualization" %}</a>
+        <a id="idGeographicIndicatorsClicDescF" href="">{% trans "Geographic visualization" %}</a>
     </div>
 </div>
 
@@ -1492,7 +1493,7 @@ var localStorageId = localStorage.idStudyCase;
 
         initialize = function () {
 
-            $("#idCountri").html(localStorage.getItem('country'));
+            $("#idCountry").html(localStorage.getItem('country'));
             $("#idCity").html(localStorage.getItem('city'));
             $("#idRegion").html(localStorage.getItem('region'));
             $("#idNameStudyCase").html(localStorage.getItem('studyCasesName'));
@@ -2109,7 +2110,10 @@ var localStorageId = localStorage.idStudyCase;
                     });
                     var urlWaterProofLyrsWMS = `/reports/geographic/?folder=${usr_folder}&intake=${intake}&year=${year}&region=${region}&center=${centroX}&study_case_id=${studyCaseId}`;
                     //console.log (urlWaterProofLyrsWMS);
-                    document.getElementById("idGeographicIndicatorsClic").href =urlWaterProofLyrsWMS;
+                    document.getElementById("idGeographicIndicatorsClicImgH").href =urlWaterProofLyrsWMS;
+                    document.getElementById("idGeographicIndicatorsClicDescH").href =urlWaterProofLyrsWMS;
+                    document.getElementById("idGeographicIndicatorsClicImgF").href =urlWaterProofLyrsWMS;
+                    document.getElementById("idGeographicIndicatorsClicDescF").href =urlWaterProofLyrsWMS;
                     
                 });
         };

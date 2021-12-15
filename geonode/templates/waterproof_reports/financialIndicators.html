@@ -30,9 +30,9 @@
                 <a>{% trans "Financial indicators" %}</a>
             </div>
             <div class="icons-menu-header" id="idFinancialIndicators">
-                <a id="urlPhysical" href=""><img src="/static/geonode/img/indicadores-fisicos.png" alt="physical indicators" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;" title="{% trans "Physical indicators" %}"/> </a>
+                <a id="urlPhysicalImgH" href=""><img src="/static/geonode/img/indicadores-fisicos.png" alt="physical indicators" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;" title="{% trans "Physical indicators" %}"/> </a>
                 <br> 
-                <a id="urlPhysical" href="">{% trans "Physical indicators" %}</a>
+                <a id="urlPhysicalDescH" href="">{% trans "Physical indicators" %}</a>
             </div>
             <div class="icons-menu-header" id="idDecisionIndicators">
                 <a href="../../reports/decision/"><img src="/static/geonode/img/indicadores-decision.png" alt="decision indicators" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;" title="{% trans "Decision indicators" %}"/></a>
@@ -40,9 +40,9 @@
                 <a href="../../reports/decision/">{% trans "Decision indicators" %}</a>
             </div>
             <div class="icons-menu-header" id="idGeographicIndicators">
-                <a id="idGeographicIndicatorsClic" href=""><img src="/static/geonode/img/indicadores-geograficos.png" alt="geographic indicators" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;" title="{% trans "Geographic visualization" %}"/></a>
+                <a id="idGeographicIndicatorsClicImgH" href=""><img src="/static/geonode/img/indicadores-geograficos.png" alt="geographic indicators" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;" title="{% trans "Geographic visualization" %}"/></a>
                 <br>
-                <a id="idGeographicIndicatorsClic" href="">{% trans "Geographic visualization" %}</a>
+                <a id="idGeographicIndicatorsClicDescH" href="">{% trans "Geographic visualization" %}</a>
                 <!-- ../../reports/geographic/-->
             </div>
             <div class="icons-menu-header" id="idGeographicIndicators">
@@ -63,7 +63,7 @@
                     </div>
                     <div class="file-column-left">
                         <div>{% trans "Country:" %}</div>
-                        <div class="value-file-column-left" id="idCountri">{% trans "-" %}</div>
+                        <div class="value-file-column-left" id="idCountry">{% trans "-" %}</div>
                     </div>
                     <div class="file-column-left">
                         <div>{% trans "Region:" %}</div>
@@ -259,10 +259,10 @@
         <a>{% trans "Financial indicators" %}</a>
     </div>
     <div class="list-menu-results">
-        <a id="urlPhysical" href=""><img src="/static/geonode/img/indicadores-fisicos.png" alt="physical indicators" title="{% trans "Physical indicators" %}"/> </a>
+        <a id="urlPhysicalImgF" href=""><img src="/static/geonode/img/indicadores-fisicos.png" alt="physical indicators" title="{% trans "Physical indicators" %}"/> </a>
         <br>
         <!--a>{% trans "Physical indicators" %}</a-->
-        <a id="urlPhysical" href="">{% trans "Physical indicators" %}</a>
+        <a id="urlPhysicalDescF" href="">{% trans "Physical indicators" %}</a>
     </div>
     <div class="list-menu-results" id="idDecisionIndicators">
         <a href="../../reports/decision/"><img src="/static/geonode/img/indicadores-decision.png" alt="decision indicators" title="{% trans "Decision indicators" %}"/></a>
@@ -270,9 +270,9 @@
         <a href="../../reports/decision/">{% trans "Decision indicators" %}</a>
     </div>
     <div class="list-menu-results" id="idGeographicIndicators">
-        <a id="idGeographicIndicatorsClic" href=""><img src="/static/geonode/img/indicadores-geograficos.png" alt="geographic indicators" title="{% trans "Geographic visualization" %}"/></a>
+        <a id="idGeographicIndicatorsClicImgF" href=""><img src="/static/geonode/img/indicadores-geograficos.png" alt="geographic indicators" title="{% trans "Geographic visualization" %}"/></a>
         <br>
-        <a id="idGeographicIndicatorsClic">{% trans "Geographic visualization" %}</a>
+        <a id="idGeographicIndicatorsClicDescF">{% trans "Geographic visualization" %}</a>
         <!--a>../../reports/geographic/</a-->
     </div>
 </div>
@@ -480,7 +480,7 @@ $(function () {
 
     initialize = function () {
 
-        $("#idCountri").html(localStorage.getItem('country'));
+        $("#idCountry").html(localStorage.getItem('country'));
         $("#idCity").html(localStorage.getItem('city'));
         $("#idRegion").html(localStorage.getItem('region'));
         $("#idNameStudyCase").html(localStorage.getItem('studyCasesName'));
@@ -974,11 +974,18 @@ $(function () {
                     });
                     var urlWaterProofLyrsWMS = `/reports/geographic/?folder=${usr_folder}&intake=${intake}&year=${year}&region=${region}&center=${centroX}&study_case_id=${studyCaseId}`;
                     console.log (urlWaterProofLyrsWMS);
-                    document.getElementById("idGeographicIndicatorsClic").href =urlWaterProofLyrsWMS;
+                    document.getElementById("idGeographicIndicatorsClicImgH").href =urlWaterProofLyrsWMS;
+                    document.getElementById("idGeographicIndicatorsClicDescH").href =urlWaterProofLyrsWMS;
+                    document.getElementById("idGeographicIndicatorsClicImgF").href =urlWaterProofLyrsWMS;
+                    document.getElementById("idGeographicIndicatorsClicDescF").href =urlWaterProofLyrsWMS;
                     
                 });
         let urlPhysicalIndicators = "../../reports/physical/"+localStorage.idStudyCase;
-        document.getElementById("urlPhysical").href = urlPhysicalIndicators;
+        document.getElementById("urlPhysicalImgF").href = urlPhysicalIndicators;
+        document.getElementById("urlPhysicalDescF").href = urlPhysicalIndicators;
+        document.getElementById("urlPhysicalImgH").href = urlPhysicalIndicators;
+        document.getElementById("urlPhysicalDescH").href = urlPhysicalIndicators;
+
 
     };
     initialize();

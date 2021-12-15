@@ -47,8 +47,8 @@ $(function () {
         STUDY_YEARS: 'time_implement',
         STUDY_INTAKES: 'intakes',
         STUDY_PTAPS: 'ptaps',
-        STUDY_CURRENCY: 'cm_currency'
-
+        STUDY_CURRENCY: 'cm_currency',
+        ANALYSYS_CURRENCY: 'analysis_currency',
     };
     const AXIS_TABLE = {
         DOM_ID: 'axis_table'
@@ -63,7 +63,8 @@ $(function () {
         INVEST: '../getInvestIndicators/',
         ROI: '../getRoiIndicators/',
         VPN: '../getVpnIndicators/',
-        STUDY_CASE: '../getStudyCaseInfo/'
+        STUDY_CASE: '../getStudyCaseInfo/',
+        INVEST_RAW: '../getInvestIndicatorsRaw/',
     };
     const SLIDER_UL = {
         DOM_ID: 'splide_ul'
@@ -90,6 +91,7 @@ $(function () {
     /******************/
     else { //there are cases selected
         selectedCases = JSON.parse(localStorage.analysisCases);
+        var casesIdOrdered = selectedCases.sort((a,b) => b - a);
         fields = [];
         fields.push(
             CHART_CATEGORIES.AWY,
@@ -102,7 +104,7 @@ $(function () {
         /* DEFAULT REQUEST AT LOAD PAGE
         /******************************/
         // Get invest indicator for selected cases
-        var seriesInvestRequest = indicatorsRequest(INDICATORS_API.INVEST, selectedCases, fields);
+        var seriesInvestRequest = indicatorsRequest(INDICATORS_API.INVEST_RAW, casesIdOrdered, fields);
         fields = [];
         fields.push(
             CHART_CATEGORIES.STUDYCASE,
@@ -113,14 +115,15 @@ $(function () {
             CHART_CATEGORIES.STUDY_YEARS,
             CHART_CATEGORIES.STUDY_INTAKES,
             CHART_CATEGORIES.STUDY_PTAPS,
-            CHART_CATEGORIES.STUDY_CURRENCY
+            CHART_CATEGORIES.STUDY_CURRENCY,
+            CHART_CATEGORIES.ANALYSYS_CURRENCY
         );
-        var seriesCasesRequest = indicatorsRequest(INDICATORS_API.STUDY_CASE, selectedCases, fields);
+        var seriesCasesRequest = indicatorsRequest(INDICATORS_API.STUDY_CASE, casesIdOrdered, fields);
         fields = [];
         fields.push(
             CHART_CATEGORIES.RWD
         )
-        var seriesRoiRequest = indicatorsRequest(INDICATORS_API.ROI, selectedCases, fields);
+        var seriesRoiRequest = indicatorsRequest(INDICATORS_API.ROI, casesIdOrdered, fields);
         var requests = [];
         requests.push(seriesInvestRequest, seriesRoiRequest, seriesCasesRequest);
         Promise.all(requests).then(promiseResponse => {
@@ -199,7 +202,7 @@ $(function () {
                             <div>${gettext('Time frame')}: ${element.time_implement}</div>
                             <div>${gettext('Number of intakes')}: ${intakeCount}</div>
                             <div>${gettext('Number DWTP')}: ${ptapsCount}</div>
-                            <div>${gettext('Currency')}: ${element.cm_currency}</div></div></li>`;
+                            <div>${gettext('Currency')}: ${element.analysis_currency}</div></div></li>`;
                     $('#' + SLIDER_UL.DOM_ID).append(li);
                     //console.log(element);
                 });
@@ -268,21 +271,22 @@ $(function () {
             return
         }
         var axisName = axis_select[0].value;
+        var url = "";
         switch (axisName) {
             //Invest
             case CHART_CATEGORIES.AWY: case CHART_CATEGORIES.BF_M3: case CHART_CATEGORIES.WN_KG:
             case CHART_CATEGORIES.WP_KG: case CHART_CATEGORIES.WSED_TON: case CHART_CATEGORIES.WC_TON:
-                var url = INDICATORS_API.INVEST;
+                url = INDICATORS_API.INVEST_RAW;
                 break;
             //ROI
             case CHART_CATEGORIES.RWD: case CHART_CATEGORIES.RME:
-                var url = INDICATORS_API.ROI;
+                url = INDICATORS_API.ROI;
                 break;
             //VPN
             case CHART_CATEGORIES.VPN_IMP: case CHART_CATEGORIES.VPN_MAINT: case CHART_CATEGORIES.VPN_OPORT:
             case CHART_CATEGORIES.VPN_PLAT: case CHART_CATEGORIES.VPN_TRANS: case CHART_CATEGORIES.VPN_TOTAL:
             case CHART_CATEGORIES.VPN_BENF:
-                var url = INDICATORS_API.VPN;
+                url = INDICATORS_API.VPN;
                 break;
             default:
                 break;
@@ -425,10 +429,16 @@ $(function () {
     function fillAxisTable(axis_selected) {
         let axis_table = $('#' + AXIS_TABLE.DOM_ID);
         axis_selected.forEach(axis => {
-            let row = `<tr><td class="small text-center vat">${axis.name}</td>`;
-            row += `<td class="small text-center vat"><a class="btn btn-danger removeAxis" data-id="${axis.id}">`;
-            row += `<span class="glyphicon glyphicon-trash" aria-hidden="true" data-id="${axis.id}"></span></a></td></tr>`;
-            axis_table.append(row);
+            if(axis.name == "ROI Beneficio/Costo (Total)" || axis.name == "ROI Benefit/Cost (Total)"){
+                let row = `<tr><td class="small text-center vat">${axis.name}</td>`;
+                axis_table.append(row);
+            }else{
+                let row = `<tr><td class="small text-center vat">${axis.name}</td>`;
+                row += `<td class="small text-center vat"><a class="btn btn-danger removeAxis" data-id="${axis.id}">`;
+                row += `<span class="glyphicon glyphicon-trash" aria-hidden="true" data-id="${axis.id}"></span></a></td></tr>`;
+                axis_table.append(row);
+            }
+            
         });
     }
     /*

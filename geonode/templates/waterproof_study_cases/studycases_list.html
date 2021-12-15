@@ -135,7 +135,7 @@
                         <a class="btn btn-danger" data-id="{{studyCases.pk}}" title='{% trans "delete" %}'><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
                     </div>
                     <div class="btn-group btn-group-table" role="group">
-                        <a class="btn btn-warning btn-private" data-id="{{studyCases.pk}}" {% if studyCases.is_public%} title='{% trans "Private" %}' {% else %}  title='{% trans "Public" %}' {% endif %}>
+                        <a data-id="{{studyCases.pk}}" {% if studyCases.is_public%} class="btn btn-warning btn-private" title='{% trans "Private" %}' {% else %}  class="btn btn-primary btn-public"title='{% trans "Public" %}' {% endif %}>
                             <span class="glyphicon glyphicon-lock" aria-hidden="true"></span>
                         </a>                        
                         <a class="btn btn-info {% if studyCases.is_run_analysis == False %}disabled{% endif %}" href="report/{{studyCases.pk}}" title='{% trans "report" %}'>

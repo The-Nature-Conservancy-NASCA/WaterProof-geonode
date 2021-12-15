@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Waterproof Vbeta\n"
+"Project-Id-Version: Waterproof V1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-02-19 11:27-0500\n"
-"PO-Revision-Date: 2021-11-11 15:57-0500\n"
+"PO-Revision-Date: 2021-12-03 12:46-0500\n"
 "Last-Translator: Julien Collaer <julien.collaer@opengeode.be>\n"
 "Language-Team: Skaphe\n"
 "Language: en\n"
@@ -19,7 +19,7 @@ msgstr ""
 
 #: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
 msgid "Explore the reports resulting from the analysis of your case study"
-msgstr "Explore the reports resulting from the analysis of your case study"
+msgstr "Explore your case study analysis reports"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
 msgid "In this section WaterProof provides you to understand the possible changes in soil and water resources due to the implementation of Nature-Based Solutions, becoming powerful tools to make investment decisions"
@@ -47,11 +47,11 @@ msgstr "Time frame (years):"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
 msgid "Number of water intakes that are part of the analysis:"
-msgstr "Number of water intakes that are part of the analysis:"
+msgstr "Quantity of water intakes considered in analysis:"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
 msgid "Number of drinking water treatment plants in the system:"
-msgstr "Number of DWTP in the analysis:"
+msgstr "Quantity of DWTP in analysis:"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
 msgid "Currency:"
@@ -59,11 +59,11 @@ msgstr "Currency:"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
 msgid "Financial summary"
-msgstr "Financial summary"
+msgstr "Financial Summary"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
 msgid "Calculated ROI:"
-msgstr "Calculated ROI:"
+msgstr "ROI Estimate:"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
 msgid "ROI on nature based solutions opportunity"
@@ -71,11 +71,11 @@ msgstr "ROI due to implementation of nature based solutions"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
 msgid "Summary of risks in the basins"
-msgstr "Summary of risks in the basins"
+msgstr "Water risk summary"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
 msgid "Select the basin of your interest from the drop-down list to know a summary of its risks (The risk results have been estimated using the Acueduct - WRI database)"
-msgstr "Select your intake of interest from the drop-down list to view a summary of risks (The risk results have been estimated using"
+msgstr "Below is a summary of the risks associated with the selected water intake (results draw from"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
 msgid "the Acueduct - WRI database"
@@ -91,7 +91,7 @@ msgstr "Water quantity risk"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
 msgid "Physical risk quantity measures risk related to too little or too much water by aggregating all selected indicators from the physical risk quantity category"
-msgstr "Water quantity risk indicates where there is too little or too much water. This risk level aggregates all indicators from the physical risk quantity category in Aqueduct."
+msgstr "Water quantity risk indicates either is too little or too much water. This risk level aggregates all indicators from the physical risk quantity category in Aqueduct."
 
 #: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
 msgid "Physical risk quantity qal_def"
@@ -163,11 +163,11 @@ msgstr "Area converted (Ha)"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
 msgid "Explore detailed results of this case study"
-msgstr "Explore detailed results of this case study"
+msgstr "Explore detailed results"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
 msgid "Financial indicators"
-msgstr "Financial indicators"
+msgstr "Financial Indicators"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
 msgid "Physical indicators"
@@ -179,16 +179,16 @@ msgstr "Decision indicators"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
 msgid "Geographic visualization"
-msgstr "Geographic visualization"
+msgstr "Geographic Visualization"
 
 msgid "Invest ind text 1"
 msgstr "This report allows you to obtain an integrated view of the outcomes that may be caused in each basin by the implementation of the selected NbS:"
 
 msgid "Invest ind text 2"
-msgstr "This report aims to enable decision-makers to assess the trade-offs that can be achieved and to identify water basins where investment in natural capital can enhance human development and conservation. Please note in your evaluation:"
+msgstr "This report aims to enable decision-makers to assess the trade-offs that can be achieved and to identify water basins where investment in natural capital can enhance human development and conservation."
 
 msgid "Invest ind text 3"
-msgstr "Change in volume of base: Do changes in the landscape affect the annual average  water  yield?  Note  that  the  model  helps  to  establish  changes  in  the storages by analyzing the inputs to the system minus the outputs from the system."
+msgstr "Change in base volumen: Do changes in the landscape affect the annual average  water  yield?"
 
 msgid "Invest ind text 4"
 msgstr "Change in base flow: Do landscape changes affect basin runoff and recharge? The value  presented  depends  on  the  connectivity  and land  use  and  land  cover components,  so that the  recharge  is  influenced  by  variables  such  as  vegetation cover and connectivity."
@@ -197,13 +197,13 @@ msgid "Invest ind text 5"
 msgstr "Change in total sediments: Do you see changes in the amount of sediment runoff from the  basin? Significant changes  will result inerosion  and  water  quality impacts."
 
 msgid "Invest ind text 6"
-msgstr "Change in total Nitrogen - Change in total Phosphorous: Do you notice significant changes  in  the  load  of  these  nutrients?  With  this  analysis  you  can assess the nutrient  retention  service  by  natural  vegetation.  It  also  allows  you  to  identify potential treatment costs or improve water safety through access to clean water"
+msgstr "Change in total Nitrogen & Change in total Phosphorous: With  this  analysis  you  can assess the nutrient  retention  service  by  natural  vegetation.  It  also  allows  you  to  identify potential treatment costs or improve water safety through access to clean water"
 
 msgid "Invest ind text 7"
 msgstr "Change  in  Carbon  storage:  Are  you  seeing  changes  in  carbon  storage? Carbon storage  in  a land  parcel(pixel)  depends  on  four  carbon  pools: aboveground biomass, underground biomass, soil, and dead organic matter."
 
 msgid "Financial ind text 1"
-msgstr "This report organizes the financial data of NBS implementation into two groups: benefits and costs. The information is presented for the years parameterized in the user-defined ROI analysis timeframe."
+msgstr "This section organizes the financial data of NBS implementation into two groups: benefits and costs. The information is presented for the years parameterized in the user-defined ROI analysis timeframe."
 
 msgid "Financial ind text 2"
 msgstr "The  system  analyzes  the  benefits  for  turbidity  treatment,  dredging  or  sand  trap  maintenance,  reservoir cleaning  (elimination  of  algae),  color  treatment  and  elimination  of  organic  pollutants,  unavailability  of water resources, carbon market. This is to be compared by the user against implementation, maintenance, transaction,and platform costs."
@@ -215,7 +215,7 @@ msgid "VPN ind text 2"
 msgstr "For the selected discount rate, if NPV is positive, the project is profitable. But if the NPV is negative, the project is not profitable."
 
 msgid "VPN ind text 3"
-msgstr "We invite you to compare several case studies to evaluate which of them gives you the best NPV and therefore the highest performance."
+msgstr "We invite you to simultaneously evaluate case studies to understand relative tradeoffs."
 
 msgid "Sensitivity ind text 1"
 msgstr "This section presents the sensitivity analysis of benefits and discounted costs using the minimum and maximum discount rates defined for the analysis. The continues line represents the result with the nominal discount rate."
@@ -230,7 +230,7 @@ msgid "Return ROI ind text 1"
 msgstr "This report organizes the financial data of NbS implementation into two groups: benefits and costs. The information is presented for the years parameterized in the user-defined ROI analysis timeframe. The  system  analyzes  the  benefits  for  turbidity  treatment,  dredging  or  sand  trap  maintenance,  reservoir cleaning  (elimination  of  algae),  color  treatment  and  elimination  of  organic  pollutants,  unavailability  of water resources, carbon market. This is to be compared by the user against implementation, maintenance, transaction,and platform costs."
 
 msgid "Benefits and cost ind text 1"
-msgstr "This report presents a synthesis of the proportional investments and benefits that will be achieved by the implementation of the NbS:"
+msgstr "This report synthesizes the benefits and costs of NbS portfolio implementation."
 
 msgid "Benefits and cost ind text 2"
 msgstr "In this graph you can identify the magnitudes of the costs, in order to help identify where greater investments are needed"
@@ -310,7 +310,7 @@ msgstr "Physical and risk indicator"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/decisionIndicators.html:86
 msgid "Result of interventions"
-msgstr "Result of interventions"
+msgstr "Intervention results"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/decisionIndicators.html:142
 msgid "Change in volume of water yield"
@@ -338,7 +338,7 @@ msgstr "Change in carbon storage (%)"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/decisionIndicators.html:142
 msgid "ROI on Green Infrastructure Water treatment Opportunity"
-msgstr "ROI on Green Infrastructure Water treatment Opportunity"
+msgstr "Estimated NbS Portfolio ROI"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/decisionIndicators.html:142
 msgid "Adove 1"
@@ -358,7 +358,7 @@ msgstr "Total area investment size (Ha)"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/decisionIndicators.html:206
 msgid "Size recomended intervetion as a percent to total area"
-msgstr "Size recommended intervetion as a percent to total area"
+msgstr "NbS portfolio size as a percent to total area"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/decisionIndicators.html:206
 msgid "Intervetion"
@@ -386,7 +386,7 @@ msgstr "Recommended intervetion (Ha)"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/financialIndicators.html:206
 msgid "This report summarizes the proportions in investment and benefits that will be achieved by the implementation of the SbN:"
-msgstr "This report summarizes the proportions in investment and benefits that will be achieved by the implementation of the SbN:"
+msgstr "This report summarizes the proportions in investment and benefits that will be achieved by the implementation of the NbS:"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/financialIndicators.html:83
 msgid "Return of investment (ROI)"
@@ -426,7 +426,7 @@ msgstr "Annual Water Yield (m3)"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/geographicIndicators.html:106
 msgid "Anual volume base flow (change in time)"
-msgstr "Annual Volume of Base Flow (m3)"
+msgstr "Annual Base Flow Volumen (m3)"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/geographicIndicators.html:110
 msgid "Total sediments (change in time)"
@@ -506,7 +506,7 @@ msgstr "Physical Indicators"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/physicalIndicators.html:25
 msgid "Physical idicators (INVEST)"
-msgstr "Physical idicators (InVEST)"
+msgstr "Physical indicators (InVEST)"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/physicalIndicators.html:30
 msgid "CPhysical and risk indicators"
@@ -553,7 +553,7 @@ msgstr "Download analysis results"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/compare-maps.html:80
 msgid "Land cover comparision"
-msgstr "Land cover comparision"
+msgstr "Land cover comparison"
 
 #: geonode/waterproof_reports/templates/waterproof_reports/compare-maps.html:80
 msgid "Physical changes"
@@ -669,7 +669,7 @@ msgstr "This set of reports synthesizes the change in the physical parameters ex
 
 #: geonode/waterproof_reports/templates/waterproof_reports/physicalIndicators
 msgid "text-step4-ph"
-msgstr "This section presents the behavior of ecosystem services for the period of analysis. You will be able to visualize how these variables behave in the Business as Usual Scenarios - BaU versus the Nature-based solutions scenario - SbN over time."
+msgstr "This section presents the behavior of ecosystem services for the period of analysis. You will be able to visualize how these variables behave in the Business as Usual Scenarios - BaU versus the Nature-based solutions scenario - NbS over time."
 
 #: geonode/waterproof_reports/templates/waterproof_reports/physicalIndicators
 msgid "text-step4-ph-2"
@@ -693,3 +693,6 @@ msgstr "Regulatory and reputational"
 
 msgid "Physical risk quality"
 msgstr "Physical risk quality"
+
+msgid "description graph physical indicators"
+msgstr "The bar graph shows the result for the last year."

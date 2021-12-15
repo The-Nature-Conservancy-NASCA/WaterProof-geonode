@@ -21,12 +21,12 @@
 # Translators:
 msgid ""
 msgstr ""
-"Project-Id-Version: GeoNode\n"
+"Project-Id-Version: Waterproof V1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-02-15 10:17-0500\n"
-"PO-Revision-Date: 2021-07-15 19:24-0500\n"
+"PO-Revision-Date: 2021-12-01 15:07-0500\n"
 "Last-Translator: Julien Collaer <julien.collaer@opengeode.be>\n"
-"Language-Team: English (http://www.transifex.com/geonode/geonode/language/en/)\n"
+"Language-Team: Skaphe\n"
 "Language: en\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -89,14 +89,14 @@ msgstr "Implementation cost (%s/ha) "
 #: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca_edit.js:467
 #, javascript-format
 msgid "Maintenace cost (%s/ha) "
-msgstr "Maintenace cost (%s/ha) "
+msgstr "Maintenance cost (%s/ha) "
 
 #: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca.js:328
 #: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca_clone.js:469
 #: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca_edit.js:469
 #, javascript-format
 msgid "Oportunity cost (%s/ha) "
-msgstr "Oportunity cost (%s/ha) "
+msgstr "Opportunity cost (%s/ha) "
 
 #: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca.js:404
 #: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca_clone.js:281
@@ -177,6 +177,22 @@ msgstr "Error!"
 #: geonode/waterproof_nbs_ca/static/waterproof_nbs_ca/js/waterproof_nbs_ca_list.js:89
 msgid "The NBS has not been deleted, try again!"
 msgstr "The NBS has not been deleted, try again!"
+
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_form.html:240
+msgid "Only zip and GeoJSON1"
+msgstr "Alternatively, you can upload a zip file with SHP spatial data (in EPSG 3857 or EPSG 4326 coordinates) that delimits the polygon defining areas where an SbN is either preferred or prevented. For configuration, the following criteria must be met:"
+
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_form.html:241
+msgid "Only EPSG1"
+msgstr ""
+"Rows: Each row is a polygon that defines an area where a particular activity should be preferred or prevented. \n"
+"Columns: Columns should be created like this:"
+
+#: geonode/waterproof_nbs_ca/templates/waterproof_nbs_ca/waterproofnbsca_form.html:242
+msgid "Max upload size1"
+msgstr ""
+"- activity_n (activity name): Textual value that specifies what a SbN is preferred or prevented in this polygon. It must match the textual name of the SbNs that you have previously defined in the system. \n"
+"- action: Textual value that specifies if an SbN is being preferred or prevented in this polygon. Valid values ​​are 'prefer' and 'prevent'."
 
 #~ msgid "The coordinate reference system is not correct!, expects EPSG 3857 or EPSG 4326"
 #~ msgstr "The coordinate reference system is not correct!, expects EPSG 3857 or EPSG 4326"

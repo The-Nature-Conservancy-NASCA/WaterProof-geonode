@@ -743,7 +743,7 @@ def createStepFive(request):
             argsWb = {
                 'id_intake': existingIntake.pk
             }
-            execInvestPost(requests, argsInvest)
+            execInvest(requests, argsInvest)
             execWb(requests, argsWb)
             response = {
                 'status': True,

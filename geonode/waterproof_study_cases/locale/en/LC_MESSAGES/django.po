@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: GeoNode V1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-02-11 20:03-0500\n"
-"PO-Revision-Date: 2021-10-28 19:10-0500\n"
+"PO-Revision-Date: 2021-12-01 15:09-0500\n"
 "Last-Translator: Julien Collaer <julien.collaer@opengeode.be>\n"
 "Language-Team: English Skaphe\n"
 "Language: en\n"
@@ -21,7 +21,7 @@ msgid "study_cases"
 msgstr "Case studies"
 
 msgid "new_study_case"
-msgstr "Create case studies"
+msgstr "Create case study"
 
 msgid "list_study_case"
 msgstr "List case studies"
@@ -69,7 +69,7 @@ msgid "select_type_study"
 msgstr "Select the type of infrastructure to analyze in the case study"
 
 msgid "define_type_study_text"
-msgstr "WaterProof can consider for ROI analysis the operating and maintenance costs associated with the analysis infrastructure. You can use the costs of a previously created drinking water treatment plant or you can create costs for a custom infrastructure. Select the desired option."
+msgstr "WaterProof estimates ROI based on the operating and maintenance costs associated with the analysis infrastructure. You can choose to either use the cost schema of a previously-created drinking water treatment plant or develop a new custom infrastructure profile. Please select the desired option."
 
 msgid "no_treatment_plants"
 msgstr "There are no treatment plants in the selected city"
@@ -81,19 +81,19 @@ msgid "custom_case"
 msgstr "Custom case"
 
 msgid "select_water_intake"
-msgstr "Select the water intakes you want to consider in the ROI analysis from the list. If it has not been created yet, please click in the following button:"
+msgstr "Select from the list the water intakes you want to consider in your ROI analysis. If you would like to create a new intake, please click in the following button:"
 
 msgid "water_source"
 msgstr "Water intake source"
 
 msgid "add_wi"
-msgstr "Add Water Intake"
+msgstr "Add water intake"
 
 msgid "add_cost_function"
 msgstr "Add cost function"
 
 msgid "select_treatments_plants"
-msgstr "Select the treatment plants you want to consider in the ROI analysis. If you haven't created it yet, please click in the following button:"
+msgstr "Select the treatment plant you want to consider in the ROI analysis. If you haven't created it yet, please click in the following button:"
 
 msgid "add_plant"
 msgstr "Add DWTP"
@@ -105,7 +105,7 @@ msgid "CO2_country"
 msgstr "CO2 Eq for "
 
 msgid "portfolios_text"
-msgstr "Select the objectives for which the system will generate portfolios of Nature based Solutions, using the RIOS technical framework"
+msgstr "Select the priorization objetives for your NbS portfolio"
 
 msgid "edit_study_cases"
 msgstr "Edit case study"
@@ -114,19 +114,19 @@ msgid "biophysical_tables"
 msgstr "biophysical tables"
 
 msgid "Biophysical_tables_text"
-msgstr "In this step you will find the biophysical parameters required for the execution of the models. If you want to see or edit these parameters, click on Advanced options, otherwise click on Next and the system will use the default values."
+msgstr "This step selects the biophysical parameters used in model execution. If you would like to rely upon default values, click Next; otherwise click Advanced Options to see or edit these parameters."
 
 msgid "advanced_options"
-msgstr "Advanced options"
+msgstr "Advanced Options"
 
 msgid "tables_text"
 msgstr "Below are the biophysical tables that will be used in modeling in InVEST and RIOS. You can edit the values according to specific knowledge of the supplying basins"
 
 msgid "InVEST_documentation"
-msgstr "Please see the InVEST documentation"
+msgstr "Please see InVEST documentation"
 
 msgid "platform_cost"
-msgstr "Platform cost per year"
+msgstr "Annual platform cost per year"
 
 msgid "personnel_salary_benefits"
 msgstr "Personnel salary and benefits"
@@ -135,19 +135,19 @@ msgid "program_director"
 msgstr "Program director"
 
 msgid "monitoring_manager"
-msgstr "Monitoring and evaluation manager"
+msgstr "Monitoring and evaluation personnel"
 
 msgid "finance_administrator"
-msgstr "Finance and administrator"
+msgstr "Finance and administration"
 
 msgid "implementation_manager"
-msgstr "Implementation manager"
+msgstr "Implementation management"
 
 msgid "office_costs"
 msgstr "Office costs"
 
 msgid "Travel"
-msgstr "Travels"
+msgstr "Travel expenses"
 
 msgid "Equipment"
 msgstr "Equipment"
@@ -159,7 +159,7 @@ msgid "Overhead"
 msgstr "Overhead"
 
 msgid "Others"
-msgstr "Others"
+msgstr "Other"
 
 msgid "transaction_cost"
 msgstr "Transaction cost (%)"
@@ -168,22 +168,22 @@ msgid "discount_rate"
 msgstr "Discount rate (%)"
 
 msgid "sensitivity_minimun_discount"
-msgstr "Sensitivity analysis - Minimun discount rate (%)"
+msgstr "Sensitivity analysis - Minimum discount rate (%)"
 
 msgid "sensitivity_maximun_discount"
-msgstr "Sensitivity analysis - Maximun discount rate (%)"
+msgstr "Sensitivity analysis - Maximum discount rate (%)"
 
 msgid "NBS_conservation_activities_text"
-msgstr "Select the NbS you want to consider for analysis. You can consult, edit or create new NbS by clicking on the following button"
+msgstr "Select the NbS options to consider in your portfolio. You can review, edit or create new NbS by clicking on the following button"
 
 msgid "investment_tip"
-msgstr "Enter here the amount of money you want to spent on each NbS per year. If you do not want to pre-determine how much is spent on each NbS, enter the total budget in the Yearly Floating Budget box. You can also enter values of some NbS and enter the remaining budget in the Floating Budget box. Please take into account that WaterProof will consider the values indicated as investment for each of the basins involved in the analysis. If you establish a budget of 100,000 USD but the analysis involves 2 basins, the system will consider 200,000 USD as the total available investment."
+msgstr "Enter the overall budget for annual NbS expenses. If you do not want to pre-determine how much is spent on each NbS, enter the total budget in the Yearly Floating Budget box. You can also enter values of some NbS and enter the remaining budget in the Floating Budget box. Please note that WaterProof will consider the values indicated as investment for each of the basins involved in the analysis. For example, if you establish an annual budget of 100,000 USD but the analysis involves 2 basins, the system will consider 200,000 USD as the total available investment."
 
 msgid "analysis_time_period"
 msgstr "Analysis time period (years) (10-100)"
 
 msgid "implementation_time_nbs"
-msgstr "Implementation time of NbS (yr)"
+msgstr "Implementation NbS period (yr)"
 
 msgid "climate_baseline_nbs"
 msgstr "Climate selection for baseline and NbS scenario analysis"
@@ -237,7 +237,7 @@ msgid "study_cases_list_create"
 msgstr "You must be a registered user to create a new Case Study*"
 
 msgid "Creating a new case study"
-msgstr "Creating a new case study"
+msgstr "Create a new case study"
 
 msgid "study_cases_list_tip"
 msgstr "In this section you can consult and configure the case studies for a defined city. To configure your case study, remember that you must define the water intakes and the different cost functions needed to produce the return on investment for that specific case"
@@ -249,19 +249,19 @@ msgid "carbon_market_tip"
 msgstr "WaterProof may consider benefits associated with the Carbon market, click the checkbox to include it in the analysis."
 
 msgid "biophysical_tip"
-msgstr "In this step you will find the biophysical parameters required for the execution of the models. If you want to see or edit these parameters, click on Advanced options, otherwise click on next and the system will use the default values."
+msgstr "In this step you will find the biophysical parameters required for model executions. If you want to see or edit these parameters, click on Advanced options, otherwise click on next and the system rely upon default values."
 
 msgid "financial_tip"
-msgstr "In this section, the system offers you pre-loaded costs required for the implementation of the NbS. Confirm or edit values ​​according to your local situation:"
+msgstr "WaterProof offers default NbS cost profiles. Confirm or edit these values per your local context:"
 
 msgid "study_case_tip"
-msgstr "Enter the information that will identify your case study. Then select whether you will be analyzing benefits for a drinking water treatment plant or a custom return on investment case."
+msgstr "Enter the information that will identify your case study. Then select whether you will be analyzing benefits for a drinking water treatment plant or developing custom benefit monetization functions for your investment case."
 
 msgid "The case studies are the tool in which the user consolidates the previous parameterizations of catchments and treatment plants and projects their analysis, that is, in this section the user indicates the objectives that (s)he wishes to achieve with the implementation of Nature-Based Solutions, indicates the budgetary availability of the project and the time in which (s)he expects to obtain results."
 msgstr "The case studies are the tool in which the user consolidates the previous parameterizations of catchments and treatment plants and projects their analysis, that is, in this section the user indicates the objectives that (s)he wishes to achieve with the implementation of Nature-Based Solutions, indicates the budgetary availability of the project and the time in which (s)he expects to obtain results."
 
 msgid "WaterProof will assist you by indicating the steps you must follow to complete your registration: "
-msgstr "WaterProof will assist you by indicating the steps you must follow to complete your registration: "
+msgstr "Please follow these steps to complete your registration: "
 
 msgid "Creation city : "
 msgstr "City of creation:"
@@ -309,7 +309,7 @@ msgid "Currency for definition of costs"
 msgstr "Currency for definition of costs"
 
 msgid "Multiplying factor for overrall cost"
-msgstr "Multiplying factor for overrall cost"
+msgstr "Multiplication factor for overall cost"
 
 msgid "Syntax keyboard"
 msgstr "Syntax keyboard"
@@ -330,31 +330,31 @@ msgid "Add cost"
 msgstr "Add cost"
 
 msgid "Creation of study cases"
-msgstr "Creation of case studies"
+msgstr "Create case study"
 
 msgid "In this section the key actions refer to the selection of treatment plants and catchments that make up the case study, since through them the system obtains the indications for the execution of the RIOS model in charge of recommending the areas of implementation of the Nature-Based Solutions NBS."
 msgstr "In this section the key actions refer to the selection of treatment plants and catchments that make up the case study, since through them the system obtains the indications for the execution of the RIOS model in charge of recommending the areas of implementation of the Nature-Based Solutions NbS."
 
 msgid "Thanks to the catchment configuration, the system knows the geographical area in which the user wishes to implement the NBS and analyze the costs, in order to proceed with the ROI analysis."
-msgstr "Thanks to the catchment configuration, the system knows the geographical area in which the user wishes to implement the NbS and analyze the costs, in order to proceed with the ROI analysis."
+msgstr "Catchment configuration allows WaterProof to understand the service area of interest for NbS implementation and ROI evaluation."
 
 msgid "Remember that ROI is an indicator that allows you to know how much money is lost or earned with the investments made. It is a performance measure used to evaluate the efficiency of an investment or to compare the efficiency of a number of different investments."
-msgstr "Remember that ROI is an indicator that allows you to know how much money is lost or earned with the investments made. It is a performance measure used to evaluate the efficiency of an investment or to compare the efficiency of a number of different investments."
+msgstr "ROI is a performance measure used to evaluate the efficiency of an investment or to compare the efficiency of a number of different investments."
 
 msgid "Integrate Analysis Associated with the Carbon Market"
-msgstr "Integrate analysis associated with the carbon market"
+msgstr "Integrate carbon market benefits"
 
 msgid "Offers you the possibility to integrate in your analysis the possible benefits that you can obtain if you expect to participate in carbon markets. This is done by defining a monetary value per Ton of CO2eq."
-msgstr "Waterproof offers you the possibility to integrate in your analysis the possible benefits that you can obtain if you expect to participate in carbon markets. This is done by defining a monetary value per Ton of CO2eq."
+msgstr "Waterproof allows users to integrate carbon market benefits into ROI evaluation by associating a monetary value per ton of CO2eq."
 
 msgid "Uses information from the database published in May 2020 by the Institute for Climate Economics (Sébastien Postic | Marion Fetet) to preload USD / TonCO2eq values ​​that vary according to the country where the analysis is being carried out, however, the user can modify these values ​​according to the information they have."
-msgstr "Uses information from the database published in May 2020 by the Institute for Climate Economics (Sébastien Postic | Marion Fetet) to preload USD / TonCO2eq values ​​that vary according to the country where the analysis is being carried out, however, the user can modify these values ​​according to the information they have."
+msgstr "Uses information from the database published in May 2020 by the Institute for Climate Economics (Sébastien Postic | Marion Fetet) to preload USD / TonCO2eq values ​​that vary according to the country where the analysis is being carried out, however. Users can override default settings with custom values."
 
 msgid "WaterProof will define the NBS of your portfolio according to your needs in relation to:"
-msgstr "WaterProof will define the NbS of your portfolio according to your needs in relation to:"
+msgstr "WaterProof defines your NbS portfolio in relation to:"
 
 msgid "Erosion control to keep sediments out of water courses, avoiding the physical-mechanical loss of soil, the impact on water quality and its deposition in reservoirs, where it can reduce the production capacity of hydroelectric facilities or damage reservoirs and irrigation infrastructure."
-msgstr "Erosion control to keep sediments out of water courses, avoiding the physical-mechanical loss of soil, the impact on water quality and its deposition in reservoirs, where it can reduce the production capacity of hydroelectric facilities or damage reservoirs and irrigation infrastructure."
+msgstr "Erosion control keeps sediments out of water courses, thereby avoiding water quality and reservoir deposition impacts which can result in reservoir capacity loss, infrastructure damage, or production capacity reduction for hydroelectric facilities."
 
 msgid "Retention of phosphorus and nitrogen nutrients to maintain nature's processes and reduce potential pollutant loads, which can lead to eutrophication, and / or the generation of algal blooms."
 msgstr "Retention of phosphorus and nitrogen nutrients to maintain nature's processes and reduce potential pollutant loads, which can lead to eutrophication, and / or the generation of algal blooms."
@@ -369,25 +369,25 @@ msgid "Sustaining or improving the base flow to guarantee efficient processes an
 msgstr "Sustaining or improving the base flow to guarantee efficient processes and infiltration, redistribution, evaporation and percolation of the waters in the territory."
 
 msgid "Adjustment of Biophysical Parameters"
-msgstr "Adjustment of biophysical parameters"
+msgstr "Adjust biophysical parameters"
 
 msgid "Definition of Financial Parameters"
-msgstr "Definition of financial parameters"
+msgstr "Define financial parameters"
 
 msgid "The implementation of your NBS portfolio requires a series of investments to support its implementation, which in the system is called the Platform. This includes the personnel costs, office, travel, acquisition of equipment, among others."
-msgstr "The implementation of your NbS portfolio requires a series of investments to support its implementation, which in the system is called the Platform. This includes the personnel costs, office, travel, acquisition of equipment, among others."
+msgstr "Platform costs capture expenses associated with overall program management for NbS portfolio implementation, including direction, implementation coordination, monitoring &amp; evaluation, supporting travel and contract expenses, etc."
 
 msgid "You may indicate the discount rate that you wish to use to determine the present value of the payments that will be incurred."
-msgstr "You may indicate the discount rate that you wish to use to determine the present value of the payments that will be incurred."
+msgstr "Please indicate the preferred discount rate for evaluating net present value."
 
 msgid "In addition, you need to indicate the minimum and maximum values ​​of the sensitivity analysis that will help you make your decisions in case of unexpected changes in your environment. To do this, WaterProof uses the following equation:"
-msgstr "In addition, you need to indicate the minimum and maximum values ​​of the sensitivity analysis that will help you make your decisions in case of unexpected changes in your environment. To do this, WaterProof uses the following equation:"
+msgstr "In addition, please indicate the minimum and maximum sensitivity analysis values, which are used to reflect uncertainty and unexpected changes for program execution. To do this, WaterProof uses the following equation:"
 
 msgid "Where:"
 msgstr "Where:"
 
 msgid "TB  It is the Total of the benefit"
-msgstr "TB: It is the Total of the benefit"
+msgstr "TB: Total Benefit"
 
 msgid "TD  Discount rate, brought from financial parameters"
 msgstr "TD: Discount rate, brought from financial parameters"
@@ -399,10 +399,10 @@ msgid "Definition of NBS Activities"
 msgstr "Definition of NbS activities"
 
 msgid "WaterProof considers a set of Nature-Based Solutions that you can link to your analysis according to your interest in protecting, sustainably managing and restoring natural or modified ecosystems that address social challenges in an effective and adaptive way, providing simultaneous benefits for human well-being and biodiversity."
-msgstr "WaterProof considers a set of Nature-Based Solutions that you can link to your analysis according to your interest in protecting, sustainably managing and restoring natural or modified ecosystems that address social challenges in an effective and adaptive way, providing simultaneous benefits for human well-being and biodiversity."
+msgstr "WaterProof considers a set of Nature based Solutions per your priority water security and co-benefit outcomes."
 
 msgid "By default, WaterProof has the following NBS, however you may create new ones that you can link to your analysis. The default NBSs are:"
-msgstr "By default, WaterProof has the following NbS, however you may create new ones that you can link to your analysis. The default NbSs are:"
+msgstr "WaterProof has a default list of NbS options, however you can develop custom options and link to your analysis. Default NbSs options include:"
 
 msgid "Conservation: refers to actions that seek to conserve current land use coverage by signing conservation agreements, paying forest rangers or fencing off areas."
 msgstr "Conservation: refers to actions that seek to conserve current land use coverage by signing conservation agreements, paying forest rangers or fencing off areas."
@@ -414,34 +414,34 @@ msgid "Active restoration: these activities seek to increase floristic diversity
 msgstr "Active restoration: these activities seek to increase floristic diversity by sowing new species, whose individuals have been obtained from the collection of seeds and propagules, their sowing in the nurseries and subsequent planting in the reserve."
 
 msgid "Agroforestry activities: a series of land-use technologies is used to combine trees with agricultural crops and / or pastures to increase and optimize production in a sustainable manner. The planting of forest crops and trees is used sequentially and in combination, with the application of soil conservation practices."
-msgstr "Agroforestry activities: a series of land-use technologies is used to combine trees with agricultural crops and / or pastures to increase and optimize production in a sustainable manner. The planting of forest crops and trees is used sequentially and in combination, with the application of soil conservation practices."
+msgstr "Agroforestry activities: a series of land-use practices is used to combine trees with agricultural crops and / or pastures to optimize sustainable production."
 
 msgid "Pasture and rangeland management: where healthy native grasses and related vegetation are grown to profitably preserve forage availability and livestock production, while ensuring environmental health."
 msgstr "Pasture and rangeland management: where healthy native grasses and related vegetation are grown to profitably preserve forage availability and livestock production, while ensuring environmental health."
 
 msgid "Run the analysis"
-msgstr "Run the analysis"
+msgstr "Run analysis"
 
 msgid "This is the last step in the configuration of your case study in which the user defines the time in which they want the analysis of the benefits to be projected, as well as the time that they estimate to carry out theNBS  implementation actions."
-msgstr "This is the last step in the configuration of your case study in which the user defines the time in which they want the analysis of the benefits to be projected, as well as the time that they estimate to carry out the NbS  implementation actions."
+msgstr "The last case study configuration step requires users identify the timespan for NbS portfolio implementation as well as the evaluation period for benefit estimates.  This is the last step in the configuration of your case study in which the user defines the time in which they want the analysis of the benefits to be projected, as well as the time that they estimate to carry out the NbS  implementation actions."
 
 msgid "Then, you must indicate the climatic aspects to consider. WaterProof, by default, allows you to consider the conditions of the Climate Change Scenarios or the known historical conditions. This option is available due to the influence of the climate on the sustainability of program activities and possible additional costs that must be incurred in more adverse conditions."
-msgstr "Then, you must indicate the climatic aspects to consider. WaterProof, by default, allows you to consider the conditions of the Climate Change Scenarios or the known historical conditions. This option is available due to the influence of the climate on the sustainability of program activities and possible additional costs that must be incurred in more adverse conditions."
+msgstr "Next, please indicate the preferred baseline against which portfolio evaluation occurs (either historical conditions, or Climate Change projections)."
 
 msgid "Finally, the user can assign financial resources in two ways:"
 msgstr "Finally, the user can assign financial resources in two ways:"
 
 msgid "Total portfolio: In which there is no financial limit."
-msgstr "Total portfolio: In which there is no financial limit."
+msgstr "No budget limit:"
 
 msgid "Investment scenario: In which the user has a maximum investment figure"
-msgstr "Investment scenario: In which the user has a maximum investment figure"
+msgstr "User-defined budget cap"
 
 msgid "For both situations, the user must indicate the financial allocation percentages for the activities in which they have the greatest interest."
-msgstr "For both situations, the user must indicate the financial allocation percentages for the activities in which they have the greatest interest."
+msgstr "For both options, the user must indicate the financial allocation percentages among the NbS options in the overall portfolio."
 
 msgid "analysis_tip"
-msgstr "Define the analysis time, weather conditions for the projection and the execution budgets of the NbS"
+msgstr "Define the analysis timeframe, projection scenario, and NbS portfolio budget."
 
 msgid "edit"
 msgstr "Edit"
@@ -462,7 +462,7 @@ msgid "description_select_type"
 msgstr "WaterProof can consider for ROI analysis the operating and maintenance costs associated with the analysis infrastructure. You can use the costs of a previously created drinking water treatment plant or you can create costs for a custom infrastructure. Select the desired option."
 
 msgid "Study cases help 4 text 1"
-msgstr "This is a section for advanced users where you can verify the biophysical values ​​that will be used in the InVEST models. WaterProof uses the InVEST modeling package with the Annual Water Yield, Seasonal Water Yield, Sediment Delivery Ratio, Nutrient Delivery Ratio, and Carbon Storage and Sequestration models. If the user has more knowledge about the biophysical characteristics for the models, they can modify the table."
+msgstr "Advanced users can customize the biophysical values ​​that are used in the InVEST model."
 
 msgid "Study cases help 4 text 1.1"
 msgstr "A brief description of the values ​​in the biophysical table can be found below:"
@@ -591,10 +591,10 @@ msgid "Study cases help 4 text 41"
 msgstr "This parameter indicates which ETR equation to use. It takes values ​​of 0 or 1 that. Values ​​should be 1 for vegetated soil, except wetlands, and 0 for all other land uses, including wetlands, urban, water bodies, etc."
 
 msgid "My cases tip"
-msgstr "In this section you can consult all the case studies that you have created in WaterProof. Options allow you to view the case study, edit it, clone it, delete it, view results, and share it to the public."
+msgstr "Edit, delete, clone, and view the results of your WaterProof case studies here."
 
 msgid "My cases note"
-msgstr "Note that the list of case studies that appears below is not filtered by city (the system shows all the cases that you have created regardless of their location) and the only filter applied is that of your user as creator of the cases studies to facilitate its administration according to your preferences."
+msgstr "This list shows all the cases you have created, irrespective of city location."
 
 msgid "My Cases of Study"
 msgstr "My case studies"

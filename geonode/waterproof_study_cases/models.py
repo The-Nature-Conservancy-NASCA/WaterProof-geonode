@@ -86,8 +86,7 @@ class StudyCases(models.Model):
     studycase_type = models.CharField(max_length=20, blank=True, null=True)
     program_Director = models.DecimalField(max_digits=20, decimal_places=2, blank=True, null=True)
     implementation_Manager = models.DecimalField(max_digits=20, decimal_places=2, blank=True, null=True)
-    monitoring_Manager= models.DecimalField(
-        max_digits=20, decimal_places=2, blank=True, null=True)
+    monitoring_Manager= models.DecimalField(max_digits=20, decimal_places=2, blank=True, null=True)
     finance_Manager = models.DecimalField(max_digits=20, decimal_places=2, blank=True, null=True)
     administrative_Assistant = models.DecimalField(max_digits=20, decimal_places=2, blank=True, null=True)
     office_Costs = models.DecimalField(max_digits=20, decimal_places=2, blank=True, null=True)
