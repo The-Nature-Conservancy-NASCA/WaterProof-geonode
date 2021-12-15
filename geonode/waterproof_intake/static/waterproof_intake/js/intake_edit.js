@@ -292,6 +292,10 @@ $(document).ready(function () {
     });
 
     $('#submit').click(function (event) {
+        let dataId = event.currentTarget.getAttribute('data-id');
+        let dateCreate = event.currentTarget.getAttribute('date-updated');
+        let userId = event.currentTarget.getAttribute('user-id');
+        console.log(userId+'_-1'+'_'+dateCreate+'/WI_'+dataId); // validar que si lo envio bien
         if (!validGeometry) {
             event.preventDefault();
             Swal.fire({
@@ -300,6 +304,22 @@ $(document).ready(function () {
                 text: gettext('You must validate the basin geometry')
             })
         } else {
+            $.ajax({
+                url : serverApi+"/wf-models/delete-intake?intake_id="+dataId+"&user_id="+userId+"&date="+dateCreate,
+                type : 'GET',
+                dataType : 'json',
+                success : function(json) {
+                    console.log('works')
+                        },
+                        error: function(error) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: gettext('Error!'),
+                                text: gettext('The file has not been deleted from DB!')
+                            })
+                        }
+                }); 
+           
             intakeStepFive();
         }
     });
@@ -968,6 +988,7 @@ function intakeStepFive() {
     formData.append('step', '5');
     // Intake id
     formData.append('intakeId', $('#intakeId').val());
+    console.log($('#intakeId').val());
     // Intake area polygon
     formData.append('intakeAreaPolygon', $('#intakeAreaPolygon').val());
     // Intake delimit area polygon
@@ -978,7 +999,7 @@ function intakeStepFive() {
     formData.append('typeDelimit', $('#typeDelimit').val());
     // Intake is File?
     formData.append('isFile', $('#isFile').val());
-    //console.log(formData);
+    console.log(formData);
     $('#_thumbnail_processing').modal('toggle');
     $('#_thumbnail_processing .modal-header h1')[0].innerText=gettext('The water intake is being saved');
     $('#_thumbnail_processing .progress div')[0].innerText=gettext('Please wait');
