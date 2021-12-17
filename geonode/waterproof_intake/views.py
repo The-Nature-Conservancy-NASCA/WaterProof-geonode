@@ -1020,7 +1020,7 @@ def viewIntake(request, idx):
             final_extraction = '{0:.2f}'.format(demand.ending_extraction).replace('.', ',')
 
             for y in years:
-                extraction_result.append([y.year, '{0:.2f}'.format(y.value).replace('.', ',')])
+                extraction_result.append([y.year-1, '{0:.2f}'.format(y.value).replace('.', ',')])
         
         return render(
             request, 'waterproof_intake/intake_detail_list.html',

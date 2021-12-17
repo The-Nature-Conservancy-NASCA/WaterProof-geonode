@@ -67,7 +67,7 @@ def list(request):
                     }
                 )
 
-            if (request.user.professional_role == 'ANALYS'):
+            if (request.user.professional_role != 'ADMIN'):
                 if (city_id != ''):
                     query = Q(city=city_id,added_by=request.user)
                     query.add(Q(city=city_id,is_public=True), Q.OR)

@@ -45,7 +45,7 @@ def list(request):
                     }
                 )
 
-            if (request.user.professional_role == 'ANALYS'):
+            if (request.user.professional_role != 'ADMIN'):
                 study_cases_private = StudyCases.objects.filter(is_public=False, is_complete=True,added_by=request.user)
                 study_cases_public = StudyCases.objects.filter(is_public=True, is_complete=True)
                 study_cases = study_cases_private | study_cases_public
@@ -112,7 +112,7 @@ def listOnlyUser(request):
                     }
                 )
 
-            if (request.user.professional_role == 'ANALYS'):
+            if (request.user.professional_role != 'ADMIN'):
                 studyCases = StudyCases.objects.filter(added_by=request.user)
                 userCountry = Countries.objects.get(iso3=request.user.country)
                 region = Regions.objects.get(id=userCountry.region_id)

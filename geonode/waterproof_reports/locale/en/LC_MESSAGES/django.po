@@ -696,3 +696,15 @@ msgstr "Physical risk quality"
 
 msgid "description graph physical indicators"
 msgstr "The bar graph shows the result for the last year."
+
+msgid "Costs per Activity"
+msgstr "Costs per activity"
+
+msgid "Total Costs"
+msgstr "Total costs"
+
+msgid "Intake Benefits"
+msgstr "Intake benefits"
+
+msgid "DWTP Benefits"
+msgstr "DWTP benefits"
