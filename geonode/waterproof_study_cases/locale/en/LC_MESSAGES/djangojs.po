@@ -574,3 +574,9 @@ msgstr "The demand series of the water intakes involved in the case study have b
 
 msgid "Alert_time_demand"
 msgstr "If the demand series is defined in less time than the ROI analysis, WaterProof will extend the series until the year of analysis repeating the demand value of the last year. If the demand series is defined in a time greater than the ROI analysis, WaterProof will cut the series until the year of analysis."
+
+msgid "Public study case"
+msgstr "Public case study"
+
+msgid "Yes, public it!"
+msgstr "Yes, public it!"

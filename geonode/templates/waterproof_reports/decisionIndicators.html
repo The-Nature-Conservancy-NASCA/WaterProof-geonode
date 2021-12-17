@@ -738,6 +738,7 @@ $(function () {
         var firstListIntage = "";
         var urlDetail = "../../reports/getWaterproofReportsAnalysisBenefits/?studyCase=" + localStorage.idStudyCase;
         let titleGraphIntake = `<p> {% trans "Intake Benefits" %} </p>`;
+        let titleGraphDWTP = `<p> {% trans "DWTP Benefits" %} </p>`;
         $.getJSON(urlDetail, function (data) {
 
             $.each( data, function( key, value ) {
@@ -778,7 +779,7 @@ $(function () {
                 colors: ['#008BAB', '#90D3E7', '#004B56', '#61D1C2'],
                 title: {
                     useHTML: true,
-                    text: 'DWTP Benefits'
+                    text: titleGraphDWTP
                 },
                 plotOptions: {
                     pie: {
@@ -893,6 +894,7 @@ $(function () {
 
         var dataCostActivity = [];
         var urlDetail = "../../reports/getReportCostsAnalysisFilterNbs/?studyCase=" + localStorage.idStudyCase;
+        let titleGraphCostActivity = `<p> {% trans "Costs per Activity" %} </p>`;
         $.getJSON(urlDetail, function (data) {
             $.each( data, function( key, value ) {
                 dataCostActivity.push({
@@ -909,7 +911,7 @@ $(function () {
                     type: 'pie'
                 },
                 title: {
-                    text: gettext('Costs per Activity')
+                    text: titleGraphCostActivity
                 },
                 colors: ['#008BAB', '#90D3E7', '#004B56', '#61D1C2'],
                 plotOptions: {
@@ -935,6 +937,7 @@ $(function () {
 
         var dataTotalCost = [];
         var urlDetail = "../../reports/getReportCostsAnalysisFilter/?studyCase=" + localStorage.idStudyCase;
+        let titleGraphTotalCost = `<p> {% trans "Total Costs" %} </p>`;
         $.getJSON(urlDetail, function (data) {
             $.each( data, function( key, value ) {
                 dataTotalCost.push({
@@ -951,7 +954,7 @@ $(function () {
                     type: 'pie'
                 },
                 title: {
-                    text: gettext('Total Costs')
+                    text: titleGraphTotalCost
                 },
                 colors: ['#008BAB', '#90D3E7', '#004B56', '#61D1C2'],
                 plotOptions: {

@@ -731,3 +731,15 @@ msgstr "Riesgo físico de calidad"
 
 msgid "description graph physical indicators"
 msgstr "La gráfica de barras muestra el resultado del último año de análisis."
+
+msgid "Costs per Activity"
+msgstr "Costos por actividad"
+
+msgid "Total Costs"
+msgstr "Costos totales"
+
+msgid "Intake Benefits"
+msgstr "Beneficios captación"
+
+msgid "DWTP Benefits"
+msgstr "Beneficios PTAP"

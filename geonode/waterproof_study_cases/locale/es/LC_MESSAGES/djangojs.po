@@ -624,3 +624,9 @@ msgstr "El valor del escenario de inversión no cumple con los parámetros míni
 
 msgid "error_annual_investment"
 msgstr "El valor del escenario de inversión no cumple con los parámetros mínimos de presupuesto para la actividad seleccionada. Por favor, revise y ajuste el valor de la inversión"
+
+msgid "Public study case"
+msgstr "Publicar caso de estudio"
+
+msgid "Yes, public it!"
+msgstr "¡Sí, publícalo!"
