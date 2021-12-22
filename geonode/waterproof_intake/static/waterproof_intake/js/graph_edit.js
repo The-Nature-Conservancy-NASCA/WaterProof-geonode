@@ -733,14 +733,16 @@ function onInit(editor) {
             $('#VarCostListGroup div').remove();
             $('#VarCostListGroup').empty();
             for (const index of graphData) {
+                let nameInfrastructure = gettext(index.name);
                 var costlabel = "";
                 for (const iterator of JSON.parse(index.varcost)) {
                     costlabel += `<a value="${iterator}" class="list-group-item list-group-item-action" style="padding-top: 4px;padding-bottom: 4px;">${iterator}</a>`
                 }
-                $('#VarCostListGroup').append(`
+                $('#VarCostListGroup').append(
+                    `
                     <div class="panel panel-info">
                         <div class="panel-heading">
-                            <a data-toggle="collapse" data-parent="#VarCostListGroup" href="#VarCostListGroup_${index.id}">${index.id} - ${index.name.replace(/['"]+/g, '')}</a>                            
+                            <a data-toggle="collapse" data-parent="#VarCostListGroup" href="#VarCostListGroup_${index.id}">${index.id} - ${nameInfrastructure.replace(/['"]+/g, '')}</a>                            
                         </div>
                         <div id="VarCostListGroup_${index.id}" class="panel-collapse var-cost-panel collapse">
                             ${costlabel}
@@ -761,6 +763,7 @@ function onInit(editor) {
             $('#CalculatorModalLabel').text(gettext('New Cost function'));
             $("#saveAndValideCost").text(gettext('New Cost function'));
             for (const index of graphData) {
+                let nameInfrastructure = gettext(index.name);
                 var costlabel = "";
                 for (const iterator of JSON.parse(index.varcost)) {
                     costlabel += `<a value="${iterator}" class="list-group-item list-group-item-action" style="padding-top: 4px;padding-bottom: 4px;">${iterator}</a>`
@@ -769,7 +772,7 @@ function onInit(editor) {
                 <div class="panel panel-info">
                     <div class="panel-heading">
                         <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#VarCostListGroup" href="#VarCostListGroup_${index.id}">${index.id} - ${index.name.replace(/['"]+/g, '')}</a>
+                            <a data-toggle="collapse" data-parent="#VarCostListGroup" href="#VarCostListGroup_${index.id}">${index.id} - ${nameInfrastructure.replace(/['"]+/g, '')}</a>
                         </h4>
                     </div>
                     <div id="VarCostListGroup_${index.id}" class="panel-collapse collapse">

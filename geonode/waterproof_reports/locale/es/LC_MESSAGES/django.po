@@ -743,3 +743,18 @@ msgstr "Beneficios captación"
 
 msgid "DWTP Benefits"
 msgstr "Beneficios PTAP"
+
+msgid "Water stress"
+msgstr "Indicador de Estrés Hídrico de Referencia"
+
+msgid "CARBON"
+msgstr "Carbono"
+
+msgid "INTAKE"
+msgstr "Captación"
+
+msgid "carbon"
+msgstr "Carbono"
+
+msgid "intake"
+msgstr "Captación"

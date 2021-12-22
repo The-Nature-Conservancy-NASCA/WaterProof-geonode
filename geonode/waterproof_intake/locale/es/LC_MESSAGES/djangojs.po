@@ -546,3 +546,9 @@ msgstr "El archivo geográfico contiene más de una geometría."
 
 msgid "The supplied geographic file does not have polygon type geometry (Can´t be Multipolygon)."
 msgstr "El archivo geográfico no tiene geometría de tipo polígono (No puede ser multipolígono)."
+
+msgid "Future 10 Year"
+msgstr "Futuro 10 años"
+
+msgid "Water stress"
+msgstr "Indicador de Estrés Hídrico de Referencia"

@@ -463,3 +463,6 @@ msgstr "Phosphorus (Kg)"
 #: static/waterproof_intake/js/intake_list.js:96
 msgid "Retiro de buchon"
 msgstr "Water hyacinth remotion"
+
+msgid "Damming"
+msgstr "Reservoir"
