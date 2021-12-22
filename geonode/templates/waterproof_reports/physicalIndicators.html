@@ -1603,11 +1603,13 @@ var localStorageId = localStorage.idStudyCase;
                         if(titleGraph !== "") {
                             titleGraph = titleGraph + '</div>';
                         }
-                        titleGraph = titleGraph + '<div name="listGraphIntake" intakeSelect="' + value.intake + '" nameSelect="' + value.indicator + '" class="title-water col-md-12">' + value.indicator + '</div><div name="listGraphIntake" intakeSelect="' + value.intake + '" nameSelect="' + value.indicator + '" class="container-general-gauge">';
+                        titleGraph = titleGraph + '<div name="listGraphIntake" intakeSelect="' + gettext(value.intake) + '" nameSelect="' + value.indicator + '" class="title-water col-md-12">' + value.indicator + '</div><div name="listGraphIntake" intakeSelect="' + value.intake + '" nameSelect="' + value.indicator + '" class="container-general-gauge">';
                         lastGroupImage = value.indicator;
 
                         var option = document.createElement("option");
-                        option.text = value.indicator;
+                        let optionText = value.indicator;
+                        console.log(option)
+                        option.text = gettext(optionText);
                         option.value = value.indicator;
                         document.getElementById("idSelectWaterIntake").add(option);
                     }
@@ -1641,6 +1643,7 @@ var localStorageId = localStorage.idStudyCase;
                         var numberContainerG = 0;
                         $.each( data, function( key, value ) {
                             var tituloS = value.valueGraT;
+                            let titleHig = gettext(value.description);
                             var chartSpeed = Highcharts.chart('containerPr' + numberContainerG, Highcharts.merge(gaugeOptions, {
                                 yAxis: {
                                     min: 0,
@@ -1651,7 +1654,7 @@ var localStorageId = localStorage.idStudyCase;
                                         [0.9, '#DF5353'] // red
                                     ],
                                     title: {
-                                        text: value.description
+                                        text: `{% trans "${titleHig}" %}`
                                     }
                                 },
                                 credits: {

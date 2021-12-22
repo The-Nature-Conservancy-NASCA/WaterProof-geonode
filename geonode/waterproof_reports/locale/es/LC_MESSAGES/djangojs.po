@@ -98,3 +98,21 @@ msgstr "Beneficio"
 
 msgid "Net present value summary"
 msgstr "Resumen valor presente neto"
+
+msgid "Future 10 Year"
+msgstr "Futuro 10 años"
+
+msgid "Water stress"
+msgstr "Indicador de Estrés Hídrico de Referencia"
+
+msgid "CARBON"
+msgstr "Carbono"
+
+msgid "INTAKE"
+msgstr "Captación"
+
+msgid "carbon"
+msgstr "Carbono"
+
+msgid "intake"
+msgstr "Captación"

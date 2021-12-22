@@ -111,3 +111,21 @@ msgstr "Benefits"
 
 msgid "Net present value summary"
 msgstr "Net present value summary"
+
+msgid "Future - 10 - Year"
+msgstr "Future 10 years"
+
+msgid "Water stress"
+msgstr "Water stress"
+
+msgid "CARBON"
+msgstr "Carbon"
+
+msgid "INTAKE"
+msgstr "Intake"
+
+msgid "carbon"
+msgstr "Carbon"
+
+msgid "intake"
+msgstr "Intake"

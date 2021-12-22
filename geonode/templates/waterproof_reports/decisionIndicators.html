@@ -130,7 +130,7 @@
                                 <div id="containerAbi"></div>
                                 <p class="align-text">{% trans "Benefits and cost ind text 4" %}</p>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-6 topalign">
                                 <div id="containerAbt"></div>
                                 <p class="align-text">{% trans "Benefits and cost ind text 5" %}</p>
                             </div>
@@ -762,8 +762,9 @@ $(function () {
             });
             dataTotalBenefitsIntake.forEach((featureIntake) => {
                 if(featureIntake.type ===  dataListBenefitsIntake[0]) {
+                    let nameFeatureIntake = featureIntake.name;
                     dataTotalBenefitsIntakeOne.push({
-                        name: featureIntake.name,
+                        name: gettext(nameFeatureIntake),
                         y: featureIntake.y
                     })
                 }
@@ -808,8 +809,9 @@ $(function () {
             dataTotalBenefitsIntakeOne = [];
             dataTotalBenefitsIntake.forEach((featureIntake) => {
                 if(featureIntake.type ===  selectName) {
+                    let nameFeatureIntakeI = featureIntake.name;
                     dataTotalBenefitsIntakeOne.push({
-                        name: featureIntake.name,
+                        name: gettext(nameFeatureIntakeI),
                         y: featureIntake.y
                     })
                 }
@@ -853,8 +855,9 @@ $(function () {
         let titleGraphTotalBenefits = `<p> {% trans "Total Benefits" %} </p>`;
         $.getJSON(urlDetail, function (data) {
             $.each( data, function( key, value ) {
+                let valueNameTotal = value.typer;
                 dataTotalBenefits.push({
-                    name: value.typer,
+                    name: `{% trans "${valueNameTotal}" %}`,
                     y: value.vpnMedBenefitr
                 })
             });
@@ -897,8 +900,9 @@ $(function () {
         let titleGraphCostActivity = `<p> {% trans "Costs per Activity" %} </p>`;
         $.getJSON(urlDetail, function (data) {
             $.each( data, function( key, value ) {
+                let valueCostActivity = value.costIdr;
                 dataCostActivity.push({
-                    name: value.costIdr,
+                    name: gettext(valueCostActivity),
                     y: value.sumFilter
                 })
             });
@@ -940,8 +944,9 @@ $(function () {
         let titleGraphTotalCost = `<p> {% trans "Total Costs" %} </p>`;
         $.getJSON(urlDetail, function (data) {
             $.each( data, function( key, value ) {
+                let valueTotalCost = value.typer;
                 dataTotalCost.push({
-                    name: value.typer,
+                    name: gettext(valueTotalCost),
                     y: value.sumFilter
                 })
             });

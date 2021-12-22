@@ -708,3 +708,18 @@ msgstr "Intake benefits"
 
 msgid "DWTP Benefits"
 msgstr "DWTP benefits"
+
+msgid "Water stress"
+msgstr "Water stress"
+
+msgid "CARBON"
+msgstr "Carbon"
+
+msgid "INTAKE"
+msgstr "Intake"
+
+msgid "carbon"
+msgstr "Carbon"
+
+msgid "intake"
+msgstr "Intake"
