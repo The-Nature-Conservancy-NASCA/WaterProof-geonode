@@ -34,17 +34,7 @@ var waterExtractionValue;
 var intakes = [];
 var ptaps = [];
 var yearsDemand = [];
-const delimitationFileEnum = {
-    GEOJSON: 'geojson',
-    SHP: 'shapefile'
-}
-const interpolationType = {
-    LINEAR: 'LINEAR',
-    POTENTIAL: 'POTENTIAL',
-    EXPONENTIAL: 'EXPONENTIAL',
-    LOGISTICS: 'LOGISTICS'
-}
-
+var loadedNbs = false;
 var mapLoader;
 var flagFunctionCost = false;
 
@@ -1226,6 +1216,7 @@ $(document).ready(function () {
     }
 
     function loadNBS() {
+        if (loadedNbs) return;
         var city_id = localStorage.cityId;
         $.post("../../study_cases/nbs/", {
             id_study_case: id_study_case,
@@ -1247,7 +1238,7 @@ $(document).ready(function () {
                 $("#nbs-ul").append(content);
             });
             autoAdjustHeight();
-
+            loadedNbs = true;
         });
     }
 
@@ -1374,31 +1365,34 @@ $(document).ready(function () {
             id_intake: id_intake,
             id_study_case: id_study_case,
         }, function (data) {
-            labels = data[0]
-            content = '<div class="col-md-12"><legend><label>Intake ' + name + '</span> </label></legend>'
-            content += '<table id="bio_table_' + id_intake + '" class="table table-striped table-bordered table-condensed" style="width:100%"><thead><tr class="info">'
-            content += '<th scope="col" class="small text-center vat text-description-bio">description</th>'
-            content += '<th scope="col" class="small text-center vat">lucode</th>'
+            labels = data[0];
+            
+            let excludeKeys = ['lucode','default','lulc_desc','description','user_id','intake_id','study_case_id','id','macro_region','kc','edit'];
+            content = '<div class="col-md-12"><legend><label>Intake ' + name + '</span> </label></legend>';
+            content += '<table id="bio_table_' + id_intake + '" class="table table-striped table-bordered table-condensed" style="width:100%"><thead><tr class="info">';
+            content += '<th scope="col" class="small text-center vat text-description-bio">description</th>';
+            content += '<th scope="col" class="small text-center vat">lucode</th>';
             $.each(labels, function (key, v) {
-                if (key != 'lucode' && key != 'default' && key != 'lulc_desc' && key != 'description' && key != 'user_id' && key != 'intake_id' && key != 'study_case_id' && key != 'id' && key != 'macro_region' && key != 'kc'&& key != 'edit') {
+                if (excludeKeys.indexOf(key) == -1) {
                     content += '<th scope="col" class="small text-center vat">' + gettext(key) + '</th>'
                 }
             });
             content += '</tr></thead><tbody>';
             $.each(data, function (index, bio) {
+                let idEl = id_intake + '_' + bio.id;
                 if (bio.edit) {
-                    content += '<tr class="edit" id="' + id_intake + '_' + bio.id + '">'
+                    content += '<tr class="edit" id="' + idEl + '">';
                 } else {
-                    content += '<tr id="' + id_intake + '_' + bio.id + '">'
+                    content += '<tr id="' + idEl + '">';
                 }
-                content += '<td id="description_' + id_intake + '_' + bio.id + '" class="text-description-bio">' + bio.description + '</td>'
-                content += '<td id="lucode_' + id_intake + '_' + bio.id + '">' + bio.lucode + '</td>'
+                content += '<td id="description_' + idEl + '" class="text-description-bio">' + bio.description + '</td>';
+                content += '<td id="lucode_' + idEl + '">' + bio.lucode + '</td>';
                 $.each(bio, function (key, v) {
                     if(v){
                         v = Number.parseFloat(v).toFixed(6);
                     }
-                    if (key != 'lucode' && key != 'default' && key != 'lulc_desc' && key != 'description' && key != 'user_id' && key != 'intake_id' && key != 'study_case_id' && key != 'id' && key != 'macro_region' && key != 'kc'&& key != 'edit') {
-                        content += '<td id="' + key + '_' + id_intake + '_' + bio.id + '"><input class="text-number-bio" step="0.000001" oninput="validity.valid||(value=\'\');" type="number" value="' + v + '"/></td>'
+                    if (excludeKeys.indexOf(key) == -1) {
+                        content += addCellBioparam(key, idEl, v);
                     }
                 });
                 content += '</tr>'
@@ -1409,43 +1403,20 @@ $(document).ready(function () {
         return deferred.promise();
     }
 
+    function addCellBioparam(key, idEl, value){        
+        let td = `<td id='${key}_${idEl}'><input class='text-number-bio' step='${defaultStepBioparams}' oninput="validity.valid||(value=\'\');" type='number' value='${value}'/></td>`;            
+        if (bioparamValidations.hasOwnProperty(key)) {
+            let min = bioparamValidations[key].min;
+            let max = bioparamValidations[key].max;
+            let step = bioparamValidations[key].step == undefined ? defaultStepBioparams : bioparamValidations[key].step;
+            td = `<td id='${key}_${idEl}'><input class='text-number-bio' step='${step}' oninput="validity.valid||(value=\'\');" type='number' value='${value}' min='${min}' max='${max}'/></td>`;            
+        }
+        return td;
+    }
+
     $("#add_cost").click(function () {
         setVarCost();
     });
-
-    function setVarCost() {
-        $('#CalculatorModalLabel').text('Edit Cost function');
-        $('#VarCostListGroup div').remove();
-        let listIntakes = [];
-        $('#custom_table').find('tbody > tr').each(function (index, tr) {
-            id = tr.id.replace('custom-', '');
-            listIntakes.push({
-                id: id,
-                name: tr.cells[0].innerText
-            });
-        });
-
-        var costVars = ['Q', 'CSed', 'CN', 'CP', 'WSed', 'WN', 'WP', 'WSedRet', 'WNRet', 'WPRet'];
-
-        for (const intake of listIntakes) {
-            var costlabel = "";
-            for (const iterator of costVars) {
-                costlabel += `<a value="${iterator}${intake.id}" class="list-group-item list-group-item-action" style="padding-top: 4px;padding-bottom: 4px;">${iterator}${intake.id}</a>`
-            }
-            $('#VarCostListGroup').append(`
-                <div class="panel panel-info">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">
-                            <a data-toggle="collapse" data-parent="#VarCostListGroup" href="#VarCostListGroup_${intake.id}">${intake.id} <label> ${intake.name} </label></a>
-                        </h4>
-                    </div>
-                    <div id="VarCostListGroup_${intake.id}" class="panel-collapse collapse">
-                        ${costlabel}
-                    </div>
-                </div>
-            `);
-        }
-    }
 
     //Set var into calculator
     $(document).on('click', '.list-group-item', function () {
@@ -1665,8 +1636,6 @@ function setVarCost() {
             name: tr.cells[0].innerText
         });
     });
-
-    var costVars = ['Q', 'CSed', 'CN', 'CP', 'WSed', 'WN', 'WP', 'WSedRet', 'WNRet', 'WPRet'];
 
     for (const intake of listIntakes) {
         var costlabel = "";

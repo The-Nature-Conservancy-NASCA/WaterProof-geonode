@@ -943,6 +943,9 @@
         box-shadow: 0px 0px 7px #6b6b6b;
         margin-top: 10%;
     }
+    .topalign{
+        top: 0%;
+    }
 }
 .buttom-roi-menu{
     background-color: #094609;
@@ -1365,6 +1368,9 @@
         box-shadow: 0px 0px 7px #6b6b6b;
         margin-top: 0%;
     }
+    .topalign{
+        top: 0%;
+    }
 }
 @media (min-width: 992px){
     .report-container{
@@ -1777,6 +1783,9 @@
         border-bottom: 1px solid #6b6b6b;
         box-shadow: 0px 0px 7px #6b6b6b;
         margin-top: 135%;
+    }
+    .topalign{
+        top: 7%;
     }
 }
 @media (min-width: 1200px){
@@ -2254,6 +2263,9 @@
         box-shadow: 0px 0px 7px #6b6b6b;
         margin-top: 45%;
     }
+    .topalign{
+        top: 7%;
+    }
     
 }
 
@@ -2324,6 +2336,9 @@
         margin-bottom: 0;
         margin-left: 0;
         margin-right: 0;
+    }
+    .topalign{
+        top: 7%;
     }
 }
 @media only screen and (max-width: 1200px) {

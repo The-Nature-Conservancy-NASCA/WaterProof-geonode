@@ -1044,6 +1044,7 @@
     HYDRO_NETWORK_LYR = "{{ HYDRO_NETWORK_LYR }}";
 </script>
 <script type="text/javascript" src="{% url 'javascript-catalog-study-cases' %}"></script>
+<script src="{{ STATIC_URL }}study_cases/js/study_cases_common.js"></script>
 <script src="{{ STATIC_URL }}study_cases/js/study_cases_clone.js"></script>
 <script src="{{ STATIC_URL }}study_cases/js/graph.js"></script>
 <script src="{{ STATIC_URL }}study_cases/js/graphValidations.js"></script>
@@ -1052,7 +1053,4 @@
 <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 <script src="{{ STATIC_URL }}study_cases/mathquill/mathquill.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min.js"
-integrity="sha512-dTu0vJs5ndrd3kPwnYixvOCsvef5SGYW/zSSK4bcjRBcZHzqThq7pt7PmCv55yb8iBvni0TSeIDV8RYKjZL36A=="
-crossorigin="anonymous"></script>-->
 {% endblock %}
