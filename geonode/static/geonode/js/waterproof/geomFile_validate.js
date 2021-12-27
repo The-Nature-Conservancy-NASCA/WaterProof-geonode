@@ -25,24 +25,20 @@ function validExtension(file) {
         var extension = file.name.substring(file.name.lastIndexOf(".") + 1, file.name.length);
         fileExtension.extension = extension;
         if (file.type !== "") {
+            fileExtension.valid = false;
             if (file.type == 'application/x-zip-compressed' || file.type == 'application/zip') {
                 fileExtension.valid = true;
             } else if (file.type == 'application/geo+json') {
                 fileExtension.valid = true;
-            } else {
-                fileExtension.valid = false;
-            }
+            } 
         }
         else {
-            if (file.extension === 'geojson') {
+            fileExtension.valid = false;
+            if (fileExtension.extension === 'geojson') {
                 fileExtension.valid = true;
-            }
-            else if (file.extension === 'zip') {
+            }else if (file.extension === 'zip') {
                 fileExtension.valid = true;
-            }
-            else {
-                fileExtension.valid = false;
-            }
+            }            
         }
     }
     else {
@@ -260,6 +256,7 @@ function validateDbfFields(geojson) {
     validDbf = {};
     validDbf.action = false;
     validDbf.activity = false;
+    var msgError = "";
     if (geojson.features && geojson.features.length > 0) {
         geojson.features.forEach(function (feature, index) {
             if (feature.properties) {
@@ -286,18 +283,16 @@ function validateDbfFields(geojson) {
         return true;
     }
     else if (!validDbf.action) {
-        Swal.fire({
-            icon: 'error',
-            title: gettext('Shapefile error'),
-            text: gettext('Dbf action field missing')
-        })
-        return false;
+        msgError =  gettext('Dbf action field missing');        
     }
     else {
+        msgError = ('Dbf activity field missing');       
+    }
+    if (msgError != ""){
         Swal.fire({
             icon: 'error',
             title: gettext('Shapefile error'),
-            text: gettext('Dbf activity field missing')
+            text: msgError
         })
         return false;
     }
