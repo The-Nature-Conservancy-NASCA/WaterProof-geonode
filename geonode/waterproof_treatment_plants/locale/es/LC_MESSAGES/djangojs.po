@@ -27,7 +27,7 @@ msgstr ""
 "Project-Id-Version: GeoNode\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-08-23 23:16-0500\n"
-"PO-Revision-Date: 2021-11-26 14:35-0500\n"
+"PO-Revision-Date: 2021-12-28 15:30-0500\n"
 "Last-Translator: Julien Collaer <julien.collaer@opengeode.be>\n"
 "Language-Team: Spanish (http://www.transifex.com/geonode/geonode/language/es/)\n"
 "Language: es\n"
@@ -100,7 +100,7 @@ msgstr "Editar Función"
 #: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:205
 #: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:373
 msgid "Error calculating the suggested plant"
-msgstr "Error calculando la planta sugerida"
+msgstr "La captación seleccionada no puede ser usada para crear una PTAP, por favor verifique la información"
 
 #: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:275
 msgid "Error calculating the treatment plant"
@@ -231,7 +231,7 @@ msgid "Error deleting the treatment plant, it must already be used in a case stu
 msgstr "Problemas eliminando la planta, puede estar siendo usada en algún caso de uso"
 
 msgid "The intake has not been deleted, try again!"
-msgstr "La captación no ha sido eliminada, intente nuevamente"
+msgstr "La PTAP no ha sido eliminada, intente nuevamente"
 
 msgid "Edit Cost function"
 msgstr "Editar función de costo"
