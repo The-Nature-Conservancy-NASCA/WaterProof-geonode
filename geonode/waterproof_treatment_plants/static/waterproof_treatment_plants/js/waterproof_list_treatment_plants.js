@@ -220,7 +220,6 @@
                 }
             });
             if(validCsinfra) {
-                console.log($('option:selected', this).attr("intake"))
                 $('#idTbodyIntake').append('<tr id="child' + this.value + '"><td class="small text-center vat" name="nameListAdd" idIntake="' + 
                 $('option:selected', this).attr("value") + '" nameList="' + textNameCsinfra + '"  graphIdlist="' + $('option:selected', this).attr("graphIdlist") + 
                 '"  csinfraList="' + $('option:selected', this).attr("csinfra") + '">' + textNameCsinfra + '</td><td class="small text-center vat">' + 
@@ -340,7 +339,7 @@
                 break;
             case "view":
                 tileAction = _("View");
-                //localStorage.loadInf = "false";
+                localStorage.loadInf = "false";
                 break;
             default:
                 break;
@@ -358,7 +357,6 @@
                 letterPlant = value.plantSuggest;
             });
             $.each( data.csinfra, function( key, value ) {
-                console.log(value.csinfraName)
                 let htmlTbl = `<td class="small text-center vat">${value.csinfraCode}</td> 
                         <td aling="center"><a class="btn btn-danger" onclick="deleteOption('${value.csinfraId}')">
                         <span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a></td></tr>`;
@@ -367,7 +365,7 @@
                             <td class="small text-center vat">${value.csinfraCode }</td></tr>`;
                 }
                 $('#idTbodyIntake').append(`<tr id="child${value.csinfraId}"> 
-                        <td class="small text-center vat" name="nameListAdd" idIntake="${value.csinfraElementsystemId}"  nameList="${value.csinfraName}" graphIdlist="${value.csinfraGraphId}" csinfraList="${value.csinfraCode }">${value.csinfraName}</td><td class="small text-center vat">${value.csinfraSourceName}</td>${htmlTbl}`);
+                <td class="small text-center vat" name="nameListAdd" idIntake="${value.csinfraElementsystemId}"  nameList="${value.csinfraName}" graphIdlist="${value.csinfraGraphId}" csinfraList="${value.csinfraCode }">${value.csinfraName}</td><td class="small text-center vat">${value.csinfraSourceName}</td>${htmlTbl}`);
             });
             if (data.csinfra.length > 0) {
                 $('#idIntakePlant').removeAttr('required');
@@ -744,14 +742,13 @@
             style="position:relative;top:-6px; value=${idNewTech}" onkeydown="keyupNewTech(this)" 
             placeholder="${_('Enter name technology')}"></div></div></div>
             <div class="margin-main overflow-form col-md-12" id="technology${idNewTech}">
-            ${tableFunctionTpl}
             <div class="container-var" id="idContainerVar${idNewTech}"><div>
         ${createInput('% '+ lbl.transportedWater, 100, "", null, null, null, null, false, null, null, 'number')}
         ${createInput('% '+ lbl.sediments, null, null, null, null, null, lbl.placeholderSediments, true, null, null, 'number')}  
         </div><div>
         ${createInput('% '+ lbl.nitrogen, null, null, null, null, null, lbl.placeholderNitrogen, true, null, null, 'number')}
         ${createInput('% '+ lbl.phosphorus, null, null, null, null, null, lbl.placeholderPhosphorus, true, null, null, 'number')}
-        </div></div><div class="link-form">${_('Add function')}</div></div>`;
+        </div></div>${tableFunctionTpl}<div class="link-form">${_('Add function')}</div></div>`;
                 
         node.innerHTML = textNewForm;
         let elParent = document.getElementById(parentId);
@@ -1009,14 +1006,13 @@
                 <div class="point-tree" onclick="viewBranch('technology${idNewTech}', this)">-</div> 
                 <div class="text-tree"><div style="display:flex;"><label technology='${techName}'>${lblTechnology}:</label> ${techName}
                 </div></div></div><div class="margin-main overflow-form col-md-12" id="technology${idNewTech}">
-                ${tableFunct}
                 <div class="container-var" id="idContainerVar${idNewTech}"><div>
                 ${createInput('% '+ lbl.transportedWater, 100, "", null, null, null, null, false, null)}
                 ${createInput('% '+ lbl.sediments, sediments, null, null, null, null, lbl.placeholderSediments, true,'idSedimentsRetained'+idNewTech,onBlurFn,'number', null)}
                 </div><div>
                 ${createInput('% '+ lbl.nitrogen, nitrogen, null, null, null, null, lbl.placeholderNitrogen, true,'idNitrogenRetained'+idNewTech,onBlurFn,'number', null)}
                 ${createInput('% '+ lbl.phosphorus, phosphorus, null, null, null, null, lbl.placeholderPhosphorus, true,'idPhosphorusRetained'+idNewTech,onBlurFn,'number', null)}
-                </div></div><div class="link-form">${_('Add function')}</div></div>`;            
+                </div></div>${tableFunct}<div class="link-form">${_('Add function')}</div></div>`;            
             $('#subprocess' + fnTechParent.idSubprocess).html($('#subprocess' + fnTechParent.idSubprocess).html() + htmlTech);
         }
         validateAndAddFunction2Array();
@@ -1095,7 +1091,6 @@
                                 let pe = plant.elements[plantElement];
                                 if (pe.default != undefined && pe.default.length > 0) {
                                     pe.default.forEach(e => {
-                                        console.log(e.costFunction+"this is cost function");
                                         let fnId = e.technology + HYPHEN + (e.nameFunction==undefined?e.costFunction:e.nameFunction);
                                         delete plant.functions[fnId];
                                     });
@@ -1107,8 +1102,6 @@
                                             let f = plant.functions[l];
                                             let categoryFn = l.split("-")[0];
                                             if (categoryFn == c.categorys) {
-                                        console.log(e.costFunction+"this is cost function");
-
                                                 let fId = f.technology + HYPHEN + (e.nameFunction==undefined?e.costFunction:e.nameFunction);
                                                 delete plant.functions[fId];
                                             }
