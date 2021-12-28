@@ -1021,10 +1021,15 @@ function changeFileEvent() {
                         shapeValidation.then(function(resultFile) {
                             //is valid shapefile
                             if (resultFile.valid) {
-                                shp(contents).then(function(shpToGeojson) {
-                                    geojson = shpToGeojson;
-                                    delimitationFileType = delimitationFileEnum.SHP;
-                                    addEditablePolygonMap();
+                                shp(contents).then(function (geojs) {
+                                    if (validateGeometryAndCount(geojs)){
+                                        geojson = geojs;
+                                        delimitationFileType = delimitationFileEnum.SHP;
+                                        addEditablePolygonMap();
+                                    }else {
+                                        $('#intakeArea').val('');
+                                        return;
+                                    }
                                 });
                             } else {
                                 $('#intakeArea').val('');
