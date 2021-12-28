@@ -304,23 +304,24 @@ $(document).ready(function () {
                 text: gettext('You must validate the basin geometry')
             })
         } else {
+            let amp = "&";
+            if (serverApi.indexOf("proxy") >=0){
+                amp = "%26";
+            }
+            let url = `${serverApi}delete-intake?intake_id=${dataId}${amp}user_id=${userId}${amp}date=${dateCreate}`;            
             $.ajax({
-                url : serverApi+"/wf-models/delete-intake?intake_id="+dataId+"&user_id="+userId+"&date="+dateCreate,
+                url : url,
                 type : 'GET',
                 dataType : 'json',
                 success : function(json) {
-                    console.log('works')
-                        },
-                        error: function(error) {
-                            Swal.fire({
-                                icon: 'error',
-                                title: gettext('Error!'),
-                                text: gettext('The file has not been deleted from DB!')
-                            })
-                        }
-                }); 
-           
-            intakeStepFive();
+                    console.log('works');
+                    intakeStepFive();
+                },
+                error: function(error) {
+                    console.log('Does not works');
+                    intakeStepFive();
+                }
+            }); 
         }
     });
 

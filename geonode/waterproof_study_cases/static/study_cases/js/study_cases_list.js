@@ -122,8 +122,14 @@ $(function() {
                                 
                             }, 500);
                          //borrar directorios de salida
+                        let amp = "&";
+                        if (serverApi.indexOf("proxy") >=0){
+                            amp = "%26";
+                        }
+                        let url = `${serverApi}delete?study_case_id=${dataId}${amp}user_id=${userId}${amp}date=${dateCreate}`;
+                        console.log(url);
                         $.ajax({
-                            url : serverApi+"/wf-models/delete?study_case_id="+dataId+"&user_id="+userId+"&date="+dateCreate,
+                            url : url,
                             type : 'GET',
                             dataType : 'json',
                             success : function(json) {
