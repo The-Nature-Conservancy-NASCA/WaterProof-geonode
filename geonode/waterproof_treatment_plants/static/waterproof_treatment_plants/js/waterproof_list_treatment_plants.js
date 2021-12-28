@@ -1095,6 +1095,7 @@
                                 let pe = plant.elements[plantElement];
                                 if (pe.default != undefined && pe.default.length > 0) {
                                     pe.default.forEach(e => {
+                                        console.log(e.costFunction+"this is cost function");
                                         let fnId = e.technology + HYPHEN + (e.nameFunction==undefined?e.costFunction:e.nameFunction);
                                         delete plant.functions[fnId];
                                     });
@@ -1106,6 +1107,8 @@
                                             let f = plant.functions[l];
                                             let categoryFn = l.split("-")[0];
                                             if (categoryFn == c.categorys) {
+                                        console.log(e.costFunction+"this is cost function");
+
                                                 let fId = f.technology + HYPHEN + (e.nameFunction==undefined?e.costFunction:e.nameFunction);
                                                 delete plant.functions[fId];
                                             }
@@ -1480,12 +1483,16 @@
         let tdClass = 'class="small text-center vat"';
         let fnName = _(costFn.costFunction==undefined?costFn.nameFunction:costFn.costFunction);
         let exp = (costFn.function==undefined?costFn.functionValue:costFn.function).replaceAll('else', 'else <br>');
-        let tooltipAttr = ` data-toggle='tooltip' title='${exp}' `;
-        let rowFn = `<tr><td>${activateHtml}</td>
-        <td ${tdClass}>${fnName}</td>
-        <td ${tdClass}><div class="text-center"><div class="open-popup-form" ${tooltipAttr}>fx</div></div></td><td ${tdClass}>${costFn.currency}</td>
-        <td ${tdClass}>${costFn.factor}</td><td aling="center">${htmlBtn}</td></tr>`;
-        return rowFn;
+        if (exp != 0 || exp != null){
+            let tooltipAttr = ` data-toggle='tooltip' title='${exp}' `;
+            let rowFn = `<tr><td>${activateHtml}</td>
+            <td ${tdClass}>${fnName}</td>
+            <td ${tdClass}><div class="text-center"><div class="open-popup-form" ${tooltipAttr}>fx</div></div></td><td ${tdClass}>${costFn.currency}</td>
+            <td ${tdClass}>${costFn.factor}</td><td aling="center">${htmlBtn}</td></tr>`;
+            return rowFn;
+        }else{
+            showMessageModal('Error',result.detail,'error');                                
+        }
     }
 
     // add titles to the table function
