@@ -365,7 +365,7 @@
                             <td class="small text-center vat">${value.csinfraCode }</td></tr>`;
                 }
                 $('#idTbodyIntake').append(`<tr id="child${value.csinfraId}"> 
-                <td class="small text-center vat" name="nameListAdd" idIntake="${value.csinfraElementsystemId}"  nameList="${value.csinfraName}" graphIdlist="${value.csinfraGraphId}" csinfraList="${value.csinfraCode }">${value.csinfraName}</td><td class="small text-center vat">${value.csinfraSourceName}</td>${htmlTbl}`);
+                        <td class="small text-center vat" name="nameListAdd" idIntake="${value.csinfraElementsystemId}"  nameList="${value.csinfraName}" graphIdlist="${value.csinfraGraphId}" csinfraList="${value.csinfraCode }">${value.csinfraName}</td><td class="small text-center vat">${value.csinfraSourceName}</td>${htmlTbl}`);
             });
             if (data.csinfra.length > 0) {
                 $('#idIntakePlant').removeAttr('required');
@@ -749,7 +749,7 @@
         ${createInput('% '+ lbl.nitrogen, null, null, null, null, null, lbl.placeholderNitrogen, true, null, null, 'number')}
         ${createInput('% '+ lbl.phosphorus, null, null, null, null, null, lbl.placeholderPhosphorus, true, null, null, 'number')}
         </div></div>${tableFunctionTpl}<div class="link-form">${_('Add function')}</div></div>`;
-                
+        
         node.innerHTML = textNewForm;
         let elParent = document.getElementById(parentId);
         elParent.appendChild(node);
@@ -955,13 +955,12 @@
                                     if(loadHtml) {
                                         let v = (filterCostFunction != undefined ? filterCostFunction : valueCostFunction);                                        
                                         let onBlurFn = `onblur="changeRetained('${techId}', this)"`;
-                                        // createInput (label, value, readonly, min, max, step, placeholder, enabled, id, events, type)
                                         tableVar = `<div class="container-var" id="idContainerVar${techId}"><div>
-                                            ${createInput('% ' + lbl.transportedWater , 100, "", null, null, null, null, !checked, null, null)}
-                                            ${createInput('% ' + lbl.sediments, sediments, (onlyReadPlant?'':null), v.minimalSedimentsRetained, v.maximalSedimentsRetained, '0.1', lbl.placeholderSediments, checked,'idSedimentsRetained'+techId,onBlurFn,'number', v.sedimentsRetained)}  
-                                            </div><div>
-                                            ${createInput('% ' + lbl.nitrogen, nitrogen, (onlyReadPlant?'':null), v.minimalNitrogenRetained, v.maximalNitrogenRetained, '0.1', lbl.placeholderNitrogen, checked,'idNitrogenRetained'+techId,onBlurFn,'number', v.nitrogenRetained)}
-                                            ${createInput('% ' + lbl.phosphorus, phosphorus, (onlyReadPlant?'':null), v.minimalPhosphorusRetained, v.maximalPhosphorusRetained, '0.1', lbl.placeholderPhosphorus, checked,'idPhosphorusRetained'+techId,onBlurFn,'number', v.phosphorusRetained)}
+                                        ${createInput('% ' + lbl.transportedWater , 100, "", null, null, null, null, !checked, null, null)}
+                                        ${createInput('% ' + lbl.sediments, sediments, (onlyReadPlant?'':null), v.minimalSedimentsRetained, v.maximalSedimentsRetained, '0.1', lbl.placeholderSediments, checked,'idSedimentsRetained'+techId,onBlurFn,'number', v.sedimentsRetained)}  
+                                        </div><div>
+                                        ${createInput('% ' + lbl.nitrogen, nitrogen, (onlyReadPlant?'':null), v.minimalNitrogenRetained, v.maximalNitrogenRetained, '0.1', lbl.placeholderNitrogen, checked,'idNitrogenRetained'+techId,onBlurFn,'number', v.nitrogenRetained)}
+                                        ${createInput('% ' + lbl.phosphorus, phosphorus, (onlyReadPlant?'':null), v.minimalPhosphorusRetained, v.maximalPhosphorusRetained, '0.1', lbl.placeholderPhosphorus, checked,'idPhosphorusRetained'+techId,onBlurFn,'number', v.phosphorusRetained)}
                                             </div></div>`;                                        
                                     }                                     
                                 }
@@ -977,7 +976,7 @@
                                 let style = `style='display:${(enableAddFn ? 'block' : 'none')}' `;
                                 tableFunct += `<div class="link-form" ${style} subprocess="${value.subprocess}"> ${_('Add function')} </div>`;
                             }
-                            $('#technology' + techId).html($('#technology' + techId).html() + tableFunct + tableVar);                                                           
+                            $('#technology' + techId).html($('#technology' + techId).html() + tableVar + tableFunct);
                         }
                     }
                 });
