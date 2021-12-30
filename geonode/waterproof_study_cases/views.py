@@ -63,7 +63,8 @@ def list(request):
                         'city': city,
                         'userCountry': userCountry,
                         'region': region,
-                        'intakes': json.dumps(intake_geoms)
+                        'intakes': json.dumps(intake_geoms),
+                        'serverApi': settings.WATERPROOF_API_SERVER
                     }
                 )
 
@@ -89,7 +90,8 @@ def list(request):
                     {
                         'casesList': studyCases,
                         'city': city,
-                        'intakes': json.dumps(intake_geoms)
+                        'intakes': json.dumps(intake_geoms),
+                        'serverApi': settings.WATERPROOF_API_SERVER
                     }
                 )
         else:

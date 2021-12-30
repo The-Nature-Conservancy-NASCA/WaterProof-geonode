@@ -108,61 +108,51 @@ $(function() {
                         url: '/study_cases/delete/' + studycaseId,
                         type: 'POST',
                         success: function(result) {
-                            Swal.fire({
-                                icon: 'success',
-                                title: gettext('Great!'),
-                                text: gettext('The study case has been deleted')
-                            })
-                            setTimeout(function() {
-                                if (location.pathname.indexOf("my_cases") >= 0){
-                                    location.href = "/study_cases/my_cases/"; 
-                                }else{
-                                    location.href = "/study_cases/?city="+localStorage.cityId; 
+                            //borrar directorios de salida
+                            let amp = "&";
+                            if (serverApi.indexOf("proxy") >=0){
+                                amp = "%26";
+                            }
+                            let url = `${serverApi}delete?study_case_id=${dataId}${amp}user_id=${userId}${amp}date=${dateCreate}`;
+                            $.ajax({
+                                url : url,
+                                type : 'GET',
+                                dataType : 'json',
+                                success : function(json) { 
+                                    doneDeleteAction();
+                                },error: function(error) {
+                                    doneDeleteAction();
                                 }
-                                
-                            }, 500);
-                         //borrar directorios de salida
-                        let amp = "&";
-                        if (serverApi.indexOf("proxy") >=0){
-                            amp = "%26";
-                        }
-                        let url = `${serverApi}delete?study_case_id=${dataId}${amp}user_id=${userId}${amp}date=${dateCreate}`;
-                        console.log(url);
-                        $.ajax({
-                            url : url,
-                            type : 'GET',
-                            dataType : 'json',
-                            success : function(json) {
-                                console.log('works')
-                                    },
-                                    error: function(error) {
-                                        Swal.fire({
-                                            icon: 'error',
-                                            title: gettext('Error!'),
-                                            text: gettext('The file has not been deleted from DB!')
-                                        })
-                                    }
-                                }); 
-                        },
-                        error: function(error) {
-                            Swal.fire({
-                                icon: 'error',
-                                title: gettext('Error!'),
-                                text: gettext('The study case has not been deleted, try again!')
-                            })
-                        }
-                    });
+                            });
+                    },error: function(error) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: gettext('Error!'),
+                            text: gettext('The study case has not been deleted, try again!')
+                        })
+                    }});
                 } else if (result.isDenied) {
                     return;
                 }
             })
         });
         fillTransitionsDropdown(transitionsDropdown);
-
         changeCountryEvent(countryDropdown, currencyDropdown);
-        changeFileEvent();
-        
+        changeFileEvent();        
     };
+
+    doneDeleteAction = function(result) {
+        Swal.fire({
+            icon: 'success',
+            title: gettext('Great!'),
+            text: gettext('The study case has been deleted')
+        })                                   
+        if (location.pathname.indexOf("my_cases") >= 0){
+            location.href = "/study_cases/my_cases/"; 
+        }else{
+            location.href = "/study_cases/?city="+localStorage.cityId; 
+        }
+    }
 
     $('#tbl-studycases tbody').on('click', '.btn-public', function (evt) {
         Swal.fire({
