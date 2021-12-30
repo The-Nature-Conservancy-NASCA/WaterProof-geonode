@@ -59,13 +59,13 @@
                     <!--Input Name -->
                     <div id="study_case">
                         <div id="div_name" class="form-group">
-                            <label for="name" class="control-label required-field">{% trans "Name" %}</label>
+                            <label for="name" class="control-label required-field">{% trans "Name" %} <span class="text-danger-wp">(*)</span></label>
                             <div class=""><input type="text" name="name" maxlength="100" class="form-control" id="name" value="{{study_case.name}}" /></div>
                         </div>
                     </div>
                     <!--Input Desc -->
                     <div id="div_description" class="form-group">
-                        <label for="description" class="control-label required-field ">{% trans "Description" %}</label>
+                        <label for="description" class="control-label required-field ">{% trans "Description" %} <span class="text-danger-wp">(*) </span></label>
                         <textarea rows="3" class="form-control" name="description" id="description">{{study_case.description}}</textarea>
                     </div>
                     <!--Input Desc -->
@@ -252,7 +252,7 @@
                         <h3>{% trans "portfolios" %}
                             <button type="button" value="help modal button step 3" data-toggle="modal" data-target="#HelpStep3" id="HelpModalBtnModal_step3" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
                         </h3>
-                        <p>{% trans "portfolios_text" %}</p>
+                        <p>{% trans "portfolios_text" %} <span class="text-danger-wp">(*)</span></p>
                         <ul class="list-group list-group-flush" id="portfolios-ul">
                             {% for portfolio in portfolios %}
                             <li class="list-group-item">
@@ -322,7 +322,7 @@
                         </div>
                         <div class="row" id="div_financial">
                             <div class="col-md-6">
-                                <label class="custom-control-label" for="total_platform"><strong>{% trans "platform_cost" %}</strong></label>
+                                <label class="custom-control-label" for="total_platform"><strong>{% trans "platform_cost" %}</strong> <span class="text-danger-wp">(*)</span></label>
                             </div>
                             <div class="custom-control custom-checkbox col-md-4 width-reponsive">
                                 <input id="total_platform" class="text-number" type="number" class="custom-control-input" disabled>
@@ -394,7 +394,7 @@
                                 <input class="text-number" id="others" type="number" class="custom-control-input" min="0" step="0.001" oninput="validity.valid||(value='');" value="{{study_case.others|stringformat:'1.2f'}}">
                             </div>
                             <div class="col-md-12 width-title">
-                                <p><strong>{% trans "financial_transaction_cost" %}</strong></p>
+                                <p><strong>{% trans "financial_transaction_cost" %}</strong><span class="text-danger-wp">(*)</span></p>
                             </div>
                             <div class="col-md-6">
                                 <label class="custom-control-label transaction-label" for="transaction">{% trans "transaction_cost" %}</label>
@@ -403,7 +403,7 @@
                                 <input class="text-number" id="transaction" type="number" class="custom-control-input" min="0" step="0" oninput="validity.valid||(value='');" max="100" value="{{study_case.transaction_cost|stringformat:'1.2f'}}">
                             </div>
                             <div class="col-md-12 width-title">
-                                <p><strong>{% trans "financial_discount_rates" %}</strong></p>
+                                <p><strong>{% trans "financial_discount_rates" %}</strong><span class="text-danger-wp">(*)</span></p>
                             </div>
                             <div class="col-md-6">
                                 <label class="custom-control-label discount-label" for="discount">{% trans "discount_rate" %}</label>
@@ -439,7 +439,7 @@
                             <button type="button" value="help modal button step 6" data-toggle="modal" data-target="#HelpStep6" id="HelpModalBtnModal_step3" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
                         </h3>
                         <div style="display: flex;">
-                            <p>{% trans "NBS_conservation_activities_text" %}</p>
+                            <p>{% trans "NBS_conservation_activities_text" %}<span class="text-danger-wp">(*)</span></p>
                             <span onclick="window.location.href='/waterproof_nbs_ca/create/'" class="glyphicon glyphicon-plus-sign btn-add"></span>
                         </div>
                         <ul class="list-group list-group-flush" id="nbs-ul"></ul>
@@ -464,6 +464,7 @@
                             <div id="div_period_analysis" class="form-group">
                                 <label for="period_analysis" class="control-label required-field">
                                     {% trans "analysis_time_period" %}
+                                    <span class="text-danger-wp">(*)</span>
                                 </label>
                                 <input id="period_analysis" type="number" class="form-control text-number-full" min="1" step="0" oninput="validity.valid||(value='');" max="100" value="{{study_case.analysis_period_value}}">
                             </div>
@@ -488,7 +489,7 @@
                         </div>
                         <div class="col-md-6">
                             <div id="div_period_nbs" class="form-group">
-                                <label class="control-label required-field" for="period-nbs">{% trans "implementation_time_nbs" %}</label>
+                                <label class="control-label required-field" for="period-nbs">{% trans "implementation_time_nbs" %}<span class="text-danger-wp">(*)</span></label>
                                 <input id="period_nbs" type="number" class="form-control text-number-full" min="1" step="0" oninput="validity.valid||(value='');" max="100" value="{{study_case.time_implement}}">
                             </div>
                         </div>
@@ -517,6 +518,7 @@
                                 <div id="div_annual_investment" class="form-group">
                                     <div style="display: flex;">
                                         <label class="control-label required-field" for="annual_investment">{% trans "annual_investment" %}</label>
+                                        <span class="text-danger-wp">(*)</span>
                                         <div class="lbl-currency-budget" style="padding-left: 15px;">
                                             {% if study_case.analysis_currency != None%} ({{study_case.analysis_currency}}) {% endif %}
                                         </div>
@@ -529,6 +531,7 @@
                             <label class="control-label required-field ">
                                 {% trans "investment_table" %}
                             </label>
+                            <span class="text-danger-wp">(*)</span>
                         </div>
                         <div class="col-md-12 width-title table-responsive">
                             <table id="full-table" class="table table-striped table-bordered table-condensed">

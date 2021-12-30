@@ -541,10 +541,18 @@ $(document).ready(function () {
                     icon: 'warning',
                     title: gettext('field_problem'),
                     text: gettext('Alert_time_demand'),
+                }).then((result) => {                    
+                    afterValidationStep7Run(valid_edit, valid_period);
                 });
-            }
+            }else{
+                afterValidationStep7Run(valid_edit, valid_period);
+            }  
+        }else{
+            afterValidationStep7Run(valid_edit, valid_period);
         }
+    });
 
+    function afterValidationStep7Run(valid_edit, valid_period){
         if ($('#period_analysis').val() != '' && $('#period_nbs').val() != '' && valid_edit && valid_period) {
 
             analysis_currency = $("#analysis_currency option:selected").val();
@@ -686,7 +694,8 @@ $(document).ready(function () {
             });
             return;
         }
-    });
+
+    }
 
     function preprocRiosProcess(id_study_case){
         $.ajax({
@@ -816,10 +825,18 @@ $(document).ready(function () {
                     icon: 'warning',
                     title: gettext('field_problem'),
                     text: gettext('Alert_time_demand'),
+                }).then((result) => {                    
+                    afterValidationStep7(valid_edit, valid_period);
                 });
+            }else{
+                afterValidationStep7(valid_edit, valid_period);
             }
-        }
+        }else{
+            afterValidationStep7(valid_edit, valid_period);
+        } 
+    });
 
+    function afterValidationStep7(valid_edit, valid_period){
         if ($('#period_analysis').val() != '' && $('#period_nbs').val() != '' && valid_edit && valid_period) {
             analysis_currency = $("#analysis_currency option:selected").val();
             
@@ -966,8 +983,7 @@ $(document).ready(function () {
             });
             return;
         }
-
-    });
+    }
 
     $('#custom_table').on('click', 'a', function () {
         var row = $(this).closest("tr");

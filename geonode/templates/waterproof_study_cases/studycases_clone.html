@@ -1,9 +1,9 @@
 {% extends "menu.html" %} {% load i18n %} {% load static from staticfiles %}
 {%load bootstrap_tags %} {% block extra_head %}
 <link href="https://unpkg.com/smartwizard@5/dist/css/smart_wizard_all.min.css" rel="stylesheet" type="text/css" />
-<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_nbs_ca/css/dataTables.bootstrap.min.css"/>
-<link href="{% static "geonode/css/sidenav.css" %}" rel="stylesheet" />
-<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_nbs_ca/css/waterproof_nbs_ca.css"/>
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_nbs_ca/css/dataTables.bootstrap.min.css" />
+<link href="{% static " geonode/css/sidenav.css" %}" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_nbs_ca/css/waterproof_nbs_ca.css" />
 <link rel="stylesheet" href="{{ STATIC_URL }}geonode/css/leaflet/Control.Coordinates.css" />
 <link rel="stylesheet" href="{{ STATIC_URL }}geonode/css/leaflet/Control.Loader.css" />
 <link rel="stylesheet" href="{{ STATIC_URL }}study_cases/mathquill/mathquill.css" />
@@ -55,7 +55,10 @@
                 <div id="step-1" class="tab-pane" role="tabpanel">
                     <div class="page-header">
                         <h3>{% trans "define_study_case" %}
-                            <button type="button" value="help modal button step 1" data-toggle="modal" data-target="#HelpStep1" id="HelpModalBtnModal_step1" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
+                            <button type="button" value="help modal button step 1" data-toggle="modal"
+                                data-target="#HelpStep1" id="HelpModalBtnModal_step1"
+                                class="glyphicon glyphicon-question-sign" aria-hidden="true"
+                                style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
                         </h3>
                         <p>{% trans "study_case_tip" %}</p>
                     </div>
@@ -64,9 +67,11 @@
                         <div id="div_name" class="form-group">
                             <label for="name" class="control-label required-field">
                                 {% trans "Name" %}
+                                <span class="text-danger-wp">(*)</span>
                             </label>
                             <div class="">
-                                <input type="text" name="name" maxlength="100" class="form-control" id="name" value="{{study_case.name}}" />
+                                <input type="text" name="name" maxlength="100" class="form-control" id="name"
+                                    value="{{study_case.name}}" />
                             </div>
                         </div>
                     </div>
@@ -74,8 +79,10 @@
                     <div id="div_description" class="form-group">
                         <label for="description" class="control-label required-field ">
                             {% trans "Description" %}
+                            <span class="text-danger-wp">(*)</span>
                         </label>
-                        <textarea rows="3" class="form-control" name="description" id="description">{{study_case.description}}</textarea>
+                        <textarea rows="3" class="form-control" name="description"
+                            id="description">{{study_case.description}}</textarea>
                     </div>
                     <!--Input Desc -->
                     <h4 class="text-primary">
@@ -113,27 +120,36 @@
                                 <div class="col-md-12">
                                     <div class="row form-group">
                                         <legend class="margin-bottom-max" style="border-bottom: none;">
-                                            <label for="div_id_type" class="control-label required-field " style="font-size: 16px;">{% trans "water_intakes" %}</label>
+                                            <label for="div_id_type" class="control-label required-field "
+                                                style="font-size: 16px;">{% trans "water_intakes" %}</label>
                                         </legend>
                                         <p>{% trans "select_water_intake" %}</p>
-                                        <span  onclick="window.location.href='/intake/create/'" class="glyphicon glyphicon-plus-sign btn-add"></span>
+                                        <span onclick="window.location.href='/intake/create/'"
+                                            class="glyphicon glyphicon-plus-sign btn-add"></span>
                                         <div class="col-md-9">
                                             <select class="form-control" id="select_custom">
                                                 <option disabled selected value>{% trans "select_option" %}</option>
                                             </select>
                                         </div>
                                         <div class="col-md-2">
-                                            <button type="button" value="add" class="btn btn-primary" id="add_wi">{% trans "Add" %}</button>
+                                            <button type="button" value="add" class="btn btn-primary" id="add_wi">{%
+                                                trans "Add" %}</button>
                                         </div>
                                     </div>
                                     <div class="table-responsive">
-                                        <table id="custom_table" class="table table-striped table-bordered table-condensed" style="width:100%">
+                                        <table id="custom_table"
+                                            class="table table-striped table-bordered table-condensed"
+                                            style="width:100%">
                                             <thead>
                                                 <tr class="info">
-                                                    <th scope="col" class="small text-center vat">{% trans "Name" %}</th>
-                                                    <th scope="col" class="small text-center vat">{% trans "Description" %}</th>
-                                                    <th scope="col" class="small text-center vat">{% trans "water_source" %}</th>
-                                                    <th scope="col" class="small text-center vat">{% trans "Options" %}</th>
+                                                    <th scope="col" class="small text-center vat">{% trans "Name" %}
+                                                    </th>
+                                                    <th scope="col" class="small text-center vat">{% trans "Description"
+                                                        %}</th>
+                                                    <th scope="col" class="small text-center vat">{% trans
+                                                        "water_source" %}</th>
+                                                    <th scope="col" class="small text-center vat">{% trans "Options" %}
+                                                    </th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -142,7 +158,9 @@
                                                     <td>{{intake.name}}</td>
                                                     <td>{{intake.description}}</td>
                                                     <td>{{intake.water_source_name}}</td>
-                                                    <td><a class='btn btn-danger'><span class='glyphicon glyphicon-trash' aria-hidden='true'></span></a></td>
+                                                    <td><a class='btn btn-danger'><span
+                                                                class='glyphicon glyphicon-trash'
+                                                                aria-hidden='true'></span></a></td>
                                                 </tr>
                                                 {% endfor %}
                                             </tbody>
@@ -158,28 +176,36 @@
                                     <div class="col-md-12">
                                         <div class="row form-group">
                                             <legend class="margin-bottom-max" style="border-bottom: none;">
-                                                <label for="div_id_type" class="control-label required-field " style="font-size: 16px;">{% trans "treatment_plants" %}
+                                                <label for="div_id_type" class="control-label required-field "
+                                                    style="font-size: 16px;">{% trans "treatment_plants" %}
                                                     <span class="text-danger-wp" id="ptap-required">*</span>
                                                 </label>
                                             </legend>
                                             <p>{% trans "select_treatments_plants" %}</p>
-                                            <span  onclick="window.location.href='/treatment_plants/create/'" class="glyphicon glyphicon-plus-sign btn-add"></span>
+                                            <span onclick="window.location.href='/treatment_plants/create/'"
+                                                class="glyphicon glyphicon-plus-sign btn-add"></span>
                                             <div class="col-md-9">
                                                 <select class="form-control" id="select_ptap">
                                                     <option disabled selected value>{% trans "select_option" %}</option>
                                                 </select>
                                             </div>
                                             <div class="col-md-2">
-                                                <button type="button" value="add" class="btn btn-primary" id="add_ptap">{% trans "Add" %}</button>
+                                                <button type="button" value="add" class="btn btn-primary"
+                                                    id="add_ptap">{% trans "Add" %}</button>
                                             </div>
                                         </div>
                                         <div class="table-responsive">
-                                            <table id="ptap_table" class="table table-striped table-bordered table-condensed" style="width:100%">
+                                            <table id="ptap_table"
+                                                class="table table-striped table-bordered table-condensed"
+                                                style="width:100%">
                                                 <thead>
                                                     <tr class="info">
-                                                        <th scope="col" class="small text-center vat">{% trans "Name" %}</th>
-                                                        <th scope="col" class="small text-center vat">{% trans "Description" %}</th>
-                                                        <th scope="col" class="small text-center vat">{% trans "Options" %}</th>
+                                                        <th scope="col" class="small text-center vat">{% trans "Name" %}
+                                                        </th>
+                                                        <th scope="col" class="small text-center vat">{% trans
+                                                            "Description" %}</th>
+                                                        <th scope="col" class="small text-center vat">{% trans "Options"
+                                                            %}</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -187,7 +213,9 @@
                                                     <tr id='ptap-{{ptap.id}}'>
                                                         <td>{{ptap.plant_name}}</td>
                                                         <td>{{ptap.plant_description}}</td>
-                                                        <td><a class='btn btn-danger'><span class='glyphicon glyphicon-trash' aria-hidden='true'></span></a></td>
+                                                        <td><a class='btn btn-danger'><span
+                                                                    class='glyphicon glyphicon-trash'
+                                                                    aria-hidden='true'></span></a></td>
                                                     </tr>
                                                     {% endfor %}
                                                 </tbody>
@@ -203,18 +231,28 @@
                                         <div class="col-md-12">
                                             <div class="row form-group">
                                                 <div class="col-md-2">
-                                                    <button type="button" value="add cost function" class="btn btn-primary" data-toggle="modal" data-target="#CalculatorModal" id="ModalAddCostBtn">{% trans "add_cost_function" %}</button>
+                                                    <button type="button" value="add cost function"
+                                                        class="btn btn-primary" data-toggle="modal"
+                                                        data-target="#CalculatorModal" id="ModalAddCostBtn">{% trans
+                                                        "add_cost_function" %}</button>
                                                 </div>
                                             </div>
                                             <div class="table-responsive">
-                                                <table id="cost_table" class="table table-striped table-bordered table-condensed panel-hide" style="width:100%">
+                                                <table id="cost_table"
+                                                    class="table table-striped table-bordered table-condensed panel-hide"
+                                                    style="width:100%">
                                                     <thead>
                                                         <tr class="info">
-                                                            <th scope="col" class="small text-center vat">{% trans "Function name" %}</th>
-                                                            <th scope="col" class="small text-center vat">{% trans "Function" %}</th>
-                                                            <th scope="col" class="small text-center vat">{% trans "Currency" %}</th>
-                                                            <th scope="col" class="small text-center vat">{% trans "Factor" %}</th>
-                                                            <th scope="col" class="small text-center vat">{% trans "Options" %}</th>
+                                                            <th scope="col" class="small text-center vat">{% trans
+                                                                "Function name" %}</th>
+                                                            <th scope="col" class="small text-center vat">{% trans
+                                                                "Function" %}</th>
+                                                            <th scope="col" class="small text-center vat">{% trans
+                                                                "Currency" %}</th>
+                                                            <th scope="col" class="small text-center vat">{% trans
+                                                                "Factor" %}</th>
+                                                            <th scope="col" class="small text-center vat">{% trans
+                                                                "Options" %}</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody id="funcostgenerate"></tbody>
@@ -226,7 +264,8 @@
                             </div>
                             <div class="row text-center">
                                 <div class="col-md-12">
-                                    <button type="button" value="next" class="btn btn-primary" id="step1NextBtn">{% trans "Next" %}</button>
+                                    <button type="button" value="next" class="btn btn-primary" id="step1NextBtn">{%
+                                        trans "Next" %}</button>
                                 </div>
                             </div>
                         </div>
@@ -234,7 +273,10 @@
                         <div id="step-2" class="tab-pane" role="tabpanel">
                             <div class="page-header">
                                 <h3>{% trans "carbon_market_title" %}
-                                    <button type="button" value="help modal button step 2" data-toggle="modal" data-target="#HelpStep2" id="HelpModalBtnModal_step2" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
+                                    <button type="button" value="help modal button step 2" data-toggle="modal"
+                                        data-target="#HelpStep2" id="HelpModalBtnModal_step2"
+                                        class="glyphicon glyphicon-question-sign" aria-hidden="true"
+                                        style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
                                 </h3>
                                 <p>{% trans "carbon_market_tip" %}</p>
                                 <div class="custom-control custom-checkbox">
@@ -243,7 +285,8 @@
                                     {% else %}
                                     <input type="checkbox" class="custom-control-input" id='cb_check'>
                                     {% endif %}
-                                    <label class="custom-control-label" for="cb_check">{% trans "carbon_market" %}</label>                                    
+                                    <label class="custom-control-label" for="cb_check">{% trans "carbon_market"
+                                        %}</label>
                                 </div>
                                 {% if study_case.benefit_carbon_market %}
                                 <div class="row text-center" id="cm_form">
@@ -254,25 +297,31 @@
                                             <p id="coeqCountry"></p>
                                         </div>
                                         <div class="col-md-2">
-                                            <input type="number" name="dws_cm" maxlength="100" class="form-control" id="id_cm" min="0" step="0.01" oninput="validity.valid||(value='');" value="{{study_case.cm_value|stringformat:'1.2f'}}" />
+                                            <input type="number" name="dws_cm" maxlength="100" class="form-control"
+                                                id="id_cm" min="0" step="0.01" oninput="validity.valid||(value='');"
+                                                value="{{study_case.cm_value|stringformat:'1.2f'}}" />
                                         </div>
                                         <div class="col-md-3">
                                             <select class="form-control" id="cm_select">
                                                 <option value='-1'>{% trans "Select" %} </option>
                                                 {% for currency in currencys %}
-                                                    {% if currency.currency == cm_currency %}
-                                                        {% if currency.currency == 'USD' %}
-                                                            {% if currency.iso3 == 'USA' %}
-                                                                <option value='{{currency.currency}}' selected>({{currency.currency}}) - {{currency.name}}</option>
-                                                            {% else %}
-                                                            <option value='{{currency.currency}}'>({{currency.currency}}) - {{currency.name}}</option>
-                                                            {% endif %}
-                                                        {% else %}
-                                                            <option value='{{currency.currency}}' selected>({{currency.currency}}) - {{currency.name}}</option>
-                                                        {% endif %}
-                                                    {% else %}
-                                                        <option value='{{currency.currency}}'>({{currency.currency}}) - {{currency.name}}</option>
-                                                    {% endif %}
+                                                {% if currency.currency == cm_currency %}
+                                                {% if currency.currency == 'USD' %}
+                                                {% if currency.iso3 == 'USA' %}
+                                                <option value='{{currency.currency}}' selected>({{currency.currency}}) -
+                                                    {{currency.name}}</option>
+                                                {% else %}
+                                                <option value='{{currency.currency}}'>({{currency.currency}}) -
+                                                    {{currency.name}}</option>
+                                                {% endif %}
+                                                {% else %}
+                                                <option value='{{currency.currency}}' selected>({{currency.currency}}) -
+                                                    {{currency.name}}</option>
+                                                {% endif %}
+                                                {% else %}
+                                                <option value='{{currency.currency}}'>({{currency.currency}}) -
+                                                    {{currency.name}}</option>
+                                                {% endif %}
                                                 {% endfor %}
                                             </select>
                                         </div>
@@ -283,8 +332,10 @@
                                 </div>
                                 <div class="row text-center">
                                     <div class="col-md-12">
-                                        <button type="button" value="previous" class="btn btn-primary" id="step2PreviousBtn">{% trans "Previous" %}</button>
-                                        <button type="button" value="next" class="btn btn-primary" id="step2NextBtn">{% trans "Next" %}</button>
+                                        <button type="button" value="previous" class="btn btn-primary"
+                                            id="step2PreviousBtn">{% trans "Previous" %}</button>
+                                        <button type="button" value="next" class="btn btn-primary" id="step2NextBtn">{%
+                                            trans "Next" %}</button>
                                     </div>
                                 </div>
                             </div>
@@ -292,20 +343,26 @@
                             <div id="step-3" class="tab-pane" role="tabpanel">
                                 <div class="page-header">
                                     <h3>{% trans "portfolios" %}
-                                        <button type="button" value="help modal button step 3" data-toggle="modal" data-target="#HelpStep3" id="HelpModalBtnModal_step3" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
+                                        <button type="button" value="help modal button step 3" data-toggle="modal"
+                                            data-target="#HelpStep3" id="HelpModalBtnModal_step3"
+                                            class="glyphicon glyphicon-question-sign" aria-hidden="true"
+                                            style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
                                     </h3>
-                                    <p>{% trans "portfolios_text" %}</p>
+                                    <p>{% trans "portfolios_text" %} <span class="text-danger-wp">(*)</span></p>
                                     <ul class="list-group list-group-flush" id="portfolios-ul">
                                         {% for portfolio in portfolios %}
                                         <li class="list-group-item">
                                             <!-- Default checked -->
                                             <div class="custom-control custom-checkbox">
                                                 {% if portfolio.default %}
-                                                <input id='portfolio-{{portfolio.id}}' type="checkbox" class="custom-control-input" checked>
+                                                <input id='portfolio-{{portfolio.id}}' type="checkbox"
+                                                    class="custom-control-input" checked>
                                                 {% else %}
-                                                <input type="checkbox" class="custom-control-input" id="portfolio-{{portfolio.id}}">
+                                                <input type="checkbox" class="custom-control-input"
+                                                    id="portfolio-{{portfolio.id}}">
                                                 {% endif %}
-                                                <label class="custom-control-label" for="check1">{{portfolio.name}}</label>
+                                                <label class="custom-control-label"
+                                                    for="check1">{{portfolio.name}}</label>
                                             </div>
                                         </li>
                                         {% endfor %}
@@ -313,8 +370,10 @@
                                 </div>
                                 <div class="row text-center">
                                     <div class="col-md-12">
-                                        <button type="button" value="previous" class="btn btn-primary" id="step3PreviousBtn">{% trans "Previous" %}</button>
-                                        <button type="button" value="next" class="btn btn-primary" id="step3NextBtn">{% trans "Next" %}</button>
+                                        <button type="button" value="previous" class="btn btn-primary"
+                                            id="step3PreviousBtn">{% trans "Previous" %}</button>
+                                        <button type="button" value="next" class="btn btn-primary" id="step3NextBtn">{%
+                                            trans "Next" %}</button>
                                     </div>
                                 </div>
                             </div>
@@ -322,21 +381,28 @@
                             <div id="step-4" class="tab-pane" role="tabpanel">
                                 <div class="page-header">
                                     <h3> {% trans "modelling_parameters" %}
-                                        <button type="button" value="help modal button step 4" data-toggle="modal" data-target="#HelpStep4" id="HelpModalBtnModal_step3" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
+                                        <button type="button" value="help modal button step 4" data-toggle="modal"
+                                            data-target="#HelpStep4" id="HelpModalBtnModal_step3"
+                                            class="glyphicon glyphicon-question-sign" aria-hidden="true"
+                                            style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
                                     </h3>
                                     <p>{% trans "biophysical_tip" %}</p>
-                                    <button type="button" value="advanced options" class="btn btn-primary" id="btn-advanced_option">{% trans "advanced_options" %}</button>
+                                    <button type="button" value="advanced options" class="btn btn-primary"
+                                        id="btn-advanced_option">{% trans "advanced_options" %}</button>
                                     <br>
                                     <p style="margin-top: 20px;" id="txtGuide1"></p>
-                                    <a id="txtGuide2" href="{{ invest_doc }}" target="_blank">{% trans "InVEST_documentation" %}</a>
+                                    <a id="txtGuide2" href="{{ invest_doc }}" target="_blank">{% trans
+                                        "InVEST_documentation" %}</a>
                                     <div class="row biophysical-panel panel-hide" id="biophysical-panel">
 
                                     </div>
                                 </div>
                                 <div class="row text-center">
                                     <div class="col-md-12">
-                                        <button type="button" value="previous" class="btn btn-primary" id="step4PreviousBtn">{% trans "Previous" %}</button>
-                                        <button type="button" value="next" class="btn btn-primary" id="step4NextBtn">{% trans "Next" %}</button>
+                                        <button type="button" value="previous" class="btn btn-primary"
+                                            id="step4PreviousBtn">{% trans "Previous" %}</button>
+                                        <button type="button" value="next" class="btn btn-primary" id="step4NextBtn">{%
+                                            trans "Next" %}</button>
                                     </div>
                                 </div>
                             </div>
@@ -344,141 +410,197 @@
                             <div id="step-5" class="tab-pane" role="tabpanel">
                                 <div class="page-header">
                                     <h3> {% trans "Financial parameters" %}
-                                        <button type="button" value="help modal button step 5" data-toggle="modal" data-target="#HelpStep5" id="HelpModalBtnModal_step3" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
+                                        <button type="button" value="help modal button step 5" data-toggle="modal"
+                                            data-target="#HelpStep5" id="HelpModalBtnModal_step3"
+                                            class="glyphicon glyphicon-question-sign" aria-hidden="true"
+                                            style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
                                     </h3>
                                     <p>{% trans "financial_tip" %}</p>
                                     <div class="row">
-                                        <div class="custom-control custom-select float-right col-md-4" style="margin-bottom:15px;">
-                                            <label class="custom-control-label" for="financial_currency">{% trans "Currency" %}</label>
+                                        <div class="custom-control custom-select float-right col-md-4"
+                                            style="margin-bottom:15px;">
+                                            <label class="custom-control-label" for="financial_currency">{% trans
+                                                "Currency" %}</label>
                                             <select id="financial_currency" class="custom-control-input">
-                                            {% for currency in currencys %}
-                                            {% if currency.currency == study_case.financial_currency %}
+                                                {% for currency in currencys %}
+                                                {% if currency.currency == study_case.financial_currency %}
                                                 {% if currency.currency == 'USD' %}
-                                                    {% if currency.iso3 == 'USA' %}
-                                                        <option value='{{currency.currency}}' selected>({{currency.currency}}) - {{currency.name}}</option>
-                                                    {% else %}
-                                                    <option value='{{currency.currency}}'>({{currency.currency}}) - {{currency.name}}</option>
-                                                    {% endif %}
+                                                {% if currency.iso3 == 'USA' %}
+                                                <option value='{{currency.currency}}' selected>({{currency.currency}}) -
+                                                    {{currency.name}}</option>
                                                 {% else %}
-                                                    <option value='{{currency.currency}}' selected>({{currency.currency}}) - {{currency.name}}</option>
+                                                <option value='{{currency.currency}}'>({{currency.currency}}) -
+                                                    {{currency.name}}</option>
                                                 {% endif %}
-                                            {% else %}
-                                                <option value='{{currency.currency}}'>({{currency.currency}}) - {{currency.name}}</option>
-                                            {% endif %}
-                                            {% endfor %}
+                                                {% else %}
+                                                <option value='{{currency.currency}}' selected>({{currency.currency}}) -
+                                                    {{currency.name}}</option>
+                                                {% endif %}
+                                                {% else %}
+                                                <option value='{{currency.currency}}'>({{currency.currency}}) -
+                                                    {{currency.name}}</option>
+                                                {% endif %}
+                                                {% endfor %}
                                             </select>
                                         </div>
                                     </div>
                                     <div class="row" id="div_financial">
                                         <div class="col-md-6">
-                                            <label class="custom-control-label" for="total_platform"><strong>{% trans "platform_cost" %}</strong></label>
+                                            <label class="custom-control-label" for="total_platform"><strong>{% trans "platform_cost" %}</strong><span class="text-danger-wp">(*)</span></label>
                                         </div>
                                         <div class="custom-control custom-checkbox col-md-4 width-reponsive">
-                                            <input class="text-number" id="total_platform" type="number" class="custom-control-input" disabled>
+                                            <input class="text-number" id="total_platform" type="number"
+                                                class="custom-control-input" disabled>
                                         </div>
 
                                         <div class="col-md-6">
-                                            <label class="custom-control-label platform-label" for="total_personnel">{% trans "personnel_salary_benefits" %}</label>
+                                            <label class="custom-control-label platform-label" for="total_personnel">{%
+                                                trans "personnel_salary_benefits" %}</label>
                                         </div>
                                         <div class="custom-control custom-checkbox col-md-4 width-reponsive">
-                                            <input class="text-number" id="total_personnel" type="number" class="custom-control-input" disabled>
+                                            <input class="text-number" id="total_personnel" type="number"
+                                                class="custom-control-input" disabled>
                                         </div>
                                         <div class="col-md-6">
-                                            <label class="custom-control-label personnel-label" for="director">{% trans "program_director" %}</label>
+                                            <label class="custom-control-label personnel-label" for="director">{% trans
+                                                "program_director" %}</label>
                                         </div>
                                         <div class="custom-control custom-checkbox col-md-4 width-reponsive">
-                                            <input class="text-number" id="director" type="number" max="9999999999999999" class="custom-control-input" value="{{study_case.program_Director|stringformat:'1.2f'}}">
+                                            <input class="text-number" id="director" type="number"
+                                                max="9999999999999999" class="custom-control-input"
+                                                value="{{study_case.program_Director|stringformat:'1.2f'}}">
                                         </div>
                                         <div class="col-md-6">
-                                            <label class="custom-control-label personnel-label" for="evaluation"> {%trans "monitoring_manager" %}</label>
+                                            <label class="custom-control-label personnel-label" for="evaluation">
+                                                {%trans "monitoring_manager" %}</label>
                                         </div>
                                         <div class="custom-control custom-checkbox col-md-4 width-reponsive">
-                                            <input class="text-number" id="evaluation" type="number" class="custom-control-input" value="{{study_case.monitoring_Manager|stringformat:'1.2f'}}">
+                                            <input class="text-number" id="evaluation" type="number"
+                                                class="custom-control-input"
+                                                value="{{study_case.monitoring_Manager|stringformat:'1.2f'}}">
                                         </div>
                                         <div class="col-md-6">
-                                            <label class="custom-control-label personnel-label" for="finance">{% trans "finance_administrator" %}</label>
+                                            <label class="custom-control-label personnel-label" for="finance">{% trans
+                                                "finance_administrator" %}</label>
                                         </div>
                                         <div class="custom-control custom-checkbox col-md-4 width-reponsive">
-                                            <input class="text-number" id="finance" type="number" class="custom-control-input" value="{{study_case.finance_Manager|stringformat:'1.2f'}}">
+                                            <input class="text-number" id="finance" type="number"
+                                                class="custom-control-input"
+                                                value="{{study_case.finance_Manager|stringformat:'1.2f'}}">
                                         </div>
                                         <div class="col-md-6">
-                                            <label class="custom-control-label personnel-label" for="implementation">{% trans "implementation_manager" %}</label>
+                                            <label class="custom-control-label personnel-label" for="implementation">{%
+                                                trans "implementation_manager" %}</label>
                                         </div>
                                         <div class="custom-control custom-checkbox col-md-4 width-reponsive">
-                                            <input class="text-number" id="implementation" type="number" class="custom-control-input" value="{{study_case.implementation_Manager|stringformat:'1.2f'}}">
+                                            <input class="text-number" id="implementation" type="number"
+                                                class="custom-control-input"
+                                                value="{{study_case.implementation_Manager|stringformat:'1.2f'}}">
                                         </div>
                                         <div class="col-md-6">
-                                            <label class="custom-control-label platform-label" for="office">{% trans "office_costs" %}</label>
+                                            <label class="custom-control-label platform-label" for="office">{% trans
+                                                "office_costs" %}</label>
                                         </div>
                                         <div class="custom-control custom-checkbox col-md-4 width-reponsive">
-                                            <input class="text-number" id="office" type="number" class="custom-control-input" value="{{study_case.office_Costs|stringformat:'1.2f'}}">
+                                            <input class="text-number" id="office" type="number"
+                                                class="custom-control-input"
+                                                value="{{study_case.office_Costs|stringformat:'1.2f'}}">
                                         </div>
                                         <div class="col-md-6">
-                                            <label class="custom-control-label platform-label" for="travel">{% trans "Travel" %}</label>
+                                            <label class="custom-control-label platform-label" for="travel">{% trans
+                                                "Travel" %}</label>
                                         </div>
                                         <div class="custom-control custom-checkbox col-md-4 width-reponsive">
-                                            <input class="text-number" id="travel" type="number" class="custom-control-input" value="{{study_case.travel|stringformat:'1.2f'}}">
+                                            <input class="text-number" id="travel" type="number"
+                                                class="custom-control-input"
+                                                value="{{study_case.travel|stringformat:'1.2f'}}">
                                         </div>
                                         <div class="col-md-6">
-                                            <label class="custom-control-label platform-label" for="equipment">{% trans "Equipment" %}</label>
+                                            <label class="custom-control-label platform-label" for="equipment">{% trans
+                                                "Equipment" %}</label>
                                         </div>
                                         <div class="custom-control custom-checkbox col-md-4 width-reponsive">
-                                            <input class="text-number" id="equipment" type="number" class="custom-control-input" value="{{study_case.equipment_Purchased|stringformat:'1.2f'}}">
+                                            <input class="text-number" id="equipment" type="number"
+                                                class="custom-control-input"
+                                                value="{{study_case.equipment_Purchased|stringformat:'1.2f'}}">
                                         </div>
                                         <div class="col-md-6">
-                                            <label class="custom-control-label platform-label" for="contracts">{% trans "Contracts" %}</label>
+                                            <label class="custom-control-label platform-label" for="contracts">{% trans
+                                                "Contracts" %}</label>
                                         </div>
                                         <div class="custom-control custom-checkbox col-md-4 width-reponsive">
-                                            <input class="text-number" id="contracts" type="number" class="custom-control-input" value="{{study_case.contracts|stringformat:'1.2f'}}">
+                                            <input class="text-number" id="contracts" type="number"
+                                                class="custom-control-input"
+                                                value="{{study_case.contracts|stringformat:'1.2f'}}">
                                         </div>
                                         <div class="col-md-6">
-                                            <label class="custom-control-label platform-label" for="overhead">{% trans "Overhead" %}</label>
+                                            <label class="custom-control-label platform-label" for="overhead">{% trans
+                                                "Overhead" %}</label>
                                         </div>
                                         <div class="custom-control custom-checkbox col-md-4 width-reponsive">
-                                            <input class="text-number" id="overhead" type="number" class="custom-control-input" value="{{study_case.overhead|stringformat:'1.2f'}}">
+                                            <input class="text-number" id="overhead" type="number"
+                                                class="custom-control-input"
+                                                value="{{study_case.overhead|stringformat:'1.2f'}}">
                                         </div>
                                         <div class="col-md-6">
-                                            <label class="custom-control-label platform-label" for="others">{% trans "Others" %}</label>
+                                            <label class="custom-control-label platform-label" for="others">{% trans
+                                                "Others" %}</label>
                                         </div>
                                         <div class="custom-control custom-checkbox col-md-4 width-reponsive">
-                                            <input class="text-number" id="others" type="number" class="custom-control-input" value="{{study_case.others|stringformat:'1.2f'}}">
+                                            <input class="text-number" id="others" type="number"
+                                                class="custom-control-input"
+                                                value="{{study_case.others|stringformat:'1.2f'}}">
                                         </div>
                                         <div class="col-md-12 width-title">
                                             <p><strong>{% trans "financial_transaction_cost" %}</strong></p>
                                         </div>
                                         <div class="col-md-6">
-                                            <label class="custom-control-label transaction-label" for="transaction">{% trans "transaction_cost" %}</label>
+                                            <label class="custom-control-label transaction-label" for="transaction">{%
+                                                trans "transaction_cost" %}</label>
                                         </div>
                                         <div class="custom-control custom-checkbox col-md-4 width-reponsive">
-                                            <input class="text-number" id="transaction" type="number" class="custom-control-input" value="{{study_case.transaction_cost|stringformat:'1.2f'}}">
+                                            <input class="text-number" id="transaction" type="number"
+                                                class="custom-control-input"
+                                                value="{{study_case.transaction_cost|stringformat:'1.2f'}}">
                                         </div>
                                         <div class="col-md-12 width-title">
                                             <p><strong>{% trans "financial_discount_rates" %}</strong></p>
                                         </div>
                                         <div class="col-md-6">
-                                            <label class="custom-control-label discount-label" for="discount">{% trans "discount_rate" %}</label>
+                                            <label class="custom-control-label discount-label" for="discount">{% trans
+                                                "discount_rate" %}</label>
                                         </div>
                                         <div class="custom-control custom-checkbox col-md-4 width-reponsive">
-                                            <input class="text-number" id="discount" type="number" class="custom-control-input" step="0.01" value="{{study_case.discount_rate|stringformat:'1.2f'}}">
+                                            <input class="text-number" id="discount" type="number"
+                                                class="custom-control-input" step="0.01"
+                                                value="{{study_case.discount_rate|stringformat:'1.2f'}}">
                                         </div>
                                         <div class="col-md-6">
-                                            <label class="custom-control-label discount-label" for="minimum">{% trans "sensitivity_minimun_discount" %}</label>
+                                            <label class="custom-control-label discount-label" for="minimum">{% trans
+                                                "sensitivity_minimun_discount" %}</label>
                                         </div>
                                         <div class="custom-control custom-checkbox col-md-4 width-reponsive">
-                                            <input class="text-number" id="minimum" type="number" class="custom-control-input" value="{{study_case.discount_rate_minimunm|stringformat:'1.2f'}}">
+                                            <input class="text-number" id="minimum" type="number"
+                                                class="custom-control-input"
+                                                value="{{study_case.discount_rate_minimunm|stringformat:'1.2f'}}">
                                         </div>
                                         <div class="col-md-6">
-                                            <label class="custom-control-label discount-label" for="maximum">{% trans "sensitivity_maximun_discount" %}</label>
+                                            <label class="custom-control-label discount-label" for="maximum">{% trans
+                                                "sensitivity_maximun_discount" %}</label>
                                         </div>
                                         <div class="custom-control custom-checkbox col-md-4 width-reponsive">
-                                            <input class="text-number" id="maximum" type="number" class="custom-control-input" value="{{study_case.discount_rate_maximum|stringformat:'1.2f'}}">
+                                            <input class="text-number" id="maximum" type="number"
+                                                class="custom-control-input"
+                                                value="{{study_case.discount_rate_maximum|stringformat:'1.2f'}}">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row text-center">
                                     <div class="col-md-12">
-                                        <button type="button" value="previous" class="btn btn-primary" id="step5PreviousBtn">{% trans "Previous" %}</button>
-                                        <button type="button" value="next" class="btn btn-primary" id="step5NextBtn">{% trans "Next" %}</button>
+                                        <button type="button" value="previous" class="btn btn-primary"
+                                            id="step5PreviousBtn">{% trans "Previous" %}</button>
+                                        <button type="button" value="next" class="btn btn-primary" id="step5NextBtn">{%
+                                            trans "Next" %}</button>
                                     </div>
                                 </div>
                             </div>
@@ -486,18 +608,24 @@
                             <div id="step-6" class="tab-pane" role="tabpanel">
                                 <div class="page-header">
                                     <h3> {% trans "NBS_conservation_activities" %}
-                                        <button type="button" value="help modal button step 6" data-toggle="modal" data-target="#HelpStep6" id="HelpModalBtnModal_step3" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
+                                        <button type="button" value="help modal button step 6" data-toggle="modal"
+                                            data-target="#HelpStep6" id="HelpModalBtnModal_step3"
+                                            class="glyphicon glyphicon-question-sign" aria-hidden="true"
+                                            style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
                                     </h3>
                                     <div style="display: flex;">
-                                        <p>{% trans "NBS_conservation_activities_text" %}</p>
-                                        <span onclick="window.location.href='/waterproof_nbs_ca/create/'" class="glyphicon glyphicon-plus-sign btn-add"></span>
+                                        <p>{% trans "NBS_conservation_activities_text" %}<span class="text-danger-wp">(*)</span></p>
+                                        <span onclick="window.location.href='/waterproof_nbs_ca/create/'"
+                                            class="glyphicon glyphicon-plus-sign btn-add"></span>
                                     </div>
                                     <ul class="list-group list-group-flush" id="nbs-ul"></ul>
                                 </div>
                                 <div class="row text-center">
                                     <div class="col-md-12">
-                                        <button type="button" value="previous" class="btn btn-primary" id="step6PreviousBtn">{% trans "Previous" %}</button>
-                                        <button type="button" value="next" class="btn btn-primary" id="step6NextBtn">{% trans "Next" %}</button>
+                                        <button type="button" value="previous" class="btn btn-primary"
+                                            id="step6PreviousBtn">{% trans "Previous" %}</button>
+                                        <button type="button" value="next" class="btn btn-primary" id="step6NextBtn">{%
+                                            trans "Next" %}</button>
                                     </div>
                                 </div>
                             </div>
@@ -505,7 +633,10 @@
                             <div id="step-7" class="tab-pane" role="tabpanel">
                                 <div class="page-header">
                                     <h3> {% trans "analysis_parameter" %}
-                                        <button type="button" value="help modal button step 7" data-toggle="modal" data-target="#HelpStep7" id="HelpModalBtnModal_step3" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
+                                        <button type="button" value="help modal button step 7" data-toggle="modal"
+                                            data-target="#HelpStep7" id="HelpModalBtnModal_step3"
+                                            class="glyphicon glyphicon-question-sign" aria-hidden="true"
+                                            style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button>
                                     </h3>
                                     <p>{% trans "analysis_tip" %}</p>
                                 </div>
@@ -514,8 +645,12 @@
                                         <div id="div_period_analysis" class="form-group">
                                             <label for="period_analysis" class="control-label required-field">
                                                 {% trans "analysis_time_period" %}
+                                                <span class="text-danger-wp">(*)</span>
                                             </label>
-                                            <input id="period_analysis" type="number" class="form-control text-number-full" min="1" step="0" oninput="validity.valid||(value='');" max="100" value="{{study_case.analysis_period_value}}">
+                                            <input id="period_analysis" type="number"
+                                                class="form-control text-number-full" min="1" step="0"
+                                                oninput="validity.valid||(value='');" max="100"
+                                                value="{{study_case.analysis_period_value}}">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -523,31 +658,42 @@
                                             <label for="analysis_currency" class="control-label required-field ">
                                                 {% trans "Currency" %}
                                             </label>
-                                            <select id="analysis_currency" class="form-control" onchange='$(".lbl-currency-budget").html("(" + $("#analysis_currency").val()+ ")")'>
+                                            <select id="analysis_currency" class="form-control"
+                                                onchange='$(".lbl-currency-budget").html("(" + $("#analysis_currency").val()+ ")")'>
                                                 {% for c in currencys %}
-                                                    {% if c.currency == study_case.analysis_currency %}
-                                                    <option value='{{c.currency}}' {% if c.currency == 'USD' %} {% if c.iso3 == 'USA' %} selected {% endif %}{% else %} selected {% endif %}>
-                                                        ({{c.currency}}) - {{c.name}}
-                                                    </option>
-                                                    {% else %}
-                                                    <option value='{{c.currency}}'>({{c.currency}}) - {{c.name}}</option>
-                                                    {% endif %}
+                                                {% if c.currency == study_case.analysis_currency %}
+                                                <option value='{{c.currency}}' {% if c.currency=='USD' %} {% if
+                                                    c.iso3=='USA' %} selected {% endif %}{% else %} selected {% endif
+                                                    %}>
+                                                    ({{c.currency}}) - {{c.name}}
+                                                </option>
+                                                {% else %}
+                                                <option value='{{c.currency}}'>({{c.currency}}) - {{c.name}}</option>
+                                                {% endif %}
                                                 {% endfor %}
                                             </select>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div id="div_period_nbs" class="form-group">
-                                            <label class="control-label required-field" for="period-nbs">{% trans "implementation_time_nbs" %}</label>
-                                            <input id="period_nbs" type="number" class="form-control text-number-full" min="1" step="0" oninput="validity.valid||(value='');" max="100" value="{{study_case.time_implement}}">
+                                            <label class="control-label required-field" for="period-nbs">{% trans
+                                                "implementation_time_nbs" %}
+                                                <span class="text-danger-wp">(*)</span>
+                                            </label>
+                                            <input id="period_nbs" type="number" class="form-control text-number-full"
+                                                min="1" step="0" oninput="validity.valid||(value='');" max="100"
+                                                value="{{study_case.time_implement}}">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div id="div_analysis_nbs" class="form-group">
-                                            <label class="control-label required-field" for="analysis_nbs">{% trans "climate_baseline_nbs" %}</label>
+                                            <label class="control-label required-field" for="analysis_nbs">{% trans
+                                                "climate_baseline_nbs" %}</label>
                                             <select id="analysis_nbs" class="form-control">
                                                 {% for scenario in scenarios %}
-                                                <option value='{{scenario.id}}' {% if scenario.name == study_case.climate_scenario.name %} selected {% endif %}>
+                                                <option value='{{scenario.id}}' {% if
+                                                    scenario.name==study_case.climate_scenario.name %} selected {% endif
+                                                    %}>
                                                     {{scenario.name}}
                                                 </option>
                                                 {% endfor %}
@@ -566,30 +712,42 @@
                                         <div class="col-md-6 padding-investment">
                                             <div id="div_annual_investment" class="form-group">
                                                 <div style="display: flex;">
-                                                    <label class="control-label required-field" for="annual_investment">{% trans "annual_investment" %}</label>
+                                                    <label class="control-label required-field"
+                                                        for="annual_investment">{% trans "annual_investment" %}
+                                                    </label>
+                                                    <span class="text-danger-wp">(*)</span>
                                                     <div class="lbl-currency-budget" style="padding-left: 15px;">
-                                                        {% if study_case.analysis_currency != None%} ({{study_case.analysis_currency}}) {% endif %}
+                                                        {% if study_case.analysis_currency != None%}
+                                                        ({{study_case.analysis_currency}}) {% endif %}
                                                     </div>
                                                 </div>
-                                                <input id="annual_investment" type="number" class="text-number-full form-control" value="{{study_case.annual_investment|stringformat:'1.2f'}}">
+                                                <input id="annual_investment" type="number"
+                                                    class="text-number-full form-control"
+                                                    value="{{study_case.annual_investment|stringformat:'1.2f'}}">
                                             </div>
                                         </div>
-                                    </div>   
+                                    </div>
                                     <div class="col-md-12 width-title">
                                         <label class="control-label required-field ">
                                             {% trans "investment_table" %}
                                         </label>
+                                        <span class="text-danger-wp">(*)</span>
                                     </div>
                                     <div class="col-md-12 width-title table-responsive">
-                                        <table id="full-table" class="table table-striped table-bordered table-condensed">
+                                        <table id="full-table"
+                                            class="table table-striped table-bordered table-condensed">
                                             <thead>
                                                 <tr class="info">
-                                                    <th scope="col" class="small text-center vat">{% trans "Activity" %}</th>
-                                                    <th scope="col" id="column_investment" class="small text-center vat">
+                                                    <th scope="col" class="small text-center vat">{% trans "Activity" %}
+                                                    </th>
+                                                    <th scope="col" id="column_investment"
+                                                        class="small text-center vat">
                                                         <div style="display: flex;">
                                                             {% trans "Investment" %}
-                                                            <div class="lbl-currency-budget" style="padding-left: 15px;">
-                                                                {% if study_case.analysis_currency != None%} ({{study_case.analysis_currency}}) {% endif %}
+                                                            <div class="lbl-currency-budget"
+                                                                style="padding-left: 15px;">
+                                                                {% if study_case.analysis_currency != None%}
+                                                                ({{study_case.analysis_currency}}) {% endif %}
                                                             </div>
                                                         </div>
                                                     </th>
@@ -604,18 +762,23 @@
                                 <div id="div_rellocated_check" class="form-group">
                                     <div class="custom-control custom-checkbox">
                                         {% if study_case.rellocated_remainder %}
-                                        <input type="checkbox" class="custom-control-input" id='rellocated_check' checked>
+                                        <input type="checkbox" class="custom-control-input" id='rellocated_check'
+                                            checked>
                                         {% else %}
                                         <input type="checkbox" class="custom-control-input" id='rellocated_check'>
                                         {% endif %}
-                                        <label class="custom-control-label" for="rellocated_check">{% trans "rellocated_remainder" %}</label>
+                                        <label class="custom-control-label" for="rellocated_check">{% trans
+                                            "rellocated_remainder" %}</label>
                                     </div>
                                 </div>
                                 <div class="row text-center">
                                     <div class="col-md-12">
-                                        <button type="button" value="previous" class="btn btn-primary" id="step7PreviousBtn">{% trans "Previous" %}</button>
-                                        <button type="button" value="save" class="btn btn-primary" id="step7EndBtn">{% trans "Save" %}</button>
-                                        <button type="button" value="run analysis" class="btn btn-primary" id="step7RunBtn">{% trans "run_analysis" %}</button>
+                                        <button type="button" value="previous" class="btn btn-primary"
+                                            id="step7PreviousBtn">{% trans "Previous" %}</button>
+                                        <button type="button" value="save" class="btn btn-primary" id="step7EndBtn">{%
+                                            trans "Save" %}</button>
+                                        <button type="button" value="run analysis" class="btn btn-primary"
+                                            id="step7RunBtn">{% trans "run_analysis" %}</button>
                                     </div>
                                 </div>
                             </div>
@@ -637,7 +800,8 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-5">
-                        <div class="panel-group" id="VarCostListGroup" style="max-height: 480px; overflow-y: auto;"></div>
+                        <div class="panel-group" id="VarCostListGroup" style="max-height: 480px; overflow-y: auto;">
+                        </div>
                     </div>
                     <div class="col-md-7">
                         <div class="form-group">
@@ -654,7 +818,8 @@
                                 <select id="currencyCost" class="form-control" required>
                                     {% for currency in currencys %}
                                     {% if currency.iso3 == 'USA'%}
-                                    <option value="{{currency.pk}}" data-country="{{currency.iso3}}">({{currency.currency}}) - {{currency.name}}</option>
+                                    <option value="{{currency.pk}}" data-country="{{currency.iso3}}">
+                                        ({{currency.currency}}) - {{currency.name}}</option>
                                     {% else %}
                                     <option value="{{currency.pk}}">({{currency.currency}}) - {{currency.name}}</option>
                                     {% endif %}
@@ -663,7 +828,8 @@
                             </div>
                             <div class="col-xs-6">
                                 <label class="text-primary">{% trans "Multiplying factor for overrall cost" %} </label>
-                                <input type="text" value="1.00" id="global_multiplier_factorCalculator" class="form-control">
+                                <input type="text" value="1.00" id="global_multiplier_factorCalculator"
+                                    class="form-control">
                             </div>
                         </div>
                         <h5 class="text-primary keyboard-title">{% trans "Syntax keyboard" %}</h5>
@@ -674,36 +840,55 @@
                         <div class="tab-content">
                             <div id="mathBasic_tab" class="tab-pane fade in active">
                                 <div class="btn-group" role="group">
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="=">&#61</button>
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="+">&#43</button>
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="-">&#8722;</button>
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="*">&#215</button>
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="/">a/b</button>
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="**">a^b</button>
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="sqrt()">&#8730</button>
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="min()">min</button>
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="max()">max</button>
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard"
+                                        value="=">&#61</button>
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard"
+                                        value="+">&#43</button>
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard"
+                                        value="-">&#8722;</button>
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard"
+                                        value="*">&#215</button>
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard"
+                                        value="/">a/b</button>
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard"
+                                        value="**">a^b</button>
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard"
+                                        value="sqrt()">&#8730</button>
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard"
+                                        value="min()">min</button>
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard"
+                                        value="max()">max</button>
                                 </div>
                             </div>
                             <div id="mathAdvanced_tab" class="tab-pane fade in">
                                 <div class="btn-group" role="group">
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="pi">π</button>
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="e">e</button>
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="log()">ln</button>
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="log10()">log</button>
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="%">mod</button>
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value=">">&#62;</button>
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="<">&#60;</button>
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="(expression) if (conditional) else (other_case)">if</button>
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard"
+                                        value="pi">π</button>
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard"
+                                        value="e">e</button>
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard"
+                                        value="log()">ln</button>
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard"
+                                        value="log10()">log</button>
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard"
+                                        value="%">mod</button>
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard"
+                                        value=">">&#62;</button>
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard"
+                                        value="<">&#60;</button>
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard"
+                                        value="(expression) if (conditional) else (other_case)">if</button>
                                 </div>
-                            </div>                            
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12">
                         <div id="mathNatural" class="tab-pane fade in active">
-                            <textarea id="python-expression" class="python-expression" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false" x-palm-disable-ste-all="true"></textarea>
+                            <textarea id="python-expression" class="python-expression" autocapitalize="off"
+                                autocomplete="off" autocorrect="off" spellcheck="false"
+                                x-palm-disable-ste-all="true"></textarea>
                             <button id="btnValidatePyExp">{% trans "Validate" %} </button>
                             <div id="MathPreview" class="preview"></div>
                         </div>
@@ -712,8 +897,10 @@
                 </div>
                 <br>
                 <div class="modal-footer">
-                    <button type="button" value="close" class="btn btn-secondary" data-dismiss="modal">{% trans "Close" %}</button>
-                    <button type="button" value="add cost" class="btn btn-primary" id="saveAndValideCost">{% trans "Add cost" %}</button>
+                    <button type="button" value="close" class="btn btn-secondary" data-dismiss="modal">{% trans "Close"
+                        %}</button>
+                    <button type="button" value="add cost" class="btn btn-primary" id="saveAndValideCost">{% trans "Add
+                        cost" %}</button>
                 </div>
             </div>
         </div>
@@ -727,23 +914,32 @@
                 <button type="button" value="close" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h3 class="modal-title text-center" id="HelpModalLabel" style="color:#6398C1 ;">{% trans "Creation of study cases" %}
+                <h3 class="modal-title text-center" id="HelpModalLabel" style="color:#6398C1 ;">{% trans "Creation of
+                    study cases" %}
                 </h3>
             </div>
             <div class="modal-body">
                 <p>
-                    {% trans "In this section the key actions refer to the selection of treatment plants and catchments that make up the case study, since through them the system obtains the indications for the execution of the RIOS model in charge of recommending the areas of implementation of the Nature-Based Solutions NBS." %}
+                    {% trans "In this section the key actions refer to the selection of treatment plants and catchments
+                    that make up the case study, since through them the system obtains the indications for the execution
+                    of the RIOS model in charge of recommending the areas of implementation of the Nature-Based
+                    Solutions NBS." %}
                 </p>
                 <p>
-                    {% trans "Thanks to the catchment configuration, the system knows the geographical area in which the user wishes to implement the NBS and analyze the costs, in order to proceed with the ROI analysis." %}
+                    {% trans "Thanks to the catchment configuration, the system knows the geographical area in which the
+                    user wishes to implement the NBS and analyze the costs, in order to proceed with the ROI analysis."
+                    %}
                 </p>
                 <p>
-                    {% trans "Remember that ROI is an indicator that allows you to know how much money is lost or earned with the investments made. It is a performance measure used to evaluate the efficiency of an investment or to compare the efficiency of a number of different investments." %}
+                    {% trans "Remember that ROI is an indicator that allows you to know how much money is lost or earned
+                    with the investments made. It is a performance measure used to evaluate the efficiency of an
+                    investment or to compare the efficiency of a number of different investments." %}
                 </p>
                 <div>
                     <br>
                     <div class="modal-footer">
-                        <button type="button" value="close" class="btn btn-secondary" data-dismiss="modal" style="color: white; background-color: #6398C1;">{% trans "Close" %}</button>
+                        <button type="button" value="close" class="btn btn-secondary" data-dismiss="modal"
+                            style="color: white; background-color: #6398C1;">{% trans "Close" %}</button>
                     </div>
                 </div>
             </div>
@@ -759,20 +955,27 @@
                 <button type="button" value="close" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h3 class="modal-title text-center" id="HelpModalLabel" style="color:#6398C1 ;">{% trans "Integrate Analysis Associated with the Carbon Market" %}
+                <h3 class="modal-title text-center" id="HelpModalLabel" style="color:#6398C1 ;">{% trans "Integrate
+                    Analysis Associated with the Carbon Market" %}
                 </h3>
             </div>
             <div class="modal-body">
                 <p>
-                    {% trans "Offers you the possibility to integrate in your analysis the possible benefits that you can obtain if you expect to participate in carbon markets. This is done by defining a monetary value per Ton of CO2eq." %}
+                    {% trans "Offers you the possibility to integrate in your analysis the possible benefits that you
+                    can obtain if you expect to participate in carbon markets. This is done by defining a monetary value
+                    per Ton of CO2eq." %}
                 </p>
                 <p>
-                    {% trans "uses information from the database published in May 2020 by the Institute for Climate Economics (Sébastien Postic | Marion Fetet) to preload USD / TonCO2eq values ​​that vary according to the country where the analysis is being carried out, however, the user can modify these values ​​according to the information they have." %}
+                    {% trans "uses information from the database published in May 2020 by the Institute for Climate
+                    Economics (Sébastien Postic | Marion Fetet) to preload USD / TonCO2eq values ​​that vary according
+                    to the country where the analysis is being carried out, however, the user can modify these values
+                    ​​according to the information they have." %}
                 </p>
                 <div>
                     <br>
                     <div class="modal-footer">
-                        <button type="button" value="close" class="btn btn-secondary" data-dismiss="modal" style="color: white; background-color: #6398C1;">{% trans "Close" %}</button>
+                        <button type="button" value="close" class="btn btn-secondary" data-dismiss="modal"
+                            style="color: white; background-color: #6398C1;">{% trans "Close" %}</button>
                     </div>
                 </div>
             </div>
@@ -788,32 +991,43 @@
                 <button type="button" value="close" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h3 class="modal-title text-center" id="HelpModalLabel" style="color:#6398C1 ;">{% trans "Definition of the objectives of the NBS" %}
+                <h3 class="modal-title text-center" id="HelpModalLabel" style="color:#6398C1 ;">{% trans "Definition of
+                    the objectives of the NBS" %}
                 </h3>
             </div>
             <div class="modal-body">
                 <p>
-                    {% trans "WaterProof will define the NBS of your portfolio according to your needs in relation to:" %}
+                    {% trans "WaterProof will define the NBS of your portfolio according to your needs in relation to:"
+                    %}
                 </p>
                 <li>
-                    {% trans "Erosion control to keep sediments out of water courses, avoiding the physical-mechanical loss of soil, the impact on water quality and its deposition in reservoirs, where it can reduce the production capacity of hydroelectric facilities or damage reservoirs and irrigation infrastructure." %}
+                    {% trans "Erosion control to keep sediments out of water courses, avoiding the physical-mechanical
+                    loss of soil, the impact on water quality and its deposition in reservoirs, where it can reduce the
+                    production capacity of hydroelectric facilities or damage reservoirs and irrigation infrastructure."
+                    %}
                 </li>
                 <li>
-                    {% trans "Retention of phosphorus and nitrogen nutrients to maintain nature's processes and reduce potential pollutant loads, which can lead to eutrophication, and / or the generation of algal blooms." %}
+                    {% trans "Retention of phosphorus and nitrogen nutrients to maintain nature's processes and reduce
+                    potential pollutant loads, which can lead to eutrophication, and / or the generation of algal
+                    blooms." %}
                 </li>
                 <li>
-                    {% trans "Flood mitigation by addressing situations where the watershed area is previously saturated, and rainfall events cause excess water to run off the saturated ground surface." %}
+                    {% trans "Flood mitigation by addressing situations where the watershed area is previously
+                    saturated, and rainfall events cause excess water to run off the saturated ground surface." %}
                 </li>
                 <li>
-                    {% trans "Aquifer recharge enhancements that seek to replenish groundwater or increase groundwater stored in aquifers during wet periods to help improve water supply security and sustainability." %}
+                    {% trans "Aquifer recharge enhancements that seek to replenish groundwater or increase groundwater
+                    stored in aquifers during wet periods to help improve water supply security and sustainability." %}
                 </li>
                 <li>
-                    {% trans "Sustaining or improving the base flow to guarantee efficient processes and infiltration, redistribution, evaporation and percolation of the waters in the territory." %}
+                    {% trans "Sustaining or improving the base flow to guarantee efficient processes and infiltration,
+                    redistribution, evaporation and percolation of the waters in the territory." %}
                 </li>
                 <div>
                     <br>
                     <div class="modal-footer">
-                        <button type="button" value="close" class="btn btn-secondary" data-dismiss="modal" style="color: white; background-color: #6398C1;">{% trans "Close" %}</button>
+                        <button type="button" value="close" class="btn btn-secondary" data-dismiss="modal"
+                            style="color: white; background-color: #6398C1;">{% trans "Close" %}</button>
                     </div>
                 </div>
             </div>
@@ -829,71 +1043,73 @@
                 <button type="button" value="close" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h3 class="modal-title text-center" id="HelpModalLabel" style="color:#6398C1 ;">{% trans "Adjustment of Biophysical Parameters" %}
+                <h3 class="modal-title text-center" id="HelpModalLabel" style="color:#6398C1 ;">{% trans "Adjustment of
+                    Biophysical Parameters" %}
                 </h3>
             </div>
             <div class="modal-body">
                 <div>
                     <p>
-                        {% trans "Study cases help 4 text 1" %} 
+                        {% trans "Study cases help 4 text 1" %}
                     </p>
                     <p>
-                        {% trans "Study cases help 4 text 1.1" %} 
+                        {% trans "Study cases help 4 text 1.1" %}
                     </p>
                     <ul>
-                        <li><b>lucode: </b>{% trans "Study cases help 4 text 2" %}  </li>
-                        <li><b>root_depth:</b>{% trans "Study cases help 4 text 3" %}  </li>
-                        <li><b>usle_c: </b>{% trans "Study cases help 4 text 4" %}  </li>
-                        <li><b> usle_p: </b>{% trans "Study cases help 4 text 5" %}  </li>
-                        <li><b>load_n: </b>{% trans "Study cases help 4 text 6" %}  </li>
-                        <li><b>eff_n:</b>{% trans "Study cases help 4 text 7" %}  </li>
-                        <li><b>load_p: </b>{% trans "Study cases help 4 text 8" %}  </li>
-                        <li><b>eff_p: </b>{% trans "Study cases help 4 text 9" %}  </li>
-                        <li><b>crit_len_n: </b>{% trans "Study cases help 4 text 10" %}  </li>
-                        <li><b>crit_len_p: </b>{% trans "Study cases help 4 text 11" %}  </li>
+                        <li><b>lucode: </b>{% trans "Study cases help 4 text 2" %} </li>
+                        <li><b>root_depth:</b>{% trans "Study cases help 4 text 3" %} </li>
+                        <li><b>usle_c: </b>{% trans "Study cases help 4 text 4" %} </li>
+                        <li><b> usle_p: </b>{% trans "Study cases help 4 text 5" %} </li>
+                        <li><b>load_n: </b>{% trans "Study cases help 4 text 6" %} </li>
+                        <li><b>eff_n:</b>{% trans "Study cases help 4 text 7" %} </li>
+                        <li><b>load_p: </b>{% trans "Study cases help 4 text 8" %} </li>
+                        <li><b>eff_p: </b>{% trans "Study cases help 4 text 9" %} </li>
+                        <li><b>crit_len_n: </b>{% trans "Study cases help 4 text 10" %} </li>
+                        <li><b>crit_len_p: </b>{% trans "Study cases help 4 text 11" %} </li>
 
-                        <li><b>proportion_subsurface_n: </b>{% trans "Study cases help 4 text 12" %}  </li>
-                        <li><b>cn_a: </b>{% trans "Study cases help 4 text 13" %}  </li>
-                        <li><b>cn_b: </b>{% trans "Study cases help 4 text 14" %}  </li>
-                        <li><b>cn_c: </b>{% trans "Study cases help 4 text 15" %}  </li>
-                        <li><b>cn_d: </b>{% trans "Study cases help 4 text 16" %}  </li>
-                        <li><b>kc_1: </b>{% trans "Study cases help 4 text 17" %}  </li>
-                        <li><b>kc_2: </b>{% trans "Study cases help 4 text 18" %}  </li>
-                        <li><b>kc_3: </b>{% trans "Study cases help 4 text 19" %}  </li>
-                        <li><b>kc_4: </b>{% trans "Study cases help 4 text 20" %}  </li>
-                        <li><b>kc_5: </b>{% trans "Study cases help 4 text 21" %}  </li>
+                        <li><b>proportion_subsurface_n: </b>{% trans "Study cases help 4 text 12" %} </li>
+                        <li><b>cn_a: </b>{% trans "Study cases help 4 text 13" %} </li>
+                        <li><b>cn_b: </b>{% trans "Study cases help 4 text 14" %} </li>
+                        <li><b>cn_c: </b>{% trans "Study cases help 4 text 15" %} </li>
+                        <li><b>cn_d: </b>{% trans "Study cases help 4 text 16" %} </li>
+                        <li><b>kc_1: </b>{% trans "Study cases help 4 text 17" %} </li>
+                        <li><b>kc_2: </b>{% trans "Study cases help 4 text 18" %} </li>
+                        <li><b>kc_3: </b>{% trans "Study cases help 4 text 19" %} </li>
+                        <li><b>kc_4: </b>{% trans "Study cases help 4 text 20" %} </li>
+                        <li><b>kc_5: </b>{% trans "Study cases help 4 text 21" %} </li>
 
-                        <li><b>kc_6: </b>{% trans "Study cases help 4 text 22" %}  </li>
-                        <li><b>kc_7: </b>{% trans "Study cases help 4 text 23" %}  </li>
-                        <li><b>kc_8: </b>{% trans "Study cases help 4 text 23 2" %}  </li>
-                        <li><b>kc_9: </b>{% trans "Study cases help 4 text 24" %}  </li>
-                        <li><b>kc_10: </b>{% trans "Study cases help 4 text 25" %}  </li>
-                        <li><b>kc_11: </b>{% trans "Study cases help 4 text 26" %}  </li>
-                        <li><b>kc_12: </b>{% trans "Study cases help 4 text 27" %}  </li>
-                        <li><b>c_above: </b>{% trans "Study cases help 4 text 28" %}  </li>
-                        <li><b>c_below: </b>{% trans "Study cases help 4 text 29" %}  </li>
-                        <li><b>c_soil: </b>{% trans "Study cases help 4 text 30" %}  </li>
+                        <li><b>kc_6: </b>{% trans "Study cases help 4 text 22" %} </li>
+                        <li><b>kc_7: </b>{% trans "Study cases help 4 text 23" %} </li>
+                        <li><b>kc_8: </b>{% trans "Study cases help 4 text 23 2" %} </li>
+                        <li><b>kc_9: </b>{% trans "Study cases help 4 text 24" %} </li>
+                        <li><b>kc_10: </b>{% trans "Study cases help 4 text 25" %} </li>
+                        <li><b>kc_11: </b>{% trans "Study cases help 4 text 26" %} </li>
+                        <li><b>kc_12: </b>{% trans "Study cases help 4 text 27" %} </li>
+                        <li><b>c_above: </b>{% trans "Study cases help 4 text 28" %} </li>
+                        <li><b>c_below: </b>{% trans "Study cases help 4 text 29" %} </li>
+                        <li><b>c_soil: </b>{% trans "Study cases help 4 text 30" %} </li>
 
-                        <li><b>c_dead: </b>{% trans "Study cases help 4 text 31" %}  </li>
-                        <li><b>sed_exp: </b>{% trans "Study cases help 4 text 32" %}  </li>
-                        <li><b>sed_ret: </b>{% trans "Study cases help 4 text 33" %}  </li>
-                        <li><b>rough_rank: </b>{% trans "Study cases help 4 text 34" %}  </li>
-                        <li><b>cover_rank: </b>{% trans "Study cases help 4 text 35" %}  </li>
-                        <li><b>p_ret: </b>{% trans "Study cases help 4 text 36" %}  </li>
-                        <li><b>p_exp: </b>{% trans "Study cases help 4 text 37" %}  </li>
-                        <li><b>n_ret: </b>{% trans "Study cases help 4 text 38" %}  </li>
-                        <li><b>n_exp: </b>{% trans "Study cases help 4 text 39" %}  </li>
-                        <li><b>native_veg: </b>{% trans "Study cases help 4 text 40" %}  </li>
-                        <li><b>lulc_veg: </b>{% trans "Study cases help 4 text 41" %}  </li>
-                        
-                        
+                        <li><b>c_dead: </b>{% trans "Study cases help 4 text 31" %} </li>
+                        <li><b>sed_exp: </b>{% trans "Study cases help 4 text 32" %} </li>
+                        <li><b>sed_ret: </b>{% trans "Study cases help 4 text 33" %} </li>
+                        <li><b>rough_rank: </b>{% trans "Study cases help 4 text 34" %} </li>
+                        <li><b>cover_rank: </b>{% trans "Study cases help 4 text 35" %} </li>
+                        <li><b>p_ret: </b>{% trans "Study cases help 4 text 36" %} </li>
+                        <li><b>p_exp: </b>{% trans "Study cases help 4 text 37" %} </li>
+                        <li><b>n_ret: </b>{% trans "Study cases help 4 text 38" %} </li>
+                        <li><b>n_exp: </b>{% trans "Study cases help 4 text 39" %} </li>
+                        <li><b>native_veg: </b>{% trans "Study cases help 4 text 40" %} </li>
+                        <li><b>lulc_veg: </b>{% trans "Study cases help 4 text 41" %} </li>
+
+
                     </ul>
                 </div>
 
                 <div>
                     <br>
                     <div class="modal-footer">
-                        <button type="button" value="close" class="btn btn-secondary" data-dismiss="modal" style="color: white; background-color: #6398C1;">{% trans "Close" %}</button>
+                        <button type="button" value="close" class="btn btn-secondary" data-dismiss="modal"
+                            style="color: white; background-color: #6398C1;">{% trans "Close" %}</button>
                     </div>
                 </div>
             </div>
@@ -909,32 +1125,39 @@
                 <button type="button" value="close" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h3 class="modal-title text-center" id="HelpModalLabel" style="color:#6398C1 ;">{% trans "Definition of Financial Parameters" %}
+                <h3 class="modal-title text-center" id="HelpModalLabel" style="color:#6398C1 ;">{% trans "Definition of
+                    Financial Parameters" %}
                 </h3>
             </div>
             <div class="modal-body">
                 <p>
-                    {% trans "The implementation of your NBS portfolio requires a series of investments to support its implementation, which in the system is called the Platform. This includes the personnel costs, office, travel, acquisition of equipment, among others." %}
+                    {% trans "The implementation of your NBS portfolio requires a series of investments to support its
+                    implementation, which in the system is called the Platform. This includes the personnel costs,
+                    office, travel, acquisition of equipment, among others." %}
                 </p>
                 <p>
-                    {% trans "You may indicate the discount rate that you wish to use to determine the present value of the payments that will be incurred." %}
+                    {% trans "You may indicate the discount rate that you wish to use to determine the present value of
+                    the payments that will be incurred." %}
                 </p>
                 <p>
-                    {% trans "In addition, you need to indicate the minimum and maximum values ​​of the sensitivity analysis that will help you make your decisions in case of unexpected changes in your environment. To do this, WaterProof uses the following equation:" %}
+                    {% trans "In addition, you need to indicate the minimum and maximum values ​​of the sensitivity
+                    analysis that will help you make your decisions in case of unexpected changes in your environment.
+                    To do this, WaterProof uses the following equation:" %}
                 </p>
 
                 <h3 style="text-align: center;">{% trans "TB/(1+TD)^A" %}</h3>
 
                 <h5>{% trans "Where:" %}</h5>
-                <h5>{% trans "TB  It is the Total of the benefit" %}</h5>
-                <h5>{% trans "TD  Discount rate, brought from financial parameters" %}</h5>
-                <h5>{% trans "A  Index for the current year" %}</h5>
+                <h5>{% trans "TB It is the Total of the benefit" %}</h5>
+                <h5>{% trans "TD Discount rate, brought from financial parameters" %}</h5>
+                <h5>{% trans "A Index for the current year" %}</h5>
 
 
                 <div>
                     <br>
                     <div class="modal-footer">
-                        <button type="button" value="close" class="btn btn-secondary" data-dismiss="modal" style="color: white; background-color: #6398C1;">{% trans "Close" %}</button>
+                        <button type="button" value="close" class="btn btn-secondary" data-dismiss="modal"
+                            style="color: white; background-color: #6398C1;">{% trans "Close" %}</button>
                     </div>
                 </div>
             </div>
@@ -950,27 +1173,43 @@
                 <button type="button" value="close" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h3 class="modal-title text-center" id="HelpModalLabel" style="color:#6398C1 ;">{% trans "Definition of NBS Activities" %}
+                <h3 class="modal-title text-center" id="HelpModalLabel" style="color:#6398C1 ;">{% trans "Definition of
+                    NBS Activities" %}
                 </h3>
             </div>
             <div class="modal-body">
                 <p>
-                    {% trans "WaterProof considers a set of Nature-Based Solutions that you can link to your analysis according to your interest in protecting, sustainably managing and restoring natural or modified ecosystems that address social challenges in an effective and adaptive way, providing simultaneous benefits for human well-being and biodiversity." %}
+                    {% trans "WaterProof considers a set of Nature-Based Solutions that you can link to your analysis
+                    according to your interest in protecting, sustainably managing and restoring natural or modified
+                    ecosystems that address social challenges in an effective and adaptive way, providing simultaneous
+                    benefits for human well-being and biodiversity." %}
                 </p>
 
                 <p>
-                    {% trans "By default, WaterProof has the following NBS, however you may create new ones that you can link to your analysis. The default NBSs are:" %}
+                    {% trans "By default, WaterProof has the following NBS, however you may create new ones that you can
+                    link to your analysis. The default NBSs are:" %}
                 </p>
 
-                <li>{% trans "Conservation: refers to actions that seek to conserve current land use coverage by signing conservation agreements, paying forest rangers or fencing off areas." %}</li>
-                <li>{% trans "Passive restoration: when strategic assistance actions are carried out to enable degraded ecosystems that by themselves overcome or eliminate factors that prevented their regeneration." %}</li>
-                <li>{% trans "Active restoration: these activities seek to increase floristic diversity by sowing new species, whose individuals have been obtained from the collection of seeds and propagules, their sowing in the nurseries and subsequent planting in the reserve." %}</li>
-                <li>{% trans "Agroforestry activities: a series of land-use technologies is used to combine trees with agricultural crops and / or pastures to increase and optimize production in a sustainable manner. The planting of forest crops and trees is used sequentially and in combination, with the application of soil conservation practices." %}</li>
-                <li>{% trans "Pasture and rangeland management: where healthy native grasses and related vegetation are grown to profitably preserve forage availability and livestock production, while ensuring environmental health." %}</li>
+                <li>{% trans "Conservation: refers to actions that seek to conserve current land use coverage by signing
+                    conservation agreements, paying forest rangers or fencing off areas." %}</li>
+                <li>{% trans "Passive restoration: when strategic assistance actions are carried out to enable degraded
+                    ecosystems that by themselves overcome or eliminate factors that prevented their regeneration." %}
+                </li>
+                <li>{% trans "Active restoration: these activities seek to increase floristic diversity by sowing new
+                    species, whose individuals have been obtained from the collection of seeds and propagules, their
+                    sowing in the nurseries and subsequent planting in the reserve." %}</li>
+                <li>{% trans "Agroforestry activities: a series of land-use technologies is used to combine trees with
+                    agricultural crops and / or pastures to increase and optimize production in a sustainable manner.
+                    The planting of forest crops and trees is used sequentially and in combination, with the application
+                    of soil conservation practices." %}</li>
+                <li>{% trans "Pasture and rangeland management: where healthy native grasses and related vegetation are
+                    grown to profitably preserve forage availability and livestock production, while ensuring
+                    environmental health." %}</li>
                 <div>
                     <br>
                     <div class="modal-footer">
-                        <button type="button" value="close" class="btn btn-secondary" data-dismiss="modal" style="color: white; background-color: #6398C1;">{% trans "Close" %}</button>
+                        <button type="button" value="close" class="btn btn-secondary" data-dismiss="modal"
+                            style="color: white; background-color: #6398C1;">{% trans "Close" %}</button>
                     </div>
                 </div>
             </div>
@@ -986,16 +1225,23 @@
                 <button type="button" value="close" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h3 class="modal-title text-center" id="HelpModalLabel" style="color:#6398C1 ;">{% trans "Run the analysis" %}
+                <h3 class="modal-title text-center" id="HelpModalLabel" style="color:#6398C1 ;">{% trans "Run the
+                    analysis" %}
                 </h3>
             </div>
             <div class="modal-body">
                 <p>
-                    {% trans "This is the last step in the configuration of your case study in which the user defines the time in which they want the analysis of the benefits to be projected, as well as the time that they estimate to carry out theNBS  implementation actions." %}
+                    {% trans "This is the last step in the configuration of your case study in which the user defines
+                    the time in which they want the analysis of the benefits to be projected, as well as the time that
+                    they estimate to carry out theNBS implementation actions." %}
                 </p>
-                <img style="margin: 10px auto 10px; display: block; width: 70%; height: 100%;" src="/static/geonode/img/Step7Help.png" alt="help step 7"></img>
+                <img style="margin: 10px auto 10px; display: block; width: 70%; height: 100%;"
+                    src="/static/geonode/img/Step7Help.png" alt="help step 7"></img>
                 <p>
-                    {% trans "Then, you must indicate the climatic aspects to consider. WaterProof, by default, allows you to consider the conditions of the Climate Change Scenarios or the known historical conditions. This option is available due to the influence of the climate on the sustainability of program activities and possible additional costs that must be incurred in more adverse conditions." %}
+                    {% trans "Then, you must indicate the climatic aspects to consider. WaterProof, by default, allows
+                    you to consider the conditions of the Climate Change Scenarios or the known historical conditions.
+                    This option is available due to the influence of the climate on the sustainability of program
+                    activities and possible additional costs that must be incurred in more adverse conditions." %}
                 </p>
 
                 <p>{% trans "Finally, the user can assign financial resources in two ways:" %}</p>
@@ -1003,11 +1249,13 @@
                 <li>{% trans "Total portfolio: In which there is no financial limit." %}</li>
                 <li>{% trans "Investment scenario: In which the user has a maximum investment figure" %}</li>
                 <br>
-                <p>{% trans "For both situations, the user must indicate the financial allocation percentages for the activities in which they have the greatest interest." %}</p>
+                <p>{% trans "For both situations, the user must indicate the financial allocation percentages for the
+                    activities in which they have the greatest interest." %}</p>
                 <div>
                     <br>
                     <div class="modal-footer">
-                        <button type="button" value="close" class="btn btn-secondary" data-dismiss="modal" style="color: white; background-color: #6398C1;">{% trans "Close" %}</button>
+                        <button type="button" value="close" class="btn btn-secondary" data-dismiss="modal"
+                            style="color: white; background-color: #6398C1;">{% trans "Close" %}</button>
                     </div>
                 </div>
             </div>
@@ -1017,8 +1265,8 @@
 
 {% endblock %} {% block extra_script %}
 <script src="{{ STATIC_URL }}study_cases/js/jquery.smartWizard.min.js" type="text/javascript"></script>
-<script src="{% static "lib/js/leaflet.js" %}"></script>
-<script src="{% static "geonode/js/leaflet/leaflet.defaultextent.js" %}"></script>
+<script src="{% static " lib/js/leaflet.js" %}"></script>
+<script src="{% static " geonode/js/leaflet/leaflet.defaultextent.js" %}"></script>
 <script src="{{ STATIC_URL }}geonode/js/leaflet/Leaflet.Editable.js"></script>
 <script src="{{ STATIC_URL }}geonode/js/leaflet/Leaflet.Coordinates.js"></script>
 <script src="{{ STATIC_URL }}geonode/js/leaflet/Control.Loader.js"></script>
@@ -1035,7 +1283,7 @@
     var serverApi = "{{serverApi}}";
     var servermodelApi = "{{servermodelApi}}";
     var id_user = "{{id_user}}";
-    var funcostdb = {{costFunctions|safe}};
+    var funcostdb = {{ costFunctions| safe}};
     OSM_BASEMAP_URL = "{{ OSM_BASEMAP_URL }} ";
     IMG_BASEMAP_URL = "{{ IMG_BASEMAP_URL }} ";
     HYDRO_BASEMAP_URL = "{{ HYDRO_BASEMAP_URL }} ";
