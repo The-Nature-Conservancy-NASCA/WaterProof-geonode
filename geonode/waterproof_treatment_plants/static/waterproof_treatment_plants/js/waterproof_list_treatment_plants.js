@@ -454,7 +454,33 @@
         for( k in plant.functions) {
             ptapFunctions.push(plant.functions[k]);
         }
-        
+
+        let Option1 = document.getElementById('id11d');
+        let Option2 = document.getElementById('id21d');
+        let Option3 = document.getElementById('id31d');
+        let Option4 = document.getElementById('id41d');
+        let Option5 = document.getElementById('id51d');
+        let Option6 = document.getElementById('id61d');
+        let Option7 = document.getElementById('id71d');
+        let Option8 = document.getElementById('id81d');
+        let Option9 = document.getElementById('id91d');
+        let Option10 = document.getElementById('id101d');
+        let Option11 = document.getElementById('id111d');
+        let Option12 = document.getElementById('id121d');
+
+        let styleOption1 = Option1.style.display;
+        let styleOption2 = Option2.style.display;
+        let styleOption3 = Option3.style.display;
+        let styleOption4 = Option4.style.display;
+        let styleOption5 = Option5.style.display;
+        let styleOption6 = Option6.style.display;
+        let styleOption7 = Option7.style.display;
+        let styleOption8 = Option8.style.display;
+        let styleOption9 = Option9.style.display;
+        let styleOption10 = Option10.style.display;
+        let styleOption11 = Option11.style.display;
+        let styleOption12 = Option12.style.display;
+
         if(saveForm) {
             var arrayCsinfra = [];
             $("[name=nameListAdd]").each(function( index, element ) {
@@ -494,9 +520,39 @@
             } else {
                 showMessageModal('Error',_("It does not have a record in the type of treatment plant"),'error');                
             }
+            if(styleOption1 == "block"){
+                if(styleOption2 == "block"){
+                    if(styleOption3 == "block"){
+                        if(styleOption4 == "block"){
+                            if(styleOption5 == "block"){
+                                if(styleOption6 == "block"){
+                                    if(styleOption7 == "block"){
+                                        if(styleOption8 == "block"){
+                                            if(styleOption9 == "block"){
+                                                if(styleOption10 == "block"){
+                                                    if(styleOption11 == "block"){
+                                                        if(styleOption12 == "block"){
+                                                            showMessageModal(_('Information'),_("'Please, complete the form"),'warning');
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }else{
             showMessageModal(_('Information'),_("'Please, complete the form"),'warning');
         }
+        // let styleOption1 = $('#id11d').css("display");
+
+        // if(styleOption1 == block){
+        //     showMessageModal(_('Information'),_("'Please, complete the form"),'warning');
+        // }
     }
 
     /**
@@ -1146,7 +1202,11 @@
                 };
                 console.log("adding plant.functions: ", idFnPlant);
             }
-        }        
+        }
+
+        // if(element.attributes.checked.value = "false"){
+        //     showMessageModal(_('Information'),_("'Please, complete the form"),'warning');
+        // };
     };
 
     /**
@@ -1156,6 +1216,9 @@
     validateAndAddFunction2Array = function() {
         console.log("validateAndAddFunction2Array");
         $("[name=listFunction]").each(function( index, element ) {
+            // if(element.style.borderColor != "rgb(3, 158, 220)") {
+            //     showMessageModal(_('Information'),_("'Please, complete the form"),'warning');
+            // }
             if(element.style.borderColor === "rgb(3, 158, 220)") {
                 var addFunctionToArray = true;
                 for (var funVar = 0; funVar < arrayFunction.length; funVar++) {

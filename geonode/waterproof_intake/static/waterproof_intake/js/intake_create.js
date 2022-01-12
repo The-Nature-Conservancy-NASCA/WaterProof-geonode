@@ -120,7 +120,7 @@ $(document).ready(function() {
                 waterExtractionValue.push(yearData);
                 $('#intakeECTAG').append(`<tr>
                 <th class="text-center" scope="row">${index - 1}</th>
-                <td class="text-center"><input type="text" class="form-control justify-number" value="${(b * (Math.pow(index-1, m))).toFixed(2)}" disabled></td>
+                <td class="text-center"><input type="text" class="form-control justify-number" value="${(b * (Math.pow(index, m))).toFixed(2)}" disabled></td>
               </tr>`);
             }
         }
