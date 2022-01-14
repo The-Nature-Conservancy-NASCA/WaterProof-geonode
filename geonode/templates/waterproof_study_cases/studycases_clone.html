@@ -658,18 +658,15 @@
                                             <label for="analysis_currency" class="control-label required-field ">
                                                 {% trans "Currency" %}
                                             </label>
-                                            <select id="analysis_currency" class="form-control"
-                                                onchange='$(".lbl-currency-budget").html("(" + $("#analysis_currency").val()+ ")")'>
+                                            <select id="analysis_currency" class="form-control" onchange='$(".lbl-currency-budget").html("(" + $("#analysis_currency").val()+ ")")'>
                                                 {% for c in currencys %}
-                                                {% if c.currency == study_case.analysis_currency %}
-                                                <option value='{{c.currency}}' {% if c.currency=='USD' %} {% if
-                                                    c.iso3=='USA' %} selected {% endif %}{% else %} selected {% endif
-                                                    %}>
-                                                    ({{c.currency}}) - {{c.name}}
-                                                </option>
-                                                {% else %}
-                                                <option value='{{c.currency}}'>({{c.currency}}) - {{c.name}}</option>
-                                                {% endif %}
+                                                    {% if c.currency == study_case.analysis_currency %}                                        
+                                                    <option value='{{c.currency}}' {% if c.currency == 'USD' %} {% if c.iso3 == 'USA' %} selected {% endif %}{% else %} selected {% endif %}>
+                                                        ({{c.currency}}) - {{c.name}}
+                                                    </option>
+                                                    {% else %}
+                                                    <option value='{{c.currency}}'>({{c.currency}}) - {{c.name}}</option>
+                                                    {% endif %}
                                                 {% endfor %}
                                             </select>
                                         </div>
