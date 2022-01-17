@@ -481,72 +481,52 @@
         let styleOption11 = Option11.style.display;
         let styleOption12 = Option12.style.display;
 
-        if(saveForm) {
-            var arrayCsinfra = [];
-            $("[name=nameListAdd]").each(function( index, element ) {
-                arrayCsinfra.push({
-                    name: element.getAttribute("nameList"),
-                    graphId: element.getAttribute("graphIdlist"),
-                    csinfra: element.getAttribute("csinfraList"),
-                    intake: element.getAttribute("idIntake")
-                })
-            });
-            if(arrayPtap.length > 0) {
-                var urlDetail = basePathURL + "setHeaderPlant/";
-                $.ajax({
-                    url: urlDetail,
-                    method: 'PUT',
-                    contentType: 'application/json; charset=utf-8',
-                    dataType: 'json',
-                    data: JSON.stringify({
-                        "header": {
-                            "plantId" : localStorage.plantId,
-                            "cityId" : localStorage.idCityTreatmentPlant,
-                            "plantName" : $('#idNamePlant').val(),
-                            "plantDescription" : $('#idDescriptionPlant').val(),
-                            "plantSuggest" : letterPlant,
-                            "element" : arrayPlant,
-                            "function" : ptapFunctions, /* arrayFunction, */
-                            "ptap" : arrayPtap,
-                            "csinfra" : arrayCsinfra
-                        }
-                    }),success: function(result) {
-                        window.location.href = basePathURL + "?limit=5&city=" + localStorage.getItem('cityId');
-                        localStorage.plantId = null;
-                    },error: function (err) {
-                        showMessageModal('Error',_("Error calculating the treatment plant"),'error');                        
-                    }
-                });
-            } else {
-                showMessageModal('Error',_("It does not have a record in the type of treatment plant"),'error');                
-            }
-            if(styleOption1 == "block"){
-                if(styleOption2 == "block"){
-                    if(styleOption3 == "block"){
-                        if(styleOption4 == "block"){
-                            if(styleOption5 == "block"){
-                                if(styleOption6 == "block"){
-                                    if(styleOption7 == "block"){
-                                        if(styleOption8 == "block"){
-                                            if(styleOption9 == "block"){
-                                                if(styleOption10 == "block"){
-                                                    if(styleOption11 == "block"){
-                                                        if(styleOption12 == "block"){
-                                                            showMessageModal(_('Information'),_("'Please, complete the form"),'warning');
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }else{
+        if(styleOption1 == "block" && styleOption2 == "block" && styleOption3 == "block" && styleOption4 == "block" && styleOption5 == "block" && styleOption6 == "block" && styleOption7 == "block" && styleOption8 == "block" && styleOption9 == "block" && styleOption10 == "block" && styleOption11 == "block" && styleOption12 == "block"){
             showMessageModal(_('Information'),_("'Please, complete the form"),'warning');
+        }else{
+            if(saveForm) {
+                var arrayCsinfra = [];
+                $("[name=nameListAdd]").each(function( index, element ) {
+                    arrayCsinfra.push({
+                        name: element.getAttribute("nameList"),
+                        graphId: element.getAttribute("graphIdlist"),
+                        csinfra: element.getAttribute("csinfraList"),
+                        intake: element.getAttribute("idIntake")
+                    })
+                });
+                
+                if(arrayPtap.length > 0) {
+                    var urlDetail = basePathURL + "setHeaderPlant/";
+                    $.ajax({
+                        url: urlDetail,
+                        method: 'PUT',
+                        contentType: 'application/json; charset=utf-8',
+                        dataType: 'json',
+                        data: JSON.stringify({
+                            "header": {
+                                "plantId" : localStorage.plantId,
+                                "cityId" : localStorage.idCityTreatmentPlant,
+                                "plantName" : $('#idNamePlant').val(),
+                                "plantDescription" : $('#idDescriptionPlant').val(),
+                                "plantSuggest" : letterPlant,
+                                "element" : arrayPlant,
+                                "function" : ptapFunctions, /* arrayFunction, */
+                                "ptap" : arrayPtap,
+                                "csinfra" : arrayCsinfra
+                            }
+                        }),success: function(result) {
+                            window.location.href = basePathURL + "?limit=5&city=" + localStorage.getItem('cityId');
+                            localStorage.plantId = null;
+                        },error: function (err) {
+                            showMessageModal('Error',_("Error calculating the treatment plant"),'error');                        
+                        }
+                    });
+                } else {
+                    showMessageModal('Error',_("It does not have a record in the type of treatment plant"),'error');                
+                }
+            }else{
+                showMessageModal(_('Information'),_("'Please, complete the form"),'warning');
+            }
         }
         // let styleOption1 = $('#id11d').css("display");
 

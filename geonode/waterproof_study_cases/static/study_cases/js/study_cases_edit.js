@@ -821,8 +821,7 @@ $(document).ready(function () {
                 Swal.fire({
                     icon: 'warning',
                     title: gettext('field_problem'),
-                    text: gettext('Alert_time_demand'),
-                    
+                    text: gettext('Alert_time_demand'),                    
                 }).then((result) => {                    
                     afterValidationStep7(valid_edit, valid_period);
                 });                
