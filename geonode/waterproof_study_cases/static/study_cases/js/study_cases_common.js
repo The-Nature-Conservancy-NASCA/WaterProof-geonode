@@ -22,6 +22,7 @@ const bioparamValidations = {
   "usle_c": {"max": 1, "min": defaultMinValBioparams},
   "usle_p": {"max": 1, "min": defaultMinValBioparams},
   "eff_n": {"max": 1, "min": defaultMinValBioparams},
+  "eff_p": {"max": 1, "min": defaultMinValBioparams},
   "proportion_subsurface_n": {"max": 1, "min": defaultMinValBioparams},
   "cn_a": {"max": 100, "min": defaultMinValBioparams},
   "cn_b": {"max": 100, "min": defaultMinValBioparams},
