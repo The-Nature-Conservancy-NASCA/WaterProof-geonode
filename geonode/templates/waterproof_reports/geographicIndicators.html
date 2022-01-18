@@ -251,8 +251,8 @@
 	var userCountryCode='{{country.codeCountry}}';
 	var userCountryName='{{country.nameCountry}}';
 	let server = location.protocol + '//' + location.hostname.replace('apps','dev') + '/srv/';
-	//server = 'https://dev.skaphe.com/srv/'; //'/srv/';  
-	const urlWaterProofLyrsWMS = server + `?map=/etc/mapserver/mapserver_test.map&SERVICE=WMS&usr_folder=${baseData}&intake=${intake}&year=${year}&region=${region}`;
+	//server = 'https://dev.skaphe.com/srv/'; //'/srv/';  	
+	const urlWaterProofLyrsWMS = server + `?map=/etc/mapserver/${baseData}/WI_${intake}/mapserver.map&SERVICE=WMS&intake=${intake}&year=${year}&region=${region}`;
 	const urlWaterProofLyrAreasRiosMS = server + `?map=/etc/mapserver/${baseData}/WI_${intake}/out/areas_rios.map&SERVICE=WMS`;
 	var mapAreasRios;
 
