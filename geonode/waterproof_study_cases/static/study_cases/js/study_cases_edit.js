@@ -1405,12 +1405,12 @@ $(document).ready(function () {
     }
 
     function addCellBioparam(key, idEl, value){        
-        let td = `<td id='${key}_${idEl}'><input class='text-number-bio' step='${defaultStepBioparams}' oninput="validity.valid||(value=\'\');" type='number' value='${value}'/></td>`;            
+        let td = `<td id='${key}_${idEl}'><input class='text-number-bio' step='${defaultStepBioparams}' onblur="validity.valid||(value=\'\');console.log(this);" type='number' value='${value}'/></td>`;            
         if (bioparamValidations.hasOwnProperty(key)) {
             let min = bioparamValidations[key].min;
             let max = bioparamValidations[key].max;
             let step = bioparamValidations[key].step == undefined ? defaultStepBioparams : bioparamValidations[key].step;
-            td = `<td id='${key}_${idEl}'><input class='text-number-bio' step='${step}' oninput="validity.valid||(value=\'\');" type='number' value='${value}' min='${min}' max='${max}'/></td>`;            
+            td = `<td id='${key}_${idEl}'><input class='text-number-bio' step='${step}' onblur="value.length!=0||(value='${min}');" type='number' value='${value}' min='${min}' max='${max}'/></td>`;            
         }
         return td;
     }
