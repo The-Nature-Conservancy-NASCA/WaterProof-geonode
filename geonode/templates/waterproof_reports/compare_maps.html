@@ -162,6 +162,6 @@
 
   let server = location.protocol + '//' + location.hostname.replace('apps','dev') + ':82/';
   server = 'https://dev.skaphe.com/srv/'; //'/srv/';  
-  const urlWaterProofLyrsWMS = server + `?map=/etc/mapserver/mapserver_test.map&SERVICE=WMS&usr_folder=${baseData}&intake=${intake}&year=${year}&region=${region}`;
+  const urlWaterProofLyrsWMS = server + `?map=/etc/mapserver/${baseData}/WI_${intake}/mapserver.map&SERVICE=WMS&intake=${intake}&year=${year}&region=${region}`;
 </script>
 {% endblock %}

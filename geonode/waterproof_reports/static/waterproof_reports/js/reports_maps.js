@@ -107,7 +107,7 @@ $(document).ready(function () {
   }
 
   let attribution = "Waterproof data © 2021 TNC";
-
+  let keys = ['awy','carbon', 'swy','ndr_n', 'ndr_p', 'sdr'];  
   let lyrsNames = [lyrNameLastYear];
   var overlaysLeft = {};
   lyrsNames.forEach(function (lyrName) {
@@ -243,15 +243,14 @@ $(document).ready(function () {
     let max = '1,0';
     if (lyrsModelsResult.includes(lyrName)) {
       if (t.checked) {
-        let lyrs = [lyrNameAWY, lyrNameCarbon, lyrNameSWY, lyrNameNDRN, lyrNameNDRP, lyrNameSDR];
-        let keys = ['awy','carbon', 'swy','ndr_n', 'ndr_p', 'sdr']
+        let lyrs = [lyrNameAWY, lyrNameCarbon, lyrNameSWY, lyrNameNDRN, lyrNameNDRP, lyrNameSDR];        
         let k = keys[lyrs.indexOf(lyrName)];
         min = Math.round(rasterResultStatistics[k][0].min).toFixed(1).replace(".",",");
         max = Math.round(rasterResultStatistics[k][0].max).toFixed(1).replace(".",",");
-        
+        let colorLgnd = lgndColors[k];
         if (p.childElementCount == 2) {
           let lgndHtml =  `<div>
-                            <div><img src="/static/lib/img/legend-gray-h.png" style="margin-left: 15px;"></div> 
+                            <div><img src="/static/lib/img/legend-${k}-h.png" style="margin-left: 15px;"></div> 
                             <div> <span style="margin-left: 15px;">${min}</span> 
                                 <span style="margin-left: 100px;">${max}</span></div>  
                           </div>
