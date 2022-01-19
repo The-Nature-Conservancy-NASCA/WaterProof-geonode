@@ -13,9 +13,16 @@ const interpolationType = {
 const defaultStepBioparams = "0.000001";
 const defaultMinValBioparams = parseFloat(defaultStepBioparams);
 const bioparamValidations = {
+  "lucode": {"min": 0, "step": 1},
+  "root_depth": {"min": 0},
+  "load_n": {"min": 0},
+  "load_p": {"min": 0},
+  "crit_len_n": {"min": 0},
+  "crit_len_p": {"min": 0},
   "usle_c": {"max": 1, "min": defaultMinValBioparams},
   "usle_p": {"max": 1, "min": defaultMinValBioparams},
   "eff_n": {"max": 1, "min": defaultMinValBioparams},
+  "eff_p": {"max": 1, "min": defaultMinValBioparams},
   "proportion_subsurface_n": {"max": 1, "min": defaultMinValBioparams},
   "cn_a": {"max": 100, "min": defaultMinValBioparams},
   "cn_b": {"max": 100, "min": defaultMinValBioparams},

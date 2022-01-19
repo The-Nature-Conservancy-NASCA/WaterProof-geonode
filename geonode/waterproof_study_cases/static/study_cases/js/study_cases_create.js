@@ -831,8 +831,11 @@ $(document).ready(function () {
             }
         }else{
             afterValidationStep7(valid_edit, valid_period);
-        } 
+        }        
 
+    });
+
+    function afterValidationStep7 (valid_edit, valid_period) {
         if ($('#period_analysis').val() != '' && $('#period_nbs').val() != '' && valid_edit && valid_period) {
             analysis_currency = $("#analysis_currency option:selected").val();       
             let lbl_currency = gettext('Currency for the execution this analisys');
@@ -974,7 +977,7 @@ $(document).ready(function () {
             return;
         }
 
-    });
+    }
 
     $('#custom_table').on('click', 'a', function () {
         var row = $(this).closest("tr");
