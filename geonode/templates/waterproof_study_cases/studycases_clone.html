@@ -132,8 +132,7 @@
                                             </select>
                                         </div>
                                         <div class="col-md-2">
-                                            <button type="button" value="add" class="btn btn-primary" id="add_wi">{%
-                                                trans "Add" %}</button>
+                                            <button type="button" value="add" class="btn btn-primary" id="add_wi">{% trans "Add" %}</button>
                                         </div>
                                     </div>
                                     <div class="table-responsive">
@@ -146,8 +145,7 @@
                                                     </th>
                                                     <th scope="col" class="small text-center vat">{% trans "Description"
                                                         %}</th>
-                                                    <th scope="col" class="small text-center vat">{% trans
-                                                        "water_source" %}</th>
+                                                    <th scope="col" class="small text-center vat">{% trans "water_source" %}</th>
                                                     <th scope="col" class="small text-center vat">{% trans "Options" %}
                                                     </th>
                                                 </tr>
@@ -202,10 +200,8 @@
                                                     <tr class="info">
                                                         <th scope="col" class="small text-center vat">{% trans "Name" %}
                                                         </th>
-                                                        <th scope="col" class="small text-center vat">{% trans
-                                                            "Description" %}</th>
-                                                        <th scope="col" class="small text-center vat">{% trans "Options"
-                                                            %}</th>
+                                                        <th scope="col" class="small text-center vat">{% trans "Description" %}</th>
+                                                        <th scope="col" class="small text-center vat">{% trans "Options" %}</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -233,8 +229,7 @@
                                                 <div class="col-md-2">
                                                     <button type="button" value="add cost function"
                                                         class="btn btn-primary" data-toggle="modal"
-                                                        data-target="#CalculatorModal" id="ModalAddCostBtn">{% trans
-                                                        "add_cost_function" %}</button>
+                                                        data-target="#CalculatorModal" id="ModalAddCostBtn">{% trans "add_cost_function" %}</button>
                                                 </div>
                                             </div>
                                             <div class="table-responsive">
@@ -243,16 +238,11 @@
                                                     style="width:100%">
                                                     <thead>
                                                         <tr class="info">
-                                                            <th scope="col" class="small text-center vat">{% trans
-                                                                "Function name" %}</th>
-                                                            <th scope="col" class="small text-center vat">{% trans
-                                                                "Function" %}</th>
-                                                            <th scope="col" class="small text-center vat">{% trans
-                                                                "Currency" %}</th>
-                                                            <th scope="col" class="small text-center vat">{% trans
-                                                                "Factor" %}</th>
-                                                            <th scope="col" class="small text-center vat">{% trans
-                                                                "Options" %}</th>
+                                                            <th scope="col" class="small text-center vat">{% trans "Function name" %}</th>
+                                                            <th scope="col" class="small text-center vat">{% trans "Function" %}</th>
+                                                            <th scope="col" class="small text-center vat">{% trans "Currency" %}</th>
+                                                            <th scope="col" class="small text-center vat">{% trans "Factor" %}</th>
+                                                            <th scope="col" class="small text-center vat">{% trans "Options" %}</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody id="funcostgenerate"></tbody>
@@ -264,8 +254,7 @@
                             </div>
                             <div class="row text-center">
                                 <div class="col-md-12">
-                                    <button type="button" value="next" class="btn btn-primary" id="step1NextBtn">{%
-                                        trans "Next" %}</button>
+                                    <button type="button" value="next" class="btn btn-primary" id="step1NextBtn">{% trans "Next" %}</button>
                                 </div>
                             </div>
                         </div>
@@ -285,8 +274,7 @@
                                     {% else %}
                                     <input type="checkbox" class="custom-control-input" id='cb_check'>
                                     {% endif %}
-                                    <label class="custom-control-label" for="cb_check">{% trans "carbon_market"
-                                        %}</label>
+                                    <label class="custom-control-label" for="cb_check">{% trans "carbon_market" %}</label>
                                 </div>
                                 {% if study_case.benefit_carbon_market %}
                                 <div class="row text-center" id="cm_form">
@@ -334,8 +322,7 @@
                                     <div class="col-md-12">
                                         <button type="button" value="previous" class="btn btn-primary"
                                             id="step2PreviousBtn">{% trans "Previous" %}</button>
-                                        <button type="button" value="next" class="btn btn-primary" id="step2NextBtn">{%
-                                            trans "Next" %}</button>
+                                        <button type="button" value="next" class="btn btn-primary" id="step2NextBtn">{% trans "Next" %}</button>
                                     </div>
                                 </div>
                             </div>
@@ -372,8 +359,7 @@
                                     <div class="col-md-12">
                                         <button type="button" value="previous" class="btn btn-primary"
                                             id="step3PreviousBtn">{% trans "Previous" %}</button>
-                                        <button type="button" value="next" class="btn btn-primary" id="step3NextBtn">{%
-                                            trans "Next" %}</button>
+                                        <button type="button" value="next" class="btn btn-primary" id="step3NextBtn">{% trans "Next" %}</button>
                                     </div>
                                 </div>
                             </div>
@@ -391,8 +377,7 @@
                                         id="btn-advanced_option">{% trans "advanced_options" %}</button>
                                     <br>
                                     <p style="margin-top: 20px;" id="txtGuide1"></p>
-                                    <a id="txtGuide2" href="{{ invest_doc }}" target="_blank">{% trans
-                                        "InVEST_documentation" %}</a>
+                                    <a id="txtGuide2" href="{{ invest_doc }}" target="_blank">{% trans "InVEST_documentation" %}</a>
                                     <div class="row biophysical-panel panel-hide" id="biophysical-panel">
 
                                     </div>
@@ -401,8 +386,7 @@
                                     <div class="col-md-12">
                                         <button type="button" value="previous" class="btn btn-primary"
                                             id="step4PreviousBtn">{% trans "Previous" %}</button>
-                                        <button type="button" value="next" class="btn btn-primary" id="step4NextBtn">{%
-                                            trans "Next" %}</button>
+                                        <button type="button" value="next" class="btn btn-primary" id="step4NextBtn">{% trans "Next" %}</button>
                                     </div>
                                 </div>
                             </div>
@@ -419,8 +403,7 @@
                                     <div class="row">
                                         <div class="custom-control custom-select float-right col-md-4"
                                             style="margin-bottom:15px;">
-                                            <label class="custom-control-label" for="financial_currency">{% trans
-                                                "Currency" %}</label>
+                                            <label class="custom-control-label" for="financial_currency">{% trans "Currency" %}</label>
                                             <select id="financial_currency" class="custom-control-input">
                                                 {% for currency in currencys %}
                                                 {% if currency.currency == study_case.financial_currency %}
@@ -454,16 +437,14 @@
                                         </div>
 
                                         <div class="col-md-6">
-                                            <label class="custom-control-label platform-label" for="total_personnel">{%
-                                                trans "personnel_salary_benefits" %}</label>
+                                            <label class="custom-control-label platform-label" for="total_personnel">{% trans "personnel_salary_benefits" %}</label>
                                         </div>
                                         <div class="custom-control custom-checkbox col-md-4 width-reponsive">
                                             <input class="text-number" id="total_personnel" type="number"
                                                 class="custom-control-input" disabled>
                                         </div>
                                         <div class="col-md-6">
-                                            <label class="custom-control-label personnel-label" for="director">{% trans
-                                                "program_director" %}</label>
+                                            <label class="custom-control-label personnel-label" for="director">{% trans "program_director" %}</label>
                                         </div>
                                         <div class="custom-control custom-checkbox col-md-4 width-reponsive">
                                             <input class="text-number" id="director" type="number"
@@ -472,7 +453,7 @@
                                         </div>
                                         <div class="col-md-6">
                                             <label class="custom-control-label personnel-label" for="evaluation">
-                                                {%trans "monitoring_manager" %}</label>
+                                                {% trans "monitoring_manager" %}</label>
                                         </div>
                                         <div class="custom-control custom-checkbox col-md-4 width-reponsive">
                                             <input class="text-number" id="evaluation" type="number"
@@ -480,8 +461,7 @@
                                                 value="{{study_case.monitoring_Manager|stringformat:'1.2f'}}">
                                         </div>
                                         <div class="col-md-6">
-                                            <label class="custom-control-label personnel-label" for="finance">{% trans
-                                                "finance_administrator" %}</label>
+                                            <label class="custom-control-label personnel-label" for="finance">{% trans "finance_administrator" %}</label>
                                         </div>
                                         <div class="custom-control custom-checkbox col-md-4 width-reponsive">
                                             <input class="text-number" id="finance" type="number"
@@ -489,8 +469,7 @@
                                                 value="{{study_case.finance_Manager|stringformat:'1.2f'}}">
                                         </div>
                                         <div class="col-md-6">
-                                            <label class="custom-control-label personnel-label" for="implementation">{%
-                                                trans "implementation_manager" %}</label>
+                                            <label class="custom-control-label personnel-label" for="implementation">{% trans "implementation_manager" %}</label>
                                         </div>
                                         <div class="custom-control custom-checkbox col-md-4 width-reponsive">
                                             <input class="text-number" id="implementation" type="number"
@@ -498,8 +477,7 @@
                                                 value="{{study_case.implementation_Manager|stringformat:'1.2f'}}">
                                         </div>
                                         <div class="col-md-6">
-                                            <label class="custom-control-label platform-label" for="office">{% trans
-                                                "office_costs" %}</label>
+                                            <label class="custom-control-label platform-label" for="office">{% trans "office_costs" %}</label>
                                         </div>
                                         <div class="custom-control custom-checkbox col-md-4 width-reponsive">
                                             <input class="text-number" id="office" type="number"
@@ -507,8 +485,7 @@
                                                 value="{{study_case.office_Costs|stringformat:'1.2f'}}">
                                         </div>
                                         <div class="col-md-6">
-                                            <label class="custom-control-label platform-label" for="travel">{% trans
-                                                "Travel" %}</label>
+                                            <label class="custom-control-label platform-label" for="travel">{% trans "Travel" %}</label>
                                         </div>
                                         <div class="custom-control custom-checkbox col-md-4 width-reponsive">
                                             <input class="text-number" id="travel" type="number"
@@ -516,8 +493,7 @@
                                                 value="{{study_case.travel|stringformat:'1.2f'}}">
                                         </div>
                                         <div class="col-md-6">
-                                            <label class="custom-control-label platform-label" for="equipment">{% trans
-                                                "Equipment" %}</label>
+                                            <label class="custom-control-label platform-label" for="equipment">{% trans "Equipment" %}</label>
                                         </div>
                                         <div class="custom-control custom-checkbox col-md-4 width-reponsive">
                                             <input class="text-number" id="equipment" type="number"
@@ -525,8 +501,7 @@
                                                 value="{{study_case.equipment_Purchased|stringformat:'1.2f'}}">
                                         </div>
                                         <div class="col-md-6">
-                                            <label class="custom-control-label platform-label" for="contracts">{% trans
-                                                "Contracts" %}</label>
+                                            <label class="custom-control-label platform-label" for="contracts">{% trans "Contracts" %}</label>
                                         </div>
                                         <div class="custom-control custom-checkbox col-md-4 width-reponsive">
                                             <input class="text-number" id="contracts" type="number"
@@ -534,8 +509,7 @@
                                                 value="{{study_case.contracts|stringformat:'1.2f'}}">
                                         </div>
                                         <div class="col-md-6">
-                                            <label class="custom-control-label platform-label" for="overhead">{% trans
-                                                "Overhead" %}</label>
+                                            <label class="custom-control-label platform-label" for="overhead">{% trans "Overhead" %}</label>
                                         </div>
                                         <div class="custom-control custom-checkbox col-md-4 width-reponsive">
                                             <input class="text-number" id="overhead" type="number"
@@ -543,8 +517,7 @@
                                                 value="{{study_case.overhead|stringformat:'1.2f'}}">
                                         </div>
                                         <div class="col-md-6">
-                                            <label class="custom-control-label platform-label" for="others">{% trans
-                                                "Others" %}</label>
+                                            <label class="custom-control-label platform-label" for="others">{% trans "Others" %}</label>
                                         </div>
                                         <div class="custom-control custom-checkbox col-md-4 width-reponsive">
                                             <input class="text-number" id="others" type="number"
@@ -555,8 +528,7 @@
                                             <p><strong>{% trans "financial_transaction_cost" %}</strong></p>
                                         </div>
                                         <div class="col-md-6">
-                                            <label class="custom-control-label transaction-label" for="transaction">{%
-                                                trans "transaction_cost" %}</label>
+                                            <label class="custom-control-label transaction-label" for="transaction">{% trans "transaction_cost" %}</label>
                                         </div>
                                         <div class="custom-control custom-checkbox col-md-4 width-reponsive">
                                             <input class="text-number" id="transaction" type="number"
@@ -567,8 +539,7 @@
                                             <p><strong>{% trans "financial_discount_rates" %}</strong></p>
                                         </div>
                                         <div class="col-md-6">
-                                            <label class="custom-control-label discount-label" for="discount">{% trans
-                                                "discount_rate" %}</label>
+                                            <label class="custom-control-label discount-label" for="discount">{% trans "discount_rate" %}</label>
                                         </div>
                                         <div class="custom-control custom-checkbox col-md-4 width-reponsive">
                                             <input class="text-number" id="discount" type="number"
@@ -576,8 +547,7 @@
                                                 value="{{study_case.discount_rate|stringformat:'1.2f'}}">
                                         </div>
                                         <div class="col-md-6">
-                                            <label class="custom-control-label discount-label" for="minimum">{% trans
-                                                "sensitivity_minimun_discount" %}</label>
+                                            <label class="custom-control-label discount-label" for="minimum">{% trans "sensitivity_minimun_discount" %}</label>
                                         </div>
                                         <div class="custom-control custom-checkbox col-md-4 width-reponsive">
                                             <input class="text-number" id="minimum" type="number"
@@ -585,8 +555,7 @@
                                                 value="{{study_case.discount_rate_minimunm|stringformat:'1.2f'}}">
                                         </div>
                                         <div class="col-md-6">
-                                            <label class="custom-control-label discount-label" for="maximum">{% trans
-                                                "sensitivity_maximun_discount" %}</label>
+                                            <label class="custom-control-label discount-label" for="maximum">{% trans "sensitivity_maximun_discount" %}</label>
                                         </div>
                                         <div class="custom-control custom-checkbox col-md-4 width-reponsive">
                                             <input class="text-number" id="maximum" type="number"
@@ -599,8 +568,7 @@
                                     <div class="col-md-12">
                                         <button type="button" value="previous" class="btn btn-primary"
                                             id="step5PreviousBtn">{% trans "Previous" %}</button>
-                                        <button type="button" value="next" class="btn btn-primary" id="step5NextBtn">{%
-                                            trans "Next" %}</button>
+                                        <button type="button" value="next" class="btn btn-primary" id="step5NextBtn">{% trans "Next" %}</button>
                                     </div>
                                 </div>
                             </div>
@@ -624,8 +592,7 @@
                                     <div class="col-md-12">
                                         <button type="button" value="previous" class="btn btn-primary"
                                             id="step6PreviousBtn">{% trans "Previous" %}</button>
-                                        <button type="button" value="next" class="btn btn-primary" id="step6NextBtn">{%
-                                            trans "Next" %}</button>
+                                        <button type="button" value="next" class="btn btn-primary" id="step6NextBtn">{% trans "Next" %}</button>
                                     </div>
                                 </div>
                             </div>
@@ -673,8 +640,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div id="div_period_nbs" class="form-group">
-                                            <label class="control-label required-field" for="period-nbs">{% trans
-                                                "implementation_time_nbs" %}
+                                            <label class="control-label required-field" for="period-nbs">{% trans "implementation_time_nbs" %}
                                                 <span class="text-danger-wp">(*)</span>
                                             </label>
                                             <input id="period_nbs" type="number" class="form-control text-number-full"
@@ -684,13 +650,10 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div id="div_analysis_nbs" class="form-group">
-                                            <label class="control-label required-field" for="analysis_nbs">{% trans
-                                                "climate_baseline_nbs" %}</label>
+                                            <label class="control-label required-field" for="analysis_nbs">{% trans "climate_baseline_nbs" %}</label>
                                             <select id="analysis_nbs" class="form-control">
                                                 {% for scenario in scenarios %}
-                                                <option value='{{scenario.id}}' {% if
-                                                    scenario.name==study_case.climate_scenario.name %} selected {% endif
-                                                    %}>
+                                                <option value='{{scenario.id}}' {% if scenario.name==study_case.climate_scenario.name %} selected {% endif %}>
                                                     {{scenario.name}}
                                                 </option>
                                                 {% endfor %}
@@ -714,7 +677,7 @@
                                                     </label>
                                                     <span class="text-danger-wp">(*)</span>
                                                     <div class="lbl-currency-budget" style="padding-left: 15px;">
-                                                        {% if study_case.analysis_currency != None%}
+                                                        {% if study_case.analysis_currency != None %}
                                                         ({{study_case.analysis_currency}}) {% endif %}
                                                     </div>
                                                 </div>
@@ -743,7 +706,7 @@
                                                             {% trans "Investment" %}
                                                             <div class="lbl-currency-budget"
                                                                 style="padding-left: 15px;">
-                                                                {% if study_case.analysis_currency != None%}
+                                                                {% if study_case.analysis_currency != None %}
                                                                 ({{study_case.analysis_currency}}) {% endif %}
                                                             </div>
                                                         </div>
@@ -764,16 +727,14 @@
                                         {% else %}
                                         <input type="checkbox" class="custom-control-input" id='rellocated_check'>
                                         {% endif %}
-                                        <label class="custom-control-label" for="rellocated_check">{% trans
-                                            "rellocated_remainder" %}</label>
+                                        <label class="custom-control-label" for="rellocated_check">{% trans "rellocated_remainder" %}</label>
                                     </div>
                                 </div>
                                 <div class="row text-center">
                                     <div class="col-md-12">
                                         <button type="button" value="previous" class="btn btn-primary"
                                             id="step7PreviousBtn">{% trans "Previous" %}</button>
-                                        <button type="button" value="save" class="btn btn-primary" id="step7EndBtn">{%
-                                            trans "Save" %}</button>
+                                        <button type="button" value="save" class="btn btn-primary" id="step7EndBtn">{% trans "Save" %}</button>
                                         <button type="button" value="run analysis" class="btn btn-primary"
                                             id="step7RunBtn">{% trans "run_analysis" %}</button>
                                     </div>
@@ -894,10 +855,8 @@
                 </div>
                 <br>
                 <div class="modal-footer">
-                    <button type="button" value="close" class="btn btn-secondary" data-dismiss="modal">{% trans "Close"
-                        %}</button>
-                    <button type="button" value="add cost" class="btn btn-primary" id="saveAndValideCost">{% trans "Add
-                        cost" %}</button>
+                    <button type="button" value="close" class="btn btn-secondary" data-dismiss="modal">{% trans "Close" %}</button>
+                    <button type="button" value="add cost" class="btn btn-primary" id="saveAndValideCost">{% trans "Add cost" %}</button>
                 </div>
             </div>
         </div>
@@ -911,26 +870,18 @@
                 <button type="button" value="close" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h3 class="modal-title text-center" id="HelpModalLabel" style="color:#6398C1 ;">{% trans "Creation of
-                    study cases" %}
+                <h3 class="modal-title text-center" id="HelpModalLabel" style="color:#6398C1 ;">{% trans "Creation of study cases" %}
                 </h3>
             </div>
             <div class="modal-body">
                 <p>
-                    {% trans "In this section the key actions refer to the selection of treatment plants and catchments
-                    that make up the case study, since through them the system obtains the indications for the execution
-                    of the RIOS model in charge of recommending the areas of implementation of the Nature-Based
-                    Solutions NBS." %}
+                    {% trans "In this section the key actions refer to the selection of treatment plants and catchments that make up the case study, since through them the system obtains the indications for the execution of the RIOS model in charge of recommending the areas of implementation of the Nature-Based Solutions NBS." %}
                 </p>
                 <p>
-                    {% trans "Thanks to the catchment configuration, the system knows the geographical area in which the
-                    user wishes to implement the NBS and analyze the costs, in order to proceed with the ROI analysis."
-                    %}
+                    {% trans "Thanks to the catchment configuration, the system knows the geographical area in which the user wishes to implement the NBS and analyze the costs, in order to proceed with the ROI analysis." %}
                 </p>
                 <p>
-                    {% trans "Remember that ROI is an indicator that allows you to know how much money is lost or earned
-                    with the investments made. It is a performance measure used to evaluate the efficiency of an
-                    investment or to compare the efficiency of a number of different investments." %}
+                    {% trans "Remember that ROI is an indicator that allows you to know how much money is lost or earned with the investments made. It is a performance measure used to evaluate the efficiency of an investment or to compare the efficiency of a number of different investments." %}
                 </p>
                 <div>
                     <br>
@@ -952,21 +903,15 @@
                 <button type="button" value="close" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h3 class="modal-title text-center" id="HelpModalLabel" style="color:#6398C1 ;">{% trans "Integrate
-                    Analysis Associated with the Carbon Market" %}
+                <h3 class="modal-title text-center" id="HelpModalLabel" style="color:#6398C1 ;">{% trans "Integrate Analysis Associated with the Carbon Market" %}
                 </h3>
             </div>
             <div class="modal-body">
                 <p>
-                    {% trans "Offers you the possibility to integrate in your analysis the possible benefits that you
-                    can obtain if you expect to participate in carbon markets. This is done by defining a monetary value
-                    per Ton of CO2eq." %}
+                    {% trans "Offers you the possibility to integrate in your analysis the possible benefits that you can obtain if you expect to participate in carbon markets. This is done by defining a monetary value per Ton of CO2eq." %}
                 </p>
                 <p>
-                    {% trans "uses information from the database published in May 2020 by the Institute for Climate
-                    Economics (Sébastien Postic | Marion Fetet) to preload USD / TonCO2eq values ​​that vary according
-                    to the country where the analysis is being carried out, however, the user can modify these values
-                    ​​according to the information they have." %}
+                    {% trans "uses information from the database published in May 2020 by the Institute for Climate Economics (Sébastien Postic | Marion Fetet) to preload USD / TonCO2eq values ​​that vary according to the country where the analysis is being carried out, however, the user can modify these values according to the information they have." %}
                 </p>
                 <div>
                     <br>
@@ -988,37 +933,27 @@
                 <button type="button" value="close" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h3 class="modal-title text-center" id="HelpModalLabel" style="color:#6398C1 ;">{% trans "Definition of
-                    the objectives of the NBS" %}
+                <h3 class="modal-title text-center" id="HelpModalLabel" style="color:#6398C1 ;">{% trans "Definition of the objectives of the NBS" %}
                 </h3>
             </div>
             <div class="modal-body">
                 <p>
-                    {% trans "WaterProof will define the NBS of your portfolio according to your needs in relation to:"
-                    %}
+                    {% trans "WaterProof will define the NBS of your portfolio according to your needs in relation to:" %}
                 </p>
                 <li>
-                    {% trans "Erosion control to keep sediments out of water courses, avoiding the physical-mechanical
-                    loss of soil, the impact on water quality and its deposition in reservoirs, where it can reduce the
-                    production capacity of hydroelectric facilities or damage reservoirs and irrigation infrastructure."
-                    %}
+                    {% trans "Erosion control to keep sediments out of water courses, avoiding the physical-mechanical loss of soil, the impact on water quality and its deposition in reservoirs, where it can reduce the production capacity of hydroelectric facilities or damage reservoirs and irrigation infrastructure." %}
                 </li>
                 <li>
-                    {% trans "Retention of phosphorus and nitrogen nutrients to maintain nature's processes and reduce
-                    potential pollutant loads, which can lead to eutrophication, and / or the generation of algal
-                    blooms." %}
+                    {% trans "Retention of phosphorus and nitrogen nutrients to maintain nature's processes and reduce potential pollutant loads, which can lead to eutrophication, and / or the generation of algal blooms." %}
                 </li>
                 <li>
-                    {% trans "Flood mitigation by addressing situations where the watershed area is previously
-                    saturated, and rainfall events cause excess water to run off the saturated ground surface." %}
+                    {% trans "Flood mitigation by addressing situations where the watershed area is previously saturated, and rainfall events cause excess water to run off the saturated ground surface." %}
                 </li>
                 <li>
-                    {% trans "Aquifer recharge enhancements that seek to replenish groundwater or increase groundwater
-                    stored in aquifers during wet periods to help improve water supply security and sustainability." %}
+                    {% trans "Aquifer recharge enhancements that seek to replenish groundwater or increase groundwater stored in aquifers during wet periods to help improve water supply security and sustainability." %}
                 </li>
                 <li>
-                    {% trans "Sustaining or improving the base flow to guarantee efficient processes and infiltration,
-                    redistribution, evaporation and percolation of the waters in the territory." %}
+                    {% trans "Sustaining or improving the base flow to guarantee efficient processes and infiltration, redistribution, evaporation and percolation of the waters in the territory." %}
                 </li>
                 <div>
                     <br>
@@ -1040,8 +975,7 @@
                 <button type="button" value="close" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h3 class="modal-title text-center" id="HelpModalLabel" style="color:#6398C1 ;">{% trans "Adjustment of
-                    Biophysical Parameters" %}
+                <h3 class="modal-title text-center" id="HelpModalLabel" style="color:#6398C1 ;">{% trans "Adjustment of Biophysical Parameters" %}
                 </h3>
             </div>
             <div class="modal-body">
@@ -1122,24 +1056,18 @@
                 <button type="button" value="close" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h3 class="modal-title text-center" id="HelpModalLabel" style="color:#6398C1 ;">{% trans "Definition of
-                    Financial Parameters" %}
+                <h3 class="modal-title text-center" id="HelpModalLabel" style="color:#6398C1 ;">{% trans "Definition of Financial Parameters" %}
                 </h3>
             </div>
             <div class="modal-body">
                 <p>
-                    {% trans "The implementation of your NBS portfolio requires a series of investments to support its
-                    implementation, which in the system is called the Platform. This includes the personnel costs,
-                    office, travel, acquisition of equipment, among others." %}
+                    {% trans "The implementation of your NBS portfolio requires a series of investments to support its implementation, which in the system is called the Platform. This includes the personnel costs, office, travel, acquisition of equipment, among others." %}
                 </p>
                 <p>
-                    {% trans "You may indicate the discount rate that you wish to use to determine the present value of
-                    the payments that will be incurred." %}
+                    {% trans "You may indicate the discount rate that you wish to use to determine the present value of the payments that will be incurred." %}
                 </p>
                 <p>
-                    {% trans "In addition, you need to indicate the minimum and maximum values ​​of the sensitivity
-                    analysis that will help you make your decisions in case of unexpected changes in your environment.
-                    To do this, WaterProof uses the following equation:" %}
+                    {% trans "In addition, you need to indicate the minimum and maximum values ​​of the sensitivity analysis that will help you make your decisions in case of unexpected changes in your environment. To do this, WaterProof uses the following equation:" %}
                 </p>
 
                 <h3 style="text-align: center;">{% trans "TB/(1+TD)^A" %}</h3>
@@ -1170,38 +1098,24 @@
                 <button type="button" value="close" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h3 class="modal-title text-center" id="HelpModalLabel" style="color:#6398C1 ;">{% trans "Definition of
-                    NBS Activities" %}
+                <h3 class="modal-title text-center" id="HelpModalLabel" style="color:#6398C1 ;">{% trans "Definition of NBS Activities" %}
                 </h3>
             </div>
             <div class="modal-body">
                 <p>
-                    {% trans "WaterProof considers a set of Nature-Based Solutions that you can link to your analysis
-                    according to your interest in protecting, sustainably managing and restoring natural or modified
-                    ecosystems that address social challenges in an effective and adaptive way, providing simultaneous
-                    benefits for human well-being and biodiversity." %}
+                    {% trans "WaterProof considers a set of Nature-Based Solutions that you can link to your analysis according to your interest in protecting, sustainably managing and restoring natural or modified ecosystems that address social challenges in an effective and adaptive way, providing simultaneous benefits for human well-being and biodiversity." %}
                 </p>
 
                 <p>
-                    {% trans "By default, WaterProof has the following NBS, however you may create new ones that you can
-                    link to your analysis. The default NBSs are:" %}
+                    {% trans "By default, WaterProof has the following NBS, however you may create new ones that you can link to your analysis. The default NBSs are:" %}
                 </p>
 
-                <li>{% trans "Conservation: refers to actions that seek to conserve current land use coverage by signing
-                    conservation agreements, paying forest rangers or fencing off areas." %}</li>
-                <li>{% trans "Passive restoration: when strategic assistance actions are carried out to enable degraded
-                    ecosystems that by themselves overcome or eliminate factors that prevented their regeneration." %}
+                <li>{% trans "Conservation: refers to actions that seek to conserve current land use coverage by signing conservation agreements, paying forest rangers or fencing off areas." %}</li>
+                <li>{% trans "Passive restoration: when strategic assistance actions are carried out to enable degraded ecosystems that by themselves overcome or eliminate factors that prevented their regeneration." %}
                 </li>
-                <li>{% trans "Active restoration: these activities seek to increase floristic diversity by sowing new
-                    species, whose individuals have been obtained from the collection of seeds and propagules, their
-                    sowing in the nurseries and subsequent planting in the reserve." %}</li>
-                <li>{% trans "Agroforestry activities: a series of land-use technologies is used to combine trees with
-                    agricultural crops and / or pastures to increase and optimize production in a sustainable manner.
-                    The planting of forest crops and trees is used sequentially and in combination, with the application
-                    of soil conservation practices." %}</li>
-                <li>{% trans "Pasture and rangeland management: where healthy native grasses and related vegetation are
-                    grown to profitably preserve forage availability and livestock production, while ensuring
-                    environmental health." %}</li>
+                <li>{% trans "Active restoration: these activities seek to increase floristic diversity by sowing new species, whose individuals have been obtained from the collection of seeds and propagules, their sowing in the nurseries and subsequent planting in the reserve." %}</li>
+                <li>{% trans "Agroforestry activities: a series of land-use technologies is used to combine trees with agricultural crops and / or pastures to increase and optimize production in a sustainable manner. The planting of forest crops and trees is used sequentially and in combination, with the application of soil conservation practices." %}</li>
+                <li>{% trans "Pasture and rangeland management: where healthy native grasses and related vegetation are grown to profitably preserve forage availability and livestock production, while ensuring environmental health." %}</li>
                 <div>
                     <br>
                     <div class="modal-footer">
@@ -1222,23 +1136,17 @@
                 <button type="button" value="close" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h3 class="modal-title text-center" id="HelpModalLabel" style="color:#6398C1 ;">{% trans "Run the
-                    analysis" %}
+                <h3 class="modal-title text-center" id="HelpModalLabel" style="color:#6398C1 ;">{% trans "Run the analysis" %}
                 </h3>
             </div>
             <div class="modal-body">
                 <p>
-                    {% trans "This is the last step in the configuration of your case study in which the user defines
-                    the time in which they want the analysis of the benefits to be projected, as well as the time that
-                    they estimate to carry out theNBS implementation actions." %}
+                    {% trans "This is the last step in the configuration of your case study in which the user defines the time in which they want the analysis of the benefits to be projected, as well as the time that they estimate to carry out theNBS implementation actions." %}
                 </p>
                 <img style="margin: 10px auto 10px; display: block; width: 70%; height: 100%;"
                     src="/static/geonode/img/Step7Help.png" alt="help step 7"></img>
                 <p>
-                    {% trans "Then, you must indicate the climatic aspects to consider. WaterProof, by default, allows
-                    you to consider the conditions of the Climate Change Scenarios or the known historical conditions.
-                    This option is available due to the influence of the climate on the sustainability of program
-                    activities and possible additional costs that must be incurred in more adverse conditions." %}
+                    {% trans "Then, you must indicate the climatic aspects to consider. WaterProof, by default, allows you to consider the conditions of the Climate Change Scenarios or the known historical conditions. This option is available due to the influence of the climate on the sustainability of program activities and possible additional costs that must be incurred in more adverse conditions." %}
                 </p>
 
                 <p>{% trans "Finally, the user can assign financial resources in two ways:" %}</p>
@@ -1246,8 +1154,7 @@
                 <li>{% trans "Total portfolio: In which there is no financial limit." %}</li>
                 <li>{% trans "Investment scenario: In which the user has a maximum investment figure" %}</li>
                 <br>
-                <p>{% trans "For both situations, the user must indicate the financial allocation percentages for the
-                    activities in which they have the greatest interest." %}</p>
+                <p>{% trans "For both situations, the user must indicate the financial allocation percentages for the activities in which they have the greatest interest." %}</p>
                 <div>
                     <br>
                     <div class="modal-footer">
