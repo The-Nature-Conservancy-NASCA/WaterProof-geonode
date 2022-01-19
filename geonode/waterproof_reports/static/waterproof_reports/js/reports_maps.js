@@ -107,10 +107,7 @@ $(document).ready(function () {
   }
 
   let attribution = "Waterproof data © 2021 TNC";
-
-  let keys = ['awy','carbon', 'swy','ndr_n', 'ndr_p', 'sdr'];
-  let lgndColors = {'awy':'red', 'carbon':'blue2', 'swy':'green', 'ndr_n':'purple', 'ndr_p':'orange', 'sdr':'blue'};
-
+  let keys = ['awy','carbon', 'swy','ndr_n', 'ndr_p', 'sdr'];  
   let lyrsNames = [lyrNameLastYear];
   var overlaysLeft = {};
   lyrsNames.forEach(function (lyrName) {
@@ -253,7 +250,7 @@ $(document).ready(function () {
         let colorLgnd = lgndColors[k];
         if (p.childElementCount == 2) {
           let lgndHtml =  `<div>
-                            <div><img src="/static/lib/img/legend-${colorLgnd}-h.png" style="margin-left: 15px;"></div> 
+                            <div><img src="/static/lib/img/legend-${k}-h.png" style="margin-left: 15px;"></div> 
                             <div> <span style="margin-left: 15px;">${min}</span> 
                                 <span style="margin-left: 100px;">${max}</span></div>  
                           </div>
