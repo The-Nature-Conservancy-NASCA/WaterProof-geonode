@@ -576,7 +576,27 @@ function onInit(editor) {
         })
 
         $('#saveAndValideCost').click(function() {
-            if (banderaFunctionCost) {
+            if($('#costFunctionName').val() === ''){
+                Swal.fire(
+                    gettext('Please, complete the form'),
+                );
+                return false;
+            }else if ($('#costFuntionDescription').val() === ''){
+                Swal.fire(
+                    gettext('Please, complete the form'),
+                );
+                return false;
+            }else if ($('#global_multiplier_factorCalculator').val() === ''){
+                Swal.fire(
+                    gettext('Please, complete the form'),
+                );
+                return false;
+            }else if ($('#python-expression').val() === ''){
+                Swal.fire(
+                    gettext('Please, complete the form'),
+                );
+                return false;
+            }else if (banderaFunctionCost) {
                 //true = nueva
                 var pyExp = $('#python-expression').val();
                 funcostdb.push({
