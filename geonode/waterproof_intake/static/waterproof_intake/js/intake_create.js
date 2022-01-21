@@ -278,7 +278,7 @@ $(document).ready(function() {
             $('#intakeWEMI').append(`
             <tr>
                 <th class="text-center" scope="row">${index}</th>
-                <td class="text-center"><input name="manualInputData" yearValue="${index}" type="number" class="form-control justify-number"></td>
+                <td class="text-center"><input name="manualInputData" oninput="validity.valid||(value='');" yearValue="${index}" type="number" class="form-control justify-number"></td>
               </tr>
             `);
         }
@@ -302,10 +302,10 @@ $(document).ready(function() {
                 for (let index = 0; index <= numYear; index++) {
                     rows += (`<tr>
                                 <th class="text-center" scope="col" name="year_${graphData[p].id}" year_value="${index + 1}">${index + 1}</th>
-                                <td class="text-center" scope="col"><input name="waterVolume_${index + 1}_${graphData[p].id}" type="number" class="form-control justify-number"></td>
-                                <td class="text-center" scope="col"><input name="sediment_${index + 1}_${graphData[p].id}" type="number" class="form-control justify-number"></td>
-                                <td class="text-center" scope="col"><input name="nitrogen_${index + 1}_${graphData[p].id}" type="number" class="form-control justify-number"></td>
-                                <td class="text-center" scope="col"><input name="phosphorus_${index + 1}_${graphData[p].id}" type="number" class="form-control justify-number"></td>
+                                <td class="text-center" scope="col"><input oninput="validity.valid||(value='');" name="waterVolume_${index + 1}_${graphData[p].id}" type="number" class="form-control justify-number"></td>
+                                <td class="text-center" scope="col"><input oninput="validity.valid||(value='');" name="sediment_${index + 1}_${graphData[p].id}" type="number" class="form-control justify-number"></td>
+                                <td class="text-center" scope="col"><input oninput="validity.valid||(value='');" name="nitrogen_${index + 1}_${graphData[p].id}" type="number" class="form-control justify-number"></td>
+                                <td class="text-center" scope="col"><input oninput="validity.valid||(value='');" name="phosphorus_${index + 1}_${graphData[p].id}" type="number" class="form-control justify-number"></td>
                             </tr>`);
                 }
                 $('#IntakeTDLE').append(`
