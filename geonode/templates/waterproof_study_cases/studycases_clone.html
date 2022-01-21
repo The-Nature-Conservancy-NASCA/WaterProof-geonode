@@ -583,7 +583,7 @@
                                     </h3>
                                     <div style="display: flex;">
                                         <p>{% trans "NBS_conservation_activities_text" %}<span class="text-danger-wp">(*)</span></p>
-                                        <span onclick="window.location.href='/waterproof_nbs_ca/create/'"
+                                        <span onclick="window.location.href='/waterproof_nbs_ca/?limit=5'"
                                             class="glyphicon glyphicon-plus-sign btn-add"></span>
                                     </div>
                                     <ul class="list-group list-group-flush" id="nbs-ul"></ul>
@@ -653,7 +653,9 @@
                                             <label class="control-label required-field" for="analysis_nbs">{% trans "climate_baseline_nbs" %}</label>
                                             <select id="analysis_nbs" class="form-control">
                                                 {% for scenario in scenarios %}
-                                                <option value='{{scenario.id}}' {% if scenario.name==study_case.climate_scenario.name %} selected {% endif %}>
+                                                <option value='{{scenario.id}}' {% if 
+                                                    scenario.name==study_case.climate_scenario.name %} selected {% 
+                                                        endif %}>
                                                     {{scenario.name}}
                                                 </option>
                                                 {% endfor %}

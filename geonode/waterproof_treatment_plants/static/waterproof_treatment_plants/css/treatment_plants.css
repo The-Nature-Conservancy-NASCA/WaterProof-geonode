@@ -733,7 +733,7 @@ textarea {
     .overflow-form {
         overflow-y: hidden;
         overflow-x: hidden;
-        width: 700px;
+        width: 75%;
     }
     .margin-main {
         margin-left: 35px;
