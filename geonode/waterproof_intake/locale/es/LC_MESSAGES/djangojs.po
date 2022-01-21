@@ -552,3 +552,6 @@ msgstr "Futuro 10 años"
 
 msgid "Water stress"
 msgstr "Indicador de Estrés Hídrico de Referencia"
+
+msgid "Please, complete the form"
+msgstr "Por favor, complete el formulario"

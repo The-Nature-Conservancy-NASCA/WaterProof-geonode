@@ -586,8 +586,28 @@
             return true;
         })
  
-         $('#saveAndValideCost').click(function() {
-            if (banderaFunctionCost) {
+        $('#saveAndValideCost').click(function() {
+            if($('#costFunctionName').val() === ''){
+                Swal.fire(
+                    gettext('Please, complete the form'),
+                );
+                return false;
+            }else if ($('#costFuntionDescription').val() === ''){
+                Swal.fire(
+                    gettext('Please, complete the form'),
+                );
+                return false;
+            }else if ($('#global_multiplier_factorCalculator').val() === ''){
+                Swal.fire(
+                    gettext('Please, complete the form'),
+                );
+                return false;
+            }else if ($('#python-expression').val() === ''){
+                Swal.fire(
+                    gettext('Please, complete the form'),
+                );
+                return false;
+            }else if (banderaFunctionCost) {
                 //true = nueva
                 var pyExp = $('#python-expression').val();
                 funcostdb.push({
@@ -601,7 +621,7 @@
                         'currencyCostName': $('#currencyCost option:selected').text(),                         
                     }
                 });
- 
+
                 funcostdb[funcostdb.length - 1].fields.logical = JSON.stringify(funcostdb[funcostdb.length - 1].fields.logical);
             } else {
                 //false = editar
@@ -613,7 +633,7 @@
                     'currencyCost': $('#currencyCost option:selected').val(),
                     'currencyCostName': $('#currencyCost option:selected').text(),                     
                 }
- 
+
                 temp.logical = JSON.stringify(temp.logical);
                 if (selectedCostId == 0){
                     $.extend(funcostdb[selectedCostId].fields, temp);
@@ -625,16 +645,16 @@
                 
                 var pyExp = $('#python-expression').val();
                 funcostdb[selectedCostId].fields.function_value = pyExp;
-             }
+            }
 
-             if (typeof(selectedCell.value) == "object"){
+            if (typeof(selectedCell.value) == "object"){
                 selectedCell.setAttribute('funcost', JSON.stringify(funcostdb));                
             }else{
                 var valueSelectedCell = JSON.parse(selectedCell.value);
                 valueSelectedCell.funcost = funcostdb;
                 selectedCell.value = JSON.stringify(valueSelectedCell);
             }
-             
+            
             $('#funcostgenerate tr').remove();
             $('#funcostgenerate').empty();
             for (let index = 0; index < funcostdb.length; index++) {
@@ -642,7 +662,7 @@
             }
             $('#CalculatorModal').modal('hide');
             validateGraphIntake();
-         });
+        });
  
          //Edit funcion cost 
          $(document).on('click', 'a[name=glyphicon-edit]', function() {
@@ -894,6 +914,13 @@
                  intakeStepFour();
              }
          };
+
+         function validateCostFunction(){
+            costFunctionName
+            costFuntionDescription
+            global_multiplier_factorCalculator
+            python-expression
+        }
  
          $('#btnValidatePyExp').click(function(){
              validatePyExpression();
