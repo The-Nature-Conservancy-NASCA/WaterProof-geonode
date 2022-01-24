@@ -104,12 +104,12 @@ $(document).ready(function () {
     LULC_FUTURE : 'LULC BaU Scenario',
     Catchment : 'Catchment',
     NbS_portfolio : 'NbS Portfolio',
-    lyrNameAWY : 'Annual Water Yield (mm)',
-    lyrNameSWY : 'Seasonal Water Yield (mm)',
-    lyrNameSDR : 'Sediment Delivery Ratio (t)',
-    lyrNameNDRN : 'NDR Nitrogen (kg)',
-    lyrNameNDRP : 'NDR Phosphorus (kg)',
-    lyrNameCarbon : 'Carbon storage and sequestration (t)',    
+    Annual_Water_Yield : 'Annual Water Yield (mm)',
+    Seasonal_Water_Yield : 'Seasonal Water Yield (mm)',
+    Sediment_Delivery_Ratio : 'Sediment Delivery Ratio (t)',
+    NDR_Nitrogen : 'NDR Nitrogen (kg)',
+    NDR_Phosphorus : 'NDR Phosphorus (kg)',
+    Carbon_storage_and_sequestration : 'Carbon storage and sequestration (t)',    
   }
 
   let attribution = "Waterproof data © 2021 TNC";
@@ -226,6 +226,9 @@ $(document).ready(function () {
   async function rasterStatisticsApi () {
     // TODO - change serverApi URL to use the new API
     let serverApi =  location.protocol + '//' + location.hostname + '/wf-models/';
+    if (location.hostname == "localhost") {
+      serverApi = '/proxy/?url=https://dev.skaphe.com/wf-models/';
+    }
     //let serverApi = '/proxy/?url=https://dev.skaphe.com/wf-models/';
     let amp = "&";
     if (serverApi.indexOf("proxy") >=0){
@@ -247,10 +250,12 @@ $(document).ready(function () {
     let lyrName = p.children[1].innerText.trim();
     let min = '0,0';
     let max = '1,0';
-    if (lyrsModelsResult.includes(lyrName)) {
+    
+    let lyrsFilter = Object.keys(lyrsLabels).filter(l => lyrsLabels[l] == lyrName);
+    if (lyrsFilter.length > 0) {
       if (t.checked) {
-        let lyrs = [lyrNameAWY, lyrNameCarbon, lyrNameSWY, lyrNameNDRN, lyrNameNDRP, lyrNameSDR];        
-        let k = keys[lyrs.indexOf(lyrName)];
+        let lyrs = [lyrNameAWY, lyrNameCarbon, lyrNameSWY, lyrNameNDRN, lyrNameNDRP, lyrNameSDR];                
+        let k = keys[lyrs.indexOf(lyrsFilter[0])];
         min = Math.round(rasterResultStatistics[k][0].min).toFixed(1).replace(".",",");
         max = Math.round(rasterResultStatistics[k][0].max).toFixed(1).replace(".",",");
         
