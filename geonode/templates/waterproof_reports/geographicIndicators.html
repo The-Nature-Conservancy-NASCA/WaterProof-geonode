@@ -253,7 +253,7 @@
 	if (location.hostname == 'localhost') {
 		srvMapServer = devServer + 'srv/'; //'/srv/';  	
 	}	
-	var serverApi =  location.protocol + '//' + location.hostname + '/wf-models/';
+	var serverApi =  location.protocol + '//' + location.hostname.replace('apps','dev') + '/wf-models/';
     if (location.hostname == "localhost") {
       serverApi = `/proxy/?url=${devServer}wf-models/`;
     }
