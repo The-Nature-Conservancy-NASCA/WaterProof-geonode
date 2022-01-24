@@ -135,7 +135,7 @@
                         <a class="btn btn-warning" onclick="localStorage.setItem('returnTo','my_cases');" href="../clone/{{studyCases.pk}}" title='{% trans "clone" %}'>
                             <span class="glyphicon glyphicon-copy" aria-hidden="true"></span>
                         </a>
-                        <a class="btn btn-danger" data-id="{{studyCases.pk}}" title='{% trans "delete" %}'>
+                        <a class="btn btn-danger" user-id="{{studyCases.added_by.id}}" date-create="{{studyCases.create_date | date:'Y-m-d'}}" data-id="{{studyCases.pk}}" title='{% trans "delete" %}'>
                             <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
                         </a>
                     </div>
