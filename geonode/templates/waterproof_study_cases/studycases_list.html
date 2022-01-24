@@ -132,7 +132,7 @@
                     </div>
                     <div class="btn-group btn-group-table" role="group">
                         <a class="btn btn-warning display-true" href="clone/{{studyCases.pk}}" title='{% trans "clone" %}'><span class="glyphicon glyphicon-copy" aria-hidden="true"></span></a>
-                        <a class="btn btn-danger" data-id="{{studyCases.pk}}" title='{% trans "delete" %}'><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+                        <a class="btn btn-danger" user-id="{{studyCases.added_by.id}}" date-create="{{studyCases.create_date | date:'Y-n-j'}}" user-id="{{studyCases.added_by.id}}" date-create="{{studyCases.create_date | date:'Y-n-j'}}" data-id="{{studyCases.pk}}" title='{% trans "delete" %}'><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
                     </div>
                     <div class="btn-group btn-group-table" role="group">
                         <a data-id="{{studyCases.pk}}" {% if studyCases.is_public%} class="btn btn-warning btn-private" title='{% trans "Private" %}' {% else %}  class="btn btn-primary btn-public"title='{% trans "Public" %}' {% endif %}>
