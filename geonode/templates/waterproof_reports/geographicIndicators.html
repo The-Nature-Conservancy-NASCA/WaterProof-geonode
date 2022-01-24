@@ -253,8 +253,8 @@
 	if (location.hostname == 'localhost') {
 		srvMapServer = devServer + 'srv/'; //'/srv/';  	
 	}	
-	var serverApi =  location.protocol + '//' + location.hostname.replace('apps','dev') + '/wf-models/';
-    if (location.hostname == "localhost") {
+	var serverApi =  location.protocol + '//' + location.hostname + '/wf-models/';
+    if (location.hostname == "localhost" || location.hostname == "apps.skaphe.com") {
       serverApi = `/proxy/?url=${devServer}wf-models/`;
     }
 
