@@ -605,9 +605,9 @@
                                 <select id="currencyCost" class="form-control" required>
                                     {% for currency in currencys %}
                                     {% if currency.iso3 == 'USA'%}
-                                    <option value="{{currency.pk}}" data-country="{{currency.iso3}}">({{currency.currency}}) - {{currency.name}}</option>
+                                    <option value="{{currency.currency}}" data-country="{{currency.iso3}}">({{currency.currency}}) - {{currency.name}}</option>
                                     {% else %}
-                                    <option value="{{currency.pk}}">({{currency.currency}}) - {{currency.name}}</option>
+                                    <option value="{{currency.currency}}">({{currency.currency}}) - {{currency.name}}</option>
                                     {% endif %}
                                     {% endfor %}
                                 </select>

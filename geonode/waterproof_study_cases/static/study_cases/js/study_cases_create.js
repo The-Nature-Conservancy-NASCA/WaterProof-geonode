@@ -35,15 +35,12 @@ var intakes = [];
 var ptaps = [];
 var yearsDemand = [];
 var mapLoader;
-var flagFunctionCost = false;
 
 $(document).ready(function () {
     $('#autoAdjustHeightF').css("height", "auto");
     $('#cityLabel').text(localStorage.city + ", " + localStorage.country);
     $('#coeqCountry').text("CO2_country"+" ("+localStorage.country+")");
-    var output = document.getElementById('MathPreview');
-    var button = document.getElementById('btnValidatePyExp');
-    var selectedCostId = 0;
+         
     calculate_Personnel();
     calculate_Platform();
     loadIntakes();
@@ -1419,46 +1416,8 @@ $(document).ready(function () {
 
     $('#btnValidatePyExp').click(function () {
         validatePyExpression();
-    });
-
-    async function validatePyExpression() {
-        let pyExp = $('#python-expression').val().trim();
-        if (pyExp.length > 0) {
-            pyExpEncode = encodeURIComponent(pyExp);
-            localApi = location.protocol + "//" + location.host;
-            let url = localApi + "/intake/validatePyExpression?expression=" + pyExpEncode;
-            let response = await fetch(url);
-            let result = await response.json();
-            if (result) {
-                is_valid = result.valid;
-                latex = result.latex
-                console.log(result.latex);
-                typesetInput(result.latex);
-                if (is_valid) {
-                    $("#python-expression").removeClass("invalid_expression");
-                    $("#python-expression").addClass("valid_expression");
-                } else {
-                    $("#python-expression").addClass("invalid_expression");
-                    $("#python-expression").removeClass("valid_expression");
-                }
-            }
-        }
-    }
-
-    function typesetInput(expression) {
-        button.disabled = true;
-        output.innerHTML = expression;
-        MathJax.texReset();
-        MathJax.typesetClear();
-        MathJax.typesetPromise([output]).catch(function (err) {
-            output.innerHTML = '';
-            output.appendChild(document.createTextNode(err.message));
-            console.error(err);
-        }).then(function () {
-            button.disabled = false;
-        });
-    }
-
+    });    
+    
     //KeyBoard calculator funcion cost
     $('button[name=mathKeyBoard]').click(function () {
         var el = document.getElementById("python-expression");
@@ -1494,8 +1453,12 @@ $("#ModalAddCostBtn").click(function () {
     flagFunctionCost = true;
     $('#costFunctionName').val('');
     $('#costFuntionDescription').val('');
-    $('#currencyCost').val('');
-    $('#global_multiplier_factorCalculator').val('');
+    let currency = localStorage.getItem('currency') == null ? 'USD' : localStorage.getItem('currency');
+    if (currency == 'USD') {
+        $("#currencyCost option").filter((i,l) => ( l.getAttribute('data-country') == 'USA'))[0].selected = true;
+    }
+    $('#currencyCost').val(currency);
+    $('#global_multiplier_factorCalculator').val(localStorage.getItem('factor') == null ? '0.38' : localStorage.getItem('factor'));
     $('#python-expression').val('');
     setVarCost();
 });
@@ -1598,6 +1561,7 @@ $(document).on('click', 'a[name=glyphicon-trash]', function () {
         }
     })
 });
+
 
 function setVarCost() {
     $('#CalculatorModalLabel').text(gettext('Edit Cost function'));
