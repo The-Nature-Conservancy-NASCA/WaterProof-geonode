@@ -606,10 +606,12 @@
                             <div class="col-xs-6">
                                 <label class="text-primary">{% trans "Currency for definition of costs" %} </label>
                                 <select id="currencyCost" class="form-control" required>
-                                    {% for currency in currencys %}                                    
-                                    <option value="{{currency.pk}}" {% if currency.iso3 == 'USA'%}data-country="{{currency.iso3}}"{% endif %}>
-                                        ({{currency.currency}}) - {{currency.name}}
-                                    </option>
+                                    {% for currency in currencys %}
+                                    {% if currency.iso3 == 'USA'%}
+                                    <option value="{{currency.currency}}" data-country="{{currency.iso3}}">({{currency.currency}}) - {{currency.name}}</option>
+                                    {% else %}
+                                    <option value="{{currency.currency}}">({{currency.currency}}) - {{currency.name}}</option>
+                                    {% endif %}
                                     {% endfor %}
                                 </select>
                             </div>
