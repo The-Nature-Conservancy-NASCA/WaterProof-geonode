@@ -247,7 +247,7 @@ $(document).ready(function () {
         let k = keys[lyrs.indexOf(lyrName)];
         min = Math.round(rasterResultStatistics[k][0].min).toFixed(1).replace(".",",");
         max = Math.round(rasterResultStatistics[k][0].max).toFixed(1).replace(".",",");
-        let colorLgnd = lgndColors[k];
+        
         if (p.childElementCount == 2) {
           let lgndHtml =  `<div>
                             <div><img src="/static/lib/img/legend-${k}-h.png" style="margin-left: 15px;"></div> 

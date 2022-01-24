@@ -151,7 +151,7 @@ def createIntake(request):
         form = forms.IntakeForm(request.POST)
     else:
         form = forms.IntakeForm()
-        currencies = Countries.objects.values('currency', 'name', 'iso3').distinct().exclude(currency='').order_by('currency').all()
+        currencies = Countries.objects.values('currency', 'name', 'iso3').distinct().exclude(currency='').order_by('currency')
     return render(request, 'waterproof_intake/intake_form.html', context={
         "form": form, 
         "serverApi": settings.WATERPROOF_API_SERVER,
