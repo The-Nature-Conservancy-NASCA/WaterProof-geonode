@@ -759,10 +759,12 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-md-5">
-                        <div class="panel-group" id="VarCostListGroup" style="max-height: 480px; overflow-y: auto;">
-                        </div>
+                    <div class="col-md-12">
+                        <p>{% trans "Use this window to configure your cost function by selecting the variables of your interest: flow, concentration or loads." %}</p>
+                        <p>{% trans "Expand the list of items and click to build the function." %}</p>
                     </div>
+                </div>
+                <div class="row">                    
                     <div class="col-md-7">
                         <div class="form-group">
                             <label class="text-primary">Cost function name</label>
@@ -778,8 +780,7 @@
                                 <select id="currencyCost" class="form-control" required>
                                     {% for currency in currencys %}
                                     {% if currency.iso3 == 'USA'%}
-                                    <option value="{{currency.currency}}" data-country="{{currency.iso3}}">
-                                        ({{currency.currency}}) - {{currency.name}}</option>
+                                    <option value="{{currency.currency}}" data-country="{{currency.iso3}}">({{currency.currency}}) - {{currency.name}}</option>
                                     {% else %}
                                     <option value="{{currency.currency}}">({{currency.currency}}) - {{currency.name}}</option>
                                     {% endif %}
@@ -788,8 +789,7 @@
                             </div>
                             <div class="col-xs-6">
                                 <label class="text-primary">{% trans "Multiplying factor for overrall cost" %} </label>
-                                <input type="text" value="1.00" id="global_multiplier_factorCalculator"
-                                    class="form-control">
+                                <input type="text" value="1.00" id="global_multiplier_factorCalculator" class="form-control">
                             </div>
                         </div>
                         <h5 class="text-primary keyboard-title">{% trans "Syntax keyboard" %}</h5>
@@ -800,56 +800,40 @@
                         <div class="tab-content">
                             <div id="mathBasic_tab" class="tab-pane fade in active">
                                 <div class="btn-group" role="group">
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard"
-                                        value="=">&#61</button>
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard"
-                                        value="+">&#43</button>
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard"
-                                        value="-">&#8722;</button>
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard"
-                                        value="*">&#215</button>
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard"
-                                        value="/">a/b</button>
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard"
-                                        value="**">a^b</button>
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard"
-                                        value="sqrt()">&#8730</button>
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard"
-                                        value="min()">min</button>
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard"
-                                        value="max()">max</button>
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="=">&#61</button>
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="+">&#43</button>
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="-">&#8722;</button>
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="*">&#215</button>
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="/">a/b</button>
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="**">a^b</button>
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="sqrt()">&#8730</button>
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="min()">min</button>
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="max()">max</button>
                                 </div>
                             </div>
                             <div id="mathAdvanced_tab" class="tab-pane fade in">
                                 <div class="btn-group" role="group">
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard"
-                                        value="pi">π</button>
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard"
-                                        value="e">e</button>
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard"
-                                        value="log()">ln</button>
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard"
-                                        value="log10()">log</button>
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard"
-                                        value="%">mod</button>
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard"
-                                        value=">">&#62;</button>
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard"
-                                        value="<">&#60;</button>
-                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard"
-                                        value="(expression) if (conditional) else (other_case)">if</button>
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="pi">π</button>
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="e">e</button>
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="log()">ln</button>
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="log10()">log</button>
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="%">mod</button>
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value=">">&#62;</button>
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="<">&#60;</button>
+                                    <button type="button" class="btn btn-default math-btn" name="mathKeyBoard" value="(expression) if (conditional) else (other_case)">if</button>
                                 </div>
-                            </div>
+                            </div>                            
                         </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="panel-group" id="VarCostListGroup" style="max-height: 480px; overflow-y: auto;"></div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12">
                         <div id="mathNatural" class="tab-pane fade in active">
-                            <textarea id="python-expression" class="python-expression" autocapitalize="off"
-                                autocomplete="off" autocorrect="off" spellcheck="false"
-                                x-palm-disable-ste-all="true"></textarea>
-                            <button id="btnValidatePyExp">{% trans "Validate" %} </button>
+                            <textarea id="python-expression" class="python-expression" autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false" x-palm-disable-ste-all="true"></textarea>
+                            <button value="validate" id="btnValidatePyExp">{% trans "Validate" %} </button>
                             <div id="MathPreview" class="preview"></div>
                         </div>
                         <div id="mathLogical" class="tab-pane fade"></div>
