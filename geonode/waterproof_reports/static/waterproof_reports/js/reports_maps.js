@@ -88,22 +88,28 @@ $(document).ready(function () {
   let lyrNameLastYear = 'LULC_LAST_YEAR';
   let lyrNameYearFuture = 'LULC_FUTURE';
 
-  let lyrNameAWY = 'Annual_Water_Yield';
-  let lyrNameSWY = 'Seasonal_Water_Yield';
-  let lyrNameSDR = 'Sediment_Delivery_Ratio';
-  let lyrNameNDRN = 'NDR_Nitrogen';
-  let lyrNameNDRP = 'NDR_Phosphorus';
-  let lyrNameCarbon = 'Carbon_storage_and_sequestration';
+  let lyrNameAWY = 'Annual_Water_Yield'; // (mm)
+  let lyrNameSWY = 'Seasonal_Water_Yield'; // (mm)
+  let lyrNameSDR = 'Sediment_Delivery_Ratio'; // (t)
+  let lyrNameNDRN = 'NDR_Nitrogen'; // (kg)
+  let lyrNameNDRP = 'NDR_Phosphorus'; // (kg)
+  let lyrNameCarbon = 'Carbon_storage_and_sequestration'; // (t)
   let lyrNameAreasRios = 'NbS_portfolio';
   let lyrNameCatchment = 'Catchment';
   let lyrsModelsResult = [lyrNameAWY, lyrNameSWY, lyrNameSDR, lyrNameNDRN, lyrNameNDRP, lyrNameCarbon];
-
+              
   let lyrsLabels = {
     LULC_YEAR_0 : 'LULC Current Scenario',
     LULC_LAST_YEAR : 'LULC NbS Scenario',
     LULC_FUTURE : 'LULC BaU Scenario',
     Catchment : 'Catchment',
     NbS_portfolio : 'NbS Portfolio',
+    lyrNameAWY : 'Annual Water Yield (mm)',
+    lyrNameSWY : 'Seasonal Water Yield (mm)',
+    lyrNameSDR : 'Sediment Delivery Ratio (t)',
+    lyrNameNDRN : 'NDR Nitrogen (kg)',
+    lyrNameNDRP : 'NDR Phosphorus (kg)',
+    lyrNameCarbon : 'Carbon storage and sequestration (t)',    
   }
 
   let attribution = "Waterproof data © 2021 TNC";
@@ -129,7 +135,7 @@ $(document).ready(function () {
 
   var overlaysResults = {};
   lyrsModelsResult.forEach(function (lyrName) {
-    overlaysResults[lyrName] = createWMSLyr(urlWaterProofLyrsWMS, lyrName).addTo(mapResults);
+    overlaysResults[lyrsLabels[lyrName]] = createWMSLyr(urlWaterProofLyrsWMS, lyrName).addTo(mapResults);
   });
 
   lyrsNames = [lyrNameCatchment];
