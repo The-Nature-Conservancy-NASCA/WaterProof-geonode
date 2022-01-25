@@ -645,7 +645,7 @@ function onInit(editor) {
             $('#funcostgenerate tr').remove();
             $('#funcostgenerate').empty();
             for (let index = 0; index < funcostdb.length; index++) {                
-                funcost( index);
+                funcost(index);
             }
             $('#CalculatorModal').modal('hide');
             validateGraphIntake();
@@ -705,14 +705,19 @@ function onInit(editor) {
                     $(`#funcostgenerate tr[idvalue = 'fun_${id}']`).remove();
                     if (typeof(selectedCell.value) == "string" && selectedCell.value.length > 0) {
                         var obj = JSON.parse(selectedCell.value);
-                        let dbfields = JSON.parse(obj.funcost);
+                        let dbfields = typeof(obj.funcost) == "object" ? obj.funcost : JSON.parse(obj.funcost);
                         dbfields.splice(id, 1);
                         obj.funcost = JSON.stringify(dbfields);
                         selectedCell.setValue(JSON.stringify(obj));
                         $('#funcostgenerate tr').remove();
                         $('#funcostgenerate').empty();
+                        funcostdb.splice(id, 1);
                         for (let index = 0; index < funcostdb.length; index++) {
-                            funcost(funcostdb[index].fields.function_value, funcostdb[index].fields.function_name, index, MQ);
+                            funcost(index);
+                        }
+                        let filterGraph = graphData.filter(g => g.id == selectedCell.id);
+                        if (filterGraph.length > 0){
+                            filterGraph[0].funcost = JSON.stringify(funcostdb);
                         }
                     } else {
                         funcostdb.splice(id, 1);
@@ -720,7 +725,11 @@ function onInit(editor) {
                         $('#funcostgenerate tr').remove();
                         $('#funcostgenerate').empty();
                         for (let index = 0; index < funcostdb.length; index++) {
-                            funcost(funcostdb[index].fields.function_value, funcostdb[index].fields.function_name, index, MQ);
+                            funcost(index);
+                        }
+                        let filterGraph = graphData.filter(g => g.id == selectedCell.id);
+                        if (filterGraph.length > 0){
+                            filterGraph[0].funcost = JSON.stringify(funcostdb);
                         }
                     }
                     Swal.fire(
