@@ -622,7 +622,7 @@
                     }
                 });
 
-                funcostdb[funcostdb.length - 1].fields.logical = JSON.stringify(funcostdb[funcostdb.length - 1].fields.logical);
+                //funcostdb[funcostdb.length - 1].fields.logical = JSON.stringify(funcostdb[funcostdb.length - 1].fields.logical);
             } else {
                 //false = editar
                 var temp = {
@@ -634,7 +634,7 @@
                     'currencyCostName': $('#currencyCost option:selected').text(),                     
                 }
 
-                temp.logical = JSON.stringify(temp.logical);
+                //temp.logical = JSON.stringify(temp.logical);
                 if (selectedCostId == 0){
                     $.extend(funcostdb[selectedCostId].fields, temp);
                 }else{
@@ -672,16 +672,13 @@
             let index = parseInt($(this).attr('idvalue'));
             selectedCostId = index;
             let fieldsFunction = funcostdb[index].fields;
-            var currency = fieldsFunction.currencyCostName;
-            if (currency == undefined || currency == '') {
-                currency = fieldsFunction.currency;
-                if (currency != undefined && currency != '') {
-                    $('#currencyCost').val(currency);
-                    if (currency == 'USD') {
-                        $("#currencyCost option").filter((i,l) => ( l.getAttribute('data-country') == 'USA'))[0].selected = true;
-                    }
+            var currency = fieldsFunction.currency;            
+            if (currency != undefined && currency != '') {
+                $('#currencyCost').val(currency);
+                if (currency == 'USD') {
+                    $("#currencyCost option").filter((i,l) => ( l.getAttribute('data-country') == 'USA'))[0].selected = true;
                 }
-            }
+            }            
 
             var factor = fieldsFunction.global_multiplier_factorCalculator;            
             if (factor == undefined){

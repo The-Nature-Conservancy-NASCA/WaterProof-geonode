@@ -51,7 +51,7 @@ def treatmentPlantsList(request):
 def newTreatmentPlants(request):
 	print("newTreatmentPlants")
 	if request.method == 'GET':
-		currencies = Countries.objects.values('currency', 'name', 'iso3').distinct().exclude(currency='').order_by('currency')
+		currencies = Countries.objects.values('pk', 'currency', 'name', 'iso3').distinct().exclude(currency='').order_by('currency')
 		return render(
 			request,
 			'waterproof_treatment_plants/treatment_plants_edit.html',
@@ -76,7 +76,7 @@ def viewTreatmentPlants(request, idx):
 
 def manageTreatmentPlants(request, mode, plantId):
 	if request.method == 'GET':
-		currencies = Countries.objects.values('currency', 'name', 'iso3').distinct().exclude(currency='').order_by('currency')
+		currencies = Countries.objects.values('pk', 'currency', 'name', 'iso3').distinct().exclude(currency='').order_by('currency')
 		return render(
 			request,
 			'waterproof_treatment_plants/treatment_plants_edit.html',

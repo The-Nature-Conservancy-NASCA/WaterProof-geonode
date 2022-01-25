@@ -606,15 +606,7 @@ function onInit(editor) {
                         'function_description': $('#costFuntionDescription').val(),
                         'global_multiplier_factorCalculator': $('#global_multiplier_factorCalculator').val(),
                         'currencyCost': $('#currencyCost option:selected').val(),
-                        'currencyCostName': $('#currencyCost option:selected').text(),
-                        'logical': [{
-                            'condition_1': "",
-                             'ecuation_1': "",
-                             'condition_2': "",
-                             'ecuation_2': "",
-                             'condition_3': "",
-                             'ecuation_3': ""
-                        }],
+                        'currencyCostName': $('#currencyCost option:selected').text(),                        
                     }
                 });
 
@@ -627,15 +619,7 @@ function onInit(editor) {
                     'function_description': $('#costFuntionDescription').val(),                    
                     'global_multiplier_factorCalculator': $('#global_multiplier_factorCalculator').val(),
                     'currencyCost': $('#currencyCost option:selected').val(),
-                    'currencyCostName': $('#currencyCost option:selected').text(),
-                    'logical': [{
-                        'condition_1': "", 
-                        'ecuation_1': "", 
-                        'condition_2': "", 
-                        'ecuation_2': "", 
-                        'condition_3': "", 
-                        'ecuation_3': "", 
-                    }],
+                    'currencyCostName': $('#currencyCost option:selected').text(),                    
                 }
 
                 temp.logical = JSON.stringify(temp.logical);

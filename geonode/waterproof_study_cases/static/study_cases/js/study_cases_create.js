@@ -1449,20 +1449,6 @@ $(document).ready(function () {
 
 });
 
-$("#ModalAddCostBtn").click(function () {
-    flagFunctionCost = true;
-    $('#costFunctionName').val('');
-    $('#costFuntionDescription').val('');
-    let currency = localStorage.getItem('currency') == null ? 'USD' : localStorage.getItem('currency');
-    if (currency == 'USD') {
-        $("#currencyCost option").filter((i,l) => ( l.getAttribute('data-country') == 'USA'))[0].selected = true;
-    }
-    $('#currencyCost').val(currency);
-    $('#global_multiplier_factorCalculator').val(localStorage.getItem('factor') == null ? '0.38' : localStorage.getItem('factor'));
-    $('#python-expression').val('');
-    setVarCost();
-});
-
 $('#saveAndValideCost').click(function () {
     if (flagFunctionCost) {
         //true = nueva
