@@ -718,7 +718,7 @@
                         var obj = JSON.parse(selectedCell.value);
                         let dbfields = typeof(obj.funcost) == "object" ? obj.funcost : JSON.parse(obj.funcost);
                         dbfields.splice(id, 1);
-                        obj.funcost = JSON.stringify(dbfields);
+                        //obj.funcost = JSON.stringify(dbfields);
                         selectedCell.setValue(JSON.stringify(obj));
                         $('#funcostgenerate tr').remove();
                         $('#funcostgenerate').empty();
@@ -728,7 +728,7 @@
                         }
                         let filterGraph = graphData.filter(g => g.id == selectedCell.id);
                         if (filterGraph.length > 0){
-                            filterGraph[0].funcost = JSON.stringify(funcostdb);
+                            filterGraph[0].funcost = funcostdb; //JSON.stringify(funcostdb);
                         }
                     } else {
                         funcostdb.splice(id, 1);
@@ -740,7 +740,7 @@
                         }
                         let filterGraph = graphData.filter(g => g.id == selectedCell.id);
                         if (filterGraph.length > 0){
-                            filterGraph[0].funcost = JSON.stringify(funcostdb);
+                            filterGraph[0].funcost = funcostdb; //JSON.stringify(funcostdb);
                         }
                     }
                     Swal.fire(
