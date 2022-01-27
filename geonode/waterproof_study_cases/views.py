@@ -170,7 +170,7 @@ def create(request):
         else:
             portfolios = Portfolio.objects.all()
             models = ModelParameter.objects.all()
-            currencys = Countries.objects.values('currency', 'name', 'iso3').distinct().exclude(currency='').order_by('currency')
+            currencys = Countries.objects.values('pk', 'currency', 'name', 'iso3').distinct().exclude(currency='').order_by('currency')
             scenarios = Climate_value.objects.all()
             return render(request,
                           'waterproof_study_cases/studycases_form.html',
@@ -205,7 +205,7 @@ def edit(request, idx):
             listPTAPStudy = study_case.ptaps.all()
             scenarios = Climate_value.objects.all()
             
-            currencys = Countries.objects.values('currency','name', 'iso3').exclude(currency__exact='').order_by('currency')
+            currencys = Countries.objects.values('pk', 'currency','name', 'iso3').exclude(currency__exact='').order_by('currency')
             for portfolio in listPortfolios:
                 defaultValue = False
                 for portfolioStudy in listPortfoliosStudy:
@@ -275,7 +275,7 @@ def clone(request, idx):
             intakes = []
             ptaps = []
             cm_currency = study_case.cm_currency
-            currencys = Countries.objects.values('currency', 'name', 'iso3').distinct().exclude(currency__exact='').order_by('currency')
+            currencys = Countries.objects.values('pk', 'currency', 'name', 'iso3').distinct().exclude(currency__exact='').order_by('currency')
             listPortfoliosStudy = study_case.portfolios.all()
             listIntakesStudy = study_case.intakes.all()
             listPTAPStudy = study_case.ptaps.all()

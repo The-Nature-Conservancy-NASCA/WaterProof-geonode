@@ -151,7 +151,7 @@
                 $("#countryLabel").html(localStorage.getItem('country'));
                 $("#cityLabel").html(localStorage.getItem('city'));
                 $("#regionLabel").html(localStorage.getItem('region'));
-                $("#currencyLabel").html(localStorage.getItem('currency'));
+                $("#currencyLabel").html(localStorage.getItem('currencyCode'));
                 $("#listIntakes").show();
             } catch (e) {
 

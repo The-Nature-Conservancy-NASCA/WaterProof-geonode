@@ -23,9 +23,7 @@ def getClosetsCities(request):
 
 @api_view(['GET'])
 def getCountryByIso2(request):
-    code = request.GET['code'].upper()
-    
-    country = Countries.objects.filter(iso2=code).values_list('name','region__name','currency','currency_symbol', 'iso3')
+    code = request.GET['code'].upper()    
     c = Countries.objects.filter(iso2=code).first()
     region = c.subregion
     if (hasattr(c, 'region')):
@@ -36,13 +34,15 @@ def getCountryByIso2(request):
         result = {'country': c.name, 
                 'region': region, 
                 'currencies': [{'name': c.currency, 'symbol': c.currency_symbol}],
-                'alpha3Code': c.iso3
+                'alpha3Code': c.iso3,
+                'countryId': c.pk
             }
     except:
         result = {'country': code, 
                 'region': '', 
                 'currencies': [{'name': '', 'symbol': ''}],            
-                'alpha3Code': code
+                'alpha3Code': code,
+                'countryId': code
             }
 
 

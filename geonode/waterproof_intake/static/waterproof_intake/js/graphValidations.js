@@ -95,7 +95,7 @@ function updateStyleLine(graph, cell, type) {
                         resultDbObj[0].fields.predefined_transp_water_perc = '';
                         //enableBtnValidateCount++;
                         if (!transportedWaterConnectors.hasOwnProperty(cell.id)) {
-                            transportedWaterConnectors[cell.id] = {"style" : type.style, "id" : cell.id, "transportedWater" : null};                        
+                            transportedWaterConnectors[cell.id] = {"style" : type.style, "id" : cell.id, "transportedWater" : null};
                             validateTransportedWater('');
                         }                        
                     }
@@ -198,7 +198,7 @@ function addData(element) {
              validateTransportedWater(dbfields[0].fields.predefined_transp_water_perc);            
         }
         addData2HTML(dbfields, element);        
-        funcostdb = obj.funcost;
+        funcostdb = typeof(obj.funcost) == "object" ? obj.funcost : JSON.parse(obj.funcost);
         for (let index = 0; index < funcostdb.length; index++) {
             funcost(index);
         }        
@@ -606,6 +606,24 @@ function deleteWithValidationsView(editor) {
 function validateTransportedWater(value){
     
     let keys = Object.keys(transportedWaterConnectors);
+    if (keys.length == 0) {
+        let connectors = graphData.filter(g => g.source != undefined);
+        connectors.forEach(c => {
+            let nameEl = c.name;
+            let style = connectionsType.PL.style;
+            if (nameEl.indexOf('Pipeline') != -1) 
+                style = connectionsType.PL.style;
+            else if (nameEl.indexOf('Channel') != -1) 
+                style = connectionsType.CH.style;
+            else if (nameEl.indexOf('Extraction') != -1) 
+                style = connectionsType.EC.style;
+            
+            let water = JSON.parse(c.resultdb)[0].fields.predefined_transp_water_perc;
+            transportedWaterConnectors[c.id] = {"style" : style, "id" : c.id, "transportedWater" : water};
+        });
+        
+    }
+
     $('#saveGraph').prop('disabled', true);
     if (keys.length == 0) return;
     let validation = true;

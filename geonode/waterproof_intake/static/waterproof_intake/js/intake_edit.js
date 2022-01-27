@@ -218,7 +218,7 @@ $(document).ready(function () {
                 }
             }
             clearDataHtml();
-            generateWaterExtraction();
+            //generateWaterExtraction();
             intakeStepTwo();
 
         } else {
@@ -882,6 +882,7 @@ function intakeStepTwo() {
         enctype: 'multipart/form-data',
         success: function (response) {
             console.log(response);
+            generateWaterExtraction();
             $('#smartwizard').smartWizard("next");
         },
         error: function (xhr, errmsg, err) {
@@ -892,6 +893,8 @@ function intakeStepTwo() {
                 title: gettext('Intake saving error'),
                 text: response.message,
             })
+        }, complete: function () {
+            console.log("Complete");            
         }
     });
     return true;

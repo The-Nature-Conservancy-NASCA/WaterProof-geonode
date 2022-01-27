@@ -60,10 +60,11 @@ $("#ModalAddCostBtn").click(function () {
   flagFunctionCost = true;
   $('#costFunctionName').val('');
   $('#costFuntionDescription').val('');
-  let currency = localStorage.getItem('currency') == null ? 'USD' : localStorage.getItem('currency');
-  if (currency == 'USD') {
+  let currencyCode = localStorage.getItem('currencyCode') == null ? 'USD' : localStorage.getItem('currencyCode');
+  if (currencyCode == 'USD') {
       $("#currencyCost option").filter((i,l) => ( l.getAttribute('data-country') == 'USA'))[0].selected = true;
   }
+  let currency = localStorage.getItem('currency') == null ? '233' : localStorage.getItem('currency');
   $('#currencyCost').val(currency);
   $('#global_multiplier_factorCalculator').val(localStorage.getItem('factor') == null ? '0.38' : localStorage.getItem('factor'));
   $('#python-expression').val('');
