@@ -484,17 +484,17 @@
                                 <label class="text-primary">{% trans "Currency for definition of costs" %}</label>
                                 <select id="currencyCost" class="form-control" required>
                                     {% for currency in currencies %}
-                                        {% if currency.iso3 == 'USA'%}
-                                            {% if currency.currency == intake.city.country.currency %}                                                
-                                                <option value="{{currency.currency}}" data-country="{{currency.iso3}}" selected>({{currency.currency}}) - {{currency.name}}</option>
+                                        {% if currency.currency == 'USD'%}
+                                            {% if currency.iso3 == userCountry.iso3 %}
+                                                <option value="{{currency.pk}}" data-country="{{currency.iso3}}" selected>({{currency.currency}}) - {{currency.name}}</option>
                                             {% else %}
-                                                <option value="{{currency.currency}}" data-country="{{currency.iso3}}">({{currency.currency}}) - {{currency.name}}</option>
+                                                <option value="{{currency.pk}}" data-country="{{currency.iso3}}">({{currency.currency}}) - {{currency.name}}</option>
                                             {% endif %}                                            
                                         {% else %}
                                             {% if currency.currency == intake.city.country.currency %}
-                                                <option value="{{currency.currency}}" attr="{{currency.currency}}" selected>({{currency.currency}}) - {{currency.name}} </option>
+                                                <option value="{{currency.pk}}" attr="{{currency.currency}}" selected>({{currency.currency}}) - {{currency.name}} </option>
                                             {% else %}
-                                                <option value="{{currency.currency}}">({{currency.currency}}) - {{currency.name}}</option>
+                                                <option value="{{currency.pk}}">({{currency.currency}}) - {{currency.name}}</option>
                                             {% endif %}
                                         {% endif %}
                                     {% endfor %}
@@ -502,8 +502,7 @@
                             </div>
                             <div class="col-xs-6">
                                 <label class="text-primary">{% trans "Multiplying factor for overrall cost" %} </label>
-
-                                <input type="number" value="1.00" min="0" oninput="validity.valid||(value='');" id="global_multiplier_factorCalculator" class="form-control">
+                                <input type="number" value="1.00" min="0" id="global_multiplier_factorCalculator" class="form-control">
                             </div>
                         </div>                         
                         <h5 class="text-primary keyboard-title">{% trans "Syntax keyboard" %}</h5>

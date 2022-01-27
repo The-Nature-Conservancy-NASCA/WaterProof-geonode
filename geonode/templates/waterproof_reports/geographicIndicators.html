@@ -244,18 +244,22 @@
 	const studyCaseId = '{{ study_case_id }}';
 	let center = [4, -74];
 	center = [{{ center}}];
-	var serverApi = '{{serverApi}}';
 	var lang = '{{LANGUAGE_CODE}}';	
-	//var countriesLayerUrl = '{{ STATIC_URL }}waterproof_nbs_ca/data/countries.geojson';
 	var userCountryId='{{country.id}}';
 	var userCountryCode='{{country.codeCountry}}';
 	var userCountryName='{{country.nameCountry}}';
-	let server = location.protocol + '//' + location.hostname.replace('apps','dev') + '/srv/';
+	var devServer = 'https://dev.skaphe.com/';
+	let srvMapServer = location.protocol + '//' + location.hostname.replace('apps','dev') + '/srv/';
 	if (location.hostname == 'localhost') {
-		server = 'https://dev.skaphe.com/srv/'; //'/srv/';  	
+		srvMapServer = devServer + 'srv/'; //'/srv/';  	
 	}	
-	const urlWaterProofLyrsWMS = server + `?map=/etc/mapserver/${baseData}/WI_${intake}/mapserver.map&SERVICE=WMS&intake=${intake}&year=${year}&region=${region}`;
-	const urlWaterProofLyrAreasRiosMS = server + `?map=/etc/mapserver/${baseData}/WI_${intake}/out/areas_rios.map&SERVICE=WMS`;
+	var serverApi =  location.protocol + '//' + location.hostname + '/wf-models/';
+    if (location.hostname == "localhost" || location.hostname == "apps.skaphe.com") {
+      serverApi = `/proxy/?url=${devServer}wf-models/`;
+    }
+
+	const urlWaterProofLyrsWMS = srvMapServer + `?map=/etc/mapserver/${baseData}/WI_${intake}/mapserver.map&SERVICE=WMS&intake=${intake}&year=${year}&region=${region}`;
+	const urlWaterProofLyrAreasRiosMS = srvMapServer + `?map=/etc/mapserver/${baseData}/WI_${intake}/out/areas_rios.map&SERVICE=WMS`;
 	var mapAreasRios;
 
 	$(document).ready(function () {
