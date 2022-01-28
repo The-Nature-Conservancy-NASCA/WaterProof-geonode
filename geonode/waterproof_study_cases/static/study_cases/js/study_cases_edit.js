@@ -35,15 +35,11 @@ var intakes = [];
 var ptaps = [];
 var yearsDemand = [];
 var mapLoader;
-var flagFunctionCost = false;
 
 $(document).ready(function () {
     $('#autoAdjustHeightF').css("height", "auto");
     $('#cityLabel').text(localStorage.city + ", " + localStorage.country);
-    $('#coeqCountry').text("CO2_country"+" ("+localStorage.country+")");
-    var output = document.getElementById('MathPreview');
-    var button = document.getElementById('btnValidatePyExp');
-    var selectedCostId = 0;
+    $('#coeqCountry').text("CO2_country"+" ("+localStorage.country+")");    
     calculate_Personnel();
     calculate_Platform();
     loadIntakes();
@@ -1405,12 +1401,12 @@ $(document).ready(function () {
     }
 
     function addCellBioparam(key, idEl, value){        
-        let td = `<td id='${key}_${idEl}'><input class='text-number-bio' step='${defaultStepBioparams}' oninput="validity.valid||(value=\'\');" type='number' value='${value}'/></td>`;            
+        let td = `<td id='${key}_${idEl}'><input class='text-number-bio' step='${defaultStepBioparams}' onblur="validity.valid||(value=\'\');console.log(this);" type='number' value='${value}'/></td>`;            
         if (bioparamValidations.hasOwnProperty(key)) {
             let min = bioparamValidations[key].min;
             let max = bioparamValidations[key].max;
             let step = bioparamValidations[key].step == undefined ? defaultStepBioparams : bioparamValidations[key].step;
-            td = `<td id='${key}_${idEl}'><input class='text-number-bio' step='${step}' oninput="validity.valid||(value=\'\');" type='number' value='${value}' min='${min}' max='${max}'/></td>`;            
+            td = `<td id='${key}_${idEl}'><input class='text-number-bio' step='${step}' onblur="value.length!=0||(value='${min}');" type='number' value='${value}' min='${min}' max='${max}'/></td>`;            
         }
         return td;
     }
@@ -1446,45 +1442,7 @@ $(document).ready(function () {
 
     $('#btnValidatePyExp').click(function () {
         validatePyExpression();
-    });
-
-    async function validatePyExpression() {
-        let pyExp = $('#python-expression').val().trim();
-        if (pyExp.length > 0) {
-            pyExpEncode = encodeURIComponent(pyExp);
-            localApi = location.protocol + "//" + location.host;
-            let url = localApi + "/intake/validatePyExpression?expression=" + pyExpEncode;
-            let response = await fetch(url);
-            let result = await response.json();
-            if (result) {
-                is_valid = result.valid;
-                latex = result.latex
-                console.log(result.latex);
-                typesetInput(result.latex);
-                if (is_valid) {
-                    $("#python-expression").removeClass("invalid_expression");
-                    $("#python-expression").addClass("valid_expression");
-                } else {
-                    $("#python-expression").addClass("invalid_expression");
-                    $("#python-expression").removeClass("valid_expression");
-                }
-            }
-        }
-    }
-
-    function typesetInput(expression) {
-        button.disabled = true;
-        output.innerHTML = expression;
-        MathJax.texReset();
-        MathJax.typesetClear();
-        MathJax.typesetPromise([output]).catch(function (err) {
-            output.innerHTML = '';
-            output.appendChild(document.createTextNode(err.message));
-            console.error(err);
-        }).then(function () {
-            button.disabled = false;
-        });
-    }
+    });   
 
     //KeyBoard calculator funcion cost
     $('button[name=mathKeyBoard]').click(function () {
@@ -1515,16 +1473,6 @@ $(document).ready(function () {
 
     $('#autoAdjustHeightF').css("height", "auto");
 
-});
-
-$("#ModalAddCostBtn").click(function () {
-    flagFunctionCost = true;
-    $('#costFunctionName').val('');
-    $('#costFuntionDescription').val('');
-    $('#currencyCost').val('');
-    $('#global_multiplier_factorCalculator').val('');
-    $('#python-expression').val('');
-    setVarCost();
 });
 
 $('#saveAndValideCost').click(function () {
@@ -1662,7 +1610,7 @@ function funcost(index) {
     var currencyCostName = funcostdb[index].function.currencyCostName != undefined ? funcostdb[index].function.currencyCostName : funcostdb[index].function.currency;
     var factor = funcostdb[index].function.factor;
     if (currencyCostName == undefined) {
-        currencyCostName = localStorage.getItem("currency");
+        currencyCostName = localStorage.getItem("currencyCode");
     }
     if (factor == undefined) {
         factor = localStorage.getItem("factor");

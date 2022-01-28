@@ -448,15 +448,15 @@
                                     {% for currency in currencies %}
                                         {% if currency.iso3 == 'USA'%}
                                             {% if currency.name == intake.city.country.name %}                                                
-                                                <option value="{{currency.pk}}" data-country="{{currency.iso3}}" selected>({{currency.currency}}) - {{currency.name}}</option>
+                                                <option value="{{currency.currency}}" data-country="{{currency.iso3}}" selected>({{currency.currency}}) - {{currency.name}}</option>
                                             {% else %}
-                                                <option value="{{currency.pk}}" data-country="{{currency.iso3}}">({{currency.currency}}) - {{currency.name}}</option>
+                                                <option value="{{currency.currency}}" data-country="{{currency.iso3}}">({{currency.currency}}) - {{currency.name}}</option>
                                             {% endif %}                                            
                                         {% else %}
                                             {% if currency.name == intake.city.country.name %}
-                                                <option value="{{currency.pk}}" selected>({{currency.currency}}) - {{currency.name}} </option>
+                                                <option value="{{currency.currency}}" selected>({{currency.currency}}) - {{currency.name}} </option>
                                             {% else %}
-                                                <option value="{{currency.pk}}">({{currency.currency}}) - {{currency.name}}</option>
+                                                <option value="{{currency.currency}}">({{currency.currency}}) - {{currency.name}}</option>
                                             {% endif %}
                                         {% endif %}
                                     {% endfor %}

@@ -51,3 +51,59 @@ const bioparamValidations = {
 
 const costVars = ['Q', 'CSed', 'CN', 'CP', 'WSed', 'WN', 'WP', 'WSedRet', 'WNRet', 'WPRet'];
 
+var flagFunctionCost = false;
+var btnValidatePyExp = document.getElementById('btnValidatePyExp');
+var output = document.getElementById('MathPreview');   
+var selectedCostId = 0;
+
+$("#ModalAddCostBtn").click(function () {
+  flagFunctionCost = true;
+  $('#costFunctionName').val('');
+  $('#costFuntionDescription').val('');
+  let currencyCode = localStorage.getItem('currencyCode') == null ? 'USD' : localStorage.getItem('currencyCode');
+  if (currencyCode == 'USD') {
+      $("#currencyCost option").filter((i,l) => ( l.getAttribute('data-country') == 'USA'))[0].selected = true;
+  }
+  let currency = localStorage.getItem('currency') == null ? '233' : localStorage.getItem('currency');
+  $('#currencyCost').val(currency);
+  $('#global_multiplier_factorCalculator').val(localStorage.getItem('factor') == null ? '0.38' : localStorage.getItem('factor'));
+  $('#python-expression').val('');
+  setVarCost();
+});
+
+async function validatePyExpression() {
+  let pyExp = $('#python-expression').val().trim();
+  if (pyExp.length > 0) {
+      pyExpEncode = encodeURIComponent(pyExp);
+      localApi = location.protocol + "//" + location.host;
+      let url = localApi + "/intake/validatePyExpression?expression=" + pyExpEncode;
+      let response = await fetch(url);
+      let result = await response.json();
+      if (result) {
+          is_valid = result.valid;
+          latex = result.latex
+          console.log(result.latex);
+          typesetInput(result.latex);
+          $("#python-expression").removeClass("invalid_expression");
+          $("#python-expression").addClass("valid_expression");
+          if (!is_valid) {
+              $("#python-expression").addClass("invalid_expression");
+              $("#python-expression").removeClass("valid_expression");
+          }
+      }
+  }
+}
+
+function typesetInput(expression) {
+  btnValidatePyExp.disabled = true;
+  output.innerHTML = expression;
+  MathJax.texReset();
+  MathJax.typesetClear();
+  MathJax.typesetPromise([output]).catch(function (err) {
+      output.innerHTML = '';
+      output.appendChild(document.createTextNode(err.message));
+      console.error(err);
+  }).then(function () {
+      btnValidatePyExp.disabled = false;
+  });
+}

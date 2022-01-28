@@ -88,26 +88,32 @@ $(document).ready(function () {
   let lyrNameLastYear = 'LULC_LAST_YEAR';
   let lyrNameYearFuture = 'LULC_FUTURE';
 
-  let lyrNameAWY = 'Annual_Water_Yield';
-  let lyrNameSWY = 'Seasonal_Water_Yield';
-  let lyrNameSDR = 'Sediment_Delivery_Ratio';
-  let lyrNameNDRN = 'NDR_Nitrogen';
-  let lyrNameNDRP = 'NDR_Phosphorus';
-  let lyrNameCarbon = 'Carbon_storage_and_sequestration';
+  let lyrNameAWY = 'Annual_Water_Yield'; // (mm)
+  let lyrNameSWY = 'Seasonal_Water_Yield'; // (mm)
+  let lyrNameSDR = 'Sediment_Delivery_Ratio'; // (t)
+  let lyrNameNDRN = 'NDR_Nitrogen'; // (kg)
+  let lyrNameNDRP = 'NDR_Phosphorus'; // (kg)
+  let lyrNameCarbon = 'Carbon_storage_and_sequestration'; // (t)
   let lyrNameAreasRios = 'NbS_portfolio';
   let lyrNameCatchment = 'Catchment';
   let lyrsModelsResult = [lyrNameAWY, lyrNameSWY, lyrNameSDR, lyrNameNDRN, lyrNameNDRP, lyrNameCarbon];
-
+              
   let lyrsLabels = {
     LULC_YEAR_0 : 'LULC Current Scenario',
     LULC_LAST_YEAR : 'LULC NbS Scenario',
     LULC_FUTURE : 'LULC BaU Scenario',
     Catchment : 'Catchment',
     NbS_portfolio : 'NbS Portfolio',
+    Annual_Water_Yield : 'Annual Water Yield (mm)',
+    Seasonal_Water_Yield : 'Seasonal Water Yield (mm)',
+    Sediment_Delivery_Ratio : 'Sediment Delivery Ratio (t)',
+    NDR_Nitrogen : 'NDR Nitrogen (kg)',
+    NDR_Phosphorus : 'NDR Phosphorus (kg)',
+    Carbon_storage_and_sequestration : 'Carbon storage and sequestration (t)',    
   }
 
   let attribution = "Waterproof data © 2021 TNC";
-
+  let keys = ['awy','carbon', 'swy','ndr_n', 'ndr_p', 'sdr'];  
   let lyrsNames = [lyrNameLastYear];
   var overlaysLeft = {};
   lyrsNames.forEach(function (lyrName) {
@@ -129,7 +135,7 @@ $(document).ready(function () {
 
   var overlaysResults = {};
   lyrsModelsResult.forEach(function (lyrName) {
-    overlaysResults[lyrName] = createWMSLyr(urlWaterProofLyrsWMS, lyrName).addTo(mapResults);
+    overlaysResults[lyrsLabels[lyrName]] = createWMSLyr(urlWaterProofLyrsWMS, lyrName).addTo(mapResults);
   });
 
   lyrsNames = [lyrNameCatchment];
@@ -219,7 +225,7 @@ $(document).ready(function () {
 
   async function rasterStatisticsApi () {
     // TODO - change serverApi URL to use the new API
-    let serverApi =  location.protocol + '//' + location.hostname + '/wf-models/';
+    
     //let serverApi = '/proxy/?url=https://dev.skaphe.com/wf-models/';
     let amp = "&";
     if (serverApi.indexOf("proxy") >=0){
@@ -241,17 +247,18 @@ $(document).ready(function () {
     let lyrName = p.children[1].innerText.trim();
     let min = '0,0';
     let max = '1,0';
-    if (lyrsModelsResult.includes(lyrName)) {
+    
+    let lyrsFilter = Object.keys(lyrsLabels).filter(l => lyrsLabels[l] == lyrName);
+    if (lyrsFilter.length > 0) {
       if (t.checked) {
-        let lyrs = [lyrNameAWY, lyrNameCarbon, lyrNameSWY, lyrNameNDRN, lyrNameNDRP, lyrNameSDR];
-        let keys = ['awy','carbon', 'swy','ndr_n', 'ndr_p', 'sdr']
-        let k = keys[lyrs.indexOf(lyrName)];
+        let lyrs = [lyrNameAWY, lyrNameCarbon, lyrNameSWY, lyrNameNDRN, lyrNameNDRP, lyrNameSDR];                
+        let k = keys[lyrs.indexOf(lyrsFilter[0])];
         min = Math.round(rasterResultStatistics[k][0].min).toFixed(1).replace(".",",");
         max = Math.round(rasterResultStatistics[k][0].max).toFixed(1).replace(".",",");
         
         if (p.childElementCount == 2) {
           let lgndHtml =  `<div>
-                            <div><img src="/static/lib/img/legend-gray-h.png" style="margin-left: 15px;"></div> 
+                            <div><img src="/static/lib/img/legend-${k}-h.png" style="margin-left: 15px;"></div> 
                             <div> <span style="margin-left: 15px;">${min}</span> 
                                 <span style="margin-left: 100px;">${max}</span></div>  
                           </div>
