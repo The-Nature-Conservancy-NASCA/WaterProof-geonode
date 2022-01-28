@@ -489,9 +489,9 @@
            styleOption4 == "block" && styleOption5 == "block" && styleOption6 == "block" && 
            styleOption7 == "block" && styleOption8 == "block" && styleOption9 == "block" && 
            styleOption10 == "block" && styleOption11 == "block" && styleOption12 == "block"){
-            showMessageModal(_('Information'),_("'Please, complete the form"),'warning');
+            showMessageModal(_('Information'),_("Please, complete the form"),'warning');
         }else if(flagChecked==document.getElementsByName('listFunction').length){
-            showMessageModal(_('Information'),_("'Please, complete the form"),'warning');
+            showMessageModal(_('Information'),_("Please, complete the form"),'warning');
             }else{
                 if(saveForm) {
                     var arrayCsinfra = [];
@@ -534,7 +534,7 @@
                         showMessageModal('Error',_("It does not have a record in the type of treatment plant"),'error');                
                     }
                 }else{
-                    showMessageModal(_('Information'),_("'Please, complete the form"),'warning');
+                    showMessageModal(_('Information'),_("Please, complete the form"),'warning');
                 }
         }
         // let styleOption1 = $('#id11d').css("display");
@@ -1616,6 +1616,7 @@
         let defVal = (defaultVal == null ? "" : `default="${defaultVal}"`);
         let stepVal = (step == null ? "" : `step="${step}"`);
         let placeholderVal = (placeholder == null ? "" : `placeholder='${placeholder}'`);
+        console.log(enabled+"this enabled")
         return `<div class="input-var"><div class="form-group"><label>${label}</label>
         <input class="form-control" ${typeEl} ${idEl} ${val} ${readonlyVal} ${minVal} ${maxVal} ${defVal} ${stepVal} ${placeholderVal} ${eventsEl} ${enabled?'':'disabled'}></input>
         <div class="help-block with-errors"></div></div></div>`;
@@ -1701,7 +1702,7 @@
         let factor = $("#factorCost").val();
 
         if (fnName == "" || expression == "") {
-            showMessageModal(_('Information'),_("'Please, complete the form"),'warning');            
+            showMessageModal(_('Information'),_("Please, complete the form"),'warning');            
             return;
         }
 
