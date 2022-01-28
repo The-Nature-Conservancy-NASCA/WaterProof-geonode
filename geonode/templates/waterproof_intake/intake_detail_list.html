@@ -21,6 +21,9 @@
             ]
         }
     };
+    // $(document).ready(function () {        
+    //     initialize();        
+    // });
 </script>
 
 {% endblock %}
@@ -57,11 +60,19 @@
                         {% trans "Demand" %}
                     </a>
                 </li>
+                {% if externalInputs == "[]" %}
                 <li>
-                    <a class="nav-link" href="#step-4">
+                    <a class="nav-link" id="test-validate" style="display: none;" href="#step-4">
                         {% trans "External input" %}
                     </a>
                 </li>
+                {% else %}
+                <li>
+                    <a class="nav-link" id="test-validate" style="display: table;"  href="#step-4">
+                        {% trans "External input" %}
+                    </a>
+                </li>
+                {% endif %}
                 <li>
                     <a class="nav-link" href="#step-5">
                         {% trans "NbS area" %}
@@ -397,5 +408,15 @@
 <script src="{{ STATIC_URL }}waterproof_intake/mathquill/mathquill.min.js"></script>
 <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+<script type="text/javascript">
+    // document.getElementById("test-validate").style.display="table";
+    // // for (const item of {externalInputs}) {
+    //     console.log("aqu[ie entr[o");
+    //     if (externalInputs == "[]") {
+    //         document.getElementById("test-validate").style.display="none";
+    //     };
+    // };
+</script>
 
 {% endblock %}

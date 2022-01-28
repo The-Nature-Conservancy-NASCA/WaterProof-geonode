@@ -48,6 +48,17 @@ const interpolationType = {
     MANUAL: 'MANUAL'
 }
 
+// function initialize (){
+//     $('#smartwizard').smartWizard("stepState", [3], "hide");
+//         for (const item of graphData) {
+//             if (item.external != null && item.external != 'false') {
+//                 $('#smartwizard').smartWizard("stepState", [3], "show");
+//             }
+//         }
+// }
+
+// $('.test-validate').style.display="none";
+
 var mapLoader;
 $(document).ready(function() {
     // Interpolation with Wizard
@@ -152,12 +163,6 @@ $(document).ready(function() {
     setInterpolationParams();
     
     $('#step1NextBtn').click(function() {
-        $('#smartwizard').smartWizard("stepState", [3], "hide");
-        for (const item of graphData) {
-            if (item.external != null && item.external != 'false') {
-                $('#smartwizard').smartWizard("stepState", [3], "show");
-            }
-        }
         $('#smartwizard').smartWizard("next");
     });
 
@@ -167,13 +172,17 @@ $(document).ready(function() {
 
     $('#step2NextBtn').click(function() {
         console.log("pasó al tercer paso")
-            $('#smartwizard').smartWizard("stepState", [3], "hide");
-            for (const item of graphData) {
-                if (item.external != null && item.external != 'false') {
-                    $('#smartwizard').smartWizard("stepState", [3], "show");
-                    generateInterpolationResult();
-
-                }
+            if(document.getElementById("test-validate").style.display == "none"){
+                $('#smartwizard').smartWizard("stepState", [3], "hide");
+                for (const item of graphData) {
+                        if (item.external == null && item.external == 'false') {
+                            $('#smartwizard').smartWizard("stepState", [3], "show");
+                            generateInterpolationResult();
+        
+                        }
+                    }
+            }else if (document.getElementById("test-validate").style.display == "table"){
+                $('#smartwizard').smartWizard("stepState", [3], "show");
             }
             clearDataHtml();
             $('#smartwizard').smartWizard("next");
@@ -225,6 +234,15 @@ $(document).ready(function() {
             });
             return;
         }
+    });
+    $('#step4NextBtn').click(function () {
+        $('#smartwizard').smartWizard("next");
+    });
+    $('#step4PrevBtn').click(function () {
+        $('#smartwizard').smartWizard("prev");
+    });
+    $('#step5PrevtBtn').click(function () {
+        $('#smartwizard').smartWizard("prev");
     });
 
     // Change Option Manual Tab
