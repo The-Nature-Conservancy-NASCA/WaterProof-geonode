@@ -254,7 +254,7 @@ msgid "Aqueduct ind text 1"
 msgstr "In this section we leverage the the Aqueduct tool to analyze water quality and quantity risks for thecase studyareas so that you identify areas that require more attention."
 
 msgid "Aqueduct ind text 2"
-msgstr "Aqueduct is a platform that compiles results in hydrological modeling, remote sensing data,Andotherdata sets."
+msgstr "Aqueduct is a platform that compiles results in hydrological modeling, remote sensing data, and other datasets."
 
 msgid "Aqueduct ind text 3"
 msgstr "Baseline water stress measures the ratio of total water withdrawals to available renewable surface and groundwater supplies. Higher values indicate more competition between users."

@@ -577,24 +577,32 @@ function onInit(editor) {
 
         $('#saveAndValideCost').click(function() {
             if($('#costFunctionName').val() === ''){
-                Swal.fire(
-                    gettext('Please, complete the form'),
-                );
+                Swal.fire({
+                    icon: 'warning',
+                    title: gettext('field_empty'),
+                    text: gettext('Please, complete the form'),
+                });
                 return false;
             }else if ($('#costFuntionDescription').val() === ''){
-                Swal.fire(
-                    gettext('Please, complete the form'),
-                );
+                Swal.fire({
+                    icon: 'warning',
+                    title: gettext('field_empty'),
+                    text: gettext('Please, complete the form'),
+                });
                 return false;
             }else if ($('#global_multiplier_factorCalculator').val() === ''){
-                Swal.fire(
-                    gettext('Please, complete the form'),
-                );
+                Swal.fire({
+                    icon: 'warning',
+                    title: gettext('field_empty'),
+                    text: gettext('Please, complete the form'),
+                });
                 return false;
             }else if ($('#python-expression').val() === ''){
-                Swal.fire(
-                    gettext('Please, complete the form'),
-                );
+                Swal.fire({
+                    icon: 'warning',
+                    title: gettext('field_empty'),
+                    text: gettext('Please, complete the form'),
+                });
                 return false;
             }else if (banderaFunctionCost) {
                 //true = nueva

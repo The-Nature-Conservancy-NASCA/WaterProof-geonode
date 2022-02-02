@@ -1501,7 +1501,35 @@ $("#ModalAddCostBtn").click(function () {
 });
 
 $('#saveAndValideCost').click(function () {
-    if (flagFunctionCost) {
+    if($('#costFunctionName').val() === ''){
+        Swal.fire({
+            icon: 'warning',
+            title: gettext('field_empty'),
+            text: gettext('Please, complete the form'),
+        });
+        return false;
+    }else if ($('#costFuntionDescription').val() === ''){
+        Swal.fire({
+            icon: 'warning',
+            title: gettext('field_empty'),
+            text: gettext('Please, complete the form'),
+        });
+        return false;
+    }else if ($('#global_multiplier_factorCalculator').val() === ''){
+        Swal.fire({
+            icon: 'warning',
+            title: gettext('field_empty'),
+            text: gettext('Please, complete the form'),
+        });
+        return false;
+    }else if ($('#python-expression').val() === ''){
+        Swal.fire({
+            icon: 'warning',
+            title: gettext('field_empty'),
+            text: gettext('Please, complete the form'),
+        });
+        return false;
+    }else if (flagFunctionCost) {
         //true = nueva
         var pyExp = $('#python-expression').val();
         funcostdb.push({
