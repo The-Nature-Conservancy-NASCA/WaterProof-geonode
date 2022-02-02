@@ -492,6 +492,8 @@
             showMessageModal(_('Information'),_("Please, complete the form"),'warning');
         }else if(flagChecked==document.getElementsByName('listFunction').length){
             showMessageModal(_('Information'),_("Please, complete the form"),'warning');
+            }else if(document.getElementsByClassName('test-required-label').val() === ''){
+            showMessageModal(_('Information'),_("Please, complete the form"),'warning');
             }else{
                 if(saveForm) {
                     var arrayCsinfra = [];
@@ -1619,7 +1621,7 @@
         let placeholderVal = (placeholder == null ? "" : `placeholder='${placeholder}'`);
         console.log(enabled+"this enabled")
         return `<div class="input-var"><div class="form-group"><label>${label}</label>
-        <input class="form-control" ${typeEl} ${idEl} ${val} ${readonlyVal} ${minVal} ${maxVal} ${defVal} ${stepVal} ${placeholderVal} ${eventsEl} ${enabled?'':'disabled'}></input>
+        <input class="form-control test-required-label" ${typeEl} ${idEl} ${val} ${readonlyVal} ${minVal} ${maxVal} ${defVal} ${stepVal} ${placeholderVal} ${eventsEl} ${enabled?'':'disabled'}></input>
         <div class="help-block with-errors"></div></div></div>`;
     }
 
@@ -1703,11 +1705,23 @@
         let factor = $("#factorCost").val();
 
         if (fnName == "" || expression == "") {
-            showMessageModal(_('Information'),_("Please, complete the form"),'warning');            
+            showMessageModal(_("field_empty"),_("Please, complete the form"),'warning');            
             return;
         }
 
-        if (flagNewFunction){            
+        if($('#costFunctionName').val() === ''){
+            showMessageModal(_("field_empty"),_("Please, complete the form"),'warning'); 
+            return false;
+        }else if ($('#costFuntionDescription').val() === ''){
+            showMessageModal(_("field_empty"),_("Please, complete the form"),'warning'); 
+            return false;
+        }else if ($('#factorCost').val() === ''){
+            showMessageModal(_("field_empty"),_("Please, complete the form"),'warning'); 
+            return false;
+        }else if ($('#python-expression').val() === ''){
+            showMessageModal(_("field_empty"),_("Please, complete the form"),'warning'); 
+            return false;
+        }else if (flagNewFunction){            
             let trNewFunction = addNewFunction(selectedTechnologyId, graphId, selectedSubprocess);
             var triggerClick = ($(`#technology${selectedTechnologyId} table tbody`)[0].children.length == 0);
             $(`#technology${selectedTechnologyId} table tbody`).append (trNewFunction);

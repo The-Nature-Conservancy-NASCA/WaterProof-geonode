@@ -466,3 +466,6 @@ msgstr "Water hyacinth remotion"
 
 msgid "Damming"
 msgstr "Reservoir"
+
+msgid "field_empty"
+msgstr "Field Empty"

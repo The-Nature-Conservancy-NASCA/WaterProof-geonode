@@ -286,7 +286,7 @@ msgid "Oportunity results ind text 1"
 msgstr "Aquí encuentra los valores globales de inversión y de ahorros que se darán por la implementación de las SbN seleccionadas en su caso de estudio:"
 
 msgid "Aqueduct ind text 1"
-msgstr "En esta sección aprovechamos los resultados de los análisis de Aqueductpara analizar los riesgos de calidad y cantidad del agua realizando una intersección con las áreas de su caso de estudio, de forma que usted identifique áreas que requieren mayor atención"
+msgstr "En esta sección aprovechamos los resultados de los análisis de Aqueduct para analizar los riesgos de calidad y cantidad del agua realizando una intersección con las áreas de su caso de estudio, de forma que usted identifique áreas que requieren mayor atención"
 
 msgid "Aqueduct ind text 2"
 msgstr "Aqueduct es una plataforma que compila resultados en modelización hidrológica, datos de teledetección, y conjuntos de datos"

@@ -352,3 +352,6 @@ msgstr "Lavado de agua-aire"
 
 msgid "Pump washing"
 msgstr "Lavado de bombas"
+
+msgid "field_empty"
+msgstr "Campo vacío"
