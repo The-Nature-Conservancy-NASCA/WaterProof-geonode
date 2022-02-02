@@ -437,7 +437,7 @@
                     <div class="row text-center">
                         <div class="col-md-12 form-group">
                             <button type="button" value="previous" class="btn btn-primary" id="step5PrevBtn">{% trans "Previous" %}</button>
-                            <input type="button" value="next" id="submit" class="btn btn-primary" value="{% trans 'Save' %}"></input>
+                            <input type="button" id="submit" class="btn btn-primary" value="{% trans 'Save' %}"></input>
                         </div>
                     </div>
                 </div>
@@ -486,20 +486,20 @@
                         </div>
                         <div class="row">
                             <div class="col-xs-6">
-                                <label class="text-primary">{% trans "Currency for definition of costs" %} </label>
+                                <label class="text-primary">{% trans "Currency for definition of costs" %}</label>
                                 <select id="currencyCost" class="form-control" required>
                                     {% for currency in currencies %}
-                                    {% if currency.iso3 == 'USA'%}
-                                        {% if currency.currency == intake.city.country.currency %}                                                
-                                            <option value="{{currency.pk}}" data-country="{{currency.iso3}}" selected>({{currency.currency}}) - {{currency.name}}</option>
+                                    {% if currency.currency == 'USD'%}
+                                        {% if currency.iso3 == userCountry.iso3 %}
+                                            <option value="{{currency.pk}}" data-country="{{currency.iso3}}" selected>({{currency.currency}}) - {{currency.name}} </option>
                                         {% else %}
-                                            <option value="{{currency.pk}}" data-country="{{currency.iso3}}">({{currency.currency}}) - {{currency.name}}</option>
+                                            <option value="{{currency.pk}}" data-country="{{currency.iso3}}">({{currency.currency}}) - {{currency.name}} </option>
                                         {% endif %}                                            
                                     {% else %}
-                                        {% if currency.currency == intake.city.country.currency %}
+                                        {% if currency.currency == userCountry.currency %}
                                             <option value="{{currency.pk}}" attr="{{currency.currency}}" selected>({{currency.currency}}) - {{currency.name}} </option>
                                         {% else %}
-                                            <option value="{{currency.pk}}">({{currency.currency}}) - {{currency.name}}</option>
+                                            <option value="{{currency.pk}}">({{currency.currency}}) - {{currency.name}} </option>
                                         {% endif %}
                                     {% endif %}
                                 {% endfor %}

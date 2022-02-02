@@ -30,7 +30,7 @@ $(document).ready(function () {
             $("#countryLabel").html(localStorage.getItem('country'));
             $("#cityLabel").html(localStorage.getItem('city'));
             $("#regionLabel").html(localStorage.getItem('region'));
-            $("#currencyLabel").html(localStorage.getItem('currency'));
+            $("#currencyLabel").html(localStorage.getItem('currencyCode'));
         } catch (e) {
 
         }
@@ -115,7 +115,8 @@ function selectedCityResultHandler(feat) {
         localStorage.setItem('countryCode',data.alpha3Code);
         localStorage.setItem('country', country);
         localStorage.setItem('region', data.region);
-        localStorage.setItem('currency', data.currencies[0].name);
+        localStorage.setItem('currencyCode', data.currencies[0].name);
+        localStorage.setItem('currency', data.countryId);
     });
 
     urlAPI = location.protocol + "//" + location.host + "/parameters/getClosetsCities/?x=" + feat.geometry.coordinates[0] + "&y=" + feat.geometry.coordinates[1];

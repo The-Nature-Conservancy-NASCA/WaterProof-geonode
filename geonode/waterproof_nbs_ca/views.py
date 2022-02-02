@@ -151,7 +151,7 @@ def createNbs(request):
         else:  # GET METHOD
             nbs = WaterproofNbsCa.objects.all()
             usaCountry = Countries.objects.get(iso3='USA')
-            currencies = Countries.objects.values('currency', 'name', 'iso3').distinct().exclude(currency='').order_by('currency')
+            currencies = Countries.objects.values('pk', 'currency', 'name', 'iso3').distinct().exclude(currency='').order_by('currency')
             countries = currencies            
             transitions = RiosTransition.objects.all()
             riosActivity = RiosActivity.objects.all()
@@ -346,7 +346,7 @@ def editNbs(request, idx):
         return render(request, 'waterproof_nbs_ca/waterproofnbsca_login_error.html')
     else:
         if request.method == 'GET':            
-            currencies = currencies = Countries.objects.values('currency', 'name', 'iso3').distinct().exclude(currency='').order_by('currency')
+            currencies = currencies = Countries.objects.values('pk', 'currency', 'name', 'iso3').distinct().exclude(currency='').order_by('currency')
             countries = currencies
             usaCountry = Countries.objects.get(iso3='USA')
             filterNbs = WaterproofNbsCa.objects.get(id=idx)
@@ -510,7 +510,7 @@ def cloneNbs(request, idx):
         return render(request, 'waterproof_nbs_ca/waterproofnbsca_login_error.html')
     else:
         if request.method == 'GET':
-            currencies = Countries.objects.values('currency', 'name', 'iso3').distinct().exclude(currency='').order_by('currency')
+            currencies = Countries.objects.values('pk', 'currency', 'name', 'iso3').distinct().exclude(currency='').order_by('currency')
             countries = currencies
             usaCountry = Countries.objects.get(iso3='USA')
             userCountry = Countries.objects.get(iso3=request.user.country)
@@ -664,7 +664,7 @@ def viewNbs(request, idx):
     filterNbs = WaterproofNbsCa.objects.filter(id=idx)
     nbs = WaterproofNbsCa.objects.get(id=idx)
     country = Countries.objects.get(id=nbs.country_id)
-    currencies = currencies = Countries.objects.values('currency', 'name', 'iso3').distinct().exclude(currency='').order_by('currency')
+    currencies = currencies = Countries.objects.values('pk', 'currency', 'name', 'iso3').distinct().exclude(currency='').order_by('currency')
     countries = currencies
     userCountry = Countries.objects.get(iso3=request.user.country)
     region = Regions.objects.get(id=nbs.country.region_id)

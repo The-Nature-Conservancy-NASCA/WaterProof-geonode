@@ -614,15 +614,7 @@ function onInit(editor) {
                         'function_description': $('#costFuntionDescription').val(),
                         'global_multiplier_factorCalculator': $('#global_multiplier_factorCalculator').val(),
                         'currencyCost': $('#currencyCost option:selected').val(),
-                        'currencyCostName': $('#currencyCost option:selected').text(),
-                        'logical': [{
-                            'condition_1': "",
-                             'ecuation_1': "",
-                             'condition_2': "",
-                             'ecuation_2': "",
-                             'condition_3': "",
-                             'ecuation_3': ""
-                        }],
+                        'currencyCostName': $('#currencyCost option:selected').text(),                        
                     }
                 });
 
@@ -635,15 +627,7 @@ function onInit(editor) {
                     'function_description': $('#costFuntionDescription').val(),                    
                     'global_multiplier_factorCalculator': $('#global_multiplier_factorCalculator').val(),
                     'currencyCost': $('#currencyCost option:selected').val(),
-                    'currencyCostName': $('#currencyCost option:selected').text(),
-                    'logical': [{
-                        'condition_1': "", 
-                        'ecuation_1': "", 
-                        'condition_2': "", 
-                        'ecuation_2': "", 
-                        'condition_3': "", 
-                        'ecuation_3': "", 
-                    }],
+                    'currencyCostName': $('#currencyCost option:selected').text(),                    
                 }
 
                 temp.logical = JSON.stringify(temp.logical);
@@ -669,7 +653,7 @@ function onInit(editor) {
             $('#funcostgenerate tr').remove();
             $('#funcostgenerate').empty();
             for (let index = 0; index < funcostdb.length; index++) {                
-                funcost( index);
+                funcost(index);
             }
             $('#CalculatorModal').modal('hide');
             validateGraphIntake();
@@ -729,14 +713,19 @@ function onInit(editor) {
                     $(`#funcostgenerate tr[idvalue = 'fun_${id}']`).remove();
                     if (typeof(selectedCell.value) == "string" && selectedCell.value.length > 0) {
                         var obj = JSON.parse(selectedCell.value);
-                        let dbfields = JSON.parse(obj.funcost);
+                        let dbfields = typeof(obj.funcost) == "object" ? obj.funcost : JSON.parse(obj.funcost);
                         dbfields.splice(id, 1);
-                        obj.funcost = JSON.stringify(dbfields);
+                        //obj.funcost = JSON.stringify(dbfields);
                         selectedCell.setValue(JSON.stringify(obj));
                         $('#funcostgenerate tr').remove();
                         $('#funcostgenerate').empty();
+                        funcostdb.splice(id, 1);
                         for (let index = 0; index < funcostdb.length; index++) {
-                            funcost(funcostdb[index].fields.function_value, funcostdb[index].fields.function_name, index, MQ);
+                            funcost(index);
+                        }
+                        let filterGraph = graphData.filter(g => g.id == selectedCell.id);
+                        if (filterGraph.length > 0){
+                            filterGraph[0].funcost = funcostdb; //JSON.stringify(funcostdb);
                         }
                     } else {
                         funcostdb.splice(id, 1);
@@ -744,7 +733,11 @@ function onInit(editor) {
                         $('#funcostgenerate tr').remove();
                         $('#funcostgenerate').empty();
                         for (let index = 0; index < funcostdb.length; index++) {
-                            funcost(funcostdb[index].fields.function_value, funcostdb[index].fields.function_name, index, MQ);
+                            funcost(index);
+                        }
+                        let filterGraph = graphData.filter(g => g.id == selectedCell.id);
+                        if (filterGraph.length > 0){
+                            filterGraph[0].funcost = funcostdb; //JSON.stringify(funcostdb);
                         }
                     }
                     Swal.fire(

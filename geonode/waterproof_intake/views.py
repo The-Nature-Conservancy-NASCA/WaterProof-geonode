@@ -151,11 +151,14 @@ def createIntake(request):
         form = forms.IntakeForm(request.POST)
     else:
         form = forms.IntakeForm()
-        currencies = Countries.objects.values('currency', 'name', 'iso3').distinct().exclude(currency='').order_by('currency').all()
+        userCountry = Countries.objects.get(iso3=request.user.country)
+        currencies = Countries.objects.values('pk', 'currency', 'name', 'iso3').distinct().exclude(currency='').order_by('currency')
+
     return render(request, 'waterproof_intake/intake_form.html', context={
         "form": form, 
         "serverApi": settings.WATERPROOF_API_SERVER,
         'currencies': currencies,
+        'userCountry': userCountry
     })
 
 
@@ -281,8 +284,7 @@ def createStepTwo(request):
 
             if (len(actualElements) > 0):
                 for element in actualElements:
-                    print("deleting actualElements")
-                    print (element)
+                    print("deleting actualElements: %s" % element)
                     el = ElementSystem.objects.get(id=element)
                     existingValuesTime = list(ValuesTime.objects.filter(element=el.pk).values_list('id', flat=True))
                     for value in existingValuesTime:
@@ -298,6 +300,7 @@ def createStepTwo(request):
                     try:
                         # Regular element
                         if (element['external'] == 'false'):
+                            print ("element['external'] == 'false'")
                             parameter = json.loads(element['resultdb'])
                             element_system = ElementSystem.objects.create(
                                 graphId=element['id'],
@@ -317,31 +320,36 @@ def createStepTwo(request):
 
                             if not (element['funcost'] == None):
                                 costFunction = json.loads(element['funcost'])
+                                print("costFunction: %s" % costFunction)
                                 if (len(costFunction) > 0):
+                                    templateFunction = None
                                     for function in costFunction:
                                         try:
-                                            templateFunction = CostFunctionsProcess.objects.get(id=function['pk'])
-                                            if ('currencyCost' in function['fields']):
-                                                currency = Countries.objects.get(id=function['fields']['currencyCost'])
-                                            else:
-                                                currency = None
+                                            if 'pk' in function:
+                                                templateFunction = CostFunctionsProcess.objects.get(id=function['pk'])
+                                            currency = None
+                                            fn_fields = function['fields']
+                                            if ('currencyCost' in fn_fields):
+                                                currency = Countries.objects.get(id = fn_fields['currencyCost'])
+                                            
+                                            fn_fields = function['fields']                                            
                                             mainFunction = UserCostFunctions.objects.create(
-                                                name=function['fields']['function_name'],
-                                                description=function['fields']['function_description'],
-                                                function=function['fields']['function_value'],
-                                                function_factor=function['fields']['global_multiplier_factorCalculator'],
-                                                currency=currency,
-                                                template_function=templateFunction,
-                                                user=request.user,
+                                                name = fn_fields['function_name'],
+                                                description = fn_fields['function_description'],
+                                                function = fn_fields['function_value'],
+                                                function_factor = fn_fields['global_multiplier_factorCalculator'],
+                                                currency = currency,
+                                                template_function = templateFunction,
+                                                user = request.user,
                                                 element_system = element_system,
                                                 intake = existingIntake,
                                             )
-                                            print(mainFunction)                                            
                                         except Exception as e:
                                             print(e)
                         # External element
                         else:
                             parameter = json.loads(element['resultdb'])
+                            print ("element['external'] == 'true'")
                             try:
                                 if (len(parameter) > 0):
                                     element_system = ElementSystem.objects.create(
@@ -365,16 +373,16 @@ def createStepTwo(request):
                                         if (len(costFunction) > 0):
                                             for function in costFunction:
                                                 templateFunction = CostFunctionsProcess.objects.get(id=function['pk'])
-                                                if ('currencyCost' in function['fields']):
-                                                    currency = Countries.objects.get(
-                                                        id=function['fields']['currencyCost'])
+                                                fn_fields = function['fields']                                                
+                                                if ('currencyCost' in fn_fields):
+                                                    currency = Countries.objects.get(id=function['fields']['currencyCost'])
                                                 else:
                                                     currency = None
                                                 mainFunction = UserCostFunctions.objects.create(
-                                                    name=function['fields']['function_name'],
-                                                    description=function['fields']['function_description'],
-                                                    function=function['fields']['function_value'],
-                                                    function_factor=function['fields']['global_multiplier_factorCalculator'],
+                                                    name=fn_fields['function_name'],
+                                                    description=fn_fields['function_description'],
+                                                    function=fn_fields['function_value'],
+                                                    function_factor=fn_fields['global_multiplier_factorCalculator'],
                                                     template_function=templateFunction,
                                                     currency=currency,
                                                     user=request.user,
@@ -394,7 +402,6 @@ def createStepTwo(request):
                                             element=elementCreated
                                         )
                                 else:
-                                    print("Testing2")
                                     element_system = ElementSystem.objects.create(
                                         graphId=element['id'],
                                         name=element['name'],
@@ -411,6 +418,7 @@ def createStepTwo(request):
                         print(e)
                 # Connections
                 else:
+                    print ("Not exist external info")
                     parameter = json.loads(element['resultdb'])
                     if (len(parameter) > 0):
                         element_system = ElementSystem.objects.create(
@@ -430,41 +438,27 @@ def createStepTwo(request):
                         elementsCreated.append(elementC)
                         if not (element['funcost'] == None):
                             costFunction = json.loads(element['funcost'])
-                            if (len(costFunction) > 0):                                
+                            print("costFunction: %s" % costFunction)
+                            if (len(costFunction) > 0):
+                                templateFunction = None                             
                                 for function in costFunction:
-                                    # print (function)
-                                    templateFunction = CostFunctionsProcess.objects.get(id=function['pk'])
-                                    if ('currencyCost' in function['fields']):
-                                        currency = Countries.objects.get(id=function['fields']['currencyCost'])
-                                    else:
-                                        currency = None
+                                    if 'pk' in function:
+                                        templateFunction = CostFunctionsProcess.objects.get(id=function['pk'])
+                                    fn_fields = function['fields']                                    
+                                    currency = None
+                                    if ('currencyCost' in fn_fields):
+                                        currency = Countries.objects.get(id=fn_fields['currencyCost'])
                                     mainFunction = UserCostFunctions.objects.create(
-                                        name=function['fields']['function_name'],
-                                        description=function['fields']['function_description'],
-                                        function=function['fields']['function_value'],
-                                        function_factor=function['fields']['global_multiplier_factorCalculator'],
+                                        name=fn_fields['function_name'],
+                                        description=fn_fields['function_description'],
+                                        function=fn_fields['function_value'],
+                                        function_factor=fn_fields['global_multiplier_factorCalculator'],
                                         currency=currency,
                                         template_function=templateFunction,
                                         user=request.user,
                                         element_system = element_system,
                                         intake = existingIntake,
-                                    )
-                                    if ('logical' in function['fields']):
-                                        print("Saving logical function for connection")
-                                        # logicalFunctions = json.loads(function['fields']['logical'])
-                                        # print(len(logicalFunctions))
-                                        # if (len(logicalFunctions) > 0):
-                                        #     for logical in logicalFunctions:
-                                        #         print(logical)
-                                        #         createdLogical = UserLogicalFunctions.objects.create(
-                                        #             function1=logical['ecuation_1'],
-                                        #             condition1=logical['condition_1'],
-                                        #             function2=logical['ecuation_2'],
-                                        #             condition2=logical['condition_2'],
-                                        #             function3=logical['ecuation_3'],
-                                        #             condition3=logical['condition_3'],
-                                        #             mainFunction=mainFunction
-                                        #         )
+                                    )                                    
 
             # Once all elements created, save the connections
             for con in connectionsElements:
@@ -509,7 +503,6 @@ def createStepThree(request):
             interpolationString = request.POST.get('waterExtraction')
             interpolation = json.loads(interpolationString)
             if (interpolation['typeInterpolation'] == 'MANUAL'):
-                print("IS MANUAL")
                 isManual = True
                 interpolation['initialValue'] = 0
                 interpolation['finalValue'] = 0
@@ -699,7 +692,7 @@ def createStepFive(request):
                 # Validate file's extension
                 if (typeDelimitFile == 'geojson'):
                     delimitAreaJson = json.loads(delimitAreaString)
-                    print(delimitAreaJson)
+                    #print(delimitAreaJson)
                     for feature in delimitAreaJson['features']:
                         delimitAreaGeom = GEOSGeometry(str(feature['geometry']))
                     print('Delimitation file: geojson')
@@ -780,8 +773,6 @@ def get_geoms_intakes(intakes):
     return intake_geoms
 
 def intakes(request, city_id):
-    #print("intakes")
-            
     # print ("total intakes: %s" % count)
     if request.user.is_authenticated:            
         userCountry = Countries.objects.get(iso3=request.user.country)
@@ -956,7 +947,7 @@ def editIntake(request, idx):
                 for y in years:
                     extraction_result.append([y.year, '{0:.2f}'.format(y.value).replace(',', '.')])
                 print (extraction_result)
-            currencies = Countries.objects.values('currency', 'name', 'iso3').distinct().exclude(currency='').order_by('currency')
+            currencies = Countries.objects.values('pk','currency', 'name', 'iso3').distinct().exclude(currency='').order_by('currency')
             return render(
                 request, 'waterproof_intake/intake_edit.html',
                 {
@@ -980,7 +971,7 @@ def editIntake(request, idx):
 
 def viewIntake(request, idx):
     if request.method == 'GET':
-        countries = Countries.objects.values('currency', 'name', 'iso3').distinct().exclude(currency='').order_by('currency')
+        countries = Countries.objects.values('pk','currency', 'name', 'iso3').distinct().exclude(currency='').order_by('currency')
         filterIntake = Intake.objects.get(id=idx)
         filterExternal = ElementSystem.objects.filter(intake=filterIntake.pk, is_external=True)
         extInputs = []
@@ -1079,7 +1070,7 @@ def cloneIntake(request, idx):
     else:
         filterIntake = Intake.objects.get(id=idx)
         if request.method == 'GET':
-            currencies = Countries.objects.values('currency', 'name', 'iso3').distinct().exclude(currency='').order_by('currency')
+            currencies = Countries.objects.values('pk','currency', 'name', 'iso3').distinct().exclude(currency='').order_by('currency')
             countries = currencies
             filterElementSystem = ElementSystem.objects.filter(intake=filterIntake.pk)
             filterPolygon = Polygon.objects.get(intake=filterIntake.pk)
