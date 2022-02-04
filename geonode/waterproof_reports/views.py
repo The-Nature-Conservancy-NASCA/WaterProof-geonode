@@ -807,12 +807,14 @@ def pdf(request):
     pdf.set_text_color(100, 100, 100)
     pdf.set_fill_color(255, 255, 255)
 # Total discounted benefits
+    num_rows_total_discounted = 1
     for item in data:
         pdf.cell(epw/4, 3.5, format(item['timer']), border=1, align='R', fill=1)
         pdf.cell(epw/4, 3.5, format(float(item['totalMinBenefitR']), '0,.2f'), border=1, align='R', fill=1)
         pdf.cell(epw/4, 3.5, format(float(item['totalMedBenefitR']), '0,.2f'), border=1, align='R', fill=1)
         pdf.cell(epw/4, 3.5, format(float(item['totalMaxBenefittR']), '0,.2f'), border=1, align='R', fill=1)
         pdf.ln(3.5)
+        num_rows_total_discounted += 1
 
     print('getSensibilityAnalysisCost/?studyCase=' + study_case_id)
     requestJson = requests.get(url_api + 'getSensibilityAnalysisCost/?studyCase=' + study_case_id, verify=False)
@@ -864,9 +866,16 @@ def pdf(request):
     }
 
     hc_export.save_as_png(config=config, filename="imgpdf/satdc.png")
-    pdf.image('imgpdf/satdc.png', 30, 150, w=160, h=0, type='PNG')
 
-    # PAGE (8) - Data Table
+    img_y = 150
+    img_x = 22
+    if num_rows_total_discounted > 30:
+        pdf.add_page()
+        img_y = 25
+
+    pdf.image('imgpdf/satdc.png', img_x, img_y, w=160, h=0, type='PNG')
+
+    # PAGE (8 or 9) - Data Table
     pdf.add_page()
     pdf.ln(10)
     pdf.set_font('Arial', '', 10)
