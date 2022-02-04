@@ -494,8 +494,6 @@
             showMessageModal(_('Information'),_("Please, complete the form"),'warning');
         }else if(flagChecked==document.getElementsByName('listFunction').length){
             showMessageModal(_('Information'),_("Please, complete the form"),'warning');
-            }else if(document.getElementsByClassName('test-required-label').val() === ''){
-            showMessageModal(_('Information'),_("Please, complete the form"),'warning');
             }else{
                 if(saveForm) {
                     var arrayCsinfra = [];
@@ -1623,7 +1621,7 @@
         let placeholderVal = (placeholder == null ? "" : `placeholder='${placeholder}'`);
         console.log(enabled+"this enabled")
         return `<div class="input-var"><div class="form-group"><label>${label}</label>
-        <input class="form-control test-required-label" ${typeEl} ${idEl} ${val} ${readonlyVal} ${minVal} ${maxVal} ${defVal} ${stepVal} ${placeholderVal} ${eventsEl} ${enabled?'':'disabled'}></input>
+        <input class="form-control" ${typeEl} ${idEl} ${val} ${readonlyVal} ${minVal} ${maxVal} ${defVal} ${stepVal} ${placeholderVal} ${eventsEl} ${enabled?'':'disabled'}></input>
         <div class="help-block with-errors"></div></div></div>`;
     }
 
