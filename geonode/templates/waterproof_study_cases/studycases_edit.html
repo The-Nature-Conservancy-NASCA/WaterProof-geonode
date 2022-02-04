@@ -12,7 +12,9 @@
 <div class="header-waterproof">
     <div class="row">
         <div class="col-sm-6"><h1>{% trans "edit_study_cases" %}</h1></div>
-        <div class="col-sm-6"><h4 class="title-city">{% trans "creation_city" %}: <span id="cityLabel"></span> </h4></div>
+        <div class="col-sm-6">
+            <h4 id="title_city" idCity = "{{study_case.city.id}}" class="title-city">{% trans "creation_city" %}: {{study_case.city.name}}, {{study_case.city.country}} </h4>
+        </div>
     </div>
     <br>
     <!--Begin Form-->
