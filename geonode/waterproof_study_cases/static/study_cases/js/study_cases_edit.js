@@ -35,10 +35,11 @@ var intakes = [];
 var ptaps = [];
 var yearsDemand = [];
 var mapLoader;
+let cityId = document.getElementById('title_city').getAttribute('idCity');
 
 $(document).ready(function () {
     $('#autoAdjustHeightF').css("height", "auto");
-    $('#cityLabel').text(localStorage.city + ", " + localStorage.country);
+    // $('#cityLabel').text(localStorage.city + ", " + localStorage.country);
     $('#coeqCountry').text("CO2_country"+" ("+localStorage.country+")");    
     calculate_Personnel();
     calculate_Platform();
@@ -243,7 +244,7 @@ $(document).ready(function () {
                 description: $('#description').val(),
                 intakes: intakes,
                 ptaps: ptaps,
-                city_id: localStorage.cityId,
+                city_id: cityId,
                 country: localStorage.country,
                 type: type,
                 functions: JSON.stringify(funcostdb),
@@ -1012,7 +1013,7 @@ $(document).ready(function () {
     });
 
     function loadFinancialParameter() {
-        $.get("../../study_cases/parametersbycountry/" + localStorage.cityId, function (data) {
+        $.get("../../study_cases/parametersbycountry/" + cityId, function (data) {
             $.each(data, function (index, financialParameters) {
                 if (!$("#director").val())
                     $("#director").val(financialParameters.Program_Director_USD_YEAR);
@@ -1160,7 +1161,7 @@ $(document).ready(function () {
     }
 
     function loadIntakes() {
-        var city_id = localStorage.cityId;
+        var city_id = cityId;
         $.get("../../study_cases/intakebycity/" + city_id, function (data) {
             if (data.length > 0) {
                 $.each(data, function (index, intake) {
@@ -1188,7 +1189,7 @@ $(document).ready(function () {
     }
 
     function loadPtaps() {
-        var city_id = localStorage.cityId
+        var city_id = cityId;
         $.get("../../study_cases/ptapbycity/" + city_id, function (data) {
             if (data.length > 0) {
                 $.each(data, function (index, ptap) {
@@ -1218,7 +1219,7 @@ $(document).ready(function () {
     }
 
     function loadNBS() {        
-        var city_id = localStorage.cityId;
+        var city_id = cityId;
         $.post("../../study_cases/nbs/", {
             id_study_case: id_study_case,
             city_id: city_id,
@@ -1277,7 +1278,7 @@ $(document).ready(function () {
     }
 
     function loadNBSActivities() {
-        var city_id = localStorage.cityId
+        var city_id = cityId;
         $.post("../../study_cases/nbs/", {
             id_study_case: id_study_case,
             city_id: city_id,
@@ -1675,7 +1676,7 @@ function locationHref(){
     if (localStorage.getItem('returnTo') != null) {
         window.location.href = "/study_cases/" + localStorage.getItem('returnTo');
     }else{
-        location.href = "/study_cases/?city="+localStorage.cityId; 
+        location.href = "/study_cases/?city="+cityId; 
     }    
 }
 
