@@ -276,6 +276,8 @@
                                 setTimeout(function(){
                                     $("#idBackgroundGraph").hide();
                                 },1000);
+                                $("#black2").click();
+                                $(".main-point").click();
                             } else {
                                 showMessageModal('Error',result.detail,'error');                                
                             }
