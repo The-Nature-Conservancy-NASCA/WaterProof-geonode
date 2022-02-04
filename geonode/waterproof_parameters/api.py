@@ -12,25 +12,28 @@ import json
 
 @api_view(['GET'])
 def getClosetsCities(request):
-    x = request.GET['x']
-    y = request.GET['y']
-    con = psycopg2.connect(settings.DATABASE_URL)
-    cur = con.cursor()
-    query = "SELECT * from __wp_get_closest_cities(%s,%s)" % (x,y)
-    cur.execute(query)
-    rows = cur.fetchall()
-    return JsonResponse(rows, safe=False)
+    try:
+        x = float(request.GET['x'])
+        y = float(request.GET['y'])
+        con = psycopg2.connect(settings.DATABASE_URL)
+        cur = con.cursor()
+        query = "SELECT * from __wp_get_closest_cities(%s,%s)" % (x,y)
+        cur.execute(query)
+        rows = cur.fetchall()
+        return JsonResponse(rows, safe=False)
+    except Exception as e:
+        return JsonResponse({"error": 'wrong x(long) or y(lat) value'})
 
 @api_view(['GET'])
 def getCountryByIso2(request):
-    code = request.GET['code'].upper()    
-    c = Countries.objects.filter(iso2=code).first()
-    region = c.subregion
-    if (hasattr(c, 'region')):
-        region = c.region.name
-    print ("%s - %s - %s" % (c.name, region, c.currency))
-    #serialized = serializers.serialize('json', country)
+    
     try:
+        code = request.GET['code'].upper()[0:3]
+        c = Countries.objects.filter(iso2=code).first()
+        region = c.subregion
+        if (hasattr(c, 'region')):
+            region = c.region.name
+
         result = {'country': c.name, 
                 'region': region, 
                 'currencies': [{'name': c.currency, 'symbol': c.currency_symbol}],
@@ -45,7 +48,5 @@ def getCountryByIso2(request):
                 'countryId': code
             }
 
-
-    #return HttpResponse(result, content_type='application/json')
     return JsonResponse(result, safe=False)
 

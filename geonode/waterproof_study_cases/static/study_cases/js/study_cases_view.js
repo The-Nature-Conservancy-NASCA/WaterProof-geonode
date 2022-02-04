@@ -56,6 +56,12 @@ $(document).ready(function() {
     calculate_Platform();
     loadNBS();
 
+    if (funcostdb.length > 0) {
+        $("#panel-cost").removeClass('panel-hide');
+    }
+    funcostdb.forEach((f, index) => {
+        funcost(index);
+    });
 
     $('#step1NextBtn').click(function() {
         $('#smartwizard').smartWizard("next");
@@ -344,6 +350,37 @@ $(document).ready(function() {
 function autoAdjustHeight() {
     $('#autoAdjustHeightF').css("height", "auto");
 }
+
+function funcost(index) {
+    var currencyCostName = funcostdb[index].function.currencyCostName != undefined ? funcostdb[index].function.currencyCostName : funcostdb[index].function.currency;
+    var factor = funcostdb[index].function.factor;
+    if (currencyCostName == undefined) {
+        currencyCostName = localStorage.getItem("currencyCode");
+    }
+    if (factor == undefined) {
+        factor = localStorage.getItem("factor");
+    }
+    $('#funcostgenerate').append(
+        `<tr idvalue="fun_${index}">
+    <td aling="center">${funcostdb[index].function.name}</td>
+    <td class="small text-center vat" style="width: 160px">
+    <a class="btn btn-info" idvalue="${index}" name="fun_display_btn">fx</a>
+    <div id="fun_display_${index}" style="position: absolute; left: 50%; width: auto; display: none;">
+    <div class="alert alert-info mb-0" style="position: relative; left: -25%; bottom: 90px;" role="alert">
+    <p name="render_ecuation" style="font-size: 1.8rem; width:100%;">${funcostdb[index].function.value}</p>
+     </div>
+    </div>
+    </td>
+    <td class="small text-center vat">${currencyCostName}</td>
+    <td class="small text-center vat">${factor}</td
+</tr>`);
+    autoAdjustHeight();
+}
+
+$(document).on('click', 'a[name=fun_display_btn]', function () {
+    var idx = $(this).attr('idvalue');
+    $(`#fun_display_${idx}`).toggle();
+});
 
 window.onbeforeunload = function() {
     return mxResources.get('changesLost');

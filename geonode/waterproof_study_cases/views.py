@@ -377,7 +377,12 @@ def view(request, idx):
                 'default': defaultValue
             }
             portfolios.append(pObject)
-        models = ModelParameter.objects.all()        
+        models = ModelParameter.objects.all()     
+
+        functions = []
+        if study_case.cost_functions:
+            functions = json.loads(study_case.cost_functions)
+
         return render(
             request, 'waterproof_study_cases/studycases_view.html',
             {
@@ -389,6 +394,7 @@ def view(request, idx):
                 'analisys_currency_name': currency_name,
                 'cm_currency_name' : cm_currency_name,
                 'fn_currency_name' : fn_currency_name,
+                'costFunctions' : functions,
                 'invest_doc': settings.WATERPROOF_INVEST_DOC,
             }
         )
