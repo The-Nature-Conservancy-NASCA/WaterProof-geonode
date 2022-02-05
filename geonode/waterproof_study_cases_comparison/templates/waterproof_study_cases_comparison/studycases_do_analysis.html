@@ -1,0 +1,89 @@
+{% extends "menu.html" %} {% load i18n %} {% block title %}{% trans "Cases Study" %}{% endblock %} {% load bootstrap_tags %}{% load static %}
+<h1>{% trans "Cases Study" %}</h1>
+
+{% block extra_head %}
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_study_cases_comparison/css/study_cases.css"/>
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_study_cases_comparison/css/parallel_chart.css"/>
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_study_cases_comparison/css/splide.min.css"/>
+{% endblock %} 
+{% block body_outer %}
+
+<div class="header-waterproof">
+    <div>
+        <h1>{% trans "Case studies comparison" %}</h1>
+    </div>    
+    <div>
+        <div class="col-md-12">
+            <p style="text-align: justify;">{% trans "In this section you can compare the main indicators" %}</p>
+            <br>
+            <div class="panel-analisys" id="panel-ptap">
+                <div class="col-md-12 text-center">
+                    <div id="card-slider" class="splide">
+                        <div class="splide__track">
+                            <ul id="splide_ul" class="splide__list">
+                            </ul>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row form-group">
+                        <legend><label>{% trans "Axis selection" %} <span class="text-danger-wp" id="ptap-required"></span> </label></legend>
+                        <p>{% trans "Select the axis to show" %}</p>
+                        <div class="col-md-9">
+                            <select class="form-control" id="select_axis">
+                                <option value="roi_without_discount">{% trans "ROI (BENEFIT / COST) (TOTAL)" %}</option>
+                                <option value="roi_medium">{% trans "ROI Benefit/Cost (Discounted)" %}</option>
+                                <option value="awy">{% trans "Change in Volume of Water Yield" %} (%)</option>
+                                <option value="bf_m3">{% trans "Change in Base Flow" %} (%)</option>
+                                <option value="wsed_ton">{% trans "Change in Total Sediments" %} (%)</option>
+                                <option value="wn_kg">{% trans "Change in Nitrogen Load" %} (%)</option>
+                                <option value="wp_kg">{% trans "Change in Phosphorus Load" %} (%)</option>
+                                <option value="wc_ton">{% trans "Change in Carbon Storage" %}</option>
+                                <option value="implementation">{% trans "Cost Implementation NPV" %}</option>
+                                <option value="maintenance">{% trans "Cost Maintenance NPV" %}</option>
+                                <option value="oportunity">{% trans "Cost Oportunity NPV" %}</option>
+                                <option value="transaction">{% trans "Cost Transaction NPV" %}</option>
+                                <option value="platform">{% trans "Cost Platform NPV" %}</option>
+                                <option value="total">{% trans "Total NPV" %}</option>
+                            </select>
+                        </div>
+                        <div class="col-md-2">
+                            <button type="button" value="add axis" class="btn btn-primary" id="add_axis">{% trans "Add axis" %}</button>
+                        </div>
+                    </div>
+                    <div class="table-responsive" style="width: 100%;">
+                        <table id="axis_table" class="table table-striped table-bordered table-condensed" style="width:100%">
+                            <thead>
+                                <tr class="info">
+                                    <th scope="col" class="small text-center vat" >{% trans "Axis" %}</th>
+                                    <th scope="col" class="small text-center vat">{% trans "Action" %}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <h3 style="text-align: center; width: 100%;">{% trans "Parallel axis graph" %}</h3>
+        </div>
+        <div id="parallel" style="height: 600px;"></div>
+        <p class="highcharts-description"> 
+        </p>
+    </div>
+</div>
+{% block body %}{% endblock body %} {% block sidebar %}{% endblock sidebar %} {% endblock body_outer %} {% block extra_script %}
+
+<script src="{{ STATIC_URL }}geonode/js/datatables/dataTables.bootstrap.min.js"></script>
+<!-- Highcharts -->
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/data.js"></script>
+<script src="https://code.highcharts.com/modules/parallel-coordinates.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@latest/dist/js/splide.min.js"></script>
+
+<script src="{{ STATIC_URL }}waterproof_study_cases_comparison/js/studycases_doAnalysis.js"></script>
+<script src=" https://cdn.jsdelivr.net/npm/sweetalert2@10 "></script>
+<script type="text/javascript">
+var static_prefix="{% get_static_prefix %}";            
+</script>
+{% endblock %}

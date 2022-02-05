@@ -1,0 +1,111 @@
+{% extends "menu.html" %}
+{% load i18n %}
+{% load static from staticfiles %}
+{% load decimal_format %}
+{% load bootstrap_tags %}
+{% block extra_head %}
+
+<link rel="stylesheet" href="{{ STATIC_URL }}waterproof_intake/css/intake.css" />
+{% endblock %}
+{% block body_outer %}
+<!--header-->
+<div class="header-waterproof">
+    <div class="row">
+        <div class="col-sm-6">
+            <h1>{% trans "Water Intake Demand" %}</h1>
+        </div>
+        <div class="col-sm-6">
+            <h4 class="title-city">{% trans "Intake creation city" %}: <span id="cityLabel">{{intake.city.name}}, {{intake.city.country.name}}</span>
+            </h4>
+        </div>
+    </div>
+    <!--Begin Form-->
+    <form id="form" method="POST" action="">
+        {% csrf_token %}
+        <div id="step-3" class="tab-pane" role="tabpanel">
+            <!--Header-->
+            <div>
+                <h3>{% trans "Water extraction"%}</h3>                        
+            </div>
+            <!--contents tabs manual and automatic-->
+            <div class="tab-content">
+                <!--tab automatic-->
+                <div class="tab-pane fade in active" id="automatic">
+                    <div class="form-group">
+                        <div class="row">
+                            <!--Data analysis Insert-->
+                            <div class="col-md-8">
+                                <h5 class="text-primary">{% trans "Data analysis" %}</h5>                                        
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label>{% trans "Interpolation method" %} </label>
+                                            <input type="text" class="form-control" id="typeProcessInterpolation" value='{{interpolation}}' disabled >
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label>{% trans "Number of years for time series" %} </label>
+                                            <input type="text" class="form-control"value='{{intake.demand_parameters.years_number}}' disabled>
+                                        </div>
+                                    </div>
+                                </div>
+                                {%if intake.demand_parameters.interpolation_type != 'MANUAL'%}
+                                <h5 class="text-primary">{% trans "Extraction" %}</h5>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label>{% trans "Initial year" %} </label>
+                                            <input type="text" class="form-control" value='{{initial_extraction}}' disabled>
+                                        </div>
+                                        <div class="col-md-6" id="finalColumnExtraction">
+                                            <label>{% trans "Final year" %} </label>
+                                            <input type="text" class="form-control" value='{{final_extraction}}' disabled>
+                                        </div>
+                                    </div>
+                                </div>
+                                {%endif%}
+                            </div>
+                            <!--Data analysis Results-->
+                            <div class="col-md-4">
+                                <h5 class="text-primary">{% trans "Results" %}</h5>
+                                <div style="max-height: 400px; overflow-y: auto;">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center" scope="col">{% trans "Year" %}</th>
+                                                <th class="text-center" scope="col">{% trans "Extraction Value (l/s)" %}</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="intakeECTAG">
+                                            {% for y in extraction_result %}
+                                            <tr >
+                                                <td class="small text-center " >{{y.0}}</th>
+                                                <td class="small text-center " >{{y.1}}</th>
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="row text-center">
+                <div class="col-md-12">                    
+                    <a type="button" class="btn btn-primary" 
+                        href="{% url "list-intake" %}?city={{ intake.city.id }}&limit={{ CLIENT_RESULTS_LIMIT }}" >
+                        {% trans "Exit" %}
+                    </a>
+                </div>
+            </div>
+        </div>        
+    </form>
+</div>
+
+{% endblock %}
+{% block extra_script %}
+<script src="{{ STATIC_URL }}geonode/js/waterproof/waterIntake.js"></script>
+
+
+{% endblock %}

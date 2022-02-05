@@ -17,7 +17,7 @@
 <div class="header-waterproof">
     <div class="page-header">
         <h1>{% trans "Clone Nature based solution (NBS)" %}
-            <button type="button" data-toggle="modal" data-target="#HelpClone" id="HelpModalBtnModal" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button> 
+            <button type="button" value="help modal button clone" data-toggle="modal" data-target="#HelpClone" id="HelpModalBtnModal" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; border-style: none; background-color:transparent;"></button> 
         </h1>
         {% if user.professional_role == 'ADMIN' %}
             <h3>{% trans "Global USA based" %}</h3>
@@ -65,11 +65,11 @@
                     <label>{% trans "Currency for definition of costs" %} <span class="text-danger-wp">(*)</span> </label>
                     <select id="currencyCost" {{countryEnable}} class="form-control" data-error="This field is required" required>
                         {% for currency in currencies %}
-                        {% if nbs.currency.iso3 == currency.iso3 %}
-                        <option value="{{currency.iso3}}" data-country="{{currency.iso3}}" selected>({{currency.currency}}) - {{currency.name}}</option>
-                        {% else %}
-                        <option value="{{currency.iso3}}" data-country="{{currency.iso3}}">({{currency.currency}}) - {{currency.name}}</option>
-                        {% endif %}
+                            {% if nbs.currency.iso3 == currency.iso3 %}
+                            <option value="{{currency.iso3}}" selected>({{currency.currency}}) - {{currency.name}}</option>
+                            {% else %}
+                            <option value="{{currency.iso3}}">({{currency.currency}}) - {{currency.name}}</option>
+                            {% endif %}
                         {% endfor %}
                     </select>
                     <div class="help-block with-errors"></div>
@@ -107,37 +107,37 @@
                 {% if user.professional_role == 'ANALYS' and nbs.added_by.professional_role == 'ADMIN' %}
                     <div class="col-md-4">
                         <label id="implementCostLabel">{% trans "Implementation cost (US$/ha)" %} <span class="text-danger-wp">(*)</span> </label>
-                        <input id="implementCost" value="{{ nbs.unit_implementation_cost|multiplyFactor:userCountry.global_multiplier_factor|decimalFormat:2 }}" type="text" onfocusout="return afterCheckDecimal(event,value)" onInput="return checkDecimalFormat(event,value)" 
+                        <input id="implementCost" value="{{ nbs.unit_implementation_cost|decimalFormat:2 }}" type="text" onfocusout="return afterCheckDecimal(event,value)" onInput="return checkDecimalFormat(event,value)" 
                         class="form-control" data-error='{% trans "Field is required" %}' required>
                         <div class="help-block with-errors"></div>
                     </div>
                     <div class="col-md-4">
                         <label id="maintenanceCostLabel">{% trans "Maintenace cost (US$/ha)" %} <span class="text-danger-wp">(*)</span> </label>
-                        <input id="maintenanceCost" value="{{ nbs.unit_maintenance_cost|multiplyFactor:userCountry.global_multiplier_factor|decimalFormat:2 }}" type="text" onfocusout="return afterCheckDecimal(event,value)" onInput="return checkDecimalFormat(event,value)" 
+                        <input id="maintenanceCost" value="{{ nbs.unit_maintenance_cost|decimalFormat:2 }}" type="text" onfocusout="return afterCheckDecimal(event,value)" onInput="return checkDecimalFormat(event,value)" 
                         class="form-control" data-error='{% trans "Field is required" %}' required>
                         <div class="help-block with-errors"></div>
                     </div>
                     <div class="col-md-4">
                         <label id="oportunityCostLabel">{% trans "Oportunity cost (US$/ha)" %} <span class="text-danger-wp">(*)</span> </label>
-                        <input id="oportunityCost" value="{{ nbs.unit_oportunity_cost|multiplyFactor:userCountry.global_multiplier_factor|decimalFormat:2 }}" type="text"  onfocusout="return afterCheckDecimal(event,value)" onInput="return checkDecimalFormat(event,value)"  class="form-control" data-error='{% trans "Field is required" %}' required>
+                        <input id="oportunityCost" value="{{ nbs.unit_oportunity_cost|decimalFormat:2 }}" type="text"  onfocusout="return afterCheckDecimal(event,value)" onInput="return checkDecimalFormat(event,value)"  class="form-control" data-error='{% trans "Field is required" %}' required>
                         <div class="help-block with-errors"></div>
                     </div>
                 {% else %}
                     <div class="col-md-4">
                         <label id="implementCostLabel">{% trans "Implementation cost (US$/ha)" %} <span class="text-danger-wp">(*)</span> </label>
-                        <input id="implementCost" value="{{ nbs.unit_implementation_cost|decimalFormat:2}}" type="text" onInput="return checkDecimalFormat(event,value)" 
+                        <input id="implementCost" value="{{ nbs.unit_implementation_cost|decimalFormat:2}}" type="text" onfocusout="return afterCheckDecimal(event,value)" onInput="return checkDecimalFormat(event,value)" 
                         class="form-control" data-error='{% trans "Field is required" %}' required>
                         <div class="help-block with-errors"></div>
                     </div>
                     <div class="col-md-4">
                         <label id="maintenanceCostLabel">{% trans "Maintenace cost (US$/ha)" %} <span class="text-danger-wp">(*)</span> </label>
-                        <input id="maintenanceCost" value="{{ nbs.unit_maintenance_cost| decimalFormat:2 }}" type="text" onInput="return checkDecimalFormat(event,value)" 
+                        <input id="maintenanceCost" value="{{ nbs.unit_maintenance_cost| decimalFormat:2 }}" type="text" onfocusout="return afterCheckDecimal(event,value)" onInput="return checkDecimalFormat(event,value)" 
                         class="form-control" data-error='{% trans "Field is required" %}' required>
                         <div class="help-block with-errors"></div>
                     </div>
                     <div class="col-md-4">
                         <label id="oportunityCostLabel">{% trans "Oportunity cost (US$/ha)" %} <span class="text-danger-wp">(*)</span> </label>
-                        <input id="oportunityCost" value="{{ nbs.unit_oportunity_cost|decimalFormat:2 }}" type="text" onInput="return checkDecimalFormat(event,value)"  class="form-control" data-error='{% trans "Field is required" %}' required>
+                        <input id="oportunityCost" value="{{ nbs.unit_oportunity_cost|decimalFormat:2 }}" type="text" onfocusout="return afterCheckDecimal(event,value)" onInput="return checkDecimalFormat(event,value)"  class="form-control" data-error='{% trans "Field is required" %}' required>
                         <div class="help-block with-errors"></div>
                     </div>
                 {% endif %}
@@ -210,8 +210,8 @@
                 {% endfor %}
                 <div class="col-md-12 text-center">
                     <table class="table">
-                        <tr>
-                            <td class="col-md-12"><button id="clear_options" type="button" class="btn btn-primary ">{% trans "Clear options" %}</button></td>
+                        <tr>                            
+                            <td class="col-md-12"><button id="clear_options" type="button" value="clear options" class="btn btn-primary ">{% trans "Clear options" %}</button></td>
                         </tr>
                     </table>
                 </div>
@@ -225,13 +225,12 @@
                 <span class="slider round"></span>
             </label>
             <div class="row" style="display:none" id="areas">
-                <div class="col-md-4">
+                <div class="col-md-12">
                     <div class="col-md-12">
                         <label>{% trans "Restricted areas" %}</label>
                         <p>{% trans "If there are areas with restrictions for the implementation of the NbS, attach them to the form through a geographic file by clicking on the following button." %}</p>
-                        <button type="button" class="btn btn-link" data-toggle="modal" data-target="#HelpModal" id="HelpModalBtnModal" style="outline:none; text-decoration:none;">
-                            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> {% trans "Help"
-                            %}</button>
+                        <button type="button" value="help" class="btn btn-link" data-toggle="modal" data-target="#HelpModal" id="HelpModalBtnModal" style="outline:none; text-decoration:none;">
+                            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span> {% trans "Help"%}</button>
                         </button>
                     </div>
                     <input id="restrictedArea" type="file">
@@ -243,7 +242,7 @@
         <input type="hidden" value="{{nbs.pk}}" id="sbnId">
         <div class="row text-center">
             <div class="col-md-12">
-                <button type="submit" id="submit" class="btn btn-primary ">{% trans "Save" %}</button>
+                <button type="submit" value="save" id="submit" class="btn btn-primary ">{% trans "Save" %}</button>
             </div>
         </div>
     </form>
@@ -253,7 +252,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" value="close" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <h3 class="modal-title text-center" id="HelpModalLabel">{% trans "Geom files help" %}</h3>
@@ -262,15 +261,15 @@
                 <div class="row">
                     <div class="col-md-12">
                         <ol>
-                            <li value="1">{% trans "Only zip and GeoJSON"%}</li>
-                            <li>{% trans "Only EPSG"%}</li>
-                            <li>{% trans "Max upload size" %}</li>
+                            <li value="1">{% trans "Only zip and GeoJSON1"%}</li>
+                            <li>{% trans "Only EPSG1"%}</li>
+                            <li>{% trans "Max upload size1" %}</li>
                         </ol>
                     </div>
                 </div>
                 <br>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{% trans "Close" %}</button>
+                    <button type="button" value="close" class="btn btn-secondary" data-dismiss="modal">{% trans "Close" %}</button>
                 </div>
             </div>
         </div>
@@ -281,7 +280,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" value="close" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <h3 class="modal-title text-center" id="HelpModalLabel" style="color:#6398C1 ;">{% trans "Clone Nature based solution (NBS)" %}</h3>
@@ -317,7 +316,7 @@
                 <div>
                 <br>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal" style="color: white; background-color: #6398C1;">{% trans "Close" %}</button>
+                    <button type="button" value="close" class="btn btn-secondary" data-dismiss="modal" style="color: white; background-color: #6398C1;">{% trans "Close" %}</button>
                 </div>
                 </div>
             </div>
@@ -350,6 +349,8 @@
     </script>
 {% elif user.professional_role == 'ANALYS' and nbs.added_by.professional_role == 'ADMIN' %}
     <script>
+        var disableMap=false;
+        var countryId = '{{country.id}}';
         var globalBaseCost=true;
     </script>
 {% else %}
@@ -364,7 +365,6 @@
 <script src="{{ STATIC_URL }}geonode/js/jszip/jszip.min.js"></script>
 <!--Shapefile reader library -->
 <script src="{{ STATIC_URL }}geonode/js/shp/shp.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min.js" integrity="sha512-dTu0vJs5ndrd3kPwnYixvOCsvef5SGYW/zSSK4bcjRBcZHzqThq7pt7PmCv55yb8iBvni0TSeIDV8RYKjZL36A==" crossorigin="anonymous"></script>
 <script src="{% static "lib/js/leaflet.js" %}"></script>
 <script src="{% static "geonode/js/leaflet/leaflet.defaultextent.js" %}"></script>
 <script src="{{ STATIC_URL }}geonode/js/leaflet/leaflet.ajax.min.js"></script>
