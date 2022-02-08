@@ -112,7 +112,7 @@ DATABASE_URL = os.getenv(
     )
 )
 
-DATABASE_URL='postgresql://geonode:{&Uid&QXZ&6f;|F@dev.skaphe.com:5432/geonode'
+#DATABASE_URL='postgresql://geonode:{&Uid&QXZ&6f;|F@dev.skaphe.com:5432/geonode'
 #DATABASE_URL='postgresql://geonode:G30N0D3@161.35.107.85:5432/geonode'
 
 if DATABASE_URL.startswith("spatialite"):
@@ -2239,6 +2239,7 @@ GEOSERVER_WMS = os.getenv('GEOSERVER_WMS','https://dev.skaphe.com/geoserver/wate
 HYDRO_NETWORK_LYR = 'waterproof:world_hydro_network'
 
 #API key for update euro currencys update
+EXCHANGE_API_URL='https://api.exchangeratesapi.io/v1/latest'
 EXCHANGE_ACCESS_KEY = '9b2f5c878a36ddfe3a1b5318bce18a85'
 
 WAGTAIL_SITE_NAME = 'Waterproof CMS'

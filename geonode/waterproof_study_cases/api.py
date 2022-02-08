@@ -28,68 +28,88 @@ logger = logging.getLogger(__name__)
 @api_view(['GET'])
 def getIntakeByID(request, id_intake):
     if request.method == 'GET':
-        filterIntake = Intake.objects.filter(id=id_intake).values(
-            "id", "name", "description", "water_source_name", "demand_parameters__years_number")
-        data = list(filterIntake)
-        return JsonResponse(data, safe=False)
+        try:
+            id = int(id_intake)
+            filterIntake = Intake.objects.filter(id=id).values(
+                "id", "name", "description", "water_source_name", "demand_parameters__years_number")
+            data = list(filterIntake)
+            return JsonResponse(data, safe=False)
+        except Exception as e:
+            return JsonResponse({"error": 'invalid id'})
 
 
 @api_view(['GET'])
 def getIntakeByCity(request, id_city):
     if request.method == 'GET':
-        if request.user.is_authenticated:
-            # print("getIntakeByCity :: Authenticated user: %s"%request.user)
-            intakes = Intake.objects.filter(city__id=id_city, is_complete=True, added_by=request.user).values(
-            "id", "name", "water_source_name")
-        else:
-            intakes = Intake.objects.filter(city__id=id_city, is_complete=True).values("id", "name", "water_source_name")
-        return JsonResponse(list(intakes), safe=False)
+        try:
+            id = int(id_city)
+            if request.user.is_authenticated:
+                # print("getIntakeByCity :: Authenticated user: %s"%request.user)
+                intakes = Intake.objects.filter(city__id=id, is_complete=True, added_by=request.user).values(
+                "id", "name", "water_source_name")
+            else:
+                intakes = Intake.objects.filter(city__id=id, is_complete=True).values("id", "name", "water_source_name")
+            return JsonResponse(list(intakes), safe=False)
+        except Exception as e:
+            return JsonResponse({"error": 'invalid id'})
 
 @api_view(['GET'])
 def getIntakeByPtap(request, id):
     if request.method == 'GET':
-        filterIntakePtap = Csinfra.objects.filter(csinfra_plant__id=id).values(
-            "csinfra_elementsystem__intake__id", "csinfra_elementsystem__intake__name", 
-            "csinfra_elementsystem__intake__water_source_name", 
-            "csinfra_elementsystem__intake__demand_parameters__years_number").order_by('csinfra_elementsystem__intake__name')
-        data = list(filterIntakePtap)
-        return JsonResponse(data, safe=False)
-
-
+        try:
+            plant_id = int(id)
+            filterIntakePtap = Csinfra.objects.filter(csinfra_plant__id=plant_id).values(
+                "csinfra_elementsystem__intake__id", "csinfra_elementsystem__intake__name", 
+                "csinfra_elementsystem__intake__water_source_name", 
+                "csinfra_elementsystem__intake__demand_parameters__years_number").order_by('csinfra_elementsystem__intake__name')
+            data = list(filterIntakePtap)
+            return JsonResponse(data, safe=False)
+        except Exception as e:
+            return JsonResponse({"error": 'invalid id'})
+        
 @api_view(['GET'])
 def getPtapByCity(request, id_city):
     if request.method == 'GET':
-        if request.user.is_authenticated:
-            #print("getPtapByCity :: Authenticated user: %s"  %request.user.username)
-            filterptap = Header.objects.filter(plant_city__id=id_city,plant_user=request.user.username).values("id", "plant_name")
-        else:
-            filterptap = Header.objects.filter(plant_city__id=id_city).values("id", "plant_name")
-        data = list(filterptap)
-        return JsonResponse(data, safe=False)
-
+        try:
+            id = int(id_city)
+            if request.user.is_authenticated:
+                filter = Header.objects.filter(plant_city__id=id,plant_user=request.user.username).values("id", "plant_name")
+            else:
+                filter = Header.objects.filter(plant_city__id=id).values("id", "plant_name")
+            data = list(filter)
+            return JsonResponse(data, safe=False)
+        except Exception as e:
+            return JsonResponse({"error": 'invalid id'})
 
 @api_view(['GET'])
 def getPtapByID(request, id_ptap):
     if request.method == 'GET':
-        filterptap = Header.objects.filter(id=id_ptap).values(
-            "id", "plant_name", "plant_description")
-        data = list(filterptap)
-        return JsonResponse(data, safe=False)
+        try:
+            id = int(id_ptap)
+            filter = Header.objects.filter(id=id).values("id", "plant_name", "plant_description")
+            data = list(filter)
+            return JsonResponse(data, safe=False)
+        except Exception as e:
+            return JsonResponse({"error": 'invalid id'})
 
 
 @api_view(['GET'])
 def getParameterByCountry(request, id_city):
     if request.method == 'GET':
-        filtercity = Cities.objects.get(pk=id_city)
-        filterpm = ManagmentCosts_Discount.objects.filter(country=filtercity.country).values()
-        data = list(filterpm)
-        return JsonResponse(data, safe=False)
+        try:
+            id = int(id_city)
+            filtercity = Cities.objects.get(pk=id)
+            filterpm = ManagmentCosts_Discount.objects.filter(country=filtercity.country).values()
+            data = list(filterpm)
+            return JsonResponse(data, safe=False)
+        except Exception as e:
+            return JsonResponse({"error": 'invalid id'})
 
 
 @api_view(['GET'])
 def getStudyCaseCurrencys(request):
     if request.method == 'GET':
-        id = request.GET.get('id')
+        id = int(request.GET.get('id'))
         currencys = []
         sc = StudyCases.objects.get(id=id)
         sc_currency = request.GET.get('currency')
@@ -311,7 +331,7 @@ def private(request, idx):
     if not sc:
         print("Not found")
         context = {
-            'status': '400', 'reason': 'tudy case not found'
+            'status': '400', 'reason': 'Study case not found'
         }
         response = HttpResponse(json.dumps(context), content_type='application/json')
         response.status_code = 400
@@ -609,8 +629,7 @@ def run(request):
             
 @api_view(['GET'])
 def updateCurrencys(request):
-    response = requests.get('http://api.exchangeratesapi.io/v1/latest',
-    params={'access_key': settings.EXCHANGE_ACCESS_KEY})
+    response = requests.get(settings.EXCHANGE_API_URL, params={'access_key': settings.EXCHANGE_ACCESS_KEY})
     json_response = response.json()
     if "success" in json_response:
         if(json_response["success"] == True):
