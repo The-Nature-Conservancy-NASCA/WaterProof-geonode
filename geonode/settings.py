@@ -112,7 +112,7 @@ DATABASE_URL = os.getenv(
     )
 )
 
-#DATABASE_URL='postgresql://geonode:{&Uid&QXZ&6f;|F@dev.skaphe.com:5432/geonode'
+DATABASE_URL='postgresql://geonode:{&Uid&QXZ&6f;|F@dev.skaphe.com:5432/geonode'
 #DATABASE_URL='postgresql://geonode:G30N0D3@161.35.107.85:5432/geonode'
 
 if DATABASE_URL.startswith("spatialite"):
@@ -931,12 +931,12 @@ AUTH_EXEMPT_URLS = (
     '%s/static/*' % FORCE_SCRIPT_NAME,
     '%s/api/o/*' % FORCE_SCRIPT_NAME,
     '%s/api/roles' % FORCE_SCRIPT_NAME,
-    '%s/api/adminRole' % FORCE_SCRIPT_NAME,
-    '%s/api/users' % FORCE_SCRIPT_NAME,
+    '%s/api/adminRole' % FORCE_SCRIPT_NAME,    
     '%s/api/layers' % FORCE_SCRIPT_NAME,
     '%s/monitoring' % FORCE_SCRIPT_NAME,
     r'^/i18n/setlang/?$',
 )
+#'%s/api/users' % FORCE_SCRIPT_NAME,
 
 ANONYMOUS_USER_ID = os.getenv('ANONYMOUS_USER_ID', '-1')
 GUARDIAN_GET_INIT_ANONYMOUS_USER = os.getenv(
