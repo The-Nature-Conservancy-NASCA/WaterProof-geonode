@@ -25,6 +25,23 @@ $(function() {
         fillOpacity: 0
     };
     initialize = function() {
+
+        if (localStorage.getItem("cityId") == null) {
+            localStorage.setItem("cityId", "128587");
+            localStorage.setItem("country", "United States");
+            localStorage.setItem("currencyCode", "USD");
+            localStorage.setItem("countryCode", "USA");
+            localStorage.setItem("factor", "1.00");
+            localStorage.setItem("city", "Washington");
+            localStorage.setItem("cityCoords", "[38.8949924,-77.0365581]");
+            localStorage.setItem("region", "North America");
+        }
+
+        $('#countryLabelStudy').text(localStorage.getItem('country'));
+        $('#cityLabelStudy').text(localStorage.getItem('city'));
+        $('#regionLabelStudy').text(localStorage.getItem('region'));
+        $('#currencyLabelStudy').text(localStorage.getItem('currencyCode'));
+
         console.log('init event loaded');
         // Transformations widget change option event
         $('#menu-toggle').click(function(e) {

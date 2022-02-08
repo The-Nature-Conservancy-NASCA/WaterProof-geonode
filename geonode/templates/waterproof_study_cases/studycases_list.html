@@ -32,10 +32,10 @@
         <div class="col-md-4">
             <p style="text-align: justify;">{% trans "study_cases_list_tip" %}</p>
             <br>
-            <h4 id="countryLabel"></h4>
-            <p><b>{% trans "Selected City" %}:</b> <span id="cityLabel">{{city}}</span></p>
-            <p><b>{% trans "Region" %}:</b> <span id="regionLabel">{{region.name}}</span></p>
-            <p><b>{% trans "Currency" %}:</b>  <span id="currencyLabel">({{currency.code}}) - {{currency.name}}</span></p>
+            <h4 id="countryLabelStudy"></h4>
+            <p><b>{% trans "Selected City" %}:</b> <span id="cityLabelStudy"></span></p>
+            <p><b>{% trans "Region" %}:</b> <span id="regionLabelStudy"></span></p>
+            <p><b>{% trans "Currency" %}:</b>  <span id="currencyLabelStudy">({{currency.code}}) - {{currency.name}}</span></p>
             <div class="display-true">
                 {% if user.is_authenticated and not READ_ONLY_MODE %}
                 <a href="create/" id="createUrl" textColor="red" style="outline-color: dimgrey;">{% trans "new_study_case" %}</a>
