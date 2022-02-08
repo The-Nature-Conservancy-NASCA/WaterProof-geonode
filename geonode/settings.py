@@ -112,7 +112,7 @@ DATABASE_URL = os.getenv(
     )
 )
 
-#DATABASE_URL='postgresql://geonode:{&Uid&QXZ&6f;|F@dev.skaphe.com:5432/geonode'
+DATABASE_URL='postgresql://geonode:{&Uid&QXZ&6f;|F@dev.skaphe.com:5432/geonode'
 
 if DATABASE_URL.startswith("spatialite"):
     try:
@@ -933,6 +933,9 @@ AUTH_EXEMPT_URLS = (
     '%s/api/adminRole' % FORCE_SCRIPT_NAME,    
     '%s/api/layers' % FORCE_SCRIPT_NAME,
     '%s/monitoring' % FORCE_SCRIPT_NAME,
+    '%s/intake/ShowDiagram/*' % FORCE_SCRIPT_NAME,
+    '%s/treatment_plants/view/*' % FORCE_SCRIPT_NAME,
+    '%s/treatment_plants/getTreatmentPlantsList/*' % FORCE_SCRIPT_NAME,
     r'^/i18n/setlang/?$',
 )
 #'%s/api/users' % FORCE_SCRIPT_NAME,
