@@ -797,7 +797,7 @@
                             </div>
                             <div class="col-xs-6">
                                 <label class="text-primary">{% trans "Multiplying factor for overrall cost" %} </label>
-                                <input type="number" value="1.00" min="0.01" oninput="validity.valid||(value='');" id="global_multiplier_factorCalculator"
+                                <input type="number" value="1.00" onblur="value.length!=0||(value='0.01');" step="0.01" min="0.01" oninput="validity.valid||(value='');" id="global_multiplier_factorCalculator"
                                     class="form-control">
                             </div>
                         </div>
