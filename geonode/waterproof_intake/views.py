@@ -22,6 +22,10 @@ from types import SimpleNamespace
 import simplejson as json
 from django.contrib.gis.geos import GEOSGeometry
 from django.contrib.gis.gdal import OGRGeometry
+from django.db.models import Q
+from django.contrib.auth import get_user_model
+from geonode.base.auth import get_or_create_token
+
 import datetime
 import requests
 logger = logging.getLogger(__name__)
@@ -901,6 +905,22 @@ def intakes(request, city_id):
             }
         )
 
+def profile_detail(request, username):
+    profile = get_object_or_404(get_user_model(), Q(is_active=True), username=username)
+    # combined queryset from each model content type
+
+    access_token = None
+    if request and request.user:
+        access_token = get_or_create_token(request.user)
+        if access_token and not access_token.is_expired():
+            access_token = access_token.token
+        else:
+            access_token = None
+
+    return render(request, "waterproof_intake/intake_list.html", {
+        'access_token': access_token,
+        "profile": profile,
+    })
 
 def editIntake(request, idx):
     #print("editIntake. request.method = %s" % request.method)

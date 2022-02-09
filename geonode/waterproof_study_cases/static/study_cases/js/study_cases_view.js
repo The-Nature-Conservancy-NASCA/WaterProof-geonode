@@ -46,11 +46,14 @@ var id_study_case = window.location.href.substring(window.location.href.lastInde
 
 var intakes = [];
 var ptaps = [];
+let cityId = document.getElementById('title_city').getAttribute('idCity');
 
 var mapLoader;
 $(document).ready(function() {
     $('#autoAdjustHeightF').css("height", "auto");
     $('#cityLabel').text(localStorage.city+", "+localStorage.country);
+    //  $('#title_city').currentTarget.getAttribute('idCity');
+    console.log(cityId+"aqui deberia salir el id city");
     $('#coeqCountry').text("CO2_country"+" ("+localStorage.country+")");
     calculate_Personnel();
     calculate_Platform();
@@ -140,7 +143,7 @@ $(document).ready(function() {
         if (localStorage.getItem('returnTo') != null) {
             window.location.href = "/study_cases/" + localStorage.getItem('returnTo');
         }else{
-            location.href = "/study_cases/?city="+localStorage.cityId; 
+            location.href = "/study_cases/?city="+cityId; 
         }        
     });
 
@@ -207,7 +210,7 @@ $(document).ready(function() {
     }
 
     function loadNBS() {
-        var city_id = localStorage.cityId
+        var city_id = cityId;
         $.post("../../study_cases/nbs/", {
             id_study_case: id_study_case,
             city_id: city_id,
@@ -232,7 +235,7 @@ $(document).ready(function() {
     }
 
     function loadNBSActivities() {
-        var city_id = localStorage.cityId
+        var city_id = cityId;
         $.post("../../study_cases/nbs/", {
             id_study_case: id_study_case,
             city_id: city_id,

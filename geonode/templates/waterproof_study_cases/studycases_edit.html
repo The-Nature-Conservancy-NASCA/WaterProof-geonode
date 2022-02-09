@@ -12,7 +12,9 @@
 <div class="header-waterproof">
     <div class="row">
         <div class="col-sm-6"><h1>{% trans "edit_study_cases" %}</h1></div>
-        <div class="col-sm-6"><h4 class="title-city">{% trans "creation_city" %}: <span id="cityLabel"></span> </h4></div>
+        <div class="col-sm-6">
+            <h4 id="title_city" idCity = "{{study_case.city.id}}" class="title-city">{% trans "creation_city" %}: {{study_case.city.name}}, {{study_case.city.country}} </h4>
+        </div>
     </div>
     <br>
     <!--Begin Form-->
@@ -622,7 +624,7 @@
                             </div>
                             <div class="col-xs-6">
                                 <label class="text-primary">{% trans "Multiplying factor for overrall cost" %} </label>
-                                <input type="number" value="1.00" min="0.01" oninput="validity.valid||(value='');" id="global_multiplier_factorCalculator" class="form-control">
+                                <input type="number" value="1.00" onblur="value.length!=0||(value='0.01');" step="0.01" min="0.01" oninput="validity.valid||(value='');" id="global_multiplier_factorCalculator" class="form-control">
                             </div>
                         </div>
                         <h5 class="text-primary keyboard-title">{% trans "Syntax keyboard" %}</h5>
