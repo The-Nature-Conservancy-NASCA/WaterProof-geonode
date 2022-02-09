@@ -403,12 +403,11 @@ $(function () {
             let axisIndex = chartCategories.map(function (e) { return e.id; }).indexOf(axis);
             //Remove Axis values from chart series
             chartConfig.series.forEach(function (element, index) {
-                console.log(element);
-                element.data.splice(axisIndex, axisIndex);
+                element.data.splice(axisIndex, 1);
             });
             let currentRow = $(this).closest('tr').remove();
-            chartCategories.splice(axisIndex, axisIndex);
-            chartConfig.categories.splice(axisIndex, axisIndex);
+            chartCategories.splice(axisIndex, 1);
+            chartConfig.categories.splice(axisIndex, 1);
             drawChart(chartConfig);
         }
         else {
