@@ -29,7 +29,8 @@ def getSensibilityAnalysisCost(request):
 		try:
 			con = psycopg2.connect(settings.DATABASE_URL)
 			cur = con.cursor()
-			cur.execute("SELECT * FROM __get_report_analisys_sensitivy_cost(" + int(request.query_params.get('studyCase')) + ")")
+			sql ="SELECT * FROM __get_report_analisys_sensitivy_cost(%s)" % int(request.query_params.get('studyCase'))
+			cur.execute(sql)
 			rows = cur.fetchall()
 			objects_list = []
 			for row in rows:
@@ -61,7 +62,8 @@ def getSensibilityAnalysisBenefits(request):
 		try:
 			con = psycopg2.connect(settings.DATABASE_URL)
 			cur = con.cursor()
-			cur.execute("SELECT * FROM __get_report_analisys_sensitivy_benefits(" + int(request.query_params.get('studyCase')) + ")")
+			sql = "SELECT * FROM __get_report_analisys_sensitivy_benefits(%s)" % int(request.query_params.get('studyCase'))
+			cur.execute(sql)
 			rows = cur.fetchall()
 			objects_list = []
 			for row in rows:
@@ -93,7 +95,8 @@ def getSensibilityAnalysisCostVsBenefit(request):
 		try:
 			con = psycopg2.connect(settings.DATABASE_URL)
 			cur = con.cursor()
-			cur.execute("SELECT * FROM __get_report_graph_cost_vs_benefit(" + int(request.query_params.get('studyCase')) + ")")
+			sql = "SELECT * FROM __get_report_graph_cost_vs_benefit(%s)" % int(request.query_params.get('studyCase'))
+			cur.execute(sql)
 			rows = cur.fetchall()
 			objects_list = []
 			for row in rows:
@@ -128,7 +131,8 @@ def getSensibilityAnalysisReturnOfInvest(request):
 		try:
 			con = psycopg2.connect(settings.DATABASE_URL)
 			cur = con.cursor()
-			cur.execute("SELECT * FROM __get_report_graph_return_of_invest_roi(" + int(request.query_params.get('studyCase')) + ")")
+			sql = "SELECT * FROM __get_report_graph_return_of_invest_roi(%s)" % int(request.query_params.get('studyCase'))
+			cur.execute(sql)
 			rows = cur.fetchall()
 			objects_list = []
 			for row in rows:
@@ -162,7 +166,8 @@ def getNetPresentValueSummary(request):
 		try:
 			con = psycopg2.connect(settings.DATABASE_URL)
 			cur = con.cursor()
-			cur.execute("SELECT * FROM __get_report_graph_vpn(" + int(request.query_params.get('studyCase')) + ")")
+			sql = "SELECT * FROM __get_report_graph_vpn(%s)" % int(request.query_params.get('studyCase'))
+			cur.execute(sql)
 			rows = cur.fetchall()
 			objects_list = []
 			for row in rows:
@@ -198,7 +203,8 @@ def getCostAndBenefit(request):
 		try:
 			con = psycopg2.connect(settings.DATABASE_URL)
 			cur = con.cursor()
-			cur.execute("SELECT * FROM __get_report_graph_cost_bene(" + int(request.query_params.get('studyCase')) + ")")
+			sql = "SELECT * FROM __get_report_graph_cost_bene(%s)" % int(request.query_params.get('studyCase'))
+			cur.execute(sql)
 			rows = cur.fetchall()
 			objects_list = []
 			for row in rows:
@@ -229,7 +235,8 @@ def getTotalBenefitsForMilion(request):
 		try:
 			con = psycopg2.connect(settings.DATABASE_URL)
 			cur = con.cursor()
-			cur.execute("SELECT * FROM __get_report_total_benefits_for_milion(" + int(request.query_params.get('studyCase')) + ")")
+			sql = "SELECT * FROM __get_report_total_benefits_for_milion(%s)" % int(request.query_params.get('studyCase'))
+			cur.execute(sql)
 			rows = cur.fetchall()
 			objects_list = []
 			for row in rows:
@@ -263,7 +270,8 @@ def getReportCostsAnalysisRoi(request):
 		try:
 			con = psycopg2.connect(settings.DATABASE_URL)
 			cur = con.cursor()
-			cur.execute("SELECT * FROM __get_report_costs_analysis_roi(" + int(request.query_params.get('studyCase')) + ")")
+			sql = "SELECT * FROM __get_report_costs_analysis_roi(%s)" % int(request.query_params.get('studyCase'))	
+			cur.execute(sql)
 			rows = cur.fetchall()
 			objects_list = []
 			for row in rows:
@@ -298,7 +306,8 @@ def getReportCostsAnalysisFilterOne(request):
 		try:
 			con = psycopg2.connect(settings.DATABASE_URL)
 			cur = con.cursor()
-			cur.execute("SELECT * FROM __get_report_costs_analysis_filter(" + int(request.query_params.get('studyCase')) + ")")
+			sql = "SELECT * FROM __get_report_costs_analysis_filter(%s)" % int(request.query_params.get('studyCase'))
+			cur.execute(sql)
 			rows = cur.fetchall()
 			objects_list = []
 			for row in rows:
@@ -334,7 +343,8 @@ def getReportAnalysisBenefitsFilter(request):
 		try:
 			con = psycopg2.connect(settings.DATABASE_URL)
 			cur = con.cursor()
-			cur.execute("SELECT * FROM __get_report_analysis_benefits_filter(" + int(request.query_params.get('studyCase')) + ")")
+			sql = "SELECT * FROM __get_report_analysis_benefits_filter(%s)" % int(request.query_params.get('studyCase'))
+			cur.execute(sql)
 			rows = cur.fetchall()
 			objects_list = []
 			for row in rows:
@@ -370,7 +380,8 @@ def getReportCostsAnalysisFilter(request):
 		try:
 			con = psycopg2.connect(settings.DATABASE_URL)
 			cur = con.cursor()
-			cur.execute("SELECT typer, round(cast(SUM(medbenefitr) as numeric),2)::double precision AS sum_filter FROM __get_report_costs_analysis_filter(" + int(request.query_params.get('studyCase')) + ") GROUP BY  typer ORDER BY typer")
+			sql = "SELECT typer, round(cast(SUM(medbenefitr) as numeric),2)::double precision AS sum_filter FROM __get_report_costs_analysis_filter(%s) GROUP BY  typer ORDER BY typer" % int(request.query_params.get('studyCase'))
+			cur.execute(sql)
 			rows = cur.fetchall()
 			objects_list = []
 			for row in rows:
@@ -401,7 +412,8 @@ def getReportCostsAnalysisFilterNbs(request):
 		try:
 			con = psycopg2.connect(settings.DATABASE_URL)
 			cur = con.cursor()
-			cur.execute("select typer as cost_idr, medbenefitr AS sum_filter from __get_report_costs_analysis_filterBgraph(" + (request.query_params.get('studyCase')) + ")")
+			sql = "select typer as cost_idr, medbenefitr AS sum_filter from __get_report_costs_analysis_filterBgraph(%s)" % int(request.query_params.get('studyCase'))
+			cur.execute(sql)
 			rows = cur.fetchall()
 			objects_list = []
 			for row in rows:
@@ -431,7 +443,8 @@ def getReportAnalysisBenefitsFilterSum(request):
 		try:
 			con = psycopg2.connect(settings.DATABASE_URL)
 			cur = con.cursor()
-			cur.execute("SELECT case when typer='CARBONO' then 'CARBON' else typer end as typer,round(cast(SUM(vpn_med_benefitr) as numeric),2)::double precision AS vpn_med_benefitr FROM __get_report_analysis_benefits_filter(" + int(request.query_params.get('studyCase')) + ") GROUP BY typer")
+			sql = "SELECT case when typer='CARBONO' then 'CARBON' else typer end as typer,round(cast(SUM(vpn_med_benefitr) as numeric),2)::double precision AS vpn_med_benefitr FROM __get_report_analysis_benefits_filter(%s) GROUP BY typer" % int(request.query_params.get('studyCase'))
+			cur.execute(sql)
 			rows = cur.fetchall()
 			objects_list = []
 			for row in rows:
@@ -461,7 +474,8 @@ def getWaterproofReportsAnalysisBenefits(request):
 		try:
 			con = psycopg2.connect(settings.DATABASE_URL)
 			cur = con.cursor()
-			cur.execute("select element_normalize_categorya as element_id,type_ida as type_id, vpn_med_benefita as vpn_med_benefit from __get_report_incicator_benefist_graphA(" + int(request.query_params.get('studyCase')) + ")")
+			sql = "select element_normalize_categorya as element_id,type_ida as type_id, vpn_med_benefita as vpn_med_benefit from __get_report_incicator_benefist_graphA(%s)" % int(request.query_params.get('studyCase'))
+			cur.execute(sql)
 
 			rows = cur.fetchall()
 			objects_list = []
@@ -496,8 +510,8 @@ def getReportOportunityResultIndicators(request):
 		try:
 			con = psycopg2.connect(settings.DATABASE_URL)
 			cur = con.cursor()
-			cur.execute("SELECT * FROM __get_report_oportunity_result_indicators(" + int(request.query_params.get('studyCase')) + ")")
-
+			sql = "SELECT * FROM __get_report_oportunity_result_indicators(%s)"	% int(request.query_params.get('studyCase'))
+			cur.execute(sql)
 			rows = cur.fetchall()
 			objects_list = []
 			for row in rows:
