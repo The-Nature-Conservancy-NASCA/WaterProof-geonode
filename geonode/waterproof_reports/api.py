@@ -524,11 +524,14 @@ def getReportAnalisysBenefics(request):
 	If it does not have data in the minimal relations of the model it does not deliver
 	information about the treatment plant
 	"""
+	print("getReportAnalisysBenefics")
 	if request.method == 'GET':
 		try:
 			con = psycopg2.connect(settings.DATABASE_URL)
 			cur = con.cursor()
-			cur.execute("SELECT * FROM __get_report_analisys_benefics(" + int(request.query_params.get('studyCase')) + ")")
+			print (request.query_params.get('studyCase'))			
+			sql = "SELECT * FROM __get_report_analisys_benefics(%s)" % int(request.query_params.get('studyCase'))
+			cur.execute(sql)
 			rows = cur.fetchall()
 			objects_list = []
 			for row in rows:
@@ -561,7 +564,8 @@ def getReportAnalisysBeneficsB(request):
 		try:
 			con = psycopg2.connect(settings.DATABASE_URL)
 			cur = con.cursor()
-			cur.execute("SELECT * FROM __get_report_analisys_beneficsB(" + int(request.query_params.get('studyCase')) + ")")
+			sql = "SELECT * FROM __get_report_analisys_beneficsB(%s)" % int(request.query_params.get('studyCase'))
+			cur.execute(sql)
 			rows = cur.fetchall()
 			objects_list = []
 			for row in rows:
@@ -600,7 +604,8 @@ def getReportAnalisysBeneficsC(request):
 		try:
 			con = psycopg2.connect(settings.DATABASE_URL)
 			cur = con.cursor()
-			cur.execute("SELECT * FROM __get_report_analisys_beneficsC(" + int(request.query_params.get('studyCase')) + ") ORDER BY intake_idf")
+			sql = "SELECT * FROM __get_report_analisys_beneficsC(%s) ORDER BY intake_idf" % int(request.query_params.get('studyCase'))
+			cur.execute(sql)
 
 			rows = cur.fetchall()
 			objects_list = []
@@ -636,7 +641,8 @@ def getSelectorStudyCasesId(request):
 			study_case_id = int(request.query_params.get('studyCase'))
 			con = psycopg2.connect(settings.DATABASE_URL)
 			cur = con.cursor()
-			cur.execute("select * from public.__get_wp_report_ppalselect('" + study_case_id + "')")
+			sql = "select * from public.__get_wp_report_ppalselect(%s)" % study_case_id
+			cur.execute(sql)
 			rows = cur.fetchall()
 			objects_list = []
 			for row in rows:
@@ -670,7 +676,7 @@ def getStudyCasesIntake(request):
 		try:
 			con = psycopg2.connect(settings.DATABASE_URL)
 			cur = con.cursor()
-			sql = "SELECT COUNT(*) as number_study_case FROM public.waterproof_study_cases_studycases_intakes si INNER JOIN public.waterproof_intake_intake ii  ON (si.intake_id=ii.id) inner join public.waterproof_intake_polygon ip on (ii.id=ip.intake_id) WHERE studycases_id = '" + int(request.query_params.get('studyCase')) + "'"
+			sql = "SELECT COUNT(*) as number_study_case FROM public.waterproof_study_cases_studycases_intakes si INNER JOIN public.waterproof_intake_intake ii  ON (si.intake_id=ii.id) inner join public.waterproof_intake_polygon ip on (ii.id=ip.intake_id) WHERE studycases_id = %s" % int(request.query_params.get('studyCase'))
 			cur.execute(sql)
 			rows = cur.fetchall()
 			objects_list = []
@@ -700,7 +706,8 @@ def getDistinctGroupErr(request):
 		try:
 			con = psycopg2.connect(settings.DATABASE_URL)
 			cur = con.cursor()
-			cur.execute("SELECT DISTINCT result_grouperr FROM public.__get_wp_aqueduct_indicator_graph('" + int(request.query_params.get('studyCase')) + "') ORDER BY result_grouperr")
+			sql = "SELECT DISTINCT result_grouperr FROM public.__get_wp_aqueduct_indicator_graph(%s) ORDER BY result_grouperr" % int(request.query_params.get('studyCase'))
+			cur.execute(sql)
 			rows = cur.fetchall()
 			objects_list = []
 			for row in rows:
@@ -729,7 +736,8 @@ def getWpAqueductIndicatorGraph(request):
 		try:
 			con = psycopg2.connect(settings.DATABASE_URL)
 			cur = con.cursor()
-			cur.execute("SELECT * FROM public.__get_wp_aqueduct_indicator_graph('" + int(request.query_params.get('studyCase')) + "') ORDER BY indicatorr, inteker ")
+			sql = "SELECT * FROM public.__get_wp_aqueduct_indicator_graph(%s) ORDER BY indicatorr, inteker" % int(request.query_params.get('studyCase'))
+			cur.execute(sql)
 			rows = cur.fetchall()
 			objects_list = []
 			for row in rows:
@@ -764,7 +772,8 @@ def getReportOportunityResultMaps(request):
 		try:
 			con = psycopg2.connect(settings.DATABASE_URL)
 			cur = con.cursor()
-			cur.execute("SELECT * FROM __get_report_oportunity_result_maps('" + int(request.query_params.get('studyCase')) + "')")
+			sql = "SELECT * FROM __get_report_oportunity_result_maps(%s)" % int(request.query_params.get('studyCase'))
+			cur.execute(sql)
 			rows = cur.fetchall()
 			objects_list = []
 			for row in rows:
@@ -794,7 +803,8 @@ def getSizeRecomendedIntervention(request):
 		try:
 			con = psycopg2.connect(settings.DATABASE_URL)
 			cur = con.cursor()
-			cur.execute("select porcentajeIpler from __get_size_recomended_intervention(" + int(request.query_params.get('studyCase')) + ")")
+			sql = "select porcentajeIpler from __get_size_recomended_intervention(%s)" % int(request.query_params.get('studyCase'))
+			cur.execute(sql)
 			rows = cur.fetchall()
 			objects_list = []
 			for row in rows:
@@ -823,7 +833,8 @@ def getNameWaterproofIntakeIntake(request):
 		try:
 			con = psycopg2.connect(settings.DATABASE_URL)
 			cur = con.cursor()
-			cur.execute("SELECT distinct ii.name, ii.id FROM public.waterproof_intake_intake ii INNER JOIN public.waterproof_reports_rios_ipa si ON (ii.id=si.intake_id) WHERE si.study_case_id= '" + int(request.query_params.get('studyCase')) + "'")
+			sql = "SELECT distinct ii.name, ii.id FROM public.waterproof_intake_intake ii INNER JOIN public.waterproof_reports_rios_ipa si ON (ii.id=si.intake_id) WHERE si.study_case_id= %s" % int(request.query_params.get('studyCase'))
+			cur.execute(sql)
 			rows = cur.fetchall()
 			objects_list = []
 			for row in rows:
@@ -853,7 +864,8 @@ def getTotalSizeWaterproofIntakePolygon(request):
 		try:
 			con = psycopg2.connect(settings.DATABASE_URL)
 			cur = con.cursor()
-			cur.execute("SELECT SUM(area) as total_size FROM public.waterproof_intake_polygon ip INNER JOIN public.waterproof_study_cases_studycases_intakes si ON (ip.intake_id =si.intake_id) WHERE si.studycases_id = '" + int(request.query_params.get('studyCase')) + "'")
+			sql = "SELECT SUM(area) as total_size FROM public.waterproof_intake_polygon ip INNER JOIN public.waterproof_study_cases_studycases_intakes si ON (ip.intake_id =si.intake_id) WHERE si.studycases_id = %s" % int(request.query_params.get('studyCase'))
+			cur.execute(sql)
 			rows = cur.fetchall()
 			objects_list = []
 			for row in rows:
@@ -882,7 +894,8 @@ def getWaterproofReportsRiosIpa(request):
 		try:
 			con = psycopg2.connect(settings.DATABASE_URL)
 			cur = con.cursor()
-			cur.execute("SELECT sbnf AS sbn, costperhectaref AS actual_spent, recommendedinterventionf AS area_converted_ha, intake_idf FROM __get_report_analisys_beneficsc('" + int(request.query_params.get('studyCase')) + "')")
+			sql = "SELECT sbnf AS sbn, costperhectaref AS actual_spent, recommendedinterventionf AS area_converted_ha, intake_idf FROM __get_report_analisys_beneficsc(%s)" % int(request.query_params.get('studyCase'))
+			cur.execute(sql)
 			rows = cur.fetchall()
 			objects_list = []
 			for row in rows:
@@ -914,7 +927,8 @@ def getWaterproofReportsDesagregation(request):
 		try:
 			con = psycopg2.connect(settings.DATABASE_URL)
 			cur = con.cursor()
-			cur.execute("SELECT * FROM __get_report_temporalProjection('" + int( request.query_params.get('studyCase')) + "')")
+			sql = "SELECT * FROM __get_report_temporalProjection(%s)" % int(request.query_params.get('studyCase'))
+			cur.execute(sql)
 			rows = cur.fetchall()
 			objects_list = []
 			for row in rows:
@@ -953,7 +967,8 @@ def getCaracteristicsCsIntakePdf(request):
 		try:
 			con = psycopg2.connect(settings.DATABASE_URL)
 			cur = con.cursor()
-			cur.execute("SELECT * FROM __get_caracteristics_cs_intake_pdf('" + int(request.query_params.get('studyCase')) + "')")
+			sql = "SELECT * FROM __get_caracteristics_cs_intake_pdf(%s)" % int(request.query_params.get('studyCase'))
+			cur.execute(sql)
 			rows = cur.fetchall()
 			objects_list = []
 			for row in rows:
@@ -984,7 +999,8 @@ def getCaracteristicsPtapDetailPdf(request):
 		try:
 			con = psycopg2.connect(settings.DATABASE_URL)
 			cur = con.cursor()
-			cur.execute("SELECT DISTINCT * FROM __get_caracteristics_ptap_detail_pdf('" + int(request.query_params.get('studyCase')) + "') ORDER BY 1")
+			sql = "SELECT DISTINCT * FROM __get_caracteristics_ptap_detail_pdf(%s) ORDER BY 1" % int(request.query_params.get('studyCase'))
+			cur.execute(sql)
 			rows = cur.fetchall()
 			objects_list = []
 			for row in rows:
@@ -1015,7 +1031,8 @@ def getconservationActivitiesPdf(request):
 		try:
 			con = psycopg2.connect(settings.DATABASE_URL)
 			cur = con.cursor()
-			cur.execute("SELECT * FROM __get_conservation_activities_pdf('" + int(request.query_params.get('studyCase')) + "')")
+			sql = "SELECT * FROM __get_conservation_activities_pdf(sql)" % int(request.query_params.get('studyCase'))
+			cur.execute(sql)
 			rows = cur.fetchall()
 			objects_list = []
 			for row in rows:
@@ -1051,7 +1068,8 @@ def getFinancialAnalysisPdfRunAnalisisPdf(request):
 		try:
 			con = psycopg2.connect(settings.DATABASE_URL)
 			cur = con.cursor()
-			cur.execute("SELECT * FROM __get_financial_analysis_pdf_runAnalisis_pdf('" + int(request.query_params.get('studyCase')) + "')")
+			sql = "SELECT * FROM __get_financial_analysis_pdf_runAnalisis_pdf(%s)" % int(request.query_params.get('studyCase'))
+			cur.execute(sql)
 			rows = cur.fetchall()
 			objects_list = []
 			for row in rows:
@@ -1085,7 +1103,8 @@ def getObjetivesForPorfoliosPdf(request):
 	if request.method == 'GET':
 		con = psycopg2.connect(settings.DATABASE_URL)
 		cur = con.cursor()
-		cur.execute("SELECT * FROM __get_objetives_for_porfolios_pdf('" + int(request.query_params.get('studyCase')) + "')")
+		sql = "SELECT * FROM __get_objetives_for_porfolios_pdf(%s)" % int(request.query_params.get('studyCase'))
+		cur.execute(sql)
 		rows = cur.fetchall()
 		objects_list = []
 		for row in rows:
@@ -1112,7 +1131,8 @@ def getWpcompareMapas(request):
 		try:
 			con = psycopg2.connect(settings.DATABASE_URL)
 			cur = con.cursor()
-			cur.execute("SELECT * FROM public.__get_reports_compare_maps('" + int(request.query_params.get('studyCase')) + "')")
+			sql = "SELECT * FROM public.__get_reports_compare_maps(%s)" % int(request.query_params.get('studyCase'))
+			cur.execute(sql)
 			rows = cur.fetchall()
 			objects_list = []
 			for row in rows:
