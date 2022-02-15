@@ -1045,7 +1045,7 @@ def getconservationActivitiesPdf(request):
 		try:
 			con = psycopg2.connect(settings.DATABASE_URL)
 			cur = con.cursor()
-			sql = "SELECT * FROM __get_conservation_activities_pdf(sql)" % int(request.query_params.get('studyCase'))
+			sql = "SELECT * FROM __get_conservation_activities_pdf(%s)" % int(request.query_params.get('studyCase'))
 			cur.execute(sql)
 			rows = cur.fetchall()
 			objects_list = []
