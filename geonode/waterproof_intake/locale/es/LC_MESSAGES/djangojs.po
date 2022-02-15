@@ -558,3 +558,69 @@ msgstr "Por favor, complete el formulario"
 
 msgid "field_empty"
 msgstr "Campo vacío"
+
+msgid "Water stress "
+msgstr "Indicador de Estrés Hídrico de Referencia"
+
+msgid "Future 10 years"
+msgstr "Futuro 10 años"
+
+msgid "Future 20 years"
+msgstr "Futuro 20 años"
+
+msgid "Physical Risk associated with Amount of Water"
+msgstr "Riesgo físico asociado a cantidad de agua"
+
+msgid "Physical risk quality"
+msgstr "Calidad de riesgo hídrico"
+
+msgid "Regulatory and reputational"
+msgstr "Regulatorio y reputacional"
+
+msgid "Water Demand"
+msgstr "Demanda de agua"
+
+msgid "Water supply"
+msgstr "Suministro de agua"
+
+msgid "Seasonal variability"
+msgstr "Variabilidad Estacional"
+
+msgid "Drought risk"
+msgstr "Riesgo de sequía"
+
+msgid "Water depletion"
+msgstr "Agotamiento Hídrico de Referencia"
+
+msgid "Groundwater table decline"
+msgstr "Disminución de la Capa Freática"
+
+msgid "Riverine flood risk"
+msgstr "Riesgo de inundación fluvial"
+
+msgid "Interannual variability"
+msgstr "Agotamiento Hídrico de Referencia"
+
+msgid "Untreated collected wastewater"
+msgstr "Aguas residuales conectadas sin tratar"
+
+msgid "Unimproved /no drinking water"
+msgstr "Sin Mejorar / Sin Agua Potable"
+
+msgid "Unimproved /no sanitation"
+msgstr "Sin Mejorar / Sin Saneamiento"
+
+msgid "Peak RepRisk Country ESG Risk Index"
+msgstr "Riesgo Pico RepRisk Country ESG"
+
+msgid "MEDIUM HIGH"
+msgstr "MEDIO ALTO"
+
+msgid "HIGH"
+msgstr "ALTO"
+
+msgid "MEDIUM LOW"
+msgstr "MEDIO BAJO"
+
+msgid "LOW"
+msgstr "BAJO"
