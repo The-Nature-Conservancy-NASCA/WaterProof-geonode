@@ -743,23 +743,13 @@ var localStorageId = localStorage.idStudyCase;
         {% endfor %}
         `
     );
-
-    /*function Filter(){
-        
-    }*/
-
-    //localStorage.idStudyCase
     var selectIntakes = document.getElementById("selectIntake");
     var table = $('#step-1-ph').DataTable({
         "order": [ [ 1, "desc" ], [ 7, "desc" ], [ 0, "asc" ]],
         'dom': 'lrtip'
     });
-    // table.search("is simply dummy text of the printing and t").draw();
-    console.log(table.rows())
     function show(){
         var selectIntakes = document.getElementById("selectIntake");
-        // a=document.querySelectorAll('#valor1').innerHTML
-        // let intakeSelected = selectIntakes.options[selectIntakes.selectedIndex].text;
         table.search(selectIntakes.value).draw();
 
         var value_awy = document.getElementById("valor1").innerText;
@@ -768,10 +758,6 @@ var localStorageId = localStorage.idStudyCase;
         var value_wn_kg = document.getElementById("valor4").innerText;
         var value_wp_kg = document.getElementById("valor5").innerText;
         var value_wc_ton = document.getElementById("valor6").innerText;
-
-        console.log("valor filtro es "+value_awy)
-
-        //console.log(a);
 
         Highcharts.chart('container', {
             chart: {
@@ -831,7 +817,6 @@ var localStorageId = localStorage.idStudyCase;
         }
 
         loadIntake = function(valueSelect) {
-            console.log(valueSelect)
             listObjectInt = document.getElementsByName("graphIntake");
             listObjectInt.forEach((divVisible) => {
                 if(valueSelect !== "") {
@@ -1078,7 +1063,6 @@ var localStorageId = localStorage.idStudyCase;
         }
 
         loadIntakeGraph =  function(intakeId) {
-            console.log(intakeId)
             var data = dataGraph;
 
                 var timeNBS = []
@@ -1529,7 +1513,6 @@ var localStorageId = localStorage.idStudyCase;
             document.getElementById("discountRateDecision").innerHTML = localStorage.getItem('transactionCost');
             show();
             loadIntakeGraph(this.value);
-            console.log(document.getElementById("idSelectIntakeGraph").value+"<====")
             viewReport(1,7,this);
 
             var gaugeOptions = {
@@ -1591,24 +1574,23 @@ var localStorageId = localStorage.idStudyCase;
             };
 
             var urlDetail = "../../reports/getWpAqueductIndicatorGraph/?studyCase=" + localStorage.idStudyCase;
-            console.log("Este es el localstorage del selectw"+localStorage.idStudyCase)
             $.getJSON(urlDetail, function (data) {
                 var lastGroupImage = "";
                 var lastGroupIntake = "";
                 var titleGraph = "";
                 var numberContainer = 0;
                 $.each( data, function( key, value ) {
+                    let testTraduccion = gettext(value.indicator);
 
                     if(lastGroupImage !== value.indicator) {
                         if(titleGraph !== "") {
                             titleGraph = titleGraph + '</div>';
                         }
-                        titleGraph = titleGraph + '<div name="listGraphIntake" intakeSelect="' + gettext(value.intake) + '" nameSelect="' + value.indicator + '" class="title-water col-md-12">' + value.indicator + '</div><div name="listGraphIntake" intakeSelect="' + value.intake + '" nameSelect="' + value.indicator + '" class="container-general-gauge">';
+                        titleGraph = titleGraph + '<div name="listGraphIntake" intakeSelect="' + gettext(value.intake) + '" nameSelect="' + value.indicator + '" class="title-water col-md-12">' + `{% trans "${testTraduccion}" %}` + '</div><div name="listGraphIntake" intakeSelect="' + value.intake + '" nameSelect="' + value.indicator + '" class="container-general-gauge">';
                         lastGroupImage = value.indicator;
 
                         var option = document.createElement("option");
                         let optionText = value.indicator;
-                        console.log(option)
                         option.text = gettext(optionText);
                         option.value = value.indicator;
                         document.getElementById("idSelectWaterIntake").add(option);
@@ -1642,7 +1624,7 @@ var localStorageId = localStorage.idStudyCase;
                     $.getJSON(urlDetail, function (data) {
                         var numberContainerG = 0;
                         $.each( data, function( key, value ) {
-                            var tituloS = value.valueGraT;
+                            var tituloS = gettext(value.valueGraT);
                             let titleHig = gettext(value.description);
                             var chartSpeed = Highcharts.chart('containerPr' + numberContainerG, Highcharts.merge(gaugeOptions, {
                                 yAxis: {
@@ -1687,7 +1669,6 @@ var localStorageId = localStorage.idStudyCase;
             });
 
             var urlDetail = "../../reports/getNameWaterproofIntakeIntake/?studyCase=" + localStorage.idStudyCase;
-            console.log(localStorage.idStudyCase)
             $.getJSON(urlDetail, function (data) {
                 var defaultIntake = true;
                 $.each( data, function( key, value ) {
@@ -1795,7 +1776,6 @@ var localStorageId = localStorage.idStudyCase;
                             option.value = value.intakeId;
                             document.getElementById("idSelectIntakeGraph").add(option);
                             lastIntakeGraph = value.intakeId;
-                            console.log(document.getElementById("idSelectIntakeGraph").value)
                         }
                     }
                     
@@ -2112,7 +2092,6 @@ var localStorageId = localStorage.idStudyCase;
                         centroX = centroid;
                     });
                     var urlWaterProofLyrsWMS = `/reports/geographic/?folder=${usr_folder}&intake=${intake}&year=${year}&region=${region}&center=${centroX}&study_case_id=${studyCaseId}`;
-                    //console.log (urlWaterProofLyrsWMS);
                     document.getElementById("idGeographicIndicatorsClicImgH").href =urlWaterProofLyrsWMS;
                     document.getElementById("idGeographicIndicatorsClicDescH").href =urlWaterProofLyrsWMS;
                     document.getElementById("idGeographicIndicatorsClicImgF").href =urlWaterProofLyrsWMS;
