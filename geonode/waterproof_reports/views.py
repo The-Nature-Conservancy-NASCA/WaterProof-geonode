@@ -476,7 +476,7 @@ def pdf(request):
         'title': {
             'text': 'Cost and benefits chart'
         },
-        'colors': ['#008BAB', '#90D3E7', '#004B56', '#61D1C2'],
+        'colors': ['#90D3E7', '#008BAB', '#004B56', '#61D1C2'],
         'xAxis': {
             'categories': categories
         },
@@ -488,11 +488,11 @@ def pdf(request):
             'data': totalCost
         }, {
             'name': 'Total Discounted Cost',
-            'data': totalDiscountedCost
-        }, {
-            'name': 'Total Benefits',
-            'type': 'spline',
+            'data': totalDiscountedCost,
+            'type': 'spline',   
             'dashStyle': 'shortdot',
+        }, {
+            'name': 'Total Benefits',                     
             'data': totalBenefits
         }, {
             'name': 'Total Discounted Benefits',
