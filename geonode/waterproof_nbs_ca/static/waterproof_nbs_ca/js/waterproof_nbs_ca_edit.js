@@ -38,12 +38,16 @@ $(function () {
                 $('div[name=selectlanduse]').css({
                     "display": "none"
                 });
-                var valueInput = input.getAttribute('data-value')
-                if (valueInput !== dato) {
-                    $(`#selectlanduse${valueInput}`).find('input[type=radio]:checked').each(function (idx, input) {
-                        input.checked = false;
-                    });
-                }
+                var valueInput = input.getAttribute('data-value');
+                $('.valueInputSelect').on('click', function(evt){
+                    let tranpk = evt.currentTarget.getAttribute('tranpk');
+                    console.log(tranpk);
+                    if (valueInput !== dato) {
+                        $(`#selectlanduse${valueInput}`).find('input[type=radio]:checked').each(function (idx, input) {
+                            input.checked = false;
+                        });
+                    }
+                });
             });
             if (dato == data_value) {
                 $(`#selectlanduse${dato}`).css({
