@@ -11,6 +11,7 @@ urlpatterns = [
     path('financial/', views.financialIndicators, name='financial'),
     path('decision/', views.decisionIndicators, name='decision'),
     path('pdf/', views.pdf, name='pdf'),
+    path('pdfgeo/', views.pdfgeo, name='pdfgeo'),
     path('zip/<int:idx>', views.linkDownload, name='zip'),
     path('geographic/', views.geographicIndicators, name='geographic'),
     path('getSensibilityAnalysisCost/', api.getSensibilityAnalysisCost, name='get-sensibility-analysis-cost'),

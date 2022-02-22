@@ -188,8 +188,27 @@ function onInit(editor) {
     } else {
         //esto va para edit :v
         xmlDoc = mxUtils.parseXml(xmlGraph);
-        var dec = new mxCodec(xmlDoc);
-        dec.decode(xmlDoc.documentElement, editor.graph.getModel());
+        var codec = new mxCodec(xmlDoc);
+        codec.decode(xmlDoc.documentElement, editor.graph.getModel());
+
+        var elt = xmlDoc.documentElement.firstChild;
+        var cells = [];
+        while (elt != null) {
+            if (codec.decode(elt) != null){
+                cells.push(codec.decode(elt));
+            }            
+            elt = elt.nextSibling;
+        }
+        if (cells.length > 0){
+            var rootNode = cells[0];
+            rootNode.querySelectorAll('mxCell').forEach(function(node) {
+                if (node.id != "") {
+                    let values = JSON.parse(node.getAttribute('value'));
+                    let water = values.resultdb[0].fields.predefined_transp_water_perc;
+                    transportedWaterConnectors[node.id] = {"style" : style, "id" : node.id, "transportedWater" : water};
+                }
+            });
+        }
     }
     // River not have a entrance connection
     editor.graph.multiplicities.push(new mxMultiplicity(
