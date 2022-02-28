@@ -907,35 +907,9 @@ def pdf(request):
     pdf.ln(10)
 
     print('getTotalBenefitsForMilion/?studyCase=' + study_case_id)    
-    # requestJson = requests.get(url_api + 'getTotalBenefitsForMilion/?studyCase=' + study_case_id, verify=False)
-    # data = requestJson.json()
-    dataEfficiency = []
-
-    # for item in data:
-    #     dataEfficiency.append(float(item['carbonStorage']))
-    #     dataEfficiency.append(float(item['phosphorousLoad']))
-    #     dataEfficiency.append(float(item['nitrogenLoad']))
-    #     dataEfficiency.append(float(item['totalSediments']))
-    #     dataEfficiency.append(float(item['baseFlow']))
-    #     dataEfficiency.append(float(item['waterYear']))
-
-    #     carbonStorageTable = float(item['carbonStorage'])
-    #     phosphorousLoadTable = float(item['phosphorousLoad'])
-    #     nitrogenLoadTable = float(item['nitrogenLoad'])
-    #     totalSediments = float(item['totalSediments'])
-    #     baseFlow = float(item['baseFlow'])
-    #     waterYear = float(item['waterYear'])
-    
     indicatorsData = investIndicators.objects.filter(study_case__id=study_case_id)
 
     for investIndicatorsData in indicatorsData:
-        dataEfficiency.append(investIndicatorsData.awy)
-        dataEfficiency.append(investIndicatorsData.bf_m3)
-        dataEfficiency.append(investIndicatorsData.wsed_ton)
-        dataEfficiency.append(investIndicatorsData.wn_kg)
-        dataEfficiency.append(investIndicatorsData.wp_kg)
-        dataEfficiency.append(investIndicatorsData.wc_ton)
-
         waterYear = investIndicatorsData.awy
         baseFlow = investIndicatorsData.bf_m3
         totalSediments = investIndicatorsData.wsed_ton
@@ -1029,7 +1003,7 @@ def pdf(request):
         },
         'series': [{
             'name': 'PE',
-            'data': dataEfficiency
+            'data': [waterYear, baseFlow, totalSediments, nitrogenLoadTable, phosphorousLoadTable, carbonStorageTable]
         }]
     }
 
