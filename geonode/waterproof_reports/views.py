@@ -1499,12 +1499,13 @@ def pdf(request):
     pdf.cell(0, 7, 'Drinking water treatment plant', align='L')
 
     dataListBenefitsIntakeA = []
-    print ('getWaterproofReportsAnalysisBenefits/?studyCase=' + study_case_id)
-    requestJson = requests.get(url_api + 'getWaterproofReportsAnalysisBenefits/?studyCase=' + study_case_id, verify=False)
+    print ('getWaterproofReportsAnalysisBenefits/?studyCase=%s' % study_case_id)
+    requestJson = requests.get(url_api + 'getWaterproofReportsAnalysisBenefits/?studyCase=%s' % study_case_id, verify=False)
     data = requestJson.json()
+    
     lastRegister = 0
     for item in data:
-        if item['typeId'] == 'PTAP':
+        if item['typeId'] == 'DWTP':
             lastRegister = 1
             dataListBenefitsIntakeA.append({
                 'name': item['elementId'],
@@ -1518,7 +1519,7 @@ def pdf(request):
         },
         'colors': ['#008BAB', '#69b7cf', '#3f99b5', '#1d7c99', '#90D3E7', '#5ca8bf', '#448fa6', '#2b768c', '#176075', '#004B56', '#47bfaf', '#32ab9b', '#209989', '#128778', '#61D1C2'],
         'title': {
-            'text': 'Intake Benefits ptap'
+            'text': 'DWTP Benefits '
         },
         'plotOptions': {
             'pie': {
@@ -1601,7 +1602,7 @@ def pdf(request):
         },
         'colors': ['#008BAB', '#69b7cf', '#3f99b5', '#1d7c99', '#90D3E7', '#5ca8bf', '#448fa6', '#2b768c', '#176075', '#004B56', '#47bfaf', '#32ab9b', '#209989', '#128778', '#61D1C2'],
         'title': {
-            'text': 'Intake Benefits intake'
+            'text': 'Intake Benefits'
         },
         'plotOptions': {
             'pie': {
