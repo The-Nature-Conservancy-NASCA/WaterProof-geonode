@@ -2379,3 +2379,13 @@
         float: left;
     }
 }
+
+.icon-menu-img{
+    height: 60%; 
+    width: 60%; 
+    background-repeat: no-repeat; 
+    background-position: 50%; 
+    border-radius: 50%; 
+    background-size: 100% auto; 
+    border-color: black;
+}

@@ -37,6 +37,7 @@ urlpatterns = [
     path('intakebyid/<int:id_intake>/', api.getIntakeByID, name='intake-id'),
     path('ptapbyid/<int:id_ptap>/', api.getPtapByID, name='ptap-id'),
     path('intakebycity/<int:id_city>/', api.getIntakeByCity, name='intake-city'),
+    path('csinfrabycity/<int:id_city>/', api.getCsInfraByCity, name='csinfra-city'),
     path('parametersbycountry/<int:id_city>/', api.getParameterByCountry, name='parameters-country'),
     path('intakebyptap/<int:id>/', api.getIntakeByPtap, name='intake-ptap'),
     path('ptapbycity/<int:id_city>/', api.getPtapByCity, name='ptap-city'),    

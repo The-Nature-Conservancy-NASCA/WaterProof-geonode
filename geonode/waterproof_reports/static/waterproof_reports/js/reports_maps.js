@@ -176,6 +176,7 @@ $(document).ready(function () {
   
   $("#menu2")[0].append($("#map-analysis-result")[0]);
   $("#menu3")[0].append($("#map-areas-rios-container")[0]);
+  $("#menu3")[0].append($("#pdf-report-in-geo")[0]);
   $('#first_tab').trigger('click');
 
   // Show all layers hidden by default, only Catchment are visible

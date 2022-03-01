@@ -53,6 +53,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='profile',
             name='use_analysis',
-            field=models.CharField(blank=True, choices=[('ACDMC', 'Academic'), ('GNRL', 'General'), ('BSNSS', 'Business'), ('OTHER', 'Other')], help_text='Use Analysis', max_length=8, null=True, verbose_name='UseAnalysis'),
+            field=models.CharField(blank=True, choices=[('ACDMC', 'Academic'), ('GNRL', 'General'), ('BSNSS', 'Business'), ('OTHER', 'Other')], help_text='Use Analysis', max_length=8, null=True, verbose_name='Use Analysis'),
         ),
     ]

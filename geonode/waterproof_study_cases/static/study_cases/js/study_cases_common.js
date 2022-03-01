@@ -107,3 +107,46 @@ function typesetInput(expression) {
       btnValidatePyExp.disabled = false;
   });
 }
+
+function loadIntakes() {
+  $("#select_custom").empty();
+  $.get("/study_cases/intakebycity/" + localStorage.cityId, function (data) {
+      if (data.length > 0) {
+          $.each(data, function (index, intake) {
+              var name = intake.name;
+              $("#select_custom").append(new Option(name, intake.id));
+          });
+          $("#div-customcase").removeClass("panel-hide");
+          $('#autoAdjustHeightF').css("height", "auto");
+      } else {
+          $("#div-emptyintakes").removeClass("panel-hide");
+      }
+  });
+}
+
+function loadCsInfra() {
+  $("#select_custom").empty();
+  if (localStorage.getItem("csinfraByCity") == null) {
+    
+    $.get("/study_cases/csinfrabycity/" + localStorage.cityId, function (data) {
+        if (data.length > 0) {
+            localStorage.setItem("csinfraByCity", JSON.stringify(data));
+            $.each(data, function (index, intake) {                
+                $("#select_custom").append(new Option(intake.name_intake_csinfra, intake.id + "-" + intake.element_system_id + "-" + intake.graphId));
+            });
+            $("#div-customcase").removeClass("panel-hide");
+            $('#autoAdjustHeightF').css("height", "auto");
+        } else {
+            $("#div-emptyintakes").removeClass("panel-hide");
+        }
+    });
+  }else{
+    var data = JSON.parse(localStorage.getItem("csinfraByCity"));
+    $.each(data, function (index, intake) {                
+      $("#select_custom").append(new Option(intake.name_intake_csinfra, intake.id + "-" + intake.element_system_id + "-" + intake.graphId));
+    });
+    $("#div-customcase").removeClass("panel-hide");
+    $('#autoAdjustHeightF').css("height", "auto");
+  }
+  
+}

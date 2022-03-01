@@ -5,7 +5,7 @@ x-common-django:
   &default-common-django
   image: waterproof/spcwaterproof:django-3.2
   environment:
-    - DEBUG=True
+    - DEBUG=False
   volumes:
     - ../../:/spcwaterproof/
     - ./_volume_static:/spcwaterproof-static/

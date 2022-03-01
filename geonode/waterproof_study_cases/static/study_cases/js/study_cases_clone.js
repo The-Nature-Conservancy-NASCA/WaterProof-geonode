@@ -40,12 +40,12 @@ let cityId = document.getElementById('title_city').getAttribute('idCity');
 
 
 $(document).ready(function () {
+    $("#div-customcase").removeClass("panel-hide");
     $('#autoAdjustHeightF').css("height", "auto");
     // $('#cityLabel').text(localStorage.city + ", " + localStorage.country);
     $('#coeqCountry').text("CO2_country"+" ("+localStorage.country+")");    
     calculate_Personnel();
     calculate_Platform();
-    loadIntakes();
     loadPtaps();
     loadNBS();
 
@@ -68,6 +68,7 @@ $(document).ready(function () {
                 confirmButtonText: gettext('response_delete'),
             }).then((result) => {
                 if (result.isConfirmed) {
+                    loadCsInfra();
                     $("#panel-custom").removeClass("panel-hide");
                     $("#panel-cost").removeClass("panel-hide");
                     $("#panel-ptap").addClass("panel-hide");
@@ -80,6 +81,7 @@ $(document).ready(function () {
                 }
             })
         } else {
+            loadCsInfra();
             $("#panel-custom").removeClass("panel-hide");
             $("#panel-ptap").addClass("panel-hide");
             $("#panel-cost").removeClass("panel-hide");
@@ -90,6 +92,7 @@ $(document).ready(function () {
     });
 
     $('#ptap').click(function () {
+        loadIntakes();
         $("#panel-ptap").removeClass("panel-hide");
         $("#panel-custom").removeClass("panel-hide");
         $("#panel-cost").addClass("panel-hide");
@@ -1168,35 +1171,6 @@ $(document).ready(function () {
             total += parseFloat(others)
         }
         total_plaform.val(total)
-    }
-
-
-    function loadIntakes() {
-        var city_id = cityId;
-        $.get("../../study_cases/intakebycity/" + city_id, function (data) {
-            if (data.length > 0) {
-                $.each(data, function (index, intake) {
-                    contains = false
-                    $('#custom_table').find('tbody > tr').each(function (index, tr) {
-                        id = tr.id.replace('custom-', '')
-                        if (id == intake.id) {
-                            contains = true
-                            return false
-                        }
-                    });
-                    if (!contains) {
-                        var name = intake.name;
-                        option = name
-                        $("#select_custom").append(new Option(option, intake.id));
-                    }
-                });
-                $("#div-customcase").removeClass("panel-hide");
-                autoAdjustHeight();
-            } else {
-                $("#div-emptyintakes").removeClass("panel-hide");
-            }
-
-        });
     }
 
     function loadPtaps() {
