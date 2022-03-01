@@ -227,9 +227,9 @@ def edit(request, idx):
                         break
                 if(add):
                     ptaps.append(ptap)
-            listIntakes = ElementSystem.objects.filter(normalized_category='CSINFRA').values(
-                "id", "name", "intake__name", "intake__id", "graphId")
-            for intake in listIntakes:
+            listIntakes = ElementSystem.objects.filter(normalized_category='CSINFRA', intake__id__in=listIntakesStudy).values(
+                "id", "name", "intake__name", "intake__id", "intake__water_source_name" , "intake__description" ,"graphId")
+            for intake in listIntakes:    
                 add = True
                 for intakeStudy in listIntakesStudy:
                     if intake['id'] == intakeStudy.pk:
@@ -237,7 +237,9 @@ def edit(request, idx):
                         break
                 if(add):
                     intakes.append(intake)
+                    print (intake)
             
+           
             functions = []
             if study_case.cost_functions:
                 functions = json.loads(study_case.cost_functions)
@@ -248,7 +250,7 @@ def edit(request, idx):
                     "serverApi": settings.WATERPROOF_API_SERVER,
                     "servermodelApi": settings.WATERPROOF_MODELS_PY2_API,
                     'study_case': study_case,
-                    'intakes': intakes,
+                    'csinfras': intakes,
                     'portfolios': portfolios,
                     'tratamentPlants': ptaps,
                     'ModelParameters': models,

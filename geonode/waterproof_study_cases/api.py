@@ -11,7 +11,7 @@ from django.urls import reverse
 from .models import StudyCases
 from . import forms
 from geonode.waterproof_parameters.models import Countries, Regions, Cities, Climate_value, Parameters_Biophysical, ManagmentCosts_Discount, Countries_factor
-from geonode.waterproof_intake.models import Intake, Polygon, UserCostFunctions
+from geonode.waterproof_intake.models import Intake, Polygon, UserCostFunctions, ElementSystem
 from geonode.waterproof_treatment_plants.models import Header, Csinfra, Function
 from geonode.waterproof_nbs_ca.models import WaterproofNbsCa
 from .models import StudyCases, Portfolio, ModelParameter, StudyCases_NBS, StudyCases_Currency
@@ -50,6 +50,35 @@ def getIntakeByCity(request, id_city):
             else:
                 intakes = Intake.objects.filter(city__id=id, is_complete=True).values("id", "name", "water_source_name")
             return JsonResponse(list(intakes), safe=False)
+        except Exception as e:
+            return JsonResponse({"error": 'invalid id'})
+
+@api_view(['GET'])
+def getCsInfraByCity(request, id_city):
+    if request.method == 'GET':
+        objects_list = []
+        try:
+            id = int(id_city)
+            if request.user.is_authenticated:
+                # print("getIntakeByCity :: Authenticated user: %s"%request.user)
+                elements = ElementSystem.objects.filter(normalized_category='CSINFRA').filter(intake__city__id=id, intake__is_complete=True, intake__added_by=request.user).order_by('intake__name')
+            else:
+                elements = ElementSystem.objects.filter(normalized_category='CSINFRA').filter(intake__city__id=id, intake__is_complete=True).order_by('intake__name') 
+
+            for elementSystem in elements:
+                intake_name = elementSystem.intake.name
+                objects_list.append({
+                    "element_system_id": elementSystem.id,				
+                    "csinfra": elementSystem.name,
+                    "graphId": elementSystem.graphId,
+                    "cityId": id,
+                    "name_intake_csinfra":str(intake_name) + str(" - ") + str(elementSystem.name) + str(" - ") + str(elementSystem.graphId),
+                    "water_source_name": elementSystem.intake.water_source_name,
+                    "id": elementSystem.intake.id,
+                    "description": elementSystem.intake.description,
+                    "name": intake_name,
+                        }) 
+            return JsonResponse(objects_list, safe=False)          
         except Exception as e:
             return JsonResponse({"error": 'invalid id'})
 
@@ -448,10 +477,9 @@ def save(request):
                     if(len(sclist) > 0):
                         valid = False
                 if (valid):
+                    sc.studycase_type = 'CUSTOM'
                     if(sctype == '1'):
                         sc.studycase_type = 'PTAP'
-                    else:
-                        sc.studycase_type = 'CUSTOM'
                     now = datetime.datetime.now(tz=timezone.utc)
                     sc.create_date = now
                     sc.edit_date = now
