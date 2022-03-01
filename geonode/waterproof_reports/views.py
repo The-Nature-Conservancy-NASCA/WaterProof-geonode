@@ -761,25 +761,16 @@ def pdf(request):
     pdf.cell(epw, 10, 'Estimated change in ecosystem services by basin', align='L')
     pdf.ln(10)
 
-    print('getTotalBenefitsForMilion/?studyCase=' + study_case_id)
-    requestJson = requests.get(url_api + 'getTotalBenefitsForMilion/?studyCase=' + study_case_id, verify=False)
-    data = requestJson.json()
-    dataEfficiency = []
+    print('getTotalBenefitsForMilion/?studyCase=' + study_case_id)    
+    indicatorsData = investIndicators.objects.filter(study_case__id=study_case_id)
 
-    for item in data:
-        dataEfficiency.append(float(item['carbonStorage']))
-        dataEfficiency.append(float(item['phosphorousLoad']))
-        dataEfficiency.append(float(item['nitrogenLoad']))
-        dataEfficiency.append(float(item['totalSediments']))
-        dataEfficiency.append(float(item['baseFlow']))
-        dataEfficiency.append(float(item['waterYear']))
-
-        carbonStorageTable = float(item['carbonStorage'])
-        phosphorousLoadTable = float(item['phosphorousLoad'])
-        nitrogenLoadTable = float(item['nitrogenLoad'])
-        totalSediments = float(item['totalSediments'])
-        baseFlow = float(item['baseFlow'])
-        waterYear = float(item['waterYear'])
+    for investIndicatorsData in indicatorsData:
+        waterYear = investIndicatorsData.awy
+        baseFlow = investIndicatorsData.bf_m3
+        totalSediments = investIndicatorsData.wsed_ton
+        nitrogenLoadTable = investIndicatorsData.wn_kg
+        phosphorousLoadTable = investIndicatorsData.wp_kg
+        carbonStorageTable = investIndicatorsData.wc_ton
 
     pdf.set_font('Arial', '', 10)
     pdf.set_text_color(255, 255, 255)
@@ -860,14 +851,14 @@ def pdf(request):
         },
         'colors': ['#008BAB'],
         'xAxis': {
-            'categories': ['Carbon storage', 'Phosphorus load', 'Nitrogen load', 'Total sediments', 'Base flow', 'Volumen of water yield']
+            'categories': ['Volumen of water yield', 'Base flow', 'Total sediments', 'Nitrogen load', 'Phosphorus load', 'Carbon storage']
         },
         'credits': {
             'enabled': 0
         },
         'series': [{
             'name': 'PE',
-            'data': dataEfficiency
+            'data': [waterYear, baseFlow, totalSediments, nitrogenLoadTable, phosphorousLoadTable, carbonStorageTable]
         }]
     }
 

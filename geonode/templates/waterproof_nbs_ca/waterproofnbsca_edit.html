@@ -169,10 +169,10 @@
                                         {% if riosa.pk == riost.activity_id %}
                                         <div class="checkbox">
                                             {% if riost.id in selectedTransf %}
-                                                <label><input data-value="itemRT" name="{{riosa.name}}_{{itemRT}}" type="radio"
+                                                <label><input class="changeSelectTransition" data-value="itemRT" name="{{riosa.name}}_{{itemRT}}" type="radio"
                                                     id="itemRT{{riost.pk}}" value="{{ riost.pk }}" checked> {{riost.name}}</label>
                                             {% else %}
-                                                <label><input data-value="itemRT" name="{{riosa.name}}_{{itemRT}}" type="radio"
+                                                <label><input class="changeSelectTransition" data-value="itemRT" name="{{riosa.name}}_{{itemRT}}" type="radio"
                                                     id="itemRT{{riost.pk}}" value="{{ riost.pk }}" > {{riost.name}}</label>
                                             {% endif %}
                                         </div>
