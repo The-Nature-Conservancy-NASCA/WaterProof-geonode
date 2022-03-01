@@ -27,8 +27,7 @@
 </div>
 <br>
 <!--Begin Form-->
-<form id="form" method="POST" action="">
-	{% csrf_token %}
+<body>
 	<!--Start smartwizard-->
 	<div class="smart-wizard-financial">
 		<div class="help-in-report header-desc-fin">
@@ -36,27 +35,27 @@
 		</div>
 		<div class="align-menu-header">
 			<div class="icons-menu-header">
-				<a href="../../reports/financial/"><img src="/static/geonode/img/Indicadores-financieros.png" alt="financial indicators" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;" title="{% trans "Financial indicators" %}"/></a>
+				<a href="../../reports/financial/"><img src="/static/geonode/img/Indicadores-financieros.png" alt="financial indicators" class="icon-menu-img" title="{% trans "Financial indicators" %}"/></a>
 				<br> 
 				<a href="../../reports/financial/">{% trans "Financial indicators" %}</a>
 			</div>
 			<div class="icons-menu-header" id="idFinancialIndicators">
-				<a id="urlPhysicalImgH" href=""><img src="/static/geonode/img/indicadores-fisicos.png" alt="physical indicators" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;" title="{% trans "Physical indicators" %}"/> </a>
+				<a id="urlPhysicalImgH" href=""><img src="/static/geonode/img/indicadores-fisicos.png" alt="physical indicators" class="icon-menu-img" title="{% trans "Physical indicators" %}"/> </a>
                 <br> 
                 <a id="urlPhysicalDescH" href="">{% trans "Physical indicators" %}</a>
 			</div>
 			<div class="icons-menu-header" id="idDecisionIndicators">
-				<a href="../../reports/decision/"><img src="/static/geonode/img/indicadores-decision.png" alt="decision indicators" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;" title="{% trans "Decision indicators" %}"/></a>
+				<a href="../../reports/decision/"><img src="/static/geonode/img/indicadores-decision.png" alt="decision indicators" class="icon-menu-img" title="{% trans "Decision indicators" %}"/></a>
 				<br>
 				<a href="../../reports/decision/">{% trans "Decision indicators" %}</a>
 			</div>
 			<div class="icons-menu-header" id="idGeographicIndicators">
-				<img src="/static/geonode/img/indicadores-geograficos.png" alt="geographic indicators" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black; opacity: 30%;" title="{% trans "Geographic visualization" %}"/>
+				<img src="/static/geonode/img/indicadores-geograficos.png" alt="geographic indicators" class="icon-menu-img" style="opacity: 30%;" title="{% trans "Geographic visualization" %}"/>
 				<br>
 				<a>{% trans "Geographic visualization" %}</a>
 			</div>
 			<div class="icons-menu-header" id="idGeographicIndicators">
-				<a id="Return" href=""><img src="/static/geonode/img/reportes-icon.png" alt="menu" style="height: 60%; width: 60%; background-repeat: no-repeat; background-position: 50%; border-radius: 50%; background-size: 100% auto; border-color: black;" title="{% trans "Geographic visualization" %}"/></a>
+				<a id="Return" href=""><img src="/static/geonode/img/reportes-icon.png" alt="menu" class="icon-menu-img" title="{% trans "Geographic visualization" %}"/></a>
 				<br>
 				<a id="Return"></a>
 			</div>
@@ -176,34 +175,17 @@
 							<div id="map-areas-rios-legend"></div>
 							<img src="" alt="legend" id="img-legend-areas-rios"/>
 						</div>    
-						<!-- <div class="col-md-12">
-							<div>
-								<h5 textColor="red" class="download-title-geographic">{% trans "If you want to download the results of this analysis from the following icons" %}</h5>
-							</div>
-							<div class="report-download" style="display: block;">
-								<div class="col-md-5"></div>
-								<div class="col-md-1 report-download-pdf" onclick="openPDF()">
-									<img src="/static/geonode/img/documents.png" alt="documents"/>
-									<br>
-									PDF
-								</div>
-							</div>
-						</div>     -->
 					</div>
-				</div>         
-				<img id="resultado" style="visibility:hidden" alt="result">
-				<form id="TheForm" method="post" action="../../reports/pdf/" target="TheWindow">
-					{% csrf_token %}
-					<input type="hidden" name="studyCase" id="studyCase"/>
-					<input type="hidden" name="studyCity" id="studyCity"/>
-					<input type="hidden" name="studyCountry" id="studyCountry"/>
-					<input type="hidden" name="studyRegion" id="studyRegion"/>
-					<input type="hidden" name="discountRateData" id="discountRateData"/>
-					<input type="hidden" name="mapSendImage" id="mapSendImage"/>
-				</form>   
+				</div>  
+				<div id="pdf-report-in-geo" style="display:flex">
+					<h4 class="title-report">{% trans "If you want to download the results of this analysis from the following icons" %}</h4>
+					<div style="cursor:pointer;" onclick="export2PDF()">						
+						<img src="/static/geonode/img/documents.png" style="width:44px;padding-top:15px;" alt="documents"/>
+						<p class="report-download-pdf" style="left:1px !important;">PDF</p>
+					</div>        	
+				</div>				  
 		</div>
-		<img style="display: none;" src="" alt="legend" id="generated-img"/>
-
+		
 		<div class="align-text col-md-12 div-padding visible">
 			<div class="list-menu-results" id="idFinancialIndicators">
 				<a href="../../reports/financial/"><img src="/static/geonode/img/Indicadores-financieros.png" alt="financial indicators" title="{% trans "Financial indicators" %}"/></a>
@@ -227,8 +209,20 @@
 				<a>{% trans "Geographic visualization" %}</a>
 			</div>
 		</div>
-</form>
-
+		<div>
+			<img id="exported-map-image" alt="result" style="display: none;">  
+		</div>
+		<form id="TheForm" method="post" action="../../reports/pdfgeo/" target="TheWindow">
+			{% csrf_token %}
+			<input type="hidden" name="studyCase" id="studyCase"/>
+			<input type="hidden" name="studyCity" id="studyCity"/>
+			<input type="hidden" name="studyCountry" id="studyCountry"/>
+			<input type="hidden" name="studyRegion" id="studyRegion"/>
+			<input type="hidden" name="discountRateData" id="discountRateData"/>
+			<input type="hidden" name="mapSendImage" id="mapSendImage"/>
+			<input type="hidden" name="imgLegend" id="imgLegend"/>
+		</form> 
+	</body>
 {% endblock %} {% block extra_script %}
 
 <script type="text/javascript">
@@ -261,6 +255,7 @@
 	const urlWaterProofLyrsWMS = srvMapServer + `?map=/etc/mapserver/${baseData}/WI_${intake}/mapserver.map&SERVICE=WMS&intake=${intake}&year=${year}&region=${region}`;
 	const urlWaterProofLyrAreasRiosMS = srvMapServer + `?map=/etc/mapserver/${baseData}/WI_${intake}/out/areas_rios.map&SERVICE=WMS`;
 	var mapAreasRios;
+	var bounds;
 
 	$(document).ready(function () {
 		console.log('ready');
@@ -294,10 +289,7 @@
 		}
 
 		var localStorageId = localStorage.idStudyCase;
-		$('#Return').append(        `
-				<a href="../../study_cases/report/${localStorageId}">{% trans "Return" %}</a>            
-				`
-		);   
+		$('#Return').append(`<a href="../../study_cases/report/${localStorageId}">{% trans "Return" %}</a>`);   
 			
 		initialize = function () {
 			console.log('initialize');
@@ -311,7 +303,7 @@
 			document.getElementById("idCurrencyMainGeographic").innerHTML = localStorage.getItem('idCurrencyMain');
 			document.getElementById("idTimeMainGeographic").innerHTML = localStorage.getItem('idTimeMain');
 			document.getElementById("discountRateGeographic").innerHTML = localStorage.getItem('transactionCost');
-			let urlPhysicalIndicators = "../../reports/physical/"+localStorage.idStudyCase;
+			let urlPhysicalIndicators = "/reports/physical/"+localStorage.idStudyCase;
 			document.getElementById("urlPhysicalImgF").href = urlPhysicalIndicators;
 			document.getElementById("urlPhysicalDescF").href = urlPhysicalIndicators;
 			document.getElementById("urlPhysicalImgH").href = urlPhysicalIndicators;
@@ -319,21 +311,60 @@
 		};
 		initialize();
 
-		generateMap2Img = function (mapId, imgId) {
+		export2PDF = function() {
+			console.log('export2PDF');
+			bounds = mapAreasRios.getBounds();
+			document.getElementById('studyCase').value = localStorage.idStudyCase;
+			document.getElementById('studyCity').value = localStorage.getItem('city');
+			document.getElementById('studyCountry').value = localStorage.getItem('country');
+			document.getElementById('studyRegion').value = localStorage.getItem('region');
+			document.getElementById('discountRateData').value = localStorage.getItem('transactionCost');
+			document.getElementById('imgLegend').value = $("#img-legend-areas-rios")[0].src;
+			leafletMap2ImgAndExport('map-areas-rios','exported-map-image');            
+		}
+
+		leafletMap2ImgAndExport = function (mapId, imgId) {
+			console.log("leafletMap2ImgAndExport");
 			var mapElement = document.getElementById(mapId);
-			//const dataURL = await domtoimage.toPng(mapElement, { width, height })
-			//const blob = await domtoimage.toBlob(mapElement, { width, height })
 			$(".leaflet-control").hide();
-			domtoimage.toPng(mapElement)
-				.then(function (dataUrl) {
-						$('#'+ imgId).attr('src', dataUrl);							
-						$(".leaflet-control").show();
-				})
-				.catch(function (error) {
-						console.error('oops, something went wrong!', error);
-						$(".leaflet-control").show();
-				});
-		};
+			rect = mapElement.getBoundingClientRect();
+			let maxWith4Print = 780;
+			let marginExport = 30;            
+			if (rect.width > maxWith4Print){
+					document.getElementById(mapId).style.setProperty("width", maxWith4Print + "px", "important");
+					document.getElementById(mapId).style.setProperty("height", "400px", "important");
+			}
+			var optsDom2Img = {                
+					width: maxWith4Print + marginExport,
+					height: rect.height + marginExport
+			};
+			setTimeout(function(){ 
+				mapAreasRios.invalidateSize();
+			}, 400);
+			mapAreasRios.fitBounds(bounds);
+
+			setTimeout(function(){ 
+					domtoimage.toPng(mapElement,optsDom2Img).then(function (dataUrl) {
+							$('#'+ imgId).attr('src', dataUrl);
+							$(".leaflet-control").show();
+							document.getElementById("mapSendImage").value = dataUrl;
+							document.getElementById(mapId).style.setProperty("width", "");
+							document.getElementById(mapId).style.setProperty("height", "");
+							setTimeout(function(){ 
+								mapAreasRios.invalidateSize()
+							}, 400);
+							mapAreasRios.fitBounds(bounds);
+							setTimeout(function(){
+								window.open('', 'TheWindow');
+								document.getElementById('TheForm').submit();
+							}, 1000);
+					}).catch(function (error) {
+							console.error('oops, something went wrong!', error);
+							$(".leaflet-control").show();
+					});
+			}, 400);
+		 
+	};
 	});
     
 </script>
