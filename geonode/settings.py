@@ -944,6 +944,8 @@ AUTH_EXEMPT_URLS = (
     '%s/docs/*' % FORCE_SCRIPT_NAME,
     '%s/jsi18n/*' % FORCE_SCRIPT_NAME,
     '%s/proxy/*' % FORCE_SCRIPT_NAME,
+    '%s/parameters/country-by-iso2/*' % FORCE_SCRIPT_NAME,
+    '%s/parameters/getClosetsCities/*' % FORCE_SCRIPT_NAME,
     r'^/i18n/setlang/?$',
 )
 #'%s/api/users' % FORCE_SCRIPT_NAME,
