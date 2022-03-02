@@ -937,6 +937,10 @@ AUTH_EXEMPT_URLS = (
     '%s/treatment_plants/view/*' % FORCE_SCRIPT_NAME,
     '%s/treatment_plants/getTreatmentPlantsList/*' % FORCE_SCRIPT_NAME,
     '%s/reports/*' % FORCE_SCRIPT_NAME,
+    '%s/search_city/*' % FORCE_SCRIPT_NAME,
+    '%s/about/*' % FORCE_SCRIPT_NAME,
+    '%s/pages/*' % FORCE_SCRIPT_NAME,
+    '%s/faq/*' % FORCE_SCRIPT_NAME,
     r'^/i18n/setlang/?$',
 )
 #'%s/api/users' % FORCE_SCRIPT_NAME,
