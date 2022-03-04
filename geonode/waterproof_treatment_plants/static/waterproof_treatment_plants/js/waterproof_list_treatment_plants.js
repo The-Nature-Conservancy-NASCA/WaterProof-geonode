@@ -456,9 +456,29 @@
             $('#idDescriptionPlant').focusout();
             saveForm = false;
         }
+        if($('.new-tech-input').val()==="" || $('.new-tech-input').val()=== null){
+            $('.new-tech-input').focusin();
+            $('.new-tech-input').focusout();
+            saveForm = false;
+        };
+        if($('.sedimentsNew').val()==="" || $('.sedimentsNew').val()=== null){
+            $('.sedimentsNew').focusin();
+            $('.sedimentsNew').focusout();
+            saveForm = false;
+        }
+        if($('.nitrogenNew').val()==="" || $('.nitrogenNew').val()=== null){
+            $('.nitrogenNew').focusin();
+            $('.nitrogenNew').focusout();
+            saveForm = false;
+        }
+        if($('.phosphorusNew').val()==="" || $('.phosphorusNew').val()=== null){
+            $('.phosphorusNew').focusin();
+            $('.phosphorusNew').focusout();
+            saveForm = false;
+        }
         if(letterPlant === null) {
-            $('#idIntakePlant').focusin();
-            $('#idIntakePlant').focusout();
+            $('.idIntakePlant').focusin();
+            $('.idIntakePlant').focusout();
             saveForm = false;
         }
 
@@ -783,6 +803,24 @@
         }, 600);        
     };
 
+    function createInput(label, value, readonly, min, max, step, placeholder, enabled, id, events, type, defaultVal) {
+        let idEl = id ? `id="${id}"` : "";
+        let typeEl = type ? `type="${type}"` : "";
+        let eventsEl = events ? `${events}` : "";
+        value = (defaultVal != undefined && defaultVal != "") ? defaultVal : value;
+        let val = (value == null ? "" : `value="${value}"`);
+        let readonlyVal = (readonly == null ? "" : `readonly="${readonly}"`);
+        let minVal = (min == null ? "" : `min="${min}"`);
+        let maxVal = (max == null ? "" : `max="${max}"`);
+        let defVal = (defaultVal == null ? "" : `default="${defaultVal}"`);
+        let stepVal = (step == null ? "" : `step="${step}"`);
+        let placeholderVal = (placeholder == null ? "" : `placeholder='${placeholder}'`);
+        console.log(enabled+"this enabled")
+        return `<div class="input-var"><div class="form-group enter-value1"><label>${label}</label>
+        <input class="form-control" ${typeEl} ${idEl} ${val} ${readonlyVal} ${minVal} ${maxVal} ${defVal} ${stepVal} ${placeholderVal} ${eventsEl} ${enabled?'':'disabled'}></input>
+        <div class="help-block with-errors"></div></div></div>`;
+    };
+
     /**
     * Add new technology in the tree
     * @param {String} div the parent object for inject the HTML form
@@ -795,17 +833,31 @@
         var textNewForm = `<div class="title-tree col-md-12" id="contentTechnology${idNewTech}">
             <div class="point-tree" onclick="viewBranch('technology${idNewTech}', this)">-</div> 
             <div class="text-tree"><div style="display:flex;"><label technology='${idNewTech}'>${lblTechnology}:</label>
-            <input type="text" id="${idNewTech}" class="form-control new-tech-input" 
+            <input type="text" id="${idNewTech}" class="form-control new-tech-input" data-error="{% trans "This field is required" %}"
             style="position:relative;top:-6px; value=${idNewTech}" onkeydown="keyupNewTech(this)" 
-            placeholder="${_('Enter name technology')}"></div></div></div>
+            placeholder="${_('Enter name technology')}" required></div></div></div>
             <div class="margin-main overflow-form col-md-12" id="technology${idNewTech}">
             <div class="container-var" id="idContainerVar${idNewTech}"><div>
-        ${createInput('% '+ lbl.transportedWater, 100, "", null, null, null, null, false, null, null, 'number')}
-        ${createInput('% '+ lbl.sediments, null, null, null, null, null, lbl.placeholderSediments, true, null, null, 'number')}  
-        </div><div>
-        ${createInput('% '+ lbl.nitrogen, null, null, null, null, null, lbl.placeholderNitrogen, true, null, null, 'number')}
-        ${createInput('% '+ lbl.phosphorus, null, null, null, null, null, lbl.placeholderPhosphorus, true, null, null, 'number')}
-        </div></div>${tableFunctionTpl}<div class="link-form">${_('Add function')}</div></div>`;
+
+                <div class="input-var"><div class="form-group enter-value1"><label>${'% '+ lbl.transportedWater}</label>
+                <input class="form-control transportedWaterNew" type="number" value="100" disabled></input>
+                <div class="help-block with-errors"></div></div></div>
+
+                <div class="input-var"><div class="form-group enter-value1"><label>${'% '+ lbl.sediments}</label>
+                <input class="form-control sedimentsNew" name="sedimentsNew" type="number" placeholder="${lbl.placeholderSediments}"></input>
+                <div class="help-block with-errors"></div></div></div>
+
+            </div><div class="enter-value2">
+
+                <div class="input-var"><div class="form-group enter-value1"><label>${'% '+ lbl.nitrogen}</label>
+                <input class="form-control nitrogenNew" type="number" placeholder="${lbl.placeholderNitrogen}"></input>
+                <div class="help-block with-errors"></div></div></div>
+
+                <div class="input-var"><div class="form-group enter-value1"><label>${'% '+ lbl.phosphorus}</label>
+                <input class="form-control phosphorusNew" type="number" placeholder="${lbl.placeholderPhosphorus}"></input>
+                <div class="help-block with-errors"></div></div></div>
+
+            </div></div>${tableFunctionTpl}<div class="link-form">${_('Add function')}</div></div>`;
         
         node.innerHTML = textNewForm;
         let elParent = document.getElementById(parentId);
@@ -910,7 +962,8 @@
                             <div class="point-tree" onclick="viewBranch('id${plantElement}', this)" >-</div>
                             <div class="text-tree">${_(nameElement)} </div><div class="detail-tree"></div></div> 
                             <div class="margin-main" id="id${plantElement}"></div>`);
-        let fnTechParent;;
+        let fnTechParent;
+        
         $.each( data, function( key, value) {
             if(value.subprocessAddId !== lastSubprocess) {
                 fnTechParent = value;
@@ -1039,38 +1092,38 @@
                 });
             }
         });
-
+        
         let keysCustomFns = Object.keys(functionsByCustomTech);
-        if (keysCustomFns.length > 0) {
-            listTrFunction = [];
-            let customFn = functionsByCustomTech[keysCustomFns[0]];
-            let techName = customFn.technology;
-            let sediments = customFn.sedimentsRetained;
-            let nitrogen = customFn.nitrogenRetained;
-            let phosphorus = customFn.phosphorusRetained;
-            keysCustomFns.forEach(key => {
-                customFn = functionsByCustomTech[key];
-                let graphid = customFn.graphid;                
-                let activateHtml = htmlCheckBox(customFn, graphid, customFn.idSubProcess, "", true,null);
-                let strHtmlCustomfn = addFunctionCostRow(activateHtml, customFn, true, graphid,"");
-                listTrFunction.push(strHtmlCustomfn);
-            });
-            var idNewTech = "new-tech-" + Date.now();
-            let onBlurFn = `onblur="changeRetained('${idNewTech}', this)"`;
-            var tableFunct = tableFunctionTpl.replace("<tbody>", "<tbody>" + listTrFunction.join(""));
-            var htmlTech = `<div class="title-tree col-md-12" id="contentTechnology${idNewTech}">
-                <div class="point-tree" onclick="viewBranch('technology${idNewTech}', this)">-</div> 
-                <div class="text-tree"><div style="display:flex;"><label technology='${techName}'>${lblTechnology}:</label> ${techName}
-                </div></div></div><div class="margin-main overflow-form col-md-12" id="technology${idNewTech}">
-                <div class="container-var" id="idContainerVar${idNewTech}"><div>
-                ${createInput('% '+ lbl.transportedWater, 100, "", null, null, null, null, false, null)}
-                ${createInput('% '+ lbl.sediments, sediments, null, null, null, null, lbl.placeholderSediments, true,'idSedimentsRetained'+idNewTech,onBlurFn,'number', null)}
-                </div><div>
-                ${createInput('% '+ lbl.nitrogen, nitrogen, null, null, null, null, lbl.placeholderNitrogen, true,'idNitrogenRetained'+idNewTech,onBlurFn,'number', null)}
-                ${createInput('% '+ lbl.phosphorus, phosphorus, null, null, null, null, lbl.placeholderPhosphorus, true,'idPhosphorusRetained'+idNewTech,onBlurFn,'number', null)}
-                </div></div>${tableFunct}<div class="link-form">${_('Add function')}</div></div>`;           
-            $('#subprocess' + fnTechParent.idSubprocess).html($('#subprocess' + fnTechParent.idSubprocess).html() + htmlTech);
-        }
+                if (keysCustomFns.length > 0) {
+                    listTrFunction = [];
+                    let customFn = functionsByCustomTech[keysCustomFns[0]];
+                    let techName = customFn.technology;
+                    let sediments = customFn.sedimentsRetained;
+                    let nitrogen = customFn.nitrogenRetained;
+                    let phosphorus = customFn.phosphorusRetained;
+                    keysCustomFns.forEach(key => {
+                        customFn = functionsByCustomTech[key];
+                        let graphid = customFn.graphid;                
+                        let activateHtml = htmlCheckBox(customFn, graphid, customFn.idSubProcess, "", true,null);
+                        let strHtmlCustomfn = addFunctionCostRow(activateHtml, customFn, true, graphid,"");
+                        listTrFunction.push(strHtmlCustomfn);
+                    });
+                    var idNewTech = "new-tech-" + Date.now();
+                    let onBlurFn = `onblur="changeRetained('${idNewTech}', this)"`;
+                    var tableFunct = tableFunctionTpl.replace("<tbody>", "<tbody>" + listTrFunction.join(""));
+                    var htmlTech = `<div class="title-tree col-md-12" id="contentTechnology${idNewTech}">
+                        <div class="point-tree" onclick="viewBranch('technology${idNewTech}', this)">-</div> 
+                        <div class="text-tree"><div style="display:flex;"><label technology='${techName}'>${lblTechnology}:</label> ${techName}
+                        </div></div></div><div class="margin-main overflow-form col-md-12" id="technology${idNewTech}">
+                        <div class="container-var" id="idContainerVar${idNewTech}"><div>
+                        ${createInput('% '+ lbl.transportedWater, 100, "", null, null, null, null, false, null)}
+                        ${createInput('% '+ lbl.sediments, sediments, null, null, null, null, lbl.placeholderSediments, true,'idSedimentsRetained'+idNewTech,onBlurFn,'number', null)}
+                        </div><div>
+                        ${createInput('% '+ lbl.nitrogen, nitrogen, null, null, null, null, lbl.placeholderNitrogen, true,'idNitrogenRetained'+idNewTech,onBlurFn,'number', null)}
+                        ${createInput('% '+ lbl.phosphorus, phosphorus, null, null, null, null, lbl.placeholderPhosphorus, true,'idPhosphorusRetained'+idNewTech,onBlurFn,'number', null)}
+                        </div></div>${tableFunct}<div class="link-form">${_('Add function')}</div></div>`;           
+                    $('#subprocess' + fnTechParent.idSubprocess).html($('#subprocess' + fnTechParent.idSubprocess).html() + htmlTech);
+                }
         validateAndAddFunction2Array();
         $('[data-toggle="tooltip"]').tooltip({trigger:'hover',placement:'auto'});
         if (onlyReadPlant){
@@ -1615,24 +1668,6 @@
                     </div>`);
             }              
         });        
-    }
-
-    function createInput(label, value, readonly, min, max, step, placeholder, enabled, id, events, type, defaultVal) {
-        let idEl = id ? `id="${id}"` : "";
-        let typeEl = type ? `type="${type}"` : "";
-        let eventsEl = events ? `${events}` : "";
-        value = (defaultVal != undefined && defaultVal != "") ? defaultVal : value;
-        let val = (value == null ? "" : `value="${value}"`);
-        let readonlyVal = (readonly == null ? "" : `readonly="${readonly}"`);
-        let minVal = (min == null ? "" : `min="${min}"`);
-        let maxVal = (max == null ? "" : `max="${max}"`);
-        let defVal = (defaultVal == null ? "" : `default="${defaultVal}"`);
-        let stepVal = (step == null ? "" : `step="${step}"`);
-        let placeholderVal = (placeholder == null ? "" : `placeholder='${placeholder}'`);
-        console.log(enabled+"this enabled")
-        return `<div class="input-var"><div class="form-group"><label>${label}</label>
-        <input class="form-control" ${typeEl} ${idEl} ${val} ${readonlyVal} ${minVal} ${maxVal} ${defVal} ${stepVal} ${placeholderVal} ${eventsEl} ${enabled?'':'disabled'}></input>
-        <div class="help-block with-errors"></div></div></div>`;
     }
 
     $('#btnValidatePyExp').click(function () {
