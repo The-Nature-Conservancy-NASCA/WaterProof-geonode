@@ -35,15 +35,17 @@ var intakes = [];
 var ptaps = [];
 var yearsDemand = [];
 var mapLoader;
+var elemSysId = "";
+var intakeElSysName = "";
 let cityId = document.getElementById('title_city').getAttribute('idCity');
 
 $(document).ready(function () {
+    $("#div-customcase").removeClass("panel-hide");
     $('#autoAdjustHeightF').css("height", "auto");
     // $('#cityLabel').text(localStorage.city + ", " + localStorage.country);
     $('#coeqCountry').text("CO2_country"+" ("+localStorage.country+")");    
     calculate_Personnel();
-    calculate_Platform();
-    loadIntakes();
+    calculate_Platform();    
     loadPtaps();
     loadNBS();
 
@@ -66,6 +68,7 @@ $(document).ready(function () {
                 confirmButtonText: gettext('response_delete'),
             }).then((result) => {
                 if (result.isConfirmed) {
+                    loadCsInfra();
                     $("#panel-custom").removeClass("panel-hide");
                     $("#panel-cost").removeClass("panel-hide");
                     $("#panel-ptap").addClass("panel-hide");
@@ -78,6 +81,7 @@ $(document).ready(function () {
                 }
             })
         } else {
+            loadCsInfra();
             $("#panel-custom").removeClass("panel-hide");
             $("#panel-ptap").addClass("panel-hide");
             $("#panel-cost").removeClass("panel-hide");
@@ -88,6 +92,7 @@ $(document).ready(function () {
     });
 
     $('#ptap').click(function () {
+        loadIntakes();
         $("#panel-ptap").removeClass("panel-hide");
         $("#panel-custom").removeClass("panel-hide");
         $("#panel-cost").addClass("panel-hide");
@@ -181,6 +186,18 @@ $(document).ready(function () {
         if (value) {
             $('#select_custom option:selected').remove();
             var action = "<td><a class='btn btn-danger btn-right'><span class='glyphicon glyphicon-trash' aria-hidden='true'></span></a></td>";
+            var csId = value.split("-")[1];
+            var csinfras = JSON.parse(localStorage.getItem("csinfraByCity")).filter(e => e.element_system_id == csId);
+            $.each(csinfras, function (index, intake) {
+                var name = `<td>${intake.name_intake_csinfra}</td>`;
+                var description = "<td>" + intake.description + "</td>";
+                var name_source = "<td>" + intake.water_source_name + "</td>";
+                var markup = `<tr id='custom-${intake.id}-${intake.element_system_id}-${intake.graphId}'>${name} ${description} ${name_source} ${action}</tr>`;
+                $("#custom_table").find('tbody').append(markup);
+            });
+
+            $('#autoAdjustHeightF').css("height", "auto");
+            /*
             $.get("../../study_cases/intakebyid/" + value, function (data) {
                 $.each(data, function (index, intake) {
                     var name = "<td>" + intake.name + "</td>";
@@ -192,6 +209,7 @@ $(document).ready(function () {
 
                 $('#autoAdjustHeightF').css("height", "auto");
             });
+            */
         }
     });
 
@@ -1160,34 +1178,6 @@ $(document).ready(function () {
         total_plaform.val(total)
     }
 
-    function loadIntakes() {
-        var city_id = cityId;
-        $.get("../../study_cases/intakebycity/" + city_id, function (data) {
-            if (data.length > 0) {
-                $.each(data, function (index, intake) {
-                    contains = false
-                    $('#custom_table').find('tbody > tr').each(function (index, tr) {
-                        id = tr.id.replace('custom-', '')
-                        if (id == intake.id) {
-                            contains = true
-                            return false
-                        }
-                    });
-                    if (!contains) {
-                        var name = intake.name;
-                        option = name
-                        $("#select_custom").append(new Option(option, intake.id));
-                    }
-                });
-                $("#div-customcase").removeClass("panel-hide");
-                autoAdjustHeight();
-            } else {
-                $("#div-emptyintakes").removeClass("panel-hide");
-            }
-
-        });
-    }
-
     function loadPtaps() {
         var city_id = cityId;
         $.get("../../study_cases/ptapbycity/" + city_id, function (data) {
@@ -1419,6 +1409,16 @@ $(document).ready(function () {
     //Set var into calculator
     $(document).on('click', '.list-group-item', function () {
         var el = document.getElementById("python-expression");
+        if (el.value.trim() == "") {
+            let titlePanelSelected = $(this).parents()[1].id;
+            elemSysId = titlePanelSelected.split("-")[3];
+            intakeElSysName = $(this).parents()[1].getElementsByTagName("label")[0].innerHTML;
+            $(".title-panel-vars").each((i,pl) => {
+                if (pl.id != titlePanelSelected) {
+                    $("#" + pl.id).hide();
+                }
+            });
+        }
         typeInTextarea($(this).attr('value'), el);
     });
 
@@ -1439,6 +1439,20 @@ $(document).ready(function () {
             return (symbols.indexOf(charCode) >= 0);
 
         return true;
+    })
+
+    $('#python-expression').on('keydown', function (evt) {
+        if (evt.key == 'Backspace'){
+            setTimeout(() => {
+                let el = document.getElementById("python-expression");
+                let text = el.value;
+                if (text.trim() == "") {
+                    $(".title-panel-vars").each((i,pl) => {
+                        $("#" + pl.id).show();                
+                    });
+                }
+            } , 200);
+        }
     })
 
     $('#btnValidatePyExp').click(function () {
@@ -1516,6 +1530,7 @@ $('#saveAndValideCost').click(function () {
                 'factor': $('#global_multiplier_factorCalculator').val(),
                 'currencyCost': $('#currencyCost option:selected').val(),
                 'currencyCostName': $('#currencyCost option:selected').text(),
+                'elementSystemId' : elemSysId
             }
         });
     } else {
@@ -1527,6 +1542,7 @@ $('#saveAndValideCost').click(function () {
             'factor': $('#global_multiplier_factorCalculator').val(),
             'currencyCost': $('#currencyCost option:selected').val(),
             'currencyCostName': $('#currencyCost option:selected').text(),
+            'elementSystemId' : elemSysId
         }
 
         if (selectedCostId == 0) {
@@ -1606,64 +1622,82 @@ $(document).on('click', 'a[name=glyphicon-trash]', function () {
 function setVarCost() {
     $('#CalculatorModalLabel').text(gettext('Edit Cost function'));
     $('#VarCostListGroup div').remove();
-    let listIntakes = [];
+    let csinfras = [];
     $('#custom_table').find('tbody > tr').each(function (index, tr) {
-        id = tr.id.replace('custom-', '');
-        listIntakes.push({
+        id = tr.id.split('-')[2];
+        csinfras.push({
             id: id,
             name: tr.cells[0].innerText
         });
     });
 
-    for (const intake of listIntakes) {
+    for (const csinfra of csinfras) {
+        let idIntake = csinfra.name.split("-")[2].trim();
         var costlabel = "";
-        for (const iterator of costVars) {
-            costlabel += `<a value="${iterator}${intake.id}" class="list-group-item list-group-item-action" style="padding-top: 4px;padding-bottom: 4px;">${iterator}${intake.id}</a>`
+        for (const v of costVars) {
+            costlabel += `<a value="${v}${idIntake}" class="list-group-item list-group-item-action cost-fn-var">${v}${idIntake}</a>`
         }
         $('#VarCostListGroup').append(`
-            <div class="panel panel-info">
+            <div class="panel panel-info title-panel-vars" id="panel-intake-${idIntake}-${csinfra.id}">
                 <div class="panel-heading">
                     <h4 class="panel-title">
-                        <a data-toggle="collapse" data-parent="#VarCostListGroup" href="#VarCostListGroup_${intake.id}">${intake.id} <label> ${intake.name} </label></a>
+                        <a data-toggle="collapse" data-parent="#VarCostListGroup" href="#VarCostListGroup_${csinfra.id}">
+                            <label>${csinfra.name}</label>
+                        </a>
                     </h4>
                 </div>
-                <div id="VarCostListGroup_${intake.id}" class="panel-collapse collapse">
-                    ${costlabel}
-                </div>
-            </div>
-        `);
+                <div id="VarCostListGroup_${csinfra.id}" class="panel-collapse collapse">${costlabel}</div>
+            </div>`);
+    }
+
+    if (!flagFunctionCost){
+        $(".title-panel-vars").each((i,pl) => {
+            if (pl.id.split("-")[3] != elemSysId) {
+                $("#" + pl.id).hide();
+            }
+        });
     }
 }
 
 function funcost(index) {
-    var currencyCostName = funcostdb[index].function.currencyCostName != undefined ? funcostdb[index].function.currencyCostName : funcostdb[index].function.currency;
-    var factor = funcostdb[index].function.factor;
+    var fnCost = funcostdb[index].function;
+    var currencyCostName = fnCost.currencyCostName != undefined ? fnCost.currencyCostName : fnCost.currency;
+    var factor = fnCost.factor;
     if (currencyCostName == undefined) {
         currencyCostName = localStorage.getItem("currencyCode");
     }
     if (factor == undefined) {
         factor = localStorage.getItem("factor");
     }
+    if (elemSysId == ""){
+        elemSysId = fnCost.elementSystemId;
+        $("#custom_table > tbody > tr").each((i, el) => {
+            if (el.id.split("-")[2] == elemSysId) {
+                intakeElSysName = el.children[0].innerHTML;
+            }
+        });
+    }
     $('#funcostgenerate').append(
-        `<tr idvalue="fun_${index}">
-    <td aling="center">${funcostdb[index].function.name}</td>
-    <td class="small text-center vat" style="width: 160px">
-    <a class="btn btn-info" idvalue="${index}" name="fun_display_btn">fx</a>
-    <div id="fun_display_${index}" style="position: absolute; left: 50%; width: auto; display: none;">
-    <div class="alert alert-info mb-0" style="position: relative; left: -25%; bottom: 90px;" role="alert">
-    <p name="render_ecuation" style="font-size: 1.8rem; width:100%;">${funcostdb[index].function.value}</p>
-     </div>
-    </div>
-    </td>
-    <td class="small text-center vat">${currencyCostName}</td>
-    <td class="small text-center vat">${factor}</td>
-    <td class="small text-center vat" style="width: 85px">
-        <div class="btn-group btn-group-table" role="group">
-            <a class="btn btn-info" name="glyphicon-edit" idvalue="${index}"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
-            <a class="btn btn-danger" name="glyphicon-trash" idvalue="${index}"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
-        </div>
-    </td>
-</tr>`);
+        `<tr idvalue="fun_${index}" element-system-id="${elemSysId}">
+            <td aling="center">${intakeElSysName}</td>
+            <td aling="center">${fnCost.name}</td>
+            <td class="small text-center vat" style="width: 160px">
+            <a class="btn btn-info" idvalue="${index}" name="fun_display_btn">fx</a>
+            <div id="fun_display_${index}" style="position: absolute; left: 50%; width: auto; display: none;">
+            <div class="alert alert-info mb-0" style="position: relative; left: -25%; bottom: 90px;" role="alert">
+            <p name="render_ecuation" style="font-size: 1.8rem; width:100%;">${fnCost.value}</p>
+            </div>
+            </div>
+            </td>
+            <td class="small text-center vat">${currencyCostName}</td>
+            <td class="small text-center vat">${factor}</td>
+            <td class="small text-center vat" style="width: 85px">
+                <div class="btn-group btn-group-table" role="group">
+                    <a class="btn btn-info" name="glyphicon-edit" idvalue="${index}"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
+                    <a class="btn btn-danger" name="glyphicon-trash" idvalue="${index}"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+                </div>
+            </td>
+        </tr>`);
     autoAdjustHeight();
 }
 

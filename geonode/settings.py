@@ -113,9 +113,6 @@ DATABASE_URL = os.getenv(
 )
 
 #DATABASE_URL='postgresql://geonode:{&Uid&QXZ&6f;|F@dev.skaphe.com:5432/geonode'
-#DATABASE_URL='postgresql://geonode:G30N0D3@water-proof.org:5432/geonode'
-#DATABASE_URL='postgresql://geonode:geonode@localhost:5432/geonode'
-#DATABASE_URL = 'postgresql://geonode:geonode_data@dev.skaphe.com:5432/geonode'
 
 if DATABASE_URL.startswith("spatialite"):
     try:
@@ -933,12 +930,16 @@ AUTH_EXEMPT_URLS = (
     '%s/static/*' % FORCE_SCRIPT_NAME,
     '%s/api/o/*' % FORCE_SCRIPT_NAME,
     '%s/api/roles' % FORCE_SCRIPT_NAME,
-    '%s/api/adminRole' % FORCE_SCRIPT_NAME,
-    '%s/api/users' % FORCE_SCRIPT_NAME,
+    '%s/api/adminRole' % FORCE_SCRIPT_NAME,    
     '%s/api/layers' % FORCE_SCRIPT_NAME,
     '%s/monitoring' % FORCE_SCRIPT_NAME,
+    '%s/intake/ShowDiagram/*' % FORCE_SCRIPT_NAME,
+    '%s/treatment_plants/view/*' % FORCE_SCRIPT_NAME,
+    '%s/treatment_plants/getTreatmentPlantsList/*' % FORCE_SCRIPT_NAME,
+    '%s/reports/*' % FORCE_SCRIPT_NAME,
     r'^/i18n/setlang/?$',
 )
+#'%s/api/users' % FORCE_SCRIPT_NAME,
 
 ANONYMOUS_USER_ID = os.getenv('ANONYMOUS_USER_ID', '-1')
 GUARDIAN_GET_INIT_ANONYMOUS_USER = os.getenv(
@@ -1333,7 +1334,7 @@ try:
     PROXY_ALLOWED_HOSTS = ast.literal_eval(os.getenv('PROXY_ALLOWED_HOSTS'))
 except ValueError:
     # fallback to regular list of values separated with misc chars
-    PROXY_ALLOWED_HOSTS = [HOSTNAME, 'localhost', 'django', 'geonode', 'spatialreference.org', 'nominatim.openstreetmap.org', 'dev.openlayers.org', 'dev.skaphe.com'] if os.getenv('PROXY_ALLOWED_HOSTS') is None \
+    PROXY_ALLOWED_HOSTS = [HOSTNAME, 'localhost', 'django', 'geonode', 'spatialreference.org', 'nominatim.openstreetmap.org', 'dev.openlayers.org', 'dev.skaphe.com','photon.komoot.io'] if os.getenv('PROXY_ALLOWED_HOSTS') is None \
         else re.split(r' *[,|:|;] *', os.getenv('PROXY_ALLOWED_HOSTS'))
 
 # The proxy to use when making cross origin requests.
@@ -2219,6 +2220,24 @@ GEOIP_PATH = os.getenv('GEOIP_PATH', os.path.join(PROJECT_ROOT, 'GeoIPCities.dat
 SEARCH_RESOURCES_EXTENDED = strtobool(os.getenv('SEARCH_RESOURCES_EXTENDED', 'True'))
 # -- END Settings for MONITORING plugin
 
+AUTH_PASSWORD_VALIDATORS = [
+    {
+        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'OPTIONS': {
+            'min_length': 8,
+        }
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+    },
+    {
+        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+    },
+]
+
 FREQUENTLY_READY_FOR_V1 = True
 FREQUENTLY_ALLOW_ANONYMOUS = True
 
@@ -2241,6 +2260,7 @@ GEOSERVER_WMS = os.getenv('GEOSERVER_WMS','https://dev.skaphe.com/geoserver/wate
 HYDRO_NETWORK_LYR = 'waterproof:world_hydro_network'
 
 #API key for update euro currencys update
+EXCHANGE_API_URL='https://api.exchangeratesapi.io/v1/latest'
 EXCHANGE_ACCESS_KEY = '9b2f5c878a36ddfe3a1b5318bce18a85'
 
 WAGTAIL_SITE_NAME = 'Waterproof CMS'
