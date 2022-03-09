@@ -186,14 +186,26 @@ $(document).ready(function () {
             $('#select_custom option:selected').remove();
             var action = "<td><a class='btn btn-danger btn-right'><span class='glyphicon glyphicon-trash' aria-hidden='true'></span></a></td>";
             var csId = value.split("-")[1];
-            var csinfras = JSON.parse(localStorage.getItem("csinfraByCity")).filter(e => e.element_system_id == csId);
-            $.each(csinfras, function (index, intake) {
-                var name = `<td>${intake.name_intake_csinfra}</td>`;
-                var description = "<td>" + intake.description + "</td>";
-                var name_source = "<td>" + intake.water_source_name + "</td>";
-                var markup = `<tr id='custom-${intake.id}-${intake.element_system_id}-${intake.graphId}'>${name} ${description} ${name_source} ${action}</tr>`;
-                $("#custom_table").find('tbody').append(markup);
-            });
+            if (csId != undefined) {
+                var csinfras = JSON.parse(localStorage.getItem("csinfraByCity")).filter(e => e.element_system_id == csId);
+                $.each(csinfras, function (index, intake) {
+                    var name = `<td>${intake.name_intake_csinfra}</td>`;
+                    var description = "<td>" + intake.description + "</td>";
+                    var name_source = "<td>" + intake.water_source_name + "</td>";
+                    var markup = `<tr id='custom-${intake.id}-${intake.element_system_id}-${intake.graphId}'>${name} ${description} ${name_source} ${action}</tr>`;
+                    $("#custom_table").find('tbody').append(markup);
+                });
+            }else{
+                var intakes = JSON.parse(localStorage.getItem("intakesByCity")).filter(e => e.id == value);
+                $.each(intakes, function (index, intake) {
+                    var name = "<td>" + intake.name + "</td>";
+                    var description = "<td>" + intake.water_source_name + "</td>";
+                    var name_source = "<td>" + intake.water_source_name + "</td>";
+                    var markup = "<tr id='custom-" + value + "'>" + name + description + name_source + action + "</tr>";
+                    $("#custom_table").find('tbody').append(markup);
+                });
+            }
+            
 
             $('#autoAdjustHeightF').css("height", "auto");
 
@@ -992,7 +1004,6 @@ $(document).ready(function () {
             });
             return;
         }
-
     }
 
     $('#custom_table').on('click', 'a', function () {
@@ -1116,66 +1127,6 @@ $(document).ready(function () {
         calculate_Personnel();
         calculate_Platform();
     });
-
-    function calculate_Personnel() {
-        var total = 0.0;
-        var total_personnel = $("#total_personnel");
-        var director = $("#director").val();
-        var evaluation = $("#evaluation").val();
-        var finance = $("#finance").val();
-        var implementation = $("#implementation").val();
-        if (director && !isNaN(director)) {
-            total += parseFloat(director)
-        }
-        if (evaluation && !isNaN(evaluation)) {
-            total += parseFloat(evaluation)
-        }
-        if (finance && !isNaN(finance)) {
-            total += parseFloat(finance)
-        }
-        if (implementation && !isNaN(implementation)) {
-            total += parseFloat(implementation)
-        }
-        total_personnel.val(total)
-    }
-
-    function calculate_Platform() {
-        var total = 0.0;
-        var total_plaform = $("#total_platform");
-        var personnel = $("#total_personnel").val();
-        var office = $("#office").val();
-        var travel = $("#travel").val();
-        var equipment = $("#equipment").val();
-        var overhead = $("#overhead").val();
-        var contracts = $("#contracts").val();
-        var others = $("#others").val();
-
-        if (personnel && !isNaN(personnel)) {
-            total += parseFloat(personnel)
-        }
-        if (director && !isNaN(director)) {
-            total += parseFloat(director)
-        }
-        if (office && !isNaN(office)) {
-            total += parseFloat(office)
-        }
-        if (travel && !isNaN(travel)) {
-            total += parseFloat(travel)
-        }
-        if (equipment && !isNaN(equipment)) {
-            total += parseFloat(equipment)
-        }
-        if (contracts && !isNaN(contracts)) {
-            total += parseFloat(contracts)
-        }
-        if (overhead && !isNaN(overhead)) {
-            total += parseFloat(overhead)
-        }
-        if (others && !isNaN(others)) {
-            total += parseFloat(others)
-        }
-        total_plaform.val(total);
-    }
 
     function loadPtaps() {
         var city_id = localStorage.cityId
@@ -1386,62 +1337,8 @@ $(document).ready(function () {
 
     $("#add_cost").click(function () {
         setVarCost();
-    });
+    });   
 
-    //Set var into calculator
-    $(document).on('click', '.list-group-item', function () {
-        var el = document.getElementById("python-expression");
-        if (el.value.trim() == "") {
-            let titlePanelSelected = $(this).parents()[1].id;
-            elemSysId = titlePanelSelected.split("-")[3];
-            intakeElSysName = $(this).parents()[1].getElementsByTagName("label")[0].innerHTML;
-            $(".title-panel-vars").each((i,pl) => {
-                if (pl.id != titlePanelSelected) {
-                    $("#" + pl.id).hide();
-                }
-            });
-        }
-        typeInTextarea($(this).attr('value'), el);
-    });
-
-    function typeInTextarea(newText, el) {
-        if (newText == undefined) return;
-        
-        const [start, end] = [el.selectionStart, el.selectionEnd];
-        el.setRangeText(newText, start, end, 'select');
-        el.focus();
-        document.getSelection().removeAllRanges();
-        el.selectionStart = start + newText.length;
-        el.selectionEnd = el.selectionStart;
-    }
-
-    $('#python-expression').on('keypress', function (evt) {
-        var charCode = (evt.which) ? evt.which : evt.keyCode;
-        let symbols = [32,40,41,42,43,44,45,46,47,60,61,62,91,92,93,101,123,125];
-        if (charCode != 46 && charCode > 31 && (charCode < 48 || charCode > 57))
-            return (symbols.indexOf(charCode) >= 0);
-
-        return true;
-    })
-
-    $('#python-expression').on('keydown', function (evt) {
-        if (evt.key == 'Backspace'){
-            setTimeout(() => {
-                let el = document.getElementById("python-expression");
-                let text = el.value;
-                if (text.trim() == "") {
-                    $(".title-panel-vars").each((i,pl) => {
-                        $("#" + pl.id).show();                
-                    });
-                }
-            } , 200);
-        }
-    })
-
-    $('#btnValidatePyExp').click(function () {
-        validatePyExpression();
-    });    
-    
     //KeyBoard calculator funcion cost
     $('button[name=mathKeyBoard]').click(function () {
         var el = document.getElementById("python-expression");
@@ -1678,11 +1575,6 @@ function funcost(index) {
     autoAdjustHeight();
 }
 
-//add function set autoAdjustHeight
-function autoAdjustHeight() {
-    $('#autoAdjustHeightF').css("height", "auto");
-}
-
 function locationHref(){
     if (localStorage.getItem('returnTo') != null) {
         window.location.href = "/study_cases/" + localStorage.getItem('returnTo');
@@ -1690,11 +1582,6 @@ function locationHref(){
         location.href = "/study_cases/?city="+localStorage.cityId; 
     }    
 }
-
-$(document).on('click', 'a[name=fun_display_btn]', function () {
-    var idx = $(this).attr('idvalue');
-    $(`#fun_display_${idx}`).toggle();
-});
 
 window.onbeforeunload = function () {
     return mxResources.get('changesLost');

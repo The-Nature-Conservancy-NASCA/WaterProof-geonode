@@ -992,6 +992,26 @@
                 xmlDoc = mxUtils.parseXml(xmlText);
                 var dec = new mxCodec(xmlDoc);
                 dec.decode(xmlDoc.documentElement, editor.graph.getModel());
+
+                var elt = xmlDoc.documentElement.firstChild;
+                var cells = [];
+                while (elt != null) {
+                    var codec = new mxCodec(xmlDoc);
+                    if (codec.decode(elt) != null){
+                        cells.push(codec.decode(elt));
+                    }            
+                    elt = elt.nextSibling;
+                }
+                if (cells.length > 0){
+                    var rootNode = cells[0];
+                    rootNode.querySelectorAll('mxCell').forEach(function(node) {
+                        if (node.id != "") {
+                            let values = JSON.parse(node.getAttribute('value'));
+                            let water = values.resultdb[0].fields.predefined_transp_water_perc;
+                            transportedWaterConnectors[node.id] = {"style" : style, "id" : node.id, "transportedWater" : water};
+                        }
+                    });
+                }
                 
             },
             error: function (e) {
