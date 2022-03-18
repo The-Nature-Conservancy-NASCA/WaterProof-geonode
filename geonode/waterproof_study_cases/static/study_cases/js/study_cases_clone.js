@@ -1556,8 +1556,7 @@ function funcost(index) {
         });
     }
     $('#funcostgenerate').append(
-        `<tr idvalue="fun_${index}" element-system-id="${elemSysId}">
-            <td aling="center">${intakeElSysName}</td>
+        `<tr idvalue="fun_${index}" element-system-id="${elemSysId}">            
             <td aling="center">${fnCost.name}</td>
             <td class="small text-center vat" style="width: 160px">
             <a class="btn btn-info" idvalue="${index}" name="fun_display_btn">fx</a>

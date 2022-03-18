@@ -302,9 +302,9 @@ def clone(request, idx):
                         add = False
                         break
                 if(add):
-                    ptaps.append(ptap)
-            listIntakes = ElementSystem.objects.filter(normalized_category='CSINFRA').values(
-                "id", "name", "intake__name", "intake__id", "graphId")
+                    ptaps.append(ptap)            
+            listIntakes = ElementSystem.objects.filter(normalized_category='CSINFRA', intake__id__in=listIntakesStudy).values(
+                "id", "name", "intake__name", "intake__id", "intake__water_source_name" , "intake__description" ,"graphId")
             for intake in listIntakes:
                 add = True
                 for intakeStudy in listIntakesStudy:
@@ -322,7 +322,7 @@ def clone(request, idx):
                     "serverApi": settings.WATERPROOF_API_SERVER,
                     "servermodelApi": settings.WATERPROOF_MODELS_PY2_API,
                     'study_case': study_case,
-                    'intakes': intakes,
+                    'csinfras': intakes,
                     'portfolios': portfolios,
                     'tratamentPlants': ptaps,
                     'ModelParameters': models,

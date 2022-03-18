@@ -136,29 +136,24 @@
                                         </div>
                                     </div>
                                     <div class="table-responsive">
-                                        <table id="custom_table"
-                                            class="table table-striped table-bordered table-condensed"
-                                            style="width:100%">
+                                        <table id="custom_table" class="table table-striped table-bordered table-condensed" style="width:100%">
                                             <thead>
                                                 <tr class="info">
-                                                    <th scope="col" class="small text-center vat">{% trans "Name" %}
-                                                    </th>
-                                                    <th scope="col" class="small text-center vat">{% trans "Description"
-                                                        %}</th>
+                                                    <th scope="col" class="small text-center vat">{% trans "Name" %}</th>
+                                                    <th scope="col" class="small text-center vat">{% trans "Description"%}</th>
                                                     <th scope="col" class="small text-center vat">{% trans "water_source" %}</th>
                                                     <th scope="col" class="small text-center vat">{% trans "Options" %}
                                                     </th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {% for intake in study_case.intakes.all %}
-                                                <tr id='custom-{{intake.id}}'>
-                                                    <td>{{intake.name}}</td>
-                                                    <td>{{intake.description}}</td>
-                                                    <td>{{intake.water_source_name}}</td>
-                                                    <td><a class='btn btn-danger'><span
-                                                                class='glyphicon glyphicon-trash'
-                                                                aria-hidden='true'></span></a></td>
+                                                {% for csinfra in csinfras %}
+                                                <tr id='custom-{{csinfra.intake__id}}-{{csinfra.id}}-{{csinfra.graphId}}'>
+                                                    <td>{{csinfra.intake__name}} - {{csinfra.name}} - {{csinfra.graphId}}</td>
+                                                    <td>{{csinfra.intake__description}}</td>
+                                                    <td>{{csinfra.intake__water_source_name}}</td>
+                                                    <td><a class='btn btn-danger'>
+                                                        <span class='glyphicon glyphicon-trash' aria-hidden='true'></span></a></td>
                                                 </tr>
                                                 {% endfor %}
                                             </tbody>
