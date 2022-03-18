@@ -493,7 +493,7 @@
                     {% endif %}
                 {% endif %}
                 <li role="separator" class="divider"></li>
-                <li><a href="/static/geonode/docs/waterproof-user-manual.pdf">{% trans "Help" %}</a></li>
+                <li><a target="_blank" href="/static/geonode/docs/waterproof-user-manual.pdf">{% trans "Help" %}</a></li>
                 <li role="separator" class="divider"></li>
                 <li><a href="{% if SITEURL|default:""|slice:"-1:" == "/" %}{{SITEURL}}{% else %}{{SITEURL}}/{% endif %}account/logout/">{% trans "Log out" %}</a></li>
                 </ul>

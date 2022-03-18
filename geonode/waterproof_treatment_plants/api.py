@@ -67,33 +67,31 @@ def getTreatmentPlantsList(request):
 		for plant in plantList:
 			plantIntakes = {}
 			csinfra = plant.csinfra_plant
-			element = plant.csinfra_elementsystem
-			try:
-				plantIntakes = {"name":("%s:%s::%s") % (element.intake.name, element.name, element.graphId), "id":element.intake.id}
-			except:
-				lastNull = ''
 			
-			# lastInstakeName = csinfra.plant_name
-			datePTAP = csinfra.plant_date_create
-			dateFormat = datePTAP.strftime("%Y-%m-%d")
-			#print(csinfra.id)
-			obj_plant = {
-				"plantId": csinfra.id,
-				"plantUser": element.intake.added_by.first_name + " " + element.intake.added_by.last_name,
-				"plantDate": dateFormat,
-				"plantName": csinfra.plant_name,
-				"plantDescription": csinfra.plant_description,
-				"plantSuggest": csinfra.plant_suggest,
-				"plantCityId": csinfra.plant_city_id,
-				"standardNameSpanish": csinfra.plant_city.standard_name_spanish,
-				"plantIntakeName": [plantIntakes],
-				"geom" : element.intake.polygon_set.first().geom.geojson #json.loads(element.intake.polygon_set.first().geomIntake)['features'][0]['geometry'] # geom.geojson 
-			}
-			if (not csinfra.id in dict_plants):
-				dict_plants[csinfra.id] = obj_plant
-			else:
-				dict_plants[csinfra.id]['plantIntakeName'].append(plantIntakes)				
-					
+			try:
+				element = plant.csinfra_elementsystem
+				plantIntakes = {"name":("%s:%s::%s") % (element.intake.name, element.name, element.graphId), "id":element.intake.id}
+				datePTAP = csinfra.plant_date_create
+				dateFormat = datePTAP.strftime("%Y-%m-%d")
+				obj_plant = {
+					"plantId": csinfra.id,
+					"plantUser": element.intake.added_by.first_name + " " + element.intake.added_by.last_name,
+					"plantDate": dateFormat,
+					"plantName": csinfra.plant_name,
+					"plantDescription": csinfra.plant_description,
+					"plantSuggest": csinfra.plant_suggest,
+					"plantCityId": csinfra.plant_city_id,
+					"standardNameSpanish": csinfra.plant_city.standard_name_spanish,
+					"plantIntakeName": [plantIntakes],
+					"geom" : element.intake.polygon_set.first().geom.geojson #json.loads(element.intake.polygon_set.first().geomIntake)['features'][0]['geometry'] # geom.geojson 
+				}
+				if (not csinfra.id in dict_plants):
+					dict_plants[csinfra.id] = obj_plant
+				else:
+					dict_plants[csinfra.id]['plantIntakeName'].append(plantIntakes)
+			except:
+				lastNull = ''			
+								
 		for k in dict_plants:
 			obj_plant_list.append(dict_plants[k])
 

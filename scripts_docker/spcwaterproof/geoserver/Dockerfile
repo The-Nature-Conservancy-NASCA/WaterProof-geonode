@@ -1,5 +1,5 @@
 #FROM openjdk:8-jre-alpine
-FROM eclipse-temurin:8u312-b07-jdk-focal
+FROM eclipse-temurin:8u322-b06-jre-focal
 
 ARG version=2.17.4
 ARG branch=2.17.4
