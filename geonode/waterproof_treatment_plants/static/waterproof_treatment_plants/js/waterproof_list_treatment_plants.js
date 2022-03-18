@@ -1004,9 +1004,9 @@
                                         }                                        
                                     } else {
                                         loadHtml = true;
-                                        checked = plant.functions.hasOwnProperty(fnId);
+                                        checked = !checked ? plant.functions.hasOwnProperty(fnId) : checked;
                                         enableAddFn = enableAddFn || checked;
-                                        activateHtml = htmlCheckBox(valueCostFunction,graphid, techId, "", checked,value.subprocess);
+                                        activateHtml = htmlCheckBox(valueCostFunction,graphid, techId, "", plant.functions.hasOwnProperty(fnId) ,value.subprocess);
                                         listTrFunction.push(addFunctionCostRow(activateHtml, valueCostFunction, buttonsHtml, graphid,''));
                                     }
                                     if(loadHtml) {
