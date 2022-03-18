@@ -790,14 +790,24 @@
     * @param {String} selected element
     * @returns 
     */
-    viewTree = function(e) {
-        console.log("viewTree", e);
-        $("#mainTree").hide();
-        selectedPlantElement = e.getAttribute("plantElement");
-        $(".container-element").removeClass('container-element-selected');
-        $(e.parentElement).addClass('container-element-selected');
-        $("#mainTree").show();
-        loadArrayTree(selectedPlantElement,  e.getAttribute("nameElement"), e.getAttribute("graphid"));        
+     viewTree = function(e) {
+        let flagCheckedInChangeProcess =0;
+        for (const iterator of document.getElementsByName('listFunction')) {
+            if(iterator.getAttribute("checked") == 'false') flagCheckedInChangeProcess++;
+        }  
+    
+        if(flagCheckedInChangeProcess==document.getElementsByName('listFunction').length&&document.getElementsByName('listFunction').length!=0){
+            showMessageModal(_('Information'),_("Please, complete the form"),'warning');
+            }else{
+                console.log("viewTree", e);
+                $("#mainTree").hide();
+                selectedPlantElement = e.getAttribute("plantElement");
+                $(".container-element").removeClass('container-element-selected');
+                $(e.parentElement).addClass('container-element-selected');
+                $("#mainTree").show();
+                loadArrayTree(selectedPlantElement,  e.getAttribute("nameElement"), e.getAttribute("graphid"));  
+            }
+    
         $('html, body').animate({
             scrollTop: $("#black2").offset().top
         }, 600);        
@@ -815,7 +825,6 @@
         let defVal = (defaultVal == null ? "" : `default="${defaultVal}"`);
         let stepVal = (step == null ? "" : `step="${step}"`);
         let placeholderVal = (placeholder == null ? "" : `placeholder='${placeholder}'`);
-        console.log(enabled+"this enabled")
         return `<div class="input-var"><div class="form-group enter-value1"><label>${label}</label>
         <input class="form-control" ${typeEl} ${idEl} ${val} ${readonlyVal} ${minVal} ${maxVal} ${defVal} ${stepVal} ${placeholderVal} ${eventsEl} ${enabled?'':'disabled'}></input>
         <div class="help-block with-errors"></div></div></div>`;
