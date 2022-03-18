@@ -62,6 +62,8 @@ def pdf(request):
     map_img_location = {'x': 6.5, 'y': 122, 'w': 193.5}
     pdf = pdf_page_1(pdf, study_case_id, url_api, city, region, country, discount_rate, True, map_img_location)  
 
+    # PAGE 2
+    epw = pdf.w - 2*pdf.l_margin
     pdf.set_font('Arial', '', 11)
     pdf.set_text_color(100, 100, 100)
     pdf.cell(0, 10, 'Drinking water Treatment Plants', align='L', fill=1)
@@ -72,7 +74,7 @@ def pdf(request):
     pdf.set_fill_color(0, 138, 173)
     pdf.set_draw_color(0, 138, 173)
 
-    pdf.cell(epw/2, 8, "Drinking water tratament plant", border=1, align='C', fill=1)
+    pdf.cell(epw/2, 8, "Drinking water treatment plant", border=1, align='C', fill=1)
     pdf.cell(epw/2, 8, "System caracteristics", border=1, align='C', fill=1)
     pdf.set_text_color(100, 100, 100)
     pdf.set_fill_color(255, 255, 255)
@@ -761,25 +763,16 @@ def pdf(request):
     pdf.cell(epw, 10, 'Estimated change in ecosystem services by basin', align='L')
     pdf.ln(10)
 
-    print('getTotalBenefitsForMilion/?studyCase=' + study_case_id)
-    requestJson = requests.get(url_api + 'getTotalBenefitsForMilion/?studyCase=' + study_case_id, verify=False)
-    data = requestJson.json()
-    dataEfficiency = []
+    print('getTotalBenefitsForMilion/?studyCase=' + study_case_id)    
+    indicatorsData = investIndicators.objects.filter(study_case__id=study_case_id)
 
-    for item in data:
-        dataEfficiency.append(float(item['carbonStorage']))
-        dataEfficiency.append(float(item['phosphorousLoad']))
-        dataEfficiency.append(float(item['nitrogenLoad']))
-        dataEfficiency.append(float(item['totalSediments']))
-        dataEfficiency.append(float(item['baseFlow']))
-        dataEfficiency.append(float(item['waterYear']))
-
-        carbonStorageTable = float(item['carbonStorage'])
-        phosphorousLoadTable = float(item['phosphorousLoad'])
-        nitrogenLoadTable = float(item['nitrogenLoad'])
-        totalSediments = float(item['totalSediments'])
-        baseFlow = float(item['baseFlow'])
-        waterYear = float(item['waterYear'])
+    for investIndicatorsData in indicatorsData:
+        waterYear = investIndicatorsData.awy
+        baseFlow = investIndicatorsData.bf_m3
+        totalSediments = investIndicatorsData.wsed_ton
+        nitrogenLoadTable = investIndicatorsData.wn_kg
+        phosphorousLoadTable = investIndicatorsData.wp_kg
+        carbonStorageTable = investIndicatorsData.wc_ton
 
     pdf.set_font('Arial', '', 10)
     pdf.set_text_color(255, 255, 255)
@@ -860,14 +853,14 @@ def pdf(request):
         },
         'colors': ['#008BAB'],
         'xAxis': {
-            'categories': ['Carbon storage', 'Phosphorus load', 'Nitrogen load', 'Total sediments', 'Base flow', 'Volumen of water yield']
+            'categories': ['Volumen of water yield', 'Base flow', 'Total sediments', 'Nitrogen load', 'Phosphorus load', 'Carbon storage']
         },
         'credits': {
             'enabled': 0
         },
         'series': [{
             'name': 'PE',
-            'data': dataEfficiency
+            'data': [waterYear, baseFlow, totalSediments, nitrogenLoadTable, phosphorousLoadTable, carbonStorageTable]
         }]
     }
 
@@ -1506,12 +1499,13 @@ def pdf(request):
     pdf.cell(0, 7, 'Drinking water treatment plant', align='L')
 
     dataListBenefitsIntakeA = []
-    print ('getWaterproofReportsAnalysisBenefits/?studyCase=' + study_case_id)
-    requestJson = requests.get(url_api + 'getWaterproofReportsAnalysisBenefits/?studyCase=' + study_case_id, verify=False)
+    print ('getWaterproofReportsAnalysisBenefits/?studyCase=%s' % study_case_id)
+    requestJson = requests.get(url_api + 'getWaterproofReportsAnalysisBenefits/?studyCase=%s' % study_case_id, verify=False)
     data = requestJson.json()
+    
     lastRegister = 0
     for item in data:
-        if item['typeId'] == 'PTAP':
+        if item['typeId'] == 'DWTP':
             lastRegister = 1
             dataListBenefitsIntakeA.append({
                 'name': item['elementId'],
@@ -1525,7 +1519,7 @@ def pdf(request):
         },
         'colors': ['#008BAB', '#69b7cf', '#3f99b5', '#1d7c99', '#90D3E7', '#5ca8bf', '#448fa6', '#2b768c', '#176075', '#004B56', '#47bfaf', '#32ab9b', '#209989', '#128778', '#61D1C2'],
         'title': {
-            'text': 'Intake Benefits ptap'
+            'text': 'DWTP Benefits '
         },
         'plotOptions': {
             'pie': {
@@ -1608,7 +1602,7 @@ def pdf(request):
         },
         'colors': ['#008BAB', '#69b7cf', '#3f99b5', '#1d7c99', '#90D3E7', '#5ca8bf', '#448fa6', '#2b768c', '#176075', '#004B56', '#47bfaf', '#32ab9b', '#209989', '#128778', '#61D1C2'],
         'title': {
-            'text': 'Intake Benefits intake'
+            'text': 'Intake Benefits'
         },
         'plotOptions': {
             'pie': {

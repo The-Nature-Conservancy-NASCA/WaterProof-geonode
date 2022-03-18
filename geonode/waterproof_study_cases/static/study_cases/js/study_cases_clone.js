@@ -36,13 +36,13 @@ var ptaps = [];
 var yearsDemand = [];
 var loadedNbs = false;
 var mapLoader;
+var elemSysId = "";
+var intakeElSysName = "";
 let cityId = document.getElementById('title_city').getAttribute('idCity');
-
 
 $(document).ready(function () {
     $("#div-customcase").removeClass("panel-hide");
     $('#autoAdjustHeightF').css("height", "auto");
-    // $('#cityLabel').text(localStorage.city + ", " + localStorage.country);
     $('#coeqCountry').text("CO2_country"+" ("+localStorage.country+")");    
     calculate_Personnel();
     calculate_Platform();
@@ -186,17 +186,17 @@ $(document).ready(function () {
         if (value) {
             $('#select_custom option:selected').remove();
             var action = "<td><a class='btn btn-danger btn-right'><span class='glyphicon glyphicon-trash' aria-hidden='true'></span></a></td>";
-            $.get("../../study_cases/intakebyid/" + value, function (data) {
-                $.each(data, function (index, intake) {
-                    var name = "<td>" + intake.name + "</td>";
-                    var description = "<td>" + intake.description + "</td>";
-                    var name_source = "<td>" + intake.water_source_name + "</td>";
-                    var markup = "<tr id='custom-" + value + "'>" + name + description + name_source + action + "</tr>";
-                    $("#custom_table").find('tbody').append(markup);
-                });
-
-                $('#autoAdjustHeightF').css("height", "auto");
+            var csId = value.split("-")[1];
+            var csinfras = JSON.parse(localStorage.getItem("csinfraByCity")).filter(e => e.element_system_id == csId);
+            $.each(csinfras, function (index, intake) {
+                var name = `<td>${intake.name_intake_csinfra}</td>`;
+                var description = "<td>" + intake.description + "</td>";
+                var name_source = "<td>" + intake.water_source_name + "</td>";
+                var markup = `<tr id='custom-${intake.id}-${intake.element_system_id}-${intake.graphId}'>${name} ${description} ${name_source} ${action}</tr>`;
+                $("#custom_table").find('tbody').append(markup);
             });
+
+            $('#autoAdjustHeightF').css("height", "auto");
         }
     });
 
@@ -999,7 +999,6 @@ $(document).ready(function () {
         id = row.attr("id").replace('custom-', '');
         $("#select_custom").append(new Option(option, id));
         row.remove();
-
     });
 
     $('#ptap_table').on('click', 'a', function () {
@@ -1112,67 +1111,7 @@ $(document).ready(function () {
         calculate_Personnel();
         calculate_Platform();
     });
-
-    function calculate_Personnel() {
-        var total = 0.0;
-        var total_personnel = $("#total_personnel");
-        var director = $("#director").val();
-        var evaluation = $("#evaluation").val();
-        var finance = $("#finance").val();
-        var implementation = $("#implementation").val();
-        if (director && !isNaN(director)) {
-            total += parseFloat(director)
-        }
-        if (evaluation && !isNaN(evaluation)) {
-            total += parseFloat(evaluation)
-        }
-        if (finance && !isNaN(finance)) {
-            total += parseFloat(finance)
-        }
-        if (implementation && !isNaN(implementation)) {
-            total += parseFloat(implementation)
-        }
-        total_personnel.val(total)
-    }
-
-    function calculate_Platform() {
-        var total = 0.0;
-        var total_plaform = $("#total_platform");
-        var personnel = $("#total_personnel").val();
-        var office = $("#office").val();
-        var travel = $("#travel").val();
-        var equipment = $("#equipment").val();
-        var overhead = $("#overhead").val();
-        var contracts = $("#contracts").val();
-        var others = $("#others").val();
-
-        if (personnel && !isNaN(personnel)) {
-            total += parseFloat(personnel)
-        }
-        if (director && !isNaN(director)) {
-            total += parseFloat(director)
-        }
-        if (office && !isNaN(office)) {
-            total += parseFloat(office)
-        }
-        if (travel && !isNaN(travel)) {
-            total += parseFloat(travel)
-        }
-        if (equipment && !isNaN(equipment)) {
-            total += parseFloat(equipment)
-        }
-        if (contracts && !isNaN(contracts)) {
-            total += parseFloat(contracts)
-        }
-        if (overhead && !isNaN(overhead)) {
-            total += parseFloat(overhead)
-        }
-        if (others && !isNaN(others)) {
-            total += parseFloat(others)
-        }
-        total_plaform.val(total)
-    }
-
+    
     function loadPtaps() {
         var city_id = cityId;
         $.get("../../study_cases/ptapbycity/" + city_id, function (data) {
@@ -1300,7 +1239,6 @@ $(document).ready(function () {
         });
     }
 
-
     function loadBiophysicals() {
         var promises = [];
         var listIntakes = [];
@@ -1406,41 +1344,6 @@ $(document).ready(function () {
         setVarCost();
     });
 
-    //Set var into calculator
-    $(document).on('click', '.list-group-item', function () {
-        var el = document.getElementById("python-expression");
-        typeInTextarea($(this).attr('value'), el);
-    });
-
-    function typeInTextarea(newText, el) {
-        if (newText == undefined) return;
-        const [start, end] = [el.selectionStart, el.selectionEnd];
-        el.setRangeText(newText, start, end, 'select');
-        el.focus();
-        document.getSelection().removeAllRanges();
-        el.selectionStart = start + newText.length;
-        el.selectionEnd = el.selectionStart;
-    }
-
-    $('#python-expression').on('keypress', function (evt) {
-        var charCode = (evt.which) ? evt.which : evt.keyCode;
-        let symbols = [32,40,41,42,43,44,45,46,47,60,61,62,91,92,93,101,123,125];
-        if (charCode != 46 && charCode > 31 && (charCode < 48 || charCode > 57))
-            return (symbols.indexOf(charCode) >= 0);
-
-        return true;
-    })
-
-    $('#btnValidatePyExp').click(function () {
-        validatePyExpression();
-    });   
-
-    //KeyBoard calculator funcion cost
-    $('button[name=mathKeyBoard]').click(function () {
-        var el = document.getElementById("python-expression");
-        typeInTextarea($(this).attr('value'), el);
-    });
-
     $('#smartwizard').smartWizard({
         selected: 0,
         theme: 'dots',
@@ -1506,6 +1409,7 @@ $('#saveAndValideCost').click(function () {
                 'factor': $('#global_multiplier_factorCalculator').val(),
                 'currencyCost': $('#currencyCost option:selected').val(),
                 'currencyCostName': $('#currencyCost option:selected').text(),
+                'elementSystemId' : elemSysId
             }
         });
     } else {
@@ -1517,6 +1421,7 @@ $('#saveAndValideCost').click(function () {
             'factor': $('#global_multiplier_factorCalculator').val(),
             'currencyCost': $('#currencyCost option:selected').val(),
             'currencyCostName': $('#currencyCost option:selected').text(),
+            'elementSystemId' : elemSysId
         }
 
         if (selectedCostId == 0) {
@@ -1595,70 +1500,83 @@ $(document).on('click', 'a[name=glyphicon-trash]', function () {
 function setVarCost() {
     $('#CalculatorModalLabel').text(gettext('Edit Cost function'));
     $('#VarCostListGroup div').remove();
-    let listIntakes = [];
+    let csinfras = [];
     $('#custom_table').find('tbody > tr').each(function (index, tr) {
-        id = tr.id.replace('custom-', '');
-        listIntakes.push({
+        id = tr.id.split('-')[2];
+        csinfras.push({
             id: id,
             name: tr.cells[0].innerText
         });
     });
 
-    for (const intake of listIntakes) {
+    for (const csinfra of csinfras) {
+        let idIntake = csinfra.name.split("-")[2].trim();
         var costlabel = "";
-        for (const iterator of costVars) {
-            costlabel += `<a value="${iterator}${intake.id}" class="list-group-item list-group-item-action" style="padding-top: 4px;padding-bottom: 4px;">${iterator}${intake.id}</a>`
+        for (const v of costVars) {
+            costlabel += `<a value="${v}${idIntake}" class="list-group-item list-group-item-action cost-fn-var">${v}${idIntake}</a>`
         }
         $('#VarCostListGroup').append(`
-            <div class="panel panel-info">
+            <div class="panel panel-info title-panel-vars" id="panel-intake-${idIntake}-${csinfra.id}">
                 <div class="panel-heading">
                     <h4 class="panel-title">
-                        <a data-toggle="collapse" data-parent="#VarCostListGroup" href="#VarCostListGroup_${intake.id}">${intake.id} <label> ${intake.name} </label></a>
+                        <a data-toggle="collapse" data-parent="#VarCostListGroup" href="#VarCostListGroup_${csinfra.id}">
+                            <label>${csinfra.name}</label>
+                        </a>
                     </h4>
                 </div>
-                <div id="VarCostListGroup_${intake.id}" class="panel-collapse collapse">
-                    ${costlabel}
-                </div>
-            </div>
-        `);
+                <div id="VarCostListGroup_${csinfra.id}" class="panel-collapse collapse">${costlabel}</div>
+            </div>`);
+    }
+
+    if (!flagFunctionCost){
+        $(".title-panel-vars").each((i,pl) => {
+            if (pl.id.split("-")[3] != elemSysId) {
+                $("#" + pl.id).hide();
+            }
+        });
     }
 }
 
 function funcost(index) {
-    var currencyCostName = funcostdb[index].function.currencyCostName != undefined ? funcostdb[index].function.currencyCostName : funcostdb[index].function.currency;
-    var factor = funcostdb[index].function.factor;
+    var fnCost = funcostdb[index].function;
+    var currencyCostName = fnCost.currencyCostName != undefined ? fnCost.currencyCostName : fnCost.currency;
+    var factor = fnCost.factor;
     if (currencyCostName == undefined) {
         currencyCostName = localStorage.getItem("currencyCode");
     }
     if (factor == undefined) {
         factor = localStorage.getItem("factor");
     }
+    if (elemSysId == ""){
+        elemSysId = fnCost.elementSystemId;
+        $("#custom_table > tbody > tr").each((i, el) => {
+            if (el.id.split("-")[2] == elemSysId) {
+                intakeElSysName = el.children[0].innerHTML;
+            }
+        });
+    }
     $('#funcostgenerate').append(
-        `<tr idvalue="fun_${index}">
-    <td aling="center">${funcostdb[index].function.name}</td>
-    <td class="small text-center vat" style="width: 160px">
-    <a class="btn btn-info" idvalue="${index}" name="fun_display_btn">fx</a>
-    <div id="fun_display_${index}" style="position: absolute; left: 50%; width: auto; display: none;">
-    <div class="alert alert-info mb-0" style="position: relative; left: -25%; bottom: 90px;" role="alert">
-    <p name="render_ecuation" style="font-size: 1.8rem; width:100%;">${funcostdb[index].function.value}</p>
-     </div>
-    </div>
-    </td>
-    <td class="small text-center vat">${currencyCostName}</td>
-    <td class="small text-center vat">${factor}</td>
-    <td class="small text-center vat" style="width: 85px">
-        <div class="btn-group btn-group-table" role="group">
-            <a class="btn btn-info" name="glyphicon-edit" idvalue="${index}"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
-            <a class="btn btn-danger" name="glyphicon-trash" idvalue="${index}"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
-        </div>
-    </td>
-</tr>`);
+        `<tr idvalue="fun_${index}" element-system-id="${elemSysId}">
+            <td aling="center">${intakeElSysName}</td>
+            <td aling="center">${fnCost.name}</td>
+            <td class="small text-center vat" style="width: 160px">
+            <a class="btn btn-info" idvalue="${index}" name="fun_display_btn">fx</a>
+            <div id="fun_display_${index}" style="position: absolute; left: 50%; width: auto; display: none;">
+            <div class="alert alert-info mb-0" style="position: relative; left: -25%; bottom: 90px;" role="alert">
+            <p name="render_ecuation" style="font-size: 1.8rem; width:100%;">${fnCost.value}</p>
+            </div>
+            </div>
+            </td>
+            <td class="small text-center vat">${currencyCostName}</td>
+            <td class="small text-center vat">${factor}</td>
+            <td class="small text-center vat" style="width: 85px">
+                <div class="btn-group btn-group-table" role="group">
+                    <a class="btn btn-info" name="glyphicon-edit" idvalue="${index}"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
+                    <a class="btn btn-danger" name="glyphicon-trash" idvalue="${index}"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+                </div>
+            </td>
+        </tr>`);
     autoAdjustHeight();
-}
-
-//add function set autoAdjustHeight
-function autoAdjustHeight() {
-    $('#autoAdjustHeightF').css("height", "auto");
 }
 
 function locationHref(){
@@ -1668,11 +1586,6 @@ function locationHref(){
         location.href = "/study_cases/?city="+cityId; 
     }    
 }
-
-$(document).on('click', 'a[name=fun_display_btn]', function () {
-    var idx = $(this).attr('idvalue');
-    $(`#fun_display_${idx}`).toggle();
-});
 
 window.onbeforeunload = function () {
     return mxResources.get('changesLost');

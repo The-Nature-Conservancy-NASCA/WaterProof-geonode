@@ -378,12 +378,17 @@ $(function () {
             });
         }
         setTimeout(function(){
+            let titleCostBenefit = `<p> {% trans "Cost and benefits" %} </p>`;
+            let totalCostName = `<p> {% trans "Total Cost" %} </p>`;
+            let totalDiscountedCostName = `<p> {% trans "Total discounted cost" %} </p>`;
+            let totalBenefitName = `<p> {% trans "Total benefits" %} </p>`;
+            let totalDiscountedBenefitsName = `<p> {% trans "Total discounted benefits" %} </p>`;
             Highcharts.chart('containerRoi', {
                 chart: {
                     type: 'column'
                 },
                 title: {
-                    text: 'Cost and benefits'
+                    text: titleCostBenefit
                 },
                 colors: ['#008BAB', '#90D3E7', '#004B56', '#61D1C2'],
                 xAxis: {
@@ -393,18 +398,18 @@ $(function () {
                     enabled: false
                 },
                 series: [{
-                    name: 'Total Cost',
+                    name: totalCostName,
                     data: totalCost
                 },{
-                    name: 'Total Discounted Cost',
+                    name: totalDiscountedCostName,
                     data: totalDiscountedCost
                 },{
-                    name: 'Total Benefits',
+                    name: totalBenefitName,
                     type: 'spline',
                     dashStyle: 'shortdot',
                     data: totalBenefits
                 },{
-                    name: 'Total Discounted Benefits',
+                    name: totalDiscountedBenefitsName,
                     type: 'spline',
                     dashStyle: 'shortdot',
                     data: totalDiscountedBenefits
@@ -414,6 +419,7 @@ $(function () {
     }
 
     loadDetailFilterCost = function(object, name){
+        console.log(object.name+"este es el name")
         if(object.checked) {
             var listObject = document.getElementsByName('cost' + name);
             listObject.forEach( function(valor, indice) {
@@ -430,9 +436,16 @@ $(function () {
         } else {
             var listObject = document.getElementsByName('cost' + name);
             listObject.forEach( function(valor, indice) {
+                console.log("este es el valor prev"+valor.value +"    " +valor);
+                console.log("totalcost prev"+ totalCost);
                 for (var countCost = 0; countCost < totalCost.length; countCost++) {
+                    console.log("este es el valor prev dentro del for"+valor.value[countCost]);
                     totalCost[countCost] = parseFloat((totalCost[countCost] - parseFloat(valor.value)).toFixed(2));
                 }
+                // console.log("este es el valor"+parseFloat(valor.value));
+                // el problema es que está restando el valor del último año a todos los años, entonces seguir revisando.
+
+                console.log("totalcost post"+ totalCost);
             });
             var listObject = document.getElementsByName('costDis' + name);
             listObject.forEach( function(valor, indice) {
@@ -441,14 +454,18 @@ $(function () {
                 }
             });
         }
-
+        let titleReturnInvest = `<p> {% trans "Return of investment" %} </p>`;
+        let totalCostName = `<p> {% trans "Total Cost" %} </p>`;
+        let totalDiscountedCostName = `<p> {% trans "Total discounted cost" %} </p>`;
+        let totalBenefitName = `<p> {% trans "Total benefits" %} </p>`;
+        let totalDiscountedBenefitsName = `<p> {% trans "Total discounted benefits" %} </p>`;
         setTimeout(function(){
             Highcharts.chart('containerRoi', {
                 chart: {
                     type: 'column'
                 },
                 title: {
-                    text: 'Return of investment'
+                    text: titleReturnInvest
                 },
                 colors: ['#008BAB', '#90D3E7', '#004B56', '#61D1C2'],
                 xAxis: {
@@ -458,18 +475,18 @@ $(function () {
                     enabled: false
                 },
                 series: [{
-                    name: 'Total Cost',
+                    name: totalCostName,
                     data: totalCost
                 },{
-                    name: 'Total Discounted Cost',
+                    name: totalDiscountedCostName,
                     data: totalDiscountedCost
                 },{
-                    name: 'Total Benefits',
+                    name: totalBenefitName,
                     type: 'spline',
                     dashStyle: 'shortdot',
                     data: totalBenefits
                 },{
-                    name: 'Total Discounted Benefits',
+                    name: totalDiscountedBenefitsName,
                     type: 'spline',
                     dashStyle: 'shortdot',
                     data: totalDiscountedBenefits
@@ -529,7 +546,7 @@ $(function () {
                     lastName = value.name;
                 }
                 if(lastSubName !== value.subName) {
-                    htmlCostFilter = htmlCostFilter + '<div class="content-option-first-detail"><div class="div-option"><input type="checkbox" checked onclick="loadDetailFilterCost(this, \'' + value.name + value.subName + '\')"></div><div class="div-text">' + value.subName + '</div></div>';
+                    htmlCostFilter = htmlCostFilter + '<div class="content-option-first-detail"><div class="div-option"><input name="'+totalCost+"holiii"+'" type="checkbox" checked onclick="loadDetailFilterCost(this, \'' + value.name + value.subName + '\')"></div><div class="div-text">' + value.subName + '</div></div>';
                     lastSubName = value.subName;
                 }
                 htmlCostFilter = htmlCostFilter + '<input style="display:none" name="cost' + value.name + value.subName + '" idPipeLine="' + value.subName + '" value="' + value.totalCost + '">';
@@ -540,10 +557,10 @@ $(function () {
             document.getElementById("listCheckCost").innerHTML = htmlCostFilter;
         });
 
-        var htmlCost = '<tr><td class="small text-center vat" style="text-align: left;" >Total cost</td>';
-        var htmlDiscountedCost = '<tr><td class="small text-center vat" style="text-align: left;" >Total discounted cost</td>';
-        var htmlBenefits= '<tr><td class="small text-center vat" style="text-align: left;" >Total benefits</td>';
-        var htmlDiscountedBenefits = '<tr><td class="small text-center vat" style="text-align: left;" >Total discounted benefits</td>';
+        var htmlCost = '<tr><td class="small text-center vat" style="text-align: left;" >{% trans "Total cost" %}</td>';
+        var htmlDiscountedCost = '<tr><td class="small text-center vat" style="text-align: left;" >{% trans "Total discounted cost" %}</td>';
+        var htmlBenefits= '<tr><td class="small text-center vat" style="text-align: left;" >{% trans "Total benefits" %}</td>';
+        var htmlDiscountedBenefits = '<tr><td class="small text-center vat" style="text-align: left;" >{% trans "Total discounted benefits" %}</td>';
         var htmlTitle = '<tr class="info"><th scope="col" class="small text-center vat">{% trans "Time Period" %}</th>';
         var contTitle = 1;
 
@@ -551,6 +568,7 @@ $(function () {
 
         $.getJSON(urlDetail, function (data) {
             $.each( data, function( key, value ) {
+                // console.log(value.record+"estoy aqui");
                 categories.push(value.record);
                 totalCost.push(parseFloat(value.totalCost.toFixed(2)));
                 totalDiscountedCost.push(parseFloat(value.totalDiscountedCost.toFixed(2)));
@@ -575,13 +593,18 @@ $(function () {
 
             document.getElementById("idTbodyRoi").innerHTML = htmlCost +  htmlDiscountedCost + htmlBenefits + htmlDiscountedBenefits;
             document.getElementById("idTheadRoi").innerHTML = htmlTitle;
+            let titleCostBenefit = `<p> {% trans "Cost and benefits" %} </p>`;
+            let totalCostName = `<p> {% trans "Total Cost" %} </p>`;
+            let totalDiscountedCostName = `<p> {% trans "Total discounted cost" %} </p>`;
+            let totalBenefitName = `<p> {% trans "Total benefits" %} </p>`;
+            let totalDiscountedBenefitsName = `<p> {% trans "Total discounted benefits" %} </p>`;
             // Los nombres de las columnas estaban errados por lo cual se ajustan, los datos corresonden al ajuste, es decir estan bien como quedan.
             Highcharts.chart('containerRoi', {
                 chart: {
                     type: 'column'
                 },
                 title: {
-                    text: gettext('Cost and benefits')
+                    text: titleCostBenefit
                 },
                 colors: ['#008BAB', '#90D3E7', '#004B56', '#61D1C2'],
                 xAxis: {
@@ -591,18 +614,18 @@ $(function () {
                     enabled: false
                 },
                 series: [{
-                    name: gettext('Total benefits'),
+                    name: totalBenefitName,
                     data: totalBenefits
                 },{
-                    name: gettext('Total Cost'),
+                    name: totalCostName,
                     data: totalCost
                 },{
-                    name: gettext('Total discounted benefits'),
+                    name: totalDiscountedBenefitsName,
                     type: 'spline',
                     dashStyle: 'shortdot',
                     data: totalDiscountedBenefits
                 },{
-                    name: gettext('Total discounted cost'),
+                    name: totalDiscountedCostName,
                     type: 'spline',
                     dashStyle: 'shortdot',
                     data: totalDiscountedCost
@@ -619,25 +642,28 @@ $(function () {
                 dataCost.push(parseFloat(value.costr.toFixed(2)));
                 dataBenefit.push(parseFloat(value.benefift.toFixed(2)));
             });
+            let titleCostBenefit = `<p> {% trans "Cost and benefits" %} </p>`
+            let benefitsName = `<p> {% trans "Benefits" %} </p>`
+            let costName = `<p> {% trans "Cost" %} </p>`
             Highcharts.chart('containerCB', {
                 chart: {
                     type: 'column'
                 },
                 title: {
-                    text: gettext('Cost and Benefits')
+                    text: titleCostBenefit
                 },
                 colors: ['#008BAB', '#90D3E7'],
                 xAxis: {
-                    categories: ['Cost and Benefits']
+                    categories: [titleCostBenefit]
                 },
                 credits: {
                     enabled: false
                 },
                 series: [{
-                    name: gettext('Cost'),
+                    name: costName,
                     data: dataCost
                 },{
-                    name: gettext('Benefits'),
+                    name: benefitsName,
                     data: dataBenefit
                 }]
             });
@@ -664,23 +690,23 @@ $(function () {
                 valplatformr = value.platformr.toFixed(2);
                 valbenefitr = value.benefitr.toFixed(2);
                 valtotalr = value.totalr.toFixed(2);
-                txtFileNet = txtFileNet + '<tr><td class="small text-left vat" >Cost: implementation</td><td class="small text-right vat">' + Intl.NumberFormat('es').format(valimplementationr) + '</td></tr>';
-                txtFileNet = txtFileNet + '<tr><td class="small text-left vat" >Cost: maintenance</td><td class="small text-right vat">' + Intl.NumberFormat('es').format(valmaintenancer) + '</td></tr>';
-                txtFileNet = txtFileNet + '<tr><td class="small text-left vat" >Cost: oportunity</td><td class="small text-right vat">' + Intl.NumberFormat('es').format(valoportunityr) + '</td></tr>';
-                txtFileNet = txtFileNet + '<tr><td class="small text-left vat" >Cost: transaction</td><td class="small text-right vat">' + Intl.NumberFormat('es').format(valtransactionr) + '</td></tr>';
-                txtFileNet = txtFileNet + '<tr><td class="small text-left vat" >Cost: platform</td><td class="small text-right vat">' + Intl.NumberFormat('es').format(valplatformr) + '</td></tr>';
-                txtFileNet = txtFileNet + '<tr><td class="small text-left vat" >Benefit</td><td class="small text-right vat">' + Intl.NumberFormat('es').format(valbenefitr) + '</td></tr>';
-                txtFileNet = txtFileNet + '<tr><td class="small text-left vat" >Total</td><td class="small text-right vat">' + Intl.NumberFormat('es').format(valtotalr) + '</td></tr>';
+                txtFileNet = txtFileNet + '<tr><td class="small text-left vat" >{% trans "Cost: implementation" %}</td><td class="small text-right vat">' + Intl.NumberFormat('es').format(valimplementationr) + '</td></tr>';
+                txtFileNet = txtFileNet + '<tr><td class="small text-left vat" >{% trans "Cost: maintenance" %}</td><td class="small text-right vat">' + Intl.NumberFormat('es').format(valmaintenancer) + '</td></tr>';
+                txtFileNet = txtFileNet + '<tr><td class="small text-left vat" >{% trans "Cost: oportunity" %}</td><td class="small text-right vat">' + Intl.NumberFormat('es').format(valoportunityr) + '</td></tr>';
+                txtFileNet = txtFileNet + '<tr><td class="small text-left vat" >{% trans "Cost: transaction" %}</td><td class="small text-right vat">' + Intl.NumberFormat('es').format(valtransactionr) + '</td></tr>';
+                txtFileNet = txtFileNet + '<tr><td class="small text-left vat" >{% trans "Cost: platform" %}</td><td class="small text-right vat">' + Intl.NumberFormat('es').format(valplatformr) + '</td></tr>';
+                txtFileNet = txtFileNet + '<tr><td class="small text-left vat" >{% trans "Benefit" %}</td><td class="small text-right vat">' + Intl.NumberFormat('es').format(valbenefitr) + '</td></tr>';
+                txtFileNet = txtFileNet + '<tr><td class="small text-left vat" >{% trans "Total" %}</td><td class="small text-right vat">' + Intl.NumberFormat('es').format(valtotalr) + '</td></tr>';
             });
             document.getElementById("idTbodyNpv").innerHTML = document.getElementById("idTbodyNpv").innerHTML + txtFileNet;
-
+            let valueSummaryName = `<p> {% trans "Net present value summary" %} </p>`;
             Highcharts.chart('containerNpv', {
                 chart: {
                     type: 'column'
                 },
                 colors: ['#008BAB'],
                 title: {
-                    text: gettext('Net present value summary')
+                    text: valueSummaryName
                 },
                 xAxis: {
                     categories: ['Implementation', 'Maintance', 'Oportunity', 'Transaction', 'Platform', 'Benefit', 'Total']
@@ -699,9 +725,9 @@ $(function () {
         var dataSensibilityAnalysisBenefitsRange = [];
         var urlDetail = "../../reports/getSensibilityAnalysisBenefits/?studyCase=" + localStorage.idStudyCase;
         $.getJSON(urlDetail, function (data) {
-            var txtFileBenefitsMinBen = '<tr><td class="small text-center vat" style="text-align: left;">Discounted benefit minimum</td>';
-            var txtFileBenefitsMedBen = '<tr><td class="small text-center vat" style="text-align: left;">Discounted benefit Medium</td>';
-            var txtFileBenefitsMaxBen = '<tr><td class="small text-center vat" style="text-align: left;">Discounted benefit maximum</td>';
+            var txtFileBenefitsMinBen = '<tr><td class="small text-center vat" style="text-align: left;">{% trans "Discounted benefit minimum" %}</td>';
+            var txtFileBenefitsMedBen = '<tr><td class="small text-center vat" style="text-align: left;">{% trans "Discounted benefit Medium" %}</td>';
+            var txtFileBenefitsMaxBen = '<tr><td class="small text-center vat" style="text-align: left;">{% trans "Discounted benefit maximum" %}</td>';
             var txtTitleBenefits = '<tr class="info"><th scope="col" class="small text-center vat">{% trans "Total discounted benefit" %}</th>';
             var contTitleBenefits = 1;
             $.each( data, function( key, value ) {
@@ -725,22 +751,24 @@ $(function () {
             document.getElementById("idTbodySensibilityBenefit").innerHTML = document.getElementById("idTbodySensibilityBenefit").innerHTML + txtFileBenefitsMinBen;
             document.getElementById("idTbodySensibilityBenefit").innerHTML = document.getElementById("idTbodySensibilityBenefit").innerHTML + txtFileBenefitsMedBen;
             document.getElementById("idTbodySensibilityBenefit").innerHTML = document.getElementById("idTbodySensibilityBenefit").innerHTML + txtFileBenefitsMaxBen;
-
+            let totalDiscountedBenefitsName = `<p> {% trans "Total discounted benefits" %} </p>`;
+            let titleDiscountedSensitivity = `<p> {% trans "Sensitivity analysis - total discounted benefit (TDB)" %} </p>`;
+            let timeInYears = `<p> {% trans "Time in years discounted benefits" %} </p>`;
             Highcharts.chart('containerTDB', {
                 title: {
-                    text: 'Sensitivity analysis - total discounted benefit (TDB)'
+                    text: titleDiscountedSensitivity
                 },
                 credits: {
                     enabled: false
                 },
                 yAxis: {
                     title: {
-                        text: 'Total discounted benefits'
+                        text: totalDiscountedBenefitsName
                     }
                 },
                 xAxis: {
                     title: {
-                        text: 'Time in years discounted benefits'
+                        text: timeInYears
                     }
                 },
                 colors: ['#008BAB'],
@@ -769,9 +797,9 @@ $(function () {
         var urlDetail = "../../reports/getSensibilityAnalysisCost/?studyCase=" + localStorage.idStudyCase;
         $.getJSON(urlDetail, function (data) {
                 //#endregion            var txtFileCost = '<tr><td class="small text-center vat" >Discounted Cost</td>';
-            var txtFileCostMinCost = '<tr><td class="small text-center vat" style="text-align: left;">Discounted cost minimum</td>';
-            var txtFileCostMedCost = '<tr><td class="small text-center vat" style="text-align: left;">Discounted cost medium</td>';
-            var txtFileCostMaxCost = '<tr><td class="small text-center vat" style="text-align: left;">Discounted cost maximum</td>';
+            var txtFileCostMinCost = '<tr><td class="small text-center vat" style="text-align: left;">{% trans "Discounted cost minimum" %}</td>';
+            var txtFileCostMedCost = '<tr><td class="small text-center vat" style="text-align: left;">{% trans "Discounted cost medium" %}</td>';
+            var txtFileCostMaxCost = '<tr><td class="small text-center vat" style="text-align: left;">{% trans "Discounted cost maximum" %}</td>';
             var txtTitleCost = '<tr class="info"><th scope="col" class="small text-center vat">{% trans "Total discounted cost" %}</th>';
             var contTitlecost = 1;
 
@@ -797,22 +825,25 @@ $(function () {
             document.getElementById("idTbodySensibilityCost").innerHTML = document.getElementById("idTbodySensibilityCost").innerHTML + txtFileCostMedCost;
             document.getElementById("idTbodySensibilityCost").innerHTML = document.getElementById("idTbodySensibilityCost").innerHTML + txtFileCostMaxCost;
 
+            let totalDiscountedCostName = `<p> {% trans "Total discounted cost" %} </p>`;
+            let timeInYears = `<p> {% trans "Time in years discounted benefits" %} </p>`;
+            let titleSensitivityDiscounted = `<p> {% trans "Sensitivity analysis - total discounted cost (TDC)" %} </p>`;
 
             Highcharts.chart('containerTDC', {
                 title: {
-                    text: 'Sensitivity analysis - total discounted cost (TDC)'
+                    text: titleSensitivityDiscounted
                 },
                 credits: {
                     enabled: false
                 },
                 yAxis: {
                     title: {
-                        text: 'Total discounted costs'
+                        text: totalDiscountedCostName
                     }
                 },
                 xAxis: {
                     title: {
-                        text: 'Time in years discounted benefits'
+                        text: timeInYears
                     }
                 },
                 colors: ['#008BAB'],
@@ -844,9 +875,13 @@ $(function () {
         var urlDetail = "../../reports/getSensibilityAnalysisCostVsBenefit/?studyCase=" + localStorage.idStudyCase;
         $.getJSON(urlDetail, function (data) {
             $.each( data, function( key, value ) {
-                varMinA = 'Minimun discount rate: ' + Intl.NumberFormat().format(value.porcen_discount_rate_minimumR) + '%';
-                varMaxA = 'Maximun discount rate: ' + Intl.NumberFormat().format(value.porcen_discount_rate_maximumR)  + '%';
-                VarMedA = 'Discount rate: ' + Intl.NumberFormat().format(value.porcen_discount_rateR)  + '%'; 
+                let minimun = `<p> {% trans "Minimun discount rate" %} </p>`;
+                let maximun = `<p> {% trans "Maximun discount rate" %} </p>`;
+                let discount = `<p> {% trans "Discount rate" %} </p>`;
+                let costSensitivity = `<p> {% trans "Cost and benefits sensitivity" %} </p>`;
+                varMinA = minimun+': ' + Intl.NumberFormat().format(value.porcen_discount_rate_minimumR) + '%';
+                varMaxA = maximun+': ' + Intl.NumberFormat().format(value.porcen_discount_rate_maximumR)  + '%';
+                VarMedA = discount+': ' + Intl.NumberFormat().format(value.porcen_discount_rateR)  + '%'; 
 
                 serieCvB.push({ 
                     name: value.titleR,
@@ -861,7 +896,7 @@ $(function () {
                 },
                 colors: ['#008BAB'],
                 title: {
-                    text: 'Costs and benefits sensitivity',
+                    text: costSensitivity,
                     // x: -80
                 },
                 xAxis: {
@@ -885,9 +920,12 @@ $(function () {
         var urlDetail = "../../reports/getSensibilityAnalysisReturnOfInvest/?studyCase=" + localStorage.idStudyCase;
         $.getJSON(urlDetail, function (data) {
             $.each( data, function( key, value ) {
-                varMin = 'Minimun discount rate: ' + Intl.NumberFormat().format(value.porcentDiscountRaterMinimumR) + '%';
-                varMax = 'Maximun discount rate: ' + Intl.NumberFormat().format(value.porcentDiscountRaterMaximumR)  + '%';
-                VarMed = 'Discount rate: ' + Intl.NumberFormat().format(value.porcentDiscountRater)  + '%'; 
+                let minimun = `<p> {% trans "Minimun discount rate" %} </p>`;
+                let maximun = `<p> {% trans "Maximun discount rate" %} </p>`;
+                let discount = `<p> {% trans "Discount rate" %} </p>`;
+                varMin = minimun+': ' + Intl.NumberFormat().format(value.porcentDiscountRaterMinimumR) + '%';
+                varMax = maximun+': ' + Intl.NumberFormat().format(value.porcentDiscountRaterMaximumR)  + '%';
+                VarMed = discount+': ' + Intl.NumberFormat().format(value.porcentDiscountRater)  + '%'; 
 
                 serieDataRoi.push({
                     name: 'ROI',
@@ -895,6 +933,7 @@ $(function () {
                     pointPlacement: 'on'
                 });
             });
+            let titleRoi = `<p> {% trans "ROI Sensitivity" %} </p>`;
             Highcharts.chart('containerRoiS', {
                 
                 chart: {
@@ -903,7 +942,7 @@ $(function () {
                 },
                 colors: ['#008BAB'],
                 title: {
-                    text: 'ROI sensitivity',
+                    text: titleRoi,
                     // x: -80
                 },
                 xAxis: {

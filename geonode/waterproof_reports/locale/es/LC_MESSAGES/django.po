@@ -758,3 +758,6 @@ msgstr "Carbono"
 
 msgid "intake"
 msgstr "Captación"
+
+msgid "Future 10 years"
+msgstr "Futuro 10 años"
