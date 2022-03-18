@@ -353,26 +353,36 @@
                     <div class="row">                        
                         <div class="col-md-7">
                             <div class="form-group">
-                                <label class="text-primary">{% trans "Cost function name" %} *</label>
+                                <label class="text-primary">{% trans "Cost function name" %} <span class="text-danger-wp">(*)</span></label>
                                 <input id="costFunctionName" type="text" class="form-control" required>
                             </div>
                             <div class="form-group">
-                                <label class="text-primary">{% trans "Cost function description" %}</label>
+                                <label class="text-primary">{% trans "Cost function description" %} <span class="text-danger-wp">(*)</span></label>
                                 <textarea id="costFuntionDescription" rows="3" class="form-control"></textarea>
                             </div>
                             <div class="row">
                                 <div class="col-xs-6">
-                                    <label class="text-primary">{% trans "Currency for definition of costs" %} *</label>
+                                    <label class="text-primary">{% trans "Currency for definition of costs" %} <span class="text-danger-wp">(*)</span></label>
                                     <select id="currencyCost" class="form-control" required>
-                                        {% for currency in currencies %}                                        
-                                            {% if currency.iso3 == 'USA'%}<option value="{{currency.currency}}" data-country="{{currency.iso3}}">({{currency.currency}}) - {{currency.name}}</option>
-                                            {% else %}<option value="{{currency.currency}}">({{currency.currency}}) - {{currency.name}}</option>
+                                        {% for currency in currencies %}
+                                            {% if currency.currency == 'USD'%}
+                                                {% if currency.iso3 == userCountry.iso3 %}
+                                                    <option value="{{currency.pk}}" data-country="{{currency.iso3}}" selected>({{currency.currency}}) - {{currency.name}} </option>
+                                                {% else %}
+                                                    <option value="{{currency.pk}}" data-country="{{currency.iso3}}">({{currency.currency}}) - {{currency.name}} </option>
+                                                {% endif %}                                            
+                                            {% else %}
+                                                {% if currency.currency == userCountry.currency %}
+                                                    <option value="{{currency.pk}}" attr="{{currency.currency}}" selected>({{currency.currency}}) - {{currency.name}} </option>
+                                                {% else %}
+                                                    <option value="{{currency.pk}}">({{currency.currency}}) - {{currency.name}} </option>
+                                                {% endif %}
                                             {% endif %}
                                         {% endfor %}
                                     </select>
                                 </div>
                                 <div class="col-xs-6">
-                                    <label class="text-primary">{% trans "Multiplying factor for overrall cost" %} *</label>
+                                    <label class="text-primary">{% trans "Multiplying factor for overrall cost" %} <span class="text-danger-wp">(*)</span></label>
                                     <input type="number" value="1.00" onblur="value.length!=0||(value='0.01');" step="0.01" min="0.01" oninput="validity.valid||(value='');" id="factorCost" class="form-control">
                                 </div>
                             </div>                         
