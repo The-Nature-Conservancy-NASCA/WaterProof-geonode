@@ -45,6 +45,9 @@ textarea {
     overflow-x: scroll;
     overflow-y: hidden;
 }
+.text-danger-wp {
+    color: rgb(255, 0, 0) !important;
+}
 .container-background {
     border-radius: 10px;
     height: 500px;

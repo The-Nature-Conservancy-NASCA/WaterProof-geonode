@@ -1066,3 +1066,126 @@ msgstr "Click here to calculate the water extraction in each year"
 
 msgid "Retiro de buchon"
 msgstr "Water hyacinth remotion"
+
+msgid "Return of investment"
+msgstr "Return of investment"
+
+msgid "Cost and benefits"
+msgstr "Cost and benefits"
+
+msgid "Time Period"
+msgstr "Time period"
+
+msgid "Total cost"
+msgstr "Total cost"
+
+msgid "Total discounted cost"
+msgstr "Total discounted cost"
+
+msgid "Total benefits"
+msgstr "Total benefits"
+
+msgid "Total discounted benefits"
+msgstr "Total discounted benefits"
+
+msgid "Cost"
+msgstr "Cost"
+
+msgid "Benefits"
+msgstr "Benefits"
+
+msgid "Net present value summary"
+msgstr "Net present value summary"
+
+msgid "Cost: implementation"
+msgstr "Cost: implementation"
+
+msgid "Cost: maintenance"
+msgstr "Cost: maintenance"
+
+msgid "Cost: oportunity"
+msgstr "Cost: oportunity"
+
+msgid "Cost: transaction"
+msgstr "Cost: transaction"
+
+msgid "Cost: platform"
+msgstr "Cost: platform"
+
+msgid "Benefit"
+msgstr "Benefit"
+
+msgid "Total"
+msgstr "Total"
+
+msgid "Sensitivity analysis - total discounted benefit (TDB)"
+msgstr "Sensitivity analysis - total discounted benefit (TDB)"
+
+msgid "Time in years discounted benefits"
+msgstr "Time in years discounted benefits"
+
+msgid "Total discounted benefit"
+msgstr "Total discounted benefit"
+
+msgid "Discounted benefit minimum"
+msgstr "Discounted benefit minimum"
+
+msgid "Discounted benefit Medium"
+msgstr "Discounted benefit Medium"
+
+msgid "Discounted benefit maximum"
+msgstr "Discounted benefit maximum"
+
+msgid "Sensitivity analysis - total discounted cost (TDC)"
+msgstr "Sensitivity analysis - total discounted cost (TDC)"
+
+msgid "Discounted cost minimum"
+msgstr "Discounted cost minimum"
+
+msgid "Discounted cost medium"
+msgstr "Discounted cost medium"
+
+msgid "Discounted cost maximum"
+msgstr "Discounted cost maximum"
+
+msgid "ROI Sensitivity"
+msgstr "ROI Sensitivity"
+
+msgid "Cost and benefits sensitivity"
+msgstr "Cost and benefits sensitivity"
+
+msgid "Minimun discount rate"
+msgstr "Minimun discount rate"
+
+msgid "Discount rate"
+msgstr "Discount rate"
+
+msgid "Maximun discount rate"
+msgstr "Maximun discount rate"
+
+msgid "Portfolio efficiency"
+msgstr "Portfolio efficiency"
+
+msgid "Change in carbon storage"
+msgstr "Change in carbon storage"
+
+msgid "Change in phosphorus load"
+msgstr "Change in phosphorus load"
+
+msgid "Change in nitrogen load"
+msgstr "Change in nitrogen load"
+
+msgid "Change in total sediments"
+msgstr "Change in total sediments"
+
+msgid "Change in base flow"
+msgstr "Change in base flow"
+
+msgid "Change in volume of water yield"
+msgstr "Change in volume of water yield"
+
+msgid "Value"
+msgstr "Value"
+
+msgid "Time frame (Years)"
+msgstr "Time frame (Years)"

@@ -999,3 +999,127 @@ msgstr "Crear / Editar función en sintaxis de Python."
 
 msgid "Click on the validate button to check the syntax of the function."
 msgstr "Haga clic en el botón Validar para comprobar la sintaxis de la función."
+
+msgid "Return of investment"
+msgstr "Retorno de la inversión"
+
+msgid "Cost and benefits"
+msgstr "Costos y beneficios"
+
+msgid "Time Period"
+msgstr "Periodo de tiempo"
+
+msgid "Total cost"
+msgstr "Costos totales"
+
+msgid "Total discounted cost"
+msgstr "Costos totales descontados"
+
+msgid "Total benefits"
+msgstr "Beneficios descontados"
+
+msgid "Total discounted benefits"
+msgstr "Beneficios totales descontados"
+
+msgid "Cost"
+msgstr "Costos"
+
+msgid "Benefits"
+msgstr "Beneficios"
+
+msgid "Net present value summary"
+msgstr "Resumen valor presente neto"
+
+msgid "Cost: implementation"
+msgstr " Costo: implementación"
+
+msgid "Cost: maintenance"
+msgstr " Costo: mantenimiento"
+
+msgid "Cost: oportunity"
+msgstr "Costo: oportunidad"
+
+msgid "Cost: transaction"
+msgstr "Costo: transacción"
+
+msgid "Cost: platform"
+msgstr " Cost: plataforma"
+
+msgid "Benefit"
+msgstr "Beneficio"
+
+msgid "Total"
+msgstr "Total"
+
+msgid "Sensitivity analysis - total discounted benefit (TDB)"
+msgstr "Análisis de sensibilidad - beneficios totales descontados (BTD)"
+
+msgid "Time in years discounted benefits"
+msgstr "Tiempo beneficio total descontado en años (TDB)"
+
+msgid "Total discounted benefit"
+msgstr "Beneficios totales descontados"
+
+msgid "Discounted benefit minimum"
+msgstr "Beneficios descontados mínimos"
+
+msgid "Discounted benefit Medium"
+msgstr "Beneficios descontados medios"
+
+msgid "Discounted benefit maximum"
+msgstr "Beneficios descontados máximos"
+
+msgid "Sensitivity analysis - total discounted cost (TDC)"
+msgstr "Análisis de sensibilidad - Costos totales descontados (CTD)"
+
+msgid "Discounted cost minimum"
+msgstr "Costos descontados mínimos"
+
+msgid "Discounted cost medium"
+msgstr "Costos descontados medios"
+
+msgid "Discounted cost maximum"
+msgstr "Costos descontados máximos"
+
+msgid "ROI Sensitivity"
+msgstr "Sensibilidad ROI"
+
+msgid "Cost and benefits sensitivity"
+Costs and benefits sensitivity
+msgstr "Sensibilidad costos y beneficios"
+
+msgid "Minimun discount rate"
+msgstr "Tasa de descuento mínima"
+
+msgid "Discount rate"
+msgstr "Tasa de descuento"
+
+msgid "Maximun discount rate"
+msgstr "Tasa de descuento máxima"
+
+msgid "Portfolio efficiency"
+msgstr "Eficiencia del portafolio"
+
+msgid "Change in carbon storage"
+msgstr "Cambio en la captura de carbono"
+
+msgid "Change in phosphorus load"
+msgstr "Cambio en la carga de fósforo"
+
+msgid "Change in nitrogen load"
+msgstr "Cambio en la carga de nitrógeno"
+
+msgid "Change in total sediments"
+msgstr "Cambio en los sedimentos totales"
+
+msgid "Change in base flow"
+msgstr "Cambio en el flujo base"
+
+msgid "Change in volume of water yield"
+msgstr "Cambio en el rendimiento hídrico anual"
+
+msgid "Value"
+msgstr "Valor"
+
+msgid "Time frame (Years)"
+msgstr "Periodo de tiempo (Años)"
