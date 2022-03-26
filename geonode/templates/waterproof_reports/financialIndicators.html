@@ -348,35 +348,48 @@ $(function () {
             changeGraphRoiCost();
         }
     };
-    // var flagTest1 = 0;
+    
+    var flagIfTotalBenefit = 1;
+    var flagIfTotalDisBenefit = 1;
+    var flagElseTotalBenefit = 1;
+    var flagElseTotalDisBenefit = 1;
     loadDetailFilter = function(object, name){
         if(object.checked) {
-            // flagTest1 = flagTest1+1;
-            // console.log("este es el flagTest1"+flagTest1)
             var listObject = document.getElementsByName(name);
             listObject.forEach( function(valor, indice) {
-                for (var countBenefits = 0; countBenefits < totalBenefits.length; countBenefits++) {
-                    totalBenefits[countBenefits] = parseFloat((totalBenefits[countBenefits] + parseFloat(valor.value)).toFixed(2));
+                totalBenefits[flagIfTotalBenefit-1] = parseFloat((totalBenefits[flagIfTotalBenefit-1] + parseFloat(valor.value)).toFixed(2));
+                if(flagIfTotalBenefit >= 30){
+                    flagIfTotalBenefit = 1;
+                }else{
+                    flagIfTotalBenefit = flagIfTotalBenefit+1;
                 }
             });
             var listObject = document.getElementsByName('dis' + name);
             listObject.forEach( function(valor, indice) {
-                for (var countBenefits = 0; countBenefits < totalDiscountedBenefits.length; countBenefits++) {
-                    totalDiscountedBenefits[countBenefits] = parseFloat((totalDiscountedBenefits[countBenefits] + parseFloat(valor.value)).toFixed(2));
+                totalDiscountedBenefits[flagIfTotalDisBenefit-1] = parseFloat((totalDiscountedBenefits[flagIfTotalDisBenefit-1] + parseFloat(valor.value)).toFixed(2));
+                if(flagIfTotalDisBenefit >= 30){
+                    flagIfTotalDisBenefit = 1;
+                }else{
+                    flagIfTotalDisBenefit = flagIfTotalDisBenefit+1;
                 }
             });
         } else {
             var listObject = document.getElementsByName(name);
-            // flagTest1 = flagTest1+1;
             listObject.forEach( function(valor, indice) {
-                for (var countBenefits = 0; countBenefits < totalBenefits.length; countBenefits++) {
-                    totalBenefits[countBenefits] = parseFloat((totalBenefits[countBenefits] - parseFloat(valor.value)).toFixed(2));
+                totalBenefits[flagElseTotalBenefit-1] = parseFloat((totalBenefits[flagElseTotalBenefit-1] - parseFloat(valor.value)).toFixed(2));
+                if(flagElseTotalBenefit >= 30){
+                    flagElseTotalBenefit = 1;
+                }else{
+                    flagElseTotalBenefit = flagElseTotalBenefit+1;
                 }
             });
             var listObject = document.getElementsByName('dis' + name);
             listObject.forEach( function(valor, indice) {
-                for (var countBenefits = 0; countBenefits < totalDiscountedBenefits.length; countBenefits++) {
-                    totalDiscountedBenefits[countBenefits] = parseFloat((totalDiscountedBenefits[countBenefits] - parseFloat(valor.value)).toFixed(2));
+                totalDiscountedBenefits[flagElseTotalDisBenefit-1] = parseFloat((totalDiscountedBenefits[flagElseTotalDisBenefit-1] - parseFloat(valor.value)).toFixed(2));
+                if(flagElseTotalDisBenefit >= 30){
+                    flagElseTotalDisBenefit = 1;
+                }else{
+                    flagElseTotalDisBenefit = flagElseTotalDisBenefit+1;
                 }
             });
         }
@@ -420,59 +433,51 @@ $(function () {
             });
         }, 1000);
     }
-    var flagTestif = 0;
-    var flagTestelse = 0;
+    var flagIfTotal = 1;
+    var flagIfTotalDis = 1;
+    var flagElseTotal = 1;
+    var flagElseTotalDis = 1;
 
     loadDetailFilterCost = function(object, name){
-        console.log(object.name+"este es el name")
-        console.log(name+"este es el name sin el object")
 
         if(object.checked) {
             let listObject = document.getElementsByName('cost' + name);
-            flagTestif = flagTestif+1;
             listObject.forEach( function(valor, indice) {
-                console.log("este es flag en el if "+(flagTestif-1))
-                console.log(totalCost.length)
-                console.log(totalCost)
-                // for (var countCost = 0; countCost < totalCost.length; countCost++) {
-                    totalCost[flagTestif-1] = parseFloat((totalCost[flagTestif-1] + parseFloat(valor.value)).toFixed(2));
-                // }
+                totalCost[flagIfTotal-1] = parseFloat((totalCost[flagIfTotal-1] + parseFloat(valor.value)).toFixed(2));
+                if(flagIfTotal >= 30){
+                    flagIfTotal = 1;
+                }else{
+                    flagIfTotal = flagIfTotal+1;
+                }
+
             });
             let listObjectDis = document.getElementsByName('costDis' + name);
             listObjectDis.forEach( function(valor, indice) {
-                // for (var countCost = 0; countCost < totalDiscountedCost.length; countCost++) {
-                    totalDiscountedCost[flagTestif-1] = parseFloat((totalDiscountedCost[flagTestif-1] + parseFloat(valor.value)).toFixed(2));
-                // }
+                totalDiscountedCost[flagIfTotalDis-1] = parseFloat((totalDiscountedCost[flagIfTotalDis-1] + parseFloat(valor.value)).toFixed(2));
+                if(flagIfTotalDis >= 30){
+                    flagIfTotalDis = 1;
+                }else{
+                    flagIfTotalDis = flagIfTotalDis+1;
+                }
             });
         } else {
             let listObject = document.getElementsByName('cost' + name);
-            flagTestelse = flagTestelse+1;
-            console.log(totalCost+"prev")
-            // console.log("este es el listObj del cost   "+listObject)
             listObject.forEach( function(valor, indice) {
-                // console.log("este es el valor prev"+valor.value +"    " +valor);
-                // console.log("totalcost prev"+ totalCost);
-                // console.log(" "+totalCost[0]);
-                console.log("este es flag en el else"+(flagTestelse-1))
-                console.log(totalCost.length)
-                // for (var countCost = 0; countCost < totalCost.length; countCost++) {
-                //     // console.log("este es el valor prev dentro del for"+valor.value);
-                totalCost[flagTestelse-1] = parseFloat((totalCost[flagTestelse-1] - parseFloat(valor.value)).toFixed(2));
-
-                console.log(totalCost+"post")
-                // }
-                // console.log("este es el valor"+parseFloat(valor.value));
-                // el problema es que está restando el valor del último año a todos los años, entonces seguir revisando.
-
+                totalCost[flagElseTotal-1] = parseFloat((totalCost[flagElseTotal-1] - parseFloat(valor.value)).toFixed(2));
+                if(flagElseTotal >= 30){
+                    flagElseTotal = 1;
+                }else{
+                    flagElseTotal = flagElseTotal+1;
+                }
             });
             let listObjectDis = document.getElementsByName('costDis' + name);
-            console.log("este es el listObj del costdis   "+listObjectDis)
-            // console.log(totalDiscountedCost.length)
-            // console.log(totalDiscountedCost)
             listObjectDis.forEach( function(valor, indice) {
-                // for (var countCostDis = 0; countCostDis < totalDiscountedCost.length; countCostDis++) {
-                    totalDiscountedCost[flagTestelse-1] = parseFloat((totalDiscountedCost[flagTestelse-1] - parseFloat(valor.value)).toFixed(2));
-                // }
+                totalDiscountedCost[flagElseTotalDis-1] = parseFloat((totalDiscountedCost[flagElseTotalDis-1] - parseFloat(valor.value)).toFixed(2));
+                if(flagElseTotalDis >= 30){
+                    flagElseTotalDis = 1;
+                }else{
+                    flagElseTotalDis = flagElseTotalDis+1;
+                }
             });
         }
         let titleCostBenefit = `<p> {% trans "Cost and benefits" %} </p>`;
