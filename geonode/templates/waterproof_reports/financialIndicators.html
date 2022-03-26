@@ -348,32 +348,48 @@ $(function () {
             changeGraphRoiCost();
         }
     };
-
+    
+    var flagIfTotalBenefit = 1;
+    var flagIfTotalDisBenefit = 1;
+    var flagElseTotalBenefit = 1;
+    var flagElseTotalDisBenefit = 1;
     loadDetailFilter = function(object, name){
         if(object.checked) {
             var listObject = document.getElementsByName(name);
             listObject.forEach( function(valor, indice) {
-                for (var countBenefits = 0; countBenefits < totalBenefits.length; countBenefits++) {
-                    totalBenefits[countBenefits] = parseFloat((totalBenefits[countBenefits] + parseFloat(valor.value)).toFixed(2));
+                totalBenefits[flagIfTotalBenefit-1] = parseFloat((totalBenefits[flagIfTotalBenefit-1] + parseFloat(valor.value)).toFixed(2));
+                if(flagIfTotalBenefit >= 30){
+                    flagIfTotalBenefit = 1;
+                }else{
+                    flagIfTotalBenefit = flagIfTotalBenefit+1;
                 }
             });
             var listObject = document.getElementsByName('dis' + name);
             listObject.forEach( function(valor, indice) {
-                for (var countBenefits = 0; countBenefits < totalDiscountedBenefits.length; countBenefits++) {
-                    totalDiscountedBenefits[countBenefits] = parseFloat((totalDiscountedBenefits[countBenefits] + parseFloat(valor.value)).toFixed(2));
+                totalDiscountedBenefits[flagIfTotalDisBenefit-1] = parseFloat((totalDiscountedBenefits[flagIfTotalDisBenefit-1] + parseFloat(valor.value)).toFixed(2));
+                if(flagIfTotalDisBenefit >= 30){
+                    flagIfTotalDisBenefit = 1;
+                }else{
+                    flagIfTotalDisBenefit = flagIfTotalDisBenefit+1;
                 }
             });
         } else {
             var listObject = document.getElementsByName(name);
             listObject.forEach( function(valor, indice) {
-                for (var countBenefits = 0; countBenefits < totalBenefits.length; countBenefits++) {
-                    totalBenefits[countBenefits] = parseFloat((totalBenefits[countBenefits] - parseFloat(valor.value)).toFixed(2));
+                totalBenefits[flagElseTotalBenefit-1] = parseFloat((totalBenefits[flagElseTotalBenefit-1] - parseFloat(valor.value)).toFixed(2));
+                if(flagElseTotalBenefit >= 30){
+                    flagElseTotalBenefit = 1;
+                }else{
+                    flagElseTotalBenefit = flagElseTotalBenefit+1;
                 }
             });
             var listObject = document.getElementsByName('dis' + name);
             listObject.forEach( function(valor, indice) {
-                for (var countBenefits = 0; countBenefits < totalDiscountedBenefits.length; countBenefits++) {
-                    totalDiscountedBenefits[countBenefits] = parseFloat((totalDiscountedBenefits[countBenefits] - parseFloat(valor.value)).toFixed(2));
+                totalDiscountedBenefits[flagElseTotalDisBenefit-1] = parseFloat((totalDiscountedBenefits[flagElseTotalDisBenefit-1] - parseFloat(valor.value)).toFixed(2));
+                if(flagElseTotalDisBenefit >= 30){
+                    flagElseTotalDisBenefit = 1;
+                }else{
+                    flagElseTotalDisBenefit = flagElseTotalDisBenefit+1;
                 }
             });
         }
@@ -417,44 +433,54 @@ $(function () {
             });
         }, 1000);
     }
+    var flagIfTotal = 1;
+    var flagIfTotalDis = 1;
+    var flagElseTotal = 1;
+    var flagElseTotalDis = 1;
 
     loadDetailFilterCost = function(object, name){
-        console.log(object.name+"este es el name")
+
         if(object.checked) {
-            var listObject = document.getElementsByName('cost' + name);
+            let listObject = document.getElementsByName('cost' + name);
             listObject.forEach( function(valor, indice) {
-                for (var countCost = 0; countCost < totalCost.length; countCost++) {
-                    totalCost[countCost] = parseFloat((totalCost[countCost] + parseFloat(valor.value)).toFixed(2));
+                totalCost[flagIfTotal-1] = parseFloat((totalCost[flagIfTotal-1] + parseFloat(valor.value)).toFixed(2));
+                if(flagIfTotal >= 30){
+                    flagIfTotal = 1;
+                }else{
+                    flagIfTotal = flagIfTotal+1;
                 }
+
             });
-            var listObject = document.getElementsByName('costDis' + name);
-            listObject.forEach( function(valor, indice) {
-                for (var countCost = 0; countCost < totalDiscountedCost.length; countCost++) {
-                    totalDiscountedCost[countCost] = parseFloat((totalDiscountedCost[countCost] + parseFloat(valor.value)).toFixed(2));
+            let listObjectDis = document.getElementsByName('costDis' + name);
+            listObjectDis.forEach( function(valor, indice) {
+                totalDiscountedCost[flagIfTotalDis-1] = parseFloat((totalDiscountedCost[flagIfTotalDis-1] + parseFloat(valor.value)).toFixed(2));
+                if(flagIfTotalDis >= 30){
+                    flagIfTotalDis = 1;
+                }else{
+                    flagIfTotalDis = flagIfTotalDis+1;
                 }
             });
         } else {
-            var listObject = document.getElementsByName('cost' + name);
+            let listObject = document.getElementsByName('cost' + name);
             listObject.forEach( function(valor, indice) {
-                console.log("este es el valor prev"+valor.value +"    " +valor);
-                console.log("totalcost prev"+ totalCost);
-                for (var countCost = 0; countCost < totalCost.length; countCost++) {
-                    console.log("este es el valor prev dentro del for"+valor.value[countCost]);
-                    totalCost[countCost] = parseFloat((totalCost[countCost] - parseFloat(valor.value)).toFixed(2));
+                totalCost[flagElseTotal-1] = parseFloat((totalCost[flagElseTotal-1] - parseFloat(valor.value)).toFixed(2));
+                if(flagElseTotal >= 30){
+                    flagElseTotal = 1;
+                }else{
+                    flagElseTotal = flagElseTotal+1;
                 }
-                // console.log("este es el valor"+parseFloat(valor.value));
-                // el problema es que está restando el valor del último año a todos los años, entonces seguir revisando.
-
-                console.log("totalcost post"+ totalCost);
             });
-            var listObject = document.getElementsByName('costDis' + name);
-            listObject.forEach( function(valor, indice) {
-                for (var countCost = 0; countCost < totalDiscountedCost.length; countCost++) {
-                    totalDiscountedCost[countCost] = parseFloat((totalDiscountedCost[countCost] - parseFloat(valor.value)).toFixed(2));
+            let listObjectDis = document.getElementsByName('costDis' + name);
+            listObjectDis.forEach( function(valor, indice) {
+                totalDiscountedCost[flagElseTotalDis-1] = parseFloat((totalDiscountedCost[flagElseTotalDis-1] - parseFloat(valor.value)).toFixed(2));
+                if(flagElseTotalDis >= 30){
+                    flagElseTotalDis = 1;
+                }else{
+                    flagElseTotalDis = flagElseTotalDis+1;
                 }
             });
         }
-        let titleReturnInvest = `<p> {% trans "Return of investment" %} </p>`;
+        let titleCostBenefit = `<p> {% trans "Cost and benefits" %} </p>`;
         let totalCostName = `<p> {% trans "Total Cost" %} </p>`;
         let totalDiscountedCostName = `<p> {% trans "Total discounted cost" %} </p>`;
         let totalBenefitName = `<p> {% trans "Total benefits" %} </p>`;
@@ -465,7 +491,7 @@ $(function () {
                     type: 'column'
                 },
                 title: {
-                    text: titleReturnInvest
+                    text: titleCostBenefit
                 },
                 colors: ['#008BAB', '#90D3E7', '#004B56', '#61D1C2'],
                 xAxis: {
@@ -546,7 +572,7 @@ $(function () {
                     lastName = value.name;
                 }
                 if(lastSubName !== value.subName) {
-                    htmlCostFilter = htmlCostFilter + '<div class="content-option-first-detail"><div class="div-option"><input name="'+totalCost+"holiii"+'" type="checkbox" checked onclick="loadDetailFilterCost(this, \'' + value.name + value.subName + '\')"></div><div class="div-text">' + value.subName + '</div></div>';
+                    htmlCostFilter = htmlCostFilter + '<div class="content-option-first-detail"><div class="div-option"><input name="'+totalCost+'" type="checkbox" checked onclick="loadDetailFilterCost(this, \'' + value.name + value.subName + '\')"></div><div class="div-text">' + value.subName + '</div></div>';
                     lastSubName = value.subName;
                 }
                 htmlCostFilter = htmlCostFilter + '<input style="display:none" name="cost' + value.name + value.subName + '" idPipeLine="' + value.subName + '" value="' + value.totalCost + '">';
@@ -614,21 +640,21 @@ $(function () {
                     enabled: false
                 },
                 series: [{
-                    name: totalBenefitName,
-                    data: totalBenefits
-                },{
                     name: totalCostName,
                     data: totalCost
+                },{
+                    name: totalDiscountedCostName,
+                    data: totalDiscountedCost
+                },{
+                    name: totalBenefitName,
+                    type: 'spline',
+                    dashStyle: 'shortdot',
+                    data: totalBenefits
                 },{
                     name: totalDiscountedBenefitsName,
                     type: 'spline',
                     dashStyle: 'shortdot',
                     data: totalDiscountedBenefits
-                },{
-                    name: totalDiscountedCostName,
-                    type: 'spline',
-                    dashStyle: 'shortdot',
-                    data: totalDiscountedCost
                 }]
             });
         });
@@ -878,7 +904,6 @@ $(function () {
                 let minimun = `<p> {% trans "Minimun discount rate" %} </p>`;
                 let maximun = `<p> {% trans "Maximun discount rate" %} </p>`;
                 let discount = `<p> {% trans "Discount rate" %} </p>`;
-                let costSensitivity = `<p> {% trans "Cost and benefits sensitivity" %} </p>`;
                 varMinA = minimun+': ' + Intl.NumberFormat().format(value.porcen_discount_rate_minimumR) + '%';
                 varMaxA = maximun+': ' + Intl.NumberFormat().format(value.porcen_discount_rate_maximumR)  + '%';
                 VarMedA = discount+': ' + Intl.NumberFormat().format(value.porcen_discount_rateR)  + '%'; 
@@ -889,6 +914,7 @@ $(function () {
                     pointPlacement: 'on'
                 });
             });
+            let costSensitivity = `<p> {% trans "Cost and benefits sensitivity" %} </p>`;
             Highcharts.chart('containerCvB', {
                 chart: {
                     polar: true,
