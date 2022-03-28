@@ -552,8 +552,8 @@ $(function () {
                     htmlBenefitsFilter = htmlBenefitsFilter + '<div class="content-option-first-detail"><div class="div-option"><input type="checkbox" checked onclick="loadDetailFilter(this, \'' + value.subCategory + '\')"></div><div class="div-text">' + value.subCategory + '</div></div>';
                     lastSubCategory = value.subCategory;
                 }
-                htmlBenefitsFilter = htmlBenefitsFilter + '<input style="display:none" name="' + value.subCategory + '" idPipeLine="' + value.subName + '" value="' + value.totalBenefits + '">';
-                htmlBenefitsFilter = htmlBenefitsFilter + '<input style="display:none" name="dis' + value.subCategory + '" idPipeLine="' + value.subName + '" value="' + value.totalBenefitsDiscount + '">';
+                htmlBenefitsFilter = htmlBenefitsFilter + '<input style="display:none" name="' + value.subCategory + '" idPipeLine="' + value.subName + '" value="' + value.totalBenefits + '" year="'+value.year+'">';
+                htmlBenefitsFilter = htmlBenefitsFilter + '<input style="display:none" name="dis' + value.subCategory + '" idPipeLine="' + value.subName + '" value="' + value.totalBenefitsDiscount + '" year="'+value.year+'">';
             });
             document.getElementById("listCheckBenefits").innerHTML = htmlBenefitsFilter;
         });
@@ -575,8 +575,8 @@ $(function () {
                     htmlCostFilter = htmlCostFilter + '<div class="content-option-first-detail"><div class="div-option"><input name="'+totalCost+'" type="checkbox" checked onclick="loadDetailFilterCost(this, \'' + value.name + value.subName + '\')"></div><div class="div-text">' + value.subName + '</div></div>';
                     lastSubName = value.subName;
                 }
-                htmlCostFilter = htmlCostFilter + '<input style="display:none" name="cost' + value.name + value.subName + '" idPipeLine="' + value.subName + '" value="' + value.totalCost + '">';
-                htmlCostFilter = htmlCostFilter + '<input style="display:none" name="costDis' + value.name +value.subName + '" idPipeLine="' + value.subName + '" value="' + value.totalDiscountedCost + '">';
+                htmlCostFilter = htmlCostFilter + '<input style="display:none" name="cost' + value.name + value.subName + '" idPipeLine="' + value.subName + '" value="' + value.totalCost + '" year="'+value.year+'">';
+                htmlCostFilter = htmlCostFilter + '<input style="display:none" name="costDis' + value.name +value.subName + '" idPipeLine="' + value.subName + '" value="' + value.totalDiscountedCost + '" year="'+value.year+'">';
 
 
             });
