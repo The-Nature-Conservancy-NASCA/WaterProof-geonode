@@ -316,9 +316,10 @@ def getReportCostsAnalysisFilterOne(request):
 					"subName":row[2],
 					"nameSubName":row[0]+row[2],
 					"totalCost":row[3],
-					"totalDiscountedCost":row[4],
+					"totalDiscountedCost":row[6],
 					"totalBenefits":row[5],
-					"totalDiscountedBenefits":row[6]
+					"totalDiscountedBenefits":row[4],
+					"year": row[1]
 				})
 			order_register = sorted(objects_list, key=lambda tree : tree['nameSubName'])
 			return JsonResponse(order_register, safe=False)
@@ -354,7 +355,8 @@ def getReportAnalysisBenefitsFilter(request):
 					"subCategory":row[3],
 					"subNameCategory":str(row[2]) + str(row[3]),
 					"totalBenefits":row[4],
-					"totalBenefitsDiscount":row[5]
+					"totalBenefitsDiscount":row[5],
+					"year": row[1]
 				})
 			order_register = sorted(objects_list, key=lambda tree : tree['subNameCategory'])
 			return JsonResponse(order_register, safe=False)
