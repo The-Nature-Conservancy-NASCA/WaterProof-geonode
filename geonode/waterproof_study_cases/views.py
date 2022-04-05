@@ -15,7 +15,6 @@ from django.template.response import TemplateResponse
 from rest_framework.decorators import api_view
 from rest_framework.parsers import JSONParser
 from django.urls import reverse
-from .models import StudyCases
 from django.db.models import Q
 from . import forms
 from geonode.waterproof_parameters.models import Cities, Countries, Regions, ManagmentCosts_Discount, Climate_value
@@ -198,10 +197,10 @@ def edit(request, idx):
             study_case = StudyCases.objects.get(id=idx)
             listPortfolios = Portfolio.objects.all()
             portfolios = []
-            intakes = []
+            csinfras = []
             ptaps = []
             listPortfoliosStudy = study_case.portfolios.all()
-            listIntakesStudy = study_case.intakes.all()
+            intakes_in_study_cases = study_case.intakes.all()
             listPTAPStudy = study_case.ptaps.all()
             scenarios = Climate_value.objects.all()
             
@@ -227,18 +226,19 @@ def edit(request, idx):
                         break
                 if(add):
                     ptaps.append(ptap)
-            listIntakes = ElementSystem.objects.filter(normalized_category='CSINFRA', intake__id__in=listIntakesStudy).values(
+            
+            list_csinfra = ElementSystem.objects.filter(normalized_category='CSINFRA', intake__id__in=intakes_in_study_cases).values(
                 "id", "name", "intake__name", "intake__id", "intake__water_source_name" , "intake__description" ,"graphId")
-            for intake in listIntakes:    
+            
+            for intake in list_csinfra:    
                 add = True
-                for intakeStudy in listIntakesStudy:
+                for intakeStudy in intakes_in_study_cases:
                     if intake['id'] == intakeStudy.pk:
                         add = False
                         break
                 if(add):
-                    intakes.append(intake)
-                    print (intake)
-            
+                    csinfras.append(intake)
+                                
            
             functions = []
             if study_case.cost_functions:
@@ -250,7 +250,7 @@ def edit(request, idx):
                     "serverApi": settings.WATERPROOF_API_SERVER,
                     "servermodelApi": settings.WATERPROOF_MODELS_PY2_API,
                     'study_case': study_case,
-                    'csinfras': intakes,
+                    'csinfras': csinfras,
                     'portfolios': portfolios,
                     'tratamentPlants': ptaps,
                     'ModelParameters': models,
