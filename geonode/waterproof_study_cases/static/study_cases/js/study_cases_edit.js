@@ -224,7 +224,7 @@ $(document).ready(function () {
         valid_ptaps = true;
         valid_intakes = true;
         $('#custom_table').find('tbody > tr').each(function (index, tr) {
-            id = tr.id.replace('custom-', '');
+            id = tr.id.split("-")[1];
             intakes.push(id);
         });
         if (intakes.length <= 0) {
