@@ -280,12 +280,12 @@ msgid "WaterProof presents below the suggested components or processes for treat
 msgstr "Basado en características de la calidad del agua de las cuencas que suplen la planta de tratamiento y la normatividad de los países, WaterProof le indica a continuación los procesos de tratamiento de agua sugeridos en su planta. Usted puede modificar la selección de los procesos unitarios y personalizarla de acuerdo con su condición real. Haga clic en los procesos que forman parte de su planta de tratamiento para explorar tecnologías y funciones de costo y utilice la casilla de verificación para habilitar o deshabilitar procesos unitarios."
 
 #: templates/treatment_plants_edit.html:148
-msgid "Mezcla rápida"
-msgstr "Mezcla rápida"
+msgid "Mezcla mecánica"
+msgstr "Mezcla mecánica"
 
 #: templates/treatment_plants_edit.html:148
-msgid "Quick mixing"
-msgstr "Mezcla rápida"
+msgid "Mechanical mixing"
+msgstr "Mezcla mecánica"
 
 #: templates/treatment_plants_edit.html:148
 msgid "Technology:"

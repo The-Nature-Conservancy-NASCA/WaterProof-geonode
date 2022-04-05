@@ -1189,3 +1189,9 @@ msgstr "Value"
 
 msgid "Time frame (Years)"
 msgstr "Time frame (Years)"
+
+msgid "Mezcla mecánica"
+msgstr "Mechanical mixing"
+
+msgid "Mezcla lenta"
+msgstr "Slow mixing"

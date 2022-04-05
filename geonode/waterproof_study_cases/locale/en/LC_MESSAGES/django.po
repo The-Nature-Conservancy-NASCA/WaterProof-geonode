@@ -186,7 +186,7 @@ msgid "implementation_time_nbs"
 msgstr "Implementation NbS period (yr)"
 
 msgid "climate_baseline_nbs"
-msgstr "Climate selection for baseline and NbS scenario analysis"
+msgstr "Climate selection for BaU and NbS scenario analysis"
 
 msgid "select_type_analysis"
 msgstr "Select an option to run the analysis"

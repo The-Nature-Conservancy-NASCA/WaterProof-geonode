@@ -215,7 +215,7 @@ msgid "implementation_time_nbs"
 msgstr "Tiempo de implementación de la SbN (Años)"
 
 msgid "climate_baseline_nbs"
-msgstr "Selección de clima para linea base y escenario de análisis de la SbN"
+msgstr "Selección de clima para linea BaU y escenario de análisis de la SbN"
 
 msgid "select_type_analysis"
 msgstr "Seleccione una opción para ejecutar el análisis"
