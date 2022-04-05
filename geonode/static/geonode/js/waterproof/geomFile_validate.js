@@ -257,13 +257,14 @@ function validateDbfFields(geojson) {
     validDbf.action = false;
     validDbf.activity = false;
     var msgError = "";
+    var nameSbn = $('#nameNBS').val();
     if (geojson.features && geojson.features.length > 0) {
         geojson.features.forEach(function (feature, index) {
             if (feature.properties) {
                 if (feature.properties.action === actionType.prevent || feature.properties.action === actionType.prefer) {
                     validDbf.action = true;
                 }
-                if (feature.properties.activity_n) {
+                if (feature.properties.activity_n === nameSbn) {
                     validDbf.activity = true;
                 }
             }
@@ -274,7 +275,7 @@ function validateDbfFields(geojson) {
             if (geojson.properties.action === actionType.prevent || geojson.properties.action === actionType.prefer) {
                 validDbf.action = true;
             }
-            if (geojson.properties.activity_n) {
+            if (geojson.properties.activity_n === nameSbn) {
                 validDbf.activity = true;
             }
         }

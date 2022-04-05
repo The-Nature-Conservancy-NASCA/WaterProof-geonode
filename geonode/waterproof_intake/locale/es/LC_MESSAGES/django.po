@@ -1123,3 +1123,9 @@ msgstr "Valor"
 
 msgid "Time frame (Years)"
 msgstr "Periodo de tiempo (Años)"
+
+msgid "Mezcla rápida"
+msgstr "Mezcla rápida"
+
+msgid "Mezcla lenta"
+msgstr "Mezcla lenta"
