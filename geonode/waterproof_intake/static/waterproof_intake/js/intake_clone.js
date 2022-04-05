@@ -129,7 +129,7 @@ $(document).ready(function () {
             $('#intakeWEMI').append(`
             <tr>
                 <th class="text-center" scope="row">${index}</th>
-                <td class="text-center"><input name="manualInputData" oninput="validity.valid||(value='');" yearValue="${index}" type="text" class="form-control justify-number"></td>
+                <td class="text-center"><input name="manualInputData" oninput="validity.valid||(value='');" min="0" yearValue="${index}" type="text" class="form-control justify-number"></td>
               </tr>
             `);
         }
@@ -713,10 +713,10 @@ function externalInput(numYear) {
             for (let index = 0; index <= numYear; index++) {
                 rows += (`<tr>
                             <th class="text-center" scope="col" name="year_${graphData[p].id}" year_value="${index }">${index }</th>
-                            <td class="text-center" scope="col"><input type="number" class="form-control justify-number" name="waterVolume_${index}_${graphData[p].id}"></td>
-                            <td class="text-center" scope="col"><input type="number" class="form-control justify-number" name="sediment_${index}_${graphData[p].id}"></td>
-                            <td class="text-center" scope="col"><input type="number" class="form-control justify-number" name="nitrogen_${index}_${graphData[p].id}" ></td>
-                            <td class="text-center" scope="col"><input type="number" class="form-control justify-number" name="phosphorus_${index}_${graphData[p].id}"></td>
+                            <td class="text-center" scope="col"><input type="number" class="form-control justify-number" min="0" name="waterVolume_${index}_${graphData[p].id}"></td>
+                            <td class="text-center" scope="col"><input type="number" class="form-control justify-number" min="0" name="sediment_${index}_${graphData[p].id}"></td>
+                            <td class="text-center" scope="col"><input type="number" class="form-control justify-number" min="0" name="nitrogen_${index}_${graphData[p].id}" ></td>
+                            <td class="text-center" scope="col"><input type="number" class="form-control justify-number" min="0" name="phosphorus_${index}_${graphData[p].id}"></td>
                         </tr>`);
             }
             $('#IntakeTDLE').append(`
