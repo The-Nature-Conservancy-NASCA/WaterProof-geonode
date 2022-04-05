@@ -128,7 +128,7 @@ $(function () {
                         },
                         error: function (xhr, errmsg, err) {
                             console.log(xhr.status + ":" + xhr.responseText);
-                            let response = JSON.parse(xhr.responseText);
+                            let response = JSON.stringify(xhr.responseText);
                             Swal.fire({
                                 icon: 'error',
                                 title: gettext('Nbs saving error'),
@@ -166,7 +166,7 @@ $(function () {
                             },
                             error: function (xhr, errmsg, err) {
                                 console.log(xhr.status + ":" + xhr.responseText);
-                                let response = JSON.parse(xhr.responseText);
+                                let response = JSON.stringify(xhr.responseText);
                                 Swal.fire({
                                     icon: 'error',
                                     title: gettext('Nbs saving error'),
@@ -174,11 +174,12 @@ $(function () {
                                 })
                             }
                         });
-                    } else { // ZIP
+                    } else  { // ZIP
                         var reader = new FileReader();
                         reader.onload = function (evt) {
                             var contents = evt.target.result;
                             shp(contents).then(function (shpToGeojson) {
+                                console.log("este es shp "+ JSON.stringify(shpToGeojson));
                                 var restrictedArea = JSON.stringify(shpToGeojson);
                                 // Restricted area extension file
                                 formData.append('extension', 'zip');
@@ -187,7 +188,7 @@ $(function () {
                                 // Type action for view
                                 formData.append('action', 'create-nbs');
                                 // Required session token
-                                formData.append('csrfmiddlewaretoken', token);
+                                // formData.append('csrfmiddlewaretoken', token);
                                 $.ajax({
                                     type: 'POST',
                                     url: '/waterproof_nbs_ca/create/',
@@ -205,8 +206,8 @@ $(function () {
                                         setTimeout(function () { location.href = "/waterproof_nbs_ca/"; }, 1000);
                                     },
                                     error: function (xhr, errmsg, err) {
-                                        console.log(xhr.status + ":" + xhr.responseText);
-                                        let response = JSON.parse(xhr.responseText);
+                                        console.log(xhr.status + ":" + xhr.responseText + "este es xhr "+xhr);
+                                        let response = JSON.stringify(xhr.responseText);
                                         Swal.fire({
                                             icon: 'error',
                                             title: gettext('Nbs saving error'),

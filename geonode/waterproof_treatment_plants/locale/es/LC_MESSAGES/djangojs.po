@@ -296,7 +296,7 @@ msgstr "Ósmosis inversa"
 msgid "Nanofiltration"
 msgstr "Nanofiltración"
 
-msgid "Quick mix"
+msgid "Mechanical mix"
 msgstr "Mezcla rápida"
 
 msgid "Mantenimiento edificaciones"

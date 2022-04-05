@@ -26,7 +26,7 @@ msgstr "Water Intake"
 
 #: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:89
 msgid "MEZCLARAPIDA"
-msgstr "Quick mix"
+msgstr "Mechanical mix"
 
 #: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:93
 msgid "MEZCLALENTA"

@@ -238,8 +238,8 @@ msgid "Treatment unit process diagram"
 msgstr "Treatment unit process diagram"
 
 #: templates/treatment_plants_edit.html:148
-msgid "Mezcla rápida"
-msgstr "Quick mixing"
+msgid "Mezcla mecánica"
+msgstr "Mechanical mixing"
 
 #: templates/treatment_plants_edit.html:154
 msgid "Dosificación"

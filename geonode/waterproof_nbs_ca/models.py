@@ -50,7 +50,7 @@ class WaterproofNbsCaManager(Manager):
 class ActivityShapefile(models.Model):
     activity = models.CharField(max_length=255)
     action = models.CharField(max_length=255)
-    area = models.MultiPolygonField()
+    area = models.PolygonField()
 
 
 class RiosTransition(models.Model):
