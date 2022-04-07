@@ -678,9 +678,9 @@
                                                         ({{study_case.analysis_currency}}) {% endif %}
                                                     </div>
                                                 </div>
-                                                <input id="annual_investment" type="number"
+                                                <input id="annual_investment" type="number" min="0"
                                                     class="text-number-full form-control"
-                                                    value="{{study_case.annual_investment|stringformat:'1.2f'}}">
+                                                    value="{{study_case.annual_investment|default_if_none:'0'}}">
                                             </div>
                                         </div>
                                     </div>

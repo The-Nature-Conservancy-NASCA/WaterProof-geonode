@@ -1143,6 +1143,7 @@ $(document).ready(function () {
             } else {
                 $("#radio-ptap").addClass("panel-hide");
                 $("#div-emptyptaps").removeClass("panel-hide");
+                autoAdjustHeight();
             }
 
         });

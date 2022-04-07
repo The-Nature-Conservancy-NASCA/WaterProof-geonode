@@ -1140,6 +1140,7 @@ $(document).ready(function () {
                 $('#autoAdjustHeightF').css("height", "auto");
             } else {
                 $("#div-emptyptaps").removeClass("panel-hide");
+                autoAdjustHeight();
             }
 
         });

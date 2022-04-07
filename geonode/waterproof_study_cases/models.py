@@ -116,7 +116,7 @@ class StudyCases(models.Model):
     edit_date = models.DateTimeField(blank=True, null=True)
     time_implement = models.IntegerField(blank=True, null=True)
     climate_scenario = models.ForeignKey(Climate_value, blank=True, null=True, on_delete=models.CASCADE)
-    annual_investment = models.DecimalField(max_digits=20, decimal_places=2, blank=True, null=True)
+    annual_investment = models.DecimalField(max_digits=20, decimal_places=2, blank=True, null=True, default=0)
     benefit_carbon_market = models.BooleanField(blank=True, null=True)
     rellocated_remainder = models.BooleanField(blank=True, null=True)
     financial_currency = models.CharField(max_length=4, blank=True, null=True)
