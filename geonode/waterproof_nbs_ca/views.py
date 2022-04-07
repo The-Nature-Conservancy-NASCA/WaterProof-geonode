@@ -396,6 +396,7 @@ def editNbs(request, idx):
             transformations = request.POST.get('riosTransformation')
             riosTransformation = transformations.split(",")
             riosTransformation = list(map(int, riosTransformation))
+            extensionFile = request.POST.get('extension')
             uploadNewArea = request.POST.get('uploadNewArea')
             if (
                     nameNBS and descNBS and countryNBS and currencyCost
