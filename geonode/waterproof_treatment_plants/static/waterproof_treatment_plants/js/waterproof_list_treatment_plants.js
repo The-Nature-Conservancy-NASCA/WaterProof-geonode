@@ -1809,7 +1809,7 @@
         let fnName = $('#costFunctionName').val();
         let description = $('#costFuntionDescription').val();
         let factor = $('#factorCost').val();
-        let currency = $('#currencyCost option:selected').val();        
+        let currency = $('#currencyCost option:selected').text().split("-")[0].replace("(","").replace(")","").trim();  
         let pyExp = $('#python-expression').val();
         let technology="";
         if (techId.indexOf("new-tech") == -1) {
