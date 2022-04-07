@@ -43,7 +43,12 @@ let cityId = document.getElementById('title_city').getAttribute('idCity');
 $(document).ready(function () {
     $("#div-customcase").removeClass("panel-hide");
     $('#autoAdjustHeightF').css("height", "auto");
-    $('#coeqCountry').text("CO2_country"+" ("+localStorage.country+")");    
+    $('#coeqCountry').text("CO2_country"+" ("+localStorage.country+")");
+
+    if ($('#annual_investment').val() == "") {
+        $('#annual_investment').val(0);
+    }
+    
     calculate_Personnel();
     calculate_Platform();
     loadPtaps();

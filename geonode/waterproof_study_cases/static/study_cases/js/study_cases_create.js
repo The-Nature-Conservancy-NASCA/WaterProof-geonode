@@ -43,6 +43,10 @@ $(document).ready(function () {
     $('#autoAdjustHeightF').css("height", "auto");
     $('#cityLabel').text(localStorage.city + ", " + localStorage.country);
     $('#coeqCountry').text("CO2_country"+" ("+localStorage.country+")");
+
+    if ($('#annual_investment').val() == "") {
+        $('#annual_investment').val(0);
+    }
          
     calculate_Personnel();
     calculate_Platform();    
