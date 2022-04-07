@@ -1755,7 +1755,7 @@
         let graphId = $('#mainTree .title-tree')[0].getAttribute('graphId');
         let fnName = $("#costFunctionName").val();
         let expression = $("#python-expression").val();
-        let currency = $("#currencyCost").val();
+        let currency = $("#currencyCost").text().split("-")[0].replace("(","").replace(")","").trim();
         let factor = $("#factorCost").val();
 
         if (fnName == "" || expression == "") {
