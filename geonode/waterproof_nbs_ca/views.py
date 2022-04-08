@@ -425,10 +425,10 @@ def editNbs(request, idx):
                         country = Countries.objects.get(iso3=countryNBS)
                         currency = Countries.objects.get(iso3=currencyCost)
                         nbs = WaterproofNbsCa.objects.get(id=idx)
+                        shapefile = None
                         if(nbs.activity_shapefile != None):
                             shapefile = ActivityShapefile.objects.get(id=nbs.activity_shapefile.id)
-                        else:
-                            shapefile = None
+                                                    
                         actualTranstormations = list(nbs.rios_transformations.all().values_list('id', flat=True))
                         # Get land use to add in edition
                         transformationsAdd = [item for item in riosTransformation if item not in actualTranstormations]
@@ -465,9 +465,16 @@ def editNbs(request, idx):
                                     areaObject['geometry'] = GEOSGeometry(str(feature['geometry']))
                                     areas.append(areaObject)
                                 for area in areas:
-                                    shapefile.action = areaObject['action']
-                                    shapefile.activity = areaObject['activity']
-                                    shapefile.area = areaObject['geometry']
+                                    if shapefile is None:
+                                        shapefile = ActivityShapefile.objects.create(
+                                            action=area['action'],
+                                            activity=area['activity'],
+                                            area=area['geometry']
+                                        )
+                                    else:
+                                        shapefile.action = areaObject['action']
+                                        shapefile.activity = areaObject['activity']
+                                        shapefile.area = areaObject['geometry']
                                     shapefile.save()
 
                         nbs.name = nameNBS
