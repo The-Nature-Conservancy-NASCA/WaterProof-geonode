@@ -488,6 +488,7 @@ def editNbs(request, idx):
                         nbs.unit_maintenance_cost = maintenanceCost
                         nbs.periodicity_maitenance = maintenancePeriod
                         nbs.unit_oportunity_cost = oportunityCost
+                        nbs.activity_shapefile = shapefile
                         nbs.save()
                         context = {
                             'status': '200', 'message': 'Success'
