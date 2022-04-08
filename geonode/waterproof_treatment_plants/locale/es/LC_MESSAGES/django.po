@@ -516,3 +516,6 @@ msgstr "Usted podrá explorar las tecnologías de tratamiento de agua y sus func
 #: templates/treatment_plants_edit.html:29
 msgid "information description"
 msgstr "En esta sección usted puede crear una Planta de tratamiento de agua de acuerdo con la calidad del agua de su fuente."
+
+msgid "Mezcla rapida"
+msgstr "Mezcla rápida"
