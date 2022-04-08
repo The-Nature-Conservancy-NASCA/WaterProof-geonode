@@ -486,3 +486,6 @@ msgstr "You will be able to explore water treatment technologies and their cost 
 #: templates/treatment_plants_edit.html:29
 msgid "information description"
 msgstr "In this section you can create a Drinking Water Treatment Plant according to the quality of the water from your source."
+
+msgid "Mezcla rapida"
+msgstr "Quick mixing"
