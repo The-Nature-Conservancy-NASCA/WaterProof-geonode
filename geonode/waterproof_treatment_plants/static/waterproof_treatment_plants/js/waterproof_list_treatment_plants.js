@@ -244,6 +244,10 @@
             }
         });
 
+        $('#idIntakePlant').change(function(){
+            $('#idSendIntake').attr('disabled', false);
+        });
+
         $('#idSendIntake').click(function (e) {
             toggleProcessingModal('show');
             deactivePlantGraph();
