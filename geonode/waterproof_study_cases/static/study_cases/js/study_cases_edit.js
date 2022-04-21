@@ -1411,6 +1411,7 @@ $('#saveAndValideCost').click(function () {
     }else if (flagFunctionCost) {
         //true = nueva
         var pyExp = $('#python-expression').val();
+        var uuid = createUUID();
         funcostdb.push({
             'function': {
                 'value': pyExp,
@@ -1419,7 +1420,8 @@ $('#saveAndValideCost').click(function () {
                 'factor': $('#global_multiplier_factorCalculator').val(),
                 'currencyCost': $('#currencyCost option:selected').val(),
                 'currencyCostName': $('#currencyCost option:selected').text(),
-                'elementSystemId' : elemSysId
+                'elementSystemId' : elemSysId,
+                'uuid': uuid
             }
         });
     } else {
