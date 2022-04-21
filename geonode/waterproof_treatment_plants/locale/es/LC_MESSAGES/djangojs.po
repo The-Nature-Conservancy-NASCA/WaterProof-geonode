@@ -297,7 +297,7 @@ msgid "Nanofiltration"
 msgstr "Nanofiltración"
 
 msgid "Mechanical mix"
-msgstr "Mezcla rápida"
+msgstr "Mezcla mecánica"
 
 msgid "Mantenimiento edificaciones"
 msgstr "Mantenimiento edificaciones"

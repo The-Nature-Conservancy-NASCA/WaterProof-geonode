@@ -70,7 +70,7 @@
                 </div>
                 <div class="row row-no-gutters">
                     <div>
-                        <button type="button" class="btn btn-primary" id="idSendIntake">{% trans "Confirm water intakes sources" %}</button>
+                        <button type="button" class="btn btn-primary" id="idSendIntake" disabled>{% trans "Confirm water intakes sources" %}</button>
                     </div>
                 </div>
                 {% endif %}
@@ -158,8 +158,8 @@
                                 <div class="point-right"></div>
                             </div>
                             <div class="container-element container-element-two">
-                                <div class="img-container-two img-color-container" id="black1" graphId="2" nameElement="{% trans 'Mezcla mecánica' %}" plantElement="MEZCLARAPIDA" onclick="viewTree(this)"></div>
-                                <div class="text-container">{% trans "Mezcla mecánica" %}</div>
+                                <div class="img-container-two img-color-container" id="black1" graphId="2" nameElement="{% trans 'Mezcla rapida' %}" plantElement="MEZCLARAPIDA" onclick="viewTree(this)"></div>
+                                <div class="text-container">{% trans "Mezcla rapida" %}</div>
                                 <div class="container-change-state graph1" id="graph1" onclick="changeStatus(1, this)"><div class="change-state" id="id1"></div></div>
                                 <div class="opacity-graph" name="disableElement" nameElement="{% trans 'Mezcla mecánica' %}" plantElement="MEZCLARAPIDA" graphId="2" model="A,B,C,D,E" id="id11d"  idr="id1"></div>
                             </div>
