@@ -144,6 +144,7 @@ def myCases(request):
                 'waterproof_study_cases/studycases_my_cases.html',
                 {
                     'casesList': studyCases,
+                    'serverApi': settings.WATERPROOF_API_SERVER,
                     'intakes': []
                 }
             )

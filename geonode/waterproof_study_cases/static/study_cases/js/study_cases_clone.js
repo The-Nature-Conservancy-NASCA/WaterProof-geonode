@@ -1518,13 +1518,13 @@ function setVarCost() {
     });
 
     for (const csinfra of csinfras) {
-        let idIntake = csinfra.name.split("-")[2].trim();
+        let graphId = csinfra.name.split("-")[5].trim();
         var costlabel = "";
         for (const v of costVars) {
-            costlabel += `<a value="${v}${idIntake}" class="list-group-item list-group-item-action cost-fn-var">${v}${idIntake}</a>`
+            costlabel += `<a value="${v}${graphId}" class="list-group-item list-group-item-action cost-fn-var">${v}${graphId}</a>`
         }
         $('#VarCostListGroup').append(`
-            <div class="panel panel-info title-panel-vars" id="panel-intake-${idIntake}-${csinfra.id}">
+            <div class="panel panel-info title-panel-vars" id="panel-intake-${graphId}-${csinfra.id}">
                 <div class="panel-heading">
                     <h4 class="panel-title">
                         <a data-toggle="collapse" data-parent="#VarCostListGroup" href="#VarCostListGroup_${csinfra.id}">

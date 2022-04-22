@@ -1380,28 +1380,8 @@ $(document).ready(function () {
 });
 
 $('#saveAndValideCost').click(function () {
-    if($('#costFunctionName').val() === ''){
-        Swal.fire({
-            icon: 'warning',
-            title: gettext('field_empty'),
-            text: gettext('Please, complete the form'),
-        });
-        return false;
-    }else if ($('#costFuntionDescription').val() === ''){
-        Swal.fire({
-            icon: 'warning',
-            title: gettext('field_empty'),
-            text: gettext('Please, complete the form'),
-        });
-        return false;
-    }else if ($('#global_multiplier_factorCalculator').val() === ''){
-        Swal.fire({
-            icon: 'warning',
-            title: gettext('field_empty'),
-            text: gettext('Please, complete the form'),
-        });
-        return false;
-    }else if ($('#python-expression').val() === ''){
+    if($('#costFunctionName').val() === '' || $('#costFuntionDescription').val() === '' ||
+    $('#global_multiplier_factorCalculator').val() === '' || $('#python-expression').val() === ''){
         Swal.fire({
             icon: 'warning',
             title: gettext('field_empty'),
@@ -1523,13 +1503,13 @@ function setVarCost() {
     });
 
     for (const csinfra of csinfras) {
-        let idIntake = csinfra.name.split("-")[2].trim();
+        let graphId = csinfra.name.split("-")[5].trim(); // ej: 'Intake-LG-2104-Bucaramanga - CSINFRA - 5'
         var costlabel = "";
         for (const v of costVars) {
-            costlabel += `<a value="${v}${idIntake}" class="list-group-item list-group-item-action cost-fn-var">${v}${idIntake}</a>`
+            costlabel += `<a value="${v}${graphId}" class="list-group-item list-group-item-action cost-fn-var">${v}${graphId}</a>`
         }
         $('#VarCostListGroup').append(`
-            <div class="panel panel-info title-panel-vars" id="panel-intake-${idIntake}-${csinfra.id}">
+            <div class="panel panel-info title-panel-vars" id="panel-intake-${graphId}-${csinfra.id}">
                 <div class="panel-heading">
                     <h4 class="panel-title">
                         <a data-toggle="collapse" data-parent="#VarCostListGroup" href="#VarCostListGroup_${csinfra.id}">
