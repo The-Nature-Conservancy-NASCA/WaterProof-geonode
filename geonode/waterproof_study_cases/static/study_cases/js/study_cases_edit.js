@@ -1399,7 +1399,7 @@ $('#saveAndValideCost').click(function () {
                 'description': $('#costFuntionDescription').val(),
                 'factor': $('#global_multiplier_factorCalculator').val(),
                 'currencyCost': $('#currencyCost option:selected').val(),
-                'currencyCostName': $('#currencyCost option:selected').text(),
+                'currencyCostName': $('#currencyCost option:selected').text().trim().substr(1,3),
                 'elementSystemId' : elemSysId,
                 'uuid': uuid
             }
@@ -1412,7 +1412,7 @@ $('#saveAndValideCost').click(function () {
             'description': $('#costFuntionDescription').val(),
             'factor': $('#global_multiplier_factorCalculator').val(),
             'currencyCost': $('#currencyCost option:selected').val(),
-            'currencyCostName': $('#currencyCost option:selected').text(),
+            'currencyCostName': $('#currencyCost option:selected').text().trim().substr(1,3),
             'elementSystemId' : elemSysId
         }
 
