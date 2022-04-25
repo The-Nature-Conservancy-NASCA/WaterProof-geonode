@@ -40,15 +40,15 @@
                     <div class="column-left-table">
                         <div class="file-column-left">
                             <div>{% trans "City:" %}</div>
-                            <div class="value-file-column-left" id="idCityMain">{% trans "-" %}</div>
+                            <div class="value-file-column-left" id="idCityMain">{{study_case.city.name}}</div>
                         </div>
                         <div class="file-column-left">
                             <div>{% trans "Country:" %}</div>
-                            <div class="value-file-column-left" id="idCountryMain">{% trans "-" %}</div>
+                            <div class="value-file-column-left" id="idCountryMain">{{study_case.city.country.name}}</div>
                         </div>
                         <div class="file-column-left">
                             <div>{% trans "Region:" %}</div>
-                            <div class="value-file-column-left" id="idRegionMain">{% trans "-" %}</div>
+                            <div class="value-file-column-left" id="idRegionMain">{{study_case.city.country.region}}</div>
                         </div>
                         <div class="file-column-left">
                             <div>{% trans "Time frame (years):" %}</div>
@@ -275,10 +275,11 @@
         document.getElementById('idGeographicIndicators').style.opacity = "0.4";
     } else {
         localStorage.idStudyCase = "{{study_case.id}}";
+        localStorage.city = "{{city}}";
     }
-    $("#idCountryMain").html(localStorage.getItem('country'));
-    $("#idCityMain").html(localStorage.getItem('city'));
-    $("#idRegionMain").html(localStorage.getItem('region'));
+    //$("#idCountryMain").html(localStorage.getItem('country'));
+    //$("#idCityMain").html(localStorage.getItem('city'));
+    //$("#idRegionMain").html(localStorage.getItem('region'));
 </script>
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/highcharts-more.js"></script>
@@ -421,11 +422,7 @@
             if (cityCoords == undefined) {
                 cityCoords = initialCoords;
             } else {
-                initialCoords = JSON.parse(cityCoords);
-                if (!drawPolygons(city)){
-                    initialZoom = 9;
-                    map.setView(initialCoords, initialZoom);            
-                }                
+                initialCoords = JSON.parse(cityCoords);                
                 try {
                     $("#countryLabel").html(localStorage.getItem('country'));
                     $("#cityLabel").html(localStorage.getItem('city'));
@@ -436,6 +433,10 @@
                     console.log(e);
                 }
             }
+            if (!drawPolygons(city)){
+                initialZoom = 9 
+            }                
+            //map.setView(initialCoords, initialZoom);
                             
             searchPoints.addTo(map);
             let attrib = 'Data \u00a9 <a href="http://www.openstreetmap.org/copyright"> OpenStreetMap Contributors </a> Tiles \u00a9 Komoot';
