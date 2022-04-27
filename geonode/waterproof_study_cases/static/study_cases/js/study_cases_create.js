@@ -1522,7 +1522,8 @@ function setVarCost() {
     });
 
     for (const csinfra of csinfras) {
-        let graphId = csinfra.name.split("-")[5].trim();
+        let csInfraSplitName = csinfra.name.split("-");
+        let graphId = csInfraSplitName[csInfraSplitName.length-1].trim();
         var costlabel = "";
         for (const v of costVars) {
             costlabel += `<a value="${v}${graphId}" class="list-group-item list-group-item-action cost-fn-var">${v}${graphId}</a>`
