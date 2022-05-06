@@ -326,6 +326,12 @@ $(function () {
     var totalDiscountedCost = [];
     var totalDiscountedBenefits = [];
 
+    let titleCostBenefit = `<p> {% trans "Cost and benefits" %} </p>`;
+    let totalCostName = `<p> {% trans "Total Cost" %} </p>`;
+    let totalDiscountedCostName = `<p> {% trans "Total discounted cost" %} </p>`;
+    let totalBenefitName = `<p> {% trans "Total benefits" %} </p>`;
+    let totalDiscountedBenefitsName = `<p> {% trans "Total discounted benefits" %} </p>`;
+
     changeReport = function() {
         location.href = "../../study_cases/report/" + localStorage.idStudyCase;
     }
@@ -349,175 +355,59 @@ $(function () {
         }
     };
     
-    var flagIfTotalBenefit = 1;
-    var flagIfTotalDisBenefit = 1;
-    var flagElseTotalBenefit = 1;
-    var flagElseTotalDisBenefit = 1;
     loadDetailFilter = function(object, name){
         if(object.checked) {
             var listObject = document.getElementsByName(name);
-            listObject.forEach( function(valor, indice) {
-                totalBenefits[flagIfTotalBenefit-1] = parseFloat((totalBenefits[flagIfTotalBenefit-1] + parseFloat(valor.value)).toFixed(2));
-                if(flagIfTotalBenefit >= 30){
-                    flagIfTotalBenefit = 1;
-                }else{
-                    flagIfTotalBenefit = flagIfTotalBenefit+1;
-                }
+            listObject.forEach( function(valor, index) {
+                totalBenefits[index] = parseFloat((totalBenefits[index] + parseFloat(valor.value)).toFixed(2));
             });
             var listObject = document.getElementsByName('dis' + name);
-            listObject.forEach( function(valor, indice) {
-                totalDiscountedBenefits[flagIfTotalDisBenefit-1] = parseFloat((totalDiscountedBenefits[flagIfTotalDisBenefit-1] + parseFloat(valor.value)).toFixed(2));
-                if(flagIfTotalDisBenefit >= 30){
-                    flagIfTotalDisBenefit = 1;
-                }else{
-                    flagIfTotalDisBenefit = flagIfTotalDisBenefit+1;
-                }
+            listObject.forEach( function(valor, index) {
+                totalDiscountedBenefits[index] = parseFloat((totalDiscountedBenefits[index] + parseFloat(valor.value)).toFixed(2));
             });
         } else {
             var listObject = document.getElementsByName(name);
-            listObject.forEach( function(valor, indice) {
-                totalBenefits[flagElseTotalBenefit-1] = parseFloat((totalBenefits[flagElseTotalBenefit-1] - parseFloat(valor.value)).toFixed(2));
-                if(flagElseTotalBenefit >= 30){
-                    flagElseTotalBenefit = 1;
-                }else{
-                    flagElseTotalBenefit = flagElseTotalBenefit+1;
-                }
+            listObject.forEach( function(valor, index) {
+                totalBenefits[index] = parseFloat((totalBenefits[index] - parseFloat(valor.value)).toFixed(2));
             });
             var listObject = document.getElementsByName('dis' + name);
-            listObject.forEach( function(valor, indice) {
-                totalDiscountedBenefits[flagElseTotalDisBenefit-1] = parseFloat((totalDiscountedBenefits[flagElseTotalDisBenefit-1] - parseFloat(valor.value)).toFixed(2));
-                if(flagElseTotalDisBenefit >= 30){
-                    flagElseTotalDisBenefit = 1;
-                }else{
-                    flagElseTotalDisBenefit = flagElseTotalDisBenefit+1;
-                }
+            listObject.forEach( function(valor, index) {
+                totalDiscountedBenefits[index] = parseFloat((totalDiscountedBenefits[index] - parseFloat(valor.value)).toFixed(2));
+
             });
         }
-        setTimeout(function(){
-            let titleCostBenefit = `<p> {% trans "Cost and benefits" %} </p>`;
-            let totalCostName = `<p> {% trans "Total Cost" %} </p>`;
-            let totalDiscountedCostName = `<p> {% trans "Total discounted cost" %} </p>`;
-            let totalBenefitName = `<p> {% trans "Total benefits" %} </p>`;
-            let totalDiscountedBenefitsName = `<p> {% trans "Total discounted benefits" %} </p>`;
-            Highcharts.chart('containerRoi', {
-                chart: {
-                    type: 'column'
-                },
-                title: {
-                    text: titleCostBenefit
-                },
-                colors: ['#008BAB', '#90D3E7', '#004B56', '#61D1C2'],
-                xAxis: {
-                    categories: categories
-                },
-                credits: {
-                    enabled: false
-                },
-                series: [{
-                    name: totalCostName,
-                    data: totalCost
-                },{
-                    name: totalDiscountedCostName,
-                    data: totalDiscountedCost
-                },{
-                    name: totalBenefitName,
-                    type: 'spline',
-                    dashStyle: 'shortdot',
-                    data: totalBenefits
-                },{
-                    name: totalDiscountedBenefitsName,
-                    type: 'spline',
-                    dashStyle: 'shortdot',
-                    data: totalDiscountedBenefits
-                }]
-            });
+        setTimeout(function(){            
+            buildCostAndBenefitsChart();
         }, 1000);
     }
-    var flagIfTotal = 1;
-    var flagIfTotalDis = 1;
-    var flagElseTotal = 1;
-    var flagElseTotalDis = 1;
 
     loadDetailFilterCost = function(object, name){
 
         if(object.checked) {
             let listObject = document.getElementsByName('cost' + name);
-            listObject.forEach( function(valor, indice) {
-                totalCost[flagIfTotal-1] = parseFloat((totalCost[flagIfTotal-1] + parseFloat(valor.value)).toFixed(2));
-                if(flagIfTotal >= 30){
-                    flagIfTotal = 1;
-                }else{
-                    flagIfTotal = flagIfTotal+1;
-                }
+            listObject.forEach( function(valor, index) {
+                totalCost[index] = parseFloat((totalCost[index] + parseFloat(valor.value)).toFixed(2));
 
             });
             let listObjectDis = document.getElementsByName('costDis' + name);
-            listObjectDis.forEach( function(valor, indice) {
-                totalDiscountedCost[flagIfTotalDis-1] = parseFloat((totalDiscountedCost[flagIfTotalDis-1] + parseFloat(valor.value)).toFixed(2));
-                if(flagIfTotalDis >= 30){
-                    flagIfTotalDis = 1;
-                }else{
-                    flagIfTotalDis = flagIfTotalDis+1;
-                }
+            listObjectDis.forEach( function(valor, index) {
+                totalDiscountedCost[index] = parseFloat((totalDiscountedCost[index] + parseFloat(valor.value)).toFixed(2));
+
             });
         } else {
             let listObject = document.getElementsByName('cost' + name);
-            listObject.forEach( function(valor, indice) {
-                totalCost[flagElseTotal-1] = parseFloat((totalCost[flagElseTotal-1] - parseFloat(valor.value)).toFixed(2));
-                if(flagElseTotal >= 30){
-                    flagElseTotal = 1;
-                }else{
-                    flagElseTotal = flagElseTotal+1;
-                }
+            listObject.forEach( function(valor, index) {
+                totalCost[index] = parseFloat((totalCost[index] - parseFloat(valor.value)).toFixed(2));
+                
             });
             let listObjectDis = document.getElementsByName('costDis' + name);
-            listObjectDis.forEach( function(valor, indice) {
-                totalDiscountedCost[flagElseTotalDis-1] = parseFloat((totalDiscountedCost[flagElseTotalDis-1] - parseFloat(valor.value)).toFixed(2));
-                if(flagElseTotalDis >= 30){
-                    flagElseTotalDis = 1;
-                }else{
-                    flagElseTotalDis = flagElseTotalDis+1;
-                }
+            listObjectDis.forEach( function(valor, index) {
+                totalDiscountedCost[index] = parseFloat((totalDiscountedCost[index] - parseFloat(valor.value)).toFixed(2));
+                
             });
         }
-        let titleCostBenefit = `<p> {% trans "Cost and benefits" %} </p>`;
-        let totalCostName = `<p> {% trans "Total Cost" %} </p>`;
-        let totalDiscountedCostName = `<p> {% trans "Total discounted cost" %} </p>`;
-        let totalBenefitName = `<p> {% trans "Total benefits" %} </p>`;
-        let totalDiscountedBenefitsName = `<p> {% trans "Total discounted benefits" %} </p>`;
         setTimeout(function(){
-            Highcharts.chart('containerRoi', {
-                chart: {
-                    type: 'column'
-                },
-                title: {
-                    text: titleCostBenefit
-                },
-                colors: ['#008BAB', '#90D3E7', '#004B56', '#61D1C2'],
-                xAxis: {
-                    categories: categories
-                },
-                credits: {
-                    enabled: false
-                },
-                series: [{
-                    name: totalCostName,
-                    data: totalCost
-                },{
-                    name: totalDiscountedCostName,
-                    data: totalDiscountedCost
-                },{
-                    name: totalBenefitName,
-                    type: 'spline',
-                    dashStyle: 'shortdot',
-                    data: totalBenefits
-                },{
-                    name: totalDiscountedBenefitsName,
-                    type: 'spline',
-                    dashStyle: 'shortdot',
-                    data: totalDiscountedBenefits
-                }]
-            });
+            buildCostAndBenefitsChart();
         }, 1000);
     }
 
@@ -619,44 +509,8 @@ $(function () {
 
             document.getElementById("idTbodyRoi").innerHTML = htmlCost +  htmlDiscountedCost + htmlBenefits + htmlDiscountedBenefits;
             document.getElementById("idTheadRoi").innerHTML = htmlTitle;
-            let titleCostBenefit = `<p> {% trans "Cost and benefits" %} </p>`;
-            let totalCostName = `<p> {% trans "Total Cost" %} </p>`;
-            let totalDiscountedCostName = `<p> {% trans "Total discounted cost" %} </p>`;
-            let totalBenefitName = `<p> {% trans "Total benefits" %} </p>`;
-            let totalDiscountedBenefitsName = `<p> {% trans "Total discounted benefits" %} </p>`;
             // Los nombres de las columnas estaban errados por lo cual se ajustan, los datos corresonden al ajuste, es decir estan bien como quedan.
-            Highcharts.chart('containerRoi', {
-                chart: {
-                    type: 'column'
-                },
-                title: {
-                    text: titleCostBenefit
-                },
-                colors: ['#008BAB', '#90D3E7', '#004B56', '#61D1C2'],
-                xAxis: {
-                    categories: categories
-                },
-                credits: {
-                    enabled: false
-                },
-                series: [{
-                    name: totalCostName,
-                    data: totalCost
-                },{
-                    name: totalDiscountedCostName,
-                    data: totalDiscountedCost
-                },{
-                    name: totalBenefitName,
-                    type: 'spline',
-                    dashStyle: 'shortdot',
-                    data: totalBenefits
-                },{
-                    name: totalDiscountedBenefitsName,
-                    type: 'spline',
-                    dashStyle: 'shortdot',
-                    data: totalDiscountedBenefits
-                }]
-            });
+            buildCostAndBenefitsChart();
         });
 
         var dataCost = [];
@@ -1053,6 +907,42 @@ $(function () {
 
 
     };
+
+    buildCostAndBenefitsChart = function () {
+        Highcharts.chart('containerRoi', {
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: titleCostBenefit
+            },
+            colors: ['#008BAB', '#90D3E7', '#004B56', '#61D1C2'],
+            xAxis: {
+                categories: categories
+            },
+            credits: {
+                enabled: false
+            },
+            series: [{
+                name: totalCostName,
+                data: totalCost
+            },{
+                name: totalDiscountedCostName,
+                data: totalDiscountedCost
+            },{
+                name: totalBenefitName,
+                type: 'spline',
+                dashStyle: 'shortdot',
+                data: totalBenefits
+            },{
+                name: totalDiscountedBenefitsName,
+                type: 'spline',
+                dashStyle: 'shortdot',
+                data: totalDiscountedBenefits
+            }]
+        });
+    }
+
     initialize();
 });
     
