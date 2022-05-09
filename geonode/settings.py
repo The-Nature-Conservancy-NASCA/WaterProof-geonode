@@ -2285,3 +2285,21 @@ WATERPROOF_SPECIAL_VALUES = ['min', 'E2', 'E3', 'max']
 CKEDITOR_UPLOAD_PATH="aux_media"
 
 WATERPROOF_INVEST_DOC = "https://storage.googleapis.com/releases.naturalcapitalproject.org/invest-userguide/latest/index.html"
+
+DEFAULT_EXTRA_METADATA_SCHEMA = {
+    "id": int,
+    "filter_header": object,
+    "field_name": object,
+    "field_label": object,
+    "field_value": object,
+}
+
+CUSTOM_METADATA_SCHEMA = {}
+
+EXTRA_METADATA_SCHEMA = {**{
+    "map": os.getenv('MAP_EXTRA_METADATA_SCHEMA', DEFAULT_EXTRA_METADATA_SCHEMA),
+    "layer": os.getenv('DATASET_EXTRA_METADATA_SCHEMA', DEFAULT_EXTRA_METADATA_SCHEMA),
+    "document": os.getenv('DOCUMENT_EXTRA_METADATA_SCHEMA', DEFAULT_EXTRA_METADATA_SCHEMA),
+    "geoapp": os.getenv('GEOAPP_EXTRA_METADATA_SCHEMA', DEFAULT_EXTRA_METADATA_SCHEMA)
+}, **CUSTOM_METADATA_SCHEMA}
+
