@@ -10,6 +10,8 @@ import math
 import os
 import tempfile
 import binascii
+import numpy as np
+import matplotlib.pyplot as plt
 
 from django.conf import settings
 from django.http import JsonResponse
@@ -24,6 +26,8 @@ from datetime import date
 from django.template import RequestContext
 from PIL import Image
 from io import BytesIO
+from scipy import interpolate
+from scipy.interpolate import make_interp_spline, BSpline
 
 map_send_image = 'imgpdf/map-send-image.png'
 epw = 0
@@ -40,7 +44,14 @@ class PDF(FPDF):
         self.set_font('Arial', 'I', 10)
         self.cell(0, 10, 'Page ' + str(self.page_no()) + '/{nb}', 0, 0, 'C')
 
-
+def currency(x, pos):
+    """The two arguments are the value and tick position"""
+    if abs(x) >= 1e6:
+        s = '${:1.1f}M'.format(x*1e-6)
+    else:
+        s = '${:1.0f}K'.format(x*1e-3)
+    return s
+    
 def pdf(request):
     base64_data = re.sub('^data:image/.+;base64,', '', request.POST['mapSendImage'])
     study_case_id = request.POST['studyCase']
@@ -308,49 +319,41 @@ def pdf(request):
     totalCost = []
     totalDiscountedCost = []
     totalBenefits = []
-    totalDiscountedBenefits = []
+    totalDiscountedBenefits = []   
 
     for item in data:
         categories.append(item['record'])
-        totalCost.append(item['totalCost'])
+        totalCost.append(item['totalCost'])        
         totalDiscountedCost.append(item['totalDiscountedCost'])
         totalBenefits.append(item['totalBenefits'])
-        totalDiscountedBenefits.append(item['totalDiscountedBenefits'])
+        totalDiscountedBenefits.append(item['totalDiscountedBenefits'])           
 
-    config = {
-        'chart': {
-            'type': 'column'
-        },
-        'title': {
-            'text': 'Cost and benefits chart'
-        },
-        'colors': ['#90D3E7', '#008BAB', '#004B56', '#61D1C2'],
-        'xAxis': {
-            'categories': categories
-        },
-        'credits': {
-            'enabled': 0
-        },
-        'series': [{
-            'name': 'Total Cost',
-            'data': totalCost
-        }, {
-            'name': 'Total Discounted Cost',
-            'data': totalDiscountedCost,
-            'type': 'spline',   
-            'dashStyle': 'shortdot',
-        }, {
-            'name': 'Total Benefits',                     
-            'data': totalBenefits
-        }, {
-            'name': 'Total Discounted Benefits',
-            'type': 'spline',
-            'dashStyle': 'shortdot',
-            'data': totalDiscountedBenefits
-        }]
-    }
+    x = np.arange(len(categories))  # the label locations
+    xnew = np.linspace(x.min(), x.max(), 200)
+    spl = make_interp_spline(x, totalBenefits, k=3)
+    y_smooth_total_benefits = spl(xnew)
 
-    hc_export.save_as_png(config=config, filename="imgpdf/igocab.png")
+    spl = make_interp_spline(x, totalDiscountedBenefits, k=3)
+    y_smooth_total_discounted_benefits = spl(xnew)
+
+    width = 0.3  # the width of the bars
+    fig, ax = plt.subplots()
+    fig.set_figwidth(10)
+    rects1 = ax.bar(x - width/2, totalCost, width, label='Total Cost', color='#90D3E7')
+    rects2 = ax.bar(x + width/2, totalDiscountedCost, width, label='Total Benefits', color='#004B56')
+    ax.set_ylabel('Value',fontsize=9)
+    ax.set_title('Cost and benefits chart',fontsize=10)
+    ax.set_xticks(x, categories,fontsize=9)
+    ax.yaxis.set_major_formatter(currency)
+    ax.plot(x,totalBenefits,'o', color='#004B56')
+    ax.plot(xnew ,y_smooth_total_benefits, '--', label='Total Benefits', color='#004B56', linewidth=1.5)
+    ax.plot(x,totalDiscountedBenefits,'o', color='#61D1C2')
+    ax.plot(xnew ,y_smooth_total_discounted_benefits, '--', color='#61D1C2', label='Total Discounted Benefits')
+    #'best', 'upper right', 'upper left', 'lower left', 'lower right', 'right', 'center left', 'center right', 'lower center', 'upper center', 'center'
+    ax.legend(loc="upper left", bbox_to_anchor=[0, 1],ncol=5,fontsize=9)
+    fig.tight_layout()
+
+    fig.savefig('imgpdf/igocab.png', transparent=False, dpi=80, bbox_inches="tight")        
     pdf.image('imgpdf/igocab.png', 20, 140, w=160, h=90, type='png')
 
     # PAGE (4) - TABLE
@@ -414,31 +417,18 @@ def pdf(request):
         itemCostr = item['costr']
         dataBenefit.append(item['benefift'])
         itemBenefift = item['benefift']
-
-    config = {
-        'chart': {
-            'type': 'column'
-        },
-        'title': {
-            'text': 'Cost and Benefits'
-        },
-        'colors': ['#008BAB', '#90D3E7'],
-        'xAxis': {
-            'categories': ['Cost and Benefits']
-        },
-        'credits': {
-            'enabled': 0
-        },
-        'series': [{
-            'name': 'Cost',
-            'data': dataCost
-        }, {
-            'name': 'Benefits',
-            'data': dataBenefit
-        }]
-    }
-
-    hc_export.save_as_png(config=config, filename="imgpdf/cab.png")
+    
+    cost_and_benefits = dataCost + dataBenefit 
+    categories = ['Cost', 'Benefits']
+    colors = ['#008BAB', '#90D3E7']
+    fig, ax = plt.subplots()
+    ax.set_ylabel('Values',fontsize=9)
+    ax.set_title('Cost and Benefits',fontsize=10)
+    ax.bar(categories, cost_and_benefits, color=colors)
+    ax.yaxis.set_major_formatter(currency)
+    ax.legend(loc="upper left", bbox_to_anchor=[0, 1],ncol=5,fontsize=9)
+    fig.tight_layout()
+    fig.savefig('imgpdf/cab.png', transparent=False, dpi=80, bbox_inches="tight")
     pdf.image('imgpdf/cab.png', 45, 55, w=100, h=60, type='png')
 
     pdf.set_font('Arial', '', 10)
@@ -470,16 +460,10 @@ def pdf(request):
     valbenefitr = ""
     valtotalr = ""
 
+    data_npv = {}
+
     for item in data:
         typeMoney = item['currencyr']
-        dataNetPresentValueSummary.append(round(item['implementationr'], 2))
-        dataNetPresentValueSummary.append(round(item['maintenancer'], 2))
-        dataNetPresentValueSummary.append(round(item['oportunityr'], 2))
-        dataNetPresentValueSummary.append(round(item['transactionr'], 2))
-        dataNetPresentValueSummary.append(round(item['platformr'], 2))
-        dataNetPresentValueSummary.append(round(item['benefitr'], 2))
-        dataNetPresentValueSummary.append(round(item['totalr'], 2))
-
         valimplementationr = round(item['implementationr'], 2)
         valmaintenancer = round(item['maintenancer'], 2)
         valoportunityr = round(item['oportunityr'], 2)
@@ -488,26 +472,23 @@ def pdf(request):
         valbenefitr = round(item['benefitr'], 2)
         valtotalr = round(item['totalr'], 2)
 
-    config = {
-        'chart': {
-            'type': 'column'
-        },
-        'colors': ['#008BAB'],
-        'title': {
-            'text': 'Net present value summary'
-        },
-        'xAxis': {
-            'categories': ['Implementation', 'Maintance', 'Oportunity', 'Transaction', 'Platform', 'Benefit', 'Total']
-        },
-        'credits': {
-            'enabled': 0
-        },
-        'series': [{
-            'name': 'NPV (' + typeMoney + ')',
-            'data': dataNetPresentValueSummary
-        }]
-    }
-
+        dataNetPresentValueSummary.append(valimplementationr)
+        dataNetPresentValueSummary.append(valmaintenancer)
+        dataNetPresentValueSummary.append(valoportunityr)
+        dataNetPresentValueSummary.append(valtransactionr)
+        dataNetPresentValueSummary.append(valplatformr)
+        dataNetPresentValueSummary.append(valbenefitr)
+        dataNetPresentValueSummary.append(valtotalr)
+        data_npv = {
+            'Implementation': valimplementationr,
+            'Maintance': valmaintenancer,
+            'Oportunity': valoportunityr,
+            'Transaction': valtransactionr,
+            'Platform': valplatformr,
+            'Benefit': valbenefitr,
+            'Total': valtotalr
+        }    
+    
     pdf.ln(18)
     pdf.set_font('Arial', '', 11)
     pdf.set_text_color(100, 100, 100)
@@ -519,8 +500,20 @@ def pdf(request):
     pdf.ln(6)
     pdf.cell(0, 6, 'difference between costs and benefits.', align='L')
     pdf.ln(10)
+    
+    group_data = list(data_npv.values())
+    group_names = list(data_npv.keys())    
+    fig, ax = plt.subplots()
+    ax.set_facecolor("white")
+    ax.bar(group_names, group_data, color='#008BAB')
+    labels = ax.get_xticklabels()
+    plt.setp(labels, rotation=45, horizontalalignment='right',fontsize=11)
+    ax.set(xlabel='NPV (' + typeMoney + ')', title='Net Present Value')
+    ax.yaxis.set_major_formatter(currency)
+    for label in ax.yaxis.get_ticklabels():
+        label.set_fontsize(11)
 
-    hc_export.save_as_png(config=config, filename="imgpdf/npvs.png")
+    fig.savefig('imgpdf/npvs.png', transparent=False, dpi=80, bbox_inches="tight")
     pdf.image('imgpdf/npvs.png', 35, 195, w=120, h=80, type='png')
 
     pdf.add_page()
@@ -586,52 +579,39 @@ def pdf(request):
     requestJson = requests.get(url_api + 'getSensibilityAnalysisBenefits/?studyCase=' + study_case_id, verify=False)
     data = requestJson.json()
 
-    dataSensibilityAnalysisBenefitsTime = []
-    dataSensibilityAnalysisBenefitsRange = []
+    total_discount_benefits = []
+    total_discount_benefits_range = []
 
     for item in data:
-        dataSensibilityAnalysisBenefitsTime.append([item['timer'], float(item['totalMedBenefitR'])])
-        dataSensibilityAnalysisBenefitsRange.append([item['timer'], float(
-            item['totalMinBenefitR']), float(item['totalMaxBenefittR'])])
+        total_discount_benefits.append([item['timer'], float(item['totalMedBenefitR'])])
+        total_discount_benefits_range.append([item['timer'], float(item['totalMinBenefitR']), float(item['totalMaxBenefittR'])])
+    
+    data_line = np.array(total_discount_benefits)
+    data_range = np.array(total_discount_benefits_range)
+    min_range = data_range[:,1]
+    max_range = data_range[:,2]
+    labels = data_line[:,0].astype(int)
+    line1 = data_line[:,1]
 
-    config = {
-        'title': {
-            'text': 'Sensibility analysis - total discounted benefits (TDB)'
-        },
-        'credits': {
-            'enabled': 0
-        },
-        'yAxis': {
-            'title': {
-                'text': 'Total discounted benefits'
-            }
-        },
-        'xAxis': {
-            'title': {
-                'text': 'Time in years discounted benefits'
-            }
-        },
-        'colors': ['#008BAB'],
-        'series': [{
-            'name': 'TDB',
-            'color': "#4c99d8",
-            'data': dataSensibilityAnalysisBenefitsTime
-        }, {
-            'name': 'Range',
-            'data': dataSensibilityAnalysisBenefitsRange,
-            'type': 'arearange',
-            'lineWidth': 0,
-            'linkedTo': ':previous',
-            'color': "#90D3E7",
-            'fillOpacity': 0.3,
-            'zIndex': 0,
-            'marker': {
-                'enabled': 0
-            }
-        }]
-    }
+    x = np.arange(len(labels))  # the label locations
+    xnew = np.linspace(x.min(), x.max(), 200)
+    spl = make_interp_spline(x, line1, k=3)
+    y_smooth_total_benefits = spl(xnew)
 
-    hc_export.save_as_png(config=config, filename="imgpdf/satdb.png")
+    width = 0.3  # the width of the bars
+    fig, ax = plt.subplots()
+    fig.set_figwidth(10)
+    ax.set_ylabel('Total discounted benefits',fontsize=9)
+    ax.set_xlabel('Time in years discounted benefits',fontsize=9)
+    ax.set_title('Sensibility analysis - total discounted benefits (TDB)',fontsize=10)
+    ax.set_xticks(x, labels,fontsize=9)
+    ax.yaxis.set_major_formatter(currency)
+    ax.plot(x,line1,'o', color='#4c99d8')
+    ax.plot(xnew ,y_smooth_total_benefits, label='Discounted Benefits', color='#008BAB', linewidth=1.5)
+    ax.fill_between(x, min_range, max_range, facecolor='C0', alpha=0.1)
+    #'best', 'upper right', 'upper left', 'lower left', 'lower right', 'right', 'center left', 'center right', 'lower center', 'upper center', 'center'
+    fig.tight_layout()
+    fig.savefig('imgpdf/satdb.png', transparent=False, dpi=80, bbox_inches="tight")
     pdf.image('imgpdf/satdb.png', 30, 150, w=160, h=80, type='png')
 
     pdf.add_page() # add page 7 of 17 
@@ -675,45 +655,34 @@ def pdf(request):
         dataSensibilityAnalysisCostTime.append([item['timer'], float(item['totalMedCostR'])])
         dataSensibilityAnalysisCostRange.append(
             [item['timer'], float(item['totalMinCostR']), float(item['totalMaxCostR'])])
+    
+    data_line = np.array(dataSensibilityAnalysisCostTime)
+    data_range = np.array(dataSensibilityAnalysisCostRange)
+    min_range = data_range[:,1]
+    max_range = data_range[:,2]
+    labels = data_line[:,0].astype(int)
+    labels.astype(int)
+    line1 = data_line[:,1]
 
-    config = {
-        'title': {
-            'text': 'Sensitivity analysis - total discounted cost (TDC)'
-        },
-        'credits': {
-            'enabled': 0
-        },
-        'yAxis': {
-            'title': {
-                'text': 'Total discounted costs'
-            }
-        },
-        'xAxis': {
-            'title': {
-                'text': 'Time in years discounted benefits'
-            }
-        },
-        'colors': ['#008BAB'],
-        'series': [{
-            'name': 'TDC',
-            'color': "#4c99d8",
-            'data': dataSensibilityAnalysisCostTime
-        }, {
-            'name': 'Range',
-            'data': dataSensibilityAnalysisCostRange,
-            'type': 'arearange',
-            'lineWidth': 0,
-            'linkedTo': ':previous',
-            'color': "#90D3E7",
-            'fillOpacity': 0.3,
-            'zIndex': 0,
-            'marker': {
-                'enabled': 0
-            }
-        }]
-    }
+    x = np.arange(len(labels))  # the label locations
+    xnew = np.linspace(x.min(), x.max(), 200)
+    spl = make_interp_spline(x, line1, k=3)
+    y_smooth_total_benefits = spl(xnew)
 
-    hc_export.save_as_png(config=config, filename="imgpdf/satdc.png")
+    width = 0.3  # the width of the bars
+    fig, ax = plt.subplots()
+    fig.set_figwidth(10)
+    ax.set_ylabel('Total discounted cost',fontsize=9)
+    ax.set_xlabel('Time in years discounted cost',fontsize=9)
+    ax.set_title('Sensibility analysis - total discounted cost (TDC)',fontsize=10)
+    ax.set_xticks(x, labels,fontsize=9)
+    ax.yaxis.set_major_formatter(currency)
+    ax.plot(x,line1,'o', color='#4c99d8')
+    ax.plot(xnew ,y_smooth_total_benefits, label='Discounted Benefits', color='#008BAB', linewidth=1.5)
+    ax.fill_between(x, min_range, max_range, facecolor='C0', alpha=0.1)
+    #'best', 'upper right', 'upper left', 'lower left', 'lower right', 'right', 'center left', 'center right', 'lower center', 'upper center', 'center'
+    fig.tight_layout()
+    fig.savefig('imgpdf/satdc.png', transparent=False, dpi=80, bbox_inches="tight")
 
     img_y = 150
     img_x = 22
@@ -844,27 +813,16 @@ def pdf(request):
     pdf.set_font('Arial', '', 10)
     pdf.ln(8)
 
-    config = {
-        'chart': {
-            'type': 'column'
-        },
-        'title': {
-            'text': ''
-        },
-        'colors': ['#008BAB'],
-        'xAxis': {
-            'categories': ['Volumen of water yield', 'Base flow', 'Total sediments', 'Nitrogen load', 'Phosphorus load', 'Carbon storage']
-        },
-        'credits': {
-            'enabled': 0
-        },
-        'series': [{
-            'name': 'PE',
-            'data': [waterYear, baseFlow, totalSediments, nitrogenLoadTable, phosphorousLoadTable, carbonStorageTable]
-        }]
-    }
+    total_analysis_data = [waterYear, baseFlow, totalSediments, nitrogenLoadTable, phosphorousLoadTable, carbonStorageTable]
+    categories = ['Volumen of \nwater yield', 'Base \nflow', 'Total \nsediments', 'Nitrogen \nload', 'Phosphorus \nload', 'Carbon \nstorage']
+    colors = ['#008BAB']
+    fig, ax = plt.subplots()
+    ax.set_ylabel('Values',fontsize=9)
+    ax.bar(categories, total_analysis_data, color=colors)
+    fig.tight_layout()
+    fig.savefig('imgpdf/ecesb.png', transparent=False, dpi=80, bbox_inches="tight")
 
-    hc_export.save_as_png(config=config, filename="imgpdf/ecesb.png")
+    #hc_export.save_as_png(config=config, filename="imgpdf/ecesb.png")
     pdf.image('imgpdf/ecesb.png', 70, 45, w=120)
     pdf.image('imgpdf/total-one.png', 10, 56, w=10)
     pdf.image('imgpdf/total-two.png', 10, 71, w=10)
@@ -1504,6 +1462,7 @@ def pdf(request):
     data = requestJson.json()
     
     lastRegister = 0
+    colors = ['#008BAB', '#69b7cf', '#3f99b5', '#1d7c99', '#90D3E7', '#5ca8bf', '#448fa6', '#2b768c', '#176075', '#004B56', '#47bfaf', '#32ab9b', '#209989', '#128778', '#61D1C2']
     for item in data:
         if item['typeId'] == 'DWTP':
             lastRegister = 1
@@ -1511,37 +1470,26 @@ def pdf(request):
                 'name': item['elementId'],
                 'y': item['vpnMedBenefit']
             })
-
-    config = {
-        'chart': {
-            'plotShadow': 0,
-            'type': 'pie'
-        },
-        'colors': ['#008BAB', '#69b7cf', '#3f99b5', '#1d7c99', '#90D3E7', '#5ca8bf', '#448fa6', '#2b768c', '#176075', '#004B56', '#47bfaf', '#32ab9b', '#209989', '#128778', '#61D1C2'],
-        'title': {
-            'text': 'DWTP Benefits '
-        },
-        'plotOptions': {
-            'pie': {
-                'allowPointSelect': 1,
-                'cursor': 'pointer',
-                'dataLabels': {
-                    'enabled': 0
-                },
-                'showInLegend': 1
-            }
-        },
-        'credits': {'enabled': 0},
-        'series': [{
-            'name': 'Intake Benefits',
-            'colorByPoint': 1,
-            'data': dataListBenefitsIntakeA
-        }]
-    }
-
+    
     if len(dataListBenefitsIntakeA) > 0:
-        hc_export.save_as_png(config=config, filename="imgpdf/wrab.png")
-        pdf.image('imgpdf/wrab.png', 10, 60, w=90)
+        print ("dataListBenefitsIntakeA: %s" % dataListBenefitsIntakeA)
+        lbls = [d['name'] for d in dataListBenefitsIntakeA]
+        t=0
+        for i in dataListBenefitsIntakeA:
+            t+=i['y']
+        y=[]
+        for i in dataListBenefitsIntakeA:
+            y.append(i['y']/t)
+
+        fig, ax = plt.subplots()
+        fig.tight_layout()
+        ax.set_title('DWTP Benefits',fontsize=10)
+        ax.pie(y, colors=colors)        
+        ax.legend(lbls, loc="lower left",ncol=1)
+        ax.axis('equal')
+
+        fig.savefig('imgpdf/wrab.png', transparent=False, dpi=80, bbox_inches="tight")
+        pdf.image('imgpdf/wrab.png', 10, 46, w=90)
         pdf.ln(40)
     else:
         pdf.ln(10)
@@ -1565,7 +1513,7 @@ def pdf(request):
         pdf.cell(epw/6, 6, format(float(item['y']), '0,.2f'), border=1, align='R', fill=1)
         pdf.ln(6)
 
-    pdf.ln(20)
+    pdf.ln(21)
     pdf.set_font('Arial', '', 10)
     pdf.cell(epw/2, 7, 'Identify the elements that will yield the most benefits', align='C')
     pdf.ln(15)
@@ -1595,37 +1543,23 @@ def pdf(request):
     pdf.cell(epw/2, 5, 'Identify the elements that will yield the most benefits', align='C')
 
     # Intake Benefits intake
-    config = {
-        'chart': {
-            'plotShadow': 0,
-            'type': 'pie'
-        },
-        'colors': ['#008BAB', '#69b7cf', '#3f99b5', '#1d7c99', '#90D3E7', '#5ca8bf', '#448fa6', '#2b768c', '#176075', '#004B56', '#47bfaf', '#32ab9b', '#209989', '#128778', '#61D1C2'],
-        'title': {
-            'text': 'Intake Benefits'
-        },
-        'plotOptions': {
-            'pie': {
-                'allowPointSelect': 1,
-                'cursor': 'pointer',
-                'dataLabels': {
-                    'enabled': 0
-                },
-                'showInLegend': 1
-            }
-        },
-        'credits': {
-            'enabled': 0
-        },
-        'series': [{
-            'name': 'Intake Benefits',
-            'colorByPoint': 1,
-            'data': dataListBenefitsIntakeB
-        }]
-    }
 
     if len(dataListBenefitsIntakeB) > 0:
-        hc_export.save_as_png(config=config, filename="imgpdf/wrabi.png")
+        lbls = [d['name'] for d in dataListBenefitsIntakeB]
+        t=0
+        for i in dataListBenefitsIntakeB:
+            t+=i['y']
+        y=[]
+        for i in dataListBenefitsIntakeB:
+            y.append(i['y']/t)
+
+        fig, ax = plt.subplots()
+        fig.tight_layout()
+        ax.set_title('Intake Benefits',fontsize=10)
+        ax.pie(y, colors=colors)        
+        ax.legend(lbls, loc="lower left",ncol=1)
+        ax.axis('equal')
+        fig.savefig('imgpdf/wrabi.png', transparent=False, dpi=80, bbox_inches="tight")        
         pdf.image('imgpdf/wrabi.png', 10, 145, w=90)
         pdf.ln(40)
     else:
@@ -1645,14 +1579,19 @@ def pdf(request):
     print('getReportAnalysisBenefitsFilterSum/?studyCase=' + study_case_id)
     requestJson = requests.get(url_api + 'getReportAnalysisBenefitsFilterSum/?studyCase=' + study_case_id, verify=False)
     data = requestJson.json()
+    lbls = []
+    graphValues = []
+    t=0
     for item in data:
+        lbls.append(item['typer'])
+        graphValues.append(item['vpnMedBenefitr'])
+        t+=item['vpnMedBenefitr']
         dataListBenefitsIntakeC.append({
             'name': item['typer'],
             'y': item['vpnMedBenefitr']
         })
 
     pdf.ln(30)
-
     pdf.set_font('Arial', '', 11)
     pdf.set_text_color(100, 100, 100)        
     pdf.cell(0, 7, 'Total benefits for the analysis', align='L')
@@ -1667,39 +1606,19 @@ def pdf(request):
     pdf.ln(40)
     pdf.set_font('Arial', '', 10)
     pdf.cell(epw/2, 7, 'This is a disaggregated view of the benefits by elements', align='C')
+    
+    y=[]
+    for i in graphValues:
+        y.append(i/t)
 
-    config = {
-        'chart': {
-            'plotShadow': 0,
-            'type': 'pie'
-        },
-        'colors': ['#008BAB', '#69b7cf', '#3f99b5', '#1d7c99', '#90D3E7', '#5ca8bf', '#448fa6', '#2b768c', '#176075', '#004B56', '#47bfaf', '#32ab9b', '#209989', '#128778', '#61D1C2'],
-        'title': {
-            'text': 'Total Benefits'
-        },
-        'plotOptions': {
-            'pie': {
-                'allowPointSelect': 1,
-                'cursor': 'pointer',
-                'dataLabels': {
-                    'enabled': 0
-                },
-                'showInLegend': 1
-            }
-        },
-        'credits': {
-            'enabled': 0
-        },
-        'series': [{
-            'name': 'Intake Benefits',
-            'colorByPoint': 1,
-            'data': dataListBenefitsIntakeC
-        }]
-    }
-
-    hc_export.save_as_png(config=config, filename="imgpdf/rabfs.png")
-    pdf.image('imgpdf/rabfs.png', 10, 60, w=90)
-
+    fig, ax = plt.subplots()
+    fig.tight_layout()
+    ax.set_title('Total Benefits',fontsize=10)
+    ax.pie(y, colors=colors)        
+    ax.legend(lbls, loc="lower left",ncol=1)
+    ax.axis('equal')
+    fig.savefig('imgpdf/rabfs.png', transparent=False, dpi=80, bbox_inches="tight")
+    pdf.image('imgpdf/rabfs.png', 10, 48, w=90)
 
     # Total cost for the analysis
     dataListBenefitsIntakeD = []
@@ -1708,14 +1627,19 @@ def pdf(request):
     requestJson = requests.get(url_api + 'getReportCostsAnalysisFilter/?studyCase=' +
                                study_case_id, verify=False)
     data = requestJson.json()
+    lbls = []
+    graphValues = []
+    t=0
     for item in data:
+        lbls.append(item['typer'])
+        graphValues.append(item['sumFilter'])
+        t+=item['sumFilter']
         dataListBenefitsIntakeD.append({
             'name': item['typer'],
             'y': item['sumFilter']
         })
 
     pdf.ln(30)
-
     pdf.set_font('Arial', '', 11)
     pdf.set_text_color(100, 100, 100)        
     pdf.cell(0, 7, 'Total cost for the analysis', align='L')
@@ -1734,37 +1658,18 @@ def pdf(request):
     pdf.cell(epw/2, 5, 'costs, in order to help identify where greater', align='C')
     pdf.ln(5)
     pdf.cell(epw/2, 5, 'investments are needed', align='C')
-
-    config = {
-        'chart': {
-            'plotShadow': 0,
-            'type': 'pie'
-        },
-        'colors': ['#008BAB', '#69b7cf', '#3f99b5', '#1d7c99', '#90D3E7', '#5ca8bf', '#448fa6', '#2b768c', '#176075', '#004B56', '#47bfaf', '#32ab9b', '#209989', '#128778', '#61D1C2'],
-        'title': {
-            'text': 'Intake Benefits'
-        },
-        'plotOptions': {
-            'pie': {
-                'allowPointSelect': 1,
-                'cursor': 'pointer',
-                'dataLabels': {
-                    'enabled': 0
-                },
-                'showInLegend': 1
-            }
-        },
-        'credits': {
-            'enabled': 0
-        },
-        'series': [{
-            'name': 'Intake Benefits',
-            'colorByPoint': 1,
-            'data': dataListBenefitsIntakeD
-        }]
-    }
-
-    hc_export.save_as_png(config=config, filename="imgpdf/rcafh.png")
+    
+    y=[]
+    for i in graphValues:
+        y.append(i/t)
+    fig, ax = plt.subplots()
+    fig.tight_layout()
+    ax.set_title('Intake Benefits',fontsize=10)
+    ax.pie(y, colors=colors)        
+    ax.legend(lbls, loc="lower left",ncol=1)
+    ax.axis('equal')
+    fig.savefig('imgpdf/rcafh.png', transparent=False, dpi=80, bbox_inches="tight")
+    #hc_export.save_as_png(config=config, filename="imgpdf/rcafh.png")
     pdf.image('imgpdf/rcafh.png', 10, 165, w=90)
 
     pdf.add_page()
@@ -1773,11 +1678,14 @@ def pdf(request):
     print('getReportCostsAnalysisFilterNbs/?studyCase=' + study_case_id)
     requestJson = requests.get(url_api + 'getReportCostsAnalysisFilterNbs/?studyCase=' + study_case_id, verify=False)
     data = requestJson.json()
+    lbls = []
+    graphValues = []
+    t=0
     for item in data:
-        dataListBenefitsIntakeE.append({
-            'name': item['costIdr'],
-            'y': item['sumFilter']
-        })
+        lbls.append(item['costIdr'])
+        graphValues.append(item['sumFilter'])
+        t+=item['sumFilter']
+        dataListBenefitsIntakeE.append({'name': item['costIdr'],'y': item['sumFilter']})
 
     pdf.ln(25)
 
@@ -1797,39 +1705,19 @@ def pdf(request):
     pdf.cell(epw/2, 5, 'Identify the proportion of costs for each of the', align='C')
     pdf.ln(5)
     pdf.cell(epw/2, 5, 'activities of your interest', align='C')
+    y=[]
+    for i in graphValues:
+        y.append(i/t)
 
-    configE = {
-        'chart': {
-            'plotShadow': 0,
-            'type': 'pie'
-        },
-        'colors': ['#008BAB', '#69b7cf', '#3f99b5', '#1d7c99', '#90D3E7', '#5ca8bf', '#448fa6', '#2b768c', '#176075', '#004B56', '#47bfaf', '#32ab9b', '#209989', '#128778', '#61D1C2'],
-        'title': {
-            'text': 'Total Benefits'
-        },
-        'plotOptions': {
-            'pie': {
-                'allowPointSelect': 1,
-                'cursor': 'pointer',
-                'dataLabels': {
-                    'enabled': 0
-                },
-                'showInLegend': 1
-            }
-        },
-        'credits': {
-            'enabled': 0
-        },
-        'series': [{
-            'name': 'Intake Benefits',
-            'colorByPoint': 1,
-            'data': dataListBenefitsIntakeE
-        }]
-    }
-
-    hc_export.save_as_png(config=configE, filename="imgpdf/rcafn.png")
-    pdf.image('imgpdf/rcafn.png', 10, 60, w=90)
-
+    fig, ax = plt.subplots()
+    fig.tight_layout()
+    ax.set_title('Total Benefits',fontsize=10)
+    ax.pie(y, colors=colors)        
+    ax.legend(lbls, loc="lower left",ncol=1)
+    ax.axis('equal')
+    fig.savefig('imgpdf/rcafn.png', transparent=False, dpi=80, bbox_inches="tight")
+    #hc_export.save_as_png(config=configE, filename="imgpdf/rcafn.png")
+    pdf.image('imgpdf/rcafn.png', 10, 48, w=90)
 
     pdf.add_page()
 
