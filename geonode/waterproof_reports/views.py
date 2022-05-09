@@ -26,7 +26,7 @@ from datetime import date
 from django.template import RequestContext
 from PIL import Image
 from io import BytesIO
-#from scipy.interpolate import make_interp_spline
+from scipy.interpolate import make_interp_spline
 
 map_send_image = 'imgpdf/map-send-image.png'
 epw = 0
@@ -329,11 +329,11 @@ def pdf(request):
 
     x = np.arange(len(categories))  # the label locations
     xnew = np.linspace(x.min(), x.max(), 200)
-    #spl = make_interp_spline(x, totalBenefits, k=3)
-    #y_smooth_total_benefits = spl(xnew)
+    spl = make_interp_spline(x, totalBenefits, k=3)
+    y_smooth_total_benefits = spl(xnew)
 
-    #spl = make_interp_spline(x, totalDiscountedBenefits, k=3)
-    #y_smooth_total_discounted_benefits = spl(xnew)
+    spl = make_interp_spline(x, totalDiscountedBenefits, k=3)
+    y_smooth_total_discounted_benefits = spl(xnew)
 
     width = 0.3  # the width of the bars
     fig, ax = plt.subplots()
@@ -594,8 +594,8 @@ def pdf(request):
 
     x = np.arange(len(labels))  # the label locations
     xnew = np.linspace(x.min(), x.max(), 200)
-    #spl = make_interp_spline(x, line1, k=3)
-    #y_smooth_total_benefits = spl(xnew)
+    spl = make_interp_spline(x, line1, k=3)
+    y_smooth_total_benefits = spl(xnew)
 
     width = 0.3  # the width of the bars
     fig, ax = plt.subplots()
@@ -606,7 +606,7 @@ def pdf(request):
     ax.set_xticks(x, labels,fontsize=9)
     ax.yaxis.set_major_formatter(currency)
     ax.plot(x,line1,'o', color='#4c99d8')
-    #ax.plot(xnew ,y_smooth_total_benefits, label='Discounted Benefits', color='#008BAB', linewidth=1.5)
+    ax.plot(xnew ,y_smooth_total_benefits, label='Discounted Benefits', color='#008BAB', linewidth=1.5)
     ax.fill_between(x, min_range, max_range, facecolor='C0', alpha=0.1)
     #'best', 'upper right', 'upper left', 'lower left', 'lower right', 'right', 'center left', 'center right', 'lower center', 'upper center', 'center'
     fig.tight_layout()
@@ -665,8 +665,8 @@ def pdf(request):
 
     x = np.arange(len(labels))  # the label locations
     xnew = np.linspace(x.min(), x.max(), 200)
-    #spl = make_interp_spline(x, line1, k=3)
-    #y_smooth_total_benefits = spl(xnew)
+    spl = make_interp_spline(x, line1, k=3)
+    y_smooth_total_benefits = spl(xnew)
 
     width = 0.3  # the width of the bars
     fig, ax = plt.subplots()
@@ -677,7 +677,7 @@ def pdf(request):
     ax.set_xticks(x, labels,fontsize=9)
     ax.yaxis.set_major_formatter(currency)
     ax.plot(x,line1,'o', color='#4c99d8')
-    #ax.plot(xnew ,y_smooth_total_benefits, label='Discounted Benefits', color='#008BAB', linewidth=1.5)
+    ax.plot(xnew ,y_smooth_total_benefits, label='Discounted Benefits', color='#008BAB', linewidth=1.5)
     ax.fill_between(x, min_range, max_range, facecolor='C0', alpha=0.1)
     #'best', 'upper right', 'upper left', 'lower left', 'lower right', 'right', 'center left', 'center right', 'lower center', 'upper center', 'center'
     fig.tight_layout()
