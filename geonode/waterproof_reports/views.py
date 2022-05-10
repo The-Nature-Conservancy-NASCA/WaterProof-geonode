@@ -1,7 +1,5 @@
 from sys import path
-from colorama import colorama_text
 import pandas as pd
-import highchartexport as hc_export
 import json
 import requests
 import re
