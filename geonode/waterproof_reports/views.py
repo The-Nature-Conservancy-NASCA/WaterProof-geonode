@@ -1,4 +1,5 @@
 from sys import path
+from colorama import colorama_text
 import pandas as pd
 import highchartexport as hc_export
 import json
@@ -28,6 +29,7 @@ from PIL import Image
 from io import BytesIO
 from scipy.interpolate import make_interp_spline
 
+ARIAL = 'Arial'
 map_send_image = 'imgpdf/map-send-image.png'
 epw = 0
 changeInVolumeOfWater = "-"
@@ -50,7 +52,44 @@ def currency(x, pos):
     else:
         s = '${:1.0f}K'.format(x*1e-3)
     return s
-    
+
+def createPie(values, lbls, total, title, loc_lgnd, img_name, img_x, img_y, img_w, colors, pdf):
+    y=[]
+    for i in values:
+        y.append(i/total)
+    fig, ax = plt.subplots()
+    fig.tight_layout()
+    ax.set_title(title,fontsize=10)
+    ax.pie(y, colors=colors)        
+    ax.legend(lbls, loc=loc_lgnd, ncol=1)
+    ax.axis('equal')
+    path_img = 'imgpdf/%s.png' % img_name
+    fig.savefig(path_img, transparent=False, dpi=80, bbox_inches="tight")    
+    pdf.image(path_img, img_x, img_y, w=img_w)
+
+def load_no_data_image(title, x, y, w, h, pdf):    
+    pdf.set_font('Arial', '', 10)
+    pdf.set_text_color(100, 100, 100)
+    pdf.cell(0, 7, title, align='L')
+    pdf.image('imgpdf/nodatadef.png', x, y, w=w, h=h)
+    pdf.ln(42)
+    pdf.cell(0, h, '* there is no data for this graph', align='L')
+
+def draw_graph_table(data,ln_msg_graph,epw,pdf):
+    pdf.set_font('Arial', '', 9)
+    for item in data:
+        pdf.cell(epw/2, 6, '')
+        pdf.cell((epw/6) * 2, 6, item['name'], border=1, align='L', fill=1)
+        pdf.cell(epw/6, 6, format(float(item['y']), '0,.2f'), border=1, align='R', fill=1)
+        pdf.ln(6)
+        ln_msg_graph -= 6
+    return ln_msg_graph
+
+def add_text_line(text,x,y,a,f,s,pdf):
+    pdf.set_font(f, '', s)
+    pdf.set_text_color(100, 100, 100)
+    pdf.cell(x, y, text, align=a)
+
 def pdf(request):
     base64_data = re.sub('^data:image/.+;base64,', '', request.POST['mapSendImage'])
     study_case_id = request.POST['studyCase']
@@ -74,9 +113,7 @@ def pdf(request):
 
     # PAGE 2
     epw = pdf.w - 2*pdf.l_margin
-    pdf.set_font('Arial', '', 11)
-    pdf.set_text_color(100, 100, 100)
-    pdf.cell(0, 10, 'Drinking water Treatment Plants', align='L', fill=1)
+    add_text_line('Drinking water Treatment Plants',0,10,'L',ARIAL,11,pdf)        
     pdf.ln(10)
 
     pdf.set_font('Arial', '', 10)
@@ -123,9 +160,7 @@ def pdf(request):
     
     # Nature based Solutions Conservation activities
     pdf.ln(10)
-    pdf.set_font('Arial', '', 11)
-    pdf.set_text_color(100, 100, 100)
-    pdf.cell(0, 10, 'Nature based Solutions Conservation activities', align='L')
+    add_text_line('Nature based Solutions Conservation activities',0,10,'L',ARIAL,11,pdf)    
     pdf.ln(10)
 
     pdf.set_font('Arial', '', 9)
@@ -217,23 +252,6 @@ def pdf(request):
     print ('getObjetivesForPorfoliosPdf/?studyCase=' + study_case_id)
     requestJson = requests.get(url_api + 'getObjetivesForPorfoliosPdf/?studyCase=' + study_case_id, verify=False)
     data = requestJson.json()
-
-    varText1 = ""
-    varText2 = ""
-    varText3 = ""
-    varText4 = ""
-    cont = 0
-
-    for item in data:
-        cont = cont + 1
-        if cont == 1:
-            varText1 = item['name']
-        if cont == 2:
-            varText2 = item['name']
-        if cont == 3:
-            varText3 = item['name']
-        if cont == 4:
-            varText4 = item['name']
         
     # PAGE (3)- Financial parameters
     pdf.add_page() # page 3 of 17
@@ -256,22 +274,22 @@ def pdf(request):
     pdf.cell((epw/9) * 3, 8, "Platform cost year 1 (US$/yr)")
     pdf.cell(epw/9, 8, format(float(platformCost), '0,.2f'), align='R')
     pdf.cell(epw/9, 15, '', align='C')
-    pdf.cell((epw/9) * 4, 8, varText1)
+    pdf.cell((epw/9) * 4, 8, data[0]['name'])
     pdf.ln(8)
     pdf.cell((epw/9) * 3, 8, "Discount rate (%)")
     pdf.cell(epw/9, 8, format(float(discountRate), '0,.2f'), align='R')
     pdf.cell(epw/9, 15, '', align='C')
-    pdf.cell(epw/9, 8, varText2)
+    pdf.cell(epw/9, 8, data[1]['name'])
     pdf.ln(8)
     pdf.cell((epw/9) * 3, 8, "Sensivity analysis - Minimum discount rate (%)")
     pdf.cell(epw/9, 8, format(float(discountRateMinimum), '0,.2f'), align='R')
     pdf.cell(epw/9, 15, '', align='C')
-    pdf.cell(epw/9, 8, varText3)
+    pdf.cell(epw/9, 8, data[2]['name'])
     pdf.ln(8)
     pdf.cell((epw/9) * 3, 8, "Sensivity analysis - Maximum discount rate (%)")
     pdf.cell(epw/9, 8, format(float(discountRateMaximum), '0,.2f'), align='R')
     pdf.cell(epw/9, 15, '', align='C')
-    pdf.cell(epw/9, 8, varText4)
+    pdf.cell(epw/9, 8, data[3]['name'])
     pdf.ln(8)
 
     pdf.set_font('Arial', '', 12)
@@ -305,9 +323,7 @@ def pdf(request):
     pdf.image('imgpdf/39.png', 130, 30, w=12)
     pdf.image('imgpdf/40.png', 72, 83, w=12)
 
-    pdf.set_font('Arial', '', 11)
-    pdf.set_text_color(100, 100, 100)
-    pdf.cell(0, 10, 'Comparative graph of costs and benefits for the analysis period', align='L')
+    add_text_line('Comparative graph of costs and benefits for the analysis period',0,10,'L',ARIAL,11,pdf)    
     pdf.ln(17)
 
     print ('getReportCostsAnalysisRoi/?studyCase=' + study_case_id)
@@ -335,11 +351,11 @@ def pdf(request):
     spl = make_interp_spline(x, totalDiscountedBenefits, k=3)
     y_smooth_total_discounted_benefits = spl(xnew)
 
-    width = 0.3  # the width of the bars
+    width_bar_default = 0.3  # the width of the bars
     fig, ax = plt.subplots()
     fig.set_figwidth(10)
-    rects1 = ax.bar(x - width/2, totalCost, width, label='Total Cost', color='#90D3E7')
-    rects2 = ax.bar(x + width/2, totalDiscountedCost, width, label='Total Benefits', color='#004B56')
+    ax.bar(x - width_bar_default/2, totalCost, width_bar_default, label='Total Cost', color='#90D3E7')
+    ax.bar(x + width_bar_default/2, totalDiscountedCost, width_bar_default, label='Total Benefits', color='#004B56')
     ax.set_ylabel('Value',fontsize=9)
     ax.set_title('Cost and benefits chart',fontsize=10)
     ax.set_xticks(x, categories,fontsize=9)
@@ -390,9 +406,7 @@ def pdf(request):
     # PAGE (5) - Comparative chart of costs
     pdf.add_page()
     pdf.ln(10)
-    pdf.set_font('Arial', '', 11)
-    pdf.set_text_color(100, 100, 100)
-    pdf.cell(0, 10, 'Comparative chart of costs and benefits:', align='L')
+    add_text_line('Comparative chart of costs and benefits:',0,10,'L',ARIAL,11,pdf)    
     pdf.ln(10)
     pdf.set_font('Arial', '', 9)
     pdf.cell(0, 6, 'This graph allows you to compare your investment in the implementation and maintenance of the selected NbS, with respect,', align='L')
@@ -489,9 +503,7 @@ def pdf(request):
         }    
     
     pdf.ln(18)
-    pdf.set_font('Arial', '', 11)
-    pdf.set_text_color(100, 100, 100)
-    pdf.cell(0, 10, 'Net present value', align='L')
+    add_text_line('Net present value',0,10,'L',ARIAL,11,pdf)
     pdf.ln(10)
     pdf.set_font('Arial', '', 10)
     pdf.set_text_color(100, 100, 100)
@@ -597,7 +609,6 @@ def pdf(request):
     spl = make_interp_spline(x, line1, k=3)
     y_smooth_total_benefits = spl(xnew)
 
-    width = 0.3  # the width of the bars
     fig, ax = plt.subplots()
     fig.set_figwidth(10)
     ax.set_ylabel('Total discounted benefits',fontsize=9)
@@ -668,7 +679,7 @@ def pdf(request):
     spl = make_interp_spline(x, line1, k=3)
     y_smooth_total_benefits = spl(xnew)
 
-    width = 0.3  # the width of the bars
+    width_bar_default = 0.3  # the width of the bars
     fig, ax = plt.subplots()
     fig.set_figwidth(10)
     ax.set_ylabel('Total discounted cost',fontsize=9)
@@ -820,9 +831,8 @@ def pdf(request):
     ax.bar(categories, total_analysis_data, color=colors)
     fig.tight_layout()
     fig.savefig('imgpdf/ecesb.png', transparent=False, dpi=80, bbox_inches="tight")
-
-    #hc_export.save_as_png(config=config, filename="imgpdf/ecesb.png")
-    pdf.image('imgpdf/ecesb.png', 70, 45, w=120)
+    
+    pdf.image('imgpdf/ecesb.png', 72, 38.7, w=120)
     pdf.image('imgpdf/total-one.png', 10, 56, w=10)
     pdf.image('imgpdf/total-two.png', 10, 71, w=10)
     pdf.image('imgpdf/total-three.png', 10, 85, w=10)
@@ -1070,43 +1080,29 @@ def pdf(request):
 
         for itemBenefit in dataBenefit:
             if itemBenefit['intakeId'] == itemCase['intakeId']:
-                txtColorR = 175
-                txtColorG = 9
-                txtColorB = 0
+                txtColorR,txtColorG,txtColorB = 175,9,0                
 
                 if itemBenefit['color'].upper() == "DARK GREEN":
-                    txtColorR = 21
-                    txtColorG = 88
-                    txtColorB = 22
+                    txtColorR,txtColorG,txtColorB = 21,88,22                    
 
                 if itemBenefit['color'].upper() == "ORANGE":
-                    txtColorR = 236
-                    txtColorG = 104
-                    txtColorB = 10
+                    txtColorR,txtColorG,txtColorB = 236,104,10                    
 
                 if itemBenefit['nameIndicator'].upper() == "PHYSICAL RISK QUANTITY":
                     txtTd1 = itemBenefit['description']
-                    txtTd1CR = txtColorR
-                    txtTd1CG = txtColorG
-                    txtTd1CB = txtColorB
+                    txtTd1CR,txtTd1CG,txtTd1CB = txtColorR,txtColorG,txtColorB
 
                 if itemBenefit['nameIndicator'].upper() == "PHYSICAL RISK ASSOCIATED WITH AMOUNT OF WATER":
                     txtTd2 = itemBenefit['description']
-                    txtTd2CR = txtColorR
-                    txtTd2CG = txtColorG
-                    txtTd2CB = txtColorB
+                    txtTd2CR,txtTd2CG,txtTd2CB = txtColorR,txtColorG,txtColorB
 
                 if itemBenefit['nameIndicator'].upper() == "REGULATORY AND REPUTATIONAL":
                     txtTd3 = itemBenefit['description']
-                    txtTd3CR = txtColorR
-                    txtTd3CG = txtColorG
-                    txtTd3CB = txtColorB
+                    txtTd3CR,txtTd3CG,txtTd3CB = txtColorR,txtColorG,txtColorB
 
                 if itemBenefit['nameIndicator'].upper() == "OVERALL WATER RISK SCORE":
                     txtTd4 = itemBenefit['description']
-                    txtTd4CR = txtColorR
-                    txtTd4CG = txtColorG
-                    txtTd4CB = txtColorB
+                    txtTd4CR,txtTd4CG,txtTd4CB = txtColorR,txtColorG,txtColorB                    
 
         pdf.set_font('Arial', '', 9)
         pdf.set_text_color(255, 255, 255)
@@ -1149,18 +1145,14 @@ def pdf(request):
             valueRoi = str(round(float(item['value']), 2))
             nameButtom = item['description'].split("::")
             if nameButtom[1] == "Dark Green":
-                backgroundColorR = 21
-                backgroundColorG = 88
-                backgroundColorB = 22
+                backgroundColorR,backgroundColorG,backgroundColorB = 21,88,22
+                
             else:
                 if nameButtom[1] == "Light Green":
-                    backgroundColorR = 53
-                    backgroundColorG = 177
-                    backgroundColorB = 55
+                    backgroundColorR,backgroundColorG,backgroundColorB = 53,177,55                    
                 else:
-                    backgroundColorR = 175
-                    backgroundColorG = 9
-                    backgroundColorB = 0
+                    backgroundColorR,backgroundColorG,backgroundColorB = 175,9,0
+                    
             nameBackgroundColor = nameButtom[0]
 
         if item['description'] == "TotalTreatmentCostSavings":
@@ -1449,9 +1441,7 @@ def pdf(request):
     pdf.cell(0, 10, 'Decision indicators', align='L')
     
     pdf.ln(10)
-    pdf.set_font('Arial', '', 11)
-    pdf.set_text_color(100, 100, 100)        
-    pdf.cell(0, 7, 'Incidence of benefits and cost', align='L')
+    add_text_line('Incidence of benefits and cost',0,10,'L',ARIAL,11,pdf)    
     pdf.ln(10)
     pdf.cell(0, 7, 'Drinking water treatment plant', align='L')
 
@@ -1459,117 +1449,72 @@ def pdf(request):
     print ('getWaterproofReportsAnalysisBenefits/?studyCase=%s' % study_case_id)
     requestJson = requests.get(url_api + 'getWaterproofReportsAnalysisBenefits/?studyCase=%s' % study_case_id, verify=False)
     data = requestJson.json()
-    
+    lbls = []
+    graphValues = []
+    t=0
     lastRegister = 0
     colors = ['#008BAB', '#69b7cf', '#3f99b5', '#1d7c99', '#90D3E7', '#5ca8bf', '#448fa6', '#2b768c', '#176075', '#004B56', '#47bfaf', '#32ab9b', '#209989', '#128778', '#61D1C2']
     for item in data:
         if item['typeId'] == 'DWTP':
             lastRegister = 1
+            lbls.append(item['elementId'])
+            graphValues.append(item['vpnMedBenefit'])
+            t+=item['vpnMedBenefit']
             dataListBenefitsIntakeA.append({
                 'name': item['elementId'],
                 'y': item['vpnMedBenefit']
             })
-    
-    if len(dataListBenefitsIntakeA) > 0:
-        print ("dataListBenefitsIntakeA: %s" % dataListBenefitsIntakeA)
-        lbls = [d['name'] for d in dataListBenefitsIntakeA]
-        t=0
-        for i in dataListBenefitsIntakeA:
-            t+=i['y']
-        y=[]
-        for i in dataListBenefitsIntakeA:
-            y.append(i['y']/t)
 
-        fig, ax = plt.subplots()
-        fig.tight_layout()
-        ax.set_title('DWTP Benefits',fontsize=10)
-        ax.pie(y, colors=colors)        
-        ax.legend(lbls, loc="lower left",ncol=1)
-        ax.axis('equal')
-
-        fig.savefig('imgpdf/wrab.png', transparent=False, dpi=80, bbox_inches="tight")
-        pdf.image('imgpdf/wrab.png', 10, 46, w=90)
+    if len(dataListBenefitsIntakeA) > 0:        
+        createPie(graphValues, lbls, t, 'DWTP Benefits', 'lower left', 'wrab', 10, 46, 90, colors, pdf)
         pdf.ln(40)
     else:
         pdf.ln(10)
-        pdf.set_font('Arial', '', 10)
-        pdf.set_text_color(100, 100, 100)
-        pdf.image('imgpdf/nodatadef.png', 20, 38, w=70)
-        pdf.cell(0, 7, 'Intake Benefits Treatment Plant', align='L')
-        pdf.ln(35)
-        pdf.cell(0, 50, '* there is no data for this graph', align='L')
+        load_no_data_image('Intake Benefits Treatment Plant', 20, 38, 70, 70, pdf)        
         pdf.ln(5)
 
     pdf.set_font('Arial', '', 9)
     if lastRegister == 0:
-        pdf.ln(6)
-        pdf.ln(6)
-        pdf.ln(6)
+        pdf.ln(18)        
 
-    for item in dataListBenefitsIntakeA:
-        pdf.cell(epw/2, 6, '')
-        pdf.cell((epw/6) * 2, 6, item['name'], border=1, align='L', fill=1)
-        pdf.cell(epw/6, 6, format(float(item['y']), '0,.2f'), border=1, align='R', fill=1)
-        pdf.ln(6)
+    draw_graph_table (dataListBenefitsIntakeA,0,epw,pdf)
 
     pdf.ln(21)
     pdf.set_font('Arial', '', 10)
     pdf.cell(epw/2, 7, 'Identify the elements that will yield the most benefits', align='C')
     pdf.ln(15)
 
-    pdf.set_font('Arial', '', 11)
-    pdf.set_text_color(100, 100, 100)
-    pdf.cell(0, 7, 'Intake Benefits', align='L')
+    # Intake Benefits intake
 
+    add_text_line('Intake Benefits',0,7,'L',ARIAL,11,pdf)    
+    
     dataListBenefitsIntakeB = []
-
+    lbls = []
+    graphValues = []
+    t=0
     for item in data:
         if item['typeId'] != 'PTAP':
+            lbls.append(item['elementId'])
+            graphValues.append(item['vpnMedBenefit'])
+            t+=item['vpnMedBenefit']
             dataListBenefitsIntakeB.append({
                 'name': item['elementId'],
                 'y': item['vpnMedBenefit']
             })
 
-    pdf.set_font('Arial', '', 9)
-    for item in dataListBenefitsIntakeB:
-        pdf.cell(epw/2, 6, '')
-        pdf.cell((epw/6) * 2, 6, item['name'], border=1, align='L', fill=1)
-        pdf.cell(epw/6, 6, format(float(item['y']), '0,.2f'), border=1, align='R', fill=1)
-        pdf.ln(6)
-
-    pdf.ln(20)
-    pdf.set_font('Arial', '', 10)
-    pdf.cell(epw/2, 5, 'Identify the elements that will yield the most benefits', align='C')
-
-    # Intake Benefits intake
-
-    if len(dataListBenefitsIntakeB) > 0:
-        lbls = [d['name'] for d in dataListBenefitsIntakeB]
-        t=0
-        for i in dataListBenefitsIntakeB:
-            t+=i['y']
-        y=[]
-        for i in dataListBenefitsIntakeB:
-            y.append(i['y']/t)
-
-        fig, ax = plt.subplots()
-        fig.tight_layout()
-        ax.set_title('Intake Benefits',fontsize=10)
-        ax.pie(y, colors=colors)        
-        ax.legend(lbls, loc="lower left",ncol=1)
-        ax.axis('equal')
-        fig.savefig('imgpdf/wrabi.png', transparent=False, dpi=80, bbox_inches="tight")        
-        pdf.image('imgpdf/wrabi.png', 10, 145, w=90)
+    ln_msg_graph = 43        
+    if len(dataListBenefitsIntakeB) > 0:        
+        ln_msg_graph = draw_graph_table(dataListBenefitsIntakeB,ln_msg_graph,epw,pdf)
+        createPie(graphValues, lbls, t, 'Intake Benefits', 'lower left', 'wrabi',10,145,90,colors,pdf)
         pdf.ln(40)
     else:
         pdf.ln(10)
-        pdf.set_font('Arial', '', 10)
-        pdf.set_text_color(100, 100, 100)
-        pdf.cell(0, 7, 'Intake Benefits intake', align='L')
-        pdf.image('imgpdf/nodatadef.png', 20, 135, w=70)
-        pdf.ln(35)
-        pdf.cell(0, 110, '* there is no data for this graph', align='L')
+        load_no_data_image('Intake Benefits intake', 20, 157, 70, 70, pdf)
         pdf.ln(5)
+    
+    pdf.ln(ln_msg_graph)
+    pdf.set_font('Arial', '', 10)
+    pdf.cell(epw/2, 25, 'Identify the elements that will yield the most benefits', align='C')
 
     pdf.add_page()
 
@@ -1590,35 +1535,17 @@ def pdf(request):
             'y': item['vpnMedBenefitr']
         })
 
+    ln_msg_graph = 58
     pdf.ln(30)
-    pdf.set_font('Arial', '', 11)
-    pdf.set_text_color(100, 100, 100)        
-    pdf.cell(0, 7, 'Total benefits for the analysis', align='L')
+    add_text_line('Total benefits for the analysis',0,7,'L',ARIAL,11,pdf)        
     pdf.ln(25)
-    pdf.set_font('Arial', '', 9)
-    for item in dataListBenefitsIntakeC:
-        pdf.cell(epw/2, 6, '')
-        pdf.cell((epw/6) * 2, 6, item['name'], border=1, align='L', fill=1)
-        pdf.cell(epw/6, 6, format(float(item['y']), '0,.2f'), border=1, align='R', fill=1)
-        pdf.ln(6)
-
-    pdf.ln(40)
+    ln_msg_graph = draw_graph_table(dataListBenefitsIntakeC,ln_msg_graph,epw,pdf)
+    
+    pdf.ln(ln_msg_graph)
     pdf.set_font('Arial', '', 10)
     pdf.cell(epw/2, 7, 'This is a disaggregated view of the benefits by elements', align='C')
     
-    y=[]
-    for i in graphValues:
-        y.append(i/t)
-
-    fig, ax = plt.subplots()
-    fig.tight_layout()
-    ax.set_title('Total Benefits',fontsize=10)
-    ax.pie(y, colors=colors)        
-    ax.legend(lbls, loc="lower left",ncol=1)
-    ax.axis('equal')
-    fig.savefig('imgpdf/rabfs.png', transparent=False, dpi=80, bbox_inches="tight")
-    pdf.image('imgpdf/rabfs.png', 10, 48, w=90)
-
+    createPie(graphValues, lbls, t, 'Total Benefits', 'lower left', 'rabfs',10,48,90,colors,pdf)
     # Total cost for the analysis
     dataListBenefitsIntakeD = []
     
@@ -1639,17 +1566,10 @@ def pdf(request):
         })
 
     pdf.ln(30)
-    pdf.set_font('Arial', '', 11)
-    pdf.set_text_color(100, 100, 100)        
-    pdf.cell(0, 7, 'Total cost for the analysis', align='L')
+    add_text_line('Total cost for the analysis',0,7,'L',ARIAL,11,pdf)    
     pdf.ln(20)
-    pdf.set_font('Arial', '', 9)
-    for item in dataListBenefitsIntakeD:
-        pdf.cell(epw/2, 6, '')
-        pdf.cell((epw/6) * 2, 6, item['name'], border=1, align='L', fill=1)
-        pdf.cell(epw/6, 6, format(float(item['y']), '0,.2f'), border=1, align='R', fill=1)
-        pdf.ln(6)
-
+    draw_graph_table(dataListBenefitsIntakeD,ln_msg_graph,epw,pdf)
+    
     pdf.ln(40)
     pdf.set_font('Arial', '', 10)
     pdf.cell(epw/2, 5, 'In this graph you can identify the magnitudes of the', align='C')
@@ -1657,21 +1577,8 @@ def pdf(request):
     pdf.cell(epw/2, 5, 'costs, in order to help identify where greater', align='C')
     pdf.ln(5)
     pdf.cell(epw/2, 5, 'investments are needed', align='C')
-
     
-    y=[]
-    for i in graphValues:
-        y.append(i/t)
-    fig, ax = plt.subplots()
-    fig.tight_layout()
-    ax.set_title('Intake Benefits',fontsize=10)
-    ax.pie(y, colors=colors)        
-    ax.legend(lbls, loc="lower left",ncol=1)
-    ax.axis('equal')
-    fig.savefig('imgpdf/rcafh.png', transparent=False, dpi=80, bbox_inches="tight")
-    #hc_export.save_as_png(config=config, filename="imgpdf/rcafh.png")
-    pdf.image('imgpdf/rcafh.png', 10, 165, w=90)
-
+    createPie(graphValues, lbls, t, 'Intake Benefits', 'lower left', 'rcafh', 10, 165, 90, colors, pdf)
     pdf.add_page()
 
     dataListBenefitsIntakeE = []
@@ -1686,38 +1593,25 @@ def pdf(request):
         graphValues.append(item['sumFilter'])
         t+=item['sumFilter']
         dataListBenefitsIntakeE.append({'name': item['costIdr'],'y': item['sumFilter']})
-
+    
     pdf.ln(25)
-
-    pdf.set_font('Arial', '', 11)
-    pdf.set_text_color(100, 100, 100)        
-    pdf.cell(0, 7, 'Cost per activity for the analysis', align='L')
-    pdf.ln(30)
-    pdf.set_font('Arial', '', 9)
-    for item in dataListBenefitsIntakeE:
-        pdf.cell(epw/2, 6, '')
-        pdf.cell((epw/6) * 2, 6, item['name'], border=1, align='L', fill=1)
-        pdf.cell(epw/6, 6, format(float(item['y']), '0,.2f'), border=1, align='R', fill=1)
-        pdf.ln(6)
-
-    pdf.ln(60)
+    add_text_line('Cost per activity for the analysis',0,7,'L',ARIAL,11,pdf)
+    ln_msg_graph = 75
+    if len(dataListBenefitsIntakeE) > 0:        
+        pdf.ln(10)  
+        ln_msg_graph = draw_graph_table(dataListBenefitsIntakeE,ln_msg_graph,epw,pdf)        
+        createPie(graphValues, lbls,t,'Total Benefits','lower left','rcafn',10,48,90,colors,pdf)
+    else:
+        pdf.ln(10)
+        load_no_data_image('Total Benefits', 20, 55, 70, 70, pdf)
+        ln_msg_graph = 40
+        
+    
+    pdf.ln(ln_msg_graph)
     pdf.set_font('Arial', '', 10)
     pdf.cell(epw/2, 5, 'Identify the proportion of costs for each of the', align='C')
     pdf.ln(5)
     pdf.cell(epw/2, 5, 'activities of your interest', align='C')
-    y=[]
-    for i in graphValues:
-        y.append(i/t)
-
-    fig, ax = plt.subplots()
-    fig.tight_layout()
-    ax.set_title('Total Benefits',fontsize=10)
-    ax.pie(y, colors=colors)        
-    ax.legend(lbls, loc="lower left",ncol=1)
-    ax.axis('equal')
-    fig.savefig('imgpdf/rcafn.png', transparent=False, dpi=80, bbox_inches="tight")
-    #hc_export.save_as_png(config=configE, filename="imgpdf/rcafn.png")
-    pdf.image('imgpdf/rcafn.png', 10, 48, w=90)
 
     pdf.add_page()
 
@@ -1725,9 +1619,7 @@ def pdf(request):
     pdf.set_text_color(57, 137, 169)
     pdf.cell(0, 10, 'Geographic resources', align='L')
     pdf.ln(10)
-    pdf.set_font('Arial', '', 11)
-    pdf.set_text_color(100, 100, 100)
-    pdf.cell(0, 10, 'The analysis run includes geographic outputs that you would query at the following link:', align='L')
+    add_text_line('The analysis run includes geographic outputs that you would query at the following link:',0,10,'L',ARIAL,11,pdf)
     heightIcon = 0
 
     print('getWpcompareMapas/?studyCase=' + study_case_id)
@@ -1964,9 +1856,8 @@ def pdf_page_1(pdf, study_case_id, url_api, city, region, country, discount_rate
 
     if show_intake_info:
         pdf.ln(104)
-        pdf.set_font('Arial', '', 11)
-        pdf.set_text_color(100, 100, 100)
-        pdf.cell(0, 10, 'Water intakes that are part of the analysis')
+        add_text_line('Water intakes that are part of the analysis',0,10,'L',ARIAL,11,pdf)
+        
         pdf.ln(10)
         pdf.set_font('Arial', '', 10)
         pdf.set_text_color(255, 255, 255)
