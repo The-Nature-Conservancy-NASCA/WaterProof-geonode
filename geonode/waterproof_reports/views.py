@@ -1526,9 +1526,12 @@ def pdf(request):
     graphValues = []
     t=0
     for item in data:
-        lbls.append(item['typer'])
-        graphValues.append(item['vpnMedBenefitr'])
-        t+=item['vpnMedBenefitr']
+        lbls.append(item['typer'])        
+        val = item['vpnMedBenefitr']        
+        if val < 0:
+            val = 0
+        t += val
+        graphValues.append(val)
         dataListBenefitsIntakeC.append({
             'name': item['typer'],
             'y': item['vpnMedBenefitr']
