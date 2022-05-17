@@ -1543,7 +1543,9 @@ def pdf(request):
     pdf.ln(ln_msg_graph)
     pdf.set_font('Arial', '', 10)
     pdf.cell(epw/2, 7, 'This is a disaggregated view of the benefits by elements', align='C')
-    
+    print ('lbls: %s' % lbls)
+    print ('graphValues: %s' % graphValues)
+    print ('total: %s' % t)
     createPie(graphValues, lbls, t, 'Total Benefits', 'lower left', 'rabfs',10,48,90,colors,pdf)
     # Total cost for the analysis
     dataListBenefitsIntakeD = []
