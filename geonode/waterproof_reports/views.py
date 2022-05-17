@@ -74,8 +74,9 @@ def load_no_data_image(title, x, y, w, h, pdf):
     pdf.cell(0, h, '* there is no data for this graph', align='L')
 
 def draw_graph_table(data,ln_msg_graph,epw,pdf):
-    pdf.set_font('Arial', '', 9)
+    pdf.set_font(ARIAL, '', 9)
     for item in data:
+        print (item)
         pdf.cell(epw/2, 6, '')
         pdf.cell((epw/6) * 2, 6, item['name'], border=1, align='L', fill=1)
         pdf.cell(epw/6, 6, format(float(item['y']), '0,.2f'), border=1, align='R', fill=1)
@@ -352,8 +353,8 @@ def pdf(request):
     width_bar_default = 0.3  # the width of the bars
     fig, ax = plt.subplots()
     fig.set_figwidth(10)
-    ax.bar(x - width_bar_default/2, totalCost, width_bar_default, label='Total discounted cost', color='#004B56')
-    ax.bar(x + width_bar_default/2, totalDiscountedCost, width_bar_default, label='Total cost', color='#90D3E7')
+    ax.bar(x - width_bar_default/2, totalCost, width_bar_default, label='Total cost', color='#004B56')
+    ax.bar(x + width_bar_default/2, totalDiscountedCost, width_bar_default, label='Total discounted cost', color='#90D3E7')
     ax.set_ylabel('Value',fontsize=9)
     ax.set_title('Cost and benefits chart',fontsize=10)
     ax.set_xticks(x, categories,fontsize=9)
@@ -1485,7 +1486,7 @@ def pdf(request):
     # Intake Benefits intake
 
     add_text_line('Intake Benefits',0,7,'L',ARIAL,11,pdf)    
-    
+    pdf.ln(10)
     dataListBenefitsIntakeB = []
     lbls = []
     graphValues = []
@@ -1501,9 +1502,9 @@ def pdf(request):
             })
 
     ln_msg_graph = 43        
-    if len(dataListBenefitsIntakeB) > 0:        
+    if len(dataListBenefitsIntakeB) > 0:    
         ln_msg_graph = draw_graph_table(dataListBenefitsIntakeB,ln_msg_graph,epw,pdf)
-        createPie(graphValues, lbls, t, 'Intake Benefits', 'lower left', 'wrabi',10,145,90,colors,pdf)
+        createPie(graphValues, lbls, t, 'Intake Benefits', 'lower left', 'wrabi',10,148,90,colors,pdf)
         pdf.ln(40)
     else:
         pdf.ln(10)
