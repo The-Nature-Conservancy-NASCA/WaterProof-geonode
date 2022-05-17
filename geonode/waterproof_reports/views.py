@@ -107,7 +107,7 @@ def pdf(request):
 
     # PAGE 1 -- INTRO
     map_img_location = {'x': 6.5, 'y': 122, 'w': 193.5}
-    pdf = pdf_page_1(pdf, study_case_id, url_api, city, region, country, discount_rate, True, map_img_location)  
+    pdf,changeInVolumeOfWater,changeInBaseFlow,changeIntotalSediments,changeInNitrogenLoad,changeInPhosphorus,changeInCarbonStorage = pdf_page_1(pdf, study_case_id, url_api, city, region, country, discount_rate, True, map_img_location)  
 
     # PAGE 2
     epw = pdf.w - 2*pdf.l_margin
@@ -1910,7 +1910,7 @@ def pdf_page_1(pdf, study_case_id, url_api, city, region, country, discount_rate
         if (len(data) < 6):
             pdf.add_page()  # Page 2 of 17
 
-    return pdf
+    return pdf,changeInVolumeOfWater,changeInBaseFlow,changeIntotalSediments,changeInNitrogenLoad,changeInPhosphorus,changeInCarbonStorage
 
 
 def dashboard(request):
