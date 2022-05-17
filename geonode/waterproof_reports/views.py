@@ -352,16 +352,16 @@ def pdf(request):
     width_bar_default = 0.3  # the width of the bars
     fig, ax = plt.subplots()
     fig.set_figwidth(10)
-    ax.bar(x - width_bar_default/2, totalCost, width_bar_default, label='Total Cost', color='#90D3E7')
-    ax.bar(x + width_bar_default/2, totalDiscountedCost, width_bar_default, label='Total Benefits', color='#004B56')
+    ax.bar(x - width_bar_default/2, totalCost, width_bar_default, label='Total discounted cost', color='#004B56')
+    ax.bar(x + width_bar_default/2, totalDiscountedCost, width_bar_default, label='Total cost', color='#90D3E7')
     ax.set_ylabel('Value',fontsize=9)
     ax.set_title('Cost and benefits chart',fontsize=10)
     ax.set_xticks(x, categories,fontsize=9)
     ax.yaxis.set_major_formatter(currency)
     ax.plot(x,totalBenefits,'o', color='#004B56')
-    ax.plot(xnew ,y_smooth_total_benefits, '--', label='Total Benefits', color='#004B56', linewidth=1.5)
+    ax.plot(xnew ,y_smooth_total_benefits, '--', label='Total benefits', color='#004B56', linewidth=1.5)
     ax.plot(x,totalDiscountedBenefits,'o', color='#61D1C2')
-    ax.plot(xnew ,y_smooth_total_discounted_benefits, '--', color='#61D1C2', label='Total Discounted Benefits')
+    ax.plot(xnew ,y_smooth_total_discounted_benefits, '--', color='#61D1C2', label='Total discounted benefits')
     #'best', 'upper right', 'upper left', 'lower left', 'lower right', 'right', 'center left', 'center right', 'lower center', 'upper center', 'center'
     ax.legend(loc="upper left", bbox_to_anchor=[0, 1],ncol=5,fontsize=9)
     fig.tight_layout()
@@ -1491,7 +1491,7 @@ def pdf(request):
     graphValues = []
     t=0
     for item in data:
-        if item['typeId'] != 'PTAP':
+        if item['typeId'] != 'DWTP':
             lbls.append(item['elementId'])
             graphValues.append(item['vpnMedBenefit'])
             t+=item['vpnMedBenefit']
