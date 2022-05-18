@@ -1710,7 +1710,7 @@ def pdfgeo(request):
     map_img_location = {'x': 10, 'y': 130, 'w': 190}
 
     # PAGE 1 -- INTRO
-    pdf = pdf_page_1(pdf, study_case_id, url_api, city, region, country, discount_rate, False, map_img_location)
+    pdf,changeInVolumeOfWater,changeInBaseFlow,changeIntotalSediments,changeInNitrogenLoad,changeInPhosphorus,changeInCarbonStorage = pdf_page_1(pdf, study_case_id, url_api, city, region, country, discount_rate, False, map_img_location)
 
     if img_legend_base64 != "data:,":
         img_legend = 'imgpdf/map-legend-image.png'
@@ -1725,10 +1725,10 @@ def pdfgeo(request):
             legend_lbl_position = 10
             img_legend_position = 35
 
-        pdf.set_font('Arial', 'B', 11)
+        pdf.set_font(ARIAL, 'B', 11)
         pdf.ln(legend_lbl_position)
         pdf.cell(0, 10, 'Legend')
-        pdf.set_font('Arial', '', 10)
+        pdf.set_font(ARIAL, '', 10)
         pdf.ln(5)
         pdf.cell(0, 10, 'NbS Porfolio')
         pdf.image(img_legend, 10, img_legend_position, w=60)
