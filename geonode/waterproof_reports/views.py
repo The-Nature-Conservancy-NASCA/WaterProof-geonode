@@ -1452,7 +1452,7 @@ def pdf(request):
     graphValues = []
     t=0
     lastRegister = 0
-    colors = ['#008BAB', '#69b7cf', '#3f99b5', '#1A7158', '#46A086', '#92DEC8', '#A6ACAA', '#DADFDE', '#6480AC', '#415F8C', '#B8D1EC', '#E89F28', '#EBCB60', '#ECE0B8', '#755538']
+    colors = ['#008BAB', '#69b7cf', '#A3C791', '#1A7158', '#46A086', '#92DEC8', '#A6ACAA', '#DADFDE', '#6480AC', '#415F8C', '#B8D1EC', '#E89F28', '#EBCB60', '#ECE0B8', '#755538']
     for item in data:
         if item['typeId'] == 'DWTP':
             lastRegister = 1
