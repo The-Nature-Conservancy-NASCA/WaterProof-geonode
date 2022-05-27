@@ -49,9 +49,7 @@ $(document).ready(function () {
     }
 
     if (localStorage.currencyCode != undefined && localStorage.currencyCode != 'USD'){
-        $("#financial_currency").val(localStorage.currencyCode);
-        $("#analysis_currency").val(localStorage.currencyCode);
-        $("#cm_select").val(localStorage.currencyCode);
+        $("#analysis_currency").val(localStorage.currencyCode);        
     }
          
     calculate_Personnel();
