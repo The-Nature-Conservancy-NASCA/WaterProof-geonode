@@ -50,15 +50,9 @@ $(document).ready(function () {
     }
 
     if (localStorage.currencyCode != undefined && localStorage.currencyCode != 'USD'){
-        if ($("#financial_currency").val() == 'USD'){
-            $("#financial_currency").val(localStorage.currencyCode);
-        }
         if ($("#analysis_currency").val() == 'USD'){
             $("#analysis_currency").val(localStorage.currencyCode);
-        }
-        if ($("#cm_select").val() == 'USD'){
-            $("#cm_select").val(localStorage.currencyCode);
-        }       
+        }               
     }
 
     calculate_Personnel();
