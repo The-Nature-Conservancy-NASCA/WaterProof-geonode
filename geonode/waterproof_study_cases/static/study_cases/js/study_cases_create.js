@@ -47,6 +47,12 @@ $(document).ready(function () {
     if ($('#annual_investment').val() == "") {
         $('#annual_investment').val(0);
     }
+
+    if (localStorage.currencyCode != undefined && localStorage.currencyCode != 'USD'){
+        $("#financial_currency").val(localStorage.currencyCode);
+        $("#analysis_currency").val(localStorage.currencyCode);
+        $("#cm_select").val(localStorage.currencyCode);
+    }
          
     calculate_Personnel();
     calculate_Platform();    
