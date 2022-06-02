@@ -167,7 +167,7 @@ wagtail==2.11.3
 wagtailtrans==2.1
 
 # for reports
-pandas==1.3.1
+pandas==1.4.2
 highchartexport==0.0.5
 fpdf2==2.4.2
 matplotlib
