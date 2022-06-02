@@ -164,7 +164,7 @@ simplejson==3.17.2
 pytexit==0.3.4
 #CMS
 wagtail==2.11.3 
-wagtailtrans==2.1
+wagtailtrans==2.2.1
 
 # for reports
 pandas==1.3.1
