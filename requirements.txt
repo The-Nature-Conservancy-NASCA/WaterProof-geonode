@@ -22,7 +22,7 @@ vine==5.0.0
 boto3==1.17.12
 tqdm==4.57.0
 Deprecated==1.2.11
-wrapt==1.12.1
+wrapt==1.14.1
 jsonfield==3.1.0
 jsonschema==3.2.0
 pyrsistent==0.17.3
