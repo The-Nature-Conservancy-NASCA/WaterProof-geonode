@@ -163,7 +163,7 @@ django_libs==2.0.3
 simplejson==3.17.2
 pytexit==0.3.4
 #CMS
-wagtail==2.11.3 
+wagtail==3.0 
 wagtailtrans==2.1
 
 # for reports
