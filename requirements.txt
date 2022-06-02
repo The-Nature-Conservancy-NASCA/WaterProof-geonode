@@ -69,7 +69,7 @@ django-forms-bootstrap<=3.1.0
 django-autocomplete-light==3.5.1
 django-leaflet==0.27.1
 django-invitations<1.9.4
-django-recaptcha==2.0.6
+django-recaptcha==3.0.0
 
 # REST
 djangorestframework==3.11.2
