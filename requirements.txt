@@ -25,7 +25,7 @@ Deprecated==1.2.11
 wrapt==1.12.1
 jsonfield==3.1.0
 jsonschema==3.2.0
-pyrsistent==0.17.3
+pyrsistent==0.18.1
 
 # Django Apps
 django-allauth==0.44.0
