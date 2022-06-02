@@ -29,7 +29,7 @@ pyrsistent==0.17.3
 
 # Django Apps
 django-allauth==0.44.0
-django-appconf==1.0.4
+django-appconf==1.0.5
 django-filter==2.4.0
 django-imagekit==4.0.2
 django-jsonfield==1.4.1
