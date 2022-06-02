@@ -89,7 +89,7 @@ django-geonode-mapstore-client>=2.1.0
 #-e git+https://github.com/GeoNode/geonode-mapstore-client.git@master#egg=django_geonode_mapstore_client
 geonode-avatar==5.0.7
 django-geonode-client==1.0.9
-geonode-oauth-toolkit==2.1.1
+geonode-oauth-toolkit==2.2.2
 geonode-user-messages==2.0.2
 geonode-announcements==2.0.2
 geonode-django-activity-stream==0.9.0
