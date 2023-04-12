@@ -1,0 +1,80 @@
+{% extends "geonode_base.html" %}
+{% load static from staticfiles %}
+
+{% load i18n %}
+{% block title %} {% trans "Collaborators" %} — {{ block.super }} {% endblock %}
+
+{% block body_outer %}
+
+
+<div class="imgheaderpag">          
+  <img src= "{% static 'geonode/img/2-IMAGEN.jpg' %}">
+</div>
+<div class="page-header">
+  <h2>{% trans "Collaborators" %}</h2>
+</div>
+<p>
+  <b> {% trans "COLLABORATORS PAGE IN CONSTRUCTION" %} </b>
+  <br> <br>
+{% trans "On this page will be the information of collaborators: Google and Moore Foundation" %}
+{% trans "The first version of WaterProof was made possible thanks to the financial support of the Gordon and Betty Moore Foundation, an organization that promotes innovative scientific discovery and conservation of the environment. " %}
+<br>
+{% trans "Its technical development was ledby The Nature Conservancy, which is a global environmental organization dedicated to the conservation of land and water resources, and which, guided by science, creates innovative and practical solutions to the world's most urgent challenges." %} 
+<br>
+{% trans "WaterProof is a technological solution that aims to support decision-making through a series of calculations of environmental and financial indicators in a water basin, presenting investment alternatives in Nature-Based Solutions projects." %} 
+<br>
+{% trans "Through Waterproof, actions are promoted so that different actors in a basin contribute to the conservation of nature, sustainable development and well-being of the communities. These actors can include:" %}
+<br><br>
+</p>
+<table class="table table-striped">
+  <tbody>
+    <tr>
+      <th scope="row"></th>
+      <td>{% trans "Waterservice providers" %}</td>
+      <td>{% trans "The App can supportthese entities to better understand the positive impacts of investingin basin conservation,to plan investments in Nature-Based Solutions, to estimate the impact of these investments on water supply, as well as to have a general idea of the return on investment, considering its operationand maintenance conditions." %}</td>
+    </tr>
+    <tr>
+      <th scope="row"></th>
+      <td>{% trans "Environmental authorities" %}</td>
+      <td>{% trans "The App can support the management and contribute to improve decision-making onresourceinvestment or guide the obligations of third parties, complementingactions and maximizingthe impacts on water security, where nature and society benefit. It can also support the management of permits or related procedures." %}</td>
+    </tr>
+    <tr>
+      <th scope="row"></th>
+      <td>{% trans "Co-operating partners" %}</td>
+      <td>{% trans "The Appcan support the decisions of these entities to prioritize the investment of their resourcesbycomparing the investment and the expected impacts in a set of basins (supply systems). It can help them evaluate the cost-effective impacts of investment projects." %}</td>
+    </tr>
+    <tr>
+      <th scope="row"></th>
+      <td>{% trans "Water funds" %}</td>
+      <td>{% trans "The App can help to plan (or update) the portfolio of conservation investments and estimate the impacts on the water resource. The App can also be used to plan new Water Funds, support the pre-feasibility assessment or to compare possible areas and define priorities based on the Return on Investment comparison." %}</td>
+    </tr>
+    <tr>
+      <th scope="row"></th>
+      <td>{% trans "Private companies with high water consumption" %}</td>
+      <td>{% trans "The App can help private companies Interested in estimating and disclosing the impacts of their voluntary and mandatory actions. The App can help estimate and prioritize actions and guideItconservation investments in basinsor in other territories of interest." %}</td>
+    </tr>
+    <tr>
+      <th scope="row"></th>
+      <td>{% trans "NGOs" %}</td>
+      <td>{% trans "The App can help to plan projects with conservation investments and estimate the impacts on the water resource. The App can also be used to support the evaluation of investment priorities by comparing possible areas and defining their cost-effectiveness.The App could be used by these entities as a first approximation to attract the interest of possible stakeholdersprior to making a more detailed analyzes of these investments (potential benefit)." %}</td>
+    </tr>
+    <tr>
+      <th scope="row"></th>
+      <td>{% trans "Actors responsible for mandatory investments related to water resources" %}</td>
+      <td>{% trans "The App can support these entities to better understand the impacts of their mandatory investments (conservation actions) on the water resources and water security; it can support them to plan conservation investments (Nature-Based Solutions), to estimate the impact of these investments on water resource, tohave a general idea of investment costs (implementation and maintenance), and prioritize their actions according to the cost-benefit ratio." %}</td>
+    </tr>
+    <tr>
+      <th scope="row"></th>
+      <td>{% trans "Academia" %}</td>
+      <td>{% trans "The App can support training exercises for personnel interested in conservation action planning (Nature-Based Solutions) and water security in supplying basins. They can use the App forresearch, practice, or evaluation exercises." %}</td>
+    </tr>
+    <tr>
+      <th scope="row"></th>
+      <td>{% trans "Civil society" %}</td>
+      <td>{% trans "The App can help otheractors to better understand their local waterbasins and theirwater resources, andto better understand the relationship between conservation actions (Nature-Based Solutions) and water security." %}</td>
+    </tr>
+  </tbody>
+</table>
+
+
+{% endblock %}

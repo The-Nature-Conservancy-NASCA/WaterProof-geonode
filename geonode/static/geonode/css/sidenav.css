@@ -1,0 +1,539 @@
+@media (max-width:768) {
+    .sidebar-nav {
+        display: none !important;
+    }
+}
+
+@media (min-width:120px) and (max-width:767){
+    .container {
+        padding-right: 2px !important;
+        padding-left: 1rem !important;
+        width: 735px !important;
+    }
+}
+
+.side {
+    height: 100%;
+    background-color: #EDF2F7;
+    opacity: 5;
+    border-color: none;
+    border-bottom: none;
+    border-right: none;
+}
+#mapidcuenca{
+    width: 350px;
+    height: 400px;
+    border: 1px solid;
+    border-radius: 0.5em;
+    border-color: #aaa;
+}
+
+
+.flecha {
+    padding-left: 0.5rem;
+    height: 2rem;
+}
+
+#wrapper {
+    padding-left: 0;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+#wrapper.toggled {
+    padding-left: 28rem;
+}
+
+#sidebar-wrapper {
+    z-index: 1;
+    position: initial;
+    left: 30rem;
+    width: 0;
+    overflow-y: auto;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+    overflow-x: hidden;
+    top: 55px;
+    margin-bottom: 300px;
+    bottom: 0px;
+}
+
+.navbar-fixed-left {
+    width: 140px;
+    position: relative;
+    border-radius: 0;
+    height: 100px;
+    display: none !important;
+    padding-left: 12%;
+  }
+
+  .navbar-fixed-left .navbar-nav > li {
+    float: none;  /* Cancel default li float: left */
+    width: 139px;
+  }
+  
+  .navbar-fixed-left + .container {
+    padding-left: 160px;
+  }
+  
+  /* On using dropdown menu (To right shift popuped) */
+  .navbar-fixed-left .navbar-nav > li > .dropdown-menu {
+    margin-top: -50px;
+    /* margin-left: 140px; */
+  }
+
+
+
+
+.fa-2x {
+    font-size: 2em;
+}
+.fa-style {
+    position: relative;
+    display: table-cell;
+    width: 60px;
+    height: 36px;
+    text-align: center;
+    vertical-align: middle;
+    font-size:20px;
+}
+    
+    
+.main-menu:hover,nav.main-menu.expanded {
+    width:250px;
+    overflow:visible;
+}
+    
+.main-menu {
+    background:#0C89AA;
+    border-right:1px solid #e5e5e5;
+    position:absolute;
+    top:0;
+    bottom:0;
+    height:100%;
+    left:0;
+    width:60px;
+    overflow:hidden;
+    -webkit-transition:width .05s linear;
+    transition:width .05s linear;
+    -webkit-transform:translateZ(0) scale(1,1);
+    z-index:1000;
+}
+    
+.main-menu>ul {
+    margin:7px 0;
+}
+    
+.main-menu li {
+    position:relative;
+    display:block;
+    width:250px;
+}
+    
+.main-menu li>a {
+    position:relative;
+    display:table;
+    border-collapse:collapse;
+    border-spacing:0;
+    color:#fff;
+     font-family: arial;
+    font-size: 14px;
+    text-decoration:none;
+    -webkit-transform:translateZ(0) scale(1,1);
+    -webkit-transition:all .1s linear;
+    transition:all .1s linear;
+      
+}
+    
+.main-menu .nav-icon {
+    position:relative;
+    display:table-cell;
+    width:60px;
+    height:36px;
+    text-align:center;
+    vertical-align:middle;
+    font-size:18px;
+}
+
+.main-menu .nav-text-title {
+    position:relative;
+    display:table-cell;
+    vertical-align:middle;
+    width:190px;
+    font-family: 'Arial', sans-serif;
+    font-size: 20px;
+}
+    
+.main-menu .nav-text {
+    position:relative;
+    display:table-cell;
+    vertical-align:middle;
+    width:190px;
+}
+    
+.main-menu>ul.logout {
+    position:absolute;
+    left:0;
+    bottom:0;
+}
+    
+.no-touch .scrollable.hover {
+    overflow-y:hidden;
+}
+    
+.no-touch .scrollable.hover:hover {
+    overflow-y:auto;
+    overflow:visible;
+}
+    
+.main-menu a:hover, .main-menu a:focus {
+    text-decoration:none;
+}
+    
+.menuResponsive nav {
+    -webkit-user-select:none;
+    -moz-user-select:none;
+    -ms-user-select:none;
+    -o-user-select:none;
+    user-select:none;
+}
+    
+.menuResponsive nav ul,nav li {
+    outline:0;
+    margin:0;
+    padding:0;
+}
+.main-menu li:hover>a,nav.main-menu li.active>a,.dropdown-menu>li>a:hover,.dropdown-menu>li>a:focus,.dropdown-menu>.active>a,.dropdown-menu>.active>.main-menu a:hover,.dropdown-menu>.active>.main-menu a:focus,.no-touch .dashboard-page nav.dashboard-menu ul li:hover a,.dashboard-page nav.dashboard-menu ul li.active a {
+    color:#fff;
+    background-color:none;
+}
+.area {
+    float: left;
+    background: #e2e2e2;
+    width: 100%;
+    height: 100%;
+}
+
+@media(max-width: 359px){
+    .main-menu {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        height: 250px;
+        padding-top: 92px;
+        width: 60px;
+    }
+    .main-menu li>a {
+        font-family: arial;
+        font-size: 14px;            
+    }
+}
+
+@media (min-width: 360px){
+    .main-menu {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        height: 250px;
+        padding-top: 92px;
+        width: 60px;
+    }
+    .main-menu li>a {
+        font-family: arial;
+        font-size: 14px;            
+    }
+    #sidebar-wrapper {
+        position: relative !important;
+        margin-left: -30rem;
+        width: 28rem;
+        height: 46rem;
+        border-radius: 0.5rem;
+        top: 0px;   
+        /*background-image: url(/static/geonode/img/city_map.png);*/
+        display: none !important;
+    }
+    .menuResponsive{
+        display: table !important;
+        padding-top: -50%;
+    }
+    .navbar-fixed-left{
+        display: table !important;
+    }
+}
+
+@media(min-width: 768px){
+    .main-menu {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        height: 250px;
+        padding-top: 92px;
+        width: 60px;
+    }
+    .main-menu li>a {
+        font-family: arial;
+        font-size: 14px;            
+    }
+}
+@media (min-width: 992px){
+    #sidebar-wrapper {
+        position: relative !important;
+        margin-left: -30rem;
+        width: 28rem;
+        height: 46rem;
+        border-radius: 0.5rem;
+        top: 0px;   
+        background-image: url(/static/geonode/img/city_map.png);
+        display: table !important;
+    } 
+    .menuResponsive{
+        display: none !important;
+    }
+    .navbar-fixed-left{
+        display: table !important;
+    }
+    
+    
+}
+@media (min-width: 1200px){
+    .menuResponsive{
+        display: none !important;
+    }
+    .navbar-fixed-left{
+        display: none !important;
+    }
+    
+}
+
+#wrapper.toggled #sidebar-wrapper {
+    width: 28rem;
+}
+
+#page-content-wrapper {
+    width: 100%;
+    position: absolute;
+    padding: 15px;
+}
+
+#wrapper.toggled #page-content-wrapper {
+    position: absolute;
+    margin-right: -750px;
+}
+
+/* Sidebar Styles */
+
+.sidebar-nav {
+    position: absolute;
+    top: 2rem;
+    width: 28rem;
+    margin: 0;
+    padding: 0 0.5rem 0 0;
+    list-style: none;
+}
+
+.sidebar-nav li {
+    padding-left: 0.5rem;
+    margin-bottom: 0.2rem;
+    margin-top: 0.5rem;
+}
+
+.list-unstylede li a {
+    padding-left: 0;
+    list-style: none;
+    background-color: rgba(52, 176, 204, 0.7) !important;
+}
+
+.list-unstylede{
+    padding-left: 15px;
+    list-style: none;
+}
+
+.sidebar-nav li a {
+    display: flex;
+    text-decoration: none;
+    color: #0C89AA;
+    vertical-align: middle;
+    align-items: center;
+    /* background-color: rgba(58, 128, 154, 0.7); */
+    font-size: 15px;
+    border-radius: 0.5rem;
+    height: 3.5rem;
+    width: 93%;
+    /* border: 1px solid; */
+    /* border-color: rgba(58, 128, 154, 2.2); */
+  }
+
+.sidebar-nav li a:hover {
+    text-decoration: none;
+    color: #fff;
+    background: rgba(58, 128, 154, 0.7);
+}
+
+.sidebar-nav li a:active,
+.sidebar-nav li a:focus {
+    text-decoration: none;
+}
+
+.sidebar-nav>.sidebar-brand {
+    height: 65px;
+    font-size: 18px;
+    line-height: 60px;
+}
+
+.sidebar-nav>.sidebar-brand a {
+    color: #999999;
+}
+
+.sidebar-nav>.sidebar-brand a:hover {
+    color: #fff;
+    background: none;
+}
+
+@media (min-width:1200px){
+    .container {
+        width: auto !important;
+        padding-right: 2rem !important;
+        padding-left: 1rem !important;
+    }
+    #mapidcuenca{
+         width: auto !important; 
+         border: 2px solid;
+    } 
+    #wrapper {
+        padding-left: 28rem;
+    }
+
+    #wrapper.toggled {
+        padding-left: 0;
+    }
+
+    #sidebar-wrapper {
+        position: absolute !important;
+        margin-left: -30rem;
+        width: 26rem;
+        height: 46rem;
+        border-radius: 0.5rem;
+        top: 0px;   
+        background-image: url(/static/geonode/img/city_map.png);
+        display: table !important;
+        background-size: cover;
+    }
+
+    #wrapper.toggled #sidebar-wrapper {
+        width: 0;
+    }
+
+    #page-content-wrapper {
+        padding: 20px;
+        position: relative;
+    }
+
+    #wrapper.toggled #page-content-wrapper {
+        position: relative;
+        margin-right: 0;
+    }
+
+    .sidebar-nav li {
+        padding-left: 0.5rem;
+        margin-bottom: 1rem;
+        margin-top: 1rem;
+    }
+
+    .sidebar-nav li a {
+        font-size: 20px;
+        height: 4.5rem;
+        width: 93%;        
+    }
+}
+@media (min-width:993px) and (max-width:1200px){
+    .container {
+        width: 970px !important;
+        padding-right: 2px !important;
+        padding-left: 1rem !important;
+    }
+
+    #mapidcuenca{
+        width: auto !important;
+        border: 2px solid;
+    }
+    #wrapper {
+        padding-left: 28rem;
+    }
+
+    #wrapper.toggled {
+        padding-left: 0;
+    }
+
+    #sidebar-wrapper {
+        width: 17rem;
+        height: 460px;
+        background-size: cover;        
+    }
+
+    #wrapper.toggled #sidebar-wrapper {
+        width: 0;
+    }
+
+    #page-content-wrapper {
+        padding: 20px;
+        position: relative;
+    }
+
+    #wrapper.toggled #page-content-wrapper {
+        position: relative;
+        margin-right: 0;
+    }
+
+    .sidebar-nav li a {        
+        height: 4.5rem;
+        width: 55%;
+    }
+}
+@media (min-width:768px) and (max-width:992px){
+    .container {
+        padding-right: 2px !important;
+        padding-left: 1rem !important;
+        width: 755px !important;
+    }
+    #mapidcuenca{
+        width: 95% !important;
+        border: 2px solid; 
+    }
+    #wrapper {
+        padding-left: 28rem;
+    }
+
+    #wrapper.toggled {
+        padding-left: 0;
+    }
+
+    #sidebar-wrapper {
+        width: 25rem;
+        height: 480px;
+        z-index: 9999;
+        background-size: cover;
+    }
+
+    #wrapper.toggled #sidebar-wrapper {
+        width: 0;
+    }
+
+    #page-content-wrapper {
+        padding: 20px;
+        position: relative;
+    }
+
+    #wrapper.toggled #page-content-wrapper {
+        position: relative;
+        margin-right: 0;
+    }
+
+    .sidebar-nav li a {        
+        height: 4.5rem;
+        width: 55%;
+    }
+}

@@ -1,0 +1,112 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Waterproof V1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-07-19 06:13-0500\n"
+"PO-Revision-Date: 2021-12-01 15:10-0500\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Last-Translator: \n"
+"Language-Team: Skaphe\n"
+"X-Generator: Poedit 2.4.3\n"
+
+#: static/waterproof_study_cases_comparison/js/study_cases_list.js:89
+#: static/waterproof_study_cases_comparison/js/study_cases_list.js:119
+msgid "Comparison error"
+msgstr ""
+
+#: static/waterproof_study_cases_comparison/js/study_cases_list.js:90
+msgid "No case selected"
+msgstr ""
+
+#: static/waterproof_study_cases_comparison/js/study_cases_list.js:120
+msgid "Case already selected"
+msgstr ""
+
+#: static/waterproof_study_cases_comparison/js/studycases_doAnalysis.js:91
+msgid "Study case"
+msgstr "Case study"
+
+#: static/waterproof_study_cases_comparison/js/studycases_doAnalysis.js:106
+msgid "Error!"
+msgstr ""
+
+#: static/waterproof_study_cases_comparison/js/studycases_doAnalysis.js:107
+msgid "Not result for case"
+msgstr "Not results for case"
+
+#: static/waterproof_study_cases_comparison/js/studycases_doAnalysis.js:107
+msgid "Change in Volume of Water Yield (%)"
+msgstr ""
+
+#: static/waterproof_study_cases_comparison/js/studycases_doAnalysis.js:107
+msgid "Change in Base Flow (%)"
+msgstr ""
+
+#: static/waterproof_study_cases_comparison/js/studycases_doAnalysis.js:107
+msgid "Change in Nitrogen Load (%)"
+msgstr ""
+
+#: static/waterproof_study_cases_comparison/js/studycases_doAnalysis.js:107
+msgid "Change in Phosphorus Load (%)"
+msgstr ""
+
+#: static/waterproof_study_cases_comparison/js/studycases_doAnalysis.js:107
+msgid "Change in Total Sediments (%)"
+msgstr ""
+
+#: static/waterproof_study_cases_comparison/js/studycases_doAnalysis.js:107
+msgid "Change in Carbon Storage (%)"
+msgstr ""
+
+#: static/waterproof_study_cases_comparison/js/studycases_doAnalysis.js:107
+msgid "ROI Benefic/Cost (Total)"
+msgstr "ROI Benefit/Cost (Total)"
+
+#: static/waterproof_study_cases_comparison/js/studycases_doAnalysis.js:107
+msgid "ROI Benefit/Cost (Discounted)"
+msgstr "ROI Benefit/Cost (Discounted)"
+
+#: static/waterproof_study_cases_comparison/js/studycases_doAnalysis.js:107
+msgid "Cost Implementation NPV"
+msgstr ""
+
+#: static/waterproof_study_cases_comparison/js/studycases_doAnalysis.js:107
+msgid "Cost Maintenance NPV"
+msgstr ""
+
+#: static/waterproof_study_cases_comparison/js/studycases_doAnalysis.js:107
+msgid "Cost Oportunity NPV"
+msgstr "Cost Opportunity NPV"
+
+#: static/waterproof_study_cases_comparison/js/studycases_doAnalysis.js:107
+msgid "Cost Transaction NPV"
+msgstr ""
+
+#: static/waterproof_study_cases_comparison/js/studycases_doAnalysis.js:107
+msgid "Cost Platform NPV"
+msgstr ""
+
+#: static/waterproof_study_cases_comparison/js/studycases_doAnalysis.js:107
+msgid "Benefits NPV"
+msgstr ""
+
+#: static/waterproof_study_cases_comparison/js/studycases_doAnalysis.js:107
+msgid "Total NPV"
+msgstr ""
+
+#: static/waterproof_study_cases_comparison/js/studycases_doAnalysis.js:107
+msgid "Wow!"
+msgstr ""
+
+#: static/waterproof_study_cases_comparison/js/studycases_doAnalysis.js:107
+msgid "Message!"
+msgstr ""

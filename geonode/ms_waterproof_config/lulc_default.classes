@@ -1,0 +1,229 @@
+    CLASSITEM "[pixel]"
+    CLASSGROUP "group1"
+    # class using simple string comparison, equivalent to ([pixel] = 0)
+    CLASS
+      EXPRESSION "0"
+      NAME "Ice"
+      GROUP "group1"
+      STYLE
+        COLOR 255 255 255
+      END
+    END
+    CLASS
+      NAME "Water"
+      GROUP "group1"
+      EXPRESSION "1"
+      STYLE
+        COLOR 102 178 255
+      END
+    END
+    CLASS
+      NAME "Forest"
+      GROUP "group1"
+      EXPRESSION "2"
+      STYLE
+        COLOR 0 51 0
+      END
+    END
+    CLASS
+      NAME "Grassland"
+      GROUP "group1"
+      EXPRESSION "3"
+      STYLE
+        COLOR 0 153 76
+      END
+    END
+    CLASS
+      NAME "Agriculture"
+      GROUP "group1"
+      EXPRESSION "4"
+      STYLE
+        COLOR 255 255 51
+      END
+    END
+    CLASS
+      NAME "Urban"
+      GROUP "group1"
+      EXPRESSION "5"
+      STYLE
+        COLOR 96 96 96
+      END
+    END
+    CLASS
+      NAME "Bare Areas"
+      GROUP "group1"
+      EXPRESSION "6"
+      STYLE
+        COLOR 224 224 224
+      END
+    END
+    CLASS
+      NAME "Shrublands"
+      GROUP "group1"
+      EXPRESSION "7"
+      STYLE
+        COLOR 128 255 0
+      END
+    END
+    CLASS
+      NAME "Sparse Vegetation"
+      GROUP "group1"
+      EXPRESSION "8"
+      STYLE
+        COLOR 204 255 153 
+      END
+    END
+	CLASS
+      NAME "Agriculture with Fertilizer Management (High Effect)"
+      GROUP "group1"
+      EXPRESSION "100"
+      STYLE
+        COLOR 102 102 0 
+      END
+    END
+	
+	
+	CLASS
+      NAME "Agriculture with Fertilizer Management (Medium Effect)"
+      GROUP "group1"
+      EXPRESSION "101"
+      STYLE
+        COLOR 102 120 10 
+      END
+    END
+	
+	CLASS
+	  NAME "Agriculture with Fertilizer Management (Low  Effect)"
+      GROUP "group1"
+      EXPRESSION "102"
+      STYLE
+        COLOR 80 140 0
+      END
+    END
+	
+	CLASS
+      NAME "Grassland with Fertilizer Management (High Effect)"
+      GROUP "group1"
+      EXPRESSION "103"
+      STYLE
+        COLOR 25 93 10 
+      END
+    END
+	CLASS
+      NAME "Grassland with Fertilizer Management (Medium Effect)"
+      GROUP "group1"
+      EXPRESSION "104"
+      STYLE
+        COLOR 25 153 10 
+      END
+    END
+	CLASS
+      NAME "Grassland with Fertilizer Management (Low Effect)"
+      GROUP "group1"
+      EXPRESSION "105"
+      STYLE
+        COLOR 25 201 10 
+      END
+    END
+	CLASS
+      NAME "Grassland with Pasture Management (High Effect)"
+      GROUP "group1"
+      EXPRESSION "106"
+      STYLE
+        COLOR 25 201 123 
+      END
+    END
+	CLASS
+      NAME "Grassland with Pasture Management (Medium Effect)"
+      GROUP "group1"
+      EXPRESSION "107"
+      STYLE
+        COLOR 25 201 148 
+      END
+    END
+	CLASS
+      NAME "Grassland with Pasture Management (Low Effect)"
+      GROUP "group1"
+      EXPRESSION "108"
+      STYLE
+        COLOR 25 201 194 
+      END
+    END
+	CLASS
+      NAME "Agriculture with Ditching (High Effect)"
+      GROUP "group1"
+      EXPRESSION "109"
+      STYLE
+        COLOR 178 234 194 
+      END
+    END
+	CLASS
+      NAME "Agriculture with Ditching (Medium Effect)"
+      GROUP "group1"
+      EXPRESSION "110"
+      STYLE
+        COLOR 178 234 172  
+      END
+    END
+	CLASS
+      NAME "Agriculture with Ditching (Low Effect)"
+      GROUP "group1"
+      EXPRESSION "111"
+      STYLE
+        COLOR 178 234 145  
+      END
+    END	
+	CLASS
+      NAME "Bare Area with Ditching (High Effect)"
+      GROUP "group1"
+      EXPRESSION "112"
+      STYLE
+        COLOR 171 178 116 
+      END
+    END
+	CLASS
+      NAME "Bare Area with Ditching (Medium Effect)"
+      GROUP "group1"
+      EXPRESSION "113"
+      STYLE
+        COLOR 171 178 156   
+      END
+    END
+	CLASS
+      NAME "Bare Area with Ditching (Low Effect)"
+      GROUP "group1"
+      EXPRESSION "114"
+      STYLE
+        COLOR 171 178 182  
+      END
+    END	
+	CLASS
+      NAME "Agriculture with Vegetation Management (High Effect)"
+      GROUP "group1"
+      EXPRESSION "115"
+      STYLE
+        COLOR 192 128 55 
+      END
+    END
+	CLASS
+      NAME "Agriculture with Vegetation Management (Medium Effect)"
+      GROUP "group1"
+      EXPRESSION "116"
+      STYLE
+        COLOR 192 103 55   
+      END
+    END
+	CLASS
+      NAME "Agriculture with Vegetation Management (Low Effect)"
+      GROUP "group1"
+      EXPRESSION "117"
+      STYLE
+        COLOR 192 90 55  
+      END
+    END	
+    CLASS
+      EXPRESSION "255"
+      STYLE
+        COLOR "#FF000000"
+      END
+    END 

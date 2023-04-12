@@ -1,0 +1,45 @@
+    .article{
+        font-size: 20 px;
+        padding: 15px;
+        margin-left: 5%;
+        margin-right: 5%;
+        text-align: justify;
+    }
+    .search-article{
+        font-size: 20 px;
+        padding: 15px;
+        margin-left: 5%;
+        margin-right: 5%;
+        text-align: justify;
+    }
+
+    .art-item{
+        padding: 15px;
+        margin-left: 5%;
+        margin-right: 5%;
+        text-align: justify;
+    }
+
+    .data{
+        padding: 15px;
+        margin-left: 5%;
+        margin-right: 5%;
+        text-align: justify;
+    }
+
+    .referencias{
+        padding: 15px;
+        margin-left: 5%;
+        margin-right: 5%;
+        text-align: justify;
+    }
+
+    .enlaces{
+        padding: 15px;
+        margin-left: 5%;
+        margin-right: 5%;
+        text-align: justify;
+    }
+    .data-article{
+        text-align: justify;
+    }

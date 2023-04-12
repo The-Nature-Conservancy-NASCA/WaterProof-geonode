@@ -1,0 +1,66 @@
+.tableStyleColor{
+    color: #fff;
+    background-color: #0C89AA;
+  }
+.textCenter{
+    text-align: center;
+}
+.listStudyCaseButton{
+  border-radius: 60px;
+  border: 1px solid #0C89AA;
+  background-color: #0C89AA;
+  color: #fff;
+  position: absolute;
+  left: 43%;
+  width: 288px;
+  height: 44px;
+  padding-top: 0.6%;
+  font-weight: bold;
+}
+.button-padding{
+  padding-bottom: 3%;
+}
+
+.mapAlign{
+  height: 100%;
+  width: 100%;
+}
+.align-table{
+  width:70%; 
+  text-align: center;
+}
+
+@media(min-width: 360px){
+  .listStudyCaseButton{
+    left: 10% !important;
+    width: 288px !important;
+    height: 44px !important;
+    padding-top: 1.5% !important;
+    text-align: center !important;
+  }
+}
+@media(min-width: 768px){
+  .listStudyCaseButton{
+    left: 32% !important;
+    width: 288px !important;
+    height: 44px !important;
+    padding-top: 1.5% !important;
+    text-align: center !important;
+  }
+}
+@media(min-width: 992px){
+  .listStudyCaseButton{
+    left: 38% !important;
+    width: 288px !important;
+    height: 44px !important;
+    padding-top: 1% !important;
+  }
+}
+@media(min-width: 1200px){
+  .listStudyCaseButton{
+    left: 40% !important;
+    width: 288px !important;
+    height: 44px !important;
+    padding-top: 0.8% !important;
+  }
+}

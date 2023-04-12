@@ -1,0 +1,73 @@
+{% extends "people/profile_base.html" %}
+{% load i18n avatar_tags %}
+{% load bootstrap_tags %}
+
+{% block body_class %}{% trans "edit people" %}{% endblock %}
+
+{% block body %}
+<div class="page-header">
+  {% if user == profile %}
+    <h2 class="page-title">{% trans "Edit Your Profile" %}</h2>
+  {% else %}
+    <h2 class="page-title">{% trans "Edit Profile for" %} {{ profile.username }}</h2>
+  {% endif %}
+</div>
+
+<div class="col-xs-3 col-md-2 profile-image">
+  {% autoescape off %}{% avatar profile.username 240 %}{% endautoescape %}
+  {% if user == profile %}
+  <p><a class="btn btn-primary btn-block" href="{% url 'avatar_change' %}">{% trans "Change your avatar" %}</a></p>
+  {% endif %}
+</div>
+
+<div class="col-xs-9 col-md-7">
+  <form action="" method="post">
+    {% csrf_token %}
+    <div class="form-controls">
+      {{ form|as_bootstrap }}
+    </div>
+    <div class="form-actions">
+      <input type="submit" class="btn btn-primary" value="{% trans "Update profile" %}" />
+    </div>
+  </form>
+</div>
+{% endblock %}
+
+{% block extra_script %}
+    {{ block.super }}
+    <script type="text/javascript">
+        $(document).ready(function() {
+            
+          $('#id_country').select2();
+          if ($("#id_professional_role").val() != 'OTHER'){
+            $("#div_id_other_role").hide();
+          }
+          if ($("#id_use_analysis").val() != 'OTHER'){
+            $("#div_id_other_analysis").hide();
+          }           
+            
+          $("#id_professional_role").on("change", function(e){
+            console.log("change id_professional_role:", e);
+            if (this.value == "OTHER"){
+              $("#div_id_other_role").show();
+            }else{
+              $("#div_id_other_role").hide();
+              $("#id_other_role").val("NA");
+            }
+          });
+          
+          $("#id_use_analysis").on("change", function(e){
+            console.log("change id_use_analysis:", e);
+            if (this.value == "OTHER"){
+              $("#div_id_other_analysis").show();
+            }else{
+              $("#div_id_other_analysis").hide();
+              $("#id_other_analysis").val("NA");
+            }
+          });
+                    
+          getCode2Country($("#id_country").val());
+
+        });
+    </script>
+{% endblock %}

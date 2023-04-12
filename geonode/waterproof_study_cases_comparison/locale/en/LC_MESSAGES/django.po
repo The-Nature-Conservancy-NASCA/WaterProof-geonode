@@ -1,0 +1,241 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Waterproof V1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-09-22 20:04-0500\n"
+"PO-Revision-Date: 2021-12-01 15:11-0500\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Last-Translator: \n"
+"Language-Team: Skaphe\n"
+"X-Generator: Poedit 2.4.3\n"
+
+#: templates/study_cases/studycases_do_analysis.html:1
+#: templates/study_cases/studycases_do_analysis.html:2
+#: templates/study_cases/studycases_list.html:1
+#: templates/study_cases/studycases_list.html:2
+#: templates/study_cases/studycases_list_user.html:1
+#: templates/study_cases/studycases_list_user.html:2
+msgid "Cases Study"
+msgstr ""
+
+#: templates/study_cases/studycases_do_analysis.html:12
+#: templates/study_cases/studycases_list.html:22
+#: templates/study_cases/studycases_list_user.html:22
+msgid "Case studies comparison"
+msgstr ""
+
+#: templates/study_cases/studycases_do_analysis.html:16
+msgid "In this section you can compare the main indicators"
+msgstr ""
+"In this section you can compare the main indicators of the selected case "
+"studies using a parallel axis graph. You can also add axes to the chart for "
+"comparison."
+
+#: templates/study_cases/studycases_do_analysis.html:25
+msgid "Axis selection"
+msgstr ""
+
+#: templates/study_cases/studycases_do_analysis.html:26
+msgid "Select the axis to show"
+msgstr ""
+
+#: templates/study_cases/studycases_do_analysis.html:39
+msgid "Add axis"
+msgstr ""
+
+#: templates/study_cases/studycases_do_analysis.html:45
+msgid "Axis"
+msgstr ""
+
+#: templates/study_cases/studycases_do_analysis.html:46
+msgid "Action"
+msgstr ""
+
+#: templates/study_cases/studycases_do_analysis.html:54
+msgid "Parallel axis graph"
+msgstr "Parallel Axis Graph"
+
+#: templates/study_cases/studycases_list.html:26
+#: templates/study_cases/studycases_list_user.html:27
+msgid ""
+"In this section you will find case studies with results available to be "
+"compared"
+msgstr ""
+"In this section you will find case studies with results available to be "
+"compared. The system will offer you a graph of parallel axes that "
+"facilitates the simultaneous visualization of the values ​​obtained for the "
+"main indicators."
+
+#: templates/study_cases/studycases_list.html:27
+#: templates/study_cases/studycases_list_user.html:28
+msgid "Do click in button"
+msgstr "Click in"
+
+#: templates/study_cases/studycases_list.html:28
+#: templates/study_cases/studycases_list_user.html:29
+msgid "to add the case studies of your interest"
+msgstr "to add the case studies of interest"
+
+#: templates/study_cases/studycases_list.html:32
+#: templates/study_cases/studycases_list_user.html:33
+msgid "Selected City"
+msgstr ""
+
+#: templates/study_cases/studycases_list.html:33
+#: templates/study_cases/studycases_list_user.html:34
+msgid "Region"
+msgstr ""
+
+#: templates/study_cases/studycases_list.html:34
+#: templates/study_cases/studycases_list_user.html:35
+msgid "Currency"
+msgstr ""
+
+#: templates/study_cases/studycases_list.html:35
+#: templates/study_cases/studycases_list_user.html:36
+msgid "Show all cities"
+msgstr ""
+
+#: templates/study_cases/studycases_list.html:46
+#: templates/study_cases/studycases_list.html:96
+#: templates/study_cases/studycases_list_user.html:47
+#: templates/study_cases/studycases_list_user.html:97
+msgid "Name"
+msgstr ""
+
+#: templates/study_cases/studycases_list.html:47
+#: templates/study_cases/studycases_list.html:97
+#: templates/study_cases/studycases_list_user.html:48
+#: templates/study_cases/studycases_list_user.html:98
+msgid "User"
+msgstr ""
+
+#: templates/study_cases/studycases_list.html:48
+#: templates/study_cases/studycases_list.html:98
+#: templates/study_cases/studycases_list_user.html:49
+#: templates/study_cases/studycases_list_user.html:99
+msgid "Date"
+msgstr ""
+
+#: templates/study_cases/studycases_list.html:49
+#: templates/study_cases/studycases_list.html:99
+#: templates/study_cases/studycases_list_user.html:50
+#: templates/study_cases/studycases_list_user.html:100
+msgid "City"
+msgstr ""
+
+#: templates/study_cases/studycases_list.html:50
+#: templates/study_cases/studycases_list.html:100
+#: templates/study_cases/studycases_list_user.html:51
+#: templates/study_cases/studycases_list_user.html:101
+msgid "treatment_plants"
+msgstr ""
+
+#: templates/study_cases/studycases_list.html:51
+#: templates/study_cases/studycases_list.html:101
+#: templates/study_cases/studycases_list_user.html:52
+#: templates/study_cases/studycases_list_user.html:102
+msgid "water_intakes"
+msgstr ""
+
+#: templates/study_cases/studycases_list.html:52
+#: templates/study_cases/studycases_list.html:102
+#: templates/study_cases/studycases_list_user.html:53
+#: templates/study_cases/studycases_list_user.html:103
+msgid "Actions"
+msgstr "Options"
+
+#: templates/study_cases/studycases_list.html:69
+#: templates/study_cases/studycases_list_user.html:70
+msgid "N/A"
+msgstr ""
+
+#: templates/study_cases/studycases_list.html:69
+#: templates/study_cases/studycases_list_user.html:70
+msgid "Custom case"
+msgstr ""
+
+#: templates/study_cases/studycases_list.html:81
+#: templates/study_cases/studycases_list_user.html:82
+msgid "Add case for analysis"
+msgstr ""
+
+#: templates/study_cases/studycases_list.html:92
+#: templates/study_cases/studycases_list_user.html:93
+msgid "Cases for analysis"
+msgstr "Cases for comparison"
+
+#: templates/study_cases/studycases_list.html:111
+#: templates/study_cases/studycases_list_user.html:112
+msgid "Compare"
+msgstr "Compare"
+
+#: templates/study_cases/studycases_doAnalysis.html:9
+msgid "ROI (BENEFIT / COST) (TOTAL)"
+msgstr "ROI Benefit/Cost (Total)"
+
+#: templates/study_cases/studycases_doAnalysis.html:9
+msgid "ROI Benefit/Cost (Discounted)"
+msgstr ""
+
+#: templates/study_cases/studycases_doAnalysis.html:9
+msgid "Change in Volume of Water Yield"
+msgstr ""
+
+#: templates/study_cases/studycases_doAnalysis.html:9
+msgid "Change in Base Flow"
+msgstr ""
+
+#: templates/study_cases/studycases_doAnalysis.html:9
+msgid "Change in Total Sediments"
+msgstr ""
+
+#: templates/study_cases/studycases_doAnalysis.html:9
+msgid "Change in Nitrogen Load"
+msgstr ""
+
+#: templates/study_cases/studycases_doAnalysis.html:9
+msgid "Change in Phosphorus Load"
+msgstr ""
+
+#: templates/study_cases/studycases_doAnalysis.html:9
+msgid "Change in Carbon Storage"
+msgstr ""
+
+#: templates/study_cases/studycases_doAnalysis.html:9
+msgid "Cost Implementation NPV"
+msgstr ""
+
+#: templates/study_cases/studycases_doAnalysis.html:9
+msgid "Cost Maintenance NPV"
+msgstr ""
+
+#: templates/study_cases/studycases_doAnalysis.html:9
+msgid "Cost Opportunity NPV"
+msgstr ""
+
+#: templates/study_cases/studycases_doAnalysis.html:9
+msgid "Cost Transaction NPV"
+msgstr ""
+
+#: templates/study_cases/studycases_doAnalysis.html:9
+msgid "Cost Platform NPV"
+msgstr ""
+
+#: templates/study_cases/studycases_doAnalysis.html:9
+msgid "Total NPV"
+msgstr ""
+
+#, fuzzy
+#~| msgid "Cases for analysis"
+#~ msgid "Do analysis"
+#~ msgstr "Cases for comparison"

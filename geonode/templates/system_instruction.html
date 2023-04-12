@@ -1,0 +1,113 @@
+{% extends "geonode_base.html" %}
+{% load static from staticfiles %}
+
+{% load i18n %}
+{% block title %} {% trans "System instructions" %} — {{ block.super }} {% endblock %}
+
+{% block body_outer %}
+
+<section>
+	<div class="imgheaderpag">
+		<img src="{% static 'geonode/img/2-IMAGEN.jpg' %}">
+	</div>
+</section>
+<section>
+	<div class="page-header colorHeaderInstrucciones">
+		<h2>{% trans "System operating instructions" %}</h2>
+	</div>
+	<div class="newstitle">
+		<b>{% trans "WaterProof" %}</b><span>{% trans "is a tool that aims to help community and institutional actors to
+			design case studies that help them decide on the most appropriate Nature-Based Solutions for their city’s
+			climate and water demand conditions." %}</span>
+	</div>
+	<div class="row" style="height: 10px;">
+	</div>
+	<p class="text-justify">
+		{% trans "Although the user can consult the available case studies, the aim is for analysts to have tools to
+		accurately indicate the way in which water is obtained for a city fromwaterintakes located in supply basins, as
+		well as the characteristics of theirtreatment plants, so that, through soil and climate analysis, it is possible
+		to suggest the most appropriate Nature-Based Solutions and their respective return on investment." %}
+	</p>
+	<p class="text-justify">
+		{% trans "In the graphic below we explain the major steps that must be taken in the system to obtain results:"
+		%}
+	</p>
+	<p class="text-justify">
+		{% trans "a.Configure the water supply intakes from yourcity:" %}
+	</p>
+</section>
+<section class="container" id="instruction1">
+	<div class="row text-center">
+		<div class="col-md-4">
+			<img class="img-responsive center-block" src="{% static 'geonode/img/01-conservacion.png' %}">
+			<p class="text-justify">{% trans "1. Indicate the location of thecatchment or catchmentsthat provide water
+				to your city" %}</p>
+			<p class="text-justify">{% trans "2. Indicate the characteristics of your water intake system: types of
+				connection, existence of reservoirs, external entrances, among others." %}</p>
+			<p class="text-justify">{% trans "3. Define the functions that determine how the operationand maintenance
+				costs of the water system. calculated. If youdon't have them, the system will use default values" %}</p>
+		</div>
+		<div class="col-md-4">
+			<img class="img-responsive center-block" src="{% static 'geonode/img/01-conservacion.png' %}">
+			<p class="text-justify">{% trans "4. The system will ask for estimated data on the water demand served with
+				by each catchment" %}</p>
+		</div>
+		<div class="col-md-4">
+			<img class="img-responsive center-block" src="{% static 'geonode/img/01-conservacion.png' %}">
+			<p class="text-justify">{% trans "5. Indicate which processes and technologies are part of your treatment
+				plant" %}</p>
+			<p class="text-justify">{% trans "6. Define the cost functions for operation and maintenance of the
+				treatment plant. If you don't have them, the system will use default values" %}</p>
+		</div>
+	</div>
+</section>
+<section>
+	<div class="row" style="height: 10px;">
+	</div>
+	<p class="text-justify">
+		{% trans "The system will allow you to record all the water intakes and treatment plants that you need in your
+		analysis. The system is then prepared to startthe analysis."
+		%}
+	</p>
+	<p class="text-justify">
+		{% trans "b. Set up your case study:" %}
+	</p>
+</section>
+<section class="container" id="instruction1">
+	<div class="row text-center">
+		<div class="col-md-4">
+			<img class="img-responsive center-block" src="{% static 'geonode/img/01-conservacion.png' %}">
+			<p class="text-justify">{% trans "1. Link all the catchments and treatment plants that you want the system
+				to assess" %}</p>
+			<p class="text-justify">{% trans "2. Configure the objectives and activities that you want to integrate into
+				analysis" %}</p>
+			<p class="text-justify">{% trans "3. Createthe financial settings4. Launch the analysis by indicating to the
+				system the climatic conditions that you believe will bepresent during the course of implementationof
+				your project." %}</p>
+		</div>
+		<div class="col-md-4">
+			<img class="img-responsive center-block" src="{% static 'geonode/img/01-conservacion.png' %}">
+			<p class="text-justify">{% trans "4. Launch the analysis by indicating to the system the climatic conditions
+				that you believe will bepresent during the course of implementationof your project" %}</p>
+			<p class="text-justify">{% trans "Nowyou are ready!" %}</p>
+		</div>
+		<div class="col-md-4">
+			<img class="img-responsive center-block" src="{% static 'geonode/img/01-conservacion.png' %}">
+			<p class="text-justify">{% trans "5. Take advantage of the results of the analysis. The system will present
+				you withsuggested areas for the implementation of the Nature-Based Solutions accompanied by indicators
+				and graphs on the Return on Investment." %}</p>
+		</div>
+	</div>
+</section>
+<section>
+	<div class="row" style="height: 10px;">
+	</div>
+	<p class="text-justify">
+		{% trans "In order for you tobe able toperform these steps, it is important that you recognize the web
+		components that are part of the work screens:" %}
+	</p>
+	<img class="img-responsive center-block" src="{% static 'geonode/img/01-conservacion.png' %}">
+</section>
+
+
+{% endblock %}

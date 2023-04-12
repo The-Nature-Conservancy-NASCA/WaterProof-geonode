@@ -1,0 +1,155 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+{% load bootstrap_tags %}
+{% load account socialaccount %}
+
+{% block title %}{% trans "Sign up" %}{% endblock %}
+
+{% block body_outer %}
+    <div class="container">
+        <div class="page-header">
+            <h2>{% trans "Sign up" %}
+            <button type="button" data-toggle="modal" data-target="#HelpModal" id="HelpModalBtnModal" class="glyphicon glyphicon-question-sign" aria-hidden="true" style="outline:none; text-decoration:none; color: #0977ca; padding: 0.001cm; border-style: none; background-color:transparent;"></button>
+            </h2>
+        </div>
+        <div class="row">
+        {% get_providers as socialaccount_providers %}
+        {% if socialaccount_providers %}
+            <p>{% blocktrans with site.name as site_name %}Sign up with one
+                of your existing third party accounts{% endblocktrans %}</p>
+            {% include "socialaccount/snippets/provider_list.html" with process="signup" %}
+            {% include "socialaccount/snippets/login_extra.html" %}
+            <hr>
+        {% endif %}
+        </div>
+        {% if account_geonode_local_signup %}
+            <div class="row">                
+                <div col-md-4 col-md-offset-2>
+                    <p>{% trans "Create a new local account" %}</p>
+                    <h6>{% trans "Create a new account. To access the case study creation functionalities in WaterProof, it is necessary to have login credentials. Then enter your contact details and review the Terms and Conditions." %}</h6>
+                    <form id="signup_form" method="post" action="{% url "account_signup" %}" autocapitalize="off" {% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>
+                        <fieldset>
+                            {% csrf_token %}
+                            {{ form|as_bootstrap }}
+                            {% if redirect_field_value %}
+                                <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+                            {% endif %}
+                            <div style="padding-bottom: 10px;">
+                                <button type="button" id="btnTerms" class="btn btn-info" data-toggle="modal" data-target="#myModal">{% trans "Show condititions" %}</button>                     
+                            </div>
+                            <div class="form-actions">
+                                <button id="signup-button" type="submit" class="btn btn-primary">{% trans "Sign up" %}</button>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>            
+            </div>
+        {% endif %}
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">{% trans "Conditions" %} </h4>
+            </div>
+            <div class="modal-body">
+                <div id="content_terms"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Close" %}</button>
+            </div>
+            </div>
+            
+        </div>
+    </div>
+
+    <!--Modal Help-->
+<div class="modal fade" id="HelpModal" tabindex="-1" aria-labelledby="HelpModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h3 class="modal-title text-center" id="HelpModalLabel" style="color:#6398C1 ;">{%  trans "Welcome to WaterProof" %}</h3>
+            </div>
+            <div class="modal-body">
+                <div>
+                    {%  trans "description-sign-up"  %}
+                </div>                
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" style="color: white; background-color: #6398C1;">{% trans "Close" %}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block extra_script %}
+    {{ block.super }}
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#id_username').focus();
+            $("#id_other_role").val("NA");
+            $("#id_other_analysis").val("NA");
+
+            $(".form-group").each(function(k,l){
+                if(l.children[0].classList.contains("required-field")){
+                let spn = document.createElement("span");
+                spn.style.color = "#F00";
+                spn.innerHTML = "(*)";
+                l.insertBefore(spn,l.children[1]);
+                }
+            })
+
+            //$('#id_country').select2();
+            
+            $("#btnTerms").on("click",function(e){
+                let url = "/terms_of_use_flat/";
+                $.get(url, function(data){
+                    $("#content_terms").html(data);    
+                });
+            })
+
+            $("#div_id_other_role").hide();
+            $("#div_id_other_analysis").hide();
+
+            $("#signup-button").on ("click", function(){
+                console.log("signup-button... workaroung using js...");
+                setTimeout(function(){
+                    var login ="/account/login/";
+                    var confirmUrl = "/account/confirm-email/";
+                    var user = $("#id_email").val();
+                    var pwd = $("#id_password1").val();
+
+                    var form = new FormData();
+                    form.append("login", user);
+                    form.append("password", pwd);
+
+                    var settings = {
+                    "url": login,
+                    "method": "POST",
+                    "timeout": 0,                
+                    "processData": false,
+                    "mimeType": "multipart/form-data",
+                    "contentType": false,
+                    "data": form
+                    };
+
+                    $.ajax(settings).done(function (response) {
+                        window.location.href = confirmUrl;
+                    });                    
+                },3000);                
+            })           
+
+        });
+    </script>
+{% endblock %}

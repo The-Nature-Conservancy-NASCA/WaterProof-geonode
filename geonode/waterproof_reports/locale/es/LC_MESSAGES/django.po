@@ -1,0 +1,763 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Translators:
+# Translators:
+# Translators:
+# Translators:
+# Translators:
+# Translators:
+# Translators:
+# Translators:
+# Translators:
+# Translators:
+# Translators:
+# Translators:
+# Translators:
+# Translators:
+# Translators:
+# Translators:
+# aaizemberg <ariel.aizemberg@gmail.com>, 2013
+# Andres Alfonso Lemon Gomez <lemon.andres@gmail.com>, 2014
+# aaizemberg <ariel.aizemberg@gmail.com>, 2013
+# aaizemberg <ariel.aizemberg@gmail.com>, 2013
+# Clarisa Andrea Moraña <clarisa.morana@gmail.com>, 2013
+# Clarisa Andrea Moraña <clarisa.morana@gmail.com>, 2013
+# cristianzamar <cristianzamar@gmail.com>, 2016
+# cristianzamar <cristianzamar@gmail.com>, 2016
+# francesco.stompanato <francesco.stompanato@wfp.org>, 2014
+# francesco.stompanato <francesco.stompanato@wfp.org>, 2014
+# ingenieroariel <ingenieroariel@gmail.com>, 2013-2015
+# ingenieroariel <ingenieroariel@gmail.com>, 2013
+# Juan Lautaro Silva Ortiz <jlautarosilva@gmail.com>, 2015
+# Scott Clark, 2013
+# Scott Clark, 2013
+# Scott Clark, 2013
+# Sergio Luis Arnal <sergioarnal@gmail.com>, 2013
+# Sergio Luis Arnal <sergioarnal@gmail.com>, 2013-2016
+msgid ""
+msgstr ""
+"Project-Id-Version: GeoNode\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-02-19 11:28-0500\n"
+"PO-Revision-Date: 2021-12-03 12:46-0500\n"
+"Last-Translator: \n"
+"Language-Team: Spanish (http://www.transifex.com/geonode/geonode/language/es/)\n"
+"Language: es_419\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 2.4.3\n"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
+msgid "Explore the reports resulting from the analysis of your case study"
+msgstr "Explore los reportes resultantes del análisis de su caso de estudio"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
+msgid "In this section WaterProof provides you to understand the possible changes in soil and water resources due to the implementation of Nature-Based Solutions, becoming powerful tools to make investment decisions"
+msgstr "WaterProof le provee en esta sección reportes para entender los posibles cambios en el suelo y en los recursos hídricos por la implementación de Soluciones basadas en la Naturaleza, convirtiéndose en herramientas poderosas para tomar decisiones sobre inversión"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
+msgid "Study Case"
+msgstr "Caso de estudio"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
+msgid "City:"
+msgstr "Ciudad:"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
+msgid "Country:"
+msgstr "País:"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
+msgid "Region:"
+msgstr "Región:"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
+msgid "Time frame (years):"
+msgstr "Periodo de tiempo (años):"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
+msgid "Number of water intakes that are part of the analysis:"
+msgstr "Número de captaciones en el análisis:"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
+msgid "Number of drinking water treatment plants in the system:"
+msgstr "Número de PTAP en el análisis:"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
+msgid "Currency:"
+msgstr "Moneda:"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
+msgid "Financial summary"
+msgstr "Resumen financiero"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
+msgid "Calculated ROI:"
+msgstr "ROI calculado:"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
+msgid "ROI on nature based solutions opportunity"
+msgstr "Oportunidad de ROI en Soluciones basadas en Naturaleza"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
+msgid "Summary of risks in the basins"
+msgstr "Resumen de riesgos en la cuenca"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
+msgid "Select the basin of your interest from the drop-down list to know a summary of its risks (The risk results have been estimated using the Acueduct - WRI database)"
+msgstr "A continuación se presenta el resumen de los riesgos asociados a la captación seleccionada (Los riesgos han sido estumados usando"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
+msgid "the Acueduct - WRI database"
+msgstr "la base de datos WRI - Aqueduct"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
+msgid "Water Intake"
+msgstr "Captación"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
+msgid "Physical risk quantity qan_def"
+msgstr "Cantidad de riesgo físico"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
+msgid "Physical risk quantity measures risk related to too little or too much water by aggregating all selected indicators from the physical risk quantity category"
+msgstr "La cantidad de riesgo físico mide el riesgo relacionado con muy poca o demasiada agua agregando todos los indicadores seleccionados de la categoría de cantidad de riesgo físico"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
+msgid "Physical risk quantity qal_def"
+msgstr "Calidad de riesgo físico"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
+msgid "Physical risk quantity measures risk related to water that in unfit for use by aggregating all selected indicators from the physical risk quantity category"
+msgstr "La cantidad de riesgo físico mide el riesgo relacionado con el agua que no es apta para su uso agregando todos los indicadores seleccionados de la categoría de cantidad de riesgo físico"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
+msgid "Regulatory and reputational rrr_def"
+msgstr "Regulatorio y reputacional"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
+msgid "Risk regulatory and reputational risk measures risk related to uncertainty in regulatory chance, as well as conflich with re public regarding water issues"
+msgstr "Riesgo regulatorio y reputacional mide el riesgo relacionado con la incertidumbre en la posibilidad regulatoria, así como el conflicto con la opinión pública en relación con los problemas del agua"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
+msgid "Overall water risk score tot_def"
+msgstr "Puntaje general de riesgo de agua"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
+msgid "Overall water risk measures all water related risk, by aggregating all selected indicators from the physical risjk quantity, physical risk quality, and regulatory and reputational risk categories"
+msgstr "El riesgo general del agua mide todos los riesgos relacionados con el agua, agregando todos los indicadores seleccionados de la cantidad de riesgo físico, la calidad del riesgo físico y las categorías de riesgo regulatorio y de reputación"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
+msgid " Estimated change in ecosystem services (Business as Usual Scenario Vs Nature-based Solutions Scenario)"
+msgstr " Cambio máximo estimado en servicios ecosistémicos (BaU vs SbN)"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
+msgid "Anual water yield"
+msgstr "Rendimiento hídrico anual"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
+msgid "Seasonal water yield"
+msgstr " Flujo base"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
+msgid "Sediment delivery ratio"
+msgstr "Exportación de Sedimentos"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
+msgid "Nutrient delivery ratio - nitrogen"
+msgstr "Exportación de Nutrientes - Nitrógeno"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
+msgid "Nutrient delivery ratio - phosphorus"
+msgstr "Exportación de Nutrientes - Fósforo"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
+msgid "Carbon storage and sequestration"
+msgstr "Almacenamiento y secuestro de carbono"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
+msgid "Intervention and budget summary"
+msgstr "Resumen de intervención y presupuesto"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
+msgid "Nature based solution"
+msgstr "Solución basada en la naturaleza"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
+msgid "Actual spend (USD)"
+msgstr "Gasto real"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
+msgid "Intervention área (Hectares)"
+msgstr "Área convertida (Ha)"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
+msgid "Explore detailed results of this case study"
+msgstr "Explore los resultados detallados de este caso de estudio"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
+msgid "Financial indicators"
+msgstr "Indicadores financieros"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
+msgid "Physical indicators"
+msgstr "Indicadores físicos"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
+msgid "Decision indicators"
+msgstr "Indicadores de decisión"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/reports_menu.html
+msgid "Geographic visualization"
+msgstr "Visualización geográfica"
+
+msgid "Invest ind text 1"
+msgstr "Este informe le permite obtener una vista integrada de los resultados que pueden ser causados ​​en cada cuenca por la implementación de las SbN seleccionadas."
+
+msgid "Invest ind text 2"
+msgstr "Este  reporte  busca  que tomadores  de  decisiones  puedan  evaluar  las  compensaciones  que puede lograrse e identificar las cuencas donde la inversión en capital natural puede mejorar el desarrollo humano y la conservación. Tenga en cuenta en su evaluación:"
+
+msgid "Invest ind text 3"
+msgstr "Cambios en rendimiento hídrico anual: ¿los cambios en el paisaje afectan el rendimiento de agua promedio anual aguas? Tenga en cuenta que el modelo ayuda a establecer los cambios en los almacenamientos analizando las entradas al sistema menos las salidas de este."
+
+msgid "Invest ind text 4"
+msgstr "Cambios en el rendimiento de agua estacional: ¿los cambios en el paisaje afectan la escorrentía de la cuenca y la recarga? El valor presentado depende de la conectividad y los componentes de uso y coberturas del suelo, por lo que la recarga se ve influencia por variables como factores de vegetación y factores de conectividad."
+
+msgid "Invest ind text 5"
+msgstr "Cambios en la exportación de sedimentos: ¿Ve  modificada la  cantidad  de  sedimentos  que  se escurren  de  una  cuenca?  Cambios  importantes  tendrán  como consecuencia procesos de erosión y afectaciones en la calidad del agua."
+
+msgid "Invest ind text 6"
+msgstr "Cambios en la proporción de suministro de nutrientes (Nitrógeno y Fósforo): ¿Observa  cambios importantes  en  la  carga  de  estos  nutrientes? Con este  análisis  puede evaluar el servicio de retención de nutrientes por la vegetación natural. También le permite identificar  posibles costos  de  tratamiento  o  mejorar  la  seguridad  del  agua mediante el acceso a agua potable"
+
+msgid "Invest ind text 7"
+msgstr "Cambios en el almacenamiento y secuestro de carbono: ¿Observa cambios en el almacenamiento de carbono? el almacenamiento de carbono en una parcela de tierra(píxel) depende de cuatro reservas  de  carbono:  biomasa  aérea,  biomasa  subterránea,  suelo  y  materia  orgánica  muerta."
+
+msgid "Financial ind text 1"
+msgstr "En este reporte se organizan los datos financieros de implementación de las SbNen dos grupos: beneficios y costos. La información se presenta para los años parametrizados en el tiempo de análisis ROI definido por el usuario. "
+
+msgid "Financial ind text 2"
+msgstr "El sistema analizalos beneficios por tratamiento de turbiedad, dragado o mantenimiento en trampa de arena,   limpieza   de   reservorio   (eliminación   de   algas),   tratamiento   de   color   y   eliminación   de contaminantes orgánicos, indisponibilidad de los recursos de agua, mercado de carbono. Ello para que sea comparado por el usuario contra los costos de implementación, mantenimiento, de transacción y de plataforma."
+
+msgid "VPN ind text 1"
+msgstr "En esta sección usted puede analizar el Valor presente de neto VPN de los costos de implementación de las SbN seleccionadas. Recuerde que el VPN se refiere a los flujos de efectivo proyectados, descontados al presente. Es un método de modelado financiero utilizado para evaluar la rentabilidad de las inversiones y proyectos propuestospara determinar si conviene o no invertir en el proyecto, dada una tasa de descuento seleccionada por el usuario, que expresa el costo del capital a invertir en el proyecto."
+
+msgid "VPN ind text 2"
+msgstr "Para la tasa de descuento seleccionada, si VPN es positivo, el proyecto es rentable. Pero si el VPN es negativo, el proyecto no es rentable. "
+
+msgid "VPN ind text 3"
+msgstr "Lo invitamos a comparar varios casos de estudio para evaluar cuál de ellos le proporciona mejor VPN y por tanto el mayor rendimiento."
+
+msgid "Sensitivity ind text 1"
+msgstr "En esta sección se presenta el análisis de sensibilidad de beneficios y costos descontados utilizando las tasa de descuento mínima y máxima definidas para el análisis. La línea continua representa el resultado con la tasa de descuento nominal."
+
+msgid "Sensitivity ind text 2"
+msgstr "Compare los beneficios y costos obtenidos en caso de presentarse cambios en el entorno que afecten la tasa de descuento."
+
+msgid "Sensitivity ind text 3"
+msgstr "Observe el posible comportamiento del ROI por materialización de cambios en el entorno."
+
+msgid "Return ROI ind text 1"
+msgstr "En este reporte se organizan los datos financieros de implementación de las SbN en dos grupos: beneficios y costos. La información se presenta para los años parametrizados en el tiempo de análisis ROI definido por el usuario. El sistema analizalos beneficios por tratamiento de turbiedad, dragado o mantenimiento en trampa de arena, limpieza de reservorio (eliminación de algas), tratamiento de color y eliminación de contaminantes orgánicos, indisponibilidad de los recursos de agua, mercado de carbono. Ello para que sea comparado por el usuario contra los costos de implementación, mantenimiento, de transacción y de plataforma."
+
+msgid "Benefits and cost ind text 1"
+msgstr "En este reporte se presenta de forma sintetizada las proporciones en inversión y beneficios que se lograrán por la implementación del portafolio de SbN:"
+
+msgid "Benefits and cost ind text 2"
+msgstr "En esta gráfica puede identificar las magnitudes de los costos, con el fin de ayudar a identificar dónde se realizan mayores inversiones"
+
+msgid "Benefits and cost ind text 3"
+msgstr "Identifique la proporción de los costos por cada una de las actividades de su interés"
+
+msgid "Benefits and cost ind text 4"
+msgstr "Identifique los elementos que obtendrán mayores beneficios"
+
+msgid "Benefits and cost ind text 5"
+msgstr "Esta es una vista desagregada de los beneficios por elementos"
+
+msgid "Portfolio efficiency ind text 1"
+msgstr "En esta sección podrá observar la eficiencia del portafolio, expresada como variación física de los parámetros (en porcentaje) con relación al monto de la inversión."
+
+msgid "Oportunity results ind text 1"
+msgstr "Aquí encuentra los valores globales de inversión y de ahorros que se darán por la implementación de las SbN seleccionadas en su caso de estudio:"
+
+msgid "Aqueduct ind text 1"
+msgstr "En esta sección aprovechamos los resultados de los análisis de Aqueduct para analizar los riesgos de calidad y cantidad del agua realizando una intersección con las áreas de su caso de estudio, de forma que usted identifique áreas que requieren mayor atención"
+
+msgid "Aqueduct ind text 2"
+msgstr "Aqueduct es una plataforma que compila resultados en modelización hidrológica, datos de teledetección, y conjuntos de datos"
+
+msgid "Aqueduct ind text 3"
+msgstr "El estrés hídrico de referencia mide la proporción de agua total extracciones a suministros renovables de agua superficial y subterránea disponibles. Los valores más altos indican más competencia entre usuarios."
+
+msgid "Aqueduct ind text 4"
+msgstr "El agotamiento del agua de referencia mide el consumo de agua total de loa suministros de agua renovables disponibles. Los valores más altos indican más grande impacto en el suministro de agua local y disminución disponibilidad de agua para los usuarios aguas abajo."
+
+msgid "Aqueduct ind text 5"
+msgstr "La variabilidad interanual mide la variabilidad promedio entre años del suministro de agua disponible, incluidos ambos suministros renovables de agua superficial y subterránea. Los valores más altos indican variaciones más amplias en la oferta disponible de un año a otro."
+
+msgid "Aqueduct ind text 6"
+msgstr "La variabilidad estacional mide la variabilidad promedio dentro de un año del suministro de agua disponible, incluidos los suministros renovables de agua superficial y subterránea. Los valores más altos indican variaciones más amplias de la oferta disponible dentro de un año."
+
+msgid "Aqueduct ind text 7"
+msgstr "El declive del nivel freático mide el declive promedio del nivel freático como el cambio promedio para el período de estudio (1990-2014). El resultado se expresa en centímetros por año (cm / año). Los valores más altos indican niveles más altos de agua subterránea insostenible."
+
+msgid "Aqueduct ind text 8"
+msgstr "El riesgo de inundación fluvial mide el porcentaje de población que se espera que se vea afectada por inundaciones fluviales en un año promedio, teniendo en cuenta las normas de protección contra inundaciones existentes.Los valores más altos indican que, en promedio, se espera que una mayor proporción de la población se vea afectada por las inundaciones fluviales."
+
+msgid "Aqueduct ind text 9"
+msgstr "El agua no mejorada / sin agua potable reflejael porcentaje de la población que recolecta agua potable de un pozo o manantial excavado sin protección, o directamente de un río, presa, lago, estanque, arroyo, canal o canal de riego (OMS y UNICEF 2017). Los valores más altos indican áreasdonde las personas tienen menos acceso a suministros de agua potable."
+
+msgid "Aqueduct ind text 10"
+msgstr "Las aguas residuales conectadas no tratadas miden el porcentaje de aguas residuales domésticas que están conectadas a través de un sistema de alcantarillado y no tratadas al menos hasta un nivel de tratamiento primario. La descarga de aguas residuales sin un tratamiento adecuado podría exponer los cuerpos de agua, el público en general y los ecosistemas a contaminantes como patógenos y nutrientes. Los valores más altos indican porcentajes más altosde aguas residuales de fuentes puntuales descargadas sin tratamiento."
+
+msgid "Interventions results ind text 1"
+msgstr "En esta sección puede obtener una vista de los costos de implementación de actividades por hectárea y cuantificarla distribución de los tipos de actividades. Seleccione la captación de agua de su interés para ver detalles:"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/decisionIndicators.html:28
+msgid "En este reporte se presenta de forma sintetizada las proporciones en inversión y beneficios que se lograrán por la implementación de las SbN:"
+msgstr "En este reporte se presenta de forma sintetizada las proporciones en inversión y beneficios que se lograrán por la implementación del portafolio de SbN:"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/decisionIndicators.html:28
+msgid "Reports"
+msgstr "Reportes"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/decisionIndicators.html:83
+msgid "Incidence of benefits and cost"
+msgstr "Incidencia de beneficios y costos"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/decisionIndicators.html:84
+msgid "Portfolio Efficiency"
+msgstr "Eficiencia del portafolio"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/decisionIndicators.html:85
+msgid "Oportunity result"
+msgstr "Resultados de oportunidad"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/decisionIndicators.html:86
+msgid "Physical and risk indicator"
+msgstr "Indicadores físicos y de riesgo"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/decisionIndicators.html:86
+msgid "Result of interventions"
+msgstr "Resultados de las intervenciones"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/decisionIndicators.html:142
+msgid "Change in volume of water yield"
+msgstr "Cambio en el rendimiento hídrico anual (%)"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/decisionIndicators.html:142
+msgid "Change in base flow"
+msgstr "Cambio en el flujo base (%)"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/decisionIndicators.html:142
+msgid "Change in total sediments"
+msgstr "Cambio en los sedimentos totales (%)"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/decisionIndicators.html:142
+msgid "Change in nitrogen load"
+msgstr "Cambio en la carga de nitrógeno (%)"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/decisionIndicators.html:142
+msgid "Change in phosphorus load"
+msgstr "Cambio en la carga de fósforo (%)"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/decisionIndicators.html:142
+msgid "Change in carbon storage"
+msgstr "Cambio en el almacenamiento de carbono"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/decisionIndicators.html:142
+msgid "ROI on Green Infrastructure Water treatment Opportunity"
+msgstr "ROI en la oportunidad de tratamiento de agua con infraestructura verde"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/decisionIndicators.html:142
+msgid "Adove 1"
+msgstr "Sobre 1"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/decisionIndicators.html:142
+msgid "Total estimated investment"
+msgstr "Total beneficios descontados"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/decisionIndicators.html:142
+msgid "Total treatment cost savings"
+msgstr "Total costos descontados"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/decisionIndicators.html:142
+msgid "Total area investment size (Ha)"
+msgstr "Tamaño total del área de inversión (Ha)"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/decisionIndicators.html:206
+msgid "Size recomended intervetion as a percent to total area"
+msgstr "Tamaño de intervención recomendado como porcentaje del área total"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/decisionIndicators.html:206
+msgid "Intervetion"
+msgstr "Intervención"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/decisionIndicators.html:206
+msgid "Watershed information"
+msgstr "Información de la cuenca"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/decisionIndicators.html:206
+msgid "Total size:"
+msgstr "Tamaño total:"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/decisionIndicators.html:206
+msgid "Green infraestructure activity"
+msgstr "Actividades SbN"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/decisionIndicators.html:206
+msgid "Cost per hectare (USD)"
+msgstr "Costo por hectárea"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/decisionIndicators.html:206
+msgid "Recommended intervetion (Hectares)"
+msgstr "Intervención recomendada (Ha)"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/geographicIndicators.html:83
+#: geonode/waterproof_reports/templates/waterproof_reports/financialIndicators.html:206
+msgid "This report summarizes the proportions in investment and benefits that will be achieved by the implementation of the SbN:"
+msgstr "En este reporte se presenta de forma sintetizada las proporciones en inversión y beneficios que se lograrán por la implementación del portafolio de SbN:"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/financialIndicators.html:83
+msgid "Return of investment (ROI)"
+msgstr "Retorno de la inversión (ROI)"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/financialIndicators.html:83
+msgid "Net Present Value (NPV)"
+msgstr "Valor presente neto (VPN)"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/financialIndicators.html:83
+msgid "Sensitivity Analysis"
+msgstr "Análisis de sensibilidad"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/financialIndicators.html:83
+msgid "Benefits"
+msgstr "Beneficios"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/financialIndicators.html:83
+msgid "Cost"
+msgstr "Costo"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/geographicIndicators.html:83
+msgid "currency:"
+msgstr "Moneda:"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/geographicIndicators.html:83
+msgid "NBS Vieber"
+msgstr "Proyección temporal"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/geographicIndicators.html:99
+msgid "Business as usual"
+msgstr "Escenario de desarrollo tradicional"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/geographicIndicators.html:102
+msgid "Volume of water yield (change in time)"
+msgstr "Rendimiento anual de agua (m3)"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/geographicIndicators.html:106
+msgid "Anual volume base flow (change in time)"
+msgstr "Volumen anual de flujo base (m3)"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/geographicIndicators.html:110
+msgid "Total sediments (change in time)"
+msgstr "Carga total anual de sedimentos (Ton)"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/geographicIndicators.html:114
+msgid "Nitrogen load (change in time)"
+msgstr "Carga anual de nitrógeno (kg)"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/geographicIndicators.html:118
+msgid "Phosphorus load (change in time)"
+msgstr "Carga anual de fósforo (kg)"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/geographicIndicators.html:122
+msgid "Carbon storage (change in time)"
+msgstr "Carbono (Ton)"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/geographicIndicators.html:126
+msgid "NBS Scenario"
+msgstr "Escenario SbN"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/geographicIndicators.html:155
+msgid "NBS Scenario - AWY (m3)"
+msgstr "Escenario SbN (m3)"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/geographicIndicators.html:159
+msgid "Year"
+msgstr "Año"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/geographicIndicators.html:160
+msgid "Nitrogen"
+msgstr "Nitrógeno"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/geographicIndicators.html:160
+msgid "NBS Scenario - WN (kg)"
+msgstr "Escenaro SbN - WN (kg)"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/geographicIndicators.html:200
+msgid "NBS Scenario - WP (kg)"
+msgstr "Escenario SbN - WP (kg)"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/geographicIndicators.html:215
+msgid "NBS Scenario - BF (m3)"
+msgstr "Escenario SbN - BF (m3)"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/geographicIndicators.html:230
+msgid "NBS Scenario - WC (Ton)"
+msgstr "Escenario SbN - WC (Ton)"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/geographicIndicators.html:245
+msgid "Business as usual - AWY (m3)"
+msgstr "Escenario BaU - AWY (m3)"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/geographicIndicators.html:260
+msgid "Business as usual - Wsed (Ton)"
+msgstr "Escenario BaU - Wsed (Ton)"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/geographicIndicators.html:275
+msgid "Business as usual - WN (kg)"
+msgstr "Escenario BaU - WN (kg)"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/geographicIndicators.html:290
+msgid "Business as usual - WP (kg)"
+msgstr "Escenario BaU - WP (kg)"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/geographicIndicators.html:305
+msgid "Business as usual - BF (m3)"
+msgstr "Escenario BaU - BF (m3)"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/geographicIndicators.html:320
+msgid "Business as usual - WC (Ton)"
+msgstr "Escenario BaU - WC (Ton)"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/physicalIndicators.html:16
+msgid "Physical Indicators"
+msgstr "Indicadores físicos"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/physicalIndicators.html:25
+msgid "Physical idicators (INVEST)"
+msgstr "Indicadores físicos (InVEST)"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/physicalIndicators.html:30
+msgid "CPhysical and risk indicators"
+msgstr "Indicadores físicos y de riesgo"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/physicalIndicators.html:35
+msgid "Interventtions results"
+msgstr "Resultados de las intervenciones"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/physicalIndicators.html:44
+msgid "Water intake"
+msgstr "Captación"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/physicalIndicators.html:46
+msgid "Select an Intake"
+msgstr "Seleccione una captación"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/physicalIndicators.html:72
+msgid "Indicator"
+msgstr "Indicador"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/physicalIndicators.html:75
+msgid "Change in base flow(%)"
+msgstr "Cambio en el flujo base (%)"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/physicalIndicators.html:78
+msgid "Change in phosphorus Load (%)"
+msgstr "Cambio en la carga de fósforo (%)"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/physicalIndicators.html:78
+msgid "Change in carbon storage (%)"
+msgstr "Cambio en el almacenamiento de carbono (%)"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/physicalIndicators.html:80
+msgid "Date"
+msgstr "Fecha"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/physicalIndicators.html:80
+msgid "Name"
+msgstr "Nombre"
+
+msgid "If you want to download the results of this analysis from the following icons"
+msgstr "Descargue los resultados del análisis"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/compare-maps.html:80
+msgid "Land cover comparision"
+msgstr "Comparación de cobertura del suelo"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/compare-maps.html:80
+msgid "Physical changes"
+msgstr "Cambios físicos"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/compare-maps.html:80
+msgid "NbS portfolio"
+msgstr "Portafolio SbN"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/aqueduct
+msgid "Aqueduct text 1"
+msgstr "En esta sección aprovechamos los resultadosde los análisis de"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/aqueduct
+msgid "Aqueduct text 2"
+msgstr "para analizar los riesgos de calidad y cantidad del agua realizando una intersección con las áreas de su caso de estudio, de forma que usted identifique áreas que requieren mayor atención."
+
+#: geonode/waterproof_reports/templates/waterproof_reports/aqueduct
+msgid "Aqueduct text 3"
+msgstr "Aqueduct es una plataforma que compila resultados en modelización hidrológica, datos de teledetección, y conjuntos de datos"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/aqueduct
+msgid "Aqueduct numeral 1"
+msgstr "El estrés hídrico de referencia mide la proporción de agua total extracciones a suministros renovables de agua superficial y subterránea disponibles. Los valores más altos indican más competencia entre usuarios."
+
+#: geonode/waterproof_reports/templates/waterproof_reports/aqueduct
+msgid "Aqueduct numeral 2"
+msgstr "El agotamiento del agua de referencia mide el consumo de agua total de loa suministros de agua renovables disponibles. Los valores más altos indican más grande impacto en el suministro de agua local y disminución disponibilidad de agua para los usuarios aguas abajo."
+
+#: geonode/waterproof_reports/templates/waterproof_reports/aqueduct
+msgid "Aqueduct numeral 3"
+msgstr "La variabilidad interanual mide la variabilidad promedio entre años del suministro de agua disponible, incluidos ambos suministros renovables de agua superficial y subterránea. Los valores más altos indican variaciones más amplias en la oferta disponible de un año a otro."
+
+#: geonode/waterproof_reports/templates/waterproof_reports/aqueduct
+msgid "Aqueduct numeral 4"
+msgstr "La variabilidad estacional mide la variabilidad promedio dentro de un año del suministro de agua disponible, incluidos los suministros renovables de agua superficial y subterránea. Los valores más altos indican variaciones más amplias de la oferta disponible dentro de un año."
+
+#: geonode/waterproof_reports/templates/waterproof_reports/aqueduct
+msgid "Aqueduct numeral 5"
+msgstr "El declive del nivel freático mide el declive promedio del nivel freático como el cambio promedio para el período de estudio (1990-2014). El resultado se expresa en centímetros por año (cm / año). Los valores más altos indican niveles más altos de agua subterránea insostenible."
+
+#: geonode/waterproof_reports/templates/waterproof_reports/aqueduct
+msgid "Aqueduct numeral 6"
+msgstr "El riesgo de inundación fluvial mide el porcentaje de población que se espera que se vea afectada por inundaciones fluviales en un año promedio, teniendo en cuenta las normas de protección contra inundaciones existentes.Los valores más altos indican que, en promedio, se espera que una mayor proporción de la población se vea afectada por las inundaciones fluviales."
+
+#: geonode/waterproof_reports/templates/waterproof_reports/aqueduct
+msgid "Aqueduct numeral 7"
+msgstr "El agua no mejorada / sin agua potable refleja el porcentaje de la población que recolecta agua potable de un pozo o manantial excavado sin protección, o directamente de un río, presa, lago, estanque, arroyo, canal o canal de riego (OMS y UNICEF 2017). Los valores más altos indican áreas donde las personas tienen menos acceso a suministros de agua potable."
+
+#: geonode/waterproof_reports/templates/waterproof_reports/aqueduct
+msgid "Aqueduct numeral 8"
+msgstr "Las aguas residuales conectadas no tratadas miden el porcentaje de aguas residuales domésticas que están conectadas a través de un sistema de alcantarillado y no tratadas al menos hasta un nivel de tratamiento primario. La descarga de aguas residuales sin un tratamiento adecuado podría exponer los cuerpos de agua, el público en general y los ecosistemas a contaminantes como patógenos y nutrientes. Los valores más altos indican porcentajes más altosde aguas residuales de fuentes puntuales descargadas sin tratamiento."
+
+#: geonode/waterproof_reports/templates/waterproof_reports/interventions
+msgid "Interventions text 1"
+msgstr "En esta sección puede obtener una vista de los costos de implementaciónde actividades por hectárea y cuantificar la distribución de los tipos de actividades. Seleccione la captación de agua de su interés para ver detalles:"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/interventions
+msgid "Temporal changes text 1"
+msgstr "In this section you can..."
+
+#: geonode/waterproof_reports/templates/waterproof_reports/interventions
+msgid "Temporal changes text 2"
+msgstr "In this section you can..."
+
+#: geonode/waterproof_reports/templates/waterproof_reports/compare_maps
+msgid "This report summarizes the Maps Reports... Lorep Ipsum ..."
+msgstr "Este informe permite observar los resultados del análisis especializado en un mapa"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/compare_maps
+msgid "Map Reports"
+msgstr "Geographic visualization"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/compare_maps
+msgid "LULC_text_1"
+msgstr "Compare el cambio en la cobertura de uso del suelo sobre la cuenca de análisis al implementar las SbN."
+
+#: geonode/waterproof_reports/templates/waterproof_reports/compare_maps
+msgid "LULC_text_2"
+msgstr "Arrastre el cursor sobre el mapa en el área de su interés para analizar el escenario actual, el futuro degradado y el futuro intervenido de su caso de estudio."
+
+#: geonode/waterproof_reports/templates/waterproof_reports/compare_maps
+msgid "InVEST text 1"
+msgstr "El siguiente mapa representa el comportamiento de los servicios ecosistémicos para la cuenca seleccionada al implementar el portafolio de soluciones basadas en naturaleza."
+
+#: geonode/waterproof_reports/templates/waterproof_reports/compare_maps
+msgid "InVEST text 2"
+msgstr "Interactúe con el listado de capas para visualizar el resultado de su interés."
+
+#: geonode/waterproof_reports/templates/waterproof_reports/compare_maps
+msgid "RIOS text 1"
+msgstr "En este mapa se visualiza la ubicación espacial del portafolio de implementación sugerida por el modelo RIOS, cada color de pixel representa cada una de las SbN configuradas para el análisis."
+
+#: geonode/waterproof_reports/templates/waterproof_reports/reports_menu
+msgid "discount rate"
+msgstr "tasa de descuento"
+
+#: geonode/waterproof_reports/templates/waterproof_reports/geographicIndicators
+msgid "LULC_text_3"
+msgstr "Usos y Coberturas de la Tierra - Escenario Soluciones Basadas en Naturaleza."
+
+#: geonode/waterproof_reports/templates/waterproof_reports/geographicIndicators
+msgid "LULC_text_4"
+msgstr "Usos y Coberturas de la Tierra - Escenario Futuro Tradicional."
+
+#: geonode/waterproof_reports/templates/waterproof_reports/geographicIndicators
+msgid "LULC_text_5"
+msgstr "Usos y Coberturas de la Tierra - Escenario Actual."
+
+#: geonode/waterproof_reports/templates/waterproof_reports/physicalIndicators
+msgid "This report summarizes the Phisical Indicators"
+msgstr "Este conjunto de reportes sintetiza el cambio de los parámetros físicos que experimentan las cuencas de estudio al implementar una Solución basada en Naturaleza como parte del análisis."
+
+#: geonode/waterproof_reports/templates/waterproof_reports/physicalIndicators
+msgid "text-step4-ph"
+msgstr "Esta sección presenta el comportamiento de los servicios ecosistémicos para el periodo de análisis. Usted podrá visualizar cómo se comportan estas variables en los escenarios de desarrollo tradicional - BaU versus el escenario de implementación de soluciones basadas en la naturaleza - SbN a través del tiempo."
+
+#: geonode/waterproof_reports/templates/waterproof_reports/physicalIndicators
+msgid "text-step4-ph-2"
+msgstr "Seleccione la cuenca para la cuál desea ver el gráfico comparativo de los diferentes servicios."
+
+#: geonode/waterproof_reports/templates/waterproof_reports/physicalIndicators
+msgid "discount rate:"
+msgstr "Tasa de descuento (%):"
+
+msgid "Total Benefits"
+msgstr "Beneficio total"
+
+msgid "Aqueduct indicator"
+msgstr "Indicadores Aqueduct"
+
+msgid "Physical risk quantity"
+msgstr "Riesgo físico de cantidad"
+
+msgid "Regulatory and reputational"
+msgstr "Regulatorio y reputacional"
+
+msgid "Physical risk quality"
+msgstr "Riesgo físico de calidad"
+
+msgid "description graph physical indicators"
+msgstr "La gráfica de barras muestra el resultado del último año de análisis."
+
+msgid "Costs per Activity"
+msgstr "Costos por actividad"
+
+msgid "Total Costs"
+msgstr "Costos totales"
+
+msgid "Intake Benefits"
+msgstr "Beneficios captación"
+
+msgid "DWTP Benefits"
+msgstr "Beneficios PTAP"
+
+msgid "Water stress"
+msgstr "Indicador de Estrés Hídrico de Referencia"
+
+msgid "CARBON"
+msgstr "Carbono"
+
+msgid "INTAKE"
+msgstr "Captación"
+
+msgid "carbon"
+msgstr "Carbono"
+
+msgid "intake"
+msgstr "Captación"
+
+msgid "Future 10 years"
+msgstr "Futuro 10 años"

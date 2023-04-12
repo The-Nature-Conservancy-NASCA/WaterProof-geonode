@@ -1,0 +1,357 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Translators:
+# Translators:
+# Translators:
+# Translators:
+# Translators:
+# Translators:
+# Translators:
+# Translators:
+# Translators:
+# Translators:
+# Translators:
+# Translators:
+# Translators:
+# Translators:
+# Translators:
+# Translators:
+# Andres Alfonso Lemon Gomez <lemon.andres@gmail.com>, 2014
+# Juan Lautaro Silva Ortiz <jlautarosilva@gmail.com>, 2015
+# Sergio Luis Arnal <sergioarnal@gmail.com>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: GeoNode\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-08-23 23:16-0500\n"
+"PO-Revision-Date: 2022-05-26 11:02-0500\n"
+"Last-Translator: Julien Collaer <julien.collaer@opengeode.be>\n"
+"Language-Team: Spanish (http://www.transifex.com/geonode/geonode/language/es/)\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 2.4.3\n"
+
+#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:85
+msgid "PTAP Input"
+msgstr "Entrada PTAP"
+
+#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:89
+msgid "MEZCLARAPIDA"
+msgstr "Mezcla Rápida"
+
+#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:93
+msgid "MEZCLALENTA"
+msgstr "Mezcla Lenta"
+
+#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:97
+msgid "SEDIMENTACION"
+msgstr "Sedimentación"
+
+#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:101
+msgid "FILTRACION"
+msgstr "Filtración"
+
+#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:105
+msgid "FILTRACIONPORMEMBRANANIVEL1"
+msgstr "Filtración por Membrana Nivel 1"
+
+#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:109
+msgid "FILTRACIONPORMEMBRANANIVEL2"
+msgstr "Filtración por Membrana Nivel 2"
+
+#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:113
+msgid "FILTRACIONPORMEMBRANANIVEL3"
+msgstr "Filtración por Membrana Nivel 3"
+
+#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:117
+msgid "FILTRACIONPORMEMBRANANIVEL4"
+msgstr "Filtración por Membrana Nivel 4"
+
+#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:121
+msgid "INTERCAMBIOIONICO"
+msgstr "Intercambio Iónico"
+
+#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:125
+msgid "DESINFECCION"
+msgstr "Desinfección"
+
+#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:129
+msgid "DOSIFICACION"
+msgstr "Dosificación"
+
+#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:133
+msgid "TRATAMIENTODELODOS"
+msgstr "Tratamiento de Lodos"
+
+#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:148
+msgid "Add new cost"
+msgstr "Adicionar Nueva"
+
+#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:149
+msgid "Edit cost"
+msgstr "Editar Función"
+
+#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:205
+#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:373
+msgid "Error calculating the suggested plant"
+msgstr "La captación seleccionada no puede ser usada para crear una PTAP, por favor verifique la información"
+
+#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:275
+msgid "Error calculating the treatment plant"
+msgstr "Crear calculando la planta de tratamientos"
+
+#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:285
+msgid "It does not have a record in the type of treatment plant"
+msgstr "No tiene un registro en el tipo de planta de tratamiento"
+
+#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:307
+msgid "You cannot add the water source"
+msgstr "No puede adicionar la fuente de agua"
+
+#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:394
+msgid "Create"
+msgstr "Crear"
+
+#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:394
+#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:398
+#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:459
+#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:519
+msgid "Treatment Plant"
+msgstr "Planta de Tratamiento"
+
+#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:398
+msgid "Clone"
+msgstr "Clonar"
+
+#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:403
+msgid "Cloned"
+msgstr "Clonada"
+
+#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:459
+msgid "Update"
+msgstr "Actualizar"
+
+#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:519
+msgid "View"
+msgstr "Ver"
+
+#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:734
+msgid "Enter name technology"
+msgstr "Ingresar nombre de tecnología"
+
+#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:740
+#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:908
+msgid "Transported Water"
+msgstr "Agua Transportada"
+
+#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:747
+#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:911
+msgid "Sediments Retained"
+msgstr "Sedimentos retenidos"
+
+#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:748
+#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:916
+msgid "Enter sediments retained"
+msgstr "Ingresar sedimentos retenidos"
+
+#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:756
+#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:918
+msgid "Nitrogen Retained"
+msgstr "Nitrógeno retenido"
+
+#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:757
+#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:923
+msgid "Enter nitrogen retained"
+msgstr "Ingresar nitrógeno retenidos"
+
+#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:763
+msgid "Phosphorus Retained"
+msgstr "Fósforo retenido"
+
+#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:764
+#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:930
+msgid "Enter phosphorus retained"
+msgstr "Ingresar fósforo retenido"
+
+#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:773
+#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:932
+msgid "Activate"
+msgstr "Activar"
+
+#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:774
+#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:932
+msgid "Function name"
+msgstr "Nombre función"
+
+#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:775
+#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:932
+msgid "Function"
+msgstr "Función"
+
+#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:776
+#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:932
+msgid "Currency"
+msgstr "Moneda"
+
+#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:777
+#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:932
+msgid "Factor"
+msgstr "Factor"
+
+#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:778
+#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:932
+msgid "Options"
+msgstr "Opciones"
+
+#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:784
+#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:936
+msgid "Add function"
+msgstr "Adicionar función"
+
+#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:1123
+msgid "Search City..."
+msgstr "Buscar ciudad..."
+
+#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:1255
+msgid "You won't be able to revert this!"
+msgstr "No podrá revertir esto!"
+
+#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:1260
+msgid "Yes, delete it!"
+msgstr "Si, eliminar!"
+
+#: static/waterproof_treatment_plants/js/waterproof_list_treatment_plants.js:1277
+msgid "Error deleting the treatment plant, it must already be used in a case study"
+msgstr "Problemas eliminando la planta, puede estar siendo usada en algún caso de uso"
+
+msgid "The intake has not been deleted, try again!"
+msgstr "La PTAP no ha sido eliminada, intente nuevamente"
+
+msgid "Edit Cost function"
+msgstr "Editar función de costo"
+
+msgid "New Cost function"
+msgstr "Nueva función de costo"
+
+msgid "Technology"
+msgstr "Tecnología"
+
+msgid "Process"
+msgstr "Proceso"
+
+msgid "Subprocess"
+msgstr "Subproceso"
+
+msgid "Coagulant"
+msgstr "Coagulante"
+
+msgid "Liquid Aluminum Sulfate"
+msgstr "Sulfato de Aluminio Líquido"
+
+msgid "Granulated Aluminum Sulfate"
+msgstr "Sulfato de Aluminio Granulado"
+
+msgid "Ferric chloride"
+msgstr "Sulfato ferrico"
+
+msgid "Add new technology"
+msgstr "Adicionar nueva tecnología"
+
+msgid "Saving Plant"
+msgstr "Guardando Planta"
+
+msgid "This treatment plant is in use by some study cases and can't be deleted."
+msgstr "Esta planta de tratamiento está siendo usada por algunos casos de uso y no puede ser eliminada."
+
+msgid "Hydraulic mixing"
+msgstr "Mezcla hidráulica"
+
+msgid "Polymer"
+msgstr "Polímero"
+
+msgid "Single bed slow filtration"
+msgstr "Filtro lento de cama simple"
+
+msgid "Rapid single bed filtration"
+msgstr "Filtro rápido de cama simple"
+
+msgid "Rapid mixed bed filtration"
+msgstr "Filtro rápido de cama mezclada"
+
+msgid "Hydraulic flocculation"
+msgstr "Floculación hidráulica"
+
+msgid "Mechanical flocculation"
+msgstr "Floculación mecánica"
+
+msgid "Inverse osmosis"
+msgstr "Ósmosis inversa"
+
+msgid "Nanofiltration"
+msgstr "Nanofiltración"
+
+msgid "Mechanical mix"
+msgstr "Mezcla mecánica"
+
+msgid "Mantenimiento edificaciones"
+msgstr "Mantenimiento edificaciones"
+
+msgid "Intercambio iónico"
+msgstr "Intercambio iónico"
+
+msgid "Sludge pumping"
+msgstr "Bomba de lodo"
+
+msgid "Sludge thickener"
+msgstr "Espesante de lodo"
+
+msgid "Drying beds"
+msgstr "Camas de secado"
+
+msgid "Sludge drying"
+msgstr "Secado de lodos"
+
+msgid "Filter press"
+msgstr "Filtro de presión"
+
+msgid "Conventional settler"
+msgstr "Settler Convencional "
+
+msgid "High Rate Settler"
+msgstr "Settler de alta velocidad"
+
+msgid "Sludge blanket decanter"
+msgstr "Manta de lodo"
+
+msgid "Chlorine gas"
+msgstr "Gas clorhídrico"
+
+msgid "Chlorine in situ"
+msgstr "Clorhídrico en sitio"
+
+msgid "Ultrafiltration"
+msgstr "Ultrafiltración"
+
+msgid "Microfiltration"
+msgstr "Microfiltración"
+
+msgid "Annual operation and maintenance costs"
+msgstr "Costos de operación y mantenimiento anuales"
+
+msgid "Annual operation and maintenance costs - Polymer"
+msgstr "Costos de operación y mantenimiento anuales - Polímero"
+
+msgid "Water-air washing"
+msgstr "Lavado de agua-aire"
+
+msgid "Pump washing"
+msgstr "Lavado de bombas"
+
+msgid "field_empty"
+msgstr "Campo vacío"

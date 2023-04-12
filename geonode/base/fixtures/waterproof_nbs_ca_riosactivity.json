@@ -1,0 +1,162 @@
+[{
+        "model": "waterproof_nbs_ca.riosactivity",
+        "pk": 1,
+        "fields": {
+            "transition": 1,
+            "name": "Forest",
+            "description": "Forest"
+        }
+    }, {
+        "model": "waterproof_nbs_ca.riosactivity",
+        "pk": 2,
+        "fields": {
+            "transition": 1,
+            "name": "Grassland",
+            "description": "Grassland"
+        }
+    }, {
+        "model": "waterproof_nbs_ca.riosactivity",
+        "pk": 3,
+        "fields": {
+            "transition": 1,
+            "name": "Shrublands",
+            "description": "Shrubland"
+        }
+    }, {
+        "model": "waterproof_nbs_ca.riosactivity",
+        "pk": 4,
+        "fields": {
+            "transition": 1,
+            "name": "Sparse vegetation",
+            "description": "Sparse vegetation"
+        }
+    }, {
+        "model": "waterproof_nbs_ca.riosactivity",
+        "pk": 5,
+        "fields": {
+            "transition": 2,
+            "name": "Agriculture",
+            "description": "Agriculture"
+        }
+    }, {
+        "model": "waterproof_nbs_ca.riosactivity",
+        "pk": 6,
+        "fields": {
+            "transition": 2,
+            "name": "Grassland",
+            "description": "Grassland"
+        }
+    }, {
+        "model": "waterproof_nbs_ca.riosactivity",
+        "pk": 7,
+        "fields": {
+            "transition": 2,
+            "name": "Shrublands",
+            "description": "Shrubland"
+        }
+    }, {
+        "model": "waterproof_nbs_ca.riosactivity",
+        "pk": 8,
+        "fields": {
+            "transition": 2,
+            "name": "Sparse vegetation",
+            "description": "Sparse vegetation"
+        }
+    }, {
+        "model": "waterproof_nbs_ca.riosactivity",
+        "pk": 9,
+        "fields": {
+            "transition": 2,
+            "name": "Bare area",
+            "description": "Bare area"
+        }
+    }, {
+        "model": "waterproof_nbs_ca.riosactivity",
+        "pk": 10,
+        "fields": {
+            "transition": 3,
+            "name": "Agriculture",
+            "description": "Agriculture"
+        }
+    }, {
+        "model": "waterproof_nbs_ca.riosactivity",
+        "pk": 11,
+        "fields": {
+            "transition": 3,
+            "name": "Grassland",
+            "description": "Grassland"
+        }
+    }, {
+        "model": "waterproof_nbs_ca.riosactivity",
+        "pk": 12,
+        "fields": {
+            "transition": 3,
+            "name": "Shrublands",
+            "description": "Shrubland"
+        }
+    }, {
+        "model": "waterproof_nbs_ca.riosactivity",
+        "pk": 13,
+        "fields": {
+            "transition": 3,
+            "name": "Sparse vegetation",
+            "description": "Sparse vegetation"
+        }
+    }, {
+        "model": "waterproof_nbs_ca.riosactivity",
+        "pk": 14,
+        "fields": {
+            "transition": 3,
+            "name": "Bare area",
+            "description": "Bare area"
+        }
+    }, {
+        "model": "waterproof_nbs_ca.riosactivity",
+        "pk": 16,
+        "fields": {
+            "transition": 4,
+            "name": "Agriculture",
+            "description": "Agriculture"
+        }
+    }, {
+        "model": "waterproof_nbs_ca.riosactivity",
+        "pk": 17,
+        "fields": {
+            "transition": 5,
+            "name": "Agriculture",
+            "description": "Agriculture"
+        }
+    }, {
+        "model": "waterproof_nbs_ca.riosactivity",
+        "pk": 18,
+        "fields": {
+            "transition": 5,
+            "name": "Bare Area",
+            "description": "Bare Area"
+        }
+    }, {
+        "model": "waterproof_nbs_ca.riosactivity",
+        "pk": 19,
+        "fields": {
+            "transition": 7,
+            "name": "Grassland",
+            "description": "Grassland"
+        }
+    }, {
+        "model": "waterproof_nbs_ca.riosactivity",
+        "pk": 20,
+        "fields": {
+            "transition": 6,
+            "name": "Agriculture",
+            "description": "Agriculture"
+        }
+    }, {
+        "model": "waterproof_nbs_ca.riosactivity",
+        "pk": 21,
+        "fields": {
+            "transition": 6,
+            "name": "Grassland",
+            "description": "Grassland"
+        }
+    }
+]

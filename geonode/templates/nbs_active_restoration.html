@@ -1,0 +1,65 @@
+{% extends "geonode_base.html" %}
+{% load static from staticfiles %}
+
+{% load i18n %}
+{% block title %} {% trans "Active restoration" %} — {{ block.super }} {% endblock %}
+
+{% block body_outer %}
+
+<section>
+	<div class="imgheaderpag">          
+		<img src= "{% static 'geonode/img/2-IMAGEN.jpg' %}">
+	</div>
+</section>
+<section>
+	<div class="page-header colorHeaderInstrucciones">
+		<h2>{% trans "Nature-based Solutions (NbS)" %}</h2>
+	</div>
+	<p class="text-justify">
+		{% trans "Nature-based Solutions (NbS) are ‘actions to protect, sustainably manage, and restore natural or modified ecosystems, that address societal challenges, effectively and adaptively, simultaneously providing human well-being and biodiversity benefits’ (IUCN).The concept of NbS arose out of an increasing recognition of the fundamental role ecosystems play in addressing some of society’s biggest challenges, including enhancing water security, reducing risk of natural disasters, avoiding degradation of natural ecosystems, and mitigating or adapting to the impacts of climate change." %}
+	<br><br>
+		{% trans "NbS can be categorized by both their intervention type and their habitat. There are four major intervention categories: protection, restoration, management and creation. These intervention types can be carried out across a range of habitats, including forests, grasslands, wetlands, agricultural landscapes and cities" %}
+	</p>	
+	<div class="newstitle">
+		<span><b>{% trans "Active Restoration" %}</b></span> 
+	</div>
+	<section>	
+		<div class="row" style="height:500px;">
+				<div class="col-md-4 text-center">
+					<img src= "{% static 'geonode/img/take_action_info.png' %}" style="max-inline-size: -webkit-fill-available;">
+				</div>
+				<div class="col-md-7 col-md-offset-1">
+					<div class= "row alignetextright">
+						<p class="text-justify">
+						{% trans "This type of restoration seeks to increase diversity by plantingnew species, whose individuals have been obtained from the collection of seeds and propagules, their sowing in the nursery and subsequent planting in the reserve. In other words, it implies that, with human intervention, the ecosystem is helped to overcome factors that prevent regeneration and guarantee the development of recovery processes." %}
+						</p>
+						<p class="text-justify">
+						{% trans "It is used when the ecosystem has low resilience or is too altered and therefore cannot recover on its own. Tree planting is a specific activity that is common in some watershed areas that maybe related to the planting of native trees in degraded forests, grasslands, or degraded agricultural lands. Planting native vegetation refers to the planting of any other type of vegetation including grasses, herbaceous plants, shrubs, wetland plants or riparian vegetation, and may include activities to maintain vegetation such as irrigation, weeding, thinning, replanting and invasive speciescontrol. Some types of silvopastoral practices can be included such as planting trees in pastures, fencing or other ways to keep livestock out of riparian areas or other natural vegetation." %}
+						</p>
+						<p class="text-justify">
+							{% trans "Active restoration promotes the return of an ecosystem'sconditions to a trajectory similar to the one it had before deterioration, which requiressufficient knowledge about the most important cycles and processes of the ecosystem, about the pressures that originated the alteration; their nature and their causes, severity, spatial scale of the impacts and their possibilities of recurrence and frequency" %}
+						</p>
+						<p class="text-justify">
+							{% trans "Among the activities carried outare the following:" %}
+						</p>
+						<ul>
+						<li> {% trans "Revegetation with native plants." %} </li>
+						<li> {% trans "Control or elimination of stressors or disturbances." %} </li>
+						<li> {% trans "Isolation or enclosure of the area by means of fencing with posts and wire and live fences." %} </li>
+						<li> {% trans "Water management" %} </li>
+						<li> {% trans "Soilmanagement and conservation" %} </li>
+						<li> {% trans "Reshaping of the topography or geoforms, such as terracing to prevent erosion" %} </li>
+						<li> {% trans "Establishment of biomantos or other coverage" %} </li>
+						<li> {% trans "Maintenance of the planted material " %} </li>
+						<li> {% trans "Adaptive management in case of deviation from the desired successional trajectory or the presence of biological invasions or disturbances. " %} </li>
+						<li> {% trans "Evaluation and monitoring of the restoration and its activities " %} </li>
+						</ul>
+					</div>
+				</div>
+		</div>
+		<div class="row" style="height:30px;">
+		</div>
+	</section>	
+</section>
+
+{% endblock %}

@@ -1,0 +1,836 @@
+{% extends "menu.html" %} 
+{% load i18n %} 
+{% block title %}{% trans "Reports" %}{% endblock %}
+{% load i18n %} 
+{% load static from staticfiles %} 
+{% load bootstrap_tags %}
+<h1>{% trans "Reports" %}</h1>
+
+{% block extra_head %}
+<link rel="stylesheet" href="{{ STATIC_URL }}lib/css/leaflet.css"/>
+<link rel="stylesheet" href="{% static "geonode/css/leaflet/leaflet.defaultextent.css" %}"/>
+<link rel="stylesheet" href="{{ STATIC_URL }}geonode/css/leaflet/Control.Coordinates.css"/>
+<link rel="stylesheet" href="https://photon.komoot.io/static/leaflet.photon/leaflet.photon.css"/>
+<link rel="stylesheet" href="{{ STATIC_URL }}waterproof_reports/css/reports.css" /></link>
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_nbs_ca/css/dataTables.bootstrap.min.css"/>
+<link href="{% static "geonode/css/sidenav.css" %}" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}waterproof_nbs_ca/css/waterproof_nbs_ca.css"/>
+
+<script>
+    var intakePolygons = [];
+    var printBtn;
+    var map;
+    var bounds;
+</script>
+{% endblock %} 
+
+{% block body_outer %}
+
+<body>
+    <div class="report-container">
+        <div class="title-report">{% trans "Explore the reports resulting from the analysis of your case study" %}</div>
+        <div class="help-report">{% trans "In this section WaterProof provides you to understand the possible changes in soil and water resources due to the implementation of Nature-Based Solutions, becoming powerful tools to make investment decisions" %}</div>
+        <div>
+            <div id="mapidcuenca" class="map-cuenca"></div>    
+        </div>
+        <div class="conainer-report-main">
+            <div class="border-table-title">
+                <div class="title-table" id="idNameStadyCase">{% trans "Study Case" %}</div>
+                <div class="detail-table">
+                    <div class="column-left-table">
+                        <div class="file-column-left">
+                            <div>{% trans "City:" %}</div>
+                            <div class="value-file-column-left" id="idCityMain">{% trans "-" %}</div>
+                        </div>
+                        <div class="file-column-left">
+                            <div>{% trans "Country:" %}</div>
+                            <div class="value-file-column-left" id="idCountryMain">{% trans "-" %}</div>
+                        </div>
+                        <div class="file-column-left">
+                            <div>{% trans "Region:" %}</div>
+                            <div class="value-file-column-left" id="idRegionMain">{% trans "-" %}</div>
+                        </div>
+                        <div class="file-column-left">
+                            <div>{% trans "Time frame (years):" %}</div>
+                            <div class="value-file-column-left" id="idTimeMain">{% trans "-" %}</div>
+                        </div>
+                    </div>
+                    <div class="column-right-table">
+                        <div class="file-column-left">
+                            <div class="title-file-column-right">{% trans "Number of water intakes that are part of the analysis:" %}</div>
+                            <div class="value-file-column-left" id="idNumberOfWater"></div>
+                        </div>
+                        <div class="file-column-left">
+                            <div class="title-file-column-right">{% trans "Number of drinking water treatment plants in the system:" %}</div>
+                            <div class="value-file-column-left" id="idNumberOfDrinking"></div>
+                        </div>
+                        <div class="file-column-left">
+                            <div class="title-file-column-right">{% trans "Currency:" %}</div>
+                            <div class="value-file-column-left" id="idCurrencyMain">{% trans "-" %}</div>
+                        </div>
+                        <div class="file-column-left">
+                            <div class="title-file-column-right">{% trans "discount rate:" %}</div>
+                            <div class="value-file-column-left" id="discountRate">{% trans "-" %}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="title-report" class="font-title">{% trans "Financial summary" %}</div>
+        <div class="col-md-12">
+            <div class="col-md-1"></div>
+            <div class="content-image-graph col-md-3">
+                <div>
+                    <div class="name-roi">{% trans "Calculated ROI:" %} <div class="value-roi" id="idRoi"></div></div>
+                
+                    <img src="/static/geonode/img/valor-bruto.png" alt="value" class="img-roi" />
+                    <div class="bootom-roi">
+                        <div>{% trans "ROI on nature based solutions opportunity" %}</div>
+                        <div class="buttom-roi-menu" id="idBtnRoi">Adove 1</div>
+                    </div>
+                </div>
+            </div>
+            <div class="graph-position col-md-7">
+                <div id="containerNpv"></div>
+            </div>
+        </div>
+        <div class="container-aqueduct">
+            <div class="align-div">
+                <h5>{% trans "Water Intake" %} : 
+                <select class="select-condition" id="idSelectStudyCase"></select>
+            </h5>
+            </div>
+            <div class="title-report font-title">{% trans "Summary of risks in the basins" %}
+                <a href="https://www.wri.org/aqueduct" target="_blank">
+                    <img class="imgaqueduct" src="/static/geonode/img/aqueduct-logo.png" alt="aqueduct-logo">
+                </a>
+            </div>
+            <div class="help-report border-report">{% trans "Select the basin of your interest from the drop-down list to know a summary of its risks (The risk results have been estimated using the Acueduct - WRI database)" %} <a href="https://www.wri.org/aqueduct" target="_blank"> {% trans "the Acueduct - WRI database" %})</a></div>
+            
+            <div class="margin-risk col-md-12">
+                <div class="marc-report col-md-3">
+                    <div class="risk-list">
+                        <img src="/static/geonode/img/picture-one.jpg" alt="picture one">
+                    </div>
+                    <div class="title-marc">{% trans "Physical risk quantity qan_def" %}</div>
+                    <div class="detail-border-marc">{% trans "Physical risk quantity measures risk related to too little or too much water by aggregating all selected indicators from the physical risk quantity category" %}</div>
+                    <div class="button-marc" id="idButtonPrq"></div>
+                </div>
+                <div class="marc-report col-md-3">
+                    <div class="risk-list">
+                        <img src="/static/geonode/img/picture-two.jpg" alt="picture two">
+                    </div>
+                    <div class="title-marc">{% trans "Physical risk quantity qal_def" %}</div>
+                    <div class="detail-border-marc">{% trans "Physical risk quantity measures risk related to water that in unfit for use by aggregating all selected indicators from the physical risk quantity category" %}</div>
+                    <div class="button-marc" id="idButtonPrqa"></div>
+                </div>
+                <div class="marc-report col-md-3">
+                    <div class="risk-list">
+                        <img src="/static/geonode/img/picture-three.jpg" alt="picture three">
+                    </div>
+                    <div class="title-marc">{% trans "Regulatory and reputational rrr_def" %}</div>
+                    <div class="detail-border-marc">{% trans "Risk regulatory and reputational risk measures risk related to uncertainty in regulatory chance, as well as conflich with re public regarding water issues" %}</div>
+                    <div class="button-marc" id="idButtonRar"></div>
+                </div>
+                <div class="marc-report col-md-3">
+                    <div class="risk-list">
+                        <img src="/static/geonode/img/picture-four.jpg" alt="picture four">
+                    </div>
+                    <div class="title-marc">{% trans "Overall water risk score tot_def" %}</div>
+                    <div class="detail-border-marc">{% trans "Overall water risk measures all water related risk, by aggregating all selected indicators from the physical risjk quantity, physical risk quality, and regulatory and reputational risk categories" %}</div>
+                    <div class="button-marc" id="idButtonOwr"></div>
+                </div>
+            </div>
+    
+            <div class="title-report font-title">{% trans "Intervention and budget summary" %}</div>
+    
+    
+            <div class="table-responsive padding-report-menu">
+                <table class="table table-striped table-bordered table-condensed" style="width:98%; text-align: center;">
+                    <thead class="tableStyleColor">
+                        <tr>
+                            <th class="align-text">{% trans "Nature based solution" %}</th>
+                            <th class="align-text">{% trans "Actual spend (USD)" %}</th>
+                            <th class="align-text">{% trans "Intervention área (Hectares)" %}</th>
+                        </tr>
+                    </thead>
+                    <tbody id="listFielTable"></tbody>
+                </table>            
+            </div>
+        </div>
+
+        <div class="estimated-change">
+            <div class="title-report font-title">{% trans " Estimated change in ecosystem services (Business as Usual Scenario Vs Nature-based Solutions Scenario)" %}</div>
+            <div class="estimated-change-list">
+                <div class="line-marc-table-icons">
+                    <div><h8>{% trans "Anual water yield" %}</h8></div>
+                    <div><img src="/static/geonode/img/dashboard-01.png" alt="dashboard-01" class="icon-dashboard"></div>
+                    <div class="line-number-marc-table" id="changeInVolumeOfWater"></div>
+                </div>
+                <div class="line-marc-table-icons">
+                    <div>{% trans "Seasonal water yield" %}</div>
+                    <div><img src="/static/geonode/img/dashboard-02.png" alt="dashboard-02" class="icon-dashboard"></div>
+                    <div class="line-number-marc-table" id="changeInBaseFlow"></div>
+                </div>
+                <div class="line-marc-table-icons">
+                    <div>{% trans "Sediment delivery ratio" %}</div>
+                    <div><img src="/static/geonode/img/dashboard-03.png" alt="dashboard-03" class="icon-dashboard"></div>
+                    <div class="line-number-marc-table" id="changeIntotalSediments"></div>
+                </div>
+                <div class="line-marc-table-icons">
+                    <div>{% trans "Nutrient delivery ratio - nitrogen" %}</div>
+                    <div><img src="/static/geonode/img/dashboard-04.png" alt="dashboard-04" class="icon-dashboard"></div>
+                    <div class="line-number-marc-table" id="changeInNitrogenLoad"></div>
+                </div>
+                <div class="line-marc-table-icons">
+                    <div>{% trans "Nutrient delivery ratio - phosphorus" %}</div>
+                    <div><img src="/static/geonode/img/dashboard-05.png" alt="dashboard-05" class="icon-dashboard"></div>
+                    <div class="line-number-marc-table" id="changeInPhosphorus"></div>
+                </div>
+                <div class="line-marc-table-icons">
+                    <div>{% trans "Carbon storage and sequestration" %}</div>
+                    <div><img src="/static/geonode/img/dashboard-06.png" alt="dashboard-06" class="icon-dashboard"></div>
+                    <div class="line-number-marc-table" id="changeInCarbonStorage"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="page-header padding-report-menu">
+            <br>
+            <h5 textColor="red" class="explore-results-title">{% trans "Explore detailed results of this case study" %}</h5>
+        </div>
+
+        <div class="align-text col-md-12 div-padding">
+            <div class="list-menu-results" id="idFinancialIndicators">
+                <a href="../../reports/financial/"><img src="/static/geonode/img/Indicadores-financieros.png" alt="financial indicators" title="{% trans "Financial indicators" %}"/></a> 
+                <br> 
+                <a href="../../reports/financial/">{% trans "Financial indicators" %}</a>
+            </div>
+            <div class="list-menu-results">
+                <a href="../../reports/physical/{{idx}}"><img src="/static/geonode/img/indicadores-fisicos.png" alt="physical indicators" title="{% trans "Physical indicators" %}"/></a>
+                <br>
+                <!--a>{% trans "Physical indicators" %}</a-->
+                <a href="../../reports/physical/{{idx}}">{% trans "Physical indicators" %}</a>
+            </div>
+            <div class="list-menu-results" id="idDecisionIndicators">
+                <a href="../../reports/decision/"><img src="/static/geonode/img/indicadores-decision.png" alt="decision indicators" title="{% trans "Decision indicators" %}"/></a>
+                <br>
+                <a href="../../reports/decision/">{% trans "Decision indicators" %}</a>
+            </div>
+            <div class="list-menu-results" id="idGeographicIndicators">
+                <a id="idGeographicIndicatorsClicImg" href=""><img src="/static/geonode/img/indicadores-geograficos.png" alt="geographic indicators" title="{% trans "Geographic visualization" %}"/></a>
+                <br>
+                <a id="idGeographicIndicatorsClicDesc" href="">{% trans "Geographic visualization" %}</a>
+                <!-- ../../reports/geographic/-->
+            </div>
+        </div>
+        <div style="display: block;">
+            <h5 textColor="red" class="download-title padding-report-menu">{% trans "If you want to download the results of this analysis from the following icons" %}</h5>
+        </div>
+        <div class="report-download" style="display: block;">
+            <div class="col-md-5"></div>
+            <div class="col-md-1 report-download-pdf" onclick="generatePDF()">
+                <img src="/static/geonode/img/documents.png" alt="documents"/>
+                <br>
+                PDF
+            </div>
+            <div class="col-md-1 report-download-zip" onclick="downloadZip()">
+                <img src="/static/geonode/img/descarga.png" alt="download"/>
+                <br>
+                ZIP
+            </div>
+        </div>
+    </div>
+    <div>
+        <img id="resultado" alt="result" style="display: none;"> <!-- style="visibility:hidden" -->
+    </div>        
+    <form id="TheForm" method="post" action="../../reports/pdf/" target="TheWindow">
+        {% csrf_token %}
+        <input type="hidden" name="studyCase" id="studyCase"/>
+        <input type="hidden" name="studyCity" id="studyCity"/>
+        <input type="hidden" name="studyCountry" id="studyCountry"/>
+        <input type="hidden" name="studyRegion" id="studyRegion"/>
+        <input type="hidden" name="discountRateData" id="discountRateData"/>
+        <input type="hidden" name="mapSendImage" id="mapSendImage"/>
+    </form>
+</body>
+
+{% block body %}{% endblock body %} {% block sidebar %}{% endblock sidebar %} {% endblock body_outer %} {% block extra_script %}
+<script>
+    var userCountryId = '{{userCountry.id}}';
+    var userCountryCode = '{{userCountry.code}}';
+    var userCountryName = '{{userCountry.name}}';
+    var intakeList = '{{intakeList}}';
+    var lang = '{{LANGUAGE_CODE}}';    
+    OSM_BASEMAP_URL = '{{ OSM_BASEMAP_URL }} ';
+    IMG_BASEMAP_URL = '{{ IMG_BASEMAP_URL }} ';
+    HYDRO_BASEMAP_URL = '{{ HYDRO_BASEMAP_URL }} ';
+
+    if("{{study_case.id}}" === ""){
+        document.getElementById('idFinancialIndicators').style.background = "#ffffff";
+        document.getElementById('idFinancialIndicators').style.opacity = "0.4";
+        document.getElementById('idDecisionIndicators').style.background = "#ffffff";
+        document.getElementById('idDecisionIndicators').style.opacity = "0.4";
+        document.getElementById('idGeographicIndicators').style.background = "#ffffff";
+        document.getElementById('idGeographicIndicators').style.opacity = "0.4";
+    } else {
+        localStorage.idStudyCase = "{{study_case.id}}";
+    }
+    $("#idCountryMain").html(localStorage.getItem('country'));
+    $("#idCityMain").html(localStorage.getItem('city'));
+    $("#idRegionMain").html(localStorage.getItem('region'));
+</script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/highcharts-more.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+<script src="https://code.highcharts.com/modules/solid-gauge.js"></script>
+<script type="text/javascript" src="{% url 'javascript-catalog-intake' %}"></script>
+<script type="text/javascript" src="{% url 'javascript-catalog-treatment' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script src="{{ STATIC_URL }}geonode/js/datatables/dataTables.bootstrap.min.js"></script>
+<script src="{% static "lib/js/leaflet.js" %}"></script>
+<script src="{% static "geonode/js/leaflet/leaflet.defaultextent.js" %}"></script>
+<script src="{{ STATIC_URL }}geonode/js/leaflet/leaflet-omnivore.min.js "></script>
+<script src="{{ STATIC_URL }}geonode/js/waterproof/dom-to-image.min.js"></script>
+
+<script type="text/javascript">
+
+    $(function () {
+
+        var MAXZOOM = 12;
+        var TILELAYER = 'http://{s}.tile.osm.org/{z}/{x}/{y}.png';
+        var CENTER = [4.582, -74.4879];        
+        var lyrsPolygons = [];     
+        var searchPoints = L.geoJson(null, {
+            onEachFeature: function(feature, layer) {
+                layer.bindPopup(feature.properties.name);
+            }
+        });
+        var dataTotalBenefitsIntake = [];
+        var dataTotalBenefitsIntakeOne = [];
+        var waterIntakeGraph = [];
+        var analisysBenefics = [];
+
+        generatePDF = function() {      
+            
+            document.getElementById('studyCase').value = localStorage.idStudyCase;
+            document.getElementById('studyCity').value = localStorage.getItem('city');
+            document.getElementById('studyCountry').value = localStorage.getItem('country');
+            document.getElementById('studyRegion').value = localStorage.getItem('region');
+            document.getElementById('discountRateData').value = document.getElementById("discountRate").innerHTML;
+            leafletMap2ImgAndExport('mapidcuenca','resultado');            
+        }
+      
+        downloadZip = function(){
+            window.location.href = "{{filterzip.link}}";
+        }
+        
+        changeReport = function() {
+            location.href = "../../study_cases/report/" + localStorage.idStudyCase;
+        }
+        
+        /**
+        * Draw the polygons on the map when selecting the city 
+        * @param {String} city that is registered in the search space    
+        * @returns 
+        */
+        drawPolygons = function(citySearch) {
+            lyrsPolygons.forEach(lyr => map.removeLayer(lyr));
+            lyrsPolygons = [];
+            
+            intakePolygons.forEach((feature) => {
+                if (feature.polygon !== 'None' && feature.polygon != '') {
+                    let poly = feature.polygon;
+                    if (poly.indexOf("SRID") >= 0) {
+                        poly = poly.split(";")[1];
+                    }
+                    var lyrPoly = omnivore.wkt.parse(poly).addTo(map);
+                    lyrsPolygons.push(lyrPoly);
+                    if (bounds == undefined) {
+                        bounds = lyrPoly.getBounds();
+                    } else {
+                        bounds = bounds.extend(lyrPoly.getBounds());
+                    }
+                }
+            });
+            if (bounds != undefined) {
+                map.fitBounds(bounds);
+                return true;                
+            }else{
+                return false;
+            }
+        };
+
+        leafletMap2ImgAndExport = function (mapId, imgId) {
+            console.log("leafletMap2ImgAndExport");
+            var mapElement = document.getElementById(mapId);
+            $(".leaflet-control").hide();
+            rect = mapElement.getBoundingClientRect();
+            let maxWith4Print = 780;
+            let marginExport = 30;            
+            if (rect.width > maxWith4Print){
+                document.getElementById(mapId).style.setProperty("width", maxWith4Print + "px", "important");
+                document.getElementById(mapId).style.setProperty("height", "400px", "important");
+            }
+            var optsDom2Img = {                
+                width: maxWith4Print + marginExport,
+                height: rect.height + marginExport
+            };
+            setTimeout(function(){ 
+                map.invalidateSize();
+            }, 400);
+            map.fitBounds(bounds);
+
+            setTimeout(function(){ 
+                domtoimage.toPng(mapElement,optsDom2Img).then(function (dataUrl) {
+                    $('#'+ imgId).attr('src', dataUrl);
+                    $(".leaflet-control").show();
+                    document.getElementById("mapSendImage").value = dataUrl;
+                    document.getElementById(mapId).style.setProperty("width", "");
+                    document.getElementById(mapId).style.setProperty("height", "");
+                    setTimeout(function(){ 
+                        map.invalidateSize()
+                    }, 400);
+                    map.fitBounds(bounds);
+                    setTimeout(function(){
+                        window.open('', 'TheWindow');
+                        document.getElementById('TheForm').submit();
+                    }, 1000);
+                }).catch(function (error) {
+                    console.error('oops, something went wrong!', error);
+                    $(".leaflet-control").show();
+                });
+            }, 400);
+           
+        };
+
+        initMapDecision = function () {
+            map = L.map('mapidcuenca', {
+                scrollWheelZoom: false,
+                zoomControl: false,                
+            });
+
+            let initialCoords = CENTER;
+            var cityCoords = localStorage.getItem('cityCoords');
+            var city = localStorage.getItem('city');
+            var initialZoom = 5;
+            var cityNameMap = localStorage.getItem('city').substr(0, 5);
+
+            if (cityCoords == undefined) {
+                cityCoords = initialCoords;
+            } else {
+                initialCoords = JSON.parse(cityCoords);
+                if (!drawPolygons(city)){
+                    initialZoom = 9;
+                    map.setView(initialCoords, initialZoom);            
+                }                
+                try {
+                    $("#countryLabel").html(localStorage.getItem('country'));
+                    $("#cityLabel").html(localStorage.getItem('city'));
+                    $("#regionLabel").html(localStorage.getItem('region'));
+                    $("#currencyLabel").html(localStorage.getItem('currency'));
+                    $("#listIntakes").show();
+                } catch (e) {
+                    console.log(e);
+                }
+            }
+                            
+            searchPoints.addTo(map);
+            let attrib = 'Data \u00a9 <a href="http://www.openstreetmap.org/copyright"> OpenStreetMap Contributors </a> Tiles \u00a9 Komoot';
+            var tilelayer = L.tileLayer(OSM_BASEMAP_URL, { maxZoom: MAXZOOM, attribution: attrib }).addTo(map);
+            var images = L.tileLayer(IMG_BASEMAP_URL);
+            var hydroLyr = L.tileLayer(HYDRO_BASEMAP_URL);
+
+            var baseLayers = {
+                OpenStreetMap: tilelayer,
+                Images: images,
+            };
+
+            var overlays = {
+                "Hydro (esri)": hydroLyr,
+            };
+
+            var defExt = new L.Control.DefaultExtent({ title: gettext('Default extent'), position: 'topright'}).addTo(map);
+            var zoomControl = new L.Control.Zoom({ position: 'topright' }).addTo(map);
+            L.control.layers(baseLayers, overlays, { position: 'topleft' }).addTo(map);
+            //printBtn =  L.control.bigImage().addTo(map);
+        }
+
+        changeGraphRoiCost = function() {
+            let lblRoI = gettext('Return of investment');
+            let lblTotalCost = gettext('Total cost');
+            let lblTotalDiscountBenefit = gettext('Total discount benefit');
+            Highcharts.chart('containerRoi', {
+                    chart: {
+                        type: 'column'
+                    },
+                    title: {
+                        text: lblRoI
+                    },
+                    colors: ['#fe7700', '#ffc400', '#426ac7', '#a5a5a5'],
+                    xAxis: {
+                        categories: [1,2,3]
+                    },
+                    credits: {
+                        enabled: false
+                    },
+                    series: [{
+                        name: lblTotalCost,
+                        data: [1,2,3]
+                    },{
+                        name: lblTotalDiscountBenefit,
+                        type: 'spline',
+                        dashStyle: 'shortdot',
+                        data: [1,2,3]
+                    }]
+                });
+        };
+
+        displayList = function(nameObject, nameTitle) {
+            if(document.getElementById(nameObject).style.display === "none") {
+                document.getElementById(nameObject).style.display = "block";
+                document.getElementById(nameTitle).style.borderWidth = "2px";
+            } else {
+                document.getElementById(nameObject).style.display = "none";
+                document.getElementById(nameTitle).style.borderWidth = "0px";
+                changeGraphRoiCost();
+            }
+        };
+
+        changePie = function (selectName) {
+            let lblIntakeBenefit = gettext('Intake benefit');
+            dataTotalBenefitsIntakeOne = [];
+            dataTotalBenefitsIntake.forEach((featureIntake) => {
+                if(featureIntake.type ===  selectName) {
+                    dataTotalBenefitsIntakeOne.push({
+                        name: featureIntake.name,
+                        y: featureIntake.y
+                    })
+                }
+            });
+
+            Highcharts.chart('containerAbi', {
+                chart: {
+                    plotBackgroundColor: null,
+                    plotBorderWidth: null,
+                    plotShadow: false,
+                    type: 'pie'
+                },
+                title: {
+                    text: lblIntakeBenefit
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        dataLabels: {
+                            enabled: false
+                        },
+                        showInLegend: true
+                    }
+                },
+                credits: {
+                    enabled: false
+                },
+                series: [{
+                    name: lblIntakeBenefit,
+                    colorByPoint: true,
+                    data: dataTotalBenefitsIntakeOne
+                }]
+            });
+        };
+
+        initialize = function () {
+            var dataNetPresentValueSummary = [];
+            var urlDetail = "../../reports/getNetPresentValueSummary/?studyCase=" + localStorage.idStudyCase;
+            var typeMoney = "";
+            $.getJSON(urlDetail, function (data) {
+                $.each( data, function( key, value ) {
+                    typeMoney = value.currencyr;
+                    dataNetPresentValueSummary.push(parseFloat(value.implementationr));
+                    dataNetPresentValueSummary.push(parseFloat(value.maintenancer));
+                    dataNetPresentValueSummary.push(parseFloat(value.oportunityr));
+                    dataNetPresentValueSummary.push(parseFloat(value.transactionr));
+                    dataNetPresentValueSummary.push(parseFloat(value.platformr));
+                    dataNetPresentValueSummary.push(parseFloat(value.benefitr));
+                    dataNetPresentValueSummary.push(parseFloat(value.totalr));
+                });
+
+                let lblImplementation = gettext('Implementation');
+                let lblMaintenance = gettext('Maintenance');
+                let lblOpportunity = gettext('Opportunity');
+                let lblTransaction = gettext('Transaction');
+                let lblPlatform = gettext('Platform');
+                let lblBenefit = gettext('Benefit');
+                let lblNetPresentValue = gettext('Net Present Value');
+                let categories = [lblImplementation, lblMaintenance, lblOpportunity, lblTransaction, lblPlatform, lblBenefit, 'Total'];
+
+                Highcharts.chart('containerNpv', {
+                    chart: {
+                        type: 'column'
+                    },
+                    title: {
+                        text: lblNetPresentValue
+                    },
+                    colors: ['#008BAB'],
+                    xAxis: {
+                        categories: categories
+                    },
+                    credits: {
+                        enabled: false
+                    },
+                    series: [{
+                        name: 'NPV (' + typeMoney + ')',
+                        data: dataNetPresentValueSummary
+                    }]
+                });
+            });
+            var urlDetail = "../../reports/getReportAnalisysBenefics/?studyCase=" + localStorage.idStudyCase;
+            $.getJSON(urlDetail, function (data) {
+                $.each( data, function( key, value ) {
+                    var objectButton;
+                    if(value.nameIndicator.toUpperCase() === "PHYSICAL RISK QUANTITY") {
+                        objectButton = document.getElementById("idButtonPrq");
+                    } else if(value.nameIndicator.toUpperCase() === "PHYSICAL RISK ASSOCIATED WITH AMOUNT OF WATER") {
+                        objectButton = document.getElementById("idButtonPrqa");
+                    } else if(value.nameIndicator.toUpperCase() === "REGULATORY AND REPUTATIONAL") {
+                        objectButton = document.getElementById("idButtonRar");
+                    } else if(value.nameIndicator.toUpperCase() === "OVERALL WATER RISK SCORE") {
+                        objectButton = document.getElementById("idButtonOwr");
+                    }
+
+                    if(value.color === "Dark Green") {
+                        objectButton.style.backgroundColor = "#155816";
+                    } else if(value.color === "Orange") {
+                        objectButton.style.backgroundColor = "#EC670A";
+                    } else {
+                        objectButton.style.backgroundColor = "#af0900";
+                    }
+                    objectButton.innerHTML = value.description;
+
+                });
+            });
+
+            var urlDetail = "../../reports/getReportAnalisysBeneficsB/?studyCase=" + localStorage.idStudyCase;
+            $.getJSON(urlDetail, function (data) {
+                $.each( data, function( key, value ) {
+                    document.getElementById("changeInVolumeOfWater").innerHTML = (Intl.NumberFormat('es').format(value.changeInVolumeOfWater.toFixed(2))+"%");
+                    document.getElementById("changeInBaseFlow").innerHTML = (Intl.NumberFormat('es').format(value.changeInBaseFlow.toFixed(2))+"%");
+                    document.getElementById("changeIntotalSediments").innerHTML = (Intl.NumberFormat('es').format(value.changeIntotalSediments.toFixed(2))+"%");
+                    document.getElementById("changeInNitrogenLoad").innerHTML = (Intl.NumberFormat('es').format(value.changeInNitrogenLoad.toFixed(2))+"%");
+                    document.getElementById("changeInPhosphorus").innerHTML = (Intl.NumberFormat('es').format(value.changeInPhosphorus.toFixed(2))+"%");
+                    document.getElementById("changeInCarbonStorage").innerHTML = (Intl.NumberFormat('es').format(value.changeInCarbonStorage.toFixed(2))+"%");
+                    document.getElementById("idCurrencyMain").innerHTML = value.currency;
+                    document.getElementById("idTimeMain").innerHTML = value.time;
+                    document.getElementById("idRoi").innerHTML = (Intl.NumberFormat('es').format(value.roi.toFixed(2)));
+                    document.getElementById("discountRate").innerHTML = (value.transactionCost);
+
+                    var nameButtom = value.result.split("::");
+                    if(nameButtom[1] === "Dark Green") {
+                        document.getElementById("idBtnRoi").style.backgroundColor = "#155816";
+                    } else if(nameButtom[1] === "Light Green") {
+                        document.getElementById("idBtnRoi").style.backgroundColor = "#35b137";
+                    } else {
+                        document.getElementById("idBtnRoi").style.backgroundColor = "#af0900";
+                    }
+                    document.getElementById("idBtnRoi").innerHTML = nameButtom[0];
+                    localStorage.idCurrencyMain = value.currency;
+                    localStorage.idTimeMain = value.time;
+                    localStorage.transactionCost = value.transactionCost;
+                });
+            });
+
+            var urlDetail = "../../reports/getReportAnalisysBeneficsC/?studyCase=" + localStorage.idStudyCase;
+            $.getJSON(urlDetail, function (data) {
+                var listFielTable = "";
+                $.each( data, function( key, value ) {
+                    valueCol2 = value.costPerHectarea.toFixed(2);
+                    valuaCol3 = value.recomendedIntervetion.toFixed(2)
+                    listFielTable = listFielTable + `
+                        <tr>
+                            <td class="border-table align-text-table"><span>` + value.sbnf + `</span></td>
+                            <td class="border-table align-text-table-right"><span>` + Intl.NumberFormat('es').format(valueCol2) + `</span></td>
+                            <td class="border-table align-text-table-right"><span>` + Intl.NumberFormat('es').format(valuaCol3) + `</span></td>
+                        </tr> 
+                    `
+                });
+                document.getElementById("listFielTable").innerHTML = listFielTable;
+            });
+
+            var urlDetail = "../../reports/getSelectorStudyCasesId/?studyCase=" + localStorage.idStudyCase;
+            $.getJSON(urlDetail, function (data) {
+                var listFielTable = "";
+                var contLastSelector = true;
+                $.each( data, function( key, value ) {
+                    var option = document.createElement("option");
+                    var firstIntake = value.intakeId;
+                    option.text = value.selector;
+                    option.value = value.intakeId;
+                    document.getElementById("idSelectStudyCase").add(option);
+                    document.getElementById("idNameStadyCase").innerHTML = value.studyCasesName;
+                    localStorage.studyCasesName = value.studyCasesName;
+                    if (contLastSelector) {
+                        contLastSelector = false;
+                        var urlDetail = "../../reports/getReportAnalisysBenefics/?studyCase=" + localStorage.idStudyCase;
+                        $.getJSON(urlDetail, function (data) {
+                            waterIntakeGraph = data;
+                            $.each( data, function( key, value ) {
+                                if(value.intakeId === firstIntake){
+                                    var objectButton;
+                                    if(value.nameIndicator.toUpperCase() === "PHYSICAL RISK QUANTITY") {
+                                        objectButton = document.getElementById("idButtonPrq");
+                                    } else if(value.nameIndicator.toUpperCase() === "PHYSICAL RISK ASSOCIATED WITH AMOUNT OF WATER") {
+                                        objectButton = document.getElementById("idButtonPrqa");
+                                    } else if(value.nameIndicator.toUpperCase() === "REGULATORY AND REPUTATIONAL") {
+                                        objectButton = document.getElementById("idButtonRar");
+                                    } else if(value.nameIndicator.toUpperCase() === "OVERALL WATER RISK SCORE") {
+                                        objectButton = document.getElementById("idButtonOwr");
+                                    }
+
+                                    if(value.color === "Dark Green") {
+                                        objectButton.style.backgroundColor = "#155816";
+                                    } else if(value.color === "Orange") {
+                                        objectButton.style.backgroundColor = "#EC670A";
+                                    } else {
+                                        objectButton.style.backgroundColor = "#af0900";
+                                    }
+                                    objectButton.innerHTML = value.description;
+                                }
+                            });
+                        });
+
+                        var urlDetail = "../../reports/getReportAnalisysBeneficsC/?studyCase=" + localStorage.idStudyCase;
+                        $.getJSON(urlDetail, function (data) {
+                            analisysBenefics = data;
+                            var listFielTable = "";
+                            $.each( data, function( key, value ) {
+                                if(parseInt(value.intakeId) === parseInt(firstIntake)){
+                                    valueCol2 = value.costPerHectarea.toFixed(2);
+                                    valuaCol3 = value.recomendedIntervetion.toFixed(2)
+                                    listFielTable = listFielTable + `
+                                        <tr>
+                                            <td class="border-table"><span>` + value.sbnf + `</span></td>
+                                            <td class="border-table"><span>` + Intl.NumberFormat('es').format(valueCol2) + `</span></td>
+                                            <td class="border-table"><span>` + Intl.NumberFormat('es').format(valuaCol3) + `</span></td>
+                                        </tr> 
+                                    `
+                                }
+                            });
+                            document.getElementById("listFielTable").innerHTML = listFielTable;
+                        });
+                    }
+                });
+            });
+
+            var urlDetail = "../../reports/getStudyCasesIntake/?studyCase=" + localStorage.idStudyCase;
+            $.getJSON(urlDetail, function (data) {
+                var listFielTable = "";
+                $.each( data, function( key, value ) {
+                    document.getElementById("idNumberOfWater").innerHTML = value.numberStudyCase;
+                    document.getElementById("idNumberOfDrinking").innerHTML = value.numberStudyCase;
+                    localStorage.idNumberOfWater = value.numberStudyCase;
+                    localStorage.idNumberOfDrinking = value.numberStudyCase;
+                });
+            });
+
+            document.getElementById("idSelectStudyCase").onchange = function() {
+                document.getElementById("idButtonPrq").innerHTML = "---";
+                document.getElementById("idButtonPrqa").innerHTML = "---";
+                document.getElementById("idButtonRar").innerHTML = "---";
+                document.getElementById("idButtonOwr").innerHTML = "---";
+
+                $.each( waterIntakeGraph, function( key, value ) {
+                    if(parseInt(value.intakeId) === parseInt(document.getElementById("idSelectStudyCase").value)){
+                        var objectButton;
+                        if(value.nameIndicator.toUpperCase() === "PHYSICAL RISK QUANTITY") {
+                            objectButton = document.getElementById("idButtonPrq");
+                        } else if(value.nameIndicator.toUpperCase() === "PHYSICAL RISK ASSOCIATED WITH AMOUNT OF WATER") {
+                            objectButton = document.getElementById("idButtonPrqa");
+                        } else if(value.nameIndicator.toUpperCase() === "REGULATORY AND REPUTATIONAL") {
+                            objectButton = document.getElementById("idButtonRar");
+                        } else if(value.nameIndicator.toUpperCase() === "OVERALL WATER RISK SCORE") {
+                            objectButton = document.getElementById("idButtonOwr");
+                        }
+
+                        if(value.color === "Dark Green") {
+                            objectButton.style.backgroundColor = "#155816";
+                        } else if(value.color === "Orange") {
+                            objectButton.style.backgroundColor = "#EC670A";
+                        } else {
+                            objectButton.style.backgroundColor = "#af0900";
+                        }
+                        objectButton.innerHTML = value.description;
+                    }
+                });
+
+                var listFielTable = "";
+                $.each( analisysBenefics, function( key, value ) {
+                    if(parseInt(value.intakeId) === parseInt(document.getElementById("idSelectStudyCase").value)){
+                        valueCol2 = value.costPerHectarea.toFixed(2);
+                        valuaCol3 = value.recomendedIntervetion.toFixed(2)
+                        listFielTable = listFielTable + `
+                            <tr>
+                                <td class="border-table"><span>` + value.sbnf + `</span></td>
+                                <td class="border-table"><span>` + Intl.NumberFormat('es').format(valueCol2) + `</span></td>
+                                <td class="border-table"><span>` + Intl.NumberFormat('es').format(valuaCol3) + `</span></td>
+                            </tr> 
+                        `
+                    }
+                });
+                document.getElementById("listFielTable").innerHTML = listFielTable;
+            }
+            var urlDetail = "../../reports/getReportOportunityResultMaps/?studyCase=" + localStorage.idStudyCase;
+            $.getJSON(urlDetail, function (data) {
+                $.each( data, function( key, value ) {
+                    var jsonPolygon = JSON.parse(value.polygon);
+                    var stringPolygon = "";
+                    jsonPolygon.features.forEach((featureCoord) => {
+                        featureCoord.geometry.coordinates.forEach((featureCoordList) => {
+                            var contList = 0;
+                            featureCoordList.forEach((featureCoordListPoint) => {
+                                contList++;
+                                if(contList === featureCoordList.length) {
+                                    stringPolygon = stringPolygon + featureCoordListPoint[0] + " " + featureCoordListPoint[1];
+                                } else {
+                                    stringPolygon = stringPolygon + featureCoordListPoint[0] + " " + featureCoordListPoint[1] + ",";
+                                }
+                            });
+                            });
+                        });
+                        intakePolygons.push({polygon: "POLYGON ((" + stringPolygon + "))"});
+                    });
+
+                    setTimeout(function(){
+                        initMapDecision();
+                    }, 1000);
+            });
+
+            // A.R. Agrega evento llamado mapas geográficos
+            //server = 'https://dev.skaphe.com/srv/'; //'/srv/';
+            var urlDetail = "../../reports/getWpcompareMapas/?studyCase=" + localStorage.idStudyCase;
+            $.getJSON(urlDetail, function (data) {
+                    $.each( data, function( key, value ) {
+                        usr_folder = value.folder;
+                        intake = value.intake;
+                        year = value.year;
+                        region=value.region;
+                        studyCaseId=value.studycase;
+                        nameIntake=value.nameIntake;
+                        let g = JSON.parse(value.center).coordinates;
+                        let centroid =g[1] + "," + g[0];
+                        centroX = centroid;
+                    });
+                    var urlWaterProofLyrsWMS = "/reports/geographic/?folder="+usr_folder+"&intake="+intake+"&year="+year+"&region="+region+"&center="+centroX+"&study_case_id="+studyCaseId+"&name="+nameIntake;
+                    // var urlWaterProofLyrsWMS = `/reports/geographic/?folder=${usr_folder}&intake=${intake}&year=${year}&region=${region}&center=${centroX}&study_case_id=${studyCaseId}&name=${nameIntake}`;
+                    console.log (urlWaterProofLyrsWMS);
+                    document.getElementById('idGeographicIndicatorsClicImg').setAttribute('href', urlWaterProofLyrsWMS);
+                    document.getElementById('idGeographicIndicatorsClicDesc').setAttribute('href', urlWaterProofLyrsWMS);
+                    
+                }) 
+        }
+        initialize();
+    });    
+</script>
+{% endblock %}

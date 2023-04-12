@@ -1,0 +1,632 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Translators:
+# Translators:
+# Translators:
+# Translators:
+# Translators:
+# Translators:
+# Translators:
+# Translators:
+# Translators:
+# Translators:
+# Translators:
+# Translators:
+# Translators:
+# Translators:
+# Translators:
+# Translators:
+# Andres Alfonso Lemon Gomez <lemon.andres@gmail.com>, 2014
+# Juan Lautaro Silva Ortiz <jlautarosilva@gmail.com>, 2015
+# Sergio Luis Arnal <sergioarnal@gmail.com>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: GeoNode\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-11-28 18:12+0000\n"
+"PO-Revision-Date: 2021-11-27 10:38-0500\n"
+"Last-Translator: Julien Collaer <julien.collaer@opengeode.be>\n"
+"Language-Team: Spanish (http://www.transifex.com/geonode/geonode/language/es/)\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 2.4.3\n"
+
+#: geonode/monitoring/static/monitoring/bundle.js:170
+msgid "STORE_UPDATED"
+msgstr ""
+
+#: geonode/static/geonode/js/upload/FileType.js:50
+#, javascript-format
+msgid "Missing a %s file, which is required"
+msgstr "Falta un archivo %s, el cual es requerido"
+
+#: geonode/static/geonode/js/upload/FileTypes.js:7
+msgid "ESRI Shapefile"
+msgstr "ESRI Shapefile"
+
+#: geonode/static/geonode/js/upload/FileTypes.js:13
+msgid "ASCII Text File"
+msgstr "Archivo de texto ASCII"
+
+#: geonode/static/geonode/js/upload/FileTypes.js:18 geonode/static/geonode/js/upload/FileTypes.js:23
+msgid "GeoTIFF"
+msgstr "GeoTIFF"
+
+#: geonode/static/geonode/js/upload/FileTypes.js:29
+msgid "Comma Separated Value"
+msgstr "Valor Separado por Comas"
+
+#: geonode/static/geonode/js/upload/FileTypes.js:34
+msgid "Google Earth KML"
+msgstr "Google Earth KML"
+
+#: geonode/static/geonode/js/upload/FileTypes.js:39
+msgid "Google Earth KML with a GroundOverlay"
+msgstr "Google Earth KML con GroundOverlay"
+
+#: geonode/static/geonode/js/upload/FileTypes.js:45
+msgid "Google Earth KMZ"
+msgstr "Google Earth KMZ"
+
+#: geonode/static/geonode/js/upload/FileTypes.js:50
+msgid "GeoJSON"
+msgstr "GeoJSON"
+
+#: geonode/static/geonode/js/upload/FileTypes.js:55
+msgid "Zip Archive"
+msgstr "Archivo Zip"
+
+#: geonode/static/geonode/js/upload/FileTypes.js:61
+msgid "ERDAS Imagine"
+msgstr "ERDAS Imagine"
+
+#: geonode/static/geonode/js/upload/FileTypes.js:66 geonode/static/geonode/js/upload/FileTypes.js:71
+msgid "National Imagery Transmission Format"
+msgstr "Formato Nacional de Transmisión de Imágenes"
+
+#: geonode/static/geonode/js/upload/FileTypes.js:77
+msgid "Controlled Image Base-1 Meter"
+msgstr ""
+
+#: geonode/static/geonode/js/upload/FileTypes.js:84
+msgid "Controlled Image Base-5 Meter"
+msgstr ""
+
+#: geonode/static/geonode/js/upload/FileTypes.js:91
+msgid "Controlled Image Base-10 Meter"
+msgstr ""
+
+#: geonode/static/geonode/js/upload/FileTypes.js:98
+msgid "CADRG-Global Navigation Chart"
+msgstr ""
+
+#: geonode/static/geonode/js/upload/FileTypes.js:105
+msgid "CADRG-Jet Navigation Chart"
+msgstr ""
+
+#: geonode/static/geonode/js/upload/FileTypes.js:112
+msgid "CADRG-Operational Navigation Chart"
+msgstr ""
+
+#: geonode/static/geonode/js/upload/FileTypes.js:119
+msgid "CADRG-Tactical Pilotage Chart"
+msgstr ""
+
+#: geonode/static/geonode/js/upload/FileTypes.js:126
+msgid "CADRG-Joint Operations Graphic"
+msgstr ""
+
+#: geonode/static/geonode/js/upload/FileTypes.js:133
+msgid "CADRG-Topographic Line Map 100K"
+msgstr ""
+
+#: geonode/static/geonode/js/upload/FileTypes.js:140
+msgid "CADRG-Topographic Line Map 50K"
+msgstr ""
+
+#: geonode/static/geonode/js/upload/FileTypes.js:147
+msgid "JPEG2000"
+msgstr ""
+
+#: geonode/static/geonode/js/upload/FileTypes.js:152
+msgid "MrSID-Multi-resolution Seamless Image Database"
+msgstr ""
+
+#: geonode/static/geonode/js/upload/FileTypes.js:157
+msgid "XML Metadata File"
+msgstr "Archivo de metadatos XML"
+
+#: geonode/static/geonode/js/upload/FileTypes.js:163
+msgid "Style Layer Descriptor"
+msgstr "Descriptor de Capa de Estilo SLD"
+
+#: geonode/static/geonode/js/upload/FileTypes.js:169
+msgid "JPEG"
+msgstr ""
+
+#: geonode/static/geonode/js/upload/FileTypes.js:174
+msgid "PNG"
+msgstr ""
+
+#: geonode/static/geonode/js/upload/FileTypes.js:179
+msgid "GIF"
+msgstr "GIF"
+
+#: geonode/static/geonode/js/upload/LayerInfo.js:296
+#, fuzzy
+#| msgid "Unexpected Error"
+msgid "Unexpected error!"
+msgstr "Error Inesperado"
+
+#: geonode/static/geonode/js/upload/LayerInfo.js:299
+msgid " - 400 Bad Request. Server cannot or will not process the request due to something that is perceived to be a client error (e.g., malformed request syntax, invalid request message framing, or deceptive request routing)."
+msgstr ""
+
+#: geonode/static/geonode/js/upload/LayerInfo.js:302
+msgid " - 401 Unauthorized. Request was not sent with the proper authentication credentials."
+msgstr ""
+
+#: geonode/static/geonode/js/upload/LayerInfo.js:305
+msgid " - 403 Forbidden. This is generally related to permission rules on your server. Contact the system administrator for more information regarding this error message."
+msgstr ""
+
+#: geonode/static/geonode/js/upload/LayerInfo.js:308
+msgid " - 404 Not Found. Origin server was unable or unwilling to find the resource requested."
+msgstr ""
+
+#: geonode/static/geonode/js/upload/LayerInfo.js:311
+msgid " - 405 Method Not Allowed. Origin server is aware of the requested resource, but the request method used is not supported."
+msgstr ""
+
+#: geonode/static/geonode/js/upload/LayerInfo.js:314
+msgid " - 406 Not Acceptable. Resource is not available at the origin that adheres to negotiation headers that were  set prior (e.g. via 'Accept-Charset' and 'Accept-Language' headers)."
+msgstr ""
+
+#: geonode/static/geonode/js/upload/LayerInfo.js:317
+msgid " - 407 Authentication Required. The client did not send the required authentication with the request."
+msgstr ""
+
+#: geonode/static/geonode/js/upload/LayerInfo.js:320
+msgid " - 408 Request Timeout. The origin server did not receive the complete request in what it considers a reasonable time."
+msgstr ""
+
+#: geonode/static/geonode/js/upload/LayerInfo.js:323
+msgid " - 409 Conflict. The request did not complete because of a conflict with the current state of the resource. Typically happens on a PUT request where multiple clients are attempting to edit the same resource."
+msgstr ""
+
+#: geonode/static/geonode/js/upload/LayerInfo.js:326
+msgid " - 410 Gone. The resource requested is permanently missing at the origin."
+msgstr ""
+
+#: geonode/static/geonode/js/upload/LayerInfo.js:329
+msgid " - 411 Length Required. Client did not define the 'Content-Length' of the request body in the headers and this is required to obtain the resource."
+msgstr ""
+
+#: geonode/static/geonode/js/upload/LayerInfo.js:332
+msgid " - 412 Precondition Failed. Server denies the request because the resource failed to meet the conditions specified by the client."
+msgstr ""
+
+#: geonode/static/geonode/js/upload/LayerInfo.js:335
+msgid " - 413 Payload Too Large. Refusal from the server to process the request because the payload sent from the client is larger than the server wished to accept. Server has the optional to close the connection."
+msgstr ""
+
+#: geonode/static/geonode/js/upload/LayerInfo.js:338
+msgid " - 414 URI Too Long. Refusal from the server that the URI was too long to be processed. For example, if a client is attempting a GET request with an unusually long URI after a POST, this could be seen as a security risk and a 414 gets generated."
+msgstr ""
+
+#: geonode/static/geonode/js/upload/LayerInfo.js:341
+msgid " - 415 Unsupported Media Type. Refusal from the server to process the format of the current payload. One way to identify and fix this issue would be to look at the 'Content-Type' or 'Content-Encoding' headers sent in the client’s request."
+msgstr ""
+
+#: geonode/static/geonode/js/upload/LayerInfo.js:344
+msgid " - 417 Expectation Failed. Failure of server to meet the requirements specified in the 'Expect' header of the client’s request."
+msgstr ""
+
+#: geonode/static/geonode/js/upload/LayerInfo.js:347
+msgid " - 429 Too Many Requests. Client has sent too many requests in the specified amount of time according to the server."
+msgstr ""
+
+#: geonode/static/geonode/js/upload/LayerInfo.js:350
+msgid " - 499 Client Close Request. Nginx specific response code to indicate when the connection has been closed by the client while the server is still processing its request, making server unable to send a status code back."
+msgstr ""
+
+#: geonode/static/geonode/js/upload/LayerInfo.js:353
+msgid " - 500 Internal Server Error. This error indicates that the server has encountered an unexpected condition. This often occurs when an application request cannot be fulfilled due to the application being configured incorrectly on the server."
+msgstr ""
+
+#: geonode/static/geonode/js/upload/LayerInfo.js:356
+msgid " - 501 Not Implemented. This error indicates that the HTTP method sent by the client is not supported by the server. This is most often caused by the server being out of date. It is a very rare error and generally requires that the web server be updated."
+msgstr ""
+
+#: geonode/static/geonode/js/upload/LayerInfo.js:359
+msgid " - 502 Bad Gateway. This error is usually due to improperly configured proxy servers. The first step in resolving the issue is to clear the client's cache."
+msgstr ""
+
+#: geonode/static/geonode/js/upload/LayerInfo.js:362
+msgid " - 503 Service Unavailable. This error occurs when the server is unable to handle requests due to a temporary overload or due to the server being temporarily closed for maintenance. The error indicates that the server will only temporarily be down."
+msgstr ""
+
+#: geonode/static/geonode/js/upload/LayerInfo.js:365
+msgid " - 504 Gateway Timeout. GeoNode lost the connection with GeoServer or DB due to a connection timeout. Consider using the management commands to import data!"
+msgstr ""
+
+#: geonode/static/geonode/js/upload/LayerInfo.js:368
+msgid " - 505 HTTP Version Not Supported. This error occurs when the server refuses to support the HTTP protocol that has been specified by the client computer. This can be caused by the protocol not being specified properly by the client computer; for example, if an invalid version number has been specified."
+msgstr ""
+
+#: geonode/static/geonode/js/upload/LayerInfo.js:371
+msgid " - 506 Variant Also Negotiates. This error indicates that the server is not properly configured. Contact the system administrator to resolve this issue."
+msgstr ""
+
+#: geonode/static/geonode/js/upload/LayerInfo.js:374
+msgid ""
+" - 507 Insufficient Storage. This error indicates that the server is out of free memory. This is most likely to occur when an application that is being requested cannot allocate the necessary system resources to run. To resolve the issue, the server's hard disk may need to be cleaned of any unnecessary documents "
+"to free up more hard disk space, its memory may need to be expanded, or it may simply need to be restarted. Contact the system administrator for more information regarding this error message."
+msgstr ""
+
+#: geonode/static/geonode/js/upload/LayerInfo.js:377
+msgid " - 509 Bandwidth Limit Exceeded. This error occurs when the bandwidth limit imposed by the system administrator has been reached. The only fix for this issue is to wait until the limit is reset in the following cycle. Consult the system administrator for information about acquiring more bandwidth."
+msgstr ""
+
+#: geonode/static/geonode/js/upload/LayerInfo.js:380
+msgid " - 510 Not Extended. This error occurs when an extension attached to the HTTP request is not supported by the web server. To resolve the issue, you may need to update the server."
+msgstr ""
+
+#: geonode/static/geonode/js/upload/LayerInfo.js:383
+msgid " Error Code. Contact the system administrator for more information regarding this error message."
+msgstr ""
+
+#: geonode/static/geonode/js/upload/LayerInfo.js:421 geonode/static/geonode/js/upload/LayerInfo.js:592
+msgid "Unexpected Error"
+msgstr "Error Inesperado"
+
+#: geonode/static/geonode/js/upload/LayerInfo.js:459
+msgid " Info"
+msgstr " Informacion"
+
+#: geonode/static/geonode/js/upload/LayerInfo.js:460
+msgid "Edit Metadata"
+msgstr "Editar Metadatos"
+
+#: geonode/static/geonode/js/upload/LayerInfo.js:461
+msgid "Upload Metadata"
+msgstr "Subir Metadatos"
+
+#: geonode/static/geonode/js/upload/LayerInfo.js:462
+msgid "Upload SLD"
+msgstr "Subir SLD"
+
+#: geonode/static/geonode/js/upload/LayerInfo.js:463
+msgid "Manage Styles"
+msgstr "Administrar Estilos"
+
+#: geonode/static/geonode/js/upload/LayerInfo.js:476
+msgid "The column %1 was renamed to %2 <br/>"
+msgstr "La columna %1 se ha renombrado como %2 <br/>"
+
+#: geonode/static/geonode/js/upload/LayerInfo.js:482
+msgid "Your "
+msgstr "Tu "
+
+#: geonode/static/geonode/js/upload/LayerInfo.js:511
+msgid "Performing Final GeoServer Config Step"
+msgstr "Realizando Paso Final en la Configuración del GeoServer"
+
+#: geonode/static/geonode/js/upload/LayerInfo.js:528 geonode/static/geonode/js/upload/LayerInfo.js:572
+msgid "You need to specify more information in order to complete your upload"
+msgstr "Usted necesita especificar mas información para poder completar la carga"
+
+#: geonode/static/geonode/js/upload/LayerInfo.js:552
+msgid "Files are ready to be ingested!"
+msgstr "Los archivos están listos para ser ingeridos!"
+
+#: geonode/static/geonode/js/upload/LayerInfo.js:555
+msgid "A temporal dimension may be added to this Layer."
+msgstr "Se puede agregar una dimensión temporal a esta capa."
+
+#: geonode/static/geonode/js/upload/LayerInfo.js:610
+msgid "Performing GeoServer Config Step"
+msgstr "Realizando Configuración del GeoServer"
+
+#: geonode/static/geonode/js/upload/LayerInfo.js:696
+msgid "<br>Please check your network connection. In case of Layer Upload make sure GeoServer is running and accepting connections."
+msgstr "<br> Compruebe su conexión de red. En el caso de Carga de capa, asegúrese de que GeoServer se esté ejecutando y acepte conexiones."
+
+#: geonode/static/geonode/js/upload/LayerInfo.js:700 geonode/static/geonode/js/upload/LayerInfo.js:703 geonode/static/geonode/js/upload/LayerInfo.js:710 geonode/static/geonode/js/upload/LayerInfo.js:713
+msgid "<br>"
+msgstr ""
+
+#: geonode/static/geonode/js/upload/LayerInfo.js:705
+msgid "<br>Bad request or URL not found."
+msgstr "<br> Solicitud incorrecta o URL no encontrada."
+
+#: geonode/static/geonode/js/upload/LayerInfo.js:715
+msgid "<br>Unknown."
+msgstr "<br> Desconocido."
+
+#: geonode/static/geonode/js/upload/LayerInfo.js:723
+msgid "Layer files uploaded, configuring in GeoServer"
+msgstr "Capas cargadas, configurando en GeoServer"
+
+#: geonode/static/geonode/js/upload/LayerInfo.js:874
+msgid "Remove"
+msgstr "Remover"
+
+#: geonode/static/geonode/js/upload/upload.js:126
+#, javascript-format
+msgid "The file %s is an unsupported file type, please select another file."
+msgstr "El archivo %s no es un tipo de archivo soportado, por favor selecciona otro archivo."
+
+#: geonode/static/geonode/js/upload/upload.js:296
+msgid ""
+"You are trying to upload an incomplete set of files or not all mandatory options have been validated.\n"
+"\n"
+"Please check for errors in the form!"
+msgstr ""
+"Está tratando de subir un conjunto incompleto de archivos o no todas las opciones obligatorias han sido validadas.\n"
+"\n"
+"Por favor, comprobar si hay errores en el formulario!"
+
+msgid "CO2_country"
+msgstr "CO2 Eq para "
+
+msgid "biophysical_tables"
+msgstr "Tablas biofisicas"
+
+msgid "Biophysical_tables_text"
+msgstr "En este paso encontrará los parámetros biofísicos necesarios para la ejecución de los modelos. Si desea verlos o editarlos, haga clic en opciones avanzadas, de lo contrario haga clic en siguiente y el sistema utilizará los valores predeterminados."
+
+msgid "advanced_options"
+msgstr "Opciones avanzadas"
+
+msgid "tables_text"
+msgstr "A continuación se muestran las tablas biofísicas que se utilizarán en el modelado de un inVEST y RIOS. Puede editar los valores de acuerdo con el conocimiento específico de las cuencas de abastecimiento"
+
+msgid "InVEST_documentation"
+msgstr "Consulte la documentación de InVEST"
+
+msgid "run_processing_description"
+msgstr "El sistema ha iniciado el análisis de su caso de estudio. Esta tarea se demorará algunos minutos por lo que usted puede cerrar esta ventana y volver más tarde. Además, el sistema le enviará un correo electrónico notificándole cuando los resultados estén disponibles."
+
+msgid "exchange_rate"
+msgstr "Tasa de cambio"
+
+msgid "Currency for the execution this analisys"
+msgstr "Moneda para la ejecución de este análisis"
+
+msgid "The following exchange rates will be applied for the analysis"
+msgstr "Las siguientes tasas de cambio se aplicarán para el análisis"
+
+msgid "The following exchange rates has been applied for the analysis"
+msgstr "Las siguientes tasas de cambio han sido aplicadas para el análisis"
+
+msgid "Currency"
+msgstr "Moneda"
+
+msgid "Exchange"
+msgstr "Tasa de cambio"
+
+msgid "Save"
+msgstr "Guardar"
+
+msgid "Cancel"
+msgstr "Cancelar"
+
+msgid "Confirm and run"
+msgstr "Confirmar y ejecutar"
+
+msgid "Please complete all required information"
+msgstr "Por favor complete toda la información requerida"
+
+msgid "Edit Cost function"
+msgstr "Editar función de costo"
+
+msgid "New Cost function"
+msgstr "Nueva función de costo"
+
+msgid "Quantity"
+msgstr "Cantidad"
+
+msgid "Annual Operation and Maintenance Cost"
+msgstr "Costo anual de operación y mantenimiento"
+
+msgid "root_depth"
+msgstr "root_depth (mm)"
+
+msgid "load_n"
+msgstr "load_n kg/(ha*año)"
+
+msgid "description"
+msgstr "Descripción"
+
+msgid "lucode"
+msgstr "lucode (adimensional)"
+
+msgid "usle_c"
+msgstr "usle_c (adimensional)"
+
+msgid "usle_p"
+msgstr "usle_p (adimensional)"
+
+msgid "eff_n"
+msgstr "eff_n (adimensional)"
+
+msgid "load_p"
+msgstr "load_p kg/(ha*año)"
+
+msgid "eff_p"
+msgstr "eff_p (adimensional)"
+
+msgid "crit_len_n"
+msgstr "crit_len_n (m)"
+
+msgid "crit_len_p"
+msgstr "crit_len_p (m)"
+
+msgid "proportion_subsurface_n"
+msgstr "proportion_subsurface_n (adimensional)"
+
+msgid "cn_a"
+msgstr "cn_a (adimensional)"
+
+msgid "cn_b"
+msgstr "cn_b (adimensional)"
+
+msgid "cn_c"
+msgstr "cn_c (adimensional)"
+
+msgid "cn_d"
+msgstr "cn_d (adimensional)"
+
+msgid "kc_1"
+msgstr "kc_1 (adimensional)"
+
+msgid "kc_2"
+msgstr "kc_2 (adimensional)"
+
+msgid "kc_3"
+msgstr "kc_3 (adimensional)"
+
+msgid "kc_4"
+msgstr "kc_4 (adimensional)"
+
+msgid "kc_5"
+msgstr "kc_5 (adimensional)"
+
+msgid "kc_6"
+msgstr "kc_6 (adimensional)"
+
+msgid "kc_7"
+msgstr "kc_7 (adimensional)"
+
+msgid "kc_8"
+msgstr "kc_8 (adimensional)"
+
+msgid "kc_9"
+msgstr "kc_9 (adimensional)"
+
+msgid "kc_10"
+msgstr "kc_10 (adimensional)"
+
+msgid "kc_11"
+msgstr "kc_11 (adimensional)"
+
+msgid "kc_12"
+msgstr "kc_12 (adimensional)"
+
+msgid "c_above"
+msgstr "c_above (Mg/ha)"
+
+msgid "c_below"
+msgstr "c_below (Mg/ha)"
+
+msgid "c_soil"
+msgstr "c_soil (Mg/ha)"
+
+msgid "c_dead"
+msgstr "c_dead (Mg/ha)"
+
+msgid "sed_exp"
+msgstr "sed_exp (adimensional)"
+
+msgid "sed_ret"
+msgstr "sed_ret (adimensional)"
+
+msgid "rough_rank"
+msgstr "rough_rank (s/m^(1/3))"
+
+msgid "cover_rank"
+msgstr "cover_rank (adimensional)"
+
+msgid "p_ret"
+msgstr "p_ret (adimensional)"
+
+msgid "p_exp"
+msgstr "p_exp (g/(ha*año)"
+
+msgid "n_ret"
+msgstr "n_ret (adimensional)"
+
+msgid "n_exp"
+msgstr "n_exp (g/(ha*year)"
+
+msgid "native_veg"
+msgstr "native_veg (adimensional)"
+
+msgid "lulc_veg"
+msgstr "lulc_veg (adimensional)"
+
+msgid "edit"
+msgstr "Editado"
+
+msgid "Alert_time_demand_title"
+msgstr "La serie de demanda de las captaciones de agua involucradas en el caso de estudio han sido definidas en un tiempo diferente al indicado para el análisis ROI."
+
+msgid "Alert_time_demand"
+msgstr "Si la serie de demanda está definida en un tiempo menor al del análisis ROI, WaterProof extenderá la serie hasta el año de análisis repitiendo el valor de demanda del último año. Si la serie de demanda está definida en un tiempo mayor al del análisis ROI, WaterProof cortará la serie hasta el año de análisis."
+
+msgid "portfolios intro"
+msgstr "Información sobre los portafolios"
+
+msgid "portfolios objectives"
+msgstr "Objetivos del portafolio"
+
+msgid "error_period_analysis"
+msgstr "Verifique que el periodo de análisis sea mayor a 10 y menor que 100"
+
+msgid "error_fields"
+msgstr "Por favor, complete toda la información requerida"
+
+msgid "question_revert"
+msgstr "¡No podrá revertir esto!"
+
+msgid "response_delete"
+msgstr "Si, eliminarlo"
+
+msgid "error_name"
+msgstr "Por favor, cambie el nombre"
+
+msgid "error_minimum"
+msgstr "Por favor, verifique el valor mínimo"
+
+msgid "error_discount"
+msgstr "Por favor, verifique el valor de la tasa de descuento"
+
+msgid "are_you_sure"
+msgstr "¿Está seguro?"
+
+msgid "study_case_exist"
+msgstr "Caso de estudio existente"
+
+msgid "field_empty"
+msgstr "Campo vacío"
+
+msgid "minimum_value"
+msgstr "Valor mínimo"
+
+msgid "discount_value"
+msgstr "Valor de descuento"
+
+msgid "field_problem"
+msgstr "Problema con el campo"
+
+msgid "error_period_nbs"
+msgstr "El valor del tiempo de implementación de la Solución basada en Naturaleza (año) debe ser menor al tiempo del periodo de análisis"
+
+msgid "error_minimun_nbs"
+msgstr "El valor del escenario de inversión no cumple con los parámetros mínimos de presupuesto para la actividad seleccionada. Por favor, revise y ajuste el valor de la inversión"
+
+msgid "error_annual_investment"
+msgstr "El valor del escenario de inversión no cumple con los parámetros mínimos de presupuesto para la actividad seleccionada. Por favor, revise y ajuste el valor de la inversión"
+
+msgid "Public study case"
+msgstr "Publicar caso de estudio"
+
+msgid "Yes, public it!"
+msgstr "¡Sí, publícalo!"

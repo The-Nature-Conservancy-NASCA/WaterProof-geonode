@@ -1,0 +1,501 @@
+#mainActions>button {
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    color: #fff;
+    background-color: #337ab7;
+    border-color: #2e6da4;
+    margin-right: 4px;
+}
+
+.align-text-left{
+    text-align: left;
+}
+
+.vertical-align {
+    display: flex;
+    align-items: center;
+}
+
+.btn-group-table {
+    display: flex;
+}
+
+.text-danger-wp {
+    color: rgb(255, 0, 0) !important;
+}
+
+.table>tbody>tr>td {
+    vertical-align: middle;
+}
+
+[title^='Empty'] {
+    display: none;
+}
+
+.table>tbody>tr>td {
+    vertical-align: middle;
+}
+
+.table>tbody>tr>th {
+    vertical-align: middle;
+}
+
+.modal {
+    text-align: center;
+}
+
+@media screen and (min-width: 768px) {
+    .modal:before {
+        display: inline-block;
+        vertical-align: middle;
+        content: " ";
+        height: 100%;
+    }
+}
+#cases{
+    width: auto!;
+    height: 380px;
+    padding-bottom: 80px;
+    text-align: center;
+}
+.modal-dialog {
+    display: inline-block;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.mxToolbarMode:hover {
+    border: 5px solid #d0d0d0;
+    border-radius: 50%;
+}
+
+.btn-group>button {
+    height: 45px;
+    width: 55.7px;
+    outline: none;
+}
+
+.btn-group>button>mjx-container {
+    outline: none;
+}
+
+.edit-group-btn {
+    background: #2C689C;
+    color: #FFF;
+}
+
+.trash-group-btn {
+    background: #AF0900;
+    color: #FFF;
+}
+
+.btn-add-cost {
+    position: absolute;
+    right: 1rem;
+    margin-right: 15px;
+}
+
+.swal2-popup {
+    font-size: 1.6rem !important;
+}
+
+.sw-theme-dots>.nav .nav-link.done {
+    color: #3B819B;
+}
+
+.sw-theme-dots>.nav .nav-link.done::after {
+    background-color: #3B819B;
+}
+
+.text-intake {
+    color: #3B819B;
+}
+
+.panel-hide {
+    display: none;
+}
+
+.float-right {
+    float: right;
+}
+
+.text-number-full {
+    text-align: right;
+}
+
+.text-description-bio {
+    min-width: 300px;
+}
+
+.text-number-bio {
+    text-align: right;
+    width: 120px;
+}
+
+.custom-checkbox .custom-control-input:disabled~.custom-control-label {
+    background-color: rgba(0, 123, 255, .5) im !important;
+}
+
+.title-city-add {
+    position: absolute;
+    right: 26%;
+    top: 8.3%;
+}
+
+.biophysical-panel {
+    height: 60vh;
+    overflow: scroll;
+}
+
+.currency-panel {
+    padding: 13px;
+}
+
+.currency-value {
+    padding: 5px;
+    border-style: solid;
+    border-width: thin;
+}
+
+.currency-text {
+    font-weight: 800;
+}
+@media (min-width: 360px) {
+    .header-waterproof {
+        padding-left: 6rem;
+        padding-bottom: 1rem;
+        margin-top: auto;
+    }
+    #map {
+        width: auto;
+        border: 2px solid;
+    }
+    .width-map{
+        width: 100%;
+    }
+    .title-city {
+        position: relative;
+        right: auto;
+        top: 6.6%;
+    }
+    .custom-control-label {
+        font-weight: 100;
+        width: 100%;
+    }
+    .text-number {
+        text-align: right;
+        width: 100% !important;
+    }
+    .personnel-label {
+        padding-left: 0px;
+    }
+    .platform-label {
+        padding-left: 0px;
+    }
+    .transaction-label {
+        padding-left: 0px;
+    }
+    .discount-label {
+        padding-left: 0px;
+    }
+    .width-reponsive{
+        width: auto;
+    }
+    .width-title{
+        width: 100%;
+    }
+    .display-true{
+        display: none;
+    }
+    .padding-investment{
+        padding: 0;
+    }
+}
+
+@media (min-width: 768px) {
+    .header-waterproof {
+        padding-left: 6rem;
+        padding-bottom: 1rem;
+        margin-top: auto;
+    }
+    #map {
+        width: auto;
+        border: 2px solid;
+    }
+    .width-map{
+        width: 100%;
+    }
+    .title-city {
+        position: absolute;
+        right: 26%;
+        top: 6.6%;
+    }
+    .custom-control-label {
+        font-weight: 100;
+        width: auto;
+    }
+    .text-number {
+        text-align: right;
+        width: 100% !important;
+    }
+    .personnel-label {
+        padding-left: 0px;
+    }
+    .platform-label {
+        padding-left: 0px;
+    }
+    .transaction-label {
+        padding-left: 0px;
+    }
+    .discount-label {
+        padding-left: 0px;
+    }
+    .width-reponsive{
+        width: 100%;
+    }
+    .width-title{
+        width: 100%;
+    }
+    .display-true{
+        display: none;
+    }
+    .padding-investment{
+        padding: 0;
+    }
+}
+
+@media (min-width: 992px) {
+    .header-waterproof {
+        padding-left: 14rem;
+        padding-bottom: 1rem;
+        margin-top: -80rem;
+    }
+    #map {
+        width: auto;
+        border: 2px solid;
+    }
+    .width-map{
+        width: 66.6%;
+    }
+    .title-city {
+        position: absolute;
+        right: 26%;
+        top: 6.6%;
+    }
+    .custom-control-label {
+        font-weight: 100;
+        width: auto;
+    }
+    .text-number {
+        text-align: right;
+        width: 40% !important;
+    }
+    .personnel-label {
+        padding-left: 90px;
+    }
+    .platform-label {
+        padding-left: 50px;
+    }
+    .transaction-label {
+        padding-left: 90px;
+    }
+    .discount-label {
+        padding-left: 90px;
+    }
+    .width-reponsive{
+        width: 50%;
+    }
+    .width-title{
+        width: 100%;
+    }
+    .display-true{
+        display: table;
+    }
+    .padding-investment{
+        padding: 0;
+    }
+}
+
+@media (min-width: 1200px) {
+    .header-waterproof {
+        padding-left: 28rem;
+        padding-bottom: 3rem;
+        margin-top: auto;
+    }
+    #map {
+        width: auto;
+        border: 2px solid;
+    }
+    .width-map{
+        width: 66.6%;
+    }
+    .title-city {
+        position: absolute;
+        right: 26%;
+        top: 6.6%;
+    }
+    .custom-control-label {
+        font-weight: 100;
+        width: auto;
+    }
+    .text-number {
+        text-align: right;
+        width: 40% !important;
+    }
+    .personnel-label {
+        padding-left: 90px;
+    }
+    .platform-label {
+        padding-left: 50px;
+    }
+    .transaction-label {
+        padding-left: 90px;
+    }
+    .discount-label {
+        padding-left: 90px;
+    }
+    .width-reponsive{
+        width: 50%;
+    }
+    .width-title{
+        width: 100%;
+    }
+    .display-true{
+        display: table;
+    }
+    .padding-investment{
+        padding: 0;
+    }
+}
+
+.ptap-link {
+    cursor: pointer;
+}
+
+.divCenter{
+    text-align: center;
+}
+
+.currency-link {
+    cursor: pointer;
+}
+
+.btn-right {
+    right: 0px;
+    margin-right: 30px;
+    float: right;
+}
+
+.margin-bottom-max{
+    margin-bottom: 0%;
+}
+
+.cm-unit-label {
+    text-align: initial;
+}
+
+.cm-title-label {
+    text-align: end;
+}
+
+.modal-dialog {
+    display: inline-block;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.modal-xl {
+    min-width: 1140px;
+    margin: auto;
+    min-height: 800px;
+}
+
+.python-expression {
+    margin-top: 5px;
+    width: 90%;
+    font-family: monospace;
+    font-size: 1.2rem;
+}
+
+.valid_expression {
+    border: 2px solid #029902;
+    box-shadow: 0 0 10px #719ece;
+    color: rgb(2, 124, 33);
+}
+
+.invalid_expression {
+    border: 2px solid #af0900;
+    box-shadow: 0 0 10px #719ece;
+    color: red;
+}
+
+.var-cost-panel {
+    max-height: 150px;
+    overflow-y: auto;
+}
+
+.keyboard-title {
+    margin-top: 22px;
+}
+
+.panel-group {
+    margin-bottom: 2px;
+}
+
+/* .header-waterproof {
+    padding-left: 28rem;
+    padding-bottom: 2px;
+    margin-top: auto;
+} */
+
+.justify-number {
+    text-align: right;
+}
+
+.panel-title a label {
+    font-size: 12px;
+    cursor: pointer;
+}
+
+#studycases_wrapper{
+    margin-top: 40px;
+}
+
+.btn-add{
+    outline:none; 
+    text-decoration:none; 
+    color: #0977ca; 
+    border-style: none; 
+    background-color:transparent;
+    cursor: pointer;
+    padding-left: 5px;
+}
+
+.disabled {
+    pointer-events: none;
+    cursor: default;
+    opacity: 0.6;
+}
+
+.cost-fn-var{
+    padding-top:4px;
+    padding-bottom:4px;
+    cursor: pointer;
+}

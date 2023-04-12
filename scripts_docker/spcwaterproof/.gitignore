@@ -1,0 +1,8 @@
+/_volume_certificates/
+/_volume_geodatadir/
+/_volume_media/
+/_volume_static/
+/.env
+/.env_localhost
+/.env_waterproof
+/.env_waterproof_

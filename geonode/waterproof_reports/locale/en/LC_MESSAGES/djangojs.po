@@ -1,0 +1,131 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Translators:
+# Translators:
+# Translators:
+# Translators:
+# Translators:
+# Translators:
+# Translators:
+# Translators:
+# Translators:
+# Translators:
+# Translators:
+# Translators:
+# Translators:
+# Translators:
+# Translators:
+# Translators:
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: Waterproof V1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-07-21 14:47-0500\n"
+"PO-Revision-Date: 2021-12-01 15:08-0500\n"
+"Last-Translator: Julien Collaer <julien.collaer@opengeode.be>\n"
+"Language-Team: Skaphe\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 2.4.3\n"
+
+msgid "Total Benefits"
+msgstr "Total benefits"
+
+msgid "Return of investment"
+msgstr "Return of investment"
+
+msgid "Total Discounted Benefits"
+msgstr "Total Discounted Benefits"
+
+msgid "Costs per Activity"
+msgstr "Costs per Activity"
+
+msgid "Portfolio Efficiency"
+msgstr "Portfolio Efficiency"
+
+msgid "Indicator"
+msgstr "Indicator"
+
+msgid "Change in carbon storage (%)"
+msgstr "Change in carbon storage (%)"
+
+msgid "Change in phosphorus load (%)"
+msgstr "Change in phosphorus load (%)"
+
+msgid "Change in nitrogen load (%)"
+msgstr "Change in nitrogen load (%)"
+
+msgid "Change in total sediments (%)"
+msgstr "Change in total sediments (%)"
+
+msgid "Change in base flow (%)"
+msgstr "Change in base flow (%)"
+
+msgid "Carbon storage"
+msgstr "Carbon storage"
+
+msgid "Phosphorus load"
+msgstr "Phosphorus load"
+
+msgid "Nitrogen load"
+msgstr "Nitrogen load"
+
+msgid "Total sediments"
+msgstr "Total sediments"
+
+msgid "Base flow"
+msgstr "Base flow"
+
+msgid "Volumen of water yield"
+msgstr "Volumen of water yield"
+
+msgid "Cost and benefits"
+msgstr "Cost and benefits"
+
+msgid "Total Cost"
+msgstr "Total Cost"
+
+msgid "Total benefits"
+msgstr "Total benefits"
+
+msgid "Total discounted benefits"
+msgstr "Total discounted benefits"
+
+msgid "Cost and Benefits"
+msgstr "Cost and Benefits"
+
+msgid "Total discounted cost"
+msgstr "Total discounted cost"
+
+msgid "Cost"
+msgstr "Cost"
+
+msgid "Benefits"
+msgstr "Benefits"
+
+msgid "Net present value summary"
+msgstr "Net present value summary"
+
+msgid "Future - 10 - Year"
+msgstr "Future 10 years"
+
+msgid "Water stress"
+msgstr "Water stress"
+
+msgid "CARBON"
+msgstr "Carbon"
+
+msgid "INTAKE"
+msgstr "Intake"
+
+msgid "carbon"
+msgstr "Carbon"
+
+msgid "intake"
+msgstr "Intake"
